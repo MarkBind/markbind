@@ -36,7 +36,7 @@ program
   .command('include <file>')
   .description('process all the include in the given file')
   .action(function (file) {
-    markbindParser.includeFile(file, (error, result) => {
+    markbindParser.includeFile(path.resolve(process.cwd(), file), (error, result) => {
       if (error) {
         console.log(chalk.red('Error processing file including:'));
         console.log(chalk.red(error.message));
@@ -64,7 +64,7 @@ program
   .action(function (file) {
     // TODO: need to check file existence
     let output = program.output || 'output';
-    markbindParser.renderFile(file, (error, result) => {
+    markbindParser.renderFile(path.resolve(process.cwd(), file), (error, result) => {
       if (error) {
         console.log(chalk.red('Error processing file rendering:'));
         console.log(chalk.red(error.message));
