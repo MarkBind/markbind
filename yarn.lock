@@ -223,9 +223,9 @@ lodash@^4.17.2:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
-markbind@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/markbind/-/markbind-1.0.1.tgz#67b71537789623404eae22f8c921faaa0a8c36d2"
+markbind@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/markbind/-/markbind-1.0.2.tgz#8a3c4e77a9460dcb5f3238446841cae5a1a67d46"
   dependencies:
     cheerio "^0.22.0"
     htmlparser2 "^3.9.2"
