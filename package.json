@@ -1,0 +1,27 @@
+{
+  "name": "markbind-cli",
+  "version": "1.0.0",
+  "description": "Command line interface for MarkBind",
+  "main": "index.js",
+  "bin": {
+    "markbind": "./index.js"
+  },
+  "keywords": [
+    "mark",
+    "markdown",
+    "markbind",
+    "fragment",
+    "reusable",
+    "CLI"
+  ],
+  "author": "Jiang Sheng <gisonrg@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "clear": "^0.0.1",
+    "commander": "^2.9.0",
+    "figlet": "^1.2.0",
+    "html": "^1.0.0",
+    "markbind": "^1.0.1"
+  }
+}
