@@ -13,11 +13,15 @@
   "author": "Jiang Sheng <gisonrg@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "cheerio": "^0.22.0",
     "htmlparser2": "^3.9.2",
     "lodash": "^4.17.2",
-    "cheerio": "^0.22.0",
     "markdown-it": "^8.2.1",
     "markdown-it-emoji": "^1.3.0",
     "markdown-it-mark": "^2.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.13.1",
+    "eslint-plugin-lodash": "^2.2.5"
   }
 }
