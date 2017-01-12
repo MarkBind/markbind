@@ -22,6 +22,6 @@
     "commander": "^2.9.0",
     "figlet": "^1.2.0",
     "html": "^1.0.0",
-    "markbind": "^1.0.2"
+    "markbind": "^1.0.3"
   }
 }
