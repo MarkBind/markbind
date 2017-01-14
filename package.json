@@ -13,6 +13,7 @@
   "author": "Jiang Sheng <gisonrg@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^3.4.7",
     "cheerio": "^0.22.0",
     "htmlparser2": "^3.9.2",
     "lodash": "^4.17.2",
