@@ -24,6 +24,9 @@ module.exports = {
     ],
     "lodash/prefer-lodash-method": [
       0
+    ],
+    "lodash/prefer-noop": [
+      0
     ]
   }
 };
