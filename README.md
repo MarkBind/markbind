@@ -24,32 +24,32 @@ You could download the repo to refer to some example files (`src/`) for testing.
     -o, --output <path>  output file path (if not present, print to )
 ```
 
-## Demo (use files in `src/`)
+## Demo (use files in `example/`)
 A `test.md` file is provided to test the `include` and `render` feature. 
 ```
-$ markbind include src/test.md -o output/test_out.md
+$ markbind include example/test.md -o output/test_out.md
 $ markbind render output/test_out.md -o output/test_out.html
 ```
 
 ## Example
 Print the included result to terminal.
 ```
-$ markbind include src/test.md
+$ markbind include example/test.md
 ```
 
 Save the included result to `test_out.md`. (using terminal I/O)
 ```
-$ markbind include src/test.md > test_out.md
+$ markbind include example/test.md > test_out.md
 ```
 
 Save the included result to `test_out.md`. (Using `--ouput` option)
 ```
-$ markbind include src/test.md -o test_out.md
+$ markbind include example/test.md -o test_out.md
 ```
 
 Render a markdown file after include. (Currently files are only rendered to HTML content, not site)
 ```
-$ markbind render src/test_out.md -o test.html
+$ markbind render example/test_out.md -o test.html
 ```
 
 ## Supported Customized HTML Tags
