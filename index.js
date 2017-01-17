@@ -110,10 +110,11 @@ program
 
     let changeHandler = (path) => {
       printInfo(`Reload for file change: ${path}`);
-      return site.generate();
+      site.reloadSourceFiles().catch((err) => {
+        printError(err.message)
+      });
     };
 
-    // TODO: optimize the regenerate logic (exclude the markbind asset)
     site
       .generate()
       .then(() => {
@@ -128,7 +129,7 @@ program
       })
       .then(() => {
         let server = liveServer.start({
-          open: false,
+          open: true,
           logLevel: 0,
           root: outputFolder,
         });
