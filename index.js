@@ -16,7 +16,7 @@ const Site = require('./lib/Site');
 const MarkBind = require('markbind');
 
 const CLI_VERSION = require('./package.json').version;
-const ACCEPTED_COMMANDS = ['version', 'include', 'render', 'build', 'serve'];
+const ACCEPTED_COMMANDS = ['version', 'include', 'render', 'init', 'build', 'serve'];
 
 let markbinder = new MarkBind();
 
@@ -96,6 +96,21 @@ program
         printError('Error processing file rendering:');
         printError(error.message);
         return;
+      });
+  });
+
+program
+  .command('init [root]')
+  .description('init a markbind website project')
+  .action((root) => {
+    const rootFolder = path.resolve(root || process.cwd());
+    printLogo();
+    Site.initSite(rootFolder)
+      .then(() => {
+        printInfo('Initialization success.');
+      })
+      .catch((error) => {
+        printError(error.message);
       });
   });
 
