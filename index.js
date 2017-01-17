@@ -115,6 +115,8 @@ program
       });
     };
 
+    printLogo();
+
     site
       .generate()
       .then(() => {
@@ -133,19 +135,17 @@ program
           logLevel: 0,
           root: outputFolder,
         });
-        server.addListener('listening', function() {
+        server.addListener('listening', function () {
           var address = server.address();
           var serveHost = address.address === '0.0.0.0' ? '127.0.0.1' : address.address;
           var serveURL = 'http://' + serveHost + ':' + address.port;
           printInfo(`Serving \"${outputFolder}\" at ${serveURL}`)
           printInfo('Press CTRL+C to stop ...');
         });
-        printLogo();
       })
       .catch((error) => {
-      printLogo();
-      printError(error.message);
-    });
+        printError(error.message);
+      });
   });
 
 program
@@ -155,14 +155,13 @@ program
     const rootFolder = path.resolve(root || process.cwd());
     const defaultOutputRoot = path.join(rootFolder, '_site');
     const outputFolder = output ? path.resolve(process.cwd(), output) : defaultOutputRoot;
-
+    printLogo();
     new Site(rootFolder, outputFolder)
       .generate()
       .then(() => {
-        printLogo();
         printInfo('Build success!');
-      }).catch((error) => {
-        printLogo();
+      })
+      .catch((error) => {
         printError(error.message);
       });
   });
