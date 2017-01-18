@@ -31,3 +31,7 @@ npm i -g markbind-cli
       -h, --help     output usage information
       -V, --version  output the version number
 ```
+
+## Documentation
+Refer to the [Wiki](https://github.com/MarkBind/markbind-cli/wiki) page.
+You may want to learn about how to [create and build a site with MarkBind](https://github.com/MarkBind/markbind-cli/wiki/Develop-a-site-with-MarkBind)
