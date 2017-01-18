@@ -2,9 +2,7 @@
 'use strict';
 
 // Entry file for Markbind project
-const chalk = require('chalk');
 const clear = require('clear');
-const figlet = require('figlet');
 const fs = require('fs-extra-promise');
 const path = require('path');
 const program = require('commander');
@@ -12,6 +10,7 @@ const html = require('html');
 const liveServer = require('live-server');
 const chokidar = require('chokidar');
 
+const logger = require('./lib/util/logger');
 const Site = require('./lib/Site');
 const MarkBind = require('markbind');
 
@@ -21,22 +20,6 @@ const ACCEPTED_COMMANDS = ['version', 'include', 'render', 'init', 'build', 'ser
 let markbinder = new MarkBind();
 
 clear();
-
-function printLogo() {
-  console.log(
-    chalk.yellow(
-      figlet.textSync('MarkBind', {horizontalLayout: 'full'})
-    )
-  );
-}
-
-function printInfo(text) {
-  console.log(chalk.cyan(text));
-}
-
-function printError(text) {
-  console.log(chalk.red(text));
-}
 
 process.title = 'MarkBind';
 process.stdout.write(
@@ -63,15 +46,16 @@ program
         if (program.output) {
           let outputPath = path.resolve(process.cwd(), program.output);
           fs.outputFileSync(outputPath, result);
-          printLogo();
-          printInfo(`Result was written to ${outputPath}`);
+          logger.logo();
+          logger.info(`Result was written to ${outputPath}`);
         } else {
-          console.log(result);
+          logger.log(result);
         }
       })
       .catch((error) => {
-        printError('Error processing file including:');
-        printError(error.message);
+        logger.logo();
+        logger.error('Error processing fragment include:');
+        logger.error(error.message);
         return;
       });
   });
@@ -86,15 +70,15 @@ program
         if (program.output) {
           let outputPath = path.resolve(process.cwd(), program.output);
           fs.outputFileSync(outputPath, result);
-          printLogo();
-          printInfo(`Result was written to ${outputPath}`);
+          logger.logo();
+          logger.info(`Result was written to ${outputPath}`);
         } else {
-          console.log(result);
+          logger.log(result);
         }
       })
       .catch((error) => {
-        printError('Error processing file rendering:');
-        printError(error.message);
+        logger.error('Error processing file rendering:');
+        logger.error(error.message);
         return;
       });
   });
@@ -104,13 +88,13 @@ program
   .description('init a markbind website project')
   .action((root) => {
     const rootFolder = path.resolve(root || process.cwd());
-    printLogo();
+    logger.logo();
     Site.initSite(rootFolder)
       .then(() => {
-        printInfo('Initialization success.');
+        logger.info('Initialization success.');
       })
       .catch((error) => {
-        printError(error.message);
+        logger.error(error.message);
       });
   });
 
@@ -124,13 +108,12 @@ program
     let site = new Site(rootFolder, outputFolder);
 
     let changeHandler = (path) => {
-      printInfo(`Reload for file change: ${path}`);
+      logger.info(`Reload for file change: ${path}`);
       site.reloadSourceFiles().catch((err) => {
-        printError(err.message)
+        logger.error(err.message)
       });
     };
 
-    printLogo();
 
     site
       .generate()
@@ -154,12 +137,12 @@ program
           var address = server.address();
           var serveHost = address.address === '0.0.0.0' ? '127.0.0.1' : address.address;
           var serveURL = 'http://' + serveHost + ':' + address.port;
-          printInfo(`Serving \"${outputFolder}\" at ${serveURL}`)
-          printInfo('Press CTRL+C to stop ...');
+          logger.info(`Serving \"${outputFolder}\" at ${serveURL}`)
+          logger.info('Press CTRL+C to stop ...');
         });
       })
       .catch((error) => {
-        printError(error.message);
+        logger.error(error.message);
       });
   });
 
@@ -170,20 +153,24 @@ program
     const rootFolder = path.resolve(root || process.cwd());
     const defaultOutputRoot = path.join(rootFolder, '_site');
     const outputFolder = output ? path.resolve(process.cwd(), output) : defaultOutputRoot;
-    printLogo();
+    logger.logo();
     new Site(rootFolder, outputFolder)
       .generate()
       .then(() => {
-        printInfo('Build success!');
+        logger.info('Build success!');
       })
       .catch((error) => {
-        printError(error.message);
+        logger.error(error.message);
       });
   });
 
 program.parse(process.argv);
 
 if (!program.args.length || !ACCEPTED_COMMANDS.includes(process.argv[2])) {
-  printLogo();
-  program.help();
+  if (program.args.length) {
+    logger.warn(`Command '${program.args[0]}' doesn't exist, run "markbind help" to list commands.`);
+  } else {
+    logger.logo();
+    program.help();
+  }
 }
