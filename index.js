@@ -31,20 +31,17 @@ program
   .usage(' <command>');
 
 program
-  .version(CLI_VERSION)
-  .option('-o, --output <path>', 'output file path')
-  .action(function (file) {
-    printInfo('Please first run include command, then run render command on the include result');
-  });
+  .version(CLI_VERSION);
 
 program
   .command('include <file>')
-  .description('process all the include in the given file')
-  .action(function (file) {
+  .description('process all the fragment include in the given file')
+  .option('-o, --output <path>', 'output file path')
+  .action(function (file, options) {
     markbinder.includeFile(path.resolve(process.cwd(), file))
       .then((result) => {
-        if (program.output) {
-          let outputPath = path.resolve(process.cwd(), program.output);
+        if (options.output) {
+          let outputPath = path.resolve(process.cwd(), options.output);
           fs.outputFileSync(outputPath, result);
           logger.logo();
           logger.info(`Result was written to ${outputPath}`);
@@ -63,12 +60,13 @@ program
 program
   .command('render <file>')
   .description('render the given file')
-  .action(function (file) {
+  .option('-o, --output <path>', 'output file path')
+  .action(function (file, options) {
     markbinder.renderFile(path.resolve(process.cwd(), file))
       .then((result) => {
         result = html.prettyPrint(result, {indent_size: 2});
-        if (program.output) {
-          let outputPath = path.resolve(process.cwd(), program.output);
+        if (options.output) {
+          let outputPath = path.resolve(process.cwd(), options.output);
           fs.outputFileSync(outputPath, result);
           logger.logo();
           logger.info(`Result was written to ${outputPath}`);
@@ -101,7 +99,9 @@ program
 program
   .command('serve [root]')
   .description('build then serve a website from a directory')
-  .action((root) => {
+  .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
+  .option('--no-open', 'do not automatically open the site in browser')
+  .action((root, options) => {
     const rootFolder = path.resolve(root || process.cwd());
     const outputFolder = path.join(rootFolder, '_site');
 
@@ -114,6 +114,15 @@ program
       });
     };
 
+    // server conifg
+    let serverConfig = {
+      open: options.open,
+      logLevel: 0,
+      root: outputFolder,
+      port: options.port || 8080
+    };
+
+    logger.logo();
 
     site
       .generate()
@@ -128,11 +137,7 @@ program
           .on('unlink', changeHandler);
       })
       .then(() => {
-        let server = liveServer.start({
-          open: true,
-          logLevel: 0,
-          root: outputFolder,
-        });
+        let server = liveServer.start(serverConfig);
         server.addListener('listening', function () {
           var address = server.address();
           var serveHost = address.address === '0.0.0.0' ? '127.0.0.1' : address.address;
