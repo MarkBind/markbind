@@ -911,9 +911,9 @@ map-stream@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/map-stream/-/map-stream-0.1.0.tgz#e56aa94c4c8055a16404a0674b78f215f7c8e194"
 
-markbind@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/markbind/-/markbind-1.0.5.tgz#2151dfaa37d6faba0beaed25598145f14a975a0d"
+markbind@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/markbind/-/markbind-1.0.6.tgz#5b0e2b14ef7a300a311aa44dc979df8d9844ba4d"
   dependencies:
     bluebird "^3.4.7"
     cheerio "^0.22.0"
@@ -921,11 +921,16 @@ markbind@^1.0.5:
     lodash "^4.17.2"
     markdown-it "^8.2.1"
     markdown-it-emoji "^1.3.0"
+    markdown-it-ins "^2.0.0"
     markdown-it-mark "^2.0.0"
 
 markdown-it-emoji@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/markdown-it-emoji/-/markdown-it-emoji-1.3.0.tgz#903ae1a9968c3f17d4e142f115d4ec575e56d2cb"
+
+markdown-it-ins@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/markdown-it-ins/-/markdown-it-ins-2.0.0.tgz#a5aa6a30f1e2f71e9497567cfdff40f1fde67483"
 
 markdown-it-mark@^2.0.0:
   version "2.0.0"
