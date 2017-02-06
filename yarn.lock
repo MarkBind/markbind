@@ -911,9 +911,9 @@ map-stream@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/map-stream/-/map-stream-0.1.0.tgz#e56aa94c4c8055a16404a0674b78f215f7c8e194"
 
-markbind@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/markbind/-/markbind-1.0.6.tgz#5b0e2b14ef7a300a311aa44dc979df8d9844ba4d"
+markbind@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/markbind/-/markbind-1.0.7.tgz#57a71e78a73844126872e4c6d34afd6d81b212da"
   dependencies:
     bluebird "^3.4.7"
     cheerio "^0.22.0"

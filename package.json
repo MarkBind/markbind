@@ -28,7 +28,7 @@
     "html": "^1.0.0",
     "ignore": "^3.2.0",
     "live-server": "^1.2.0",
-    "markbind": "^1.0.6",
+    "markbind": "^1.0.7",
     "walk-sync": "^0.3.1"
   },
   "repository": {
