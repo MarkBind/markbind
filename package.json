@@ -21,6 +21,7 @@
     "markdown-it-emoji": "^1.3.0",
     "markdown-it-ins": "^2.0.0",
     "markdown-it-mark": "^2.0.0",
+    "markdown-it-task-lists": "^1.4.1",
     "markdown-it-video": "^0.4.0"
   },
   "devDependencies": {
