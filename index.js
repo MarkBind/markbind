@@ -100,6 +100,7 @@ program
   .command('serve [root]')
   .description('build then serve a website from a directory')
   .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
+  .option('-b, --baseUrl <baseUrl>', 'Base url for the live server (Default is "/")')
   .option('--no-open', 'do not automatically open the site in browser')
   .action((root, options) => {
     const rootFolder = path.resolve(root || process.cwd());
@@ -113,13 +114,15 @@ program
         logger.error(err.message)
       });
     };
+    options.baseUrl = options.baseUrl || '/';
 
     // server conifg
     let serverConfig = {
       open: options.open,
       logLevel: 0,
       root: outputFolder,
-      port: options.port || 8080
+      port: options.port || 8080,
+      mount: [[options.baseUrl, outputFolder]]
     };
 
     logger.logo();
