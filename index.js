@@ -5,12 +5,14 @@
 const clear = require('clear');
 const fs = require('fs-extra-promise');
 const path = require('path');
+const Promise = require('bluebird');
 const program = require('commander');
 const html = require('html');
 const liveServer = require('live-server');
 const chokidar = require('chokidar');
 
 const logger = require('./lib/util/logger');
+const fsUtil = require('./lib/util/fsUtil');
 const Site = require('./lib/Site');
 const MarkBind = require('markbind');
 
@@ -109,7 +111,26 @@ program
 
     let changeHandler = (path) => {
       logger.info(`Reload for file change: ${path}`);
-      site.reloadSourceFiles().catch((err) => {
+      Promise.resolve('').then(() => {
+        if (fsUtil.isMarkdown(path) || fsUtil.isHtml(path)) {
+          return site.buildSourceFiles()
+        } else {
+          return site.buildAsset(path);
+        }
+      }).catch((err) => {
+        logger.error(err.message)
+      });
+    };
+
+    let removeHandler = (path) => {
+      logger.info(`Reload for file deletion: ${path}`);
+      Promise.resolve('').then(() => {
+        if (fsUtil.isMarkdown(path) || fsUtil.isHtml(path)) {
+          return site.buildSourceFiles()
+        } else {
+          return site.removeAsset(path);
+        }
+      }).catch((err) => {
         logger.error(err.message)
       });
     };
@@ -139,7 +160,7 @@ program
         watcher
           .on('add', changeHandler)
           .on('change', changeHandler)
-          .on('unlink', changeHandler);
+          .on('unlink', removeHandler);
       })
       .then(() => {
         let server = liveServer.start(serverConfig);
