@@ -180,11 +180,11 @@ program
 program
   .command('deploy')
   .description('deploy the site to the repo\'s Github pages.')
-  .action((option) => {
+  .action(() => {
     const rootFolder = path.resolve(process.cwd());
     const outputRoot = path.join(rootFolder, '_site');
     new Site(rootFolder, outputRoot).deploy()
-      .then((success) => {
+      .then(() => {
         logger.info('Deployed!')
       })
       .catch((err) => {

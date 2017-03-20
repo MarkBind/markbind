@@ -25,6 +25,7 @@ npm i -g markbind-cli
       init [root]               init a markbind website project
       serve [options] [root]    build then serve a website from a directory
       build [root] [output]     build a website
+      deploy                    deploy to Github Pages
   
     Options:
   
