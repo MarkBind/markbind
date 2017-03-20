@@ -17,7 +17,7 @@ const Site = require('./lib/Site');
 const MarkBind = require('markbind');
 
 const CLI_VERSION = require('./package.json').version;
-const ACCEPTED_COMMANDS = ['version', 'include', 'render', 'init', 'build', 'serve'];
+const ACCEPTED_COMMANDS = ['version', 'include', 'render', 'init', 'build', 'serve', 'deploy'];
 
 let markbinder = new MarkBind();
 
@@ -175,6 +175,22 @@ program
       .catch((error) => {
         logger.error(error.message);
       });
+  });
+
+program
+  .command('deploy')
+  .description('deploy the site to the repo\'s Github pages.')
+  .action((option) => {
+    const rootFolder = path.resolve(process.cwd());
+    const outputRoot = path.join(rootFolder, '_site');
+    new Site(rootFolder, outputRoot).deploy()
+      .then((success) => {
+        logger.info('Deployed!')
+      })
+      .catch((err) => {
+        logger.error(err.message);
+      });
+    logger.logo();
   });
 
 program
