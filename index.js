@@ -149,7 +149,7 @@ program
     site
       .readSiteConfig()
       .then((config) => {
-        serverConfig.mount.push([config.baseUrl, outputFolder]);
+        serverConfig.mount.push([config.baseUrl || '/', outputFolder]);
         return site.generate();
       })
       .then(() => {
