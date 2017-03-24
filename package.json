@@ -15,6 +15,7 @@
   "dependencies": {
     "bluebird": "^3.4.7",
     "cheerio": "^0.22.0",
+    "highlight.js": "^9.10.0",
     "htmlparser2": "^3.9.2",
     "lodash": "^4.17.2",
     "markdown-it": "^8.3.0",
@@ -30,5 +31,9 @@
   "devDependencies": {
     "eslint": "^3.16.1",
     "eslint-plugin-lodash": "^2.3.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MarkBind/markbind.git"
   }
 }
