@@ -7,7 +7,7 @@ const fs = require('fs-extra-promise');
 const path = require('path');
 const Promise = require('bluebird');
 const program = require('commander');
-const html = require('html');
+const htmlBeautify = require('js-beautify').html;
 const liveServer = require('live-server');
 const chokidar = require('chokidar');
 
@@ -66,7 +66,7 @@ program
   .action(function (file, options) {
     markbinder.renderFile(path.resolve(process.cwd(), file))
       .then((result) => {
-        result = html.prettyPrint(result, {indent_size: 2});
+        result = htmlBeautify(result, {indent_size: 2});
         if (options.output) {
           let outputPath = path.resolve(process.cwd(), options.output);
           fs.outputFileSync(outputPath, result);
