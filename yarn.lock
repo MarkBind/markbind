@@ -1014,9 +1014,9 @@ map-stream@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/map-stream/-/map-stream-0.1.0.tgz#e56aa94c4c8055a16404a0674b78f215f7c8e194"
 
-markbind@^1.0.13:
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/markbind/-/markbind-1.0.13.tgz#da95248be466dfde9258ad7eebd50befb3d50021"
+markbind@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/markbind/-/markbind-1.1.0.tgz#14cbe1183a37b72d5afcb75ca00e2f309f8c76c9"
   dependencies:
     bluebird "^3.4.7"
     cheerio "^0.22.0"
@@ -1032,6 +1032,8 @@ markbind@^1.0.13:
     markdown-it-table-of-contents "^0.3.2"
     markdown-it-task-lists "^1.4.1"
     markdown-it-video "^0.4.0"
+    nunjucks "^3.0.0"
+    path-is-inside "^1.0.2"
 
 markdown-it-anchor@^4.0.0:
   version "4.0.0"
@@ -1281,6 +1283,10 @@ parseurl@~1.3.1:
 path-is-absolute@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/path-is-absolute/-/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"
+
+path-is-inside@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/path-is-inside/-/path-is-inside-1.0.2.tgz#365417dede44430d1c11af61027facf074bdfc53"
 
 pause-stream@0.0.11:
   version "0.0.11"
