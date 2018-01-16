@@ -5,3 +5,14 @@ blockquote {
 .radio-list-item label {
     font-weight: inherit;
 }
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a,
+    .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+        color: #333;
+    }
+    
+    .navbar-nav .open .dropdown-menu {
+        background-color: #fff;
+    }
+}
