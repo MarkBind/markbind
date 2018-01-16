@@ -1,3 +1,7 @@
 blockquote {
     font-size: 14px;
 }
+
+.radio-list-item label {
+    font-weight: inherit;
+}
