@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-'use strict';
+
 
 // Entry file for Markbind project
 const clear = require('clear');
@@ -17,15 +17,16 @@ const Site = require('./lib/Site');
 const MarkBind = require('markbind');
 
 const CLI_VERSION = require('./package.json').version;
+
 const ACCEPTED_COMMANDS = ['version', 'include', 'render', 'init', 'build', 'serve', 'deploy'];
 
-let markbinder = new MarkBind();
+const markbinder = new MarkBind();
 
 clear();
 
 process.title = 'MarkBind';
 process.stdout.write(
-  String.fromCharCode(27) + ']0;' + 'MarkBind' + String.fromCharCode(7)
+  `${String.fromCharCode(27)}]0;` + `MarkBind${String.fromCharCode(7)}`,
 );
 
 program
@@ -39,11 +40,11 @@ program
   .command('include <file>')
   .description('process all the fragment include in the given file')
   .option('-o, --output <path>', 'output file path')
-  .action(function (file, options) {
+  .action((file, options) => {
     markbinder.includeFile(path.resolve(process.cwd(), file))
       .then((result) => {
         if (options.output) {
-          let outputPath = path.resolve(process.cwd(), options.output);
+          const outputPath = path.resolve(process.cwd(), options.output);
           fs.outputFileSync(outputPath, result);
           logger.logo();
           logger.info(`Result was written to ${outputPath}`);
@@ -55,7 +56,6 @@ program
         logger.logo();
         logger.error('Error processing fragment include:');
         logger.error(error.message);
-        return;
       });
   });
 
@@ -63,12 +63,12 @@ program
   .command('render <file>')
   .description('render the given file')
   .option('-o, --output <path>', 'output file path')
-  .action(function (file, options) {
+  .action((file, options) => {
     markbinder.renderFile(path.resolve(process.cwd(), file))
       .then((result) => {
-        result = htmlBeautify(result, {indent_size: 2});
+        result = htmlBeautify(result, { indent_size: 2 });
         if (options.output) {
-          let outputPath = path.resolve(process.cwd(), options.output);
+          const outputPath = path.resolve(process.cwd(), options.output);
           fs.outputFileSync(outputPath, result);
           logger.logo();
           logger.info(`Result was written to ${outputPath}`);
@@ -79,7 +79,6 @@ program
       .catch((error) => {
         logger.error('Error processing file rendering:');
         logger.error(error.message);
-        return;
       });
   });
 
@@ -107,41 +106,39 @@ program
     const rootFolder = path.resolve(root || process.cwd());
     const outputFolder = path.join(rootFolder, '_site');
 
-    let site = new Site(rootFolder, outputFolder);
+    const site = new Site(rootFolder, outputFolder);
 
-    let changeHandler = (path) => {
+    const changeHandler = (path) => {
       logger.info(`Reload for file change: ${path}`);
       Promise.resolve('').then(() => {
         if (fsUtil.isMarkdown(path) || fsUtil.isHtml(path)) {
-          return site.buildSourceFiles()
-        } else {
-          return site.buildAsset(path);
+          return site.buildSourceFiles();
         }
+        return site.buildAsset(path);
       }).catch((err) => {
-        logger.error(err.message)
+        logger.error(err.message);
       });
     };
 
-    let removeHandler = (path) => {
+    const removeHandler = (path) => {
       logger.info(`Reload for file deletion: ${path}`);
       Promise.resolve('').then(() => {
         if (fsUtil.isMarkdown(path) || fsUtil.isHtml(path)) {
-          return site.buildSourceFiles()
-        } else {
-          return site.removeAsset(path);
+          return site.buildSourceFiles();
         }
+        return site.removeAsset(path);
       }).catch((err) => {
-        logger.error(err.message)
+        logger.error(err.message);
       });
     };
 
     // server conifg
-    let serverConfig = {
+    const serverConfig = {
       open: options.open,
       logLevel: 0,
       root: outputFolder,
       port: options.port || 8080,
-      mount: []
+      mount: [],
     };
 
     logger.logo();
@@ -153,9 +150,9 @@ program
         return site.generate();
       })
       .then(() => {
-        var watcher = chokidar.watch(rootFolder, {
+        const watcher = chokidar.watch(rootFolder, {
           ignored: [outputFolder, /(^|[\/\\])\../],
-          ignoreInitial: true
+          ignoreInitial: true,
         });
         watcher
           .on('add', changeHandler)
@@ -163,12 +160,12 @@ program
           .on('unlink', removeHandler);
       })
       .then(() => {
-        let server = liveServer.start(serverConfig);
-        server.addListener('listening', function () {
-          var address = server.address();
-          var serveHost = address.address === '0.0.0.0' ? '127.0.0.1' : address.address;
-          var serveURL = 'http://' + serveHost + ':' + address.port;
-          logger.info(`Serving \"${outputFolder}\" at ${serveURL}`)
+        const server = liveServer.start(serverConfig);
+        server.addListener('listening', () => {
+          const address = server.address();
+          const serveHost = address.address === '0.0.0.0' ? '127.0.0.1' : address.address;
+          const serveURL = `http://${serveHost}:${address.port}`;
+          logger.info(`Serving \"${outputFolder}\" at ${serveURL}`);
           logger.info('Press CTRL+C to stop ...');
         });
       })
@@ -185,7 +182,7 @@ program
     const outputRoot = path.join(rootFolder, '_site');
     new Site(rootFolder, outputRoot).deploy()
       .then(() => {
-        logger.info('Deployed!')
+        logger.info('Deployed!');
       })
       .catch((err) => {
         logger.error(err.message);
