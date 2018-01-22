@@ -26,7 +26,7 @@ clear();
 
 process.title = 'MarkBind';
 process.stdout.write(
-  `${String.fromCharCode(27)}]0;` + `MarkBind${String.fromCharCode(7)}`,
+  `${String.fromCharCode(27)}]0; MarkBind${String.fromCharCode(7)}`,
 );
 
 program
@@ -66,14 +66,14 @@ program
   .action((file, options) => {
     markbinder.renderFile(path.resolve(process.cwd(), file))
       .then((result) => {
-        result = htmlBeautify(result, { indent_size: 2 });
+        const formattedResult = htmlBeautify(result, { indent_size: 2 });
         if (options.output) {
           const outputPath = path.resolve(process.cwd(), options.output);
-          fs.outputFileSync(outputPath, result);
+          fs.outputFileSync(outputPath, formattedResult);
           logger.logo();
           logger.info(`Result was written to ${outputPath}`);
         } else {
-          logger.log(result);
+          logger.log(formattedResult);
         }
       })
       .catch((error) => {
@@ -108,25 +108,25 @@ program
 
     const site = new Site(rootFolder, outputFolder);
 
-    const changeHandler = (path) => {
-      logger.info(`Reload for file change: ${path}`);
+    const changeHandler = (filePath) => {
+      logger.info(`Reload for file change: ${filePath}`);
       Promise.resolve('').then(() => {
-        if (fsUtil.isMarkdown(path) || fsUtil.isHtml(path)) {
+        if (fsUtil.isMarkdown(filePath) || fsUtil.isHtml(filePath)) {
           return site.buildSourceFiles();
         }
-        return site.buildAsset(path);
+        return site.buildAsset(filePath);
       }).catch((err) => {
         logger.error(err.message);
       });
     };
 
-    const removeHandler = (path) => {
-      logger.info(`Reload for file deletion: ${path}`);
+    const removeHandler = (filePath) => {
+      logger.info(`Reload for file deletion: ${filePath}`);
       Promise.resolve('').then(() => {
-        if (fsUtil.isMarkdown(path) || fsUtil.isHtml(path)) {
+        if (fsUtil.isMarkdown(filePath) || fsUtil.isHtml(filePath)) {
           return site.buildSourceFiles();
         }
-        return site.removeAsset(path);
+        return site.removeAsset(filePath);
       }).catch((err) => {
         logger.error(err.message);
       });
@@ -165,7 +165,7 @@ program
           const address = server.address();
           const serveHost = address.address === '0.0.0.0' ? '127.0.0.1' : address.address;
           const serveURL = `http://${serveHost}:${address.port}`;
-          logger.info(`Serving \"${outputFolder}\" at ${serveURL}`);
+          logger.info(`Serving "${outputFolder}" at ${serveURL}`);
           logger.info('Press CTRL+C to stop ...');
         });
       })
