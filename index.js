@@ -151,7 +151,7 @@ program
       })
       .then(() => {
         const watcher = chokidar.watch(rootFolder, {
-          ignored: [outputFolder, /(^|[\/\\])\../],
+          ignored: [outputFolder, /(^|[/\\])\../],
           ignoreInitial: true,
         });
         watcher
