@@ -1,5 +1,7 @@
+/* eslint-disable no-undef */
+
 Vue.use(VueStrap);
-var vm = new Vue({
-  el: "#app"
+const vm = new Vue({
+  el: '#app',
 });
 VueStrap.installEvents(vm);
