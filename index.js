@@ -112,7 +112,7 @@ program
       logger.info(`Reload for file change: ${filePath}`);
       Promise.resolve('').then(() => {
         if (fsUtil.isMarkdown(filePath) || fsUtil.isHtml(filePath)) {
-          return site.buildSourceFiles();
+          return site.rebuildSourceFiles(filePath);
         }
         return site.buildAsset(filePath);
       }).catch((err) => {
