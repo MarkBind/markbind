@@ -108,6 +108,18 @@ program
 
     const site = new Site(rootFolder, outputFolder);
 
+    const addHandler = (filePath) => {
+      logger.info(`Reload for file add: ${filePath}`);
+      Promise.resolve('').then(() => {
+        if (fsUtil.isMarkdown(filePath) || fsUtil.isHtml(filePath)) {
+          return site.buildSourceFiles();
+        }
+        return site.buildAsset(filePath);
+      }).catch((err) => {
+        logger.error(err.message);
+      });
+    };
+
     const changeHandler = (filePath) => {
       logger.info(`Reload for file change: ${filePath}`);
       Promise.resolve('').then(() => {
@@ -124,7 +136,7 @@ program
       logger.info(`Reload for file deletion: ${filePath}`);
       Promise.resolve('').then(() => {
         if (fsUtil.isMarkdown(filePath) || fsUtil.isHtml(filePath)) {
-          return site.buildSourceFiles();
+          return site.rebuildSourceFiles(filePath);
         }
         return site.removeAsset(filePath);
       }).catch((err) => {
@@ -155,7 +167,7 @@ program
           ignoreInitial: true,
         });
         watcher
-          .on('add', changeHandler)
+          .on('add', addHandler)
           .on('change', changeHandler)
           .on('unlink', removeHandler);
       })
