@@ -111,7 +111,7 @@ program
     const addHandler = (filePath) => {
       logger.info(`Reload for file add: ${filePath}`);
       Promise.resolve('').then(() => {
-        if (fsUtil.isMarkdown(filePath) || fsUtil.isHtml(filePath)) {
+        if (fsUtil.isSourceFile(filePath)) {
           return site.buildSourceFiles();
         }
         return site.buildAsset(filePath);
@@ -123,7 +123,7 @@ program
     const changeHandler = (filePath) => {
       logger.info(`Reload for file change: ${filePath}`);
       Promise.resolve('').then(() => {
-        if (fsUtil.isMarkdown(filePath) || fsUtil.isHtml(filePath)) {
+        if (fsUtil.isSourceFile(filePath)) {
           return site.rebuildSourceFiles(filePath);
         }
         return site.buildAsset(filePath);
@@ -135,7 +135,7 @@ program
     const removeHandler = (filePath) => {
       logger.info(`Reload for file deletion: ${filePath}`);
       Promise.resolve('').then(() => {
-        if (fsUtil.isMarkdown(filePath) || fsUtil.isHtml(filePath)) {
+        if (fsUtil.isSourceFile(filePath)) {
           return site.rebuildSourceFiles(filePath);
         }
         return site.removeAsset(filePath);
