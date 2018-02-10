@@ -29,7 +29,7 @@
     "ignore": "^3.2.0",
     "js-beautify": "^1.6.12",
     "live-server": "^1.2.0",
-    "markbind": "^1.1.7",
+    "markbind": "^1.2.0",
     "nunjucks": "^3.0.0",
     "path-is-inside": "^1.0.2",
     "walk-sync": "^0.3.1"
