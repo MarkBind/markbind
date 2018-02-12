@@ -3,7 +3,8 @@ module.exports = {
     "node": true,
     "es6": true
   },
-  "extends": "airbnb-base",
+  "plugins": ["lodash"],
+  "extends": ["airbnb-base", "plugin:lodash/recommended"],
   "rules": {
     "array-bracket-newline": ["error", { "multiline": true }],
     "func-names": "off",
@@ -17,6 +18,8 @@ module.exports = {
         "FunctionExpression": { "parameters": "first" },
       }
     ],
+    "lodash/prefer-lodash-method": [0],
+    "lodash/prefer-noop": [0],
     "max-len": ["error", { "code": 110 }],
     "operator-linebreak": ["error", "before"],
   }
