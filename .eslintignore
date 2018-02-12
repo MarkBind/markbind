@@ -1,1 +1,2 @@
 *.min.*
+lib/markdown-it/*
