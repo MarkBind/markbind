@@ -1,1 +1,1 @@
-<dynamic-panel type="danger" src="UserStories.md" header="Can explain NFRs" no-close />
+<dynamic-panel src="UserStories.md" header="Boilerplate Includes" no-close />
