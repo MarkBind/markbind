@@ -1,0 +1,20 @@
+{
+  "baseUrl": "",
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "Hello World"
+    },
+    {
+      "src": "requirements/NonFunctionalRequirements.md",
+      "title": "NFR"
+    }
+  ],
+  "ignore": [
+    "_site/*",
+    "site.json"
+  ],
+  "deploy": {
+    "message": "Site Update."
+  }
+}
