@@ -12,7 +12,8 @@
   ],
   "ignore": [
     "_site/*",
-    "site.json"
+    "site.json",
+    "*.md"
   ],
   "deploy": {
     "message": "Site Update."
