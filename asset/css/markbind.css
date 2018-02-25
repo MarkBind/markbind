@@ -7,11 +7,20 @@ blockquote {
 }
 
 @media (max-width: 767px) {
+    .dropdown-menu > li > a {
+        white-space: normal;
+    }
+
     .navbar-default .navbar-nav .open .dropdown-menu > li > a,
     .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
         color: #333;
     }
-    
+
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+    .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a {
+        background-color: #337ab7;
+    }
+
     .navbar-nav .open .dropdown-menu {
         background-color: #fff;
     }
