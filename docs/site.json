@@ -1,0 +1,18 @@
+{
+  "baseUrl": "/markbind",
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "MarkBind: Generate Course Websites from Markdown Text"
+    }
+  ],
+  "ignore": [
+    "_site/*",
+    "lib/*",
+    "*.json",
+    "*.md"
+  ],
+  "deploy": {
+    "message": "Site Update."
+  }
+}

@@ -1,0 +1,36 @@
+.website-content {
+    margin: 12px auto 40px auto;
+    max-width: 1000px;
+    overflow: hidden;
+    width:90%;
+}
+
+.website-content > div {
+    margin-top: 4px;
+}
+
+mark {
+    background-color: yellow;
+}
+
+.important {
+    color: #980000;
+}
+
+.question-wrapper .radio-list,
+.question-wrapper .task-list {
+    list-style: none;
+    padding-left:0;
+}
+
+.radio-list-input, .task-list-item-checkbox {
+    margin-right: 10px!important;
+}
+
+.block-embed {
+    text-align: center;
+}
+
+.closeable-show {
+    padding: 4px;
+}
