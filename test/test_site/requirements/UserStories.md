@@ -22,8 +22,7 @@ the developers will meet with the customer face-to-face  to work out a more deta
 User stories are often written on index cards or sticky notes, and arranged on walls or tables to facilitate 
 planning and discussion. 
 
-<seg xp-website sup>
-[http://www.extremeprogramming.org/rules/userstories.html](http://www.extremeprogramming.org/rules/userstories.html)<br> 
+<seg xp-website sup>[http://www.extremeprogramming.org/rules/userstories.html](http://www.extremeprogramming.org/rules/userstories.html)
 This is the main website for eXtreme Programming (XP), an approach to software development currently popular 
 among practitioners. User stories are commonly used among XP practitioners to capture requirements.
 </seg>
