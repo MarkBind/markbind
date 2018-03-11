@@ -6,6 +6,12 @@ blockquote {
     width: auto;
 }
 
+.radio-list-item,
+.task-list-item {
+    list-style-type: none;
+    margin: 0 0 0 -1.2em;
+}
+
 .radio-list-item label {
     font-weight: inherit;
 }
