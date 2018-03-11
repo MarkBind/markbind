@@ -31,8 +31,10 @@
     "path-is-inside": "^1.0.2"
   },
   "devDependencies": {
-    "eslint": "^3.16.1",
-    "eslint-plugin-lodash": "^2.3.5"
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-lodash": "^2.6.1"
   },
   "repository": {
     "type": "git",

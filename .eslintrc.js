@@ -4,29 +4,23 @@ module.exports = {
     "es6": true
   },
   "plugins": ["lodash"],
-  "extends": ["eslint:recommended", "plugin:lodash/recommended"],
+  "extends": ["airbnb-base", "plugin:lodash/recommended"],
   "rules": {
+    "array-bracket-newline": ["error", { "multiline": true }],
+    "func-names": "off",
+    "function-paren-newline": "off",
     "indent": [
       "error",
-      2
+      2,
+      {
+        "CallExpression": { "arguments": "first" },
+        "FunctionDeclaration": { "parameters": "first" },
+        "FunctionExpression": { "parameters": "first" },
+      }
     ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ],
-    "lodash/prefer-lodash-method": [
-      0
-    ],
-    "lodash/prefer-noop": [
-      0
-    ]
+    "lodash/prefer-lodash-method": [0],
+    "lodash/prefer-noop": [0],
+    "max-len": ["error", { "code": 110 }],
+    "operator-linebreak": ["error", "before"],
   }
 };
