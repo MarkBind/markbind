@@ -144,7 +144,7 @@ program
       });
     };
 
-    // server conifg
+    // server config
     const serverConfig = {
       open: options.open,
       logLevel: 0,
@@ -163,7 +163,11 @@ program
       })
       .then(() => {
         const watcher = chokidar.watch(rootFolder, {
-          ignored: [outputFolder, /(^|[/\\])\../],
+          ignored: [
+            outputFolder,
+            /(^|[/\\])\../,
+            x => x.endsWith('___jb_tmp___'), x => x.endsWith('___jb_old___'), // IDE temp files
+          ],
           ignoreInitial: true,
         });
         watcher
