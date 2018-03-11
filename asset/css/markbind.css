@@ -2,8 +2,17 @@ blockquote {
     font-size: 14px;
 }
 
+.markbind-table {
+    width: auto;
+}
+
 .radio-list-item label {
     font-weight: inherit;
+}
+
+.table-striped > thead,
+.table-striped > tbody > tr:nth-of-type(even) {
+    background-color: #fff;
 }
 
 @media (max-width: 767px) {
