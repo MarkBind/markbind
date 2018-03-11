@@ -23,6 +23,7 @@
     "chokidar": "^1.6.1",
     "clear": "^0.0.1",
     "commander": "^2.9.0",
+    "diff": "^3.5.0",
     "ejs": "^2.5.5",
     "figlet": "^1.2.0",
     "fs-extra-promise": "^0.4.1",
@@ -38,6 +39,12 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/MarkBind/markbind-cli.git"
+  },
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint .",
+    "pretest": "npm run lint",
+    "testwin": "cd test/test_site && test.sh",
+    "test": "cd test/test_site && ./test.sh"
   },
   "devDependencies": {
     "eslint": "^4.16.0",
