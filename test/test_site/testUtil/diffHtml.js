@@ -1,7 +1,7 @@
 const jsdiff = require('diff');
 
 /**
- * Checks if fragment ends with a an unclosed path
+ * Checks if fragment ends with an unclosed path
  * true: src="
  * false: src=""
  *        src="..."
