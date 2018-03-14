@@ -18,16 +18,12 @@ for (let i = 0; i < expectedPaths.length; i += 1) {
     throw new Error('Different files built');
   }
 
-  // check contents
-  const resolvedExpectedFilePath = path.resolve('./expected', expectedFilePath);
-  const resolvedActualFilePath = path.resolve('./_site', actualFilePath);
-  const expected = fs.readFileSync(resolvedExpectedFilePath, 'utf8');
-  const actual = fs.readFileSync(resolvedActualFilePath, 'utf8');
-  if (path.parse(resolvedActualFilePath).ext !== '.html') {
-    if (expected !== actual) {
-      throw new Error(`${resolvedExpectedFilePath} and ${resolvedActualFilePath} are not equal`);
-    }
-  } else {
+  // compare html files only
+  if (path.parse(actualFilePath).ext === '.html') {
+    const resolvedExpectedFilePath = path.resolve('./expected', expectedFilePath);
+    const resolvedActualFilePath = path.resolve('./_site', actualFilePath);
+    const expected = fs.readFileSync(resolvedExpectedFilePath, 'utf8');
+    const actual = fs.readFileSync(resolvedActualFilePath, 'utf8');
     try {
       diffHtml(expected, actual);
     } catch (err) {
