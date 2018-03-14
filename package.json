@@ -23,7 +23,6 @@
     "chokidar": "^1.6.1",
     "clear": "^0.0.1",
     "commander": "^2.9.0",
-    "diff": "^3.5.0",
     "ejs": "^2.5.5",
     "figlet": "^1.2.0",
     "fs-extra-promise": "^0.4.1",
@@ -47,6 +46,7 @@
     "test": "cd test/test_site && ./test.sh"
   },
   "devDependencies": {
+    "diff": "^3.5.0",
     "eslint": "^4.16.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0"
