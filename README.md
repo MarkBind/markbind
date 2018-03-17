@@ -8,6 +8,8 @@
 
 Command line interface for MarkBind
 
+[![Build Status](https://travis-ci.org/MarkBind/markbind-cli.svg?branch=master)](https://travis-ci.org/MarkBind/markbind-cli)
+
 ## How to install it?
 ```
 npm i -g markbind-cli
