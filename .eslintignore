@@ -1,2 +1,2 @@
 *.min.*
-lib/markdown-it/*
+lib/markbind/lib/markdown-it/*
