@@ -1,0 +1,42 @@
+blockquote {
+    font-size: 14px;
+}
+
+.markbind-table {
+    width: auto;
+}
+
+.radio-list-item,
+.task-list-item {
+    list-style-type: none;
+    margin: 0 0 0 -1.2em;
+}
+
+.radio-list-item label {
+    font-weight: inherit;
+}
+
+.table-striped > thead,
+.table-striped > tbody > tr:nth-of-type(even) {
+    background-color: #fff;
+}
+
+@media (max-width: 767px) {
+    .dropdown-menu > li > a {
+        white-space: normal;
+    }
+
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a,
+    .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+        color: #333;
+    }
+
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+    .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a {
+        background-color: #337ab7;
+    }
+
+    .navbar-nav .open .dropdown-menu {
+        background-color: #fff;
+    }
+}
