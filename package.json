@@ -1,43 +1,57 @@
 {
-  "name": "markbind",
-  "version": "1.3.0",
-  "description": "MarkBind core module.",
-  "main": "lib/parser.js",
+  "name": "markbind-cli",
+  "version": "1.6.0",
+  "description": "Command line interface for MarkBind",
+  "main": "index.js",
+  "bin": {
+    "markbind": "./index.js"
+  },
   "keywords": [
     "mark",
     "markdown",
     "markbind",
     "fragment",
-    "reusable"
+    "reusable",
+    "CLI"
   ],
   "author": "Jiang Sheng <gisonrg@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "bluebird": "^3.4.7",
+    "chalk": "^1.1.3",
     "cheerio": "^0.22.0",
-    "highlight.js": "^9.10.0",
+    "chokidar": "^1.6.1",
+    "clear": "^0.0.1",
+    "commander": "^2.9.0",
+    "ejs": "^2.5.5",
+    "figlet": "^1.2.0",
+    "fs-extra-promise": "^0.4.1",
+    "gh-pages": "^1.1.0",
     "htmlparser2": "MarkBind/htmlparser2#v3.10.0-markbind.1",
-    "lodash": "^4.17.2",
-    "markdown-it": "^8.3.0",
-    "markdown-it-anchor": "^4.0.0",
-    "markdown-it-emoji": "^1.3.0",
-    "markdown-it-imsize": "^2.0.1",
-    "markdown-it-ins": "^2.0.0",
-    "markdown-it-mark": "^2.0.0",
-    "markdown-it-table-of-contents": "^0.3.2",
-    "markdown-it-task-lists": "^1.4.1",
-    "markdown-it-video": "^0.4.0",
+    "ignore": "^3.2.0",
+    "js-beautify": "^1.6.12",
+    "live-server": "^1.2.0",
+    "lodash": "^4.17.5",
+    "markbind": "file:lib/markbind",
     "nunjucks": "^3.0.0",
-    "path-is-inside": "^1.0.2"
-  },
-  "devDependencies": {
-    "eslint": "^4.16.0",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-lodash": "^2.6.1"
+    "path-is-inside": "^1.0.2",
+    "walk-sync": "^0.3.1"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/MarkBind/markbind.git"
+  },
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint .",
+    "pretest": "npm run lint",
+    "testwin": "cd test/test_site && test.sh",
+    "test": "cd test/test_site && ./test.sh"
+  },
+  "devDependencies": {
+    "diff": "^3.5.0",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-lodash": "^2.6.1"
   }
 }

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello World</title>
+    <link rel="stylesheet" href="markbind\css\bootstrap.min.css">
+    <link rel="stylesheet" href="markbind\css\github.min.css">
+    <link rel="stylesheet" href="markbind\css\markbind.css">
+</head>
+<body>
+<div id="app" class="container-fluid">
+    <div>
+  <navbar placement="top" type="inverse">
+    <a slot="brand" href="/" title="Home" class="navbar-brand">Markbind Test Site</a>
+    <li><a href="/test_site/bugs/index.html">Open Bugs</a></li>
+  </navbar>
+</div>
+<div class="website-content">
+  <h1 id="normal-include">Normal include</h1>
+  <div>
+    <h3 id="establishing-requirements">Establishing Requirements</h3>
+    <p>
+      <seg id="preview">Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should do.</seg>
+    </p>
+    <p>There are many techniques used during a requirements gathering. The following are some of the techniques.</p>
+    <h4 id="brainstorming">Brainstorming</h4>
+    <p>Brainstorming is a group activity designed to generate a large number of diverse and creative ideas for the solution of a problem. In a brainstorming session there are no &quot;bad&quot; ideas. The aim is to generate ideas; not to validate them. Brainstorming
+      encourages you to &quot;think outside the box&quot; and put &quot;crazy&quot; ideas on the table without fear of rejection.</p>
+    <h4 id="user-surveys">User surveys</h4>
+    <p>Carefully designed questionnaires can be used to solicit responses and opinions from a large number of users regarding any current system or a new innovation.</p>
+    <h4 id="focus-groups">Focus groups</h4>
+    <p>Focus groups are a kind of informal interview within an interactive group setting. A
+      <tooltip content="e.g. potential users, beta testers">group of people</tooltip>
+      are asked about their understanding of a specific issue or a process. Focus groups can bring out undiscovered conflicts and misunderstandings among stakeholder interests which can then be resolved or clarified as necessary.</p>
+  </div>
+  <h1 id="include-segment">Include segment</h1>
+  <div>
+    <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should do.</p>
+  </div>
+  <h1 id="dynamic-include">Dynamic include</h1>
+  <p>
+    <panel src="/test_site\requirements\SpecifyingRequirements._include_.html" name="Dynamic Include" header="Dynamic Include" isOpen="false" no-close="true" no-switch="true"></panel>
+  </p>
+  <h1 id="boilerplate-include">Boilerplate include</h1>
+  <div name="Boilerplate Referencing">
+    <p>
+      <panel src="/test_site\requirements\UserStories._include_.html" header="Boilerplate Includes" no-close="true" isOpen="false" no-switch="true"></panel>
+    </p>
+  </div>
+  <h1 id="nested-include">Nested include</h1>
+  <div>
+    <ol>
+      <li><strong>Establishing requirements</strong>: <span>Requirements gathering, requirements elicitation, requirements analysis,
+requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity
+of understanding what a software product should do.</span></li>
+      <li><strong>Specifying requirements</strong>: <span>As we establish requirements, they should be recorded in some way for future reference,
+usually called a requirement specification. Furthermore, it is advisable to show these requirements to stakeholders,
+and refine requirements based on their feedback. The next phase is to convert requirements into a product
+specification that specifies how the product will address the requirements. </span></li>
+    </ol>
+  </div>
+  <h1 id="html-include">HTML include</h1>
+  <div>
+    <p>This is a HTML document</p>
+    <p><span>It is <strong>possible</strong> to use Markdown in HTML</span></p>
+  </div>
+  <h1 id="include-from-another-markbind-site">Include from another Markbind site</h1>
+  <div>
+    <p>This is a page from another Markbind site.</p>
+    <h2 id="feature-list">Feature list</h2>
+    <p>It is a list of features (or functionalities) grouped according to some criteria such as priority (e.g. must-have, nice-to-have, etc. ), order of delivery, object or process related (e.g. order-related, invoice-related, etc.). Here is a sample feature
+      list from Minesweeper (only a brief description has been provided to save space).</p>
+    <ol>
+      <li>Basic play – Single player play.</li>
+      <li>Difficulty levels – Additional Medium and Advanced levels.</li>
+      <li>Versus play – Two players can play against each other.</li>
+      <li>Timer – Additional fixed time restriction on the player.</li>
+    </ol>
+    <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></div>
+</div>
+</div>
+</body>
+<script src="markbind\js\vue.min.js"></script>
+<script src="markbind\js\vue-strap.min.js"></script>
+<script src="markbind\js\setup.js"></script>
+</html>
