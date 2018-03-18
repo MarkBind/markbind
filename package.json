@@ -27,6 +27,7 @@
     "figlet": "^1.2.0",
     "fs-extra-promise": "^0.4.1",
     "gh-pages": "^1.1.0",
+    "htmlparser2": "MarkBind/htmlparser2#v3.10.0-markbind.1",
     "ignore": "^3.2.0",
     "js-beautify": "^1.6.12",
     "live-server": "^1.2.0",
