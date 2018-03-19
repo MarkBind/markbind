@@ -12,7 +12,7 @@ To go to the MarkBind website, click [here](https://markbind.github.io/markbind/
 
 Command line interface for MarkBind
 
-[![Build Status](https://travis-ci.org/MarkBind/markbind-cli.svg?branch=master)](https://travis-ci.org/MarkBind/markbind-cli)
+[![Build Status](https://travis-ci.org/MarkBind/markbind.svg?branch=master)](https://travis-ci.org/MarkBind/markbind)
 
 ## How to install it?
 ```
