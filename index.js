@@ -14,7 +14,7 @@ const chokidar = require('chokidar');
 const logger = require('./lib/util/logger');
 const fsUtil = require('./lib/util/fsUtil');
 const Site = require('./lib/Site');
-const MarkBind = require('markbind');
+const MarkBind = require('./lib/markbind/lib/parser');
 
 const CLI_VERSION = require('./package.json').version;
 
