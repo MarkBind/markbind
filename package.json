@@ -24,6 +24,7 @@
     "clear": "^0.0.1",
     "commander": "^2.9.0",
     "ejs": "^2.5.5",
+    "fastmatter": "^2.0.1",
     "figlet": "^1.2.0",
     "fs-extra-promise": "^0.4.1",
     "gh-pages": "^1.1.0",
