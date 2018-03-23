@@ -56,13 +56,22 @@
     "lint": "./node_modules/.bin/eslint .",
     "pretest": "npm run lint",
     "testwin": "cd test/test_site && test.bat",
-    "test": "cd test/test_site && ./test.sh"
+    "test": "cd test/test_site && ./test.sh",
+    "jest": "jest"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "test/test_site/"
+    ]
   },
   "devDependencies": {
     "diff": "^3.5.0",
     "eslint": "^4.16.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-lodash": "^2.6.1"
+    "eslint-plugin-lodash": "^2.6.1",
+    "jest": "^22.4.3",
+    "memfs": "^2.8.0"
   }
 }
