@@ -8,7 +8,7 @@
 
 MarkBind is a website generator that can generate a website from markdown documents. While there are other markdown-to-html website generators around %%(e.g., Jekyll, GitBook, MkDocs)%%, MarkBind is particularly suitable for creating course Websites. **The main aim of MarkBind is to provide a way to easily create content-heavy websites that allow _<tooltip content="i.e., the reader can go deeper or get more content as desired">self-directed consumption</tooltip>_**, as opposed to one-size-fits-all static content.  
 
-## :clipboard: Features
+## <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Features
 
 #### ✓ Support for Markdown and <tooltip content="GitHub-Flavored Markdown">GFMD</tooltip>
 
@@ -156,7 +156,7 @@ In CS, a binary tree is a tree data structure in which each node has at most two
 
 </tip-box>
 
-## :bookmark: Examples
+## <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span> Examples
 
 Examples of websites built using MarkBind: 
 * [CS2103 Software Engineering - course website](https://www.comp.nus.edu.sg/~cs2103)
@@ -165,7 +165,7 @@ Examples of websites built using MarkBind:
 * [se-edu/se-book - An online text book on Software Engineering](https://se-edu.github.io/se-book/)
 * This website (i.e., MarkBind website)
 
-## :book: Documentation 
+## <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Documentation 
 
 #### For Users
 
@@ -176,7 +176,7 @@ Examples of websites built using MarkBind:
 
 * [Developer Guide](https://github.com/MarkBind/markbind-cli/wiki/Developer-Guide)
 
-## :mortar_board: About us
+## <span class="glyphicon glyphicon-home" aria-hidden="true"></span> About us
 
 MarkBind is a project based in the [National University of Singapore, School of Computing](http://www.comp.nus.edu.sg/), and is funded by a grant from [NUS Center for Development of Teaching and Learning](http://www.cdtl.nus.edu.sg/).
 
@@ -187,6 +187,8 @@ MarkBind is a project based in the [National University of Singapore, School of 
 * [**Jiang Sheng**](https://github.com/Gisonrg): _Founding Member_ and _Team Lead_ for Aug 2016 - Jul 2017
 * [**Rachael Sim Hwee Ling**](https://github.com/rachx): _Project Member_ since Jan 2018
 
-:envelope: You can email us at `seer` at `comp.nus.edu.sg`
+<span class="glyphicon glyphicon-send" aria-hidden="true"></span> You can **email us** at `seer` at `comp.nus.edu.sg`
+
+<span class="glyphicon glyphicon-console" aria-hidden="true"></span> Interested in **contributing to MarkBind**? Visit the [MarkBind project on GitHub](https://github.com/MarkBind/markbind).
 
 </div>
