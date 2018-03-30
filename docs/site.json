@@ -10,7 +10,8 @@
     "_site/*",
     "lib/*",
     "*.json",
-    "*.md"
+    "*.md",
+    "*.pptx"
   ],
   "deploy": {
     "message": "Site Update."
