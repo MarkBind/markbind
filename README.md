@@ -1,20 +1,12 @@
-# MarkBind
-
-To go to the MarkBind website, click [here](https://markbind.github.io/markbind/).
-
-```
-  __  __                  _      ____    _               _
- |  \/  |   __ _   _ __  | | __ | __ )  (_)  _ __     __| |
- | |\/| |  / _` | | '__| | |/ / |  _ \  | | | '_ \   / _` |
- | |  | | | (_| | | |    |   <  | |_) | | | | | | | | (_| |
- |_|  |_|  \__,_| |_|    |_|\_\ |____/  |_| |_| |_|  \__,_|
-```
-
-Command line interface for MarkBind
+<img src="docs/images/logo-lightbackground.png" width="600" />
 
 [![Build Status](https://travis-ci.org/MarkBind/markbind.svg?branch=master)](https://travis-ci.org/MarkBind/markbind)
 
-## How to install it?
+**A tool for generating content-intensive websites from markdown-like syntax**
+
+To go to the MarkBind website, click [here](https://markbind.github.io/markbind/).
+
+## Installation
 ```
 npm i -g markbind-cli
 ```
