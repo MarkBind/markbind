@@ -1,3 +1,7 @@
+<frontmatter>
+title: Hello World
+</frontmatter>
+
 <include src="components/header.md" />
 
 <div class="website-content">
