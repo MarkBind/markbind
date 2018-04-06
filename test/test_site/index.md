@@ -12,7 +12,9 @@
 <include src="requirements/SpecifyingRequirements.md" name="Dynamic Include" dynamic />
 
 # Boilerplate include
-<include src="requirements/boilerTest.md" name="Boilerplate Referencing" />
+<include src="requirements/boilerTest.md" name="Boilerplate Referencing" boilerplate />
+
+<include src="requirements/notInside.md" name="Referencing specified path in boilerplate" boilerplate="folder/inside.md" dynamic/>
 
 # Nested include
 <include src="requirements/nestedInclude.md" />
