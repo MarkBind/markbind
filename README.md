@@ -16,19 +16,21 @@ npm i -g markbind-cli
   Usage: markbind  <command>
 
 
-    Commands:
+  Options:
 
-      include [options] <file>  process all the fragment include in the given file
-      render [options] <file>   render the given file
-      init [root]               init a markbind website project
-      serve [options] [root]    build then serve a website from a directory
-      build [root] [output]     build a website
-      deploy                    deploy to Github Pages
+    -V, --version  output the version number
+    -h, --help     output usage information
 
-    Options:
 
-      -h, --help     output usage information
-      -V, --version  output the version number
+  Commands:
+
+    include [options] <file>         process all the fragment include in the given file
+    render [options] <file>          render the given file
+    init [root]                      init a markbind website project
+    serve [options] [root]           build then serve a website from a directory
+    deploy                           deploy the site to the repo's Github pages.
+    build [options] [root] [output]  build a website
+
 ```
 
 ## Documentation
