@@ -8,5 +8,6 @@
     <li><a href="{{baseUrl}}/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
     <li><a href="{{baseUrl}}/userGuide/includingContents.html">Including Contents</a></li>
     <li><a href="{{baseUrl}}/userGuide/siteConfiguration.html">Site Configuration</a></li>
+    <li><a href="{{baseUrl}}/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
   </dropdown>  
 </navbar>

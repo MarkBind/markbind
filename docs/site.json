@@ -32,6 +32,10 @@
     {
       "src": "userGuide/siteConfiguration.md",
       "title": "MarkBind: User Guide - Site Configuration"
+    },
+    {
+      "src": "userGuide/netlifyPreview.md",
+      "title": "MarkBind: User Guide - Preview site on Netlify"
     }
   ],
   "ignore": [

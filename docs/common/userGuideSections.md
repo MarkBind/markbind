@@ -5,3 +5,4 @@
 - <a href="{{baseUrl}}/userGuide/ghpagesDeployment.html">Github Pages Deployment</a>
 - <a href="{{baseUrl}}/userGuide/includingContents.html">Including Contents</a>
 - <a href="{{baseUrl}}/userGuide/siteConfiguration.html">Site Configuration</a>
+- <a href="{{baseUrl}}/userGuide/netlifyPreview.html">Preview site on Netlify</a>
