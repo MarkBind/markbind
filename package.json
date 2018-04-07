@@ -55,8 +55,9 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint .",
     "pretest": "npm run lint",
-    "testwin": "cd test/test_site && test.bat",
-    "test": "cd test/test_site && ./test.sh",
+    "pretestwin": "npm run lint",
+    "testwin": "jest && cd test/test_site && test.bat",
+    "test": "jest && cd test/test_site && ./test.sh",
     "jest": "jest"
   },
   "jest": {
