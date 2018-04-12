@@ -11,7 +11,8 @@
     "lib/*",
     "*.json",
     "*.md",
-    "*.pptx"
+    "*.pptx",
+    "node_modules/*"
   ],
   "deploy": {
     "message": "Site Update."
