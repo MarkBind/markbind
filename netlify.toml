@@ -1,0 +1,7 @@
+[build]
+# This is the directory to change to before starting a build.
+  base    = "docs/"
+# This is the directory that you are publishing from (relative to root of your repo)
+  publish = "docs/_site"
+# This will be your default build command
+  command = "markbind build --baseUrl"
