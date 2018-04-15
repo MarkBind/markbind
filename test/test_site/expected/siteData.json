@@ -1,15 +1,16 @@
 {
   "pages": [
     {
-      "title": "Open Bugs",
-      "src": "bugs/index.md"
-    },
-    {
       "title": "Hello World",
       "src": "index.md"
     },
     {
-      "src": "sub_site/index.md"
+      "title": "Open Bugs",
+      "src": "bugs/index.md"
+    },
+    {
+      "src": "sub_site/index.md",
+      "title": ""
     }
   ]
 }
