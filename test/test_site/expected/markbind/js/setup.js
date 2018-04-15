@@ -10,15 +10,21 @@ function setup() {
 }
 
 function setupWithSearch(siteData) {
-  const { frontmattersearch } = VueStrap.components;
+  const { typeahead } = VueStrap.components;
   const vm = new Vue({
     el: '#app',
     components: {
-      frontmattersearch,
+      typeahead,
     },
     data() {
+      const helpers = {
+        value() { return [this.title].concat(this.keywords).join(' '); },
+        indexOf(query) { return this.value().indexOf(query); },
+        toLowerCase() { return this.value().toLowerCase(); },
+      };
       return {
-        searchData: siteData.pages,
+        searchData: siteData.pages.map(page => Object.assign({}, page, helpers)),
+        titleTemplate: '{{ item.title }}<br><sub>{{ item.keywords }}</sub>',
       };
     },
     methods: {
@@ -30,6 +36,6 @@ function setupWithSearch(siteData) {
   VueStrap.installEvents(vm);
 }
 
-jQuery.getJSON(`${window.location.origin}/siteData.json`)
+jQuery.getJSON('../../siteData.json')
   .then(siteData => setupWithSearch(siteData))
   .catch(() => setup());

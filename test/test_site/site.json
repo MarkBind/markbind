@@ -1,7 +1,14 @@
 {
   "baseUrl": "/test_site",
-  "addressable": [
-    "**/index.md"
+  "titlePrefix": "",
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "Hello World"
+    },
+    {
+      "glob" : "**/index.md"
+    }
   ],
   "ignore": [
     "_markbind/logs/*",
