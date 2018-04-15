@@ -4,9 +4,11 @@
 
 <div class="website-content">
 
-# MarkBind
+# **MarkBind**
 
-MarkBind is a website generator that can generate a website from markdown documents. While there are other markdown-to-html website generators around %%(e.g., Jekyll, GitBook, MkDocs)%%, MarkBind is particularly suitable for creating course Websites. **The main aim of MarkBind is to provide a way to easily create content-heavy websites that allow _<tooltip content="i.e., the reader can go deeper or get more content as desired">self-directed consumption</tooltip>_**, as opposed to one-size-fits-all static content.  
+#### Generate dynamic websites from markdown text.
+
+MarkBind is a website generator that can generate a website from markdown documents. While there are other markdown-to-html website generators around, **MarkBind can generate more dynamic websites**, as opposed to one-size-fits-all static content. MarkBind is particularly suitable to create content-heavy websites %%e.g., eLearning websites, online instruction manuals, project documentation etc.%% that aim for _<tooltip content="i.e., the reader can go deeper or get more content as desired">self-directed consumption</tooltip>_.   
 
 ## <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Features
 
