@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MarkBind: User Guide - Content Authoring</title>
+    <link rel="stylesheet" href="..\markbind\css\bootstrap.min.css">
+    <link rel="stylesheet" href="..\markbind\css\github.min.css">
+    <link rel="stylesheet" href="..\markbind\css\markbind.css">
+</head>
+<body>
+<div id="app" class="container-fluid">
+    <link rel="stylesheet" href="/markbind/css/main.css">
+<div>
+  <navbar placement="top" type="inverse">
+    <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
+    <dropdown text="User Guide">
+      <li><a href="/markbind/userGuide/index.html">Home</a></li>
+      <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+      <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
+      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a></li>
+      <li><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
+      <li><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
+      <li><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
+      <li><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+    </dropdown>
+  </navbar>
+</div>
+<div class="website-content">
+  <h1 id="content-authoring">Content authoring</h1>
+  <h3 id="general-writing-guide">General writing guide</h3>
+  <h4 id="mixing-html-with-markdown">Mixing HTML with Markdown</h4>
+  <p><em>MarkBind</em> allows you to mix HTML with Markdown content.</p>
+  <p>To separate inline Markdown from HTML elements, enclose inline Markdown content with <code>&lt;md&gt;</code> tags.</p>
+  <p>e.g.</p>
+  <pre class="hljs"><code>&lt;div&gt;
+ &lt;md&gt; # 1: *Markdown* Content &lt;/md&gt;
+&lt;/div&gt;
+</code></pre>
+  <p>The HTML output will be</p>
+  <pre class="hljs"><code>&lt;div&gt;
+  &lt;span&gt; # 1: &lt;em&gt;Markdown&lt;/em&gt; content &lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+  <p>Note that we get the italic <em>Markdown</em> but not the header (the char # is rendered). Also, a new line is not added as the content is enclosed within <code>&lt;span&gt;</code> tags.</p>
+  <p>To separate Markdown block elements (e.g. headers) from HTML elements, you may enclose the Markdown content with <code>&lt;markdown&gt;</code> tags.</p>
+  <p>Example 1:</p>
+  <pre class="hljs"><code>&lt;div&gt;
+  &lt;markdown&gt; # 1: *Markdown* Content &lt;/markdown&gt;
+&lt;/div&gt;
+</code></pre>
+  <p>The HTML output will be:</p>
+  <pre class="hljs"><code>&lt;div&gt;
+  &lt;h1 id=&quot;1-markdown-content&quot;&gt;1: &lt;em&gt;Markdown&lt;/em&gt; content&lt;/h1&gt;
+&lt;/div&gt;
+</code></pre>
+  <p>In this case, we will get a <code>h1</code> header.</p>
+  <p>Example 2:</p>
+  <pre class="hljs"><code>&lt;span&gt;Hello this is your&lt;/span&gt; &lt;markdown&gt; **Markdown Content**&lt;/markdown&gt;
+</code></pre>
+  <p>The HTML output will be:</p>
+  <pre class="hljs"><code>&lt;span&gt;Hello this is your&lt;/span&gt;
+&lt;div&gt;
+  &lt;p&gt;&lt;strong&gt;Markdown Content&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+  <p>In this case, we will get the <code>Markdown Content</code> text rendered in bold on a new line.</p>
+  <h4 id="specifying-path-reference">Specifying Path Reference</h4>
+  <p>Use <code>/markbind</code> for absolute path reference of images and resource files so that the path could be handled correctly when deployed. The <code>/markbind</code> is parsed from the project root (where <code>site.json</code> located).</p>
+  <h3 id="supported-markdown-syntax">Supported Markdown Syntax</h3>
+  <p>MarkBind support the standard Markdown syntax. Read the <a href="https://guides.github.com/features/mastering-markdown/">guide</a>.</p>
+  <p>In addition, it supports:</p>
+  <ul>
+    <li>
+      <p><a href="https://help.github.com/articles/organizing-information-with-tables/">Tables</a> (GFM)</p>
+    </li>
+    <li>
+      <p><a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/#styling-text">Strikethrough</a> (GFM)</p>
+    </li>
+    <li>
+      <p><a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/">Emoji</a> shortcut.</p>
+      <p><code>:EMOJICODE:</code>. For example, <code>:smile:</code> will be rendered as 😄.</p>
+    </li>
+    <li>
+      <p><a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/#task-lists">Task List</a></p>
+    </li>
+    <li>
+      <p>Text Hightlight using <code>&lt;mark&gt;</code></p>
+      <p><code>==Highlight Text==</code> =&gt; <code>&lt;mark&gt;Highlight Text&lt;/mark&gt;</code></p>
+    </li>
+    <li>
+      <p>Text Underline using <code>&lt;ins&gt;</code></p>
+      <p><code>++Underline Text++</code> =&gt; <code>&lt;ins&gt;Underline Text&lt;/ins&gt;</code></p>
+    </li>
+    <li>
+      <p>Dimmed Text (Text with grey background)</p>
+      <p><code>%%Dimmed Text%%</code></p>
+    </li>
+    <li>
+      <p>Radio Button List</p>
+      <pre class="hljs"><code>- ( ) Option 1
+- (X) Option 2 (selected)
+</code></pre>
+    </li>
+    <li>
+      <p>Youtube video</p>
+      <pre class="hljs"><code>@[youtube](lJIrF4YjHfQ)
+@[youtube](http://www.youtube.com/watch?v=lJIrF4YjHfQ)
+@[youtube](http://youtu.be/lJIrF4YjHfQ)
+</code></pre>
+    </li>
+    <li>
+      <p>Powerpoint slide - provide the embed url from Powerpoint online</p>
+      <pre class="hljs"><code>@[powerpoint](https://onedrive.live.com/embed?cid=A5AF047C4CAD67AB&amp;resid=A5AF047C4CAD67AB%212070&amp;authkey=&amp;em=2)
+</code></pre>
+      <p>or</p>
+      <pre class="hljs"><code>&lt;div class=&quot;pull-right&quot; v-closeable alt=&quot;Read lecture slides online&quot;&gt;
+
+&lt;iframe src='https://onedrive.live.com/embed?cid=A5AF047C4CAD67AB&amp;resid=A5AF047C4CAD67AB%212074&amp;authkey=&amp;em=2&amp;wdAr=1.3333333333333333' width='350px' height='286px' frameborder='0'&gt;This is an embedded &lt;a target='_blank' href='https://office.com'&gt;Microsoft Office&lt;/a&gt; presentation, powered by &lt;a target='_blank' href='https://office.com/webapps'&gt;Office Online&lt;/a&gt;.&lt;/iframe&gt;
+
+&lt;/div&gt;
+</code></pre>
+    </li>
+    <li>
+      <p>More media blocks, embedding services and additional options can be found in <a href="https://github.com/rotorz/markdown-it-block-embed">Markdown-it-block-embed docs</a></p>
+    </li>
+  </ul>
+  <h3 id="use-searchbar">Use Searchbar</h3>
+  <p>To use the searchbar, add the following markup to your file.</p>
+  <pre class="hljs"><code>&lt;typeahead :data=&quot;searchData&quot; placeholder=&quot;Search&quot; :on-hit=&quot;searchCallback&quot;&gt;&lt;/typeahead&gt;
+</code></pre>
+  <p>To use the searchbar within a navbar, add the following markup to your file. The searchbar can be positioned using the slot attribute for the list. The following markup adds a searchbar to the right side of the navbar with appropriate styling.</p>
+  <pre class="hljs"><code>&lt;li slot=&quot;right&quot;&gt;
+  &lt;form class=&quot;navbar-form&quot;&gt;
+    &lt;typeahead :data=&quot;searchData&quot; placeholder=&quot;Search&quot; :on-hit=&quot;searchCallback&quot;&gt;&lt;/typeahead&gt; 
+  &lt;/form&gt;
+&lt;/li&gt;
+</code></pre>
+  <h3 id="use-components">Use Components</h3>
+  <p>To use a component, just type the corresponding markup in your file. For example, to create a Panel, you just need to write:</p>
+  <pre class="hljs"><code>&lt;panel header=&quot;Click to expand&quot; type=&quot;seamless&quot;&gt;
+	Panel Content.
+&lt;/panel&gt;
+</code></pre>
+  <p>For a list of supported components, refer to the component <a href="https://markbind.github.io/vue-strap/">doc</a>.</p>
+  <p>To make an element closeable, use <code>v-closeable</code>.</p>
+  <p>e.g.</p>
+  <pre class="hljs"><code>&lt;img src=&quot;schedule/textbook/images/img1.png&quot; height=&quot;320px&quot; v-closeable&gt;
+</code></pre>
+  <p>or</p>
+  <pre class="hljs"><code>&lt;div v-closeable&gt;
+...
+&lt;/div&gt;
+</code></pre>
+  <h3 id="include-contents">Include Contents</h3>
+  <p>Being able to include different markdown file into the current context is another feauture of <em>MarkBind</em>. You can create a complex document from different content fragments by including them.</p>
+  <p>For detailed guide on using <code>&lt;include&gt;</code> tag for including contents, read the doc <a href="includingContents.html">here</a>.</p>
+  <div>
+    <h2 id="sections">Sections</h2>
+    <ul>
+      <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+      <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
+      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a></li>
+      <li><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
+      <li><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
+      <li><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
+      <li><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+    </ul>
+  </div>
+</div>
+</div>
+</body>
+<script src="..\markbind\js\vue.min.js"></script>
+<script src="..\markbind\js\vue-strap.min.js"></script>
+<script src="..\markbind\js\setup.js"></script>
+</html>

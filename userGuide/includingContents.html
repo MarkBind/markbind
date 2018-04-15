@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MarkBind: User Guide - Including Contents</title>
+    <link rel="stylesheet" href="..\markbind\css\bootstrap.min.css">
+    <link rel="stylesheet" href="..\markbind\css\github.min.css">
+    <link rel="stylesheet" href="..\markbind\css\markbind.css">
+</head>
+<body>
+<div id="app" class="container-fluid">
+    <link rel="stylesheet" href="/markbind/css/main.css">
+<div>
+  <navbar placement="top" type="inverse">
+    <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
+    <dropdown text="User Guide">
+      <li><a href="/markbind/userGuide/index.html">Home</a></li>
+      <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+      <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
+      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a></li>
+      <li><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
+      <li><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
+      <li><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
+      <li><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+    </dropdown>
+  </navbar>
+</div>
+<div class="website-content">
+  <h1 id="including-contents">Including contents</h1>
+  <ol>
+    <li>
+      <h4 id="use-include-tag-to-include-another-markdown-or-html-document-into-current-context">Use <code>&lt;include&gt;</code> tag to include another markdown or HTML document into current context.</h4>
+      <pre class="hljs"><code>  &lt;include src=&quot;path/to/file&quot; /&gt;
+</code></pre>
+      <p>Attributes:</p>
+      <ul>
+        <li>
+          <p><code>src</code>: specify the source file path. Use a hash (#) followed by the element id to include only a segment from the file.</p>
+          <p>You could also use a remote address to load a remote accessible page/fragment (make sure they are CORS accessible). e.g.:</p>
+          <pre class="hljs"><code>&lt;include src=&quot;https://rawgit.com/Gisonrg/MarkBindDeploy/book/index.html&quot; /&gt;
+</code></pre>
+        </li>
+        <li>
+          <p><code>inline</code> (optional): make the included result an inline element. (wrapped in <code>&lt;span&gt;</code> tag)</p>
+        </li>
+      </ul>
+      <p>Examples:</p>
+      <pre class="hljs"><code>  &lt;include src=&quot;EstablishingRequirements.md#preview&quot; inline/&gt;
+  &lt;include src=&quot;../common/RequirementsVsSystemSpecification.md&quot;/&gt;
+  &lt;include src=&quot;../index.html&quot; /&gt;
+</code></pre>
+      <p><strong>Boilerplate files</strong></p>
+      <p>E.g. In <code>book/architecture/index.md</code>,</p>
+      <pre class="hljs"><code>  &lt;include src=&quot;full.md&quot;&gt;
+</code></pre>
+      <p>If a specified file e.g. <code>full.md</code> cannot be found in the local folder, Markbind will automatically check if the file exists in the <code>/markbind/_boilerplates</code> folder.</p>
+      <p>The <code>_boilerplates</code> folder in the site's root directory can be used to store the repetitive files. For example, the <code>full.md</code> file contains the same text (including <code>&lt;include src=&quot;text.md&quot;&gt;</code>) and
+        needs to be used in many places. You want the <code>text.md</code> to include to depend on the folder <code>full.md</code> is in (in this case, <code>book/architecture/full.md</code>). Instead of duplicating the file in different locations, you
+        will only need a copy in the boilerplate directory - the final outcome is as if the file was present in the different locations.</p>
+      <br></li>
+    <li>
+      <h4 id="wrap-elements-inside-a-div-or-seg-tag-with-an-unique-id-if-you-wish-to-create-a-reusable-content-fragment-inside-a-file-that-could-be-included-from-other-file">Wrap elements inside a <code>&lt;div&gt;</code> or <code>&lt;seg&gt;</code> tag with an unique <code>id</code> if you wish to create a reusable content fragment inside a file (that could be included from other file).</h4>
+      <p>⚠ The <code>id</code> cannot be exactly the same as a preceding heading, as <code>id</code> attributes will be added to headings for creating anchors.</p>
+      <pre class="hljs"><code>   &lt;seg id=&quot;segment1&quot;&gt;
+      Content of segment 1
+   &lt;/seg&gt;
+   &lt;div id=&quot;segment2&quot;&gt;
+      Content of segment 2
+   &lt;/div&gt;
+</code></pre>
+      <p>And use <code>include</code> tag to include it, specifying the segment (element) id with <code>#</code>.</p>
+      <pre class="hljs"><code>  &lt;include src=&quot;path/to/file#segment1&quot;/&gt;
+</code></pre>
+    </li>
+  </ol>
+  <br>
+  <ol start="3">
+    <li>
+      <h4 id="direct-reference-to-a-markbind-driven-project-without-changing-the-relative-path-is-supported">Direct reference to a MarkBind-driven project without changing the relative path is supported.</h4>
+      <p>Suppose you have a site, A, developed with MarkBind. Now, you want to include some pages from it in another site B.</p>
+      <p>MarkBind allows you to directly clone site A inside a folder in site B (ensure the <code>site.json</code> existed for site A), and include the pages you want without change anything in site A's files. This is achieved through dynamically base url
+        calculation.</p>
+      <p>For example, now your site structure is:</p>
+      <pre class="hljs"><code>B/
+  A/
+    other.md
+    site.json
+  some.md (it include a file in site A, &lt;include src=&quot;./A/other.md&quot;&gt;)
+</code></pre>
+    </li>
+  </ol>
+  <div>
+    <h2 id="sections">Sections</h2>
+    <ul>
+      <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+      <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
+      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a></li>
+      <li><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
+      <li><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
+      <li><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
+      <li><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+    </ul>
+  </div>
+</div>
+</div>
+</body>
+<script src="..\markbind\js\vue.min.js"></script>
+<script src="..\markbind\js\vue-strap.min.js"></script>
+<script src="..\markbind\js\setup.js"></script>
+</html>

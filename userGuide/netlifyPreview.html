@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MarkBind: User Guide - Preview site on Netlify</title>
+    <link rel="stylesheet" href="..\markbind\css\bootstrap.min.css">
+    <link rel="stylesheet" href="..\markbind\css\github.min.css">
+    <link rel="stylesheet" href="..\markbind\css\markbind.css">
+</head>
+<body>
+<div id="app" class="container-fluid">
+    <link rel="stylesheet" href="/markbind/css/main.css">
+<div>
+  <navbar placement="top" type="inverse">
+    <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
+    <dropdown text="User Guide">
+      <li><a href="/markbind/userGuide/index.html">Home</a></li>
+      <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+      <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
+      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a></li>
+      <li><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
+      <li><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
+      <li><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
+      <li><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+    </dropdown>
+  </navbar>
+</div>
+<div class="website-content">
+  <panel header="## Previewing site on Netlify with the latest version of MarkBind">
+    <ol>
+      <li>
+        <p>Go to <a href="https://app.netlify.com/">https://app.netlify.com/</a> and sign up</p>
+      </li>
+      <li>
+        <p>Next go to <a href="https://app.netlify.com/account/sites">https://app.netlify.com/account/sites</a> and select <code>New site from Git</code></p>
+      </li>
+      <li>
+        <p>Select your git provider</p>
+        <p><img src="/markbind/images/netlifyPreview1.png" alt="Create a new site" width="600"></p>
+      </li>
+      <li>
+        <p>Select your markbind site repository</p>
+        <p><img src="/markbind/images/netlifyPreview2.png" alt="Select repository" width="600"></p>
+      </li>
+      <li>
+        <p>Update the build settings as follows:</p>
+        <ul>
+          <li>Build Command: <code>npm i markbind-cli -g &amp;&amp; markbind build --baseUrl</code></li>
+          <li>Publish directory: <code>_site</code></li>
+        </ul>
+        <p><img src="/markbind/images/netlifyPreview3.png" alt="Update build settings" width="600"></p>
+        <p>and hit <code>Deploy site</code>.</p>
+      </li>
+    </ol>
+    <p>Now your site will be deployed on Netlify at the given address specified after deployment.</p>
+    <p>Additionally when contributors make a pull request to <code>master</code>, you can preview the updated site at the bottom of the pull request by clicking on details:</p>
+    <p><img src="/markbind/images/netlifyPreview4.png" alt="Preview deploy" width="600"></p>
+  </panel>
+  <panel header="## Previewing site on Netlify with a specific version of MarkBind">
+    <p>In order preview a site on Netlify with a specific version of MarkBind, you need to do the following in the root directory of your site:</p>
+    <ol>
+      <li>run <code>$ npm init</code> which will create <code>package.json</code> and <code>package.lock.json</code></li>
+      <li>run <code>$ npm install markbind-cli@1.6.3 --save</code> to install markbind as a dependency (using v1.6.3 as an example)</li>
+      <li>create/update <code>.gitignore</code> file in the root directory and add:
+        <pre class="hljs"><code>node_modules
+</code></pre>
+      </li>
+      <li>update <code>ignore</code> in site.json to include
+        <ul>
+          <li><code>node_modules/*</code></li>
+          <li><code>.gitignore</code></li>
+        </ul>
+      </li>
+    </ol>
+    <p>Now you are ready to set up on Netlify</p>
+    <ol>
+      <li>
+        <p>Go to <a href="https://app.netlify.com/">https://app.netlify.com/</a> and sign up</p>
+      </li>
+      <li>
+        <p>Next go to <a href="https://app.netlify.com/account/sites">https://app.netlify.com/account/sites</a> and select <code>New site from Git</code></p>
+      </li>
+      <li>
+        <p>Select your git provider</p>
+        <p><img src="/markbind/images/netlifyPreview1.png" alt="Create a new site" width="600"></p>
+      </li>
+      <li>
+        <p>Select your markbind site repository</p>
+        <p><img src="/markbind/images/netlifyPreview2.png" alt="Select repository" width="600"></p>
+      </li>
+      <li>
+        <p>Update the build settings as follows:</p>
+        <ul>
+          <li>Build Command: <code>markbind build --baseUrl</code></li>
+          <li>Publish directory: <code>_site</code></li>
+        </ul>
+        <p><img src="/markbind/images/netlifyPreview3.png" alt="Update build settings" width="600"></p>
+      </li>
+    </ol>
+    <p>Now your site will be deployed on Netlify at the given address specified after deployment.</p>
+    <p>Additionally when contributors make a pull request to <code>master</code>, you can preview the updated site at the bottom of the pull request by clicking on details:</p>
+    <p><img src="/markbind/images/netlifyPreview4.png" alt="Preview deploy"></p>
+  </panel>
+  <div>
+    <h2 id="sections">Sections</h2>
+    <ul>
+      <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+      <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
+      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a></li>
+      <li><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
+      <li><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
+      <li><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
+      <li><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+    </ul>
+  </div>
+</div>
+</div>
+</body>
+<script src="..\markbind\js\vue.min.js"></script>
+<script src="..\markbind\js\vue-strap.min.js"></script>
+<script src="..\markbind\js\setup.js"></script>
+</html>

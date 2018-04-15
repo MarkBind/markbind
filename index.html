@@ -14,13 +14,24 @@
     <link rel="stylesheet" href="/markbind/css/main.css">
 <div>
   <navbar placement="top" type="inverse">
-    <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a></navbar>
+    <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
+    <dropdown text="User Guide">
+      <li><a href="/markbind/userGuide/index.html">Home</a></li>
+      <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+      <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
+      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a></li>
+      <li><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
+      <li><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
+      <li><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
+      <li><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+    </dropdown>
+  </navbar>
 </div>
 <div class="website-content">
-  <h1 id="markbind">MarkBind</h1>
-  <p>MarkBind is a website generator that can generate a website from markdown documents. While there are other markdown-to-html website generators around <span class="dimmed">(e.g., Jekyll, GitBook, MkDocs)</span>, MarkBind is particularly suitable for
-    creating course Websites. <strong>The main aim of MarkBind is to provide a way to easily create content-heavy websites that allow <em><tooltip content="i.e., the reader can go deeper or get more content as desired">self-directed consumption</tooltip></em></strong>,
-    as opposed to one-size-fits-all static content.</p>
+  <h1 id="markbind"><strong>MarkBind</strong></h1>
+  <h4 id="generate-dynamic-websites-from-markdown-text">Generate dynamic websites from markdown text.</h4>
+  <p>MarkBind is a website generator that can generate a website from markdown documents. While there are other markdown-to-html website generators around, <strong>MarkBind can generate more dynamic websites</strong>, as opposed to one-size-fits-all static
+    content. MarkBind is particularly suitable to create content-heavy websites <span class="dimmed">e.g., eLearning websites, online instruction manuals, project documentation etc.</span> that aim for <em><tooltip content="i.e., the reader can go deeper or get more content as desired">self-directed consumption</tooltip></em>.</p>
   <h2 id="features"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Features</h2>
   <h4 id="support-for-markdown-and-gfmd">✓ Support for Markdown and
     <tooltip content="GitHub-Flavored Markdown">GFMD</tooltip>
@@ -204,7 +215,8 @@
   <h2 id="documentation"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Documentation</h2>
   <h4 id="for-users">For Users</h4>
   <ul>
-    <li><a href="https://github.com/MarkBind/markbind-cli/wiki/User-Quick-Start">Quick Start</a></li>
+    <li><a href="./userGuide/userQuickStart.html">Quick Start</a></li>
+    <li><a href="./userGuide/index.html">User Guide</a></li>
   </ul>
   <h4 id="for-developers">For Developers</h4>
   <ul>

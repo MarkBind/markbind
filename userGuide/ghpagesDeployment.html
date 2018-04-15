@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MarkBind: User Guide - Github Pages Deploment</title>
+    <link rel="stylesheet" href="..\markbind\css\bootstrap.min.css">
+    <link rel="stylesheet" href="..\markbind\css\github.min.css">
+    <link rel="stylesheet" href="..\markbind\css\markbind.css">
+</head>
+<body>
+<div id="app" class="container-fluid">
+    <link rel="stylesheet" href="/markbind/css/main.css">
+<div>
+  <navbar placement="top" type="inverse">
+    <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
+    <dropdown text="User Guide">
+      <li><a href="/markbind/userGuide/index.html">Home</a></li>
+      <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+      <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
+      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a></li>
+      <li><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
+      <li><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
+      <li><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
+      <li><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+    </dropdown>
+  </navbar>
+</div>
+<div class="website-content">
+  <h1 id="github-pages-deployment">Github Pages Deployment</h1>
+  <p><code>MarkBind</code> supports auto deployment to Github pages with a single command</p>
+  <pre class="hljs"><code>$ markbind deploy
+</code></pre>
+  <p>Make sure you have initialize your project as a Github repo and have a remote added to the repo; or please specify the repo link in the <code>site.json</code>'s deployment setting.</p>
+  <p>Learn more about <a href="https://help.github.com/categories/github-pages-basics/">Github pages</a>.</p>
+  <h3 id="deploy-to-github-pages-at-gh-pages-branch-of-the-current-repo">Deploy to Github pages at <code>gh-pages</code> branch of the current repo</h3>
+  <p>By default, if you have set up the current working directory as a git project, and have added the Github remote to the repo, then you are good to deploy. Simply run</p>
+  <pre class="hljs"><code>$ markbind deploy
+</code></pre>
+  <p>and wait it to finish deploying.</p>
+  <p>After deployment, your will be able to view your site online at http://<em>username</em>.github.io/<em>repository</em>.</p>
+  <p><strong>Note:</strong> Don't forget to set the <code>baseUrl</code> setting in the <code>site.json</code> otherwise your deployed website may have issue with link navigation. In the above deployment example, you should set your <code>baseUrl</code>    to &quot;/<em>repository</em>&quot;.</p>
+  <h3 id="deployment-config-in-sitejson">Deployment config in <code>site.json</code></h3>
+  <p>The following deployment config is available in your <code>site.json</code>'s &quot;<em>deploy</em>&quot; section:</p>
+  <pre class="hljs"><code>&quot;deploy&quot;: {
+    &quot;message&quot;: &quot;Site Update.&quot;, // This is the message for the deployment commit
+    &quot;repo&quot;: &quot;https://github.com/USER/REPO.git&quot;, // Or &quot;git@github.com:USER/REPO.git&quot; if you use SSH
+    &quot;branch&quot;: &quot;gh-pages&quot; // the branch for the deployment, default to 'gh-pages'
+}
+</code></pre>
+  <p><strong>If you want to use the default setting, remove the config entry or set it to empty string (<code>''</code>)</strong></p>
+  <ul>
+    <li>
+      <p><code>deploy.message</code></p>
+      <p>This is the commit message used for the deployment commit.<br> (
+        <strong>Default</strong>: Site Update.)</p>
+    </li>
+    <li>
+      <p><code>deploy.repo</code></p>
+      <p>This is the repo you want to deploy to. By default MarkBind try to push to the same repo as the current working project. If this is set, MarkBind will deploy to the given repo instead.<br> (
+        <strong>Default</strong>: the current working project's repo)</p>
+    </li>
+    <li>
+      <p><code>deploy.branch</code></p>
+      <p>This is the branch that will be deployed to in the remote repo.<br> (
+        <strong>Default</strong>: 'gh-pages')</p>
+    </li>
+  </ul>
+  <div>
+    <h2 id="sections">Sections</h2>
+    <ul>
+      <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+      <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
+      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a></li>
+      <li><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
+      <li><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
+      <li><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
+      <li><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+    </ul>
+  </div>
+</div>
+</div>
+</body>
+<script src="..\markbind\js\vue.min.js"></script>
+<script src="..\markbind\js\vue-strap.min.js"></script>
+<script src="..\markbind\js\setup.js"></script>
+</html>

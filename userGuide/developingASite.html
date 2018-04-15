@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MarkBind: User Guide - Developing a Site</title>
+    <link rel="stylesheet" href="..\markbind\css\bootstrap.min.css">
+    <link rel="stylesheet" href="..\markbind\css\github.min.css">
+    <link rel="stylesheet" href="..\markbind\css\markbind.css">
+</head>
+<body>
+<div id="app" class="container-fluid">
+    <link rel="stylesheet" href="/markbind/css/main.css">
+<div>
+  <navbar placement="top" type="inverse">
+    <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
+    <dropdown text="User Guide">
+      <li><a href="/markbind/userGuide/index.html">Home</a></li>
+      <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+      <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
+      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a></li>
+      <li><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
+      <li><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
+      <li><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
+      <li><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+    </dropdown>
+  </navbar>
+</div>
+<div class="website-content">
+  <h1 id="developing-a-site-with-markbind">Developing a Site with MarkBind</h1>
+  <p>This wiki explains the basic command you need to know to develop a site with MarkBind.</p>
+  <h2 id="init-a-site-with-markbind">Init a site with MarkBind</h2>
+  <p>MarkBind can setup a boilerplate site in the current directory:</p>
+  <pre class="hljs"><code>$ markbind init
+</code></pre>
+  <p>If you wish to create the site into a new directory, you can do so by running <code>markbind init ./directory</code></p>
+  <p>After running <code>init</code>, two files will be created for you: <code>index.md</code> and <code>site.json</code>. <code>index.md</code> is where you can start writing your contents (and will be rendered as <code>index.html</code> later), and
+    <a
+      href="#sitejson"><code>site.json</code></a> is the configuration file used for MarkBind to build your website correctly. <strong>A valid <code>site.json</code> file is required to build a MarkBind-driven site</strong>.</p>
+  <h2 id="preview-and-serve-your-site-using">Preview and serve your site using:</h2>
+  <pre class="hljs"><code>$ markbind serve
+</code></pre>
+  <p>MarkBind will generate the site in a folder named <code>_site</code> in the current directory. Live reload is enabled to regenerate the site for changes, so you could see the immediate rendering result after you modify the source files.</p>
+  <table class="markbind-table table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Options</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>-p</code>, <code>--port &lt;port&gt;</code></td>
+        <td>The port used for serving your website.</td>
+      </tr>
+      <tr>
+        <td>--no-open</td>
+        <td>Don't open browser automatically.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2 id="build-the-static-site">Build the static site</h2>
+  <pre class="hljs"><code>$ markbind build
+</code></pre>
+  <p>By default, MarkBind will generate the site to the folder named <code>_site</code> in the current directory, with current directory as the root directory. You can change them using</p>
+  <pre class="hljs"><code>$ markbind build ./rootFolder ./outputFolder
+</code></pre>
+  <h2 id="deploy-the-generated-site">Deploy the generated site</h2>
+  <pre class="hljs"><code>$ markbind deploy
+</code></pre>
+  <p>By default, it will try to push everything in the generated site (default dir: <code>_site</code>) to the <code>gh-pages</code> branch of the current git working directory's remote repo.</p>
+  <p>Please check more details of deployment <a href="ghpagesDeployment.html">here</a>.</p>
+  <h3 id="sitejson">site.json</h3>
+  <p>Let's take a look at this newly created <code>site.json</code>:</p>
+  <pre class="hljs"><code>{
+  &quot;baseUrl&quot;: &quot;/&quot;,
+  &quot;pages&quot;: [
+    {
+      &quot;src&quot;: &quot;index.md&quot;,
+      &quot;title&quot;: &quot;Hello World&quot;
+    }
+  ],
+  &quot;ignore&quot;: [
+    &quot;_site/*&quot;,
+    &quot;*.json&quot;,
+    &quot;*.md&quot;
+  ],
+  &quot;deploy&quot;: {
+    &quot;message&quot;: &quot;Site Update.&quot;
+  }
+}
+
+</code></pre>
+  <table class="markbind-table table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Variable</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>baseUrl</strong></td>
+        <td>The url base when you deploy the website. For example, if you are using Github Pages to host your deployed website, and the resulted page is <code>https://markbind.github.io/site-demo-cs2103/</code>, then your <code>baseUrl</code> would be <code>/site-demo-cs2103/</code>          (relative to your domain). Later you could use this variable to help you create top-level navigation link in the document.</td>
+      </tr>
+      <tr>
+        <td><strong>pages</strong></td>
+        <td>An array of the pages config tells MarkBind all the source files that needs to be rendered. The <code>src</code> is the page to be rendered; <code>title</code> is the page title for the generated web page.</td>
+      </tr>
+      <tr>
+        <td><strong>ignore</strong></td>
+        <td>Files to be ignored when building the website. By default, MarkBind will copy all the assets into the output folder. The ignore pattern follows the pattern used in <a href="https://git-scm.com/docs/gitignore#_pattern_format"><code>.gitignore</code></a>.
+          You may want to ignore all markdown source files by adding the entry <code>*.md</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>deploy</strong></td>
+        <td>Settings for the Github page deployment. Please refer to this <a href="ghpagesDeployment.html">doc</a> for more details.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <h2 id="sections">Sections</h2>
+    <ul>
+      <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+      <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
+      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a></li>
+      <li><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
+      <li><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
+      <li><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
+      <li><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+    </ul>
+  </div>
+</div>
+</div>
+</body>
+<script src="..\markbind\js\vue.min.js"></script>
+<script src="..\markbind\js\vue-strap.min.js"></script>
+<script src="..\markbind\js\setup.js"></script>
+</html>
