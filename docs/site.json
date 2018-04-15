@@ -4,6 +4,38 @@
     {
       "src": "index.md",
       "title": "MarkBind: Generate Course Websites from Markdown Text"
+    },
+    {
+      "src": "userGuide/index.md",
+      "title": "MarkBind: User Guide"
+    },
+    {
+      "src": "userGuide/userQuickStart.md",
+      "title": "MarkBind: User Guide - Quick Start"
+    },
+    {
+      "src": "userGuide/contentAuthoring.md",
+      "title": "MarkBind: User Guide - Content Authoring"
+    },
+    {
+      "src": "userGuide/developingASite.md",
+      "title": "MarkBind: User Guide - Developing a Site"
+    },
+    {
+      "src": "userGuide/ghpagesDeployment.md",
+      "title": "MarkBind: User Guide - Github Pages Deploment"
+    },
+    {
+      "src": "userGuide/includingContents.md",
+      "title": "MarkBind: User Guide - Including Contents"
+    },
+    {
+      "src": "userGuide/siteConfiguration.md",
+      "title": "MarkBind: User Guide - Site Configuration"
+    },
+    {
+      "src": "userGuide/netlifyPreview.md",
+      "title": "MarkBind: User Guide - Preview site on Netlify"
     }
   ],
   "ignore": [
