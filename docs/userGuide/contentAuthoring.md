@@ -56,7 +56,7 @@ The HTML output will be:
 In this case, we will get the `Markdown Content` text rendered in bold on a new line.
 
 #### Specifying Path Reference
-Use `{{baseUrl}}` for absolute path reference of images and resource files so that the path could be handled correctly when deployed. The `{{baseUrl}}` is parsed from the project root (where `site.json` located).
+Use {{showBaseUrl}} for absolute path reference of images and resource files so that the path could be handled correctly when deployed. The {{showBaseUrl}} is parsed from the project root (where `site.json` located).
 
 
 ### Supported Markdown Syntax
