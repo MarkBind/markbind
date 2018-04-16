@@ -113,6 +113,24 @@ In addition, it supports:
 
 * More media blocks, embedding services and additional options can be found in [Markdown-it-block-embed docs](https://github.com/rotorz/markdown-it-block-embed)
 
+### Add your own variables
+
+In `_markbind/variables.md`, you can define your own variables which can be used anywhere in your site. The format is as follows.
+
+```
+<span id="year">2018</span>
+
+<span id="options">
+* yes
+* no
+* maybe
+</span>
+```
+
+Each variable must have a id and the value can be any markbind-compliant code fragment.
+
+In any file in your site, you can include the variable by surrounding the variable's id with double curly braces e.g. <code>{&#8203;{options}&#8203;}</code>
+
 ### Use Searchbar
 
 To use the searchbar, add the following markup to your file.
