@@ -28,20 +28,11 @@
       <include src="../common/RequirementsVsSystemSpecification.md"/>
       <include src="../index.html" />
     ```
-
-    **Boilerplate files** 
     
-      E.g. In `book/architecture/index.md`, 
-      ```
-        <include src="full.md">
-      ```
-    
-    If a specified file e.g. `full.md` cannot be found in the local folder, Markbind will automatically check if the file exists in the `{{baseUrl}}/_boilerplates` folder.  
-    
-    The `_boilerplates` folder in the site's root directory can be used to store the repetitive files. For example, the `full.md` file contains the same text (including `<include src="text.md">`) and needs to be used in many places. You want the `text.md` to include to depend on the folder `full.md` is in (in this case, `book/architecture/full.md`). Instead of duplicating the file in different locations, you will only need a copy in the boilerplate directory - the final outcome is as if the file was present in the different locations.
+    <panel src="boilerplate.md" header="#### Handling repetitive boilerplate files" />
 
     <br/>
-    
+
 2. #### Wrap elements inside a `<div>` or `<seg>` tag with an unique `id` if you wish to create a reusable content fragment inside a file (that could be included from other file).
 
    &#9888; The `id` cannot be exactly the same as a preceding heading, as `id` attributes will be added to headings for creating anchors.

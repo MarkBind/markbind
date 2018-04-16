@@ -157,7 +157,7 @@ or
 ```
 ### Include Contents
 
-Being able to include different markdown file into the current context is another feauture of *MarkBind*. You can create a complex document from different content fragments by including them.
+Being able to include different markdown file into the current context is another feature of *MarkBind*. You can create a complex document from different content fragments by including them.
 
 For detailed guide on using `<include>` tag for including contents, read the doc [here](includingContents.html).
 
