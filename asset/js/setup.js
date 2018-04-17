@@ -17,13 +17,13 @@ function setupWithSearch(siteData) {
       typeahead,
     },
     data() {
-      const utilMethods = {
+      const helpers = {
         value() { return [this.title].concat(this.keywords).join(' '); },
         indexOf(query) { return this.value().indexOf(query); },
         toLowerCase() { return this.value().toLowerCase(); },
       };
       return {
-        searchData: siteData.pages.map(currentPage => Object.assign({}, currentPage, utilMethods)),
+        searchData: siteData.pages.map(page => Object.assign({}, page, helpers)),
         titleTemplate: '{{ item.title }}<br><sub>{{ item.keywords }}</sub>',
       };
     },
@@ -36,6 +36,6 @@ function setupWithSearch(siteData) {
   VueStrap.installEvents(vm);
 }
 
-jQuery.getJSON(`${window.location.origin}/siteData.json`)
+jQuery.getJSON('../../siteData.json')
   .then(siteData => setupWithSearch(siteData))
   .catch(() => setup());
