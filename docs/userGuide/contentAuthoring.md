@@ -127,7 +127,7 @@ In `_markbind/variables.md`, you can define your own variables which can be used
 </span>
 ```
 
-Each variable must have a id and the value can be any markbind-compliant code fragment.
+Each variable must have a id and the value can be any markbind-compliant code fragment. The id should not contain `-` and `.`. For example, `search-option` and `search.options` are not allowed.
 
 In any file in your site, you can include the variable by surrounding the variable's id with double curly braces e.g. <code>{&#8203;{options}&#8203;}</code>
 
