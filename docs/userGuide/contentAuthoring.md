@@ -115,7 +115,7 @@ In addition, it supports:
 
 ### Add your own variables
 
-In `_markbind/variables.md`, you can define your own variables which can be used anywhere in your site. The format is as follows.
+In `_markbind/variables.md`, you can define your own variables that can be used anywhere in your site. The format is as follows.
 
 ```
 <span id="year">2018</span>
@@ -127,9 +127,9 @@ In `_markbind/variables.md`, you can define your own variables which can be used
 </span>
 ```
 
-Each variable must have a id and the value can be any markbind-compliant code fragment. The id should not contain `-` and `.`. For example, `search-option` and `search.options` are not allowed.
+Each variable must have an id and the value can be any MarkBind-compliant code fragment. The id should not contain `-` and `.`. For example, `search-option` and `search.options` are not allowed.
 
-In any file in your site, you can include the variable by surrounding the variable's id with double curly braces e.g. <code>{&#8203;{options}&#8203;}</code>
+In any file in your site, you can include the variable by surrounding the variable's id with double curly braces, e.g. <code>{&#8203;{options}&#8203;}</code>
 
 ### Use Searchbar
 
