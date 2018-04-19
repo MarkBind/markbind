@@ -58,6 +58,24 @@ const startsWithClosedPath = (fragment) => {
 };
 
 /**
+ * Prints any diffs in a diff object
+ * @param diff
+ */
+function printDiff(diff) {
+  diff.forEach((part) => {
+    // green for additions, red for deletions
+    // grey for common parts
+    let color = 'grey';
+    if (part.added) {
+      color = 'green';
+    } else if (part.removed) {
+      color = 'red';
+    }
+    process.stderr.write(part.value[color]);
+  });
+}
+
+/**
  * Checks if diff is a path separator character
  */
 const isPathSeparatorDiff = diff => diff === '\\' || diff === '/';
@@ -90,10 +108,10 @@ const diffHtml = (expected, actual) => {
     }
 
     if (isDiff(part) && !insidePath) {
-      console.log(expected);
-      console.log(actual);
+      printDiff(diff);
       throw new Error(`Diff outside path!: '${part.value}'`);
     } else if (isDiff(part) && !isPathSeparatorDiff(part.value)) {
+      printDiff(diff);
       throw new Error(`Diff in path!: '${part.value}'`);
     }
   });
