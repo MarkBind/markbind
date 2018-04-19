@@ -107,6 +107,7 @@ program
   .option('--no-open', 'do not automatically open the site in browser')
   .action((root, options) => {
     const rootFolder = path.resolve(root || process.cwd());
+    const logsFolder = path.join(rootFolder, '_markbind/logs');
     const outputFolder = path.join(rootFolder, '_site');
 
     const site = new Site(rootFolder, outputFolder);
@@ -167,6 +168,7 @@ program
       .then(() => {
         const watcher = chokidar.watch(rootFolder, {
           ignored: [
+            logsFolder,
             outputFolder,
             /(^|[/\\])\../,
             x => x.endsWith('___jb_tmp___'), x => x.endsWith('___jb_old___'), // IDE temp files

@@ -11,6 +11,7 @@
     }
   ],
   "ignore": [
+    "_markbind/logs/*",
     "_site/*",
     "site.json",
     "*.md",
