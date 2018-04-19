@@ -90,6 +90,8 @@ const diffHtml = (expected, actual) => {
     }
 
     if (isDiff(part) && !insidePath) {
+      console.log(expected);
+      console.log(actual);
       throw new Error(`Diff outside path!: '${part.value}'`);
     } else if (isDiff(part) && !isPathSeparatorDiff(part.value)) {
       throw new Error(`Diff in path!: '${part.value}'`);
