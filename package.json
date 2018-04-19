@@ -60,6 +60,7 @@
     "test": "cd test/test_site && ./test.sh"
   },
   "devDependencies": {
+    "colors": "^1.2.1",
     "diff": "^3.5.0",
     "eslint": "^4.16.0",
     "eslint-config-airbnb-base": "^12.1.0",

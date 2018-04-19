@@ -1,3 +1,4 @@
+require('colors');
 const jsdiff = require('diff');
 
 /**
@@ -71,7 +72,7 @@ function printDiff(diff) {
     } else if (part.removed) {
       color = 'red';
     }
-    process.stderr.write(part.value[color]);
+    process.stdout.write(part.value[color]);
   });
 }
 
