@@ -56,7 +56,7 @@ The HTML output will be:
 In this case, we will get the `Markdown Content` text rendered in bold on a new line.
 
 #### Specifying Path Reference
-Use `{{baseUrl}}` for absolute path reference of images and resource files so that the path could be handled correctly when deployed. The `{{baseUrl}}` is parsed from the project root (where `site.json` located).
+Use {{showBaseUrl}} for absolute path reference of images and resource files so that the path could be handled correctly when deployed. The {{showBaseUrl}} is parsed from the project root (where `site.json` located).
 
 
 ### Supported Markdown Syntax
@@ -113,6 +113,24 @@ In addition, it supports:
 
 * More media blocks, embedding services and additional options can be found in [Markdown-it-block-embed docs](https://github.com/rotorz/markdown-it-block-embed)
 
+### Add your own variables
+
+In `_markbind/variables.md`, you can define your own variables that can be used anywhere in your site. The format is as follows.
+
+```
+<span id="year">2018</span>
+
+<span id="options">
+* yes
+* no
+* maybe
+</span>
+```
+
+Each variable must have an id and the value can be any MarkBind-compliant code fragment. The id should not contain `-` and `.`. For example, `search-option` and `search.options` are not allowed.
+
+In any file in your site, you can include the variable by surrounding the variable's id with double curly braces, e.g. <code>{&#8203;{options}&#8203;}</code>
+
 ### Use Searchbar
 
 To use the searchbar, add the following markup to your file.
@@ -157,7 +175,7 @@ or
 ```
 ### Include Contents
 
-Being able to include different markdown file into the current context is another feauture of *MarkBind*. You can create a complex document from different content fragments by including them.
+Being able to include different markdown file into the current context is another feature of *MarkBind*. You can create a complex document from different content fragments by including them.
 
 For detailed guide on using `<include>` tag for including contents, read the doc [here](includingContents.html).
 
