@@ -10,8 +10,6 @@ function setup() {
 }
 
 function setupWithSearch(siteData) {
-  const routeArray = jQuery.map(siteData.pages, object => object.src);
-  const titleArray = jQuery.map(siteData.pages, object => object.title);
   const { typeahead } = VueStrap.components;
   const vm = new Vue({
     el: '#app',
@@ -19,21 +17,25 @@ function setupWithSearch(siteData) {
       typeahead,
     },
     data() {
+      const helpers = {
+        value() { return [this.title].concat(this.keywords).join(' '); },
+        indexOf(query) { return this.value().indexOf(query); },
+        toLowerCase() { return this.value().toLowerCase(); },
+      };
       return {
-        searchData: titleArray,
+        searchData: siteData.pages.map(page => Object.assign({}, page, helpers)),
+        titleTemplate: '{{ item.title }}<br><sub>{{ item.keywords }}</sub>',
       };
     },
     methods: {
       searchCallback(match) {
-        const index = titleArray.indexOf(match);
-        const route = routeArray[index];
-        window.location.pathname = route.replace('.md', '.html');
+        window.location.pathname = match.src.replace('.md', '.html');
       },
     },
   });
   VueStrap.installEvents(vm);
 }
 
-jQuery.getJSON('../../site.json')
+jQuery.getJSON('../../siteData.json')
   .then(siteData => setupWithSearch(siteData))
   .catch(() => setup());

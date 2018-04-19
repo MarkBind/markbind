@@ -179,6 +179,39 @@ Being able to include different markdown file into the current context is anothe
 
 For detailed guide on using `<include>` tag for including contents, read the doc [here](includingContents.html).
 
+### Front Matter
+
+Front matter allows you to specify page parameters such as the title and keywords of the page. These parameters will be used to build a site data file (`siteData.json`) that will contain the index used for the search function.
+You can specify front matter at the beginning of your page by using the `<frontmatter>` tag as follows:
+
+```
+<frontmatter>
+  title: Binary Search Tree
+  keywords: bst, avl, red-black
+</frontmatter>
+```
+
+Note: A title that is defined in `site.json` for a particular page will take precedence over a title defined in the front matter.
+
+Front matter can also be included from a separate file, just like how content can be included. This makes it easy to simply define all your required front matter in one file, and use it everywhere.
+
+`matterDefinition.md`
+```
+<seg id="bst">
+  <frontmatter>
+    title: Binary Search Tree
+    keywords: bst, avl, red-black
+  </frontmatter>
+</seg>
+```
+
+`index.md`
+```
+<include src="matterDefinition.md#bst" />
+```
+
+This will result in `index.md` having the title `Binary Search Tree` and the specified keywords in order for it to be looked up through the search bar.
+
 <include src="../common/userGuideSections.md" />
 
 </div>
