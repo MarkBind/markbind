@@ -1,6 +1,6 @@
 {
   "name": "markbind",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "MarkBind core module.",
   "main": "lib/parser.js",
   "keywords": [
