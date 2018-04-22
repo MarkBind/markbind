@@ -37,11 +37,14 @@ test('Site Generate builds the correct amount of assets', async () => {
   await site.generate();
   const paths = Object.keys(fs.vol.toJSON());
   const originalNumFiles = 8;
-  const expectedNumBuilt = 6;
+  const expectedNumBuilt = 7;
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
   // site
   expect(fs.existsSync(path.resolve('inner/_site'))).toEqual(true);
+
+  // siteData
+  expect(fs.existsSync(path.resolve('inner/_site/siteData.json'))).toEqual(true);
 
   // markbind
   expect(fs.existsSync(path.resolve('inner/_site/markbind'))).toEqual(true);

@@ -1,13 +1,13 @@
 {
   "baseUrl": "/test_site",
+  "titlePrefix": "",
   "pages": [
     {
       "src": "index.md",
       "title": "Hello World"
     },
     {
-      "src": "bugs/index.md",
-      "title": "Open Bugs"
+      "glob" : "**/index.md"
     }
   ],
   "ignore": [
