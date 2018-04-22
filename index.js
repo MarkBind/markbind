@@ -19,9 +19,8 @@ const logger = require('./lib/util/logger');
 const MarkBind = require('./lib/markbind/lib/parser');
 const Site = require('./lib/Site');
 
-const CLI_VERSION = require('./package.json').version;
-
 const ACCEPTED_COMMANDS = ['version', 'include', 'render', 'init', 'build', 'serve', 'deploy'];
+const CLI_VERSION = require('./package.json').version;
 
 const markbinder = new MarkBind();
 
