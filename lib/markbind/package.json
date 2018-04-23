@@ -28,7 +28,7 @@
     "markdown-it-table-of-contents": "^0.3.2",
     "markdown-it-task-lists": "^1.4.1",
     "markdown-it-video": "^0.4.0",
-    "nunjucks": "^3.0.0",
+    "mustache": "^2.3.0",
     "path-is-inside": "^1.0.2"
   },
   "devDependencies": {
