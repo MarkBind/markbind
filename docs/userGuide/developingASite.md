@@ -52,34 +52,7 @@ Please check more details of deployment [here](ghpagesDeployment.html).
 
 ### site.json
 Let's take a look at this newly created `site.json`:
-```
-{
-  "baseUrl": "/",
-  "pages": [
-    {
-      "src": "index.md",
-      "title": "Hello World"
-    }
-  ],
-  "ignore": [
-    "_site/*",
-    "*.json",
-    "*.md"
-  ],
-  "deploy": {
-    "message": "Site Update."
-  }
-}
-
-```
-
-| Variable | Description |
-|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **baseUrl** | The url base when you deploy the website. For example, if you are using Github Pages to host your deployed website, and the resulted page is `https://markbind.github.io/site-demo-cs2103/`, then your `baseUrl` would be `/site-demo-cs2103/` (relative to your domain). Later you could use this variable to help you create top-level navigation link in the document. |
-| **pages** | An array of the pages config tells MarkBind all the source files that needs to be rendered. The `src` is the page to be rendered; `title` is the page title for the generated web page. |
-| **ignore** | Files to be ignored when building the website. By default, MarkBind will copy all the assets into the output folder. The ignore pattern follows the pattern used in [`.gitignore`](https://git-scm.com/docs/gitignore#_pattern_format). You may want to ignore all markdown source files by adding the entry `*.md`. |
-| **deploy** | Settings for the Github page deployment. Please refer to this [doc](ghpagesDeployment.html) for more details. |
-
+<include src="siteConfiguration.md#siteConfig" />
 <include src="../common/userGuideSections.md" />
 
 </div>
