@@ -51,14 +51,6 @@
   &lt;include src=&quot;../common/RequirementsVsSystemSpecification.md&quot;/&gt;
   &lt;include src=&quot;../index.html&quot; /&gt;
 </code></pre>
-      <p><strong>Boilerplate files</strong></p>
-      <p>E.g. In <code>book/architecture/index.md</code>,</p>
-      <pre class="hljs"><code>  &lt;include src=&quot;full.md&quot;&gt;
-</code></pre>
-      <p>If a specified file e.g. <code>full.md</code> cannot be found in the local folder, Markbind will automatically check if the file exists in the <code>/markbind/_boilerplates</code> folder.</p>
-      <p>The <code>_boilerplates</code> folder in the site's root directory can be used to store the repetitive files. For example, the <code>full.md</code> file contains the same text (including <code>&lt;include src=&quot;text.md&quot;&gt;</code>) and
-        needs to be used in many places. You want the <code>text.md</code> to include to depend on the folder <code>full.md</code> is in (in this case, <code>book/architecture/full.md</code>). Instead of duplicating the file in different locations, you
-        will only need a copy in the boilerplate directory - the final outcome is as if the file was present in the different locations.</p>
       <br></li>
     <li>
       <h4 id="wrap-elements-inside-a-div-or-seg-tag-with-an-unique-id-if-you-wish-to-create-a-reusable-content-fragment-inside-a-file-that-could-be-included-from-other-file">Wrap elements inside a <code>&lt;div&gt;</code> or <code>&lt;seg&gt;</code> tag with an unique <code>id</code> if you wish to create a reusable content fragment inside a file (that could be included from other file).</h4>
@@ -89,6 +81,29 @@
     site.json
   some.md (it include a file in site A, &lt;include src=&quot;./A/other.md&quot;&gt;)
 </code></pre>
+    </li>
+    <li>
+      <h4 id="handling-repetitive-boilerplate-files">Handling repetitive boilerplate files</h4>
+      <p>The <code>_markbind/boilerplates</code> folder in the site's root directory can be used to store repetitive files. You might have a file <code>structure.md</code> (that contains text such as <code>&lt;include src=&quot;text.md&quot;&gt;</code>)
+        that needs to be used in many places. You want the <code>text.md</code> to be included to depend on the folder <code>structure.md</code> is supposed to be in. Instead of duplicating the file in different locations, you will only need a copy in
+        the boilerplate directory — the final outcome is as if the file was present in the different locations.</p>
+      <p>To specify a boilerplate file, add <code>boilerplate</code> in the attribute for <code>include</code> or <code>dynamic-panel</code>.</p>
+      <p>E.g. In <code>book/architecture/architecturalStyles/index.md</code>,</p>
+      <pre><code class="hljs html">  <span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"../structure.md"</span> <span class="hljs-attr">boilerplate</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">dynamic-panel</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"structure.md"</span> <span class="hljs-attr">boilerplate</span> /&gt;</span>
+</code></pre>
+      <p>MarkBind will look for and use the file <code>/_markbind/boilerplates/structure.md</code>. Notice that this is the combination of the boilerplate directory and the file base name. The reference is location sensitive. If <code>structure.md</code>        includes <code>text.md</code>, in the first case, it will use <code>book/architecture/architecturalStyles/text.md</code> while in the second case, it will use <code>book/architecture/text.md</code>.</p>
+      <p>You may also want to organise your boilerplate files into directories or save them with another name. To specify the boilerplate file, use</p>
+      <pre><code class="hljs html">  <span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"index.md"</span> <span class="hljs-attr">boilerplate</span>=<span class="hljs-string">"print-index.md"</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"print.md"</span> <span class="hljs-attr">boilerplate</span>=<span class="hljs-string">"print/template.md"</span> /&gt;</span>
+</code></pre>
+      <p>In the first case, MarkBind will use <code>/_markbind/boilerplates/print-index.md</code>. In the second case, MarkBind will use <code>/_markbind/boilerplates/print/template.md</code>.</p>
+      <tip-box type="info">
+        <div>
+          <p>Boilerplate files need <code>src</code> and <code>boilerplate</code> attributes. The value of <code>src</code> is compulsory — it should be where you want the included file to be if you have to duplicate it. The <code>boilerplate</code> value
+            is optionally used to specify the path within the boilerplate folder. If unspecified, the file is assumed to be at <code>/_markbind/boilerplates/baseNameInSrc</code>. Else, MarkBind will look for the file at <code>/_markbind/boilerplates/value</code>.</p>
+        </div>
+      </tip-box>
     </li>
   </ol>
   <div>

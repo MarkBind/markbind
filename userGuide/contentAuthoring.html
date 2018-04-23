@@ -67,7 +67,9 @@
 </code></pre>
   <p>In this case, we will get the <code>Markdown Content</code> text rendered in bold on a new line.</p>
   <h4 id="specifying-path-reference">Specifying Path Reference</h4>
-  <p>Use <code>/markbind</code> for absolute path reference of images and resource files so that the path could be handled correctly when deployed. The <code>/markbind</code> is parsed from the project root (where <code>site.json</code> located).</p>
+  <p>Use
+    <code>{​{baseUrl}​}</code> for absolute path reference of images and resource files so that the path could be handled correctly when deployed. The
+    <code>{​{baseUrl}​}</code> is parsed from the project root (where <code>site.json</code> located).</p>
   <h3 id="supported-markdown-syntax">Supported Markdown Syntax</h3>
   <p>MarkBind support the standard Markdown syntax. Read the <a href="https://guides.github.com/features/mastering-markdown/">guide</a>.</p>
   <p>In addition, it supports:</p>
@@ -126,14 +128,26 @@
       <p>More media blocks, embedding services and additional options can be found in <a href="https://github.com/rotorz/markdown-it-block-embed">Markdown-it-block-embed docs</a></p>
     </li>
   </ul>
+  <h3 id="add-your-own-variables">Add your own variables</h3>
+  <p>In <code>_markbind/variables.md</code>, you can define your own variables that can be used anywhere in your site. The format is as follows.</p>
+  <pre class="hljs"><code>&lt;span id=&quot;year&quot;&gt;2018&lt;/span&gt;
+
+&lt;span id=&quot;options&quot;&gt;
+* yes
+* no
+* maybe
+&lt;/span&gt;
+</code></pre>
+  <p>Each variable must have an id and the value can be any MarkBind-compliant code fragment. The id should not contain <code>-</code> and <code>.</code>. For example, <code>search-option</code> and <code>search.options</code> are not allowed.</p>
+  <p>In any file in your site, you can include the variable by surrounding the variable's id with double curly braces, e.g. <code>{​{options}​}</code></p>
   <h3 id="use-searchbar">Use Searchbar</h3>
   <p>To use the searchbar, add the following markup to your file.</p>
-  <pre class="hljs"><code>&lt;typeahead :data=&quot;searchData&quot; placeholder=&quot;Search&quot; :on-hit=&quot;searchCallback&quot;&gt;&lt;/typeahead&gt;
+  <pre class="hljs"><code>&lt;typeahead :data=&quot;searchData&quot; placeholder=&quot;Search&quot; :template=&quot;titleTemplate&quot; template-name=&quot;title&quot; :on-hit=&quot;searchCallback&quot;&gt;&lt;/typeahead&gt; 
 </code></pre>
   <p>To use the searchbar within a navbar, add the following markup to your file. The searchbar can be positioned using the slot attribute for the list. The following markup adds a searchbar to the right side of the navbar with appropriate styling.</p>
   <pre class="hljs"><code>&lt;li slot=&quot;right&quot;&gt;
   &lt;form class=&quot;navbar-form&quot;&gt;
-    &lt;typeahead :data=&quot;searchData&quot; placeholder=&quot;Search&quot; :on-hit=&quot;searchCallback&quot;&gt;&lt;/typeahead&gt; 
+    &lt;typeahead :data=&quot;searchData&quot; placeholder=&quot;Search&quot; :template=&quot;titleTemplate&quot; template-name=&quot;title&quot; :on-hit=&quot;searchCallback&quot;&gt;&lt;/typeahead&gt;  
   &lt;/form&gt;
 &lt;/li&gt;
 </code></pre>
@@ -154,8 +168,30 @@
 &lt;/div&gt;
 </code></pre>
   <h3 id="include-contents">Include Contents</h3>
-  <p>Being able to include different markdown file into the current context is another feauture of <em>MarkBind</em>. You can create a complex document from different content fragments by including them.</p>
+  <p>Being able to include different markdown file into the current context is another feature of <em>MarkBind</em>. You can create a complex document from different content fragments by including them.</p>
   <p>For detailed guide on using <code>&lt;include&gt;</code> tag for including contents, read the doc <a href="includingContents.html">here</a>.</p>
+  <h3 id="front-matter">Front Matter</h3>
+  <p>Front matter allows you to specify page parameters such as the title and keywords of the page. These parameters will be used to build a site data file (<code>siteData.json</code>) that will contain the index used for the search function. You can specify
+    front matter at the beginning of your page by using the <code>&lt;frontmatter&gt;</code> tag as follows:</p>
+  <pre class="hljs"><code>&lt;frontmatter&gt;
+  title: Binary Search Tree
+  keywords: bst, avl, red-black
+&lt;/frontmatter&gt;
+</code></pre>
+  <p>Note: A title that is defined in <code>site.json</code> for a particular page will take precedence over a title defined in the front matter.</p>
+  <p>Front matter can also be included from a separate file, just like how content can be included. This makes it easy to simply define all your required front matter in one file, and use it everywhere.</p>
+  <p><code>matterDefinition.md</code></p>
+  <pre class="hljs"><code>&lt;seg id=&quot;bst&quot;&gt;
+  &lt;frontmatter&gt;
+    title: Binary Search Tree
+    keywords: bst, avl, red-black
+  &lt;/frontmatter&gt;
+&lt;/seg&gt;
+</code></pre>
+  <p><code>index.md</code></p>
+  <pre class="hljs"><code>&lt;include src=&quot;matterDefinition.md#bst&quot; /&gt;
+</code></pre>
+  <p>This will result in <code>index.md</code> having the title <code>Binary Search Tree</code> and the specified keywords in order for it to be looked up through the search bar.</p>
   <div>
     <h2 id="sections">Sections</h2>
     <ul>
