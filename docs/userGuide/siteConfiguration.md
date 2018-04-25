@@ -9,6 +9,9 @@
 You can configure your site generation using the `site.json` file.
 
 Let's examine a typical `site.json` file:
+
+<div id="siteConfig">
+
 ```
 {
   "baseUrl": "",
@@ -41,6 +44,7 @@ Let's examine a typical `site.json` file:
 | **pages** | An array of the pages config tells MarkBind all the source files that needs to be rendered. The `src` is the page to be rendered; `title` is the page title for the generated web page. Titles specified in this array will take priority over titles specified within the front matter of individual pages. In addition, globs can be used to define pages that will be rendered. Front matter for the pages will be automatically indexed. However, if front matter or `title` is not specified, the page will have a default title that consists only of the `titlePrefix`. |
 | **ignore** | Files to be ignored when building the website. By default, MarkBind will copy all the assets into the output folder. The ignore pattern follows the pattern used in [`.gitignore`](https://git-scm.com/docs/gitignore#_pattern_format). You may want to ignore all markdown source files by adding the entry `*.md`, as well as the Git working directory `.git/*`. |
 | **deploy** | Settings for the auto Github page deployment. Please refer this [doc](ghpagesDeployment.html) for more details. |
+</div>
 
 <include src="../common/userGuideSections.md" />
 
