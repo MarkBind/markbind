@@ -39,6 +39,7 @@
     }
   ],
   "ignore": [
+    "_markbind",
     "_site/*",
     "lib/*",
     "*.json",
@@ -46,6 +47,7 @@
     "*.pptx"
   ],
   "deploy": {
-    "message": "Site Update."
+    "message": "Site Update.",
+    "repo": "https://github.com/MarkBind/markbind.git"
   }
 }
