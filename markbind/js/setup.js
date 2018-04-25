@@ -9,6 +9,14 @@ function setup() {
   VueStrap.installEvents(vm);
 }
 
+let baseUrl = '';
+
+// Support gh-pages
+if (window.location.origin.endsWith('github.io')) {
+  const repository = window.location.pathname.split('/')[1];
+  baseUrl = `/${repository}`;
+}
+
 function setupWithSearch(siteData) {
   const { typeahead } = VueStrap.components;
   const vm = new Vue({
@@ -29,13 +37,13 @@ function setupWithSearch(siteData) {
     },
     methods: {
       searchCallback(match) {
-        window.location.pathname = match.src.replace('.md', '.html');
+        window.location = `${baseUrl}/${match.src.replace('.md', '.html')}`;
       },
     },
   });
   VueStrap.installEvents(vm);
 }
 
-jQuery.getJSON('../../siteData.json')
+jQuery.getJSON(`${baseUrl}/siteData.json`)
   .then(siteData => setupWithSearch(siteData))
   .catch(() => setup());

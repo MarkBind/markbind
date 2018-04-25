@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MarkBind: User Guide - Site Configuration</title>
-    <link rel="stylesheet" href="..\markbind\css\bootstrap.min.css">
-    <link rel="stylesheet" href="..\markbind\css\github.min.css">
-    <link rel="stylesheet" href="..\markbind\css\markbind.css">
+    <link rel="stylesheet" href="../markbind/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../markbind/css/github.min.css">
+    <link rel="stylesheet" href="../markbind/css/markbind.css">
 </head>
 <body>
 <div id="app" class="container-fluid">
@@ -31,7 +31,8 @@
   <h1 id="site-configuration">Site Configuration</h1>
   <p>You can configure your site generation using the <code>site.json</code> file.</p>
   <p>Let's examine a typical <code>site.json</code> file:</p>
-  <pre class="hljs"><code>{
+  <div id="siteConfig">
+    <pre class="hljs"><code>{
   &quot;baseUrl&quot;: &quot;&quot;,
   &quot;titlePrefix&quot;: &quot;&quot;,
   &quot;pages&quot;: [
@@ -54,38 +55,39 @@
 }
 
 </code></pre>
-  <table class="markbind-table table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>Variable</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>baseUrl</strong></td>
-        <td>The url base when you deploy the website. For example, if you are using Github Pages to host your deployed website, and the resulted page is <code>https://markbind.github.io/site-demo-cs2103</code>, then your <code>baseUrl</code> would be <code>/site-demo-cs2103</code>          (relative to your domain, default is <code></code> (empty)). Later you could use this variable to help you create top-level navigation link in the document. <strong>You may need to change the <code>baseUrl</code> when deploy to different repo.</strong></td>
-      </tr>
-      <tr>
-        <td><strong>titlePrefix</strong></td>
-        <td>The prefix for all page titles. This prefix will be prepended to all rendered pages.</td>
-      </tr>
-      <tr>
-        <td><strong>pages</strong></td>
-        <td>An array of the pages config tells MarkBind all the source files that needs to be rendered. The <code>src</code> is the page to be rendered; <code>title</code> is the page title for the generated web page. Titles specified in this array will take
-          priority over titles specified within the front matter of individual pages. In addition, globs can be used to define pages that will be rendered. Front matter for the pages will be automatically indexed. However, if front matter or <code>title</code>          is not specified, the page will have a default title that consists only of the <code>titlePrefix</code>.</td>
-      </tr>
-      <tr>
-        <td><strong>ignore</strong></td>
-        <td>Files to be ignored when building the website. By default, MarkBind will copy all the assets into the output folder. The ignore pattern follows the pattern used in <a href="https://git-scm.com/docs/gitignore#_pattern_format"><code>.gitignore</code></a>.
-          You may want to ignore all markdown source files by adding the entry <code>*.md</code>, as well as the Git working directory <code>.git/*</code>.</td>
-      </tr>
-      <tr>
-        <td><strong>deploy</strong></td>
-        <td>Settings for the auto Github page deployment. Please refer this <a href="ghpagesDeployment.html">doc</a> for more details.</td>
-      </tr>
-    </tbody>
-  </table>
+    <table class="markbind-table table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Variable</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>baseUrl</strong></td>
+          <td>The url base when you deploy the website. For example, if you are using Github Pages to host your deployed website, and the resulted page is <code>https://markbind.github.io/site-demo-cs2103</code>, then your <code>baseUrl</code> would be <code>/site-demo-cs2103</code>            (relative to your domain, default is <code></code> (empty)). Later you could use this variable to help you create top-level navigation link in the document. <strong>You may need to change the <code>baseUrl</code> when deploy to different repo.</strong></td>
+        </tr>
+        <tr>
+          <td><strong>titlePrefix</strong></td>
+          <td>The prefix for all page titles. This prefix will be prepended to all rendered pages.</td>
+        </tr>
+        <tr>
+          <td><strong>pages</strong></td>
+          <td>An array of the pages config tells MarkBind all the source files that needs to be rendered. The <code>src</code> is the page to be rendered; <code>title</code> is the page title for the generated web page. Titles specified in this array will
+            take priority over titles specified within the front matter of individual pages. In addition, globs can be used to define pages that will be rendered. Front matter for the pages will be automatically indexed. However, if front matter or <code>title</code>            is not specified, the page will have a default title that consists only of the <code>titlePrefix</code>.</td>
+        </tr>
+        <tr>
+          <td><strong>ignore</strong></td>
+          <td>Files to be ignored when building the website. By default, MarkBind will copy all the assets into the output folder. The ignore pattern follows the pattern used in <a href="https://git-scm.com/docs/gitignore#_pattern_format"><code>.gitignore</code></a>.
+            You may want to ignore all markdown source files by adding the entry <code>*.md</code>, as well as the Git working directory <code>.git/*</code>.</td>
+        </tr>
+        <tr>
+          <td><strong>deploy</strong></td>
+          <td>Settings for the auto Github page deployment. Please refer this <a href="ghpagesDeployment.html">doc</a> for more details.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <div>
     <h2 id="sections">Sections</h2>
     <ul>
@@ -101,7 +103,7 @@
 </div>
 </div>
 </body>
-<script src="..\markbind\js\vue.min.js"></script>
-<script src="..\markbind\js\vue-strap.min.js"></script>
-<script src="..\markbind\js\setup.js"></script>
+<script src="../markbind/js/vue.min.js"></script>
+<script src="../markbind/js/vue-strap.min.js"></script>
+<script src="../markbind/js/setup.js"></script>
 </html>
