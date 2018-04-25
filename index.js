@@ -2,26 +2,25 @@
 
 
 // Entry file for Markbind project
+const chokidar = require('chokidar');
 const clear = require('clear');
 const fs = require('fs-extra-promise');
-const path = require('path');
-const Promise = require('bluebird');
-const program = require('commander');
 const htmlBeautify = require('js-beautify').html;
 const liveServer = require('live-server');
-const chokidar = require('chokidar');
+const path = require('path');
+const program = require('commander');
+const Promise = require('bluebird');
 
 const _ = {};
 _.isBoolean = require('lodash/isBoolean');
 
-const logger = require('./lib/util/logger');
 const fsUtil = require('./lib/util/fsUtil');
-const Site = require('./lib/Site');
+const logger = require('./lib/util/logger');
 const MarkBind = require('./lib/markbind/lib/parser');
-
-const CLI_VERSION = require('./package.json').version;
+const Site = require('./lib/Site');
 
 const ACCEPTED_COMMANDS = ['version', 'include', 'render', 'init', 'build', 'serve', 'deploy'];
+const CLI_VERSION = require('./package.json').version;
 
 const markbinder = new MarkBind();
 
