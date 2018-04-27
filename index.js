@@ -7,6 +7,7 @@ const clear = require('clear');
 const fs = require('fs-extra-promise');
 const htmlBeautify = require('js-beautify').html;
 const liveServer = require('live-server');
+const nunjucks = require('nunjucks');
 const path = require('path');
 const program = require('commander');
 const Promise = require('bluebird');
@@ -43,7 +44,17 @@ program
   .description('process all the fragment include in the given file')
   .option('-o, --output <path>', 'output file path')
   .action((file, options) => {
-    markbinder.includeFile(path.resolve(process.cwd(), file))
+    const rootFolder = path.resolve(process.cwd());
+    const outputFolder = path.join(rootFolder, '_site');
+    const site = new Site(rootFolder, outputFolder);
+    site.collectBaseUrl();
+    site.collectUserDefinedVariablesMap();
+    const config = {
+      baseUrlMap: site.baseUrlMap,
+      rootPath: site.rootPath,
+      userDefinedVariablesMap: site.userDefinedVariablesMap,
+    };
+    markbinder.includeFile(path.resolve(process.cwd(), file), config)
       .then((result) => {
         if (options.output) {
           const outputPath = path.resolve(process.cwd(), options.output);
@@ -66,9 +77,21 @@ program
   .description('render the given file')
   .option('-o, --output <path>', 'output file path')
   .action((file, options) => {
-    markbinder.renderFile(path.resolve(process.cwd(), file))
+    const rootFolder = path.resolve(process.cwd());
+    const outputFolder = path.join(rootFolder, '_site');
+    const site = new Site(rootFolder, outputFolder);
+    site.collectBaseUrl();
+    const config = {
+      baseUrlMap: site.baseUrlMap,
+      rootPath: site.rootPath,
+    };
+    markbinder.renderFile(path.resolve(process.cwd(), file), config)
       .then((result) => {
-        const formattedResult = htmlBeautify(result, { indent_size: 2 });
+        let formattedResult = htmlBeautify(result, { indent_size: 2 });
+        formattedResult = nunjucks.renderString(formattedResult, {
+          baseUrl: config.rootPath,
+          hostBaseUrl: config.rootPath,
+        });
         if (options.output) {
           const outputPath = path.resolve(process.cwd(), options.output);
           fs.outputFileSync(outputPath, formattedResult);
