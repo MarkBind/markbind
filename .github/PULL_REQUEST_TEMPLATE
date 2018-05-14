@@ -1,10 +1,10 @@
-**What is the purpose of this pull request? (put an "X" next to item)**
+**What is the purpose of this pull request? (put "X" next to an item, remove the rest)**
 
-- [ ] Documentation update
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Enhancement to an existing feature
-- [ ] Other, please explain:
+• [ ] Documentation update
+• [ ] Bug fix
+• [ ] New feature
+• [ ] Enhancement to an existing feature
+• [ ] Other, please explain:
 
 <!--
     If this pull request is addressing an issue, link to the issue: "Fixes #xxx" or "Resolves #xxx"
