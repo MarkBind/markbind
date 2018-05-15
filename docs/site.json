@@ -14,24 +14,24 @@
       "title": "MarkBind: User Guide - Quick Start"
     },
     {
-      "src": "userGuide/contentAuthoring.md",
-      "title": "MarkBind: User Guide - Content Authoring"
-    },
-    {
       "src": "userGuide/developingASite.md",
       "title": "MarkBind: User Guide - Developing a Site"
     },
     {
-      "src": "userGuide/ghpagesDeployment.md",
-      "title": "MarkBind: User Guide - Github Pages Deploment"
+      "src": "userGuide/siteConfiguration.md",
+      "title": "MarkBind: User Guide - Site Configuration"
+    },
+    {
+      "src": "userGuide/contentAuthoring.md",
+      "title": "MarkBind: User Guide - Content Authoring"
     },
     {
       "src": "userGuide/includingContents.md",
       "title": "MarkBind: User Guide - Including Contents"
     },
     {
-      "src": "userGuide/siteConfiguration.md",
-      "title": "MarkBind: User Guide - Site Configuration"
+      "src": "userGuide/ghpagesDeployment.md",
+      "title": "MarkBind: User Guide - Github Pages Deployment"
     },
     {
       "src": "userGuide/netlifyPreview.md",
