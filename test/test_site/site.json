@@ -1,5 +1,6 @@
 {
   "baseUrl": "/test_site",
+  "faviconPath": "favicon.png",
   "titlePrefix": "",
   "pages": [
     {
