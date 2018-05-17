@@ -26,6 +26,7 @@
     "ejs": "^2.5.5",
     "fastmatter": "^2.0.1",
     "figlet": "^1.2.0",
+    "find-up": "^2.1.0",
     "fs-extra-promise": "^0.4.1",
     "gh-pages": "^1.1.0",
     "highlight.js": "^9.10.0",
