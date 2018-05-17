@@ -41,3 +41,6 @@ docs/_site/*
 
 # Generated site (MarkBind)
 test/test_site/_site
+
+# vscode configuration
+.vscode/
