@@ -129,15 +129,15 @@ In `_markbind/variables.md`, you can define your own variables that can be used 
 
 Each variable must have an id and the value can be any MarkBind-compliant code fragment. The id should not contain `-` and `.`. For example, `search-option` and `search.options` are not allowed.
 
-In any file in your site, you can include the variable by surrounding the variable's id with double curly braces, e.g. <code>{&#8203;{options}&#8203;}</code>
+In any file in your site, you can include the variable by surrounding the variable's id with double curly braces, e.g. <code>{<span></span>{options}}</code>
 
 ### Use Glyphicons
 
 This asset is provided by [Glyphicons](https://glyphicons.com/) via Bootstrap.
 
-MarkBind allows for the easy use of [available glyphs](https://getbootstrap.com/docs/3.3/components/#glyphicons) on your site by surrounding a glyph's name with double curly braces, e.g. <code>{&#8203;{glyphicon_hand_right}&#8203;}</code>
+MarkBind allows for the easy use of [available glyphs](https://getbootstrap.com/docs/3.3/components/#glyphicons) on your site by surrounding a glyph's name with double curly braces, e.g. <code>{<span></span>{glyphicon_hand_right}}</code>
 
-Note: Replace all instances of `-` with `_` in the glyph's name, e.g. <code>{&#8203;{glyphicon-hand-right}&#8203;}</code> becomes <code>{&#8203;{glyphicon_hand_right}&#8203;}</code>
+Note: Replace all instances of `-` with `_` in the glyph's name, e.g. <code>{<span></span>{glyphicon-hand-right}}</code> becomes <code>{<span></span>{glyphicon_hand_right}}</code>
 
 ### Use Searchbar
 
