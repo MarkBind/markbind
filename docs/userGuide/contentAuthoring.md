@@ -131,6 +131,14 @@ Each variable must have an id and the value can be any MarkBind-compliant code f
 
 In any file in your site, you can include the variable by surrounding the variable's id with double curly braces, e.g. <code>{&#8203;{options}&#8203;}</code>
 
+### Use Glyphicons
+
+This asset is provided by [Glyphicons](https://glyphicons.com/) via Bootstrap.
+
+MarkBind allows for the easy use of [available glyphs](https://getbootstrap.com/docs/3.3/components/#glyphicons) on your site by surrounding a glyph's name with double curly braces, e.g. <code>{&#8203;{glyphicon_hand_right}&#8203;}</code>
+
+Note: Replace all instances of `-` with `_` in the glyph's name, e.g. <code>{&#8203;{glyphicon-hand-right}&#8203;}</code> becomes <code>{&#8203;{glyphicon_hand_right}&#8203;}</code>
+
 ### Use Searchbar
 
 To use the searchbar, add the following markup to your file.

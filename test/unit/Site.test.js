@@ -21,6 +21,7 @@ afterEach(() => fs.vol.reset());
 
 test('Site Generate builds the correct amount of assets', async () => {
   const json = {
+    'lib/asset/glyphicons.csv': '',
     'lib/template/page.ejs': PAGE_EJS,
     'inner/site.json': SITE_JSON_DEFAULT,
 
@@ -36,7 +37,7 @@ test('Site Generate builds the correct amount of assets', async () => {
   const site = new Site('inner/', 'inner/_site');
   await site.generate();
   const paths = Object.keys(fs.vol.toJSON());
-  const originalNumFiles = 8;
+  const originalNumFiles = Object.keys(json).length;
   const expectedNumBuilt = 7;
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
@@ -190,6 +191,7 @@ test('Site read site config for custom site config', async () => {
 
 test('Site read correct user defined variables', async () => {
   const json = {
+    'lib/asset/glyphicons.csv': '',
     'lib/template/page.ejs': PAGE_EJS,
     'site.json': SITE_JSON_DEFAULT,
     'sub/site.json': SITE_JSON_DEFAULT,
