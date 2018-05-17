@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../markbind/css/bootstrap.min.css">
     <link rel="stylesheet" href="../markbind/css/github.min.css">
     <link rel="stylesheet" href="../markbind/css/markbind.css">
+    
 </head>
 <body>
 <div id="app" class="container-fluid">
@@ -140,6 +141,10 @@
 </code></pre>
   <p>Each variable must have an id and the value can be any MarkBind-compliant code fragment. The id should not contain <code>-</code> and <code>.</code>. For example, <code>search-option</code> and <code>search.options</code> are not allowed.</p>
   <p>In any file in your site, you can include the variable by surrounding the variable's id with double curly braces, e.g. <code>{​{options}​}</code></p>
+  <h3 id="use-glyphicons">Use Glyphicons</h3>
+  <p>This asset is provided by <a href="https://glyphicons.com/">Glyphicons</a> via Bootstrap.</p>
+  <p>MarkBind allows for the easy use of <a href="https://getbootstrap.com/docs/3.3/components/#glyphicons">available glyphs</a> on your site by surrounding a glyph's name with double curly braces, e.g. <code>{​{glyphicon_hand_right}​}</code></p>
+  <p>Note: Replace all instances of <code>-</code> with <code>_</code> in the glyph's name, e.g. <code>{​{glyphicon-hand-right}​}</code> becomes <code>{​{glyphicon_hand_right}​}</code></p>
   <h3 id="use-searchbar">Use Searchbar</h3>
   <p>To use the searchbar, add the following markup to your file.</p>
   <pre class="hljs"><code>&lt;typeahead :data=&quot;searchData&quot; placeholder=&quot;Search&quot; :template=&quot;titleTemplate&quot; template-name=&quot;title&quot; :on-hit=&quot;searchCallback&quot;&gt;&lt;/typeahead&gt; 
@@ -209,5 +214,8 @@
 </body>
 <script src="../markbind/js/vue.min.js"></script>
 <script src="../markbind/js/vue-strap.min.js"></script>
+<script>
+    const baseUrl = '/markbind'
+</script>
 <script src="../markbind/js/setup.js"></script>
 </html>

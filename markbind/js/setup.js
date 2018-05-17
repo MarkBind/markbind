@@ -9,14 +9,6 @@ function setup() {
   VueStrap.installEvents(vm);
 }
 
-let baseUrl = '';
-
-// Support gh-pages
-if (window.location.origin.endsWith('github.io')) {
-  const repository = window.location.pathname.split('/')[1];
-  baseUrl = `/${repository}`;
-}
-
 function setupWithSearch(siteData) {
   const { typeahead } = VueStrap.components;
   const vm = new Vue({
