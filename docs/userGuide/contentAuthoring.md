@@ -167,7 +167,7 @@ To use a component, just type the corresponding markup in your file. For example
 </panel>
 ```
 
-For a list of supported components, refer to the component [doc](https://markbind.github.io/vue-strap/).
+For a list of supported components, refer to [VueStrap modified by MarkBind](https://markbind.github.io/vue-strap/).
 
 To make an element closeable, use `v-closeable`.
 
@@ -181,6 +181,44 @@ or
 ...
 </div>
 ```
+
+#### Question body syntax
+
+<panel header=":lock::key: Does MarkBind allow using checkboxes and radio buttons with the Question and Panel components?">
+<question>
+
+- ( ) Yes
+- ( ) No
+
+<div slot="hint">
+Probably yes
+</div>
+<div slot="answer">
+Yes!
+</div>
+</question>
+</panel>
+<br>
+
+```html
+<panel header=":lock::key: Does MarkBind allow for the use of checkboxes and radio buttons?">
+<question>
+
+- ( ) Yes
+- ( ) No
+
+<div slot="hint">
+Probably yes
+</div>
+<div slot="answer">
+Yes!
+</div>
+</question>
+</panel>
+```
+
+Checkboxes can also be used by substituting `- ( )` with `- [ ]`.
+
 ### Include Contents
 
 Being able to include different markdown file into the current context is another feature of *MarkBind*. You can create a complex document from different content fragments by including them.
