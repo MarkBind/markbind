@@ -19,12 +19,17 @@
     <dropdown text="User Guide">
       <li><a href="/markbind/userGuide/index.html">Home</a></li>
       <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
-      <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
-      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a></li>
-      <li><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
-      <li><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
-      <li><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
-      <li><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+      <li role="separator" class="divider"></li>
+      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
+        <li><a href="/markbind/userGuide/siteConfiguration.html">◦&nbsp; Site Configuration</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
+        <li><a href="/markbind/userGuide/includingContents.html">◦&nbsp; Including Contents</a></li>
+        <li role="separator" class="divider"></li>
+        <li style="margin: 3px 20px;">Deploying a Site</li>
+        <li><a href="/markbind/userGuide/ghpagesDeployment.html">◦&nbsp; Github Pages Deployment</a></li>
+        <li><a href="/markbind/userGuide/netlifyPreview.html">◦&nbsp; Preview site on Netlify</a></li>
+      </li>
     </dropdown>
   </navbar>
 </div>
@@ -69,8 +74,8 @@
   <p>In this case, we will get the <code>Markdown Content</code> text rendered in bold on a new line.</p>
   <h4 id="specifying-path-reference">Specifying Path Reference</h4>
   <p>Use
-    <code>{​{baseUrl}​}</code> for absolute path reference of images and resource files so that the path could be handled correctly when deployed. The
-    <code>{​{baseUrl}​}</code> is parsed from the project root (where <code>site.json</code> located).</p>
+    <code>{<span></span>{baseUrl}}</code> for absolute path reference of images and resource files so that the path could be handled correctly when deployed. The
+    <code>{<span></span>{baseUrl}}</code> is parsed from the project root (where <code>site.json</code> located).</p>
   <h3 id="supported-markdown-syntax">Supported Markdown Syntax</h3>
   <p>MarkBind support the standard Markdown syntax. Read the <a href="https://guides.github.com/features/mastering-markdown/">guide</a>.</p>
   <p>In addition, it supports:</p>
@@ -140,14 +145,14 @@
 &lt;/span&gt;
 </code></pre>
   <p>Each variable must have an id and the value can be any MarkBind-compliant code fragment. The id should not contain <code>-</code> and <code>.</code>. For example, <code>search-option</code> and <code>search.options</code> are not allowed.</p>
-  <p>In any file in your site, you can include the variable by surrounding the variable's id with double curly braces, e.g. <code>{​{options}​}</code></p>
+  <p>In any file in your site, you can include the variable by surrounding the variable's id with double curly braces, e.g. <code>{<span></span>{options}}</code></p>
   <h3 id="use-glyphicons">Use Glyphicons</h3>
   <p>This asset is provided by <a href="https://glyphicons.com/">Glyphicons</a> via Bootstrap.</p>
-  <p>MarkBind allows for the easy use of <a href="https://getbootstrap.com/docs/3.3/components/#glyphicons">available glyphs</a> on your site by surrounding a glyph's name with double curly braces, e.g. <code>{​{glyphicon_hand_right}​}</code></p>
-  <p>Note: Replace all instances of <code>-</code> with <code>_</code> in the glyph's name, e.g. <code>{​{glyphicon-hand-right}​}</code> becomes <code>{​{glyphicon_hand_right}​}</code></p>
+  <p>MarkBind allows for the easy use of <a href="https://getbootstrap.com/docs/3.3/components/#glyphicons">available glyphs</a> on your site by surrounding a glyph's name with double curly braces, e.g. <code>{<span></span>{glyphicon_hand_right}}</code></p>
+  <p>Note: Replace all instances of <code>-</code> with <code>_</code> in the glyph's name, e.g. <code>{<span></span>{glyphicon-hand-right}}</code> becomes <code>{<span></span>{glyphicon_hand_right}}</code></p>
   <h3 id="use-searchbar">Use Searchbar</h3>
   <p>To use the searchbar, add the following markup to your file.</p>
-  <pre class="hljs"><code>&lt;typeahead :data=&quot;searchData&quot; placeholder=&quot;Search&quot; :template=&quot;titleTemplate&quot; template-name=&quot;title&quot; :on-hit=&quot;searchCallback&quot;&gt;&lt;/typeahead&gt; 
+  <pre class="hljs"><code>&lt;typeahead :data=&quot;searchData&quot; placeholder=&quot;Search&quot; :template=&quot;titleTemplate&quot; template-name=&quot;title&quot; :on-hit=&quot;searchCallback&quot;&gt;&lt;/typeahead&gt;
 </code></pre>
   <p>To use the searchbar within a navbar, add the following markup to your file. The searchbar can be positioned using the slot attribute for the list. The following markup adds a searchbar to the right side of the navbar with appropriate styling.</p>
   <pre class="hljs"><code>&lt;li slot=&quot;right&quot;&gt;
@@ -162,7 +167,7 @@
 	Panel Content.
 &lt;/panel&gt;
 </code></pre>
-  <p>For a list of supported components, refer to the component <a href="https://markbind.github.io/vue-strap/">doc</a>.</p>
+  <p>For a list of supported components, refer to <a href="https://markbind.github.io/vue-strap/">VueStrap modified by MarkBind</a>.</p>
   <p>To make an element closeable, use <code>v-closeable</code>.</p>
   <p>e.g.</p>
   <pre class="hljs"><code>&lt;img src=&quot;schedule/textbook/images/img1.png&quot; height=&quot;320px&quot; v-closeable&gt;
@@ -172,6 +177,38 @@
 ...
 &lt;/div&gt;
 </code></pre>
+  <h4 id="question-body-syntax">Question body syntax</h4>
+  <panel header=":lock::key: Does MarkBind allow using checkboxes and radio buttons with the Question and Panel components?">
+    <question>
+      <ul radio-group="ec2ea" class="radio-list">
+        <li class="radio-list-item"><label><input class="radio-list-input" name="ec2ea" type="radio"> Yes</label></li>
+        <li class="radio-list-item"><label><input class="radio-list-input" name="ec2ea" type="radio"> No</label></li>
+      </ul>
+      <div slot="hint">
+        Probably yes
+      </div>
+      <div slot="answer">
+        Yes!
+      </div>
+    </question>
+  </panel>
+  <br>
+  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">":lock::key: Does MarkBind allow for the use of checkboxes and radio buttons?"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">question</span>&gt;</span>
+
+- ( ) Yes
+- ( ) No
+
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"hint"</span>&gt;</span>
+Probably yes
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"answer"</span>&gt;</span>
+Yes!
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">question</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+</code></pre>
+  <p>Checkboxes can also be used by substituting <code>- ( )</code> with <code>- [ ]</code>.</p>
   <h3 id="include-contents">Include Contents</h3>
   <p>Being able to include different markdown file into the current context is another feature of <em>MarkBind</em>. You can create a complex document from different content fragments by including them.</p>
   <p>For detailed guide on using <code>&lt;include&gt;</code> tag for including contents, read the doc <a href="includingContents.html">here</a>.</p>
@@ -201,12 +238,22 @@
     <h2 id="sections">Sections</h2>
     <ul>
       <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
-      <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
-      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a></li>
-      <li><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
-      <li><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
-      <li><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
-      <li><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
+        <ul>
+          <li><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
+        </ul>
+      </li>
+      <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a>
+        <ul>
+          <li><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
+        </ul>
+      </li>
+      <li>Deploying a Site
+        <ul>
+          <li><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
+          <li><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+        </ul>
+      </li>
     </ul>
   </div>
 </div>
