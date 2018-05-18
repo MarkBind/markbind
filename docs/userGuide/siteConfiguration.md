@@ -33,7 +33,6 @@ Let's examine a typical `site.json` file:
     "message": "Site Update."
   }
 }
-
 ```
 
 | Variable | Description |

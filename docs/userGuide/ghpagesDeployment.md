@@ -15,6 +15,7 @@ Make sure you have initialize your project as a Github repo and have a remote ad
 Learn more about [Github pages](https://help.github.com/categories/github-pages-basics/).
 
 ### Deploy to Github pages at `gh-pages` branch of the current repo
+
 By default, if you have set up the current working directory as a git project, and have added the Github remote to the repo, then you are good to deploy. Simply run
 
 ```
