@@ -8,7 +8,7 @@
 ### General writing guide
 
 #### Mixing HTML with Markdown
-*MarkBind* allows you to mix HTML with Markdown content. 
+*MarkBind* allows you to mix HTML with Markdown content.
 
 To separate inline Markdown from HTML elements, enclose inline Markdown content with `<md>` tags.
 
@@ -18,7 +18,7 @@ e.g.
  <md> # 1: *Markdown* Content </md>
 </div>
 ```
-The HTML output will be 
+The HTML output will be
 ```
 <div>
   <span> # 1: <em>Markdown</em> content </span></div>
@@ -39,7 +39,7 @@ The HTML output will be:
 <div>
   <h1 id="1-markdown-content">1: <em>Markdown</em> content</h1>
 </div>
-``` 
+```
 In this case, we will get a `h1` header.
 
 Example 2:
@@ -62,30 +62,30 @@ Use {{showBaseUrl}} for absolute path reference of images and resource files so 
 ### Supported Markdown Syntax
 
 MarkBind support the standard Markdown syntax. Read the [guide](https://guides.github.com/features/mastering-markdown/).
-	
+
 In addition, it supports:
-	
+
 * [Tables](https://help.github.com/articles/organizing-information-with-tables/) (GFM)
 * [Strikethrough](https://help.github.com/articles/basic-writing-and-formatting-syntax/#styling-text) (GFM)
 * [Emoji](https://www.webpagefx.com/tools/emoji-cheat-sheet/) shortcut.
-  
+
   `:EMOJICODE:`. For example, `:smile:` will be rendered as :smile:.
-	
+
 * [Task List](https://help.github.com/articles/basic-writing-and-formatting-syntax/#task-lists)
 * Text Hightlight using `<mark>`
-  
+
   `==Highlight Text==` => `<mark>Highlight Text</mark>`
-  
+
 * Text Underline using `<ins>`
-  
+
   `++Underline Text++` => `<ins>Underline Text</ins>`
-  
+
 * Dimmed Text (Text with grey background)
-	
+
   `%%Dimmed Text%%`
 
 * Radio Button List
-  
+
   ```
   - ( ) Option 1
   - (X) Option 2 (selected)
@@ -144,7 +144,7 @@ Note: Replace all instances of `-` with `_` in the glyph's name, e.g. <code>{<sp
 To use the searchbar, add the following markup to your file.
 
 ```
-<typeahead :data="searchData" placeholder="Search" :template="titleTemplate" template-name="title" :on-hit="searchCallback"></typeahead> 
+<typeahead :data="searchData" placeholder="Search" :template="titleTemplate" template-name="title" :on-hit="searchCallback"></typeahead>
 ```
 
 To use the searchbar within a navbar, add the following markup to your file. The searchbar can be positioned using the slot attribute for the list. The following markup adds a searchbar to the right side of the navbar with appropriate styling.
@@ -160,18 +160,18 @@ To use the searchbar within a navbar, add the following markup to your file. The
 ### Use Components
 
 To use a component, just type the corresponding markup in your file. For example, to create a Panel, you just need to write:
-	
+
 ```
 <panel header="Click to expand" type="seamless">
 	Panel Content.
 </panel>
 ```
-	
-For a list of supported components, refer to the component [doc](https://markbind.github.io/vue-strap/).
+
+For a list of supported components, refer to [VueStrap modified by MarkBind](https://markbind.github.io/vue-strap/).
 
 To make an element closeable, use `v-closeable`.
 
-e.g. 
+e.g.
 ```
 <img src="schedule/textbook/images/img1.png" height="320px" v-closeable>
 ```
@@ -181,6 +181,44 @@ or
 ...
 </div>
 ```
+
+#### Question body syntax
+
+<panel header=":lock::key: Does MarkBind allow using checkboxes and radio buttons with the Question and Panel components?">
+<question>
+
+- ( ) Yes
+- ( ) No
+
+<div slot="hint">
+Probably yes
+</div>
+<div slot="answer">
+Yes!
+</div>
+</question>
+</panel>
+<br>
+
+```html
+<panel header=":lock::key: Does MarkBind allow for the use of checkboxes and radio buttons?">
+<question>
+
+- ( ) Yes
+- ( ) No
+
+<div slot="hint">
+Probably yes
+</div>
+<div slot="answer">
+Yes!
+</div>
+</question>
+</panel>
+```
+
+Checkboxes can also be used by substituting `- ( )` with `- [ ]`.
+
 ### Include Contents
 
 Being able to include different markdown file into the current context is another feature of *MarkBind*. You can create a complex document from different content fragments by including them.
