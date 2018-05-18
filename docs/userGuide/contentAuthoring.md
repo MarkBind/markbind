@@ -13,13 +13,13 @@
 To separate inline Markdown from HTML elements, enclose inline Markdown content with `<md>` tags.
 
 e.g.
-```
+```html
 <div>
- <md> # 1: *Markdown* Content </md>
+  <md> # 1: *Markdown* Content </md>
 </div>
 ```
 The HTML output will be
-```
+```html
 <div>
   <span> # 1: <em>Markdown</em> content </span></div>
 </div>
@@ -29,13 +29,13 @@ Note that we get the italic *Markdown* but not the header (the char # is rendere
 To separate Markdown block elements (e.g. headers) from HTML elements, you may enclose the Markdown content with `<markdown>` tags.
 
 Example 1:
-```
+```html
 <div>
   <markdown> # 1: *Markdown* Content </markdown>
 </div>
 ```
 The HTML output will be:
-```
+```html
 <div>
   <h1 id="1-markdown-content">1: <em>Markdown</em> content</h1>
 </div>
@@ -43,11 +43,11 @@ The HTML output will be:
 In this case, we will get a `h1` header.
 
 Example 2:
-```
+```html
 <span>Hello this is your</span> <markdown> **Markdown Content**</markdown>
 ```
 The HTML output will be:
-```
+```html
 <span>Hello this is your</span>
 <div>
   <p><strong>Markdown Content</strong></p>
@@ -87,27 +87,27 @@ In addition, it supports:
 
 * Radio Button List
 
-  ```
+  ```html
   - ( ) Option 1
   - (X) Option 2 (selected)
   ```
 
 * Youtube video
-  ```
+  ```html
   @[youtube](lJIrF4YjHfQ)
   @[youtube](http://www.youtube.com/watch?v=lJIrF4YjHfQ)
   @[youtube](http://youtu.be/lJIrF4YjHfQ)
   ```
 
 * Powerpoint slide - provide the embed url from Powerpoint online
-  ```
+  ```html
   @[powerpoint](https://onedrive.live.com/embed?cid=A5AF047C4CAD67AB&resid=A5AF047C4CAD67AB%212070&authkey=&em=2)
   ```
   or
-  ```
+  ```html
   <div class="pull-right" v-closeable alt="Read lecture slides online">
 
-  <iframe src='https://onedrive.live.com/embed?cid=A5AF047C4CAD67AB&resid=A5AF047C4CAD67AB%212074&authkey=&em=2&wdAr=1.3333333333333333' width='350px' height='286px' frameborder='0'>This is an embedded <a target='_blank' href='https://office.com'>Microsoft Office</a> presentation, powered by <a target='_blank' href='https://office.com/webapps'>Office Online</a>.</iframe>
+    <iframe src='https://onedrive.live.com/embed?cid=A5AF047C4CAD67AB&resid=A5AF047C4CAD67AB%212074&authkey=&em=2&wdAr=1.3333333333333333' width='350px' height='286px' frameborder='0'>This is an embedded <a target='_blank' href='https://office.com'>Microsoft Office</a> presentation, powered by <a target='_blank' href='https://office.com/webapps'>Office Online</a>.</iframe>
 
   </div>
   ```
@@ -118,7 +118,7 @@ In addition, it supports:
 
 In `_markbind/variables.md`, you can define your own variables that can be used anywhere in your site. The format is as follows.
 
-```
+```html
 <span id="year">2018</span>
 
 <span id="options">
@@ -144,13 +144,13 @@ Note: Replace all instances of `-` with `_` in the glyph's name, e.g. <code>{<sp
 
 To use the searchbar, add the following markup to your file.
 
-```
+```html
 <typeahead :data="searchData" placeholder="Search" :template="titleTemplate" template-name="title" :on-hit="searchCallback"></typeahead>
 ```
 
 To use the searchbar within a navbar, add the following markup to your file. The searchbar can be positioned using the slot attribute for the list. The following markup adds a searchbar to the right side of the navbar with appropriate styling.
 
-```
+```html
 <li slot="right">
   <form class="navbar-form">
     <typeahead :data="searchData" placeholder="Search" :template="titleTemplate" template-name="title" :on-hit="searchCallback"></typeahead>  
@@ -162,9 +162,9 @@ To use the searchbar within a navbar, add the following markup to your file. The
 
 To use a component, just type the corresponding markup in your file. For example, to create a Panel, you just need to write:
 
-```
+```html
 <panel header="Click to expand" type="seamless">
-	Panel Content.
+  Panel Content.
 </panel>
 ```
 
@@ -173,13 +173,13 @@ For a list of supported components, refer to [VueStrap modified by MarkBind](htt
 To make an element closeable, use `v-closeable`.
 
 e.g.
-```
+```html
 <img src="schedule/textbook/images/img1.png" height="320px" v-closeable>
 ```
 or
-```
+```html
 <div v-closeable>
-...
+  Div Content.
 </div>
 ```
 
@@ -231,7 +231,7 @@ For detailed guide on using `<include>` tag for including contents, read the doc
 Front matter allows you to specify page parameters such as the title and keywords of the page. These parameters will be used to build a site data file (`siteData.json`) that will contain the index used for the search function.
 You can specify front matter at the beginning of your page by using the `<frontmatter>` tag as follows:
 
-```
+```html
 <frontmatter>
   title: Binary Search Tree
   keywords: bst, avl, red-black
@@ -243,7 +243,7 @@ Note: A title that is defined in `site.json` for a particular page will take pre
 Front matter can also be included from a separate file, just like how content can be included. This makes it easy to simply define all your required front matter in one file, and use it everywhere.
 
 `matterDefinition.md`
-```
+```html
 <seg id="bst">
   <frontmatter>
     title: Binary Search Tree
@@ -253,7 +253,7 @@ Front matter can also be included from a separate file, just like how content ca
 ```
 
 `index.md`
-```
+```html
 <include src="matterDefinition.md#bst" />
 ```
 
