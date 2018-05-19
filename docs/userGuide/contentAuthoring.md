@@ -87,20 +87,20 @@ In addition, it supports:
 
 * Radio Button List
 
-  ```html
+  ```markdown
   - ( ) Option 1
   - (X) Option 2 (selected)
   ```
 
 * Youtube video
-  ```html
+  ```markdown
   @[youtube](lJIrF4YjHfQ)
   @[youtube](http://www.youtube.com/watch?v=lJIrF4YjHfQ)
   @[youtube](http://youtu.be/lJIrF4YjHfQ)
   ```
 
 * Powerpoint slide - provide the embed url from Powerpoint online
-  ```html
+  ```markdown
   @[powerpoint](https://onedrive.live.com/embed?cid=A5AF047C4CAD67AB&resid=A5AF047C4CAD67AB%212070&authkey=&em=2)
   ```
   or
