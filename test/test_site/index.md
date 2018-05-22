@@ -6,6 +6,11 @@ title: Hello World
 
 <div class="website-content">
 
+# Variables that reference another variable
+{{education_icon}}
+
+{{finalized_value}}
+
 # Normal include
 <include src="requirements/EstablishingRequirements.md" />
 
