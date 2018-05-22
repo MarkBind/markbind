@@ -11,6 +11,8 @@ title: Hello World
 
 {{finalized_value}}
 
+{{reference_level_4}}
+
 # Normal include
 <include src="requirements/EstablishingRequirements.md" />
 
