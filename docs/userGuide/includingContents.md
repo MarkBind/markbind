@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="{{baseUrl}}/css/main.css">
-
 <include src="../common/header.md" />
 
 <div class="website-content">
@@ -8,25 +6,25 @@
 
 1. #### Use `<include>` tag to include another markdown or HTML document into current context.
 
-    ```
-      <include src="path/to/file" />
+    ```html
+    <include src="path/to/file" />
     ```
 
     Attributes:
     - `src`: specify the source file path. Use a hash (#) followed by the element id to include only a segment from the file.
 
       You could also use a remote address to load a remote accessible page/fragment (make sure they are CORS accessible). e.g.:
-      ```
+      ```html
       <include src="https://rawgit.com/Gisonrg/MarkBindDeploy/book/index.html" />
       ```
 
     - `inline` (optional): make the included result an inline element. (wrapped in `<span>` tag)
 
     Examples:
-    ```
-      <include src="EstablishingRequirements.md#preview" inline/>
-      <include src="../common/RequirementsVsSystemSpecification.md"/>
-      <include src="../index.html" />
+    ```html
+    <include src="EstablishingRequirements.md#preview" inline/>
+    <include src="../common/RequirementsVsSystemSpecification.md"/>
+    <include src="../index.html" />
     ```
 
     <br/>
@@ -35,18 +33,18 @@
 
    &#9888; The `id` cannot be exactly the same as a preceding heading, as `id` attributes will be added to headings for creating anchors.
 
-    ```
-       <seg id="segment1">
-          Content of segment 1
-       </seg>
-       <div id="segment2">
-          Content of segment 2
-       </div>
+    ```html
+    <seg id="segment1">
+      Content of segment 1
+    </seg>
+    <div id="segment2">
+      Content of segment 2
+    </div>
     ```
 
     And use `include` tag to include it, specifying the segment (element) id with `#`.
-    ```
-      <include src="path/to/file#segment1"/>
+    ```html
+    <include src="path/to/file#segment1"/>
     ```
 <br/>
 
@@ -73,16 +71,16 @@
 
     E.g. In `book/architecture/architecturalStyles/index.md`,
     ```html
-      <include src="../structure.md" boilerplate />
-      <dynamic-panel src="structure.md" boilerplate />
+    <include src="../structure.md" boilerplate />
+    <dynamic-panel src="structure.md" boilerplate />
     ```
 
     MarkBind will look for and use the file `/_markbind/boilerplates/structure.md`. Notice that this is the combination of the boilerplate directory and the file base name. The reference is location sensitive. If `structure.md` includes `text.md`, in the first case, it will use `book/architecture/architecturalStyles/text.md` while in the second case, it will use `book/architecture/text.md`.
 
     You may also want to organise your boilerplate files into directories or save them with another name. To specify the boilerplate file, use
     ```html
-      <include src="index.md" boilerplate="print-index.md" />
-      <include src="print.md" boilerplate="print/template.md" />
+    <include src="index.md" boilerplate="print-index.md" />
+    <include src="print.md" boilerplate="print/template.md" />
     ```
     In the first case, MarkBind will use `/_markbind/boilerplates/print-index.md`. In the second case, MarkBind will use `/_markbind/boilerplates/print/template.md`.
 

@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="{{baseUrl}}/css/main.css">
-
 <include src="../common/header.md" />
 
 <div class="website-content">
@@ -9,6 +7,7 @@
 This wiki explains the basic command you need to know to develop a site with MarkBind.
 
 ## Init a site with MarkBind
+
 MarkBind can setup a boilerplate site in the current directory:
 ```
 $ markbind init
@@ -19,6 +18,7 @@ If you wish to create the site into a new directory, you can do so by running `m
 After running `init`, two files will be created for you: `index.md` and `site.json`. `index.md` is where you can start writing your contents (and will be rendered as `index.html` later), and [`site.json`](#sitejson) is the configuration file used for MarkBind to build your website correctly. **A valid `site.json` file is required to build a MarkBind-driven site**.
 
 ## Preview and serve your site using:
+
 ```
 $ markbind serve
 ```
@@ -30,8 +30,8 @@ MarkBind will generate the site in a folder named `_site` in the current directo
 | `-p`, `--port <port>` | The port used for serving your website. |
 | --no-open | Don't open browser automatically. |
 
-
 ## Build the static site
+
 ```
 $ markbind build
 ```
@@ -42,6 +42,7 @@ $ markbind build ./rootFolder ./outputFolder
 ```
 
 ## Deploy the generated site
+
 ```
 $ markbind deploy
 ```
@@ -51,6 +52,7 @@ By default, it will try to push everything in the generated site (default dir: `
 Please check more details of deployment [here](ghpagesDeployment.html).
 
 ### site.json
+
 Let's take a look at this newly created `site.json`:
 <include src="siteConfiguration.md#siteConfig" />
 <include src="../common/userGuideSections.md" />

@@ -1,28 +1,25 @@
-<link rel="stylesheet" href="{{baseUrl}}/css/main.css">
-
 <include src="../common/header.md" />
 
 <div class="website-content">
 
 <panel header="## Previewing site on Netlify with the latest version of MarkBind">
 
-
 1. Go to https://app.netlify.com/ and sign up
 1. Next go to https://app.netlify.com/account/sites and select `New site from Git`
 1. Select your git provider
 
    ![Create a new site]({{baseUrl}}/images/netlifyPreview1.png =600x)
-   
+
 1. Select your markbind site repository
 
    ![Select repository]({{baseUrl}}/images/netlifyPreview2.png =600x)
-   
+
 1. Update the build settings as follows:
    - Build Command: `npm i markbind-cli -g && markbind build --baseUrl`
    - Publish directory: `_site`
 
    ![Update build settings]({{baseUrl}}/images/netlifyPreview3.png =600x)
-   
+
    and hit `Deploy site`.
 
 Now your site will be deployed on Netlify at the given address specified after deployment.
@@ -54,11 +51,11 @@ Now you are ready to set up on Netlify
 1. Select your git provider
 
    ![Create a new site]({{baseUrl}}/images/netlifyPreview1.png =600x)
-   
+
 1. Select your markbind site repository
 
    ![Select repository]({{baseUrl}}/images/netlifyPreview2.png =600x)
-   
+
 1. Update the build settings as follows:
    - Build Command: `markbind build --baseUrl`
    - Publish directory: `_site`

@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="{{baseUrl}}/css/main.css">
-
 <include src="../common/header.md" />
 
 <div class="website-content">
@@ -35,7 +33,6 @@ Let's examine a typical `site.json` file:
     "message": "Site Update."
   }
 }
-
 ```
 
 | Variable | Description |

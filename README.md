@@ -35,4 +35,4 @@ npm i -g markbind-cli
 
 ## Documentation
 Refer to the [Wiki](https://github.com/MarkBind/markbind-cli/wiki) page.
-You may want to learn about how to [create and build a site with MarkBind](https://github.com/MarkBind/markbind-cli/wiki/Develop-a-site-with-MarkBind)
+You may want to learn about how to [create and build a site with MarkBind](https://markbind.github.io/markbind/userGuide/developingASite.html).

@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="{{baseUrl}}/css/main.css">
-
 <include src="../common/header.md" />
 
 <div class="website-content">
@@ -7,11 +5,13 @@
 # User Quick Start
 
 ## Requirement
+
 We expect users to have basic knowledge of the following:
 - [x] Markdown
 - [x] Command-line Environment
 
 ## Installation
+
 `MarkBind` can be [installed using npm](https://www.npmjs.com/get-npm).
 
 You can run:
@@ -56,7 +56,9 @@ Commands:
 You can add the help flag (`--help`) to any command to show the help screen.
 
 ## Using MarkBind to author a Website
+
 ### Create a new site
+
 MarkBind can setup a boilerplate site in the current directory:
 
 ```
@@ -70,9 +72,11 @@ After running `init`, two files will be created for you: `index.md` and `site.js
 You may refer to this [doc](siteConfiguration.html) for more details about how you can configure the `site.json`.
 
 ### Authoring your contents
+
 Read more about content authoring [here](contentAuthoring.html).
 
 ### Preview your site
+
 After authoring your contents, you can run:
 
 ```
@@ -89,7 +93,6 @@ Live reload is enabled to regenerate the site for changes, so you could see the 
 |---|---|
 | `-p`, `--port <port>` | The port used for serving your website. |
 | --no-open | Don't open browser automatically. |
-
 
 ### Build the static site
 
