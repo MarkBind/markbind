@@ -113,6 +113,35 @@ In addition, it supports:
 
 * More media blocks, embedding services and additional options can be found in [Markdown-it-block-embed docs](https://github.com/rotorz/markdown-it-block-embed)
 
+### Use MarkBind variables
+
+You can insert variables to be replaced by pre-defined values anywhere in your site. MarkBind treats any text surrounded with double curly braces as a variable, e.g. <code>{<span></span>{variable_name}}</code>
+
+Some helpful variables are provided by MarkBind for your convenience, as shown below. 
+
+#### Glyphicons
+
+This asset is provided by [Glyphicons](https://glyphicons.com/) via Bootstrap.
+<br><br>
+<tip-box>
+Traditional usage:  
+`<span class='glyphicon glyphicon-hand-right' aria-hidden='true'></span>`
+<br>  
+MarkBind usage:  
+<code>{<span></span>{glyphicon_hand_right}}</code>
+</tip-box>
+
+Use these [available glyphs](https://getbootstrap.com/docs/3.3/components/#glyphicons) on your site by surrounding a glyph's name with double curly braces.  
+e.g. <code>{<span></span>{glyphicon_hand_right}}</code> will be rendered as <code><span class='glyphicon glyphicon-hand-right' aria-hidden='true'></span></code>
+
+Note: Replace all instances of `-` with `_` in the glyph's name, e.g. <code>{<span></span>{glyphicon-hand-right}}</code> becomes <code>{<span></span>{glyphicon_hand_right}}</code>
+
+#### Timestamp
+
+Use <code>{<span></span>{timestamp}}</code> to insert the following snippet that indicates when the page was generated.  
+
+{{timestamp}}
+
 ### Add your own variables
 
 In `_markbind/variables.md`, you can define your own variables that can be used anywhere in your site. The format is as follows.
@@ -130,14 +159,6 @@ In `_markbind/variables.md`, you can define your own variables that can be used 
 Each variable must have an id and the value can be any MarkBind-compliant code fragment. The id should not contain `-` and `.`. For example, `search-option` and `search.options` are not allowed.
 
 In any file in your site, you can include the variable by surrounding the variable's id with double curly braces, e.g. <code>{<span></span>{options}}</code>
-
-### Use Glyphicons
-
-This asset is provided by [Glyphicons](https://glyphicons.com/) via Bootstrap.
-
-MarkBind allows for the easy use of [available glyphs](https://getbootstrap.com/docs/3.3/components/#glyphicons) on your site by surrounding a glyph's name with double curly braces, e.g. <code>{<span></span>{glyphicon_hand_right}}</code>
-
-Note: Replace all instances of `-` with `_` in the glyph's name, e.g. <code>{<span></span>{glyphicon-hand-right}}</code> becomes <code>{<span></span>{glyphicon_hand_right}}</code>
 
 ### Use Searchbar
 
