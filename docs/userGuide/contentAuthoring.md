@@ -161,6 +161,29 @@ Each variable must have an id and the value can be any MarkBind-compliant code f
 
 In any file in your site, you can include the variable by surrounding the variable's id with double curly braces, e.g. <code>{<span></span>{options}}</code>
 
+Variables can refer to other variables that are declared earlier, including helpful variables provided by MarkBind.
+
+<tip-box>
+<div>
+This is allowed, MarkBind helpful variables can be used.<br>
+
+<code>\<span id="right_hand">{<span></span>{glyphicon_hand_right}}\</span></code>
+</div>
+<div>
+This is also allowed, the second variable will be assigned the contents of the first variable.
+
+<code>\<span id="first">This is the first variable.\</span></code><br>
+<code>\<span id="second">{<span></span>{first}}\</span></code><br>
+<code>\<span id="third">{<span></span>{second}}\</span></code>
+</div>
+<div>
+This is forbidden, as the fourth variable is not declared yet.
+
+<code>\<span id="third">{<span></span>{fourth}}\</span></code><br>
+<code>\<span id="fourth">This is the fourth variable.\</span></code>
+</div>
+</tip-box>
+
 ### Use Searchbar
 
 To use the searchbar, add the following markup to your file.
