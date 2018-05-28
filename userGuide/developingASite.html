@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MarkBind: User Guide - Developing a Site</title>
-    <link rel="stylesheet" href="../markbind/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../markbind/css/github.min.css">
-    <link rel="stylesheet" href="../markbind/css/markbind.css">
+    <link rel="stylesheet" href="..\markbind\css\bootstrap.min.css">
+    <link rel="stylesheet" href="..\markbind\css\github.min.css">
+    <link rel="stylesheet" href="..\markbind\css\markbind.css">
     
 </head>
 <body>
 <div id="app" class="container-fluid">
-    <link rel="stylesheet" href="/markbind/css/main.css">
-<div>
+    <div>
+  <link rel="stylesheet" href="/markbind/css/main.css">
   <navbar placement="top" type="inverse">
     <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
     <dropdown text="User Guide">
@@ -31,6 +31,10 @@
         <li><a href="/markbind/userGuide/netlifyPreview.html">◦&nbsp; Preview site on Netlify</a></li>
       </li>
     </dropdown>
+    <li>
+      <a href="https://github.com/MarkBind/markbind" target="_blank">
+      Fork this project on Github
+      <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
   </navbar>
 </div>
 <div class="website-content">
@@ -102,7 +106,6 @@
     &quot;message&quot;: &quot;Site Update.&quot;
   }
 }
-
 </code></pre>
     <table class="markbind-table table table-bordered table-striped">
       <thead>
@@ -114,29 +117,28 @@
       <tbody>
         <tr>
           <td><strong>baseUrl</strong></td>
-          <td>The url base when you deploy the website. For example, if you are using Github Pages to host your deployed website, and the resulted page is <code>https://markbind.github.io/site-demo-cs2103</code>, then your <code>baseUrl</code> would be <code>/site-demo-cs2103</code>            (relative to your domain, default is <code></code> (empty)). Later you could use this variable to help you create top-level navigation link in the document. <strong>You may need to change the <code>baseUrl</code> when deploy to different repo.</strong></td>
+          <td>The base url relative to your domain. Default: <code></code> (empty). For example, if you are using Github Pages to host your deployed website and it is published at <code>https://markbind.github.io/site-demo-cs2103</code>, then your <code>baseUrl</code>            would be <code>/site-demo-cs2103</code>. You can use this variable for <a href="contentAuthoring.html#specifying-path-reference">specifying path reference</a> of images and links. <strong>You may need to change the <code>baseUrl</code> when deploying to a different repo.</strong></td>
         </tr>
         <tr>
           <td><strong>faviconPath</strong></td>
-          <td>The location of the favicon. Default: <code>favicon.ico</code>. Note: If the favicon was recently changed, when viewing the website, you may need to force-refresh to see the new favicon.</td>
+          <td>The location of the favicon. Default: <code>favicon.ico</code>. If the favicon was recently changed, you may need to force-refresh to see the new image.</td>
         </tr>
         <tr>
           <td><strong>titlePrefix</strong></td>
-          <td>The prefix for all page titles. This prefix will be prepended to all rendered pages.</td>
+          <td>The prefix for all page titles. The separator <code>-</code> will be inserted by MarkBind.</td>
         </tr>
         <tr>
           <td><strong>pages</strong></td>
-          <td>An array of the pages config tells MarkBind all the source files that needs to be rendered. The <code>src</code> is the page to be rendered; <code>title</code> is the page title for the generated web page. Titles specified in this array will
-            take priority over titles specified within the front matter of individual pages. In addition, globs can be used to define pages that will be rendered. Front matter for the pages will be automatically indexed. However, if front matter or <code>title</code>            is not specified, the page will have a default title that consists only of the <code>titlePrefix</code>.</td>
+          <td>An array of pages to be rendered. The <code>src</code> is the file; <code>title</code> is the page title for the generated web page. Titles specified here take priority over titles specified in the <a href="contentAuthoring.html#front-matter">front matter</a>            of individual pages. Alternatively, <code>glob</code> can be used to define a file pattern. If <code>title</code> is not specified in the front matter, the page will have <code>titlePrefix</code> as its title.</td>
         </tr>
         <tr>
           <td><strong>ignore</strong></td>
-          <td>Files to be ignored when building the website. By default, MarkBind will copy all the assets into the output folder. The ignore pattern follows the pattern used in <a href="https://git-scm.com/docs/gitignore#_pattern_format"><code>.gitignore</code></a>.
-            You may want to ignore all markdown source files by adding the entry <code>*.md</code>, as well as the Git working directory <code>.git/*</code>.</td>
+          <td>An array of file patterns to be ignored. By default, MarkBind will copy all the files as assets into the output folder. The ignore pattern follows the <a href="https://git-scm.com/docs/gitignore#_pattern_format">glob pattern used in .gitignore</a>.
+            For example, <code>*.md</code> ignores all markdown source files. You may want to ignore the Git directory <code>.git/*</code>.</td>
         </tr>
         <tr>
           <td><strong>deploy</strong></td>
-          <td>Settings for the auto Github page deployment. Please refer this <a href="ghpagesDeployment.html">doc</a> for more details.</td>
+          <td>The settings for <a href="ghpagesDeployment.html">auto deployment to Github pages</a>. The <code>message</code> is the commit message used for the deployment commit.</td>
         </tr>
       </tbody>
     </table>
@@ -166,10 +168,10 @@
 </div>
 </div>
 </body>
-<script src="../markbind/js/vue.min.js"></script>
-<script src="../markbind/js/vue-strap.min.js"></script>
+<script src="..\markbind\js\vue.min.js"></script>
+<script src="..\markbind\js\vue-strap.min.js"></script>
 <script>
     const baseUrl = '/markbind'
 </script>
-<script src="../markbind/js/setup.js"></script>
+<script src="..\markbind\js\setup.js"></script>
 </html>

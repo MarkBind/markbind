@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MarkBind: User Guide - Content Authoring</title>
-    <link rel="stylesheet" href="../markbind/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../markbind/css/github.min.css">
-    <link rel="stylesheet" href="../markbind/css/markbind.css">
+    <link rel="stylesheet" href="..\markbind\css\bootstrap.min.css">
+    <link rel="stylesheet" href="..\markbind\css\github.min.css">
+    <link rel="stylesheet" href="..\markbind\css\markbind.css">
     
 </head>
 <body>
 <div id="app" class="container-fluid">
-    <link rel="stylesheet" href="/markbind/css/main.css">
-<div>
+    <div>
+  <link rel="stylesheet" href="/markbind/css/main.css">
   <navbar placement="top" type="inverse">
     <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
     <dropdown text="User Guide">
@@ -31,6 +31,10 @@
         <li><a href="/markbind/userGuide/netlifyPreview.html">◦&nbsp; Preview site on Netlify</a></li>
       </li>
     </dropdown>
+    <li>
+      <a href="https://github.com/MarkBind/markbind" target="_blank">
+      Fork this project on Github
+      <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
   </navbar>
 </div>
 <div class="website-content">
@@ -40,36 +44,36 @@
   <p><em>MarkBind</em> allows you to mix HTML with Markdown content.</p>
   <p>To separate inline Markdown from HTML elements, enclose inline Markdown content with <code>&lt;md&gt;</code> tags.</p>
   <p>e.g.</p>
-  <pre class="hljs"><code>&lt;div&gt;
- &lt;md&gt; # 1: *Markdown* Content &lt;/md&gt;
-&lt;/div&gt;
+  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">md</span>&gt;</span> # 1: *Markdown* Content <span class="hljs-tag">&lt;/<span class="hljs-name">md</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
   <p>The HTML output will be</p>
-  <pre class="hljs"><code>&lt;div&gt;
-  &lt;span&gt; # 1: &lt;em&gt;Markdown&lt;/em&gt; content &lt;/span&gt;&lt;/div&gt;
-&lt;/div&gt;
+  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span> # 1: <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>Markdown<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span> content <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
   <p>Note that we get the italic <em>Markdown</em> but not the header (the char # is rendered). Also, a new line is not added as the content is enclosed within <code>&lt;span&gt;</code> tags.</p>
   <p>To separate Markdown block elements (e.g. headers) from HTML elements, you may enclose the Markdown content with <code>&lt;markdown&gt;</code> tags.</p>
   <p>Example 1:</p>
-  <pre class="hljs"><code>&lt;div&gt;
-  &lt;markdown&gt; # 1: *Markdown* Content &lt;/markdown&gt;
-&lt;/div&gt;
+  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">markdown</span>&gt;</span> # 1: *Markdown* Content <span class="hljs-tag">&lt;/<span class="hljs-name">markdown</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
   <p>The HTML output will be:</p>
-  <pre class="hljs"><code>&lt;div&gt;
-  &lt;h1 id=&quot;1-markdown-content&quot;&gt;1: &lt;em&gt;Markdown&lt;/em&gt; content&lt;/h1&gt;
-&lt;/div&gt;
+  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"1-markdown-content"</span>&gt;</span>1: <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>Markdown<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span> content<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
   <p>In this case, we will get a <code>h1</code> header.</p>
   <p>Example 2:</p>
-  <pre class="hljs"><code>&lt;span&gt;Hello this is your&lt;/span&gt; &lt;markdown&gt; **Markdown Content**&lt;/markdown&gt;
+  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Hello this is your<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">markdown</span>&gt;</span> **Markdown Content**<span class="hljs-tag">&lt;/<span class="hljs-name">markdown</span>&gt;</span>
 </code></pre>
   <p>The HTML output will be:</p>
-  <pre class="hljs"><code>&lt;span&gt;Hello this is your&lt;/span&gt;
-&lt;div&gt;
-  &lt;p&gt;&lt;strong&gt;Markdown Content&lt;/strong&gt;&lt;/p&gt;
-&lt;/div&gt;
+  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Hello this is your<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>Markdown Content<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
   <p>In this case, we will get the <code>Markdown Content</code> text rendered in bold on a new line.</p>
   <h4 id="specifying-path-reference">Specifying Path Reference</h4>
@@ -107,75 +111,88 @@
     </li>
     <li>
       <p>Radio Button List</p>
-      <pre class="hljs"><code>- ( ) Option 1
-- (X) Option 2 (selected)
+      <pre><code class="hljs markdown"><span class="hljs-bullet">- </span>( ) Option 1
+<span class="hljs-bullet">- </span>(X) Option 2 (selected)
 </code></pre>
     </li>
     <li>
       <p>Youtube video</p>
-      <pre class="hljs"><code>@[youtube](lJIrF4YjHfQ)
-@[youtube](http://www.youtube.com/watch?v=lJIrF4YjHfQ)
-@[youtube](http://youtu.be/lJIrF4YjHfQ)
+      <pre><code class="hljs markdown">@[<span class="hljs-string">youtube</span>](<span class="hljs-link">lJIrF4YjHfQ</span>)
+@[<span class="hljs-string">youtube</span>](<span class="hljs-link">http://www.youtube.com/watch?v=lJIrF4YjHfQ</span>)
+@[<span class="hljs-string">youtube</span>](<span class="hljs-link">http://youtu.be/lJIrF4YjHfQ</span>)
 </code></pre>
     </li>
     <li>
       <p>Powerpoint slide - provide the embed url from Powerpoint online</p>
-      <pre class="hljs"><code>@[powerpoint](https://onedrive.live.com/embed?cid=A5AF047C4CAD67AB&amp;resid=A5AF047C4CAD67AB%212070&amp;authkey=&amp;em=2)
+      <pre><code class="hljs markdown">@[<span class="hljs-string">powerpoint</span>](<span class="hljs-link">https://onedrive.live.com/embed?cid=A5AF047C4CAD67AB&amp;resid=A5AF047C4CAD67AB%212070&amp;authkey=&amp;em=2</span>)
 </code></pre>
       <p>or</p>
-      <pre class="hljs"><code>&lt;div class=&quot;pull-right&quot; v-closeable alt=&quot;Read lecture slides online&quot;&gt;
+      <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"pull-right"</span> <span class="hljs-attr">v-closeable</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Read lecture slides online"</span>&gt;</span>
 
-&lt;iframe src='https://onedrive.live.com/embed?cid=A5AF047C4CAD67AB&amp;resid=A5AF047C4CAD67AB%212074&amp;authkey=&amp;em=2&amp;wdAr=1.3333333333333333' width='350px' height='286px' frameborder='0'&gt;This is an embedded &lt;a target='_blank' href='https://office.com'&gt;Microsoft Office&lt;/a&gt; presentation, powered by &lt;a target='_blank' href='https://office.com/webapps'&gt;Office Online&lt;/a&gt;.&lt;/iframe&gt;
+  <span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">src</span>=<span class="hljs-string">'https://onedrive.live.com/embed?cid=A5AF047C4CAD67AB&amp;resid=A5AF047C4CAD67AB%212074&amp;authkey=&amp;em=2&amp;wdAr=1.3333333333333333'</span> <span class="hljs-attr">width</span>=<span class="hljs-string">'350px'</span> <span class="hljs-attr">height</span>=<span class="hljs-string">'286px'</span> <span class="hljs-attr">frameborder</span>=<span class="hljs-string">'0'</span>&gt;</span>This is an embedded <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">target</span>=<span class="hljs-string">'_blank'</span> <span class="hljs-attr">href</span>=<span class="hljs-string">'https://office.com'</span>&gt;</span>Microsoft Office<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> presentation, powered by <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">target</span>=<span class="hljs-string">'_blank'</span> <span class="hljs-attr">href</span>=<span class="hljs-string">'https://office.com/webapps'</span>&gt;</span>Office Online<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span>
 
-&lt;/div&gt;
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
     </li>
     <li>
       <p>More media blocks, embedding services and additional options can be found in <a href="https://github.com/rotorz/markdown-it-block-embed">Markdown-it-block-embed docs</a></p>
     </li>
   </ul>
+  <h3 id="use-markbind-variables">Use MarkBind variables</h3>
+  <p>You can insert variables to be replaced by pre-defined values anywhere in your site. MarkBind treats any text surrounded with double curly braces as a variable, e.g. <code>{<span></span>{variable_name}}</code></p>
+  <p>Some helpful variables are provided by MarkBind for your convenience, as shown below.</p>
+  <h4 id="glyphicons">Glyphicons</h4>
+  <p>This asset is provided by <a href="https://glyphicons.com/">Glyphicons</a> via Bootstrap.
+    <br><br>
+    <tip-box>
+      Traditional usage:<br>
+      <code>&lt;span class='glyphicon glyphicon-hand-right' aria-hidden='true'&gt;&lt;/span&gt;</code>
+      <br><br> MarkBind usage:<br>
+      <code>{<span></span>{glyphicon_hand_right}}</code></tip-box>
+  </p>
+  <p>Use these <a href="https://getbootstrap.com/docs/3.3/components/#glyphicons">available glyphs</a> on your site by surrounding a glyph's name with double curly braces.<br> e.g. <code>{<span></span>{glyphicon_hand_right}}</code> will be rendered as <code><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span></code></p>
+  <p>Note: Replace all instances of <code>-</code> with <code>_</code> in the glyph's name, e.g. <code>{<span></span>{glyphicon-hand-right}}</code> becomes <code>{<span></span>{glyphicon_hand_right}}</code></p>
+  <h4 id="timestamp">Timestamp</h4>
+  <p>Use <code>{<span></span>{timestamp}}</code> to insert the following snippet that indicates when the page was generated.</p>
+  <p><small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.7.5</a> on Mon, 28 May 2018 02:08:59 GMT]</small></p>
   <h3 id="add-your-own-variables">Add your own variables</h3>
   <p>In <code>_markbind/variables.md</code>, you can define your own variables that can be used anywhere in your site. The format is as follows.</p>
-  <pre class="hljs"><code>&lt;span id=&quot;year&quot;&gt;2018&lt;/span&gt;
+  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"year"</span>&gt;</span>2018<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 
-&lt;span id=&quot;options&quot;&gt;
+<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"options"</span>&gt;</span>
 * yes
 * no
 * maybe
-&lt;/span&gt;
+<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 </code></pre>
   <p>Each variable must have an id and the value can be any MarkBind-compliant code fragment. The id should not contain <code>-</code> and <code>.</code>. For example, <code>search-option</code> and <code>search.options</code> are not allowed.</p>
   <p>In any file in your site, you can include the variable by surrounding the variable's id with double curly braces, e.g. <code>{<span></span>{options}}</code></p>
-  <h3 id="use-glyphicons">Use Glyphicons</h3>
-  <p>This asset is provided by <a href="https://glyphicons.com/">Glyphicons</a> via Bootstrap.</p>
-  <p>MarkBind allows for the easy use of <a href="https://getbootstrap.com/docs/3.3/components/#glyphicons">available glyphs</a> on your site by surrounding a glyph's name with double curly braces, e.g. <code>{<span></span>{glyphicon_hand_right}}</code></p>
-  <p>Note: Replace all instances of <code>-</code> with <code>_</code> in the glyph's name, e.g. <code>{<span></span>{glyphicon-hand-right}}</code> becomes <code>{<span></span>{glyphicon_hand_right}}</code></p>
   <h3 id="use-searchbar">Use Searchbar</h3>
   <p>To use the searchbar, add the following markup to your file.</p>
-  <pre class="hljs"><code>&lt;typeahead :data=&quot;searchData&quot; placeholder=&quot;Search&quot; :template=&quot;titleTemplate&quot; template-name=&quot;title&quot; :on-hit=&quot;searchCallback&quot;&gt;&lt;/typeahead&gt;
+  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">typeahead</span> <span class="hljs-attr">:data</span>=<span class="hljs-string">"searchData"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Search"</span> <span class="hljs-attr">:template</span>=<span class="hljs-string">"titleTemplate"</span> <span class="hljs-attr">template-name</span>=<span class="hljs-string">"title"</span> <span class="hljs-attr">:on-hit</span>=<span class="hljs-string">"searchCallback"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">typeahead</span>&gt;</span>
 </code></pre>
   <p>To use the searchbar within a navbar, add the following markup to your file. The searchbar can be positioned using the slot attribute for the list. The following markup adds a searchbar to the right side of the navbar with appropriate styling.</p>
-  <pre class="hljs"><code>&lt;li slot=&quot;right&quot;&gt;
-  &lt;form class=&quot;navbar-form&quot;&gt;
-    &lt;typeahead :data=&quot;searchData&quot; placeholder=&quot;Search&quot; :template=&quot;titleTemplate&quot; template-name=&quot;title&quot; :on-hit=&quot;searchCallback&quot;&gt;&lt;/typeahead&gt;  
-  &lt;/form&gt;
-&lt;/li&gt;
+  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"right"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"navbar-form"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">typeahead</span> <span class="hljs-attr">:data</span>=<span class="hljs-string">"searchData"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Search"</span> <span class="hljs-attr">:template</span>=<span class="hljs-string">"titleTemplate"</span> <span class="hljs-attr">template-name</span>=<span class="hljs-string">"title"</span> <span class="hljs-attr">:on-hit</span>=<span class="hljs-string">"searchCallback"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">typeahead</span>&gt;</span>  
+  <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 </code></pre>
   <h3 id="use-components">Use Components</h3>
   <p>To use a component, just type the corresponding markup in your file. For example, to create a Panel, you just need to write:</p>
-  <pre class="hljs"><code>&lt;panel header=&quot;Click to expand&quot; type=&quot;seamless&quot;&gt;
-	Panel Content.
-&lt;/panel&gt;
+  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Click to expand"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"seamless"</span>&gt;</span>
+  Panel Content.
+<span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
 </code></pre>
   <p>For a list of supported components, refer to <a href="https://markbind.github.io/vue-strap/">VueStrap modified by MarkBind</a>.</p>
   <p>To make an element closeable, use <code>v-closeable</code>.</p>
   <p>e.g.</p>
-  <pre class="hljs"><code>&lt;img src=&quot;schedule/textbook/images/img1.png&quot; height=&quot;320px&quot; v-closeable&gt;
+  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"schedule/textbook/images/img1.png"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"320px"</span> <span class="hljs-attr">v-closeable</span>&gt;</span>
 </code></pre>
   <p>or</p>
-  <pre class="hljs"><code>&lt;div v-closeable&gt;
-...
-&lt;/div&gt;
+  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-closeable</span>&gt;</span>
+  Div Content.
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
   <h4 id="question-body-syntax">Question body syntax</h4>
   <panel header=":lock::key: Does MarkBind allow using checkboxes and radio buttons with the Question and Panel components?">
@@ -215,23 +232,23 @@ Yes!
   <h3 id="front-matter">Front Matter</h3>
   <p>Front matter allows you to specify page parameters such as the title and keywords of the page. These parameters will be used to build a site data file (<code>siteData.json</code>) that will contain the index used for the search function. You can specify
     front matter at the beginning of your page by using the <code>&lt;frontmatter&gt;</code> tag as follows:</p>
-  <pre class="hljs"><code>&lt;frontmatter&gt;
+  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
   title: Binary Search Tree
   keywords: bst, avl, red-black
-&lt;/frontmatter&gt;
+<span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
 </code></pre>
   <p>Note: A title that is defined in <code>site.json</code> for a particular page will take precedence over a title defined in the front matter.</p>
   <p>Front matter can also be included from a separate file, just like how content can be included. This makes it easy to simply define all your required front matter in one file, and use it everywhere.</p>
   <p><code>matterDefinition.md</code></p>
-  <pre class="hljs"><code>&lt;seg id=&quot;bst&quot;&gt;
-  &lt;frontmatter&gt;
+  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">seg</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"bst"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
     title: Binary Search Tree
     keywords: bst, avl, red-black
-  &lt;/frontmatter&gt;
-&lt;/seg&gt;
+  <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">seg</span>&gt;</span>
 </code></pre>
   <p><code>index.md</code></p>
-  <pre class="hljs"><code>&lt;include src=&quot;matterDefinition.md#bst&quot; /&gt;
+  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"matterDefinition.md#bst"</span> /&gt;</span>
 </code></pre>
   <p>This will result in <code>index.md</code> having the title <code>Binary Search Tree</code> and the specified keywords in order for it to be looked up through the search bar.</p>
   <div>
@@ -259,10 +276,10 @@ Yes!
 </div>
 </div>
 </body>
-<script src="../markbind/js/vue.min.js"></script>
-<script src="../markbind/js/vue-strap.min.js"></script>
+<script src="..\markbind\js\vue.min.js"></script>
+<script src="..\markbind\js\vue-strap.min.js"></script>
 <script>
     const baseUrl = '/markbind'
 </script>
-<script src="../markbind/js/setup.js"></script>
+<script src="..\markbind\js\setup.js"></script>
 </html>
