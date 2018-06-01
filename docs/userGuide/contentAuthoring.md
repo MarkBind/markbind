@@ -177,7 +177,7 @@ This is also allowed, the second variable will be assigned the contents of the f
 <code>\<span id="third">{<span></span>{second}}\</span></code>
 </div>
 <div>
-This is forbidden, as the fourth variable is not declared yet.
+This is forbidden, as the fourth variable is not declared yet, and will not be rendered correctly.
 
 <code>\<span id="third">{<span></span>{fourth}}\</span></code><br>
 <code>\<span id="fourth">This is the fourth variable.\</span></code>
