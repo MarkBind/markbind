@@ -10,6 +10,7 @@
     <li role="separator" class="divider"></li>
     <li><a href="{{baseUrl}}/userGuide/contentAuthoring.html">Content Authoring</a></li>
     <li><a href="{{baseUrl}}/userGuide/includingContents.html">◦&nbsp; Including Contents</a></li>
+    <li><a href="{{baseUrl}}/userGuide/knownProblems.html">◦&nbsp; Known Problems</a></li>
     <li role="separator" class="divider"></li>
     <li style="margin: 3px 20px;">Deploying a Site</li>
     <li><a href="{{baseUrl}}/userGuide/ghpagesDeployment.html">◦&nbsp; Github Pages Deployment</a></li>
