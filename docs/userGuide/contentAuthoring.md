@@ -184,6 +184,41 @@ This is forbidden, as the fourth variable is not declared yet, and will not be r
 </div>
 </tip-box>
 
+Note: If the variable being referenced contains HTML tags, MarkBind may escape the tags and render it literally. For example:
+
+<tip-box>
+<div>
+If we declare the variables as follow:<br>
+
+<code>\<span id="right_hand">{<span></span>{glyphicon_hand_right}}\</span></code><br>
+<code>\<span id="right_hand_2">{<span></span>{right_hand}}\</span></code>
+</div>
+<div>
+The following will be rendered:<br>
+
+{{glyphicon_hand_right}}<br>
+\<span class='glyphicon glyphicon-hand-right' aria-hidden='true'></span>
+</div>
+</tip-box>
+
+You must use the `safe` filter when using such variables:
+
+<tip-box>
+<div>
+If we use the safe filter for the second variable:<br>
+
+<code>\<span id="right_hand">{<span></span>{glyphicon_hand_right}}\</span></code><br>
+<code>\<span id="right_hand_2">{<span></span>{right_hand | safe}}\</span></code>
+</div>
+<div>
+The following will be rendered:<br>
+
+{{glyphicon_hand_right}}<br>
+{{glyphicon_hand_right}}
+</div>
+</tip-box>
+
+
 ### Use Searchbar
 
 To use the searchbar, add the following markup to your file.
