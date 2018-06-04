@@ -1,3 +1,7 @@
+<frontmatter>
+  footer: userGuideSections.md
+</frontmatter>
+
 <include src="../common/header.md" />
 
 <div class="website-content">
@@ -44,7 +48,5 @@ Let's examine a typical `site.json` file:
 | **ignore** | Files to be ignored when building the website. By default, MarkBind will copy all the assets into the output folder. The ignore pattern follows the pattern used in [`.gitignore`](https://git-scm.com/docs/gitignore#_pattern_format). You may want to ignore all markdown source files by adding the entry `*.md`, as well as the Git working directory `.git/*`. |
 | **deploy** | Settings for the auto Github page deployment. Please refer this [doc](ghpagesDeployment.html) for more details. |
 </div>
-
-<include src="../common/userGuideSections.md" />
 
 </div>

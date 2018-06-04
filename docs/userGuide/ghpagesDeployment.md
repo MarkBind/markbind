@@ -1,3 +1,7 @@
+<frontmatter>
+  footer: userGuideSections.md
+</frontmatter>
+
 <include src="../common/header.md" />
 
 <div class="website-content">
@@ -55,7 +59,5 @@ The following deployment config is available in your `site.json`'s "*deploy*" se
 
   This is the branch that will be deployed to in the remote repo.    
   (**Default**: 'gh-pages')
-
-<include src="../common/userGuideSections.md" />
 
 </div>

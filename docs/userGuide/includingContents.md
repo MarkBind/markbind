@@ -1,3 +1,7 @@
+<frontmatter>
+  footer: userGuideSections.md
+</frontmatter>
+
 <include src="../common/header.md" />
 
 <div class="website-content">
@@ -62,6 +66,13 @@
         site.json
       some.md (it include a file in site A, <include src="./A/other.md">)
     ```
+    
+    You may reference files from external directories using the following prefixes:
+    ```
+    ./  = Current directory
+    ../ = Parent of current directory
+    ../../ = Two directories backwards
+    ```
 
 4. #### Handling repetitive boilerplate files
 
@@ -89,7 +100,5 @@
     Boilerplate files need `src` and `boilerplate` attributes. The value of `src` is compulsory — it should be where you want the included file to be if you have to duplicate it. The `boilerplate` value is optionally used to specify the path within the boilerplate folder. If unspecified, the file is assumed to be at `/_markbind/boilerplates/baseNameInSrc`. Else, MarkBind will look for the file at `/_markbind/boilerplates/value`.
     </markdown>
     </tip-box>
-
-<include src="../common/userGuideSections.md" />
 
 </div>
