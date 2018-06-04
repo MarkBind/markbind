@@ -10,26 +10,22 @@ function setup() {
 }
 
 function setupWithSearch(siteData) {
-  const { typeahead } = VueStrap.components;
+  const { searchbar } = VueStrap.components;
   const vm = new Vue({
     el: '#app',
     components: {
-      typeahead,
+      searchbar,
     },
     data() {
-      const helpers = {
-        value() { return [this.title].concat(this.keywords).join(' '); },
-        indexOf(query) { return this.value().indexOf(query); },
-        toLowerCase() { return this.value().toLowerCase(); },
-      };
       return {
-        searchData: siteData.pages.map(page => Object.assign({}, page, helpers)),
-        titleTemplate: '{{ item.title }}<br><sub>{{ item.keywords }}</sub>',
+        searchData: siteData.pages,
       };
     },
     methods: {
       searchCallback(match) {
-        window.location = `${baseUrl}/${match.src.replace('.md', '.html')}`;
+        const page = `${baseUrl}/${match.src.replace('.md', '.html')}`;
+        const anchor = match.heading ? `#${match.heading.id}` : '';
+        window.location = `${page}${anchor}`;
       },
     },
   });

@@ -1,14 +1,33 @@
 {
   "pages": [
     {
+      "headings": {
+        "normal-include": "Normal include",
+        "establishing-requirements": "Establishing Requirements",
+        "include-segment": "Include segment",
+        "dynamic-include": "Dynamic include",
+        "boilerplate-include": "Boilerplate include",
+        "nested-include": "Nested include",
+        "html-include": "HTML include",
+        "include-from-another-markbind-site": "Include from another Markbind site",
+        "feature-list": "Feature list"
+      },
       "title": "Hello World",
       "src": "index.md"
     },
     {
+      "headings": {
+        "popover-initiated-by-trigger-honor-trigger-attribute": "popover initiated by trigger: honor trigger attribute",
+        "support-multiple-inclusions-of-a-modal": "Support multiple inclusions of a modal",
+        "remove-extra-space-in-links": "Remove extra space in links"
+      },
       "title": "Open Bugs",
       "src": "bugs/index.md"
     },
     {
+      "headings": {
+        "feature-list": "Feature list"
+      },
       "src": "sub_site/index.md",
       "title": ""
     }
