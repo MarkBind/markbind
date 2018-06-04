@@ -2,6 +2,7 @@
   "pages": [
     {
       "title": "Hello World",
+      "footer": "footer.md",
       "src": "index.md"
     },
     {
