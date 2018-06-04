@@ -1,3 +1,7 @@
+<frontmatter>
+  footer: userGuideSections.md
+</frontmatter>
+
 <include src="../common/header.md" />
 
 <div class="website-content">
@@ -280,6 +284,53 @@ Front matter can also be included from a separate file, just like how content ca
 
 This will result in `index.md` having the title `Binary Search Tree` and the specified keywords in order for it to be looked up through the search bar.
 
-<include src="../common/userGuideSections.md" />
+### Using Footers
+
+It is optional to put footers in your site. If you wish to do so, there are two ways that MarkBind supports.
+
+#### 1. Specifying footer file in Front Matter
+
+By default, there is a `footer.md` file created for you in `_markbind/footers`. 
+If you need additional footers for different pages, you can create footer files in the same folder and wrap the contents in a `<footer>` tag. 
+
+```html
+<!-- In _markbind/footers/myFooterFile.md -->
+<footer>
+  This is my own footer!
+</footer>
+```
+
+After which, you must specify the file within [front matter](#front-matter)'s `footer` attribute to render the footer.
+
+```html
+<!-- In the file that you want to include a footer -->
+<frontmatter>
+  footer: myFooterFile.md
+</frontmatter>
+```
+
+Note:
+- Only one footer file can be specified in the [front matter](#front-matter) per page, and you must include its file extension.
+
+#### 2. Defining your own inline footer
+
+If you would like to have a page-specific footer content, you can author one inline with the same `<footer>` tag. 
+
+```html
+# Hello world
+<p>Some text</p>
+<footer>
+  <p align="center">
+    This is my inline footer, unique to this page!
+  </p>
+</footer>
+```
+
+Note:
+- Footer file specified in [front matter](#front-matter) overrides all inline footers in the same page.
+- Inline footers need to be the last element in a page.
+- If there is more than one inline footer in a page, only the last inline footer will be rendered.
+- Footers should not be nested in other components or HTML tags. If found inside, they will be shifted outside to be rendered properly.
+- MarkBind-dependent components and includes are not supported in footers.
 
 </div>

@@ -5,6 +5,7 @@ const ghpages = require('gh-pages');
 const cloneDeep = require('lodash/cloneDeep');
 
 const {
+  FOOTER_MD_DEFAULT,
   INDEX_MD_DEFAULT,
   PAGE_EJS,
   SITE_JSON_DEFAULT,
@@ -69,12 +70,15 @@ test('Site Init in existing directory generates correct assets', async () => {
 
   await Site.initSite('');
   const paths = Object.keys(fs.vol.toJSON());
-  const originalNumFiles = 1;
-  const expectedNumBuilt = 4;
+  const originalNumFiles = Object.keys(json).length;
+  const expectedNumBuilt = 5;
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
   // _boilerplates
   expect(fs.existsSync(path.resolve('_markbind/boilerplates'))).toEqual(true);
+
+  // footer.md
+  expect(fs.readFileSync(path.resolve('_markbind/footers/footer.md'), 'utf8')).toEqual(FOOTER_MD_DEFAULT);
 
   // user defined variables
   expect(fs.readFileSync(path.resolve('_markbind/variables.md'), 'utf8')).toEqual(USER_VARIABLES_DEFAULT);
@@ -94,12 +98,16 @@ test('Site Init in directory which does not exist generates correct assets', asy
 
   await Site.initSite('newDir');
   const paths = Object.keys(fs.vol.toJSON());
-  const originalNumFiles = 1;
-  const expectedNumBuilt = 4;
+  const originalNumFiles = Object.keys(json).length;
+  const expectedNumBuilt = 5;
 
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
   expect(fs.existsSync(path.resolve('newDir/_markbind/boilerplates'))).toEqual(true);
+
+  // footer.md
+  expect(fs.readFileSync(path.resolve('newDir/_markbind/footers/footer.md'), 'utf8'))
+    .toEqual(FOOTER_MD_DEFAULT);
 
   // user defined variables
   expect(fs.readFileSync(path.resolve('newDir/_markbind/variables.md'), 'utf8'))

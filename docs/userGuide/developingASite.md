@@ -1,3 +1,7 @@
+<frontmatter>
+  footer: userGuideSections.md
+</frontmatter>
+
 <include src="../common/header.md" />
 
 <div class="website-content">
@@ -15,7 +19,12 @@ $ markbind init
 
 If you wish to create the site into a new directory, you can do so by running `markbind init ./directory`
 
-After running `init`, two files will be created for you: `index.md` and `site.json`. `index.md` is where you can start writing your contents (and will be rendered as `index.html` later), and [`site.json`](#sitejson) is the configuration file used for MarkBind to build your website correctly. **A valid `site.json` file is required to build a MarkBind-driven site**.
+After running `init`, two files will be created for you: `index.md` and `site.json`. 
+
+- `index.md` is where you can start writing your contents (and will be rendered as `index.html` later). 
+- [`site.json`](#sitejson) is the configuration file used for MarkBind to build your website correctly. 
+
+**A valid `site.json` file is required to build a MarkBind-driven site**.
 
 ## Preview and serve your site using:
 
@@ -55,6 +64,5 @@ Please check more details of deployment [here](ghpagesDeployment.html).
 
 Let's take a look at this newly created `site.json`:
 <include src="siteConfiguration.md#siteConfig" />
-<include src="../common/userGuideSections.md" />
 
 </div>

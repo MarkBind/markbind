@@ -1,3 +1,7 @@
+<frontmatter>
+  footer: userGuideSections.md
+</frontmatter>
+
 <include src="../common/header.md" />
 
 <div class="website-content">
@@ -67,7 +71,12 @@ $ markbind init
 
 If you wish to create the site into a new directory, you can do so by running `markbind init ./directory`
 
-After running `init`, two files will be created for you: `index.md` and `site.json`. `index.md` is where you can start writing your contents (and will be rendered as `index.html` later), and `site.json` is the configuration file used for MarkBind to build your website correctly. **A valid `site.json` file is required to build a MarkBind-driven site**.
+After running `init`, two files will be created for you: `index.md` and `site.json`. 
+
+- `index.md` is where you can start writing your contents (and will be rendered as `index.html` later). 
+- `site.json` is the configuration file used for MarkBind to build your website correctly. 
+
+**A valid `site.json` file is required to build a MarkBind-driven site**.
 
 You may refer to this [doc](siteConfiguration.html) for more details about how you can configure the `site.json`.
 
@@ -121,7 +130,5 @@ $ markbind deploy
 By default, it will try to push everything in the generated site (default dir: `_site`) to the `gh-pages` branch of the current git working directory's remote repo.
 
 More details of deployment setting could be found in [here](ghpagesDeployment.html).
-
-<include src="../common/userGuideSections.md" />
 
 </div>

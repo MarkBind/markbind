@@ -1,5 +1,6 @@
 <frontmatter>
 title: Hello World
+footer: footer.md
 </frontmatter>
 
 <include src="components/header.md" />

@@ -1,3 +1,7 @@
+<frontmatter>
+  footer: userGuideSections.md
+</frontmatter>
+
 <include src="../common/header.md" />
 
 <div class="website-content">
@@ -10,5 +14,4 @@ MarkBind provides many useful markups (customized HTML tags) to help you create 
 
 Take a look at the [quick start guide](userQuickStart.html) to start building your website with MarkBind.
 
-<include src="../common/userGuideSections.md" />
 </div>

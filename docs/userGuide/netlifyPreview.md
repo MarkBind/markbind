@@ -1,3 +1,7 @@
+<frontmatter>
+  footer: userGuideSections.md
+</frontmatter>
+
 <include src="../common/header.md" />
 
 <div class="website-content">
@@ -69,8 +73,5 @@ Additionally when contributors make a pull request to `master`, you can preview 
 ![Preview deploy]({{baseUrl}}/images/netlifyPreview4.png)
 
 </panel>
-
-
-<include src="../common/userGuideSections.md" />
 
 </div>

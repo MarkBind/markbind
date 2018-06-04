@@ -13,6 +13,7 @@
         "feature-list": "Feature list"
       },
       "title": "Hello World",
+      "footer": "footer.md",
       "src": "index.md"
     },
     {
