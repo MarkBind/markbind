@@ -71,8 +71,8 @@
 
     E.g. In `book/architecture/architecturalStyles/index.md`,
     ```html
-    <include src="../structure.md" boilerplate />
-    <dynamic-panel src="structure.md" boilerplate />
+    <include src="structure.md" boilerplate />
+    <dynamic-panel src="../structure.md" boilerplate />
     ```
 
     MarkBind will look for and use the file `/_markbind/boilerplates/structure.md`. Notice that this is the combination of the boilerplate directory and the file base name. The reference is location sensitive. If `structure.md` includes `text.md`, in the first case, it will use `book/architecture/architecturalStyles/text.md` while in the second case, it will use `book/architecture/text.md`.
