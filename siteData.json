@@ -1,38 +1,108 @@
 {
   "pages": [
     {
+      "headings": {
+        "markbind": "MarkBind",
+        "features": " Features",
+        "examples": " Examples",
+        "documentation": " Documentation",
+        "about-us": " About us"
+      },
       "src": "index.md",
       "title": "MarkBind: Generate Course Websites from Markdown Text"
     },
     {
+      "headings": {
+        "markbind-user-guide": "MarkBind User Guide",
+        "sections": "Sections"
+      },
+      "footer": "userGuideSections.md",
       "src": "userGuide/index.md",
       "title": "MarkBind: User Guide"
     },
     {
+      "headings": {
+        "user-quick-start": "User Quick Start",
+        "requirement": "Requirement",
+        "installation": "Installation",
+        "using-markbind-to-author-a-website": "Using MarkBind to author a Website",
+        "create-a-new-site": "Create a new site",
+        "authoring-your-contents": "Authoring your contents",
+        "preview-your-site": "Preview your site",
+        "build-the-static-site": "Build the static site",
+        "deploy-the-generated-site": "Deploy the generated site",
+        "sections": "Sections"
+      },
+      "footer": "userGuideSections.md",
       "src": "userGuide/userQuickStart.md",
       "title": "MarkBind: User Guide - Quick Start"
     },
     {
+      "headings": {
+        "developing-a-site-with-markbind": "Developing a Site with MarkBind",
+        "init-a-site-with-markbind": "Init a site with MarkBind",
+        "preview-and-serve-your-site-using": "Preview and serve your site using:",
+        "build-the-static-site": "Build the static site",
+        "deploy-the-generated-site": "Deploy the generated site",
+        "sitejson": "site.json",
+        "sections": "Sections"
+      },
+      "footer": "userGuideSections.md",
       "src": "userGuide/developingASite.md",
       "title": "MarkBind: User Guide - Developing a Site"
     },
     {
+      "headings": {
+        "site-configuration": "Site Configuration",
+        "sections": "Sections"
+      },
+      "footer": "userGuideSections.md",
       "src": "userGuide/siteConfiguration.md",
       "title": "MarkBind: User Guide - Site Configuration"
     },
     {
+      "headings": {
+        "content-authoring": "Content authoring",
+        "general-writing-guide": "General writing guide",
+        "supported-markdown-syntax": "Supported Markdown Syntax",
+        "use-markbind-variables": "Use MarkBind variables",
+        "add-your-own-variables": "Add your own variables",
+        "use-searchbar": "Use Searchbar",
+        "use-components": "Use Components",
+        "include-contents": "Include Contents",
+        "front-matter": "Front Matter",
+        "using-footers": "Using Footers",
+        "sections": "Sections"
+      },
+      "footer": "userGuideSections.md",
       "src": "userGuide/contentAuthoring.md",
       "title": "MarkBind: User Guide - Content Authoring"
     },
     {
+      "headings": {
+        "including-contents": "Including contents",
+        "sections": "Sections"
+      },
+      "footer": "userGuideSections.md",
       "src": "userGuide/includingContents.md",
       "title": "MarkBind: User Guide - Including Contents"
     },
     {
+      "headings": {
+        "github-pages-deployment": "Github Pages Deployment",
+        "deploy-to-github-pages-at-gh-pages-branch-of-the-current-repo": "Deploy to Github pages at gh-pages branch of the current repo",
+        "deployment-config-in-sitejson": "Deployment config in site.json",
+        "sections": "Sections"
+      },
+      "footer": "userGuideSections.md",
       "src": "userGuide/ghpagesDeployment.md",
       "title": "MarkBind: User Guide - Github Pages Deployment"
     },
     {
+      "headings": {
+        "sections": "Sections"
+      },
+      "footer": "userGuideSections.md",
       "src": "userGuide/netlifyPreview.md",
       "title": "MarkBind: User Guide - Preview site on Netlify"
     }
