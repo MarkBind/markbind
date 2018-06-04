@@ -42,10 +42,23 @@ module.exports.SITE_JSON_DEFAULT = '{\n'
   + '  }\n'
   + '}\n';
 
+module.exports.FOOTER_MD_DEFAULT = '<footer>\n'
+  + '  <div class="text-center">\n'
+  + '    This is a dynamic height footer that supports variables {{glyphicon_tags}} '
+  + 'and markdown <md>:smile:</md>!\n'
+  + '  </div>\n'
+  + '  <!-- Support MarkBind by including this timestamp or a link to us on your landing page! -->\n'
+  + '  <div class="text-center">\n'
+  + '    {{timestamp}}\n'
+  + '  </div>\n'
+  + '</footer>\n';
+
 module.exports.INDEX_MD_DEFAULT = '<frontmatter>\n'
-  + 'title: "Hello World"\n'
+  + '  title: "Hello World"\n'
+  + '  footer: footer.md\n'
   + '</frontmatter>\n\n'
-  + '# Hello world\nWelcome to your page generated with MarkBind.\n';
+  + '# Hello world\n'
+  + 'Welcome to your page generated with MarkBind.\n';
 
 module.exports.USER_VARIABLES_DEFAULT = '<span id="example">\n'
   + 'To inject this HTML segment in your markbind files, use {{ example }} where you want to place it.\n'
