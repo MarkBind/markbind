@@ -166,7 +166,7 @@ In any file in your site, you can include the variable by surrounding the variab
 To use the searchbar, add the following markup to your file.
 
 ```html
-<typeahead :data="searchData" placeholder="Search" :template="titleTemplate" template-name="title" :on-hit="searchCallback"></typeahead>
+<searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
 ```
 
 To use the searchbar within a navbar, add the following markup to your file. The searchbar can be positioned using the slot attribute for the list. The following markup adds a searchbar to the right side of the navbar with appropriate styling.
@@ -174,7 +174,7 @@ To use the searchbar within a navbar, add the following markup to your file. The
 ```html
 <li slot="right">
   <form class="navbar-form">
-    <typeahead :data="searchData" placeholder="Search" :template="titleTemplate" template-name="title" :on-hit="searchCallback"></typeahead>  
+    <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
   </form>
 </li>
 ```
