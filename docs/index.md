@@ -1,3 +1,7 @@
+<frontmatter>
+  footer: footer.md
+</frontmatter>
+
 <include src="./common/header.md" />
 
 <div class="website-content">
