@@ -9,5 +9,7 @@
 - Deploying a Site
   - <a href="{{baseUrl}}/userGuide/ghpagesDeployment.html">Github Pages Deployment</a>
   - <a href="{{baseUrl}}/userGuide/netlifyPreview.html">Preview site on Netlify</a>
+
+  {{timestamp}}
   </markdown>
 </footer>
