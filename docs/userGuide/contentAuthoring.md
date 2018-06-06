@@ -287,11 +287,17 @@ This will result in `index.md` having the title `Binary Search Tree` and the spe
 ### Using Footers
 
 It is optional to put footers in your site. If you wish to do so, there are two ways that MarkBind supports.
+  
+1. [Specifying footer file in Front Matter](#specifying-footer-file-in-front-matter)
+2. [Defining your own inline footer](#defining-your-own-inline-footer)
 
-#### 1. Specifying footer file in Front Matter
+#### Specifying footer file in Front Matter
 
-By default, there is a `footer.md` file created for you in `_markbind/footers`. 
-If you need additional footers for different pages, you can create footer files in the same folder and wrap the contents in a `<footer>` tag. 
+To create a new footer, make a new markdown file (`.md`) in `_markbind/footers`.
+Author your footer contents and wrap everything in a `<footer>` tag.
+You can create more than one footer file if you want different footers for different pages.
+
+Tip: All new sites created with `init` will have a `footer.md` file automatically created for you as a template in `_markbind/footers`.
 
 ```html
 <!-- In _markbind/footers/myFooterFile.md -->
@@ -300,10 +306,10 @@ If you need additional footers for different pages, you can create footer files 
 </footer>
 ```
 
-After which, you must specify the file within [front matter](#front-matter)'s `footer` attribute to render the footer.
+After which, you must specify the file within a page's [front matter](#front-matter)'s `footer` attribute to render the footer.
 
 ```html
-<!-- In the file that you want to include a footer -->
+<!-- In the page that you want to include a footer -->
 <frontmatter>
   footer: myFooterFile.md
 </frontmatter>
@@ -311,8 +317,9 @@ After which, you must specify the file within [front matter](#front-matter)'s `f
 
 Note:
 - Only one footer file can be specified in the [front matter](#front-matter) per page, and you must include its file extension.
+- If you are using [live preview](userQuickStart.html#preview-your-site), you must restart the server to see updates made in the footer file.
 
-#### 2. Defining your own inline footer
+#### Defining your own inline footer
 
 If you would like to have a page-specific footer content, you can author one inline with the same `<footer>` tag. 
 
@@ -331,6 +338,6 @@ Note:
 - Inline footers need to be the last element in a page.
 - If there is more than one inline footer in a page, only the last inline footer will be rendered.
 - Footers should not be nested in other components or HTML tags. If found inside, they will be shifted outside to be rendered properly.
-- MarkBind-dependent components and includes are not supported in footers.
+- [MarkBind components](#use-components) and [includes](#include-contents) are not supported in footers.
 
 </div>
