@@ -306,7 +306,7 @@ Tip: All new sites created with `init` will have a `footer.md` file automaticall
 </footer>
 ```
 
-After which, you must specify the file within a page's [front matter](#front-matter)'s `footer` attribute to render the footer.
+After which, you must specify the file within a page's [front matter](#front-matter) `footer` attribute to render the footer.
 
 ```html
 <!-- In the page that you want to include a footer -->
