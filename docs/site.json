@@ -30,6 +30,10 @@
       "title": "MarkBind: User Guide - Including Contents"
     },
     {
+      "src": "userGuide/knownProblems.md",
+      "title": "MarkBind: User Guide - Known Problems"
+    },
+    {
       "src": "userGuide/ghpagesDeployment.md",
       "title": "MarkBind: User Guide - Github Pages Deployment"
     },
