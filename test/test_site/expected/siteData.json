@@ -2,6 +2,7 @@
   "pages": [
     {
       "headings": {
+        "variables-that-reference-another-variable": "Variables that reference another variable",
         "normal-include": "Normal include",
         "establishing-requirements": "Establishing Requirements",
         "include-segment": "Include segment",
