@@ -197,6 +197,36 @@ test('Site read site config for custom site config', async () => {
   expect(site.siteConfig).toEqual(customSiteJson);
 });
 
+test('Site resolves variables referencing other variables', async () => {
+  const json = {
+    'lib/asset/glyphicons.csv': 'glyphicon-plus',
+    'lib/template/page.ejs': PAGE_EJS,
+    'site.json': SITE_JSON_DEFAULT,
+    '_markbind/variables.md':
+    '<span id="level1">variable</span>'
+    + '<span id="level2">{{level1}}</span>'
+    + '<span id="level3">{{glyphicon_plus}}</span>'
+    + '<span id="level4">{{level3 | safe}}</span>',
+  };
+  fs.vol.fromJSON(json, '');
+
+  const site = new Site('./', '_site');
+  await site.collectBaseUrl();
+  await site.collectUserDefinedVariablesMap();
+
+  const root = site.userDefinedVariablesMap[path.resolve('')];
+
+  // check all variables
+  expect(root.level1).toEqual('variable');
+  expect(root.level2).toEqual('variable');
+  const expectedGlyphiconSpan = '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'
+    .replace(/"/g, '&#39;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+  expect(root.level3).toEqual(expectedGlyphiconSpan);
+  expect(root.level4).toEqual(expectedGlyphiconSpan);
+});
+
 test('Site read correct user defined variables', async () => {
   const json = {
     'lib/asset/glyphicons.csv': '',

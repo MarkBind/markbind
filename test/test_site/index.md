@@ -7,6 +7,13 @@ footer: footer.md
 
 <div class="website-content">
 
+# Variables that reference another variable
+{{education_icon}}
+
+{{finalized_value}}
+
+{{reference_level_4}}
+
 # Normal include
 <include src="requirements/EstablishingRequirements.md" />
 
