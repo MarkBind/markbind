@@ -8,6 +8,7 @@
         "documentation": " Documentation",
         "about-us": " About us"
       },
+      "footer": "footer.md",
       "src": "index.md",
       "title": "MarkBind: Generate Course Websites from Markdown Text"
     },
@@ -86,6 +87,16 @@
       "footer": "userGuideSections.md",
       "src": "userGuide/includingContents.md",
       "title": "MarkBind: User Guide - Including Contents"
+    },
+    {
+      "headings": {
+        "known-problems": "Known problems",
+        "unwanted-starting-space-in-links-and-triggers": "Unwanted starting space in links and triggers",
+        "sections": "Sections"
+      },
+      "footer": "userGuideSections.md",
+      "src": "userGuide/knownProblems.md",
+      "title": "MarkBind: User Guide - Known Problems"
     },
     {
       "headings": {
