@@ -143,9 +143,15 @@ Note: Replace all instances of `-` with `_` in the glyph's name, e.g. <code>{<sp
 
 #### Timestamp
 
-Use <code>{<span></span>{timestamp}}</code> to insert the following snippet that indicates when the page was generated.  
+Use <code>{<span></span>{timestamp}}</code> to insert a UTC time snippet that indicates when the page was generated.  
 
-{{timestamp}}
+<code>{<span></span>{timestamp}}</code> will be rendered as: {{timestamp}}
+
+#### MarkBind Link
+
+Reference or support MarkBind by using <code>{<span></span>{MarkBind}}</code> to insert a link to our website.
+
+ <code>{<span></span>{MarkBind}}</code> will be rendered as: {{MarkBind}}
 
 ### Add your own variables
 
