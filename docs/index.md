@@ -1,5 +1,6 @@
 <frontmatter>
-  footer: footer.md
+  footer: userGuideFooter.md
+  siteNav: userGuideSections.md
 </frontmatter>
 
 <include src="./common/header.md" />
