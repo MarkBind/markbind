@@ -1,6 +1,7 @@
 <frontmatter>
 title: Hello World
 footer: footer.md
+siteNav: site-nav.md
 </frontmatter>
 
 <include src="components/header.md" />

@@ -1,5 +1,6 @@
 <frontmatter>
-  footer: userGuideSections.md
+  footer: userGuideFooter.md
+  siteNav: userGuideSections.md
 </frontmatter>
 
 <include src="../common/header.md" />
@@ -347,6 +348,100 @@ Front matter can also be included from a separate file, just like how content ca
 ```
 
 This will result in `index.md` having the title `Binary Search Tree` and the specified keywords in order for it to be looked up through the search bar.
+
+### Site Navigation
+
+A site navigation bar is a fixed menu on the left side of your page contents, that allows the viewer to navigate your site pages. 
+The menu has a fixed width of 300 pixels for its contents. 
+If you would like to have a site navigation bar for your site, you may create one easily using Markdown.
+
+- Start by creating a Markdown file (`.md`) in `_markbind/navigation`.
+    - All new sites created with `init` have a `site-nav.md` file created automatically for you as a template in `_markbind/navigation`.
+    - More than one navigation file can be created for different pages.
+
+- Author your navigation layout using Markdown's unordered list syntax as shown below.
+    - When you are using links (`[linkName](url)`), ensure that the url starts from the root directory <code>{<span></span>{baseUrl}}/</code> when you are referencing a page in your site. 
+    e.g. <code>{<span></span>{baseUrl}}/folder1/myPage.html</code>
+    - Ensure you wrap everything in a `<markdown>` tag for MarkBind to identify the Markdown syntax.
+
+```html
+<!-- In _markbind/navigation/mySiteNav.md -->
+<markdown>
+* [Home :house:]({{baseUrl}}/index.html)
+* Dropdown title :pencil2: <!-- Nested list items will be placed inside a Dropdown menu -->
+  * [Dropdown link one](https://www.google.com/)
+  * Nested Dropdown title :triangular_ruler:
+    * [**Nested** Dropdown link one](https://www.google.com/)
+    * [**Nested** Dropdown link two](https://www.google.com/)
+  * [Dropdown link two](https://www.google.com/)
+* [==Third Link== :clipboard:](https://www.google.com/)
+* [Youtube](https://www.youtube.com/) <!-- Using a link as a Dropdown title will not render a Dropdown menu -->
+  * [Youtube video one](http://www.youtube.com/watch?v=lJIrF4YjHfQ)
+  * Dropdown title :pencil2: <!-- Dropdown menus in are still supported inside, as long as the title is not a link -->
+    * [**Nested** Dropdown link one](https://www.google.com/)
+</markdown>
+```
+
+- Specify the navigation file you have created within a page's [front matter](#front-matter) `siteNav` attribute to render it.
+
+```html
+<!-- In the page that you want to have a site navigation bar -->
+<frontmatter>
+  siteNav: mySiteNav.md
+</frontmatter>
+```
+
+The above Markdown content will be rendered as:
+
+<ul style="list-style-type: none; margin-left:-1em">
+  <li style="margin-top: 10px"><a href="/index.html">Home 🏠</a></li>
+  <li style="margin-top: 10px">
+    <button class="dropdown-btn">Dropdown title ✏️  <i class="dropdown-btn-icon">
+      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+    <div class="dropdown-container">
+      <ul style="list-style-type: none; margin-left:-1em">
+        <li style="margin-top: 10px"><a href="https://www.google.com/">Dropdown link one</a></li>
+        <li style="margin-top: 10px">
+          <button class="dropdown-btn">Nested Dropdown title 📐
+            <i class="dropdown-btn-icon">
+            <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+          <div class="dropdown-container">
+            <ul style="list-style-type: none; margin-left:-1em">
+              <li style="margin-top: 10px"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link one</a></li>
+              <li style="margin-top: 10px"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link two</a></li>
+            </ul>
+          </div>
+        </li>
+        <li style="margin-top: 10px"><a href="https://www.google.com/">Dropdown link two</a></li>
+      </ul>
+    </div>
+  </li>
+  <li style="margin-top: 10px"><a href="https://www.google.com/"><mark>Third Link</mark> 📋</a></li>
+  <li style="margin-top:10px"><a href="https://www.youtube.com/">Youtube</a>
+    <ul style="list-style-type: none; margin-left:-1em">
+      <li style="margin-top: 10px"><a href="http://www.youtube.com/watch?v=lJIrF4YjHfQ">Youtube video one</a></li>
+      <li style="margin-top: 10px">
+        <button class="dropdown-btn">Dropdown title ✏️  <i class="dropdown-btn-icon">
+          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+        <div class="dropdown-container">
+          <ul style="list-style-type: none; margin-left:-1em">
+            <li style="margin-top: 10px"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link one</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+The site navigation bar has [responsive properties](https://www.w3schools.com/html/html_responsive.asp), and will collapse to a menu button when the screen width is smaller than 768 pixels.
+
+You are able to use [Markdown syntax](#supported-markdown-syntax), as well as [glyphicons](#glyphicons) to author your site navigation layout.
+
+Note:
+- Only one navigation file can be specified in a page, and you must include its file extension.
+- There is no limit to the number of nested Dropdown menus, but each menu's height is restricted to 1000 pixels.
+    - Dropdown menu content exceeding 1000 pixels in height will be cut off.
+- If you are using [live preview](userQuickStart.html#preview-your-site), you must restart the server to see updates made in the navigation file.
 
 ### Using Footers
 

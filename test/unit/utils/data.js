@@ -56,9 +56,14 @@ module.exports.FOOTER_MD_DEFAULT = '<footer>\n'
 module.exports.INDEX_MD_DEFAULT = '<frontmatter>\n'
   + '  title: "Hello World"\n'
   + '  footer: footer.md\n'
+  + '  siteNav: site-nav.md\n'
   + '</frontmatter>\n\n'
   + '# Hello world\n'
   + 'Welcome to your page generated with MarkBind.\n';
+
+module.exports.SITE_NAV_MD_DEFAULT = '<markdown>\n'
+  + '* [Home {{glyphicon_home}}]({{baseUrl}}/index.html)\n'
+  + '</markdown>\n';
 
 module.exports.USER_VARIABLES_DEFAULT = '<span id="example">\n'
   + 'To inject this HTML segment in your markbind files, use {{ example }} where you want to place it.\n'

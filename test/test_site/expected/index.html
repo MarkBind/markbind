@@ -8,85 +8,168 @@
     <link rel="stylesheet" href="markbind\css\bootstrap.min.css">
     <link rel="stylesheet" href="markbind\css\github.min.css">
     <link rel="stylesheet" href="markbind\css\markbind.css">
+    <link rel="stylesheet" href="markbind\css\site-nav.css">
     <link rel="icon" href="/test_site/favicon.png">
 </head>
 <body>
 <div id="app" class="container-fluid">
+    <div id="flex-body">
+  <div id="site-nav">
+    <ul style="list-style-type: none; margin-left:-1em">
+      <li style="margin-top: 10px">
+        <h2 id="navigation">Navigation</h2>
+      </li>
+      <li style="margin-top: 10px"><a href="/test_site/index.html">Home 🏠</a></li>
+      <li style="margin-top: 10px"><a href="/test_site/bugs/index.html">Open Bugs 🐛</a></li>
+      <li style="margin-top: 10px">
+        <h3 id="testing-site-nav">Testing Site-Nav</h3>
+      </li>
+      <li style="margin-top: 10px"><button class="dropdown-btn">Dropdown title ✏️  <i class="dropdown-btn-icon">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+        <div class="dropdown-container">
+          <ul style="list-style-type: none; margin-left:-1em">
+            <li style="margin-top: 10px"><a href="https://www.google.com/">Dropdown link one</a></li>
+            <li style="margin-top: 10px"><button class="dropdown-btn">Nested Dropdown title 📐
+ <i class="dropdown-btn-icon">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+              <div class="dropdown-container">
+                <ul style="list-style-type: none; margin-left:-1em">
+                  <li style="margin-top: 10px"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link one</a></li>
+                  <li style="margin-top: 10px"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link two</a></li>
+                </ul>
+              </div>
+            </li>
+            <li style="margin-top: 10px"><a href="https://www.google.com/">Dropdown link two</a></li>
+          </ul>
+        </div>
+      </li>
+      <li style="margin-top: 10px"><a href="https://www.google.com/"><mark>Third Link</mark> 📋</a></li>
+      <li style="margin-top:10px"><a href="https://www.youtube.com/">Youtube</a>
+        <ul style="list-style-type: none; margin-left:-1em">
+          <li style="margin-top: 10px"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">The answer to everything in the universe</a></li>
+          <li style="margin-top: 10px"><button class="dropdown-btn">Dropdown title ✏️  <i class="dropdown-btn-icon">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+            <div class="dropdown-container">
+              <ul style="list-style-type: none; margin-left:-1em">
+                <li style="margin-top: 10px"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link one</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li style="margin-top: 10px"><button class="dropdown-btn">Really Long Dropdown Title Really Long Dropdown Title Really Long Dropdown Title Really Long Dropdown
+ <i class="dropdown-btn-icon">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+        <div class="dropdown-container">
+          <ul style="list-style-type: none; margin-left:-1em">
+            <li style="margin-top: 10px">Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text
+              Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text
+              Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text
+              Really Really Long Text</li>
+            <li style="margin-top: 10px"><button class="dropdown-btn">Nested Dropdown Title
+ <i class="dropdown-btn-icon">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+              <div class="dropdown-container">
+                <ul style="list-style-type: none; margin-left:-1em">
+                  <li style="margin-top: 10px">Hello Doge Hello Doge 🐶</li>
+                  <li style="margin-top: 10px"><a href="/test_site/index.html"><strong>NESTED LINK</strong> Home 🏠</a></li>
+                  <li style="margin-top: 10px">More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long
+                    Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long
+                    Long Text</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="site-nav-btn-wrap">
+    <div id="site-nav-btn">
+      <div class="menu-top-bar"></div>
+      <div class="menu-middle-bar"></div>
+      <div class="menu-bottom-bar"></div>
+    </div>
+  </div>
+  <div id="page-content">
     <div>
-  <navbar placement="top" type="inverse">
-    <a slot="brand" href="/" title="Home" class="navbar-brand">Markbind Test Site</a>
-    <li><a href="/test_site/bugs/index.html">Open Bugs</a></li>
-  </navbar>
-</div>
-<div class="website-content">
-  <h1 id="variables-that-reference-another-variable">Variables that reference another variable</h1>
-  <p><span class="glyphicon glyphicon-education" aria-hidden="true"></span></p>
-  <p>This variable can be referenced.</p>
-  <p>References can be several levels deep.</p>
-  <h1 id="normal-include">Normal include</h1>
-  <div>
-    <h3 id="establishing-requirements">Establishing Requirements</h3>
-    <p>
-      <seg id="preview">Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should do.</seg>
-    </p>
-    <p>There are many techniques used during a requirements gathering. The following are some of the techniques.</p>
-    <h4 id="brainstorming">Brainstorming</h4>
-    <p>Brainstorming is a group activity designed to generate a large number of diverse and creative ideas for the solution of a problem. In a brainstorming session there are no &quot;bad&quot; ideas. The aim is to generate ideas; not to validate them. Brainstorming
-      encourages you to &quot;think outside the box&quot; and put &quot;crazy&quot; ideas on the table without fear of rejection.</p>
-    <h4 id="user-surveys">User surveys</h4>
-    <p>Carefully designed questionnaires can be used to solicit responses and opinions from a large number of users regarding any current system or a new innovation.</p>
-    <h4 id="focus-groups">Focus groups</h4>
-    <p>Focus groups are a kind of informal interview within an interactive group setting. A
-      <tooltip content="e.g. potential users, beta testers">group of people</tooltip>
-      are asked about their understanding of a specific issue or a process. Focus groups can bring out undiscovered conflicts and misunderstandings among stakeholder interests which can then be resolved or clarified as necessary.</p>
-  </div>
-  <h1 id="include-segment">Include segment</h1>
-  <div>
-    <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should do.</p>
-  </div>
-  <h1 id="dynamic-include">Dynamic include</h1>
-  <p>
-    <panel src="/test_site\requirements\SpecifyingRequirements._include_.html" name="Dynamic Include" header="Dynamic Include" isOpen="false" no-close="true" no-switch="true"></panel>
-  </p>
-  <h1 id="boilerplate-include">Boilerplate include</h1>
-  <div name="Boilerplate Referencing">
-    <p>
-      <panel src="/test_site\requirements\UserStories._include_.html" header="Boilerplate Includes" no-close="true" isOpen="false" no-switch="true"></panel>
-    </p>
-  </div>
-  <p>
-    <panel src="/test_site\requirements\notInside._include_.html" name="Referencing specified path in boilerplate" header="Referencing specified path in boilerplate" isOpen="false" no-close="true" no-switch="true"></panel>
-  </p>
-  <h1 id="nested-include">Nested include</h1>
-  <div>
-    <ol>
-      <li><strong>Establishing requirements</strong>: <span>Requirements gathering, requirements elicitation, requirements analysis,
+      <navbar placement="top" type="inverse">
+        <a slot="brand" href="/" title="Home" class="navbar-brand">Markbind Test Site</a>
+        <li><a href="/test_site/bugs/index.html">Open Bugs</a></li>
+      </navbar>
+    </div>
+    <div class="website-content">
+      <h1 id="variables-that-reference-another-variable">Variables that reference another variable</h1>
+      <p><span class="glyphicon glyphicon-education" aria-hidden="true"></span></p>
+      <p>This variable can be referenced.</p>
+      <p>References can be several levels deep.</p>
+      <h1 id="normal-include">Normal include</h1>
+      <div>
+        <h3 id="establishing-requirements">Establishing Requirements</h3>
+        <p>
+          <seg id="preview">Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
+            do.</seg>
+        </p>
+        <p>There are many techniques used during a requirements gathering. The following are some of the techniques.</p>
+        <h4 id="brainstorming">Brainstorming</h4>
+        <p>Brainstorming is a group activity designed to generate a large number of diverse and creative ideas for the solution of a problem. In a brainstorming session there are no &quot;bad&quot; ideas. The aim is to generate ideas; not to validate them.
+          Brainstorming encourages you to &quot;think outside the box&quot; and put &quot;crazy&quot; ideas on the table without fear of rejection.</p>
+        <h4 id="user-surveys">User surveys</h4>
+        <p>Carefully designed questionnaires can be used to solicit responses and opinions from a large number of users regarding any current system or a new innovation.</p>
+        <h4 id="focus-groups">Focus groups</h4>
+        <p>Focus groups are a kind of informal interview within an interactive group setting. A
+          <tooltip content="e.g. potential users, beta testers">group of people</tooltip>
+          are asked about their understanding of a specific issue or a process. Focus groups can bring out undiscovered conflicts and misunderstandings among stakeholder interests which can then be resolved or clarified as necessary.</p>
+      </div>
+      <h1 id="include-segment">Include segment</h1>
+      <div>
+        <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should do.</p>
+      </div>
+      <h1 id="dynamic-include">Dynamic include</h1>
+      <p>
+        <panel src="/test_site\requirements\SpecifyingRequirements._include_.html" name="Dynamic Include" header="Dynamic Include" isOpen="false" no-close="true" no-switch="true"></panel>
+      </p>
+      <h1 id="boilerplate-include">Boilerplate include</h1>
+      <div name="Boilerplate Referencing">
+        <p>
+          <panel src="/test_site\requirements\UserStories._include_.html" header="Boilerplate Includes" no-close="true" isOpen="false" no-switch="true"></panel>
+        </p>
+      </div>
+      <p>
+        <panel src="/test_site\requirements\notInside._include_.html" name="Referencing specified path in boilerplate" header="Referencing specified path in boilerplate" isOpen="false" no-close="true" no-switch="true"></panel>
+      </p>
+      <h1 id="nested-include">Nested include</h1>
+      <div>
+        <ol>
+          <li><strong>Establishing requirements</strong>: <span>Requirements gathering, requirements elicitation, requirements analysis,
 requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity
 of understanding what a software product should do.</span></li>
-      <li><strong>Specifying requirements</strong>: <span>As we establish requirements, they should be recorded in some way for future reference,
+          <li><strong>Specifying requirements</strong>: <span>As we establish requirements, they should be recorded in some way for future reference,
 usually called a requirement specification. Furthermore, it is advisable to show these requirements to stakeholders,
 and refine requirements based on their feedback. The next phase is to convert requirements into a product
 specification that specifies how the product will address the requirements. </span></li>
-    </ol>
+        </ol>
+      </div>
+      <h1 id="html-include">HTML include</h1>
+      <div>
+        <p>This is a HTML document</p>
+        <p><span>It is <strong>possible</strong> to use Markdown in HTML</span></p>
+      </div>
+      <h1 id="include-from-another-markbind-site">Include from another Markbind site</h1>
+      <div>
+        <p>This is a page from another Markbind site.</p>
+        <h2 id="feature-list">Feature list</h2>
+        <p>It is a list of features (or functionalities) grouped according to some criteria such as priority (e.g. must-have, nice-to-have, etc. ), order of delivery, object or process related (e.g. order-related, invoice-related, etc.). Here is a sample
+          feature list from Minesweeper (only a brief description has been provided to save space).</p>
+        <ol>
+          <li>Basic play – Single player play.</li>
+          <li>Difficulty levels – Additional Medium and Advanced levels.</li>
+          <li>Versus play – Two players can play against each other.</li>
+          <li>Timer – Additional fixed time restriction on the player.</li>
+        </ol>
+        <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></div>
+    </div>
   </div>
-  <h1 id="html-include">HTML include</h1>
-  <div>
-    <p>This is a HTML document</p>
-    <p><span>It is <strong>possible</strong> to use Markdown in HTML</span></p>
-  </div>
-  <h1 id="include-from-another-markbind-site">Include from another Markbind site</h1>
-  <div>
-    <p>This is a page from another Markbind site.</p>
-    <h2 id="feature-list">Feature list</h2>
-    <p>It is a list of features (or functionalities) grouped according to some criteria such as priority (e.g. must-have, nice-to-have, etc. ), order of delivery, object or process related (e.g. order-related, invoice-related, etc.). Here is a sample feature
-      list from Minesweeper (only a brief description has been provided to save space).</p>
-    <ol>
-      <li>Basic play – Single player play.</li>
-      <li>Difficulty levels – Additional Medium and Advanced levels.</li>
-      <li>Versus play – Two players can play against each other.</li>
-      <li>Timer – Additional fixed time restriction on the player.</li>
-    </ol>
-    <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></div>
 </div>
 <div id="flex-div"></div>
 <footer>
@@ -102,4 +185,5 @@ specification that specifies how the product will address the requirements. </sp
     const baseUrl = '/test_site'
 </script>
 <script src="markbind\js\setup.js"></script>
+<script src="markbind\js\site-nav.js"></script>
 </html>
