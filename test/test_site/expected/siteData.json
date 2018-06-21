@@ -2,6 +2,8 @@
   "pages": [
     {
       "headings": {
+        "navigation": "Navigation",
+        "testing-site-nav": "Testing Site-Nav",
         "variables-that-reference-another-variable": "Variables that reference another variable",
         "normal-include": "Normal include",
         "establishing-requirements": "Establishing Requirements",
