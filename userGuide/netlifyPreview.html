@@ -8,144 +8,163 @@
     <link rel="stylesheet" href="..\markbind\css\bootstrap.min.css">
     <link rel="stylesheet" href="..\markbind\css\github.min.css">
     <link rel="stylesheet" href="..\markbind\css\markbind.css">
+    <link rel="stylesheet" href="..\markbind\css\site-nav.css">
     
 </head>
 <body>
 <div id="app" class="container-fluid">
-    <div>
-  <link rel="stylesheet" href="/markbind/css/main.css">
-  <navbar placement="top" type="inverse">
-    <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
-    <dropdown text="User Guide">
-      <li><a href="/markbind/userGuide/index.html">Home</a></li>
-      <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
-      <li role="separator" class="divider"></li>
-      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
-        <li><a href="/markbind/userGuide/siteConfiguration.html">◦&nbsp; Site Configuration</a></li>
-        <li role="separator" class="divider"></li>
-        <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
-        <li><a href="/markbind/userGuide/includingContents.html">◦&nbsp; Including Contents</a></li>
-        <li><a href="/markbind/userGuide/knownProblems.html">◦&nbsp; Known Problems</a></li>
-        <li role="separator" class="divider"></li>
-        <li style="margin: 3px 20px;">Deploying a Site</li>
-        <li><a href="/markbind/userGuide/ghpagesDeployment.html">◦&nbsp; Github Pages Deployment</a></li>
-        <li><a href="/markbind/userGuide/netlifyPreview.html">◦&nbsp; Preview site on Netlify</a></li>
+    <div id="flex-body">
+  <div id="site-nav">
+    <ul style="list-style-type: none; margin-left:-1em">
+      <li style="margin-top: 10px">
+        <h2 id="user-guide">User Guide</h2>
       </li>
-    </dropdown>
-    <li>
-      <a href="https://github.com/MarkBind/markbind" target="_blank">
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+      <li style="margin-top:10px"><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
+        <ul style="list-style-type: none; margin-left:-1em">
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
+        </ul>
+      </li>
+      <li style="margin-top:10px"><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a>
+        <ul style="list-style-type: none; margin-left:-1em">
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/knownProblems.html">Known Problems</a></li>
+        </ul>
+      </li>
+      <li style="margin-top: 10px"><button class="dropdown-btn">Deploying a Site
+ <i class="dropdown-btn-icon">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+        <div class="dropdown-container">
+          <ul style="list-style-type: none; margin-left:-1em">
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="site-nav-btn-wrap">
+    <div id="site-nav-btn">
+      <div class="menu-top-bar"></div>
+      <div class="menu-middle-bar"></div>
+      <div class="menu-bottom-bar"></div>
+    </div>
+  </div>
+  <div id="page-content">
+    <div>
+      <link rel="stylesheet" href="/markbind/css/main.css">
+      <navbar placement="top" type="inverse">
+        <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
+        <dropdown text="User Guide">
+          <li><a href="/markbind/userGuide/index.html">Home</a></li>
+          <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
+            <li><a href="/markbind/userGuide/siteConfiguration.html">◦&nbsp; Site Configuration</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
+            <li><a href="/markbind/userGuide/includingContents.html">◦&nbsp; Including Contents</a></li>
+            <li><a href="/markbind/userGuide/knownProblems.html">◦&nbsp; Known Problems</a></li>
+            <li role="separator" class="divider"></li>
+            <li style="margin: 3px 20px;">Deploying a Site</li>
+            <li><a href="/markbind/userGuide/ghpagesDeployment.html">◦&nbsp; Github Pages Deployment</a></li>
+            <li><a href="/markbind/userGuide/netlifyPreview.html">◦&nbsp; Preview site on Netlify</a></li>
+          </li>
+        </dropdown>
+        <li>
+          <a href="https://github.com/MarkBind/markbind" target="_blank">
       Fork this project on Github
       <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
-    <li slot="right">
-      <form class="navbar-form">
-        <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
-      </form>
-    </li>
-  </navbar>
-</div>
-<div class="website-content">
-  <panel header="## Previewing site on Netlify with the latest version of MarkBind">
-    <ol>
-      <li>
-        <p>Go to <a href="https://app.netlify.com/">https://app.netlify.com/</a> and sign up</p>
-      </li>
-      <li>
-        <p>Next go to <a href="https://app.netlify.com/account/sites">https://app.netlify.com/account/sites</a> and select <code>New site from Git</code></p>
-      </li>
-      <li>
-        <p>Select your git provider</p>
-        <p><img src="/markbind/images/netlifyPreview1.png" alt="Create a new site" width="600"></p>
-      </li>
-      <li>
-        <p>Select your markbind site repository</p>
-        <p><img src="/markbind/images/netlifyPreview2.png" alt="Select repository" width="600"></p>
-      </li>
-      <li>
-        <p>Update the build settings as follows:</p>
-        <ul>
-          <li>Build Command: <code>npm i markbind-cli -g &amp;&amp; markbind build --baseUrl</code></li>
-          <li>Publish directory: <code>_site</code></li>
-        </ul>
-        <p><img src="/markbind/images/netlifyPreview3.png" alt="Update build settings" width="600"></p>
-        <p>and hit <code>Deploy site</code>.</p>
-      </li>
-    </ol>
-    <p>Now your site will be deployed on Netlify at the given address specified after deployment.</p>
-    <p>Additionally when contributors make a pull request to <code>master</code>, you can preview the updated site at the bottom of the pull request by clicking on details:</p>
-    <p><img src="/markbind/images/netlifyPreview4.png" alt="Preview deploy" width="600"></p>
-  </panel>
-  <panel header="## Previewing site on Netlify with a specific version of MarkBind">
-    <p>In order preview a site on Netlify with a specific version of MarkBind, you need to do the following in the root directory of your site:</p>
-    <ol>
-      <li>run <code>$ npm init</code> which will create <code>package.json</code> and <code>package.lock.json</code></li>
-      <li>run <code>$ npm install markbind-cli@1.6.3 --save</code> to install markbind as a dependency (using v1.6.3 as an example)</li>
-      <li>create/update <code>.gitignore</code> file in the root directory and add:
-        <pre class="hljs"><code>node_modules
+        <li slot="right">
+          <form class="navbar-form">
+            <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
+          </form>
+        </li>
+      </navbar>
+    </div>
+    <div class="website-content">
+      <panel header="## Previewing site on Netlify with the latest version of MarkBind">
+        <ol>
+          <li>
+            <p>Go to <a href="https://app.netlify.com/">https://app.netlify.com/</a> and sign up</p>
+          </li>
+          <li>
+            <p>Next go to <a href="https://app.netlify.com/account/sites">https://app.netlify.com/account/sites</a> and select <code>New site from Git</code></p>
+          </li>
+          <li>
+            <p>Select your git provider</p>
+            <p><img src="/markbind/images/netlifyPreview1.png" alt="Create a new site" width="600"></p>
+          </li>
+          <li>
+            <p>Select your markbind site repository</p>
+            <p><img src="/markbind/images/netlifyPreview2.png" alt="Select repository" width="600"></p>
+          </li>
+          <li>
+            <p>Update the build settings as follows:</p>
+            <ul>
+              <li>Build Command: <code>npm i markbind-cli -g &amp;&amp; markbind build --baseUrl</code></li>
+              <li>Publish directory: <code>_site</code></li>
+            </ul>
+            <p><img src="/markbind/images/netlifyPreview3.png" alt="Update build settings" width="600"></p>
+            <p>and hit <code>Deploy site</code>.</p>
+          </li>
+        </ol>
+        <p>Now your site will be deployed on Netlify at the given address specified after deployment.</p>
+        <p>Additionally when contributors make a pull request to <code>master</code>, you can preview the updated site at the bottom of the pull request by clicking on details:</p>
+        <p><img src="/markbind/images/netlifyPreview4.png" alt="Preview deploy" width="600"></p>
+      </panel>
+      <panel header="## Previewing site on Netlify with a specific version of MarkBind">
+        <p>In order preview a site on Netlify with a specific version of MarkBind, you need to do the following in the root directory of your site:</p>
+        <ol>
+          <li>run <code>$ npm init</code> which will create <code>package.json</code> and <code>package.lock.json</code></li>
+          <li>run <code>$ npm install markbind-cli@1.6.3 --save</code> to install markbind as a dependency (using v1.6.3 as an example)</li>
+          <li>create/update <code>.gitignore</code> file in the root directory and add:
+            <pre class="hljs"><code>node_modules
 </code></pre>
-      </li>
-      <li>update <code>ignore</code> in site.json to include
-        <ul>
-          <li><code>node_modules/*</code></li>
-          <li><code>.gitignore</code></li>
-        </ul>
-      </li>
-    </ol>
-    <p>Now you are ready to set up on Netlify</p>
-    <ol>
-      <li>
-        <p>Go to <a href="https://app.netlify.com/">https://app.netlify.com/</a> and sign up</p>
-      </li>
-      <li>
-        <p>Next go to <a href="https://app.netlify.com/account/sites">https://app.netlify.com/account/sites</a> and select <code>New site from Git</code></p>
-      </li>
-      <li>
-        <p>Select your git provider</p>
-        <p><img src="/markbind/images/netlifyPreview1.png" alt="Create a new site" width="600"></p>
-      </li>
-      <li>
-        <p>Select your markbind site repository</p>
-        <p><img src="/markbind/images/netlifyPreview2.png" alt="Select repository" width="600"></p>
-      </li>
-      <li>
-        <p>Update the build settings as follows:</p>
-        <ul>
-          <li>Build Command: <code>markbind build --baseUrl</code></li>
-          <li>Publish directory: <code>_site</code></li>
-        </ul>
-        <p><img src="/markbind/images/netlifyPreview3.png" alt="Update build settings" width="600"></p>
-      </li>
-    </ol>
-    <p>Now your site will be deployed on Netlify at the given address specified after deployment.</p>
-    <p>Additionally when contributors make a pull request to <code>master</code>, you can preview the updated site at the bottom of the pull request by clicking on details:</p>
-    <p><img src="/markbind/images/netlifyPreview4.png" alt="Preview deploy"></p>
-  </panel>
+          </li>
+          <li>update <code>ignore</code> in site.json to include
+            <ul>
+              <li><code>node_modules/*</code></li>
+              <li><code>.gitignore</code></li>
+            </ul>
+          </li>
+        </ol>
+        <p>Now you are ready to set up on Netlify</p>
+        <ol>
+          <li>
+            <p>Go to <a href="https://app.netlify.com/">https://app.netlify.com/</a> and sign up</p>
+          </li>
+          <li>
+            <p>Next go to <a href="https://app.netlify.com/account/sites">https://app.netlify.com/account/sites</a> and select <code>New site from Git</code></p>
+          </li>
+          <li>
+            <p>Select your git provider</p>
+            <p><img src="/markbind/images/netlifyPreview1.png" alt="Create a new site" width="600"></p>
+          </li>
+          <li>
+            <p>Select your markbind site repository</p>
+            <p><img src="/markbind/images/netlifyPreview2.png" alt="Select repository" width="600"></p>
+          </li>
+          <li>
+            <p>Update the build settings as follows:</p>
+            <ul>
+              <li>Build Command: <code>markbind build --baseUrl</code></li>
+              <li>Publish directory: <code>_site</code></li>
+            </ul>
+            <p><img src="/markbind/images/netlifyPreview3.png" alt="Update build settings" width="600"></p>
+          </li>
+        </ol>
+        <p>Now your site will be deployed on Netlify at the given address specified after deployment.</p>
+        <p>Additionally when contributors make a pull request to <code>master</code>, you can preview the updated site at the bottom of the pull request by clicking on details:</p>
+        <p><img src="/markbind/images/netlifyPreview4.png" alt="Preview deploy"></p>
+      </panel>
+    </div>
+  </div>
 </div>
 <div id="flex-div"></div>
 <footer>
-  <div class="website-content">
-    <h2 id="sections">Sections</h2>
-    <ul>
-      <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
-      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
-        <ul>
-          <li><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
-        </ul>
-      </li>
-      <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a>
-        <ul>
-          <li><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
-          <li><a href="/markbind/userGuide/knownProblems.html">Known Problems</a></li>
-        </ul>
-      </li>
-      <li>Deploying a Site
-        <ul>
-          <li><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
-          <li><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
-        </ul>
-      </li>
-    </ul>
-    <p><small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.8.0</a> on Mon, 11 Jun 2018 06:14:33 GMT]</small></p>
-  </div>
+  <div class="text-center">
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.8.1</a> on Fri, 22 Jun 2018 01:45:12 GMT]</small></div>
 </footer>
 </div>
 </body>
@@ -155,4 +174,5 @@
     const baseUrl = '/markbind'
 </script>
 <script src="..\markbind\js\setup.js"></script>
+<script src="..\markbind\js\site-nav.js"></script>
 </html>

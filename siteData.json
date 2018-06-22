@@ -2,27 +2,31 @@
   "pages": [
     {
       "headings": {
+        "user-guide": "User Guide",
         "markbind": "MarkBind",
         "features": " Features",
         "examples": " Examples",
         "documentation": " Documentation",
         "about-us": " About us"
       },
-      "footer": "footer.md",
+      "footer": "userGuideFooter.md",
+      "siteNav": "userGuideSections.md",
       "src": "index.md",
       "title": "MarkBind: Generate Course Websites from Markdown Text"
     },
     {
       "headings": {
-        "markbind-user-guide": "MarkBind User Guide",
-        "sections": "Sections"
+        "user-guide": "User Guide",
+        "markbind-user-guide": "MarkBind User Guide"
       },
-      "footer": "userGuideSections.md",
+      "footer": "userGuideFooter.md",
+      "siteNav": "userGuideSections.md",
       "src": "userGuide/index.md",
       "title": "MarkBind: User Guide"
     },
     {
       "headings": {
+        "user-guide": "User Guide",
         "user-quick-start": "User Quick Start",
         "requirement": "Requirement",
         "installation": "Installation",
@@ -31,38 +35,41 @@
         "authoring-your-contents": "Authoring your contents",
         "preview-your-site": "Preview your site",
         "build-the-static-site": "Build the static site",
-        "deploy-the-generated-site": "Deploy the generated site",
-        "sections": "Sections"
+        "deploy-the-generated-site": "Deploy the generated site"
       },
-      "footer": "userGuideSections.md",
+      "footer": "userGuideFooter.md",
+      "siteNav": "userGuideSections.md",
       "src": "userGuide/userQuickStart.md",
       "title": "MarkBind: User Guide - Quick Start"
     },
     {
       "headings": {
+        "user-guide": "User Guide",
         "developing-a-site-with-markbind": "Developing a Site with MarkBind",
         "init-a-site-with-markbind": "Init a site with MarkBind",
         "preview-and-serve-your-site-using": "Preview and serve your site using:",
         "build-the-static-site": "Build the static site",
         "deploy-the-generated-site": "Deploy the generated site",
-        "sitejson": "site.json",
-        "sections": "Sections"
+        "sitejson": "site.json"
       },
-      "footer": "userGuideSections.md",
+      "footer": "userGuideFooter.md",
+      "siteNav": "userGuideSections.md",
       "src": "userGuide/developingASite.md",
       "title": "MarkBind: User Guide - Developing a Site"
     },
     {
       "headings": {
-        "site-configuration": "Site Configuration",
-        "sections": "Sections"
+        "user-guide": "User Guide",
+        "site-configuration": "Site Configuration"
       },
-      "footer": "userGuideSections.md",
+      "footer": "userGuideFooter.md",
+      "siteNav": "userGuideSections.md",
       "src": "userGuide/siteConfiguration.md",
       "title": "MarkBind: User Guide - Site Configuration"
     },
     {
       "headings": {
+        "user-guide": "User Guide",
         "content-authoring": "Content authoring",
         "general-writing-guide": "General writing guide",
         "supported-markdown-syntax": "Supported Markdown Syntax",
@@ -72,48 +79,53 @@
         "use-components": "Use Components",
         "include-contents": "Include Contents",
         "front-matter": "Front Matter",
-        "using-footers": "Using Footers",
-        "sections": "Sections"
+        "site-navigation": "Site Navigation",
+        "using-footers": "Using Footers"
       },
-      "footer": "userGuideSections.md",
+      "footer": "userGuideFooter.md",
+      "siteNav": "userGuideSections.md",
       "src": "userGuide/contentAuthoring.md",
       "title": "MarkBind: User Guide - Content Authoring"
     },
     {
       "headings": {
-        "including-contents": "Including contents",
-        "sections": "Sections"
+        "user-guide": "User Guide",
+        "including-contents": "Including contents"
       },
-      "footer": "userGuideSections.md",
+      "footer": "userGuideFooter.md",
+      "siteNav": "userGuideSections.md",
       "src": "userGuide/includingContents.md",
       "title": "MarkBind: User Guide - Including Contents"
     },
     {
       "headings": {
+        "user-guide": "User Guide",
         "known-problems": "Known problems",
-        "unwanted-starting-space-in-links-and-triggers": "Unwanted starting space in links and triggers",
-        "sections": "Sections"
+        "unwanted-starting-space-in-links-and-triggers": "Unwanted starting space in links and triggers"
       },
-      "footer": "userGuideSections.md",
+      "footer": "userGuideFooter.md",
+      "siteNav": "userGuideSections.md",
       "src": "userGuide/knownProblems.md",
       "title": "MarkBind: User Guide - Known Problems"
     },
     {
       "headings": {
+        "user-guide": "User Guide",
         "github-pages-deployment": "Github Pages Deployment",
         "deploy-to-github-pages-at-gh-pages-branch-of-the-current-repo": "Deploy to Github pages at gh-pages branch of the current repo",
-        "deployment-config-in-sitejson": "Deployment config in site.json",
-        "sections": "Sections"
+        "deployment-config-in-sitejson": "Deployment config in site.json"
       },
-      "footer": "userGuideSections.md",
+      "footer": "userGuideFooter.md",
+      "siteNav": "userGuideSections.md",
       "src": "userGuide/ghpagesDeployment.md",
       "title": "MarkBind: User Guide - Github Pages Deployment"
     },
     {
       "headings": {
-        "sections": "Sections"
+        "user-guide": "User Guide"
       },
-      "footer": "userGuideSections.md",
+      "footer": "userGuideFooter.md",
+      "siteNav": "userGuideSections.md",
       "src": "userGuide/netlifyPreview.md",
       "title": "MarkBind: User Guide - Preview site on Netlify"
     }

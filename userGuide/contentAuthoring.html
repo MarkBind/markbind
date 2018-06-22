@@ -8,162 +8,205 @@
     <link rel="stylesheet" href="..\markbind\css\bootstrap.min.css">
     <link rel="stylesheet" href="..\markbind\css\github.min.css">
     <link rel="stylesheet" href="..\markbind\css\markbind.css">
+    <link rel="stylesheet" href="..\markbind\css\site-nav.css">
     
 </head>
 <body>
 <div id="app" class="container-fluid">
-    <div>
-  <link rel="stylesheet" href="/markbind/css/main.css">
-  <navbar placement="top" type="inverse">
-    <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
-    <dropdown text="User Guide">
-      <li><a href="/markbind/userGuide/index.html">Home</a></li>
-      <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
-      <li role="separator" class="divider"></li>
-      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
-        <li><a href="/markbind/userGuide/siteConfiguration.html">◦&nbsp; Site Configuration</a></li>
-        <li role="separator" class="divider"></li>
-        <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
-        <li><a href="/markbind/userGuide/includingContents.html">◦&nbsp; Including Contents</a></li>
-        <li><a href="/markbind/userGuide/knownProblems.html">◦&nbsp; Known Problems</a></li>
-        <li role="separator" class="divider"></li>
-        <li style="margin: 3px 20px;">Deploying a Site</li>
-        <li><a href="/markbind/userGuide/ghpagesDeployment.html">◦&nbsp; Github Pages Deployment</a></li>
-        <li><a href="/markbind/userGuide/netlifyPreview.html">◦&nbsp; Preview site on Netlify</a></li>
+    <div id="flex-body">
+  <div id="site-nav">
+    <ul style="list-style-type: none; margin-left:-1em">
+      <li style="margin-top: 10px">
+        <h2 id="user-guide">User Guide</h2>
       </li>
-    </dropdown>
-    <li>
-      <a href="https://github.com/MarkBind/markbind" target="_blank">
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+      <li style="margin-top:10px"><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
+        <ul style="list-style-type: none; margin-left:-1em">
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
+        </ul>
+      </li>
+      <li style="margin-top:10px"><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a>
+        <ul style="list-style-type: none; margin-left:-1em">
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/knownProblems.html">Known Problems</a></li>
+        </ul>
+      </li>
+      <li style="margin-top: 10px"><button class="dropdown-btn">Deploying a Site
+ <i class="dropdown-btn-icon">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+        <div class="dropdown-container">
+          <ul style="list-style-type: none; margin-left:-1em">
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="site-nav-btn-wrap">
+    <div id="site-nav-btn">
+      <div class="menu-top-bar"></div>
+      <div class="menu-middle-bar"></div>
+      <div class="menu-bottom-bar"></div>
+    </div>
+  </div>
+  <div id="page-content">
+    <div>
+      <link rel="stylesheet" href="/markbind/css/main.css">
+      <navbar placement="top" type="inverse">
+        <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
+        <dropdown text="User Guide">
+          <li><a href="/markbind/userGuide/index.html">Home</a></li>
+          <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
+            <li><a href="/markbind/userGuide/siteConfiguration.html">◦&nbsp; Site Configuration</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
+            <li><a href="/markbind/userGuide/includingContents.html">◦&nbsp; Including Contents</a></li>
+            <li><a href="/markbind/userGuide/knownProblems.html">◦&nbsp; Known Problems</a></li>
+            <li role="separator" class="divider"></li>
+            <li style="margin: 3px 20px;">Deploying a Site</li>
+            <li><a href="/markbind/userGuide/ghpagesDeployment.html">◦&nbsp; Github Pages Deployment</a></li>
+            <li><a href="/markbind/userGuide/netlifyPreview.html">◦&nbsp; Preview site on Netlify</a></li>
+          </li>
+        </dropdown>
+        <li>
+          <a href="https://github.com/MarkBind/markbind" target="_blank">
       Fork this project on Github
       <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
-    <li slot="right">
-      <form class="navbar-form">
-        <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
-      </form>
-    </li>
-  </navbar>
-</div>
-<div class="website-content">
-  <h1 id="content-authoring">Content authoring</h1>
-  <h3 id="general-writing-guide">General writing guide</h3>
-  <h4 id="mixing-html-with-markdown">Mixing HTML with Markdown</h4>
-  <p><em>MarkBind</em> allows you to mix HTML with Markdown content.</p>
-  <p>To separate inline Markdown from HTML elements, enclose inline Markdown content with <code>&lt;md&gt;</code> tags.</p>
-  <p>e.g.</p>
-  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <li slot="right">
+          <form class="navbar-form">
+            <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
+          </form>
+        </li>
+      </navbar>
+    </div>
+    <div class="website-content">
+      <h1 id="content-authoring">Content authoring</h1>
+      <h3 id="general-writing-guide">General writing guide</h3>
+      <h4 id="mixing-html-with-markdown">Mixing HTML with Markdown</h4>
+      <p><em>MarkBind</em> allows you to mix HTML with Markdown content.</p>
+      <p>To separate inline Markdown from HTML elements, enclose inline Markdown content with <code>&lt;md&gt;</code> tags.</p>
+      <p>e.g.</p>
+      <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">md</span>&gt;</span> # 1: *Markdown* Content <span class="hljs-tag">&lt;/<span class="hljs-name">md</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
-  <p>The HTML output will be</p>
-  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      <p>The HTML output will be</p>
+      <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span> # 1: <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>Markdown<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span> content <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
-  <p>Note that we get the italic <em>Markdown</em> but not the header (the char # is rendered). Also, a new line is not added as the content is enclosed within <code>&lt;span&gt;</code> tags.</p>
-  <p>To separate Markdown block elements (e.g. headers) from HTML elements, you may enclose the Markdown content with <code>&lt;markdown&gt;</code> tags.</p>
-  <p>Example 1:</p>
-  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      <p>Note that we get the italic <em>Markdown</em> but not the header (the char # is rendered). Also, a new line is not added as the content is enclosed within <code>&lt;span&gt;</code> tags.</p>
+      <p>To separate Markdown block elements (e.g. headers) from HTML elements, you may enclose the Markdown content with <code>&lt;markdown&gt;</code> tags.</p>
+      <p>Example 1:</p>
+      <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">markdown</span>&gt;</span> # 1: *Markdown* Content <span class="hljs-tag">&lt;/<span class="hljs-name">markdown</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
-  <p>The HTML output will be:</p>
-  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      <p>The HTML output will be:</p>
+      <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"1-markdown-content"</span>&gt;</span>1: <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>Markdown<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span> content<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
-  <p>In this case, we will get a <code>h1</code> header.</p>
-  <p>Example 2:</p>
-  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Hello this is your<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">markdown</span>&gt;</span> **Markdown Content**<span class="hljs-tag">&lt;/<span class="hljs-name">markdown</span>&gt;</span>
+      <p>In this case, we will get a <code>h1</code> header.</p>
+      <p>Example 2:</p>
+      <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Hello this is your<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">markdown</span>&gt;</span> **Markdown Content**<span class="hljs-tag">&lt;/<span class="hljs-name">markdown</span>&gt;</span>
 </code></pre>
-  <p>The HTML output will be:</p>
-  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Hello this is your<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      <p>The HTML output will be:</p>
+      <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Hello this is your<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>Markdown Content<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
-  <p>In this case, we will get the <code>Markdown Content</code> text rendered in bold on a new line.</p>
-  <h4 id="specifying-path-reference">Specifying Path Reference</h4>
-  <p>Use
-    <code>{<span></span>{baseUrl}}</code> for absolute path reference of images and resource files so that the path could be handled correctly when deployed. The
-    <code>{<span></span>{baseUrl}}</code> is parsed from the project root (where <code>site.json</code> located).</p>
-  <h3 id="supported-markdown-syntax">Supported Markdown Syntax</h3>
-  <p>MarkBind support the standard Markdown syntax. Read the <a href="https://guides.github.com/features/mastering-markdown/">guide</a>.</p>
-  <p>In addition, it supports:</p>
-  <ul>
-    <li>
-      <p><a href="https://help.github.com/articles/organizing-information-with-tables/">Tables</a> (GFM)</p>
-    </li>
-    <li>
-      <p><a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/#styling-text">Strikethrough</a> (GFM)</p>
-    </li>
-    <li>
-      <p><a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/">Emoji</a> shortcut.</p>
-      <p><code>:EMOJICODE:</code>. For example, <code>:smile:</code> will be rendered as 😄.</p>
-    </li>
-    <li>
-      <p><a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/#task-lists">Task List</a></p>
-    </li>
-    <li>
-      <p>Text Hightlight using <code>&lt;mark&gt;</code></p>
-      <p><code>==Highlight Text==</code> =&gt; <code>&lt;mark&gt;Highlight Text&lt;/mark&gt;</code></p>
-    </li>
-    <li>
-      <p>Text Underline using <code>&lt;ins&gt;</code></p>
-      <p><code>++Underline Text++</code> =&gt; <code>&lt;ins&gt;Underline Text&lt;/ins&gt;</code></p>
-    </li>
-    <li>
-      <p>Dimmed Text (Text with grey background)</p>
-      <p><code>%%Dimmed Text%%</code></p>
-    </li>
-    <li>
-      <p>Radio Button List</p>
-      <pre><code class="hljs markdown"><span class="hljs-bullet">- </span>( ) Option 1
+      <p>In this case, we will get the <code>Markdown Content</code> text rendered in bold on a new line.</p>
+      <h4 id="specifying-path-reference">Specifying Path Reference</h4>
+      <p>Use
+        <code>{<span></span>{baseUrl}}</code> for absolute path reference of images and resource files so that the path could be handled correctly when deployed. The
+        <code>{<span></span>{baseUrl}}</code> is parsed from the project root (where <code>site.json</code> located).</p>
+      <h3 id="supported-markdown-syntax">Supported Markdown Syntax</h3>
+      <p>MarkBind support the standard Markdown syntax. Read the <a href="https://guides.github.com/features/mastering-markdown/">guide</a>.</p>
+      <p>In addition, it supports:</p>
+      <ul>
+        <li>
+          <p><a href="https://help.github.com/articles/organizing-information-with-tables/">Tables</a> (GFM)</p>
+        </li>
+        <li>
+          <p><a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/#styling-text">Strikethrough</a> (GFM)</p>
+        </li>
+        <li>
+          <p><a href="https://www.webpagefx.com/tools/emoji-cheat-sheet/">Emoji</a> shortcut.</p>
+          <p><code>:EMOJICODE:</code>. For example, <code>:smile:</code> will be rendered as 😄.</p>
+        </li>
+        <li>
+          <p><a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/#task-lists">Task List</a></p>
+        </li>
+        <li>
+          <p>Text Hightlight using <code>&lt;mark&gt;</code></p>
+          <p><code>==Highlight Text==</code> =&gt; <code>&lt;mark&gt;Highlight Text&lt;/mark&gt;</code></p>
+        </li>
+        <li>
+          <p>Text Underline using <code>&lt;ins&gt;</code></p>
+          <p><code>++Underline Text++</code> =&gt; <code>&lt;ins&gt;Underline Text&lt;/ins&gt;</code></p>
+        </li>
+        <li>
+          <p>Dimmed Text (Text with grey background)</p>
+          <p><code>%%Dimmed Text%%</code></p>
+        </li>
+        <li>
+          <p>Radio Button List</p>
+          <pre><code class="hljs markdown"><span class="hljs-bullet">- </span>( ) Option 1
 <span class="hljs-bullet">- </span>(X) Option 2 (selected)
 </code></pre>
-    </li>
-    <li>
-      <p>Youtube video</p>
-      <pre><code class="hljs markdown">@[<span class="hljs-string">youtube</span>](<span class="hljs-link">lJIrF4YjHfQ</span>)
+        </li>
+        <li>
+          <p>Youtube video</p>
+          <pre><code class="hljs markdown">@[<span class="hljs-string">youtube</span>](<span class="hljs-link">lJIrF4YjHfQ</span>)
 @[<span class="hljs-string">youtube</span>](<span class="hljs-link">http://www.youtube.com/watch?v=lJIrF4YjHfQ</span>)
 @[<span class="hljs-string">youtube</span>](<span class="hljs-link">http://youtu.be/lJIrF4YjHfQ</span>)
 </code></pre>
-    </li>
-    <li>
-      <p>Powerpoint slide - provide the embed url from Powerpoint online</p>
-      <pre><code class="hljs markdown">@[<span class="hljs-string">powerpoint</span>](<span class="hljs-link">https://onedrive.live.com/embed?cid=A5AF047C4CAD67AB&amp;resid=A5AF047C4CAD67AB%212070&amp;authkey=&amp;em=2</span>)
+        </li>
+        <li>
+          <p>Powerpoint slide - provide the embed url from Powerpoint online</p>
+          <pre><code class="hljs markdown">@[<span class="hljs-string">powerpoint</span>](<span class="hljs-link">https://onedrive.live.com/embed?cid=A5AF047C4CAD67AB&amp;resid=A5AF047C4CAD67AB%212070&amp;authkey=&amp;em=2</span>)
 </code></pre>
-      <p>or</p>
-      <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"pull-right"</span> <span class="hljs-attr">v-closeable</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Read lecture slides online"</span>&gt;</span>
+          <p>or</p>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"pull-right"</span> <span class="hljs-attr">v-closeable</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Read lecture slides online"</span>&gt;</span>
 
   <span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">src</span>=<span class="hljs-string">'https://onedrive.live.com/embed?cid=A5AF047C4CAD67AB&amp;resid=A5AF047C4CAD67AB%212074&amp;authkey=&amp;em=2&amp;wdAr=1.3333333333333333'</span> <span class="hljs-attr">width</span>=<span class="hljs-string">'350px'</span> <span class="hljs-attr">height</span>=<span class="hljs-string">'286px'</span> <span class="hljs-attr">frameborder</span>=<span class="hljs-string">'0'</span>&gt;</span>This is an embedded <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">target</span>=<span class="hljs-string">'_blank'</span> <span class="hljs-attr">href</span>=<span class="hljs-string">'https://office.com'</span>&gt;</span>Microsoft Office<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> presentation, powered by <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">target</span>=<span class="hljs-string">'_blank'</span> <span class="hljs-attr">href</span>=<span class="hljs-string">'https://office.com/webapps'</span>&gt;</span>Office Online<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span>
 
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
-    </li>
-    <li>
-      <p>More media blocks, embedding services and additional options can be found in <a href="https://github.com/rotorz/markdown-it-block-embed">Markdown-it-block-embed docs</a></p>
-    </li>
-  </ul>
-  <h3 id="use-markbind-variables">Use MarkBind variables</h3>
-  <p>You can insert variables to be replaced by pre-defined values anywhere in your site. MarkBind treats any text surrounded with double curly braces as a variable, e.g. <code>{<span></span>{variable_name}}</code></p>
-  <p>Some helpful variables are provided by MarkBind for your convenience, as shown below.</p>
-  <h4 id="glyphicons">Glyphicons</h4>
-  <p>This asset is provided by <a href="https://glyphicons.com/">Glyphicons</a> via Bootstrap.
-    <br><br>
-    <tip-box>
-      Traditional usage:<br>
-      <code>&lt;span class='glyphicon glyphicon-hand-right' aria-hidden='true'&gt;&lt;/span&gt;</code>
-      <br><br> MarkBind usage:<br>
-      <code>{<span></span>{glyphicon_hand_right}}</code></tip-box>
-  </p>
-  <p>Use these <a href="https://getbootstrap.com/docs/3.3/components/#glyphicons">available glyphs</a> on your site by surrounding a glyph's name with double curly braces.<br> e.g. <code>{<span></span>{glyphicon_hand_right}}</code> will be rendered as <code><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span></code></p>
-  <p>Note: Replace all instances of <code>-</code> with <code>_</code> in the glyph's name, e.g. <code>{<span></span>{glyphicon-hand-right}}</code> becomes <code>{<span></span>{glyphicon_hand_right}}</code></p>
-  <h4 id="timestamp">Timestamp</h4>
-  <p>Use <code>{<span></span>{timestamp}}</code> to insert the following snippet that indicates when the page was generated.</p>
-  <p><small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.8.0</a> on Mon, 11 Jun 2018 06:14:33 GMT]</small></p>
-  <h3 id="add-your-own-variables">Add your own variables</h3>
-  <p>In <code>_markbind/variables.md</code>, you can define your own variables that can be used anywhere in your site. The format is as follows.</p>
-  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"year"</span>&gt;</span>2018<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+        </li>
+        <li>
+          <p>More media blocks, embedding services and additional options can be found in <a href="https://github.com/rotorz/markdown-it-block-embed">Markdown-it-block-embed docs</a></p>
+        </li>
+      </ul>
+      <h3 id="use-markbind-variables">Use MarkBind variables</h3>
+      <p>You can insert variables to be replaced by pre-defined values anywhere in your site. MarkBind treats any text surrounded with double curly braces as a variable, e.g. <code>{<span></span>{variable_name}}</code></p>
+      <p>Some helpful variables are provided by MarkBind for your convenience, as shown below.</p>
+      <h4 id="glyphicons">Glyphicons</h4>
+      <p>This asset is provided by <a href="https://glyphicons.com/">Glyphicons</a> via Bootstrap.
+        <br><br>
+        <tip-box>
+          Traditional usage:<br>
+          <code>&lt;span class='glyphicon glyphicon-hand-right' aria-hidden='true'&gt;&lt;/span&gt;</code>
+          <br><br> MarkBind usage:<br>
+          <code>{<span></span>{glyphicon_hand_right}}</code></tip-box>
+      </p>
+      <p>Use these <a href="https://getbootstrap.com/docs/3.3/components/#glyphicons">available glyphs</a> on your site by surrounding a glyph's name with double curly braces.<br> e.g. <code>{<span></span>{glyphicon_hand_right}}</code> will be rendered as
+        <code><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span></code></p>
+      <p>Note: Replace all instances of <code>-</code> with <code>_</code> in the glyph's name, e.g. <code>{<span></span>{glyphicon-hand-right}}</code> becomes <code>{<span></span>{glyphicon_hand_right}}</code></p>
+      <h4 id="timestamp">Timestamp</h4>
+      <p>Use <code>{<span></span>{timestamp}}</code> to insert a UTC time snippet that indicates when the page was generated.</p>
+      <p><code>{<span></span>{timestamp}}</code> will be rendered as: Fri, 22 Jun 2018 01:45:12 GMT</p>
+      <h4 id="markbind-link">MarkBind Link</h4>
+      <p>Reference or support MarkBind by using <code>{<span></span>{MarkBind}}</code> to insert a link to our website.</p>
+      <p><code>{<span></span>{MarkBind}}</code> will be rendered as: <a href="https://markbind.github.io/markbind/">MarkBind 1.8.1</a></p>
+      <h3 id="add-your-own-variables">Add your own variables</h3>
+      <p>In <code>_markbind/variables.md</code>, you can define your own variables that can be used anywhere in your site. The format is as follows.</p>
+      <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"year"</span>&gt;</span>2018<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 
 <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"options"</span>&gt;</span>
 * yes
@@ -171,95 +214,95 @@
 * maybe
 <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 </code></pre>
-  <p>Each variable must have an id and the value can be any MarkBind-compliant code fragment. The id should not contain <code>-</code> and <code>.</code>. For example, <code>search-option</code> and <code>search.options</code> are not allowed.</p>
-  <p>In any file in your site, you can include the variable by surrounding the variable's id with double curly braces, e.g. <code>{<span></span>{options}}</code></p>
-  <p>Variables can refer to other variables that are declared earlier, including helpful variables provided by MarkBind.</p>
-  <tip-box>
-    <div>
-      This is allowed, MarkBind helpful variables can be used.<br>
-      <p><code>&lt;span id=&quot;right_hand&quot;&gt;{<span></span>{glyphicon_hand_right}}&lt;/span&gt;</code></p>
-    </div>
-    <div>
-      This is also allowed, the second variable will be assigned the contents of the first variable.
-      <p><code>&lt;span id=&quot;first&quot;&gt;This is the first variable.&lt;/span&gt;</code><br>
-        <code>&lt;span id=&quot;second&quot;&gt;{<span></span>{first}}&lt;/span&gt;</code><br>
-        <code>&lt;span id=&quot;third&quot;&gt;{<span></span>{second}}&lt;/span&gt;</code></p>
-    </div>
-    <div>
-      This is forbidden, as the fourth variable is not declared yet, and will not be rendered correctly.
-      <p><code>&lt;span id=&quot;third&quot;&gt;{<span></span>{fourth}}&lt;/span&gt;</code><br>
-        <code>&lt;span id=&quot;fourth&quot;&gt;This is the fourth variable.&lt;/span&gt;</code></p>
-    </div>
-  </tip-box>
-  <p>Note: If the variable being referenced contains HTML tags, MarkBind may escape the tags and render it literally. For example:</p>
-  <tip-box>
-    <div>
-      If we declare the variables as follow:<br>
-      <p><code>&lt;span id=&quot;right_hand&quot;&gt;{<span></span>{glyphicon_hand_right}}&lt;/span&gt;</code><br>
-        <code>&lt;span id=&quot;right_hand_2&quot;&gt;{<span></span>{right_hand}}&lt;/span&gt;</code></p>
-    </div>
-    <div>
-      The following will be rendered:<br>
-      <p><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span><br> &lt;span class=&quot;glyphicon glyphicon-hand-right&quot; aria-hidden=&quot;true&quot;&gt;</p>
-    </div>
-  </tip-box>
-  <p>You must use the <code>safe</code> filter when using such variables:</p>
-  <tip-box>
-    <div>
-      If we use the safe filter for the second variable:<br>
-      <p><code>&lt;span id=&quot;right_hand&quot;&gt;{<span></span>{glyphicon_hand_right}}&lt;/span&gt;</code><br>
-        <code>&lt;span id=&quot;right_hand_2&quot;&gt;{<span></span>{right_hand | safe}}&lt;/span&gt;</code></p>
-    </div>
-    <div>
-      The following will be rendered:<br>
-      <p><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span><br>
-        <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span></p>
-    </div>
-  </tip-box>
-  <h3 id="use-searchbar">Use Searchbar</h3>
-  <p>To use the searchbar, add the following markup to your file.</p>
-  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">searchbar</span> <span class="hljs-attr">:data</span>=<span class="hljs-string">"searchData"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Search"</span> <span class="hljs-attr">:on-hit</span>=<span class="hljs-string">"searchCallback"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">searchbar</span>&gt;</span>
+      <p>Each variable must have an id and the value can be any MarkBind-compliant code fragment. The id should not contain <code>-</code> and <code>.</code>. For example, <code>search-option</code> and <code>search.options</code> are not allowed.</p>
+      <p>In any file in your site, you can include the variable by surrounding the variable's id with double curly braces, e.g. <code>{<span></span>{options}}</code></p>
+      <p>Variables can refer to other variables that are declared earlier, including helpful variables provided by MarkBind.</p>
+      <tip-box>
+        <div>
+          This is allowed, MarkBind helpful variables can be used.<br>
+          <p><code>&lt;span id=&quot;right_hand&quot;&gt;{<span></span>{glyphicon_hand_right}}&lt;/span&gt;</code></p>
+        </div>
+        <div>
+          This is also allowed, the second variable will be assigned the contents of the first variable.
+          <p><code>&lt;span id=&quot;first&quot;&gt;This is the first variable.&lt;/span&gt;</code><br>
+            <code>&lt;span id=&quot;second&quot;&gt;{<span></span>{first}}&lt;/span&gt;</code><br>
+            <code>&lt;span id=&quot;third&quot;&gt;{<span></span>{second}}&lt;/span&gt;</code></p>
+        </div>
+        <div>
+          This is forbidden, as the fourth variable is not declared yet, and will not be rendered correctly.
+          <p><code>&lt;span id=&quot;third&quot;&gt;{<span></span>{fourth}}&lt;/span&gt;</code><br>
+            <code>&lt;span id=&quot;fourth&quot;&gt;This is the fourth variable.&lt;/span&gt;</code></p>
+        </div>
+      </tip-box>
+      <p>Note: If the variable being referenced contains HTML tags, MarkBind may escape the tags and render it literally. For example:</p>
+      <tip-box>
+        <div>
+          If we declare the variables as follow:<br>
+          <p><code>&lt;span id=&quot;right_hand&quot;&gt;{<span></span>{glyphicon_hand_right}}&lt;/span&gt;</code><br>
+            <code>&lt;span id=&quot;right_hand_2&quot;&gt;{<span></span>{right_hand}}&lt;/span&gt;</code></p>
+        </div>
+        <div>
+          The following will be rendered:<br>
+          <p><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span><br> &lt;span class=&quot;glyphicon glyphicon-hand-right&quot; aria-hidden=&quot;true&quot;&gt;</p>
+        </div>
+      </tip-box>
+      <p>You must use the <code>safe</code> filter when using such variables:</p>
+      <tip-box>
+        <div>
+          If we use the safe filter for the second variable:<br>
+          <p><code>&lt;span id=&quot;right_hand&quot;&gt;{<span></span>{glyphicon_hand_right}}&lt;/span&gt;</code><br>
+            <code>&lt;span id=&quot;right_hand_2&quot;&gt;{<span></span>{right_hand | safe}}&lt;/span&gt;</code></p>
+        </div>
+        <div>
+          The following will be rendered:<br>
+          <p><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span><br>
+            <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span></p>
+        </div>
+      </tip-box>
+      <h3 id="use-searchbar">Use Searchbar</h3>
+      <p>To use the searchbar, add the following markup to your file.</p>
+      <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">searchbar</span> <span class="hljs-attr">:data</span>=<span class="hljs-string">"searchData"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Search"</span> <span class="hljs-attr">:on-hit</span>=<span class="hljs-string">"searchCallback"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">searchbar</span>&gt;</span>
 </code></pre>
-  <p>To use the searchbar within a navbar, add the following markup to your file. The searchbar can be positioned using the slot attribute for the list. The following markup adds a searchbar to the right side of the navbar with appropriate styling.</p>
-  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"right"</span>&gt;</span>
+      <p>To use the searchbar within a navbar, add the following markup to your file. The searchbar can be positioned using the slot attribute for the list. The following markup adds a searchbar to the right side of the navbar with appropriate styling.</p>
+      <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"right"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"navbar-form"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">searchbar</span> <span class="hljs-attr">:data</span>=<span class="hljs-string">"searchData"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Search"</span> <span class="hljs-attr">:on-hit</span>=<span class="hljs-string">"searchCallback"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">searchbar</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 </code></pre>
-  <h3 id="use-components">Use Components</h3>
-  <p>To use a component, just type the corresponding markup in your file. For example, to create a Panel, you just need to write:</p>
-  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Click to expand"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"seamless"</span>&gt;</span>
+      <h3 id="use-components">Use Components</h3>
+      <p>To use a component, just type the corresponding markup in your file. For example, to create a Panel, you just need to write:</p>
+      <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Click to expand"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"seamless"</span>&gt;</span>
   Panel Content.
 <span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
 </code></pre>
-  <p>For a list of supported components, refer to <a href="https://markbind.github.io/vue-strap/">VueStrap modified by MarkBind</a>.</p>
-  <p>To make an element closeable, use <code>v-closeable</code>.</p>
-  <p>e.g.</p>
-  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"schedule/textbook/images/img1.png"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"320px"</span> <span class="hljs-attr">v-closeable</span>&gt;</span>
+      <p>For a list of supported components, refer to <a href="https://markbind.github.io/vue-strap/">VueStrap modified by MarkBind</a>.</p>
+      <p>To make an element closeable, use <code>v-closeable</code>.</p>
+      <p>e.g.</p>
+      <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"schedule/textbook/images/img1.png"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"320px"</span> <span class="hljs-attr">v-closeable</span>&gt;</span>
 </code></pre>
-  <p>or</p>
-  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-closeable</span>&gt;</span>
+      <p>or</p>
+      <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-closeable</span>&gt;</span>
   Div Content.
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
-  <h4 id="question-body-syntax">Question body syntax</h4>
-  <panel header=":lock::key: Does MarkBind allow using checkboxes and radio buttons with the Question and Panel components?">
-    <question>
-      <ul radio-group="ec2ea" class="radio-list">
-        <li class="radio-list-item"><label><input class="radio-list-input" name="ec2ea" type="radio"> Yes</label></li>
-        <li class="radio-list-item"><label><input class="radio-list-input" name="ec2ea" type="radio"> No</label></li>
-      </ul>
-      <div slot="hint">
-        Probably yes
-      </div>
-      <div slot="answer">
-        Yes!
-      </div>
-    </question>
-  </panel>
-  <br>
-  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">":lock::key: Does MarkBind allow for the use of checkboxes and radio buttons?"</span>&gt;</span>
+      <h4 id="question-body-syntax">Question body syntax</h4>
+      <panel header=":lock::key: Does MarkBind allow using checkboxes and radio buttons with the Question and Panel components?">
+        <question>
+          <ul radio-group="ec2ea" class="radio-list">
+            <li class="radio-list-item"><label><input class="radio-list-input" name="ec2ea" type="radio"> Yes</label></li>
+            <li class="radio-list-item"><label><input class="radio-list-input" name="ec2ea" type="radio"> No</label></li>
+          </ul>
+          <div slot="hint">
+            Probably yes
+          </div>
+          <div slot="answer">
+            Yes!
+          </div>
+        </question>
+      </panel>
+      <br>
+      <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">":lock::key: Does MarkBind allow for the use of checkboxes and radio buttons?"</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">question</span>&gt;</span>
 
 - ( ) Yes
@@ -274,61 +317,156 @@ Yes!
 <span class="hljs-tag">&lt;/<span class="hljs-name">question</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
 </code></pre>
-  <p>Checkboxes can also be used by substituting <code>- ( )</code> with <code>- [ ]</code>.</p>
-  <h3 id="include-contents">Include Contents</h3>
-  <p>Being able to include different markdown file into the current context is another feature of <em>MarkBind</em>. You can create a complex document from different content fragments by including them.</p>
-  <p>For detailed guide on using <code>&lt;include&gt;</code> tag for including contents, read the doc <a href="includingContents.html">here</a>.</p>
-  <h3 id="front-matter">Front Matter</h3>
-  <p>Front matter allows you to specify page parameters such as the title and keywords of the page. These parameters will be used to build a site data file (<code>siteData.json</code>) that will contain the index used for the search function. You can specify
-    front matter at the beginning of your page by using the <code>&lt;frontmatter&gt;</code> tag as follows:</p>
-  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+      <p>Checkboxes can also be used by substituting <code>- ( )</code> with <code>- [ ]</code>.</p>
+      <h3 id="include-contents">Include Contents</h3>
+      <p>Being able to include different markdown file into the current context is another feature of <em>MarkBind</em>. You can create a complex document from different content fragments by including them.</p>
+      <p>For detailed guide on using <code>&lt;include&gt;</code> tag for including contents, read the doc <a href="includingContents.html">here</a>.</p>
+      <h3 id="front-matter">Front Matter</h3>
+      <p>Front matter allows you to specify page parameters such as the title and keywords of the page. These parameters will be used to build a site data file (<code>siteData.json</code>) that will contain the index used for the search function. You can
+        specify front matter at the beginning of your page by using the <code>&lt;frontmatter&gt;</code> tag as follows:</p>
+      <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
   title: Binary Search Tree
   keywords: bst, avl, red-black
 <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
 </code></pre>
-  <p>Note: A title that is defined in <code>site.json</code> for a particular page will take precedence over a title defined in the front matter.</p>
-  <p>Front matter can also be included from a separate file, just like how content can be included. This makes it easy to simply define all your required front matter in one file, and use it everywhere.</p>
-  <p><code>matterDefinition.md</code></p>
-  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">seg</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"bst"</span>&gt;</span>
+      <p>Note: A title that is defined in <code>site.json</code> for a particular page will take precedence over a title defined in the front matter.</p>
+      <p>Front matter can also be included from a separate file, just like how content can be included. This makes it easy to simply define all your required front matter in one file, and use it everywhere.</p>
+      <p><code>matterDefinition.md</code></p>
+      <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">seg</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"bst"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
     title: Binary Search Tree
     keywords: bst, avl, red-black
   <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">seg</span>&gt;</span>
 </code></pre>
-  <p><code>index.md</code></p>
-  <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"matterDefinition.md#bst"</span> /&gt;</span>
+      <p><code>index.md</code></p>
+      <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"matterDefinition.md#bst"</span> /&gt;</span>
 </code></pre>
-  <p>This will result in <code>index.md</code> having the title <code>Binary Search Tree</code> and the specified keywords in order for it to be looked up through the search bar.</p>
-  <h3 id="using-footers">Using Footers</h3>
-  <p>It is optional to put footers in your site. If you wish to do so, there are two ways that MarkBind supports.</p>
-  <ol>
-    <li><a href="#specifying-footer-file-in-front-matter">Specifying footer file in Front Matter</a></li>
-    <li><a href="#defining-your-own-inline-footer">Defining your own inline footer</a></li>
-  </ol>
-  <h4 id="specifying-footer-file-in-front-matter">Specifying footer file in Front Matter</h4>
-  <p>To create a new footer, make a new markdown file (<code>.md</code>) in <code>_markbind/footers</code>. Author your footer contents and wrap everything in a <code>&lt;footer&gt;</code> tag. You can create more than one footer file if you want different
-    footers for different pages.</p>
-  <p>Tip: All new sites created with <code>init</code> will have a <code>footer.md</code> file automatically created for you as a template in <code>_markbind/footers</code>.</p>
-  <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- In _markbind/footers/myFooterFile.md --&gt;</span>
+      <p>This will result in <code>index.md</code> having the title <code>Binary Search Tree</code> and the specified keywords in order for it to be looked up through the search bar.</p>
+      <h3 id="site-navigation">Site Navigation</h3>
+      <p>A site navigation bar is a fixed menu on the left side of your page contents, that allows the viewer to navigate your site pages. The menu has a fixed width of 300 pixels for its contents. If you would like to have a site navigation bar for your
+        site, you may create one easily using Markdown.</p>
+      <ul>
+        <li>
+          <p>Start by creating a Markdown file (<code>.md</code>) in <code>_markbind/navigation</code>.</p>
+          <ul>
+            <li>All new sites created with <code>init</code> have a <code>site-nav.md</code> file created automatically for you as a template in <code>_markbind/navigation</code>.</li>
+            <li>More than one navigation file can be created for different pages.</li>
+          </ul>
+        </li>
+        <li>
+          <p>Author your navigation layout using Markdown's unordered list syntax as shown below.</p>
+          <ul>
+            <li>When you are using links (<code>[linkName](url)</code>), ensure that the url starts from the root directory <code>{<span></span>{baseUrl}}/</code> when you are referencing a page in your site. e.g. <code>{<span></span>{baseUrl}}/folder1/myPage.html</code></li>
+            <li>Ensure you wrap everything in a <code>&lt;markdown&gt;</code> tag for MarkBind to identify the Markdown syntax.</li>
+          </ul>
+        </li>
+      </ul>
+      <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- In _markbind/navigation/mySiteNav.md --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">markdown</span>&gt;</span>
+* [Home :house:](/markbind/index.html)
+* Dropdown title :pencil2: <span class="hljs-comment">&lt;!-- Nested list items will be placed inside a Dropdown menu --&gt;</span>
+  * [Dropdown link one](https://www.google.com/)
+  * Nested Dropdown title :triangular_ruler:
+    * [**Nested** Dropdown link one](https://www.google.com/)
+    * [**Nested** Dropdown link two](https://www.google.com/)
+  * [Dropdown link two](https://www.google.com/)
+* [==Third Link== :clipboard:](https://www.google.com/)
+* [Youtube](https://www.youtube.com/) <span class="hljs-comment">&lt;!-- Using a link as a Dropdown title will not render a Dropdown menu --&gt;</span>
+  * [Youtube video one](http://www.youtube.com/watch?v=lJIrF4YjHfQ)
+  * Dropdown title :pencil2: <span class="hljs-comment">&lt;!-- Dropdown menus in are still supported inside, as long as the title is not a link --&gt;</span>
+    * [**Nested** Dropdown link one](https://www.google.com/)
+<span class="hljs-tag">&lt;/<span class="hljs-name">markdown</span>&gt;</span>
+</code></pre>
+      <ul>
+        <li>Specify the navigation file you have created within a page's <a href="#front-matter">front matter</a> <code>siteNav</code> attribute to render it.</li>
+      </ul>
+      <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- In the page that you want to have a site navigation bar --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+  siteNav: mySiteNav.md
+<span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
+</code></pre>
+      <p>The above Markdown content will be rendered as:</p>
+      <ul style="list-style-type: none; margin-left:-1em">
+        <li style="margin-top: 10px"><a href="/index.html">Home 🏠</a></li>
+        <li style="margin-top: 10px">
+          <button class="dropdown-btn">Dropdown title ✏️  <i class="dropdown-btn-icon">
+      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+          <div class="dropdown-container">
+            <ul style="list-style-type: none; margin-left:-1em">
+              <li style="margin-top: 10px"><a href="https://www.google.com/">Dropdown link one</a></li>
+              <li style="margin-top: 10px">
+                <button class="dropdown-btn">Nested Dropdown title 📐
+            <i class="dropdown-btn-icon">
+            <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+                <div class="dropdown-container">
+                  <ul style="list-style-type: none; margin-left:-1em">
+                    <li style="margin-top: 10px"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link one</a></li>
+                    <li style="margin-top: 10px"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link two</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li style="margin-top: 10px"><a href="https://www.google.com/">Dropdown link two</a></li>
+            </ul>
+          </div>
+        </li>
+        <li style="margin-top: 10px"><a href="https://www.google.com/"><mark>Third Link</mark> 📋</a></li>
+        <li style="margin-top:10px"><a href="https://www.youtube.com/">Youtube</a>
+          <ul style="list-style-type: none; margin-left:-1em">
+            <li style="margin-top: 10px"><a href="http://www.youtube.com/watch?v=lJIrF4YjHfQ">Youtube video one</a></li>
+            <li style="margin-top: 10px">
+              <button class="dropdown-btn">Dropdown title ✏️  <i class="dropdown-btn-icon">
+          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+              <div class="dropdown-container">
+                <ul style="list-style-type: none; margin-left:-1em">
+                  <li style="margin-top: 10px"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link one</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <p>The site navigation bar has <a href="https://www.w3schools.com/html/html_responsive.asp">responsive properties</a>, and will collapse to a menu button when the screen width is smaller than 768 pixels.</p>
+      <p>You are able to use <a href="#supported-markdown-syntax">Markdown syntax</a>, as well as <a href="#glyphicons">glyphicons</a> to author your site navigation layout.</p>
+      <p>Note:</p>
+      <ul>
+        <li>Only one navigation file can be specified in a page, and you must include its file extension.</li>
+        <li>There is no limit to the number of nested Dropdown menus, but each menu's height is restricted to 1000 pixels.
+          <ul>
+            <li>Dropdown menu content exceeding 1000 pixels in height will be cut off.</li>
+          </ul>
+        </li>
+        <li>If you are using <a href="userQuickStart.html#preview-your-site">live preview</a>, you must restart the server to see updates made in the navigation file.</li>
+      </ul>
+      <h3 id="using-footers">Using Footers</h3>
+      <p>It is optional to put footers in your site. If you wish to do so, there are two ways that MarkBind supports.</p>
+      <ol>
+        <li><a href="#specifying-footer-file-in-front-matter">Specifying footer file in Front Matter</a></li>
+        <li><a href="#defining-your-own-inline-footer">Defining your own inline footer</a></li>
+      </ol>
+      <h4 id="specifying-footer-file-in-front-matter">Specifying footer file in Front Matter</h4>
+      <p>To create a new footer, make a new markdown file (<code>.md</code>) in <code>_markbind/footers</code>. Author your footer contents and wrap everything in a <code>&lt;footer&gt;</code> tag. You can create more than one footer file if you want different
+        footers for different pages.</p>
+      <p>Tip: All new sites created with <code>init</code> will have a <code>footer.md</code> file automatically created for you as a template in <code>_markbind/footers</code>.</p>
+      <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- In _markbind/footers/myFooterFile.md --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">footer</span>&gt;</span>
   This is my own footer!
 <span class="hljs-tag">&lt;/<span class="hljs-name">footer</span>&gt;</span>
 </code></pre>
-  <p>After which, you must specify the file within a page's <a href="#front-matter">front matter</a> <code>footer</code> attribute to render the footer.</p>
-  <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- In the page that you want to include a footer --&gt;</span>
+      <p>After which, you must specify the file within a page's <a href="#front-matter">front matter</a> <code>footer</code> attribute to render the footer.</p>
+      <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- In the page that you want to include a footer --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
   footer: myFooterFile.md
 <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
 </code></pre>
-  <p>Note:</p>
-  <ul>
-    <li>Only one footer file can be specified in the <a href="#front-matter">front matter</a> per page, and you must include its file extension.</li>
-    <li>If you are using <a href="userQuickStart.html#preview-your-site">live preview</a>, you must restart the server to see updates made in the footer file.</li>
-  </ul>
-  <h4 id="defining-your-own-inline-footer">Defining your own inline footer</h4>
-  <p>If you would like to have a page-specific footer content, you can author one inline with the same <code>&lt;footer&gt;</code> tag.</p>
-  <pre><code class="hljs html"># Hello world
+      <p>Note:</p>
+      <ul>
+        <li>Only one footer file can be specified in the <a href="#front-matter">front matter</a> per page, and you must include its file extension.</li>
+        <li>If you are using <a href="userQuickStart.html#preview-your-site">live preview</a>, you must restart the server to see updates made in the footer file.</li>
+      </ul>
+      <h4 id="defining-your-own-inline-footer">Defining your own inline footer</h4>
+      <p>If you would like to have a page-specific footer content, you can author one inline with the same <code>&lt;footer&gt;</code> tag.</p>
+      <pre><code class="hljs html"># Hello world
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Some text<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">footer</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">align</span>=<span class="hljs-string">"center"</span>&gt;</span>
@@ -336,41 +474,21 @@ Yes!
   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">footer</span>&gt;</span>
 </code></pre>
-  <p>Note:</p>
-  <ul>
-    <li>Footer file specified in <a href="#front-matter">front matter</a> overrides all inline footers in the same page.</li>
-    <li>Inline footers need to be the last element in a page.</li>
-    <li>If there is more than one inline footer in a page, only the last inline footer will be rendered.</li>
-    <li>Footers should not be nested in other components or HTML tags. If found inside, they will be shifted outside to be rendered properly.</li>
-    <li><a href="#use-components">MarkBind components</a> and <a href="#include-contents">includes</a> are not supported in footers.</li>
-  </ul>
+      <p>Note:</p>
+      <ul>
+        <li>Footer file specified in <a href="#front-matter">front matter</a> overrides all inline footers in the same page.</li>
+        <li>Inline footers need to be the last element in a page.</li>
+        <li>If there is more than one inline footer in a page, only the last inline footer will be rendered.</li>
+        <li>Footers should not be nested in other components or HTML tags. If found inside, they will be shifted outside to be rendered properly.</li>
+        <li><a href="#use-components">MarkBind components</a> and <a href="#include-contents">includes</a> are not supported in footers.</li>
+      </ul>
+    </div>
+  </div>
 </div>
 <div id="flex-div"></div>
 <footer>
-  <div class="website-content">
-    <h2 id="sections">Sections</h2>
-    <ul>
-      <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
-      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
-        <ul>
-          <li><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
-        </ul>
-      </li>
-      <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a>
-        <ul>
-          <li><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
-          <li><a href="/markbind/userGuide/knownProblems.html">Known Problems</a></li>
-        </ul>
-      </li>
-      <li>Deploying a Site
-        <ul>
-          <li><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
-          <li><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
-        </ul>
-      </li>
-    </ul>
-    <p><small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.8.0</a> on Mon, 11 Jun 2018 06:14:33 GMT]</small></p>
-  </div>
+  <div class="text-center">
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.8.1</a> on Fri, 22 Jun 2018 01:45:12 GMT]</small></div>
 </footer>
 </div>
 </body>
@@ -380,4 +498,5 @@ Yes!
     const baseUrl = '/markbind'
 </script>
 <script src="..\markbind\js\setup.js"></script>
+<script src="..\markbind\js\site-nav.js"></script>
 </html>

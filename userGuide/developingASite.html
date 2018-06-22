@@ -8,92 +8,131 @@
     <link rel="stylesheet" href="..\markbind\css\bootstrap.min.css">
     <link rel="stylesheet" href="..\markbind\css\github.min.css">
     <link rel="stylesheet" href="..\markbind\css\markbind.css">
+    <link rel="stylesheet" href="..\markbind\css\site-nav.css">
     
 </head>
 <body>
 <div id="app" class="container-fluid">
-    <div>
-  <link rel="stylesheet" href="/markbind/css/main.css">
-  <navbar placement="top" type="inverse">
-    <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
-    <dropdown text="User Guide">
-      <li><a href="/markbind/userGuide/index.html">Home</a></li>
-      <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
-      <li role="separator" class="divider"></li>
-      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
-        <li><a href="/markbind/userGuide/siteConfiguration.html">◦&nbsp; Site Configuration</a></li>
-        <li role="separator" class="divider"></li>
-        <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
-        <li><a href="/markbind/userGuide/includingContents.html">◦&nbsp; Including Contents</a></li>
-        <li><a href="/markbind/userGuide/knownProblems.html">◦&nbsp; Known Problems</a></li>
-        <li role="separator" class="divider"></li>
-        <li style="margin: 3px 20px;">Deploying a Site</li>
-        <li><a href="/markbind/userGuide/ghpagesDeployment.html">◦&nbsp; Github Pages Deployment</a></li>
-        <li><a href="/markbind/userGuide/netlifyPreview.html">◦&nbsp; Preview site on Netlify</a></li>
+    <div id="flex-body">
+  <div id="site-nav">
+    <ul style="list-style-type: none; margin-left:-1em">
+      <li style="margin-top: 10px">
+        <h2 id="user-guide">User Guide</h2>
       </li>
-    </dropdown>
-    <li>
-      <a href="https://github.com/MarkBind/markbind" target="_blank">
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+      <li style="margin-top:10px"><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
+        <ul style="list-style-type: none; margin-left:-1em">
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
+        </ul>
+      </li>
+      <li style="margin-top:10px"><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a>
+        <ul style="list-style-type: none; margin-left:-1em">
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/knownProblems.html">Known Problems</a></li>
+        </ul>
+      </li>
+      <li style="margin-top: 10px"><button class="dropdown-btn">Deploying a Site
+ <i class="dropdown-btn-icon">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+        <div class="dropdown-container">
+          <ul style="list-style-type: none; margin-left:-1em">
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="site-nav-btn-wrap">
+    <div id="site-nav-btn">
+      <div class="menu-top-bar"></div>
+      <div class="menu-middle-bar"></div>
+      <div class="menu-bottom-bar"></div>
+    </div>
+  </div>
+  <div id="page-content">
+    <div>
+      <link rel="stylesheet" href="/markbind/css/main.css">
+      <navbar placement="top" type="inverse">
+        <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
+        <dropdown text="User Guide">
+          <li><a href="/markbind/userGuide/index.html">Home</a></li>
+          <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
+            <li><a href="/markbind/userGuide/siteConfiguration.html">◦&nbsp; Site Configuration</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
+            <li><a href="/markbind/userGuide/includingContents.html">◦&nbsp; Including Contents</a></li>
+            <li><a href="/markbind/userGuide/knownProblems.html">◦&nbsp; Known Problems</a></li>
+            <li role="separator" class="divider"></li>
+            <li style="margin: 3px 20px;">Deploying a Site</li>
+            <li><a href="/markbind/userGuide/ghpagesDeployment.html">◦&nbsp; Github Pages Deployment</a></li>
+            <li><a href="/markbind/userGuide/netlifyPreview.html">◦&nbsp; Preview site on Netlify</a></li>
+          </li>
+        </dropdown>
+        <li>
+          <a href="https://github.com/MarkBind/markbind" target="_blank">
       Fork this project on Github
       <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
-    <li slot="right">
-      <form class="navbar-form">
-        <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
-      </form>
-    </li>
-  </navbar>
-</div>
-<div class="website-content">
-  <h1 id="developing-a-site-with-markbind">Developing a Site with MarkBind</h1>
-  <p>This wiki explains the basic command you need to know to develop a site with MarkBind.</p>
-  <h2 id="init-a-site-with-markbind">Init a site with MarkBind</h2>
-  <p>MarkBind can setup a boilerplate site in the current directory:</p>
-  <pre class="hljs"><code>$ markbind init
+        <li slot="right">
+          <form class="navbar-form">
+            <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
+          </form>
+        </li>
+      </navbar>
+    </div>
+    <div class="website-content">
+      <h1 id="developing-a-site-with-markbind">Developing a Site with MarkBind</h1>
+      <p>This wiki explains the basic command you need to know to develop a site with MarkBind.</p>
+      <h2 id="init-a-site-with-markbind">Init a site with MarkBind</h2>
+      <p>MarkBind can setup a boilerplate site in the current directory:</p>
+      <pre class="hljs"><code>$ markbind init
 </code></pre>
-  <p>If you wish to create the site into a new directory, you can do so by running <code>markbind init ./directory</code></p>
-  <p>After running <code>init</code>, two files will be created for you: <code>index.md</code> and <code>site.json</code>.</p>
-  <ul>
-    <li><code>index.md</code> is where you can start writing your contents (and will be rendered as <code>index.html</code> later).</li>
-    <li><a href="#sitejson"><code>site.json</code></a> is the configuration file used for MarkBind to build your website correctly.</li>
-  </ul>
-  <p><strong>A valid <code>site.json</code> file is required to build a MarkBind-driven site</strong>.</p>
-  <h2 id="preview-and-serve-your-site-using">Preview and serve your site using:</h2>
-  <pre class="hljs"><code>$ markbind serve
+      <p>If you wish to create the site into a new directory, you can do so by running <code>markbind init ./directory</code></p>
+      <p>After running <code>init</code>, two files will be created for you: <code>index.md</code> and <code>site.json</code>.</p>
+      <ul>
+        <li><code>index.md</code> is where you can start writing your contents (and will be rendered as <code>index.html</code> later).</li>
+        <li><a href="#sitejson"><code>site.json</code></a> is the configuration file used for MarkBind to build your website correctly.</li>
+      </ul>
+      <p><strong>A valid <code>site.json</code> file is required to build a MarkBind-driven site</strong>.</p>
+      <h2 id="preview-and-serve-your-site-using">Preview and serve your site using:</h2>
+      <pre class="hljs"><code>$ markbind serve
 </code></pre>
-  <p>MarkBind will generate the site in a folder named <code>_site</code> in the current directory. Live reload is enabled to regenerate the site for changes, so you could see the immediate rendering result after you modify the source files.</p>
-  <table class="markbind-table table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>Options</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><code>-p</code>, <code>--port &lt;port&gt;</code></td>
-        <td>The port used for serving your website.</td>
-      </tr>
-      <tr>
-        <td>--no-open</td>
-        <td>Don't open browser automatically.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h2 id="build-the-static-site">Build the static site</h2>
-  <pre class="hljs"><code>$ markbind build
+      <p>MarkBind will generate the site in a folder named <code>_site</code> in the current directory. Live reload is enabled to regenerate the site for changes, so you could see the immediate rendering result after you modify the source files.</p>
+      <table class="markbind-table table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Options</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>-p</code>, <code>--port &lt;port&gt;</code></td>
+            <td>The port used for serving your website.</td>
+          </tr>
+          <tr>
+            <td>--no-open</td>
+            <td>Don't open browser automatically.</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2 id="build-the-static-site">Build the static site</h2>
+      <pre class="hljs"><code>$ markbind build
 </code></pre>
-  <p>By default, MarkBind will generate the site to the folder named <code>_site</code> in the current directory, with current directory as the root directory. You can change them using</p>
-  <pre class="hljs"><code>$ markbind build ./rootFolder ./outputFolder
+      <p>By default, MarkBind will generate the site to the folder named <code>_site</code> in the current directory, with current directory as the root directory. You can change them using</p>
+      <pre class="hljs"><code>$ markbind build ./rootFolder ./outputFolder
 </code></pre>
-  <h2 id="deploy-the-generated-site">Deploy the generated site</h2>
-  <pre class="hljs"><code>$ markbind deploy
+      <h2 id="deploy-the-generated-site">Deploy the generated site</h2>
+      <pre class="hljs"><code>$ markbind deploy
 </code></pre>
-  <p>By default, it will try to push everything in the generated site (default dir: <code>_site</code>) to the <code>gh-pages</code> branch of the current git working directory's remote repo.</p>
-  <p>Please check more details of deployment <a href="ghpagesDeployment.html">here</a>.</p>
-  <h3 id="sitejson">site.json</h3>
-  <p>Let's take a look at this newly created <code>site.json</code>:</p>
-  <div>
-    <pre class="hljs"><code>{
+      <p>By default, it will try to push everything in the generated site (default dir: <code>_site</code>) to the <code>gh-pages</code> branch of the current git working directory's remote repo.</p>
+      <p>Please check more details of deployment <a href="ghpagesDeployment.html">here</a>.</p>
+      <h3 id="sitejson">site.json</h3>
+      <p>Let's take a look at this newly created <code>site.json</code>:</p>
+      <div>
+        <pre class="hljs"><code>{
   &quot;baseUrl&quot;: &quot;&quot;,
   &quot;faviconPath&quot;: &quot;favicon.png&quot;,
   &quot;titlePrefix&quot;: &quot;&quot;,
@@ -116,69 +155,49 @@
   }
 }
 </code></pre>
-    <table class="markbind-table table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th>Variable</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>baseUrl</strong></td>
-          <td>The base url relative to your domain. Default: <code></code> (empty). For example, if you are using Github Pages to host your deployed website and it is published at <code>https://markbind.github.io/site-demo-cs2103</code>, then your <code>baseUrl</code>            would be <code>/site-demo-cs2103</code>. You can use this variable for <a href="contentAuthoring.html#specifying-path-reference">specifying path reference</a> of images and links. <strong>You may need to change the <code>baseUrl</code> when deploying to a different repo.</strong></td>
-        </tr>
-        <tr>
-          <td><strong>faviconPath</strong></td>
-          <td>The location of the favicon. Default: <code>favicon.ico</code>. If the favicon was recently changed, you may need to force-refresh to see the new image.</td>
-        </tr>
-        <tr>
-          <td><strong>titlePrefix</strong></td>
-          <td>The prefix for all page titles. The separator <code>-</code> will be inserted by MarkBind.</td>
-        </tr>
-        <tr>
-          <td><strong>pages</strong></td>
-          <td>An array of pages to be rendered. The <code>src</code> is the file; <code>title</code> is the page title for the generated web page. Titles specified here take priority over titles specified in the <a href="contentAuthoring.html#front-matter">front matter</a>            of individual pages. Alternatively, <code>glob</code> can be used to define a file pattern. If <code>title</code> is not specified in the front matter, the page will have <code>titlePrefix</code> as its title.</td>
-        </tr>
-        <tr>
-          <td><strong>ignore</strong></td>
-          <td>An array of file patterns to be ignored. By default, MarkBind will copy all the files as assets into the output folder. The ignore pattern follows the <a href="https://git-scm.com/docs/gitignore#_pattern_format">glob pattern used in .gitignore</a>.
-            For example, <code>*.md</code> ignores all markdown source files. You may want to ignore the Git directory <code>.git/*</code>.</td>
-        </tr>
-        <tr>
-          <td><strong>deploy</strong></td>
-          <td>The settings for <a href="ghpagesDeployment.html">auto deployment to Github pages</a>. The <code>message</code> is the commit message used for the deployment commit.</td>
-        </tr>
-      </tbody>
-    </table>
+        <table class="markbind-table table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Variable</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>baseUrl</strong></td>
+              <td>The base url relative to your domain. Default: <code></code> (empty). For example, if you are using Github Pages to host your deployed website and it is published at <code>https://markbind.github.io/site-demo-cs2103</code>, then your <code>baseUrl</code>                would be <code>/site-demo-cs2103</code>. You can use this variable for <a href="contentAuthoring.html#specifying-path-reference">specifying path reference</a> of images and links. <strong>You may need to change the <code>baseUrl</code> when deploying to a different repo.</strong></td>
+            </tr>
+            <tr>
+              <td><strong>faviconPath</strong></td>
+              <td>The location of the favicon. Default: <code>favicon.ico</code>. If the favicon was recently changed, you may need to force-refresh to see the new image.</td>
+            </tr>
+            <tr>
+              <td><strong>titlePrefix</strong></td>
+              <td>The prefix for all page titles. The separator <code>-</code> will be inserted by MarkBind.</td>
+            </tr>
+            <tr>
+              <td><strong>pages</strong></td>
+              <td>An array of pages to be rendered. The <code>src</code> is the file; <code>title</code> is the page title for the generated web page. Titles specified here take priority over titles specified in the <a href="contentAuthoring.html#front-matter">front matter</a>                of individual pages. Alternatively, <code>glob</code> can be used to define a file pattern. If <code>title</code> is not specified in the front matter, the page will have <code>titlePrefix</code> as its title.</td>
+            </tr>
+            <tr>
+              <td><strong>ignore</strong></td>
+              <td>An array of file patterns to be ignored. By default, MarkBind will copy all the files as assets into the output folder. The ignore pattern follows the <a href="https://git-scm.com/docs/gitignore#_pattern_format">glob pattern used in .gitignore</a>.
+                For example, <code>*.md</code> ignores all markdown source files. You may want to ignore the Git directory <code>.git/*</code>.</td>
+            </tr>
+            <tr>
+              <td><strong>deploy</strong></td>
+              <td>The settings for <a href="ghpagesDeployment.html">auto deployment to Github pages</a>. The <code>message</code> is the commit message used for the deployment commit.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 <div id="flex-div"></div>
 <footer>
-  <div class="website-content">
-    <h2 id="sections">Sections</h2>
-    <ul>
-      <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
-      <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
-        <ul>
-          <li><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
-        </ul>
-      </li>
-      <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a>
-        <ul>
-          <li><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
-          <li><a href="/markbind/userGuide/knownProblems.html">Known Problems</a></li>
-        </ul>
-      </li>
-      <li>Deploying a Site
-        <ul>
-          <li><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
-          <li><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
-        </ul>
-      </li>
-    </ul>
-    <p><small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.8.0</a> on Mon, 11 Jun 2018 06:14:33 GMT]</small></p>
-  </div>
+  <div class="text-center">
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.8.1</a> on Fri, 22 Jun 2018 01:45:12 GMT]</small></div>
 </footer>
 </div>
 </body>
@@ -188,4 +207,5 @@
     const baseUrl = '/markbind'
 </script>
 <script src="..\markbind\js\setup.js"></script>
+<script src="..\markbind\js\site-nav.js"></script>
 </html>
