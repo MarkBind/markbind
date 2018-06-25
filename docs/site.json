@@ -34,8 +34,8 @@
       "title": "MarkBind: User Guide - Known Problems"
     },
     {
-      "src": "userGuide/componentsReference/index.md",
-      "title": "MarkBind: User Guide - Components Reference"
+      "src": "userGuide/components.md",
+      "title": "MarkBind: User Guide - Components"
     },
     {
       "src": "userGuide/ghpagesDeployment.md",
