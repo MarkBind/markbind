@@ -9,4 +9,6 @@
 
 # Components
 
+<include src="./components/searchbar.md" />
+
 </div>
