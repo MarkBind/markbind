@@ -7,7 +7,7 @@
 
 <div class="website-content">
 
-# Components
+# Components Reference
 
 <include src="./components/panel.md" />
 
