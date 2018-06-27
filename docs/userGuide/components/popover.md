@@ -126,4 +126,4 @@ effect | `String`, one of `scale` `fade` | `fade`
 title | `String`, or be markdown inline text
 content | `String`, or be markdown inline text
 header | `Boolean` | `true` |	Whether to show the header.
-placement | `String`, one of `top` `left` `right` `bottom` `top` | How to position the popover.
+placement | `String`, one of `top` `left` `right` `bottom` `top` || How to position the popover.
