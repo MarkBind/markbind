@@ -12,9 +12,6 @@
 <include src="./components/dropdown.md" />
 <br>
 
-<include src="./components/modal.md" />
-<br>
-
 <include src="./components/navbar.md" />
 <br>
 
@@ -43,6 +40,9 @@
 <br>
 
 <include src="./components/trigger.md" />
+<br>
+
+<include src="./components/modal.md" />
 <br>
 
 </div>
