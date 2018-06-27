@@ -258,7 +258,7 @@ To use a component, just type the corresponding markup in your file. For example
 </panel>
 ```
 
-For a list of supported components, refer to [VueStrap modified by MarkBind](https://markbind.github.io/vue-strap/).
+For a list of supported components, refer to the [Components Reference]({{baseUrl}}/userGuide/components.html).
 
 To make an element closeable, use `v-closeable`.
 
