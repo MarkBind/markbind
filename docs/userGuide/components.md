@@ -9,4 +9,6 @@
 
 # Components
 
+<include src="./components/panel.md" />
+
 </div>
