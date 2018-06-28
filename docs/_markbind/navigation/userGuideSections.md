@@ -9,4 +9,5 @@
 * Deploying a Site
   * [Github Pages Deployment]({{baseUrl}}/userGuide/ghpagesDeployment.html)
   * [Preview site on Netlify]({{baseUrl}}/userGuide/netlifyPreview.html)
+* [Components Reference]({{baseUrl}}/userGuide/components.html)
 </markdown>

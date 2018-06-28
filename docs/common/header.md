@@ -15,6 +15,8 @@
     <li style="margin: 3px 20px;">Deploying a Site</li>
     <li><a href="{{baseUrl}}/userGuide/ghpagesDeployment.html">◦&nbsp; Github Pages Deployment</a></li>
     <li><a href="{{baseUrl}}/userGuide/netlifyPreview.html">◦&nbsp; Preview site on Netlify</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="{{baseUrl}}/userGuide/components.html">Components Reference</a></li>
   </dropdown>
   <li>
     <a href="https://github.com/MarkBind/markbind" target="_blank">
