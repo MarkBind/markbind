@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MarkBind: User Guide - Components</title>
+    <link rel="stylesheet" href="..\markbind\css\bootstrap.min.css">
+    <link rel="stylesheet" href="..\markbind\css\github.min.css">
+    <link rel="stylesheet" href="..\markbind\css\markbind.css">
+    <link rel="stylesheet" href="..\markbind\css\site-nav.css">
+    
+</head>
+<body>
+<div id="app" class="container-fluid">
+    <div id="flex-body">
+  <div id="site-nav">
+    <ul style="list-style-type: none; margin-left:-1em">
+      <li style="margin-top: 10px">
+        <h2 id="user-guide">User Guide</h2>
+      </li>
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+      <li style="margin-top:10px"><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
+        <ul style="list-style-type: none; margin-left:-1em">
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
+        </ul>
+      </li>
+      <li style="margin-top:10px"><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a>
+        <ul style="list-style-type: none; margin-left:-1em">
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/knownProblems.html">Known Problems</a></li>
+        </ul>
+      </li>
+      <li style="margin-top: 10px"><button class="dropdown-btn">Deploying a Site
+ <i class="dropdown-btn-icon">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+        <div class="dropdown-container">
+          <ul style="list-style-type: none; margin-left:-1em">
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+          </ul>
+        </div>
+      </li>
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/components.html">Components Reference</a></li>
+    </ul>
+  </div>
+  <div id="site-nav-btn-wrap">
+    <div id="site-nav-btn">
+      <div class="menu-top-bar"></div>
+      <div class="menu-middle-bar"></div>
+      <div class="menu-bottom-bar"></div>
+    </div>
+  </div>
+  <div id="page-content">
+    <div>
+      <link rel="stylesheet" href="/markbind/css/main.css">
+      <navbar placement="top" type="inverse">
+        <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
+        <dropdown text="User Guide">
+          <li><a href="/markbind/userGuide/index.html">Home</a></li>
+          <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
+            <li><a href="/markbind/userGuide/siteConfiguration.html">◦&nbsp; Site Configuration</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
+            <li><a href="/markbind/userGuide/includingContents.html">◦&nbsp; Including Contents</a></li>
+            <li><a href="/markbind/userGuide/knownProblems.html">◦&nbsp; Known Problems</a></li>
+            <li role="separator" class="divider"></li>
+            <li style="margin: 3px 20px;">Deploying a Site</li>
+            <li><a href="/markbind/userGuide/ghpagesDeployment.html">◦&nbsp; Github Pages Deployment</a></li>
+            <li><a href="/markbind/userGuide/netlifyPreview.html">◦&nbsp; Preview site on Netlify</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/markbind/userGuide/components.html">Components Reference</a></li>
+          </li>
+        </dropdown>
+        <li>
+          <a href="https://github.com/MarkBind/markbind" target="_blank">
+      Fork this project on Github
+      <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
+        <li slot="right">
+          <form class="navbar-form">
+            <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
+          </form>
+        </li>
+      </navbar>
+    </div>
+    <div class="website-content">
+      <h1 id="components-reference">Components Reference</h1>
+      <div>
+        <h1 id="dropdown">Dropdown</h1>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <dropdown>
+            <button slot="button" type="button" class="btn btn-default dropdown-toggle">
+        Action
+        <span class="caret"></span></button>
+            <ul slot="dropdown-menu" class="dropdown-menu">
+              <li><a href="#dropdown">Action</a></li>
+              <li><a href="#dropdown">Another action</a></li>
+              <li><a href="#dropdown">Something else here</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#dropdown">Separated link</a></li>
+            </ul>
+          </dropdown>
+          <dropdown text="Action" type="primary">
+            <li><a href="#dropdown">Action</a></li>
+            <li><a href="#dropdown">Another action</a></li>
+            <li><a href="#dropdown">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#dropdown">Separated link</a></li>
+          </dropdown>
+          <dropdown>
+            <button slot="button" type="button" class="btn btn-success dropdown-toggle">
+        Action <span class="caret"></span></button>
+            <ul slot="dropdown-menu" class="dropdown-menu">
+              <li><a href="#dropdown">Action</a></li>
+              <li><a href="#dropdown">Another action</a></li>
+              <li><a href="#dropdown">Something else here</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#dropdown">Separated link</a></li>
+            </ul>
+          </dropdown>
+          <dropdown text="Disabled" type="warning" disabled>
+            <li><a href="#dropdown">Action</a></li>
+          </dropdown>
+          <dropdown type="info">
+            <button slot="before" type="button" class="btn btn-info">Segmented</button>
+            <li><a href="#dropdown">Action</a></li>
+          </dropdown>
+          <div><br></div>
+          <div class="btn-group btn-group-justified">
+            <a href="#dropdown" class="btn btn-default" role="button">Left</a>
+            <dropdown>
+              <a slot="button" href="#dropdown" class="btn btn-default">
+          Dropdown <span class="caret"></span></a>
+              <ul slot="dropdown-menu" class="dropdown-menu">
+                <li><a href="#dropdown">Action</a></li>
+                <li><a href="#dropdown">Another action</a></li>
+                <li><a href="#dropdown">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#dropdown">Separated link</a></li>
+              </ul>
+            </dropdown>
+            <a href="#dropdown" class="btn btn-default" role="button">Right</a></div>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">dropdown</span> <span class="hljs-attr">text</span>=<span class="hljs-string">"Action"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"primary"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#dropdown"</span>&gt;</span>Action<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#dropdown"</span>&gt;</span>Another action<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#dropdown"</span>&gt;</span>Something else here<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"separator"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"divider"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#dropdown"</span>&gt;</span>Separated link<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dropdown</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- For segmented dropdown, ignore text and add a "before" slot --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">dropdown</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"info"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"before"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"button"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-info"</span>&gt;</span>Segmented<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#dropdown"</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dropdown</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- In a button group --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn-group btn-group-justified"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#dropdown"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"button"</span>&gt;</span>Left<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- With slots you can handle some elements as native bootstrap --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">dropdown</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"button"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"button"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default dropdown-toggle"</span>&gt;</span>
+      Action
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"caret"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"dropdown-menu"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dropdown-menu"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#dropdown"</span>&gt;</span>Action<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#dropdown"</span>&gt;</span>Another action<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#dropdown"</span>&gt;</span>Something else here<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"separator"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"divider"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#dropdown"</span>&gt;</span>Separated link<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">dropdown</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#dropdown"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"button"</span>&gt;</span>Right<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h2 id="dropdown-options">Dropdown Options</h2>
+        <table class="markbind-table table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>disabled</td>
+              <td><code>Boolean</code></td>
+              <td><code>false</code></td>
+              <td>Whether Dropdown can be opened.</td>
+            </tr>
+            <tr>
+              <td>text</td>
+              <td><code>String</code></td>
+              <td></td>
+              <td>Dropdown button text.</td>
+            </tr>
+            <tr>
+              <td>type</td>
+              <td><code>String</code></td>
+              <td><code>default</code></td>
+              <td>Supports: <code>default</code>, <code>primary</code>, <code>danger</code>, <code>info</code>, <code>warning</code>, <code>success</code>.</td>
+            </tr>
+          </tbody>
+        </table>
+        <h2 id="bootstrap-buttons">Bootstrap Buttons</h2>
+        <p>You may refer to <a href="https://getbootstrap.com/docs/4.0/components/buttons/">this documentation</a> regarding how you can use the Bootstrap buttons, and how to style them.</p>
+      </div>
+      <br>
+      <div>
+        <h1 id="navbar">Navbar</h1>
+        <h4 id="navbar-allows-visitors-of-your-website-to-navigate-through-pages-easily">Navbar allows visitors of your website to navigate through pages easily.</h4>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <navbar type="default">
+
+            <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
+
+            <dropdown text="Dropdown">
+              <li><a href="#navbar">Option</a></li>
+            </dropdown>
+
+            <li slot="right">
+              <a href="https://github.com/MarkBind/markbind" target="_blank">Fork...</a></li>
+          </navbar>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">navbar</span> <span class="hljs-attr">placement</span>=<span class="hljs-string">"top"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"default"</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- Brand as slot --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"brand"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Home"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"navbar-brand"</span>&gt;</span>MarkBind<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- You can use dropdown component --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">dropdown</span> <span class="hljs-attr">text</span>=<span class="hljs-string">"Dropdown"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#navbar"</span>&gt;</span>Option<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">dropdown</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- For right positioning use slot --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"right"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://github.com/MarkBind/markbind"</span> <span class="hljs-attr">target</span>=<span class="hljs-string">"_blank"</span>&gt;</span>Fork...<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">navbar</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h2 id="navbar-options">Navbar Options</h2>
+        <table class="markbind-table table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>placement</td>
+              <td><code>String</code></td>
+              <td><code>''</code></td>
+              <td>Supports: <code>top</code>, <code>bottom</code>, <code>static</code>, or empty for normal.</td>
+            </tr>
+            <tr>
+              <td>type</td>
+              <td><code>String</code></td>
+              <td><code>default</code></td>
+              <td>Supports: <code>inverse</code>, <code>default</code>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div>
+        <h1 id="panel">Panel</h1>
+        <h4 id="panel-is-a-flexible-container-that-supports-collapsing-and-expanding-its-content-it-is-expandable-by-default">Panel is a flexible container that supports collapsing and expanding its content. It is expandable by default.</h4>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <panel header="This is your header for a Panel, click me to expand!">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
+          </panel>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"This is your header for a Panel, click me to expand!"</span>&gt;</span>
+  ...
+<span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h4 id="with-minimized-attribute-panel-is-minimized-into-an-inline-block-element-the-alt-attribute-is-for-you-to-specify-the-minimized-block-header">With <code>minimized</code> attribute, panel is minimized into an inline block element. The <code>alt</code> attribute is for you to specify the minimized block header.</h4>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <panel header="How to cultivate a tomato plant at home" alt="Tomatoes" minimized="">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
+          </panel>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"How to cultivate a tomato plant at home"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Tomatoes"</span> <span class="hljs-attr">minimized</span>&gt;</span>
+  ...
+<span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h4 id="with-expanded-attribute-you-can-set-the-panels-to-be-expanded-when-loaded-in">With <code>expanded</code> attribute, you can set the panels to be expanded when loaded in.</h4>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <panel header="Have your readers click less to see the Panel's contents" expanded="">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
+          </panel>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Have your readers click less to see the Panel's contents"</span> <span class="hljs-attr">expanded</span>&gt;</span>
+  ...
+<span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h4 id="panel-provides-many-types-that-change-its-appearance">Panel provides many types that change its appearance.</h4>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <code>primary</code> type<br>
+          <panel header="#### primary type panel" type="primary">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
+          </panel>
+          <br>
+          <code>seamless</code> type<br>
+          <panel header="#### seamless type panel" type="seamless">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
+          </panel>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"#### primary type panel"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"primary"</span>&gt;</span>
+  ...
+<span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"#### seamless type panel"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"seamless"</span>&gt;</span>
+  ...
+<span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h4 id="showhide-buttons-using-no-switch-or-no-close">Show/Hide buttons using <code>no-switch</code> or <code>no-close</code>.</h4>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <panel header="This panel does not have a switch button" no-switch="">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
+          </panel>
+          <panel header="This panel does not have a close button" no-close="">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
+          </panel>
+          <panel header="This panel does not have either buttons" no-close="" no-switch="">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
+          </panel>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"This panel does not have a switch button"</span> <span class="hljs-attr">no-switch</span>&gt;</span>
+  ...
+<span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"This panel does not have a close button"</span> <span class="hljs-attr">no-close</span>&gt;</span>
+  ...
+<span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"This panel does not have either buttons"</span> <span class="hljs-attr">no-close</span> <span class="hljs-attr">no-switch</span>&gt;</span>
+  ...
+<span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h4 id="use-markdown-in-the-header-only-inline-level-markdown-are-supported">Use markdown in the header (only inline level markdown are supported).</h4>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <panel header="**Bold text** :rocket: ![](https://vuejs.org/images/logo.png =25x25)" type="seamless">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
+          </panel>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"**Bold text** :rocket: ![](https://vuejs.org/images/logo.png =25x25)"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"seamless"</span>&gt;</span>
+  ...
+<span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h4 id="if-src-attribute-is-provided-the-panel-content-is-loaded-dynamically-from-the-src-specified-to-load-it-immediately-you-can-provide-the-load-all-attribute">If <code>src</code> attribute is provided, the panel content is loaded dynamically from the <code>src</code> specified. To load it immediately, you can provide the <code>load-all</code> attribute.</h4>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <panel header="Content loaded in from `src`" alt="Dynamic Loading" src="/markbind\userGuide\components\dynamic\loadContent._include_.html#fragment" minimized="" fragment="fragment"></panel>
+          <panel header="Content does not have any delay" alt="Immediate loading" src="/markbind\userGuide\components\dynamic\loadContent._include_.html#fragment" minimized="" load-all="" fragment="fragment"></panel>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Content loaded in from `src`"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Dynamic Loading"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"dynamic/loadContent.html#fragment"</span> <span class="hljs-attr">minimized</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Content does not have any delay"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Immediate loading"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"dynamic/loadContent.html#fragment"</span> <span class="hljs-attr">minimized</span> <span class="hljs-attr">load-all</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h4 id="if-popup-url-attribute-is-provided-a-popup-button-will-be-shown-if-clicked-it-opens-the-specified-url-in-a-new-window">If <code>popup-url</code> attribute is provided, a popup button will be shown. If clicked, it opens the specified url in a new window.</h4>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <panel header="Try clicking on my pop-up button" popup-url="dynamic/loadContent.html">
+            This panel has a popup.
+          </panel>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Try clicking on my pop-up button"</span> <span class="hljs-attr">popup-url</span>=<span class="hljs-string">"dynamic/loadContent.html"</span>&gt;</span>
+  This panel has a popup.
+<span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h4 id="you-can-nest-panels-or-other-components-within-a-panel">You can nest Panels or other components within a Panel.</h4>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <panel header="Parent Panel">
+            <panel header="Level 1 Nested Panel">
+              <panel header="Level 2 Nested Panel">
+                <tip-box type="success">
+                  I'm a nested tip-box
+                </tip-box>
+              </panel>
+            </panel>
+            <panel header="Level 1 Nested Panel" type="info">
+              Some Text
+            </panel>
+          </panel>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Parent Panel"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Level 1 Nested Panel"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Level 2 Nested Panel"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">tip-box</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"success"</span>&gt;</span>
+        I'm a nested tip-box
+      <span class="hljs-tag">&lt;/<span class="hljs-name">tip-box</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Level 1 Nested Panel"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"info"</span>&gt;</span>
+    Some Text
+  <span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h2 id="panel-options">Panel Options</h2>
+        <table class="markbind-table table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>header</td>
+              <td><code>string</code></td>
+              <td></td>
+              <td>The clickable text on the group's header.</td>
+            </tr>
+            <tr>
+              <td>expandable</td>
+              <td><code>Boolean</code></td>
+              <td><code>true</code></td>
+              <td>Whether Panel is expandable.</td>
+            </tr>
+            <tr>
+              <td>expanded</td>
+              <td><code>Boolean</code></td>
+              <td><code>false</code></td>
+              <td>Whether Panel is expanded or collapsed when loaded in.</td>
+            </tr>
+            <tr>
+              <td>minimized</td>
+              <td><code>Boolean</code></td>
+              <td><code>false</code></td>
+              <td>Whether Panel is minimized.</td>
+            </tr>
+            <tr>
+              <td>no-close</td>
+              <td><code>Boolean</code></td>
+              <td><code>false</code></td>
+              <td>Whether to show the close button.</td>
+            </tr>
+            <tr>
+              <td>no-switch</td>
+              <td><code>Boolean</code></td>
+              <td><code>false</code></td>
+              <td>Whether to show the expand switch.</td>
+            </tr>
+            <tr>
+              <td>bottom-switch</td>
+              <td><code>Boolean</code></td>
+              <td><code>true</code></td>
+              <td>Whether to show an expand switch at the bottom of the panel. Independent of no-switch.</td>
+            </tr>
+            <tr>
+              <td>popup-url</td>
+              <td><code>String</code></td>
+              <td></td>
+              <td>The url that the popup window will navigate to. The url can be absolute or relative.</td>
+            </tr>
+            <tr>
+              <td>src</td>
+              <td><code>String</code></td>
+              <td></td>
+              <td>The url to the remote page to be loaded as the content of the panel.</td>
+            </tr>
+            <tr>
+              <td>load-all</td>
+              <td><code>Boolean</code></td>
+              <td><code>false</code></td>
+              <td>Whether the content is loaded immediately from <code>src</code>.</td>
+            </tr>
+            <tr>
+              <td>type</td>
+              <td><code>String</code></td>
+              <td>null</td>
+              <td>The type of color for the tab (single).<br>Supports: <code>default</code>, <code>primary</code>, <code>info</code>, <code>success</code>, <code>warning</code>, <code>danger</code>, <code>seamless</code>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div>
+        <h1 id="pic">Pic</h1>
+        <h4 id="pic-allows-you-to-add-captions-below-the-image">Pic allows you to add captions below the image.</h4>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <pic src="https://vuejs.org/images/logo.png" width="300" alt="Logo">
+            Logo for Vue.js
+          </pic>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">pic</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://vuejs.org/images/logo.png"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"300"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Logo"</span>&gt;</span>
+  Logo for Vue.js
+<span class="hljs-tag">&lt;/<span class="hljs-name">pic</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h2 id="pic-options">Pic Options</h2>
+        <table class="markbind-table table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>alt</td>
+              <td><code>string</code></td>
+              <td></td>
+              <td>The alternative text of the image. Must be specified.</td>
+            </tr>
+            <tr>
+              <td>height</td>
+              <td><code>string</code></td>
+              <td></td>
+              <td>The height of the image in pixels.</td>
+            </tr>
+            <tr>
+              <td>src</td>
+              <td><code>string</code></td>
+              <td></td>
+              <td>Must be specified.</td>
+            </tr>
+            <tr>
+              <td>width</td>
+              <td><code>string</code></td>
+              <td></td>
+              <td>The width of the image in pixels.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div>
+        <h1 id="popover">Popover</h1>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <popover effect="fade" content="Lorem ipsum dolor sit amet" placement="top">
+            <button class="btn btn-default">Popover on top</button></popover>
+          <popover effect="fade" content="Lorem ipsum dolor sit amet" placement="left">
+            <button class="btn btn-default">Popover on left</button></popover>
+          <popover effect="fade" content="Lorem ipsum dolor sit amet" placement="right">
+            <button class="btn btn-default">Popover on right</button></popover>
+          <popover effect="fade" content="Lorem ipsum dolor sit amet" placement="bottom">
+            <button class="btn btn-default">Popover on bottom</button></popover>
+          <hr>
+          <h4>Title</h4>
+          <popover effect="fade" header="" title="Title" content="Lorem ipsum dolor sit amet" placement="top">
+            <button class="btn btn-default">Popover on top</button></popover>
+          <popover effect="fade" header="" title="Title" content="Lorem ipsum dolor sit amet" placement="left">
+            <button class="btn btn-default">Popover on left</button></popover>
+          <popover effect="fade" header="" title="Title" content="Lorem ipsum dolor sit amet" placement="right">
+            <button class="btn btn-default">Popover on right</button></popover>
+          <popover effect="fade" header="" title="Title" content="Lorem ipsum dolor sit amet" placement="bottom">
+            <button class="btn btn-default">Popover on bottom</button></popover>
+          <hr>
+          <h4>Trigger</h4>
+          <p>
+            <popover effect="scale" title="Title" content="Lorem ipsum dolor sit amet" placement="top" trigger="hover">
+              <button class="btn btn-default">Mouseenter</button></popover>
+            <popover effect="scale" title="Title" content="Lorem ipsum dolor sit amet" placement="top" trigger="contextmenu">
+              <button class="btn btn-default">Contextmenu (right click)</button></popover>
+          </p>
+          <h4>Markdown</h4>
+          <p>
+            <popover effect="scale" title="**Emoji title** :rocket:" content="++emoji++ content :cat:">
+              <button class="btn btn-default">Hover</button></popover>
+          </p>
+          <h4>Content using slot</h4>
+          <popover effect="scale" title="**Emoji title** :rocket:">
+            <div slot="content">
+              This is a long content...
+            </div>
+            <button class="btn btn-default">Hover</button></popover>
+          <br>
+          <br>
+          <h4>Wrap Text</h4>
+          <popover header="false" content="Nice!">What do you say</popover>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">popover</span> <span class="hljs-attr">effect</span>=<span class="hljs-string">"fade"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Lorem ipsum dolor sit amet"</span> <span class="hljs-attr">placement</span>=<span class="hljs-string">"top"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span>&gt;</span>Popover on top<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">popover</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">popover</span> <span class="hljs-attr">effect</span>=<span class="hljs-string">"fade"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Lorem ipsum dolor sit amet"</span> <span class="hljs-attr">placement</span>=<span class="hljs-string">"left"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span>&gt;</span>Popover on left<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">popover</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">popover</span> <span class="hljs-attr">effect</span>=<span class="hljs-string">"fade"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Lorem ipsum dolor sit amet"</span> <span class="hljs-attr">placement</span>=<span class="hljs-string">"right"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span>&gt;</span>Popover on right<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">popover</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">popover</span> <span class="hljs-attr">effect</span>=<span class="hljs-string">"fade"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Lorem ipsum dolor sit amet"</span> <span class="hljs-attr">placement</span>=<span class="hljs-string">"bottom"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span>&gt;</span>Popover on bottom<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">popover</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">hr</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Title<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">popover</span> <span class="hljs-attr">effect</span>=<span class="hljs-string">"fade"</span> <span class="hljs-attr">header</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Title"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Lorem ipsum dolor sit amet"</span> <span class="hljs-attr">placement</span>=<span class="hljs-string">"top"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span>&gt;</span>Popover on top<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">popover</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">popover</span> <span class="hljs-attr">effect</span>=<span class="hljs-string">"fade"</span> <span class="hljs-attr">header</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Title"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Lorem ipsum dolor sit amet"</span> <span class="hljs-attr">placement</span>=<span class="hljs-string">"left"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span>&gt;</span>Popover on left<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">popover</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">popover</span> <span class="hljs-attr">effect</span>=<span class="hljs-string">"fade"</span> <span class="hljs-attr">header</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Title"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Lorem ipsum dolor sit amet"</span> <span class="hljs-attr">placement</span>=<span class="hljs-string">"right"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span>&gt;</span>Popover on right<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">popover</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">popover</span> <span class="hljs-attr">effect</span>=<span class="hljs-string">"fade"</span> <span class="hljs-attr">header</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Title"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Lorem ipsum dolor sit amet"</span> <span class="hljs-attr">placement</span>=<span class="hljs-string">"bottom"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span>&gt;</span>Popover on bottom<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">popover</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Trigger<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">popover</span> <span class="hljs-attr">effect</span>=<span class="hljs-string">"scale"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Title"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Lorem ipsum dolor sit amet"</span> <span class="hljs-attr">placement</span>=<span class="hljs-string">"top"</span> <span class="hljs-attr">trigger</span>=<span class="hljs-string">"hover"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span>&gt;</span>Mouseenter<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">popover</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">popover</span> <span class="hljs-attr">effect</span>=<span class="hljs-string">"scale"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Title"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Lorem ipsum dolor sit amet"</span> <span class="hljs-attr">placement</span>=<span class="hljs-string">"top"</span> <span class="hljs-attr">trigger</span>=<span class="hljs-string">"contextmenu"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span>&gt;</span>Contextmenu (right click)<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">popover</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Markdown<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">popover</span> <span class="hljs-attr">effect</span>=<span class="hljs-string">"scale"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"**Emoji title** :rocket:"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"++emoji++ content :cat:"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span>&gt;</span>Hover<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">popover</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Content using slot<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">popover</span> <span class="hljs-attr">effect</span>=<span class="hljs-string">"scale"</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"**Emoji title** :rocket:"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"content"</span>&gt;</span>
+    This is a long content...
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span>&gt;</span>Hover<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">popover</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Wrap Text<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">popover</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"false"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Nice!"</span>&gt;</span>What do you say<span class="hljs-tag">&lt;/<span class="hljs-name">popover</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <h2 id="popover-options">Popover Options</h2>
+        <table class="markbind-table table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>trigger</td>
+              <td><code>String</code>, one of <code>click</code> <code>focus</code> <code>hover</code> <code>contextmenu</code></td>
+              <td><code>hover</code></td>
+              <td>How the popover is triggered.</td>
+            </tr>
+            <tr>
+              <td>effect</td>
+              <td><code>String</code>, one of <code>scale</code> <code>fade</code></td>
+              <td><code>fade</code></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>title</td>
+              <td><code>String</code>, or be markdown inline text</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>content</td>
+              <td><code>String</code>, or be markdown inline text</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>header</td>
+              <td><code>Boolean</code></td>
+              <td><code>true</code></td>
+              <td>Whether to show the header.</td>
+            </tr>
+            <tr>
+              <td>placement</td>
+              <td><code>String</code>, one of <code>top</code> <code>left</code> <code>right</code> <code>bottom</code></td>
+              <td><code>top</code></td>
+              <td>How to position the popover.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div>
+        <h1 id="question">Question</h1>
+        <h4 id="question-component-consists-of-a-question-body-a-hint-and-an-answer">Question component consists of a question body, a hint and an answer.</h4>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <question>
+            The question body. <span>❔</span>
+            <div slot="hint">
+              Question hint. <span>🔮</span></div>
+            <div slot="answer">
+              Question answer. <span>📝</span></div>
+          </question>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">question</span>&gt;</span>
+  The question body. <span class="hljs-tag">&lt;<span class="hljs-name">md</span>&gt;</span>:grey_question:<span class="hljs-tag">&lt;/<span class="hljs-name">md</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"hint"</span>&gt;</span>
+    Question hint. <span class="hljs-tag">&lt;<span class="hljs-name">md</span>&gt;</span>:crystal_ball:<span class="hljs-tag">&lt;/<span class="hljs-name">md</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"answer"</span>&gt;</span>
+    Question answer. <span class="hljs-tag">&lt;<span class="hljs-name">md</span>&gt;</span>:pencil:<span class="hljs-tag">&lt;/<span class="hljs-name">md</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">question</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h4 id="if-you-leave-the-hint-and-answer-div-blank-a-default-hint-and-answer-will-be-provided-instead">If you leave the hint and answer <code>&lt;div&gt;</code> blank, a default hint and answer will be provided instead.</h4>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <question>
+            This question has no hint or answer.
+            <div slot="hint"></div>
+            <div slot="answer"></div>
+          </question>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">question</span>&gt;</span>
+  This question has no hint or answer.
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"hint"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"answer"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">question</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h4 id="use-the-has-input-attribute-to-add-a-text-input-box-for-users-to-enter-their-answer">Use the <code>has-input</code> attribute to add a text input box for users to enter their answer.</h4>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <question has-input="">
+            What is the distance from Earth to the Moon in kilometers? (Give your answer in 3 s.f)
+            <div slot="hint">It is between 300,000 and 400,000 km</div>
+            <div slot="answer">384,000 km <span>🌕</span></div>
+          </question>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">question</span> <span class="hljs-attr">has-input</span>&gt;</span>
+  What is the distance from Earth to the Moon in kilometers? (Give your answer in 3 s.f)
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"hint"</span>&gt;</span>It is between 300,000 and 400,000 km<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"answer"</span>&gt;</span>384,000 km <span class="hljs-tag">&lt;<span class="hljs-name">md</span>&gt;</span>:full_moon:<span class="hljs-tag">&lt;/<span class="hljs-name">md</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">question</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h4 id="you-are-able-to-omit-the-hint-or-answer-div-independently-and-they-will-not-render">You are able to omit the hint or answer <code>&lt;div&gt;</code> independently, and they will not render.</h4>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <question>
+            This question with an omitted hint.
+            <div slot="answer">42 <span>⭐️</span></div>
+          </question>
+        </tip-box>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <question>
+            This question with an omitted answer.
+            <div slot="hint">The number of exponent bits in a 64-bit Floating Point. <span>💻</span></div>
+          </question>
+        </tip-box>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <question>
+            This question only has the question body.
+          </question>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">question</span>&gt;</span>
+  This question with an omitted hint.
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"answer"</span>&gt;</span>42 <span class="hljs-tag">&lt;<span class="hljs-name">md</span>&gt;</span>:star:<span class="hljs-tag">&lt;/<span class="hljs-name">md</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">question</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">question</span>&gt;</span>
+  This question with an omitted answer.
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"hint"</span>&gt;</span>The number of exponent bits in a 64-bit Floating Point. <span class="hljs-tag">&lt;<span class="hljs-name">md</span>&gt;</span>:computer:<span class="hljs-tag">&lt;/<span class="hljs-name">md</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">question</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">question</span>&gt;</span>
+  This question only has the question body. 
+<span class="hljs-tag">&lt;/<span class="hljs-name">question</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h4 id="use-the-minimized-panel-component-to-create-and-group-questions-inline">Use the minimized Panel component to create and group questions inline.</h4>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <panel header="Q1 :crown:" minimized="">
+            <question has-input="">
+              Who is the first king of Thailand?
+            </question>
+          </panel>
+          <panel header="Q2 :pizza:" minimized="">
+            <question has-input="">
+              Which country did the Hawaiian pizza originate from?
+              <div slot="hint">
+                Not Italy or Haiwaii <span>😏</span></div>
+            </question>
+          </panel>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Q1 :crown:"</span> <span class="hljs-attr">minimized</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">question</span> <span class="hljs-attr">has-input</span>&gt;</span>
+    Who is the first king of Thailand?
+  <span class="hljs-tag">&lt;/<span class="hljs-name">question</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Q2 :pizza:"</span> <span class="hljs-attr">minimized</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">question</span> <span class="hljs-attr">has-input</span>&gt;</span>
+    Which country did the Hawaiian pizza originate from? 
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"hint"</span>&gt;</span>
+      Not Italy or Haiwaii <span class="hljs-tag">&lt;<span class="hljs-name">md</span>&gt;</span>:smirk:<span class="hljs-tag">&lt;/<span class="hljs-name">md</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">question</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h4 id="questions-can-also-be-loaded-in-from-another-file-using-panels-src-attribute">Questions can also be loaded in from another file using Panel's <code>src</code> attribute.</h4>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <panel header="Questions loaded in from `quiz.md`" src="/markbind\userGuide\components\dynamic\quiz._include_.html"></panel>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Questions loaded in from `quiz.md`"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"dynamic/quiz.md"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h2 id="question-options">Question Options</h2>
+        <table class="markbind-table table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>has-input</td>
+              <td><code>Boolean</code></td>
+              <td><code>false</code></td>
+              <td>Whether Question has a text input box.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div>
+        <h1 id="searchbar">Searchbar</h1>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">searchbar</span> <span class="hljs-attr">:data</span>=<span class="hljs-string">"searchData"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Search"</span> <span class="hljs-attr">:on-hit</span>=<span class="hljs-string">"searchCallback"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">searchbar</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h2 id="searchbar-options">Searchbar Options</h2>
+        <table class="markbind-table table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>data</td>
+              <td><code>Array</code></td>
+              <td></td>
+              <td>The local data source for suggestions. Expected to be a primitive array.</td>
+            </tr>
+            <tr>
+              <td>on-hit</td>
+              <td><code>Function</code></td>
+              <td></td>
+              <td>A callback function when you click or hit return on an item.</td>
+            </tr>
+            <tr>
+              <td>placeholder</td>
+              <td><code>String</code></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div>
+        <h1 id="tabs">Tabs</h1>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <tabs>
+            <tab header="First tab">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper ultrices lobortis. Aenean leo lacus, congue vel auctor a, tincidunt sed nunc. Integer in odio sed nunc porttitor venenatis. Interdum et malesuada fames ac ante ipsum primis in
+              faucibus. Nullam fringilla tincidunt augue a pulvinar.
+            </tab>
+            <tab header="Disabled second tab :x:" disabled></tab>
+            <tab-group header="Third tab group :milky_way:">
+              <tab header="Stars :star:">
+                Every star you see in the night sky is bigger and brighter than our sun. Of the 5,000 or so stars brighter than magnitude 6, only a handful of very faint stars are approximately the same size and brightness of our sun and the rest are all bigger and brighter.
+                Of the 500 or so that are brighter than 4th magnitude (which includes essentially every star visible to the unaided eye from a urban location), all are intrinsically bigger and brighter than our sun, many by a large percentage. Of the
+                brightest 50 stars visible to the human eye from Earth, the least intrinsically bright is Alpha Centauri, which is still more than 1.5 times more luminous than our sun, and cannot be easily seen from most of the Northern Hemisphere. Source:
+                <span><a href="http://earthsky.org/space/ten-things-you-may-not-know-about-stars">earthsky.org</a></span></tab>
+              <tab header="Disabled Moon :new_moon:" disabled></tab>
+            </tab-group>
+            <tab-group header="Disabled fourth tab group" disabled>
+              <tab header="Hidden tab">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper ultrices lobortis.
+              </tab>
+            </tab-group>
+          </tabs>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">tabs</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">tab</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"First tab"</span>&gt;</span>
+    ...
+  <span class="hljs-tag">&lt;/<span class="hljs-name">tab</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">tab</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Disabled second tab :x:"</span> <span class="hljs-attr">disabled</span>&gt;</span> 
+  <span class="hljs-tag">&lt;/<span class="hljs-name">tab</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">tab-group</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Third tab group :milky_way:"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tab</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Stars :star:"</span>&gt;</span>
+      star facts 
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tab</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tab</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Disabled Moon :new_moon:"</span> <span class="hljs-attr">disabled</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tab</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">tab-group</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">tab-group</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Disabled fourth tab group"</span> <span class="hljs-attr">disabled</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">tab</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Hidden tab"</span>&gt;</span>
+      ...
+    <span class="hljs-tag">&lt;/<span class="hljs-name">tab</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">tab-group</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">tabs</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h2 id="tabs-options-container">Tabs Options (container)</h2>
+        <table class="markbind-table table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>active</td>
+              <td><code>Number</code></td>
+              <td><code>0</code></td>
+              <td>Active Tab index (0-based)</td>
+            </tr>
+          </tbody>
+        </table>
+        <h2 id="tab-options-element">Tab Options (element)</h2>
+        <table class="markbind-table table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>header</td>
+              <td><code>String</code></td>
+              <td><code>null</code></td>
+              <td>Tab title.</td>
+            </tr>
+            <tr>
+              <td>disabled</td>
+              <td><code>Boolean</code></td>
+              <td><code>false</code></td>
+              <td>Whether Tab is clickable and can be activated.</td>
+            </tr>
+          </tbody>
+        </table>
+        <h2 id="tab-group-options-dropdown">Tab Group Options (dropdown)</h2>
+        <table class="markbind-table table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>header</td>
+              <td><code>String</code></td>
+              <td><code>null</code></td>
+              <td>Tab Group title.</td>
+            </tr>
+            <tr>
+              <td>disabled</td>
+              <td><code>Boolean</code></td>
+              <td><code>false</code></td>
+              <td>Whether Tab Group is clickable and can be activated.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div>
+        <h1 id="tipbox">TipBox</h1>
+        <br>
+        <h4 id="you-can-either-use-tip-box-or-box">You can either use &lt;tip-box&gt; or &lt;box&gt;.</h4>
+        <br>
+        <h4 id="tipbox-comes-with-different-built-in-types">TipBox comes with different built-in types.</h4>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <tip-box>
+            default
+          </tip-box>
+          <tip-box type="info">
+            info
+          </tip-box>
+          <tip-box type="warning">
+            warning
+          </tip-box>
+          <tip-box type="success">
+            success
+          </tip-box>
+          <tip-box type="important">
+            important
+          </tip-box>
+          <tip-box type="wrong">
+            wrong
+          </tip-box>
+          <tip-box type="tip">
+            tip
+          </tip-box>
+          <tip-box type="definition">
+            definition
+          </tip-box>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">tip-box</span>&gt;</span>
+    default
+<span class="hljs-tag">&lt;/<span class="hljs-name">tip-box</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">tip-box</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"info"</span>&gt;</span>
+    info
+<span class="hljs-tag">&lt;/<span class="hljs-name">tip-box</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">tip-box</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"warning"</span>&gt;</span>
+    warning
+<span class="hljs-tag">&lt;/<span class="hljs-name">tip-box</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">tip-box</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"success"</span>&gt;</span>
+    success
+<span class="hljs-tag">&lt;/<span class="hljs-name">tip-box</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">tip-box</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"important"</span>&gt;</span>
+    important
+<span class="hljs-tag">&lt;/<span class="hljs-name">tip-box</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">tip-box</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"wrong"</span>&gt;</span>
+    wrong
+<span class="hljs-tag">&lt;/<span class="hljs-name">tip-box</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">tip-box</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"tip"</span>&gt;</span>
+    tip
+<span class="hljs-tag">&lt;/<span class="hljs-name">tip-box</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">tip-box</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"definition"</span>&gt;</span>
+    definition
+<span class="hljs-tag">&lt;/<span class="hljs-name">tip-box</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h4 id="you-can-customize-the-tipboxs-appearance">You can customize the TipBox's appearance.</h4>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <box background-color="white" border-color="grey" border-left-color="blue">
+            default, styled as empty box with blue left border
+          </box>
+          <box type="info" icon=":rocket:">
+            info, with rocket icon
+          </box>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">box</span> <span class="hljs-attr">background-color</span>=<span class="hljs-string">"white"</span> <span class="hljs-attr">border-color</span>=<span class="hljs-string">"grey"</span> <span class="hljs-attr">border-left-color</span>=<span class="hljs-string">"blue"</span>&gt;</span>
+    default, styled as empty box with blue left border
+<span class="hljs-tag">&lt;/<span class="hljs-name">box</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">box</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"info"</span> <span class="hljs-attr">icon</span>=<span class="hljs-string">":rocket:"</span>&gt;</span>
+    info, with rocket icon
+<span class="hljs-tag">&lt;/<span class="hljs-name">box</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h2 id="tipbox-options">TipBox Options</h2>
+        <table class="markbind-table table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>background-color</td>
+              <td><code>String</code></td>
+              <td><code>null</code></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>border-color</td>
+              <td><code>String</code></td>
+              <td><code>null</code></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>border-left-color</td>
+              <td><code>String</code></td>
+              <td><code>null</code></td>
+              <td>Overrides border-color for the left border.</td>
+            </tr>
+            <tr>
+              <td>color</td>
+              <td><code>String</code></td>
+              <td><code>null</code></td>
+              <td>Color of the text.</td>
+            </tr>
+            <tr>
+              <td>icon</td>
+              <td><code>String</code></td>
+              <td><code>null</code></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>type</td>
+              <td><code>String</code></td>
+              <td><code>'none'</code></td>
+              <td>Supports: <code>info</code>, <code>warning</code>, <code>success</code>, <code>important</code>, <code>wrong</code>, <code>tip</code>, <code>definition</code>, or empty for default.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p></p>
+      </div>
+      <br>
+      <div>
+        <h1 id="tooltip">Tooltip</h1>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <tooltip header="" content="Lorem ipsum dolor sit amet" placement="top">
+            <button class="btn btn-default">Popover on top</button></tooltip>
+          <tooltip header="" content="Lorem ipsum dolor sit amet" placement="left">
+            <button class="btn btn-default">Popover on left</button></tooltip>
+          <tooltip header="" content="Lorem ipsum dolor sit amet" placement="right">
+            <button class="btn btn-default">Popover on right</button></tooltip>
+          <tooltip header="" content="Lorem ipsum dolor sit amet" placement="bottom">
+            <button class="btn btn-default">Popover on bottom</button></tooltip>
+          <hr> Trigger
+          <p>
+            <tooltip effect="scale" content="Lorem ipsum dolor sit amet" placement="top" trigger="click">
+              <button class="btn btn-default">Click</button></tooltip>
+            <tooltip effect="scale" content="Lorem ipsum dolor sit amet" placement="top" trigger="contextmenu">
+              <button class="btn btn-default">Contextmenu (right click)</button></tooltip>
+            <br>
+            <br>
+            <tooltip effect="scale" content="Lorem ipsum dolor sit amet" placement="top" trigger="focus">
+              <input placeholder="Focus"></tooltip>
+          </p>
+          <h4>Markdown</h4>
+          <tooltip effect="scale" content="*Hello* **World**">
+            <a href="">Hover me</a></tooltip>
+          <br>
+          <br>
+          <h4>Free Text</h4>
+          <tooltip content=" coupling is the degree of interdependence between software modules; a measure of how closely
+  connected two routines or modules are; the strength of the relationships between modules."><i>coupling</i></tooltip>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">tooltip</span> <span class="hljs-attr">header</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Lorem ipsum dolor sit amet"</span> <span class="hljs-attr">placement</span>=<span class="hljs-string">"top"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span>&gt;</span>Popover on top<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">tooltip</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">tooltip</span> <span class="hljs-attr">header</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Lorem ipsum dolor sit amet"</span> <span class="hljs-attr">placement</span>=<span class="hljs-string">"left"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span>&gt;</span>Popover on left<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">tooltip</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">tooltip</span> <span class="hljs-attr">header</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Lorem ipsum dolor sit amet"</span> <span class="hljs-attr">placement</span>=<span class="hljs-string">"right"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span>&gt;</span>Popover on right<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">tooltip</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">tooltip</span> <span class="hljs-attr">header</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Lorem ipsum dolor sit amet"</span> <span class="hljs-attr">placement</span>=<span class="hljs-string">"bottom"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span>&gt;</span>Popover on bottom<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">tooltip</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
+Trigger
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">tooltip</span> <span class="hljs-attr">effect</span>=<span class="hljs-string">"scale"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Lorem ipsum dolor sit amet"</span> <span class="hljs-attr">placement</span>=<span class="hljs-string">"top"</span> <span class="hljs-attr">trigger</span>=<span class="hljs-string">"click"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span>&gt;</span>Click<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">tooltip</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">tooltip</span> <span class="hljs-attr">effect</span>=<span class="hljs-string">"scale"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Lorem ipsum dolor sit amet"</span> <span class="hljs-attr">placement</span>=<span class="hljs-string">"top"</span> <span class="hljs-attr">trigger</span>=<span class="hljs-string">"contextmenu"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-default"</span>&gt;</span>Contextmenu (right click)<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">tooltip</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">tooltip</span> <span class="hljs-attr">effect</span>=<span class="hljs-string">"scale"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Lorem ipsum dolor sit amet"</span> <span class="hljs-attr">placement</span>=<span class="hljs-string">"top"</span> <span class="hljs-attr">trigger</span>=<span class="hljs-string">"focus"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Focus"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">input</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">tooltip</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Markdown<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">tooltip</span> <span class="hljs-attr">effect</span>=<span class="hljs-string">"scale"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"*Hello* **World**"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">""</span>&gt;</span>Hover me<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">tooltip</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Free Text<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">tooltip</span> <span class="hljs-attr">content</span>=<span class="hljs-string">" coupling is the degree of interdependence between software modules; a measure of how closely
+connected two routines or modules are; the strength of the relationships between modules."</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span>&gt;</span>coupling<span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">tooltip</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <h2 id="tooltip-options">Tooltip Options</h2>
+        <table class="markbind-table table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>trigger</td>
+              <td><code>String</code>, one of <code>click</code> <code>focus</code> <code>hover</code> <code>contextmenu</code></td>
+              <td><code>hover</code></td>
+              <td>How the tooltip is triggered.</td>
+            </tr>
+            <tr>
+              <td>content</td>
+              <td><code>String</code></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>placement</td>
+              <td><code>String</code>, one of <code>top</code> <code>left</code> <code>right</code> <code>bottom</code></td>
+              <td></td>
+              <td>How to position the tooltip.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div>
+        <h1 id="trigger">Trigger</h1>
+        <p>Trigger provides more flexibility in triggering contextual overlay via Tooltip, Popover or Modal.</p>
+        <p>You could embed a Trigger within the text, and define the Tooltip, Popover or Modal at a separate location, which allows for a cleaner authoring flow.</p>
+        <p>Specify the <code>id</code> attribute on the Tooltip, Popover or Modal component, and use the same <code>id</code> in the <code>for</code> attribute of the Trigger to allow the Trigger to invoke the specific overlay elements. Additionally, multiple
+          Triggers could share the same overlay by providing them with the same <code>id</code>.
+          <br></p>
+        <h3 id="using-trigger-for-tooltip">Using trigger for Tooltip</h3>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br> More about
+          <trigger for="tt:trigger_id">trigger</trigger>.
+          <tooltip id="tt:trigger_id" content="This tooltip triggered by a trigger"></tooltip>
+          <br> This is the same
+          <trigger for="tt:trigger_id">trigger</trigger> as last one.
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html">More about <span class="hljs-tag">&lt;<span class="hljs-name">trigger</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"tt:trigger_id"</span>&gt;</span>trigger<span class="hljs-tag">&lt;/<span class="hljs-name">trigger</span>&gt;</span>.
+<span class="hljs-tag">&lt;<span class="hljs-name">tooltip</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"tt:trigger_id"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"This tooltip triggered by a trigger"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">tooltip</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+This is the same <span class="hljs-tag">&lt;<span class="hljs-name">trigger</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"tt:trigger_id"</span>&gt;</span>trigger<span class="hljs-tag">&lt;/<span class="hljs-name">trigger</span>&gt;</span> as last one.
+</code></pre>
+        </tip-box>
+        <h3 id="using-trigger-for-popover">Using trigger for Popover</h3>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br> More about
+          <trigger for="pop:trigger_id">trigger</trigger>.
+          <popover id="pop:trigger_id" content="This popover is triggered by a trigger"></popover>
+          <br> This is the same
+          <trigger for="pop:trigger_id">trigger</trigger> as last one.
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html">More about <span class="hljs-tag">&lt;<span class="hljs-name">trigger</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"pop:trigger_id"</span>&gt;</span>trigger<span class="hljs-tag">&lt;/<span class="hljs-name">trigger</span>&gt;</span>.
+<span class="hljs-tag">&lt;<span class="hljs-name">popover</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"pop:trigger_id"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"This popover is triggered by a trigger"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">popover</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+This is the same <span class="hljs-tag">&lt;<span class="hljs-name">trigger</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"pop:trigger_id"</span>&gt;</span>trigger<span class="hljs-tag">&lt;/<span class="hljs-name">trigger</span>&gt;</span> as last one.
+</code></pre>
+        </tip-box>
+        <h3 id="using-trigger-for-modal">Using trigger for Modal</h3>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br> More about
+          <trigger for="modal:trigger_id">trigger</trigger>.
+          <modal title="**Modal title** :rocket:" id="modal:trigger_id">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </modal>
+          <br> This is the same
+          <trigger for="modal:trigger_id">trigger</trigger> as last one.
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html">More about <span class="hljs-tag">&lt;<span class="hljs-name">trigger</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"modal:trigger_id"</span>&gt;</span>trigger<span class="hljs-tag">&lt;/<span class="hljs-name">trigger</span>&gt;</span>.
+<span class="hljs-tag">&lt;<span class="hljs-name">modal</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"**Modal title** :rocket:"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"modal:trigger_id"</span>&gt;</span>
+    ...
+<span class="hljs-tag">&lt;/<span class="hljs-name">modal</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+This is the same <span class="hljs-tag">&lt;<span class="hljs-name">trigger</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"modal:trigger_id"</span>&gt;</span>trigger<span class="hljs-tag">&lt;/<span class="hljs-name">trigger</span>&gt;</span> as last one.
+</code></pre>
+        </tip-box>
+        <h3 id="triggers-trigger-attribute-which-defaults-to-hover-is-independent-of-the-targets">Trigger's <code>trigger</code> attribute (which defaults to <code>hover</code>) is independent of the target's.</h3>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br> This is a hover
+          <trigger for="pop:xp-user-stories">trigger</trigger>.
+          <br> This is a click
+          <popover id="pop:xp-user-stories" trigger="click" content="User stories...">
+            popover
+          </popover>.
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html">This is a hover <span class="hljs-tag">&lt;<span class="hljs-name">trigger</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"pop:xp-user-stories"</span>&gt;</span>trigger<span class="hljs-tag">&lt;/<span class="hljs-name">trigger</span>&gt;</span>.
+<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+This is a click
+<span class="hljs-tag">&lt;<span class="hljs-name">popover</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"pop:xp-user-stories"</span> <span class="hljs-attr">trigger</span>=<span class="hljs-string">"click"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"User stories..."</span> &gt;</span>
+  popover
+<span class="hljs-tag">&lt;/<span class="hljs-name">popover</span>&gt;</span>.
+</code></pre>
+        </tip-box>
+        <h2 id="trigger-options">Trigger Options</h2>
+        <table class="markbind-table table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>trigger</td>
+              <td><code>String</code>, one of <code>click</code> <code>focus</code> <code>hover</code> <code>contextmenu</code></td>
+              <td><code>hover</code></td>
+              <td>How its overlay view is triggered.</td>
+            </tr>
+            <tr>
+              <td>for</td>
+              <td><code>String</code>, the id for the overlay view to be shown</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div>
+        <h1 id="modal">Modal</h1>
+        <h4 id="modals-are-to-be-used-together-with-the-trigger-component-for-activation">Modals are to be used together with the <a href="#trigger">Trigger</a> component for activation.</h4>
+        <h2 id="modal-options">Modal Options</h2>
+        <table class="markbind-table table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>title</td>
+              <td><code>String</code></td>
+              <td><code>''</code></td>
+              <td>Title of the Modal component.</td>
+            </tr>
+            <tr>
+              <td>ok-text</td>
+              <td><code>String</code></td>
+              <td><code>''</code></td>
+              <td>Text for the OK button.</td>
+            </tr>
+            <tr>
+              <td>effect</td>
+              <td><code>String</code></td>
+              <td><code>zoom</code></td>
+              <td>Supports: <code>zoom</code>, <code>fade</code>.</td>
+            </tr>
+            <tr>
+              <td>id</td>
+              <td><code>String</code></td>
+              <td></td>
+              <td>Used by <a href="#trigger">Trigger</a> to activate the Modal by id.</td>
+            </tr>
+            <tr>
+              <td>width</td>
+              <td><code>Number</code>, <code>String</code>, or <code>null</code></td>
+              <td><code>null</code></td>
+              <td>Passing a <code>Number</code> will be translated to pixels.<br><code>String</code> can be passed <a href="https://www.w3schools.com/cssref/css_units.asp">CSS units</a>, ( e.g. '50in' or '30vw' ).<br><code>null</code> will default to Bootstrap's
+                responsive sizing.</td>
+            </tr>
+            <tr>
+              <td>large</td>
+              <td><code>Boolean</code></td>
+              <td><code>false</code></td>
+              <td>Creates a <a href="https://getbootstrap.com/docs/4.0/components/modal/#optional-sizes">large Modal</a>.</td>
+            </tr>
+            <tr>
+              <td>small</td>
+              <td><code>Boolean</code></td>
+              <td><code>false</code></td>
+              <td>Creates a <a href="https://getbootstrap.com/docs/4.0/components/modal/#optional-sizes">small Modal</a>.</td>
+            </tr>
+            <tr>
+              <td>backdrop</td>
+              <td><code>Boolean</code></td>
+              <td><code>true</code></td>
+              <td>Enables closing the Modal by clicking on the backdrop.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div>
+        <h1 id="searchbar-2">Searchbar</h1>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">searchbar</span> <span class="hljs-attr">:data</span>=<span class="hljs-string">"searchData"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Search"</span> <span class="hljs-attr">:on-hit</span>=<span class="hljs-string">"searchCallback"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">searchbar</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h2 id="searchbar-options-2">Searchbar Options</h2>
+        <table class="markbind-table table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>data</td>
+              <td><code>Array</code></td>
+              <td></td>
+              <td>The local data source for suggestions. Expected to be a primitive array.</td>
+            </tr>
+            <tr>
+              <td>on-hit</td>
+              <td><code>Function</code></td>
+              <td></td>
+              <td>A callback function when you click or hit return on an item.</td>
+            </tr>
+            <tr>
+              <td>placeholder</td>
+              <td><code>String</code></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="flex-div"></div>
+<footer>
+  <div class="text-center">
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.8.3</a> on Thu, 28 Jun 2018 03:20:34 GMT]</small></div>
+</footer>
+</div>
+</body>
+<script src="..\markbind\js\vue.min.js"></script>
+<script src="..\markbind\js\vue-strap.min.js"></script>
+<script>
+    const baseUrl = '/markbind'
+</script>
+<script src="..\markbind\js\setup.js"></script>
+<script src="..\markbind\js\site-nav.js"></script>
+</html>
