@@ -45,4 +45,6 @@
 <include src="./components/modal.md" />
 <br>
 
+<include src="./components/searchbar.md" />
+
 </div>
