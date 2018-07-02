@@ -33,7 +33,6 @@ test('Site Generate builds the correct amount of assets', async () => {
     'asset/css/site-nav.css': '',
 
     'asset/js/setup.js': '',
-    'asset/js/site-nav.js': '',
     'asset/js/vue.min.js': '',
     'asset/js/vue-strap.min.js': '',
   };
@@ -42,7 +41,7 @@ test('Site Generate builds the correct amount of assets', async () => {
   await site.generate();
   const paths = Object.keys(fs.vol.toJSON());
   const originalNumFiles = Object.keys(json).length;
-  const expectedNumBuilt = 9;
+  const expectedNumBuilt = 8;
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
   // site
@@ -62,7 +61,6 @@ test('Site Generate builds the correct amount of assets', async () => {
 
   // js
   expect(fs.existsSync(path.resolve('inner/_site/markbind/js/setup.js'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/js/site-nav.js'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/js/vue.min.js'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/js/vue-strap.min.js'))).toEqual(true);
 });
