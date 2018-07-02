@@ -46,5 +46,9 @@
 <br>
 
 <include src="./components/searchbar.md" />
+<br>
+
+<include src="./components/advanced.md" />
+<br>
 
 </div>

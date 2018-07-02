@@ -10,4 +10,5 @@
   * [Github Pages Deployment]({{baseUrl}}/userGuide/ghpagesDeployment.html)
   * [Preview site on Netlify]({{baseUrl}}/userGuide/netlifyPreview.html)
 * [Components Reference]({{baseUrl}}/userGuide/components.html)
+  * [Advanced Tips and Tricks]({{baseUrl}}/userGuide/components.html#advanced-tips-and-tricks)
 </markdown>
