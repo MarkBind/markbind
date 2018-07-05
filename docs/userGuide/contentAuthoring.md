@@ -441,7 +441,6 @@ Note:
 - Only one navigation file can be specified in a page, and you must include its file extension.
 - There is no limit to the number of nested Dropdown menus, but each menu's height is restricted to 1000 pixels.
     - Dropdown menu content exceeding 1000 pixels in height will be cut off.
-- If you are using [live preview](userQuickStart.html#preview-your-site), you must restart the server to see updates made in the navigation file.
 
 ### Using Footers
 
@@ -476,7 +475,6 @@ After which, you must specify the file within a page's [front matter](#front-mat
 
 Note:
 - Only one footer file can be specified in the [front matter](#front-matter) per page, and you must include its file extension.
-- If you are using [live preview](userQuickStart.html#preview-your-site), you must restart the server to see updates made in the footer file.
 
 #### Defining your own inline footer
 
