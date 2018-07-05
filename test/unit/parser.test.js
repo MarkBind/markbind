@@ -55,7 +55,7 @@ test('includeFile replaces <include> with <div>', async () => {
   expect(result).toEqual(expected);
 });
 
-test('includeFile replaces <include dynamic> with <dynamic-panel>', async () => {
+test('includeFile replaces <include dynamic> with <panel>', async () => {
   const rootPath = path.resolve('');
   const indexPath = path.resolve('index.md');
   const includePath = path.resolve('include.md');
@@ -87,7 +87,7 @@ test('includeFile replaces <include dynamic> with <dynamic-panel>', async () => 
 
   const expected = [
     '# Index',
-    `<dynamic-panel src="${includePath}" cwf="${indexPath}" include-path="${includePath}" header=""/>`,
+    `<panel src="${includePath}" cwf="${indexPath}" include-path="${includePath}" header=""/>`,
     '',
   ].join('\n');
 
@@ -117,45 +117,6 @@ test('renderFile converts markdown headers to <h1>', async () => {
 
   const expected = [
     '<h1 id="index">Index</h1>',
-    '',
-  ].join('\n');
-
-  expect(result).toEqual(expected);
-});
-
-test('renderFile updates <dynamic-panel> to closed <panel>', async () => {
-  const markbinder = new MarkBind();
-  const rootPath = path.resolve('');
-  const indexPath = path.resolve('index.md');
-  const includePath = path.resolve('include.md');
-  const index = [
-    '# Index',
-    `<dynamic-panel src="${includePath}" cwf="${indexPath}" include-path="${includePath}" header=""/>`,
-    '',
-  ].join('\n');
-
-  const include = ['# Include'].join('\n');
-
-  const json = {
-    'index.md': index,
-    'include.md': include,
-  };
-
-  fs.vol.fromJSON(json, '');
-  const baseUrlMap = {};
-  baseUrlMap[rootPath] = true;
-
-  const result = await markbinder.renderFile(indexPath, {
-    baseUrlMap,
-    rootPath,
-  });
-
-  const src = path.join('{{hostBaseUrl}}', 'include._include_.html');
-
-  const expected = [
-    '<h1 id="index">Index</h1>',
-    `<panel src="${src}" cwf="${indexPath}" include-path="${includePath}" `
-      + 'header="" isOpen="false" no-close="true" no-switch="true"></panel>',
     '',
   ].join('\n');
 
