@@ -26,15 +26,16 @@ function setupSiteNav() {
 }
 
 function setup() {
+  // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
     el: '#app',
   });
-  VueStrap.installEvents(vm);
   setupSiteNav();
 }
 
 function setupWithSearch(siteData) {
   const { searchbar } = VueStrap.components;
+  // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
     el: '#app',
     components: {
@@ -53,7 +54,6 @@ function setupWithSearch(siteData) {
       },
     },
   });
-  VueStrap.installEvents(vm);
   setupSiteNav();
 }
 
