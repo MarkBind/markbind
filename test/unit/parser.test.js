@@ -87,7 +87,8 @@ test('includeFile replaces <include dynamic> with <panel>', async () => {
 
   const expected = [
     '# Index',
-    `<panel src="${includePath}" cwf="${indexPath}" include-path="${includePath}" header=""/>`,
+    `<panel src="${includePath}" cwf="${indexPath}" include-path="${includePath}"`
+    + ' no-close="true" no-switch="true" header=""/>',
     '',
   ].join('\n');
 
