@@ -70,7 +70,7 @@
     border: none;
     cursor: pointer;
     display: block;
-    outline: 0;
+    outline: none !important;
     padding: 0;
     text-align: center;
     text-decoration: none;
