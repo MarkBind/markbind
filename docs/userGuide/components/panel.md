@@ -141,20 +141,25 @@
 </tip-box>
 <br>
 
-#### If `src` attribute is provided, the panel content is loaded dynamically from the `src` specified. To load it immediately, you can provide the `load-all` attribute. 
+#### If `src` attribute is provided, the panel content is loaded dynamically from the `src` specified. To load it immediately, you can provide the `preload` attribute. 
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
-  <panel header="Content loaded in from `src`" alt="Dynamic Loading" src="dynamic/loadContent.html#fragment" minimized></panel>
-  <panel header="Content does not have any delay" alt="Immediate loading" src="dynamic/loadContent.html#fragment" minimized load-all></panel>
+  <panel header="Content loaded in from `src`" alt="Dynamic Loading" 
+          src="dynamic/loadContent.html#fragment" minimized></panel>
+  <panel header="Content does not have any delay" alt="Immediate loading" 
+          src="dynamic/loadContent.html#fragment" minimized preload></panel>
 </tip-box>
 
 <tip-box border-left-color="black">
 <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
 
 ```html
-<panel header="Content loaded in from `src`" alt="Dynamic Loading" src="dynamic/loadContent.html#fragment" minimized></panel>
-<panel header="Content does not have any delay" alt="Immediate loading" src="dynamic/loadContent.html#fragment" minimized load-all></panel>
+  <panel header="Content loaded in from `src`" alt="Dynamic Loading" 
+          src="dynamic/loadContent.html#fragment" minimized></panel>
+          
+  <panel header="Content does not have any delay" alt="Immediate loading" 
+          src="dynamic/loadContent.html#fragment" minimized preload></panel>
 ```
 </tip-box>
 <br>
@@ -229,5 +234,5 @@ no-switch | `Boolean` | `false` | Whether to show the expand switch.
 bottom-switch | `Boolean` | `true` | Whether to show an expand switch at the bottom of the panel. Independent of no-switch.
 popup-url | `String` | | The url that the popup window will navigate to. The url can be absolute or relative.
 src | `String` | | The url to the remote page to be loaded as the content of the panel.
-load-all | `Boolean` | `false` | Whether the content is loaded immediately from `src`.
+preload | `Boolean` | `false` | Whether the content is loaded immediately from `src`.
 type | `String` | null | The type of color for the tab (single).<br>Supports: `default`, `primary`, `info`, `success`, `warning`, `danger`, `seamless`.
