@@ -41,7 +41,11 @@
           </ul>
         </div>
       </li>
-      <li style="margin-top: 10px"><a href="/markbind/userGuide/components.html">Components Reference</a></li>
+      <li style="margin-top:10px"><a href="/markbind/userGuide/components.html">Components Reference</a>
+        <ul style="list-style-type: none; margin-left:-1em">
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/components.html#advanced-tips-and-tricks">Advanced Tips and Tricks</a></li>
+        </ul>
+      </li>
     </ul>
   </div>
   <div id="site-nav-btn-wrap">
@@ -391,16 +395,19 @@
 </code></pre>
         </tip-box>
         <br>
-        <h4 id="if-src-attribute-is-provided-the-panel-content-is-loaded-dynamically-from-the-src-specified-to-load-it-immediately-you-can-provide-the-load-all-attribute">If <code>src</code> attribute is provided, the panel content is loaded dynamically from the <code>src</code> specified. To load it immediately, you can provide the <code>load-all</code> attribute.</h4>
+        <h4 id="if-src-attribute-is-provided-the-panel-content-is-loaded-dynamically-from-the-src-specified-to-load-it-immediately-you-can-provide-the-preload-attribute">If <code>src</code> attribute is provided, the panel content is loaded dynamically from the <code>src</code> specified. To load it immediately, you can provide the <code>preload</code> attribute.</h4>
         <tip-box border-left-color="#00B0F0">
           <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
           <panel header="Content loaded in from `src`" alt="Dynamic Loading" src="/markbind\userGuide\components\dynamic\loadContent._include_.html#fragment" minimized="" fragment="fragment"></panel>
-          <panel header="Content does not have any delay" alt="Immediate loading" src="/markbind\userGuide\components\dynamic\loadContent._include_.html#fragment" minimized="" load-all="" fragment="fragment"></panel>
+          <panel header="Content does not have any delay" alt="Immediate loading" src="/markbind\userGuide\components\dynamic\loadContent._include_.html#fragment" minimized="" preload="" fragment="fragment"></panel>
         </tip-box>
         <tip-box border-left-color="black">
           <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
-          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Content loaded in from `src`"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Dynamic Loading"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"dynamic/loadContent.html#fragment"</span> <span class="hljs-attr">minimized</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Content does not have any delay"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Immediate loading"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"dynamic/loadContent.html#fragment"</span> <span class="hljs-attr">minimized</span> <span class="hljs-attr">load-all</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+          <pre><code class="hljs html">  <span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Content loaded in from `src`"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Dynamic Loading"</span> 
+          <span class="hljs-attr">src</span>=<span class="hljs-string">"dynamic/loadContent.html#fragment"</span> <span class="hljs-attr">minimized</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+          
+  <span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Content does not have any delay"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Immediate loading"</span> 
+          <span class="hljs-attr">src</span>=<span class="hljs-string">"dynamic/loadContent.html#fragment"</span> <span class="hljs-attr">minimized</span> <span class="hljs-attr">preload</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
 </code></pre>
         </tip-box>
         <br>
@@ -518,7 +525,7 @@
               <td>The url to the remote page to be loaded as the content of the panel.</td>
             </tr>
             <tr>
-              <td>load-all</td>
+              <td>preload</td>
               <td><code>Boolean</code></td>
               <td><code>false</code></td>
               <td>Whether the content is loaded immediately from <code>src</code>.</td>
@@ -1535,13 +1542,118 @@ This is a click
           </tbody>
         </table>
       </div>
-    </div>
+      <br>
+      <div>
+        <h1 id="advanced-tips-and-tricks">Advanced Tips and Tricks</h1>
+        <h2 id="rich-formatted-text-in-headings-and-titles">Rich formatted text in headings and titles</h2>
+        <p style="font-size:18px;">
+          Using the normal syntax, you are only able to use markdown formatting on headings. If you would like more styling options, you can define an element within the component that acts as your heading. This is done by adding a <span><code>slot</code></span>          attribute with the correct name to that element.
+        </p>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <panel expanded="">
+            <p slot="header" class="panel-title">
+              <i><strong>
+        <span style="color:#FF0000;">R  </span>
+        <span style="color:#FF7F00;">A  </span>
+        <span style="color:#FFFF00;">I  </span>
+        <span style="color:#00FF00;">N  </span>
+        <span style="color:#0000FF;">B  </span>
+        <span style="color:#4B0082;">O  </span>
+        <span style="color:#9400D3;">W  </span></strong></i></p>
+            As shown in this panel, using the header slot allows you to customize the Panel's header using HTML.
+          </panel>
+        </tip-box>
+        <tip-box border-left-color="#00B0F0">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+          <trigger for="modal:tip-example" trigger="click">Click here to show Modal.</trigger>
+          <modal id="modal:tip-example">
+            <div slot="modal-header" class="modal-title text-center">
+              <span style="font-size:20pt"><span style="color:red;">BIG</span> header</span>
+            </div>
+            Modal allows you to style both header and footer individually, with style classes and inline styles.
+            <div slot="modal-footer" class="text-center">
+              <span style="font-size:10pt">Tiny <span style="color:green;">footer</span></span>
+            </div>
+          </modal>
+        </tip-box>
+        <tip-box border-left-color="black">
+          <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">expanded</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"header"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"panel-title"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">i</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"color:#FF0000;"</span>&gt;</span>R  <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"color:#FF7F00;"</span>&gt;</span>A  <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"color:#FFFF00;"</span>&gt;</span>I  <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"color:#00FF00;"</span>&gt;</span>N  <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"color:#0000FF;"</span>&gt;</span>B  <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"color:#4B0082;"</span>&gt;</span>O  <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"color:#9400D3;"</span>&gt;</span>W  <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  As shown in this panel, using the header slot allows you to customize the Panel's header using HTML.
+<span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">trigger</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"modal:tip-example"</span> <span class="hljs-attr">trigger</span>=<span class="hljs-string">"click"</span>&gt;</span>Click here to show Modal.<span class="hljs-tag">&lt;/<span class="hljs-name">trigger</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">modal</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"modal:tip-example"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"modal-header"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"modal-title text-center"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"font-size:20pt"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"color:red;"</span>&gt;</span>BIG<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> header<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    Modal allows you to style both header and footer individually, with style classes and inline styles.
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"modal-footer"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"text-center"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"font-size:10pt"</span>&gt;</span>Tiny <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"color:green;"</span>&gt;</span>footer<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">modal</span>&gt;</span>
+</code></pre>
+        </tip-box>
+        <br>
+        <h3 id="panel-slot-options">Panel Slot Options</h3>
+        <table class="markbind-table table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Slot name</th>
+              <th>Default class</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>header</code></td>
+              <td><code>panel-title</code></td>
+              <td>Aligning text to the center of the panel is not possible, as the header element does not take up the entire container.</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3 id="modal-slot-options">Modal Slot Options</h3>
+        <table class="markbind-table table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Slot name</th>
+              <th>Default class</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>modal-header</code></td>
+              <td><code>modal-title</code></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><code>modal-footer</code></td>
+              <td><code>modal-footer</code></td>
+              <td>Specifying <code>modal-footer</code> will override the <code>ok-text</code> attribute, and the OK button will not render.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br></div>
   </div>
 </div>
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.8.3</a> on Thu, 28 Jun 2018 03:20:34 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.8.4</a> on Fri, 06 Jul 2018 06:36:20 GMT]</small></div>
 </footer>
 </div>
 </body>
@@ -1551,5 +1663,4 @@ This is a click
     const baseUrl = '/markbind'
 </script>
 <script src="..\markbind\js\setup.js"></script>
-<script src="..\markbind\js\site-nav.js"></script>
 </html>
