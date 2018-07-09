@@ -20,4 +20,17 @@
     * Hello Doge Hello Doge :dog:
     * [**NESTED LINK** Home :house:]({{baseUrl}}/index.html)
     * More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text 
+
+* Test line break in navigation layout
+  
+  * Nested line break text :scissors:
+  
+  * [Nested line break href]({{baseUrl}}/index.html)
+  
+    * Nested Nested line break text :scissors:
+    
+  * Nested line break dropdown menu 
+    
+    * Line break item 2 :blue_book:
+
 </markdown>
