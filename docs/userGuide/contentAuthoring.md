@@ -125,7 +125,7 @@ You can insert variables to be replaced by pre-defined values anywhere in your s
 
 Some helpful variables are provided by MarkBind for your convenience, as shown below. 
 
-#### Font Awesome Icons
+#### Font Awesome icons
 
 This asset is provided by [Font Awesome](https://fontawesome.com/) under their [free license](https://fontawesome.com/license).
 
@@ -141,7 +141,7 @@ Font Awesome has three different styles for their free icons, each with their ow
 <strong>Solid</strong> (`fas`), <strong>Regular</strong> (`far`) and <strong>Brands</strong> (`fab`).<br>
 Be sure to check Font Awesome's [full list of icons](https://fontawesome.com/icons?d=gallery&m=free) and which styles each icon supports.
 
-Note that you will have to shorten the icon's name before using it within MarkBind. It is a two step process: 
+MarkBind offers a shorter syntax by transforming the icon's name. It is a two-step process: 
 1. Shift the icon's prefix to replace `fa`, the icon's name first two characters. e.g `fas fa-chess-knight` becomes `fas-chess-knight`
 2. Next, replace all instances of `-` with `_` in the icon's name. e.g. `fas-chess-knight` becomes `fas_chess_knight`
 
@@ -162,7 +162,7 @@ MarkBind usage:
 
 Here is the [list of provided glyphs](https://getbootstrap.com/docs/3.3/components/#glyphicons) from Bootstrap.
 
-Note that you will have to modify the glyph's name first before being able to use it within MarkBind.<br>
+MarkBind offers an alternate syntax by transforming the icon's name.<br> 
 It is done by replacing all instances of `-` with `_` in the glyph's name. e.g. <code>{<span></span>{glyphicon-hand-right}}</code> becomes <code>{<span></span>{glyphicon_hand_right}}</code>
 
 After doing so, you are able to use the glyphs anywhere on your site by surrounding a glyph's modified name with double curly braces.<br>
