@@ -8,12 +8,12 @@
       <!-- Brand as slot -->
       <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
       <!-- You can use dropdown component -->
-      <dropdown text="Dropdown">
-        <li><a href="#navbar">Option</a></li>
+      <dropdown text="Dropdown" class="nav-link">
+        <li><a href="#navbar" class="dropdown-item">Option</a></li>
       </dropdown>
       <!-- For right positioning use slot -->
       <li slot="right">
-        <a href="https://github.com/MarkBind/markbind" target="_blank">Fork...</a>
+        <a href="https://github.com/MarkBind/markbind" class="nav-link" target="_blank">Fork...</a>
       </li>
     </navbar>
 </tip-box>
@@ -26,12 +26,12 @@
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
   <!-- You can use dropdown component -->
-  <dropdown text="Dropdown">
-    <li><a href="#navbar">Option</a></li>
+  <dropdown text="Dropdown" class="nav-link">
+    <li><a href="#navbar" class="dropdown-item">Option</a></li>
   </dropdown>
   <!-- For right positioning use slot -->
   <li slot="right">
-    <a href="https://github.com/MarkBind/markbind" target="_blank">Fork...</a>
+    <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">Fork...</a>
   </li>
 </navbar>
 ```
