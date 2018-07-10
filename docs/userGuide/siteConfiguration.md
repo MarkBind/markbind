@@ -37,7 +37,8 @@ Let's examine a typical `site.json` file:
   ],
   "deploy": {
     "message": "Site Update."
-  }
+  },
+  "headingIndexingLevel": 4
 }
 ```
 
@@ -49,6 +50,7 @@ Let's examine a typical `site.json` file:
 | **pages** | An array of pages to be rendered. The `src` is the file; `title` is the page title for the generated web page. Titles specified here take priority over titles specified in the [front matter](contentAuthoring.html#front-matter) of individual pages. Alternatively, `glob` can be used to define a file pattern. If `title` is not specified in the front matter, the page will have `titlePrefix` as its title. `"searchable": "no"` can be used to specify pages to be excluded from searching. If you need to exclude pages covered in both page entry and glob entry, you need to specify `"searchable": "no"` in page entry.|
 | **ignore** | An array of file patterns to be ignored. By default, MarkBind will copy all the files as assets into the output folder. The ignore pattern follows the [glob pattern used in .gitignore](https://git-scm.com/docs/gitignore#_pattern_format). For example, `*.md` ignores all markdown source files. You may want to ignore the Git directory `.git/*`. |
 | **deploy** | The settings for [auto deployment to Github pages](ghpagesDeployment.html). The `message` is the commit message used for the deployment commit. |
+| **headingIndexingLevel** | The level of headings to be indexed for searching. Default: `3`. |
 </div>
 
 </div>
