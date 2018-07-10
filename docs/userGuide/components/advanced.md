@@ -79,7 +79,7 @@ Slot name | Default class | Notes
 `header` | `panel-title` | Aligning text to the center of the panel is not possible, as the header element does not take up the entire container.
 
 ### Modal Slot Options
-When using slots for Modals, you need to add a single blank line before each <modal> tag, in order for the customization to render correctly.
+When using slots for Modals, you need to add a single blank line before each `<modal>` tag, in order for the customization to render correctly.
 
 Slot name | Default class | Notes
 --- | --- | ---
