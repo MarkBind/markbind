@@ -64,13 +64,32 @@
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
-  <code>primary</code> type<br>
-  <panel header="#### primary type panel" type="primary">
+  <p>Click the Panels to see the expanded style.<p>
+  <panel header="#### light type panel (DEFAULT)" type="light" minimized>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
   </panel>
-  <br>
-  <code>seamless</code> type<br>
-  <panel header="#### seamless type panel" type="seamless">
+  <panel header="#### dark type panel" type="dark" minimized>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
+  </panel>
+  <panel header="#### primary type panel" type="primary" minimized>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
+  </panel>
+  <panel header="#### secondary type panel" type="secondary" minimized>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
+  </panel>
+  <panel header="#### info type panel" type="info" minimized>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
+  </panel>
+  <panel header="#### danger type panel" type="danger" minimized>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
+  </panel>
+  <panel header="#### warning type panel" type="warning" minimized>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
+  </panel>
+  <panel header="#### success type panel" type="success" minimized>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
+  </panel>
+  <panel header="#### seamless type panel" type="seamless" minimized>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
   </panel>
 </tip-box>
@@ -79,10 +98,31 @@
 <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
 
 ```html
-<panel header="#### primary type panel" type="primary">
+<panel header="#### light type panel (DEFAULT)" type="light" minimized>
   ...
 </panel>
-<panel header="#### seamless type panel" type="seamless">
+<panel header="#### dark type panel" type="dark" minimized>
+  ...
+</panel>
+<panel header="#### primary type panel" type="primary" minimized>
+  ...
+</panel>
+<panel header="#### secondary type panel" type="secondary" minimized>
+  ...
+</panel>
+<panel header="#### info type panel" type="info" minimized>
+  ...
+</panel>
+<panel header="#### danger type panel" type="danger" minimized>
+  ...
+</panel>
+<panel header="#### warning type panel" type="warning" minimized>
+  ...
+</panel>
+<panel header="#### success type panel" type="success" minimized>
+  ...
+</panel>
+<panel header="#### seamless type panel" type="seamless" minimized>
   ...
 </panel>
 ```
@@ -141,12 +181,11 @@
 </tip-box>
 <br>
 
-#### If `src` attribute is provided, the panel content is loaded dynamically from the `src` specified. To load it immediately, you can provide the `load-all` attribute. 
+#### If `src` attribute is provided, the panel body will be appended content from the `src` specified.
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
-  <panel header="Content loaded in from `src`" alt="Dynamic Loading" src="dynamic/loadContent.html#fragment" minimized></panel>
-  <panel header="Content does not have any delay" alt="Immediate loading" src="dynamic/loadContent.html#fragment" minimized load-all></panel>
+  <panel header="Content loaded in from 'src'" src="dynamic/loadContent.html#fragment" minimized></panel>
 </tip-box>
 
 <tip-box border-left-color="black">
@@ -154,7 +193,6 @@
 
 ```html
 <panel header="Content loaded in from `src`" alt="Dynamic Loading" src="dynamic/loadContent.html#fragment" minimized></panel>
-<panel header="Content does not have any delay" alt="Immediate loading" src="dynamic/loadContent.html#fragment" minimized load-all></panel>
 ```
 </tip-box>
 <br>
@@ -174,6 +212,26 @@
 ```html
 <panel header="Try clicking on my pop-up button" popup-url="dynamic/loadContent.html">
   This panel has a popup.
+</panel>
+```
+</tip-box>
+<br>
+
+#### If `dynamic` attribute is provided, the panel body will only render its HTML when expanded.
+
+<tip-box border-left-color="#00B0F0">
+  <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+  <panel header="Right click and inpsect my HTML when opening and closing!" src="dynamic/loadContent.html#fragment" dynamic>
+    <p>You can only see this HTML and contents from 'src' after expanding the panel!</p>
+  </panel>
+</tip-box>
+
+<tip-box border-left-color="black">
+<i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+
+```html
+<panel header="Right click and inpsect my HTML when opening and closing!" src="dynamic/loadContent.html#fragment" dynamic>
+  <p>You can only see this HTML and contents from 'src' after expanding the panel!</p>
 </panel>
 ```
 </tip-box>
@@ -220,14 +278,14 @@
 ## Panel Options
 Name | Type | Default | Description 
 --- | --- | --- | ---
-header | `string` | | The clickable text on the group's header.
+header | `String` | | The clickable text on the Panel's header.
 expandable | `Boolean`| `true` | Whether Panel is expandable.
 expanded | `Boolean` | `false` | Whether Panel is expanded or collapsed when loaded in.
 minimized | `Boolean` | `false` | Whether Panel is minimized.
 no-close | `Boolean` | `false` | Whether to show the close button.
 no-switch | `Boolean` | `false` | Whether to show the expand switch.
 bottom-switch | `Boolean` | `true` | Whether to show an expand switch at the bottom of the panel. Independent of no-switch.
+dynamic | `Boolean` | `false` | Whether to load the panel contents dynamically.
 popup-url | `String` | | The url that the popup window will navigate to. The url can be absolute or relative.
 src | `String` | | The url to the remote page to be loaded as the content of the panel.
-load-all | `Boolean` | `false` | Whether the content is loaded immediately from `src`.
-type | `String` | null | The type of color for the tab (single).<br>Supports: `default`, `primary`, `info`, `success`, `warning`, `danger`, `seamless`.
+type | `String` | `light` | The type of color for the tab (single).<br>Supports: `light`, `dark`, `primary`, `secondary`, `info`, `success`, `warning`, `danger`, `seamless`.
