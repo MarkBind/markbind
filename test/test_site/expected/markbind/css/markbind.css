@@ -2,6 +2,12 @@ blockquote {
     font-size: 14px;
 }
 
+.btn:active,
+.btn:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
 .markbind-table {
     width: auto;
 }

@@ -125,22 +125,48 @@ You can insert variables to be replaced by pre-defined values anywhere in your s
 
 Some helpful variables are provided by MarkBind for your convenience, as shown below. 
 
+#### Font Awesome icons
+
+This asset is provided by [Font Awesome](https://fontawesome.com/) under their [free license](https://fontawesome.com/license).
+
+<tip-box>
+Traditional usage:
+<markdown>`<span class='fas fa-chess-knight'></span>`</markdown>
+MarkBind usage:
+<br>
+<code>{<span></span>{fas_chess_knight}}</code>
+</tip-box>
+
+Font Awesome has three different styles for their free icons, each with their own prefix:
+<strong>Solid</strong> (`fas`), <strong>Regular</strong> (`far`) and <strong>Brands</strong> (`fab`).<br>
+Be sure to check Font Awesome's [full list of icons](https://fontawesome.com/icons?d=gallery&m=free) and which styles each icon supports.
+
+MarkBind offers a shorter syntax by transforming the icon's name. It is a two-step process: 
+1. Shift the icon's prefix to replace `fa`, the icon's name first two characters. e.g `fas fa-chess-knight` becomes `fas-chess-knight`
+2. Next, replace all instances of `-` with `_` in the icon's name. e.g. `fas-chess-knight` becomes `fas_chess_knight`
+
+After doing so, you are able to use the icons anywhere on your site by surrounding an icon's shortened name with double curly braces.<br>
+e.g. <code>{<span></span>{fas_fighter_jet}}</code> will be rendered as {{fas_fighter_jet}}
+
 #### Glyphicons
 
-This asset is provided by [Glyphicons](https://glyphicons.com/) via Bootstrap.
-<br><br>
+This asset is provided by [Glyphicons](https://glyphicons.com/) via Bootstrap 3.
+
 <tip-box>
 Traditional usage:  
-`<span class='glyphicon glyphicon-hand-right' aria-hidden='true'></span>`
-<br>  
-MarkBind usage:  
+<markdown>`<span class='glyphicon glyphicon-hand-right' aria-hidden='true'></span>`</markdown>
+MarkBind usage:
+<br>
 <code>{<span></span>{glyphicon_hand_right}}</code>
 </tip-box>
 
-Use these [available glyphs](https://getbootstrap.com/docs/3.3/components/#glyphicons) on your site by surrounding a glyph's name with double curly braces.  
-e.g. <code>{<span></span>{glyphicon_hand_right}}</code> will be rendered as <code><span class='glyphicon glyphicon-hand-right' aria-hidden='true'></span></code>
+Here is the [list of provided glyphs](https://getbootstrap.com/docs/3.3/components/#glyphicons) from Bootstrap.
 
-Note: Replace all instances of `-` with `_` in the glyph's name, e.g. <code>{<span></span>{glyphicon-hand-right}}</code> becomes <code>{<span></span>{glyphicon_hand_right}}</code>
+MarkBind offers an alternate syntax by transforming the icon's name.<br> 
+It is done by replacing all instances of `-` with `_` in the glyph's name. e.g. <code>{<span></span>{glyphicon-hand-right}}</code> becomes <code>{<span></span>{glyphicon_hand_right}}</code>
+
+After doing so, you are able to use the glyphs anywhere on your site by surrounding a glyph's modified name with double curly braces.<br>
+e.g. <code>{<span></span>{glyphicon_hand_right}}</code> will be rendered as <span class='glyphicon glyphicon-hand-right' aria-hidden='true'></span>
 
 #### Timestamp
 
