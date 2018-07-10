@@ -79,12 +79,11 @@
 
     The `_markbind/boilerplates` folder in the site's root directory can be used to store repetitive files. You might have a file `structure.md` (that contains text such as `<include src="text.md">`) that needs to be used in many places. You want the `text.md` to be included to depend on the folder `structure.md` is supposed to be in. Instead of duplicating the file in different locations, you will only need a copy in the boilerplate directory — the final outcome is as if the file was present in the different locations.
 
-    To specify a boilerplate file, add `boilerplate` in the attribute for `include` or `dynamic-panel`.
+    To specify a boilerplate file, add `boilerplate` in the attribute for `include`.
 
     E.g. In `book/architecture/architecturalStyles/index.md`,
     ```html
     <include src="structure.md" boilerplate />
-    <dynamic-panel src="../structure.md" boilerplate />
     ```
 
     MarkBind will look for and use the file `/_markbind/boilerplates/structure.md`. Notice that this is the combination of the boilerplate directory and the file base name. The reference is location sensitive. If `structure.md` includes `text.md`, in the first case, it will use `book/architecture/architecturalStyles/text.md` while in the second case, it will use `book/architecture/text.md`.

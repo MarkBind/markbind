@@ -8,4 +8,4 @@ Also, the boilerplate file name (e.g. `inside.md`) and the file that it is suppo
 
 This file should behaves as if it is in the `requirements` folder:  
 
-<dynamic-panel header="Tested with the folllowing include" src="NonFunctionalRequirements.md" >
+<panel header="Tested with the folllowing include" src="NonFunctionalRequirements.md" >
