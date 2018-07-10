@@ -41,6 +41,9 @@
       <button slot="before" type="button" class="btn btn-info">Segmented</button>
       <li><a href="#dropdown" class="dropdown-item">Action</a></li>
     </dropdown>
+    <dropdown text="Right aligned list" type="primary" menu-align-right>
+      <li><a href="#dropdown" class="dropdown-item">Something else here</a></li>
+    </dropdown>
     <div><br></div>
     <div class="btn-group btn-group-justified">
       <a href="#dropdown" class="btn btn-default" role="button">Left</a>
@@ -78,6 +81,11 @@
   <li><a href="#dropdown" class="dropdown-item">...</a></li>
 </dropdown>
 
+<!-- Right aligned list -->
+<dropdown text="Right aligned list" type="primary" menu-align-right>
+  <li><a href="#dropdown" class="dropdown-item">Something else here</a></li>
+</dropdown>
+
 <!-- In a button group -->
 <div class="btn-group btn-group-justified">
   <a href="#dropdown" class="btn btn-default" role="button">Left</a>
@@ -105,6 +113,7 @@
 Name | Type | Default | Description 
 --- | --- | --- | ---
 disabled | `Boolean` | `false` | Whether Dropdown can be opened.
+menu-align-right | `Boolean` | `false` | Whether the dropdown list will be right-aligned.
 text | `String` | | Dropdown button text.
 type | `String` | `default` | Supports: `default`, `primary`, `danger`, `info`, `warning`, `success`.
 
