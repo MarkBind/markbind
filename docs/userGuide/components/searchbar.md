@@ -24,4 +24,4 @@ Name | Type | Default | Description
 data | `Array` || The local data source for suggestions. Expected to be a primitive array.
 menu-align-right | `Boolean` | `false` | Whether the search bar's dropdown list will be right-aligned.
 on-hit | `Function` || A callback function when you click or hit return on an item.
-placeholder | `String` || 
+placeholder | `String` | `''` | The placeholder text shown when no keywords are entered in the search bar.
