@@ -26,7 +26,7 @@
   </li>
   <li slot="right">
     <form class="navbar-form">
-      <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
+      <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right></searchbar>
     </form>
   </li>
 </navbar>
