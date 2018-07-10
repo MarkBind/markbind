@@ -12,7 +12,7 @@
     <li><a href="{{baseUrl}}/userGuide/includingContents.html" class="dropdown-item">◦&nbsp; Including Contents</a></li>
     <li><a href="{{baseUrl}}/userGuide/knownProblems.html" class="dropdown-item">◦&nbsp; Known Problems</a></li>
     <li role="separator" class="dropdown-divider"></li>
-    <li class="dropdown-item">Deploying a Site</li>
+    <li class="dropdown-header">Deploying a Site</li>
     <li><a href="{{baseUrl}}/userGuide/ghpagesDeployment.html" class="dropdown-item">◦&nbsp; Github Pages Deployment</a></li>
     <li><a href="{{baseUrl}}/userGuide/netlifyPreview.html" class="dropdown-item">◦&nbsp; Preview site on Netlify</a></li>
     <li role="separator" class="dropdown-divider"></li>
