@@ -4,7 +4,7 @@
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
-    <navbar type="default">
+    <navbar type="inverse">
       <!-- Brand as slot -->
       <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
       <!-- You can use dropdown component -->
@@ -22,7 +22,7 @@
 <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
 
 ```html
-<navbar placement="top" type="default">
+<navbar placement="top" type="inverse">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
   <!-- You can use dropdown component -->
