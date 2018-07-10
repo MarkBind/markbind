@@ -64,7 +64,7 @@
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
-  <p>Click the Panels to see the expanded style.<p>
+  <p>Click the Panels to see the expanded style.</p>
   <panel header="#### light type panel (DEFAULT)" type="light" minimized>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
   </panel>
@@ -181,7 +181,7 @@
 </tip-box>
 <br>
 
-#### If `src` attribute is provided, the panel body will be appended content from the `src` specified.
+#### If `src` attribute is provided, the panel will take content from the 'src' specified and add it to the Panel body.
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -278,7 +278,8 @@
 ## Panel Options
 Name | Type | Default | Description 
 --- | --- | --- | ---
-header | `String` | | The clickable text on the Panel's header.
+header | `String` | `''` | The clickable text on the Panel's header.
+alt | `String` | Panel header | The clickable text on the minimised Panel.
 expandable | `Boolean`| `true` | Whether Panel is expandable.
 expanded | `Boolean` | `false` | Whether Panel is expanded or collapsed when loaded in.
 minimized | `Boolean` | `false` | Whether Panel is minimized.
