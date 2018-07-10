@@ -4,18 +4,18 @@
   <dropdown text="User Guide" class="nav-link">
     <li><a href="{{baseUrl}}/userGuide/index.html" class="dropdown-item">Home</a></li>
     <li><a href="{{baseUrl}}/userGuide/userQuickStart.html" class="dropdown-item">Quick Start</a></li>
-    <li role="separator" class="divider"></li>
+    <li role="separator" class="dropdown-divider"></li>
     <li><a href="{{baseUrl}}/userGuide/developingASite.html" class="dropdown-item">Developing a Site</a>
     <li><a href="{{baseUrl}}/userGuide/siteConfiguration.html" class="dropdown-item">◦&nbsp; Site Configuration</a></li>
-    <li role="separator" class="divider"></li>
+    <li role="separator" class="dropdown-divider"></li>
     <li><a href="{{baseUrl}}/userGuide/contentAuthoring.html" class="dropdown-item">Content Authoring</a></li>
     <li><a href="{{baseUrl}}/userGuide/includingContents.html" class="dropdown-item">◦&nbsp; Including Contents</a></li>
     <li><a href="{{baseUrl}}/userGuide/knownProblems.html" class="dropdown-item">◦&nbsp; Known Problems</a></li>
-    <li role="separator" class="divider"></li>
+    <li role="separator" class="dropdown-divider"></li>
     <li style="margin: 3px 20px;" class="dropdown-item">Deploying a Site</li>
     <li><a href="{{baseUrl}}/userGuide/ghpagesDeployment.html" class="dropdown-item">◦&nbsp; Github Pages Deployment</a></li>
     <li><a href="{{baseUrl}}/userGuide/netlifyPreview.html" class="dropdown-item">◦&nbsp; Preview site on Netlify</a></li>
-    <li role="separator" class="divider"></li>
+    <li role="separator" class="dropdown-divider"></li>
     <li><a href="{{baseUrl}}/userGuide/components.html" class="dropdown-item">Components Reference</a></li>
   </dropdown>
   <li>
