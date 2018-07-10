@@ -11,7 +11,7 @@
         <li><a href="#dropdown">Action</a></li>
         <li><a href="#dropdown">Another action</a></li>
         <li><a href="#dropdown">Something else here</a></li>
-        <li role="separator" class="divider"></li>
+        <li role="separator" class="dropdown-divider"></li>
         <li><a href="#dropdown">Separated link</a></li>
       </ul>
     </dropdown>
@@ -19,7 +19,7 @@
       <li><a href="#dropdown">Action</a></li>
       <li><a href="#dropdown">Another action</a></li>
       <li><a href="#dropdown">Something else here</a></li>
-      <li role="separator" class="divider"></li>
+      <li role="separator" class="dropdown-divider"></li>
       <li><a href="#dropdown">Separated link</a></li>
     </dropdown>
     <dropdown>
@@ -30,7 +30,7 @@
         <li><a href="#dropdown">Action</a></li>
         <li><a href="#dropdown">Another action</a></li>
         <li><a href="#dropdown">Something else here</a></li>
-        <li role="separator" class="divider"></li>
+        <li role="separator" class="dropdown-divider"></li>
         <li><a href="#dropdown">Separated link</a></li>
       </ul>
     </dropdown>
@@ -52,7 +52,7 @@
           <li><a href="#dropdown">Action</a></li>
           <li><a href="#dropdown">Another action</a></li>
           <li><a href="#dropdown">Something else here</a></li>
-          <li role="separator" class="divider"></li>
+          <li role="separator" class="dropdown-divider"></li>
           <li><a href="#dropdown">Separated link</a></li>
         </ul>
       </dropdown>
@@ -68,7 +68,7 @@
   <li><a href="#dropdown">Action</a></li>
   <li><a href="#dropdown">Another action</a></li>
   <li><a href="#dropdown">Something else here</a></li>
-  <li role="separator" class="divider"></li>
+  <li role="separator" class="dropdown-divider"></li>
   <li><a href="#dropdown">Separated link</a></li>
 </dropdown>
 
@@ -91,7 +91,7 @@
       <li><a href="#dropdown">Action</a></li>
       <li><a href="#dropdown">Another action</a></li>
       <li><a href="#dropdown">Something else here</a></li>
-      <li role="separator" class="divider"></li>
+      <li role="separator" class="dropdown-divider"></li>
       <li><a href="#dropdown">Separated link</a></li>
     </ul>
   </dropdown>
