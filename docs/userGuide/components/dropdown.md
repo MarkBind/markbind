@@ -3,7 +3,7 @@
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
     <dropdown>
-      <button slot="button" type="button" class="btn btn-default dropdown-toggle">
+      <button slot="button" type="button" class="btn btn-light dropdown-toggle">
         Action
         <span class="caret"></span>
       </button>
@@ -46,9 +46,9 @@
     </dropdown>
     <div><br></div>
     <div class="btn-group btn-group-justified">
-      <a href="#dropdown" class="btn btn-default" role="button">Left</a>
+      <a href="#dropdown" class="btn btn-light" role="button">Left</a>
       <dropdown>
-        <a slot="button" href="#dropdown" class="btn btn-default">
+        <a slot="button" href="#dropdown" class="btn btn-light">
           Dropdown <span class="caret"></span>
         </a>
         <ul slot="dropdown-menu" class="dropdown-menu">
@@ -59,7 +59,7 @@
           <li><a href="#dropdown" class="dropdown-item">Separated link</a></li>
         </ul>
       </dropdown>
-      <a href="#dropdown" class="btn btn-default" role="button">Right</a>
+      <a href="#dropdown" class="btn btn-light" role="button">Right</a>
     </div>
 </tip-box>
 
@@ -88,10 +88,10 @@
 
 <!-- In a button group -->
 <div class="btn-group btn-group-justified">
-  <a href="#dropdown" class="btn btn-default" role="button">Left</a>
+  <a href="#dropdown" class="btn btn-light" role="button">Left</a>
   <!-- With slots you can handle some elements as native bootstrap -->
   <dropdown>
-    <button slot="button" type="button" class="btn btn-default dropdown-toggle">
+    <button slot="button" type="button" class="btn btn-light dropdown-toggle">
       Action
       <span class="caret"></span>
     </button>
@@ -103,7 +103,7 @@
       <li><a href="#dropdown" class="dropdown-item">Separated link</a></li>
     </ul>
   </dropdown>
-  <a href="#dropdown" class="btn btn-default" role="button">Right</a>
+  <a href="#dropdown" class="btn btn-light" role="button">Right</a>
 </div>
 ```
 </tip-box>
