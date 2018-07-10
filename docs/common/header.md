@@ -2,21 +2,21 @@
 <navbar placement="top" type="inverse">
   <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand"><img src="{{baseUrl}}/images/logo-darkbackground.png" height="20" /></a>
   <dropdown text="User Guide" class="nav-link">
-    <li><a href="{{baseUrl}}/userGuide/index.html">Home</a></li>
-    <li><a href="{{baseUrl}}/userGuide/userQuickStart.html">Quick Start</a></li>
+    <li><a href="{{baseUrl}}/userGuide/index.html" class="dropdown-item">Home</a></li>
+    <li><a href="{{baseUrl}}/userGuide/userQuickStart.html" class="dropdown-item">Quick Start</a></li>
     <li role="separator" class="divider"></li>
-    <li><a href="{{baseUrl}}/userGuide/developingASite.html">Developing a Site</a>
-    <li><a href="{{baseUrl}}/userGuide/siteConfiguration.html">◦&nbsp; Site Configuration</a></li>
+    <li><a href="{{baseUrl}}/userGuide/developingASite.html" class="dropdown-item">Developing a Site</a>
+    <li><a href="{{baseUrl}}/userGuide/siteConfiguration.html" class="dropdown-item">◦&nbsp; Site Configuration</a></li>
     <li role="separator" class="divider"></li>
-    <li><a href="{{baseUrl}}/userGuide/contentAuthoring.html">Content Authoring</a></li>
-    <li><a href="{{baseUrl}}/userGuide/includingContents.html">◦&nbsp; Including Contents</a></li>
-    <li><a href="{{baseUrl}}/userGuide/knownProblems.html">◦&nbsp; Known Problems</a></li>
+    <li><a href="{{baseUrl}}/userGuide/contentAuthoring.html" class="dropdown-item">Content Authoring</a></li>
+    <li><a href="{{baseUrl}}/userGuide/includingContents.html" class="dropdown-item">◦&nbsp; Including Contents</a></li>
+    <li><a href="{{baseUrl}}/userGuide/knownProblems.html" class="dropdown-item">◦&nbsp; Known Problems</a></li>
     <li role="separator" class="divider"></li>
-    <li style="margin: 3px 20px;">Deploying a Site</li>
-    <li><a href="{{baseUrl}}/userGuide/ghpagesDeployment.html">◦&nbsp; Github Pages Deployment</a></li>
-    <li><a href="{{baseUrl}}/userGuide/netlifyPreview.html">◦&nbsp; Preview site on Netlify</a></li>
+    <li style="margin: 3px 20px;" class="dropdown-item">Deploying a Site</li>
+    <li><a href="{{baseUrl}}/userGuide/ghpagesDeployment.html" class="dropdown-item">◦&nbsp; Github Pages Deployment</a></li>
+    <li><a href="{{baseUrl}}/userGuide/netlifyPreview.html" class="dropdown-item">◦&nbsp; Preview site on Netlify</a></li>
     <li role="separator" class="divider"></li>
-    <li><a href="{{baseUrl}}/userGuide/components.html">Components Reference</a></li>
+    <li><a href="{{baseUrl}}/userGuide/components.html" class="dropdown-item">Components Reference</a></li>
   </dropdown>
   <li>
     <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">
