@@ -61,9 +61,9 @@ module.exports.INDEX_MD_DEFAULT = '<frontmatter>\n'
   + '# Hello world\n'
   + 'Welcome to your page generated with MarkBind.\n';
 
-module.exports.SITE_NAV_MD_DEFAULT = '<markdown>\n'
+module.exports.SITE_NAV_MD_DEFAULT = '<navigation>\n'
   + '* [Home {{glyphicon_home}}]({{baseUrl}}/index.html)\n'
-  + '</markdown>\n';
+  + '</navigation>\n';
 
 module.exports.USER_VARIABLES_DEFAULT = '<span id="example">\n'
   + 'To inject this HTML segment in your markbind files, use {{ example }} where you want to place it.\n'

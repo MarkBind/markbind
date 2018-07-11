@@ -1,4 +1,4 @@
-<markdown class="website-content">
+<navigation class="website-content">
 * ## User Guide
 * [Quick Start]({{baseUrl}}/userGuide/userQuickStart.html)
 * [Developing a Site]({{baseUrl}}/userGuide/developingASite.html)
@@ -11,4 +11,4 @@
   * [Preview site on Netlify]({{baseUrl}}/userGuide/netlifyPreview.html)
 * [Components Reference]({{baseUrl}}/userGuide/components.html)
   * [Advanced Tips and Tricks]({{baseUrl}}/userGuide/components.html#advanced-tips-and-tricks)
-</markdown>
+</navigation>
