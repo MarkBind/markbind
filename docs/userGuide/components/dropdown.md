@@ -46,9 +46,9 @@
     </dropdown>
     <div><br></div>
     <div class="btn-group d-flex" role="group">
-      <a href="#dropdown" class="btn btn-light w-100" role="button">Left</a>
+      <a href="#dropdown" class="btn btn-danger w-100" role="button">Left</a>
       <dropdown class="w-100">
-        <a slot="button" href="#dropdown" class="btn btn-light dropdown-toggle w-100">
+        <a slot="button" href="#dropdown" class="btn btn-warning dropdown-toggle w-100">
           Dropdown <span class="caret"></span>
         </a>
         <ul slot="dropdown-menu" class="dropdown-menu">
@@ -59,7 +59,7 @@
           <li><a href="#dropdown" class="dropdown-item">Separated link</a></li>
         </ul>
       </dropdown>
-      <a href="#dropdown" class="btn btn-light w-100" role="button">Right</a>
+      <a href="#dropdown" class="btn btn-success w-100" role="button">Right</a>
     </div>
 </tip-box>
 
@@ -88,10 +88,10 @@
 
 <!-- In a button group -->
 <div class="btn-group d-flex" role="group">
-  <a href="#dropdown" class="btn btn-light w-100" role="button">Left</a>
+  <a href="#dropdown" class="btn btn-danger w-100" role="button">Left</a>
   <!-- With slots you can handle some elements as native bootstrap -->
   <dropdown class="w-100">
-    <button slot="button" type="button" class="btn btn-light dropdown-toggle w-100">
+    <button slot="button" type="button" class="btn btn-warning dropdown-toggle w-100">
       Action
       <span class="caret"></span>
     </button>
@@ -103,7 +103,7 @@
       <li><a href="#dropdown" class="dropdown-item">Separated link</a></li>
     </ul>
   </dropdown>
-  <a href="#dropdown" class="btn btn-light w-100" role="button">Right</a>
+  <a href="#dropdown" class="btn btn-success w-100" role="button">Right</a>
 </div>
 ```
 </tip-box>
