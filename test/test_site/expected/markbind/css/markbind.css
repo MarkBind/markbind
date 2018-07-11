@@ -6,6 +6,10 @@ code {
     word-break: normal;
 }
 
+pre {
+    margin-bottom: 0;
+}
+
 .btn:active,
 .btn:focus {
     box-shadow: none !important;
