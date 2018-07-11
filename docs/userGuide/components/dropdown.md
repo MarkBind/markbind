@@ -114,7 +114,7 @@ Name | Type | Default | Description
 --- | --- | --- | ---
 disabled | `Boolean` | `false` | Whether Dropdown can be opened.
 menu-align-right | `Boolean` | `false` | Whether the dropdown list will be right-aligned.
-text | `String` | | Dropdown button text.
+text | `String` | `''` | Dropdown button text.
 type | `String` | `default` | Supports: `default`, `primary`, `danger`, `info`, `warning`, `success`.
 
 ## Bootstrap Buttons
