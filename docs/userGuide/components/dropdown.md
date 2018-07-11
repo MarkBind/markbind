@@ -3,7 +3,7 @@
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
     <dropdown>
-      <button slot="button" type="button" class="btn btn-light dropdown-toggle">
+      <button slot="button" type="button" class="btn btn-secondary dropdown-toggle">
         Action
         <span class="caret"></span>
       </button>
