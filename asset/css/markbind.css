@@ -2,6 +2,10 @@ blockquote {
     font-size: 14px;
 }
 
+code {
+    word-break: normal;
+}
+
 .btn:active,
 .btn:focus {
     box-shadow: none !important;
