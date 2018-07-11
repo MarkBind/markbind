@@ -1,4 +1,4 @@
-<markdown>
+<navigation>
 * ## Navigation
 * [Home :house:]({{baseUrl}}/index.html)
 * [Open Bugs :bug:]({{baseUrl}}/bugs/index.html)
@@ -33,4 +33,4 @@
     
     * Line break item 2 :blue_book:
 
-</markdown>
+</navigation>
