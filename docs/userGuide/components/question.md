@@ -170,14 +170,14 @@
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
-  <panel header="Questions loaded in from `quiz.md`" src="dynamic/quiz.md"></panel>
+  <panel header="Questions loaded in from `quiz.md`" src="anotherSrc/quiz.md"></panel>
 </tip-box>
 
 <tip-box border-left-color="black">
 <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
 
 ```html
-<panel header="Questions loaded in from `quiz.md`" src="dynamic/quiz.md"></panel>
+<panel header="Questions loaded in from `quiz.md`" src="anotherSrc/quiz.md"></panel>
 ```
 </tip-box>
 <br>
