@@ -3,25 +3,25 @@
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
   <tooltip header content="Lorem ipsum dolor sit amet" placement="top">
-    <button class="btn btn-default">Popover on top</button>
+    <button class="btn btn-secondary">Popover on top</button>
   </tooltip>
   <tooltip header content="Lorem ipsum dolor sit amet" placement="left">
-    <button class="btn btn-default">Popover on left</button>
+    <button class="btn btn-secondary">Popover on left</button>
   </tooltip>
   <tooltip header content="Lorem ipsum dolor sit amet" placement="right">
-    <button class="btn btn-default">Popover on right</button>
+    <button class="btn btn-secondary">Popover on right</button>
   </tooltip>
   <tooltip header content="Lorem ipsum dolor sit amet" placement="bottom">
-    <button class="btn btn-default">Popover on bottom</button>
+    <button class="btn btn-secondary">Popover on bottom</button>
   </tooltip>
   <hr />
   Trigger
   <p>
     <tooltip effect="scale" content="Lorem ipsum dolor sit amet" placement="top" trigger="click">
-      <button class="btn btn-default">Click</button>
+      <button class="btn btn-secondary">Click</button>
     </tooltip>
     <tooltip effect="scale" content="Lorem ipsum dolor sit amet" placement="top" trigger="contextmenu">
-      <button class="btn btn-default">Contextmenu (right click)</button>
+      <button class="btn btn-secondary">Contextmenu (right click)</button>
     </tooltip>
     <br />
     <br />
@@ -44,25 +44,25 @@
 
   ``` html
   <tooltip header content="Lorem ipsum dolor sit amet" placement="top">
-    <button class="btn btn-default">Popover on top</button>
+    <button class="btn btn-secondary">Popover on top</button>
   </tooltip>
   <tooltip header content="Lorem ipsum dolor sit amet" placement="left">
-    <button class="btn btn-default">Popover on left</button>
+    <button class="btn btn-secondary">Popover on left</button>
   </tooltip>
   <tooltip header content="Lorem ipsum dolor sit amet" placement="right">
-    <button class="btn btn-default">Popover on right</button>
+    <button class="btn btn-secondary">Popover on right</button>
   </tooltip>
   <tooltip header content="Lorem ipsum dolor sit amet" placement="bottom">
-    <button class="btn btn-default">Popover on bottom</button>
+    <button class="btn btn-secondary">Popover on bottom</button>
   </tooltip>
   <hr />
   Trigger
   <p>
     <tooltip effect="scale" content="Lorem ipsum dolor sit amet" placement="top" trigger="click">
-      <button class="btn btn-default">Click</button>
+      <button class="btn btn-secondary">Click</button>
     </tooltip>
     <tooltip effect="scale" content="Lorem ipsum dolor sit amet" placement="top" trigger="contextmenu">
-      <button class="btn btn-default">Contextmenu (right click)</button>
+      <button class="btn btn-secondary">Contextmenu (right click)</button>
     </tooltip>
     <br />
     <br />
@@ -86,6 +86,6 @@
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------
-trigger	| `String`, one of `click` `focus` `hover` `contextmenu` | `hover` | How the tooltip is triggered.
-content | `String`
-placement | `String`, one of `top` `left` `right` `bottom` || How to position the tooltip.
+trigger	| `String` | `hover` | How the tooltip is triggered.<br>Supports: `click`, `focus`, `hover`, `contextmenu`.
+content | `String` | `''` | Text content of the tooltip.
+placement | `String` | `top` | How to position the tooltip.<br>Supports: `top`, `left`, `right`, `bottom`.
