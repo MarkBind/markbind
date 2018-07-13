@@ -192,7 +192,7 @@
 <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
 
 ```html
-<panel header="Content loaded in from `src`" alt="Dynamic Loading" src="anotherSrc/loadContent.html#fragment" minimized></panel>
+<panel header="Content loaded in from 'src'" src="anotherSrc/loadContent.html#fragment" minimized></panel>
 ```
 </tip-box>
 <br>
@@ -217,12 +217,12 @@
 </tip-box>
 <br>
 
-#### If `static` attribute is provided, the panel body will load the HTML when the page renders instead of after being expanded.
+#### If `preload` attribute is provided, the panel body will load the HTML when the page renders instead of after being expanded.
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
-  <panel header="Right click and inspect my HTML before expanding me!" src="anotherSrc/loadContent.html#fragment" static>
-    <p>You should be able to find this text before expanding the Panel!</p>
+  <panel header="Right click and inspect my HTML before expanding me!" src="anotherSrc/loadContent.html#fragment" preload>
+    <p>You should be able to find this text before expanding the Panel.</p>
   </panel>
 </tip-box>
 
@@ -230,8 +230,8 @@
 <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
 
 ```html
-<panel header="Right click and inspect my HTML before expanding me!" src="anotherSrc/loadContent.html#fragment" static>
-  <p>You should be able to find this text before expanding the Panel!</p>
+<panel header="Right click and inspect my HTML before expanding me!" src="anotherSrc/loadContent.html#fragment" preload>
+  <p>You should be able to find this text before expanding the Panel.</p>
 </panel>
 ```
 </tip-box>
@@ -286,7 +286,7 @@ minimized | `Boolean` | `false` | Whether Panel is minimized.
 no-close | `Boolean` | `false` | Whether to show the close button.
 no-switch | `Boolean` | `false` | Whether to show the expand switch.
 bottom-switch | `Boolean` | `true` | Whether to show an expand switch at the bottom of the panel. Independent of no-switch.
-static | `Boolean` | `false` | Whether to load Panel contents during page rendering.
+preload | `Boolean` | `false` | Whether to load Panel contents during page rendering.
 popup-url | `String` | | The url that the popup window will navigate to. The url can be absolute or relative.
 src | `String` | | The url to the remote page to be loaded as the content of the panel.
 type | `String` | `light` | The type of color for the tab (single).<br>Supports: `light`, `dark`, `primary`, `secondary`, `info`, `success`, `warning`, `danger`, `seamless`.
