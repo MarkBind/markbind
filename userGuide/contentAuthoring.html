@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MarkBind: User Guide - Content Authoring</title>
     <link rel="stylesheet" href="..\markbind\css\bootstrap.min.css">
+    <link rel="stylesheet" href="..\markbind\css\bootstrap-vue.min.css">
+    <link rel="stylesheet" href="..\markbind\css\font-awesome.min.css" >
+    <link rel="stylesheet" href="..\markbind\css\bootstrap-glyphicons.min.css" >
     <link rel="stylesheet" href="..\markbind\css\github.min.css">
     <link rel="stylesheet" href="..\markbind\css\markbind.css">
     <link rel="stylesheet" href="..\markbind\css\site-nav.css">
@@ -60,31 +63,31 @@
       <link rel="stylesheet" href="/markbind/css/main.css">
       <navbar placement="top" type="inverse">
         <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
-        <dropdown text="User Guide">
-          <li><a href="/markbind/userGuide/index.html">Home</a></li>
-          <li><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
-          <li role="separator" class="divider"></li>
-          <li><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
-            <li><a href="/markbind/userGuide/siteConfiguration.html">◦&nbsp; Site Configuration</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a></li>
-            <li><a href="/markbind/userGuide/includingContents.html">◦&nbsp; Including Contents</a></li>
-            <li><a href="/markbind/userGuide/knownProblems.html">◦&nbsp; Known Problems</a></li>
-            <li role="separator" class="divider"></li>
-            <li style="margin: 3px 20px;">Deploying a Site</li>
-            <li><a href="/markbind/userGuide/ghpagesDeployment.html">◦&nbsp; Github Pages Deployment</a></li>
-            <li><a href="/markbind/userGuide/netlifyPreview.html">◦&nbsp; Preview site on Netlify</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="/markbind/userGuide/components.html">Components Reference</a></li>
+        <dropdown text="User Guide" class="nav-link">
+          <li><a href="/markbind/userGuide/index.html" class="dropdown-item">Home</a></li>
+          <li><a href="/markbind/userGuide/userQuickStart.html" class="dropdown-item">Quick Start</a></li>
+          <li role="separator" class="dropdown-divider"></li>
+          <li><a href="/markbind/userGuide/developingASite.html" class="dropdown-item">Developing a Site</a>
+            <li><a href="/markbind/userGuide/siteConfiguration.html" class="dropdown-item">◦&nbsp; Site Configuration</a></li>
+            <li role="separator" class="dropdown-divider"></li>
+            <li><a href="/markbind/userGuide/contentAuthoring.html" class="dropdown-item">Content Authoring</a></li>
+            <li><a href="/markbind/userGuide/includingContents.html" class="dropdown-item">◦&nbsp; Including Contents</a></li>
+            <li><a href="/markbind/userGuide/knownProblems.html" class="dropdown-item">◦&nbsp; Known Problems</a></li>
+            <li role="separator" class="dropdown-divider"></li>
+            <li class="dropdown-header">Deploying a Site</li>
+            <li><a href="/markbind/userGuide/ghpagesDeployment.html" class="dropdown-item">◦&nbsp; Github Pages Deployment</a></li>
+            <li><a href="/markbind/userGuide/netlifyPreview.html" class="dropdown-item">◦&nbsp; Preview site on Netlify</a></li>
+            <li role="separator" class="dropdown-divider"></li>
+            <li><a href="/markbind/userGuide/components.html" class="dropdown-item">Components Reference</a></li>
           </li>
         </dropdown>
         <li>
-          <a href="https://github.com/MarkBind/markbind" target="_blank">
+          <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">
       Fork this project on Github
       <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
         <li slot="right">
           <form class="navbar-form">
-            <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
+            <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right=""></searchbar>
           </form>
         </li>
       </navbar>
@@ -193,24 +196,44 @@
       <h3 id="use-markbind-variables">Use MarkBind variables</h3>
       <p>You can insert variables to be replaced by pre-defined values anywhere in your site. MarkBind treats any text surrounded with double curly braces as a variable, e.g. <code>{<span></span>{variable_name}}</code></p>
       <p>Some helpful variables are provided by MarkBind for your convenience, as shown below.</p>
+      <h4 id="font-awesome-icons">Font Awesome icons</h4>
+      <p>This asset is provided by <a href="https://fontawesome.com/">Font Awesome</a> under their <a href="https://fontawesome.com/license">free license</a>.</p>
+      <tip-box>
+        Traditional usage:
+        <div>
+          <p><code>&lt;span class='fas fa-chess-knight'&gt;&lt;/span&gt;</code></p>
+        </div>
+        MarkBind usage:
+        <br>
+        <code>{<span></span>{fas_chess_knight}}</code></tip-box>
+      <p>Font Awesome has three different styles for their free icons, each with their own prefix:
+        <strong>Solid</strong> (<code>fas</code>), <strong>Regular</strong> (<code>far</code>) and <strong>Brands</strong> (<code>fab</code>).<br> Be sure to check Font Awesome's <a href="https://fontawesome.com/icons?d=gallery&amp;m=free">full list of icons</a>        and which styles each icon supports.</p>
+      <p>MarkBind offers a shorter syntax by transforming the icon's name. It is a two-step process:</p>
+      <ol>
+        <li>Shift the icon's prefix to replace <code>fa</code>, the icon's name first two characters. e.g <code>fas fa-chess-knight</code> becomes <code>fas-chess-knight</code></li>
+        <li>Next, replace all instances of <code>-</code> with <code>_</code> in the icon's name. e.g. <code>fas-chess-knight</code> becomes <code>fas_chess_knight</code></li>
+      </ol>
+      <p>After doing so, you are able to use the icons anywhere on your site by surrounding an icon's shortened name with double curly braces.<br> e.g. <code>{<span></span>{fas_fighter_jet}}</code> will be rendered as <span class="fas fa-fighter-jet"></span></p>
       <h4 id="glyphicons">Glyphicons</h4>
-      <p>This asset is provided by <a href="https://glyphicons.com/">Glyphicons</a> via Bootstrap.
-        <br><br>
-        <tip-box>
-          Traditional usage:<br>
-          <code>&lt;span class='glyphicon glyphicon-hand-right' aria-hidden='true'&gt;&lt;/span&gt;</code>
-          <br><br> MarkBind usage:<br>
-          <code>{<span></span>{glyphicon_hand_right}}</code></tip-box>
-      </p>
-      <p>Use these <a href="https://getbootstrap.com/docs/3.3/components/#glyphicons">available glyphs</a> on your site by surrounding a glyph's name with double curly braces.<br> e.g. <code>{<span></span>{glyphicon_hand_right}}</code> will be rendered as
-        <code><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span></code></p>
-      <p>Note: Replace all instances of <code>-</code> with <code>_</code> in the glyph's name, e.g. <code>{<span></span>{glyphicon-hand-right}}</code> becomes <code>{<span></span>{glyphicon_hand_right}}</code></p>
+      <p>This asset is provided by <a href="https://glyphicons.com/">Glyphicons</a> via Bootstrap 3.</p>
+      <tip-box>
+        Traditional usage:
+        <div>
+          <p><code>&lt;span class='glyphicon glyphicon-hand-right' aria-hidden='true'&gt;&lt;/span&gt;</code></p>
+        </div>
+        MarkBind usage:
+        <br>
+        <code>{<span></span>{glyphicon_hand_right}}</code></tip-box>
+      <p>Here is the <a href="https://getbootstrap.com/docs/3.3/components/#glyphicons">list of provided glyphs</a> from Bootstrap.</p>
+      <p>MarkBind offers an alternate syntax by transforming the icon's name.<br> It is done by replacing all instances of <code>-</code> with <code>_</code> in the glyph's name. e.g. <code>{<span></span>{glyphicon-hand-right}}</code> becomes <code>{<span></span>{glyphicon_hand_right}}</code></p>
+      <p>After doing so, you are able to use the glyphs anywhere on your site by surrounding a glyph's modified name with double curly braces.<br> e.g. <code>{<span></span>{glyphicon_hand_right}}</code> will be rendered as <span class="glyphicon glyphicon-hand-right"
+          aria-hidden="true"></span></p>
       <h4 id="timestamp">Timestamp</h4>
       <p>Use <code>{<span></span>{timestamp}}</code> to insert a UTC time snippet that indicates when the page was generated.</p>
-      <p><code>{<span></span>{timestamp}}</code> will be rendered as: Fri, 06 Jul 2018 06:36:20 GMT</p>
+      <p><code>{<span></span>{timestamp}}</code> will be rendered as: Fri, 13 Jul 2018 07:31:43 GMT</p>
       <h4 id="markbind-link">MarkBind Link</h4>
       <p>Reference or support MarkBind by using <code>{<span></span>{MarkBind}}</code> to insert a link to our website.</p>
-      <p><code>{<span></span>{MarkBind}}</code> will be rendered as: <a href="https://markbind.github.io/markbind/">MarkBind 1.8.4</a></p>
+      <p><code>{<span></span>{MarkBind}}</code> will be rendered as: <a href="https://markbind.github.io/markbind/">MarkBind 1.9.0</a></p>
       <h3 id="add-your-own-variables">Add your own variables</h3>
       <p>In <code>_markbind/variables.md</code>, you can define your own variables that can be used anywhere in your site. The format is as follows.</p>
       <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"year"</span>&gt;</span>2018<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
@@ -365,12 +388,14 @@ Yes!
           <p>Author your navigation layout using Markdown's unordered list syntax as shown below.</p>
           <ul>
             <li>When you are using links (<code>[linkName](url)</code>), ensure that the url starts from the root directory <code>{<span></span>{baseUrl}}/</code> when you are referencing a page in your site. e.g. <code>{<span></span>{baseUrl}}/folder1/myPage.html</code></li>
-            <li>Ensure you wrap everything in a <code>&lt;markdown&gt;</code> tag for MarkBind to identify the Markdown syntax.</li>
+            <li>Ensure you wrap your navigation layout in a <code>&lt;navigation&gt;</code> tag for MarkBind to render it properly. Also, there should only be one <code>&lt;navigation&gt;</code> tag in your file.</li>
+            <li>You may author additional HTML and Markdown content outside the <code>&lt;navigation&gt;</code> tag.</li>
+            <li>The <code>&lt;navigation&gt;</code> tag is also optional, allowing you to author everything in HTML and Markdown syntax.</li>
           </ul>
         </li>
       </ul>
       <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- In _markbind/navigation/mySiteNav.md --&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">markdown</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">navigation</span>&gt;</span>
 * [Home :house:](/markbind/index.html)
 * Dropdown title :pencil2: <span class="hljs-comment">&lt;!-- Nested list items will be placed inside a Dropdown menu --&gt;</span>
   * [Dropdown link one](https://www.google.com/)
@@ -383,7 +408,7 @@ Yes!
   * [Youtube video one](http://www.youtube.com/watch?v=lJIrF4YjHfQ)
   * Dropdown title :pencil2: <span class="hljs-comment">&lt;!-- Dropdown menus in are still supported inside, as long as the title is not a link --&gt;</span>
     * [**Nested** Dropdown link one](https://www.google.com/)
-<span class="hljs-tag">&lt;/<span class="hljs-name">markdown</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">navigation</span>&gt;</span>
 </code></pre>
       <ul>
         <li>Specify the navigation file you have created within a page's <a href="#front-matter">front matter</a> <code>siteNav</code> attribute to render it.</li>
@@ -433,7 +458,7 @@ Yes!
           </ul>
         </li>
       </ul>
-      <p>The site navigation bar has <a href="https://www.w3schools.com/html/html_responsive.asp">responsive properties</a>, and will collapse to a menu button when the screen width is smaller than 768 pixels.</p>
+      <p>The site navigation bar has <a href="https://www.w3schools.com/html/html_responsive.asp">responsive properties</a>, and will collapse to a menu button when the screen width is smaller than 1006 pixels.</p>
       <p>You are able to use <a href="#supported-markdown-syntax">Markdown syntax</a>, as well as <a href="#glyphicons">glyphicons</a> to author your site navigation layout.</p>
       <p>Note:</p>
       <ul>
@@ -493,12 +518,14 @@ Yes!
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.8.4</a> on Fri, 06 Jul 2018 06:36:20 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.9.0</a> on Fri, 13 Jul 2018 07:31:43 GMT]</small></div>
 </footer>
 </div>
 </body>
 <script src="..\markbind\js\vue.min.js"></script>
 <script src="..\markbind\js\vue-strap.min.js"></script>
+<script src="..\markbind\js\polyfill.min.js"></script>
+<script src="..\markbind\js\bootstrap-vue.min.js"></script>
 <script>
     const baseUrl = '/markbind'
 </script>
