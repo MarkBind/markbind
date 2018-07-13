@@ -388,11 +388,13 @@ If you would like to have a site navigation bar for your site, you may create on
 - Author your navigation layout using Markdown's unordered list syntax as shown below.
     - When you are using links (`[linkName](url)`), ensure that the url starts from the root directory <code>{<span></span>{baseUrl}}/</code> when you are referencing a page in your site. 
     e.g. <code>{<span></span>{baseUrl}}/folder1/myPage.html</code>
-    - Ensure you wrap everything in a `<markdown>` tag for MarkBind to identify the Markdown syntax.
+    - Ensure you wrap your navigation layout in a `<navigation>` tag for MarkBind to render it properly. Also, there should only be one `<navigation>` tag in your file.
+    - You may author additional HTML and Markdown content outside the `<navigation>` tag.
+    - The `<navigation>` tag is also optional, allowing you to author everything in HTML and Markdown syntax.
 
 ```html
 <!-- In _markbind/navigation/mySiteNav.md -->
-<markdown>
+<navigation>
 * [Home :house:]({{baseUrl}}/index.html)
 * Dropdown title :pencil2: <!-- Nested list items will be placed inside a Dropdown menu -->
   * [Dropdown link one](https://www.google.com/)
@@ -405,7 +407,7 @@ If you would like to have a site navigation bar for your site, you may create on
   * [Youtube video one](http://www.youtube.com/watch?v=lJIrF4YjHfQ)
   * Dropdown title :pencil2: <!-- Dropdown menus in are still supported inside, as long as the title is not a link -->
     * [**Nested** Dropdown link one](https://www.google.com/)
-</markdown>
+</navigation>
 ```
 
 - Specify the navigation file you have created within a page's [front matter](#front-matter) `siteNav` attribute to render it.
@@ -467,7 +469,6 @@ Note:
 - Only one navigation file can be specified in a page, and you must include its file extension.
 - There is no limit to the number of nested Dropdown menus, but each menu's height is restricted to 1000 pixels.
     - Dropdown menu content exceeding 1000 pixels in height will be cut off.
-- If you are using [live preview](userQuickStart.html#preview-your-site), you must restart the server to see updates made in the navigation file.
 
 ### Using Footers
 
@@ -502,7 +503,6 @@ After which, you must specify the file within a page's [front matter](#front-mat
 
 Note:
 - Only one footer file can be specified in the [front matter](#front-matter) per page, and you must include its file extension.
-- If you are using [live preview](userQuickStart.html#preview-your-site), you must restart the server to see updates made in the footer file.
 
 #### Defining your own inline footer
 

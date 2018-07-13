@@ -286,7 +286,7 @@ minimized | `Boolean` | `false` | Whether Panel is minimized.
 no-close | `Boolean` | `false` | Whether to show the close button.
 no-switch | `Boolean` | `false` | Whether to show the expand switch.
 bottom-switch | `Boolean` | `true` | Whether to show an expand switch at the bottom of the panel. Independent of no-switch.
-preload | `Boolean` | `false` | Whether to load Panel contents during page rendering.
 popup-url | `String` | | The url that the popup window will navigate to. The url can be absolute or relative.
+preload | `Boolean` | `false` | Whether the content is loaded immediately from `src`.
 src | `String` | | The url to the remote page to be loaded as the content of the panel.
 type | `String` | `light` | The type of color for the tab (single).<br>Supports: `light`, `dark`, `primary`, `secondary`, `info`, `success`, `warning`, `danger`, `seamless`.

@@ -27,6 +27,7 @@
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
   <trigger for="modal:tip-example" trigger="click">Click here to show Modal.</trigger>
+  
   <modal id="modal:tip-example">
     <div slot="modal-header" class="modal-title text-center">
       <span style="font-size:20pt"><span style="color:red;">BIG</span> header</span>
@@ -58,6 +59,7 @@
 </panel>
 
 <trigger for="modal:tip-example" trigger="click">Click here to show Modal.</trigger>
+
 <modal id="modal:tip-example">
   <div slot="modal-header" class="modal-title text-center">
     <span style="font-size:20pt"><span style="color:red;">BIG</span> header</span>
@@ -77,6 +79,8 @@ Slot name | Default class | Notes
 `header` | `panel-title` | Aligning text to the center of the panel is not possible, as the header element does not take up the entire container.
 
 ### Modal Slot Options
+When using slots for Modals, you need to add a single blank line before each `<modal>` tag, in order for the customization to render correctly.
+
 Slot name | Default class | Notes
 --- | --- | ---
 `modal-header` | `modal-title` |

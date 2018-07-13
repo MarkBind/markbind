@@ -27,7 +27,8 @@
       <li style="margin-top: 10px">
         <h3 id="testing-site-nav">Testing Site-Nav</h3>
       </li>
-      <li style="margin-top: 10px"><button class="dropdown-btn">Dropdown title ✏️  <i class="dropdown-btn-icon">
+      <li style="margin-top: 10px"><button class="dropdown-btn"><strong>Dropdown</strong> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> title ✏️ 
+ <i class="dropdown-btn-icon">
 <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
         <div class="dropdown-container">
           <ul style="list-style-type: none; margin-left:-1em">
@@ -47,10 +48,11 @@
         </div>
       </li>
       <li style="margin-top: 10px"><a href="https://www.google.com/"><mark>Third Link</mark> 📋</a></li>
-      <li style="margin-top:10px"><a href="https://www.youtube.com/">Youtube</a>
+      <li style="margin-top:10px">Filler text <a href="https://www.youtube.com/"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> Youtube 📺</a> filler text
         <ul style="list-style-type: none; margin-left:-1em">
           <li style="margin-top: 10px"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">The answer to everything in the universe</a></li>
-          <li style="margin-top: 10px"><button class="dropdown-btn">Dropdown title ✏️  <i class="dropdown-btn-icon">
+          <li style="margin-top: 10px"><button class="dropdown-btn"><mark>Dropdown title</mark> <span class="glyphicon glyphicon-comment" aria-hidden="true"></span> ✏️ 
+ <i class="dropdown-btn-icon">
 <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
             <div class="dropdown-container">
               <ul style="list-style-type: none; margin-left:-1em">
@@ -79,6 +81,29 @@
                   <li style="margin-top: 10px">Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from
                     height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text
                     cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li style="margin-top: 10px"><button class="dropdown-btn">Test line break in navigation layout
+ <i class="dropdown-btn-icon">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+        <div class="dropdown-container">
+          <ul style="list-style-type: none; margin-left:-1em">
+            <li style="margin-top: 10px">Nested line break text ✂️</li>
+            <li style="margin-top:10px"><a href="/test_site/index.html">Nested line break href</a>
+              <ul style="list-style-type: none; margin-left:-1em">
+                <li style="margin-top: 10px">Nested Nested line break text ✂️</li>
+              </ul>
+            </li>
+            <li style="margin-top: 10px"><button class="dropdown-btn">Nested line break dropdown menu
+ <i class="dropdown-btn-icon">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+              <div class="dropdown-container">
+                <ul style="list-style-type: none; margin-left:-1em">
+                  <li style="margin-top: 10px">Line break item 2 📘</li>
                 </ul>
               </div>
             </li>
@@ -130,16 +155,16 @@
       </div>
       <h1 id="dynamic-include">Dynamic include</h1>
       <p>
-        <panel src="/test_site\requirements\SpecifyingRequirements._include_.html" name="Dynamic Include" header="Dynamic Include" isOpen="false" no-close="true" no-switch="true"></panel>
+        <panel src="/test_site\requirements\SpecifyingRequirements._include_.html" name="Dynamic Include" no-close="true" no-switch="true" header="Dynamic Include"></panel>
       </p>
       <h1 id="boilerplate-include">Boilerplate include</h1>
       <div name="Boilerplate Referencing">
         <p>
-          <panel src="/test_site\requirements\UserStories._include_.html" header="Boilerplate Includes" no-close="true" isOpen="false" no-switch="true"></panel>
+          <panel src="/test_site\requirements\UserStories._include_.html" header="Boilerplate Includes" no-close=""></panel>
         </p>
       </div>
       <p>
-        <panel src="/test_site\requirements\notInside._include_.html" name="Referencing specified path in boilerplate" header="Referencing specified path in boilerplate" isOpen="false" no-close="true" no-switch="true"></panel>
+        <panel src="/test_site\requirements\notInside._include_.html" name="Referencing specified path in boilerplate" no-close="true" no-switch="true" header="Referencing specified path in boilerplate"></panel>
       </p>
       <h1 id="nested-include">Nested include</h1>
       <div>
