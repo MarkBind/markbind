@@ -2,6 +2,16 @@ blockquote {
     font-size: 14px;
 }
 
+code {
+    word-break: normal;
+}
+
+.btn:active,
+.btn:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
 .markbind-table {
     width: auto;
 }
@@ -21,7 +31,8 @@ blockquote {
     background-color: #fff;
 }
 
-@media (max-width: 767px) {
+/* Bootstrap small(sm) responsive breakpoint */
+@media (max-width: 767.98px) {
     .dropdown-menu > li > a {
         white-space: normal;
     }

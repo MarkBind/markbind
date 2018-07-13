@@ -103,5 +103,5 @@ Additionally, multiple Triggers could share the same overlay by providing them w
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------
-trigger | `String`, one of `click` `focus` `hover` `contextmenu` | `hover` | How its overlay view is triggered.
-for | `String`, the id for the overlay view to be shown
+trigger | `String` | `hover` | How the overlay view is triggered.<br>Supports: `click`, `focus`, `hover`, `contextmenu`.
+for | `String` | `null` | The id for the overlay view to be shown.

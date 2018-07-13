@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hello World</title>
     <link rel="stylesheet" href="markbind\css\bootstrap.min.css">
+    <link rel="stylesheet" href="markbind\css\bootstrap-vue.min.css">
+    <link rel="stylesheet" href="markbind\css\font-awesome.min.css" >
+    <link rel="stylesheet" href="markbind\css\bootstrap-glyphicons.min.css" >
     <link rel="stylesheet" href="markbind\css\github.min.css">
     <link rel="stylesheet" href="markbind\css\markbind.css">
     <link rel="stylesheet" href="markbind\css\site-nav.css">
@@ -75,9 +78,9 @@
                 <ul style="list-style-type: none; margin-left:-1em">
                   <li style="margin-top: 10px">Hello Doge Hello Doge 🐶</li>
                   <li style="margin-top: 10px"><a href="/test_site/index.html"><strong>NESTED LINK</strong> Home 🏠</a></li>
-                  <li style="margin-top: 10px">More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long
-                    Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long
-                    Long Text</li>
+                  <li style="margin-top: 10px">Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from
+                    height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text
+                    cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit</li>
                 </ul>
               </div>
             </li>
@@ -120,7 +123,7 @@
     <div>
       <navbar placement="top" type="inverse">
         <a slot="brand" href="/" title="Home" class="navbar-brand">Markbind Test Site</a>
-        <li><a href="/test_site/bugs/index.html">Open Bugs</a></li>
+        <li><a class="nav-link" href="/test_site/bugs/index.html">Open Bugs</a></li>
       </navbar>
     </div>
     <div class="website-content">
@@ -206,6 +209,8 @@ specification that specifies how the product will address the requirements. </sp
 </body>
 <script src="markbind\js\vue.min.js"></script>
 <script src="markbind\js\vue-strap.min.js"></script>
+<script src="markbind\js\polyfill.min.js"></script>
+<script src="markbind\js\bootstrap-vue.min.js"></script>
 <script>
     const baseUrl = '/test_site'
 </script>

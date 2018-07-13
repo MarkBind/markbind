@@ -19,7 +19,7 @@
   * Nested Dropdown Title 
     * Hello Doge Hello Doge :dog:
     * [**NESTED LINK** Home :house:]({{baseUrl}}/index.html)
-    * More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text More Long Long Text 
+    * Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit 
 
 * Test line break in navigation layout
   
