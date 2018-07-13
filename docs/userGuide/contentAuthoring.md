@@ -459,7 +459,7 @@ The above Markdown content will be rendered as:
   </li>
 </ul>
 
-The site navigation bar has [responsive properties](https://www.w3schools.com/html/html_responsive.asp), and will collapse to a menu button when the screen width is smaller than 768 pixels.
+The site navigation bar has [responsive properties](https://www.w3schools.com/html/html_responsive.asp), and will collapse to a menu button when the screen width is smaller than 1006 pixels.
 
 You are able to use [Markdown syntax](#supported-markdown-syntax), as well as [glyphicons](#glyphicons) to author your site navigation layout.
 
