@@ -9,7 +9,7 @@
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
   <panel expanded>
-    <p slot="header" class="panel-title">
+    <p slot="header" class="card-title">
       <i><strong>
         <span style="color:#FF0000;">R  </span>
         <span style="color:#FF7F00;">A  </span>
@@ -44,7 +44,7 @@
 
 ```html
 <panel expanded>
-  <p slot="header" class="panel-title">
+  <p slot="header" class="card-title">
     <i><strong>
       <span style="color:#FF0000;">R  </span>
       <span style="color:#FF7F00;">A  </span>
@@ -76,7 +76,7 @@
 ### Panel Slot Options
 Slot name | Default class | Notes
 --- | --- | --- 
-`header` | `panel-title` | Aligning text to the center of the panel is not possible, as the header element does not take up the entire container.
+`header` | `card-title` | Aligning text to the center of the panel is not possible, as the header element does not take up the entire container.
 
 ### Modal Slot Options
 When using slots for Modals, you need to add a single blank line before each `<modal>` tag, in order for the customization to render correctly.
