@@ -1,6 +1,6 @@
 # Navbar
 
-#### Navbar allows visitors of your website to navigate through pages easily.
+**Navbar allows visitors of your website to navigate through pages easily.**
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>

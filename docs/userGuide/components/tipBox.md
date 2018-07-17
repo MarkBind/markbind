@@ -1,10 +1,8 @@
 # TipBox
-<br>
 
-#### You can either use \<tip-box> or \<box>.
-<br>
+**You can either use \<tip-box> or \<box>.**
 
-#### TipBox comes with different built-in types.
+**TipBox comes with different built-in types.**
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -66,7 +64,7 @@
 </tip-box>
 <br>
 
-#### You can customize the TipBox's appearance.
+**You can customize the TipBox's appearance.**
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>

@@ -1,6 +1,6 @@
 # Modal
 
-#### Modals are to be used together with the [Trigger](#trigger) component for activation.
+**Modals are to be used together with the [Trigger](#trigger) component for activation.**
 
 ## Modal Options
 Name | type | Default | Description

@@ -1,6 +1,6 @@
 # Question
 
-#### Question component consists of a question body, a hint and an answer.
+**Question component consists of a question body, a hint and an answer.**
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -32,7 +32,7 @@
 </tip-box>
 <br>
 
-#### If you leave the hint and answer `<div>` blank, a default hint and answer will be provided instead.
+**If you leave the hint and answer `<div>` blank, a default hint and answer will be provided instead.**
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -56,7 +56,7 @@
 </tip-box>
 <br>
 
-#### Use the `has-input` attribute to add a text input box for users to enter their answer.
+**Use the `has-input` attribute to add a text input box for users to enter their answer.**
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -80,7 +80,7 @@
 </tip-box>
 <br>
 
-#### You are able to omit the hint or answer `<div>` independently, and they will not render.
+**You are able to omit the hint or answer `<div>` independently, and they will not render.**
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -126,7 +126,7 @@
 </tip-box>
 <br>
 
-#### Use the minimized Panel component to create and group questions inline. 
+**Use the minimized Panel component to create and group questions inline.**
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -166,7 +166,7 @@
 </tip-box>
 <br>
 
-#### Questions can also be loaded in from another file using Panel's `src` attribute.
+**Questions can also be loaded in from another file using Panel's `src` attribute.**
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
