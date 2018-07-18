@@ -185,3 +185,36 @@
         margin-left: 300px;
     }
 }
+
+/* Bootstrap extra small(xs) responsive breakpoint */
+@media screen and (max-width: 575.98px) {
+
+    #site-nav {
+        padding-right: 0;
+    }
+
+    #site-nav-btn-wrap {
+        padding: 0;
+        width: 0;
+    }
+
+    #page-content {
+        margin-left: 0;
+        padding: 0;
+    }
+
+    footer {
+        margin-left: -15px;
+    }
+
+    /* Site navigation open button toggle */
+
+    #site-nav.open {
+        border: none;
+        width: 0;
+    }
+
+    #site-nav-btn-wrap.open {
+        margin-left: 0;
+    }
+}
