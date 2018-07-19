@@ -23,7 +23,7 @@
 ## Pic Options
 Name | Type | Default | Description 
 --- | --- | --- | ---
-alt | `string` | | The alternative text of the image. Must be specified.
+alt | `string` | | **This must be specified.**<br>The alternative text of the image.
 height | `string` | | The height of the image in pixels.
-src | `string` | | Must be specified.
-width | `string` | | The width of the image in pixels.
+src | `string` | | **This must be specified.**<br>The URL of the image.
+width | `string` | | The width of the image in pixels.<br>If both width and height are specified, width takes priority over height. It is to maintain the image's aspect ratio.
