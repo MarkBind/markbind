@@ -1,7 +1,7 @@
 .website-content {
     margin: 12px auto 40px auto;
     max-width: 1000px;
-    overflow: hidden;
+    overflow-x: visible;
     width:90%;
 }
 
