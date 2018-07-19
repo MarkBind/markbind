@@ -1,6 +1,6 @@
 # Pic
 
-#### Pic allows you to add captions below the image.
+**Pic allows you to add captions below the image.**
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>

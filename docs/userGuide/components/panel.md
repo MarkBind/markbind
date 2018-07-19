@@ -1,6 +1,6 @@
 # Panel
 
-#### Panel is a flexible container that supports collapsing and expanding its content. It is expandable by default.
+**Panel is a flexible container that supports collapsing and expanding its content. It is expandable by default.**
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -20,7 +20,7 @@
 </tip-box>
 <br>
 
-#### With `minimized` attribute, panel is minimized into an inline block element. The `alt` attribute is for you to specify the minimized block header.
+**With `minimized` attribute, panel is minimized into an inline block element. The `alt` attribute is for you to specify the minimized block header.**
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -40,7 +40,7 @@
 </tip-box>
 <br>
 
-#### With `expanded` attribute, you can set the panels to be expanded when loaded in.
+**With `expanded` attribute, you can set the panels to be expanded when loaded in.**
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -60,7 +60,8 @@
 </tip-box>
 <br>
 
-#### Panel provides many types that change its appearance.
+**Panel provides many types that change its appearance.**
+
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -129,7 +130,7 @@
 </tip-box>
 <br>
 
-#### Show/Hide buttons using `no-switch` or `no-close`.
+**Show/Hide buttons using `no-switch` or `no-close`.**
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -161,7 +162,7 @@
 </tip-box>
 <br>
 
-#### Use markdown in the header (only inline level markdown are supported).
+**Use markdown in the header (only inline level markdown are supported).**
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -181,7 +182,7 @@
 </tip-box>
 <br>
 
-#### If `src` attribute is provided, the panel will take content from the 'src' specified and add it to the Panel body.
+**If `src` attribute is provided, the panel will take content from the `src` specified and add it to the Panel body.**
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -197,7 +198,7 @@
 </tip-box>
 <br>
 
-#### If `popup-url` attribute is provided, a popup button will be shown. If clicked, it opens the specified url in a new window.
+**If `popup-url` attribute is provided, a popup button will be shown. If clicked, it opens the specified url in a new window.**
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -217,7 +218,7 @@
 </tip-box>
 <br>
 
-#### If `preload` attribute is provided, the panel body will load the HTML when the page renders instead of after being expanded.
+**If `preload` attribute is provided, the panel body will load the HTML when the page renders instead of after being expanded.**
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -237,7 +238,7 @@
 </tip-box>
 <br>
 
-#### You can nest Panels or other components within a Panel.
+**You can nest Panels or other components within a Panel.**
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>

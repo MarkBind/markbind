@@ -2,9 +2,7 @@
 
 ## Rich formatted text in headings and titles
 
-<p style="font-size:18px;">
-  Using the normal syntax, you are only able to use markdown formatting on headings. If you would like more styling options, you can define an element within the component that acts as your heading. This is done by adding a <md>`slot`</md> attribute with the correct name to that element.
-</p>
+Using the normal syntax, you are only able to use markdown formatting on headings. If you would like more styling options, you can define an element within the component that acts as your heading. This is done by adding a <md>`slot`</md> attribute with the correct name to that element.
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
