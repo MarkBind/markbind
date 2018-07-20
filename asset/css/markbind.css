@@ -1,5 +1,7 @@
 blockquote {
-    font-size: 14px;
+    border-left: 0.25em solid #dfe2e5;
+    color: #6a737d;
+    padding: 0 1rem;
 }
 
 code {
