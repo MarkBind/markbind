@@ -1,9 +1,20 @@
 blockquote {
-    font-size: 14px;
+    border-left: 0.25em solid #dfe2e5;
+    color: #6a737d;
+    padding: 0 1rem;
 }
 
 code {
     word-break: normal;
+}
+
+pre > code.hljs {
+    -webkit-background-clip: padding-box; /* for Safari */
+    background: ghostwhite;
+    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+    border: 1px solid rgb(200, 200, 200);
+    border: 1px solid rgba(200, 200, 200, 0.3);
+    border-radius: 5px;
 }
 
 .btn:active,

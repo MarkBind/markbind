@@ -122,45 +122,47 @@
   &quot;headingIndexingLevel&quot;: 4
 }
 </code></pre>
-        <table class="markbind-table table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>Variable</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>baseUrl</strong></td>
-              <td>The base url relative to your domain. Default: <code></code> (empty). For example, if you are using Github Pages to host your deployed website and it is published at <code>https://markbind.github.io/site-demo-cs2103</code>, then your <code>baseUrl</code>                would be <code>/site-demo-cs2103</code>. You can use this variable for <a href="contentAuthoring.html#specifying-path-reference">specifying path reference</a> of images and links. <strong>You may need to change the <code>baseUrl</code> when deploying to a different repo.</strong></td>
-            </tr>
-            <tr>
-              <td><strong>faviconPath</strong></td>
-              <td>The location of the favicon. Default: <code>favicon.ico</code>. If the favicon was recently changed, you may need to force-refresh to see the new image.</td>
-            </tr>
-            <tr>
-              <td><strong>titlePrefix</strong></td>
-              <td>The prefix for all page titles. The separator <code>-</code> will be inserted by MarkBind.</td>
-            </tr>
-            <tr>
-              <td><strong>pages</strong></td>
-              <td>An array of pages to be rendered. The <code>src</code> is the file; <code>title</code> is the page title for the generated web page. Titles specified here take priority over titles specified in the <a href="contentAuthoring.html#front-matter">front matter</a>                of individual pages. Alternatively, <code>glob</code> can be used to define a file pattern. If <code>title</code> is not specified in the front matter, the page will have <code>titlePrefix</code> as its title. <code>&quot;searchable&quot;: &quot;no&quot;</code>                can be used to specify pages to be excluded from searching. If you need to exclude pages covered in both page entry and glob entry, you need to specify <code>&quot;searchable&quot;: &quot;no&quot;</code> in page entry.</td>
-            </tr>
-            <tr>
-              <td><strong>ignore</strong></td>
-              <td>An array of file patterns to be ignored. By default, MarkBind will copy all the files as assets into the output folder. The ignore pattern follows the <a href="https://git-scm.com/docs/gitignore#_pattern_format">glob pattern used in .gitignore</a>.
-                For example, <code>*.md</code> ignores all markdown source files. You may want to ignore the Git directory <code>.git/*</code>.</td>
-            </tr>
-            <tr>
-              <td><strong>deploy</strong></td>
-              <td>The settings for <a href="ghpagesDeployment.html">auto deployment to Github pages</a>. The <code>message</code> is the commit message used for the deployment commit.</td>
-            </tr>
-            <tr>
-              <td><strong>headingIndexingLevel</strong></td>
-              <td>The level of headings to be indexed for searching. Default: <code>3</code>.</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="markbind-table table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Variable</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>baseUrl</strong></td>
+                <td>The base url relative to your domain. Default: <code></code> (empty). For example, if you are using Github Pages to host your deployed website and it is published at <code>https://markbind.github.io/site-demo-cs2103</code>, then your <code>baseUrl</code>                  would be <code>/site-demo-cs2103</code>. You can use this variable for <a href="contentAuthoring.html#specifying-path-reference">specifying path reference</a> of images and links. <strong>You may need to change the <code>baseUrl</code> when deploying to a different repo.</strong></td>
+              </tr>
+              <tr>
+                <td><strong>faviconPath</strong></td>
+                <td>The location of the favicon. Default: <code>favicon.ico</code>. If the favicon was recently changed, you may need to force-refresh to see the new image.</td>
+              </tr>
+              <tr>
+                <td><strong>titlePrefix</strong></td>
+                <td>The prefix for all page titles. The separator <code>-</code> will be inserted by MarkBind.</td>
+              </tr>
+              <tr>
+                <td><strong>pages</strong></td>
+                <td>An array of pages to be rendered. The <code>src</code> is the file; <code>title</code> is the page title for the generated web page. Titles specified here take priority over titles specified in the <a href="contentAuthoring.html#front-matter">front matter</a>                  of individual pages. Alternatively, <code>glob</code> can be used to define a file pattern. If <code>title</code> is not specified in the front matter, the page will have <code>titlePrefix</code> as its title. <code>&quot;searchable&quot;: &quot;no&quot;</code>                  can be used to specify pages to be excluded from searching. If you need to exclude pages covered in both page entry and glob entry, you need to specify <code>&quot;searchable&quot;: &quot;no&quot;</code> in page entry.</td>
+              </tr>
+              <tr>
+                <td><strong>ignore</strong></td>
+                <td>An array of file patterns to be ignored. By default, MarkBind will copy all the files as assets into the output folder. The ignore pattern follows the <a href="https://git-scm.com/docs/gitignore#_pattern_format">glob pattern used in .gitignore</a>.
+                  For example, <code>*.md</code> ignores all markdown source files. You may want to ignore the Git directory <code>.git/*</code>.</td>
+              </tr>
+              <tr>
+                <td><strong>deploy</strong></td>
+                <td>The settings for <a href="ghpagesDeployment.html">auto deployment to Github pages</a>. The <code>message</code> is the commit message used for the deployment commit.</td>
+              </tr>
+              <tr>
+                <td><strong>headingIndexingLevel</strong></td>
+                <td>The level of headings to be indexed for searching. Default: <code>3</code>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -168,7 +170,7 @@
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.9.0</a> on Fri, 13 Jul 2018 07:31:43 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.9.1</a> on Fri, 20 Jul 2018 07:33:23 GMT]</small></div>
 </footer>
 </div>
 </body>
