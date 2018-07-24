@@ -83,3 +83,26 @@ Slot name | Default class | Notes
 --- | --- | ---
 `modal-header` | `modal-title` |
 `modal-footer` | `modal-footer` | Specifying `modal-footer` will override the `ok-text` attribute, and the OK button will not render.
+
+## Insert custom classes into components
+
+Every component documented in our user guide allows you to insert your own defined CSS classes.
+This is done by adding the `add-class` attribute to a component along with the desired class names.
+
+<tip-box border-left-color="#00B0F0">
+  <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+  <tip-box type="info" add-class="font-italic text-center text-warning">
+    Easily apply Bootstrap classes without using a wrapper!
+  </tip-box>
+</tip-box>
+
+<tip-box border-left-color="black">
+<i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+
+```html
+<tip-box type="info" add-class="font-italic text-center text-warning">
+  Easily apply Bootstrap classes without using a wrapper!
+</tip-box>
+```
+</tip-box>
+<br>
