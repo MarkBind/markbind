@@ -2,6 +2,12 @@
 
 Vue.use(VueStrap);
 
+function scrollToUrlAnchorHeading() {
+  if (window.location.hash) {
+    jQuery(window.location.hash)[0].scrollIntoView();
+  }
+}
+
 function setupSiteNav() {
   // Add event listener for site-nav-btn to toggle itself and site navigation elements.
   const siteNavBtn = document.getElementById('site-nav-btn');
@@ -29,6 +35,9 @@ function setup() {
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
     el: '#app',
+    mounted() {
+      scrollToUrlAnchorHeading();
+    },
   });
   setupSiteNav();
 }
@@ -52,6 +61,9 @@ function setupWithSearch(siteData) {
         const anchor = match.heading ? `#${match.heading.id}` : '';
         window.location = `${page}${anchor}`;
       },
+    },
+    mounted() {
+      scrollToUrlAnchorHeading();
     },
   });
   setupSiteNav();
