@@ -2,6 +2,21 @@
   "pages": [
     {
       "headings": {
+        "panel-without-src-header": "Panel without src header",
+        "panel-with-normal-src-header": "Panel with normal src header",
+        "panel-with-src-from-a-page-segment-header": "Panel with src from a page segment header",
+        "boilerplate-referencing": "boilerplate referencing",
+        "referencing-specified-path-in-boilerplate": "Referencing specified path in boilerplate",
+        "outer-nested-panel": "Outer nested panel",
+        "panel-with-src-from-another-markbind-site-header": "Panel with src from another Markbind site header",
+        "panel-without-src-content-heading": "panel without src content heading",
+        "panel-normal-source-content-headings": "panel normal source content headings",
+        "panel-source-segment-content-headings": "panel source segment content headings",
+        "boilerplate-test-for-panel-heading": "boilerplate test for panel heading",
+        "heading-in-panel-boilerplate": "heading in panel boilerplate",
+        "nested-panel": "Nested panel",
+        "normal-panel-content-heading": "normal panel content heading",
+        "feature-list": "Feature list",
         "navigation": "Navigation",
         "testing-site-nav": "Testing Site-Nav",
         "variables-that-reference-another-variable": "Variables that reference another variable",
@@ -16,7 +31,11 @@
         "nested-include": "Nested include",
         "html-include": "HTML include",
         "include-from-another-markbind-site": "Include from another Markbind site",
-        "feature-list": "Feature list"
+        "panel-without-src": "Panel without src",
+        "panel-with-normal-src": "Panel with normal src",
+        "panel-with-src-from-a-page-segment": "Panel with src from a page segment",
+        "panel-with-boilerplate": "Panel with boilerplate",
+        "panel-with-src-from-another-markbind-site": "panel with src from another Markbind site"
       },
       "title": "Hello World",
       "footer": "footer.md",

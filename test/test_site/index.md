@@ -38,4 +38,33 @@ siteNav: site-nav.md
 # Include from another Markbind site
 <include src="sub_site/index.md" />
 
+# Panel without src
+<panel header="## Panel without src header" expanded>
+<markdown>
+### panel without src content heading
+</markdown> 
+</panel>
+
+# Panel with normal src
+<panel header="## Panel with normal src header" src="testPanels/PanelNormalSource.md" expanded>
+</panel>    
+
+# Panel with src from a page segment
+<panel header="## Panel with src from a page segment header" src="testPanels/PanelSourceContainsSegment.md#segment" expanded>
+</panel>
+
+# Panel with boilerplate 
+<panel header="## boilerplate referencing" src="testPanels/boilerTestPanel.md"  boilerplate expanded>
+</panel>
+
+<panel header="## Referencing specified path in boilerplate" src="testPanels/notInside.md" boilerplate="folder/panelBoilerplate.md" expanded>
+</panel>
+
+# Nested panel
+<panel header="## Outer nested panel" src="testPanels/NestedPanel.md" expanded>
+</panel>
+
+# panel with src from another Markbind site
+<panel header="## Panel with src from another Markbind site header" src="sub_site/index.md" expanded>
+</panel>
 </div>

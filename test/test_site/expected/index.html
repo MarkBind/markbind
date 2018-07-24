@@ -196,6 +196,23 @@ specification that specifies how the product will address the requirements. </sp
           <li>Timer – Additional fixed time restriction on the player.</li>
         </ol>
         <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></div>
+      <h1 id="panel-without-src">Panel without src</h1>
+      <panel header="## Panel without src header" expanded="">
+        <div>
+          <h3 id="panel-without-src-content-heading">panel without src content heading</h3>
+        </div>
+      </panel>
+      <h1 id="panel-with-normal-src">Panel with normal src</h1>
+      <panel header="## Panel with normal src header" src="/test_site\testPanels\PanelNormalSource._include_.html" expanded=""></panel>
+      <h1 id="panel-with-src-from-a-page-segment">Panel with src from a page segment</h1>
+      <panel header="## Panel with src from a page segment header" src="/test_site\testPanels\PanelSourceContainsSegment._include_.html#segment" expanded="" fragment="segment"></panel>
+      <h1 id="panel-with-boilerplate">Panel with boilerplate</h1>
+      <panel header="## boilerplate referencing" src="/test_site\testPanels\boilerTestPanel._include_.html" expanded=""></panel>
+      <panel header="## Referencing specified path in boilerplate" src="/test_site\testPanels\notInside._include_.html" expanded=""></panel>
+      <h1 id="nested-panel">Nested panel</h1>
+      <panel header="## Outer nested panel" src="/test_site\testPanels\NestedPanel._include_.html" expanded=""></panel>
+      <h1 id="panel-with-src-from-another-markbind-site">panel with src from another Markbind site</h1>
+      <panel header="## Panel with src from another Markbind site header" src="/test_site\sub_site\index._include_.html" expanded=""></panel>
     </div>
   </div>
 </div>
