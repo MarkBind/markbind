@@ -75,7 +75,7 @@ test('Site Init in existing directory generates correct assets', async () => {
   await Site.initSite('');
   const paths = Object.keys(fs.vol.toJSON());
   const originalNumFiles = Object.keys(json).length;
-  const expectedNumBuilt = 6;
+  const expectedNumBuilt = 7;
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
   // _boilerplates
@@ -83,6 +83,9 @@ test('Site Init in existing directory generates correct assets', async () => {
 
   // footer.md
   expect(fs.readFileSync(path.resolve('_markbind/footers/footer.md'), 'utf8')).toEqual(FOOTER_MD_DEFAULT);
+
+  // head folder
+  expect(fs.existsSync(path.resolve('_markbind/head'), 'utf8')).toEqual(true);
 
   // site-nav.md
   expect(fs.readFileSync(path.resolve('_markbind/navigation/site-nav.md'), 'utf8'))
@@ -107,7 +110,7 @@ test('Site Init in directory which does not exist generates correct assets', asy
   await Site.initSite('newDir');
   const paths = Object.keys(fs.vol.toJSON());
   const originalNumFiles = Object.keys(json).length;
-  const expectedNumBuilt = 6;
+  const expectedNumBuilt = 7;
 
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
@@ -116,6 +119,9 @@ test('Site Init in directory which does not exist generates correct assets', asy
   // footer.md
   expect(fs.readFileSync(path.resolve('newDir/_markbind/footers/footer.md'), 'utf8'))
     .toEqual(FOOTER_MD_DEFAULT);
+
+  // head folder
+  expect(fs.existsSync(path.resolve('newDir/_markbind/head'), 'utf8')).toEqual(true);
 
   // site-nav.md
   expect(fs.readFileSync(path.resolve('newDir/_markbind/navigation/site-nav.md'), 'utf8'))
