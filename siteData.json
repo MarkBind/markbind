@@ -79,6 +79,7 @@
         "use-components": "Use Components",
         "include-contents": "Include Contents",
         "front-matter": "Front Matter",
+        "inserting-content-into-a-pages-head-element": "Inserting content into a page's head element",
         "site-navigation": "Site Navigation",
         "using-footers": "Using Footers"
       },
@@ -146,7 +147,8 @@
         "advanced-tips-and-tricks": "Advanced Tips and Tricks",
         "rich-formatted-text-in-headings-and-titles": "Rich formatted text in headings and titles",
         "panel-slot-options": "Panel Slot Options",
-        "modal-slot-options": "Modal Slot Options"
+        "modal-slot-options": "Modal Slot Options",
+        "insert-custom-classes-into-components": "Insert custom classes into components"
       },
       "footer": "userGuideFooter.md",
       "siteNav": "userGuideSections.md",
@@ -167,6 +169,8 @@
     },
     {
       "headings": {
+        "previewing-site-on-netlify-with-the-latest-version-of-markbind": "Previewing site on Netlify with the latest version of MarkBind",
+        "previewing-site-on-netlify-with-a-specific-version-of-markbind": "Previewing site on Netlify with a specific version of MarkBind",
         "user-guide": "User Guide"
       },
       "footer": "userGuideFooter.md",

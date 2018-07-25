@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="..\markbind\css\markbind.css">
     <link rel="stylesheet" href="..\markbind\css\site-nav.css">
     
+    
 </head>
 <body>
 <div id="app" class="container-fluid">
@@ -230,10 +231,10 @@
           aria-hidden="true"></span></p>
       <h4 id="timestamp">Timestamp</h4>
       <p>Use <code>{<span></span>{timestamp}}</code> to insert a UTC time snippet that indicates when the page was generated.</p>
-      <p><code>{<span></span>{timestamp}}</code> will be rendered as: Fri, 20 Jul 2018 07:33:23 GMT</p>
+      <p><code>{<span></span>{timestamp}}</code> will be rendered as: Wed, 25 Jul 2018 03:21:07 GMT</p>
       <h4 id="markbind-link">MarkBind Link</h4>
       <p>Reference or support MarkBind by using <code>{<span></span>{MarkBind}}</code> to insert a link to our website.</p>
-      <p><code>{<span></span>{MarkBind}}</code> will be rendered as: <a href="https://markbind.github.io/markbind/">MarkBind 1.9.1</a></p>
+      <p><code>{<span></span>{MarkBind}}</code> will be rendered as: <a href="https://markbind.github.io/markbind/">MarkBind 1.9.2</a></p>
       <h3 id="add-your-own-variables">Add your own variables</h3>
       <p>In <code>_markbind/variables.md</code>, you can define your own variables that can be used anywhere in your site. The format is as follows.</p>
       <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"year"</span>&gt;</span>2018<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
@@ -373,6 +374,48 @@ Yes!
       <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"matterDefinition.md#bst"</span> /&gt;</span>
 </code></pre>
       <p>This will result in <code>index.md</code> having the title <code>Binary Search Tree</code> and the specified keywords in order for it to be looked up through the search bar.</p>
+      <h3 id="inserting-content-into-a-pages-head-element">Inserting content into a page's head element</h3>
+      <p>While authoring your website, you may want to have your own CSS or Javascript files to be included in a page.</p>
+      <ul>
+        <li>
+          <p>Start by creating a head file with Markdown extension (<code>.md</code>) in the <code>_markbind/head</code> folder.</p>
+          <ul>
+            <li>More than one head file can be created for different pages.</li>
+          </ul>
+        </li>
+        <li>
+          <p>Author your <code>&lt;style&gt;</code> elements for CSS files and <code>&lt;link&gt;</code> elements for Javascript files using HTML as shown below.</p>
+          <ul>
+            <li>Ensure that your URLs start from the root directory, by using <code>{<span></span>{baseUrl}}/</code> when you are referencing your files.</li>
+          </ul>
+        </li>
+      </ul>
+      <pre><code class="hljs css"><span class="hljs-comment">/* In yourCSSFolder/subfolder/myCustomStyle.css */</span>
+<span class="hljs-selector-tag">p</span> {
+    <span class="hljs-attribute">background</span>: lightskyblue;
+}
+</code></pre>
+      <pre><code class="hljs js"><span class="hljs-comment">// In yourScriptFolder/myCustomScript.js</span>
+alert(<span class="hljs-string">"Welcome to my website!"</span>); 
+</code></pre>
+      <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- In _markbind/head/compiledRef.md --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/markbind/yourCSSFolder/subfolder/myCustomStyle.css"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/markbind/yourScriptFolder/myCustomScript.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+      <ul>
+        <li>Specify the head file in pages that uses it, by specifying the <a href="#front-matter">front matter</a> <code>head</code> attribute.</li>
+      </ul>
+      <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- In the page you want the head file to be in --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+  head: compiledRef.md
+<span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
+</code></pre>
+      <p>The head file contents will be placed near the end of the page's head tag. Your head file will override existing Bootstrap and MarkBind CSS styles if there is an overlap of selectors.</p>
+      <p>Note:</p>
+      <ul>
+        <li>You may specify raw <code>.js</code> or <code>.css</code> files as your head file if you wish to do so.</li>
+        <li>Only one head file can be specified in a page, and you <strong>must</strong> include its file extension.</li>
+      </ul>
       <h3 id="site-navigation">Site Navigation</h3>
       <p>A site navigation bar is a fixed menu on the left side of your page contents, that allows the viewer to navigate your site pages. The menu has a fixed width of 300 pixels for its contents. If you would like to have a site navigation bar for your
         site, you may create one easily using Markdown.</p>
@@ -519,7 +562,7 @@ Yes!
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.9.1</a> on Fri, 20 Jul 2018 07:33:23 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.9.2</a> on Wed, 25 Jul 2018 03:21:07 GMT]</small></div>
 </footer>
 </div>
 </body>
