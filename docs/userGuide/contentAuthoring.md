@@ -375,6 +375,50 @@ Front matter can also be included from a separate file, just like how content ca
 
 This will result in `index.md` having the title `Binary Search Tree` and the specified keywords in order for it to be looked up through the search bar.
 
+### Inserting content into a page's head element
+
+While authoring your website, you may want to have your own CSS or Javascript files to be included in a page.
+
+- Start by creating a head file with Markdown extension (`.md`) in the `_markbind/head` folder.
+    - More than one head file can be created for different pages.
+
+- Author your `<style>` elements for CSS files and `<link>` elements for Javascript files using HTML as shown below.
+    - Ensure that your URLs start from the root directory, by using <code>{<span></span>{baseUrl}}/</code> when you are referencing your files.
+
+```css
+/* In yourCSSFolder/subfolder/myCustomStyle.css */
+p {
+    background: lightskyblue;
+}
+```
+
+```js
+// In yourScriptFolder/myCustomScript.js
+alert("Welcome to my website!"); 
+```
+
+```html
+<!-- In _markbind/head/compiledRef.md -->
+<link rel="stylesheet" href="{{baseUrl}}/yourCSSFolder/subfolder/myCustomStyle.css">
+<script src="{{baseUrl}}/yourScriptFolder/myCustomScript.js"></script>
+```
+
+- Specify the head file in pages that uses it, by specifying the [front matter](#front-matter) `head` attribute.
+
+```html
+<!-- In the page you want the head file to be in -->
+<frontmatter>
+  head: compiledRef.md
+</frontmatter>
+```
+
+The head file contents will be placed near the end of the page's head tag.
+Your head file will override existing Bootstrap and MarkBind CSS styles if there is an overlap of selectors. 
+
+Note:
+  - You may specify raw `.js` or `.css` files as your head file if you wish to do so.
+  - Only one head file can be specified in a page, and you **must** include its file extension.
+
 ### Site Navigation
 
 A site navigation bar is a fixed menu on the left side of your page contents, that allows the viewer to navigate your site pages. 
