@@ -1,1 +1,1 @@
-### normal panel content heading
+### Normal panel content heading
