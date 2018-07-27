@@ -42,7 +42,7 @@ head: myCustomHead.md
 # Panel without src
 <panel header="## Panel without src header" expanded>
 <markdown>
-### panel without src content heading
+### Panel without src content heading
 </markdown> 
 </panel>
 
@@ -55,7 +55,7 @@ head: myCustomHead.md
 </panel>
 
 # Panel with boilerplate 
-<panel header="## boilerplate referencing" src="testPanels/boilerTestPanel.md"  boilerplate expanded>
+<panel header="## Boilerplate referencing" src="testPanels/boilerTestPanel.md"  boilerplate expanded>
 </panel>
 
 <panel header="## Referencing specified path in boilerplate" src="testPanels/notInside.md" boilerplate="folder/panelBoilerplate.md" expanded>
@@ -65,7 +65,17 @@ head: myCustomHead.md
 <panel header="## Outer nested panel" src="testPanels/NestedPanel.md" expanded>
 </panel>
 
-# panel with src from another Markbind site
+# Nested panel without src
+<panel header="## Outer nested panel without src" expanded>
+
+  ## Panel content of outer nested panel
+  <panel header="## Inner panel header without src" expanded>
+  
+  ## Panel content of inner nested panel
+  </panel>
+</panel>
+
+# Panel with src from another Markbind site
 <panel header="## Panel with src from another Markbind site header" src="sub_site/index.md" expanded>
 </panel>
 </div>
@@ -79,3 +89,13 @@ head: myCustomHead.md
   ## Panel content inside modal
   </panel>
 </modal>
+
+# Unexpanded panel
+<panel header="## Unexpanded panel header">
+
+  ## Panel content of unexpanded panel should not appear in search data
+  <panel header="## Panel header inside unexpanded panel should not appear in search data" expanded>
+  
+  ## Panel content inside unexpanded panel should not appear in search data
+  </panel>
+</panel>
