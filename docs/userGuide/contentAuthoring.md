@@ -435,6 +435,7 @@ If you would like to have a site navigation bar for your site, you may create on
     - Ensure you wrap your navigation layout in a `<navigation>` tag for MarkBind to render it properly. Also, there should only be one `<navigation>` tag in your file.
     - You may author additional HTML and Markdown content outside the `<navigation>` tag.
     - The `<navigation>` tag is also optional, allowing you to author everything in HTML and Markdown syntax.
+    - Use `:expanded:` keyword at the end of Dropdown titles to expand them by default. 
 
 ```html
 <!-- In _markbind/navigation/mySiteNav.md -->
@@ -442,7 +443,7 @@ If you would like to have a site navigation bar for your site, you may create on
 * [Home :house:]({{baseUrl}}/index.html)
 * Dropdown title :pencil2: <!-- Nested list items will be placed inside a Dropdown menu -->
   * [Dropdown link one](https://www.google.com/)
-  * Nested Dropdown title :triangular_ruler:
+  * Expanded Nested Dropdown title :triangular_ruler: :expanded: <!-- specify :expanded: to have it expand by default -->
     * [**Nested** Dropdown link one](https://www.google.com/)
     * [**Nested** Dropdown link two](https://www.google.com/)
   * [Dropdown link two](https://www.google.com/)
@@ -474,10 +475,10 @@ The above Markdown content will be rendered as:
       <ul style="list-style-type: none; margin-left:-1em">
         <li style="margin-top: 10px"><a href="https://www.google.com/">Dropdown link one</a></li>
         <li style="margin-top: 10px">
-          <button class="dropdown-btn">Nested Dropdown title 📐
-            <i class="dropdown-btn-icon">
+          <button class="dropdown-btn dropdown-btn-open">Expanded Nested Dropdown title 📐
+            <i class="dropdown-btn-icon rotate-icon">
             <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
-          <div class="dropdown-container">
+          <div class="dropdown-container dropdown-container-open">
             <ul style="list-style-type: none; margin-left:-1em">
               <li style="margin-top: 10px"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link one</a></li>
               <li style="margin-top: 10px"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link two</a></li>
@@ -507,7 +508,7 @@ The above Markdown content will be rendered as:
 
 The site navigation bar has [responsive properties](https://www.w3schools.com/html/html_responsive.asp), and will collapse to a menu button when the screen width is smaller than 992 pixels. It will then be completely hidden when the screen size is smaller than 576 pixels.
 
-You are able to use [Markdown syntax](#supported-markdown-syntax), as well as [glyphicons](#glyphicons) to author your site navigation layout.
+You are able to use [Markdown syntax](#supported-markdown-syntax), [Glyphicons](#glyphicons) and [Font Awesome icons](#font-awesome-icons) to author your site navigation layout.
 
 Note:
 - Only one navigation file can be specified in a page, and you must include its file extension.
