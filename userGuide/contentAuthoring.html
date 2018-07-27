@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -231,10 +232,10 @@
           aria-hidden="true"></span></p>
       <h4 id="timestamp">Timestamp</h4>
       <p>Use <code>{<span></span>{timestamp}}</code> to insert a UTC time snippet that indicates when the page was generated.</p>
-      <p><code>{<span></span>{timestamp}}</code> will be rendered as: Wed, 25 Jul 2018 03:21:07 GMT</p>
+      <p><code>{<span></span>{timestamp}}</code> will be rendered as: Fri, 27 Jul 2018 08:15:27 GMT</p>
       <h4 id="markbind-link">MarkBind Link</h4>
       <p>Reference or support MarkBind by using <code>{<span></span>{MarkBind}}</code> to insert a link to our website.</p>
-      <p><code>{<span></span>{MarkBind}}</code> will be rendered as: <a href="https://markbind.github.io/markbind/">MarkBind 1.9.2</a></p>
+      <p><code>{<span></span>{MarkBind}}</code> will be rendered as: <a href="https://markbind.github.io/markbind/">MarkBind 1.10.0</a></p>
       <h3 id="add-your-own-variables">Add your own variables</h3>
       <p>In <code>_markbind/variables.md</code>, you can define your own variables that can be used anywhere in your site. The format is as follows.</p>
       <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"year"</span>&gt;</span>2018<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
@@ -389,6 +390,13 @@ Yes!
             <li>Ensure that your URLs start from the root directory, by using <code>{<span></span>{baseUrl}}/</code> when you are referencing your files.</li>
           </ul>
         </li>
+        <li>
+          <p>All content is inserted near the bottom of the <code>&lt;head&gt;</code> tag by default.</p>
+          <ul>
+            <li>Use the <code>&lt;head-top&gt;</code> tag to specify content that you wish to place at the top of the <code>&lt;head&gt;</code> tag.</li>
+            <li>The <code>&lt;head-top&gt;</code> tag is optional, you may omit it from your head file if you do not use it.</li>
+          </ul>
+        </li>
       </ul>
       <pre><code class="hljs css"><span class="hljs-comment">/* In yourCSSFolder/subfolder/myCustomStyle.css */</span>
 <span class="hljs-selector-tag">p</span> {
@@ -399,8 +407,11 @@ Yes!
 alert(<span class="hljs-string">"Welcome to my website!"</span>); 
 </code></pre>
       <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- In _markbind/head/compiledRef.md --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head-top</span>&gt;</span>  <span class="hljs-comment">&lt;!-- HTML within this tag will be placed first, directly after the starting &lt;head&gt; tag --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/markbind/yourScriptFolder/myCustomScript.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head-top</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- Any content outside the &lt;head-top&gt; tag will default to the bottom position --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/markbind/yourCSSFolder/subfolder/myCustomStyle.css"</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/markbind/yourScriptFolder/myCustomScript.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
       <ul>
         <li>Specify the head file in pages that uses it, by specifying the <a href="#front-matter">front matter</a> <code>head</code> attribute.</li>
@@ -410,7 +421,7 @@ alert(<span class="hljs-string">"Welcome to my website!"</span>);
   head: compiledRef.md
 <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
 </code></pre>
-      <p>The head file contents will be placed near the end of the page's head tag. Your head file will override existing Bootstrap and MarkBind CSS styles if there is an overlap of selectors.</p>
+      <p>Style elements placed at the bottom will override existing Bootstrap and MarkBind CSS styles if there is an overlap of selectors.</p>
       <p>Note:</p>
       <ul>
         <li>You may specify raw <code>.js</code> or <code>.css</code> files as your head file if you wish to do so.</li>
@@ -434,6 +445,7 @@ alert(<span class="hljs-string">"Welcome to my website!"</span>);
             <li>Ensure you wrap your navigation layout in a <code>&lt;navigation&gt;</code> tag for MarkBind to render it properly. Also, there should only be one <code>&lt;navigation&gt;</code> tag in your file.</li>
             <li>You may author additional HTML and Markdown content outside the <code>&lt;navigation&gt;</code> tag.</li>
             <li>The <code>&lt;navigation&gt;</code> tag is also optional, allowing you to author everything in HTML and Markdown syntax.</li>
+            <li>Use <code>:expanded:</code> keyword at the end of Dropdown titles to expand them by default.</li>
           </ul>
         </li>
       </ul>
@@ -442,7 +454,7 @@ alert(<span class="hljs-string">"Welcome to my website!"</span>);
 * [Home :house:](/markbind/index.html)
 * Dropdown title :pencil2: <span class="hljs-comment">&lt;!-- Nested list items will be placed inside a Dropdown menu --&gt;</span>
   * [Dropdown link one](https://www.google.com/)
-  * Nested Dropdown title :triangular_ruler:
+  * Expanded Nested Dropdown title :triangular_ruler: :expanded: <span class="hljs-comment">&lt;!-- specify :expanded: to have it expand by default --&gt;</span>
     * [**Nested** Dropdown link one](https://www.google.com/)
     * [**Nested** Dropdown link two](https://www.google.com/)
   * [Dropdown link two](https://www.google.com/)
@@ -471,10 +483,10 @@ alert(<span class="hljs-string">"Welcome to my website!"</span>);
             <ul style="list-style-type: none; margin-left:-1em">
               <li style="margin-top: 10px"><a href="https://www.google.com/">Dropdown link one</a></li>
               <li style="margin-top: 10px">
-                <button class="dropdown-btn">Nested Dropdown title 📐
-            <i class="dropdown-btn-icon">
+                <button class="dropdown-btn dropdown-btn-open">Expanded Nested Dropdown title 📐
+            <i class="dropdown-btn-icon rotate-icon">
             <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
-                <div class="dropdown-container">
+                <div class="dropdown-container dropdown-container-open">
                   <ul style="list-style-type: none; margin-left:-1em">
                     <li style="margin-top: 10px"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link one</a></li>
                     <li style="margin-top: 10px"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link two</a></li>
@@ -503,7 +515,7 @@ alert(<span class="hljs-string">"Welcome to my website!"</span>);
       </ul>
       <p>The site navigation bar has <a href="https://www.w3schools.com/html/html_responsive.asp">responsive properties</a>, and will collapse to a menu button when the screen width is smaller than 992 pixels. It will then be completely hidden when the screen
         size is smaller than 576 pixels.</p>
-      <p>You are able to use <a href="#supported-markdown-syntax">Markdown syntax</a>, as well as <a href="#glyphicons">glyphicons</a> to author your site navigation layout.</p>
+      <p>You are able to use <a href="#supported-markdown-syntax">Markdown syntax</a>, <a href="#glyphicons">Glyphicons</a> and <a href="#font-awesome-icons">Font Awesome icons</a> to author your site navigation layout.</p>
       <p>Note:</p>
       <ul>
         <li>Only one navigation file can be specified in a page, and you must include its file extension.</li>
@@ -562,7 +574,7 @@ alert(<span class="hljs-string">"Welcome to my website!"</span>);
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.9.2</a> on Wed, 25 Jul 2018 03:21:07 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.10.0</a> on Fri, 27 Jul 2018 08:15:27 GMT]</small></div>
 </footer>
 </div>
 </body>
