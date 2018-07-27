@@ -385,6 +385,10 @@ While authoring your website, you may want to have your own CSS or Javascript fi
 - Author your `<style>` elements for CSS files and `<link>` elements for Javascript files using HTML as shown below.
     - Ensure that your URLs start from the root directory, by using <code>{<span></span>{baseUrl}}/</code> when you are referencing your files.
 
+- All content is inserted near the bottom of the `<head>` tag by default.
+    - Use the `<head-top>` tag to specify content that you wish to place at the top of the `<head>` tag.
+    - The `<head-top>` tag is optional, you may omit it from your head file if you do not use it. 
+
 ```css
 /* In yourCSSFolder/subfolder/myCustomStyle.css */
 p {
@@ -399,8 +403,11 @@ alert("Welcome to my website!");
 
 ```html
 <!-- In _markbind/head/compiledRef.md -->
+<head-top>  <!-- HTML within this tag will be placed first, directly after the starting <head> tag -->
+  <script src="{{baseUrl}}/yourScriptFolder/myCustomScript.js"></script>
+</head-top>
+<!-- Any content outside the <head-top> tag will default to the bottom position -->
 <link rel="stylesheet" href="{{baseUrl}}/yourCSSFolder/subfolder/myCustomStyle.css">
-<script src="{{baseUrl}}/yourScriptFolder/myCustomScript.js"></script>
 ```
 
 - Specify the head file in pages that uses it, by specifying the [front matter](#front-matter) `head` attribute.
@@ -412,8 +419,7 @@ alert("Welcome to my website!");
 </frontmatter>
 ```
 
-The head file contents will be placed near the end of the page's head tag.
-Your head file will override existing Bootstrap and MarkBind CSS styles if there is an overlap of selectors. 
+Style elements placed at the bottom will override existing Bootstrap and MarkBind CSS styles if there is an overlap of selectors. 
 
 Note:
   - You may specify raw `.js` or `.css` files as your head file if you wish to do so.
