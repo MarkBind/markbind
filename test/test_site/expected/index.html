@@ -215,6 +215,15 @@ specification that specifies how the product will address the requirements. </sp
       <h1 id="panel-with-src-from-another-markbind-site">panel with src from another Markbind site</h1>
       <panel header="## Panel with src from another Markbind site header" src="/test_site\sub_site\index._include_.html" expanded=""></panel>
     </div>
+    <h1 id="modal-with-panel-inside">Modal with panel inside</h1>
+    <p>
+      <trigger for="modal-with-panel">trigger</trigger>
+    </p>
+    <modal title="modal title with panel inside" id="modal-with-panel">
+      <panel header="## Panel inside modal" expanded="">
+        <h2 id="panel-content-inside-modal">Panel content inside modal</h2>
+      </panel>
+    </modal>
   </div>
 </div>
 <div id="flex-div"></div>

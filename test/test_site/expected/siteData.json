@@ -35,7 +35,8 @@
         "panel-with-normal-src": "Panel with normal src",
         "panel-with-src-from-a-page-segment": "Panel with src from a page segment",
         "panel-with-boilerplate": "Panel with boilerplate",
-        "panel-with-src-from-another-markbind-site": "panel with src from another Markbind site"
+        "panel-with-src-from-another-markbind-site": "panel with src from another Markbind site",
+        "modal-with-panel-inside": "Modal with panel inside"
       },
       "title": "Hello World",
       "footer": "footer.md",

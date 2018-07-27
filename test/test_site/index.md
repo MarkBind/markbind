@@ -69,3 +69,13 @@ head: myCustomHead.md
 <panel header="## Panel with src from another Markbind site header" src="sub_site/index.md" expanded>
 </panel>
 </div>
+
+# Modal with panel inside
+<trigger for="modal-with-panel">trigger</trigger>
+
+<modal title="modal title with panel inside" id="modal-with-panel">
+  <panel header="## Panel inside modal" expanded>
+  
+  ## Panel content inside modal
+  </panel>
+</modal>
