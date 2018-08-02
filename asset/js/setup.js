@@ -61,6 +61,7 @@ function setupWithSearch(siteData) {
         const page = `${baseUrl}/${match.src.replace('.md', '.html')}`;
         const anchor = match.heading ? `#${match.heading.id}` : '';
         window.location = `${page}${anchor}`;
+        scrollToUrlAnchorHeading();
       },
     },
     mounted() {
