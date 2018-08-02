@@ -2,48 +2,174 @@
   "pages": [
     {
       "headings": {
-        "panel-without-src-header": "Panel without src header",
-        "panel-with-normal-src-header": "Panel with normal src header",
-        "panel-with-src-from-a-page-segment-header": "Panel with src from a page segment header",
-        "boilerplate-referencing": "Boilerplate referencing",
-        "referencing-specified-path-in-boilerplate": "Referencing specified path in boilerplate",
-        "outer-nested-panel": "Outer nested panel",
-        "outer-nested-panel-without-src": "Outer nested panel without src",
-        "panel-with-src-from-another-markbind-site-header": "Panel with src from another Markbind site header",
-        "unexpanded-panel-header": "Unexpanded panel header",
-        "panel-without-src-content-heading": "Panel without src content heading",
-        "panel-normal-source-content-headings": "Panel normal source content headings",
-        "panel-source-segment-content-headings": "Panel source segment content headings",
-        "boilerplate-test-for-panel-heading": "boilerplate test for panel heading",
-        "heading-in-panel-boilerplate": "heading in panel boilerplate",
-        "nested-panel": "Nested panel",
-        "normal-panel-content-heading": "Normal panel content heading",
-        "inner-panel-header-without-src": "Inner panel header without src",
-        "panel-content-of-inner-nested-panel": "Panel content of inner nested panel",
-        "panel-content-of-outer-nested-panel": "Panel content of outer nested panel",
-        "feature-list": "Feature list",
-        "navigation": "Navigation",
-        "testing-site-nav": "Testing Site-Nav",
-        "variables-that-reference-another-variable": "Variables that reference another variable",
-        "normal-include": "Normal include",
-        "establishing-requirements": "Establishing Requirements",
-        "brainstorming": "Brainstorming",
-        "user-surveys": "User surveys",
-        "focus-groups": "Focus groups",
-        "include-segment": "Include segment",
-        "dynamic-include": "Dynamic include",
-        "boilerplate-include": "Boilerplate include",
-        "nested-include": "Nested include",
-        "html-include": "HTML include",
-        "include-from-another-markbind-site": "Include from another Markbind site",
-        "panel-without-src": "Panel without src",
-        "panel-with-normal-src": "Panel with normal src",
-        "panel-with-src-from-a-page-segment": "Panel with src from a page segment",
-        "panel-with-boilerplate": "Panel with boilerplate",
-        "modal-with-panel-inside": "Modal with panel inside",
-        "nested-panel-without-src": "Nested panel without src",
-        "panel-with-src-from-another-markbind-site": "Panel with src from another Markbind site",
-        "unexpanded-panel": "Unexpanded panel"
+        "panel-without-src-header": {
+          "text": "Panel without src header",
+          "level": "2"
+        },
+        "panel-with-normal-src-header": {
+          "text": "Panel with normal src header",
+          "level": "2"
+        },
+        "panel-with-src-from-a-page-segment-header": {
+          "text": "Panel with src from a page segment header",
+          "level": "2"
+        },
+        "boilerplate-referencing": {
+          "text": "Boilerplate referencing",
+          "level": "2"
+        },
+        "referencing-specified-path-in-boilerplate": {
+          "text": "Referencing specified path in boilerplate",
+          "level": "2"
+        },
+        "outer-nested-panel": {
+          "text": "Outer nested panel",
+          "level": "2"
+        },
+        "outer-nested-panel-without-src": {
+          "text": "Outer nested panel without src",
+          "level": "2"
+        },
+        "panel-with-src-from-another-markbind-site-header": {
+          "text": "Panel with src from another Markbind site header",
+          "level": "2"
+        },
+        "unexpanded-panel-header": {
+          "text": "Unexpanded panel header",
+          "level": "2"
+        },
+        "panel-without-src-content-heading": {
+          "text": "Panel without src content heading",
+          "level": "3"
+        },
+        "panel-normal-source-content-headings": {
+          "text": "Panel normal source content headings",
+          "level": "3"
+        },
+        "panel-source-segment-content-headings": {
+          "text": "Panel source segment content headings",
+          "level": "3"
+        },
+        "boilerplate-test-for-panel-heading": {
+          "text": "boilerplate test for panel heading",
+          "level": "3"
+        },
+        "heading-in-panel-boilerplate": {
+          "text": "heading in panel boilerplate",
+          "level": "3"
+        },
+        "nested-panel": {
+          "text": "Nested panel",
+          "level": "1"
+        },
+        "normal-panel-content-heading": {
+          "text": "Normal panel content heading",
+          "level": "3"
+        },
+        "inner-panel-header-without-src": {
+          "text": "Inner panel header without src",
+          "level": "2"
+        },
+        "panel-content-of-inner-nested-panel": {
+          "text": "Panel content of inner nested panel",
+          "level": "2"
+        },
+        "panel-content-of-outer-nested-panel": {
+          "text": "Panel content of outer nested panel",
+          "level": "2"
+        },
+        "feature-list": {
+          "text": "Feature list",
+          "level": "2"
+        },
+        "navigation": {
+          "text": "Navigation",
+          "level": "2"
+        },
+        "testing-site-nav": {
+          "text": "Testing Site-Nav",
+          "level": "3"
+        },
+        "variables-that-reference-another-variable": {
+          "text": "Variables that reference another variable",
+          "level": "1"
+        },
+        "normal-include": {
+          "text": "Normal include",
+          "level": "1"
+        },
+        "establishing-requirements": {
+          "text": "Establishing Requirements",
+          "level": "3"
+        },
+        "brainstorming": {
+          "text": "Brainstorming",
+          "level": "4"
+        },
+        "user-surveys": {
+          "text": "User surveys",
+          "level": "4"
+        },
+        "focus-groups": {
+          "text": "Focus groups",
+          "level": "4"
+        },
+        "include-segment": {
+          "text": "Include segment",
+          "level": "1"
+        },
+        "dynamic-include": {
+          "text": "Dynamic include",
+          "level": "1"
+        },
+        "boilerplate-include": {
+          "text": "Boilerplate include",
+          "level": "1"
+        },
+        "nested-include": {
+          "text": "Nested include",
+          "level": "1"
+        },
+        "html-include": {
+          "text": "HTML include",
+          "level": "1"
+        },
+        "include-from-another-markbind-site": {
+          "text": "Include from another Markbind site",
+          "level": "1"
+        },
+        "panel-without-src": {
+          "text": "Panel without src",
+          "level": "1"
+        },
+        "panel-with-normal-src": {
+          "text": "Panel with normal src",
+          "level": "1"
+        },
+        "panel-with-src-from-a-page-segment": {
+          "text": "Panel with src from a page segment",
+          "level": "1"
+        },
+        "panel-with-boilerplate": {
+          "text": "Panel with boilerplate",
+          "level": "1"
+        },
+        "nested-panel-without-src": {
+          "text": "Nested panel without src",
+          "level": "1"
+        },
+        "panel-with-src-from-another-markbind-site": {
+          "text": "Panel with src from another Markbind site",
+          "level": "1"
+        },
+        "modal-with-panel-inside": {
+          "text": "Modal with panel inside",
+          "level": "1"
+        },
+        "unexpanded-panel": {
+          "text": "Unexpanded panel",
+          "level": "1"
+        }
       },
       "title": "Hello World",
       "footer": "footer.md",
@@ -53,16 +179,28 @@
     },
     {
       "headings": {
-        "popover-initiated-by-trigger-honor-trigger-attribute": "popover initiated by trigger: honor trigger attribute",
-        "support-multiple-inclusions-of-a-modal": "Support multiple inclusions of a modal",
-        "remove-extra-space-in-links": "Remove extra space in links"
+        "popover-initiated-by-trigger-honor-trigger-attribute": {
+          "text": "popover initiated by trigger: honor trigger attribute",
+          "level": "2"
+        },
+        "support-multiple-inclusions-of-a-modal": {
+          "text": "Support multiple inclusions of a modal",
+          "level": "2"
+        },
+        "remove-extra-space-in-links": {
+          "text": "Remove extra space in links",
+          "level": "2"
+        }
       },
       "title": "Open Bugs",
       "src": "bugs/index.md"
     },
     {
       "headings": {
-        "feature-list": "Feature list"
+        "feature-list": {
+          "text": "Feature list",
+          "level": "2"
+        }
       },
       "src": "sub_site/index.md",
       "title": ""
