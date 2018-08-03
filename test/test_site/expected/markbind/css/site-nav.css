@@ -7,10 +7,9 @@
 
 #page-content {
     flex: 1;
-    margin-left: 285px;
+    margin-left: 300px;
     overflow-x: hidden;
-    padding-left: 20px;
-    padding-right: 0;
+    padding: 0;
     transition: 0.4s;
     -webkit-transition: 0.4s;
 }
@@ -160,11 +159,11 @@
     }
 
     #page-content {
-        margin-left: 45px;
+        margin-left: 60px;
     }
 
     footer {
-        margin-left: 45px;
+        margin-left: 60px;
     }
 
     /* Site navigation open button toggle */
@@ -200,11 +199,10 @@
 
     #page-content {
         margin-left: 0;
-        padding: 0;
     }
 
     footer {
-        margin-left: -15px;
+        margin-left: 0;
     }
 
     /* Site navigation open button toggle */

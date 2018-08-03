@@ -21,7 +21,7 @@
     <link rel="icon" href="/test_site/favicon.png">
 </head>
 <body>
-<div id="app" class="container-fluid">
+<div id="app">
     <div id="flex-body">
   <div id="site-nav">
     <ul style="list-style-type: none; margin-left:-1em">
@@ -126,123 +126,126 @@
     </div>
   </div>
   <div id="page-content">
-    <div>
-      <navbar placement="top" type="inverse">
-        <a slot="brand" href="/" title="Home" class="navbar-brand">Markbind Test Site</a>
-        <li><a class="nav-link" href="/test_site/bugs/index.html">Open Bugs</a></li>
-      </navbar>
-    </div>
-    <div class="website-content">
-      <h1 id="variables-that-reference-another-variable">Variables that reference another variable</h1>
-      <p><span class="glyphicon glyphicon-education" aria-hidden="true"></span></p>
-      <p>This variable can be referenced.</p>
-      <p>References can be several levels deep.</p>
-      <h1 id="normal-include">Normal include</h1>
+    <div id="content-wrapper">
       <div>
-        <h3 id="establishing-requirements">Establishing Requirements</h3>
+        <navbar placement="top" type="inverse">
+          <a slot="brand" href="/" title="Home" class="navbar-brand">Markbind Test Site</a>
+          <li><a class="nav-link" href="/test_site/bugs/index.html">Open Bugs</a></li>
+        </navbar>
+      </div>
+      <div class="website-content">
+        <h1 id="variables-that-reference-another-variable">Variables that reference another variable</h1>
+        <p><span class="glyphicon glyphicon-education" aria-hidden="true"></span></p>
+        <p>This variable can be referenced.</p>
+        <p>References can be several levels deep.</p>
+        <h1 id="normal-include">Normal include</h1>
+        <div>
+          <h3 id="establishing-requirements">Establishing Requirements</h3>
+          <p>
+            <seg id="preview">Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
+              do.</seg>
+          </p>
+          <p>There are many techniques used during a requirements gathering. The following are some of the techniques.</p>
+          <h4 id="brainstorming">Brainstorming</h4>
+          <p>Brainstorming is a group activity designed to generate a large number of diverse and creative ideas for the solution of a problem. In a brainstorming session there are no &quot;bad&quot; ideas. The aim is to generate ideas; not to validate them.
+            Brainstorming encourages you to &quot;think outside the box&quot; and put &quot;crazy&quot; ideas on the table without fear of rejection.</p>
+          <h4 id="user-surveys">User surveys</h4>
+          <p>Carefully designed questionnaires can be used to solicit responses and opinions from a large number of users regarding any current system or a new innovation.</p>
+          <h4 id="focus-groups">Focus groups</h4>
+          <p>Focus groups are a kind of informal interview within an interactive group setting. A
+            <tooltip content="e.g. potential users, beta testers">group of people</tooltip>
+            are asked about their understanding of a specific issue or a process. Focus groups can bring out undiscovered conflicts and misunderstandings among stakeholder interests which can then be resolved or clarified as necessary.</p>
+        </div>
+        <h1 id="include-segment">Include segment</h1>
+        <div>
+          <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
+            do.</p>
+        </div>
+        <h1 id="dynamic-include">Dynamic include</h1>
         <p>
-          <seg id="preview">Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
-            do.</seg>
+          <panel src="/test_site\requirements\SpecifyingRequirements._include_.html" name="Dynamic Include" no-close="true" no-switch="true" header="Dynamic Include"></panel>
         </p>
-        <p>There are many techniques used during a requirements gathering. The following are some of the techniques.</p>
-        <h4 id="brainstorming">Brainstorming</h4>
-        <p>Brainstorming is a group activity designed to generate a large number of diverse and creative ideas for the solution of a problem. In a brainstorming session there are no &quot;bad&quot; ideas. The aim is to generate ideas; not to validate them.
-          Brainstorming encourages you to &quot;think outside the box&quot; and put &quot;crazy&quot; ideas on the table without fear of rejection.</p>
-        <h4 id="user-surveys">User surveys</h4>
-        <p>Carefully designed questionnaires can be used to solicit responses and opinions from a large number of users regarding any current system or a new innovation.</p>
-        <h4 id="focus-groups">Focus groups</h4>
-        <p>Focus groups are a kind of informal interview within an interactive group setting. A
-          <tooltip content="e.g. potential users, beta testers">group of people</tooltip>
-          are asked about their understanding of a specific issue or a process. Focus groups can bring out undiscovered conflicts and misunderstandings among stakeholder interests which can then be resolved or clarified as necessary.</p>
-      </div>
-      <h1 id="include-segment">Include segment</h1>
-      <div>
-        <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should do.</p>
-      </div>
-      <h1 id="dynamic-include">Dynamic include</h1>
-      <p>
-        <panel src="/test_site\requirements\SpecifyingRequirements._include_.html" name="Dynamic Include" no-close="true" no-switch="true" header="Dynamic Include"></panel>
-      </p>
-      <h1 id="boilerplate-include">Boilerplate include</h1>
-      <div name="Boilerplate Referencing">
+        <h1 id="boilerplate-include">Boilerplate include</h1>
+        <div name="Boilerplate Referencing">
+          <p>
+            <panel src="/test_site\requirements\UserStories._include_.html" header="Boilerplate Includes" no-close=""></panel>
+          </p>
+        </div>
         <p>
-          <panel src="/test_site\requirements\UserStories._include_.html" header="Boilerplate Includes" no-close=""></panel>
+          <panel src="/test_site\requirements\notInside._include_.html" name="Referencing specified path in boilerplate" no-close="true" no-switch="true" header="Referencing specified path in boilerplate"></panel>
         </p>
-      </div>
-      <p>
-        <panel src="/test_site\requirements\notInside._include_.html" name="Referencing specified path in boilerplate" no-close="true" no-switch="true" header="Referencing specified path in boilerplate"></panel>
-      </p>
-      <h1 id="nested-include">Nested include</h1>
-      <div>
-        <ol>
-          <li><strong>Establishing requirements</strong>: <span>Requirements gathering, requirements elicitation, requirements analysis,
+        <h1 id="nested-include">Nested include</h1>
+        <div>
+          <ol>
+            <li><strong>Establishing requirements</strong>: <span>Requirements gathering, requirements elicitation, requirements analysis,
 requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity
 of understanding what a software product should do.</span></li>
-          <li><strong>Specifying requirements</strong>: <span>As we establish requirements, they should be recorded in some way for future reference,
+            <li><strong>Specifying requirements</strong>: <span>As we establish requirements, they should be recorded in some way for future reference,
 usually called a requirement specification. Furthermore, it is advisable to show these requirements to stakeholders,
 and refine requirements based on their feedback. The next phase is to convert requirements into a product
 specification that specifies how the product will address the requirements. </span></li>
-        </ol>
-      </div>
-      <h1 id="html-include">HTML include</h1>
-      <div>
-        <p>This is a HTML document</p>
-        <p><span>It is <strong>possible</strong> to use Markdown in HTML</span></p>
-      </div>
-      <h1 id="include-from-another-markbind-site">Include from another Markbind site</h1>
-      <div>
-        <p>This is a page from another Markbind site.</p>
-        <h2 id="feature-list">Feature list</h2>
-        <p>It is a list of features (or functionalities) grouped according to some criteria such as priority (e.g. must-have, nice-to-have, etc. ), order of delivery, object or process related (e.g. order-related, invoice-related, etc.). Here is a sample
-          feature list from Minesweeper (only a brief description has been provided to save space).</p>
-        <ol>
-          <li>Basic play – Single player play.</li>
-          <li>Difficulty levels – Additional Medium and Advanced levels.</li>
-          <li>Versus play – Two players can play against each other.</li>
-          <li>Timer – Additional fixed time restriction on the player.</li>
-        </ol>
-        <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></div>
-      <h1 id="panel-without-src">Panel without src</h1>
-      <panel header="## Panel without src header" expanded="">
-        <div>
-          <h3 id="panel-without-src-content-heading">Panel without src content heading</h3>
+          </ol>
         </div>
-      </panel>
-      <h1 id="panel-with-normal-src">Panel with normal src</h1>
-      <panel header="## Panel with normal src header" src="/test_site\testPanels\PanelNormalSource._include_.html" expanded=""></panel>
-      <h1 id="panel-with-src-from-a-page-segment">Panel with src from a page segment</h1>
-      <panel header="## Panel with src from a page segment header" src="/test_site\testPanels\PanelSourceContainsSegment._include_.html#segment" expanded="" fragment="segment"></panel>
-      <h1 id="panel-with-boilerplate">Panel with boilerplate</h1>
-      <panel header="## Boilerplate referencing" src="/test_site\testPanels\boilerTestPanel._include_.html" expanded=""></panel>
-      <panel header="## Referencing specified path in boilerplate" src="/test_site\testPanels\notInside._include_.html" expanded=""></panel>
-      <h1 id="nested-panel">Nested panel</h1>
-      <panel header="## Outer nested panel" src="/test_site\testPanels\NestedPanel._include_.html" expanded=""></panel>
-      <h1 id="nested-panel-without-src">Nested panel without src</h1>
-      <panel header="## Outer nested panel without src" expanded="">
-        <h2 id="panel-content-of-outer-nested-panel">Panel content of outer nested panel</h2>
-        <panel header="## Inner panel header without src" expanded="">
-          <h2 id="panel-content-of-inner-nested-panel">Panel content of inner nested panel</h2>
+        <h1 id="html-include">HTML include</h1>
+        <div>
+          <p>This is a HTML document</p>
+          <p><span>It is <strong>possible</strong> to use Markdown in HTML</span></p>
+        </div>
+        <h1 id="include-from-another-markbind-site">Include from another Markbind site</h1>
+        <div>
+          <p>This is a page from another Markbind site.</p>
+          <h2 id="feature-list">Feature list</h2>
+          <p>It is a list of features (or functionalities) grouped according to some criteria such as priority (e.g. must-have, nice-to-have, etc. ), order of delivery, object or process related (e.g. order-related, invoice-related, etc.). Here is a sample
+            feature list from Minesweeper (only a brief description has been provided to save space).</p>
+          <ol>
+            <li>Basic play – Single player play.</li>
+            <li>Difficulty levels – Additional Medium and Advanced levels.</li>
+            <li>Versus play – Two players can play against each other.</li>
+            <li>Timer – Additional fixed time restriction on the player.</li>
+          </ol>
+          <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></div>
+        <h1 id="panel-without-src">Panel without src</h1>
+        <panel header="## Panel without src header" expanded="">
+          <div>
+            <h3 id="panel-without-src-content-heading">Panel without src content heading</h3>
+          </div>
+        </panel>
+        <h1 id="panel-with-normal-src">Panel with normal src</h1>
+        <panel header="## Panel with normal src header" src="/test_site\testPanels\PanelNormalSource._include_.html" expanded=""></panel>
+        <h1 id="panel-with-src-from-a-page-segment">Panel with src from a page segment</h1>
+        <panel header="## Panel with src from a page segment header" src="/test_site\testPanels\PanelSourceContainsSegment._include_.html#segment" expanded="" fragment="segment"></panel>
+        <h1 id="panel-with-boilerplate">Panel with boilerplate</h1>
+        <panel header="## Boilerplate referencing" src="/test_site\testPanels\boilerTestPanel._include_.html" expanded=""></panel>
+        <panel header="## Referencing specified path in boilerplate" src="/test_site\testPanels\notInside._include_.html" expanded=""></panel>
+        <h1 id="nested-panel">Nested panel</h1>
+        <panel header="## Outer nested panel" src="/test_site\testPanels\NestedPanel._include_.html" expanded=""></panel>
+        <h1 id="nested-panel-without-src">Nested panel without src</h1>
+        <panel header="## Outer nested panel without src" expanded="">
+          <h2 id="panel-content-of-outer-nested-panel">Panel content of outer nested panel</h2>
+          <panel header="## Inner panel header without src" expanded="">
+            <h2 id="panel-content-of-inner-nested-panel">Panel content of inner nested panel</h2>
+          </panel>
+        </panel>
+        <h1 id="panel-with-src-from-another-markbind-site">Panel with src from another Markbind site</h1>
+        <panel header="## Panel with src from another Markbind site header" src="/test_site\sub_site\index._include_.html" expanded=""></panel>
+      </div>
+      <h1 id="modal-with-panel-inside">Modal with panel inside</h1>
+      <p>
+        <trigger for="modal-with-panel">trigger</trigger>
+      </p>
+      <modal title="modal title with panel inside" id="modal-with-panel">
+        <panel header="## Panel inside modal" expanded="">
+          <h2 id="panel-content-inside-modal">Panel content inside modal</h2>
+        </panel>
+      </modal>
+      <h1 id="unexpanded-panel">Unexpanded panel</h1>
+      <panel header="## Unexpanded panel header">
+        <h2 id="panel-content-of-unexpanded-panel-should-not-appear-in-search-data">Panel content of unexpanded panel should not appear in search data</h2>
+        <panel header="## Panel header inside unexpanded panel should not appear in search data" expanded="">
+          <h2 id="panel-content-inside-unexpanded-panel-should-not-appear-in-search-data">Panel content inside unexpanded panel should not appear in search data</h2>
         </panel>
       </panel>
-      <h1 id="panel-with-src-from-another-markbind-site">Panel with src from another Markbind site</h1>
-      <panel header="## Panel with src from another Markbind site header" src="/test_site\sub_site\index._include_.html" expanded=""></panel>
     </div>
-    <h1 id="modal-with-panel-inside">Modal with panel inside</h1>
-    <p>
-      <trigger for="modal-with-panel">trigger</trigger>
-    </p>
-    <modal title="modal title with panel inside" id="modal-with-panel">
-      <panel header="## Panel inside modal" expanded="">
-        <h2 id="panel-content-inside-modal">Panel content inside modal</h2>
-      </panel>
-    </modal>
-    <h1 id="unexpanded-panel">Unexpanded panel</h1>
-    <panel header="## Unexpanded panel header">
-      <h2 id="panel-content-of-unexpanded-panel-should-not-appear-in-search-data">Panel content of unexpanded panel should not appear in search data</h2>
-      <panel header="## Panel header inside unexpanded panel should not appear in search data" expanded="">
-        <h2 id="panel-content-inside-unexpanded-panel-should-not-appear-in-search-data">Panel content inside unexpanded panel should not appear in search data</h2>
-      </panel>
-    </panel>
   </div>
 </div>
 <div id="flex-div"></div>
