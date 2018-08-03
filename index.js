@@ -135,7 +135,7 @@ program
     const site = new Site(rootFolder, outputFolder);
 
     const addHandler = (filePath) => {
-      logger.info(`Reload for file add: ${filePath}`);
+      logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
       Promise.resolve('').then(() => {
         if (fsUtil.isSourceFile(filePath)) {
           return site.rebuildAffectedSourceFiles(filePath);
@@ -147,7 +147,7 @@ program
     };
 
     const changeHandler = (filePath) => {
-      logger.info(`Reload for file change: ${filePath}`);
+      logger.info(`[${new Date().toLocaleTimeString()}] Reload for file change: ${filePath}`);
       Promise.resolve('').then(() => {
         if (fsUtil.isSourceFile(filePath)) {
           return site.rebuildAffectedSourceFiles(filePath);
@@ -159,7 +159,7 @@ program
     };
 
     const removeHandler = (filePath) => {
-      logger.info(`Reload for file deletion: ${filePath}`);
+      logger.info(`[${new Date().toLocaleTimeString()}] Reload for file deletion: ${filePath}`);
       Promise.resolve('').then(() => {
         if (fsUtil.isSourceFile(filePath)) {
           return site.rebuildAffectedSourceFiles(filePath);
