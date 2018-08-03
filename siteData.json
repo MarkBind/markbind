@@ -2,7 +2,6 @@
   "pages": [
     {
       "headings": {
-        "user-guide": "User Guide",
         "markbind": "MarkBind",
         "features": " Features",
         "examples": " Examples",
@@ -16,7 +15,6 @@
     },
     {
       "headings": {
-        "user-guide": "User Guide",
         "markbind-user-guide": "MarkBind User Guide"
       },
       "footer": "userGuideFooter.md",
@@ -26,7 +24,6 @@
     },
     {
       "headings": {
-        "user-guide": "User Guide",
         "user-quick-start": "User Quick Start",
         "requirement": "Requirement",
         "installation": "Installation",
@@ -44,7 +41,6 @@
     },
     {
       "headings": {
-        "user-guide": "User Guide",
         "developing-a-site-with-markbind": "Developing a Site with MarkBind",
         "init-a-site-with-markbind": "Init a site with MarkBind",
         "preview-and-serve-your-site-using": "Preview and serve your site using:",
@@ -59,7 +55,6 @@
     },
     {
       "headings": {
-        "user-guide": "User Guide",
         "site-configuration": "Site Configuration"
       },
       "footer": "userGuideFooter.md",
@@ -69,7 +64,6 @@
     },
     {
       "headings": {
-        "user-guide": "User Guide",
         "content-authoring": "Content authoring",
         "general-writing-guide": "General writing guide",
         "supported-markdown-syntax": "Supported Markdown Syntax",
@@ -90,7 +84,6 @@
     },
     {
       "headings": {
-        "user-guide": "User Guide",
         "including-contents": "Including contents"
       },
       "footer": "userGuideFooter.md",
@@ -100,7 +93,6 @@
     },
     {
       "headings": {
-        "user-guide": "User Guide",
         "known-problems": "Known problems",
         "unwanted-starting-space-in-links-and-triggers": "Unwanted starting space in links and triggers"
       },
@@ -111,7 +103,6 @@
     },
     {
       "headings": {
-        "user-guide": "User Guide",
         "components-reference": "Components Reference",
         "dropdown": "Dropdown",
         "dropdown-options": "Dropdown Options",
@@ -157,7 +148,6 @@
     },
     {
       "headings": {
-        "user-guide": "User Guide",
         "github-pages-deployment": "Github Pages Deployment",
         "deploy-to-github-pages-at-gh-pages-branch-of-the-current-repo": "Deploy to Github pages at gh-pages branch of the current repo",
         "deployment-config-in-sitejson": "Deployment config in site.json"
@@ -170,8 +160,7 @@
     {
       "headings": {
         "previewing-site-on-netlify-with-the-latest-version-of-markbind": "Previewing site on Netlify with the latest version of MarkBind",
-        "previewing-site-on-netlify-with-a-specific-version-of-markbind": "Previewing site on Netlify with a specific version of MarkBind",
-        "user-guide": "User Guide"
+        "previewing-site-on-netlify-with-a-specific-version-of-markbind": "Previewing site on Netlify with a specific version of MarkBind"
       },
       "footer": "userGuideFooter.md",
       "siteNav": "userGuideSections.md",
