@@ -259,7 +259,7 @@ program.parse(process.argv);
 
 if (!program.args.length || !ACCEPTED_COMMANDS.includes(process.argv[2])) {
   if (program.args.length) {
-    logger.warn(`Command '${program.args[0]}' doesn't exist, run "markbind help" to list commands.`);
+    logger.warn(`Command '${program.args[0]}' doesn't exist, run "markbind --help" to list commands.`);
   } else {
     logger.logo();
     program.help();
