@@ -3,7 +3,6 @@
 
 // Entry file for Markbind project
 const chokidar = require('chokidar');
-const clear = require('clear');
 const fs = require('fs-extra-promise');
 const htmlBeautify = require('js-beautify').html;
 const liveServer = require('live-server');
@@ -24,8 +23,6 @@ const ACCEPTED_COMMANDS = ['version', 'include', 'render', 'init', 'build', 'ser
 const CLI_VERSION = require('./package.json').version;
 
 const markbinder = new MarkBind();
-
-clear();
 
 process.title = 'MarkBind';
 process.stdout.write(
