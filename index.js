@@ -29,6 +29,11 @@ process.stdout.write(
   `${String.fromCharCode(27)}]0; MarkBind${String.fromCharCode(7)}`,
 );
 
+function printHeader() {
+  logger.logo();
+  logger.log(` v${CLI_VERSION}`);
+}
+
 program
   .allowUnknownOption()
   .usage(' <command>');
@@ -56,14 +61,14 @@ program
         if (options.output) {
           const outputPath = path.resolve(process.cwd(), options.output);
           fs.outputFileSync(outputPath, result);
-          logger.logo();
+          printHeader();
           logger.info(`Result was written to ${outputPath}`);
         } else {
           logger.log(result);
         }
       })
       .catch((error) => {
-        logger.logo();
+        printHeader();
         logger.error('Error processing fragment include:');
         logger.error(error.message);
       });
@@ -92,7 +97,7 @@ program
         if (options.output) {
           const outputPath = path.resolve(process.cwd(), options.output);
           fs.outputFileSync(outputPath, formattedResult);
-          logger.logo();
+          printHeader();
           logger.info(`Result was written to ${outputPath}`);
         } else {
           logger.log(formattedResult);
@@ -109,7 +114,7 @@ program
   .description('init a markbind website project')
   .action((root) => {
     const rootFolder = path.resolve(root || process.cwd());
-    logger.logo();
+    printHeader();
     Site.initSite(rootFolder)
       .then(() => {
         logger.info('Initialization success.');
@@ -176,7 +181,7 @@ program
       mount: [],
     };
 
-    logger.logo();
+    printHeader();
 
     site
       .readSiteConfig()
@@ -227,7 +232,7 @@ program
       .catch((err) => {
         logger.error(err.message);
       });
-    logger.logo();
+    printHeader();
   });
 
 program
@@ -241,7 +246,7 @@ program
     const rootFolder = path.resolve(root || process.cwd());
     const defaultOutputRoot = path.join(rootFolder, '_site');
     const outputFolder = output ? path.resolve(process.cwd(), output) : defaultOutputRoot;
-    logger.logo();
+    printHeader();
     new Site(rootFolder, outputFolder)
       .generate(baseUrl)
       .then(() => {
@@ -258,7 +263,7 @@ if (!program.args.length || !ACCEPTED_COMMANDS.includes(process.argv[2])) {
   if (program.args.length) {
     logger.warn(`Command '${program.args[0]}' doesn't exist, run "markbind help" to list commands.`);
   } else {
-    logger.logo();
+    printHeader();
     program.help();
   }
 }

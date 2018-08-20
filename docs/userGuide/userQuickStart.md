@@ -38,6 +38,7 @@ to ensure `MarkBind` is successfully installed on your system. You should see:
 | |  | | | (_| | | |    |   <  | |_) | | | | | | | | (_| |
 |_|  |_|  \__,_| |_|    |_|\_\ |____/  |_| |_| |_|  \__,_|
 
+v1.12.0
 
 Usage: index  <command>
 
