@@ -127,9 +127,9 @@ program
 program
   .command('serve [root]')
   .description('build then serve a website from a directory')
+  .option('-f, --force-reload', 'force a full reload of all site files when a file is changed')
   .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
   .option('--no-open', 'do not automatically open the site in browser')
-  .option('--force-reload', 'forces a full reload of all site files when a file is changed')
   .action((root, options) => {
     const rootFolder = path.resolve(root || process.cwd());
     const logsFolder = path.join(rootFolder, '_markbind/logs');
