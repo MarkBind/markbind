@@ -104,6 +104,7 @@ Live reload is enabled to regenerate the site for changes, so you could see the 
 |---|---|
 | `-p`, `--port <port>` | The port used for serving your website. |
 | --no-open | Don't open browser automatically. |
+| --force-reload | Forces a full reload of all site files when a file is changed. |
 
 ### Build the static site
 

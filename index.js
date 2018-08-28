@@ -129,12 +129,13 @@ program
   .description('build then serve a website from a directory')
   .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
   .option('--no-open', 'do not automatically open the site in browser')
+  .option('--force-reload', 'forces a full reload of all site files when a file is changed')
   .action((root, options) => {
     const rootFolder = path.resolve(root || process.cwd());
     const logsFolder = path.join(rootFolder, '_markbind/logs');
     const outputFolder = path.join(rootFolder, '_site');
 
-    const site = new Site(rootFolder, outputFolder);
+    const site = new Site(rootFolder, outputFolder, options.forceReload);
 
     const addHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
