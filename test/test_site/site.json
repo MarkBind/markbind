@@ -9,6 +9,9 @@
     },
     {
       "glob" : "**/index.md"
+    },
+    {
+      "glob" : "**/test_md_fragment.md"
     }
   ],
   "ignore": [
