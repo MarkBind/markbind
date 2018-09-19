@@ -36,6 +36,10 @@ head: myCustomHead.md
 # HTML include
 <include src="testInclude.html" />
 
+# Mbd, Mbdf include
+<include src="testIncludeMbd.mbd" />
+<include src="testIncludeMbdf.mbdf" />
+
 # Include from another Markbind site
 <include src="sub_site/index.md" />
 
