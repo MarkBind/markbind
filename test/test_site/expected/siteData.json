@@ -65,6 +65,13 @@
       },
       "src": "sub_site/index.md",
       "title": ""
+    },
+    {
+      "headings": {
+        "some-heading": "Some heading"
+      },
+      "src": "test_md_fragment.md",
+      "title": ""
     }
   ]
 }
