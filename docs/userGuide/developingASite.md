@@ -40,6 +40,13 @@ MarkBind will generate the site in a folder named `_site` in the current directo
 | `-p`, `--port <port>` | The port used for serving your website. |
 | --no-open | Don't open browser automatically. |
 
+Note: Live reload is only supported for the following file types:
+
+- `.html`
+- `.md`
+- `.mbd` (MarkBind file)
+- `.mbdf` (MarkBind fragment)
+
 ## Build the static site
 
 ```

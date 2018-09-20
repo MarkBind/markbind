@@ -33,6 +33,7 @@
         "boilerplate-include": "Boilerplate include",
         "nested-include": "Nested include",
         "html-include": "HTML include",
+        "mbd-mbdf-include": "Mbd, Mbdf include",
         "include-from-another-markbind-site": "Include from another Markbind site",
         "panel-without-src": "Panel without src",
         "panel-with-normal-src": "Panel with normal src",
