@@ -258,6 +258,8 @@ The following will be rendered:<br>
 
 ### Use Searchbar
 
+The searchbar allows users to search all headings within any page on the site.
+
 To use the searchbar, add the following markup to your file.
 
 ```html
@@ -273,6 +275,17 @@ To use the searchbar within a navbar, add the following markup to your file. The
   </form>
 </li>
 ```
+
+### Keywords
+
+You can also specify custom keywords to be included under a heading by tagging the words with the `keyword` class:
+
+```html
+# Heading
+This is good for catching <span class="keyword">regressions</span>
+```
+
+These keywords will be linked to the immediate heading before it. Users will be able to search for these keywords using the searchbar.
 
 ### Use Components
 

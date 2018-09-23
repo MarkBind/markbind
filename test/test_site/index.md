@@ -16,6 +16,27 @@ head: myCustomHead.md
 
 {{reference_level_4}}
 
+# Heading with multiple keywords
+<span class="keyword">keyword 1</span>
+<span class="keyword">keyword 2</span>
+
+# Heading with keyword in panel
+<panel header="Panel with keyword" expanded>
+  <span class="keyword">panel keyword</span>
+</panel>
+
+# Heading with included keyword
+<include src="testKeyword.md" />
+
+# Heading with nested keyword
+<div>
+  <div>
+    <div>
+      <span class="keyword">nested keyword</span>
+    </div>
+  </div>
+</div>
+
 # Normal include
 <include src="requirements/EstablishingRequirements.md" />
 
