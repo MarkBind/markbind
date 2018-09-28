@@ -70,12 +70,14 @@
         "use-markbind-variables": "Use MarkBind variables",
         "add-your-own-variables": "Add your own variables",
         "use-searchbar": "Use Searchbar",
+        "keywords": "Keywords",
         "use-components": "Use Components",
         "include-contents": "Include Contents",
         "front-matter": "Front Matter",
         "inserting-content-into-a-pages-head-element": "Inserting content into a page's head element",
         "site-navigation": "Site Navigation",
-        "using-footers": "Using Footers"
+        "using-footers": "Using Footers",
+        "heading-anchors": "Heading Anchors"
       },
       "footer": "userGuideFooter.md",
       "siteNav": "userGuideSections.md",

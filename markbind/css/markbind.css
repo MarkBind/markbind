@@ -23,6 +23,19 @@ pre > code.hljs {
     outline: none !important;
 }
 
+.fa.fa-anchor {
+    color: #ccc;
+    display: none;
+    font-size: 14px;
+    margin-left: 10px;
+    padding: 3px;
+    text-decoration: none;
+}
+
+.fa.fa-anchor:hover {
+    color: #555;
+}
+
 .markbind-table {
     width: auto;
 }

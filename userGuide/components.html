@@ -22,7 +22,7 @@
   <div id="site-nav">
     <ul style="list-style-type: none; margin-left:-1em">
       <li style="margin-top: 10px">
-        <h2 id="user-guide">User Guide</h2>
+        <h2 id="user-guide">User Guide<a class="fa fa-anchor" href="#user-guide"></a></h2>
       </li>
       <li style="margin-top: 10px"><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
       <li style="margin-top:10px"><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
@@ -71,23 +71,23 @@
             <li><a href="/markbind/userGuide/userQuickStart.html" class="dropdown-item">Quick Start</a></li>
             <li role="separator" class="dropdown-divider"></li>
             <li><a href="/markbind/userGuide/developingASite.html" class="dropdown-item">Developing a Site</a>
-              <li><a href="/markbind/userGuide/siteConfiguration.html" class="dropdown-item">◦&nbsp; Site Configuration</a></li>
-              <li role="separator" class="dropdown-divider"></li>
-              <li><a href="/markbind/userGuide/contentAuthoring.html" class="dropdown-item">Content Authoring</a></li>
-              <li><a href="/markbind/userGuide/includingContents.html" class="dropdown-item">◦&nbsp; Including Contents</a></li>
-              <li><a href="/markbind/userGuide/knownProblems.html" class="dropdown-item">◦&nbsp; Known Problems</a></li>
-              <li role="separator" class="dropdown-divider"></li>
-              <li class="dropdown-header">Deploying a Site</li>
-              <li><a href="/markbind/userGuide/ghpagesDeployment.html" class="dropdown-item">◦&nbsp; Github Pages Deployment</a></li>
-              <li><a href="/markbind/userGuide/netlifyPreview.html" class="dropdown-item">◦&nbsp; Preview site on Netlify</a></li>
-              <li role="separator" class="dropdown-divider"></li>
-              <li><a href="/markbind/userGuide/components.html" class="dropdown-item">Components Reference</a></li>
             </li>
+            <li><a href="/markbind/userGuide/siteConfiguration.html" class="dropdown-item">◦&nbsp; Site Configuration</a></li>
+            <li role="separator" class="dropdown-divider"></li>
+            <li><a href="/markbind/userGuide/contentAuthoring.html" class="dropdown-item">Content Authoring</a></li>
+            <li><a href="/markbind/userGuide/includingContents.html" class="dropdown-item">◦&nbsp; Including Contents</a></li>
+            <li><a href="/markbind/userGuide/knownProblems.html" class="dropdown-item">◦&nbsp; Known Problems</a></li>
+            <li role="separator" class="dropdown-divider"></li>
+            <li class="dropdown-header">Deploying a Site</li>
+            <li><a href="/markbind/userGuide/ghpagesDeployment.html" class="dropdown-item">◦&nbsp; Github Pages Deployment</a></li>
+            <li><a href="/markbind/userGuide/netlifyPreview.html" class="dropdown-item">◦&nbsp; Preview site on Netlify</a></li>
+            <li role="separator" class="dropdown-divider"></li>
+            <li><a href="/markbind/userGuide/components.html" class="dropdown-item">Components Reference</a></li>
           </dropdown>
           <li>
             <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">
       Fork this project on Github
-      <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
+      <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewbox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
           <li slot="right">
             <form class="navbar-form">
               <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right=""></searchbar>
@@ -96,9 +96,9 @@
         </navbar>
       </div>
       <div class="website-content">
-        <h1 id="components-reference">Components Reference</h1>
+        <h1 id="components-reference">Components Reference<a class="fa fa-anchor" href="#components-reference"></a></h1>
         <div>
-          <h1 id="dropdown">Dropdown</h1>
+          <h1 id="dropdown">Dropdown<a class="fa fa-anchor" href="#dropdown"></a></h1>
           <tip-box border-left-color="#00B0F0">
             <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
             <dropdown>
@@ -200,7 +200,7 @@
 </code></pre>
           </tip-box>
           <br>
-          <h2 id="dropdown-options">Dropdown Options</h2>
+          <h2 id="dropdown-options">Dropdown Options<a class="fa fa-anchor" href="#dropdown-options"></a></h2>
           <div class="table-responsive">
             <table class="markbind-table table table-bordered table-striped">
               <thead>
@@ -239,12 +239,12 @@
               </tbody>
             </table>
           </div>
-          <h2 id="bootstrap-buttons">Bootstrap Buttons</h2>
+          <h2 id="bootstrap-buttons">Bootstrap Buttons<a class="fa fa-anchor" href="#bootstrap-buttons"></a></h2>
           <p>You may refer to <a href="https://getbootstrap.com/docs/4.0/components/buttons/">this documentation</a> regarding how you can use the Bootstrap buttons, and how to style them.</p>
         </div>
         <br>
         <div>
-          <h1 id="navbar">Navbar</h1>
+          <h1 id="navbar">Navbar<a class="fa fa-anchor" href="#navbar"></a></h1>
           <p><strong>Navbar allows visitors of your website to navigate through pages easily.</strong></p>
           <tip-box border-left-color="#00B0F0">
             <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -277,7 +277,7 @@
 </code></pre>
           </tip-box>
           <br>
-          <h2 id="navbar-options">Navbar Options</h2>
+          <h2 id="navbar-options">Navbar Options<a class="fa fa-anchor" href="#navbar-options"></a></h2>
           <div class="table-responsive">
             <table class="markbind-table table table-bordered table-striped">
               <thead>
@@ -307,7 +307,7 @@
         </div>
         <br>
         <div>
-          <h1 id="panel">Panel</h1>
+          <h1 id="panel">Panel<a class="fa fa-anchor" href="#panel"></a></h1>
           <p><strong>Panel is a flexible container that supports collapsing and expanding its content. It is expandable by default.</strong></p>
           <tip-box border-left-color="#00B0F0">
             <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -533,7 +533,7 @@
 </code></pre>
           </tip-box>
           <br>
-          <h2 id="panel-options">Panel Options</h2>
+          <h2 id="panel-options">Panel Options<a class="fa fa-anchor" href="#panel-options"></a></h2>
           <div class="table-responsive">
             <table class="markbind-table table table-bordered table-striped">
               <thead>
@@ -623,7 +623,7 @@
         </div>
         <br>
         <div>
-          <h1 id="pic">Pic</h1>
+          <h1 id="pic">Pic<a class="fa fa-anchor" href="#pic"></a></h1>
           <p><strong>Pic allows you to add captions below the image.</strong></p>
           <tip-box border-left-color="#00B0F0">
             <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -639,7 +639,7 @@
 </code></pre>
           </tip-box>
           <br>
-          <h2 id="pic-options">Pic Options</h2>
+          <h2 id="pic-options">Pic Options<a class="fa fa-anchor" href="#pic-options"></a></h2>
           <div class="table-responsive">
             <table class="markbind-table table table-bordered table-striped">
               <thead>
@@ -681,7 +681,7 @@
         </div>
         <br>
         <div>
-          <h1 id="popover">Popover</h1>
+          <h1 id="popover">Popover<a class="fa fa-anchor" href="#popover"></a></h1>
           <tip-box border-left-color="#00B0F0">
             <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
             <popover effect="fade" content="Lorem ipsum dolor sit amet" placement="top">
@@ -783,7 +783,7 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">popover</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"false"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Nice!"</span>&gt;</span>What do you say<span class="hljs-tag">&lt;/<span class="hljs-name">popover</span>&gt;</span>
 </code></pre>
           </tip-box>
-          <h2 id="popover-options">Popover Options</h2>
+          <h2 id="popover-options">Popover Options<a class="fa fa-anchor" href="#popover-options"></a></h2>
           <div class="table-responsive">
             <table class="markbind-table table table-bordered table-striped">
               <thead>
@@ -837,7 +837,7 @@
         </div>
         <br>
         <div>
-          <h1 id="question">Question</h1>
+          <h1 id="question">Question<a class="fa fa-anchor" href="#question"></a></h1>
           <p><strong>Question component consists of a question body, a hint and an answer.</strong></p>
           <tip-box border-left-color="#00B0F0">
             <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -985,7 +985,7 @@
 </code></pre>
           </tip-box>
           <br>
-          <h2 id="question-options">Question Options</h2>
+          <h2 id="question-options">Question Options<a class="fa fa-anchor" href="#question-options"></a></h2>
           <div class="table-responsive">
             <table class="markbind-table table table-bordered table-striped">
               <thead>
@@ -1009,7 +1009,7 @@
         </div>
         <br>
         <div>
-          <h1 id="searchbar">Searchbar</h1>
+          <h1 id="searchbar">Searchbar<a class="fa fa-anchor" href="#searchbar"></a></h1>
           <tip-box border-left-color="#00B0F0">
             <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
             <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
@@ -1023,7 +1023,7 @@
 </code></pre>
           </tip-box>
           <br>
-          <h2 id="searchbar-options">Searchbar Options</h2>
+          <h2 id="searchbar-options">Searchbar Options<a class="fa fa-anchor" href="#searchbar-options"></a></h2>
           <div class="table-responsive">
             <table class="markbind-table table table-bordered table-striped">
               <thead>
@@ -1065,7 +1065,7 @@
         </div>
         <br>
         <div>
-          <h1 id="tabs">Tabs</h1>
+          <h1 id="tabs">Tabs<a class="fa fa-anchor" href="#tabs"></a></h1>
           <tip-box border-left-color="#00B0F0">
             <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
             <tabs>
@@ -1113,7 +1113,7 @@
 </code></pre>
           </tip-box>
           <br>
-          <h2 id="tabs-options-container">Tabs Options (container)</h2>
+          <h2 id="tabs-options-container">Tabs Options (container)<a class="fa fa-anchor" href="#tabs-options-container"></a></h2>
           <div class="table-responsive">
             <table class="markbind-table table table-bordered table-striped">
               <thead>
@@ -1134,7 +1134,7 @@
               </tbody>
             </table>
           </div>
-          <h2 id="tab-options-element">Tab Options (element)</h2>
+          <h2 id="tab-options-element">Tab Options (element)<a class="fa fa-anchor" href="#tab-options-element"></a></h2>
           <div class="table-responsive">
             <table class="markbind-table table table-bordered table-striped">
               <thead>
@@ -1161,7 +1161,7 @@
               </tbody>
             </table>
           </div>
-          <h2 id="tab-group-options-dropdown">Tab Group Options (dropdown)</h2>
+          <h2 id="tab-group-options-dropdown">Tab Group Options (dropdown)<a class="fa fa-anchor" href="#tab-group-options-dropdown"></a></h2>
           <div class="table-responsive">
             <table class="markbind-table table table-bordered table-striped">
               <thead>
@@ -1191,7 +1191,7 @@
         </div>
         <br>
         <div>
-          <h1 id="tipbox">TipBox</h1>
+          <h1 id="tipbox">TipBox<a class="fa fa-anchor" href="#tipbox"></a></h1>
           <p><strong>You can either use &lt;tip-box&gt; or &lt;box&gt;.</strong></p>
           <p><strong>TipBox comes with different built-in types.</strong></p>
           <tip-box border-left-color="#00B0F0">
@@ -1271,7 +1271,7 @@
 </code></pre>
           </tip-box>
           <br>
-          <h2 id="tipbox-options">TipBox Options</h2>
+          <h2 id="tipbox-options">TipBox Options<a class="fa fa-anchor" href="#tipbox-options"></a></h2>
           <div class="table-responsive">
             <table class="markbind-table table table-bordered table-striped">
               <thead>
@@ -1326,7 +1326,7 @@
         </div>
         <br>
         <div>
-          <h1 id="tooltip">Tooltip</h1>
+          <h1 id="tooltip">Tooltip<a class="fa fa-anchor" href="#tooltip"></a></h1>
           <tip-box border-left-color="#00B0F0">
             <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
             <tooltip header="" content="Lorem ipsum dolor sit amet" placement="top">
@@ -1397,7 +1397,7 @@ Trigger
 connected two routines or modules are; the strength of the relationships between modules."</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">i</span>&gt;</span>coupling<span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">tooltip</span>&gt;</span>
 </code></pre>
           </tip-box>
-          <h2 id="tooltip-options">Tooltip Options</h2>
+          <h2 id="tooltip-options">Tooltip Options<a class="fa fa-anchor" href="#tooltip-options"></a></h2>
           <div class="table-responsive">
             <table class="markbind-table table table-bordered table-striped">
               <thead>
@@ -1433,13 +1433,13 @@ connected two routines or modules are; the strength of the relationships between
         </div>
         <br>
         <div>
-          <h1 id="trigger">Trigger</h1>
+          <h1 id="trigger">Trigger<a class="fa fa-anchor" href="#trigger"></a></h1>
           <p>Trigger provides more flexibility in triggering contextual overlay via Tooltip, Popover or Modal.</p>
           <p>You could embed a Trigger within the text, and define the Tooltip, Popover or Modal at a separate location, which allows for a cleaner authoring flow.</p>
           <p>Specify the <code>id</code> attribute on the Tooltip, Popover or Modal component, and use the same <code>id</code> in the <code>for</code> attribute of the Trigger to allow the Trigger to invoke the specific overlay elements. Additionally, multiple
             Triggers could share the same overlay by providing them with the same <code>id</code>.
             <br></p>
-          <h3 id="using-trigger-for-tooltip">Using trigger for Tooltip</h3>
+          <h3 id="using-trigger-for-tooltip">Using trigger for Tooltip<a class="fa fa-anchor" href="#using-trigger-for-tooltip"></a></h3>
           <tip-box border-left-color="#00B0F0">
             <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br> More about
             <trigger for="tt:trigger_id">trigger</trigger>.
@@ -1455,7 +1455,7 @@ connected two routines or modules are; the strength of the relationships between
 This is the same <span class="hljs-tag">&lt;<span class="hljs-name">trigger</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"tt:trigger_id"</span>&gt;</span>trigger<span class="hljs-tag">&lt;/<span class="hljs-name">trigger</span>&gt;</span> as last one.
 </code></pre>
           </tip-box>
-          <h3 id="using-trigger-for-popover">Using trigger for Popover</h3>
+          <h3 id="using-trigger-for-popover">Using trigger for Popover<a class="fa fa-anchor" href="#using-trigger-for-popover"></a></h3>
           <tip-box border-left-color="#00B0F0">
             <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br> More about
             <trigger for="pop:trigger_id">trigger</trigger>.
@@ -1471,7 +1471,7 @@ This is the same <span class="hljs-tag">&lt;<span class="hljs-name">trigger</spa
 This is the same <span class="hljs-tag">&lt;<span class="hljs-name">trigger</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"pop:trigger_id"</span>&gt;</span>trigger<span class="hljs-tag">&lt;/<span class="hljs-name">trigger</span>&gt;</span> as last one.
 </code></pre>
           </tip-box>
-          <h3 id="using-trigger-for-modal">Using trigger for Modal</h3>
+          <h3 id="using-trigger-for-modal">Using trigger for Modal<a class="fa fa-anchor" href="#using-trigger-for-modal"></a></h3>
           <tip-box border-left-color="#00B0F0">
             <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br> More about
             <trigger for="modal:trigger_id">trigger</trigger>.
@@ -1492,7 +1492,7 @@ This is the same <span class="hljs-tag">&lt;<span class="hljs-name">trigger</spa
 This is the same <span class="hljs-tag">&lt;<span class="hljs-name">trigger</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"modal:trigger_id"</span>&gt;</span>trigger<span class="hljs-tag">&lt;/<span class="hljs-name">trigger</span>&gt;</span> as last one.
 </code></pre>
           </tip-box>
-          <h3 id="triggers-trigger-attribute-which-defaults-to-hover-is-independent-of-the-targets">Trigger's <code>trigger</code> attribute (which defaults to <code>hover</code>) is independent of the target's.</h3>
+          <h3 id="triggers-trigger-attribute-which-defaults-to-hover-is-independent-of-the-targets">Trigger's <code>trigger</code> attribute (which defaults to <code>hover</code>) is independent of the target's.<a class="fa fa-anchor" href="#triggers-trigger-attribute-which-defaults-to-hover-is-independent-of-the-targets"></a></h3>
           <tip-box border-left-color="#00B0F0">
             <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br> This is a hover
             <trigger for="pop:xp-user-stories">trigger</trigger>.
@@ -1511,7 +1511,7 @@ This is a click
 <span class="hljs-tag">&lt;/<span class="hljs-name">popover</span>&gt;</span>.
 </code></pre>
           </tip-box>
-          <h2 id="trigger-options">Trigger Options</h2>
+          <h2 id="trigger-options">Trigger Options<a class="fa fa-anchor" href="#trigger-options"></a></h2>
           <div class="table-responsive">
             <table class="markbind-table table table-bordered table-striped">
               <thead>
@@ -1541,9 +1541,9 @@ This is a click
         </div>
         <br>
         <div>
-          <h1 id="modal">Modal</h1>
+          <h1 id="modal">Modal<a class="fa fa-anchor" href="#modal"></a></h1>
           <p><strong>Modals are to be used together with the <a href="#trigger">Trigger</a> component for activation.</strong></p>
-          <h2 id="modal-options">Modal Options</h2>
+          <h2 id="modal-options">Modal Options<a class="fa fa-anchor" href="#modal-options"></a></h2>
           <div class="table-responsive">
             <table class="markbind-table table table-bordered table-striped">
               <thead>
@@ -1610,8 +1610,8 @@ This is a click
         </div>
         <br>
         <div>
-          <h1 id="advanced-tips-and-tricks">Advanced Tips and Tricks</h1>
-          <h2 id="rich-formatted-text-in-headings-and-titles">Rich formatted text in headings and titles</h2>
+          <h1 id="advanced-tips-and-tricks">Advanced Tips and Tricks<a class="fa fa-anchor" href="#advanced-tips-and-tricks"></a></h1>
+          <h2 id="rich-formatted-text-in-headings-and-titles">Rich formatted text in headings and titles<a class="fa fa-anchor" href="#rich-formatted-text-in-headings-and-titles"></a></h2>
           <p>Using the normal syntax, you are only able to use markdown formatting on headings. If you would like more styling options, you can define an element within the component that acts as your heading. This is done by adding a <span><code>slot</code></span>            attribute with the correct name to that element.</p>
           <tip-box border-left-color="#00B0F0">
             <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -1672,7 +1672,7 @@ This is a click
 </code></pre>
           </tip-box>
           <br>
-          <h3 id="panel-slot-options">Panel Slot Options</h3>
+          <h3 id="panel-slot-options">Panel Slot Options<a class="fa fa-anchor" href="#panel-slot-options"></a></h3>
           <div class="table-responsive">
             <table class="markbind-table table table-bordered table-striped">
               <thead>
@@ -1691,7 +1691,7 @@ This is a click
               </tbody>
             </table>
           </div>
-          <h3 id="modal-slot-options">Modal Slot Options</h3>
+          <h3 id="modal-slot-options">Modal Slot Options<a class="fa fa-anchor" href="#modal-slot-options"></a></h3>
           <p>When using slots for Modals, you need to add a single blank line before each <code>&lt;modal&gt;</code> tag, in order for the customization to render correctly.</p>
           <div class="table-responsive">
             <table class="markbind-table table table-bordered table-striped">
@@ -1716,7 +1716,7 @@ This is a click
               </tbody>
             </table>
           </div>
-          <h2 id="insert-custom-classes-into-components">Insert custom classes into components</h2>
+          <h2 id="insert-custom-classes-into-components">Insert custom classes into components<a class="fa fa-anchor" href="#insert-custom-classes-into-components"></a></h2>
           <p>Every component documented in our user guide allows you to insert your own defined CSS classes. This is done by adding the <code>add-class</code> attribute to a component along with the desired class names.</p>
           <tip-box border-left-color="#00B0F0">
             <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -1739,7 +1739,7 @@ This is a click
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.12.0</a> on Fri, 03 Aug 2018 09:16:21 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.13.0</a> on Fri, 28 Sep 2018 13:01:33 GMT]</small></div>
 </footer>
 </div>
 </body>

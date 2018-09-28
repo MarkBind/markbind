@@ -22,7 +22,7 @@
   <div id="site-nav">
     <ul style="list-style-type: none; margin-left:-1em">
       <li style="margin-top: 10px">
-        <h2 id="user-guide">User Guide</h2>
+        <h2 id="user-guide">User Guide<a class="fa fa-anchor" href="#user-guide"></a></h2>
       </li>
       <li style="margin-top: 10px"><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
       <li style="margin-top:10px"><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
@@ -71,23 +71,23 @@
             <li><a href="/markbind/userGuide/userQuickStart.html" class="dropdown-item">Quick Start</a></li>
             <li role="separator" class="dropdown-divider"></li>
             <li><a href="/markbind/userGuide/developingASite.html" class="dropdown-item">Developing a Site</a>
-              <li><a href="/markbind/userGuide/siteConfiguration.html" class="dropdown-item">◦&nbsp; Site Configuration</a></li>
-              <li role="separator" class="dropdown-divider"></li>
-              <li><a href="/markbind/userGuide/contentAuthoring.html" class="dropdown-item">Content Authoring</a></li>
-              <li><a href="/markbind/userGuide/includingContents.html" class="dropdown-item">◦&nbsp; Including Contents</a></li>
-              <li><a href="/markbind/userGuide/knownProblems.html" class="dropdown-item">◦&nbsp; Known Problems</a></li>
-              <li role="separator" class="dropdown-divider"></li>
-              <li class="dropdown-header">Deploying a Site</li>
-              <li><a href="/markbind/userGuide/ghpagesDeployment.html" class="dropdown-item">◦&nbsp; Github Pages Deployment</a></li>
-              <li><a href="/markbind/userGuide/netlifyPreview.html" class="dropdown-item">◦&nbsp; Preview site on Netlify</a></li>
-              <li role="separator" class="dropdown-divider"></li>
-              <li><a href="/markbind/userGuide/components.html" class="dropdown-item">Components Reference</a></li>
             </li>
+            <li><a href="/markbind/userGuide/siteConfiguration.html" class="dropdown-item">◦&nbsp; Site Configuration</a></li>
+            <li role="separator" class="dropdown-divider"></li>
+            <li><a href="/markbind/userGuide/contentAuthoring.html" class="dropdown-item">Content Authoring</a></li>
+            <li><a href="/markbind/userGuide/includingContents.html" class="dropdown-item">◦&nbsp; Including Contents</a></li>
+            <li><a href="/markbind/userGuide/knownProblems.html" class="dropdown-item">◦&nbsp; Known Problems</a></li>
+            <li role="separator" class="dropdown-divider"></li>
+            <li class="dropdown-header">Deploying a Site</li>
+            <li><a href="/markbind/userGuide/ghpagesDeployment.html" class="dropdown-item">◦&nbsp; Github Pages Deployment</a></li>
+            <li><a href="/markbind/userGuide/netlifyPreview.html" class="dropdown-item">◦&nbsp; Preview site on Netlify</a></li>
+            <li role="separator" class="dropdown-divider"></li>
+            <li><a href="/markbind/userGuide/components.html" class="dropdown-item">Components Reference</a></li>
           </dropdown>
           <li>
             <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">
       Fork this project on Github
-      <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
+      <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewbox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
           <li slot="right">
             <form class="navbar-form">
               <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right=""></searchbar>
@@ -96,9 +96,9 @@
         </navbar>
       </div>
       <div class="website-content">
-        <h1 id="developing-a-site-with-markbind">Developing a Site with MarkBind</h1>
+        <h1 id="developing-a-site-with-markbind">Developing a Site with MarkBind<a class="fa fa-anchor" href="#developing-a-site-with-markbind"></a></h1>
         <p>This wiki explains the basic command you need to know to develop a site with MarkBind.</p>
-        <h2 id="init-a-site-with-markbind">Init a site with MarkBind</h2>
+        <h2 id="init-a-site-with-markbind">Init a site with MarkBind<a class="fa fa-anchor" href="#init-a-site-with-markbind"></a></h2>
         <p>MarkBind can setup a boilerplate site in the current directory:</p>
         <pre class="hljs"><code>$ markbind init
 </code></pre>
@@ -109,7 +109,7 @@
           <li><a href="#sitejson"><code>site.json</code></a> is the configuration file used for MarkBind to build your website correctly.</li>
         </ul>
         <p><strong>A valid <code>site.json</code> file is required to build a MarkBind-driven site</strong>.</p>
-        <h2 id="preview-and-serve-your-site-using">Preview and serve your site using:</h2>
+        <h2 id="preview-and-serve-your-site-using">Preview and serve your site using:<a class="fa fa-anchor" href="#preview-and-serve-your-site-using"></a></h2>
         <pre class="hljs"><code>$ markbind serve
 </code></pre>
         <p>MarkBind will generate the site in a folder named <code>_site</code> in the current directory. Live reload is enabled to regenerate the site for changes, so you could see the immediate rendering result after you modify the source files.</p>
@@ -133,18 +133,25 @@
             </tbody>
           </table>
         </div>
-        <h2 id="build-the-static-site">Build the static site</h2>
+        <p>Note: Live reload is only supported for the following file types:</p>
+        <ul>
+          <li><code>.html</code></li>
+          <li><code>.md</code></li>
+          <li><code>.mbd</code> (MarkBind file)</li>
+          <li><code>.mbdf</code> (MarkBind fragment)</li>
+        </ul>
+        <h2 id="build-the-static-site">Build the static site<a class="fa fa-anchor" href="#build-the-static-site"></a></h2>
         <pre class="hljs"><code>$ markbind build
 </code></pre>
         <p>By default, MarkBind will generate the site to the folder named <code>_site</code> in the current directory, with current directory as the root directory. You can change them using</p>
         <pre class="hljs"><code>$ markbind build ./rootFolder ./outputFolder
 </code></pre>
-        <h2 id="deploy-the-generated-site">Deploy the generated site</h2>
+        <h2 id="deploy-the-generated-site">Deploy the generated site<a class="fa fa-anchor" href="#deploy-the-generated-site"></a></h2>
         <pre class="hljs"><code>$ markbind deploy
 </code></pre>
         <p>By default, it will try to push everything in the generated site (default dir: <code>_site</code>) to the <code>gh-pages</code> branch of the current git working directory's remote repo.</p>
         <p>Please check more details of deployment <a href="ghpagesDeployment.html">here</a>.</p>
-        <h3 id="sitejson">site.json</h3>
+        <h3 id="sitejson">site.json<a class="fa fa-anchor" href="#sitejson"></a></h3>
         <p>Let's take a look at this newly created <code>site.json</code>:</p>
         <div>
           <pre class="hljs"><code>{
@@ -222,7 +229,7 @@
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.12.0</a> on Fri, 03 Aug 2018 09:16:21 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.13.0</a> on Fri, 28 Sep 2018 13:01:33 GMT]</small></div>
 </footer>
 </div>
 </body>

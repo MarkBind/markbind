@@ -22,7 +22,7 @@
   <div id="site-nav">
     <ul style="list-style-type: none; margin-left:-1em">
       <li style="margin-top: 10px">
-        <h2 id="user-guide">User Guide</h2>
+        <h2 id="user-guide">User Guide<a class="fa fa-anchor" href="#user-guide"></a></h2>
       </li>
       <li style="margin-top: 10px"><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
       <li style="margin-top:10px"><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
@@ -71,23 +71,23 @@
             <li><a href="/markbind/userGuide/userQuickStart.html" class="dropdown-item">Quick Start</a></li>
             <li role="separator" class="dropdown-divider"></li>
             <li><a href="/markbind/userGuide/developingASite.html" class="dropdown-item">Developing a Site</a>
-              <li><a href="/markbind/userGuide/siteConfiguration.html" class="dropdown-item">◦&nbsp; Site Configuration</a></li>
-              <li role="separator" class="dropdown-divider"></li>
-              <li><a href="/markbind/userGuide/contentAuthoring.html" class="dropdown-item">Content Authoring</a></li>
-              <li><a href="/markbind/userGuide/includingContents.html" class="dropdown-item">◦&nbsp; Including Contents</a></li>
-              <li><a href="/markbind/userGuide/knownProblems.html" class="dropdown-item">◦&nbsp; Known Problems</a></li>
-              <li role="separator" class="dropdown-divider"></li>
-              <li class="dropdown-header">Deploying a Site</li>
-              <li><a href="/markbind/userGuide/ghpagesDeployment.html" class="dropdown-item">◦&nbsp; Github Pages Deployment</a></li>
-              <li><a href="/markbind/userGuide/netlifyPreview.html" class="dropdown-item">◦&nbsp; Preview site on Netlify</a></li>
-              <li role="separator" class="dropdown-divider"></li>
-              <li><a href="/markbind/userGuide/components.html" class="dropdown-item">Components Reference</a></li>
             </li>
+            <li><a href="/markbind/userGuide/siteConfiguration.html" class="dropdown-item">◦&nbsp; Site Configuration</a></li>
+            <li role="separator" class="dropdown-divider"></li>
+            <li><a href="/markbind/userGuide/contentAuthoring.html" class="dropdown-item">Content Authoring</a></li>
+            <li><a href="/markbind/userGuide/includingContents.html" class="dropdown-item">◦&nbsp; Including Contents</a></li>
+            <li><a href="/markbind/userGuide/knownProblems.html" class="dropdown-item">◦&nbsp; Known Problems</a></li>
+            <li role="separator" class="dropdown-divider"></li>
+            <li class="dropdown-header">Deploying a Site</li>
+            <li><a href="/markbind/userGuide/ghpagesDeployment.html" class="dropdown-item">◦&nbsp; Github Pages Deployment</a></li>
+            <li><a href="/markbind/userGuide/netlifyPreview.html" class="dropdown-item">◦&nbsp; Preview site on Netlify</a></li>
+            <li role="separator" class="dropdown-divider"></li>
+            <li><a href="/markbind/userGuide/components.html" class="dropdown-item">Components Reference</a></li>
           </dropdown>
           <li>
             <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">
       Fork this project on Github
-      <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
+      <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewbox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
           <li slot="right">
             <form class="navbar-form">
               <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right=""></searchbar>
@@ -96,8 +96,8 @@
         </navbar>
       </div>
       <div class="website-content">
-        <h1 id="content-authoring">Content authoring</h1>
-        <h3 id="general-writing-guide">General writing guide</h3>
+        <h1 id="content-authoring">Content authoring<a class="fa fa-anchor" href="#content-authoring"></a></h1>
+        <h3 id="general-writing-guide">General writing guide<a class="fa fa-anchor" href="#general-writing-guide"></a></h3>
         <h4 id="mixing-html-with-markdown">Mixing HTML with Markdown</h4>
         <p><em>MarkBind</em> allows you to mix HTML with Markdown content.</p>
         <p>To separate inline Markdown from HTML elements, enclose inline Markdown content with <code>&lt;md&gt;</code> tags.</p>
@@ -138,7 +138,7 @@
         <p>Use
           <code>{<span></span>{baseUrl}}</code> for absolute path reference of images and resource files so that the path could be handled correctly when deployed. The
           <code>{<span></span>{baseUrl}}</code> is parsed from the project root (where <code>site.json</code> located).</p>
-        <h3 id="supported-markdown-syntax">Supported Markdown Syntax</h3>
+        <h3 id="supported-markdown-syntax">Supported Markdown Syntax<a class="fa fa-anchor" href="#supported-markdown-syntax"></a></h3>
         <p>MarkBind support the standard Markdown syntax. Read the <a href="https://guides.github.com/features/mastering-markdown/">guide</a>.</p>
         <p>In addition, it supports:</p>
         <ul>
@@ -196,7 +196,7 @@
             <p>More media blocks, embedding services and additional options can be found in <a href="https://github.com/rotorz/markdown-it-block-embed">Markdown-it-block-embed docs</a></p>
           </li>
         </ul>
-        <h3 id="use-markbind-variables">Use MarkBind variables</h3>
+        <h3 id="use-markbind-variables">Use MarkBind variables<a class="fa fa-anchor" href="#use-markbind-variables"></a></h3>
         <p>You can insert variables to be replaced by pre-defined values anywhere in your site. MarkBind treats any text surrounded with double curly braces as a variable, e.g. <code>{<span></span>{variable_name}}</code></p>
         <p>Some helpful variables are provided by MarkBind for your convenience, as shown below.</p>
         <h4 id="font-awesome-icons">Font Awesome icons</h4>
@@ -233,11 +233,11 @@
             aria-hidden="true"></span></p>
         <h4 id="timestamp">Timestamp</h4>
         <p>Use <code>{<span></span>{timestamp}}</code> to insert a UTC time snippet that indicates when the page was generated.</p>
-        <p><code>{<span></span>{timestamp}}</code> will be rendered as: Fri, 03 Aug 2018 09:16:21 GMT</p>
+        <p><code>{<span></span>{timestamp}}</code> will be rendered as: Fri, 28 Sep 2018 13:01:33 GMT</p>
         <h4 id="markbind-link">MarkBind Link</h4>
         <p>Reference or support MarkBind by using <code>{<span></span>{MarkBind}}</code> to insert a link to our website.</p>
-        <p><code>{<span></span>{MarkBind}}</code> will be rendered as: <a href="https://markbind.github.io/markbind/">MarkBind 1.12.0</a></p>
-        <h3 id="add-your-own-variables">Add your own variables</h3>
+        <p><code>{<span></span>{MarkBind}}</code> will be rendered as: <a href="https://markbind.github.io/markbind/">MarkBind 1.13.0</a></p>
+        <h3 id="add-your-own-variables">Add your own variables<a class="fa fa-anchor" href="#add-your-own-variables"></a></h3>
         <p>In <code>_markbind/variables.md</code>, you can define your own variables that can be used anywhere in your site. The format is as follows.</p>
         <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"year"</span>&gt;</span>2018<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 
@@ -292,7 +292,8 @@
               <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span></p>
           </div>
         </tip-box>
-        <h3 id="use-searchbar">Use Searchbar</h3>
+        <h3 id="use-searchbar">Use Searchbar<a class="fa fa-anchor" href="#use-searchbar"></a></h3>
+        <p>The searchbar allows users to search all headings within any page on the site.</p>
         <p>To use the searchbar, add the following markup to your file.</p>
         <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">searchbar</span> <span class="hljs-attr">:data</span>=<span class="hljs-string">"searchData"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Search"</span> <span class="hljs-attr">:on-hit</span>=<span class="hljs-string">"searchCallback"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">searchbar</span>&gt;</span>
 </code></pre>
@@ -303,7 +304,13 @@
   <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 </code></pre>
-        <h3 id="use-components">Use Components</h3>
+        <h3 id="keywords">Keywords<a class="fa fa-anchor" href="#keywords"></a></h3>
+        <p>You can also specify custom keywords to be included under a heading by tagging the words with the <code>keyword</code> class:</p>
+        <pre><code class="hljs html"># Heading
+This is good for catching <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"keyword"</span>&gt;</span>regressions<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+</code></pre>
+        <p>These keywords will be linked to the immediate heading before it. Users will be able to search for these keywords using the searchbar.</p>
+        <h3 id="use-components">Use Components<a class="fa fa-anchor" href="#use-components"></a></h3>
         <p>To use a component, just type the corresponding markup in your file. For example, to create a Panel, you just need to write:</p>
         <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Click to expand"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"seamless"</span>&gt;</span>
   Panel Content.
@@ -351,10 +358,10 @@ Yes!
 <span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
 </code></pre>
         <p>Checkboxes can also be used by substituting <code>- ( )</code> with <code>- [ ]</code>.</p>
-        <h3 id="include-contents">Include Contents</h3>
+        <h3 id="include-contents">Include Contents<a class="fa fa-anchor" href="#include-contents"></a></h3>
         <p>Being able to include different markdown file into the current context is another feature of <em>MarkBind</em>. You can create a complex document from different content fragments by including them.</p>
         <p>For detailed guide on using <code>&lt;include&gt;</code> tag for including contents, read the doc <a href="includingContents.html">here</a>.</p>
-        <h3 id="front-matter">Front Matter</h3>
+        <h3 id="front-matter">Front Matter<a class="fa fa-anchor" href="#front-matter"></a></h3>
         <p>Front matter allows you to specify page parameters such as the title and keywords of the page. These parameters will be used to build a site data file (<code>siteData.json</code>) that will contain the index used for the search function. You can
           specify front matter at the beginning of your page by using the <code>&lt;frontmatter&gt;</code> tag as follows:</p>
         <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
@@ -376,7 +383,7 @@ Yes!
         <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"matterDefinition.md#bst"</span> /&gt;</span>
 </code></pre>
         <p>This will result in <code>index.md</code> having the title <code>Binary Search Tree</code> and the specified keywords in order for it to be looked up through the search bar.</p>
-        <h3 id="inserting-content-into-a-pages-head-element">Inserting content into a page's head element</h3>
+        <h3 id="inserting-content-into-a-pages-head-element">Inserting content into a page's head element<a class="fa fa-anchor" href="#inserting-content-into-a-pages-head-element"></a></h3>
         <p>While authoring your website, you may want to have your own CSS or Javascript files to be included in a page.</p>
         <ul>
           <li>
@@ -423,12 +430,18 @@ alert(<span class="hljs-string">"Welcome to my website!"</span>);
 <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
 </code></pre>
         <p>Style elements placed at the bottom will override existing Bootstrap and MarkBind CSS styles if there is an overlap of selectors.</p>
+        <p>Multiple head files can be included within a page by providing a comma separated list:</p>
+        <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+  head: compiledRef.md, compiledRef2.md
+<span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
+</code></pre>
+        <p>These will be added to <code>&lt;head&gt;</code> in the order in which they are listed. If the markdown head files contain scripts, this may affect the order in which they are run.</p>
         <p>Note:</p>
         <ul>
           <li>You may specify raw <code>.js</code> or <code>.css</code> files as your head file if you wish to do so.</li>
-          <li>Only one head file can be specified in a page, and you <strong>must</strong> include its file extension.</li>
+          <li>You <strong>must</strong> include its file extension.</li>
         </ul>
-        <h3 id="site-navigation">Site Navigation</h3>
+        <h3 id="site-navigation">Site Navigation<a class="fa fa-anchor" href="#site-navigation"></a></h3>
         <p>A site navigation bar is a fixed menu on the left side of your page contents, that allows the viewer to navigate your site pages. The menu has a fixed width of 300 pixels for its contents. If you would like to have a site navigation bar for your
           site, you may create one easily using Markdown.</p>
         <ul>
@@ -526,7 +539,7 @@ alert(<span class="hljs-string">"Welcome to my website!"</span>);
             </ul>
           </li>
         </ul>
-        <h3 id="using-footers">Using Footers</h3>
+        <h3 id="using-footers">Using Footers<a class="fa fa-anchor" href="#using-footers"></a></h3>
         <p>It is optional to put footers in your site. If you wish to do so, there are two ways that MarkBind supports.</p>
         <ol>
           <li><a href="#specifying-footer-file-in-front-matter">Specifying footer file in Front Matter</a></li>
@@ -569,6 +582,11 @@ alert(<span class="hljs-string">"Welcome to my website!"</span>);
           <li>Footers should not be nested in other components or HTML tags. If found inside, they will be shifted outside to be rendered properly.</li>
           <li><a href="#use-components">MarkBind components</a> and <a href="#include-contents">includes</a> are not supported in footers.</li>
         </ul>
+        <h3 id="heading-anchors">Heading Anchors<a class="fa fa-anchor" href="#heading-anchors"></a></h3>
+        <p>Your site's readers may want to obtain a link to a heading within a page, to share with someone else for example.</p>
+        <p>MarkBind automatically generates heading anchors for your page.</p>
+        <p>When the reader hovers over a heading in your page, a small anchor icon <i class="fas fa-anchor"></i> will become visible next to the heading. Clicking this icon will redirect the page to that heading, producing the desired URL in the URL bar
+          that the reader can share with someone else. Try it with the headings on this page!</p>
       </div>
     </div>
   </div>
@@ -576,7 +594,7 @@ alert(<span class="hljs-string">"Welcome to my website!"</span>);
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.12.0</a> on Fri, 03 Aug 2018 09:16:21 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.13.0</a> on Fri, 28 Sep 2018 13:01:33 GMT]</small></div>
 </footer>
 </div>
 </body>

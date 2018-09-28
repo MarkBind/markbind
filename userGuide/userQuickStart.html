@@ -22,7 +22,7 @@
   <div id="site-nav">
     <ul style="list-style-type: none; margin-left:-1em">
       <li style="margin-top: 10px">
-        <h2 id="user-guide">User Guide</h2>
+        <h2 id="user-guide">User Guide<a class="fa fa-anchor" href="#user-guide"></a></h2>
       </li>
       <li style="margin-top: 10px"><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
       <li style="margin-top:10px"><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
@@ -71,23 +71,23 @@
             <li><a href="/markbind/userGuide/userQuickStart.html" class="dropdown-item">Quick Start</a></li>
             <li role="separator" class="dropdown-divider"></li>
             <li><a href="/markbind/userGuide/developingASite.html" class="dropdown-item">Developing a Site</a>
-              <li><a href="/markbind/userGuide/siteConfiguration.html" class="dropdown-item">◦&nbsp; Site Configuration</a></li>
-              <li role="separator" class="dropdown-divider"></li>
-              <li><a href="/markbind/userGuide/contentAuthoring.html" class="dropdown-item">Content Authoring</a></li>
-              <li><a href="/markbind/userGuide/includingContents.html" class="dropdown-item">◦&nbsp; Including Contents</a></li>
-              <li><a href="/markbind/userGuide/knownProblems.html" class="dropdown-item">◦&nbsp; Known Problems</a></li>
-              <li role="separator" class="dropdown-divider"></li>
-              <li class="dropdown-header">Deploying a Site</li>
-              <li><a href="/markbind/userGuide/ghpagesDeployment.html" class="dropdown-item">◦&nbsp; Github Pages Deployment</a></li>
-              <li><a href="/markbind/userGuide/netlifyPreview.html" class="dropdown-item">◦&nbsp; Preview site on Netlify</a></li>
-              <li role="separator" class="dropdown-divider"></li>
-              <li><a href="/markbind/userGuide/components.html" class="dropdown-item">Components Reference</a></li>
             </li>
+            <li><a href="/markbind/userGuide/siteConfiguration.html" class="dropdown-item">◦&nbsp; Site Configuration</a></li>
+            <li role="separator" class="dropdown-divider"></li>
+            <li><a href="/markbind/userGuide/contentAuthoring.html" class="dropdown-item">Content Authoring</a></li>
+            <li><a href="/markbind/userGuide/includingContents.html" class="dropdown-item">◦&nbsp; Including Contents</a></li>
+            <li><a href="/markbind/userGuide/knownProblems.html" class="dropdown-item">◦&nbsp; Known Problems</a></li>
+            <li role="separator" class="dropdown-divider"></li>
+            <li class="dropdown-header">Deploying a Site</li>
+            <li><a href="/markbind/userGuide/ghpagesDeployment.html" class="dropdown-item">◦&nbsp; Github Pages Deployment</a></li>
+            <li><a href="/markbind/userGuide/netlifyPreview.html" class="dropdown-item">◦&nbsp; Preview site on Netlify</a></li>
+            <li role="separator" class="dropdown-divider"></li>
+            <li><a href="/markbind/userGuide/components.html" class="dropdown-item">Components Reference</a></li>
           </dropdown>
           <li>
             <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">
       Fork this project on Github
-      <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
+      <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewbox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
           <li slot="right">
             <form class="navbar-form">
               <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right=""></searchbar>
@@ -96,14 +96,14 @@
         </navbar>
       </div>
       <div class="website-content">
-        <h1 id="user-quick-start">User Quick Start</h1>
-        <h2 id="requirement">Requirement</h2>
+        <h1 id="user-quick-start">User Quick Start<a class="fa fa-anchor" href="#user-quick-start"></a></h1>
+        <h2 id="requirement">Requirement<a class="fa fa-anchor" href="#requirement"></a></h2>
         <p>We expect users to have basic knowledge of the following:</p>
         <ul class="task-list">
           <li class="task-list-item"><input class="task-list-item-checkbox" checked type="checkbox"> Markdown</li>
           <li class="task-list-item"><input class="task-list-item-checkbox" checked type="checkbox"> Command-line Environment</li>
         </ul>
-        <h2 id="installation">Installation</h2>
+        <h2 id="installation">Installation<a class="fa fa-anchor" href="#installation"></a></h2>
         <p><code>MarkBind</code> can be <a href="https://www.npmjs.com/get-npm">installed using npm</a>.</p>
         <p>You can run:</p>
         <pre class="hljs"><code>$ npm install -g markbind-cli
@@ -119,6 +119,7 @@
 | |  | | | (_| | | |    |   &lt;  | |_) | | | | | | | | (_| |
 |_|  |_|  \__,_| |_|    |_|\_\ |____/  |_| |_| |_|  \__,_|
 
+v1.12.0
 
 Usage: index  &lt;command&gt;
 
@@ -139,8 +140,8 @@ Commands:
   build [root] [output]     build a website
 </code></pre>
         <p>You can add the help flag (<code>--help</code>) to any command to show the help screen.</p>
-        <h2 id="using-markbind-to-author-a-website">Using MarkBind to author a Website</h2>
-        <h3 id="create-a-new-site">Create a new site</h3>
+        <h2 id="using-markbind-to-author-a-website">Using MarkBind to author a Website<a class="fa fa-anchor" href="#using-markbind-to-author-a-website"></a></h2>
+        <h3 id="create-a-new-site">Create a new site<a class="fa fa-anchor" href="#create-a-new-site"></a></h3>
         <p>MarkBind can setup a boilerplate site in the current directory:</p>
         <pre class="hljs"><code>$ markbind init
 </code></pre>
@@ -152,9 +153,9 @@ Commands:
         </ul>
         <p><strong>A valid <code>site.json</code> file is required to build a MarkBind-driven site</strong>.</p>
         <p>You may refer to this <a href="siteConfiguration.html">doc</a> for more details about how you can configure the <code>site.json</code>.</p>
-        <h3 id="authoring-your-contents">Authoring your contents</h3>
+        <h3 id="authoring-your-contents">Authoring your contents<a class="fa fa-anchor" href="#authoring-your-contents"></a></h3>
         <p>Read more about content authoring <a href="contentAuthoring.html">here</a>.</p>
-        <h3 id="preview-your-site">Preview your site</h3>
+        <h3 id="preview-your-site">Preview your site<a class="fa fa-anchor" href="#preview-your-site"></a></h3>
         <p>After authoring your contents, you can run:</p>
         <pre class="hljs"><code>$ markbind serve
 </code></pre>
@@ -171,6 +172,10 @@ Commands:
             </thead>
             <tbody>
               <tr>
+                <td><code>-f</code>, <code>--force-reload</code></td>
+                <td>Force a full reload of all site files when a file is changed.</td>
+              </tr>
+              <tr>
                 <td><code>-p</code>, <code>--port &lt;port&gt;</code></td>
                 <td>The port used for serving your website.</td>
               </tr>
@@ -181,7 +186,7 @@ Commands:
             </tbody>
           </table>
         </div>
-        <h3 id="build-the-static-site">Build the static site</h3>
+        <h3 id="build-the-static-site">Build the static site<a class="fa fa-anchor" href="#build-the-static-site"></a></h3>
         <p>When you are ready to deploy your website, you can run</p>
         <pre class="hljs"><code>$ markbind build
 </code></pre>
@@ -189,7 +194,7 @@ Commands:
         <p>By default, MarkBind will generate the site to the folder named <code>_site</code> in the current directory, with current directory as the root directory. You can change them using:</p>
         <pre class="hljs"><code>$ markbind build ./rootFolder ./outputFolder
 </code></pre>
-        <h3 id="deploy-the-generated-site">Deploy the generated site</h3>
+        <h3 id="deploy-the-generated-site">Deploy the generated site<a class="fa fa-anchor" href="#deploy-the-generated-site"></a></h3>
         <p>MarkBind allows you to easily deploy your generated website to Github Pages. You must first set up the working directory as a Github repo.</p>
         <pre class="hljs"><code>$ markbind deploy
 </code></pre>
@@ -202,7 +207,7 @@ Commands:
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.12.0</a> on Fri, 03 Aug 2018 09:16:21 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.13.0</a> on Fri, 28 Sep 2018 13:01:33 GMT]</small></div>
 </footer>
 </div>
 </body>
