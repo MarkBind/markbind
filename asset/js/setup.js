@@ -15,9 +15,21 @@ function flattenModals() {
   });
 }
 
+function setupAnchorVisibility() {
+  jQuery('h1, h2, h3, h4, h5, h6').each((index, heading) => {
+    jQuery(heading).on('mouseenter', function () {
+      jQuery(this).children('.fa.fa-anchor').show();
+    });
+    jQuery(heading).on('mouseleave', function () {
+      jQuery(this).children('.fa.fa-anchor').hide();
+    });
+  });
+}
+
 function executeAfterMountedRoutines() {
   flattenModals();
   scrollToUrlAnchorHeading();
+  setupAnchorVisibility();
 }
 
 function setupSiteNav() {

@@ -9,6 +9,29 @@ function scrollToUrlAnchorHeading() {
   }
 }
 
+function flattenModals() {
+  jQuery('.modal').each((index, modal) => {
+    jQuery(modal).detach().appendTo(jQuery('#app'));
+  });
+}
+
+function setupAnchorVisibility() {
+  jQuery('h1, h2, h3, h4, h5, h6').each((index, heading) => {
+    jQuery(heading).on('mouseenter', function () {
+      jQuery(this).children('.fa.fa-anchor').show();
+    });
+    jQuery(heading).on('mouseleave', function () {
+      jQuery(this).children('.fa.fa-anchor').hide();
+    });
+  });
+}
+
+function executeAfterMountedRoutines() {
+  flattenModals();
+  scrollToUrlAnchorHeading();
+  setupAnchorVisibility();
+}
+
 function setupSiteNav() {
   // Add event listener for site-nav-btn to toggle itself and site navigation elements.
   const siteNavBtn = document.getElementById('site-nav-btn');
@@ -37,7 +60,7 @@ function setup() {
   const vm = new Vue({
     el: '#app',
     mounted() {
-      scrollToUrlAnchorHeading();
+      executeAfterMountedRoutines();
     },
   });
   setupSiteNav();
@@ -64,7 +87,7 @@ function setupWithSearch(siteData) {
       },
     },
     mounted() {
-      scrollToUrlAnchorHeading();
+      executeAfterMountedRoutines();
     },
   });
   setupSiteNav();
