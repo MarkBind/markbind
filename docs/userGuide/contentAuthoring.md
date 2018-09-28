@@ -434,9 +434,19 @@ alert("Welcome to my website!");
 
 Style elements placed at the bottom will override existing Bootstrap and MarkBind CSS styles if there is an overlap of selectors. 
 
+Multiple head files can be included within a page by providing a comma separated list:
+
+```html
+<frontmatter>
+  head: compiledRef.md, compiledRef2.md
+</frontmatter>
+```
+
+These will be added to `<head>` in the order in which they are listed. If the markdown head files contain scripts, this may affect the order in which they are run.
+
 Note:
   - You may specify raw `.js` or `.css` files as your head file if you wish to do so.
-  - Only one head file can be specified in a page, and you **must** include its file extension.
+  - You **must** include its file extension.
 
 ### Site Navigation
 
