@@ -11,6 +11,7 @@ const {
   SITE_JSON_DEFAULT,
   SITE_NAV_MD_DEFAULT,
   USER_VARIABLES_DEFAULT,
+  LAYOUT_FILES_DEFAULT,
 } = require('./utils/data');
 
 jest.mock('fs');
@@ -75,7 +76,7 @@ test('Site Init in existing directory generates correct assets', async () => {
   await Site.initSite('');
   const paths = Object.keys(fs.vol.toJSON());
   const originalNumFiles = Object.keys(json).length;
-  const expectedNumBuilt = 7;
+  const expectedNumBuilt = 12;
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
   // _boilerplates
@@ -99,6 +100,10 @@ test('Site Init in existing directory generates correct assets', async () => {
 
   // index.md
   expect(fs.readFileSync(path.resolve('index.md'), 'utf8')).toEqual(INDEX_MD_DEFAULT);
+
+  // layout defaults
+  LAYOUT_FILES_DEFAULT.forEach(layoutFile =>
+    expect(fs.readFileSync(path.resolve(`_markbind/layouts/default/${layoutFile}`), 'utf8')).toEqual(''));
 });
 
 test('Site Init in directory which does not exist generates correct assets', async () => {
@@ -110,7 +115,7 @@ test('Site Init in directory which does not exist generates correct assets', asy
   await Site.initSite('newDir');
   const paths = Object.keys(fs.vol.toJSON());
   const originalNumFiles = Object.keys(json).length;
-  const expectedNumBuilt = 7;
+  const expectedNumBuilt = 12;
 
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
@@ -136,6 +141,11 @@ test('Site Init in directory which does not exist generates correct assets', asy
 
   // index.md
   expect(fs.readFileSync(path.resolve('newDir/index.md'), 'utf8')).toEqual(INDEX_MD_DEFAULT);
+
+  // layout defaults
+  LAYOUT_FILES_DEFAULT.forEach(layoutFile =>
+    expect(fs.readFileSync(path.resolve(`newDir/_markbind/layouts/default/${layoutFile}`), 'utf8'))
+      .toEqual(''));
 });
 
 test('Site baseurls are correct for sub nested subsites', async () => {

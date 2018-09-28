@@ -607,4 +607,50 @@ MarkBind automatically generates heading anchors for your page.
 
 When the reader hovers over a heading in your page, a small anchor icon <i class="fas fa-anchor"></i> will become visible next to the heading. Clicking this icon will redirect the page to that heading, producing the desired URL in the URL bar that the reader can share with someone else. Try it with the headings on this page!
 
+### Layouts
+
+A layout is a set of styles that can be applied to a page, or glob of pages. It consists of the following files:
+
+- `footer.md` : See [Using Footers](#using-footers)
+- `head.md` : See [Inserting content into a page's head element](#inserting-content-into-a-pages-head-element)
+- `navigation.md` : See [Site Navigation](#site-navigation)
+- `styles.css` : Contains custom styles
+- `scripts.js` : Contains custom javascript
+
+These files will be automatically appended to a page upon generation, allowing you to quickly apply styles to a batch of pages at once.
+
+Layouts can be found in `_markbind/layouts`. Markbind will generate a default layout with blank files in `_markbind/layouts/default`. The default layout is automatically applied to every single page.
+
+To make a new layout, simply copy and rename the `default` folder (e.g. `_markbind/layouts/myLayout`) and edit the files within.
+
+A page can be assigned a layout in two ways:
+
+- Using `site.json`
+```js
+// Layout A will be applied to all index.md files
+{
+  "glob": "**/index.md",
+  "layout": "LayoutA"
+},
+
+// Layout B will be applied to index2.md
+{
+  "src": "index2.md",
+  "layout": "LayoutB"
+},
+
+// No Layout - default layout will be applied
+{
+  "src": "index3.md"
+},
+```
+- Using `<frontmatter>`
+```html
+<frontmatter>
+  layout: layoutA
+  head: myHead.md
+</frontmatter>
+```
+
+Note that the layout specified in the `<frontmatter>` takes precedence over the one specified in `site.json`, and any files specified in `frontMatter` will take precedence over layout files (`myHead.md` will be used instead of the one in `layoutA`, in this case).
 </div>
