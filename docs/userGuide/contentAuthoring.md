@@ -599,4 +599,12 @@ Note:
 - Footers should not be nested in other components or HTML tags. If found inside, they will be shifted outside to be rendered properly.
 - [MarkBind components](#use-components) and [includes](#include-contents) are not supported in footers.
 
+### Heading Anchors
+
+Your site's readers may want to obtain a link to a heading within a page, to share with someone else for example.
+
+MarkBind automatically generates heading anchors for your page.
+
+When the reader hovers over a heading in your page, a small anchor icon <i class="fas fa-anchor"></i> will become visible next to the heading. Clicking this icon will redirect the page to that heading, producing the desired URL in the URL bar that the reader can share with someone else. Try it with the headings on this page!
+
 </div>
