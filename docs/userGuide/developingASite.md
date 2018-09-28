@@ -37,7 +37,9 @@ MarkBind will generate the site in a folder named `_site` in the current directo
 
 | Options | Description |
 |----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `-f`, `--force-reload` | Force a full reload of all site files when a file is changed. |
 | `-p`, `--port <port>` | The port used for serving your website. |
+| `-s`, `--site-config <filepath>` | Specify a custom filepath for site.json. |
 | --no-open | Don't open browser automatically. |
 
 Note: Live reload is only supported for the following file types:
