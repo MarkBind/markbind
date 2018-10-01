@@ -129,7 +129,7 @@ program
   .description('build then serve a website from a directory')
   .option('-f, --force-reload', 'force a full reload of all site files when a file is changed')
   .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
-  .option('-s, --site-config <filepath>', 'specify a custom filepath for site.json')
+  .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
   .option('--no-open', 'do not automatically open the site in browser')
   .action((root, options) => {
     const rootFolder = path.resolve(root || process.cwd());
