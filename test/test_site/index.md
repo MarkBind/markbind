@@ -28,6 +28,9 @@ head: myCustomHead.md, myCustomHead2.md
 # Heading with included keyword
 <include src="testKeyword.md" />
 
+<include src="testKeywordHeading.md" />
+<span class="keyword">Keyword with included heading</span>
+
 # Heading with nested keyword
 <div>
   <div>

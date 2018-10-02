@@ -26,6 +26,7 @@
         "heading-with-multiple-keywords": "Heading with multiple keywords | keyword 1, keyword 2",
         "heading-with-keyword-in-panel": "Heading with keyword in panel | panel keyword",
         "heading-with-included-keyword": "Heading with included keyword | included keyword",
+        "included-heading": "Included Heading | Keyword with included heading",
         "heading-with-nested-keyword": "Heading with nested keyword | nested keyword",
         "normal-include": "Normal include",
         "establishing-requirements": "Establishing Requirements",
