@@ -609,7 +609,7 @@ When the reader hovers over a heading in your page, a small anchor icon <i class
 
 ### Layouts
 
-A layout is a set of styles that can be applied to a page, or glob of pages. It consists of the following files:
+A layout is a set of styles that can be applied to a page, or glob of pages. Layouts allow you to quickly apply styles to a batch of pages at once. It consists of the following files:
 
 - `footer.md` : See [Using Footers](#using-footers)
 - `head.md` : See [Inserting content into a page's head element](#inserting-content-into-a-pages-head-element)
@@ -617,7 +617,7 @@ A layout is a set of styles that can be applied to a page, or glob of pages. It 
 - `styles.css` : Contains custom styles
 - `scripts.js` : Contains custom javascript
 
-These files will be automatically appended to a page upon generation, allowing you to quickly apply styles to a batch of pages at once.
+These files will be automatically appended to a page upon generation.
 
 Layouts can be found in `_markbind/layouts`. Markbind will generate a default layout with blank files in `_markbind/layouts/default`. The default layout is automatically applied to every single page.
 
