@@ -42,8 +42,6 @@ MarkBind will generate the site in a folder named `_site` in the current directo
 | `-s`, `--site-config <file>` | Specify the site config file (default: site.json) |
 | --no-open | Don't open browser automatically. |
 
-Note: The site config file must be in the root folder.
-
 Note: Live reload is only supported for the following file types:
 
 - `.html`
