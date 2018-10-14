@@ -27,6 +27,7 @@
         "heading-with-keyword-in-panel": "Heading with keyword in panel | panel keyword",
         "heading-with-included-keyword": "Heading with included keyword | included keyword",
         "heading-with-nested-keyword": "Heading with nested keyword | nested keyword",
+        "heading-with-hidden-keyword": "Heading with hidden keyword | invisible keyword",
         "normal-include": "Normal include",
         "establishing-requirements": "Establishing Requirements",
         "brainstorming": "Brainstorming",

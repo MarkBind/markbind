@@ -287,6 +287,15 @@ This is good for catching <span class="keyword">regressions</span>
 
 These keywords will be linked to the immediate heading before it. Users will be able to search for these keywords using the searchbar.
 
+If you want to include a keyword without rendering it to the page, add `d-none` as a class. This can be useful for tagging arbitrary keywords to a header.
+
+```html
+# Heading
+<span class="keyword d-none">testing</span>
+
+This is good for catching <span class="keyword">regressions</span>
+```
+
 ### Use Components
 
 To use a component, just type the corresponding markup in your file. For example, to create a Panel, you just need to write:

@@ -37,6 +37,9 @@ head: myCustomHead.md, myCustomHead2.md
   </div>
 </div>
 
+# Heading with hidden keyword
+<span class="keyword d-none">invisible keyword</span>
+
 # Normal include
 <include src="requirements/EstablishingRequirements.md" />
 
