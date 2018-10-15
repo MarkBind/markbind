@@ -15,7 +15,7 @@ function flattenModals() {
   });
 }
 
-function setupAnchorVisibility() {
+function setupAnchors() {
   jQuery('h1, h2, h3, h4, h5, h6').each((index, heading) => {
     jQuery(heading).on('mouseenter', function () {
       jQuery(this).children('.fa.fa-anchor').show();
@@ -24,12 +24,17 @@ function setupAnchorVisibility() {
       jQuery(this).children('.fa.fa-anchor').hide();
     });
   });
+  jQuery('.fa-anchor').each((index, anchor) => {
+    jQuery(anchor).on('click', function () {
+      window.location.href = jQuery(this).attr('href');
+    });
+  });
 }
 
 function executeAfterMountedRoutines() {
   flattenModals();
   scrollToUrlAnchorHeading();
-  setupAnchorVisibility();
+  setupAnchors();
 }
 
 function setupSiteNav() {
