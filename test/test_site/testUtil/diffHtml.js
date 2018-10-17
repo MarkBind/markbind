@@ -21,16 +21,21 @@ const endsWithUnclosedPath = (fragment) => {
 /**
  * Checks if the ending portion of the fragment is inside an html tag
  * true: <tag src=".../
+ *       <panel header="<a>link</a>" src=".../
  * false: <text> src="..
  *        <div/>
+ *        <panel header="<a>link</a>"> src="...
  */
 const endsWithOpeningTag = (fragment) => {
+  let numUnmatchedClosingBracket = 0;
   for (let i = fragment.length - 1; i >= 0; i -= 1) {
-    if (fragment[i] === '<') {
-      return true;
-    }
     if (fragment[i] === '>') {
-      return false;
+      numUnmatchedClosingBracket += 1;
+    } else if (fragment[i] === '<') {
+      if (numUnmatchedClosingBracket === 0) {
+        return true;
+      }
+      numUnmatchedClosingBracket -= 1;
     }
   }
   return false;
