@@ -46,6 +46,7 @@
       "title": "MarkBind: User Guide - Preview site on Netlify"
     }
   ],
+  "headingIndexingLevel": 4,
   "ignore": [
     "_markbind",
     "_site/*",
