@@ -1,3 +1,11 @@
+module.exports.LAYOUT_FILES_DEFAULT = [
+  'footer.md',
+  'head.md',
+  'navigation.md',
+  'scripts.js',
+  'styles.css',
+];
+
 module.exports.PAGE_EJS = '<!DOCTYPE html>\n'
   + '<html>\n'
   + '<head>\n'
@@ -23,6 +31,7 @@ module.exports.SITE_JSON_DEFAULT = '{\n'
   + '  "baseUrl": "",\n'
   + '  "titlePrefix": "",\n'
   + '  "ignore": [\n'
+  + '    "_markbind/layouts/*",\n'
   + '    "_markbind/logs/*",\n'
   + '    "_site/*",\n'
   + '    "site.json",\n'

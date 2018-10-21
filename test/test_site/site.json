@@ -5,7 +5,13 @@
   "pages": [
     {
       "src": "index.md",
-      "title": "Hello World"
+      "title": "Hello World",
+      "layout": "testLayout"
+    },
+    {
+      "src": "testLayouts.md",
+      "title": "Hello World",
+      "layout": "testLayout"
     },
     {
       "glob" : "**/index.md"
@@ -15,6 +21,7 @@
     }
   ],
   "ignore": [
+    "_markbind/layouts/*",
     "_markbind/logs/*",
     "_site/*",
     "site.json",

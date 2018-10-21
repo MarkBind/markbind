@@ -1,32 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="default-head-top">
+    
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Hello World</title>
     <link rel="stylesheet" href="markbind\css\bootstrap.min.css">
     <link rel="stylesheet" href="markbind\css\bootstrap-vue.min.css">
     <link rel="stylesheet" href="markbind\css\font-awesome.min.css" >
     <link rel="stylesheet" href="markbind\css\bootstrap-glyphicons.min.css" >
     <link rel="stylesheet" href="markbind\css\github.min.css">
     <link rel="stylesheet" href="markbind\css\markbind.css">
-    <link rel="stylesheet" href="markbind\layouts\default\styles.css">
+    <link rel="stylesheet" href="markbind\layouts\testLayout\styles.css">
     
-    <meta name="default-head-bottom">
+    <script src="/test_site/headFiles/overwriteLayoutScript.js"></script>
     <link rel="icon" href="/test_site/favicon.png">
 </head>
 <body>
 <div id="app">
+    <div id="flex-body">
+  <div id="site-nav">
+    <ul style="list-style-type: none; margin-left:-1em">
+      <li style="margin-top: 10px">[Layout Nav]</li>
+    </ul>
+  </div>
+  <div id="site-nav-btn-wrap">
+    <div id="site-nav-btn">
+      <div class="menu-top-bar"></div>
+      <div class="menu-middle-bar"></div>
+      <div class="menu-bottom-bar"></div>
+    </div>
+  </div>
+  <div id="page-content">
     <div id="content-wrapper">
-  <h1 id="some-heading">Some heading<a class="fa fa-anchor" href="#some-heading"></a></h1>
-  <p>The <strong>quick</strong> brown fox jumps <em>over</em> the lazy dog.</p>
+      <h1 id="uses-a-layout">Uses a layout<a class="fa fa-anchor" href="#uses-a-layout"></a></h1>
+    </div>
+  </div>
 </div>
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    Default footer
+    Layout footer
   </div>
 </footer>
 </div>
@@ -39,5 +54,5 @@
     const baseUrl = '/test_site'
 </script>
 <script src="markbind\js\setup.js"></script>
-<script src="markbind\layouts\default\scripts.js"></script>
+<script src="markbind\layouts\testLayout\scripts.js"></script>
 </html>

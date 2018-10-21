@@ -53,7 +53,17 @@
       "footer": "footer.md",
       "siteNav": "site-nav.md",
       "head": "myCustomHead.md, myCustomHead2.md",
+      "layout": "default",
       "src": "index.md"
+    },
+    {
+      "headings": {
+        "uses-a-layout": "Uses a layout"
+      },
+      "title": "Hello World",
+      "head": "overwriteLayoutHead.md",
+      "src": "testLayouts.md",
+      "layout": "testLayout"
     },
     {
       "headings": {
@@ -62,21 +72,24 @@
         "remove-extra-space-in-links": "Remove extra space in links"
       },
       "title": "Open Bugs",
-      "src": "bugs/index.md"
+      "src": "bugs/index.md",
+      "layout": "default"
     },
     {
       "headings": {
         "feature-list": "Feature list"
       },
       "src": "sub_site/index.md",
-      "title": ""
+      "title": "",
+      "layout": "default"
     },
     {
       "headings": {
         "some-heading": "Some heading"
       },
       "src": "test_md_fragment.md",
-      "title": ""
+      "title": "",
+      "layout": "default"
     }
   ]
 }
