@@ -41,6 +41,9 @@ layout: default
   </div>
 </div>
 
+# Heading with hidden keyword
+<span class="keyword d-none">invisible keyword</span>
+
 # Normal include
 <include src="requirements/EstablishingRequirements.md" />
 
