@@ -3,15 +3,24 @@
     {
       "headings": {
         "markbind": "MarkBind",
+        "generate-dynamic-websites-from-markdown-text": "Generate dynamic websites from markdown text.",
         "features": " Features",
+        "support-for-markdown-and-gfmd": "✓ Support for Markdown and\n          GFMD",
+        "ability-to-add-additional-layers-of-information-as-tooltips-pop-overs-modals": "✓ Ability to add additional layers of information as Tooltips, pop-overs, modals",
+        "ability-to-emphasize-or-de-emphasize-content-easily": "✓ Ability to emphasize or de-emphasize content easily",
+        "ability-to-allow-readers-reveal-content-progressively": "✓ Ability to allow readers reveal content progressively",
+        "ability-to-reuse-content-easily": "✓ Ability to reuse content easily",
         "examples": " Examples",
         "documentation": " Documentation",
+        "for-users": "For Users",
+        "for-developers": "For Developers",
         "about-us": " About us"
       },
       "footer": "userGuideFooter.md",
       "siteNav": "userGuideSections.md",
       "src": "index.md",
-      "title": "MarkBind: Generate Course Websites from Markdown Text"
+      "title": "MarkBind: Generate Course Websites from Markdown Text",
+      "layout": "default"
     },
     {
       "headings": {
@@ -20,7 +29,8 @@
       "footer": "userGuideFooter.md",
       "siteNav": "userGuideSections.md",
       "src": "userGuide/index.md",
-      "title": "MarkBind: User Guide"
+      "title": "MarkBind: User Guide",
+      "layout": "default"
     },
     {
       "headings": {
@@ -37,7 +47,8 @@
       "footer": "userGuideFooter.md",
       "siteNav": "userGuideSections.md",
       "src": "userGuide/userQuickStart.md",
-      "title": "MarkBind: User Guide - Quick Start"
+      "title": "MarkBind: User Guide - Quick Start",
+      "layout": "default"
     },
     {
       "headings": {
@@ -51,7 +62,8 @@
       "footer": "userGuideFooter.md",
       "siteNav": "userGuideSections.md",
       "src": "userGuide/developingASite.md",
-      "title": "MarkBind: User Guide - Developing a Site"
+      "title": "MarkBind: User Guide - Developing a Site",
+      "layout": "default"
     },
     {
       "headings": {
@@ -60,38 +72,55 @@
       "footer": "userGuideFooter.md",
       "siteNav": "userGuideSections.md",
       "src": "userGuide/siteConfiguration.md",
-      "title": "MarkBind: User Guide - Site Configuration"
+      "title": "MarkBind: User Guide - Site Configuration",
+      "layout": "default"
     },
     {
       "headings": {
         "content-authoring": "Content authoring",
         "general-writing-guide": "General writing guide",
+        "mixing-html-with-markdown": "Mixing HTML with Markdown",
+        "specifying-path-reference": "Specifying Path Reference",
         "supported-markdown-syntax": "Supported Markdown Syntax",
         "use-markbind-variables": "Use MarkBind variables",
+        "font-awesome-icons": "Font Awesome icons",
+        "glyphicons": "Glyphicons",
+        "timestamp": "Timestamp",
+        "markbind-link": "MarkBind Link",
         "add-your-own-variables": "Add your own variables",
         "use-searchbar": "Use Searchbar",
         "keywords": "Keywords",
         "use-components": "Use Components",
+        "question-body-syntax": "Question body syntax",
         "include-contents": "Include Contents",
         "front-matter": "Front Matter",
         "inserting-content-into-a-pages-head-element": "Inserting content into a page's head element",
         "site-navigation": "Site Navigation",
         "using-footers": "Using Footers",
-        "heading-anchors": "Heading Anchors"
+        "specifying-footer-file-in-front-matter": "Specifying footer file in Front Matter",
+        "defining-your-own-inline-footer": "Defining your own inline footer",
+        "heading-anchors": "Heading Anchors",
+        "layouts": "Layouts"
       },
       "footer": "userGuideFooter.md",
       "siteNav": "userGuideSections.md",
       "src": "userGuide/contentAuthoring.md",
-      "title": "MarkBind: User Guide - Content Authoring"
+      "title": "MarkBind: User Guide - Content Authoring",
+      "layout": "default"
     },
     {
       "headings": {
-        "including-contents": "Including contents"
+        "including-contents": "Including contents",
+        "use-include-tag-to-include-another-markdown-or-html-document-into-current-context": "Use &lt;include&gt; tag to include another markdown or HTML document into current context.",
+        "wrap-elements-inside-a-div-or-seg-tag-with-an-unique-id-if-you-wish-to-create-a-reusable-content-fragment-inside-a-file-that-could-be-included-from-other-file": "Wrap elements inside a &lt;div&gt; or &lt;seg&gt; tag with an unique id if you wish to create a reusable content fragment inside a file (that could be included from other file).",
+        "direct-reference-to-a-markbind-driven-project-without-changing-the-relative-path-is-supported": "Direct reference to a MarkBind-driven project without changing the relative path is supported.",
+        "handling-repetitive-boilerplate-files": "Handling repetitive boilerplate files"
       },
       "footer": "userGuideFooter.md",
       "siteNav": "userGuideSections.md",
       "src": "userGuide/includingContents.md",
-      "title": "MarkBind: User Guide - Including Contents"
+      "title": "MarkBind: User Guide - Including Contents",
+      "layout": "default"
     },
     {
       "headings": {
@@ -101,10 +130,20 @@
       "footer": "userGuideFooter.md",
       "siteNav": "userGuideSections.md",
       "src": "userGuide/knownProblems.md",
-      "title": "MarkBind: User Guide - Known Problems"
+      "title": "MarkBind: User Guide - Known Problems",
+      "layout": "default"
     },
     {
       "headings": {
+        "light-type-panel-default": "light type panel (DEFAULT)",
+        "dark-type-panel": "dark type panel",
+        "primary-type-panel": "primary type panel",
+        "secondary-type-panel": "secondary type panel",
+        "info-type-panel": "info type panel",
+        "danger-type-panel": "danger type panel",
+        "warning-type-panel": "warning type panel",
+        "success-type-panel": "success type panel",
+        "seamless-type-panel": "seamless type panel",
         "components-reference": "Components Reference",
         "dropdown": "Dropdown",
         "dropdown-options": "Dropdown Options",
@@ -116,6 +155,7 @@
         "pic": "Pic",
         "pic-options": "Pic Options",
         "popover": "Popover",
+        "undefined": "Free Text",
         "popover-options": "Popover Options",
         "question": "Question",
         "question-options": "Question Options",
@@ -146,7 +186,8 @@
       "footer": "userGuideFooter.md",
       "siteNav": "userGuideSections.md",
       "src": "userGuide/components.md",
-      "title": "MarkBind: User Guide - Components"
+      "title": "MarkBind: User Guide - Components",
+      "layout": "default"
     },
     {
       "headings": {
@@ -157,7 +198,8 @@
       "footer": "userGuideFooter.md",
       "siteNav": "userGuideSections.md",
       "src": "userGuide/ghpagesDeployment.md",
-      "title": "MarkBind: User Guide - Github Pages Deployment"
+      "title": "MarkBind: User Guide - Github Pages Deployment",
+      "layout": "default"
     },
     {
       "headings": {
@@ -167,7 +209,8 @@
       "footer": "userGuideFooter.md",
       "siteNav": "userGuideSections.md",
       "src": "userGuide/netlifyPreview.md",
-      "title": "MarkBind: User Guide - Preview site on Netlify"
+      "title": "MarkBind: User Guide - Preview site on Netlify",
+      "layout": "default"
     }
   ]
 }

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="..\markbind\css\bootstrap-glyphicons.min.css" >
     <link rel="stylesheet" href="..\markbind\css\github.min.css">
     <link rel="stylesheet" href="..\markbind\css\markbind.css">
+    <link rel="stylesheet" href="..\markbind\layouts\default\styles.css">
     <link rel="stylesheet" href="..\markbind\css\site-nav.css">
     
     
@@ -98,7 +99,7 @@
       <div class="website-content">
         <h1 id="content-authoring">Content authoring<a class="fa fa-anchor" href="#content-authoring"></a></h1>
         <h3 id="general-writing-guide">General writing guide<a class="fa fa-anchor" href="#general-writing-guide"></a></h3>
-        <h4 id="mixing-html-with-markdown">Mixing HTML with Markdown</h4>
+        <h4 id="mixing-html-with-markdown">Mixing HTML with Markdown<a class="fa fa-anchor" href="#mixing-html-with-markdown"></a></h4>
         <p><em>MarkBind</em> allows you to mix HTML with Markdown content.</p>
         <p>To separate inline Markdown from HTML elements, enclose inline Markdown content with <code>&lt;md&gt;</code> tags.</p>
         <p>e.g.</p>
@@ -134,7 +135,7 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
         <p>In this case, we will get the <code>Markdown Content</code> text rendered in bold on a new line.</p>
-        <h4 id="specifying-path-reference">Specifying Path Reference</h4>
+        <h4 id="specifying-path-reference">Specifying Path Reference<a class="fa fa-anchor" href="#specifying-path-reference"></a></h4>
         <p>Use
           <code>{<span></span>{baseUrl}}</code> for absolute path reference of images and resource files so that the path could be handled correctly when deployed. The
           <code>{<span></span>{baseUrl}}</code> is parsed from the project root (where <code>site.json</code> located).</p>
@@ -199,7 +200,7 @@
         <h3 id="use-markbind-variables">Use MarkBind variables<a class="fa fa-anchor" href="#use-markbind-variables"></a></h3>
         <p>You can insert variables to be replaced by pre-defined values anywhere in your site. MarkBind treats any text surrounded with double curly braces as a variable, e.g. <code>{<span></span>{variable_name}}</code></p>
         <p>Some helpful variables are provided by MarkBind for your convenience, as shown below.</p>
-        <h4 id="font-awesome-icons">Font Awesome icons</h4>
+        <h4 id="font-awesome-icons">Font Awesome icons<a class="fa fa-anchor" href="#font-awesome-icons"></a></h4>
         <p>This asset is provided by <a href="https://fontawesome.com/">Font Awesome</a> under their <a href="https://fontawesome.com/license">free license</a>.</p>
         <tip-box>
           Traditional usage:
@@ -217,7 +218,7 @@
           <li>Next, replace all instances of <code>-</code> with <code>_</code> in the icon's name. e.g. <code>fas-chess-knight</code> becomes <code>fas_chess_knight</code></li>
         </ol>
         <p>After doing so, you are able to use the icons anywhere on your site by surrounding an icon's shortened name with double curly braces.<br> e.g. <code>{<span></span>{fas_fighter_jet}}</code> will be rendered as <span class="fas fa-fighter-jet"></span></p>
-        <h4 id="glyphicons">Glyphicons</h4>
+        <h4 id="glyphicons">Glyphicons<a class="fa fa-anchor" href="#glyphicons"></a></h4>
         <p>This asset is provided by <a href="https://glyphicons.com/">Glyphicons</a> via Bootstrap 3.</p>
         <tip-box>
           Traditional usage:
@@ -231,12 +232,12 @@
         <p>MarkBind offers an alternate syntax by transforming the icon's name.<br> It is done by replacing all instances of <code>-</code> with <code>_</code> in the glyph's name. e.g. <code>{<span></span>{glyphicon-hand-right}}</code> becomes <code>{<span></span>{glyphicon_hand_right}}</code></p>
         <p>After doing so, you are able to use the glyphs anywhere on your site by surrounding a glyph's modified name with double curly braces.<br> e.g. <code>{<span></span>{glyphicon_hand_right}}</code> will be rendered as <span class="glyphicon glyphicon-hand-right"
             aria-hidden="true"></span></p>
-        <h4 id="timestamp">Timestamp</h4>
+        <h4 id="timestamp">Timestamp<a class="fa fa-anchor" href="#timestamp"></a></h4>
         <p>Use <code>{<span></span>{timestamp}}</code> to insert a UTC time snippet that indicates when the page was generated.</p>
-        <p><code>{<span></span>{timestamp}}</code> will be rendered as: Fri, 28 Sep 2018 13:01:33 GMT</p>
-        <h4 id="markbind-link">MarkBind Link</h4>
+        <p><code>{<span></span>{timestamp}}</code> will be rendered as: Sun, 28 Oct 2018 15:16:47 GMT</p>
+        <h4 id="markbind-link">MarkBind Link<a class="fa fa-anchor" href="#markbind-link"></a></h4>
         <p>Reference or support MarkBind by using <code>{<span></span>{MarkBind}}</code> to insert a link to our website.</p>
-        <p><code>{<span></span>{MarkBind}}</code> will be rendered as: <a href="https://markbind.github.io/markbind/">MarkBind 1.13.0</a></p>
+        <p><code>{<span></span>{MarkBind}}</code> will be rendered as: <a href="https://markbind.github.io/markbind/">MarkBind 1.14.0</a></p>
         <h3 id="add-your-own-variables">Add your own variables<a class="fa fa-anchor" href="#add-your-own-variables"></a></h3>
         <p>In <code>_markbind/variables.md</code>, you can define your own variables that can be used anywhere in your site. The format is as follows.</p>
         <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"year"</span>&gt;</span>2018<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
@@ -310,6 +311,12 @@
 This is good for catching <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"keyword"</span>&gt;</span>regressions<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 </code></pre>
         <p>These keywords will be linked to the immediate heading before it. Users will be able to search for these keywords using the searchbar.</p>
+        <p>If you want to include a keyword without rendering it to the page, add <code>d-none</code> as a class. This can be useful for tagging arbitrary keywords to a header.</p>
+        <pre><code class="hljs html"># Heading
+<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"keyword d-none"</span>&gt;</span>testing<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+
+This is good for catching <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"keyword"</span>&gt;</span>regressions<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+</code></pre>
         <h3 id="use-components">Use Components<a class="fa fa-anchor" href="#use-components"></a></h3>
         <p>To use a component, just type the corresponding markup in your file. For example, to create a Panel, you just need to write:</p>
         <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Click to expand"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"seamless"</span>&gt;</span>
@@ -326,7 +333,7 @@ This is good for catching <span class="hljs-tag">&lt;<span class="hljs-name">spa
   Div Content.
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
-        <h4 id="question-body-syntax">Question body syntax</h4>
+        <h4 id="question-body-syntax">Question body syntax<a class="fa fa-anchor" href="#question-body-syntax"></a></h4>
         <panel header=":lock::key: Does MarkBind allow using checkboxes and radio buttons with the Question and Panel components?">
           <question>
             <ul radio-group="ec2ea" class="radio-list">
@@ -545,7 +552,7 @@ alert(<span class="hljs-string">"Welcome to my website!"</span>);
           <li><a href="#specifying-footer-file-in-front-matter">Specifying footer file in Front Matter</a></li>
           <li><a href="#defining-your-own-inline-footer">Defining your own inline footer</a></li>
         </ol>
-        <h4 id="specifying-footer-file-in-front-matter">Specifying footer file in Front Matter</h4>
+        <h4 id="specifying-footer-file-in-front-matter">Specifying footer file in Front Matter<a class="fa fa-anchor" href="#specifying-footer-file-in-front-matter"></a></h4>
         <p>To create a new footer, make a new markdown file (<code>.md</code>) in <code>_markbind/footers</code>. Author your footer contents and wrap everything in a <code>&lt;footer&gt;</code> tag. You can create more than one footer file if you want different
           footers for different pages.</p>
         <p>Tip: All new sites created with <code>init</code> will have a <code>footer.md</code> file automatically created for you as a template in <code>_markbind/footers</code>.</p>
@@ -564,7 +571,7 @@ alert(<span class="hljs-string">"Welcome to my website!"</span>);
         <ul>
           <li>Only one footer file can be specified in the <a href="#front-matter">front matter</a> per page, and you must include its file extension.</li>
         </ul>
-        <h4 id="defining-your-own-inline-footer">Defining your own inline footer</h4>
+        <h4 id="defining-your-own-inline-footer">Defining your own inline footer<a class="fa fa-anchor" href="#defining-your-own-inline-footer"></a></h4>
         <p>If you would like to have a page-specific footer content, you can author one inline with the same <code>&lt;footer&gt;</code> tag.</p>
         <pre><code class="hljs html"># Hello world
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Some text<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
@@ -587,6 +594,48 @@ alert(<span class="hljs-string">"Welcome to my website!"</span>);
         <p>MarkBind automatically generates heading anchors for your page.</p>
         <p>When the reader hovers over a heading in your page, a small anchor icon <i class="fas fa-anchor"></i> will become visible next to the heading. Clicking this icon will redirect the page to that heading, producing the desired URL in the URL bar
           that the reader can share with someone else. Try it with the headings on this page!</p>
+        <h3 id="layouts">Layouts<a class="fa fa-anchor" href="#layouts"></a></h3>
+        <p>A layout is a set of styles that can be applied to a page, or glob of pages. Layouts allow you to quickly apply styles to a batch of pages at once. It consists of the following files:</p>
+        <ul>
+          <li><code>footer.md</code> : See <a href="#using-footers">Using Footers</a></li>
+          <li><code>head.md</code> : See <a href="#inserting-content-into-a-pages-head-element">Inserting content into a page's head element</a></li>
+          <li><code>navigation.md</code> : See <a href="#site-navigation">Site Navigation</a></li>
+          <li><code>styles.css</code> : Contains custom styles</li>
+          <li><code>scripts.js</code> : Contains custom javascript</li>
+        </ul>
+        <p>These files will be automatically appended to a page upon generation.</p>
+        <p>Layouts can be found in <code>_markbind/layouts</code>. Markbind will generate a default layout with blank files in <code>_markbind/layouts/default</code>. The default layout is automatically applied to every single page.</p>
+        <p>To make a new layout, simply copy and rename the <code>default</code> folder (e.g. <code>_markbind/layouts/myLayout</code>) and edit the files within.</p>
+        <p>A page can be assigned a layout in two ways:</p>
+        <ul>
+          <li>Using <code>site.json</code></li>
+        </ul>
+        <pre><code class="hljs js"><span class="hljs-comment">// Layout A will be applied to all index.md files</span>
+{
+  <span class="hljs-string">"glob"</span>: <span class="hljs-string">"**/index.md"</span>,
+  <span class="hljs-string">"layout"</span>: <span class="hljs-string">"LayoutA"</span>
+},
+
+<span class="hljs-comment">// Layout B will be applied to index2.md</span>
+{
+  <span class="hljs-string">"src"</span>: <span class="hljs-string">"index2.md"</span>,
+  <span class="hljs-string">"layout"</span>: <span class="hljs-string">"LayoutB"</span>
+},
+
+<span class="hljs-comment">// No Layout - default layout will be applied</span>
+{
+  <span class="hljs-string">"src"</span>: <span class="hljs-string">"index3.md"</span>
+},
+</code></pre>
+        <ul>
+          <li>Using <code>&lt;frontmatter&gt;</code></li>
+        </ul>
+        <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+  layout: layoutA
+  head: myHead.md
+<span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
+</code></pre>
+        <p>Note that the layout specified in the <code>&lt;frontmatter&gt;</code> takes precedence over the one specified in <code>site.json</code>, and any files specified in <code>frontMatter</code> will take precedence over layout files (<code>myHead.md</code>          will be used instead of the one in <code>layoutA</code>, in this case).</p>
       </div>
     </div>
   </div>
@@ -594,7 +643,7 @@ alert(<span class="hljs-string">"Welcome to my website!"</span>);
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.13.0</a> on Fri, 28 Sep 2018 13:01:33 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.14.0</a> on Sun, 28 Oct 2018 15:16:47 GMT]</small></div>
 </footer>
 </div>
 </body>
@@ -606,4 +655,5 @@ alert(<span class="hljs-string">"Welcome to my website!"</span>);
     const baseUrl = '/markbind'
 </script>
 <script src="..\markbind\js\setup.js"></script>
+<script src="..\markbind\layouts\default\scripts.js"></script>
 </html>
