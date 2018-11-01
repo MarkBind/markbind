@@ -30,6 +30,18 @@
       "title": "MarkBind: User Guide - Including Contents"
     },
     {
+      "src": "userGuide/markbindComponents.md",
+      "title": "MarkBind: User Guide - Markbind Components"
+    },
+    {
+      "src": "userGuide/usingVariables.md",
+      "title": "MarkBind: User Guide - Using Variables"
+    },
+    {
+      "src": "userGuide/pageLayout.md",
+      "title": "MarkBind: User Guide - Page Layout"
+    },
+    {
       "src": "userGuide/knownProblems.md",
       "title": "MarkBind: User Guide - Known Problems"
     },
