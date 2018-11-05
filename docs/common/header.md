@@ -10,7 +10,7 @@
     <li role="separator" class="dropdown-divider"></li>
     <li><a href="{{baseUrl}}/userGuide/contentAuthoring.html" class="dropdown-item">Content Authoring</a></li>
     <li><a href="{{baseUrl}}/userGuide/includingContents.html" class="dropdown-item">◦&nbsp; Including Contents</a></li>
-    <li><a href="{{baseUrl}}/userGuide/markbindComponents.html" class="dropdown-item">◦&nbsp; Markbind Components</a></li>
+    <li><a href="{{baseUrl}}/userGuide/usingComponents.html" class="dropdown-item">◦&nbsp; Using Components</a></li>
     <li><a href="{{baseUrl}}/userGuide/usingVariables.html" class="dropdown-item">◦&nbsp; Using Variables</a></li>
     <li><a href="{{baseUrl}}/userGuide/pageLayout.html" class="dropdown-item">◦&nbsp; Page Layout</a></li>
     <li><a href="{{baseUrl}}/userGuide/knownProblems.html" class="dropdown-item">◦&nbsp; Known Problems</a></li>

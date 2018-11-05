@@ -7,7 +7,7 @@
 
 <div class="website-content">
 
-# Using MarkBind Variables
+# Using Variables
 
 You can insert variables to be replaced by pre-defined values anywhere in your site. MarkBind treats any text surrounded with double curly braces as a variable, e.g. <code>{<span></span>{variable_name}}</code>
 
