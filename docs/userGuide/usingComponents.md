@@ -7,7 +7,7 @@
 
 <div class="website-content">
 
-# Components
+# Using Components
 
 To use a component, just type the corresponding markup in your file. For example, to create a Panel, you just need to write:
 
