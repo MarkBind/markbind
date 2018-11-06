@@ -5,6 +5,9 @@
   * [Site Configuration]({{baseUrl}}/userGuide/siteConfiguration.html)
 * [Content Authoring]({{baseUrl}}/userGuide/contentAuthoring.html)
   * [Including Contents]({{baseUrl}}/userGuide/includingContents.html)
+  * [Using Components]({{baseUrl}}/userGuide/usingComponents.html)
+  * [Using Variables]({{baseUrl}}/userGuide/usingVariables.html)
+  * [Page Layout]({{baseUrl}}/userGuide/pageLayout.html)
   * [Known Problems]({{baseUrl}}/userGuide/knownProblems.html)
 * Deploying a Site
   * [Github Pages Deployment]({{baseUrl}}/userGuide/ghpagesDeployment.html)
