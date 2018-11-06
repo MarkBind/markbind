@@ -15,13 +15,14 @@ function flattenModals() {
   });
 }
 
-function setupAnchorVisibility() {
-  jQuery('h1, h2, h3, h4, h5, h6').each((index, heading) => {
-    jQuery(heading).on('mouseenter', function () {
-      jQuery(this).children('.fa.fa-anchor').show();
-    });
-    jQuery(heading).on('mouseleave', function () {
-      jQuery(this).children('.fa.fa-anchor').hide();
+function setupAnchors() {
+  jQuery('h1, h2, h3, h4, h5, h6, .header-wrapper').each((index, heading) => {
+    jQuery(heading).on('mouseenter', () => jQuery(heading).find('.fa.fa-anchor').show());
+    jQuery(heading).on('mouseleave', () => jQuery(heading).find('.fa.fa-anchor').hide());
+  });
+  jQuery('.fa-anchor').each((index, anchor) => {
+    jQuery(anchor).on('click', function () {
+      window.location.href = jQuery(this).attr('href');
     });
   });
 }
@@ -29,7 +30,7 @@ function setupAnchorVisibility() {
 function executeAfterMountedRoutines() {
   flattenModals();
   scrollToUrlAnchorHeading();
-  setupAnchorVisibility();
+  setupAnchors();
 }
 
 function setupSiteNav() {
