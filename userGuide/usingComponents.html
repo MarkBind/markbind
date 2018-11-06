@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MarkBind: User Guide - Using Components</title>
+    <link rel="stylesheet" href="..\markbind\css\bootstrap.min.css">
+    <link rel="stylesheet" href="..\markbind\css\bootstrap-vue.min.css">
+    <link rel="stylesheet" href="..\markbind\css\font-awesome.min.css" >
+    <link rel="stylesheet" href="..\markbind\css\bootstrap-glyphicons.min.css" >
+    <link rel="stylesheet" href="..\markbind\css\github.min.css">
+    <link rel="stylesheet" href="..\markbind\css\markbind.css">
+    <link rel="stylesheet" href="..\markbind\layouts\default\styles.css">
+    <link rel="stylesheet" href="..\markbind\css\site-nav.css">
+    
+    
+</head>
+<body>
+<div id="app">
+    <div id="flex-body">
+  <div id="site-nav">
+    <ul style="list-style-type: none; margin-left:-1em">
+      <li style="margin-top: 10px">
+        <h2 id="user-guide">User Guide<a class="fa fa-anchor" href="#user-guide"></a></h2>
+      </li>
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
+      <li style="margin-top:10px"><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
+        <ul style="list-style-type: none; margin-left:-1em">
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
+        </ul>
+      </li>
+      <li style="margin-top:10px"><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a>
+        <ul style="list-style-type: none; margin-left:-1em">
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingComponents.html">Using Components</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingVariables.html">Using Variables</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/pageLayout.html">Page Layout</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/knownProblems.html">Known Problems</a></li>
+        </ul>
+      </li>
+      <li style="margin-top: 10px"><button class="dropdown-btn">Deploying a Site
+ <i class="dropdown-btn-icon">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+        <div class="dropdown-container">
+          <ul style="list-style-type: none; margin-left:-1em">
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+          </ul>
+        </div>
+      </li>
+      <li style="margin-top:10px"><a href="/markbind/userGuide/components.html">Components Reference</a>
+        <ul style="list-style-type: none; margin-left:-1em">
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/components.html#advanced-tips-and-tricks">Advanced Tips and Tricks</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div id="site-nav-btn-wrap">
+    <div id="site-nav-btn">
+      <div class="menu-top-bar"></div>
+      <div class="menu-middle-bar"></div>
+      <div class="menu-bottom-bar"></div>
+    </div>
+  </div>
+  <div id="page-content">
+    <div id="content-wrapper">
+      <div>
+        <link rel="stylesheet" href="/markbind/css/main.css">
+        <navbar placement="top" type="inverse">
+          <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
+          <dropdown text="User Guide" class="nav-link">
+            <li><a href="/markbind/userGuide/index.html" class="dropdown-item">Home</a></li>
+            <li><a href="/markbind/userGuide/userQuickStart.html" class="dropdown-item">Quick Start</a></li>
+            <li role="separator" class="dropdown-divider"></li>
+            <li><a href="/markbind/userGuide/developingASite.html" class="dropdown-item">Developing a Site</a>
+            </li>
+            <li><a href="/markbind/userGuide/siteConfiguration.html" class="dropdown-item">◦&nbsp; Site Configuration</a></li>
+            <li role="separator" class="dropdown-divider"></li>
+            <li><a href="/markbind/userGuide/contentAuthoring.html" class="dropdown-item">Content Authoring</a></li>
+            <li><a href="/markbind/userGuide/includingContents.html" class="dropdown-item">◦&nbsp; Including Contents</a></li>
+            <li><a href="/markbind/userGuide/usingComponents.html" class="dropdown-item">◦&nbsp; Using Components</a></li>
+            <li><a href="/markbind/userGuide/usingVariables.html" class="dropdown-item">◦&nbsp; Using Variables</a></li>
+            <li><a href="/markbind/userGuide/pageLayout.html" class="dropdown-item">◦&nbsp; Page Layout</a></li>
+            <li><a href="/markbind/userGuide/knownProblems.html" class="dropdown-item">◦&nbsp; Known Problems</a></li>
+            <li role="separator" class="dropdown-divider"></li>
+            <li class="dropdown-header">Deploying a Site</li>
+            <li><a href="/markbind/userGuide/ghpagesDeployment.html" class="dropdown-item">◦&nbsp; Github Pages Deployment</a></li>
+            <li><a href="/markbind/userGuide/netlifyPreview.html" class="dropdown-item">◦&nbsp; Preview site on Netlify</a></li>
+            <li role="separator" class="dropdown-divider"></li>
+            <li><a href="/markbind/userGuide/components.html" class="dropdown-item">Components Reference</a></li>
+          </dropdown>
+          <li>
+            <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">
+      Fork this project on Github
+      <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewbox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
+          <li slot="right">
+            <form class="navbar-form">
+              <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right=""></searchbar>
+            </form>
+          </li>
+        </navbar>
+      </div>
+      <div class="website-content">
+        <h1 id="using-components">Using Components<a class="fa fa-anchor" href="#using-components"></a></h1>
+        <p>To use a component, just type the corresponding markup in your file. For example, to create a Panel, you just need to write:</p>
+        <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"Click to expand"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"seamless"</span>&gt;</span>
+  Panel Content.
+<span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+</code></pre>
+        <p>For a list of supported components, refer to the <a href="/markbind/userGuide/components.html">Components Reference</a>.</p>
+        <p>To make an element closeable, use <code>v-closeable</code>.</p>
+        <p>e.g.</p>
+        <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"schedule/textbook/images/img1.png"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"320px"</span> <span class="hljs-attr">v-closeable</span>&gt;</span>
+</code></pre>
+        <p>or</p>
+        <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-closeable</span>&gt;</span>
+  Div Content.
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+        <h3 id="question-body-syntax">Question body syntax<a class="fa fa-anchor" href="#question-body-syntax"></a></h3>
+        <panel header=":lock::key: Does MarkBind allow using checkboxes and radio buttons with the Question and Panel components?">
+          <question>
+            <ul radio-group="ec2ea" class="radio-list">
+              <li class="radio-list-item"><label><input class="radio-list-input" name="ec2ea" type="radio"> Yes</label></li>
+              <li class="radio-list-item"><label><input class="radio-list-input" name="ec2ea" type="radio"> No</label></li>
+            </ul>
+            <div slot="hint">
+              Probably yes
+            </div>
+            <div slot="answer">
+              Yes!
+            </div>
+          </question>
+        </panel>
+        <br>
+        <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">":lock::key: Does MarkBind allow for the use of checkboxes and radio buttons?"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">question</span>&gt;</span>
+
+- ( ) Yes
+- ( ) No
+
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"hint"</span>&gt;</span>
+Probably yes
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"answer"</span>&gt;</span>
+Yes!
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">question</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">panel</span>&gt;</span>
+</code></pre>
+        <p>Checkboxes can also be used by substituting <code>- ( )</code> with <code>- [ ]</code>.</p>
+        <h3 id="site-navigation">Site Navigation<a class="fa fa-anchor" href="#site-navigation"></a></h3>
+        <p>A site navigation bar is a fixed menu on the left side of your page contents, that allows the viewer to navigate your site pages. The menu has a fixed width of 300 pixels for its contents. If you would like to have a site navigation bar for your
+          site, you may create one easily using Markdown.</p>
+        <ul>
+          <li>
+            <p>Start by creating a Markdown file (<code>.md</code>) in <code>_markbind/navigation</code>.</p>
+            <ul>
+              <li>All new sites created with <code>init</code> have a <code>site-nav.md</code> file created automatically for you as a template in <code>_markbind/navigation</code>.</li>
+              <li>More than one navigation file can be created for different pages.</li>
+            </ul>
+          </li>
+          <li>
+            <p>Author your navigation layout using Markdown's unordered list syntax as shown below.</p>
+            <ul>
+              <li>When you are using links (<code>[linkName](url)</code>), ensure that the url starts from the root directory <code>{<span></span>{baseUrl}}/</code> when you are referencing a page in your site. e.g. <code>{<span></span>{baseUrl}}/folder1/myPage.html</code></li>
+              <li>Ensure you wrap your navigation layout in a <code>&lt;navigation&gt;</code> tag for MarkBind to render it properly. Also, there should only be one <code>&lt;navigation&gt;</code> tag in your file.</li>
+              <li>You may author additional HTML and Markdown content outside the <code>&lt;navigation&gt;</code> tag.</li>
+              <li>The <code>&lt;navigation&gt;</code> tag is also optional, allowing you to author everything in HTML and Markdown syntax.</li>
+              <li>Use <code>:expanded:</code> keyword at the end of Dropdown titles to expand them by default.</li>
+            </ul>
+          </li>
+        </ul>
+        <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- In _markbind/navigation/mySiteNav.md --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">navigation</span>&gt;</span>
+* [Home :house:](/markbind/index.html)
+* Dropdown title :pencil2: <span class="hljs-comment">&lt;!-- Nested list items will be placed inside a Dropdown menu --&gt;</span>
+  * [Dropdown link one](https://www.google.com/)
+  * Expanded Nested Dropdown title :triangular_ruler: :expanded: <span class="hljs-comment">&lt;!-- specify :expanded: to have it expand by default --&gt;</span>
+    * [**Nested** Dropdown link one](https://www.google.com/)
+    * [**Nested** Dropdown link two](https://www.google.com/)
+  * [Dropdown link two](https://www.google.com/)
+* [==Third Link== :clipboard:](https://www.google.com/)
+* [Youtube](https://www.youtube.com/) <span class="hljs-comment">&lt;!-- Using a link as a Dropdown title will not render a Dropdown menu --&gt;</span>
+  * [Youtube video one](http://www.youtube.com/watch?v=lJIrF4YjHfQ)
+  * Dropdown title :pencil2: <span class="hljs-comment">&lt;!-- Dropdown menus in are still supported inside, as long as the title is not a link --&gt;</span>
+    * [**Nested** Dropdown link one](https://www.google.com/)
+<span class="hljs-tag">&lt;/<span class="hljs-name">navigation</span>&gt;</span>
+</code></pre>
+        <ul>
+          <li>Specify the navigation file you have created within a page's <a href="#front-matter">front matter</a> <code>siteNav</code> attribute to render it.</li>
+        </ul>
+        <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- In the page that you want to have a site navigation bar --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+  siteNav: mySiteNav.md
+<span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
+</code></pre>
+        <p>The above Markdown content will be rendered as:</p>
+        <ul style="list-style-type: none; margin-left:-1em">
+          <li style="margin-top: 10px"><a href="/index.html">Home 🏠</a></li>
+          <li style="margin-top: 10px">
+            <button class="dropdown-btn">Dropdown title ✏️  <i class="dropdown-btn-icon">
+      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+            <div class="dropdown-container">
+              <ul style="list-style-type: none; margin-left:-1em">
+                <li style="margin-top: 10px"><a href="https://www.google.com/">Dropdown link one</a></li>
+                <li style="margin-top: 10px">
+                  <button class="dropdown-btn dropdown-btn-open">Expanded Nested Dropdown title 📐
+            <i class="dropdown-btn-icon rotate-icon">
+            <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+                  <div class="dropdown-container dropdown-container-open">
+                    <ul style="list-style-type: none; margin-left:-1em">
+                      <li style="margin-top: 10px"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link one</a></li>
+                      <li style="margin-top: 10px"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link two</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li style="margin-top: 10px"><a href="https://www.google.com/">Dropdown link two</a></li>
+              </ul>
+            </div>
+          </li>
+          <li style="margin-top: 10px"><a href="https://www.google.com/"><mark>Third Link</mark> 📋</a></li>
+          <li style="margin-top:10px"><a href="https://www.youtube.com/">Youtube</a>
+            <ul style="list-style-type: none; margin-left:-1em">
+              <li style="margin-top: 10px"><a href="http://www.youtube.com/watch?v=lJIrF4YjHfQ">Youtube video one</a></li>
+              <li style="margin-top: 10px">
+                <button class="dropdown-btn">Dropdown title ✏️  <i class="dropdown-btn-icon">
+          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+                <div class="dropdown-container">
+                  <ul style="list-style-type: none; margin-left:-1em">
+                    <li style="margin-top: 10px"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link one</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <p>The site navigation bar has <a href="https://www.w3schools.com/html/html_responsive.asp">responsive properties</a>, and will collapse to a menu button when the screen width is smaller than 992 pixels. It will then be completely hidden when the
+          screen size is smaller than 576 pixels.</p>
+        <p>You are able to use <a href="#supported-markdown-syntax">Markdown syntax</a>, <a href="#glyphicons">Glyphicons</a> and <a href="#font-awesome-icons">Font Awesome icons</a> to author your site navigation layout.</p>
+        <p>Note:</p>
+        <ul>
+          <li>Only one navigation file can be specified in a page, and you must include its file extension.</li>
+          <li>There is no limit to the number of nested Dropdown menus, but each menu's height is restricted to 1000 pixels.
+            <ul>
+              <li>Dropdown menu content exceeding 1000 pixels in height will be cut off.</li>
+            </ul>
+          </li>
+        </ul>
+        <h3 id="use-searchbar">Use Searchbar<a class="fa fa-anchor" href="#use-searchbar"></a></h3>
+        <p>The searchbar allows users to search all headings within any page on the site.</p>
+        <p>To use the searchbar, add the following markup to your file.</p>
+        <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">searchbar</span> <span class="hljs-attr">:data</span>=<span class="hljs-string">"searchData"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Search"</span> <span class="hljs-attr">:on-hit</span>=<span class="hljs-string">"searchCallback"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">searchbar</span>&gt;</span>
+</code></pre>
+        <p>To use the searchbar within a navbar, add the following markup to your file. The searchbar can be positioned using the slot attribute for the list. The following markup adds a searchbar to the right side of the navbar with appropriate styling.</p>
+        <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">"right"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"navbar-form"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">searchbar</span> <span class="hljs-attr">:data</span>=<span class="hljs-string">"searchData"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Search"</span> <span class="hljs-attr">:on-hit</span>=<span class="hljs-string">"searchCallback"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">searchbar</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+</code></pre>
+        <h3 id="keywords">Keywords<a class="fa fa-anchor" href="#keywords"></a></h3>
+        <p>You can also specify custom keywords to be included under a heading by tagging the words with the <code>keyword</code> class:</p>
+        <pre><code class="hljs html"># Heading
+This is good for catching <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"keyword"</span>&gt;</span>regressions<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+</code></pre>
+        <p>These keywords will be linked to the immediate heading before it. Users will be able to search for these keywords using the searchbar.</p>
+        <p>If you want to include a keyword without rendering it to the page, add <code>d-none</code> as a class. This can be useful for tagging arbitrary keywords to a header.</p>
+        <pre><code class="hljs html"># Heading
+<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"keyword d-none"</span>&gt;</span>testing<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+
+This is good for catching <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"keyword"</span>&gt;</span>regressions<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+</code></pre>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="flex-div"></div>
+<footer>
+  <div class="text-center">
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.14.1</a> on Tue, 06 Nov 2018 11:17:42 GMT]</small></div>
+</footer>
+</div>
+</body>
+<script src="..\markbind\js\vue.min.js"></script>
+<script src="..\markbind\js\vue-strap.min.js"></script>
+<script src="..\markbind\js\polyfill.min.js"></script>
+<script src="..\markbind\js\bootstrap-vue.min.js"></script>
+<script>
+    const baseUrl = '/markbind'
+</script>
+<script src="..\markbind\js\setup.js"></script>
+<script src="..\markbind\layouts\default\scripts.js"></script>
+</html>

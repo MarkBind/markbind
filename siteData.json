@@ -77,30 +77,9 @@
     },
     {
       "headings": {
-        "content-authoring": "Content authoring",
-        "general-writing-guide": "General writing guide",
-        "mixing-html-with-markdown": "Mixing HTML with Markdown",
-        "specifying-path-reference": "Specifying Path Reference",
+        "content-authoring": "Content Authoring",
         "supported-markdown-syntax": "Supported Markdown Syntax",
-        "use-markbind-variables": "Use MarkBind variables",
-        "font-awesome-icons": "Font Awesome icons",
-        "glyphicons": "Glyphicons",
-        "timestamp": "Timestamp",
-        "markbind-link": "MarkBind Link",
-        "add-your-own-variables": "Add your own variables",
-        "use-searchbar": "Use Searchbar",
-        "keywords": "Keywords",
-        "use-components": "Use Components",
-        "question-body-syntax": "Question body syntax",
-        "include-contents": "Include Contents",
-        "front-matter": "Front Matter",
-        "inserting-content-into-a-pages-head-element": "Inserting content into a page's head element",
-        "site-navigation": "Site Navigation",
-        "using-footers": "Using Footers",
-        "specifying-footer-file-in-front-matter": "Specifying footer file in Front Matter",
-        "defining-your-own-inline-footer": "Defining your own inline footer",
-        "heading-anchors": "Heading Anchors",
-        "layouts": "Layouts"
+        "include-contents": "Include Contents"
       },
       "footer": "userGuideFooter.md",
       "siteNav": "userGuideSections.md",
@@ -120,6 +99,52 @@
       "siteNav": "userGuideSections.md",
       "src": "userGuide/includingContents.md",
       "title": "MarkBind: User Guide - Including Contents",
+      "layout": "default"
+    },
+    {
+      "headings": {
+        "using-components": "Using Components",
+        "question-body-syntax": "Question body syntax",
+        "site-navigation": "Site Navigation",
+        "use-searchbar": "Use Searchbar",
+        "keywords": "Keywords"
+      },
+      "footer": "userGuideFooter.md",
+      "siteNav": "userGuideSections.md",
+      "src": "userGuide/usingComponents.md",
+      "title": "MarkBind: User Guide - Using Components",
+      "layout": "default"
+    },
+    {
+      "headings": {
+        "using-variables": "Using Variables",
+        "specifying-path-reference": "Specifying Path Reference",
+        "font-awesome-icons": "Font Awesome icons",
+        "glyphicons": "Glyphicons",
+        "timestamp": "Timestamp",
+        "markbind-link": "MarkBind Link",
+        "add-your-own-variables": "Add your own variables"
+      },
+      "footer": "userGuideFooter.md",
+      "siteNav": "userGuideSections.md",
+      "src": "userGuide/usingVariables.md",
+      "title": "MarkBind: User Guide - Using Variables",
+      "layout": "default"
+    },
+    {
+      "headings": {
+        "page-layout": "Page Layout",
+        "front-matter": "Front Matter",
+        "inserting-content-into-a-pages-head-element": "Inserting content into a page's head element",
+        "using-footers": "Using Footers",
+        "specifying-footer-file-in-front-matter": "Specifying footer file in Front Matter",
+        "defining-your-own-inline-footer": "Defining your own inline footer",
+        "layouts": "Layouts"
+      },
+      "footer": "userGuideFooter.md",
+      "siteNav": "userGuideSections.md",
+      "src": "userGuide/pageLayout.md",
+      "title": "MarkBind: User Guide - Page Layout",
       "layout": "default"
     },
     {
