@@ -26,6 +26,25 @@ layout: default
   <span class="keyword">panel keyword</span>
 </panel>
 
+# Panel with heading with keyword
+<panel header="# Panel with heading" expanded>
+  <span class="keyword">panel keyword</span>
+</panel>
+
+# Expanded panel without heading with keyword
+<panel header="# Panel without heading with keyword" expanded>
+
+  # Keyword should be tagged to this heading, not the panel heading
+  <span class="keyword">panel keyword</span>
+</panel>
+
+# Unexpanded panel with heading with keyword
+<panel header="# Panel with heading with keyword">
+
+  # Keyword should be tagged to the panel heading, not this heading
+  <span class="keyword">panel keyword</span>
+</panel>
+
 # Heading with included keyword
 <include src="testKeyword.md" />
 

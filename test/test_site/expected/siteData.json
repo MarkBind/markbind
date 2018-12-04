@@ -2,6 +2,9 @@
   "pages": [
     {
       "headings": {
+        "panel-with-heading": "Panel with heading | panel keyword",
+        "panel-without-heading-with-keyword": "Panel without heading with keyword",
+        "panel-with-heading-with-keyword": "Panel with heading with keyword | panel keyword",
         "panel-without-src-header": "Panel without src header",
         "panel-with-normal-src-header": "Panel with normal src header",
         "panel-with-src-from-a-page-segment-header": "Panel with src from a page segment header",
@@ -11,6 +14,7 @@
         "outer-nested-panel-without-src": "Outer nested panel without src",
         "panel-with-src-from-another-markbind-site-header": "Panel with src from another Markbind site header",
         "unexpanded-panel-header": "Unexpanded panel header",
+        "keyword-should-be-tagged-to-this-heading-not-the-panel-heading": "Keyword should be tagged to this heading, not the panel heading | panel keyword",
         "panel-without-src-content-heading": "Panel without src content heading",
         "panel-normal-source-content-headings": "Panel normal source content headings",
         "panel-source-segment-content-headings": "Panel source segment content headings",
@@ -25,6 +29,8 @@
         "variables-that-reference-another-variable": "Variables that reference another variable",
         "heading-with-multiple-keywords": "Heading with multiple keywords | keyword 1, keyword 2",
         "heading-with-keyword-in-panel": "Heading with keyword in panel | panel keyword",
+        "expanded-panel-without-heading-with-keyword": "Expanded panel without heading with keyword",
+        "unexpanded-panel-with-heading-with-keyword": "Unexpanded panel with heading with keyword",
         "heading-with-included-keyword": "Heading with included keyword | included keyword",
         "included-heading": "Included Heading | Keyword with included heading",
         "heading-with-nested-keyword": "Heading with nested keyword | nested keyword",
