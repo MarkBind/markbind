@@ -143,7 +143,7 @@ Details of exercise 3
 
 #### ✓ Ability to reuse content easily
 
-MarkBind has a powerful`include` mechanism that allows content fragments (i.e., a file or part of a file) to be reused at multiple places in the website.
+MarkBind has a powerful `include` mechanism that allows content fragments (i.e., a file or part of a file) to be reused at multiple places in the website.
 
 In the example below, both the modal and the expandable panel reuses the same content.
 
