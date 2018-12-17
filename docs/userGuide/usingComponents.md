@@ -68,6 +68,9 @@ To use a component, just use the corresponding markup in your file. For example,
 <include src="./components/modal.md" />
 <br>
 
+<include src="./components/tags.md" />
+<br>
+
 <include src="./components/advanced.md" />
 <br>
 

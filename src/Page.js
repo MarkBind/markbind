@@ -53,6 +53,7 @@ function Page(pageConfig) {
   this.baseUrlMap = pageConfig.baseUrlMap;
   this.content = pageConfig.content || '';
   this.faviconUrl = pageConfig.faviconUrl;
+  this.tags = pageConfig.tags;
   this.layout = pageConfig.layout;
   this.layoutsAssetPath = pageConfig.layoutsAssetPath;
   this.rootPath = pageConfig.rootPath;
@@ -420,6 +421,28 @@ Page.prototype.concatenateHeadingsAndKeywords = function () {
 };
 
 /**
+ * Filters out elements on the page based on config tags
+ * @param content of the page
+ * @param tags to filter
+ */
+Page.prototype.filterTags = function (tags, content) {
+  if (tags === undefined) {
+    return content;
+  }
+  const $ = cheerio.load(content, { xmlMode: false });
+  $('[tags]').each((i, element) => {
+    $(element).attr('hidden', true);
+  });
+  tags.forEach((tag) => {
+    $(`[tags~="${tag}"]`).each((i, element) => {
+      $(element).removeAttr('hidden');
+    });
+  });
+  $('[hidden]').remove();
+  return $.html();
+};
+
+/**
  * Adds anchor links to headings in the page
  * @param content of the page
  */
@@ -475,6 +498,8 @@ Page.prototype.collectFrontMatter = function (includedPage) {
     this.frontMatter.title = (this.title || this.frontMatter.title || '');
     // Layout specified in site.json will override layout specified in the front matter
     this.frontMatter.layout = (this.layout || this.frontMatter.layout || LAYOUT_DEFAULT_NAME);
+    // Included tags specified in front matter will override included tags specified in site.json
+    this.frontMatter.tags = (this.frontMatter.tags || this.tags);
   } else {
     // Page is addressable but no front matter specified
     this.frontMatter = {
@@ -736,6 +761,7 @@ Page.prototype.generate = function (builtFiles) {
       .then(result => markbinder.resolveBaseUrl(result, fileConfig))
       .then(result => fs.outputFileAsync(this.tempPath, result))
       .then(() => markbinder.renderFile(this.tempPath, fileConfig))
+      .then(result => this.filterTags(this.frontMatter.tags, result))
       .then(result => this.addAnchors(result))
       .then((result) => {
         this.content = htmlBeautify(result, { indent_size: 2 });

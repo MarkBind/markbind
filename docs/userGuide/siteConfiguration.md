@@ -52,6 +52,7 @@ Here is a typical `site.json` file:
     "*.mbd",
     ".git/*"
   ],
+  "tags": ["tag1", "tag2"],
   "headingIndexingLevel": 4
 }
 ```
@@ -124,6 +125,10 @@ The ignore pattern follows the [glob pattern used in .gitignore](https://git-scm
 * **`branch`** [Optional. Default: `"gh-pages"`]<br>
   The branch that will be deployed to in the remote repo.
 </div>
+
+#### **`tags`**
+
+**A list of tags to filter page elements.** Do not specify this option if you want to show everything. See [Using Tags](usingComponents.html#tags) for more information.
 
 #### **`headingIndexingLevel`**
 

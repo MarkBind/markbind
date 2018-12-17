@@ -30,6 +30,14 @@
       "layout": "testLayout"
     },
     {
+      "src": "testTags.md",
+      "title": "Hello World"
+    },
+    {
+      "src": "testEmptyTags.md",
+      "title": "Hello World"
+    },
+    {
       "glob" : "**/index.md"
     },
     {
@@ -50,5 +58,6 @@
   "deploy": {
     "message": "Site Update."
   },
+  "tags" : ["tag--shown", "tag--shown-2"],
   "headingIndexingLevel": 4
 }

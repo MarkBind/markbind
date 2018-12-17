@@ -36,6 +36,11 @@
         "included-heading": "Included Heading | Keyword with included heading",
         "heading-with-nested-keyword": "Heading with nested keyword | nested keyword",
         "heading-with-hidden-keyword": "Heading with hidden keyword | invisible keyword",
+        "div-with-shown-tag": "Div with shown tag",
+        "div-with-shown-2-tag": "Div with shown-2 tag",
+        "div-with-multiple-tags": "Div with multiple tags",
+        "div-with-shown-on-overwrite-tag": "Div with shown on overwrite tag",
+        "div-with-hidden-tag": "Div with hidden tag",
         "normal-include": "Normal include",
         "establishing-requirements": "Establishing Requirements",
         "brainstorming": "Brainstorming",
@@ -66,7 +71,11 @@
       "pageNavTitle": "Testing Page Navigation",
       "head": "myCustomHead.md, myCustomHead2.md",
       "src": "index.md",
-      "layout": "default"
+      "layout": "default",
+      "tags": [
+        "tag--shown",
+        "tag--shown-2"
+      ]
     },
     {
       "headings": {},
@@ -87,7 +96,11 @@
       "title": "Hello World",
       "head": "overwriteLayoutHead.md",
       "layout": "testLayout",
-      "src": "testLayouts.md"
+      "src": "testLayouts.md",
+      "tags": [
+        "tag--shown",
+        "tag--shown-2"
+      ]
     },
     {
       "headings": {
@@ -96,7 +109,41 @@
       "title": "Hello World",
       "head": "overwriteLayoutHead.md",
       "layout": "testLayout",
-      "src": "testLayoutsOverride.md"
+      "src": "testLayoutsOverride.md",
+      "tags": [
+        "tag--shown",
+        "tag--shown-2"
+      ]
+    },
+    {
+      "headings": {
+        "overwrites-tags-in-site-json": "Overwrites tags in site.json",
+        "div-with-shown-tag": "Div with shown tag",
+        "div-with-shown-2-tag": "Div with shown-2 tag",
+        "div-with-multiple-tags": "Div with multiple tags",
+        "div-with-shown-on-overwrite-tag": "Div with shown on overwrite tag",
+        "div-with-hidden-tag": "Div with hidden tag"
+      },
+      "title": "Hello World",
+      "tags": [
+        "tag--shown-on-overwrite"
+      ],
+      "src": "testTags.md",
+      "layout": "default"
+    },
+    {
+      "headings": {
+        "no-tags-specified": "No tags specified",
+        "div-with-shown-tag": "Div with shown tag",
+        "div-with-shown-2-tag": "Div with shown-2 tag",
+        "div-with-multiple-tags": "Div with multiple tags",
+        "div-with-shown-on-overwrite-tag": "Div with shown on overwrite tag",
+        "div-with-hidden-tag": "Div with hidden tag"
+      },
+      "title": "Hello World",
+      "tags": [],
+      "src": "testEmptyTags.md",
+      "layout": "default"
     },
     {
       "headings": {
@@ -106,7 +153,11 @@
       },
       "title": "Open Bugs",
       "src": "bugs/index.md",
-      "layout": "default"
+      "layout": "default",
+      "tags": [
+        "tag--shown",
+        "tag--shown-2"
+      ]
     },
     {
       "headings": {

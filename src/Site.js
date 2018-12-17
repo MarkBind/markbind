@@ -310,6 +310,7 @@ Site.prototype.createPage = function (config) {
     baseUrlMap: this.baseUrlMap,
     content: '',
     faviconUrl: config.faviconUrl,
+    tags: this.siteConfig.tags,
     pageTemplate: this.pageTemplate,
     rootPath: this.rootPath,
     searchable: this.siteConfig.enableSearch && config.searchable,
