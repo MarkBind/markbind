@@ -25,11 +25,14 @@
 
     - `inline` (optional): make the included result an inline element. (wrapped in `<span>` tag)
 
+    - `optional` (optional): include the document only if it exists.
+
     Examples:
     ```html
     <include src="EstablishingRequirements.md#preview" inline/>
     <include src="../common/RequirementsVsSystemSpecification.md"/>
     <include src="../index.html" />
+    <include src="UserStories.md" optional/>
     ```
 
     <br/>
