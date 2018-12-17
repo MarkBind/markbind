@@ -4,7 +4,8 @@ Vue.use(VueStrap);
 
 function scrollToUrlAnchorHeading() {
   if (window.location.hash) {
-    jQuery(window.location.hash)[0].scrollIntoView();
+    // remove leading hash to get element ID
+    document.getElementById(window.location.hash.slice(1)).scrollIntoView();
     window.scrollBy(0, -document.body.style.paddingTop.replace('px', ''));
   }
 }
