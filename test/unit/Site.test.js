@@ -1,4 +1,4 @@
-const Site = require('../../lib/Site');
+const Site = require('../../src/Site');
 const path = require('path');
 const fs = require('fs-extra-promise');
 const ghpages = require('gh-pages');
@@ -16,17 +16,17 @@ const {
 
 jest.mock('fs');
 jest.mock('walk-sync');
-jest.mock('../../lib/Page');
+jest.mock('../../src/Page');
 jest.mock('gh-pages');
-jest.mock('../../lib/util/logger');
+jest.mock('../../src/util/logger');
 
 afterEach(() => fs.vol.reset());
 
 test('Site Generate builds the correct amount of assets', async () => {
   const json = {
-    'lib/asset/font-awesome.csv': '',
-    'lib/asset/glyphicons.csv': '',
-    'lib/template/page.ejs': PAGE_EJS,
+    'src/asset/font-awesome.csv': '',
+    'src/asset/glyphicons.csv': '',
+    'src/template/page.ejs': PAGE_EJS,
     'inner/site.json': SITE_JSON_DEFAULT,
 
     'asset/css/bootstrap.min.css': '',
@@ -82,7 +82,7 @@ test('Site Generate builds the correct amount of assets', async () => {
 
 test('Site Init in existing directory generates correct assets', async () => {
   const json = {
-    'lib/template/page.ejs': PAGE_EJS,
+    'src/template/page.ejs': PAGE_EJS,
   };
   fs.vol.fromJSON(json, '');
 
@@ -121,7 +121,7 @@ test('Site Init in existing directory generates correct assets', async () => {
 
 test('Site Init in directory which does not exist generates correct assets', async () => {
   const json = {
-    'lib/template/page.ejs': PAGE_EJS,
+    'src/template/page.ejs': PAGE_EJS,
   };
   fs.vol.fromJSON(json, '');
 
@@ -163,7 +163,7 @@ test('Site Init in directory which does not exist generates correct assets', asy
 
 test('Site baseurls are correct for sub nested subsites', async () => {
   const json = {
-    'lib/template/page.ejs': PAGE_EJS,
+    'src/template/page.ejs': PAGE_EJS,
     'site.json': SITE_JSON_DEFAULT,
     'sub/site.json': SITE_JSON_DEFAULT,
     'sub/sub/site.json': SITE_JSON_DEFAULT,
@@ -184,7 +184,7 @@ test('Site baseurls are correct for sub nested subsites', async () => {
 
 test('Site removeAsync removes the correct asset', async () => {
   const json = {
-    'lib/template/page.ejs': PAGE_EJS,
+    'src/template/page.ejs': PAGE_EJS,
     '_site/toRemove.jpg': '',
     '_site/dontRemove.png': '',
     'toRemove.html': '',
@@ -199,7 +199,7 @@ test('Site removeAsync removes the correct asset', async () => {
 
 test('Site read site config for default', async () => {
   const json = {
-    'lib/template/page.ejs': PAGE_EJS,
+    'src/template/page.ejs': PAGE_EJS,
     'site.json': SITE_JSON_DEFAULT,
   };
   fs.vol.fromJSON(json, '');
@@ -228,7 +228,7 @@ test('Site read site config for custom site config', async () => {
     },
   };
   const json = {
-    'lib/template/page.ejs': PAGE_EJS,
+    'src/template/page.ejs': PAGE_EJS,
     'site.json': JSON.stringify(customSiteJson),
   };
   fs.vol.fromJSON(json, '');
@@ -240,9 +240,9 @@ test('Site read site config for custom site config', async () => {
 
 test('Site resolves variables referencing other variables', async () => {
   const json = {
-    'lib/asset/font-awesome.csv': '',
-    'lib/asset/glyphicons.csv': 'glyphicon-plus',
-    'lib/template/page.ejs': PAGE_EJS,
+    'src/asset/font-awesome.csv': '',
+    'src/asset/glyphicons.csv': 'glyphicon-plus',
+    'src/template/page.ejs': PAGE_EJS,
     'site.json': SITE_JSON_DEFAULT,
     '_markbind/variables.md':
     '<span id="level1">variable</span>'
@@ -271,9 +271,9 @@ test('Site resolves variables referencing other variables', async () => {
 
 test('Site read correct user defined variables', async () => {
   const json = {
-    'lib/asset/font-awesome.csv': '',
-    'lib/asset/glyphicons.csv': '',
-    'lib/template/page.ejs': PAGE_EJS,
+    'src/asset/font-awesome.csv': '',
+    'src/asset/glyphicons.csv': '',
+    'src/template/page.ejs': PAGE_EJS,
     'site.json': SITE_JSON_DEFAULT,
     'sub/site.json': SITE_JSON_DEFAULT,
     'sub/sub/site.json': SITE_JSON_DEFAULT,
@@ -315,7 +315,7 @@ test('Site read correct user defined variables', async () => {
 
 test('gh-pages test', async () => {
   const json = {
-    'lib/template/page.ejs': PAGE_EJS,
+    'src/template/page.ejs': PAGE_EJS,
     'site.json': SITE_JSON_DEFAULT,
     _site: {},
   };
@@ -335,7 +335,7 @@ test('Custom deploy settings gh-pages test', async () => {
     branch: 'master',
   };
   const json = {
-    'lib/template/page.ejs': PAGE_EJS,
+    'src/template/page.ejs': PAGE_EJS,
     'site.json': JSON.stringify(customConfig),
     _site: {},
   };
@@ -349,7 +349,7 @@ test('Custom deploy settings gh-pages test', async () => {
 
 test('Site should not deploy without a built site', async () => {
   const json = {
-    'lib/template/page.ejs': PAGE_EJS,
+    'src/template/page.ejs': PAGE_EJS,
     'site.json': SITE_JSON_DEFAULT,
   };
   fs.vol.fromJSON(json, '');

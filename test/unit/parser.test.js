@@ -1,4 +1,4 @@
-const MarkBind = require('../../lib/markbind/lib/parser.js');
+const MarkBind = require('../../src/lib/markbind/src/parser.js');
 const path = require('path');
 const fs = require('fs');
 const { USER_VARIABLES_DEFAULT } = require('./utils/data');

@@ -17,7 +17,7 @@ _.isArray = require('lodash/isArray');
 _.isEmpty = require('lodash/isEmpty');
 _.pick = require('lodash/pick');
 
-const md = require('./markdown-it');
+const md = require('./lib/markdown-it');
 const utils = require('./utils');
 
 cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
