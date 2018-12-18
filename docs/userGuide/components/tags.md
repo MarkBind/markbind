@@ -1,6 +1,6 @@
 ## Tags
 
-**Tags are used to selectively display or hide certain elements on the compiled static site.**
+**Tags are used to selectively filter certain elements on web pages.**
 
 Tags are specified by the `tags` attribute, **and can be attached to any HTML element**. For example:
 
