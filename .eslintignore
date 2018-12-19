@@ -1,4 +1,4 @@
 *.min.*
-lib/markbind/lib/markdown-it/*
+src/lib/markbind/src/lib/markdown-it/*
 
 !.eslintrc.js

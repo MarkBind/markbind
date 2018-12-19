@@ -14,10 +14,10 @@ const Promise = require('bluebird');
 const _ = {};
 _.isBoolean = require('lodash/isBoolean');
 
-const fsUtil = require('./lib/util/fsUtil');
-const logger = require('./lib/util/logger');
-const MarkBind = require('./lib/markbind/lib/parser');
-const Site = require('./lib/Site');
+const fsUtil = require('./src/util/fsUtil');
+const logger = require('./src/util/logger');
+const MarkBind = require('./src/lib/markbind/src/parser');
+const Site = require('./src/Site');
 
 const ACCEPTED_COMMANDS = ['version', 'include', 'render', 'init', 'build', 'serve', 'deploy'];
 const CLI_VERSION = require('./package.json').version;

@@ -1,4 +1,4 @@
-const Page = require('../../lib/Page');
+const Page = require('../../src/Page');
 
 test('Page#collectIncludedFiles collects included files from 1 dependency object', () => {
   const page = new Page({});

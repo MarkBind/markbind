@@ -9,8 +9,8 @@ const Promise = require('bluebird');
 
 const FsUtil = require('./util/fsUtil');
 const logger = require('./util/logger');
-const MarkBind = require('./markbind/lib/parser');
-const md = require('./markbind/lib/markdown-it');
+const MarkBind = require('./lib/markbind/src/parser');
+const md = require('./lib/markbind/src/lib/markdown-it');
 
 const FOOTERS_FOLDER_PATH = '_markbind/footers';
 const HEAD_FOLDER_PATH = '_markbind/head';
