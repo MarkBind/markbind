@@ -104,7 +104,7 @@ const GENERATE_SITE_LOGGING_KEY = 'Generate Site';
 const MARKBIND_WEBSITE_URL = 'https://markbind.github.io/markbind/';
 const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${CLI_VERSION}</a>`;
 
-function Site(rootPath, outputPath, forceReload = false, siteConfigPath = SITE_CONFIG_NAME) {
+function Site(rootPath, outputPath, onePagePath, forceReload = false, siteConfigPath = SITE_CONFIG_NAME) {
   const configPath = findUp.sync(siteConfigPath, { cwd: rootPath });
   this.rootPath = configPath ? path.dirname(configPath) : rootPath;
   this.outputPath = outputPath;
@@ -123,6 +123,7 @@ function Site(rootPath, outputPath, forceReload = false, siteConfigPath = SITE_C
   this.addressablePages = [];
   this.baseUrlMap = {};
   this.forceReload = forceReload;
+  this.onePagePath = onePagePath;
   this.siteConfig = {};
   this.siteConfigPath = siteConfigPath;
   this.userDefinedVariablesMap = {};
@@ -586,13 +587,28 @@ Site.prototype.generatePages = function () {
   }
 
   this._setTimestampVariable();
-  this.pages = addressablePages.map(page => this.createPage({
-    faviconUrl,
-    pageSrc: page.src,
-    title: page.title,
-    layout: page.layout || LAYOUT_DEFAULT_NAME,
-    searchable: page.searchable !== 'no',
-  }));
+  if (this.onePagePath) {
+    const page = addressablePages.find(p => p.src === this.onePagePath);
+    if (!page) {
+      return Promise.reject(new Error(`${this.onePagePath} does not exist`));
+    }
+    this.pages.push(this.createPage({
+      faviconUrl,
+      pageSrc: page.src,
+      title: page.title,
+      layout: page.layout || LAYOUT_DEFAULT_NAME,
+      searchable: page.searchable !== 'no',
+    }));
+  } else {
+    this.pages = addressablePages.map(page => this.createPage({
+      faviconUrl,
+      pageSrc: page.src,
+      title: page.title,
+      layout: page.layout || LAYOUT_DEFAULT_NAME,
+      searchable: page.searchable !== 'no',
+    }));
+  }
+
   const progressBar = new ProgressBar(`[:bar] :current / ${this.pages.length} pages built`,
                                       { total: this.pages.length });
   progressBar.render();

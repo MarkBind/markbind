@@ -105,6 +105,7 @@ Live reload is enabled to regenerate the site for changes, so you could see the 
 | `-f`, `--force-reload` | Force a full reload of all site files when a file is changed. |
 | `-p`, `--port <port>` | The port used for serving your website. |
 | `-s`, `--site-config <file>` | Specify the site config file (default: site.json) |
+| `--one-page <file>` | Render and serve only a single page from your website. |
 | --no-open | Don't open browser automatically. |
 
 ### Build the static site
