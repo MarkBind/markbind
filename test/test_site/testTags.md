@@ -1,8 +1,8 @@
 <frontmatter>
 title: Test Layouts
-tags: ["tag--shown-on-overwrite"]
+tags: ["tag--should-be-overriden"]
 </frontmatter>
 
-# Overwrites tags in site.json
+# Front matter should be overriden by site.json
 
 <include src="testTagDivs.md" />

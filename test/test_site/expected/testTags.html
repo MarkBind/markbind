@@ -21,18 +21,22 @@
 <body data-spy="scroll" data-target="#page-nav" data-offset="100">
 <div id="app">
     <div id="content-wrapper">
-  <h1 id="overwrites-tags-in-site-json">Overwrites tags in site.json<a class="fa fa-anchor" href="#overwrites-tags-in-site-json"></a></h1>
+  <h1 id="front-matter-should-be-overriden-by-site-json">Front matter should be overriden by site.json<a class="fa fa-anchor" href="#front-matter-should-be-overriden-by-site-json"></a></h1>
   <div>
     <h1 id="div-with-shown-tag">Div with shown tag<a class="fa fa-anchor" href="#div-with-shown-tag"></a></h1>
-
-    <h1 id="div-with-shown-2-tag">Div with shown-2 tag<a class="fa fa-anchor" href="#div-with-shown-2-tag"></a></h1>
-
-    <h1 id="div-with-multiple-tags">Div with multiple tags<a class="fa fa-anchor" href="#div-with-multiple-tags"></a></h1>
-
-    <h1 id="div-with-shown-on-overwrite-tag">Div with shown on overwrite tag<a class="fa fa-anchor" href="#div-with-shown-on-overwrite-tag"></a></h1>
-    <div tags="tag--shown-on-overwrite">
-      Div with shown on overwrite tag
+    <div tags="tag--shown">
+      Div with shown tag
     </div>
+    <h1 id="div-with-shown-2-tag">Div with shown-2 tag<a class="fa fa-anchor" href="#div-with-shown-2-tag"></a></h1>
+    <div tags="tag--shown-2">
+      Div with shown-2 tag
+    </div>
+    <h1 id="div-with-multiple-tags">Div with multiple tags<a class="fa fa-anchor" href="#div-with-multiple-tags"></a></h1>
+    <div tags="tag--shown tag--other">
+      Div with multiple tags
+    </div>
+    <h1 id="div-with-should-be-overriden-tag">Div with should be overriden tag<a class="fa fa-anchor" href="#div-with-should-be-overriden-tag"></a></h1>
+
     <h1 id="div-with-hidden-tag">Div with hidden tag<a class="fa fa-anchor" href="#div-with-hidden-tag"></a></h1>
   </div>
 </div>

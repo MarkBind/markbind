@@ -53,12 +53,12 @@ function Page(pageConfig) {
   this.baseUrlMap = pageConfig.baseUrlMap;
   this.content = pageConfig.content || '';
   this.faviconUrl = pageConfig.faviconUrl;
-  this.tags = pageConfig.tags;
   this.layout = pageConfig.layout;
   this.layoutsAssetPath = pageConfig.layoutsAssetPath;
   this.rootPath = pageConfig.rootPath;
   this.searchable = pageConfig.searchable;
   this.src = pageConfig.src;
+  this.tags = pageConfig.tags;
   this.template = pageConfig.pageTemplate;
   this.title = pageConfig.title || '';
   this.titlePrefix = pageConfig.titlePrefix;
@@ -422,8 +422,8 @@ Page.prototype.concatenateHeadingsAndKeywords = function () {
 
 /**
  * Filters out elements on the page based on config tags
- * @param content of the page
  * @param tags to filter
+ * @param content of the page
  */
 Page.prototype.filterTags = function (tags, content) {
   if (tags === undefined) {
@@ -761,7 +761,7 @@ Page.prototype.generate = function (builtFiles) {
       .then(result => markbinder.resolveBaseUrl(result, fileConfig))
       .then(result => fs.outputFileAsync(this.tempPath, result))
       .then(() => markbinder.renderFile(this.tempPath, fileConfig))
-      .then(result => this.filterTags(this.frontMatter.tags, result))
+      .then(result => this.filterTags(this.tags, result))
       .then(result => this.addAnchors(result))
       .then((result) => {
         this.content = htmlBeautify(result, { indent_size: 2 });
