@@ -13,9 +13,9 @@ Div with shown-2 tag
 Div with multiple tags
 </div>
 
-# Div with should be overriden tag
-<div tags="tag--should-be-overriden">
-Div with should be overriden tag
+# Div with should be overridden tag
+<div tags="tag--should-be-overridden">
+Div with should be overridden tag
 </div>
 
 # Div with hidden tag

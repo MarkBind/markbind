@@ -39,7 +39,7 @@
         "div-with-shown-tag": "Div with shown tag",
         "div-with-shown-2-tag": "Div with shown-2 tag",
         "div-with-multiple-tags": "Div with multiple tags",
-        "div-with-should-be-overriden-tag": "Div with should be overriden tag",
+        "div-with-should-be-overridden-tag": "Div with should be overridden tag",
         "div-with-hidden-tag": "Div with hidden tag",
         "normal-include": "Normal include",
         "establishing-requirements": "Establishing Requirements",
@@ -117,16 +117,16 @@
     },
     {
       "headings": {
-        "front-matter-should-be-overriden-by-site-json": "Front matter should be overriden by site.json",
+        "front-matter-should-be-overridden-by-site-json": "Front matter should be overridden by site.json",
         "div-with-shown-tag": "Div with shown tag",
         "div-with-shown-2-tag": "Div with shown-2 tag",
         "div-with-multiple-tags": "Div with multiple tags",
-        "div-with-should-be-overriden-tag": "Div with should be overriden tag",
+        "div-with-should-be-overridden-tag": "Div with should be overridden tag",
         "div-with-hidden-tag": "Div with hidden tag"
       },
       "title": "Hello World",
       "tags": [
-        "tag--should-be-overriden"
+        "tag--should-be-overridden"
       ],
       "src": "testTags.md",
       "layout": "default"
@@ -137,7 +137,7 @@
         "div-with-shown-tag": "Div with shown tag",
         "div-with-shown-2-tag": "Div with shown-2 tag",
         "div-with-multiple-tags": "Div with multiple tags",
-        "div-with-should-be-overriden-tag": "Div with should be overriden tag",
+        "div-with-should-be-overridden-tag": "Div with should be overridden tag",
         "div-with-hidden-tag": "Div with hidden tag"
       },
       "title": "Hello World",
