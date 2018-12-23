@@ -130,13 +130,20 @@ program
   .option('-f, --force-reload', 'force a full reload of all site files when a file is changed')
   .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
+  .option('--one-page <file>', 'render and serve only a single page in the site')
   .option('--no-open', 'do not automatically open the site in browser')
   .action((root, options) => {
     const rootFolder = path.resolve(root || process.cwd());
     const logsFolder = path.join(rootFolder, '_markbind/logs');
     const outputFolder = path.join(rootFolder, '_site');
 
-    const site = new Site(rootFolder, outputFolder, options.forceReload, options.siteConfig);
+    if (options.onePage) {
+      // replace slashes for paths on Windows
+      // eslint-disable-next-line no-param-reassign
+      options.onePage = fsUtil.ensurePosix(options.onePage);
+    }
+
+    const site = new Site(rootFolder, outputFolder, options.onePage, options.forceReload, options.siteConfig);
 
     const addHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
@@ -176,7 +183,7 @@ program
 
     // server config
     const serverConfig = {
-      open: options.open,
+      open: options.open && options.onePage ? `/${options.onePage.replace(/\.(md|mbd)$/, '.html')}` : false,
       logLevel: 0,
       root: outputFolder,
       port: options.port || 8080,

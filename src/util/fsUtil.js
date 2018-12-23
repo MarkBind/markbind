@@ -3,6 +3,14 @@ const path = require('path');
 const sourceFileExtNames = ['.html', '.md', '.mbd', '.mbdf'];
 
 module.exports = {
+  ensurePosix: (filePath) => {
+    if (path.sep !== '/') {
+      return filePath.split(path.sep).join('/');
+    }
+
+    return filePath;
+  },
+
   isSourceFile(filePath) {
     return sourceFileExtNames.includes(path.extname(filePath));
   },
