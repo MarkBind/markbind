@@ -590,7 +590,7 @@ Site.prototype.generatePages = function () {
   if (this.onePagePath) {
     const page = addressablePages.find(p => p.src === this.onePagePath);
     if (!page) {
-      return Promise.reject(new Error(`${this.onePagePath} does not exist`));
+      return Promise.reject(new Error(`${this.onePagePath} is not specified in the site configuration.`));
     }
     this.pages.push(this.createPage({
       faviconUrl,
