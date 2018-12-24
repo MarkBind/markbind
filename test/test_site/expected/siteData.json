@@ -133,20 +133,6 @@
     },
     {
       "headings": {
-        "no-tags-specified": "No tags specified",
-        "div-with-shown-tag": "Div with shown tag",
-        "div-with-shown-2-tag": "Div with shown-2 tag",
-        "div-with-multiple-tags": "Div with multiple tags",
-        "div-with-should-be-overridden-tag": "Div with should be overridden tag",
-        "div-with-hidden-tag": "Div with hidden tag"
-      },
-      "title": "Hello World",
-      "tags": [],
-      "src": "testEmptyTags.md",
-      "layout": "default"
-    },
-    {
-      "headings": {
         "popover-initiated-by-trigger-honor-trigger-attribute": "popover initiated by trigger: honor trigger attribute",
         "support-multiple-inclusions-of-a-modal": "Support multiple inclusions of a modal",
         "remove-extra-space-in-links": "Remove extra space in links"

@@ -34,10 +34,6 @@
       "title": "Hello World"
     },
     {
-      "src": "testEmptyTags.md",
-      "title": "Hello World"
-    },
-    {
       "glob" : "**/index.md"
     },
     {
