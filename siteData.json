@@ -3,18 +3,18 @@
     {
       "headings": {
         "markbind": "MarkBind",
-        "generate-dynamic-websites-from-markdown-text": "Generate dynamic websites from markdown text.",
-        "features": " Features",
-        "support-for-markdown-and-gfmd": "✓ Support for Markdown and\n          GFMD",
-        "ability-to-add-additional-layers-of-information-as-tooltips-pop-overs-modals": "✓ Ability to add additional layers of information as Tooltips, pop-overs, modals",
-        "ability-to-emphasize-or-de-emphasize-content-easily": "✓ Ability to emphasize or de-emphasize content easily",
-        "ability-to-allow-readers-reveal-content-progressively": "✓ Ability to allow readers reveal content progressively",
-        "ability-to-reuse-content-easily": "✓ Ability to reuse content easily",
-        "examples": " Examples",
-        "documentation": " Documentation",
+        "generate-dynamic-websites-from-markdown-text.": "Generate dynamic websites from markdown text.",
+        "-features": " Features",
+        "%E2%9C%93-support-for-markdown-and-gfmd": "✓ Support for Markdown and\n          GFMD",
+        "%E2%9C%93-ability-to-add-additional-layers-of-information-as-tooltips%2C-pop-overs%2C-modals": "✓ Ability to add additional layers of information as Tooltips, pop-overs, modals",
+        "%E2%9C%93-ability-to-emphasize-or-de-emphasize-content-easily": "✓ Ability to emphasize or de-emphasize content easily",
+        "%E2%9C%93-ability-to-allow-readers-reveal-content-progressively": "✓ Ability to allow readers reveal content progressively",
+        "%E2%9C%93-ability-to-reuse-content-easily": "✓ Ability to reuse content easily",
+        "-examples": " Examples",
+        "-documentation": " Documentation",
         "for-users": "For Users",
         "for-developers": "For Developers",
-        "about-us": " About us"
+        "-about-us": " About us"
       },
       "footer": "userGuideFooter.md",
       "siteNav": "userGuideSections.md",
@@ -54,10 +54,10 @@
       "headings": {
         "developing-a-site-with-markbind": "Developing a Site with MarkBind",
         "init-a-site-with-markbind": "Init a site with MarkBind",
-        "preview-and-serve-your-site-using": "Preview and serve your site using:",
+        "preview-and-serve-your-site-using%3A": "Preview and serve your site using:",
         "build-the-static-site": "Build the static site",
         "deploy-the-generated-site": "Deploy the generated site",
-        "sitejson": "site.json"
+        "site.json": "site.json"
       },
       "footer": "userGuideFooter.md",
       "siteNav": "userGuideSections.md",
@@ -90,9 +90,9 @@
     {
       "headings": {
         "including-contents": "Including contents",
-        "use-include-tag-to-include-another-markdown-or-html-document-into-current-context": "Use &lt;include&gt; tag to include another markdown or HTML document into current context.",
-        "wrap-elements-inside-a-div-or-seg-tag-with-an-unique-id-if-you-wish-to-create-a-reusable-content-fragment-inside-a-file-that-could-be-included-from-other-file": "Wrap elements inside a &lt;div&gt; or &lt;seg&gt; tag with an unique id if you wish to create a reusable content fragment inside a file (that could be included from other file).",
-        "direct-reference-to-a-markbind-driven-project-without-changing-the-relative-path-is-supported": "Direct reference to a MarkBind-driven project without changing the relative path is supported.",
+        "use-%3Cinclude%3E-tag-to-include-another-markdown-or-html-document-into-current-context.": "Use &lt;include&gt; tag to include another markdown or HTML document into current context.",
+        "wrap-elements-inside-a-%3Cdiv%3E-or-%3Cseg%3E-tag-with-an-unique-id-if-you-wish-to-create-a-reusable-content-fragment-inside-a-file-(that-could-be-included-from-other-file).": "Wrap elements inside a &lt;div&gt; or &lt;seg&gt; tag with an unique id if you wish to create a reusable content fragment inside a file (that could be included from other file).",
+        "direct-reference-to-a-markbind-driven-project-without-changing-the-relative-path-is-supported.": "Direct reference to a MarkBind-driven project without changing the relative path is supported.",
         "handling-repetitive-boilerplate-files": "Handling repetitive boilerplate files"
       },
       "footer": "userGuideFooter.md",
@@ -135,7 +135,7 @@
       "headings": {
         "page-layout": "Page Layout",
         "front-matter": "Front Matter",
-        "inserting-content-into-a-pages-head-element": "Inserting content into a page's head element",
+        "inserting-content-into-a-page's-head-element": "Inserting content into a page's head element",
         "using-footers": "Using Footers",
         "specifying-footer-file-in-front-matter": "Specifying footer file in Front Matter",
         "defining-your-own-inline-footer": "Defining your own inline footer",
@@ -160,7 +160,7 @@
     },
     {
       "headings": {
-        "light-type-panel-default": "light type panel (DEFAULT)",
+        "light-type-panel-(default)": "light type panel (DEFAULT)",
         "dark-type-panel": "dark type panel",
         "primary-type-panel": "primary type panel",
         "secondary-type-panel": "secondary type panel",
@@ -187,9 +187,9 @@
         "searchbar": "Searchbar",
         "searchbar-options": "Searchbar Options",
         "tabs": "Tabs",
-        "tabs-options-container": "Tabs Options (container)",
-        "tab-options-element": "Tab Options (element)",
-        "tab-group-options-dropdown": "Tab Group Options (dropdown)",
+        "tabs-options-(container)": "Tabs Options (container)",
+        "tab-options-(element)": "Tab Options (element)",
+        "tab-group-options-(dropdown)": "Tab Group Options (dropdown)",
         "tipbox": "TipBox",
         "tipbox-options": "TipBox Options",
         "tooltip": "Tooltip",
@@ -198,7 +198,7 @@
         "using-trigger-for-tooltip": "Using trigger for Tooltip",
         "using-trigger-for-popover": "Using trigger for Popover",
         "using-trigger-for-modal": "Using trigger for Modal",
-        "triggers-trigger-attribute-which-defaults-to-hover-is-independent-of-the-targets": "Trigger's trigger attribute (which defaults to hover) is independent of the target's.",
+        "trigger's-trigger-attribute-(which-defaults-to-hover)-is-independent-of-the-target's.": "Trigger's trigger attribute (which defaults to hover) is independent of the target's.",
         "trigger-options": "Trigger Options",
         "modal": "Modal",
         "modal-options": "Modal Options",
@@ -218,7 +218,7 @@
       "headings": {
         "github-pages-deployment": "Github Pages Deployment",
         "deploy-to-github-pages-at-gh-pages-branch-of-the-current-repo": "Deploy to Github pages at gh-pages branch of the current repo",
-        "deployment-config-in-sitejson": "Deployment config in site.json"
+        "deployment-config-in-site.json": "Deployment config in site.json"
       },
       "footer": "userGuideFooter.md",
       "siteNav": "userGuideSections.md",
@@ -228,6 +228,7 @@
     },
     {
       "headings": {
+        "previewing-with-netlify": "Previewing with Netlify",
         "previewing-site-on-netlify-with-the-latest-version-of-markbind": "Previewing site on Netlify with the latest version of MarkBind",
         "previewing-site-on-netlify-with-a-specific-version-of-markbind": "Previewing site on Netlify with a specific version of MarkBind"
       },

@@ -4,7 +4,8 @@ Vue.use(VueStrap);
 
 function scrollToUrlAnchorHeading() {
   if (window.location.hash) {
-    jQuery(window.location.hash)[0].scrollIntoView();
+    // remove leading hash to get element ID
+    document.getElementById(window.location.hash.slice(1)).scrollIntoView();
     window.scrollBy(0, -document.body.style.paddingTop.replace('px', ''));
   }
 }
@@ -82,7 +83,7 @@ function setupWithSearch(siteData) {
     },
     methods: {
       searchCallback(match) {
-        const page = `${baseUrl}/${match.src.replace('.md', '.html')}`;
+        const page = `${baseUrl}/${match.src.replace(/.(md|mbd)$/, '.html')}`;
         const anchor = match.heading ? `#${match.heading.id}` : '';
         window.location = `${page}${anchor}`;
       },

@@ -106,7 +106,7 @@
         <h1 id="including-contents">Including contents<a class="fa fa-anchor" href="#including-contents"></a></h1>
         <ol>
           <li>
-            <h4 id="use-include-tag-to-include-another-markdown-or-html-document-into-current-context">Use <code>&lt;include&gt;</code> tag to include another markdown or HTML document into current context.<a class="fa fa-anchor" href="#use-include-tag-to-include-another-markdown-or-html-document-into-current-context"></a></h4>
+            <h4 id="use-%3Cinclude%3E-tag-to-include-another-markdown-or-html-document-into-current-context.">Use <code>&lt;include&gt;</code> tag to include another markdown or HTML document into current context.<a class="fa fa-anchor" href="#use-%3Cinclude%3E-tag-to-include-another-markdown-or-html-document-into-current-context."></a></h4>
             <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"path/to/file"</span> /&gt;</span>
 </code></pre>
             <p>Attributes:</p>
@@ -120,16 +120,20 @@
               <li>
                 <p><code>inline</code> (optional): make the included result an inline element. (wrapped in <code>&lt;span&gt;</code> tag)</p>
               </li>
+              <li>
+                <p><code>optional</code> (optional): include the document only if it exists.</p>
+              </li>
             </ul>
             <p>Examples:</p>
             <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"EstablishingRequirements.md#preview"</span> <span class="hljs-attr">inline</span>/&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"../common/RequirementsVsSystemSpecification.md"</span>/&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"../index.html"</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"UserStories.md"</span> <span class="hljs-attr">optional</span>/&gt;</span>
 </code></pre>
             <br></li>
           <li>
-            <h4 id="wrap-elements-inside-a-div-or-seg-tag-with-an-unique-id-if-you-wish-to-create-a-reusable-content-fragment-inside-a-file-that-could-be-included-from-other-file">Wrap elements inside a <code>&lt;div&gt;</code> or <code>&lt;seg&gt;</code> tag with an unique <code>id</code> if you wish to create a reusable content fragment inside a file (that could be included from other file).<a class="fa fa-anchor"
-                href="#wrap-elements-inside-a-div-or-seg-tag-with-an-unique-id-if-you-wish-to-create-a-reusable-content-fragment-inside-a-file-that-could-be-included-from-other-file"></a></h4>
+            <h4 id="wrap-elements-inside-a-%3Cdiv%3E-or-%3Cseg%3E-tag-with-an-unique-id-if-you-wish-to-create-a-reusable-content-fragment-inside-a-file-(that-could-be-included-from-other-file).">Wrap elements inside a <code>&lt;div&gt;</code> or <code>&lt;seg&gt;</code> tag with an unique <code>id</code> if you wish to create a reusable content fragment inside a file (that could be included from other file).<a class="fa fa-anchor"
+                href="#wrap-elements-inside-a-%3Cdiv%3E-or-%3Cseg%3E-tag-with-an-unique-id-if-you-wish-to-create-a-reusable-content-fragment-inside-a-file-(that-could-be-included-from-other-file)."></a></h4>
             <p>⚠ The <code>id</code> cannot be exactly the same as a preceding heading, as <code>id</code> attributes will be added to headings for creating anchors.</p>
             <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">seg</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"segment1"</span>&gt;</span>
   Content of segment 1
@@ -146,7 +150,7 @@
         <br>
         <ol start="3">
           <li>
-            <h4 id="direct-reference-to-a-markbind-driven-project-without-changing-the-relative-path-is-supported">Direct reference to a MarkBind-driven project without changing the relative path is supported.<a class="fa fa-anchor" href="#direct-reference-to-a-markbind-driven-project-without-changing-the-relative-path-is-supported"></a></h4>
+            <h4 id="direct-reference-to-a-markbind-driven-project-without-changing-the-relative-path-is-supported.">Direct reference to a MarkBind-driven project without changing the relative path is supported.<a class="fa fa-anchor" href="#direct-reference-to-a-markbind-driven-project-without-changing-the-relative-path-is-supported."></a></h4>
             <p>Suppose you have a site, A, developed with MarkBind. Now, you want to include some pages from it in another site B.</p>
             <p>MarkBind allows you to directly clone site A inside a folder in site B (ensure the <code>site.json</code> existed for site A), and include the pages you want without change anything in site A's files. This is achieved through dynamically base
               url calculation.</p>
@@ -192,7 +196,7 @@
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.14.1</a> on Tue, 06 Nov 2018 11:17:42 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.15.0</a> on Tue, 25 Dec 2018 05:52:15 GMT]</small></div>
 </footer>
 </div>
 </body>
