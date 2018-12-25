@@ -183,7 +183,7 @@ program
 
     // server config
     const serverConfig = {
-      open: options.open && options.onePage ? `/${options.onePage.replace(/\.(md|mbd)$/, '.html')}` : false,
+      open: options.open && (options.onePage ? `/${options.onePage.replace(/\.(md|mbd)$/, '.html')}` : true),
       logLevel: 0,
       root: outputFolder,
       port: options.port || 8080,
