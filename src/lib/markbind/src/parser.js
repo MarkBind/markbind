@@ -154,6 +154,7 @@ Parser.prototype._preprocess = function (node, context, config) {
     const isInline = _.hasIn(element.attribs, 'inline');
     const isDynamic = _.hasIn(element.attribs, 'dynamic');
     const isOptional = _.hasIn(element.attribs, 'optional');
+    const isTrim = _.hasIn(element.attribs, 'trim');
     element.name = isInline ? 'span' : 'div';
     element.attribs[ATTRIB_INCLUDE_PATH] = filePath;
 
@@ -208,6 +209,9 @@ Parser.prototype._preprocess = function (node, context, config) {
     delete element.attribs.boilerplate;
     delete element.attribs.src;
     delete element.attribs.inline;
+    delete element.attribs.trim;
+
+    fileContent = isTrim ? fileContent.trim() : fileContent;
 
     if (includeSrc.hash) {
       // directly get segment from the src

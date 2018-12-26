@@ -90,6 +90,10 @@ layout: default
 # Include from another Markbind site
 <include src="sub_site/index.md" />
 
+# Trimmed include
+
+## <include src="testTrimInclude.md" trim inline />
+
 # Panel without src
 <panel header="## Panel without src header" expanded>
 <markdown>
