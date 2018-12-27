@@ -25,11 +25,12 @@ pre > code.hljs {
 
 .fa.fa-anchor {
     color: #ccc;
-    display: none;
+    display: inline;
     font-size: 14px;
     margin-left: 10px;
     padding: 3px;
     text-decoration: none;
+    visibility: hidden;
 }
 
 .fa.fa-anchor:hover {
