@@ -27,6 +27,8 @@
 
     - `optional` (optional): include the document only if it exists.
 
+    - `trim` (optional): remove leading and trailing whitespace and newlines from the document before including.
+
     Examples:
     ```html
     <include src="EstablishingRequirements.md#preview" inline/>

@@ -47,6 +47,8 @@
         "html-include": "HTML include",
         "mbd%2C-mbdf-include": "Mbd, Mbdf include",
         "include-from-another-markbind-site": "Include from another Markbind site",
+        "trimmed-include": "Trimmed include",
+        "fragment-with-leading-spaces-and-newline": "Fragment with leading spaces and newline",
         "panel-without-src": "Panel without src",
         "panel-with-normal-src": "Panel with normal src",
         "panel-with-src-from-a-page-segment": "Panel with src from a page segment",
