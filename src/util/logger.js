@@ -43,7 +43,7 @@ module.exports = {
   log: (text) => {
     console.log(text);
   },
-  logo: () => console.log(chalk.green(figlet.textSync('MarkBind', { horizontalLayout: 'full' }))),
+  logo: () => console.log(chalk.cyan(figlet.textSync('MarkBind', { horizontalLayout: 'full' }))),
   profile: (key) => {
     winston.profile(key);
   },
