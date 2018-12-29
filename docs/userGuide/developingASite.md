@@ -42,6 +42,7 @@ MarkBind will generate the site in a folder named `_site` in the current directo
 | `-s`, `--site-config <file>` | Specify the site config file (default: site.json) |
 | `--one-page <file>` | Render and serve only a single page from your website. |
 | --no-open | Don't open browser automatically. |
+| `--baseurl <override-base-url>`	| Build site with the baseUrl overridden. |
 
 Note: Live reload is only supported for the following file types:
 
