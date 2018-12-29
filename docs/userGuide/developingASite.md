@@ -40,9 +40,9 @@ MarkBind will generate the site in a folder named `_site` in the current directo
 | `-f`, `--force-reload` | Force a full reload of all site files when a file is changed. |
 | `-p`, `--port <port>` | The port used for serving your website. |
 | `-s`, `--site-config <file>` | Specify the site config file (default: site.json) |
-| `--baseurl <override-base-url>`	| Build site with the baseUrl overridden. |
-| `--one-page <file>` | Render and serve only a single page from your website. |
+| `--baseurl <override-base-url>` | Build site with the baseUrl overridden. |
 | `--no-open` | Don't open browser automatically. |
+| `--one-page <file>` | Render and serve only a single page from your website. |
 
 Note: Live reload is only supported for the following file types:
 
