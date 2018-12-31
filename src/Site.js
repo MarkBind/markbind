@@ -12,6 +12,7 @@ const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
 
 const _ = {};
+_.difference = require('lodash/difference');
 _.union = require('lodash/union');
 _.unionWith = require('lodash/unionWith');
 _.uniq = require('lodash/uniq');
@@ -354,6 +355,16 @@ Site.prototype.createPage = function (config) {
   });
 };
 
+/**
+ * Updates the paths to be traversed as addressable pages and returns a list of filepaths to be deleted
+ */
+Site.prototype.updateAddressablePages = function () {
+  const oldAddressablePages = this.addressablePages.slice();
+  this.collectAddressablePages();
+  return _.difference(oldAddressablePages.map(page => page.src),
+                      this.addressablePages.map(page => page.src))
+    .map(filePath => setExtension(filePath, '.html'));
+};
 
 /**
  * Collects the paths to be traversed as addressable pages
@@ -513,6 +524,28 @@ Site.prototype._rebuildAffectedSourceFiles = function (filePaths) {
  */
 Site.prototype.rebuildAffectedSourceFiles
   = delay(Site.prototype._rebuildAffectedSourceFiles, 1000);
+
+Site.prototype._rebuildSourceFiles = function () {
+  logger.verbose('Rebuild all files');
+  return new Promise((resolve, reject) => {
+    Promise.resolve('')
+      .then(() => this.updateAddressablePages())
+      .then(filesToRemove => this.removeAsset(filesToRemove))
+      .then(() => this.buildSourceFiles())
+      .then(resolve)
+      .catch((error) => {
+        // if error, remove the site and temp folders
+        rejectHandler(reject, error, [this.tempPath, this.outputPath]);
+      });
+  });
+};
+
+/**
+ * Rebuild all pages
+ * @param filePaths a single path or an array of paths corresponding to the files that have changed
+ */
+Site.prototype.rebuildSourceFiles
+  = delay(Site.prototype._rebuildSourceFiles, 1000);
 
 Site.prototype._buildMultipleAssets = function (filePaths) {
   const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];

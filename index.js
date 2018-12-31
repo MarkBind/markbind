@@ -81,7 +81,7 @@ program
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
       Promise.resolve('').then(() => {
         if (fsUtil.isSourceFile(filePath)) {
-          return site.rebuildAffectedSourceFiles(filePath);
+          return site.rebuildSourceFiles(filePath);
         }
         return site.buildAsset(filePath);
       }).catch((err) => {
@@ -105,7 +105,7 @@ program
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file deletion: ${filePath}`);
       Promise.resolve('').then(() => {
         if (fsUtil.isSourceFile(filePath)) {
-          return site.rebuildAffectedSourceFiles(filePath);
+          return site.rebuildSourceFiles(filePath);
         }
         return site.removeAsset(filePath);
       }).catch((err) => {
