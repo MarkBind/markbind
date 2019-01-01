@@ -1,4 +1,4 @@
-# Trigger
+## Trigger
 
 Trigger provides more flexibility in triggering contextual overlay via Tooltip, Popover or Modal.
 
@@ -8,7 +8,8 @@ Specify the `id` attribute on the Tooltip, Popover or Modal component, and use t
 Additionally, multiple Triggers could share the same overlay by providing them with the same `id`.
 <br />
 
-### Using trigger for Tooltip
+**Using trigger for Tooltip:**<br>
+
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
   More about <trigger for="tt:trigger_id">trigger</trigger>.
@@ -28,7 +29,8 @@ Additionally, multiple Triggers could share the same overlay by providing them w
   ```
 </tip-box>
 
-### Using trigger for Popover
+**Using trigger for Popover:**<br>
+
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
   More about <trigger for="pop:trigger_id">trigger</trigger>.
@@ -48,7 +50,8 @@ Additionally, multiple Triggers could share the same overlay by providing them w
   ```
 </tip-box>
 
-### Using trigger for Modal
+**Using trigger for Modal:**<br>
+
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
   More about <trigger for="modal:trigger_id">trigger</trigger>.
@@ -75,7 +78,7 @@ Additionally, multiple Triggers could share the same overlay by providing them w
   ```
 </tip-box>
 
-### Trigger's `trigger` attribute (which defaults to `hover`) is independent of the target's.
+**Trigger's `trigger` attribute (which defaults to `hover`) is independent of the target's.**
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
   This is a hover <trigger for="pop:xp-user-stories">trigger</trigger>.
@@ -99,7 +102,7 @@ Additionally, multiple Triggers could share the same overlay by providing them w
   ```
 </tip-box>
 
-## Trigger Options
+#### Trigger Options
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------

@@ -1,4 +1,4 @@
-# Popover
+## Popover
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -117,7 +117,7 @@
   ```
 </tip-box>
 
-## Popover Options
+#### Popover Options
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------

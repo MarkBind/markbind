@@ -1,23 +1,40 @@
 <frontmatter>
-  footer: userGuideFooter.md
-  siteNav: userGuideSections.md
+  title: "Generate Instructional Websites from Markdown Text"
+  footer: footer.md
 </frontmatter>
 
 <include src="./common/header.md" />
 
 <div class="website-content">
 
-# **MarkBind**
+<h1 class="display-3"><md>**MarkBind**</md></h1>
 
-#### Generate dynamic websites from markdown text.
+<span class="lead">
 
-MarkBind is a website generator that can generate a website from markdown documents. While there are other markdown-to-html website generators around, **MarkBind can generate more dynamic websites**, as opposed to one-size-fits-all static content. MarkBind is particularly suitable to create content-heavy websites %%e.g., eLearning websites, online instruction manuals, project documentation etc.%% that aim for _<tooltip content="i.e., the reader can go deeper or get more content as desired">self-directed consumption</tooltip>_.   
+<big>**Generate dynamic websites from Markdown text.**</big>
 
-## <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Features
+MarkBind can use Markdown documents to generate a <tooltip content="as opposed to _one-size-fits-all_ static content">_more dynamic_</tooltip> websites that facilitates _<tooltip content="i.e., the reader can chart their own path through the content and consume more/less content as desired">self-directed consumption</tooltip>_. MarkBind is ideal for creating content-heavy instructional websites %%e.g., eLearning websites, online instruction manuals, project documentation etc.%%.
+</span>
 
-#### ✓ Support for Markdown and <tooltip content="GitHub-Flavored Markdown">GFMD</tooltip>
+<b-btn variant="primary" href="{{ baseUrl }}/userGuide/">Get Started</b-btn>
 
-MarkBind supports all MarkDown and GFMD syntax. Here is an example:
+<hr>
+
+#### {{ icon_check_blue }} Simple syntax. Dynamic content.
+
+MarkBind source code can be as simple as basic Markdown but you can also [**use a mix of several popular syntax schemes**]({{ baseUrl }}/userGuide/markBindSyntax.html) (<tooltip content="GitHub Flavored Markdown">GFMD</tooltip>, BootStrap, NunJucks, etc. as well as MarkBind's own custom syntax) to create more dynamic content that you cannot normally get from a typical markdown-to-html site generator.
+
+Here are some simple text-formatting examples:
+
+Syntax scheme | Code | Output
+--------------|------|-------
+Markdown | `**bold text** _italic text_` | **bold text** _italic text_
+GFMD | `~~striked out text~~` | ~~striked out text~~
+MarkBind extensions to Markdown | `==highlighted text==`<br>`%%grey text%%`<br>`++underlined text++` | ==highlighted text==<br>%%grey text%%<br>++underlined text++
+
+<panel type="seamless" header="%%More examples of generating static content%%" >
+
+An example that uses GFMD synatx for task lists:
 
 <table>
 <tr>
@@ -46,12 +63,12 @@ MarkBind supports all MarkDown and GFMD syntax. Here is an example:
   </td>
 </tr>
 </table>
+</panel>
+<p/>
 
-#### ✓ Ability to add additional layers of information as Tooltips, pop-overs, modals
+The example paragraph below has the dynamic elements a tooltip, a popover, and a modal. Hover/click on the underlined words to see each.
 
-The example paragraph below has a tooltip, a pop-over, and a modal. Hover/click on the underlined words to see each.
-
-<tip-box>
+<box>
 
 In <tooltip content="Computer Science">CS</tooltip>, a binary tree is a <trigger for="pop:index-tree">tree data structure</trigger> in which each node has at most two children, which are referred to as the _left child_ and the _right child_. <trigger trigger="click" for="modal:index-primitive">Primitive data types</trigger> on the other hand ...
 
@@ -68,90 +85,73 @@ In <tooltip content="Computer Science">CS</tooltip>, a binary tree is a <trigger
   <include src="pages/primitiveDataTypes.md" />
 </modal>
 
-</tip-box>
+</box>
 
-#### ✓ Ability to emphasize or de-emphasize content easily
-
-In addition to the ability to show **bold** and _italic_ text provided by normal Markdown, MarkBind can ==highlight== text or show text in %%grey color%% easily.
-
-<table>
-<tr>
-  <td>
-
-```markdown
-**bold text**
-_itatic text_
-~~striked out text~~
-==highlighted text==
-%%grey text%%
-
-```
-  </td>
-  <td>&nbsp;→&nbsp;</td>
-  <td><br>
-
-<tip-box>
-
-**bold text**<br>
-_itatic text_<br>
-~~striked out text~~<br>
-==highlighted text==<br>
-%%grey text%%<br>
-
-</tip-box>
-
-  </td>
-</tr>
-</table>
-
-#### ✓ Ability to allow readers reveal content progressively
-
+<panel type="seamless" header="%%More examples of generating dynamic content%%">
 In the example below, there is a expandable panel that can reveal more content.
 
-<tip-box>
+<box>
 
 A binary tree is a tree data structure in which each node has at most two children, which are referred to as the left child and the right child. Primitive data types on the other hand ...
 
-<panel type="seamless" header="%%:bulb: Some example primitive data types%%">
+<panel header="%%{{ icon_info }} Some example primitive data types%%">
   <include src="pages/primitiveDataTypes.md" />
 </panel>
 
-</tip-box>
+</box>
 
 In the example below, there are expandable panels that are nested within each other.
 
-<tip-box>
+<box>
 
-<panel type="info" header=":muscle: Exercises" no-close >
+<panel header="{{ far_list_alt }} Exercises" no-close >
 
   <panel type="danger" header=":exclamation: [Compulsory] Ex 1" no-close >
 
 Details of exercise 1
-  </panel>  
+  </panel>
   <panel type="warning" header="[Recommended] Ex 2" no-close >
 
 Details of exercise 2
-  </panel>  
+  </panel>
   <panel type="success" header="[Optional] Ex 23" no-close >
 
 Details of exercise 3
   </panel>
 </panel>
 
-</tip-box>
+</box>
 
+</panel>
+<p/>
 
-#### ✓ Ability to reuse content easily
+<hr><!-- ======================================================================================================= -->
 
-MarkBind has a powerful `include` mechanism that allows content fragments (i.e., a file or part of a file) to be reused at multiple places in the website.
+#### {{ icon_check_blue }} Everything you need for instructional websites, built-in.
 
-In the example below, both the modal and the expandable panel reuses the same content.
+MarkBind is **highly optimized for creating content-heavy instructional websites** %%e.g., eLearning websites, online instruction manuals, project documentation etc.%% Anything that you might need for creating such websites are built-in, sparing you the hassle of finding/installing/searching plugins that you need.
 
-<tip-box>
+Here are some examples:
+<div class="indented">
+
+<big>{{ fas_heart }}</big> **Icons** can improve the readability of a text-heavy document. MarkBind comes with a wide selection of [icons]({{ baseUrl }}/userGuide/markBindSyntax.html#icons-fonts) and [emoji]({{ baseUrl }}/userGuide/markBindSyntax.html#emoji).<br>
+<big>{{ fas_search }}</big> With MarkBind's [**search feature**]({{ baseUrl }}/userGuide/makingTheSiteSearchable.html), you can allow readers to search for keywords in your site.<br>
+<big>{{ fas_window_maximize }}</big> MarkBind allows you to add [**site/page navigation menus, headers, footers**]({{ baseUrl }}/userGuide/tweakingThePageStructure.html) easily.
+</div>
+
+<hr><!-- ======================================================================================================= -->
+
+#### {{ icon_check_blue }} More control to the reader, without duplicating code.
+
+A MarkBind website can be _buffet_ of content, as opposed to a _set menu_: a site can have optional contents that the reader can access at her discretion, and the same content can be organized in multiple ways so that the reader can choose the one that fits the need. To _cater_ (pun intended) for creating such buffet style websites, MarkBind has **[reuse mechanisms]({{ baseUrl }}/reusingContents.html) for presenting the same content in multiple ways without duplicating the source code**.
+
+For example, MarkBind has a powerful `include` mechanism that allows content fragments (i.e., a file or part of a file) to be reused at multiple places in the website. In the example below, both the modal and the expandable panel reuses the same content.
+
+<box>
 
 In CS, a binary tree is a tree data structure in which each node has at most two children, which are referred to as the _left child_ and the _right child_. <trigger trigger="click" for="modal:index-primitive2">Primitive data types</trigger> on the other hand ...
 
-<panel type="seamless" header="%%:bulb: Some example primitive data types%%">
+<panel type="seamless" header="%%{{ icon_info }} Some example primitive data types%%">
   <include src="pages/primitiveDataTypes.md" />
 </panel>
 
@@ -159,45 +159,16 @@ In CS, a binary tree is a tree data structure in which each node has at most two
   <include src="pages/primitiveDataTypes.md" />
 </modal>
 
-</tip-box>
+</box>
 
-## <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span> Examples
+<hr><!-- ======================================================================================================= -->
 
-Examples of websites built using MarkBind:
-* [CS2103 Software Engineering - course website](https://www.comp.nus.edu.sg/~cs2103)
-* [CS3281 Thematic Systems Project - course website](https://nus-cs3281.github.io/website/)
-* [TE3291 Software Engineering - course website](https://nus-te3201.github.io/website/)
-* [se-edu/se-book - An online text book on Software Engineering](https://se-edu.github.io/se-book/)
-* This website (i.e., MarkBind website)
+#### {{ icon_check_blue }} Easy to set up, modify, deploy, integrate.
 
-## <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Documentation
+Installing MarkBind takes just one command. Creating a new MarkBind site too takes just one command. With MarkBind's _live preview_ feature, you can see how your site will look like as you modify the source code. [Deploying the site to a server]({{ baseUrl }}/userGuide/deployingTheSite.html) can be as simple as one command too.
 
-#### For Users
+As MarkBind is also optimized for project documentation, it can easily [integrate with the workflow of a software project]({{ baseUrl }}/userGuide/markBindInTheProjectWorkflow.html).
 
-* [Quick Start](./userGuide/userQuickStart.html)
-* [User Guide](./userGuide/index.html)
-
-
-#### For Developers
-
-* [Developer Guide](https://github.com/MarkBind/markbind-cli/wiki/Developer-Guide)
-
-## <span class="glyphicon glyphicon-home" aria-hidden="true"></span> About us
-
-MarkBind is a project based in the [National University of Singapore, School of Computing](http://www.comp.nus.edu.sg/), and is funded by a grant from [NUS Center for Development of Teaching and Learning](http://www.cdtl.nus.edu.sg/).
-
-* [**Aaron Chong Jun Hao**](https://github.com/acjh): _Project Mentor_ since Jul 2018, _Team Lead_ for Aug 2017 - Jun 2018
-* [**Chng Zhi Xuan**](https://github.com/Chng-Zhi-Xuan): _Project Member_ since May 2018
-* [**Chua Yun Zhi Nicholas**](https://github.com/nicholaschuayunzhi): _Project Member_ since Jan 2018
-* [**Damith C. Rajapakse**](https://github.com/damithch): _Project Mentor_ since Aug 2016
-* [**Daniel Berzin Chua Yuan Siang**](https://github.com/danielbrzn): _Project Member_ since Jan 2018
-* [**Jia Zhixin**](https://github.com/nusjzx): _Project Member_ since May 2018
-* [**Jiang Sheng**](https://github.com/Gisonrg): _Founding Member_ and _Team Lead_ for Aug 2016 - Jul 2017
-* [**Rachael Sim Hwee Ling**](https://github.com/rachx): _Project Member_ since Jan 2018
-* [**Tan Wang Leng**](https://github.com/yamgent): Current _Team Lead_ since Jul 2018, _Project Member_ for May 2018 - Jun 2018
-
-<span class="glyphicon glyphicon-send" aria-hidden="true"></span> You can **email us** at `seer` at `comp.nus.edu.sg`
-
-<span class="glyphicon glyphicon-console" aria-hidden="true"></span> Interested in **contributing to MarkBind**? Visit the [MarkBind project on GitHub](https://github.com/MarkBind/markbind).
+<b-btn variant="primary" href="{{ baseUrl }}/userGuide/">Get Started</b-btn>
 
 </div>

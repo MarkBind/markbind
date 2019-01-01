@@ -1,4 +1,4 @@
-# Dropdown
+## Dropdown
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -109,7 +109,8 @@
 </tip-box>
 <br>
 
-## Dropdown Options
+#### Dropdown Options
+
 Name | Type | Default | Description 
 --- | --- | --- | ---
 disabled | `Boolean` | `false` | Whether Dropdown can be opened.
@@ -117,6 +118,7 @@ menu-align-right | `Boolean` | `false` | Whether the dropdown list will be right
 text | `String` | `''` | Dropdown button text.
 type | `String` | `default` | Supports: `default`, `primary`, `danger`, `info`, `warning`, `success`.
 
-## Bootstrap Buttons
+<div class="indented">
 
-You may refer to [this documentation](https://getbootstrap.com/docs/4.0/components/buttons/) regarding how you can use the Bootstrap buttons, and how to style them.
+%%{{ icon_info }} You may refer to [this documentation](https://getbootstrap.com/docs/4.0/components/buttons/) regarding how you can use the **Bootstrap buttons**, and how to style them.%%
+</div>

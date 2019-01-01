@@ -1,4 +1,4 @@
-# Navbar
+## Navbar
 
 **Navbar allows visitors of your website to navigate through pages easily.**
 
@@ -38,7 +38,8 @@
 </tip-box>
 <br>
 
-## Navbar Options
+#### Navbar Options
+
 Name | Type | Default | Description 
 --- | --- | --- | ---
 placement | `String` | `''` | Supports: `top`, `bottom`, `static`, or empty for normal. 

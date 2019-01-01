@@ -1,4 +1,4 @@
-# Tabs
+## Tabs
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -50,18 +50,18 @@
 </tip-box>
 <br>
 
-## Tabs Options (container)
+#### Tabs Options (container)
 Name | Type | Default | Description
 --- | --- | --- | ---
 active | `Number` | `0` | Active Tab index (0-based)
 
-## Tab Options (element)
+#### Tab Options (element)
 Name | Type | Default | Description
 --- | --- | --- | ---
 header | `String` | `null` | Tab title.
 disabled | `Boolean` | `false` | Whether Tab is clickable and can be activated.
 
-## Tab Group Options (dropdown)
+#### Tab Group Options (dropdown)
 Name | Type | Default | Description
 --- | --- | --- | ---
 header | `String` | `null` | Tab Group title.

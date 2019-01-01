@@ -1,70 +1,30 @@
 {
   "baseUrl": "/markbind",
+  "titlePrefix": "MarkBind",
   "pages": [
     {
+      "glob": "**/*.mbd"
+    },
+    {
+      "glob": "*.md"
+    },
+    {
       "src": "index.md",
-      "title": "MarkBind: Generate Course Websites from Markdown Text"
+      "searchable": "no"
     },
     {
-      "src": "userGuide/index.md",
-      "title": "MarkBind: User Guide"
-    },
-    {
-      "src": "userGuide/userQuickStart.md",
-      "title": "MarkBind: User Guide - Quick Start"
-    },
-    {
-      "src": "userGuide/developingASite.md",
-      "title": "MarkBind: User Guide - Developing a Site"
-    },
-    {
-      "src": "userGuide/siteConfiguration.md",
-      "title": "MarkBind: User Guide - Site Configuration"
-    },
-    {
-      "src": "userGuide/contentAuthoring.md",
-      "title": "MarkBind: User Guide - Content Authoring"
-    },
-    {
-      "src": "userGuide/includingContents.md",
-      "title": "MarkBind: User Guide - Including Contents"
-    },
-    {
-      "src": "userGuide/usingComponents.md",
-      "title": "MarkBind: User Guide - Using Components"
-    },
-    {
-      "src": "userGuide/usingVariables.md",
-      "title": "MarkBind: User Guide - Using Variables"
-    },
-    {
-      "src": "userGuide/pageLayout.md",
-      "title": "MarkBind: User Guide - Page Layout"
-    },
-    {
-      "src": "userGuide/knownProblems.md",
-      "title": "MarkBind: User Guide - Known Problems"
-    },
-    {
-      "src": "userGuide/components.md",
-      "title": "MarkBind: User Guide - Components"
-    },
-    {
-      "src": "userGuide/ghpagesDeployment.md",
-      "title": "MarkBind: User Guide - Github Pages Deployment"
-    },
-    {
-      "src": "userGuide/netlifyPreview.md",
-      "title": "MarkBind: User Guide - Preview site on Netlify"
+      "glob": "userGuide/*.md"
     }
   ],
-  "headingIndexingLevel": 4,
+  "headingIndexingLevel": 6,
   "ignore": [
     "_markbind",
     "_site/*",
     "lib/*",
     "*.json",
     "*.md",
+    "*.mbd",
+    ".git/*",
     "*.pptx"
   ],
   "deploy": {

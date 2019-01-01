@@ -1,17 +1,20 @@
 <navigation class="website-content">
-* ## User Guide
-* [Quick Start]({{baseUrl}}/userGuide/userQuickStart.html)
-* [Developing a Site]({{baseUrl}}/userGuide/developingASite.html)
-  * [Site Configuration]({{baseUrl}}/userGuide/siteConfiguration.html)
-* [Content Authoring]({{baseUrl}}/userGuide/contentAuthoring.html)
-  * [Including Contents]({{baseUrl}}/userGuide/includingContents.html)
+
+<span class="indented lead">**User Guide**</span>
+
+* [Getting Started]({{baseUrl}}/userGuide/gettingStarted.html)
+* [Authoring Contents]({{baseUrl}}/userGuide/authoringContents.html)
+  * [Adding Pages]({{baseUrl}}/userGuide/addingPages.html)
+  * [MarkBind Syntax]({{baseUrl}}/userGuide/markBindSyntax.html)
   * [Using Components]({{baseUrl}}/userGuide/usingComponents.html)
-  * [Using Variables]({{baseUrl}}/userGuide/usingVariables.html)
-  * [Page Layout]({{baseUrl}}/userGuide/pageLayout.html)
-  * [Known Problems]({{baseUrl}}/userGuide/knownProblems.html)
-* Deploying a Site
-  * [Github Pages Deployment]({{baseUrl}}/userGuide/ghpagesDeployment.html)
-  * [Preview site on Netlify]({{baseUrl}}/userGuide/netlifyPreview.html)
-* [Components Reference]({{baseUrl}}/userGuide/components.html)
-  * [Advanced Tips and Tricks]({{baseUrl}}/userGuide/components.html#advanced-tips-and-tricks)
+  * [Tweaking the Page Structure]({{baseUrl}}/userGuide/tweakingThePageStructure.html)
+  * [Reusing Contents]({{baseUrl}}/userGuide/reusingContents.html)
+  * [Making the Site Searchable]({{baseUrl}}/userGuide/makingTheSiteSearchable.html)
+* [Deploying the Site]({{baseUrl}}/userGuide/deployingTheSite.html)
+* [MarkBind in the Project Workflow]({{baseUrl}}/userGuide/markBindInTheProjectWorkflow.html)
+* References :expanded:
+  * [CLI Commands]({{baseUrl}}/userGuide/cliCommands.html)
+  * [Site Configuration]({{baseUrl}}/userGuide/siteConfiguration.html)
+  * [Tips, Tricks, & Troubleshooting]({{baseUrl}}/userGuide/tipsTricksAndTroubleshooting.html)
+  * [Glossary]({{baseUrl}}/userGuide/glossary.html)
 </navigation>

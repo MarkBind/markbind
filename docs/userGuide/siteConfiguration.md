@@ -1,56 +1,121 @@
 <frontmatter>
-  footer: userGuideFooter.md
+  title: "Configuring the Site"
+  footer: footer.md
   siteNav: userGuideSections.md
+  keywords: site.json
 </frontmatter>
 
 <include src="../common/header.md" />
 
 <div class="website-content">
 
-# Site Configuration
+# Configuring the Site
 
-You can configure your site generation using the `site.json` file.
+<span class="lead">
 
-Let's examine a typical `site.json` file:
+The `site.json` file {{ tooltip_root_directory }} is used to configure various aspects of a MarkBind website.
+</span>
 
-<div id="siteConfig">
+Here is a typical `site.json` file:
 
-```
+```json
 {
-  "baseUrl": "",
-  "faviconPath": "favicon.png",
-  "titlePrefix": "",
+  "baseUrl": "/myproduct",
+  "faviconPath": "myfavicon.png",
+  "titlePrefix": "FooBar Dev Docs",
   "pages": [
     {
       "src": "index.md",
       "title": "Hello World",
+      "layout": "normal"
       "searchable": "no"
     },
     {
       "glob": "**/index.md"
     }
   ],
+  "deploy": {
+    "message": "Site Update.",
+    "repo": "https://github.com/myorg/myrepo.git",
+    "branch": "gh-pages"
+  },
   "ignore": [
     "_site/*",
     "*.json",
-    "*.md"
+    "*.md",
+    "*.mbd",
+    ".git/*"
   ],
-  "deploy": {
-    "message": "Site Update."
-  },
   "headingIndexingLevel": 4
 }
 ```
 
-| Variable | Description |
-|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **baseUrl** | The base url relative to your domain. Default: <code></code>&nbsp;(empty). For example, if you are using Github Pages to host your deployed website and it is published at `https://markbind.github.io/site-demo-cs2103`, then your `baseUrl` would be `/site-demo-cs2103`. You can use this variable for [specifying path reference](usingVariables.html#specifying-path-reference) of images and links. **You may need to change the `baseUrl` when deploying to a different repo.** |
-| **faviconPath** | The location of the favicon. Default: `favicon.ico`. If the favicon was recently changed, you may need to force-refresh to see the new image. |
-| **titlePrefix** | The prefix for all page titles. The separator <code>-</code> will be inserted by MarkBind. |
-| **pages** | An array of pages to be rendered. The `src` is the file; `title` is the page title for the generated web page. Titles specified here take priority over titles specified in the [front matter](pageLayout.html#front-matter) of individual pages. Alternatively, `glob` can be used to define a file pattern. If `title` is not specified in the front matter, the page will have `titlePrefix` as its title. `"searchable": "no"` can be used to specify pages to be excluded from searching. If you need to exclude pages covered in both page entry and glob entry, you need to specify `"searchable": "no"` in page entry.|
-| **ignore** | An array of file patterns to be ignored. By default, MarkBind will copy all the files as assets into the output folder. The ignore pattern follows the [glob pattern used in .gitignore](https://git-scm.com/docs/gitignore#_pattern_format). For example, `*.md` ignores all markdown source files. You may want to ignore the Git directory `.git/*`. |
-| **deploy** | The settings for [auto deployment to Github pages](ghpagesDeployment.html). The `message` is the commit message used for the deployment commit. |
-| **headingIndexingLevel** | The level of headings to be indexed for searching. Default: `3`. |
+#### **`baseUrl`**
+
+**The base url relative to your domain.** Default: `""`(empty).
+
+<include src="deployingTheSite.md#warning-about-baseUrl" />
+
+
+#### **`faviconPath`**
+
+**The location of the favicon.** Default: `favicon.ico`.
+
+<div class="indented">
+
+%%{{ icon_info }} If the favicon was recently changed, you may need to force-refresh the Browser to see the new image.%%
+
 </div>
+
+
+#### **`titlePrefix`**
+
+The prefix for all page titles. The separator <code>-</code> will be inserted by MarkBind. |
+
+
+#### **`pages`**
+
+**An array of pages to be rendered.**
+
+* **`src`**/**`glob`**: `src` can be used to specify a file e.g., `docs/index.md`.<br>
+    Alternatively, `glob` can be used to define a file pattern in the [_glob syntax_](https://en.wikipedia.org/wiki/Glob_(programming)) e.g., `**/*.md`.
+* **`title`**: The page `<title>` for the generated web page. Titles specified here take priority over titles specified in the [front matter](addingPages.html#front-matter) of individual pages.
+* `layout`: The [layout]({{ baseUrl }}/userGuide/advancedTopics.html#page-layout) to be used by the page.
+* `"searchable": "no"`: Specifies that the page(s) should be excluded from searching.
+
+<span id="page-property-overriding">
+<box type="warning">
+
+Note: Page properties that are defined in `site.json` for a particular page will override those defined in the front matter of the page.
+</box>
+</span>
+
+#### **`ignore`**
+
+**An array of file patterns to be ignored when copying files to the generated site.** By default, MarkBind will copy all the files as assets of the generated site.
+
+The ignore pattern follows the [glob pattern used in .gitignore](https://git-scm.com/docs/gitignore#_pattern_format). For example, `*.md` ignores all markdown source files.
+
+<div id="site-json-deploy">
+
+#### **`deploy`**
+
+**The settings for [auto-deployment to Github pages]({{ baseUrl }}/userGuide/deployingTheSite.html).**
+
+* **`message`** [Optional. Default: `"Site Update."`]<br>
+  The commit message used for the deployment commit.
+
+* **`repo`** [Optional. Default: the current working project's repo]<br>
+  The repo you want to deploy to.<br>
+  Format: `"https://github.com/<org|username>/<repo>.git"` (`"git@github.com:<org|username>/<repo>.git"` if you use SSH)<br>
+  {{ icon_example }} `"https://github.com/myorg/myrepo.git"`
+
+* **`branch`** [Optional. Default: `"gh-pages"`]<br>
+  The branch that will be deployed to in the remote repo.
+</div>
+
+#### **`headingIndexingLevel`**
+
+**The level of headings to be indexed for searching.** Default: `3` %%i.e., only headings of levels 1,2,3 will be indexed for searching%%.
 
 </div>
