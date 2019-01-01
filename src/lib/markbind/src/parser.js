@@ -158,8 +158,8 @@ Parser.prototype._preprocess = function (node, context, config) {
     element.name = isInline ? 'span' : 'div';
     element.attribs[ATTRIB_INCLUDE_PATH] = filePath;
 
-    if (isOptional) {
-      // optional files have been handled earlier, so just delete the attribute here
+    if (isOptional && !includeSrc.hash) {
+      // optional includes of whole files have been handled, but segments still need to be processed
       delete element.attribs.optional;
     }
 
@@ -219,6 +219,26 @@ Parser.prototype._preprocess = function (node, context, config) {
       const $ = cheerio.load(segmentSrc);
       const htmlContent = $(includeSrc.hash).html();
       let actualContent = htmlContent;
+
+      if (actualContent === null) {
+        if (isOptional) {
+          // set empty content for optional segment include that does not exist
+          actualContent = '';
+        } else {
+          const error = new Error(
+            `No such segment '${includeSrc.hash.substring(1)}' in file: ${actualFilePath}`
+              + `\nMissing reference in ${element.attribs[ATTRIB_CWF]}`,
+          );
+          this._onError(error);
+          return createErrorNode(element, error);
+        }
+      }
+
+      if (isOptional) {
+        // optional includes of segments have now been handled, so delete the attribute
+        delete element.attribs.optional;
+      }
+
       if (isIncludeSrcMd) {
         if (context.mode === 'include') {
           actualContent = isInline ? actualContent : utils.wrapContent(actualContent, '\n\n', '\n');
