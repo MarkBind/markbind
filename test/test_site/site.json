@@ -9,6 +9,11 @@
       "layout": "testLayout"
     },
     {
+      "src": "testEmptyFrontmatter.md",
+      "title": "Hello World",
+      "layout": "testLayout"
+    },
+    {
       "src": "testLayouts.md",
       "title": "Hello World",
       "layout": "testLayout"

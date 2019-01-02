@@ -384,7 +384,7 @@ Page.prototype.collectIncludedFiles = function (dependencies) {
 Page.prototype.collectFrontMatter = function (includedPage) {
   const $ = cheerio.load(includedPage);
   const frontMatter = $('frontmatter');
-  if (frontMatter.length) {
+  if (frontMatter.text().trim()) {
     // Retrieves the front matter from either the first frontmatter element
     // or from a frontmatter element that includes from another file
     // The latter case will result in the data being wrapped in a div
