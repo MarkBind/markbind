@@ -3,10 +3,7 @@
 
 // Entry file for Markbind project
 const chokidar = require('chokidar');
-const fs = require('fs-extra-promise');
-const htmlBeautify = require('js-beautify').html;
 const liveServer = require('live-server');
-const nunjucks = require('nunjucks');
 const path = require('path');
 const program = require('commander');
 const Promise = require('bluebird');
@@ -16,13 +13,10 @@ _.isBoolean = require('lodash/isBoolean');
 
 const fsUtil = require('./src/util/fsUtil');
 const logger = require('./src/util/logger');
-const MarkBind = require('./src/lib/markbind/src/parser');
 const Site = require('./src/Site');
 
-const ACCEPTED_COMMANDS = ['version', 'include', 'render', 'init', 'build', 'serve', 'deploy'];
+const ACCEPTED_COMMANDS = ['version', 'init', 'build', 'serve', 'deploy'];
 const CLI_VERSION = require('./package.json').version;
-
-const markbinder = new MarkBind();
 
 process.title = 'MarkBind';
 process.stdout.write(
@@ -40,74 +34,6 @@ program
 
 program
   .version(CLI_VERSION);
-
-program
-  .command('include <file>')
-  .description('process all the fragment include in the given file')
-  .option('-o, --output <path>', 'output file path')
-  .action((file, options) => {
-    const rootFolder = path.resolve(process.cwd());
-    const outputFolder = path.join(rootFolder, '_site');
-    const site = new Site(rootFolder, outputFolder);
-    site.collectBaseUrl();
-    site.collectUserDefinedVariablesMap();
-    const config = {
-      baseUrlMap: site.baseUrlMap,
-      rootPath: site.rootPath,
-      userDefinedVariablesMap: site.userDefinedVariablesMap,
-    };
-    markbinder.includeFile(path.resolve(process.cwd(), file), config)
-      .then((result) => {
-        if (options.output) {
-          const outputPath = path.resolve(process.cwd(), options.output);
-          fs.outputFileSync(outputPath, result);
-          printHeader();
-          logger.info(`Result was written to ${outputPath}`);
-        } else {
-          logger.log(result);
-        }
-      })
-      .catch((error) => {
-        printHeader();
-        logger.error('Error processing fragment include:');
-        logger.error(error.message);
-      });
-  });
-
-program
-  .command('render <file>')
-  .description('render the given file')
-  .option('-o, --output <path>', 'output file path')
-  .action((file, options) => {
-    const rootFolder = path.resolve(process.cwd());
-    const outputFolder = path.join(rootFolder, '_site');
-    const site = new Site(rootFolder, outputFolder);
-    site.collectBaseUrl();
-    const config = {
-      baseUrlMap: site.baseUrlMap,
-      rootPath: site.rootPath,
-    };
-    markbinder.renderFile(path.resolve(process.cwd(), file), config)
-      .then((result) => {
-        let formattedResult = htmlBeautify(result, { indent_size: 2 });
-        formattedResult = nunjucks.renderString(formattedResult, {
-          baseUrl: config.rootPath,
-          hostBaseUrl: config.rootPath,
-        });
-        if (options.output) {
-          const outputPath = path.resolve(process.cwd(), options.output);
-          fs.outputFileSync(outputPath, formattedResult);
-          printHeader();
-          logger.info(`Result was written to ${outputPath}`);
-        } else {
-          logger.log(formattedResult);
-        }
-      })
-      .catch((error) => {
-        logger.error('Error processing file rendering:');
-        logger.error(error.message);
-      });
-  });
 
 program
   .command('init [root]')
