@@ -126,7 +126,8 @@
       },
       "title": "Hello World",
       "tags": [
-        "tag--should-be-overridden"
+        "tag--shown",
+        "tag--shown-2"
       ],
       "src": "testTags.md",
       "layout": "default"
