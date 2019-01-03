@@ -1,4 +1,4 @@
-# Pic
+## Pic
 
 **Pic allows you to add captions below the image.**
 
@@ -20,7 +20,7 @@
 </tip-box>
 <br>
 
-## Pic Options
+#### Pic Options
 Name | Type | Default | Description 
 --- | --- | --- | ---
 alt | `string` | | **This must be specified.**<br>The alternative text of the image.

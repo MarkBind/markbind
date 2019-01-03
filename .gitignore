@@ -44,3 +44,4 @@ test/test_site/_site
 
 # vscode configuration
 .vscode/
+*.iml

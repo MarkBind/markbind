@@ -1,6 +1,6 @@
-# Advanced Tips and Tricks
+## Advanced Tips and Tricks
 
-## Rich formatted text in headings and titles
+### Rich formatting in headings/titles
 
 Using the normal syntax, you are only able to use markdown formatting on headings. If you would like more styling options, you can define an element within the component that acts as your heading. This is done by adding a <md>`slot`</md> attribute with the correct name to that element.
 
@@ -71,12 +71,12 @@ Using the normal syntax, you are only able to use markdown formatting on heading
 </tip-box>
 <br>
 
-### Panel Slot Options
+**Panel Slot Options:**
 Slot name | Default class | Notes
 --- | --- | --- 
 `header` | `card-title` | Aligning text to the center of the panel is not possible, as the header element does not take up the entire container.
 
-### Modal Slot Options
+**Modal Slot Options:**
 When using slots for Modals, you need to add a single blank line before each `<modal>` tag, in order for the customization to render correctly.
 
 Slot name | Default class | Notes
@@ -84,14 +84,14 @@ Slot name | Default class | Notes
 `modal-header` | `modal-title` |
 `modal-footer` | `modal-footer` | Specifying `modal-footer` will override the `ok-text` attribute, and the OK button will not render.
 
-## Insert custom classes into components
+### Inserting custom classes into components
 
 Every component documented in our user guide allows you to insert your own defined CSS classes.
 This is done by adding the `add-class` attribute to a component along with the desired class names.
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
-  <tip-box type="info" add-class="font-italic text-center text-warning">
+  <tip-box type="info" add-class="lead font-italic text-center">
     Easily apply Bootstrap classes without using a wrapper!
   </tip-box>
 </tip-box>
@@ -100,7 +100,7 @@ This is done by adding the `add-class` attribute to a component along with the d
 <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
 
 ```html
-<tip-box type="info" add-class="font-italic text-center text-warning">
+<tip-box type="info" add-class="lead font-italic text-center">
   Easily apply Bootstrap classes without using a wrapper!
 </tip-box>
 ```

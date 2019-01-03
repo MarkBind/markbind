@@ -1,4 +1,4 @@
-# Tooltip
+## Tooltip
 
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
@@ -29,13 +29,14 @@
       <input placeholder="Focus"></input>
     </tooltip>
   </p>
-  <h4>Markdown</h4>
+
+  **Markdown**:
   <tooltip effect="scale" content="*Hello* **World**">
     <a href="">Hover me</a>
   </tooltip>
   <br />
-  <br />
-  <h4>Free Text</h4>
+
+  **Free Text**:
   <tooltip content=" coupling is the degree of interdependence between software modules; a measure of how closely
   connected two routines or modules are; the strength of the relationships between modules."><i>coupling</i></tooltip>
 </tip-box>
@@ -82,7 +83,7 @@
   ```
 </tip-box>
 
-## Tooltip Options
+#### Tooltip Options
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------

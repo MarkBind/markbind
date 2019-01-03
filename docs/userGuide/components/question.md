@@ -1,4 +1,4 @@
-# Question
+## Question
 
 **Question component consists of a question body, a hint and an answer.**
 
@@ -182,7 +182,7 @@
 </tip-box>
 <br>
 
-## Question Options
+#### Question Options
 Name | Type | Default | Description
 --- | --- | --- | ---
 has-input | `Boolean` | `false` | Whether Question has a text input box.

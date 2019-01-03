@@ -1,4 +1,4 @@
-# Panel
+## Panel
 
 **Panel is a flexible container that supports collapsing and expanding its content. It is expandable by default.**
 
@@ -66,31 +66,31 @@
 <tip-box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
   <p>Click the Panels to see the expanded style.</p>
-  <panel header="#### light type panel (DEFAULT)" type="light" minimized>
+  <panel header="**light type panel (DEFAULT)**" type="light" minimized>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
   </panel>
-  <panel header="#### dark type panel" type="dark" minimized>
+  <panel header="**dark type panel**" type="dark" minimized>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
   </panel>
-  <panel header="#### primary type panel" type="primary" minimized>
+  <panel header="**primary type panel**" type="primary" minimized>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
   </panel>
-  <panel header="#### secondary type panel" type="secondary" minimized>
+  <panel header="**secondary type panel**" type="secondary" minimized>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
   </panel>
-  <panel header="#### info type panel" type="info" minimized>
+  <panel header="**info type panel**" type="info" minimized>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
   </panel>
-  <panel header="#### danger type panel" type="danger" minimized>
+  <panel header="**danger type panel**" type="danger" minimized>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
   </panel>
-  <panel header="#### warning type panel" type="warning" minimized>
+  <panel header="**warning type panel**" type="warning" minimized>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
   </panel>
-  <panel header="#### success type panel" type="success" minimized>
+  <panel header="**success type panel**" type="success" minimized>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
   </panel>
-  <panel header="#### seamless type panel" type="seamless" minimized>
+  <panel header="**seamless type panel**" type="seamless" minimized>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dolores excepturi expedita illum impedit ipsa labore qui veniam. Blanditiis exercitationem id ipsum libero molestiae, necessitatibus unde? Amet fugiat fugit molestias?
   </panel>
 </tip-box>
@@ -99,31 +99,31 @@
 <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
 
 ```html
-<panel header="#### light type panel (DEFAULT)" type="light" minimized>
+<panel header="###### light type panel (DEFAULT)" type="light" minimized>
   ...
 </panel>
-<panel header="#### dark type panel" type="dark" minimized>
+<panel header="###### dark type panel" type="dark" minimized>
   ...
 </panel>
-<panel header="#### primary type panel" type="primary" minimized>
+<panel header="###### primary type panel" type="primary" minimized>
   ...
 </panel>
-<panel header="#### secondary type panel" type="secondary" minimized>
+<panel header="###### secondary type panel" type="secondary" minimized>
   ...
 </panel>
-<panel header="#### info type panel" type="info" minimized>
+<panel header="###### info type panel" type="info" minimized>
   ...
 </panel>
-<panel header="#### danger type panel" type="danger" minimized>
+<panel header="###### danger type panel" type="danger" minimized>
   ...
 </panel>
-<panel header="#### warning type panel" type="warning" minimized>
+<panel header="###### warning type panel" type="warning" minimized>
   ...
 </panel>
-<panel header="#### success type panel" type="success" minimized>
+<panel header="###### success type panel" type="success" minimized>
   ...
 </panel>
-<panel header="#### seamless type panel" type="seamless" minimized>
+<panel header="###### seamless type panel" type="seamless" minimized>
   ...
 </panel>
 ```
@@ -276,7 +276,7 @@
 </tip-box>
 <br>
 
-## Panel Options
+#### Panel Options
 Name | Type | Default | Description 
 --- | --- | --- | ---
 header | `String` | `''` | The clickable text on the Panel's header.
