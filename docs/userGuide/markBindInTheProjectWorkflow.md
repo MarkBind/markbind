@@ -17,7 +17,7 @@ As **MarkBind is especially optimized as a project documentation tool**, it inte
 
 #### Authoring Workflow
 
-While most IDEs provide previews for Markdown files, unless your MarkBind files are using basic Markdown syntax only, you are recommended to launch a {{ link_live_preview }} and check the rendering of the page as you modify the source code.
+While most IDEs provide previews for Markdown files, unless your MarkBind files are using basic Markdown syntax only, you are recommended to launch a {{ link_live_preview }} and check the rendering of the page as you modify the source file.
 
 #### GitHub PR Workflow
 

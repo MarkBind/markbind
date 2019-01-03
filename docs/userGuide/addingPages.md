@@ -35,7 +35,7 @@
 Here are the steps to add a new page to your site:
 1. Add a `.md` (or `.mbd`) file anywhere inside the root directory.
 1. Update the [`pages` attribute of the `site.json`]({{ baseUrl }}/userGuide/siteConfiguration.html#pages) to cover the new file, if necessary.
-1. Use the <trigger trigger="click" for="modal:addingPages-livePreview">live preview</trigger> to view the generated web page for the new file. %%If the live preview is running already, you might have to restart it to capture the new file.%%
+1. Use the <trigger trigger="click" for="modal:addingPages-livePreview">live preview</trigger> to view the generated web page for the new file. <br> %%If the live preview is running already, you might have to restart it to capture the new file.%%
 
 <modal large title="Live Preview" id="modal:addingPages-livePreview">
 <include src="glossary.md#live-preview" inline/>
