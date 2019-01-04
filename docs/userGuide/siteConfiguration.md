@@ -118,4 +118,8 @@ The ignore pattern follows the [glob pattern used in .gitignore](https://git-scm
 
 **The level of headings to be indexed for searching.** Default: `3` %%i.e., only headings of levels 1,2,3 will be indexed for searching%%.
 
+#### **`disableSearch`**
+
+**If set to `true`, MarkBind will not index pages for searching.** See [Use Searchbar](usingComponents.html#use-searchbar) for more information.
+
 </div>

@@ -40,3 +40,5 @@ placeholder | `String` | `''` | The placeholder text shown when no keywords are 
 
 
 %%{{ icon_info }} Related topic: [User Guide: Making the Site Searchable]({{ baseUrl }}/userGuide/makingTheSiteSearchable.html).%%
+
+If you do not wish to use MarkBind's searchbar, it may be helpful to include the option `disableSearch: true` in your `site.json`. This stops MarkBind from indexing search headings and speeds up building.
