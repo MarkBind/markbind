@@ -120,6 +120,6 @@ The ignore pattern follows the [glob pattern used in .gitignore](https://git-scm
 
 #### **`disableSearch`**
 
-**If set to `true`, MarkBind will not index pages for searching.** See [Use Searchbar](usingComponents.html#use-searchbar) for more information.
+**If set to `true`, MarkBind will not index pages for searching.** See [Use Searchbar](usingComponents.html#search-bar) for more information.
 
 </div>
