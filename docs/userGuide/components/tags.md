@@ -1,6 +1,6 @@
 ## Tags
 
-**Tags are used to selectively filter certain elements on web pages.**
+You can use tags to selectively filter HTML elements when building a site.
 
 Tags are specified by the `tags` attribute, **and can be attached to any HTML element**. For example:
 
@@ -21,16 +21,16 @@ You need to specify the tags to include in `site.json`, under the `tags` option:
 }
 ```
 
-When compiled, only elements that match tags specified in the `site.json` files will be displayed. All other tagged elements will be hidden. In this case, only the element with the `language--english` tag will be displayed. This is helpful when creating multiple versions of a page without having to maintain separate copies. If this option is not specified, all tagged elements will be displayed.
+During rendering, only elements that match tags specified in the `site.json` files will be rendered. All other tagged elements will be filtered out. In this case, only the element with the `language--english` tag will be rendered. This is helpful when creating multiple versions of a page without having to maintain separate copies. If this option is not specified, all tagged elements will be rendered.
 
-**You can also use multiple tags in a single HTML element. Specify each tag in the `tag` attribute** separated by a space. An element will be displayed if **any of the tags** matches the one in site.json.
+**You can also use multiple tags in a single HTML element. Specify each tag in the `tags` attribute** separated by a space. An element will be rendered if **any of the tags** matches the one in `site.json`.
 
 ```html
-<p tag="language--english language--spanish">No!</p>
-<p tag="language--french">Non!</p>
+<p tags="language--english language--spanish">No!</p>
+<p tags="language--french">Non!</p>
 ```
 
-Alternatively you can also specify tags for a page individually in the page's `frontmatter`:
+Alternatively, you can also specify tags to render for a page in the front matter.
 
 ```
 <frontmatter>
@@ -39,4 +39,4 @@ Alternatively you can also specify tags for a page individually in the page's `f
 </frontmatter>
 ```
 
-Tags in the `frontmatter` will take precedence over the ones in `site.json`.
+Tags in `site.json` will take precedence over the ones in the front matter.
