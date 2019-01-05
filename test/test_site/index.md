@@ -104,6 +104,7 @@ head: myCustomHead.md, myCustomHead2.md
   <span id="includedVariableAsHtmlElement"><span>Included variable within html element</span></span>
   <span id="includedVariableOverriding">Included variable overriding variables.md</span>
   <span id="includedVariableInIncludedFile">Included variable in included file</span>
+  <span id="includedVariableWithGlobalVariable">Included variable with {{ includedGlobalVariable }}</span>
 </include>
 
 # Panel without src

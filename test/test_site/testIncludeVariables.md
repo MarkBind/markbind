@@ -15,4 +15,7 @@
 {{ includedVariableOverriding }}
 
 # Test included variable in included file
-<include src="testIncludeVariablesIncludedFile.md">
+<include src="testIncludeVariablesIncludedFile.md"/>
+
+# Test included variable with global variable
+{{ includedVariableWithGlobalVariable }}

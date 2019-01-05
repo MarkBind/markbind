@@ -9,3 +9,4 @@
 <span id="reference_level_4">{{reference_level_3}}</span>
 
 <span id="includedVariableOverriding">Should be overriden</span>
+<span id="includedGlobalVariable">Global variable</span>

@@ -205,7 +205,7 @@ Parser.prototype._preprocess = function (node, context, config) {
     let fileContent = self._fileCache[actualFilePath]; // cache the file contents to save some I/O
     const { parent, relative } = calculateNewBaseUrls(filePath, config.rootPath, config.baseUrlMap);
     const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
-    const includedVariables = {};
+    const includedVariables = context.includedVariables || {};
 
     if (element.children) {
       element.children.forEach((child) => {
@@ -220,12 +220,6 @@ Parser.prototype._preprocess = function (node, context, config) {
         const variableValue = cheerio.html(child.children);
         userDefinedVariables[child.attribs.id] = variableValue;
         includedVariables[child.attribs.id] = variableValue;
-      });
-    }
-
-    if (context.includedVariables) {
-      Object.keys(context.includedVariables).forEach((key) => {
-        userDefinedVariables[key] = context.includedVariables[key];
       });
     }
 
