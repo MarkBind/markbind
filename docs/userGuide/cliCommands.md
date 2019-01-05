@@ -102,10 +102,10 @@ MarkBind Command Line Interface (CLI) can be run in the following ways:
 * `-s <file>`, `--site-config <file>`<br>
    Specify the site config file (default: `site.json`)<br>
    {{ icon_example }} `-s otherSite.json`
-* `--one-page <file>`<br>
+* `-o <file>`, `--one-page <file>`<br>
    Render and serve only a single page from your website.<br>
   {{ icon_example }} `--one-page guide/index.md`
-* `--no-open`<br>
+* `-n`, `--no-open`<br>
    Don't open a live preview in the browser automatically.
 
 {{ icon_examples }}
