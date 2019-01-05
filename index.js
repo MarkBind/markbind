@@ -52,10 +52,10 @@ program
 
 program
   .command('serve [root]')
-  .description('build then serve a website from a directory')
+  .description('build then serve a website from a directory, and open a live preview of the website')
   .option('-f, --force-reload', 'force a full reload of all site files when a file is changed')
-  .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
-  .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
+  .option('-p <port>, --port <port>', 'port for server to listen on (Default is 8080)')
+  .option('-s <file>, --site-config <file>', 'specify the site config file (default: site.json)')
   .option('--one-page <file>', 'render and serve only a single page in the site')
   .option('--no-open', 'do not automatically open the site in browser')
   .action((root, options) => {
@@ -172,6 +172,7 @@ program
 
 program
   .command('build [root] [output]')
+  .option('<output>', 'put the generated files in the specified directory')
   .option('--baseUrl [baseUrl]',
           'optional flag which overrides baseUrl in site.json, leave argument empty for empty baseUrl')
   .description('build a website')
