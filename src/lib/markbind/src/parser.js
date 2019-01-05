@@ -217,13 +217,11 @@ Parser.prototype._preprocess = function (node, context, config) {
           console.warn(`Missing 'id' in variable for ${element.attribs.src} include.`);
           return;
         }
-        const variableValue = cheerio.html(child.children);
-        userDefinedVariables[child.attribs.id] = variableValue;
-        includedVariables[child.attribs.id] = variableValue;
+        includedVariables[child.attribs.id] = cheerio.html(child.children);
       });
     }
 
-    fileContent = nunjucks.renderString(fileContent, userDefinedVariables);
+    fileContent = nunjucks.renderString(fileContent, { ...userDefinedVariables, ...includedVariables });
     delete element.attribs.boilerplate;
     delete element.attribs.src;
     delete element.attribs.inline;

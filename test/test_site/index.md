@@ -107,6 +107,10 @@ head: myCustomHead.md, myCustomHead2.md
   <span id="includedVariableWithGlobalVariable">Included variable with {{ includedGlobalVariable }}</span>
 </include>
 
+# Included variables should not leak into other files
+
+<include src="testIncludeVariableLeak.md" />>
+
 # Panel without src
 <panel header="## Panel without src header" expanded>
 <markdown>
