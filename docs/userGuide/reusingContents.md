@@ -259,6 +259,27 @@ In other words, **`<include>` interprets the reused code relative to the origina
 
 <hr><!-- ======================================================================================================= -->
 
+#### Specifying Variables in the Include Tag
+
+**It is possible to include variables in the include tag.** For example,
+
+```html
+<include src="article.md">
+  <span id="title">My Title</span>
+  <span id="author">John Doe</span>
+</include>
+```
+
+In `article.md`:
+
+<code>
+# {<span></span>{ title }}
+
+Author: {<span></span>{ author }}
+</code>
+
+These variables work the same way as variables in `_markbind/variables.md`, except they only apply to the included file. This can be helpful for creating a template for multiple files.
+
 ## Using Boilerplate Files
 
 **If you find duplicating a <tooltip content="code that needs to stay relative to the directory in which it used">_boilerplate code_</tooltip> fragment in multiple places of your code base, you can use a `boilerplate` file to avoid such duplication.** Note that you cannot use a normal `<include>` in this case because the code included using a normal `<include>` stays relative to the original location while boilerplate code needs to be interpreted relative to the location it is being used.

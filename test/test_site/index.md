@@ -95,6 +95,17 @@ head: myCustomHead.md, myCustomHead2.md
 
 ## <include src="testTrimInclude.md" trim inline />
 
+# Include with custom variables
+
+<include src="testIncludeVariables.md">
+  <span id="includedVariable">Included variable</span>
+  <span id="includedVariableWithMarkdown">__**Included variable with markdown**__</span>
+  <span id="includedVariableAsAttribute">color: blue</span>
+  <span id="includedVariableAsHtmlElement"><span>Included variable within html element</span></span>
+  <span id="includedVariableOverriding">Included variable overriding variables.md</span>
+  <span id="includedVariableInIncludedFile">Included variable in included file</span>
+</include>
+
 # Panel without src
 <panel header="## Panel without src header" expanded>
 <markdown>

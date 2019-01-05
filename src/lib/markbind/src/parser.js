@@ -205,6 +205,30 @@ Parser.prototype._preprocess = function (node, context, config) {
     let fileContent = self._fileCache[actualFilePath]; // cache the file contents to save some I/O
     const { parent, relative } = calculateNewBaseUrls(filePath, config.rootPath, config.baseUrlMap);
     const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
+    const includedVariables = {};
+
+    if (element.children) {
+      element.children.forEach((child) => {
+        if (child.name !== 'span') {
+          return;
+        }
+        if (!child.attribs.id) {
+          // eslint-disable-next-line no-console
+          console.warn(`Missing 'id' in variable for ${element.attribs.src} include.`);
+          return;
+        }
+        const variableValue = cheerio.html(child.children);
+        userDefinedVariables[child.attribs.id] = variableValue;
+        includedVariables[child.attribs.id] = variableValue;
+      });
+    }
+
+    if (context.includedVariables) {
+      Object.keys(context.includedVariables).forEach((key) => {
+        userDefinedVariables[key] = context.includedVariables[key];
+      });
+    }
+
     fileContent = nunjucks.renderString(fileContent, userDefinedVariables);
     delete element.attribs.boilerplate;
     delete element.attribs.src;
@@ -265,6 +289,7 @@ Parser.prototype._preprocess = function (node, context, config) {
     const childContext = _.cloneDeep(context);
     childContext.cwf = filePath;
     childContext.source = isIncludeSrcMd ? 'md' : 'html';
+    childContext.includedVariables = includedVariables;
     if (element.children && element.children.length > 0) {
       element.children = element.children.map(e => self._preprocess(e, childContext, config));
     }
