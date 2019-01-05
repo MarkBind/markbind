@@ -66,6 +66,12 @@
       "src": "index.md"
     },
     {
+      "headings": {},
+      "src": "testEmptyFrontmatter.md",
+      "title": "Hello World",
+      "layout": "default"
+    },
+    {
       "headings": {
         "uses-a-layout": "Uses a layout"
       },
