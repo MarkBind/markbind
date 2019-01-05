@@ -36,6 +36,44 @@ program
   .version(CLI_VERSION);
 
 program
+  .command('build [root] [output]')
+  .option('--baseUrl [baseUrl]',
+          'optional flag which overrides baseUrl in site.json, leave argument empty for empty baseUrl')
+  .description('build a website')
+  .action((root, output, options) => {
+    // if --baseUrl contains no arguments (options.baseUrl === true) then set baseUrl to empty string
+    const baseUrl = _.isBoolean(options.baseUrl) ? '' : options.baseUrl;
+    const rootFolder = path.resolve(root || process.cwd());
+    const defaultOutputRoot = path.join(rootFolder, '_site');
+    const outputFolder = output ? path.resolve(process.cwd(), output) : defaultOutputRoot;
+    printHeader();
+    new Site(rootFolder, outputFolder)
+      .generate(baseUrl)
+      .then(() => {
+        logger.info('Build success!');
+      })
+      .catch((error) => {
+        logger.error(error.message);
+      });
+  });
+
+program
+  .command('deploy')
+  .description('deploy the site to the repo\'s Github pages.')
+  .action(() => {
+    const rootFolder = path.resolve(process.cwd());
+    const outputRoot = path.join(rootFolder, '_site');
+    new Site(rootFolder, outputRoot).deploy()
+      .then(() => {
+        logger.info('Deployed!');
+      })
+      .catch((err) => {
+        logger.error(err.message);
+      });
+    printHeader();
+  });
+
+program
   .command('init [root]')
   .description('init a markbind website project')
   .action((root) => {
@@ -54,8 +92,8 @@ program
   .command('serve [root]')
   .description('build then serve a website from a directory, and open a live preview of the website')
   .option('-f, --force-reload', 'force a full reload of all site files when a file is changed')
-  .option('-p <port>, --port <port>', 'port for server to listen on (Default is 8080)')
-  .option('-s <file>, --site-config <file>', 'specify the site config file (default: site.json)')
+  .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
+  .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
   .option('--one-page <file>', 'render and serve only a single page in the site')
   .option('--no-open', 'do not automatically open the site in browser')
   .action((root, options) => {
@@ -148,45 +186,6 @@ program
           logger.info(`Serving "${outputFolder}" at ${serveURL}`);
           logger.info('Press CTRL+C to stop ...');
         });
-      })
-      .catch((error) => {
-        logger.error(error.message);
-      });
-  });
-
-program
-  .command('deploy')
-  .description('deploy the site to the repo\'s Github pages.')
-  .action(() => {
-    const rootFolder = path.resolve(process.cwd());
-    const outputRoot = path.join(rootFolder, '_site');
-    new Site(rootFolder, outputRoot).deploy()
-      .then(() => {
-        logger.info('Deployed!');
-      })
-      .catch((err) => {
-        logger.error(err.message);
-      });
-    printHeader();
-  });
-
-program
-  .command('build [root] [output]')
-  .option('<output>', 'put the generated files in the specified directory')
-  .option('--baseUrl [baseUrl]',
-          'optional flag which overrides baseUrl in site.json, leave argument empty for empty baseUrl')
-  .description('build a website')
-  .action((root, output, options) => {
-    // if --baseUrl contains no arguments (options.baseUrl === true) then set baseUrl to empty string
-    const baseUrl = _.isBoolean(options.baseUrl) ? '' : options.baseUrl;
-    const rootFolder = path.resolve(root || process.cwd());
-    const defaultOutputRoot = path.join(rootFolder, '_site');
-    const outputFolder = output ? path.resolve(process.cwd(), output) : defaultOutputRoot;
-    printHeader();
-    new Site(rootFolder, outputFolder)
-      .generate(baseUrl)
-      .then(() => {
-        logger.info('Build success!');
       })
       .catch((error) => {
         logger.error(error.message);
