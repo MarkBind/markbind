@@ -19,3 +19,6 @@
 
 # Test included variable with global variable
 {{ includedVariableWithGlobalVariable }}
+
+# Test missing variable with default
+{{ missingVariable or "Missing Variable" }}

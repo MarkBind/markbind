@@ -103,6 +103,13 @@ As mentioned in _User Guide: MarkBind Syntax_, you can use built-in variables to
 <p/>
 
 
+##### Variables: Defaults
+
+You can specify a default value for a variable, which is displayed when the variable is not specified in `variables.md`. This is done by adding `or (defaultValue)` within the curly braces.
+
+<code>My name is {<span></span>{ name or "Anonymous" }}.</span></code>
+
+
 ##### Variables: Tips and Tricks
 
 **Variables can refer to other variables** that are declared earlier, including built-in variables.

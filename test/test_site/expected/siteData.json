@@ -58,6 +58,7 @@
         "test-included-variable-overriding-variables-md": "Test included variable overriding variables.md",
         "test-included-variable-in-included-file": "Test included variable in included file",
         "test-included-variable-with-global-variable": "Test included variable with global variable",
+        "test-missing-variable-with-default": "Test missing variable with default",
         "panel-without-src": "Panel without src",
         "panel-with-normal-src": "Panel with normal src",
         "panel-with-src-from-a-page-segment": "Panel with src from a page segment",
