@@ -5,8 +5,11 @@ Vue.use(VueStrap);
 function scrollToUrlAnchorHeading() {
   if (window.location.hash) {
     // remove leading hash to get element ID
-    document.getElementById(window.location.hash.slice(1)).scrollIntoView();
-    window.scrollBy(0, -document.body.style.paddingTop.replace('px', ''));
+    const headingElement = document.getElementById(window.location.hash.slice(1));
+    if (headingElement) {
+      headingElement.scrollIntoView();
+      window.scrollBy(0, -document.body.style.paddingTop.replace('px', ''));
+    }
   }
 }
 
