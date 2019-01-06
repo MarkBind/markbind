@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MarkBind: Generate Course Websites from Markdown Text</title>
+    <title>MarkBind - Generate Instructional Websites from Markdown Text</title>
     <link rel="stylesheet" href="markbind\css\bootstrap.min.css">
     <link rel="stylesheet" href="markbind\css\bootstrap-vue.min.css">
     <link rel="stylesheet" href="markbind\css\font-awesome.min.css" >
@@ -13,312 +13,245 @@
     <link rel="stylesheet" href="markbind\css\github.min.css">
     <link rel="stylesheet" href="markbind\css\markbind.css">
     <link rel="stylesheet" href="markbind\layouts\default\styles.css">
-    <link rel="stylesheet" href="markbind\css\site-nav.css">
+    
     
     
 </head>
 <body>
 <div id="app">
-    <div id="flex-body">
-  <div id="site-nav">
-    <ul style="list-style-type: none; margin-left:-1em">
-      <li style="margin-top: 10px">
-        <h2 id="user-guide">User Guide<a class="fa fa-anchor" href="#user-guide"></a></h2>
-      </li>
-      <li style="margin-top: 10px"><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
-      <li style="margin-top:10px"><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
-        <ul style="list-style-type: none; margin-left:-1em">
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
-        </ul>
-      </li>
-      <li style="margin-top:10px"><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a>
-        <ul style="list-style-type: none; margin-left:-1em">
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingComponents.html">Using Components</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingVariables.html">Using Variables</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/pageLayout.html">Page Layout</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/knownProblems.html">Known Problems</a></li>
-        </ul>
-      </li>
-      <li style="margin-top: 10px"><button class="dropdown-btn">Deploying a Site
- <i class="dropdown-btn-icon">
-<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
-        <div class="dropdown-container">
-          <ul style="list-style-type: none; margin-left:-1em">
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
-          </ul>
-        </div>
-      </li>
-      <li style="margin-top:10px"><a href="/markbind/userGuide/components.html">Components Reference</a>
-        <ul style="list-style-type: none; margin-left:-1em">
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/components.html#advanced-tips-and-tricks">Advanced Tips and Tricks</a></li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-  <div id="site-nav-btn-wrap">
-    <div id="site-nav-btn">
-      <div class="menu-top-bar"></div>
-      <div class="menu-middle-bar"></div>
-      <div class="menu-bottom-bar"></div>
-    </div>
-  </div>
-  <div id="page-content">
     <div id="content-wrapper">
-      <div>
-        <link rel="stylesheet" href="/markbind/css/main.css">
-        <navbar placement="top" type="inverse">
-          <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
-          <dropdown text="User Guide" class="nav-link">
-            <li><a href="/markbind/userGuide/index.html" class="dropdown-item">Home</a></li>
-            <li><a href="/markbind/userGuide/userQuickStart.html" class="dropdown-item">Quick Start</a></li>
-            <li role="separator" class="dropdown-divider"></li>
-            <li><a href="/markbind/userGuide/developingASite.html" class="dropdown-item">Developing a Site</a>
-            </li>
-            <li><a href="/markbind/userGuide/siteConfiguration.html" class="dropdown-item">◦&nbsp; Site Configuration</a></li>
-            <li role="separator" class="dropdown-divider"></li>
-            <li><a href="/markbind/userGuide/contentAuthoring.html" class="dropdown-item">Content Authoring</a></li>
-            <li><a href="/markbind/userGuide/includingContents.html" class="dropdown-item">◦&nbsp; Including Contents</a></li>
-            <li><a href="/markbind/userGuide/usingComponents.html" class="dropdown-item">◦&nbsp; Using Components</a></li>
-            <li><a href="/markbind/userGuide/usingVariables.html" class="dropdown-item">◦&nbsp; Using Variables</a></li>
-            <li><a href="/markbind/userGuide/pageLayout.html" class="dropdown-item">◦&nbsp; Page Layout</a></li>
-            <li><a href="/markbind/userGuide/knownProblems.html" class="dropdown-item">◦&nbsp; Known Problems</a></li>
-            <li role="separator" class="dropdown-divider"></li>
-            <li class="dropdown-header">Deploying a Site</li>
-            <li><a href="/markbind/userGuide/ghpagesDeployment.html" class="dropdown-item">◦&nbsp; Github Pages Deployment</a></li>
-            <li><a href="/markbind/userGuide/netlifyPreview.html" class="dropdown-item">◦&nbsp; Preview site on Netlify</a></li>
-            <li role="separator" class="dropdown-divider"></li>
-            <li><a href="/markbind/userGuide/components.html" class="dropdown-item">Components Reference</a></li>
-          </dropdown>
-          <li>
-            <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">
-      Fork this project on Github
+  <div>
+    <link rel="stylesheet" href="/markbind/css/main.css">
+    <navbar placement="top" type="inverse">
+      <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
+      <li><a href="/markbind/index.html" class="nav-link">HOME</a></li>
+      <li><a href="/markbind/userGuide/index.html" class="nav-link">DOCS</a></li>
+      <li><a href="/markbind/showcase.html" class="nav-link">SHOWCASE</a></li>
+      <li><a href="/markbind/about.html" class="nav-link">ABOUT</a></li>
+      <li>
+        <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">
       <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewbox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
-          <li slot="right">
-            <form class="navbar-form">
-              <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right=""></searchbar>
-            </form>
-          </li>
-        </navbar>
-      </div>
-      <div class="website-content">
-        <h1 id="markbind"><strong>MarkBind</strong><a class="fa fa-anchor" href="#markbind"></a></h1>
-        <h4 id="generate-dynamic-websites-from-markdown-text.">Generate dynamic websites from markdown text.<a class="fa fa-anchor" href="#generate-dynamic-websites-from-markdown-text."></a></h4>
-        <p>MarkBind is a website generator that can generate a website from markdown documents. While there are other markdown-to-html website generators around, <strong>MarkBind can generate more dynamic websites</strong>, as opposed to one-size-fits-all
-          static content. MarkBind is particularly suitable to create content-heavy websites <span class="dimmed">e.g., eLearning websites, online instruction manuals, project documentation etc.</span> that aim for <em><tooltip content="i.e., the reader can go deeper or get more content as desired">self-directed consumption</tooltip></em>.</p>
-        <h2 id="-features"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Features<a class="fa fa-anchor" href="#-features"></a></h2>
-        <h4 id="%E2%9C%93-support-for-markdown-and-gfmd">✓ Support for Markdown and
-          <tooltip content="GitHub-Flavored Markdown">GFMD</tooltip><a class="fa fa-anchor" href="#%E2%9C%93-support-for-markdown-and-gfmd"></a></h4>
-        <p>MarkBind supports all MarkDown and GFMD syntax. Here is an example:</p>
-        <table>
+      <li slot="right">
+        <form class="navbar-form">
+          <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right=""></searchbar>
+        </form>
+      </li>
+    </navbar>
+  </div>
+  <div class="website-content">
+    <h1 class="display-3"><span><strong>MarkBind</strong></span><a class="fa fa-anchor" href="#undefined"></a></h1>
+    <span class="lead">
+<p><big><strong>Generate dynamic websites from Markdown text.</strong></big></p>
+<p>MarkBind can use Markdown documents to generate <tooltip content="as opposed to _one-size-fits-all_ static content"><em>more dynamic</em></tooltip> websites that facilitates <em><tooltip content="i.e., the reader can chart their own path through the content and consume more/less content as desired">self-directed consumption</tooltip></em>. MarkBind is ideal for creating content-heavy instructional websites <br> <span class="dimmed">e.g., eLearning websites, online instruction manuals, project documentation etc.</span>.
+    </p>
+    </span>
+    <p>
+      <b-btn variant="primary" href="/markbind/userGuide/">Get Started</b-btn>
+    </p>
+    <hr>
+    <h4 id="-simple-syntax.-dynamic-content.">
+      <font color="#00B0F0"> <span class="fas fa-check-circle"></span></font> Simple syntax. Dynamic content.<a class="fa fa-anchor" href="#-simple-syntax.-dynamic-content."></a></h4>
+    <p>MarkBind source files can be as simple as basic Markdown, but you can also <a href="/markbind/userGuide/markBindSyntax.html"><strong>use a mix of several popular syntax schemes</strong></a> (
+      <tooltip content="GitHub Flavored Markdown">GFMD</tooltip>, BootStrap, NunJucks, etc. as well as MarkBind's own custom syntax) to create more dynamic content that you cannot normally get from a typical markdown-to-html site generator.</p>
+    <p>Here are some simple text-formatting examples:</p>
+    <div class="table-responsive">
+      <table class="markbind-table table table-bordered table-striped">
+        <thead>
           <tr>
-          
-            <td>
-              <pre><code class="hljs markdown"><span class="hljs-strong">**Things to do:**</span>
+            <th>Syntax scheme</th>
+            <th>Code</th>
+            <th>Output</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Markdown</td>
+            <td><code>**bold text** _italic text_</code></td>
+            <td><strong>bold text</strong> <em>italic text</em></td>
+          </tr>
+          <tr>
+            <td>GFMD</td>
+            <td><code>~~striked out text~~</code></td>
+            <td><s>striked out text</s></td>
+          </tr>
+          <tr>
+            <td>MarkBind extensions to Markdown</td>
+            <td><code>==highlighted text==</code><br><code>%%grey text%%</code><br><code>++underlined text++</code></td>
+            <td><mark>highlighted text</mark><br><span class="dimmed">grey text</span><br><ins>underlined text</ins></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <panel type="seamless" header="%%More examples of generating static content%%">
+      <p>An example that uses GFMD synatx for task lists:</p>
+      <table>
+        <tr>
+        
+          <td>
+            <pre><code class="hljs markdown"><span class="hljs-strong">**Things to do:**</span>
 
 <span class="hljs-bullet">- </span>[x] Finish my changes
 <span class="hljs-bullet">- </span>[ ] Push my commits to GitHub
 <span class="hljs-bullet">- </span>[ ] Open a pull request
 
 </code></pre>
-              <p></p>
-            </td>
-          
-            <td> → </td>
-          
-            <td><br>
-              <tip-box>
-                <p><strong>Things to do:</strong></p>
-                <ul class="task-list">
-                  <li class="task-list-item"><input class="task-list-item-checkbox" checked type="checkbox"> Finish my changes</li>
-                  <li class="task-list-item"><input class="task-list-item-checkbox" type="checkbox"> Push my commits to GitHub</li>
-                  <li class="task-list-item"><input class="task-list-item-checkbox" type="checkbox"> Open a pull request</li>
-                </ul>
-                <p></p>
-              </tip-box>
-            </td>
-          </tr>
-        </table>
-        <h4 id="%E2%9C%93-ability-to-add-additional-layers-of-information-as-tooltips%2C-pop-overs%2C-modals">✓ Ability to add additional layers of information as Tooltips, pop-overs, modals<a class="fa fa-anchor" href="#%E2%9C%93-ability-to-add-additional-layers-of-information-as-tooltips%2C-pop-overs%2C-modals"></a></h4>
-        <p>The example paragraph below has a tooltip, a pop-over, and a modal. Hover/click on the underlined words to see each.</p>
-        <tip-box>
-          <p>In
-            <tooltip content="Computer Science">CS</tooltip>, a binary tree is a
-            <trigger for="pop:index-tree">tree data structure</trigger> in which each node has at most two children, which are referred to as the <em>left child</em> and the <em>right child</em>.
-            <trigger trigger="click" for="modal:index-primitive">Primitive data types</trigger> on the other hand ...</p>
-          <popover id="pop:index-tree" title="An example tree data structure" placement="top">
-          
-            <div slot="content">
-              <p><a href="https://upload.wikimedia.org/wikipedia/commons/f/f7/Binary_tree.svg" target="_self"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/Binary_tree.svg" alt="" class="img-fluid"></a><br>
-                <span class="dimmed"><sub>[source:wikipedia]</sub></span></p>
-              <p></p>
-            </div>
-          </popover>
-          <modal large="" title="Some examples of primitive data types" id="modal:index-primitive">
-          
-            <div>
-              <ul>
-                <li>Boolean, true or false.</li>
-                <li>Character</li>
-                <li>Floating-point, single-precision real number values.</li>
-                <li>Double, a wider floating-point size.</li>
-                <li>Integer, integral or fixed-precision values.</li>
-                <li>String, a sequence of characters.</li>
-                <li>Reference (also called a pointer or handle), a small value referring to another object's address in memory, possibly a much larger one.</li>
-                <li>Enumerated type, a small set of uniquely named values.</li>
+            <p></p>
+          </td>
+        
+          <td> → </td>
+        
+          <td><br>
+            <tip-box>
+              <p><strong>Things to do:</strong></p>
+              <ul class="task-list">
+                <li class="task-list-item"><input class="task-list-item-checkbox" checked type="checkbox"> Finish my changes</li>
+                <li class="task-list-item"><input class="task-list-item-checkbox" type="checkbox"> Push my commits to GitHub</li>
+                <li class="task-list-item"><input class="task-list-item-checkbox" type="checkbox"> Open a pull request</li>
               </ul>
-              <p><span class="dimmed"><sub>[source:wikipedia]</sub></span></p>
-            </div>
-          </modal>
-        </tip-box>
-        <h4 id="%E2%9C%93-ability-to-emphasize-or-de-emphasize-content-easily">✓ Ability to emphasize or de-emphasize content easily<a class="fa fa-anchor" href="#%E2%9C%93-ability-to-emphasize-or-de-emphasize-content-easily"></a></h4>
-        <p>In addition to the ability to show <strong>bold</strong> and <em>italic</em> text provided by normal Markdown, MarkBind can <mark>highlight</mark> text or show text in <span class="dimmed">grey color</span> easily.</p>
-        <table>
-          <tr>
-          
-            <td>
-              <pre><code class="hljs markdown"><span class="hljs-strong">**bold text**</span>
-<span class="hljs-emphasis">_itatic text_</span>
-~~striked out text~~
-==highlighted text==
-%%grey text%%
-
-</code></pre>
               <p></p>
-            </td>
-          
-            <td> → </td>
-          
-            <td><br>
-              <tip-box>
-                <p><strong>bold text</strong><br>
-                  <em>itatic text</em><br>
-                  <s>striked out text</s><br>
-                  <mark>highlighted text</mark><br>
-                  <span class="dimmed">grey text</span><br></p>
-              </tip-box>
-              <p></p>
-            </td>
-          </tr>
-        </table>
-        <h4 id="%E2%9C%93-ability-to-allow-readers-reveal-content-progressively">✓ Ability to allow readers reveal content progressively<a class="fa fa-anchor" href="#%E2%9C%93-ability-to-allow-readers-reveal-content-progressively"></a></h4>
-        <p>In the example below, there is a expandable panel that can reveal more content.</p>
-        <tip-box>
-          <p>A binary tree is a tree data structure in which each node has at most two children, which are referred to as the left child and the right child. Primitive data types on the other hand ...</p>
-          <panel type="seamless" header="%%:bulb: Some example primitive data types%%">
-            <div>
-              <ul>
-                <li>Boolean, true or false.</li>
-                <li>Character</li>
-                <li>Floating-point, single-precision real number values.</li>
-                <li>Double, a wider floating-point size.</li>
-                <li>Integer, integral or fixed-precision values.</li>
-                <li>String, a sequence of characters.</li>
-                <li>Reference (also called a pointer or handle), a small value referring to another object's address in memory, possibly a much larger one.</li>
-                <li>Enumerated type, a small set of uniquely named values.</li>
-              </ul>
-              <p><span class="dimmed"><sub>[source:wikipedia]</sub></span></p>
-            </div>
+            </tip-box>
+          </td>
+        </tr>
+      </table>
+    </panel>
+    <p></p>
+    <p>The example paragraph below has the following dynamic elements: a tooltip, a popover, and a modal. Hover/click on the underlined words to see each.</p>
+    <box>
+      <p>In
+        <tooltip content="Computer Science">CS</tooltip>, a binary tree is a
+        <trigger for="pop:index-tree">tree data structure</trigger> in which each node has at most two children, which are referred to as the <em>left child</em> and the <em>right child</em>.
+        <trigger trigger="click" for="modal:index-primitive">Primitive data types</trigger> on the other hand ...</p>
+      <popover id="pop:index-tree" title="An example tree data structure" placement="top">
+      
+        <div slot="content">
+          <p><a href="https://upload.wikimedia.org/wikipedia/commons/f/f7/Binary_tree.svg" target="_self"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/Binary_tree.svg" alt="" class="img-fluid"></a><br>
+            <span class="dimmed"><sub>[source:wikipedia]</sub></span></p>
+          <p></p>
+        </div>
+      </popover>
+      <modal large="" title="Some examples of primitive data types" id="modal:index-primitive">
+      
+        <div>
+          <ul>
+            <li>Boolean, true or false.</li>
+            <li>Character</li>
+            <li>Floating-point, single-precision real number values.</li>
+            <li>Double, a wider floating-point size.</li>
+            <li>Integer, integral or fixed-precision values.</li>
+            <li>String, a sequence of characters.</li>
+            <li>Reference (also called a pointer or handle), a small value referring to another object's address in memory, possibly a much larger one.</li>
+            <li>Enumerated type, a small set of uniquely named values.</li>
+          </ul>
+          <p><span class="dimmed"><sub>[source:wikipedia]</sub></span></p>
+        </div>
+      </modal>
+    </box>
+    <panel type="seamless" header="%%More examples of generating dynamic content%%">
+      In the example below, there is an expandable panel that can reveal more content.
+      <box>
+        <p>A binary tree is a tree data structure in which each node has at most two children, which are referred to as the left child and the right child. Primitive data types on the other hand ...</p>
+        <panel header="%%<span class='fas fa-info-circle'></span> Some example primitive data types%%">
+          <div>
+            <ul>
+              <li>Boolean, true or false.</li>
+              <li>Character</li>
+              <li>Floating-point, single-precision real number values.</li>
+              <li>Double, a wider floating-point size.</li>
+              <li>Integer, integral or fixed-precision values.</li>
+              <li>String, a sequence of characters.</li>
+              <li>Reference (also called a pointer or handle), a small value referring to another object's address in memory, possibly a much larger one.</li>
+              <li>Enumerated type, a small set of uniquely named values.</li>
+            </ul>
+            <p><span class="dimmed"><sub>[source:wikipedia]</sub></span></p>
+          </div>
+        </panel>
+      </box>
+      <p>In the example below, there are expandable panels that are nested within each other.</p>
+      <box>
+        <panel header="<span class='far fa-list-alt'></span> Exercises" no-close="">
+          <panel type="danger" header=":exclamation: [Compulsory] Ex 1" no-close="">
+            <p>Details of exercise 1
+            </p>
           </panel>
-        </tip-box>
-        <p>In the example below, there are expandable panels that are nested within each other.</p>
-        <tip-box>
-          <panel type="info" header=":muscle: Exercises" no-close="">
-            <panel type="danger" header=":exclamation: [Compulsory] Ex 1" no-close="">
-              <p>Details of exercise 1
-              </p>
-            </panel><br>
-            <panel type="warning" header="[Recommended] Ex 2" no-close="">
-              <p>Details of exercise 2
-              </p>
-            </panel><br>
-            <panel type="success" header="[Optional] Ex 23" no-close="">
-              <p>Details of exercise 3
-              </p>
-            </panel>
+          <panel type="warning" header="[Recommended] Ex 2" no-close="">
+            <p>Details of exercise 2
+            </p>
           </panel>
-        </tip-box>
-        <h4 id="%E2%9C%93-ability-to-reuse-content-easily">✓ Ability to reuse content easily<a class="fa fa-anchor" href="#%E2%9C%93-ability-to-reuse-content-easily"></a></h4>
-        <p>MarkBind has a powerful <code>include</code> mechanism that allows content fragments (i.e., a file or part of a file) to be reused at multiple places in the website.</p>
-        <p>In the example below, both the modal and the expandable panel reuses the same content.</p>
-        <tip-box>
-          <p>In CS, a binary tree is a tree data structure in which each node has at most two children, which are referred to as the <em>left child</em> and the <em>right child</em>.
-            <trigger trigger="click" for="modal:index-primitive2">Primitive data types</trigger> on the other hand ...</p>
-          <panel type="seamless" header="%%:bulb: Some example primitive data types%%">
-            <div>
-              <ul>
-                <li>Boolean, true or false.</li>
-                <li>Character</li>
-                <li>Floating-point, single-precision real number values.</li>
-                <li>Double, a wider floating-point size.</li>
-                <li>Integer, integral or fixed-precision values.</li>
-                <li>String, a sequence of characters.</li>
-                <li>Reference (also called a pointer or handle), a small value referring to another object's address in memory, possibly a much larger one.</li>
-                <li>Enumerated type, a small set of uniquely named values.</li>
-              </ul>
-              <p><span class="dimmed"><sub>[source:wikipedia]</sub></span></p>
-            </div>
+          <panel type="success" header="[Optional] Ex 23" no-close="">
+            <p>Details of exercise 3
+            </p>
           </panel>
-          <modal large="" title="Some examples of primitive data types" id="modal:index-primitive2">
-          
-            <div>
-              <ul>
-                <li>Boolean, true or false.</li>
-                <li>Character</li>
-                <li>Floating-point, single-precision real number values.</li>
-                <li>Double, a wider floating-point size.</li>
-                <li>Integer, integral or fixed-precision values.</li>
-                <li>String, a sequence of characters.</li>
-                <li>Reference (also called a pointer or handle), a small value referring to another object's address in memory, possibly a much larger one.</li>
-                <li>Enumerated type, a small set of uniquely named values.</li>
-              </ul>
-              <p><span class="dimmed"><sub>[source:wikipedia]</sub></span></p>
-            </div>
-          </modal>
-        </tip-box>
-        <h2 id="-examples"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span> Examples<a class="fa fa-anchor" href="#-examples"></a></h2>
-        <p>Examples of websites built using MarkBind:</p>
-        <ul>
-          <li><a href="https://www.comp.nus.edu.sg/~cs2103">CS2103 Software Engineering - course website</a></li>
-          <li><a href="https://nus-cs3281.github.io/website/">CS3281 Thematic Systems Project - course website</a></li>
-          <li><a href="https://nus-te3201.github.io/website/">TE3291 Software Engineering - course website</a></li>
-          <li><a href="https://se-edu.github.io/se-book/">se-edu/se-book - An online text book on Software Engineering</a></li>
-          <li>This website (i.e., MarkBind website)</li>
-        </ul>
-        <h2 id="-documentation"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Documentation<a class="fa fa-anchor" href="#-documentation"></a></h2>
-        <h4 id="for-users">For Users<a class="fa fa-anchor" href="#for-users"></a></h4>
-        <ul>
-          <li><a href="./userGuide/userQuickStart.html">Quick Start</a></li>
-          <li><a href="./userGuide/index.html">User Guide</a></li>
-        </ul>
-        <h4 id="for-developers">For Developers<a class="fa fa-anchor" href="#for-developers"></a></h4>
-        <ul>
-          <li><a href="https://github.com/MarkBind/markbind-cli/wiki/Developer-Guide">Developer Guide</a></li>
-        </ul>
-        <h2 id="-about-us"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> About us<a class="fa fa-anchor" href="#-about-us"></a></h2>
-        <p>MarkBind is a project based in the <a href="http://www.comp.nus.edu.sg/">National University of Singapore, School of Computing</a>, and is funded by a grant from <a href="http://www.cdtl.nus.edu.sg/">NUS Center for Development of Teaching and Learning</a>.</p>
-        <ul>
-          <li><a href="https://github.com/acjh"><strong>Aaron Chong Jun Hao</strong></a>: <em>Project Mentor</em> since Jul 2018, <em>Team Lead</em> for Aug 2017 - Jun 2018</li>
-          <li><a href="https://github.com/Chng-Zhi-Xuan"><strong>Chng Zhi Xuan</strong></a>: <em>Project Member</em> since May 2018</li>
-          <li><a href="https://github.com/nicholaschuayunzhi"><strong>Chua Yun Zhi Nicholas</strong></a>: <em>Project Member</em> since Jan 2018</li>
-          <li><a href="https://github.com/damithch"><strong>Damith C. Rajapakse</strong></a>: <em>Project Mentor</em> since Aug 2016</li>
-          <li><a href="https://github.com/danielbrzn"><strong>Daniel Berzin Chua Yuan Siang</strong></a>: <em>Project Member</em> since Jan 2018</li>
-          <li><a href="https://github.com/nusjzx"><strong>Jia Zhixin</strong></a>: <em>Project Member</em> since May 2018</li>
-          <li><a href="https://github.com/Gisonrg"><strong>Jiang Sheng</strong></a>: <em>Founding Member</em> and <em>Team Lead</em> for Aug 2016 - Jul 2017</li>
-          <li><a href="https://github.com/rachx"><strong>Rachael Sim Hwee Ling</strong></a>: <em>Project Member</em> since Jan 2018</li>
-          <li><a href="https://github.com/yamgent"><strong>Tan Wang Leng</strong></a>: Current <em>Team Lead</em> since Jul 2018, <em>Project Member</em> for May 2018 - Jun 2018</li>
-        </ul>
-        <p><span class="glyphicon glyphicon-send" aria-hidden="true"></span> You can <strong>email us</strong> at <code>seer</code> at <code>comp.nus.edu.sg</code></p>
-        <p><span class="glyphicon glyphicon-console" aria-hidden="true"></span> Interested in <strong>contributing to MarkBind</strong>? Visit the <a href="https://github.com/MarkBind/markbind">MarkBind project on GitHub</a>.</p>
-      </div>
+        </panel>
+      </box>
+    </panel>
+    <p></p>
+    <hr>
+    <h4 id="-everything-you-need-for-instructional-websites%2C-built-in.">
+      <font color="#00B0F0"> <span class="fas fa-check-circle"></span></font> Everything you need for instructional websites, built-in.<a class="fa fa-anchor" href="#-everything-you-need-for-instructional-websites%2C-built-in."></a></h4>
+    <p>MarkBind is <strong>highly optimized for creating content-heavy instructional websites</strong> <span class="dimmed">e.g., eLearning websites, online instruction manuals, project documentation etc.</span> Anything that you might need for creating
+      such websites are built-in, sparing you the hassle of finding/installing/searching plugins that you need.</p>
+    <p>Here are some examples:</p>
+    <div class="indented">
+      <p><big><span class="fas fa-heart"></span></big> <strong>Icons</strong> can improve the readability of a text-heavy document. MarkBind comes with a wide selection of <a href="/markbind/userGuide/markBindSyntax.html#icons-fonts">icons</a> and <a href="/markbind/userGuide/markBindSyntax.html#emoji">emoji</a>.<br>
+        <big><span class="fas fa-search"></span></big> With MarkBind's <a href="/markbind/userGuide/makingTheSiteSearchable.html"><strong>search feature</strong></a>, you can allow readers to search for keywords in your site.<br>
+        <big><span class="fas fa-window-maximize"></span></big> MarkBind allows you to add <a href="/markbind/userGuide/tweakingThePageStructure.html"><strong>site/page navigation menus, headers, footers</strong></a> easily.</p>
     </div>
+    <hr>
+    <h4 id="-more-control-to-the-reader%2C-without-duplicating-code.">
+      <font color="#00B0F0"> <span class="fas fa-check-circle"></span></font> More control to the reader, without duplicating code.<a class="fa fa-anchor" href="#-more-control-to-the-reader%2C-without-duplicating-code."></a></h4>
+    <p>A MarkBind website can be a <em>buffet</em> of content, as opposed to a <em>set menu</em>: a site can have optional contents that the reader can access at her discretion, and the same content can be organized in multiple ways so that the reader can
+      choose the one that fits the need. To <em>cater</em> (pun intended) for creating such buffet style websites, MarkBind has <strong><a href="/markbind/reusingContents.html">reuse mechanisms</a> for presenting the same content in multiple ways without duplicating the source file</strong>.</p>
+    <p>For example, MarkBind has a powerful <code>include</code> mechanism that allows content fragments (i.e., a file or part of a file) to be reused at multiple places in the website. In the example below, both the modal and the expandable panel reuses
+      the same content originating from a <em>single</em> source file.</p>
+    <box>
+      <p>In CS, a binary tree is a tree data structure in which each node has at most two children, which are referred to as the <em>left child</em> and the <em>right child</em>.
+        <trigger trigger="click" for="modal:index-primitive2">Primitive data types</trigger> on the other hand ...</p>
+      <panel type="seamless" header="%%<span class='fas fa-info-circle'></span> Some example primitive data types%%">
+        <div>
+          <ul>
+            <li>Boolean, true or false.</li>
+            <li>Character</li>
+            <li>Floating-point, single-precision real number values.</li>
+            <li>Double, a wider floating-point size.</li>
+            <li>Integer, integral or fixed-precision values.</li>
+            <li>String, a sequence of characters.</li>
+            <li>Reference (also called a pointer or handle), a small value referring to another object's address in memory, possibly a much larger one.</li>
+            <li>Enumerated type, a small set of uniquely named values.</li>
+          </ul>
+          <p><span class="dimmed"><sub>[source:wikipedia]</sub></span></p>
+        </div>
+      </panel>
+      <modal large="" title="Some examples of primitive data types" id="modal:index-primitive2">
+      
+        <div>
+          <ul>
+            <li>Boolean, true or false.</li>
+            <li>Character</li>
+            <li>Floating-point, single-precision real number values.</li>
+            <li>Double, a wider floating-point size.</li>
+            <li>Integer, integral or fixed-precision values.</li>
+            <li>String, a sequence of characters.</li>
+            <li>Reference (also called a pointer or handle), a small value referring to another object's address in memory, possibly a much larger one.</li>
+            <li>Enumerated type, a small set of uniquely named values.</li>
+          </ul>
+          <p><span class="dimmed"><sub>[source:wikipedia]</sub></span></p>
+        </div>
+      </modal>
+    </box>
+    <hr>
+    <h4 id="-easy-to-set-up%2C-modify%2C-deploy%2C-integrate.">
+      <font color="#00B0F0"> <span class="fas fa-check-circle"></span></font> Easy to set up, modify, deploy, integrate.<a class="fa fa-anchor" href="#-easy-to-set-up%2C-modify%2C-deploy%2C-integrate."></a></h4>
+    <p>Installing MarkBind takes just one command. Creating a new MarkBind site too takes just one command. With MarkBind's <em>live preview</em> feature, you can see how your site will look like as you modify the source file. <a href="/markbind/userGuide/deployingTheSite.html">Deploying the site to a server</a>      can be as simple as one command too.</p>
+    <p>As MarkBind is also optimized for project documentation, it can easily <a href="/markbind/userGuide/markBindInTheProjectWorkflow.html">integrate with the workflow of a software project</a>.</p>
+    <p>
+      <b-btn variant="primary" href="/markbind/userGuide/">Get Started</b-btn>
+    </p>
   </div>
 </div>
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.15.2</a> on Mon, 31 Dec 2018 15:27:41 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.16.0</a> on Sun, 06 Jan 2019 14:56:08 GMT]</small></div>
 </footer>
 </div>
 </body>

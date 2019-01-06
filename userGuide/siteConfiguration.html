@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MarkBind: User Guide - Site Configuration</title>
+    <title>MarkBind - Configuring the Site</title>
     <link rel="stylesheet" href="..\markbind\css\bootstrap.min.css">
     <link rel="stylesheet" href="..\markbind\css\bootstrap-vue.min.css">
     <link rel="stylesheet" href="..\markbind\css\font-awesome.min.css" >
@@ -21,39 +21,32 @@
 <div id="app">
     <div id="flex-body">
   <div id="site-nav">
+    <p><span class="indented lead"><strong>User Guide</strong></span></p>
     <ul style="list-style-type: none; margin-left:-1em">
-      <li style="margin-top: 10px">
-        <h2 id="user-guide">User Guide<a class="fa fa-anchor" href="#user-guide"></a></h2>
-      </li>
-      <li style="margin-top: 10px"><a href="/markbind/userGuide/userQuickStart.html">Quick Start</a></li>
-      <li style="margin-top:10px"><a href="/markbind/userGuide/developingASite.html">Developing a Site</a>
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/gettingStarted.html">Getting Started</a></li>
+      <li style="margin-top:10px"><a href="/markbind/userGuide/authoringContents.html">Authoring Contents</a>
         <ul style="list-style-type: none; margin-left:-1em">
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
-        </ul>
-      </li>
-      <li style="margin-top:10px"><a href="/markbind/userGuide/contentAuthoring.html">Content Authoring</a>
-        <ul style="list-style-type: none; margin-left:-1em">
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/includingContents.html">Including Contents</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/addingPages.html">Adding Pages</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntax.html">MarkBind Syntax</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/usingComponents.html">Using Components</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingVariables.html">Using Variables</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/pageLayout.html">Page Layout</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/knownProblems.html">Known Problems</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/tweakingThePageStructure.html">Tweaking the Page Structure</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/reusingContents.html">Reusing Contents</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/makingTheSiteSearchable.html">Making the Site Searchable</a></li>
         </ul>
       </li>
-      <li style="margin-top: 10px"><button class="dropdown-btn">Deploying a Site
- <i class="dropdown-btn-icon">
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/deployingTheSite.html">Deploying the Site</a></li>
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindInTheProjectWorkflow.html">MarkBind in the Project Workflow</a></li>
+      <li style="margin-top: 10px"><button class="dropdown-btn dropdown-btn-open">References 
+ <i class="dropdown-btn-icon rotate-icon">
 <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
-        <div class="dropdown-container">
+        <div class="dropdown-container dropdown-container-open">
           <ul style="list-style-type: none; margin-left:-1em">
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/ghpagesDeployment.html">Github Pages Deployment</a></li>
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/netlifyPreview.html">Preview site on Netlify</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/cliCommands.html">CLI Commands</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsTricksAndTroubleshooting.html">Tips, Tricks, & Troubleshooting</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/glossary.html">Glossary</a></li>
           </ul>
         </div>
-      </li>
-      <li style="margin-top:10px"><a href="/markbind/userGuide/components.html">Components Reference</a>
-        <ul style="list-style-type: none; margin-left:-1em">
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/components.html#advanced-tips-and-tricks">Advanced Tips and Tricks</a></li>
-        </ul>
       </li>
     </ul>
   </div>
@@ -70,30 +63,12 @@
         <link rel="stylesheet" href="/markbind/css/main.css">
         <navbar placement="top" type="inverse">
           <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
-          <dropdown text="User Guide" class="nav-link">
-            <li><a href="/markbind/userGuide/index.html" class="dropdown-item">Home</a></li>
-            <li><a href="/markbind/userGuide/userQuickStart.html" class="dropdown-item">Quick Start</a></li>
-            <li role="separator" class="dropdown-divider"></li>
-            <li><a href="/markbind/userGuide/developingASite.html" class="dropdown-item">Developing a Site</a>
-            </li>
-            <li><a href="/markbind/userGuide/siteConfiguration.html" class="dropdown-item">◦&nbsp; Site Configuration</a></li>
-            <li role="separator" class="dropdown-divider"></li>
-            <li><a href="/markbind/userGuide/contentAuthoring.html" class="dropdown-item">Content Authoring</a></li>
-            <li><a href="/markbind/userGuide/includingContents.html" class="dropdown-item">◦&nbsp; Including Contents</a></li>
-            <li><a href="/markbind/userGuide/usingComponents.html" class="dropdown-item">◦&nbsp; Using Components</a></li>
-            <li><a href="/markbind/userGuide/usingVariables.html" class="dropdown-item">◦&nbsp; Using Variables</a></li>
-            <li><a href="/markbind/userGuide/pageLayout.html" class="dropdown-item">◦&nbsp; Page Layout</a></li>
-            <li><a href="/markbind/userGuide/knownProblems.html" class="dropdown-item">◦&nbsp; Known Problems</a></li>
-            <li role="separator" class="dropdown-divider"></li>
-            <li class="dropdown-header">Deploying a Site</li>
-            <li><a href="/markbind/userGuide/ghpagesDeployment.html" class="dropdown-item">◦&nbsp; Github Pages Deployment</a></li>
-            <li><a href="/markbind/userGuide/netlifyPreview.html" class="dropdown-item">◦&nbsp; Preview site on Netlify</a></li>
-            <li role="separator" class="dropdown-divider"></li>
-            <li><a href="/markbind/userGuide/components.html" class="dropdown-item">Components Reference</a></li>
-          </dropdown>
+          <li><a href="/markbind/index.html" class="nav-link">HOME</a></li>
+          <li><a href="/markbind/userGuide/index.html" class="nav-link">DOCS</a></li>
+          <li><a href="/markbind/showcase.html" class="nav-link">SHOWCASE</a></li>
+          <li><a href="/markbind/about.html" class="nav-link">ABOUT</a></li>
           <li>
             <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">
-      Fork this project on Github
       <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewbox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
           <li slot="right">
             <form class="navbar-form">
@@ -103,78 +78,91 @@
         </navbar>
       </div>
       <div class="website-content">
-        <h1 id="site-configuration">Site Configuration<a class="fa fa-anchor" href="#site-configuration"></a></h1>
-        <p>You can configure your site generation using the <code>site.json</code> file.</p>
-        <p>Let's examine a typical <code>site.json</code> file:</p>
-        <div id="siteConfig">
-          <pre class="hljs"><code>{
-  &quot;baseUrl&quot;: &quot;&quot;,
-  &quot;faviconPath&quot;: &quot;favicon.png&quot;,
-  &quot;titlePrefix&quot;: &quot;&quot;,
-  &quot;pages&quot;: [
+        <h1 id="configuring-the-site">Configuring the Site<a class="fa fa-anchor" href="#configuring-the-site"></a></h1>
+        <span class="lead">
+<p>The <code>site.json</code> file <tooltip content="The directory that contains all the project files. It is also the directory in which the `site.json` configuration file is located.">root directory</tooltip> is used to configure various aspects of a MarkBind website.
+</p></span>
+        <p>Here is a typical <code>site.json</code> file:</p>
+        <pre><code class="hljs json">{
+  <span class="hljs-attr">"baseUrl"</span>: <span class="hljs-string">"/myproduct"</span>,
+  <span class="hljs-attr">"faviconPath"</span>: <span class="hljs-string">"myfavicon.png"</span>,
+  <span class="hljs-attr">"titlePrefix"</span>: <span class="hljs-string">"FooBar Dev Docs"</span>,
+  <span class="hljs-attr">"pages"</span>: [
     {
-      &quot;src&quot;: &quot;index.md&quot;,
-      &quot;title&quot;: &quot;Hello World&quot;,
-      &quot;searchable&quot;: &quot;no&quot;
+      <span class="hljs-attr">"src"</span>: <span class="hljs-string">"index.md"</span>,
+      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Hello World"</span>,
+      <span class="hljs-attr">"layout"</span>: <span class="hljs-string">"normal"</span>,
+      <span class="hljs-attr">"searchable"</span>: <span class="hljs-string">"no"</span>
     },
     {
-      &quot;glob&quot;: &quot;**/index.md&quot;
+      <span class="hljs-attr">"glob"</span>: <span class="hljs-string">"**/index.md"</span>
     }
   ],
-  &quot;ignore&quot;: [
-    &quot;_site/*&quot;,
-    &quot;*.json&quot;,
-    &quot;*.md&quot;
-  ],
-  &quot;deploy&quot;: {
-    &quot;message&quot;: &quot;Site Update.&quot;
+  <span class="hljs-attr">"deploy"</span>: {
+    <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Site Update."</span>,
+    <span class="hljs-attr">"repo"</span>: <span class="hljs-string">"https://github.com/myorg/myrepo.git"</span>,
+    <span class="hljs-attr">"branch"</span>: <span class="hljs-string">"gh-pages"</span>
   },
-  &quot;headingIndexingLevel&quot;: 4
+  <span class="hljs-attr">"ignore"</span>: [
+    <span class="hljs-string">"_site/*"</span>,
+    <span class="hljs-string">"*.json"</span>,
+    <span class="hljs-string">"*.md"</span>,
+    <span class="hljs-string">"*.mbd"</span>,
+    <span class="hljs-string">".git/*"</span>
+  ],
+  <span class="hljs-attr">"headingIndexingLevel"</span>: <span class="hljs-number">4</span>
 }
 </code></pre>
-          <div class="table-responsive">
-            <table class="markbind-table table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>Variable</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>baseUrl</strong></td>
-                  <td>The base url relative to your domain. Default: <code></code> (empty). For example, if you are using Github Pages to host your deployed website and it is published at <code>https://markbind.github.io/site-demo-cs2103</code>, then your
-                    <code>baseUrl</code> would be <code>/site-demo-cs2103</code>. You can use this variable for <a href="usingVariables.html#specifying-path-reference">specifying path reference</a> of images and links. <strong>You may need to change the <code>baseUrl</code> when deploying to a different repo.</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>faviconPath</strong></td>
-                  <td>The location of the favicon. Default: <code>favicon.ico</code>. If the favicon was recently changed, you may need to force-refresh to see the new image.</td>
-                </tr>
-                <tr>
-                  <td><strong>titlePrefix</strong></td>
-                  <td>The prefix for all page titles. The separator <code>-</code> will be inserted by MarkBind.</td>
-                </tr>
-                <tr>
-                  <td><strong>pages</strong></td>
-                  <td>An array of pages to be rendered. The <code>src</code> is the file; <code>title</code> is the page title for the generated web page. Titles specified here take priority over titles specified in the <a href="pageLayout.html#front-matter">front matter</a>                    of individual pages. Alternatively, <code>glob</code> can be used to define a file pattern. If <code>title</code> is not specified in the front matter, the page will have <code>titlePrefix</code> as its title. <code>&quot;searchable&quot;: &quot;no&quot;</code>                    can be used to specify pages to be excluded from searching. If you need to exclude pages covered in both page entry and glob entry, you need to specify <code>&quot;searchable&quot;: &quot;no&quot;</code> in page entry.</td>
-                </tr>
-                <tr>
-                  <td><strong>ignore</strong></td>
-                  <td>An array of file patterns to be ignored. By default, MarkBind will copy all the files as assets into the output folder. The ignore pattern follows the <a href="https://git-scm.com/docs/gitignore#_pattern_format">glob pattern used in .gitignore</a>.
-                    For example, <code>*.md</code> ignores all markdown source files. You may want to ignore the Git directory <code>.git/*</code>.</td>
-                </tr>
-                <tr>
-                  <td><strong>deploy</strong></td>
-                  <td>The settings for <a href="ghpagesDeployment.html">auto deployment to Github pages</a>. The <code>message</code> is the commit message used for the deployment commit.</td>
-                </tr>
-                <tr>
-                  <td><strong>headingIndexingLevel</strong></td>
-                  <td>The level of headings to be indexed for searching. Default: <code>3</code>.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <h4 id="baseurl"><strong><code>baseUrl</code></strong><a class="fa fa-anchor" href="#baseurl"></a></h4>
+        <p><strong>The base url relative to your domain.</strong> Default: <code>&quot;&quot;</code>(empty).</p>
+        <div>
+          <box type="warning">
+            <p>If you are deploying to the site to GitHub pages, the <code>baseUrl</code> setting in the <code>site.json</code> should be set to the <code>&quot;/&lt;repositoryName&gt;&quot;</code> for the links in the deployed site to work correctly.<br>
+              <big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> If you are using Github Pages to host your deployed website at repo <code>myorg/myproduct</code>              (i.e., the website is published at <code>https://myorg.github.io/myproduct</code>), then your <code>baseUrl</code> should be <code>&quot;/myproduct&quot;</code>.
+            </p>
+          </box>
         </div>
+        <h4 id="faviconpath"><strong><code>faviconPath</code></strong><a class="fa fa-anchor" href="#faviconpath"></a></h4>
+        <p><strong>The location of the favicon.</strong> Default: <code>favicon.ico</code>.</p>
+        <div class="indented">
+          <p><span class="dimmed"><span class="fas fa-info-circle"></span> If the favicon was recently changed, you may need to force-refresh the Browser to see the new image.</span>
+          </p>
+        </div>
+        <h4 id="titleprefix"><strong><code>titlePrefix</code></strong><a class="fa fa-anchor" href="#titleprefix"></a></h4>
+        <p><strong>The prefix for all page titles.</strong> The separator <code>-</code> will be inserted by MarkBind.</p>
+        <h4 id="pages"><strong><code>pages</code></strong><a class="fa fa-anchor" href="#pages"></a></h4>
+        <p><strong>An array of pages to be rendered.</strong></p>
+        <ul>
+          <li><strong><code>src</code></strong>/<strong><code>glob</code></strong>: <code>src</code> can be used to specify a file e.g., <code>docs/index.md</code>.<br> Alternatively, <code>glob</code> can be used to define a file pattern in the <a href="https://en.wikipedia.org/wiki/Glob_(programming)"><em>glob syntax</em></a>            e.g., <code>**/*.md</code>.</li>
+          <li><strong><code>title</code></strong>: The page <code>&lt;title&gt;</code> for the generated web page. Titles specified here take priority over titles specified in the <a href="addingPages.html#front-matter">front matter</a> of individual pages.</li>
+          <li><strong><code>layout</code></strong>: The <a href="/markbind/userGuide/advancedTopics.html#page-layout">layout</a> to be used by the page. Default: <code>default</code>.</li>
+          <li><strong><code>searchable</code></strong>: Specifies that the page(s) should be excluded from searching. Default: <code>yes</code>.</li>
+        </ul>
+        <span id="page-property-overriding">
+<box type="warning">
+<p>Note: Page properties that are defined in <code>site.json</code> for a particular page will override those defined in the front matter of the page.
+</p></box></span>
+        <h4 id="ignore"><strong><code>ignore</code></strong><a class="fa fa-anchor" href="#ignore"></a></h4>
+        <p><strong>An array of file patterns to be ignored when copying files to the generated site.</strong> By default, MarkBind will copy all the files as assets of the generated site.</p>
+        <p>The ignore pattern follows the <a href="https://git-scm.com/docs/gitignore#_pattern_format">glob pattern used in .gitignore</a>. For example, <code>*.md</code> ignores all markdown source files.</p>
+        <div id="site-json-deploy">
+          <h4 id="deploy"><strong><code>deploy</code></strong><a class="fa fa-anchor" href="#deploy"></a></h4>
+          <p><strong>The settings for <a href="/markbind/userGuide/deployingTheSite.html">auto-deployment to Github pages</a>.</strong></p>
+          <ul>
+            <li>
+              <p><strong><code>message</code></strong> [Optional. Default: <code>&quot;Site Update.&quot;</code>]<br> The commit message used for the deployment commit.</p>
+            </li>
+            <li>
+              <p><strong><code>repo</code></strong> [Optional. Default: the current working project's repo]<br> The repo you want to deploy to.<br> Format: <code>&quot;https://github.com/&lt;org|username&gt;/&lt;repo&gt;.git&quot;</code> (<code>&quot;git@github.com:&lt;org|username&gt;/&lt;repo&gt;.git&quot;</code>                if you use SSH)<br>
+                <big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> <code>&quot;https://github.com/myorg/myrepo.git&quot;</code></p>
+            </li>
+            <li>
+              <p><strong><code>branch</code></strong> [Optional. Default: <code>&quot;gh-pages&quot;</code>]<br> The branch that will be deployed to in the remote repo.</p>
+            </li>
+          </ul>
+        </div>
+        <h4 id="headingindexinglevel"><strong><code>headingIndexingLevel</code></strong><a class="fa fa-anchor" href="#headingindexinglevel"></a></h4>
+        <p><strong>The level of headings to be indexed for searching.</strong> Default: <code>3</code> <span class="dimmed">i.e., only headings of levels 1,2,3 will be indexed for searching</span>.</p>
       </div>
     </div>
   </div>
@@ -182,7 +170,7 @@
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.15.2</a> on Mon, 31 Dec 2018 15:27:41 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.16.0</a> on Sun, 06 Jan 2019 14:56:08 GMT]</small></div>
 </footer>
 </div>
 </body>

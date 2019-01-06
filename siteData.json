@@ -2,177 +2,246 @@
   "pages": [
     {
       "headings": {
-        "markbind": "MarkBind",
-        "generate-dynamic-websites-from-markdown-text.": "Generate dynamic websites from markdown text.",
-        "-features": " Features",
-        "%E2%9C%93-support-for-markdown-and-gfmd": "✓ Support for Markdown and\n          GFMD",
-        "%E2%9C%93-ability-to-add-additional-layers-of-information-as-tooltips%2C-pop-overs%2C-modals": "✓ Ability to add additional layers of information as Tooltips, pop-overs, modals",
-        "%E2%9C%93-ability-to-emphasize-or-de-emphasize-content-easily": "✓ Ability to emphasize or de-emphasize content easily",
-        "%E2%9C%93-ability-to-allow-readers-reveal-content-progressively": "✓ Ability to allow readers reveal content progressively",
-        "%E2%9C%93-ability-to-reuse-content-easily": "✓ Ability to reuse content easily",
-        "-examples": " Examples",
-        "-documentation": " Documentation",
-        "for-users": "For Users",
-        "for-developers": "For Developers",
-        "-about-us": " About us"
+        "about-us": "About Us"
       },
-      "footer": "userGuideFooter.md",
-      "siteNav": "userGuideSections.md",
-      "src": "index.md",
-      "title": "MarkBind: Generate Course Websites from Markdown Text",
+      "title": "About Us",
+      "footer": "footer.md",
+      "src": "about.md",
       "layout": "default"
     },
     {
       "headings": {
-        "markbind-user-guide": "MarkBind User Guide"
+        "examples-of-markbind-websites": "Examples of MarkBind Websites",
+        "course-websites": "Course Websites",
+        "online-books": "Online Books",
+        "product-websites": "Product Websites"
       },
-      "footer": "userGuideFooter.md",
+      "title": "Showcase",
+      "footer": "footer.md",
+      "src": "showcase.md",
+      "layout": "default"
+    },
+    {
+      "headings": {
+        "adding-pages": "Adding Pages"
+      },
+      "title": "User Guide: Adding Pages",
+      "footer": "footer.md",
+      "siteNav": "userGuideSections.md",
+      "src": "userGuide/addingPages.md",
+      "layout": "default"
+    },
+    {
+      "headings": {
+        "authoring-contents": "Authoring Contents"
+      },
+      "title": "User Guide: Authoring Contents",
+      "footer": "footer.md",
+      "siteNav": "userGuideSections.md",
+      "src": "userGuide/authoringContents.md",
+      "layout": "default"
+    },
+    {
+      "headings": {
+        "markbind-cli": "MarkBind CLI",
+        "overview": "Overview",
+        "build-command": "build Command",
+        "deploy-command": "deploy Command",
+        "init-command": "init Command",
+        "serve-command": "serve Command"
+      },
+      "title": "User Guide: Command Line Interface (CLI)",
+      "footer": "footer.md",
+      "siteNav": "userGuideSections.md",
+      "src": "userGuide/cliCommands.md",
+      "layout": "default"
+    },
+    {
+      "headings": {
+        "deploying-the-site": "Deploying the Site",
+        "deploying-to-github-pages": "Deploying to Github Pages",
+        "deploying-to-netlify": "Deploying to Netlify",
+        "setting-up-netlify-to-use-a-specific-version-of-markbind": "Setting up Netlify to use a specific version of MarkBind"
+      },
+      "title": "User Guide - Deploying the Site",
+      "footer": "footer.md",
+      "siteNav": "userGuideSections.md",
+      "src": "userGuide/deployingTheSite.md",
+      "layout": "default"
+    },
+    {
+      "headings": {
+        "getting-started": "Getting Started"
+      },
+      "title": "User Guide - Quick Start",
+      "footer": "footer.md",
+      "siteNav": "userGuideSections.md",
+      "src": "userGuide/gettingStarted.md",
+      "layout": "default"
+    },
+    {
+      "headings": {
+        "live-preview": "Live Preview",
+        ".mbd-extension": ".mbd extension",
+        "site-navigation-menu": "Site Navigation Menu"
+      },
+      "title": "Glossary",
+      "footer": "footer.md",
+      "siteNav": "userGuideSections.md",
+      "src": "userGuide/glossary.md",
+      "layout": "default"
+    },
+    {
+      "headings": {
+        "getting-started": "Getting Started"
+      },
+      "title": "User Guide - Quick Start",
+      "footer": "footer.md",
       "siteNav": "userGuideSections.md",
       "src": "userGuide/index.md",
-      "title": "MarkBind: User Guide",
       "layout": "default"
     },
     {
       "headings": {
-        "user-quick-start": "User Quick Start",
-        "requirement": "Requirement",
-        "installation": "Installation",
-        "using-markbind-to-author-a-website": "Using MarkBind to author a Website",
-        "create-a-new-site": "Create a new site",
-        "authoring-your-contents": "Authoring your contents",
-        "preview-your-site": "Preview your site",
-        "build-the-static-site": "Build the static site",
-        "deploy-the-generated-site": "Deploy the generated site"
+        "making-the-site-searchable": "Making the Site Searchable | regressions"
       },
-      "footer": "userGuideFooter.md",
+      "title": "User Guide: Making the Site Searchable",
+      "footer": "footer.md",
       "siteNav": "userGuideSections.md",
-      "src": "userGuide/userQuickStart.md",
-      "title": "MarkBind: User Guide - Quick Start",
+      "src": "userGuide/makingTheSiteSearchable.md",
       "layout": "default"
     },
     {
       "headings": {
-        "developing-a-site-with-markbind": "Developing a Site with MarkBind",
-        "init-a-site-with-markbind": "Init a site with MarkBind",
-        "preview-and-serve-your-site-using%3A": "Preview and serve your site using:",
-        "build-the-static-site": "Build the static site",
-        "deploy-the-generated-site": "Deploy the generated site",
-        "site.json": "site.json"
+        "markbind-in-the-project-workflow": "MarkBind in the Project Workflow",
+        "authoring-workflow": "Authoring Workflow",
+        "github-pr-workflow": "GitHub PR Workflow",
+        "using-markbind-for-project-documentation": "Using MarkBind for Project Documentation"
       },
-      "footer": "userGuideFooter.md",
+      "title": "User Guide: Using MarkBind in the Project Workflow",
+      "footer": "footer.md",
       "siteNav": "userGuideSections.md",
-      "src": "userGuide/developingASite.md",
-      "title": "MarkBind: User Guide - Developing a Site",
+      "src": "userGuide/markBindInTheProjectWorkflow.md",
       "layout": "default"
     },
     {
       "headings": {
-        "site-configuration": "Site Configuration"
+        "markbind-syntax": "MarkBind Syntax",
+        "support-for-markdown": "Support for Markdown",
+        "headings%3A": "Headings:",
+        "heading-level-1": "Heading level 1",
+        "heading-level-6": "Heading level 6",
+        "text-formatting%3A": "Text Formatting:",
+        "blockquotes": "Blockquotes",
+        "lists": "Lists",
+        "images": "Images",
+        "links": "Links",
+        "support-for-gfmd": "Support for GFMD",
+        "fenced-code-blocks-%2F-syntax-highlighting": "Fenced code blocks / syntax highlighting",
+        "task-lists": "Task Lists",
+        "tables": "Tables",
+        "strikethrough": "Strikethrough",
+        "emoji": "Emoji",
+        "markbind-extensions-to-markdown": "MarkBind Extensions to Markdown",
+        "extra-text-formatting-features": "Extra Text Formatting Features",
+        "media-embeds": "Media Embeds",
+        "embedding-youtube-videos": "Embedding Youtube Videos",
+        "embedding-powerpoint-slides-(using-the-embed-url-from-powerpoint-online)": "Embedding Powerpoint Slides (using the embed url from Powerpoint online)",
+        "markbind-custom-syntax": "MarkBind Custom Syntax",
+        "intra-site-links": "Intra-Site Links",
+        "icons-fonts": "Icons Fonts",
+        "using-font-awesome-icons": "Using Font Awesome Icons",
+        "using-glyphicons": "Using Glyphicons",
+        "variables": "Variables",
+        "the-%3Cinclude%3E-tag": "The &lt;include&gt; Tag",
+        "markbind-components": "MarkBind Components",
+        "support-for-html%2C-javascript%2C-css": "Support for HTML, JavaScript, CSS",
+        "apples-bananas-cherries": "Apples Bananas Cherries",
+        "support-for-vuestrap-and-bootstrap": "Support for VueStrap and BootStrap",
+        "support-for-nunjucks": "Support for Nunjucks"
       },
-      "footer": "userGuideFooter.md",
+      "title": "User Guide: Basic Syntax",
+      "footer": "footer.md",
       "siteNav": "userGuideSections.md",
+      "src": "userGuide/markBindSyntax.md",
+      "layout": "default"
+    },
+    {
+      "headings": {
+        "reusing-contents": "Reusing Contents",
+        "using-variables": "Using Variables",
+        "built-in-variable%3A-baseurl": "Built-in Variable: baseUrl",
+        "built-in-variable%3A-timestamp": "Built-in Variable: timestamp",
+        "built-in-variable%3A-markbind": "Built-in Variable: MarkBind",
+        "built-in-variables%3A-icon-fonts": "Built-in Variables: Icon Fonts",
+        "variables%3A-tips-and-tricks": "Variables: Tips and Tricks",
+        "the-include-tag": "The include tag",
+        "%3Cinclude%3E-inside-an-included-file": "&lt;include&gt; Inside an Included File",
+        "using-boilerplate-files": "Using Boilerplate Files",
+        "reusing-contents-across-sites": "Reusing Contents Across Sites",
+        "creating-content-variations": "Creating Content Variations",
+        "allowing-users-to-remove-some-contents": "Allowing users to remove some contents",
+        "giving-alternative-contents": "Giving alternative contents",
+        "giving-access-to-additional-contents": "Giving access to additional contents",
+        "organizing-contents-in-alternative-ways": "Organizing contents in alternative ways",
+        "optimizing-the-print-view": "Optimizing the Print View | hide minimized panels in the print view",
+        "hiding-some-info-in-the-generated-content": "Hiding some info in the generated content"
+      },
+      "title": "User Guide: Reusing Contents",
+      "footer": "footer.md",
+      "siteNav": "userGuideSections.md",
+      "src": "userGuide/reusingContents.md",
+      "layout": "default"
+    },
+    {
+      "headings": {
+        "configuring-the-site": "Configuring the Site",
+        "baseurl": "baseUrl",
+        "faviconpath": "faviconPath",
+        "titleprefix": "titlePrefix",
+        "pages": "pages",
+        "ignore": "ignore",
+        "deploy": "deploy",
+        "headingindexinglevel": "headingIndexingLevel"
+      },
+      "title": "Configuring the Site",
+      "footer": "footer.md",
+      "siteNav": "userGuideSections.md",
+      "keywords": "site.json",
       "src": "userGuide/siteConfiguration.md",
-      "title": "MarkBind: User Guide - Site Configuration",
       "layout": "default"
     },
     {
       "headings": {
-        "content-authoring": "Content Authoring",
-        "supported-markdown-syntax": "Supported Markdown Syntax",
-        "include-contents": "Include Contents"
+        "troubleshooting": "Troubleshooting",
+        "problem%3A-unwanted-starting-space-in-links-and-triggers": "Problem: Unwanted starting space in links and triggers"
       },
-      "footer": "userGuideFooter.md",
+      "title": "User Guide: Troubleshooting",
+      "footer": "footer.md",
       "siteNav": "userGuideSections.md",
-      "src": "userGuide/contentAuthoring.md",
-      "title": "MarkBind: User Guide - Content Authoring",
+      "src": "userGuide/tipsTricksAndTroubleshooting.md",
       "layout": "default"
     },
     {
       "headings": {
-        "including-contents": "Including contents",
-        "use-%3Cinclude%3E-tag-to-include-another-markdown-or-html-document-into-current-context.": "Use &lt;include&gt; tag to include another markdown or HTML document into current context.",
-        "wrap-elements-inside-a-%3Cdiv%3E-or-%3Cseg%3E-tag-with-an-unique-id-if-you-wish-to-create-a-reusable-content-fragment-inside-a-file-(that-could-be-included-from-other-file).": "Wrap elements inside a &lt;div&gt; or &lt;seg&gt; tag with an unique id if you wish to create a reusable content fragment inside a file (that could be included from other file).",
-        "direct-reference-to-a-markbind-driven-project-without-changing-the-relative-path-is-supported.": "Direct reference to a MarkBind-driven project without changing the relative path is supported.",
-        "handling-repetitive-boilerplate-files": "Handling repetitive boilerplate files"
+        "tweaking-the-page-structure": "Tweaking the Page Structure",
+        "setting-page-properties-using-front-matter": "Setting Page Properties Using Front Matter",
+        "tweaking-the-page-%3Chead%3E": "Tweaking the Page &lt;head&gt;",
+        "using-footers": "Using Footers",
+        "site-navigation-menus": "Site Navigation Menus",
+        "page-layouts": "Page Layouts"
       },
-      "footer": "userGuideFooter.md",
+      "title": "User Guide: Tweaking the Page Structure",
+      "footer": "footer.md",
       "siteNav": "userGuideSections.md",
-      "src": "userGuide/includingContents.md",
-      "title": "MarkBind: User Guide - Including Contents",
+      "src": "userGuide/tweakingThePageStructure.md",
       "layout": "default"
     },
     {
       "headings": {
         "using-components": "Using Components",
-        "question-body-syntax": "Question body syntax",
-        "site-navigation": "Site Navigation",
-        "use-searchbar": "Use Searchbar",
-        "keywords": "Keywords"
-      },
-      "footer": "userGuideFooter.md",
-      "siteNav": "userGuideSections.md",
-      "src": "userGuide/usingComponents.md",
-      "title": "MarkBind: User Guide - Using Components",
-      "layout": "default"
-    },
-    {
-      "headings": {
-        "using-variables": "Using Variables",
-        "specifying-path-reference": "Specifying Path Reference",
-        "font-awesome-icons": "Font Awesome icons",
-        "glyphicons": "Glyphicons",
-        "timestamp": "Timestamp",
-        "markbind-link": "MarkBind Link",
-        "add-your-own-variables": "Add your own variables"
-      },
-      "footer": "userGuideFooter.md",
-      "siteNav": "userGuideSections.md",
-      "src": "userGuide/usingVariables.md",
-      "title": "MarkBind: User Guide - Using Variables",
-      "layout": "default"
-    },
-    {
-      "headings": {
-        "page-layout": "Page Layout",
-        "front-matter": "Front Matter",
-        "inserting-content-into-a-page's-head-element": "Inserting content into a page's head element",
-        "using-footers": "Using Footers",
-        "specifying-footer-file-in-front-matter": "Specifying footer file in Front Matter",
-        "defining-your-own-inline-footer": "Defining your own inline footer",
-        "layouts": "Layouts"
-      },
-      "footer": "userGuideFooter.md",
-      "siteNav": "userGuideSections.md",
-      "src": "userGuide/pageLayout.md",
-      "title": "MarkBind: User Guide - Page Layout",
-      "layout": "default"
-    },
-    {
-      "headings": {
-        "known-problems": "Known problems",
-        "unwanted-starting-space-in-links-and-triggers": "Unwanted starting space in links and triggers"
-      },
-      "footer": "userGuideFooter.md",
-      "siteNav": "userGuideSections.md",
-      "src": "userGuide/knownProblems.md",
-      "title": "MarkBind: User Guide - Known Problems",
-      "layout": "default"
-    },
-    {
-      "headings": {
-        "light-type-panel-(default)": "light type panel (DEFAULT)",
-        "dark-type-panel": "dark type panel",
-        "primary-type-panel": "primary type panel",
-        "secondary-type-panel": "secondary type panel",
-        "info-type-panel": "info type panel",
-        "danger-type-panel": "danger type panel",
-        "warning-type-panel": "warning type panel",
-        "success-type-panel": "success type panel",
-        "seamless-type-panel": "seamless type panel",
-        "components-reference": "Components Reference",
         "dropdown": "Dropdown",
         "dropdown-options": "Dropdown Options",
-        "bootstrap-buttons": "Bootstrap Buttons",
         "navbar": "Navbar",
         "navbar-options": "Navbar Options",
         "panel": "Panel",
@@ -180,62 +249,32 @@
         "pic": "Pic",
         "pic-options": "Pic Options",
         "popover": "Popover",
-        "undefined": "Free Text",
+        "undefined": "Wrap Text",
         "popover-options": "Popover Options",
         "question": "Question",
         "question-options": "Question Options",
-        "searchbar": "Searchbar",
+        "search-bar": "Search Bar",
         "searchbar-options": "Searchbar Options",
         "tabs": "Tabs",
         "tabs-options-(container)": "Tabs Options (container)",
         "tab-options-(element)": "Tab Options (element)",
         "tab-group-options-(dropdown)": "Tab Group Options (dropdown)",
-        "tipbox": "TipBox",
+        "box": "Box",
         "tipbox-options": "TipBox Options",
         "tooltip": "Tooltip",
         "tooltip-options": "Tooltip Options",
         "trigger": "Trigger",
-        "using-trigger-for-tooltip": "Using trigger for Tooltip",
-        "using-trigger-for-popover": "Using trigger for Popover",
-        "using-trigger-for-modal": "Using trigger for Modal",
-        "trigger's-trigger-attribute-(which-defaults-to-hover)-is-independent-of-the-target's.": "Trigger's trigger attribute (which defaults to hover) is independent of the target's.",
         "trigger-options": "Trigger Options",
         "modal": "Modal",
         "modal-options": "Modal Options",
         "advanced-tips-and-tricks": "Advanced Tips and Tricks",
-        "rich-formatted-text-in-headings-and-titles": "Rich formatted text in headings and titles",
-        "panel-slot-options": "Panel Slot Options",
-        "modal-slot-options": "Modal Slot Options",
-        "insert-custom-classes-into-components": "Insert custom classes into components"
+        "rich-formatting-in-headings%2Ftitles": "Rich formatting in headings/titles",
+        "inserting-custom-classes-into-components": "Inserting custom classes into components"
       },
-      "footer": "userGuideFooter.md",
+      "title": "Using Components",
+      "footer": "footer.md",
       "siteNav": "userGuideSections.md",
-      "src": "userGuide/components.md",
-      "title": "MarkBind: User Guide - Components",
-      "layout": "default"
-    },
-    {
-      "headings": {
-        "github-pages-deployment": "Github Pages Deployment",
-        "deploy-to-github-pages-at-gh-pages-branch-of-the-current-repo": "Deploy to Github pages at gh-pages branch of the current repo",
-        "deployment-config-in-site.json": "Deployment config in site.json"
-      },
-      "footer": "userGuideFooter.md",
-      "siteNav": "userGuideSections.md",
-      "src": "userGuide/ghpagesDeployment.md",
-      "title": "MarkBind: User Guide - Github Pages Deployment",
-      "layout": "default"
-    },
-    {
-      "headings": {
-        "previewing-with-netlify": "Previewing with Netlify",
-        "previewing-site-on-netlify-with-the-latest-version-of-markbind": "Previewing site on Netlify with the latest version of MarkBind",
-        "previewing-site-on-netlify-with-a-specific-version-of-markbind": "Previewing site on Netlify with a specific version of MarkBind"
-      },
-      "footer": "userGuideFooter.md",
-      "siteNav": "userGuideSections.md",
-      "src": "userGuide/netlifyPreview.md",
-      "title": "MarkBind: User Guide - Preview site on Netlify",
+      "src": "userGuide/usingComponents.md",
       "layout": "default"
     }
   ]
