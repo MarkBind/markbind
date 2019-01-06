@@ -27,7 +27,7 @@ Here is a typical `site.json` file:
     {
       "src": "index.md",
       "title": "Hello World",
-      "layout": "normal"
+      "layout": "normal",
       "searchable": "no"
     },
     {
@@ -70,7 +70,7 @@ Here is a typical `site.json` file:
 
 #### **`titlePrefix`**
 
-The prefix for all page titles. The separator <code>-</code> will be inserted by MarkBind. |
+**The prefix for all page titles.** The separator <code>-</code> will be inserted by MarkBind.
 
 
 #### **`pages`**
@@ -80,8 +80,8 @@ The prefix for all page titles. The separator <code>-</code> will be inserted by
 * **`src`**/**`glob`**: `src` can be used to specify a file e.g., `docs/index.md`.<br>
     Alternatively, `glob` can be used to define a file pattern in the [_glob syntax_](https://en.wikipedia.org/wiki/Glob_(programming)) e.g., `**/*.md`.
 * **`title`**: The page `<title>` for the generated web page. Titles specified here take priority over titles specified in the [front matter](addingPages.html#front-matter) of individual pages.
-* `layout`: The [layout]({{ baseUrl }}/userGuide/advancedTopics.html#page-layout) to be used by the page.
-* `"searchable": "no"`: Specifies that the page(s) should be excluded from searching.
+* **`layout`**: The [layout]({{ baseUrl }}/userGuide/advancedTopics.html#page-layout) to be used by the page. Default: `default`.
+* **`searchable`**: Specifies that the page(s) should be excluded from searching. Default: `yes`.
 
 <span id="page-property-overriding">
 <box type="warning">

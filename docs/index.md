@@ -13,7 +13,7 @@
 
 <big>**Generate dynamic websites from Markdown text.**</big>
 
-MarkBind can use Markdown documents to generate a <tooltip content="as opposed to _one-size-fits-all_ static content">_more dynamic_</tooltip> websites that facilitates _<tooltip content="i.e., the reader can chart their own path through the content and consume more/less content as desired">self-directed consumption</tooltip>_. MarkBind is ideal for creating content-heavy instructional websites %%e.g., eLearning websites, online instruction manuals, project documentation etc.%%.
+MarkBind can use Markdown documents to generate <tooltip content="as opposed to _one-size-fits-all_ static content">_more dynamic_</tooltip> websites that facilitates _<tooltip content="i.e., the reader can chart their own path through the content and consume more/less content as desired">self-directed consumption</tooltip>_. MarkBind is ideal for creating content-heavy instructional websites <br> %%e.g., eLearning websites, online instruction manuals, project documentation etc.%%.
 </span>
 
 <b-btn variant="primary" href="{{ baseUrl }}/userGuide/">Get Started</b-btn>
@@ -22,7 +22,7 @@ MarkBind can use Markdown documents to generate a <tooltip content="as opposed t
 
 #### {{ icon_check_blue }} Simple syntax. Dynamic content.
 
-MarkBind source code can be as simple as basic Markdown but you can also [**use a mix of several popular syntax schemes**]({{ baseUrl }}/userGuide/markBindSyntax.html) (<tooltip content="GitHub Flavored Markdown">GFMD</tooltip>, BootStrap, NunJucks, etc. as well as MarkBind's own custom syntax) to create more dynamic content that you cannot normally get from a typical markdown-to-html site generator.
+MarkBind source files can be as simple as basic Markdown, but you can also [**use a mix of several popular syntax schemes**]({{ baseUrl }}/userGuide/markBindSyntax.html) (<tooltip content="GitHub Flavored Markdown">GFMD</tooltip>, BootStrap, NunJucks, etc. as well as MarkBind's own custom syntax) to create more dynamic content that you cannot normally get from a typical markdown-to-html site generator.
 
 Here are some simple text-formatting examples:
 
@@ -66,7 +66,7 @@ An example that uses GFMD synatx for task lists:
 </panel>
 <p/>
 
-The example paragraph below has the dynamic elements a tooltip, a popover, and a modal. Hover/click on the underlined words to see each.
+The example paragraph below has the following dynamic elements: a tooltip, a popover, and a modal. Hover/click on the underlined words to see each.
 
 <box>
 
@@ -88,7 +88,7 @@ In <tooltip content="Computer Science">CS</tooltip>, a binary tree is a <trigger
 </box>
 
 <panel type="seamless" header="%%More examples of generating dynamic content%%">
-In the example below, there is a expandable panel that can reveal more content.
+In the example below, there is an expandable panel that can reveal more content.
 
 <box>
 
@@ -143,9 +143,9 @@ Here are some examples:
 
 #### {{ icon_check_blue }} More control to the reader, without duplicating code.
 
-A MarkBind website can be _buffet_ of content, as opposed to a _set menu_: a site can have optional contents that the reader can access at her discretion, and the same content can be organized in multiple ways so that the reader can choose the one that fits the need. To _cater_ (pun intended) for creating such buffet style websites, MarkBind has **[reuse mechanisms]({{ baseUrl }}/reusingContents.html) for presenting the same content in multiple ways without duplicating the source code**.
+A MarkBind website can be a _buffet_ of content, as opposed to a _set menu_: a site can have optional contents that the reader can access at her discretion, and the same content can be organized in multiple ways so that the reader can choose the one that fits the need. To _cater_ (pun intended) for creating such buffet style websites, MarkBind has **[reuse mechanisms]({{ baseUrl }}/reusingContents.html) for presenting the same content in multiple ways without duplicating the source file**.
 
-For example, MarkBind has a powerful `include` mechanism that allows content fragments (i.e., a file or part of a file) to be reused at multiple places in the website. In the example below, both the modal and the expandable panel reuses the same content.
+For example, MarkBind has a powerful `include` mechanism that allows content fragments (i.e., a file or part of a file) to be reused at multiple places in the website. In the example below, both the modal and the expandable panel reuses the same content originating from a _single_ source file.
 
 <box>
 
@@ -165,7 +165,7 @@ In CS, a binary tree is a tree data structure in which each node has at most two
 
 #### {{ icon_check_blue }} Easy to set up, modify, deploy, integrate.
 
-Installing MarkBind takes just one command. Creating a new MarkBind site too takes just one command. With MarkBind's _live preview_ feature, you can see how your site will look like as you modify the source code. [Deploying the site to a server]({{ baseUrl }}/userGuide/deployingTheSite.html) can be as simple as one command too.
+Installing MarkBind takes just one command. Creating a new MarkBind site too takes just one command. With MarkBind's _live preview_ feature, you can see how your site will look like as you modify the source file. [Deploying the site to a server]({{ baseUrl }}/userGuide/deployingTheSite.html) can be as simple as one command too.
 
 As MarkBind is also optimized for project documentation, it can easily [integrate with the workflow of a software project]({{ baseUrl }}/userGuide/markBindInTheProjectWorkflow.html).
 

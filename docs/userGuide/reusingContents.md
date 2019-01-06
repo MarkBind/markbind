@@ -12,7 +12,7 @@
 
 <span class="lead" id="overview">
 
-**MarkBind is highly-optimized for content reuse**. It offers several mechanisms to provide readers with many variations of the content while minimizing duplication at source code level. As a result, instead of creating a one-size-fits-all site, MarkBind can create a site in which readers can chart their own path of reading.
+**MarkBind is highly-optimized for content reuse**. It offers several mechanisms to provide readers with many variations of the content while minimizing duplication at source file level. As a result, instead of creating a one-size-fits-all site, MarkBind can create a site in which readers can chart their own path of reading.
 </span>
 
 ## Using Variables
@@ -64,7 +64,7 @@ To include a variable value in your code, give the variable id enclosed in doubl
 Represents the root directory of the project. Used for specifying intra-site links.
 
 <panel type="seamless" header="User Guide: MarkBind Syntax → Intra-Site Links">
-  <include src="markbindSyntax.md#intra-site-links" />
+  <include src="markbindSyntax.md#intraSiteLinks" />
 </panel>
 
 
@@ -246,11 +246,11 @@ The `review.md`:
 
 ```markdown
 # My Review
-<include src="../book-files/book.md" />
+<include src="../bookFiles/book.md" />
 ...
 ```
 
-The content of the `chapter1.md` and `chapter2.md` will be included in the `review.md` (via `<include src="../book-files/book.md" />`) although `chapter1.md` and `chapter2.md` are not in `reviewFiles` directory. i.e., `<include src="chapter1.md" />` will be interpreted as `<include src="c:/mySite/bookFiles/chapter1.md" />`
+The content of the `chapter1.md` and `chapter2.md` will be included in the `review.md` (via `<include src="../bookFiles/book.md" />`) although `chapter1.md` and `chapter2.md` are not in `reviewFiles` directory. i.e., `<include src="chapter1.md" />` will be interpreted as `<include src="c:/mySite/bookFiles/chapter1.md" />`
 </div>
 
 In other words, **`<include>` interprets the reused code relative to the original location of the file, not the location in which it is reused.**

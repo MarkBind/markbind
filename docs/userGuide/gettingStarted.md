@@ -14,7 +14,7 @@
 
 <div class="indented">
 
-  %%{{ icon_ticked }}%% a basic knowledge of Markdown and HTML syntax<br>
+  %%{{ icon_ticked }}%% a basic knowledge of [Markdown](https://www.markdownguide.org/basic-syntax/) and [HTML](https://www.w3schools.com/html/) syntax<br>
   %%{{ icon_ticked }}%% a basic knowledge of running CLI commands<br>
   %%{{ icon_ticked }}%% a recent version of [npm](https://www.npmjs.com/get-npm) installed
 </div>
@@ -67,7 +67,7 @@ Navigate to the project {{ tooltip_root_directory }}.
 
 <big>**3. Preview the site**</big>
 
-Run the following command in the same directly. It will generate a website from your source files, start a web server, and open a <trigger trigger="click" for="modal:quickStart-livePreview">live preview</trigger> of your site in your default Browser.
+Run the following command in the same directory. It will generate a website from your source files, start a web server, and open a <trigger trigger="click" for="modal:quickStart-livePreview">live preview</trigger> of your site in your default Browser.
 
 <modal large title="Live Preview" id="modal:quickStart-livePreview">
 <include src="glossary.md#live-preview" inline/>
@@ -84,7 +84,7 @@ To stop the web server, go to the console running the `serve` command and press 
 
 <big>**4. Next steps**</big>
 
-1. **Update the content of your site**. More info can be found in the [_User Guide → Authoring Contents_]({{ baseUrl }}/userGuide/authoringContents.html) section
+1. **Update the content of your site**. More info can be found in the [_User Guide: Authoring Contents_]({{ baseUrl }}/userGuide/authoringContents.html) section
 1. **Deploy your site**. More info can be found in the [_User Guide: Deploying the Site_]({{ baseUrl }}/userGuide/deployingTheSite.html) section.
 
 </div>

@@ -99,31 +99,31 @@
 <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
 
 ```html
-<panel header="###### light type panel (DEFAULT)" type="light" minimized>
+<panel header="**light type panel (DEFAULT)**" type="light" minimized>
   ...
 </panel>
-<panel header="###### dark type panel" type="dark" minimized>
+<panel header="**dark type panel**" type="dark" minimized>
   ...
 </panel>
-<panel header="###### primary type panel" type="primary" minimized>
+<panel header="**primary type panel**" type="primary" minimized>
   ...
 </panel>
-<panel header="###### secondary type panel" type="secondary" minimized>
+<panel header="**secondary type panel**" type="secondary" minimized>
   ...
 </panel>
-<panel header="###### info type panel" type="info" minimized>
+<panel header="**info type panel**" type="info" minimized>
   ...
 </panel>
-<panel header="###### danger type panel" type="danger" minimized>
+<panel header="**danger type panel**" type="danger" minimized>
   ...
 </panel>
-<panel header="###### warning type panel" type="warning" minimized>
+<panel header="**warning type panel**" type="warning" minimized>
   ...
 </panel>
-<panel header="###### success type panel" type="success" minimized>
+<panel header="**success type panel**" type="success" minimized>
   ...
 </panel>
-<panel header="###### seamless type panel" type="seamless" minimized>
+<panel header="**seamless type panel**" type="seamless" minimized>
   ...
 </panel>
 ```

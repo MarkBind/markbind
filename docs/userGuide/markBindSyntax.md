@@ -13,7 +13,7 @@
 
 <span class="lead" id="overview">
 
-**A MarkBind source file may contain a mix of several popular syntax schemes** used in creating web pages. MarkBind source code can be as simple as basic Markdown, and you can use progressively more complicated syntax to create progressively more sophisticated Web pages while optimizing other aspects such as content reuse.
+**A MarkBind source file may contain a mix of several popular syntax schemes** used in creating web pages. MarkBind source file can be as simple as basic Markdown, and you can use progressively more complicated syntax to create progressively more sophisticated Web pages while optimizing other aspects such as content reuse.
 </span>
 
 Here are the syntax schemes supported, each of which are explained in the sections below:
@@ -28,7 +28,7 @@ Here are the syntax schemes supported, each of which are explained in the sectio
 
 ## Support for Markdown
 
-**MarkBind supports all basic Markdown syntax.** A summary is given below. Refer [markdownguide.org](https://www.markdownguide.org/) for more details.
+**MarkBind supports all basic Markdown syntax.** A summary is given below. Refer to [markdownguide.org](https://www.markdownguide.org/) for more details.
 
 ##### Headings:
 ```markdown
@@ -133,7 +133,7 @@ Go to the [MarkBind Website](https://markbind.github.io/markbind/)
 
 ## Support for GFMD
 
-**MarkBind supports additional Markdown features provided by Github-Flavored Markdown (GFMD).** A summary is given below. Refer [Github's GFMD documentation](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown) for more details.
+**MarkBind supports additional Markdown features provided by Github-Flavored Markdown (GFMD).** A summary is given below. Refer to [Github's GFMD documentation](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown) for more details.
 
 
 ##### Fenced code blocks / syntax highlighting
@@ -308,7 +308,7 @@ More media blocks, embedding services and additional options can be found in [Ma
 
 #### Intra-Site Links
 
-<div id="intra-site-links">
+<div id="intraSiteLinks">
 
 Links to files of the generated site (e.g., an HTML page or an image file) should be specified as absolute paths and should start with {{ showBaseUrl }} (which represents the root directory of the project).
 
@@ -326,7 +326,7 @@ Links to files of the generated site (e.g., an HTML page or an image file) shoul
 
 #### Icons Fonts
 
-<small>%%Acknowledgement: Font Awesome icons are provided by [Font Awesome](https://fontawesome.com/) under their [free license](https://fontawesome.com/license) while Glyphicons are provided by [Glyphicons](https://glyphicons.com/) via Bootstrap 3.%%</small>
+<small>%%Acknowledgement: Font Awesome icons are provided by [Font Awesome](https://fontawesome.com/) under their [free license](https://fontawesome.com/license) while Glyphicons are provided by [Glyphicons](https://glyphicons.com/) via [Bootstrap 3](https://getbootstrap.com/docs/3.3/).%%</small>
 
 MarkBind supports using Font Icons provided by Font Awesome and Glyphicons.
 
@@ -453,7 +453,7 @@ As MarkBind uses [VueStrap](https://bootstrap-vue.js.org/docs/components/alert/)
 
 ## Support for Nunjucks
 
-[Nunjucks](https://mozilla.github.io/nunjucks/) is a JavaScrip based templating tool. Here is a simple example:
+[Nunjucks](https://mozilla.github.io/nunjucks/) is a JavaScript based templating tool. Here is a simple example:
 
 <box><span>
 `<ul>`<br>
