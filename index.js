@@ -38,7 +38,7 @@ program
 program
   .command('build [root] [output]')
   .option('--baseUrl [baseUrl]',
-          'optional flag which overrides baseUrl in site.json, leave argument empty for empty baseUrl')
+          'override the baseUrl property (read from the site.json) with the given base value')
   .description('build a website')
   .action((root, output, options) => {
     // if --baseUrl contains no arguments (options.baseUrl === true) then set baseUrl to empty string
@@ -90,7 +90,7 @@ program
 
 program
   .command('serve [root]')
-  .description('build then serve a website from a directory, and open a live preview of the website')
+  .description('build then serve a website from a directory')
   .option('-f, --force-reload', 'force a full reload of all site files when a file is changed')
   .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
