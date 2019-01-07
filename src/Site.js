@@ -454,7 +454,7 @@ Site.prototype.generate = function (baseUrl) {
       .then(() => this.buildSourceFiles())
       .then(() => this.copyMarkBindAsset())
       .then(() => this.copyLayouts())
-      .then(() => this.writeSiteData())
+      .then(() => this.generateSiteData())
       .then(() => {
         const endTime = new Date();
         const totalBuildTime = (endTime - startTime) / 1000;
@@ -622,12 +622,6 @@ Site.prototype.generatePages = function () {
   });
   return new Promise((resolve, reject) => {
     Promise.all(processingFiles)
-      .then(() => {
-        this.pages.forEach((page) => {
-          page.collectHeadingsAndKeywords();
-          page.concatenateHeadingsAndKeywords();
-        });
-      })
       .then(resolve)
       .catch(reject);
   });
