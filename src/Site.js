@@ -662,11 +662,25 @@ Site.prototype.regenerateAffectedPages = function (filePaths) {
 
   return new Promise((resolve, reject) => {
     Promise.all(processingFiles)
+      .then(() => this.generateSiteData())
       .then(() => logger.info('Pages rebuilt'))
-      .then(() => this.writeSiteData())
       .then(resolve)
       .catch(reject);
   });
+};
+
+
+/**
+ * Uses heading data in built pages to generate heading and keyword information for siteData
+ * Subsequently writes to siteData.json
+ */
+Site.prototype.generateSiteData = function () {
+  this.pages.forEach((page) => {
+    page.headings = {} // clear any heading data from previous build
+    page.collectHeadingsAndKeywords();
+    page.concatenateHeadingsAndKeywords();
+  });
+  this.writeSiteData();
 };
 
 Site.prototype.copyMarkBindAsset = function () {
