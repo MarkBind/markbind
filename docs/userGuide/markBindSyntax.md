@@ -248,6 +248,19 @@ MarkBind adds several Markdown-like features on top of GFMD.
 - (X) Option 2 (selected)
 </div>
 
+#### Inline code / syntax highlighting
+
+<div class="indented">
+
+{{ icon_example }} You can syntax highlight inline code by using `{.language}`:
+```markdown
+Consider the Java method signature: `public static void main(String[] args)`{.java}.
+```
+{{ icon_arrow_down }}
+
+Consider the Java method signature: `public static void main(String[] args)`{.java}.
+</div>
+
 #### Media Embeds
 
 **There are easy ways to embed media content such as YouTube videos and PowerPoint slides**.
