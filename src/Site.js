@@ -670,7 +670,6 @@ Site.prototype.regenerateAffectedPages = function (filePaths) {
  */
 Site.prototype.generateSiteData = function () {
   this.pages.forEach((page) => {
-    page.headings = {} // clear any heading data from previous build
     page.collectHeadingsAndKeywords();
     page.concatenateHeadingsAndKeywords();
   });

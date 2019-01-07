@@ -230,6 +230,7 @@ function getClosestHeading($, headingsSelector, element) {
  * Records headings and keywords inside rendered page into this.headings and this.keywords respectively
  */
 Page.prototype.collectHeadingsAndKeywords = function () {
+  this.headings = {}; // clear any heading data from previous build
   const $ = cheerio.load(fs.readFileSync(this.resultPath));
   this.collectHeadingsAndKeywordsInContent($(`#${CONTENT_WRAPPER_ID}`).html(), null, false);
 };
