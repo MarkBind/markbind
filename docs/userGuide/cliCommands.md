@@ -30,18 +30,20 @@ MarkBind Command Line Interface (CLI) can be run in the following ways:
 
 ### `build` Command
 
-**Format:**: `markbind build [OPTIONS] `
+**Format**: `markbind build [<OPTIONS>] `
 
-**Description**: Generates the site to the directory named `_site` in the current directory.
+**Description**: Build a website.
 
-**`[OPTIONS]`:**
-* `[output]`<br>
+Generates the site to the directory named `_site` in the current directory.
+
+**`OPTIONS`:**
+* `<output>`<br>
   Put the generated files in the specified directory<br>
   {{ icon_example }} `../myOutDir`
-* `[root] [output]`<br>
+* `<root> <output>`<br>
   Read source files from the `<root>` directory and put the generated files in the specified `<output>` directory<br>
   {{ icon_example }} `./myWebsite ../myOutDir`
-* `--baseUrl [base]`<br>
+* `--baseUrl <base>`<br>
   Override the `baseUrl` property (read from the `site.json`) with the give `<base>` value.<br>
   {{ icon_example }} `--baseUrl staging`
 
@@ -55,7 +57,9 @@ MarkBind Command Line Interface (CLI) can be run in the following ways:
 
 **Format**: `markbind deploy`
 
-**Description**: Deploys the site to the repo's Github pages by pushing everything in the generated site (default dir: `_site`) to the `gh-pages` branch of the current git working directory's remote repo.
+**Description**: Deploy the site to the repo's Github pages.
+
+Deploys the site to the repo's Github pages by pushing everything in the generated site (default dir: `_site`) to the `gh-pages` branch of the current git working directory's remote repo.
 
 %%{{ icon_info }} Related: [User Guide: Deploying the Website]({{ baseUrl }}/userGuide/deployingTheSite.html).%%
 
@@ -63,12 +67,14 @@ MarkBind Command Line Interface (CLI) can be run in the following ways:
 
 ### `init` Command
 
-**Format:** `markbind init [OPTIONS]`
+**Format:** `markbind init [<OPTIONS>]`
 
-**Description:** Initializes a directory into a MarkBind site by creating a skeleton structure for the website which includes a `index.md` and a `site.json`.
+**Description:** Init a markbind website project.
 
-**`[OPTIONS]`:**
-* `[root]`<br>
+Initializes a directory into a MarkBind site by creating a skeleton structure for the website which includes a `index.md` and a `site.json`.
+
+**`OPTIONS`:**
+* `<root>`<br>
   Root directory. Default is the current directory.<br>
   {{ icon_example }} `./myWebsite`
 
@@ -80,9 +86,11 @@ MarkBind Command Line Interface (CLI) can be run in the following ways:
 
 ### `serve` Command
 
-**Format:** `markbind serve [OPTIONS]`
+**Format:** `markbind serve [<OPTIONS>]`
 
-**Description:** Does the following steps:
+**Description:** Build then serve a website from a directory.
+
+Does the following steps:
 1. Builds the site and puts the generated files in a directory named `_site`.
 1. Starts a web server instance locally and makes the site available at `http://127.0.0.1:8080`.
 1. Opens a <trigger trigger="click" for="modal:cliCommands-livePreview">live preview</trigger> of the website.
@@ -91,8 +99,8 @@ MarkBind Command Line Interface (CLI) can be run in the following ways:
 <include src="glossary.md#live-preview" inline/>
 </modal>
 
-**`[OPTIONS]`:**
-* `[root]`<br>
+**`OPTIONS`:**
+* `<root>`<br>
   Root directory. Default is the current directory.<br>
   {{ icon_example }} `./myWebsite`
 * `-f`, `--force-reload`<br>
