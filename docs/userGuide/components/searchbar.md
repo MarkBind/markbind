@@ -4,9 +4,10 @@ The searchbar allows users to search all headings within any page on the site.
 
 <box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
+  Enter a search term (eg. 'search bar') to see the search result dropdown.
   <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
   <br>
-  <searchbar :data="searchData" placeholder="Search (Right-aligned)" :on-hit="searchCallback" menu-align-right></searchbar>
+  <searchbar :data="searchData" placeholder="Search (Right-aligned dropdown)" :on-hit="searchCallback" menu-align-right></searchbar>
 </box>
 
 <tip-box border-left-color="black">
@@ -14,7 +15,7 @@ The searchbar allows users to search all headings within any page on the site.
 
 ``` html
 <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
-<searchbar :data="searchData" placeholder="Search (Right-aligned)" :on-hit="searchCallback" menu-align-right></searchbar>
+<searchbar :data="searchData" placeholder="Search (Right-aligned dropdown)" :on-hit="searchCallback" menu-align-right></searchbar>
 ```
 
 To use the searchbar within a navbar, add the following markup to your file. The searchbar can be positioned using the slot attribute for the list. The following markup adds a searchbar to the right side of the navbar with appropriate styling.
