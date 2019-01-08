@@ -1,4 +1,3 @@
-
 # Test included variable
 {{ includedVariable }}
 

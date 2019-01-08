@@ -109,7 +109,7 @@ head: myCustomHead.md, myCustomHead2.md
 
 # Included variables should not leak into other files
 
-<include src="testIncludeVariableLeak.md" />>
+<include src="testIncludeVariableLeak.md" />
 
 # Panel without src
 <panel header="## Panel without src header" expanded>

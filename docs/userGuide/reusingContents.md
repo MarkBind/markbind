@@ -105,10 +105,13 @@ As mentioned in _User Guide: MarkBind Syntax_, you can use built-in variables to
 
 ##### Variables: Defaults
 
-You can specify a default value for a variable, which is displayed when the variable is not specified in `variables.md`. This is done by adding `or (defaultValue)` within the curly braces.
+You can specify a default value for a variable, which is displayed when the variable is not specified in `variables.md`. This is done by adding `or defaultValue` within the curly braces.
 
-<code>My name is {<span></span>{ name or "Anonymous" }}.</span></code>
+<div class="indented">
 
+{{ icon_example }} If `name` is not declared in `variables.md`:<br>
+<code>My name is {<span></span>{ name or "Anonymous" }}.</code> {{ icon_arrow_right }} My name is Anonymous.
+</div>
 
 ##### Variables: Tips and Tricks
 
@@ -268,7 +271,11 @@ In other words, **`<include>` interprets the reused code relative to the origina
 
 #### Specifying Variables in the Include Tag
 
-**It is possible to include variables in the include tag.** For example,
+**It is possible to include variables in the include tag.**
+
+<div class="indented">
+
+{{ icon_example }} Specifying `title` and `author` variables in an `include` tag:
 
 ```html
 <include src="article.md">
@@ -284,6 +291,8 @@ In `article.md`:
 
 Author: {<span></span>{ author }}
 </code>
+</div>
+
 
 These variables work the same way as variables in `_markbind/variables.md`, except they only apply to the included file. This can be helpful for creating a template for multiple files.
 

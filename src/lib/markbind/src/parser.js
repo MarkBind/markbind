@@ -205,8 +205,9 @@ Parser.prototype._preprocess = function (node, context, config) {
     let fileContent = self._fileCache[actualFilePath]; // cache the file contents to save some I/O
     const { parent, relative } = calculateNewBaseUrls(filePath, config.rootPath, config.baseUrlMap);
     const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
-    const includedVariables = context.includedVariables || {};
 
+    // process variables declared within the include
+    const includedVariables = context.includedVariables || {};
     if (element.children) {
       element.children.forEach((child) => {
         if (child.name !== 'span') {
@@ -214,7 +215,8 @@ Parser.prototype._preprocess = function (node, context, config) {
         }
         if (!child.attribs.id) {
           // eslint-disable-next-line no-console
-          console.warn(`Missing 'id' in variable for ${element.attribs.src} include.`);
+          console.warn(`Missing reference in ${element.attribs[ATTRIB_CWF]}\n`
+                     + `Missing 'id' in variable for ${element.attribs.src} include.`);
           return;
         }
         includedVariables[child.attribs.id] = cheerio.html(child.children);

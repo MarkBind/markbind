@@ -1,2 +1,1 @@
-
 Should be blank: {{ includedVariable }}
