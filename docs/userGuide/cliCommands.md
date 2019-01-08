@@ -97,16 +97,16 @@ MarkBind Command Line Interface (CLI) can be run in the following ways:
   {{ icon_example }} `./myWebsite`
 * `-f`, `--force-reload`<br>
    Force live reload to process all files in the site, instead of just the relevant files. This option is useful when you are modifying a file that is not a file type monitored by the <trigger trigger="click" for="modal:cliCommands-livePreview">live preview</trigger> feature.
+* `-n`, `--no-open`<br>
+   Don't open a live preview in the browser automatically.
+* `-o <file>`, `--one-page <file>`<br>
+   Render and serve only a single page from your website.<br>
+  {{ icon_example }} `--one-page guide/index.md`
 * `-p <port>`, `--port <port>`<br>
     Serve the website in the specified port.
 * `-s <file>`, `--site-config <file>`<br>
    Specify the site config file (default: `site.json`)<br>
    {{ icon_example }} `-s otherSite.json`
-* `--one-page <file>`<br>
-   Render and serve only a single page from your website.<br>
-  {{ icon_example }} `--one-page guide/index.md`
-* `--no-open`<br>
-   Don't open a live preview in the browser automatically.
 
 {{ icon_examples }}
 * `markbind serve`
