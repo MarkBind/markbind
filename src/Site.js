@@ -306,7 +306,7 @@ Site.prototype.createPage = function (config) {
     faviconUrl: config.faviconUrl,
     pageTemplate: this.pageTemplate,
     rootPath: this.rootPath,
-    searchable: !this.siteConfig.disableSearch && config.searchable,
+    searchable: (!('enableSearch' in this.siteConfig) || this.siteConfig.enableSearch) && config.searchable,
     src: config.pageSrc,
     layoutsAssetPath: path.relative(path.dirname(resultPath),
                                     path.join(this.siteAssetsDestPath, LAYOUT_SITE_FOLDER_NAME)),
@@ -700,7 +700,7 @@ Site.prototype.writeSiteData = function () {
   return new Promise((resolve, reject) => {
     const siteDataPath = path.join(this.outputPath, SITE_DATA_NAME);
     const siteData = {
-      disableSearch: this.siteConfig.disableSearch,
+      enableSearch: !('enableSearch' in this.siteConfig) || this.siteConfig.enableSearch,
       pages: this.pages.filter(page => page.searchable)
         .map(page => Object.assign({ headings: page.headings }, page.frontMatter)),
     };

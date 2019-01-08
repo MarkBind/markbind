@@ -71,7 +71,7 @@ function setup() {
 }
 
 function setupWithSearch(siteData) {
-  if (siteData.disableSearch) {
+  if (!siteData.enableSearch) {
     setup();
     return;
   }
