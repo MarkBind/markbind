@@ -71,6 +71,10 @@ function setup() {
 }
 
 function setupWithSearch(siteData) {
+  if (!siteData.enableSearch) {
+    setup();
+    return;
+  }
   const { searchbar } = VueStrap.components;
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
