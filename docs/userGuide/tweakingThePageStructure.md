@@ -339,46 +339,60 @@ In this case `myHead.md` will override the `chapterLayout/head.md`.
 
 **The layout named `default` (if any) is automatically applied to every single page.** When you `init` a MarkBind site, MarkBind also generates an empty `default` layout.
 
-## Using Tags
+## Toggling alternative contents in a page
 
 You can use tags to selectively filter HTML elements when building a site.
 
-Tags are specified by the `tags` attribute, **and can be attached to any HTML element**. For example:
+Tags are specified by the `tags` attribute, **and can be attached to any HTML element**.
 
+<div class="indented">
+
+{{ icon_example }} Attaching tags to elements:
 ```html
-# Welcome to my site
+# Print 'Hello world'
 
-<p tags="language--english">Hello</p>
-<div tags="language--french">Bonjour</div>
-<span tags="language--spanish">Hola</span>
+<p tags="language--java">System.out.println("Hello world");</p>
+<div tags="language--C#">Console.WriteLine("Hello world");</div>
+<span tags="language--python">print("Hello world")</span>
 ```
+</div>
 
 You need to specify the tags to include in `site.json`, under the `tags` option:
 
 ```
 {
   ...
-  "tags": ["language--english"]
+  "tags": ["language--java"]
 }
 ```
 
-During rendering, only elements that match tags specified in the `site.json` files will be rendered. All other tagged elements will be filtered out. In this case, only the element with the `language--english` tag will be rendered. This is helpful when creating multiple versions of a page without having to maintain separate copies. If this option is not specified, all tagged elements will be rendered.
+During rendering, only elements that match tags specified in the `site.json` files will be rendered. All other tagged elements will be filtered out. In this case, only the element with the `language--java` tag will be rendered. This is helpful when creating multiple versions of a page without having to maintain separate copies. If this option is not specified, all tagged elements will be rendered.
 
 **You can also use multiple tags in a single HTML element. Specify each tag in the `tags` attribute** separated by a space. An element will be rendered if **any of the tags** matches the one in `site.json`.
 
+<div class="indented">
+
+{{ icon_example }} Attaching multiple tags to an element:
 ```html
-<p tags="language--english language--spanish">No!</p>
-<p tags="language--french">Non!</p>
+# For loops
+
+<p tags="language--java language--C#">for (int i = 0; i < 5; i++) { ... }</p>
+<span tags="language--python">for i in range(0,5): ...</span>
 ```
+</div>
 
 Alternatively, you can also specify tags to render for a page in the front matter.
 
+<div class="indented">
+
+{{ icon_example }} Specifying tags in front matter:
 ```
 <frontmatter>
   title: "Hello World"
-  tags: ["language--english"]
+  tags: ["language--java"]
 </frontmatter>
 ```
+</div>
 
 Tags in `site.json` will take precedence over the ones in the front matter.
 
