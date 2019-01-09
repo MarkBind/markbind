@@ -24,6 +24,7 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-table-of-contents'))
   .use(require('markdown-it-task-lists'), {enabled: true})
   .use(require('markdown-it-linkify-images'), {imgClass: 'img-fluid'})
+  .use(require('markdown-it-attrs'))
   .use(require('./markdown-it-dimmed'))
   .use(require('./markdown-it-radio-button'))
   .use(require('./markdown-it-block-embed'));
@@ -37,6 +38,23 @@ markdownIt.renderer.rules.table_open = (tokens, idx) => {
 };
 markdownIt.renderer.rules.table_close = (tokens, idx) => {
   return '</table></div>';
+};
+
+// highlight inline code
+markdownIt.renderer.rules.code_inline = (tokens, idx, options, env, slf) => {
+  const token = tokens[idx];
+  const lang = token.attrGet('class');
+
+  if (lang && hljs.getLanguage(lang)) {
+    token.attrSet('class', `hljs inline ${lang}`);
+    return '<code' + slf.renderAttrs(token) + '>'
+      + hljs.highlight(lang, token.content, true).value
+      + '</code>';
+  } else {
+    return '<code' + slf.renderAttrs(token) + '>'
+      + markdownIt.utils.escapeHtml(token.content)
+      + '</code>';
+  }
 };
 
 // fix emoji numbers

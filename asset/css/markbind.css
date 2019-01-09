@@ -45,6 +45,13 @@ kbd {
     color: #555;
 }
 
+code.hljs.inline {
+    background: #f8f8f8;
+    color: #333;
+    display: initial;
+    padding: 0px;
+}
+
 .markbind-table {
     width: auto;
 }
