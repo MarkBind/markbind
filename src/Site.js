@@ -454,7 +454,7 @@ Site.prototype.generate = function (baseUrl) {
       .then(() => this.buildSourceFiles())
       .then(() => this.copyMarkBindAsset())
       .then(() => this.copyLayouts())
-      .then(() => this.generateSiteData())
+      .then(() => this.updateSiteData())
       .then(() => {
         const endTime = new Date();
         const totalBuildTime = (endTime - startTime) / 1000;
@@ -656,7 +656,7 @@ Site.prototype.regenerateAffectedPages = function (filePaths) {
 
   return new Promise((resolve, reject) => {
     Promise.all(processingFiles)
-      .then(() => this.generateSiteData())
+      .then(() => this.updateSiteData(shouldRebuildAllPages ? undefined : filePaths))
       .then(() => logger.info('Pages rebuilt'))
       .then(resolve)
       .catch(reject);
@@ -667,11 +667,16 @@ Site.prototype.regenerateAffectedPages = function (filePaths) {
 /**
  * Uses heading data in built pages to generate heading and keyword information for siteData
  * Subsequently writes to siteData.json
+ * @param filePaths optional array of updated file paths during live preview.
+ *                  If undefined, generate site data for all pages
  */
-Site.prototype.generateSiteData = function () {
+Site.prototype.updateSiteData = function (filePaths) {
+  const generateForAllPages = filePaths === undefined;
   this.pages.forEach((page) => {
-    page.collectHeadingsAndKeywords();
-    page.concatenateHeadingsAndKeywords();
+    if (generateForAllPages || filePaths.some(filePath => page.includedFiles[filePath])) {
+      page.collectHeadingsAndKeywords();
+      page.concatenateHeadingsAndKeywords();
+    }
   });
   this.writeSiteData();
 };
