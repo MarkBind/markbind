@@ -29,6 +29,7 @@ function printHeader() {
 }
 
 program
+  .name('markbind')
   .allowUnknownOption()
   .usage(' <command>');
 
@@ -59,7 +60,7 @@ program
 
 program
   .command('deploy')
-  .description('deploy the site to the repo\'s Github pages')
+  .description('deploy the website to the repo\'s GitHub pages')
   .action(() => {
     const rootFolder = path.resolve(process.cwd());
     const outputRoot = path.join(rootFolder, '_site');
@@ -75,7 +76,7 @@ program
 
 program
   .command('init [root]')
-  .description('init a markbind website project')
+  .description('init a MarkBind website project')
   .action((root) => {
     const rootFolder = path.resolve(root || process.cwd());
     printHeader();
@@ -90,7 +91,7 @@ program
 
 program
   .command('serve [root]')
-  .description('build then serve a website from a directory')
+  .description('serve a website from a directory')
   .option('-f, --force-reload', 'force a full reload of all site files when a file is changed')
   .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
