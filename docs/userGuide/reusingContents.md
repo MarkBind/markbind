@@ -157,6 +157,17 @@ You must use the `safe` filter when using such variables:
 <code>{<span></span>{ right_hand_2 }}</code> {{ icon_arrow_right }} {{glyphicon_hand_right}}
 </div>
 
+**Variables can also be used in element attributes.**
+
+<div class="indented">
+
+{{ icon_example }} Specifying a variable as an attribute:
+
+<code>\<span id="color">red</span>\</code><br>
+
+<code>\<font color="{<span></span>{ color }}">my text</font>\</code>
+</div>
+
 <hr><!-- ======================================================================================================= -->
 
 ## The `include` tag
@@ -269,13 +280,13 @@ In other words, **`<include>` interprets the reused code relative to the origina
 
 <hr><!-- ======================================================================================================= -->
 
-#### Specifying Variables in the Include Tag
+##### Specifying Variables in an `<include>`
 
-**It is possible to include variables in the include tag.**
+**It is possible to include variables in an `<include>`**
 
 <div class="indented">
 
-{{ icon_example }} Specifying `title` and `author` variables in an `include` tag:
+{{ icon_example }} Specifying `title` and `author` variables in an `<include>` tag:
 
 ```html
 <include src="article.md">
@@ -293,8 +304,7 @@ Author: {<span></span>{ author }}
 </code>
 </div>
 
-
-These variables work the same way as variables in `_markbind/variables.md`, except they only apply to the included file. This can be helpful for creating a template for multiple files.
+These variables work the same way as variables in `_markbind/variables.md`, except that they only apply to the included file. They allow the included file to be reused as a template, for different source files using different variable values.
 
 ## Using Boilerplate Files
 
