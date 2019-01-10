@@ -203,7 +203,7 @@ test('Site read site config for default', async () => {
     'site.json': SITE_JSON_DEFAULT,
   };
   fs.vol.fromJSON(json, '');
-  const expectedSiteJson = Object.assign(JSON.parse(SITE_JSON_DEFAULT), { enableSearch: true });
+  const expectedSiteJson = { ...JSON.parse(SITE_JSON_DEFAULT), ...{ enableSearch: true } };
 
   const site = new Site('./', '_site');
   await site.readSiteConfig();
