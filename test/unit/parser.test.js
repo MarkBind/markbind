@@ -192,7 +192,9 @@ test('includeFile replaces <include src="include.md#doesNotExist"> with error <d
   const baseUrlMap = {};
   baseUrlMap[ROOT_PATH] = true;
 
-  const markbinder = new MarkBind();
+  const markbinder = new MarkBind({
+    errorHandler: () => {},
+  });
   const result = await markbinder.includeFile(indexPath, {
     baseUrlMap,
     rootPath: ROOT_PATH,
