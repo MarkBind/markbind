@@ -37,14 +37,14 @@ MarkBind Command Line Interface (CLI) can be run in the following ways:
 Generates the site to the directory named `_site` in the current directory.
 
 **`OPTIONS`:**
-* `<output>`<br>
+* `[output]`<br>
   Put the generated files in the specified directory<br>
   {{ icon_example }} `../myOutDir`
-* `<root> <output>`<br>
+* `[root] [output]`<br>
   Read source files from the `<root>` directory and put the generated files in the specified `<output>` directory<br>
   {{ icon_example }} `./myWebsite ../myOutDir`
 * `--baseUrl <base>`<br>
-  Override the `baseUrl` property (read from the `site.json`) with the give `<base>` value.<br>
+  Override the `baseUrl` property (read from the `site.json`) with the given `<base>` value.<br>
   {{ icon_example }} `--baseUrl staging`
 
 **{{ icon_examples }}**
@@ -57,7 +57,7 @@ Generates the site to the directory named `_site` in the current directory.
 
 **Format**: `markbind deploy`
 
-**Description**: Deploy the site to the repo's Github pages.
+**Description**: Deploy the website to the repo's GitHub pages.
 
 Deploys the site to the repo's Github pages by pushing everything in the generated site (default dir: `_site`) to the `gh-pages` branch of the current git working directory's remote repo.
 
@@ -69,12 +69,12 @@ Deploys the site to the repo's Github pages by pushing everything in the generat
 
 **Format:** `markbind init [<OPTIONS>]`
 
-**Description:** Init a markbind website project.
+**Description:** Init a MarkBind website project.
 
 Initializes a directory into a MarkBind site by creating a skeleton structure for the website which includes a `index.md` and a `site.json`.
 
 **`OPTIONS`:**
-* `<root>`<br>
+* `[root]`<br>
   Root directory. Default is the current directory.<br>
   {{ icon_example }} `./myWebsite`
 
@@ -88,7 +88,7 @@ Initializes a directory into a MarkBind site by creating a skeleton structure fo
 
 **Format:** `markbind serve [<OPTIONS>]`
 
-**Description:** Build then serve a website from a directory.
+**Description:** Serve a website from a directory.
 
 Does the following steps:
 1. Builds the site and puts the generated files in a directory named `_site`.
@@ -100,7 +100,7 @@ Does the following steps:
 </modal>
 
 **`OPTIONS`:**
-* `<root>`<br>
+* `[root]`<br>
   Root directory. Default is the current directory.<br>
   {{ icon_example }} `./myWebsite`
 * `-f`, `--force-reload`<br>
