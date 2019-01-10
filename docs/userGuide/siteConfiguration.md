@@ -128,7 +128,7 @@ The ignore pattern follows the [glob pattern used in .gitignore](https://git-scm
 
 #### **`tags`**
 
-**A list of tags to filter page elements.** Do not specify this option if you want to show everything. See [Using Tags](tweakingThePageStructure.html#using-tags) for more information.
+**A list of tags to filter page elements.**  Page elements with the specified tags are retained, while elements tagged with other tags are removed. Do not specify this option if you want to show everything. See [_User Guide: Tweaking the Page Structure → Using Tags_](tweakingThePageStructure.html#using-tags) section for more information.
 
 #### **`headingIndexingLevel`**
 

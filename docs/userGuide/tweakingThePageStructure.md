@@ -366,7 +366,9 @@ You need to specify the tags to include in `site.json`, under the `tags` option:
 }
 ```
 
-During rendering, only elements that match tags specified in the `site.json` files will be rendered. All other tagged elements will be filtered out. In this case, only the element with the `language--java` tag will be rendered. This is helpful when creating multiple versions of a page without having to maintain separate copies. If this option is not specified, all tagged elements will be rendered.
+During rendering, only elements that match tags specified in the `site.json` files will be rendered. All other tagged elements will be filtered out. In this case, only the element with the `language--java` tag will be rendered. This is helpful when creating multiple versions of a page without having to maintain separate copies.
+
+If the `tags` option is not specified in `site.json`, all tagged elements will be rendered.
 
 **You can also use multiple tags in a single HTML element. Specify each tag in the `tags` attribute** separated by a space. An element will be rendered if **any of the tags** matches the one in `site.json`.
 
@@ -381,7 +383,7 @@ During rendering, only elements that match tags specified in the `site.json` fil
 ```
 </div>
 
-Alternatively, you can also specify tags to render for a page in the front matter.
+Alternatively, you can specify tags to render for a page in the front matter.
 
 <div class="indented">
 

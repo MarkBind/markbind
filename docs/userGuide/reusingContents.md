@@ -487,6 +487,5 @@ Then, in a page-specific CSS file,
 
 #### Creating similar variations of a site
 
-Tags are a good way to create multiple variations of a page within the same markdown file, for example filtering content to create different views. See [Toggling alternative contents in a page]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#toggling-alternative-contents-in-a-page) for more information.
-
+Tags are a good way to create multiple variations of a page within the same source file, such as to filter content for creating multiple different versions of the same page. See [_User Guide: Tweaking the Page Structure → Toggling alternative contents in a page]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#toggling-alternative-contents-in-a-page_) section for more information.
 </div>
