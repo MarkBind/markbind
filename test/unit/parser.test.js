@@ -183,6 +183,9 @@ test('includeFile replaces <include src="include.md#doesNotExist"> with error <d
 
   const include = ['# Include'].join('\n');
 
+  const expectedErrorMessage = `No such segment 'doesNotExist' in file: ${includePath}`
+    + `\nMissing reference in ${indexPath}`;
+
   const json = {
     'index.md': index,
     'include.md': include,
@@ -193,7 +196,9 @@ test('includeFile replaces <include src="include.md#doesNotExist"> with error <d
   baseUrlMap[ROOT_PATH] = true;
 
   const markbinder = new MarkBind({
-    errorHandler: () => {},
+    errorHandler: (e) => {
+      expect(e.message).toEqual(expectedErrorMessage);
+    },
   });
   const result = await markbinder.includeFile(indexPath, {
     baseUrlMap,
@@ -203,8 +208,7 @@ test('includeFile replaces <include src="include.md#doesNotExist"> with error <d
 
   const expected = [
     '# Index',
-    `<div style="color: red">No such segment 'doesNotExist' in file: ${includePath}`,
-    `Missing reference in ${indexPath}</div>`,
+    `<div style="color: red">${expectedErrorMessage}</div>`,
     '',
   ].join('\n');
 
