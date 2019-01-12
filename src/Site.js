@@ -274,9 +274,7 @@ Site.prototype.readSiteConfig = function (baseUrl) {
       .then((config) => {
         this.siteConfig = config;
         this.siteConfig.baseUrl = (baseUrl === undefined) ? this.siteConfig.baseUrl : baseUrl;
-        if (this.siteConfig.enableSearch === undefined) {
-          this.siteConfig.enableSearch = true;
-        }
+        this.siteConfig.enableSearch = (config.enableSearch === undefined) || config.enableSearch;
         resolve(this.siteConfig);
       })
       .catch((err) => {

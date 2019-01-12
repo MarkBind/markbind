@@ -203,11 +203,12 @@ test('Site read site config for default', async () => {
     'site.json': SITE_JSON_DEFAULT,
   };
   fs.vol.fromJSON(json, '');
-  const expectedSiteJson = { ...JSON.parse(SITE_JSON_DEFAULT), ...{ enableSearch: true } };
 
+  const siteConfigDefaults = { enableSearch: true };
+  const expectedSiteConfig = { ...JSON.parse(SITE_JSON_DEFAULT), ...siteConfigDefaults };
   const site = new Site('./', '_site');
   await site.readSiteConfig();
-  expect(site.siteConfig).toEqual(expectedSiteJson);
+  expect(site.siteConfig).toEqual(expectedSiteConfig);
 });
 
 test('Site read site config for custom site config', async () => {
