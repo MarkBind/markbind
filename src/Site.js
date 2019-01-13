@@ -26,6 +26,7 @@ const Page = require('./Page');
 const CLI_VERSION = require('../package.json').version;
 
 const BOILERPLATE_FOLDER_NAME = '_markbind/boilerplates';
+const CONFIG_FOLDER_NAME = '_markbind';
 const HEADING_INDEXING_LEVEL_DEFAULT = 3;
 const SITE_ASSET_FOLDER_NAME = 'asset';
 const TEMP_FOLDER_NAME = '.temp';
@@ -57,6 +58,8 @@ const SITE_CONFIG_DEFAULT = {
     '_site/*',
     'site.json',
     '*.md',
+    '*.mbd',
+    '.git/*',
   ],
   pages: [
     {
@@ -65,6 +68,9 @@ const SITE_CONFIG_DEFAULT = {
     },
     {
       glob: '**/index.md',
+    },
+    {
+      glob: '**/*.+(md|mbd)',
     },
   ],
   deploy: {
@@ -359,7 +365,7 @@ Site.prototype.collectAddressablePages = function () {
     globPages.concat(walkSync(this.rootPath, {
       directories: false,
       globs: [addressableGlob.glob],
-      ignore: [BOILERPLATE_FOLDER_NAME],
+      ignore: [CONFIG_FOLDER_NAME],
     }).map(globPath => ({
       src: globPath,
       searchable: addressableGlob.searchable,
