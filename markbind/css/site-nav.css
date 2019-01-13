@@ -31,7 +31,7 @@
 }
 
 #site-nav a:link, #site-nav a:visited, #site-nav a:hover, #site-nav a:active {
-    color: black;
+    color: #565656;
     text-decoration: none;
 }
 
@@ -70,6 +70,7 @@
 .dropdown-btn {
     background: white;
     border: none;
+    color: #565656;
     cursor: pointer;
     display: block;
     outline: none !important;
@@ -78,7 +79,7 @@
     text-decoration: none;
 }
 
-.dropdown-btn:hover, .dropdown-btn-open {
+.dropdown-btn:hover {
     color: #0076FF;
 }
 
