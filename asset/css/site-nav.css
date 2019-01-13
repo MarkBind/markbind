@@ -41,6 +41,10 @@
     color: #0076FF;
 }
 
+#site-nav a.current {
+    color: #0072EC;
+}
+
 #site-nav-btn {
     background: transparent;
     cursor: pointer;
