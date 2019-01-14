@@ -1,6 +1,8 @@
 <frontmatter>
   title: "Using Components"
   footer: footer.md
+  pageNav: "default"
+  pageNavTitle: "List of Components"
   siteNav: userGuideSections.md
 </frontmatter>
 

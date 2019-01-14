@@ -1,6 +1,8 @@
 <frontmatter>
   title: "User Guide: Reusing Contents"
   footer: footer.md
+  pageNav: "default"
+  pageNavTitle: "List of Methods"
   siteNav: userGuideSections.md
 </frontmatter>
 
