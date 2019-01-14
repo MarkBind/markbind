@@ -14,10 +14,11 @@
     <link rel="stylesheet" href="markbind\css\markbind.css">
     <link rel="stylesheet" href="markbind\layouts\default\styles.css">
     
+    
     <meta name="default-head-bottom">
     <link rel="icon" href="/test_site/favicon.png">
 </head>
-<body>
+<body data-spy="scroll" data-target="#page-nav" data-offset="100">
 <div id="app">
     <div id="content-wrapper">
   <p>A page with an empty frontmatter should still build.</p>
@@ -32,6 +33,7 @@
 </body>
 <script src="markbind\js\vue.min.js"></script>
 <script src="markbind\js\vue-strap.min.js"></script>
+<script src="markbind\js\bootstrap-utility.min.js"></script>
 <script src="markbind\js\polyfill.min.js"></script>
 <script src="markbind\js\bootstrap-vue.min.js"></script>
 <script>

@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="markbind\css\markbind.css">
     <link rel="stylesheet" href="markbind\layouts\default\styles.css">
     <link rel="stylesheet" href="markbind\css\site-nav.css">
+    <link rel="stylesheet" href="markbind\css\page-nav.css">
     <!-- Start of bottom level head file content insertion -->
     <script src="/test_site/headFiles/customScriptBottom.js"></script>
     <!-- End of bottom level head file content insertion-->
@@ -27,9 +28,92 @@
     <!-- End of bottom level head file content insertion-->
     <link rel="icon" href="/test_site/favicon.png">
 </head>
-<body>
+<body data-spy="scroll" data-target="#page-nav" data-offset="100">
 <div id="app">
-    <div id="flex-body">
+    <nav id="page-nav" class="navbar navbar-light bg-transparent slim-scroll">
+  <a class="navbar-brand" style="white-space: inherit; color: black" href="#">Testing Page Navigation</a>
+  <nav class="nav nav-pills flex-column my-0 small" style="flex-wrap: nowrap;">
+    <a class="nav-link py-1" href="#variables-that-reference-another-variable">Variables that reference another variable&#x200E;</a>
+    <a class="nav-link py-1" href="#heading-with-multiple-keywords">Heading with multiple keywords&#x200E;</a>
+    <a class="nav-link py-1" href="#heading-with-keyword-in-panel">Heading with keyword in panel&#x200E;</a>
+    <a class="nav-link py-1" href="#panel-with-heading-with-keyword">Panel with heading with keyword&#x200E;</a>
+    <a class="nav-link py-1" href="#panel-with-heading">Panel with heading&#x200E;</a>
+    <a class="nav-link py-1" href="#expanded-panel-without-heading-with-keyword">Expanded panel without heading with keyword&#x200E;</a>
+    <a class="nav-link py-1" href="#panel-without-heading-with-keyword">Panel without heading with keyword&#x200E;</a>
+    <a class="nav-link py-1" href="#keyword-should-be-tagged-to-this-heading-not-the-panel-heading">Keyword should be tagged to this heading, not the panel heading&#x200E;</a>
+    <a class="nav-link py-1" href="#unexpanded-panel-with-heading-with-keyword">Unexpanded panel with heading with keyword&#x200E;</a>
+    <a class="nav-link py-1" href="#heading-with-included-keyword">Heading with included keyword&#x200E;</a>
+    <a class="nav-link py-1" href="#included-heading">Included Heading&#x200E;</a>
+    <a class="nav-link py-1" href="#heading-with-nested-keyword">Heading with nested keyword&#x200E;</a>
+    <a class="nav-link py-1" href="#heading-with-hidden-keyword">Heading with hidden keyword&#x200E;</a>
+    <a class="nav-link py-1" href="#normal-include">Normal include&#x200E;</a>
+    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
+      <a class="nav-link py-1" href="#establishing-requirements">Establishing Requirements&#x200E;</a>
+      <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
+        <a class="nav-link py-1" href="#brainstorming">Brainstorming&#x200E;</a>
+        <a class="nav-link py-1" href="#user-surveys">User surveys&#x200E;</a>
+        <a class="nav-link py-1" href="#focus-groups">Focus groups&#x200E;</a>
+      </nav>
+    </nav>
+    <a class="nav-link py-1" href="#include-segment">Include segment&#x200E;</a>
+    <a class="nav-link py-1" href="#dynamic-include">Dynamic include&#x200E;</a>
+    <a class="nav-link py-1" href="#boilerplate-include">Boilerplate include&#x200E;</a>
+    <a class="nav-link py-1" href="#nested-include">Nested include&#x200E;</a>
+    <a class="nav-link py-1" href="#html-include">HTML include&#x200E;</a>
+    <a class="nav-link py-1" href="#mbd-mbdf-include">Mbd, Mbdf include&#x200E;</a>
+    <a class="nav-link py-1" href="#include-from-another-markbind-site">Include from another Markbind site&#x200E;</a>
+    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
+      <a class="nav-link py-1" href="#feature-list">Feature list&#x200E;</a>
+    </nav>
+    <a class="nav-link py-1" href="#trimmed-include">Trimmed include&#x200E;</a>
+    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
+      <a class="nav-link py-1" href="#fragment-with-leading-spaces-and-newline">Fragment with leading spaces and newline&#x200E;</a>
+    </nav>
+    <a class="nav-link py-1" href="#panel-without-src">Panel without src&#x200E;</a>
+    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
+      <a class="nav-link py-1" href="#panel-without-src-header">Panel without src header&#x200E;</a>
+      <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
+        <a class="nav-link py-1" href="#panel-without-src-content-heading">Panel without src content heading&#x200E;</a>
+      </nav>
+    </nav>
+    <a class="nav-link py-1" href="#panel-with-normal-src">Panel with normal src&#x200E;</a>
+    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
+      <a class="nav-link py-1" href="#panel-with-normal-src-header">Panel with normal src header&#x200E;</a>
+    </nav>
+    <a class="nav-link py-1" href="#panel-with-src-from-a-page-segment">Panel with src from a page segment&#x200E;</a>
+    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
+      <a class="nav-link py-1" href="#panel-with-src-from-a-page-segment-header">Panel with src from a page segment header&#x200E;</a>
+    </nav>
+    <a class="nav-link py-1" href="#panel-with-boilerplate">Panel with boilerplate&#x200E;</a>
+    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
+      <a class="nav-link py-1" href="#boilerplate-referencing">Boilerplate referencing&#x200E;</a>
+      <a class="nav-link py-1" href="#referencing-specified-path-in-boilerplate">Referencing specified path in boilerplate&#x200E;</a>
+    </nav>
+    <a class="nav-link py-1" href="#nested-panel">Nested panel&#x200E;</a>
+    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
+      <a class="nav-link py-1" href="#outer-nested-panel">Outer nested panel&#x200E;</a>
+    </nav>
+    <a class="nav-link py-1" href="#nested-panel-without-src">Nested panel without src&#x200E;</a>
+    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
+      <a class="nav-link py-1" href="#outer-nested-panel-without-src">Outer nested panel without src&#x200E;</a>
+      <a class="nav-link py-1" href="#panel-content-of-outer-nested-panel">Panel content of outer nested panel&#x200E;</a>
+      <a class="nav-link py-1" href="#inner-panel-header-without-src">Inner panel header without src&#x200E;</a>
+      <a class="nav-link py-1" href="#panel-content-of-inner-nested-panel">Panel content of inner nested panel&#x200E;</a>
+    </nav>
+    <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site">Panel with src from another Markbind site&#x200E;</a>
+    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
+      <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site-header">Panel with src from another Markbind site header&#x200E;</a>
+    </nav>
+    <a class="nav-link py-1" href="#modal-with-panel-inside">Modal with panel inside&#x200E;</a>
+    <a class="nav-link py-1" href="#unexpanded-panel">Unexpanded panel&#x200E;</a>
+    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
+      <a class="nav-link py-1" href="#unexpanded-panel-header">Unexpanded panel header&#x200E;</a>
+    </nav>
+
+  </nav>
+</nav>
+
+<div id="flex-body">
   <div id="site-nav">
     <ul style="list-style-type: none; margin-left:-1em">
       <li style="margin-top: 10px">
@@ -133,170 +217,174 @@
     </div>
   </div>
   <div id="page-content">
-    <div id="content-wrapper">
-      <div>
-        <navbar placement="top" type="inverse">
-          <a slot="brand" href="/" title="Home" class="navbar-brand">Markbind Test Site</a>
-          <li><a class="nav-link" href="/test_site/bugs/index.html">Open Bugs</a></li>
-        </navbar>
-      </div>
-      <div class="website-content">
-        <h1 id="variables-that-reference-another-variable">Variables that reference another variable<a class="fa fa-anchor" href="#variables-that-reference-another-variable"></a></h1>
-        <p><span class="glyphicon glyphicon-education" aria-hidden="true"></span></p>
-        <p>This variable can be referenced.</p>
-        <p>References can be several levels deep.</p>
-        <h1 id="heading-with-multiple-keywords">Heading with multiple keywords<a class="fa fa-anchor" href="#heading-with-multiple-keywords"></a></h1>
-        <p><span class="keyword">keyword 1</span>
-          <span class="keyword">keyword 2</span></p>
-        <h1 id="heading-with-keyword-in-panel">Heading with keyword in panel<a class="fa fa-anchor" href="#heading-with-keyword-in-panel"></a></h1>
-        <panel header="Panel with keyword" expanded="">
-          <span class="keyword">panel keyword</span></panel>
-        <h1 id="panel-with-heading-with-keyword">Panel with heading with keyword<a class="fa fa-anchor" href="#panel-with-heading-with-keyword"></a></h1>
-        <panel header="# Panel with heading<a class='fa fa-anchor' href='#panel-with-heading'></a>" expanded="">
-          <span class="keyword">panel keyword</span></panel>
-        <h1 id="expanded-panel-without-heading-with-keyword">Expanded panel without heading with keyword<a class="fa fa-anchor" href="#expanded-panel-without-heading-with-keyword"></a></h1>
-        <panel header="# Panel without heading with keyword<a class='fa fa-anchor' href='#panel-without-heading-with-keyword'></a>" expanded="">
-          <h1 id="keyword-should-be-tagged-to-this-heading-not-the-panel-heading">Keyword should be tagged to this heading, not the panel heading<a class="fa fa-anchor" href="#keyword-should-be-tagged-to-this-heading-not-the-panel-heading"></a></h1>
-          <p><span class="keyword">panel keyword</span></p>
-        </panel>
-        <h1 id="unexpanded-panel-with-heading-with-keyword">Unexpanded panel with heading with keyword<a class="fa fa-anchor" href="#unexpanded-panel-with-heading-with-keyword"></a></h1>
-        <panel header="# Panel with heading with keyword<a class='fa fa-anchor' href='#panel-with-heading-with-keyword'></a>">
-          <h1 id="keyword-should-be-tagged-to-the-panel-heading-not-this-heading">Keyword should be tagged to the panel heading, not this heading<a class="fa fa-anchor" href="#keyword-should-be-tagged-to-the-panel-heading-not-this-heading"></a></h1>
-          <p><span class="keyword">panel keyword</span></p>
-        </panel>
-        <h1 id="heading-with-included-keyword">Heading with included keyword<a class="fa fa-anchor" href="#heading-with-included-keyword"></a></h1>
+    <div id="page-nav-content-wrapper">
+      <div id="content-wrapper">
         <div>
-          <p><span class="keyword">included keyword</span></p>
+          <navbar placement="top" type="inverse">
+            <a slot="brand" href="/" title="Home" class="navbar-brand">Markbind Test Site</a>
+            <li><a class="nav-link" href="/test_site/bugs/index.html">Open Bugs</a></li>
+          </navbar>
         </div>
-        <div>
-          <h1 id="included-heading">Included Heading<a class="fa fa-anchor" href="#included-heading"></a></h1>
-        </div>
-        <span class="keyword">Keyword with included heading</span>
-        <h1 id="heading-with-nested-keyword">Heading with nested keyword<a class="fa fa-anchor" href="#heading-with-nested-keyword"></a></h1>
-        <div>
+        <div class="website-content">
+          <h1 id="variables-that-reference-another-variable">Variables that reference another variable<a class="fa fa-anchor" href="#variables-that-reference-another-variable"></a></h1>
+          <p><span class="glyphicon glyphicon-education" aria-hidden="true"></span></p>
+          <p>This variable can be referenced.</p>
+          <p>References can be several levels deep.</p>
+          <h1 id="heading-with-multiple-keywords">Heading with multiple keywords<a class="fa fa-anchor" href="#heading-with-multiple-keywords"></a></h1>
+          <p><span class="keyword">keyword 1</span>
+            <span class="keyword">keyword 2</span></p>
+          <h1 id="heading-with-keyword-in-panel">Heading with keyword in panel<a class="fa fa-anchor" href="#heading-with-keyword-in-panel"></a></h1>
+          <panel header="Panel with keyword" expanded="">
+            <span class="keyword">panel keyword</span></panel>
+          <h1 id="panel-with-heading-with-keyword">Panel with heading with keyword<a class="fa fa-anchor" href="#panel-with-heading-with-keyword"></a></h1>
+          <panel header="# Panel with heading<a class='fa fa-anchor' href='#panel-with-heading'></a>" expanded="">
+            <span class="keyword">panel keyword</span></panel>
+          <h1 id="expanded-panel-without-heading-with-keyword">Expanded panel without heading with keyword<a class="fa fa-anchor" href="#expanded-panel-without-heading-with-keyword"></a></h1>
+          <panel header="# Panel without heading with keyword<a class='fa fa-anchor' href='#panel-without-heading-with-keyword'></a>" expanded="">
+            <h1 id="keyword-should-be-tagged-to-this-heading-not-the-panel-heading">Keyword should be tagged to this heading, not the panel heading<a class="fa fa-anchor" href="#keyword-should-be-tagged-to-this-heading-not-the-panel-heading"></a></h1>
+            <p><span class="keyword">panel keyword</span></p>
+          </panel>
+          <h1 id="unexpanded-panel-with-heading-with-keyword">Unexpanded panel with heading with keyword<a class="fa fa-anchor" href="#unexpanded-panel-with-heading-with-keyword"></a></h1>
+          <panel header="# Panel with heading with keyword<a class='fa fa-anchor' href='#panel-with-heading-with-keyword'></a>">
+            <h1 id="keyword-should-be-tagged-to-the-panel-heading-not-this-heading">Keyword should be tagged to the panel heading, not this heading<a class="fa fa-anchor" href="#keyword-should-be-tagged-to-the-panel-heading-not-this-heading"></a></h1>
+            <p><span class="keyword">panel keyword</span></p>
+          </panel>
+          <h1 id="heading-with-included-keyword">Heading with included keyword<a class="fa fa-anchor" href="#heading-with-included-keyword"></a></h1>
+          <div>
+            <p><span class="keyword">included keyword</span></p>
+          </div>
+          <div>
+            <h1 id="included-heading">Included Heading<a class="fa fa-anchor" href="#included-heading"></a></h1>
+          </div>
+          <span class="keyword">Keyword with included heading</span>
+          <h1 id="heading-with-nested-keyword">Heading with nested keyword<a class="fa fa-anchor" href="#heading-with-nested-keyword"></a></h1>
           <div>
             <div>
-              <span class="keyword">nested keyword</span></div>
+              <div>
+                <span class="keyword">nested keyword</span></div>
+            </div>
           </div>
-        </div>
-        <h1 id="heading-with-hidden-keyword">Heading with hidden keyword<a class="fa fa-anchor" href="#heading-with-hidden-keyword"></a></h1>
-        <p><span class="keyword d-none">invisible keyword</span></p>
-        <h1 id="normal-include">Normal include<a class="fa fa-anchor" href="#normal-include"></a></h1>
-        <div>
-          <h3 id="establishing-requirements">Establishing Requirements<a class="fa fa-anchor" href="#establishing-requirements"></a></h3>
+          <h1 id="heading-with-hidden-keyword">Heading with hidden keyword<a class="fa fa-anchor" href="#heading-with-hidden-keyword"></a></h1>
+          <p><span class="keyword d-none">invisible keyword</span></p>
+          <h1 id="normal-include">Normal include<a class="fa fa-anchor" href="#normal-include"></a></h1>
+          <div>
+            <h3 id="establishing-requirements">Establishing Requirements<a class="fa fa-anchor" href="#establishing-requirements"></a></h3>
+            <p>
+              <seg id="preview">Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
+                do.
+              </seg>
+            </p>
+            <p>There are many techniques used during a requirements gathering. The following are some of the techniques.</p>
+            <h4 id="brainstorming">Brainstorming<a class="fa fa-anchor" href="#brainstorming"></a></h4>
+            <p>Brainstorming is a group activity designed to generate a large number of diverse and creative ideas for the solution of a problem. In a brainstorming session there are no &quot;bad&quot; ideas. The aim is to generate ideas; not to validate
+              them. Brainstorming encourages you to &quot;think outside the box&quot; and put &quot;crazy&quot; ideas on the table without fear of rejection.</p>
+            <h4 id="user-surveys">User surveys<a class="fa fa-anchor" href="#user-surveys"></a></h4>
+            <p>Carefully designed questionnaires can be used to solicit responses and opinions from a large number of users regarding any current system or a new innovation.</p>
+            <h4 id="focus-groups">Focus groups<a class="fa fa-anchor" href="#focus-groups"></a></h4>
+            <p>Focus groups are a kind of informal interview within an interactive group setting. A
+              <tooltip content="e.g. potential users, beta testers">group of people</tooltip>
+              are asked about their understanding of a specific issue or a process. Focus groups can bring out undiscovered conflicts and misunderstandings among stakeholder interests which can then be resolved or clarified as necessary.</p>
+          </div>
+          <h1 id="include-segment">Include segment<a class="fa fa-anchor" href="#include-segment"></a></h1>
+          <div>
+            <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
+              do.
+            </p>
+          </div>
+          <h1 id="dynamic-include">Dynamic include<a class="fa fa-anchor" href="#dynamic-include"></a></h1>
           <p>
-            <seg id="preview">Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
-              do.</seg>
+            <panel src="/test_site\requirements\SpecifyingRequirements._include_.html" name="Dynamic Include" no-close="true" no-switch="true" header="Dynamic Include"></panel>
           </p>
-          <p>There are many techniques used during a requirements gathering. The following are some of the techniques.</p>
-          <h4 id="brainstorming">Brainstorming<a class="fa fa-anchor" href="#brainstorming"></a></h4>
-          <p>Brainstorming is a group activity designed to generate a large number of diverse and creative ideas for the solution of a problem. In a brainstorming session there are no &quot;bad&quot; ideas. The aim is to generate ideas; not to validate them.
-            Brainstorming encourages you to &quot;think outside the box&quot; and put &quot;crazy&quot; ideas on the table without fear of rejection.</p>
-          <h4 id="user-surveys">User surveys<a class="fa fa-anchor" href="#user-surveys"></a></h4>
-          <p>Carefully designed questionnaires can be used to solicit responses and opinions from a large number of users regarding any current system or a new innovation.</p>
-          <h4 id="focus-groups">Focus groups<a class="fa fa-anchor" href="#focus-groups"></a></h4>
-          <p>Focus groups are a kind of informal interview within an interactive group setting. A
-            <tooltip content="e.g. potential users, beta testers">group of people</tooltip>
-            are asked about their understanding of a specific issue or a process. Focus groups can bring out undiscovered conflicts and misunderstandings among stakeholder interests which can then be resolved or clarified as necessary.</p>
-        </div>
-        <h1 id="include-segment">Include segment<a class="fa fa-anchor" href="#include-segment"></a></h1>
-        <div>
-          <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
-            do.</p>
-        </div>
-        <h1 id="dynamic-include">Dynamic include<a class="fa fa-anchor" href="#dynamic-include"></a></h1>
-        <p>
-          <panel src="/test_site\requirements\SpecifyingRequirements._include_.html" name="Dynamic Include" no-close="true" no-switch="true" header="Dynamic Include"></panel>
-        </p>
-        <h1 id="boilerplate-include">Boilerplate include<a class="fa fa-anchor" href="#boilerplate-include"></a></h1>
-        <div name="Boilerplate Referencing">
+          <h1 id="boilerplate-include">Boilerplate include<a class="fa fa-anchor" href="#boilerplate-include"></a></h1>
+          <div name="Boilerplate Referencing">
+            <p>
+              <panel src="/test_site\requirements\UserStories._include_.html" header="Boilerplate Includes" no-close=""></panel>
+            </p>
+          </div>
           <p>
-            <panel src="/test_site\requirements\UserStories._include_.html" header="Boilerplate Includes" no-close=""></panel>
+            <panel src="/test_site\requirements\notInside._include_.html" name="Referencing specified path in boilerplate" no-close="true" no-switch="true" header="Referencing specified path in boilerplate"></panel>
           </p>
-        </div>
-        <p>
-          <panel src="/test_site\requirements\notInside._include_.html" name="Referencing specified path in boilerplate" no-close="true" no-switch="true" header="Referencing specified path in boilerplate"></panel>
-        </p>
-        <h1 id="nested-include">Nested include<a class="fa fa-anchor" href="#nested-include"></a></h1>
-        <div>
-          <ol>
-            <li><strong>Establishing requirements</strong>: <span>Requirements gathering, requirements elicitation, requirements analysis,
+          <h1 id="nested-include">Nested include<a class="fa fa-anchor" href="#nested-include"></a></h1>
+          <div>
+            <ol>
+              <li><strong>Establishing requirements</strong>: <span>Requirements gathering, requirements elicitation, requirements analysis,
 requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity
 of understanding what a software product should do.</span></li>
-            <li><strong>Specifying requirements</strong>: <span>As we establish requirements, they should be recorded in some way for future reference,
+              <li><strong>Specifying requirements</strong>: <span>As we establish requirements, they should be recorded in some way for future reference,
 usually called a requirement specification. Furthermore, it is advisable to show these requirements to stakeholders,
 and refine requirements based on their feedback. The next phase is to convert requirements into a product
 specification that specifies how the product will address the requirements. </span></li>
-          </ol>
-        </div>
-        <h1 id="html-include">HTML include<a class="fa fa-anchor" href="#html-include"></a></h1>
-        <div>
-          <p>This is a HTML document</p>
-          <p><span>It is <strong>possible</strong> to use Markdown in HTML</span></p>
-        </div>
-        <h1 id="mbd-mbdf-include">Mbd, Mbdf include<a class="fa fa-anchor" href="#mbd-mbdf-include"></a></h1>
-        <div>
-          <p><em>MarkBind supports .mbd files.</em></p>
-        </div>
-        <div>
-          <p><code>MarkBind supports .mbdf files.</code></p>
-        </div>
-        <h1 id="include-from-another-markbind-site">Include from another Markbind site<a class="fa fa-anchor" href="#include-from-another-markbind-site"></a></h1>
-        <div>
-          <p>This is a page from another Markbind site.</p>
-          <h2 id="feature-list">Feature list<a class="fa fa-anchor" href="#feature-list"></a></h2>
-          <p>It is a list of features (or functionalities) grouped according to some criteria such as priority (e.g. must-have, nice-to-have, etc. ), order of delivery, object or process related (e.g. order-related, invoice-related, etc.). Here is a sample
-            feature list from Minesweeper (only a brief description has been provided to save space).</p>
-          <ol>
-            <li>Basic play – Single player play.</li>
-            <li>Difficulty levels – Additional Medium and Advanced levels.</li>
-            <li>Versus play – Two players can play against each other.</li>
-            <li>Timer – Additional fixed time restriction on the player.</li>
-          </ol>
-          <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></div>
-        <h1 id="trimmed-include">Trimmed include<a class="fa fa-anchor" href="#trimmed-include"></a></h1>
-        <h2 id="fragment-with-leading-spaces-and-newline"><span>Fragment with leading spaces and newline</span><a class="fa fa-anchor" href="#fragment-with-leading-spaces-and-newline"></a></h2>
-        <h1 id="panel-without-src">Panel without src<a class="fa fa-anchor" href="#panel-without-src"></a></h1>
-        <panel header="## Panel without src header<a class='fa fa-anchor' href='#panel-without-src-header'></a>" expanded="">
-          <div>
-            <h3 id="panel-without-src-content-heading">Panel without src content heading<a class="fa fa-anchor" href="#panel-without-src-content-heading"></a></h3>
+            </ol>
           </div>
-        </panel>
-        <h1 id="panel-with-normal-src">Panel with normal src<a class="fa fa-anchor" href="#panel-with-normal-src"></a></h1>
-        <panel header="## Panel with normal src header<a class='fa fa-anchor' href='#panel-with-normal-src-header'></a>" src="/test_site\testPanels\PanelNormalSource._include_.html" expanded=""></panel>
-        <h1 id="panel-with-src-from-a-page-segment">Panel with src from a page segment<a class="fa fa-anchor" href="#panel-with-src-from-a-page-segment"></a></h1>
-        <panel header="## Panel with src from a page segment header<a class='fa fa-anchor' href='#panel-with-src-from-a-page-segment-header'></a>" src="/test_site\testPanels\PanelSourceContainsSegment._include_.html#segment" expanded="" fragment="segment"></panel>
-        <h1 id="panel-with-boilerplate">Panel with boilerplate<a class="fa fa-anchor" href="#panel-with-boilerplate"></a></h1>
-        <panel header="## Boilerplate referencing<a class='fa fa-anchor' href='#boilerplate-referencing'></a>" src="/test_site\testPanels\boilerTestPanel._include_.html" expanded=""></panel>
-        <panel header="## Referencing specified path in boilerplate<a class='fa fa-anchor' href='#referencing-specified-path-in-boilerplate'></a>" src="/test_site\testPanels\notInside._include_.html" expanded=""></panel>
-        <h1 id="nested-panel">Nested panel<a class="fa fa-anchor" href="#nested-panel"></a></h1>
-        <panel header="## Outer nested panel<a class='fa fa-anchor' href='#outer-nested-panel'></a>" src="/test_site\testPanels\NestedPanel._include_.html" expanded=""></panel>
-        <h1 id="nested-panel-without-src">Nested panel without src<a class="fa fa-anchor" href="#nested-panel-without-src"></a></h1>
-        <panel header="## Outer nested panel without src<a class='fa fa-anchor' href='#outer-nested-panel-without-src'></a>" expanded="">
-          <h2 id="panel-content-of-outer-nested-panel">Panel content of outer nested panel<a class="fa fa-anchor" href="#panel-content-of-outer-nested-panel"></a></h2>
-          <panel header="## Inner panel header without src<a class='fa fa-anchor' href='#inner-panel-header-without-src'></a>" expanded="">
-            <h2 id="panel-content-of-inner-nested-panel">Panel content of inner nested panel<a class="fa fa-anchor" href="#panel-content-of-inner-nested-panel"></a></h2>
+          <h1 id="html-include">HTML include<a class="fa fa-anchor" href="#html-include"></a></h1>
+          <div>
+            <p>This is a HTML document</p>
+            <p><span>It is <strong>possible</strong> to use Markdown in HTML</span></p>
+          </div>
+          <h1 id="mbd-mbdf-include">Mbd, Mbdf include<a class="fa fa-anchor" href="#mbd-mbdf-include"></a></h1>
+          <div>
+            <p><em>MarkBind supports .mbd files.</em></p>
+          </div>
+          <div>
+            <p><code>MarkBind supports .mbdf files.</code></p>
+          </div>
+          <h1 id="include-from-another-markbind-site">Include from another Markbind site<a class="fa fa-anchor" href="#include-from-another-markbind-site"></a></h1>
+          <div>
+            <p>This is a page from another Markbind site.</p>
+            <h2 id="feature-list">Feature list<a class="fa fa-anchor" href="#feature-list"></a></h2>
+            <p>It is a list of features (or functionalities) grouped according to some criteria such as priority (e.g. must-have, nice-to-have, etc. ), order of delivery, object or process related (e.g. order-related, invoice-related, etc.). Here is a sample
+              feature list from Minesweeper (only a brief description has been provided to save space).</p>
+            <ol>
+              <li>Basic play – Single player play.</li>
+              <li>Difficulty levels – Additional Medium and Advanced levels.</li>
+              <li>Versus play – Two players can play against each other.</li>
+              <li>Timer – Additional fixed time restriction on the player.</li>
+            </ol>
+            <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></div>
+          <h1 id="trimmed-include">Trimmed include<a class="fa fa-anchor" href="#trimmed-include"></a></h1>
+          <h2 id="fragment-with-leading-spaces-and-newline"><span>Fragment with leading spaces and newline</span><a class="fa fa-anchor" href="#fragment-with-leading-spaces-and-newline"></a></h2>
+          <h1 id="panel-without-src">Panel without src<a class="fa fa-anchor" href="#panel-without-src"></a></h1>
+          <panel header="## Panel without src header<a class='fa fa-anchor' href='#panel-without-src-header'></a>" expanded="">
+            <div>
+              <h3 id="panel-without-src-content-heading">Panel without src content heading<a class="fa fa-anchor" href="#panel-without-src-content-heading"></a></h3>
+            </div>
+          </panel>
+          <h1 id="panel-with-normal-src">Panel with normal src<a class="fa fa-anchor" href="#panel-with-normal-src"></a></h1>
+          <panel header="## Panel with normal src header<a class='fa fa-anchor' href='#panel-with-normal-src-header'></a>" src="/test_site\testPanels\PanelNormalSource._include_.html" expanded=""></panel>
+          <h1 id="panel-with-src-from-a-page-segment">Panel with src from a page segment<a class="fa fa-anchor" href="#panel-with-src-from-a-page-segment"></a></h1>
+          <panel header="## Panel with src from a page segment header<a class='fa fa-anchor' href='#panel-with-src-from-a-page-segment-header'></a>" src="/test_site\testPanels\PanelSourceContainsSegment._include_.html#segment" expanded="" fragment="segment"></panel>
+          <h1 id="panel-with-boilerplate">Panel with boilerplate<a class="fa fa-anchor" href="#panel-with-boilerplate"></a></h1>
+          <panel header="## Boilerplate referencing<a class='fa fa-anchor' href='#boilerplate-referencing'></a>" src="/test_site\testPanels\boilerTestPanel._include_.html" expanded=""></panel>
+          <panel header="## Referencing specified path in boilerplate<a class='fa fa-anchor' href='#referencing-specified-path-in-boilerplate'></a>" src="/test_site\testPanels\notInside._include_.html" expanded=""></panel>
+          <h1 id="nested-panel">Nested panel<a class="fa fa-anchor" href="#nested-panel"></a></h1>
+          <panel header="## Outer nested panel<a class='fa fa-anchor' href='#outer-nested-panel'></a>" src="/test_site\testPanels\NestedPanel._include_.html" expanded=""></panel>
+          <h1 id="nested-panel-without-src">Nested panel without src<a class="fa fa-anchor" href="#nested-panel-without-src"></a></h1>
+          <panel header="## Outer nested panel without src<a class='fa fa-anchor' href='#outer-nested-panel-without-src'></a>" expanded="">
+            <h2 id="panel-content-of-outer-nested-panel">Panel content of outer nested panel<a class="fa fa-anchor" href="#panel-content-of-outer-nested-panel"></a></h2>
+            <panel header="## Inner panel header without src<a class='fa fa-anchor' href='#inner-panel-header-without-src'></a>" expanded="">
+              <h2 id="panel-content-of-inner-nested-panel">Panel content of inner nested panel<a class="fa fa-anchor" href="#panel-content-of-inner-nested-panel"></a></h2>
+            </panel>
+          </panel>
+          <h1 id="panel-with-src-from-another-markbind-site">Panel with src from another Markbind site<a class="fa fa-anchor" href="#panel-with-src-from-another-markbind-site"></a></h1>
+          <panel header="## Panel with src from another Markbind site header<a class='fa fa-anchor' href='#panel-with-src-from-another-markbind-site-header'></a>" src="/test_site\sub_site\index._include_.html" expanded=""></panel>
+        </div>
+        <h1 id="modal-with-panel-inside">Modal with panel inside<a class="fa fa-anchor" href="#modal-with-panel-inside"></a></h1>
+        <p>
+          <trigger for="modal-with-panel">trigger</trigger>
+        </p>
+        <modal title="modal title with panel inside" id="modal-with-panel">
+          <panel header="## Panel inside modal<a class='fa fa-anchor' href='#panel-inside-modal'></a>" expanded="">
+            <h2 id="panel-content-inside-modal">Panel content inside modal<a class="fa fa-anchor" href="#panel-content-inside-modal"></a></h2>
+          </panel>
+        </modal>
+        <h1 id="unexpanded-panel">Unexpanded panel<a class="fa fa-anchor" href="#unexpanded-panel"></a></h1>
+        <panel header="## Unexpanded panel header<a class='fa fa-anchor' href='#unexpanded-panel-header'></a>">
+          <h2 id="panel-content-of-unexpanded-panel-should-not-appear-in-search-data">Panel content of unexpanded panel should not appear in search data<a class="fa fa-anchor" href="#panel-content-of-unexpanded-panel-should-not-appear-in-search-data"></a></h2>
+          <panel header="## Panel header inside unexpanded panel should not appear in search data<a class='fa fa-anchor' href='#panel-header-inside-unexpanded-panel-should-not-appear-in-search-data'></a>" expanded="">
+            <h2 id="panel-content-inside-unexpanded-panel-should-not-appear-in-search-data">Panel content inside unexpanded panel should not appear in search data<a class="fa fa-anchor" href="#panel-content-inside-unexpanded-panel-should-not-appear-in-search-data"></a></h2>
           </panel>
         </panel>
-        <h1 id="panel-with-src-from-another-markbind-site">Panel with src from another Markbind site<a class="fa fa-anchor" href="#panel-with-src-from-another-markbind-site"></a></h1>
-        <panel header="## Panel with src from another Markbind site header<a class='fa fa-anchor' href='#panel-with-src-from-another-markbind-site-header'></a>" src="/test_site\sub_site\index._include_.html" expanded=""></panel>
       </div>
-      <h1 id="modal-with-panel-inside">Modal with panel inside<a class="fa fa-anchor" href="#modal-with-panel-inside"></a></h1>
-      <p>
-        <trigger for="modal-with-panel">trigger</trigger>
-      </p>
-      <modal title="modal title with panel inside" id="modal-with-panel">
-        <panel header="## Panel inside modal<a class='fa fa-anchor' href='#panel-inside-modal'></a>" expanded="">
-          <h2 id="panel-content-inside-modal">Panel content inside modal<a class="fa fa-anchor" href="#panel-content-inside-modal"></a></h2>
-        </panel>
-      </modal>
-      <h1 id="unexpanded-panel">Unexpanded panel<a class="fa fa-anchor" href="#unexpanded-panel"></a></h1>
-      <panel header="## Unexpanded panel header<a class='fa fa-anchor' href='#unexpanded-panel-header'></a>">
-        <h2 id="panel-content-of-unexpanded-panel-should-not-appear-in-search-data">Panel content of unexpanded panel should not appear in search data<a class="fa fa-anchor" href="#panel-content-of-unexpanded-panel-should-not-appear-in-search-data"></a></h2>
-        <panel header="## Panel header inside unexpanded panel should not appear in search data<a class='fa fa-anchor' href='#panel-header-inside-unexpanded-panel-should-not-appear-in-search-data'></a>" expanded="">
-          <h2 id="panel-content-inside-unexpanded-panel-should-not-appear-in-search-data">Panel content inside unexpanded panel should not appear in search data<a class="fa fa-anchor" href="#panel-content-inside-unexpanded-panel-should-not-appear-in-search-data"></a></h2>
-        </panel>
-      </panel>
     </div>
   </div>
 </div>
@@ -311,6 +399,7 @@ specification that specifies how the product will address the requirements. </sp
 </body>
 <script src="markbind\js\vue.min.js"></script>
 <script src="markbind\js\vue-strap.min.js"></script>
+<script src="markbind\js\bootstrap-utility.min.js"></script>
 <script src="markbind\js\polyfill.min.js"></script>
 <script src="markbind\js\bootstrap-vue.min.js"></script>
 <script>

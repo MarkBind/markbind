@@ -62,6 +62,8 @@
       "title": "Hello World",
       "footer": "footer.md",
       "siteNav": "site-nav.md",
+      "pageNav": "default",
+      "pageNavTitle": "Testing Page Navigation",
       "head": "myCustomHead.md, myCustomHead2.md",
       "src": "index.md",
       "layout": "default"
@@ -89,7 +91,7 @@
     },
     {
       "headings": {
-        "uses-a-site.json-layout%2C-overriding-front-matter": "Uses a site.json layout, overriding front matter"
+        "uses-a-site-json-layout-overriding-front-matter": "Uses a site.json layout, overriding front matter"
       },
       "title": "Hello World",
       "head": "overwriteLayoutHead.md",
