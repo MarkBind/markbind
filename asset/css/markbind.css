@@ -121,3 +121,33 @@ footer {
 #flex-div {
     flex: 1;
 }
+
+/* Scrollbar */
+
+.slim-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+.slim-scroll::-webkit-scrollbar-thumb {
+    background: #808080;
+    border-radius: 20px;
+}
+
+.slim-scroll::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 20px;
+}
+
+.slim-scroll-blue::-webkit-scrollbar {
+    width: 5px;
+}
+
+.slim-scroll-blue::-webkit-scrollbar-thumb {
+    background: #00b0ef;
+    border-radius: 20px;
+}
+
+.slim-scroll-blue::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 20px;
+}
