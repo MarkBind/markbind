@@ -62,6 +62,12 @@ function setupSiteNav() {
   );
 }
 
+function setupPageNav() {
+  jQuery(window).on('activate.bs.scrollspy', (event, obj) => {
+    document.querySelectorAll(`a[href='${obj.relatedTarget}']`).item(0).scrollIntoView(false);
+  });
+}
+
 function setup() {
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
@@ -71,6 +77,7 @@ function setup() {
     },
   });
   setupSiteNav();
+  setupPageNav();
 }
 
 function setupWithSearch(siteData) {
@@ -102,6 +109,7 @@ function setupWithSearch(siteData) {
     },
   });
   setupSiteNav();
+  setupPageNav();
 }
 
 jQuery.getJSON(`${baseUrl}/siteData.json`)
