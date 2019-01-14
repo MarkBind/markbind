@@ -157,17 +157,6 @@ You must use the `safe` filter when using such variables:
 <code>{<span></span>{ right_hand_2 }}</code> {{ icon_arrow_right }} {{glyphicon_hand_right}}
 </div>
 
-**Variables can also be used in element attributes.**
-
-<div class="indented">
-
-{{ icon_example }} Specifying a variable as an attribute:
-
-<code>\<span id="color">red</span>\</code><br>
-
-<code>\<font color="{<span></span>{ color }}">my text</font>\</code>
-</div>
-
 <hr><!-- ======================================================================================================= -->
 
 ## The `include` tag
