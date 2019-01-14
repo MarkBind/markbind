@@ -3,7 +3,6 @@ title: Hello World
 footer: footer.md
 siteNav: site-nav.md
 head: myCustomHead.md, myCustomHead2.md
-layout: default
 </frontmatter>
 
 <include src="components/header.md" />

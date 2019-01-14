@@ -6,7 +6,7 @@
     {
       "src": "index.md",
       "title": "Hello World",
-      "layout": "testLayout"
+      "layout": "default"
     },
     {
       "src": "testEmptyFrontmatter.md",
@@ -15,6 +15,10 @@
     },
     {
       "src": "testLayouts.md",
+      "title": "Hello World"
+    },
+    {
+      "src": "testLayoutsOverride.md",
       "title": "Hello World",
       "layout": "testLayout"
     },

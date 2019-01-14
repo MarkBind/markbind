@@ -399,8 +399,8 @@ Page.prototype.collectFrontMatter = function (includedPage) {
     this.frontMatter.src = this.src;
     // Title specified in site.json will override title specified in front matter
     this.frontMatter.title = (this.title || this.frontMatter.title || '');
-    // Layout specified in front matter will override layout specified in site.json
-    this.frontMatter.layout = (this.frontMatter.layout || this.layout || '');
+    // Layout specified in site.json will override layout specified in the front matter
+    this.frontMatter.layout = (this.layout || this.frontMatter.layout || LAYOUT_DEFAULT_NAME);
   } else {
     // Page is addressable but no front matter specified
     this.frontMatter = {
