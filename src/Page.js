@@ -27,6 +27,7 @@ const FLEX_DIV_HTML = '<div id="flex-div"></div>';
 const FLEX_DIV_ID = 'flex-div';
 const FRONT_MATTER_FENCE = '---';
 const PAGE_CONTENT_ID = 'page-content';
+const PAGE_NAV_CONENT_WRAPPER_ID = 'page-nav-content-wrapper';
 const SITE_NAV_ID = 'site-nav';
 const TITLE_PREFIX_SEPARATOR = ' - ';
 
@@ -74,8 +75,9 @@ function Page(pageConfig) {
   this.headFileTopContent = '';
   this.headings = {};
   this.headingIndexingLevel = pageConfig.headingIndexingLevel;
-  this.keywords = {};
   this.includedFiles = {};
+  this.keywords = {};
+  this.navigableHeadings = {};
 }
 
 /**
@@ -181,6 +183,18 @@ function formatSiteNav(renderedSiteNav) {
   return $.html();
 }
 
+/**
+ * Generates a heading selector based on the indexing level
+ * @param headingIndexingLevel to generate
+ */
+function generateHeadingSelector(headingIndexingLevel) {
+  let headingsSelector = 'h1';
+  for (let i = 2; i <= headingIndexingLevel; i += 1) {
+    headingsSelector += `, h${i}`;
+  }
+  return headingsSelector;
+}
+
 function unique(array) {
   return array.filter((item, pos, self) => self.indexOf(item) === pos);
 }
@@ -197,6 +211,7 @@ Page.prototype.prepareTemplateData = function () {
     faviconUrl: this.faviconUrl,
     headFileBottomContent: this.headFileBottomContent,
     headFileTopContent: this.headFileTopContent,
+    pageNav: this.frontMatter.pageNav,
     siteNav: this.frontMatter.siteNav,
     title: prefixedTitle,
   };
@@ -227,25 +242,78 @@ function getClosestHeading($, headingsSelector, element) {
 }
 
 /**
- * Records headings and keywords inside rendered page into this.headings and this.keywords respectively
+ * Checks if page.frontMatter has a valid page navigation specifier
  */
-Page.prototype.collectHeadingsAndKeywords = function () {
-  this.headings = {}; // clear any heading data from previous build
-  const $ = cheerio.load(fs.readFileSync(this.resultPath));
-  this.collectHeadingsAndKeywordsInContent($(`#${CONTENT_WRAPPER_ID}`).html(), null, false);
+Page.prototype.isPageNavigationSpecifierValid = function () {
+  const { pageNav } = this.frontMatter;
+  return pageNav && (pageNav === 'default' || Number.isInteger(pageNav));
 };
 
 /**
- * Generates a heading selector based on the indexing level
- * @param headingIndexingLevel to generate
+ * Generates element selector for page navigation, depending on specifier in front matter
  */
-function generateHeadingSelector(headingIndexingLevel) {
-  let headingsSelector = 'h1';
-  for (let i = 2; i <= headingIndexingLevel; i += 1) {
-    headingsSelector += `, h${i}`;
+Page.prototype.generateElementSelectorForPageNav = function (pageNav) {
+  if (pageNav === 'default') {
+    // Use specified navigation level or default in this.headingIndexingLevel
+    return `${generateHeadingSelector(this.headingIndexingLevel)}, panel`;
+  } else if (Number.isInteger(pageNav)) {
+    return `${generateHeadingSelector(parseInt(pageNav, 10))}, panel`;
   }
-  return headingsSelector;
-}
+  // Not a valid specifier
+  return undefined;
+};
+
+/**
+ * Collect headings outside of models and panels
+ * @param content, html content of a page
+ */
+Page.prototype.collectNavigableHeadings = function (content) {
+  const { pageNav } = this.frontMatter;
+  const elementSelector = this.generateElementSelectorForPageNav(pageNav);
+  if (elementSelector === undefined) {
+    return;
+  }
+  const $ = cheerio.load(content);
+  $('modal').remove();
+  $(elementSelector).each((i, elem) => {
+    // Check if heading or panel is already inside an unexpanded panel
+    let isInsideUnexpandedPanel = false;
+    $(elem).parents('panel').each((j, elemParent) => {
+      if (elemParent.attribs.expanded === undefined) {
+        isInsideUnexpandedPanel = true;
+        return false;
+      }
+      return true;
+    });
+    if (isInsideUnexpandedPanel) {
+      return;
+    }
+    if (elem.name === 'panel') {
+      // Get heading from Panel header attribute
+      if (elem.attribs.header) {
+        this.collectNavigableHeadings(md.render(elem.attribs.header));
+      }
+    } else if ($(elem).attr('id') !== undefined) {
+      // Headings already in content, with a valid ID
+      this.navigableHeadings[$(elem).attr('id')] = {
+        text: $(elem).text(),
+        level: elem.name.replace('h', ''),
+      };
+    }
+  });
+};
+
+/**
+ * Records headings and keywords inside rendered page into this.headings and this.keywords respectively
+ */
+Page.prototype.collectHeadingsAndKeywords = function () {
+  const $ = cheerio.load(fs.readFileSync(this.resultPath));
+  // Re-initialise objects in the event of Site.regenerateAffectedPages
+  this.headings = {};
+  this.keywords = {};
+  // Collect headings and keywords
+  this.collectHeadingsAndKeywordsInContent($(`#${CONTENT_WRAPPER_ID}`).html(), null, false);
+};
 
 /**
  * Records headings and keywords inside content into this.headings and this.keywords respectively
@@ -497,6 +565,105 @@ Page.prototype.insertSiteNav = function (pageData) {
     + '</div>';
 };
 
+/**
+ *  Inserts wrapper for page nav contents CSS manipulation
+ */
+Page.prototype.insertPageNavWrapper = function (pageData) {
+  if (this.isPageNavigationSpecifierValid()) {
+    const wrappedPageData = `<div id="${PAGE_NAV_CONENT_WRAPPER_ID}">\n`
+                            + `${pageData}\n`
+                            + '</div>\n';
+    return wrappedPageData;
+  }
+  return pageData;
+};
+
+/**
+ *  Generates page navigation's heading list HTML
+ *
+ *  A stack is used to maintain proper indentation levels for the headings at different heading levels.
+ */
+Page.prototype.generatePageNavHeadingHtml = function () {
+  let headingHTML = '';
+  const headingStack = [];
+  Object.keys(this.navigableHeadings).forEach((key) => {
+    const currentHeadingLevel = this.navigableHeadings[key].level;
+    const currentHeadingHTML = `<a class="nav-link py-1" href="#${key}">`
+      + `${this.navigableHeadings[key].text}&#x200E;</a>\n`;
+    const nestedHeadingHTML = '<nav class="nav nav-pills flex-column my-0"'
+      + `style="margin-left: 5%; flex-wrap: nowrap;">\n${currentHeadingHTML}`;
+
+    if (headingStack.length === 0 || headingStack[headingStack.length - 1] === currentHeadingLevel) {
+      // Add heading without nesting, into headingHTML
+      headingHTML += currentHeadingHTML;
+    } else {
+      // Stack has at least 1 other heading level
+      let topOfHeadingStack = headingStack[headingStack.length - 1];
+      if (topOfHeadingStack < currentHeadingLevel) {
+        // Increase nesting level by 1
+        headingHTML += nestedHeadingHTML;
+      } else {
+        // Close any nested list with heading level higher than current
+        while (headingStack.length > 1 && topOfHeadingStack > currentHeadingLevel) {
+          headingHTML += '</nav>\n';
+          headingStack.pop();
+          topOfHeadingStack = headingStack[headingStack.length - 1];
+        }
+        if (topOfHeadingStack < currentHeadingLevel) {
+          // Increase nesting level by 1
+          headingHTML += nestedHeadingHTML;
+        } else {
+          headingHTML += currentHeadingHTML;
+        }
+      }
+    }
+    // Update heading level stack
+    if (headingStack.length === 0 || headingStack[headingStack.length - 1] !== currentHeadingLevel) {
+      headingStack.push(currentHeadingLevel);
+    }
+  });
+  // Ensure proper closing for any nested lists towards the end
+  while (headingStack.length > 1
+  && headingStack[headingStack.length - 1] > headingStack[headingStack.length - 2]) {
+    headingHTML += '</nav>\n';
+    headingStack.pop();
+  }
+  return headingHTML;
+};
+
+/**
+ * Generates page navigation's header if specified in this.frontMatter
+ * @returns string string
+ */
+Page.prototype.generatePageNavTitleHtml = function () {
+  const { pageNavTitle } = this.frontMatter;
+  return pageNavTitle
+    ? '<a class="navbar-brand" style="white-space: inherit; color: black" href="#">'
+      + `${pageNavTitle.toString()}`
+      + '</a>'
+    : '';
+};
+
+/**
+ *  Insert page navigation bar with headings up to headingIndexingLevel
+ */
+Page.prototype.insertPageNav = function () {
+  if (this.isPageNavigationSpecifierValid()) {
+    const $ = cheerio.load(this.content);
+    this.navigableHeadings = {};
+    this.collectNavigableHeadings($(`#${CONTENT_WRAPPER_ID}`).html());
+    const pageNavHeadingHTML = this.generatePageNavHeadingHtml();
+    const pageNavTitleHtml = this.generatePageNavTitleHtml();
+    const pageNavHtml = '<nav id="page-nav" class="navbar navbar-light bg-transparent slim-scroll">\n'
+      + `${pageNavTitleHtml}\n`
+      + '  <nav class="nav nav-pills flex-column my-0 small" style="flex-wrap: nowrap;">\n'
+      + `    ${pageNavHeadingHTML}\n`
+      + '  </nav>\n'
+      + '</nav>\n';
+    this.content = htmlBeautify(`${pageNavHtml}\n${this.content}`, { indent_size: 2 });
+  }
+};
+
 Page.prototype.collectHeadFiles = function (baseUrl, hostBaseUrl) {
   const { head } = this.frontMatter;
   let headFiles;
@@ -556,6 +723,7 @@ Page.prototype.generate = function (builtFiles) {
         return this.removeFrontMatter(result);
       })
       .then(result => addContentWrapper(result))
+      .then(result => this.insertPageNavWrapper(result))
       .then(result => this.insertSiteNav((result)))
       .then(result => this.insertFooter(result)) // Footer has to be inserted last to ensure proper formatting
       .then(result => formatFooter(result))
@@ -573,6 +741,7 @@ Page.prototype.generate = function (builtFiles) {
         this.addLayoutFiles();
         this.collectHeadFiles(baseUrl, hostBaseUrl);
         this.content = nunjucks.renderString(this.content, { baseUrl, hostBaseUrl });
+        this.insertPageNav();
         return fs.outputFileAsync(this.resultPath, this.template(this.prepareTemplateData()));
       })
       .then(() => {
