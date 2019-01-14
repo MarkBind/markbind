@@ -39,7 +39,7 @@
         "div-with-shown-tag": "Div with shown tag",
         "div-with-shown-2-tag": "Div with shown-2 tag",
         "div-with-multiple-tags": "Div with multiple tags",
-        "div-with-should-be-overridden-tag": "Div with should be overridden tag",
+        "div-with-frontmatter-tag-that-should-be-overriden-by-site-config": "Div with frontmatter tag that should be overriden by site config",
         "div-with-hidden-tag": "Div with hidden tag",
         "normal-include": "Normal include",
         "establishing-requirements": "Establishing Requirements",
@@ -121,7 +121,7 @@
         "div-with-shown-tag": "Div with shown tag",
         "div-with-shown-2-tag": "Div with shown-2 tag",
         "div-with-multiple-tags": "Div with multiple tags",
-        "div-with-should-be-overridden-tag": "Div with should be overridden tag",
+        "div-with-frontmatter-tag-that-should-be-overriden-by-site-config": "Div with frontmatter tag that should be overriden by site config",
         "div-with-hidden-tag": "Div with hidden tag"
       },
       "title": "Hello World",

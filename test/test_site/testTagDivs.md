@@ -13,7 +13,7 @@ Div with shown-2 tag
 Div with multiple tags
 </div>
 
-# Div with should be overridden tag
+# Div with frontmatter tag that should be overriden by site config
 <div tags="tag--should-be-overridden">
 Div with should be overridden tag
 </div>

@@ -7,9 +7,6 @@ const path = require('path');
 const pathIsInside = require('path-is-inside');
 const Promise = require('bluebird');
 
-const _ = {};
-_.isArray = require('lodash/isArray');
-
 const FsUtil = require('./util/fsUtil');
 const logger = require('./util/logger');
 const MarkBind = require('./lib/markbind/src/parser');
@@ -432,14 +429,12 @@ Page.prototype.filterTags = function (tags, content) {
   if (tags === undefined) {
     return content;
   }
-  if (!_.isArray(tags)) {
-    return this.filterTags([tags], content);
-  }
+  const tagsArray = Array.isArray(tags) ? tags : [tags];
   const $ = cheerio.load(content, { xmlMode: false });
   $('[tags]').each((i, element) => {
     $(element).attr('hidden', true);
   });
-  tags.forEach((tag) => {
+  tagsArray.forEach((tag) => {
     $(`[tags~="${tag}"]`).each((i, element) => {
       $(element).removeAttr('hidden');
     });
