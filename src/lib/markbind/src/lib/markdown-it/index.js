@@ -15,11 +15,12 @@ const markdownIt = require('markdown-it')({
     return '<pre class="hljs"><code>' + markdownIt.utils.escapeHtml(str) + '</code></pre>';
   }
 });
+const slugify = require('@sindresorhus/slugify');
 
 // markdown-it plugins
 markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-ins'))
-  .use(require('markdown-it-anchor'))
+  .use(require('markdown-it-anchor'), {slugify: slugify})
   .use(require('markdown-it-imsize'), {autofill: false})
   .use(require('markdown-it-table-of-contents'))
   .use(require('markdown-it-task-lists'), {enabled: true})

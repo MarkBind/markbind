@@ -13,6 +13,7 @@
   "author": "Jiang Sheng <gisonrg@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@sindresorhus/slugify": "^0.8.0",
     "bluebird": "^3.4.7",
     "cheerio": "^0.22.0",
     "fastmatter": "^2.0.1",
