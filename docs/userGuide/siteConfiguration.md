@@ -120,6 +120,6 @@ The ignore pattern follows the [glob pattern used in .gitignore](https://git-scm
 
 #### **`enableSearch`**
 
-**Specifies that the website should use MarkBind's search functionality.** Default: `true`. See [User Guide: Making the Site Searchable](userguide/makingthesitesearchable) for more details.
+**Specifies that the website should use MarkBind's search functionality.** Default: `true`. See [User Guide: Making the Site Searchable]({{ baseUrl }}/userGuide/makingTheSiteSearchable.html) for more details.
 
 </div>
