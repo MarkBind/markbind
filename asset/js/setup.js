@@ -33,10 +33,15 @@ function setupAnchors() {
   });
 }
 
+function fadeOutSpinner() {
+  jQuery('#spinner-overlay').fadeOut(100);
+}
+
 function executeAfterMountedRoutines() {
   flattenModals();
   scrollToUrlAnchorHeading();
   setupAnchors();
+  fadeOutSpinner();
 }
 
 function setupSiteNav() {
