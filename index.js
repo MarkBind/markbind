@@ -69,7 +69,13 @@ program
       options.onePage = fsUtil.ensurePosix(options.onePage);
     }
 
-    const site = new Site(rootFolder, outputFolder, options.onePage, options.forceReload, options.siteConfig);
+    let site;
+    try {
+      site = new Site(rootFolder, outputFolder, options.onePage, options.forceReload, options.siteConfig);
+    } catch (err) {
+      logger.error(err.message);
+      return;
+    }
 
     const addHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
@@ -160,7 +166,17 @@ program
   .action(() => {
     const rootFolder = path.resolve(process.cwd());
     const outputRoot = path.join(rootFolder, '_site');
-    new Site(rootFolder, outputRoot).deploy()
+
+    let site;
+    try {
+      site = new Site(rootFolder, outputRoot);
+    } catch (err) {
+      logger.error(err.message);
+      return;
+    }
+
+    site
+      .deploy()
       .then(() => {
         logger.info('Deployed!');
       })
@@ -182,7 +198,16 @@ program
     const defaultOutputRoot = path.join(rootFolder, '_site');
     const outputFolder = output ? path.resolve(process.cwd(), output) : defaultOutputRoot;
     printHeader();
-    new Site(rootFolder, outputFolder)
+
+    let site;
+    try {
+      site = new Site(rootFolder, outputFolder);
+    } catch (err) {
+      logger.error(err.message);
+      return;
+    }
+
+    site
       .generate(baseUrl)
       .then(() => {
         logger.info('Build success!');

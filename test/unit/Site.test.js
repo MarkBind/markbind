@@ -22,6 +22,13 @@ jest.mock('../../src/util/logger');
 
 afterEach(() => fs.vol.reset());
 
+test('Site constructor throws error if root folder does not exist', () => {
+  expect(() => {
+    // eslint-disable-next-line no-unused-vars
+    const site = new Site('non_existent_root/', '_site');
+  }).toThrow();
+});
+
 test('Site Generate builds the correct amount of assets', async () => {
   const json = {
     'src/asset/font-awesome.csv': '',

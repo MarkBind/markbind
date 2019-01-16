@@ -111,6 +111,11 @@ const MARKBIND_WEBSITE_URL = 'https://markbind.github.io/markbind/';
 const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${CLI_VERSION}</a>`;
 
 function Site(rootPath, outputPath, onePagePath, forceReload = false, siteConfigPath = SITE_CONFIG_NAME) {
+  const rootPathExists = fs.existsSync(rootPath);
+  if (!rootPathExists) {
+    throw new Error(`root path ${rootPath} does not exist`);
+  }
+
   const configPath = findUp.sync(siteConfigPath, { cwd: rootPath });
   this.rootPath = configPath ? path.dirname(configPath) : rootPath;
   this.outputPath = outputPath;
