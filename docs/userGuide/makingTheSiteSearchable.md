@@ -17,6 +17,8 @@
 
 **All headings of levels 1-3 are captured in the search index** by default. You can change this setting using the [`headingIndexLevel` property of the `site.json`]({{ baseUrl }}/userGuide/siteConfiguration.html#headingindexinglevel).
 
+## Using Keywords
+
 **You can also specify additional keywords to be indexed under a heading** by tagging the words with the `keyword` class. Those keywords will be linked to the heading immediately above it. If you want to index a keyword without rendering it in the page, add `d-none` as a class.
 
 <div class="indented">
