@@ -343,7 +343,7 @@ In this case `myHead.md` will override the `chapterLayout/head.md`.
 
 You can use tags to selectively filter HTML elements when building a site.
 
-Tags are specified by the `tags` attribute, **and can be attached to any HTML element**.
+Tags are specified by the `tags` attribute, **and can be attached to any HTML element**. During rendering, only elements that match tags specified in the `site.json` files will be rendered.
 
 <div class="indented">
 
@@ -352,21 +352,22 @@ Tags are specified by the `tags` attribute, **and can be attached to any HTML el
 # Print 'Hello world'
 
 <p tags="language--java">System.out.println("Hello world");</p>
-<div tags="language--C#">Console.WriteLine("Hello world");</div>
-<span tags="language--python">print("Hello world")</span>
+<p tags="language--C#">Console.WriteLine("Hello world");</p>
+<p tags="language--python">print("Hello world")</p>
 ```
-</div>
 
 You need to specify the tags to include in `site.json`, under the `tags` option:
 
-```
+```json
 {
   ...
   "tags": ["language--java"]
 }
 ```
 
-During rendering, only elements that match tags specified in the `site.json` files will be rendered. All other tagged elements will be filtered out. In this case, only the element with the `language--java` tag will be rendered. This is helpful when creating multiple versions of a page without having to maintain separate copies.
+All other tagged elements will be filtered out. In this case, only the element with the `language--java` tag will be rendered. This is helpful when creating multiple versions of a page without having to maintain separate copies.
+
+</div>
 
 If the `tags` option is not specified in `site.json`, all tagged elements will be rendered.
 
@@ -379,8 +380,10 @@ If the `tags` option is not specified in `site.json`, all tagged elements will b
 # For loops
 
 <p tags="language--java language--C#">for (int i = 0; i < 5; i++) { ... }</p>
-<span tags="language--python">for i in range(0,5): ...</span>
 ```
+
+As long as the `language--java` or `language--C#` tag is specified, the code snippet will be rendered.
+
 </div>
 
 Alternatively, you can specify tags to render for a page in the front matter.
@@ -388,7 +391,7 @@ Alternatively, you can specify tags to render for a page in the front matter.
 <div class="indented">
 
 {{ icon_example }} Specifying tags in front matter:
-```
+```html
 <frontmatter>
   title: "Hello World"
   tags: ["language--java"]
