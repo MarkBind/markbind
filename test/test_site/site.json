@@ -5,8 +5,7 @@
   "pages": [
     {
       "src": "index.md",
-      "title": "Hello World",
-      "layout": "default"
+      "title": "Hello World"
     },
     {
       "src": "testEmptyFrontmatter.md",
