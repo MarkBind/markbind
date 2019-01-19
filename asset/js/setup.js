@@ -33,20 +33,14 @@ function setupAnchors() {
   });
 }
 
-function removeSpinner() {
-  jQuery('#spinner-layout').remove();
+function removeLoadingOverlay() {
+  jQuery('#loading-overlay').remove();
 }
-
-function unhideContent() {
-  jQuery('#app').css({ visibility: 'visible' });
-}
-
 function executeAfterMountedRoutines() {
   flattenModals();
   scrollToUrlAnchorHeading();
   setupAnchors();
-  removeSpinner();
-  unhideContent();
+  removeLoadingOverlay();
 }
 
 function setupSiteNav() {
