@@ -14,7 +14,7 @@
         "outer-nested-panel-without-src": "Outer nested panel without src",
         "panel-with-src-from-another-markbind-site-header": "Panel with src from another Markbind site header",
         "unexpanded-panel-header": "Unexpanded panel header",
-        "keyword-should-be-tagged-to-this-heading%2C-not-the-panel-heading": "Keyword should be tagged to this heading, not the panel heading | panel keyword",
+        "keyword-should-be-tagged-to-this-heading-not-the-panel-heading": "Keyword should be tagged to this heading, not the panel heading | panel keyword",
         "panel-without-src-content-heading": "Panel without src content heading",
         "panel-normal-source-content-headings": "Panel normal source content headings",
         "panel-source-segment-content-headings": "Panel source segment content headings",
@@ -45,7 +45,7 @@
         "boilerplate-include": "Boilerplate include",
         "nested-include": "Nested include",
         "html-include": "HTML include",
-        "mbd%2C-mbdf-include": "Mbd, Mbdf include",
+        "mbd-mbdf-include": "Mbd, Mbdf include",
         "include-from-another-markbind-site": "Include from another Markbind site",
         "trimmed-include": "Trimmed include",
         "fragment-with-leading-spaces-and-newline": "Fragment with leading spaces and newline",
@@ -82,7 +82,7 @@
     },
     {
       "headings": {
-        "popover-initiated-by-trigger%3A-honor-trigger-attribute": "popover initiated by trigger: honor trigger attribute",
+        "popover-initiated-by-trigger-honor-trigger-attribute": "popover initiated by trigger: honor trigger attribute",
         "support-multiple-inclusions-of-a-modal": "Support multiple inclusions of a modal",
         "remove-extra-space-in-links": "Remove extra space in links"
       },
