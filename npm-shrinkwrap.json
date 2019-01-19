@@ -2443,9 +2443,9 @@
           "bundled": true,
           "optional": true,
           "requires": {
-            "asynckit": "0.4.0",
-            "combined-stream": "1.0.5",
-            "mime-types": "2.1.15"
+            "asynckit": "^0.4.0",
+            "combined-stream": "^1.0.5",
+            "mime-types": "^2.1.12"
           }
         },
         "fs.realpath": {
@@ -2583,7 +2583,7 @@
           "version": "1.0.0",
           "bundled": true,
           "requires": {
-            "number-is-nan": "1.0.1"
+            "number-is-nan": "^1.0.0"
           }
         },
         "is-typedarray": {
@@ -2662,14 +2662,14 @@
           "version": "2.1.15",
           "bundled": true,
           "requires": {
-            "mime-db": "1.27.0"
+            "mime-db": "~1.27.0"
           }
         },
         "minimatch": {
           "version": "3.0.4",
           "bundled": true,
           "requires": {
-            "brace-expansion": "1.1.7"
+            "brace-expansion": "^1.1.7"
           }
         },
         "minimist": {
@@ -2760,8 +2760,8 @@
           "bundled": true,
           "optional": true,
           "requires": {
-            "os-homedir": "1.0.2",
-            "os-tmpdir": "1.0.2"
+            "os-homedir": "^1.0.0",
+            "os-tmpdir": "^1.0.0"
           }
         },
         "path-is-absolute": {
@@ -6134,8 +6134,7 @@
     "progress": {
       "version": "2.0.0",
       "resolved": "https://registry.npmjs.org/progress/-/progress-2.0.0.tgz",
-      "integrity": "sha1-ihvjZr+Pwj2yvSPxDG/pILQ4nR8=",
-      "dev": true
+      "integrity": "sha1-ihvjZr+Pwj2yvSPxDG/pILQ4nR8="
     },
     "proto-list": {
       "version": "1.2.4",
