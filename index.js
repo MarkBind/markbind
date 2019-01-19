@@ -11,6 +11,7 @@ const Promise = require('bluebird');
 const _ = {};
 _.isBoolean = require('lodash/isBoolean');
 
+const cliUtil = require('./src/util/cliUtil');
 const fsUtil = require('./src/util/fsUtil');
 const logger = require('./src/util/logger');
 const Site = require('./src/Site');
@@ -58,8 +59,13 @@ program
   .option('-o, --one-page <file>', 'render and serve only a single page in the site')
   .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
-  .action((root, options) => {
-    const rootFolder = path.resolve(root || process.cwd());
+  .action((userSpecifiedRoot, options) => {
+    let rootFolder;
+    try {
+      rootFolder = cliUtil.findRootFolder(userSpecifiedRoot);
+    } catch (err) {
+      logger.error(err.message);
+    }
     const logsFolder = path.join(rootFolder, '_markbind/logs');
     const outputFolder = path.join(rootFolder, '_site');
 
@@ -175,10 +181,15 @@ program
   .option('--baseUrl [baseUrl]',
           'optional flag which overrides baseUrl in site.json, leave argument empty for empty baseUrl')
   .description('build a website')
-  .action((root, output, options) => {
+  .action((userSpecifiedRoot, output, options) => {
     // if --baseUrl contains no arguments (options.baseUrl === true) then set baseUrl to empty string
     const baseUrl = _.isBoolean(options.baseUrl) ? '' : options.baseUrl;
-    const rootFolder = path.resolve(root || process.cwd());
+    let rootFolder;
+    try {
+      rootFolder = cliUtil.findRootFolder(userSpecifiedRoot);
+    } catch (err) {
+      logger.error(err.message);
+    }
     const defaultOutputRoot = path.join(rootFolder, '_site');
     const outputFolder = output ? path.resolve(process.cwd(), output) : defaultOutputRoot;
     printHeader();
