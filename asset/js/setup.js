@@ -33,8 +33,9 @@ function setupAnchors() {
   });
 }
 
-function fadeOutSpinner() {
-  jQuery('#spinner-overlay').fadeOut(100);
+function removeSpinner() {
+  jQuery('#spinner-layout').remove();
+}
 
 function unhideContent() {
   jQuery('#app').css({ visibility: 'visible' });
@@ -44,7 +45,7 @@ function executeAfterMountedRoutines() {
   flattenModals();
   scrollToUrlAnchorHeading();
   setupAnchors();
-  fadeOutSpinner();
+  removeSpinner();
   unhideContent();
 }
 

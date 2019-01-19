@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>#app{visibility: hidden;}</style>
+    <style>#app{ visibility: hidden; }</style>
     <%- headFileTopContent %>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,6 +23,9 @@
 <div id="app">
     <%- content %>
 </div>
+<div id="spinner-layout">
+    <div id="spinner"></div>
+</div>';
 </body>
 <script src="<%- asset.vue %>"></script>
 <script src="<%- asset.vueStrap %>"></script>

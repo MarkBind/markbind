@@ -29,7 +29,6 @@ const CONTENT_WRAPPER_ID = 'content-wrapper';
 const FLEX_BODY_DIV_ID = 'flex-body';
 const FLEX_DIV_HTML = '<div id="flex-div"></div>';
 const FLEX_DIV_ID = 'flex-div';
-const SPINNER_HTML = '<div id="spinner-overlay"><div id="spinner"></div></div>';
 const FRONT_MATTER_FENCE = '---';
 const PAGE_CONTENT_ID = 'page-content';
 const PAGE_NAV_CONENT_WRAPPER_ID = 'page-nav-content-wrapper';
@@ -563,11 +562,6 @@ Page.prototype.insertFooter = function (pageData) {
   return `${pageData}\n${nunjucks.renderString(footerContent, userDefinedVariables)}`;
 };
 
-
-Page.prototype.insertSpinner = function (pageData) {
-  return `${pageData}\n${SPINNER_HTML}`;
-};
-
 /**
  * Inserts a site navigation bar using the file specified in the front matter
  * @param pageData, a page with its front matter collected
@@ -776,7 +770,6 @@ Page.prototype.generate = function (builtFiles) {
       .then(result => addContentWrapper(result))
       .then(result => this.insertPageNavWrapper(result))
       .then(result => this.insertSiteNav((result)))
-      .then(result => this.insertSpinner(result))
       .then(result => this.insertFooter(result)) // Footer has to be inserted last to ensure proper formatting
       .then(result => formatFooter(result))
       .then(result => markbinder.resolveBaseUrl(result, fileConfig))
