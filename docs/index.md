@@ -143,7 +143,7 @@ Here are some examples:
 
 #### {{ icon_check_blue }} More control to the reader, without duplicating code.
 
-A MarkBind website can be a _buffet_ of content, as opposed to a _set menu_: a site can have optional contents that the reader can access at her discretion, and the same content can be organized in multiple ways so that the reader can choose the one that fits the need. To _cater_ (pun intended) for creating such buffet style websites, MarkBind has **[reuse mechanisms]({{ baseUrl }}/reusingContents.html) for presenting the same content in multiple ways without duplicating the source file**.
+A MarkBind website can be a _buffet_ of content, as opposed to a _set menu_: a site can have optional contents that the reader can access at her discretion, and the same content can be organized in multiple ways so that the reader can choose the one that fits the need. To _cater_ (pun intended) for creating such buffet style websites, MarkBind has **[reuse mechanisms]({{ baseUrl }}/userGuide/reusingContents.html) for presenting the same content in multiple ways without duplicating the source file**.
 
 For example, MarkBind has a powerful `include` mechanism that allows content fragments (i.e., a file or part of a file) to be reused at multiple places in the website. In the example below, both the modal and the expandable panel reuses the same content originating from a _single_ source file.
 
