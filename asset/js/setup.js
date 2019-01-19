@@ -35,6 +35,9 @@ function setupAnchors() {
 
 function fadeOutSpinner() {
   jQuery('#spinner-overlay').fadeOut(100);
+
+function unhideContent() {
+  jQuery('#app').css({ visibility: 'visible' });
 }
 
 function executeAfterMountedRoutines() {
@@ -42,6 +45,7 @@ function executeAfterMountedRoutines() {
   scrollToUrlAnchorHeading();
   setupAnchors();
   fadeOutSpinner();
+  unhideContent();
 }
 
 function setupSiteNav() {
