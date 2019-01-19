@@ -50,8 +50,8 @@
     "path-is-inside": "^1.0.2",
     "progress": "^2.0.0",
     "walk-sync": "^0.3.1",
-    "winston": "^2.4.1",
-    "winston-daily-rotate-file": "^3.0.1"
+    "winston": "^2.4.4",
+    "winston-daily-rotate-file": "^3.6.0"
   },
   "repository": {
     "type": "git",
