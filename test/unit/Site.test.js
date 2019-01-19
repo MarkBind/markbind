@@ -206,9 +206,11 @@ test('Site read site config for default', async () => {
   };
   fs.vol.fromJSON(json, '');
 
+  const siteConfigDefaults = { enableSearch: true };
+  const expectedSiteConfig = { ...JSON.parse(SITE_JSON_DEFAULT), ...siteConfigDefaults };
   const site = new Site('./', '_site');
   await site.readSiteConfig();
-  expect(site.siteConfig).toEqual(JSON.parse(SITE_JSON_DEFAULT));
+  expect(site.siteConfig).toEqual(expectedSiteConfig);
 });
 
 test('Site read site config for custom site config', async () => {
@@ -228,6 +230,7 @@ test('Site read site config for custom site config', async () => {
     deploy: {
       message: 'Site Update.',
     },
+    enableSearch: true,
   };
   const json = {
     'src/template/page.ejs': PAGE_EJS,

@@ -280,6 +280,7 @@ Site.prototype.readSiteConfig = function (baseUrl) {
       .then((config) => {
         this.siteConfig = config;
         this.siteConfig.baseUrl = (baseUrl === undefined) ? this.siteConfig.baseUrl : baseUrl;
+        this.siteConfig.enableSearch = (config.enableSearch === undefined) || config.enableSearch;
         resolve(this.siteConfig);
       })
       .catch((err) => {
@@ -312,7 +313,7 @@ Site.prototype.createPage = function (config) {
     faviconUrl: config.faviconUrl,
     pageTemplate: this.pageTemplate,
     rootPath: this.rootPath,
-    searchable: config.searchable,
+    searchable: this.siteConfig.enableSearch && config.searchable,
     src: config.pageSrc,
     layoutsAssetPath: path.relative(path.dirname(resultPath),
                                     path.join(this.siteAssetsDestPath, LAYOUT_SITE_FOLDER_NAME)),
@@ -718,6 +719,7 @@ Site.prototype.writeSiteData = function () {
   return new Promise((resolve, reject) => {
     const siteDataPath = path.join(this.outputPath, SITE_DATA_NAME);
     const siteData = {
+      enableSearch: this.siteConfig.enableSearch,
       pages: this.pages.filter(page => page.searchable)
         .map(page => Object.assign({ headings: page.headings }, page.frontMatter)),
     };
