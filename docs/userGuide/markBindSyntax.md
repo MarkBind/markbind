@@ -138,14 +138,13 @@ Go to the [MarkBind Website](https://markbind.github.io/markbind/)
 
 ##### Fenced code blocks / syntax highlighting
 
-<span>
-<code>```python</code>
-</span>
-
-<code>def say_hello(name):</code><br>
-&nbsp;&nbsp;&nbsp;&nbsp;`print('Hello', name)`<br>
-&nbsp;&nbsp;&nbsp;&nbsp;`print('How are you', name)`<br>
-<code>```</code>
+````
+```python
+def say_hello(name):
+    print('Hello', name)<br>
+    print('How are you', name)<br>
+```
+````
 
 ```python
 def say_hello(name):

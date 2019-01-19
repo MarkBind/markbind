@@ -5,7 +5,14 @@ blockquote {
 }
 
 code {
+    background: #f8f8f8;
+    border-radius: 3px;
+    padding: 0.2em 0.4em;
     word-break: normal;
+}
+
+pre.hljs > code {
+    background: none;
 }
 
 pre > code.hljs {
