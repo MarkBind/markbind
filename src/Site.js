@@ -13,6 +13,7 @@ const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
 
 const _ = {};
+_.union = require('lodash/union');
 _.unionWith = require('lodash/unionWith');
 _.uniq = require('lodash/uniq');
 
@@ -329,6 +330,7 @@ Site.prototype.createPage = function (config) {
                                path.join(this.siteAssetsDestPath, 'css', 'bootstrap.min.css')),
       bootstrapVue: path.relative(path.dirname(resultPath),
                                   path.join(this.siteAssetsDestPath, 'css', 'bootstrap-vue.min.css')),
+      externalScripts: _.union(this.siteConfig.externalScripts, config.externalScripts),
       fontAwesome: path.relative(path.dirname(resultPath),
                                  path.join(this.siteAssetsDestPath, 'css', 'font-awesome.min.css')),
       glyphicons: path.relative(path.dirname(resultPath),
@@ -604,6 +606,7 @@ Site.prototype.generatePages = function () {
       title: page.title,
       layout: page.layout || LAYOUT_DEFAULT_NAME,
       searchable: page.searchable !== 'no',
+      externalScripts: page.externalScripts,
     }));
   } else {
     this.pages = addressablePages.map(page => this.createPage({
@@ -612,6 +615,7 @@ Site.prototype.generatePages = function () {
       title: page.title,
       layout: page.layout || LAYOUT_DEFAULT_NAME,
       searchable: page.searchable !== 'no',
+      externalScripts: page.externalScripts,
     }));
   }
 

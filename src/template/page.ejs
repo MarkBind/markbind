@@ -30,5 +30,10 @@
     const baseUrl = '<%- baseUrl %>'
 </script>
 <script src="<%- asset.setup %>"></script>
+<% if (asset.externalScripts) { -%>
+<% for (const script of asset.externalScripts) { -%>
+<script src="<%- script %>"></script>
+<% } -%>
+<% } -%>
 <script src="<%- asset.layoutScript %>"></script>
 </html>

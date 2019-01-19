@@ -28,11 +28,17 @@ Here is a typical `site.json` file:
       "src": "index.md",
       "title": "Hello World",
       "layout": "normal",
-      "searchable": "no"
+      "searchable": "no",
+      "externalScripts": [
+        "https://cdn.plot.ly/plotly-latest.min.js"
+      ]
     },
     {
       "glob": "**/index.md"
     }
+  ],
+  "externalScripts": [
+    "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
   ],
   "deploy": {
     "message": "Site Update.",
@@ -82,6 +88,7 @@ Here is a typical `site.json` file:
 * **`title`**: The page `<title>` for the generated web page. Titles specified here take priority over titles specified in the [front matter](addingPages.html#front-matter) of individual pages.
 * **`layout`**: The [layout]({{ baseUrl }}/userGuide/advancedTopics.html#page-layout) to be used by the page. Default: `default`.
 * **`searchable`**: Specifies that the page(s) should be excluded from searching. Default: `yes`.
+* **`externalScripts`**: An array of external scripts to be referenced on the page. Scripts referenced will be run before the layout script.
 
 <span id="page-property-overriding">
 <box type="warning">
@@ -89,6 +96,10 @@ Here is a typical `site.json` file:
 Note: Page properties that are defined in `site.json` for a particular page will override those defined in the front matter of the page.
 </box>
 </span>
+
+#### **`externalScripts`**
+
+**An array of external scripts to be referenced on all pages.** To reference an external script only on specific pages, `externalScripts` should be specified in `pages` instead. Scripts referenced will be run before the layout script.
 
 #### **`ignore`**
 
