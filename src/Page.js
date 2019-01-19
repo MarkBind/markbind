@@ -378,6 +378,8 @@ Page.prototype.collectIncludedFiles = function (dependencies) {
   });
 };
 
+//Nothing to see here
+
 /**
  * Records the front matter into this.frontMatter
  * @param includedPage a page with its dependencies included
