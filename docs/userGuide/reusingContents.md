@@ -64,7 +64,7 @@ To include a variable value in your code, give the variable id enclosed in doubl
 Represents the root directory of the project. Used for specifying intra-site links.
 
 <panel type="seamless" header="User Guide: MarkBind Syntax → Intra-Site Links">
-  <include src="markbindSyntax.md#intraSiteLinks" />
+  <include src="markBindSyntax.md#intraSiteLinks" />
 </panel>
 
 
