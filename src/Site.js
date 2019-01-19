@@ -2,7 +2,6 @@
 
 const cheerio = require('cheerio');
 const ejs = require('ejs');
-const findUp = require('find-up');
 const fs = require('fs-extra-promise');
 const ghpages = require('gh-pages');
 const ignore = require('ignore');
@@ -111,8 +110,7 @@ const MARKBIND_WEBSITE_URL = 'https://markbind.github.io/markbind/';
 const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${CLI_VERSION}</a>`;
 
 function Site(rootPath, outputPath, onePagePath, forceReload = false, siteConfigPath = SITE_CONFIG_NAME) {
-  const configPath = findUp.sync(siteConfigPath, { cwd: rootPath });
-  this.rootPath = configPath ? path.dirname(configPath) : rootPath;
+  this.rootPath = rootPath;
   this.outputPath = outputPath;
   this.tempPath = path.join(rootPath, TEMP_FOLDER_NAME);
 
