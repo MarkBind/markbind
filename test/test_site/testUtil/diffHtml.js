@@ -77,6 +77,7 @@ const diffHtml = (expected, actual) => {
   let insidePath = false;
 
   const diff = jsdiff.diffChars(expected, actual);
+  console.log(diff);
   const isDiff = part => part.added || part.removed;
 
   // assumes no space between paths
