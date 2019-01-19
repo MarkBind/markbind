@@ -74,9 +74,12 @@
     <a class="nav-link py-1" href="#test-included-variable-with-markdown">Test included variable with markdown&#x200E;</a>
     <a class="nav-link py-1" href="#test-included-variable-as-attribute">Test included variable as attribute&#x200E;</a>
     <a class="nav-link py-1" href="#test-included-variable-as-html-element">Test included variable as html element&#x200E;</a>
-    <a class="nav-link py-1" href="#test-included-variable-overriding-variables-md">Test included variable overriding variables.md&#x200E;</a>
-    <a class="nav-link py-1" href="#test-included-variable-in-included-file">Test included variable in included file&#x200E;</a>
+    <a class="nav-link py-1" href="#test-included-variable-overriden-by-variables-md">Test included variable overriden by variables.md&#x200E;</a>
+    <a class="nav-link py-1" href="#test-included-variables-in-included-file">Test included variables in included file&#x200E;</a>
+    <a class="nav-link py-1" href="#inner-included-variables-should-not-leak-into-other-files">Inner included variables should not leak into other files&#x200E;</a>
     <a class="nav-link py-1" href="#test-included-variable-with-global-variable">Test included variable with global variable&#x200E;</a>
+    <a class="nav-link py-1" href="#test-included-variable-with-local-variable">Test included variable with local variable&#x200E;</a>
+    <a class="nav-link py-1" href="#test-included-variable-overriden-by-set">Test included variable overriden by set&#x200E;</a>
     <a class="nav-link py-1" href="#test-missing-variable-with-default">Test missing variable with default&#x200E;</a>
     <a class="nav-link py-1" href="#included-variables-should-not-leak-into-other-files">Included variables should not leak into other files&#x200E;</a>
     <a class="nav-link py-1" href="#panel-without-src">Panel without src&#x200E;</a>
@@ -364,14 +367,22 @@ specification that specifies how the product will address the requirements. </sp
             <p style="color: blue">Test</p>
             <h1 id="test-included-variable-as-html-element">Test included variable as html element<a class="fa fa-anchor" href="#test-included-variable-as-html-element"></a></h1>
             <p><span>Included variable within html element</span></p>
-            <h1 id="test-included-variable-overriding-variables-md">Test included variable overriding <a href="http://variables.md">variables.md</a><a class="fa fa-anchor" href="#test-included-variable-overriding-variables-md"></a></h1>
-            <p>Included variable overriding <a href="http://variables.md">variables.md</a></p>
-            <h1 id="test-included-variable-in-included-file">Test included variable in included file<a class="fa fa-anchor" href="#test-included-variable-in-included-file"></a></h1>
+            <h1 id="test-included-variable-overriden-by-variables-md">Test included variable overriden by <a href="http://variables.md">variables.md</a><a class="fa fa-anchor" href="#test-included-variable-overriden-by-variables-md"></a></h1>
+            <p>Included variable overriding page variables</p>
+            <h1 id="test-included-variables-in-included-file">Test included variables in included file<a class="fa fa-anchor" href="#test-included-variables-in-included-file"></a></h1>
             <div>
               <p>Included variable in included file</p>
+              <p>Included variable overriding inner variable</p>
+            </div>
+            <h1 id="inner-included-variables-should-not-leak-into-other-files">Inner included variables should not leak into other files<a class="fa fa-anchor" href="#inner-included-variables-should-not-leak-into-other-files"></a></h1>
+            <div>
+              <p>Should be blank:</p>
             </div>
             <h1 id="test-included-variable-with-global-variable">Test included variable with global variable<a class="fa fa-anchor" href="#test-included-variable-with-global-variable"></a></h1>
             <p>Included variable with Global variable</p>
+            <h1 id="test-included-variable-with-local-variable">Test included variable with local variable<a class="fa fa-anchor" href="#test-included-variable-with-local-variable"></a></h1>
+            <h1 id="test-included-variable-overriden-by-set">Test included variable overriden by set<a class="fa fa-anchor" href="#test-included-variable-overriden-by-set"></a></h1>
+            <p>Inner variable overriden by set Global variable overriden by set</p>
             <h1 id="test-missing-variable-with-default">Test missing variable with default<a class="fa fa-anchor" href="#test-missing-variable-with-default"></a></h1>
             <p>Missing Variable</p>
           </div>

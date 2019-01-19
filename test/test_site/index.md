@@ -102,8 +102,10 @@ head: myCustomHead.md, myCustomHead2.md
   <span id="includedVariableWithMarkdown">__**Included variable with markdown**__</span>
   <span id="includedVariableAsAttribute">color: blue</span>
   <span id="includedVariableAsHtmlElement"><span>Included variable within html element</span></span>
-  <span id="includedVariableOverriding">Included variable overriding variables.md</span>
+  <span id="includedVariableGlobalOverriden">Included variable overriden by global variable</span>
+  <span id="includedVariableInnerOverriden">Included variable overriding inner variable</span>
   <span id="includedVariableInIncludedFile">Included variable in included file</span>
+  <span id="includedVariableShouldNotLeak">Included variable should not leak into other files</span>
   <span id="includedVariableWithGlobalVariable">Included variable with {{ includedGlobalVariable }}</span>
 </include>
 
