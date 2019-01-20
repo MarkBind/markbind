@@ -57,9 +57,9 @@ Steps:
 
 <box>
 
-`<script src="`{{ showBaseUrl }}`/js/myCustomScript.js"></script>`<br>
-`<link rel="stylesheet" href="`{{ showBaseUrl }}`/css/main.css">`<br>
-`<link rel="stylesheet" href="`{{ showBaseUrl }}`/css/extra.css">`
+`<script src="`{{ showBaseUrlCode }}`/js/myCustomScript.js"></script>`<br>
+`<link rel="stylesheet" href="`{{ showBaseUrlCode }}`/css/main.css">`<br>
+`<link rel="stylesheet" href="`{{ showBaseUrlCode }}`/css/extra.css">`
 
 </box>
 
@@ -82,10 +82,10 @@ To specify that you want to insert `myCustomLinks.md` into the `<head>` of `myPa
 <box>
 
 **`<head-top>`**<br>
-&nbsp;&nbsp;`<script src="`{{ showBaseUrl }}`/js/myCustomScript.js"></script>`<br>
+&nbsp;&nbsp;`<script src="`{{ showBaseUrlCode }}`/js/myCustomScript.js"></script>`<br>
 **`</head-top>`**<br>
-`<link rel="stylesheet" href="`{{ showBaseUrl }}`/css/main.css">`<br>
-`<link rel="stylesheet" href="`{{ showBaseUrl }}`/css/extra.css">`
+`<link rel="stylesheet" href="`{{ showBaseUrlCode }}`/css/main.css">`<br>
+`<link rel="stylesheet" href="`{{ showBaseUrlCode }}`/css/extra.css">`
 
 </box>
 
@@ -167,14 +167,16 @@ Steps to add a site navigation menu ==(_siteNav_ for short)==:
 
 <box>
 
-`* [:house: Home](`{{showBaseUrl}}`/index.html)`<br>
-`* Docs`<br>
-&nbsp;&nbsp;&nbsp;`* [User Guide](`{{showBaseUrl}}`/ug.html)`<br>
-&nbsp;&nbsp;&nbsp;`* [Dev Guide](`{{showBaseUrl}}`/dg.html)`<br>
-`* [Search](`{{showBaseUrl}}`/search.html)`<br>
-&nbsp;&nbsp;&nbsp;`* [Google Search](https://www.google.com/)`<br>
-&nbsp;&nbsp;&nbsp;`* [YouTube Search](https://www.youtube.com/)`<br>
-`* [Contact](`{{showBaseUrl}}`/contact.html)`
+<code>
+* [:house: Home]({{ showBaseUrlText }}/index.html)<br>
+* Docs<br>
+&nbsp;&nbsp;* [User Guide]({{ showBaseUrlText }}/ug.html)<br>
+&nbsp;&nbsp;* [Dev Guide]({{ showBaseUrlText }}/dg.html)<br>
+* [Search]({{ showBaseUrlText }}/search.html)<br>
+&nbsp;&nbsp;* [Google Search](https://www.google.com/)<br>
+&nbsp;&nbsp;* [YouTube Search](https://www.youtube.com/)<br>
+* [Contact]({{ showBaseUrlText }}/contact.html)
+</code>
 </box>
 
 Here's how another page can make use of the above siteNav:
@@ -223,14 +225,16 @@ You may have additional HTML and Markdown content in a <tooltip content="the fil
 
 <box>
 
-`# Site Map`<br>
-**`<navigation>`**<br>
-`* [:house: Home](`{{showBaseUrl}}`/index.html)`<br>
-`* Docs`<br>
-&nbsp;&nbsp;&nbsp;`* [User Guide](`{{showBaseUrl}}`/ug.html)`<br>
-&nbsp;&nbsp;&nbsp;`* [Dev Guide](`{{showBaseUrl}}`/dg.html)`<br>
-`* [Search](`{{showBaseUrl}}`/search.html)`<br>
-**`</navigation>`**<br>
+<code>
+# Site Map<br>
+<strong><<span></span>navigation></strong><br>
+* [:house: Home]({{ showBaseUrlText }}/index.html)<br>
+* Docs<br>
+&nbsp;&nbsp;* [User Guide]({{ showBaseUrlText }}/ug.html)<br>
+&nbsp;&nbsp;* [Dev Guide]({{ showBaseUrlText }}/dg.html)<br>
+* [Search]({{ showBaseUrlText }}/search.html)<br>
+<strong><<span></span>/navigation></strong><br>
+</code>
 </box>
 </div>
 

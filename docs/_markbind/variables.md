@@ -1,6 +1,8 @@
-<span id="showBaseUrl">
+<span id="showBaseUrlCode">
 <code>{<span></span>{ baseUrl }}</code>
 </span>
+
+<span id="showBaseUrlText">{<span></span>{ baseUrl }}</span>
 
 <span id="markbind_blue">#00B0F0</span>
 
