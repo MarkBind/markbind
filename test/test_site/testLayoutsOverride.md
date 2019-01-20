@@ -1,7 +1,7 @@
 <frontmatter>
 title: Test Layouts
 head: overwriteLayoutHead.md
-layout: testLayout
+layout: default
 </frontmatter>
 
-# Uses a front matter layout
+# Uses a site.json layout, overriding front matter

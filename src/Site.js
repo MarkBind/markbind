@@ -601,7 +601,7 @@ Site.prototype.generatePages = function () {
       faviconUrl,
       pageSrc: page.src,
       title: page.title,
-      layout: page.layout || LAYOUT_DEFAULT_NAME,
+      layout: page.layout,
       searchable: page.searchable !== 'no',
     }));
   } else {
@@ -609,7 +609,7 @@ Site.prototype.generatePages = function () {
       faviconUrl,
       pageSrc: page.src,
       title: page.title,
-      layout: page.layout || LAYOUT_DEFAULT_NAME,
+      layout: page.layout,
       searchable: page.searchable !== 'no',
     }));
   }

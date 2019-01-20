@@ -5,8 +5,7 @@
   "pages": [
     {
       "src": "index.md",
-      "title": "Hello World",
-      "layout": "testLayout"
+      "title": "Hello World"
     },
     {
       "src": "testEmptyFrontmatter.md",
@@ -15,6 +14,10 @@
     },
     {
       "src": "testLayouts.md",
+      "title": "Hello World"
+    },
+    {
+      "src": "testLayoutsOverride.md",
       "title": "Hello World",
       "layout": "testLayout"
     },
