@@ -189,21 +189,21 @@ Here's how another page can make use of the above siteNav:
 Here's how the above siteNav will appear:
 
 <ul style="list-style-type: none; margin-left:-1em">
-  <li style="margin-top: 10px"><a href="/index.html">🏠 Home</a></li>
+  <li style="margin-top: 10px"><a class="site-nav__a" href="/index.html">🏠 Home</a></li>
   <li style="margin-top: 10px">
     <button class="dropdown-btn">Docs <i class="dropdown-btn-icon">
       <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
     <div class="dropdown-container">
       <ul style="list-style-type: none; margin-left:-1em">
-        <li style="margin-top: 10px"><a href="">User Guide</a></li>
-        <li style="margin-top: 10px"><a href="">Dev Guide</a></li>
+        <li style="margin-top: 10px"><a class="site-nav__a" href="">User Guide</a></li>
+        <li style="margin-top: 10px"><a class="site-nav__a" href="">Dev Guide</a></li>
       </ul>
     </div>
   </li>
-  <li style="margin-top:10px"><a href="">Search</a>
+  <li style="margin-top:10px"><a class="site-nav__a" href="">Search</a>
     <ul style="list-style-type: none; margin-left:-1em">
-      <li style="margin-top: 10px"><a href="http://www.google.com">Google Search</a></li>
-      <li style="margin-top: 10px"><a href="http://www.youtube.com">YouTube Search</a></li>
+      <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.google.com">Google Search</a></li>
+      <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.youtube.com">YouTube Search</a></li>
     </ul>
   </li>
 </ul>
