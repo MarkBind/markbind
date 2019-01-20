@@ -73,6 +73,12 @@
       "layout": "default"
     },
     {
+      "headings": {},
+      "src": "testExternalScripts.md",
+      "title": "Hello World",
+      "layout": "default"
+    },
+    {
       "headings": {
         "uses-a-front-matter-layout": "Uses a front matter layout"
       },
