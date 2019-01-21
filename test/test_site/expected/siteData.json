@@ -3,6 +3,20 @@
   "pages": [
     {
       "headings": {
+        "popover-initiated-by-trigger-honor-trigger-attribute": "popover initiated by trigger: honor trigger attribute",
+        "support-multiple-inclusions-of-a-modal": "Support multiple inclusions of a modal",
+        "remove-extra-space-in-links": "Remove extra space in links"
+      },
+      "title": "Open Bugs",
+      "src": "bugs/index.md",
+      "layout": "default",
+      "tags": [
+        "tag--shown",
+        "tag--shown-2"
+      ]
+    },
+    {
+      "headings": {
         "panel-with-heading": "Panel with heading | panel keyword",
         "panel-without-heading-with-keyword": "Panel without heading with keyword",
         "panel-with-heading-with-keyword": "Panel with heading with keyword | panel keyword",
@@ -78,6 +92,22 @@
       ]
     },
     {
+      "headings": {
+        "feature-list": "Feature list"
+      },
+      "src": "sub_site/index.md",
+      "title": "",
+      "layout": "default"
+    },
+    {
+      "headings": {
+        "some-heading": "Some heading"
+      },
+      "src": "test_md_fragment.md",
+      "title": "",
+      "layout": "default"
+    },
+    {
       "headings": {},
       "src": "testEmptyFrontmatter.md",
       "title": "Hello World",
@@ -130,36 +160,6 @@
         "tag--shown-2"
       ],
       "src": "testTags.md",
-      "layout": "default"
-    },
-    {
-      "headings": {
-        "popover-initiated-by-trigger-honor-trigger-attribute": "popover initiated by trigger: honor trigger attribute",
-        "support-multiple-inclusions-of-a-modal": "Support multiple inclusions of a modal",
-        "remove-extra-space-in-links": "Remove extra space in links"
-      },
-      "title": "Open Bugs",
-      "src": "bugs/index.md",
-      "layout": "default",
-      "tags": [
-        "tag--shown",
-        "tag--shown-2"
-      ]
-    },
-    {
-      "headings": {
-        "feature-list": "Feature list"
-      },
-      "src": "sub_site/index.md",
-      "title": "",
-      "layout": "default"
-    },
-    {
-      "headings": {
-        "some-heading": "Some heading"
-      },
-      "src": "test_md_fragment.md",
-      "title": "",
       "layout": "default"
     }
   ]
