@@ -368,3 +368,156 @@ test('Site should not deploy without a built site', async () => {
       new Error('The site directory does not exist. '
         + 'Please build the site first before deploy.'));
 });
+
+const siteJsonResolvePropertiesTestCases = [
+  {
+    name: 'Site.json merge page and glob properties',
+    pages: [
+      {
+        src: 'index.md',
+        title: 'Title',
+      },
+      {
+        glob: '*.md',
+        layout: 'Layout',
+      },
+    ],
+    expected: [
+      {
+        src: 'index.md',
+        searchable: undefined,
+        layout: 'Layout',
+        title: 'Title',
+      },
+    ],
+  },
+  {
+    name: 'Site.json merge glob properties',
+    pages: [
+      {
+        glob: '*.md',
+        layout: 'Layout',
+      },
+      {
+        glob: '*.md',
+        searchable: false,
+      },
+    ],
+    expected: [
+      {
+        src: 'index.md',
+        searchable: false,
+        layout: 'Layout',
+      },
+    ],
+  },
+  {
+    name: 'Site.json page has priority over glob',
+    pages: [
+      {
+        glob: '*.md',
+        layout: 'Wrong',
+      },
+      {
+        src: 'index.md',
+        layout: 'Layout',
+      },
+      {
+        glob: '*.md',
+        layout: 'Wrong',
+      },
+    ],
+    expected: [
+      {
+        src: 'index.md',
+        searchable: undefined,
+        layout: 'Layout',
+      },
+    ],
+  },
+  {
+    name: 'Site.json glob latest match has priority',
+    pages: [
+      {
+        glob: '*.md',
+        layout: 'Wrong',
+        searchable: false,
+      },
+      {
+        glob: '*.md',
+        layout: 'Layout',
+        searchable: true,
+      },
+    ],
+    expected: [
+      {
+        src: 'index.md',
+        searchable: true,
+        layout: 'Layout',
+      },
+    ],
+  },
+];
+
+siteJsonResolvePropertiesTestCases.forEach((testCase) => {
+  test(testCase.name, async () => {
+    const customSiteConfig = {
+      baseUrl: '',
+      pages: testCase.pages,
+      ignore: [
+        '_site/*',
+        '*.json',
+        '*.md',
+      ],
+      deploy: {
+        message: 'Site Update.',
+      },
+    };
+    const json = {
+      'src/template/page.ejs': PAGE_EJS,
+      'index.md': '',
+    };
+    fs.vol.fromJSON(json, '');
+
+    const site = new Site('./', '_site');
+    site.siteConfig = customSiteConfig;
+    await site.collectAddressablePages();
+    expect(site.addressablePages)
+      .toEqual(testCase.expected);
+  });
+});
+
+test('Site config throws error on duplicate page src', async () => {
+  const customSiteConfig = {
+    baseUrl: '',
+    pages: [
+      {
+        src: 'index.md',
+        layout: 'Layout',
+      },
+      {
+        src: 'index.md',
+        title: 'Title',
+      },
+    ],
+    ignore: [
+      '_site/*',
+      '*.json',
+      '*.md',
+    ],
+    deploy: {
+      message: 'Site Update.',
+    },
+  };
+  const json = {
+    'src/template/page.ejs': PAGE_EJS,
+    'index.md': '',
+  };
+  fs.vol.fromJSON(json, '');
+
+  const site = new Site('./', '_site');
+  site.siteConfig = customSiteConfig;
+  expect(site.collectAddressablePages())
+    .rejects
+    .toThrow(new Error('Duplicate page entries found in site config: index.md'));
+});

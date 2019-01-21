@@ -13,8 +13,9 @@ const walkSync = require('walk-sync');
 
 const _ = {};
 _.difference = require('lodash/difference');
+_.isUndefined = require('lodash/isUndefined');
+_.omitBy = require('lodash/omitBy');
 _.union = require('lodash/union');
-_.unionWith = require('lodash/unionWith');
 _.uniq = require('lodash/uniq');
 
 const url = {};
@@ -378,6 +379,14 @@ Site.prototype.collectAddressablePages = function () {
   const { pages } = this.siteConfig;
   const addressableGlobs = pages.filter(page => page.glob);
   this.addressablePages = pages.filter(page => page.src);
+  const set = new Set();
+  const duplicatePages = this.addressablePages
+    .filter(page => set.size === set.add(page.src).size)
+    .map(page => page.src);
+  if (duplicatePages.length > 0) {
+    return Promise.reject(
+      new Error(`Duplicate page entries found in site config: ${_.uniq(duplicatePages).join(', ')}`));
+  }
   const globPaths = addressableGlobs.reduce((globPages, addressableGlob) =>
     globPages.concat(walkSync(this.rootPath, {
       directories: false,
@@ -388,9 +397,19 @@ Site.prototype.collectAddressablePages = function () {
       searchable: addressableGlob.searchable,
       layout: addressableGlob.layout,
     }))), []);
-  // Add pages collected by walkSync without duplication
-  this.addressablePages = _.unionWith(this.addressablePages, globPaths,
-                                      ((pageA, pageB) => pageA.src === pageB.src));
+  // Add pages collected by walkSync and merge properties for pages
+  const filteredPages = {};
+  globPaths.concat(this.addressablePages).forEach((page) => {
+    const filteredPage = _.omitBy(page, _.isUndefined);
+    if (page.src in filteredPages) {
+      filteredPages[page.src] = { ...filteredPages[page.src], ...filteredPage };
+    } else {
+      filteredPages[page.src] = filteredPage;
+    }
+  });
+  this.addressablePages = Object.values(filteredPages);
+
+  return Promise.resolve();
 };
 
 Site.prototype.collectBaseUrl = function () {
