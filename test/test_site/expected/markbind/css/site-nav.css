@@ -30,13 +30,19 @@
     -webkit-transition: 0.4s;
 }
 
-#site-nav a:link, #site-nav a:visited, #site-nav a:hover, #site-nav a:active {
+#site-nav a:active,
+#site-nav a:link,
+#site-nav a:visited {
     color: #565656;
     text-decoration: none;
 }
 
 #site-nav a:hover {
     color: #0076FF;
+}
+
+#site-nav a.current {
+    color: #0072EC;
 }
 
 #site-nav-btn {
@@ -114,7 +120,9 @@
 
 /* Hamburger button */
 
-.menu-top-bar, .menu-middle-bar, .menu-bottom-bar {
+.menu-top-bar,
+.menu-middle-bar,
+.menu-bottom-bar {
     background-color: darkslategrey;
     height: 4px;
     margin: 5px 10%;
