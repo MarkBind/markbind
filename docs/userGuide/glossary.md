@@ -34,7 +34,15 @@ MarkBind is able to take Markdown files (`.md`) and HTML files (`.html`) as sour
 
 <span id="site-navigation-menu">
 
-_Site Navigation Menu_ (_siteNav_ for short) is a fixed menu on the left side of your page contents, that shows a road map of the main pages of your site.
+_Site Navigation Menu_ (_siteNav_ for short) is a fixed menu on the **left** side of your page contents, that shows a road map of the main pages of your site.
+</span>
+
+
+#### Page Navigation Menu
+
+<span id="page-navigation-menu">
+
+_Page Navigation Menu_ (_pageNav_ for short) is a fixed menu on the **right** side of your page contents, which contains the current page's headings.
 </span>
 
 </div>

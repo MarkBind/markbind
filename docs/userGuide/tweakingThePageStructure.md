@@ -1,6 +1,8 @@
 <frontmatter>
   title: "User Guide: Tweaking the Page Structure"
   footer: footer.md
+  pageNav: "default"
+  pageNavTitle: "List of Tweaks"
   siteNav: userGuideSections.md
 </frontmatter>
 
@@ -237,6 +239,37 @@ More than one siteNav file can be in `_markbind/navigation/` directory but a pag
 A siteNav has a fixed width of 300 pixels for its contents. A siteNavs is [_responsive_](https://www.w3schools.com/html/html_responsive.asp) in that it will collapse to a menu button when the screen width is smaller than 992 pixels. It will then be completely hidden when the screen size is smaller than 576 pixels.
 
 There is no limit to the number of nesting levels or the number of items in the menu, but note that any content exceeding a height of 1000 pixels will be cut off.
+
+
+<hr><!-- ======================================================================================================= -->
+
+## Page Navigation Menus
+
+**You can add a <trigger trigger="click" for="modal:pageStructure-pageNavidationMenu">_page navigation menu_</trigger> to a page.**
+
+<modal title="Page Naviation Menu" id="modal:pageStructure-pageNavidationMenu">
+  <include src="glossary.md#page-navigation-menu" />
+</modal>
+
+Steps to add a page navigation menu ==(_pageNav_ for short)==:
+1. Specify your pageNav within the `<frontmatter>` of a page with <tooltip content="The value `default` will use `headingIndexingLevel` within `site.json`.">`"default"`</tooltip> or a <tooltip content="HTML defines six levels of headings, numbered from <br>`1 to 6`.">`heading level`</tooltip>.
+2. (Optional) You may also specify a page navigation title within `<frontmatter>` that will be placed at the top of the page navigation menu.
+
+<div class="indented">
+
+{{ icon_example }}
+In the page that you want to have page navigation:
+```html
+<frontmatter>
+  pageNav: 2
+  pageNavTitle: "Chapters of This Page"
+</frontmatter>
+```
+
+The example above will create a page navigation containing only heading levels of `1 and 2`.
+</div>
+
+A pageNav has a fixed width of 300 pixels for its contents. It is [_responsive_](https://www.w3schools.com/html/html_responsive.asp) by design and will be completely hidden when the screen size is smaller than 1300 pixels.
 
 
 <hr><!-- ======================================================================================================= -->

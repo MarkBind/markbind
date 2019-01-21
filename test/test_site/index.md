@@ -2,6 +2,8 @@
 title: Hello World
 footer: footer.md
 siteNav: site-nav.md
+pageNav: "default"
+pageNavTitle: "Testing Page Navigation"
 head: myCustomHead.md, myCustomHead2.md
 </frontmatter>
 

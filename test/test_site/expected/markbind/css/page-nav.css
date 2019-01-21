@@ -1,0 +1,50 @@
+/* Page navigation */
+
+#page-nav {
+    border-left: solid 1px lightgrey;
+    display: inline-block;
+    max-height: 80vh;
+    overflow: auto;
+    position: fixed;
+    right: 0;
+    transition: 0.4s;
+    width: 300px;
+    -webkit-transition: 0.4s;
+}
+
+#page-nav a:link,
+#page-nav a:visited {
+    color: #9b9b9b;
+    text-decoration: none;
+}
+
+#page-nav a:hover{
+    color: black;
+}
+
+#page-nav a.active {
+    background-color: transparent;
+    color: black;
+}
+
+#page-nav-content-wrapper {
+    margin-right: 300px;
+    transition: 0.4s;
+    -webkit-transition: 0.4s;
+}
+
+/* Responsive site navigation */
+
+/* Hides page navigation on screen widths smaller than 1300px */
+@media screen and (max-width: 1299.98px) {
+
+    #page-nav {
+        overflow: hidden;
+        padding: 0;
+        width: 0px;
+    }
+
+    #page-nav-content-wrapper {
+        margin-right: 0;
+    }
+}

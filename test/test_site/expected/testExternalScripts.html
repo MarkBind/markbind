@@ -14,10 +14,11 @@
     <link rel="stylesheet" href="markbind\css\markbind.css">
     <link rel="stylesheet" href="markbind\layouts\default\styles.css">
     
+    
     <meta name="default-head-bottom">
     <link rel="icon" href="/test_site/favicon.png">
 </head>
-<body>
+<body data-spy="scroll" data-target="#page-nav" data-offset="100">
 <div id="app">
     <div id="content-wrapper">
   <p>The external script <a href="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">MathJax 2.75</a> should be included, and the following MathJax content should render:</p>
@@ -35,6 +36,7 @@
 </body>
 <script src="markbind\js\vue.min.js"></script>
 <script src="markbind\js\vue-strap.min.js"></script>
+<script src="markbind\js\bootstrap-utility.min.js"></script>
 <script src="markbind\js\polyfill.min.js"></script>
 <script src="markbind\js\bootstrap-vue.min.js"></script>
 <script>
