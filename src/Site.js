@@ -506,7 +506,7 @@ Site.prototype.buildSourceFiles = function () {
 Site.prototype._rebuildAffectedSourceFiles = function (filePaths) {
   const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];
   const uniquePaths = _.uniq(filePathArray);
-  logger.verbose(`Rebuild affected paths: ${uniquePaths}`);
+  logger.info('Rebuilding affected source files');
   return new Promise((resolve, reject) => {
     this.regenerateAffectedPages(uniquePaths)
       .then(() => fs.removeAsync(this.tempPath))
@@ -526,7 +526,7 @@ Site.prototype.rebuildAffectedSourceFiles
   = delay(Site.prototype._rebuildAffectedSourceFiles, 1000);
 
 Site.prototype._rebuildSourceFiles = function () {
-  logger.verbose('Rebuild all files');
+  logger.warn('Rebuilding all source files');
   return new Promise((resolve, reject) => {
     Promise.resolve('')
       .then(() => this.updateAddressablePages())
