@@ -16,8 +16,9 @@
     
     
     
+    
 </head>
-<body>
+<body data-spy="scroll" data-target="#page-nav" data-offset="100">
 <div id="app">
     <div id="content-wrapper">
   <div>
@@ -49,8 +50,8 @@
       <b-btn variant="primary" href="/markbind/userGuide/">Get Started</b-btn>
     </p>
     <hr>
-    <h4 id="-simple-syntax.-dynamic-content.">
-      <font color="#00B0F0"> <span class="fas fa-check-circle"></span></font> Simple syntax. Dynamic content.<a class="fa fa-anchor" href="#-simple-syntax.-dynamic-content."></a></h4>
+    <h4 id="simple-syntax-dynamic-content">
+      <font color="#00B0F0"> <span class="fas fa-check-circle"></span></font> Simple syntax. Dynamic content.<a class="fa fa-anchor" href="#simple-syntax-dynamic-content"></a></h4>
     <p>MarkBind source files can be as simple as basic Markdown, but you can also <a href="/markbind/userGuide/markBindSyntax.html"><strong>use a mix of several popular syntax schemes</strong></a> (
       <tooltip content="GitHub Flavored Markdown">GFMD</tooltip>, BootStrap, NunJucks, etc. as well as MarkBind's own custom syntax) to create more dynamic content that you cannot normally get from a typical markdown-to-html site generator.</p>
     <p>Here are some simple text-formatting examples:</p>
@@ -186,8 +187,8 @@
     </panel>
     <p></p>
     <hr>
-    <h4 id="-everything-you-need-for-instructional-websites%2C-built-in.">
-      <font color="#00B0F0"> <span class="fas fa-check-circle"></span></font> Everything you need for instructional websites, built-in.<a class="fa fa-anchor" href="#-everything-you-need-for-instructional-websites%2C-built-in."></a></h4>
+    <h4 id="everything-you-need-for-instructional-websites-built-in">
+      <font color="#00B0F0"> <span class="fas fa-check-circle"></span></font> Everything you need for instructional websites, built-in.<a class="fa fa-anchor" href="#everything-you-need-for-instructional-websites-built-in"></a></h4>
     <p>MarkBind is <strong>highly optimized for creating content-heavy instructional websites</strong> <span class="dimmed">e.g., eLearning websites, online instruction manuals, project documentation etc.</span> Anything that you might need for creating
       such websites are built-in, sparing you the hassle of finding/installing/searching plugins that you need.</p>
     <p>Here are some examples:</p>
@@ -197,10 +198,10 @@
         <big><span class="fas fa-window-maximize"></span></big> MarkBind allows you to add <a href="/markbind/userGuide/tweakingThePageStructure.html"><strong>site/page navigation menus, headers, footers</strong></a> easily.</p>
     </div>
     <hr>
-    <h4 id="-more-control-to-the-reader%2C-without-duplicating-code.">
-      <font color="#00B0F0"> <span class="fas fa-check-circle"></span></font> More control to the reader, without duplicating code.<a class="fa fa-anchor" href="#-more-control-to-the-reader%2C-without-duplicating-code."></a></h4>
+    <h4 id="more-control-to-the-reader-without-duplicating-code">
+      <font color="#00B0F0"> <span class="fas fa-check-circle"></span></font> More control to the reader, without duplicating code.<a class="fa fa-anchor" href="#more-control-to-the-reader-without-duplicating-code"></a></h4>
     <p>A MarkBind website can be a <em>buffet</em> of content, as opposed to a <em>set menu</em>: a site can have optional contents that the reader can access at her discretion, and the same content can be organized in multiple ways so that the reader can
-      choose the one that fits the need. To <em>cater</em> (pun intended) for creating such buffet style websites, MarkBind has <strong><a href="/markbind/reusingContents.html">reuse mechanisms</a> for presenting the same content in multiple ways without duplicating the source file</strong>.</p>
+      choose the one that fits the need. To <em>cater</em> (pun intended) for creating such buffet style websites, MarkBind has <strong><a href="/markbind/userGuide/reusingContents.html">reuse mechanisms</a> for presenting the same content in multiple ways without duplicating the source file</strong>.</p>
     <p>For example, MarkBind has a powerful <code>include</code> mechanism that allows content fragments (i.e., a file or part of a file) to be reused at multiple places in the website. In the example below, both the modal and the expandable panel reuses
       the same content originating from a <em>single</em> source file.</p>
     <box>
@@ -239,8 +240,8 @@
       </modal>
     </box>
     <hr>
-    <h4 id="-easy-to-set-up%2C-modify%2C-deploy%2C-integrate.">
-      <font color="#00B0F0"> <span class="fas fa-check-circle"></span></font> Easy to set up, modify, deploy, integrate.<a class="fa fa-anchor" href="#-easy-to-set-up%2C-modify%2C-deploy%2C-integrate."></a></h4>
+    <h4 id="easy-to-set-up-modify-deploy-integrate">
+      <font color="#00B0F0"> <span class="fas fa-check-circle"></span></font> Easy to set up, modify, deploy, integrate.<a class="fa fa-anchor" href="#easy-to-set-up-modify-deploy-integrate"></a></h4>
     <p>Installing MarkBind takes just one command. Creating a new MarkBind site too takes just one command. With MarkBind's <em>live preview</em> feature, you can see how your site will look like as you modify the source file. <a href="/markbind/userGuide/deployingTheSite.html">Deploying the site to a server</a>      can be as simple as one command too.</p>
     <p>As MarkBind is also optimized for project documentation, it can easily <a href="/markbind/userGuide/markBindInTheProjectWorkflow.html">integrate with the workflow of a software project</a>.</p>
     <p>
@@ -251,12 +252,13 @@
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.16.1</a> on Sun, 13 Jan 2019 15:36:30 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.17.0</a> on Mon, 21 Jan 2019 17:40:51 GMT]</small></div>
 </footer>
 </div>
 </body>
 <script src="markbind\js\vue.min.js"></script>
 <script src="markbind\js\vue-strap.min.js"></script>
+<script src="markbind\js\bootstrap-utility.min.js"></script>
 <script src="markbind\js\polyfill.min.js"></script>
 <script src="markbind\js\bootstrap-vue.min.js"></script>
 <script>

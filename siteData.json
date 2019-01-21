@@ -1,4 +1,5 @@
 {
+  "enableSearch": true,
   "pages": [
     {
       "headings": {
@@ -11,7 +12,7 @@
     },
     {
       "headings": {
-        "examples-of-markbind-websites": "Examples of MarkBind Websites",
+        "examples-of-mark-bind-websites": "Examples of MarkBind Websites",
         "course-websites": "Course Websites",
         "online-books": "Online Books",
         "product-websites": "Product Websites"
@@ -43,7 +44,7 @@
     },
     {
       "headings": {
-        "markbind-cli": "MarkBind CLI",
+        "mark-bind-cli": "MarkBind CLI",
         "overview": "Overview",
         "build-command": "build Command",
         "deploy-command": "deploy Command",
@@ -61,7 +62,7 @@
         "deploying-the-site": "Deploying the Site",
         "deploying-to-github-pages": "Deploying to Github Pages",
         "deploying-to-netlify": "Deploying to Netlify",
-        "setting-up-netlify-to-use-a-specific-version-of-markbind": "Setting up Netlify to use a specific version of MarkBind"
+        "setting-up-netlify-to-use-a-specific-version-of-mark-bind": "Setting up Netlify to use a specific version of MarkBind"
       },
       "title": "User Guide - Deploying the Site",
       "footer": "footer.md",
@@ -82,8 +83,9 @@
     {
       "headings": {
         "live-preview": "Live Preview",
-        ".mbd-extension": ".mbd extension",
-        "site-navigation-menu": "Site Navigation Menu"
+        "mbd-extension": ".mbd extension",
+        "site-navigation-menu": "Site Navigation Menu",
+        "page-navigation-menu": "Page Navigation Menu"
       },
       "title": "Glossary",
       "footer": "footer.md",
@@ -103,7 +105,8 @@
     },
     {
       "headings": {
-        "making-the-site-searchable": "Making the Site Searchable | regressions"
+        "making-the-site-searchable": "Making the Site Searchable",
+        "using-keywords": "Using Keywords | regressions"
       },
       "title": "User Guide: Making the Site Searchable",
       "footer": "footer.md",
@@ -113,10 +116,10 @@
     },
     {
       "headings": {
-        "markbind-in-the-project-workflow": "MarkBind in the Project Workflow",
+        "mark-bind-in-the-project-workflow": "MarkBind in the Project Workflow",
         "authoring-workflow": "Authoring Workflow",
-        "github-pr-workflow": "GitHub PR Workflow",
-        "using-markbind-for-project-documentation": "Using MarkBind for Project Documentation"
+        "git-hub-pr-workflow": "GitHub PR Workflow",
+        "using-mark-bind-for-project-documentation": "Using MarkBind for Project Documentation"
       },
       "title": "User Guide: Using MarkBind in the Project Workflow",
       "footer": "footer.md",
@@ -126,39 +129,39 @@
     },
     {
       "headings": {
-        "markbind-syntax": "MarkBind Syntax",
+        "mark-bind-syntax": "MarkBind Syntax",
         "support-for-markdown": "Support for Markdown",
-        "headings%3A": "Headings:",
+        "headings": "Headings:",
         "heading-level-1": "Heading level 1",
         "heading-level-6": "Heading level 6",
-        "text-formatting%3A": "Text Formatting:",
+        "text-formatting": "Text Formatting:",
         "blockquotes": "Blockquotes",
         "lists": "Lists",
         "images": "Images",
         "links": "Links",
         "support-for-gfmd": "Support for GFMD",
-        "fenced-code-blocks-%2F-syntax-highlighting": "Fenced code blocks / syntax highlighting",
+        "fenced-code-blocks-syntax-highlighting": "Fenced code blocks / syntax highlighting",
         "task-lists": "Task Lists",
         "tables": "Tables",
         "strikethrough": "Strikethrough",
         "emoji": "Emoji",
-        "markbind-extensions-to-markdown": "MarkBind Extensions to Markdown",
+        "mark-bind-extensions-to-markdown": "MarkBind Extensions to Markdown",
         "extra-text-formatting-features": "Extra Text Formatting Features",
-        "inline-code-%2F-syntax-highlighting": "Inline code / syntax highlighting",
+        "inline-code-syntax-highlighting": "Inline code / syntax highlighting",
         "media-embeds": "Media Embeds",
         "embedding-youtube-videos": "Embedding Youtube Videos",
-        "embedding-powerpoint-slides-(using-the-embed-url-from-powerpoint-online)": "Embedding Powerpoint Slides (using the embed url from Powerpoint online)",
-        "markbind-custom-syntax": "MarkBind Custom Syntax",
+        "embedding-powerpoint-slides-using-the-embed-url-from-powerpoint-online": "Embedding Powerpoint Slides (using the embed url from Powerpoint online)",
+        "mark-bind-custom-syntax": "MarkBind Custom Syntax",
         "intra-site-links": "Intra-Site Links",
         "icons-fonts": "Icons Fonts",
         "using-font-awesome-icons": "Using Font Awesome Icons",
         "using-glyphicons": "Using Glyphicons",
         "variables": "Variables",
-        "the-%3Cinclude%3E-tag": "The &lt;include&gt; Tag",
-        "markbind-components": "MarkBind Components",
-        "support-for-html%2C-javascript%2C-css": "Support for HTML, JavaScript, CSS",
+        "the-include-tag": "The &lt;include&gt; Tag",
+        "mark-bind-components": "MarkBind Components",
+        "support-for-html-java-script-css": "Support for HTML, JavaScript, CSS",
         "apples-bananas-cherries": "Apples Bananas Cherries",
-        "support-for-vuestrap-and-bootstrap": "Support for VueStrap and BootStrap",
+        "support-for-vue-strap-and-boot-strap": "Support for VueStrap and BootStrap",
         "support-for-nunjucks": "Support for Nunjucks"
       },
       "title": "User Guide: Basic Syntax",
@@ -171,13 +174,13 @@
       "headings": {
         "reusing-contents": "Reusing Contents",
         "using-variables": "Using Variables",
-        "built-in-variable%3A-baseurl": "Built-in Variable: baseUrl",
-        "built-in-variable%3A-timestamp": "Built-in Variable: timestamp",
-        "built-in-variable%3A-markbind": "Built-in Variable: MarkBind",
-        "built-in-variables%3A-icon-fonts": "Built-in Variables: Icon Fonts",
-        "variables%3A-tips-and-tricks": "Variables: Tips and Tricks",
+        "built-in-variable-base-url": "Built-in Variable: baseUrl",
+        "built-in-variable-timestamp": "Built-in Variable: timestamp",
+        "built-in-variable-mark-bind": "Built-in Variable: MarkBind",
+        "built-in-variables-icon-fonts": "Built-in Variables: Icon Fonts",
+        "variables-tips-and-tricks": "Variables: Tips and Tricks",
         "the-include-tag": "The include tag",
-        "%3Cinclude%3E-inside-an-included-file": "&lt;include&gt; Inside an Included File",
+        "include-inside-an-included-file": "&lt;include&gt; Inside an Included File",
         "using-boilerplate-files": "Using Boilerplate Files",
         "reusing-contents-across-sites": "Reusing Contents Across Sites",
         "creating-content-variations": "Creating Content Variations",
@@ -186,10 +189,13 @@
         "giving-access-to-additional-contents": "Giving access to additional contents",
         "organizing-contents-in-alternative-ways": "Organizing contents in alternative ways",
         "optimizing-the-print-view": "Optimizing the Print View | hide minimized panels in the print view",
-        "hiding-some-info-in-the-generated-content": "Hiding some info in the generated content"
+        "hiding-some-info-in-the-generated-content": "Hiding some info in the generated content",
+        "creating-multiple-variations-of-a-page": "Creating multiple variations of a page"
       },
       "title": "User Guide: Reusing Contents",
       "footer": "footer.md",
+      "pageNav": "default",
+      "pageNavTitle": "List of Methods",
       "siteNav": "userGuideSections.md",
       "src": "userGuide/reusingContents.md",
       "layout": "default"
@@ -197,13 +203,16 @@
     {
       "headings": {
         "configuring-the-site": "Configuring the Site",
-        "baseurl": "baseUrl",
-        "faviconpath": "faviconPath",
-        "titleprefix": "titlePrefix",
+        "base-url": "baseUrl",
+        "favicon-path": "faviconPath",
+        "title-prefix": "titlePrefix",
         "pages": "pages",
+        "external-scripts": "externalScripts",
         "ignore": "ignore",
         "deploy": "deploy",
-        "headingindexinglevel": "headingIndexingLevel"
+        "tags": "tags",
+        "heading-indexing-level": "headingIndexingLevel",
+        "enable-search": "enableSearch"
       },
       "title": "Configuring the Site",
       "footer": "footer.md",
@@ -215,7 +224,7 @@
     {
       "headings": {
         "troubleshooting": "Troubleshooting",
-        "problem%3A-unwanted-starting-space-in-links-and-triggers": "Problem: Unwanted starting space in links and triggers"
+        "problem-unwanted-starting-space-in-links-and-triggers": "Problem: Unwanted starting space in links and triggers"
       },
       "title": "User Guide: Troubleshooting",
       "footer": "footer.md",
@@ -227,13 +236,17 @@
       "headings": {
         "tweaking-the-page-structure": "Tweaking the Page Structure",
         "setting-page-properties-using-front-matter": "Setting Page Properties Using Front Matter",
-        "tweaking-the-page-%3Chead%3E": "Tweaking the Page &lt;head&gt;",
+        "tweaking-the-page-head": "Tweaking the Page &lt;head&gt;",
         "using-footers": "Using Footers",
         "site-navigation-menus": "Site Navigation Menus",
-        "page-layouts": "Page Layouts"
+        "page-navigation-menus": "Page Navigation Menus",
+        "page-layouts": "Page Layouts",
+        "toggling-alternative-contents-in-a-page": "Toggling alternative contents in a page"
       },
       "title": "User Guide: Tweaking the Page Structure",
       "footer": "footer.md",
+      "pageNav": "default",
+      "pageNavTitle": "List of Tweaks",
       "siteNav": "userGuideSections.md",
       "src": "userGuide/tweakingThePageStructure.md",
       "layout": "default"
@@ -257,11 +270,11 @@
         "search-bar": "Search Bar",
         "searchbar-options": "Searchbar Options",
         "tabs": "Tabs",
-        "tabs-options-(container)": "Tabs Options (container)",
-        "tab-options-(element)": "Tab Options (element)",
-        "tab-group-options-(dropdown)": "Tab Group Options (dropdown)",
+        "tabs-options-container": "Tabs Options (container)",
+        "tab-options-element": "Tab Options (element)",
+        "tab-group-options-dropdown": "Tab Group Options (dropdown)",
         "box": "Box",
-        "tipbox-options": "TipBox Options",
+        "tip-box-options": "TipBox Options",
         "tooltip": "Tooltip",
         "tooltip-options": "Tooltip Options",
         "trigger": "Trigger",
@@ -269,11 +282,13 @@
         "modal": "Modal",
         "modal-options": "Modal Options",
         "advanced-tips-and-tricks": "Advanced Tips and Tricks",
-        "rich-formatting-in-headings%2Ftitles": "Rich formatting in headings/titles",
+        "rich-formatting-in-headings-titles": "Rich formatting in headings/titles",
         "inserting-custom-classes-into-components": "Inserting custom classes into components"
       },
       "title": "Using Components",
       "footer": "footer.md",
+      "pageNav": "default",
+      "pageNavTitle": "List of Components",
       "siteNav": "userGuideSections.md",
       "src": "userGuide/usingComponents.md",
       "layout": "default"

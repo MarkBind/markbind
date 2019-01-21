@@ -16,8 +16,9 @@
     <link rel="stylesheet" href="..\markbind\css\site-nav.css">
     
     
+    
 </head>
-<body>
+<body data-spy="scroll" data-target="#page-nav" data-offset="100">
 <div id="app">
     <div id="flex-body">
   <div id="site-nav">
@@ -27,7 +28,7 @@
       <li style="margin-top:10px"><a href="/markbind/userGuide/authoringContents.html">Authoring Contents</a>
         <ul style="list-style-type: none; margin-left:-1em">
           <li style="margin-top: 10px"><a href="/markbind/userGuide/addingPages.html">Adding Pages</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntax.html">MarkBind Syntax</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntax.html" class="current">MarkBind Syntax</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/usingComponents.html">Using Components</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/tweakingThePageStructure.html">Tweaking the Page Structure</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/reusingContents.html">Reusing Contents</a></li>
@@ -78,7 +79,7 @@
         </navbar>
       </div>
       <div class="website-content">
-        <h1 id="markbind-syntax">MarkBind Syntax<a class="fa fa-anchor" href="#markbind-syntax"></a></h1>
+        <h1 id="mark-bind-syntax">MarkBind Syntax<a class="fa fa-anchor" href="#mark-bind-syntax"></a></h1>
         <span class="lead" id="overview">
 <p><strong>A MarkBind source file may contain a mix of several popular syntax schemes</strong> used in creating web pages. MarkBind source file can be as simple as basic Markdown, and you can use progressively more complicated syntax to create progressively more sophisticated Web pages while optimizing other aspects such as content reuse.
 </p></span>
@@ -94,7 +95,7 @@
         </ol>
         <h2 id="support-for-markdown">Support for Markdown<a class="fa fa-anchor" href="#support-for-markdown"></a></h2>
         <p><strong>MarkBind supports all basic Markdown syntax.</strong> A summary is given below. Refer to <a href="https://www.markdownguide.org/">markdownguide.org</a> for more details.</p>
-        <h5 id="headings%3A">Headings:<a class="fa fa-anchor" href="#headings%3A"></a></h5>
+        <h5 id="headings">Headings:<a class="fa fa-anchor" href="#headings"></a></h5>
         <pre><code class="hljs markdown"><span class="hljs-section"># Heading level 1</span>
 ...
 <span class="hljs-section">###### Heading level 6</span>
@@ -104,7 +105,7 @@
           <p>...</p>
           <h6 id="heading-level-6">Heading level 6<a class="fa fa-anchor" href="#heading-level-6"></a></h6>
         </box>
-        <h5 id="text-formatting%3A">Text Formatting:<a class="fa fa-anchor" href="#text-formatting%3A"></a></h5>
+        <h5 id="text-formatting">Text Formatting:<a class="fa fa-anchor" href="#text-formatting"></a></h5>
         <pre><code class="hljs markdown">Ants <span class="hljs-strong">**Bees Cats**</span> Dogs
 Ants <span class="hljs-emphasis">_Bees Cats_</span> Dogs
 Ants <span class="hljs-strong">___Bees Cats__</span>_ Dogs
@@ -179,251 +180,250 @@ Ants <span class="hljs-code">`Bees Cats`</span> Dogs
         <hr>
         <h2 id="support-for-gfmd">Support for GFMD<a class="fa fa-anchor" href="#support-for-gfmd"></a></h2>
         <p><strong>MarkBind supports additional Markdown features provided by Github-Flavored Markdown (GFMD).</strong> A summary is given below. Refer to <a href="https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown">Github's GFMD documentation</a>          for more details.</p>
-        <h5 id="fenced-code-blocks-%2F-syntax-highlighting">Fenced code blocks / syntax highlighting<a class="fa fa-anchor" href="#fenced-code-blocks-%2F-syntax-highlighting"></a></h5>
-        <span>
-<code>```python</code>
-</span>
-        <p><code>def say_hello(name):</code><br>
-          <code>print('Hello', name)</code><br>
-          <code>print('How are you', name)</code><br>
-          <code>```</code>
-          <pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">say_hello</span><span class="hljs-params">(name)</span>:</span>
+        <h5 id="fenced-code-blocks-syntax-highlighting">Fenced code blocks / syntax highlighting<a class="fa fa-anchor" href="#fenced-code-blocks-syntax-highlighting"></a></h5>
+        <pre class="hljs"><code>```python
+def say_hello(name):
+    print('Hello', name)&lt;br&gt;
+    print('How are you', name)&lt;br&gt;
+```
+</code></pre>
+        <pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">say_hello</span><span class="hljs-params">(name)</span>:</span>
     print(<span class="hljs-string">'Hello'</span>, name)
     print(<span class="hljs-string">'How are you'</span>, name)
 </code></pre>
-          <h5 id="task-lists">Task Lists<a class="fa fa-anchor" href="#task-lists"></a></h5>
-          <pre><code class="hljs markdown"><span class="hljs-bullet">- </span>[x] Ants
+        <h5 id="task-lists">Task Lists<a class="fa fa-anchor" href="#task-lists"></a></h5>
+        <pre><code class="hljs markdown"><span class="hljs-bullet">- </span>[x] Ants
 <span class="hljs-bullet">- </span>[x] Bees
 <span class="hljs-bullet">- </span>[x] Cats
 <span class="hljs-bullet">- </span>[ ] Dogs
 </code></pre>
-          <box>
-            <ul class="task-list">
-              <li class="task-list-item"><input class="task-list-item-checkbox" checked type="checkbox"> Ants</li>
-              <li class="task-list-item"><input class="task-list-item-checkbox" checked type="checkbox"> Bees</li>
-              <li class="task-list-item"><input class="task-list-item-checkbox" checked type="checkbox"> Cats</li>
-              <li class="task-list-item"><input class="task-list-item-checkbox" type="checkbox"> Dogs
-              </li>
-            </ul>
-          </box>
+        <box>
+          <ul class="task-list">
+            <li class="task-list-item"><input class="task-list-item-checkbox" checked type="checkbox"> Ants</li>
+            <li class="task-list-item"><input class="task-list-item-checkbox" checked type="checkbox"> Bees</li>
+            <li class="task-list-item"><input class="task-list-item-checkbox" checked type="checkbox"> Cats</li>
+            <li class="task-list-item"><input class="task-list-item-checkbox" type="checkbox"> Dogs
+            </li>
+          </ul>
+        </box>
 
-          <h5 id="tables">Tables<a class="fa fa-anchor" href="#tables"></a></h5>
-          <pre><code class="hljs markdown">Animal | Trainable?
+        <h5 id="tables">Tables<a class="fa fa-anchor" href="#tables"></a></h5>
+        <pre><code class="hljs markdown">Animal | Trainable?
 ------ | -------------
 Ants   | no
 Bees   | no
 Cats   | yes
 </code></pre>
-          <box>
-            <div class="table-responsive">
-              <table class="markbind-table table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>Animal</th>
-                    <th>Trainable?</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Ants</td>
-                    <td>no</td>
-                  </tr>
-                  <tr>
-                    <td>Bees</td>
-                    <td>no</td>
-                  </tr>
-                  <tr>
-                    <td>Cats</td>
-                    <td>yes</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </box>
-          <h5 id="strikethrough">Strikethrough<a class="fa fa-anchor" href="#strikethrough"></a></h5>
-          <pre><code class="hljs markdown">Ants ~~Bees Cats~~ Dogs
-</code></pre>
-          <box>
-            <p>Ants <s>Bees Cats</s> Dogs</p>
-          </box>
-          <h5 id="emoji">Emoji<a class="fa fa-anchor" href="#emoji"></a></h5>
-          <pre><code class="hljs markdown">:+1: :exclamation: :x: :construction:
-</code></pre>
-          <box>
-            <p>👍 ❗️ ❌ 🚧</p>
-          </box>
-          <div class="indented">
-            <p><span class="dimmed"><span class="fas fa-info-circle"></span> <a href="https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md">the list of supported emoji</a>.</span>
-            </p>
+        <box>
+          <div class="table-responsive">
+            <table class="markbind-table table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Animal</th>
+                  <th>Trainable?</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Ants</td>
+                  <td>no</td>
+                </tr>
+                <tr>
+                  <td>Bees</td>
+                  <td>no</td>
+                </tr>
+                <tr>
+                  <td>Cats</td>
+                  <td>yes</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <hr>
-          <h2 id="markbind-extensions-to-markdown">MarkBind Extensions to Markdown<a class="fa fa-anchor" href="#markbind-extensions-to-markdown"></a></h2>
-          <p>MarkBind adds several Markdown-like features on top of GFMD.</p>
-          <h4 id="extra-text-formatting-features">Extra Text Formatting Features<a class="fa fa-anchor" href="#extra-text-formatting-features"></a></h4>
-          <ul>
-            <li>
-              <p><strong>Dimmed Text</strong>:<br>
-                <code>Apple %%Banana Cherries%%</code> <span class="fas fa-arrow-right"></span> Apple <span class="dimmed">Banana Cherries</span></p>
-            </li>
-            <li>
-              <p><strong>Highlighting</strong>:<br>
-                <code>Apple ==Banana Cherries==</code> <span class="fas fa-arrow-right"></span> Apple <mark>Banana Cherries</mark></p>
-            </li>
-            <li>
-              <p><strong>Underlining</strong>:<br>
-                <code>++Apple Banana++ Cherries</code> <span class="fas fa-arrow-right"></span> <ins>Apple Banana</ins> Cherries</p>
-            </li>
-            <li>
-              <p><strong>Radio Button List</strong>:<br></p>
-              <pre><code class="hljs markdown"><span class="hljs-bullet">- </span>( ) Option 1
+        </box>
+        <h5 id="strikethrough">Strikethrough<a class="fa fa-anchor" href="#strikethrough"></a></h5>
+        <pre><code class="hljs markdown">Ants ~~Bees Cats~~ Dogs
+</code></pre>
+        <box>
+          <p>Ants <s>Bees Cats</s> Dogs</p>
+        </box>
+        <h5 id="emoji">Emoji<a class="fa fa-anchor" href="#emoji"></a></h5>
+        <pre><code class="hljs markdown">:+1: :exclamation: :x: :construction:
+</code></pre>
+        <box>
+          <p>👍 ❗️ ❌ 🚧</p>
+        </box>
+        <div class="indented">
+          <p><span class="dimmed"><span class="fas fa-info-circle"></span> <a href="https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md">the list of supported emoji</a>.</span>
+          </p>
+        </div>
+        <hr>
+        <h2 id="mark-bind-extensions-to-markdown">MarkBind Extensions to Markdown<a class="fa fa-anchor" href="#mark-bind-extensions-to-markdown"></a></h2>
+        <p>MarkBind adds several Markdown-like features on top of GFMD.</p>
+        <h4 id="extra-text-formatting-features">Extra Text Formatting Features<a class="fa fa-anchor" href="#extra-text-formatting-features"></a></h4>
+        <ul>
+          <li>
+            <p><strong>Dimmed Text</strong>:<br>
+              <code>Apple %%Banana Cherries%%</code> <span class="fas fa-arrow-right"></span> Apple <span class="dimmed">Banana Cherries</span></p>
+          </li>
+          <li>
+            <p><strong>Highlighting</strong>:<br>
+              <code>Apple ==Banana Cherries==</code> <span class="fas fa-arrow-right"></span> Apple <mark>Banana Cherries</mark></p>
+          </li>
+          <li>
+            <p><strong>Underlining</strong>:<br>
+              <code>++Apple Banana++ Cherries</code> <span class="fas fa-arrow-right"></span> <ins>Apple Banana</ins> Cherries</p>
+          </li>
+          <li>
+            <p><strong>Radio Button List</strong>:<br></p>
+            <pre><code class="hljs markdown"><span class="hljs-bullet">- </span>( ) Option 1
 <span class="hljs-bullet">- </span>(X) Option 2 (selected)
 </code></pre>
-              <p><span class="fas fa-arrow-down"></span></p>
-            </li>
-          </ul>
-          <div class="indented">
-            <ul radio-group="68dc0" class="radio-list">
-              <li class="radio-list-item"><label><input class="radio-list-input" name="68dc0" type="radio"> Option 1</label></li>
-              <li class="radio-list-item"><label><input class="radio-list-input" checked name="68dc0" type="radio"> Option 2 (selected)</label></li>
-            </ul>
-          </div>
-          <h4 id="inline-code-%2F-syntax-highlighting">Inline code / syntax highlighting<a class="fa fa-anchor" href="#inline-code-%2F-syntax-highlighting"></a></h4>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> You can syntax highlight inline code by using <code>{.language}</code>:</p>
-            <pre><code class="hljs markdown">Consider the Java method signature: <span class="hljs-code">`public static void main(String[] args)`</span>{.java}.
-</code></pre>
             <p><span class="fas fa-arrow-down"></span></p>
-            <p>Consider the Java method signature: <code class="hljs inline java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span></code>.</p>
-          </div>
-          <h4 id="media-embeds">Media Embeds<a class="fa fa-anchor" href="#media-embeds"></a></h4>
-          <p><strong>There are easy ways to embed media content such as YouTube videos and PowerPoint slides</strong>.</p>
-          <h6 id="embedding-youtube-videos">Embedding Youtube Videos<a class="fa fa-anchor" href="#embedding-youtube-videos"></a></h6>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here are three ways of embedding YouTube videos and one example of how it will look in the
-              page.</p>
-            <tabs>
-            
-              <tab header="Code">
-                <pre><code class="hljs markdown">@[<span class="hljs-string">youtube</span>](<span class="hljs-link">v40b3ExbM0c</span>)
+          </li>
+        </ul>
+        <div class="indented">
+          <ul radio-group="68dc0" class="radio-list">
+            <li class="radio-list-item"><label><input class="radio-list-input" name="68dc0" type="radio"> Option 1</label></li>
+            <li class="radio-list-item"><label><input class="radio-list-input" checked name="68dc0" type="radio"> Option 2 (selected)</label></li>
+          </ul>
+        </div>
+        <h4 id="inline-code-syntax-highlighting">Inline code / syntax highlighting<a class="fa fa-anchor" href="#inline-code-syntax-highlighting"></a></h4>
+        <div class="indented">
+          <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> You can syntax highlight inline code by using <code>{.language}</code>:</p>
+          <pre><code class="hljs markdown">Consider the Java method signature: <span class="hljs-code">`public static void main(String[] args)`</span>{.java}.
+</code></pre>
+          <p><span class="fas fa-arrow-down"></span></p>
+          <p>Consider the Java method signature: <code class="hljs inline java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span></code>.</p>
+        </div>
+        <h4 id="media-embeds">Media Embeds<a class="fa fa-anchor" href="#media-embeds"></a></h4>
+        <p><strong>There are easy ways to embed media content such as YouTube videos and PowerPoint slides</strong>.</p>
+        <h6 id="embedding-youtube-videos">Embedding Youtube Videos<a class="fa fa-anchor" href="#embedding-youtube-videos"></a></h6>
+        <div class="indented">
+          <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here are three ways of embedding YouTube videos and one example of how it will look in the
+            page.</p>
+          <tabs>
+          
+            <tab header="Code">
+              <pre><code class="hljs markdown">@[<span class="hljs-string">youtube</span>](<span class="hljs-link">v40b3ExbM0c</span>)
 @[<span class="hljs-string">youtube</span>](<span class="hljs-link">http://www.youtube.com/watch?v=v40b3ExbM0c</span>)
 @[<span class="hljs-string">youtube</span>](<span class="hljs-link">http://youtu.be/v40b3ExbM0c</span>)
 </code></pre>
-              </tab>
-            
-              <tab header="Outcome">
-                <div class="block-embed block-embed-service-youtube"><iframe type="text/html" src="//www.youtube.com/embed/v40b3ExbM0c" frameborder="0" width="640" height="390" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen></iframe></div>
-              </tab>
-            </tabs>
-          </div>
-          <p>More media blocks, embedding services and additional options can be found in <a href="https://github.com/rotorz/markdown-it-block-embed">Markdown-it documentation</a>.</p>
-          <h6 id="embedding-powerpoint-slides-(using-the-embed-url-from-powerpoint-online)">Embedding Powerpoint Slides (using the embed url from Powerpoint online)<a class="fa fa-anchor" href="#embedding-powerpoint-slides-(using-the-embed-url-from-powerpoint-online)"></a></h6>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here is an example of embedding a PowerPoint slide deck:</p>
-            <tabs>
-            
-              <tab header="Code">
-                <pre><code class="hljs markdown">@[<span class="hljs-string">powerpoint</span>](<span class="hljs-link">https://onedrive.live.com/embed?cid=A5AF047C4CAD67AB&amp;resid=A5AF047C4CAD67AB%212070&amp;authkey=&amp;em=2</span>)
+            </tab>
+          
+            <tab header="Outcome">
+              <div class="block-embed block-embed-service-youtube"><iframe type="text/html" src="//www.youtube.com/embed/v40b3ExbM0c" frameborder="0" width="640" height="390" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen></iframe></div>
+            </tab>
+          </tabs>
+        </div>
+        <p>More media blocks, embedding services and additional options can be found in <a href="https://github.com/rotorz/markdown-it-block-embed">Markdown-it documentation</a>.</p>
+        <h6 id="embedding-powerpoint-slides-using-the-embed-url-from-powerpoint-online">Embedding Powerpoint Slides (using the embed url from Powerpoint online)<a class="fa fa-anchor" href="#embedding-powerpoint-slides-using-the-embed-url-from-powerpoint-online"></a></h6>
+        <div class="indented">
+          <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here is an example of embedding a PowerPoint slide deck:</p>
+          <tabs>
+          
+            <tab header="Code">
+              <pre><code class="hljs markdown">@[<span class="hljs-string">powerpoint</span>](<span class="hljs-link">https://onedrive.live.com/embed?cid=A5AF047C4CAD67AB&amp;resid=A5AF047C4CAD67AB%212070&amp;authkey=&amp;em=2</span>)
 </code></pre>
-              </tab>
-            
-              <tab header="Outcome">
-                <div class="block-embed block-embed-service-powerpoint"><iframe type="text/html" src="https://onedrive.live.com/embed?cid=A5AF047C4CAD67AB&resid=A5AF047C4CAD67AB%212070&authkey=&em=2&action=embedview&wdAr=1.3333333333333333" frameborder="0" width="610" height="481" webkitallowfullscreen=""
-                    mozallowfullscreen="" allowfullscreen></iframe></div>
-              </tab>
-            </tabs>
+            </tab>
+          
+            <tab header="Outcome">
+              <div class="block-embed block-embed-service-powerpoint"><iframe type="text/html" src="https://onedrive.live.com/embed?cid=A5AF047C4CAD67AB&resid=A5AF047C4CAD67AB%212070&authkey=&em=2&action=embedview&wdAr=1.3333333333333333" frameborder="0" width="610" height="481" webkitallowfullscreen="" mozallowfullscreen=""
+                  allowfullscreen></iframe></div>
+            </tab>
+          </tabs>
+        </div>
+        <hr>
+        <h2 id="mark-bind-custom-syntax">MarkBind Custom Syntax<a class="fa fa-anchor" href="#mark-bind-custom-syntax"></a></h2>
+        <h4 id="intra-site-links">Intra-Site Links<a class="fa fa-anchor" href="#intra-site-links"></a></h4>
+        <div id="intraSiteLinks">
+          <p>Links to files of the generated site (e.g., an HTML page or an image file) should be specified as absolute paths and should start with
+            <code>{<span></span>{ baseUrl }}</code> (which represents the root directory of the project).</p>
+          <div class="indented">
+            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here's how to specify a link to (1) a page, and (2) an image, using the
+              <code>{<span></span>{ baseUrl }}</code> :
+            </p>
+            <ol>
+              <li><code>Click [here]({<span></span>{ baseUrl }}/userGuide/reusingContents.html).</code> <span class="fas fa-arrow-right"></span> Click <a href="/markbind/userGuide/reusingContents.html">here</a></li>
+              <li><code>![](</code>
+                <code>{<span></span>{ baseUrl }}</code>
+                <code>/images/preview.png)</code></li>
+            </ol>
           </div>
-          <hr>
-          <h2 id="markbind-custom-syntax">MarkBind Custom Syntax<a class="fa fa-anchor" href="#markbind-custom-syntax"></a></h2>
-          <h4 id="intra-site-links">Intra-Site Links<a class="fa fa-anchor" href="#intra-site-links"></a></h4>
-          <div id="intraSiteLinks">
-            <p>Links to files of the generated site (e.g., an HTML page or an image file) should be specified as absolute paths and should start with
-              <code>{<span></span>{ baseUrl }}</code> (which represents the root directory of the project).</p>
-            <div class="indented">
-              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here's how to specify a link to (1) a page, and (2) an image, using the
-                <code>{<span></span>{ baseUrl }}</code> :
-              </p>
-              <ol>
-                <li><code>Click [here]({<span></span>{ baseUrl }}/userGuide/reusingContents.html).</code> <span class="fas fa-arrow-right"></span> Click <a href="/markbind/userGuide/reusingContents.html">here</a></li>
-                <li><code>![](</code>
-                  <code>{<span></span>{ baseUrl }}</code>
-                  <code>/images/preview.png)</code></li>
-              </ol>
-            </div>
-          </div>
-          <div id="iconFonts">
-            <h4 id="icons-fonts">Icons Fonts<a class="fa fa-anchor" href="#icons-fonts"></a></h4>
-            <p><small><span class="dimmed">Acknowledgement: Font Awesome icons are provided by <a href="https://fontawesome.com/">Font Awesome</a> under their <a href="https://fontawesome.com/license">free license</a> while Glyphicons are provided by <a href="https://glyphicons.com/">Glyphicons</a> via <a href="https://getbootstrap.com/docs/3.3/">Bootstrap 3</a>.</span></small></p>
-            <p>MarkBind supports using Font Icons provided by Font Awesome and Glyphicons.</p>
-            <box border-left-color="#00B0F0">
-              <p>
-                <font color="#00B0F0"> <span class="fas fa-lightbulb"></span></font> The advantage of font icons over emojis is font icons can be <em>styled</em> to fit your needs.e.g.,</p>
-              <ul>
-                <li>emoji:
-                  <font color="purple">Don't judge the 📖 by it's cover! 👎</font>
-                </li>
-                <li>font icons:
-                  <font color="purple">Don't judge the <span class="fas fa-book"></span> by it's cover! <span class="fas fa-thumbs-down"></span></font>
-                </li>
-              </ul>
-            </box>
+        </div>
+        <div id="iconFonts">
+          <h4 id="icons-fonts">Icons Fonts<a class="fa fa-anchor" href="#icons-fonts"></a></h4>
+          <p><small><span class="dimmed">Acknowledgement: Font Awesome icons are provided by <a href="https://fontawesome.com/">Font Awesome</a> under their <a href="https://fontawesome.com/license">free license</a> while Glyphicons are provided by <a href="https://glyphicons.com/">Glyphicons</a> via <a href="https://getbootstrap.com/docs/3.3/">Bootstrap 3</a>.</span></small></p>
+          <p>MarkBind supports using Font Icons provided by Font Awesome and Glyphicons.</p>
+          <box border-left-color="#00B0F0">
+            <p>
+              <font color="#00B0F0"> <span class="fas fa-lightbulb"></span></font> The advantage of font icons over emojis is font icons can be <em>styled</em> to fit your needs.e.g.,</p>
+            <ul>
+              <li>emoji:
+                <font color="purple">Don't judge the 📖 by it's cover! 👎</font>
+              </li>
+              <li>font icons:
+                <font color="purple">Don't judge the <span class="fas fa-book"></span> by it's cover! <span class="fas fa-thumbs-down"></span></font>
+              </li>
+            </ul>
+          </box>
 
-            <h6 id="using-font-awesome-icons">Using Font Awesome Icons<a class="fa fa-anchor" href="#using-font-awesome-icons"></a></h6>
-            <ol>
-              <li>
-                <p>Decide which icon you want to use from the <a href="https://fontawesome.com/icons?d=gallery&amp;m=free">list of available icons</a>.</p>
-              </li>
-              <li>
-                <p>Construct the MarkBind name for the selected icon by replacing the hyphens (<code>-</code>) in the actual name with underscores ( <code>_</code> ) and adding the <em>type prefix</em>. Note: Font Awesome has three different styles for their
-                  icons, each with their own type prefix. Here is an example from each type:</p>
-                <ul>
-                  <li><em>Solid</em> (prefix: <code>fas_</code>) e.g., <span class="fas fa-file-code"></span> (actual name <code>file-code</code>, MarkBind name <strong><code>fas_</code></strong><code>file_code</code>)</li>
-                  <li><em>Regular</em> (prefix: <code>far_</code>) e.g., <span class="far fa-file-code"></span> (actual name <code>file-code</code>, MarkBind name <strong><code>far_</code></strong><code>file_code</code>)</li>
-                  <li><em>Brands</em> (prefix: <code>fab_</code>): e.g., <span class="fab fa-github-alt"></span> (actual name <code>github-alt</code>, MarkBind name <strong><code>fab_</code></strong><code>github_alt</code>)</li>
-                </ul>
-              </li>
-              <li>
-                <p>Insert MarkBind name for the icon enclosed within double curly braces to get the icon in your page.<br>
-                  <code>Create a **branch**</code><code> {<span></span>{fas_code_branch}} now!</code> → Create a <strong>branch</strong> <span class="fas fa-code-branch"></span> now!</p>
-              </li>
-            </ol>
-            <h6 id="using-glyphicons">Using Glyphicons<a class="fa fa-anchor" href="#using-glyphicons"></a></h6>
-            <ol>
-              <li>Decide which icon you want to use from <a href="https://getbootstrap.com/docs/3.3/components/#glyphicons">list of provided glyphicons</a>.</li>
-              <li>Construct the MarkBind name for the selected icon by replacing the hyphens (<code>-</code>) in the actual name with underscores ( <code>_</code> ).<br> e.g., <span class="glyphicon glyphicon-home" aria-hidden="true"></span> (actual name
-                <code>glyphicon-home</code>, MarkBind name <code>glyphicon_home</code>)</li>
-              <li>Insert MarkBind name for the icon enclosed within double curly braces to get the icon in your page.<br>
-                <code>Move to the right!</code><code> {<span></span>{glyphicon_hand_right}}</code> → Move to the right! <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span></li>
-            </ol>
-          </div>
-          <h4 id="variables">Variables<a class="fa fa-anchor" href="#variables"></a></h4>
-          <blockquote>
-            <span>
+          <h6 id="using-font-awesome-icons">Using Font Awesome Icons<a class="fa fa-anchor" href="#using-font-awesome-icons"></a></h6>
+          <ol>
+            <li>
+              <p>Decide which icon you want to use from the <a href="https://fontawesome.com/icons?d=gallery&amp;m=free">list of available icons</a>.</p>
+            </li>
+            <li>
+              <p>Construct the MarkBind name for the selected icon by replacing the hyphens (<code>-</code>) in the actual name with underscores ( <code>_</code> ) and adding the <em>type prefix</em>. Note: Font Awesome has three different styles for their
+                icons, each with their own type prefix. Here is an example from each type:</p>
+              <ul>
+                <li><em>Solid</em> (prefix: <code>fas_</code>) e.g., <span class="fas fa-file-code"></span> (actual name <code>file-code</code>, MarkBind name <strong><code>fas_</code></strong><code>file_code</code>)</li>
+                <li><em>Regular</em> (prefix: <code>far_</code>) e.g., <span class="far fa-file-code"></span> (actual name <code>file-code</code>, MarkBind name <strong><code>far_</code></strong><code>file_code</code>)</li>
+                <li><em>Brands</em> (prefix: <code>fab_</code>): e.g., <span class="fab fa-github-alt"></span> (actual name <code>github-alt</code>, MarkBind name <strong><code>fab_</code></strong><code>github_alt</code>)</li>
+              </ul>
+            </li>
+            <li>
+              <p>Insert MarkBind name for the icon enclosed within double curly braces to get the icon in your page.<br>
+                <code>Create a **branch**</code><code> {<span></span>{fas_code_branch}} now!</code> → Create a <strong>branch</strong> <span class="fas fa-code-branch"></span> now!</p>
+            </li>
+          </ol>
+          <h6 id="using-glyphicons">Using Glyphicons<a class="fa fa-anchor" href="#using-glyphicons"></a></h6>
+          <ol>
+            <li>Decide which icon you want to use from <a href="https://getbootstrap.com/docs/3.3/components/#glyphicons">list of provided glyphicons</a>.</li>
+            <li>Construct the MarkBind name for the selected icon by replacing the hyphens (<code>-</code>) in the actual name with underscores ( <code>_</code> ).<br> e.g., <span class="glyphicon glyphicon-home" aria-hidden="true"></span> (actual name <code>glyphicon-home</code>,
+              MarkBind name <code>glyphicon_home</code>)</li>
+            <li>Insert MarkBind name for the icon enclosed within double curly braces to get the icon in your page.<br>
+              <code>Move to the right!</code><code> {<span></span>{glyphicon_hand_right}}</code> → Move to the right! <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span></li>
+          </ol>
+        </div>
+        <h4 id="variables">Variables<a class="fa fa-anchor" href="#variables"></a></h4>
+        <blockquote>
+          <span>
 <p><strong>MarkBind variables are ideal for reusing small bits of code</strong> in multiple places; you can define a variable to represent the code bit in question and reuse it anywhere in the site by referring the variable instead of duplicating the code bit.
 </p></span></blockquote>
-          <span>
+        <span>
 <p>More info: <a href="/markbind/userGuide/reusingContents.html#using-variables"><em>User Guide: Reusing Contents → Using Variables</em></a></p></span>
-          <h4 id="the-%3Cinclude%3E-tag">The <code>&lt;include&gt;</code> Tag<a class="fa fa-anchor" href="#the-%3Cinclude%3E-tag"></a></h4>
-          <blockquote>
-            <span>
+        <h4 id="the-include-tag">The <code>&lt;include&gt;</code> Tag<a class="fa fa-anchor" href="#the-include-tag"></a></h4>
+        <blockquote>
+          <span>
 <p><strong>MarkBind has a powerful <code>&lt;include&gt;</code> mechanism</strong> which allows you to create documents by combining other content fragments.
 </p></span></blockquote>
-          <span>
+        <span>
 <p>More info: <a href="/markbind/userGuide/reusingContents.html#the-include-tag"><em>User Guide: Reusing Contents → The <code>include</code> Tag</em></a></p></span>
-          <h4 id="markbind-components">MarkBind Components<a class="fa fa-anchor" href="#markbind-components"></a></h4>
-          <blockquote>
-            <span>
+        <h4 id="mark-bind-components">MarkBind Components<a class="fa fa-anchor" href="#mark-bind-components"></a></h4>
+        <blockquote>
+          <span>
 <p><strong>MarkBind provides a number of components</strong> (e.g., expandable panels, tabbed displays, navigation bars, etc.) that you can use to enhance the appearance/behavior of your pages.
 </p></span></blockquote>
-          <span>
+        <span>
 <p>More info: <a href="/markbind/userGuide/usingComponents.html"><em>User Guide: Using Components</em></a></p></span>
-          <h2 id="support-for-html%2C-javascript%2C-css">Support for HTML, JavaScript, CSS<a class="fa fa-anchor" href="#support-for-html%2C-javascript%2C-css"></a></h2>
-          <p><strong>A MarkBind source file can contain a mixture of HTML, JavaScript, and CSS</strong> as a normal web page would.</p>
-          <p><mark>Text within HTML tags are considered plain text unless the text is preceded by a blank line,</mark> in which case the text is parsed as Markdown text.</p>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here is an example of how text within an html tag is parsed as Markdown when preceded by
-              a blank line.</p>
-            <p>Code:</p>
-            <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>
+        <h2 id="support-for-html-java-script-css">Support for HTML, JavaScript, CSS<a class="fa fa-anchor" href="#support-for-html-java-script-css"></a></h2>
+        <p><strong>A MarkBind source file can contain a mixture of HTML, JavaScript, and CSS</strong> as a normal web page would.</p>
+        <p><mark>Text within HTML tags are considered plain text unless the text is preceded by a blank line,</mark> in which case the text is parsed as Markdown text.</p>
+        <div class="indented">
+          <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here is an example of how text within an html tag is parsed as Markdown when preceded by a
+            blank line.</p>
+          <p>Code:</p>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>
 Without preceding blank line: Apples **Bananas** Cherries
 <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 
@@ -432,19 +432,19 @@ Without preceding blank line: Apples **Bananas** Cherries
 With preceding blank line: Apples **Bananas** Cherries
 <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 </code></pre>
-            <p>Outcome:<br></p>
-            <span>
+          <p>Outcome:<br></p>
+          <span>
 Without preceding blank line: Apples **Bananas** Cherries
 </span>
-            <span>
+          <span>
 <p>With preceding blank line: Apples <strong>Bananas</strong> Cherries
 </p></span></div>
-          <p>Alternatively, you can use <code>&lt;markdown&gt;</code> (for <em>block</em> Markdown elements such as headings) or <code>&lt;md&gt;</code> (for <em>inline</em> Markdown elements such as bold/italic text) tags to indicate the text should be
-            treated as Markdown.</p>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here is an example of how text within an HTML tag can be treated as Markdown using <code>&lt;markdown&gt;</code>/<code>&lt;md&gt;</code>              tags.</p>
-            <p>Code:</p>
-            <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>
+        <p>Alternatively, you can use <code>&lt;markdown&gt;</code> (for <em>block</em> Markdown elements such as headings) or <code>&lt;md&gt;</code> (for <em>inline</em> Markdown elements such as bold/italic text) tags to indicate the text should be treated
+          as Markdown.</p>
+        <div class="indented">
+          <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here is an example of how text within an HTML tag can be treated as Markdown using <code>&lt;markdown&gt;</code>/<code>&lt;md&gt;</code>            tags.</p>
+          <p>Code:</p>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">md</span>&gt;</span>Apples **Bananas** Cherries<span class="hljs-tag">&lt;/<span class="hljs-name">md</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 
@@ -452,40 +452,38 @@ Without preceding blank line: Apples **Bananas** Cherries
 <span class="hljs-tag">&lt;<span class="hljs-name">markdown</span>&gt;</span>##### Apples **Bananas** Cherries<span class="hljs-tag">&lt;/<span class="hljs-name">markdown</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 </code></pre>
-            <p>Outcome:<br>
-              <span>
-<span>Apples <strong>Bananas</strong> Cherries</span></span>
-            </p>
+          <p>Outcome:<br>
             <span>
+<span>Apples <strong>Bananas</strong> Cherries</span></span>
+          </p>
+          <span>
 <div><h5 id="apples-bananas-cherries">Apples <strong>Bananas</strong> Cherries<a class="fa fa-anchor" href="#apples-bananas-cherries"></a></h5></div></span></div>
-          <hr>
-          <h2 id="support-for-vuestrap-and-bootstrap">Support for VueStrap and BootStrap<a class="fa fa-anchor" href="#support-for-vuestrap-and-bootstrap"></a></h2>
-          <p>As MarkBind uses <a href="https://bootstrap-vue.js.org/docs/components/alert/">VueStrap</a> (which in turn is based on <a href="https://getbootstrap.com/docs/4.2/getting-started/introduction/">BootStrap</a>) internally, many of their syntax
-            work within MarkBind files too.</p>
-          <hr>
-          <h2 id="support-for-nunjucks">Support for Nunjucks<a class="fa fa-anchor" href="#support-for-nunjucks"></a></h2>
-          <p><a href="https://mozilla.github.io/nunjucks/">Nunjucks</a> is a JavaScript based templating tool. Here is a simple example:</p>
-          <p>
-            <box><span>
+        <hr>
+        <h2 id="support-for-vue-strap-and-boot-strap">Support for VueStrap and BootStrap<a class="fa fa-anchor" href="#support-for-vue-strap-and-boot-strap"></a></h2>
+        <p>As MarkBind uses <a href="https://bootstrap-vue.js.org/docs/components/alert/">VueStrap</a> (which in turn is based on <a href="https://getbootstrap.com/docs/4.2/getting-started/introduction/">BootStrap</a>) internally, many of their syntax work
+          within MarkBind files too.</p>
+        <hr>
+        <h2 id="support-for-nunjucks">Support for Nunjucks<a class="fa fa-anchor" href="#support-for-nunjucks"></a></h2>
+        <p><a href="https://mozilla.github.io/nunjucks/">Nunjucks</a> is a JavaScript based templating tool. Here is a simple example:</p>
+        <p>
+          <box><span>
 <code>&lt;ul&gt;</code><br>
 <code>{<span></span>% for item in [1, 2, 3, 4] %<span></span>}</code><br>
-              <code>&lt;li&gt;</code><code>Item {<span></span>{ item }}</code><code>&lt;/li&gt;</code><br>
-              <code>{<span></span>% endfor %<span></span>}</code><br>
-              <code>&lt;/ul&gt;</code></span>
-            </box>
-          </p>
-          <p><span class="fas fa-arrow-down"></span></p>
-          <box>
-            <ul>
-              <li>Item 1</li>
-              <li>Item 2</li>
-              <li>Item 3</li>
-              <li>Item 4</li>
-            </ul>
+            <code>&lt;li&gt;</code><code>Item {<span></span>{ item }}</code><code>&lt;/li&gt;</code><br>
+            <code>{<span></span>% endfor %<span></span>}</code><br>
+            <code>&lt;/ul&gt;</code></span>
           </box>
-          <p>As MarkBind uses Nunjucks behind the scene, <strong>MarkBind is generally compatible with Nunjucks</strong>, which means you can use Nunjucks templating in your source files. Note that <mark>the code is processed for Nunjucks syntax before the rest of the MarkBind syntax are processed</mark>.</p>
-          <p></p>
-          </span>
+        </p>
+        <p><span class="fas fa-arrow-down"></span></p>
+        <box>
+          <ul>
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+            <li>Item 4</li>
+          </ul>
+        </box>
+        <p>As MarkBind uses Nunjucks behind the scene, <strong>MarkBind is generally compatible with Nunjucks</strong>, which means you can use Nunjucks templating in your source files. Note that <mark>the code is processed for Nunjucks syntax before the rest of the MarkBind syntax are processed</mark>.</p>
       </div>
     </div>
   </div>
@@ -493,12 +491,13 @@ Without preceding blank line: Apples **Bananas** Cherries
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.16.1</a> on Sun, 13 Jan 2019 15:36:30 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.17.0</a> on Mon, 21 Jan 2019 17:40:51 GMT]</small></div>
 </footer>
 </div>
 </body>
 <script src="..\markbind\js\vue.min.js"></script>
 <script src="..\markbind\js\vue-strap.min.js"></script>
+<script src="..\markbind\js\bootstrap-utility.min.js"></script>
 <script src="..\markbind\js\polyfill.min.js"></script>
 <script src="..\markbind\js\bootstrap-vue.min.js"></script>
 <script>
