@@ -485,4 +485,7 @@ Then, in a page-specific CSS file,
 }
 ```
 
+#### Creating multiple variations of a page
+
+Tags are a good way to create multiple variations of a page within the same source file, such as to filter content for creating multiple different versions of the same page. See [_User Guide: Tweaking the Page Structure → Toggling alternative contents in a page_]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#toggling-alternative-contents-in-a-page) section for more information.
 </div>

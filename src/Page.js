@@ -58,6 +58,7 @@ function Page(pageConfig) {
   this.rootPath = pageConfig.rootPath;
   this.searchable = pageConfig.searchable;
   this.src = pageConfig.src;
+  this.tags = pageConfig.tags;
   this.template = pageConfig.pageTemplate;
   this.title = pageConfig.title || '';
   this.titlePrefix = pageConfig.titlePrefix;
@@ -420,6 +421,29 @@ Page.prototype.concatenateHeadingsAndKeywords = function () {
 };
 
 /**
+ * Filters out elements on the page based on config tags
+ * @param tags to filter
+ * @param content of the page
+ */
+Page.prototype.filterTags = function (tags, content) {
+  if (tags === undefined) {
+    return content;
+  }
+  const tagsArray = Array.isArray(tags) ? tags : [tags];
+  const $ = cheerio.load(content, { xmlMode: false });
+  $('[tags]').each((i, element) => {
+    $(element).attr('hidden', true);
+  });
+  tagsArray.forEach((tag) => {
+    $(`[tags~="${tag}"]`).each((i, element) => {
+      $(element).removeAttr('hidden');
+    });
+  });
+  $('[hidden]').remove();
+  return $.html();
+};
+
+/**
  * Adds anchor links to headings in the page
  * @param content of the page
  */
@@ -475,6 +499,8 @@ Page.prototype.collectFrontMatter = function (includedPage) {
     this.frontMatter.title = (this.title || this.frontMatter.title || '');
     // Layout specified in site.json will override layout specified in the front matter
     this.frontMatter.layout = (this.layout || this.frontMatter.layout || LAYOUT_DEFAULT_NAME);
+    // Included tags specified in site.json will override included tags specified in front matter
+    this.frontMatter.tags = (this.tags || this.frontMatter.tags);
   } else {
     // Page is addressable but no front matter specified
     this.frontMatter = {
@@ -736,6 +762,7 @@ Page.prototype.generate = function (builtFiles) {
       .then(result => markbinder.resolveBaseUrl(result, fileConfig))
       .then(result => fs.outputFileAsync(this.tempPath, result))
       .then(() => markbinder.renderFile(this.tempPath, fileConfig))
+      .then(result => this.filterTags(this.frontMatter.tags, result))
       .then(result => this.addAnchors(result))
       .then((result) => {
         this.content = htmlBeautify(result, { indent_size: 2 });
