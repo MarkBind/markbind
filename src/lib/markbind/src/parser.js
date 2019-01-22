@@ -28,23 +28,24 @@ const ATTRIB_CWF = 'cwf';
 
 const BOILERPLATE_FOLDER_NAME = '_markbind/boilerplates';
 
+const CYCLIC_REFERENCE_ERROR_MESSAGE = 'Cyclic reference detected.';
+
 function CyclicReferenceError() {
-    // Chain constructor with call
-    this.message = "Cyclic reference detected.";
-    this.fileStack = [];
+  this.message = CYCLIC_REFERENCE_ERROR_MESSAGE;
+  this.fileStack = [];
 }
 
 CyclicReferenceError.prototype = RangeError.prototype;
 
-CyclicReferenceError.prototype.addFileToStack = function(filePath) {
+CyclicReferenceError.prototype.addFileToStack = function (filePath) {
   if (this.fileStack.length < 5) {
     this.fileStack.push(filePath);
   }
-}
+};
 
-CyclicReferenceError.prototype.toString = function() {
-  return this.message + "\n" + "Last 5 files processed: " + "\n\t" + this.fileStack.join("\n\t");
-}
+CyclicReferenceError.prototype.toString = function () {
+  return `${this.message} \nLast 5 files processed: ${'\n\t'}${this.fileStack.join('\n\t')}`;
+};
 
 /*
  * Utils
@@ -286,9 +287,9 @@ Parser.prototype._preprocess = function (node, context, config) {
     if (element.children && element.children.length > 0) {
       try {
         element.children = element.children.map(e => self._preprocess(e, childContext, config));
-      } catch(e) {
-        if (e.message === "Maximum call stack size exceeded") {
-          let err = new CyclicReferenceError();
+      } catch (e) {
+        if (e.message === 'Maximum call stack size exceeded') {
+          const err = new CyclicReferenceError();
           err.addFileToStack(childContext.cwf);
           throw err;
         } else if (e instanceof CyclicReferenceError) {
