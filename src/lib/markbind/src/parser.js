@@ -28,6 +28,24 @@ const ATTRIB_CWF = 'cwf';
 
 const BOILERPLATE_FOLDER_NAME = '_markbind/boilerplates';
 
+function CyclicReferenceError() {
+    // Chain constructor with call
+    this.message = "Cyclic reference detected.";
+    this.fileStack = [];
+}
+
+CyclicReferenceError.prototype = RangeError.prototype;
+
+CyclicReferenceError.prototype.addFileToStack = function(filePath) {
+  if (this.fileStack.length < 5) {
+    this.fileStack.push(filePath);
+  }
+}
+
+CyclicReferenceError.prototype.toString = function() {
+  return this.message + "\n" + "Last 5 files processed: " + "\n\t" + this.fileStack.join("\n\t");
+}
+
 /*
  * Utils
  */
@@ -266,7 +284,19 @@ Parser.prototype._preprocess = function (node, context, config) {
     childContext.cwf = filePath;
     childContext.source = isIncludeSrcMd ? 'md' : 'html';
     if (element.children && element.children.length > 0) {
-      element.children = element.children.map(e => self._preprocess(e, childContext, config));
+      try {
+        element.children = element.children.map(e => self._preprocess(e, childContext, config));
+      } catch(e) {
+        if (e.message === "Maximum call stack size exceeded") {
+          let err = new CyclicReferenceError();
+          err.addFileToStack(childContext.cwf);
+          throw err;
+        } else if (e instanceof CyclicReferenceError) {
+          e.addFileToStack(childContext.cwf);
+          throw e;
+        }
+        throw e;
+      }
     }
   } else if ((element.name === 'panel') && hasSrc) {
     if (!isUrl && includeSrc.hash) {
