@@ -141,6 +141,9 @@ function formatSiteNav(renderedSiteNav, src) {
   // Tidy up the style of the unordered list <ul>
   listItems.parent().attr('style', 'list-style-type: none; margin-left:-1em');
 
+  // Set class of <a> to ${SITE_NAV_ID}__a to style links
+  listItems.find('a[href]').addClass(`${SITE_NAV_ID}__a`);
+
   // Highlight current page
   const currentPageHtmlPath = src.replace(/\.(md|mbd)$/, '.html');
   listItems.find(`a[href='{{baseUrl}}/${currentPageHtmlPath}']`).addClass('current');
