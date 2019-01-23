@@ -37,7 +37,7 @@ function removeLoadingOverlay() {
   jQuery('#loading-overlay').remove();
 }
 
-function getSearchData(vm) {
+function updateSearchData(vm) {
   jQuery.getJSON(`${baseUrl}/siteData.json`)
     .then((siteData) => {
       // eslint-disable-next-line no-param-reassign
@@ -115,7 +115,7 @@ function setupWithSearch() {
     },
     mounted() {
       executeAfterMountedRoutines();
-      getSearchData(this);
+      updateSearchData(this);
     },
   });
   setupSiteNav();
