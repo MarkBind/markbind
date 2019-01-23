@@ -33,15 +33,14 @@ function setupAnchors() {
   });
 }
 
-function fadeOutSpinner() {
-  jQuery('#spinner-overlay').fadeOut(0);
+function removeLoadingOverlay() {
+  jQuery('#loading-overlay').remove();
 }
-
 function executeAfterMountedRoutines() {
   flattenModals();
   scrollToUrlAnchorHeading();
   setupAnchors();
-  fadeOutSpinner();
+  removeLoadingOverlay();
 }
 
 function setupSiteNav() {
