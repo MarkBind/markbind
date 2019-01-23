@@ -30,7 +30,8 @@ MarkBind Command Line Interface (CLI) can be run in the following ways:
 
 ### `build` Command
 
-**Format:** `markbind [build | b] [<OPTIONS>] `
+**Format:** `markbind build [<OPTIONS>]`<br>
+**Alias:** `markbind b`
 
 **Description:** Generates the site to the directory named `_site` in the current directory.
 
@@ -46,14 +47,15 @@ MarkBind Command Line Interface (CLI) can be run in the following ways:
   {{ icon_example }} `--baseUrl staging`
 
 **{{ icon_examples }}**
-* `markbind build` or `markbind b`
+* `markbind build`
 * `markbind build ./myWebsite ./myOutDir`
 * `markbind build ./stagingDir --baseUrl staging`
 <hr><!-- ========================================================================== -->
 
 ### `deploy` Command
 
-**Format:** `markbind [deploy | d]`
+**Format:** `markbind deploy`<br>
+**Alias:** `markbind d`
 
 **Description:** Deploys the site to the repo's Github pages by pushing everything in the generated site (default dir: `_site`) to the `gh-pages` branch of the current git working directory's remote repo.
 
@@ -63,7 +65,8 @@ MarkBind Command Line Interface (CLI) can be run in the following ways:
 
 ### `init` Command
 
-**Format:** `markbind [init | i] [<OPTIONS>]`
+**Format:** `markbind init [<OPTIONS>]`<br>
+**Alias:** `markbind i`
 
 **Description:** Initializes a directory into a MarkBind site by creating a skeleton structure for the website which includes a `index.md` and a `site.json`.
 
@@ -73,14 +76,15 @@ MarkBind Command Line Interface (CLI) can be run in the following ways:
   {{ icon_example }} `./myWebsite`
 
 {{ icon_examples }}
-* `markbind init` or `markbind i` : Initializes the site in the current working directory.
+* `markbind init` : Initializes the site in the current working directory.
 * `markbind init ./myWebsite` : Initializes the site in `./myWebsite` directory.
 
 <hr><!-- ========================================================================== -->
 
 ### `serve` Command
 
-**Format:** `markbind [serve | s] [<OPTIONS>]`
+**Format:** `markbind serve [<OPTIONS>]`<br>
+**Alias:** `markbind s`
 
 **Description:** Does the following steps:
 1. Builds the site and puts the generated files in a directory named `_site`.
@@ -109,7 +113,7 @@ MarkBind Command Line Interface (CLI) can be run in the following ways:
    {{ icon_example }} `-s otherSite.json`
 
 {{ icon_examples }}
-* `markbind serve` or `markbind s`
+* `markbind serve`
 * `markbind serve ./myWebsite`
 * `markbind serve -p 8888 -s otherSite.json`
 
