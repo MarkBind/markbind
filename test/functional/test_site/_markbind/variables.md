@@ -10,3 +10,5 @@
 
 <span id="global_variable_overriding_included_variable">Global variable overriding included variable</span>
 <span id="included_global_variable">Global variable</span>
+<span id="pageGlobalVariable">Global Variable</span>
+<span id="pageGlobalVariableOverridingPageVariable">Global Variable overriding Page Variable</span>

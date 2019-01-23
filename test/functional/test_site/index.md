@@ -18,6 +18,30 @@ head: myCustomHead.md, myCustomHead2.md
 
 {{reference_level_4}}
 
+# Page Variable
+<variable name="pageVariable">Page Variable</variable>
+{{ pageVariable }}
+
+# Nested Page Variable
+<div>
+  <span>
+    <variable name="nestedPageVariable">Nested Page Variable</variable>
+  </span>
+</div>
+{{ nestedPageVariable }}
+
+# Page Variable with Global Variable
+<variable name="pageVariableWithGlobalVariable">Page Variable with {{ pageGlobalVariable }}</variable>
+{{ pageVariableWithGlobalVariable }}
+
+# Page Variable with Page Variable
+<variable name="pageVariableWithPageVariable">Page Variable with {{ pageVariable }}</variable>
+{{ pageVariableWithPageVariable }}
+
+# Global Variable overriding Page Variable
+<variable name="pageGlobalVariableOverridingPageVariable">Page Variable overridden by Global Variable</variable>
+{{ pageGlobalVariableOverridingPageVariable }}
+
 # Heading with multiple keywords
 <span class="keyword">keyword 1</span>
 <span class="keyword">keyword 2</span>

@@ -114,6 +114,28 @@ function extractVariables(includeElement, contextVariables) {
   return includedVariables;
 }
 
+/**
+ * Extract page variables from an include element
+ * @param filename for error printing
+ * @param data to extract variables from
+ * @param userDefinedVariables global variables
+ */
+function extractPageVariables(fileName, data, userDefinedVariables) {
+  const $ = cheerio.load(data);
+  const pageVariables = {};
+  $('variable').each(function () {
+    const variableElement = $(this);
+    if (!variableElement.attr('name')) {
+      // eslint-disable-next-line no-console
+      console.warn(`Missing 'name' for variable in ${fileName}\n`);
+      return;
+    }
+    pageVariables[variableElement.attr('name')]
+      = nunjucks.renderString(variableElement.html(), { ...pageVariables, ...userDefinedVariables });
+  });
+  return pageVariables;
+}
+
 Parser.prototype.getDynamicIncludeSrc = function () {
   return _.clone(this.dynamicIncludeSrc);
 };
@@ -234,8 +256,10 @@ Parser.prototype._preprocess = function (node, context, config) {
 
     // process variables declared within the include
     const includedVariables = extractVariables(element, context.includedVariables);
+    const pageVariables = extractPageVariables(filePath, fileContent, userDefinedVariables);
+    fileContent = nunjucks.renderString(fileContent,
+                                        { ...includedVariables, ...pageVariables, ...userDefinedVariables });
 
-    fileContent = nunjucks.renderString(fileContent, { ...includedVariables, ...userDefinedVariables });
     delete element.attribs.boilerplate;
     delete element.attribs.src;
     delete element.attribs.inline;
@@ -306,6 +330,8 @@ Parser.prototype._preprocess = function (node, context, config) {
     element.attribs.src = filePath;
     this.dynamicIncludeSrc.push({ from: context.cwf, to: actualFilePath, asIfTo: filePath });
     return element;
+  } else if (element.name === 'variable') {
+    return createEmptyNode();
   } else {
     if (element.name === 'body') {
       // eslint-disable-next-line no-console
@@ -444,7 +470,8 @@ Parser.prototype.includeFile = function (file, config) {
       }
       const { parent, relative } = calculateNewBaseUrls(file, config.rootPath, config.baseUrlMap);
       const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
-      const fileContent = nunjucks.renderString(data, userDefinedVariables);
+      const pageVariables = extractPageVariables(file, data, userDefinedVariables);
+      const fileContent = nunjucks.renderString(data, { ...pageVariables, ...userDefinedVariables });
       const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
         context.source = 'md';
