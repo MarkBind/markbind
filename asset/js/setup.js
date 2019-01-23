@@ -33,10 +33,25 @@ function setupAnchors() {
   });
 }
 
+function setupCopyButtonsForCodeBlocks() {
+  const clipboard = new ClipboardJS('.clipboard-btn', {
+    target(trigger) {
+      return trigger.parentNode.querySelector('code');
+    },
+  });
+
+  clipboard.on('success', (e) => {
+    e.clearSelection();
+    setTimeout(() => {
+    }, 2000);
+  });
+}
+
 function executeAfterMountedRoutines() {
   flattenModals();
   scrollToUrlAnchorHeading();
   setupAnchors();
+  setupCopyButtonsForCodeBlocks();
 }
 
 function setupSiteNav() {

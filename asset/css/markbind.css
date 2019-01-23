@@ -11,15 +11,19 @@ code {
     word-break: normal;
 }
 
+pre {
+    position: relative;
+}
+
 pre.hljs > code {
     background: none;
 }
 
 pre > code.hljs {
+    width: 100%;
     -webkit-background-clip: padding-box; /* for Safari */
     background: ghostwhite;
     background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
-    border: 1px solid rgb(200, 200, 200);
     border: 1px solid rgba(200, 200, 200, 0.3);
     border-radius: 5px;
 }
@@ -50,6 +54,26 @@ kbd {
 
 .fa.fa-anchor:hover {
     color: #555;
+}
+
+pre .clipboard-icon {
+    position: absolute;
+    top: 4px;
+    z-index: 2;
+    cursor: pointer;
+    border: 1px solid transparent;
+    color: #ccc;
+    background-color: transparent;
+    height: 30px;
+    transition: all .25s ease-out;
+}
+
+pre .clipboard-icon:hover {
+    color: #555;
+}
+
+.clipboard-btn {
+    right: 10px;
 }
 
 code.hljs.inline {

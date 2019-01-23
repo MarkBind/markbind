@@ -351,6 +351,8 @@ Site.prototype.createPage = function (config) {
                                     path.join(this.siteAssetsDestPath, 'js', 'bootstrap-vue.min.js')),
       polyfillJs: path.relative(path.dirname(resultPath),
                                 path.join(this.siteAssetsDestPath, 'js', 'polyfill.min.js')),
+      clipboardJs: path.relative(path.dirname(resultPath),
+                                 path.join(this.siteAssetsDestPath, 'js', 'clipboard.min.js')),
       setup: path.relative(path.dirname(resultPath),
                            path.join(this.siteAssetsDestPath, 'js', 'setup.js')),
       vue: path.relative(path.dirname(resultPath),

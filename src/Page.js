@@ -32,6 +32,7 @@ const SITE_NAV_ID = 'site-nav';
 const TITLE_PREFIX_SEPARATOR = ' - ';
 
 const ANCHOR_HTML = '<a class="fa fa-anchor" href="#"></a>';
+const COPY_BUTTON_HTML = '<button class="fa fa-clipboard clipboard-icon clipboard-btn"></button>';
 const DROPDOWN_BUTTON_ICON_HTML = '<i class="dropdown-btn-icon">\n'
   + '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>\n'
   + '</i>';
@@ -470,6 +471,19 @@ Page.prototype.addAnchors = function (content) {
 };
 
 /**
+ * Adds copy buttons to code blocks in the page
+ * @param content of the page
+ */
+Page.prototype.addCopyButtons = function (content) {
+  const $ = cheerio.load(content, { xmlMode: false });
+  const codeBlockSelector = 'pre';
+  $(codeBlockSelector).each((i, codeBlock) => {
+    $(codeBlock).append(COPY_BUTTON_HTML);
+  });
+  return $.html();
+};
+
+/**
  * Records the dynamic or static included files into this.includedFiles
  * @param dependencies array of maps of the external dependency and where it is included
  */
@@ -767,6 +781,7 @@ Page.prototype.generate = function (builtFiles) {
       .then(() => markbinder.renderFile(this.tempPath, fileConfig))
       .then(result => this.filterTags(this.frontMatter.tags, result))
       .then(result => this.addAnchors(result))
+      .then(result => this.addCopyButtons(result))
       .then((result) => {
         this.content = htmlBeautify(result, { indent_size: 2 });
 
