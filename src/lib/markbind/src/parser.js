@@ -88,22 +88,22 @@ function Parser(options) {
   this.missingIncludeSrc = [];
 }
 
-/*
- * Extract variables from a include element
- * @param element include element to extract variables from
+/**
+ * Extract variables from an include element
+ * @param includeElement include element to extract variables from
  * @param contextVariables local variables defined by parent pages
  */
-function extractVariables(element, contextVariables) {
+function extractVariables(includeElement, contextVariables) {
   const includedVariables = { ...contextVariables };
-  if (element.children) {
-    element.children.forEach((child) => {
+  if (includeElement.children) {
+    includeElement.children.forEach((child) => {
       if (child.name !== 'span') {
         return;
       }
       if (!child.attribs.id) {
         // eslint-disable-next-line no-console
-        console.warn(`Missing reference in ${element.attribs[ATTRIB_CWF]}\n`
-                   + `Missing 'id' in variable for ${element.attribs.src} include.`);
+        console.warn(`Missing reference in ${includeElement.attribs[ATTRIB_CWF]}\n`
+                   + `Missing 'id' in variable for ${includeElement.attribs.src} include.`);
         return;
       }
       if (!includedVariables[child.attribs.id]) {

@@ -10,12 +10,12 @@
 # Test included variable as html element
 {{ includedVariableAsHtmlElement }}
 
-# Test included variable overriden by variables.md
-{{ includedVariableGlobalOverriden }}
+# Test included variable overridden by variables.md
+{{ includedVariableGlobalOverridden }}
 
 # Test included variables in included file
 <include src="testIncludeVariablesIncludedFile.md">
-  <span id="includedVariableInnerOverriden">Included variable overridden by outer variable</span>
+  <span id="includedVariableInnerOverridden">Included variable overridden by outer variable</span>
   <span id="includedVariableShouldNotLeakInner">Included variable should not leak into other files</span>
 </include>
 
@@ -25,13 +25,10 @@
 # Test included variable with global variable
 {{ includedVariableWithGlobalVariable }}
 
-# Test included variable with local variable
-{{ includedVariableWithLocalVariable }}
+{% set includedVariable = "Inner variable overridden by set" %}
+{% set includedGlobalVariable = "Global variable overridden by set" %}
 
-{% set includedVariable = "Inner variable overriden by set" %}
-{% set includedGlobalVariable = "Global variable overriden by set" %}
-
-# Test included variable overriden by set
+# Test included variable overridden by set
 {{ includedVariable }}
 {{ includedGlobalVariable }}
 

@@ -1,3 +1,3 @@
 {{ includedVariableInIncludedFile }}
 
-{{ includedVariableInnerOverriden }}
+{{ includedVariableInnerOverridden }}

@@ -271,7 +271,7 @@ In other words, **`<include>` interprets the reused code relative to the origina
 
 ##### Specifying Variables in an `<include>`
 
-**It is possible to include variables in an `<include>`**
+**It is possible to include variables in an `<include>`.**
 
 <div class="indented">
 
@@ -287,13 +287,14 @@ In other words, **`<include>` interprets the reused code relative to the origina
 In `article.md`:
 
 <code>
-# {<span></span>{ title }}
-
+# {<span></span>{ title }}<br>
 Author: {<span></span>{ author }}
 </code>
 </div>
 
 These variables work the same way as variables in `_markbind/variables.md`, except that they only apply to the included file. They allow the included file to be reused as a template, for different source files using different variable values.
+
+If the same variable is defined in a chain of `include`s (e.g. `a.md` includes `b.md` includes `c.md`...), variables defined in the top-most `include` will take precedence. Global variables (`_markbind/variables.md`) will take precedence over any `include` variables.
 
 ## Using Boilerplate Files
 
