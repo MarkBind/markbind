@@ -125,13 +125,19 @@ function extractPageVariables(fileName, data, userDefinedVariables) {
   const pageVariables = {};
   $('variable').each(function () {
     const variableElement = $(this);
-    if (!variableElement.attr('name')) {
+    const variableName = variableElement.attr('name');
+    if (!variableName) {
       // eslint-disable-next-line no-console
       console.warn(`Missing 'name' for variable in ${fileName}\n`);
       return;
     }
-    pageVariables[variableElement.attr('name')]
-      = nunjucks.renderString(variableElement.html(), { ...pageVariables, ...userDefinedVariables });
+    if (pageVariables[variableName]) {
+      // eslint-disable-next-line no-console
+      console.warn(`Warning: Variable ${variableName} reassigned in ${fileName}\n`);
+    }
+    pageVariables[variableName]
+      = nunjucks.renderString(md.renderInline(variableElement.html()),
+                              { ...pageVariables, ...userDefinedVariables });
   });
   return pageVariables;
 }

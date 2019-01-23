@@ -22,6 +22,10 @@ head: myCustomHead.md, myCustomHead2.md
 <variable name="pageVariable">Page Variable</variable>
 {{ pageVariable }}
 
+# Page Variable with HTML and MD
+<variable name="pageVariableWithHTMLandMD">Page Variable with <span style="color: blue;">HTML</span> and **Markdown**</variable>
+{{ pageVariableWithHTMLandMD }}
+
 # Nested Page Variable
 <div>
   <span>

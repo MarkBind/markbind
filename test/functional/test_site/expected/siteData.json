@@ -43,6 +43,7 @@
         "feature-list": "Feature list",
         "variables-that-reference-another-variable": "Variables that reference another variable",
         "page-variable": "Page Variable",
+        "page-variable-with-html-and-md": "Page Variable with HTML and MD",
         "nested-page-variable": "Nested Page Variable",
         "page-variable-with-global-variable": "Page Variable with Global Variable",
         "page-variable-with-page-variable": "Page Variable with Page Variable",
