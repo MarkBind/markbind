@@ -227,3 +227,16 @@
         margin-left: 0;
     }
 }
+
+/* Hide site navigation when printing */
+@media print {
+
+    #page-content {
+        margin-left: 0;
+    }
+
+    #site-nav {
+        border: none;
+        display: none;
+    }
+}
