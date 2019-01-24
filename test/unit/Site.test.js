@@ -12,6 +12,7 @@ const {
   SITE_NAV_MD_DEFAULT,
   USER_VARIABLES_DEFAULT,
   LAYOUT_FILES_DEFAULT,
+  LAYOUT_SCRIPTS_DEFAULT,
 } = require('./utils/data');
 
 jest.mock('fs');
@@ -122,6 +123,8 @@ test('Site Init in existing directory generates correct assets', async () => {
   // layout defaults
   LAYOUT_FILES_DEFAULT.forEach(layoutFile =>
     expect(fs.readFileSync(path.resolve(`_markbind/layouts/default/${layoutFile}`), 'utf8')).toEqual(''));
+  expect(fs.readFileSync(path.resolve('_markbind/layouts/default/scripts.js'), 'utf8'))
+    .toEqual(LAYOUT_SCRIPTS_DEFAULT);
 });
 
 test('Site Init in directory which does not exist generates correct assets', async () => {
@@ -164,6 +167,8 @@ test('Site Init in directory which does not exist generates correct assets', asy
   LAYOUT_FILES_DEFAULT.forEach(layoutFile =>
     expect(fs.readFileSync(path.resolve(`newDir/_markbind/layouts/default/${layoutFile}`), 'utf8'))
       .toEqual(''));
+  expect(fs.readFileSync(path.resolve('newDir/_markbind/layouts/default/scripts.js'), 'utf8'))
+    .toEqual(LAYOUT_SCRIPTS_DEFAULT);
 });
 
 test('Site baseurls are correct for sub nested subsites', async () => {
