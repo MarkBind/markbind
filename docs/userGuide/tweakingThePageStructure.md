@@ -343,6 +343,27 @@ In this case `myHead.md` will override the `chapterLayout/head.md`.
 
 **The layout named `default` (if any) is automatically applied to every single page.** When you `init` a MarkBind site, MarkBind also generates an empty `default` layout.
 
+### Attaching event listeners in `scripts.js`
+
+You can include custom JavaScript in `scripts.js`. ==However, DOM manipulations such as attaching event listeners may be overridden after MarkBind setup.== To ensure that such changes take effect, include your code in a function that is passed to `afterSetup()` in `scripts.js`. Functions passed to `afterSetup()` will then be called after MarkBind setup is complete.
+
+<div class="indented">
+
+{{ icon_example }} Suppose a page has the following:
+```html
+<span id="alert">Click here!</span>
+```
+To show a JavaScript alert when `<span id="alert">`{.html} is clicked, we attach an event listener to it in a function passed to `afterSetup()` in `scripts.js`:
+```js
+afterSetup(() => {
+  document.getElementById("alert").addEventListener("click",  () => {
+    window.alert("You have just clicked the span!");
+  });
+});
+```
+
+</div>
+
 ## Toggling alternative contents in a page
 
 You can use tags to selectively filter HTML elements when building a site.
