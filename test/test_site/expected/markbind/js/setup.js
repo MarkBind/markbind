@@ -33,10 +33,30 @@ function setupAnchors() {
   });
 }
 
+function setupCopyButtonsForCodeBlocks() {
+  const clipboard = new ClipboardJS('.clipboard-btn', {
+    target(trigger) {
+      return trigger.parentNode.querySelector('code');
+    },
+  });
+
+  clipboard.on('success', (e) => {
+    const clipboardBtn = jQuery(e.trigger);
+    clipboardBtn.removeClass('fa fa-clipboard');
+    clipboardBtn.addClass('fa fa-clipboard-check');
+    e.clearSelection();
+    setTimeout(() => {
+      clipboardBtn.removeClass('fa fa-clipboard-check');
+      clipboardBtn.addClass('fa fa-clipboard');
+    }, 2000);
+  });
+}
+
 function executeAfterMountedRoutines() {
   flattenModals();
   scrollToUrlAnchorHeading();
   setupAnchors();
+  setupCopyButtonsForCodeBlocks();
 }
 
 function setupSiteNav() {

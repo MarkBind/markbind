@@ -11,6 +11,10 @@ code {
     word-break: normal;
 }
 
+pre {
+    position: relative;
+}
+
 pre.hljs > code {
     background: none;
 }
@@ -50,6 +54,26 @@ kbd {
 
 .fa.fa-anchor:hover {
     color: #555;
+}
+
+pre .clipboard-icon {
+    position: absolute;
+    top: 4px;
+    z-index: 2;
+    cursor: pointer;
+    border: 1px solid transparent;
+    color: #ccc;
+    background-color: transparent;
+    height: 30px;
+    transition: all .25s ease-out;
+}
+
+pre .clipboard-icon:hover {
+    color: #555;
+}
+
+pre .clipboard-btn {
+    right: 10px;
 }
 
 code.hljs.inline {
