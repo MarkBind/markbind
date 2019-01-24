@@ -41,8 +41,13 @@ function setupCopyButtonsForCodeBlocks() {
   });
 
   clipboard.on('success', (e) => {
+    const clipboardBtn = jQuery(e.trigger);
+    clipboardBtn.removeClass('fa fa-clipboard');
+    clipboardBtn.addClass('fa fa-clipboard-check');
     e.clearSelection();
     setTimeout(() => {
+      clipboardBtn.removeClass('fa fa-clipboard-check');
+      clipboardBtn.addClass('fa fa-clipboard');
     }, 2000);
   });
 }

@@ -20,7 +20,6 @@ pre.hljs > code {
 }
 
 pre > code.hljs {
-    width: 100%;
     -webkit-background-clip: padding-box; /* for Safari */
     background: ghostwhite;
     background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
