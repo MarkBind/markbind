@@ -39,6 +39,7 @@
 @media screen and (max-width: 1299.98px) {
 
     #page-nav {
+        border: none;
         overflow: hidden;
         padding: 0;
         width: 0px;
@@ -46,5 +47,18 @@
 
     #page-nav-content-wrapper {
         margin-right: 0;
+    }
+}
+
+/* Hide page navigation when printing */
+@media print {
+
+    #page-nav-content-wrapper {
+        margin-right: 0;
+    }
+
+    #page-nav {
+        border: none;
+        display: none;
     }
 }
