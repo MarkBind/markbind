@@ -105,7 +105,7 @@ As mentioned in _User Guide: MarkBind Syntax_, you can use built-in variables to
 
 ##### Variables: Defaults
 
-You can specify a default value for a variable, which is displayed when the variable is not specified in `variables.md`. This is done by adding `or defaultValue` within the curly braces.
+You can specify a default value for a variable, which is displayed when the variable is not specified in `variables.md` and by any of the [includes]({{ baseUrl }}/userGuide/reusingContents.html#the-include-tag) of the page. This is done by adding `or defaultValue` within the curly braces.
 
 <div class="indented">
 
@@ -294,7 +294,7 @@ Author: {<span></span>{ author }}
 
 These variables work the same way as variables in `_markbind/variables.md`, except that they only apply to the included file. They allow the included file to be reused as a template, for different source files using different variable values.
 
-If the same variable is defined in a chain of `include`s (e.g. `a.md` includes `b.md` includes `c.md`...), variables defined in the top-most `include` will take precedence. Global variables (`_markbind/variables.md`) will take precedence over any `include` variables.
+If the same variable is defined in a chain of `<include>`s (e.g. `a.md` includes `b.md` includes `c.md`...), variables defined in the top-most `<include>` will take precedence. Global variables (`_markbind/variables.md`) will take precedence over any `<include>` variables.
 
 ## Using Boilerplate Files
 

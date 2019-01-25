@@ -98,15 +98,15 @@ head: myCustomHead.md, myCustomHead2.md
 # Include with custom variables
 
 <include src="testIncludeVariables.md">
-  <span id="includedVariable">Included variable</span>
-  <span id="includedVariableWithMarkdown">__**Included variable with markdown**__</span>
-  <span id="includedVariableAsAttribute">color: blue</span>
-  <span id="includedVariableAsHtmlElement"><span>Included variable within html element</span></span>
-  <span id="includedVariableGlobalOverridden">Included variable overridden by global variable</span>
-  <span id="includedVariableInnerOverridden">Included variable overriding inner variable</span>
-  <span id="includedVariableInIncludedFile">Included variable in included file</span>
-  <span id="includedVariableShouldNotLeak">Included variable should not leak into other files</span>
-  <span id="includedVariableWithGlobalVariable">Included variable with {{ includedGlobalVariable }}</span>
+  <span id="included_variable">Included variable</span>
+  <span id="included_variable_with_markdown">__**Included variable with markdown**__</span>
+  <span id="included_variable_as_attribute">color: blue</span>
+  <span id="included_variable_as_html_element"><span>Included variable within html element</span></span>
+  <span id="global_variable_overriding_included_variable">Included variable overridden by global variable</span>
+  <span id="included_variable_inner_overridden">Included variable overriding inner variable</span>
+  <span id="included_variable_in_outer_included_file">Included variable in outer included file</span>
+  <span id="included_variable_should_not_leak">Included variable should not leak into other files</span>
+  <span id="included_variable_with_global_variable">Included variable with {{ included_global_variable }}</span>
 </include>
 
 # Included variables should not leak into other files
