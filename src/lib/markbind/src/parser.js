@@ -261,7 +261,7 @@ Parser.prototype._preprocess = function (node, context, config) {
     const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
 
     // process variables declared within the include
-    const includedVariables = extractVariables(element, context.includedVariables);
+    const includedVariables = extractVariables(element.attribs.src, context.includedVariables);
     const pageVariables = extractPageVariables(filePath, fileContent, userDefinedVariables);
     fileContent = nunjucks.renderString(fileContent,
                                         { ...includedVariables, ...pageVariables, ...userDefinedVariables });
@@ -476,7 +476,7 @@ Parser.prototype.includeFile = function (file, config) {
       }
       const { parent, relative } = calculateNewBaseUrls(file, config.rootPath, config.baseUrlMap);
       const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
-      const pageVariables = extractPageVariables(file, data, userDefinedVariables);
+      const pageVariables = extractPageVariables(path.basename(file), data, userDefinedVariables);
       const fileContent = nunjucks.renderString(data, { ...pageVariables, ...userDefinedVariables });
       const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
