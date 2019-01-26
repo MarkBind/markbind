@@ -34,10 +34,17 @@ To use the searchbar within a navbar, add the following markup to your file. The
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------
-data | `Array` || The local data source for suggestions. Expected to be a primitive array.
+data | `Array` || The local data source for suggestions. Expected to be a primitive array. To use MarkBind's search functionality, set this value to `"searchData"`.
 menu-align-right | `Boolean` | `false` | Whether the search bar's dropdown list will be right-aligned.
-on-hit | `Function` || A callback function when you click or hit return on an item.
+on-hit | `Function` || A callback function when you click or hit return on an item. To use MarkBind's search functionality, set this value to `"searchCallback"`.
 placeholder | `String` | `''` | The placeholder text shown when no keywords are entered in the search bar.
 
+<box type="warning">
+
+Note: If you are using MarkBind's search functionality, then `enableSearch` **must be set to `true` in `site.json`**.
+
+See: [User Guide: Site Configuration → enableSearch]({{ baseUrl }}/userGuide/siteConfiguration.html#enable-search).
+
+</box>
 
 %%{{ icon_info }} Related topic: [User Guide: Making the Site Searchable]({{ baseUrl }}/userGuide/makingTheSiteSearchable.html).%%
