@@ -102,7 +102,7 @@ const INDEX_MARKDOWN_DEFAULT = '<frontmatter>\n'
   + 'Welcome to your page generated with MarkBind.\n';
 
 const SITE_NAV_DEFAULT = '<navigation>\n'
-  + '* [Home {{glyphicon_home}}]({{baseUrl}}/index.html)\n'
+  + '* [Home :glyphicon-home:]({{baseUrl}}/index.html)\n'
   + '</navigation>\n';
 
 const LAYOUT_SCRIPTS_DEFAULT = 'MarkBind.afterSetup(() => {\n'
