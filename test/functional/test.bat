@@ -1,6 +1,6 @@
 @ECHO off
 
-set sites=test_site test_site_2
+set sites=test_site
 
 for %%a in (%sites%) do ( 
 
