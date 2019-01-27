@@ -29,6 +29,14 @@
     <link rel="icon" href="/test_site/favicon.png">
 </head>
 <body data-spy="scroll" data-target="#page-nav" data-offset="100">
+<div id="loading-overlay">
+    <div id="spinner-layout">
+        <div id="spinner"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.getElementById("loading-overlay").style.display = 'initial';
+</script>
 <div id="app">
     <nav id="page-nav" class="navbar navbar-light bg-transparent slim-scroll">
   <a class="navbar-brand" style="white-space: inherit; color: black" href="#">Testing Page Navigation</a>
@@ -462,11 +470,6 @@ specification that specifies how the product will address the requirements. </sp
     This is a dynamic height footer that supports variables <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> and markdown <span>😄</span>!
   </div>
 </footer>
-</div>
-<div id="loading-overlay">
-    <div id="spinner-layout">
-        <div id="spinner"></div>
-    </div>
 </div>
 </body>
 <script src="markbind/js/vue.min.js"></script>
