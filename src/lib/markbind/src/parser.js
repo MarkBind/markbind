@@ -261,10 +261,10 @@ Parser.prototype._preprocess = function (node, context, config) {
     const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
 
     // process variables declared within the include
-    const includedVariables = extractVariables(element.attribs.src, context.includedVariables);
-    const pageVariables = extractPageVariables(filePath, fileContent, userDefinedVariables);
+    const includedVariables = extractVariables(element, context.includedVariables);
+    const pageVariables = extractPageVariables(element.attribs.src, fileContent, userDefinedVariables);
     fileContent = nunjucks.renderString(fileContent,
-                                        { ...includedVariables, ...pageVariables, ...userDefinedVariables });
+                                        { ...pageVariables, ...includedVariables, ...userDefinedVariables });
 
     delete element.attribs.boilerplate;
     delete element.attribs.src;

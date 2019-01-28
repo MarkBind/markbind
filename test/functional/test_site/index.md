@@ -19,32 +19,37 @@ head: myCustomHead.md, myCustomHead2.md
 {{reference_level_4}}
 
 # Page Variable
-<variable name="pageVariable">Page Variable</variable>
-{{ pageVariable }}
+<variable name="page_variable">Page Variable</variable>
+{{ page_variable }}
 
 # Page Variable with HTML and MD
-<variable name="pageVariableWithHTMLandMD">Page Variable with <span style="color: blue;">HTML</span> and **Markdown**</variable>
-{{ pageVariableWithHTMLandMD }}
+<variable name="page_variable_with_HTML_and_MD">Page Variable with <span style="color: blue;">HTML</span> and **Markdown**</variable>
+{{ page_variable_with_HTML_and_MD }}
 
 # Nested Page Variable
 <div>
   <span>
-    <variable name="nestedPageVariable">Nested Page Variable</variable>
+    <variable name="nested_page_variable">Nested Page Variable</variable>
   </span>
 </div>
-{{ nestedPageVariable }}
+{{ nested_page_variable }}
 
 # Page Variable with Global Variable
-<variable name="pageVariableWithGlobalVariable">Page Variable with {{ pageGlobalVariable }}</variable>
-{{ pageVariableWithGlobalVariable }}
+<variable name="page_variable_with_global_variable">Page Variable with {{ page_global_variable }}</variable>
+{{ page_variable_with_global_variable }}
 
-# Page Variable with Page Variable
-<variable name="pageVariableWithPageVariable">Page Variable with {{ pageVariable }}</variable>
-{{ pageVariableWithPageVariable }}
+# Page Variable referencing Page Variable
+<variable name="page_variable_referencing_page_variable">Page Variable referencing {{ page_variable }}</variable>
+{{ page_variable_referencing_page_variable }}
 
 # Global Variable overriding Page Variable
-<variable name="pageGlobalVariableOverridingPageVariable">Page Variable overridden by Global Variable</variable>
-{{ pageGlobalVariableOverridingPageVariable }}
+<variable name="page_global_variable_overriding_page_variable">Page Variable overridden by Global Variable</variable>
+{{ page_global_variable_overriding_page_variable }}
+
+# Test Page Variable and Included Variable Integrations
+<include src="testPageVariables.md">
+  <span id="included_variable_overriding_page_variable">Included Variable Overriding Page Variable</span>
+</include>
 
 # Heading with multiple keywords
 <span class="keyword">keyword 1</span>
