@@ -41,28 +41,28 @@
   <div id="site-nav">
     <p><span class="indented lead"><strong>User Guide</strong></span></p>
     <ul style="list-style-type: none; margin-left:-1em">
-      <li style="margin-top: 10px"><a href="/markbind/userGuide/gettingStarted.html">Getting Started</a></li>
-      <li style="margin-top:10px"><a href="/markbind/userGuide/authoringContents.html">Authoring Contents</a>
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/gettingStarted.html" class="site-nav__a">Getting Started</a></li>
+      <li style="margin-top:10px"><a href="/markbind/userGuide/authoringContents.html" class="site-nav__a">Authoring Contents</a>
         <ul style="list-style-type: none; margin-left:-1em">
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/addingPages.html">Adding Pages</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntax.html">MarkBind Syntax</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingComponents.html">Using Components</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/tweakingThePageStructure.html" class="current">Tweaking the Page Structure</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/reusingContents.html">Reusing Contents</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/makingTheSiteSearchable.html">Making the Site Searchable</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/addingPages.html" class="site-nav__a">Adding Pages</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntax.html" class="site-nav__a">MarkBind Syntax</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingComponents.html" class="site-nav__a">Using Components</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/tweakingThePageStructure.html" class="site-nav__a current">Tweaking the Page Structure</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/reusingContents.html" class="site-nav__a">Reusing Contents</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/makingTheSiteSearchable.html" class="site-nav__a">Making the Site Searchable</a></li>
         </ul>
       </li>
-      <li style="margin-top: 10px"><a href="/markbind/userGuide/deployingTheSite.html">Deploying the Site</a></li>
-      <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindInTheProjectWorkflow.html">MarkBind in the Project Workflow</a></li>
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/deployingTheSite.html" class="site-nav__a">Deploying the Site</a></li>
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindInTheProjectWorkflow.html" class="site-nav__a">MarkBind in the Project Workflow</a></li>
       <li style="margin-top: 10px"><button class="dropdown-btn dropdown-btn-open">References 
  <i class="dropdown-btn-icon rotate-icon">
 <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
         <div class="dropdown-container dropdown-container-open">
           <ul style="list-style-type: none; margin-left:-1em">
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/cliCommands.html">CLI Commands</a></li>
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsTricksAndTroubleshooting.html">Tips, Tricks, & Troubleshooting</a></li>
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/glossary.html">Glossary</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/cliCommands.html" class="site-nav__a">CLI Commands</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html" class="site-nav__a">Site Configuration</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsTricksAndTroubleshooting.html" class="site-nav__a">Tips, Tricks, & Troubleshooting</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/glossary.html" class="site-nav__a">Glossary</a></li>
           </ul>
         </div>
       </li>
@@ -230,25 +230,16 @@
           <div class="indented">
             <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here is an example siteNav code saved in <strong><code>_markbind/navigation/</code></strong><code>mySiteNav.md</code>              file:</p>
             <box>
-              <p><code>* [:house: Home](</code>
-                <code>{<span></span>{ baseUrl }}</code>
-                <code>/index.html)</code><br>
-                <code>* Docs</code><br>
-                <code>* [User Guide](</code>
-                <code>{<span></span>{ baseUrl }}</code>
-                <code>/ug.html)</code><br>
-                <code>* [Dev Guide](</code>
-                <code>{<span></span>{ baseUrl }}</code>
-                <code>/dg.html)</code><br>
-                <code>* [Search](</code>
-                <code>{<span></span>{ baseUrl }}</code>
-                <code>/search.html)</code><br>
-                <code>* [Google Search](https://www.google.com/)</code><br>
-                <code>* [YouTube Search](https://www.youtube.com/)</code><br>
-                <code>* [Contact](</code>
-                <code>{<span></span>{ baseUrl }}</code>
-                <code>/contact.html)</code></p>
-            </box>
+              <code>
+* [:house: Home]({<span></span>{ baseUrl }}/index.html)<br>
+* Docs<br>
+&nbsp;&nbsp;* [User Guide]({<span></span>{ baseUrl }}/ug.html)<br>
+&nbsp;&nbsp;* [Dev Guide]({<span></span>{ baseUrl }}/dg.html)<br>
+* [Search]({<span></span>{ baseUrl }}/search.html)<br>
+&nbsp;&nbsp;* [Google Search](https://www.google.com/)<br>
+&nbsp;&nbsp;* [YouTube Search](https://www.youtube.com/)<br>
+* [Contact]({<span></span>{ baseUrl }}/contact.html)
+</code></box>
             <p>Here's how another page can make use of the above siteNav:</p>
             <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
   siteNav: mySiteNav.md
@@ -257,21 +248,21 @@
 </code></pre>
             <p>Here's how the above siteNav will appear:</p>
             <ul style="list-style-type: none; margin-left:-1em">
-              <li style="margin-top: 10px"><a href="/index.html">🏠 Home</a></li>
+              <li style="margin-top: 10px"><a class="site-nav__a" href="/index.html">🏠 Home</a></li>
               <li style="margin-top: 10px">
                 <button class="dropdown-btn">Docs <i class="dropdown-btn-icon">
       <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
                 <div class="dropdown-container">
                   <ul style="list-style-type: none; margin-left:-1em">
-                    <li style="margin-top: 10px"><a href="">User Guide</a></li>
-                    <li style="margin-top: 10px"><a href="">Dev Guide</a></li>
+                    <li style="margin-top: 10px"><a class="site-nav__a" href="">User Guide</a></li>
+                    <li style="margin-top: 10px"><a class="site-nav__a" href="">Dev Guide</a></li>
                   </ul>
                 </div>
               </li>
-              <li style="margin-top:10px"><a href="">Search</a>
+              <li style="margin-top:10px"><a class="site-nav__a" href="">Search</a>
                 <ul style="list-style-type: none; margin-left:-1em">
-                  <li style="margin-top: 10px"><a href="http://www.google.com">Google Search</a></li>
-                  <li style="margin-top: 10px"><a href="http://www.youtube.com">YouTube Search</a></li>
+                  <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.google.com">Google Search</a></li>
+                  <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.youtube.com">YouTube Search</a></li>
                 </ul>
               </li>
             </ul>
@@ -284,23 +275,16 @@
           <div class="indented">
             <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> A siteNav code using a <code>&lt;navigation&gt;</code> tag.</p>
             <box>
-              <p><code># Site Map</code><br>
-                <strong><code>&lt;navigation&gt;</code></strong><br>
-                <code>* [:house: Home](</code>
-                <code>{<span></span>{ baseUrl }}</code>
-                <code>/index.html)</code><br>
-                <code>* Docs</code><br>
-                <code>* [User Guide](</code>
-                <code>{<span></span>{ baseUrl }}</code>
-                <code>/ug.html)</code><br>
-                <code>* [Dev Guide](</code>
-                <code>{<span></span>{ baseUrl }}</code>
-                <code>/dg.html)</code><br>
-                <code>* [Search](</code>
-                <code>{<span></span>{ baseUrl }}</code>
-                <code>/search.html)</code><br>
-                <strong><code>&lt;/navigation&gt;</code></strong><br></p>
-            </box>
+              <code>
+# Site Map<br>
+<strong><<span></span>navigation></strong><br>
+* [:house: Home]({<span></span>{ baseUrl }}/index.html)<br>
+* Docs<br>
+&nbsp;&nbsp;* [User Guide]({<span></span>{ baseUrl }}/ug.html)<br>
+&nbsp;&nbsp;* [Dev Guide]({<span></span>{ baseUrl }}/dg.html)<br>
+* [Search]({<span></span>{ baseUrl }}/search.html)<br>
+<strong><<span></span>/navigation></strong><br>
+</code></box>
           </div>
           <p>More than one siteNav file can be in <code>_markbind/navigation/</code> directory but a page may not have more than one siteNav.</p>
           <p>A siteNav has a fixed width of 300 pixels for its contents. A siteNavs is <a href="https://www.w3schools.com/html/html_responsive.asp"><em>responsive</em></a> in that it will collapse to a menu button when the screen width is smaller than 992
@@ -346,7 +330,7 @@
           <p>To apply the layout, specify it as an attribute named <code>layout</code> in the <code>&lt;frontmatter&gt;</code> of each page, or in the <code>site.json</code>.</p>
           <div class="indented">
             <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Suppose you have a layout named <code>chapterLayout</code>.</p>
-            <pre class="hljs"><code>&lt;root&gt;/_markbind/layouts/
+            <pre><code class="hljs">&lt;root&gt;/_markbind/layouts/
                   └── chapterLayout/
                         ├── footer.md
                         ├── head.md
@@ -427,7 +411,7 @@
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.17.0</a> on Mon, 21 Jan 2019 17:40:51 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.17.1</a> on Mon, 28 Jan 2019 01:40:47 GMT]</small></div>
 </footer>
 </div>
 </body>

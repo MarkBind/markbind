@@ -31,11 +31,13 @@
         <a class="nav-link py-1" href="#built-in-variable-timestamp">Built-in Variable: timestamp&#x200E;</a>
         <a class="nav-link py-1" href="#built-in-variable-mark-bind">Built-in Variable: MarkBind&#x200E;</a>
         <a class="nav-link py-1" href="#built-in-variables-icon-fonts">Built-in Variables: Icon Fonts&#x200E;</a>
+        <a class="nav-link py-1" href="#variables-defaults">Variables: Defaults&#x200E;</a>
         <a class="nav-link py-1" href="#variables-tips-and-tricks">Variables: Tips and Tricks&#x200E;</a>
       </nav>
       <a class="nav-link py-1" href="#the-include-tag">The include tag&#x200E;</a>
       <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
         <a class="nav-link py-1" href="#include-inside-an-included-file">&lt;include&gt; Inside an Included File&#x200E;</a>
+        <a class="nav-link py-1" href="#specifying-variables-in-an-include">Specifying Variables in an &lt;include&gt;&#x200E;</a>
       </nav>
       <a class="nav-link py-1" href="#using-boilerplate-files">Using Boilerplate Files&#x200E;</a>
       <a class="nav-link py-1" href="#reusing-contents-across-sites">Reusing Contents Across Sites&#x200E;</a>
@@ -58,28 +60,28 @@
   <div id="site-nav">
     <p><span class="indented lead"><strong>User Guide</strong></span></p>
     <ul style="list-style-type: none; margin-left:-1em">
-      <li style="margin-top: 10px"><a href="/markbind/userGuide/gettingStarted.html">Getting Started</a></li>
-      <li style="margin-top:10px"><a href="/markbind/userGuide/authoringContents.html">Authoring Contents</a>
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/gettingStarted.html" class="site-nav__a">Getting Started</a></li>
+      <li style="margin-top:10px"><a href="/markbind/userGuide/authoringContents.html" class="site-nav__a">Authoring Contents</a>
         <ul style="list-style-type: none; margin-left:-1em">
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/addingPages.html">Adding Pages</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntax.html">MarkBind Syntax</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingComponents.html">Using Components</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/tweakingThePageStructure.html">Tweaking the Page Structure</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/reusingContents.html" class="current">Reusing Contents</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/makingTheSiteSearchable.html">Making the Site Searchable</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/addingPages.html" class="site-nav__a">Adding Pages</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntax.html" class="site-nav__a">MarkBind Syntax</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingComponents.html" class="site-nav__a">Using Components</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/tweakingThePageStructure.html" class="site-nav__a">Tweaking the Page Structure</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/reusingContents.html" class="site-nav__a current">Reusing Contents</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/makingTheSiteSearchable.html" class="site-nav__a">Making the Site Searchable</a></li>
         </ul>
       </li>
-      <li style="margin-top: 10px"><a href="/markbind/userGuide/deployingTheSite.html">Deploying the Site</a></li>
-      <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindInTheProjectWorkflow.html">MarkBind in the Project Workflow</a></li>
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/deployingTheSite.html" class="site-nav__a">Deploying the Site</a></li>
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindInTheProjectWorkflow.html" class="site-nav__a">MarkBind in the Project Workflow</a></li>
       <li style="margin-top: 10px"><button class="dropdown-btn dropdown-btn-open">References 
  <i class="dropdown-btn-icon rotate-icon">
 <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
         <div class="dropdown-container dropdown-container-open">
           <ul style="list-style-type: none; margin-left:-1em">
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/cliCommands.html">CLI Commands</a></li>
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsTricksAndTroubleshooting.html">Tips, Tricks, & Troubleshooting</a></li>
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/glossary.html">Glossary</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/cliCommands.html" class="site-nav__a">CLI Commands</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html" class="site-nav__a">Site Configuration</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsTricksAndTroubleshooting.html" class="site-nav__a">Tips, Tricks, & Troubleshooting</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/glossary.html" class="site-nav__a">Glossary</a></li>
           </ul>
         </div>
       </li>
@@ -165,13 +167,13 @@
           <h5 id="built-in-variable-timestamp">Built-in Variable: <code>timestamp</code><a class="fa fa-anchor" href="#built-in-variable-timestamp"></a></h5>
           <p><code>{<span></span>{ timestamp }}</code> is the time stamp (in UTC) that indicates when the page was generated.</p>
           <div class="indented">
-            <big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> <code>Page generated at: {<span></span>{ timestamp }}</code> <span class="fas fa-arrow-right"></span>            Page generated at: Mon, 21 Jan 2019 17:40:51 GMT
+            <big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> <code>Page generated at: {<span></span>{ timestamp }}</code> <span class="fas fa-arrow-right"></span>            Page generated at: Mon, 28 Jan 2019 01:40:47 GMT
           </div>
           <p></p>
           <h5 id="built-in-variable-mark-bind">Built-in Variable: <code>MarkBind</code><a class="fa fa-anchor" href="#built-in-variable-mark-bind"></a></h5>
           <p><code>{<span></span>{MarkBind}}</code> represents a code snippet that specifies the MarkBind version in use and is linked to the MarkBind website.</p>
           <div class="indented">
-            <big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> <code>Page generated by: {<span></span>{ MarkBind }}</code> <span class="fas fa-arrow-right"></span>            Page generated by: <a href="https://markbind.github.io/markbind/">MarkBind 1.17.0</a></div>
+            <big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> <code>Page generated by: {<span></span>{ MarkBind }}</code> <span class="fas fa-arrow-right"></span>            Page generated by: <a href="https://markbind.github.io/markbind/">MarkBind 1.17.1</a></div>
           <p></p>
           <h5 id="built-in-variables-icon-fonts">Built-in Variables: Icon Fonts<a class="fa fa-anchor" href="#built-in-variables-icon-fonts"></a></h5>
           <p>As mentioned in <em>User Guide: MarkBind Syntax</em>, you can use built-in variables to access icon fonts.</p>
@@ -223,6 +225,13 @@
             </div>
           </panel>
           <p></p>
+          <h5 id="variables-defaults">Variables: Defaults<a class="fa fa-anchor" href="#variables-defaults"></a></h5>
+          <p>You can specify a default value for a variable, which is displayed when the variable is not specified in <code>variables.md</code> and by any of the <a href="/markbind/userGuide/reusingContents.html#the-include-tag">includes</a> of the page.
+            This is done by adding <code>or defaultValue</code> within the curly braces.</p>
+          <div class="indented">
+            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> If <code>name</code> is not declared in <code>variables.md</code>:<br>
+              <code>My name is {<span></span>{ name or &quot;Anonymous&quot; }}.</code> <span class="fas fa-arrow-right"></span> My name is Anonymous.</p>
+          </div>
           <h5 id="variables-tips-and-tricks">Variables: Tips and Tricks<a class="fa fa-anchor" href="#variables-tips-and-tricks"></a></h5>
           <p><strong>Variables can refer to other variables</strong> that are declared earlier, including built-in variables.</p>
           <div class="indented">
@@ -309,7 +318,7 @@ Tip 2. ...
           <p><strong>Although the <code>src</code> attribute of an <code>&lt;include&gt;</code> is given <em>relative</em> to the current directory, it is converted to an <em>absolute</em> value <em>before</em> the <tooltip content="i.e., the file containing the `<include>`">host file</tooltip> is included from another file.</strong></p>
           <div class="indented">
             <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Suppose you have a MarkBind project with the following file structure.</p>
-            <pre class="hljs"><code>c:/mySite/
+            <pre><code class="hljs">c:/mySite/
   ├── bookFiles/
   |      ├── book.md
   |      ├── chapter1.md
@@ -331,12 +340,31 @@ Tip 2. ...
           </div>
           <p>In other words, <strong><code>&lt;include&gt;</code> interprets the reused code relative to the original location of the file, not the location in which it is reused.</strong></p>
           <hr>
+          <h5 id="specifying-variables-in-an-include">Specifying Variables in an <code>&lt;include&gt;</code><a class="fa fa-anchor" href="#specifying-variables-in-an-include"></a></h5>
+          <p><strong>It is possible to include variables in an <code>&lt;include&gt;</code>.</strong></p>
+          <div class="indented">
+            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Specifying <code>title</code> and <code>author</code> variables in an <code>&lt;include&gt;</code>              tag:</p>
+            <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"article.md"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"title"</span>&gt;</span>My Title<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"author"</span>&gt;</span>John Doe<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">include</span>&gt;</span>
+</code></pre>
+            <p>In <code>article.md</code>:</p>
+            <code>
+# {<span></span>{ title }}<br>
+Author: {<span></span>{ author }}
+</code></div>
+          <p>These variables work the same way as variables in <code>_markbind/variables.md</code>, except that they only apply to the included file. They allow the included file to be reused as a template, for different source files using different variable
+            values.
+          </p>
+          <p>If the same variable is defined in a chain of <code>&lt;include&gt;</code>s (e.g. <code>a.md</code> includes <code>b.md</code> includes <code>c.md</code>...), variables defined in the top-most <code>&lt;include&gt;</code> will take precedence.
+            Global variables (<code>_markbind/variables.md</code>) will take precedence over any <code>&lt;include&gt;</code> variables.</p>
           <h2 id="using-boilerplate-files">Using Boilerplate Files<a class="fa fa-anchor" href="#using-boilerplate-files"></a></h2>
           <p><strong>If you find duplicating a <tooltip content="code that needs to stay relative to the directory in which it used"><em>boilerplate code</em></tooltip> fragment in multiple places of your code base, you can use a <code>boilerplate</code> file to avoid such duplication.</strong>            Note that you cannot use a normal <code>&lt;include&gt;</code> in this case because the code included using a normal <code>&lt;include&gt;</code> stays relative to the original location while boilerplate code needs to be interpreted relative
             to the location it is being used.</p>
           <div class="indented">
             <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Suppose you have a MarkBind project with the following file structure.</p>
-            <pre class="hljs"><code>c:/mySite/
+            <pre><code class="hljs">c:/mySite/
   ├── chapter1/
   |      ├── chapter.md
   |      ├── text.md
@@ -375,7 +403,7 @@ Tip 2. ...
           </ol>
           <div class="indented">
             <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here's how you can use a boilerplate file to avoid duplicating the <code>chapter.md</code>:</p>
-            <pre class="hljs"><code>c:/mySite/
+            <pre><code class="hljs">c:/mySite/
   ├── _markbind/boilerplates/
   |      └── chapter.md
   ├── chapter1/
@@ -404,7 +432,7 @@ Tip 2. ...
           <p>If you have many boilerplate files, you can organize them into directories inside the <code>_markbind</code> directory. When using such boilerplate files, you need to replace <code>boilerplate</code> attribute with <code>boilerplate=&quot;&lt;path to file relative to _markbind/boilerplates&gt;&quot;</code>.</p>
           <div class="indented">
             <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Suppose the <code>chapter.md</code> is places in a <code>book</code> directory:</p>
-            <pre class="hljs"><code>c:/mySite/
+            <pre><code class="hljs">c:/mySite/
   └── _markbind/boilerplates/
          └── book/
                └── chapter.md
@@ -422,7 +450,7 @@ Tip 2. ...
           <div class="indented">
             <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Suppose you have a site <code>textbook</code> and you want to include some pages from it
               in another site <code>course</code>. Given below is how you can locate the sub-site <code>textbook</code> inside the root directory of the main-site <code>course</code> so that files from <code>textbook</code> can be reused in the <code>course</code>              site.</p>
-            <pre class="hljs"><code>c:/course/
+            <pre><code class="hljs">c:/course/
   ├── textbook/
   |      ├── index.md
   |      ├── overview.md
@@ -511,7 +539,7 @@ Optional video:
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.17.0</a> on Mon, 21 Jan 2019 17:40:51 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.17.1</a> on Mon, 28 Jan 2019 01:40:47 GMT]</small></div>
 </footer>
 </div>
 </body>

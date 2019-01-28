@@ -24,28 +24,28 @@
   <div id="site-nav">
     <p><span class="indented lead"><strong>User Guide</strong></span></p>
     <ul style="list-style-type: none; margin-left:-1em">
-      <li style="margin-top: 10px"><a href="/markbind/userGuide/gettingStarted.html">Getting Started</a></li>
-      <li style="margin-top:10px"><a href="/markbind/userGuide/authoringContents.html">Authoring Contents</a>
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/gettingStarted.html" class="site-nav__a">Getting Started</a></li>
+      <li style="margin-top:10px"><a href="/markbind/userGuide/authoringContents.html" class="site-nav__a">Authoring Contents</a>
         <ul style="list-style-type: none; margin-left:-1em">
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/addingPages.html">Adding Pages</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntax.html">MarkBind Syntax</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingComponents.html">Using Components</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/tweakingThePageStructure.html">Tweaking the Page Structure</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/reusingContents.html">Reusing Contents</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/makingTheSiteSearchable.html">Making the Site Searchable</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/addingPages.html" class="site-nav__a">Adding Pages</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntax.html" class="site-nav__a">MarkBind Syntax</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingComponents.html" class="site-nav__a">Using Components</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/tweakingThePageStructure.html" class="site-nav__a">Tweaking the Page Structure</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/reusingContents.html" class="site-nav__a">Reusing Contents</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/makingTheSiteSearchable.html" class="site-nav__a">Making the Site Searchable</a></li>
         </ul>
       </li>
-      <li style="margin-top: 10px"><a href="/markbind/userGuide/deployingTheSite.html">Deploying the Site</a></li>
-      <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindInTheProjectWorkflow.html">MarkBind in the Project Workflow</a></li>
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/deployingTheSite.html" class="site-nav__a">Deploying the Site</a></li>
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindInTheProjectWorkflow.html" class="site-nav__a">MarkBind in the Project Workflow</a></li>
       <li style="margin-top: 10px"><button class="dropdown-btn dropdown-btn-open">References 
  <i class="dropdown-btn-icon rotate-icon">
 <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
         <div class="dropdown-container dropdown-container-open">
           <ul style="list-style-type: none; margin-left:-1em">
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/cliCommands.html" class="current">CLI Commands</a></li>
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsTricksAndTroubleshooting.html">Tips, Tricks, & Troubleshooting</a></li>
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/glossary.html">Glossary</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/cliCommands.html" class="site-nav__a current">CLI Commands</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html" class="site-nav__a">Site Configuration</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsTricksAndTroubleshooting.html" class="site-nav__a">Tips, Tricks, & Troubleshooting</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/glossary.html" class="site-nav__a">Glossary</a></li>
           </ul>
         </div>
       </li>
@@ -93,8 +93,9 @@
         </ul>
         <hr>
         <h3 id="build-command"><code>build</code> Command<a class="fa fa-anchor" href="#build-command"></a></h3>
-        <p><strong>Format:</strong>: <code>markbind build [&lt;OPTIONS&gt;]</code></p>
-        <p><strong>Description</strong>: Generates the site to the directory named <code>_site</code> in the current directory.</p>
+        <p><strong>Format:</strong> <code>markbind build [&lt;OPTIONS&gt;]</code><br>
+          <strong>Alias:</strong> <code>markbind b</code></p>
+        <p><strong>Description:</strong> Generates the site to the directory named <code>_site</code> in the current directory.</p>
         <p><strong><code>OPTIONS</code>:</strong></p>
         <ul>
           <li><code>&lt;output&gt;</code><br> Put the generated files in the specified directory<br>
@@ -112,27 +113,30 @@
         </ul>
         <hr>
         <h3 id="deploy-command"><code>deploy</code> Command<a class="fa fa-anchor" href="#deploy-command"></a></h3>
-        <p><strong>Format</strong>: <code>markbind deploy</code></p>
-        <p><strong>Description</strong>: Deploys the site to the repo's Github pages by pushing everything in the generated site (default dir: <code>_site</code>) to the <code>gh-pages</code> branch of the current git working directory's remote repo.</p>
+        <p><strong>Format:</strong> <code>markbind deploy</code><br>
+          <strong>Alias:</strong> <code>markbind d</code></p>
+        <p><strong>Description:</strong> Deploys the site to the repo's Github pages by pushing everything in the generated site (default dir: <code>_site</code>) to the <code>gh-pages</code> branch of the current git working directory's remote repo.</p>
         <p><span class="dimmed"><span class="fas fa-info-circle"></span> Related: <a href="/markbind/userGuide/deployingTheSite.html">User Guide: Deploying the Website</a>.</span>
         </p>
         <hr>
         <h3 id="init-command"><code>init</code> Command<a class="fa fa-anchor" href="#init-command"></a></h3>
-        <p><strong>Format:</strong> <code>markbind init [&lt;OPTIONS&gt;]</code></p>
+        <p><strong>Format:</strong> <code>markbind init [&lt;OPTIONS&gt;]</code><br>
+          <strong>Alias:</strong> <code>markbind i</code></p>
         <p><strong>Description:</strong> Initializes a directory into a MarkBind site by creating a skeleton structure for the website which includes a <code>index.md</code> and a <code>site.json</code>.</p>
         <p><strong><code>OPTIONS</code>:</strong></p>
         <ul>
           <li><code>&lt;root&gt;</code><br> Root directory. Default is the current directory.<br>
             <big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> <code>./myWebsite</code></li>
         </ul>
-        <p><strong>Examples</strong>:</p>
+        <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Examples:</span></big></p>
         <ul>
           <li><code>markbind init</code> : Initializes the site in the current working directory.</li>
           <li><code>markbind init ./myWebsite</code> : Initializes the site in <code>./myWebsite</code> directory.</li>
         </ul>
         <hr>
         <h3 id="serve-command"><code>serve</code> Command<a class="fa fa-anchor" href="#serve-command"></a></h3>
-        <p><strong>Format:</strong> <code>markbind serve [&lt;OPTIONS&gt;]</code></p>
+        <p><strong>Format:</strong> <code>markbind serve [&lt;OPTIONS&gt;]</code><br>
+          <strong>Alias:</strong> <code>markbind s</code></p>
         <p><strong>Description:</strong> Does the following steps:</p>
         <ol>
           <li>Builds the site and puts the generated files in a directory named <code>_site</code>.</li>
@@ -176,7 +180,7 @@
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.17.0</a> on Mon, 21 Jan 2019 17:40:51 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.17.1</a> on Mon, 28 Jan 2019 01:40:47 GMT]</small></div>
 </footer>
 </div>
 </body>

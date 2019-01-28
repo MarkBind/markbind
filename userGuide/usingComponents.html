@@ -89,28 +89,28 @@
   <div id="site-nav">
     <p><span class="indented lead"><strong>User Guide</strong></span></p>
     <ul style="list-style-type: none; margin-left:-1em">
-      <li style="margin-top: 10px"><a href="/markbind/userGuide/gettingStarted.html">Getting Started</a></li>
-      <li style="margin-top:10px"><a href="/markbind/userGuide/authoringContents.html">Authoring Contents</a>
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/gettingStarted.html" class="site-nav__a">Getting Started</a></li>
+      <li style="margin-top:10px"><a href="/markbind/userGuide/authoringContents.html" class="site-nav__a">Authoring Contents</a>
         <ul style="list-style-type: none; margin-left:-1em">
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/addingPages.html">Adding Pages</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntax.html">MarkBind Syntax</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingComponents.html" class="current">Using Components</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/tweakingThePageStructure.html">Tweaking the Page Structure</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/reusingContents.html">Reusing Contents</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/makingTheSiteSearchable.html">Making the Site Searchable</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/addingPages.html" class="site-nav__a">Adding Pages</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntax.html" class="site-nav__a">MarkBind Syntax</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingComponents.html" class="site-nav__a current">Using Components</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/tweakingThePageStructure.html" class="site-nav__a">Tweaking the Page Structure</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/reusingContents.html" class="site-nav__a">Reusing Contents</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/makingTheSiteSearchable.html" class="site-nav__a">Making the Site Searchable</a></li>
         </ul>
       </li>
-      <li style="margin-top: 10px"><a href="/markbind/userGuide/deployingTheSite.html">Deploying the Site</a></li>
-      <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindInTheProjectWorkflow.html">MarkBind in the Project Workflow</a></li>
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/deployingTheSite.html" class="site-nav__a">Deploying the Site</a></li>
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindInTheProjectWorkflow.html" class="site-nav__a">MarkBind in the Project Workflow</a></li>
       <li style="margin-top: 10px"><button class="dropdown-btn dropdown-btn-open">References 
  <i class="dropdown-btn-icon rotate-icon">
 <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
         <div class="dropdown-container dropdown-container-open">
           <ul style="list-style-type: none; margin-left:-1em">
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/cliCommands.html">CLI Commands</a></li>
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html">Site Configuration</a></li>
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsTricksAndTroubleshooting.html">Tips, Tricks, & Troubleshooting</a></li>
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/glossary.html">Glossary</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/cliCommands.html" class="site-nav__a">CLI Commands</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html" class="site-nav__a">Site Configuration</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsTricksAndTroubleshooting.html" class="site-nav__a">Tips, Tricks, & Troubleshooting</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/glossary.html" class="site-nav__a">Glossary</a></li>
           </ul>
         </div>
       </li>
@@ -1109,7 +1109,7 @@
                     <td>data</td>
                     <td><code>Array</code></td>
                     <td></td>
-                    <td>The local data source for suggestions. Expected to be a primitive array.</td>
+                    <td>The local data source for suggestions. Expected to be a primitive array. To use MarkBind's search functionality, set this value to <code>&quot;searchData&quot;</code>.</td>
                   </tr>
                   <tr>
                     <td>menu-align-right</td>
@@ -1121,7 +1121,7 @@
                     <td>on-hit</td>
                     <td><code>Function</code></td>
                     <td></td>
-                    <td>A callback function when you click or hit return on an item.</td>
+                    <td>A callback function when you click or hit return on an item. To use MarkBind's search functionality, set this value to <code>&quot;searchCallback&quot;</code>.</td>
                   </tr>
                   <tr>
                     <td>placeholder</td>
@@ -1132,6 +1132,10 @@
                 </tbody>
               </table>
             </div>
+            <box type="warning">
+              <p>Note: If you are using MarkBind's search functionality, then <code>enableSearch</code> <strong>must be set to <code>true</code> in <code>site.json</code></strong>.</p>
+              <p>See: <a href="/markbind/userGuide/siteConfiguration.html#enable-search">User Guide: Site Configuration → enableSearch</a>.</p>
+            </box>
             <p><span class="dimmed"><span class="fas fa-info-circle"></span> Related topic: <a href="/markbind/userGuide/makingTheSiteSearchable.html">User Guide: Making the Site Searchable</a>.</span>
             </p>
           </div>
@@ -1810,7 +1814,7 @@ This is a click
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.17.0</a> on Mon, 21 Jan 2019 17:40:51 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.17.1</a> on Mon, 28 Jan 2019 01:40:47 GMT]</small></div>
 </footer>
 </div>
 </body>
