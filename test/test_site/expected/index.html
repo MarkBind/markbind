@@ -74,6 +74,18 @@
     <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
       <a class="nav-link py-1" href="#fragment-with-leading-spaces-and-newline">Fragment with leading spaces and newline&#x200E;</a>
     </nav>
+    <a class="nav-link py-1" href="#include-with-custom-variables">Include with custom variables&#x200E;</a>
+    <a class="nav-link py-1" href="#test-included-variable">Test included variable&#x200E;</a>
+    <a class="nav-link py-1" href="#test-included-variable-with-markdown">Test included variable with markdown&#x200E;</a>
+    <a class="nav-link py-1" href="#test-included-variable-as-attribute">Test included variable as attribute&#x200E;</a>
+    <a class="nav-link py-1" href="#test-included-variable-as-html-element">Test included variable as html element&#x200E;</a>
+    <a class="nav-link py-1" href="#test-included-variable-overridden-by-variables-md">Test included variable overridden by variables.md&#x200E;</a>
+    <a class="nav-link py-1" href="#test-included-variables-in-included-file">Test included variables in included file&#x200E;</a>
+    <a class="nav-link py-1" href="#inner-included-variables-should-not-leak-into-other-files">Inner included variables should not leak into other files&#x200E;</a>
+    <a class="nav-link py-1" href="#test-included-variable-with-global-variable">Test included variable with global variable&#x200E;</a>
+    <a class="nav-link py-1" href="#test-included-variable-overridden-by-set">Test included variable overridden by set&#x200E;</a>
+    <a class="nav-link py-1" href="#test-missing-variable-with-default">Test missing variable with default&#x200E;</a>
+    <a class="nav-link py-1" href="#included-variables-should-not-leak-into-other-files">Included variables should not leak into other files&#x200E;</a>
     <a class="nav-link py-1" href="#panel-without-src">Panel without src&#x200E;</a>
     <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
       <a class="nav-link py-1" href="#panel-without-src-header">Panel without src header&#x200E;</a>
@@ -365,6 +377,39 @@ specification that specifies how the product will address the requirements. </sp
             <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></div>
           <h1 id="trimmed-include">Trimmed include<a class="fa fa-anchor" href="#trimmed-include"></a></h1>
           <h2 id="fragment-with-leading-spaces-and-newline"><span>Fragment with leading spaces and newline</span><a class="fa fa-anchor" href="#fragment-with-leading-spaces-and-newline"></a></h2>
+          <h1 id="include-with-custom-variables">Include with custom variables<a class="fa fa-anchor" href="#include-with-custom-variables"></a></h1>
+          <div>
+            <h1 id="test-included-variable">Test included variable<a class="fa fa-anchor" href="#test-included-variable"></a></h1>
+            <p>Included variable</p>
+            <h1 id="test-included-variable-with-markdown">Test included variable with markdown<a class="fa fa-anchor" href="#test-included-variable-with-markdown"></a></h1>
+            <p><strong><strong>Included variable with markdown</strong></strong>
+            </p>
+            <h1 id="test-included-variable-as-attribute">Test included variable as attribute<a class="fa fa-anchor" href="#test-included-variable-as-attribute"></a></h1>
+            <p style="color: blue">Test</p>
+            <h1 id="test-included-variable-as-html-element">Test included variable as html element<a class="fa fa-anchor" href="#test-included-variable-as-html-element"></a></h1>
+            <p><span>Included variable within html element</span></p>
+            <h1 id="test-included-variable-overridden-by-variables-md">Test included variable overridden by <a href="http://variables.md">variables.md</a><a class="fa fa-anchor" href="#test-included-variable-overridden-by-variables-md"></a></h1>
+            <p>Global variable overriding included variable</p>
+            <h1 id="test-included-variables-in-included-file">Test included variables in included file<a class="fa fa-anchor" href="#test-included-variables-in-included-file"></a></h1>
+            <div>
+              <p>Included variable in outer included file</p>
+              <p>Included variable overriding inner variable</p>
+            </div>
+            <h1 id="inner-included-variables-should-not-leak-into-other-files">Inner included variables should not leak into other files<a class="fa fa-anchor" href="#inner-included-variables-should-not-leak-into-other-files"></a></h1>
+            <div>
+              <p>Should be blank:</p>
+            </div>
+            <h1 id="test-included-variable-with-global-variable">Test included variable with global variable<a class="fa fa-anchor" href="#test-included-variable-with-global-variable"></a></h1>
+            <p>Included variable with Global variable</p>
+            <h1 id="test-included-variable-overridden-by-set">Test included variable overridden by set<a class="fa fa-anchor" href="#test-included-variable-overridden-by-set"></a></h1>
+            <p>Inner variable overridden by set Global variable overridden by set</p>
+            <h1 id="test-missing-variable-with-default">Test missing variable with default<a class="fa fa-anchor" href="#test-missing-variable-with-default"></a></h1>
+            <p>Missing Variable</p>
+          </div>
+          <h1 id="included-variables-should-not-leak-into-other-files">Included variables should not leak into other files<a class="fa fa-anchor" href="#included-variables-should-not-leak-into-other-files"></a></h1>
+          <div>
+            <p>Should be blank:</p>
+          </div>
           <h1 id="panel-without-src">Panel without src<a class="fa fa-anchor" href="#panel-without-src"></a></h1>
           <panel header="## Panel without src header<a class='fa fa-anchor' href='#panel-without-src-header'></a>" expanded="">
             <div>

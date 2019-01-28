@@ -88,6 +88,32 @@ function Parser(options) {
   this.missingIncludeSrc = [];
 }
 
+/**
+ * Extract variables from an include element
+ * @param includeElement include element to extract variables from
+ * @param contextVariables local variables defined by parent pages
+ */
+function extractVariables(includeElement, contextVariables) {
+  const includedVariables = { ...contextVariables };
+  if (includeElement.children) {
+    includeElement.children.forEach((child) => {
+      if (child.name !== 'span') {
+        return;
+      }
+      if (!child.attribs.id) {
+        // eslint-disable-next-line no-console
+        console.warn(`Missing reference in ${includeElement.attribs[ATTRIB_CWF]}\n`
+                   + `Missing 'id' in variable for ${includeElement.attribs.src} include.`);
+        return;
+      }
+      if (!includedVariables[child.attribs.id]) {
+        includedVariables[child.attribs.id] = cheerio.html(child.children);
+      }
+    });
+  }
+  return includedVariables;
+}
+
 Parser.prototype.getDynamicIncludeSrc = function () {
   return _.clone(this.dynamicIncludeSrc);
 };
@@ -205,7 +231,11 @@ Parser.prototype._preprocess = function (node, context, config) {
     let fileContent = self._fileCache[actualFilePath]; // cache the file contents to save some I/O
     const { parent, relative } = calculateNewBaseUrls(filePath, config.rootPath, config.baseUrlMap);
     const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
-    fileContent = nunjucks.renderString(fileContent, userDefinedVariables);
+
+    // process variables declared within the include
+    const includedVariables = extractVariables(element, context.includedVariables);
+
+    fileContent = nunjucks.renderString(fileContent, { ...includedVariables, ...userDefinedVariables });
     delete element.attribs.boilerplate;
     delete element.attribs.src;
     delete element.attribs.inline;
@@ -265,6 +295,7 @@ Parser.prototype._preprocess = function (node, context, config) {
     const childContext = _.cloneDeep(context);
     childContext.cwf = filePath;
     childContext.source = isIncludeSrcMd ? 'md' : 'html';
+    childContext.includedVariables = includedVariables;
     if (element.children && element.children.length > 0) {
       element.children = element.children.map(e => self._preprocess(e, childContext, config));
     }
