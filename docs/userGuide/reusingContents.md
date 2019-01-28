@@ -157,6 +157,20 @@ You must use the `safe` filter when using such variables:
 <code>{<span></span>{ right_hand_2 }}</code> {{ icon_arrow_right }} {{glyphicon_hand_right}}
 </div>
 
+### Page Variables
+
+**You can also declare variables for use within a single page.** These variables work exactly the same as regular variables, except they only apply to the page they are declared in. This can be done by using the `variable` tag.
+
+<div class="indented">
+
+{{ icon_example }} Declaring page variables<br>
+
+`<variable name="full_name">John Doe</variable>`<br>
+<code>My name is {<span></span>{ full_name }}. This is {<span></span>{ full_name }}'s site.</code>
+</div>
+
+Note: These variables will not cascade into `include` files, and are overridden by [`include` variables]({{ baseUrl }}/userGuide/reusingContents.html#specifying-variables-in-an-include) and [global variables]({{ baseUrl }}/userGuide/reusingContents.html#using-variables).
+
 <hr><!-- ======================================================================================================= -->
 
 ## The `include` tag
