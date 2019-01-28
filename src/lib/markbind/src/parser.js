@@ -93,7 +93,7 @@ function Parser(options) {
  * @param includeElement include element to extract variables from
  * @param contextVariables local variables defined by parent pages
  */
-function extractVariables(includeElement, contextVariables) {
+function extractIncludeVariables(includeElement, contextVariables) {
   const includedVariables = { ...contextVariables };
   if (includeElement.children) {
     includeElement.children.forEach((child) => {
@@ -115,7 +115,7 @@ function extractVariables(includeElement, contextVariables) {
 }
 
 /**
- * Extract page variables from an include element
+ * Extract page variables from a page
  * @param filename for error printing
  * @param data to extract variables from
  * @param userDefinedVariables global variables
@@ -261,7 +261,7 @@ Parser.prototype._preprocess = function (node, context, config) {
     const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
 
     // process variables declared within the include
-    const includedVariables = extractVariables(element, context.includedVariables);
+    const includedVariables = extractIncludeVariables(element, context.includedVariables);
     const pageVariables = extractPageVariables(element.attribs.src, fileContent, userDefinedVariables);
     fileContent = nunjucks.renderString(fileContent,
                                         { ...pageVariables, ...includedVariables, ...userDefinedVariables });
