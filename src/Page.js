@@ -7,6 +7,9 @@ const path = require('path');
 const pathIsInside = require('path-is-inside');
 const Promise = require('bluebird');
 
+const _ = {};
+_.isString = require('lodash/isString');
+
 const FsUtil = require('./util/fsUtil');
 const logger = require('./util/logger');
 const MarkBind = require('./lib/markbind/src/parser');
@@ -214,8 +217,14 @@ Page.prototype.prepareTemplateData = function () {
     ? this.titlePrefix + (this.title ? TITLE_PREFIX_SEPARATOR + this.title : '')
     : this.title;
 
+  // construct temporary asset object with only POSIX-style paths
+  const asset = {};
+  Object.entries(this.asset).forEach(([key, value]) => {
+    asset[key] = _.isString(value) ? FsUtil.ensurePosix(value) : value;
+  });
+
   return {
-    asset: this.asset,
+    asset,
     baseUrl: this.baseUrl,
     content: this.content,
     faviconUrl: this.faviconUrl,

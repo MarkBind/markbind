@@ -16,6 +16,14 @@ module.exports = {
     }
   },
 
+  ensurePosix: (filePath) => {
+    if (path.sep !== '/') {
+      return filePath.replace(/\\/g, '/');
+    }
+
+    return filePath;
+  },
+
   fileExists(filePath) {
     try {
       return fs.statSync(filePath).isFile();
