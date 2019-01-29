@@ -7,6 +7,7 @@ const path = require('path');
 const pathIsInside = require('path-is-inside');
 const Promise = require('bluebird');
 
+const cyclicReferenceHandler = require('./lib/markbind/src/handlers/cyclicReferenceHandler.js');
 const FsUtil = require('./util/fsUtil');
 const logger = require('./util/logger');
 const MarkBind = require('./lib/markbind/src/parser');
@@ -292,7 +293,11 @@ Page.prototype.collectHeadingsAndKeywordsInContent = function (content, lastHead
           this.collectHeadingsAndKeywordsInContent($(`#${panel.attribs.fragment}`).html(),
                                                    closestHeading, shouldExcludeHeadings);
         } else {
-          this.collectHeadingsAndKeywordsInContent(includeContent, closestHeading, shouldExcludeHeadings);
+          try {
+            this.collectHeadingsAndKeywordsInContent(includeContent, closestHeading, shouldExcludeHeadings);
+          } catch (e) {
+            cyclicReferenceHandler.handle(e, includePath);
+          }
         }
       } else {
         this.collectHeadingsAndKeywordsInContent($(panel).html(), closestHeading, shouldExcludeHeadings);
