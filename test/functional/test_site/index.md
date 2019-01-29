@@ -35,7 +35,7 @@ head: myCustomHead.md, myCustomHead2.md
 {{ nested_page_variable }}
 
 # Page Variable with Global Variable
-<variable name="page_variable_with_global_variable">Page Variable with {{ page_global_variable }}</variable>
+<variable name="page_variable_with_global_variable">Page Variable with {{ global_variable }}</variable>
 {{ page_variable_with_global_variable }}
 
 # Page Variable referencing Page Variable
@@ -47,7 +47,8 @@ head: myCustomHead.md, myCustomHead2.md
 {{ page_global_variable_overriding_page_variable }}
 
 # Test Page Variable and Included Variable Integrations
-<include src="testPageVariables.md">
+<include src="testPageVariablesInInclude.md">
+  <span id="included_variable">Included Variable</span>
   <span id="included_variable_overriding_page_variable">Included Variable Overriding Page Variable</span>
 </include>
 
@@ -141,7 +142,7 @@ head: myCustomHead.md, myCustomHead2.md
   <span id="included_variable_inner_overridden">Included variable overriding inner variable</span>
   <span id="included_variable_in_outer_included_file">Included variable in outer included file</span>
   <span id="included_variable_should_not_leak">Included variable should not leak into other files</span>
-  <span id="included_variable_with_global_variable">Included variable with {{ included_global_variable }}</span>
+  <span id="included_variable_with_global_variable">Included variable with {{ global_variable }}</span>
 </include>
 
 # Included variables should not leak into other files

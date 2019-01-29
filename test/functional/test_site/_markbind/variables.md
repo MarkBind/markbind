@@ -8,7 +8,6 @@
 <span id="reference_level_3">{{reference_level_2}}</span>
 <span id="reference_level_4">{{reference_level_3}}</span>
 
-<span id="global_variable_overriding_included_variable">Global variable overriding included variable</span>
-<span id="included_global_variable">Global variable</span>
-<span id="page_global_variable">Global Variable</span>
-<span id="page_global_variable_overriding_page_variable">Global Variable overriding Page Variable</span>
+<span id="global_variable_overriding_included_variable">Global Variable Overriding Included Variable</span>
+<span id="global_variable">Global Variable</span>
+<span id="page_global_variable_overriding_page_variable">Global Variable Overriding Page Variable</span>

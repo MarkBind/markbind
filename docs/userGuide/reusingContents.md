@@ -159,17 +159,17 @@ You must use the `safe` filter when using such variables:
 
 ### Page Variables
 
-**You can also declare variables for use within a single page.** These variables work exactly the same as regular variables, except they only apply to the page they are declared in. This can be done by using the `variable` tag.
+**You can also declare variables for use within a single page.** These variables work exactly the same as regular variables, except that their values only apply to the page they are declared in. This can be done by using the `<variable>` tag.
 
 <div class="indented">
 
-{{ icon_example }} Declaring page variables<br>
+{{ icon_example }} Declaring page variables:<br>
 
 `<variable name="full_name">John Doe</variable>`<br>
 <code>My name is {<span></span>{ full_name }}. This is {<span></span>{ full_name }}'s site.</code>
 </div>
 
-Note: These variables will not cascade into `include` files, and are overridden by [`include` variables]({{ baseUrl }}/userGuide/reusingContents.html#specifying-variables-in-an-include) and [global variables]({{ baseUrl }}/userGuide/reusingContents.html#using-variables).
+Note: These variables will cascade into [`include` files]({{ baseUrl }}/userGuide/reusingContents.html#the-include-tag). If the same variable is defined in a chain of pages (e.g. `a.md` includes `b.md` includes `c.md`...), variables defined in the top-most page will take precedence. Global variables (`_markbind/variables.md`) will take precedence over any page variables.
 
 <hr><!-- ======================================================================================================= -->
 

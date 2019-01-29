@@ -49,8 +49,10 @@
     <a class="nav-link py-1" href="#page-variable-referencing-page-variable">Page Variable referencing Page Variable&#x200E;</a>
     <a class="nav-link py-1" href="#global-variable-overriding-page-variable">Global Variable overriding Page Variable&#x200E;</a>
     <a class="nav-link py-1" href="#test-page-variable-and-included-variable-integrations">Test Page Variable and Included Variable Integrations&#x200E;</a>
-    <a class="nav-link py-1" href="#page-variables-should-not-leak-into-inner-files">Page Variables Should Not Leak Into Inner Files&#x200E;</a>
+    <a class="nav-link py-1" href="#outer-page-variable-overriding-inner-page-variable">Outer Page Variable Overriding Inner Page Variable&#x200E;</a>
     <a class="nav-link py-1" href="#included-variable-overriding-page-variable">Included Variable Overriding Page Variable&#x200E;</a>
+    <a class="nav-link py-1" href="#page-variable-referencing-included-variable">Page Variable Referencing Included Variable&#x200E;</a>
+    <a class="nav-link py-1" href="#page-variable-referencing-outer-page-variable">Page Variable Referencing Outer Page Variable&#x200E;</a>
     <a class="nav-link py-1" href="#heading-with-multiple-keywords">Heading with multiple keywords&#x200E;</a>
     <a class="nav-link py-1" href="#heading-with-keyword-in-panel">Heading with keyword in panel&#x200E;</a>
     <a class="nav-link py-1" href="#panel-with-heading-with-keyword">Panel with heading with keyword&#x200E;</a>
@@ -283,14 +285,21 @@
           Page Variable referencing Page Variable
           <h1 id="global-variable-overriding-page-variable">Global Variable overriding Page Variable<a class="fa fa-anchor" href="#global-variable-overriding-page-variable"></a></h1>
           <div></div>
-          Global Variable overriding Page Variable
+          Global Variable Overriding Page Variable
           <h1 id="test-page-variable-and-included-variable-integrations">Test Page Variable and Included Variable Integrations<a class="fa fa-anchor" href="#test-page-variable-and-included-variable-integrations"></a></h1>
           <div>
+            <h1 id="outer-page-variable-overriding-inner-page-variable">Outer Page Variable Overriding Inner Page Variable<a class="fa fa-anchor" href="#outer-page-variable-overriding-inner-page-variable"></a></h1>
             <div></div>
-            <h1 id="page-variables-should-not-leak-into-inner-files">Page Variables Should Not Leak Into Inner Files<a class="fa fa-anchor" href="#page-variables-should-not-leak-into-inner-files"></a></h1>
-            <p>Should be blank:</p>
+            Page Variable
             <h1 id="included-variable-overriding-page-variable">Included Variable Overriding Page Variable<a class="fa fa-anchor" href="#included-variable-overriding-page-variable"></a></h1>
-            <p>Included Variable Overriding Page Variable</p>
+            <div></div>
+            Included Variable Overriding Page Variable
+            <h1 id="page-variable-referencing-included-variable">Page Variable Referencing Included Variable<a class="fa fa-anchor" href="#page-variable-referencing-included-variable"></a></h1>
+            <div></div>
+            Page Variable Referencing Included Variable
+            <h1 id="page-variable-referencing-outer-page-variable">Page Variable Referencing Outer Page Variable<a class="fa fa-anchor" href="#page-variable-referencing-outer-page-variable"></a></h1>
+            <div></div>
+            Page Variable Referencing Outer Page Variable
           </div>
           <h1 id="heading-with-multiple-keywords">Heading with multiple keywords<a class="fa fa-anchor" href="#heading-with-multiple-keywords"></a></h1>
           <p><span class="keyword">keyword 1</span>
@@ -434,7 +443,7 @@ specification that specifies how the product will address the requirements. </sp
             <h1 id="test-included-variable-as-html-element">Test included variable as html element<a class="fa fa-anchor" href="#test-included-variable-as-html-element"></a></h1>
             <p><span>Included variable within html element</span></p>
             <h1 id="test-included-variable-overridden-by-variables-md">Test included variable overridden by <a href="http://variables.md">variables.md</a><a class="fa fa-anchor" href="#test-included-variable-overridden-by-variables-md"></a></h1>
-            <p>Global variable overriding included variable</p>
+            <p>Global Variable Overriding Included Variable</p>
             <h1 id="test-included-variables-in-included-file">Test included variables in included file<a class="fa fa-anchor" href="#test-included-variables-in-included-file"></a></h1>
             <div>
               <p>Included variable in outer included file</p>
@@ -445,7 +454,7 @@ specification that specifies how the product will address the requirements. </sp
               <p>Should be blank:</p>
             </div>
             <h1 id="test-included-variable-with-global-variable">Test included variable with global variable<a class="fa fa-anchor" href="#test-included-variable-with-global-variable"></a></h1>
-            <p>Included variable with Global variable</p>
+            <p>Included variable with Global Variable</p>
             <h1 id="test-included-variable-overridden-by-set">Test included variable overridden by set<a class="fa fa-anchor" href="#test-included-variable-overridden-by-set"></a></h1>
             <p>Inner variable overridden by set Global variable overridden by set</p>
             <h1 id="test-missing-variable-with-default">Test missing variable with default<a class="fa fa-anchor" href="#test-missing-variable-with-default"></a></h1>
