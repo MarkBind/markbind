@@ -5,7 +5,7 @@ const sourceFileExtNames = ['.html', '.md', '.mbd', '.mbdf'];
 module.exports = {
   ensurePosix: (filePath) => {
     if (path.sep !== '/') {
-      return filePath.split(path.sep).join('/');
+      return filePath.replace(/\\/g, '/');
     }
 
     return filePath;
