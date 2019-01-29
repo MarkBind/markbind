@@ -17,7 +17,7 @@ _.isArray = require('lodash/isArray');
 _.isEmpty = require('lodash/isEmpty');
 _.pick = require('lodash/pick');
 
-const cyclicReferenceHandler = require('./handlers/cyclicReferenceHandler.js');
+const CyclicReferenceError = require('./handlers/cyclicReferenceError.js');
 const md = require('./lib/markdown-it');
 const utils = require('./utils');
 
@@ -270,7 +270,7 @@ Parser.prototype._preprocess = function (node, context, config) {
       try {
         element.children = element.children.map(e => self._preprocess(e, childContext, config));
       } catch (e) {
-        cyclicReferenceHandler.handle(e, childContext.cwf);
+        CyclicReferenceError.handle(e, childContext.cwf);
       }
     }
   } else if ((element.name === 'panel') && hasSrc) {
@@ -289,7 +289,7 @@ Parser.prototype._preprocess = function (node, context, config) {
       try {
         element.children = element.children.map(e => self._preprocess(e, context, config));
       } catch (e) {
-        cyclicReferenceHandler.handle(e, context.cwf);
+        CyclicReferenceError.handle(e, context.cwf);
       }
     }
   }
