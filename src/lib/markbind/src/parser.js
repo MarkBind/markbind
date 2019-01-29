@@ -17,6 +17,7 @@ _.isArray = require('lodash/isArray');
 _.isEmpty = require('lodash/isEmpty');
 _.pick = require('lodash/pick');
 
+const cyclicReferenceHandler = require('./handlers/cyclicReferenceHandler.js');
 const md = require('./lib/markdown-it');
 const utils = require('./utils');
 
@@ -27,25 +28,6 @@ const ATTRIB_INCLUDE_PATH = 'include-path';
 const ATTRIB_CWF = 'cwf';
 
 const BOILERPLATE_FOLDER_NAME = '_markbind/boilerplates';
-
-const CYCLIC_REFERENCE_ERROR_MESSAGE = 'Cyclic reference detected.';
-
-function CyclicReferenceError() {
-  this.message = CYCLIC_REFERENCE_ERROR_MESSAGE;
-  this.fileStack = [];
-}
-
-CyclicReferenceError.prototype = RangeError.prototype;
-
-CyclicReferenceError.prototype.addFileToStack = function (filePath) {
-  if (this.fileStack.length < 5) {
-    this.fileStack.push(filePath);
-  }
-};
-
-CyclicReferenceError.prototype.toString = function () {
-  return `${this.message} \nLast 5 files processed: ${'\n\t'}${this.fileStack.join('\n\t')}`;
-};
 
 /*
  * Utils
@@ -288,15 +270,7 @@ Parser.prototype._preprocess = function (node, context, config) {
       try {
         element.children = element.children.map(e => self._preprocess(e, childContext, config));
       } catch (e) {
-        if (e.message === 'Maximum call stack size exceeded') {
-          const err = new CyclicReferenceError();
-          err.addFileToStack(childContext.cwf);
-          throw err;
-        } else if (e instanceof CyclicReferenceError) {
-          e.addFileToStack(childContext.cwf);
-          throw e;
-        }
-        throw e;
+        cyclicReferenceHandler.handle(e, childContext.cwf);
       }
     }
   } else if ((element.name === 'panel') && hasSrc) {
@@ -312,7 +286,11 @@ Parser.prototype._preprocess = function (node, context, config) {
       console.warn(`<body> tag found in ${element.attribs[ATTRIB_CWF]}. This may cause formatting errors.`);
     }
     if (element.children && element.children.length > 0) {
-      element.children = element.children.map(e => self._preprocess(e, context, config));
+      try {
+        element.children = element.children.map(e => self._preprocess(e, context, config));
+      } catch (e) {
+        cyclicReferenceHandler.handle(e, context.cwf);
+      }
     }
   }
 
