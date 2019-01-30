@@ -61,14 +61,14 @@
     "lint": "./node_modules/.bin/eslint .",
     "pretest": "npm run lint",
     "pretestwin": "npm run lint",
-    "testwin": "jest && cd test/test_site && test.bat",
-    "test": "jest && cd test/test_site && ./test.sh",
+    "testwin": "jest && cd test/functional && test.bat",
+    "test": "jest && cd test/functional && ./test.sh",
     "jest": "jest"
   },
   "jest": {
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "test/test_site/"
+      "test/functional"
     ]
   },
   "devDependencies": {
