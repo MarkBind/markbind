@@ -10,6 +10,7 @@ const Promise = require('bluebird');
 const _ = {};
 _.isString = require('lodash/isString');
 
+const { ensurePosix } = require('./lib/markbind/src/utils');
 const FsUtil = require('./util/fsUtil');
 const logger = require('./util/logger');
 const MarkBind = require('./lib/markbind/src/parser');
@@ -220,7 +221,7 @@ Page.prototype.prepareTemplateData = function () {
   // construct temporary asset object with only POSIX-style paths
   const asset = {};
   Object.entries(this.asset).forEach(([key, value]) => {
-    asset[key] = _.isString(value) ? FsUtil.ensurePosix(value) : value;
+    asset[key] = _.isString(value) ? ensurePosix(value) : value;
   });
 
   return {

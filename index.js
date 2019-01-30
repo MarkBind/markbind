@@ -12,6 +12,7 @@ const _ = {};
 _.isBoolean = require('lodash/isBoolean');
 
 const cliUtil = require('./src/util/cliUtil');
+const { ensurePosix } = require('./src/lib/markbind/src/utils');
 const fsUtil = require('./src/util/fsUtil');
 const logger = require('./src/util/logger');
 const Site = require('./src/Site');
@@ -75,7 +76,7 @@ program
     if (options.onePage) {
       // replace slashes for paths on Windows
       // eslint-disable-next-line no-param-reassign
-      options.onePage = fsUtil.ensurePosix(options.onePage);
+      options.onePage = ensurePosix(options.onePage);
     }
 
     const site = new Site(rootFolder, outputFolder, options.onePage, options.forceReload, options.siteConfig);
