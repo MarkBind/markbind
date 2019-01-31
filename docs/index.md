@@ -13,7 +13,7 @@
 
 <big>**Generate dynamic websites from Markdown text.**</big>
 
-MarkBind can use Markdown documents to generate <tooltip content="as opposed to _one-size-fits-all_ static content">_more dynamic_</tooltip> websites that facilitates _<tooltip content="i.e., the reader can chart their own path through the content and consume more/less content as desired">self-directed consumption</tooltip>_. MarkBind is ideal for creating content-heavy instructional websites <br> %%e.g., eLearning websites, online instruction manuals, project documentation etc.%%.
+MarkBind can use Markdown documents to generate <tooltip content="as opposed to _one-size-fits-all_ static content">_more dynamic_</tooltip> websites. MarkBind is ideal for creating text-heavy websites %%e.g., eLearning websites, online instruction manuals, project documentation etc.%%.
 </span>
 
 <b-btn variant="primary" href="{{ baseUrl }}/userGuide/">Get Started</b-btn>
@@ -127,9 +127,9 @@ Details of exercise 3
 
 <hr><!-- ======================================================================================================= -->
 
-#### {{ icon_check_blue }} Everything you need for instructional websites, built-in.
+#### {{ icon_check_blue }} Everything you need for text-heavy websites, built-in.
 
-MarkBind is **highly optimized for creating content-heavy instructional websites** %%e.g., eLearning websites, online instruction manuals, project documentation etc.%% Anything that you might need for creating such websites are built-in, sparing you the hassle of finding/installing/searching plugins that you need.
+MarkBind is **highly optimized for creating text-heavy websites** %%e.g., eLearning websites, online instruction manuals, project documentation etc.%% Anything that you might need for creating such websites are built-in, sparing you the hassle of finding/installing/searching plugins that you need.
 
 Here are some examples:
 <div class="indented">
