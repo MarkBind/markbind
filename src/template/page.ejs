@@ -14,16 +14,18 @@
     <link rel="stylesheet" href="<%- asset.markbind %>">
     <link rel="stylesheet" href="<%- asset.layoutStyle %>">
     <% if (siteNav) { %><link rel="stylesheet" href="<%- asset.siteNavCss %>"><% } %>
+    <% if (pageNav) { %><link rel="stylesheet" href="<%- asset.pageNavCss %>"><% } %>
     <%- headFileBottomContent %>
     <% if (faviconUrl) { %><link rel="icon" href="<%- faviconUrl %>"><% } %>
 </head>
-<body>
+<body data-spy="scroll" data-target="#page-nav" data-offset="100">
 <div id="app">
     <%- content %>
 </div>
 </body>
 <script src="<%- asset.vue %>"></script>
 <script src="<%- asset.vueStrap %>"></script>
+<script src="<%- asset.bootstrapUtilityJs %>"></script>
 <script src="<%- asset.polyfillJs %>"></script>
 <script src="<%- asset.bootstrapVueJs %>"></script>
 <script>

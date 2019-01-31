@@ -12,7 +12,7 @@ const markdownIt = require('markdown-it')({
       }
     }
 
-    return '<pre class="hljs"><code>' + markdownIt.utils.escapeHtml(str) + '</code></pre>';
+    return '<pre><code class="hljs">' + markdownIt.utils.escapeHtml(str) + '</code></pre>';
   }
 });
 const slugify = require('@sindresorhus/slugify');

@@ -138,14 +138,13 @@ Go to the [MarkBind Website](https://markbind.github.io/markbind/)
 
 ##### Fenced code blocks / syntax highlighting
 
-<span>
-<code>```python</code>
-</span>
-
-<code>def say_hello(name):</code><br>
-&nbsp;&nbsp;&nbsp;&nbsp;`print('Hello', name)`<br>
-&nbsp;&nbsp;&nbsp;&nbsp;`print('How are you', name)`<br>
-<code>```</code>
+````
+```python
+def say_hello(name):
+    print('Hello', name)<br>
+    print('How are you', name)<br>
+```
+````
 
 ```python
 def say_hello(name):
@@ -323,14 +322,14 @@ More media blocks, embedding services and additional options can be found in [Ma
 
 <div id="intraSiteLinks">
 
-Links to files of the generated site (e.g., an HTML page or an image file) should be specified as absolute paths and should start with {{ showBaseUrl }} (which represents the root directory of the project).
+Links to files of the generated site (e.g., an HTML page or an image file) should be specified as absolute paths and should start with {{ showBaseUrlCode }} (which represents the root directory of the project).
 
 <div class="indented">
 
-{{ icon_example }} Here's how to specify a link to (1) a page, and (2) an image, using the {{ showBaseUrl }}:
+{{ icon_example }} Here's how to specify a link to (1) a page, and (2) an image, using the {{ showBaseUrlCode }}:
 
 1. <code>Click [here]({<span></span>{ baseUrl }}/userGuide/reusingContents.html).</code> {{ icon_arrow_right }} Click [here]({{ baseUrl }}/userGuide/reusingContents.html)
-2. `![](`{{ showBaseUrl }}`/images/preview.png)`
+2. `![](`{{ showBaseUrlCode }}`/images/preview.png)`
 
 </div>
 </div>

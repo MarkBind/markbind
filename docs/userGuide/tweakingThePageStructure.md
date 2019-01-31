@@ -1,6 +1,8 @@
 <frontmatter>
   title: "User Guide: Tweaking the Page Structure"
   footer: footer.md
+  pageNav: "default"
+  pageNavTitle: "List of Tweaks"
   siteNav: userGuideSections.md
 </frontmatter>
 
@@ -55,9 +57,9 @@ Steps:
 
 <box>
 
-`<script src="`{{ showBaseUrl }}`/js/myCustomScript.js"></script>`<br>
-`<link rel="stylesheet" href="`{{ showBaseUrl }}`/css/main.css">`<br>
-`<link rel="stylesheet" href="`{{ showBaseUrl }}`/css/extra.css">`
+`<script src="`{{ showBaseUrlCode }}`/js/myCustomScript.js"></script>`<br>
+`<link rel="stylesheet" href="`{{ showBaseUrlCode }}`/css/main.css">`<br>
+`<link rel="stylesheet" href="`{{ showBaseUrlCode }}`/css/extra.css">`
 
 </box>
 
@@ -80,10 +82,10 @@ To specify that you want to insert `myCustomLinks.md` into the `<head>` of `myPa
 <box>
 
 **`<head-top>`**<br>
-&nbsp;&nbsp;`<script src="`{{ showBaseUrl }}`/js/myCustomScript.js"></script>`<br>
+&nbsp;&nbsp;`<script src="`{{ showBaseUrlCode }}`/js/myCustomScript.js"></script>`<br>
 **`</head-top>`**<br>
-`<link rel="stylesheet" href="`{{ showBaseUrl }}`/css/main.css">`<br>
-`<link rel="stylesheet" href="`{{ showBaseUrl }}`/css/extra.css">`
+`<link rel="stylesheet" href="`{{ showBaseUrlCode }}`/css/main.css">`<br>
+`<link rel="stylesheet" href="`{{ showBaseUrlCode }}`/css/extra.css">`
 
 </box>
 
@@ -165,14 +167,16 @@ Steps to add a site navigation menu ==(_siteNav_ for short)==:
 
 <box>
 
-`* [:house: Home](`{{showBaseUrl}}`/index.html)`<br>
-`* Docs`<br>
-&nbsp;&nbsp;&nbsp;`* [User Guide](`{{showBaseUrl}}`/ug.html)`<br>
-&nbsp;&nbsp;&nbsp;`* [Dev Guide](`{{showBaseUrl}}`/dg.html)`<br>
-`* [Search](`{{showBaseUrl}}`/search.html)`<br>
-&nbsp;&nbsp;&nbsp;`* [Google Search](https://www.google.com/)`<br>
-&nbsp;&nbsp;&nbsp;`* [YouTube Search](https://www.youtube.com/)`<br>
-`* [Contact](`{{showBaseUrl}}`/contact.html)`
+<code>
+* [:house: Home]({{ showBaseUrlText }}/index.html)<br>
+* Docs<br>
+&nbsp;&nbsp;* [User Guide]({{ showBaseUrlText }}/ug.html)<br>
+&nbsp;&nbsp;* [Dev Guide]({{ showBaseUrlText }}/dg.html)<br>
+* [Search]({{ showBaseUrlText }}/search.html)<br>
+&nbsp;&nbsp;* [Google Search](https://www.google.com/)<br>
+&nbsp;&nbsp;* [YouTube Search](https://www.youtube.com/)<br>
+* [Contact]({{ showBaseUrlText }}/contact.html)
+</code>
 </box>
 
 Here's how another page can make use of the above siteNav:
@@ -187,21 +191,21 @@ Here's how another page can make use of the above siteNav:
 Here's how the above siteNav will appear:
 
 <ul style="list-style-type: none; margin-left:-1em">
-  <li style="margin-top: 10px"><a href="/index.html">🏠 Home</a></li>
+  <li style="margin-top: 10px"><a class="site-nav__a" href="/index.html">🏠 Home</a></li>
   <li style="margin-top: 10px">
     <button class="dropdown-btn">Docs <i class="dropdown-btn-icon">
       <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
     <div class="dropdown-container">
       <ul style="list-style-type: none; margin-left:-1em">
-        <li style="margin-top: 10px"><a href="">User Guide</a></li>
-        <li style="margin-top: 10px"><a href="">Dev Guide</a></li>
+        <li style="margin-top: 10px"><a class="site-nav__a" href="">User Guide</a></li>
+        <li style="margin-top: 10px"><a class="site-nav__a" href="">Dev Guide</a></li>
       </ul>
     </div>
   </li>
-  <li style="margin-top:10px"><a href="">Search</a>
+  <li style="margin-top:10px"><a class="site-nav__a" href="">Search</a>
     <ul style="list-style-type: none; margin-left:-1em">
-      <li style="margin-top: 10px"><a href="http://www.google.com">Google Search</a></li>
-      <li style="margin-top: 10px"><a href="http://www.youtube.com">YouTube Search</a></li>
+      <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.google.com">Google Search</a></li>
+      <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.youtube.com">YouTube Search</a></li>
     </ul>
   </li>
 </ul>
@@ -221,14 +225,16 @@ You may have additional HTML and Markdown content in a <tooltip content="the fil
 
 <box>
 
-`# Site Map`<br>
-**`<navigation>`**<br>
-`* [:house: Home](`{{showBaseUrl}}`/index.html)`<br>
-`* Docs`<br>
-&nbsp;&nbsp;&nbsp;`* [User Guide](`{{showBaseUrl}}`/ug.html)`<br>
-&nbsp;&nbsp;&nbsp;`* [Dev Guide](`{{showBaseUrl}}`/dg.html)`<br>
-`* [Search](`{{showBaseUrl}}`/search.html)`<br>
-**`</navigation>`**<br>
+<code>
+# Site Map<br>
+<strong><<span></span>navigation></strong><br>
+* [:house: Home]({{ showBaseUrlText }}/index.html)<br>
+* Docs<br>
+&nbsp;&nbsp;* [User Guide]({{ showBaseUrlText }}/ug.html)<br>
+&nbsp;&nbsp;* [Dev Guide]({{ showBaseUrlText }}/dg.html)<br>
+* [Search]({{ showBaseUrlText }}/search.html)<br>
+<strong><<span></span>/navigation></strong><br>
+</code>
 </box>
 </div>
 
@@ -237,6 +243,37 @@ More than one siteNav file can be in `_markbind/navigation/` directory but a pag
 A siteNav has a fixed width of 300 pixels for its contents. A siteNavs is [_responsive_](https://www.w3schools.com/html/html_responsive.asp) in that it will collapse to a menu button when the screen width is smaller than 992 pixels. It will then be completely hidden when the screen size is smaller than 576 pixels.
 
 There is no limit to the number of nesting levels or the number of items in the menu, but note that any content exceeding a height of 1000 pixels will be cut off.
+
+
+<hr><!-- ======================================================================================================= -->
+
+## Page Navigation Menus
+
+**You can add a <trigger trigger="click" for="modal:pageStructure-pageNavidationMenu">_page navigation menu_</trigger> to a page.**
+
+<modal title="Page Naviation Menu" id="modal:pageStructure-pageNavidationMenu">
+  <include src="glossary.md#page-navigation-menu" />
+</modal>
+
+Steps to add a page navigation menu ==(_pageNav_ for short)==:
+1. Specify your pageNav within the `<frontmatter>` of a page with <tooltip content="The value `default` will use `headingIndexingLevel` within `site.json`.">`"default"`</tooltip> or a <tooltip content="HTML defines six levels of headings, numbered from <br>`1 to 6`.">`heading level`</tooltip>.
+2. (Optional) You may also specify a page navigation title within `<frontmatter>` that will be placed at the top of the page navigation menu.
+
+<div class="indented">
+
+{{ icon_example }}
+In the page that you want to have page navigation:
+```html
+<frontmatter>
+  pageNav: 2
+  pageNavTitle: "Chapters of This Page"
+</frontmatter>
+```
+
+The example above will create a page navigation containing only heading levels of `1 and 2`.
+</div>
+
+A pageNav has a fixed width of 300 pixels for its contents. It is [_responsive_](https://www.w3schools.com/html/html_responsive.asp) by design and will be completely hidden when the screen size is smaller than 1300 pixels.
 
 
 <hr><!-- ======================================================================================================= -->
@@ -305,5 +342,67 @@ In this case `myHead.md` will override the `chapterLayout/head.md`.
 </div>
 
 **The layout named `default` (if any) is automatically applied to every single page.** When you `init` a MarkBind site, MarkBind also generates an empty `default` layout.
+
+## Toggling alternative contents in a page
+
+You can use tags to selectively filter HTML elements when building a site.
+
+Tags are specified by the `tags` attribute, **and can be attached to any HTML element**. During rendering, only elements that match tags specified in the `site.json` files will be rendered.
+
+<div class="indented">
+
+{{ icon_example }} Attaching tags to elements:
+```html
+# Print 'Hello world'
+
+<p tags="language--java">System.out.println("Hello world");</p>
+<p tags="language--C#">Console.WriteLine("Hello world");</p>
+<p tags="language--python">print("Hello world")</p>
+```
+
+You need to specify the tags to include in `site.json`, under the `tags` option:
+
+```json
+{
+  ...
+  "tags": ["language--java"]
+}
+```
+
+All other tagged elements will be filtered out. In this case, only the element with the `language--java` tag will be rendered. This is helpful when creating multiple versions of a page without having to maintain separate copies.
+
+</div>
+
+If the `tags` option is not specified in `site.json`, all tagged elements will be rendered.
+
+**You can also use multiple tags in a single HTML element. Specify each tag in the `tags` attribute** separated by a space. An element will be rendered if **any of the tags** matches the one in `site.json`.
+
+<div class="indented">
+
+{{ icon_example }} Attaching multiple tags to an element:
+```html
+# For loops
+
+<p tags="language--java language--C#">for (int i = 0; i < 5; i++) { ... }</p>
+```
+
+As long as the `language--java` or `language--C#` tag is specified, the code snippet will be rendered.
+
+</div>
+
+Alternatively, you can specify tags to render for a page in the front matter.
+
+<div class="indented">
+
+{{ icon_example }} Specifying tags in front matter:
+```html
+<frontmatter>
+  title: "Hello World"
+  tags: ["language--java"]
+</frontmatter>
+```
+</div>
+
+Tags in `site.json` will take precedence over the ones in the front matter.
 
 </div>

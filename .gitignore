@@ -40,7 +40,7 @@ jspm_packages
 docs/_site/*
 
 # Generated site (MarkBind)
-test/test_site/_site
+test/functional/*/_site
 
 # vscode configuration
 .vscode/

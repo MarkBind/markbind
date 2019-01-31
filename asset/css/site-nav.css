@@ -30,13 +30,21 @@
     -webkit-transition: 0.4s;
 }
 
-#site-nav a:link, #site-nav a:visited, #site-nav a:hover, #site-nav a:active {
+/*  Standard style order for links, see CSS2§5.11.3:
+    https://www.w3.org/TR/CSS2/selector.html#dynamic-pseudo-classes */
+.site-nav__a:link,
+.site-nav__a:visited,
+.site-nav__a:active {
     color: #565656;
     text-decoration: none;
 }
 
-#site-nav a:hover {
+.site-nav__a:hover {
     color: #0076FF;
+}
+
+#site-nav a.current {
+    color: #0072EC;
 }
 
 #site-nav-btn {
@@ -114,7 +122,9 @@
 
 /* Hamburger button */
 
-.menu-top-bar, .menu-middle-bar, .menu-bottom-bar {
+.menu-top-bar,
+.menu-middle-bar,
+.menu-bottom-bar {
     background-color: darkslategrey;
     height: 4px;
     margin: 5px 10%;
@@ -215,5 +225,18 @@
 
     #site-nav-btn-wrap.open {
         margin-left: 0;
+    }
+}
+
+/* Hide site navigation when printing */
+@media print {
+
+    #page-content {
+        margin-left: 0;
+    }
+
+    #site-nav {
+        border: none;
+        display: none;
     }
 }

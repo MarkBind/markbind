@@ -1,0 +1,59 @@
+{
+  "baseUrl": "/test_site",
+  "faviconPath": "favicon.png",
+  "titlePrefix": "",
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "Hello World"
+    },
+    {
+      "src": "testEmptyFrontmatter.md",
+      "title": "Hello World",
+      "layout": "testLayout"
+    },
+    {
+      "src": "testExternalScripts.md",
+      "title": "Hello World",
+      "layout": "testLayout",
+      "externalScripts": [
+        "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+      ]
+    },
+    {
+      "src": "testLayouts.md",
+      "title": "Hello World"
+    },
+    {
+      "src": "testLayoutsOverride.md",
+      "title": "Hello World",
+      "layout": "testLayout"
+    },
+    {
+      "src": "testTags.md",
+      "title": "Hello World"
+    },
+    {
+      "glob" : "**/index.md"
+    },
+    {
+      "glob" : "**/test_md_fragment.md"
+    }
+  ],
+  "ignore": [
+    "_markbind/layouts/*",
+    "_markbind/logs/*",
+    "_site/*",
+    "site.json",
+    "*.md",
+    "test.bat",
+    "test.sh",
+    "testUtil/*",
+    "expected/*"
+  ],
+  "deploy": {
+    "message": "Site Update."
+  },
+  "tags" : ["tag--shown", "tag--shown-2"],
+  "headingIndexingLevel": 4
+}

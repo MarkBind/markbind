@@ -12,8 +12,10 @@ const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
 
 const _ = {};
+_.difference = require('lodash/difference');
+_.isUndefined = require('lodash/isUndefined');
+_.omitBy = require('lodash/omitBy');
 _.union = require('lodash/union');
-_.unionWith = require('lodash/unionWith');
 _.uniq = require('lodash/uniq');
 
 const url = {};
@@ -310,6 +312,7 @@ Site.prototype.createPage = function (config) {
     baseUrlMap: this.baseUrlMap,
     content: '',
     faviconUrl: config.faviconUrl,
+    tags: this.siteConfig.tags,
     pageTemplate: this.pageTemplate,
     rootPath: this.rootPath,
     searchable: this.siteConfig.enableSearch && config.searchable,
@@ -338,8 +341,12 @@ Site.prototype.createPage = function (config) {
                                path.join(this.siteAssetsDestPath, 'css', 'github.min.css')),
       markbind: path.relative(path.dirname(resultPath),
                               path.join(this.siteAssetsDestPath, 'css', 'markbind.css')),
+      pageNavCss: path.relative(path.dirname(resultPath),
+                                path.join(this.siteAssetsDestPath, 'css', 'page-nav.css')),
       siteNavCss: path.relative(path.dirname(resultPath),
                                 path.join(this.siteAssetsDestPath, 'css', 'site-nav.css')),
+      bootstrapUtilityJs: path.relative(path.dirname(resultPath),
+                                        path.join(this.siteAssetsDestPath, 'js', 'bootstrap-utility.min.js')),
       bootstrapVueJs: path.relative(path.dirname(resultPath),
                                     path.join(this.siteAssetsDestPath, 'js', 'bootstrap-vue.min.js')),
       polyfillJs: path.relative(path.dirname(resultPath),
@@ -354,6 +361,16 @@ Site.prototype.createPage = function (config) {
   });
 };
 
+/**
+ * Updates the paths to be traversed as addressable pages and returns a list of filepaths to be deleted
+ */
+Site.prototype.updateAddressablePages = function () {
+  const oldAddressablePages = this.addressablePages.slice();
+  this.collectAddressablePages();
+  return _.difference(oldAddressablePages.map(page => page.src),
+                      this.addressablePages.map(page => page.src))
+    .map(filePath => setExtension(filePath, '.html'));
+};
 
 /**
  * Collects the paths to be traversed as addressable pages
@@ -362,6 +379,14 @@ Site.prototype.collectAddressablePages = function () {
   const { pages } = this.siteConfig;
   const addressableGlobs = pages.filter(page => page.glob);
   this.addressablePages = pages.filter(page => page.src);
+  const set = new Set();
+  const duplicatePages = this.addressablePages
+    .filter(page => set.size === set.add(page.src).size)
+    .map(page => page.src);
+  if (duplicatePages.length > 0) {
+    return Promise.reject(
+      new Error(`Duplicate page entries found in site config: ${_.uniq(duplicatePages).join(', ')}`));
+  }
   const globPaths = addressableGlobs.reduce((globPages, addressableGlob) =>
     globPages.concat(walkSync(this.rootPath, {
       directories: false,
@@ -372,9 +397,19 @@ Site.prototype.collectAddressablePages = function () {
       searchable: addressableGlob.searchable,
       layout: addressableGlob.layout,
     }))), []);
-  // Add pages collected by walkSync without duplication
-  this.addressablePages = _.unionWith(this.addressablePages, globPaths,
-                                      ((pageA, pageB) => pageA.src === pageB.src));
+  // Add pages collected by walkSync and merge properties for pages
+  const filteredPages = {};
+  globPaths.concat(this.addressablePages).forEach((page) => {
+    const filteredPage = _.omitBy(page, _.isUndefined);
+    if (page.src in filteredPages) {
+      filteredPages[page.src] = { ...filteredPages[page.src], ...filteredPage };
+    } else {
+      filteredPages[page.src] = filteredPage;
+    }
+  });
+  this.addressablePages = Object.values(filteredPages);
+
+  return Promise.resolve();
 };
 
 Site.prototype.collectBaseUrl = function () {
@@ -495,7 +530,7 @@ Site.prototype.buildSourceFiles = function () {
 Site.prototype._rebuildAffectedSourceFiles = function (filePaths) {
   const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];
   const uniquePaths = _.uniq(filePathArray);
-  logger.verbose(`Rebuild affected paths: ${uniquePaths}`);
+  logger.info('Rebuilding affected source files');
   return new Promise((resolve, reject) => {
     this.regenerateAffectedPages(uniquePaths)
       .then(() => fs.removeAsync(this.tempPath))
@@ -513,6 +548,28 @@ Site.prototype._rebuildAffectedSourceFiles = function (filePaths) {
  */
 Site.prototype.rebuildAffectedSourceFiles
   = delay(Site.prototype._rebuildAffectedSourceFiles, 1000);
+
+Site.prototype._rebuildSourceFiles = function () {
+  logger.warn('Rebuilding all source files');
+  return new Promise((resolve, reject) => {
+    Promise.resolve('')
+      .then(() => this.updateAddressablePages())
+      .then(filesToRemove => this.removeAsset(filesToRemove))
+      .then(() => this.buildSourceFiles())
+      .then(resolve)
+      .catch((error) => {
+        // if error, remove the site and temp folders
+        rejectHandler(reject, error, [this.tempPath, this.outputPath]);
+      });
+  });
+};
+
+/**
+ * Rebuild all pages
+ * @param filePaths a single path or an array of paths corresponding to the files that have changed
+ */
+Site.prototype.rebuildSourceFiles
+  = delay(Site.prototype._rebuildSourceFiles, 1000);
 
 Site.prototype._buildMultipleAssets = function (filePaths) {
   const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];

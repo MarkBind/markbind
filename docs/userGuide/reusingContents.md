@@ -1,6 +1,8 @@
 <frontmatter>
   title: "User Guide: Reusing Contents"
   footer: footer.md
+  pageNav: "default"
+  pageNavTitle: "List of Methods"
   siteNav: userGuideSections.md
 </frontmatter>
 
@@ -100,6 +102,16 @@ As mentioned in _User Guide: MarkBind Syntax_, you can use built-in variables to
 
 <p/>
 
+
+##### Variables: Defaults
+
+You can specify a default value for a variable, which is displayed when the variable is not specified in `variables.md` and by any of the [includes]({{ baseUrl }}/userGuide/reusingContents.html#the-include-tag) of the page. This is done by adding `or defaultValue` within the curly braces.
+
+<div class="indented">
+
+{{ icon_example }} If `name` is not declared in `variables.md`:<br>
+<code>My name is {<span></span>{ name or "Anonymous" }}.</code> {{ icon_arrow_right }} My name is Anonymous.
+</div>
 
 ##### Variables: Tips and Tricks
 
@@ -256,6 +268,33 @@ The content of the `chapter1.md` and `chapter2.md` will be included in the `revi
 In other words, **`<include>` interprets the reused code relative to the original location of the file, not the location in which it is reused.**
 
 <hr><!-- ======================================================================================================= -->
+
+##### Specifying Variables in an `<include>`
+
+**It is possible to include variables in an `<include>`.**
+
+<div class="indented">
+
+{{ icon_example }} Specifying `title` and `author` variables in an `<include>` tag:
+
+```html
+<include src="article.md">
+  <span id="title">My Title</span>
+  <span id="author">John Doe</span>
+</include>
+```
+
+In `article.md`:
+
+<code>
+# {<span></span>{ title }}<br>
+Author: {<span></span>{ author }}
+</code>
+</div>
+
+These variables work the same way as variables in `_markbind/variables.md`, except that they only apply to the included file. They allow the included file to be reused as a template, for different source files using different variable values.
+
+If the same variable is defined in a chain of `<include>`s (e.g. `a.md` includes `b.md` includes `c.md`...), variables defined in the top-most `<include>` will take precedence. Global variables (`_markbind/variables.md`) will take precedence over any `<include>` variables.
 
 ## Using Boilerplate Files
 
@@ -483,4 +522,7 @@ Then, in a page-specific CSS file,
 }
 ```
 
+#### Creating multiple variations of a page
+
+Tags are a good way to create multiple variations of a page within the same source file, such as to filter content for creating multiple different versions of the same page. See [_User Guide: Tweaking the Page Structure → Toggling alternative contents in a page_]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#toggling-alternative-contents-in-a-page) section for more information.
 </div>

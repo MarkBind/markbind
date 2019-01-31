@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - '8'
 before_install:
-  - chmod +x ./test/test_site/test.sh
+  - chmod +x ./test/functional/test.sh
 cache:
   directories:
     - node_modules

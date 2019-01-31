@@ -89,6 +89,32 @@ function Parser(options) {
   this.missingIncludeSrc = [];
 }
 
+/**
+ * Extract variables from an include element
+ * @param includeElement include element to extract variables from
+ * @param contextVariables local variables defined by parent pages
+ */
+function extractVariables(includeElement, contextVariables) {
+  const includedVariables = { ...contextVariables };
+  if (includeElement.children) {
+    includeElement.children.forEach((child) => {
+      if (child.name !== 'span') {
+        return;
+      }
+      if (!child.attribs.id) {
+        // eslint-disable-next-line no-console
+        console.warn(`Missing reference in ${includeElement.attribs[ATTRIB_CWF]}\n`
+                   + `Missing 'id' in variable for ${includeElement.attribs.src} include.`);
+        return;
+      }
+      if (!includedVariables[child.attribs.id]) {
+        includedVariables[child.attribs.id] = cheerio.html(child.children);
+      }
+    });
+  }
+  return includedVariables;
+}
+
 Parser.prototype.getDynamicIncludeSrc = function () {
   return _.clone(this.dynamicIncludeSrc);
 };
@@ -206,7 +232,11 @@ Parser.prototype._preprocess = function (node, context, config) {
     let fileContent = self._fileCache[actualFilePath]; // cache the file contents to save some I/O
     const { parent, relative } = calculateNewBaseUrls(filePath, config.rootPath, config.baseUrlMap);
     const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
-    fileContent = nunjucks.renderString(fileContent, userDefinedVariables);
+
+    // process variables declared within the include
+    const includedVariables = extractVariables(element, context.includedVariables);
+
+    fileContent = nunjucks.renderString(fileContent, { ...includedVariables, ...userDefinedVariables });
     delete element.attribs.boilerplate;
     delete element.attribs.src;
     delete element.attribs.inline;
@@ -267,6 +297,8 @@ Parser.prototype._preprocess = function (node, context, config) {
     childContext.cwf = filePath;
     childContext.source = isIncludeSrcMd ? 'md' : 'html';
     childContext.callStack.push(context.cwf);
+    childContext.includedVariables = includedVariables;
+
     if (element.children && element.children.length > 0) {
       if (childContext.callStack.length > CyclicReferenceError.MAX_RECURSIVE_DEPTH) {
         const error = new CyclicReferenceError(childContext.callStack);
@@ -333,7 +365,7 @@ Parser.prototype._parse = function (node, context, config) {
       const { src, fragment } = element.attribs;
       const resultDir = path.dirname(path.join('{{hostBaseUrl}}', path.relative(config.rootPath, src)));
       const resultPath = path.join(resultDir, utils.setExtension(path.basename(src), '._include_.html'));
-      element.attribs.src = fragment ? `${resultPath}#${fragment}` : resultPath;
+      element.attribs.src = utils.ensurePosix(fragment ? `${resultPath}#${fragment}` : resultPath);
     }
     delete element.attribs.boilerplate;
     break;

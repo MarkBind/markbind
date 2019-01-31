@@ -52,6 +52,7 @@ Here is a typical `site.json` file:
     "*.mbd",
     ".git/*"
   ],
+  "tags": ["tag1", "tag2"],
   "headingIndexingLevel": 4
 }
 ```
@@ -97,6 +98,46 @@ Note: Page properties that are defined in `site.json` for a particular page will
 </box>
 </span>
 
+<span id="page-glob-overriding">
+<box type="warning">
+
+Note: If multiple **`src`** (pages) or **`glob`** (globs) attributes match a file, MarkBind will merge properties from all entries. If there are conflicting properties, pages are given priority over globs. If there are multiple matching glob entries, the last entry is given priority.
+
+<div class="indented">
+
+{{ icon_example }} Multiple entries matching `index.md`:
+
+```js
+{
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "Hello World",
+      "searchable": "no"
+    },
+    {
+      "glob": "*.md",
+      "layout": "normal",
+      "searchable": "yes"
+    }
+  ],
+}
+```
+
+The following properties will apply to `index.md`:
+
+```js
+{
+  "src": "index.md",
+  "title": "Hello World",  // Inherited from page
+  "layout": "normal",      // Inherited from glob
+  "searchable": "no",      // Page takes priority over glob
+}
+```
+</div>
+</box>
+</span>
+
 #### **`externalScripts`**
 
 **An array of external scripts to be referenced on all pages.** To reference an external script only on specific pages, `externalScripts` should be specified in `pages` instead. Scripts referenced will be run before the layout script.
@@ -124,6 +165,10 @@ The ignore pattern follows the [glob pattern used in .gitignore](https://git-scm
 * **`branch`** [Optional. Default: `"gh-pages"`]<br>
   The branch that will be deployed to in the remote repo.
 </div>
+
+#### **`tags`**
+
+**A list of tags to filter page elements.**  Page elements with the specified tags are retained, while elements tagged with other tags are removed. Do not specify this option if you want to show everything. See [_User Guide: Tweaking the Page Structure → Using Tags_](tweakingThePageStructure.html#using-tags) section for more information.
 
 #### **`headingIndexingLevel`**
 
