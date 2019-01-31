@@ -226,11 +226,11 @@ When setting the `id` of a fragment, be careful not to clash with heading anchor
 
 </box>
 
-
-<box border-left-color="{{ markbind_blue}}">
-
-{{ icon_bulb_blue }} The `<include>` tag works for any MarBind source file including the _font matter_ section but it may not work in some _special_ files such as the `_markbind/variables.md`.
-</box>
+<include src="tip.md" boilerplate >
+<span id="tip_body">
+The `<include>` tag works for any MarBind source file including the _font matter_ section but it may not work in some _special_ files such as the `_markbind/variables.md`.
+</span>
+</include>
 
 ##### `<include>` Inside an Included File
 
@@ -427,10 +427,12 @@ c:/course/
 ```
 </div>
 
-<box border-left-color="{{ markbind_blue}}">
+<include src="tip.md" boilerplate >
+<span id="tip_body">
+If you are using Git for version control, you can set up the sub-site repository as a [Git sub-module](https://git-scm.com/book/en/v2/Git-Tools-Submodules) of the main site repository.
+</span>
+</include>
 
-{{ icon_bulb_blue }} If you are using Git for version control, you can set up the sub-site repository as a [Git sub-module](https://git-scm.com/book/en/v2/Git-Tools-Submodules) of the main site repository.
-</box>
 
 <hr><!-- ======================================================================================================= -->
 

@@ -342,13 +342,13 @@ Links to files of the generated site (e.g., an HTML page or an image file) shoul
 
 MarkBind supports using Font Icons provided by Font Awesome and Glyphicons.
 
-<box border-left-color="{{ markbind_blue}}">
-
-{{ icon_bulb_blue }} The advantage of font icons over emojis is font icons can be _styled_ to fit your needs.e.g.,
+<include src="tip.md" boilerplate >
+<span id="tip_body">
+The advantage of font icons over emojis is font icons can be _styled_ to fit your needs.e.g.,
 * emoji: <font color="purple">Don't judge the :book: by it's cover! :-1:</font>
 * font icons: <font color="purple">Don't judge the {{ fas_book }} by it's cover! {{ icon_dislike }}</font>
-</box>
-
+</span>
+</include>
 
 ###### Using Font Awesome Icons
 1. Decide which icon you want to use from the [list of available icons](https://fontawesome.com/icons?d=gallery&m=free).
