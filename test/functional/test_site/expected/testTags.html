@@ -19,6 +19,14 @@
     <link rel="icon" href="/test_site/favicon.png">
 </head>
 <body data-spy="scroll" data-target="#page-nav" data-offset="100">
+<div id="loading-overlay">
+    <div id="spinner-layout">
+        <div id="spinner"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.getElementById("loading-overlay").style.display = 'initial';
+</script>
 <div id="app">
     <div id="content-wrapper">
   <h1 id="front-matter-should-be-overridden-by-site-json">Front matter should be overridden by site.json<a class="fa fa-anchor" href="#front-matter-should-be-overridden-by-site-json"></a></h1>

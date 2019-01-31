@@ -33,10 +33,14 @@ function setupAnchors() {
   });
 }
 
+function removeLoadingOverlay() {
+  jQuery('#loading-overlay').remove();
+}
 function executeAfterMountedRoutines() {
   flattenModals();
   scrollToUrlAnchorHeading();
   setupAnchors();
+  removeLoadingOverlay();
 }
 
 function setupSiteNav() {

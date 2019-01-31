@@ -19,6 +19,14 @@
     <link rel="icon" href="/test_site/favicon.png">
 </head>
 <body data-spy="scroll" data-target="#page-nav" data-offset="100">
+<div id="loading-overlay">
+    <div id="spinner-layout">
+        <div id="spinner"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.getElementById("loading-overlay").style.display = 'initial';
+</script>
 <div id="app">
     <div id="content-wrapper">
   <p>The external script <a href="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">MathJax 2.75</a> should be included, and the following MathJax content should render:</p>
