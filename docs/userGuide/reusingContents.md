@@ -169,7 +169,7 @@ You must use the `safe` filter when using such variables:
 <code>My name is {<span></span>{ full_name }}. This is {<span></span>{ full_name }}'s site.</code>
 </div>
 
-Note: These variables will cascade into [`include` files]({{ baseUrl }}/userGuide/reusingContents.html#the-include-tag). If the same variable is defined in a chain of pages (e.g. `a.md` includes `b.md` includes `c.md`...), variables defined in the top-most page will take precedence. Global variables (`_markbind/variables.md`) will take precedence over any page variables.
+Note: These variables will also be applied to [`<include>` files]({{ baseUrl }}/userGuide/reusingContents.html#the-include-tag). If the same variable is defined in a chain of pages (e.g. `a.md` includes `b.md` includes `c.md`...), variables defined in the top-most page will take precedence. Global variables (`_markbind/variables.md`) will take precedence over any page variables.
 
 <hr><!-- ======================================================================================================= -->
 

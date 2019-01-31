@@ -1,5 +1,5 @@
 # Outer Page Variable Overriding Inner Page Variable
-<variable name="outer_page_variable_overriding_inner_page_variable">Inner Page Variable Overridden by Outer Page Variable</variable>
+<variable name="page_variable">Inner Page Variable Overridden by Outer Page Variable</variable>
 {{ page_variable }}
 
 # Included Variable Overriding Page Variable
