@@ -233,7 +233,7 @@ function getClosestHeading($, headingsSelector, element) {
 Page.prototype.collectHeadingsAndKeywords = function () {
   this.headings = {}; // clear any heading data from previous build
   const $ = cheerio.load(fs.readFileSync(this.resultPath));
-  this.collectHeadingsAndKeywordsInContent($(`#${CONTENT_WRAPPER_ID}`).html(), null, false);
+  this.collectHeadingsAndKeywordsInContent($(`#${CONTENT_WRAPPER_ID}`).html(), null, false, []);
 };
 
 /**
@@ -252,7 +252,8 @@ function generateHeadingSelector(headingIndexingLevel) {
  * Records headings and keywords inside content into this.headings and this.keywords respectively
  * @param content that contains the headings and keywords
  */
-Page.prototype.collectHeadingsAndKeywordsInContent = function (content, lastHeading, excludeHeadings) {
+Page.prototype.collectHeadingsAndKeywordsInContent = function (content, lastHeading, excludeHeadings,
+                                                               callStack) {
   let $ = cheerio.load(content);
   const headingsSelector = generateHeadingSelector(this.headingIndexingLevel);
   $('modal').remove();
@@ -260,7 +261,7 @@ Page.prototype.collectHeadingsAndKeywordsInContent = function (content, lastHead
     .each((index, panel) => {
       if (panel.attribs.header) {
         this.collectHeadingsAndKeywordsInContent(md.render(panel.attribs.header),
-                                                 lastHeading, excludeHeadings);
+                                                 lastHeading, excludeHeadings, callStack);
       }
     })
     .each((index, panel) => {
@@ -288,16 +289,20 @@ Page.prototype.collectHeadingsAndKeywordsInContent = function (content, lastHead
         const includePath = path.resolve(resultInnerDir, includeRelativeToInnerDirPath);
 
         const includeContent = fs.readFileSync(includePath);
+
+        const childCallStack = callStack.slice();
+        childCallStack.push(includePath);
+        if (childCallStack.length > CyclicReferenceError.MAX_RECURSIVE_DEPTH) {
+          const error = new CyclicReferenceError(childCallStack);
+          throw error;
+        }
         if (panel.attribs.fragment) {
           $ = cheerio.load(includeContent);
           this.collectHeadingsAndKeywordsInContent($(`#${panel.attribs.fragment}`).html(),
-                                                   closestHeading, shouldExcludeHeadings);
+                                                   closestHeading, shouldExcludeHeadings, childCallStack);
         } else {
-          try {
-            this.collectHeadingsAndKeywordsInContent(includeContent, closestHeading, shouldExcludeHeadings);
-          } catch (e) {
-            CyclicReferenceError.handle(e, includePath);
-          }
+          this.collectHeadingsAndKeywordsInContent(includeContent, closestHeading, shouldExcludeHeadings,
+                                                   childCallStack);
         }
       } else {
         this.collectHeadingsAndKeywordsInContent($(panel).html(), closestHeading, shouldExcludeHeadings);

@@ -298,8 +298,9 @@ test('includeFile replaces <include src="include.md#doesNotExist" optional> with
   expect(result).toEqual(expected);
 });
 
-test('includeFile detects cyclic references for static includes', async () => {
+test('includeFile detects cyclic references for static cyclic includes', async () => {
   const indexPath = path.resolve('index.md');
+  const includePath = path.resolve('include.md');
 
   const index = [
     '# Index',
@@ -324,7 +325,12 @@ test('includeFile detects cyclic references for static includes', async () => {
 
   const expectedErrorMessage = [
     'Cyclic reference detected.',
-    `Error while preprocessing '${indexPath}'`,
+    'Last 5 files processed:',
+    `\t${indexPath}`,
+    `\t${includePath}`,
+    `\t${indexPath}`,
+    `\t${includePath}`,
+    `\t${indexPath}`,
   ].join('\n');
 
   const markbinder = new MarkBind({
@@ -338,16 +344,12 @@ test('includeFile detects cyclic references for static includes', async () => {
     userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
   });
 
-  const expected = [
-    '# Index',
-    `<div style="color: red">${expectedErrorMessage}</div>`,
-    '',
-  ].join('\n');
+  const expected = `<div style="color: red">${expectedErrorMessage}</div>`;
 
-  expect(result).toEqual(expected);
+  expect(result).toContain(expected);
 });
 
-test('includeFile processes successfully for dynamic includes', async () => {
+test('includeFile processes successfully for dynamic cyclic includes', async () => {
   const indexPath = path.resolve('index.md');
   const includePath = path.resolve('include.md');
 

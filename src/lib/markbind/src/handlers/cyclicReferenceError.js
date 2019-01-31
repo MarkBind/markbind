@@ -1,35 +1,20 @@
-const CYCLIC_REFERENCE_ERROR_MESSAGE = 'Cyclic reference detected.';
+const MAX_RECURSIVE_DEPTH = 200;
+const ERROR_MESSAGE = 'Cyclic reference detected.';
 
 class CyclicReferenceError extends Error {
-  constructor() {
-    super(CYCLIC_REFERENCE_ERROR_MESSAGE);
-    this.fileStack = [];
+  static get MAX_RECURSIVE_DEPTH() {
+    return MAX_RECURSIVE_DEPTH;
   }
 
-  addFileToStack(filePath) {
-    if (this.fileStack.length < 5) {
-      this.fileStack.push(filePath);
-    }
+  static get ERROR_MESSAGE() {
+    return ERROR_MESSAGE;
   }
 
-  toString() {
-    return `${this.message} \nLast 5 files processed: ${'\n\t'}${this.fileStack.join('\n\t')}`;
-  }
-}
-
-function handle(err, filePath) {
-  if (err.message === 'Maximum call stack size exceeded') {
-    const cyclicTrace = new CyclicReferenceError();
-    cyclicTrace.addFileToStack(filePath);
-    throw cyclicTrace;
-  } else if (err instanceof CyclicReferenceError) {
-    err.addFileToStack(filePath);
-    throw err;
-  } else {
-    throw err;
+  constructor(callStack) {
+    super();
+    const fileStack = callStack.slice(Math.max(callStack.length - 5, 0));
+    this.message = `${ERROR_MESSAGE}\n`
+        + `Last 5 files processed:${'\n\t'}${fileStack.join('\n\t')}`;
   }
 }
-
-module.exports = {
-  handle,
-};
+module.exports = CyclicReferenceError;
