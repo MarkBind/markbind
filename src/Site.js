@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-
 const cheerio = require('cheerio');
 const ejs = require('ejs');
 const fs = require('fs-extra-promise');
@@ -820,7 +818,6 @@ Site.prototype.deploy = function () {
   });
 };
 
-// eslint-disable-next-line no-underscore-dangle
 Site.prototype._setTimestampVariable = function () {
   const time = new Date().toUTCString();
   Object.keys(this.userDefinedVariablesMap).forEach((base) => {
