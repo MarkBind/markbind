@@ -393,7 +393,8 @@ Page.prototype.collectHeadingsAndKeywordsInContent = function (content, lastHead
                                                    childCallStack);
         }
       } else {
-        this.collectHeadingsAndKeywordsInContent($(panel).html(), closestHeading, shouldExcludeHeadings);
+        this.collectHeadingsAndKeywordsInContent($(panel).html(), closestHeading, shouldExcludeHeadings,
+                                                 callStack);
       }
     });
   $ = cheerio.load(content);
