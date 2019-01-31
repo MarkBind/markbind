@@ -357,7 +357,7 @@ Parser.prototype._parse = function (node, context, config) {
       const { src, fragment } = element.attribs;
       const resultDir = path.dirname(path.join('{{hostBaseUrl}}', path.relative(config.rootPath, src)));
       const resultPath = path.join(resultDir, utils.setExtension(path.basename(src), '._include_.html'));
-      element.attribs.src = fragment ? `${resultPath}#${fragment}` : resultPath;
+      element.attribs.src = utils.ensurePosix(fragment ? `${resultPath}#${fragment}` : resultPath);
     }
     delete element.attribs.boilerplate;
     break;
