@@ -333,7 +333,7 @@ Page.prototype.collectHeadingsAndKeywords = function () {
   this.headings = {};
   this.keywords = {};
   // Collect headings and keywords
-  this.collectHeadingsAndKeywordsInContent($(`#${CONTENT_WRAPPER_ID}`).html(), null, false);
+  this.collectHeadingsAndKeywordsInContent($(`#${CONTENT_WRAPPER_ID}`).html(), null, false, []);
 };
 
 /**
