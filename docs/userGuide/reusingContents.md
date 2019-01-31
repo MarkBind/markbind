@@ -215,7 +215,7 @@ When setting the `id` of a fragment, be careful not to clash with heading anchor
 * **`src`**: specify the source file path.
 * **`inline`** (optional): make the included result an inline element. (wrapped in `<span>` tag). e.g.,
   ```html
-  <include src="../docs/summary.md" inline />
+  The title is <include src="../docs/summary.md#title" inline /> while ...
    ```
 * **`optional`** (optional): include the file/fragment only if it exists i.e., there will be no error message if the file/fragment does not exist. e.g.,
   ```html
@@ -223,12 +223,12 @@ When setting the `id` of a fragment, be careful not to clash with heading anchor
   ```
 * **`trim`** (optional): remove leading and trailing whitespace and newlines from the document before including.
   ```html
-  <include src="frament.md" trim />
+  <include src="UserStories.md#epic" trim />
   ```
 
 <include src="tip.md" boilerplate >
 <span id="tip_body">
-The `<include>` tag works for any MarBind source file including the _font matter_ section but it may not work in some _special_ files such as the `_markbind/variables.md`.
+The `<include>` mechanism can be used inside any MarkBind source file (even inside the _front matter_ section) but it will not work inside some _special_ files such as the `_markbind/variables.md`.
 </span>
 </include>
 
