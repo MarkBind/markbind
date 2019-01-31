@@ -341,7 +341,7 @@ Page.prototype.collectHeadingsAndKeywords = function () {
  * @param content that contains the headings and keywords
  */
 Page.prototype.collectHeadingsAndKeywordsInContent = function (content, lastHeading, excludeHeadings,
-                                                               callStack) {
+                                                               sourceTraversalStack) {
   let $ = cheerio.load(content);
   const headingsSelector = generateHeadingSelector(this.headingIndexingLevel);
   $('modal').remove();
@@ -349,7 +349,7 @@ Page.prototype.collectHeadingsAndKeywordsInContent = function (content, lastHead
     .each((index, panel) => {
       if (panel.attribs.header) {
         this.collectHeadingsAndKeywordsInContent(md.render(panel.attribs.header),
-                                                 lastHeading, excludeHeadings, callStack);
+                                                 lastHeading, excludeHeadings, sourceTraversalStack);
       }
     })
     .each((index, panel) => {
@@ -378,23 +378,24 @@ Page.prototype.collectHeadingsAndKeywordsInContent = function (content, lastHead
 
         const includeContent = fs.readFileSync(includePath);
 
-        const childCallStack = callStack.slice();
-        childCallStack.push(includePath);
-        if (childCallStack.length > CyclicReferenceError.MAX_RECURSIVE_DEPTH) {
-          const error = new CyclicReferenceError(childCallStack);
+        const childSourceTraversalStack = sourceTraversalStack.slice();
+        childSourceTraversalStack.push(includePath);
+        if (childSourceTraversalStack.length > CyclicReferenceError.MAX_RECURSIVE_DEPTH) {
+          const error = new CyclicReferenceError(childSourceTraversalStack);
           throw error;
         }
         if (panel.attribs.fragment) {
           $ = cheerio.load(includeContent);
           this.collectHeadingsAndKeywordsInContent($(`#${panel.attribs.fragment}`).html(),
-                                                   closestHeading, shouldExcludeHeadings, childCallStack);
+                                                   closestHeading, shouldExcludeHeadings,
+                                                   childSourceTraversalStack);
         } else {
           this.collectHeadingsAndKeywordsInContent(includeContent, closestHeading, shouldExcludeHeadings,
-                                                   childCallStack);
+                                                   childSourceTraversalStack);
         }
       } else {
         this.collectHeadingsAndKeywordsInContent($(panel).html(), closestHeading, shouldExcludeHeadings,
-                                                 callStack);
+                                                 sourceTraversalStack);
       }
     });
   $ = cheerio.load(content);
