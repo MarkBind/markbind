@@ -83,7 +83,7 @@
   ```
 </tip-box>
 
-#### Tooltip Options
+****Options****
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------

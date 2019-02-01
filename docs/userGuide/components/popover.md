@@ -117,7 +117,7 @@
   ```
 </tip-box>
 
-#### Popover Options
+****Options****
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------

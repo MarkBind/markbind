@@ -102,7 +102,7 @@ Additionally, multiple Triggers could share the same overlay by providing them w
   ```
 </tip-box>
 
-#### Trigger Options
+****Options****
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------

@@ -20,7 +20,7 @@
 </tip-box>
 <br>
 
-#### Pic Options
+****Options****
 Name | Type | Default | Description 
 --- | --- | --- | ---
 alt | `string` | | **This must be specified.**<br>The alternative text of the image.

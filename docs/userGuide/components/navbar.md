@@ -38,7 +38,7 @@
 </tip-box>
 <br>
 
-#### Navbar Options
+****Options****
 
 Name | Type | Default | Description 
 --- | --- | --- | ---

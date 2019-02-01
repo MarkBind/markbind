@@ -109,7 +109,7 @@
 </tip-box>
 <br>
 
-#### Dropdown Options
+****Options****
 
 Name | Type | Default | Description 
 --- | --- | --- | ---

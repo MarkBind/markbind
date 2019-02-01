@@ -2,7 +2,7 @@
 
 **Modals are to be used together with the [Trigger](#trigger) component for activation.**
 
-#### Modal Options
+****Options****
 Name | type | Default | Description
 --- | --- | --- | ---
 title | `String` | `''` | Title of the Modal component.

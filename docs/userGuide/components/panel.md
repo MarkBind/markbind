@@ -276,7 +276,7 @@
 </tip-box>
 <br>
 
-#### Panel Options
+****Options****
 Name | Type | Default | Description 
 --- | --- | --- | ---
 header | `String` | `''` | The clickable text on the Panel's header.

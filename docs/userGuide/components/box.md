@@ -88,7 +88,7 @@
 </box>
 <br>
 
-#### TipBox Options
+****Options****
 Name | Type | Default | Description 
 --- | --- | --- | ---
 background-color | `String` | `null` |

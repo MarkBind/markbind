@@ -30,7 +30,7 @@ To use the searchbar within a navbar, add the following markup to your file. The
 </tip-box>
 <br>
 
-#### Searchbar Options
+****Options****
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------

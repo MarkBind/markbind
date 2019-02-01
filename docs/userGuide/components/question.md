@@ -182,7 +182,7 @@
 </tip-box>
 <br>
 
-#### Question Options
+****Options****
 Name | Type | Default | Description
 --- | --- | --- | ---
 has-input | `Boolean` | `false` | Whether Question has a text input box.

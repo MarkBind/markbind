@@ -50,18 +50,20 @@
 </tip-box>
 <br>
 
-#### Tabs Options (container)
+****Options****
+
+`tabs`:
 Name | Type | Default | Description
 --- | --- | --- | ---
 active | `Number` | `0` | Active Tab index (0-based)
 
-#### Tab Options (element)
+`tab`:
 Name | Type | Default | Description
 --- | --- | --- | ---
 header | `String` | `null` | Tab title.
 disabled | `Boolean` | `false` | Whether Tab is clickable and can be activated.
 
-#### Tab Group Options (dropdown)
+`tab-group`:
 Name | Type | Default | Description
 --- | --- | --- | ---
 header | `String` | `null` | Tab Group title.
