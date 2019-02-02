@@ -12,6 +12,7 @@ module.exports = {
   "rules": {
     "array-bracket-newline": ["error", { "multiline": true }],
     "func-names": "off",
+    "no-underscore-dangle": "off",
     "function-paren-newline": "off",
     "indent": [
       "error",

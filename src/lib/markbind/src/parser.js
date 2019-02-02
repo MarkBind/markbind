@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-
 const cheerio = require('cheerio');
 const fs = require('fs');
 const htmlparser = require('htmlparser2');
