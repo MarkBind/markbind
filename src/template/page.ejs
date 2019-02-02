@@ -18,7 +18,7 @@
     <%- headFileBottomContent %>
     <% if (faviconUrl) { %><link rel="icon" href="<%- faviconUrl %>"><% } %>
 </head>
-<body data-spy="scroll" data-target="#page-nav" data-offset="100">
+<body <%_ if (pageNav) { %> data-spy="scroll" data-target="#page-nav" data-offset="100" <%_ } %>>
 <div id="loading-overlay">
     <div id="spinner-layout">
         <div id="spinner"></div>

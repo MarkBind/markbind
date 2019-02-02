@@ -231,7 +231,7 @@ Page.prototype.prepareTemplateData = function () {
     faviconUrl: this.faviconUrl,
     headFileBottomContent: this.headFileBottomContent,
     headFileTopContent: this.headFileTopContent,
-    pageNav: this.frontMatter.pageNav,
+    pageNav: this.isPageNavigationSpecifierValid(),
     siteNav: this.frontMatter.siteNav,
     title: prefixedTitle,
   };
