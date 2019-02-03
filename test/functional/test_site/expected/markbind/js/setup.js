@@ -33,10 +33,6 @@ function setupAnchors() {
   });
 }
 
-function removeLoadingOverlay() {
-  jQuery('#loading-overlay').remove();
-}
-
 function updateSearchData(vm) {
   jQuery.getJSON(`${baseUrl}/siteData.json`)
     .then((siteData) => {
@@ -48,6 +44,7 @@ function updateSearchData(vm) {
 const MarkBind = {
   executeAfterSetupScripts: jQuery.Deferred(),
 };
+
 MarkBind.afterSetup = (func) => {
   if (document.readyState !== 'loading') {
     func();
@@ -56,11 +53,17 @@ MarkBind.afterSetup = (func) => {
   }
 };
 
+function removeTemporaryStyles() {
+  jQuery('.temp-navbar').removeClass('temp-navbar');
+  jQuery('.temp-dropdown').removeClass('temp-dropdown');
+  jQuery('.temp-dropdown-placeholder').remove();
+}
+
 function executeAfterMountedRoutines() {
   flattenModals();
   scrollToUrlAnchorHeading();
   setupAnchors();
-  removeLoadingOverlay();
+  removeTemporaryStyles();
   MarkBind.executeAfterSetupScripts.resolve();
 }
 
