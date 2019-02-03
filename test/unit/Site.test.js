@@ -321,7 +321,7 @@ test('Site read correct user defined variables', async () => {
   expect(subsub.number).toEqual('9999');
 });
 
-test('gh-pages test', async () => {
+test('Site deploys with default settings', async () => {
   const json = {
     'src/template/page.ejs': PAGE_EJS,
     'site.json': SITE_JSON_DEFAULT,
@@ -335,7 +335,7 @@ test('gh-pages test', async () => {
     .toEqual({ branch: 'gh-pages', message: 'Site Update.', repo: '' });
 });
 
-test('Custom deploy settings gh-pages test', async () => {
+test('Site deploys with custom settings', async () => {
   const customConfig = cloneDeep(JSON.parse(SITE_JSON_DEFAULT));
   customConfig.deploy = {
     message: 'Custom Site Update.',
