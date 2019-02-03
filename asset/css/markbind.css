@@ -212,3 +212,7 @@ footer {
 .temp-navbar li {
     display: block;
 }
+
+.temp-dropdown {
+    display: none;
+}

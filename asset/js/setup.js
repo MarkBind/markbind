@@ -59,6 +59,8 @@ MarkBind.afterSetup = (func) => {
 
 function removeTemporaryStyles() {
   jQuery('.temp-navbar').removeClass('temp-navbar');
+  jQuery('.temp-dropdown').removeClass('temp-dropdown');
+  jQuery('.temp-dropdown-placeholder').remove();
 }
 
 function executeAfterMountedRoutines() {
