@@ -2,7 +2,6 @@ const Site = require('../../src/Site');
 const path = require('path');
 const fs = require('fs-extra-promise');
 const ghpages = require('gh-pages');
-const cloneDeep = require('lodash/cloneDeep');
 
 const {
   FOOTER_MD_DEFAULT,
@@ -336,7 +335,7 @@ test('Site deploys with default settings', async () => {
 });
 
 test('Site deploys with custom settings', async () => {
-  const customConfig = cloneDeep(JSON.parse(SITE_JSON_DEFAULT));
+  const customConfig = JSON.parse(SITE_JSON_DEFAULT);
   customConfig.deploy = {
     message: 'Custom Site Update.',
     repo: 'https://github.com/USER/REPO.git',
