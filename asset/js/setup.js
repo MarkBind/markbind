@@ -48,6 +48,7 @@ function updateSearchData(vm) {
 const MarkBind = {
   executeAfterSetupScripts: jQuery.Deferred(),
 };
+
 MarkBind.afterSetup = (func) => {
   if (document.readyState !== 'loading') {
     func();
@@ -56,11 +57,16 @@ MarkBind.afterSetup = (func) => {
   }
 };
 
+function removeTemporaryStyles() {
+  jQuery('.temp-navbar').removeClass('temp-navbar');
+}
+
 function executeAfterMountedRoutines() {
   flattenModals();
   scrollToUrlAnchorHeading();
   setupAnchors();
   removeLoadingOverlay();
+  removeTemporaryStyles();
   MarkBind.executeAfterSetupScripts.resolve();
 }
 
