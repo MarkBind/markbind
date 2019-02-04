@@ -26,11 +26,11 @@
 {{ included_variable_with_global_variable }}
 
 {% set included_variable = "Inner variable overridden by set" %}
-{% set included_global_variable = "Global variable overridden by set" %}
+{% set global_variable = "Global variable overridden by set" %}
 
 # Test included variable overridden by set
 {{ included_variable }}
-{{ included_global_variable }}
+{{ global_variable }}
 
 # Test missing variable with default
 {{ missing_variable or "Missing Variable" }}

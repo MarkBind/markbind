@@ -89,9 +89,9 @@ function Parser(options) {
 /**
  * Extract variables from an include element
  * @param includeElement include element to extract variables from
- * @param contextVariables local variables defined by parent pages
+ * @param contextVariables variables defined by parent pages
  */
-function extractVariables(includeElement, contextVariables) {
+function extractIncludeVariables(includeElement, contextVariables) {
   const includedVariables = { ...contextVariables };
   if (includeElement.children) {
     includeElement.children.forEach((child) => {
@@ -110,6 +110,33 @@ function extractVariables(includeElement, contextVariables) {
     });
   }
   return includedVariables;
+}
+
+/**
+ * Extract page variables from a page
+ * @param filename for error printing
+ * @param data to extract variables from
+ * @param userDefinedVariables global variables
+ * @param contextVariables variables defined by parent pages
+ */
+function extractPageVariables(fileName, data, userDefinedVariables, contextVariables) {
+  const $ = cheerio.load(data);
+  const pageVariables = { ...contextVariables };
+  $('variable').each(function () {
+    const variableElement = $(this);
+    const variableName = variableElement.attr('name');
+    if (!variableName) {
+      // eslint-disable-next-line no-console
+      console.warn(`Missing 'name' for variable in ${fileName}\n`);
+      return;
+    }
+    if (!pageVariables[variableName]) {
+      pageVariables[variableName]
+        = nunjucks.renderString(md.renderInline(variableElement.html()),
+                                { ...pageVariables, ...userDefinedVariables });
+    }
+  });
+  return pageVariables;
 }
 
 Parser.prototype.getDynamicIncludeSrc = function () {
@@ -230,10 +257,15 @@ Parser.prototype._preprocess = function (node, context, config) {
     const { parent, relative } = calculateNewBaseUrls(filePath, config.rootPath, config.baseUrlMap);
     const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
 
-    // process variables declared within the include
-    const includedVariables = extractVariables(element, context.includedVariables);
+    // Extract included variables from the PARENT file
+    let allVariables = extractIncludeVariables(element, context.variables);
 
-    fileContent = nunjucks.renderString(fileContent, { ...includedVariables, ...userDefinedVariables });
+    // Extract page variables from the CHILD file
+    allVariables = extractPageVariables(element.attribs.src, fileContent, userDefinedVariables, allVariables);
+
+    // Render inner file content
+    fileContent = nunjucks.renderString(fileContent, { ...allVariables, ...userDefinedVariables });
+
     delete element.attribs.boilerplate;
     delete element.attribs.src;
     delete element.attribs.inline;
@@ -293,7 +325,7 @@ Parser.prototype._preprocess = function (node, context, config) {
     const childContext = _.cloneDeep(context);
     childContext.cwf = filePath;
     childContext.source = isIncludeSrcMd ? 'md' : 'html';
-    childContext.includedVariables = includedVariables;
+    childContext.variables = allVariables;
     if (element.children && element.children.length > 0) {
       element.children = element.children.map(e => self._preprocess(e, childContext, config));
     }
@@ -304,6 +336,8 @@ Parser.prototype._preprocess = function (node, context, config) {
     element.attribs.src = filePath;
     this.dynamicIncludeSrc.push({ from: context.cwf, to: actualFilePath, asIfTo: filePath });
     return element;
+  } else if (element.name === 'variable') {
+    return createEmptyNode();
   } else {
     if (element.name === 'body') {
       // eslint-disable-next-line no-console
@@ -442,7 +476,9 @@ Parser.prototype.includeFile = function (file, config) {
       }
       const { parent, relative } = calculateNewBaseUrls(file, config.rootPath, config.baseUrlMap);
       const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
-      const fileContent = nunjucks.renderString(data, userDefinedVariables);
+      const pageVariables = extractPageVariables(path.basename(file), data, userDefinedVariables, {});
+      const fileContent = nunjucks.renderString(data, { ...pageVariables, ...userDefinedVariables });
+      context.variables = pageVariables;
       const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
         context.source = 'md';

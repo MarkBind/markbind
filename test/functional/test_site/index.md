@@ -18,6 +18,40 @@ head: myCustomHead.md, myCustomHead2.md
 
 {{reference_level_4}}
 
+# Page Variable
+<variable name="page_variable">Page Variable</variable>
+{{ page_variable }}
+
+# Page Variable with HTML and MD
+<variable name="page_variable_with_HTML_and_MD">Page Variable with <span style="color: blue;">HTML</span> and **Markdown**</variable>
+{{ page_variable_with_HTML_and_MD }}
+
+# Nested Page Variable
+<div>
+  <span>
+    <variable name="nested_page_variable">Nested Page Variable</variable>
+  </span>
+</div>
+{{ nested_page_variable }}
+
+# Page Variable with Global Variable
+<variable name="page_variable_with_global_variable">Page Variable with {{ global_variable }}</variable>
+{{ page_variable_with_global_variable }}
+
+# Page Variable referencing Page Variable
+<variable name="page_variable_referencing_page_variable">Page Variable referencing {{ page_variable }}</variable>
+{{ page_variable_referencing_page_variable }}
+
+# Global Variable overriding Page Variable
+<variable name="page_global_variable_overriding_page_variable">Page Variable overridden by Global Variable</variable>
+{{ page_global_variable_overriding_page_variable }}
+
+# Test Page Variable and Included Variable Integrations
+<include src="testPageVariablesInInclude.md">
+  <span id="included_variable">Included Variable</span>
+  <span id="included_variable_overriding_page_variable">Included Variable Overriding Page Variable</span>
+</include>
+
 # Heading with multiple keywords
 <span class="keyword">keyword 1</span>
 <span class="keyword">keyword 2</span>
@@ -108,7 +142,7 @@ head: myCustomHead.md, myCustomHead2.md
   <span id="included_variable_inner_overridden">Included variable overriding inner variable</span>
   <span id="included_variable_in_outer_included_file">Included variable in outer included file</span>
   <span id="included_variable_should_not_leak">Included variable should not leak into other files</span>
-  <span id="included_variable_with_global_variable">Included variable with {{ included_global_variable }}</span>
+  <span id="included_variable_with_global_variable">Included variable with {{ global_variable }}</span>
 </include>
 
 # Included variables should not leak into other files

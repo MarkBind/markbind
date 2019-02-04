@@ -157,6 +157,20 @@ You must use the `safe` filter when using such variables:
 <code>{<span></span>{ right_hand_2 }}</code> {{ icon_arrow_right }} {{glyphicon_hand_right}}
 </div>
 
+### Page Variables
+
+**You can also declare variables for use within a single page.** These variables work exactly the same as regular variables, except that their values only apply to the page they are declared in. This can be done by using the `<variable>` tag.
+
+<div class="indented">
+
+{{ icon_example }} Declaring page variables:<br>
+
+`<variable name="full_name">John Doe</variable>`<br>
+<code>My name is {<span></span>{ full_name }}. This is {<span></span>{ full_name }}'s site.</code>
+</div>
+
+Note: These variables will also be applied to [`<include>` files]({{ baseUrl }}/userGuide/reusingContents.html#the-include-tag). If the same variable is defined in a chain of pages (e.g. `a.md` includes `b.md` includes `c.md`...), variables defined in the top-most page will take precedence. Global variables (`_markbind/variables.md`) will take precedence over any page variables.
+
 <hr><!-- ======================================================================================================= -->
 
 ## The `include` tag
