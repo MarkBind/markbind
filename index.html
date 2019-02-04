@@ -6,19 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MarkBind - Generate Instructional Websites from Markdown Text</title>
-    <link rel="stylesheet" href="markbind\css\bootstrap.min.css">
-    <link rel="stylesheet" href="markbind\css\bootstrap-vue.min.css">
-    <link rel="stylesheet" href="markbind\css\font-awesome.min.css" >
-    <link rel="stylesheet" href="markbind\css\bootstrap-glyphicons.min.css" >
-    <link rel="stylesheet" href="markbind\css\github.min.css">
-    <link rel="stylesheet" href="markbind\css\markbind.css">
-    <link rel="stylesheet" href="markbind\layouts\default\styles.css">
+    <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
+    <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
+    <link rel="stylesheet" href="markbind/css/font-awesome.min.css" >
+    <link rel="stylesheet" href="markbind/css/bootstrap-glyphicons.min.css" >
+    <link rel="stylesheet" href="markbind/css/github.min.css">
+    <link rel="stylesheet" href="markbind/css/markbind.css">
+    <link rel="stylesheet" href="markbind/layouts/default/styles.css">
     
     
     
     
 </head>
-<body data-spy="scroll" data-target="#page-nav" data-offset="100">
+<body>
+<div id="loading-overlay">
+    <div id="spinner-layout">
+        <div id="spinner"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.getElementById("loading-overlay").style.display = 'initial';
+</script>
 <div id="app">
     <div id="content-wrapper">
   <div>
@@ -43,7 +51,7 @@
     <h1 class="display-3"><span><strong>MarkBind</strong></span><a class="fa fa-anchor" href="#undefined"></a></h1>
     <span class="lead">
 <p><big><strong>Generate dynamic websites from Markdown text.</strong></big></p>
-<p>MarkBind can use Markdown documents to generate <tooltip content="as opposed to _one-size-fits-all_ static content"><em>more dynamic</em></tooltip> websites that facilitates <em><tooltip content="i.e., the reader can chart their own path through the content and consume more/less content as desired">self-directed consumption</tooltip></em>. MarkBind is ideal for creating content-heavy instructional websites <br> <span class="dimmed">e.g., eLearning websites, online instruction manuals, project documentation etc.</span>.
+<p>MarkBind can use Markdown documents to generate <tooltip content="as opposed to _one-size-fits-all_ static content"><em>more dynamic</em></tooltip> websites. MarkBind is ideal for creating text-heavy websites <span class="dimmed">e.g., eLearning websites, online instruction manuals, project documentation etc.</span>.
     </p>
     </span>
     <p>
@@ -187,10 +195,10 @@
     </panel>
     <p></p>
     <hr>
-    <h4 id="everything-you-need-for-instructional-websites-built-in">
-      <font color="#00B0F0"> <span class="fas fa-check-circle"></span></font> Everything you need for instructional websites, built-in.<a class="fa fa-anchor" href="#everything-you-need-for-instructional-websites-built-in"></a></h4>
-    <p>MarkBind is <strong>highly optimized for creating content-heavy instructional websites</strong> <span class="dimmed">e.g., eLearning websites, online instruction manuals, project documentation etc.</span> Anything that you might need for creating
-      such websites are built-in, sparing you the hassle of finding/installing/searching plugins that you need.</p>
+    <h4 id="everything-you-need-for-text-heavy-websites-built-in">
+      <font color="#00B0F0"> <span class="fas fa-check-circle"></span></font> Everything you need for text-heavy websites, built-in.<a class="fa fa-anchor" href="#everything-you-need-for-text-heavy-websites-built-in"></a></h4>
+    <p>MarkBind is <strong>highly optimized for creating text-heavy websites</strong> <span class="dimmed">e.g., eLearning websites, online instruction manuals, project documentation etc.</span> Anything that you might need for creating such websites are
+      built-in, sparing you the hassle of finding/installing/searching plugins that you need.</p>
     <p>Here are some examples:</p>
     <div class="indented">
       <p><big><span class="fas fa-heart"></span></big> <strong>Icons</strong> can improve the readability of a text-heavy document. MarkBind comes with a wide selection of <a href="/markbind/userGuide/markBindSyntax.html#icons-fonts">icons</a> and <a href="/markbind/userGuide/markBindSyntax.html#emoji">emoji</a>.<br>
@@ -202,7 +210,7 @@
       <font color="#00B0F0"> <span class="fas fa-check-circle"></span></font> More control to the reader, without duplicating code.<a class="fa fa-anchor" href="#more-control-to-the-reader-without-duplicating-code"></a></h4>
     <p>A MarkBind website can be a <em>buffet</em> of content, as opposed to a <em>set menu</em>: a site can have optional contents that the reader can access at her discretion, and the same content can be organized in multiple ways so that the reader can
       choose the one that fits the need. To <em>cater</em> (pun intended) for creating such buffet style websites, MarkBind has <strong><a href="/markbind/userGuide/reusingContents.html">reuse mechanisms</a> for presenting the same content in multiple ways without duplicating the source file</strong>.</p>
-    <p>For example, MarkBind has a powerful <code>include</code> mechanism that allows content fragments (i.e., a file or part of a file) to be reused at multiple places in the website. In the example below, both the modal and the expandable panel reuses
+    <p>For example, MarkBind has a powerful <code>include</code> mechanism that allows content fragments (i.e., a file or part of a file) to be reused at multiple places in the website. In the example below, both the modal and the expandable panel reuse
       the same content originating from a <em>single</em> source file.</p>
     <box>
       <p>In CS, a binary tree is a tree data structure in which each node has at most two children, which are referred to as the <em>left child</em> and the <em>right child</em>.
@@ -252,18 +260,19 @@
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.17.1</a> on Mon, 28 Jan 2019 01:40:47 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.17.2</a> on Mon, 04 Feb 2019 04:04:38 GMT]</small></div>
 </footer>
 </div>
 </body>
-<script src="markbind\js\vue.min.js"></script>
-<script src="markbind\js\vue-strap.min.js"></script>
-<script src="markbind\js\bootstrap-utility.min.js"></script>
-<script src="markbind\js\polyfill.min.js"></script>
-<script src="markbind\js\bootstrap-vue.min.js"></script>
+<script src="markbind/js/vue.min.js"></script>
+<script src="markbind/js/vue-strap.min.js"></script>
+<script src="markbind/js/bootstrap-utility.min.js"></script>
+<script src="markbind/js/polyfill.min.js"></script>
+<script src="markbind/js/bootstrap-vue.min.js"></script>
 <script>
     const baseUrl = '/markbind'
+    const enableSearch = true
 </script>
-<script src="markbind\js\setup.js"></script>
-<script src="markbind\layouts\default\scripts.js"></script>
+<script src="markbind/js/setup.js"></script>
+<script src="markbind/layouts/default/scripts.js"></script>
 </html>
