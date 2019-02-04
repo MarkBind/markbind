@@ -313,6 +313,7 @@ Site.prototype.createPage = function (config) {
     tags: this.siteConfig.tags,
     pageTemplate: this.pageTemplate,
     rootPath: this.rootPath,
+    enableSearch: this.siteConfig.enableSearch,
     searchable: this.siteConfig.enableSearch && config.searchable,
     src: config.pageSrc,
     layoutsAssetPath: path.relative(path.dirname(resultPath),
