@@ -18,7 +18,15 @@
     <%- headFileBottomContent %>
     <% if (faviconUrl) { %><link rel="icon" href="<%- faviconUrl %>"><% } %>
 </head>
-<body data-spy="scroll" data-target="#page-nav" data-offset="100">
+<body <%_ if (pageNav) { %> data-spy="scroll" data-target="#page-nav" data-offset="100" <%_ } %>>
+<div id="loading-overlay">
+    <div id="spinner-layout">
+        <div id="spinner"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.getElementById("loading-overlay").style.display = 'initial';
+</script>
 <div id="app">
     <%- content %>
 </div>
@@ -30,6 +38,7 @@
 <script src="<%- asset.bootstrapVueJs %>"></script>
 <script>
     const baseUrl = '<%- baseUrl %>'
+    const enableSearch = <%- enableSearch %>
 </script>
 <script src="<%- asset.setup %>"></script>
 <% if (asset.externalScripts) { -%>

@@ -61,6 +61,7 @@ function Page(pageConfig) {
   this.layout = pageConfig.layout;
   this.layoutsAssetPath = pageConfig.layoutsAssetPath;
   this.rootPath = pageConfig.rootPath;
+  this.enableSearch = pageConfig.enableSearch;
   this.searchable = pageConfig.searchable;
   this.src = pageConfig.src;
   this.tags = pageConfig.tags;
@@ -232,9 +233,10 @@ Page.prototype.prepareTemplateData = function () {
     faviconUrl: this.faviconUrl,
     headFileBottomContent: this.headFileBottomContent,
     headFileTopContent: this.headFileTopContent,
-    pageNav: this.frontMatter.pageNav,
+    pageNav: this.isPageNavigationSpecifierValid(),
     siteNav: this.frontMatter.siteNav,
     title: prefixedTitle,
+    enableSearch: this.enableSearch,
   };
 };
 

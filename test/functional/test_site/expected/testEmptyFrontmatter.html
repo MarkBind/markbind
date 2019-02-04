@@ -18,7 +18,15 @@
     <meta name="default-head-bottom">
     <link rel="icon" href="/test_site/favicon.png">
 </head>
-<body data-spy="scroll" data-target="#page-nav" data-offset="100">
+<body>
+<div id="loading-overlay">
+    <div id="spinner-layout">
+        <div id="spinner"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.getElementById("loading-overlay").style.display = 'initial';
+</script>
 <div id="app">
     <div id="content-wrapper">
   <p>A page with an empty frontmatter should still build.</p>
@@ -38,6 +46,7 @@
 <script src="markbind/js/bootstrap-vue.min.js"></script>
 <script>
     const baseUrl = '/test_site'
+    const enableSearch = true
 </script>
 <script src="markbind/js/setup.js"></script>
 <script src="markbind/layouts/default/scripts.js"></script>

@@ -50,11 +50,13 @@ Navigate into an empty directory and run the following command to initialize a s
 $ markbind init
 ```
 
-<box border-left-color="{{ markbind_blue}}">
-
-{{ icon_bulb_blue }} You can add the `--help` flag to any command to show the help screen. <br>
+<include src="tip.md" boilerplate >
+<span id="tip_body">
+You can add the `--help` flag to any command to show the help screen. <br>
   e.g., `markbind init --help`
-</box>
+</span>
+</include>
+
 
   </tab>
   <tab header="Starting with an existing project">

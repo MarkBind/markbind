@@ -13,7 +13,7 @@
 
 <big>**Generate dynamic websites from Markdown text.**</big>
 
-MarkBind can use Markdown documents to generate <tooltip content="as opposed to _one-size-fits-all_ static content">_more dynamic_</tooltip> websites that facilitates _<tooltip content="i.e., the reader can chart their own path through the content and consume more/less content as desired">self-directed consumption</tooltip>_. MarkBind is ideal for creating content-heavy instructional websites <br> %%e.g., eLearning websites, online instruction manuals, project documentation etc.%%.
+MarkBind can use Markdown documents to generate <tooltip content="as opposed to _one-size-fits-all_ static content">_more dynamic_</tooltip> websites. MarkBind is ideal for creating text-heavy websites %%e.g., eLearning websites, online instruction manuals, project documentation etc.%%.
 </span>
 
 <b-btn variant="primary" href="{{ baseUrl }}/userGuide/">Get Started</b-btn>
@@ -127,9 +127,9 @@ Details of exercise 3
 
 <hr><!-- ======================================================================================================= -->
 
-#### {{ icon_check_blue }} Everything you need for instructional websites, built-in.
+#### {{ icon_check_blue }} Everything you need for text-heavy websites, built-in.
 
-MarkBind is **highly optimized for creating content-heavy instructional websites** %%e.g., eLearning websites, online instruction manuals, project documentation etc.%% Anything that you might need for creating such websites are built-in, sparing you the hassle of finding/installing/searching plugins that you need.
+MarkBind is **highly optimized for creating text-heavy websites** %%e.g., eLearning websites, online instruction manuals, project documentation etc.%% Anything that you might need for creating such websites are built-in, sparing you the hassle of finding/installing/searching plugins that you need.
 
 Here are some examples:
 <div class="indented">
@@ -145,7 +145,7 @@ Here are some examples:
 
 A MarkBind website can be a _buffet_ of content, as opposed to a _set menu_: a site can have optional contents that the reader can access at her discretion, and the same content can be organized in multiple ways so that the reader can choose the one that fits the need. To _cater_ (pun intended) for creating such buffet style websites, MarkBind has **[reuse mechanisms]({{ baseUrl }}/userGuide/reusingContents.html) for presenting the same content in multiple ways without duplicating the source file**.
 
-For example, MarkBind has a powerful `include` mechanism that allows content fragments (i.e., a file or part of a file) to be reused at multiple places in the website. In the example below, both the modal and the expandable panel reuses the same content originating from a _single_ source file.
+For example, MarkBind has a powerful `include` mechanism that allows content fragments (i.e., a file or part of a file) to be reused at multiple places in the website. In the example below, both the modal and the expandable panel reuse the same content originating from a _single_ source file.
 
 <box>
 
