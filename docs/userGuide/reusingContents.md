@@ -183,21 +183,6 @@ Tip 3. ...
 ```
 </div>
 
-Attributes:
-* `src`: specify the source file path.
-* `inline` (optional): make the included result an inline element. (wrapped in `<span>` tag). e.g.,
-  ```html
-  <include src="../docs/summary.md" inline />
-   ```
-* `optional` (optional): include the document only if it exists i.e., there will be no error message if the file does not exist. e.g.,
-  ```html
-  <include src="UserStories.md" optional />
-  ```
-* `trim` (optional): remove leading and trailing whitespace and newlines from the document before including.
-  ```html
-  <include src="frament.md" trim />
-  ```
-
 **You can `<include>` a fragment of a file** by specifying the `#fragment-id` at the end of the `src` attribute value, provided the fragment is wrapped in a `<div>`/`<span>`/`<seg>` tag with the matching `id`.
 
 <div class="indented">
@@ -226,11 +211,26 @@ When setting the `id` of a fragment, be careful not to clash with heading anchor
 
 </box>
 
+**Attributes:**
+* **`src`**: specify the source file path.
+* **`inline`** (optional): make the included result an inline element. (wrapped in `<span>` tag). e.g.,
+  ```html
+  The title is <include src="../docs/summary.md#title" inline /> while ...
+   ```
+* **`optional`** (optional): include the file/fragment only if it exists i.e., there will be no error message if the file/fragment does not exist. e.g.,
+  ```html
+  <include src="UserStories.md" optional />
+  ```
+* **`trim`** (optional): remove leading and trailing whitespace and newlines from the document before including.
+  ```html
+  <include src="UserStories.md#epic" trim />
+  ```
 
-<box border-left-color="{{ markbind_blue}}">
-
-{{ icon_bulb_blue }} The `<include>` tag works for any MarBind source file including the _font matter_ section but it may not work in some _special_ files such as the `_markbind/variables.md`.
-</box>
+<include src="tip.md" boilerplate >
+<span id="tip_body">
+The `<include>` mechanism can be used inside any MarkBind source file (even inside the _front matter_ section) but it will not work inside some _special_ files such as the `_markbind/variables.md`.
+</span>
+</include>
 
 ##### `<include>` Inside an Included File
 
@@ -427,10 +427,12 @@ c:/course/
 ```
 </div>
 
-<box border-left-color="{{ markbind_blue}}">
+<include src="tip.md" boilerplate >
+<span id="tip_body">
+If you are using Git for version control, you can set up the sub-site repository as a [Git sub-module](https://git-scm.com/book/en/v2/Git-Tools-Submodules) of the main site repository.
+</span>
+</include>
 
-{{ icon_bulb_blue }} If you are using Git for version control, you can set up the sub-site repository as a [Git sub-module](https://git-scm.com/book/en/v2/Git-Tools-Submodules) of the main site repository.
-</box>
 
 <hr><!-- ======================================================================================================= -->
 

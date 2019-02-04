@@ -8,7 +8,7 @@
 
 <div class="website-content">
 
-# Troubleshooting
+# Tips, Tricks, & Troubleshooting
 
 ##### Problem: Unwanted starting space in links and triggers
 
