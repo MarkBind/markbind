@@ -1,5 +1,5 @@
 <frontmatter>
-  title: "Generate Instructional Websites from Markdown Text"
+  title: "Generate More Dynamic Websites from Markdown Text"
   footer: footer.md
 </frontmatter>
 
@@ -11,9 +11,8 @@
 
 <span class="lead">
 
-<big>**Generate dynamic websites from Markdown text.**</big>
-
-MarkBind can use Markdown documents to generate <tooltip content="as opposed to _one-size-fits-all_ static content">_more dynamic_</tooltip> websites. MarkBind is ideal for creating text-heavy websites %%e.g., eLearning websites, online instruction manuals, project documentation etc.%%.
+<big>**Generate <tooltip content="as opposed to _one-size-fits-all_ static content">_more dynamic_</tooltip> websites from Markdown text.**</big>
+Optimized for creating text-heavy websites %%e.g., eLearning websites, online instruction manuals, project documentation etc.%%.
 </span>
 
 <b-btn variant="primary" href="{{ baseUrl }}/userGuide/">Get Started</b-btn>
