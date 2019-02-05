@@ -1,0 +1,95 @@
+## Page Layouts
+
+**A _layout_ is a set of page-tweaks that can be applied to a page (or group of pages) in one go.**
+
+A layout consists of the following files:
+1. A footer (filename: `footer.md`)
+1. Tweaks to the `<head>` (`head.md`)
+1. A site navigation menu (`navigation.md`)
+1. Custom styles (`styles.css`)
+1. Custom scripts (`scripts.js`)
+
+A layout is represented by a sub-directory in the `_markbind/layouts/` containing the files listed above. The name of the layout is same as the name of the sub-directory.
+
+To apply the layout, specify it as an attribute named `layout` in the `<frontmatter>` of each page, or in the `site.json`.
+
+
+<div class="indented">
+
+{{ icon_example }} Suppose you have a layout named `chapterLayout`.
+```
+<root>/_markbind/layouts/
+                  └── chapterLayout/
+                        ├── footer.md
+                        ├── head.md
+                        ├── navigation.md
+                        ├── styles.css
+                        └── scripts.js
+```
+You can apply it to the `chapter.md` by setting its `<frontmatter>` as follows:
+```html
+<frontmatter>
+  layout: chapterLayout
+</frontmatter>
+...
+```
+You can apply it to all `chapter.md` files by adding this entry to the `site.json`.
+
+```json
+{
+  "glob": "**/chapter.md",
+  "layout": "chapterLayout"
+}
+```
+</div>
+
+The layout specified in the `site.json` overrides the one specified in the `<frontmatter>`.
+
+Any files specified in `<frontmatter>` overrides the corresponding file in the layout applied.
+
+<div class="indented">
+
+{{ icon_example }} Suppose a file has the following:
+```html
+<frontmatter>
+  layout: chapterLayout
+  head: myHead.md
+</frontmatter>
+...
+```
+In this case `myHead.md` will override the `chapterLayout/head.md`.
+
+</div>
+
+**The layout named `default` (if any) is automatically applied to every single page.** When you `init` a MarkBind site, MarkBind also generates an empty `default` layout.
+
+### Attaching event listeners in `scripts.js`
+
+You can include custom JavaScript in `scripts.js`. ==However, DOM manipulations such as attaching event listeners may be overridden after MarkBind setup.== To ensure that such changes take effect, include your code in a function that is passed to `afterSetup()` in `scripts.js`. Functions passed to `afterSetup()` will then be called after MarkBind setup is complete.
+
+<div class="indented">
+
+{{ icon_example }} Suppose a page has the following:
+```html
+<span id="alert">Click here!</span>
+```
+To show a JavaScript alert when `<span id="alert">`{.html} is clicked, we attach an event listener to it in a function passed to `afterSetup()` in `scripts.js`:
+```js
+afterSetup(() => {
+  document.getElementById("alert").addEventListener("click",  () => {
+    window.alert("You have just clicked the span!");
+  });
+});
+```
+
+</div>
+
+
+<span id="short" class="d-none">
+
+```html
+<frontmatter>
+  layout: chapterLayout
+</frontmatter>
+```
+</span>

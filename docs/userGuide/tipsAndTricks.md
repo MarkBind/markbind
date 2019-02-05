@@ -1,5 +1,6 @@
+<variable name="title">Tips & Tricks</variable>
 <frontmatter>
-  title: "User Guide: Troubleshooting"
+  title: "User Guide: {{ title | safe }}"
   footer: footer.md
   siteNav: userGuideSections.md
 </frontmatter>
@@ -8,7 +9,36 @@
 
 <div class="website-content">
 
-# Tips, Tricks, & Troubleshooting
+# {{ title | safe }}
+
+<span id="escapingCharacters">
+
+##### Tip: Escaping Characters
+
+For Markdown syntax: To display a literal character that are normally used for Markdown formatting, add a backslash (`\`) in front of the character.
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```markdown
+\* item 1
+
+* item 1
+
+```
+</span>
+<span id="output">
+
+\* item 1
+
+* item 1
+</span>
+</include>
+</span>
+
+<small>More info: [https://www.markdownguide.org/basic-syntax#escaping-characters](https://www.markdownguide.org/basic-syntax#escaping-characters)</small>
+
+</span>
 
 ##### Problem: Unwanted starting space in links and triggers
 

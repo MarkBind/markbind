@@ -1,0 +1,30 @@
+## Paragraphs
+
+Use one or more empty lines to separate paragraphs.
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```markdown
+This is the first paragraph.
+
+This is another paragraph. This is the second sentence.
+```
+</span>
+<span id="output">
+
+This is the first paragraph.
+
+This is another paragraph. This is the second sentence.
+
+</span>
+</include>
+
+<span id="short" class="d-none">
+
+```markdown
+This is the first paragraph.
+
+This is another paragraph. This is the second sentence.
+```
+</span>

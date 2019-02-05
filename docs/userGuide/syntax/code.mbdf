@@ -1,0 +1,68 @@
+## Code
+
+MarkBind can provide syntax coloring for a code block (aka _Fenced Code Blocks_).
+<span id="main-example">
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+````
+```xml
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+````
+</span>
+<span id="output">
+
+```xml
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+</span>
+</include>
+</span>
+
+<small>More info: https://www.markdownguide.org/extended-syntax#fenced-code-blocks</small>
+
+In addition, MarkBind can apply syntax-coloring on inline code too.
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```
+Consider the xml code `<bar type="name">goo</bar>`{.xml},
+or the java code `public static void main(String[] args)`{.java}.
+```
+
+</span>
+<span id="output">
+
+Consider the xml code `<bar type="name">goo</bar>`{.xml},<br>
+or the java code `public static void main(String[] args)`{.java}.
+</span>
+</include>
+
+<span id="short" class="d-none">
+````
+```xml
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+````
+```
+`<bar type="name">goo</bar>`{.xml}
+```
+</span>
+<span id="examples" class="d-none">
+
+```xml
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+Syntax coloring for inline code: `<bar type="name">goo</bar>`{.xml} too!
+
+</span>

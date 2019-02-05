@@ -1,0 +1,134 @@
+## Boxes
+
+**Box comes with different built-in types.**
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```html
+<box>
+    default
+</box>
+<box type="info">
+    info
+</box>
+<box type="warning">
+    warning
+</box>
+<box type="success">
+    success
+</box>
+<box type="important">
+    important
+</box>
+<box type="wrong">
+    wrong
+</box>
+<box type="tip">
+    tip
+</box>
+<box type="definition">
+    definition
+</box>
+```
+</span>
+<span id="output">
+
+<box>
+    default
+</box>
+<box type="info">
+    info
+</box>
+<box type="warning">
+    warning
+</box>
+<box type="success">
+    success
+</box>
+<box type="important">
+    important
+</box>
+<box type="wrong">
+    wrong
+</box>
+<box type="tip">
+    tip
+</box>
+<box type="definition">
+    definition
+</box>
+
+</span>
+</include>
+
+
+**You can customize the TipBox's appearance.**
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```html
+<box background-color="white" border-color="grey" border-left-color="blue">
+    default, styled as empty box with blue left border
+</box>
+<box type="info" icon=":rocket:">
+    info, with rocket icon
+</box>
+```
+</span>
+<span id="output">
+
+<box background-color="white" border-color="grey" border-left-color="blue">
+    default, styled as empty box with blue left border
+</box>
+<box type="info" icon=":rocket:">
+    info, with rocket icon
+</box>
+</span>
+</include>
+
+****Options****
+Name | Type | Default | Description 
+--- | --- | --- | ---
+background-color | `String` | `null` |
+border-color | `String` | `null` |
+border-left-color | `String` | `null` | Overrides border-color for the left border.
+color | `String` | `null` | Color of the text.
+icon | `String` | `null` |
+type | `String` | `'none'` | Supports: `info`, `warning`, `success`, `important`, `wrong`, `tip`, `definition`, or empty for default.
+
+<span id="short" class="d-none">
+```html
+<box type="warning">
+  warning
+</box>
+```
+</span>
+<span id="examples" class="d-none">
+
+<box>
+    default
+</box>
+<box type="info">
+    info
+</box>
+<box type="warning">
+    warning
+</box>
+<box type="success">
+    success
+</box>
+<box type="important">
+    important
+</box>
+<box type="wrong">
+    wrong
+</box>
+<box type="tip">
+    tip
+</box>
+<box type="definition">
+    definition
+</box>
+</span>

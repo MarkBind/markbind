@@ -1,9 +1,16 @@
+<variable name="main_title">Using Components</variable>
+<variable name="this_filename">usingComponents</variable>
+
 <frontmatter>
-  title: "Using Components"
+  title: "User Guide: {{ main_title }}"
   footer: footer.md
   pageNav: "default"
   siteNav: userGuideSections.md
 </frontmatter>
+
+<span id="link" class="d-none">
+<md>[_User Guide → {{ main_title }}_]({{ baseUrl }}/userGuide/{{ this_filename }}.html)</md>
+</span>
 
 <include src="../common/header.md" />
 
@@ -11,17 +18,10 @@
 
 # Using Components
 
-<span id="components-overview" class="lead">
+<span id="overview" class="lead">
 
 **MarkBind provides a number of components** (e.g., expandable panels, tabbed displays, navigation bars, etc.) that you can use to enhance the appearance/behavior of your pages.
 </span>
-
-<span id="components-link" class="d-none">
-
-More info: [_User Guide: Using Components_]({{ baseUrl }}/userGuide/usingComponents.html)
-</span>
-
-
 
 To use a component, just use the corresponding markup in your file. For example, to create a Panel, you just need to use the markup:
 
@@ -31,41 +31,18 @@ To use a component, just use the corresponding markup in your file. For example,
 </panel>
 ```
 
-<include src="./components/dropdown.md" />
-<br>
+{% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
 
-<include src="./components/navbar.md" />
-<br>
+{% macro show_topic(filename) %}
+<include src="./syntax/{{ filename }}.mbdf" />
+<hr>
+{% endmacro %}
 
-<include src="./components/panel.md" />
-<br>
-
-<include src="./components/pic.md" />
-<br>
-
-<include src="./components/popover.md" />
-<br>
-
-<include src="./components/question.md" />
-<br>
-
-<include src="./components/searchbar.md" />
-<br>
-
-<include src="./components/tabs.md" />
-<br>
-
-<include src="./components/box.md" />
-<br>
-
-<include src="./components/tooltip.md" />
-<br>
-
-<include src="./components/trigger.md" />
-<br>
-
-<include src="./components/modal.md" />
-<br>
+{% for k,v in topics %}
+  {% if 'component' in v[1] %}
+{{ show_topic(k) }}
+  {% endif %}
+{% endfor %}
 
 <include src="./components/advanced.md" />
 <br>

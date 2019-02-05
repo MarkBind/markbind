@@ -1,14 +1,21 @@
+<variable name="title">Adding Pages</variable>
+<variable name="filename">addingPages</variable>
+
 <frontmatter>
-  title: "User Guide: Adding Pages"
+  title: "User Guide: {{ title }}"
   footer: footer.md
   siteNav: userGuideSections.md
 </frontmatter>
+
+<span id="link" class="d-none">
+<md>[_User Guide → {{ title }}_]({{ baseUrl }}/userGuide/{{ filename }}.html)</md>
+</span>
 
 <include src="../common/header.md" />
 
 <div class="website-content">
 
-# Adding Pages
+# {{ title }}
 
 <span class="lead" id="overview">
 

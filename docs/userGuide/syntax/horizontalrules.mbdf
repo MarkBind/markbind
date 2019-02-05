@@ -1,0 +1,35 @@
+## Horizontal Rules
+
+Use three or more asterisks (`***`), dashes (`---`), or underscores (`___`) to indicate a horizontal line.
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```markdown
+*****
+-----
+______________
+```
+</span>
+<span id="output">
+
+*****
+-----
+-----
+______________
+
+</span>
+</include>
+
+<span id="short" class="d-none">
+```markdown
+*****
+-----
+______________
+```
+</span>
+
+<span id="examples" class="d-none">
+
+----
+</span>
