@@ -31,6 +31,11 @@ function printHeader() {
   logger.log(` v${CLI_VERSION}`);
 }
 
+function handleError(error) {
+  logger.error(error.message);
+  process.exitCode = 1;
+}
+
 program
   .allowUnknownOption()
   .usage(' <command>');
@@ -49,9 +54,7 @@ program
       .then(() => {
         logger.info('Initialization success.');
       })
-      .catch((error) => {
-        logger.error(error.message);
-      });
+      .catch(handleError);
   });
 
 program
@@ -68,7 +71,7 @@ program
     try {
       rootFolder = cliUtil.findRootFolder(userSpecifiedRoot);
     } catch (err) {
-      logger.error(err.message);
+      handleError(err);
     }
     const logsFolder = path.join(rootFolder, '_markbind/logs');
     const outputFolder = path.join(rootFolder, '_site');
@@ -159,9 +162,7 @@ program
           logger.info('Press CTRL+C to stop ...');
         });
       })
-      .catch((error) => {
-        logger.error(error.message);
-      });
+      .catch(handleError);
   });
 
 program
@@ -176,10 +177,7 @@ program
       .then(() => {
         logger.info('Deployed!');
       })
-      .catch((err) => {
-        logger.error(err.message);
-        process.exitCode = 1;
-      });
+      .catch(handleError);
     printHeader();
   });
 
@@ -196,7 +194,7 @@ program
     try {
       rootFolder = cliUtil.findRootFolder(userSpecifiedRoot);
     } catch (err) {
-      logger.error(err.message);
+      handleError(err);
     }
     const defaultOutputRoot = path.join(rootFolder, '_site');
     const outputFolder = output ? path.resolve(process.cwd(), output) : defaultOutputRoot;
@@ -206,9 +204,7 @@ program
       .then(() => {
         logger.info('Build success!');
       })
-      .catch((error) => {
-        logger.error(error.message);
-      });
+      .catch(handleError);
   });
 
 program.parse(process.argv);
