@@ -244,6 +244,7 @@
         "site-navigation-menus": "Site Navigation Menus",
         "page-navigation-menus": "Page Navigation Menus",
         "page-layouts": "Page Layouts",
+        "attaching-event-listeners-in-scripts-js": "Attaching event listeners in scripts.js",
         "toggling-alternative-contents-in-a-page": "Toggling alternative contents in a page"
       },
       "title": "User Guide: Tweaking the Page Structure",
