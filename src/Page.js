@@ -10,6 +10,7 @@ const Promise = require('bluebird');
 const _ = {};
 _.isString = require('lodash/isString');
 
+const CyclicReferenceError = require('./lib/markbind/src/handlers/cyclicReferenceError.js');
 const { ensurePosix } = require('./lib/markbind/src/utils');
 const FsUtil = require('./util/fsUtil');
 const logger = require('./util/logger');
@@ -334,14 +335,15 @@ Page.prototype.collectHeadingsAndKeywords = function () {
   this.headings = {};
   this.keywords = {};
   // Collect headings and keywords
-  this.collectHeadingsAndKeywordsInContent($(`#${CONTENT_WRAPPER_ID}`).html(), null, false);
+  this.collectHeadingsAndKeywordsInContent($(`#${CONTENT_WRAPPER_ID}`).html(), null, false, []);
 };
 
 /**
  * Records headings and keywords inside content into this.headings and this.keywords respectively
  * @param content that contains the headings and keywords
  */
-Page.prototype.collectHeadingsAndKeywordsInContent = function (content, lastHeading, excludeHeadings) {
+Page.prototype.collectHeadingsAndKeywordsInContent = function (content, lastHeading, excludeHeadings,
+                                                               sourceTraversalStack) {
   let $ = cheerio.load(content);
   const headingsSelector = generateHeadingSelector(this.headingIndexingLevel);
   $('modal').remove();
@@ -349,7 +351,7 @@ Page.prototype.collectHeadingsAndKeywordsInContent = function (content, lastHead
     .each((index, panel) => {
       if (panel.attribs.header) {
         this.collectHeadingsAndKeywordsInContent(md.render(panel.attribs.header),
-                                                 lastHeading, excludeHeadings);
+                                                 lastHeading, excludeHeadings, sourceTraversalStack);
       }
     })
     .each((index, panel) => {
@@ -377,15 +379,25 @@ Page.prototype.collectHeadingsAndKeywordsInContent = function (content, lastHead
         const includePath = path.resolve(resultInnerDir, includeRelativeToInnerDirPath);
 
         const includeContent = fs.readFileSync(includePath);
+
+        const childSourceTraversalStack = sourceTraversalStack.slice();
+        childSourceTraversalStack.push(includePath);
+        if (childSourceTraversalStack.length > CyclicReferenceError.MAX_RECURSIVE_DEPTH) {
+          const error = new CyclicReferenceError(childSourceTraversalStack);
+          throw error;
+        }
         if (panel.attribs.fragment) {
           $ = cheerio.load(includeContent);
           this.collectHeadingsAndKeywordsInContent($(`#${panel.attribs.fragment}`).html(),
-                                                   closestHeading, shouldExcludeHeadings);
+                                                   closestHeading, shouldExcludeHeadings,
+                                                   childSourceTraversalStack);
         } else {
-          this.collectHeadingsAndKeywordsInContent(includeContent, closestHeading, shouldExcludeHeadings);
+          this.collectHeadingsAndKeywordsInContent(includeContent, closestHeading, shouldExcludeHeadings,
+                                                   childSourceTraversalStack);
         }
       } else {
-        this.collectHeadingsAndKeywordsInContent($(panel).html(), closestHeading, shouldExcludeHeadings);
+        this.collectHeadingsAndKeywordsInContent($(panel).html(), closestHeading, shouldExcludeHeadings,
+                                                 sourceTraversalStack);
       }
     });
   $ = cheerio.load(content);

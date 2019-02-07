@@ -15,6 +15,7 @@ _.isArray = require('lodash/isArray');
 _.isEmpty = require('lodash/isEmpty');
 _.pick = require('lodash/pick');
 
+const CyclicReferenceError = require('./handlers/cyclicReferenceError.js');
 const md = require('./lib/markdown-it');
 const utils = require('./utils');
 
@@ -325,8 +326,15 @@ Parser.prototype._preprocess = function (node, context, config) {
     const childContext = _.cloneDeep(context);
     childContext.cwf = filePath;
     childContext.source = isIncludeSrcMd ? 'md' : 'html';
+    childContext.callStack.push(context.cwf);
     childContext.variables = allVariables;
+
     if (element.children && element.children.length > 0) {
+      if (childContext.callStack.length > CyclicReferenceError.MAX_RECURSIVE_DEPTH) {
+        const error = new CyclicReferenceError(childContext.callStack);
+        this._onError(error);
+        return createErrorNode(element, error);
+      }
       element.children = element.children.map(e => self._preprocess(e, childContext, config));
     }
   } else if ((element.name === 'panel') && hasSrc) {
@@ -434,6 +442,7 @@ Parser.prototype.includeFile = function (file, config) {
   const context = {};
   context.cwf = config.cwf || file; // current working file
   context.mode = 'include';
+  context.callStack = [];
 
   return new Promise((resolve, reject) => {
     const handler = new htmlparser.DomHandler((error, dom) => {

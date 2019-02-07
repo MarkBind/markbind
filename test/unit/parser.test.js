@@ -298,6 +298,99 @@ test('includeFile replaces <include src="include.md#doesNotExist" optional> with
   expect(result).toEqual(expected);
 });
 
+test('includeFile detects cyclic references for static cyclic includes', async () => {
+  const indexPath = path.resolve('index.md');
+  const includePath = path.resolve('include.md');
+
+  const index = [
+    '# Index',
+    '<include src="include.md" />',
+    '',
+  ].join('\n');
+
+  const include = [
+    '# Include',
+    '<include src="index.md" />',
+    '',
+  ].join('\n');
+
+  const json = {
+    'index.md': index,
+    'include.md': include,
+  };
+
+  fs.vol.fromJSON(json, '');
+  const baseUrlMap = {};
+  baseUrlMap[ROOT_PATH] = true;
+
+  const expectedErrorMessage = [
+    'Cyclic reference detected.',
+    'Last 5 files processed:',
+    `\t${indexPath}`,
+    `\t${includePath}`,
+    `\t${indexPath}`,
+    `\t${includePath}`,
+    `\t${indexPath}`,
+  ].join('\n');
+
+  const markbinder = new MarkBind({
+    errorHandler: (e) => {
+      expect(e.message).toEqual(expectedErrorMessage);
+    },
+  });
+  const result = await markbinder.includeFile(indexPath, {
+    baseUrlMap,
+    rootPath: ROOT_PATH,
+    userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
+  });
+
+  const expected = `<div style="color: red">${expectedErrorMessage}</div>`;
+
+  expect(result).toContain(expected);
+});
+
+test('includeFile processes successfully for dynamic cyclic includes', async () => {
+  const indexPath = path.resolve('index.md');
+  const includePath = path.resolve('include.md');
+
+  const index = [
+    '# Index',
+    '<include src="include.md" dynamic/>',
+    '',
+  ].join('\n');
+
+  const include = [
+    '# Include',
+    '<include src="index.md" dynamic/>',
+    '',
+  ].join('\n');
+
+  const json = {
+    'index.md': index,
+    'include.md': include,
+  };
+
+  fs.vol.fromJSON(json, '');
+  const baseUrlMap = {};
+  baseUrlMap[ROOT_PATH] = true;
+
+  const markbinder = new MarkBind();
+  const result = await markbinder.includeFile(indexPath, {
+    baseUrlMap,
+    rootPath: ROOT_PATH,
+    userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
+  });
+
+  const expected = [
+    '# Index',
+    `<panel src="${includePath}" cwf="${indexPath}" include-path="${includePath}"`
+    + ' no-close="true" no-switch="true" header=""/>',
+    '',
+  ].join('\n');
+
+  expect(result).toEqual(expected);
+});
+
 test('includeFile replaces <include dynamic> with <panel>', async () => {
   const rootPath = path.resolve('');
   const indexPath = path.resolve('index.md');
