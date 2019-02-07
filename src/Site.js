@@ -44,8 +44,9 @@ const SITE_CONFIG_NAME = 'site.json';
 const SITE_DATA_NAME = 'siteData.json';
 const SITE_NAV_PATH = '_markbind/navigation/site-nav.md';
 const LAYOUT_DEFAULT_NAME = 'default';
-const LAYOUT_FILES = ['navigation.md', 'head.md', 'footer.md', 'styles.css', 'scripts.js'];
+const LAYOUT_FILES = ['navigation.md', 'head.md', 'footer.md', 'styles.css'];
 const LAYOUT_FOLDER_PATH = '_markbind/layouts';
+const LAYOUT_SCRIPTS_PATH = 'scripts.js';
 const LAYOUT_SITE_FOLDER_NAME = 'layouts';
 const USER_VARIABLES_PATH = '_markbind/variables.md';
 
@@ -100,6 +101,10 @@ const INDEX_MARKDOWN_DEFAULT = '<frontmatter>\n'
 const SITE_NAV_DEFAULT = '<navigation>\n'
   + '* [Home {{glyphicon_home}}]({{baseUrl}}/index.html)\n'
   + '</navigation>\n';
+
+const LAYOUT_SCRIPTS_DEFAULT = 'MarkBind.afterSetup(() => {\n'
+  + '  // Include code to be called after MarkBind setup here.\n'
+  + '});\n';
 
 const USER_VARIABLES_DEFAULT = '<span id="example">\n'
   + 'To inject this HTML segment in your markbind files, use {{ example }} where you want to place it.\n'
@@ -190,6 +195,7 @@ Site.initSite = function (rootPath) {
   const siteNavPath = path.join(rootPath, SITE_NAV_PATH);
   const siteLayoutPath = path.join(rootPath, LAYOUT_FOLDER_PATH);
   const siteLayoutDefaultPath = path.join(siteLayoutPath, LAYOUT_DEFAULT_NAME);
+  const siteDefaultLayoutScriptsPath = path.join(siteLayoutDefaultPath, LAYOUT_SCRIPTS_PATH);
   const userDefinedVariablesPath = path.join(rootPath, USER_VARIABLES_PATH);
   // TODO: log the generate info
   return new Promise((resolve, reject) => {
@@ -266,6 +272,13 @@ Site.initSite = function (rootPath) {
             return fs.outputFileAsync(layoutFilePath, '');
           });
         });
+      })
+      .then(() => fs.accessAsync(siteDefaultLayoutScriptsPath))
+      .catch(() => {
+        if (fs.existsSync(siteDefaultLayoutScriptsPath)) {
+          return Promise.resolve();
+        }
+        return fs.outputFileAsync(siteDefaultLayoutScriptsPath, LAYOUT_SCRIPTS_DEFAULT);
       })
       .then(resolve)
       .catch(reject);

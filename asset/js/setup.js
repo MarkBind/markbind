@@ -45,11 +45,23 @@ function updateSearchData(vm) {
     });
 }
 
+const MarkBind = {
+  executeAfterSetupScripts: jQuery.Deferred(),
+};
+MarkBind.afterSetup = (func) => {
+  if (document.readyState !== 'loading') {
+    func();
+  } else {
+    MarkBind.executeAfterSetupScripts.then(func);
+  }
+};
+
 function executeAfterMountedRoutines() {
   flattenModals();
   scrollToUrlAnchorHeading();
   setupAnchors();
   removeLoadingOverlay();
+  MarkBind.executeAfterSetupScripts.resolve();
 }
 
 function setupSiteNav() {

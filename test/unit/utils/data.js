@@ -2,9 +2,12 @@ module.exports.LAYOUT_FILES_DEFAULT = [
   'footer.md',
   'head.md',
   'navigation.md',
-  'scripts.js',
   'styles.css',
 ];
+
+module.exports.LAYOUT_SCRIPTS_DEFAULT = 'MarkBind.afterSetup(() => {\n'
++ '  // Include code to be called after MarkBind setup here.\n'
++ '});\n';
 
 module.exports.PAGE_EJS = '<!DOCTYPE html>\n'
   + '<html>\n'

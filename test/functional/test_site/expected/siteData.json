@@ -132,6 +132,16 @@
     },
     {
       "headings": {},
+      "layout": "testAfterSetup",
+      "src": "testAfterSetup.md",
+      "title": "Hello World",
+      "tags": [
+        "tag--shown",
+        "tag--shown-2"
+      ]
+    },
+    {
+      "headings": {},
       "src": "testEmptyFrontmatter.md",
       "title": "Hello World",
       "layout": "default"

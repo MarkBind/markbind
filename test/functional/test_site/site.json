@@ -8,6 +8,11 @@
       "title": "Hello World"
     },
     {
+      "src": "testAfterSetup.md",
+      "title": "Hello World",
+      "layout": "testAfterSetup"
+    },
+    {
       "src": "testEmptyFrontmatter.md",
       "title": "Hello World",
       "layout": "testLayout"
