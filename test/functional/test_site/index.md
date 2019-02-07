@@ -127,6 +127,7 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 # Include from another Markbind site
 <include src="sub_site/index.md" />
+<include src="sub_site/testReuse.md" />
 
 # Trimmed include
 
@@ -188,6 +189,8 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 # Panel with src from another Markbind site
 <panel header="## Panel with src from another Markbind site header" src="sub_site/index.md" expanded>
+</panel>
+<panel header="## Panel with src from another Markbind site header" src="sub_site/testReuse.md" expanded>
 </panel>
 </div>
 
