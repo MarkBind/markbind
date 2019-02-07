@@ -12,8 +12,8 @@
 
 
 {% set pages = [
-  ['Adding Pagess', 'addingPages'],
-  ['MarkBind Syntax Overview', 'markbindSyntaxOverview'],
+  ['Adding Pages', 'addingPages'],
+  ['MarkBind Syntax Overview', 'markBindSyntaxOverview'],
   ['Formatting Contents', 'formattingContents'],
   ['Using Components', 'usingComponents'],
   ['Using HTML, JavaScript, CSS', 'usingHtmlJavaScriptCss'],
