@@ -54,10 +54,15 @@ MarkBind Command Line Interface (CLI) can be run in the following ways:
 
 ### `deploy` Command
 
-**Format:** `markbind deploy`<br>
+**Format:** `markbind deploy [<OPTIONS>]`<br>
 **Alias:** `markbind d`
 
 **Description:** Deploys the site to the repo's Github pages by pushing everything in the generated site (default dir: `_site`) to the `gh-pages` branch of the current git working directory's remote repo.
+
+**`OPTIONS`:**
+* `-t <githubTokenName>`, `--travis <githubTokenName>`<br>
+  Deploy the site in Travis CI using the GitHub personal access token stored in `<githubTokenName>`. (default: `GITHUB_TOKEN`)<br>
+  {{ icon_example }} `-t PA_TOKEN`
 
 %%{{ icon_info }} Related: [User Guide: Deploying the Website]({{ baseUrl }}/userGuide/deployingTheSite.html).%%
 

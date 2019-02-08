@@ -168,15 +168,17 @@ program
   .command('deploy')
   .alias('d')
   .description('deploy the site to the repo\'s Github pages.')
-  .action(() => {
+  .option('-t, --travis [tokenVar]', 'deploy the site in Travis [GITHUB_TOKEN]')
+  .action((options) => {
     const rootFolder = path.resolve(process.cwd());
     const outputRoot = path.join(rootFolder, '_site');
-    new Site(rootFolder, outputRoot).deploy()
+    new Site(rootFolder, outputRoot).deploy(options.travis)
       .then(() => {
         logger.info('Deployed!');
       })
       .catch((err) => {
         logger.error(err.message);
+        process.exitCode = 1;
       });
     printHeader();
   });

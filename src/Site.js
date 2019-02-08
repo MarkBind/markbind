@@ -11,6 +11,7 @@ const walkSync = require('walk-sync');
 
 const _ = {};
 _.difference = require('lodash/difference');
+_.isBoolean = require('lodash/isBoolean');
 _.isUndefined = require('lodash/isUndefined');
 _.omitBy = require('lodash/omitBy');
 _.union = require('lodash/union');
@@ -804,7 +805,7 @@ Site.prototype.writeSiteData = function () {
   });
 };
 
-Site.prototype.deploy = function () {
+Site.prototype.deploy = function (travisTokenVar) {
   const defaultDeployConfig = {
     branch: 'gh-pages',
     message: 'Site Update.',
@@ -825,6 +826,39 @@ Site.prototype.deploy = function () {
         options.branch = this.siteConfig.deploy.branch || defaultDeployConfig.branch;
         options.message = this.siteConfig.deploy.message || defaultDeployConfig.message;
         options.repo = this.siteConfig.deploy.repo || defaultDeployConfig.repo;
+
+        if (travisTokenVar) {
+          if (!process.env.TRAVIS) {
+            reject(new Error('-t/--travis should only be run in Travis CI.'));
+            return undefined;
+          }
+          // eslint-disable-next-line no-param-reassign
+          travisTokenVar = _.isBoolean(travisTokenVar) ? 'GITHUB_TOKEN' : travisTokenVar;
+          if (!process.env[travisTokenVar]) {
+            reject(new Error(`The environment variable ${travisTokenVar} does not exist.`));
+            return undefined;
+          }
+
+          const githubToken = process.env[travisTokenVar];
+          let repoSlug = process.env.TRAVIS_REPO_SLUG;
+          if (options.repo) {
+            // Extract repo slug from user-specified repo URL so that we can include the access token
+            const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-]+)\.git/;
+            const repoSlugMatch = repoSlugRegex.exec(options.repo);
+            if (!repoSlugMatch) {
+              reject(new Error('-t/--travis expects a GitHub repository.\n'
+                + `The specified repository ${options.repo} is not valid.`));
+              return undefined;
+            }
+            [, repoSlug] = repoSlugMatch;
+          }
+          options.repo = `https://${githubToken}@github.com/${repoSlug}.git`;
+          options.user = {
+            name: 'Deployment Bot',
+            email: 'deploy@travis-ci.org',
+          };
+        }
+
         return publish(basePath, options);
       })
       .then(resolve)

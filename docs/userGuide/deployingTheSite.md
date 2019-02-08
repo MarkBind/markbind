@@ -49,6 +49,43 @@ You can override the default deployment settings %%(e.g., repo/branch to deploy)
 `markbind deploy` does not generate the static site from your source; it simply deploys the files that are already in the `_site` directory. You need to run `markbind build` first if you want to generate the site before deploying.
 </box>
 
+### Deploying to GitHub Pages via Travis CI
+**You can setup [<tooltip content="a platform for Continuous Integration and Delivery (among other things)">Travis CI</tooltip>](https://www.travis-ci.org/) to automatically build and deploy your site on GitHub Pages every time your GitHub repo is updated.**
+
+Here are the steps to set up Travis CI:
+
+1. [Sign up with GitHub](https://travis-ci.com/signin) at [Travis CI](https://travis-ci.com).
+1. Accept the authorisation for Travis CI when you are redirected to GitHub.
+1. Click the green _Activate_ button, and select the repository with the MarkBind site.
+1. [Generate a GitHub personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/#creating-a-token) with **repo** permissions. Take note of the generated token - you will not be able to see it again once you navigate away from the page.
+1. [Add an environment variable in Travis CI](https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings) named `GITHUB_TOKEN`, with the value set to the personal access token generated in the previous step. ==Ensure that _Display value in the build log_ is set to _Off_.==
+    <box background-color="white" border-color="white"><md>
+    ![Travis CI GitHub token setup]({{baseUrl}}/images/travisGithubToken.png =600x)
+    </md></box>
+1. Add a `.travis.yml` file to instruct Travis CI to build and deploy the site when you push to the repository. An example `.travis.yml` file that can accomplish this is given below:
+    <box background-color="white" border-color="white">
+    ```yaml
+    language: node_js
+    node_js:
+      - '8'
+    install:
+      - npm i -g markbind-cli
+    script: markbind build && markbind deploy --travis
+    branches:
+      only:
+      - master
+    ```
+    More information about `.travis.yml` can be found in the [Travis CI documentation](https://docs.travis-ci.com/).
+    </box>
+1. Commit `.travis.yml` to your MarkBind repository and push the changes. Travis CI should begin to build your site.
+1. Select the MarkBind repository on [Travis CI](https://travis-ci.com/auth) and [check the build status](https://docs.travis-ci.com/user/job-lifecycle/#breaking-the-build) to see if it is successful.
+1. Once the build succeeds, your MarkBind site should be online at `http://<username|org>.github.io/<repo>` e.g., http://se-edu.github.io/se-book. Travis CI will automatically build and deploy changes to your site as you push new changes to the repository.
+
+{{ icon_info }} Note that when Travis CI is set up as explained above, it will use the latest version of MarkBind which may be a later version than the one you use locally. If you want Travis CI to use a specific version of MarkBind (eg. `v1.6.3`), change the `install` step in the `.travis.yml` given above to:
+```yaml
+install:
+  - npm i -g markbind-cli@1.63
+```
 
 <hr>
 

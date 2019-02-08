@@ -2,7 +2,6 @@ const Site = require('../../src/Site');
 const path = require('path');
 const fs = require('fs-extra-promise');
 const ghpages = require('gh-pages');
-const cloneDeep = require('lodash/cloneDeep');
 
 const {
   FOOTER_MD_DEFAULT,
@@ -326,7 +325,7 @@ test('Site read correct user defined variables', async () => {
   expect(subsub.number).toEqual('9999');
 });
 
-test('gh-pages test', async () => {
+test('Site deploys with default settings', async () => {
   const json = {
     'src/template/page.ejs': PAGE_EJS,
     'site.json': SITE_JSON_DEFAULT,
@@ -340,8 +339,8 @@ test('gh-pages test', async () => {
     .toEqual({ branch: 'gh-pages', message: 'Site Update.', repo: '' });
 });
 
-test('Custom deploy settings gh-pages test', async () => {
-  const customConfig = cloneDeep(JSON.parse(SITE_JSON_DEFAULT));
+test('Site deploys with custom settings', async () => {
+  const customConfig = JSON.parse(SITE_JSON_DEFAULT);
   customConfig.deploy = {
     message: 'Custom Site Update.',
     repo: 'https://github.com/USER/REPO.git',
@@ -372,6 +371,107 @@ test('Site should not deploy without a built site', async () => {
     .toThrow(
       new Error('The site directory does not exist. '
         + 'Please build the site first before deploy.'));
+});
+
+describe('Site deploy with Travis', () => {
+  // Keep a copy of the original environment as we need to modify it for deploy Travis tests
+  const OLD_ENV = { ...process.env };
+
+  beforeEach(() => {
+    // Delete all environment variables that affect tests
+    delete process.env.TRAVIS;
+    delete process.env.GITHUB_TOKEN;
+    delete process.env.TRAVIS_REPO_SLUG;
+  });
+
+  afterAll(() => {
+    // Restore the original environment at the end of deploy Travis tests
+    process.env = { ...OLD_ENV };
+  });
+
+  test('Site deploy -t/--travis deploys with default settings', async () => {
+    process.env.TRAVIS = true;
+    process.env.GITHUB_TOKEN = 'githubToken';
+    process.env.TRAVIS_REPO_SLUG = 'TRAVIS_USER/TRAVIS_REPO';
+
+    const json = {
+      'src/template/page.ejs': PAGE_EJS,
+      'site.json': SITE_JSON_DEFAULT,
+      _site: {},
+    };
+    fs.vol.fromJSON(json, '');
+    const site = new Site('./', '_site');
+    await site.deploy(true);
+    expect(ghpages.options.repo)
+      .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/${process.env.TRAVIS_REPO_SLUG}.git`);
+    expect(ghpages.options.user).toEqual({ name: 'Deployment Bot', email: 'deploy@travis-ci.org' });
+  });
+
+  test('Site deploy -t/--travis deploys with custom GitHub repo', async () => {
+    process.env.TRAVIS = true;
+    process.env.GITHUB_TOKEN = 'githubToken';
+    process.env.TRAVIS_REPO_SLUG = 'TRAVIS_USER/TRAVIS_REPO.git';
+
+    const customRepoConfig = JSON.parse(SITE_JSON_DEFAULT);
+    customRepoConfig.deploy.repo = 'https://github.com/USER/REPO.git';
+    const json = {
+      'src/template/page.ejs': PAGE_EJS,
+      'site.json': JSON.stringify(customRepoConfig),
+      _site: {},
+    };
+    fs.vol.fromJSON(json, '');
+    const site = new Site('./', '_site');
+    await site.deploy(true);
+    expect(ghpages.options.repo)
+      .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/USER/REPO.git`);
+  });
+
+  test('Site deploy -t/--travis should not deploy if not in Travis', async () => {
+    const json = {
+      'src/template/page.ejs': PAGE_EJS,
+      'site.json': SITE_JSON_DEFAULT,
+      _site: {},
+    };
+    fs.vol.fromJSON(json, '');
+    const site = new Site('./', '_site');
+    await expect(site.deploy(true))
+      .rejects
+      .toThrow(new Error('-t/--travis should only be run in Travis CI.'));
+  });
+
+  test('Site deploy -t/--travis should not deploy without authentication token', async () => {
+    process.env.TRAVIS = true;
+
+    const json = {
+      'src/template/page.ejs': PAGE_EJS,
+      'site.json': SITE_JSON_DEFAULT,
+      _site: {},
+    };
+    fs.vol.fromJSON(json, '');
+    const site = new Site('./', '_site');
+    await expect(site.deploy(true))
+      .rejects
+      .toThrow(new Error('The environment variable GITHUB_TOKEN does not exist.'));
+  });
+
+  test('Site deploy -t/--travis should not deploy if custom repository is not on GitHub', async () => {
+    process.env.TRAVIS = true;
+    process.env.GITHUB_TOKEN = 'githubToken';
+
+    const invalidRepoConfig = JSON.parse(SITE_JSON_DEFAULT);
+    invalidRepoConfig.deploy.repo = 'INVALID_GITHUB_REPO';
+    const json = {
+      'src/template/page.ejs': PAGE_EJS,
+      'site.json': JSON.stringify(invalidRepoConfig),
+      _site: {},
+    };
+    fs.vol.fromJSON(json, '');
+    const site = new Site('./', '_site');
+    await expect(site.deploy(true))
+      .rejects
+      .toThrow(new Error('-t/--travis expects a GitHub repository.\n'
+        + `The specified repository ${invalidRepoConfig.deploy.repo} is not valid.`));
+  });
 });
 
 const siteJsonResolvePropertiesTestCases = [
