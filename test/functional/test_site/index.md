@@ -13,8 +13,6 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 <div class="website-content">
 
 # Variables that reference another variable
-{{education_icon}}
-
 {{finalized_value}}
 
 {{reference_level_4}}

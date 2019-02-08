@@ -84,8 +84,7 @@ const SITE_CONFIG_DEFAULT = {
 
 const FOOTER_DEFAULT = '<footer>\n'
   + '  <div class="text-center">\n'
-  + '    This is a dynamic height footer that supports variables {{glyphicon_tags}} '
-  + 'and markdown <md>:smile:</md>!\n'
+  + '    This is a dynamic height footer that supports markdown <md>:smile:</md>!\n'
   + '  </div>\n'
   + '  <!-- Support MarkBind by including a link to us on your landing page! -->\n'
   + '  <div class="text-center">\n'

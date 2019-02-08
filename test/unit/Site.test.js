@@ -259,14 +259,14 @@ test('Site read site config for custom site config', async () => {
 test('Site resolves variables referencing other variables', async () => {
   const json = {
     'src/asset/font-awesome.csv': '',
-    'src/asset/glyphicons.csv': 'glyphicon-plus',
+    'src/asset/glyphicons.csv': '',
     'src/template/page.ejs': PAGE_EJS,
     'site.json': SITE_JSON_DEFAULT,
     '_markbind/variables.md':
     '<span id="level1">variable</span>'
     + '<span id="level2">{{level1}}</span>'
-    + '<span id="level3">{{glyphicon_plus}}</span>'
-    + '<span id="level4">{{level3 | safe}}</span>',
+    + '<span id="level3"><span style="color: blue">Blue text</span></span>'
+    + '<span id="level4">{{level3}}</span>',
   };
   fs.vol.fromJSON(json, '');
 
@@ -279,12 +279,13 @@ test('Site resolves variables referencing other variables', async () => {
   // check all variables
   expect(root.level1).toEqual('variable');
   expect(root.level2).toEqual('variable');
-  const expectedGlyphiconSpan = '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'
-    .replace(/"/g, '&#39;')
+  const expectedTextSpan = '<span style="color: blue">Blue text</span>';
+  const expectedTextSpanEscaped = expectedTextSpan
+    .replace(/"/g, '&quot;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
-  expect(root.level3).toEqual(expectedGlyphiconSpan);
-  expect(root.level4).toEqual(expectedGlyphiconSpan);
+  expect(root.level3).toEqual(expectedTextSpan);
+  expect(root.level4).toEqual(expectedTextSpanEscaped);
 });
 
 test('Site read correct user defined variables', async () => {
