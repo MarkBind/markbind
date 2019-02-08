@@ -1,11 +1,9 @@
-class DiffPrinter {
-  /* eslint-disable lodash/prefer-constant */
-  static get ANSI_RED() { return '\u001B[31m'; }
-  static get ANSI_GREEN() { return '\u001B[32m'; }
-  static get ANSI_GREY() { return '\u001B[90m'; }
-  static get ANSI_RESET() { return '\u001B[0m'; }
-  /* eslint-enable lodash/prefer-constant */
+const ANSI_RED = '\u001B[31m';
+const ANSI_GREEN = '\u001B[32m';
+const ANSI_GREY = '\u001B[90m';
+const ANSI_RESET = '\u001B[0m';
 
+class DiffPrinter {
   /**
    * Prints line of text in colour provided
    * @param {string} text text to print, default: no text
@@ -15,19 +13,19 @@ class DiffPrinter {
     let ansiEscCode = '';
     switch (colour) {
     case 'red':
-      ansiEscCode = DiffPrinter.ANSI_RED;
+      ansiEscCode = ANSI_RED;
       break;
     case 'green':
-      ansiEscCode = DiffPrinter.ANSI_GREEN;
+      ansiEscCode = ANSI_GREEN;
       break;
     case 'grey':
-      ansiEscCode = DiffPrinter.ANSI_GREY;
+      ansiEscCode = ANSI_GREY;
       break;
     default:
       ansiEscCode = '';
       break;
     }
-    process.stderr.write(`${ansiEscCode}${text}${DiffPrinter.ANSI_RESET}\n`);
+    process.stderr.write(`${ansiEscCode}${text}${ANSI_RESET}\n`);
   }
 
   /**
@@ -40,11 +38,11 @@ class DiffPrinter {
     let lineParts = [{ value: '' }];
     parts.forEach(({ value, added, removed }) => {
       let lines = value.split(/\n/);
-      let asciEscCode = DiffPrinter.ANSI_GREY;
-      if (added) asciEscCode = DiffPrinter.ANSI_GREEN;
-      else if (removed) asciEscCode = DiffPrinter.ANSI_RED;
+      let asciEscCode = ANSI_GREY;
+      if (added) asciEscCode = ANSI_GREEN;
+      else if (removed) asciEscCode = ANSI_RED;
       lines = lines.map(line => ({
-        value: asciEscCode + line + DiffPrinter.ANSI_RESET,
+        value: asciEscCode + line + ANSI_RESET,
         diff: added || removed,
       }));
 
