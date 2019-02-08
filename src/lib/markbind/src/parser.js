@@ -94,6 +94,15 @@ function Parser(options) {
  */
 function extractIncludeVariables(includeElement, contextVariables) {
   const includedVariables = { ...contextVariables };
+  Object.keys(includeElement.attribs).forEach((attribute) => {
+    if (!attribute.startsWith('var-')) {
+      return;
+    }
+    const variableName = attribute.replace(/^var-/, '');
+    if (!includedVariables[variableName]) {
+      includedVariables[variableName] = includeElement.attribs[attribute];
+    }
+  });
   if (includeElement.children) {
     includeElement.children.forEach((child) => {
       if (child.name !== 'span') {
@@ -266,6 +275,13 @@ Parser.prototype._preprocess = function (node, context, config) {
 
     // Render inner file content
     fileContent = nunjucks.renderString(fileContent, { ...allVariables, ...userDefinedVariables });
+
+    // Delete variable attributes in include
+    Object.keys(element.attribs).forEach((attribute) => {
+      if (attribute.startsWith('var-')) {
+        delete element.attribs[attribute];
+      }
+    });
 
     delete element.attribs.boilerplate;
     delete element.attribs.src;

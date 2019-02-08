@@ -133,7 +133,7 @@ head: myCustomHead.md, myCustomHead2.md
 
 # Include with custom variables
 
-<include src="testIncludeVariables.md">
+<include src="testIncludeVariables.md" var-included_variable_as_include_attribute="Included variable as include attribute">
   <span id="included_variable">Included variable</span>
   <span id="included_variable_with_markdown">__**Included variable with markdown**__</span>
   <span id="included_variable_as_attribute">color: blue</span>

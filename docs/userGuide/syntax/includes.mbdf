@@ -138,6 +138,16 @@ Author: {<span></span>{ author }}
 
 These variables work the same way as variables in `_markbind/variables.md`, except that they only apply to the included file. They allow the included file to be reused as a template, for different source files using different variable values.
 
+You can also specify include variables within the `<include>` tag itself by adding a `var-` prefix.
+
+<div class="indented">
+
+{{ icon_example }} Specifying `title` and `author` variables inline:
+```html
+<include src="article.md" var-title="My Title" var-author="John Doe" />
+```
+</div>
+
 If the same variable is defined in a chain of `<include>`s (e.g. `a.md` includes `b.md` includes `c.md`...), variables defined in the top-most `<include>` will take precedence. Global variables (`_markbind/variables.md`) will take precedence over any `<include>` variables.
 
 ### Using Boilerplate Files
