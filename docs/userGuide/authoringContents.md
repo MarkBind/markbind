@@ -10,67 +10,28 @@
 
 # Authoring Contents
 
-<big>**Adding Pages**</big>
+
+{% set pages = [
+  ['Adding Pages', 'addingPages'],
+  ['MarkBind Syntax Overview', 'markBindSyntaxOverview'],
+  ['Formatting Contents', 'formattingContents'],
+  ['Using Components', 'usingComponents'],
+  ['Using HTML, JavaScript, CSS', 'usingHtmlJavaScriptCss'],
+  ['Tweaking the Page Structure', 'tweakingThePageStructure'],
+  ['Reusing Contents', 'reusingContents'],
+  ['Making the Site Searchable', 'makingTheSiteSearchable']
+] %}
+
+{% for page in pages %}
+<big>**{{ page[0] }}**</big>
 
 <blockquote>
 
-<include src="addingPages.md#overview" inline />
+<include src="{{ page[1] }}.md#overview" inline />
 </blockquote>
 
-&nbsp;&nbsp;&nbsp;&nbsp; [Read more ...]({{ baseUrl }}/userGuide/addingPages.html)
+<span class="indented">More info in: <include src="{{ page[1] }}.md#link" inline trim /></span>
 
-
-<big>**MarkBind Syntax**</big>
-
-<blockquote>
-
-<include src="markBindSyntax.md#overview" inline />
-</blockquote>
-
-&nbsp;&nbsp;&nbsp;&nbsp; [Read more ...]({{ baseUrl }}/userGuide/markBindSyntax.html)
-
-
-
-<big>**Using Components**</big>
-
-<blockquote>
-
-<include src="usingComponents.md#components-overview" inline />
-</blockquote>
-
-&nbsp;&nbsp;&nbsp;&nbsp; [Read more ...]({{ baseUrl }}/userGuide/usingComponents.html)
-
-
-
-<big>**Tweaking the Page Structure**</big>
-
-<blockquote>
-
-<include src="tweakingThePageStructure.md#overview" inline />
-</blockquote>
-
-&nbsp;&nbsp;&nbsp;&nbsp; [Read more ...]({{ baseUrl }}/userGuide/tweakingThePageStructure.html)
-
-
-<big>**Reusing Contents**</big>
-
-<blockquote>
-
-<include src="reusingContents.md#overview" inline />
-</blockquote>
-
-&nbsp;&nbsp;&nbsp;&nbsp; [Read more ...]({{ baseUrl }}/userGuide/reusingContents.html)
-
-
-
-<big>**Making the Site Searchable**</big>
-
-<blockquote>
-
-<include src="makingTheSiteSearchable.md#overview" inline />
-</blockquote>
-
-&nbsp;&nbsp;&nbsp;&nbsp; [Read more ...]({{ baseUrl }}/userGuide/makingTheSiteSearchable.html)
-
+{% endfor %}
 
 </div>

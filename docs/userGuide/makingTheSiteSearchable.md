@@ -1,14 +1,22 @@
+<variable name="title">Making the Site Searchable</variable>
+<variable name="filename">makingTheSiteSearchable</variable>
+
 <frontmatter>
-  title: "User Guide: Making the Site Searchable"
+  title: "User Guide: {{ title }}"
   footer: footer.md
   siteNav: userGuideSections.md
+  pageNav: 2
 </frontmatter>
+
+<span id="link" class="d-none">
+<md>[_User Guide → {{ title }}_]({{ baseUrl }}/userGuide/{{ filename }}.html)</md>
+</span>
 
 <include src="../common/header.md" />
 
 <div class="website-content">
 
-# Making the Site Searchable
+# {{ title }}
 
 <span class="lead" id="overview">
 
@@ -17,46 +25,12 @@
 
 **All headings of levels 1-3 are captured in the search index** by default. You can change this setting using the [`headingIndexLevel` property of the `site.json`]({{ baseUrl }}/userGuide/siteConfiguration.html#headingindexinglevel).
 
-## Using Keywords
+<include src="syntax/searchbars.mbdf" />
+<include src="syntax/keywords.mbdf" />
 
-**You can also specify additional keywords to be indexed under a heading** by tagging the words with the `keyword` class. Those keywords will be linked to the heading immediately above it. If you want to index a keyword without rendering it in the page, add `d-none` as a class.
-
-<div class="indented">
-
-{{ icon_example }}
-
-```html
-#### Developer Testing
-<span class="keyword d-none">regress</span>
-<span class="keyword d-none">regression testing</span>
-
-This is good for catching <span class="keyword">regressions</span>.
-```
-{{ icon_arrow_down }}
-
-<box>
-
-<big>**Developer Testing**</big><br>
-
-This is good for catching <span class="keyword">regressions</span>.
-</box>
-</div>
-
-**You can also set additional keywords to be indexed for an entire page** using the `keywords` attribute inside the `<frontmatter>` of that page.
-
-<div class="indented">
-
-{{ icon_example }}
-
-```html
-<frontmatter>
-  keywords: regress, regression testing, regressions
-</frontmatter>
-...
-```
-
-</div>
+<box type="warning">
 
 If you do not wish to use MarkBind's searchbar (e.g. you have an external service provider), it may be helpful to include the option `enableSearch: false` in your `site.json`. This stops MarkBind from indexing search headings and speeds up building.
+</box>
 
 </div>
