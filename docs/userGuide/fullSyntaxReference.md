@@ -14,7 +14,7 @@
   headings: ['Headings', 'basic', 'reader-facing'],
   paragraphs : ['Paragraphs', ['basic']],
   lineBreaks : ['Line Breaks', ['basic']],
-  textstyles : ['Text Styles', ['basic', 'reader-facing']],
+  textStyles : ['Text Styles', ['basic', 'reader-facing']],
   blockquotes: ['Blockquotes', ['basic', 'reader-facing']],
   lists : ['Lists', ['basic', 'reader-facing']],
   code : ['Code', ['basic', 'reader-facing']],

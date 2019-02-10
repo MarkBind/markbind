@@ -25,7 +25,7 @@
 
 **All headings of levels 1-3 are captured in the search index** by default. You can change this setting using the [`headingIndexLevel` property of the `site.json`]({{ baseUrl }}/userGuide/siteConfiguration.html#headingindexinglevel).
 
-<include src="syntax/searchbars.mbdf" />
+<include src="syntax/searchBars.mbdf" />
 <include src="syntax/keywords.mbdf" />
 
 <box type="warning">
