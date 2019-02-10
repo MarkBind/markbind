@@ -34,6 +34,7 @@ const TEMP_FOLDER_NAME = '.temp';
 const TEMPLATE_ROOT_FOLDER_NAME = 'template';
 const TEMPLATE_SITE_ASSET_FOLDER_NAME = 'markbind';
 
+const BUILT_IN_PLUGIN_FOLDER_NAME = 'plugins';
 const FAVICON_DEFAULT_PATH = 'favicon.ico';
 const FONT_AWESOME_PATH = 'asset/font-awesome.csv';
 const FOOTER_PATH = '_markbind/footers/footer.md';
@@ -41,6 +42,7 @@ const GLYPHICONS_PATH = 'asset/glyphicons.csv';
 const HEAD_FOLDER_PATH = '_markbind/head';
 const INDEX_MARKDOWN_FILE = 'index.md';
 const PAGE_TEMPLATE_NAME = 'page.ejs';
+const PROJECT_PLUGIN_FOLDER_NAME = '_markbind/plugins';
 const SITE_CONFIG_NAME = 'site.json';
 const SITE_DATA_NAME = 'siteData.json';
 const SITE_NAV_PATH = '_markbind/navigation/site-nav.md';
@@ -135,6 +137,7 @@ function Site(rootPath, outputPath, onePagePath, forceReload = false, siteConfig
   this.baseUrlMap = {};
   this.forceReload = forceReload;
   this.onePagePath = onePagePath;
+  this.plugins = {};
   this.siteConfig = {};
   this.siteConfigPath = siteConfigPath;
   this.userDefinedVariablesMap = {};
@@ -197,6 +200,7 @@ Site.initSite = function (rootPath) {
   const siteLayoutPath = path.join(rootPath, LAYOUT_FOLDER_PATH);
   const siteLayoutDefaultPath = path.join(siteLayoutPath, LAYOUT_DEFAULT_NAME);
   const siteDefaultLayoutScriptsPath = path.join(siteLayoutDefaultPath, LAYOUT_SCRIPTS_PATH);
+  const sitePluginPath = path.join(rootPath, PROJECT_PLUGIN_FOLDER_NAME);
   const userDefinedVariablesPath = path.join(rootPath, USER_VARIABLES_PATH);
   // TODO: log the generate info
   return new Promise((resolve, reject) => {
@@ -281,6 +285,13 @@ Site.initSite = function (rootPath) {
         }
         return fs.outputFileAsync(siteDefaultLayoutScriptsPath, LAYOUT_SCRIPTS_DEFAULT);
       })
+      .then(() => fs.accessAsync(sitePluginPath))
+      .catch(() => {
+        if (fs.existsSync(sitePluginPath)) {
+          return Promise.resolve();
+        }
+        return fs.mkdirp(sitePluginPath);
+      })
       .then(resolve)
       .catch(reject);
   });
@@ -323,9 +334,10 @@ Site.prototype.createPage = function (config) {
     baseUrl: this.siteConfig.baseUrl,
     baseUrlMap: this.baseUrlMap,
     content: '',
+    pluginsContext: this.siteConfig.pluginsContext || {},
     faviconUrl: config.faviconUrl,
-    tags: this.siteConfig.tags,
     pageTemplate: this.pageTemplate,
+    plugins: this.plugins || {},
     rootPath: this.rootPath,
     enableSearch: this.siteConfig.enableSearch,
     searchable: this.siteConfig.enableSearch && config.searchable,
@@ -505,6 +517,7 @@ Site.prototype.generate = function (baseUrl) {
       .then(() => this.collectAddressablePages())
       .then(() => this.collectBaseUrl())
       .then(() => this.collectUserDefinedVariablesMap())
+      .then(() => this.collectPlugins())
       .then(() => this.buildAssets())
       .then(() => this.buildSourceFiles())
       .then(() => this.copyMarkBindAsset())
@@ -639,6 +652,46 @@ Site.prototype.buildAssets = function () {
       .catch((error) => {
         rejectHandler(reject, error, []); // assets won't affect deletion
       });
+  });
+};
+
+/**
+ * Retrieves the correct plugin path for a plugin name, if not in node_modules
+ * @param pluginName name of the plugin
+ */
+function getPluginPath(rootPath, plugin) {
+  // Check in project folder
+  const pluginPath = path.join(rootPath, PROJECT_PLUGIN_FOLDER_NAME, `${plugin}.js`);
+  if (fs.existsSync(pluginPath)) {
+    return pluginPath;
+  }
+
+  // Check in src folder
+  const defaultPath = path.join(__dirname, BUILT_IN_PLUGIN_FOLDER_NAME, `${plugin}.js`);
+  if (fs.existsSync(defaultPath)) {
+    return defaultPath;
+  }
+
+  return '';
+}
+
+/**
+ * Load all plugins of the site
+ */
+Site.prototype.collectPlugins = function () {
+  if (!this.siteConfig.plugins) {
+    return;
+  }
+  module.paths.push(path.join(this.rootPath, 'node_modules'));
+  this.siteConfig.plugins.forEach((plugin) => {
+    try {
+      const pluginPath = getPluginPath(this.rootPath, plugin);
+
+      // eslint-disable-next-line global-require, import/no-dynamic-require
+      this.plugins[plugin] = require(pluginPath || plugin);
+    } catch (e) {
+      logger.warn(`Unable to load plugin ${plugin}, skipping`);
+    }
   });
 };
 

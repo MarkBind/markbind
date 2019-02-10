@@ -209,3 +209,9 @@ head: myCustomHead.md, myCustomHead2.md
   ## Panel content inside unexpanded panel should not appear in search data
   </panel>
 </panel>
+
+# Test plugin in markbind/plugins
+
+<div id="test-markbind-plugin">
+  Markbind Plugin Pre-render Placeholder
+</div>
