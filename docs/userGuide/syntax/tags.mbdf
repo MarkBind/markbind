@@ -58,8 +58,6 @@ Alternatively, you can specify tags to render for a page in the front matter.
 ```
 </div>
 
-Tags in `site.json` will take precedence over the ones in the front matter.
-
 <span id="short" class="d-none">
 
 ```html
@@ -73,3 +71,64 @@ Tags in `site.json` will take precedence over the ones in the front matter.
 </frontmatter>
 ```
 </span>
+
+Tags in `site.json` will be merged with the ones in the front matter, and are processed after front matter tags. See [Hiding Tags]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#hiding-tags) for more information.
+
+## Advanced Tagging Tips
+
+### General Tags
+
+You can use a `*` in a tag name to match elements more generally. A `*` in a tag will match any number of characters at its position.
+
+<div class="indented">
+
+{{ icon_example }} Using general tags:
+```html
+<frontmatter>
+  title: "Hello World"
+  tags: ["language--*"]
+</frontmatter>
+
+<p tags="language--java">System.out.println("Hello world");</p>
+<p tags="language--C#">Console.WriteLine("Hello world");</p>
+<p tags="language--python">print("Hello world")</p>
+```
+
+All 3 `<p>`s will be shown.
+
+</div>
+
+### Hiding Tags
+
+Using `-` at the start of a tag hides all tags matching the expression. This is helpful for disabling a group of tags and enabling a particular tag.
+
+<div class="indented">
+
+{{ icon_example }} Using general tags:
+```html
+index.md
+
+<frontmatter>
+  title: "Hello World"
+  tags: ["language--java"]
+</frontmatter>
+
+<p tags="language--java">System.out.println("Hello world");</p>
+<p tags="language--C#">Console.WriteLine("Hello world");</p>
+<p tags="language--python">print("Hello world")</p>
+```
+
+```json
+site.json
+
+{
+  ...
+  "tags": ["-language--*", "language--C#"]
+}
+```
+
+`language--java` is overridden by `-language--*`, so only `language--C#` is shown.
+
+</div>
+
+This only works because tags are processed left to right, so all `language--*` tags are hidden before `language--C#`. Tags in `site.json` are processed after tags in `<frontmatter>`.
