@@ -9,11 +9,7 @@
       },
       "title": "Open Bugs",
       "src": "bugs/index.md",
-      "layout": "default",
-      "tags": [
-        "tag--shown",
-        "tag--shown-2"
-      ]
+      "layout": "default"
     },
     {
       "headings": {
@@ -100,7 +96,9 @@
         "nested-panel-without-src": "Nested panel without src",
         "panel-with-src-from-another-markbind-site": "Panel with src from another Markbind site",
         "modal-with-panel-inside": "Modal with panel inside",
-        "unexpanded-panel": "Unexpanded panel"
+        "unexpanded-panel": "Unexpanded panel",
+        "test-plugin-in-markbind-plugins": "Test plugin in markbind/plugins",
+        "markbind-plugin-pre-render": "Markbind Plugin Pre-render"
       },
       "title": "Hello World",
       "footer": "footer.md",
@@ -109,11 +107,7 @@
       "pageNavTitle": "Testing Page Navigation",
       "head": "myCustomHead.md, myCustomHead2.md",
       "src": "index.md",
-      "layout": "default",
-      "tags": [
-        "tag--shown",
-        "tag--shown-2"
-      ]
+      "layout": "default"
     },
     {
       "headings": {
@@ -135,11 +129,7 @@
       "headings": {},
       "layout": "testAfterSetup",
       "src": "testAfterSetup.md",
-      "title": "Hello World",
-      "tags": [
-        "tag--shown",
-        "tag--shown-2"
-      ]
+      "title": "Hello World"
     },
     {
       "headings": {},
@@ -160,11 +150,7 @@
       "title": "Hello World",
       "head": "overwriteLayoutHead.md",
       "layout": "testLayout",
-      "src": "testLayouts.md",
-      "tags": [
-        "tag--shown",
-        "tag--shown-2"
-      ]
+      "src": "testLayouts.md"
     },
     {
       "headings": {
@@ -173,11 +159,7 @@
       "title": "Hello World",
       "head": "overwriteLayoutHead.md",
       "layout": "testLayout",
-      "src": "testLayoutsOverride.md",
-      "tags": [
-        "tag--shown",
-        "tag--shown-2"
-      ]
+      "src": "testLayoutsOverride.md"
     },
     {
       "headings": {
@@ -190,8 +172,7 @@
       },
       "title": "Hello World",
       "tags": [
-        "tag--shown",
-        "tag--shown-2"
+        "tag--should-be-overridden"
       ],
       "src": "testTags.md",
       "layout": "default"

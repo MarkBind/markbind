@@ -9,6 +9,7 @@
   * [Formatting Contents]({{baseUrl}}/userGuide/formattingContents.html)
   * [Using Components]({{baseUrl}}/userGuide/usingComponents.html)
   * [Using HTML, JavaScript, CSS]({{baseUrl}}/userGuide/usingHtmlJavaScriptCss.html)
+  * [Using Plugins]({{baseUrl}}/userGuide/usingPlugins.html)
   * [Tweaking the Page Structure]({{baseUrl}}/userGuide/tweakingThePageStructure.html)
   * [Reusing Contents]({{baseUrl}}/userGuide/reusingContents.html)
   * [Making the Site Searchable]({{baseUrl}}/userGuide/makingTheSiteSearchable.html)

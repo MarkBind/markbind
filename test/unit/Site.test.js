@@ -94,7 +94,7 @@ test('Site Init in existing directory generates correct assets', async () => {
   await Site.initSite('');
   const paths = Object.keys(fs.vol.toJSON());
   const originalNumFiles = Object.keys(json).length;
-  const expectedNumBuilt = 12;
+  const expectedNumBuilt = 13;
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
   // _boilerplates
@@ -124,6 +124,9 @@ test('Site Init in existing directory generates correct assets', async () => {
     expect(fs.readFileSync(path.resolve(`_markbind/layouts/default/${layoutFile}`), 'utf8')).toEqual(''));
   expect(fs.readFileSync(path.resolve('_markbind/layouts/default/scripts.js'), 'utf8'))
     .toEqual(LAYOUT_SCRIPTS_DEFAULT);
+
+  // plugins folder
+  expect(fs.existsSync(path.resolve('_markbind/plugins'), 'utf8')).toEqual(true);
 });
 
 test('Site Init in directory which does not exist generates correct assets', async () => {
@@ -135,7 +138,7 @@ test('Site Init in directory which does not exist generates correct assets', asy
   await Site.initSite('newDir');
   const paths = Object.keys(fs.vol.toJSON());
   const originalNumFiles = Object.keys(json).length;
-  const expectedNumBuilt = 12;
+  const expectedNumBuilt = 13;
 
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
@@ -168,6 +171,9 @@ test('Site Init in directory which does not exist generates correct assets', asy
       .toEqual(''));
   expect(fs.readFileSync(path.resolve('newDir/_markbind/layouts/default/scripts.js'), 'utf8'))
     .toEqual(LAYOUT_SCRIPTS_DEFAULT);
+
+  // plugins folder
+  expect(fs.existsSync(path.resolve('newDir/_markbind/plugins'), 'utf8')).toEqual(true);
 });
 
 test('Site baseurls are correct for sub nested subsites', async () => {

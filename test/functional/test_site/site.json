@@ -59,6 +59,18 @@
   "deploy": {
     "message": "Site Update."
   },
-  "tags" : ["tag--shown", "tag--shown-2"],
-  "headingIndexingLevel": 4
+  "headingIndexingLevel": 4,
+  "plugins" : [
+    "testMarkbindPlugin",
+    "filterTags"
+  ],
+  "pluginsContext" : {
+    "testMarkbindPlugin" : {
+      "pre": "\n\n# Markbind Plugin Pre-render",
+      "post": "<p>Node Modules Plugin Post-render</p>"
+    },
+    "filterTags" : {
+       "tags" : ["tag--shown", "tag--shown-2"]
+    }
+  }
 }
