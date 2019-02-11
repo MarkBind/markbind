@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="<%- asset.layoutStyle %>">
     <% if (siteNav) { %><link rel="stylesheet" href="<%- asset.siteNavCss %>"><% } %>
     <% if (pageNav) { %><link rel="stylesheet" href="<%- asset.pageNavCss %>"><% } %>
+    <% if (search.provider === "agolia") { %><link rel="stylesheet" href="<%- asset.agoliaCss %>"><% } %>
     <%- headFileBottomContent %>
     <% if (faviconUrl) { %><link rel="icon" href="<%- faviconUrl %>"><% } %>
 </head>
@@ -33,6 +34,20 @@
     const enableMarkbindSearch = <%- search.provider === "markbind" %>
 </script>
 <script src="<%- asset.setup %>"></script>
+<% if (search.provider === "agolia") { -%>
+<script src="<%- asset.agoliaJs %>"></script>
+<script>
+function initDocsearch() {
+    docsearch({
+        apiKey: "<%- search.config.apiKey %>",
+        indexName: "<%- search.config.indexName %>",
+        inputSelector: "#agolia-search-input",
+        debug: false
+    });
+}
+MarkBind.afterSetup(initDocsearch);
+</script>
+<% } -%>
 <% if (asset.externalScripts) { -%>
 <% for (const script of asset.externalScripts) { -%>
 <script src="<%- script %>"></script>

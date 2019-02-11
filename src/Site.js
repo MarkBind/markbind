@@ -118,6 +118,9 @@ const GENERATE_SITE_LOGGING_KEY = 'Generate Site';
 const MARKBIND_WEBSITE_URL = 'https://markbind.github.io/markbind/';
 const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${CLI_VERSION}</a>`;
 
+const AGOLIA_CSS_URL = 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css';
+const AGOLIA_JS_URL = 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js';
+
 function Site(rootPath, outputPath, onePagePath, forceReload = false, siteConfigPath = SITE_CONFIG_NAME) {
   this.rootPath = rootPath;
   this.outputPath = outputPath;
@@ -384,6 +387,8 @@ Site.prototype.createPage = function (config) {
                          path.join(this.siteAssetsDestPath, 'js', 'vue.min.js')),
       vueStrap: path.relative(path.dirname(resultPath),
                               path.join(this.siteAssetsDestPath, 'js', 'vue-strap.min.js')),
+      agoliaCss: AGOLIA_CSS_URL,
+      agoliaJs: AGOLIA_JS_URL,
     },
   });
 };
