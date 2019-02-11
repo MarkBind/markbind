@@ -19,30 +19,19 @@
     <link rel="icon" href="/markbind/favicon.ico">
 </head>
 <body data-spy="scroll" data-target="#page-nav" data-offset="100">
-<div id="loading-overlay">
-    <div id="spinner-layout">
-        <div id="spinner"></div>
-    </div>
-</div>
-<script type="text/javascript">
-    document.getElementById("loading-overlay").style.display = 'initial';
-</script>
 <div id="app">
     <nav id="page-nav" class="navbar navbar-light bg-transparent slim-scroll">
-  <a class="navbar-brand" style="white-space: inherit; color: black" href="#">List of Tweaks</a>
+
   <nav class="nav nav-pills flex-column my-0 small" style="flex-wrap: nowrap;">
     <a class="nav-link py-1" href="#tweaking-the-page-structure">Tweaking the Page Structure&#x200E;</a>
     <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
-      <a class="nav-link py-1" href="#setting-page-properties-using-front-matter">Setting Page Properties Using Front Matter&#x200E;</a>
-      <a class="nav-link py-1" href="#tweaking-the-page-head">Tweaking the Page &lt;head&gt;&#x200E;</a>
-      <a class="nav-link py-1" href="#using-footers">Using Footers&#x200E;</a>
+      <a class="nav-link py-1" href="#front-matter">Front Matter&#x200E;</a>
+      <a class="nav-link py-1" href="#page-head">Page &lt;head&gt;&#x200E;</a>
+      <a class="nav-link py-1" href="#footers">Footers&#x200E;</a>
       <a class="nav-link py-1" href="#site-navigation-menus">Site Navigation Menus&#x200E;</a>
       <a class="nav-link py-1" href="#page-navigation-menus">Page Navigation Menus&#x200E;</a>
       <a class="nav-link py-1" href="#page-layouts">Page Layouts&#x200E;</a>
-      <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
-        <a class="nav-link py-1" href="#attaching-event-listeners-in-scripts-js">Attaching event listeners in scripts.js&#x200E;</a>
-      </nav>
-      <a class="nav-link py-1" href="#toggling-alternative-contents-in-a-page">Toggling alternative contents in a page&#x200E;</a>
+      <a class="nav-link py-1" href="#tags">Tags&#x200E;</a>
     </nav>
 
   </nav>
@@ -56,8 +45,11 @@
       <li style="margin-top:10px"><a href="/markbind/userGuide/authoringContents.html" class="site-nav__a">Authoring Contents</a>
         <ul style="list-style-type: none; margin-left:-1em">
           <li style="margin-top: 10px"><a href="/markbind/userGuide/addingPages.html" class="site-nav__a">Adding Pages</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntax.html" class="site-nav__a">MarkBind Syntax</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntaxOverview.html" class="site-nav__a">MarkBind Syntax Overview</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/formattingContents.html" class="site-nav__a">Formatting Contents</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/usingComponents.html" class="site-nav__a">Using Components</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingHtmlJavaScriptCss.html" class="site-nav__a">Using HTML, JavaScript, CSS</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingPlugins.html" class="site-nav__a">Using Plugins</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/tweakingThePageStructure.html" class="site-nav__a current">Tweaking the Page Structure</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/reusingContents.html" class="site-nav__a">Reusing Contents</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/makingTheSiteSearchable.html" class="site-nav__a">Making the Site Searchable</a></li>
@@ -71,8 +63,11 @@
         <div class="dropdown-container dropdown-container-open">
           <ul style="list-style-type: none; margin-left:-1em">
             <li style="margin-top: 10px"><a href="/markbind/userGuide/cliCommands.html" class="site-nav__a">CLI Commands</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/readerFacingFeatures.html" class="site-nav__a">Reader-Facing Features</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/fullSyntaxReference.html" class="site-nav__a">Full Syntax Reference</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/syntaxCheatSheet.html" class="site-nav__a">Syntax Cheat Sheet</a></li>
             <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html" class="site-nav__a">Site Configuration</a></li>
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsTricksAndTroubleshooting.html" class="site-nav__a">Tips, Tricks, & Troubleshooting</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsAndTricks.html" class="site-nav__a">Tips & Tricks</a></li>
             <li style="margin-top: 10px"><a href="/markbind/userGuide/glossary.html" class="site-nav__a">Glossary</a></li>
           </ul>
         </div>
@@ -89,9 +84,13 @@
   <div id="page-content">
     <div id="page-nav-content-wrapper">
       <div id="content-wrapper">
+        <div></div>
+        <div></div>
+        <span id="link" class="d-none">
+<span><a href="/markbind/userGuide/tweakingThePageStructure.html"><em>User Guide → Tweaking the Page Structure</em></a></span></span>
         <div>
           <link rel="stylesheet" href="/markbind/css/main.css">
-          <navbar placement="top" type="inverse">
+          <navbar placement="top" type="inverse" class="temp-navbar">
             <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
             <li><a href="/markbind/index.html" class="nav-link">HOME</a></li>
             <li><a href="/markbind/userGuide/index.html" class="nav-link">DOCS</a></li>
@@ -110,138 +109,185 @@
         <div class="website-content">
           <h1 id="tweaking-the-page-structure">Tweaking the Page Structure<a class="fa fa-anchor" href="#tweaking-the-page-structure"></a></h1>
           <p><span class="lead" id="overview"><strong>MarkBind offers several ways to easily tweak the overall structure of a page</strong>, for example, using headers, footers, scripts, or stylesheets.</span></p>
-          <h2 id="setting-page-properties-using-front-matter">Setting Page Properties Using Front Matter<a class="fa fa-anchor" href="#setting-page-properties-using-front-matter"></a></h2>
-          <p><strong>You can use a <em>Front Matter</em> section to specify page properties such as the title and keywords of the page.</strong> To specify front matter for a page, insert a <code>&lt;frontmatter&gt;</code> tag in the following format at
-            the beginning of the page.</p>
-          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+          <div>
+            <h2 id="front-matter">Front Matter<a class="fa fa-anchor" href="#front-matter"></a></h2>
+            <p><strong>You can use a <em>Front Matter</em> section to specify page properties such as the title and keywords of the page.</strong> To specify front matter for a page, insert a <code>&lt;frontmatter&gt;</code> tag in the following format at
+              the beginning of the page.</p>
+            <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
   property1: value1
   property2: value2
 <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
 </code></pre>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here, we set the page <code>title</code> attribute as <code>Binary Search Tree</code>.</p>
-            <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here, we set the page <code>title</code> attribute as <code>Binary Search Tree</code>.</p>
+              <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
   title: Binary Search Tree
 <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
 </code></pre>
-          </div>
-          <p><strong>Page properties:</strong></p>
-          <ul>
-            <li><strong><code>title</code></strong>: The title of the page. Will be used as the <code>&lt;title&gt;</code> attribute of the HTML page generated.</li>
-            <li>Other properties such as <code>keywords</code>, <code>layout</code>, <code>head</code> etc. will be explained in other places of this user guide.</li>
-          </ul>
-          <div>
-            <box type="warning">
-              <p>Note: Page properties that are defined in <code>site.json</code> for a particular page will override those defined in the front matter of the page.
-              </p>
-            </box>
+            </div>
+            <p><strong>Page properties:</strong></p>
+            <ul>
+              <li><strong><code>title</code></strong>: The title of the page. Will be used as the <code>&lt;title&gt;</code> attribute of the HTML page generated.</li>
+              <li>Other properties such as <code>keywords</code>, <code>layout</code>, <code>head</code> etc. will be explained in other places of this user guide.</li>
+            </ul>
+            <div>
+              <box type="warning">
+                <p>Note: Page properties that are defined in <code>site.json</code> for a particular page will override those defined in the front matter of the page.
+                </p>
+              </box>
+            </div>
+            <span id="short" class="d-none">
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+            title: Binary Search Tree pageNav: 2
+            <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
+            </code>
+            </pre>
+            </span>
           </div>
           <hr>
-          <h2 id="tweaking-the-page-head">Tweaking the Page <code>&lt;head&gt;</code><a class="fa fa-anchor" href="#tweaking-the-page-head"></a></h2>
-          <p><strong>MarkBind allows you to insert code into the <code>&lt;head&gt;</code> section of the generated HTML page</strong>, for example, to add links to custom JavaScript or CSS files.</p>
-          <p>Steps:</p>
-          <ol>
-            <li>Put the code you want to insert into the <code>&lt;head&gt;</code> into a file inside the <code>_markbind/head</code> directory.</li>
-            <li>Specify the file as an attribute named <code>head</code> in the <code>&lt;frontmatter&gt;</code> of the page.</li>
-          </ol>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Suppose you want to insert the code below into the <code>&lt;head&gt;</code> of a page,
-              and you have saved the code as <strong><code>_markbind/head/</code></strong><code>myCustomLinks.md</code>:</p>
-            <box>
-              <p><code>&lt;script src=&quot;</code>
-                <code>{<span></span>{ baseUrl }}</code>
-                <code>/js/myCustomScript.js&quot;&gt;&lt;/script&gt;</code><br>
-                <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;</code>
-                <code>{<span></span>{ baseUrl }}</code>
-                <code>/css/main.css&quot;&gt;</code><br>
-                <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;</code>
-                <code>{<span></span>{ baseUrl }}</code>
-                <code>/css/extra.css&quot;&gt;</code></p>
-            </box>
-            <p>To specify that you want to insert <code>myCustomLinks.md</code> into the <code>&lt;head&gt;</code> of <code>myPage.html</code>, update the front matter of the <code>myPage.md</code> as follows:</p>
-            <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+          <div>
+            <h2 id="page-head">Page <code>&lt;head&gt;</code><a class="fa fa-anchor" href="#page-head"></a></h2>
+            <p><strong>MarkBind allows you to insert code into the <code>&lt;head&gt;</code> section of the generated HTML page</strong>, for example, to add links to custom JavaScript or CSS files.</p>
+            <p>Steps:</p>
+            <ol>
+              <li>Put the code you want to insert into the <code>&lt;head&gt;</code> into a file inside the <code>_markbind/head</code> directory.</li>
+              <li>Specify the file as an attribute named <code>head</code> in the <code>&lt;frontmatter&gt;</code> of the page.</li>
+            </ol>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Suppose you want to insert the code below into the <code>&lt;head&gt;</code> of a page,
+                and you have saved the code as <strong><code>_markbind/head/</code></strong><code>myCustomLinks.md</code>:</p>
+              <box>
+                <p><code>&lt;script src=&quot;</code>
+                  <code>{<span></span>{ baseUrl }}</code>
+                  <code>/js/myCustomScript.js&quot;&gt;&lt;/script&gt;</code><br>
+                  <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;</code>
+                  <code>{<span></span>{ baseUrl }}</code>
+                  <code>/css/main.css&quot;&gt;</code><br>
+                  <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;</code>
+                  <code>{<span></span>{ baseUrl }}</code>
+                  <code>/css/extra.css&quot;&gt;</code></p>
+              </box>
+              <p>To specify that you want to insert <code>myCustomLinks.md</code> into the <code>&lt;head&gt;</code> of <code>myPage.html</code>, update the front matter of the <code>myPage.md</code> as follows:</p>
+              <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
   head: myCustomLinks.md
 <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
 ...
 </code></pre>
-          </div>
-          <p><strong>All content is inserted at the bottom of the <code>&lt;head&gt;</code> tag by default.</strong> You can use the optional <code>&lt;head-top&gt;</code> tag to specify content that should be inserted at the top of the <code>&lt;head&gt;</code>            tag instead.</p>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here's how you can force the line <code>&lt;script ... &gt; ... &lt;/script&gt;</code> to
-              be inserted at the top of the <code>&lt;head&gt;</code> section.</p>
-            <box>
-              <p><strong><code>&lt;head-top&gt;</code></strong><br>
-                <code>&lt;script src=&quot;</code>
-                <code>{<span></span>{ baseUrl }}</code>
-                <code>/js/myCustomScript.js&quot;&gt;&lt;/script&gt;</code><br>
-                <strong><code>&lt;/head-top&gt;</code></strong><br>
-                <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;</code>
-                <code>{<span></span>{ baseUrl }}</code>
-                <code>/css/main.css&quot;&gt;</code><br>
-                <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;</code>
-                <code>{<span></span>{ baseUrl }}</code>
-                <code>/css/extra.css&quot;&gt;</code></p>
-            </box>
-          </div>
-          <p><strong>Multiple head files can be included</strong> within a page by providing a comma separated list. They will be added to the <code>&lt;head&gt;</code> in the order in which they are listed.
-            <strong>You may specify raw <code>.js</code> or <code>.css</code> files</strong> as your head file if you wish to do so.</p>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big></p>
-            <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+            </div>
+            <p><strong>All content is inserted at the bottom of the <code>&lt;head&gt;</code> tag by default.</strong> You can use the optional <code>&lt;head-top&gt;</code> tag to specify content that should be inserted at the top of the <code>&lt;head&gt;</code>              tag instead.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here's how you can force the line <code>&lt;script ... &gt; ... &lt;/script&gt;</code>                to be inserted at the top of the <code>&lt;head&gt;</code> section.</p>
+              <box>
+                <p><strong><code>&lt;head-top&gt;</code></strong><br>
+                  <code>&lt;script src=&quot;</code>
+                  <code>{<span></span>{ baseUrl }}</code>
+                  <code>/js/myCustomScript.js&quot;&gt;&lt;/script&gt;</code><br>
+                  <strong><code>&lt;/head-top&gt;</code></strong><br>
+                  <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;</code>
+                  <code>{<span></span>{ baseUrl }}</code>
+                  <code>/css/main.css&quot;&gt;</code><br>
+                  <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;</code>
+                  <code>{<span></span>{ baseUrl }}</code>
+                  <code>/css/extra.css&quot;&gt;</code></p>
+              </box>
+            </div>
+            <p><strong>Multiple head files can be included</strong> within a page by providing a comma separated list. They will be added to the <code>&lt;head&gt;</code> in the order in which they are listed.
+              <strong>You may specify raw <code>.js</code> or <code>.css</code> files</strong> as your head file if you wish to do so.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big></p>
+              <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
   head: customStyles.md, extraScripts.md, extra.css, other.js
 <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
 </code></pre>
+            </div>
+            <span id="short" class="d-none">
+<p><code>_markbind/head/myCustomLinks.md</code>:</p>
+<box>
+<p><strong><code>&lt;head-top&gt;</code></strong><br>
+  <code>&lt;script src=&quot;</code>
+<code>{<span></span>{ baseUrl }}</code>
+            <code>/js/myCustomScript.js&quot;&gt;&lt;/script&gt;</code><br>
+            <strong><code>&lt;/head-top&gt;</code></strong><br>
+            <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;</code>
+            <code>{<span></span>{ baseUrl }}</code>
+            <code>/css/main.css&quot;&gt;</code><br>
+            <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;</code>
+            <code>{<span></span>{ baseUrl }}</code>
+            <code>/css/extra.css&quot;&gt;</code></p>
+            </box>
+            <pre><code class="hljs html"> <span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+   head: myCustomLinks.md
+ <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
+</code></pre>
+            </span>
           </div>
           <hr>
-          <h2 id="using-footers">Using Footers<a class="fa fa-anchor" href="#using-footers"></a></h2>
-          <p><strong>You can specify a <tooltip content="For an example of a page footer, see the bottom of this page.">page footer</tooltip></strong> using a <code>&lt;footer&gt;</code> tag.</p>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big></p>
-            <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- main body of the page --&gt;</span>
+          <div>
+            <h2 id="footers">Footers<a class="fa fa-anchor" href="#footers"></a></h2>
+            <p><strong>You can specify a <tooltip content="For an example of a page footer, see the bottom of this page.">page footer</tooltip></strong> using a <code>&lt;footer&gt;</code> tag.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big></p>
+              <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- main body of the page --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">footer</span>&gt;</span>
   This page is not updated anymore!
 <span class="hljs-tag">&lt;/<span class="hljs-name">footer</span>&gt;</span>
 </code></pre>
-          </div>
-          <p>If the same footer is to appear in many pages, instead of specifying it <em>inline</em> as explained above, you can save it as a separate file in the <code>_markbind/footers</code> and specify it in the <code>&lt;frontmatter&gt;</code> of the
-            pages in which it should appear.</p>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big>
-              <strong><code>_markbind/footers/</code></strong><code>commonFooter.md</code>:</p>
-            <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">footer</span>&gt;</span>
+            </div>
+            <p>If the same footer is to appear in many pages, instead of specifying it <em>inline</em> as explained above, you can save it as a separate file in the <code>_markbind/footers</code> and specify it in the <code>&lt;frontmatter&gt;</code> of
+              the pages in which it should appear.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big>
+                <strong><code>_markbind/footers/</code></strong><code>commonFooter.md</code>:</p>
+              <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">footer</span>&gt;</span>
   This page is not updated anymore!
 <span class="hljs-tag">&lt;/<span class="hljs-name">footer</span>&gt;</span>
 </code></pre>
-            <p>In the page that you want to include the footer:</p>
-            <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+              <p>In the page that you want to include the footer:</p>
+              <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
   footer: commonFooter.md
 <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
 </code></pre>
-          </div>
-          <p>Notes:</p>
-          <ul>
-            <li>An inline footer needs to be the last element in the page.</li>
-            <li>The footer specified in the <code>&lt;frontmatter&gt;</code> overrides the inline footer, if the page has any.</li>
-            <li>Footers nested in other components or HTML tags will be shifted outside of the enclosing tag.</li>
-            <li><a href="/markbind/userGuide/usingComponents.html">MarkBind Components</a> and <a href="/markbind/userGuide/reusingContents.html#the-include-tag"><code>&lt;include&gt;</code> tags</a> are not supported in footers.</li>
-          </ul>
-          <hr>
-          <h2 id="site-navigation-menus">Site Navigation Menus<a class="fa fa-anchor" href="#site-navigation-menus"></a></h2>
-          <p><strong>You can add a <trigger trigger="click" for="modal:pageStructure-siteNavidationMenu"><em>site navigation menu</em></trigger> to a page.</strong></p>
-          <modal title="Site Naviation Menu" id="modal:pageStructure-siteNavidationMenu">
-            <div>
-              <p><em>Site Navigation Menu</em> (<em>siteNav</em> for short) is a fixed menu on the <strong>left</strong> side of your page contents, that shows a road map of the main pages of your site.</p>
             </div>
-          </modal>
-          <p>Steps to add a site navigation menu <mark>(<em>siteNav</em> for short)</mark>:</p>
-          <ol>
-            <li>Format your siteNav as an unordered Markdown list and save it inside the <code>_markbind/navigation</code> directory.</li>
-            <li>Specify the file as the value of the <code>siteNav</code> attribute in the <code>&lt;frontmatter&gt;</code> of the page.</li>
-          </ol>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here is an example siteNav code saved in <strong><code>_markbind/navigation/</code></strong><code>mySiteNav.md</code>              file:</p>
-            <box>
-              <code>
+            <p>Notes:</p>
+            <ul>
+              <li>An inline footer needs to be the last element in the page.</li>
+              <li>The footer specified in the <code>&lt;frontmatter&gt;</code> overrides the inline footer, if the page has any.</li>
+              <li>Footers nested in other components or HTML tags will be shifted outside of the enclosing tag.</li>
+              <li><a href="/markbind/userGuide/usingComponents.html">MarkBind Components</a> and <a href="/markbind/userGuide/reusingContents.html#the-include-tag"><code>&lt;include&gt;</code> tags</a> are not supported in footers.</li>
+            </ul>
+            <span id="short" class="d-none">
+```html
+<footer>
+  This page is not updated anymore!
+</footer>
+```
+```html
+<frontmatter>
+  footer: commonFooter.md
+</frontmatter>
+```
+</span>
+            <span id="examples" class="d-none">
+<p>You can see an example of a footer <mark>at the bottom</mark> of <a target="_blank" href="/markbind/userGuide/formattingContents.html">this page</a>.
+</p></span></div>
+          <hr>
+          <div>
+            <h2 id="site-navigation-menus">Site Navigation Menus<a class="fa fa-anchor" href="#site-navigation-menus"></a></h2>
+            <p><strong>You can add a <trigger trigger="click" for="modal:pageStructure-siteNavidationMenu"><em>site navigation menu</em></trigger> to a page.</strong></p>
+            <modal title="Site Naviation Menu" id="modal:pageStructure-siteNavidationMenu">
+              <div>
+                <p><em>Site Navigation Menu</em> (<em>siteNav</em> for short) is a fixed menu on the <strong>left</strong> side of your page contents, that shows a road map of the main pages of your site.</p>
+              </div>
+            </modal>
+            <p>Steps to add a site navigation menu <mark>(<em>siteNav</em> for short)</mark>:</p>
+            <ol>
+              <li>Format your siteNav as an unordered Markdown list and save it inside the <code>_markbind/navigation</code> directory.</li>
+              <li>Specify the file as the value of the <code>siteNav</code> attribute in the <code>&lt;frontmatter&gt;</code> of the page.</li>
+            </ol>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here is an example siteNav code saved in <strong><code>_markbind/navigation/</code></strong><code>mySiteNav.md</code>                file:</p>
+              <box>
+                <code>
 * [:house: Home]({<span></span>{ baseUrl }}/index.html)<br>
 * Docs<br>
 &nbsp;&nbsp;* [User Guide]({<span></span>{ baseUrl }}/ug.html)<br>
@@ -251,42 +297,42 @@
 &nbsp;&nbsp;* [YouTube Search](https://www.youtube.com/)<br>
 * [Contact]({<span></span>{ baseUrl }}/contact.html)
 </code></box>
-            <p>Here's how another page can make use of the above siteNav:</p>
-            <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+              <p>Here's how another page can make use of the above siteNav:</p>
+              <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
   siteNav: mySiteNav.md
 <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
 ...
 </code></pre>
-            <p>Here's how the above siteNav will appear:</p>
-            <ul style="list-style-type: none; margin-left:-1em">
-              <li style="margin-top: 10px"><a class="site-nav__a" href="/index.html">🏠 Home</a></li>
-              <li style="margin-top: 10px">
-                <button class="dropdown-btn">Docs <i class="dropdown-btn-icon">
+              <p>Here's how the above siteNav will appear:</p>
+              <ul style="list-style-type: none; margin-left:-1em">
+                <li style="margin-top: 10px"><a class="site-nav__a" href="/index.html">🏠 Home</a></li>
+                <li style="margin-top: 10px">
+                  <button class="dropdown-btn">Docs <i class="dropdown-btn-icon">
       <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
-                <div class="dropdown-container">
+                  <div class="dropdown-container">
+                    <ul style="list-style-type: none; margin-left:-1em">
+                      <li style="margin-top: 10px"><a class="site-nav__a" href="">User Guide</a></li>
+                      <li style="margin-top: 10px"><a class="site-nav__a" href="">Dev Guide</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li style="margin-top:10px"><a class="site-nav__a" href="">Search</a>
                   <ul style="list-style-type: none; margin-left:-1em">
-                    <li style="margin-top: 10px"><a class="site-nav__a" href="">User Guide</a></li>
-                    <li style="margin-top: 10px"><a class="site-nav__a" href="">Dev Guide</a></li>
+                    <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.google.com">Google Search</a></li>
+                    <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.youtube.com">YouTube Search</a></li>
                   </ul>
-                </div>
-              </li>
-              <li style="margin-top:10px"><a class="site-nav__a" href="">Search</a>
-                <ul style="list-style-type: none; margin-left:-1em">
-                  <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.google.com">Google Search</a></li>
-                  <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.youtube.com">YouTube Search</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-          <p>You can <strong>append the <code>:expanded:</code> to a <tooltip content="a menu item with sub menu-items">parent menu item</tooltip> to make it expand by default.</strong> In the example above, <code>* Docs :expanded:</code> will make the menu
-            item <code>Docs</code> expand by default.</p>
-          <p>A parent menu item that is also linked will not be collapsible <span class="dimmed">e.g., the <code>Search</code> menu item in the above example</span>.</p>
-          <p>You may have additional HTML and Markdown content in a
-            <tooltip content="the file containing the code for a site navigation menu, e.g., `mySiteNav.md` in the example above">siteNav file</tooltip>, in which case the code for the siteNav should be enclosed in a <code>&lt;navigation&gt;</code> tag. There should only be one <code>&lt;navigation&gt;</code> tag in the file.</p>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> A siteNav code using a <code>&lt;navigation&gt;</code> tag.</p>
-            <box>
-              <code>
+                </li>
+              </ul>
+            </div>
+            <p>You can <strong>append the <code>:expanded:</code> to a <tooltip content="a menu item with sub menu-items">parent menu item</tooltip> to make it expand by default.</strong> In the example above, <code>* Docs :expanded:</code> will make the
+              menu item <code>Docs</code> expand by default.</p>
+            <p>A parent menu item that is also linked will not be collapsible <span class="dimmed">e.g., the <code>Search</code> menu item in the above example</span>.</p>
+            <p>You may have additional HTML and Markdown content in a
+              <tooltip content="the file containing the code for a site navigation menu, e.g., `mySiteNav.md` in the example above">siteNav file</tooltip>, in which case the code for the siteNav should be enclosed in a <code>&lt;navigation&gt;</code> tag. There should only be one <code>&lt;navigation&gt;</code> tag in the file.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> A siteNav code using a <code>&lt;navigation&gt;</code> tag.</p>
+              <box>
+                <code>
 # Site Map<br>
 <strong><<span></span>navigation></strong><br>
 * [:house: Home]({<span></span>{ baseUrl }}/index.html)<br>
@@ -296,52 +342,80 @@
 * [Search]({<span></span>{ baseUrl }}/search.html)<br>
 <strong><<span></span>/navigation></strong><br>
 </code></box>
-          </div>
-          <p>More than one siteNav file can be in <code>_markbind/navigation/</code> directory but a page may not have more than one siteNav.</p>
-          <p>A siteNav has a fixed width of 300 pixels for its contents. A siteNavs is <a href="https://www.w3schools.com/html/html_responsive.asp"><em>responsive</em></a> in that it will collapse to a menu button when the screen width is smaller than 992
-            pixels. It will then be completely hidden when the screen size is smaller than 576 pixels.</p>
-          <p>There is no limit to the number of nesting levels or the number of items in the menu, but note that any content exceeding a height of 1000 pixels will be cut off.</p>
-          <hr>
-          <h2 id="page-navigation-menus">Page Navigation Menus<a class="fa fa-anchor" href="#page-navigation-menus"></a></h2>
-          <p><strong>You can add a <trigger trigger="click" for="modal:pageStructure-pageNavidationMenu"><em>page navigation menu</em></trigger> to a page.</strong></p>
-          <modal title="Page Naviation Menu" id="modal:pageStructure-pageNavidationMenu">
-            <div>
-              <p><em>Page Navigation Menu</em> (<em>pageNav</em> for short) is a fixed menu on the <strong>right</strong> side of your page contents, which contains the current page's headings.</p>
             </div>
-          </modal>
-          <p>Steps to add a page navigation menu <mark>(<em>pageNav</em> for short)</mark>:</p>
-          <ol>
-            <li>Specify your pageNav within the <code>&lt;frontmatter&gt;</code> of a page with
-              <tooltip content="The value `default` will use `headingIndexingLevel` within `site.json`."><code>&quot;default&quot;</code></tooltip> or a
-              <tooltip content="HTML defines six levels of headings, numbered from <br>`1 to 6`."><code>heading level</code></tooltip>.</li>
-            <li>(Optional) You may also specify a page navigation title within <code>&lt;frontmatter&gt;</code> that will be placed at the top of the page navigation menu.</li>
-          </ol>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> In the page that you want to have page navigation:</p>
+            <p>More than one siteNav file can be in <code>_markbind/navigation/</code> directory but a page may not have more than one siteNav.</p>
+            <p>A siteNav has a fixed width of 300 pixels for its contents. A siteNavs is <a href="https://www.w3schools.com/html/html_responsive.asp"><em>responsive</em></a> in that it will collapse to a menu button when the screen width is smaller than
+              992 pixels. It will then be completely hidden when the screen size is smaller than 576 pixels.</p>
+            <p>There is no limit to the number of nesting levels or the number of items in the menu, but note that any content exceeding a height of 1000 pixels will be cut off.</p>
+            <span id="short" class="d-none">
+<code>
+# Site Map<br>
+<strong><<span></span>navigation></strong><br> * [:house: Home]({<span></span>{ baseUrl }}/index.html)<br> * Docs :expanded:<br> &nbsp;&nbsp;* [User Guide]({<span></span>{ baseUrl }}/ug.html)<br> &nbsp;&nbsp;* [Dev Guide]({<span></span>{ baseUrl
+            }}/dg.html)
+            <br> * [Search]({<span></span>{ baseUrl }}/search.html)<br>
+            <strong><<span></span>/navigation></strong><br>
+            </code>
             <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+  siteNav: mySiteNav.md
+<span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
+...
+</code></pre>
+            </span>
+            <span id="examples" class="d-none">
+<p>You can see an example of a Page Navigation Bar <mark>on the left side</mark> of <a target="_blank" href="/markbind/userGuide/formattingContents.html">this page</a>.</p></span></div>
+          <hr>
+          <div>
+            <h2 id="page-navigation-menus">Page Navigation Menus<a class="fa fa-anchor" href="#page-navigation-menus"></a></h2>
+            <p><strong>You can add a <trigger trigger="click" for="modal:pageStructure-pageNavigationMenu"><em>page navigation menu</em></trigger> to a page.</strong></p>
+            <modal title="Page Naviation Menu" id="modal:pageStructure-pageNavigationMenu">
+              <div>
+                <p><em>Page Navigation Menu</em> (<em>pageNav</em> for short) is a fixed menu on the <strong>right</strong> side of your page contents, which contains the current page's headings.</p>
+              </div>
+            </modal>
+            <p>Steps to add a page navigation menu <mark>(<em>pageNav</em> for short)</mark>:</p>
+            <ol>
+              <li>Specify your pageNav within the <code>&lt;frontmatter&gt;</code> of a page with
+                <tooltip content="The value `default` will use `headingIndexingLevel` within `site.json`."><code>&quot;default&quot;</code></tooltip> or a
+                <tooltip content="HTML defines six levels of headings, numbered from <br>`1 to 6`."><code>heading level</code></tooltip>.</li>
+              <li>(Optional) You may also specify a page navigation title within <code>&lt;frontmatter&gt;</code> that will be placed at the top of the page navigation menu.</li>
+            </ol>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> In the page that you want to have page navigation:</p>
+              <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
   pageNav: 2
   pageNavTitle: "Chapters of This Page"
 <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
 </code></pre>
-            <p>The example above will create a page navigation containing only heading levels of <code>1 and 2</code>.</p>
-          </div>
-          <p>A pageNav has a fixed width of 300 pixels for its contents. It is <a href="https://www.w3schools.com/html/html_responsive.asp"><em>responsive</em></a> by design and will be completely hidden when the screen size is smaller than 1300 pixels.</p>
+              <p>The example above will create a page navigation containing only heading levels of <code>1 and 2</code>.</p>
+            </div>
+            <p>A pageNav has a fixed width of 300 pixels for its contents. It is <a href="https://www.w3schools.com/html/html_responsive.asp"><em>responsive</em></a> by design and will be completely hidden when the screen size is smaller than 1300 pixels.</p>
+            <span id="short" class="d-none">
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+            pageNav: 2 pageNavTitle: "Chapters of This Page"
+            <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
+            </code>
+            </pre>
+            </span>
+            <span id="examples" class="d-none">
+<p>You can see an example of a Page Navigation Bar <mark>on the right side</mark> of <a target="_blank" href="/markbind/userGuide/formattingContents.html">this page</a>.
+</p></span></div>
           <hr>
-          <h2 id="page-layouts">Page Layouts<a class="fa fa-anchor" href="#page-layouts"></a></h2>
-          <p><strong>A <em>layout</em> is a set of page-tweaks that can be applied to a page (or group of pages) in one go.</strong></p>
-          <p>A layout consists of the following files:</p>
-          <ol>
-            <li>A footer (filename: <code>footer.md</code>)</li>
-            <li>Tweaks to the <code>&lt;head&gt;</code> (<code>head.md</code>)</li>
-            <li>A site navigation menu (<code>navigation.md</code>)</li>
-            <li>Custom styles (<code>styles.css</code>)</li>
-            <li>Custom scripts (<code>scripts.js</code>)</li>
-          </ol>
-          <p>A layout is represented by a sub-directory in the <code>_markbind/layouts/</code> containing the files listed above. The name of the layout is same as the name of the sub-directory.</p>
-          <p>To apply the layout, specify it as an attribute named <code>layout</code> in the <code>&lt;frontmatter&gt;</code> of each page, or in the <code>site.json</code>.</p>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Suppose you have a layout named <code>chapterLayout</code>.</p>
-            <pre><code class="hljs">&lt;root&gt;/_markbind/layouts/
+          <div>
+            <h2 id="page-layouts">Page Layouts<a class="fa fa-anchor" href="#page-layouts"></a></h2>
+            <p><strong>A <em>layout</em> is a set of page-tweaks that can be applied to a page (or group of pages) in one go.</strong></p>
+            <p>A layout consists of the following files:</p>
+            <ol>
+              <li>A footer (filename: <code>footer.md</code>)</li>
+              <li>Tweaks to the <code>&lt;head&gt;</code> (<code>head.md</code>)</li>
+              <li>A site navigation menu (<code>navigation.md</code>)</li>
+              <li>Custom styles (<code>styles.css</code>)</li>
+              <li>Custom scripts (<code>scripts.js</code>)</li>
+            </ol>
+            <p>A layout is represented by a sub-directory in the <code>_markbind/layouts/</code> containing the files listed above. The name of the layout is same as the name of the sub-directory.</p>
+            <p>To apply the layout, specify it as an attribute named <code>layout</code> in the <code>&lt;frontmatter&gt;</code> of each page, or in the <code>site.json</code>.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Suppose you have a layout named <code>chapterLayout</code>.</p>
+              <pre><code class="hljs">&lt;root&gt;/_markbind/layouts/
                   └── chapterLayout/
                         ├── footer.md
                         ├── head.md
@@ -349,87 +423,109 @@
                         ├── styles.css
                         └── scripts.js
 </code></pre>
-            <p>You can apply it to the <code>chapter.md</code> by setting its <code>&lt;frontmatter&gt;</code> as follows:</p>
-            <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+              <p>You can apply it to the <code>chapter.md</code> by setting its <code>&lt;frontmatter&gt;</code> as follows:</p>
+              <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
   layout: chapterLayout
 <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
 ...
 </code></pre>
-            <p>You can apply it to all <code>chapter.md</code> files by adding this entry to the <code>site.json</code>.</p>
-            <pre><code class="hljs json">{
+              <p>You can apply it to all <code>chapter.md</code> files by adding this entry to the <code>site.json</code>.</p>
+              <pre><code class="hljs json">{
   <span class="hljs-attr">"glob"</span>: <span class="hljs-string">"**/chapter.md"</span>,
   <span class="hljs-attr">"layout"</span>: <span class="hljs-string">"chapterLayout"</span>
 }
 </code></pre>
-          </div>
-          <p>The layout specified in the <code>site.json</code> overrides the one specified in the <code>&lt;frontmatter&gt;</code>.</p>
-          <p>Any files specified in <code>&lt;frontmatter&gt;</code> overrides the corresponding file in the layout applied.</p>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Suppose a file has the following:</p>
-            <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+            </div>
+            <p>The layout specified in the <code>site.json</code> overrides the one specified in the <code>&lt;frontmatter&gt;</code>.</p>
+            <p>Any files specified in <code>&lt;frontmatter&gt;</code> overrides the corresponding file in the layout applied.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Suppose a file has the following:</p>
+              <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
   layout: chapterLayout
   head: myHead.md
 <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
 ...
 </code></pre>
-            <p>In this case <code>myHead.md</code> will override the <code>chapterLayout/head.md</code>.</p>
-          </div>
-          <p><strong>The layout named <code>default</code> (if any) is automatically applied to every single page.</strong> When you <code>init</code> a MarkBind site, MarkBind also generates an empty <code>default</code> layout.</p>
-          <h3 id="attaching-event-listeners-in-scripts-js">Attaching event listeners in <code>scripts.js</code><a class="fa fa-anchor" href="#attaching-event-listeners-in-scripts-js"></a></h3>
-          <p>You can include custom JavaScript in <code>scripts.js</code>. <mark>However, DOM manipulations such as attaching event listeners may be overridden after MarkBind setup.</mark> To ensure that such changes take effect, include your code in a function
-            that is passed to <code>afterSetup()</code> in <code>scripts.js</code>. Functions passed to <code>afterSetup()</code> will then be called after MarkBind setup is complete.</p>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Suppose a page has the following:</p>
-            <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"alert"</span>&gt;</span>Click here!<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+              <p>In this case <code>myHead.md</code> will override the <code>chapterLayout/head.md</code>.</p>
+            </div>
+            <p><strong>The layout named <code>default</code> (if any) is automatically applied to every single page.</strong> When you <code>init</code> a MarkBind site, MarkBind also generates an empty <code>default</code> layout.</p>
+            <h4 id="attaching-event-listeners-in-scripts-js">Attaching event listeners in <code>scripts.js</code><a class="fa fa-anchor" href="#attaching-event-listeners-in-scripts-js"></a></h4>
+            <p>You can include custom JavaScript in <code>scripts.js</code>. <mark>However, DOM manipulations such as attaching event listeners may be overridden after MarkBind setup.</mark> To ensure that such changes take effect, include your code in a
+              function that is passed to <code>afterSetup()</code> in <code>scripts.js</code>. Functions passed to <code>afterSetup()</code> will then be called after MarkBind setup is complete.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Suppose a page has the following:</p>
+              <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"alert"</span>&gt;</span>Click here!<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 </code></pre>
-            <p>To show a JavaScript alert when <code class="hljs inline html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"alert"</span>&gt;</span></code> is clicked, we attach
-              an event listener to it in a function passed to <code>afterSetup()</code> in <code>scripts.js</code>:</p>
-            <pre><code class="hljs js">afterSetup(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+              <p>To show a JavaScript alert when <code class="hljs inline html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"alert"</span>&gt;</span></code> is clicked, we attach
+                an event listener to it in a function passed to <code>afterSetup()</code> in <code>scripts.js</code>:</p>
+              <pre><code class="hljs js">afterSetup(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
   <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"alert"</span>).addEventListener(<span class="hljs-string">"click"</span>,  () =&gt; {
     <span class="hljs-built_in">window</span>.alert(<span class="hljs-string">"You have just clicked the span!"</span>);
   });
 });
 </code></pre>
+            </div>
+            <span id="short" class="d-none">
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+            layout: chapterLayout
+            <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
+            </code>
+            </pre>
+            </span>
           </div>
-          <h2 id="toggling-alternative-contents-in-a-page">Toggling alternative contents in a page<a class="fa fa-anchor" href="#toggling-alternative-contents-in-a-page"></a></h2>
-          <p>You can use tags to selectively filter HTML elements when building a site.</p>
-          <p>Tags are specified by the <code>tags</code> attribute, <strong>and can be attached to any HTML element</strong>. During rendering, only elements that match tags specified in the <code>site.json</code> files will be rendered.</p>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Attaching tags to elements:</p>
-            <pre><code class="hljs html"># Print 'Hello world'
+          <hr>
+          <div>
+            <h2 id="tags">Tags<a class="fa fa-anchor" href="#tags"></a></h2>
+            <p>You can use tags to selectively filter HTML elements when building a site.</p>
+            <p>Tags are specified by the <code>tags</code> attribute, <strong>and can be attached to any HTML element</strong>. During rendering, only elements that match tags specified in the <code>site.json</code> files will be rendered.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Attaching tags to elements:</p>
+              <pre><code class="hljs html"># Print 'Hello world'
 
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--java"</span>&gt;</span>System.out.println("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--C#"</span>&gt;</span>Console.WriteLine("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--python"</span>&gt;</span>print("Hello world")<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 </code></pre>
-            <p>You need to specify the tags to include in <code>site.json</code>, under the <code>tags</code> option:</p>
-            <pre><code class="hljs json">{
+              <p>You need to specify the tags to include in <code>site.json</code>, under the <code>tags</code> option:</p>
+              <pre><code class="hljs json">{
   ...
   <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"language--java"</span>]
 }
 </code></pre>
-            <p>All other tagged elements will be filtered out. In this case, only the element with the <code>language--java</code> tag will be rendered. This is helpful when creating multiple versions of a page without having to maintain separate copies.</p>
-          </div>
-          <p>If the <code>tags</code> option is not specified in <code>site.json</code>, all tagged elements will be rendered.</p>
-          <p><strong>You can also use multiple tags in a single HTML element. Specify each tag in the <code>tags</code> attribute</strong> separated by a space. An element will be rendered if <strong>any of the tags</strong> matches the one in <code>site.json</code>.</p>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Attaching multiple tags to an element:</p>
-            <pre><code class="hljs html"># For loops
+              <p>All other tagged elements will be filtered out. In this case, only the element with the <code>language--java</code> tag will be rendered. This is helpful when creating multiple versions of a page without having to maintain separate copies.</p>
+            </div>
+            <p>If the <code>tags</code> option is not specified in <code>site.json</code>, all tagged elements will be rendered.</p>
+            <p><strong>You can also use multiple tags in a single HTML element. Specify each tag in the <code>tags</code> attribute</strong> separated by a space. An element will be rendered if <strong>any of the tags</strong> matches the one in <code>site.json</code>.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Attaching multiple tags to an element:</p>
+              <pre><code class="hljs html"># For loops
 
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--java language--C#"</span>&gt;</span>for (int i = 0; i <span class="hljs-tag">&lt; <span class="hljs-attr">5</span>; <span class="hljs-attr">i</span>++) { <span class="hljs-attr">...</span> }&lt;/<span class="hljs-attr">p</span>&gt;</span>
 </code></pre>
-            <p>As long as the <code>language--java</code> or <code>language--C#</code> tag is specified, the code snippet will be rendered.</p>
-          </div>
-          <p>Alternatively, you can specify tags to render for a page in the front matter.</p>
-          <div class="indented">
-            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Specifying tags in front matter:</p>
+              <p>As long as the <code>language--java</code> or <code>language--C#</code> tag is specified, the code snippet will be rendered.</p>
+            </div>
+            <p>Alternatively, you can specify tags to render for a page in the front matter.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Specifying tags in front matter:</p>
+              <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+  title: "Hello World"
+  tags: ["language--java"]
+<span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
+</code></pre>
+            </div>
+            <p>Tags in <code>site.json</code> will take precedence over the ones in the front matter.</p>
+            <span id="short" class="d-none">
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--java advanced"</span>&gt;</span>System.out.println("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--C# basic"</span>&gt;</span>Console.WriteLine("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            </code>
+            </pre>
             <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
   title: "Hello World"
   tags: ["language--java"]
 <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
 </code></pre>
+            </span>
           </div>
-          <p>Tags in <code>site.json</code> will take precedence over the ones in the front matter.</p>
         </div>
       </div>
     </div>
@@ -438,7 +534,7 @@
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.17.3</a> on Thu, 07 Feb 2019 07:27:28 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.18.0</a> on Mon, 11 Feb 2019 05:45:44 GMT]</small></div>
 </footer>
 </div>
 </body>

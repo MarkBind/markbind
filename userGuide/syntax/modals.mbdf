@@ -1,0 +1,63 @@
+## Modals
+
+**Modals are to be used together with the [Trigger](#trigger) component for activation.**
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```html
+More about <trigger for="modal:trigger_id">trigger</trigger>.
+<modal title="**Modal title** :rocket:" id="modal:trigger_id">
+    ...
+</modal>
+<br>
+This is the same <trigger for="modal:trigger_id">trigger</trigger> as last one.
+```
+</span>
+<span id="output">
+
+More about <trigger for="modal:trigger_id">trigger</trigger>.
+  <modal title="**Modal title** :rocket:" id="modal:trigger_id">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </modal>
+  <br>
+  This is the same <trigger for="modal:trigger_id">trigger</trigger> as last one.
+</span>
+</include>
+
+<panel header="More about triggers">
+<include src="extra/triggers.mbdf" />
+</panel><p/>
+
+****Options****
+Name | type | Default | Description
+--- | --- | --- | ---
+title | `String` | `''` | Title of the Modal component.
+ok-text | `String` | `''` | Text for the OK button.
+effect | `String` | `zoom` | Supports: `zoom`, `fade`.
+id | `String` | | Used by [Trigger](#trigger) to activate the Modal by id.
+width | `Number`, `String`, or `null` | `null` | Passing a `Number` will be translated to pixels.<br>`String` can be passed [CSS units](https://www.w3schools.com/cssref/css_units.asp), ( e.g. '50in' or '30vw' ).<br>`null` will default to Bootstrap's responsive sizing.
+large | `Boolean` | `false` | Creates a [large Modal](https://getbootstrap.com/docs/4.0/components/modal/#optional-sizes).
+small | `Boolean` | `false` | Creates a [small Modal](https://getbootstrap.com/docs/4.0/components/modal/#optional-sizes).
+backdrop | `Boolean` | `true` | Enables closing the Modal by clicking on the backdrop.
+
+<span id="short" class="d-none">
+
+```html
+Click <trigger trigger="click" for="modal:trigger_id">here</trigger> to open a modal.
+<modal title="Modal title" id="modal:trigger_id">
+    Modal content
+</modal>
+```
+</span>
+
+<span id="examples" class="d-none">
+
+Hover <trigger large for="modal:trigger_id">here</trigger> to open a modal.
+<modal title="Modal title" ok-text="OK" id="modal:trigger_id">
+  Modal content
+</modal>
+</span>

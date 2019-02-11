@@ -19,14 +19,6 @@
     <link rel="icon" href="/markbind/favicon.ico">
 </head>
 <body>
-<div id="loading-overlay">
-    <div id="spinner-layout">
-        <div id="spinner"></div>
-    </div>
-</div>
-<script type="text/javascript">
-    document.getElementById("loading-overlay").style.display = 'initial';
-</script>
 <div id="app">
     <div id="flex-body">
   <div id="site-nav">
@@ -36,8 +28,11 @@
       <li style="margin-top:10px"><a href="/markbind/userGuide/authoringContents.html" class="site-nav__a">Authoring Contents</a>
         <ul style="list-style-type: none; margin-left:-1em">
           <li style="margin-top: 10px"><a href="/markbind/userGuide/addingPages.html" class="site-nav__a">Adding Pages</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntax.html" class="site-nav__a">MarkBind Syntax</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntaxOverview.html" class="site-nav__a">MarkBind Syntax Overview</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/formattingContents.html" class="site-nav__a">Formatting Contents</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/usingComponents.html" class="site-nav__a">Using Components</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingHtmlJavaScriptCss.html" class="site-nav__a">Using HTML, JavaScript, CSS</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingPlugins.html" class="site-nav__a">Using Plugins</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/tweakingThePageStructure.html" class="site-nav__a">Tweaking the Page Structure</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/reusingContents.html" class="site-nav__a">Reusing Contents</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/makingTheSiteSearchable.html" class="site-nav__a">Making the Site Searchable</a></li>
@@ -51,8 +46,11 @@
         <div class="dropdown-container dropdown-container-open">
           <ul style="list-style-type: none; margin-left:-1em">
             <li style="margin-top: 10px"><a href="/markbind/userGuide/cliCommands.html" class="site-nav__a">CLI Commands</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/readerFacingFeatures.html" class="site-nav__a">Reader-Facing Features</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/fullSyntaxReference.html" class="site-nav__a">Full Syntax Reference</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/syntaxCheatSheet.html" class="site-nav__a">Syntax Cheat Sheet</a></li>
             <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html" class="site-nav__a">Site Configuration</a></li>
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsTricksAndTroubleshooting.html" class="site-nav__a">Tips, Tricks, & Troubleshooting</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsAndTricks.html" class="site-nav__a">Tips & Tricks</a></li>
             <li style="margin-top: 10px"><a href="/markbind/userGuide/glossary.html" class="site-nav__a">Glossary</a></li>
           </ul>
         </div>
@@ -70,7 +68,7 @@
     <div id="content-wrapper">
       <div>
         <link rel="stylesheet" href="/markbind/css/main.css">
-        <navbar placement="top" type="inverse">
+        <navbar placement="top" type="inverse" class="temp-navbar">
           <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
           <li><a href="/markbind/index.html" class="nav-link">HOME</a></li>
           <li><a href="/markbind/userGuide/index.html" class="nav-link">DOCS</a></li>
@@ -135,6 +133,44 @@
             site before deploying.
           </p>
         </box>
+        <h3 id="deploying-to-github-pages-via-travis-ci">Deploying to GitHub Pages via Travis CI<a class="fa fa-anchor" href="#deploying-to-github-pages-via-travis-ci"></a></h3>
+        <p><strong>You can setup <a href="https://www.travis-ci.org/"><tooltip content="a platform for Continuous Integration and Delivery (among other things)">Travis CI</tooltip></a> to automatically build and deploy your site on GitHub Pages every time your GitHub repo is updated.</strong></p>
+        <p>Here are the steps to set up Travis CI:</p>
+        <ol>
+          <li><a href="https://travis-ci.com/signin">Sign up with GitHub</a> at <a href="https://travis-ci.com">Travis CI</a>.</li>
+          <li>Accept the authorisation for Travis CI when you are redirected to GitHub.</li>
+          <li>Click the green <em>Activate</em> button, and select the repository with the MarkBind site.</li>
+          <li><a href="https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/#creating-a-token">Generate a GitHub personal access token</a> with <strong>repo</strong> permissions. Take note of the generated token - you will
+            not be able to see it again once you navigate away from the page.</li>
+          <li><a href="https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings">Add an environment variable in Travis CI</a> named <code>GITHUB_TOKEN</code>, with the value set to the personal access token generated
+            in the previous step. <mark>Ensure that <em>Display value in the build log</em> is set to <em>Off</em>.</mark>
+            <box background-color="white" border-color="white"><span>
+<a href="/markbind/images/travisGithubToken.png" target="_self"><img src="/markbind/images/travisGithubToken.png" alt="" class="img-fluid"></a></span></box>
+          </li>
+          <li>Add a <code>.travis.yml</code> file to instruct Travis CI to build and deploy the site when you push to the repository. An example <code>.travis.yml</code> file that can accomplish this is given below:
+            <box background-color="white" border-color="white">
+              <pre><code class="hljs yaml"><span class="hljs-attr">language:</span> <span class="hljs-string">node_js</span>
+<span class="hljs-attr">node_js:</span>
+<span class="hljs-bullet">  -</span> <span class="hljs-string">'8'</span>
+<span class="hljs-attr">install:</span>
+<span class="hljs-bullet">  -</span> <span class="hljs-string">npm</span> <span class="hljs-string">i</span> <span class="hljs-bullet">-g</span> <span class="hljs-string">markbind-cli</span>
+<span class="hljs-attr">script:</span> <span class="hljs-string">markbind</span> <span class="hljs-string">build</span> <span class="hljs-string">&amp;&amp;</span> <span class="hljs-string">markbind</span> <span class="hljs-string">deploy</span> <span class="hljs-bullet">--travis</span>
+<span class="hljs-attr">branches:</span>
+<span class="hljs-attr">  only:</span>
+<span class="hljs-bullet">  -</span> <span class="hljs-string">master</span>
+</code></pre> More information about <code>.travis.yml</code> can be found in the <a href="https://docs.travis-ci.com/">Travis CI documentation</a>.
+            </box>
+          </li>
+          <li>Commit <code>.travis.yml</code> to your MarkBind repository and push the changes. Travis CI should begin to build your site.</li>
+          <li>Select the MarkBind repository on <a href="https://travis-ci.com/auth">Travis CI</a> and <a href="https://docs.travis-ci.com/user/job-lifecycle/#breaking-the-build">check the build status</a> to see if it is successful.</li>
+          <li>Once the build succeeds, your MarkBind site should be online at <code>http://&lt;username|org&gt;.github.io/&lt;repo&gt;</code> e.g., <a href="http://se-edu.github.io/se-book">http://se-edu.github.io/se-book</a>. Travis CI will automatically
+            build and deploy changes to your site as you push new changes to the repository.</li>
+        </ol>
+        <p><span class="fas fa-info-circle"></span> Note that when Travis CI is set up as explained above, it will use the latest version of MarkBind which may be a later version than the one you use locally. If you want Travis CI to use a specific version
+          of MarkBind (eg. <code>v1.6.3</code>), change the <code>install</code> step in the <code>.travis.yml</code> given above to:</p>
+        <pre><code class="hljs yaml"><span class="hljs-attr">install:</span>
+<span class="hljs-bullet">  -</span> <span class="hljs-string">npm</span> <span class="hljs-string">i</span> <span class="hljs-bullet">-g</span> <span class="hljs-string">markbind-cli@1.63</span>
+</code></pre>
         <hr>
         <h2 id="deploying-to-netlify">Deploying to Netlify<a class="fa fa-anchor" href="#deploying-to-netlify"></a></h2>
         <p><strong>You can setup <a href="https://www.netlify.com/"><tooltip content="a platform for deploying static webpages (among other things)">Netlify</tooltip></a>
@@ -165,7 +201,7 @@ to automatically build and deploy your site on their platform every time your Gi
         <p><span class="fas fa-info-circle"></span> Note that when Netlify is set up as explained above, it will use the latest version of MarkBind which may be a later version than the one you use locally. If you want Netlify to use a specific version of
           Netlify, follow the instructions in the box below:</p>
         <box background-color="white" border-color="#cccccc">
-          <h5 id="setting-up-netlify-to-use-a-specific-version-of-mark-bind">Setting up Netlify to use a specific version of MarkBind<a class="fa fa-anchor" href="#setting-up-netlify-to-use-a-specific-version-of-mark-bind"></a></h5>
+          <h5 id="setting-up-netlify-to-use-a-specific-version-of-markbind">Setting up Netlify to use a specific version of MarkBind<a class="fa fa-anchor" href="#setting-up-netlify-to-use-a-specific-version-of-markbind"></a></h5>
           <p>Here are the steps to set up Netlify to use a specific version of MarkBind.</p>
           <ol>
             <li>
@@ -200,7 +236,7 @@ to automatically build and deploy your site on their platform every time your Gi
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.17.3</a> on Thu, 07 Feb 2019 07:27:28 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.18.0</a> on Mon, 11 Feb 2019 05:45:44 GMT]</small></div>
 </footer>
 </div>
 </body>

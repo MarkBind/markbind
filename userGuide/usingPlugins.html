@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MarkBind</title>
+    <link rel="stylesheet" href="../markbind/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../markbind/css/bootstrap-vue.min.css">
+    <link rel="stylesheet" href="../markbind/css/font-awesome.min.css" >
+    <link rel="stylesheet" href="../markbind/css/bootstrap-glyphicons.min.css" >
+    <link rel="stylesheet" href="../markbind/css/github.min.css">
+    <link rel="stylesheet" href="../markbind/css/markbind.css">
+    <link rel="stylesheet" href="../markbind/layouts/default/styles.css">
+    <link rel="stylesheet" href="../markbind/css/site-nav.css">
+    
+    
+    <link rel="icon" href="/markbind/favicon.ico">
+</head>
+<body>
+<div id="app">
+    <div id="flex-body">
+  <div id="site-nav">
+    <p><span class="indented lead"><strong>User Guide</strong></span></p>
+    <ul style="list-style-type: none; margin-left:-1em">
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/gettingStarted.html" class="site-nav__a">Getting Started</a></li>
+      <li style="margin-top:10px"><a href="/markbind/userGuide/authoringContents.html" class="site-nav__a">Authoring Contents</a>
+        <ul style="list-style-type: none; margin-left:-1em">
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/addingPages.html" class="site-nav__a">Adding Pages</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntaxOverview.html" class="site-nav__a">MarkBind Syntax Overview</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/formattingContents.html" class="site-nav__a">Formatting Contents</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingComponents.html" class="site-nav__a">Using Components</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingHtmlJavaScriptCss.html" class="site-nav__a">Using HTML, JavaScript, CSS</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingPlugins.html" class="site-nav__a current">Using Plugins</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/tweakingThePageStructure.html" class="site-nav__a">Tweaking the Page Structure</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/reusingContents.html" class="site-nav__a">Reusing Contents</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/makingTheSiteSearchable.html" class="site-nav__a">Making the Site Searchable</a></li>
+        </ul>
+      </li>
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/deployingTheSite.html" class="site-nav__a">Deploying the Site</a></li>
+      <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindInTheProjectWorkflow.html" class="site-nav__a">MarkBind in the Project Workflow</a></li>
+      <li style="margin-top: 10px"><button class="dropdown-btn dropdown-btn-open">References 
+ <i class="dropdown-btn-icon rotate-icon">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+        <div class="dropdown-container dropdown-container-open">
+          <ul style="list-style-type: none; margin-left:-1em">
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/cliCommands.html" class="site-nav__a">CLI Commands</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/readerFacingFeatures.html" class="site-nav__a">Reader-Facing Features</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/fullSyntaxReference.html" class="site-nav__a">Full Syntax Reference</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/syntaxCheatSheet.html" class="site-nav__a">Syntax Cheat Sheet</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html" class="site-nav__a">Site Configuration</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsAndTricks.html" class="site-nav__a">Tips & Tricks</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/glossary.html" class="site-nav__a">Glossary</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="site-nav-btn-wrap">
+    <div id="site-nav-btn">
+      <div class="menu-top-bar"></div>
+      <div class="menu-middle-bar"></div>
+      <div class="menu-bottom-bar"></div>
+    </div>
+  </div>
+  <div id="page-content">
+    <div id="content-wrapper">
+      <div>
+        <link rel="stylesheet" href="/markbind/css/main.css">
+        <navbar placement="top" type="inverse" class="temp-navbar">
+          <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
+          <li><a href="/markbind/index.html" class="nav-link">HOME</a></li>
+          <li><a href="/markbind/userGuide/index.html" class="nav-link">DOCS</a></li>
+          <li><a href="/markbind/showcase.html" class="nav-link">SHOWCASE</a></li>
+          <li><a href="/markbind/about.html" class="nav-link">ABOUT</a></li>
+          <li>
+            <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">
+      <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewbox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
+          <li slot="right">
+            <form class="navbar-form">
+              <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right=""></searchbar>
+            </form>
+          </li>
+        </navbar>
+      </div>
+      <div class="website-content">
+        <h1 id="using-plugins">Using Plugins<a class="fa fa-anchor" href="#using-plugins"></a></h1>
+        <p>A plugin is a user-defined extension that can add custom features to MarkBind. MarkBind plugins are <code>js</code> scripts that are loaded and run during the page generation. MarkBind allows plugins to modify a page's content during the page
+          generation process.</p>
+        <tip-box type="warning">
+          <p><strong>WARNING:</strong> Plugins are executable programs that can be written by anyone. This means that they might contain malicious code that may damage your computer.</p>
+          <p>Only run plugins from sources that you trust. Do not run the plugin if the source/origin of the plugin cannot be ascertained.
+          </p>
+        </tip-box>
+        <h3 id="adding-plugins">Adding Plugins<a class="fa fa-anchor" href="#adding-plugins"></a></h3>
+        <p>Plugins are stored in the <code>_markbind/plugins</code> folder which is generated on <code>init</code>. To use a plugin, place the <code>js</code> source of the plugin in the <code>_markbind/plugins</code> folder and add the following options
+          to <code>site.json</code>:</p>
+        <ul>
+          <li><code>plugins</code>: An array of plugin names to use.</li>
+          <li><code>pluginsContext</code>: A mapping of plugin names to parameters passed to each individual plugin. It is recommended to use key-value pairs for consistency.</li>
+        </ul>
+        <p>For example:</p>
+        <pre><code class="hljs js">{
+  ...
+  <span class="hljs-string">"plugins"</span>: [
+    <span class="hljs-string">"plugin1"</span>,
+    <span class="hljs-string">"plugin2"</span>,
+  ],
+  <span class="hljs-string">"pluginsContext"</span>: {
+    <span class="hljs-string">"plugin1"</span>: {
+    	<span class="hljs-string">"input"</span>: <span class="hljs-string">"Input for Plugin 1"</span>
+    },
+    <span class="hljs-string">"plugin2"</span>: {
+    	<span class="hljs-string">"data"</span>: <span class="hljs-string">"Data for Plugin 2"</span>
+    },
+  }
+}
+</code></pre>
+        <h3 id="writing-plugins">Writing Plugins<a class="fa fa-anchor" href="#writing-plugins"></a></h3>
+        <p><a href="/markbind/images/rendering.png" target="_self"><img src="/markbind/images/rendering.png" alt="" class="img-fluid"></a></p>
+        <p>MarkBind provides two entry points for modifying the page, pre-render and post-render. These are controlled by implementing the <code>preRender()</code> and <code>postRender()</code> functions in the plugin:</p>
+        <ul>
+          <li><code>preRender(content, pluginContext, frontMatter)</code>: Called before MarkBind renders the source from Markdown to HTML.
+            <ul>
+              <li><code>content</code>: The raw Markdown of any Markdown file (<code>.md</code>, <code>.mbd</code>, etc.).</li>
+              <li><code>pluginContext</code>: User provided parameters for the plugin. This can be specified in the <code>site.json</code>.</li>
+              <li><code>frontMatter</code>: The frontMatter of the page being processed, in case any frontMatter data is required.</li>
+            </ul>
+          </li>
+          <li><code>postRender(content, pluginContext, frontMatter)</code>: Called after the HTML is rendered, before writing it to a file.
+            <ul>
+              <li><code>content</code>: The rendered HTML.</li>
+              <li><code>pluginContext</code>: User provided parameters for the plugin. This can be specified in the <code>site.json</code>.</li>
+              <li><code>frontMatter</code>: The frontMatter of the page being processed, in case any frontMatter data is required.</li>
+            </ul>
+          </li>
+        </ul>
+        <p>MarkBind will call these functions with the respective content, and retrieve a string data that is used for the next step of the page generation process.</p>
+        <p>An example of a plugin is shown below. The plugin shows two ways of appending a paragraph of text to a specific <code>div</code> in the Markdown files:</p>
+        <pre><code class="hljs js"><span class="hljs-comment">// myPlugin.js</span>
+
+<span class="hljs-keyword">const</span> cheerio = <span class="hljs-built_in">module</span>.parent.require(<span class="hljs-string">'cheerio'</span>);
+
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">preRender</span>: <span class="hljs-function">(<span class="hljs-params">content, pluginContext, frontMatter</span>) =&gt;</span> content.replace(<span class="hljs-string">'[Pre-render Placeholder]'</span>, <span class="hljs-string">`<span class="hljs-subst">${pluginContext.pre}</span>`</span>),
+  <span class="hljs-attr">postRender</span>: <span class="hljs-function">(<span class="hljs-params">content, pluginContext, frontMatter</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> $ = cheerio.load(content, { <span class="hljs-attr">xmlMode</span>: <span class="hljs-literal">false</span> });
+    <span class="hljs-comment">// Modify the page...</span>
+    $(<span class="hljs-string">'#my-div'</span>).append(pluginContext.post);
+    <span class="hljs-keyword">return</span> $.html();
+  },
+};
+</code></pre>
+        <pre><code class="hljs js"><span class="hljs-comment">// site.json</span>
+
+{
+  ...
+  <span class="hljs-string">"plugins"</span>: [
+    <span class="hljs-string">"myPlugin"</span>
+  ],
+  <span class="hljs-string">"pluginsContext"</span>: {
+    <span class="hljs-string">"myPlugin"</span>: {
+      <span class="hljs-string">"pre"</span>: <span class="hljs-string">"&lt;p&gt;Hello&lt;/p&gt;"</span>,
+      <span class="hljs-string">"post"</span>: <span class="hljs-string">"&lt;p&gt;Goodbye&lt;/p&gt;"</span>
+    }
+  }
+}
+</code></pre>
+        <pre><code class="hljs md">// index.md
+
+...
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"my-div"</span>&gt;</span></span>
+[Pre-render Placeholder]
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+</code></pre>
+        <h3 id="built-in-plugins">Built-in plugins<a class="fa fa-anchor" href="#built-in-plugins"></a></h3>
+        <p>MarkBind has a set of built-in plugins that can be used immediately without installation.</p>
+        <h4 id="filtertags-toggling-alternative-contents-in-a-page"><code>filterTags</code>: Toggling alternative contents in a page<a class="fa fa-anchor" href="#filtertags-toggling-alternative-contents-in-a-page"></a></h4>
+        <p>You can use tags to selectively filter HTML elements when building a site.</p>
+        <p>Tags are specified by the <code>tags</code> attribute, <strong>and can be attached to any HTML element</strong>. During rendering, only elements that match tags specified in the <code>site.json</code> files will be rendered.</p>
+        <div class="indented">
+          <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Attaching tags to elements:</p>
+          <pre><code class="hljs html"># Print 'Hello world'
+
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--java"</span>&gt;</span>System.out.println("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--C#"</span>&gt;</span>Console.WriteLine("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--python"</span>&gt;</span>print("Hello world")<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+          <p>You need to specify the tags to include in the <code>pluginsContext</code>, under <code>tags</code>:</p>
+          <pre><code class="hljs json">{
+  ...
+  <span class="hljs-attr">"plugins"</span> : [
+    <span class="hljs-string">"filterTags"</span>
+  ],
+  <span class="hljs-attr">"pluginsContext"</span> : {
+    <span class="hljs-attr">"filterTags"</span> : {
+      <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"language--java"</span>]
+    }
+  }
+}
+</code></pre>
+          <p>All other tagged elements will be filtered out. In this case, only the element with the <code>language--java</code> tag will be rendered. This is helpful when creating multiple versions of a page without having to maintain separate copies.</p>
+        </div>
+        <p>If the <code>filterTags</code> plugin is not enabled in <code>site.json</code>, all tagged elements will be rendered.</p>
+        <p><strong>You can also use multiple tags in a single HTML element. Specify each tag in the <code>tags</code> attribute</strong> separated by a space. An element will be rendered if <strong>any of the tags</strong> matches the one in <code>site.json</code>.</p>
+        <div class="indented">
+          <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Attaching multiple tags to an element:</p>
+          <pre><code class="hljs html"># For loops
+
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--java language--C#"</span>&gt;</span>for (int i = 0; i <span class="hljs-tag">&lt; <span class="hljs-attr">5</span>; <span class="hljs-attr">i</span>++) { <span class="hljs-attr">...</span> }&lt;/<span class="hljs-attr">p</span>&gt;</span>
+</code></pre>
+          <p>As long as the <code>language--java</code> or <code>language--C#</code> tag is specified, the code snippet will be rendered.</p>
+        </div>
+        <p>Alternatively, you can specify tags to render for a page in the front matter.</p>
+        <div class="indented">
+          <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Specifying tags in front matter:</p>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+  title: "Hello World"
+  tags: ["language--java"]
+<span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
+</code></pre>
+        </div>
+        <p>Tags in <code>site.json</code> will take precedence over the ones in the front matter.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+<script src="../markbind/js/vue.min.js"></script>
+<script src="../markbind/js/vue-strap.min.js"></script>
+<script src="../markbind/js/bootstrap-utility.min.js"></script>
+<script src="../markbind/js/polyfill.min.js"></script>
+<script src="../markbind/js/bootstrap-vue.min.js"></script>
+<script>
+    const baseUrl = '/markbind'
+    const enableSearch = true
+</script>
+<script src="../markbind/js/setup.js"></script>
+<script src="../markbind/layouts/default/scripts.js"></script>
+</html>

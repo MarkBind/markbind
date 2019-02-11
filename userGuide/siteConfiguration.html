@@ -19,14 +19,6 @@
     <link rel="icon" href="/markbind/favicon.ico">
 </head>
 <body>
-<div id="loading-overlay">
-    <div id="spinner-layout">
-        <div id="spinner"></div>
-    </div>
-</div>
-<script type="text/javascript">
-    document.getElementById("loading-overlay").style.display = 'initial';
-</script>
 <div id="app">
     <div id="flex-body">
   <div id="site-nav">
@@ -36,8 +28,11 @@
       <li style="margin-top:10px"><a href="/markbind/userGuide/authoringContents.html" class="site-nav__a">Authoring Contents</a>
         <ul style="list-style-type: none; margin-left:-1em">
           <li style="margin-top: 10px"><a href="/markbind/userGuide/addingPages.html" class="site-nav__a">Adding Pages</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntax.html" class="site-nav__a">MarkBind Syntax</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntaxOverview.html" class="site-nav__a">MarkBind Syntax Overview</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/formattingContents.html" class="site-nav__a">Formatting Contents</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/usingComponents.html" class="site-nav__a">Using Components</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingHtmlJavaScriptCss.html" class="site-nav__a">Using HTML, JavaScript, CSS</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingPlugins.html" class="site-nav__a">Using Plugins</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/tweakingThePageStructure.html" class="site-nav__a">Tweaking the Page Structure</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/reusingContents.html" class="site-nav__a">Reusing Contents</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/makingTheSiteSearchable.html" class="site-nav__a">Making the Site Searchable</a></li>
@@ -51,8 +46,11 @@
         <div class="dropdown-container dropdown-container-open">
           <ul style="list-style-type: none; margin-left:-1em">
             <li style="margin-top: 10px"><a href="/markbind/userGuide/cliCommands.html" class="site-nav__a">CLI Commands</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/readerFacingFeatures.html" class="site-nav__a">Reader-Facing Features</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/fullSyntaxReference.html" class="site-nav__a">Full Syntax Reference</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/syntaxCheatSheet.html" class="site-nav__a">Syntax Cheat Sheet</a></li>
             <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html" class="site-nav__a current">Site Configuration</a></li>
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsTricksAndTroubleshooting.html" class="site-nav__a">Tips, Tricks, & Troubleshooting</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsAndTricks.html" class="site-nav__a">Tips & Tricks</a></li>
             <li style="margin-top: 10px"><a href="/markbind/userGuide/glossary.html" class="site-nav__a">Glossary</a></li>
           </ul>
         </div>
@@ -70,7 +68,7 @@
     <div id="content-wrapper">
       <div>
         <link rel="stylesheet" href="/markbind/css/main.css">
-        <navbar placement="top" type="inverse">
+        <navbar placement="top" type="inverse" class="temp-navbar">
           <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
           <li><a href="/markbind/index.html" class="nav-link">HOME</a></li>
           <li><a href="/markbind/userGuide/index.html" class="nav-link">DOCS</a></li>
@@ -129,7 +127,7 @@
   <span class="hljs-attr">"headingIndexingLevel"</span>: <span class="hljs-number">4</span>
 }
 </code></pre>
-        <h4 id="base-url"><strong><code>baseUrl</code></strong><a class="fa fa-anchor" href="#base-url"></a></h4>
+        <h4 id="baseurl"><strong><code>baseUrl</code></strong><a class="fa fa-anchor" href="#baseurl"></a></h4>
         <p><strong>The base url relative to your domain.</strong> Default: <code>&quot;&quot;</code>(empty).</p>
         <div>
           <box type="warning">
@@ -138,13 +136,13 @@
             </p>
           </box>
         </div>
-        <h4 id="favicon-path"><strong><code>faviconPath</code></strong><a class="fa fa-anchor" href="#favicon-path"></a></h4>
+        <h4 id="faviconpath"><strong><code>faviconPath</code></strong><a class="fa fa-anchor" href="#faviconpath"></a></h4>
         <p><strong>The location of the favicon.</strong> Default: <code>favicon.ico</code>.</p>
         <div class="indented">
           <p><span class="dimmed"><span class="fas fa-info-circle"></span> If the favicon was recently changed, you may need to force-refresh the Browser to see the new image.</span>
           </p>
         </div>
-        <h4 id="title-prefix"><strong><code>titlePrefix</code></strong><a class="fa fa-anchor" href="#title-prefix"></a></h4>
+        <h4 id="titleprefix"><strong><code>titlePrefix</code></strong><a class="fa fa-anchor" href="#titleprefix"></a></h4>
         <p><strong>The prefix for all page titles.</strong> The separator <code>-</code> will be inserted by MarkBind.</p>
         <h4 id="pages"><strong><code>pages</code></strong><a class="fa fa-anchor" href="#pages"></a></h4>
         <p><strong>An array of pages to be rendered.</strong></p>
@@ -190,7 +188,7 @@
       </div>
       </box>
       </span>
-      <h4 id="external-scripts"><strong><code>externalScripts</code></strong><a class="fa fa-anchor" href="#external-scripts"></a></h4>
+      <h4 id="externalscripts"><strong><code>externalScripts</code></strong><a class="fa fa-anchor" href="#externalscripts"></a></h4>
       <p><strong>An array of external scripts to be referenced on all pages.</strong> To reference an external script only on specific pages, <code>externalScripts</code> should be specified in <code>pages</code> instead. Scripts referenced will be run before
         the layout script.</p>
       <h4 id="ignore"><strong><code>ignore</code></strong><a class="fa fa-anchor" href="#ignore"></a></h4>
@@ -214,9 +212,9 @@
       </div>
       <h4 id="tags"><strong><code>tags</code></strong><a class="fa fa-anchor" href="#tags"></a></h4>
       <p><strong>A list of tags to filter page elements.</strong> Page elements with the specified tags are retained, while elements tagged with other tags are removed. Do not specify this option if you want to show everything. See <a href="tweakingThePageStructure.html#using-tags"><em>User Guide: Tweaking the Page Structure → Using Tags</em></a>        section for more information.</p>
-      <h4 id="heading-indexing-level"><strong><code>headingIndexingLevel</code></strong><a class="fa fa-anchor" href="#heading-indexing-level"></a></h4>
+      <h4 id="headingindexinglevel"><strong><code>headingIndexingLevel</code></strong><a class="fa fa-anchor" href="#headingindexinglevel"></a></h4>
       <p><strong>The level of headings to be indexed for searching.</strong> Default: <code>3</code> <span class="dimmed">i.e., only headings of levels 1,2,3 will be indexed for searching</span>.</p>
-      <h4 id="enable-search"><strong><code>enableSearch</code></strong><a class="fa fa-anchor" href="#enable-search"></a></h4>
+      <h4 id="enablesearch"><strong><code>enableSearch</code></strong><a class="fa fa-anchor" href="#enablesearch"></a></h4>
       <p><strong>Specifies that the website should use MarkBind's search functionality.</strong> Default: <code>true</code>. See <a href="/markbind/userGuide/makingTheSiteSearchable.html">User Guide: Making the Site Searchable</a> for more details.</p>
     </div>
   </div>
@@ -225,7 +223,7 @@
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.17.3</a> on Thu, 07 Feb 2019 07:27:28 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.18.0</a> on Mon, 11 Feb 2019 05:45:44 GMT]</small></div>
 </footer>
 </div>
 </body>

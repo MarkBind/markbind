@@ -1,0 +1,57 @@
+## Footers
+
+**You can specify a <tooltip content="For an example of a page footer, see the bottom of this page.">page footer</tooltip>** using a `<footer>` tag.
+
+<div class="indented">
+
+{{ icon_example }}
+```html
+<!-- main body of the page -->
+<footer>
+  This page is not updated anymore!
+</footer>
+```
+</div>
+
+If the same footer is to appear in many pages, instead of specifying it _inline_ as explained above, you can save it as a separate file in the `_markbind/footers` and specify it in the `<frontmatter>` of the pages in which it should appear.
+
+
+<div class="indented">
+
+{{ icon_example }}
+**`_markbind/footers/`**`commonFooter.md`:
+```html
+<footer>
+  This page is not updated anymore!
+</footer>
+```
+In the page that you want to include the footer:
+```html
+<frontmatter>
+  footer: commonFooter.md
+</frontmatter>
+```
+</div>
+
+Notes:
+- An inline footer needs to be the last element in the page.
+- The footer specified in the `<frontmatter>` overrides the inline footer, if the page has any.
+- Footers nested in other components or HTML tags will be shifted outside of the enclosing tag.
+- [MarkBind Components]({{ baseUrl }}/userGuide/usingComponents.html) and [`<include>` tags]({{ baseUrl }}/userGuide/reusingContents.html#the-include-tag) are not supported in footers.
+
+<span id="short" class="d-none">
+```html
+<footer>
+  This page is not updated anymore!
+</footer>
+```
+```html
+<frontmatter>
+  footer: commonFooter.md
+</frontmatter>
+```
+</span>
+<span id="examples" class="d-none">
+
+You can see an example of a footer ==at the bottom== of <a target="_blank" href="{{ baseUrl }}/userGuide/formattingContents.html">this page</a>.
+</span>

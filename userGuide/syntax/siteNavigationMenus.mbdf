@@ -1,0 +1,123 @@
+## Site Navigation Menus
+
+**You can add a <trigger trigger="click" for="modal:pageStructure-siteNavidationMenu">_site navigation menu_</trigger> to a page.**
+
+<modal title="Site Naviation Menu" id="modal:pageStructure-siteNavidationMenu">
+  <include src="../glossary.md#site-navigation-menu" />
+</modal>
+
+Steps to add a site navigation menu ==(_siteNav_ for short)==:
+1. Format your siteNav as an unordered Markdown list and save it inside the `_markbind/navigation` directory.
+2. Specify the file as the value of the `siteNav` attribute in the `<frontmatter>` of the page.
+
+<div class="indented">
+
+{{ icon_example }} Here is an example siteNav code saved in **`_markbind/navigation/`**`mySiteNav.md` file:
+
+<box>
+
+<code>
+* [:house: Home]({{ showBaseUrlText }}/index.html)<br>
+* Docs<br>
+&nbsp;&nbsp;* [User Guide]({{ showBaseUrlText }}/ug.html)<br>
+&nbsp;&nbsp;* [Dev Guide]({{ showBaseUrlText }}/dg.html)<br>
+* [Search]({{ showBaseUrlText }}/search.html)<br>
+&nbsp;&nbsp;* [Google Search](https://www.google.com/)<br>
+&nbsp;&nbsp;* [YouTube Search](https://www.youtube.com/)<br>
+* [Contact]({{ showBaseUrlText }}/contact.html)
+</code>
+</box>
+
+Here's how another page can make use of the above siteNav:
+
+```html
+<frontmatter>
+  siteNav: mySiteNav.md
+</frontmatter>
+...
+```
+
+Here's how the above siteNav will appear:
+
+<ul style="list-style-type: none; margin-left:-1em">
+  <li style="margin-top: 10px"><a class="site-nav__a" href="/index.html">🏠 Home</a></li>
+  <li style="margin-top: 10px">
+    <button class="dropdown-btn">Docs <i class="dropdown-btn-icon">
+      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+    <div class="dropdown-container">
+      <ul style="list-style-type: none; margin-left:-1em">
+        <li style="margin-top: 10px"><a class="site-nav__a" href="">User Guide</a></li>
+        <li style="margin-top: 10px"><a class="site-nav__a" href="">Dev Guide</a></li>
+      </ul>
+    </div>
+  </li>
+  <li style="margin-top:10px"><a class="site-nav__a" href="">Search</a>
+    <ul style="list-style-type: none; margin-left:-1em">
+      <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.google.com">Google Search</a></li>
+      <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.youtube.com">YouTube Search</a></li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+
+You can **append the `:expanded:` to a <tooltip content="a menu item with sub menu-items">parent menu item</tooltip> to make it expand by default.** In the example above, `* Docs :expanded:` will make the menu item `Docs` expand by default.
+
+A parent menu item that is also linked will not be collapsible %%e.g., the `Search` menu item in the above example%%.
+
+You may have additional HTML and Markdown content in a <tooltip content="the file containing the code for a site navigation menu, e.g., `mySiteNav.md` in the example above">siteNav file</tooltip>, in which case the code for the siteNav should be enclosed in a `<navigation>` tag. There should only be one `<navigation>` tag in the file.
+
+<div class="indented">
+
+{{ icon_example }} A siteNav code using a `<navigation>` tag.
+
+<box>
+
+<code>
+# Site Map<br>
+<strong><<span></span>navigation></strong><br>
+* [:house: Home]({{ showBaseUrlText }}/index.html)<br>
+* Docs<br>
+&nbsp;&nbsp;* [User Guide]({{ showBaseUrlText }}/ug.html)<br>
+&nbsp;&nbsp;* [Dev Guide]({{ showBaseUrlText }}/dg.html)<br>
+* [Search]({{ showBaseUrlText }}/search.html)<br>
+<strong><<span></span>/navigation></strong><br>
+</code>
+</box>
+</div>
+
+More than one siteNav file can be in `_markbind/navigation/` directory but a page may not have more than one siteNav.
+
+A siteNav has a fixed width of 300 pixels for its contents. A siteNavs is [_responsive_](https://www.w3schools.com/html/html_responsive.asp) in that it will collapse to a menu button when the screen width is smaller than 992 pixels. It will then be completely hidden when the screen size is smaller than 576 pixels.
+
+There is no limit to the number of nesting levels or the number of items in the menu, but note that any content exceeding a height of 1000 pixels will be cut off.
+
+
+<span id="short" class="d-none">
+
+<code>
+# Site Map<br>
+<strong><<span></span>navigation></strong><br>
+* [:house: Home]({{ showBaseUrlText }}/index.html)<br>
+* Docs :expanded:<br>
+&nbsp;&nbsp;* [User Guide]({{ showBaseUrlText }}/ug.html)<br>
+&nbsp;&nbsp;* [Dev Guide]({{ showBaseUrlText }}/dg.html)<br>
+* [Search]({{ showBaseUrlText }}/search.html)<br>
+<strong><<span></span>/navigation></strong><br>
+</code>
+</box>
+
+```html
+<frontmatter>
+  siteNav: mySiteNav.md
+</frontmatter>
+...
+```
+</span>
+
+<span id="examples" class="d-none">
+
+You can see an example of a Page Navigation Bar ==on the left side== of <a target="_blank" href="{{ baseUrl }}/userGuide/formattingContents.html">this page</a>.
+
+</span>

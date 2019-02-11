@@ -1,0 +1,111 @@
+## Tabs
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```html
+<tabs>
+  <tab header="First tab">
+    ...
+  </tab>
+  <tab header="Disabled second tab :x:" disabled>
+  </tab>
+  <tab-group header="Third tab group :milky_way:">
+    <tab header="Stars :star:">
+      star facts
+    </tab>
+    <tab header="Disabled Moon :new_moon:" disabled>
+    </tab>
+  </tab-group>
+  <tab-group header="Disabled fourth tab group" disabled>
+    <tab header="Hidden tab">
+      ...
+    </tab>
+  </tab-group>
+</tabs>
+```
+</span>
+<span id="output">
+
+  <tabs>
+    <tab header="First tab">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper ultrices lobortis. Aenean leo lacus, congue vel auctor a, tincidunt sed nunc. Integer in odio sed nunc porttitor venenatis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam fringilla tincidunt augue a pulvinar.
+    </tab>
+    <tab header="Disabled second tab :x:" disabled>
+    </tab>
+    <tab-group header="Third tab group :milky_way:">
+      <tab header="Stars :star:">
+        Some stuff about stars ...
+      </tab>
+      <tab header="Disabled Moon :new_moon:" disabled>
+      </tab>
+    </tab-group>
+    <tab-group header="Disabled fourth tab group" disabled>
+      <tab header="Hidden tab">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper ultrices lobortis.
+      </tab>
+    </tab-group>
+  </tabs>
+</span>
+</include>
+
+****Options****
+
+`tabs`:
+Name | Type | Default | Description
+--- | --- | --- | ---
+active | `Number` | `0` | Active Tab index (0-based)
+
+`tab`:
+Name | Type | Default | Description
+--- | --- | --- | ---
+header | `String` | `null` | Tab title.
+disabled | `Boolean` | `false` | Whether Tab is clickable and can be activated.
+
+`tab-group`:
+Name | Type | Default | Description
+--- | --- | --- | ---
+header | `String` | `null` | Tab Group title.
+disabled | `Boolean` | `false` | Whether Tab Group is clickable and can be activated.
+
+<span id="short" class="d-none">
+
+```html
+<tabs>
+  <tab header="First tab">
+    Content of the first tab
+  </tab>
+  <tab header="Second tab">
+    Contents of the second tab
+  </tab>
+  <tab-group header="Third tab group :tv:">
+    <tab header="Stars :star:">
+      Some stuff about stars ...
+    </tab>
+    <tab header="Moon">
+      Some stuff about the moon ...
+    </tab>
+  </tab-group>
+</tabs>
+```
+</span>
+
+<span id="examples" class="d-none">
+
+<tabs>
+  <tab header="First tab">
+    Content of the first tab
+  </tab>
+  <tab header="Second tab">
+    Contents of the second tab
+  </tab>
+  <tab-group header="Third tab group :tv:">
+    <tab header="Stars :star:">
+      Some stuff about stars ...
+    </tab>
+    <tab header="Moon">
+      Some stuff about the moon ...
+    </tab>
+  </tab-group>
+</tabs>
+</span>

@@ -1,0 +1,74 @@
+## Links
+
+Basic style:
+
+<span id="main-example">
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```markdown
+MarkBind home is at [here](https://markbind.github.io).
+```
+</span>
+<span id="output">
+
+MarkBind home is at [here](https://markbind.github.io).
+</span>
+</include>
+</span>
+
+_Reference style_ links (i.e., specify the URL in a separate place):
+
+<include src="outputBox.md" boilerplate >
+
+<span id="code">
+
+```markdown
+MarkBind home is at [here][1].
+
+[1]: https://markbind.github.io
+
+```
+</span>
+<span id="output">
+
+MarkBind home is at [here][1]
+
+[1]: https://markbind.github.io
+
+</span>
+</include>
+
+<small>More info: https://www.markdownguide.org/basic-syntax#links</small>
+
+#### Intra-Site Links
+
+<div id="intraSiteLinks">
+
+Links to files of the generated site (e.g., an HTML page or an image file) should be specified as absolute paths and should start with {{ showBaseUrlCode }} (which represents the root directory of the project).
+
+<div class="indented">
+
+{{ icon_example }} Here's how to specify a link to (1) a page, and (2) an image, using the {{ showBaseUrlCode }}:
+
+1. <code>Click [here]({<span></span>{ baseUrl }}/userGuide/reusingContents.html).</code>
+2. `![](`{{ showBaseUrlCode }}`/images/preview.png)`
+
+</div>
+</div>
+
+<span id="short" class="d-none">
+
+```markdown
+MarkBind home is at [here](https://markbind.github.io).
+
+MarkBind home is at [here][1].
+
+[1]: https://markbind.github.io
+```
+</span>
+
+<span id="examples" class="d-none">
+
+MarkBind home is at [here](https://markbind.github.io).
+</span>

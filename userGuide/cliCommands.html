@@ -19,14 +19,6 @@
     <link rel="icon" href="/markbind/favicon.ico">
 </head>
 <body>
-<div id="loading-overlay">
-    <div id="spinner-layout">
-        <div id="spinner"></div>
-    </div>
-</div>
-<script type="text/javascript">
-    document.getElementById("loading-overlay").style.display = 'initial';
-</script>
 <div id="app">
     <div id="flex-body">
   <div id="site-nav">
@@ -36,8 +28,11 @@
       <li style="margin-top:10px"><a href="/markbind/userGuide/authoringContents.html" class="site-nav__a">Authoring Contents</a>
         <ul style="list-style-type: none; margin-left:-1em">
           <li style="margin-top: 10px"><a href="/markbind/userGuide/addingPages.html" class="site-nav__a">Adding Pages</a></li>
-          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntax.html" class="site-nav__a">MarkBind Syntax</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntaxOverview.html" class="site-nav__a">MarkBind Syntax Overview</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/formattingContents.html" class="site-nav__a">Formatting Contents</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/usingComponents.html" class="site-nav__a">Using Components</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingHtmlJavaScriptCss.html" class="site-nav__a">Using HTML, JavaScript, CSS</a></li>
+          <li style="margin-top: 10px"><a href="/markbind/userGuide/usingPlugins.html" class="site-nav__a">Using Plugins</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/tweakingThePageStructure.html" class="site-nav__a">Tweaking the Page Structure</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/reusingContents.html" class="site-nav__a">Reusing Contents</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/makingTheSiteSearchable.html" class="site-nav__a">Making the Site Searchable</a></li>
@@ -51,8 +46,11 @@
         <div class="dropdown-container dropdown-container-open">
           <ul style="list-style-type: none; margin-left:-1em">
             <li style="margin-top: 10px"><a href="/markbind/userGuide/cliCommands.html" class="site-nav__a current">CLI Commands</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/readerFacingFeatures.html" class="site-nav__a">Reader-Facing Features</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/fullSyntaxReference.html" class="site-nav__a">Full Syntax Reference</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/syntaxCheatSheet.html" class="site-nav__a">Syntax Cheat Sheet</a></li>
             <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html" class="site-nav__a">Site Configuration</a></li>
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsTricksAndTroubleshooting.html" class="site-nav__a">Tips, Tricks, & Troubleshooting</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsAndTricks.html" class="site-nav__a">Tips & Tricks</a></li>
             <li style="margin-top: 10px"><a href="/markbind/userGuide/glossary.html" class="site-nav__a">Glossary</a></li>
           </ul>
         </div>
@@ -70,7 +68,7 @@
     <div id="content-wrapper">
       <div>
         <link rel="stylesheet" href="/markbind/css/main.css">
-        <navbar placement="top" type="inverse">
+        <navbar placement="top" type="inverse" class="temp-navbar">
           <a slot="brand" href="/markbind/index.html" title="Home" class="navbar-brand"><img src="/markbind/images/logo-darkbackground.png" height="20"></a>
           <li><a href="/markbind/index.html" class="nav-link">HOME</a></li>
           <li><a href="/markbind/userGuide/index.html" class="nav-link">DOCS</a></li>
@@ -87,7 +85,7 @@
         </navbar>
       </div>
       <div class="website-content">
-        <h1 id="mark-bind-cli">MarkBind CLI<a class="fa fa-anchor" href="#mark-bind-cli"></a></h1>
+        <h1 id="markbind-cli">MarkBind CLI<a class="fa fa-anchor" href="#markbind-cli"></a></h1>
         <h3 id="overview">Overview<a class="fa fa-anchor" href="#overview"></a></h3>
         <p>MarkBind Command Line Interface (CLI) can be run in the following ways:</p>
         <ul>
@@ -121,9 +119,14 @@
         </ul>
         <hr>
         <h3 id="deploy-command"><code>deploy</code> Command<a class="fa fa-anchor" href="#deploy-command"></a></h3>
-        <p><strong>Format:</strong> <code>markbind deploy</code><br>
+        <p><strong>Format:</strong> <code>markbind deploy [&lt;OPTIONS&gt;]</code><br>
           <strong>Alias:</strong> <code>markbind d</code></p>
         <p><strong>Description:</strong> Deploys the site to the repo's Github pages by pushing everything in the generated site (default dir: <code>_site</code>) to the <code>gh-pages</code> branch of the current git working directory's remote repo.</p>
+        <p><strong><code>OPTIONS</code>:</strong></p>
+        <ul>
+          <li><code>-t &lt;githubTokenName&gt;</code>, <code>--travis &lt;githubTokenName&gt;</code><br> Deploy the site in Travis CI using the GitHub personal access token stored in <code>&lt;githubTokenName&gt;</code>. (default: <code>GITHUB_TOKEN</code>)<br>
+            <big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> <code>-t PA_TOKEN</code></li>
+        </ul>
         <p><span class="dimmed"><span class="fas fa-info-circle"></span> Related: <a href="/markbind/userGuide/deployingTheSite.html">User Guide: Deploying the Website</a>.</span>
         </p>
         <hr>
@@ -188,7 +191,7 @@
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.17.3</a> on Thu, 07 Feb 2019 07:27:28 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.18.0</a> on Mon, 11 Feb 2019 05:45:44 GMT]</small></div>
 </footer>
 </div>
 </body>

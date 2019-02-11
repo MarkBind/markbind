@@ -1,0 +1,125 @@
+## Lists
+
+
+****Unordered lists:****
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```markdown
+* Item 1
+  * Sub item 1.1
+  * Sub item 1.2<br>
+    Second line
+    * Sub item 1.2.1
+* Item 2
+* Item 3
+```
+</span>
+<span id="output">
+
+* Item 1
+  * Sub item 1.1
+  * Sub item 1.2<br>
+    Second line
+    * Sub item 1.2.1
+* Item 2
+* Item 3
+</span>
+</include>
+
+****Ordered lists:****
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```markdown
+1. Item 1
+   1. Sub item 1.1
+   1. Sub item 1.2
+1. Item 2
+1. Item 3
+```
+</span>
+<span id="output">
+
+1. Item 1
+   1. Sub item 1.1
+   1. Sub item 1.2
+1. Item 2
+1. Item 3
+</span>
+</include>
+
+<small>More info on above list types: https://www.markdownguide.org/basic-syntax#lists</small>
+
+****Task lists**** (from GFMD):
+
+<span id="main-example-gfmd">
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```markdown
+- [ ] Item 1
+   - [ ] Sub item 1.1
+   - [x] Sub item 1.2
+- [x] Item 2
+- [ ] Item 3
+```
+</span>
+<span id="output">
+
+- [ ] Item 1
+   - [ ] Sub item 1.1
+   - [x] Sub item 1.2
+- [x] Item 2
+- [ ] Item 3
+</span>
+</include>
+</span>
+
+
+****Radio-button lists:****
+<span id="main-example-markbind">
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```markdown
+- ( ) Item 1
+- ( ) Item 2
+- (x) Item 3
+```
+</span>
+<span id="output">
+
+- ( ) Item 1
+- ( ) Item 2
+- (x) Item 3
+</span>
+</include>
+</span>
+
+<span id="short" class="d-none">
+
+```markdown
+1. Item 1
+   1. Sub item 1.1
+   1. Sub item 1.2
+* Item 2
+  * item 2.1
+- [ ] Item 3
+- [x] Item 4
+- ( ) Item 5
+```
+</span>
+<span id="examples" class="d-none">
+
+1. Item 1
+   1. Sub item 1.1
+   1. Sub item 1.2
+* Item 2
+  * item 2.1
+- [ ] Item 3
+- [x] Item 4
+- ( ) Item 5
+</span>

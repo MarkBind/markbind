@@ -1,0 +1,67 @@
+## Text Styles
+
+Markdown text styles:
+
+<span id="main-example-markdown">
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```markdown
+**Bold**, _Italic_, ___Bold and Italic___, `Inline Code`
+```
+</span>
+<span id="output">
+
+**Bold**, _Italic_, ___Bold and Italic___, `Inline Code`
+
+</span>
+</include>
+</span>
+
+Additional syntax from GFMD:
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```markdown
+~~Strike through~~
+```
+</span>
+<span id="output">
+
+~~Strike through~~
+
+</span>
+</include>
+
+Syntax added by MarkBind:
+
+<span id="main-example-markbind">
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```markdown
+****Super Bold****, ++Underline++, ==Highlight==, %%Dim%%
+```
+</span>
+<span id="output">
+
+****Super Bold****, ++Underline++, ==Highlight==, %%Dim%%
+
+</span>
+</include>
+</span>
+
+<small>Alternative syntax: https://www.markdownguide.org/basic-syntax#emphasis</small>
+
+<span id="short" class="d-none">
+```markdown
+**Bold**, _Italic_, ___Bold and Italic___, `Inline Code`
+~~Strike through~~, ****Super Bold****, ++Underline++, ==Highlight==, %%Dim%%
+```
+</span>
+<span id="examples" class="d-none">
+
+**Bold**, _Italic_, ___Bold and Italic___, `Inline Code`
+~~Strike through~~, ****Super Bold****, ++Underline++, ==Highlight==, %%Dim%%
+</span>

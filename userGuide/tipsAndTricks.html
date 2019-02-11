@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MarkBind - User Guide: Authoring Contents</title>
+    <title>MarkBind - User Guide: Tips &amp; Tricks</title>
     <link rel="stylesheet" href="../markbind/css/bootstrap.min.css">
     <link rel="stylesheet" href="../markbind/css/bootstrap-vue.min.css">
     <link rel="stylesheet" href="../markbind/css/font-awesome.min.css" >
@@ -25,7 +25,7 @@
     <p><span class="indented lead"><strong>User Guide</strong></span></p>
     <ul style="list-style-type: none; margin-left:-1em">
       <li style="margin-top: 10px"><a href="/markbind/userGuide/gettingStarted.html" class="site-nav__a">Getting Started</a></li>
-      <li style="margin-top:10px"><a href="/markbind/userGuide/authoringContents.html" class="site-nav__a current">Authoring Contents</a>
+      <li style="margin-top:10px"><a href="/markbind/userGuide/authoringContents.html" class="site-nav__a">Authoring Contents</a>
         <ul style="list-style-type: none; margin-left:-1em">
           <li style="margin-top: 10px"><a href="/markbind/userGuide/addingPages.html" class="site-nav__a">Adding Pages</a></li>
           <li style="margin-top: 10px"><a href="/markbind/userGuide/markBindSyntaxOverview.html" class="site-nav__a">MarkBind Syntax Overview</a></li>
@@ -50,7 +50,7 @@
             <li style="margin-top: 10px"><a href="/markbind/userGuide/fullSyntaxReference.html" class="site-nav__a">Full Syntax Reference</a></li>
             <li style="margin-top: 10px"><a href="/markbind/userGuide/syntaxCheatSheet.html" class="site-nav__a">Syntax Cheat Sheet</a></li>
             <li style="margin-top: 10px"><a href="/markbind/userGuide/siteConfiguration.html" class="site-nav__a">Site Configuration</a></li>
-            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsAndTricks.html" class="site-nav__a">Tips & Tricks</a></li>
+            <li style="margin-top: 10px"><a href="/markbind/userGuide/tipsAndTricks.html" class="site-nav__a current">Tips & Tricks</a></li>
             <li style="margin-top: 10px"><a href="/markbind/userGuide/glossary.html" class="site-nav__a">Glossary</a></li>
           </ul>
         </div>
@@ -66,6 +66,7 @@
   </div>
   <div id="page-content">
     <div id="content-wrapper">
+      <div></div>
       <div>
         <link rel="stylesheet" href="/markbind/css/main.css">
         <navbar placement="top" type="inverse" class="temp-navbar">
@@ -85,80 +86,58 @@
         </navbar>
       </div>
       <div class="website-content">
-        <h1 id="authoring-contents">Authoring Contents<a class="fa fa-anchor" href="#authoring-contents"></a></h1>
-        <p><big><strong>Adding Pages</strong></big></p>
-        <blockquote>
-          <span>
-<p><strong>It is easy to add files to a MarkBind site as any file inside the <tooltip content="The directory that contains all the project files. It is also the directory in which the `site.json` configuration file is located.">root directory</tooltip> becomes a part of the generated website.</strong></p></span></blockquote>
-        <p><span class="indented">More info in: <span>
-<span><a href="/markbind/userGuide/addingPages.html"><em>User Guide → Adding Pages</em></a></span></span>
-          </span>
-        </p>
-        <p><big><strong>MarkBind Syntax Overview</strong></big></p>
-        <blockquote>
-          <span>
-<p><strong>A MarkBind source file may contain a mix of several popular syntax schemes</strong> used in creating web pages. MarkBind source file can be as simple as basic Markdown, and you can use progressively more complicated syntax to create progressively more sophisticated Web pages while optimizing other aspects such as content reuse.
-</p></span></blockquote>
-        <p><span class="indented">More info in: <span>
-<a href="/markbind/userGuide/markBindSyntaxOverview.html"><em>User Guide → MarkBind Syntax Overview</em></a></span></span>
-        </p>
-        <p><big><strong>Formatting Contents</strong></big></p>
-        <blockquote>
-          <span>
-<p><strong>MarkBind supports a wide collection of Markdown-like basic content formatting syntax</strong> such as text stying, tables, lists, images, links, etc.</p></span></blockquote>
-        <p><span class="indented">More info in: <span>
-<span><a href="/markbind/userGuide/formattingContents.html"><em>User Guide → Formatting Contents</em></a></span></span>
-          </span>
-        </p>
-        <p><big><strong>Using Components</strong></big></p>
-        <blockquote>
-          <span>
-<p><strong>MarkBind provides a number of components</strong> (e.g., expandable panels, tabbed displays, navigation bars, etc.) that you can use to enhance the appearance/behavior of your pages.
-</p></span></blockquote>
-        <p><span class="indented">More info in: <span>
-<span><a href="/markbind/userGuide/usingComponents.html"><em>User Guide → Using Components</em></a></span></span>
-          </span>
-        </p>
-        <p><big><strong>Using HTML, JavaScript, CSS</strong></big></p>
-        <blockquote>
-          <span>
-<p><strong>A MarkBind source file can contain a mixture of HTML, JavaScript, and CSS</strong> as a normal web page would.
-</p></span></blockquote>
-        <p><span class="indented">More info in: <span>
-<span><a href="/markbind/userGuide/usingHtmlJavaScriptCss.html"><em>User Guide → Using HTML, JavaScript, CSS</em></a></span></span>
-          </span>
-        </p>
-        <p><big><strong>Tweaking the Page Structure</strong></big></p>
-        <blockquote>
-          <p><span><strong>MarkBind offers several ways to easily tweak the overall structure of a page</strong>, for example, using headers, footers, scripts, or stylesheets.</span></p>
-        </blockquote>
-        <p><span class="indented">More info in: <span>
-<span><a href="/markbind/userGuide/tweakingThePageStructure.html"><em>User Guide → Tweaking the Page Structure</em></a></span></span>
-          </span>
-        </p>
-        <p><big><strong>Reusing Contents</strong></big></p>
-        <blockquote>
-          <span>
-<p><strong>MarkBind is highly-optimized for content reuse</strong>. It offers several mechanisms to provide readers with many variations of the content while minimizing duplication at source file level. As a result, instead of creating a one-size-fits-all site, MarkBind can create a site in which readers can chart their own path of reading.
-</p></span></blockquote>
-        <p><span class="indented">More info in: <span>
-<span><a href="/markbind/userGuide/reusingContents.html"><em>User Guide → Reusing Contents</em></a></span></span>
-          </span>
-        </p>
-        <p><big><strong>Making the Site Searchable</strong></big></p>
-        <blockquote>
-          <span>
-<p><strong>MarkBind comes with with an in-built <em>site search</em> facility</strong>. You can add a <a href="/markbind/userGuide/usingComponents.html#search-bar">Search Bar</a> component to your pages <span class="dimmed">(e.g., into the top navigation bar)</span>          to allow readers to search your website for keywords.
-          </p>
-          </span>
-        </blockquote>
-        <p><span class="indented">More info in: <span>
-<span><a href="/markbind/userGuide/makingTheSiteSearchable.html"><em>User Guide → Making the Site Searchable</em></a></span></span>
-          </span>
-        </p>
+        <h1 id="tips-and-tricks">Tips &amp; Tricks<a class="fa fa-anchor" href="#tips-and-tricks"></a></h1>
+        <span id="escapingCharacters">
+<h5 id="tip-escaping-characters">Tip: Escaping Characters<a class="fa fa-anchor" href="#tip-escaping-characters"></a></h5>
+<p>For Markdown syntax: To display a literal character that are normally used for Markdown formatting, add a backslash (<code>\</code>) in front of the character.</p>
+<div>
+<p><span class="dimmed">CODE:</span></p>
+        <div class="indented">
+          <pre><code class="hljs markdown">\* item 1
+
+<span class="hljs-bullet">* </span>item 1
+
+</code></pre>
+        </div>
+        <p><span class="dimmed">OUTPUT:</span></p>
+        <div class="indented">
+          <box border-left-color="grey" background-color="white">
+            <p>* item 1</p>
+            <ul>
+              <li>item 1</li>
+            </ul>
+          </box>
+        </div>
       </div>
+      </span>
+      <p><small>More info: <a href="https://www.markdownguide.org/basic-syntax#escaping-characters">https://www.markdownguide.org/basic-syntax#escaping-characters</a></small></p>
+      <h5 id="problem-unwanted-starting-space-in-links-and-triggers">Problem: Unwanted starting space in links and triggers<a class="fa fa-anchor" href="#problem-unwanted-starting-space-in-links-and-triggers"></a></h5>
+      <p>When you use links or triggers, you may encounter a situation where an unwanted space is being generated by MarkBind:</p>
+      <ul>
+        <li>
+          <p>Code:<br></p>
+          <pre><code class="hljs">The
+[[link](https://example.com)].
+</code></pre>
+        </li>
+        <li>
+          <p>Expected output:
+            <code>The [<a href="https://example.com">link</a>].</code></p>
+        </li>
+        <li>
+          <p>Actual output (notice the additional space in front of the link):
+            <code>The [ <a href="https://example.com">link</a>].</code></p>
+        </li>
+        <li>
+          <p>Solution: Wrap the link or trigger around with <code>&lt;md&gt;</code> tags.</p>
+          <pre><code class="hljs">The
+&lt;md&gt;[[link](https://example.com)]&lt;/md&gt;.
+</code></pre>
+        </li>
+      </ul>
     </div>
   </div>
+</div>
 </div>
 <div id="flex-div"></div>
 <footer>
