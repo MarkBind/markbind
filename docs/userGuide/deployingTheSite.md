@@ -54,16 +54,17 @@ You can override the default deployment settings %%(e.g., repo/branch to deploy)
 
 Here are the steps to set up Travis CI:
 
-1. [Sign up with GitHub](https://travis-ci.com/signin) at [Travis CI](https://travis-ci.com).
+1. [Sign in to Travis](https://travis-ci.com/signin) using your GitHub account.
 1. Accept the authorisation for Travis CI when you are redirected to GitHub.
-1. Click the green _Activate_ button, and select the repository with the MarkBind site.
+1. Go to the [Repositories page](https://travis-ci.org/account/repositories).
+1. Find the repository with the MarkBind site.<br>
+   %%{{ icon_info }} If the organization/repository is not shown in the list, click on `Review and add` link at the bottom of the list of organization and follow the steps to give Travis access to the organization containing your repo. After that, come back to the [Repositories page](https://travis-ci.org/account/repositories) and use the `Sync Account` button to sync your Travis account with GitHub.%%
+1. Activate the repo using the slider switch in front of it.
+   <box background-color="white" border-color="#cccccc"><md>![Activate Repo]({{baseUrl}}/images/travisActivateRepo.png =600x)</md></box>
 1. [Generate a GitHub personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/#creating-a-token) with **repo** permissions. Take note of the generated token - you will not be able to see it again once you navigate away from the page.
 1. [Add an environment variable in Travis CI](https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings) named `GITHUB_TOKEN`, with the value set to the personal access token generated in the previous step. ==Ensure that _Display value in the build log_ is set to _Off_.==
-    <box background-color="white" border-color="white"><md>
-    ![Travis CI GitHub token setup]({{baseUrl}}/images/travisGithubToken.png =600x)
-    </md></box>
+    <box background-color="white" border-color="#cccccc"><md>![Add GITHUB_TOKEN]({{baseUrl}}/images/travisGithubToken.png =600x)</md></box>
 1. Add a `.travis.yml` file to instruct Travis CI to build and deploy the site when you push to the repository. An example `.travis.yml` file that can accomplish this is given below:
-    <box background-color="white" border-color="white">
     ```yaml
     language: node_js
     node_js:
@@ -76,16 +77,25 @@ Here are the steps to set up Travis CI:
       - master
     ```
     More information about `.travis.yml` can be found in the [Travis CI documentation](https://docs.travis-ci.com/).
-    </box>
 1. Commit `.travis.yml` to your MarkBind repository and push the changes. Travis CI should begin to build your site.
 1. Select the MarkBind repository on [Travis CI](https://travis-ci.com/auth) and [check the build status](https://docs.travis-ci.com/user/job-lifecycle/#breaking-the-build) to see if it is successful.
-1. Once the build succeeds, your MarkBind site should be online at `http://<username|org>.github.io/<repo>` e.g., http://se-edu.github.io/se-book. Travis CI will automatically build and deploy changes to your site as you push new changes to the repository.
+1. Once the build succeeds, your MarkBind site should be online at `http://<username|org>.github.io/<repo>` e.g., http://se-edu.github.io/se-book. Travis CI will automatically build and deploy changes to your site as you push new changes to the repository after a few seconds.<br>
+  %%{{ icon_info }} You might have to go to the `Settings` of your repo and configure it to publish GitHub Pages from the `gh-pages` branch as MarkBind deploys to that branch by default.%%
 
-{{ icon_info }} Note that when Travis CI is set up as explained above, it will use the latest version of MarkBind which may be a later version than the one you use locally. If you want Travis CI to use a specific version of MarkBind (eg. `v1.6.3`), change the `install` step in the `.travis.yml` given above to:
-```yaml
-install:
-  - npm i -g markbind-cli@1.63
-```
+<box>
+
+{{ icon_info }} Note that when Travis CI is set up as explained above, it will use the latest version of MarkBind which may be a later version than the one you use locally.
+* If you want Travis CI to use a specific version of MarkBind (eg. `v1.6.3`), change the `install` step in the `.travis.yml` given above to:
+  ```yaml
+  install:
+    - npm i -g markbind-cli@1.63
+  ```
+* If you want to use the latest minor version automatically until the next major version (as major versions usually contain breaking changes), you can add a `^` in front of the version number. In the example below, Travis will use the latest version of MarkBind but will stop at `2.*`
+  ```yaml
+  install:
+    - npm i -g markbind-cli@^1.63
+  ```
+</box>
 
 <hr>
 
