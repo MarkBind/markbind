@@ -219,7 +219,9 @@ test('Site read site config for default', async () => {
   };
   fs.vol.fromJSON(json, '');
 
-  const siteConfigDefaults = { enableSearch: true };
+  const siteConfigDefaults = {
+    search: { provider: 'markbind' },
+  };
   const expectedSiteConfig = { ...JSON.parse(SITE_JSON_DEFAULT), ...siteConfigDefaults };
   const site = new Site('./', '_site');
   await site.readSiteConfig();
@@ -243,7 +245,9 @@ test('Site read site config for custom site config', async () => {
     deploy: {
       message: 'Site Update.',
     },
-    enableSearch: true,
+    search: {
+      provider: 'markbind',
+    },
   };
   const json = {
     'src/template/page.ejs': PAGE_EJS,
