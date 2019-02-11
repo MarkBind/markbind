@@ -81,6 +81,7 @@
         "trimmed-include": "Trimmed include",
         "fragment-with-leading-spaces-and-newline": "Fragment with leading spaces and newline",
         "include-with-custom-variables": "Include with custom variables",
+        "test-included-variable-as-include-attribute": "Test included variable as include attribute",
         "test-included-variable": "Test included variable",
         "test-included-variable-with-markdown": "Test included variable with markdown",
         "test-included-variable-as-attribute": "Test included variable as attribute",

@@ -1,3 +1,7 @@
+
+# Test included variable as include attribute
+{{ included_variable_as_include_attribute }}
+
 # Test included variable
 {{ included_variable }}
 
