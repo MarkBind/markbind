@@ -29,8 +29,8 @@
 <script src="<%- asset.polyfillJs %>"></script>
 <script src="<%- asset.bootstrapVueJs %>"></script>
 <script>
-    const baseUrl = '<%- baseUrl %>'
-    const enableSearch = <%- enableSearch %>
+    const baseUrl = "<%- baseUrl %>"
+    const enableMarkbindSearch = <%- search.provider === "markbind" %>
 </script>
 <script src="<%- asset.setup %>"></script>
 <% if (asset.externalScripts) { -%>

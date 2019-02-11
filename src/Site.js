@@ -304,7 +304,9 @@ Site.prototype.readSiteConfig = function (baseUrl) {
       .then((config) => {
         this.siteConfig = config;
         this.siteConfig.baseUrl = (baseUrl === undefined) ? this.siteConfig.baseUrl : baseUrl;
-        this.siteConfig.enableSearch = (config.enableSearch === undefined) || config.enableSearch;
+        if (this.siteConfig.search === undefined) {
+          this.siteConfig.search = { provider: 'markbind' };
+        }
         resolve(this.siteConfig);
       })
       .catch((err) => {
@@ -339,8 +341,8 @@ Site.prototype.createPage = function (config) {
     pageTemplate: this.pageTemplate,
     plugins: this.plugins || {},
     rootPath: this.rootPath,
-    enableSearch: this.siteConfig.enableSearch,
-    searchable: this.siteConfig.enableSearch && config.searchable,
+    search: this.siteConfig.search,
+    searchable: config.searchable,
     src: config.pageSrc,
     layoutsAssetPath: path.relative(path.dirname(resultPath),
                                     path.join(this.siteAssetsDestPath, LAYOUT_SITE_FOLDER_NAME)),
@@ -842,19 +844,20 @@ Site.prototype.copyLayouts = function () {
  */
 Site.prototype.writeSiteData = function () {
   return new Promise((resolve, reject) => {
-    const siteDataPath = path.join(this.outputPath, SITE_DATA_NAME);
-    const siteData = {
-      enableSearch: this.siteConfig.enableSearch,
-      pages: this.pages.filter(page => page.searchable)
-        .map(page => Object.assign({ headings: page.headings }, page.frontMatter)),
-    };
+    if (this.siteConfig.search.provider === 'markbind') {
+      const siteDataPath = path.join(this.outputPath, SITE_DATA_NAME);
+      const siteData = {
+        pages: this.pages.filter(page => page.searchable)
+          .map(page => Object.assign({ headings: page.headings }, page.frontMatter)),
+      };
 
-    fs.outputJsonAsync(siteDataPath, siteData)
-      .then(() => logger.info('Site data built'))
-      .then(resolve)
-      .catch((error) => {
-        rejectHandler(reject, error, [this.tempPath, this.outputPath]);
-      });
+      fs.outputJsonAsync(siteDataPath, siteData)
+        .then(() => logger.info('Site data built'))
+        .then(resolve)
+        .catch((error) => {
+          rejectHandler(reject, error, [this.tempPath, this.outputPath]);
+        });
+    }
   });
 };
 

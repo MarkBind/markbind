@@ -108,7 +108,7 @@ function setup() {
   setupPageNav();
 }
 
-function setupWithSearch() {
+function setupWithMarkbindSearch() {
   const { searchbar } = VueStrap.components;
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
@@ -137,8 +137,8 @@ function setupWithSearch() {
   setupPageNav();
 }
 
-if (enableSearch) {
-  setupWithSearch();
+if (enableMarkbindSearch) {
+  setupWithMarkbindSearch();
 } else {
   setup();
 }
