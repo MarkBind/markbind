@@ -159,46 +159,18 @@ footer {
     border-radius: 20px;
 }
 
-/* Spinner */
+/* Temporary Anti-FOUC Styles */
+/* By default, some VueStrap components break the layout of the page before Vue is mounted, */
+/* so we apply temporary styles to fix the layout until Vue correctly updates the DOM. */
 
-#loading-overlay {
-    background: white;
-    bottom: 0;
-    display: none;
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: 100;
-}
-
-#spinner-layout {
-    align-items: center;
-    animation: show 1s;
-    animation-fill-mode: forwards;
-    animation-timing-function: step-end;
+.temp-navbar {
     display: flex;
-    height: 100%;
-    justify-content: center;
-    visibility: hidden;
-    width: 100%;
 }
 
-@keyframes show {
-    0% { visibility: hidden; }
-    100% { visibility: visible; }
+.temp-navbar li {
+    display: block;
 }
 
-#spinner {
-    animation: spin 1s linear infinite;
-    border: 16px solid lightgray;
-    border-radius: 50%;
-    border-top: 16px solid darkgray;
-    height: 120px;
-    width: 120px;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.temp-dropdown {
+    display: none;
 }

@@ -19,14 +19,6 @@
     <% if (faviconUrl) { %><link rel="icon" href="<%- faviconUrl %>"><% } %>
 </head>
 <body <%_ if (pageNav) { %> data-spy="scroll" data-target="#page-nav" data-offset="100" <%_ } %>>
-<div id="loading-overlay">
-    <div id="spinner-layout">
-        <div id="spinner"></div>
-    </div>
-</div>
-<script type="text/javascript">
-    document.getElementById("loading-overlay").style.display = 'initial';
-</script>
 <div id="app">
     <%- content %>
 </div>

@@ -49,6 +49,10 @@ const SITE_NAV_BUTTON_HTML = '<div id="site-nav-btn-wrap">\n'
   + '</div>\n'
   + '</div>';
 
+const TEMP_NAVBAR_CLASS = 'temp-navbar';
+const TEMP_DROPDOWN_CLASS = 'temp-dropdown';
+const TEMP_DROPDOWN_PLACEHOLDER_CLASS = 'temp-dropdown-placeholder';
+
 cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
@@ -763,6 +767,21 @@ Page.prototype.collectHeadFiles = function (baseUrl, hostBaseUrl) {
   this.headFileBottomContent = collectedBottomContent.join('\n    ');
 };
 
+Page.prototype.insertTemporaryStyles = function (pageData) {
+  const $ = cheerio.load(pageData);
+  // inject temporary navbar styles
+  $('navbar').addClass(TEMP_NAVBAR_CLASS);
+  // inject temporary dropdown styles
+  $('dropdown').each((i, element) => {
+    const attributes = element.attribs;
+    const placeholder = `<span class=${attributes.class}>${attributes.text}</span>`;
+    $(element).before(placeholder);
+    $(element).prev().addClass(TEMP_DROPDOWN_PLACEHOLDER_CLASS);
+    $(element).addClass(TEMP_DROPDOWN_CLASS);
+  });
+  return $.html();
+};
+
 Page.prototype.generate = function (builtFiles) {
   this.includedFiles = {};
   this.includedFiles[this.sourcePath] = true;
@@ -784,6 +803,7 @@ Page.prototype.generate = function (builtFiles) {
       .then(result => addContentWrapper(result))
       .then(result => this.insertPageNavWrapper(result))
       .then(result => this.insertSiteNav((result)))
+      .then(result => this.insertTemporaryStyles(result))
       .then(result => this.insertFooter(result)) // Footer has to be inserted last to ensure proper formatting
       .then(result => formatFooter(result))
       .then(result => markbinder.resolveBaseUrl(result, fileConfig))

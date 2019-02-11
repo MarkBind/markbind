@@ -29,14 +29,6 @@
     <link rel="icon" href="/test_site/favicon.png">
 </head>
 <body data-spy="scroll" data-target="#page-nav" data-offset="100">
-<div id="loading-overlay">
-    <div id="spinner-layout">
-        <div id="spinner"></div>
-    </div>
-</div>
-<script type="text/javascript">
-    document.getElementById("loading-overlay").style.display = 'initial';
-</script>
 <div id="app">
     <nav id="page-nav" class="navbar navbar-light bg-transparent slim-scroll">
   <a class="navbar-brand" style="white-space: inherit; color: black" href="#">Testing Page Navigation</a>
@@ -256,7 +248,7 @@
     <div id="page-nav-content-wrapper">
       <div id="content-wrapper">
         <div>
-          <navbar placement="top" type="inverse">
+          <navbar placement="top" type="inverse" class="temp-navbar">
             <a slot="brand" href="/" title="Home" class="navbar-brand">Markbind Test Site</a>
             <li><a class="nav-link" href="/test_site/bugs/index.html">Open Bugs</a></li>
           </navbar>
