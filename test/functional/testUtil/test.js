@@ -17,6 +17,7 @@ const actualDirectory = path.join(sitePath, '_site');
 const expectedPaths = walkSync(expectedDirectory, { directories: false });
 const actualPaths = walkSync(actualDirectory, { directories: false });
 
+let error = false;
 if (expectedPaths.length !== actualPaths.length) {
   throw new Error('Unequal number of files');
 }
@@ -34,11 +35,8 @@ for (let i = 0; i < expectedPaths.length; i += 1) {
     // compare html files
     const expected = readFileSync(expectedDirectory, expectedFilePath);
     const actual = readFileSync(actualDirectory, actualFilePath);
-    try {
-      diffHtml(expected, actual);
-    } catch (err) {
-      throw new Error(`${err.message} in ${expectedFilePath}`);
-    }
+    const hasDiff = diffHtml(expected, actual, expectedFilePath);
+    error = error || hasDiff;
   } else if (parsed.base === 'siteData.json') {
     // compare site data
     const expected = readFileSync(expectedDirectory, expectedFilePath);
@@ -48,3 +46,5 @@ for (let i = 0; i < expectedPaths.length; i += 1) {
     }
   }
 }
+
+if (error) throw new Error('Diffs found in .html files');
