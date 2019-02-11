@@ -35,6 +35,7 @@
   tags : ['Tags', ['other']],
   variables : ['Variables', ['other']],
 
+  badges : ['Badges', ['component', 'reader-facing']],
   boxes : ['Boxes', ['component', 'reader-facing']],
   dropdowns : ['Dropdowns', ['component', 'reader-facing']],
   footers : ['Footers', ['other', 'reader-facing']],
