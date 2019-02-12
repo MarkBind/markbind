@@ -1,0 +1,1 @@
+<box background-color="white" border-color="#cccccc"><md>![{{ alt }}]({{baseUrl}}/images/{{ file }})</md></box>

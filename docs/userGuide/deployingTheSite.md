@@ -60,10 +60,10 @@ Here are the steps to set up Travis CI:
 1. Find the repository with the MarkBind site.<br>
    %%{{ icon_info }} If the organization/repository is not shown in the list, click on `Review and add` link at the bottom of the list of organization and follow the steps to give Travis access to the organization containing your repo. After that, come back to the [Repositories page](https://travis-ci.org/account/repositories) and use the `Sync Account` button to sync your Travis account with GitHub.%%
 1. Activate the repo using the slider switch in front of it.
-   <box background-color="white" border-color="#cccccc"><md>![Activate Repo]({{baseUrl}}/images/travisActivateRepo.png =600x)</md></box>
+   <include src="screenshot.md" boilerplate var-alt="Activate Repo" var-file="travisActivateRepo.png" inline />
 1. [Generate a GitHub personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/#creating-a-token) with **repo** permissions. Take note of the generated token - you will not be able to see it again once you navigate away from the page.
 1. [Add an environment variable in Travis CI](https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings) named `GITHUB_TOKEN`, with the value set to the personal access token generated in the previous step. ==Ensure that _Display value in the build log_ is set to _Off_.==
-    <box background-color="white" border-color="#cccccc"><md>![Add GITHUB_TOKEN]({{baseUrl}}/images/travisGithubToken.png =600x)</md></box>
+   <include src="screenshot.md" boilerplate var-alt="Add GITHUB_TOKEN" var-file="travisGithubToken.png" inline />
 1. Add a `.travis.yml` file to instruct Travis CI to build and deploy the site when you push to the repository. An example `.travis.yml` file that can accomplish this is given below:
     ```yaml
     language: node_js
@@ -109,22 +109,22 @@ Here are the steps to set up Netlify:
 1. Go to https://app.netlify.com/ and sign up
 1. Next go to https://app.netlify.com/account/sites and select `New site from Git`
 1. Select your git provider
-   <box background-color="white" border-color="#cccccc"><md>![Create a new site]({{baseUrl}}/images/netlifyPreview1.png =600x)</md></box>
+   <include src="screenshot.md" boilerplate var-alt="Create a new site" var-file="netlifyPreview1.png" inline />
 1. Select your markbind site repository
-   <box background-color="white" border-color="#cccccc"><md>![Select repository]({{baseUrl}}/images/netlifyPreview2.png =600x)</md></box>
+   <include src="screenshot.md" boilerplate var-alt="Select repository" var-file="netlifyPreview2.png" inline />
 1. Update the build settings as follows and hit `Deploy site`:
    - `Build Command`: `npm i markbind-cli -g && markbind build --baseUrl`
    - `Publish directory`: `_site`
-   <box background-color="white" border-color="#cccccc"><md>![Update build settings]({{baseUrl}}/images/netlifyPreview3.png =600x)</md></box>
+   <include src="screenshot.md" boilerplate var-alt="Update build settings" var-file="netlifyPreview3.png" inline />
 
 Now your site will be deployed on Netlify at the given address specified after deployment. It will be updated automatically when the default branch of your repo is updated.
 
 Additionally, **when contributors make a pull request to your GitHub repo, you can _preview_ the updated site** at the bottom of the pull request by clicking on `details` link in the PR:
-<box background-color="white" border-color="#cccccc"><md>![Preview deploy]({{baseUrl}}/images/netlifyPreview4.png =600x)</md></box>
+<include src="screenshot.md" boilerplate var-alt="Preview deploy" var-file="netlifyPreview4.png" inline />
 
 {{ icon_info }} Note that when Netlify is set up as explained above, it will use the latest version of MarkBind which may be a later version than the one you use locally. If you want Netlify to use a specific version of Netlify, follow the instructions in the box below:
 
-<box background-color="white" border-color="#cccccc">
+<box>
 
 ##### Setting up Netlify to use a specific version of MarkBind
 
