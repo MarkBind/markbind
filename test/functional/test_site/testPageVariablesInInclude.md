@@ -1,3 +1,6 @@
+# Explicitly Included Page Variable
+{{ explicitly_included_page_variable }}
+
 # Inner Page Variable Should Not Be Overridden by Outer Page Variable
 <variable name="page_variable">Inner Page Variable Should Not Be Overridden by Outer Page Variable</variable>
 {{ page_variable }}
