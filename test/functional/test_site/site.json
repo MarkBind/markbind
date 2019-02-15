@@ -35,10 +35,6 @@
       "layout": "testLayout"
     },
     {
-      "src": "testTags.md",
-      "title": "Hello World"
-    },
-    {
       "glob" : "**/index.md"
     },
     {
@@ -70,7 +66,7 @@
       "post": "<p>Node Modules Plugin Post-render</p>"
     },
     "filterTags" : {
-       "tags" : ["tag--shown", "tag--shown-2"]
+      "tags" : ["tag-site-shown", "+tag-site-override-shown", "+tag-site-override-specific-shown"]
     }
   }
 }

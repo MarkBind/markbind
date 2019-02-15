@@ -5,6 +5,7 @@ siteNav: site-nav.md
 pageNav: "default"
 pageNavTitle: "Testing Page Navigation"
 head: myCustomHead.md, myCustomHead2.md
+tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidden", "-tag-site-override-shown", "-tag-site-override-specific*"]
 </frontmatter>
 
 <include src="components/header.md" />
@@ -98,7 +99,7 @@ head: myCustomHead.md, myCustomHead2.md
 # Heading with hidden keyword
 <span class="keyword d-none">invisible keyword</span>
 
-<include src="testTagDivs.md" />
+<include src="testTags.md" />
 
 # Normal include
 <include src="requirements/EstablishingRequirements.md" />

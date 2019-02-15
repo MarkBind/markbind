@@ -57,11 +57,16 @@
     <a class="nav-link py-1" href="#included-heading">Included Heading&#x200E;</a>
     <a class="nav-link py-1" href="#heading-with-nested-keyword">Heading with nested keyword&#x200E;</a>
     <a class="nav-link py-1" href="#heading-with-hidden-keyword">Heading with hidden keyword&#x200E;</a>
-    <a class="nav-link py-1" href="#div-with-shown-tag">Div with shown tag&#x200E;</a>
-    <a class="nav-link py-1" href="#div-with-shown-2-tag">Div with shown-2 tag&#x200E;</a>
+    <a class="nav-link py-1" href="#div-with-frontmatter-shown-tag">Div with frontmatter shown tag&#x200E;</a>
+    <a class="nav-link py-1" href="#div-with-site-shown-tag">Div with site shown tag&#x200E;</a>
     <a class="nav-link py-1" href="#div-with-multiple-tags">Div with multiple tags&#x200E;</a>
-    <a class="nav-link py-1" href="#div-with-frontmatter-tag-that-should-be-overriden-by-site-config">Div with frontmatter tag that should be overriden by site config&#x200E;</a>
-    <a class="nav-link py-1" href="#div-with-hidden-tag">Div with hidden tag&#x200E;</a>
+    <a class="nav-link py-1" href="#div-with-hidden-tag-hidden">Div with hidden tag (Hidden)&#x200E;</a>
+    <a class="nav-link py-1" href="#div-with-tag-in-included-file">Div with tag in included file&#x200E;</a>
+    <a class="nav-link py-1" href="#div-with-tag-matching-general-tag">Div with tag matching general tag&#x200E;</a>
+    <a class="nav-link py-1" href="#div-with-tag-matching-general-tag-and-specific-tag-hidden">Div with tag matching general tag and specific tag (Hidden)&#x200E;</a>
+    <a class="nav-link py-1" href="#div-with-tag-matching-front-matter-tag-overridden-by-matching-site-tag">Div with tag matching front matter tag overridden by matching site tag&#x200E;</a>
+    <a class="nav-link py-1" href="#div-with-tag-matching-general-front-matter-tag-not-overridden-by-matching-specific-site-tag-hidden">Div with tag matching general front matter tag not overridden by matching specific site tag (Hidden)&#x200E;</a>
+    <a class="nav-link py-1" href="#div-with-tag-matching-general-front-matter-tag-overridden-by-matching-specific-site-tag">Div with tag matching general front matter tag overridden by matching specific site tag&#x200E;</a>
     <a class="nav-link py-1" href="#normal-include">Normal include&#x200E;</a>
     <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
       <a class="nav-link py-1" href="#establishing-requirements">Establishing Requirements&#x200E;</a>
@@ -333,21 +338,42 @@
           <h1 id="heading-with-hidden-keyword">Heading with hidden keyword<a class="fa fa-anchor" href="#heading-with-hidden-keyword"></a></h1>
           <p><span class="keyword d-none">invisible keyword</span></p>
           <div>
-            <h1 id="div-with-shown-tag">Div with shown tag<a class="fa fa-anchor" href="#div-with-shown-tag"></a></h1>
-            <div tags="tag--shown">
+            <h1 id="div-with-frontmatter-shown-tag">Div with frontmatter shown tag<a class="fa fa-anchor" href="#div-with-frontmatter-shown-tag"></a></h1>
+            <div tags="tag-frontmatter-shown">
               Div with shown tag
             </div>
-            <h1 id="div-with-shown-2-tag">Div with shown-2 tag<a class="fa fa-anchor" href="#div-with-shown-2-tag"></a></h1>
-            <div tags="tag--shown-2">
-              Div with shown-2 tag
+            <h1 id="div-with-site-shown-tag">Div with site shown tag<a class="fa fa-anchor" href="#div-with-site-shown-tag"></a></h1>
+            <div tags="tag-site-shown">
+              Div with site shown tag
             </div>
             <h1 id="div-with-multiple-tags">Div with multiple tags<a class="fa fa-anchor" href="#div-with-multiple-tags"></a></h1>
-            <div tags="tag--shown tag--other">
+            <div tags="tag-site-shown tag-other">
               Div with multiple tags
             </div>
-            <h1 id="div-with-frontmatter-tag-that-should-be-overriden-by-site-config">Div with frontmatter tag that should be overriden by site config<a class="fa fa-anchor" href="#div-with-frontmatter-tag-that-should-be-overriden-by-site-config"></a></h1>
+            <h1 id="div-with-hidden-tag-hidden">Div with hidden tag (Hidden)<a class="fa fa-anchor" href="#div-with-hidden-tag-hidden"></a></h1>
 
-            <h1 id="div-with-hidden-tag">Div with hidden tag<a class="fa fa-anchor" href="#div-with-hidden-tag"></a></h1>
+            <div>
+              <h1 id="div-with-tag-in-included-file">Div with tag in included file<a class="fa fa-anchor" href="#div-with-tag-in-included-file"></a></h1>
+              <div tags="tag-included-file">
+                Div with tag in included file
+              </div>
+            </div>
+            <h1 id="div-with-tag-matching-general-tag">Div with tag matching general tag<a class="fa fa-anchor" href="#div-with-tag-matching-general-tag"></a></h1>
+            <div tags="tag-exp-shown">
+              Div with tag matching general tag
+            </div>
+            <h1 id="div-with-tag-matching-general-tag-and-specific-tag-hidden">Div with tag matching general tag and specific tag (Hidden)<a class="fa fa-anchor" href="#div-with-tag-matching-general-tag-and-specific-tag-hidden"></a></h1>
+
+            <h1 id="div-with-tag-matching-front-matter-tag-overridden-by-matching-site-tag">Div with tag matching front matter tag overridden by matching site tag<a class="fa fa-anchor" href="#div-with-tag-matching-front-matter-tag-overridden-by-matching-site-tag"></a></h1>
+            <div tags="tag-site-override-shown">
+              Div with tag matching front matter tag overridden by matching site tag
+            </div>
+            <h1 id="div-with-tag-matching-general-front-matter-tag-not-overridden-by-matching-specific-site-tag-hidden">Div with tag matching general front matter tag not overridden by matching specific site tag (Hidden)<a class="fa fa-anchor" href="#div-with-tag-matching-general-front-matter-tag-not-overridden-by-matching-specific-site-tag-hidden"></a></h1>
+
+            <h1 id="div-with-tag-matching-general-front-matter-tag-overridden-by-matching-specific-site-tag">Div with tag matching general front matter tag overridden by matching specific site tag<a class="fa fa-anchor" href="#div-with-tag-matching-general-front-matter-tag-overridden-by-matching-specific-site-tag"></a></h1>
+            <div tags="tag-site-override-shown">
+              Div with tag matching general front matter tag overridden by matching specific site tag
+            </div>
           </div>
           <h1 id="normal-include">Normal include<a class="fa fa-anchor" href="#normal-include"></a></h1>
           <div>

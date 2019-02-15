@@ -57,11 +57,16 @@
         "included-heading": "Included Heading | Keyword with included heading",
         "heading-with-nested-keyword": "Heading with nested keyword | nested keyword",
         "heading-with-hidden-keyword": "Heading with hidden keyword | invisible keyword",
-        "div-with-shown-tag": "Div with shown tag",
-        "div-with-shown-2-tag": "Div with shown-2 tag",
+        "div-with-frontmatter-shown-tag": "Div with frontmatter shown tag",
+        "div-with-site-shown-tag": "Div with site shown tag",
         "div-with-multiple-tags": "Div with multiple tags",
-        "div-with-frontmatter-tag-that-should-be-overriden-by-site-config": "Div with frontmatter tag that should be overriden by site config",
-        "div-with-hidden-tag": "Div with hidden tag",
+        "div-with-hidden-tag-hidden": "Div with hidden tag (Hidden)",
+        "div-with-tag-in-included-file": "Div with tag in included file",
+        "div-with-tag-matching-general-tag": "Div with tag matching general tag",
+        "div-with-tag-matching-general-tag-and-specific-tag-hidden": "Div with tag matching general tag and specific tag (Hidden)",
+        "div-with-tag-matching-front-matter-tag-overridden-by-matching-site-tag": "Div with tag matching front matter tag overridden by matching site tag",
+        "div-with-tag-matching-general-front-matter-tag-not-overridden-by-matching-specific-site-tag-hidden": "Div with tag matching general front matter tag not overridden by matching specific site tag (Hidden)",
+        "div-with-tag-matching-general-front-matter-tag-overridden-by-matching-specific-site-tag": "Div with tag matching general front matter tag overridden by matching specific site tag",
         "normal-include": "Normal include",
         "establishing-requirements": "Establishing Requirements",
         "brainstorming": "Brainstorming",
@@ -106,6 +111,14 @@
       "pageNav": "default",
       "pageNavTitle": "Testing Page Navigation",
       "head": "myCustomHead.md, myCustomHead2.md",
+      "tags": [
+        "tag-frontmatter-shown",
+        "tag-included-file",
+        "+tag-exp*",
+        "-tag-exp-hidden",
+        "-tag-site-override-shown",
+        "-tag-site-override-specific*"
+      ],
       "src": "index.md",
       "layout": "default"
     },
@@ -160,22 +173,6 @@
       "head": "overwriteLayoutHead.md",
       "layout": "testLayout",
       "src": "testLayoutsOverride.md"
-    },
-    {
-      "headings": {
-        "front-matter-should-be-overridden-by-site-json": "Front matter should be overridden by site.json",
-        "div-with-shown-tag": "Div with shown tag",
-        "div-with-shown-2-tag": "Div with shown-2 tag",
-        "div-with-multiple-tags": "Div with multiple tags",
-        "div-with-frontmatter-tag-that-should-be-overriden-by-site-config": "Div with frontmatter tag that should be overriden by site config",
-        "div-with-hidden-tag": "Div with hidden tag"
-      },
-      "title": "Hello World",
-      "tags": [
-        "tag--should-be-overridden"
-      ],
-      "src": "testTags.md",
-      "layout": "default"
     }
   ]
 }
