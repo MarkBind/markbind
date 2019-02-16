@@ -117,7 +117,7 @@ Since May 2018, Travis CI has been [undergoing migration to `travis-ci.com`](htt
   install:
     - npm i -g markbind-cli@1.63
   ```
-* If you want to use the latest minor version automatically until the next major version (as major versions usually contain breaking changes), you can add a `^` in front of the version number. In the example below, Travis will use the latest version of MarkBind but will stop at `2.*`
+* If you want to use the latest minor version automatically until the next major version (as major versions usually contain breaking changes), you can add a `^` in front of the version number. In the example below, Travis will use the latest version of MarkBind but will stop before `2.*`
   ```yaml
   install:
     - npm i -g markbind-cli@^1.63
