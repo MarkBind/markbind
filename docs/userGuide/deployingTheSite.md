@@ -52,16 +52,43 @@ You can override the default deployment settings %%(e.g., repo/branch to deploy)
 ### Deploying to GitHub Pages via Travis CI
 **You can setup [<tooltip content="a platform for Continuous Integration and Delivery (among other things)">Travis CI</tooltip>](https://www.travis-ci.org/) to automatically build and deploy your site on GitHub Pages every time your GitHub repo is updated.**
 
-Here are the steps to set up Travis CI:
+
+#### Adding your repository to Travis CI
+
+<panel header="{{icon_info}} Travis CI Migration" type="info" expanded>
+
+Since May 2018, Travis CI has been [undergoing migration to `travis-ci.com`](https://docs.travis-ci.com/user/migrate/open-source-on-travis-ci-com/), which changes the way you setup repositories on Travis CI. 
+
+- If you are new to Travis CI, you should **add your repository on `travis-ci.com`**.
+- Alternatively, if you are already using Travis CI on `travis-ci.org`, you can continue to **add your repository on `travis-ci.org`**.
+</panel>
+<p/>
+<tabs>
+  <tab header="Add your repository on `travis-ci.com`">
+
+1. [Sign in to Travis](https://travis-ci.com/signin) using your GitHub account.
+1. Accept the authorisation for Travis CI when you are redirected to GitHub.
+1. Go to the [Repositories page](https://travis-ci.com/account/repositories), and click on the green _Activate_ button.<br>
+  %%{{ icon_info }} If you are already using Travis CI, click on the white _Manage Repositories on GitHub_ button instead.%%
+1. Select the repository with the MarkBind site, and add the Travis CI GitHub App to the repository by clicking the green _Approve and Install_ button.
+
+  </tab>
+  <tab header="Add your repository on `travis-ci.org`">
 
 1. [Sign in to Travis](https://travis-ci.com/signin) using your GitHub account.
 1. Accept the authorisation for Travis CI when you are redirected to GitHub.
 1. Go to the [Repositories page](https://travis-ci.org/account/repositories).
 1. Find the repository with the MarkBind site.<br>
-   %%{{ icon_info }} If the organization/repository is not shown in the list, click on `Review and add` link at the bottom of the list of organization and follow the steps to give Travis access to the organization containing your repo. After that, come back to the [Repositories page](https://travis-ci.org/account/repositories) and use the `Sync Account` button to sync your Travis account with GitHub.%%
+  %%{{ icon_info }} If the organization/repository is not shown in the list, click on `Review and add` link at the bottom of the list of organization and follow the steps to give Travis access to the organization containing your repo. After that, come back to the [Repositories page](https://travis-ci.org/account/repositories) and use the `Sync Account` button to sync your Travis account with GitHub.%%
 1. Activate the repo using the slider switch in front of it.
-   <include src="screenshot.md" boilerplate var-alt="Activate Repo" var-file="travisActivateRepo.png" inline />
+  <include src="screenshot.md" boilerplate var-alt="Activate Repo" var-file="travisActivateRepo.png" inline />
+  </tab>
+</tabs>
+
+#### Configuring your repository in Travis CI
+
 1. [Generate a GitHub personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/#creating-a-token) with **repo** permissions. Take note of the generated token - you will not be able to see it again once you navigate away from the page.
+<include src="screenshot.md" boilerplate var-alt="GitHub Token Repo Permissions" var-file="githubTokenRepoPermissions.png" inline />
 1. [Add an environment variable in Travis CI](https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings) named `GITHUB_TOKEN`, with the value set to the personal access token generated in the previous step. ==Ensure that _Display value in the build log_ is set to _Off_.==
    <include src="screenshot.md" boilerplate var-alt="Add GITHUB_TOKEN" var-file="travisGithubToken.png" inline />
 1. Add a `.travis.yml` file to instruct Travis CI to build and deploy the site when you push to the repository. An example `.travis.yml` file that can accomplish this is given below:
