@@ -90,6 +90,7 @@ function Page(pageConfig) {
   this.includedFiles = {};
   this.keywords = {};
   this.navigableHeadings = {};
+  this.pluginsContent = {};
 }
 
 /**
@@ -239,6 +240,7 @@ Page.prototype.prepareTemplateData = function () {
     headFileBottomContent: this.headFileBottomContent,
     headFileTopContent: this.headFileTopContent,
     pageNav: this.isPageNavigationSpecifierValid(),
+    pluginsContent: this.pluginsContent,
     siteNav: this.frontMatter.siteNav,
     title: prefixedTitle,
     enableSearch: this.enableSearch,
@@ -799,6 +801,7 @@ Page.prototype.generate = function (builtFiles) {
         this.collectHeadFiles(baseUrl, hostBaseUrl);
         this.content = nunjucks.renderString(this.content, { baseUrl, hostBaseUrl });
         this.insertPageNav();
+        this.collectPluginsContent();
         return fs.outputFileAsync(this.resultPath, this.template(this.prepareTemplateData()));
       })
       .then(() => {
@@ -847,6 +850,22 @@ Page.prototype.postRender = function (content) {
     }
   });
   return postRenderedContent;
+};
+
+/**
+ * Collect page content inserted by plugins
+ */
+Page.prototype.collectPluginsContent = function () {
+  let links = [];
+  let scripts = [];
+
+  Object.entries(this.plugins).forEach(([pluginName, plugin]) => {
+    if (plugin.addLinks) {
+      links = links.concat(plugin.addLinks(this.pluginsContext[pluginName], this.frontMatter));
+      scripts = scripts.concat(plugin.addScripts(this.pluginsContext[pluginName], this.frontMatter));
+    }
+  });
+  this.pluginsContent = { links, scripts };
 };
 
 /**

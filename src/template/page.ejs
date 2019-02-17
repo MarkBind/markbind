@@ -16,6 +16,11 @@
     <% if (siteNav) { %><link rel="stylesheet" href="<%- asset.siteNavCss %>"><% } %>
     <% if (pageNav) { %><link rel="stylesheet" href="<%- asset.pageNavCss %>"><% } %>
     <%- headFileBottomContent %>
+<% if (pluginsContent.links) { -%>
+<% for (const link of pluginsContent.links) { -%>
+    <%- link %>
+<% } -%>
+<% } -%>
     <% if (faviconUrl) { %><link rel="icon" href="<%- faviconUrl %>"><% } %>
 </head>
 <body <%_ if (pageNav) { %> data-spy="scroll" data-target="#page-nav" data-offset="100" <%_ } %>>
@@ -36,6 +41,11 @@
 <% if (asset.externalScripts) { -%>
 <% for (const script of asset.externalScripts) { -%>
 <script src="<%- script %>"></script>
+<% } -%>
+<% } -%>
+<% if (pluginsContent.scripts) { -%>
+<% for (const script of pluginsContent.scripts) { -%>
+<%- script %>
 <% } -%>
 <% } -%>
 <script src="<%- asset.layoutScript %>"></script>
