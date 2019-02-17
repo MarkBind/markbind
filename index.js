@@ -45,14 +45,26 @@ program
 
 program
   .command('init [root]')
+  .option('-c, --convert', 'convert a Github wiki or docs folder to a MarkBind website')
   .alias('i')
   .description('init a markbind website project')
-  .action((root) => {
+  .action((root, options) => {
     const rootFolder = path.resolve(root || process.cwd());
+    const outputRoot = path.join(rootFolder, '_site');
     printHeader();
     Site.initSite(rootFolder)
       .then(() => {
         logger.info('Initialization success.');
+      })
+      .then(() => {
+        if (options.convert) {
+          logger.info('Converting to MarkBind website.');
+          new Site(rootFolder, outputRoot).convert()
+            .then(() => {
+              logger.info('Conversion success.');
+            })
+            .catch(handleError);
+        }
       })
       .catch(handleError);
   });

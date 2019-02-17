@@ -28,4 +28,12 @@ module.exports = {
     path.dirname(normalizedFilename),
     path.basename(normalizedFilename, path.extname(normalizedFilename)) + ext,
   ),
+
+  removeExtension: (filePathWithExt) => {
+    let filePathWithoutExt = filePathWithExt;
+    if (filePathWithExt.indexOf('.') > 0) {
+      filePathWithoutExt = filePathWithExt.substring(0, filePathWithExt.lastIndexOf('.'));
+    }
+    return filePathWithoutExt;
+  },
 };
