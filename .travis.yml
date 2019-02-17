@@ -3,6 +3,13 @@ node_js:
   - '8'
 before_install:
   - chmod +x ./test/functional/test.sh
+deploy:
+  provider: script
+  script: cd docs && ../index.js build && ../index.js deploy --travis
+  skip_cleanup: true
+  on:
+    tags: true
+    condition: $TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+
 cache:
   directories:
     - node_modules
