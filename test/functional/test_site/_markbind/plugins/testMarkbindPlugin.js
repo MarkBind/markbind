@@ -8,4 +8,6 @@ module.exports = {
     $('#test-markbind-plugin').append(`${pluginContext.post}`);
     return $.html();
   },
+  addLinks: () => ['<link rel="stylesheet" href="STYLESHEET_LINK">'],
+  addScripts: () => ['<script src="SCRIPT_LINK"></script>'],
 };
