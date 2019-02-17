@@ -110,15 +110,21 @@ module.exports = {
 
 #### Assets
 
-Plugins can call the methods `addLinks` and `addScripts` to add additional assets to the page. 
+Plugins can implement the methods `getLinks` and `getScripts` to add additional assets to the page. 
 
-- `addLinks(pluginContext, frontMatter)`: Called to get link elements to be added to the head of the page.
+- `getLinks(content, pluginContext, frontMatter, utils)`: Called to get link elements to be added to the head of the page.
+  - `content`: The rendered HTML.
   - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
   - `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
+  - `utils`: Object containing the following utility functions
+    - `buildStylesheet(href)`: Builds a stylesheet link element with the specified `href`.
   - Should return an array of string data containing link elements to be added.
-- `addScripts(pluginContext, frontMatter)`: Called to get script elements to be added after the body of the page.
+- `getScripts(context, pluginContext, frontMatter, utils)`: Called to get script elements to be added after the body of the page.
+  - `content`: The rendered HTML.
   - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
   - `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
+  - `utils`: Object containing the following utility functions
+    - `buildScript(src)`: Builds a script element with the specified `src`.
   - Should return an array of string data containing script elements to be added.
 
 An example of a plugin which adds links and scripts to the page:
@@ -127,8 +133,8 @@ An example of a plugin which adds links and scripts to the page:
 // myPlugin.js
 
 module.exports = {
-  addLinks: (pluginContext, frontMatter) => ['<link rel="stylesheet" href="STYLESHEET_LINK">'].
-  addScripts: (pluginContext, frontMatter) => ['<script src="SCRIPT_LINK"></script>'],
+  getLinks: (content, pluginContext, frontMatter, utils) => [utils.buildStylesheet('STYLESHEET_LINK')],
+  getScripts: (content, pluginContext, frontMatter, utils) => [utils.buildScript('SCRIPT_LINK')],
 };
 
 ```

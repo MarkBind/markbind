@@ -90,7 +90,6 @@ function Page(pageConfig) {
   this.includedFiles = {};
   this.keywords = {};
   this.navigableHeadings = {};
-  this.pluginsContent = {};
 }
 
 /**
@@ -240,7 +239,6 @@ Page.prototype.prepareTemplateData = function () {
     headFileBottomContent: this.headFileBottomContent,
     headFileTopContent: this.headFileTopContent,
     pageNav: this.isPageNavigationSpecifierValid(),
-    pluginsContent: this.pluginsContent,
     siteNav: this.frontMatter.siteNav,
     title: prefixedTitle,
     enableSearch: this.enableSearch,
@@ -790,6 +788,7 @@ Page.prototype.generate = function (builtFiles) {
       .then(() => markbinder.renderFile(this.tempPath, fileConfig))
       .then(result => this.addAnchors(result))
       .then(result => this.postRender(result))
+      .then(result => this.collectPluginsAssets(result))
       .then((result) => {
         this.content = htmlBeautify(result, { indent_size: 2 });
 
@@ -801,7 +800,6 @@ Page.prototype.generate = function (builtFiles) {
         this.collectHeadFiles(baseUrl, hostBaseUrl);
         this.content = nunjucks.renderString(this.content, { baseUrl, hostBaseUrl });
         this.insertPageNav();
-        this.collectPluginsContent();
         return fs.outputFileAsync(this.resultPath, this.template(this.prepareTemplateData()));
       })
       .then(() => {
@@ -855,17 +853,33 @@ Page.prototype.postRender = function (content) {
 /**
  * Collect page content inserted by plugins
  */
-Page.prototype.collectPluginsContent = function () {
+Page.prototype.collectPluginsAssets = function (content) {
   let links = [];
   let scripts = [];
 
+  const linkUtils = {
+    buildStylesheet: href => `<link rel="stylesheet" href="${href}">`,
+  };
+  const scriptUtils = {
+    buildScript: src => `<script src="${src}"></script>`,
+  };
+
   Object.entries(this.plugins).forEach(([pluginName, plugin]) => {
-    if (plugin.addLinks) {
-      links = links.concat(plugin.addLinks(this.pluginsContext[pluginName], this.frontMatter));
-      scripts = scripts.concat(plugin.addScripts(this.pluginsContext[pluginName], this.frontMatter));
+    if (plugin.getLinks) {
+      const pluginLinks
+            = plugin.getLinks(content, this.pluginsContext[pluginName], this.frontMatter, linkUtils);
+      links = links.concat(pluginLinks);
+    }
+    if (plugin.getScripts) {
+      const pluginScripts
+            = plugin.getScripts(content, this.pluginsContext[pluginName], this.frontMatter, scriptUtils);
+      scripts = scripts.concat(pluginScripts);
     }
   });
-  this.pluginsContent = { links, scripts };
+
+  this.asset.pluginLinks = links;
+  this.asset.pluginScripts = scripts;
+  return content;
 };
 
 /**
