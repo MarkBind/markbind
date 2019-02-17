@@ -2,6 +2,7 @@
   title: "User Guide - Deploying the Site"
   footer: footer.md
   siteNav: userGuideSections.md
+  pageNav: default
 </frontmatter>
 
 <include src="../common/header.md" />
