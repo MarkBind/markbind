@@ -47,6 +47,8 @@ For example:
 
 ### Writing Plugins
 
+#### Rendering
+
 ![MarkBind Rendering]({{baseUrl}}/images/rendering.png)
 
 MarkBind provides two entry points for modifying the page, pre-render and post-render. These are controlled by implementing the `preRender()` and `postRender()` functions in the plugin:
@@ -104,6 +106,31 @@ module.exports = {
 <div id="my-div">
 [Pre-render Placeholder]
 </div>
+```
+
+#### Assets
+
+Plugins can call the methods `addLinks` and `addScripts` to add additional assets to the page. 
+
+- `addLinks(pluginContext, frontMatter)`: Called to get link elements to be added to the head of the page.
+  - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
+  - `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
+  - Should return an array of string data containing link elements to be added.
+- `addScripts(pluginContext, frontMatter)`: Called to get script elements to be added after the body of the page.
+  - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
+  - `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
+  - Should return an array of string data containing script elements to be added.
+
+An example of a plugin which adds links and scripts to the page:
+
+```js
+// myPlugin.js
+
+module.exports = {
+  addLinks: (pluginContext, frontMatter) => ['<link rel="stylesheet" href="STYLESHEET_LINK">'].
+  addScripts: (pluginContext, frontMatter) => ['<script src="SCRIPT_LINK"></script>'],
+};
+
 ```
 
 ### Built-in plugins
