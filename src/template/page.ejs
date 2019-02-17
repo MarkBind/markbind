@@ -12,11 +12,11 @@
     <link rel="stylesheet" href="<%- asset.glyphicons %>" >
     <link rel="stylesheet" href="<%- asset.highlight %>">
     <link rel="stylesheet" href="<%- asset.markbind %>">
-    <% if (asset.pluginLinks) { -%>
-    <% for (const link of asset.pluginLinks) { -%>
+<% if (asset.pluginLinks) { -%>
+<% for (const link of asset.pluginLinks) { -%>
     <%- link %>
-    <% } -%>
-    <% } -%>
+<% } -%>
+<% } -%>
     <link rel="stylesheet" href="<%- asset.layoutStyle %>">
     <% if (siteNav) { %><link rel="stylesheet" href="<%- asset.siteNavCss %>"><% } %>
     <% if (pageNav) { %><link rel="stylesheet" href="<%- asset.pageNavCss %>"><% } %>
