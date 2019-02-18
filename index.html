@@ -51,7 +51,7 @@ Optimized for creating text-heavy websites <span class="dimmed">e.g., eLearning 
     </p>
     <hr>
     <h4 id="simple-syntax-dynamic-content">
-      <font color="#00B0F0"> <span class="fas fa-check-circle"></span></font> Simple syntax. Dynamic content.<a class="fa fa-anchor" href="#simple-syntax-dynamic-content"></a></h4>
+      <font color="#00B0F0"><span aria-hidden="true" class="fas fa-check-circle"></span></font> Simple syntax. Dynamic content.<a class="fa fa-anchor" href="#simple-syntax-dynamic-content"></a></h4>
     <p>MarkBind source files can be as simple as basic Markdown, but you can also <a href="/markbind/userGuide/markBindSyntax.html"><strong>use a mix of several popular syntax schemes</strong></a> (
       <tooltip content="GitHub Flavored Markdown">GFMD</tooltip>, BootStrap, NunJucks, etc. as well as MarkBind's own custom syntax) to create more dynamic content that you cannot normally get from a typical markdown-to-html site generator.</p>
     <p>Here are some simple text-formatting examples:</p>
@@ -151,7 +151,7 @@ Optimized for creating text-heavy websites <span class="dimmed">e.g., eLearning 
       In the example below, there is an expandable panel that can reveal more content.
       <box>
         <p>A binary tree is a tree data structure in which each node has at most two children, which are referred to as the left child and the right child. Primitive data types on the other hand ...</p>
-        <panel header="%%<span class='fas fa-info-circle'></span> Some example primitive data types%%">
+        <panel header="%%:fas-info-circle: Some example primitive data types%%">
           <div>
             <ul>
               <li>Boolean, true or false.</li>
@@ -169,7 +169,7 @@ Optimized for creating text-heavy websites <span class="dimmed">e.g., eLearning 
       </box>
       <p>In the example below, there are expandable panels that are nested within each other.</p>
       <box>
-        <panel header="<span class='far fa-list-alt'></span> Exercises" no-close="">
+        <panel header=":far-list-alt: Exercises" no-close="">
           <panel type="danger" header=":exclamation: [Compulsory] Ex 1" no-close="">
             <p>Details of exercise 1
             </p>
@@ -188,18 +188,18 @@ Optimized for creating text-heavy websites <span class="dimmed">e.g., eLearning 
     <p></p>
     <hr>
     <h4 id="everything-you-need-for-text-heavy-websites-built-in">
-      <font color="#00B0F0"> <span class="fas fa-check-circle"></span></font> Everything you need for text-heavy websites, built-in.<a class="fa fa-anchor" href="#everything-you-need-for-text-heavy-websites-built-in"></a></h4>
+      <font color="#00B0F0"><span aria-hidden="true" class="fas fa-check-circle"></span></font> Everything you need for text-heavy websites, built-in.<a class="fa fa-anchor" href="#everything-you-need-for-text-heavy-websites-built-in"></a></h4>
     <p>MarkBind is <strong>highly optimized for creating text-heavy websites</strong> <span class="dimmed">e.g., eLearning websites, online instruction manuals, project documentation etc.</span> Anything that you might need for creating such websites are
       built-in, sparing you the hassle of finding/installing/searching plugins that you need.</p>
     <p>Here are some examples:</p>
     <div class="indented">
-      <p><big><span class="fas fa-heart"></span></big> <strong>Icons</strong> can improve the readability of a text-heavy document. MarkBind comes with a wide selection of <a href="/markbind/userGuide/markBindSyntax.html#icons-fonts">icons</a> and <a href="/markbind/userGuide/markBindSyntax.html#emoji">emoji</a>.<br>
-        <big><span class="fas fa-search"></span></big> With MarkBind's <a href="/markbind/userGuide/makingTheSiteSearchable.html"><strong>search feature</strong></a>, you can allow readers to search for keywords in your site.<br>
-        <big><span class="fas fa-window-maximize"></span></big> MarkBind allows you to add <a href="/markbind/userGuide/tweakingThePageStructure.html"><strong>site/page navigation menus, headers, footers</strong></a> easily.</p>
+      <p><big><span aria-hidden="true" class="fas fa-heart"></span></big> <strong>Icons</strong> can improve the readability of a text-heavy document. MarkBind comes with a wide selection of <a href="/markbind/userGuide/markBindSyntax.html#icons-fonts">icons</a>        and <a href="/markbind/userGuide/markBindSyntax.html#emoji">emoji</a>.<br>
+        <big><span aria-hidden="true" class="fas fa-search"></span></big> With MarkBind's <a href="/markbind/userGuide/makingTheSiteSearchable.html"><strong>search feature</strong></a>, you can allow readers to search for keywords in your site.<br>
+        <big><span aria-hidden="true" class="fas fa-window-maximize"></span></big> MarkBind allows you to add <a href="/markbind/userGuide/tweakingThePageStructure.html"><strong>site/page navigation menus, headers, footers</strong></a> easily.</p>
     </div>
     <hr>
     <h4 id="more-control-to-the-reader-without-duplicating-code">
-      <font color="#00B0F0"> <span class="fas fa-check-circle"></span></font> More control to the reader, without duplicating code.<a class="fa fa-anchor" href="#more-control-to-the-reader-without-duplicating-code"></a></h4>
+      <font color="#00B0F0"><span aria-hidden="true" class="fas fa-check-circle"></span></font> More control to the reader, without duplicating code.<a class="fa fa-anchor" href="#more-control-to-the-reader-without-duplicating-code"></a></h4>
     <p>A MarkBind website can be a <em>buffet</em> of content, as opposed to a <em>set menu</em>: a site can have optional contents that the reader can access at her discretion, and the same content can be organized in multiple ways so that the reader can
       choose the one that fits the need. To <em>cater</em> (pun intended) for creating such buffet style websites, MarkBind has <strong><a href="/markbind/userGuide/reusingContents.html">reuse mechanisms</a> for presenting the same content in multiple ways without duplicating the source file</strong>.</p>
     <p>For example, MarkBind has a powerful <code>include</code> mechanism that allows content fragments (i.e., a file or part of a file) to be reused at multiple places in the website. In the example below, both the modal and the expandable panel reuse
@@ -207,7 +207,7 @@ Optimized for creating text-heavy websites <span class="dimmed">e.g., eLearning 
     <box>
       <p>In CS, a binary tree is a tree data structure in which each node has at most two children, which are referred to as the <em>left child</em> and the <em>right child</em>.
         <trigger trigger="click" for="modal:index-primitive2">Primitive data types</trigger> on the other hand ...</p>
-      <panel type="seamless" header="%%<span class='fas fa-info-circle'></span> Some example primitive data types%%">
+      <panel type="seamless" header="%%:fas-info-circle: Some example primitive data types%%">
         <div>
           <ul>
             <li>Boolean, true or false.</li>
@@ -241,7 +241,7 @@ Optimized for creating text-heavy websites <span class="dimmed">e.g., eLearning 
     </box>
     <hr>
     <h4 id="easy-to-set-up-modify-deploy-integrate">
-      <font color="#00B0F0"> <span class="fas fa-check-circle"></span></font> Easy to set up, modify, deploy, integrate.<a class="fa fa-anchor" href="#easy-to-set-up-modify-deploy-integrate"></a></h4>
+      <font color="#00B0F0"><span aria-hidden="true" class="fas fa-check-circle"></span></font> Easy to set up, modify, deploy, integrate.<a class="fa fa-anchor" href="#easy-to-set-up-modify-deploy-integrate"></a></h4>
     <p>Installing MarkBind takes just one command. Creating a new MarkBind site too takes just one command. With MarkBind's <em>live preview</em> feature, you can see how your site will look like as you modify the source file. <a href="/markbind/userGuide/deployingTheSite.html">Deploying the site to a server</a>      can be as simple as one command too.</p>
     <p>As MarkBind is also optimized for project documentation, it can easily <a href="/markbind/userGuide/markBindInTheProjectWorkflow.html">integrate with the workflow of a software project</a>.</p>
     <p>
@@ -252,7 +252,7 @@ Optimized for creating text-heavy websites <span class="dimmed">e.g., eLearning 
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.18.0</a> on Mon, 11 Feb 2019 05:45:44 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.19.0</a> on Mon, 18 Feb 2019 03:18:07 GMT]</small></div>
 </footer>
 </div>
 </body>

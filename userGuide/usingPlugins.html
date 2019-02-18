@@ -176,52 +176,118 @@
 </code></pre>
         <h3 id="built-in-plugins">Built-in plugins<a class="fa fa-anchor" href="#built-in-plugins"></a></h3>
         <p>MarkBind has a set of built-in plugins that can be used immediately without installation.</p>
-        <h4 id="filtertags-toggling-alternative-contents-in-a-page"><code>filterTags</code>: Toggling alternative contents in a page<a class="fa fa-anchor" href="#filtertags-toggling-alternative-contents-in-a-page"></a></h4>
-        <p>You can use tags to selectively filter HTML elements when building a site.</p>
-        <p>Tags are specified by the <code>tags</code> attribute, <strong>and can be attached to any HTML element</strong>. During rendering, only elements that match tags specified in the <code>site.json</code> files will be rendered.</p>
-        <div class="indented">
-          <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Attaching tags to elements:</p>
-          <pre><code class="hljs html"># Print 'Hello world'
+        <div>
+          <h4 id="filtertags-toggling-alternative-contents-in-a-page"><code>filterTags</code>: Toggling alternative contents in a page<a class="fa fa-anchor" href="#filtertags-toggling-alternative-contents-in-a-page"></a></h4>
+          <p>You can use tags to selectively filter HTML elements when building a site.</p>
+          <p>Tags are specified by the <code>tags</code> attribute, <strong>and can be attached to any HTML element</strong>. During rendering, only elements that match tags specified in the <code>site.json</code> files will be rendered.</p>
+          <div class="indented">
+            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Attaching tags to elements:</p>
+            <pre><code class="hljs html"># Print 'Hello world'
 
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--java"</span>&gt;</span>System.out.println("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--C#"</span>&gt;</span>Console.WriteLine("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--python"</span>&gt;</span>print("Hello world")<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 </code></pre>
-          <p>You need to specify the tags to include in the <code>pluginsContext</code>, under <code>tags</code>:</p>
-          <pre><code class="hljs json">{
+            <p>You need to specify the tags to include in <code>site.json</code>, under the <code>tags</code> option:</p>
+            <pre><code class="hljs json">{
   ...
-  <span class="hljs-attr">"plugins"</span> : [
-    <span class="hljs-string">"filterTags"</span>
-  ],
-  <span class="hljs-attr">"pluginsContext"</span> : {
-    <span class="hljs-attr">"filterTags"</span> : {
-      <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"language--java"</span>]
-    }
-  }
+  <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"language--java"</span>]
 }
 </code></pre>
-          <p>All other tagged elements will be filtered out. In this case, only the element with the <code>language--java</code> tag will be rendered. This is helpful when creating multiple versions of a page without having to maintain separate copies.</p>
-        </div>
-        <p>If the <code>filterTags</code> plugin is not enabled in <code>site.json</code>, all tagged elements will be rendered.</p>
-        <p><strong>You can also use multiple tags in a single HTML element. Specify each tag in the <code>tags</code> attribute</strong> separated by a space. An element will be rendered if <strong>any of the tags</strong> matches the one in <code>site.json</code>.</p>
-        <div class="indented">
-          <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Attaching multiple tags to an element:</p>
-          <pre><code class="hljs html"># For loops
+            <p>All other tagged elements will be filtered out. In this case, only the element with the <code>language--java</code> tag will be rendered. This is helpful when creating multiple versions of a page without having to maintain separate copies.</p>
+          </div>
+          <p>If the <code>tags</code> option is not specified in <code>site.json</code>, all tagged elements will be rendered.</p>
+          <p><strong>You can also use multiple tags in a single HTML element. Specify each tag in the <code>tags</code> attribute</strong> separated by a space. An element will be rendered if <strong>any of the tags</strong> matches the one in <code>site.json</code>.</p>
+          <div class="indented">
+            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Attaching multiple tags to an element:</p>
+            <pre><code class="hljs html"># For loops
 
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--java language--C#"</span>&gt;</span>for (int i = 0; i <span class="hljs-tag">&lt; <span class="hljs-attr">5</span>; <span class="hljs-attr">i</span>++) { <span class="hljs-attr">...</span> }&lt;/<span class="hljs-attr">p</span>&gt;</span>
 </code></pre>
-          <p>As long as the <code>language--java</code> or <code>language--C#</code> tag is specified, the code snippet will be rendered.</p>
-        </div>
-        <p>Alternatively, you can specify tags to render for a page in the front matter.</p>
-        <div class="indented">
-          <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Specifying tags in front matter:</p>
+            <p>As long as the <code>language--java</code> or <code>language--C#</code> tag is specified, the code snippet will be rendered.</p>
+          </div>
+          <p>Alternatively, you can specify tags to render for a page in the front matter.</p>
+          <div class="indented">
+            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Specifying tags in front matter:</p>
+            <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+  title: "Hello World"
+  tags: ["language--java"]
+<span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
+</code></pre>
+          </div>
+          <span id="short" class="d-none">
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--java advanced"</span>&gt;</span>System.out.println("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--C# basic"</span>&gt;</span>Console.WriteLine("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+          </code>
+          </pre>
           <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
   title: "Hello World"
   tags: ["language--java"]
 <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
 </code></pre>
-        </div>
-        <p>Tags in <code>site.json</code> will take precedence over the ones in the front matter.</p>
+          </span>
+          <p>Tags in <code>site.json</code> will be merged with the ones in the front matter, and are processed after front matter tags. See <a href="/markbind/userGuide/tweakingThePageStructure.html#hiding-tags">Hiding Tags</a> for more information.</p>
+          <h4 id="advanced-tagging-tips">Advanced Tagging Tips<a class="fa fa-anchor" href="#advanced-tagging-tips"></a></h4>
+          <p>You can use a <code>*</code> in a tag name to match elements more generally. A <code>*</code> in a tag will match any number of characters at its position.</p>
+          <div class="indented">
+            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Using general tags:</p>
+            <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+  title: "Hello World"
+  tags: ["language--*"]
+<span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--java"</span>&gt;</span>System.out.println("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--C#"</span>&gt;</span>Console.WriteLine("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--python"</span>&gt;</span>print("Hello world")<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+            <p>All 3 <code>&lt;p&gt;</code>s will be shown.</p>
+          </div>
+          <h4 id="hiding-tags">Hiding Tags<a class="fa fa-anchor" href="#hiding-tags"></a></h4>
+          <p>Using <code>-</code> at the start of a tag hides all tags matching the expression. This is helpful for disabling a group of tags and enabling a particular tag.</p>
+          <div class="indented">
+            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Using general tags:</p>
+            <pre><code class="hljs html">index.md
+
+<span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+  title: "Hello World"
+  tags: ["language--java"]
+<span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--java"</span>&gt;</span>System.out.println("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--C#"</span>&gt;</span>Console.WriteLine("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--python"</span>&gt;</span>print("Hello world")<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+            <pre><code class="hljs json">site.json
+
+{
+  ...
+  <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"-language--*"</span>, <span class="hljs-string">"language--C#"</span>]
+}
+</code></pre>
+            <p><code>language--java</code> is overridden by <code>-language--*</code>, so only <code>language--C#</code> is shown.</p>
+          </div>
+          <p>This only works because tags are processed left to right, so all <code>language--*</code> tags are hidden before <code>language--C#</code>. Tags in <code>site.json</code> are processed after tags in <code>&lt;frontmatter&gt;</code>.</p>
+          <span id="short" class="d-none">
+```html
+# Print 'Hello world'
+<p tags="language--java">System.out.println("Hello world");</p>
+<p tags="language--C#">Console.WriteLine("Hello world");</p>
+<p tags="language--python">print("Hello world")</p>
+```
+```json
+{
+  ...
+  "plugins" : [
+    "filterTags"
+  ],
+  "pluginsContext" : {
+    "filterTags" : {
+      "tags": ["language--java"]
+    }
+  }
+}
+```
+</span></div>
       </div>
     </div>
   </div>

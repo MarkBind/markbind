@@ -213,13 +213,13 @@
     {
       "headings": {
         "markbind-syntax-overview": "MarkBind Syntax Overview",
-        "support-for-markdown": "\n            Support for Markdown",
-        "support-for-gfmd": "\n            Support for GFMD",
-        "markbind-extensions-to-markdown": "\n            MarkBind Extensions to Markdown",
-        "markbind-custom-syntax": "\n            MarkBind Custom Syntax",
-        "support-for-html-javascript-css": "\n            Support for HTML, JavaScript, CSS",
-        "support-for-vuestrap-and-bootstrap": "\n            Support for VueStrap and BootStrap",
-        "support-for-nunjucks": "\n            Support for Nunjucks"
+        "support-for-markdown": "\n           Support for Markdown",
+        "support-for-gfmd": "\n           Support for GFMD",
+        "markbind-extensions-to-markdown": "\n           MarkBind Extensions to Markdown",
+        "markbind-custom-syntax": "\n           MarkBind Custom Syntax",
+        "support-for-html-javascript-css": "\n           Support for HTML, JavaScript, CSS",
+        "support-for-vuestrap-and-bootstrap": "\n           Support for VueStrap and BootStrap",
+        "support-for-nunjucks": "\n           Support for Nunjucks"
       },
       "title": "User Guide: MarkBind Syntax Overview ",
       "footer": "footer.md",
@@ -321,7 +321,7 @@
     {
       "headings": {
         "syntax-cheat-sheet": "Syntax Cheat Sheet",
-        "search-bars": "undefined | regressions"
+        "using-boilerplate-files": "undefined | regressions"
       },
       "title": "User Guide: Syntax Cheat Sheet",
       "footer": "footer.md",
@@ -351,7 +351,9 @@
         "page-navigation-menus": "Page Navigation Menus",
         "page-layouts": "Page Layouts",
         "attaching-event-listeners-in-scripts-js": "Attaching event listeners in scripts.js",
-        "tags": "Tags"
+        "filtertags-toggling-alternative-contents-in-a-page": "filterTags: Toggling alternative contents in a page",
+        "advanced-tagging-tips": "Advanced Tagging Tips",
+        "hiding-tags": "Hiding Tags"
       },
       "title": "User Guide: Tweaking the Page Structure",
       "footer": "footer.md",
@@ -408,7 +410,9 @@
         "adding-plugins": "Adding Plugins",
         "writing-plugins": "Writing Plugins",
         "built-in-plugins": "Built-in plugins",
-        "filtertags-toggling-alternative-contents-in-a-page": "filterTags: Toggling alternative contents in a page"
+        "filtertags-toggling-alternative-contents-in-a-page": "filterTags: Toggling alternative contents in a page",
+        "advanced-tagging-tips": "Advanced Tagging Tips",
+        "hiding-tags": "Hiding Tags"
       },
       "footer": "userGuideFooter.md",
       "siteNav": "userGuideSections.md",

@@ -31,7 +31,6 @@
       <a class="nav-link py-1" href="#site-navigation-menus">Site Navigation Menus&#x200E;</a>
       <a class="nav-link py-1" href="#page-navigation-menus">Page Navigation Menus&#x200E;</a>
       <a class="nav-link py-1" href="#page-layouts">Page Layouts&#x200E;</a>
-      <a class="nav-link py-1" href="#tags">Tags&#x200E;</a>
     </nav>
 
   </nav>
@@ -475,7 +474,7 @@
           </div>
           <hr>
           <div>
-            <h2 id="tags">Tags<a class="fa fa-anchor" href="#tags"></a></h2>
+            <h4 id="filtertags-toggling-alternative-contents-in-a-page"><code>filterTags</code>: Toggling alternative contents in a page<a class="fa fa-anchor" href="#filtertags-toggling-alternative-contents-in-a-page"></a></h4>
             <p>You can use tags to selectively filter HTML elements when building a site.</p>
             <p>Tags are specified by the <code>tags</code> attribute, <strong>and can be attached to any HTML element</strong>. During rendering, only elements that match tags specified in the <code>site.json</code> files will be rendered.</p>
             <div class="indented">
@@ -513,7 +512,6 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
 </code></pre>
             </div>
-            <p>Tags in <code>site.json</code> will take precedence over the ones in the front matter.</p>
             <span id="short" class="d-none">
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--java advanced"</span>&gt;</span>System.out.println("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--C# basic"</span>&gt;</span>Console.WriteLine("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
@@ -525,7 +523,68 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
 </code></pre>
             </span>
-          </div>
+            <p>Tags in <code>site.json</code> will be merged with the ones in the front matter, and are processed after front matter tags. See <a href="/markbind/userGuide/tweakingThePageStructure.html#hiding-tags">Hiding Tags</a> for more information.</p>
+            <h4 id="advanced-tagging-tips">Advanced Tagging Tips<a class="fa fa-anchor" href="#advanced-tagging-tips"></a></h4>
+            <p>You can use a <code>*</code> in a tag name to match elements more generally. A <code>*</code> in a tag will match any number of characters at its position.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Using general tags:</p>
+              <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+  title: "Hello World"
+  tags: ["language--*"]
+<span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--java"</span>&gt;</span>System.out.println("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--C#"</span>&gt;</span>Console.WriteLine("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--python"</span>&gt;</span>print("Hello world")<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+              <p>All 3 <code>&lt;p&gt;</code>s will be shown.</p>
+            </div>
+            <h4 id="hiding-tags">Hiding Tags<a class="fa fa-anchor" href="#hiding-tags"></a></h4>
+            <p>Using <code>-</code> at the start of a tag hides all tags matching the expression. This is helpful for disabling a group of tags and enabling a particular tag.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Using general tags:</p>
+              <pre><code class="hljs html">index.md
+
+<span class="hljs-tag">&lt;<span class="hljs-name">frontmatter</span>&gt;</span>
+  title: "Hello World"
+  tags: ["language--java"]
+<span class="hljs-tag">&lt;/<span class="hljs-name">frontmatter</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--java"</span>&gt;</span>System.out.println("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--C#"</span>&gt;</span>Console.WriteLine("Hello world");<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">tags</span>=<span class="hljs-string">"language--python"</span>&gt;</span>print("Hello world")<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+              <pre><code class="hljs json">site.json
+
+{
+  ...
+  <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"-language--*"</span>, <span class="hljs-string">"language--C#"</span>]
+}
+</code></pre>
+              <p><code>language--java</code> is overridden by <code>-language--*</code>, so only <code>language--C#</code> is shown.</p>
+            </div>
+            <p>This only works because tags are processed left to right, so all <code>language--*</code> tags are hidden before <code>language--C#</code>. Tags in <code>site.json</code> are processed after tags in <code>&lt;frontmatter&gt;</code>.</p>
+            <span id="short" class="d-none">
+```html
+# Print 'Hello world'
+<p tags="language--java">System.out.println("Hello world");</p>
+<p tags="language--C#">Console.WriteLine("Hello world");</p>
+<p tags="language--python">print("Hello world")</p>
+```
+```json
+{
+  ...
+  "plugins" : [
+    "filterTags"
+  ],
+  "pluginsContext" : {
+    "filterTags" : {
+      "tags": ["language--java"]
+    }
+  }
+}
+```
+</span></div>
         </div>
       </div>
     </div>
@@ -534,7 +593,7 @@
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.18.0</a> on Mon, 11 Feb 2019 05:45:44 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.19.0</a> on Mon, 18 Feb 2019 03:18:07 GMT]</small></div>
 </footer>
 </div>
 </body>

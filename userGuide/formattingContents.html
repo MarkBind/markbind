@@ -139,8 +139,7 @@
             </div>
           </div>
           </span>
-          <p><span class="fas fa-info-circle"></span> <strong>MarkBind auto-generates anchors for all headings.</strong><br> If the heading text is <code>Foo Bar (Goo)</code>, the ID of the generated anchor will be <code>foo-bar-goo</code> (all lower case,
-            special characters ommitted, joined by <code>-</code>).</p>
+          <p><span aria-hidden="true" class="fas fa-info-circle"></span> <strong>MarkBind auto-generates anchors for all headings.</strong><br> If the heading text is <code>Foo Bar (Goo)</code>, the ID of the generated anchor will be <code>foo-bar-goo</code>            (all lower case, special characters ommitted, joined by <code>-</code>).</p>
           <p><small>Alternative syntax, more info: <a href="https://www.markdownguide.org/basic-syntax#headings">https://www.markdownguide.org/basic-syntax#headings</a></small></p>
           <span id="short" class="d-none">
 ```markdown
@@ -765,7 +764,7 @@ Cats|yes|100|
 </div>
 </span>
 <div class="indented">
-  <p><span class="dimmed"><span class="fas fa-info-circle"></span> <a href="https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md">the list of supported emoji</a>.</span>
+  <p><span class="dimmed"><span aria-hidden="true" class="fas fa-info-circle"></span> <a href="https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md">the list of supported emoji</a>.</span>
   </p>
 </div>
 <span id="short" class="d-none">
@@ -782,51 +781,51 @@ Cats|yes|100|
   <div>
     <box border-left-color="#00B0F0">
       <p>
-        <font color="#00B0F0"> <span class="fas fa-lightbulb"></span></font>
+        <font color="#00B0F0"><span aria-hidden="true" class="fas fa-lightbulb"></span></font>
         The advantage of font icons over emojis is font icons can be <em>styled</em> to fit your needs. e.g.,</p>
       <ul>
         <li>emoji:
           <font color="purple">Don't judge the 📖 by it's cover! 👎</font>
         </li>
         <li>font icons:
-          <font color="purple">Don't judge the <span class="fas fa-book"></span> by it's cover! <span class="fas fa-thumbs-down"></span></font>
+          <font color="purple">Don't judge the <span aria-hidden="true" class="fas fa-book"></span> by it's cover! <span aria-hidden="true" class="fas fa-thumbs-down"></span></font>
         </li>
       </ul>
     </box>
   </div>
+  <box type="important">
+    The syntax for icons has changed, and the earlier {<span></span>{ prefix_name }} syntax has been deprecated. <br> Please use the new :prefix-name: syntax instead.
+  </box>
   <h6 id="using-font-awesome-icons">Using Font Awesome Icons<a class="fa fa-anchor" href="#using-font-awesome-icons"></a></h6>
   <ol>
     <li>
       <p>Decide which icon you want to use from the <a href="https://fontawesome.com/icons?d=gallery&amp;m=free">list of available icons</a>.</p>
     </li>
     <li>
-      <p>Construct the MarkBind name for the selected icon by replacing the hyphens (<code>-</code>) in the actual name with underscores ( <code>_</code> ) and adding the <em>type prefix</em>. Note: Font Awesome has three different styles for their icons,
-        each with their own type prefix. Here is an example from each type:</p>
+      <p>Construct the MarkBind name for the selected icon by adding the <em>type prefix</em>. Note: Font Awesome has three different styles for their icons, each with their own type prefix. Here is an example from each type:</p>
       <ul>
-        <li><em>Solid</em> (prefix: <code>fas_</code>) e.g., <span class="fas fa-file-code"></span> (actual name <code>file-code</code>, MarkBind name <strong><code>fas_</code></strong><code>file_code</code>)</li>
-        <li><em>Regular</em> (prefix: <code>far_</code>) e.g., <span class="far fa-file-code"></span> (actual name <code>file-code</code>, MarkBind name <strong><code>far_</code></strong><code>file_code</code>)</li>
-        <li><em>Brands</em> (prefix: <code>fab_</code>): e.g., <span class="fab fa-github-alt"></span> (actual name <code>github-alt</code>, MarkBind name <strong><code>fab_</code></strong><code>github_alt</code>)</li>
+        <li><em>Solid</em> (prefix: <code>fas-</code>) e.g., <span aria-hidden="true" class="fas fa-file-code"></span> (actual name <code>file-code</code>, MarkBind name <strong><code>fas-</code></strong><code>file-code</code>)</li>
+        <li><em>Regular</em> (prefix: <code>far-</code>) e.g., <span aria-hidden="true" class="fas fa-file-code"></span> (actual name <code>file-code</code>, MarkBind name <strong><code>far-</code></strong><code>file-code</code>)</li>
+        <li><em>Brands</em> (prefix: <code>fab-</code>): e.g., <span aria-hidden="true" class="fab fa-github-alt"></span> (actual name <code>github-alt</code>, MarkBind name <strong><code>fab-</code></strong><code>github-alt</code>)</li>
       </ul>
     </li>
     <li>
-      <p>Insert MarkBind name for the icon enclosed within double curly braces to get the icon in your page.<br>
-        <code>Create a **branch**</code><code> {<span></span>{fas_code_branch}} now!</code> → Create a <strong>branch</strong> <span class="fas fa-code-branch"></span> now!</p>
+      <p>Insert MarkBind name for the icon enclosed within colons to get the icon in your page.<br>
+        <code>Create a **branch**</code><code>:<span></span>fas-code-branch: now!</code> → Create a <strong>branch</strong> <span aria-hidden="true" class="fas fa-code-branch"></span> now!</p>
     </li>
   </ol>
   <h6 id="using-glyphicons">Using Glyphicons<a class="fa fa-anchor" href="#using-glyphicons"></a></h6>
   <ol>
     <li>Decide which icon you want to use from <a href="https://getbootstrap.com/docs/3.3/components/#glyphicons">list of provided glyphicons</a>.</li>
-    <li>Construct the MarkBind name for the selected icon by replacing the hyphens (<code>-</code>) in the actual name with underscores ( <code>_</code> ).<br> e.g., <span class="glyphicon glyphicon-home" aria-hidden="true"></span> (actual name <code>glyphicon-home</code>,
-      MarkBind name <code>glyphicon_home</code>)</li>
-    <li>Insert MarkBind name for the icon enclosed within double curly braces to get the icon in your page.<br>
-      <code>Move to the right!</code><code> {<span></span>{glyphicon_hand_right}}</code> → Move to the right! <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span></li>
+    <li>Insert the name for the icon enclosed within colons to get the icon in your page.<br>
+      <code>Move to the right!</code><code>:<span></span>glyphicon-hand-right:</code> → Move to the right! <span aria-hidden="true" class="glyphicon glyphicon-hand-right"></span></li>
   </ol>
   <span id="short" class="d-none">
-<p><code>{<span></span>{glyphicon_hand_right}}</code> <code>{<span></span>{fab_github}}</code> <code>{<span></span>{fas_home}}</code></p>
+<p><code>:<span></span>glyphicon-hand-right:</code> <code>:<span></span>fab-github:</code> <code>:<span></span>fas-home:</code></p>
   </span>
   <span id="examples" class="d-none">
-<p><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span> <span class="fab fa-github"></span> <span class="fas fa-home"></span> <span class="dimmed"><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span> <span class="fab fa-github"></span>  <span class="fas fa-home"></span></span>
-  <font color="red"><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span> <span class="fab fa-github"></span> <span class="fas fa-home"></span></font>
+<p><span aria-hidden="true" class="glyphicon glyphicon-hand-right"></span> <span aria-hidden="true" class="fab fa-github"></span> <span aria-hidden="true" class="fas fa-home"></span> <span class="dimmed"><span aria-hidden="true" class="glyphicon glyphicon-hand-right"></span>  <span aria-hidden="true" class="fab fa-github"></span> <span aria-hidden="true" class="fas fa-home"></span></span>
+  <font color="red"><span aria-hidden="true" class="glyphicon glyphicon-hand-right"></span> <span aria-hidden="true" class="fab fa-github"></span> <span aria-hidden="true" class="fas fa-home"></span></font>
   </p>
   </span>
 </div>
@@ -918,7 +917,7 @@ Cats|yes|100|
 <div id="flex-div"></div>
 <footer>
   <div class="text-center">
-    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.18.0</a> on Mon, 11 Feb 2019 05:45:44 GMT]</small></div>
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.19.0</a> on Mon, 18 Feb 2019 03:18:07 GMT]</small></div>
 </footer>
 </div>
 </body>
