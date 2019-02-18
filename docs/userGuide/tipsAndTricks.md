@@ -7,8 +7,6 @@
 
 <include src="../common/header.md" />
 
-<div class="website-content">
-
 # {{ title | safe }}
 
 <span id="escapingCharacters">
@@ -63,5 +61,3 @@ When you use links or triggers, you may encounter a situation where an unwanted 
   The
   <md>[[link](https://example.com)]</md>.
   ```
-
-</div>

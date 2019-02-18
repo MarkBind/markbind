@@ -6,9 +6,6 @@
 
 <include src="../common/header.md" />
 
-<div class="website-content">
-
-
 #### Live Preview
 
 <span id="live-preview">
@@ -44,5 +41,3 @@ _Site Navigation Menu_ (_siteNav_ for short) is a fixed menu on the **left** sid
 
 _Page Navigation Menu_ (_pageNav_ for short) is a fixed menu on the **right** side of your page contents, which contains the current page's headings.
 </span>
-
-</div>

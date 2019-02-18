@@ -7,8 +7,6 @@
 
 <include src="../common/header.md" />
 
-<div class="website-content">
-
 # Configuring the Site
 
 <span class="lead">
@@ -177,5 +175,3 @@ The ignore pattern follows the [glob pattern used in .gitignore](https://git-scm
 #### **`enableSearch`**
 
 **Specifies that the website should use MarkBind's search functionality.** Default: `true`. See [User Guide: Making the Site Searchable]({{ baseUrl }}/userGuide/makingTheSiteSearchable.html) for more details.
-
-</div>

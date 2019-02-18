@@ -6,8 +6,6 @@
 
 <include src="../common/header.md" />
 
-<div class="website-content">
-
 # Full Syntax Reference
 
 {% set syntax_topics = {
@@ -56,5 +54,3 @@
   <include src="syntax/{{ topic[0] }}.mbdf" />
 </panel>
 {% endfor %}
-
-</div>

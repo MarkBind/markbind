@@ -6,8 +6,6 @@
 
 <include src="../common/header.md" />
 
-<div class="website-content">
-
 # Deploying the Site
 
 <span class="lead">
@@ -137,5 +135,3 @@ Here are the steps to set up Netlify to use a specific version of MarkBind.
    In step 5, ==Set the `Build Command` to `markbind build --baseUrl`==
 
 </box>
-
-</div>

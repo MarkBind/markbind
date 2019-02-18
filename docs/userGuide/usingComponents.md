@@ -14,8 +14,6 @@
 
 <include src="../common/header.md" />
 
-<div class="website-content">
-
 # Using Components
 
 <span id="overview" class="lead">
@@ -46,5 +44,3 @@ To use a component, just use the corresponding markup in your file. For example,
 
 <include src="./components/advanced.md" />
 <br>
-
-</div>

@@ -5,8 +5,6 @@
 
 <include src="./common/header.md" />
 
-<div class="website-content">
-
 # Examples of MarkBind Websites
 
 ## Course Websites
@@ -23,5 +21,3 @@
 
 ## Product Websites
 * This website %%(i.e., MarkBind website)%%
-
-</div>
