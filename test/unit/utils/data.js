@@ -75,8 +75,7 @@ module.exports.SITE_JSON_DEFAULT = '{\n'
 
 module.exports.FOOTER_MD_DEFAULT = '<footer>\n'
   + '  <div class="text-center">\n'
-  + '    This is a dynamic height footer that supports variables {{glyphicon_tags}} '
-  + 'and markdown <md>:smile:</md>!\n'
+  + '    This is a dynamic height footer that supports markdown <md>:smile:</md>!\n'
   + '  </div>\n'
   + '  <!-- Support MarkBind by including a link to us on your landing page! -->\n'
   + '  <div class="text-center">\n'
@@ -93,7 +92,7 @@ module.exports.INDEX_MD_DEFAULT = '<frontmatter>\n'
   + 'Welcome to your page generated with MarkBind.\n';
 
 module.exports.SITE_NAV_MD_DEFAULT = '<navigation>\n'
-  + '* [Home {{glyphicon_home}}]({{baseUrl}}/index.html)\n'
+  + '* [Home :glyphicon-home:]({{baseUrl}}/index.html)\n'
   + '</navigation>\n';
 
 module.exports.USER_VARIABLES_DEFAULT = '<span id="example">\n'

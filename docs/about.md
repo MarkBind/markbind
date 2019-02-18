@@ -24,8 +24,8 @@ The **project team**:
 * [**Rachael Sim Hwee Ling**](https://github.com/rachx): _Project Member_ since Jan 2018
 * [**Tan Wang Leng**](https://github.com/yamgent): Current _Team Lead_ since Jul 2018, _Project Member_ for May 2018 - Jun 2018
 
-<span class="glyphicon glyphicon-send" aria-hidden="true"></span> You can **email us** at `seer` at `comp.nus.edu.sg`
+:glyphicon-send: You can **email us** at `seer` at `comp.nus.edu.sg`
 
-<span class="glyphicon glyphicon-console" aria-hidden="true"></span> Interested in **contributing to MarkBind**? Visit the [MarkBind project on GitHub](https://github.com/MarkBind/markbind).
+:glyphicon-console: Interested in **contributing to MarkBind**? Visit the [MarkBind project on GitHub](https://github.com/MarkBind/markbind).
 
 </div>

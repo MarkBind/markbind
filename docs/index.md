@@ -103,7 +103,7 @@ In the example below, there are expandable panels that are nested within each ot
 
 <box>
 
-<panel header="{{ far_list_alt }} Exercises" no-close >
+<panel header=":far-list-alt: Exercises" no-close >
 
   <panel type="danger" header=":exclamation: [Compulsory] Ex 1" no-close >
 
@@ -133,9 +133,9 @@ MarkBind is **highly optimized for creating text-heavy websites** %%e.g., eLearn
 Here are some examples:
 <div class="indented">
 
-<big>{{ fas_heart }}</big> **Icons** can improve the readability of a text-heavy document. MarkBind comes with a wide selection of [icons]({{ baseUrl }}/userGuide/markBindSyntax.html#icons-fonts) and [emoji]({{ baseUrl }}/userGuide/markBindSyntax.html#emoji).<br>
-<big>{{ fas_search }}</big> With MarkBind's [**search feature**]({{ baseUrl }}/userGuide/makingTheSiteSearchable.html), you can allow readers to search for keywords in your site.<br>
-<big>{{ fas_window_maximize }}</big> MarkBind allows you to add [**site/page navigation menus, headers, footers**]({{ baseUrl }}/userGuide/tweakingThePageStructure.html) easily.
+<big>:fas-heart:</big> **Icons** can improve the readability of a text-heavy document. MarkBind comes with a wide selection of [icons]({{ baseUrl }}/userGuide/markBindSyntax.html#icons-fonts) and [emoji]({{ baseUrl }}/userGuide/markBindSyntax.html#emoji).<br>
+<big>:fas-search:</big> With MarkBind's [**search feature**]({{ baseUrl }}/userGuide/makingTheSiteSearchable.html), you can allow readers to search for keywords in your site.<br>
+<big>:fas-window-maximize:</big> MarkBind allows you to add [**site/page navigation menus, headers, footers**]({{ baseUrl }}/userGuide/tweakingThePageStructure.html) easily.
 </div>
 
 <hr><!-- ======================================================================================================= -->

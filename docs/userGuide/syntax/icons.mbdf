@@ -8,38 +8,40 @@ MarkBind supports using Font Icons provided by Font Awesome and Glyphicons.
 <span id="tip_body">
 The advantage of font icons over emojis is font icons can be _styled_ to fit your needs. e.g.,
 * emoji: <font color="purple">Don't judge the :book: by it's cover! :-1:</font>
-* font icons: <font color="purple">Don't judge the {{ fas_book }} by it's cover! {{ icon_dislike }}</font>
+* font icons: <font color="purple">Don't judge the :fas-book: by it's cover! :fas-thumbs-down:</font>
 </span>
 </include>
 
+<box type="important">
+The syntax for icons has changed, and the earlier {<span></span>{ prefix_name }} syntax has been deprecated. <br>
+Please use the new :prefix-name: syntax instead.
+</box>
 
 ###### Using Font Awesome Icons
 1. Decide which icon you want to use from the [list of available icons](https://fontawesome.com/icons?d=gallery&m=free).
-1. Construct the MarkBind name for the selected icon by replacing the hyphens (`-`) in the actual name with underscores ( `_` ) and adding the _type prefix_.
+1. Construct the MarkBind name for the selected icon by adding the _type prefix_.
    Note: Font Awesome has three different styles for their icons, each with their own type prefix. Here is an example from each type:
-   * _Solid_ (prefix: `fas_`) e.g., {{ fas_file_code }} (actual name `file-code`, MarkBind name **`fas_`**`file_code`)
-   * _Regular_ (prefix: `far_`) e.g., {{ far_file_code }} (actual name `file-code`, MarkBind name **`far_`**`file_code`)
-   * _Brands_ (prefix: `fab_`): e.g., {{ fab_github_alt }} (actual name `github-alt`, MarkBind name **`fab_`**`github_alt`)
+   * _Solid_ (prefix: `fas-`) e.g., :fas-file-code: (actual name `file-code`, MarkBind name **`fas-`**`file-code`)
+   * _Regular_ (prefix: `far-`) e.g., :fas-file-code: (actual name `file-code`, MarkBind name **`far-`**`file-code`)
+   * _Brands_ (prefix: `fab-`): e.g., :fab-github-alt: (actual name `github-alt`, MarkBind name **`fab-`**`github-alt`)
 
-1. Insert MarkBind name for the icon enclosed within double curly braces to get the icon in your page.<br>
-  `Create a **branch**`<code> {<span></span>{fas_code_branch}} now!</code> → Create a **branch** {{ fas_code_branch }} now!
+1. Insert MarkBind name for the icon enclosed within colons to get the icon in your page.<br>
+  `Create a **branch**`<code>:<span></span>fas-code-branch: now!</code> → Create a **branch** :fas-code-branch: now!
 
 
 ###### Using Glyphicons
 
 1. Decide which icon you want to use from [list of provided glyphicons](https://getbootstrap.com/docs/3.3/components/#glyphicons).
-1. Construct the MarkBind name for the selected icon by replacing the hyphens (`-`) in the actual name with underscores ( `_` ).<br>
-   e.g., {{ glyphicon_home }} (actual name `glyphicon-home`, MarkBind name `glyphicon_home`)
-1. Insert MarkBind name for the icon enclosed within double curly braces to get the icon in your page.<br>
-  `Move to the right!`<code> {<span></span>{glyphicon_hand_right}}</code> → Move to the right! {{ glyphicon_hand_right }}
+1. Insert the name for the icon enclosed within colons to get the icon in your page.<br>
+  `Move to the right!`<code>:<span></span>glyphicon-hand-right:</code> → Move to the right! :glyphicon-hand-right:
 
 <span id="short" class="d-none">
 
-<code>{<span></span>{glyphicon_hand_right}}</code> <code>{<span></span>{fab_github}}</code> <code>{<span></span>{fas_home}}</code>
+<code>:<span></span>glyphicon-hand-right:</code> <code>:<span></span>fab-github:</code> <code>:<span></span>fas-home:</code>
 
 </span>
 
 <span id="examples" class="d-none">
 
-{{ glyphicon_hand_right }} {{ fab_github }} {{ fas_home }} %%{{ glyphicon_hand_right }} {{ fab_github }} {{ fas_home }}%% <font color="red">{{ glyphicon_hand_right }} {{ fab_github }} {{ fas_home }}</font>
+:glyphicon-hand-right: :fab-github: :fas-home: %%:glyphicon-hand-right: :fab-github: :fas-home:%% <font color="red">:glyphicon-hand-right: :fab-github: :fas-home:</font>
 </span>
