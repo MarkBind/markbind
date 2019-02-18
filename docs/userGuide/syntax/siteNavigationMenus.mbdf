@@ -1,12 +1,8 @@
 ## Site Navigation Menus
 
-**You can add a <trigger trigger="click" for="modal:pageStructure-siteNavidationMenu">_site navigation menu_</trigger> to a page.**
+**A _Site Navigation Menu_ (==_siteNav_ for short==) is a fixed menu on the ==left edge== of a page**, that can be used to show a road map of the main pages of your site.
 
-<modal title="Site Naviation Menu" id="modal:pageStructure-siteNavidationMenu">
-  <include src="../glossary.md#site-navigation-menu" />
-</modal>
-
-Steps to add a site navigation menu ==(_siteNav_ for short)==:
+Steps to add a siteNav:
 1. Format your siteNav as an unordered Markdown list and save it inside the `_markbind/navigation` directory.
 2. Specify the file as the value of the `siteNav` attribute in the `<frontmatter>` of the page.
 
