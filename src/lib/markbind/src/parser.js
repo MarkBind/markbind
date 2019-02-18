@@ -127,11 +127,11 @@ function extractIncludeVariables(includeElement, contextVariables) {
  * @param filename for error printing
  * @param data to extract variables from
  * @param userDefinedVariables global variables
- * @param contextVariables variables defined by parent pages
+ * @param includedVariables variables from parent include
  */
-function extractPageVariables(fileName, data, userDefinedVariables, contextVariables) {
+function extractPageVariables(fileName, data, userDefinedVariables, includedVariables) {
   const $ = cheerio.load(data);
-  const pageVariables = { ...contextVariables };
+  const pageVariables = { };
   $('variable').each(function () {
     const variableElement = $(this);
     const variableName = variableElement.attr('name');
@@ -143,7 +143,7 @@ function extractPageVariables(fileName, data, userDefinedVariables, contextVaria
     if (!pageVariables[variableName]) {
       pageVariables[variableName]
         = nunjucks.renderString(md.renderInline(variableElement.html()),
-                                { ...pageVariables, ...userDefinedVariables });
+                                { ...pageVariables, ...userDefinedVariables, ...includedVariables });
     }
   });
   return pageVariables;
@@ -268,13 +268,15 @@ Parser.prototype._preprocess = function (node, context, config) {
     const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
 
     // Extract included variables from the PARENT file
-    let allVariables = extractIncludeVariables(element, context.variables);
+    const includeVariables = extractIncludeVariables(element, context.variables);
 
     // Extract page variables from the CHILD file
-    allVariables = extractPageVariables(element.attribs.src, fileContent, userDefinedVariables, allVariables);
+    const pageVariables = extractPageVariables(element.attribs.src, fileContent,
+                                               userDefinedVariables, includeVariables);
 
     // Render inner file content
-    fileContent = nunjucks.renderString(fileContent, { ...allVariables, ...userDefinedVariables });
+    fileContent = nunjucks.renderString(fileContent,
+                                        { ...pageVariables, ...includeVariables, ...userDefinedVariables });
 
     // Delete variable attributes in include
     Object.keys(element.attribs).forEach((attribute) => {
@@ -343,7 +345,7 @@ Parser.prototype._preprocess = function (node, context, config) {
     childContext.cwf = filePath;
     childContext.source = isIncludeSrcMd ? 'md' : 'html';
     childContext.callStack.push(context.cwf);
-    childContext.variables = allVariables;
+    childContext.variables = includeVariables;
 
     if (element.children && element.children.length > 0) {
       if (childContext.callStack.length > CyclicReferenceError.MAX_RECURSIVE_DEPTH) {
@@ -503,7 +505,6 @@ Parser.prototype.includeFile = function (file, config) {
       const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
       const pageVariables = extractPageVariables(path.basename(file), data, userDefinedVariables, {});
       const fileContent = nunjucks.renderString(data, { ...pageVariables, ...userDefinedVariables });
-      context.variables = pageVariables;
       const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
         context.source = 'md';

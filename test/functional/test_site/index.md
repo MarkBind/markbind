@@ -48,7 +48,9 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 {{ page_global_variable_overriding_page_variable }}
 
 # Test Page Variable and Included Variable Integrations
+<variable name="explicitly_included_page_variable">Explicitly Included Page Variable</variable>
 <include src="testPageVariablesInInclude.md">
+  <span id="explicitly_included_page_variable">{{ explicitly_included_page_variable }}</span>
   <span id="included_variable">Included Variable</span>
   <span id="included_variable_overriding_page_variable">Included Variable Overriding Page Variable</span>
 </include>
