@@ -25,7 +25,7 @@
 {% endmacro %}
 
 
-{% for k,v in topics %}
+{% for k,v in topics | dictsort %}
 {{ show_topic( k, v[0]) }}
 {% endfor %}
 
