@@ -1,21 +1,21 @@
-<variable name="main_title">Using HTML, JavaScript, CSS</variable>
-<variable name="this_filename">usingHtmlJavaScriptCss</variable>
+<variable name="title">Using HTML, JavaScript, CSS</variable>
+<variable name="filename">usingHtmlJavaScriptCss</variable>
 
 <frontmatter>
-  title: "User Guide: {{ main_title }}"
+  title: "User Guide: {{ title }}"
   footer: footer.md
   siteNav: userGuideSections.md
 </frontmatter>
 
 <span id="link" class="d-none">
-<md>[_User Guide → {{ main_title }}_]({{ baseUrl }}/userGuide/{{ this_filename }}.html)</md>
+<md>[_User Guide → {{ title }}_]({{ baseUrl }}/userGuide/{{ filename }}.html)</md>
 </span>
 
 <include src="../common/header.md" />
 
 <div class="website-content">
 
-# {{ main_title }}
+# {{ title }}
 
 <span id="overview" class="lead">
 
