@@ -21,9 +21,9 @@ Please use the new :prefix-name: syntax instead.
 1. Decide which icon you want to use from the [list of available icons](https://fontawesome.com/icons?d=gallery&m=free).
 1. Construct the MarkBind name for the selected icon by adding the _type prefix_.
    Note: Font Awesome has three different styles for their icons, each with their own type prefix. Here is an example from each type:
-   * _Solid_ (prefix: `fas-`) e.g., :fas-file-code: (actual name `file-code`, MarkBind name **`fas-`**`file-code`)
-   * _Regular_ (prefix: `far-`) e.g., :fas-file-code: (actual name `file-code`, MarkBind name **`far-`**`file-code`)
-   * _Brands_ (prefix: `fab-`): e.g., :fab-github-alt: (actual name `github-alt`, MarkBind name **`fab-`**`github-alt`)
+   * _Solid_ (prefix: `fas-`) e.g., :fas-file-code: (actual name `file-code`, MarkBind name `fas-file-code`)
+   * _Regular_ (prefix: `far-`) e.g., :fas-file-code: (actual name `file-code`, MarkBind name `far-file-code`)
+   * _Brands_ (prefix: `fab-`): e.g., :fab-github-alt: (actual name `github-alt`, MarkBind name `fab-github-alt`)
 
 1. Insert MarkBind name for the icon enclosed within colons to get the icon in your page.<br>
   `Create a **branch**`<code>:<span></span>fas-code-branch: now!</code> → Create a **branch** :fas-code-branch: now!
