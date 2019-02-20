@@ -1,0 +1,32 @@
+#### `agolia`: Enabling Agolia Docsearch
+
+This plugin allows you to use [Agolia Docsearch](https://community.algolia.com/docsearch/) for your site.
+
+To enable it, add `agolia` to your site's plugins, and provide your docsearch API key and index name in the plugins context. 
+
+```json
+site.json
+
+{
+  ...
+  "plugins": [
+    "agolia"
+  ],
+  "pluginsContext": {
+    "apiKey": AGOLIA_API_KEY,
+    "indexName": AGOLIA_INDEX_NAME
+  }
+}
+```
+
+To configure the `searchbar` component to use Agolia Docsearch, add the `agolia` key.
+
+```html
+<searchbar placeholder="Search" agolia menu-align-right>
+```
+
+Alternatively, if you are using a custom search bar, you can assign the input field the id `agolia-search-input` to connect it to Agolia Docsearch.
+
+```html
+<input id="agolia-search-input">
+```

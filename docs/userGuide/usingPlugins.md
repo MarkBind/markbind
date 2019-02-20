@@ -154,3 +154,6 @@ MarkBind has a set of built-in plugins that can be used immediately without inst
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('usingHtmlJavaScriptCss', 'tweakingThePageStructure') }}
+<include src="plugins/agolia.mbdf" />
+
+</div>

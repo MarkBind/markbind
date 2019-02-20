@@ -33,6 +33,7 @@ Enter a search term (eg. 'search bar') to see the search result dropdown.
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------
+agolia | `Boolean` | `false` | Whether or not to use Agolia Docsearch for search results.
 data | `Array` || The local data source for suggestions. Expected to be a primitive array. To use MarkBind's search functionality, set this value to `"searchData"`.
 menu-align-right | `Boolean` | `false` | Whether the search bar's dropdown list will be right-aligned.
 on-hit | `Function` || A callback function when you click or hit return on an item. To use MarkBind's search functionality, set this value to `"searchCallback"`.
@@ -47,6 +48,8 @@ See: [User Guide: Site Configuration → enableSearch]({{ baseUrl }}/userGuide/s
 </box>
 
 %%{{ icon_info }} Related topic: [User Guide: Making the Site Searchable]({{ baseUrl }}/userGuide/makingTheSiteSearchable.html).%%
+
+%%{{ icon_info }} Related topic: [Using Plugins: Using Plugins → Agolia: Enabling Agolia Docsearch]({{ baseUrl }}/userGuide/usingPlugins.html#agolia-enabling-agolia-docsearch).%%
 
 <span id="short" class="d-none">
 
