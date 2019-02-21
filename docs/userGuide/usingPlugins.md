@@ -119,7 +119,7 @@ Plugins can implement the methods `getLinks` and `getScripts` to add additional 
   - `utils`: Object containing the following utility functions
     - `buildStylesheet(href)`: Builds a stylesheet link element with the specified `href`.
   - Should return an array of string data containing link elements to be added.
-- `getScripts(context, pluginContext, frontMatter, utils)`: Called to get script elements to be added after the body of the page.
+- `getScripts(content, pluginContext, frontMatter, utils)`: Called to get script elements to be added after the body of the page.
   - `content`: The rendered HTML.
   - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
   - `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
