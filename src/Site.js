@@ -895,7 +895,7 @@ Site.prototype.deploy = function (travisTokenVar) {
           let repoSlug = process.env.TRAVIS_REPO_SLUG;
           if (options.repo) {
             // Extract repo slug from user-specified repo URL so that we can include the access token
-            const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-]+)\.git/;
+            const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-.]+)\.git$/;
             const repoSlugMatch = repoSlugRegex.exec(options.repo);
             if (!repoSlugMatch) {
               reject(new Error('-t/--travis expects a GitHub repository.\n'
