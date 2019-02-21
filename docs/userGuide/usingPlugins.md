@@ -134,10 +134,16 @@ An example of a plugin which adds links and scripts to the page:
 
 module.exports = {
   getLinks: (content, pluginContext, frontMatter, utils) => [utils.buildStylesheet('STYLESHEET_LINK')],
-  getScripts: (content, pluginContext, frontMatter, utils) => [utils.buildScript('SCRIPT_LINK')],
+  getScripts: (content, pluginContext, frontMatter, utils) => 
+    [utils.buildScript('SCRIPT_LINK'), '<script>alert("hello")</script>'],
 };
 
 ```
+
+This will add the following link and script elements to the page:
+- `<link rel="stylesheet" href="STYLESHEET_LINK">`
+- `<script src="SCRIPT_LINK"></script>`
+- `<script>alert("hello")</script>`
 
 ### Built-in plugins
 
