@@ -1,1 +1,0 @@
-### Normal panel content heading

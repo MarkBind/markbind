@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MarkBind - User Guide: Reusing Contents</title>
+    <link rel="stylesheet" href="../markbind/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../markbind/css/bootstrap-vue.min.css">
+    <link rel="stylesheet" href="../markbind/css/font-awesome.min.css" >
+    <link rel="stylesheet" href="../markbind/css/bootstrap-glyphicons.min.css" >
+    <link rel="stylesheet" href="../markbind/css/github.min.css">
+    <link rel="stylesheet" href="../markbind/css/markbind.css">
+    <link rel="stylesheet" href="../markbind/layouts/default/styles.css">
+    <link rel="stylesheet" href="../markbind/css/site-nav.css">
+    <link rel="stylesheet" href="../markbind/css/page-nav.css">
+    
+    <link rel="icon" href="/favicon.ico">
+</head>
+<body data-spy="scroll" data-target="#page-nav" data-offset="100">
+<div id="app">
+    <nav id="page-nav" class="navbar navbar-light bg-transparent slim-scroll">
+
+  <nav class="nav nav-pills flex-column my-0 small" style="flex-wrap: nowrap;">
+    <a class="nav-link py-1" href="#reusing-contents">Reusing Contents&#x200E;</a>
+    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
+      <a class="nav-link py-1" href="#variables">Variables&#x200E;</a>
+      <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
+        <a class="nav-link py-1" href="#global-variables">Global Variables&#x200E;</a>
+        <a class="nav-link py-1" href="#built-in-global-variables">Built-in Global Variables&#x200E;</a>
+        <a class="nav-link py-1" href="#page-variables">Page Variables&#x200E;</a>
+        <a class="nav-link py-1" href="#variables-tips-and-tricks">Variables: Tips and Tricks&#x200E;</a>
+      </nav>
+      <a class="nav-link py-1" href="#includes">Includes&#x200E;</a>
+      <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
+        <a class="nav-link py-1" href="#using-boilerplate-files">Using Boilerplate Files&#x200E;</a>
+      </nav>
+      <a class="nav-link py-1" href="#reusing-contents-across-sites">Reusing Contents Across Sites&#x200E;</a>
+      <a class="nav-link py-1" href="#creating-content-variations">Creating Content Variations&#x200E;</a>
+      <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
+        <a class="nav-link py-1" href="#allowing-users-to-remove-some-contents">Allowing users to remove some contents&#x200E;</a>
+        <a class="nav-link py-1" href="#giving-alternative-contents">Giving alternative contents&#x200E;</a>
+        <a class="nav-link py-1" href="#giving-access-to-additional-contents">Giving access to additional contents&#x200E;</a>
+        <a class="nav-link py-1" href="#organizing-contents-in-alternative-ways">Organizing contents in alternative ways&#x200E;</a>
+        <a class="nav-link py-1" href="#optimizing-the-print-view">Optimizing the Print View&#x200E;</a>
+        <a class="nav-link py-1" href="#hiding-some-info-in-the-generated-content">Hiding some info in the generated content&#x200E;</a>
+        <a class="nav-link py-1" href="#creating-slight-variations-of-content">Creating slight variations of content&#x200E;</a>
+      </nav>
+    </nav>
+
+  </nav>
+</nav>
+
+<div id="flex-body">
+  <div id="site-nav">
+    <p><span class="indented lead"><strong>User Guide</strong></span></p>
+    <ul style="list-style-type: none; margin-left:-1em">
+      <li style="margin-top: 10px"><a href="/userGuide/gettingStarted.html" class="site-nav__a">Getting Started</a></li>
+      <li style="margin-top:10px"><a href="/userGuide/authoringContents.html" class="site-nav__a">Authoring Contents</a>
+        <ul style="list-style-type: none; margin-left:-1em">
+          <li style="margin-top: 10px"><a href="/userGuide/addingPages.html" class="site-nav__a">Adding Pages</a></li>
+          <li style="margin-top: 10px"><a href="/userGuide/markBindSyntaxOverview.html" class="site-nav__a">MarkBind Syntax Overview</a></li>
+          <li style="margin-top: 10px"><a href="/userGuide/formattingContents.html" class="site-nav__a">Formatting Contents</a></li>
+          <li style="margin-top: 10px"><a href="/userGuide/usingComponents.html" class="site-nav__a">Using Components</a></li>
+          <li style="margin-top: 10px"><a href="/userGuide/usingHtmlJavaScriptCss.html" class="site-nav__a">Using HTML, JavaScript, CSS</a></li>
+          <li style="margin-top: 10px"><a href="/userGuide/usingPlugins.html" class="site-nav__a">Using Plugins</a></li>
+          <li style="margin-top: 10px"><a href="/userGuide/tweakingThePageStructure.html" class="site-nav__a">Tweaking the Page Structure</a></li>
+          <li style="margin-top: 10px"><a href="/userGuide/reusingContents.html" class="site-nav__a current">Reusing Contents</a></li>
+          <li style="margin-top: 10px"><a href="/userGuide/makingTheSiteSearchable.html" class="site-nav__a">Making the Site Searchable</a></li>
+        </ul>
+      </li>
+      <li style="margin-top: 10px"><a href="/userGuide/deployingTheSite.html" class="site-nav__a">Deploying the Site</a></li>
+      <li style="margin-top: 10px"><a href="/userGuide/markBindInTheProjectWorkflow.html" class="site-nav__a">MarkBind in the Project Workflow</a></li>
+      <li style="margin-top: 10px"><button class="dropdown-btn dropdown-btn-open">References 
+ <i class="dropdown-btn-icon rotate-icon">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+        <div class="dropdown-container dropdown-container-open">
+          <ul style="list-style-type: none; margin-left:-1em">
+            <li style="margin-top: 10px"><a href="/userGuide/cliCommands.html" class="site-nav__a">CLI Commands</a></li>
+            <li style="margin-top: 10px"><a href="/userGuide/readerFacingFeatures.html" class="site-nav__a">Reader-Facing Features</a></li>
+            <li style="margin-top: 10px"><a href="/userGuide/fullSyntaxReference.html" class="site-nav__a">Full Syntax Reference</a></li>
+            <li style="margin-top: 10px"><a href="/userGuide/syntaxCheatSheet.html" class="site-nav__a">Syntax Cheat Sheet</a></li>
+            <li style="margin-top: 10px"><a href="/userGuide/siteConfiguration.html" class="site-nav__a">Site Configuration</a></li>
+            <li style="margin-top: 10px"><a href="/userGuide/tipsAndTricks.html" class="site-nav__a">Tips & Tricks</a></li>
+            <li style="margin-top: 10px"><a href="/userGuide/glossary.html" class="site-nav__a">Glossary</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="site-nav-btn-wrap">
+    <div id="site-nav-btn">
+      <div class="menu-top-bar"></div>
+      <div class="menu-middle-bar"></div>
+      <div class="menu-bottom-bar"></div>
+    </div>
+  </div>
+  <div id="page-content">
+    <div id="page-nav-content-wrapper">
+      <div id="content-wrapper">
+        <div></div>
+        <div></div>
+        <span id="link" class="d-none">
+<span><a href="/userGuide/reusingContents.html"><em>User Guide → Reusing Contents</em></a></span></span>
+        <div>
+          <link rel="stylesheet" href="/css/main.css">
+          <navbar placement="top" type="inverse" class="temp-navbar">
+            <a slot="brand" href="/index.html" title="Home" class="navbar-brand"><img src="/images/logo-darkbackground.png" height="20"></a>
+            <li><a href="/index.html" class="nav-link">HOME</a></li>
+            <li><a href="/userGuide/index.html" class="nav-link">DOCS</a></li>
+            <li><a href="/showcase.html" class="nav-link">SHOWCASE</a></li>
+            <li><a href="/about.html" class="nav-link">ABOUT</a></li>
+            <li>
+              <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">
+      <svg height="16px" fill="#777" class="octicon octicon-mark-github" viewbox="0 0 16 16" version="1.1" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
+            <li slot="right">
+              <form class="navbar-form">
+                <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right=""></searchbar>
+              </form>
+            </li>
+          </navbar>
+        </div>
+        <div class="website-content">
+          <h1 id="reusing-contents">Reusing Contents<a class="fa fa-anchor" href="#reusing-contents"></a></h1>
+          <span class="lead" id="overview">
+<p><strong>MarkBind is highly-optimized for content reuse</strong>. It offers several mechanisms to provide readers with many variations of the content while minimizing duplication at source file level. As a result, instead of creating a one-size-fits-all site, MarkBind can create a site in which readers can chart their own path of reading.
+</p></span>
+          <div>
+            <span id="link" class="d-none">
+<span><a href="/userGuide/reusingContents.html#variables"><em>User Guide → Reusing Contents → Variables</em></a></span></span>
+            <h2 id="variables">Variables<a class="fa fa-anchor" href="#variables"></a></h2>
+            <span id="overview">
+<p><strong>MarkBind variables are ideal for reusing small bits of code</strong> in multiple places; you can define a variable to represent the code bit in question and reuse it anywhere in the site by referring the variable instead of duplicating the code bit.
+</p></span>
+            <h3 id="global-variables">Global Variables<a class="fa fa-anchor" href="#global-variables"></a></h3>
+            <p><strong>Global variables are to be defined in the <code>_markbind/variables.md</code> file.</strong> Each variable must have an <code>id</code> and the value can be any MarkBind-compliant code fragment. The <code>id</code> should not contain
+              <code>-</code> and <code>.</code>. For example, <code>search-option</code> and <code>search.options</code> are not allowed.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here's how you can define two variables <code>year</code> and <code>options</code>:</p>
+              <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"year"</span>&gt;</span>2018<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"options"</span>&gt;</span>
+* yes
+* no
+* maybe
+<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+</code></pre>
+            </div>
+            <p>To include a variable value in your code, give the variable id enclosed in double curly braces.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here's how you can use the variable <code>year</code>:</p>
+              <p><code>The year was {<span></span>{ year }}.</code> <span aria-hidden="true" class="fas fa-arrow-right"></span> The year was 2018.</p>
+            </div>
+            <p><mark>MarkBind variables are <em>global</em></mark>; they are available from anywhere in the code base.</p>
+            <p><strong>MarkBind provides a number of built-in variables.</strong></p>
+            <h3 id="built-in-global-variables">Built-in Global Variables<a class="fa fa-anchor" href="#built-in-global-variables"></a></h3>
+            <h5 id="built-in-variable-baseurl">Built-in Variable: <code>baseUrl</code><a class="fa fa-anchor" href="#built-in-variable-baseurl"></a></h5>
+            <p>Represents the root directory of the project. Used for specifying intra-site links.</p>
+            <panel type="seamless" header="User Guide: MarkBind Syntax → Intra-Site Links">
+              <div>
+                <p>Links to files of the generated site (e.g., an HTML page or an image file) should be specified as absolute paths and should start with
+                  <code>{<span></span>{ baseUrl }}</code> (which represents the root directory of the project).</p>
+                <div class="indented">
+                  <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here's how to specify a link to (1) a page, and (2) an image, using the
+                    <code>{<span></span>{ baseUrl }}</code> :
+                  </p>
+                  <ol>
+                    <li><code>Click [here]({<span></span>{ baseUrl }}/userGuide/reusingContents.html).</code></li>
+                    <li><code>![](</code>
+                      <code>{<span></span>{ baseUrl }}</code>
+                      <code>/images/preview.png)</code></li>
+                  </ol>
+                </div>
+              </div>
+            </panel>
+            <h5 id="built-in-variable-timestamp">Built-in Variable: <code>timestamp</code><a class="fa fa-anchor" href="#built-in-variable-timestamp"></a></h5>
+            <p><code>{<span></span>{ timestamp }}</code> is the time stamp (in UTC) that indicates when the page was generated.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> <code>Page generated at: {<span></span>{ timestamp }}</code> <span aria-hidden="true"
+                  class="fas fa-arrow-right"></span> Page generated at: Thu, 21 Feb 2019 05:38:09 GMT</p>
+            </div>
+            <p></p>
+            <h5 id="built-in-variable-markbind">Built-in Variable: <code>MarkBind</code><a class="fa fa-anchor" href="#built-in-variable-markbind"></a></h5>
+            <p><code>{<span></span>{MarkBind}}</code> represents a code snippet that specifies the MarkBind version in use and is linked to the MarkBind website.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> <code>Page generated by: {<span></span>{ MarkBind }}</code> <span aria-hidden="true" class="fas fa-arrow-right"></span>                Page generated by: <a href="https://markbind.github.io/markbind/">MarkBind 1.20.0</a></p>
+            </div>
+            <p></p>
+            <h5 id="variables-defaults">Variables: Defaults<a class="fa fa-anchor" href="#variables-defaults"></a></h5>
+            <p>You can specify a default value for a variable, which is displayed when the variable is not specified in <code>variables.md</code> and by any of the <a href="/userGuide/reusingContents.html#the-include-tag">includes</a> of the page. This is
+              done by adding <code>or defaultValue</code> within the curly braces.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> If <code>name</code> is not declared in <code>variables.md</code>:<br>
+                <code>My name is {<span></span>{ name or &quot;Anonymous&quot; }}.</code> <span aria-hidden="true" class="fas fa-arrow-right"></span> My name is Anonymous.</p>
+            </div>
+            <h3 id="page-variables">Page Variables<a class="fa fa-anchor" href="#page-variables"></a></h3>
+            <p><strong>You can also declare variables for use within a single page.</strong> These variables work exactly the same as regular variables, except that their values only apply to the page they are declared in. This can be done by using the <code>&lt;variable&gt;</code>              tag.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Declaring page variables:<br></p>
+              <p><code>&lt;variable name=&quot;full_name&quot;&gt;John Doe&lt;/variable&gt;</code><br>
+                <code>My name is {<span></span>{ full_name }}. This is {<span></span>{ full_name }}'s site.</code></p>
+            </div>
+            <p>Note: These variables will not be applied to <a href="/userGuide/reusingContents.html#the-include-tag"><code>&lt;include&gt;</code> files</a>. Additionally, global variables (<code>_markbind/variables.md</code>) will take precedence over any
+              page variables. <em>See also: <a href="/userGuide/reusingContents.html#specifying-variables-in-an-include">Specifying Variables in an <code>&lt;include&gt;</code></a></em>.</p>
+            <h3 id="variables-tips-and-tricks">Variables: Tips and Tricks<a class="fa fa-anchor" href="#variables-tips-and-tricks"></a></h3>
+            <p><strong>Variables can refer to other variables</strong> that are declared earlier, including built-in variables.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> This variable uses a built-in variable:<br>
+                <code>&lt;span id=&quot;time&quot;&gt;{<span></span>{ timestamp }}&lt;/span&gt;</code></p>
+              <p>Here, the second variable will be assigned the contents of the first variable.<br>
+                <code>&lt;span id=&quot;first&quot;&gt;This is the first variable.&lt;/span&gt;</code><br>
+                <code>&lt;span id=&quot;second&quot;&gt;{<span></span>{ first }}&lt;/span&gt;</code><br></p>
+              <p>This will not work, as the <code>fourth</code> variable is declared <em>below</em> the line that refers to it.<br>
+                <code>&lt;span id=&quot;third&quot;&gt;{<span></span>{ fourth }}&lt;/span&gt;</code> ❌<br>
+                <code>&lt;span id=&quot;fourth&quot;&gt;This is the fourth variable.&lt;/span&gt;</code></p>
+            </div>
+            <p>Note that if the variable being referenced contains HTML tags, MarkBind may escape the tags and render it literally.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> If we declare the variables as follows,<br></p>
+              <p><code>&lt;span id=&quot;note&quot;&gt;&lt;span style=&quot;color: blue&quot;&gt;Note: &lt;/span&gt;&lt;/span&gt;</code><br>
+                <code>&lt;span id=&quot;note_2&quot;&gt;{<span></span>{ note }}&lt;/span&gt;</code><br>
+                <code>&lt;span id=&quot;const_note&quot;&gt;{<span></span>{ note_2 }} This is a constant.&lt;/span&gt;</code></p>
+              <p>the result will be,<br></p>
+              <p><code>{<span></span>{ const_note }}</code> <span aria-hidden="true" class="fas fa-arrow-right"></span> &lt;span style=&quot;color: blue&quot;&gt;Note: &lt;/span&gt; This is a constant.</p>
+            </div>
+            <p>You must use the <code>safe</code> filter when using such variables:</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> If we use the safe filter for the second variable:<br></p>
+              <p><code>&lt;span id=&quot;note&quot;&gt;&lt;span style=&quot;color: blue&quot;&gt;Note: &lt;/span&gt;&lt;/span&gt;</code><br>
+                <code>&lt;span id=&quot;note_2&quot;&gt;{<span></span>{ note | safe }}&lt;/span&gt;</code><br>
+                <code>&lt;span id=&quot;const_note&quot;&gt;{<span></span>{ note_2 }} This is a constant.&lt;/span&gt;</code></p>
+              <p><code>{<span></span>{ const_note }}</code> <span aria-hidden="true" class="fas fa-arrow-right"></span> <span style="color: blue">Note: </span> This is a constant.</p>
+            </div>
+            <span id="short" class="d-none">
+<p>Global variables:</p>
+<p><code>_markbind/variables.md</code>:</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"year"</span>&gt;</span>2018<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+            </code>
+            </pre>
+            <p><code>The year was {<span></span>{ year }}.</code></p>
+            <p>Page variables:<br>
+              <code class="hljs inline html"><span class="hljs-tag">&lt;<span class="hljs-name">variable</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"full_name"</span>&gt;</span>John Doe<span class="hljs-tag">&lt;/<span class="hljs-name">variable</span>&gt;</span></code></p>
+            <p><code>The name was {<span></span>{ full_name }}.</code></p>
+            </span>
+          </div>
+          <hr>
+          <div>
+            <span id="link" class="d-none">
+<span><a href="/userGuide/reusingContents.html#includes"><em>User Guide → Reusing Contents → Includes</em></a></span></span>
+            <h2 id="includes">Includes<a class="fa fa-anchor" href="#includes"></a></h2>
+            <span id="overview">
+<p><strong>MarkBind has a powerful <code>&lt;include&gt;</code> mechanism</strong> which allows you to create documents by combining other content fragments.
+</p></span>
+            <p><strong>You can use <code>&lt;include&gt;</code> tag to include another markdown or HTML document into the current document.</strong></p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Including text from a <code>tip2.md</code> in another file.</p>
+              <pre><code class="hljs html">Tip 1. ...
+<span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"tips/tip2.md"</span> /&gt;</span>
+Tip 3. ...
+</code></pre>
+            </div>
+            <p><strong>You can <code>&lt;include&gt;</code> a fragment of a file</strong> by specifying the <code>#fragment-id</code> at the end of the <code>src</code> attribute value, provided the fragment is wrapped in a <code>&lt;div&gt;</code>/<code>&lt;span&gt;</code>/<code>&lt;seg&gt;</code>              tag with the matching <code>id</code>.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Including a fragment from a file:</p>
+              <pre><code class="hljs html">Some text
+<span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"docs/tips.md#tip-1"</span> /&gt;</span>
+Some other text
+</code></pre>
+              <p><code>docs/tips.md</code>:</p>
+              <pre><code class="hljs html">...
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"tip-1"</span> /&gt;</span>
+  Tip 1. ...
+  ...
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+Tip 2. ...
+</code></pre>
+            </div>
+            <box type="warning">
+              <p>When setting the <code>id</code> of a fragment, be careful not to clash with heading anchor IDs auto-generated by MarkBind. For example, if you have a heading <code>## Some Useful Tips</code>, MarkBind will auto-generate an ID <code>some-useful-tips</code>                for that heading.</p>
+            </box>
+            <box border-left-color="#00B0F0">
+              <p>
+                <font color="#00B0F0"><span aria-hidden="true" class="fas fa-lightbulb"></span></font> The <code>&lt;include&gt;</code> tag works for any MarBind source file including the <em>font matter</em> section but it may not work in some <em>special</em> files such
+                as the <code>_markbind/variables.md</code>.
+              </p>
+            </box>
+            <p><strong>Attributes:</strong></p>
+            <ul>
+              <li><strong><code>src</code></strong>: specify the source file path.</li>
+              <li><strong><code>inline</code></strong> (optional): make the included result an inline element. (wrapped in <code>&lt;span&gt;</code> tag). e.g.,
+                <pre><code class="hljs html">The title is <span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"../docs/summary.md#title"</span> <span class="hljs-attr">inline</span> /&gt;</span> while ...
+</code></pre>
+              </li>
+              <li><strong><code>optional</code></strong> (optional): include the file/fragment only if it exists i.e., there will be no error message if the file/fragment does not exist. e.g.,
+                <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"UserStories.md"</span> <span class="hljs-attr">optional</span> /&gt;</span>
+</code></pre>
+              </li>
+              <li><strong><code>trim</code></strong> (optional): remove leading and trailing whitespace and newlines from the document before including.
+                <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"UserStories.md#epic"</span> <span class="hljs-attr">trim</span> /&gt;</span>
+</code></pre>
+              </li>
+            </ul>
+            <div>
+              <box border-left-color="#00B0F0">
+                <p>
+                  <font color="#00B0F0"><span aria-hidden="true" class="fas fa-lightbulb"></span></font>
+                  The <code>&lt;include&gt;</code> mechanism can be used inside any MarkBind source file (even inside the <em>front matter</em> section) but it will not work inside some <em>special</em> files such as the <code>_markbind/variables.md</code>.</p>
+              </box>
+            </div>
+            <h5 id="include-inside-an-included-file"><code>&lt;include&gt;</code> Inside an Included File<a class="fa fa-anchor" href="#include-inside-an-included-file"></a></h5>
+            <p><strong>Although the <code>src</code> attribute of an <code>&lt;include&gt;</code> is given <em>relative</em> to the current directory, it is converted to an <em>absolute</em> value <em>before</em> the <tooltip content="i.e., the file containing the `<include>`">host file</tooltip> is included from another file.</strong></p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Suppose you have a MarkBind project with the following file structure.</p>
+              <pre><code class="hljs">c:/mySite/
+  ├── bookFiles/
+  |      ├── book.md
+  |      ├── chapter1.md
+  |      └── chapter2.md
+  └── reviewFiles/
+         └── review.md
+</code></pre>
+              <p>The <code>book.md</code>:</p>
+              <pre><code class="hljs markdown"><span class="hljs-section"># My Book</span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"chapter1.md"</span> /&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"chapter2.md"</span> /&gt;</span></span>
+</code></pre>
+              <p>The <code>review.md</code>:</p>
+              <pre><code class="hljs markdown"><span class="hljs-section"># My Review</span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"../bookFiles/book.md"</span> /&gt;</span></span>
+...
+</code></pre>
+              <p>The content of the <code>chapter1.md</code> and <code>chapter2.md</code> will be included in the <code>review.md</code> (via <code>&lt;include src=&quot;../bookFiles/book.md&quot; /&gt;</code>) although <code>chapter1.md</code> and <code>chapter2.md</code>                are not in <code>reviewFiles</code> directory. i.e., <code>&lt;include src=&quot;chapter1.md&quot; /&gt;</code> will be interpreted as <code>&lt;include src=&quot;c:/mySite/bookFiles/chapter1.md&quot; /&gt;</code></p>
+            </div>
+            <p>In other words, <strong><code>&lt;include&gt;</code> interprets the reused code relative to the original location of the file, not the location in which it is reused.</strong></p>
+            <hr>
+            <h5 id="specifying-variables-in-an-include">Specifying Variables in an <code>&lt;include&gt;</code><a class="fa fa-anchor" href="#specifying-variables-in-an-include"></a></h5>
+            <p><strong>It is possible to include variables in an <code>&lt;include&gt;</code>.</strong></p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Specifying <code>title</code> and <code>author</code> variables in an <code>&lt;include&gt;</code>                tag:</p>
+              <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"article.md"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"title"</span>&gt;</span>My Title<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"author"</span>&gt;</span>John Doe<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">include</span>&gt;</span>
+</code></pre>
+              <p>In <code>article.md</code>:</p>
+              <code>
+# {<span></span>{ title }}<br>
+Author: {<span></span>{ author }}
+</code></div>
+            <p>These variables work the same way as variables in <code>_markbind/variables.md</code>, except that they only apply to the included file. They allow the included file to be reused as a template, for different source files using different variable
+              values.
+            </p>
+            <p>You can also specify include variables within the <code>&lt;include&gt;</code> tag itself by adding a <code>var-</code> prefix.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Specifying <code>title</code> and <code>author</code> variables inline:</p>
+              <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"article.md"</span> <span class="hljs-attr">var-title</span>=<span class="hljs-string">"My Title"</span> <span class="hljs-attr">var-author</span>=<span class="hljs-string">"John Doe"</span> /&gt;</span>
+</code></pre>
+            </div>
+            <p>If the same variable is defined in a chain of <code>&lt;include&gt;</code>s (e.g. <code>a.md</code> includes <code>b.md</code> includes <code>c.md</code>...), variables defined in the top-most <code>&lt;include&gt;</code> will take precedence.
+              Global variables (<code>_markbind/variables.md</code>) will take precedence over any <code>&lt;include&gt;</code> variables.</p>
+            <h3 id="using-boilerplate-files">Using Boilerplate Files<a class="fa fa-anchor" href="#using-boilerplate-files"></a></h3>
+            <p><strong>If you find duplicating a <tooltip content="code that needs to stay relative to the directory in which it used"><em>boilerplate code</em></tooltip> fragment in multiple places of your code base, you can use a <code>boilerplate</code> file to avoid such duplication.</strong>              Note that you cannot use a normal <code>&lt;include&gt;</code> in this case because the code included using a normal <code>&lt;include&gt;</code> stays relative to the original location while boilerplate code needs to be interpreted relative
+              to the location it is being used.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Suppose you have a MarkBind project with the following file structure.</p>
+              <pre><code class="hljs">c:/mySite/
+  ├── chapter1/
+  |      ├── chapter.md
+  |      ├── text.md
+  |      └── exercises.md
+  ├── chapter2/
+  |      ├── chapter.md
+  |      ├── text.md
+  |      └── exercises.md
+  └── book.md
+</code></pre>
+              <p>The <code>book.md</code>:</p>
+              <pre><code class="hljs markdown"><span class="hljs-section"># My Book</span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"chapter1/chapter.md"</span> /&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"chapter2/chapter.md"</span> /&gt;</span></span>
+</code></pre>
+              <p>The <code>chapter1/chapter.md</code>:</p>
+              <pre><code class="hljs markdown"><span class="hljs-section">## Text</span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"text.md"</span> /&gt;</span></span>
+<span class="hljs-section">## Exercises</span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"exercises.md"</span> /&gt;</span></span>
+</code></pre>
+              <p>The <code>chapter2/chapter.md</code>:</p>
+              <pre><code class="hljs markdown"><span class="hljs-section">## Text</span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"text.md"</span> /&gt;</span></span>
+<span class="hljs-section">## Exercises</span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"exercises.md"</span> /&gt;</span></span>
+</code></pre>
+              <p>As you can see, both <code>chapter.md</code> files are exactly the same. If we were to use only one of the <code>chapter.md</code> files and <code>&lt;include&gt;</code> it twice in the <code>book.md</code>, we'll end up with the same chapter
+                content duplicated twice, which is not what we want. In other words, <code>chapter.md</code> contains boilerplate code that needs to be interpreted relative to where it is applied, once relative to <code>chapter1</code> directory and once
+                relative to <code>chapter2</code> directory.</p>
+            </div>
+            <p>To use a code fragment as a boilerplate file,</p>
+            <ol>
+              <li>Put the code in a file inside the <code>_markbind/boilerplates</code> directory.</li>
+              <li><code>&lt;include&gt;</code> the file <em>as if</em> a copy of it exists in any directory you want it to applied, but add the <code>boilerplate</code> attribute to the <code>&lt;include&gt;</code> tag.</li>
+            </ol>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Here's how you can use a boilerplate file to avoid duplicating the <code>chapter.md</code>:</p>
+              <pre><code class="hljs">c:/mySite/
+  ├── _markbind/boilerplates/
+  |      └── chapter.md
+  ├── chapter1/
+  |      ├── text.md
+  |      └── exercises.md
+  ├── chapter2/
+  |      ├── text.md
+  |      └── exercises.md
+  └── book.md
+</code></pre>
+              <p>The <code>book.md</code>:</p>
+              <pre><code class="hljs markdown"><span class="hljs-section"># My Book</span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"chapter1/chapter.md"</span> <span class="hljs-attr">boilerplate</span> /&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"chapter2/chapter.md"</span> <span class="hljs-attr">boilerplate</span> /&gt;</span></span>
+</code></pre>
+              <p>The <code>_markbind/boilerplates/chapter.md</code>:</p>
+              <pre><code class="hljs markdown"><span class="hljs-section">## Text</span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"text.md"</span> /&gt;</span></span>
+<span class="hljs-section">## Exercises</span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"exercises.md"</span> /&gt;</span></span>
+</code></pre>
+              <p>Consider the line <code>&lt;include src=&quot;chapter1/chapter.md&quot; boilerplate /&gt;</code>. Note how you can use <code>src=&quot;chapter1/chapter.md&quot;</code> there is no such file. MarkBind will use the <code>chapter.md</code>                file <code>/_markbind/boilerplates/</code> but interpret it as if the file exist in <code>chapter1</code> directory (i.e., interpret the <code>chapter1.md</code> code relative to the <code>chapter1</code> directory.</p>
+              <p>Similarly, <code>&lt;include src=&quot;chapter2/chapter.md&quot; boilerplate /&gt;</code> interprets the <code>chapter.md</code> relative to the <code>chapter2</code> directory.</p>
+            </div>
+            <p>If you have many boilerplate files, you can organize them into directories inside the <code>_markbind</code> directory. When using such boilerplate files, you need to replace <code>boilerplate</code> attribute with <code>boilerplate=&quot;&lt;path to file relative to _markbind/boilerplates&gt;&quot;</code>.</p>
+            <div class="indented">
+              <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Suppose the <code>chapter.md</code> is places in a <code>book</code> directory:</p>
+              <pre><code class="hljs">c:/mySite/
+  └── _markbind/boilerplates/
+         └── book/
+               └── chapter.md
+
+</code></pre>
+              <p>It needs to be used as follows:</p>
+              <pre><code class="hljs markdown"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"chapter1/chapter.md"</span> <span class="hljs-attr">boilerplate</span>=<span class="hljs-string">"book/chapter.md"</span> /&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"chapter2/chapter.md"</span> <span class="hljs-attr">boilerplate</span>=<span class="hljs-string">"book/chapter.md"</span> /&gt;</span></span>
+</code></pre>
+            </div>
+            <span id="short" class="d-none">
+<pre><code class="hljs markdown"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"foo.md#bar"</span> <span class="hljs-attr">boilerplate</span>            <span class="hljs-attr">inline</span> <span class="hljs-attr">trim</span>&gt;</span>
+            </span>
+            <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"x"</span>&gt;</span>
+            </span>5<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+            </span>
+            <span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">include</span>&gt;</span>
+            </span>
+            </code>
+            </pre>
+            </span>
+          </div>
+          <hr>
+          <h2 id="reusing-contents-across-sites">Reusing Contents Across Sites<a class="fa fa-anchor" href="#reusing-contents-across-sites"></a></h2>
+          <p><strong>MarkBind supports reusing across sites.</strong> It allows you include the pages you want from a <em>sub-site</em> in another <em>main-site</em> without having to change anything in the source files of the <em>sub-site</em> as long as
+            the sub-site source files are inside the directory of the <em>main site</em>.</p>
+          <div class="indented">
+            <p><big><span class="badge badge-pill badge-light" style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big> Suppose you have a site <code>textbook</code> and you want to include some pages from it
+              in another site <code>course</code>. Given below is how you can locate the sub-site <code>textbook</code> inside the root directory of the main-site <code>course</code> so that files from <code>textbook</code> can be reused in the <code>course</code>              site.</p>
+            <pre><code class="hljs">c:/course/
+  ├── textbook/
+  |      ├── index.md
+  |      ├── overview.md
+  |      └── site.json
+  ├── index.md
+  ├── reading.md
+  └── site.json
+</code></pre>
+            <p><code>reading.md</code> (note how it reuses content from the sub-site <code>textbook</code>):</p>
+            <pre><code class="hljs markdown"><span class="hljs-section"># Week 1 Reading:</span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"textbook/overview.md"</span> /&gt;</span></span>
+</code></pre>
+          </div>
+          <div>
+            <box border-left-color="#00B0F0">
+              <p>
+                <font color="#00B0F0"><span aria-hidden="true" class="fas fa-lightbulb"></span></font>
+                If you are using Git for version control, you can set up the sub-site repository as a <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">Git sub-module</a> of the main site repository.</p>
+            </box>
+          </div>
+          <hr>
+          <h2 id="creating-content-variations">Creating Content Variations<a class="fa fa-anchor" href="#creating-content-variations"></a></h2>
+          <p><strong>MarkBind can create sites that give more control to the reader.</strong> Given below are some mechanisms authors can use to create variations of content that gives more control to the reader in charting their own path through the content.</p>
+          <h4 id="allowing-users-to-remove-some-contents">Allowing users to remove some contents<a class="fa fa-anchor" href="#allowing-users-to-remove-some-contents"></a></h4>
+          <p>When the readers can remove an item from a page, they can create their own version of the page by removing items they don't want to see. This is especially useful when printing a page.</p>
+          <p>To make an element closeable, use <code>v-closeable</code>.</p>
+          <div class="indented">
+            <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-closeable</span>&gt;</span>
+
+Optional video:
+
+@[youtube](v40b3ExbM0c)
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+            <p>This is how the content will appear. Note how you can hover over the content to access the ❌ button that can collapse the content.</p>
+            <div v-closeable="">
+              <p>Optional video:</p>
+              <div class="block-embed block-embed-service-youtube"><iframe type="text/html" src="//www.youtube.com/embed/v40b3ExbM0c" frameborder="0" width="640" height="390" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen></iframe></div>
+            </div>
+          </div>
+          <h4 id="giving-alternative-contents">Giving alternative contents<a class="fa fa-anchor" href="#giving-alternative-contents"></a></h4>
+          <p>You can use a <a href="/userGuide/usingComponents.html#tabs"><em>Tabs</em> component</a> to give alternative versions of content, for example, giving a code snippet in different programming languages.</p>
+          <h4 id="giving-access-to-additional-contents">Giving access to additional contents<a class="fa fa-anchor" href="#giving-access-to-additional-contents"></a></h4>
+          <p>You can use following components to give readers an option to access additional content at their discretion.</p>
+          <ul>
+            <li><a href="/userGuide/usingComponents.html#tooltip">Tooltips</a>, <a href="/userGuide/usingComponents.html#popover">Popovers</a>, <a href="/userGuide/usingComponents.html#modal">Modals</a></li>
+            <li><a href="/userGuide/usingComponents.html#panel">Expandable Panels</a></li>
+          </ul>
+          <h4 id="organizing-contents-in-alternative-ways">Organizing contents in alternative ways<a class="fa fa-anchor" href="#organizing-contents-in-alternative-ways"></a></h4>
+          <p>You can take advantage of <a href="/userGuide/reusingContents.html">MarkBinds feature for content reuse</a>, you can organize content in alternative ways to cater for different readers, without having to duplicate content. For example, you can
+            have different pages that organizes the same information alphabetically, chronologically, by difficulty, group information by topic, etc.</p>
+          <h4 id="optimizing-the-print-view">Optimizing the Print View<a class="fa fa-anchor" href="#optimizing-the-print-view"></a></h4>
+          <p>To <span class="keyword">hide minimized panels in the <em>print view</em></span>, add the following code to a CSS file used in your site.</p>
+          <pre><code class="hljs css">@<span class="hljs-keyword">media</span> print {
+    <span class="hljs-selector-class">.card-container</span> &gt; <span class="hljs-selector-class">.morph</span> {
+        <span class="hljs-attribute">display</span>: none;
+    }
+}
+</code></pre>
+          <h4 id="hiding-some-info-in-the-generated-content">Hiding some info in the generated content<a class="fa fa-anchor" href="#hiding-some-info-in-the-generated-content"></a></h4>
+          <p>To permanently hide a fragment from the reader:</p>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"d-none"</span>&gt;</span>
+  content to hide ...
+<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">panel</span> <span class="hljs-attr">header</span>=<span class="hljs-string">"..."</span> <span class="hljs-attr">add-class</span>=<span class="hljs-string">"d-none"</span>&gt;</span>
+  content to hide ...
+<span class="hljs-tag">&lt;<span class="hljs-name">panel</span>&gt;</span>
+</code></pre>
+          <p>To hide a fragment in one specific page, 'mark' the elements using a <code>class</code>:</p>
+          <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"extra"</span>&gt;</span>
+  content to hide ...
+<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+</code></pre>
+          <p>Then, in a page-specific CSS file,</p>
+          <pre><code class="hljs css"><span class="hljs-selector-class">.extra</span> {
+  <span class="hljs-attribute">display</span>: none; <span class="hljs-comment">/* 'block' or 'inline-block' if you want it to show */</span>
+}
+</code></pre>
+          <h4 id="creating-slight-variations-of-content">Creating slight variations of content<a class="fa fa-anchor" href="#creating-slight-variations-of-content"></a></h4>
+          <p>Tags are a good way to create multiple variations of a page within the same source file, such as to filter content for creating multiple different versions of the same page. See <a href="/userGuide/tweakingThePageStructure.html#tags"><em>User Guide: Tweaking the Page Structure → Tags</em></a>            section for more information.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="flex-div"></div>
+<footer>
+  <div class="text-center">
+    <small>[Generated by <a href="https://markbind.github.io/markbind/">MarkBind 1.20.0</a> on Thu, 21 Feb 2019 05:38:09 GMT]</small></div>
+</footer>
+</div>
+</body>
+<script src="../markbind/js/vue.min.js"></script>
+<script src="../markbind/js/vue-strap.min.js"></script>
+<script src="../markbind/js/bootstrap-utility.min.js"></script>
+<script src="../markbind/js/polyfill.min.js"></script>
+<script src="../markbind/js/bootstrap-vue.min.js"></script>
+<script>
+    const baseUrl = ''
+    const enableSearch = true
+</script>
+<script src="../markbind/js/setup.js"></script>
+<script src="../markbind/layouts/default/scripts.js"></script>
+</html>

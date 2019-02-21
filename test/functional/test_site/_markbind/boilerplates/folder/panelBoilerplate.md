@@ -1,1 +1,0 @@
-### heading in panel boilerplate

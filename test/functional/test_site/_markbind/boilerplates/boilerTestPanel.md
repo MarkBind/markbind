@@ -1,1 +1,0 @@
-### boilerplate test for panel heading
