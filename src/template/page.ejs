@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- headFileTopContent %>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="<%- asset.bootstrap %>">
+    <link rel="stylesheet" href="<%- asset.bootstrapVue %>">
+    <link rel="stylesheet" href="<%- asset.fontAwesome %>" >
+    <link rel="stylesheet" href="<%- asset.glyphicons %>" >
+    <link rel="stylesheet" href="<%- asset.highlight %>">
+    <link rel="stylesheet" href="<%- asset.markbind %>">
+    <link rel="stylesheet" href="<%- asset.layoutStyle %>">
+    <% if (siteNav) { %><link rel="stylesheet" href="<%- asset.siteNavCss %>"><% } %>
+    <% if (pageNav) { %><link rel="stylesheet" href="<%- asset.pageNavCss %>"><% } %>
+    <%- headFileBottomContent %>
+    <% if (faviconUrl) { %><link rel="icon" href="<%- faviconUrl %>"><% } %>
+</head>
+<body <%_ if (pageNav) { %> data-spy="scroll" data-target="#page-nav" data-offset="100" <%_ } %>>
+<div id="app">
+    <%- content %>
+</div>
+</body>
+<script src="<%- asset.vue %>"></script>
+<script src="<%- asset.vueStrap %>"></script>
+<script src="<%- asset.bootstrapUtilityJs %>"></script>
+<script src="<%- asset.polyfillJs %>"></script>
+<script src="<%- asset.bootstrapVueJs %>"></script>
+<script>
+    const baseUrl = '<%- baseUrl %>'
+    const enableSearch = <%- enableSearch %>
+</script>
+<script src="<%- asset.setup %>"></script>
+<% if (asset.externalScripts) { -%>
+<% for (const script of asset.externalScripts) { -%>
+<script src="<%- script %>"></script>
+<% } -%>
+<% } -%>
+<script src="<%- asset.layoutScript %>"></script>
+</html>

@@ -1,0 +1,84 @@
+{
+  "name": "markbind-cli",
+  "version": "1.19.0",
+  "description": "Command line interface for MarkBind",
+  "main": "index.js",
+  "bin": {
+    "markbind": "./index.js"
+  },
+  "keywords": [
+    "mark",
+    "markdown",
+    "markbind",
+    "fragment",
+    "reusable",
+    "CLI"
+  ],
+  "author": "Jiang Sheng <gisonrg@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@sindresorhus/slugify": "^0.8.0",
+    "bluebird": "^3.4.7",
+    "chalk": "^1.1.3",
+    "cheerio": "^0.22.0",
+    "chokidar": "^1.6.1",
+    "commander": "^2.9.0",
+    "ejs": "^2.5.5",
+    "fastmatter": "^2.0.1",
+    "figlet": "^1.2.0",
+    "find-up": "^2.1.0",
+    "fs-extra-promise": "^0.4.1",
+    "gh-pages": "^1.1.0",
+    "highlight.js": "^9.10.0",
+    "htmlparser2": "MarkBind/htmlparser2#v3.10.0-markbind.1",
+    "ignore": "^3.2.0",
+    "js-beautify": "^1.6.12",
+    "live-server": "^1.2.0",
+    "lodash": "^4.17.5",
+    "markdown-it": "^8.3.0",
+    "markdown-it-anchor": "^5.0.0",
+    "markdown-it-attrs": "^2.3.2",
+    "markdown-it-emoji": "^1.3.0",
+    "markdown-it-imsize": "^2.0.1",
+    "markdown-it-ins": "^2.0.0",
+    "markdown-it-linkify-images": "^1.1.0",
+    "markdown-it-mark": "^2.0.0",
+    "markdown-it-regexp": "^0.4.0",
+    "markdown-it-table-of-contents": "^0.3.2",
+    "markdown-it-task-lists": "^1.4.1",
+    "markdown-it-video": "^0.4.0",
+    "nunjucks": "^3.0.0",
+    "path-is-inside": "^1.0.2",
+    "progress": "^2.0.0",
+    "walk-sync": "^0.3.1",
+    "winston": "^2.4.4",
+    "winston-daily-rotate-file": "^3.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MarkBind/markbind.git"
+  },
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint .",
+    "pretest": "npm run lint",
+    "pretestwin": "npm run lint",
+    "testwin": "jest && cd test/functional && test.bat",
+    "test": "jest && cd test/functional && ./test.sh",
+    "jest": "jest"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "test/functional"
+    ]
+  },
+  "devDependencies": {
+    "diff": "^3.5.0",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-lodash": "^2.6.1",
+    "jest": "^22.4.3",
+    "memfs": "^2.8.0"
+  }
+}
