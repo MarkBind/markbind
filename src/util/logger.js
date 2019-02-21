@@ -9,9 +9,10 @@ winston.configure({
   exitOnError: false,
   transports: [
     new (winston.transports.Console)({
-      level: 'error',
+      colorize: true,
       handleExceptions: true,
       humanReadableUnhandledException: true,
+      level: 'error',
       showLevel: true,
     }),
     new DailyRotateFile({
