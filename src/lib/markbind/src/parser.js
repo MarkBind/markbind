@@ -276,7 +276,8 @@ Parser.prototype._preprocess = function (node, context, config) {
 
     // Render inner file content
     fileContent = nunjucks.renderString(fileContent,
-                                        { ...pageVariables, ...includeVariables, ...userDefinedVariables });
+                                        { ...pageVariables, ...includeVariables, ...userDefinedVariables },
+                                        { path: actualFilePath });
 
     // Delete variable attributes in include
     Object.keys(element.attribs).forEach((attribute) => {
@@ -504,7 +505,8 @@ Parser.prototype.includeFile = function (file, config) {
       const { parent, relative } = calculateNewBaseUrls(file, config.rootPath, config.baseUrlMap);
       const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
       const pageVariables = extractPageVariables(path.basename(file), data, userDefinedVariables, {});
-      const fileContent = nunjucks.renderString(data, { ...pageVariables, ...userDefinedVariables });
+      const fileContent = nunjucks.renderString(data, { ...pageVariables, ...userDefinedVariables },
+                                                { path: actualFilePath });
       const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
         context.source = 'md';
@@ -658,7 +660,7 @@ Parser.prototype._rebaseReference = function (node, foundBase) {
               // and let the hostBaseUrl value be injected later.
               hostBaseUrl: '{{hostBaseUrl}}',
               baseUrl: newBaseUrl,
-            });
+            }, { path: filePath });
             element.children = cheerio.parseHTML(rendered, true);
             cheerio.prototype.options.xmlMode = true;
           }
@@ -694,7 +696,7 @@ Parser.prototype._rebaseReferenceForStaticIncludes = function (pageData, element
 
   const newBase = fileBase.relative;
   const newBaseUrl = `{{hostBaseUrl}}/${newBase}`;
-  return nunjucks.renderString(pageData, { baseUrl: newBaseUrl });
+  return nunjucks.renderString(pageData, { baseUrl: newBaseUrl }, { path: filePath });
 };
 
 module.exports = Parser;
