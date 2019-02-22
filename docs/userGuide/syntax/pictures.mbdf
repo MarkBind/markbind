@@ -6,14 +6,14 @@
 <span id="code">
 
 ```html
-<pic src="https://markbind.github.io/markbind/images/logo-lightbackground.png" width="300" alt="Logo">
+<pic src="https://markbind.org/images/logo-lightbackground.png" width="300" alt="Logo">
   MarkBind Logo
 </pic>
 ```
 </span>
 <span id="output">
 
-<pic src="https://markbind.github.io/markbind/images/logo-lightbackground.png" width="300" alt="Logo">
+<pic src="https://markbind.org/images/logo-lightbackground.png" width="300" alt="Logo">
   MarkBind Logo
 </pic>
 </span>
@@ -30,7 +30,7 @@ width | `string` | | The width of the image in pixels.<br>If both width and heig
 <span id="short" class="d-none">
 
 ```html
-<pic src="https://markbind.github.io/markbind/images/logo-lightbackground.png" width="300" alt="Logo">
+<pic src="https://markbind.org/images/logo-lightbackground.png" width="300" alt="Logo">
   MarkBind Logo
 </pic>
 ```
@@ -38,7 +38,7 @@ width | `string` | | The width of the image in pixels.<br>If both width and heig
 
 <span id="examples" class="d-none">
 
-<pic src="https://markbind.github.io/markbind/images/logo-lightbackground.png" width="300" alt="Logo">
+<pic src="https://markbind.org/images/logo-lightbackground.png" width="300" alt="Logo">
   MarkBind Logo
 </pic>
 </span>

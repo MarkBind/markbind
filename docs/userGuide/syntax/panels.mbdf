@@ -161,14 +161,14 @@
 <span id="code">
 
 ```html
-<panel header="**Bold text** :rocket: ![](https://markbind.github.io/markbind/images/logo-lightbackground.png =x20)" type="seamless">
+<panel header="**Bold text** :rocket: ![](https://markbind.org/images/logo-lightbackground.png =x20)" type="seamless">
   ...
 </panel>
 ```
 </span>
 <span id="output">
 
-<panel header="**Bold text** :rocket: ![](https://markbind.github.io/markbind/images/logo-lightbackground.png =x20)" type="seamless">
+<panel header="**Bold text** :rocket: ![](https://markbind.org/images/logo-lightbackground.png =x20)" type="seamless">
   ...
   </panel>
 </span>
