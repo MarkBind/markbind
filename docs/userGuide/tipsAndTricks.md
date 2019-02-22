@@ -1,4 +1,5 @@
 <variable name="title">Tips & Tricks</variable>
+
 <frontmatter>
   title: "User Guide: {{ title | safe }}"
   footer: footer.md
