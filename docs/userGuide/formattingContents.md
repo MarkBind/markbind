@@ -1,22 +1,22 @@
-<variable name="main_title">Formatting Contents</variable>
-<variable name="main_filename">formattingContents</variable>
+<variable name="title">Formatting Contents</variable>
+<variable name="filename">formattingContents</variable>
 
 <frontmatter>
-  title: "User Guide: {{ main_title }}"
+  title: "User Guide: {{ title }}"
   footer: footer.md
   siteNav: userGuideSections.md
   pageNav: 2
 </frontmatter>
 
 <span id="link" class="d-none">
-<md>[_User Guide → {{ main_title }}_]({{ baseUrl }}/userGuide/{{ main_filename }}.html)</md>
+<md>[_User Guide → {{ title }}_]({{ baseUrl }}/userGuide/{{ filename }}.html)</md>
 </span>
 
 <include src="../common/header.md" />
 
 <div class="website-content">
 
-# {{ main_title }}
+# {{ title }}
 
 <span class="lead" id="overview">
 
