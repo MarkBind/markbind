@@ -433,6 +433,23 @@ describe('Site deploy with Travis', () => {
       .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/USER/REPO.git`);
   });
 
+  test('Site deploy -t/--travis deploys to correct repo when .git is in repo name', async () => {
+    process.env.TRAVIS = true;
+    process.env.GITHUB_TOKEN = 'githubToken';
+    process.env.TRAVIS_REPO_SLUG = 'TRAVIS_USER/TRAVIS_REPO.github.io';
+
+    const json = {
+      'src/template/page.ejs': PAGE_EJS,
+      'site.json': SITE_JSON_DEFAULT,
+      _site: {},
+    };
+    fs.vol.fromJSON(json, '');
+    const site = new Site('./', '_site');
+    await site.deploy(true);
+    expect(ghpages.options.repo)
+      .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/TRAVIS_USER/TRAVIS_REPO.github.io.git`);
+  });
+
   test('Site deploy -t/--travis should not deploy if not in Travis', async () => {
     const json = {
       'src/template/page.ejs': PAGE_EJS,
