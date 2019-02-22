@@ -4,22 +4,22 @@
 <span id="code">
 
 ```markdown
-![](https://markbind.github.io/markbind/images/logo-lightbackground.png)
+![](https://markbind.org/images/logo-lightbackground.png)
 ```
 </span>
 <span id="output">
 
-![alt text here](https://markbind.github.io/markbind/images/logo-lightbackground.png "title here")
+![alt text here](https://markbind.org/images/logo-lightbackground.png "title here")
 </span>
 </include>
 
 <span id="short" class="d-none">
 ```markdown
-![alt text here](https://markbind.github.io/markbind/images/logo-lightbackground.png "title here")
+![alt text here](https://markbind.org/images/logo-lightbackground.png "title here")
 ```
 </span>
 
 <span id="examples" class="d-none">
 
-![alt text here](https://markbind.github.io/markbind/images/logo-lightbackground.png "title here")
+![alt text here](https://markbind.org/images/logo-lightbackground.png "title here")
 </span>

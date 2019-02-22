@@ -114,7 +114,7 @@ const USER_VARIABLES_DEFAULT = '<span id="example">\n'
   + '</span>';
 
 const GENERATE_SITE_LOGGING_KEY = 'Generate Site';
-const MARKBIND_WEBSITE_URL = 'https://markbind.github.io/markbind/';
+const MARKBIND_WEBSITE_URL = 'https://markbind.org/';
 const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${CLI_VERSION}</a>`;
 
 function Site(rootPath, outputPath, onePagePath, forceReload = false, siteConfigPath = SITE_CONFIG_NAME) {
