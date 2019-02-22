@@ -114,7 +114,7 @@ const USER_VARIABLES_DEFAULT = '<span id="example">\n'
   + '</span>';
 
 const GENERATE_SITE_LOGGING_KEY = 'Generate Site';
-const MARKBIND_WEBSITE_URL = 'https://markbind.github.io/markbind/';
+const MARKBIND_WEBSITE_URL = 'https://markbind.org/';
 const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${CLI_VERSION}</a>`;
 
 function Site(rootPath, outputPath, onePagePath, forceReload = false, siteConfigPath = SITE_CONFIG_NAME) {
@@ -895,7 +895,7 @@ Site.prototype.deploy = function (travisTokenVar) {
           let repoSlug = process.env.TRAVIS_REPO_SLUG;
           if (options.repo) {
             // Extract repo slug from user-specified repo URL so that we can include the access token
-            const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-]+)\.git/;
+            const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-.]+)\.git$/;
             const repoSlugMatch = repoSlugRegex.exec(options.repo);
             if (!repoSlugMatch) {
               reject(new Error('-t/--travis expects a GitHub repository.\n'

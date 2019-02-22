@@ -1,5 +1,5 @@
 {
-  "baseUrl": "/markbind",
+  "baseUrl": "",
   "titlePrefix": "MarkBind",
   "pages": [
     {
@@ -29,6 +29,7 @@
   ],
   "deploy": {
     "message": "Site Update.",
-    "repo": "https://github.com/MarkBind/markbind.git"
+    "repo": "https://github.com/MarkBind/markbind.github.io.git",
+    "branch": "master"
   }
 }

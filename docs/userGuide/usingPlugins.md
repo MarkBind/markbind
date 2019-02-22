@@ -1,4 +1,7 @@
+<variable name="title">Using Plugins</variable>
+
 <frontmatter>
+  title: "User Guide: {{ title }}"
   footer: userGuideFooter.md
   siteNav: userGuideSections.md
 </frontmatter>

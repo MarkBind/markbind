@@ -1,12 +1,8 @@
 ## Page Navigation Menus
 
-**You can add a <trigger trigger="click" for="modal:pageStructure-pageNavigationMenu">_page navigation menu_</trigger> to a page.**
+**A _Page Navigation Menu_ (==_pageNav_ for short==) is a fixed menu on the ==right edge== of your page contents**. You can use a pageNav to show a list of the current page's headings.
 
-<modal title="Page Naviation Menu" id="modal:pageStructure-pageNavigationMenu">
-  <include src="../glossary.md#page-navigation-menu" />
-</modal>
-
-Steps to add a page navigation menu ==(_pageNav_ for short)==:
+Steps to add a pageNav:
 1. Specify your pageNav within the `<frontmatter>` of a page with <tooltip content="The value `default` will use `headingIndexingLevel` within `site.json`.">`"default"`</tooltip> or a <tooltip content="HTML defines six levels of headings, numbered from <br>`1 to 6`.">`heading level`</tooltip>.
 2. (Optional) You may also specify a page navigation title within `<frontmatter>` that will be placed at the top of the page navigation menu.
 
