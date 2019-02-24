@@ -12,7 +12,7 @@ winston.configure({
       colorize: true,
       handleExceptions: true,
       humanReadableUnhandledException: true,
-      level: 'error',
+      level: 'info',
       showLevel: true,
     }),
     new DailyRotateFile({
@@ -30,15 +30,12 @@ winston.configure({
 
 module.exports = {
   error: (text) => {
-    console.log(chalk.red(`error: ${text}`));
     winston.error(text);
   },
   warn: (text) => {
-    console.log(chalk.yellow(`warning: ${text}`));
     winston.warn(text);
   },
   info: (text) => {
-    console.log(chalk.cyan('info: ') + text);
     winston.info(text);
   },
   verbose: (text) => {
