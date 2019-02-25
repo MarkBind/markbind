@@ -788,6 +788,7 @@ Page.prototype.generate = function (builtFiles) {
       .then(() => markbinder.renderFile(this.tempPath, fileConfig))
       .then(result => this.addAnchors(result))
       .then(result => this.postRender(result))
+      .then(result => this.collectPluginsAssets(result))
       .then((result) => {
         this.content = htmlBeautify(result, { indent_size: 2 });
 
@@ -847,6 +848,38 @@ Page.prototype.postRender = function (content) {
     }
   });
   return postRenderedContent;
+};
+
+/**
+ * Collect page content inserted by plugins
+ */
+Page.prototype.collectPluginsAssets = function (content) {
+  let links = [];
+  let scripts = [];
+
+  const linkUtils = {
+    buildStylesheet: href => `<link rel="stylesheet" href="${href}">`,
+  };
+  const scriptUtils = {
+    buildScript: src => `<script src="${src}"></script>`,
+  };
+
+  Object.entries(this.plugins).forEach(([pluginName, plugin]) => {
+    if (plugin.getLinks) {
+      const pluginLinks
+            = plugin.getLinks(content, this.pluginsContext[pluginName], this.frontMatter, linkUtils);
+      links = links.concat(pluginLinks);
+    }
+    if (plugin.getScripts) {
+      const pluginScripts
+            = plugin.getScripts(content, this.pluginsContext[pluginName], this.frontMatter, scriptUtils);
+      scripts = scripts.concat(pluginScripts);
+    }
+  });
+
+  this.asset.pluginLinks = links;
+  this.asset.pluginScripts = scripts;
+  return content;
 };
 
 /**

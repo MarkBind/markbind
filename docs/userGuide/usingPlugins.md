@@ -48,6 +48,8 @@ For example:
 
 ### Writing Plugins
 
+#### Rendering
+
 ![MarkBind Rendering]({{baseUrl}}/images/rendering.png)
 
 MarkBind provides two entry points for modifying the page, pre-render and post-render. These are controlled by implementing the `preRender()` and `postRender()` functions in the plugin:
@@ -106,6 +108,43 @@ module.exports = {
 [Pre-render Placeholder]
 </div>
 ```
+
+#### Assets
+
+Plugins can implement the methods `getLinks` and `getScripts` to add additional assets to the page. 
+
+- `getLinks(content, pluginContext, frontMatter, utils)`: Called to get link elements to be added to the head of the page.
+  - `content`: The rendered HTML.
+  - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
+  - `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
+  - `utils`: Object containing the following utility functions
+    - `buildStylesheet(href)`: Builds a stylesheet link element with the specified `href`.
+  - Should return an array of string data containing link elements to be added.
+- `getScripts(content, pluginContext, frontMatter, utils)`: Called to get script elements to be added after the body of the page.
+  - `content`: The rendered HTML.
+  - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
+  - `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
+  - `utils`: Object containing the following utility functions
+    - `buildScript(src)`: Builds a script element with the specified `src`.
+  - Should return an array of string data containing script elements to be added.
+
+An example of a plugin which adds links and scripts to the page:
+
+```js
+// myPlugin.js
+
+module.exports = {
+  getLinks: (content, pluginContext, frontMatter, utils) => [utils.buildStylesheet('STYLESHEET_LINK')],
+  getScripts: (content, pluginContext, frontMatter, utils) => 
+    [utils.buildScript('SCRIPT_LINK'), '<script>alert("hello")</script>'],
+};
+
+```
+
+This will add the following link and script elements to the page:
+- `<link rel="stylesheet" href="STYLESHEET_LINK">`
+- `<script src="SCRIPT_LINK"></script>`
+- `<script>alert("hello")</script>`
 
 ### Built-in plugins
 
