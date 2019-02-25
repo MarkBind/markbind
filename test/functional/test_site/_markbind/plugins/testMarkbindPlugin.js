@@ -8,4 +8,7 @@ module.exports = {
     $('#test-markbind-plugin').append(`${pluginContext.post}`);
     return $.html();
   },
+  getLinks: (content, pluginContext, frontMatter, utils) => [utils.buildStylesheet('STYLESHEET_LINK')],
+  getScripts: (content, pluginContext, frontMatter, utils) =>
+    [utils.buildScript('SCRIPT_LINK'), '<script>alert("hello")</script>'],
 };
