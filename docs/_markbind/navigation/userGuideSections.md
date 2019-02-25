@@ -1,4 +1,4 @@
-<navigation class="website-content">
+<navigation>
 
 <span class="indented lead">**User Guide**</span>
 

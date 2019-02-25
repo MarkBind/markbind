@@ -6,8 +6,6 @@
 
 <include src="../common/header.md" />
 
-<div class="website-content">
-
 # Syntax Cheat Sheet
 
 {% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
@@ -28,5 +26,3 @@
 {% for k,v in topics | dictsort %}
 {{ show_topic( k, v[0]) }}
 {% endfor %}
-
-</div>

@@ -14,8 +14,6 @@
 
 <include src="../common/header.md" />
 
-<div class="website-content">
-
 # {{ title }}
 
 <span class="lead" id="overview">
@@ -44,5 +42,3 @@
 <include src="tipsAndTricks.md#escapingCharacters" />
 
 </panel>
-
-</div>

@@ -14,8 +14,6 @@
 
 <include src="../common/header.md" />
 
-<div class="website-content">
-
 # Tweaking the Page Structure
 
 <span class="lead" id="overview">**MarkBind offers several ways to easily tweak the overall structure of a page**, for example, using headers, footers, scripts, or stylesheets.</span>
@@ -45,5 +43,3 @@
 <hr><!-- ======================================================================================================= -->
 
 <include src="plugins/filterTags.mbdf" />
-
-</div>

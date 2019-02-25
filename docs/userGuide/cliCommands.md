@@ -6,8 +6,6 @@
 
 <include src="../common/header.md" />
 
-<div class="website-content">
-
 # MarkBind CLI
 
 ### Overview
@@ -121,5 +119,3 @@ MarkBind Command Line Interface (CLI) can be run in the following ways:
 * `markbind serve`
 * `markbind serve ./myWebsite`
 * `markbind serve -p 8888 -s otherSite.json`
-
-</div>
