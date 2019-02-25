@@ -35,7 +35,7 @@ See: [Using Plugins: Using Plugins → Algolia: Enabling Algolia Docsearch]({{ b
 
 <box type="warning">
 
-If you do not wish to use MarkBind's searchbar (e.g. you have an external service provider), it may be helpful to include the option `enableSearch: false` in your `site.json**. This stops MarkBind from indexing search headings and speeds up building.
+If you do not wish to use MarkBind's searchbar (e.g. you have an external service provider), it may be helpful to include the option `enableSearch: false` in your `site.json`. This stops MarkBind from indexing search headings and speeds up building.
 </box>
 
 {% from "njk/common.njk" import previous_next %}

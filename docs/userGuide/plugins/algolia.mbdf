@@ -13,13 +13,15 @@ site.json
     "algolia"
   ],
   "pluginsContext": {
-    "apiKey": ALGOLIA_API_KEY,
-    "indexName": ALGOLIA_INDEX_NAME
+    "algolia": {
+      "apiKey": ALGOLIA_API_KEY,
+      "indexName": ALGOLIA_INDEX_NAME
+    }
   }
 }
 ```
 
-To configure the `searchbar` component to use Algolia Docsearch, add the `algolia` key.
+To connect the `searchbar` component to Algolia Docsearch, add the `algolia` key.
 
 ```html
 <searchbar placeholder="Search" algolia menu-align-right>

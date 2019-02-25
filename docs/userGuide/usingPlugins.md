@@ -156,5 +156,3 @@ MarkBind has a set of built-in plugins that can be used immediately without inst
 {{ previous_next('usingHtmlJavaScriptCss', 'tweakingThePageStructure') }}
 <include src="plugins/agolia.mbdf" />
 <include src="plugins/algolia.mbdf" />
-
-</div>
