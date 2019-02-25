@@ -13,8 +13,6 @@
 
 <include src="../common/header.md" />
 
-<div class="website-content">
-
 # {{ title }}
 
 <span id="overview" class="lead">
@@ -75,6 +73,4 @@ Outcome:<br>
 <span>
 <markdown>##### Apples **Bananas** Cherries</markdown>
 </span>
-</div>
-
 </div>

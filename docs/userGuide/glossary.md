@@ -6,9 +6,6 @@
 
 <include src="../common/header.md" />
 
-<div class="website-content">
-
-
 #### Live Preview
 
 <span id="live-preview">
@@ -28,6 +25,4 @@ Use [the `serve` command]({{ baseUrl }}/userGuide/cliCommands.html#serve-command
 
 MarkBind is able to take Markdown files (`.md`) and HTML files (`.html`) as source files too.
 </span>
-
-</div>
 

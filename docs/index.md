@@ -5,8 +5,6 @@
 
 <include src="./common/header.md" />
 
-<div class="website-content">
-
 <h1 class="display-3"><md>**MarkBind**</md></h1>
 
 <span class="lead">
@@ -169,5 +167,3 @@ Installing MarkBind takes just one command. Creating a new MarkBind site too tak
 As MarkBind is also optimized for project documentation, it can easily [integrate with the workflow of a software project]({{ baseUrl }}/userGuide/markBindInTheProjectWorkflow.html).
 
 <b-btn variant="primary" href="{{ baseUrl }}/userGuide/">Get Started</b-btn>
-
-</div>

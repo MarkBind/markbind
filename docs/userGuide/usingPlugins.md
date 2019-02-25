@@ -8,8 +8,6 @@
 
 <include src="../common/header.md" />
 
-<div class="website-content">
-
 # Using Plugins
 
 A plugin is a user-defined extension that can add custom features to MarkBind. MarkBind plugins are `js` scripts that are loaded and run during the page generation. MarkBind allows plugins to modify a page's content during the page generation process.
@@ -114,5 +112,3 @@ module.exports = {
 MarkBind has a set of built-in plugins that can be used immediately without installation.
 
 <include src="plugins/filterTags.mbdf" />
-
-</div>

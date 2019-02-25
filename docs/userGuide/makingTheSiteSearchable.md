@@ -14,8 +14,6 @@
 
 <include src="../common/header.md" />
 
-<div class="website-content">
-
 # {{ title }}
 
 <span class="lead" id="overview">
@@ -32,5 +30,3 @@
 
 If you do not wish to use MarkBind's searchbar (e.g. you have an external service provider), it may be helpful to include the option `enableSearch: false` in your `site.json`. This stops MarkBind from indexing search headings and speeds up building.
 </box>
-
-</div>

@@ -6,10 +6,7 @@
 
 <include src="../common/header.md" />
 
-<div class="website-content">
-
 # Authoring Contents
-
 
 {% set pages = [
   ['Adding Pages', 'addingPages'],
@@ -33,5 +30,3 @@
 <span class="indented">More info in: <include src="{{ page[1] }}.md#link" inline trim /></span>
 
 {% endfor %}
-
-</div>

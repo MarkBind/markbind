@@ -6,8 +6,6 @@
 
 <include src="../common/header.md" />
 
-<div class="website-content">
-
 # Reader-Facing Features
 
 <include src="fullSyntaxReference.md#dummy" optional />
@@ -33,5 +31,3 @@
 {{ show_topic( k, v[0]) }}
   {% endif %}
 {% endfor %}
-
-</div>
