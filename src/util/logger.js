@@ -8,6 +8,13 @@ const DailyRotateFile = require('winston-daily-rotate-file');
 winston.configure({
   exitOnError: false,
   transports: [
+    new (winston.transports.Console)({
+      colorize: true,
+      handleExceptions: true,
+      humanReadableUnhandledException: true,
+      level: 'info',
+      showLevel: true,
+    }),
     new DailyRotateFile({
       datePattern: 'YYYY-MM-DD',
       dirname: '_markbind/logs',
@@ -23,15 +30,12 @@ winston.configure({
 
 module.exports = {
   error: (text) => {
-    console.log(chalk.red(`error: ${text}`));
     winston.error(text);
   },
   warn: (text) => {
-    console.log(chalk.yellow(`warning: ${text}`));
     winston.warn(text);
   },
   info: (text) => {
-    console.log(chalk.cyan('info: ') + text);
     winston.info(text);
   },
   verbose: (text) => {
