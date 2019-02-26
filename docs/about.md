@@ -25,9 +25,9 @@ The **project team**:
 * [**Tan Zhen Yong**](https://www.github.com/Xenonym): _Project Member_ since Jan 2019
 
 Past Members:
-* [**Daniel Berzin Chua Yuan Siang**](https://github.com/danielbrzn): _Project Member_ Jan 2018 - Aug 2018
-* [**Jia Zhixin**](https://github.com/nusjzx): _Project Member_ May 2018 - Aug 2018
-* [**Rachael Sim Hwee Ling**](https://github.com/rachx): _Project Member_ Jan 2018 - Dec 2018
+* [**Daniel Berzin Chua Yuan Siang**](https://github.com/danielbrzn): _Project Member_ for Jan 2018 - Aug 2018
+* [**Jia Zhixin**](https://github.com/nusjzx): _Project Member_ for May 2018 - Aug 2018
+* [**Rachael Sim Hwee Ling**](https://github.com/rachx): _Project Member_ for Jan 2018 - Dec 2018
 
 :glyphicon-send: You can **email us** at `seer` at `comp.nus.edu.sg`
 
