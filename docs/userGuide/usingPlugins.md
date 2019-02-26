@@ -2,7 +2,7 @@
 
 <frontmatter>
   title: "User Guide: {{ title }}"
-  footer: userGuideFooter.md
+  footer: footer.md
   siteNav: userGuideSections.md
 </frontmatter>
 
