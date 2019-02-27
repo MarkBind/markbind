@@ -1,12 +1,13 @@
+<variable name="title" id="title">Getting Started</variable>
 <frontmatter>
-  title: "User Guide - Quick Start"
+  title: "User Guide - {{ title }}"
   footer: footer.md
   siteNav: userGuideSections.md
 </frontmatter>
 
 <include src="../common/header.md" />
 
-# Getting Started
+# {{ title }}
 
 <big>**Prerequisites**</big>
 
@@ -86,3 +87,6 @@ To stop the web server, go to the console running the `serve` command and press 
 
 1. **Update the content of your site**. More info can be found in the [_User Guide: Authoring Contents_]({{ baseUrl }}/userGuide/authoringContents.html) section
 1. **Deploy your site**. More info can be found in the [_User Guide: Deploying the Site_]({{ baseUrl }}/userGuide/deployingTheSite.html) section.
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('', 'authoringContents') }}

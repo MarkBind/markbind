@@ -1,4 +1,4 @@
-<variable name="title">Using HTML, JavaScript, CSS</variable>
+<variable name="title" id="title">Using HTML, JavaScript, CSS</variable>
 <variable name="filename">usingHtmlJavaScriptCss</variable>
 
 <frontmatter>
@@ -74,3 +74,6 @@ Outcome:<br>
 <markdown>##### Apples **Bananas** Cherries</markdown>
 </span>
 </div>
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('usingComponents', 'usingPlugins') }}

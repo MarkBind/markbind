@@ -1,4 +1,4 @@
-<variable name="title">MarkBind Syntax Overview</variable>
+<variable name="title" id="title">MarkBind Syntax Overview</variable>
 <variable name="filename">markBindSyntaxOverview</variable>
 
 <frontmatter>
@@ -120,3 +120,6 @@ As MarkBind uses [VueStrap](https://bootstrap-vue.js.org/docs/components/alert/)
 </box>
 
 As MarkBind uses Nunjucks behind the scene, **MarkBind is generally compatible with Nunjucks**, which means you can use Nunjucks templating in your source files. Note that ==the code is processed for Nunjucks syntax before the rest of the MarkBind syntax are processed==.
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('addingPages', 'formattingContents') }}

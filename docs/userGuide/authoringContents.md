@@ -1,12 +1,13 @@
+<variable name="title" id="title">Authoring Contents</variable>
 <frontmatter>
-  title: "User Guide: Authoring Contents"
+  title: "User Guide: {{ title }}"
   footer: footer.md
   siteNav: userGuideSections.md
 </frontmatter>
 
 <include src="../common/header.md" />
 
-# Authoring Contents
+# {{ title }}
 
 {% set pages = [
   ['Adding Pages', 'addingPages'],
@@ -30,3 +31,6 @@
 <span class="indented">More info in: <include src="{{ page[1] }}.md#link" inline trim /></span>
 
 {% endfor %}
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('gettingStarted', 'addingPages') }}
