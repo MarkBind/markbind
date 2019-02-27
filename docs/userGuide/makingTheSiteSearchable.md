@@ -23,9 +23,6 @@
 
 **All headings of levels 1-3 are captured in the search index** by default. You can change this setting using the [`headingIndexLevel` property of the `site.json`]({{ baseUrl }}/userGuide/siteConfiguration.html#headingindexinglevel).
 
-<include src="syntax/searchBars.mbdf" />
-<include src="syntax/keywords.mbdf" />
-
 <box type="info">
 
 MarkBind also provides a plugin for Algolia Docsearch, which provides full text search for your site.
@@ -42,3 +39,5 @@ If you do not wish to use MarkBind's searchbar (e.g. you have an external servic
 {{ previous_next('reusingContents', 'deployingTheSite') }}
 </div>
 
+<include src="syntax/searchBars.mbdf" />
+<include src="syntax/keywords.mbdf" />
