@@ -16,7 +16,6 @@ The **project team**:
 * [**Chua Yun Zhi Nicholas**](https://github.com/nicholaschuayunzhi): _Project Member_ since Jan 2018
 * [**Damith C. Rajapakse**](https://www.comp.nus.edu.sg/~damithch/): _Project Mentor_ since Aug 2016
 * [**Jamos Tay**](https://github.com/jamos-tay): _Project Member_ since Aug 2018
-* [**Jiang Sheng**](https://github.com/Gisonrg): _Founding Member_ and _Team Lead_ for Aug 2016 - Jul 2017
 * [**Lin Si Jie**](https://www.github.com/sijie123): _Project Member_ since Jan 2019
 * [**Lu Yang Kenneth**](https://github.com/luyangkenneth): _Project Member_ since Jan 2019
 * [**Maddi Aadyaa**](https://www.github.com/amad-person): _Project Member_ since Jan 2019
@@ -27,6 +26,7 @@ The **project team**:
 Past Members:
 * [**Daniel Berzin Chua Yuan Siang**](https://github.com/danielbrzn): _Project Member_ for Jan 2018 - Aug 2018
 * [**Jia Zhixin**](https://github.com/nusjzx): _Project Member_ for May 2018 - Aug 2018
+* [**Jiang Sheng**](https://github.com/Gisonrg): _Founding Member_ and _Team Lead_ for Aug 2016 - Jul 2017
 * [**Rachael Sim Hwee Ling**](https://github.com/rachx): _Project Member_ for Jan 2018 - Dec 2018
 
 :glyphicon-send: You can **email us** at `seer` at `comp.nus.edu.sg`
