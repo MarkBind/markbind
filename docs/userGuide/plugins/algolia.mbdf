@@ -2,11 +2,17 @@
 
 This plugin allows you to use [Algolia DocSearch](https://community.algolia.com/docsearch/) for your site.
 
-To enable it, add `algolia` to your site's plugins, and provide your docsearch API key and index name in the plugins context. 
+To enable it, add `algolia` to your site's plugins, and supply the required options via the `pluginsContext`.  
+
+Name | Type | Default | Description
+---- | ---- | ------- | ------
+apiKey | `String` || The API key for your site's Algolia DocSearch setup
+indexName | `String` || The index name for your site's Algolia DocSearch setup
+algoliaOptions | `Object` | `{}` | A JSON object specifying [additional options for DocSearch](https://community.algolia.com/docsearch/behavior.html#algoliaoptions)
+debug |`Boolean` | `false` | Whether to turn on debug mode to allow inspection of CSS styles for the dropdown
 
 ```json
 site.json
-
 {
   ...
   "plugins": [
@@ -15,7 +21,11 @@ site.json
   "pluginsContext": {
     "algolia": {
       "apiKey": INSERT_ALGOLIA_API_KEY,
-      "indexName": INSERT_ALGOLIA_INDEX_NAME
+      "indexName": INSERT_ALGOLIA_INDEX_NAME,
+      "algoliaOptions": {
+        "hitsPerPage": 10,
+      },
+      "debug": false
     }
   }
 }

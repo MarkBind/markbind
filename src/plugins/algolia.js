@@ -2,13 +2,15 @@ const ALGOLIA_CSS_URL = 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/do
 const ALGOLIA_JS_URL = 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js';
 const ALGOLIA_INPUT_SELECTOR = '#algolia-search-input';
 
-function buildAlgoliaInitScript(apiKey, indexName) {
+function buildAlgoliaInitScript(pluginContext) {
   return `<script>
     function initAlgolia() {
       docsearch({
-        apiKey: "${apiKey}",
-        indexName: "${indexName}",
-        inputSelector: "${ALGOLIA_INPUT_SELECTOR}"
+        apiKey: "${pluginContext.apiKey}",
+        indexName: "${pluginContext.indexName}",
+        inputSelector: "${ALGOLIA_INPUT_SELECTOR}",
+        algoliaOptions: ${JSON.stringify(pluginContext.algoliaOptions || {})},
+        debug: ${pluginContext.debug || false},
       });
     }
     MarkBind.afterSetup(initAlgolia);
@@ -18,8 +20,5 @@ function buildAlgoliaInitScript(apiKey, indexName) {
 module.exports = {
   getLinks: (content, pluginContext, frontMatter, utils) => [utils.buildStylesheet(ALGOLIA_CSS_URL)],
   getScripts: (content, pluginContext, frontMatter, utils) =>
-    [
-      utils.buildScript(ALGOLIA_JS_URL),
-      buildAlgoliaInitScript(pluginContext.apiKey, pluginContext.indexName),
-    ],
+    [utils.buildScript(ALGOLIA_JS_URL), buildAlgoliaInitScript(pluginContext)],
 };
