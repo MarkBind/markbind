@@ -25,9 +25,9 @@
 
 <box type="info">
 
-MarkBind also provides a plugin for Algolia Docsearch, which provides full text search for your site.
+MarkBind also provides a plugin for Algolia DocSearch, which provides full text search for your site.
 
-See: [Using Plugins: Using Plugins → Algolia: Enabling Algolia Docsearch]({{ baseUrl }}/userGuide/usingPlugins.html#algolia-enabling-algolia-docsearch).
+See: [Using Plugins: Using Plugins → Algolia: Enabling Algolia DocSearch]({{ baseUrl }}/userGuide/usingPlugins.html#algolia-enabling-algolia-docsearch).
 </box>
 
 <box type="warning">
