@@ -19,8 +19,8 @@
 
 # Test included variables in included file
 <include src="testIncludeVariablesIncludedFile.md">
-  <span id="included_variable_inner_overridden">**TEST FAIL**: Included variable overridden by outer variable</span>
-  <span id="included_variable_should_not_leak_inner">**TEST FAIL**: Included variable should not leak into other files</span>
+  <span id="included_variable_inner_overridden">**Should not appear**: Included variable overridden by outer variable</span>
+  <span id="included_variable_should_not_leak_inner">**Should not appear**: Included variable should not leak into other files</span>
 </include>
 
 # Inner included variables should not leak into other files
