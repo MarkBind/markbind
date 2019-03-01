@@ -9,7 +9,7 @@ Name | Type | Default | Description
 apiKey | `String` || The API key for your site's Algolia DocSearch setup
 indexName | `String` || The index name for your site's Algolia DocSearch setup
 algoliaOptions | `Object` | `{}` | A JSON object specifying [additional options for DocSearch](https://community.algolia.com/docsearch/behavior.html#algoliaoptions)
-debug |`Boolean` | `false` | Whether to turn on debug mode to allow inspection of CSS styles for the dropdown
+debug | `Boolean` | `false` | Whether to turn on debug mode to allow inspection of CSS styles for the dropdown
 
 ```json
 site.json
