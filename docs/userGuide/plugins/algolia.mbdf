@@ -11,7 +11,7 @@ indexName | `String` || The index name for your site's Algolia DocSearch setup
 algoliaOptions | `Object` | `{}` | A JSON object specifying [additional options for DocSearch](https://community.algolia.com/docsearch/behavior.html#algoliaoptions)
 debug | `Boolean` | `false` | Whether to turn on debug mode to allow inspection of CSS styles for the dropdown
 
-```json
+```js
 site.json
 {
   ...
@@ -20,12 +20,10 @@ site.json
   ],
   "pluginsContext": {
     "algolia": {
-      "apiKey": INSERT_ALGOLIA_API_KEY,
-      "indexName": INSERT_ALGOLIA_INDEX_NAME,
-      "algoliaOptions": {
-        "hitsPerPage": 10,
-      },
-      "debug": false
+      "apiKey": "8310bb56d1ece8950bd20b0b8c080e10", // replace with your site's api key
+      "indexName": "se-edu", // replace with your site's index name
+      "algoliaOptions": { "hitsPerPage": 10 }, // optional
+      "debug": false // optional
     }
   }
 }
