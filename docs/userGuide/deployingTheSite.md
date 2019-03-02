@@ -1,5 +1,6 @@
+<variable name="title" id="title">Deploying the Site</variable>
 <frontmatter>
-  title: "User Guide - Deploying the Site"
+  title: "User Guide: {{ title }}"
   footer: footer.md
   siteNav: userGuideSections.md
   pageNav: default
@@ -7,7 +8,7 @@
 
 <include src="../common/header.md" />
 
-# Deploying the Site
+# {{ title }}
 
 <span class="lead">
 
@@ -173,3 +174,6 @@ Here are the steps to set up Netlify to use a specific version of MarkBind.
    In step 5, ==Set the `Build Command` to `markbind build --baseUrl`==
 
 </box>
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('makingTheSiteSearchable', 'markBindInTheProjectWorkflow') }}

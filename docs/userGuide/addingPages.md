@@ -1,4 +1,4 @@
-<variable name="title">Adding Pages</variable>
+<variable name="title" id="title">Adding Pages</variable>
 <variable name="filename">addingPages</variable>
 
 <frontmatter>
@@ -46,3 +46,6 @@ Here are the steps to add a new page to your site:
 <modal large title="Live Preview" id="modal:addingPages-livePreview">
 <include src="glossary.md#live-preview" inline/>
 </modal>
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('authoringContents', 'markBindSyntaxOverview') }}

@@ -1,4 +1,4 @@
-<variable name="title">Using Plugins</variable>
+<variable name="title" id="title">Using Plugins</variable>
 
 <frontmatter>
   title: "User Guide: {{ title }}"
@@ -151,3 +151,6 @@ This will add the following link and script elements to the page:
 MarkBind has a set of built-in plugins that can be used immediately without installation.
 
 <include src="plugins/filterTags.mbdf" />
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('usingHtmlJavaScriptCss', 'tweakingThePageStructure') }}

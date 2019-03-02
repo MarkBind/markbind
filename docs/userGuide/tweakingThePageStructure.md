@@ -1,4 +1,4 @@
-<variable name="title">Tweaking the Page Structure</variable>
+<variable name="title" id="title">Tweaking the Page Structure</variable>
 <variable name="filename">tweakingThePageStructure</variable>
 
 <frontmatter>
@@ -43,3 +43,6 @@
 <hr><!-- ======================================================================================================= -->
 
 <include src="plugins/filterTags.mbdf" />
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('usingPlugins', 'reusingContents') }}

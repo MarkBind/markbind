@@ -1,12 +1,13 @@
+<variable name="title" id="title">MarkBind in the Project Workflow</variable>
 <frontmatter>
-  title: "User Guide: Using MarkBind in the Project Workflow"
+  title: "User Guide: {{ title }}"
   footer: footer.md
   siteNav: userGuideSections.md
 </frontmatter>
 
 <include src="../common/header.md" />
 
-# MarkBind in the Project Workflow
+# {{ title }}
 
 <span class="lead">
 
@@ -35,3 +36,6 @@ You can keep the user docs in a separate directory (say `user-docs`) and set up 
 
 Similarly, you can keep the dev docs in a separate directory (sey `dev-docs`) and set up Netlify to deploy the site when there is an update to the `master` branch; that way, developers can see the latest version of dev-docs via the Netlify site.
 </div>
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('deployingTheSite', '') }}
