@@ -20,8 +20,8 @@ site.json
   ],
   "pluginsContext": {
     "algolia": {
-      "apiKey": "8310bb56d1ece8950bd20b0b8c080e10", // replace with your site's api key
-      "indexName": "se-edu", // replace with your site's index name
+      "apiKey": "25626fae796133dc1e734c6bcaaeac3c", // replace with your site's api key
+      "indexName": "docsearch", // replace with your site's index name
       "algoliaOptions": { "hitsPerPage": 10 }, // optional
       "debug": false // optional
     }
