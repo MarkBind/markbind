@@ -151,8 +151,7 @@ This will add the following link and script elements to the page:
 MarkBind has a set of built-in plugins that can be used immediately without installation.
 
 <include src="plugins/filterTags.mbdf" />
+<include src="plugins/algolia.mbdf" />
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('usingHtmlJavaScriptCss', 'tweakingThePageStructure') }}
-<include src="plugins/agolia.mbdf" />
-<include src="plugins/algolia.mbdf" />
