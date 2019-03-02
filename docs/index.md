@@ -13,13 +13,13 @@
 Optimized for creating text-heavy websites %%e.g., eLearning websites, online instruction manuals, project documentation etc.%%.
 </span>
 
-<b-btn variant="primary" href="{{ baseUrl }}/userGuide/">Get Started</b-btn>
+<b-btn variant="primary" href="userGuide/">Get Started</b-btn>
 
 <hr>
 
 #### {{ icon_check_blue }} Simple syntax. Dynamic content.
 
-MarkBind source files can be as simple as basic Markdown, but you can also [**use a mix of several popular syntax schemes**]({{ baseUrl }}/userGuide/markBindSyntax.html) (<tooltip content="GitHub Flavored Markdown">GFMD</tooltip>, BootStrap, NunJucks, etc. as well as MarkBind's own custom syntax) to create more dynamic content that you cannot normally get from a typical markdown-to-html site generator.
+MarkBind source files can be as simple as basic Markdown, but you can also [**use a mix of several popular syntax schemes**](userGuide/markBindSyntax.html) (<tooltip content="GitHub Flavored Markdown">GFMD</tooltip>, BootStrap, NunJucks, etc. as well as MarkBind's own custom syntax) to create more dynamic content that you cannot normally get from a typical markdown-to-html site generator.
 
 Here are some simple text-formatting examples:
 
@@ -131,16 +131,16 @@ MarkBind is **highly optimized for creating text-heavy websites** %%e.g., eLearn
 Here are some examples:
 <div class="indented">
 
-<big>:fas-heart:</big> **Icons** can improve the readability of a text-heavy document. MarkBind comes with a wide selection of [icons]({{ baseUrl }}/userGuide/markBindSyntax.html#icons-fonts) and [emoji]({{ baseUrl }}/userGuide/markBindSyntax.html#emoji).<br>
-<big>:fas-search:</big> With MarkBind's [**search feature**]({{ baseUrl }}/userGuide/makingTheSiteSearchable.html), you can allow readers to search for keywords in your site.<br>
-<big>:fas-window-maximize:</big> MarkBind allows you to add [**site/page navigation menus, headers, footers**]({{ baseUrl }}/userGuide/tweakingThePageStructure.html) easily.
+<big>:fas-heart:</big> **Icons** can improve the readability of a text-heavy document. MarkBind comes with a wide selection of [icons](userGuide/markBindSyntax.html#icons-fonts) and [emoji](userGuide/markBindSyntax.html#emoji).<br>
+<big>:fas-search:</big> With MarkBind's [**search feature**](userGuide/makingTheSiteSearchable.html), you can allow readers to search for keywords in your site.<br>
+<big>:fas-window-maximize:</big> MarkBind allows you to add [**site/page navigation menus, headers, footers**](userGuide/tweakingThePageStructure.html) easily.
 </div>
 
 <hr><!-- ======================================================================================================= -->
 
 #### {{ icon_check_blue }} More control to the reader, without duplicating code.
 
-A MarkBind website can be a _buffet_ of content, as opposed to a _set menu_: a site can have optional contents that the reader can access at her discretion, and the same content can be organized in multiple ways so that the reader can choose the one that fits the need. To _cater_ (pun intended) for creating such buffet style websites, MarkBind has **[reuse mechanisms]({{ baseUrl }}/userGuide/reusingContents.html) for presenting the same content in multiple ways without duplicating the source file**.
+A MarkBind website can be a _buffet_ of content, as opposed to a _set menu_: a site can have optional contents that the reader can access at her discretion, and the same content can be organized in multiple ways so that the reader can choose the one that fits the need. To _cater_ (pun intended) for creating such buffet style websites, MarkBind has **[reuse mechanisms](userGuide/reusingContents.html) for presenting the same content in multiple ways without duplicating the source file**.
 
 For example, MarkBind has a powerful `include` mechanism that allows content fragments (i.e., a file or part of a file) to be reused at multiple places in the website. In the example below, both the modal and the expandable panel reuse the same content originating from a _single_ source file.
 
@@ -162,8 +162,8 @@ In CS, a binary tree is a tree data structure in which each node has at most two
 
 #### {{ icon_check_blue }} Easy to set up, modify, deploy, integrate.
 
-Installing MarkBind takes just one command. Creating a new MarkBind site too takes just one command. With MarkBind's _live preview_ feature, you can see how your site will look like as you modify the source file. [Deploying the site to a server]({{ baseUrl }}/userGuide/deployingTheSite.html) can be as simple as one command too.
+Installing MarkBind takes just one command. Creating a new MarkBind site too takes just one command. With MarkBind's _live preview_ feature, you can see how your site will look like as you modify the source file. [Deploying the site to a server](userGuide/deployingTheSite.html) can be as simple as one command too.
 
-As MarkBind is also optimized for project documentation, it can easily [integrate with the workflow of a software project]({{ baseUrl }}/userGuide/markBindInTheProjectWorkflow.html).
+As MarkBind is also optimized for project documentation, it can easily [integrate with the workflow of a software project](userGuide/markBindInTheProjectWorkflow.html).
 
-<b-btn variant="primary" href="{{ baseUrl }}/userGuide/">Get Started</b-btn>
+<b-btn variant="primary" href="userGuide/">Get Started</b-btn>

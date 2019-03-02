@@ -20,9 +20,9 @@ While most IDEs provide previews for Markdown files, unless your MarkBind files 
 
 #### GitHub Project Workflow
 
-If you use GitHub for your project, you can [deploy your site to GitHub pages]({{ baseUrl }}/userGuide/deployingTheSite.html#deploying-to-github-pages) easily. You can even set up Travis to automatically deploy your site to GitHub pages whenever a branch in your repo is updated.
+If you use GitHub for your project, you can [deploy your site to GitHub pages](deployingTheSite.html#deploying-to-github-pages) easily. You can even set up Travis to automatically deploy your site to GitHub pages whenever a branch in your repo is updated.
 
-If you are using GitHub Pull Requests as part of your workflow, you can [set up Netlify to show a preview of the site generated from the MarkBind code in the PR]({{ baseUrl }}/userGuide/deployingTheSite.html#deploying-to-netlify).
+If you are using GitHub Pull Requests as part of your workflow, you can [set up Netlify to show a preview of the site generated from the MarkBind code in the PR](deployingTheSite.html#deploying-to-netlify).
 
 #### Using MarkBind for Project Documentation
 

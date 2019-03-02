@@ -8,7 +8,7 @@
 </frontmatter>
 
 <span id="link" class="d-none">
-[_User Guide → {{ title }}_]({{ baseUrl }}/userGuide/{{ filename }}.html)
+[_User Guide → {{ title }}_]({{ filename }}.html)
 </span>
 
 <include src="../common/header.md" />

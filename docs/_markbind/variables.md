@@ -16,7 +16,7 @@
 <variable name="icon_info">:fas-info-circle:</variable>
 <variable name="icon_ticked">:far-check-square:</variable>
 
-<variable name="link_live_preview">[live preview]({{ baseUrl }}/userGuide/glossary.html#live-preview)</variable>
+<variable name="link_live_preview">[live preview](userGuide/glossary.html#live-preview)</variable>
 
 <variable name="tooltip_root_directory"><tooltip content="The directory that contains all the project files. It is also the directory in which the `site.json` configuration file is located.">root directory</tooltip></variable>
 
