@@ -13,6 +13,7 @@ const _ = {};
 _.difference = require('lodash/difference');
 _.isBoolean = require('lodash/isBoolean');
 _.isUndefined = require('lodash/isUndefined');
+_.noop = require('lodash/noop');
 _.omitBy = require('lodash/omitBy');
 _.union = require('lodash/union');
 _.uniq = require('lodash/uniq');
@@ -849,7 +850,25 @@ Site.prototype.copyFontAwesomeAsset = function () {
  * Copies MarkBind assets to the assets folder
  */
 Site.prototype.copyMarkBindAsset = function () {
-  return fs.copyAsync(this.siteAssetsSrcPath, this.siteAssetsDestPath);
+  const maybeOverrideBootstrapWithBootswatch = () => {
+    const { bootswatchTheme } = this.siteConfig;
+    if (!bootswatchTheme || !SUPPORTED_BOOTSWATCH_THEMES.includes(bootswatchTheme)) {
+      return _.noop;
+    }
+
+    const customThemeSrcPath = path.join(__dirname, '..', 'node_modules', 'bootswatch', 'dist',
+                                         bootswatchTheme, 'bootstrap.min.css');
+    const customThemeDestPath = path.join(this.siteAssetsDestPath, 'css', 'bootstrap.min.css');
+
+    return new Promise((resolve, reject) => {
+      fs.copyAsync(customThemeSrcPath, customThemeDestPath)
+        .then(resolve)
+        .catch(reject);
+    });
+  };
+
+  return fs.copyAsync(this.siteAssetsSrcPath, this.siteAssetsDestPath)
+    .then(maybeOverrideBootstrapWithBootswatch);
 };
 
 /**
