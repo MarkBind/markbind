@@ -123,8 +123,8 @@ In other words, **`<include>` interprets the reused code relative to the origina
 
 ```html
 <include src="article.md">
-  <span id="title">My Title</span>
-  <span id="author">John Doe</span>
+  <variable name="title">My Title</variable>
+  <variable name="author">John Doe</variable>
 </include>
 ```
 
@@ -259,7 +259,7 @@ It needs to be used as follows:
 
 ```markdown
 <include src="foo.md#bar" boilerplate inline trim>
-  <span id="x">5</span>
+  <variable name="x">5</variable>
 </include>
 ```
 </span>

@@ -108,10 +108,10 @@ const LAYOUT_SCRIPTS_DEFAULT = 'MarkBind.afterSetup(() => {\n'
   + '  // Include code to be called after MarkBind setup here.\n'
   + '});\n';
 
-const USER_VARIABLES_DEFAULT = '<span id="example">\n'
+const USER_VARIABLES_DEFAULT = '<variable name="example">\n'
   + 'To inject this HTML segment in your markbind files, use {{ example }} where you want to place it.\n'
   + 'More generally, surround the segment\'s id with double curly braces.\n'
-  + '</span>';
+  + '</variable>';
 
 const GENERATE_SITE_LOGGING_KEY = 'Generate Site';
 const MARKBIND_WEBSITE_URL = 'https://markbind.org/';
@@ -480,11 +480,11 @@ Site.prototype.collectUserDefinedVariablesMap = function () {
     this.userDefinedVariablesMap[base] = userDefinedVariables;
 
     const $ = cheerio.load(content);
-    $.root().children().each(function () {
-      const id = $(this).attr('id');
+    $('variable,span').each(function () {
+      const name = $(this).attr('name') || $(this).attr('id');
       // Process the content of the variable with nunjucks, in case it refers to other variables.
       const html = nunjucks.renderString($(this).html(), userDefinedVariables);
-      userDefinedVariables[id] = html;
+      userDefinedVariables[name] = html;
     });
   });
 };
