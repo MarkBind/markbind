@@ -1,4 +1,4 @@
-<variable name="title">Formatting Contents</variable>
+<variable name="title" id="title">Formatting Contents</variable>
 <variable name="filename">formattingContents</variable>
 
 <frontmatter>
@@ -42,3 +42,6 @@
 <include src="tipsAndTricks.md#escapingCharacters" />
 
 </panel>
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('markBindSyntaxOverview', 'usingComponents') }}

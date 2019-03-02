@@ -1,4 +1,4 @@
-<variable name="title">Reusing Contents</variable>
+<variable name="title" id="title">Reusing Contents</variable>
 <variable name="filename">reusingContents</variable>
 
 <frontmatter>
@@ -155,3 +155,6 @@ Then, in a page-specific CSS file,
 #### Creating slight variations of content
 
 Tags are a good way to create multiple variations of a page within the same source file, such as to filter content for creating multiple different versions of the same page. See [_User Guide: Tweaking the Page Structure → Tags_]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#tags) section for more information.
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('tweakingThePageStructure', 'makingTheSiteSearchable') }}

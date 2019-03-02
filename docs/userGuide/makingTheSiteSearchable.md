@@ -1,4 +1,4 @@
-<variable name="title">Making the Site Searchable</variable>
+<variable name="title" id="title">Making the Site Searchable</variable>
 <variable name="filename">makingTheSiteSearchable</variable>
 
 <frontmatter>
@@ -30,3 +30,6 @@
 
 If you do not wish to use MarkBind's searchbar (e.g. you have an external service provider), it may be helpful to include the option `enableSearch: false` in your `site.json`. This stops MarkBind from indexing search headings and speeds up building.
 </box>
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('reusingContents', 'deployingTheSite') }}

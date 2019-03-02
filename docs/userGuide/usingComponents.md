@@ -1,4 +1,4 @@
-<variable name="title">Using Components</variable>
+<variable name="title" id="title">Using Components</variable>
 <variable name="filename">usingComponents</variable>
 
 <frontmatter>
@@ -44,3 +44,6 @@ To use a component, just use the corresponding markup in your file. For example,
 
 <include src="./components/advanced.md" />
 <br>
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('formattingContents', 'usingHtmlJavaScriptCss') }}
