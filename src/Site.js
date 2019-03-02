@@ -113,7 +113,6 @@ const USER_VARIABLES_DEFAULT = '<span id="example">\n'
   + 'More generally, surround the segment\'s id with double curly braces.\n'
   + '</span>';
 
-const GENERATE_SITE_LOGGING_KEY = 'Generate Site';
 const MARKBIND_WEBSITE_URL = 'https://markbind.org/';
 const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${CLI_VERSION}</a>`;
 
@@ -506,7 +505,6 @@ Site.prototype.collectUserDefinedVariablesMapIfNeeded = function (filePaths) {
 Site.prototype.generate = function (baseUrl) {
   const startTime = new Date();
   // Create the .tmp folder for storing intermediate results.
-  logger.profile(GENERATE_SITE_LOGGING_KEY);
   fs.emptydirSync(this.tempPath);
   // Clean the output folder; create it if not exist.
   fs.emptydirSync(this.outputPath);
@@ -531,7 +529,11 @@ Site.prototype.generate = function (baseUrl) {
       .catch((error) => {
         rejectHandler(reject, error, [this.tempPath, this.outputPath]);
       })
-      .finally(() => logger.profile(GENERATE_SITE_LOGGING_KEY));
+      .finally(() => {
+        const endTime = new Date();
+        const totalBuildTime = endTime - startTime;
+        logger.debug(`Total generation time: ${totalBuildTime}ms`);
+      });
   });
 };
 
