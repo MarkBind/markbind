@@ -32,7 +32,7 @@
 
 ## Reusing Contents Across Sites
 
-**MarkBind supports reusing across sites.** It allows you include the pages you want from a _sub-site_ in another _main-site_ without having to change anything in the source files of the _sub-site_ as long as the sub-site source files are inside the directory of the _main site_.
+**MarkBind supports reusing across sites.** It allows you to include the pages you want from a _sub-site_ in another _main-site_ without having to change anything in the source files of the _sub-site_ as long as the sub-site source files are inside the directory of the _main site_.
 
 <div class="indented">
 
