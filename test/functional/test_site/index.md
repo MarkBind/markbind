@@ -42,7 +42,7 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 {{ page_variable_referencing_page_variable }}
 
 # Global Variable overriding Page Variable
-<variable name="page_global_variable_overriding_page_variable">Page Variable overridden by Global Variable</variable>
+<variable name="page_global_variable_overriding_page_variable">**Should not appear**: Page Variable overridden by Global Variable</variable>
 {{ page_global_variable_overriding_page_variable }}
 
 # Test Page Variable and Included Variable Integrations
@@ -139,10 +139,10 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
   <span id="included_variable_with_markdown">__**Included variable with markdown**__</span>
   <span id="included_variable_as_attribute">color: blue</span>
   <span id="included_variable_as_html_element"><span>Included variable within html element</span></span>
-  <span id="global_variable_overriding_included_variable">Included variable overridden by global variable</span>
+  <span id="global_variable_overriding_included_variable">**Should not appear**: Included variable overridden by global variable</span>
   <span id="included_variable_inner_overridden">Included variable overriding inner variable</span>
   <span id="included_variable_in_outer_included_file">Included variable in outer included file</span>
-  <span id="included_variable_should_not_leak">Included variable should not leak into other files</span>
+  <span id="included_variable_should_not_leak">**Should not appear**: Included variable should not leak into other files</span>
   <span id="included_variable_with_global_variable">Included variable with {{ global_variable }}</span>
 </include>
 

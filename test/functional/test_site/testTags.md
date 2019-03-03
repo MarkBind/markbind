@@ -16,7 +16,7 @@ Div with multiple tags
 
 # Div with hidden tag (Hidden)
 <div tags="tag-hidden">
-Div with hidden tag
+**Should not appear** Div with hidden tag
 </div>
 
 <include src="testIncludeFileTags.md" />
@@ -28,7 +28,7 @@ Div with tag matching general tag
 
 # Div with tag matching general tag and specific tag (Hidden)
 <div tags="tag-exp-hidden">
-Div with tag matching general tag expression and specific tag expression
+**Should not appear** Div with tag matching general tag expression and specific tag expression
 </div>
 
 # Div with tag matching front matter tag overridden by matching site tag
@@ -38,7 +38,7 @@ Div with tag matching front matter tag overridden by matching site tag
 
 # Div with tag matching general front matter tag not overridden by matching specific site tag (Hidden)
 <div tags="tag-site-override-hidden">
-Div with tag matching general front matter tag not overridden by matching specific site tag
+**Should not appear** Div with tag matching general front matter tag not overridden by matching specific site tag
 </div>
 
 # Div with tag matching general front matter tag overridden by matching specific site tag
