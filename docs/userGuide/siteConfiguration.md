@@ -85,7 +85,7 @@ Here is a typical `site.json` file:
 * **`src`**/**`glob`**: `src` can be used to specify a file e.g., `docs/index.md`.<br>
     Alternatively, `glob` can be used to define a file pattern in the [_glob syntax_](https://en.wikipedia.org/wiki/Glob_(programming)) e.g., `**/*.md`.
 * **`title`**: The page `<title>` for the generated web page. Titles specified here take priority over titles specified in the [front matter](addingPages.html#front-matter) of individual pages.
-* **`layout`**: The [layout]({{ baseUrl }}/userGuide/advancedTopics.html#page-layout) to be used by the page. Default: `default`.
+* **`layout`**: The [layout]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#page-layouts) to be used by the page. Default: `default`.
 * **`searchable`**: Specifies that the page(s) should be excluded from searching. Default: `yes`.
 * **`externalScripts`**: An array of external scripts to be referenced on the page. Scripts referenced will be run before the layout script.
 
