@@ -17,6 +17,7 @@
   "author": "Jiang Sheng <gisonrg@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.7.2",
     "@sindresorhus/slugify": "^0.8.0",
     "bluebird": "^3.4.7",
     "chalk": "^1.1.3",
