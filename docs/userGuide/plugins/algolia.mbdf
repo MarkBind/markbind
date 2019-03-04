@@ -32,7 +32,7 @@ site.json
 To connect the `searchbar` component to Algolia DocSearch, add the `algolia` key.
 
 ```html
-<searchbar placeholder="Search" algolia menu-align-right>
+<searchbar placeholder="Search" algolia menu-align-right></searchbar>
 ```
 
 Alternatively, if you are using a custom search bar, you can assign the input field the id `algolia-search-input` to connect it to Algolia DocSearch.
