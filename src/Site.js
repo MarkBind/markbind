@@ -528,11 +528,6 @@ Site.prototype.generate = function (baseUrl) {
       .then(resolve)
       .catch((error) => {
         rejectHandler(reject, error, [this.tempPath, this.outputPath]);
-      })
-      .finally(() => {
-        const endTime = new Date();
-        const totalBuildTime = endTime - startTime;
-        logger.debug(`Total generation time: ${totalBuildTime}ms`);
       });
   });
 };
