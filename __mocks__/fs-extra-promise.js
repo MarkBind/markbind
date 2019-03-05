@@ -76,6 +76,27 @@ function copyDirSync(src, dest) {
 }
 
 /**
+ * Utility function to copy a directory to a destination recursively for copyAsync
+ */
+function copyDirAsync(src, dest) {
+  if (fs.lstatSync(src).isDirectory()) {
+    const files = fs.readdirSync(src);
+    files.forEach((file) => {
+      const curSource = path.join(src, file);
+      const curDest = path.join(dest, file);
+      if (fs.lstatSync(curSource).isDirectory()) {
+        if (!fs.existsSync(curDest)) {
+          createDir(curDest);
+        }
+        copyDirAsync(curSource, curDest);
+      } else {
+        fs.copyAsync(curSource, curDest);
+      }
+    });
+  }
+}
+
+/**
  * Mocks
  */
 
@@ -143,7 +164,16 @@ fs.removeAsync = pathArg => new Promise((resolve, reject) => {
  */
 fs.copyAsync = (src, dest) => new Promise((resolve, reject) => {
   try {
-    fs.copySync(src, dest);
+    // copyAsync creates folders to a destination path if they do not exist
+    const dirPath = path.dirname(dest);
+    if (!fs.existsSync(dirPath)) {
+      createDir(dirPath);
+    }
+    if (fs.lstatSync(src).isDirectory()) {
+      copyDirAsync(src, dest);
+    } else {
+      copyFileSync(src, dest);
+    }
     resolve();
   } catch (err) {
     reject(err);
