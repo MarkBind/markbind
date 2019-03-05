@@ -812,12 +812,11 @@ Site.prototype.updateSiteData = function (filePaths) {
   this.writeSiteData();
 };
 
+/**
+ * Copies MarkBind assets to the assets folder
+ */
 Site.prototype.copyMarkBindAsset = function () {
-  return new Promise((resolve, reject) => {
-    fs.copyAsync(this.siteAssetsSrcPath, this.siteAssetsDestPath)
-      .then(resolve)
-      .catch(reject);
-  });
+  return fs.copyAsync(this.siteAssetsSrcPath, this.siteAssetsDestPath);
 };
 
 /**
