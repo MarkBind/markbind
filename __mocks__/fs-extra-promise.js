@@ -26,7 +26,7 @@ function rimraf(dirPath) {
 }
 
 /**
- * Iterativelts creates directories to the file or directory
+ * Iteratively creates directories to the file or directory
  * @param pathArg
  */
 function createDir(pathArg) {
