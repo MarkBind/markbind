@@ -63,6 +63,8 @@ const SITE_CONFIG_DEFAULT = {
     'site.json',
     '*.md',
     '*.mbd',
+    '*.mbdf',
+    '*.njk',
     '.git/*',
   ],
   pages: [
