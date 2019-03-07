@@ -35,11 +35,13 @@ function walkSync(baseDir, _options) {
 
   var mapFunct;
   if (options.includeBasePath) {
-    mapFunct = function (entry) {
-      return entry.basePath.split(path.sep).join('/') + '/' + entry.relativePath;
+    mapFunct = function(entry) {
+      return (
+        entry.basePath.split(path.sep).join('/') + '/' + entry.relativePath
+      );
     };
   } else {
-    mapFunct = function (entry) {
+    mapFunct = function(entry) {
       return entry.relativePath;
     };
   }
@@ -75,24 +77,38 @@ function _walkSync(baseDir, options, _relativePath) {
   }
 
   var names = fs.readdirSync(baseDir + '/' + relativePath);
-  var entries = names.map(function (name) {
-    var entryRelativePath = relativePath + name;
+  var entries = names
+    .map(function(name) {
+      var entryRelativePath = relativePath + name;
 
-    if (ignoreMatcher && ignoreMatcher.match(entryRelativePath)) {
-      return;
-    }
+      if (ignoreMatcher && ignoreMatcher.match(entryRelativePath)) {
+        return;
+      }
 
-    var fullPath = baseDir + '/' + entryRelativePath;
-    var stats = getStat(fullPath);
+      var fullPath = baseDir + '/' + entryRelativePath;
+      var stats = getStat(fullPath);
 
-    if (stats && stats.isDirectory()) {
-      return new Entry(entryRelativePath + '/', baseDir, stats.mode, stats.size, stats.mtime.getTime());
-    } else {
-      return new Entry(entryRelativePath, baseDir, stats && stats.mode, stats && stats.size, stats && stats.mtime.getTime());
-    }
-  }).filter(Boolean);
+      if (stats && stats.isDirectory()) {
+        return new Entry(
+          entryRelativePath + '/',
+          baseDir,
+          stats.mode,
+          stats.size,
+          stats.mtime.getTime(),
+        );
+      } else {
+        return new Entry(
+          entryRelativePath,
+          baseDir,
+          stats && stats.mode,
+          stats && stats.size,
+          stats && stats.mtime.getTime(),
+        );
+      }
+    })
+    .filter(Boolean);
 
-  var sortedEntries = entries.sort(function (a, b) {
+  var sortedEntries = entries.sort(function(a, b) {
     var aPath = a.relativePath;
     var bPath = b.relativePath;
 
@@ -105,11 +121,14 @@ function _walkSync(baseDir, options, _relativePath) {
     }
   });
 
-  for (var i=0; i<sortedEntries.length; ++i) {
+  for (var i = 0; i < sortedEntries.length; ++i) {
     var entry = sortedEntries[i];
 
     if (entry.isDirectory()) {
-      if (options.directories !== false && (!globMatcher || globMatcher.match(entry.relativePath))) {
+      if (
+        options.directories !== false &&
+        (!globMatcher || globMatcher.match(entry.relativePath))
+      ) {
         results.push(entry);
       }
       results = results.concat(_walkSync(baseDir, options, entry.relativePath));
@@ -134,10 +153,10 @@ function Entry(relativePath, basePath, mode, size, mtime) {
 Object.defineProperty(Entry.prototype, 'fullPath', {
   get: function() {
     return this.basePath + '/' + this.relativePath;
-  }
+  },
 });
 
-Entry.prototype.isDirectory = function () {
+Entry.prototype.isDirectory = function() {
   return (this.mode & 61440) === 16384;
 };
 
@@ -146,7 +165,7 @@ function getStat(path) {
 
   try {
     stat = fs.statSync(path);
-  } catch(error) {
+  } catch (error) {
     if (error.code !== 'ENOENT') {
       throw error;
     }

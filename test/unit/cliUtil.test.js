@@ -18,16 +18,18 @@ test('findRootFolder returns user specified root if site config is found there',
   };
   fs.vol.fromJSON(json, '');
   const resolvedUserSpecificRoot = path.resolve('userSpecifiedRoot');
-  expect(cliUtil.findRootFolder('userSpecifiedRoot')).toBe(resolvedUserSpecificRoot);
+  expect(cliUtil.findRootFolder('userSpecifiedRoot')).toBe(
+    resolvedUserSpecificRoot,
+  );
 });
 
 test('findRootFolder throws error if site config is not found in user specified root', () => {
   const resolvedUserSpecificRoot = path.resolve('userSpecifiedRoot');
-  expect(
-    () => {
-      cliUtil.findRootFolder('userSpecifiedRoot');
-    })
-    .toThrow(`Config file not found at user specified root ${resolvedUserSpecificRoot}`);
+  expect(() => {
+    cliUtil.findRootFolder('userSpecifiedRoot');
+  }).toThrow(
+    `Config file not found at user specified root ${resolvedUserSpecificRoot}`,
+  );
 });
 
 test('findRootFolder without user specified root returns first parent dir containing site config', () => {
@@ -50,10 +52,7 @@ test('findRootFolder without user specified root throws error if no parent dirs 
   const nestedDir = path.join(currentWorkingDir, 'nested');
   fs.vol.fromJSON(json, currentWorkingDir);
   process.cwd = jest.fn().mockReturnValue(nestedDir);
-  expect(
-    () => {
-      cliUtil.findRootFolder();
-    })
-    .toThrow(`No config file found in parent directories of ${nestedDir}`);
+  expect(() => {
+    cliUtil.findRootFolder();
+  }).toThrow(`No config file found in parent directories of ${nestedDir}`);
 });
-

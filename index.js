@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-
 // Entry file for Markbind project
 const chokidar = require('chokidar');
 const liveServer = require('live-server');
@@ -36,18 +35,15 @@ function handleError(error) {
   process.exitCode = 1;
 }
 
-program
-  .allowUnknownOption()
-  .usage(' <command>');
+program.allowUnknownOption().usage(' <command>');
 
-program
-  .version(CLI_VERSION);
+program.version(CLI_VERSION);
 
 program
   .command('init [root]')
   .alias('i')
   .description('init a markbind website project')
-  .action((root) => {
+  .action(root => {
     const rootFolder = path.resolve(root || process.cwd());
     printHeader();
     Site.initSite(rootFolder)
@@ -61,11 +57,20 @@ program
   .command('serve [root]')
   .alias('s')
   .description('build then serve a website from a directory')
-  .option('-f, --force-reload', 'force a full reload of all site files when a file is changed')
+  .option(
+    '-f, --force-reload',
+    'force a full reload of all site files when a file is changed',
+  )
   .option('-n, --no-open', 'do not automatically open the site in browser')
-  .option('-o, --one-page <file>', 'render and serve only a single page in the site')
+  .option(
+    '-o, --one-page <file>',
+    'render and serve only a single page in the site',
+  )
   .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
-  .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
+  .option(
+    '-s, --site-config <file>',
+    'specify the site config file (default: site.json)',
+  )
   .action((userSpecifiedRoot, options) => {
     let rootFolder;
     try {
@@ -82,47 +87,69 @@ program
       options.onePage = ensurePosix(options.onePage);
     }
 
-    const site = new Site(rootFolder, outputFolder, options.onePage, options.forceReload, options.siteConfig);
+    const site = new Site(
+      rootFolder,
+      outputFolder,
+      options.onePage,
+      options.forceReload,
+      options.siteConfig,
+    );
 
-    const addHandler = (filePath) => {
-      logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
-      Promise.resolve('').then(() => {
-        if (fsUtil.isSourceFile(filePath)) {
-          return site.rebuildSourceFiles(filePath);
-        }
-        return site.buildAsset(filePath);
-      }).catch((err) => {
-        logger.error(err.message);
-      });
+    const addHandler = filePath => {
+      logger.info(
+        `[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`,
+      );
+      Promise.resolve('')
+        .then(() => {
+          if (fsUtil.isSourceFile(filePath)) {
+            return site.rebuildSourceFiles(filePath);
+          }
+          return site.buildAsset(filePath);
+        })
+        .catch(err => {
+          logger.error(err.message);
+        });
     };
 
-    const changeHandler = (filePath) => {
-      logger.info(`[${new Date().toLocaleTimeString()}] Reload for file change: ${filePath}`);
-      Promise.resolve('').then(() => {
-        if (fsUtil.isSourceFile(filePath)) {
-          return site.rebuildAffectedSourceFiles(filePath);
-        }
-        return site.buildAsset(filePath);
-      }).catch((err) => {
-        logger.error(err.message);
-      });
+    const changeHandler = filePath => {
+      logger.info(
+        `[${new Date().toLocaleTimeString()}] Reload for file change: ${filePath}`,
+      );
+      Promise.resolve('')
+        .then(() => {
+          if (fsUtil.isSourceFile(filePath)) {
+            return site.rebuildAffectedSourceFiles(filePath);
+          }
+          return site.buildAsset(filePath);
+        })
+        .catch(err => {
+          logger.error(err.message);
+        });
     };
 
-    const removeHandler = (filePath) => {
-      logger.info(`[${new Date().toLocaleTimeString()}] Reload for file deletion: ${filePath}`);
-      Promise.resolve('').then(() => {
-        if (fsUtil.isSourceFile(filePath)) {
-          return site.rebuildSourceFiles(filePath);
-        }
-        return site.removeAsset(filePath);
-      }).catch((err) => {
-        logger.error(err.message);
-      });
+    const removeHandler = filePath => {
+      logger.info(
+        `[${new Date().toLocaleTimeString()}] Reload for file deletion: ${filePath}`,
+      );
+      Promise.resolve('')
+        .then(() => {
+          if (fsUtil.isSourceFile(filePath)) {
+            return site.rebuildSourceFiles(filePath);
+          }
+          return site.removeAsset(filePath);
+        })
+        .catch(err => {
+          logger.error(err.message);
+        });
     };
 
     // server config
     const serverConfig = {
-      open: options.open && (options.onePage ? `/${options.onePage.replace(/\.(md|mbd)$/, '.html')}` : true),
+      open:
+        options.open &&
+        (options.onePage
+          ? `/${options.onePage.replace(/\.(md|mbd)$/, '.html')}`
+          : true),
       logLevel: 0,
       root: outputFolder,
       port: options.port || 8080,
@@ -133,7 +160,7 @@ program
 
     site
       .readSiteConfig()
-      .then((config) => {
+      .then(config => {
         serverConfig.mount.push([config.baseUrl || '/', outputFolder]);
         return site.generate();
       })
@@ -143,7 +170,8 @@ program
             logsFolder,
             outputFolder,
             /(^|[/\\])\../,
-            x => x.endsWith('___jb_tmp___'), x => x.endsWith('___jb_old___'), // IDE temp files
+            x => x.endsWith('___jb_tmp___'),
+            x => x.endsWith('___jb_old___'), // IDE temp files
           ],
           ignoreInitial: true,
         });
@@ -156,7 +184,8 @@ program
         const server = liveServer.start(serverConfig);
         server.addListener('listening', () => {
           const address = server.address();
-          const serveHost = address.address === '0.0.0.0' ? '127.0.0.1' : address.address;
+          const serveHost =
+            address.address === '0.0.0.0' ? '127.0.0.1' : address.address;
           const serveURL = `http://${serveHost}:${address.port}`;
           logger.info(`Serving "${outputFolder}" at ${serveURL}`);
           logger.info('Press CTRL+C to stop ...');
@@ -168,12 +197,13 @@ program
 program
   .command('deploy')
   .alias('d')
-  .description('deploy the site to the repo\'s Github pages.')
+  .description("deploy the site to the repo's Github pages.")
   .option('-t, --travis [tokenVar]', 'deploy the site in Travis [GITHUB_TOKEN]')
-  .action((options) => {
+  .action(options => {
     const rootFolder = path.resolve(process.cwd());
     const outputRoot = path.join(rootFolder, '_site');
-    new Site(rootFolder, outputRoot).deploy(options.travis)
+    new Site(rootFolder, outputRoot)
+      .deploy(options.travis)
       .then(() => {
         logger.info('Deployed!');
       })
@@ -184,8 +214,10 @@ program
 program
   .command('build [root] [output]')
   .alias('b')
-  .option('--baseUrl [baseUrl]',
-          'optional flag which overrides baseUrl in site.json, leave argument empty for empty baseUrl')
+  .option(
+    '--baseUrl [baseUrl]',
+    'optional flag which overrides baseUrl in site.json, leave argument empty for empty baseUrl',
+  )
   .description('build a website')
   .action((userSpecifiedRoot, output, options) => {
     // if --baseUrl contains no arguments (options.baseUrl === true) then set baseUrl to empty string
@@ -197,7 +229,9 @@ program
       handleError(err);
     }
     const defaultOutputRoot = path.join(rootFolder, '_site');
-    const outputFolder = output ? path.resolve(process.cwd(), output) : defaultOutputRoot;
+    const outputFolder = output
+      ? path.resolve(process.cwd(), output)
+      : defaultOutputRoot;
     printHeader();
     new Site(rootFolder, outputFolder)
       .generate(baseUrl)
@@ -209,10 +243,16 @@ program
 
 program.parse(process.argv);
 
-if (!program.args.length
-  || !(ACCEPTED_COMMANDS.concat(ACCEPTED_COMMANDS_ALIAS)).includes(process.argv[2])) {
+if (
+  !program.args.length ||
+  !ACCEPTED_COMMANDS.concat(ACCEPTED_COMMANDS_ALIAS).includes(process.argv[2])
+) {
   if (program.args.length) {
-    logger.warn(`Command '${program.args[0]}' doesn't exist, run "markbind --help" to list commands.`);
+    logger.warn(
+      `Command '${
+        program.args[0]
+      }' doesn't exist, run "markbind --help" to list commands.`,
+    );
   } else {
     printHeader();
     program.help();

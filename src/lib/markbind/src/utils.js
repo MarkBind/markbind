@@ -16,7 +16,7 @@ module.exports = {
     }
   },
 
-  ensurePosix: (filePath) => {
+  ensurePosix: filePath => {
     if (path.sep !== '/') {
       return filePath.replace(/\\/g, '/');
     }

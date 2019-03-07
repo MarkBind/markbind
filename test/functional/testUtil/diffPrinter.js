@@ -12,18 +12,18 @@ class DiffPrinter {
   static printLine(text = '', colour = 'none') {
     let ansiEscCode = '';
     switch (colour) {
-    case 'red':
-      ansiEscCode = ANSI_RED;
-      break;
-    case 'green':
-      ansiEscCode = ANSI_GREEN;
-      break;
-    case 'grey':
-      ansiEscCode = ANSI_GREY;
-      break;
-    default:
-      ansiEscCode = '';
-      break;
+      case 'red':
+        ansiEscCode = ANSI_RED;
+        break;
+      case 'green':
+        ansiEscCode = ANSI_GREEN;
+        break;
+      case 'grey':
+        ansiEscCode = ANSI_GREY;
+        break;
+      default:
+        ansiEscCode = '';
+        break;
     }
     process.stderr.write(`${ansiEscCode}${text}${ANSI_RESET}\n`);
   }

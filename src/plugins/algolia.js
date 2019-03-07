@@ -1,5 +1,7 @@
-const ALGOLIA_CSS_URL = 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css';
-const ALGOLIA_JS_URL = 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js';
+const ALGOLIA_CSS_URL =
+  'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css';
+const ALGOLIA_JS_URL =
+  'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js';
 const ALGOLIA_INPUT_SELECTOR = '#algolia-search-input';
 
 function buildAlgoliaInitScript(pluginContext) {
@@ -18,7 +20,11 @@ function buildAlgoliaInitScript(pluginContext) {
 }
 
 module.exports = {
-  getLinks: (content, pluginContext, frontMatter, utils) => [utils.buildStylesheet(ALGOLIA_CSS_URL)],
-  getScripts: (content, pluginContext, frontMatter, utils) =>
-    [utils.buildScript(ALGOLIA_JS_URL), buildAlgoliaInitScript(pluginContext)],
+  getLinks: (content, pluginContext, frontMatter, utils) => [
+    utils.buildStylesheet(ALGOLIA_CSS_URL),
+  ],
+  getScripts: (content, pluginContext, frontMatter, utils) => [
+    utils.buildScript(ALGOLIA_JS_URL),
+    buildAlgoliaInitScript(pluginContext),
+  ],
 };

@@ -18,14 +18,9 @@ test('includeFile replaces <include> with <div>', async () => {
   const indexPath = path.resolve('index.md');
   const includePath = path.resolve('include.md');
 
-  const index = [
-    '# Index',
-    '<include src="include.md" />',
-    '',
-  ].join('\n');
+  const index = ['# Index', '<include src="include.md" />', ''].join('\n');
 
   const include = ['# Include'].join('\n');
-
 
   const json = {
     'index.md': index,
@@ -59,11 +54,9 @@ test('includeFile replaces <include src="exist.md" optional> with <div>', async 
   const indexPath = path.resolve('index.md');
   const existPath = path.resolve('exist.md');
 
-  const index = [
-    '# Index',
-    '<include src="exist.md" optional/>',
-    '',
-  ].join('\n');
+  const index = ['# Index', '<include src="exist.md" optional/>', ''].join(
+    '\n',
+  );
 
   const exist = ['# Exist'].join('\n');
 
@@ -119,11 +112,7 @@ test('includeFile replaces <include src="doesNotExist.md" optional> with empty <
     userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
   });
 
-  const expected = [
-    '# Index',
-    '<div/>',
-    '',
-  ].join('\n');
+  const expected = ['# Index', '<div/>', ''].join('\n');
 
   expect(result).toEqual(expected);
 });
@@ -132,16 +121,13 @@ test('includeFile replaces <include src="include.md#exists"> with <div>', async 
   const indexPath = path.resolve('index.md');
   const includePath = path.resolve('include.md');
 
-  const index = [
-    '# Index',
-    '<include src="include.md#exists"/>',
-    '',
-  ].join('\n');
+  const index = ['# Index', '<include src="include.md#exists"/>', ''].join(
+    '\n',
+  );
 
-  const include = [
-    '# Include',
-    '<seg id="exists">existing segment</seg>',
-  ].join('\n');
+  const include = ['# Include', '<seg id="exists">existing segment</seg>'].join(
+    '\n',
+  );
 
   const json = {
     'index.md': index,
@@ -183,8 +169,9 @@ test('includeFile replaces <include src="include.md#doesNotExist"> with error <d
 
   const include = ['# Include'].join('\n');
 
-  const expectedErrorMessage = `No such segment 'doesNotExist' in file: ${includePath}`
-    + `\nMissing reference in ${indexPath}`;
+  const expectedErrorMessage =
+    `No such segment 'doesNotExist' in file: ${includePath}` +
+    `\nMissing reference in ${indexPath}`;
 
   const json = {
     'index.md': index,
@@ -196,7 +183,7 @@ test('includeFile replaces <include src="include.md#doesNotExist"> with error <d
   baseUrlMap[ROOT_PATH] = true;
 
   const markbinder = new MarkBind({
-    errorHandler: (e) => {
+    errorHandler: e => {
       expect(e.message).toEqual(expectedErrorMessage);
     },
   });
@@ -225,10 +212,9 @@ test('includeFile replaces <include src="include.md#exists" optional> with <div>
     '',
   ].join('\n');
 
-  const include = [
-    '# Include',
-    '<seg id="exists">existing segment</seg>',
-  ].join('\n');
+  const include = ['# Include', '<seg id="exists">existing segment</seg>'].join(
+    '\n',
+  );
 
   const json = {
     'index.md': index,
@@ -302,17 +288,9 @@ test('includeFile detects cyclic references for static cyclic includes', async (
   const indexPath = path.resolve('index.md');
   const includePath = path.resolve('include.md');
 
-  const index = [
-    '# Index',
-    '<include src="include.md" />',
-    '',
-  ].join('\n');
+  const index = ['# Index', '<include src="include.md" />', ''].join('\n');
 
-  const include = [
-    '# Include',
-    '<include src="index.md" />',
-    '',
-  ].join('\n');
+  const include = ['# Include', '<include src="index.md" />', ''].join('\n');
 
   const json = {
     'index.md': index,
@@ -334,7 +312,7 @@ test('includeFile detects cyclic references for static cyclic includes', async (
   ].join('\n');
 
   const markbinder = new MarkBind({
-    errorHandler: (e) => {
+    errorHandler: e => {
       expect(e.message).toEqual(expectedErrorMessage);
     },
   });
@@ -353,17 +331,13 @@ test('includeFile processes successfully for dynamic cyclic includes', async () 
   const indexPath = path.resolve('index.md');
   const includePath = path.resolve('include.md');
 
-  const index = [
-    '# Index',
-    '<include src="include.md" dynamic/>',
-    '',
-  ].join('\n');
+  const index = ['# Index', '<include src="include.md" dynamic/>', ''].join(
+    '\n',
+  );
 
-  const include = [
-    '# Include',
-    '<include src="index.md" dynamic/>',
-    '',
-  ].join('\n');
+  const include = ['# Include', '<include src="index.md" dynamic/>', ''].join(
+    '\n',
+  );
 
   const json = {
     'index.md': index,
@@ -383,8 +357,8 @@ test('includeFile processes successfully for dynamic cyclic includes', async () 
 
   const expected = [
     '# Index',
-    `<panel src="${includePath}" cwf="${indexPath}" include-path="${includePath}"`
-    + ' no-close="true" no-switch="true" header=""/>',
+    `<panel src="${includePath}" cwf="${indexPath}" include-path="${includePath}"` +
+      ' no-close="true" no-switch="true" header=""/>',
     '',
   ].join('\n');
 
@@ -396,14 +370,11 @@ test('includeFile replaces <include dynamic> with <panel>', async () => {
   const indexPath = path.resolve('index.md');
   const includePath = path.resolve('include.md');
 
-  const index = [
-    '# Index',
-    '<include src="include.md" dynamic />',
-    '',
-  ].join('\n');
+  const index = ['# Index', '<include src="include.md" dynamic />', ''].join(
+    '\n',
+  );
 
   const include = ['# Include'].join('\n');
-
 
   const json = {
     'index.md': index,
@@ -423,8 +394,8 @@ test('includeFile replaces <include dynamic> with <panel>', async () => {
 
   const expected = [
     '# Index',
-    `<panel src="${includePath}" cwf="${indexPath}" include-path="${includePath}"`
-    + ' no-close="true" no-switch="true" header=""/>',
+    `<panel src="${includePath}" cwf="${indexPath}" include-path="${includePath}"` +
+      ' no-close="true" no-switch="true" header=""/>',
     '',
   ].join('\n');
 
@@ -452,10 +423,7 @@ test('renderFile converts markdown headers to <h1>', async () => {
     rootPath,
   });
 
-  const expected = [
-    '<h1 id="index">Index</h1>',
-    '',
-  ].join('\n');
+  const expected = ['<h1 id="index">Index</h1>', ''].join('\n');
 
   expect(result).toEqual(expected);
 });

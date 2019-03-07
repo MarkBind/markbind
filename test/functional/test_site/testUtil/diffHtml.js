@@ -6,10 +6,13 @@ const jsdiff = require('diff');
  * false: src=""
  *        src="..."
  */
-const endsWithUnclosedPath = (fragment) => {
+const endsWithUnclosedPath = fragment => {
   for (let i = fragment.length - 1; i > 4; i -= 1) {
     if (fragment[i] === '"') {
-      if (fragment.substring(i - 4, i) === 'src=' || fragment.substring(i - 5, i) === 'href=') {
+      if (
+        fragment.substring(i - 4, i) === 'src=' ||
+        fragment.substring(i - 5, i) === 'href='
+      ) {
         return true;
       }
       return false;
@@ -26,7 +29,7 @@ const endsWithUnclosedPath = (fragment) => {
  *        <div/>
  *        <panel header="<a>link</a>"> src="...
  */
-const endsWithOpeningTag = (fragment) => {
+const endsWithOpeningTag = fragment => {
   let numUnmatchedClosingBracket = 0;
   for (let i = fragment.length - 1; i >= 0; i -= 1) {
     if (fragment[i] === '>') {
@@ -50,7 +53,7 @@ const endsWithOpeningTag = (fragment) => {
  * false: < src="...
  *        > "...
  */
-const startsWithClosedPath = (fragment) => {
+const startsWithClosedPath = fragment => {
   for (let i = 0; i <= fragment.length - 1; i += 1) {
     if (fragment[i] === '<' || fragment[i] === '>') {
       return false;
@@ -80,11 +83,9 @@ const diffHtml = (expected, actual) => {
   const isDiff = part => part.added || part.removed;
 
   // assumes no space between paths
-  const isClosedPath = fragment =>
-    insidePath
-    && startsWithClosedPath(fragment);
+  const isClosedPath = fragment => insidePath && startsWithClosedPath(fragment);
 
-  diff.forEach((part) => {
+  diff.forEach(part => {
     if (isClosedPath(part.value)) {
       insidePath = false;
     }

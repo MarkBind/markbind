@@ -59,30 +59,70 @@ test('Site Generate builds the correct amount of assets', async () => {
   expect(fs.existsSync(path.resolve('inner/_site'))).toEqual(true);
 
   // siteData
-  expect(fs.existsSync(path.resolve('inner/_site/siteData.json'))).toEqual(true);
+  expect(fs.existsSync(path.resolve('inner/_site/siteData.json'))).toEqual(
+    true,
+  );
 
   // markbind
   expect(fs.existsSync(path.resolve('inner/_site/markbind'))).toEqual(true);
 
   // css
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/bootstrap.min.css'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/bootstrap.min.css.map'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/github.min.css'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/markbind.css'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/page-nav.css'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/site-nav.css'))).toEqual(true);
+  expect(
+    fs.existsSync(path.resolve('inner/_site/markbind/css/bootstrap.min.css')),
+  ).toEqual(true);
+  expect(
+    fs.existsSync(
+      path.resolve('inner/_site/markbind/css/bootstrap.min.css.map'),
+    ),
+  ).toEqual(true);
+  expect(
+    fs.existsSync(path.resolve('inner/_site/markbind/css/github.min.css')),
+  ).toEqual(true);
+  expect(
+    fs.existsSync(path.resolve('inner/_site/markbind/css/markbind.css')),
+  ).toEqual(true);
+  expect(
+    fs.existsSync(path.resolve('inner/_site/markbind/css/page-nav.css')),
+  ).toEqual(true);
+  expect(
+    fs.existsSync(path.resolve('inner/_site/markbind/css/site-nav.css')),
+  ).toEqual(true);
 
   // js
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/js/setup.js'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/js/vue.min.js'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/js/vue-strap.min.js'))).toEqual(true);
+  expect(
+    fs.existsSync(path.resolve('inner/_site/markbind/js/setup.js')),
+  ).toEqual(true);
+  expect(
+    fs.existsSync(path.resolve('inner/_site/markbind/js/vue.min.js')),
+  ).toEqual(true);
+  expect(
+    fs.existsSync(path.resolve('inner/_site/markbind/js/vue-strap.min.js')),
+  ).toEqual(true);
 
   // layouts
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/layouts/default/footer.md'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/layouts/default/head.md'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/layouts/default/navigation.md'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/layouts/default/scripts.js'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/layouts/default/styles.css'))).toEqual(true);
+  expect(
+    fs.existsSync(
+      path.resolve('inner/_site/markbind/layouts/default/footer.md'),
+    ),
+  ).toEqual(true);
+  expect(
+    fs.existsSync(path.resolve('inner/_site/markbind/layouts/default/head.md')),
+  ).toEqual(true);
+  expect(
+    fs.existsSync(
+      path.resolve('inner/_site/markbind/layouts/default/navigation.md'),
+    ),
+  ).toEqual(true);
+  expect(
+    fs.existsSync(
+      path.resolve('inner/_site/markbind/layouts/default/scripts.js'),
+    ),
+  ).toEqual(true);
+  expect(
+    fs.existsSync(
+      path.resolve('inner/_site/markbind/layouts/default/styles.css'),
+    ),
+  ).toEqual(true);
 });
 
 test('Site Init in existing directory generates correct assets', async () => {
@@ -101,32 +141,53 @@ test('Site Init in existing directory generates correct assets', async () => {
   expect(fs.existsSync(path.resolve('_markbind/boilerplates'))).toEqual(true);
 
   // footer.md
-  expect(fs.readFileSync(path.resolve('_markbind/footers/footer.md'), 'utf8')).toEqual(FOOTER_MD_DEFAULT);
+  expect(
+    fs.readFileSync(path.resolve('_markbind/footers/footer.md'), 'utf8'),
+  ).toEqual(FOOTER_MD_DEFAULT);
 
   // head folder
   expect(fs.existsSync(path.resolve('_markbind/head'), 'utf8')).toEqual(true);
 
   // site-nav.md
-  expect(fs.readFileSync(path.resolve('_markbind/navigation/site-nav.md'), 'utf8'))
-    .toEqual(SITE_NAV_MD_DEFAULT);
+  expect(
+    fs.readFileSync(path.resolve('_markbind/navigation/site-nav.md'), 'utf8'),
+  ).toEqual(SITE_NAV_MD_DEFAULT);
 
   // user defined variables
-  expect(fs.readFileSync(path.resolve('_markbind/variables.md'), 'utf8')).toEqual(USER_VARIABLES_DEFAULT);
+  expect(
+    fs.readFileSync(path.resolve('_markbind/variables.md'), 'utf8'),
+  ).toEqual(USER_VARIABLES_DEFAULT);
 
   // site.json
-  expect(fs.readJsonSync(path.resolve('site.json'))).toEqual(JSON.parse(SITE_JSON_DEFAULT));
+  expect(fs.readJsonSync(path.resolve('site.json'))).toEqual(
+    JSON.parse(SITE_JSON_DEFAULT),
+  );
 
   // index.md
-  expect(fs.readFileSync(path.resolve('index.md'), 'utf8')).toEqual(INDEX_MD_DEFAULT);
+  expect(fs.readFileSync(path.resolve('index.md'), 'utf8')).toEqual(
+    INDEX_MD_DEFAULT,
+  );
 
   // layout defaults
   LAYOUT_FILES_DEFAULT.forEach(layoutFile =>
-    expect(fs.readFileSync(path.resolve(`_markbind/layouts/default/${layoutFile}`), 'utf8')).toEqual(''));
-  expect(fs.readFileSync(path.resolve('_markbind/layouts/default/scripts.js'), 'utf8'))
-    .toEqual(LAYOUT_SCRIPTS_DEFAULT);
+    expect(
+      fs.readFileSync(
+        path.resolve(`_markbind/layouts/default/${layoutFile}`),
+        'utf8',
+      ),
+    ).toEqual(''),
+  );
+  expect(
+    fs.readFileSync(
+      path.resolve('_markbind/layouts/default/scripts.js'),
+      'utf8',
+    ),
+  ).toEqual(LAYOUT_SCRIPTS_DEFAULT);
 
   // plugins folder
-  expect(fs.existsSync(path.resolve('_markbind/plugins'), 'utf8')).toEqual(true);
+  expect(fs.existsSync(path.resolve('_markbind/plugins'), 'utf8')).toEqual(
+    true,
+  );
 });
 
 test('Site Init in directory which does not exist generates correct assets', async () => {
@@ -142,38 +203,63 @@ test('Site Init in directory which does not exist generates correct assets', asy
 
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
-  expect(fs.existsSync(path.resolve('newDir/_markbind/boilerplates'))).toEqual(true);
+  expect(fs.existsSync(path.resolve('newDir/_markbind/boilerplates'))).toEqual(
+    true,
+  );
 
   // footer.md
-  expect(fs.readFileSync(path.resolve('newDir/_markbind/footers/footer.md'), 'utf8'))
-    .toEqual(FOOTER_MD_DEFAULT);
+  expect(
+    fs.readFileSync(path.resolve('newDir/_markbind/footers/footer.md'), 'utf8'),
+  ).toEqual(FOOTER_MD_DEFAULT);
 
   // head folder
-  expect(fs.existsSync(path.resolve('newDir/_markbind/head'), 'utf8')).toEqual(true);
+  expect(fs.existsSync(path.resolve('newDir/_markbind/head'), 'utf8')).toEqual(
+    true,
+  );
 
   // site-nav.md
-  expect(fs.readFileSync(path.resolve('newDir/_markbind/navigation/site-nav.md'), 'utf8'))
-    .toEqual(SITE_NAV_MD_DEFAULT);
+  expect(
+    fs.readFileSync(
+      path.resolve('newDir/_markbind/navigation/site-nav.md'),
+      'utf8',
+    ),
+  ).toEqual(SITE_NAV_MD_DEFAULT);
 
   // user defined variables
-  expect(fs.readFileSync(path.resolve('newDir/_markbind/variables.md'), 'utf8'))
-    .toEqual(USER_VARIABLES_DEFAULT);
+  expect(
+    fs.readFileSync(path.resolve('newDir/_markbind/variables.md'), 'utf8'),
+  ).toEqual(USER_VARIABLES_DEFAULT);
 
   // site.json
-  expect(fs.readJsonSync(path.resolve('newDir/site.json'))).toEqual(JSON.parse(SITE_JSON_DEFAULT));
+  expect(fs.readJsonSync(path.resolve('newDir/site.json'))).toEqual(
+    JSON.parse(SITE_JSON_DEFAULT),
+  );
 
   // index.md
-  expect(fs.readFileSync(path.resolve('newDir/index.md'), 'utf8')).toEqual(INDEX_MD_DEFAULT);
+  expect(fs.readFileSync(path.resolve('newDir/index.md'), 'utf8')).toEqual(
+    INDEX_MD_DEFAULT,
+  );
 
   // layout defaults
   LAYOUT_FILES_DEFAULT.forEach(layoutFile =>
-    expect(fs.readFileSync(path.resolve(`newDir/_markbind/layouts/default/${layoutFile}`), 'utf8'))
-      .toEqual(''));
-  expect(fs.readFileSync(path.resolve('newDir/_markbind/layouts/default/scripts.js'), 'utf8'))
-    .toEqual(LAYOUT_SCRIPTS_DEFAULT);
+    expect(
+      fs.readFileSync(
+        path.resolve(`newDir/_markbind/layouts/default/${layoutFile}`),
+        'utf8',
+      ),
+    ).toEqual(''),
+  );
+  expect(
+    fs.readFileSync(
+      path.resolve('newDir/_markbind/layouts/default/scripts.js'),
+      'utf8',
+    ),
+  ).toEqual(LAYOUT_SCRIPTS_DEFAULT);
 
   // plugins folder
-  expect(fs.existsSync(path.resolve('newDir/_markbind/plugins'), 'utf8')).toEqual(true);
+  expect(
+    fs.existsSync(path.resolve('newDir/_markbind/plugins'), 'utf8'),
+  ).toEqual(true);
 });
 
 test('Site baseurls are correct for sub nested subsites', async () => {
@@ -220,7 +306,10 @@ test('Site read site config for default', async () => {
   fs.vol.fromJSON(json, '');
 
   const siteConfigDefaults = { enableSearch: true };
-  const expectedSiteConfig = { ...JSON.parse(SITE_JSON_DEFAULT), ...siteConfigDefaults };
+  const expectedSiteConfig = {
+    ...JSON.parse(SITE_JSON_DEFAULT),
+    ...siteConfigDefaults,
+  };
   const site = new Site('./', '_site');
   await site.readSiteConfig();
   expect(site.siteConfig).toEqual(expectedSiteConfig);
@@ -235,11 +324,7 @@ test('Site read site config for custom site config', async () => {
         title: 'My Markbind Website',
       },
     ],
-    ignore: [
-      '_site/*',
-      '*.json',
-      '*.md',
-    ],
+    ignore: ['_site/*', '*.json', '*.md'],
     deploy: {
       message: 'Site Update.',
     },
@@ -263,10 +348,10 @@ test('Site resolves variables referencing other variables', async () => {
     'src/template/page.ejs': PAGE_EJS,
     'site.json': SITE_JSON_DEFAULT,
     '_markbind/variables.md':
-    '<span id="level1">variable</span>'
-    + '<span id="level2">{{level1}}</span>'
-    + '<span id="level3"><span style="color: blue">Blue text</span></span>'
-    + '<span id="level4">{{level3}}</span>',
+      '<span id="level1">variable</span>' +
+      '<span id="level2">{{level1}}</span>' +
+      '<span id="level3"><span style="color: blue">Blue text</span></span>' +
+      '<span id="level4">{{level3}}</span>',
   };
   fs.vol.fromJSON(json, '');
 
@@ -298,11 +383,11 @@ test('Site read correct user defined variables', async () => {
     'sub/sub/site.json': SITE_JSON_DEFAULT,
     'otherSub/sub/site.json': SITE_JSON_DEFAULT,
     '_markbind/variables.md':
-      '<span id="variable">variable</span>'
-      + '<span id="number">2</span>',
+      '<span id="variable">variable</span><span id="number">2</span>',
     'sub/_markbind/variables.md': '<span id="variable">sub_variable</span>',
     'sub/sub/_markbind/variables.md': '<span id="number">9999</span>',
-    'otherSub/sub/_markbind/variables.md': '<span id="variable">other_variable</span>',
+    'otherSub/sub/_markbind/variables.md':
+      '<span id="variable">other_variable</span>',
   };
   fs.vol.fromJSON(json, '');
 
@@ -342,8 +427,11 @@ test('Site deploys with default settings', async () => {
   const site = new Site('./', '_site');
   await site.deploy();
   expect(ghpages.dir).toEqual('_site');
-  expect(ghpages.options)
-    .toEqual({ branch: 'gh-pages', message: 'Site Update.', repo: '' });
+  expect(ghpages.options).toEqual({
+    branch: 'gh-pages',
+    message: 'Site Update.',
+    repo: '',
+  });
 });
 
 test('Site deploys with custom settings', async () => {
@@ -362,8 +450,11 @@ test('Site deploys with custom settings', async () => {
   const site = new Site('./', '_site');
   await site.deploy();
   expect(ghpages.dir).toEqual('_site');
-  expect(ghpages.options)
-    .toEqual({ branch: 'master', message: 'Custom Site Update.', repo: 'https://github.com/USER/REPO.git' });
+  expect(ghpages.options).toEqual({
+    branch: 'master',
+    message: 'Custom Site Update.',
+    repo: 'https://github.com/USER/REPO.git',
+  });
 });
 
 test('Site should not deploy without a built site', async () => {
@@ -373,11 +464,12 @@ test('Site should not deploy without a built site', async () => {
   };
   fs.vol.fromJSON(json, '');
   const site = new Site('./', '_site');
-  await expect(site.deploy())
-    .rejects
-    .toThrow(
-      new Error('The site directory does not exist. '
-        + 'Please build the site first before deploy.'));
+  await expect(site.deploy()).rejects.toThrow(
+    new Error(
+      'The site directory does not exist. ' +
+        'Please build the site first before deploy.',
+    ),
+  );
 });
 
 describe('Site deploy with Travis', () => {
@@ -409,9 +501,15 @@ describe('Site deploy with Travis', () => {
     fs.vol.fromJSON(json, '');
     const site = new Site('./', '_site');
     await site.deploy(true);
-    expect(ghpages.options.repo)
-      .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/${process.env.TRAVIS_REPO_SLUG}.git`);
-    expect(ghpages.options.user).toEqual({ name: 'Deployment Bot', email: 'deploy@travis-ci.org' });
+    expect(ghpages.options.repo).toEqual(
+      `https://${process.env.GITHUB_TOKEN}@github.com/${
+        process.env.TRAVIS_REPO_SLUG
+      }.git`,
+    );
+    expect(ghpages.options.user).toEqual({
+      name: 'Deployment Bot',
+      email: 'deploy@travis-ci.org',
+    });
   });
 
   test('Site deploy -t/--travis deploys with custom GitHub repo', async () => {
@@ -429,8 +527,9 @@ describe('Site deploy with Travis', () => {
     fs.vol.fromJSON(json, '');
     const site = new Site('./', '_site');
     await site.deploy(true);
-    expect(ghpages.options.repo)
-      .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/USER/REPO.git`);
+    expect(ghpages.options.repo).toEqual(
+      `https://${process.env.GITHUB_TOKEN}@github.com/USER/REPO.git`,
+    );
   });
 
   test('Site deploy -t/--travis deploys to correct repo when .git is in repo name', async () => {
@@ -446,8 +545,11 @@ describe('Site deploy with Travis', () => {
     fs.vol.fromJSON(json, '');
     const site = new Site('./', '_site');
     await site.deploy(true);
-    expect(ghpages.options.repo)
-      .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/TRAVIS_USER/TRAVIS_REPO.github.io.git`);
+    expect(ghpages.options.repo).toEqual(
+      `https://${
+        process.env.GITHUB_TOKEN
+      }@github.com/TRAVIS_USER/TRAVIS_REPO.github.io.git`,
+    );
   });
 
   test('Site deploy -t/--travis should not deploy if not in Travis', async () => {
@@ -458,9 +560,9 @@ describe('Site deploy with Travis', () => {
     };
     fs.vol.fromJSON(json, '');
     const site = new Site('./', '_site');
-    await expect(site.deploy(true))
-      .rejects
-      .toThrow(new Error('-t/--travis should only be run in Travis CI.'));
+    await expect(site.deploy(true)).rejects.toThrow(
+      new Error('-t/--travis should only be run in Travis CI.'),
+    );
   });
 
   test('Site deploy -t/--travis should not deploy without authentication token', async () => {
@@ -473,9 +575,9 @@ describe('Site deploy with Travis', () => {
     };
     fs.vol.fromJSON(json, '');
     const site = new Site('./', '_site');
-    await expect(site.deploy(true))
-      .rejects
-      .toThrow(new Error('The environment variable GITHUB_TOKEN does not exist.'));
+    await expect(site.deploy(true)).rejects.toThrow(
+      new Error('The environment variable GITHUB_TOKEN does not exist.'),
+    );
   });
 
   test('Site deploy -t/--travis should not deploy if custom repository is not on GitHub', async () => {
@@ -491,10 +593,14 @@ describe('Site deploy with Travis', () => {
     };
     fs.vol.fromJSON(json, '');
     const site = new Site('./', '_site');
-    await expect(site.deploy(true))
-      .rejects
-      .toThrow(new Error('-t/--travis expects a GitHub repository.\n'
-        + `The specified repository ${invalidRepoConfig.deploy.repo} is not valid.`));
+    await expect(site.deploy(true)).rejects.toThrow(
+      new Error(
+        '-t/--travis expects a GitHub repository.\n' +
+          `The specified repository ${
+            invalidRepoConfig.deploy.repo
+          } is not valid.`,
+      ),
+    );
   });
 });
 
@@ -588,16 +694,12 @@ const siteJsonResolvePropertiesTestCases = [
   },
 ];
 
-siteJsonResolvePropertiesTestCases.forEach((testCase) => {
+siteJsonResolvePropertiesTestCases.forEach(testCase => {
   test(testCase.name, async () => {
     const customSiteConfig = {
       baseUrl: '',
       pages: testCase.pages,
-      ignore: [
-        '_site/*',
-        '*.json',
-        '*.md',
-      ],
+      ignore: ['_site/*', '*.json', '*.md'],
       deploy: {
         message: 'Site Update.',
       },
@@ -611,8 +713,7 @@ siteJsonResolvePropertiesTestCases.forEach((testCase) => {
     const site = new Site('./', '_site');
     site.siteConfig = customSiteConfig;
     await site.collectAddressablePages();
-    expect(site.addressablePages)
-      .toEqual(testCase.expected);
+    expect(site.addressablePages).toEqual(testCase.expected);
   });
 });
 
@@ -629,11 +730,7 @@ test('Site config throws error on duplicate page src', async () => {
         title: 'Title',
       },
     ],
-    ignore: [
-      '_site/*',
-      '*.json',
-      '*.md',
-    ],
+    ignore: ['_site/*', '*.json', '*.md'],
     deploy: {
       message: 'Site Update.',
     },
@@ -646,7 +743,7 @@ test('Site config throws error on duplicate page src', async () => {
 
   const site = new Site('./', '_site');
   site.siteConfig = customSiteConfig;
-  expect(site.collectAddressablePages())
-    .rejects
-    .toThrow(new Error('Duplicate page entries found in site config: index.md'));
+  expect(site.collectAddressablePages()).rejects.toThrow(
+    new Error('Duplicate page entries found in site config: index.md'),
+  );
 });

@@ -16,16 +16,19 @@ module.exports = {
       normalizedRoot += path.sep;
     }
     const normalizedFilename = path.normalize(fileName);
-    return (normalizedFilename.substr(0, normalizedRoot.length) === normalizedRoot);
+    return (
+      normalizedFilename.substr(0, normalizedRoot.length) === normalizedRoot
+    );
   },
 
-  isUrl: (unknownPath) => {
+  isUrl: unknownPath => {
     const r = new RegExp('^(?:[a-z]+:)?//', 'i');
     return r.test(unknownPath);
   },
 
-  setExtension: (normalizedFilename, ext) => path.join(
-    path.dirname(normalizedFilename),
-    path.basename(normalizedFilename, path.extname(normalizedFilename)) + ext,
-  ),
+  setExtension: (normalizedFilename, ext) =>
+    path.join(
+      path.dirname(normalizedFilename),
+      path.basename(normalizedFilename, path.extname(normalizedFilename)) + ext,
+    ),
 };

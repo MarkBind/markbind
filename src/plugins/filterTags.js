@@ -13,24 +13,30 @@ function filterTags(tags, content) {
   const $ = cheerio.load(content, { xmlMode: false });
   const tagOperations = tags.map(tag => ({
     // Trim leading + or -, replace * with .*, add ^ and $
-    tagExp: `^${escapeRegExp(tag.replace(/^(\+|-)/g, '')).replace(/\\\*/, '.*')}$`,
+    tagExp: `^${escapeRegExp(tag.replace(/^(\+|-)/g, '')).replace(
+      /\\\*/,
+      '.*',
+    )}$`,
     // Whether it is makes tags visible or hides them
     isHidden: tag.startsWith('-'),
   }));
   $('[tags]').each((i, element) => {
     $(element).attr('hidden', true);
-    $(element).attr('tags').split(' ').forEach((tag) => {
-      tagOperations.forEach((tagOperation) => {
-        if (!tag.match(tagOperation.tagExp)) {
-          return;
-        }
-        if (tagOperation.isHidden) {
-          $(element).attr('hidden', true);
-        } else {
-          $(element).removeAttr('hidden');
-        }
+    $(element)
+      .attr('tags')
+      .split(' ')
+      .forEach(tag => {
+        tagOperations.forEach(tagOperation => {
+          if (!tag.match(tagOperation.tagExp)) {
+            return;
+          }
+          if (tagOperation.isHidden) {
+            $(element).attr('hidden', true);
+          } else {
+            $(element).removeAttr('hidden');
+          }
+        });
       });
-    });
   });
   $('[hidden]').remove();
   return $.html();
@@ -39,7 +45,9 @@ function filterTags(tags, content) {
 module.exports = {
   postRender: (content, pluginContext, frontMatter) => {
     // Tags specified in site.json will be merged with tags specified in front matter
-    const mergedTags = (frontMatter.tags || []).concat(pluginContext.tags || []);
+    const mergedTags = (frontMatter.tags || []).concat(
+      pluginContext.tags || [],
+    );
     return filterTags(mergedTags, content);
   },
 };

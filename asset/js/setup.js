@@ -5,7 +5,9 @@ Vue.use(VueStrap);
 function scrollToUrlAnchorHeading() {
   if (window.location.hash) {
     // remove leading hash to get element ID
-    const headingElement = document.getElementById(window.location.hash.slice(1));
+    const headingElement = document.getElementById(
+      window.location.hash.slice(1),
+    );
     if (headingElement) {
       headingElement.scrollIntoView();
       window.scrollBy(0, -document.body.style.paddingTop.replace('px', ''));
@@ -15,37 +17,44 @@ function scrollToUrlAnchorHeading() {
 
 function flattenModals() {
   jQuery('.modal').each((index, modal) => {
-    jQuery(modal).detach().appendTo(jQuery('#app'));
+    jQuery(modal)
+      .detach()
+      .appendTo(jQuery('#app'));
   });
 }
 
 function setupAnchors() {
   jQuery('h1, h2, h3, h4, h5, h6, .header-wrapper').each((index, heading) => {
-    jQuery(heading).on('mouseenter',
-                       () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'visible'));
-    jQuery(heading).on('mouseleave',
-                       () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'hidden'));
+    jQuery(heading).on('mouseenter', () =>
+      jQuery(heading)
+        .find('.fa.fa-anchor')
+        .css('visibility', 'visible'),
+    );
+    jQuery(heading).on('mouseleave', () =>
+      jQuery(heading)
+        .find('.fa.fa-anchor')
+        .css('visibility', 'hidden'),
+    );
   });
   jQuery('.fa-anchor').each((index, anchor) => {
-    jQuery(anchor).on('click', function () {
+    jQuery(anchor).on('click', function() {
       window.location.href = jQuery(this).attr('href');
     });
   });
 }
 
 function updateSearchData(vm) {
-  jQuery.getJSON(`${baseUrl}/siteData.json`)
-    .then((siteData) => {
-      // eslint-disable-next-line no-param-reassign
-      vm.searchData = siteData.pages;
-    });
+  jQuery.getJSON(`${baseUrl}/siteData.json`).then(siteData => {
+    // eslint-disable-next-line no-param-reassign
+    vm.searchData = siteData.pages;
+  });
 }
 
 const MarkBind = {
   executeAfterSetupScripts: jQuery.Deferred(),
 };
 
-MarkBind.afterSetup = (func) => {
+MarkBind.afterSetup = func => {
   if (document.readyState !== 'loading') {
     func();
   } else {
@@ -71,7 +80,7 @@ function setupSiteNav() {
   // Add event listener for site-nav-btn to toggle itself and site navigation elements.
   const siteNavBtn = document.getElementById('site-nav-btn');
   if (siteNavBtn) {
-    siteNavBtn.addEventListener('click', function () {
+    siteNavBtn.addEventListener('click', function() {
       this.classList.toggle('shift');
       document.getElementById('site-nav').classList.toggle('open');
       document.getElementById('site-nav-btn-wrap').classList.toggle('open');
@@ -80,19 +89,23 @@ function setupSiteNav() {
   // Creates event listener for all dropdown-btns in page.
   Array.prototype.forEach.call(
     document.getElementsByClassName('dropdown-btn'),
-    dropdownBtn => dropdownBtn.addEventListener('click', function () {
-      this.classList.toggle('dropdown-btn-open');
-      const dropdownContent = this.nextElementSibling;
-      const dropdownIcon = this.lastElementChild;
-      dropdownContent.classList.toggle('dropdown-container-open');
-      dropdownIcon.classList.toggle('rotate-icon');
-    }),
+    dropdownBtn =>
+      dropdownBtn.addEventListener('click', function() {
+        this.classList.toggle('dropdown-btn-open');
+        const dropdownContent = this.nextElementSibling;
+        const dropdownIcon = this.lastElementChild;
+        dropdownContent.classList.toggle('dropdown-container-open');
+        dropdownIcon.classList.toggle('rotate-icon');
+      }),
   );
 }
 
 function setupPageNav() {
   jQuery(window).on('activate.bs.scrollspy', (event, obj) => {
-    document.querySelectorAll(`a[href='${obj.relatedTarget}']`).item(0).scrollIntoView(false);
+    document
+      .querySelectorAll(`a[href='${obj.relatedTarget}']`)
+      .item(0)
+      .scrollIntoView(false);
   });
 }
 

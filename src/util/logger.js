@@ -8,7 +8,7 @@ const DailyRotateFile = require('winston-daily-rotate-file');
 winston.configure({
   exitOnError: false,
   transports: [
-    new (winston.transports.Console)({
+    new winston.transports.Console({
       colorize: true,
       handleExceptions: true,
       humanReadableUnhandledException: true,
@@ -29,26 +29,29 @@ winston.configure({
 });
 
 module.exports = {
-  error: (text) => {
+  error: text => {
     winston.error(text);
   },
-  warn: (text) => {
+  warn: text => {
     winston.warn(text);
   },
-  info: (text) => {
+  info: text => {
     winston.info(text);
   },
-  verbose: (text) => {
+  verbose: text => {
     winston.verbose(text);
   },
-  debug: (text) => {
+  debug: text => {
     winston.debug(text);
   },
-  log: (text) => {
+  log: text => {
     console.log(text);
   },
-  logo: () => console.log(chalk.cyan(figlet.textSync('MarkBind', { horizontalLayout: 'full' }))),
-  profile: (key) => {
+  logo: () =>
+    console.log(
+      chalk.cyan(figlet.textSync('MarkBind', { horizontalLayout: 'full' })),
+    ),
+  profile: key => {
     winston.profile(key);
   },
 };

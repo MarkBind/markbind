@@ -32,11 +32,13 @@ const BOILERPLATE_FOLDER_NAME = '_markbind/boilerplates';
  */
 
 /**
-* @throws Will throw an error if a non-absolute path or path outside the root is given
-*/
+ * @throws Will throw an error if a non-absolute path or path outside the root is given
+ */
 function calculateNewBaseUrls(filePath, root, lookUp) {
   if (!path.isAbsolute(filePath)) {
-    throw new Error(`Non-absolute path given to calculateNewBaseUrls: '${filePath}'`);
+    throw new Error(
+      `Non-absolute path given to calculateNewBaseUrls: '${filePath}'`,
+    );
   }
   if (!pathIsInside(filePath, root)) {
     throw new Error(`Path given '${filePath}' is not in root '${root}'`);
@@ -58,13 +60,28 @@ function calculateNewBaseUrls(filePath, root, lookUp) {
 }
 
 function calculateBoilerplateFilePath(pathInBoilerplates, asIfAt, config) {
-  const { parent, relative } = calculateNewBaseUrls(asIfAt, config.rootPath, config.baseUrlMap);
-  return path.resolve(parent, relative, BOILERPLATE_FOLDER_NAME, pathInBoilerplates);
+  const { parent, relative } = calculateNewBaseUrls(
+    asIfAt,
+    config.rootPath,
+    config.baseUrlMap,
+  );
+  return path.resolve(
+    parent,
+    relative,
+    BOILERPLATE_FOLDER_NAME,
+    pathInBoilerplates,
+  );
 }
 
 function createErrorNode(element, error) {
-  const errorElement = cheerio.parseHTML(utils.createErrorElement(error), true)[0];
-  return Object.assign(element, _.pick(errorElement, ['name', 'attribs', 'children']));
+  const errorElement = cheerio.parseHTML(
+    utils.createErrorElement(error),
+    true,
+  )[0];
+  return Object.assign(
+    element,
+    _.pick(errorElement, ['name', 'attribs', 'children']),
+  );
 }
 
 function createEmptyNode() {
@@ -94,7 +111,7 @@ function Parser(options) {
  */
 function extractIncludeVariables(includeElement, contextVariables) {
   const includedVariables = { ...contextVariables };
-  Object.keys(includeElement.attribs).forEach((attribute) => {
+  Object.keys(includeElement.attribs).forEach(attribute => {
     if (!attribute.startsWith('var-')) {
       return;
     }
@@ -104,14 +121,18 @@ function extractIncludeVariables(includeElement, contextVariables) {
     }
   });
   if (includeElement.children) {
-    includeElement.children.forEach((child) => {
+    includeElement.children.forEach(child => {
       if (child.name !== 'span') {
         return;
       }
       if (!child.attribs.id) {
         // eslint-disable-next-line no-console
-        console.warn(`Missing reference in ${includeElement.attribs[ATTRIB_CWF]}\n`
-                   + `Missing 'id' in variable for ${includeElement.attribs.src} include.`);
+        console.warn(
+          `Missing reference in ${includeElement.attribs[ATTRIB_CWF]}\n` +
+            `Missing 'id' in variable for ${
+              includeElement.attribs.src
+            } include.`,
+        );
         return;
       }
       if (!includedVariables[child.attribs.id]) {
@@ -129,10 +150,15 @@ function extractIncludeVariables(includeElement, contextVariables) {
  * @param userDefinedVariables global variables
  * @param includedVariables variables from parent include
  */
-function extractPageVariables(fileName, data, userDefinedVariables, includedVariables) {
+function extractPageVariables(
+  fileName,
+  data,
+  userDefinedVariables,
+  includedVariables,
+) {
   const $ = cheerio.load(data);
-  const pageVariables = { };
-  $('variable').each(function () {
+  const pageVariables = {};
+  $('variable').each(function() {
     const variableElement = $(this);
     const variableName = variableElement.attr('name');
     if (!variableName) {
@@ -141,31 +167,32 @@ function extractPageVariables(fileName, data, userDefinedVariables, includedVari
       return;
     }
     if (!pageVariables[variableName]) {
-      pageVariables[variableName]
-        = nunjucks.renderString(md.renderInline(variableElement.html()),
-                                { ...pageVariables, ...userDefinedVariables, ...includedVariables });
+      pageVariables[variableName] = nunjucks.renderString(
+        md.renderInline(variableElement.html()),
+        { ...pageVariables, ...userDefinedVariables, ...includedVariables },
+      );
     }
   });
   return pageVariables;
 }
 
-Parser.prototype.getDynamicIncludeSrc = function () {
+Parser.prototype.getDynamicIncludeSrc = function() {
   return _.clone(this.dynamicIncludeSrc);
 };
 
-Parser.prototype.getStaticIncludeSrc = function () {
+Parser.prototype.getStaticIncludeSrc = function() {
   return _.clone(this.staticIncludeSrc);
 };
 
-Parser.prototype.getBoilerplateIncludeSrc = function () {
+Parser.prototype.getBoilerplateIncludeSrc = function() {
   return _.clone(this.boilerplateIncludeSrc);
 };
 
-Parser.prototype.getMissingIncludeSrc = function () {
+Parser.prototype.getMissingIncludeSrc = function() {
   return _.clone(this.missingIncludeSrc);
 };
 
-Parser.prototype._preprocess = function (node, context, config) {
+Parser.prototype._preprocess = function(node, context, config) {
   const element = node;
   const self = this;
   element.attribs = element.attribs || {};
@@ -173,7 +200,11 @@ Parser.prototype._preprocess = function (node, context, config) {
 
   const requiresSrc = ['include'].includes(element.name);
   if (requiresSrc && _.isEmpty(element.attribs.src)) {
-    const error = new Error(`Empty src attribute in ${element.name} in: ${element.attribs[ATTRIB_CWF]}`);
+    const error = new Error(
+      `Empty src attribute in ${element.name} in: ${
+        element.attribs[ATTRIB_CWF]
+      }`,
+    );
     this._onError(error);
     return createErrorNode(element, error);
   }
@@ -189,22 +220,36 @@ Parser.prototype._preprocess = function (node, context, config) {
     includeSrc = url.parse(element.attribs.src);
     filePath = isUrl
       ? element.attribs.src
-      : path.resolve(path.dirname(context.cwf), decodeURIComponent(includeSrc.path));
+      : path.resolve(
+          path.dirname(context.cwf),
+          decodeURIComponent(includeSrc.path),
+        );
     actualFilePath = filePath;
     const isBoilerplate = _.hasIn(element.attribs, 'boilerplate');
     if (isBoilerplate) {
-      element.attribs.boilerplate = element.attribs.boilerplate || path.basename(filePath);
-      actualFilePath = calculateBoilerplateFilePath(element.attribs.boilerplate, filePath, config);
-      this.boilerplateIncludeSrc.push({ from: context.cwf, to: actualFilePath });
+      element.attribs.boilerplate =
+        element.attribs.boilerplate || path.basename(filePath);
+      actualFilePath = calculateBoilerplateFilePath(
+        element.attribs.boilerplate,
+        filePath,
+        config,
+      );
+      this.boilerplateIncludeSrc.push({
+        from: context.cwf,
+        to: actualFilePath,
+      });
     }
-    const isOptional = element.name === 'include' && _.hasIn(element.attribs, 'optional');
+    const isOptional =
+      element.name === 'include' && _.hasIn(element.attribs, 'optional');
     if (!utils.fileExists(actualFilePath)) {
       if (isOptional) {
         return createEmptyNode();
       }
       this.missingIncludeSrc.push({ from: context.cwf, to: actualFilePath });
       const error = new Error(
-        `No such file: ${actualFilePath}\nMissing reference in ${element.attribs[ATTRIB_CWF]}`,
+        `No such file: ${actualFilePath}\nMissing reference in ${
+          element.attribs[ATTRIB_CWF]
+        }`,
       );
       this._onError(error);
       return createErrorNode(element, error);
@@ -235,7 +280,11 @@ Parser.prototype._preprocess = function (node, context, config) {
 
       element.attribs.header = element.attribs.name || '';
       delete element.attribs.dynamic;
-      this.dynamicIncludeSrc.push({ from: context.cwf, to: actualFilePath, asIfTo: element.attribs.src });
+      this.dynamicIncludeSrc.push({
+        from: context.cwf,
+        to: actualFilePath,
+        asIfTo: element.attribs.src,
+      });
       return element;
     }
 
@@ -247,10 +296,13 @@ Parser.prototype._preprocess = function (node, context, config) {
 
     try {
       self._fileCache[actualFilePath] = self._fileCache[actualFilePath]
-        ? self._fileCache[actualFilePath] : fs.readFileSync(actualFilePath, 'utf8');
+        ? self._fileCache[actualFilePath]
+        : fs.readFileSync(actualFilePath, 'utf8');
     } catch (e) {
       // Read file fail
-      const missingReferenceErrorMessage = `Missing reference in: ${element.attribs[ATTRIB_CWF]}`;
+      const missingReferenceErrorMessage = `Missing reference in: ${
+        element.attribs[ATTRIB_CWF]
+      }`;
       e.message += `\n${missingReferenceErrorMessage}`;
       this._onError(e);
       return createErrorNode(element, e);
@@ -264,23 +316,37 @@ Parser.prototype._preprocess = function (node, context, config) {
     }
 
     let fileContent = self._fileCache[actualFilePath]; // cache the file contents to save some I/O
-    const { parent, relative } = calculateNewBaseUrls(filePath, config.rootPath, config.baseUrlMap);
-    const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
+    const { parent, relative } = calculateNewBaseUrls(
+      filePath,
+      config.rootPath,
+      config.baseUrlMap,
+    );
+    const userDefinedVariables =
+      config.userDefinedVariablesMap[path.resolve(parent, relative)];
 
     // Extract included variables from the PARENT file
-    const includeVariables = extractIncludeVariables(element, context.variables);
+    const includeVariables = extractIncludeVariables(
+      element,
+      context.variables,
+    );
 
     // Extract page variables from the CHILD file
-    const pageVariables = extractPageVariables(element.attribs.src, fileContent,
-                                               userDefinedVariables, includeVariables);
+    const pageVariables = extractPageVariables(
+      element.attribs.src,
+      fileContent,
+      userDefinedVariables,
+      includeVariables,
+    );
 
     // Render inner file content
-    fileContent = nunjucks.renderString(fileContent,
-                                        { ...pageVariables, ...includeVariables, ...userDefinedVariables },
-                                        { path: actualFilePath });
+    fileContent = nunjucks.renderString(
+      fileContent,
+      { ...pageVariables, ...includeVariables, ...userDefinedVariables },
+      { path: actualFilePath },
+    );
 
     // Delete variable attributes in include
-    Object.keys(element.attribs).forEach((attribute) => {
+    Object.keys(element.attribs).forEach(attribute => {
       if (attribute.startsWith('var-')) {
         delete element.attribs[attribute];
       }
@@ -306,8 +372,10 @@ Parser.prototype._preprocess = function (node, context, config) {
           actualContent = '';
         } else {
           const error = new Error(
-            `No such segment '${includeSrc.hash.substring(1)}' in file: ${actualFilePath}`
-              + `\nMissing reference in ${element.attribs[ATTRIB_CWF]}`,
+            `No such segment '${includeSrc.hash.substring(
+              1,
+            )}' in file: ${actualFilePath}` +
+              `\nMissing reference in ${element.attribs[ATTRIB_CWF]}`,
           );
           this._onError(error);
           return createErrorNode(element, error);
@@ -321,18 +389,26 @@ Parser.prototype._preprocess = function (node, context, config) {
 
       if (isIncludeSrcMd) {
         if (context.mode === 'include') {
-          actualContent = isInline ? actualContent : utils.wrapContent(actualContent, '\n\n', '\n');
+          actualContent = isInline
+            ? actualContent
+            : utils.wrapContent(actualContent, '\n\n', '\n');
         } else {
           actualContent = md.render(actualContent);
         }
-        actualContent = self._rebaseReferenceForStaticIncludes(actualContent, element, config);
+        actualContent = self._rebaseReferenceForStaticIncludes(
+          actualContent,
+          element,
+          config,
+        );
       }
       element.children = cheerio.parseHTML(actualContent, true); // the needed content;
     } else {
       let actualContent = fileContent;
       if (isIncludeSrcMd) {
         if (context.mode === 'include') {
-          actualContent = isInline ? actualContent : utils.wrapContent(actualContent, '\n\n', '\n');
+          actualContent = isInline
+            ? actualContent
+            : utils.wrapContent(actualContent, '\n\n', '\n');
         } else {
           actualContent = md.render(actualContent);
         }
@@ -349,36 +425,50 @@ Parser.prototype._preprocess = function (node, context, config) {
     childContext.variables = includeVariables;
 
     if (element.children && element.children.length > 0) {
-      if (childContext.callStack.length > CyclicReferenceError.MAX_RECURSIVE_DEPTH) {
+      if (
+        childContext.callStack.length > CyclicReferenceError.MAX_RECURSIVE_DEPTH
+      ) {
         const error = new CyclicReferenceError(childContext.callStack);
         this._onError(error);
         return createErrorNode(element, error);
       }
-      element.children = element.children.map(e => self._preprocess(e, childContext, config));
+      element.children = element.children.map(e =>
+        self._preprocess(e, childContext, config),
+      );
     }
-  } else if ((element.name === 'panel') && hasSrc) {
+  } else if (element.name === 'panel' && hasSrc) {
     if (!isUrl && includeSrc.hash) {
       element.attribs.fragment = includeSrc.hash.substring(1); // save hash to fragment attribute
     }
     element.attribs.src = filePath;
-    this.dynamicIncludeSrc.push({ from: context.cwf, to: actualFilePath, asIfTo: filePath });
+    this.dynamicIncludeSrc.push({
+      from: context.cwf,
+      to: actualFilePath,
+      asIfTo: filePath,
+    });
     return element;
   } else if (element.name === 'variable') {
     return createEmptyNode();
   } else {
     if (element.name === 'body') {
       // eslint-disable-next-line no-console
-      console.warn(`<body> tag found in ${element.attribs[ATTRIB_CWF]}. This may cause formatting errors.`);
+      console.warn(
+        `<body> tag found in ${
+          element.attribs[ATTRIB_CWF]
+        }. This may cause formatting errors.`,
+      );
     }
     if (element.children && element.children.length > 0) {
-      element.children = element.children.map(e => self._preprocess(e, context, config));
+      element.children = element.children.map(e =>
+        self._preprocess(e, context, config),
+      );
     }
   }
 
   return element;
 };
 
-Parser.prototype._parse = function (node, context, config) {
+Parser.prototype._parse = function(node, context, config) {
   const element = node;
   const self = this;
   if (_.isArray(element)) {
@@ -393,40 +483,60 @@ Parser.prototype._parse = function (node, context, config) {
   }
 
   switch (element.name) {
-  case 'md':
-    element.name = 'span';
-    cheerio.prototype.options.xmlMode = false;
-    element.children = cheerio.parseHTML(md.renderInline(cheerio.html(element.children)), true);
-    cheerio.prototype.options.xmlMode = true;
-    break;
-  case 'markdown':
-    element.name = 'div';
-    cheerio.prototype.options.xmlMode = false;
-    element.children = cheerio.parseHTML(md.render(cheerio.html(element.children)), true);
-    cheerio.prototype.options.xmlMode = true;
-    break;
-  case 'panel': {
-    if (!_.hasIn(element.attribs, 'src')) { // dynamic panel
+    case 'md':
+      element.name = 'span';
+      cheerio.prototype.options.xmlMode = false;
+      element.children = cheerio.parseHTML(
+        md.renderInline(cheerio.html(element.children)),
+        true,
+      );
+      cheerio.prototype.options.xmlMode = true;
+      break;
+    case 'markdown':
+      element.name = 'div';
+      cheerio.prototype.options.xmlMode = false;
+      element.children = cheerio.parseHTML(
+        md.render(cheerio.html(element.children)),
+        true,
+      );
+      cheerio.prototype.options.xmlMode = true;
+      break;
+    case 'panel': {
+      if (!_.hasIn(element.attribs, 'src')) {
+        // dynamic panel
+        break;
+      }
+      const fileExists =
+        utils.fileExists(element.attribs.src) ||
+        utils.fileExists(
+          calculateBoilerplateFilePath(
+            element.attribs.boilerplate,
+            element.attribs.src,
+            config,
+          ),
+        );
+      if (fileExists) {
+        const { src, fragment } = element.attribs;
+        const resultDir = path.dirname(
+          path.join('{{hostBaseUrl}}', path.relative(config.rootPath, src)),
+        );
+        const resultPath = path.join(
+          resultDir,
+          utils.setExtension(path.basename(src), '._include_.html'),
+        );
+        element.attribs.src = utils.ensurePosix(
+          fragment ? `${resultPath}#${fragment}` : resultPath,
+        );
+      }
+      delete element.attribs.boilerplate;
       break;
     }
-    const fileExists = utils.fileExists(element.attribs.src)
-                    || utils.fileExists(calculateBoilerplateFilePath(element.attribs.boilerplate,
-                                                                     element.attribs.src, config));
-    if (fileExists) {
-      const { src, fragment } = element.attribs;
-      const resultDir = path.dirname(path.join('{{hostBaseUrl}}', path.relative(config.rootPath, src)));
-      const resultPath = path.join(resultDir, utils.setExtension(path.basename(src), '._include_.html'));
-      element.attribs.src = utils.ensurePosix(fragment ? `${resultPath}#${fragment}` : resultPath);
-    }
-    delete element.attribs.boilerplate;
-    break;
-  }
-  default:
-    break;
+    default:
+      break;
   }
 
   if (element.children) {
-    element.children.forEach((child) => {
+    element.children.forEach(child => {
       self._parse(child, context, config);
     });
   }
@@ -434,7 +544,7 @@ Parser.prototype._parse = function (node, context, config) {
   return element;
 };
 
-Parser.prototype._trimNodes = function (node) {
+Parser.prototype._trimNodes = function(node) {
   const self = this;
   if (node.name === 'pre' || node.name === 'code') {
     return;
@@ -444,8 +554,10 @@ Parser.prototype._trimNodes = function (node) {
     for (let n = 0; n < node.children.length; n++) {
       const child = node.children[n];
       if (
-        child.type === 'comment'
-        || (child.type === 'text' && n === node.children.length - 1 && !/\S/.test(child.data))
+        child.type === 'comment' ||
+        (child.type === 'text' &&
+          n === node.children.length - 1 &&
+          !/\S/.test(child.data))
       ) {
         node.children.splice(n, 1);
         n--;
@@ -457,7 +569,7 @@ Parser.prototype._trimNodes = function (node) {
   }
 };
 
-Parser.prototype.includeFile = function (file, config) {
+Parser.prototype.includeFile = function(file, config) {
   const context = {};
   context.cwf = config.cwf || file; // current working file
   context.mode = 'include';
@@ -469,7 +581,7 @@ Parser.prototype.includeFile = function (file, config) {
         reject(error);
         return;
       }
-      const nodes = dom.map((d) => {
+      const nodes = dom.map(d => {
         let processed;
         try {
           processed = this._preprocess(d, context, config);
@@ -490,7 +602,11 @@ Parser.prototype.includeFile = function (file, config) {
 
     let actualFilePath = file;
     if (!utils.fileExists(file)) {
-      const boilerplateFilePath = calculateBoilerplateFilePath(path.basename(file), file, config);
+      const boilerplateFilePath = calculateBoilerplateFilePath(
+        path.basename(file),
+        file,
+        config,
+      );
       if (utils.fileExists(boilerplateFilePath)) {
         actualFilePath = boilerplateFilePath;
       }
@@ -502,12 +618,24 @@ Parser.prototype.includeFile = function (file, config) {
         reject(err);
         return;
       }
-      const { parent, relative } = calculateNewBaseUrls(file, config.rootPath, config.baseUrlMap);
-      const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
-      const pageVariables = extractPageVariables(path.basename(file), data, userDefinedVariables, {});
-      const fileContent = nunjucks.renderString(data,
-                                                { ...pageVariables, ...userDefinedVariables },
-                                                { path: actualFilePath });
+      const { parent, relative } = calculateNewBaseUrls(
+        file,
+        config.rootPath,
+        config.baseUrlMap,
+      );
+      const userDefinedVariables =
+        config.userDefinedVariablesMap[path.resolve(parent, relative)];
+      const pageVariables = extractPageVariables(
+        path.basename(file),
+        data,
+        userDefinedVariables,
+        {},
+      );
+      const fileContent = nunjucks.renderString(
+        data,
+        { ...pageVariables, ...userDefinedVariables },
+        { path: actualFilePath },
+      );
       const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
         context.source = 'md';
@@ -523,7 +651,7 @@ Parser.prototype.includeFile = function (file, config) {
   });
 };
 
-Parser.prototype.renderFile = function (file, config) {
+Parser.prototype.renderFile = function(file, config) {
   const context = {};
   context.cwf = file; // current working file
   context.mode = 'render';
@@ -533,7 +661,7 @@ Parser.prototype.renderFile = function (file, config) {
         reject(error);
         return;
       }
-      const nodes = dom.map((d) => {
+      const nodes = dom.map(d => {
         let parsed;
         try {
           parsed = this._parse(d, context, config);
@@ -544,7 +672,7 @@ Parser.prototype.renderFile = function (file, config) {
         }
         return parsed;
       });
-      nodes.forEach((d) => {
+      nodes.forEach(d => {
         this._trimNodes(d);
       });
       cheerio.prototype.options.xmlMode = false;
@@ -579,7 +707,7 @@ Parser.prototype.renderFile = function (file, config) {
   });
 };
 
-Parser.prototype.resolveBaseUrl = function (pageData, config) {
+Parser.prototype.resolveBaseUrl = function(pageData, config) {
   const { baseUrlMap, rootPath, isDynamic } = config;
   this.baseUrlMap = baseUrlMap;
   this.rootPath = rootPath;
@@ -593,7 +721,7 @@ Parser.prototype.resolveBaseUrl = function (pageData, config) {
         reject(error);
         return;
       }
-      const nodes = dom.map((d) => {
+      const nodes = dom.map(d => {
         const node = d;
         const childrenBase = {};
         if (this.isDynamic) {
@@ -618,7 +746,7 @@ Parser.prototype.resolveBaseUrl = function (pageData, config) {
   });
 };
 
-Parser.prototype._rebaseReference = function (node, foundBase) {
+Parser.prototype._rebaseReference = function(node, foundBase) {
   const element = node;
 
   if (_.isArray(element)) {
@@ -630,14 +758,18 @@ Parser.prototype._rebaseReference = function (node, foundBase) {
   }
   // Rebase children element
   const childrenBase = {};
-  element.children.forEach((el) => {
+  element.children.forEach(el => {
     this._rebaseReference(el, childrenBase);
   });
 
   // rebase current element
   if (element.attribs[ATTRIB_INCLUDE_PATH]) {
     const filePath = element.attribs[ATTRIB_INCLUDE_PATH];
-    let newBase = calculateNewBaseUrls(filePath, this.rootPath, this.baseUrlMap);
+    let newBase = calculateNewBaseUrls(
+      filePath,
+      this.rootPath,
+      this.baseUrlMap,
+    );
     if (newBase) {
       const { relative, parent } = newBase;
       // eslint-disable-next-line no-param-reassign
@@ -651,17 +783,25 @@ Parser.prototype._rebaseReference = function (node, foundBase) {
       newBase = combinedBases[bases[0]];
       const { children } = element;
       if (children) {
-        const currentBase = calculateNewBaseUrls(element.attribs[ATTRIB_CWF], this.rootPath, this.baseUrlMap);
+        const currentBase = calculateNewBaseUrls(
+          element.attribs[ATTRIB_CWF],
+          this.rootPath,
+          this.baseUrlMap,
+        );
         if (currentBase) {
           if (currentBase.relative !== newBase) {
             cheerio.prototype.options.xmlMode = false;
             const newBaseUrl = `{{hostBaseUrl}}/${newBase}`;
-            const rendered = nunjucks.renderString(cheerio.html(children), {
-              // This is to prevent the nunjuck call from converting {{hostBaseUrl}} to an empty string
-              // and let the hostBaseUrl value be injected later.
-              hostBaseUrl: '{{hostBaseUrl}}',
-              baseUrl: newBaseUrl,
-            }, { path: filePath });
+            const rendered = nunjucks.renderString(
+              cheerio.html(children),
+              {
+                // This is to prevent the nunjuck call from converting {{hostBaseUrl}} to an empty string
+                // and let the hostBaseUrl value be injected later.
+                hostBaseUrl: '{{hostBaseUrl}}',
+                baseUrl: newBaseUrl,
+              },
+              { path: filePath },
+            );
             element.children = cheerio.parseHTML(rendered, true);
             cheerio.prototype.options.xmlMode = true;
           }
@@ -674,7 +814,11 @@ Parser.prototype._rebaseReference = function (node, foundBase) {
   return element;
 };
 
-Parser.prototype._rebaseReferenceForStaticIncludes = function (pageData, element, config) {
+Parser.prototype._rebaseReferenceForStaticIncludes = function(
+  pageData,
+  element,
+  config,
+) {
   if (!config) {
     return pageData;
   }
@@ -684,20 +828,32 @@ Parser.prototype._rebaseReferenceForStaticIncludes = function (pageData, element
   }
 
   const filePath = element.attribs[ATTRIB_INCLUDE_PATH];
-  const fileBase = calculateNewBaseUrls(filePath, config.rootPath, config.baseUrlMap);
+  const fileBase = calculateNewBaseUrls(
+    filePath,
+    config.rootPath,
+    config.baseUrlMap,
+  );
   if (!fileBase.relative) {
     return pageData;
   }
 
   const currentPath = element.attribs[ATTRIB_CWF];
-  const currentBase = calculateNewBaseUrls(currentPath, config.rootPath, config.baseUrlMap);
+  const currentBase = calculateNewBaseUrls(
+    currentPath,
+    config.rootPath,
+    config.baseUrlMap,
+  );
   if (currentBase.relative === fileBase.relative) {
     return pageData;
   }
 
   const newBase = fileBase.relative;
   const newBaseUrl = `{{hostBaseUrl}}/${newBase}`;
-  return nunjucks.renderString(pageData, { baseUrl: newBaseUrl }, { path: filePath });
+  return nunjucks.renderString(
+    pageData,
+    { baseUrl: newBaseUrl },
+    { path: filePath },
+  );
 };
 
 module.exports = Parser;
