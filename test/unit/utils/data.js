@@ -97,7 +97,7 @@ module.exports.SITE_NAV_MD_DEFAULT = '<navigation>\n'
   + '* [Home :glyphicon-home:]({{baseUrl}}/index.html)\n'
   + '</navigation>\n';
 
-module.exports.USER_VARIABLES_DEFAULT = '<span id="example">\n'
+module.exports.USER_VARIABLES_DEFAULT = '<variable name="example">\n'
   + 'To inject this HTML segment in your markbind files, use {{ example }} where you want to place it.\n'
   + 'More generally, surround the segment\'s id with double curly braces.\n'
-  + '</span>';
+  + '</variable>';

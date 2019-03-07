@@ -105,17 +105,18 @@ function extractIncludeVariables(includeElement, contextVariables) {
   });
   if (includeElement.children) {
     includeElement.children.forEach((child) => {
-      if (child.name !== 'span') {
+      if (child.name !== 'variable' && child.name !== 'span') {
         return;
       }
-      if (!child.attribs.id) {
+      const variableName = child.attribs.name || child.attribs.id;
+      if (!variableName) {
         // eslint-disable-next-line no-console
         console.warn(`Missing reference in ${includeElement.attribs[ATTRIB_CWF]}\n`
-                   + `Missing 'id' in variable for ${includeElement.attribs.src} include.`);
+                   + `Missing 'name' or 'id' in variable for ${includeElement.attribs.src} include.`);
         return;
       }
-      if (!includedVariables[child.attribs.id]) {
-        includedVariables[child.attribs.id] = cheerio.html(child.children);
+      if (!includedVariables[variableName]) {
+        includedVariables[variableName] = cheerio.html(child.children);
       }
     });
   }

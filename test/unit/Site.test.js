@@ -263,10 +263,10 @@ test('Site resolves variables referencing other variables', async () => {
     'src/template/page.ejs': PAGE_EJS,
     'site.json': SITE_JSON_DEFAULT,
     '_markbind/variables.md':
-    '<span id="level1">variable</span>'
-    + '<span id="level2">{{level1}}</span>'
-    + '<span id="level3"><span style="color: blue">Blue text</span></span>'
-    + '<span id="level4">{{level3}}</span>',
+    '<variable name="level1">variable</variable>'
+    + '<variable name="level2">{{level1}}</variable>'
+    + '<variable name="level3"><span style="color: blue">Blue text</span></variable>'
+    + '<variable name="level4">{{level3}}</variable>',
   };
   fs.vol.fromJSON(json, '');
 
@@ -298,11 +298,11 @@ test('Site read correct user defined variables', async () => {
     'sub/sub/site.json': SITE_JSON_DEFAULT,
     'otherSub/sub/site.json': SITE_JSON_DEFAULT,
     '_markbind/variables.md':
-      '<span id="variable">variable</span>'
-      + '<span id="number">2</span>',
-    'sub/_markbind/variables.md': '<span id="variable">sub_variable</span>',
-    'sub/sub/_markbind/variables.md': '<span id="number">9999</span>',
-    'otherSub/sub/_markbind/variables.md': '<span id="variable">other_variable</span>',
+      '<variable name="variable">variable</variable>'
+      + '<variable name="number">2</variable>',
+    'sub/_markbind/variables.md': '<variable name="variable">sub_variable</variable>',
+    'sub/sub/_markbind/variables.md': '<variable name="number">9999</variable>',
+    'otherSub/sub/_markbind/variables.md': '<variable name="variable">other_variable</variable>',
   };
   fs.vol.fromJSON(json, '');
 
