@@ -11,20 +11,20 @@
 
 ### Global Variables
 
-**Global variables are to be defined in the `_markbind/variables.md` file.** Each variable must have an `id` and the value can be any MarkBind-compliant code fragment. The `id` should not contain `-` and `.`. For example, `search-option` and `search.options` are not allowed.
+**Global variables are to be defined in the `_markbind/variables.md` file.** Each variable must have an `name` and the value can be any MarkBind-compliant code fragment. The `name` should not contain `-` and `.`. For example, `search-option` and `search.options` are not allowed.
 
 <div class="indented">
 
 {{ icon_example }} Here's how you can define two variables `year` and `options`:
 
 ```html
-<span id="year">2018</span>
+<variable name="year">2018</variable>
 
-<span id="options">
+<variable name="options">
 * yes
 * no
 * maybe
-</span>
+</variable>
 ```
 </div>
 
@@ -111,15 +111,15 @@ Note: These variables will not be applied to [`<include>` files]({{ baseUrl }}/u
 <div class="indented">
 
 {{ icon_example }} This variable uses a built-in variable:<br>
-<code>\<span id="time">{<span></span>{ timestamp }}\</span></code>
+`<variable name="time">`<code>{<span></span>{ timestamp }}</code>`</variable>`
 
 Here, the second variable will be assigned the contents of the first variable.<br>
-<code>\<span id="first">This is the first variable.\</span></code><br>
-<code>\<span id="second">{<span></span>{ first }}\</span></code><br>
+`<variable name="first">`<code>This is the first variable.</code>`</variable>`<br>
+`<variable name="second">`<code>{<span></span>{ first }}</code>`</variable>`<br>
 
 This will not work, as the `fourth` variable is declared _below_ the line that refers to it.<br>
-<code>\<span id="third">{<span></span>{ fourth }}\</span></code> :x:<br>
-<code>\<span id="fourth">This is the fourth variable.\</span></code>
+`<variable name="third">`<code>{<span></span>{ fourth }}</code>`</variable>` :x:<br>
+`<variable name="fourth">`<code>This is the fourth variable.</code>`</variable>`
 </div>
 
 Note that if the variable being referenced contains HTML tags, MarkBind may escape the tags and render it literally.
@@ -128,9 +128,9 @@ Note that if the variable being referenced contains HTML tags, MarkBind may esca
 
 {{ icon_example }} If we declare the variables as follows,<br>
 
-<code>\<span id="note">\<span style="color: blue">Note: \</span>\</span></code><br>
-<code>\<span id="note_2">{<span></span>{ note }}\</span></code><br>
-<code>\<span id="const_note">{<span></span>{ note_2 }} This is a constant.\</span></code>
+`<variable name="note">`<code>\<span style="color: blue">Note: \</span></code>`</variable>`<br>
+`<variable name="note_2">`<code>{<span></span>{ note }}</code>`</variable>`<br>
+`<variable name="const_note">`<code>{<span></span>{ note_2 }} This is a constant.</code>`</variable>`
 
 the result will be,<br>
 
@@ -143,9 +143,9 @@ You must use the `safe` filter when using such variables:
 
 {{ icon_example }} If we use the safe filter for the second variable:<br>
 
-<code>\<span id="note">\<span style="color: blue">Note: \</span>\</span></code><br>
-<code>\<span id="note_2">{<span></span>{ note | safe }}\</span></code><br>
-<code>\<span id="const_note">{<span></span>{ note_2 }} This is a constant.\</span></code>
+`<variable name="note">`<code>\<span style="color: blue">Note: \</span></code>`</variable>`<br>
+`<variable name="note_2">`<code>{<span></span>{ note | safe }}</code>`</variable>`<br>
+`<variable name="const_note">`<code>{<span></span>{ note_2 }} This is a constant.</code>`</variable>`
 
 <code>{<span></span>{ const_note }}</code> :fas-arrow-right: <span style="color: blue">Note: </span> This is a constant.
 </div>
@@ -156,7 +156,7 @@ Global variables:
 
 `_markbind/variables.md`:
 ```html
-<span id="year">2018</span>
+<variable name="year">2018</span>
 ```
 
 <code>The year was {<span></span>{ year }}.</code>

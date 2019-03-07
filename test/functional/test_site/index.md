@@ -48,9 +48,9 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 # Test Page Variable and Included Variable Integrations
 <variable name="explicitly_included_page_variable">Explicitly Included Page Variable</variable>
 <include src="testPageVariablesInInclude.md">
-  <span id="explicitly_included_page_variable">{{ explicitly_included_page_variable }}</span>
-  <span id="included_variable">Included Variable</span>
-  <span id="included_variable_overriding_page_variable">Included Variable Overriding Page Variable</span>
+  <variable name="explicitly_included_page_variable">{{ explicitly_included_page_variable }}</variable>
+  <variable name="included_variable">Included Variable</variable>
+  <variable name="included_variable_overriding_page_variable">Included Variable Overriding Page Variable</variable>
 </include>
 
 # Heading with multiple keywords
@@ -135,15 +135,15 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 # Include with custom variables
 
 <include src="testIncludeVariables.md" var-included_variable_as_include_attribute="Included variable as include attribute">
-  <span id="included_variable">Included variable</span>
-  <span id="included_variable_with_markdown">__**Included variable with markdown**__</span>
-  <span id="included_variable_as_attribute">color: blue</span>
-  <span id="included_variable_as_html_element"><span>Included variable within html element</span></span>
-  <span id="global_variable_overriding_included_variable">**Should not appear**: Included variable overridden by global variable</span>
-  <span id="included_variable_inner_overridden">Included variable overriding inner variable</span>
-  <span id="included_variable_in_outer_included_file">Included variable in outer included file</span>
-  <span id="included_variable_should_not_leak">**Should not appear**: Included variable should not leak into other files</span>
-  <span id="included_variable_with_global_variable">Included variable with {{ global_variable }}</span>
+  <variable name="included_variable">Included variable</variable>
+  <variable name="included_variable_with_markdown">__**Included variable with markdown**__</variable>
+  <variable name="included_variable_as_attribute">color: blue</variable>
+  <variable name="included_variable_as_html_element"><span>Included variable within html element</span></variable>
+  <variable name="global_variable_overriding_included_variable">**Should not appear**: Included variable overridden by global variable</variable>
+  <variable name="included_variable_inner_overridden">Included variable overriding inner variable</variable>
+  <variable name="included_variable_in_outer_included_file">Included variable in outer included file</variable>
+  <variable name="included_variable_should_not_leak">**Should not appear**: Included variable should not leak into other files</variable>
+  <variable name="included_variable_with_global_variable">Included variable with {{ global_variable }}</variable>
 </include>
 
 # Included variables should not leak into other files
