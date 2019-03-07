@@ -59,6 +59,7 @@
     "url": "https://github.com/MarkBind/markbind.git"
   },
   "scripts": {
+    "prettier": "./node_modules/.bin/prettier --write '**/*.js' '!**/*.min.*' '!src/lib/markbind/src/lib/markdown-it/**/*.js'",
     "lint": "./node_modules/.bin/eslint .",
     "pretest": "npm run lint",
     "pretestwin": "npm run lint",
@@ -76,9 +77,12 @@
     "diff": "^3.5.0",
     "eslint": "^4.16.0",
     "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-lodash": "^2.6.1",
+    "eslint-plugin-prettier": "^3.0.1",
     "jest": "^22.4.3",
-    "memfs": "^2.8.0"
+    "memfs": "^2.8.0",
+    "prettier": "^1.16.4"
   }
 }
