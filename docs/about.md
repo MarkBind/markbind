@@ -29,6 +29,6 @@ Past Members:
 * [**Jiang Sheng**](https://github.com/Gisonrg): _Founding Member_ and _Team Lead_ for Aug 2016 - Jul 2017
 * [**Rachael Sim Hwee Ling**](https://github.com/rachx): _Project Member_ for Jan 2018 - Dec 2018
 
-:glyphicon-send: You can **email us** at `seer` at `comp.nus.edu.sg`
+:glyphicon-send: You can **email us** at `markbind` at `comp.nus.edu.sg`
 
 :glyphicon-console: Interested in **contributing to MarkBind**? Visit the [MarkBind project on GitHub](https://github.com/MarkBind/markbind).
