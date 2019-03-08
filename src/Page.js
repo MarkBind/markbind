@@ -17,6 +17,8 @@ const logger = require('./util/logger');
 const MarkBind = require('./lib/markbind/src/parser');
 const md = require('./lib/markbind/src/lib/markdown-it');
 
+const CLI_VERSION = require('../package.json').version;
+
 const FOOTERS_FOLDER_PATH = '_markbind/footers';
 const HEAD_FOLDER_PATH = '_markbind/head';
 const LAYOUT_DEFAULT_NAME = 'default';
@@ -238,6 +240,7 @@ Page.prototype.prepareTemplateData = function () {
     faviconUrl: this.faviconUrl,
     headFileBottomContent: this.headFileBottomContent,
     headFileTopContent: this.headFileTopContent,
+    markBindVersion: `MarkBind ${CLI_VERSION}`,
     pageNav: this.isPageNavigationSpecifierValid(),
     siteNav: this.frontMatter.siteNav,
     title: prefixedTitle,
