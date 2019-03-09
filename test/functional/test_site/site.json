@@ -39,6 +39,10 @@
     },
     {
       "glob" : "**/test_md_fragment.md"
+    },
+    {
+      "src": "testAntiFOUCStyles.md",
+      "title": "Hello World"
     }
   ],
   "ignore": [

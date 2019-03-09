@@ -59,11 +59,14 @@ function removeTemporaryStyles() {
   jQuery('.temp-dropdown-placeholder').remove();
 }
 
+function executeAfterCreatedRoutines() {
+  removeTemporaryStyles();
+}
+
 function executeAfterMountedRoutines() {
   flattenModals();
   scrollToUrlAnchorHeading();
   setupAnchors();
-  removeTemporaryStyles();
   MarkBind.executeAfterSetupScripts.resolve();
 }
 
@@ -100,6 +103,9 @@ function setup() {
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
     el: '#app',
+    created() {
+      executeAfterCreatedRoutines();
+    },
     mounted() {
       executeAfterMountedRoutines();
     },
@@ -127,6 +133,9 @@ function setupWithSearch() {
         const anchor = match.heading ? `#${match.heading.id}` : '';
         window.location = `${page}${anchor}`;
       },
+    },
+    created() {
+      executeAfterCreatedRoutines();
     },
     mounted() {
       executeAfterMountedRoutines();
