@@ -7,8 +7,8 @@ MarkBind supports using Font Icons provided by Font Awesome and Glyphicons.
 <include src="tip.md" boilerplate >
 <span id="tip_body">
 The advantage of font icons over emojis is font icons can be _styled_ to fit your needs. e.g.,
-* emoji: <font color="purple">Don't judge the :book: by it's cover! :-1:</font>
-* font icons: <font color="purple">Don't judge the :fas-book: by it's cover! :fas-thumbs-down:</font>
+* emoji: <span style="color: purple">Don't judge the :book: by it's cover! :-1:</span>
+* font icons: <span style="color: purple">Don't judge the :fas-book: by it's cover! {{ icon_dislike }}</span>
 </span>
 </include>
 
@@ -43,5 +43,5 @@ Please use the new :prefix-name: syntax instead.
 
 <span id="examples" class="d-none">
 
-:glyphicon-hand-right: :fab-github: :fas-home: %%:glyphicon-hand-right: :fab-github: :fas-home:%% <font color="red">:glyphicon-hand-right: :fab-github: :fas-home:</font>
+:glyphicon-hand-right: :fab-github: :fas-home: %%:glyphicon-hand-right: :fab-github: :fas-home:%% <span style="color: red">:glyphicon-hand-right: :fab-github: :fas-home:</span>
 </span>
