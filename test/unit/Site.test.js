@@ -41,6 +41,10 @@ test('Site Generate builds the correct amount of assets', async () => {
     'asset/js/vue.min.js': '',
     'asset/js/vue-strap.min.js': '',
 
+    'node_modules/@fortawesome/fontawesome-free/css/all.min.css': '',
+    'node_modules/@fortawesome/fontawesome-free/webfonts/font1.svg': '',
+    'node_modules/@fortawesome/fontawesome-free/webfonts/font2.ttf': '',
+
     'inner/_markbind/layouts/default/footer.md': '',
     'inner/_markbind/layouts/default/head.md': '',
     'inner/_markbind/layouts/default/navigation.md': '',
@@ -52,7 +56,7 @@ test('Site Generate builds the correct amount of assets', async () => {
   await site.generate();
   const paths = Object.keys(fs.vol.toJSON());
   const originalNumFiles = Object.keys(json).length;
-  const expectedNumBuilt = 16;
+  const expectedNumBuilt = 19;
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
   // site
@@ -76,6 +80,11 @@ test('Site Generate builds the correct amount of assets', async () => {
   expect(fs.existsSync(path.resolve('inner/_site/markbind/js/setup.js'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/js/vue.min.js'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/js/vue-strap.min.js'))).toEqual(true);
+
+  // Font Awesome assets
+  expect(fs.existsSync(path.resolve('inner/_site/markbind/fontawesome/css/all.min.css'))).toEqual(true);
+  expect(fs.existsSync(path.resolve('inner/_site/markbind/fontawesome/webfonts/font1.svg'))).toEqual(true);
+  expect(fs.existsSync(path.resolve('inner/_site/markbind/fontawesome/webfonts/font2.ttf'))).toEqual(true);
 
   // layouts
   expect(fs.existsSync(path.resolve('inner/_site/markbind/layouts/default/footer.md'))).toEqual(true);

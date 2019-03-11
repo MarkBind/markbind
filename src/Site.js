@@ -359,9 +359,10 @@ Site.prototype.createPage = function (config) {
                                   path.join(this.siteAssetsDestPath, 'css', 'bootstrap-vue.min.css')),
       externalScripts: _.union(this.siteConfig.externalScripts, config.externalScripts),
       fontAwesome: path.relative(path.dirname(resultPath),
-                                 path.join(this.siteAssetsDestPath, 'css', 'font-awesome.min.css')),
+                                 path.join(this.siteAssetsDestPath, 'fontawesome', 'css', 'all.min.css')),
       glyphicons: path.relative(path.dirname(resultPath),
-                                path.join(this.siteAssetsDestPath, 'css', 'bootstrap-glyphicons.min.css')),
+                                path.join(this.siteAssetsDestPath, 'glyphicons', 'css',
+                                          'bootstrap-glyphicons.min.css')),
       highlight: path.relative(path.dirname(resultPath),
                                path.join(this.siteAssetsDestPath, 'css', 'github.min.css')),
       markbind: path.relative(path.dirname(resultPath),
@@ -520,6 +521,7 @@ Site.prototype.generate = function (baseUrl) {
       .then(() => this.buildAssets())
       .then(() => this.buildSourceFiles())
       .then(() => this.copyMarkBindAsset())
+      .then(() => this.copyFontAwesomeAsset())
       .then(() => this.copyLayouts())
       .then(() => this.updateSiteData())
       .then(() => {
@@ -811,12 +813,24 @@ Site.prototype.updateSiteData = function (filePaths) {
   this.writeSiteData();
 };
 
+/**
+ * Copies Font Awesome assets to the assets folder
+ */
+Site.prototype.copyFontAwesomeAsset = function () {
+  const faRootSrcPath = path.join(__dirname, '..', 'node_modules', '@fortawesome', 'fontawesome-free');
+  const faCssSrcPath = path.join(faRootSrcPath, 'css', 'all.min.css');
+  const faCssDestPath = path.join(this.siteAssetsDestPath, 'fontawesome', 'css', 'all.min.css');
+  const faFontsSrcPath = path.join(faRootSrcPath, 'webfonts');
+  const faFontsDestPath = path.join(this.siteAssetsDestPath, 'fontawesome', 'webfonts');
+
+  return fs.copyAsync(faCssSrcPath, faCssDestPath).then(fs.copyAsync(faFontsSrcPath, faFontsDestPath));
+};
+
+/**
+ * Copies MarkBind assets to the assets folder
+ */
 Site.prototype.copyMarkBindAsset = function () {
-  return new Promise((resolve, reject) => {
-    fs.copyAsync(this.siteAssetsSrcPath, this.siteAssetsDestPath)
-      .then(resolve)
-      .catch(reject);
-  });
+  return fs.copyAsync(this.siteAssetsSrcPath, this.siteAssetsDestPath);
 };
 
 /**
