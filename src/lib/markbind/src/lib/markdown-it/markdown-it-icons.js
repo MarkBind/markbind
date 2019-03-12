@@ -1,5 +1,5 @@
 module.exports = require('markdown-it-regexp')(
-    /:(fa[brs]|glyphicon)-([a-z-]+):/m,
+    /:(fa[brs]|glyphicon)-([a-z-]+):/,
     (match, utils) => {
         let iconFontType = match[1];
         let iconFontName = match[2];
