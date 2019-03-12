@@ -9,7 +9,7 @@
 </frontmatter>
 
 <span id="link" class="d-none">
-<md>[_User Guide → {{ title }}_]({{ baseUrl }}/userGuide/{{ filename }}.html)</md>
+<md>[_User Guide → {{ title }}_]({{ filename }}.html)</md>
 </span>
 
 <include src="../common/header.md" />

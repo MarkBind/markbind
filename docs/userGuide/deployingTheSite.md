@@ -16,9 +16,9 @@
 </span>
 
 Generic steps for deploying a MarkBind site:
-1. Set the [`baseUrl` property of the `site.json` file]({{ baseUrl }}/userGuide/siteConfiguration.html#baseUrl) to match the deploy location.
-1. (Optional) Use the [`markbind serve` command]({{ baseUrl }}/userGuide/cliCommands.html#serve-command) to stage the site locally and confirm the contents are as expected.
-1. Use the [`markbind build` command]({{ baseUrl }}/userGuide/cliCommands.html#build-command) to generate the site from source files. That command puts the generated site files in a directory named `_site` (you can change the output directory using parameters supplied to the command).
+1. Set the [`baseUrl` property of the `site.json` file](siteConfiguration.html#baseUrl) to match the deploy location.
+1. (Optional) Use the [`markbind serve` command](cliCommands.html#serve-command) to stage the site locally and confirm the contents are as expected.
+1. Use the [`markbind build` command](cliCommands.html#build-command) to generate the site from source files. That command puts the generated site files in a directory named `_site` (you can change the output directory using parameters supplied to the command).
 1. Upload the site files to the Web server. The sections below explains how to automate this step for when deploying to some online platforms.
 
 ## Deploying to Github Pages
@@ -39,7 +39,7 @@ If you are deploying to the site to GitHub pages, the `baseUrl` setting in the `
 
 You can override the default deployment settings %%(e.g., repo/branch to deploy)%% in the `site.json`'s `deploy` section:
 
-<panel type="seamless" header="**User Guide: Configuring the Site → `deploy`**" popup-url="{{ baseUrl }}/userGuide/siteConfiguration.html#deploy">
+<panel type="seamless" header="**User Guide: Configuring the Site → `deploy`**" popup-url="siteConfiguration.html#deploy">
   <include src="siteConfiguration.md#site-json-deploy" />
 </panel>
 

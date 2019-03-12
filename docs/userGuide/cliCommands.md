@@ -62,7 +62,7 @@ MarkBind Command Line Interface (CLI) can be run in the following ways:
   Deploy the site in Travis CI using the GitHub personal access token stored in `<githubTokenName>`. (default: `GITHUB_TOKEN`)<br>
   {{ icon_example }} `-t PA_TOKEN`
 
-%%{{ icon_info }} Related: [User Guide: Deploying the Website]({{ baseUrl }}/userGuide/deployingTheSite.html).%%
+%%{{ icon_info }} Related: [User Guide: Deploying the Website](deployingTheSite.html).%%
 
 <hr><!-- ========================================================================== -->
 

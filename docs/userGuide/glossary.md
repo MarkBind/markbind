@@ -13,7 +13,7 @@
 
 {{ icon_info }} Live preview works for the following file types only: `css`, `.html`, `.md`, <tooltip content="MarkBind file">`.mbd`</tooltip>, <tooltip content="MarkBind fragment">`.mbdf`</tooltip>. Changes to `css` might may not be visible in the site until you do a manual refresh of the page.
 
-Use [the `serve` command]({{ baseUrl }}/userGuide/cliCommands.html#serve-command) to launch a live preview.
+Use [the `serve` command](cliCommands.html#serve-command) to launch a live preview.
 
 </span>
 

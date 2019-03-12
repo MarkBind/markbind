@@ -9,7 +9,7 @@
 </frontmatter>
 
 <span id="link" class="d-none">
-<md>[_User Guide → {{ title }}_]({{ baseUrl }}/userGuide/{{ filename }}.html)</md>
+<md>[_User Guide → {{ title }}_]({{ filename }}.html)</md>
 </span>
 
 <include src="../common/header.md" />
@@ -100,17 +100,17 @@ Optional video:
 
 #### Giving alternative contents
 
-You can use a [_Tabs_ component]({{ baseUrl }}/userGuide/usingComponents.html#tabs) to give alternative versions of content, for example, giving a code snippet in different programming languages.
+You can use a [_Tabs_ component](usingComponents.html#tabs) to give alternative versions of content, for example, giving a code snippet in different programming languages.
 
 #### Giving access to additional contents
 
 You can use following components to give readers an option to access additional content at their discretion.
-* [Tooltips]({{ baseUrl }}/userGuide/usingComponents.html#tooltip), [Popovers]({{ baseUrl }}/userGuide/usingComponents.html#popover), [Modals]({{ baseUrl }}/userGuide/usingComponents.html#modal)
-* [Expandable Panels]({{ baseUrl }}/userGuide/usingComponents.html#panel)
+* [Tooltips](usingComponents.html#tooltip), [Popovers](usingComponents.html#popover), [Modals](usingComponents.html#modal)
+* [Expandable Panels](usingComponents.html#panel)
 
 #### Organizing contents in alternative ways
 
-You can take advantage of [MarkBinds feature for content reuse]({{ baseUrl }}/userGuide/reusingContents.html), you can organize content in alternative ways to cater for different readers, without having to duplicate content. For example, you can have different pages that organizes the same information alphabetically, chronologically, by difficulty, group information by topic, etc.
+You can take advantage of [MarkBinds feature for content reuse](reusingContents.html), you can organize content in alternative ways to cater for different readers, without having to duplicate content. For example, you can have different pages that organizes the same information alphabetically, chronologically, by difficulty, group information by topic, etc.
 
 #### Optimizing the Print View
 
@@ -154,7 +154,7 @@ Then, in a page-specific CSS file,
 
 #### Creating slight variations of content
 
-Tags are a good way to create multiple variations of a page within the same source file, such as to filter content for creating multiple different versions of the same page. See [_User Guide: Tweaking the Page Structure → Tags_]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#tags) section for more information.
+Tags are a good way to create multiple variations of a page within the same source file, such as to filter content for creating multiple different versions of the same page. See [_User Guide: Tweaking the Page Structure → Tags_](tweakingThePageStructure.html#tags) section for more information.
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('tweakingThePageStructure', 'makingTheSiteSearchable') }}

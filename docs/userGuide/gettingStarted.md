@@ -85,8 +85,8 @@ To stop the web server, go to the console running the `serve` command and press 
 
 <big>**4. Next steps**</big>
 
-1. **Update the content of your site**. More info can be found in the [_User Guide: Authoring Contents_]({{ baseUrl }}/userGuide/authoringContents.html) section
-1. **Deploy your site**. More info can be found in the [_User Guide: Deploying the Site_]({{ baseUrl }}/userGuide/deployingTheSite.html) section.
+1. **Update the content of your site**. More info can be found in the [_User Guide: Authoring Contents_](authoringContents.html) section
+1. **Deploy your site**. More info can be found in the [_User Guide: Deploying the Site_](deployingTheSite.html) section.
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('', 'authoringContents') }}
