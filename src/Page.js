@@ -45,13 +45,6 @@ const DROPDOWN_BUTTON_ICON_HTML = '<i class="dropdown-btn-icon">\n'
   + '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>\n'
   + '</i>';
 const DROPDOWN_EXPAND_KEYWORD = ':expanded:';
-const SITE_NAV_BUTTON_HTML = '<div id="site-nav-btn-wrap">\n'
-  + '<div id="site-nav-btn">\n'
-  + '<div class="menu-top-bar"></div>\n'
-  + '<div class="menu-middle-bar"></div>\n'
-  + '<div class="menu-bottom-bar"></div>\n'
-  + '</div>\n'
-  + '</div>';
 
 const TEMP_NAVBAR_CLASS = 'temp-navbar';
 const TEMP_DROPDOWN_CLASS = 'temp-dropdown';
