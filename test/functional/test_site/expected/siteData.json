@@ -82,6 +82,8 @@
         "include-from-another-markbind-site": "Include from another Markbind site",
         "trimmed-include": "Trimmed include",
         "fragment-with-leading-spaces-and-newline": "Fragment with leading spaces and newline",
+        "trimmed-include-fragment": "Trimmed include fragment",
+        "before-fragment-with-leading-spaces-and-newline-after": "Before Fragment with leading spaces and newline After",
         "include-with-custom-variables": "Include with custom variables",
         "test-included-variable-as-include-attribute": "Test included variable as include attribute",
         "test-included-variable": "Test included variable",
