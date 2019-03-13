@@ -21,10 +21,12 @@ const CLI_VERSION = require('../package.json').version;
 
 const FOOTERS_FOLDER_PATH = '_markbind/footers';
 const HEAD_FOLDER_PATH = '_markbind/head';
+const HEADERS_FOLDER_PATH = '_markbind/headers';
 const LAYOUT_DEFAULT_NAME = 'default';
 const LAYOUT_FOLDER_PATH = '_markbind/layouts';
 const LAYOUT_FOOTER = 'footer.md';
 const LAYOUT_HEAD = 'head.md';
+const LAYOUT_HEADER = 'header.md';
 const LAYOUT_NAVIGATION = 'navigation.md';
 const NAVIGATION_FOLDER_PATH = '_markbind/navigation';
 
@@ -536,6 +538,33 @@ Page.prototype.removeFrontMatter = function (includedPage) {
 };
 
 /**
+  * Inserts the page layout's header to the start of the page
+  * @param pageData a page with its front matter collected
+  */
+Page.prototype.insertHeaderFile = function (pageData) {
+  const { header } = this.frontMatter;
+  let headerFile;
+  if (header) {
+    headerFile = path.join(HEADERS_FOLDER_PATH, header);
+  } else {
+    headerFile = path.join(LAYOUT_FOLDER_PATH, this.frontMatter.layout, LAYOUT_HEADER);
+  }
+  const headerPath = path.join(this.rootPath, headerFile);
+  if (!fs.existsSync(headerPath)) {
+    return pageData;
+  }
+  // Retrieve Markdown file contents
+  const headerContent = fs.readFileSync(headerPath, 'utf8');
+  // Set header file as an includedFile
+  this.includedFiles[headerPath] = true;
+  // Map variables
+  const newBaseUrl = calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
+  const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
+  return `${nunjucks.renderString(headerContent, userDefinedVariables)}\n${pageData}`;
+};
+
+
+/**
  * Inserts the footer specified in front matter to the end of the page
  * @param pageData a page with its front matter collected
  */
@@ -790,6 +819,7 @@ Page.prototype.generate = function (builtFiles) {
       .then(result => this.insertTemporaryStyles(result))
       .then(result => this.insertFooter(result)) // Footer has to be inserted last to ensure proper formatting
       .then(result => formatFooter(result))
+      .then(result => this.insertHeaderFile(result))
       .then(result => markbinder.resolveBaseUrl(result, fileConfig))
       .then(result => fs.outputFileAsync(this.tempPath, result))
       .then(() => markbinder.renderFile(this.tempPath, fileConfig))
