@@ -31,13 +31,10 @@ const LAYOUT_NAVIGATION = 'navigation.md';
 const NAVIGATION_FOLDER_PATH = '_markbind/navigation';
 
 const CONTENT_WRAPPER_ID = 'content-wrapper';
-const FLEX_BODY_DIV_ID = 'flex-body';
-const FLEX_DIV_HTML = '<div id="flex-div"></div>';
-const FLEX_DIV_ID = 'flex-div';
 const FRONT_MATTER_FENCE = '---';
-const PAGE_CONTENT_ID = 'page-content';
 const PAGE_NAV_CONENT_WRAPPER_ID = 'page-nav-content-wrapper';
 const SITE_NAV_ID = 'site-nav';
+const SITE_NAV_LIST_CLASS = 'site-nav-list';
 const TITLE_PREFIX_SEPARATOR = ' - ';
 
 const ANCHOR_HTML = '<a class="fa fa-anchor" href="#"></a>';
@@ -136,7 +133,7 @@ function formatSiteNav(renderedSiteNav, src) {
     return renderedSiteNav;
   }
   // Tidy up the style of the unordered list <ul>
-  listItems.parent().addClass('site-nav-list');
+  listItems.parent().addClass(`${SITE_NAV_LIST_CLASS}`);
 
   // Set class of <a> to ${SITE_NAV_ID}__a to style links
   listItems.find('a[href]').addClass(`${SITE_NAV_ID}__a`);
@@ -606,19 +603,13 @@ Page.prototype.insertSiteNav = function (pageData) {
     throw new Error(`More than one <navigation> tag found in ${siteNavPath}`);
   } else if (siteNavDataSelector('navigation').length === 1) {
     const siteNavHtml = md.render(siteNavDataSelector('navigation').html().trim().replace(/\n\s*\n/g, '\n'));
-    const formattedSiteNav = formatSiteNav(siteNavHtml, this.src);
+    // Add Bootstrap padding class to rendered unordered list
+    const siteNavHtmlSelector = cheerio.load(siteNavHtml, { xmlMode: false });
+    siteNavHtmlSelector('ul').first().addClass('px-3');
+    const formattedSiteNav = formatSiteNav(siteNavHtmlSelector.html(), this.src);
     siteNavDataSelector('navigation').replaceWith(formattedSiteNav);
   }
   // Wrap sections
-  const wrappedSiteNav = `<div id="${SITE_NAV_ID}">\n${siteNavDataSelector.html()}\n</div>`;
-  const wrappedPageData = `<div id="${PAGE_CONTENT_ID}">\n${pageData}\n</div>`;
-
-  return `<div id="${FLEX_BODY_DIV_ID}">`
-    + `${wrappedSiteNav}`
-    + `${SITE_NAV_BUTTON_HTML}`
-    + `${wrappedPageData}`
-    + '</div>';
-};
 
 /**
  *  Inserts wrapper for page nav contents CSS manipulation
@@ -630,7 +621,14 @@ Page.prototype.insertPageNavWrapper = function (pageData) {
                             + '</div>\n';
     return wrappedPageData;
   }
-  return pageData;
+  const wrappedSiteNav = `<nav id="${SITE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
+    + '<div class="sticky-top spacer-top viewport-height-90 scrollable slim-scroll">'
+    + `${siteNavDataSelector.html()}\n`
+    + '</div>\n'
+    + '</nav>';
+
+  return `${wrappedSiteNav}\n`
+    + `${pageData}`;
 };
 
 /**
