@@ -25,9 +25,15 @@
     <% if (faviconUrl) { %><link rel="icon" href="<%- faviconUrl %>"><% } %>
 </head>
 <body <%_ if (pageNav) { %> data-spy="scroll" data-target="#page-nav" data-offset="100" <%_ } %>>
-<div id="app">
-    <%- content %>
-</div>
+    <div id="app">
+        <%- headerHtml _%>
+        <div id="flex-body">
+            <%- siteNavHtml _%>
+            <%- content %>
+            <%- pageNavHtml _%>
+        </div>
+        <%- footerHtml _%>
+    </div>
 </body>
 <script src="<%- asset.vue %>"></script>
 <script src="<%- asset.vueStrap %>"></script>
