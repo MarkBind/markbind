@@ -1,6 +1,7 @@
 module.exports.LAYOUT_FILES_DEFAULT = [
   'footer.md',
   'head.md',
+  'header.md',
   'navigation.md',
   'styles.css',
 ];
@@ -85,9 +86,19 @@ module.exports.FOOTER_MD_DEFAULT = '<footer>\n'
   + '  </div>\n'
   + '</footer>\n';
 
+module.exports.HEADER_MD_DEFAULT = '<header>\n'
+  + '  <div class="bg-primary display-4 text-center text-white">\n'
+  + '    <br>\n'
+  + '    Start authoring your MarkBind website.\n'
+  + '    <br>\n'
+  + '    <br>\n'
+  + '  </div>\n'
+  + '</header>\n';
+
 module.exports.INDEX_MD_DEFAULT = '<frontmatter>\n'
   + '  title: "Hello World"\n'
   + '  footer: footer.md\n'
+  + '  header: header.md\n'
   + '  siteNav: site-nav.md\n'
   + '</frontmatter>\n\n'
   + '# Hello world\n'
