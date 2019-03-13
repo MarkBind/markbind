@@ -31,6 +31,17 @@
     margin-right: 300px;
     transition: 0.4s;
     -webkit-transition: 0.4s;
+.page-nav-title {
+    color: black;
+    white-space: inherit;
+}
+
+.nested {
+    margin-left: 5%;
+}
+
+.no-flex-wrap {
+    flex-wrap: nowrap;
 }
 
 /* Responsive site navigation */

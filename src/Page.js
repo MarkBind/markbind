@@ -136,7 +136,7 @@ function formatSiteNav(renderedSiteNav, src) {
     return renderedSiteNav;
   }
   // Tidy up the style of the unordered list <ul>
-  listItems.parent().attr('style', 'list-style-type: none; margin-left:-1em');
+  listItems.parent().addClass('site-nav-list');
 
   // Set class of <a> to ${SITE_NAV_ID}__a to style links
   listItems.find('a[href]').addClass(`${SITE_NAV_ID}__a`);
@@ -147,13 +147,13 @@ function formatSiteNav(renderedSiteNav, src) {
 
   listItems.each(function () {
     // Tidy up the style of each list item
-    $(this).attr('style', 'margin-top: 10px');
+    $(this).addClass('mt-2');
     // Do not render dropdown menu for list items with <a> tag
     if ($(this).children('a').length) {
       const nestedList = $(this).children('ul').first();
       if (nestedList.length) {
         // Double wrap to counter replaceWith removing <li>
-        nestedList.parent().wrap('<li style="margin-top:10px"></li>');
+        nestedList.parent().wrap('<li class="mt-2"></li>');
         // Recursively format nested lists without dropdown wrapper
         nestedList.parent().replaceWith(formatSiteNav(nestedList.parent().html(), src));
       }
@@ -645,8 +645,8 @@ Page.prototype.generatePageNavHeadingHtml = function () {
     const currentHeadingLevel = this.navigableHeadings[key].level;
     const currentHeadingHTML = `<a class="nav-link py-1" href="#${key}">`
       + `${this.navigableHeadings[key].text}&#x200E;</a>\n`;
-    const nestedHeadingHTML = '<nav class="nav nav-pills flex-column my-0"'
-      + `style="margin-left: 5%; flex-wrap: nowrap;">\n${currentHeadingHTML}`;
+    const nestedHeadingHTML = '<nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">\n'
+      + `${currentHeadingHTML}`;
 
     if (headingStack.length === 0 || headingStack[headingStack.length - 1] === currentHeadingLevel) {
       // Add heading without nesting, into headingHTML
@@ -693,7 +693,7 @@ Page.prototype.generatePageNavHeadingHtml = function () {
 Page.prototype.generatePageNavTitleHtml = function () {
   const { pageNavTitle } = this.frontMatter;
   return pageNavTitle
-    ? '<a class="navbar-brand" style="white-space: inherit; color: black" href="#">'
+    ? '<a class="navbar-brand page-nav-title" href="#">'
       + `${pageNavTitle.toString()}`
       + '</a>'
     : '';
@@ -711,11 +711,11 @@ Page.prototype.insertPageNav = function () {
     const pageNavTitleHtml = this.generatePageNavTitleHtml();
     const pageNavHtml = '<nav id="page-nav" class="navbar navbar-light bg-transparent slim-scroll">\n'
       + `${pageNavTitleHtml}\n`
-      + '  <nav class="nav nav-pills flex-column my-0 small" style="flex-wrap: nowrap;">\n'
       + `    ${pageNavHeadingHTML}\n`
       + '  </nav>\n'
       + '</nav>\n';
     this.content = htmlBeautify(`${pageNavHtml}\n${this.content}`, { indent_size: 2 });
+      + '<nav class="nav nav-pills flex-column my-0 small no-flex-wrap">\n'
   }
 };
 

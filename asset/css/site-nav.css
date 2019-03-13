@@ -73,6 +73,13 @@
     -webkit-transition: 0.4s;
 }
 
+/* Navigation list */
+
+.site-nav-list {
+    list-style-type: none;
+    margin-left: -1em;
+}
+
 /* Navigation dropdown menu */
 
 .dropdown-btn {
