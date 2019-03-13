@@ -36,5 +36,29 @@ You can keep the user docs in a separate directory (say `user-docs`) and set up 
 Similarly, you can keep the dev docs in a separate directory (sey `dev-docs`) and set up Netlify to deploy the site when there is an update to the `master` branch; that way, developers can see the latest version of dev-docs via the Netlify site.
 </div>
 
+#### Converting an existing Github project
+
+MarkBind supports the automatic conversion of an existing Github wiki or `docs` folder containing Markdown files.
+
+A MarkBind conversion involves the following:
+1. Adding a Home page: If your project already has a `README.md` or `Home.md`, the content will be copied over to `index.md`. Otherwise, a default home page will be added.
+2. Adding an About Us page: If your project already an `About` page, the content will be copied over to `about.md`. Otherwise, a default about page will be added.
+3. Adding a top navigation bar.
+4. Adding a site navigation menu: If your project has a valid `_Sidebar.md` file, it will be used as the site navigation menu. Otherwise, the menu will be built from your project's directory structure and contain links to all addressable pages.   
+5. Adding a custom footer: If your project has a valid `_Footer.md` file, it will be used as the website footer. Otherwise, a default footer will be added.
+
+<box type="warning">
+    Conversion might not work if your project files have existing MarkBind/Nunjucks syntax. 
+</box>
+
+To convert your existing project, follow these steps:
+1. Navigate into the project directory.
+2. Run `markbind init --convert` to convert the project.
+3. You can now preview the website using `markbind serve` to view your newly converted MarkBind website.
+
+<box type="info">
+    You only need to run the conversion once. Once you have converted your project, you can proceed to edit it as a normal MarkBind project.
+</box> 
+
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('deployingTheSite', 'themes') }}
