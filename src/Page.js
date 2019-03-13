@@ -125,25 +125,14 @@ function calculateNewBaseUrl(filePath, root, lookUp) {
   return calculate(filePath, []);
 }
 
-function formatFooter(pageData) {
+function removePageHeaderAndFooter(pageData) {
   const $ = cheerio.load(pageData);
-  const footers = $('footer');
-  if (footers.length === 0) {
+  const pageHeaderAndFooter = $('header', 'footer');
+  if (pageHeaderAndFooter.length === 0) {
     return pageData;
   }
   // Remove preceding footers
-  footers.slice(0, -1).remove(); // footers.not(':last').remove();
-  // Unwrap last footer
-  const lastFooter = footers.last();
-  const lastFooterParents = lastFooter.parents();
-  if (lastFooterParents.length) {
-    const lastFooterOutermostParent = lastFooterParents.last();
-    lastFooterOutermostParent.after(lastFooter);
-  }
-  // Insert flex div before last footer
-  if (lastFooter.prev().attr('id') !== FLEX_DIV_ID) {
-    $(lastFooter).before(FLEX_DIV_HTML);
-  }
+  pageHeaderAndFooter.remove();
   return $.html();
 }
 
@@ -568,7 +557,7 @@ Page.prototype.insertHeaderFile = function (pageData) {
  * Inserts the footer specified in front matter to the end of the page
  * @param pageData a page with its front matter collected
  */
-Page.prototype.insertFooter = function (pageData) {
+Page.prototype.insertFooterFile = function (pageData) {
   const { footer } = this.frontMatter;
   let footerFile;
   if (footer) {
@@ -812,14 +801,13 @@ Page.prototype.generate = function (builtFiles) {
         this.collectFrontMatter(result);
         return this.removeFrontMatter(result);
       })
+      .then(result => removePageHeaderAndFooter(result))
       .then(result => addContentWrapper(result))
       .then(result => this.preRender(result))
-      .then(result => this.insertPageNavWrapper(result))
       .then(result => this.insertSiteNav((result)))
       .then(result => this.insertTemporaryStyles(result))
-      .then(result => this.insertFooter(result)) // Footer has to be inserted last to ensure proper formatting
-      .then(result => formatFooter(result))
       .then(result => this.insertHeaderFile(result))
+      .then(result => this.insertFooterFile(result))
       .then(result => markbinder.resolveBaseUrl(result, fileConfig))
       .then(result => fs.outputFileAsync(this.tempPath, result))
       .then(() => markbinder.renderFile(this.tempPath, fileConfig))
