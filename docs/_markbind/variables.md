@@ -9,7 +9,7 @@
 <variable name="icon_arrow_down">:fas-arrow-down:</variable>
 <variable name="icon_arrow_right">:fas-arrow-right:</variable>
 <variable name="icon_check_blue"><span style="color: {{ markbind_blue }}">:fas-check-circle:</span></variable>
-<variable name="icon_bulb_blue"><span style="color: {{ markbind_blue }}">:fas-lightbulb</span></variable>
+<variable name="icon_bulb_blue"><span style="color: {{ markbind_blue }}">:fas-lightbulb:</span></variable>
 <variable name="icon_dislike">:fas-thumbs-down:</variable>
 <variable name="icon_example"><big><span class='badge badge-pill badge-light' style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Example:</span></big></variable>
 <variable name="icon_examples"><big><span class='badge badge-pill badge-light' style="background-color: #d9d9d9; color: #737373; position:relative; left:-10px">Examples:</span></big></variable>
