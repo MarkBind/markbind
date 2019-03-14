@@ -205,15 +205,17 @@ function formatSiteNav(renderedSiteNav, src) {
 }
 
 /**
- * Generates a heading selector based on the indexing level
+ * Generates a selector for headings with level inside the headingIndexLevel
+ * or with the index attribute, that do not also have the noindex attribute
  * @param headingIndexingLevel to generate
  */
 function generateHeadingSelector(headingIndexingLevel) {
-  let headingsSelector = 'h1';
+  let headingsSelectors = ['.always-index:header', 'h1'];
   for (let i = 2; i <= headingIndexingLevel; i += 1) {
-    headingsSelector += `, h${i}`;
+    headingsSelectors.push(`h${i}`);
   }
-  return headingsSelector;
+  headingsSelectors = headingsSelectors.map(selector => `${selector}:not(.no-index)`);
+  return headingsSelectors.join(',');
 }
 
 function unique(array) {
