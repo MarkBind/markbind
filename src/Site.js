@@ -53,6 +53,25 @@ const LAYOUT_SCRIPTS_PATH = 'scripts.js';
 const LAYOUT_SITE_FOLDER_NAME = 'layouts';
 const USER_VARIABLES_PATH = '_markbind/variables.md';
 
+const SUPPORTED_BOOTSWATCH_THEMES = [
+  'cerulean',
+  'cosmo',
+  'flatly',
+  'journal',
+  'litera',
+  'lumen',
+  'lux',
+  'materia',
+  'minty',
+  'pulse',
+  'sandstone',
+  'simplex',
+  'sketchy',
+  'spacelab',
+  'united',
+  'yeti',
+];
+
 const SITE_CONFIG_DEFAULT = {
   baseUrl: '',
   titlePrefix: '',
