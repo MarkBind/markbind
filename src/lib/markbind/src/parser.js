@@ -309,8 +309,8 @@ Parser.prototype._preprocess = function (node, context, config) {
       // directly get segment from the src
       const segmentSrc = cheerio.parseHTML(fileContent, true);
       const $ = cheerio.load(segmentSrc);
-      const htmlContent = $(includeSrc.hash).html();
-      let actualContent = (htmlContent && isTrim) ? htmlContent.trim() : htmlContent;
+      const hashContent = $(includeSrc.hash).html();
+      let actualContent = (hashContent && isTrim) ? hashContent.trim() : hashContent;
 
       if (actualContent === null) {
         if (isOptional) {
