@@ -11,6 +11,7 @@ const walkSync = require('walk-sync');
 
 const _ = {};
 _.difference = require('lodash/difference');
+_.has = require('lodash/has');
 _.isBoolean = require('lodash/isBoolean');
 _.isUndefined = require('lodash/isUndefined');
 _.noop = require('lodash/noop');
@@ -856,7 +857,7 @@ Site.prototype.copyFontAwesomeAsset = function () {
 Site.prototype.copyMarkBindAsset = function () {
   const maybeOverrideDefaultBootstrapTheme = () => {
     const { theme } = this.siteConfig;
-    if (!theme || !Object.prototype.hasOwnProperty.call(SUPPORTED_THEMES_PATHS, theme)) {
+    if (!theme || !_.has(SUPPORTED_THEMES_PATHS, theme)) {
       return _.noop;
     }
 
