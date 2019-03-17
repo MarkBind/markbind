@@ -24,16 +24,10 @@ module.exports = {
     return r.test(unknownPath);
   },
 
-  setExtension: (normalizedFilename, ext) => path.join(
-    path.dirname(normalizedFilename),
-    path.basename(normalizedFilename, path.extname(normalizedFilename)) + ext,
-  ),
+  setExtension: (normalizedFilename, ext) => module.exports.removeExtension(normalizedFilename) + ext,
 
-  removeExtension: (filePathWithExt) => {
-    let filePathWithoutExt = filePathWithExt;
-    if (filePathWithExt.indexOf('.') > 0) {
-      filePathWithoutExt = filePathWithExt.substring(0, filePathWithExt.lastIndexOf('.'));
-    }
-    return filePathWithoutExt;
-  },
+  removeExtension: filePathWithExt => path.join(
+    path.dirname(filePathWithExt),
+    path.basename(filePathWithExt, path.extname(filePathWithExt)),
+  ),
 };

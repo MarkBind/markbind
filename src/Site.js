@@ -56,7 +56,6 @@ const PROJECT_PLUGIN_FOLDER_NAME = '_markbind/plugins';
 const SITE_CONFIG_NAME = 'site.json';
 const SITE_DATA_NAME = 'siteData.json';
 const SITE_NAV_PATH = '_markbind/navigation/site-nav.md';
-const TOP_NAV_PATH = '_markbind/common/topNav.md';
 const LAYOUT_DEFAULT_NAME = 'default';
 const LAYOUT_FILES = ['navigation.md', 'head.md', 'footer.md', 'header.md', 'styles.css'];
 const LAYOUT_FOLDER_PATH = '_markbind/layouts';
@@ -160,11 +159,6 @@ const TOP_NAV_DEFAULT = '<navbar placement="top" type="inverse">\n'
   + '<i class="far fa-file-image"></i></a>\n'
   + '  <li><a href="{{baseUrl}}/index.html" class="nav-link">HOME</a></li>\n'
   + '  <li><a href="{{baseUrl}}/about.html" class="nav-link">ABOUT</a></li>\n'
-  + '  <li>\n'
-  + '    <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">\n'
-  + '      <i class="fab fa-github"></i>\n'
-  + '    </a>\n'
-  + '  </li>\n'
   + '  <li slot="right">\n'
   + '    <form class="navbar-form">\n'
   + '      <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"'
@@ -466,12 +460,15 @@ Site.prototype.createPage = function (config) {
  * Converts an existing Github wiki or docs folder to a MarkBind website.
  */
 Site.prototype.convert = function () {
-  return this.addIndexPage()
+  return this.readSiteConfig()
+    .then(() => this.collectAddressablePages())
+    .then(() => this.addIndexPage())
     .then(() => this.addAboutPage())
     .then(() => this.addFooterToDefaultLayout())
     .then(() => this.addSiteNavToDefaultLayout())
     .then(() => this.addDefaultLayoutToSiteConfig())
-    .then(() => this.addTopNavToAddressablePages());
+    .then(() => this.addTopNavToAddressablePages())
+    .then(() => this.printBaseUrlMessage());
 };
 
 /**
@@ -480,14 +477,9 @@ Site.prototype.convert = function () {
 Site.prototype.addIndexPage = function () {
   const indexPagePath = path.join(this.rootPath, INDEX_MARKDOWN_FILE);
   const fileNames = ['README.md', 'Home.md'];
-  for (let i = 0; i < fileNames.length; i += 1) {
-    const filePath = path.join(this.rootPath, fileNames[i]);
-    if (fs.existsSync(filePath)) {
-      return fs.copyAsync(filePath, indexPagePath)
-        .catch(() => Promise.reject(new Error(`Failed to copy over ${fileNames[i]}`)));
-    }
-  }
-  return Promise.resolve();
+  const filePath = fileNames.find(fileName => fs.existsSync(path.join(this.rootPath, fileName)));
+  return fs.copyAsync(filePath, indexPagePath)
+    .catch(() => Promise.reject(new Error(`Failed to copy over ${filePath}`)));
 };
 
 /**
@@ -535,18 +527,14 @@ Site.prototype.addSiteNavToDefaultLayout = function () {
   const siteLayoutSiteNavDefaultPath = path.join(siteLayoutPath, LAYOUT_DEFAULT_NAME, 'navigation.md');
   const wikiSiteNavPath = path.join(this.rootPath, WIKI_SITE_NAV_PATH);
 
-  return this.readSiteConfig()
-    .then(() => this.collectAddressablePages())
-    .then(() => fs.accessAsync(wikiSiteNavPath))
+  return fs.accessAsync(wikiSiteNavPath)
     .then(() => {
-      let siteNavContent = fs.readFileSync(wikiSiteNavPath, 'utf8');
-      const openingBracketsRegex = /\([.]/g;
-      const baseUrlSubst = '({{baseUrl}}';
-      siteNavContent = siteNavContent.replace(openingBracketsRegex, baseUrlSubst);
-      const closingBracketsRegex = /\)/g;
-      const extSubst = '.html)';
-      siteNavContent = siteNavContent.replace(closingBracketsRegex, extSubst).replace('/.html', '/');
+      const siteNavContent = fs.readFileSync(wikiSiteNavPath, 'utf8');
       const wrappedSiteNavContent = `<navigation>\n${siteNavContent}\n</navigation>`;
+      logger.info(`Copied over the existing _Sidebar.md file to ${path.relative(this.rootPath,
+                                                                                siteLayoutSiteNavDefaultPath)
+      }\n\tCheck https://markbind.org/userGuide/tweakingThePageStructure.html#site-navigation-menus`
+        + '\n\tfor information on site navigation menus.');
       return fs.outputFileSync(siteLayoutSiteNavDefaultPath, wrappedSiteNavContent);
     })
     .catch(() => this.buildSiteNav(siteLayoutSiteNavDefaultPath));
@@ -598,20 +586,28 @@ Site.prototype.addTopNavToAddressablePages = function () {
       return fs.outputFileAsync(topNavDefaultPath, TOP_NAV_DEFAULT);
     })
     .then(() => {
+      const topNavRelativePath = path.relative(this.rootPath, topNavDefaultPath);
+      if (topNavRelativePath.length === 0) {
+        return Promise.resolve();
+      }
+      const includeTopNavCode = `<include src="${topNavRelativePath}" />\n\n`;
       const outputFilesPromises = this.addressablePages
         .filter(addressablePage => !addressablePage.src.startsWith('_'))
-        .forEach((page) => {
+        .map((page) => {
           const addressablePagePath = path.join(this.rootPath, page.src);
-          const topNavRelativePath = path.relative(this.rootPath, topNavDefaultPath);
-          if (topNavRelativePath.length > 0) {
-            const includeTopNavCode = `<include src="${topNavRelativePath}" />\n\n`;
-            const addressablePageContent = fs.readFileSync(addressablePagePath, 'utf8');
-            const updatedAddressablePageContent = includeTopNavCode + addressablePageContent;
-            return fs.outputFileAsync(addressablePagePath, updatedAddressablePageContent);
-          }
-          return Promise.all(outputFilesPromises);
+          const addressablePageContent = fs.readFileSync(addressablePagePath, 'utf8');
+          const updatedAddressablePageContent = includeTopNavCode + addressablePageContent;
+          return fs.outputFileAsync(addressablePagePath, updatedAddressablePageContent);
         });
+      return Promise.all(outputFilesPromises);
     });
+};
+
+Site.prototype.printBaseUrlMessage = function () {
+  logger.info('The default base URL of your site is set to /'
+    + '\n\tYou can change the base URL of your site by editing site.json'
+    + '\n\tCheck https://markbind.org/userGuide/siteConfiguration.html for more information.');
+  return Promise.resolve();
 };
 
 /**
