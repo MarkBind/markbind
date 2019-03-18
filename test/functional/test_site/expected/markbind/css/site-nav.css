@@ -30,7 +30,7 @@
     -webkit-transition: 0.4s;
 }
 
-/*  Standard style order for links, see CSS2�5.11.3:
+/*  Standard style order for links, see CSS2§5.11.3:
     https://www.w3.org/TR/CSS2/selector.html#dynamic-pseudo-classes */
 .site-nav__a:link,
 .site-nav__a:visited,
