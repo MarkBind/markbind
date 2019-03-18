@@ -4,19 +4,19 @@ test('Page#collectIncludedFiles collects included files from 1 dependency object
   const page = new Page({});
   page.collectIncludedFiles([{ to: 'somewhere' }]);
 
-  expect(page.includedFiles).toEqual({ somewhere: true });
+  expect(page.includedFiles).toEqual(new Set().add('somewhere'));
 });
 
 test('Page#collectIncludedFiles ignores other keys in dependency', () => {
   const page = new Page({});
   page.collectIncludedFiles([{ to: 'somewhere', from: 'somewhere else' }]);
 
-  expect(page.includedFiles).toEqual({ somewhere: true });
+  expect(page.includedFiles).toEqual(new Set().add('somewhere'));
 });
 
 test('Page#collectIncludedFiles collects nothing', () => {
   const page = new Page({});
   page.collectIncludedFiles([]);
 
-  expect(page.includedFiles).toEqual({});
+  expect(page.includedFiles).toEqual(new Set());
 });

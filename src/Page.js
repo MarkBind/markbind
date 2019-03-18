@@ -89,7 +89,7 @@ function Page(pageConfig) {
   this.headFileTopContent = '';
   this.headings = {};
   this.headingIndexingLevel = pageConfig.headingIndexingLevel;
-  this.includedFiles = {};
+  this.includedFiles = new Set();
   this.keywords = {};
   this.navigableHeadings = {};
 }
@@ -484,7 +484,7 @@ Page.prototype.addAnchors = function (content) {
  */
 Page.prototype.collectIncludedFiles = function (dependencies) {
   dependencies.forEach((dependency) => {
-    this.includedFiles[dependency.to] = true;
+    this.includedFiles.add(dependency.to);
   });
 };
 
@@ -552,7 +552,7 @@ Page.prototype.insertFooter = function (pageData) {
   // Retrieve Markdown file contents
   const footerContent = fs.readFileSync(footerPath, 'utf8');
   // Set footer file as an includedFile
-  this.includedFiles[footerPath] = true;
+  this.includedFiles.add(footerPath);
   // Map variables
   const newBaseUrl = calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
   const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
@@ -582,7 +582,7 @@ Page.prototype.insertSiteNav = function (pageData) {
     return pageData;
   }
   // Set siteNav file as an includedFile
-  this.includedFiles[siteNavPath] = true;
+  this.includedFiles.add(siteNavPath);
   // Map variables
   const newBaseUrl = calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
   const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
@@ -723,7 +723,7 @@ Page.prototype.collectHeadFiles = function (baseUrl, hostBaseUrl) {
     }
     const headFileContent = fs.readFileSync(headFilePath, 'utf8');
     // Set head file as an includedFile
-    this.includedFiles[headFilePath] = true;
+    this.includedFiles.add(headFilePath);
     // Map variables
     const newBaseUrl = calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
     const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
@@ -762,8 +762,8 @@ Page.prototype.insertTemporaryStyles = function (pageData) {
 };
 
 Page.prototype.generate = function (builtFiles) {
-  this.includedFiles = {};
-  this.includedFiles[this.sourcePath] = true;
+  this.includedFiles = new Set();
+  this.includedFiles.add(this.sourcePath);
 
   const markbinder = new MarkBind({
     errorHandler: logger.error,
