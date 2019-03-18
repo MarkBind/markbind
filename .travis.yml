@@ -1,8 +1,6 @@
 language: node_js
 node_js:
   - '8'
-before_install:
-  - chmod +x ./test/functional/test.sh
 deploy:
   provider: script
   script: cd docs && ../index.js build && ../index.js deploy --travis
