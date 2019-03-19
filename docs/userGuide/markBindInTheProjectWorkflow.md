@@ -38,4 +38,4 @@ Similarly, you can keep the dev docs in a separate directory (sey `dev-docs`) an
 </div>
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('deployingTheSite', '') }}
+{{ previous_next('deployingTheSite', 'themes') }}

@@ -21,6 +21,7 @@ Here is a typical `site.json` file:
   "baseUrl": "/myproduct",
   "faviconPath": "myfavicon.png",
   "titlePrefix": "FooBar Dev Docs",
+  "theme": "bootswatch-cerulean",
   "pages": [
     {
       "src": "index.md",
@@ -76,6 +77,11 @@ Here is a typical `site.json` file:
 #### **`titlePrefix`**
 
 **The prefix for all page titles.** The separator <code>-</code> will be inserted by MarkBind.
+
+
+#### **`theme`**
+
+_(Optional)_ **The theme for the generated site.** Uses the default Bootstrap theme if not specified. See [User Guide: Themes](themes.html) for more details.
 
 
 #### **`pages`**
