@@ -58,42 +58,6 @@ const TEMP_DROPDOWN_PLACEHOLDER_CLASS = 'temp-dropdown-placeholder';
 cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
-function Page(pageConfig) {
-  this.asset = pageConfig.asset;
-  this.baseUrl = pageConfig.baseUrl;
-  this.baseUrlMap = pageConfig.baseUrlMap;
-  this.content = pageConfig.content || '';
-  this.faviconUrl = pageConfig.faviconUrl;
-  this.layout = pageConfig.layout;
-  this.layoutsAssetPath = pageConfig.layoutsAssetPath;
-  this.rootPath = pageConfig.rootPath;
-  this.enableSearch = pageConfig.enableSearch;
-  this.plugins = pageConfig.plugins;
-  this.pluginsContext = pageConfig.pluginsContext;
-  this.searchable = pageConfig.searchable;
-  this.src = pageConfig.src;
-  this.template = pageConfig.pageTemplate;
-  this.title = pageConfig.title || '';
-  this.titlePrefix = pageConfig.titlePrefix;
-  this.userDefinedVariablesMap = pageConfig.userDefinedVariablesMap;
-
-  // the source file for rendering this page
-  this.sourcePath = pageConfig.sourcePath;
-  // the temp path for writing intermediate result
-  this.tempPath = pageConfig.tempPath;
-  // the output path of this page
-  this.resultPath = pageConfig.resultPath;
-
-  this.frontMatter = {};
-  this.headFileBottomContent = '';
-  this.headFileTopContent = '';
-  this.headings = {};
-  this.headingIndexingLevel = pageConfig.headingIndexingLevel;
-  this.includedFiles = {};
-  this.keywords = {};
-  this.navigableHeadings = {};
-}
-
 /**
  * Util Methods
  */
@@ -204,6 +168,46 @@ function formatSiteNav(renderedSiteNav, src) {
     }
   });
   return $.html();
+}
+
+function Page(pageConfig) {
+  this.asset = pageConfig.asset;
+  this.baseUrl = pageConfig.baseUrl;
+  this.baseUrlMap = pageConfig.baseUrlMap;
+  this.content = pageConfig.content || '';
+  this.faviconUrl = pageConfig.faviconUrl;
+  this.layout = pageConfig.layout;
+  this.layoutsAssetPath = pageConfig.layoutsAssetPath;
+  this.rootPath = pageConfig.rootPath;
+  this.enableSearch = pageConfig.enableSearch;
+  this.plugins = pageConfig.plugins;
+  this.pluginsContext = pageConfig.pluginsContext;
+  this.searchable = pageConfig.searchable;
+  this.src = pageConfig.src;
+  this.template = pageConfig.pageTemplate;
+  this.title = pageConfig.title || '';
+  this.titlePrefix = pageConfig.titlePrefix;
+  this.userDefinedVariablesMap = pageConfig.userDefinedVariablesMap;
+
+  // the source file for rendering this page
+  this.sourcePath = pageConfig.sourcePath;
+  // the temp path for writing intermediate result
+  this.tempPath = pageConfig.tempPath;
+  // the output path of this page
+  this.resultPath = pageConfig.resultPath;
+
+  this.frontMatter = {};
+  this.headFileBottomContent = '';
+  this.headFileTopContent = '';
+  this.headings = {};
+  this.headingIndexingLevel = pageConfig.headingIndexingLevel;
+  this.includedFiles = {};
+  this.keywords = {};
+  this.navigableHeadings = {};
+
+  const newBaseUrl = calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap);
+  const configUrl = newBaseUrl ? path.join(this.rootPath, newBaseUrl) : this.rootPath;
+  nunjucks.configure(configUrl);
 }
 
 /**

@@ -141,6 +141,8 @@ function Site(rootPath, outputPath, onePagePath, forceReload = false, siteConfig
   this.siteConfig = {};
   this.siteConfigPath = siteConfigPath;
   this.userDefinedVariablesMap = {};
+
+  nunjucks.configure(this.rootPath);
 }
 
 /**
