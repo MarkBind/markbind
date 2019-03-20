@@ -32,7 +32,8 @@ const NAVIGATION_FOLDER_PATH = '_markbind/navigation';
 
 const CONTENT_WRAPPER_ID = 'content-wrapper';
 const FRONT_MATTER_FENCE = '---';
-const PAGE_NAV_CONENT_WRAPPER_ID = 'page-nav-content-wrapper';
+const PAGE_NAV_ID = 'page-nav';
+const PAGE_NAV_TITLE_CLASS = 'page-nav-title';
 const SITE_NAV_ID = 'site-nav';
 const SITE_NAV_LIST_CLASS = 'site-nav-list';
 const TITLE_PREFIX_SEPARATOR = ' - ';
@@ -610,17 +611,6 @@ Page.prototype.insertSiteNav = function (pageData) {
     siteNavDataSelector('navigation').replaceWith(formattedSiteNav);
   }
   // Wrap sections
-
-/**
- *  Inserts wrapper for page nav contents CSS manipulation
- */
-Page.prototype.insertPageNavWrapper = function (pageData) {
-  if (this.isPageNavigationSpecifierValid()) {
-    const wrappedPageData = `<div id="${PAGE_NAV_CONENT_WRAPPER_ID}">\n`
-                            + `${pageData}\n`
-                            + '</div>\n';
-    return wrappedPageData;
-  }
   const wrappedSiteNav = `<nav id="${SITE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
     + '<div class="sticky-top spacer-top viewport-height-90 scrollable slim-scroll">'
     + `${siteNavDataSelector.html()}\n`
@@ -691,29 +681,32 @@ Page.prototype.generatePageNavHeadingHtml = function () {
 Page.prototype.generatePageNavTitleHtml = function () {
   const { pageNavTitle } = this.frontMatter;
   return pageNavTitle
-    ? '<a class="navbar-brand page-nav-title" href="#">'
+    ? `<a class="navbar-brand ${PAGE_NAV_TITLE_CLASS}" href="#">`
       + `${pageNavTitle.toString()}`
       + '</a>'
     : '';
 };
 
 /**
- *  Insert page navigation bar with headings up to headingIndexingLevel
+ *  Builds page navigation bar with headings up to headingIndexingLevel
  */
-Page.prototype.insertPageNav = function () {
+Page.prototype.buildPageNav = function () {
   if (this.isPageNavigationSpecifierValid()) {
-    const $ = cheerio.load(this.content);
+    const $ = cheerio.load(this.content, { xmlMode: false });
     this.navigableHeadings = {};
     this.collectNavigableHeadings($(`#${CONTENT_WRAPPER_ID}`).html());
-    const pageNavHeadingHTML = this.generatePageNavHeadingHtml();
     const pageNavTitleHtml = this.generatePageNavTitleHtml();
-    const pageNavHtml = '<nav id="page-nav" class="navbar navbar-light bg-transparent slim-scroll">\n'
+    const pageNavHeadingHTML = this.generatePageNavHeadingHtml();
+    this.pageSectionsHtml[`#${PAGE_NAV_ID}`] = htmlBeautify(
+      `<nav id="${PAGE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
+      + '<div class="sticky-top spacer-top viewport-height-90 scrollable slim-scroll">\n'
       + `${pageNavTitleHtml}\n`
-      + `    ${pageNavHeadingHTML}\n`
-      + '  </nav>\n'
-      + '</nav>\n';
-    this.content = htmlBeautify(`${pageNavHtml}\n${this.content}`, { indent_size: 2 });
       + '<nav class="nav nav-pills flex-column my-0 small no-flex-wrap">\n'
+      + `${pageNavHeadingHTML}\n`
+      + '</nav>\n'
+      + '</div>\n'
+      + '</nav>\n',
+      { indent_size: 2 });
   }
 };
 

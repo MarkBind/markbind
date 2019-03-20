@@ -2,11 +2,9 @@
 
 #page-nav {
     border-left: solid 1px lightgrey;
-    display: inline-block;
-    max-height: 80vh;
-    overflow: auto;
-    position: fixed;
-    right: 0;
+    display: block;
+    flex: 0 0 auto;
+    max-width: 300px;
     transition: 0.4s;
     width: 300px;
     -webkit-transition: 0.4s;
@@ -27,10 +25,6 @@
     color: black;
 }
 
-#page-nav-content-wrapper {
-    margin-right: 300px;
-    transition: 0.4s;
-    -webkit-transition: 0.4s;
 .page-nav-title {
     color: black;
     white-space: inherit;
@@ -44,7 +38,7 @@
     flex-wrap: nowrap;
 }
 
-/* Responsive site navigation */
+/* Responsive page navigation */
 
 /* Hides page navigation on screen widths smaller than 1300px */
 @media screen and (max-width: 1299.98px) {
@@ -55,18 +49,10 @@
         padding: 0;
         width: 0px;
     }
-
-    #page-nav-content-wrapper {
-        margin-right: 0;
-    }
 }
 
 /* Hide page navigation when printing */
 @media print {
-
-    #page-nav-content-wrapper {
-        margin-right: 0;
-    }
 
     #page-nav {
         border: none;
