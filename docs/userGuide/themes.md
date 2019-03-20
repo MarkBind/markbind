@@ -25,22 +25,35 @@ If no `theme` property is specified, your site will be styled with default Boots
 
 Currently, MarkBind supports all light themes from [Bootswatch](https://bootswatch.com/). Visit each of the theme pages below to see how different visual components are styled.
 
-- [`bootswatch-cerulean`](https://bootswatch.com/cerulean/)
-- [`bootswatch-cosmo`](https://bootswatch.com/cosmo/)
-- [`bootswatch-flatly`](https://bootswatch.com/flatly/)
-- [`bootswatch-journal`](https://bootswatch.com/journal/)
-- [`bootswatch-litera`](https://bootswatch.com/litera/)
-- [`bootswatch-lumen`](https://bootswatch.com/lumen/)
-- [`bootswatch-lux`](https://bootswatch.com/lux/)
-- [`bootswatch-materia`](https://bootswatch.com/materia/)
-- [`bootswatch-minty`](https://bootswatch.com/minty/)
-- [`bootswatch-pulse`](https://bootswatch.com/pulse/)
-- [`bootswatch-sandstone`](https://bootswatch.com/sandstone/)
-- [`bootswatch-simplex`](https://bootswatch.com/simplex/)
-- [`bootswatch-sketchy`](https://bootswatch.com/sketchy/)
-- [`bootswatch-spacelab`](https://bootswatch.com/spacelab/)
-- [`bootswatch-united`](https://bootswatch.com/united/)
-- [`bootswatch-yeti`](https://bootswatch.com/yeti/)
+{% set bootswatchThemes = [
+  'cerulean',
+  'cosmo',
+  'flatly',
+  'journal',
+  'litera',
+  'lumen',
+  'lux',
+  'materia',
+  'minty',
+  'pulse',
+  'sandstone',
+  'simplex',
+  'sketchy',
+  'spacelab',
+  'united',
+  'yeti'
+] %}
+
+<div class="container-fluid">
+<div class="row">
+  {% for theme in bootswatchThemes %}
+  <div class="theme-card col-sm-6 col-xl-4">
+    <markdown>###### `bootswatch-{{ theme }}`</markdown>
+    <a href="https://bootswatch.com/{{ theme }}/"><img src="../images/bootswatch/{{ theme }}.png" /></a>
+  </div>
+  {% endfor %}
+</div>
+</div>
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('markBindInTheProjectWorkflow', '') }}
