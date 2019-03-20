@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="markbind/css/github.min.css">
     <link rel="stylesheet" href="markbind/css/markbind.css">
     <link rel="stylesheet" href="STYLESHEET_LINK">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
     <link rel="stylesheet" href="markbind/layouts/default/styles.css">
     
     
@@ -28,7 +29,7 @@
     <li><a href="/" class="nav-link">One</a></li>
     <li><a href="/" class="nav-link">Two</a></li>
     <div class="nav-link temp-dropdown-placeholder">Dropdown</div>
-    <dropdown text="Dropdown" class="nav-link temp-dropdown">
+    <dropdown text="Dropdown" class="nav-link temp-dropdown algolia-no-index">
       <li><a class="dropdown-item" href="/">Dropdown One</a></li>
       <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
     </dropdown>
@@ -36,14 +37,14 @@
 
   <h1 id="test-dropdown-in-body-with-text-and-class-attributes">Test dropdown in body with text and class attributes<a class="fa fa-anchor" href="#test-dropdown-in-body-with-text-and-class-attributes"></a></h1>
   <div class="test-class temp-dropdown-placeholder">Test One</div>
-  <dropdown text="Test One" class="test-class temp-dropdown">
+  <dropdown text="Test One" class="test-class temp-dropdown algolia-no-index">
     <li><a class="dropdown-item" href="/">Dropdown One</a></li>
     <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
   </dropdown>
 
   <h1 id="test-dropdown-in-body-without-text-and-class-attributes">Test dropdown in body without text and class attributes<a class="fa fa-anchor" href="#test-dropdown-in-body-without-text-and-class-attributes"></a></h1>
   <div class="temp-dropdown-placeholder"></div>
-  <dropdown class="temp-dropdown">
+  <dropdown class="temp-dropdown algolia-no-index">
     <button slot="button" type="button" class="btn dropdown-toggle">
     Test Two
     <span class="caret"></span></button>
@@ -75,5 +76,18 @@
 <script src="markbind/js/setup.js"></script>
 <script src="SCRIPT_LINK"></script>
 <script>alert("hello")</script>
+<script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+    function initAlgolia() {
+      docsearch({
+        apiKey: "25626fae796133dc1e734c6bcaaeac3c",
+        indexName: "docsearch",
+        inputSelector: "#algolia-search-input",
+        algoliaOptions: {},
+        debug: false,
+      });
+    }
+    MarkBind.afterSetup(initAlgolia);
+  </script>
 <script src="markbind/layouts/default/scripts.js"></script>
 </html>

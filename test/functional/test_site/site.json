@@ -62,7 +62,8 @@
   "headingIndexingLevel": 4,
   "plugins" : [
     "testMarkbindPlugin",
-    "filterTags"
+    "filterTags",
+    "algolia"
   ],
   "pluginsContext" : {
     "testMarkbindPlugin" : {
@@ -71,6 +72,10 @@
     },
     "filterTags" : {
       "tags" : ["tag-site-shown", "+tag-site-override-shown", "+tag-site-override-specific-shown"]
+    },
+    "algolia": {
+      "apiKey": "25626fae796133dc1e734c6bcaaeac3c",
+      "indexName": "docsearch"
     }
   }
 }

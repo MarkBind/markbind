@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="markbind/css/github.min.css">
     <link rel="stylesheet" href="markbind/css/markbind.css">
     <link rel="stylesheet" href="STYLESHEET_LINK">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
     <link rel="stylesheet" href="markbind/layouts/default/styles.css">
     
     
@@ -45,5 +46,18 @@
 <script src="markbind/js/setup.js"></script>
 <script src="SCRIPT_LINK"></script>
 <script>alert("hello")</script>
+<script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+    function initAlgolia() {
+      docsearch({
+        apiKey: "25626fae796133dc1e734c6bcaaeac3c",
+        indexName: "docsearch",
+        inputSelector: "#algolia-search-input",
+        algoliaOptions: {},
+        debug: false,
+      });
+    }
+    MarkBind.afterSetup(initAlgolia);
+  </script>
 <script src="markbind/layouts/default/scripts.js"></script>
 </html>
