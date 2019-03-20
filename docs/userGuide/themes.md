@@ -48,8 +48,10 @@ Currently, MarkBind supports all light themes from [Bootswatch](https://bootswat
 <div class="row">
   {% for theme in bootswatchThemes %}
   <div class="theme-card col-sm-6 col-xl-4">
-    <markdown>###### `bootswatch-{{ theme }}`</markdown>
-    <a href="https://bootswatch.com/{{ theme }}/"><img src="../images/bootswatch/{{ theme }}.png" /></a>
+    <box>
+      <markdown>###### `bootswatch-{{ theme }}`</markdown>
+      <a href="https://bootswatch.com/{{ theme }}/"><img src="../images/bootswatch/{{ theme }}.png" /></a>
+    </box>
   </div>
   {% endfor %}
 </div>
