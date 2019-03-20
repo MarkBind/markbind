@@ -85,6 +85,7 @@ function Page(pageConfig) {
   this.includedFiles = {};
   this.keywords = {};
   this.navigableHeadings = {};
+  this.pageSectionsHtml = {};
 }
 
 /**
@@ -222,11 +223,15 @@ Page.prototype.prepareTemplateData = function () {
     baseUrl: this.baseUrl,
     content: this.content,
     faviconUrl: this.faviconUrl,
+    footerHtml: this.pageSectionsHtml.footer || '',
+    headerHtml: this.pageSectionsHtml.header || '',
     headFileBottomContent: this.headFileBottomContent,
     headFileTopContent: this.headFileTopContent,
     markBindVersion: `MarkBind ${CLI_VERSION}`,
     pageNav: this.isPageNavigationSpecifierValid(),
+    pageNavHtml: this.pageSectionsHtml[`#${PAGE_NAV_ID}`] || '',
     siteNav: this.frontMatter.siteNav,
+    siteNavHtml: this.pageSectionsHtml[`#${SITE_NAV_ID}`] || '',
     title: prefixedTitle,
     enableSearch: this.enableSearch,
   };
@@ -767,6 +772,23 @@ Page.prototype.insertTemporaryStyles = function (pageData) {
   return $.html();
 };
 
+Page.prototype.collectPageSection = function (section) {
+  const $ = cheerio.load(this.content, { xmlMode: false });
+  const pageSection = $(section);
+  if (pageSection.length === 0) {
+    return;
+  }
+  this.pageSectionsHtml[section] = htmlBeautify($.html(section), { indent_size: 2 }).trim();
+  pageSection.remove();
+  this.content = htmlBeautify($.html(), { indent_size: 2 });
+};
+
+Page.prototype.collectAllPageSections = function () {
+  this.collectPageSection('header');
+  this.collectPageSection(`#${SITE_NAV_ID}`);
+  this.collectPageSection('footer');
+};
+
 Page.prototype.generate = function (builtFiles) {
   this.includedFiles = {};
   this.includedFiles[this.sourcePath] = true;
@@ -807,8 +829,12 @@ Page.prototype.generate = function (builtFiles) {
 
         this.addLayoutFiles();
         this.collectHeadFiles(baseUrl, hostBaseUrl);
+
         this.content = nunjucks.renderString(this.content, { baseUrl, hostBaseUrl });
-        this.insertPageNav();
+
+        this.collectAllPageSections();
+        this.buildPageNav();
+
         return fs.outputFileAsync(this.resultPath, this.template(this.prepareTemplateData()));
       })
       .then(() => {
