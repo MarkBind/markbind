@@ -37,6 +37,7 @@ If you do not wish to use MarkBind's searchbar (e.g. you have an external servic
 
 <include src="syntax/searchBars.mbdf" />
 <include src="syntax/keywords.mbdf" />
+<include src="syntax/indexing.mbdf" />
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('reusingContents', 'deployingTheSite') }}
