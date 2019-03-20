@@ -5,115 +5,115 @@
 
 ```html
 <popover effect="fade" content="Lorem ipsum dolor sit amet" placement="top">
-    <button class="btn btn-secondary">Popover on top</button>
+  <button class="btn btn-secondary">Popover on top</button>
+</popover>
+<popover effect="fade" content="Lorem ipsum dolor sit amet" placement="left">
+  <button class="btn btn-secondary">Popover on left</button>
+</popover>
+<popover effect="fade" content="Lorem ipsum dolor sit amet" placement="right">
+  <button class="btn btn-secondary">Popover on right</button>
+</popover>
+<popover effect="fade" content="Lorem ipsum dolor sit amet" placement="bottom">
+  <button class="btn btn-secondary">Popover on bottom</button>
+</popover>
+<hr>
+<h4>Title</h4>
+<popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="top">
+  <button class="btn btn-secondary">Popover on top</button>
+</popover>
+<popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="left">
+  <button class="btn btn-secondary">Popover on left</button>
+</popover>
+<popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="right">
+  <button class="btn btn-secondary">Popover on right</button>
+</popover>
+<popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="bottom">
+  <button class="btn btn-secondary">Popover on bottom</button>
+</popover>
+<hr />
+<h4>Trigger</h4>
+<p>
+  <popover effect="scale" title="Title" content="Lorem ipsum dolor sit amet" placement="top" trigger="hover">
+    <button class="btn btn-secondary">Mouseenter</button>
   </popover>
-  <popover effect="fade" content="Lorem ipsum dolor sit amet" placement="left">
-    <button class="btn btn-secondary">Popover on left</button>
+  <popover effect="scale" title="Title" content="Lorem ipsum dolor sit amet" placement="top" trigger="contextmenu">
+    <button class="btn btn-secondary">Contextmenu (right click)</button>
   </popover>
-  <popover effect="fade" content="Lorem ipsum dolor sit amet" placement="right">
-    <button class="btn btn-secondary">Popover on right</button>
-  </popover>
-  <popover effect="fade" content="Lorem ipsum dolor sit amet" placement="bottom">
-    <button class="btn btn-secondary">Popover on bottom</button>
-  </popover>
-  <hr>
-  <h4>Title</h4>
-  <popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="top">
-    <button class="btn btn-secondary">Popover on top</button>
-  </popover>
-  <popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="left">
-    <button class="btn btn-secondary">Popover on left</button>
-  </popover>
-  <popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="right">
-    <button class="btn btn-secondary">Popover on right</button>
-  </popover>
-  <popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="bottom">
-    <button class="btn btn-secondary">Popover on bottom</button>
-  </popover>
-  <hr />
-  <h4>Trigger</h4>
-  <p>
-    <popover effect="scale" title="Title" content="Lorem ipsum dolor sit amet" placement="top" trigger="hover">
-      <button class="btn btn-secondary">Mouseenter</button>
-    </popover>
-    <popover effect="scale" title="Title" content="Lorem ipsum dolor sit amet" placement="top" trigger="contextmenu">
-      <button class="btn btn-secondary">Contextmenu (right click)</button>
-    </popover>
-  </p>
-  <h4>Markdown</h4>
-  <p>
-    <popover effect="scale" title="**Emoji title** :rocket:" content="++emoji++ content :cat:">
-      <button class="btn btn-secondary">Hover</button>
-    </popover>
-  </p>
-  <h4>Content using slot</h4>
-  <popover effect="scale" title="**Emoji title** :rocket:">
-    <div slot="content">
-      This is a long content...
-    </div>
+</p>
+<h4>Markdown</h4>
+<p>
+  <popover effect="scale" title="**Emoji title** :rocket:" content="++emoji++ content :cat:">
     <button class="btn btn-secondary">Hover</button>
   </popover>
-  <br />
-  <br />
-  <h4>Wrap Text</h4>
-  <popover header="false" content="Nice!">What do you say</popover>
+</p>
+<h4>Content using slot</h4>
+<popover effect="scale" title="**Emoji title** :rocket:">
+  <div slot="content">
+    This is a long content...
+  </div>
+  <button class="btn btn-secondary">Hover</button>
+</popover>
+<br />
+<br />
+<h4>Wrap Text</h4>
+<popover header="false" content="Nice!">What do you say</popover>
 ```
 </span>
 <span id="output">
 
 <popover effect="fade" content="Lorem ipsum dolor sit amet" placement="top">
-    <button class="btn btn-secondary">Popover on top</button>
+  <button class="btn btn-secondary">Popover on top</button>
+</popover>
+<popover effect="fade" content="Lorem ipsum dolor sit amet" placement="left">
+  <button class="btn btn-secondary">Popover on left</button>
+</popover>
+<popover effect="fade" content="Lorem ipsum dolor sit amet" placement="right">
+  <button class="btn btn-secondary">Popover on right</button>
+</popover>
+<popover effect="fade" content="Lorem ipsum dolor sit amet" placement="bottom">
+  <button class="btn btn-secondary">Popover on bottom</button>
+</popover>
+<hr>
+<h4>Title</h4>
+<popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="top">
+  <button class="btn btn-secondary">Popover on top</button>
+</popover>
+<popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="left">
+  <button class="btn btn-secondary">Popover on left</button>
+</popover>
+<popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="right">
+  <button class="btn btn-secondary">Popover on right</button>
+</popover>
+<popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="bottom">
+  <button class="btn btn-secondary">Popover on bottom</button>
+</popover>
+<hr />
+<h4>Trigger</h4>
+<p>
+  <popover effect="scale" title="Title" content="Lorem ipsum dolor sit amet" placement="top" trigger="hover">
+    <button class="btn btn-secondary">Mouseenter</button>
   </popover>
-  <popover effect="fade" content="Lorem ipsum dolor sit amet" placement="left">
-    <button class="btn btn-secondary">Popover on left</button>
+  <popover effect="scale" title="Title" content="Lorem ipsum dolor sit amet" placement="top" trigger="contextmenu">
+    <button class="btn btn-secondary">Contextmenu (right click)</button>
   </popover>
-  <popover effect="fade" content="Lorem ipsum dolor sit amet" placement="right">
-    <button class="btn btn-secondary">Popover on right</button>
-  </popover>
-  <popover effect="fade" content="Lorem ipsum dolor sit amet" placement="bottom">
-    <button class="btn btn-secondary">Popover on bottom</button>
-  </popover>
-  <hr>
-  <h4>Title</h4>
-  <popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="top">
-    <button class="btn btn-secondary">Popover on top</button>
-  </popover>
-  <popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="left">
-    <button class="btn btn-secondary">Popover on left</button>
-  </popover>
-  <popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="right">
-    <button class="btn btn-secondary">Popover on right</button>
-  </popover>
-  <popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="bottom">
-    <button class="btn btn-secondary">Popover on bottom</button>
-  </popover>
-  <hr />
-  <h4>Trigger</h4>
-  <p>
-    <popover effect="scale" title="Title" content="Lorem ipsum dolor sit amet" placement="top" trigger="hover">
-      <button class="btn btn-secondary">Mouseenter</button>
-    </popover>
-    <popover effect="scale" title="Title" content="Lorem ipsum dolor sit amet" placement="top" trigger="contextmenu">
-      <button class="btn btn-secondary">Contextmenu (right click)</button>
-    </popover>
-  </p>
-  <h4>Markdown</h4>
-  <p>
-    <popover effect="scale" title="**Emoji title** :rocket:" content="++emoji++ content :cat:">
-      <button class="btn btn-secondary">Hover</button>
-    </popover>
-  </p>
-  <h4>Content using slot</h4>
-  <popover effect="scale" title="**Emoji title** :rocket:">
-    <div slot="content">
-      This is a long content...
-    </div>
+</p>
+<h4>Markdown</h4>
+<p>
+  <popover effect="scale" title="**Emoji title** :rocket:" content="++emoji++ content :cat:">
     <button class="btn btn-secondary">Hover</button>
   </popover>
-  <br />
-  <br />
-  <h4>Wrap Text</h4>
-  <popover header="false" content="Nice!">What do you say</popover>
+</p>
+<h4>Content using slot</h4>
+<popover effect="scale" title="**Emoji title** :rocket:">
+  <div slot="content">
+    This is a long content...
+  </div>
+  <button class="btn btn-secondary">Hover</button>
+</popover>
+<br />
+<br />
+<h4>Wrap Text</h4>
+<popover header="false" content="Nice!">What do you say</popover>
 </span>
 </include>
 
@@ -124,9 +124,9 @@
 
 ```html
 More about <trigger for="pop:trigger_id">trigger</trigger>.
-  <popover id="pop:trigger_id" content="This popover is triggered by a trigger"></popover>
-  <br>
-  This is the same <trigger for="pop:trigger_id">trigger</trigger> as last one.
+<popover id="pop:trigger_id" content="This popover is triggered by a trigger"></popover>
+<br>
+This is the same <trigger for="pop:trigger_id">trigger</trigger> as last one.
 ```
 </span>
 <span id="output">
@@ -160,11 +160,11 @@ placement | `String` | `top` | How to position the Popover.<br>Supports: `top`, 
 Hover over the <trigger for="pop:context-target">keyword</trigger> to see the popover.
 
 <popover id="pop:context-target" title="Popover title" placement="top">
-  <div slot="content">
+<div slot="content">
 
 description :+1:
 
-  </div>
+</div>
 </popover>
 ```
 </span>
@@ -174,10 +174,10 @@ description :+1:
 Hover over the <trigger for="pop:context-target">keyword</trigger> to see the popover.
 
 <popover id="pop:context-target" title="Popover title" placement="top">
-  <div slot="content">
+<div slot="content">
 
 description :+1:
 
-  </div>
+</div>
 </popover>
 </span>
