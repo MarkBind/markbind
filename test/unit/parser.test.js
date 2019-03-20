@@ -171,6 +171,90 @@ test('includeFile replaces <include src="include.md#exists"> with <div>', async 
   expect(result).toEqual(expected);
 });
 
+
+test('includeFile replaces <include src="include.md#exists" inline> with inline content', async () => {
+  const indexPath = path.resolve('index.md');
+  const includePath = path.resolve('include.md');
+
+  const index = [
+    '# Index',
+    '<include src="include.md#exists" inline/>',
+    '',
+  ].join('\n');
+
+  const include = [
+    '# Include',
+    '<seg id="exists">existing segment</seg>',
+  ].join('\n');
+
+  const json = {
+    'index.md': index,
+    'include.md': include,
+  };
+
+  fs.vol.fromJSON(json, '');
+  const baseUrlMap = {};
+  baseUrlMap[ROOT_PATH] = true;
+
+  const markbinder = new MarkBind();
+  const result = await markbinder.includeFile(indexPath, {
+    baseUrlMap,
+    rootPath: ROOT_PATH,
+    userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
+  });
+
+  const expected = [
+    '# Index',
+    `<span cwf="${indexPath}" include-path="${includePath}">existing segment</span>`,
+    '',
+  ].join('\n');
+
+  expect(result).toEqual(expected);
+});
+
+test('includeFile replaces <include src="include.md#exists" trim> with trimmed content', async () => {
+  const indexPath = path.resolve('index.md');
+  const includePath = path.resolve('include.md');
+
+  const index = [
+    '# Index',
+    '<include src="include.md#exists" trim/>',
+    '',
+  ].join('\n');
+
+  const include = [
+    '# Include',
+    '<seg id="exists">\t\texisting segment\t\t</seg>',
+  ].join('\n');
+
+  const json = {
+    'index.md': index,
+    'include.md': include,
+  };
+
+  fs.vol.fromJSON(json, '');
+  const baseUrlMap = {};
+  baseUrlMap[ROOT_PATH] = true;
+
+  const markbinder = new MarkBind();
+  const result = await markbinder.includeFile(indexPath, {
+    baseUrlMap,
+    rootPath: ROOT_PATH,
+    userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
+  });
+
+  const expected = [
+    '# Index',
+    `<div cwf="${indexPath}" include-path="${includePath}">`,
+    '',
+    'existing segment',
+    '</div>',
+    '',
+  ].join('\n');
+
+  expect(result).toEqual(expected);
+});
+
 test('includeFile replaces <include src="include.md#doesNotExist"> with error <div>', async () => {
   const indexPath = path.resolve('index.md');
   const includePath = path.resolve('include.md');

@@ -133,6 +133,10 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 ## <include src="testTrimInclude.md" trim inline />
 
+# Trimmed include fragment
+
+## Before | <include src="testTrimIncludeFragment.mbdf#fragment" trim inline /> | After
+
 # Include with custom variables
 
 <include src="testIncludeVariables.md" var-included_variable_as_include_attribute="Included variable as include attribute">

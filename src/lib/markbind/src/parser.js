@@ -305,14 +305,12 @@ Parser.prototype._preprocess = function (node, context, config) {
     delete element.attribs.inline;
     delete element.attribs.trim;
 
-    fileContent = isTrim ? fileContent.trim() : fileContent;
-
     if (includeSrc.hash) {
       // directly get segment from the src
       const segmentSrc = cheerio.parseHTML(fileContent, true);
       const $ = cheerio.load(segmentSrc);
-      const htmlContent = $(includeSrc.hash).html();
-      let actualContent = htmlContent;
+      const hashContent = $(includeSrc.hash).html();
+      let actualContent = (hashContent && isTrim) ? hashContent.trim() : hashContent;
 
       if (actualContent === null) {
         if (isOptional) {
@@ -343,7 +341,7 @@ Parser.prototype._preprocess = function (node, context, config) {
       }
       element.children = cheerio.parseHTML(actualContent, true); // the needed content;
     } else {
-      let actualContent = fileContent;
+      let actualContent = (fileContent && isTrim) ? fileContent.trim() : fileContent;
       if (isIncludeSrcMd) {
         if (context.mode === 'include') {
           actualContent = isInline ? actualContent : utils.wrapContent(actualContent, '\n\n', '\n');
