@@ -1,7 +1,7 @@
-const cliUtil = require('../../src/util/cliUtil');
 const fs = require('fs');
 const path = require('path');
 
+const cliUtil = require('../../src/util/cliUtil');
 const { SITE_JSON_DEFAULT } = require('./utils/data');
 
 jest.mock('fs');
@@ -56,4 +56,3 @@ test('findRootFolder without user specified root throws error if no parent dirs 
     })
     .toThrow(`No config file found in parent directories of ${nestedDir}`);
 });
-

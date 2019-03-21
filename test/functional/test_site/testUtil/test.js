@@ -1,7 +1,7 @@
-const diffHtml = require('./diffHtml');
 const fs = require('fs');
 const path = require('path');
 const walkSync = require('walk-sync');
+const diffHtml = require('./diffHtml');
 
 const _ = {};
 _.isEqual = require('lodash/isEqual');
