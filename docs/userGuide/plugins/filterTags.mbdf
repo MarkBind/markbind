@@ -15,12 +15,19 @@ Tags are specified by the `tags` attribute, **and can be attached to any HTML el
 <p tags="language--python">print("Hello world")</p>
 ```
 
-You need to specify the tags to include in `site.json`, under the `tags` option:
+You need to specify the tags to include in the `pluginsContext`, under `tags`:
 
 ```json
 {
   ...
-  "tags": ["language--java"]
+  "plugins" : [
+    "filterTags"
+  ],
+  "pluginsContext" : {
+    "filterTags" : {
+      "tags": ["language--java"]
+    }
+  }
 }
 ```
 
@@ -28,7 +35,7 @@ All other tagged elements will be filtered out. In this case, only the element w
 
 </div>
 
-If the `tags` option is not specified in `site.json`, all tagged elements will be rendered.
+If the `filterTags` plugin is not enabled in `site.json`, all tagged elements will be rendered.
 
 **You can also use multiple tags in a single HTML element. Specify each tag in the `tags` attribute** separated by a space. An element will be rendered if **any of the tags** matches the one in `site.json`.
 
@@ -121,7 +128,14 @@ site.json
 
 {
   ...
-  "tags": ["-language--*", "language--C#"]
+  "plugins" : [
+    "filterTags"
+  ],
+  "pluginsContext" : {
+    "filterTags" : {
+      "tags": ["-language--*", "language--C#"]
+    }
+  }
 }
 ```
 

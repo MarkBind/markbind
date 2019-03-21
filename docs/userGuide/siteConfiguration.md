@@ -50,7 +50,14 @@ Here is a typical `site.json` file:
     "*.mbd",
     ".git/*"
   ],
-  "tags": ["tag1", "tag2"],
+  "plugins" : [
+    "filterTags"
+  ],
+  "pluginsContext" : {
+    "filterTags" : {
+      "tags": ["tag1", "tag2"]
+    }
+  },
   "headingIndexingLevel": 4
 }
 ```
@@ -164,9 +171,11 @@ The ignore pattern follows the [glob pattern used in .gitignore](https://git-scm
   The branch that will be deployed to in the remote repo.
 </div>
 
-#### **`tags`**
+#### **`plugins`**,  **`pluginsContext`**
 
-**A list of tags to filter page elements.**  Page elements with the specified tags are retained, while elements tagged with other tags are removed. Do not specify this option if you want to show everything. See [_User Guide: Tweaking the Page Structure → Using Tags_](tweakingThePageStructure.html#using-tags) section for more information.
+**A list of plugins to load.** Plugins are user-defined extensions that can add custom features to MarkBind. `pluginsContext` contains settings to be applied to the loaded plugins. See [User Guide: Using Plugins](usingPlugins.html) for more details.
+
+The example above uses tags as an example of configuring plugin settings, refer to the [`filterTags` plugin](tweakingThePageStructure.html#filtertags-toggling-alternative-contents-in-a-page) for more details.
 
 #### **`headingIndexingLevel`**
 
