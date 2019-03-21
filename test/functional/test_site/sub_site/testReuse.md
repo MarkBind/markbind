@@ -19,5 +19,8 @@ PIC tags:
 <pic src="{{baseUrl}}/images/I'm not allowed to use my favorite tool.png"></pic>
 <pic src="https://dummyimage.com/600x400/000/fff"></pic>
 
-Anchor link:
+Anchor:
 <a href="https://dummyimage.com/600x400/000/fff">External Image</a>
+<a href="{{baseUrl}}/images/I'm not allowed to use my favorite tool.png">Link to picture</a>
+<a id="namedAnchor">Named Anchor</a>
+<a>Anchor with no attributes</a>

@@ -387,7 +387,7 @@ Parser.prototype._preprocess = function (node, context, config) {
         element.attribs.src = utils.ensurePosix(resultPath);
       }
     } else if (['a', 'link'].includes(element.name)) {
-      if (!isUrl && !isAbsolutePath) {
+      if (!isUrl && !isAbsolutePath && hasHref) {
         const resultPath = path.join('{{hostBaseUrl}}', path.relative(config.rootPath, filePath));
         element.attribs.href = utils.ensurePosix(resultPath);
       }
