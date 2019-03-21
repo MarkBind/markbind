@@ -835,7 +835,10 @@ Page.prototype.generate = function (builtFiles) {
         this.collectAllPageSections();
         this.buildPageNav();
 
-        return fs.outputFileAsync(this.resultPath, this.template(this.prepareTemplateData()));
+        return fs.outputFileAsync(this.resultPath, htmlBeautify(
+          this.template(this.prepareTemplateData()),
+          { indent_size: 2 },
+        ));
       })
       .then(() => {
         const resolvingFiles = [];
