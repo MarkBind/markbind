@@ -8,3 +8,7 @@ mark {
 .indented {
     padding-left: 20px;
 }
+
+.theme-card img {
+    width: 100%;
+}

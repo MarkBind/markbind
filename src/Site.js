@@ -11,8 +11,10 @@ const walkSync = require('walk-sync');
 
 const _ = {};
 _.difference = require('lodash/difference');
+_.has = require('lodash/has');
 _.isBoolean = require('lodash/isBoolean');
 _.isUndefined = require('lodash/isUndefined');
+_.noop = require('lodash/noop');
 _.omitBy = require('lodash/omitBy');
 _.union = require('lodash/union');
 _.uniq = require('lodash/uniq');
@@ -52,6 +54,29 @@ const LAYOUT_FOLDER_PATH = '_markbind/layouts';
 const LAYOUT_SCRIPTS_PATH = 'scripts.js';
 const LAYOUT_SITE_FOLDER_NAME = 'layouts';
 const USER_VARIABLES_PATH = '_markbind/variables.md';
+
+function getBootswatchThemePath(theme) {
+  return path.join(__dirname, '..', 'node_modules', 'bootswatch', 'dist', theme, 'bootstrap.min.css');
+}
+
+const SUPPORTED_THEMES_PATHS = {
+  'bootswatch-cerulean': getBootswatchThemePath('cerulean'),
+  'bootswatch-cosmo': getBootswatchThemePath('cosmo'),
+  'bootswatch-flatly': getBootswatchThemePath('flatly'),
+  'bootswatch-journal': getBootswatchThemePath('journal'),
+  'bootswatch-litera': getBootswatchThemePath('litera'),
+  'bootswatch-lumen': getBootswatchThemePath('lumen'),
+  'bootswatch-lux': getBootswatchThemePath('lux'),
+  'bootswatch-materia': getBootswatchThemePath('materia'),
+  'bootswatch-minty': getBootswatchThemePath('minty'),
+  'bootswatch-pulse': getBootswatchThemePath('pulse'),
+  'bootswatch-sandstone': getBootswatchThemePath('sandstone'),
+  'bootswatch-simplex': getBootswatchThemePath('simplex'),
+  'bootswatch-sketchy': getBootswatchThemePath('sketchy'),
+  'bootswatch-spacelab': getBootswatchThemePath('spacelab'),
+  'bootswatch-united': getBootswatchThemePath('united'),
+  'bootswatch-yeti': getBootswatchThemePath('yeti'),
+};
 
 const SITE_CONFIG_DEFAULT = {
   baseUrl: '',
@@ -830,7 +855,24 @@ Site.prototype.copyFontAwesomeAsset = function () {
  * Copies MarkBind assets to the assets folder
  */
 Site.prototype.copyMarkBindAsset = function () {
-  return fs.copyAsync(this.siteAssetsSrcPath, this.siteAssetsDestPath);
+  const maybeOverrideDefaultBootstrapTheme = () => {
+    const { theme } = this.siteConfig;
+    if (!theme || !_.has(SUPPORTED_THEMES_PATHS, theme)) {
+      return _.noop;
+    }
+
+    const themeSrcPath = SUPPORTED_THEMES_PATHS[theme];
+    const themeDestPath = path.join(this.siteAssetsDestPath, 'css', 'bootstrap.min.css');
+
+    return new Promise((resolve, reject) => {
+      fs.copyAsync(themeSrcPath, themeDestPath)
+        .then(resolve)
+        .catch(reject);
+    });
+  };
+
+  return fs.copyAsync(this.siteAssetsSrcPath, this.siteAssetsDestPath)
+    .then(maybeOverrideDefaultBootstrapTheme);
 };
 
 /**

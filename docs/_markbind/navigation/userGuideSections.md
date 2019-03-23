@@ -15,6 +15,7 @@
   * [Making the Site Searchable]({{baseUrl}}/userGuide/makingTheSiteSearchable.html)
 * [Deploying the Site]({{baseUrl}}/userGuide/deployingTheSite.html)
 * [MarkBind in the Project Workflow]({{baseUrl}}/userGuide/markBindInTheProjectWorkflow.html)
+* [Themes]({{baseUrl}}/userGuide/themes.html)
 * References :expanded:
   * [CLI Commands]({{baseUrl}}/userGuide/cliCommands.html)
   * [Reader-Facing Features]({{baseUrl}}/userGuide/readerFacingFeatures.html)
