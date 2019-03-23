@@ -178,6 +178,16 @@
       "head": "overwriteLayoutHead.md",
       "layout": "testLayout",
       "src": "testLayoutsOverride.md"
+    },
+    {
+      "headings": {
+        "test-dropdown-in-body-with-text-and-class-attributes": "Test dropdown in body with text and class attributes",
+        "test-dropdown-in-body-without-text-and-class-attributes": "Test dropdown in body without text and class attributes",
+        "filler-text": "Filler text"
+      },
+      "src": "testAntiFOUCStyles.md",
+      "title": "Hello World",
+      "layout": "default"
     }
   ]
 }

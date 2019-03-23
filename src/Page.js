@@ -755,9 +755,11 @@ Page.prototype.insertTemporaryStyles = function (pageData) {
   // inject temporary dropdown styles
   $('dropdown').each((i, element) => {
     const attributes = element.attribs;
-    const placeholder = `<span class=${attributes.class}>${attributes.text}</span>`;
+    const placeholder = `<div>${attributes.text || ''}</div>`;
     $(element).before(placeholder);
-    $(element).prev().addClass(TEMP_DROPDOWN_PLACEHOLDER_CLASS);
+    $(element).prev()
+      .addClass(attributes.class)
+      .addClass(TEMP_DROPDOWN_PLACEHOLDER_CLASS);
     $(element).addClass(TEMP_DROPDOWN_CLASS);
   });
   return $.html();
