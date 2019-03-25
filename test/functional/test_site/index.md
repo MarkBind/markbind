@@ -1,5 +1,6 @@
 <frontmatter>
 title: Hello World
+header: header.md
 footer: footer.md
 siteNav: site-nav.md
 pageNav: "default"
@@ -7,8 +8,6 @@ pageNavTitle: "Testing Page Navigation"
 head: myCustomHead.md, myCustomHead2.md
 tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidden", "-tag-site-override-shown", "-tag-site-override-specific*"]
 </frontmatter>
-
-<include src="components/header.md" />
 
 <div class="website-content">
 

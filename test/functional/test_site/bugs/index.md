@@ -1,8 +1,7 @@
 <frontmatter>
 title: Open Bugs
+header: header.md
 </frontmatter>
-
-<include src="../components/header.md" />
 
 <div class="website-content">
 
