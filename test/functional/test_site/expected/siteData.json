@@ -8,6 +8,7 @@
         "remove-extra-space-in-links": "Remove extra space in links"
       },
       "title": "Open Bugs",
+      "header": "header.md",
       "src": "bugs/index.md",
       "layout": "default"
     },
@@ -111,6 +112,7 @@
         "level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed": "Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed"
       },
       "title": "Hello World",
+      "header": "header.md",
       "footer": "footer.md",
       "siteNav": "site-nav.md",
       "pageNav": "default",
