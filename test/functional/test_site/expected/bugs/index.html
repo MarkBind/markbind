@@ -1,88 +1,94 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta name="default-head-top">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="generator" content="MarkBind 1.22.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Open Bugs</title>
-    <link rel="stylesheet" href="../markbind/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../markbind/css/bootstrap-vue.min.css">
-    <link rel="stylesheet" href="../markbind/fontawesome/css/all.min.css" >
-    <link rel="stylesheet" href="../markbind/glyphicons/css/bootstrap-glyphicons.min.css" >
-    <link rel="stylesheet" href="../markbind/css/github.min.css">
-    <link rel="stylesheet" href="../markbind/css/markbind.css">
-    <link rel="stylesheet" href="STYLESHEET_LINK">
-    <link rel="stylesheet" href="../markbind/layouts/default/styles.css">
-    
-    
-    <meta name="default-head-bottom">
-    <link rel="icon" href="/test_site/favicon.png">
+  <meta name="default-head-top">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="MarkBind 1.22.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Open Bugs</title>
+  <link rel="stylesheet" href="../markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../markbind/css/bootstrap-vue.min.css">
+  <link rel="stylesheet" href="../markbind/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="../markbind/glyphicons/css/bootstrap-glyphicons.min.css">
+  <link rel="stylesheet" href="../markbind/css/github.min.css">
+  <link rel="stylesheet" href="../markbind/css/markbind.css">
+  <link rel="stylesheet" href="STYLESHEET_LINK">
+  <link rel="stylesheet" href="../markbind/layouts/default/styles.css">
+
+
+  <meta name="default-head-bottom">
+  <link rel="icon" href="/test_site/favicon.png">
 </head>
+
 <body>
-<div id="app">
-    <div id="content-wrapper">
-  <div>
-    <navbar placement="top" type="inverse" class="temp-navbar">
-      <a slot="brand" href="/" title="Home" class="navbar-brand">Markbind Test Site</a>
-      <li><a class="nav-link" href="/test_site/bugs/index.html">Open Bugs</a></li>
-    </navbar>
-  </div>
-  <div class="website-content">
-    <h2 id="popover-initiated-by-trigger-honor-trigger-attribute">popover initiated by trigger: honor trigger attribute<a class="fa fa-anchor" href="#popover-initiated-by-trigger-honor-trigger-attribute"></a></h2>
-    <p><a href="https://github.com/MarkBind/markbind/issues/49">Issue #49</a></p>
-    <p>Repro:</p>
-    <p>
-      <trigger for="pop:xp-user-stories">Establishing Requirements</trigger>
-    </p>
-    <popover id="pop:xp-user-stories" trigger="click">
-      <div slot="content">
+  <div id="app">
+    <div id="flex-body">
+      <div id="content-wrapper">
         <div>
-          <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
-            do.</p>
+          <navbar placement="top" type="inverse" class="temp-navbar">
+            <a slot="brand" href="/" title="Home" class="navbar-brand">Markbind Test Site</a>
+            <li><a class="nav-link" href="/test_site/bugs/index.html">Open Bugs</a></li>
+          </navbar>
+        </div>
+        <div class="website-content">
+          <h2 id="popover-initiated-by-trigger-honor-trigger-attribute">popover initiated by trigger: honor trigger attribute<a class="fa fa-anchor" href="#popover-initiated-by-trigger-honor-trigger-attribute"></a></h2>
+          <p><a href="https://github.com/MarkBind/markbind/issues/49">Issue #49</a></p>
+          <p>Repro:</p>
+          <p>
+            <trigger for="pop:xp-user-stories">Establishing Requirements</trigger>
+          </p>
+          <popover id="pop:xp-user-stories" trigger="click">
+            <div slot="content">
+              <div>
+                <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
+                  do.
+                </p>
+              </div>
+            </div>
+          </popover>
+          <h2 id="support-multiple-inclusions-of-a-modal">Support multiple inclusions of a modal<a class="fa fa-anchor" href="#support-multiple-inclusions-of-a-modal"></a></h2>
+          <p><a href="https://github.com/MarkBind/markbind/issues/107">Issue #107</a></p>
+          <p>Repro:</p>
+          <div>
+            <p>This is to reproduce
+              <trigger trigger="click" for="modal:bugRepro">multiple inclusions of a modal bug</trigger>
+            </p>
+            <modal large="" title="Establishing Requirements" id="modal:bugRepro">
+              <div>
+                <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
+                  do.
+                </p>
+              </div>
+            </modal>
+          </div>
+          <div>
+            <p>This is to reproduce
+              <trigger trigger="click" for="modal:bugRepro">multiple inclusions of a modal bug</trigger>
+            </p>
+            <modal large="" title="Establishing Requirements" id="modal:bugRepro">
+              <div>
+                <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
+                  do.
+                </p>
+              </div>
+            </modal>
+          </div>
+          <h2 id="remove-extra-space-in-links">Remove extra space in links<a class="fa fa-anchor" href="#remove-extra-space-in-links"></a></h2>
+          <p><a href="https://github.com/MarkBind/markbind/issues/147">Issue #147</a></p>
+          <p>Repro:</p>
+          <p>This is a link. [
+            <a href="https://github.com">link text</a>]</p>
         </div>
       </div>
-    </popover>
-    <h2 id="support-multiple-inclusions-of-a-modal">Support multiple inclusions of a modal<a class="fa fa-anchor" href="#support-multiple-inclusions-of-a-modal"></a></h2>
-    <p><a href="https://github.com/MarkBind/markbind/issues/107">Issue #107</a></p>
-    <p>Repro:</p>
-    <div>
-      <p>This is to reproduce
-        <trigger trigger="click" for="modal:bugRepro">multiple inclusions of a modal bug</trigger>
-      </p>
-      <modal large="" title="Establishing Requirements" id="modal:bugRepro">
-        <div>
-          <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
-            do.</p>
-        </div>
-      </modal>
     </div>
-    <div>
-      <p>This is to reproduce
-        <trigger trigger="click" for="modal:bugRepro">multiple inclusions of a modal bug</trigger>
-      </p>
-      <modal large="" title="Establishing Requirements" id="modal:bugRepro">
-        <div>
-          <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
-            do.</p>
-        </div>
-      </modal>
-    </div>
-    <h2 id="remove-extra-space-in-links">Remove extra space in links<a class="fa fa-anchor" href="#remove-extra-space-in-links"></a></h2>
-    <p><a href="https://github.com/MarkBind/markbind/issues/147">Issue #147</a></p>
-    <p>Repro:</p>
-    <p>This is a link. [
-      <a href="https://github.com">link text</a>]</p>
+    <footer>
+      <div class="text-center">
+        Default footer
+      </div>
+    </footer>
   </div>
-</div>
-<div id="flex-div"></div>
-<footer>
-  <div class="text-center">
-    Default footer
-  </div>
-</footer>
-</div>
 </body>
 <script src="../markbind/js/vue.min.js"></script>
 <script src="../markbind/js/vue-strap.min.js"></script>
@@ -90,11 +96,14 @@
 <script src="../markbind/js/polyfill.min.js"></script>
 <script src="../markbind/js/bootstrap-vue.min.js"></script>
 <script>
-    const baseUrl = '/test_site'
-    const enableSearch = true
+  const baseUrl = '/test_site'
+  const enableSearch = true
 </script>
 <script src="../markbind/js/setup.js"></script>
 <script src="SCRIPT_LINK"></script>
-<script>alert("hello")</script>
+<script>
+  alert("hello")
+</script>
 <script src="../markbind/layouts/default/scripts.js"></script>
+
 </html>
