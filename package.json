@@ -38,7 +38,7 @@
     "live-server": "^1.2.1",
     "lodash": "^4.17.11",
     "markdown-it": "^8.3.0",
-    "markdown-it-anchor": "^5.0.0",
+    "markdown-it-anchor": "^5.0.2",
     "markdown-it-attrs": "^2.3.2",
     "markdown-it-emoji": "^1.3.0",
     "markdown-it-imsize": "^2.0.1",
