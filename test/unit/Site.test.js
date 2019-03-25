@@ -1,7 +1,7 @@
-const Site = require('../../src/Site');
 const path = require('path');
 const fs = require('fs-extra-promise');
 const ghpages = require('gh-pages');
+const Site = require('../../src/Site');
 
 const {
   FOOTER_MD_DEFAULT,
