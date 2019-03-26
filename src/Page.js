@@ -805,6 +805,19 @@ Page.prototype.generate = function (builtFiles) {
 };
 
 /**
+ * Retrieves page config for plugins
+ */
+Page.prototype.getPluginConfig = function () {
+  return {
+    headingIndexingLevel: this.headingIndexingLevel,
+    enableSearch: this.enableSearch,
+    searchable: this.searchable,
+    rootPath: this.rootPath,
+    sourcePath: this.sourcePath,
+  };
+};
+
+/**
  * Entry point for plugin pre-render
  */
 Page.prototype.preRender = function (content) {
@@ -812,7 +825,8 @@ Page.prototype.preRender = function (content) {
   Object.entries(this.plugins).forEach(([pluginName, plugin]) => {
     if (plugin.preRender) {
       preRenderedContent
-        = plugin.preRender(preRenderedContent, this.pluginsContext[pluginName] || {}, this.frontMatter);
+        = plugin.preRender(preRenderedContent, this.pluginsContext[pluginName] || {},
+                           this.frontMatter, this.getPluginConfig());
     }
   });
   return preRenderedContent;
@@ -826,7 +840,8 @@ Page.prototype.postRender = function (content) {
   Object.entries(this.plugins).forEach(([pluginName, plugin]) => {
     if (plugin.postRender) {
       postRenderedContent
-        = plugin.postRender(postRenderedContent, this.pluginsContext[pluginName] || {}, this.frontMatter);
+        = plugin.postRender(postRenderedContent, this.pluginsContext[pluginName] || {},
+                            this.frontMatter, this.getPluginConfig());
     }
   });
   return postRenderedContent;
