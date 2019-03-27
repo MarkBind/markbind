@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="markbind/css/github.min.css">
     <link rel="stylesheet" href="markbind/css/markbind.css">
     <link rel="stylesheet" href="STYLESHEET_LINK">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
     <link rel="stylesheet" href="markbind/layouts/default/styles.css">
     <link rel="stylesheet" href="markbind/css/site-nav.css">
     <link rel="stylesheet" href="markbind/css/page-nav.css">
@@ -156,15 +155,6 @@
     <a class="nav-link py-1" href="#test-search-indexing">Test search indexing&#x200E;</a>
     <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
       <a class="nav-link py-1" href="#level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed">Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed&#x200E;</a>
-    </nav>
-    <a class="nav-link py-1" href="#test-algolia-plugin-adds-algolia-no-index-classes">Test Algolia plugin adds algolia-no-index classes&#x200E;</a>
-    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
-      <a class="nav-link py-1" href="#dropdowns-should-have-algolia-no-index-class">Dropdowns should have algolia-no-index class&#x200E;</a>
-      <a class="nav-link py-1" href="#modals-should-have-algolia-no-index-class">Modals should have algolia-no-index class&#x200E;</a>
-      <a class="nav-link py-1" href="#panels-that-are-not-expanded-should-have-algolia-no-index-class">Panels that are not expanded should have algolia-no-index class&#x200E;</a>
-      <a class="nav-link py-1" href="#popover-should-have-algolia-no-index-class">Popover should have algolia-no-index class&#x200E;</a>
-      <a class="nav-link py-1" href="#tabs-except-first-tab-should-have-algolia-no-index-class">Tabs except first tab should have algolia-no-index class&#x200E;</a>
-      <a class="nav-link py-1" href="#tooltip-should-have-algolia-no-index-class">Tooltip should have algolia-no-index class&#x200E;</a>
     </nav>
 
   </nav>
@@ -338,7 +328,7 @@
             <p><span class="keyword">panel keyword</span></p>
           </panel>
           <h1 id="unexpanded-panel-with-heading-with-keyword">Unexpanded panel with heading with keyword<a class="fa fa-anchor" href="#unexpanded-panel-with-heading-with-keyword"></a></h1>
-          <panel header="# Panel with heading with keyword<a class='fa fa-anchor' href='#panel-with-heading-with-keyword'></a>" class="algolia-no-index">
+          <panel header="# Panel with heading with keyword<a class='fa fa-anchor' href='#panel-with-heading-with-keyword'></a>">
             <h1 id="keyword-should-be-tagged-to-the-panel-heading-not-this-heading">Keyword should be tagged to the panel heading, not this heading<a class="fa fa-anchor" href="#keyword-should-be-tagged-to-the-panel-heading-not-this-heading"></a></h1>
             <p><span class="keyword">panel keyword</span></p>
           </panel>
@@ -413,7 +403,7 @@
             <p>Carefully designed questionnaires can be used to solicit responses and opinions from a large number of users regarding any current system or a new innovation.</p>
             <h4 id="focus-groups">Focus groups<a class="fa fa-anchor" href="#focus-groups"></a></h4>
             <p>Focus groups are a kind of informal interview within an interactive group setting. A
-              <tooltip content="e.g. potential users, beta testers" class="algolia-no-index">group of people</tooltip>
+              <tooltip content="e.g. potential users, beta testers">group of people</tooltip>
               are asked about their understanding of a specific issue or a process. Focus groups can bring out undiscovered conflicts and misunderstandings among stakeholder interests which can then be resolved or clarified as necessary.</p>
           </div>
           <h1 id="include-segment">Include segment<a class="fa fa-anchor" href="#include-segment"></a></h1>
@@ -424,16 +414,16 @@
           </div>
           <h1 id="dynamic-include">Dynamic include<a class="fa fa-anchor" href="#dynamic-include"></a></h1>
           <p>
-            <panel src="/test_site/requirements/SpecifyingRequirements._include_.html" name="Dynamic Include" no-close="true" no-switch="true" header="Dynamic Include" class="algolia-no-index"></panel>
+            <panel src="/test_site/requirements/SpecifyingRequirements._include_.html" name="Dynamic Include" no-close="true" no-switch="true" header="Dynamic Include"></panel>
           </p>
           <h1 id="boilerplate-include">Boilerplate include<a class="fa fa-anchor" href="#boilerplate-include"></a></h1>
           <div name="Boilerplate Referencing">
             <p>
-              <panel src="/test_site/requirements/UserStories._include_.html" header="Boilerplate Includes" no-close="" class="algolia-no-index"></panel>
+              <panel src="/test_site/requirements/UserStories._include_.html" header="Boilerplate Includes" no-close=""></panel>
             </p>
           </div>
           <p>
-            <panel src="/test_site/requirements/notInside._include_.html" name="Referencing specified path in boilerplate" no-close="true" no-switch="true" header="Referencing specified path in boilerplate" class="algolia-no-index"></panel>
+            <panel src="/test_site/requirements/notInside._include_.html" name="Referencing specified path in boilerplate" no-close="true" no-switch="true" header="Referencing specified path in boilerplate"></panel>
           </p>
           <h1 id="nested-include">Nested include<a class="fa fa-anchor" href="#nested-include"></a></h1>
           <div>
@@ -564,13 +554,13 @@ specification that specifies how the product will address the requirements. </sp
         <p>
           <trigger for="modal-with-panel">trigger</trigger>
         </p>
-        <modal title="modal title with panel inside" id="modal-with-panel" class="algolia-no-index">
+        <modal title="modal title with panel inside" id="modal-with-panel">
           <panel header="## Panel inside modal<a class='fa fa-anchor' href='#panel-inside-modal'></a>" expanded="">
             <h2 id="panel-content-inside-modal">Panel content inside modal<a class="fa fa-anchor" href="#panel-content-inside-modal"></a></h2>
           </panel>
         </modal>
         <h1 id="unexpanded-panel">Unexpanded panel<a class="fa fa-anchor" href="#unexpanded-panel"></a></h1>
-        <panel header="## Unexpanded panel header<a class='fa fa-anchor' href='#unexpanded-panel-header'></a>" class="algolia-no-index">
+        <panel header="## Unexpanded panel header<a class='fa fa-anchor' href='#unexpanded-panel-header'></a>">
           <h2 id="panel-content-of-unexpanded-panel-should-not-appear-in-search-data">Panel content of unexpanded panel should not appear in search data<a class="fa fa-anchor" href="#panel-content-of-unexpanded-panel-should-not-appear-in-search-data"></a></h2>
           <panel header="## Panel header inside unexpanded panel should not appear in search data<a class='fa fa-anchor' href='#panel-header-inside-unexpanded-panel-should-not-appear-in-search-data'></a>" expanded="">
             <h2 id="panel-content-inside-unexpanded-panel-should-not-appear-in-search-data">Panel content inside unexpanded panel should not appear in search data<a class="fa fa-anchor" href="#panel-content-inside-unexpanded-panel-should-not-appear-in-search-data"></a></h2>
@@ -584,73 +574,6 @@ specification that specifies how the product will address the requirements. </sp
         <h1 id="test-search-indexing">Test search indexing<a class="fa fa-anchor" href="#test-search-indexing"></a></h1>
         <h2 class="no-index" id="level-2-header-inside-headingsearchindex-with-no-index-attribute-should-not-be-indexed">Level 2 header (inside headingSearchIndex) with no-index attribute should not be indexed</h2>
         <h6 class="always-index" id="level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed">Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed<a class="fa fa-anchor" href="#level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed"></a></h6>
-        <h1 id="test-algolia-plugin-adds-algolia-no-index-classes">Test Algolia plugin adds algolia-no-index classes<a class="fa fa-anchor" href="#test-algolia-plugin-adds-algolia-no-index-classes"></a></h1>
-        <div>
-          <h2 id="dropdowns-should-have-algolia-no-index-class">Dropdowns should have algolia-no-index class<a class="fa fa-anchor" href="#dropdowns-should-have-algolia-no-index-class"></a></h2>
-          <div class="temp-dropdown-placeholder">Dropdown</div>
-          <dropdown text="Dropdown" class="temp-dropdown algolia-no-index">
-            <li><a class="dropdown-item" href="/">One</a></li>
-            <li><a class="dropdown-item" href="/">Two</a></li>
-          </dropdown>
-          <h2 id="modals-should-have-algolia-no-index-class">Modals should have algolia-no-index class<a class="fa fa-anchor" href="#modals-should-have-algolia-no-index-class"></a></h2>
-          <modal title="Modal" id="modal:trigger_id" class="algolia-no-index">
-            Content
-          </modal>
-          <trigger for="modal:trigger_id">Trigger</trigger>
-          <h2 id="panels-that-are-not-expanded-should-have-algolia-no-index-class">Panels that are not expanded should have algolia-no-index class<a class="fa fa-anchor" href="#panels-that-are-not-expanded-should-have-algolia-no-index-class"></a></h2>
-          <panel header="Panel" class="algolia-no-index">
-            Content
-          </panel>
-          <panel header="Panel" expanded="">
-            Content
-          </panel>
-          <h2 id="popover-should-have-algolia-no-index-class">Popover should have algolia-no-index class<a class="fa fa-anchor" href="#popover-should-have-algolia-no-index-class"></a></h2>
-          <popover effect="fade" content="Content" placement="top" class="algolia-no-index">
-            <button class="btn btn-secondary">Popover</button></popover>
-          <h2 id="tabs-except-first-tab-should-have-algolia-no-index-class">Tabs except first tab should have algolia-no-index class<a class="fa fa-anchor" href="#tabs-except-first-tab-should-have-algolia-no-index-class"></a></h2>
-          <tabs>
-            <tab header="First Tab">
-              Content<br>Content<br>Content<br>Content
-            </tab>
-            <tab header="Second Tab" class="algolia-no-index">
-              Content<br>Content<br>Content<br>Content
-            </tab>
-          </tabs>
-          <tabs>
-            <tab-group header="First Group">
-              <tab header="First Tab">
-                Content<br>Content<br>Content<br>Content
-              </tab>
-              <tab header="Second Tab" class="algolia-no-index">
-                Content<br>Content<br>Content<br>Content
-              </tab>
-            </tab-group>
-            <tab-group header="Second Group" class="algolia-no-index">
-              <tab header="First Tab">
-                Content<br>Content<br>Content<br>Content
-              </tab>
-              <tab header="Second Tab" class="algolia-no-index">
-                Content<br>Content<br>Content<br>Content
-              </tab>
-            </tab-group>
-          </tabs>
-          <tabs>
-            <tab-group header="Outer One">
-              <tab header="First Tab">
-                Content<br>Content<br>Content<br>Content
-              </tab>
-              <tab header="Second Tab" class="algolia-no-index">
-                Content<br>Content<br>Content<br>Content
-              </tab>
-            </tab-group>
-            <tab header="Outer Two" class="algolia-no-index">
-              Content<br>Content<br>Content<br>Content
-            </tab>
-          </tabs>
-          <h2 id="tooltip-should-have-algolia-no-index-class">Tooltip should have algolia-no-index class<a class="fa fa-anchor" href="#tooltip-should-have-algolia-no-index-class"></a></h2>
-          <tooltip header="" content="Content" placement="top" class="algolia-no-index">
-            <button class="btn btn-secondary">Tooltip</button></tooltip>
-        </div>
       </div>
     </div>
   </div>
@@ -676,18 +599,5 @@ specification that specifies how the product will address the requirements. </sp
 <script src="markbind/js/setup.js"></script>
 <script src="SCRIPT_LINK"></script>
 <script>alert("hello")</script>
-<script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-<script>
-    function initAlgolia() {
-      docsearch({
-        apiKey: "25626fae796133dc1e734c6bcaaeac3c",
-        indexName: "docsearch",
-        inputSelector: "#algolia-search-input",
-        algoliaOptions: {},
-        debug: false,
-      });
-    }
-    MarkBind.afterSetup(initAlgolia);
-  </script>
 <script src="markbind/layouts/default/scripts.js"></script>
 </html>

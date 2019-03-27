@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="../markbind/css/github.min.css">
     <link rel="stylesheet" href="../markbind/css/markbind.css">
     <link rel="stylesheet" href="STYLESHEET_LINK">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
     <link rel="stylesheet" href="../markbind/layouts/default/styles.css">
     
     
@@ -37,7 +36,7 @@
     <p>
       <trigger for="pop:xp-user-stories">Establishing Requirements</trigger>
     </p>
-    <popover id="pop:xp-user-stories" trigger="click" class="algolia-no-index">
+    <popover id="pop:xp-user-stories" trigger="click">
       <div slot="content">
         <div>
           <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
@@ -52,7 +51,7 @@
       <p>This is to reproduce
         <trigger trigger="click" for="modal:bugRepro">multiple inclusions of a modal bug</trigger>
       </p>
-      <modal large="" title="Establishing Requirements" id="modal:bugRepro" class="algolia-no-index">
+      <modal large="" title="Establishing Requirements" id="modal:bugRepro">
         <div>
           <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
             do.</p>
@@ -63,7 +62,7 @@
       <p>This is to reproduce
         <trigger trigger="click" for="modal:bugRepro">multiple inclusions of a modal bug</trigger>
       </p>
-      <modal large="" title="Establishing Requirements" id="modal:bugRepro" class="algolia-no-index">
+      <modal large="" title="Establishing Requirements" id="modal:bugRepro">
         <div>
           <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
             do.</p>
@@ -97,18 +96,5 @@
 <script src="../markbind/js/setup.js"></script>
 <script src="SCRIPT_LINK"></script>
 <script>alert("hello")</script>
-<script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-<script>
-    function initAlgolia() {
-      docsearch({
-        apiKey: "25626fae796133dc1e734c6bcaaeac3c",
-        indexName: "docsearch",
-        inputSelector: "#algolia-search-input",
-        algoliaOptions: {},
-        debug: false,
-      });
-    }
-    MarkBind.afterSetup(initAlgolia);
-  </script>
 <script src="../markbind/layouts/default/scripts.js"></script>
 </html>

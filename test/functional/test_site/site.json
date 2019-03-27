@@ -35,10 +35,10 @@
       "layout": "testLayout"
     },
     {
-      "glob" : "**/index.md"
+      "glob": "**/index.md"
     },
     {
-      "glob" : "**/test_md_fragment.md"
+      "glob": "**/test_md_fragment.md"
     },
     {
       "src": "testAntiFOUCStyles.md",
@@ -60,22 +60,17 @@
     "message": "Site Update."
   },
   "headingIndexingLevel": 4,
-  "plugins" : [
+  "plugins": [
     "testMarkbindPlugin",
-    "filterTags",
-    "algolia"
+    "filterTags"
   ],
-  "pluginsContext" : {
-    "testMarkbindPlugin" : {
+  "pluginsContext": {
+    "testMarkbindPlugin": {
       "pre": "\n\n# Markbind Plugin Pre-render",
       "post": "<p>Node Modules Plugin Post-render</p>"
     },
-    "filterTags" : {
-      "tags" : ["tag-site-shown", "+tag-site-override-shown", "+tag-site-override-specific-shown"]
-    },
-    "algolia": {
-      "apiKey": "25626fae796133dc1e734c6bcaaeac3c",
-      "indexName": "docsearch"
+    "filterTags": {
+      "tags": ["tag-site-shown", "+tag-site-override-shown", "+tag-site-override-specific-shown"]
     }
   }
 }
