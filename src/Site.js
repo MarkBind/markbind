@@ -11,7 +11,9 @@ const walkSync = require('walk-sync');
 
 const _ = {};
 _.difference = require('lodash/difference');
+_.get = require('lodash/get');
 _.has = require('lodash/has');
+_.includes = require('lodash/includes');
 _.isBoolean = require('lodash/isBoolean');
 _.isUndefined = require('lodash/isUndefined');
 _.noop = require('lodash/noop');
@@ -37,6 +39,7 @@ const TEMPLATE_ROOT_FOLDER_NAME = 'template';
 const TEMPLATE_SITE_ASSET_FOLDER_NAME = 'markbind';
 
 const BUILT_IN_PLUGIN_FOLDER_NAME = 'plugins';
+const BUILT_IN_DEFAULT_PLUGIN_FOLDER_NAME = 'plugins/default';
 const FAVICON_DEFAULT_PATH = 'favicon.ico';
 const FONT_AWESOME_PATH = 'asset/font-awesome.csv';
 const FOOTER_PATH = '_markbind/footers/footer.md';
@@ -44,6 +47,7 @@ const HEADER_PATH = '_markbind/headers/header.md';
 const GLYPHICONS_PATH = 'asset/glyphicons.csv';
 const HEAD_FOLDER_PATH = '_markbind/head';
 const INDEX_MARKDOWN_FILE = 'index.md';
+const MARKBIND_PLUGIN_PREFIX = 'markbind-plugin-';
 const PAGE_TEMPLATE_NAME = 'page.ejs';
 const PROJECT_PLUGIN_FOLDER_NAME = '_markbind/plugins';
 const SITE_CONFIG_NAME = 'site.json';
@@ -701,7 +705,8 @@ Site.prototype.buildAssets = function () {
 
 /**
  * Retrieves the correct plugin path for a plugin name, if not in node_modules
- * @param pluginName name of the plugin
+ * @param rootPath root of the project
+ * @param plugin name of the plugin
  */
 function getPluginPath(rootPath, plugin) {
   // Check in project folder
@@ -711,7 +716,13 @@ function getPluginPath(rootPath, plugin) {
   }
 
   // Check in src folder
-  const defaultPath = path.join(__dirname, BUILT_IN_PLUGIN_FOLDER_NAME, `${plugin}.js`);
+  const srcPath = path.join(__dirname, BUILT_IN_PLUGIN_FOLDER_NAME, `${plugin}.js`);
+  if (fs.existsSync(srcPath)) {
+    return srcPath;
+  }
+
+  // Check in default folder
+  const defaultPath = path.join(__dirname, BUILT_IN_DEFAULT_PLUGIN_FOLDER_NAME, `${plugin}.js`);
   if (fs.existsSync(defaultPath)) {
     return defaultPath;
   }
@@ -720,23 +731,65 @@ function getPluginPath(rootPath, plugin) {
 }
 
 /**
+ * Finds plugins in the site's default plugin folder
+ */
+function findDefaultPlugins() {
+  const globPath = path.join(__dirname, BUILT_IN_DEFAULT_PLUGIN_FOLDER_NAME);
+  if (!fs.existsSync(globPath)) {
+    return [];
+  }
+  return walkSync(globPath, {
+    directories: false,
+    globs: [`${MARKBIND_PLUGIN_PREFIX}*.js`],
+  }).map(file => path.parse(file).name);
+}
+
+/**
+ * Loads a plugin
+ * @param plugin name of the plugin
+ * @param isDefault whether the plugin is a default plugin
+ */
+Site.prototype.loadPlugin = function (plugin, isDefault) {
+  try {
+    // Check if already loaded
+    if (this.plugins[plugin]) {
+      return;
+    }
+
+    const pluginPath = getPluginPath(this.rootPath, plugin);
+    if (isDefault && !pluginPath.startsWith(path.join(__dirname, BUILT_IN_DEFAULT_PLUGIN_FOLDER_NAME))) {
+      logger.warn(`Default plugin ${plugin} will be overridden`);
+    }
+
+    // eslint-disable-next-line global-require, import/no-dynamic-require
+    this.plugins[plugin] = require(pluginPath || plugin);
+  } catch (e) {
+    logger.warn(`Unable to load plugin ${plugin}, skipping`);
+  }
+};
+
+/**
  * Load all plugins of the site
  */
 Site.prototype.collectPlugins = function () {
   if (!this.siteConfig.plugins) {
-    return;
+    this.siteConfig.plugins = [];
   }
-  module.paths.push(path.join(this.rootPath, 'node_modules'));
-  this.siteConfig.plugins.forEach((plugin) => {
-    try {
-      const pluginPath = getPluginPath(this.rootPath, plugin);
 
-      // eslint-disable-next-line global-require, import/no-dynamic-require
-      this.plugins[plugin] = require(pluginPath || plugin);
-    } catch (e) {
-      logger.warn(`Unable to load plugin ${plugin}, skipping`);
-    }
-  });
+  module.paths.push(path.join(this.rootPath, 'node_modules'));
+
+  const defaultPlugins = findDefaultPlugins();
+
+  this.siteConfig.plugins
+    .filter(plugin => !_.includes(defaultPlugins, plugin))
+    .forEach(plugin => this.loadPlugin(plugin, false));
+
+  const markbindPrefixRegex = new RegExp(`^${MARKBIND_PLUGIN_PREFIX}`);
+  defaultPlugins
+    .filter(plugin => !_.get(this.siteConfig,
+                             ['pluginsContext', plugin.replace(markbindPrefixRegex, ''), 'off'],
+                             false))
+    .forEach(plugin => this.loadPlugin(plugin, true));
 };
 
 /**

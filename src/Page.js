@@ -38,7 +38,6 @@ const SITE_NAV_ID = 'site-nav';
 const SITE_NAV_LIST_CLASS = 'site-nav-list';
 const TITLE_PREFIX_SEPARATOR = ' - ';
 
-const ANCHOR_HTML = '<a class="fa fa-anchor" href="#"></a>';
 const DROPDOWN_BUTTON_ICON_HTML = '<i class="dropdown-btn-icon">\n'
   + '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>\n'
   + '</i>';
@@ -445,29 +444,6 @@ Page.prototype.concatenateHeadingsAndKeywords = function () {
 };
 
 /**
- * Adds anchor links to headings in the page
- * @param content of the page
- */
-Page.prototype.addAnchors = function (content) {
-  const $ = cheerio.load(content, { xmlMode: false });
-  if (this.headingIndexingLevel > 0) {
-    const headingsSelector = generateHeadingSelector(this.headingIndexingLevel);
-    $(headingsSelector).each((i, heading) => {
-      $(heading).append(ANCHOR_HTML.replace('#', `#${$(heading).attr('id')}`));
-    });
-    $('panel[header]').each((i, panel) => {
-      const panelHeading = cheerio.load(md.render(panel.attribs.header), { xmlMode: false });
-      if (panelHeading(headingsSelector).length >= 1) {
-        const headingId = $(panelHeading(headingsSelector)[0]).attr('id');
-        const anchorIcon = ANCHOR_HTML.replace(/"/g, "'").replace('#', `#${headingId}`);
-        $(panel).attr('header', `${$(panel).attr('header')}${anchorIcon}`);
-      }
-    });
-  }
-  return $.html();
-};
-
-/**
  * Records the dynamic or static included files into this.includedFiles
  * @param dependencies array of maps of the external dependency and where it is included
  */
@@ -817,7 +793,6 @@ Page.prototype.generate = function (builtFiles) {
       .then(result => markbinder.resolveBaseUrl(result, fileConfig))
       .then(result => fs.outputFileAsync(this.tempPath, result))
       .then(() => markbinder.renderFile(this.tempPath, fileConfig))
-      .then(result => this.addAnchors(result))
       .then(result => this.postRender(result))
       .then(result => this.collectPluginsAssets(result))
       .then((result) => {
@@ -861,6 +836,19 @@ Page.prototype.generate = function (builtFiles) {
 };
 
 /**
+ * Retrieves page config for plugins
+ */
+Page.prototype.getPluginConfig = function () {
+  return {
+    headingIndexingLevel: this.headingIndexingLevel,
+    enableSearch: this.enableSearch,
+    searchable: this.searchable,
+    rootPath: this.rootPath,
+    sourcePath: this.sourcePath,
+  };
+};
+
+/**
  * Entry point for plugin pre-render
  */
 Page.prototype.preRender = function (content) {
@@ -868,7 +856,8 @@ Page.prototype.preRender = function (content) {
   Object.entries(this.plugins).forEach(([pluginName, plugin]) => {
     if (plugin.preRender) {
       preRenderedContent
-        = plugin.preRender(preRenderedContent, this.pluginsContext[pluginName] || {}, this.frontMatter);
+        = plugin.preRender(preRenderedContent, this.pluginsContext[pluginName] || {},
+                           this.frontMatter, this.getPluginConfig());
     }
   });
   return preRenderedContent;
@@ -882,7 +871,8 @@ Page.prototype.postRender = function (content) {
   Object.entries(this.plugins).forEach(([pluginName, plugin]) => {
     if (plugin.postRender) {
       postRenderedContent
-        = plugin.postRender(postRenderedContent, this.pluginsContext[pluginName] || {}, this.frontMatter);
+        = plugin.postRender(postRenderedContent, this.pluginsContext[pluginName] || {},
+                            this.frontMatter, this.getPluginConfig());
     }
   });
   return postRenderedContent;

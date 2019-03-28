@@ -146,6 +146,29 @@ This will add the following link and script elements to the page:
 - `<script src="SCRIPT_LINK"></script>`
 - `<script>alert("hello")</script>`
 
+### Advanced: Default plugins
+
+MarkBind has a set of default plugins that it uses to carry out some of its features. These are enabled by default for every project and should be left alone.
+
+Default Plugin | Functionality
+--- | ---
+`anchors` | Attaches anchor links to the side of headings.
+
+Although not advised, you can disable these by passing `"off": true` in the `pluginsContext`.
+
+Disabling the `anchors` plugin:
+
+```js
+{
+  ...
+  "pluginsContext": {
+    "anchors": {
+      "off": true
+    }
+  }
+}
+```
+
 ### Built-in plugins
 
 MarkBind has a set of built-in plugins that can be used immediately without installation.
