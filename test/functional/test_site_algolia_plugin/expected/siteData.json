@@ -1,0 +1,21 @@
+{
+  "enableSearch": true,
+  "pages": [
+    {
+      "headings": {
+        "test-algolia-plugin-adds-algolia-no-index-classes": "Test Algolia plugin adds algolia-no-index classes",
+        "dropdowns-should-have-algolia-no-index-class": "Dropdowns should have algolia-no-index class",
+        "modals-should-have-algolia-no-index-class": "Modals should have algolia-no-index class",
+        "panels-that-are-not-expanded-should-have-algolia-no-index-class": "Panels that are not expanded should have algolia-no-index class",
+        "popover-should-have-algolia-no-index-class": "Popover should have algolia-no-index class",
+        "tabs-except-first-tab-should-have-algolia-no-index-class": "Tabs except first tab should have algolia-no-index class",
+        "tooltip-should-have-algolia-no-index-class": "Tooltip should have algolia-no-index class"
+      },
+      "title": "Hello World",
+      "footer": "footer.md",
+      "siteNav": "site-nav.md",
+      "src": "index.md",
+      "layout": "default"
+    }
+  ]
+}

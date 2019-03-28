@@ -1,0 +1,34 @@
+{
+  "baseUrl": "/test_site_algolia_plugin",
+  "titlePrefix": "",
+  "ignore": [
+    "_markbind/layouts/*",
+    "_markbind/logs/*",
+    "_site/*",
+    "site.json",
+    "*.md",
+    "*.mbd",
+    "*.mbdf",
+    "*.njk",
+    ".git/*",
+    "expected/*"
+  ],
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "Hello World"
+    }
+  ],
+  "deploy": {
+    "message": "Site Update."
+  },
+  "plugins": [
+    "algolia"
+  ],
+  "pluginsContext": {
+    "algolia": {
+      "apiKey": "25626fae796133dc1e734c6bcaaeac3c",
+      "indexName": "docsearch"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 @ECHO off
 
-set sites=test_site
+set sites=test_site test_site_algolia_plugin
 
 for %%a in (%sites%) do ( 
 
