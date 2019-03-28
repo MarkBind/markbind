@@ -1,0 +1,49 @@
+## Headers
+
+**You can specify a <tooltip content="Content to be placed at the top of a page.">page header</tooltip>** above your page contents and <tooltip content="Site Navigation and <br>Page Navigation menus">navigation menus</tooltip> using a header file.
+
+You can save multiple header files in the `_markbind/headers` folder and specify it in the `<frontmatter>` of the pages in which it should appear.
+
+<div class="indented">
+
+{{ icon_example }}
+**`_markbind/headers/`**`welcomeBanner.md`:
+```html
+<header>
+  <div class="bg-primary display-4 text-center text-white">
+    Welcome!
+  </div>
+</header>
+```
+In the page that you want to include the header:
+```html
+<frontmatter>
+  header: welcomeBanner.md
+</frontmatter>
+```
+</div>
+
+Notes:
+- Any inline headers will be removed by MarkBind to ensure compatibility with header files.
+- If a [Layout]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#page-layouts) is specified, the header file specified in the `<frontmatter>` will override the header within the Layout.
+- [MarkBind Components]({{ baseUrl }}/userGuide/usingComponents.html) and [`<include>` tags]({{ baseUrl }}/userGuide/reusingContents.html#the-include-tag) are not supported in headers.
+
+<span id="short" class="d-none">
+```html
+<header>
+  <div class="bg-primary display-4 text-center text-white" style="height: 200px;">
+    Welcome!
+  </div>
+</header>
+```
+```html
+<frontmatter>
+  header: welcomeBanner.md
+</frontmatter>
+```
+</span>
+<span id="examples" class="d-none">
+  <div class="bg-primary display-4 text-center text-white" style="height: 150px;">
+    Content to be placed at the top of your page.
+  </div>
+</span>

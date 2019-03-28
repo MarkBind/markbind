@@ -21,21 +21,21 @@ const CLI_VERSION = require('../package.json').version;
 
 const FOOTERS_FOLDER_PATH = '_markbind/footers';
 const HEAD_FOLDER_PATH = '_markbind/head';
+const HEADERS_FOLDER_PATH = '_markbind/headers';
 const LAYOUT_DEFAULT_NAME = 'default';
 const LAYOUT_FOLDER_PATH = '_markbind/layouts';
 const LAYOUT_FOOTER = 'footer.md';
 const LAYOUT_HEAD = 'head.md';
+const LAYOUT_HEADER = 'header.md';
 const LAYOUT_NAVIGATION = 'navigation.md';
 const NAVIGATION_FOLDER_PATH = '_markbind/navigation';
 
 const CONTENT_WRAPPER_ID = 'content-wrapper';
-const FLEX_BODY_DIV_ID = 'flex-body';
-const FLEX_DIV_HTML = '<div id="flex-div"></div>';
-const FLEX_DIV_ID = 'flex-div';
 const FRONT_MATTER_FENCE = '---';
-const PAGE_CONTENT_ID = 'page-content';
-const PAGE_NAV_CONENT_WRAPPER_ID = 'page-nav-content-wrapper';
+const PAGE_NAV_ID = 'page-nav';
+const PAGE_NAV_TITLE_CLASS = 'page-nav-title';
 const SITE_NAV_ID = 'site-nav';
+const SITE_NAV_LIST_CLASS = 'site-nav-list';
 const TITLE_PREFIX_SEPARATOR = ' - ';
 
 const ANCHOR_HTML = '<a class="fa fa-anchor" href="#"></a>';
@@ -43,13 +43,6 @@ const DROPDOWN_BUTTON_ICON_HTML = '<i class="dropdown-btn-icon">\n'
   + '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>\n'
   + '</i>';
 const DROPDOWN_EXPAND_KEYWORD = ':expanded:';
-const SITE_NAV_BUTTON_HTML = '<div id="site-nav-btn-wrap">\n'
-  + '<div id="site-nav-btn">\n'
-  + '<div class="menu-top-bar"></div>\n'
-  + '<div class="menu-middle-bar"></div>\n'
-  + '<div class="menu-bottom-bar"></div>\n'
-  + '</div>\n'
-  + '</div>';
 
 const TEMP_NAVBAR_CLASS = 'temp-navbar';
 const TEMP_DROPDOWN_CLASS = 'temp-dropdown';
@@ -92,6 +85,7 @@ function Page(pageConfig) {
   this.includedFiles = {};
   this.keywords = {};
   this.navigableHeadings = {};
+  this.pageSectionsHtml = {};
 }
 
 /**
@@ -123,25 +117,14 @@ function calculateNewBaseUrl(filePath, root, lookUp) {
   return calculate(filePath, []);
 }
 
-function formatFooter(pageData) {
+function removePageHeaderAndFooter(pageData) {
   const $ = cheerio.load(pageData);
-  const footers = $('footer');
-  if (footers.length === 0) {
+  const pageHeaderAndFooter = $('header', 'footer');
+  if (pageHeaderAndFooter.length === 0) {
     return pageData;
   }
   // Remove preceding footers
-  footers.slice(0, -1).remove(); // footers.not(':last').remove();
-  // Unwrap last footer
-  const lastFooter = footers.last();
-  const lastFooterParents = lastFooter.parents();
-  if (lastFooterParents.length) {
-    const lastFooterOutermostParent = lastFooterParents.last();
-    lastFooterOutermostParent.after(lastFooter);
-  }
-  // Insert flex div before last footer
-  if (lastFooter.prev().attr('id') !== FLEX_DIV_ID) {
-    $(lastFooter).before(FLEX_DIV_HTML);
-  }
+  pageHeaderAndFooter.remove();
   return $.html();
 }
 
@@ -152,7 +135,7 @@ function formatSiteNav(renderedSiteNav, src) {
     return renderedSiteNav;
   }
   // Tidy up the style of the unordered list <ul>
-  listItems.parent().attr('style', 'list-style-type: none; margin-left:-1em');
+  listItems.parent().addClass(`${SITE_NAV_LIST_CLASS}`);
 
   // Set class of <a> to ${SITE_NAV_ID}__a to style links
   listItems.find('a[href]').addClass(`${SITE_NAV_ID}__a`);
@@ -163,13 +146,13 @@ function formatSiteNav(renderedSiteNav, src) {
 
   listItems.each(function () {
     // Tidy up the style of each list item
-    $(this).attr('style', 'margin-top: 10px');
+    $(this).addClass('mt-2');
     // Do not render dropdown menu for list items with <a> tag
     if ($(this).children('a').length) {
       const nestedList = $(this).children('ul').first();
       if (nestedList.length) {
         // Double wrap to counter replaceWith removing <li>
-        nestedList.parent().wrap('<li style="margin-top:10px"></li>');
+        nestedList.parent().wrap('<li class="mt-2"></li>');
         // Recursively format nested lists without dropdown wrapper
         nestedList.parent().replaceWith(formatSiteNav(nestedList.parent().html(), src));
       }
@@ -240,11 +223,15 @@ Page.prototype.prepareTemplateData = function () {
     baseUrl: this.baseUrl,
     content: this.content,
     faviconUrl: this.faviconUrl,
+    footerHtml: this.pageSectionsHtml.footer || '',
+    headerHtml: this.pageSectionsHtml.header || '',
     headFileBottomContent: this.headFileBottomContent,
     headFileTopContent: this.headFileTopContent,
     markBindVersion: `MarkBind ${CLI_VERSION}`,
     pageNav: this.isPageNavigationSpecifierValid(),
+    pageNavHtml: this.pageSectionsHtml[`#${PAGE_NAV_ID}`] || '',
     siteNav: this.frontMatter.siteNav,
+    siteNavHtml: this.pageSectionsHtml[`#${SITE_NAV_ID}`] || '',
     title: prefixedTitle,
     enableSearch: this.enableSearch,
   };
@@ -536,10 +523,37 @@ Page.prototype.removeFrontMatter = function (includedPage) {
 };
 
 /**
+  * Inserts the page layout's header to the start of the page
+  * @param pageData a page with its front matter collected
+  */
+Page.prototype.insertHeaderFile = function (pageData) {
+  const { header } = this.frontMatter;
+  let headerFile;
+  if (header) {
+    headerFile = path.join(HEADERS_FOLDER_PATH, header);
+  } else {
+    headerFile = path.join(LAYOUT_FOLDER_PATH, this.frontMatter.layout, LAYOUT_HEADER);
+  }
+  const headerPath = path.join(this.rootPath, headerFile);
+  if (!fs.existsSync(headerPath)) {
+    return pageData;
+  }
+  // Retrieve Markdown file contents
+  const headerContent = fs.readFileSync(headerPath, 'utf8');
+  // Set header file as an includedFile
+  this.includedFiles[headerPath] = true;
+  // Map variables
+  const newBaseUrl = calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
+  const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
+  return `${nunjucks.renderString(headerContent, userDefinedVariables)}\n${pageData}`;
+};
+
+
+/**
  * Inserts the footer specified in front matter to the end of the page
  * @param pageData a page with its front matter collected
  */
-Page.prototype.insertFooter = function (pageData) {
+Page.prototype.insertFooterFile = function (pageData) {
   const { footer } = this.frontMatter;
   let footerFile;
   if (footer) {
@@ -595,31 +609,21 @@ Page.prototype.insertSiteNav = function (pageData) {
     throw new Error(`More than one <navigation> tag found in ${siteNavPath}`);
   } else if (siteNavDataSelector('navigation').length === 1) {
     const siteNavHtml = md.render(siteNavDataSelector('navigation').html().trim().replace(/\n\s*\n/g, '\n'));
-    const formattedSiteNav = formatSiteNav(siteNavHtml, this.src);
+    // Add Bootstrap padding class to rendered unordered list
+    const siteNavHtmlSelector = cheerio.load(siteNavHtml, { xmlMode: false });
+    siteNavHtmlSelector('ul').first().addClass('px-3');
+    const formattedSiteNav = formatSiteNav(siteNavHtmlSelector.html(), this.src);
     siteNavDataSelector('navigation').replaceWith(formattedSiteNav);
   }
   // Wrap sections
-  const wrappedSiteNav = `<div id="${SITE_NAV_ID}">\n${siteNavDataSelector.html()}\n</div>`;
-  const wrappedPageData = `<div id="${PAGE_CONTENT_ID}">\n${pageData}\n</div>`;
+  const wrappedSiteNav = `<nav id="${SITE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
+    + '<div class="sticky-top spacer-top viewport-height-90 scrollable slim-scroll">'
+    + `${siteNavDataSelector.html()}\n`
+    + '</div>\n'
+    + '</nav>';
 
-  return `<div id="${FLEX_BODY_DIV_ID}">`
-    + `${wrappedSiteNav}`
-    + `${SITE_NAV_BUTTON_HTML}`
-    + `${wrappedPageData}`
-    + '</div>';
-};
-
-/**
- *  Inserts wrapper for page nav contents CSS manipulation
- */
-Page.prototype.insertPageNavWrapper = function (pageData) {
-  if (this.isPageNavigationSpecifierValid()) {
-    const wrappedPageData = `<div id="${PAGE_NAV_CONENT_WRAPPER_ID}">\n`
-                            + `${pageData}\n`
-                            + '</div>\n';
-    return wrappedPageData;
-  }
-  return pageData;
+  return `${wrappedSiteNav}\n`
+    + `${pageData}`;
 };
 
 /**
@@ -634,8 +638,8 @@ Page.prototype.generatePageNavHeadingHtml = function () {
     const currentHeadingLevel = this.navigableHeadings[key].level;
     const currentHeadingHTML = `<a class="nav-link py-1" href="#${key}">`
       + `${this.navigableHeadings[key].text}&#x200E;</a>\n`;
-    const nestedHeadingHTML = '<nav class="nav nav-pills flex-column my-0"'
-      + `style="margin-left: 5%; flex-wrap: nowrap;">\n${currentHeadingHTML}`;
+    const nestedHeadingHTML = '<nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">\n'
+      + `${currentHeadingHTML}`;
 
     if (headingStack.length === 0 || headingStack[headingStack.length - 1] === currentHeadingLevel) {
       // Add heading without nesting, into headingHTML
@@ -682,29 +686,32 @@ Page.prototype.generatePageNavHeadingHtml = function () {
 Page.prototype.generatePageNavTitleHtml = function () {
   const { pageNavTitle } = this.frontMatter;
   return pageNavTitle
-    ? '<a class="navbar-brand" style="white-space: inherit; color: black" href="#">'
+    ? `<a class="navbar-brand ${PAGE_NAV_TITLE_CLASS}" href="#">`
       + `${pageNavTitle.toString()}`
       + '</a>'
     : '';
 };
 
 /**
- *  Insert page navigation bar with headings up to headingIndexingLevel
+ *  Builds page navigation bar with headings up to headingIndexingLevel
  */
-Page.prototype.insertPageNav = function () {
+Page.prototype.buildPageNav = function () {
   if (this.isPageNavigationSpecifierValid()) {
-    const $ = cheerio.load(this.content);
+    const $ = cheerio.load(this.content, { xmlMode: false });
     this.navigableHeadings = {};
     this.collectNavigableHeadings($(`#${CONTENT_WRAPPER_ID}`).html());
-    const pageNavHeadingHTML = this.generatePageNavHeadingHtml();
     const pageNavTitleHtml = this.generatePageNavTitleHtml();
-    const pageNavHtml = '<nav id="page-nav" class="navbar navbar-light bg-transparent slim-scroll">\n'
+    const pageNavHeadingHTML = this.generatePageNavHeadingHtml();
+    this.pageSectionsHtml[`#${PAGE_NAV_ID}`] = htmlBeautify(
+      `<nav id="${PAGE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
+      + '<div class="sticky-top spacer-top viewport-height-90 scrollable slim-scroll">\n'
       + `${pageNavTitleHtml}\n`
-      + '  <nav class="nav nav-pills flex-column my-0 small" style="flex-wrap: nowrap;">\n'
-      + `    ${pageNavHeadingHTML}\n`
-      + '  </nav>\n'
-      + '</nav>\n';
-    this.content = htmlBeautify(`${pageNavHtml}\n${this.content}`, { indent_size: 2 });
+      + '<nav class="nav nav-pills flex-column my-0 small no-flex-wrap">\n'
+      + `${pageNavHeadingHTML}\n`
+      + '</nav>\n'
+      + '</div>\n'
+      + '</nav>\n',
+      { indent_size: 2 });
   }
 };
 
@@ -765,6 +772,23 @@ Page.prototype.insertTemporaryStyles = function (pageData) {
   return $.html();
 };
 
+Page.prototype.collectPageSection = function (section) {
+  const $ = cheerio.load(this.content, { xmlMode: false });
+  const pageSection = $(section);
+  if (pageSection.length === 0) {
+    return;
+  }
+  this.pageSectionsHtml[section] = htmlBeautify($.html(section), { indent_size: 2 }).trim();
+  pageSection.remove();
+  this.content = htmlBeautify($.html(), { indent_size: 2 });
+};
+
+Page.prototype.collectAllPageSections = function () {
+  this.collectPageSection('header');
+  this.collectPageSection(`#${SITE_NAV_ID}`);
+  this.collectPageSection('footer');
+};
+
 Page.prototype.generate = function (builtFiles) {
   this.includedFiles = {};
   this.includedFiles[this.sourcePath] = true;
@@ -783,13 +807,13 @@ Page.prototype.generate = function (builtFiles) {
         this.collectFrontMatter(result);
         return this.removeFrontMatter(result);
       })
+      .then(result => removePageHeaderAndFooter(result))
       .then(result => addContentWrapper(result))
       .then(result => this.preRender(result))
-      .then(result => this.insertPageNavWrapper(result))
       .then(result => this.insertSiteNav((result)))
       .then(result => this.insertTemporaryStyles(result))
-      .then(result => this.insertFooter(result)) // Footer has to be inserted last to ensure proper formatting
-      .then(result => formatFooter(result))
+      .then(result => this.insertHeaderFile(result))
+      .then(result => this.insertFooterFile(result))
       .then(result => markbinder.resolveBaseUrl(result, fileConfig))
       .then(result => fs.outputFileAsync(this.tempPath, result))
       .then(() => markbinder.renderFile(this.tempPath, fileConfig))
@@ -805,9 +829,16 @@ Page.prototype.generate = function (builtFiles) {
 
         this.addLayoutFiles();
         this.collectHeadFiles(baseUrl, hostBaseUrl);
+
         this.content = nunjucks.renderString(this.content, { baseUrl, hostBaseUrl });
-        this.insertPageNav();
-        return fs.outputFileAsync(this.resultPath, this.template(this.prepareTemplateData()));
+
+        this.collectAllPageSections();
+        this.buildPageNav();
+
+        return fs.outputFileAsync(this.resultPath, htmlBeautify(
+          this.template(this.prepareTemplateData()),
+          { indent_size: 2 },
+        ));
       })
       .then(() => {
         const resolvingFiles = [];

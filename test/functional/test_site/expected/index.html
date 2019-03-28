@@ -1,270 +1,137 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <!-- Start of top level head file content insertion -->
-    <script src="/test_site/headFiles/customScriptTop.js"></script>
-    <!-- End of top level head file content insertion -->
-    <!-- Start of top level head file content insertion -->
-    <script src="/test_site/headFiles/customScriptTop2.js"></script>
-    <!-- End of top level head file content insertion -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="generator" content="MarkBind 1.22.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello World</title>
-    <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
-    <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
-    <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css" >
-    <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css" >
-    <link rel="stylesheet" href="markbind/css/github.min.css">
-    <link rel="stylesheet" href="markbind/css/markbind.css">
-    <link rel="stylesheet" href="STYLESHEET_LINK">
-    <link rel="stylesheet" href="markbind/layouts/default/styles.css">
-    <link rel="stylesheet" href="markbind/css/site-nav.css">
-    <link rel="stylesheet" href="markbind/css/page-nav.css">
-    <!-- Start of bottom level head file content insertion -->
-    <script src="/test_site/headFiles/customScriptBottom.js"></script>
-    <!-- End of bottom level head file content insertion-->
-    <!-- Start of bottom level head file content insertion -->
-    <script src="/test_site/headFiles/customScriptBottom2.js"></script>
-    <!-- End of bottom level head file content insertion-->
-    <link rel="icon" href="/test_site/favicon.png">
+  <!-- Start of top level head file content insertion -->
+  <script src="/test_site/headFiles/customScriptTop.js"></script>
+  <!-- End of top level head file content insertion -->
+  <!-- Start of top level head file content insertion -->
+  <script src="/test_site/headFiles/customScriptTop2.js"></script>
+  <!-- End of top level head file content insertion -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="MarkBind 1.22.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hello World</title>
+  <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
+  <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
+  <link rel="stylesheet" href="markbind/css/github.min.css">
+  <link rel="stylesheet" href="markbind/css/markbind.css">
+  <link rel="stylesheet" href="STYLESHEET_LINK">
+  <link rel="stylesheet" href="markbind/layouts/default/styles.css">
+  <link rel="stylesheet" href="markbind/css/site-nav.css">
+  <link rel="stylesheet" href="markbind/css/page-nav.css">
+  <!-- Start of bottom level head file content insertion -->
+  <script src="/test_site/headFiles/customScriptBottom.js"></script>
+  <!-- End of bottom level head file content insertion-->
+  <!-- Start of bottom level head file content insertion -->
+  <script src="/test_site/headFiles/customScriptBottom2.js"></script>
+  <!-- End of bottom level head file content insertion-->
+  <link rel="icon" href="/test_site/favicon.png">
 </head>
+
 <body data-spy="scroll" data-target="#page-nav" data-offset="100">
-<div id="app">
-    <nav id="page-nav" class="navbar navbar-light bg-transparent slim-scroll">
-  <a class="navbar-brand" style="white-space: inherit; color: black" href="#">Testing Page Navigation</a>
-  <nav class="nav nav-pills flex-column my-0 small" style="flex-wrap: nowrap;">
-    <a class="nav-link py-1" href="#variables-that-reference-another-variable">Variables that reference another variable&#x200E;</a>
-    <a class="nav-link py-1" href="#page-variable">Page Variable&#x200E;</a>
-    <a class="nav-link py-1" href="#page-variable-with-html-and-md">Page Variable with HTML and MD&#x200E;</a>
-    <a class="nav-link py-1" href="#nested-page-variable">Nested Page Variable&#x200E;</a>
-    <a class="nav-link py-1" href="#page-variable-with-global-variable">Page Variable with Global Variable&#x200E;</a>
-    <a class="nav-link py-1" href="#page-variable-referencing-page-variable">Page Variable referencing Page Variable&#x200E;</a>
-    <a class="nav-link py-1" href="#global-variable-overriding-page-variable">Global Variable overriding Page Variable&#x200E;</a>
-    <a class="nav-link py-1" href="#test-page-variable-and-included-variable-integrations">Test Page Variable and Included Variable Integrations&#x200E;</a>
-    <a class="nav-link py-1" href="#explicitly-included-page-variable">Explicitly Included Page Variable&#x200E;</a>
-    <a class="nav-link py-1" href="#inner-page-variable-should-not-be-overridden-by-outer-page-variable">Inner Page Variable Should Not Be Overridden by Outer Page Variable&#x200E;</a>
-    <a class="nav-link py-1" href="#outer-page-variable-should-not-leak-into-inner-pages">Outer Page Variable Should Not Leak Into Inner Pages&#x200E;</a>
-    <a class="nav-link py-1" href="#included-variable-overriding-page-variable">Included Variable Overriding Page Variable&#x200E;</a>
-    <a class="nav-link py-1" href="#page-variable-referencing-included-variable">Page Variable Referencing Included Variable&#x200E;</a>
-    <a class="nav-link py-1" href="#heading-with-multiple-keywords">Heading with multiple keywords&#x200E;</a>
-    <a class="nav-link py-1" href="#heading-with-keyword-in-panel">Heading with keyword in panel&#x200E;</a>
-    <a class="nav-link py-1" href="#panel-with-heading-with-keyword">Panel with heading with keyword&#x200E;</a>
-    <a class="nav-link py-1" href="#panel-with-heading">Panel with heading&#x200E;</a>
-    <a class="nav-link py-1" href="#expanded-panel-without-heading-with-keyword">Expanded panel without heading with keyword&#x200E;</a>
-    <a class="nav-link py-1" href="#panel-without-heading-with-keyword">Panel without heading with keyword&#x200E;</a>
-    <a class="nav-link py-1" href="#keyword-should-be-tagged-to-this-heading-not-the-panel-heading">Keyword should be tagged to this heading, not the panel heading&#x200E;</a>
-    <a class="nav-link py-1" href="#unexpanded-panel-with-heading-with-keyword">Unexpanded panel with heading with keyword&#x200E;</a>
-    <a class="nav-link py-1" href="#heading-with-included-keyword">Heading with included keyword&#x200E;</a>
-    <a class="nav-link py-1" href="#included-heading">Included Heading&#x200E;</a>
-    <a class="nav-link py-1" href="#heading-with-nested-keyword">Heading with nested keyword&#x200E;</a>
-    <a class="nav-link py-1" href="#heading-with-hidden-keyword">Heading with hidden keyword&#x200E;</a>
-    <a class="nav-link py-1" href="#div-with-frontmatter-shown-tag">Div with frontmatter shown tag&#x200E;</a>
-    <a class="nav-link py-1" href="#div-with-site-shown-tag">Div with site shown tag&#x200E;</a>
-    <a class="nav-link py-1" href="#div-with-multiple-tags">Div with multiple tags&#x200E;</a>
-    <a class="nav-link py-1" href="#div-with-hidden-tag-hidden">Div with hidden tag (Hidden)&#x200E;</a>
-    <a class="nav-link py-1" href="#div-with-tag-in-included-file">Div with tag in included file&#x200E;</a>
-    <a class="nav-link py-1" href="#div-with-tag-matching-general-tag">Div with tag matching general tag&#x200E;</a>
-    <a class="nav-link py-1" href="#div-with-tag-matching-general-tag-and-specific-tag-hidden">Div with tag matching general tag and specific tag (Hidden)&#x200E;</a>
-    <a class="nav-link py-1" href="#div-with-tag-matching-front-matter-tag-overridden-by-matching-site-tag">Div with tag matching front matter tag overridden by matching site tag&#x200E;</a>
-    <a class="nav-link py-1" href="#div-with-tag-matching-general-front-matter-tag-not-overridden-by-matching-specific-site-tag-hidden">Div with tag matching general front matter tag not overridden by matching specific site tag (Hidden)&#x200E;</a>
-    <a class="nav-link py-1" href="#div-with-tag-matching-general-front-matter-tag-overridden-by-matching-specific-site-tag">Div with tag matching general front matter tag overridden by matching specific site tag&#x200E;</a>
-    <a class="nav-link py-1" href="#normal-include">Normal include&#x200E;</a>
-    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
-      <a class="nav-link py-1" href="#establishing-requirements">Establishing Requirements&#x200E;</a>
-      <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
-        <a class="nav-link py-1" href="#brainstorming">Brainstorming&#x200E;</a>
-        <a class="nav-link py-1" href="#user-surveys">User surveys&#x200E;</a>
-        <a class="nav-link py-1" href="#focus-groups">Focus groups&#x200E;</a>
-      </nav>
-    </nav>
-    <a class="nav-link py-1" href="#include-segment">Include segment&#x200E;</a>
-    <a class="nav-link py-1" href="#dynamic-include">Dynamic include&#x200E;</a>
-    <a class="nav-link py-1" href="#boilerplate-include">Boilerplate include&#x200E;</a>
-    <a class="nav-link py-1" href="#nested-include">Nested include&#x200E;</a>
-    <a class="nav-link py-1" href="#html-include">HTML include&#x200E;</a>
-    <a class="nav-link py-1" href="#mbd-mbdf-include">Mbd, Mbdf include&#x200E;</a>
-    <a class="nav-link py-1" href="#include-from-another-markbind-site">Include from another Markbind site&#x200E;</a>
-    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
-      <a class="nav-link py-1" href="#feature-list">Feature list&#x200E;</a>
-    </nav>
-    <a class="nav-link py-1" href="#trimmed-include">Trimmed include&#x200E;</a>
-    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
-      <a class="nav-link py-1" href="#fragment-with-leading-spaces-and-newline">Fragment with leading spaces and newline&#x200E;</a>
-    </nav>
-    <a class="nav-link py-1" href="#trimmed-include-fragment">Trimmed include fragment&#x200E;</a>
-    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
-      <a class="nav-link py-1" href="#before-fragment-with-leading-spaces-and-newline-after">Before | Fragment with leading spaces and newline | After&#x200E;</a>
-    </nav>
-    <a class="nav-link py-1" href="#include-with-custom-variables">Include with custom variables&#x200E;</a>
-    <a class="nav-link py-1" href="#test-included-variable-as-include-attribute">Test included variable as include attribute&#x200E;</a>
-    <a class="nav-link py-1" href="#test-included-variable">Test included variable&#x200E;</a>
-    <a class="nav-link py-1" href="#test-included-variable-with-markdown">Test included variable with markdown&#x200E;</a>
-    <a class="nav-link py-1" href="#test-included-variable-as-attribute">Test included variable as attribute&#x200E;</a>
-    <a class="nav-link py-1" href="#test-included-variable-as-html-element">Test included variable as html element&#x200E;</a>
-    <a class="nav-link py-1" href="#test-included-variable-overridden-by-variables-md">Test included variable overridden by variables.md&#x200E;</a>
-    <a class="nav-link py-1" href="#test-included-variables-in-included-file">Test included variables in included file&#x200E;</a>
-    <a class="nav-link py-1" href="#inner-included-variables-should-not-leak-into-other-files">Inner included variables should not leak into other files&#x200E;</a>
-    <a class="nav-link py-1" href="#test-included-variable-with-global-variable">Test included variable with global variable&#x200E;</a>
-    <a class="nav-link py-1" href="#test-included-variable-overridden-by-set">Test included variable overridden by set&#x200E;</a>
-    <a class="nav-link py-1" href="#test-missing-variable-with-default">Test missing variable with default&#x200E;</a>
-    <a class="nav-link py-1" href="#included-variables-should-not-leak-into-other-files">Included variables should not leak into other files&#x200E;</a>
-    <a class="nav-link py-1" href="#panel-without-src">Panel without src&#x200E;</a>
-    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
-      <a class="nav-link py-1" href="#panel-without-src-header">Panel without src header&#x200E;</a>
-      <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
-        <a class="nav-link py-1" href="#panel-without-src-content-heading">Panel without src content heading&#x200E;</a>
-      </nav>
-    </nav>
-    <a class="nav-link py-1" href="#panel-with-normal-src">Panel with normal src&#x200E;</a>
-    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
-      <a class="nav-link py-1" href="#panel-with-normal-src-header">Panel with normal src header&#x200E;</a>
-    </nav>
-    <a class="nav-link py-1" href="#panel-with-src-from-a-page-segment">Panel with src from a page segment&#x200E;</a>
-    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
-      <a class="nav-link py-1" href="#panel-with-src-from-a-page-segment-header">Panel with src from a page segment header&#x200E;</a>
-    </nav>
-    <a class="nav-link py-1" href="#panel-with-boilerplate">Panel with boilerplate&#x200E;</a>
-    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
-      <a class="nav-link py-1" href="#boilerplate-referencing">Boilerplate referencing&#x200E;</a>
-      <a class="nav-link py-1" href="#referencing-specified-path-in-boilerplate">Referencing specified path in boilerplate&#x200E;</a>
-    </nav>
-    <a class="nav-link py-1" href="#nested-panel">Nested panel&#x200E;</a>
-    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
-      <a class="nav-link py-1" href="#outer-nested-panel">Outer nested panel&#x200E;</a>
-    </nav>
-    <a class="nav-link py-1" href="#nested-panel-without-src">Nested panel without src&#x200E;</a>
-    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
-      <a class="nav-link py-1" href="#outer-nested-panel-without-src">Outer nested panel without src&#x200E;</a>
-      <a class="nav-link py-1" href="#panel-content-of-outer-nested-panel">Panel content of outer nested panel&#x200E;</a>
-      <a class="nav-link py-1" href="#inner-panel-header-without-src">Inner panel header without src&#x200E;</a>
-      <a class="nav-link py-1" href="#panel-content-of-inner-nested-panel">Panel content of inner nested panel&#x200E;</a>
-    </nav>
-    <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site">Panel with src from another Markbind site&#x200E;</a>
-    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
-      <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site-header">Panel with src from another Markbind site header&#x200E;</a>
-    </nav>
-    <a class="nav-link py-1" href="#modal-with-panel-inside">Modal with panel inside&#x200E;</a>
-    <a class="nav-link py-1" href="#unexpanded-panel">Unexpanded panel&#x200E;</a>
-    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
-      <a class="nav-link py-1" href="#unexpanded-panel-header">Unexpanded panel header&#x200E;</a>
-    </nav>
-    <a class="nav-link py-1" href="#test-plugin-in-markbind-plugins">Test plugin in markbind/plugins&#x200E;</a>
-    <a class="nav-link py-1" href="#markbind-plugin-pre-render">Markbind Plugin Pre-render&#x200E;</a>
-    <a class="nav-link py-1" href="#test-search-indexing">Test search indexing&#x200E;</a>
-    <nav class="nav nav-pills flex-column my-0" style="margin-left: 5%; flex-wrap: nowrap;">
-      <a class="nav-link py-1" href="#level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed">Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed&#x200E;</a>
-    </nav>
-
-  </nav>
-</nav>
-
-<div id="flex-body">
-  <div id="site-nav">
-    <ul style="list-style-type: none; margin-left:-1em">
-      <li style="margin-top: 10px">
-        <h2 id="navigation">Navigation<a class="fa fa-anchor" href="#navigation"></a></h2>
-      </li>
-      <li style="margin-top: 10px"><a href="/test_site/index.html" class="site-nav__a current">Home 🏠</a></li>
-      <li style="margin-top: 10px"><a href="/test_site/bugs/index.html" class="site-nav__a">Open Bugs 🐛</a></li>
-      <li style="margin-top: 10px">
-        <h3 id="testing-site-nav">Testing Site-Nav<a class="fa fa-anchor" href="#testing-site-nav"></a></h3>
-      </li>
-      <li style="margin-top: 10px"><button class="dropdown-btn dropdown-btn-open"><strong>Dropdown </strong> <span aria-hidden="true" class="glyphicon glyphicon-search"></span> title ✏️ 
- <i class="dropdown-btn-icon rotate-icon">
-<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
-        <div class="dropdown-container dropdown-container-open">
-          <ul style="list-style-type: none; margin-left:-1em">
-            <li style="margin-top: 10px"><a href="https://www.google.com/" class="site-nav__a">Dropdown link one</a></li>
-            <li style="margin-top: 10px"><button class="dropdown-btn">Nested Dropdown title 📐
- <i class="dropdown-btn-icon">
-<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
-              <div class="dropdown-container">
-                <ul style="list-style-type: none; margin-left:-1em">
-                  <li style="margin-top: 10px"><a href="https://www.google.com/" class="site-nav__a"><strong>Nested</strong> Dropdown link one</a></li>
-                  <li style="margin-top: 10px"><a href="https://www.google.com/" class="site-nav__a"><strong>Nested</strong> Dropdown link two</a></li>
-                </ul>
-              </div>
+  <div id="app">
+    <div id="flex-body">
+      <nav id="site-nav" class="navbar navbar-light bg-transparent">
+        <div class="sticky-top spacer-top viewport-height-90 scrollable slim-scroll">
+          <ul class="px-3 site-nav-list">
+            <li class="mt-2">
+              <h2 id="navigation">Navigation<a class="fa fa-anchor" href="#navigation"></a></h2>
             </li>
-            <li style="margin-top: 10px"><a href="https://www.google.com/" class="site-nav__a">Dropdown link two</a></li>
-          </ul>
-        </div>
-      </li>
-      <li style="margin-top: 10px"><a href="https://www.google.com/" class="site-nav__a"><mark>Third Link</mark> 📋</a></li>
-      <li style="margin-top:10px">Filler text <a href="https://www.youtube.com/" class="site-nav__a"><span aria-hidden="true" class="glyphicon glyphicon-facetime-video"></span> Youtube 📺</a> filler text
-        <ul style="list-style-type: none; margin-left:-1em">
-          <li style="margin-top: 10px"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="site-nav__a">The answer to everything in the universe</a></li>
-          <li style="margin-top: 10px"><button class="dropdown-btn dropdown-btn-open"><mark>Dropdown title</mark> <span aria-hidden="true" class="glyphicon glyphicon-comment"></span> ✏️ 
- <i class="dropdown-btn-icon rotate-icon">
-<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
-            <div class="dropdown-container dropdown-container-open">
-              <ul style="list-style-type: none; margin-left:-1em">
-                <li style="margin-top: 10px"><a href="https://www.google.com/" class="site-nav__a"><strong>Nested</strong> Dropdown link one</a></li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </li>
-      <li style="margin-top: 10px"><button class="dropdown-btn dropdown-btn-open">Really Long Dropdown Title Really Long Dropdown Title Really Long Dropdown Title Really Long Dropdown
- <i class="dropdown-btn-icon rotate-icon">
-<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
-        <div class="dropdown-container dropdown-container-open">
-          <ul style="list-style-type: none; margin-left:-1em">
-            <li style="margin-top: 10px">Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text
-              Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text
-              Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text
-              Really Really Long Text</li>
-            <li style="margin-top: 10px"><button class="dropdown-btn dropdown-btn-open">Nested Dropdown Title
+            <li class="mt-2"><a href="/test_site/index.html" class="site-nav__a current">Home 🏠</a></li>
+            <li class="mt-2"><a href="/test_site/bugs/index.html" class="site-nav__a">Open Bugs 🐛</a></li>
+            <li class="mt-2">
+              <h3 id="testing-site-nav">Testing Site-Nav<a class="fa fa-anchor" href="#testing-site-nav"></a></h3>
+            </li>
+            <li class="mt-2"><button class="dropdown-btn dropdown-btn-open"><strong>Dropdown </strong> <span aria-hidden="true" class="glyphicon glyphicon-search"></span> title ✏️ 
  <i class="dropdown-btn-icon rotate-icon">
 <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
               <div class="dropdown-container dropdown-container-open">
-                <ul style="list-style-type: none; margin-left:-1em">
-                  <li style="margin-top: 10px">Hello Doge Hello Doge 🐶</li>
-                  <li style="margin-top: 10px"><a href="/test_site/index.html" class="site-nav__a current"><strong>NESTED LINK</strong> Home 🏠</a></li>
-                  <li style="margin-top: 10px">Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from
-                    height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text
-                    cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit</li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </li>
-      <li style="margin-top: 10px"><button class="dropdown-btn dropdown-btn-open">Test line break in navigation layout
- <i class="dropdown-btn-icon rotate-icon">
-<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
-        <div class="dropdown-container dropdown-container-open">
-          <ul style="list-style-type: none; margin-left:-1em">
-            <li style="margin-top: 10px">Nested line break text ✂️</li>
-            <li style="margin-top:10px"><a href="/test_site/index.html" class="site-nav__a current">Nested line break href</a>
-              <ul style="list-style-type: none; margin-left:-1em">
-                <li style="margin-top: 10px">Nested Nested line break text ✂️</li>
-              </ul>
-            </li>
-            <li style="margin-top: 10px"><button class="dropdown-btn">Nested line break dropdown menu
+                <ul class="site-nav-list">
+                  <li class="mt-2"><a href="https://www.google.com/" class="site-nav__a">Dropdown link one</a></li>
+                  <li class="mt-2"><button class="dropdown-btn">Nested Dropdown title 📐
  <i class="dropdown-btn-icon">
 <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
-              <div class="dropdown-container">
-                <ul style="list-style-type: none; margin-left:-1em">
-                  <li style="margin-top: 10px">Line break item 2 📘</li>
+                    <div class="dropdown-container">
+                      <ul class="site-nav-list">
+                        <li class="mt-2"><a href="https://www.google.com/" class="site-nav__a"><strong>Nested</strong> Dropdown link one</a></li>
+                        <li class="mt-2"><a href="https://www.google.com/" class="site-nav__a"><strong>Nested</strong> Dropdown link two</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="mt-2"><a href="https://www.google.com/" class="site-nav__a">Dropdown link two</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="mt-2"><a href="https://www.google.com/" class="site-nav__a"><mark>Third Link</mark> 📋</a></li>
+            <li class="mt-2">Filler text <a href="https://www.youtube.com/" class="site-nav__a"><span aria-hidden="true" class="glyphicon glyphicon-facetime-video"></span> Youtube 📺</a> filler text
+              <ul class="site-nav-list">
+                <li class="mt-2"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="site-nav__a">The answer to everything in the universe</a></li>
+                <li class="mt-2"><button class="dropdown-btn dropdown-btn-open"><mark>Dropdown title</mark> <span aria-hidden="true" class="glyphicon glyphicon-comment"></span> ✏️ 
+ <i class="dropdown-btn-icon rotate-icon">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+                  <div class="dropdown-container dropdown-container-open">
+                    <ul class="site-nav-list">
+                      <li class="mt-2"><a href="https://www.google.com/" class="site-nav__a"><strong>Nested</strong> Dropdown link one</a></li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="mt-2"><button class="dropdown-btn dropdown-btn-open">Really Long Dropdown Title Really Long Dropdown Title Really Long Dropdown Title Really Long Dropdown
+ <i class="dropdown-btn-icon rotate-icon">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+              <div class="dropdown-container dropdown-container-open">
+                <ul class="site-nav-list">
+                  <li class="mt-2">Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long
+                    Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really
+                    Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really
+                    Really Long Text Really Really Long Text</li>
+                  <li class="mt-2"><button class="dropdown-btn dropdown-btn-open">Nested Dropdown Title
+ <i class="dropdown-btn-icon rotate-icon">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+                    <div class="dropdown-container dropdown-container-open">
+                      <ul class="site-nav-list">
+                        <li class="mt-2">Hello Doge Hello Doge 🐶</li>
+                        <li class="mt-2"><a href="/test_site/index.html" class="site-nav__a current"><strong>NESTED LINK</strong> Home 🏠</a></li>
+                        <li class="mt-2">Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off
+                          from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height
+                          limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit</li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="mt-2"><button class="dropdown-btn dropdown-btn-open">Test line break in navigation layout
+ <i class="dropdown-btn-icon rotate-icon">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+              <div class="dropdown-container dropdown-container-open">
+                <ul class="site-nav-list">
+                  <li class="mt-2">Nested line break text ✂️</li>
+                  <li class="mt-2"><a href="/test_site/index.html" class="site-nav__a current">Nested line break href</a>
+                    <ul class="site-nav-list">
+                      <li class="mt-2">Nested Nested line break text ✂️</li>
+                    </ul>
+                  </li>
+                  <li class="mt-2"><button class="dropdown-btn">Nested line break dropdown menu
+ <i class="dropdown-btn-icon">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
+                    <div class="dropdown-container">
+                      <ul class="site-nav-list">
+                        <li class="mt-2">Line break item 2 📘</li>
+                      </ul>
+                    </div>
+                  </li>
                 </ul>
               </div>
             </li>
           </ul>
         </div>
-      </li>
-    </ul>
-  </div>
-  <div id="site-nav-btn-wrap">
-    <div id="site-nav-btn">
-      <div class="menu-top-bar"></div>
-      <div class="menu-middle-bar"></div>
-      <div class="menu-bottom-bar"></div>
-    </div>
-  </div>
-  <div id="page-content">
-    <div id="page-nav-content-wrapper">
+      </nav>
       <div id="content-wrapper">
         <div>
           <navbar placement="top" type="inverse" class="temp-navbar">
@@ -392,8 +259,7 @@
             <h3 id="establishing-requirements">Establishing Requirements<a class="fa fa-anchor" href="#establishing-requirements"></a></h3>
             <p>
               <seg id="preview">Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
-                do.
-              </seg>
+                do.</seg>
             </p>
             <p>There are many techniques used during a requirements gathering. The following are some of the techniques.</p>
             <h4 id="brainstorming">Brainstorming<a class="fa fa-anchor" href="#brainstorming"></a></h4>
@@ -409,8 +275,7 @@
           <h1 id="include-segment">Include segment<a class="fa fa-anchor" href="#include-segment"></a></h1>
           <div>
             <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
-              do.
-            </p>
+              do.</p>
           </div>
           <h1 id="dynamic-include">Dynamic include<a class="fa fa-anchor" href="#dynamic-include"></a></h1>
           <p>
@@ -575,17 +440,143 @@ specification that specifies how the product will address the requirements. </sp
         <h2 class="no-index" id="level-2-header-inside-headingsearchindex-with-no-index-attribute-should-not-be-indexed">Level 2 header (inside headingSearchIndex) with no-index attribute should not be indexed</h2>
         <h6 class="always-index" id="level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed">Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed<a class="fa fa-anchor" href="#level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed"></a></h6>
       </div>
+      <nav id="page-nav" class="navbar navbar-light bg-transparent">
+        <div class="sticky-top spacer-top viewport-height-90 scrollable slim-scroll">
+          <a class="navbar-brand page-nav-title" href="#">Testing Page Navigation</a>
+          <nav class="nav nav-pills flex-column my-0 small no-flex-wrap">
+            <a class="nav-link py-1" href="#variables-that-reference-another-variable">Variables that reference another variable&#x200E;</a>
+            <a class="nav-link py-1" href="#page-variable">Page Variable&#x200E;</a>
+            <a class="nav-link py-1" href="#page-variable-with-html-and-md">Page Variable with HTML and MD&#x200E;</a>
+            <a class="nav-link py-1" href="#nested-page-variable">Nested Page Variable&#x200E;</a>
+            <a class="nav-link py-1" href="#page-variable-with-global-variable">Page Variable with Global Variable&#x200E;</a>
+            <a class="nav-link py-1" href="#page-variable-referencing-page-variable">Page Variable referencing Page Variable&#x200E;</a>
+            <a class="nav-link py-1" href="#global-variable-overriding-page-variable">Global Variable overriding Page Variable&#x200E;</a>
+            <a class="nav-link py-1" href="#test-page-variable-and-included-variable-integrations">Test Page Variable and Included Variable Integrations&#x200E;</a>
+            <a class="nav-link py-1" href="#explicitly-included-page-variable">Explicitly Included Page Variable&#x200E;</a>
+            <a class="nav-link py-1" href="#inner-page-variable-should-not-be-overridden-by-outer-page-variable">Inner Page Variable Should Not Be Overridden by Outer Page Variable&#x200E;</a>
+            <a class="nav-link py-1" href="#outer-page-variable-should-not-leak-into-inner-pages">Outer Page Variable Should Not Leak Into Inner Pages&#x200E;</a>
+            <a class="nav-link py-1" href="#included-variable-overriding-page-variable">Included Variable Overriding Page Variable&#x200E;</a>
+            <a class="nav-link py-1" href="#page-variable-referencing-included-variable">Page Variable Referencing Included Variable&#x200E;</a>
+            <a class="nav-link py-1" href="#heading-with-multiple-keywords">Heading with multiple keywords&#x200E;</a>
+            <a class="nav-link py-1" href="#heading-with-keyword-in-panel">Heading with keyword in panel&#x200E;</a>
+            <a class="nav-link py-1" href="#panel-with-heading-with-keyword">Panel with heading with keyword&#x200E;</a>
+            <a class="nav-link py-1" href="#panel-with-heading">Panel with heading&#x200E;</a>
+            <a class="nav-link py-1" href="#expanded-panel-without-heading-with-keyword">Expanded panel without heading with keyword&#x200E;</a>
+            <a class="nav-link py-1" href="#panel-without-heading-with-keyword">Panel without heading with keyword&#x200E;</a>
+            <a class="nav-link py-1" href="#keyword-should-be-tagged-to-this-heading-not-the-panel-heading">Keyword should be tagged to this heading, not the panel heading&#x200E;</a>
+            <a class="nav-link py-1" href="#unexpanded-panel-with-heading-with-keyword">Unexpanded panel with heading with keyword&#x200E;</a>
+            <a class="nav-link py-1" href="#heading-with-included-keyword">Heading with included keyword&#x200E;</a>
+            <a class="nav-link py-1" href="#included-heading">Included Heading&#x200E;</a>
+            <a class="nav-link py-1" href="#heading-with-nested-keyword">Heading with nested keyword&#x200E;</a>
+            <a class="nav-link py-1" href="#heading-with-hidden-keyword">Heading with hidden keyword&#x200E;</a>
+            <a class="nav-link py-1" href="#div-with-frontmatter-shown-tag">Div with frontmatter shown tag&#x200E;</a>
+            <a class="nav-link py-1" href="#div-with-site-shown-tag">Div with site shown tag&#x200E;</a>
+            <a class="nav-link py-1" href="#div-with-multiple-tags">Div with multiple tags&#x200E;</a>
+            <a class="nav-link py-1" href="#div-with-hidden-tag-hidden">Div with hidden tag (Hidden)&#x200E;</a>
+            <a class="nav-link py-1" href="#div-with-tag-in-included-file">Div with tag in included file&#x200E;</a>
+            <a class="nav-link py-1" href="#div-with-tag-matching-general-tag">Div with tag matching general tag&#x200E;</a>
+            <a class="nav-link py-1" href="#div-with-tag-matching-general-tag-and-specific-tag-hidden">Div with tag matching general tag and specific tag (Hidden)&#x200E;</a>
+            <a class="nav-link py-1" href="#div-with-tag-matching-front-matter-tag-overridden-by-matching-site-tag">Div with tag matching front matter tag overridden by matching site tag&#x200E;</a>
+            <a class="nav-link py-1" href="#div-with-tag-matching-general-front-matter-tag-not-overridden-by-matching-specific-site-tag-hidden">Div with tag matching general front matter tag not overridden by matching specific site tag (Hidden)&#x200E;</a>
+            <a class="nav-link py-1" href="#div-with-tag-matching-general-front-matter-tag-overridden-by-matching-specific-site-tag">Div with tag matching general front matter tag overridden by matching specific site tag&#x200E;</a>
+            <a class="nav-link py-1" href="#normal-include">Normal include&#x200E;</a>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#establishing-requirements">Establishing Requirements&#x200E;</a>
+              <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+                <a class="nav-link py-1" href="#brainstorming">Brainstorming&#x200E;</a>
+                <a class="nav-link py-1" href="#user-surveys">User surveys&#x200E;</a>
+                <a class="nav-link py-1" href="#focus-groups">Focus groups&#x200E;</a>
+              </nav>
+            </nav>
+            <a class="nav-link py-1" href="#include-segment">Include segment&#x200E;</a>
+            <a class="nav-link py-1" href="#dynamic-include">Dynamic include&#x200E;</a>
+            <a class="nav-link py-1" href="#boilerplate-include">Boilerplate include&#x200E;</a>
+            <a class="nav-link py-1" href="#nested-include">Nested include&#x200E;</a>
+            <a class="nav-link py-1" href="#html-include">HTML include&#x200E;</a>
+            <a class="nav-link py-1" href="#mbd-mbdf-include">Mbd, Mbdf include&#x200E;</a>
+            <a class="nav-link py-1" href="#include-from-another-markbind-site">Include from another Markbind site&#x200E;</a>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#feature-list">Feature list&#x200E;</a>
+            </nav>
+            <a class="nav-link py-1" href="#trimmed-include">Trimmed include&#x200E;</a>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#fragment-with-leading-spaces-and-newline">Fragment with leading spaces and newline&#x200E;</a>
+            </nav>
+            <a class="nav-link py-1" href="#trimmed-include-fragment">Trimmed include fragment&#x200E;</a>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#before-fragment-with-leading-spaces-and-newline-after">Before | Fragment with leading spaces and newline | After&#x200E;</a>
+            </nav>
+            <a class="nav-link py-1" href="#include-with-custom-variables">Include with custom variables&#x200E;</a>
+            <a class="nav-link py-1" href="#test-included-variable-as-include-attribute">Test included variable as include attribute&#x200E;</a>
+            <a class="nav-link py-1" href="#test-included-variable">Test included variable&#x200E;</a>
+            <a class="nav-link py-1" href="#test-included-variable-with-markdown">Test included variable with markdown&#x200E;</a>
+            <a class="nav-link py-1" href="#test-included-variable-as-attribute">Test included variable as attribute&#x200E;</a>
+            <a class="nav-link py-1" href="#test-included-variable-as-html-element">Test included variable as html element&#x200E;</a>
+            <a class="nav-link py-1" href="#test-included-variable-overridden-by-variables-md">Test included variable overridden by variables.md&#x200E;</a>
+            <a class="nav-link py-1" href="#test-included-variables-in-included-file">Test included variables in included file&#x200E;</a>
+            <a class="nav-link py-1" href="#inner-included-variables-should-not-leak-into-other-files">Inner included variables should not leak into other files&#x200E;</a>
+            <a class="nav-link py-1" href="#test-included-variable-with-global-variable">Test included variable with global variable&#x200E;</a>
+            <a class="nav-link py-1" href="#test-included-variable-overridden-by-set">Test included variable overridden by set&#x200E;</a>
+            <a class="nav-link py-1" href="#test-missing-variable-with-default">Test missing variable with default&#x200E;</a>
+            <a class="nav-link py-1" href="#included-variables-should-not-leak-into-other-files">Included variables should not leak into other files&#x200E;</a>
+            <a class="nav-link py-1" href="#panel-without-src">Panel without src&#x200E;</a>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#panel-without-src-header">Panel without src header&#x200E;</a>
+              <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+                <a class="nav-link py-1" href="#panel-without-src-content-heading">Panel without src content heading&#x200E;</a>
+              </nav>
+            </nav>
+            <a class="nav-link py-1" href="#panel-with-normal-src">Panel with normal src&#x200E;</a>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#panel-with-normal-src-header">Panel with normal src header&#x200E;</a>
+            </nav>
+            <a class="nav-link py-1" href="#panel-with-src-from-a-page-segment">Panel with src from a page segment&#x200E;</a>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#panel-with-src-from-a-page-segment-header">Panel with src from a page segment header&#x200E;</a>
+            </nav>
+            <a class="nav-link py-1" href="#panel-with-boilerplate">Panel with boilerplate&#x200E;</a>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#boilerplate-referencing">Boilerplate referencing&#x200E;</a>
+              <a class="nav-link py-1" href="#referencing-specified-path-in-boilerplate">Referencing specified path in boilerplate&#x200E;</a>
+            </nav>
+            <a class="nav-link py-1" href="#nested-panel">Nested panel&#x200E;</a>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#outer-nested-panel">Outer nested panel&#x200E;</a>
+            </nav>
+            <a class="nav-link py-1" href="#nested-panel-without-src">Nested panel without src&#x200E;</a>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#outer-nested-panel-without-src">Outer nested panel without src&#x200E;</a>
+              <a class="nav-link py-1" href="#panel-content-of-outer-nested-panel">Panel content of outer nested panel&#x200E;</a>
+              <a class="nav-link py-1" href="#inner-panel-header-without-src">Inner panel header without src&#x200E;</a>
+              <a class="nav-link py-1" href="#panel-content-of-inner-nested-panel">Panel content of inner nested panel&#x200E;</a>
+            </nav>
+            <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site">Panel with src from another Markbind site&#x200E;</a>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site-header">Panel with src from another Markbind site header&#x200E;</a>
+            </nav>
+            <a class="nav-link py-1" href="#modal-with-panel-inside">Modal with panel inside&#x200E;</a>
+            <a class="nav-link py-1" href="#unexpanded-panel">Unexpanded panel&#x200E;</a>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#unexpanded-panel-header">Unexpanded panel header&#x200E;</a>
+            </nav>
+            <a class="nav-link py-1" href="#test-plugin-in-markbind-plugins">Test plugin in markbind/plugins&#x200E;</a>
+            <a class="nav-link py-1" href="#markbind-plugin-pre-render">Markbind Plugin Pre-render&#x200E;</a>
+            <a class="nav-link py-1" href="#test-search-indexing">Test search indexing&#x200E;</a>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed">Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed&#x200E;</a>
+            </nav>
+
+          </nav>
+        </div>
+      </nav>
     </div>
+    <footer>
+      <h1 id="heading-in-footer-should-not-be-indexed">Heading in footer should not be indexed<a class="fa fa-anchor" href="#heading-in-footer-should-not-be-indexed"></a></h1>
+      <div class="text-center">
+        This is a dynamic height footer that supports markdown <span>😄</span>!
+      </div>
+    </footer>
   </div>
-</div>
-<div id="flex-div"></div>
-<footer>
-  <h1 id="heading-in-footer-should-not-be-indexed">Heading in footer should not be indexed<a class="fa fa-anchor" href="#heading-in-footer-should-not-be-indexed"></a></h1>
-  <div class="text-center">
-    This is a dynamic height footer that supports markdown <span>😄</span>!
-  </div>
-</footer>
-</div>
 </body>
 <script src="markbind/js/vue.min.js"></script>
 <script src="markbind/js/vue-strap.min.js"></script>
@@ -593,11 +584,14 @@ specification that specifies how the product will address the requirements. </sp
 <script src="markbind/js/polyfill.min.js"></script>
 <script src="markbind/js/bootstrap-vue.min.js"></script>
 <script>
-    const baseUrl = '/test_site'
-    const enableSearch = true
+  const baseUrl = '/test_site'
+  const enableSearch = true
 </script>
 <script src="markbind/js/setup.js"></script>
 <script src="SCRIPT_LINK"></script>
-<script>alert("hello")</script>
+<script>
+  alert("hello")
+</script>
 <script src="markbind/layouts/default/scripts.js"></script>
+
 </html>

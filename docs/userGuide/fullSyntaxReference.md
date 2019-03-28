@@ -37,6 +37,7 @@
   boxes : ['Boxes', ['component', 'reader-facing']],
   dropdowns : ['Dropdowns', ['component', 'reader-facing']],
   footers : ['Footers', ['other', 'reader-facing']],
+  headers: ['Headers', ['other', 'reader-facing']],
   modals : ['Modals', ['component', 'reader-facing']],
   navBars : ['Nav Bars', ['component', 'reader-facing']],
   pageNavigationMenus : ['Page Navigation Menus', ['component', 'reader-facing']],

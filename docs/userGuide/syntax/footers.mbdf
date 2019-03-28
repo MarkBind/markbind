@@ -1,20 +1,8 @@
 ## Footers
 
-**You can specify a <tooltip content="For an example of a page footer, see the bottom of this page.">page footer</tooltip>** using a `<footer>` tag.
+**You can specify a <tooltip content="For an example of a page footer, see the bottom of this page.">page footer</tooltip>** using a footer file.
 
-<div class="indented">
-
-{{ icon_example }}
-```html
-<!-- main body of the page -->
-<footer>
-  This page is not updated anymore!
-</footer>
-```
-</div>
-
-If the same footer is to appear in many pages, instead of specifying it _inline_ as explained above, you can save it as a separate file in the `_markbind/footers` and specify it in the `<frontmatter>` of the pages in which it should appear.
-
+You can save multiple footer files in the `_markbind/footers` folder and specify it in the `<frontmatter>` of the pages in which it should appear.
 
 <div class="indented">
 
@@ -34,9 +22,8 @@ In the page that you want to include the footer:
 </div>
 
 Notes:
-- An inline footer needs to be the last element in the page.
-- The footer specified in the `<frontmatter>` overrides the inline footer, if the page has any.
-- Footers nested in other components or HTML tags will be shifted outside of the enclosing tag.
+- Any inline footers will be removed by MarkBind to ensure compatibility with footer files.
+- If a [Layout]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#page-layouts) is specified, the footer file specified in the `<frontmatter>` will override the footer within the Layout.
 - [MarkBind Components]({{ baseUrl }}/userGuide/usingComponents.html) and [`<include>` tags]({{ baseUrl }}/userGuide/reusingContents.html#the-include-tag) are not supported in footers.
 
 <span id="short" class="d-none">

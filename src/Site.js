@@ -40,6 +40,7 @@ const BUILT_IN_PLUGIN_FOLDER_NAME = 'plugins';
 const FAVICON_DEFAULT_PATH = 'favicon.ico';
 const FONT_AWESOME_PATH = 'asset/font-awesome.csv';
 const FOOTER_PATH = '_markbind/footers/footer.md';
+const HEADER_PATH = '_markbind/headers/header.md';
 const GLYPHICONS_PATH = 'asset/glyphicons.csv';
 const HEAD_FOLDER_PATH = '_markbind/head';
 const INDEX_MARKDOWN_FILE = 'index.md';
@@ -49,7 +50,7 @@ const SITE_CONFIG_NAME = 'site.json';
 const SITE_DATA_NAME = 'siteData.json';
 const SITE_NAV_PATH = '_markbind/navigation/site-nav.md';
 const LAYOUT_DEFAULT_NAME = 'default';
-const LAYOUT_FILES = ['navigation.md', 'head.md', 'footer.md', 'styles.css'];
+const LAYOUT_FILES = ['navigation.md', 'head.md', 'footer.md', 'header.md', 'styles.css'];
 const LAYOUT_FOLDER_PATH = '_markbind/layouts';
 const LAYOUT_SCRIPTS_PATH = 'scripts.js';
 const LAYOUT_SITE_FOLDER_NAME = 'layouts';
@@ -119,9 +120,19 @@ const FOOTER_DEFAULT = '<footer>\n'
   + '  </div>\n'
   + '</footer>\n';
 
+const HEADER_DEFAULT = '<header>\n'
+  + '  <div class="bg-primary display-4 text-center text-white">\n'
+  + '    <br>\n'
+  + '    Start authoring your MarkBind website.\n'
+  + '    <br>\n'
+  + '    <br>\n'
+  + '  </div>\n'
+  + '</header>\n';
+
 const INDEX_MARKDOWN_DEFAULT = '<frontmatter>\n'
   + '  title: "Hello World"\n'
   + '  footer: footer.md\n'
+  + '  header: header.md\n'
   + '  siteNav: site-nav.md\n'
   + '</frontmatter>\n\n'
   + '# Hello world\n'
@@ -219,6 +230,7 @@ Site.initSite = function (rootPath) {
   const boilerplatePath = path.join(rootPath, BOILERPLATE_FOLDER_NAME);
   const configPath = path.join(rootPath, SITE_CONFIG_NAME);
   const footerPath = path.join(rootPath, FOOTER_PATH);
+  const headerPath = path.join(rootPath, HEADER_PATH);
   const headFolderPath = path.join(rootPath, HEAD_FOLDER_PATH);
   const indexPath = path.join(rootPath, INDEX_MARKDOWN_FILE);
   const siteNavPath = path.join(rootPath, SITE_NAV_PATH);
@@ -263,6 +275,13 @@ Site.initSite = function (rootPath) {
           return Promise.resolve();
         }
         return fs.outputFileAsync(footerPath, FOOTER_DEFAULT);
+      })
+      .then(() => fs.accessAsync(headerPath))
+      .catch(() => {
+        if (fs.existsSync(headerPath)) {
+          return Promise.resolve();
+        }
+        return fs.outputFileAsync(headerPath, HEADER_DEFAULT);
       })
       .then(() => fs.accessAsync(headFolderPath))
       .catch(() => {
