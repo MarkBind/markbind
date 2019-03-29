@@ -76,6 +76,9 @@ module.exports.SITE_JSON_DEFAULT = '{\n'
   + '  }\n'
   + '}\n';
 
+module.exports.ABOUT_MD_DEFAULT = '# About\n'
+  + 'Welcome to your **About Us** page.\n';
+
 module.exports.FOOTER_MD_DEFAULT = '<footer>\n'
   + '  <div class="text-center">\n'
   + '    This is a dynamic height footer that supports markdown <md>:smile:</md>!\n'
@@ -107,6 +110,19 @@ module.exports.INDEX_MD_DEFAULT = '<frontmatter>\n'
 module.exports.SITE_NAV_MD_DEFAULT = '<navigation>\n'
   + '* [Home :glyphicon-home:]({{baseUrl}}/index.html)\n'
   + '</navigation>\n';
+
+module.exports.TOP_NAV_DEFAULT = '<header><navbar placement="top" type="inverse">\n'
+  + '  <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand">'
+  + '<i class="far fa-file-image"></i></a>\n'
+  + '  <li><a href="{{baseUrl}}/index.html" class="nav-link">HOME</a></li>\n'
+  + '  <li><a href="{{baseUrl}}/about.html" class="nav-link">ABOUT</a></li>\n'
+  + '  <li slot="right">\n'
+  + '    <form class="navbar-form">\n'
+  + '      <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"'
+  + ' menu-align-right></searchbar>\n'
+  + '    </form>\n'
+  + '  </li>\n'
+  + '</navbar></header>';
 
 module.exports.USER_VARIABLES_DEFAULT = '<variable name="example">\n'
   + 'To inject this HTML segment in your markbind files, use {{ example }} where you want to place it.\n'
