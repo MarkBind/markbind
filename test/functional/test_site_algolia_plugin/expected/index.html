@@ -1,117 +1,111 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="generator" content="MarkBind 1.22.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello World</title>
-    <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
-    <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
-    <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css" >
-    <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css" >
-    <link rel="stylesheet" href="markbind/css/github.min.css">
-    <link rel="stylesheet" href="markbind/css/markbind.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
-    <link rel="stylesheet" href="markbind/layouts/default/styles.css">
-    <link rel="stylesheet" href="markbind/css/site-nav.css">
-    
-    
-    
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="MarkBind 1.22.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hello World</title>
+  <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
+  <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
+  <link rel="stylesheet" href="markbind/css/github.min.css">
+  <link rel="stylesheet" href="markbind/css/markbind.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
+  <link rel="stylesheet" href="markbind/layouts/default/styles.css">
+  <link rel="stylesheet" href="markbind/css/site-nav.css">
+
+
+
 </head>
+
 <body>
-<div id="app">
+  <div id="app">
     <div id="flex-body">
-  <div id="site-nav">
-    <ul style="list-style-type: none; margin-left:-1em">
-      <li style="margin-top: 10px"><a href="/test_site_algolia_plugin/index.html" class="site-nav__a current">Home <span aria-hidden="true" class="glyphicon glyphicon-home"></span></a></li>
-    </ul>
-  </div>
-  <div id="site-nav-btn-wrap">
-    <div id="site-nav-btn">
-      <div class="menu-top-bar"></div>
-      <div class="menu-middle-bar"></div>
-      <div class="menu-bottom-bar"></div>
+      <nav id="site-nav" class="navbar navbar-light bg-transparent">
+        <div class="sticky-top spacer-top viewport-height-90 scrollable slim-scroll">
+          <ul class="px-3 site-nav-list">
+            <li class="mt-2"><a href="/test_site_algolia_plugin/index.html" class="site-nav__a current">Home <span aria-hidden="true" class="glyphicon glyphicon-home"></span></a></li>
+          </ul>
+        </div>
+      </nav>
+      <div id="content-wrapper">
+        <h1 id="test-algolia-plugin-adds-algolia-no-index-classes">Test Algolia plugin adds algolia-no-index classes<a class="fa fa-anchor" href="#test-algolia-plugin-adds-algolia-no-index-classes"></a></h1>
+        <h2 id="dropdowns-should-have-algolia-no-index-class">Dropdowns should have algolia-no-index class<a class="fa fa-anchor" href="#dropdowns-should-have-algolia-no-index-class"></a></h2>
+        <div class="temp-dropdown-placeholder">Dropdown</div>
+        <dropdown text="Dropdown" class="temp-dropdown algolia-no-index">
+          <li><a class="dropdown-item" href="/">One</a></li>
+          <li><a class="dropdown-item" href="/">Two</a></li>
+        </dropdown>
+        <h2 id="modals-should-have-algolia-no-index-class">Modals should have algolia-no-index class<a class="fa fa-anchor" href="#modals-should-have-algolia-no-index-class"></a></h2>
+        <modal title="Modal" id="modal:trigger_id" class="algolia-no-index">
+          Content
+        </modal>
+        <trigger for="modal:trigger_id">Trigger</trigger>
+        <h2 id="panels-that-are-not-expanded-should-have-algolia-no-index-class">Panels that are not expanded should have algolia-no-index class<a class="fa fa-anchor" href="#panels-that-are-not-expanded-should-have-algolia-no-index-class"></a></h2>
+        <panel header="Panel" class="algolia-no-index">
+          Content
+        </panel>
+        <panel header="Panel" expanded="">
+          Content
+        </panel>
+        <h2 id="popover-should-have-algolia-no-index-class">Popover should have algolia-no-index class<a class="fa fa-anchor" href="#popover-should-have-algolia-no-index-class"></a></h2>
+        <popover effect="fade" content="Content" placement="top" class="algolia-no-index">
+          <button class="btn btn-secondary">Popover</button></popover>
+        <h2 id="tabs-except-first-tab-should-have-algolia-no-index-class">Tabs except first tab should have algolia-no-index class<a class="fa fa-anchor" href="#tabs-except-first-tab-should-have-algolia-no-index-class"></a></h2>
+        <tabs>
+          <tab header="First Tab">
+            Content<br>Content<br>Content<br>Content
+          </tab>
+          <tab header="Second Tab" class="algolia-no-index">
+            Content<br>Content<br>Content<br>Content
+          </tab>
+        </tabs>
+        <tabs>
+          <tab-group header="First Group">
+            <tab header="First Tab">
+              Content<br>Content<br>Content<br>Content
+            </tab>
+            <tab header="Second Tab" class="algolia-no-index">
+              Content<br>Content<br>Content<br>Content
+            </tab>
+          </tab-group>
+          <tab-group header="Second Group" class="algolia-no-index">
+            <tab header="First Tab">
+              Content<br>Content<br>Content<br>Content
+            </tab>
+            <tab header="Second Tab" class="algolia-no-index">
+              Content<br>Content<br>Content<br>Content
+            </tab>
+          </tab-group>
+        </tabs>
+        <tabs>
+          <tab-group header="Outer One">
+            <tab header="First Tab">
+              Content<br>Content<br>Content<br>Content
+            </tab>
+            <tab header="Second Tab" class="algolia-no-index">
+              Content<br>Content<br>Content<br>Content
+            </tab>
+          </tab-group>
+          <tab header="Outer Two" class="algolia-no-index">
+            Content<br>Content<br>Content<br>Content
+          </tab>
+        </tabs>
+        <h2 id="tooltip-should-have-algolia-no-index-class">Tooltip should have algolia-no-index class<a class="fa fa-anchor" href="#tooltip-should-have-algolia-no-index-class"></a></h2>
+        <tooltip header="" content="Content" placement="top" class="algolia-no-index">
+          <button class="btn btn-secondary">Tooltip</button></tooltip>
+      </div>
     </div>
+    <footer>
+      <div class="text-center">
+        This is a dynamic height footer that supports markdown <span>😄</span>!
+      </div>
+    </footer>
   </div>
-  <div id="page-content">
-    <div id="content-wrapper">
-      <h1 id="test-algolia-plugin-adds-algolia-no-index-classes">Test Algolia plugin adds algolia-no-index classes<a class="fa fa-anchor" href="#test-algolia-plugin-adds-algolia-no-index-classes"></a></h1>
-      <h2 id="dropdowns-should-have-algolia-no-index-class">Dropdowns should have algolia-no-index class<a class="fa fa-anchor" href="#dropdowns-should-have-algolia-no-index-class"></a></h2>
-      <div class="temp-dropdown-placeholder">Dropdown</div>
-      <dropdown text="Dropdown" class="temp-dropdown algolia-no-index">
-        <li><a class="dropdown-item" href="/">One</a></li>
-        <li><a class="dropdown-item" href="/">Two</a></li>
-      </dropdown>
-      <h2 id="modals-should-have-algolia-no-index-class">Modals should have algolia-no-index class<a class="fa fa-anchor" href="#modals-should-have-algolia-no-index-class"></a></h2>
-      <modal title="Modal" id="modal:trigger_id" class="algolia-no-index">
-        Content
-      </modal>
-      <trigger for="modal:trigger_id">Trigger</trigger>
-      <h2 id="panels-that-are-not-expanded-should-have-algolia-no-index-class">Panels that are not expanded should have algolia-no-index class<a class="fa fa-anchor" href="#panels-that-are-not-expanded-should-have-algolia-no-index-class"></a></h2>
-      <panel header="Panel" class="algolia-no-index">
-        Content
-      </panel>
-      <panel header="Panel" expanded="">
-        Content
-      </panel>
-      <h2 id="popover-should-have-algolia-no-index-class">Popover should have algolia-no-index class<a class="fa fa-anchor" href="#popover-should-have-algolia-no-index-class"></a></h2>
-      <popover effect="fade" content="Content" placement="top" class="algolia-no-index">
-        <button class="btn btn-secondary">Popover</button></popover>
-      <h2 id="tabs-except-first-tab-should-have-algolia-no-index-class">Tabs except first tab should have algolia-no-index class<a class="fa fa-anchor" href="#tabs-except-first-tab-should-have-algolia-no-index-class"></a></h2>
-      <tabs>
-        <tab header="First Tab">
-          Content<br>Content<br>Content<br>Content
-        </tab>
-        <tab header="Second Tab" class="algolia-no-index">
-          Content<br>Content<br>Content<br>Content
-        </tab>
-      </tabs>
-      <tabs>
-        <tab-group header="First Group">
-          <tab header="First Tab">
-            Content<br>Content<br>Content<br>Content
-          </tab>
-          <tab header="Second Tab" class="algolia-no-index">
-            Content<br>Content<br>Content<br>Content
-          </tab>
-        </tab-group>
-        <tab-group header="Second Group" class="algolia-no-index">
-          <tab header="First Tab">
-            Content<br>Content<br>Content<br>Content
-          </tab>
-          <tab header="Second Tab" class="algolia-no-index">
-            Content<br>Content<br>Content<br>Content
-          </tab>
-        </tab-group>
-      </tabs>
-      <tabs>
-        <tab-group header="Outer One">
-          <tab header="First Tab">
-            Content<br>Content<br>Content<br>Content
-          </tab>
-          <tab header="Second Tab" class="algolia-no-index">
-            Content<br>Content<br>Content<br>Content
-          </tab>
-        </tab-group>
-        <tab header="Outer Two" class="algolia-no-index">
-          Content<br>Content<br>Content<br>Content
-        </tab>
-      </tabs>
-      <h2 id="tooltip-should-have-algolia-no-index-class">Tooltip should have algolia-no-index class<a class="fa fa-anchor" href="#tooltip-should-have-algolia-no-index-class"></a></h2>
-      <tooltip header="" content="Content" placement="top" class="algolia-no-index">
-        <button class="btn btn-secondary">Tooltip</button></tooltip>
-    </div>
-  </div>
-</div>
-<div id="flex-div"></div>
-<footer>
-  <div class="text-center">
-    This is a dynamic height footer that supports markdown <span>😄</span>!
-  </div>
-</footer>
-</div>
 </body>
 <script src="markbind/js/vue.min.js"></script>
 <script src="markbind/js/vue-strap.min.js"></script>
@@ -119,22 +113,23 @@
 <script src="markbind/js/polyfill.min.js"></script>
 <script src="markbind/js/bootstrap-vue.min.js"></script>
 <script>
-    const baseUrl = '/test_site_algolia_plugin'
-    const enableSearch = true
+  const baseUrl = '/test_site_algolia_plugin'
+  const enableSearch = true
 </script>
 <script src="markbind/js/setup.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
-    function initAlgolia() {
-      docsearch({
-        apiKey: "25626fae796133dc1e734c6bcaaeac3c",
-        indexName: "docsearch",
-        inputSelector: "#algolia-search-input",
-        algoliaOptions: {},
-        debug: false,
-      });
-    }
-    MarkBind.afterSetup(initAlgolia);
-  </script>
+  function initAlgolia() {
+    docsearch({
+      apiKey: "25626fae796133dc1e734c6bcaaeac3c",
+      indexName: "docsearch",
+      inputSelector: "#algolia-search-input",
+      algoliaOptions: {},
+      debug: false,
+    });
+  }
+  MarkBind.afterSetup(initAlgolia);
+</script>
 <script src="markbind/layouts/default/scripts.js"></script>
+
 </html>
