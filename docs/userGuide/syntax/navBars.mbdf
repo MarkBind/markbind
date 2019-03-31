@@ -12,7 +12,33 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userguid
 <span id="code">
 
 ```html
-<navbar type="inverse">
+<navbar type="primary">
+  <!-- Brand as slot -->
+  <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
+  <!-- You can use dropdown component -->
+  <dropdown text="Dropdown" class="nav-link">
+    <li><a href="#navbar" class="dropdown-item">Option</a></li>
+  </dropdown>
+  <!-- For right positioning use slot -->
+  <li slot="right">
+    <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">Fork...</a>
+  </li>
+</navbar>
+
+<navbar type="dark">
+  <!-- Brand as slot -->
+  <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
+  <!-- You can use dropdown component -->
+  <dropdown text="Dropdown" class="nav-link">
+    <li><a href="#navbar" class="dropdown-item">Option</a></li>
+  </dropdown>
+  <!-- For right positioning use slot -->
+  <li slot="right">
+    <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">Fork...</a>
+  </li>
+</navbar>
+
+<navbar type="light">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
   <!-- You can use dropdown component -->
@@ -25,10 +51,12 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userguid
   </li>
 </navbar>
 ```
+
 </span>
+
 <span id="output">
 
-<navbar type="inverse">
+<navbar type="primary">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
   <!-- You can use dropdown component -->
@@ -37,23 +65,56 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userguid
   </dropdown>
   <!-- For right positioning use slot -->
   <li slot="right">
-    <a href="https://github.com/MarkBind/markbind" class="nav-link" target="_blank">Fork...</a>
+    <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">Fork...</a>
   </li>
 </navbar>
+
+<navbar type="dark">
+  <!-- Brand as slot -->
+  <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
+  <!-- You can use dropdown component -->
+  <dropdown text="Dropdown" class="nav-link">
+    <li><a href="#navbar" class="dropdown-item">Option</a></li>
+  </dropdown>
+  <!-- For right positioning use slot -->
+  <li slot="right">
+    <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">Fork...</a>
+  </li>
+</navbar>
+
+<navbar type="light">
+  <!-- Brand as slot -->
+  <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
+  <!-- You can use dropdown component -->
+  <dropdown text="Dropdown" class="nav-link">
+    <li><a href="#navbar" class="dropdown-item">Option</a></li>
+  </dropdown>
+  <!-- For right positioning use slot -->
+  <li slot="right">
+    <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">Fork...</a>
+  </li>
+</navbar>
+
 </span>
 </include>
 
 ****Options****
 
-Name | Type | Default | Description 
+Name | Type | Default | Description
 --- | --- | --- | ---
-type | `String` | `default` | Supports: `inverse`, `default`.
+type | `String` | `primary` | Supports: `primary`, `dark`, `light`, `none`.
+
+<box type="tip">
+
+If you wish to further customize your navbar beyond the primary, dark, and light theme colors, specify the `type="none"` attribute and [insert your own custom styles](#inserting-custom-classes-into-components) via the `add-class` attribute.
+
+</box>
 
 
 <span id="short" class="d-none">
 
 ```html
-<navbar type="inverse">
+<navbar type="primary">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
   <!-- You can use dropdown component -->
@@ -62,15 +123,16 @@ type | `String` | `default` | Supports: `inverse`, `default`.
   </dropdown>
   <!-- For right positioning use slot -->
   <li slot="right">
-    <a href="https://github.com/x/y" target="_blank" class="nav-link">Fork...</a>
+    <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">Fork...</a>
   </li>
 </navbar>
 ```
+
 </span>
 
 <span id="examples" class="d-none">
 
-<navbar type="inverse">
+<navbar type="primary">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
   <!-- You can use dropdown component -->
@@ -79,9 +141,34 @@ type | `String` | `default` | Supports: `inverse`, `default`.
   </dropdown>
   <!-- For right positioning use slot -->
   <li slot="right">
-    <a href="https://github.com/x/y" class="nav-link" target="_blank">Fork...</a>
+    <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">Fork...</a>
   </li>
-</navbar><p/>
-</span>
-</include>
+</navbar>
+
+<navbar type="dark">
+  <!-- Brand as slot -->
+  <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
+  <!-- You can use dropdown component -->
+  <dropdown text="Dropdown" class="nav-link">
+    <li><a href="#navbar" class="dropdown-item">Option</a></li>
+  </dropdown>
+  <!-- For right positioning use slot -->
+  <li slot="right">
+    <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">Fork...</a>
+  </li>
+</navbar>
+
+<navbar type="light">
+  <!-- Brand as slot -->
+  <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
+  <!-- You can use dropdown component -->
+  <dropdown text="Dropdown" class="nav-link">
+    <li><a href="#navbar" class="dropdown-item">Option</a></li>
+  </dropdown>
+  <!-- For right positioning use slot -->
+  <li slot="right">
+    <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">Fork...</a>
+  </li>
+</navbar>
+
 </span>
