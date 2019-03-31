@@ -26,6 +26,21 @@
     {
       "src": "userGuide/readerFacingFeatures.md",
       "searchable": "no"
+    },
+    {
+      "glob": "devGuide/*.md"
+    },
+    {
+      "src": "devGuide/index.md",
+      "searchable": "no"
+    },
+    {
+      "src": "devGuide/devGuide.md",
+      "searchable": "no"
+    },
+    {
+      "src": "devGuide/maintainerGuide.md",
+      "searchable": "no"
     }
   ],
   "headingIndexingLevel": 6,
