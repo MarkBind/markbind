@@ -1,11 +1,10 @@
 <variable name="title" id="title">Authoring Contents</variable>
 <frontmatter>
   title: "User Guide: {{ title }}"
+  header: header.md
   footer: footer.md
   siteNav: userGuideSections.md
 </frontmatter>
-
-<include src="../common/header.md" />
 
 # {{ title }}
 

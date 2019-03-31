@@ -1,10 +1,9 @@
 <frontmatter>
   title: "User Guide: Syntax Cheat Sheet"
+  header: header.md
   footer: footer.md
   siteNav: userGuideSections.md
 </frontmatter>
-
-<include src="../common/header.md" />
 
 # Syntax Cheat Sheet
 

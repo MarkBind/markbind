@@ -1,11 +1,10 @@
 <frontmatter>
   title: "Configuring the Site"
+  header: header.md
   footer: footer.md
   siteNav: userGuideSections.md
   keywords: site.json
 </frontmatter>
-
-<include src="../common/header.md" />
 
 # Configuring the Site
 

@@ -1,9 +1,8 @@
 <frontmatter>
   title: "About Us"
+  header: header.md
   footer: footer.md
 </frontmatter>
-
-<include src="./common/header.md" />
 
 # About Us
 

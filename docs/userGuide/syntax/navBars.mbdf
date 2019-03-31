@@ -2,11 +2,17 @@
 
 **Navbar allows visitors of your website to navigate through pages easily.**
 
+<box type="warning">
+  <markdown>
+Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userguide/tweakingthepagestructure.html#headers) to ensure that they are correctly positioned at the top of the page, above the [site navigation]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#site-navigation-menus) and [page navigation]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#page-navigation-menus) menus.
+  </markdown>
+</box>
+
 <include src="outputBox.md" boilerplate >
 <span id="code">
 
 ```html
-<navbar placement="top" type="inverse">
+<navbar type="inverse">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
   <!-- You can use dropdown component -->
@@ -41,14 +47,13 @@
 
 Name | Type | Default | Description 
 --- | --- | --- | ---
-placement | `String` | `''` | Supports: `top`, `bottom`, `static`, or empty for normal. 
 type | `String` | `default` | Supports: `inverse`, `default`.
 
 
 <span id="short" class="d-none">
 
 ```html
-<navbar placement="top" type="inverse">
+<navbar type="inverse">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
   <!-- You can use dropdown component -->

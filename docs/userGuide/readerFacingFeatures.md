@@ -1,10 +1,9 @@
 <frontmatter>
   title: "User Guide: Reader-Facing Features"
+  header: header.md
   footer: footer.md
   siteNav: userGuideSections.md
 </frontmatter>
-
-<include src="../common/header.md" />
 
 # Reader-Facing Features
 

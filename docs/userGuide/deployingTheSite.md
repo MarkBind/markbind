@@ -1,12 +1,11 @@
 <variable name="title" id="title">Deploying the Site</variable>
 <frontmatter>
   title: "User Guide: {{ title }}"
+  header: header.md
   footer: footer.md
   siteNav: userGuideSections.md
   pageNav: default
 </frontmatter>
-
-<include src="../common/header.md" />
 
 # {{ title }}
 

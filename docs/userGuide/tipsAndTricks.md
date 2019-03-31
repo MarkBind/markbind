@@ -2,11 +2,10 @@
 
 <frontmatter>
   title: "User Guide: {{ title | safe }}"
+  header: header.md
   footer: footer.md
   siteNav: userGuideSections.md
 </frontmatter>
-
-<include src="../common/header.md" />
 
 # {{ title | safe }}
 

@@ -3,6 +3,7 @@
 
 <frontmatter>
   title: "User Guide: {{ title }}"
+  header: header.md
   footer: footer.md
   siteNav: userGuideSections.md
 </frontmatter>
@@ -10,8 +11,6 @@
 <span id="link" class="d-none">
 <md>[_User Guide → {{ title }}_]({{ filename }}.html)</md>
 </span>
-
-<include src="../common/header.md" />
 
 
 # {{ title }}

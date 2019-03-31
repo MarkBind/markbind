@@ -1,10 +1,9 @@
 <frontmatter>
   title: "User Guide: Full Syntax Reference"
+  header: header.md
   footer: footer.md
   siteNav: userGuideSections.md
 </frontmatter>
-
-<include src="../common/header.md" />
 
 # Full Syntax Reference
 

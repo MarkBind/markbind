@@ -116,11 +116,8 @@ footer {
 /* Side Navigation menus */
 
 .spacer-top {
-    /*
-      spacer-top class is a work around for MarkBind <navbar> component using "position: fixed".
-      This class can be removed once the component's position type is changed.
-    */
-    padding-top: 70px;
+    /* This class is to ensure adequate spacing of contents from the top of the page */
+    padding-top: 1rem;
 }
 
 .scrollable {

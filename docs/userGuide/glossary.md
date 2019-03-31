@@ -1,10 +1,9 @@
 <frontmatter>
   title: "Glossary"
+  header: header.md
   footer: footer.md
   siteNav: userGuideSections.md
 </frontmatter>
-
-<include src="../common/header.md" />
 
 #### Live Preview
 

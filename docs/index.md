@@ -1,9 +1,8 @@
 <frontmatter>
   title: "Generate More Dynamic Websites from Markdown Text"
+  header: header.md
   footer: footer.md
 </frontmatter>
-
-<include src="./common/header.md" />
 
 <h1 class="display-3"><md>**MarkBind**</md></h1>
 
