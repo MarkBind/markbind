@@ -1,6 +1,6 @@
 <!-- Anti-FOUC styles should be applied to navbar and dropdown in navbar. -->
 
-<navbar placement="top" type="inverse">
+<navbar type="dark">
   <li><a href="/" class="nav-link">One</a></li>
   <li><a href="/" class="nav-link">Two</a></li>
   <dropdown text="Dropdown" class="nav-link">

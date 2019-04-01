@@ -1,6 +1,6 @@
 <header>
   <link rel="stylesheet" href="../css/main.css">
-  <navbar type="inverse">
+  <navbar type="dark">
     <a slot="brand" href="../index.html" title="Home" class="navbar-brand"><img src="../images/logo-darkbackground.png" height="20" /></a>
     <li><a href="../index.html" class="nav-link">HOME</a></li>
     <li><a href="../userGuide/index.html" class="nav-link">USER GUIDE</a></li>
