@@ -38,6 +38,7 @@ jspm_packages
 .node_repl_history
 
 docs/_site/*
+devdocs/_site/*
 
 # Generated site (MarkBind)
 test/functional/*/_site

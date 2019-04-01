@@ -1,0 +1,14 @@
+mark {
+    background-color: rgba(255, 231, 2, 0.15);
+    border-radius: 5px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.indented {
+    padding-left: 20px;
+}
+
+.theme-card img {
+    width: 100%;
+}

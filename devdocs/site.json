@@ -13,19 +13,7 @@
       "searchable": "no"
     },
     {
-      "glob": "userGuide/*.md"
-    },
-    {
-      "src": "userGuide/fullSyntaxReference.md",
-      "searchable": "no"
-    },
-    {
-      "src": "userGuide/syntaxCheatSheet.md",
-      "searchable": "no"
-    },
-    {
-      "src": "userGuide/readerFacingFeatures.md",
-      "searchable": "no"
+      "glob": "devGuide/*.md"
     }
   ],
   "headingIndexingLevel": 6,
@@ -42,8 +30,8 @@
     "*.pptx"
   ],
   "deploy": {
-    "message": "Site Update.",
-    "repo": "https://github.com/MarkBind/markbind.github.io.git",
-    "branch": "master"
+    "message": "Dev Site Update.",
+    "repo": "https://github.com/MarkBind/devdocs.git",
+    "branch": "gh-pages"
   }
 }

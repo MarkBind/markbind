@@ -6,7 +6,7 @@
     <li><a href="../userGuide/index.html" class="nav-link">USER GUIDE</a></li>
     <li><a href="../showcase.html" class="nav-link">SHOWCASE</a></li>
     <li><a href="../about.html" class="nav-link">ABOUT</a></li>
-    <li><a href="../devGuide/index.html" class="nav-link">DEVELOPER GUIDE</a></li>
+    <li><a href="https://markbind.org/devdocs/index.html" class="nav-link">DEVELOPER GUIDE</a></li>
     <li>
       <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link"><md>:fab-github:</md></a>
     </li>
