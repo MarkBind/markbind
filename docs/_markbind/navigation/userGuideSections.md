@@ -1,6 +1,6 @@
 <navigation>
 
-<span class="indented lead">**User Guide**</span>
+<span class="lead">**User Guide**</span>
 
 * [Getting Started]({{baseUrl}}/userGuide/gettingStarted.html)
 * [Authoring Contents]({{baseUrl}}/userGuide/authoringContents.html)

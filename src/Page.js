@@ -587,13 +587,14 @@ Page.prototype.insertSiteNav = function (pageData) {
     const siteNavHtml = md.render(siteNavDataSelector('navigation').html().trim().replace(/\n\s*\n/g, '\n'));
     // Add Bootstrap padding class to rendered unordered list
     const siteNavHtmlSelector = cheerio.load(siteNavHtml, { xmlMode: false });
-    siteNavHtmlSelector('ul').first().addClass('px-3');
+    siteNavHtmlSelector('ul').first().addClass('px-0');
+    siteNavHtmlSelector('ul ul').addClass('pl-3');
     const formattedSiteNav = formatSiteNav(siteNavHtmlSelector.html(), this.src);
     siteNavDataSelector('navigation').replaceWith(formattedSiteNav);
   }
   // Wrap sections
   const wrappedSiteNav = `<nav id="${SITE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
-    + '<div class="sticky-top spacer-top viewport-height-90 scrollable slim-scroll">'
+    + '<div class="sticky-top site-nav-spacer viewport-height-90 scrollable slim-scroll">'
     + `${siteNavDataSelector.html()}\n`
     + '</div>\n'
     + '</nav>';
