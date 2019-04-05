@@ -8,6 +8,7 @@
         "modal-content-should-have-algolia-no-index-class": "Modal content should have algolia-no-index class",
         "panels-that-are-not-expanded-should-have-algolia-no-index-class": "Panels that are not expanded should have algolia-no-index class",
         "popover-content-should-have-algolia-no-index-class": "Popover content should have algolia-no-index class",
+        "question-hint-and-answer-should-have-algolia-no-index-class": "Question hint and answer should have algolia-no-index class",
         "tabs-except-first-tab-should-have-algolia-no-index-class": "Tabs except first tab should have algolia-no-index class"
       },
       "title": "Hello World",

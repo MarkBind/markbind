@@ -41,6 +41,14 @@
   <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
 </popover>
 
+## Question hint and answer should have algolia-no-index class
+
+<question>
+  Question should not have `algolia-no-index` class
+  <div slot="hint">Hint should have `algolia-no-index` class</div>
+  <div slot="answer">Answer should have `algolia-no-index` class</div>
+</question>
+
 ## Tabs except first tab should have algolia-no-index class
 
 <tabs>

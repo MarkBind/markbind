@@ -26,6 +26,8 @@ function addNoIndexClasses(content) {
     'modal',
     'panel:not([expanded])',
     'popover div[slot=content]',
+    'question div[slot=hint]',
+    'question div[slot=answer]',
     'tab:not(:first-child)',
     'tab-group:not(:first-child)',
   ].join(', ');
