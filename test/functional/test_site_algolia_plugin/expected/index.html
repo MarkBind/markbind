@@ -40,11 +40,11 @@
           <li><a class="dropdown-item" href="/">One</a></li>
           <li><a class="dropdown-item" href="/">Two</a></li>
         </dropdown>
-        <h2 id="modals-should-have-algolia-no-index-class">Modals should have algolia-no-index class<a class="fa fa-anchor" href="#modals-should-have-algolia-no-index-class"></a></h2>
+        <h2 id="modal-content-should-have-algolia-no-index-class">Modal content should have algolia-no-index class<a class="fa fa-anchor" href="#modal-content-should-have-algolia-no-index-class"></a></h2>
         <modal title="Modal" id="modal:trigger_id" class="algolia-no-index">
-          Content
+          Content should have `algolia-no-index` class
         </modal>
-        <trigger for="modal:trigger_id">Trigger</trigger>
+        <trigger for="modal:trigger_id">Trigger should not have `algolia-no-index` class</trigger>
         <h2 id="panels-that-are-not-expanded-should-have-algolia-no-index-class">Panels that are not expanded should have algolia-no-index class<a class="fa fa-anchor" href="#panels-that-are-not-expanded-should-have-algolia-no-index-class"></a></h2>
         <panel header="Panel" class="algolia-no-index">
           Content
@@ -52,9 +52,12 @@
         <panel header="Panel" expanded="">
           Content
         </panel>
-        <h2 id="popover-should-have-algolia-no-index-class">Popover should have algolia-no-index class<a class="fa fa-anchor" href="#popover-should-have-algolia-no-index-class"></a></h2>
-        <popover effect="fade" content="Content" placement="top" class="algolia-no-index">
-          <button class="btn btn-secondary">Popover</button></popover>
+        <h2 id="popover-content-should-have-algolia-no-index-class">Popover content should have algolia-no-index class<a class="fa fa-anchor" href="#popover-content-should-have-algolia-no-index-class"></a></h2>
+        <popover effect="fade" title="Title" placement="top">
+          <div slot="content" class="algolia-no-index">Content should have `algolia-no-index` class</div>
+          <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button></popover>
+        <popover effect="fade" title="Title" content="Content as attribute does not require `algolia-no-index` class" placement="top">
+          <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button></popover>
         <h2 id="tabs-except-first-tab-should-have-algolia-no-index-class">Tabs except first tab should have algolia-no-index class<a class="fa fa-anchor" href="#tabs-except-first-tab-should-have-algolia-no-index-class"></a></h2>
         <tabs>
           <tab header="First Tab">
@@ -95,9 +98,6 @@
             Content<br>Content<br>Content<br>Content
           </tab>
         </tabs>
-        <h2 id="tooltip-should-have-algolia-no-index-class">Tooltip should have algolia-no-index class<a class="fa fa-anchor" href="#tooltip-should-have-algolia-no-index-class"></a></h2>
-        <tooltip header="" content="Content" placement="top" class="algolia-no-index">
-          <button class="btn btn-secondary">Tooltip</button></tooltip>
       </div>
     </div>
     <footer>

@@ -13,12 +13,12 @@
   <li><a class="dropdown-item" href="/">Two</a></li>
 </dropdown>
 
-## Modals should have algolia-no-index class
+## Modal content should have algolia-no-index class
 
 <modal title="Modal" id="modal:trigger_id">
-  Content
+  Content should have `algolia-no-index` class
 </modal>
-<trigger for="modal:trigger_id">Trigger</trigger>
+<trigger for="modal:trigger_id">Trigger should not have `algolia-no-index` class</trigger>
 
 ## Panels that are not expanded should have algolia-no-index class
 
@@ -30,10 +30,15 @@
   Content
 </panel>
 
-## Popover should have algolia-no-index class
+## Popover content should have algolia-no-index class
 
-<popover effect="fade" content="Content" placement="top">
-  <button class="btn btn-secondary">Popover</button>
+<popover effect="fade" title="Title" placement="top">
+  <div slot="content">Content should have `algolia-no-index` class</div>
+  <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
+</popover>
+
+<popover effect="fade" title="Title" content="Content as attribute does not require `algolia-no-index` class" placement="top">
+  <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
 </popover>
 
 ## Tabs except first tab should have algolia-no-index class
@@ -79,9 +84,3 @@
     Content<br />Content<br />Content<br />Content
   </tab>
 </tabs>
-
-## Tooltip should have algolia-no-index class
-
-<tooltip header content="Content" placement="top">
-  <button class="btn btn-secondary">Tooltip</button>
-</tooltip>

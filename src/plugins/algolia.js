@@ -25,10 +25,9 @@ function addNoIndexClasses(content) {
     'dropdown',
     'modal',
     'panel:not([expanded])',
-    'popover',
+    'popover div[slot=content]',
     'tab:not(:first-child)',
     'tab-group:not(:first-child)',
-    'tooltip',
   ].join(', ');
   $(noIndexSelectors).addClass('algolia-no-index');
   return $.html();
