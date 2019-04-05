@@ -24,3 +24,9 @@ Anchor:
 <a href="{{baseUrl}}/images/I'm not allowed to use my favorite tool.png">Link to picture</a>
 <a id="namedAnchor">Named Anchor</a>
 <a>Anchor with no attributes</a>
+
+Within DIV tag:
+<div id="imageTest">
+  <img src="{{baseUrl}}/images/I'm not allowed to use my favorite tool.png">
+  <pic src="{{baseUrl}}/images/I'm not allowed to use my favorite tool.png"></pic>
+</div>

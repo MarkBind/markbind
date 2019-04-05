@@ -128,6 +128,9 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 <include src="sub_site/index.md" />
 <include src="sub_site/testReuse.md" />
 
+# Include segment from another Markbind site
+<include src="sub_site/testReuse.md#imageTest" />
+
 # Trimmed include
 
 ## <include src="testTrimInclude.md" trim inline />

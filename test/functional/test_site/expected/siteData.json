@@ -81,6 +81,7 @@
         "html-include": "HTML include",
         "mbd-mbdf-include": "Mbd, Mbdf include",
         "include-from-another-markbind-site": "Include from another Markbind site",
+        "include-segment-from-another-markbind-site": "Include segment from another Markbind site",
         "trimmed-include": "Trimmed include",
         "fragment-with-leading-spaces-and-newline": "Fragment with leading spaces and newline",
         "trimmed-include-fragment": "Trimmed include fragment",

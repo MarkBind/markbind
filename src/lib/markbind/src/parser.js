@@ -187,7 +187,9 @@ Parser.prototype._preprocess = function (node, context, config) {
   let actualFilePath;
   if (hasSrc && shouldProcessSrc) {
     isUrl = utils.isUrl(element.attribs.src);
-    isAbsolutePath = path.isAbsolute(element.attribs.src) || element.attribs.src.includes('{{baseUrl}}');
+    isAbsolutePath = path.isAbsolute(element.attribs.src)
+                         || element.attribs.src.includes('{{baseUrl}}')
+                         || element.attribs.src.includes('{{hostBaseUrl}}');
     includeSrc = url.parse(element.attribs.src);
     filePath = isUrl
       ? element.attribs.src
