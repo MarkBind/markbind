@@ -108,9 +108,9 @@ Since May 2018, Travis CI has been [undergoing migration to `travis-ci.com`](htt
 1. Once the build succeeds, your MarkBind site should be online at `http://<username|org>.github.io/<repo>` e.g., http://se-edu.github.io/se-book. Travis CI will automatically build and deploy changes to your site as you push new changes to the repository after a few seconds.<br>
   %%{{ icon_info }} You might have to go to the `Settings` of your repo and configure it to publish GitHub Pages from the `gh-pages` branch as MarkBind deploys to that branch by default.%%
 
-<box>
+##### Configuring Travis CI to use a specific MarkBind version
 
-{{ icon_info }} Note that when Travis CI is set up as explained above, it will use the latest version of MarkBind which may be a later version than the one you use locally.
+When Travis CI is set up as explained above, it will use the latest version of MarkBind which may be a later version than the one you use locally.
 * If you want Travis CI to use a specific version of MarkBind (eg. `v1.6.3`), change the `install` step in the `.travis.yml` given above to:
   ```yaml
   install:
@@ -121,7 +121,19 @@ Since May 2018, Travis CI has been [undergoing migration to `travis-ci.com`](htt
   install:
     - npm i -g markbind-cli@^1.63
   ```
-</box>
+##### Configuring Travis CI to only deploy from a specific repository
+
+When Travis CI is set up as explained above, Travis CI will attempt to deploy the site from any repository it is in, including forks. If you want Travis CI to only deploy from a specific repository (eg. only from your main site repository), you can set a [`deploy` phase with an `on` condition](https://docs.travis-ci.com/user/deployment#conditional-releases-with-on).
+
+For example, if you only want Travis CI to deploy the site when it is run from the `se-edu/se-book` repository, the folllowing `deploy` phase with the `on` condition should be added to `.travis.yml`:
+
+```yaml
+deploy:
+  on:
+    repo: se-edu/se-book
+```
+
+The `repo` value can be changed to your specific repository as desired.
 
 <hr>
 
