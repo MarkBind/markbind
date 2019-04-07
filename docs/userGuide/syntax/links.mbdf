@@ -86,6 +86,11 @@ or by including `subsite.md`:
 ```
 <include src="textbook/subsite.md" />
 ```
+
+<box type="important">
+To ensure that links in the _markbind/ folder work correctly across the entire site, they should be written as absolute paths, prepended with <span>{</span>{ baseUrl }}. 
+</box>
+
 </div>
 </div>
 
