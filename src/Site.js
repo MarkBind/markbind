@@ -154,7 +154,7 @@ const SITE_NAV_DEFAULT = '<navigation>\n'
   + '* [Home :glyphicon-home:]({{baseUrl}}/index.html)\n'
   + '</navigation>\n';
 
-const TOP_NAV_DEFAULT = '<navbar placement="top" type="inverse">\n'
+const TOP_NAV_DEFAULT = '<header><navbar placement="top" type="inverse">\n'
   + '  <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand">'
   + '<i class="far fa-file-image"></i></a>\n'
   + '  <li><a href="{{baseUrl}}/index.html" class="nav-link">HOME</a></li>\n'
@@ -165,7 +165,7 @@ const TOP_NAV_DEFAULT = '<navbar placement="top" type="inverse">\n'
   + ' menu-align-right></searchbar>\n'
   + '    </form>\n'
   + '  </li>\n'
-  + '</navbar>';
+  + '</navbar></header>';
 
 const LAYOUT_SCRIPTS_DEFAULT = 'MarkBind.afterSetup(() => {\n'
   + '  // Include code to be called after MarkBind setup here.\n'
@@ -464,10 +464,10 @@ Site.prototype.convert = function () {
     .then(() => this.collectAddressablePages())
     .then(() => this.addIndexPage())
     .then(() => this.addAboutPage())
+    .then(() => this.addTopNavToDefaultLayout())
     .then(() => this.addFooterToDefaultLayout())
     .then(() => this.addSiteNavToDefaultLayout())
     .then(() => this.addDefaultLayoutToSiteConfig())
-    .then(() => this.addTopNavToAddressablePages())
     .then(() => this.printBaseUrlMessage());
 };
 
@@ -494,6 +494,16 @@ Site.prototype.addAboutPage = function () {
       }
       return fs.outputFileAsync(aboutPath, ABOUT_MARKDOWN_DEFAULT);
     });
+};
+
+/**
+ * Adds top navigation menu to default layout of site.
+ */
+Site.prototype.addTopNavToDefaultLayout = function () {
+  const siteLayoutPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH);
+  const siteLayoutHeaderDefaultPath = path.join(siteLayoutPath, LAYOUT_DEFAULT_NAME, 'header.md');
+
+  return fs.outputFileAsync(siteLayoutHeaderDefaultPath, TOP_NAV_DEFAULT);
 };
 
 /**
@@ -570,36 +580,6 @@ Site.prototype.addDefaultLayoutToSiteConfig = function () {
       const layoutObj = { glob: '**/*.+(md|mbd)', layout: LAYOUT_DEFAULT_NAME };
       config.pages.push(layoutObj);
       return fs.outputJsonAsync(configPath, config);
-    });
-};
-
-/**
- * Adds top navigation to site and includes it in all addressable pages.
- */
-Site.prototype.addTopNavToAddressablePages = function () {
-  const topNavDefaultPath = path.join(this.rootPath, TOP_NAV_PATH);
-  return fs.accessAsync(topNavDefaultPath)
-    .catch(() => {
-      if (fs.existsSync(topNavDefaultPath)) {
-        return Promise.resolve();
-      }
-      return fs.outputFileAsync(topNavDefaultPath, TOP_NAV_DEFAULT);
-    })
-    .then(() => {
-      const topNavRelativePath = path.relative(this.rootPath, topNavDefaultPath);
-      if (topNavRelativePath.length === 0) {
-        return Promise.resolve();
-      }
-      const includeTopNavCode = `<include src="${topNavRelativePath}" />\n\n`;
-      const outputFilesPromises = this.addressablePages
-        .filter(addressablePage => !addressablePage.src.startsWith('_'))
-        .map((page) => {
-          const addressablePagePath = path.join(this.rootPath, page.src);
-          const addressablePageContent = fs.readFileSync(addressablePagePath, 'utf8');
-          const updatedAddressablePageContent = includeTopNavCode + addressablePageContent;
-          return fs.outputFileAsync(addressablePagePath, updatedAddressablePageContent);
-        });
-      return Promise.all(outputFilesPromises);
     });
 };
 
