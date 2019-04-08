@@ -1,0 +1,3 @@
+<footer>
+	Custom footer.
+</footer>

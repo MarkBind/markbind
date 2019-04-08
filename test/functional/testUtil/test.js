@@ -11,7 +11,8 @@ function readFileSync(...paths) {
 }
 
 const sitePath = process.argv[2];
-const expectedDirectory = path.join(sitePath, 'expected');
+const expectedPath = process.argv[3];
+const expectedDirectory = expectedPath === undefined ? path.join(sitePath, 'expected') : expectedPath;
 const actualDirectory = path.join(sitePath, '_site');
 
 const expectedPaths = walkSync(expectedDirectory, { directories: false });
