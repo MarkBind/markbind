@@ -541,10 +541,10 @@ Site.prototype.addSiteNavToDefaultLayout = function () {
     .then(() => {
       const siteNavContent = fs.readFileSync(wikiSiteNavPath, 'utf8');
       const wrappedSiteNavContent = `<navigation>\n${siteNavContent}\n</navigation>`;
-      logger.info(`Copied over the existing _Sidebar.md file to ${path.relative(this.rootPath,
-                                                                                siteLayoutSiteNavDefaultPath)
-      }\n\tCheck https://markbind.org/userGuide/tweakingThePageStructure.html#site-navigation-menus`
-        + '\n\tfor information on site navigation menus.');
+      logger.info(`Copied over the existing _Sidebar.md file to ${path.relative(
+        this.rootPath, siteLayoutSiteNavDefaultPath)}`
+        + 'Check https://markbind.org/userGuide/tweakingThePageStructure.html#site-navigation-menus\n'
+        + 'for information on site navigation menus.');
       return fs.outputFileSync(siteLayoutSiteNavDefaultPath, wrappedSiteNavContent);
     })
     .catch(() => this.buildSiteNav(siteLayoutSiteNavDefaultPath));
@@ -584,9 +584,9 @@ Site.prototype.addDefaultLayoutToSiteConfig = function () {
 };
 
 Site.prototype.printBaseUrlMessage = function () {
-  logger.info('The default base URL of your site is set to /'
-    + '\n\tYou can change the base URL of your site by editing site.json'
-    + '\n\tCheck https://markbind.org/userGuide/siteConfiguration.html for more information.');
+  logger.info('The default base URL of your site is set to /\n'
+    + 'You can change the base URL of your site by editing site.json\n'
+    + 'Check https://markbind.org/userGuide/siteConfiguration.html for more information.');
   return Promise.resolve();
 };
 

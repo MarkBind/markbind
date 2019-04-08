@@ -19,25 +19,28 @@ for %%a in (%sites%) do (
 
 set sites_convert=test_site_convert
 
-for %%a in (%sites%) do (
+for %%a in (%sites_convert%) do (
 
     echo(
     echo Running %%a tests
 
-    node ../../index.js init %%a -c
+    node ../../index.js init %%a\non_markbind_site -c
 
-    node ../../index.js build %%a
+    node ../../index.js build %%a\non_markbind_site
 
-    node testUtil/test.js %%a "test_site_convert_expected"
+    xcopy %%a\non_markbind_site\_site %%a /i
 
-    rmdir /s /q %%a/_markbind
-    rmdir /s /q %%a/_site
-    del %%a/about.md %%a/index.md %%a/site.json
+    node testUtil/test.js %%a
 
     if errorlevel 1 (
         echo Test %%a Failed
         exit /b %errorlevel%
     )
+
+    rmdir /s /q %%a\_site
+    rmdir /s /q %%a\non_markbind_site\_markbind
+    rmdir /s /q %%a\non_markbind_site\_site
+    del %%a\non_markbind_site\about.md %%a\non_markbind_site\index.md %%a\non_markbind_site\site.json
 )
 
 echo Test passed

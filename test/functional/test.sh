@@ -21,33 +21,34 @@ do
     fi
 done
 
-declare -a sites_convert=("test_site_convert")
+declare -r site_convert="test_site_convert"
 
-for site in "${sites_convert[@]}"
-do
-    # print site name
-    echo
-    echo "Running $site tests"
+# print site name
+echo
+echo "Running $site_convert test"
 
-    # convert site
-    node ../../index.js init "$site" -c
+# convert site
+node ../../index.js init "$site_convert"/non_markbind_site -c
 
-    # build site
-    node ../../index.js build "$site"
+# build site
+node ../../index.js build "$site_convert"/non_markbind_site
 
-    # run our test script to compare html files
-    node testUtil/test.js "$site" "test_site_convert_expected"
+# copy generated site
+cp -r "$site_convert"/non_markbind_site/_site "$site_convert"
 
-    # delete generated files
-    rm -rf "$site"/_markbind "$site"/_site
-    rm "$site"/about.md "$site"/index.md "$site"/site.json
+# run our test script to compare html files
+node testUtil/test.js "$site_convert"
 
-    if [ $? -ne 0 ]
-    then
-        echo "Test result: $site FAILED"
-        exit 1
-    fi
-done
+if [ $? -ne 0 ]
+then
+    echo "Test result: $site FAILED"
+    exit 1
+fi
+
+# delete generated files
+rm -rf "$site_convert"/_site
+rm -rf "$site_convert"/non_markbind_site/_markbind "$site_convert"/non_markbind_site/_site
+rm "$site_convert"/non_markbind_site/about.md "$site_convert"/non_markbind_site/index.md "$site_convert"/non_markbind_site/site.json
 
 # if there were no diffs
 echo "Test result: PASSED"

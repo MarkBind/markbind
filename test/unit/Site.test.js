@@ -357,8 +357,6 @@ test('Site convert generates correct assets', async () => {
   const json = {
     'src/template/page.ejs': PAGE_EJS,
 
-    'inner/index.md': INDEX_MD_DEFAULT,
-
     'inner/_Footer.md': '',
     'inner/_Sidebar.md': '',
     'inner/Home.md': '',
@@ -370,7 +368,7 @@ test('Site convert generates correct assets', async () => {
   // number of files
   const paths = Object.keys(fs.vol.toJSON());
   const originalNumFiles = Object.keys(json).length;
-  const expectedNumBuilt = 15;
+  const expectedNumBuilt = 16;
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
   // footer
@@ -388,16 +386,19 @@ test('Site convert generates correct assets', async () => {
 
   // about page
   expect(fs.readFileSync(path.resolve('inner/about.md'), 'utf8')).toEqual(ABOUT_MD_DEFAULT);
+
+  // site.json
+  expect(fs.existsSync(path.resolve('inner/site.json'))).toEqual(true);
+
+  // _markbind directory
+  expect(fs.existsSync(path.resolve('inner/_markbind'))).toEqual(true);
 });
 
-test('Site convert with custom _Footer.md, _Sidebar.md, README.md generates correct assets', async () => {
+test('Site convert with custom _Footer.md, no _Sidebar.md, README.md generates correct assets', async () => {
   const json = {
     'src/template/page.ejs': PAGE_EJS,
 
-    'inner/index.md': INDEX_MD_DEFAULT,
-
     'inner/_Footer.md': 'Custom footer.',
-    'inner/_Sidebar.md': 'Custom site navigation menu.',
     'inner/README.md': 'This is the README',
   };
   fs.vol.fromJSON(json, '');
@@ -407,7 +408,7 @@ test('Site convert with custom _Footer.md, _Sidebar.md, README.md generates corr
   // number of files
   const paths = Object.keys(fs.vol.toJSON());
   const originalNumFiles = Object.keys(json).length;
-  const expectedNumBuilt = 15;
+  const expectedNumBuilt = 16;
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
   // footer
@@ -416,7 +417,8 @@ test('Site convert with custom _Footer.md, _Sidebar.md, README.md generates corr
     .toEqual(EXPECTED_FOOTER);
 
   // site navigation
-  const EXPECTED_SITE_NAV = '<navigation>\nCustom site navigation menu.\n</navigation>';
+  const EXPECTED_SITE_NAV = '<navigation>\n* [Index]({{ baseUrl }}/index.html)\n'
+    + '* [README]({{ baseUrl }}/README.html)\n\n</navigation>';
   expect(fs.readFileSync(path.resolve('inner/_markbind/layouts/default/navigation.md'), 'utf8'))
     .toEqual(EXPECTED_SITE_NAV);
 
