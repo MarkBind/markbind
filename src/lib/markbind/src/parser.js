@@ -341,7 +341,11 @@ Parser.prototype._preprocess = function (node, context, config) {
         }
         actualContent = self._rebaseReferenceForStaticIncludes(actualContent, element, config);
       }
-      element.children = cheerio.parseHTML(actualContent, true); // the needed content;
+      const wrapperType = isInline ? 'span' : 'div';
+      element.children = cheerio.parseHTML(
+        `<${wrapperType} data-included-from="${filePath}">${actualContent}</${wrapperType}>`,
+        true,
+      );
     } else {
       let actualContent = (fileContent && isTrim) ? fileContent.trim() : fileContent;
       if (isIncludeSrcMd) {
@@ -351,7 +355,11 @@ Parser.prototype._preprocess = function (node, context, config) {
           actualContent = md.render(actualContent);
         }
       }
-      element.children = cheerio.parseHTML(actualContent, true);
+      const wrapperType = isInline ? 'span' : 'div';
+      element.children = cheerio.parseHTML(
+        `<${wrapperType} data-included-from="${filePath}">${actualContent}</${wrapperType}>`,
+        true,
+      );
     }
 
     // The element's children are in the new context
@@ -400,6 +408,17 @@ Parser.prototype._preprocess = function (node, context, config) {
   }
 
   return element;
+};
+
+Parser.prototype.unwrapIncludeSrc = function (html) {
+  const $ = cheerio.load(html, {
+    xmlMode: false,
+    decodeEntities: false,
+  });
+  $('div[data-included-from], span[data-included-from]').each(function () {
+    $(this).replaceWith($(this).contents());
+  });
+  return $.html();
 };
 
 Parser.prototype._parse = function (node, context, config) {
