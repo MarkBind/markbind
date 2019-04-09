@@ -804,6 +804,7 @@ Page.prototype.generate = function (builtFiles) {
       .then(() => markbinder.renderFile(this.tempPath, fileConfig))
       .then(result => this.postRender(result))
       .then(result => this.collectPluginsAssets(result))
+      .then(result => markbinder.processDynamicResources(this.sourcePath, result))
       .then(result => markbinder.unwrapIncludeSrc(result))
       .then((result) => {
         this.content = htmlBeautify(result, { indent_size: 2 });
@@ -981,6 +982,7 @@ Page.prototype.resolveDependency = function (dependency, builtFiles) {
         baseUrlMap: this.baseUrlMap,
         rootPath: this.rootPath,
       }))
+      .then(result => markbinder.processDynamicResources(file, result))
       .then((result) => {
         // resolve the site base url here
         const newBaseUrl = calculateNewBaseUrl(file, this.rootPath, this.baseUrlMap);

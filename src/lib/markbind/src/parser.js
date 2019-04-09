@@ -172,24 +172,20 @@ Parser.prototype._preprocess = function (node, context, config) {
   element.attribs = element.attribs || {};
   element.attribs[ATTRIB_CWF] = path.resolve(context.cwf);
 
-  const requiresSrc = ['img', 'pic', 'include'].includes(element.name);
+  const requiresSrc = ['include'].includes(element.name);
   if (requiresSrc && _.isEmpty(element.attribs.src)) {
     const error = new Error(`Empty src attribute in ${element.name} in: ${element.attribs[ATTRIB_CWF]}`);
     this._onError(error);
     return createErrorNode(element, error);
   }
-  const shouldProcessSrc = ['img', 'pic', 'include', 'panel'].includes(element.name);
+  const shouldProcessSrc = ['include', 'panel'].includes(element.name);
   const hasSrc = _.hasIn(element.attribs, 'src');
   let isUrl;
   let includeSrc;
   let filePath;
-  let isAbsolutePath;
   let actualFilePath;
   if (hasSrc && shouldProcessSrc) {
     isUrl = utils.isUrl(element.attribs.src);
-    isAbsolutePath = path.isAbsolute(element.attribs.src)
-                         || element.attribs.src.includes('{{baseUrl}}')
-                         || element.attribs.src.includes('{{hostBaseUrl}}');
     includeSrc = url.parse(element.attribs.src);
     filePath = isUrl
       ? element.attribs.src
@@ -202,7 +198,7 @@ Parser.prototype._preprocess = function (node, context, config) {
       this.boilerplateIncludeSrc.push({ from: context.cwf, to: actualFilePath });
     }
     const isOptional = element.name === 'include' && _.hasIn(element.attribs, 'optional');
-    if (!['img', 'pic'].includes(element.name) && !utils.fileExists(actualFilePath)) {
+    if (!utils.fileExists(actualFilePath)) {
       if (isOptional) {
         return createEmptyNode();
       }
@@ -213,18 +209,6 @@ Parser.prototype._preprocess = function (node, context, config) {
       this._onError(error);
       return createErrorNode(element, error);
     }
-  }
-
-  const shouldProcessHref = ['a', 'link'].includes(element.name);
-  const hasHref = _.hasIn(element.attribs, 'href');
-  if (hasHref && shouldProcessHref) {
-    isUrl = utils.isUrl(element.attribs.href);
-    isAbsolutePath = path.isAbsolute(element.attribs.href) || element.attribs.href.startsWith('{{');
-    includeSrc = url.parse(element.attribs.href);
-    filePath = isUrl
-      ? element.attribs.src
-      : path.resolve(path.dirname(context.cwf), decodeURIComponent(includeSrc.path));
-    actualFilePath = filePath;
   }
 
   if (element.name === 'include') {
@@ -391,16 +375,6 @@ Parser.prototype._preprocess = function (node, context, config) {
     if (element.name === 'body') {
       // eslint-disable-next-line no-console
       console.warn(`<body> tag found in ${element.attribs[ATTRIB_CWF]}. This may cause formatting errors.`);
-    } else if (['img', 'pic'].includes(element.name)) {
-      if (!isUrl && !isAbsolutePath) {
-        const resultPath = path.join('{{hostBaseUrl}}', path.relative(config.rootPath, filePath));
-        element.attribs.src = utils.ensurePosix(resultPath);
-      }
-    } else if (['a', 'link'].includes(element.name)) {
-      if (!isUrl && !isAbsolutePath && hasHref) {
-        const resultPath = path.join('{{hostBaseUrl}}', path.relative(config.rootPath, filePath));
-        element.attribs.href = utils.ensurePosix(resultPath);
-      }
     }
     if (element.children && element.children.length > 0) {
       element.children = element.children.map(e => self._preprocess(e, context, config));
@@ -408,6 +382,58 @@ Parser.prototype._preprocess = function (node, context, config) {
   }
 
   return element;
+};
+
+Parser.prototype.processDynamicResources = function (context, html) {
+  const self = this;
+  const $ = cheerio.load(html, {
+    xmlMode: false,
+    decodeEntities: false,
+  });
+  $('img, pic').each(function () {
+    const elem = $(this);
+    const resourcePath = utils.ensurePosix(elem.attr('src'));
+    if (resourcePath === undefined || resourcePath === '') {
+      // Found empty img/pic resource in resourcePath
+      return;
+    }
+    if (utils.isAbsolutePath(resourcePath) || utils.isUrl(resourcePath)) {
+      // Do not rewrite.
+      return;
+    }
+    const firstParent = elem.closest('div[data-included-from], span[data-included-from]');
+    const originalSrc = utils.ensurePosix(firstParent.attr('data-included-from') || context);
+
+    const originalSrcFolder = path.posix.dirname(originalSrc);
+    const fullResourcePath = path.posix.join(originalSrcFolder, resourcePath);
+    const resolvedResourcePath = path.posix.relative(utils.ensurePosix(self.rootPath), fullResourcePath);
+    const absoluteResourcePath = path.posix.join('{{hostBaseUrl}}', resolvedResourcePath);
+
+    $(this).attr('src', absoluteResourcePath);
+  });
+  $('a, link').each(function () {
+    const elem = $(this);
+    const resourcePath = elem.attr('href');
+    if (resourcePath === undefined || resourcePath === '') {
+      // Found empty href resource in resourcePath
+      return;
+    }
+    if (utils.isAbsolutePath(resourcePath) || utils.isUrl(resourcePath) || resourcePath.startsWith('#')) {
+      // Do not rewrite.
+      return;
+    }
+
+    const firstParent = elem.closest('div[data-included-from], span[data-included-from]');
+    const originalSrc = utils.ensurePosix(firstParent.attr('data-included-from') || context);
+
+    const originalSrcFolder = path.posix.dirname(originalSrc);
+    const fullResourcePath = path.posix.join(originalSrcFolder, resourcePath);
+    const resolvedResourcePath = path.posix.relative(utils.ensurePosix(self.rootPath), fullResourcePath);
+    const absoluteResourcePath = path.posix.join('{{hostBaseUrl}}', resolvedResourcePath);
+
+    $(this).attr('href', absoluteResourcePath);
+  });
+  return $.html();
 };
 
 Parser.prototype.unwrapIncludeSrc = function (html) {
