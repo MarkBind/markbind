@@ -478,6 +478,8 @@ Site.prototype.addIndexPage = function () {
   const indexPagePath = path.join(this.rootPath, INDEX_MARKDOWN_FILE);
   const fileNames = ['README.md', 'Home.md'];
   const filePath = fileNames.find(fileName => fs.existsSync(path.join(this.rootPath, fileName)));
+  // if none of the files exist, do nothing
+  if (_.isUndefined(filePath)) return Promise.resolve();
   return fs.copyAsync(path.join(this.rootPath, filePath), indexPagePath)
     .catch(() => Promise.reject(new Error(`Failed to copy over ${filePath}`)));
 };
