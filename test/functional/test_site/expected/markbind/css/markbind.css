@@ -131,6 +131,10 @@ footer {
     max-height: 90vh;
 }
 
+.position-top {
+    top: 0;
+}
+
 /* Bootstrap small(sm) responsive breakpoint */
 @media (max-width: 767.98px) {
     .dropdown-menu > li > a {
