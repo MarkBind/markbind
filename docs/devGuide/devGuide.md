@@ -120,8 +120,8 @@ A: If your npm version is v6.0.0 or higher, there is a change in behaviour on ho
 Our test script does the following:
 
 1. Lints the code for any code and style errors using ESLint.
-1. Builds the test site found in `test/test_site/`.
-1. Compares the HTML files generated with the HTML files in `test/test_site/expected/`.
+1. Builds the test sites whose directory names are listed in `test/functional/test_sites`.
+1. For each test site, compares the HTML files generated with the HTML files in its `expected` directory.
 
 #### Running tests
 
@@ -136,20 +136,37 @@ $ npm run test
 For Windows users:
 
 ```
-$ npm run testwin
+> npm run testwin
 ```
 
 #### Updating tests
 
-When adding new features, updating existing features or fixing bugs, you should update the expected site to reflect the changes.
+Whether you are adding a new feature, updating existing features or fixing bugs, make sure to update the test sites to reflect the changes.
 
-##### Changes to existing features
+You may use the following script to do this:
 
-Simply update the expected HTML files in `test/test_site/expected/` to reflect the changes.
+On Unix:
+
+```
+$ npm run updatetest
+```
+
+On Windows:
+
+```
+> npm run updatetestwin
+```
+<box type="warning">
+  You should always check that the generated output is correct before committing any changes to the test sites.
+</box>
 
 ##### New features
 
-Add new site content into the `test/test_site/` folder to demonstrate the new feature. Ensure that the new content is included in the test site so that your feature will be tested when `markbind build` is run on the test site. Remember to update the expected HTML files in `test/test_site/expected/`.
+When adding new features, you should also add new site content into an existing test site or create a new test site to demonstrate the new feature. This is to ensure that your feature can be tested by building that test site.
+
+<box type="info">
+  When creating a new test site, the directory name of the new test site should be added to <code>test/functional/test_sites</code>.
+</box>
 
 ### Using ESLint
 
