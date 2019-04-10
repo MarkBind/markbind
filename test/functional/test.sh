@@ -1,8 +1,6 @@
 #!/bin/bash
 
-declare -a sites=("test_site" "test_site_algolia_plugin")
-
-for site in "${sites[@]}"
+for site in $(cat test_sites);
 do
     # print site name
     echo
