@@ -21,6 +21,14 @@ do
     fi
 done
 
+function cleanup_convert {
+    # delete generated files
+    rm -rf "$site_convert"/_site
+    rm -rf "$site_convert"/non_markbind_site/_markbind "$site_convert"/non_markbind_site/_site
+    rm "$site_convert"/non_markbind_site/about.md "$site_convert"/non_markbind_site/index.md "$site_convert"/non_markbind_site/site.json
+}
+trap cleanup_convert EXIT
+
 declare -r site_convert="test_site_convert"
 
 # print site name
@@ -44,11 +52,6 @@ then
     echo "Test result: $site FAILED"
     exit 1
 fi
-
-# delete generated files
-rm -rf "$site_convert"/_site
-rm -rf "$site_convert"/non_markbind_site/_markbind "$site_convert"/non_markbind_site/_site
-rm "$site_convert"/non_markbind_site/about.md "$site_convert"/non_markbind_site/index.md "$site_convert"/non_markbind_site/site.json
 
 # if there were no diffs
 echo "Test result: PASSED"
