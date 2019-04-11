@@ -28,21 +28,23 @@ for %%a in (%sites_convert%) do (
 
     node ../../index.js build %%a\non_markbind_site
 
-    xcopy /i /q %%a\non_markbind_site\_site %%a\_site
+    xcopy /i /q /s %%a\non_markbind_site\_site %%a\_site
 
     node testUtil/test.js %%a
 
-    call set level=%%errorlevel%%
+    if errorlevel 1 (
+        echo Test %%a Failed
+        rmdir /s /q %%a\_site
+        rmdir /s /q %%a\non_markbind_site\_markbind
+        rmdir /s /q %%a\non_markbind_site\_site
+        del %%a\non_markbind_site\about.md %%a\non_markbind_site\index.md %%a\non_markbind_site\site.json
+        exit /b %errorlevel%
+    )
 
     rmdir /s /q %%a\_site
     rmdir /s /q %%a\non_markbind_site\_markbind
     rmdir /s /q %%a\non_markbind_site\_site
     del %%a\non_markbind_site\about.md %%a\non_markbind_site\index.md %%a\non_markbind_site\site.json
-
-    if %level%==1 (
-        echo Test %%a Failed
-        exit /b %level%
-    )
 )
 
 echo Test passed
