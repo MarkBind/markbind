@@ -28,7 +28,7 @@ for %%a in (%sites_convert%) do (
 
     node ../../index.js build %%a\non_markbind_site
 
-    xcopy %%a\non_markbind_site\_site %%a /i
+    xcopy /i /q %%a\non_markbind_site\_site %%a\_site
 
     node testUtil/test.js %%a
 
