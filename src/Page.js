@@ -594,7 +594,7 @@ Page.prototype.insertSiteNav = function (pageData) {
   }
   // Wrap sections
   const wrappedSiteNav = `<nav id="${SITE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
-    + '<div class="sticky-top site-nav-spacer viewport-height-90 scrollable slim-scroll">'
+    + '<div class="position-sticky position-top site-nav-spacer viewport-height-90 scrollable slim-scroll">'
     + `${siteNavDataSelector.html()}\n`
     + '</div>\n'
     + '</nav>';
@@ -681,7 +681,7 @@ Page.prototype.buildPageNav = function () {
     const pageNavHeadingHTML = this.generatePageNavHeadingHtml();
     this.pageSectionsHtml[`#${PAGE_NAV_ID}`] = htmlBeautify(
       `<nav id="${PAGE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
-      + '<div class="sticky-top spacer-top viewport-height-90 scrollable slim-scroll">\n'
+      + '<div class="position-sticky position-top spacer-top viewport-height-90 scrollable slim-scroll">\n'
       + `${pageNavTitleHtml}\n`
       + '<nav class="nav nav-pills flex-column my-0 small no-flex-wrap">\n'
       + `${pageNavHeadingHTML}\n`
