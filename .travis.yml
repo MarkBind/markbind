@@ -2,13 +2,20 @@ language: node_js
 node_js:
   - '8'
 deploy:
-  provider: script
-  script: cd docs && ../index.js build && ../index.js deploy --travis
-  skip_cleanup: true
-  on:
-    repo: MarkBind/markbind
-    tags: true
-    condition: $TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+
+  # deploy on release, to markbind.org
+  - provider: script
+    script: cd docs && ../index.js build -s ug-site.json && ../index.js deploy -s ug-site.json --travis
+    skip_cleanup: true
+    on:
+      repo: MarkBind/markbind
+      tags: true
+      condition: $TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+
+  # deploy on any commit to master, to markbind.org/devdocs
+  - provider: script
+    script: cd docs && ../index.js build -s dg-site.json && ../index.js deploy -s dg-site.json --travis
+    skip_cleanup: true
+    on:
+      repo: MarkBind/markbind
 cache:
   directories:
     - node_modules

@@ -88,7 +88,7 @@ program
   .action((userSpecifiedRoot, options) => {
     let rootFolder;
     try {
-      rootFolder = cliUtil.findRootFolder(userSpecifiedRoot);
+      rootFolder = cliUtil.findRootFolder(userSpecifiedRoot, options.siteConfig);
     } catch (err) {
       handleError(err);
     }
@@ -189,10 +189,11 @@ program
   .alias('d')
   .description('deploy the site to the repo\'s Github pages.')
   .option('-t, --travis [tokenVar]', 'deploy the site in Travis [GITHUB_TOKEN]')
+  .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
   .action((options) => {
     const rootFolder = path.resolve(process.cwd());
     const outputRoot = path.join(rootFolder, '_site');
-    new Site(rootFolder, outputRoot).deploy(options.travis)
+    new Site(rootFolder, outputRoot, undefined, undefined, options.siteConfig).deploy(options.travis)
       .then(() => {
         logger.info('Deployed!');
       })
@@ -205,20 +206,21 @@ program
   .alias('b')
   .option('--baseUrl [baseUrl]',
           'optional flag which overrides baseUrl in site.json, leave argument empty for empty baseUrl')
+  .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
   .description('build a website')
   .action((userSpecifiedRoot, output, options) => {
     // if --baseUrl contains no arguments (options.baseUrl === true) then set baseUrl to empty string
     const baseUrl = _.isBoolean(options.baseUrl) ? '' : options.baseUrl;
     let rootFolder;
     try {
-      rootFolder = cliUtil.findRootFolder(userSpecifiedRoot);
+      rootFolder = cliUtil.findRootFolder(userSpecifiedRoot, options.siteConfig);
     } catch (err) {
       handleError(err);
     }
     const defaultOutputRoot = path.join(rootFolder, '_site');
     const outputFolder = output ? path.resolve(process.cwd(), output) : defaultOutputRoot;
     printHeader();
-    new Site(rootFolder, outputFolder)
+    new Site(rootFolder, outputFolder, undefined, undefined, options.siteConfig)
       .generate(baseUrl)
       .then(() => {
         logger.info('Build success!');

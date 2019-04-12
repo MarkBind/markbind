@@ -26,9 +26,6 @@
     {
       "src": "userGuide/readerFacingFeatures.md",
       "searchable": "no"
-    },
-    {
-      "glob": "devGuide/*.md"
     }
   ],
   "plugins" : [
@@ -36,7 +33,7 @@
   ],
   "pluginsContext" : {
     "filterTags" : {
-      "tags": ["environment--ug", "environment--dg"]
+      "tags": ["environment--ug"]
     }
   },
   "headingIndexingLevel": 6,
@@ -50,10 +47,11 @@
     "*.mbdf",
     "*.njk",
     ".git/*",
-    "*.pptx",
-    "CNAME"
+    "*.pptx"
   ],
   "deploy": {
-    "message": "Site Update."
+    "message": "Site Update.",
+    "repo": "https://github.com/MarkBind/markbind.github.io.git",
+    "branch": "master"
   }
 }
