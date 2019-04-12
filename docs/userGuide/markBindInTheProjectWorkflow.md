@@ -36,5 +36,29 @@ You can keep the user docs in a separate directory (say `user-docs`) and set up 
 Similarly, you can keep the dev docs in a separate directory (sey `dev-docs`) and set up Netlify to deploy the site when there is an update to the `master` branch; that way, developers can see the latest version of dev-docs via the Netlify site.
 </div>
 
+#### Converting existing project documentation/wiki
+
+MarkBind supports the automatic conversion of an existing GitHub wiki or `docs` folder containing Markdown files.
+
+A MarkBind conversion involves the following:
+- Adding a Home page: If your project already has a `README.md` or `Home.md`, the content will be copied over to `index.md`. Otherwise, a default home page will be added.
+- Adding an About Us page: If your project already has `about.md`, this will be used as the About page. Otherwise, a default About page will be added.
+- Adding a top navigation bar.
+- Adding a site navigation menu: If your project has a valid `_Sidebar.md` file, it will be used as the [site navigation menu](https://markbind.org/userGuide/tweakingThePageStructure.html#site-navigation-menus). Otherwise, the menu will be built from your project's directory structure and contain links to all addressable pages.   
+- Adding a custom footer: If your project has a valid `_Footer.md` file, it will be used as the website footer. Otherwise, a default footer will be added.
+
+<box type="warning">
+    Conversion might not work if your project files have existing Nunjucks syntax. 
+</box>
+
+To convert your existing project, follow these steps:
+1. Navigate into the project directory.
+1. Run `markbind init --convert` to convert the project.
+1. You can now preview the website using `markbind serve` to view your newly converted MarkBind website.
+
+<box type="info">
+    You only need to run the conversion once. Once you have converted your project, you can proceed to edit it as a normal MarkBind project.
+</box> 
+
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('deployingTheSite', 'themes') }}

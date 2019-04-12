@@ -76,10 +76,13 @@ MarkBind Command Line Interface (CLI) can be run in the following ways:
 * `<root>`<br>
   Root directory. Default is the current directory.<br>
   {{ icon_example }} `./myWebsite`
+* `-c`, `--convert`<br>
+  Convert an existing GitHub wiki or `docs` folder into a MarkBind website. See [Converting an existing Github project]({{ baseUrl }}/userGuide/markBindInTheProjectWorkflow.html#converting-an-existing-github-project) for more information.
 
 {{ icon_examples }}
 * `markbind init` : Initializes the site in the current working directory.
 * `markbind init ./myWebsite` : Initializes the site in `./myWebsite` directory.
+* `markbind init --convert` : Converts the Github wiki or `docs` folder in the current working directory into a MarkBind website.
 
 <hr><!-- ========================================================================== -->
 

@@ -3,6 +3,7 @@
 
 // Entry file for Markbind project
 const chokidar = require('chokidar');
+const fs = require('fs-extra-promise');
 const liveServer = require('live-server');
 const path = require('path');
 const program = require('commander');
@@ -45,14 +46,32 @@ program
 
 program
   .command('init [root]')
+  .option('-c, --convert', 'convert a GitHub wiki or docs folder to a MarkBind website')
   .alias('i')
   .description('init a markbind website project')
-  .action((root) => {
+  .action((root, options) => {
     const rootFolder = path.resolve(root || process.cwd());
+    const outputRoot = path.join(rootFolder, '_site');
     printHeader();
+    if (options.convert) {
+      if (fs.existsSync(path.resolve(rootFolder, 'site.json'))) {
+        logger.error('Cannot convert an existing MarkBind website!');
+        return;
+      }
+    }
     Site.initSite(rootFolder)
       .then(() => {
         logger.info('Initialization success.');
+      })
+      .then(() => {
+        if (options.convert) {
+          logger.info('Converting to MarkBind website.');
+          new Site(rootFolder, outputRoot).convert()
+            .then(() => {
+              logger.info('Conversion success.');
+            })
+            .catch(handleError);
+        }
       })
       .catch(handleError);
   });

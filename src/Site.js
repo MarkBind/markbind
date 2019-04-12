@@ -18,6 +18,7 @@ _.isBoolean = require('lodash/isBoolean');
 _.isUndefined = require('lodash/isUndefined');
 _.noop = require('lodash/noop');
 _.omitBy = require('lodash/omitBy');
+_.startCase = require('lodash/startCase');
 _.union = require('lodash/union');
 _.uniq = require('lodash/uniq');
 
@@ -25,6 +26,7 @@ const url = {};
 url.join = path.posix.join;
 
 const delay = require('./util/delay');
+const FsUtil = require('./util/fsUtil');
 const logger = require('./util/logger');
 const Page = require('./Page');
 
@@ -38,6 +40,7 @@ const TEMP_FOLDER_NAME = '.temp';
 const TEMPLATE_ROOT_FOLDER_NAME = 'template';
 const TEMPLATE_SITE_ASSET_FOLDER_NAME = 'markbind';
 
+const ABOUT_MARKDOWN_FILE = 'about.md';
 const BUILT_IN_PLUGIN_FOLDER_NAME = 'plugins';
 const BUILT_IN_DEFAULT_PLUGIN_FOLDER_NAME = 'plugins/default';
 const FAVICON_DEFAULT_PATH = 'favicon.ico';
@@ -59,6 +62,8 @@ const LAYOUT_FOLDER_PATH = '_markbind/layouts';
 const LAYOUT_SCRIPTS_PATH = 'scripts.js';
 const LAYOUT_SITE_FOLDER_NAME = 'layouts';
 const USER_VARIABLES_PATH = '_markbind/variables.md';
+const WIKI_SITE_NAV_PATH = '_Sidebar.md';
+const WIKI_FOOTER_PATH = '_Footer.md';
 
 function getBootswatchThemePath(theme) {
   return path.join(__dirname, '..', 'node_modules', 'bootswatch', 'dist', theme, 'bootstrap.min.css');
@@ -114,6 +119,9 @@ const SITE_CONFIG_DEFAULT = {
   },
 };
 
+const ABOUT_MARKDOWN_DEFAULT = '# About\n'
+  + 'Welcome to your **About Us** page.\n';
+
 const FOOTER_DEFAULT = '<footer>\n'
   + '  <div class="text-center">\n'
   + '    This is a dynamic height footer that supports markdown <md>:smile:</md>!\n'
@@ -145,6 +153,19 @@ const INDEX_MARKDOWN_DEFAULT = '<frontmatter>\n'
 const SITE_NAV_DEFAULT = '<navigation>\n'
   + '* [Home :glyphicon-home:]({{baseUrl}}/index.html)\n'
   + '</navigation>\n';
+
+const TOP_NAV_DEFAULT = '<header><navbar placement="top" type="inverse">\n'
+  + '  <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand">'
+  + '<i class="far fa-file-image"></i></a>\n'
+  + '  <li><a href="{{baseUrl}}/index.html" class="nav-link">HOME</a></li>\n'
+  + '  <li><a href="{{baseUrl}}/about.html" class="nav-link">ABOUT</a></li>\n'
+  + '  <li slot="right">\n'
+  + '    <form class="navbar-form">\n'
+  + '      <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"'
+  + ' menu-align-right></searchbar>\n'
+  + '    </form>\n'
+  + '  </li>\n'
+  + '</navbar></header>';
 
 const LAYOUT_SCRIPTS_DEFAULT = 'MarkBind.afterSetup(() => {\n'
   + '  // Include code to be called after MarkBind setup here.\n'
@@ -433,6 +454,142 @@ Site.prototype.createPage = function (config) {
                               path.join(this.siteAssetsDestPath, 'js', 'vue-strap.min.js')),
     },
   });
+};
+
+/**
+ * Converts an existing Github wiki or docs folder to a MarkBind website.
+ */
+Site.prototype.convert = function () {
+  return this.readSiteConfig()
+    .then(() => this.collectAddressablePages())
+    .then(() => this.addIndexPage())
+    .then(() => this.addAboutPage())
+    .then(() => this.addTopNavToDefaultLayout())
+    .then(() => this.addFooterToDefaultLayout())
+    .then(() => this.addSiteNavToDefaultLayout())
+    .then(() => this.addDefaultLayoutToSiteConfig())
+    .then(() => this.printBaseUrlMessage());
+};
+
+/**
+ * Copies over README.md or Home.md to default index.md if present.
+ */
+Site.prototype.addIndexPage = function () {
+  const indexPagePath = path.join(this.rootPath, INDEX_MARKDOWN_FILE);
+  const fileNames = ['README.md', 'Home.md'];
+  const filePath = fileNames.find(fileName => fs.existsSync(path.join(this.rootPath, fileName)));
+  // if none of the files exist, do nothing
+  if (_.isUndefined(filePath)) return Promise.resolve();
+  return fs.copyAsync(path.join(this.rootPath, filePath), indexPagePath)
+    .catch(() => Promise.reject(new Error(`Failed to copy over ${filePath}`)));
+};
+
+/**
+ * Adds an about page to site if not present.
+ */
+Site.prototype.addAboutPage = function () {
+  const aboutPath = path.join(this.rootPath, ABOUT_MARKDOWN_FILE);
+  return fs.accessAsync(aboutPath)
+    .catch(() => {
+      if (fs.existsSync(aboutPath)) {
+        return Promise.resolve();
+      }
+      return fs.outputFileAsync(aboutPath, ABOUT_MARKDOWN_DEFAULT);
+    });
+};
+
+/**
+ * Adds top navigation menu to default layout of site.
+ */
+Site.prototype.addTopNavToDefaultLayout = function () {
+  const siteLayoutPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH);
+  const siteLayoutHeaderDefaultPath = path.join(siteLayoutPath, LAYOUT_DEFAULT_NAME, 'header.md');
+
+  return fs.outputFileAsync(siteLayoutHeaderDefaultPath, TOP_NAV_DEFAULT);
+};
+
+/**
+ * Adds a footer to default layout of site.
+ */
+Site.prototype.addFooterToDefaultLayout = function () {
+  const footerPath = path.join(this.rootPath, FOOTER_PATH);
+  const siteLayoutPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH);
+  const siteLayoutFooterDefaultPath = path.join(siteLayoutPath, LAYOUT_DEFAULT_NAME, 'footer.md');
+  const wikiFooterPath = path.join(this.rootPath, WIKI_FOOTER_PATH);
+
+  return fs.accessAsync(wikiFooterPath)
+    .then(() => {
+      const footerContent = fs.readFileSync(wikiFooterPath, 'utf8');
+      const wrappedFooterContent = `<footer>\n\t${footerContent}\n</footer>`;
+      return fs.outputFileAsync(siteLayoutFooterDefaultPath, wrappedFooterContent);
+    })
+    .catch(() => {
+      if (fs.existsSync(footerPath)) {
+        return fs.copyAsync(footerPath, siteLayoutFooterDefaultPath);
+      }
+      return Promise.resolve();
+    });
+};
+
+/**
+ * Adds a site navigation bar to the default layout of the site.
+ */
+Site.prototype.addSiteNavToDefaultLayout = function () {
+  const siteLayoutPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH);
+  const siteLayoutSiteNavDefaultPath = path.join(siteLayoutPath, LAYOUT_DEFAULT_NAME, 'navigation.md');
+  const wikiSiteNavPath = path.join(this.rootPath, WIKI_SITE_NAV_PATH);
+
+  return fs.accessAsync(wikiSiteNavPath)
+    .then(() => {
+      const siteNavContent = fs.readFileSync(wikiSiteNavPath, 'utf8');
+      const wrappedSiteNavContent = `<navigation>\n${siteNavContent}\n</navigation>`;
+      logger.info(`Copied over the existing _Sidebar.md file to ${path.relative(
+        this.rootPath, siteLayoutSiteNavDefaultPath)}`
+        + 'Check https://markbind.org/userGuide/tweakingThePageStructure.html#site-navigation-menus\n'
+        + 'for information on site navigation menus.');
+      return fs.outputFileSync(siteLayoutSiteNavDefaultPath, wrappedSiteNavContent);
+    })
+    .catch(() => this.buildSiteNav(siteLayoutSiteNavDefaultPath));
+};
+
+/**
+ * Builds a site navigation file from the directory structure of the site.
+ * @param siteLayoutSiteNavDefaultPath
+ */
+Site.prototype.buildSiteNav = function (siteLayoutSiteNavDefaultPath) {
+  let siteNavContent = '';
+  this.addressablePages
+    .filter(addressablePage => !addressablePage.src.startsWith('_'))
+    .forEach((page) => {
+      const addressablePagePath = path.join(this.rootPath, page.src);
+      const relativePagePathWithoutExt = FsUtil.removeExtension(
+        path.relative(this.rootPath, addressablePagePath));
+      const pageName = _.startCase(FsUtil.removeExtension(path.basename(addressablePagePath)));
+      const pageUrl = `{{ baseUrl }}/${relativePagePathWithoutExt}.html`;
+      siteNavContent += `* [${pageName}](${pageUrl})\n`;
+    });
+  const wrappedSiteNavContent = `<navigation>\n${siteNavContent}\n</navigation>`;
+  return fs.outputFileAsync(siteLayoutSiteNavDefaultPath, wrappedSiteNavContent);
+};
+
+/**
+ * Applies the default layout to all addressable pages by modifying the site config file.
+ */
+Site.prototype.addDefaultLayoutToSiteConfig = function () {
+  const configPath = path.join(this.rootPath, SITE_CONFIG_NAME);
+  return fs.readJsonAsync(configPath)
+    .then((config) => {
+      const layoutObj = { glob: '**/*.+(md|mbd)', layout: LAYOUT_DEFAULT_NAME };
+      config.pages.push(layoutObj);
+      return fs.outputJsonAsync(configPath, config);
+    });
+};
+
+Site.prototype.printBaseUrlMessage = function () {
+  logger.info('The default base URL of your site is set to /\n'
+    + 'You can change the base URL of your site by editing site.json\n'
+    + 'Check https://markbind.org/userGuide/siteConfiguration.html for more information.');
+  return Promise.resolve();
 };
 
 /**

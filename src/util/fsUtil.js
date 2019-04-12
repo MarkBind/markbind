@@ -24,8 +24,10 @@ module.exports = {
     return r.test(unknownPath);
   },
 
-  setExtension: (normalizedFilename, ext) => path.join(
-    path.dirname(normalizedFilename),
-    path.basename(normalizedFilename, path.extname(normalizedFilename)) + ext,
+  setExtension: (normalizedFilename, ext) => module.exports.removeExtension(normalizedFilename) + ext,
+
+  removeExtension: filePathWithExt => path.join(
+    path.dirname(filePathWithExt),
+    path.basename(filePathWithExt, path.extname(filePathWithExt)),
   ),
 };

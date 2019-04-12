@@ -4,12 +4,14 @@ const ghpages = require('gh-pages');
 const Site = require('../../src/Site');
 
 const {
+  ABOUT_MD_DEFAULT,
   FOOTER_MD_DEFAULT,
   HEADER_MD_DEFAULT,
   INDEX_MD_DEFAULT,
   PAGE_EJS,
   SITE_JSON_DEFAULT,
   SITE_NAV_MD_DEFAULT,
+  TOP_NAV_DEFAULT,
   USER_VARIABLES_DEFAULT,
   LAYOUT_FILES_DEFAULT,
   LAYOUT_SCRIPTS_DEFAULT,
@@ -349,6 +351,88 @@ test('Site read correct user defined variables', async () => {
 
   expect(othersub.variable).toEqual('other_variable');
   expect(subsub.number).toEqual('9999');
+});
+
+test('Site convert generates correct assets', async () => {
+  const json = {
+    'src/template/page.ejs': PAGE_EJS,
+
+    'inner/_Footer.md': '',
+    'inner/_Sidebar.md': '',
+    'inner/Home.md': '',
+  };
+  fs.vol.fromJSON(json, '');
+  await Site.initSite('inner/');
+  await new Site('inner/', 'inner/_site/').convert();
+
+  // number of files
+  const paths = Object.keys(fs.vol.toJSON());
+  const originalNumFiles = Object.keys(json).length;
+  const expectedNumBuilt = 16;
+  expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
+
+  // footer
+  expect(fs.existsSync(path.resolve('inner/_markbind/layouts/default/footer.md'))).toEqual(true);
+
+  // site navigation
+  expect(fs.existsSync(path.resolve('inner/_markbind/layouts/default/navigation.md'))).toEqual(true);
+
+  // top navigation
+  expect(fs.readFileSync(path.resolve('inner/_markbind/layouts/default/header.md'), 'utf8'))
+    .toEqual(TOP_NAV_DEFAULT);
+
+  // index page
+  expect(fs.existsSync(path.resolve('inner/index.md'))).toEqual(true);
+
+  // about page
+  expect(fs.readFileSync(path.resolve('inner/about.md'), 'utf8')).toEqual(ABOUT_MD_DEFAULT);
+
+  // site.json
+  expect(fs.existsSync(path.resolve('inner/site.json'))).toEqual(true);
+
+  // _markbind directory
+  expect(fs.existsSync(path.resolve('inner/_markbind'))).toEqual(true);
+});
+
+test('Site convert with custom _Footer.md, no _Sidebar.md, README.md generates correct assets', async () => {
+  const json = {
+    'src/template/page.ejs': PAGE_EJS,
+
+    'inner/_Footer.md': 'Custom footer.',
+    'inner/README.md': 'This is the README',
+  };
+  fs.vol.fromJSON(json, '');
+  await Site.initSite('inner/');
+  await new Site('inner/', 'inner/_site/').convert();
+
+  // number of files
+  const paths = Object.keys(fs.vol.toJSON());
+  const originalNumFiles = Object.keys(json).length;
+  const expectedNumBuilt = 16;
+  expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
+
+  // footer
+  const EXPECTED_FOOTER = '<footer>\n\tCustom footer.\n</footer>';
+  expect(fs.readFileSync(path.resolve('inner/_markbind/layouts/default/footer.md'), 'utf8'))
+    .toEqual(EXPECTED_FOOTER);
+
+  // site navigation
+  const EXPECTED_SITE_NAV = '<navigation>\n* [Index]({{ baseUrl }}/index.html)\n'
+    + '* [README]({{ baseUrl }}/README.html)\n\n</navigation>';
+  expect(fs.readFileSync(path.resolve('inner/_markbind/layouts/default/navigation.md'), 'utf8'))
+    .toEqual(EXPECTED_SITE_NAV);
+
+  // top navigation
+  expect(fs.readFileSync(path.resolve('inner/_markbind/layouts/default/header.md'), 'utf8'))
+    .toEqual(TOP_NAV_DEFAULT);
+
+  // index page
+  const EXPECTED_INDEX_PAGE = 'This is the README';
+  expect(fs.readFileSync(path.resolve('inner/index.md'), 'utf8'))
+    .toEqual(EXPECTED_INDEX_PAGE);
+
+  // about page
+  expect(fs.readFileSync(path.resolve('inner/about.md'), 'utf8')).toEqual(ABOUT_MD_DEFAULT);
 });
 
 test('Site deploys with default settings', async () => {
