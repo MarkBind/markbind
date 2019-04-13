@@ -157,6 +157,13 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 <include src="testIncludeVariableLeak.md" />
 
+# Panel with shorthand heading syntax
+<panel>
+    <span heading>
+        Heading
+    </span>
+</panel>
+
 # Panel without src
 <panel header="## Panel without src header" expanded>
 <markdown>

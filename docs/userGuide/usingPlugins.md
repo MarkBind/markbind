@@ -152,6 +152,7 @@ MarkBind has a set of default plugins that it uses to carry out some of its feat
 Default Plugin | Functionality
 --- | ---
 `anchors` | Attaches anchor links to the side of headings.
+`shorthandSyntax` | Allows for certain syntax shorthands.
 
 Although not advised, you can disable these by passing `"off": true` in the `pluginsContext`.
 
