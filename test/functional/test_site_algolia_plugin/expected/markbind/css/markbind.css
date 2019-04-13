@@ -56,7 +56,7 @@ code.hljs.inline {
     background: #f8f8f8;
     color: #333;
     display: initial;
-    padding: 0px;
+    padding: 0;
 }
 
 .markbind-table {
@@ -181,8 +181,9 @@ footer {
 }
 
 /* Temporary Anti-FOUC Styles */
-/* By default, some VueStrap components break the layout of the page before Vue is mounted, */
-/* so we apply temporary styles to fix the layout until Vue correctly updates the DOM. */
+
+/* By default, some VueStrap components break the layout of the page before Vue is mounted,
+so we apply temporary styles to fix the layout until Vue correctly updates the DOM. */
 
 .temp-navbar {
     display: flex;
