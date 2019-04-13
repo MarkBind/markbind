@@ -29,7 +29,10 @@ Here is a typical `site.json` file:
       "searchable": "no",
       "externalScripts": [
         "https://cdn.plot.ly/plotly-latest.min.js"
-      ]
+      ],
+      "frontmatter": {
+        "header": "header.md"
+      }
     },
     {
       "glob": "**/index.md"
@@ -42,6 +45,9 @@ Here is a typical `site.json` file:
     "message": "Site Update.",
     "repo": "https://github.com/myorg/myrepo.git",
     "branch": "gh-pages"
+  },
+  "globalOverride": {
+    "footer": "my-footer.md"
   },
   "ignore": [
     "_site/*",
@@ -100,6 +106,7 @@ _(Optional)_ **The theme for the generated site.** Uses the default Bootstrap th
 * **`layout`**: The [layout](tweakingThePageStructure.html#page-layouts) to be used by the page. Default: `default`.
 * **`searchable`**: Specifies that the page(s) should be excluded from searching. Default: `yes`.
 * **`externalScripts`**: An array of external scripts to be referenced on the page. Scripts referenced will be run before the layout script.
+* **`frontMatter`**: Specifies properties to add to the front matter of a page or glob of pages. Overrides any existing properties if they have the same name.
 
 <span id="page-property-overriding">
 <box type="warning">
@@ -151,6 +158,10 @@ The following properties will apply to `index.md`:
 #### **`externalScripts`**
 
 **An array of external scripts to be referenced on all pages.** To reference an external script only on specific pages, `externalScripts` should be specified in `pages` instead. Scripts referenced will be run before the layout script.
+
+#### **`globalOverride`**
+
+**Globally overrides properties in the front matter of all pages.** Any property included in the global override will automatically be merged with the front matter of every single page, and override them if the property exists. Also overrides front matter properties specified in `pages`.
 
 #### **`ignore`**
 

@@ -10,7 +10,9 @@
       "title": "Open Bugs",
       "header": "header.md",
       "src": "bugs/index.md",
-      "layout": "default"
+      "layout": "default",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
     },
     {
       "headings": {
@@ -118,6 +120,9 @@
       "siteNav": "site-nav.md",
       "pageNav": "default",
       "pageNavTitle": "Testing Page Navigation",
+      "globalOverrideProperty": "Overridden by global override",
+      "frontMatterOverrideProperty": "Overridden by front matter override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by front matter override",
       "head": "myCustomHead.md, myCustomHead2.md",
       "tags": [
         "tag-frontmatter-shown",
@@ -136,7 +141,9 @@
       },
       "src": "sub_site/index.md",
       "title": "",
-      "layout": "default"
+      "layout": "default",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
     },
     {
       "headings": {
@@ -144,25 +151,33 @@
       },
       "src": "test_md_fragment.md",
       "title": "",
-      "layout": "default"
+      "layout": "default",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
     },
     {
       "headings": {},
       "layout": "testAfterSetup",
       "src": "testAfterSetup.md",
-      "title": "Hello World"
+      "title": "Hello World",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
     },
     {
       "headings": {},
       "src": "testEmptyFrontmatter.md",
       "title": "Hello World",
-      "layout": "default"
+      "layout": "default",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
     },
     {
       "headings": {},
       "src": "testExternalScripts.md",
       "title": "Hello World",
-      "layout": "default"
+      "layout": "default",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
     },
     {
       "headings": {
@@ -171,7 +186,9 @@
       "title": "Hello World",
       "head": "overwriteLayoutHead.md",
       "layout": "testLayout",
-      "src": "testLayouts.md"
+      "src": "testLayouts.md",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
     },
     {
       "headings": {
@@ -180,7 +197,9 @@
       "title": "Hello World",
       "head": "overwriteLayoutHead.md",
       "layout": "testLayout",
-      "src": "testLayoutsOverride.md"
+      "src": "testLayoutsOverride.md",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
     },
     {
       "headings": {
@@ -190,7 +209,9 @@
       },
       "src": "testAntiFOUCStyles.md",
       "title": "Hello World",
-      "layout": "default"
+      "layout": "default",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
     }
   ]
 }
