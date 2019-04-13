@@ -106,7 +106,7 @@ _(Optional)_ **The theme for the generated site.** Uses the default Bootstrap th
 * **`layout`**: The [layout](tweakingThePageStructure.html#page-layouts) to be used by the page. Default: `default`.
 * **`searchable`**: Specifies that the page(s) should be excluded from searching. Default: `yes`.
 * **`externalScripts`**: An array of external scripts to be referenced on the page. Scripts referenced will be run before the layout script.
-* **`frontMatter`**: Specifies properties to add to the front matter of a page or glob of pages. Overrides any existing properties if they have the same name.
+* **`frontMatter`**: Specifies properties to add to the front matter of a page or glob of pages. Overrides any existing properties if they have the same name, and overrides any front matter properties specified in `globalOverride`.
 
 <span id="page-property-overriding">
 <box type="warning">
@@ -161,7 +161,7 @@ The following properties will apply to `index.md`:
 
 #### **`globalOverride`**
 
-**Globally overrides properties in the front matter of all pages.** Any property included in the global override will automatically be merged with the front matter of every single page, and override them if the property exists. Also overrides front matter properties specified in `pages`.
+**Globally overrides properties in the front matter of all pages.** Any property included in the global override will automatically be merged with the front matter of every single page, and override them if the property exists.
 
 #### **`ignore`**
 
