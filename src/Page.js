@@ -56,10 +56,12 @@ function Page(pageConfig) {
   this.baseUrlMap = pageConfig.baseUrlMap;
   this.content = pageConfig.content || '';
   this.faviconUrl = pageConfig.faviconUrl;
+  this.frontmatterOverride = pageConfig.frontmatter || {};
   this.layout = pageConfig.layout;
   this.layoutsAssetPath = pageConfig.layoutsAssetPath;
   this.rootPath = pageConfig.rootPath;
   this.enableSearch = pageConfig.enableSearch;
+  this.globalOverride = pageConfig.globalOverride;
   this.plugins = pageConfig.plugins;
   this.pluginsContext = pageConfig.pluginsContext;
   this.searchable = pageConfig.searchable;
@@ -470,18 +472,24 @@ Page.prototype.collectFrontMatter = function (includedPage) {
     const frontMatterWrapped = `${FRONT_MATTER_FENCE}\n${frontMatterData}\n${FRONT_MATTER_FENCE}`;
     // Parse front matter data
     const parsedData = fm(frontMatterWrapped);
-    this.frontMatter = parsedData.attributes;
+    this.frontMatter = { ...parsedData.attributes };
     this.frontMatter.src = this.src;
     // Title specified in site.json will override title specified in front matter
     this.frontMatter.title = (this.title || this.frontMatter.title || '');
     // Layout specified in site.json will override layout specified in the front matter
     this.frontMatter.layout = (this.layout || this.frontMatter.layout || LAYOUT_DEFAULT_NAME);
+    this.frontMatter = { ...this.frontMatter, ...this.globalOverride, ...this.frontmatterOverride };
   } else {
     // Page is addressable but no front matter specified
-    this.frontMatter = {
+    const defaultAttributes = {
       src: this.src,
       title: this.title || '',
       layout: LAYOUT_DEFAULT_NAME,
+    };
+    this.frontMatter = {
+      ...defaultAttributes,
+      ...this.globalOverride,
+      ...this.frontmatterOverride,
     };
   }
   this.title = this.frontMatter.title;

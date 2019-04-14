@@ -5,7 +5,11 @@
   "pages": [
     {
       "src": "index.md",
-      "title": "Hello World"
+      "title": "Hello World",
+      "frontmatter": {
+        "frontMatterOverrideProperty": "Overridden by front matter override",
+        "globalAndFrontMatterOverrideProperty":  "Overridden by front matter override"
+      }
     },
     {
       "src": "testAfterSetup.md",
@@ -58,6 +62,10 @@
   ],
   "deploy": {
     "message": "Site Update."
+  },
+  "globalOverride": {
+    "globalOverrideProperty": "Overridden by global override",
+    "globalAndFrontMatterOverrideProperty": "Overridden by global override"
   },
   "headingIndexingLevel": 4,
   "plugins": [

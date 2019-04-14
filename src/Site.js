@@ -405,6 +405,8 @@ Site.prototype.createPage = function (config) {
     content: '',
     pluginsContext: this.siteConfig.pluginsContext || {},
     faviconUrl: config.faviconUrl,
+    frontmatter: config.frontmatter,
+    globalOverride: this.siteConfig.globalOverride || {},
     pageTemplate: this.pageTemplate,
     plugins: this.plugins || {},
     rootPath: this.rootPath,
@@ -627,6 +629,7 @@ Site.prototype.collectAddressablePages = function () {
       src: globPath,
       searchable: addressableGlob.searchable,
       layout: addressableGlob.layout,
+      frontmatter: addressableGlob.frontmatter,
     }))), []);
   // Add pages collected by walkSync and merge properties for pages
   const filteredPages = {};
@@ -981,6 +984,7 @@ Site.prototype.generatePages = function () {
       pageSrc: page.src,
       title: page.title,
       layout: page.layout,
+      frontmatter: page.frontmatter,
       searchable: page.searchable !== 'no',
       externalScripts: page.externalScripts,
     }));
@@ -990,6 +994,7 @@ Site.prototype.generatePages = function () {
       pageSrc: page.src,
       title: page.title,
       layout: page.layout,
+      frontmatter: page.frontmatter,
       searchable: page.searchable !== 'no',
       externalScripts: page.externalScripts,
     }));
