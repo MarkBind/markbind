@@ -115,13 +115,11 @@ $ git commit -m 'Update vue-strap version to v2.0.1-markbind.XYZ'
 2. Rebuild the test files.
 
 ```
-$ cd test/functional/
+# on Unix
+$ npm run updatetest
 
-# for each test site
-$ cd <TEST_SITE_NAME>
-$ markbind build
-$ cp _site/* expected/
-$ cd ..
+# on Windows
+> npm run updatetestwin
 ```
 
 When rebuilding the expected test files, ensure that **only** the version number is updated. For example, this is correct:

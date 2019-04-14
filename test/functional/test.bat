@@ -1,8 +1,6 @@
 @ECHO off
 
-set sites=test_site test_site_algolia_plugin
-
-for %%a in (%sites%) do (
+for /f "tokens=* delims=" %%a in (test_sites) do (
 
     echo(
     echo Running %%a tests
@@ -17,9 +15,7 @@ for %%a in (%sites%) do (
     )
 )
 
-set sites_convert=test_site_convert
-
-for %%a in (%sites_convert%) do (
+for /f "tokens=* delims=" %%a in (test_convert_sites) do (
 
     echo(
     echo Running %%a tests

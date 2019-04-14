@@ -62,12 +62,14 @@
   },
   "scripts": {
     "csslint": "./node_modules/.bin/stylelint \"**/*.css\" \"!**/*.min.css\"",
+    "jest": "jest",
     "lint": "./node_modules/.bin/eslint .",
     "pretest": "npm run lint && npm run csslint",
     "pretestwin": "npm run lint && npm run csslint",
-    "testwin": "jest && cd test/functional && test.bat",
     "test": "jest && cd test/functional && ./test.sh",
-    "jest": "jest"
+    "testwin": "jest && cd test/functional && test.bat",
+    "updatetest": "cd test/functional && ./update.sh",
+    "updatetestwin": "cd test/functional && update.bat"
   },
   "jest": {
     "testPathIgnorePatterns": [
