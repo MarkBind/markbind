@@ -24,7 +24,7 @@ for /f "tokens=* delims=" %%a in (test_convert_sites) do (
     xcopy /e /y /i /q %%a\non_markbind_site\_site %%a\expected
 
     rmdir /s /q %%a\_site
-    rmdir /q %%a\non_markbind_site\_markbind
+    rmdir /s /q %%a\non_markbind_site\_markbind
     rmdir /s /q %%a\non_markbind_site\_site
     del %%a\non_markbind_site\about.md %%a\non_markbind_site\index.md %%a\non_markbind_site\site.json
 )
