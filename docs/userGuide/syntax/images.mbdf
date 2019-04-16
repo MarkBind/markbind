@@ -6,6 +6,10 @@
 ```markdown
 ![](https://markbind.org/images/logo-lightbackground.png)
 ```
+<box type="info">
+  URLs can be specified as relative references. More info in: <i><a href="#intraSiteLinks">Intra-Site Links</a></i>
+</box>
+
 </span>
 <span id="output">
 
