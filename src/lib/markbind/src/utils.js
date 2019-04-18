@@ -63,6 +63,12 @@ module.exports = {
     return r.test(filePath);
   },
 
+  isAbsolutePath(filePath) {
+    return path.isAbsolute(filePath)
+            || filePath.includes('{{baseUrl}}')
+            || filePath.includes('{{hostBaseUrl}}');
+  },
+
   createErrorElement(error) {
     return `<div style="color: red">${error.message}</div>`;
   },
