@@ -87,6 +87,9 @@ function Page(pageConfig) {
   this.keywords = {};
   this.navigableHeadings = {};
   this.pageSectionsHtml = {};
+
+  // Flag to indicate whether this page has a site nav
+  this.hasSiteNav = false;
 }
 
 /**
@@ -231,7 +234,7 @@ Page.prototype.prepareTemplateData = function () {
     markBindVersion: `MarkBind ${CLI_VERSION}`,
     pageNav: this.isPageNavigationSpecifierValid(),
     pageNavHtml: this.pageSectionsHtml[`#${PAGE_NAV_ID}`] || '',
-    siteNav: this.frontMatter.siteNav,
+    siteNav: this.hasSiteNav,
     siteNavHtml: this.pageSectionsHtml[`#${SITE_NAV_ID}`] || '',
     title: prefixedTitle,
     enableSearch: this.enableSearch,
@@ -575,12 +578,15 @@ Page.prototype.insertSiteNav = function (pageData) {
   // Retrieve Markdown file contents
   const siteNavPath = path.join(this.rootPath, siteNavFile);
   if (!fs.existsSync(siteNavPath)) {
+    this.hasSiteNav = false;
     return pageData;
   }
   const siteNavContent = fs.readFileSync(siteNavPath, 'utf8');
   if (siteNavContent === '') {
+    this.hasSiteNav = false;
     return pageData;
   }
+  this.hasSiteNav = true;
   // Set siteNav file as an includedFile
   this.includedFiles[siteNavPath] = true;
   // Map variables
