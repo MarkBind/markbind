@@ -3,10 +3,10 @@
   <navbar type="dark">
     <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand"><img src="{{baseUrl}}/images/logo-darkbackground.png" height="20" /></a>
     <li><a href="{{baseUrl}}/index.html" class="nav-link">HOME</a></li>
-    <li><a href="{{baseUrl}}/userGuide/index.html" class="nav-link">USER GUIDE</a></li>
+    <div tags="environment--ug"><li><a href="{{baseUrl}}/userGuide/index.html" class="nav-link">USER GUIDE</a></li></div>
+    <div tags="environment--dg"><li><a href="{{baseUrl}}/devGuide/index.html" class="nav-link">DEVELOPER GUIDE</a></li></div>
     <li><a href="{{baseUrl}}/showcase.html" class="nav-link">SHOWCASE</a></li>
     <li><a href="{{baseUrl}}/about.html" class="nav-link">ABOUT</a></li>
-    <li><a href="{{baseUrl}}/devGuide/index.html" class="nav-link">DEVELOPER GUIDE</a></li>
     <li>
       <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link"><md>:fab-github:</md></a>
     </li>

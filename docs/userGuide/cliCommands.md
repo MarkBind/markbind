@@ -42,6 +42,9 @@ MarkBind Command Line Interface (CLI) can be run in the following ways:
 * `--baseUrl <base>`<br>
   Override the `baseUrl` property (read from the `site.json`) with the give `<base>` value.<br>
   {{ icon_example }} `--baseUrl staging`
+* `-s <file>`, `--site-config <file>`<br>
+  Specify the site config file (default: `site.json`)<br>
+  {{ icon_example }} `-s otherSite.json`
 
 **{{ icon_examples }}**
 * `markbind build`

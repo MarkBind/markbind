@@ -4,6 +4,8 @@
   footer: footer.md
 </frontmatter>
 
+<div tags="environment--ug">
+
 <h1 class="display-3"><md>**MarkBind**</md></h1>
 
 <span class="lead">
@@ -166,3 +168,19 @@ Installing MarkBind takes just one command. Creating a new MarkBind site too tak
 As MarkBind is also optimized for project documentation, it can easily [integrate with the workflow of a software project](userGuide/markBindInTheProjectWorkflow.html).
 
 <b-btn variant="primary" href="userGuide/">Get Started</b-btn>
+
+</div>
+
+<div tags="environment--dg">
+
+## Developer Guide
+
+<box type="warning">
+    If you are a user, please visit <a href="https://markbind.org">MarkBind.org</a> instead.
+</box>
+
+This is the latest Developer Guide for MarkBind.
+
+For contributors: please access the Developer Guide [here](devGuide/index.html)
+
+</div>
