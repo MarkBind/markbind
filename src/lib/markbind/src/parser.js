@@ -166,20 +166,21 @@ function extractImportedVariables(context) {
     return {};
   }
   const importedVariables = {};
-  Object.entries(context.importedVariables).forEach(([src, variableName]) => {
-    const actualFilePath = utils.isUrl()
-      ? src
-      : path.resolve(path.dirname(context.cwf), decodeURIComponent(url.parse(src).path));
-    if (!VARIABLE_LOOKUP[actualFilePath] || !VARIABLE_LOOKUP[actualFilePath][variableName]) {
-      // eslint-disable-next-line no-console
-      console.warn(`Missing variable ${variableName} in ${src} referenced by ${context.cwf}\n`);
-      return;
-    }
-    const variableValue = VARIABLE_LOOKUP[actualFilePath][variableName];
-
-    if (!importedVariables[variableName]) {
-      importedVariables[variableName] = variableValue;
-    }
+  Object.entries(context.importedVariables).forEach(([src, variables]) => {
+    variables.forEach((variableName) => {
+      const actualFilePath = utils.isUrl()
+        ? src
+        : path.resolve(path.dirname(context.cwf), decodeURIComponent(url.parse(src).path));
+      if (!VARIABLE_LOOKUP[actualFilePath] || !VARIABLE_LOOKUP[actualFilePath][variableName]) {
+        // eslint-disable-next-line no-console
+        console.warn(`Missing variable ${variableName} in ${src} referenced by ${context.cwf}\n`);
+        return;
+      }
+      const variableValue = VARIABLE_LOOKUP[actualFilePath][variableName];
+      if (!importedVariables[variableName]) {
+        importedVariables[variableName] = variableValue;
+      }
+    });
   });
   return importedVariables;
 }
@@ -338,8 +339,12 @@ Parser.prototype._preprocess = function (node, context, config) {
           // eslint-disable-next-line no-param-reassign
           context.importedVariables = {};
         }
+        if (!context.importedVariables[includeSrc.pathname]) {
+          // eslint-disable-next-line no-param-reassign
+          context.importedVariables[includeSrc.pathname] = [];
+        }
         // eslint-disable-next-line no-param-reassign
-        context.importedVariables[includeSrc.pathname] = includeSrc.hash.substring(1);
+        context.importedVariables[includeSrc.pathname].push(includeSrc.hash.substring(1));
         return createEmptyNode();
       }
 
