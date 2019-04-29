@@ -55,6 +55,12 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
   <variable name="included_variable_overriding_page_variable">Included Variable Overriding Page Variable</variable>
 </include>
 
+<include src="testImportedVariables.md" />
+
+# Imported Variable on Top Level
+<import src="testImportedVariablesToImport.md#imported_variable_on_top_level" />
+{{ imported_variable_on_top_level }}
+
 # Heading with multiple keywords
 <span class="keyword">keyword 1</span>
 <span class="keyword">keyword 2</span>
