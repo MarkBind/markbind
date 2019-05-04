@@ -72,7 +72,7 @@ You should see changes in `vue.min.js`, `vue-strap.js.map` and `vue-strap.min.js
 2. Commit the new changes.
 
 ```
-$ git commit -m 'Update dist'
+$ git commit -am 'Update dist'
 ```
 
 3. Tag the new commit with the new version number, whereby `XYZ` is the incremented number of the previous release.
