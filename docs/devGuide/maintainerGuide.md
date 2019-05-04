@@ -200,7 +200,11 @@ $ markbind build
 $ markbind deploy
 ```
 
-9. Draft a new release on GitHub.
+9. Close the [issue milestone on GitHub](https://github.com/MarkBind/markbind/milestones) tied to that version.
+
+    a. Please also create a new milestone for the next iterations. Recommended to have at least two version milestones opened.
+
+10. Draft a new release on GitHub.
 
     a. Go to the Markbind release page at https://github.com/MarkBind/markbind/releases.
 
@@ -321,6 +325,6 @@ test: Add diff printing for easier debugging (#632)
 
 f. Click "Publish release".
 
-10. Finally, announce the new release on our Slack channel (replace `A.B.C` with the new version). Congrats!
+11. Finally, announce the new release on our Slack channel (replace `A.B.C` with the new version). Congrats!
 
 * Published: `npm i -g markbind-cli@A.B.C`
