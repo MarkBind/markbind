@@ -55,6 +55,14 @@ Please follow the [commit message convention](https://oss-generic.github.io/proc
 
 # Doing a Release
 
+## Prerequisites for New Maintainers
+
+Ensure that:
+
+* You have the rights to push to master branch on [MarkBind's repository](https://github.com/MarkBind/markbind), and also to make new releases.
+* You have the rights on [npm](https://www.npmjs.com/) to make a new release.
+    * You need to login to npm on your terminal with `npm adduser` first, before you can publish packages to npm.
+
 ## Building Vue-Strap
 
 1. Ensure that you are on the root directory on vue-strap, then execute:
