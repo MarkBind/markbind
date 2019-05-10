@@ -120,7 +120,7 @@ $ git commit -m 'Update vue-strap version to v2.0.1-markbind.XYZ'
 
 * **Note:** We uniquely do this for each MarkBind release (rather than spontaneously update the vue-strap files for each affected PR), in order to reduce unnecessary merge conflicts. It also makes it easier for the maintainers to vet the changes.
 
-2. Do an `npm version` to increment the version number. Which to increment (`patch`, `minor` or `major`) depends on what PRs are merged for the new version, which means you must know beforehand about the changes.
+2. Run `npm version` to increment the version number. Which to increment (`patch`, `minor` or `major`) depends on what PRs are merged for the new version, which means you must know beforehand about the changes.
 
 * If there are no significant changes, a `patch` is sufficient:
 
@@ -130,7 +130,7 @@ $ npm version patch
 
 * If there are significant changes (e.g. breaking changes, new release), a `minor` release is needed:
 
-a. Do a `npm version minor` as per normal.
+a. Run `npm version minor` as per normal.
 
 b. Update the version number inside `src/lib/markbind/package-lock.json` and `src/lib/markbind/package.json` manually. This is because `npm version` will not automatically update the numbers from the outside. (Note: You do not have to commit these changes immediately, as we also have to rebuild the test files in the next step anyway.)
 
@@ -184,7 +184,7 @@ $ git push upstream master
 $ git push upstream vA.B.C
 ```
 
-6. Do an `npm publish`. You should receive a notification by `npm` that the publish is successful.
+6. Run `npm publish`. You should receive a notification by `npm` that the publish is successful.
 
 ```
 $ npm publish
