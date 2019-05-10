@@ -198,7 +198,7 @@ $ npm publish
     
 8. Ensure that the documentation at markbind.org is deployed correctly.
 
-Since #701, the deployment is automated.
+Since [#701](https://github.com/markbind/markbind/pull/701), the deployment is automated.
 
 However, if it doesn't deploy properly for the release, do the following:
 
