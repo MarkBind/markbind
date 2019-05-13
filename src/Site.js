@@ -1032,7 +1032,7 @@ Site.prototype.regenerateAffectedPages = function (filePaths) {
   }
   this._setTimestampVariable();
   this.pages.forEach((page) => {
-    if (shouldRebuildAllPages || filePaths.some(filePath => page.includedFiles[filePath])) {
+    if (shouldRebuildAllPages || filePaths.some(filePath => page.includedFiles.has(filePath))) {
       // eslint-disable-next-line no-param-reassign
       page.userDefinedVariablesMap = this.userDefinedVariablesMap;
       processingFiles.push(page.generate(builtFiles)
@@ -1064,7 +1064,7 @@ Site.prototype.regenerateAffectedPages = function (filePaths) {
 Site.prototype.updateSiteData = function (filePaths) {
   const generateForAllPages = filePaths === undefined;
   this.pages.forEach((page) => {
-    if (generateForAllPages || filePaths.some(filePath => page.includedFiles[filePath])) {
+    if (generateForAllPages || filePaths.some(filePath => page.includedFiles.has(filePath))) {
       page.collectHeadingsAndKeywords();
       page.concatenateHeadingsAndKeywords();
     }
