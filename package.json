@@ -61,9 +61,12 @@
     "url": "https://github.com/MarkBind/markbind.git"
   },
   "scripts": {
-    "csslint": "./node_modules/.bin/stylelint \"**/*.css\" \"!**/*.min.css\"",
+    "autolint": "npm run lintfix && npm run csslintfix",
+    "csslint": "./node_modules/.bin/stylelint **/*.css !**/*.min.css",
+    "csslintfix": "./node_modules/.bin/stylelint **/*.css !**/*.min.css --fix",
     "jest": "jest",
     "lint": "./node_modules/.bin/eslint .",
+    "lintfix": "./node_modules/.bin/eslint . --fix",
     "pretest": "npm run lint && npm run csslint",
     "pretestwin": "npm run lint && npm run csslint",
     "test": "jest && cd test/functional && ./test.sh",

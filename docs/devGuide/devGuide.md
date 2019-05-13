@@ -202,6 +202,12 @@ You can add the `--fix` flag to correct any fixable style errors.
 $ ./node_modules/.bin/eslint . --fix
 ```
 
+You may also correct fixable style errors for both JavaScript and CSS, by running this npm script
+
+```
+$ npm run autolint
+```
+
 #### Integration with editors
 
 ESLint has [integrations with popular editors](https://eslint.org/docs/user-guide/integrations). They offer features such as "fix errors on save", which will make developement more convenient.
