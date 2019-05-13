@@ -207,11 +207,7 @@ test('Site baseurls are correct for sub nested subsites', async () => {
   };
   fs.vol.fromJSON(json, '');
 
-  const baseUrlMapExpected = {};
-  baseUrlMapExpected[path.resolve('')] = true;
-  baseUrlMapExpected[path.resolve('sub')] = true;
-  baseUrlMapExpected[path.resolve('sub/sub')] = true;
-  baseUrlMapExpected[path.resolve('otherSub/sub')] = true;
+  const baseUrlMapExpected = new Set(['', 'sub', 'sub/sub', 'otherSub/sub'].map(url => path.resolve(url)));
 
   const site = new Site('./', '_site');
   await site.collectBaseUrl();

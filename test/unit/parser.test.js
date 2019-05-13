@@ -33,8 +33,7 @@ test('includeFile replaces <include> with <div>', async () => {
   };
 
   fs.vol.fromJSON(json, '');
-  const baseUrlMap = {};
-  baseUrlMap[ROOT_PATH] = true;
+  const baseUrlMap = new Set([ROOT_PATH]);
 
   const markbinder = new MarkBind();
   const result = await markbinder.includeFile(indexPath, {
@@ -74,8 +73,7 @@ test('includeFile replaces <include src="exist.md" optional> with <div>', async 
   };
 
   fs.vol.fromJSON(json, '');
-  const baseUrlMap = {};
-  baseUrlMap[ROOT_PATH] = true;
+  const baseUrlMap = new Set([ROOT_PATH]);
 
   const markbinder = new MarkBind();
   const result = await markbinder.includeFile(indexPath, {
@@ -111,8 +109,7 @@ test('includeFile replaces <include src="doesNotExist.md" optional> with empty <
   };
 
   fs.vol.fromJSON(json, '');
-  const baseUrlMap = {};
-  baseUrlMap[ROOT_PATH] = true;
+  const baseUrlMap = new Set([ROOT_PATH]);
 
   const markbinder = new MarkBind();
   const result = await markbinder.includeFile(indexPath, {
@@ -151,8 +148,7 @@ test('includeFile replaces <include src="include.md#exists"> with <div>', async 
   };
 
   fs.vol.fromJSON(json, '');
-  const baseUrlMap = {};
-  baseUrlMap[ROOT_PATH] = true;
+  const baseUrlMap = new Set([ROOT_PATH]);
 
   const markbinder = new MarkBind();
   const result = await markbinder.includeFile(indexPath, {
@@ -196,8 +192,7 @@ test('includeFile replaces <include src="include.md#exists" inline> with inline 
   };
 
   fs.vol.fromJSON(json, '');
-  const baseUrlMap = {};
-  baseUrlMap[ROOT_PATH] = true;
+  const baseUrlMap = new Set([ROOT_PATH]);
 
   const markbinder = new MarkBind();
   const result = await markbinder.includeFile(indexPath, {
@@ -237,8 +232,7 @@ test('includeFile replaces <include src="include.md#exists" trim> with trimmed c
   };
 
   fs.vol.fromJSON(json, '');
-  const baseUrlMap = {};
-  baseUrlMap[ROOT_PATH] = true;
+  const baseUrlMap = new Set([ROOT_PATH]);
 
   const markbinder = new MarkBind();
   const result = await markbinder.includeFile(indexPath, {
@@ -281,8 +275,7 @@ test('includeFile replaces <include src="include.md#doesNotExist"> with error <d
   };
 
   fs.vol.fromJSON(json, '');
-  const baseUrlMap = {};
-  baseUrlMap[ROOT_PATH] = true;
+  const baseUrlMap = new Set([ROOT_PATH]);
 
   const markbinder = new MarkBind({
     errorHandler: (e) => {
@@ -325,8 +318,7 @@ test('includeFile replaces <include src="include.md#exists" optional> with <div>
   };
 
   fs.vol.fromJSON(json, '');
-  const baseUrlMap = {};
-  baseUrlMap[ROOT_PATH] = true;
+  const baseUrlMap = new Set([ROOT_PATH]);
 
   const markbinder = new MarkBind();
   const result = await markbinder.includeFile(indexPath, {
@@ -366,8 +358,7 @@ test('includeFile replaces <include src="include.md#doesNotExist" optional> with
   };
 
   fs.vol.fromJSON(json, '');
-  const baseUrlMap = {};
-  baseUrlMap[ROOT_PATH] = true;
+  const baseUrlMap = new Set([ROOT_PATH]);
 
   const markbinder = new MarkBind();
   const result = await markbinder.includeFile(indexPath, {
@@ -411,8 +402,7 @@ test('includeFile detects cyclic references for static cyclic includes', async (
   };
 
   fs.vol.fromJSON(json, '');
-  const baseUrlMap = {};
-  baseUrlMap[ROOT_PATH] = true;
+  const baseUrlMap = new Set([ROOT_PATH]);
 
   const expectedErrorMessage = [
     'Cyclic reference detected.',
@@ -462,8 +452,7 @@ test('includeFile processes successfully for dynamic cyclic includes', async () 
   };
 
   fs.vol.fromJSON(json, '');
-  const baseUrlMap = {};
-  baseUrlMap[ROOT_PATH] = true;
+  const baseUrlMap = new Set([ROOT_PATH]);
 
   const markbinder = new MarkBind();
   const result = await markbinder.includeFile(indexPath, {
@@ -502,8 +491,7 @@ test('includeFile replaces <include dynamic> with <panel>', async () => {
   };
 
   fs.vol.fromJSON(json, '');
-  const baseUrlMap = {};
-  baseUrlMap[rootPath] = true;
+  const baseUrlMap = new Set([rootPath]);
 
   const markbinder = new MarkBind();
   const result = await markbinder.includeFile(indexPath, {
@@ -535,8 +523,7 @@ test('renderFile converts markdown headers to <h1>', async () => {
 
   fs.vol.fromJSON(json, '');
 
-  const baseUrlMap = {};
-  baseUrlMap[rootPath] = true;
+  const baseUrlMap = new Set([rootPath]);
 
   const result = await markbinder.renderFile(indexPath, {
     baseUrlMap,
