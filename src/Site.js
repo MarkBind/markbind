@@ -195,7 +195,7 @@ function Site(rootPath, outputPath, onePagePath, forceReload = false, siteConfig
 
   // Other properties
   this.addressablePages = [];
-  this.baseUrlMap = {};
+  this.baseUrlMap = new Set();
   this.forceReload = forceReload;
   this.onePagePath = onePagePath;
   this.plugins = {};
@@ -652,11 +652,7 @@ Site.prototype.collectBaseUrl = function () {
       .filter(x => x.endsWith(this.siteConfigPath))
       .map(x => path.resolve(this.rootPath, x));
 
-  this.baseUrlMap = candidates.reduce((pre, now) => {
-    // eslint-disable-next-line no-param-reassign
-    pre[path.dirname(now)] = true;
-    return pre;
-  }, {});
+  this.baseUrlMap = new Set(candidates.map(candidate => path.dirname(candidate)));
 
   return Promise.resolve();
 };
@@ -671,7 +667,7 @@ Site.prototype.collectUserDefinedVariablesMap = function () {
   const iconsMap = getIconsMap();
   const markbindVariable = { MarkBind: MARKBIND_LINK_HTML };
 
-  Object.keys(this.baseUrlMap).forEach((base) => {
+  this.baseUrlMap.forEach((base) => {
     const userDefinedVariables = {};
     Object.assign(userDefinedVariables, iconsMap, markbindVariable);
 

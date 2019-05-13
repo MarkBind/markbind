@@ -110,9 +110,9 @@ function calculateNewBaseUrl(filePath, root, lookUp) {
       return undefined;
     }
     const parent = path.dirname(file);
-    if (lookUp[parent] && result.length === 1) {
+    if (lookUp.has(parent) && result.length === 1) {
       return path.relative(root, result[0]);
-    } else if (lookUp[parent]) {
+    } else if (lookUp.has(parent)) {
       return calculate(parent, [parent]);
     }
     return calculate(parent, result);
