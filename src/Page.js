@@ -945,12 +945,11 @@ Page.prototype.resolveDependency = function (dependency, builtFiles) {
     const resultDir = path.dirname(path.resolve(this.resultPath, path.relative(this.sourcePath, file)));
     const resultPath = path.join(resultDir, FsUtil.setExtension(path.basename(file), '._include_.html'));
 
-    if (builtFiles[resultPath]) {
+    if (builtFiles.has(resultPath)) {
       return resolve();
     }
 
-    // eslint-disable-next-line no-param-reassign
-    builtFiles[resultPath] = true;
+    builtFiles.add(resultPath);
 
     /*
      * We create a local instance of Markbind for an empty dynamicIncludeSrc

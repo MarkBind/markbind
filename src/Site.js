@@ -960,7 +960,7 @@ Site.prototype.generatePages = function () {
   // Render the final rendered page to the output folder.
   const { baseUrl, faviconPath } = this.siteConfig;
   const addressablePages = this.addressablePages || [];
-  const builtFiles = {};
+  const builtFiles = new Set();
   const processingFiles = [];
 
   let faviconUrl;
@@ -1024,7 +1024,7 @@ Site.prototype.generatePages = function () {
  * @param filePaths array of paths corresponding to files that have changed
  */
 Site.prototype.regenerateAffectedPages = function (filePaths) {
-  const builtFiles = {};
+  const builtFiles = new Set();
   const processingFiles = [];
   const shouldRebuildAllPages = this.collectUserDefinedVariablesMapIfNeeded(filePaths) || this.forceReload;
   if (shouldRebuildAllPages) {
