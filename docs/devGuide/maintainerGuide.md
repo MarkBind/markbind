@@ -1,9 +1,7 @@
 <frontmatter>
   title: "Maintainer Guide"
-  header: header.md
-  footer: footer.md
+  layout: devGuide
   pageNav: default
-  siteNav: devGuideSections.md
 </frontmatter>
 
 # PR Merging Workflow

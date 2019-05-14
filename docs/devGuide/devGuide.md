@@ -1,9 +1,7 @@
 <frontmatter>
   title: "Developer Guide"
-  header: header.md
-  footer: footer.md
+  layout: devGuide
   pageNav: default
-  siteNav: devGuideSections.md
 </frontmatter>
 
 ## Requirement

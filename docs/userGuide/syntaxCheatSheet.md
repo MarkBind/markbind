@@ -1,8 +1,6 @@
 <frontmatter>
   title: "User Guide: Syntax Cheat Sheet"
-  header: header.md
-  footer: footer.md
-  siteNav: userGuideSections.md
+  layout: userGuide
 </frontmatter>
 
 # Syntax Cheat Sheet

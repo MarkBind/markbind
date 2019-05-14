@@ -1,8 +1,6 @@
 <frontmatter>
   title: "User Guide: Reader-Facing Features"
-  header: header.md
-  footer: footer.md
-  siteNav: userGuideSections.md
+  layout: userGuide
 </frontmatter>
 
 # Reader-Facing Features

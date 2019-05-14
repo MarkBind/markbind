@@ -1,8 +1,6 @@
 <frontmatter>
   title: "Configuring the Site"
-  header: header.md
-  footer: footer.md
-  siteNav: userGuideSections.md
+  layout: userGuide
   keywords: site.json
 </frontmatter>
 
