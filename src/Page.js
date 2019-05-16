@@ -83,7 +83,7 @@ function Page(pageConfig) {
   this.headFileTopContent = '';
   this.headings = {};
   this.headingIndexingLevel = pageConfig.headingIndexingLevel;
-  this.includedFiles = {};
+  this.includedFiles = new Set();
   this.keywords = {};
   this.navigableHeadings = {};
   this.pageSectionsHtml = {};
@@ -110,9 +110,9 @@ function calculateNewBaseUrl(filePath, root, lookUp) {
       return undefined;
     }
     const parent = path.dirname(file);
-    if (lookUp[parent] && result.length === 1) {
+    if (lookUp.has(parent) && result.length === 1) {
       return path.relative(root, result[0]);
-    } else if (lookUp[parent]) {
+    } else if (lookUp.has(parent)) {
       return calculate(parent, [parent]);
     }
     return calculate(parent, result);
@@ -453,9 +453,7 @@ Page.prototype.concatenateHeadingsAndKeywords = function () {
  * @param dependencies array of maps of the external dependency and where it is included
  */
 Page.prototype.collectIncludedFiles = function (dependencies) {
-  dependencies.forEach((dependency) => {
-    this.includedFiles[dependency.to] = true;
-  });
+  dependencies.forEach(dependency => this.includedFiles.add(dependency.to));
 };
 
 /**
@@ -528,7 +526,7 @@ Page.prototype.insertHeaderFile = function (pageData) {
   // Retrieve Markdown file contents
   const headerContent = fs.readFileSync(headerPath, 'utf8');
   // Set header file as an includedFile
-  this.includedFiles[headerPath] = true;
+  this.includedFiles.add(headerPath);
   // Map variables
   const newBaseUrl = calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
   const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
@@ -555,7 +553,7 @@ Page.prototype.insertFooterFile = function (pageData) {
   // Retrieve Markdown file contents
   const footerContent = fs.readFileSync(footerPath, 'utf8');
   // Set footer file as an includedFile
-  this.includedFiles[footerPath] = true;
+  this.includedFiles.add(footerPath);
   // Map variables
   const newBaseUrl = calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
   const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
@@ -588,7 +586,7 @@ Page.prototype.insertSiteNav = function (pageData) {
   }
   this.hasSiteNav = true;
   // Set siteNav file as an includedFile
-  this.includedFiles[siteNavPath] = true;
+  this.includedFiles.add(siteNavPath);
   // Map variables
   const newBaseUrl = calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
   const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
@@ -723,7 +721,7 @@ Page.prototype.collectHeadFiles = function (baseUrl, hostBaseUrl) {
     }
     const headFileContent = fs.readFileSync(headFilePath, 'utf8');
     // Set head file as an includedFile
-    this.includedFiles[headFilePath] = true;
+    this.includedFiles.add(headFilePath);
     // Map variables
     const newBaseUrl = calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
     const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
@@ -781,8 +779,7 @@ Page.prototype.collectAllPageSections = function () {
 };
 
 Page.prototype.generate = function (builtFiles) {
-  this.includedFiles = {};
-  this.includedFiles[this.sourcePath] = true;
+  this.includedFiles = new Set([this.sourcePath]);
 
   const markbinder = new MarkBind({
     errorHandler: logger.error,
@@ -948,12 +945,11 @@ Page.prototype.resolveDependency = function (dependency, builtFiles) {
     const resultDir = path.dirname(path.resolve(this.resultPath, path.relative(this.sourcePath, file)));
     const resultPath = path.join(resultDir, FsUtil.setExtension(path.basename(file), '._include_.html'));
 
-    if (builtFiles[resultPath]) {
+    if (builtFiles.has(resultPath)) {
       return resolve();
     }
 
-    // eslint-disable-next-line no-param-reassign
-    builtFiles[resultPath] = true;
+    builtFiles.add(resultPath);
 
     /*
      * We create a local instance of Markbind for an empty dynamicIncludeSrc

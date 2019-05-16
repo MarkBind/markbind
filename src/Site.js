@@ -195,7 +195,7 @@ function Site(rootPath, outputPath, onePagePath, forceReload = false, siteConfig
 
   // Other properties
   this.addressablePages = [];
-  this.baseUrlMap = {};
+  this.baseUrlMap = new Set();
   this.forceReload = forceReload;
   this.onePagePath = onePagePath;
   this.plugins = {};
@@ -652,11 +652,7 @@ Site.prototype.collectBaseUrl = function () {
       .filter(x => x.endsWith(this.siteConfigPath))
       .map(x => path.resolve(this.rootPath, x));
 
-  this.baseUrlMap = candidates.reduce((pre, now) => {
-    // eslint-disable-next-line no-param-reassign
-    pre[path.dirname(now)] = true;
-    return pre;
-  }, {});
+  this.baseUrlMap = new Set(candidates.map(candidate => path.dirname(candidate)));
 
   return Promise.resolve();
 };
@@ -671,7 +667,7 @@ Site.prototype.collectUserDefinedVariablesMap = function () {
   const iconsMap = getIconsMap();
   const markbindVariable = { MarkBind: MARKBIND_LINK_HTML };
 
-  Object.keys(this.baseUrlMap).forEach((base) => {
+  this.baseUrlMap.forEach((base) => {
     const userDefinedVariables = {};
     Object.assign(userDefinedVariables, iconsMap, markbindVariable);
 
@@ -960,7 +956,7 @@ Site.prototype.generatePages = function () {
   // Render the final rendered page to the output folder.
   const { baseUrl, faviconPath } = this.siteConfig;
   const addressablePages = this.addressablePages || [];
-  const builtFiles = {};
+  const builtFiles = new Set();
   const processingFiles = [];
 
   let faviconUrl;
@@ -1024,7 +1020,7 @@ Site.prototype.generatePages = function () {
  * @param filePaths array of paths corresponding to files that have changed
  */
 Site.prototype.regenerateAffectedPages = function (filePaths) {
-  const builtFiles = {};
+  const builtFiles = new Set();
   const processingFiles = [];
   const shouldRebuildAllPages = this.collectUserDefinedVariablesMapIfNeeded(filePaths) || this.forceReload;
   if (shouldRebuildAllPages) {
@@ -1032,7 +1028,7 @@ Site.prototype.regenerateAffectedPages = function (filePaths) {
   }
   this._setTimestampVariable();
   this.pages.forEach((page) => {
-    if (shouldRebuildAllPages || filePaths.some(filePath => page.includedFiles[filePath])) {
+    if (shouldRebuildAllPages || filePaths.some(filePath => page.includedFiles.has(filePath))) {
       // eslint-disable-next-line no-param-reassign
       page.userDefinedVariablesMap = this.userDefinedVariablesMap;
       processingFiles.push(page.generate(builtFiles)
@@ -1064,7 +1060,7 @@ Site.prototype.regenerateAffectedPages = function (filePaths) {
 Site.prototype.updateSiteData = function (filePaths) {
   const generateForAllPages = filePaths === undefined;
   this.pages.forEach((page) => {
-    if (generateForAllPages || filePaths.some(filePath => page.includedFiles[filePath])) {
+    if (generateForAllPages || filePaths.some(filePath => page.includedFiles.has(filePath))) {
       page.collectHeadingsAndKeywords();
       page.concatenateHeadingsAndKeywords();
     }
