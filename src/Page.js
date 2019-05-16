@@ -693,7 +693,7 @@ Page.prototype.buildPageNav = function () {
     const pageNavHeadingHTML = this.generatePageNavHeadingHtml();
     this.pageSectionsHtml[`#${PAGE_NAV_ID}`] = htmlBeautify(
       `<nav id="${PAGE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
-      + '<div class="position-sticky position-top spacer-top viewport-height-90 scrollable slim-scroll">\n'
+      + '<div class="border-left-grey nav-inner position-sticky slim-scroll">\n'
       + `${pageNavTitleHtml}\n`
       + '<nav class="nav nav-pills flex-column my-0 small no-flex-wrap">\n'
       + `${pageNavHeadingHTML}\n`
