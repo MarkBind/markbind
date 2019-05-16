@@ -115,23 +115,24 @@ footer {
 
 /* Side Navigation menus */
 
-.site-nav-spacer {
-    /* This class is to ensure adequate spacing of contents from the top and
-    sides of the site nav */
+.border-left-grey {
+    border-left: 1px solid lightgrey;
+}
+
+.border-right-grey {
+    border-right: 1px solid lightgrey;
+}
+
+.nav-inner {
+    /* This class is used in both site and page navigation menus,
+       specifically for the sticky container to ensure adequate
+       spacing between itself and the boundaries of the menus
+     */
+    max-height: 90vh;
+    overflow-y: auto;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 1rem;
-}
-
-.scrollable {
-    overflow-y: auto;
-}
-
-.viewport-height-90 {
-    max-height: 90vh;
-}
-
-.position-top {
     top: 0;
 }
 

@@ -2,12 +2,10 @@
 
 #site-nav {
     background: white;
-    border-right: 1px solid lightgrey;
     display: block;
     flex: 0 0 auto;
     max-width: 300px;
-    padding-left: 0;
-    padding-right: 0;
+    padding: 0;
     transition: 0.4s;
     width: 300px;
     -webkit-transition: 0.4s;
