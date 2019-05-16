@@ -606,7 +606,7 @@ Page.prototype.insertSiteNav = function (pageData) {
   }
   // Wrap sections
   const wrappedSiteNav = `<nav id="${SITE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
-    + '<div class="position-sticky position-top site-nav-spacer viewport-height-90 scrollable slim-scroll">'
+    + '<div class="border-right-grey nav-inner position-sticky slim-scroll">'
     + `${siteNavDataSelector.html()}\n`
     + '</div>\n'
     + '</nav>';
