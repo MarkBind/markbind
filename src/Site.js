@@ -167,7 +167,8 @@ const TOP_NAV_DEFAULT = '<header><navbar placement="top" type="inverse">\n'
   + '  </li>\n'
   + '</navbar></header>';
 
-const LAYOUT_SCRIPTS_DEFAULT = 'MarkBind.afterSetup(() => {\n'
+const LAYOUT_SCRIPTS_DEFAULT = '// eslint-disable-next-line no-undef\n'
+  + 'MarkBind.afterSetup(() => {\n'
   + '  // Include code to be called after MarkBind setup here.\n'
   + '});\n';
 

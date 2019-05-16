@@ -6,7 +6,8 @@ module.exports.LAYOUT_FILES_DEFAULT = [
   'styles.css',
 ];
 
-module.exports.LAYOUT_SCRIPTS_DEFAULT = 'MarkBind.afterSetup(() => {\n'
+module.exports.LAYOUT_SCRIPTS_DEFAULT = '// eslint-disable-next-line no-undef\n'
++ 'MarkBind.afterSetup(() => {\n'
 + '  // Include code to be called after MarkBind setup here.\n'
 + '});\n';
 
