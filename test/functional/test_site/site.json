@@ -47,6 +47,10 @@
     {
       "src": "testAntiFOUCStyles.md",
       "title": "Hello World"
+    },
+    {
+      "src": "testAnchorGeneration.md",
+      "title": "Anchor Generation Test"
     }
   ],
   "ignore": [

@@ -213,6 +213,33 @@
       "layout": "default",
       "globalOverrideProperty": "Overridden by global override",
       "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+    },
+    {
+      "headings": {
+        "should-have-anchor": "should have anchor",
+        "should-have-anchor-7": "should have anchor",
+        "should-have-anchor-8": "should have anchor",
+        "should-have-anchor-9": "should have anchor",
+        "should-have-anchor-10": "should have anchor",
+        "should-have-anchor-19": "should have anchor",
+        "should-have-anchor-20": "should have anchor",
+        "should-have-anchor-21": "should have anchor",
+        "should-have-anchor-22": "should have anchor",
+        "root-file": "Root file",
+        "should-have-anchor-2": "should have anchor",
+        "should-have-anchor-3": "should have anchor",
+        "should-have-anchor-4": "should have anchor",
+        "included-file": "Included File",
+        "should-have-anchor-13": "should have anchor",
+        "should-have-anchor-14": "should have anchor",
+        "should-have-anchor-15": "should have anchor",
+        "should-have-anchor-16": "should have anchor"
+      },
+      "title": "Anchor Generation Test",
+      "src": "testAnchorGeneration.md",
+      "layout": "default",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
     }
   ]
 }
