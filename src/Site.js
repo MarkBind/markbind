@@ -44,10 +44,8 @@ const ABOUT_MARKDOWN_FILE = 'about.md';
 const BUILT_IN_PLUGIN_FOLDER_NAME = 'plugins';
 const BUILT_IN_DEFAULT_PLUGIN_FOLDER_NAME = 'plugins/default';
 const FAVICON_DEFAULT_PATH = 'favicon.ico';
-const FONT_AWESOME_PATH = 'asset/font-awesome.csv';
 const FOOTER_PATH = '_markbind/footers/footer.md';
 const HEADER_PATH = '_markbind/headers/header.md';
-const GLYPHICONS_PATH = 'asset/glyphicons.csv';
 const HEAD_FOLDER_PATH = '_markbind/head';
 const INDEX_MARKDOWN_FILE = 'index.md';
 const MARKBIND_PLUGIN_PREFIX = 'markbind-plugin-';
@@ -218,25 +216,6 @@ function rejectHandler(reject, error, removeFolders) {
     .catch((err) => {
       reject(new Error(`${error.message}\n${err.message}`));
     });
-}
-
-function getIconsMap() {
-  const fontAwesomePath = path.join(__dirname, FONT_AWESOME_PATH);
-  const glyphiconsPath = path.join(__dirname, GLYPHICONS_PATH);
-  const fontAwesomeClasses = fs.readFileSync(fontAwesomePath, 'utf8').trimRight().split(/\r?\n/);
-  const glyphiconsClasses = fs.readFileSync(glyphiconsPath, 'utf8').trimRight().split(/\r?\n/);
-  const iconsMap = {};
-  fontAwesomeClasses.forEach((fontAwesomeClass) => {
-    const name = fontAwesomeClass.replace(' fa', '').replace(/-/g, '_');
-    const html = `<span class='${fontAwesomeClass}'></span>`;
-    iconsMap[name] = html;
-  });
-  glyphiconsClasses.forEach((glyphiconClass) => {
-    const name = glyphiconClass.replace(/-/g, '_');
-    const html = `<span class='glyphicon ${glyphiconClass}' aria-hidden='true'></span>`;
-    iconsMap[name] = html;
-  });
-  return iconsMap;
 }
 
 function setExtension(filename, ext) {
@@ -665,12 +644,11 @@ Site.prototype.collectUserDefinedVariablesMap = function () {
   // The key is the base directory of the site/subsites,
   // while the value is a mapping of user defined variables
   this.userDefinedVariablesMap = {};
-  const iconsMap = getIconsMap();
   const markbindVariable = { MarkBind: MARKBIND_LINK_HTML };
 
   this.baseUrlMap.forEach((base) => {
     const userDefinedVariables = {};
-    Object.assign(userDefinedVariables, iconsMap, markbindVariable);
+    Object.assign(userDefinedVariables, markbindVariable);
 
     let content;
     try {
