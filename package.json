@@ -1,6 +1,6 @@
 {
   "name": "markbind-cli",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "Command line interface for MarkBind",
   "main": "index.js",
   "bin": {
