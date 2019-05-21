@@ -1,9 +1,7 @@
 <variable name="title" id="title">Getting Started</variable>
 <frontmatter>
   title: "User Guide - {{ title }}"
-  header: header.md
-  footer: footer.md
-  siteNav: userGuideSections.md
+  layout: userGuide
 </frontmatter>
 
 # {{ title }}

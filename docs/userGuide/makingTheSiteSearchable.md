@@ -3,9 +3,7 @@
 
 <frontmatter>
   title: "User Guide: {{ title }}"
-  header: header.md
-  footer: footer.md
-  siteNav: userGuideSections.md
+  layout: userGuide
   pageNav: 2
 </frontmatter>
 

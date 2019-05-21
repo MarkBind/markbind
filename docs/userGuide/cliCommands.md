@@ -1,8 +1,6 @@
 <frontmatter>
   title: "User Guide: Command Line Interface (CLI)"
-  header: header.md
-  footer: footer.md
-  siteNav: userGuideSections.md
+  layout: userGuide
 </frontmatter>
 
 # MarkBind CLI

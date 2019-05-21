@@ -3,10 +3,8 @@
 
 <frontmatter>
   title: "User Guide: {{ title }}"
-  header: header.md
-  footer: footer.md
+  layout: userGuide
   pageNav: "default"
-  siteNav: userGuideSections.md
 </frontmatter>
 
 <span id="link" class="d-none">

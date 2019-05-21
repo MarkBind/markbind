@@ -1,8 +1,6 @@
 <frontmatter>
   title: "Glossary"
-  header: header.md
-  footer: footer.md
-  siteNav: userGuideSections.md
+  layout: userGuide
 </frontmatter>
 
 #### Live Preview
