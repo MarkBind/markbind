@@ -27,8 +27,6 @@ afterEach(() => fs.vol.reset());
 
 test('Site Generate builds the correct amount of assets', async () => {
   const json = {
-    'src/asset/font-awesome.csv': '',
-    'src/asset/glyphicons.csv': '',
     'src/template/page.ejs': PAGE_EJS,
     'inner/site.json': SITE_JSON_DEFAULT,
 
@@ -275,8 +273,6 @@ test('Site read site config for custom site config', async () => {
 
 test('Site resolves variables referencing other variables', async () => {
   const json = {
-    'src/asset/font-awesome.csv': '',
-    'src/asset/glyphicons.csv': '',
     'src/template/page.ejs': PAGE_EJS,
     'site.json': SITE_JSON_DEFAULT,
     '_markbind/variables.md':
@@ -307,8 +303,6 @@ test('Site resolves variables referencing other variables', async () => {
 
 test('Site read correct user defined variables', async () => {
   const json = {
-    'src/asset/font-awesome.csv': '',
-    'src/asset/glyphicons.csv': '',
     'src/template/page.ejs': PAGE_EJS,
     'site.json': SITE_JSON_DEFAULT,
     'sub/site.json': SITE_JSON_DEFAULT,
