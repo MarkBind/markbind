@@ -10,7 +10,9 @@ module.exports = {
   postRender: (content) => {
     const $ = cheerio.load(content, { xmlMode: false });
     $(HEADER_TAGS).each((i, heading) => {
-      $(heading).append(ANCHOR_HTML.replace('#', `#${$(heading).attr('id')}`));
+      if ($(heading).attr('id')) {
+        $(heading).append(ANCHOR_HTML.replace('#', `#${$(heading).attr('id')}`));
+      }
     });
     $('panel[header]').each((i, panel) => {
       const panelHeading = cheerio.load(md.render(panel.attribs.header), { xmlMode: false });
