@@ -12,11 +12,22 @@ More about <trigger for="modal:trigger_id">trigger</trigger>.
 </modal>
 <br>
 This is the same <trigger for="modal:trigger_id">trigger</trigger> as last one.
+
+<trigger for="modal:centered">This is a trigger for a centered modal</trigger>.
+
+<modal add-class="text-center" id="modal:centered" center>
+  <div class="text-center" slot="modal-header">
+
+**Centered** :rocket:
+  </div>
+  Centered
+</modal>
+
 ```
 </span>
 <span id="output">
 
-More about <trigger for="modal:trigger_id">trigger</trigger>.
+  More about <trigger for="modal:trigger_id">trigger</trigger>.
   <modal title="**Modal title** :rocket:" id="modal:trigger_id">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -25,6 +36,16 @@ More about <trigger for="modal:trigger_id">trigger</trigger>.
   </modal>
   <br>
   This is the same <trigger for="modal:trigger_id">trigger</trigger> as last one.
+
+  <trigger for="modal:centered">This is a trigger for a centered modal</trigger>.
+
+  <modal add-class="text-center" id="modal:centered" center>
+   	<div class="text-center" slot="modal-header">
+
+**Centered** :rocket:
+   	</div>
+    Centered
+  </modal>
 </span>
 </include>
 
@@ -42,6 +63,7 @@ id | `String` | | Used by [Trigger](#trigger) to activate the Modal by id.
 width | `Number`, `String`, or `null` | `null` | Passing a `Number` will be translated to pixels.<br>`String` can be passed [CSS units](https://www.w3schools.com/cssref/css_units.asp), ( e.g. '50in' or '30vw' ).<br>`null` will default to Bootstrap's responsive sizing.
 large | `Boolean` | `false` | Creates a [large Modal](https://getbootstrap.com/docs/4.0/components/modal/#optional-sizes).
 small | `Boolean` | `false` | Creates a [small Modal](https://getbootstrap.com/docs/4.0/components/modal/#optional-sizes).
+center | `Boolean` | `false` | Vertically centers the modal (in addition to the horizontal centering by default).
 backdrop | `Boolean` | `true` | Enables closing the Modal by clicking on the backdrop.
 
 <span id="short" class="d-none">
