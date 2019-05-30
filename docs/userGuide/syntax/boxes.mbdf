@@ -30,6 +30,9 @@
 <box type="definition">
     definition
 </box>
+<box type="info" dismissible>
+    dismissible info
+</box>
 ```
 </span>
 <span id="output">
@@ -57,6 +60,9 @@
 </box>
 <box type="definition">
     definition
+</box>
+<box type="info" dismissible>
+    dismissible info
 </box>
 
 </span>
@@ -89,12 +95,13 @@
 </include>
 
 ****Options****
-Name | Type | Default | Description 
+Name | Type | Default | Description
 --- | --- | --- | ---
 background-color | `String` | `null` |
 border-color | `String` | `null` |
 border-left-color | `String` | `null` | Overrides border-color for the left border.
 color | `String` | `null` | Color of the text.
+dismissible | `Boolean` | `false` | Adds a button to close the box to the top right corner.
 icon | `String` | `null` |
 type | `String` | `'none'` | Supports: `info`, `warning`, `success`, `important`, `wrong`, `tip`, `definition`, or empty for default.
 
