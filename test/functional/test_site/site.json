@@ -51,6 +51,10 @@
     {
       "src": "testAnchorGeneration.md",
       "title": "Anchor Generation Test"
+    },
+    {
+      "src": "testThumbnails.md",
+      "title": "Thumbnails Test"
     }
   ],
   "ignore": [
