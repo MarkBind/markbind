@@ -44,6 +44,7 @@
   questions : ['Questions', ['component', 'reader-facing']],
   siteNavigationMenus : ['Site Navigation Menus', ['component', 'reader-facing']],
   tabs : ['Tabs', ['component', 'reader-facing']],
+  thumbnails : ['Thumbnails', ['component', 'reader-facing']],
   tooltips : ['Tooltips', ['component', 'reader-facing']]
 } %}
 

@@ -240,6 +240,37 @@
       "layout": "default",
       "globalOverrideProperty": "Overridden by global override",
       "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+    },
+    {
+      "headings": {
+        "thumbnail-test": "Thumbnail test",
+        "images": "Images",
+        "square-thumb-size-100-default": "Square thumb, size = 100 (default)",
+        "square-thumb-with-alt-test": "Square thumb with alt=&quot;Test&quot;",
+        "square-thumb-size-200": "Square thumb, size = 200",
+        "circle-thumbs-size-100": "Circle thumbs, size = 100",
+        "an-actual-image": "An actual image",
+        "broken-link-still-takes-up-the-space-it-s-supposed-to": "Broken link, still takes up the space it's supposed to",
+        "borders": "Borders",
+        "background": "Background",
+        "valid-css-properties": "Valid CSS properties",
+        "invalid-css-properties": "Invalid CSS properties",
+        "empty": "Empty",
+        "text-emojis-icons": "Text/Emojis/Icons",
+        "text": "Text",
+        "markdown": "Markdown",
+        "emojis": "Emojis",
+        "icons": "Icons",
+        "font-size-font-color": "font-size/font-color",
+        "20px-font-size": "20px font-size",
+        "40px-font-size": "40px font-size",
+        "font-color": "font-color"
+      },
+      "src": "testThumbnails.md",
+      "title": "Thumbnails Test",
+      "layout": "default",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
     }
   ]
 }

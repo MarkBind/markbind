@@ -166,11 +166,30 @@ Parser.prototype.getMissingIncludeSrc = function () {
   return _.clone(this.missingIncludeSrc);
 };
 
+Parser.prototype._preprocessThumbnails = function (element) {
+  const isImage = _.hasIn(element.attribs, 'src') && element.attribs.src !== '';
+  if (isImage) {
+    return element;
+  }
+  const text = _.hasIn(element.attribs, 'text') ? element.attribs.text : '';
+  if (text === '') {
+    return element;
+  }
+  const renderedText = md.renderInline(text);
+  // eslint-disable-next-line no-param-reassign
+  element.children = cheerio.parseHTML(renderedText);
+  return element;
+};
+
 Parser.prototype._preprocess = function (node, context, config) {
   const element = node;
   const self = this;
   element.attribs = element.attribs || {};
   element.attribs[ATTRIB_CWF] = path.resolve(context.cwf);
+
+  if (element.name === 'thumbnail') {
+    return this._preprocessThumbnails(element);
+  }
 
   const requiresSrc = ['include'].includes(element.name);
   if (requiresSrc && _.isEmpty(element.attribs.src)) {
@@ -390,8 +409,12 @@ Parser.prototype.processDynamicResources = function (context, html) {
     xmlMode: false,
     decodeEntities: false,
   });
-  $('img, pic').each(function () {
+  $('img, pic, thumbnail').each(function () {
     const elem = $(this);
+    if (elem[0].name === 'thumbnail' && elem.attr('src') === undefined) {
+      // Thumbnail tag without src
+      return;
+    }
     const resourcePath = utils.ensurePosix(elem.attr('src'));
     if (resourcePath === undefined || resourcePath === '') {
       // Found empty img/pic resource in resourcePath
