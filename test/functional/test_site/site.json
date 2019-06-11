@@ -52,6 +52,10 @@
       "src": "testAnchorGeneration.md",
       "title": "Anchor Generation Test"
     },
+	{
+      "src": "testTooltipSpacing.mbd",
+      "title": "Tooltip Spacing Test"
+    },
     {
       "src": "testThumbnails.md",
       "title": "Thumbnails Test"

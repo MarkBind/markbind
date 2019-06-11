@@ -243,6 +243,16 @@
     },
     {
       "headings": {
+        "569-stray-space-after-tooltip": "569: Stray space after tooltip"
+      },
+      "src": "testTooltipSpacing.mbd",
+      "title": "Tooltip Spacing Test",
+      "layout": "default",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+    },
+    {
+      "headings": {
         "thumbnail-test": "Thumbnail test",
         "images": "Images",
         "square-thumb-size-100-default": "Square thumb, size = 100 (default)",
