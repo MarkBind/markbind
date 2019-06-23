@@ -27,6 +27,10 @@ const ATTRIB_CWF = 'cwf';
 
 const BOILERPLATE_FOLDER_NAME = '_markbind/boilerplates';
 
+const VARIABLE_LOOKUP = new Map();
+const FILE_ALIASES = new Map();
+const PROCESSED_INNER_VARIABLES = new Set();
+
 /*
  * Utils
  */
@@ -123,6 +127,18 @@ function extractIncludeVariables(includeElement, contextVariables) {
   return includedVariables;
 }
 
+function getImportedVariableMap(file) {
+  const innerVariables = {};
+  FILE_ALIASES.get(file).forEach((path, alias) => {
+    innerVariables[alias] = {};
+    const variables = VARIABLE_LOOKUP.get(path);
+    variables.forEach((value, name) => {
+      innerVariables[alias][name] = value;
+    });
+  });
+  return innerVariables;
+}
+
 /**
  * Extract page variables from a page
  * @param filename for error printing
@@ -133,6 +149,25 @@ function extractIncludeVariables(includeElement, contextVariables) {
 function extractPageVariables(fileName, data, userDefinedVariables, includedVariables) {
   const $ = cheerio.load(data);
   const pageVariables = { };
+  VARIABLE_LOOKUP.set(fileName, new Map());
+  /**
+   * <import>ed variables have not been processed yet, we replace such variables with itself first.
+   */
+  $('import[from]').each((index, element) => {
+    const variableNames = Object.keys(element.attribs)
+      .filter(name => name !== 'from' && name !== 'as');
+    // If no namespace is provided, we use the smallest name as one
+    const largestName = variableNames.sort()[0];
+    const alias = _.hasIn(element.attribs, 'as')
+      ? element.attribs['as']
+      : largestName;
+    pageVariables[alias] = new Proxy({}, {
+      get(obj, prop) {
+        return `{{${alias}.${prop}}}`;
+      },
+    });
+    variableNames.forEach(name => pageVariables[name] = `{{${alias}.${name}}}`);
+  });
   $('variable').each(function () {
     const variableElement = $(this);
     const variableName = variableElement.attr('name');
@@ -142,9 +177,11 @@ function extractPageVariables(fileName, data, userDefinedVariables, includedVari
       return;
     }
     if (!pageVariables[variableName]) {
-      pageVariables[variableName]
+      const variableValue
         = nunjucks.renderString(md.renderInline(variableElement.html()),
                                 { ...pageVariables, ...userDefinedVariables, ...includedVariables });
+      pageVariables[variableName] = variableValue;
+      VARIABLE_LOOKUP.get(fileName).set(variableName, variableValue);
     }
   });
   return pageVariables;
@@ -179,6 +216,73 @@ Parser.prototype._preprocessThumbnails = function (element) {
   // eslint-disable-next-line no-param-reassign
   element.children = cheerio.parseHTML(renderedText);
   return element;
+};
+
+Parser.prototype._prepreprocessInnerVariables = function (content, context, config) {
+  const { cwf } = context;
+  const $ = cheerio.load(content, {
+    xmlMode: false,
+    decodeEntities: false,
+  });
+  const self = this;
+  const aliases = new Map();
+  FILE_ALIASES.set(cwf, aliases);
+  $('import[from]').each((index, element) => {
+    const filePath = path.resolve(path.dirname(cwf), element.attribs.from);
+    const variableNames = Object.keys(element.attribs)
+      .filter(name => name !== 'from' && name !== 'as');
+    // If no namespace is provided, we use the smallest name as one
+    const largestName = variableNames.sort()[0];
+    const alias = _.hasIn(element.attribs, 'as')
+      ? element.attribs['as']
+      : largestName;
+
+    aliases.set(alias, filePath);
+    try {
+      self._fileCache[filePath] = self._fileCache[filePath]
+        ? self._fileCache[filePath] : fs.readFileSync(filePath, 'utf8');
+    } catch (e) {
+      // Read file fail
+      const missingReferenceErrorMessage = `Missing reference in: ${element.attribs[ATTRIB_CWF]}`;
+      e.message += `\n${missingReferenceErrorMessage}`;
+      self._onError(e);
+    }
+
+    let innerFileContent = self._fileCache[filePath]; // cache the file contents to save some I/O
+    const { parent, relative } = calculateNewBaseUrls(filePath, config.rootPath, config.baseUrlMap);
+    const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
+
+    // Extract included variables from the PARENT file
+    const includeVariables = extractIncludeVariables(element, context.variables);
+
+    // Extract page variables from the CHILD filere
+    const pageVariables = extractPageVariables(filePath, innerFileContent,
+                                               userDefinedVariables, includeVariables);
+
+    // Render inner file content
+    innerFileContent = nunjucks.renderString(innerFileContent,
+                                             {
+                                               ...pageVariables,
+                                               ...includeVariables,
+                                               ...userDefinedVariables,
+                                             },
+                                             { path: filePath });
+    const childContext = _.cloneDeep(context);
+    childContext.cwf = filePath;
+    childContext.variables = includeVariables;
+    if (!PROCESSED_INNER_VARIABLES.has(filePath)) {
+      PROCESSED_INNER_VARIABLES.add(filePath);
+      this._prepreprocessInnerVariables(innerFileContent, childContext, config);
+    }
+    const innerVariables = getImportedVariableMap(filePath);
+    VARIABLE_LOOKUP.get(filePath).forEach((value, variableName, map) => {
+      map.set(variableName, nunjucks.renderString(value, {
+        ...userDefinedVariables,
+        ...pageVariables,
+        ...innerVariables,
+      }));
+    });
+  });
 };
 
 Parser.prototype._preprocess = function (node, context, config) {
@@ -290,13 +394,26 @@ Parser.prototype._preprocess = function (node, context, config) {
     const includeVariables = extractIncludeVariables(element, context.variables);
 
     // Extract page variables from the CHILD file
-    const pageVariables = extractPageVariables(element.attribs.src, fileContent,
+    const pageVariables = extractPageVariables(filePath, fileContent,
                                                userDefinedVariables, includeVariables);
 
     // Render inner file content
     fileContent = nunjucks.renderString(fileContent,
                                         { ...pageVariables, ...includeVariables, ...userDefinedVariables },
                                         { path: actualFilePath });
+    // The element's children are in the new context
+    // Process with new context
+    const childContext = _.cloneDeep(context);
+    childContext.cwf = filePath;
+    childContext.source = isIncludeSrcMd ? 'md' : 'html';
+    childContext.callStack.push(context.cwf);
+    childContext.variables = includeVariables;
+    if (!PROCESSED_INNER_VARIABLES.has(filePath)) {
+      PROCESSED_INNER_VARIABLES.add(filePath);
+      this._prepreprocessInnerVariables(fileContent, childContext, config);
+    }
+    const innerVariables = getImportedVariableMap(filePath);
+    fileContent = nunjucks.renderString(fileContent, { ...userDefinedVariables, ...innerVariables });
 
     // Delete variable attributes in include
     Object.keys(element.attribs).forEach((attribute) => {
@@ -365,14 +482,6 @@ Parser.prototype._preprocess = function (node, context, config) {
       );
     }
 
-    // The element's children are in the new context
-    // Process with new context
-    const childContext = _.cloneDeep(context);
-    childContext.cwf = filePath;
-    childContext.source = isIncludeSrcMd ? 'md' : 'html';
-    childContext.callStack.push(context.cwf);
-    childContext.variables = includeVariables;
-
     if (element.children && element.children.length > 0) {
       if (childContext.callStack.length > CyclicReferenceError.MAX_RECURSIVE_DEPTH) {
         const error = new CyclicReferenceError(childContext.callStack);
@@ -388,7 +497,7 @@ Parser.prototype._preprocess = function (node, context, config) {
     element.attribs.src = filePath;
     this.dynamicIncludeSrc.push({ from: context.cwf, to: actualFilePath, asIfTo: filePath });
     return element;
-  } else if (element.name === 'variable') {
+  } else if (element.name === 'variable' || element.name === 'import') {
     return createEmptyNode();
   } else {
     if (element.name === 'body') {
@@ -566,7 +675,7 @@ Parser.prototype.includeFile = function (file, config) {
         try {
           processed = this._preprocess(d, context, config);
         } catch (err) {
-          err.message += `\nError while preprocessing '${file}'`;
+          err.message += `${err.stack}\nError while preprocessing '${file}'`;
           this._onError(err);
           processed = createErrorNode(d, err);
         }
@@ -596,10 +705,14 @@ Parser.prototype.includeFile = function (file, config) {
       }
       const { parent, relative } = calculateNewBaseUrls(file, config.rootPath, config.baseUrlMap);
       const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
-      const pageVariables = extractPageVariables(path.basename(file), data, userDefinedVariables, {});
-      const fileContent = nunjucks.renderString(data,
-                                                { ...pageVariables, ...userDefinedVariables },
-                                                { path: actualFilePath });
+      const pageVariables = extractPageVariables(file, data, userDefinedVariables, {});
+
+      let fileContent = nunjucks.renderString(data,
+                                              { ...pageVariables, ...userDefinedVariables },
+                                              { path: actualFilePath });
+      this._prepreprocessInnerVariables(fileContent, context, config);
+      const innerVariables = getImportedVariableMap(context.cwf);
+      fileContent = nunjucks.renderString(fileContent, { ...userDefinedVariables, ...innerVariables });
       const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
         context.source = 'md';
