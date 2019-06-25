@@ -1,0 +1,1 @@
+<variable name = "variable"> This is a deeply imported variable </variable>
