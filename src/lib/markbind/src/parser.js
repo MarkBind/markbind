@@ -129,9 +129,9 @@ function extractIncludeVariables(includeElement, contextVariables) {
 
 function getImportedVariableMap(file) {
   const innerVariables = {};
-  FILE_ALIASES.get(file).forEach((path, alias) => {
+  FILE_ALIASES.get(file).forEach((actualPath, alias) => {
     innerVariables[alias] = {};
-    const variables = VARIABLE_LOOKUP.get(path);
+    const variables = VARIABLE_LOOKUP.get(actualPath);
     variables.forEach((value, name) => {
       innerVariables[alias][name] = value;
     });
@@ -159,14 +159,16 @@ function extractPageVariables(fileName, data, userDefinedVariables, includedVari
     // If no namespace is provided, we use the smallest name as one
     const largestName = variableNames.sort()[0];
     const alias = _.hasIn(element.attribs, 'as')
-      ? element.attribs['as']
+      ? element.attribs.as
       : largestName;
     pageVariables[alias] = new Proxy({}, {
       get(obj, prop) {
         return `{{${alias}.${prop}}}`;
       },
     });
-    variableNames.forEach(name => pageVariables[name] = `{{${alias}.${name}}}`);
+    variableNames.forEach((name) => {
+      pageVariables[name] = `{{${alias}.${name}}}`;
+    });
   });
   $('variable').each(function () {
     const variableElement = $(this);
@@ -234,7 +236,7 @@ Parser.prototype._prepreprocessInnerVariables = function (content, context, conf
     // If no namespace is provided, we use the smallest name as one
     const largestName = variableNames.sort()[0];
     const alias = _.hasIn(element.attribs, 'as')
-      ? element.attribs['as']
+      ? element.attribs.as
       : largestName;
 
     aliases.set(alias, filePath);
