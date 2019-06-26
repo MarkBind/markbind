@@ -3,6 +3,7 @@
 **A _layout_ is a set of page-tweaks that can be applied to a page (or group of pages) in one go.**
 
 A layout consists of the following files:
+1. A header (filename: `header.md`)
 1. A footer (filename: `footer.md`)
 1. Tweaks to the `<head>` (`head.md`)
 1. A site navigation menu (`navigation.md`)
@@ -20,6 +21,7 @@ To apply the layout, specify it as an attribute named `layout` in the `<frontmat
 ```
 <root>/_markbind/layouts/
                   └── chapterLayout/
+                        ├── header.md
                         ├── footer.md
                         ├── head.md
                         ├── navigation.md
