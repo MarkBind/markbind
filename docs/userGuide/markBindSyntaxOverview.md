@@ -57,6 +57,7 @@ MarkBind adds several Markdown-like features on top of GFMD.
 <panel type="seamless" header="Some examples ...">
 <include src="syntax/textStyles.mbdf#main-example-markbind" />
 <include src="syntax/lists.mbdf#main-example-markbind" />
+<include src="syntax/footnotes.mbdf#main-example-markbind" />
 </panel>
 
 <!-- ======================================================================================================= -->
