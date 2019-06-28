@@ -43,6 +43,7 @@ note.]
 </span>
 
 <span id="short" class="d-none">
+
 ```html
 **Normal footnotes:**
 Here is a footnote reference,[^1] and another.[^longnote]
