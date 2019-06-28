@@ -271,6 +271,23 @@
       "layout": "default",
       "globalOverrideProperty": "Overridden by global override",
       "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+    },
+    {
+      "headings": {
+        "plantuml-test": "PlantUML Test",
+        "sequence-diagram": "Sequence Diagram",
+        "use-case-diagram": "Use Case Diagram",
+        "class-diagram": "Class Diagram",
+        "activity-diagram": "Activity Diagram",
+        "component-diagram": "Component Diagram",
+        "state-diagram": "State Diagram",
+        "object-diagram": "Object Diagram"
+      },
+      "src": "testPlantUML.md",
+      "title": "PlantUML Test",
+      "layout": "default",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
     }
   ]
 }
