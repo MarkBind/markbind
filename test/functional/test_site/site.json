@@ -59,6 +59,10 @@
     {
       "src": "testThumbnails.md",
       "title": "Thumbnails Test"
+    },
+    {
+      "src": "testPlantUML.md",
+      "title": "PlantUML Test"
     }
   ],
   "ignore": [

@@ -41,4 +41,4 @@
 </panel>
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('markBindSyntaxOverview', 'usingComponents') }}
+{{ previous_next('markBindSyntaxOverview', 'puml') }}

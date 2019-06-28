@@ -1,6 +1,6 @@
 const path = require('path');
 
-const sourceFileExtNames = ['.html', '.md', '.mbd', '.mbdf'];
+const sourceFileExtNames = ['.html', '.md', '.mbd', '.mbdf', '.puml'];
 
 module.exports = {
   isSourceFile(filePath) {

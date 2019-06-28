@@ -859,6 +859,8 @@ Page.prototype.getPluginConfig = function () {
     searchable: this.searchable,
     rootPath: this.rootPath,
     sourcePath: this.sourcePath,
+    includedFiles: this.includedFiles,
+    resultPath: this.resultPath,
   };
 };
 
