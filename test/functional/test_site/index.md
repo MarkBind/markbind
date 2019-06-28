@@ -14,6 +14,10 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 <div class="website-content">
 
+# Test footnotes
+
+<include src="testFootnotes.md" />
+
 # Variables that reference another variable
 {{finalized_value}}
 

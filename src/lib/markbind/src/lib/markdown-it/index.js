@@ -29,7 +29,8 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('./markdown-it-dimmed'))
   .use(require('./markdown-it-radio-button'))
   .use(require('./markdown-it-block-embed'))
-  .use(require('./markdown-it-icons'));
+  .use(require('./markdown-it-icons'))
+  .use(require('./markdown-it-footnotes'));
 
 // fix link
 markdownIt.normalizeLink = require('./normalizeLink');

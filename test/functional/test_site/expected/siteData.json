@@ -40,6 +40,7 @@
         "panel-content-of-inner-nested-panel": "Panel content of inner nested panel",
         "panel-content-of-outer-nested-panel": "Panel content of outer nested panel",
         "feature-list": "Feature list",
+        "test-footnotes": "Test footnotes",
         "variables-that-reference-another-variable": "Variables that reference another variable",
         "page-variable": "Page Variable",
         "page-variable-with-html-and-md": "Page Variable with HTML and MD",

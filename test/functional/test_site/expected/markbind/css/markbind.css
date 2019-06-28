@@ -197,3 +197,9 @@ so we apply temporary styles to fix the layout until Vue correctly updates the D
 .temp-dropdown {
     display: none;
 }
+
+/* Footnote anchor */
+
+li.footnote-item:target {
+    background-color: #eee;
+}

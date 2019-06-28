@@ -143,6 +143,16 @@
       </nav>
       <div id="content-wrapper">
         <div class="website-content">
+          <h1 id="test-footnotes">Test footnotes<a class="fa fa-anchor" href="#test-footnotes"></a></h1>
+          <div>
+            <p><strong>Normal footnotes:</strong> Here is a footnote reference,
+              <trigger for="pop:footnote1"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#footnote1" id="footnoteref1">[1]</a></sup></trigger> and another.
+              <trigger for="pop:footnote2"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#footnote2" id="footnoteref2">[2]</a></sup></trigger>
+            </p>
+            <p><strong>Inline footnotes:</strong> Here is an inline note.
+              <trigger for="pop:footnote3"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#footnote3" id="footnoteref3">[3]</a></sup></trigger>
+            </p>
+          </div>
           <h1 id="variables-that-reference-another-variable">Variables that reference another variable<a class="fa fa-anchor" href="#variables-that-reference-another-variable"></a></h1>
           <p>This variable can be referenced.</p>
           <p>References can be several levels deep.</p>
@@ -457,11 +467,53 @@ specification that specifies how the product will address the requirements. </sp
         <h1 id="test-search-indexing">Test search indexing<a class="fa fa-anchor" href="#test-search-indexing"></a></h1>
         <h2 class="no-index" id="level-2-header-inside-headingsearchindex-with-no-index-attribute-should-not-be-indexed">Level 2 header (inside headingSearchIndex) with no-index attribute should not be indexed<a class="fa fa-anchor" href="#level-2-header-inside-headingsearchindex-with-no-index-attribute-should-not-be-indexed"></a></h2>
         <h6 class="always-index" id="level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed">Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed<a class="fa fa-anchor" href="#level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed"></a></h6>
+        <hr class="footnotes-sep">
+        <section class="footnotes">
+          <ol class="footnotes-list">
+            <li id="footnote1" class="footnote-item">
+              <p>Here is the footnote. Footnotes will appear at the bottom of the page.</p>
+            </li>
+            <li id="footnote2" class="footnote-item">
+              <p>Here's one with multiple blocks.</p>
+              <p>Subsequent paragraphs are indented to show that they belong to the previous footnote.</p>
+            </li>
+            <li id="footnote3" class="footnote-item">
+              <p>Inlines notes are easier to write, since you don't have to pick an identifier and move down to type the note.
+              </p>
+            </li>
+          </ol>
+          <popover id="pop:footnote1">
+            <div slot="content">
+              <trigger for="pop:footnote1">
+                <p>Here is the footnote. Footnotes will appear at the bottom of the page.</p>
+              </trigger>
+            </div>
+          </popover>
+
+          <popover id="pop:footnote2">
+            <div slot="content">
+              <trigger for="pop:footnote2">
+                <p>Here's one with multiple blocks.</p>
+                <p>Subsequent paragraphs are indented to show that they belong to the previous footnote.</p>
+              </trigger>
+            </div>
+          </popover>
+
+          <popover id="pop:footnote3">
+            <div slot="content">
+              <trigger for="pop:footnote3">
+                <p>Inlines notes are easier to write, since you don't have to pick an identifier and move down to type the note.
+                </p>
+              </trigger>
+            </div>
+          </popover>
+        </section>
       </div>
       <nav id="page-nav" class="navbar navbar-light bg-transparent">
         <div class="border-left-grey nav-inner position-sticky slim-scroll">
           <a class="navbar-brand page-nav-title" href="#">Testing Page Navigation</a>
           <nav class="nav nav-pills flex-column my-0 small no-flex-wrap">
+            <a class="nav-link py-1" href="#test-footnotes">Test footnotes&#x200E;</a>
             <a class="nav-link py-1" href="#variables-that-reference-another-variable">Variables that reference another variable&#x200E;</a>
             <a class="nav-link py-1" href="#page-variable">Page Variable&#x200E;</a>
             <a class="nav-link py-1" href="#page-variable-with-html-and-md">Page Variable with HTML and MD&#x200E;</a>
