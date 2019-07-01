@@ -1,3 +1,8 @@
+/**
+ * Parses PlantUML diagrams
+ * Replaces <puml> tags with <pic> tags with the appropriate src attribute and generates the diagrams
+ * by running the JAR executable
+ */
 const cheerio = module.parent.require('cheerio');
 const fs = require('fs');
 const path = require('path');
@@ -12,26 +17,24 @@ const ERR_READING = 'Error reading';
 // Tracks diagrams that have already been processed
 const processedDiagrams = new Set();
 
-
-/**
- * Parses PlantUML diagrams
- * Replaces <puml> tags with <pic> tags with the appropriate src attribute
- */
-
 /**
  * Generates diagram and replaces src attribute of puml tag
- * @param src
- * @param config
+ * @param src src attribute of the puml tag
+ * @param cwf original file that contains the puml tag, we resolve relative src to this file
+ * @param config sourcePath and resultPath from parser context
  * @returns {string} resolved src attribute
  */
-function generateDiagram(src, config) {
+function generateDiagram(src, cwf, config) {
   const { sourcePath, resultPath } = config;
+  const _cwf = cwf || sourcePath;
+
   // For replacing img.src
   const diagramSrc = src.replace('.puml', '.png');
   // Path of the .puml file
-  const rawDiagramPath = path.resolve(path.dirname(sourcePath), src);
+  const rawDiagramPath = path.resolve(path.dirname(_cwf), src);
   // Path of the .png to be generated
-  const outputFilePath = path.resolve(path.dirname(resultPath), diagramSrc);
+  const outputFilePath = path.resolve(resultPath, path.relative(sourcePath, rawDiagramPath)
+    .replace('.puml', '.png'));
   // Output dir for the png file
   const outputDir = path.dirname(outputFilePath);
 
@@ -99,9 +102,9 @@ module.exports = {
     $('puml').each((i, tag) => {
       // eslint-disable-next-line no-param-reassign
       tag.name = 'pic';
-      const { src } = tag.attribs;
+      const { src, cwf } = tag.attribs;
       // eslint-disable-next-line no-param-reassign
-      tag.attribs.src = generateDiagram(src, config);
+      tag.attribs.src = generateDiagram(src, cwf, config);
     });
 
     return $.html();
