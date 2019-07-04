@@ -4,6 +4,8 @@ const fs = require('fs-extra-promise');
 const ghpages = require('gh-pages');
 const ignore = require('ignore');
 const nunjucks = require('nunjucks');
+
+nunjucks.configure({ autoescape: true });
 const path = require('path');
 const Promise = require('bluebird');
 const ProgressBar = require('progress');

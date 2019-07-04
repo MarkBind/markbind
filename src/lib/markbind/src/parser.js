@@ -2,6 +2,8 @@ const cheerio = require('cheerio');
 const fs = require('fs');
 const htmlparser = require('htmlparser2');
 const nunjucks = require('nunjucks');
+
+nunjucks.configure({ autoescape: true });
 const path = require('path');
 const pathIsInside = require('path-is-inside');
 const Promise = require('bluebird');

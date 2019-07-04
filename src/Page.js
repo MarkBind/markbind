@@ -3,6 +3,8 @@ const fm = require('fastmatter');
 const fs = require('fs-extra-promise');
 const htmlBeautify = require('js-beautify').html;
 const nunjucks = require('nunjucks');
+
+nunjucks.configure({ autoescape: true });
 const path = require('path');
 const pathIsInside = require('path-is-inside');
 const Promise = require('bluebird');
