@@ -677,7 +677,7 @@ Parser.prototype.includeFile = function (file, config) {
         try {
           processed = this._preprocess(d, context, config);
         } catch (err) {
-          err.message += `${err.stack}\nError while preprocessing '${file}'`;
+          err.message += `\nError while preprocessing '${file}'`;
           this._onError(err);
           processed = createErrorNode(d, err);
         }
