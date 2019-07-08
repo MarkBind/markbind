@@ -220,7 +220,7 @@ Parser.prototype._preprocessThumbnails = function (element) {
   return element;
 };
 
-Parser.prototype._prepreprocessInnerVariables = function (content, context, config) {
+Parser.prototype._extractInnerVariables = function (content, context, config) {
   const { cwf } = context;
   const $ = cheerio.load(content, {
     xmlMode: false,
@@ -274,7 +274,7 @@ Parser.prototype._prepreprocessInnerVariables = function (content, context, conf
     childContext.variables = includeVariables;
     if (!PROCESSED_INNER_VARIABLES.has(filePath)) {
       PROCESSED_INNER_VARIABLES.add(filePath);
-      this._prepreprocessInnerVariables(innerFileContent, childContext, config);
+      this._extractInnerVariables(innerFileContent, childContext, config);
     }
     const innerVariables = getImportedVariableMap(filePath);
     VARIABLE_LOOKUP.get(filePath).forEach((value, variableName, map) => {
@@ -412,7 +412,7 @@ Parser.prototype._preprocess = function (node, context, config) {
     childContext.variables = includeVariables;
     if (!PROCESSED_INNER_VARIABLES.has(filePath)) {
       PROCESSED_INNER_VARIABLES.add(filePath);
-      this._prepreprocessInnerVariables(fileContent, childContext, config);
+      this._extractInnerVariables(fileContent, childContext, config);
     }
     const innerVariables = getImportedVariableMap(filePath);
     fileContent = nunjucks.renderString(fileContent, { ...userDefinedVariables, ...innerVariables });
@@ -712,7 +712,7 @@ Parser.prototype.includeFile = function (file, config) {
       let fileContent = nunjucks.renderString(data,
                                               { ...pageVariables, ...userDefinedVariables },
                                               { path: actualFilePath });
-      this._prepreprocessInnerVariables(fileContent, context, config);
+      this._extractInnerVariables(fileContent, context, config);
       const innerVariables = getImportedVariableMap(context.cwf);
       fileContent = nunjucks.renderString(fileContent, { ...userDefinedVariables, ...innerVariables });
       const fileExt = utils.getExt(file);
