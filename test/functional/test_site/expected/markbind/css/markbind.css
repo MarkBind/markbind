@@ -198,28 +198,31 @@ so we apply temporary styles to fix the layout until Vue correctly updates the D
     display: none;
 }
 
-/* Hide the contents of unexpanded panels*/
-
+/* Hide the contents of unexpanded panels */
+/* stylelint-disable */
 panel:not([expanded]) {
+    /* stylelint-enable */
     visibility: hidden;
     height: 50px;
     display: block;
 }
 
+/* stylelint-disable */
 panel:not([expanded])::before {
+    /* stylelint-enable */
     content: attr(header);
     visibility: visible;
     position: relative;
-    display:block;
+    display: block;
 
     /* Below values are copied from the final rendered styles */
 
     margin-top: 5px;
-    padding: .75rem 1.25rem;
+    padding: 0.75rem 1.25rem;
     margin-bottom: 0;
-    background-color: rgba(0,0,0,.03);
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: .25rem;
+    background-color: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
 }
 
 /* Footnote anchor */
