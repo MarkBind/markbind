@@ -266,7 +266,8 @@ panel[type=info]:not([expanded])::before {
     border-color: var(--info);
 }
 
-panel[type=light]:not([expanded])::before {
+panel[type=light]:not([expanded])::before,
+panel:not([type]):not([expanded])::before {
     color: black;
     background-color: var(--light);
 }
