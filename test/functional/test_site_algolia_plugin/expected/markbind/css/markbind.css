@@ -201,28 +201,83 @@ so we apply temporary styles to fix the layout until Vue correctly updates the D
 /* Hide the contents of unexpanded panels */
 /* stylelint-disable */
 panel:not([expanded]) {
-    /* stylelint-enable */
     visibility: hidden;
-    height: 50px;
     display: block;
 }
 
-/* stylelint-disable */
-panel:not([expanded])::before {
-    /* stylelint-enable */
-    content: attr(header);
+panel:not([expanded]):not([minimized])::before {
+    content: "Loading...";
+    color: white;
     visibility: visible;
     position: relative;
-    display: block;
-
-    /* Below values are copied from the final rendered styles */
-
     margin-top: 5px;
     padding: 0.75rem 1.25rem;
     margin-bottom: 0;
-    background-color: rgba(0, 0, 0, 0.03);
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 0.25rem;
+    line-height: 1.5;
+    height: 52.85px;
+    display: block;
+}
+
+panel[minimized]::before {
+    content: "";
+    color: white;
+    visibility: visible;
+    position: relative;
+    height: 37.5px;
+    margin-top: 0;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    display: inline-block;
+}
+
+panel[type=seamless]:not([expanded])::before {
+    color: black;
+    background-color: transparent;
+    border: 0;
+}
+
+panel[type=primary]:not([expanded])::before {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+panel[type=secondary]:not([expanded])::before {
+    background-color: var(--secondary);
+    border-color: var(--secondary);
+}
+
+panel[type=success]:not([expanded])::before {
+    background-color: var(--success);
+    border-color: var(--success);
+}
+
+panel[type=warning]:not([expanded])::before {
+    background-color: var(--warning);
+    border-color: var(--warning);
+}
+
+panel[type=danger]:not([expanded])::before {
+    background-color: var(--danger);
+    border-color: var(--danger);
+}
+
+panel[type=info]:not([expanded])::before {
+    background-color: var(--info);
+    border-color: var(--info);
+}
+
+panel[type=light]:not([expanded])::before {
+    color: black;
+    background-color: var(--light);
+}
+
+panel[type=dark]:not([expanded])::before {
+    background-color: var(--dark);
+    border-color: var(--dark);
+}
+
+panel[minimized]:not([expanded])::before {
+    background-color: var(--light);
 }
 
 /* Footnote anchor */
