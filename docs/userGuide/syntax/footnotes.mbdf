@@ -1,3 +1,5 @@
+## Footnotes
+
 <span id="main-example-markbind">
 <include src="outputBox.md" boilerplate >
 <span id="code">
@@ -56,5 +58,5 @@ belong to the previous footnote.
 ```
 </span>
 <span id="examples" class="d-none">
-This is not updated
+1 + 1 = 2 ^[Math]
 </span>
