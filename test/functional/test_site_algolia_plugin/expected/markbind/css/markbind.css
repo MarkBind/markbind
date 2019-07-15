@@ -199,6 +199,7 @@ so we apply temporary styles to fix the layout until Vue correctly updates the D
 }
 
 /* Hide the contents of unexpanded panels */
+/* stylelint-disable selector-type-no-unknown */
 panel:not([expanded]):not([minimized]) {
     visibility: hidden;
     display: block;
@@ -283,6 +284,7 @@ panel[type=dark]:not([expanded])::before {
 panel[minimized]:not([expanded])::before {
     background-color: var(--light);
 }
+/* stylelint-enable selector-type-no-unknown */
 
 /* Footnote anchor */
 
