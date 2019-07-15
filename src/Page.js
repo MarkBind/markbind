@@ -3,8 +3,6 @@ const fm = require('fastmatter');
 const fs = require('fs-extra-promise');
 const htmlBeautify = require('js-beautify').html;
 const nunjucks = require('nunjucks');
-
-nunjucks.configure({ autoescape: true });
 const path = require('path');
 const pathIsInside = require('path-is-inside');
 const Promise = require('bluebird');
@@ -51,6 +49,7 @@ const TEMP_DROPDOWN_PLACEHOLDER_CLASS = 'temp-dropdown-placeholder';
 
 cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
+nunjucks.configure({ autoescape: true });
 
 function Page(pageConfig) {
   this.asset = pageConfig.asset;

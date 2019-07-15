@@ -4,8 +4,6 @@ const fs = require('fs-extra-promise');
 const ghpages = require('gh-pages');
 const ignore = require('ignore');
 const nunjucks = require('nunjucks');
-
-nunjucks.configure({ autoescape: true });
 const path = require('path');
 const Promise = require('bluebird');
 const ProgressBar = require('progress');
@@ -64,6 +62,8 @@ const LAYOUT_SITE_FOLDER_NAME = 'layouts';
 const USER_VARIABLES_PATH = '_markbind/variables.md';
 const WIKI_SITE_NAV_PATH = '_Sidebar.md';
 const WIKI_FOOTER_PATH = '_Footer.md';
+
+nunjucks.configure({ autoescape: true });
 
 function getBootswatchThemePath(theme) {
   return path.join(__dirname, '..', 'node_modules', 'bootswatch', 'dist', theme, 'bootstrap.min.css');

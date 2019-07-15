@@ -2,8 +2,6 @@ const cheerio = require('cheerio');
 const fs = require('fs');
 const htmlparser = require('htmlparser2');
 const nunjucks = require('nunjucks');
-
-nunjucks.configure({ autoescape: true });
 const path = require('path');
 const pathIsInside = require('path-is-inside');
 const Promise = require('bluebird');
@@ -23,6 +21,7 @@ const utils = require('./utils');
 
 cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
+nunjucks.configure({ autoescape: true });
 
 const ATTRIB_INCLUDE_PATH = 'include-path';
 const ATTRIB_CWF = 'cwf';
