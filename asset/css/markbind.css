@@ -199,22 +199,27 @@ so we apply temporary styles to fix the layout until Vue correctly updates the D
 }
 
 /* Hide the contents of unexpanded panels */
-/* stylelint-disable */
-panel:not([expanded]) {
+panel:not([expanded]):not([minimized]) {
     visibility: hidden;
     display: block;
+    height: 53px;
+}
+
+panel[minimized] {
+    visibility: hidden;
+    display: inline-block;
+    height: 38px;
 }
 
 panel:not([expanded]):not([minimized])::before {
     content: "Loading...";
     color: white;
     visibility: visible;
-    position: relative;
     margin-top: 5px;
     padding: 0.75rem 1.25rem;
     margin-bottom: 0;
     line-height: 1.5;
-    height: 52.85px;
+    height: 53px;
     display: block;
 }
 
@@ -222,12 +227,10 @@ panel[minimized]::before {
     content: "";
     color: white;
     visibility: visible;
-    position: relative;
-    height: 37.5px;
-    margin-top: 0;
+    height: 38px;
     padding: 0.75rem 1.25rem;
-    margin-bottom: 0;
     display: inline-block;
+    border: #0b2e13;
 }
 
 panel[type=seamless]:not([expanded])::before {
