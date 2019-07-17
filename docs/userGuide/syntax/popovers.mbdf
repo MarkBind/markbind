@@ -127,6 +127,8 @@ More about <trigger for="pop:trigger_id">trigger</trigger>.
 <popover id="pop:trigger_id" content="This popover is triggered by a trigger"></popover>
 <br>
 This is the same <trigger for="pop:trigger_id">trigger</trigger> as last one.
+<br>
+<popover content="You can select me!">This popover's content can be interacted with.</popover>
 ```
 </span>
 <span id="output">
@@ -135,6 +137,22 @@ More about <trigger for="pop:trigger_id">trigger</trigger>.
 <popover id="pop:trigger_id" content="This popover is triggered by a trigger"></popover>
 <br>
 This is the same <trigger for="pop:trigger_id">trigger</trigger> as last one.
+<br>
+<popover content="You can select me!">This popover's content can be interacted with.</popover>
+</span>
+</include>
+
+**Hoverable popovers:**<br>
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```html
+<popover content="You can select me!" hoverable>This popover's content can be interacted with.</popover>
+```
+</span>
+<span id="output">
+<popover content="You can select me!" hoverable>This popover's content can be interacted with.</popover>
 </span>
 </include>
 
@@ -152,7 +170,7 @@ title | `String` | `''` | Popover title, supports inline markdown text.
 content | `String` | `''` | Popover content, supports inline markdown text.
 header | `Boolean` | `true` |	Whether to show the header.
 placement | `String` | `top` | How to position the Popover.<br>Supports: `top`, `left`, `right`, `bottom`.
-
+hoverable | `Boolean` | `false` | Whether the content of the popover can be hovered over and interacted with
 
 <span id="short" class="d-none">
 

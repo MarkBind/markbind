@@ -100,6 +100,22 @@ More about <trigger for="tt:trigger_id">trigger</trigger>.
 <tooltip id="tt:trigger_id" content="This tooltip triggered by a trigger"></tooltip>
 <br>
 This is the same <trigger for="tt:trigger_id">trigger</trigger> as last one.
+<br>
+<tooltip content="You can select me!">This tooltip's content can be interacted with.</tooltip>
+</span>
+</include>
+
+**Hoverable tooltips:**<br>
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```html
+<tooltip content="You can select me!" hoverable>This tooltip</tooltip>'s content can be interacted with.
+```
+</span>
+<span id="output">
+<tooltip content="You can select me!" hoverable>This tooltip</tooltip>'s content can be interacted with.
 </span>
 </include>
 
@@ -114,7 +130,7 @@ Name | Type | Default | Description
 trigger	| `String` | `hover` | How the tooltip is triggered.<br>Supports: `click`, `focus`, `hover`, `contextmenu`.
 content | `String` | `''` | Text content of the tooltip.
 placement | `String` | `top` | How to position the tooltip.<br>Supports: `top`, `left`, `right`, `bottom`.
-
+hoverable | `Boolean` | `false` | Whether the content of the popover can be tooltip over and interacted with
 
 <span id="short" class="d-none">
 
