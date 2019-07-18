@@ -284,6 +284,11 @@ panel[type=dark]:not([expanded])::before {
 panel[minimized]:not([expanded])::before {
     background-color: var(--light);
 }
+
+/* increasing specificity */
+#flex-body panel:not([expanded]) panel {
+    display: none;
+}
 /* stylelint-enable selector-type-no-unknown */
 
 /* Footnote anchor */
