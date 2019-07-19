@@ -201,43 +201,43 @@ so we apply temporary styles to fix the layout until Vue correctly updates the D
 /* Hide the contents of unexpanded panels */
 /* stylelint-disable selector-type-no-unknown */
 panel:not([expanded]):not([minimized]) {
-    visibility: hidden;
     display: block;
     height: 53px;
+    visibility: hidden;
 }
 
 panel[minimized] {
-    visibility: hidden;
     display: inline-block;
     height: 38px;
+    visibility: hidden;
 }
 
 panel:not([expanded]):not([minimized])::before {
-    content: "Loading...";
     color: white;
-    visibility: visible;
+    content: "Loading...";
+    display: block;
+    height: 53px;
+    line-height: 1.5;
+    margin-bottom: 0;
     margin-top: 5px;
     padding: 0.75rem 1.25rem;
-    margin-bottom: 0;
-    line-height: 1.5;
-    height: 53px;
-    display: block;
+    visibility: visible;
 }
 
 panel[minimized]::before {
-    content: "";
+    border: #0b2e13;
     color: white;
-    visibility: visible;
+    content: "";
+    display: inline-block;
     height: 38px;
     padding: 0.75rem 1.25rem;
-    display: inline-block;
-    border: #0b2e13;
+    visibility: visible;
 }
 
 panel[type=seamless]:not([expanded])::before {
-    color: black;
     background-color: transparent;
     border: 0;
+    color: black;
 }
 
 panel[type=primary]:not([expanded])::before {
@@ -272,8 +272,8 @@ panel[type=info]:not([expanded])::before {
 
 panel[type=light]:not([expanded])::before,
 panel:not([type]):not([expanded])::before {
-    color: black;
     background-color: var(--light);
+    color: black;
 }
 
 panel[type=dark]:not([expanded])::before {
@@ -289,6 +289,7 @@ panel[minimized]:not([expanded])::before {
 #flex-body panel:not([expanded]) panel {
     display: none;
 }
+
 /* stylelint-enable selector-type-no-unknown */
 
 /* Footnote anchor */
