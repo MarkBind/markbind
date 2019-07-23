@@ -27,6 +27,7 @@ const ATTRIB_CWF = 'cwf';
 
 const BOILERPLATE_FOLDER_NAME = '_markbind/boilerplates';
 
+const PREFIX_TO_REDUCE_NAME_CLASH = '$__MARKBIND__';
 const VARIABLE_LOOKUP = new Map();
 const FILE_ALIASES = new Map();
 const PROCESSED_INNER_VARIABLES = new Set();
@@ -153,21 +154,23 @@ function extractPageVariables(fileName, data, userDefinedVariables, includedVari
   /**
    * <import>ed variables have not been processed yet, we replace such variables with itself first.
    */
+  const importedVariables = {};
   $('import[from]').each((index, element) => {
     const variableNames = Object.keys(element.attribs)
       .filter(name => name !== 'from' && name !== 'as');
-    // If no namespace is provided, we use the smallest name as one
+    // If no namespace is provided, we use the smallest name as one...
     const largestName = variableNames.sort()[0];
-    const alias = _.hasIn(element.attribs, 'as')
-      ? element.attribs.as
-      : largestName;
-    pageVariables[alias] = new Proxy({}, {
+    // ... and prepend it with $__MARKBIND__ to reduce collisions.
+    const generatedAlias = PREFIX_TO_REDUCE_NAME_CLASH + largestName;
+    const hasAlias = _.hasIn(element.attribs, 'as');
+    const alias = hasAlias ? element.attribs.as : generatedAlias;
+    importedVariables[alias] = new Proxy({}, {
       get(obj, prop) {
         return `{{${alias}.${prop}}}`;
       },
     });
     variableNames.forEach((name) => {
-      pageVariables[name] = `{{${alias}.${name}}}`;
+      importedVariables[name] = `{{${alias}.${name}}}`;
     });
   });
   $('variable').each(function () {
@@ -180,13 +183,17 @@ function extractPageVariables(fileName, data, userDefinedVariables, includedVari
     }
     if (!pageVariables[variableName]) {
       const variableValue
-        = nunjucks.renderString(md.renderInline(variableElement.html()),
-                                { ...pageVariables, ...userDefinedVariables, ...includedVariables });
+        = nunjucks.renderString(
+          md.renderInline(variableElement.html()),
+          {
+            ...importedVariables, ...pageVariables, ...userDefinedVariables, ...includedVariables,
+          },
+        );
       pageVariables[variableName] = variableValue;
       VARIABLE_LOOKUP.get(fileName).set(variableName, variableValue);
     }
   });
-  return pageVariables;
+  return { ...importedVariables, ...pageVariables };
 }
 
 Parser.prototype.getDynamicIncludeSrc = function () {
@@ -269,9 +276,11 @@ Parser.prototype._extractInnerVariables = function (content, context, config) {
       .filter(name => name !== 'from' && name !== 'as');
     // If no namespace is provided, we use the smallest name as one
     const largestName = variableNames.sort()[0];
+    // ... and prepend it with $__MARKBIND__ to reduce collisions.
+    const generatedAlias = PREFIX_TO_REDUCE_NAME_CLASH + largestName;
     const alias = _.hasIn(element.attribs, 'as')
       ? element.attribs.as
-      : largestName;
+      : generatedAlias;
 
     aliases.set(alias, filePath);
 
