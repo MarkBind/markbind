@@ -107,25 +107,31 @@ Note: These variables will not be applied to [`<include>` files]({{ baseUrl }}/u
 
 **You can access [page variables](#page-variables) from another page by importing them.**
 
-`page.md:`
+
+{{ icon_example }} Importing specific variables from `person.md` into `coverpage.md`:
+`person.md`:
 ```html
 <variable name="address">123 Sun Avenue</variable>
 <variable name="name">Mark</variable>
 <variable name="phone">123456789</variable>
 ```
 
-{{ icon_example }} Importing page variables from above `page.md`:
+`coverpage.md`:
 
 ```html
-<import address name phone from="page.md"/>
+<import address name from="page.md"/>
+
 ```
 
 will allow you to access the variables as per normal: <code>{<span></span>{address}}</code>, <code>{<span></span>{name}}</code>, <code>{<span></span>{phone}}</code>.
 
 ---
 
-{{ icon_example }} If you have many variables that you want to import, consider using a namespace:
+**When importing all variables, you should attach a _namespace_** to the imported variables using an `as` attributes.
 
+
+{{ icon_example }}:
+`coverpage.md`:
 ```html
 <import from="page.md" as="details"/>
 ```
@@ -136,7 +142,7 @@ will allow you to access the variables as per normal: <code>{<span></span>{addre
 | name | <code>{<span></span>{details.<span></span>name}}</code>
 | phone | <code>{<span></span>{details.phone}}</code>
 
-This way, ***all*** variables in `page.md` are accessible via <code>{<span></span>{details.variable_name}}</code>.
+This way, ***all*** variables in `page.md` are accessible via <code>{<span></span>{details.&lt;variable_name&gt;}}</code>.
 
 Note that in this case, `details` is treated as the variable name and so is subject to the same rules as other variables, such as global variables taking precedence, and multiple imports to the same namespace being impossible:
 
