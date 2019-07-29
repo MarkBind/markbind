@@ -119,8 +119,7 @@ Note: These variables will not be applied to [`<include>` files]({{ baseUrl }}/u
 `coverpage.md`:
 
 ```html
-<import address name from="page.md"/>
-
+<import address name from="person.md"/>
 ```
 
 will allow you to access the variables as per normal: <code>{<span></span>{address}}</code>, <code>{<span></span>{name}}</code>, <code>{<span></span>{phone}}</code>.
