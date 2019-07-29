@@ -1,6 +1,6 @@
 Refer to this comment: https://github.com/MarkBind/markbind/pull/751#issuecomment-469670640
 
-<import from="child.md" as = "child" />
+<import from="child.md" as="child"/>
 {{ child.title }}
 
 
