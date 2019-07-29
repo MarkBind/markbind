@@ -27,7 +27,10 @@ const ATTRIB_CWF = 'cwf';
 
 const BOILERPLATE_FOLDER_NAME = '_markbind/boilerplates';
 
-const PREFIX_TO_REDUCE_NAME_CLASH = '$__MARKBIND__';
+/* Imported global variables will be assigned a namespace.
+ * A prefix is appended to reduce clashes with other variables in the page.
+ */
+const IMPORTED_VARIABLE_PREFIX = '$__MARKBIND__';
 const VARIABLE_LOOKUP = new Map();
 const FILE_ALIASES = new Map();
 const PROCESSED_INNER_VARIABLES = new Set();
@@ -128,6 +131,10 @@ function extractIncludeVariables(includeElement, contextVariables) {
   return includedVariables;
 }
 
+/**
+ * Returns an object containing the imported variables for specified file
+ * @param file file name to get the imported variables for
+ */
 function getImportedVariableMap(file) {
   const innerVariables = {};
   FILE_ALIASES.get(file).forEach((actualPath, alias) => {
@@ -161,7 +168,7 @@ function extractPageVariables(fileName, data, userDefinedVariables, includedVari
     // If no namespace is provided, we use the smallest name as one...
     const largestName = variableNames.sort()[0];
     // ... and prepend it with $__MARKBIND__ to reduce collisions.
-    const generatedAlias = PREFIX_TO_REDUCE_NAME_CLASH + largestName;
+    const generatedAlias = IMPORTED_VARIABLE_PREFIX + largestName;
     const hasAlias = _.hasIn(element.attribs, 'as');
     const alias = hasAlias ? element.attribs.as : generatedAlias;
     importedVariables[alias] = new Proxy({}, {
@@ -277,7 +284,7 @@ Parser.prototype._extractInnerVariables = function (content, context, config) {
     // If no namespace is provided, we use the smallest name as one
     const largestName = variableNames.sort()[0];
     // ... and prepend it with $__MARKBIND__ to reduce collisions.
-    const generatedAlias = PREFIX_TO_REDUCE_NAME_CLASH + largestName;
+    const generatedAlias = IMPORTED_VARIABLE_PREFIX + largestName;
     const alias = _.hasIn(element.attribs, 'as')
       ? element.attribs.as
       : generatedAlias;
