@@ -95,6 +95,12 @@ function Parser(options) {
   this.missingIncludeSrc = [];
 }
 
+Parser.resetVariables = function () {
+  VARIABLE_LOOKUP.clear();
+  FILE_ALIASES.clear();
+  PROCESSED_INNER_VARIABLES.clear();
+};
+
 /**
  * Extract variables from an include element
  * @param includeElement include element to extract variables from
@@ -290,6 +296,7 @@ Parser.prototype._extractInnerVariables = function (content, context, config) {
       : generatedAlias;
 
     aliases.set(alias, filePath);
+    this.staticIncludeSrc.push({ from: context.cwf, to: filePath });
 
     // Render inner file content
     const { content: renderedContent, childContext, userDefinedVariables }

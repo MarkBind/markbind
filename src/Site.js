@@ -8,6 +8,7 @@ const path = require('path');
 const Promise = require('bluebird');
 const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
+const MarkBind = require('./lib/markbind/src/parser');
 
 const _ = {};
 _.difference = require('lodash/difference');
@@ -740,6 +741,7 @@ Site.prototype._rebuildAffectedSourceFiles = function (filePaths) {
   const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];
   const uniquePaths = _.uniq(filePathArray);
   logger.info('Rebuilding affected source files');
+  MarkBind.resetVariables();
   return new Promise((resolve, reject) => {
     this.regenerateAffectedPages(uniquePaths)
       .then(() => fs.removeAsync(this.tempPath))
