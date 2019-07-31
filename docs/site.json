@@ -16,9 +16,6 @@
       "glob": "userGuide/*.md"
     },
     {
-      "glob": "testing/*.md"
-    },
-    {
       "src": "userGuide/fullSyntaxReference.md",
       "searchable": "no"
     },

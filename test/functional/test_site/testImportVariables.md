@@ -1,4 +1,4 @@
-<variable name="filename">variablestoimport</variable>
+<variable name="filename">variablesToImport</variable>
 
 Making sure the issue here https://github.com/MarkBind/markbind/commit/48b57a18a8bfd68101b163908da4a0541756364a is fixed.
 

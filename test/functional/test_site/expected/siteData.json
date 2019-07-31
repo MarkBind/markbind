@@ -299,6 +299,28 @@
       "layout": "default",
       "globalOverrideProperty": "Overridden by global override",
       "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+    },
+    {
+      "headings": {
+        "trying-to-access-a-page-variable": "Trying to access a page variable:",
+        "trying-to-access-an-imported-variable-via-namespace": "Trying to access an imported variable via namespace:"
+      },
+      "src": "testImportVariables.md",
+      "title": "Imported Variables Test",
+      "layout": "default",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+    },
+    {
+      "headings": {
+        "below-panel-is-working": "Below panel is working",
+        "below-should-be-a-panel-but-is-now-an-error": "Below should be a panel, but is now an error."
+      },
+      "src": "testPanelsWithImportedVariables.md",
+      "title": "Panels with Imported Variables Test",
+      "layout": "default",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
     }
   ]
 }

@@ -8,7 +8,7 @@ VARIABLES START
 
 <variable name="pagevar">This is a page variable from variablestoimport.md</variable>
 
-<import from="morevariablestoimport.md" as="namespace"/>
+<import from="moreVariablesToImport.md" as="namespace"/>
 
 <variable name = "deepvar">
 
