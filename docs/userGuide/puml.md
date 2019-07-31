@@ -65,7 +65,7 @@ _Markbind page_:
 </span>
 
 <span id="output">
-<puml src="diagrams/sequence.puml" width=300/>
+<pic src="diagrams/sequence.png" width="300" />
 </span>
 
 </include>
@@ -78,37 +78,37 @@ The full PlantUML syntax reference can be found at plantuml.com/guide
 <panel header="More examples">
 
 ### Sequence Diagram
-<puml src="diagrams/sequence.puml"/>
+<pic src="diagrams/sequence.png" />
 
 ### Use Case Diagram
-<puml src="diagrams/usecase.puml"/>
+<pic src="diagrams/usecase.png" />
 
 ### Class Diagram
-<puml src="diagrams/class.puml"/>
+<pic src="diagrams/class.png" />
 
 ### Activity Diagram
-<puml src="diagrams/activity.puml"/>
+<pic src="diagrams/activity.png" />
 
 ### Component Diagram
-<puml src="diagrams/component.puml"/>
+<pic src="diagrams/component.png" />
 
 ### State Diagram
-<puml src="diagrams/state.puml"/>
+<pic src="diagrams/state.png" />
 
 ### Object Diagram
-<puml src="diagrams/object.puml"/>
+<pic src="diagrams/object.png" />
 
 ### Gantt Diagram
-<puml src="diagrams/gantt.puml"/>
+<pic src="diagrams/gantt.png" />
 
 ### Entity Relation Diagram
-<puml src="diagrams/entityrelation.puml"/>
+<pic src="diagrams/entityrelation.png" />
 
 ### Ditaa Diagram
-<puml src="diagrams/ditaa.puml"/>
+<pic src="diagrams/ditaa.png" />
 
 ### Archimate Diagram
-<puml src="diagrams/archimate.puml"/>
+<pic src="diagrams/archimate.png" />
 
 </panel>
 

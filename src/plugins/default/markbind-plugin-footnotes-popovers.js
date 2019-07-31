@@ -9,9 +9,7 @@ module.exports = {
       popoversHtml += `
         <popover id="${id}">
           <div slot="content">
-            <trigger for="${id}">
-              ${$(li).html()}
-            </trigger>
+            ${$(li).html()}
           </div>
         </popover>
       `;
