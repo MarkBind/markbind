@@ -314,7 +314,7 @@
     {
       "headings": {
         "below-panel-is-working": "Below panel is working",
-        "below-should-be-a-panel-but-is-now-an-error": "Below should be a panel, but is now an error."
+        "below-should-be-a-panel-but-is-now-an-error-uncomment-it-to-see-the-error": "Below should be a panel, but is now an error. Uncomment it to see the error."
       },
       "src": "testPanelsWithImportedVariables.md",
       "title": "Panels with Imported Variables Test",
