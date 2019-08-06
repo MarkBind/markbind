@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="default-head-top">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="MarkBind 2.5.3">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Imported Variables Test</title>
+  <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
+  <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
+  <link rel="stylesheet" href="markbind/css/github.min.css">
+  <link rel="stylesheet" href="markbind/css/markbind.css">
+  <link rel="stylesheet" href="STYLESHEET_LINK">
+  <link rel="stylesheet" href="markbind/layouts/default/styles.css">
+
+
+  <meta name="default-head-bottom">
+  <link rel="icon" href="/test_site/favicon.png">
+</head>
+
+<body>
+  <div id="app">
+    <div id="flex-body">
+      <div id="content-wrapper">
+        <div></div>
+        <p>Making sure the issue here <a href="https://github.com/MarkBind/markbind/commit/48b57a18a8bfd68101b163908da4a0541756364a">https://github.com/MarkBind/markbind/commit/48b57a18a8bfd68101b163908da4a0541756364a</a> is fixed.</p>
+        <div></div>
+        <p>Test import variables from src specified via variable: This variable comes from <a href="http://variablesToImport.md">variablesToImport.md</a></p>
+        <p>Test import variables that itself imports other variables:</p>
+        <h2 id="trying-to-access-a-page-variable">Trying to access a page variable:<a class="fa fa-anchor" href="#trying-to-access-a-page-variable"></a></h2>
+        <p>There should be something red below:</p>
+        <div style="color:red">This is a page variable from <a href="http://variablestoimport.md">variablestoimport.md</a></div>
+        Something should have appeared above in red.
+        <h2 id="trying-to-access-an-imported-variable-via-namespace">Trying to access an imported variable via namespace:<a class="fa fa-anchor" href="#trying-to-access-an-imported-variable-via-namespace"></a></h2>
+        <p>There should be something blue below:</p>
+        <div style="color:blue">This is a deeply imported variable</div>
+        Something should have appeared above in blue.
+      </div>
+    </div>
+    <footer>
+      <div class="text-center">
+        Default footer
+      </div>
+    </footer>
+  </div>
+</body>
+<script src="markbind/js/vue.min.js"></script>
+<script src="markbind/js/vue-strap.min.js"></script>
+<script src="markbind/js/bootstrap-utility.min.js"></script>
+<script src="markbind/js/polyfill.min.js"></script>
+<script src="markbind/js/bootstrap-vue.min.js"></script>
+<script>
+  const baseUrl = '/test_site'
+  const enableSearch = true
+</script>
+<script src="markbind/js/setup.js"></script>
+<script src="SCRIPT_LINK"></script>
+<script>
+  alert("hello")
+</script>
+<script src="markbind/layouts/default/scripts.js"></script>
+
+</html>

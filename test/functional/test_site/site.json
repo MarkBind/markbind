@@ -63,6 +63,14 @@
     {
       "src": "testPlantUML.md",
       "title": "PlantUML Test"
+    },
+    {
+      "src": "testImportVariables.md",
+      "title": "Imported Variables Test"
+    },
+    {
+      "src": "testPanelsWithImportedVariables.md",
+      "title": "Panels with Imported Variables Test"
     }
   ],
   "ignore": [
