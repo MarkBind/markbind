@@ -1,0 +1,24 @@
+#### `Google Analytics`: Enhancing site with Google Analytics
+
+This plugin allows your web pages to be enhanced with [google analytics](https://analytics.google.com/analytics/web/#/) to track, analyse and improve your content.
+
+To enable it, add `googleAnalytics` to your site's plugins, and add the trackingID parameter via the `pluginsContext`.
+
+Name | Type | Default | Description
+---- | ---- | ------- | ------
+trackingID | `String` || Tracking ID provided by Google. Follow this [guide](https://support.google.com/analytics/answer/1008080) to get your Tracking ID.
+
+```js
+site.json
+{
+  ...
+  "plugins": [
+    "googleAnalytics"
+  ],
+  "pluginsContext": {
+    "googleAnalytics": {
+      "trackingID": "YOUR-TRACKING-ID", // replace with your google analytics tracking id.
+    }
+  }
+}
+```

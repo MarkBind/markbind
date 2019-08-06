@@ -94,7 +94,8 @@
   "headingIndexingLevel": 4,
   "plugins": [
     "testMarkbindPlugin",
-    "filterTags"
+    "filterTags",
+    "googleAnalytics"
   ],
   "pluginsContext": {
     "testMarkbindPlugin": {
@@ -103,6 +104,9 @@
     },
     "filterTags": {
       "tags": ["tag-site-shown", "+tag-site-override-shown", "+tag-site-override-specific-shown"]
+    },
+    "googleAnalytics": {
+      "trackingID": "TRACKING-ID"
     }
   }
 }
