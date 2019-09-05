@@ -40,6 +40,40 @@
       "src": "about.md",
       "title": "",
       "layout": "default"
+    },
+    {
+      "headings": {
+        "topic-1": "Topic 1"
+      },
+      "header": "header.md",
+      "siteNav": "site-nav.md",
+      "src": "contents/topic1.md",
+      "title": "",
+      "layout": "default"
+    },
+    {
+      "headings": {},
+      "header": "header.md",
+      "siteNav": "site-nav.md",
+      "src": "contents/topic2.md",
+      "title": "",
+      "layout": "default"
+    },
+    {
+      "headings": {},
+      "header": "header.md",
+      "siteNav": "site-nav.md",
+      "src": "contents/topic3a.md",
+      "title": "",
+      "layout": "default"
+    },
+    {
+      "headings": {},
+      "header": "header.md",
+      "siteNav": "site-nav.md",
+      "src": "contents/topic3b.md",
+      "title": "",
+      "layout": "default"
     }
   ]
 }

@@ -47,6 +47,7 @@ program
 program
   .command('init [root]')
   .option('-c, --convert', 'convert a GitHub wiki or docs folder to a MarkBind website')
+  .option('-t, --template <type>', 'initialise markbind with a specified template', 'default')
   .alias('i')
   .description('init a markbind website project')
   .action((root, options) => {
@@ -59,7 +60,7 @@ program
         return;
       }
     }
-    Site.initSite(rootFolder)
+    Site.initSite(rootFolder, options.template)
       .then(() => {
         logger.info('Initialization success.');
       })
