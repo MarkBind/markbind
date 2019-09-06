@@ -17,6 +17,8 @@ const {
   LAYOUT_SCRIPTS_DEFAULT,
 } = require('./utils/data');
 
+const DEFAULT_TEMPLATE = 'default';
+
 jest.mock('fs');
 jest.mock('walk-sync');
 jest.mock('../../src/Page');
@@ -97,13 +99,63 @@ test('Site Generate builds the correct amount of assets', async () => {
   expect(fs.existsSync(path.resolve('inner/_site/markbind/layouts/default/styles.css'))).toEqual(true);
 });
 
-test('Site Init in existing directory generates correct assets', async () => {
+test('Site Init with invalid template fails', async () => {
+  // Mock default template in MemFS without site config
   const json = {
     'src/template/page.ejs': PAGE_EJS,
+    'src/template/default/index.md': INDEX_MD_DEFAULT,
   };
+
   fs.vol.fromJSON(json, '');
 
-  await Site.initSite('');
+  Site.initSite('', DEFAULT_TEMPLATE)
+    .catch((err) => {
+      expect(err).toEqual(
+        new Error('Template validation failed. Required files does not exist'));
+    });
+});
+
+test('Site Init does not overwrite existing files', async () => {
+  const EXISTING_INDEX_MD = 'THIS CONTENT SHOULD NOT BE OVERWRITTEN';
+
+  // Mock default template in MemFS
+  const json = {
+    'index.md': EXISTING_INDEX_MD,
+    'src/template/page.ejs': PAGE_EJS,
+    'src/template/default/index.md': INDEX_MD_DEFAULT,
+    'src/template/default/site.json': SITE_JSON_DEFAULT,
+  };
+
+  fs.vol.fromJSON(json, '');
+
+  // index.md
+  expect(fs.readFileSync(path.resolve('index.md'), 'utf8')).toEqual(EXISTING_INDEX_MD);
+});
+
+test('Site Init in existing directory generates correct assets', async () => {
+  // Mock default template in MemFS
+  const json = {
+    'src/template/page.ejs': PAGE_EJS,
+    'src/template/default/index.md': INDEX_MD_DEFAULT,
+    'src/template/default/site.json': SITE_JSON_DEFAULT,
+    'src/template/default/_markbind/boilerplates/': '',
+    'src/template/default/_markbind/head/': '',
+    'src/template/default/_markbind/headers/header.md': HEADER_MD_DEFAULT,
+    'src/template/default/_markbind/footers/footer.md': FOOTER_MD_DEFAULT,
+    'src/template/default/_markbind/navigation/site-nav.md': SITE_NAV_MD_DEFAULT,
+    'src/template/default/_markbind/variables.md': USER_VARIABLES_DEFAULT,
+    'src/template/default/_markbind/plugins': '',
+    'src/template/default/_markbind/layouts/default/footer.md': '',
+    'src/template/default/_markbind/layouts/default/header.md': '',
+    'src/template/default/_markbind/layouts/default/head.md': '',
+    'src/template/default/_markbind/layouts/default/navigation.md': '',
+    'src/template/default/_markbind/layouts/default/styles.css': '',
+    'src/template/default/_markbind/layouts/default/scripts.js': LAYOUT_SCRIPTS_DEFAULT,
+  };
+
+  fs.vol.fromJSON(json, '');
+
+  await Site.initSite('', DEFAULT_TEMPLATE);
   const paths = Object.keys(fs.vol.toJSON());
   const originalNumFiles = Object.keys(json).length;
   const expectedNumBuilt = 15;
@@ -145,12 +197,28 @@ test('Site Init in existing directory generates correct assets', async () => {
 });
 
 test('Site Init in directory which does not exist generates correct assets', async () => {
+  // Mock default template in MemFS
   const json = {
     'src/template/page.ejs': PAGE_EJS,
+    'src/template/default/index.md': INDEX_MD_DEFAULT,
+    'src/template/default/site.json': SITE_JSON_DEFAULT,
+    'src/template/default/_markbind/boilerplates/': '',
+    'src/template/default/_markbind/head/': '',
+    'src/template/default/_markbind/headers/header.md': HEADER_MD_DEFAULT,
+    'src/template/default/_markbind/footers/footer.md': FOOTER_MD_DEFAULT,
+    'src/template/default/_markbind/navigation/site-nav.md': SITE_NAV_MD_DEFAULT,
+    'src/template/default/_markbind/variables.md': USER_VARIABLES_DEFAULT,
+    'src/template/default/_markbind/plugins': '',
+    'src/template/default/_markbind/layouts/default/footer.md': '',
+    'src/template/default/_markbind/layouts/default/header.md': '',
+    'src/template/default/_markbind/layouts/default/head.md': '',
+    'src/template/default/_markbind/layouts/default/navigation.md': '',
+    'src/template/default/_markbind/layouts/default/styles.css': '',
+    'src/template/default/_markbind/layouts/default/scripts.js': LAYOUT_SCRIPTS_DEFAULT,
   };
   fs.vol.fromJSON(json, '');
 
-  await Site.initSite('newDir');
+  await Site.initSite('newDir', DEFAULT_TEMPLATE);
   const paths = Object.keys(fs.vol.toJSON());
   const originalNumFiles = Object.keys(json).length;
   const expectedNumBuilt = 15;
@@ -344,15 +412,27 @@ test('Site read correct user defined variables', async () => {
 });
 
 test('Site convert generates correct assets', async () => {
+  // Mock default template in MemFS
   const json = {
     'src/template/page.ejs': PAGE_EJS,
-
-    'inner/_Footer.md': '',
-    'inner/_Sidebar.md': '',
-    'inner/Home.md': '',
+    'src/template/default/index.md': INDEX_MD_DEFAULT,
+    'src/template/default/site.json': SITE_JSON_DEFAULT,
+    'src/template/default/_markbind/boilerplates/': '',
+    'src/template/default/_markbind/head/': '',
+    'src/template/default/_markbind/headers/header.md': HEADER_MD_DEFAULT,
+    'src/template/default/_markbind/footers/footer.md': FOOTER_MD_DEFAULT,
+    'src/template/default/_markbind/navigation/site-nav.md': SITE_NAV_MD_DEFAULT,
+    'src/template/default/_markbind/variables.md': USER_VARIABLES_DEFAULT,
+    'src/template/default/_markbind/plugins': '',
+    'src/template/default/_markbind/layouts/default/footer.md': '',
+    'src/template/default/_markbind/layouts/default/header.md': '',
+    'src/template/default/_markbind/layouts/default/head.md': '',
+    'src/template/default/_markbind/layouts/default/navigation.md': '',
+    'src/template/default/_markbind/layouts/default/styles.css': '',
+    'src/template/default/_markbind/layouts/default/scripts.js': LAYOUT_SCRIPTS_DEFAULT,
   };
   fs.vol.fromJSON(json, '');
-  await Site.initSite('inner/');
+  await Site.initSite('inner/', DEFAULT_TEMPLATE);
   await new Site('inner/', 'inner/_site/').convert();
 
   // number of files
@@ -385,14 +465,30 @@ test('Site convert generates correct assets', async () => {
 });
 
 test('Site convert with custom _Footer.md, no _Sidebar.md, README.md generates correct assets', async () => {
+  // Mock default template in MemFS
   const json = {
     'src/template/page.ejs': PAGE_EJS,
-
+    'src/template/default/index.md': INDEX_MD_DEFAULT,
+    'src/template/default/site.json': SITE_JSON_DEFAULT,
+    'src/template/default/_markbind/boilerplates/': '',
+    'src/template/default/_markbind/head/': '',
+    'src/template/default/_markbind/headers/header.md': HEADER_MD_DEFAULT,
+    'src/template/default/_markbind/footers/footer.md': FOOTER_MD_DEFAULT,
+    'src/template/default/_markbind/navigation/site-nav.md': SITE_NAV_MD_DEFAULT,
+    'src/template/default/_markbind/variables.md': USER_VARIABLES_DEFAULT,
+    'src/template/default/_markbind/plugins': '',
+    'src/template/default/_markbind/layouts/default/footer.md': '',
+    'src/template/default/_markbind/layouts/default/header.md': '',
+    'src/template/default/_markbind/layouts/default/head.md': '',
+    'src/template/default/_markbind/layouts/default/navigation.md': '',
+    'src/template/default/_markbind/layouts/default/styles.css': '',
+    'src/template/default/_markbind/layouts/default/scripts.js': LAYOUT_SCRIPTS_DEFAULT,
+    // Custom Footer and README
     'inner/_Footer.md': 'Custom footer.',
     'inner/README.md': 'This is the README',
   };
   fs.vol.fromJSON(json, '');
-  await Site.initSite('inner/');
+  await Site.initSite('inner/', DEFAULT_TEMPLATE);
   await new Site('inner/', 'inner/_site/').convert();
 
   // number of files
