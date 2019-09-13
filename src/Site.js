@@ -38,7 +38,6 @@ const CONFIG_FOLDER_NAME = '_markbind';
 const HEADING_INDEXING_LEVEL_DEFAULT = 3;
 const SITE_ASSET_FOLDER_NAME = 'asset';
 const TEMP_FOLDER_NAME = '.temp';
-const TEMPLATE_ROOT_FOLDER_NAME = 'template';
 const TEMPLATE_SITE_ASSET_FOLDER_NAME = 'markbind';
 
 const ABOUT_MARKDOWN_FILE = 'about.md';
@@ -111,7 +110,7 @@ function Site(rootPath, outputPath, onePagePath, forceReload = false, siteConfig
   this.siteAssetsDestPath = path.join(outputPath, TEMPLATE_SITE_ASSET_FOLDER_NAME);
 
   // Page template path
-  this.pageTemplatePath = path.join(__dirname, TEMPLATE_ROOT_FOLDER_NAME, PAGE_TEMPLATE_NAME);
+  this.pageTemplatePath = path.join(__dirname, PAGE_TEMPLATE_NAME);
   this.pageTemplate = ejs.compile(fs.readFileSync(this.pageTemplatePath, 'utf8'));
   this.pages = [];
 
