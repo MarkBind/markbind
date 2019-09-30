@@ -10,7 +10,7 @@ do
     node ../../index.js build "$site"
 
     # run our test script to compare html files
-    node testUtil/test.js "$site"
+    node testUtil/test.js compare "$site"
 
     if [ $? -ne 0 ]
     then
@@ -31,7 +31,7 @@ do
     # print site name
     echo "Running $site_convert test"
 
-    # set cleanup trap
+    set cleanup trap
     trap cleanup_convert EXIT
 
     # convert site
@@ -44,7 +44,7 @@ do
     cp -r $site_convert/non_markbind_site/_site $site_convert
 
     # run our test script to compare html files
-    node testUtil/test.js $site_convert
+    node testUtil/test.js compare $site_convert
 
     if [ $? -ne 0 ]
     then
@@ -58,6 +58,34 @@ do
     # remove trap
     trap - EXIT
 done
+
+for siteInfo in $(cat test_template_sites);
+do
+    flag=$(cut -d',' -f1 <<<"$siteInfo")
+    site=$(cut -d',' -f2 <<<"$siteInfo")
+
+    # print site name
+    echo "Running $site test"
+
+    # init and build based on flag
+    node ../../index.js init $site/tmp --template $flag
+    node ../../index.js build $site/tmp
+
+    # run our test script to compare html files
+    node testUtil/test.js compare $site --expectedPath expected --sitePath tmp/_site
+    
+    if [ $? -ne 0 ]
+    then
+        # remove generated files
+        rm -rf $site/tmp
+
+        echo "Test result: $site FAILED"
+        exit 1
+    fi
+
+    rm -rf $site/tmp
+done
+
 
 # if there were no diffs
 echo "Test result: PASSED"

@@ -1,0 +1,14 @@
+{
+  "enableSearch": true,
+  "pages": [
+    {
+      "headings": {
+        "welcome-to-markbind": "Welcome to Markbind"
+      },
+      "footer": "footer.md",
+      "src": "index.md",
+      "title": "Hello World",
+      "layout": "default"
+    }
+  ]
+}
