@@ -45,5 +45,26 @@ do
     trap - EXIT
 done
 
+for siteInfo in $(cat test_template_sites);
+do
+    flag=$(cut -d',' -f1 <<<"$siteInfo")
+    site=$(cut -d',' -f2 <<<"$siteInfo")
+
+    # print site name
+    echo "Updating $site test"
+
+    # convert site
+    node ../../index.js init $site/tmp --template $flag
+    node ../../index.js build $site/tmp
+
+    # replace the expected folder with the newly generated files
+    rm -rf $site/expected
+    cp -r $site/tmp/_site $site/expected
+
+    # remove generated files
+    rm -rf $site/tmp
+
+done
+
 echo "Updated all test sites"
 exit 0
