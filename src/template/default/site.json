@@ -15,7 +15,7 @@
   "pages": [
     {
       "src": "index.md",
-      "title": "Hello World"
+      "title": "Landing Page"
     },
     {
       "glob": "**/index.md"
