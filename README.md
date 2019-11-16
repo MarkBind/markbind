@@ -7,3 +7,5 @@
 **The MarkBind website for the current MarkBind release is at https://markbind.org/**.
 
 The website for the latest master branch (not yet released to the public) is at https://markbind-master.netlify.com.
+
+The Developer Guide can be found at https://markbind.org/devdocs/devGuide/index.html
