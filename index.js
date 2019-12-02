@@ -37,11 +37,21 @@ function handleError(error) {
   process.exitCode = 1;
 }
 
+// We want to customize the help message to print MarkBind's header,
+// but commander.js does not provide an API directly for doing so.
+// Hence we override commander's outputHelp() completely.
+program.defaultOutputHelp = program.outputHelp;
+program.outputHelp = function (cb) {
+  printHeader();
+  this.defaultOutputHelp(cb);
+};
+
 program
   .allowUnknownOption()
   .usage(' <command>');
 
 program
+  .name('markbind')
   .version(CLI_VERSION);
 
 program
@@ -236,7 +246,6 @@ if (!program.args.length
   if (program.args.length) {
     logger.warn(`Command '${program.args[0]}' doesn't exist, run "markbind --help" to list commands.`);
   } else {
-    printHeader();
     program.help();
   }
 }
