@@ -195,8 +195,8 @@ program
     const rootFolder = path.resolve(process.cwd());
     const outputRoot = path.join(rootFolder, '_site');
     new Site(rootFolder, outputRoot, undefined, undefined, options.siteConfig).deploy(options.travis)
-      .then(() => {
-        logger.info('Deployed!');
+      .then((deploymentUrl) => {
+        logger.info(`Deployed at ${deploymentUrl}`);
       })
       .catch(handleError);
     printHeader();
