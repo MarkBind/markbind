@@ -34,7 +34,7 @@
     "highlight.js": "^9.10.0",
     "htmlparser2": "MarkBind/htmlparser2#v3.10.0-markbind.1",
     "ignore": "^3.2.0",
-    "js-beautify": "^1.6.12",
+    "js-beautify": "~1.7.5",
     "live-server": "^1.2.1",
     "lodash": "^4.17.11",
     "markdown-it": "^8.3.0",
