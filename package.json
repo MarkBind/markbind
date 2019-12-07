@@ -32,7 +32,7 @@
     "fs-extra-promise": "^0.4.1",
     "gh-pages": "^2.0.1",
     "highlight.js": "^9.10.0",
-    "htmlparser2": "MarkBind/htmlparser2#v3.10.0-markbind.1",
+    "htmlparser2": "^3.10.1",
     "ignore": "^3.2.0",
     "js-beautify": "~1.7.5",
     "live-server": "^1.2.1",
