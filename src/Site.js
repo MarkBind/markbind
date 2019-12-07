@@ -38,6 +38,7 @@ const CLI_VERSION = require('../package.json').version;
 const CONFIG_FOLDER_NAME = '_markbind';
 const GITHUB_IO_STRING = 'github.io';
 const HEADING_INDEXING_LEVEL_DEFAULT = 3;
+const REMOTE_ORIGIN_URL_KEY = 'remote.origin.url';
 const SITE_ASSET_FOLDER_NAME = 'asset';
 const TEMP_FOLDER_NAME = '.temp';
 const TEMPLATE_SITE_ASSET_FOLDER_NAME = 'markbind';
@@ -618,7 +619,7 @@ Site.prototype._buildMultipleAssets = function (filePaths) {
  * @param filePaths a single path or an array of paths corresponding to the assets to build
  */
 Site.prototype.buildAsset
- = delay(Site.prototype._buildMultipleAssets, 1000);
+  = delay(Site.prototype._buildMultipleAssets, 1000);
 
 Site.prototype._removeMultipleAssets = function (filePaths) {
   const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];
@@ -636,7 +637,7 @@ Site.prototype._removeMultipleAssets = function (filePaths) {
  * @param filePaths a single path or an array of paths corresponding to the assets to remove
  */
 Site.prototype.removeAsset
- = delay(Site.prototype._removeMultipleAssets, 1000);
+  = delay(Site.prototype._removeMultipleAssets, 1000);
 
 Site.prototype.buildAssets = function () {
   logger.info('Building assets...');
@@ -956,6 +957,31 @@ function constructDeploymentUrl(remoteRepo) {
   return deploymentUrl;
 }
 
+/*
+Returns a Promise with the URL of the remote of the repository
+*/
+function getUrl() {
+  return new Promise((resolve) => {
+    Git.Repository.open('.git').then(((repo) => {
+      repo.config().then(((config) => {
+        config.getStringBuf(REMOTE_ORIGIN_URL_KEY)
+          .then(((buf) => {
+            resolve(buf.toString());
+          }));
+      }));
+    }));
+  });
+}
+
+/*
+Helper function that returns a resolved Promise with the appropriate URL
+*/
+function getRepoRemoteUrl(remoteRepo) {
+  return (!remoteRepo)
+    ? getUrl()
+    : Promise.resolve(remoteRepo);
+}
+
 Site.prototype.deploy = function (travisTokenVar) {
   const defaultDeployConfig = {
     branch: 'gh-pages',
@@ -979,89 +1005,45 @@ Site.prototype.deploy = function (travisTokenVar) {
         options.message = this.siteConfig.deploy.message || defaultDeployConfig.message;
         options.repo = this.siteConfig.deploy.repo || defaultDeployConfig.repo;
 
-        let remoteRepo = options.repo;
+        const remoteRepo = options.repo;
 
-        if (!remoteRepo) {
-          Git.Repository.open('.git').then(((repo) => {
-            repo.config().then(((config) => {
-              config.getStringBuf('remote.origin.url')
-                .then(((buf) => {
-                  logger.info(buf.toString());
-                  remoteRepo = buf.toString();
+        return getRepoRemoteUrl(remoteRepo)
+          .then((finalUrl) => {
+            deploymentUrl = constructDeploymentUrl(finalUrl);
+            if (travisTokenVar) {
+              if (!process.env.TRAVIS) {
+                reject(new Error('-t/--travis should only be run in Travis CI.'));
+                return undefined;
+              }
+              // eslint-disable-next-line no-param-reassign
+              travisTokenVar = _.isBoolean(travisTokenVar) ? 'GITHUB_TOKEN' : travisTokenVar;
+              if (!process.env[travisTokenVar]) {
+                reject(new Error(`The environment variable ${travisTokenVar} does not exist.`));
+                return undefined;
+              }
 
-                  deploymentUrl = constructDeploymentUrl(remoteRepo);
-                  if (travisTokenVar) {
-                    if (!process.env.TRAVIS) {
-                      reject(new Error('-t/--travis should only be run in Travis CI.'));
-                      return undefined;
-                    }
-                    // eslint-disable-next-line no-param-reassign
-                    travisTokenVar = _.isBoolean(travisTokenVar) ? 'GITHUB_TOKEN' : travisTokenVar;
-                    if (!process.env[travisTokenVar]) {
-                      reject(new Error(`The environment variable ${travisTokenVar} does not exist.`));
-                      return undefined;
-                    }
-
-                    const githubToken = process.env[travisTokenVar];
-                    let repoSlug = process.env.TRAVIS_REPO_SLUG;
-                    if (options.repo) {
-                      // Extract repo slug from user-specified repo URL so that
-                      // we can include the access token
-                      const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-.]+)\.git$/;
-                      const repoSlugMatch = repoSlugRegex.exec(options.repo);
-                      if (!repoSlugMatch) {
-                        reject(new Error('-t/--travis expects a GitHub repository.\n'
-                          + `The specified repository ${options.repo} is not valid.`));
-                        return undefined;
-                      }
-                      [, repoSlug] = repoSlugMatch;
-                    }
-                    options.repo = `https://${githubToken}@github.com/${repoSlug}.git`;
-                    options.user = {
-                      name: 'Deployment Bot',
-                      email: 'deploy@travis-ci.org',
-                    };
-                  }
-                  return publish(basePath, options);
-                }));
-            }));
-          }));
-        }
-        deploymentUrl = constructDeploymentUrl(remoteRepo);
-
-        if (travisTokenVar) {
-          if (!process.env.TRAVIS) {
-            reject(new Error('-t/--travis should only be run in Travis CI.'));
-            return undefined;
-          }
-          // eslint-disable-next-line no-param-reassign
-          travisTokenVar = _.isBoolean(travisTokenVar) ? 'GITHUB_TOKEN' : travisTokenVar;
-          if (!process.env[travisTokenVar]) {
-            reject(new Error(`The environment variable ${travisTokenVar} does not exist.`));
-            return undefined;
-          }
-
-          const githubToken = process.env[travisTokenVar];
-          let repoSlug = process.env.TRAVIS_REPO_SLUG;
-          if (options.repo) {
-            // Extract repo slug from user-specified repo URL so that we can include the access token
-            const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-.]+)\.git$/;
-            const repoSlugMatch = repoSlugRegex.exec(options.repo);
-            if (!repoSlugMatch) {
-              reject(new Error('-t/--travis expects a GitHub repository.\n'
-                + `The specified repository ${options.repo} is not valid.`));
-              return undefined;
+              const githubToken = process.env[travisTokenVar];
+              let repoSlug = process.env.TRAVIS_REPO_SLUG;
+              if (options.repo) {
+                // Extract repo slug from user-specified repo URL so that
+                // we can include the access token
+                const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-.]+)\.git$/;
+                const repoSlugMatch = repoSlugRegex.exec(options.repo);
+                if (!repoSlugMatch) {
+                  reject(new Error('-t/--travis expects a GitHub repository.\n'
+                    + `The specified repository ${options.repo} is not valid.`));
+                  return undefined;
+                }
+                [, repoSlug] = repoSlugMatch;
+              }
+              options.repo = `https://${githubToken}@github.com/${repoSlug}.git`;
+              options.user = {
+                name: 'Deployment Bot',
+                email: 'deploy@travis-ci.org',
+              };
             }
-            [, repoSlug] = repoSlugMatch;
-          }
-          options.repo = `https://${githubToken}@github.com/${repoSlug}.git`;
-          options.user = {
-            name: 'Deployment Bot',
-            email: 'deploy@travis-ci.org',
-          };
-        }
-
-        return publish(basePath, options);
+            return publish(basePath, options);
+          });
       })
       .then(() => {
         resolve(deploymentUrl);
