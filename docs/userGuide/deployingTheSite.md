@@ -31,8 +31,9 @@ Steps for deploying multiple MarkBind sites:
 
 **MarkBind can easily deploy a site to [Github pages](https://help.github.com/categories/github-pages-basics/)** if the project root directory is also a GitHub repo.
 
-Running the **`markbind deploy`** command will deploy the most recent build of your site to the `gh-pages` branch of the repo `origin` and will be available
+Running the **`markbind deploy`** command will deploy the most recent build of your site to the `gh-pages` branch of the repo `origin` and will be available.
 After the command is completed, your site will be online at `http://<username|org>.github.io/<repo>` e.g., http://se-edu.github.io/se-book.
+The website URL will be displayed in the MarkBind CLI after deployment for easy access.
 
 <div id="warning-about-baseUrl">
 
