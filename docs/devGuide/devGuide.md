@@ -9,7 +9,7 @@
 We expect contributors for MarkBind to have basic knowledge of the following:
 
 * JavaScript (ES6)
-* Node.js (LTS or higher) [with npm version of 5.8.0]
+* Node.js (LTS or higher) [with npm version of 6.12.1 or higher]
 * HTML & CSS
 * Markdown
 * Command-line environment
