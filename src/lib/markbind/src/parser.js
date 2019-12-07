@@ -1,6 +1,6 @@
 const cheerio = require('cheerio');
 const fs = require('fs');
-const htmlparser = require('htmlparser2');
+const htmlparser = require('htmlparser2'); require('./patches/htmlparser2');
 const nunjucks = require('nunjucks');
 const path = require('path');
 const pathIsInside = require('path-is-inside');
