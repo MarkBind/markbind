@@ -34,29 +34,31 @@ const Template = require('./template/template');
 
 const CLI_VERSION = require('../package.json').version;
 
-const CONFIG_FOLDER_NAME = '_markbind';
-const HEADING_INDEXING_LEVEL_DEFAULT = 3;
-const SITE_ASSET_FOLDER_NAME = 'asset';
-const TEMP_FOLDER_NAME = '.temp';
-const TEMPLATE_SITE_ASSET_FOLDER_NAME = 'markbind';
-
-const ABOUT_MARKDOWN_FILE = 'about.md';
-const BUILT_IN_PLUGIN_FOLDER_NAME = 'plugins';
-const BUILT_IN_DEFAULT_PLUGIN_FOLDER_NAME = 'plugins/default';
-const FAVICON_DEFAULT_PATH = 'favicon.ico';
-const FOOTER_PATH = '_markbind/footers/footer.md';
-const INDEX_MARKDOWN_FILE = 'index.md';
-const MARKBIND_PLUGIN_PREFIX = 'markbind-plugin-';
-const PAGE_TEMPLATE_NAME = 'page.ejs';
-const PROJECT_PLUGIN_FOLDER_NAME = '_markbind/plugins';
-const SITE_CONFIG_NAME = 'site.json';
-const SITE_DATA_NAME = 'siteData.json';
-const LAYOUT_DEFAULT_NAME = 'default';
-const LAYOUT_FOLDER_PATH = '_markbind/layouts';
-const LAYOUT_SITE_FOLDER_NAME = 'layouts';
-const USER_VARIABLES_PATH = '_markbind/variables.md';
-const WIKI_SITE_NAV_PATH = '_Sidebar.md';
-const WIKI_FOOTER_PATH = '_Footer.md';
+const {
+  CONFIG_FOLDER_NAME,
+  HEADING_INDEXING_LEVEL_DEFAULT,
+  SITE_ASSET_FOLDER_NAME,
+  TEMP_FOLDER_NAME,
+  TEMPLATE_SITE_ASSET_FOLDER_NAME,
+  ABOUT_MARKDOWN_FILE,
+  BUILT_IN_PLUGIN_FOLDER_NAME,
+  BUILT_IN_DEFAULT_PLUGIN_FOLDER_NAME,
+  FAVICON_DEFAULT_PATH,
+  FOOTER_PATH,
+  INDEX_MARKDOWN_FILE,
+  MARKBIND_PLUGIN_PREFIX,
+  MARKBIND_WEBSITE_URL,
+  PAGE_TEMPLATE_NAME,
+  PROJECT_PLUGIN_FOLDER_NAME,
+  SITE_CONFIG_NAME,
+  SITE_DATA_NAME,
+  LAYOUT_DEFAULT_NAME,
+  LAYOUT_FOLDER_PATH,
+  LAYOUT_SITE_FOLDER_NAME,
+  USER_VARIABLES_PATH,
+  WIKI_SITE_NAV_PATH,
+  WIKI_FOOTER_PATH,
+} = require('./constants');
 
 function getBootswatchThemePath(theme) {
   return path.join(__dirname, '..', 'node_modules', 'bootswatch', 'dist', theme, 'bootstrap.min.css');
@@ -97,7 +99,6 @@ const TOP_NAV_DEFAULT = '<header><navbar placement="top" type="inverse">\n'
   + '  </li>\n'
   + '</navbar></header>';
 
-const MARKBIND_WEBSITE_URL = 'https://markbind.org/';
 const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${CLI_VERSION}</a>`;
 
 function Site(rootPath, outputPath, onePagePath, forceReload = false, siteConfigPath = SITE_CONFIG_NAME) {
@@ -616,7 +617,7 @@ Site.prototype._buildMultipleAssets = function (filePaths) {
  * @param filePaths a single path or an array of paths corresponding to the assets to build
  */
 Site.prototype.buildAsset
- = delay(Site.prototype._buildMultipleAssets, 1000);
+  = delay(Site.prototype._buildMultipleAssets, 1000);
 
 Site.prototype._removeMultipleAssets = function (filePaths) {
   const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];
@@ -634,7 +635,7 @@ Site.prototype._removeMultipleAssets = function (filePaths) {
  * @param filePaths a single path or an array of paths corresponding to the assets to remove
  */
 Site.prototype.removeAsset
- = delay(Site.prototype._removeMultipleAssets, 1000);
+  = delay(Site.prototype._removeMultipleAssets, 1000);
 
 Site.prototype.buildAssets = function () {
   logger.info('Building assets...');

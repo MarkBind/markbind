@@ -19,33 +19,30 @@ const md = require('./lib/markbind/src/lib/markdown-it');
 
 const CLI_VERSION = require('../package.json').version;
 
-const FOOTERS_FOLDER_PATH = '_markbind/footers';
-const HEAD_FOLDER_PATH = '_markbind/head';
-const HEADERS_FOLDER_PATH = '_markbind/headers';
-const LAYOUT_DEFAULT_NAME = 'default';
-const LAYOUT_FOLDER_PATH = '_markbind/layouts';
-const LAYOUT_FOOTER = 'footer.md';
-const LAYOUT_HEAD = 'head.md';
-const LAYOUT_HEADER = 'header.md';
-const LAYOUT_NAVIGATION = 'navigation.md';
-const NAVIGATION_FOLDER_PATH = '_markbind/navigation';
-
-const CONTENT_WRAPPER_ID = 'content-wrapper';
-const FRONT_MATTER_FENCE = '---';
-const PAGE_NAV_ID = 'page-nav';
-const PAGE_NAV_TITLE_CLASS = 'page-nav-title';
-const SITE_NAV_ID = 'site-nav';
-const SITE_NAV_LIST_CLASS = 'site-nav-list';
-const TITLE_PREFIX_SEPARATOR = ' - ';
-
-const DROPDOWN_BUTTON_ICON_HTML = '<i class="dropdown-btn-icon">\n'
-  + '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>\n'
-  + '</i>';
-const DROPDOWN_EXPAND_KEYWORD = ':expanded:';
-
-const TEMP_NAVBAR_CLASS = 'temp-navbar';
-const TEMP_DROPDOWN_CLASS = 'temp-dropdown';
-const TEMP_DROPDOWN_PLACEHOLDER_CLASS = 'temp-dropdown-placeholder';
+const {
+  FOOTERS_FOLDER_PATH,
+  HEAD_FOLDER_PATH,
+  HEADERS_FOLDER_PATH,
+  LAYOUT_DEFAULT_NAME,
+  LAYOUT_FOLDER_PATH,
+  LAYOUT_FOOTER,
+  LAYOUT_HEAD,
+  LAYOUT_HEADER,
+  LAYOUT_NAVIGATION,
+  NAVIGATION_FOLDER_PATH,
+  CONTENT_WRAPPER_ID,
+  FRONT_MATTER_FENCE,
+  PAGE_NAV_ID,
+  PAGE_NAV_TITLE_CLASS,
+  SITE_NAV_ID,
+  SITE_NAV_LIST_CLASS,
+  TITLE_PREFIX_SEPARATOR,
+  DROPDOWN_BUTTON_ICON_HTML,
+  DROPDOWN_EXPAND_KEYWORD,
+  TEMP_NAVBAR_CLASS,
+  TEMP_DROPDOWN_CLASS,
+  TEMP_DROPDOWN_PLACEHOLDER_CLASS,
+} = require('./constants');
 
 cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities

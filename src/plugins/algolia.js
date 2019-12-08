@@ -1,8 +1,10 @@
 const cheerio = module.parent.require('cheerio');
 
-const ALGOLIA_CSS_URL = 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css';
-const ALGOLIA_JS_URL = 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js';
-const ALGOLIA_INPUT_SELECTOR = '#algolia-search-input';
+const {
+  ALGOLIA_CSS_URL,
+  ALGOLIA_JS_URL,
+  ALGOLIA_INPUT_SELECTOR,
+} = require('../constants');
 
 function buildAlgoliaInitScript(pluginContext) {
   return `<script>

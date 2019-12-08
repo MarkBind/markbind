@@ -11,8 +11,10 @@ const logger = require('../../util/logger');
 
 const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 
-const ERR_PROCESSING = 'Error processing';
-const ERR_READING = 'Error reading';
+const {
+  ERR_PROCESSING,
+  ERR_READING,
+} = require('../../constants');
 
 // Tracks diagrams that have already been processed
 const processedDiagrams = new Set();

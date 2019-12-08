@@ -22,15 +22,13 @@ const utils = require('./utils');
 cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
-const ATTRIB_INCLUDE_PATH = 'include-path';
-const ATTRIB_CWF = 'cwf';
+const {
+  ATTRIB_INCLUDE_PATH,
+  ATTRIB_CWF,
+  BOILERPLATE_FOLDER_NAME,
+  IMPORTED_VARIABLE_PREFIX,
+} = require('../../../constants');
 
-const BOILERPLATE_FOLDER_NAME = '_markbind/boilerplates';
-
-/* Imported global variables will be assigned a namespace.
- * A prefix is appended to reduce clashes with other variables in the page.
- */
-const IMPORTED_VARIABLE_PREFIX = '$__MARKBIND__';
 const VARIABLE_LOOKUP = new Map();
 const FILE_ALIASES = new Map();
 const PROCESSED_INNER_VARIABLES = new Set();

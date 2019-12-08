@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs-extra-promise');
 
-const sourceFileExtNames = ['.html', '.md', '.mbd', '.mbdf', '.puml'];
+const { sourceFileExtNames } = require('../constants');
 
 module.exports = {
   isSourceFile(filePath) {
