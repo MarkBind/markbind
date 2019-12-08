@@ -9,7 +9,7 @@
 We expect contributors for MarkBind to have basic knowledge of the following:
 
 * JavaScript (ES6)
-* Node.js (LTS or higher) [with npm version of 5.8.0]
+* Node.js (LTS or higher) [with npm version of 6.12.1 or higher]
 * HTML & CSS
 * Markdown
 * Command-line environment
@@ -111,7 +111,7 @@ TypeError: Cannot set property 'src' of null
     at Page.collectFrontMatter (~\markbind\src\Page.js:399:26)
 ```
 
-A: If your npm version is v6.0.0 or higher, there is a change in behaviour on how npm install dependencies (see https://github.com/MarkBind/markbind/issues/582). To resolve this issue, discard the changes made by npm in `package-lock.json`, and redo `npm install`.
+A: Please report this in a [new issue](https://github.com/MarkBind/markbind/issues/new), since this should already be fixed by [MarkBind/markbind#948](https://github.com/MarkBind/markbind/pull/948).
 
 ### Testing
 
