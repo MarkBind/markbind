@@ -928,7 +928,7 @@ Site.prototype.writeSiteData = function () {
     const siteData = {
       enableSearch: this.siteConfig.enableSearch,
       pages: this.pages.filter(page => page.searchable)
-        .map(page => Object.assign({ headings: page.headings }, page.frontMatter)),
+        .map(page => ({ headings: page.headings, ...page.frontMatter })),
     };
 
     fs.outputJsonAsync(siteDataPath, siteData)

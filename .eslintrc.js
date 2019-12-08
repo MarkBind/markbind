@@ -11,6 +11,7 @@ module.exports = {
   "extends": ["airbnb-base", "plugin:lodash/recommended"],
   "rules": {
     "array-bracket-newline": ["error", { "multiline": true }],
+    "arrow-parens": ["error", "as-needed", { "requireForBlockBody": true }],
     "func-names": "off",
     "no-else-return": ["error", { "allowElseIf": true }],
     "no-underscore-dangle": "off",
