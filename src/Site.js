@@ -962,7 +962,7 @@ Returns a Promise with the URL of the remote of the repository
 */
 function getUrl() {
   return new Promise((resolve) => {
-    Git.Repository.open('.git').then(((repo) => {
+    Git.Repository.open('./').then(((repo) => {
       repo.config().then(((config) => {
         config.getStringBuf(REMOTE_ORIGIN_URL_KEY)
           .then(((buf) => {
