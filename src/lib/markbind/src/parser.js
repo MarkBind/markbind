@@ -27,7 +27,7 @@ const {
   ATTRIB_CWF,
   BOILERPLATE_FOLDER_NAME,
   IMPORTED_VARIABLE_PREFIX,
-} = require('../../../constants');
+} = require('./constants');
 
 const VARIABLE_LOOKUP = new Map();
 const FILE_ALIASES = new Map();

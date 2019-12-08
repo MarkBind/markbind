@@ -56,29 +56,16 @@ module.exports = {
   WIKI_FOOTER_PATH: '_Footer.md',
   MARKBIND_WEBSITE_URL: 'https://markbind.org/',
 
-  // src/lib/parser.js
-  ATTRIB_INCLUDE_PATH: 'include-path',
-  ATTRIB_CWF: 'cwf',
-
-  BOILERPLATE_FOLDER_NAME: '_markbind/boilerplates',
-  /* Imported global variables will be assigned a namespace.
-   * A prefix is appended to reduce clashes with other variables in the page.
-   */
-  IMPORTED_VARIABLE_PREFIX: '$__MARKBIND__',
-
-  // src/lib/utils.js
-  markdownFileExts: ['md', 'mbd', 'mbdf'],
-
-  // plugins/algolia.js
+  // src/plugins/algolia.js
   ALGOLIA_CSS_URL: 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css',
   ALGOLIA_JS_URL: 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js',
   ALGOLIA_INPUT_SELECTOR: '#algolia-search-input',
 
-  // plugins/default/markbind-plugin-anchors.js
+  // src/plugins/default/markbind-plugin-anchors.js
   ANCHOR_HTML: '<a class="fa fa-anchor" href="#"></a>',
   HEADER_TAGS: 'h1, h2, h3, h4, h5, h6',
 
-  // plugins/default/markbind-plugin-plantuml.js
+  // src/plugins/default/markbind-plugin-plantuml.js
   ERR_PROCESSING: 'Error processing',
   ERR_READING: 'Error reading',
 
