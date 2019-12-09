@@ -848,7 +848,7 @@ Parser.prototype._rebaseReference = function (node, foundBase) {
       foundBase[parent] = relative;
     }
 
-    const combinedBases = Object.assign({}, childrenBase, foundBase);
+    const combinedBases = { ...childrenBase, ...foundBase };
     const bases = Object.keys(combinedBases);
     if (bases.length !== 0) {
       // need to rebase
