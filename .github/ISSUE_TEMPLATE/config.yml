@@ -1,8 +1,0 @@
-blank_issues_enabled: true
-contact_links:
-  - name: Bug Report
-    url: https://github.com/MarkBind/markbind/issues/new?template=bug-report.md
-    about: Something isn't working as expected? Create a report to help us improve.
-  - name: Feature Request
-    url: https://github.com/MarkBind/markbind/issues/new?template=feature-request.md
-    about: Suggest a new idea or feature for MarkBind.

@@ -1,3 +1,8 @@
+---
+name: Feature Request
+about: Suggest a new idea/feature for MarkBind
+---
+
 <!--
   Before opening a new issue, please search existing issues:  https://github.com/MarkBind/markbind/issues
 -->

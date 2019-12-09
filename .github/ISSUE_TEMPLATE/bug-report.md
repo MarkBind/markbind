@@ -1,3 +1,8 @@
+---
+name: Bug Report
+about: Something isn't working as expected? Create a report to help us improve.
+---
+
 <!--
   Before opening a new issue, please search existing issues:  https://github.com/MarkBind/markbind/issues
 -->
