@@ -1,5 +1,5 @@
 module.exports = {
-  // src/lib/parser.js
+  // src/lib/markbind/src/parser.js
   ATTRIB_INCLUDE_PATH: 'include-path',
   ATTRIB_CWF: 'cwf',
 
@@ -10,6 +10,6 @@ module.exports = {
    */
   IMPORTED_VARIABLE_PREFIX: '$__MARKBIND__',
 
-  // src/lib/utils.js
+  // src/lib/markbind/src/utils.js
   markdownFileExts: ['md', 'mbd', 'mbdf'],
 };
