@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs-extra-promise');
 const fsUtils = require('../util/fsUtil');
 
-const requiredFiles = ['index.md', 'site.json', '_markbind/'];
+const { requiredFiles } = require('../constants');
 
 function Template(rootPath, templatePath) {
   this.rootPath = rootPath;

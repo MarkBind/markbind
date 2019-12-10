@@ -18,8 +18,10 @@ const fsUtil = require('./src/util/fsUtil');
 const logger = require('./src/util/logger');
 const Site = require('./src/Site');
 
-const ACCEPTED_COMMANDS = ['init', 'build', 'serve', 'deploy'];
-const ACCEPTED_COMMANDS_ALIAS = ['i', 'b', 's', 'd'];
+const {
+  ACCEPTED_COMMANDS,
+  ACCEPTED_COMMANDS_ALIAS,
+} = require('./src/constants');
 const CLI_VERSION = require('./package.json').version;
 
 process.title = 'MarkBind';

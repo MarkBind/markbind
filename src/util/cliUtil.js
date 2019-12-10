@@ -2,7 +2,7 @@ const findUp = require('find-up');
 const fs = require('fs-extra-promise');
 const path = require('path');
 
-const SITE_CONFIG_NAME = 'site.json';
+const { SITE_CONFIG_NAME } = require('../constants');
 
 module.exports = {
   findRootFolder: (userSpecifiedRoot, siteConfigPath = SITE_CONFIG_NAME) => {

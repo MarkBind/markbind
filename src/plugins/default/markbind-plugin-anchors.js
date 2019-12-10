@@ -1,8 +1,11 @@
 const cheerio = module.parent.require('cheerio');
 const md = require('./../../lib/markbind/src/lib/markdown-it');
 
-const ANCHOR_HTML = '<a class="fa fa-anchor" href="#"></a>';
-const HEADER_TAGS = 'h1, h2, h3, h4, h5, h6';
+const {
+  ANCHOR_HTML,
+  HEADER_TAGS,
+} = require('../../constants');
+
 /**
  * Adds anchor links to headers
  */

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const markdownFileExts = ['md', 'mbd', 'mbdf'];
+const { markdownFileExts } = require('./constants');
 
 module.exports = {
   getCurrentDirectoryBase() {
