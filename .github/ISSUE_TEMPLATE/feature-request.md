@@ -1,6 +1,7 @@
 ---
 name: Feature Request
 about: Suggest a new idea/feature for MarkBind
+labels: "c.Feature :rocket:"
 ---
 
 <!--

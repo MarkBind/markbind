@@ -1,6 +1,7 @@
 ---
 name: Bug Report
 about: Something isn't working as expected? Create a report to help us improve.
+labels: "c.Bug :bug:"
 ---
 
 <!--
