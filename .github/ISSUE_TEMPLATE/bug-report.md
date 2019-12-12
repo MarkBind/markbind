@@ -1,3 +1,13 @@
+---
+name: Bug Report
+about: Something isn't working as expected? Create a report to help us improve.
+labels: "c.Bug :bug:"
+---
+
+<!--
+  Before opening a new issue, please search existing issues:  https://github.com/MarkBind/markbind/issues
+-->
+
 **Tell us about your environment**
 
 * **MarkBind Version:**
