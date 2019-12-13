@@ -14,24 +14,28 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 <div class="website-content">
 
-# Test footnotes
+**Test footnotes**
 
 <include src="testFootnotes.md" />
 
-# Variables that reference another variable
+**Variables that reference another variable**
+
 {{finalized_value}}
 
 {{reference_level_4}}
 
-# Page Variable
+**Page Variable**
+
 <variable name="page_variable">Page Variable</variable>
 {{ page_variable }}
 
-# Page Variable with HTML and MD
+**Page Variable with HTML and MD**
+
 <variable name="page_variable_with_HTML_and_MD">Page Variable with <span style="color: blue;">HTML</span> and **Markdown**</variable>
 {{ page_variable_with_HTML_and_MD }}
 
-# Nested Page Variable
+**Nested Page Variable**
+
 <div>
   <span>
     <variable name="nested_page_variable">Nested Page Variable</variable>
@@ -39,19 +43,23 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 </div>
 {{ nested_page_variable }}
 
-# Page Variable with Global Variable
+**Page Variable with Global Variable**
+
 <variable name="page_variable_with_global_variable">Page Variable with {{ global_variable }}</variable>
 {{ page_variable_with_global_variable }}
 
-# Page Variable referencing Page Variable
+**Page Variable referencing Page Variable**
+
 <variable name="page_variable_referencing_page_variable">Page Variable referencing {{ page_variable }}</variable>
 {{ page_variable_referencing_page_variable }}
 
-# Global Variable overriding Page Variable
+**Global Variable overriding Page Variable**
+
 <variable name="page_global_variable_overriding_page_variable">**Should not appear**: Page Variable overridden by Global Variable</variable>
 {{ page_global_variable_overriding_page_variable }}
 
-# Test Page Variable and Included Variable Integrations
+**Test Page Variable and Included Variable Integrations**
+
 <variable name="explicitly_included_page_variable">Explicitly Included Page Variable</variable>
 <include src="testPageVariablesInInclude.md">
   <variable name="explicitly_included_page_variable">{{ explicitly_included_page_variable }}</variable>
@@ -60,27 +68,31 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 </include>
 
 # Heading with multiple keywords
+
 <span class="keyword">keyword 1</span>
 <span class="keyword">keyword 2</span>
 
 # Heading with keyword in panel
+
 <panel header="Panel with keyword" expanded>
   <span class="keyword">panel keyword</span>
 </panel>
 
-# Panel with heading with keyword
+**Panel with heading with keyword**
+
 <panel header="# Panel with heading" expanded>
   <span class="keyword">panel keyword</span>
 </panel>
 
-# Expanded panel without heading with keyword
+**Expanded panel without heading with keyword**
+
 <panel header="# Panel without heading with keyword" expanded>
 
   # Keyword should be tagged to this heading, not the panel heading
   <span class="keyword">panel keyword</span>
 </panel>
 
-# Unexpanded panel with heading with keyword
+**Unexpanded panel with heading with keyword**
 <panel header="# Panel with heading with keyword">
 
   # Keyword should be tagged to the panel heading, not this heading
@@ -107,46 +119,55 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 <include src="testTags.md" />
 
-# Normal include
+**Normal include**
+
 <include src="requirements/EstablishingRequirements.md" />
 
-# Include segment
+**Include segment**
+
 <include src="requirements/EstablishingRequirements.md#preview" />
 
-# Dynamic include
+**Dynamic include**
+
 <include src="requirements/SpecifyingRequirements.md" name="Dynamic Include" dynamic />
 
-# Boilerplate include
+**Boilerplate include**
+
 <include src="requirements/boilerTest.md" name="Boilerplate Referencing" boilerplate />
 
 <include src="requirements/notInside.md" name="Referencing specified path in boilerplate" boilerplate="folder/inside.md" dynamic/>
 
-# Nested include
+**Nested include**
+
 <include src="requirements/nestedInclude.md" />
 
-# HTML include
+**HTML include**
+
 <include src="testInclude.html" />
 
-# Mbd, Mbdf include
+**Mbd, Mbdf include**
+
 <include src="testIncludeMbd.mbd" />
 <include src="testIncludeMbdf.mbdf" />
 
-# Include from another Markbind site
+**Include from another Markbind site**
+
 <include src="sub_site/index.md" />
 <include src="sub_site/testReuse.md" />
 
-# Include segment from another Markbind site
+**Include segment from another Markbind site**
+
 <include src="sub_site/testReuse.md#imageTest" />
 
-# Trimmed include
+**Trimmed include** 
 
-## <include src="testTrimInclude.md" trim inline />
+**<include src="testTrimInclude.md" trim inline />**
 
-# Trimmed include fragment
+**Trimmed include fragment**
 
-## Before | <include src="testTrimIncludeFragment.mbdf#fragment" trim inline /> | After
+**Before | <include src="testTrimIncludeFragment.mbdf#fragment" trim inline /> | After**
 
-# Include with custom variables
+**Include with custom variables**
 
 <include src="testIncludeVariables.md" var-included_variable_as_include_attribute="Included variable as include attribute">
   <variable name="included_variable">Included variable</variable>
@@ -160,87 +181,102 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
   <variable name="included_variable_with_global_variable">Included variable with {{ global_variable }}</variable>
 </include>
 
-# Included variables should not leak into other files
+**Included variables should not leak into other files**
 
 <include src="testIncludeVariableLeak.md" />
 
-# Panel with shorthand heading syntax
+**Panel with shorthand heading syntax**
+
 <panel>
     <span heading>
         Heading
     </span>
 </panel>
 
-# Panel without src
+**Panel without src**
+
 <panel header="## Panel without src header" expanded>
 <markdown>
-### Panel without src content heading
+**Panel without src content heading**
 </markdown> 
 </panel>
 
-# Panel with normal src
+**Panel with normal src**
+
 <panel header="## Panel with normal src header" src="testPanels/PanelNormalSource.md" expanded>
 </panel>    
 
-# Panel with src from a page segment
+**Panel with src from a page segment**
+
 <panel header="## Panel with src from a page segment header" src="testPanels/PanelSourceContainsSegment.md#segment" expanded>
 </panel>
 
-# Panel with boilerplate 
+**Panel with boilerplate**
+
 <panel header="## Boilerplate referencing" src="testPanels/boilerTestPanel.md"  boilerplate expanded>
 </panel>
 
 <panel header="## Referencing specified path in boilerplate" src="testPanels/notInside.md" boilerplate="folder/panelBoilerplate.md" expanded>
 </panel>
 
-# Nested panel
+**Nested panel**
+
 <panel header="## Outer nested panel" src="testPanels/NestedPanel.md" expanded>
 </panel>
 
-# Nested panel without src
+**Nested panel without src**
+
 <panel header="## Outer nested panel without src" expanded>
 
-  ## Panel content of outer nested panel
+  **Panel content of outer nested panel**
+
   <panel header="## Inner panel header without src" expanded>
   
-  ## Panel content of inner nested panel
+  **Panel content of inner nested panel**
+
   </panel>
 </panel>
 
-# Panel with src from another Markbind site
+**Panel with src from another Markbind site**
+
 <panel header="## Panel with src from another Markbind site header" src="sub_site/index.md" expanded>
 </panel>
 <panel header="## Panel with src from another Markbind site header" src="sub_site/testReuse.md" expanded>
 </panel>
 </div>
 
-# Modal with panel inside
+**Modal with panel inside**
+
 <trigger for="modal-with-panel">trigger</trigger>
 
 <modal title="modal title with panel inside" id="modal-with-panel">
   <panel header="## Panel inside modal" expanded>
   
-  ## Panel content inside modal
+  **Panel content inside modal**
+
   </panel>
 </modal>
 
-# Unexpanded panel
+**Unexpanded panel**
+
 <panel header="## Unexpanded panel header">
 
-  ## Panel content of unexpanded panel should not appear in search data
+  **Panel content of unexpanded panel should not appear in search data**
+
   <panel header="## Panel header inside unexpanded panel should not appear in search data" expanded>
   
-  ## Panel content inside unexpanded panel should not appear in search data
+  **Panel content inside unexpanded panel should not appear in search data**
+
   </panel>
 </panel>
 
-# Test plugin in markbind/plugins
+**Test plugin in markbind/plugins**
 
 <div id="test-markbind-plugin">
   Markbind Plugin Pre-render Placeholder
 </div>
 
-# Test search indexing
+**Test search indexing**
 
 ## Level 2 header (inside headingSearchIndex) with no-index attribute should not be indexed {.no-index}
 
