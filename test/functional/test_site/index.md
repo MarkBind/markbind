@@ -68,12 +68,10 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 </include>
 
 # Heading with multiple keywords
-
 <span class="keyword">keyword 1</span>
 <span class="keyword">keyword 2</span>
 
 # Heading with keyword in panel
-
 <panel header="Panel with keyword" expanded>
   <span class="keyword">panel keyword</span>
 </panel>
