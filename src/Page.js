@@ -81,6 +81,7 @@ function Page(pageConfig) {
   this.headings = {};
   this.headingIndexingLevel = pageConfig.headingIndexingLevel;
   this.includedFiles = new Set();
+  this.pluginSourceFiles = new Set();
   this.keywords = {};
   this.navigableHeadings = {};
   this.pageSectionsHtml = {};
@@ -794,6 +795,7 @@ Page.prototype.generate = function (builtFiles) {
       })
       .then(result => removePageHeaderAndFooter(result))
       .then(result => addContentWrapper(result))
+      .then(result => this.collectPluginSources(result))
       .then(result => this.preRender(result))
       .then(result => this.insertSiteNav((result)))
       .then(result => this.insertHeaderFile(result))
@@ -859,6 +861,21 @@ Page.prototype.getPluginConfig = function () {
     includedFiles: this.includedFiles,
     resultPath: this.resultPath,
   };
+};
+
+/**
+ * Collects file sources provided by plugins for the page
+ */
+Page.prototype.collectPluginSources = function (content) {
+  Object.entries(this.plugins).forEach(([pluginName, plugin]) => {
+    if (plugin.getSources) {
+      const sources = plugin.getSources(content, this.pluginsContext[pluginName] || {},
+                                        this.frontMatter, this.getPluginConfig());
+      sources.forEach(src => this.pluginSourceFiles.add(path.resolve(ensurePosix(src))));
+    }
+  });
+
+  return content;
 };
 
 /**
