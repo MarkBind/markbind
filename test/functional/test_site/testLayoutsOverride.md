@@ -4,4 +4,4 @@ head: overwriteLayoutHead.md
 layout: default
 </frontmatter>
 
-# Uses a site.json layout, overriding front matter
+**Uses a site.json layout, overriding front matter**

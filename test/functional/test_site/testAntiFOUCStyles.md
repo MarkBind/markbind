@@ -10,7 +10,7 @@
 </navbar>
 
 <!-- Anti-FOUC styles should be applied to dropdown. -->
-# Test dropdown in body with text and class attributes
+**Test dropdown in body with text and class attributes**
 
 <dropdown text="Test One" class="test-class">
   <li><a class="dropdown-item" href="/">Dropdown One</a></li>
@@ -19,7 +19,7 @@
 
 <!-- Anti-FOUC styles should be correctly applied to dropdown with no text or class. -->
 
-# Test dropdown in body without text and class attributes
+**Test dropdown in body without text and class attributes**
 
 <dropdown>
   <button slot="button" type="button" class="btn dropdown-toggle">
@@ -32,7 +32,7 @@
 
 <!-- Filler text to increase page length. -->
 
-# Filler text
+**Filler text**
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 

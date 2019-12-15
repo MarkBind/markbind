@@ -113,9 +113,7 @@
       "globalAndFrontMatterOverrideProperty": "Overridden by global override"
     },
     {
-      "headings": {
-        "uses-a-front-matter-layout": "Uses a front matter layout"
-      },
+      "headings": {},
       "title": "Hello World",
       "head": "overwriteLayoutHead.md",
       "layout": "testLayout",
@@ -124,9 +122,7 @@
       "globalAndFrontMatterOverrideProperty": "Overridden by global override"
     },
     {
-      "headings": {
-        "uses-a-site-json-layout-overriding-front-matter": "Uses a site.json layout, overriding front matter"
-      },
+      "headings": {},
       "title": "Hello World",
       "head": "overwriteLayoutHead.md",
       "layout": "testLayout",
@@ -135,11 +131,7 @@
       "globalAndFrontMatterOverrideProperty": "Overridden by global override"
     },
     {
-      "headings": {
-        "test-dropdown-in-body-with-text-and-class-attributes": "Test dropdown in body with text and class attributes",
-        "test-dropdown-in-body-without-text-and-class-attributes": "Test dropdown in body without text and class attributes",
-        "filler-text": "Filler text"
-      },
+      "headings": {},
       "src": "testAntiFOUCStyles.md",
       "title": "Hello World",
       "layout": "default",
@@ -184,30 +176,7 @@
       "globalAndFrontMatterOverrideProperty": "Overridden by global override"
     },
     {
-      "headings": {
-        "thumbnail-test": "Thumbnail test",
-        "images": "Images",
-        "square-thumb-size-100-default": "Square thumb, size = 100 (default)",
-        "square-thumb-with-alt-test": "Square thumb with alt=&quot;Test&quot;",
-        "square-thumb-size-200": "Square thumb, size = 200",
-        "circle-thumbs-size-100": "Circle thumbs, size = 100",
-        "an-actual-image": "An actual image",
-        "broken-link-still-takes-up-the-space-it-s-supposed-to": "Broken link, still takes up the space it's supposed to",
-        "borders": "Borders",
-        "background": "Background",
-        "valid-css-properties": "Valid CSS properties",
-        "invalid-css-properties": "Invalid CSS properties",
-        "empty": "Empty",
-        "text-emojis-icons": "Text/Emojis/Icons",
-        "text": "Text",
-        "markdown": "Markdown",
-        "emojis": "Emojis",
-        "icons": "Icons",
-        "font-size-font-color": "font-size/font-color",
-        "20px-font-size": "20px font-size",
-        "40px-font-size": "40px font-size",
-        "font-color": "font-color"
-      },
+      "headings": {},
       "src": "testThumbnails.md",
       "title": "Thumbnails Test",
       "layout": "default",
@@ -215,16 +184,7 @@
       "globalAndFrontMatterOverrideProperty": "Overridden by global override"
     },
     {
-      "headings": {
-        "plantuml-test": "PlantUML Test",
-        "sequence-diagram": "Sequence Diagram",
-        "use-case-diagram": "Use Case Diagram",
-        "class-diagram": "Class Diagram",
-        "activity-diagram": "Activity Diagram",
-        "component-diagram": "Component Diagram",
-        "state-diagram": "State Diagram",
-        "object-diagram": "Object Diagram"
-      },
+      "headings": {},
       "src": "testPlantUML.md",
       "title": "PlantUML Test",
       "layout": "default",
@@ -243,10 +203,7 @@
       "globalAndFrontMatterOverrideProperty": "Overridden by global override"
     },
     {
-      "headings": {
-        "below-panel-is-working": "Below panel is working",
-        "below-should-be-a-panel-but-is-now-an-error-uncomment-it-to-see-the-error": "Below should be a panel, but is now an error. Uncomment it to see the error."
-      },
+      "headings": {},
       "src": "testPanelsWithImportedVariables.md",
       "title": "Panels with Imported Variables Test",
       "layout": "default",

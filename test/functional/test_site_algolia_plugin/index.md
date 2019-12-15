@@ -4,23 +4,23 @@
   siteNav: site-nav.md
 </frontmatter>
 
-# Test Algolia plugin adds algolia-no-index classes
+**Test Algolia plugin adds algolia-no-index classes**
 
-## Dropdowns should have algolia-no-index class
+**Dropdowns should have algolia-no-index class**
 
 <dropdown text="Dropdown">
   <li><a class="dropdown-item" href="/">One</a></li>
   <li><a class="dropdown-item" href="/">Two</a></li>
 </dropdown>
 
-## Modal content should have algolia-no-index class
+**Modal content should have algolia-no-index class**
 
 <modal title="Modal" id="modal:trigger_id">
   Content should have `algolia-no-index` class
 </modal>
 <trigger for="modal:trigger_id">Trigger should not have `algolia-no-index` class</trigger>
 
-## Panels that are not expanded should have algolia-no-index class
+**Panels that are not expanded should have algolia-no-index class**
 
 <panel header="Panel">
   Content
@@ -30,7 +30,7 @@
   Content
 </panel>
 
-## Popover content should have algolia-no-index class
+**Popover content should have algolia-no-index class**
 
 <popover effect="fade" title="Title" placement="top">
   <div slot="content">Content should have `algolia-no-index` class</div>
@@ -41,7 +41,7 @@
   <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
 </popover>
 
-## Question hint and answer should have algolia-no-index class
+**Question hint and answer should have algolia-no-index class**
 
 <question>
   Question should not have `algolia-no-index` class
@@ -49,7 +49,7 @@
   <div slot="answer">Answer should have `algolia-no-index` class</div>
 </question>
 
-## Tabs except first tab should have algolia-no-index class
+**Tabs except first tab should have algolia-no-index class**
 
 <tabs>
   <tab header="First Tab">
