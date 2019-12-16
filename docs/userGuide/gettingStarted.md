@@ -12,7 +12,8 @@
 
   %%{{ icon_ticked }}%% a basic knowledge of [Markdown](https://www.markdownguide.org/basic-syntax/) and [HTML](https://www.w3schools.com/html/) syntax<br>
   %%{{ icon_ticked }}%% a basic knowledge of running CLI commands<br>
-  %%{{ icon_ticked }}%% a recent version of [npm](https://www.npmjs.com/get-npm) installed
+  %%{{ icon_ticked }}%% a recent version of [npm](https://www.npmjs.com/get-npm) installed<br>
+  %%{{ icon_ticked }}%% [Node.js](https://nodejs.org) v10.13.0 or higher installed
 </div>
 
 <big>**1. Install MarkBind**</big>
