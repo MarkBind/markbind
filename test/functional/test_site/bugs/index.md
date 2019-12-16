@@ -5,7 +5,8 @@ header: header.md
 
 <div class="website-content">
 
-## popover initiated by trigger: honor trigger attribute
+**popover initiated by trigger: honor trigger attribute**
+
 <a href="https://github.com/MarkBind/markbind/issues/49">Issue #49</a>
 
 Repro:
@@ -18,7 +19,8 @@ Repro:
   </div>
 </popover>
 
-## Support multiple inclusions of a modal
+**Support multiple inclusions of a modal**
+
 <a href="https://github.com/MarkBind/markbind/issues/107">Issue #107</a>
 
 Repro:
@@ -26,7 +28,8 @@ Repro:
 <include src="modal.md" />
 <include src="modal.md" />
 
-## Remove extra space in links
+**Remove extra space in links**
+
 <a href="https://github.com/MarkBind/markbind/issues/147">Issue #147</a>
 
 Repro:

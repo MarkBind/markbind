@@ -26,38 +26,33 @@
   <div id="app">
     <div id="flex-body">
       <div id="content-wrapper">
-        <h1 id="thumbnail-test">Thumbnail test<a class="fa fa-anchor" href="#thumbnail-test"></a></h1>
-        <h2 id="images">Images<a class="fa fa-anchor" href="#images"></a></h2>
-        <h3 id="square-thumb-size-100-default">Square thumb, size = 100 (default)<a class="fa fa-anchor" href="#square-thumb-size-100-default"></a></h3>
-        <p>
+        <p><strong>Thumbnail test</strong></p>
+        <p><strong>Images</strong></p>
+        <p><strong>Square thumb, size = 100 (default)</strong>
           <thumbnail src="http://placehold.it/800x600"></thumbnail>
         </p>
-        <h3 id="square-thumb-with-alt-test">Square thumb with alt=&quot;Test&quot;<a class="fa fa-anchor" href="#square-thumb-with-alt-test"></a></h3>
-        <p>
+        <p><strong>Square thumb with alt=&quot;Test&quot;</strong>
           <thumbnail alt="Test" src="/test_site/asdf"></thumbnail>
         </p>
-        <h3 id="square-thumb-size-200">Square thumb, size = 200<a class="fa fa-anchor" href="#square-thumb-size-200"></a></h3>
-        <p>
+        <p><strong>Square thumb, size = 200</strong>
           <thumbnail src="http://placehold.it/800x600" size="200"></thumbnail>
         </p>
-        <h3 id="circle-thumbs-size-100">Circle thumbs, size = 100<a class="fa fa-anchor" href="#circle-thumbs-size-100"></a></h3>
-        <p>
+        <p><strong>Circle thumbs, size = 100</strong>
           <thumbnail src="http://placehold.it/800x600" circle=""></thumbnail>
           <thumbnail src="http://placehold.it/100x300" circle=""></thumbnail>
         </p>
-        <h3 id="an-actual-image">An actual image<a class="fa fa-anchor" href="#an-actual-image"></a></h3>
-        <p>
+        <p><strong>An actual image</strong>
           <thumbnail circle="" size="300" src="/test_site/images/deer.jpg"></thumbnail>
           <pic src="/test_site/images/deer.jpg" height="300"></pic>
         </p>
         <hr>
-        <h3 id="broken-link-still-takes-up-the-space-it-s-supposed-to">Broken link, still takes up the space it's supposed to<a class="fa fa-anchor" href="#broken-link-still-takes-up-the-space-it-s-supposed-to"></a></h3>
+        <p><strong>Broken link, still takes up the space it's supposed to</strong></p>
         <p>
           <thumbnail src="/broken_link" border=""></thumbnail>
           <thumbnail src="http://placehold.it/300x100"></thumbnail>
         </p>
         <hr>
-        <h2 id="borders">Borders<a class="fa fa-anchor" href="#borders"></a></h2>
+        <p><strong>Borders</strong></p>
         <div class="table-responsive">
           <table class="markbind-table table table-bordered table-striped">
             <thead>
@@ -93,54 +88,44 @@
           </table>
         </div>
         <hr>
-        <h2 id="background">Background<a class="fa fa-anchor" href="#background"></a></h2>
-        <h3 id="valid-css-properties">Valid CSS properties<a class="fa fa-anchor" href="#valid-css-properties"></a></h3>
-        <p>
+        <p><strong>Background</strong></p>
+        <p><strong>Valid CSS properties</strong>
           <thumbnail background="lightblue" circle=""></thumbnail>
           <thumbnail background="#aaf" circle=""></thumbnail>
           <thumbnail background="rgba(120, 120, 200, 0.4)" circle=""></thumbnail>
         </p>
-        <h3 id="invalid-css-properties">Invalid CSS properties<a class="fa fa-anchor" href="#invalid-css-properties"></a></h3>
-        <p>
+        <p><strong>Invalid CSS properties</strong>
           <thumbnail background="asdf" border="1px solid black" circle=""></thumbnail>
         </p>
-        <h3 id="empty">Empty<a class="fa fa-anchor" href="#empty"></a></h3>
-        <p>
+        <p><strong>Empty</strong>
           <thumbnail background="" border="1px solid black" circle=""></thumbnail>
         </p>
         <hr>
-        <h2 id="text-emojis-icons">Text/Emojis/Icons<a class="fa fa-anchor" href="#text-emojis-icons"></a></h2>
-        <h3 id="text">Text<a class="fa fa-anchor" href="#text"></a></h3>
-        <p>
+        <p><strong>Text/Emojis/Icons</strong></p>
+        <p><strong>Text</strong>
           <thumbnail text="test" border="1px solid black" circle="">test</thumbnail>
         </p>
-        <h3 id="markdown">Markdown<a class="fa fa-anchor" href="#markdown"></a></h3>
-        <p>
+        <p><strong>Markdown</strong>
           <thumbnail text="_test_" border="1px solid black" circle=""><em>test</em></thumbnail>
           <thumbnail text="**test**" border="1px solid black" circle=""><strong>test</strong></thumbnail>
         </p>
-        <h3 id="emojis">Emojis<a class="fa fa-anchor" href="#emojis"></a></h3>
-        <p>
+        <p><strong>Emojis</strong>
           <thumbnail text=":x:" border="1px solid black" circle="">❌</thumbnail>
           <thumbnail text=":eggplant:" border="1px solid black" circle="">🍆</thumbnail>
         </p>
-        <h3 id="icons">Icons<a class="fa fa-anchor" href="#icons"></a></h3>
-        <p>
+        <p><strong>Icons</strong>
           <thumbnail text=":fab-github:" border="1px solid black" circle=""><span aria-hidden="true" class="fab fa-github"></span></thumbnail>
           <thumbnail text=":glyphicon-book:" background="#666" font-color="#eee" circle=""><span aria-hidden="true" class="glyphicon glyphicon-book"></span></thumbnail>
         </p>
         <hr>
-        <h2 id="font-size-font-color">font-size/font-color<a class="fa fa-anchor" href="#font-size-font-color"></a></h2>
-        <h3 id="20px-font-size">20px font-size<a class="fa fa-anchor" href="#20px-font-size"></a></h3>
-        <p>
+        <p><strong>font-size/font-color</strong></p>
+        <p><strong>20px font-size</strong>
           <thumbnail text="test" border="1px solid black" font-size="20" circle="">test</thumbnail>
         </p>
-        <h3 id="40px-font-size">40px font-size<a class="fa fa-anchor" href="#40px-font-size"></a></h3>
-        <p>
+        <p><strong>40px font-size</strong>
           <thumbnail text="test" border="1px solid black" font-size="40" circle="">test</thumbnail>
         </p>
-        <h3 id="font-color">font-color<a class="fa fa-anchor" href="#font-color"></a></h3>
-        <p>
+        <p><strong>font-color</strong>
           <thumbnail text="blue" border="1px solid black" font-color="#669" circle="">blue</thumbnail>
           <thumbnail text="maroon" border="1px solid black" font-color="maroon" font-size="25" circle="">maroon</thumbnail>
         </p>

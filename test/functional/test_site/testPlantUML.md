@@ -1,22 +1,22 @@
-## PlantUML Test
+**PlantUML Test**
 
-### Sequence Diagram
+**Sequence Diagram**
 <puml src="diagrams/sequence.puml" />
 
-### Use Case Diagram
+**Use Case Diagram**
 <puml src="diagrams/usecase.puml" />
 
-### Class Diagram
+**Class Diagram**
 <puml src="diagrams/class.puml" />
 
-### Activity Diagram
+**Activity Diagram**
 <puml src="diagrams/activity.puml" />
 
-### Component Diagram
+**Component Diagram**
 <puml src="diagrams/component.puml" />
 
-### State Diagram
+**State Diagram**
 <puml src="diagrams/state.puml" />
 
-### Object Diagram
+**Object Diagram**
 <puml src="diagrams/object.puml" />
