@@ -1,6 +1,6 @@
 ## Code
 
-MarkBind can provide syntax coloring for a code block (aka _Fenced Code Blocks_).
+MarkBind can provide syntax coloring for a code block (aka _Fenced Code Blocks_). The language of the code block is labelled as well.
 <span id="main-example">
 <include src="outputBox.md" boilerplate >
 <span id="code">
