@@ -88,6 +88,9 @@
 <panel header="**seamless type panel**" type="seamless" minimized>
   ...
 </panel>
+<panel header="**minimal type panel**" type="minimal" minimized>
+  ...
+</panel>
 ```
 </span>
 <span id="output">
@@ -118,6 +121,9 @@
     Lorem ipsum ...
   </panel>
   <panel header="**seamless type panel**" type="seamless" minimized>
+    Lorem ipsum ...
+  </panel>
+  <panel header="**minimal type panel**" type="minimal" minimized>
     Lorem ipsum ...
   </panel>
 </span>
@@ -239,6 +245,9 @@
       <tip-box type="success">
         I'm a nested tip-box
       </tip-box>
+      <panel header="Level 3 Nested Panel" type="minimal">
+        minimal-type panel
+      </panel>
     </panel>
   </panel>
   <panel header="Level 1 Nested Panel" type="info">
@@ -255,6 +264,9 @@
       <tip-box type="success">
         I'm a nested tip-box
       </tip-box>
+      <panel header="Level 3 Nested Panel" type="minimal">
+        minimal-type panel
+      </panel>
     </panel>
   </panel>
   <panel header="Level 1 Nested Panel" type="info">
