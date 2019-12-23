@@ -119,7 +119,7 @@ program
     const addHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
       Promise.resolve('').then(() => {
-        if (fsUtil.isSourceFile(filePath)) {
+        if (fsUtil.isSourceFile(filePath) || site.isPluginSourceFile(filePath)) {
           return site.rebuildSourceFiles(filePath);
         }
         return site.buildAsset(filePath);
@@ -131,7 +131,7 @@ program
     const changeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file change: ${filePath}`);
       Promise.resolve('').then(() => {
-        if (fsUtil.isSourceFile(filePath)) {
+        if (fsUtil.isSourceFile(filePath) || site.isPluginSourceFile(filePath)) {
           return site.rebuildAffectedSourceFiles(filePath);
         }
         return site.buildAsset(filePath);
@@ -143,7 +143,7 @@ program
     const removeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file deletion: ${filePath}`);
       Promise.resolve('').then(() => {
-        if (fsUtil.isSourceFile(filePath)) {
+        if (fsUtil.isSourceFile(filePath) || site.isPluginSourceFile(filePath)) {
           return site.rebuildSourceFiles(filePath);
         }
         return site.removeAsset(filePath);

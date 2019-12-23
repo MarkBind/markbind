@@ -143,6 +143,34 @@ This will add the following link and script elements to the page:
 - `<script src="SCRIPT_LINK"></script>`
 - `<script>alert("hello")</script>`
 
+#### Live reload
+
+By default, MarkBind treats `.html`, `.md`, `.mbd`, and `.mbdf` as source files, and will rebuild any
+pages changed when serving the page.
+
+During the `preRender` and `postRender` stages however, plugins may do custom processing using some other
+source file types, as parsed from the raw Markdown, typically requiring rebuilding the site.
+
+Hence, to add custom source files to watch, you can implement the `getSources()` method.
+- `getSources(content, pluginContext, frontMatter)`: Returns an array of source file paths to watch. Called **before** a Markdown file's `preRender` function is called.
+  - `content`: The raw Markdown of the current Markdown file (`.md`, `.mbd`, etc.).
+  - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
+  - `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
+
+Example usage of `getSources` from the PlantUML plugin:
+
+```js
+{
+  ...
+  getSources: (content) => {
+    // Add all src attributes in <puml> tags to watch list
+    const $ = cheerio.load(content, { xmlMode: true });
+
+    return $('puml').map((i, tag) => tag.attribs.src).get();
+  },
+}
+```
+
 ### Advanced: Default plugins
 
 MarkBind has a set of default plugins that it uses to carry out some of its features. These are enabled by default for every project and should be left alone.

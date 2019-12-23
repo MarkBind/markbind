@@ -700,6 +700,15 @@ function findDefaultPlugins() {
 }
 
 /**
+ * Checks if a specified file path is a plugin source file
+ * @param filePath file path to check
+ * @returns {boolean} whether the file path matches a plugin source file path
+ */
+Site.prototype.isPluginSourceFile = function (filePath) {
+  return this.pages.some(page => page.pluginSourceFiles.has(filePath));
+};
+
+/**
  * Loads a plugin
  * @param plugin name of the plugin
  * @param isDefault whether the plugin is a default plugin
@@ -827,7 +836,12 @@ Site.prototype.regenerateAffectedPages = function (filePaths) {
   }
   this._setTimestampVariable();
   this.pages.forEach((page) => {
-    if (shouldRebuildAllPages || filePaths.some(filePath => page.includedFiles.has(filePath))) {
+    if (shouldRebuildAllPages || filePaths.some((filePath) => {
+      const isIncludedFile = page.includedFiles.has(filePath);
+      const isPluginSourceFile = page.pluginSourceFiles.has(filePath);
+
+      return isIncludedFile || isPluginSourceFile;
+    })) {
       // eslint-disable-next-line no-param-reassign
       page.userDefinedVariablesMap = this.userDefinedVariablesMap;
       processingFiles.push(page.generate(builtFiles)

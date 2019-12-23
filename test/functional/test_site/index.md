@@ -276,6 +276,12 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 **Test search indexing**
 
+**Test PlantUML live reload without include**
+<puml src="diagrams/activity.puml" alt="activity diagram" />
+
+**Test PlantUML live reload with include**
+<include src="testPlantUML.md" />
+
 ## Level 2 header (inside headingSearchIndex) with no-index attribute should not be indexed {.no-index}
 
 ###### Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed {.always-index}

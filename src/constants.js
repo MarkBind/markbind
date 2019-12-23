@@ -73,5 +73,5 @@ module.exports = {
   requiredFiles: ['index.md', 'site.json', '_markbind/'],
 
   // src/util/fsUtil.js
-  sourceFileExtNames: ['.html', '.md', '.mbd', '.mbdf', '.puml'],
+  sourceFileExtNames: ['.html', '.md', '.mbd', '.mbdf'],
 };
