@@ -114,3 +114,15 @@ value2   | y        | 20       | :far-thumbs-down:
 <panel header="Expanded panel" alt="Minimized panel" type="success" minimized>
   ...
 </panel>
+<br>
+<panel header="Expanded panel" alt="Minimized panel" type="seamless">
+  ...
+</panel>
+<br>
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+<panel header="___Minimal panel **->**___" type="minimal" alt="Minimal panel" popup-url="https://markbind.org/userGuide/usingComponents.html#panels" no-switch>
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+</panel>
+
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
