@@ -290,7 +290,7 @@ bottom-switch | `Boolean` | `true` | Whether to show an expand switch at the bot
 popup-url | `String` | | The url that the popup window will navigate to. The url can be absolute or relative.
 preload | `Boolean` | `false` | Whether the content is loaded immediately from `src`.
 src | `String` | | The url to the remote page to be loaded as the content of the panel.
-type | `String` | `light` | The type of color for the tab (single).<br>Supports: `light`, `dark`, `primary`, `secondary`, `info`, `success`, `warning`, `danger`, `seamless`.
+type | `String` | `light` | The type or color scheme of the panel (single).<br>Supports: `light`, `dark`, `primary`, `secondary`, `info`, `success`, `warning`, `danger`, `seamless`, `minimal`.
 
 <span id="short" class="d-none">
 
@@ -302,6 +302,9 @@ type | `String` | `light` | The type of color for the tab (single).<br>Supports:
 </span>
 
 <span id="examples" class="d-none">
+<panel header="minimal type panel" type="minimal" >
+  ...
+</panel>
 <panel header="seamless type panel" type="seamless" >
   ...
 </panel>
