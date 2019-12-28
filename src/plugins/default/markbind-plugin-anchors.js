@@ -1,4 +1,5 @@
 const cheerio = module.parent.require('cheerio');
+const slugify = require('@sindresorhus/slugify');
 const md = require('./../../lib/markbind/src/lib/markdown-it');
 
 const {
@@ -13,9 +14,13 @@ module.exports = {
   postRender: (content) => {
     const $ = cheerio.load(content, { xmlMode: false });
     $(HEADER_TAGS).each((i, heading) => {
-      if ($(heading).attr('id')) {
-        $(heading).append(ANCHOR_HTML.replace('#', `#${$(heading).attr('id')}`));
+      // Give pure html <h1..6> tags an id with the same slugify function used in markdown-it-anchor
+      if (!$(heading).attr('id')) {
+        const slugifiedHeading = slugify($(heading).text(), { decamelize: false });
+        $(heading).attr('id', slugifiedHeading);
       }
+
+      $(heading).append(ANCHOR_HTML.replace('#', `#${$(heading).attr('id')}`));
     });
     $('panel[header]').each((i, panel) => {
       const panelHeading = cheerio.load(md.render(panel.attribs.header), { xmlMode: false });
