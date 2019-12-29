@@ -14,19 +14,6 @@ We expect contributors for MarkBind to have basic knowledge of the following:
 * Markdown
 * Command-line environment
 
-*Optional*: MarkBind also supports inline pUML, to make use of this integration, you need:
-
-* Java 8 or later (required to run the PlantUML JAR executable)
-* Graphviz v2.38 or later (required to generate all diagrams)
-
-Before cloning MarkBind's repo, run
-
-* `node --version`
-* `npm --version`
-* (Optional for pUML integration) `java --version`, `dot -V`
-
-to make sure that you have all necessary dependencies available.
-
 ## Environment
 
 The MarkBind project should be developed with Node.js version 8.0 or higher.
@@ -92,6 +79,22 @@ The VueStrap library is [Bootstrap](getbootstrap.com/components/) components rew
 You can find more information at the [VueStrap repo](https://github.com/MarkBind/vue-strap).
 
 ## Development Process
+
+### Prerequisite
+
+MarkBind requires the following dependencies
+
+* Node.js (LTS or higher) [with npm version of 6.12.1 or higher]
+* Java 8 or later (required to run the PlantUML JAR executable)
+* Graphviz v2.38 or later (required to generate all diagrams)
+
+Before cloning MarkBind's repo, run
+
+* `node --version` for Node.js
+* `npm --version` for NPM
+* `java --version`, `dot -V` for Java and Graphviz
+
+to make sure that you have all necessary dependencies installed and accessible in the path variable.
 
 ### Development
 
