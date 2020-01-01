@@ -761,6 +761,7 @@ class Page {
       rootPath: this.rootPath,
       userDefinedVariablesMap: this.userDefinedVariablesMap,
       headerIdMap: this.headerIdMap,
+      resultPath: this.resultPath,
     };
     return new Promise((resolve, reject) => {
       markbinder.includeFile(this.sourcePath, fileConfig)

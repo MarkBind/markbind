@@ -42,6 +42,31 @@ markdownIt.renderer.rules.table_close = (tokens, idx) => {
   return '</table></div>';
 };
 
+// rewritten markdown-it renderer.js rule to add a div containing the language of the code block 
+markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
+  var token = tokens[idx],
+    info = token.info ? markdownIt.utils.unescapeAll(token.info).trim() : '',
+    langName = '',
+    highlighted;
+
+  if (info) {
+    langName = info.split(/\s+/g)[0];
+  }
+  
+  const widgetHandler = env[langName];
+  if (widgetHandler !== undefined) {
+    return widgetHandler(token.content);
+  }
+
+  if (options.highlight) {
+    highlighted = options.highlight(token.content, langName) || escapeHtml(token.content);
+  } else {
+    highlighted = escapeHtml(token.content);
+  }
+
+  return  highlighted + '\n';
+}
+
 // highlight inline code
 markdownIt.renderer.rules.code_inline = (tokens, idx, options, env, slf) => {
   const token = tokens[idx];

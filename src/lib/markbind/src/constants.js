@@ -2,6 +2,7 @@ module.exports = {
   // src/lib/markbind/src/parser.js
   ATTRIB_INCLUDE_PATH: 'include-path',
   ATTRIB_CWF: 'cwf',
+  ATTRIB_RESULT_PATH: 'resultPath',
 
   BOILERPLATE_FOLDER_NAME: '_markbind/boilerplates',
 

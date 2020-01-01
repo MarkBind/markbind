@@ -20,6 +20,7 @@ _.pick = require('lodash/pick');
 const CyclicReferenceError = require('./handlers/cyclicReferenceError.js');
 const md = require('./lib/markdown-it');
 const utils = require('./utils');
+const puml = require('../../../widgets/puml');
 
 cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
@@ -374,6 +375,28 @@ class Parser {
       return element;
     } else if (element.name === 'variable' || element.name === 'import') {
       return Parser.createEmptyNode();
+    } else if (element.name === 'puml') {
+      if (!_.hasIn(element.attribs, 'src')) {
+        return element;
+      }
+      const resultPath = path.resolve(path.dirname(config.resultPath), element.attribs.src);
+      const pumlContext = {
+        resultPath,
+        ...element.attribs,
+      };
+
+      // Path of the .puml file
+      const rawDiagramPath = path.resolve(path.dirname(context.cwf), pumlContext.src);
+      const pumlContent = fs.readFileSync(rawDiagramPath, 'utf8');
+      const parseAndRenderPUML = puml.parseAndRender(pumlContext);
+
+      const childrenDOM = parseAndRenderPUML(pumlContent);
+      element.name = 'div';
+      element.attribs = {};
+
+      element.children = cheerio.parseHTML(childrenDOM);
+      element.children.cwf = context.cwf;
+      return element;
     } else {
       if (element.name === 'body') {
         // eslint-disable-next-line no-console
@@ -508,6 +531,26 @@ class Parser {
       delete element.attribs.boilerplate;
       break;
     }
+    case 'puml': {
+      const pumlContext = {
+        resultPath: config.resultPath,
+        ...element.attribs,
+      };
+
+      element.name = 'div';
+      element.attribs = {};
+      cheerio.prototype.options.xmlMode = false;
+      const parseAndRenderPUML = puml.parseAndRender(pumlContext);
+      const widgetHandler = {
+        puml: parseAndRenderPUML,
+      };
+
+      const pumlContent = Parser.extractAndGenerateCodeBlock(element, 'puml');
+
+      element.children = cheerio.parseHTML(md.render(cheerio.html(pumlContent), widgetHandler), true);
+      cheerio.prototype.options.xmlMode = true;
+      break;
+    }
     default:
       break;
     }
@@ -568,6 +611,7 @@ class Parser {
           }
           return processed;
         });
+
         resolve(cheerio.html(nodes));
       });
 
@@ -908,6 +952,22 @@ class Parser {
   static createEmptyNode() {
     const emptyElement = cheerio.parseHTML('<div></div>', true)[0];
     return emptyElement;
+  }
+
+  static extractAndGenerateCodeBlock(element, codeLanguage = '') {
+    let codeBlockElement = this.createEmptyNode();
+    element.children.forEach((child) => {
+      if (child.name === 'pre' && child.children.length >= 1) {
+        const [nestedChild] = child.children;
+        if (nestedChild.name !== 'code') {
+          return;
+        }
+        [codeBlockElement] = nestedChild.children;
+        codeBlockElement.data = `\`\`\`${codeLanguage}\n${codeBlockElement.data}\n\`\`\``;
+      }
+    });
+
+    return codeBlockElement;
   }
 
   static isText(element) {
