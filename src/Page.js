@@ -9,6 +9,8 @@ const Promise = require('bluebird');
 
 const _ = {};
 _.isString = require('lodash/isString');
+_.isObject = require('lodash/isObject');
+_.isArray = require('lodash/isArray');
 
 const CyclicReferenceError = require('./lib/markbind/src/handlers/cyclicReferenceError.js');
 const { ensurePosix } = require('./lib/markbind/src/utils');
@@ -16,6 +18,7 @@ const FsUtil = require('./util/fsUtil');
 const logger = require('./util/logger');
 const MarkBind = require('./lib/markbind/src/parser');
 const md = require('./lib/markbind/src/lib/markdown-it');
+const utils = require('./lib/markbind/src/utils');
 
 const CLI_VERSION = require('../package.json').version;
 
@@ -864,14 +867,81 @@ Page.prototype.getPluginConfig = function () {
 };
 
 /**
- * Collects file sources provided by plugins for the page
+ * Collects file sources provided by plugins for the page for live reloading
  */
 Page.prototype.collectPluginSources = function (content) {
-  Object.entries(this.plugins).forEach(([pluginName, plugin]) => {
-    if (plugin.getSources) {
-      const sources = plugin.getSources(content, this.pluginsContext[pluginName] || {},
-                                        this.frontMatter, this.getPluginConfig());
-      sources.forEach(src => this.pluginSourceFiles.add(path.resolve(ensurePosix(src))));
+  const self = this;
+
+  Object.entries(self.plugins).forEach(([pluginName, plugin]) => {
+    if (!plugin.getSources) {
+      return;
+    }
+
+    const result = plugin.getSources(content, self.pluginsContext[pluginName] || {},
+                                     self.frontMatter, self.getPluginConfig());
+
+    let pageContextSources;
+    let domTagSourcesMap;
+
+    if (_.isArray(result)) {
+      pageContextSources = result;
+    } else if (_.isObject(result)) {
+      pageContextSources = result.sources;
+      domTagSourcesMap = result.tagMap;
+    } else {
+      logger.warn(`${pluginName} returned unsupported type for ${self.sourcePath}`);
+      return;
+    }
+
+    if (pageContextSources) {
+      pageContextSources.forEach((src) => {
+        if (src === undefined || src === '' || utils.isUrl(src)) {
+          return;
+        } else if (utils.isAbsolutePath(src)) {
+          self.pluginSourceFiles.add(path.resolve(src));
+          return;
+        }
+
+        // Resolve relative paths from the current page source
+        const originalSrcFolder = path.dirname(self.sourcePath);
+        const resolvedResourcePath = path.resolve(originalSrcFolder, src);
+
+        self.pluginSourceFiles.add(resolvedResourcePath);
+      });
+    }
+
+    if (domTagSourcesMap) {
+      const $ = cheerio.load(content, { xmlMode: true });
+
+      domTagSourcesMap.forEach(([tagName, attrName]) => {
+        if (!_.isString(tagName) || !_.isString(attrName)) {
+          logger.warn(`Invalid tag or attribute provided in tagMap by ${pluginName} plugin.`);
+          return;
+        }
+
+        const selector = `${tagName}[${attrName}]`;
+        $(selector).each((i, el) => {
+          const elem = $(el);
+
+          let src = elem.attr(attrName);
+
+          src = ensurePosix(src);
+          if (src === '' || utils.isUrl(src)) {
+            return;
+          } else if (utils.isAbsolutePath(src)) {
+            self.pluginSourceFiles.add(path.resolve(src));
+            return;
+          }
+
+          // Resolve relative paths from the include page source, or current page source otherwise
+          const firstParent = elem.closest('div[data-included-from], span[data-included-from]');
+          const originalSrc = firstParent.attr('data-included-from') || self.sourcePath;
+          const originalSrcFolder = path.dirname(originalSrc);
+          const resolvedResourcePath = path.resolve(originalSrcFolder, src);
+
+          self.pluginSourceFiles.add(resolvedResourcePath);
+        });
+      });
     }
   });
 

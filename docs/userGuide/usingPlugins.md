@@ -152,22 +152,28 @@ During the `preRender` and `postRender` stages however, plugins may do custom pr
 source file types, as parsed from the raw Markdown, typically requiring rebuilding the site.
 
 Hence, to add custom source files to watch, you can implement the `getSources()` method.
-- `getSources(content, pluginContext, frontMatter)`: Returns an array of source file paths to watch. Called **before** a Markdown file's `preRender` function is called.
-  - `content`: The raw Markdown of the current Markdown file (`.md`, `.mbd`, etc.).
-  - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
-  - `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
 
-Example usage of `getSources` from the PlantUML plugin:
+`getSources(content, pluginContext, frontMatter)`: Called _before_ a Markdown file's `preRender` function is called.
+- `content`: The raw Markdown of the current Markdown file (`.md`, `.mbd`, etc.).
+- `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
+- `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
+
+It should return an object, consisting of _at least one of the following fields_:
+- `tagMap`: An array consisting of `['tag name', 'source attribute name']` key value pairs.
+  - MarkBind will automatically search for matching tags with the source attributes, and watch them.
+  - For relative file paths, _if the tag is part of some included content_ ( eg. `<include />` tags ), it will be resolved against the included page. Otherwise, it is resolved against the page being processed.
+- `sources`: An array of source file paths to watch, where relative file paths are resolved only against the page being processed.
+- You can also directly return an array of source file paths to watch. ( ie. the `sources` field ) ___(deprecated)___
+
+Example usage of `getSources` from the PlantUML plugin, which allows insertion of PlantUML diagrams using `<puml src="..." >` tags.
+This allows files specified by the `src` attributes of `<puml>` tags to be watched:
 
 ```js
 {
   ...
-  getSources: (content) => {
-    // Add all src attributes in <puml> tags to watch list
-    const $ = cheerio.load(content, { xmlMode: true });
-
-    return $('puml').map((i, tag) => tag.attribs.src).get();
-  },
+  getSources: () => ({
+    tagMap: [['puml', 'src']],
+  })
 }
 ```
 
