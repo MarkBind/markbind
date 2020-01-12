@@ -655,11 +655,10 @@ Parser.prototype._trimNodes = function (node) {
   }
 };
 
-Parser.prototype.includeFile = function (file, config) {
-  const context = {};
-  context.cwf = config.cwf || file; // current working file
-  context.mode = 'include';
-  context.callStack = [];
+Parser.prototype.preprocess = function (file, pageData, context, config) {
+  const currentContext = context;
+  currentContext.mode = 'include';
+  currentContext.callStack = [];
 
   return new Promise((resolve, reject) => {
     const handler = new htmlparser.DomHandler((error, dom) => {
@@ -670,7 +669,7 @@ Parser.prototype.includeFile = function (file, config) {
       const nodes = dom.map((d) => {
         let processed;
         try {
-          processed = this._preprocess(d, context, config);
+          processed = this._preprocess(d, currentContext, config);
         } catch (err) {
           err.message += `\nError while preprocessing '${file}'`;
           this._onError(err);
@@ -686,6 +685,44 @@ Parser.prototype.includeFile = function (file, config) {
       decodeEntities: true,
     });
 
+    const { parent, relative } = calculateNewBaseUrls(file, config.rootPath, config.baseUrlMap);
+    const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
+    const { additionalVariables } = config;
+    const pageVariables = extractPageVariables(file, pageData, userDefinedVariables, {});
+
+    let fileContent = nunjucks.renderString(pageData,
+                                            {
+                                              ...pageVariables,
+                                              ...userDefinedVariables,
+                                              ...additionalVariables,
+                                            },
+                                            { path: file });
+    this._extractInnerVariables(fileContent, currentContext, config);
+    const innerVariables = getImportedVariableMap(currentContext.cwf);
+    fileContent = nunjucks.renderString(fileContent, {
+      ...userDefinedVariables,
+      ...additionalVariables,
+      ...innerVariables,
+    });
+    const fileExt = utils.getExt(file);
+    if (utils.isMarkdownFileExt(fileExt)) {
+      currentContext.source = 'md';
+      parser.parseComplete(fileContent.toString());
+    } else if (fileExt === 'html') {
+      currentContext.source = 'html';
+      parser.parseComplete(fileContent);
+    } else {
+      const error = new Error(`Unsupported File Extension: '${fileExt}'`);
+      reject(error);
+    }
+  });
+};
+
+Parser.prototype.includeFile = function (file, config) {
+  const context = {};
+  context.cwf = config.cwf || file; // current working file
+
+  return new Promise((resolve, reject) => {
     let actualFilePath = file;
     if (!utils.fileExists(file)) {
       const boilerplateFilePath = calculateBoilerplateFilePath(path.basename(file), file, config);
@@ -700,28 +737,29 @@ Parser.prototype.includeFile = function (file, config) {
         reject(err);
         return;
       }
-      const { parent, relative } = calculateNewBaseUrls(file, config.rootPath, config.baseUrlMap);
-      const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
-      const pageVariables = extractPageVariables(file, data, userDefinedVariables, {});
-
-      let fileContent = nunjucks.renderString(data,
-                                              { ...pageVariables, ...userDefinedVariables },
-                                              { path: actualFilePath });
-      this._extractInnerVariables(fileContent, context, config);
-      const innerVariables = getImportedVariableMap(context.cwf);
-      fileContent = nunjucks.renderString(fileContent, { ...userDefinedVariables, ...innerVariables });
-      const fileExt = utils.getExt(file);
-      if (utils.isMarkdownFileExt(fileExt)) {
-        context.source = 'md';
-        parser.parseComplete(fileContent.toString());
-      } else if (fileExt === 'html') {
-        context.source = 'html';
-        parser.parseComplete(fileContent);
-      } else {
-        const error = new Error(`Unsupported File Extension: '${fileExt}'`);
-        reject(error);
-      }
+      this.preprocess(actualFilePath, data, context, config)
+        .then(resolve)
+        .catch(reject);
     });
+  });
+};
+
+Parser.prototype.includeData = function (file, pageData, config) {
+  const context = {};
+  context.cwf = config.cwf || file; // current working file
+
+  return new Promise((resolve, reject) => {
+    let actualFilePath = file;
+    if (!utils.fileExists(file)) {
+      const boilerplateFilePath = calculateBoilerplateFilePath(path.basename(file), file, config);
+      if (utils.fileExists(boilerplateFilePath)) {
+        actualFilePath = boilerplateFilePath;
+      }
+    }
+
+    this.preprocess(actualFilePath, pageData, context, config)
+      .then(resolve)
+      .catch(reject);
   });
 };
 
