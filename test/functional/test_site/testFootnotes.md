@@ -1,6 +1,8 @@
 **Normal footnotes:**
 Here is a footnote reference,[^1] and another.[^longnote]
 
+Here is a repeated footnote to [^1]
+
 [^1]: Here is the footnote. Footnotes will appear at the bottom of the page.
 
 [^longnote]: Here's one with multiple blocks.
