@@ -26,7 +26,7 @@ _.uniq = require('lodash/uniq');
 const url = {};
 url.join = path.posix.join;
 
-// const delay = require('./util/delay');
+const delay = require('./util/delay');
 const FsUtil = require('./util/fsUtil');
 const logger = require('./util/logger');
 const Page = require('./Page');
@@ -573,15 +573,6 @@ class Site {
     });
   }
 
-  /**
-   * Rebuild pages that are affected by changes in filePaths
-   * @param filePaths a single path or an array of paths corresponding to the files that have changed
-   */
-  rebuildAffectedSourceFiles(filePaths) {
-    // TODO: re-introduce delay here (not sure how delay works as of now)
-    return this._rebuildAffectedSourceFiles(filePaths);
-  }
-
   _rebuildSourceFiles() {
     logger.warn('Rebuilding all source files');
     return new Promise((resolve, reject) => {
@@ -597,15 +588,6 @@ class Site {
     });
   }
 
-  /**
-   * Rebuild all pages
-   * @param filePaths a single path or an array of paths corresponding to the files that have changed
-   */
-  rebuildSourceFiles(filePaths) {
-    // TODO: re-introduce delay here (not sure how delay works as of now)
-    return this._rebuildSourceFiles(filePaths);
-  }
-
   _buildMultipleAssets(filePaths) {
     const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];
     const uniquePaths = _.uniq(filePathArray);
@@ -616,15 +598,6 @@ class Site {
       .map(asset => fs.copyAsync(path.join(this.rootPath, asset), path.join(this.outputPath, asset)));
     return Promise.all(copyAssets)
       .then(() => logger.info('Assets built'));
-  }
-
-  /**
-   * Build/copy assets that are specified in filePaths
-   * @param filePaths a single path or an array of paths corresponding to the assets to build
-   */
-  buildAsset(filePaths) {
-    // TODO: re-introduce delay here (not sure how delay works as of now)
-    return this._buildMultipleAssets(filePaths);
   }
 
   _removeMultipleAssets(filePaths) {
@@ -1021,5 +994,32 @@ class Site {
     return Promise.resolve();
   }
 }
+
+/**
+ * Build/copy assets that are specified in filePaths
+ * @param filePaths a single path or an array of paths corresponding to the assets to build
+ */
+Site.prototype.buildAsset = delay(Site.prototype._buildMultipleAssets, 1000);
+
+/**
+ * Rebuild pages that are affected by changes in filePaths
+ * @param filePaths a single path or an array of paths corresponding to the files that have changed
+ */
+Site.prototype.rebuildAffectedSourceFiles
+  = delay(Site.prototype._rebuildAffectedSourceFiles, 1000);
+
+/**
+ * Rebuild all pages
+ * @param filePaths a single path or an array of paths corresponding to the files that have changed
+ */
+Site.prototype.rebuildSourceFiles
+  = delay(Site.prototype._rebuildSourceFiles, 1000);
+
+/**
+ * Remove assets that are specified in filePaths
+ * @param filePaths a single path or an array of paths corresponding to the assets to remove
+ */
+Site.prototype.removeAsset
+  = delay(Site.prototype._removeMultipleAssets, 1000);
 
 module.exports = Site;
