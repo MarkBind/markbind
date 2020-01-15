@@ -1,3 +1,7 @@
+<variable name="mainContentBody">
+<code>{<span></span>{ MAIN_CONTENT_BODY }}</code>
+</variable>
+
 ## Page Layouts
 
 **A _layout_ is a set of page-tweaks that can be applied to a page (or group of pages) in one go.**
@@ -7,6 +11,7 @@ A layout consists of the following files:
 1. A footer (filename: `footer.md`)
 1. Tweaks to the `<head>` (`head.md`)
 1. A site navigation menu (`navigation.md`)
+1. An expressive layout template to embed your content (`page.md`) 
 1. Custom styles (`styles.css`)
 1. Custom scripts (`scripts.js`)
 
@@ -24,6 +29,7 @@ To apply the layout, specify it as an attribute named `layout` in the `<frontmat
                         ├── header.md
                         ├── footer.md
                         ├── head.md
+                        ├── page.md
                         ├── navigation.md
                         ├── styles.css
                         └── scripts.js
@@ -95,3 +101,52 @@ afterSetup(() => {
 </frontmatter>
 ```
 </span>
+
+#### Using Expressive Layout Templates
+
+In the `page.md` file of your layouts, it should come with the following reserved variable:
+
+<box>
+  {{ mainContentBody }}
+</box>
+
+which injects the actual page content in every page. This allows you to build layouts in different ways.
+
+{{ icon_example }} Adding statistics formula to the bottom of every page
+
+<box>
+<i>index.md</i>
+<br><br>
+
+  ```html
+  #### Main content of your page
+
+  Content of your page
+  ```
+</box>
+
+<box>
+<i>page.md</i>
+<br><br>
+  {{ mainContentBody }}
+  ```html
+    <panel header="Statistics Formula for the class" type="primary">
+      <img src="path_to_your_formula.png" />
+    </panel>
+  ```
+</box>
+
+Here's how the above content would appear:
+
+<box>
+<i>index.html</i>
+<br><br>
+
+#### Main content of your page
+
+Content of your page
+
+<panel header="Statistics Formula for the class" type="primary">
+  <img src="extra/stats.png" width="420px" height="320px" />
+</panel>
+</box>
