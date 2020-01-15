@@ -1,0 +1,25 @@
+{
+  "baseUrl": "/test_site_expressive_layout",
+  "titlePrefix": "",
+  "ignore": [
+    "_markbind/layouts/*",
+    "_markbind/logs/*",
+    "_site/*",
+    "site.json",
+    "*.md",
+    "*.mbd",
+    "*.mbdf",
+    "*.njk",
+    ".git/*",
+    "expected/*"
+  ],
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "Landing Page"
+    }
+  ],
+  "deploy": {
+    "message": "Site Update."
+  }
+}
