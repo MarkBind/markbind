@@ -33,10 +33,11 @@
 <box type="info" dismissible>
     dismissible info
 </box>
-<box type="success" heading="Tip box heading">
+<box type="success" header="Tip box header">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-<box type="warning" heading="Tip box heading" dismissible>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    <box type="warning" header="Tip box header" dismissible>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </box>
 </box>
 ```
 </span>
@@ -69,10 +70,11 @@
 <box type="info" dismissible>
     dismissible info
 </box>
-<box type="success" heading="Tip box heading">
+<box type="success" header="Tip box header">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-<box type="warning" heading="Tip box heading" dismissible>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    <box type="warning" header="Tip box header" dismissible>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </box>
 </box>
 
 </span>
@@ -166,7 +168,8 @@ border-color | `String` | `null` |
 border-left-color | `String` | `null` | Overrides border-color for the left border.
 color | `String` | `null` | Color of the text.
 dismissible | `Boolean` | `false` | Adds a button to close the box to the top right corner.
-icon | `String` | `null` |
+icon | `String` | `null` | Inline MarkDown text of the icon displayed on the left.
+header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>heading <br> (deprecated)</small> | `String` | `null` | Plain text of the header on the top right corner.
 type | `String` | `'none'` | Supports: `info`, `warning`, `success`, `important`, `wrong`, `tip`, `definition`, or empty for default.
 light | `Boolean` | `false` | Uses a light color scheme for the box.
 
