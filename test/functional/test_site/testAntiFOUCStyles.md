@@ -3,7 +3,7 @@
 <navbar type="dark">
   <li><a href="/" class="nav-link">One</a></li>
   <li><a href="/" class="nav-link">Two</a></li>
-  <dropdown text="Dropdown" class="nav-link">
+  <dropdown header="Dropdown" class="nav-link">
     <li><a class="dropdown-item" href="/">Dropdown One</a></li>
     <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
   </dropdown>
@@ -12,7 +12,7 @@
 <!-- Anti-FOUC styles should be applied to dropdown. -->
 **Test dropdown in body with text and class attributes**
 
-<dropdown text="Test One" class="test-class">
+<dropdown header="Test One" class="test-class">
   <li><a class="dropdown-item" href="/">Dropdown One</a></li>
   <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
 </dropdown>
