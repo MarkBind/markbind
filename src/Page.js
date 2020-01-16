@@ -5,6 +5,7 @@ const htmlBeautify = require('js-beautify').html;
 const nunjucks = require('nunjucks');
 const path = require('path');
 const Promise = require('bluebird');
+const pathIsInside = require('path-is-inside');
 
 const _ = {};
 _.isString = require('lodash/isString');
@@ -12,7 +13,6 @@ _.isString = require('lodash/isString');
 const CyclicReferenceError = require('./lib/markbind/src/handlers/cyclicReferenceError.js');
 const { ensurePosix } = require('./lib/markbind/src/utils');
 const FsUtil = require('./util/fsUtil');
-const pageUtil = require('./util/pageUtil');
 const logger = require('./util/logger');
 const MarkBind = require('./lib/markbind/src/parser');
 const md = require('./lib/markbind/src/lib/markdown-it');
@@ -39,6 +39,9 @@ const {
   TEMP_NAVBAR_CLASS,
   TEMP_DROPDOWN_CLASS,
   TEMP_DROPDOWN_PLACEHOLDER_CLASS,
+  DROPDOWN_BUTTON_ICON_HTML,
+  DROPDOWN_EXPAND_KEYWORD,
+  SITE_NAV_LIST_CLASS,
 } = require('./constants');
 
 cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
@@ -126,9 +129,9 @@ class Page {
   generateElementSelectorForPageNav(pageNav) {
     if (pageNav === 'default') {
       // Use specified navigation level or default in this.headingIndexingLevel
-      return `${pageUtil.generateHeadingSelector(this.headingIndexingLevel)}, panel`;
+      return `${Page.generateHeadingSelector(this.headingIndexingLevel)}, panel`;
     } else if (Number.isInteger(pageNav)) {
-      return `${pageUtil.generateHeadingSelector(parseInt(pageNav, 10))}, panel`;
+      return `${Page.generateHeadingSelector(parseInt(pageNav, 10))}, panel`;
     }
     // Not a valid specifier
     return undefined;
@@ -192,7 +195,7 @@ class Page {
    */
   collectHeadingsAndKeywordsInContent(content, lastHeading, excludeHeadings, sourceTraversalStack) {
     let $ = cheerio.load(content);
-    const headingsSelector = pageUtil.generateHeadingSelector(this.headingIndexingLevel);
+    const headingsSelector = Page.generateHeadingSelector(this.headingIndexingLevel);
     $('modal').remove();
     $('panel').not('panel panel')
       .each((index, panel) => {
@@ -203,7 +206,7 @@ class Page {
       })
       .each((index, panel) => {
         const shouldExcludeHeadings = excludeHeadings || (panel.attribs.expanded === undefined);
-        let closestHeading = pageUtil.getClosestHeading($, headingsSelector, panel);
+        let closestHeading = Page.getClosestHeading($, headingsSelector, panel);
         if (!closestHeading) {
           closestHeading = lastHeading;
         }
@@ -263,7 +266,7 @@ class Page {
         });
       }
       $('.keyword').each((i, keyword) => {
-        let closestHeading = pageUtil.getClosestHeading($, headingsSelector, keyword);
+        let closestHeading = Page.getClosestHeading($, headingsSelector, keyword);
         if (excludeHeadings || !closestHeading) {
           if (!lastHeading) {
             logger.warn(`Missing heading for keyword: ${$(keyword).text()}`);
@@ -380,7 +383,7 @@ class Page {
     // Set header file as an includedFile
     this.includedFiles.add(headerPath);
     // Map variables
-    const newBaseUrl = pageUtil.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
+    const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
     const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
     return `${nunjucks.renderString(headerContent, userDefinedVariables)}\n${pageData}`;
   }
@@ -406,7 +409,7 @@ class Page {
     // Set footer file as an includedFile
     this.includedFiles.add(footerPath);
     // Map variables
-    const newBaseUrl = pageUtil.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
+    const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
     const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
     return `${pageData}\n${nunjucks.renderString(footerContent, userDefinedVariables)}`;
   }
@@ -439,7 +442,7 @@ class Page {
     // Set siteNav file as an includedFile
     this.includedFiles.add(siteNavPath);
     // Map variables
-    const newBaseUrl = pageUtil.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
+    const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
     const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
     const siteNavMappedData = nunjucks.renderString(siteNavContent, userDefinedVariables);
     // Convert to HTML
@@ -453,7 +456,7 @@ class Page {
       const siteNavHtmlSelector = cheerio.load(siteNavHtml, { xmlMode: false });
       siteNavHtmlSelector('ul').first().addClass('px-0');
       siteNavHtmlSelector('ul ul').addClass('pl-3');
-      const formattedSiteNav = pageUtil.formatSiteNav(siteNavHtmlSelector.html(), this.src);
+      const formattedSiteNav = Page.formatSiteNav(siteNavHtmlSelector.html(), this.src);
       siteNavDataSelector('navigation').replaceWith(formattedSiteNav);
     }
     // Wrap sections
@@ -572,7 +575,7 @@ class Page {
       // Set head file as an includedFile
       this.includedFiles.add(headFilePath);
       // Map variables
-      const newBaseUrl = pageUtil.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
+      const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
       const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
       const headFileMappedData = nunjucks.renderString(headFileContent, userDefinedVariables).trim();
       // Split top and bottom contents
@@ -643,8 +646,8 @@ class Page {
           this.collectFrontMatter(result);
           return Page.removeFrontMatter(result);
         })
-        .then(result => pageUtil.removePageHeaderAndFooter(result))
-        .then(result => pageUtil.addContentWrapper(result))
+        .then(result => Page.removePageHeaderAndFooter(result))
+        .then(result => Page.addContentWrapper(result))
         .then(result => this.preRender(result))
         .then(result => this.insertSiteNav((result)))
         .then(result => this.insertHeaderFile(result))
@@ -659,7 +662,7 @@ class Page {
         .then(result => MarkBind.unwrapIncludeSrc(result))
         .then((result) => {
           this.content = htmlBeautify(result, { indent_size: 2 });
-          const newBaseUrl = pageUtil.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap);
+          const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap);
           const baseUrl = newBaseUrl ? `${this.baseUrl}/${newBaseUrl}` : this.baseUrl;
           const hostBaseUrl = this.baseUrl;
           this.addLayoutFiles();
@@ -674,7 +677,7 @@ class Page {
         })
         .then(() => {
           const resolvingFiles = [];
-          pageUtil.unique(markbinder.getDynamicIncludeSrc()).forEach((source) => {
+          Page.unique(markbinder.getDynamicIncludeSrc()).forEach((source) => {
             if (!FsUtil.isUrl(source.to)) {
               resolvingFiles.push(this.resolveDependency(source, builtFiles));
             }
@@ -827,7 +830,7 @@ class Page {
         .then(result => markbinder.processDynamicResources(file, result))
         .then((result) => {
           // resolve the site base url here
-          const newBaseUrl = pageUtil.calculateNewBaseUrl(file, this.rootPath, this.baseUrlMap);
+          const newBaseUrl = Page.calculateNewBaseUrl(file, this.rootPath, this.baseUrlMap);
           const baseUrl = newBaseUrl ? `${this.baseUrl}/${newBaseUrl}` : this.baseUrl;
           const hostBaseUrl = this.baseUrl;
           const content = nunjucks.renderString(result, { baseUrl, hostBaseUrl });
@@ -836,7 +839,7 @@ class Page {
         .then(() => {
           // Recursion call to resolve nested dependency
           const resolvingFiles = [];
-          pageUtil.unique(markbinder.getDynamicIncludeSrc()).forEach((src) => {
+          Page.unique(markbinder.getDynamicIncludeSrc()).forEach((src) => {
             if (!FsUtil.isUrl(src.to)) { resolvingFiles.push(this.resolveDependency(src, builtFiles)); }
           });
           return Promise.all(resolvingFiles);
@@ -850,6 +853,145 @@ class Page {
         .then(resolve)
         .catch(reject);
     });
+  }
+
+  static addContentWrapper(pageData) {
+    const $ = cheerio.load(pageData);
+    $(`#${CONTENT_WRAPPER_ID}`).removeAttr('id');
+    return `<div id="${CONTENT_WRAPPER_ID}">\n\n`
+      + `${$.html()}\n`
+      + '</div>';
+  }
+
+  static calculateNewBaseUrl(filePath, root, lookUp) {
+    function calculate(file, result) {
+      if (file === root || !pathIsInside(file, root)) {
+        return undefined;
+      }
+      const parent = path.dirname(file);
+      if (lookUp.has(parent) && result.length === 1) {
+        return path.relative(root, result[0]);
+      } else if (lookUp.has(parent)) {
+        return calculate(parent, [parent]);
+      }
+      return calculate(parent, result);
+    }
+
+    return calculate(filePath, []);
+  }
+
+  static removePageHeaderAndFooter(pageData) {
+    const $ = cheerio.load(pageData);
+    const pageHeaderAndFooter = $('header', 'footer');
+    if (pageHeaderAndFooter.length === 0) {
+      return pageData;
+    }
+    // Remove preceding footers
+    pageHeaderAndFooter.remove();
+    return $.html();
+  }
+
+  static formatSiteNav(renderedSiteNav, src) {
+    const $ = cheerio.load(renderedSiteNav);
+    const listItems = $.root().find('ul').first().children();
+    if (listItems.length === 0) {
+      return renderedSiteNav;
+    }
+    // Tidy up the style of the unordered list <ul>
+    listItems.parent().addClass(`${SITE_NAV_LIST_CLASS}`);
+
+    // Set class of <a> to ${SITE_NAV_ID}__a to style links
+    listItems.find('a[href]').addClass(`${SITE_NAV_ID}__a`);
+
+    // Highlight current page
+    const currentPageHtmlPath = src.replace(/\.(md|mbd)$/, '.html');
+    listItems.find(`a[href='{{baseUrl}}/${currentPageHtmlPath}']`).addClass('current');
+
+    listItems.each(function () {
+      // Tidy up the style of each list item
+      $(this).addClass('mt-2');
+      // Do not render dropdown menu for list items with <a> tag
+      if ($(this).children('a').length) {
+        const nestedList = $(this).children('ul').first();
+        if (nestedList.length) {
+          // Double wrap to counter replaceWith removing <li>
+          nestedList.parent().wrap('<li class="mt-2"></li>');
+          // Recursively format nested lists without dropdown wrapper
+          nestedList.parent().replaceWith(Page.formatSiteNav(nestedList.parent().html(), src));
+        }
+        // Found nested list, render dropdown menu
+      } else if ($(this).children('ul').length) {
+        const nestedList = $(this).children('ul').first();
+        const dropdownTitle = $(this).contents().not('ul');
+        // Replace the title with the dropdown wrapper
+        dropdownTitle.remove();
+        // Check if dropdown is expanded by default or if the current page is in a dropdown
+        const shouldExpandDropdown = dropdownTitle.toString().includes(DROPDOWN_EXPAND_KEYWORD)
+          || Boolean(nestedList.find(`a[href='{{baseUrl}}/${currentPageHtmlPath}']`).text());
+        if (shouldExpandDropdown) {
+          const expandKeywordRegex = new RegExp(DROPDOWN_EXPAND_KEYWORD, 'g');
+          const dropdownTitleWithoutKeyword = dropdownTitle.toString().replace(expandKeywordRegex, '');
+          const rotatedIcon = cheerio.load(DROPDOWN_BUTTON_ICON_HTML, { xmlMode: false })('i')
+            .addClass('rotate-icon');
+          nestedList.wrap('<div class="dropdown-container dropdown-container-open"></div>');
+          $(this).prepend('<button class="dropdown-btn dropdown-btn-open">'
+            + `${dropdownTitleWithoutKeyword} `
+            + `${rotatedIcon}\n`
+            + '</button>');
+        } else {
+          nestedList.wrap('<div class="dropdown-container"></div>');
+          $(this).prepend('<button class="dropdown-btn">'
+            + `${dropdownTitle} `
+            + `${DROPDOWN_BUTTON_ICON_HTML}\n`
+            + '</button>');
+        }
+        // Recursively format nested lists
+        nestedList.replaceWith(Page.formatSiteNav(nestedList.parent().html(), src));
+      }
+    });
+    return $.html();
+  }
+
+  /**
+   * Generates a selector for headings with level inside the headingIndexLevel
+   * or with the index attribute, that do not also have the noindex attribute
+   * @param headingIndexingLevel to generate
+   */
+  static generateHeadingSelector(headingIndexingLevel) {
+    let headingsSelectors = ['.always-index:header', 'h1'];
+    for (let i = 2; i <= headingIndexingLevel; i += 1) {
+      headingsSelectors.push(`h${i}`);
+    }
+    headingsSelectors = headingsSelectors.map(selector => `${selector}:not(.no-index)`);
+    return headingsSelectors.join(',');
+  }
+
+  static unique(array) {
+    return array.filter((item, pos, self) => self.indexOf(item) === pos);
+  }
+
+  /**
+   * Gets the closest heading to an element
+   * @param $ a Cheerio object
+   * @param headingsSelector jQuery selector for selecting headings
+   * @param element to find closest heading
+   */
+  static getClosestHeading($, headingsSelector, element) {
+    const prevElements = $(element).prevAll();
+    for (let i = 0; i < prevElements.length; i += 1) {
+      const currentElement = $(prevElements[i]);
+      if (currentElement.is(headingsSelector)) {
+        return currentElement;
+      }
+      const childHeadings = currentElement.find(headingsSelector);
+      if (childHeadings.length > 0) {
+        return childHeadings.last();
+      }
+    }
+    if ($(element).parent().length === 0) {
+      return null;
+    }
+    return Page.getClosestHeading($, headingsSelector, $(element).parent());
   }
 }
 

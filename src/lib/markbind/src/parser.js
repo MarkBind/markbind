@@ -5,6 +5,7 @@ const nunjucks = require('nunjucks');
 const path = require('path');
 const Promise = require('bluebird');
 const url = require('url');
+const pathIsInside = require('path-is-inside');
 
 const _ = {};
 _.clone = require('lodash/clone');
@@ -17,7 +18,6 @@ _.pick = require('lodash/pick');
 const CyclicReferenceError = require('./handlers/cyclicReferenceError.js');
 const md = require('./lib/markdown-it');
 const utils = require('./utils');
-const parserUtils = require('./parserUtils');
 
 cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
@@ -26,6 +26,7 @@ const {
   ATTRIB_INCLUDE_PATH,
   ATTRIB_CWF,
   IMPORTED_VARIABLE_PREFIX,
+  BOILERPLATE_FOLDER_NAME,
 } = require('./constants');
 
 class Parser {
@@ -74,7 +75,7 @@ class Parser {
      * <import>ed variables have not been processed yet, we replace such variables with itself first.
      */
     const importedVariables = {};
-    const that = this;
+    const self = this;
     $('import[from]').each((index, element) => {
       const variableNames = Object.keys(element.attribs)
         .filter(name => name !== 'from' && name !== 'as');
@@ -106,7 +107,7 @@ class Parser {
           ...importedVariables, ...pageVariables, ...userDefinedVariables, ...includedVariables,
         });
         pageVariables[variableName] = variableValue;
-        that.VARIABLE_LOOKUP.get(fileName).set(variableName, variableValue);
+        self.VARIABLE_LOOKUP.get(fileName).set(variableName, variableValue);
       }
     });
     return { ...importedVariables, ...pageVariables };
@@ -152,13 +153,13 @@ class Parser {
       const missingReferenceErrorMessage = `Missing reference in: ${element.attribs[ATTRIB_CWF]}`;
       e.message += `\n${missingReferenceErrorMessage}`;
       this._onError(e);
-      return parserUtils.createErrorNode(element, e);
+      return Parser.createErrorNode(element, e);
     }
     const fileContent = this._fileCache[filePath]; // cache the file contents to save some I/O
-    const { parent, relative } = parserUtils.calculateNewBaseUrls(asIfAt, config.rootPath, config.baseUrlMap);
+    const { parent, relative } = Parser.calculateNewBaseUrls(asIfAt, config.rootPath, config.baseUrlMap);
     const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
     // Extract included variables from the PARENT file
-    const includeVariables = parserUtils.extractIncludeVariables(element, context.variables);
+    const includeVariables = Parser.extractIncludeVariables(element, context.variables);
     // Extract page variables from the CHILD file
     const pageVariables
       = this.extractPageVariables(asIfAt, fileContent, userDefinedVariables, includeVariables);
@@ -219,7 +220,7 @@ class Parser {
     if (requiresSrc && _.isEmpty(element.attribs.src)) {
       const error = new Error(`Empty src attribute in ${element.name} in: ${element.attribs[ATTRIB_CWF]}`);
       this._onError(error);
-      return parserUtils.createErrorNode(element, error);
+      return Parser.createErrorNode(element, error);
     }
     const shouldProcessSrc = ['include', 'panel'].includes(element.name);
     const hasSrc = _.hasIn(element.attribs, 'src');
@@ -238,19 +239,19 @@ class Parser {
       if (isBoilerplate) {
         element.attribs.boilerplate = element.attribs.boilerplate || path.basename(filePath);
         actualFilePath
-          = parserUtils.calculateBoilerplateFilePath(element.attribs.boilerplate, filePath, config);
+          = Parser.calculateBoilerplateFilePath(element.attribs.boilerplate, filePath, config);
         this.boilerplateIncludeSrc.push({ from: context.cwf, to: actualFilePath });
       }
       const isOptional = element.name === 'include' && _.hasIn(element.attribs, 'optional');
       if (!utils.fileExists(actualFilePath)) {
         if (isOptional) {
-          return parserUtils.createEmptyNode();
+          return Parser.createEmptyNode();
         }
         this.missingIncludeSrc.push({ from: context.cwf, to: actualFilePath });
         const error
         = new Error(`No such file: ${actualFilePath}\nMissing reference in ${element.attribs[ATTRIB_CWF]}`);
         this._onError(error);
-        return parserUtils.createErrorNode(element, error);
+        return Parser.createErrorNode(element, error);
       }
     }
     if (element.name === 'include') {
@@ -321,7 +322,7 @@ class Parser {
               = new Error(`No such segment '${includeSrc.hash.substring(1)}' in file: ${actualFilePath}`
               + `\nMissing reference in ${element.attribs[ATTRIB_CWF]}`);
             this._onError(error);
-            return parserUtils.createErrorNode(element, error);
+            return Parser.createErrorNode(element, error);
           }
         }
         if (isOptional) {
@@ -360,7 +361,7 @@ class Parser {
         if (childContext.callStack.length > CyclicReferenceError.MAX_RECURSIVE_DEPTH) {
           const error = new CyclicReferenceError(childContext.callStack);
           this._onError(error);
-          return parserUtils.createErrorNode(element, error);
+          return Parser.createErrorNode(element, error);
         }
         element.children = element.children.map(e => self._preprocess(e, childContext, config));
       }
@@ -372,7 +373,7 @@ class Parser {
       this.dynamicIncludeSrc.push({ from: context.cwf, to: actualFilePath, asIfTo: filePath });
       return element;
     } else if (element.name === 'variable' || element.name === 'import') {
-      return parserUtils.createEmptyNode();
+      return Parser.createEmptyNode();
     } else {
       if (element.name === 'body') {
         // eslint-disable-next-line no-console
@@ -453,7 +454,7 @@ class Parser {
     if (_.isArray(element)) {
       return element.map(el => self._parse(el, context, config));
     }
-    if (parserUtils.isText(element)) {
+    if (Parser.isText(element)) {
       return element;
     }
     if (element.name) {
@@ -478,7 +479,7 @@ class Parser {
       }
       const fileExists = utils.fileExists(element.attribs.src)
           || utils.fileExists(
-            parserUtils.calculateBoilerplateFilePath(
+            Parser.calculateBoilerplateFilePath(
               element.attribs.boilerplate,
               element.attribs.src, config));
       if (fileExists) {
@@ -540,7 +541,7 @@ class Parser {
           } catch (err) {
             err.message += `\nError while preprocessing '${file}'`;
             this._onError(err);
-            processed = parserUtils.createErrorNode(d, err);
+            processed = Parser.createErrorNode(d, err);
           }
           return processed;
         });
@@ -553,7 +554,7 @@ class Parser {
       let actualFilePath = file;
       if (!utils.fileExists(file)) {
         const boilerplateFilePath
-          = parserUtils.calculateBoilerplateFilePath(path.basename(file), file, config);
+          = Parser.calculateBoilerplateFilePath(path.basename(file), file, config);
         if (utils.fileExists(boilerplateFilePath)) {
           actualFilePath = boilerplateFilePath;
         }
@@ -565,7 +566,7 @@ class Parser {
           return;
         }
         const { parent, relative }
-          = parserUtils.calculateNewBaseUrls(file, config.rootPath, config.baseUrlMap);
+          = Parser.calculateNewBaseUrls(file, config.rootPath, config.baseUrlMap);
         const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
         const pageVariables = this.extractPageVariables(file, data, userDefinedVariables, {});
         let fileContent
@@ -608,7 +609,7 @@ class Parser {
           } catch (err) {
             err.message += `\nError while rendering '${file}'`;
             this._onError(err);
-            parsed = parserUtils.createErrorNode(d, err);
+            parsed = Parser.createErrorNode(d, err);
           }
           return parsed;
         });
@@ -687,7 +688,7 @@ class Parser {
     if (_.isArray(element)) {
       return element.map(el => this._rebaseReference(el, foundBase));
     }
-    if (parserUtils.isText(element)) {
+    if (Parser.isText(element)) {
       return element;
     }
     // Rebase children element
@@ -698,7 +699,7 @@ class Parser {
     // rebase current element
     if (element.attribs[ATTRIB_INCLUDE_PATH]) {
       const filePath = element.attribs[ATTRIB_INCLUDE_PATH];
-      let newBase = parserUtils.calculateNewBaseUrls(filePath, this.rootPath, this.baseUrlMap);
+      let newBase = Parser.calculateNewBaseUrls(filePath, this.rootPath, this.baseUrlMap);
       if (newBase) {
         const { relative, parent } = newBase;
         // eslint-disable-next-line no-param-reassign
@@ -712,7 +713,7 @@ class Parser {
         const { children } = element;
         if (children) {
           const currentBase
-            = parserUtils.calculateNewBaseUrls(element.attribs[ATTRIB_CWF], this.rootPath, this.baseUrlMap);
+            = Parser.calculateNewBaseUrls(element.attribs[ATTRIB_CWF], this.rootPath, this.baseUrlMap);
           if (currentBase) {
             if (currentBase.relative !== newBase) {
               cheerio.prototype.options.xmlMode = false;
@@ -743,12 +744,12 @@ class Parser {
       return pageData;
     }
     const filePath = element.attribs[ATTRIB_INCLUDE_PATH];
-    const fileBase = parserUtils.calculateNewBaseUrls(filePath, config.rootPath, config.baseUrlMap);
+    const fileBase = Parser.calculateNewBaseUrls(filePath, config.rootPath, config.baseUrlMap);
     if (!fileBase.relative) {
       return pageData;
     }
     const currentPath = element.attribs[ATTRIB_CWF];
-    const currentBase = parserUtils.calculateNewBaseUrls(currentPath, config.rootPath, config.baseUrlMap);
+    const currentBase = Parser.calculateNewBaseUrls(currentPath, config.rootPath, config.baseUrlMap);
     if (currentBase.relative === fileBase.relative) {
       return pageData;
     }
@@ -761,6 +762,87 @@ class Parser {
     this.VARIABLE_LOOKUP.clear();
     this.FILE_ALIASES.clear();
     this.PROCESSED_INNER_VARIABLES.clear();
+  }
+
+  /**
+   * @throws Will throw an error if a non-absolute path or path outside the root is given
+   */
+  static calculateNewBaseUrls(filePath, root, lookUp) {
+    if (!path.isAbsolute(filePath)) {
+      throw new Error(`Non-absolute path given to calculateNewBaseUrls: '${filePath}'`);
+    }
+    if (!pathIsInside(filePath, root)) {
+      throw new Error(`Path given '${filePath}' is not in root '${root}'`);
+    }
+    function calculate(file, result) {
+      if (file === root) {
+        return { relative: path.relative(root, root), parent: root };
+      }
+      const parent = path.dirname(file);
+      if (lookUp.has(parent) && result.length === 1) {
+        return { relative: path.relative(parent, result[0]), parent };
+      } else if (lookUp.has(parent)) {
+        return calculate(parent, [parent]);
+      }
+      return calculate(parent, result);
+    }
+
+    return calculate(filePath, []);
+  }
+
+  static calculateBoilerplateFilePath(pathInBoilerplates, asIfAt, config) {
+    const { parent, relative } = Parser.calculateNewBaseUrls(asIfAt, config.rootPath, config.baseUrlMap);
+    return path.resolve(parent, relative, BOILERPLATE_FOLDER_NAME, pathInBoilerplates);
+  }
+
+  static createErrorNode(element, error) {
+    const errorElement = cheerio.parseHTML(utils.createErrorElement(error), true)[0];
+    return Object.assign(element, _.pick(errorElement, ['name', 'attribs', 'children']));
+  }
+
+  static createEmptyNode() {
+    const emptyElement = cheerio.parseHTML('<div></div>', true)[0];
+    return emptyElement;
+  }
+
+  static isText(element) {
+    return element.type === 'text' || element.type === 'comment';
+  }
+
+  /**
+   * Extract variables from an include element
+   * @param includeElement include element to extract variables from
+   * @param contextVariables variables defined by parent pages
+   */
+  static extractIncludeVariables(includeElement, contextVariables) {
+    const includedVariables = { ...contextVariables };
+    Object.keys(includeElement.attribs).forEach((attribute) => {
+      if (!attribute.startsWith('var-')) {
+        return;
+      }
+      const variableName = attribute.replace(/^var-/, '');
+      if (!includedVariables[variableName]) {
+        includedVariables[variableName] = includeElement.attribs[attribute];
+      }
+    });
+    if (includeElement.children) {
+      includeElement.children.forEach((child) => {
+        if (child.name !== 'variable' && child.name !== 'span') {
+          return;
+        }
+        const variableName = child.attribs.name || child.attribs.id;
+        if (!variableName) {
+          // eslint-disable-next-line no-console
+          console.warn(`Missing reference in ${includeElement.attribs[ATTRIB_CWF]}\n`
+            + `Missing 'name' or 'id' in variable for ${includeElement.attribs.src} include.`);
+          return;
+        }
+        if (!includedVariables[variableName]) {
+          includedVariables[variableName] = cheerio.html(child.children);
+        }
+      });
+    }
+    return includedVariables;
   }
 }
 
