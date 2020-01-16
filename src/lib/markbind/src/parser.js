@@ -7,6 +7,7 @@ const Promise = require('bluebird');
 const url = require('url');
 const pathIsInside = require('path-is-inside');
 const slugify = require('@sindresorhus/slugify');
+const componentParser = require('./parsers/componentParser');
 
 const _ = {};
 _.clone = require('lodash/clone');
@@ -510,11 +511,17 @@ class Parser {
     default:
       break;
     }
+
+    componentParser.parseComponents(element, this._onError);
+
     if (element.children) {
       element.children.forEach((child) => {
         self._parse(child, context, config);
       });
     }
+
+    componentParser.postParseComponents(element, this._onError);
+
     return element;
   }
 

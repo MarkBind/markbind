@@ -710,7 +710,8 @@ class Page {
     $('dropdown')
       .each((i, element) => {
         const attributes = element.attribs;
-        const placeholder = `<div>${attributes.text || ''}</div>`;
+        // TODO remove attributes.text once text attribute is fully deprecated
+        const placeholder = `<div>${attributes.header || attributes.text || ''}</div>`;
         $(element)
           .before(placeholder);
         $(element)
