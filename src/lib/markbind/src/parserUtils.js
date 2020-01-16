@@ -94,7 +94,7 @@ function extractIncludeVariables(includeElement, contextVariables) {
   return includedVariables;
 }
 
-export {
+module.exports = {
   calculateNewBaseUrls,
   calculateBoilerplateFilePath,
   createErrorNode,
