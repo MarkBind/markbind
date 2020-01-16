@@ -3,7 +3,6 @@ const fs = require('fs');
 const htmlparser = require('htmlparser2'); require('./patches/htmlparser2');
 const nunjucks = require('nunjucks');
 const path = require('path');
-const pathIsInside = require('path-is-inside');
 const Promise = require('bluebird');
 const url = require('url');
 
@@ -18,6 +17,7 @@ _.pick = require('lodash/pick');
 const CyclicReferenceError = require('./handlers/cyclicReferenceError.js');
 const md = require('./lib/markdown-it');
 const utils = require('./utils');
+const parserUtils = require('./parserUtils');
 
 cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
@@ -25,62 +25,12 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 const {
   ATTRIB_INCLUDE_PATH,
   ATTRIB_CWF,
-  BOILERPLATE_FOLDER_NAME,
   IMPORTED_VARIABLE_PREFIX,
 } = require('./constants');
 
-const VARIABLE_LOOKUP = new Map();
-const FILE_ALIASES = new Map();
-const PROCESSED_INNER_VARIABLES = new Set();
-
-/*
- * Utils
- */
-
-/**
-* @throws Will throw an error if a non-absolute path or path outside the root is given
-*/
-function calculateNewBaseUrls(filePath, root, lookUp) {
-  if (!path.isAbsolute(filePath)) {
-    throw new Error(`Non-absolute path given to calculateNewBaseUrls: '${filePath}'`);
-  }
-  if (!pathIsInside(filePath, root)) {
-    throw new Error(`Path given '${filePath}' is not in root '${root}'`);
-  }
-  function calculate(file, result) {
-    if (file === root) {
-      return { relative: path.relative(root, root), parent: root };
-    }
-    const parent = path.dirname(file);
-    if (lookUp.has(parent) && result.length === 1) {
-      return { relative: path.relative(parent, result[0]), parent };
-    } else if (lookUp.has(parent)) {
-      return calculate(parent, [parent]);
-    }
-    return calculate(parent, result);
-  }
-
-  return calculate(filePath, []);
-}
-
-function calculateBoilerplateFilePath(pathInBoilerplates, asIfAt, config) {
-  const { parent, relative } = calculateNewBaseUrls(asIfAt, config.rootPath, config.baseUrlMap);
-  return path.resolve(parent, relative, BOILERPLATE_FOLDER_NAME, pathInBoilerplates);
-}
-
-function createErrorNode(element, error) {
-  const errorElement = cheerio.parseHTML(utils.createErrorElement(error), true)[0];
-  return Object.assign(element, _.pick(errorElement, ['name', 'attribs', 'children']));
-}
-
-function createEmptyNode() {
-  const emptyElement = cheerio.parseHTML('<div></div>', true)[0];
-  return emptyElement;
-}
-
-function isText(element) {
-  return element.type === 'text' || element.type === 'comment';
-}
+// const VARIABLE_LOOKUP = new Map();
+// const FILE_ALIASES = new Map();
+// const PROCESSED_INNER_VARIABLES = new Set();
 
 function Parser(options) {
   this._options = options || {};
@@ -91,65 +41,32 @@ function Parser(options) {
   this.staticIncludeSrc = [];
   this.boilerplateIncludeSrc = [];
   this.missingIncludeSrc = [];
+  this.VARIABLE_LOOKUP = new Map();
+  this.FILE_ALIASES = new Map();
+  this.PROCESSED_INNER_VARIABLES = new Set();
 }
 
 Parser.resetVariables = function () {
-  VARIABLE_LOOKUP.clear();
-  FILE_ALIASES.clear();
-  PROCESSED_INNER_VARIABLES.clear();
+  this.VARIABLE_LOOKUP.clear();
+  this.FILE_ALIASES.clear();
+  this.PROCESSED_INNER_VARIABLES.clear();
 };
-
-/**
- * Extract variables from an include element
- * @param includeElement include element to extract variables from
- * @param contextVariables variables defined by parent pages
- */
-function extractIncludeVariables(includeElement, contextVariables) {
-  const includedVariables = { ...contextVariables };
-  Object.keys(includeElement.attribs).forEach((attribute) => {
-    if (!attribute.startsWith('var-')) {
-      return;
-    }
-    const variableName = attribute.replace(/^var-/, '');
-    if (!includedVariables[variableName]) {
-      includedVariables[variableName] = includeElement.attribs[attribute];
-    }
-  });
-  if (includeElement.children) {
-    includeElement.children.forEach((child) => {
-      if (child.name !== 'variable' && child.name !== 'span') {
-        return;
-      }
-      const variableName = child.attribs.name || child.attribs.id;
-      if (!variableName) {
-        // eslint-disable-next-line no-console
-        console.warn(`Missing reference in ${includeElement.attribs[ATTRIB_CWF]}\n`
-                   + `Missing 'name' or 'id' in variable for ${includeElement.attribs.src} include.`);
-        return;
-      }
-      if (!includedVariables[variableName]) {
-        includedVariables[variableName] = cheerio.html(child.children);
-      }
-    });
-  }
-  return includedVariables;
-}
 
 /**
  * Returns an object containing the imported variables for specified file
  * @param file file name to get the imported variables for
  */
-function getImportedVariableMap(file) {
+Parser.prototype.getImportedVariableMap = function (file) {
   const innerVariables = {};
-  FILE_ALIASES.get(file).forEach((actualPath, alias) => {
+  this.FILE_ALIASES.get(file).forEach((actualPath, alias) => {
     innerVariables[alias] = {};
-    const variables = VARIABLE_LOOKUP.get(actualPath);
+    const variables = this.VARIABLE_LOOKUP.get(actualPath);
     variables.forEach((value, name) => {
       innerVariables[alias][name] = value;
     });
   });
   return innerVariables;
-}
+};
 
 /**
  * Extract page variables from a page
@@ -158,10 +75,10 @@ function getImportedVariableMap(file) {
  * @param userDefinedVariables global variables
  * @param includedVariables variables from parent include
  */
-function extractPageVariables(fileName, data, userDefinedVariables, includedVariables) {
+Parser.prototype.extractPageVariables = function (fileName, data, userDefinedVariables, includedVariables) {
   const $ = cheerio.load(data);
   const pageVariables = { };
-  VARIABLE_LOOKUP.set(fileName, new Map());
+  this.VARIABLE_LOOKUP.set(fileName, new Map());
   /**
    * <import>ed variables have not been processed yet, we replace such variables with itself first.
    */
@@ -201,11 +118,11 @@ function extractPageVariables(fileName, data, userDefinedVariables, includedVari
           },
         );
       pageVariables[variableName] = variableValue;
-      VARIABLE_LOOKUP.get(fileName).set(variableName, variableValue);
+      this.VARIABLE_LOOKUP.get(fileName).set(variableName, variableValue);
     }
   });
   return { ...importedVariables, ...pageVariables };
-}
+};
 
 Parser.prototype.getDynamicIncludeSrc = function () {
   return _.clone(this.dynamicIncludeSrc);
@@ -247,20 +164,20 @@ Parser.prototype._renderIncludeFile = function (filePath, element, context, conf
     const missingReferenceErrorMessage = `Missing reference in: ${element.attribs[ATTRIB_CWF]}`;
     e.message += `\n${missingReferenceErrorMessage}`;
     this._onError(e);
-    return createErrorNode(element, e);
+    return parserUtils.parserUtils.createErrorNode(element, e);
   }
 
   const fileContent = this._fileCache[filePath]; // cache the file contents to save some I/O
   const { parent, relative }
-    = calculateNewBaseUrls(asIfAt, config.rootPath, config.baseUrlMap);
+    = parserUtils.parserUtils.calculateNewBaseUrls(asIfAt, config.rootPath, config.baseUrlMap);
   const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
 
   // Extract included variables from the PARENT file
-  const includeVariables = extractIncludeVariables(element, context.variables);
+  const includeVariables = parserUtils.extractIncludeVariables(element, context.variables);
 
   // Extract page variables from the CHILD file
-  const pageVariables = extractPageVariables(asIfAt, fileContent,
-                                             userDefinedVariables, includeVariables);
+  const pageVariables = this.extractPageVariables(asIfAt, fileContent,
+                                                  userDefinedVariables, includeVariables);
 
   const content = nunjucks.renderString(fileContent,
                                         { ...pageVariables, ...includeVariables, ...userDefinedVariables },
@@ -280,7 +197,7 @@ Parser.prototype._extractInnerVariables = function (content, context, config) {
     decodeEntities: false,
   });
   const aliases = new Map();
-  FILE_ALIASES.set(cwf, aliases);
+  this.FILE_ALIASES.set(cwf, aliases);
   $('import[from]').each((index, element) => {
     const filePath = path.resolve(path.dirname(cwf), element.attribs.from);
     const variableNames = Object.keys(element.attribs)
@@ -300,12 +217,12 @@ Parser.prototype._extractInnerVariables = function (content, context, config) {
     const { content: renderedContent, childContext, userDefinedVariables }
       = this._renderIncludeFile(filePath, element, context, config);
 
-    if (!PROCESSED_INNER_VARIABLES.has(filePath)) {
-      PROCESSED_INNER_VARIABLES.add(filePath);
+    if (!this.PROCESSED_INNER_VARIABLES.has(filePath)) {
+      this.PROCESSED_INNER_VARIABLES.add(filePath);
       this._extractInnerVariables(renderedContent, childContext, config);
     }
-    const innerVariables = getImportedVariableMap(filePath);
-    VARIABLE_LOOKUP.get(filePath).forEach((value, variableName, map) => {
+    const innerVariables = this.getImportedVariableMap(filePath);
+    this.VARIABLE_LOOKUP.get(filePath).forEach((value, variableName, map) => {
       map.set(variableName, nunjucks.renderString(value, { ...userDefinedVariables, ...innerVariables }));
     });
   });
@@ -325,7 +242,7 @@ Parser.prototype._preprocess = function (node, context, config) {
   if (requiresSrc && _.isEmpty(element.attribs.src)) {
     const error = new Error(`Empty src attribute in ${element.name} in: ${element.attribs[ATTRIB_CWF]}`);
     this._onError(error);
-    return createErrorNode(element, error);
+    return parserUtils.createErrorNode(element, error);
   }
   const shouldProcessSrc = ['include', 'panel'].includes(element.name);
   const hasSrc = _.hasIn(element.attribs, 'src');
@@ -343,20 +260,21 @@ Parser.prototype._preprocess = function (node, context, config) {
     const isBoilerplate = _.hasIn(element.attribs, 'boilerplate');
     if (isBoilerplate) {
       element.attribs.boilerplate = element.attribs.boilerplate || path.basename(filePath);
-      actualFilePath = calculateBoilerplateFilePath(element.attribs.boilerplate, filePath, config);
+      actualFilePath
+        = parserUtils.calculateBoilerplateFilePath(element.attribs.boilerplate, filePath, config);
       this.boilerplateIncludeSrc.push({ from: context.cwf, to: actualFilePath });
     }
     const isOptional = element.name === 'include' && _.hasIn(element.attribs, 'optional');
     if (!utils.fileExists(actualFilePath)) {
       if (isOptional) {
-        return createEmptyNode();
+        return parserUtils.createEmptyNode();
       }
       this.missingIncludeSrc.push({ from: context.cwf, to: actualFilePath });
       const error = new Error(
         `No such file: ${actualFilePath}\nMissing reference in ${element.attribs[ATTRIB_CWF]}`,
       );
       this._onError(error);
-      return createErrorNode(element, error);
+      return parserUtils.createErrorNode(element, error);
     }
   }
 
@@ -405,11 +323,11 @@ Parser.prototype._preprocess = function (node, context, config) {
     childContext.source = isIncludeSrcMd ? 'md' : 'html';
     childContext.callStack.push(context.cwf);
 
-    if (!PROCESSED_INNER_VARIABLES.has(filePath)) {
-      PROCESSED_INNER_VARIABLES.add(filePath);
+    if (!this.PROCESSED_INNER_VARIABLES.has(filePath)) {
+      this.PROCESSED_INNER_VARIABLES.add(filePath);
       this._extractInnerVariables(content, childContext, config);
     }
-    const innerVariables = getImportedVariableMap(filePath);
+    const innerVariables = this.getImportedVariableMap(filePath);
     const fileContent = nunjucks.renderString(content, { ...userDefinedVariables, ...innerVariables });
 
     // Delete variable attributes in include
@@ -441,7 +359,7 @@ Parser.prototype._preprocess = function (node, context, config) {
               + `\nMissing reference in ${element.attribs[ATTRIB_CWF]}`,
           );
           this._onError(error);
-          return createErrorNode(element, error);
+          return parserUtils.createErrorNode(element, error);
         }
       }
 
@@ -483,7 +401,7 @@ Parser.prototype._preprocess = function (node, context, config) {
       if (childContext.callStack.length > CyclicReferenceError.MAX_RECURSIVE_DEPTH) {
         const error = new CyclicReferenceError(childContext.callStack);
         this._onError(error);
-        return createErrorNode(element, error);
+        return parserUtils.createErrorNode(element, error);
       }
       element.children = element.children.map(e => self._preprocess(e, childContext, config));
     }
@@ -495,7 +413,7 @@ Parser.prototype._preprocess = function (node, context, config) {
     this.dynamicIncludeSrc.push({ from: context.cwf, to: actualFilePath, asIfTo: filePath });
     return element;
   } else if (element.name === 'variable' || element.name === 'import') {
-    return createEmptyNode();
+    return parserUtils.createEmptyNode();
   } else {
     if (element.name === 'body') {
       // eslint-disable-next-line no-console
@@ -583,7 +501,7 @@ Parser.prototype._parse = function (node, context, config) {
     return element.map(el => self._parse(el, context, config));
   }
 
-  if (isText(element)) {
+  if (parserUtils.isText(element)) {
     return element;
   }
   if (element.name) {
@@ -608,8 +526,9 @@ Parser.prototype._parse = function (node, context, config) {
       break;
     }
     const fileExists = utils.fileExists(element.attribs.src)
-                    || utils.fileExists(calculateBoilerplateFilePath(element.attribs.boilerplate,
-                                                                     element.attribs.src, config));
+                    || utils.fileExists(
+                      parserUtils.calculateBoilerplateFilePath(element.attribs.boilerplate,
+                                                               element.attribs.src, config));
     if (fileExists) {
       const { src, fragment } = element.attribs;
       const resultDir = path.dirname(path.join('{{hostBaseUrl}}', path.relative(config.rootPath, src)));
@@ -674,7 +593,7 @@ Parser.prototype.includeFile = function (file, config) {
         } catch (err) {
           err.message += `\nError while preprocessing '${file}'`;
           this._onError(err);
-          processed = createErrorNode(d, err);
+          processed = parserUtils.createErrorNode(d, err);
         }
         return processed;
       });
@@ -688,7 +607,7 @@ Parser.prototype.includeFile = function (file, config) {
 
     let actualFilePath = file;
     if (!utils.fileExists(file)) {
-      const boilerplateFilePath = calculateBoilerplateFilePath(path.basename(file), file, config);
+      const boilerplateFilePath = parserUtils.calculateBoilerplateFilePath(path.basename(file), file, config);
       if (utils.fileExists(boilerplateFilePath)) {
         actualFilePath = boilerplateFilePath;
       }
@@ -700,15 +619,15 @@ Parser.prototype.includeFile = function (file, config) {
         reject(err);
         return;
       }
-      const { parent, relative } = calculateNewBaseUrls(file, config.rootPath, config.baseUrlMap);
+      const { parent, relative } = parserUtils.calculateNewBaseUrls(file, config.rootPath, config.baseUrlMap);
       const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
-      const pageVariables = extractPageVariables(file, data, userDefinedVariables, {});
+      const pageVariables = this.extractPageVariables(file, data, userDefinedVariables, {});
 
       let fileContent = nunjucks.renderString(data,
                                               { ...pageVariables, ...userDefinedVariables },
                                               { path: actualFilePath });
       this._extractInnerVariables(fileContent, context, config);
-      const innerVariables = getImportedVariableMap(context.cwf);
+      const innerVariables = this.getImportedVariableMap(context.cwf);
       fileContent = nunjucks.renderString(fileContent, { ...userDefinedVariables, ...innerVariables });
       const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
@@ -742,7 +661,7 @@ Parser.prototype.renderFile = function (file, config) {
         } catch (err) {
           err.message += `\nError while rendering '${file}'`;
           this._onError(err);
-          parsed = createErrorNode(d, err);
+          parsed = parserUtils.createErrorNode(d, err);
         }
         return parsed;
       });
@@ -827,7 +746,7 @@ Parser.prototype._rebaseReference = function (node, foundBase) {
     return element.map(el => this._rebaseReference(el, foundBase));
   }
 
-  if (isText(element)) {
+  if (parserUtils.isText(element)) {
     return element;
   }
   // Rebase children element
@@ -839,7 +758,7 @@ Parser.prototype._rebaseReference = function (node, foundBase) {
   // rebase current element
   if (element.attribs[ATTRIB_INCLUDE_PATH]) {
     const filePath = element.attribs[ATTRIB_INCLUDE_PATH];
-    let newBase = calculateNewBaseUrls(filePath, this.rootPath, this.baseUrlMap);
+    let newBase = parserUtils.calculateNewBaseUrls(filePath, this.rootPath, this.baseUrlMap);
     if (newBase) {
       const { relative, parent } = newBase;
       // eslint-disable-next-line no-param-reassign
@@ -853,7 +772,8 @@ Parser.prototype._rebaseReference = function (node, foundBase) {
       newBase = combinedBases[bases[0]];
       const { children } = element;
       if (children) {
-        const currentBase = calculateNewBaseUrls(element.attribs[ATTRIB_CWF], this.rootPath, this.baseUrlMap);
+        const currentBase
+          = parserUtils.calculateNewBaseUrls(element.attribs[ATTRIB_CWF], this.rootPath, this.baseUrlMap);
         if (currentBase) {
           if (currentBase.relative !== newBase) {
             cheerio.prototype.options.xmlMode = false;
@@ -886,13 +806,13 @@ Parser.prototype._rebaseReferenceForStaticIncludes = function (pageData, element
   }
 
   const filePath = element.attribs[ATTRIB_INCLUDE_PATH];
-  const fileBase = calculateNewBaseUrls(filePath, config.rootPath, config.baseUrlMap);
+  const fileBase = parserUtils.calculateNewBaseUrls(filePath, config.rootPath, config.baseUrlMap);
   if (!fileBase.relative) {
     return pageData;
   }
 
   const currentPath = element.attribs[ATTRIB_CWF];
-  const currentBase = calculateNewBaseUrls(currentPath, config.rootPath, config.baseUrlMap);
+  const currentBase = parserUtils.calculateNewBaseUrls(currentPath, config.rootPath, config.baseUrlMap);
   if (currentBase.relative === fileBase.relative) {
     return pageData;
   }
