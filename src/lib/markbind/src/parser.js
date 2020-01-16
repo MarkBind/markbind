@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable class-methods-use-this */
 const cheerio = require('cheerio');
 const fs = require('fs');
 const htmlparser = require('htmlparser2'); require('./patches/htmlparser2');
@@ -133,7 +131,7 @@ class Parser {
     return _.clone(this.missingIncludeSrc);
   }
 
-  _preprocessThumbnails(element) {
+  static _preprocessThumbnails(element) {
     const isImage = _.hasIn(element.attribs, 'src') && element.attribs.src !== '';
     if (isImage) {
       return element;
@@ -218,7 +216,7 @@ class Parser {
     element.attribs = element.attribs || {};
     element.attribs[ATTRIB_CWF] = path.resolve(context.cwf);
     if (element.name === 'thumbnail') {
-      return this._preprocessThumbnails(element);
+      return Parser._preprocessThumbnails(element);
     }
     const requiresSrc = ['include'].includes(element.name);
     if (requiresSrc && _.isEmpty(element.attribs.src)) {
@@ -322,7 +320,8 @@ class Parser {
             // set empty content for optional segment include that does not exist
             actualContent = '';
           } else {
-            const error = new Error(`No such segment '${includeSrc.hash.substring(1)}' in file: ${actualFilePath}`
+            const error
+              = new Error(`No such segment '${includeSrc.hash.substring(1)}' in file: ${actualFilePath}`
               + `\nMissing reference in ${element.attribs[ATTRIB_CWF]}`);
             this._onError(error);
             return parserUtils.createErrorNode(element, error);
@@ -338,10 +337,13 @@ class Parser {
           } else {
             actualContent = md.render(actualContent);
           }
-          actualContent = self._rebaseReferenceForStaticIncludes(actualContent, element, config);
+          actualContent = Parser._rebaseReferenceForStaticIncludes(actualContent, element, config);
         }
         const wrapperType = isInline ? 'span' : 'div';
-        element.children = cheerio.parseHTML(`<${wrapperType} data-included-from="${filePath}">${actualContent}</${wrapperType}>`, true);
+        element.children
+          = cheerio.parseHTML(
+            `<${wrapperType} data-included-from="${filePath}">${actualContent}</${wrapperType}>`,
+            true);
       } else {
         let actualContent = (fileContent && isTrim) ? fileContent.trim() : fileContent;
         if (isIncludeSrcMd) {
@@ -352,7 +354,10 @@ class Parser {
           }
         }
         const wrapperType = isInline ? 'span' : 'div';
-        element.children = cheerio.parseHTML(`<${wrapperType} data-included-from="${filePath}">${actualContent}</${wrapperType}>`, true);
+        element.children
+          = cheerio.parseHTML(
+            `<${wrapperType} data-included-from="${filePath}">${actualContent}</${wrapperType}>`,
+            true);
       }
       if (element.children && element.children.length > 0) {
         if (childContext.callStack.length > CyclicReferenceError.MAX_RECURSIVE_DEPTH) {
@@ -434,7 +439,7 @@ class Parser {
     return $.html();
   }
 
-  unwrapIncludeSrc(html) {
+  static unwrapIncludeSrc(html) {
     const $ = cheerio.load(html, {
       xmlMode: false,
       decodeEntities: false,
@@ -475,7 +480,10 @@ class Parser {
         break;
       }
       const fileExists = utils.fileExists(element.attribs.src)
-          || utils.fileExists(parserUtils.calculateBoilerplateFilePath(element.attribs.boilerplate, element.attribs.src, config));
+          || utils.fileExists(
+            parserUtils.calculateBoilerplateFilePath(
+              element.attribs.boilerplate,
+              element.attribs.src, config));
       if (fileExists) {
         const { src, fragment } = element.attribs;
         const resultDir = path.dirname(path.join('{{hostBaseUrl}}', path.relative(config.rootPath, src)));
@@ -547,7 +555,8 @@ class Parser {
       });
       let actualFilePath = file;
       if (!utils.fileExists(file)) {
-        const boilerplateFilePath = parserUtils.calculateBoilerplateFilePath(path.basename(file), file, config);
+        const boilerplateFilePath
+          = parserUtils.calculateBoilerplateFilePath(path.basename(file), file, config);
         if (utils.fileExists(boilerplateFilePath)) {
           actualFilePath = boilerplateFilePath;
         }
@@ -558,10 +567,15 @@ class Parser {
           reject(err);
           return;
         }
-        const { parent, relative } = parserUtils.calculateNewBaseUrls(file, config.rootPath, config.baseUrlMap);
+        const { parent, relative }
+          = parserUtils.calculateNewBaseUrls(file, config.rootPath, config.baseUrlMap);
         const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
         const pageVariables = this.extractPageVariables(file, data, userDefinedVariables, {});
-        let fileContent = nunjucks.renderString(data, { ...pageVariables, ...userDefinedVariables }, { path: actualFilePath });
+        let fileContent
+          = nunjucks.renderString(
+            data,
+            { ...pageVariables, ...userDefinedVariables },
+            { path: actualFilePath });
         this._extractInnerVariables(fileContent, context, config);
         const innerVariables = this.getImportedVariableMap(context.cwf);
         fileContent = nunjucks.renderString(fileContent, { ...userDefinedVariables, ...innerVariables });
@@ -700,7 +714,8 @@ class Parser {
         newBase = combinedBases[bases[0]];
         const { children } = element;
         if (children) {
-          const currentBase = parserUtils.calculateNewBaseUrls(element.attribs[ATTRIB_CWF], this.rootPath, this.baseUrlMap);
+          const currentBase
+            = parserUtils.calculateNewBaseUrls(element.attribs[ATTRIB_CWF], this.rootPath, this.baseUrlMap);
           if (currentBase) {
             if (currentBase.relative !== newBase) {
               cheerio.prototype.options.xmlMode = false;
@@ -723,7 +738,7 @@ class Parser {
     return element;
   }
 
-  _rebaseReferenceForStaticIncludes(pageData, element, config) {
+  static _rebaseReferenceForStaticIncludes(pageData, element, config) {
     if (!config) {
       return pageData;
     }
@@ -745,7 +760,7 @@ class Parser {
     return nunjucks.renderString(pageData, { baseUrl: newBaseUrl }, { path: filePath });
   }
 
-  static resetVariables() {
+  resetVariables() {
     this.VARIABLE_LOOKUP.clear();
     this.FILE_ALIASES.clear();
     this.PROCESSED_INNER_VARIABLES.clear();
