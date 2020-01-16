@@ -29,7 +29,7 @@
         <li><a href="/contents/topic1.html" class="nav-link">Topic 1</a></li>
         <li><a href="/contents/topic2.html" class="nav-link">Topic 2</a></li>
         <div class="nav-link temp-dropdown-placeholder">Topic 3</div>
-        <dropdown text="Topic 3" class="nav-link temp-dropdown">
+        <dropdown header="Topic 3" class="nav-link temp-dropdown">
           <li><a href="/contents/topic3a.html" class="dropdown-item">Topic 3a</a></li>
           <li><a href="/contents/topic3b.html" class="dropdown-item">Topic 3b</a></li>
         </dropdown>
@@ -64,7 +64,7 @@
         <br>
         <div class="jumbotron jumbotron-fluid bg-primary text-white">
           <div class="container">
-            <h1 class="display-4">Landing Page Title</h1>
+            <h1 class="display-4 no-index" id="landing-page-title">Landing Page Title<a class="fa fa-anchor" href="#landing-page-title"></a></h1>
             <p class="lead">A tagline can go here</p>
           </div>
         </div>
@@ -91,11 +91,10 @@
         <pre><code class="hljs html"><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span></span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span></span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span></span></code></pre>
         <h2 id="sub-heading-1-1">Sub Heading 1.1<a class="fa fa-anchor" href="#sub-heading-1-1"></a></h2>
         <p>A
-          <tooltip effect="scale" content=":exclamation: some **important explanation**" placement="top" trigger="hover">tooltip</tooltip>, a
+          <tooltip effect="scale" placement="top" trigger="hover"><template slot="_content">❗️ some <strong>important explanation</strong></template>tooltip</tooltip>, a
           <trigger for="modal:modalinfo" trigger="click">modal</trigger>, a <a href="https://markbind.org/">link</a>, a <span class="badge badge-danger">badge</span>, another <span class="badge badge-warning">badge</span>.</p>
-        <modal title="Modal Title" id="modal:modalinfo">
-          Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text
-          some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
+        <modal id="modal:modalinfo"><template slot="_header">Modal Title</template> Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some
+          text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
         </modal>
         <p><strong>A table:</strong></p>
         <div class="table-responsive">
@@ -129,19 +128,15 @@
         <div class="block-embed block-embed-service-youtube"><iframe type="text/html" src="//www.youtube.com/embed/v40b3ExbM0c" frameborder="0" width="640" height="390" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen></iframe></div>
         <p><strong>Tabs:</strong></p>
         <tabs>
-          <tab header="Tab X">
-            Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text
-            some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
+          <tab><template slot="_header">Tab X</template> Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text
+            some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
           </tab>
-          <tab header="Tab Y">
-            ...
+          <tab><template slot="_header">Tab Y</template> ...
           </tab>
-          <tab-group header="Tab group">
-            <tab header="Tab Y.1">
-              ...
+          <tab-group><template slot="_header">Tab group</template>
+            <tab><template slot="_header">Tab Y.1</template> ...
             </tab>
-            <tab header="Tab Y.2">
-              ...
+            <tab><template slot="_header">Tab Y.2</template> ...
             </tab>
           </tab-group>
         </tabs>
@@ -171,22 +166,19 @@
         </box>
         <br>
         <h1 id="heading-3">Heading 3<a class="fa fa-anchor" href="#heading-3"></a></h1>
-        <panel header="Expandable panel" type="info">
-          Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text
-          some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
+        <panel type="info"><template slot="_header"><p>Expandable panel</p></template> Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some
+          text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
         </panel>
         <br>
-        <panel header="Expanded panel" alt="Minimized panel" type="success" minimized="">
-          ...
+        <panel type="success" minimized=""><template slot="_header"><p>Expanded panel</p></template><template slot="_alt"><p>Minimized panel</p></template> ...
         </panel>
         <br>
-        <panel header="Expanded panel" alt="Minimized panel" type="seamless">
-          ...
+        <panel type="seamless"><template slot="_header"><p>Expanded panel</p></template><template slot="_alt"><p>Minimized panel</p></template> ...
         </panel>
         <br>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          <panel header="___Minimal panel **->**___" type="minimal" alt="Minimal panel" popup-url="https://markbind.org/userGuide/usingComponents.html#panels" no-switch="">
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          <panel type="minimal" popup-url="https://markbind.org/userGuide/usingComponents.html#panels" no-switch=""><template slot="_header"><p><em><strong>Minimal panel <strong>-&gt;</strong></strong></em></p></template><template slot="_alt"><p>Minimal panel</p></template> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+            ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
           </panel>
         </p>
         <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
