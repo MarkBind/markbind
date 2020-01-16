@@ -6,20 +6,20 @@
 ```html
 <tabs>
   <tab header="First tab">
-    ...
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper ultrices lobortis.
   </tab>
   <tab header="Disabled second tab :x:" disabled>
   </tab>
   <tab-group header="Third tab group :milky_way:">
     <tab header="Stars :star:">
-      star facts
+      Some stuff about stars ...
     </tab>
     <tab header="Disabled Moon :new_moon:" disabled>
     </tab>
   </tab-group>
   <tab-group header="Disabled fourth tab group" disabled>
     <tab header="Hidden tab">
-      ...
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper ultrices lobortis.
     </tab>
   </tab-group>
 </tabs>
@@ -29,7 +29,7 @@
 
   <tabs>
     <tab header="First tab">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper ultrices lobortis. Aenean leo lacus, congue vel auctor a, tincidunt sed nunc. Integer in odio sed nunc porttitor venenatis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam fringilla tincidunt augue a pulvinar.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper ultrices lobortis.
     </tab>
     <tab header="Disabled second tab :x:" disabled>
     </tab>

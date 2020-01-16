@@ -97,7 +97,7 @@ MarkBind Command Line Interface (CLI) can be run in the following ways:
 1. Starts a web server instance locally and makes the site available at `http://127.0.0.1:8080`.
 1. Opens a <trigger trigger="click" for="modal:cliCommands-livePreview">live preview</trigger> of the website.
 
-<modal large title="Live Preview" id="modal:cliCommands-livePreview">
+<modal large header="Live Preview" id="modal:cliCommands-livePreview">
 <include src="glossary.md#live-preview" inline/>
 </modal>
 

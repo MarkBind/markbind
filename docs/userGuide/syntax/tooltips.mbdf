@@ -4,16 +4,16 @@
 <span id="code">
 
 ```html
-<tooltip header content="Lorem ipsum dolor sit amet" placement="top">
+<tooltip content="Lorem ipsum dolor sit amet" placement="top">
   <button class="btn btn-secondary">Popover on top</button>
 </tooltip>
-<tooltip header content="Lorem ipsum dolor sit amet" placement="left">
+<tooltip content="Lorem ipsum dolor sit amet" placement="left">
   <button class="btn btn-secondary">Popover on left</button>
 </tooltip>
-<tooltip header content="Lorem ipsum dolor sit amet" placement="right">
+<tooltip content="Lorem ipsum dolor sit amet" placement="right">
   <button class="btn btn-secondary">Popover on right</button>
 </tooltip>
-<tooltip header content="Lorem ipsum dolor sit amet" placement="bottom">
+<tooltip content="Lorem ipsum dolor sit amet" placement="bottom">
   <button class="btn btn-secondary">Popover on bottom</button>
 </tooltip>
 <hr />
@@ -43,16 +43,16 @@ Trigger
 </span>
 <span id="output">
 
-<tooltip header content="Lorem ipsum dolor sit amet" placement="top">
+<tooltip content="Lorem ipsum dolor sit amet" placement="top">
   <button class="btn btn-secondary">Popover on top</button>
 </tooltip>
-<tooltip header content="Lorem ipsum dolor sit amet" placement="left">
+<tooltip content="Lorem ipsum dolor sit amet" placement="left">
   <button class="btn btn-secondary">Popover on left</button>
 </tooltip>
-<tooltip header content="Lorem ipsum dolor sit amet" placement="right">
+<tooltip content="Lorem ipsum dolor sit amet" placement="right">
   <button class="btn btn-secondary">Popover on right</button>
 </tooltip>
-<tooltip header content="Lorem ipsum dolor sit amet" placement="bottom">
+<tooltip content="Lorem ipsum dolor sit amet" placement="bottom">
   <button class="btn btn-secondary">Popover on bottom</button>
 </tooltip>
 <hr />
