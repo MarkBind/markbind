@@ -137,6 +137,14 @@ footer {
     top: 0;
 }
 
+span.anchor {
+    margin-top: -80px;
+    display: block;
+    height: 80px;
+    visibility: hidden;
+    position: relative;
+}
+
 /* Bootstrap small(sm) responsive breakpoint */
 @media (max-width: 767.98px) {
     .dropdown-menu > li > a {

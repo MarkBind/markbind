@@ -19,6 +19,18 @@ function flattenModals() {
   });
 }
 
+/**
+ * Fixing the top navbar would break anchor navigation,
+ * by creating empty spans above the <h> tag we can prevent
+ * the headings from being covered by the navbar.
+ */
+function setupDummySpans() {
+  jQuery('<span class="anchor"></span>').insertBefore('h1, h2, h3, h4, h5, h6');
+  jQuery('span[class="anchor"]').each((index, element) => {
+    jQuery(element).attr('id', jQuery(element).next().attr('id'));
+  });
+}
+
 function setupAnchors() {
   jQuery('h1, h2, h3, h4, h5, h6, .header-wrapper').each((index, heading) => {
     if (heading.id) {
@@ -28,6 +40,9 @@ function setupAnchors() {
                          () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'hidden'));
     }
   });
+
+  setupDummySpans();
+
   jQuery('.fa-anchor').each((index, anchor) => {
     jQuery(anchor).on('click', function () {
       window.location.href = jQuery(this).attr('href');
