@@ -149,7 +149,8 @@ class Page {
   }
 
   /**
-   * Collect headings outside of models and panels
+   * Collect headings outside of models and unexpanded panels.
+   * Collects headings from the header slots of unexpanded panels, but not its content.
    * @param content, html content of a page
    */
   collectNavigableHeadings(content) {
@@ -159,40 +160,49 @@ class Page {
       return;
     }
     const $ = cheerio.load(content);
-    $('modal')
-      .remove();
-    $(elementSelector)
-      .each((i, elem) => {
-        // Check if heading or panel is already inside an unexpanded panel
-        let isInsideUnexpandedPanel = false;
-        $(elem)
-          .parents('panel')
-          .each((j, elemParent) => {
-            if (elemParent.attribs.expanded === undefined) {
-              isInsideUnexpandedPanel = true;
-              return false;
-            }
-            return true;
-          });
-        if (isInsideUnexpandedPanel) {
-          return;
+    $('modal').remove();
+    this._collectNavigableHeadings($, $.root()[0], elementSelector);
+  }
+
+
+  _collectNavigableHeadings($, context, pageNavSelector) {
+    $(pageNavSelector, context).each((i, elem) => {
+      // Check if heading or panel is already inside an unexpanded panel
+      let isInsideUnexpandedPanel = false;
+      const panelParents = $(elem).parentsUntil(context).filter('panel').not(elem);
+      panelParents.each((j, elemParent) => {
+        if (elemParent.attribs.expanded === undefined) {
+          isInsideUnexpandedPanel = true;
+          return false;
         }
-        if (elem.name === 'panel') {
-          // Get heading from Panel header attribute
-          if (elem.attribs.header) {
-            this.collectNavigableHeadings(md.render(elem.attribs.header));
-          }
-        } else if ($(elem)
-          .attr('id') !== undefined) {
-          // Headings already in content, with a valid ID
-          this.navigableHeadings[$(elem)
-            .attr('id')] = {
-            text: $(elem)
-              .text(),
-            level: elem.name.replace('h', ''),
-          };
-        }
+        return true;
       });
+      if (isInsideUnexpandedPanel) {
+        return;
+      }
+
+      // Check if heading / panel is under a panel's header slots, which is handled specially below.
+      const slotParents = $(elem).parentsUntil(context).filter('[slot="header"], [slot="_header"]').not(elem);
+      const panelSlotParents = slotParents.parent('panel');
+      if (panelSlotParents.length) {
+        return;
+      }
+
+      if (elem.name === 'panel') {
+        // Recurse only on the slot which has priority
+        let headings = $(elem).children('[slot="header"]');
+        headings = headings.length ? headings : $(elem).children('[slot="_header"]');
+        if (!headings.length) return;
+
+        this._collectNavigableHeadings($, headings.first(), pageNavSelector);
+      } else if ($(elem).attr('id') !== undefined) {
+        // Headings already in content, with a valid ID
+        this.navigableHeadings[$(elem).attr('id')] = {
+          text: $(elem).text(),
+          level: elem.name.replace('h', ''),
+        };
+      }
+    });
   }
 
   /**
@@ -215,14 +225,19 @@ class Page {
   collectHeadingsAndKeywordsInContent(content, lastHeading, excludeHeadings, sourceTraversalStack) {
     let $ = cheerio.load(content);
     const headingsSelector = Page.generateHeadingSelector(this.headingIndexingLevel);
-    $('modal')
-      .remove();
-    $('panel')
-      .not('panel panel')
+    $('modal').remove();
+    $('panel').not('panel panel')
       .each((index, panel) => {
-        if (panel.attribs.header) {
-          this.collectHeadingsAndKeywordsInContent(
-            md.render(panel.attribs.header), lastHeading, excludeHeadings, sourceTraversalStack);
+        const slotHeader = $(panel).children('[slot="header"]');
+        if (slotHeader.length) {
+          this.collectHeadingsAndKeywordsInContent(slotHeader.html(),
+                                                   lastHeading, excludeHeadings, sourceTraversalStack);
+        } else {
+          const headerAttr = $(panel).children('[slot="_header"]');
+          if (headerAttr.length) {
+            this.collectHeadingsAndKeywordsInContent(headerAttr.html(),
+                                                     lastHeading, excludeHeadings, sourceTraversalStack);
+          }
         }
       })
       .each((index, panel) => {
@@ -231,11 +246,13 @@ class Page {
         if (!closestHeading) {
           closestHeading = lastHeading;
         }
-        if (panel.attribs.header) {
-          const panelHeader = md.render(panel.attribs.header);
-          if ($(panelHeader)
-            .is(headingsSelector)) {
-            closestHeading = $(panelHeader);
+        const slotHeadings = $(panel).children('[slot="header"]').find(':header');
+        if (slotHeadings.length) {
+          closestHeading = slotHeadings.first();
+        } else {
+          const attributeHeadings = $(panel).children('[slot="_header"]').find(':header');
+          if (attributeHeadings.length) {
+            closestHeading = attributeHeadings.first();
           }
         }
         if (panel.attribs.src) {
