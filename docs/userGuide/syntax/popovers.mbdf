@@ -17,8 +17,8 @@
   <button class="btn btn-secondary">Popover on bottom</button>
 </popover>
 <hr>
-<h4>Title</h4>
 <popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="top">
+<h4 class="no-index">Header</h4>
   <button class="btn btn-secondary">Popover on top</button>
 </popover>
 <popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="left">
@@ -31,7 +31,7 @@
   <button class="btn btn-secondary">Popover on bottom</button>
 </popover>
 <hr />
-<h4>Trigger</h4>
+<h4 class="no-index">Trigger</h4>
 <p>
   <popover effect="scale" title="Title" content="Lorem ipsum dolor sit amet" placement="top" trigger="hover">
     <button class="btn btn-secondary">Mouseenter</button>
@@ -40,14 +40,14 @@
     <button class="btn btn-secondary">Contextmenu (right click)</button>
   </popover>
 </p>
-<h4>Markdown</h4>
+<h4 class="no-index">Markdown</h4>
 <p>
   <popover effect="scale" title="**Emoji title** :rocket:" content="++emoji++ content :cat:">
     <button class="btn btn-secondary">Hover</button>
   </popover>
 </p>
-<h4>Content using slot</h4>
 <popover effect="scale" title="**Emoji title** :rocket:">
+<h4 class="no-index">Content using slot</h4>
   <div slot="content">
     This is a long content...
   </div>
@@ -55,7 +55,7 @@
 </popover>
 <br />
 <br />
-<h4>Wrap Text</h4>
+<h4 class="no-index">Wrap Text</h4>
 <popover header="false" content="Nice!">What do you say</popover>
 ```
 </span>
@@ -74,8 +74,8 @@
   <button class="btn btn-secondary">Popover on bottom</button>
 </popover>
 <hr>
-<h4>Title</h4>
 <popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="top">
+<h4 class="no-index">Header</h4>
   <button class="btn btn-secondary">Popover on top</button>
 </popover>
 <popover effect="fade" header title="Title" content="Lorem ipsum dolor sit amet" placement="left">
@@ -88,7 +88,7 @@
   <button class="btn btn-secondary">Popover on bottom</button>
 </popover>
 <hr />
-<h4>Trigger</h4>
+<h4 class="no-index">Trigger</h4>
 <p>
   <popover effect="scale" title="Title" content="Lorem ipsum dolor sit amet" placement="top" trigger="hover">
     <button class="btn btn-secondary">Mouseenter</button>
@@ -97,14 +97,14 @@
     <button class="btn btn-secondary">Contextmenu (right click)</button>
   </popover>
 </p>
-<h4>Markdown</h4>
+<h4 class="no-index">Markdown</h4>
 <p>
   <popover effect="scale" title="**Emoji title** :rocket:" content="++emoji++ content :cat:">
     <button class="btn btn-secondary">Hover</button>
   </popover>
 </p>
-<h4>Content using slot</h4>
 <popover effect="scale" title="**Emoji title** :rocket:">
+<h4 class="no-index">Content using slot</h4>
   <div slot="content">
     This is a long content...
   </div>
@@ -112,7 +112,7 @@
 </popover>
 <br />
 <br />
-<h4>Wrap Text</h4>
+<h4 class="no-index">Wrap Text</h4>
 <popover header="false" content="Nice!">What do you say</popover>
 </span>
 </include>
