@@ -91,6 +91,7 @@ class Page {
     this.keywords = {};
     this.navigableHeadings = {};
     this.pageSectionsHtml = {};
+    this.headerIdMap = {};
 
     // Flag to indicate whether this page has a site nav
     this.hasSiteNav = false;
@@ -743,6 +744,8 @@ class Page {
 
   generate(builtFiles) {
     this.includedFiles = new Set([this.sourcePath]);
+    this.headerIdMap = {}; // Reset for live reload
+
     const markbinder = new MarkBind({
       errorHandler: logger.error,
     });
@@ -750,6 +753,7 @@ class Page {
       baseUrlMap: this.baseUrlMap,
       rootPath: this.rootPath,
       userDefinedVariablesMap: this.userDefinedVariablesMap,
+      headerIdMap: this.headerIdMap,
     };
     return new Promise((resolve, reject) => {
       markbinder.includeFile(this.sourcePath, fileConfig)
@@ -1034,6 +1038,7 @@ class Page {
         .then(() => markbinder.renderFile(tempPath, {
           baseUrlMap: this.baseUrlMap,
           rootPath: this.rootPath,
+          headerIdMap: {},
         }))
         .then(result => markbinder.processDynamicResources(file, result))
         .then((result) => {

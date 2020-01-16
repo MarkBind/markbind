@@ -6,6 +6,7 @@ const path = require('path');
 const Promise = require('bluebird');
 const url = require('url');
 const pathIsInside = require('path-is-inside');
+const slugify = require('@sindresorhus/slugify');
 
 const _ = {};
 _.clone = require('lodash/clone');
@@ -458,6 +459,23 @@ class Parser {
     if (element.name) {
       element.name = element.name.toLowerCase();
     }
+
+    if ((/^h[1-6]$/).test(element.name) && !element.attribs.id) {
+      const textContent = utils.getTextContent(element);
+      const slugifiedHeading = slugify(textContent, { decamelize: false });
+
+      let headerId = slugifiedHeading;
+      const { headerIdMap } = config;
+      if (headerIdMap[slugifiedHeading]) {
+        headerId = `${slugifiedHeading}-${headerIdMap[slugifiedHeading]}`;
+        headerIdMap[slugifiedHeading] += 1;
+      } else {
+        headerIdMap[slugifiedHeading] = 2;
+      }
+
+      element.attribs.id = headerId;
+    }
+
     switch (element.name) {
     case 'md':
       element.name = 'span';
