@@ -48,6 +48,8 @@
     "markdown-it-table-of-contents": "^0.4.4",
     "markdown-it-task-lists": "^1.4.1",
     "markdown-it-video": "^0.6.3",
+    "markdown-it-sub": "^1.0.0",
+    "markdown-it-sup": "^1.0.0",
     "nunjucks": "^3.2.0",
     "path-is-inside": "^1.0.2",
     "progress": "^2.0.3",
