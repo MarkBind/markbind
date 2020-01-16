@@ -28,9 +28,6 @@ const {
   IMPORTED_VARIABLE_PREFIX,
 } = require('./constants');
 
-// const VARIABLE_LOOKUP = new Map();
-// const FILE_ALIASES = new Map();
-// const PROCESSED_INNER_VARIABLES = new Set();
 class Parser {
   constructor(options) {
     this._options = options || {};
