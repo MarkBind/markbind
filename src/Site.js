@@ -611,14 +611,6 @@ class Site {
       .then(() => logger.info('Assets removed'));
   }
 
-  /**
-   * Remove assets that are specified in filePaths
-   * @param filePaths a single path or an array of paths corresponding to the assets to remove
-   */
-  removeAsset(filePaths) {
-    return this._removeMultipleAssets(filePaths);
-  }
-
   buildAssets() {
     logger.info('Building assets...');
     return new Promise((resolve, reject) => {

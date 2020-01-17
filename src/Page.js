@@ -967,7 +967,7 @@ class Page {
   }
 
   static unique(array) {
-    return array.filter((item, pos, self) => self.indexOf(item) === pos);
+    return [...new Set(array)];
   }
 
   /**
