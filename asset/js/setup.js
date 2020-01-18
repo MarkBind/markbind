@@ -44,16 +44,17 @@ function setupAnchors() {
          * by creating empty spans above the <h> tag we can prevent
          * the headings from being covered by the navbar.
          */
+        const spanId = heading.id;
         jQuery(heading).append(
           jQuery('<span/>',
                  {
-                   id: heading.id,
+                   id: spanId,
                    class: 'anchor',
                  }));
         jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
         const headingHeight = jQuery(heading).height();
         const heightOffset = navbarHeight + headingHeight;
-        const spanCss = `span.anchor { margin-top: calc(-${heightOffset}px - .5rem);\n`
+        const spanCss = `span#${spanId} { margin-top: calc(-${heightOffset}px - .5rem);\n`
           + '    display: block;\n'
           + `    height: calc(${heightOffset}px + .5rem);\n`
           + '    visibility: hidden;\n'
