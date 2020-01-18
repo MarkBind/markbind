@@ -23,6 +23,18 @@ In the page that you want to include the header:
 ```
 </div>
 
+You can also choose to add a <trigger for="pop:progress-indicator">reading progress indicator</trigger> to let the reader know how far along they are in the page.
+The following markup can be added to the header file under the `<header>` tag:
+```html
+<div class="progress"></div>
+```
+
+<popover id="pop:progress-indicator" placement="bottom">
+  <div slot="content">
+     <pic src="../../images/progress-indicator.gif" alt="progress-indicator-gif">
+  </div>
+</popover>
+
 Notes:
 - Any inline headers will be removed by MarkBind to ensure compatibility with header files.
 - If a [Layout]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#page-layouts) is specified, the header file specified in the `<frontmatter>` will override the header within the Layout.
