@@ -614,7 +614,6 @@ class Page {
   }
 
 
-
   collectPageSection(section) {
     const $ = cheerio.load(this.content, { xmlMode: false });
     const pageSection = $(section);
