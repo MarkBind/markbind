@@ -19,30 +19,49 @@ function flattenModals() {
   });
 }
 
-/**
- * Fixing the top navbar would break anchor navigation,
- * by creating empty spans above the <h> tag we can prevent
- * the headings from being covered by the navbar.
- */
-function setupDummySpans() {
-  jQuery('<span class="anchor"></span>').insertBefore('h1, h2, h3, h4, h5, h6');
-  jQuery('span[class="anchor"]').each((index, element) => {
-    jQuery(element).attr('id', jQuery(element).next().attr('id'));
-  });
+function insertCss(cssCode) {
+  const newNode = document.createElement('style');
+  newNode.innerHTML = cssCode;
+  document.getElementsByTagName('head')[0].appendChild(newNode);
 }
 
 function setupAnchors() {
+  const navBarSelector = jQuery('nav, .navbar');
+  const isFixed = navBarSelector.attr('style').includes('position: fixed;');
+  const navbarHeight = navBarSelector.height();
+  if (isFixed) {
+    jQuery('.nav-inner').css('padding-top', `calc(${navbarHeight}px + 1rem)`);
+  }
   jQuery('h1, h2, h3, h4, h5, h6, .header-wrapper').each((index, heading) => {
     if (heading.id) {
       jQuery(heading).on('mouseenter',
                          () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'visible'));
       jQuery(heading).on('mouseleave',
                          () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'hidden'));
+      if (isFixed) {
+        /**
+         * Fixing the top navbar would break anchor navigation,
+         * by creating empty spans above the <h> tag we can prevent
+         * the headings from being covered by the navbar.
+         */
+        jQuery(heading).append(
+          jQuery('<span/>',
+                 {
+                   id: heading.id,
+                   class: 'anchor',
+                 }));
+        jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
+        const headingHeight = jQuery(heading).height();
+        const heightOffset = navbarHeight + headingHeight;
+        const spanCss = `span.anchor { margin-top: calc(-${heightOffset}px - .5rem);\n`
+          + '    display: block;\n'
+          + `    height: calc(${heightOffset}px + .5rem);\n`
+          + '    visibility: hidden;\n'
+          + '    position: relative; }';
+        insertCss(spanCss);
+      }
     }
   });
-
-  setupDummySpans();
-
   jQuery('.fa-anchor').each((index, anchor) => {
     jQuery(anchor).on('click', function () {
       window.location.href = jQuery(this).attr('href');
