@@ -23,9 +23,9 @@ function setupAnchors() {
   jQuery('h1, h2, h3, h4, h5, h6, .header-wrapper').each((index, heading) => {
     if (heading.id) {
       jQuery(heading).on('mouseenter',
-        () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'visible'));
+                         () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'visible'));
       jQuery(heading).on('mouseleave',
-        () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'hidden'));
+                         () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'hidden'));
     }
   });
   jQuery('.fa-anchor').each((index, anchor) => {
@@ -95,6 +95,21 @@ function setupSiteNav() {
   );
 }
 
+function setupReadingProgress() {
+  const h = document.documentElement;
+  const b = document.body;
+  const st = 'scrollTop';
+  const sh = 'scrollHeight';
+  const progress = document.querySelector('.progress');
+  let scroll;
+
+  document.addEventListener('scroll', () => {
+    scroll = Number(h[st] || b[st]) / Number((h[sh] || b[sh]) - h.clientHeight);
+    scrollPercentage = scroll * 100;
+    progress.style.setProperty('--scroll', `${scrollPercentage}%`);
+  });
+}
+
 function setup() {
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
@@ -108,20 +123,6 @@ function setup() {
   });
   setupSiteNav();
   setupReadingProgress();
-}
-
-function setupReadingProgress() {
-  let h = document.documentElement,
-    b = document.body,
-    st = 'scrollTop',
-    sh = 'scrollHeight',
-    progress = document.querySelector('.progress'),
-    scroll;
-
-  document.addEventListener('scroll', function () {
-    scroll = (h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight) * 100;
-    progress.style.setProperty('--scroll', scroll + '%');
-  });
 }
 
 function setupWithSearch() {
