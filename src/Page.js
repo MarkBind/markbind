@@ -4,8 +4,8 @@ const fs = require('fs-extra-promise');
 const htmlBeautify = require('js-beautify').html;
 const nunjucks = require('nunjucks');
 const path = require('path');
-const Promise = require('bluebird');
 const pathIsInside = require('path-is-inside');
+const Promise = require('bluebird');
 
 const _ = {};
 _.isString = require('lodash/isString');
@@ -612,6 +612,8 @@ class Page {
     });
     return $.html();
   }
+
+
 
   collectPageSection(section) {
     const $ = cheerio.load(this.content, { xmlMode: false });

@@ -25,8 +25,8 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 const {
   ATTRIB_INCLUDE_PATH,
   ATTRIB_CWF,
-  IMPORTED_VARIABLE_PREFIX,
   BOILERPLATE_FOLDER_NAME,
+  IMPORTED_VARIABLE_PREFIX,
 } = require('./constants');
 
 class Parser {
