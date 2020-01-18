@@ -1,3 +1,12 @@
+.progress {
+    background: linear-gradient(to right, #3c9aff var(--scroll), transparent 0);
+    background-repeat: no-repeat;
+    position: fixed;
+    width: 100%;
+    height: 5px;
+    z-index: 1;
+}
+
 blockquote {
     border-left: 0.25em solid #dfe2e5;
     color: #6a737d;

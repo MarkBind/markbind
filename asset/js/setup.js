@@ -23,9 +23,9 @@ function setupAnchors() {
   jQuery('h1, h2, h3, h4, h5, h6, .header-wrapper').each((index, heading) => {
     if (heading.id) {
       jQuery(heading).on('mouseenter',
-                         () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'visible'));
+        () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'visible'));
       jQuery(heading).on('mouseleave',
-                         () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'hidden'));
+        () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'hidden'));
     }
   });
   jQuery('.fa-anchor').each((index, anchor) => {
@@ -107,6 +107,21 @@ function setup() {
     },
   });
   setupSiteNav();
+  setupReadingProgress();
+}
+
+function setupReadingProgress() {
+  let h = document.documentElement,
+    b = document.body,
+    st = 'scrollTop',
+    sh = 'scrollHeight',
+    progress = document.querySelector('.progress'),
+    scroll;
+
+  document.addEventListener('scroll', function () {
+    scroll = (h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight) * 100;
+    progress.style.setProperty('--scroll', scroll + '%');
+  });
 }
 
 function setupWithSearch() {
@@ -138,6 +153,7 @@ function setupWithSearch() {
     },
   });
   setupSiteNav();
+  setupReadingProgress();
 }
 
 if (enableSearch) {
