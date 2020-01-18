@@ -103,7 +103,6 @@ code.hljs.inline {
     padding: 0 20px;
     transition: 0.4s;
     width: 100%;
-    margin-top: 80px;
     -webkit-transition: 0.4s;
 }
 
@@ -133,16 +132,8 @@ footer {
     overflow-y: auto;
     padding-left: 20px;
     padding-right: 20px;
-    padding-top: 90px;
+    padding-top: 1rem;
     top: 0;
-}
-
-span.anchor {
-    margin-top: -80px;
-    display: block;
-    height: 80px;
-    visibility: hidden;
-    position: relative;
 }
 
 /* Bootstrap small(sm) responsive breakpoint */
