@@ -30,8 +30,10 @@ function setupAnchors() {
   const navBarStyle = navBarSelector.attr('style');
   const isFixed = navBarStyle === undefined ? false : navBarStyle.includes('position: fixed;');
   const navbarHeight = navBarSelector.height();
+  const topPadding = 1;
   if (isFixed) {
-    jQuery('.nav-inner').css('padding-top', `calc(${navbarHeight}px + 1rem)`);
+    jQuery('.nav-inner').css('padding-top', `calc(${navbarHeight}px + ${2*topPadding}rem)`);
+    jQuery('#content-wrapper').css('padding-top', `calc(${navbarHeight}px + ${2*topPadding}rem)`);
   }
   jQuery('h1, h2, h3, h4, h5, h6, .header-wrapper').each((index, heading) => {
     if (heading.id) {
@@ -57,9 +59,9 @@ function setupAnchors() {
         jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
         const headingHeight = jQuery(heading).height();
         const heightOffset = navbarHeight + headingHeight;
-        const spanCss = `span#${spanId} { margin-top: calc(-${heightOffset}px - .5rem);\n`
+        const spanCss = `span#${spanId} { margin-top: calc(-${heightOffset}px - ${topPadding}rem);\n`
           + '    display: block;\n'
-          + `    height: calc(${heightOffset}px + .5rem);\n`
+          + `    height: calc(${heightOffset}px + ${topPadding}rem);\n`
           + '    visibility: hidden;\n'
           + '    position: relative; }';
         insertCss(spanCss);
