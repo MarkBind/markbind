@@ -32,8 +32,8 @@ function setupAnchors() {
   const navbarHeight = navBarSelector.height();
   const topPadding = 1;
   if (isFixed) {
-    jQuery('.nav-inner').css('padding-top', `calc(${navbarHeight}px + ${2*topPadding}rem)`);
-    jQuery('#content-wrapper').css('padding-top', `calc(${navbarHeight}px + ${2*topPadding}rem)`);
+    jQuery('.nav-inner').css('padding-top', `calc(${navbarHeight}px + ${2 * topPadding}rem)`);
+    jQuery('#content-wrapper').css('padding-top', `calc(${navbarHeight}px + ${2 * topPadding}rem)`);
   }
   jQuery('h1, h2, h3, h4, h5, h6, .header-wrapper').each((index, heading) => {
     if (heading.id) {
