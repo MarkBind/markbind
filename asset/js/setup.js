@@ -96,16 +96,13 @@ function setupSiteNav() {
 }
 
 function setupReadingProgress() {
-  const h = document.documentElement;
-  const b = document.body;
-  const st = 'scrollTop';
-  const sh = 'scrollHeight';
   const progress = document.querySelector('.progress');
-  let scroll;
 
   document.addEventListener('scroll', () => {
-    scroll = Number(h[st] || b[st]) / Number((h[sh] || b[sh]) - h.clientHeight);
-    scrollPercentage = scroll * 100;
+    const amountScrolled = (document.documentElement.scrollTop || document.body.scrollTop);
+    const pageHeight = ((document.documentElement.scrollHeight || document.body.scrollHeight)
+                        - document.documentElement.clientHeight);
+    const scrollPercentage = (amountScrolled / pageHeight) * 100;
     progress.style.setProperty('--scroll', `${scrollPercentage}%`);
   });
 }
