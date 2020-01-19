@@ -95,6 +95,18 @@ function setupSiteNav() {
   );
 }
 
+function setupReadingProgress() {
+  const progress = document.querySelector('.progress');
+
+  document.addEventListener('scroll', () => {
+    const amountScrolled = (document.documentElement.scrollTop || document.body.scrollTop);
+    const pageHeight = ((document.documentElement.scrollHeight || document.body.scrollHeight)
+                        - document.documentElement.clientHeight);
+    const scrollPercentage = (amountScrolled / pageHeight) * 100;
+    progress.style.setProperty('--scroll', `${scrollPercentage}%`);
+  });
+}
+
 function setup() {
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
@@ -107,6 +119,7 @@ function setup() {
     },
   });
   setupSiteNav();
+  setupReadingProgress();
 }
 
 function setupWithSearch() {
@@ -138,6 +151,7 @@ function setupWithSearch() {
     },
   });
   setupSiteNav();
+  setupReadingProgress();
 }
 
 if (enableSearch) {
