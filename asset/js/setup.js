@@ -27,7 +27,8 @@ function insertCss(cssCode) {
 
 function setupAnchors() {
   const navBarSelector = jQuery('nav, .navbar');
-  const isFixed = navBarSelector.attr('style').includes('position: fixed;');
+  const navBarStyle = navBarSelector.attr('style');
+  const isFixed = navBarStyle === undefined ? false : navBarStyle.includes('position: fixed;');
   const navbarHeight = navBarSelector.height();
   if (isFixed) {
     jQuery('.nav-inner').css('padding-top', `calc(${navbarHeight}px + 1rem)`);
