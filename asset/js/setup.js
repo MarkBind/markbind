@@ -51,7 +51,9 @@ function setupAnchors() {
                  {
                    id: spanId,
                    class: 'anchor',
-                 }));
+                 },
+          ),
+        );
         jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
         const headingHeight = jQuery(heading).height();
         const heightOffset = navbarHeight + headingHeight;
