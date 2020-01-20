@@ -2,17 +2,16 @@ const hljs = require('highlight.js');
 const markdownIt = require('markdown-it')({
   html: true,
   linkify: true,
+  langPrefix: 'hljs ',
   highlight: function (str, lang) {
     if (lang && hljs.getLanguage(lang)) {
       try {
-        return '<pre><code class="hljs ' + lang + '">' +
-          hljs.highlight(lang, str, true).value +
-          '</code></pre>';
-      } catch (__) {
-      }
+        str = hljs.highlight(lang, str).value;
+      } catch (__) {}
     }
-
-    return '<pre><code class="hljs">' + markdownIt.utils.escapeHtml(str) + '</code></pre>';
+    const lines = str.split('\n');
+    lines.pop(); // last line is always a single '\n' newline, so we remove it
+    return `<span>${lines.join('</span><span>')}</span>`;
   }
 });
 const slugify = require('@sindresorhus/slugify');
