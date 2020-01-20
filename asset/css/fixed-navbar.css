@@ -1,0 +1,22 @@
+.global-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    height: 100vh;
+}
+
+.header {
+    flex-grow: 0;
+    height: 4rem;
+    min-height: 4rem;
+}
+
+.content {
+    flex-grow: 1;
+    overflow: auto;
+}

@@ -19,21 +19,36 @@
 <% } -%>
 <% } -%>
     <link rel="stylesheet" href="<%- asset.layoutStyle %>">
+    <% if (fixedNavbar) { %><link rel="stylesheet" href="<%- asset.fixedNavbarCss %>"><% } %>
     <% if (siteNav) { %><link rel="stylesheet" href="<%- asset.siteNavCss %>"><% } %>
     <% if (pageNav) { %><link rel="stylesheet" href="<%- asset.pageNavCss %>"><% } %>
     <%- headFileBottomContent %>
     <% if (faviconUrl) { %><link rel="icon" href="<%- faviconUrl %>"><% } %>
 </head>
 <body <%_ if (pageNav) { %> data-spy="scroll" data-target="#page-nav" data-offset="100" <%_ } %>>
-    <div id="app">
-        <%- headerHtml _%>
-        <div id="flex-body">
-            <%- siteNavHtml _%>
-            <%- content %>
-            <%- pageNavHtml _%>
+    <% if (fixedNavbar) { %>
+        <div id="app" class="global-container">
+            <%- headerHtml _%>
+            <div id="flex-body">
+                <%- siteNavHtml _%>
+                <div class="content">
+                    <%- content %>
+                </div>
+                <%- pageNavHtml _%>
+            </div>
+            <%- footerHtml _%>
         </div>
-        <%- footerHtml _%>
-    </div>
+    <% } else{ %>
+        <div id="app">
+            <%- headerHtml _%>
+            <div id="flex-body">
+                <%- siteNavHtml _%>
+                <%- content %>
+                <%- pageNavHtml _%>
+            </div>
+            <%- footerHtml _%>
+        </div>
+    <% } %>
 </body>
 <script src="<%- asset.vue %>"></script>
 <script src="<%- asset.vueStrap %>"></script>

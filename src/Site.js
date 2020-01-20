@@ -199,6 +199,7 @@ Site.prototype.createPage = function (config) {
   const tempPath = path.join(this.tempPath, config.pageSrc);
   const resultPath = path.join(this.outputPath, setExtension(config.pageSrc, '.html'));
   return new Page({
+    fixedNavbar: this.siteConfig.fixedNavbar,
     baseUrl: this.siteConfig.baseUrl,
     baseUrlMap: this.baseUrlMap,
     content: '',
@@ -241,6 +242,8 @@ Site.prototype.createPage = function (config) {
                                 path.join(this.siteAssetsDestPath, 'css', 'page-nav.css')),
       siteNavCss: path.relative(path.dirname(resultPath),
                                 path.join(this.siteAssetsDestPath, 'css', 'site-nav.css')),
+      fixedNavbarCss: path.relative(path.dirname(resultPath),
+                                    path.join(this.siteAssetsDestPath, 'css', 'fixed-navbar.css')),
       bootstrapUtilityJs: path.relative(path.dirname(resultPath),
                                         path.join(this.siteAssetsDestPath, 'js', 'bootstrap-utility.min.js')),
       bootstrapVueJs: path.relative(path.dirname(resultPath),

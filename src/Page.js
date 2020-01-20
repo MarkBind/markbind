@@ -71,6 +71,8 @@ function Page(pageConfig) {
   this.titlePrefix = pageConfig.titlePrefix;
   this.userDefinedVariablesMap = pageConfig.userDefinedVariablesMap;
 
+  this.fixedNavbar = pageConfig.fixedNavbar;
+
   // the source file for rendering this page
   this.sourcePath = pageConfig.sourcePath;
   // the temp path for writing intermediate result
@@ -223,6 +225,8 @@ Page.prototype.prepareTemplateData = function () {
     asset[key] = _.isString(value) ? ensurePosix(value) : value;
   });
 
+  logger.info(`fixedNavbar: ${this.fixedNavbar}`);
+
   return {
     asset,
     baseUrl: this.baseUrl,
@@ -239,6 +243,7 @@ Page.prototype.prepareTemplateData = function () {
     siteNavHtml: this.pageSectionsHtml[`#${SITE_NAV_ID}`] || '',
     title: prefixedTitle,
     enableSearch: this.enableSearch,
+    fixedNavbar: this.fixedNavbar,
   };
 };
 
@@ -462,6 +467,7 @@ Page.prototype.collectIncludedFiles = function (dependencies) {
  * @param includedPage a page with its dependencies included
  */
 Page.prototype.collectFrontMatter = function (includedPage) {
+  logger.info('collecting frontmatter');
   const $ = cheerio.load(includedPage);
   const frontMatter = $('frontmatter');
   if (frontMatter.text().trim()) {
@@ -480,6 +486,14 @@ Page.prototype.collectFrontMatter = function (includedPage) {
     this.frontMatter.title = (this.title || this.frontMatter.title || '');
     // Layout specified in site.json will override layout specified in the front matter
     this.frontMatter.layout = (this.layout || this.frontMatter.layout || LAYOUT_DEFAULT_NAME);
+    // fixed navbar
+    logger.info(`frontmatter: ${this.frontMatter.fixedNavbar}`);
+    logger.info(`this: ${this.fixedNavbar}`);
+    if (this.fixedNavbar !== undefined) {
+      this.frontMatter.fixedNavbar = this.fixedNavbar;
+    } else {
+      this.fixedNavbar = this.frontMatter.fixedNavbar || false;
+    }
     this.frontMatter = { ...this.frontMatter, ...this.globalOverride, ...this.frontmatterOverride };
   } else {
     // Page is addressable but no front matter specified

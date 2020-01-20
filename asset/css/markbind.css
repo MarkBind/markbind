@@ -85,6 +85,7 @@ code.hljs.inline {
   */
 
 /* #app is treated as the main container */
+
 #app {
     display: flex;
     flex-direction: column;
@@ -92,6 +93,8 @@ code.hljs.inline {
 }
 
 #flex-body {
+    flex-grow: 1;
+    overflow: auto;
     display: flex;
     flex: 1;
 }
