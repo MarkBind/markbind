@@ -8,7 +8,7 @@ const {
   FOOTER_MD_DEFAULT,
   HEADER_MD_DEFAULT,
   INDEX_MD_DEFAULT,
-  PAGE_EJS,
+  PAGE_NJK,
   SITE_JSON_DEFAULT,
   SITE_NAV_MD_DEFAULT,
   TOP_NAV_DEFAULT,
@@ -29,7 +29,7 @@ afterEach(() => fs.vol.reset());
 
 test('Site Generate builds the correct amount of assets', async () => {
   const json = {
-    'src/page.ejs': PAGE_EJS,
+    'src/page.njk': PAGE_NJK,
     'inner/site.json': SITE_JSON_DEFAULT,
 
     'asset/css/bootstrap.min.css': '',
@@ -102,7 +102,7 @@ test('Site Generate builds the correct amount of assets', async () => {
 test('Site Init with invalid template fails', async () => {
   // Mock default template in MemFS without site config
   const json = {
-    'src/page.ejs': PAGE_EJS,
+    'src/page.njk': PAGE_NJK,
     'src/template/default/index.md': INDEX_MD_DEFAULT,
   };
 
@@ -121,7 +121,7 @@ test('Site Init does not overwrite existing files', async () => {
   // Mock default template in MemFS
   const json = {
     'index.md': EXISTING_INDEX_MD,
-    'src/page.ejs': PAGE_EJS,
+    'src/page.njk': PAGE_NJK,
     'src/template/default/index.md': INDEX_MD_DEFAULT,
     'src/template/default/site.json': SITE_JSON_DEFAULT,
   };
@@ -135,7 +135,7 @@ test('Site Init does not overwrite existing files', async () => {
 test('Site Init in existing directory generates correct assets', async () => {
   // Mock default template in MemFS
   const json = {
-    'src/page.ejs': PAGE_EJS,
+    'src/page.njk': PAGE_NJK,
     'src/template/default/index.md': INDEX_MD_DEFAULT,
     'src/template/default/site.json': SITE_JSON_DEFAULT,
     'src/template/default/_markbind/boilerplates/': '',
@@ -199,7 +199,7 @@ test('Site Init in existing directory generates correct assets', async () => {
 test('Site Init in directory which does not exist generates correct assets', async () => {
   // Mock default template in MemFS
   const json = {
-    'src/page.ejs': PAGE_EJS,
+    'src/page.njk': PAGE_NJK,
     'src/template/default/index.md': INDEX_MD_DEFAULT,
     'src/template/default/site.json': SITE_JSON_DEFAULT,
     'src/template/default/_markbind/boilerplates/': '',
@@ -265,7 +265,7 @@ test('Site Init in directory which does not exist generates correct assets', asy
 
 test('Site baseurls are correct for sub nested subsites', async () => {
   const json = {
-    'src/page.ejs': PAGE_EJS,
+    'src/page.njk': PAGE_NJK,
     'site.json': SITE_JSON_DEFAULT,
     'sub/site.json': SITE_JSON_DEFAULT,
     'sub/sub/site.json': SITE_JSON_DEFAULT,
@@ -282,7 +282,7 @@ test('Site baseurls are correct for sub nested subsites', async () => {
 
 test('Site removeAsync removes the correct asset', async () => {
   const json = {
-    'src/page.ejs': PAGE_EJS,
+    'src/page.njk': PAGE_NJK,
     '_site/toRemove.jpg': '',
     '_site/dontRemove.png': '',
     'toRemove.html': '',
@@ -297,7 +297,7 @@ test('Site removeAsync removes the correct asset', async () => {
 
 test('Site read site config for default', async () => {
   const json = {
-    'src/page.ejs': PAGE_EJS,
+    'src/page.njk': PAGE_NJK,
     'site.json': SITE_JSON_DEFAULT,
   };
   fs.vol.fromJSON(json, '');
@@ -329,7 +329,7 @@ test('Site read site config for custom site config', async () => {
     enableSearch: true,
   };
   const json = {
-    'src/page.ejs': PAGE_EJS,
+    'src/page.njk': PAGE_NJK,
     'site.json': JSON.stringify(customSiteJson),
   };
   fs.vol.fromJSON(json, '');
@@ -341,7 +341,7 @@ test('Site read site config for custom site config', async () => {
 
 test('Site resolves variables referencing other variables', async () => {
   const json = {
-    'src/page.ejs': PAGE_EJS,
+    'src/page.njk': PAGE_NJK,
     'site.json': SITE_JSON_DEFAULT,
     '_markbind/variables.md':
     '<variable name="level1">variable</variable>'
@@ -371,7 +371,7 @@ test('Site resolves variables referencing other variables', async () => {
 
 test('Site read correct user defined variables', async () => {
   const json = {
-    'src/page.ejs': PAGE_EJS,
+    'src/page.njk': PAGE_NJK,
     'site.json': SITE_JSON_DEFAULT,
     'sub/site.json': SITE_JSON_DEFAULT,
     'sub/sub/site.json': SITE_JSON_DEFAULT,
@@ -414,7 +414,7 @@ test('Site read correct user defined variables', async () => {
 test('Site convert generates correct assets', async () => {
   // Mock default template in MemFS
   const json = {
-    'src/page.ejs': PAGE_EJS,
+    'src/page.njk': PAGE_NJK,
     'src/template/default/index.md': INDEX_MD_DEFAULT,
     'src/template/default/site.json': SITE_JSON_DEFAULT,
     'src/template/default/_markbind/boilerplates/': '',
@@ -467,7 +467,7 @@ test('Site convert generates correct assets', async () => {
 test('Site convert with custom _Footer.md, no _Sidebar.md, README.md generates correct assets', async () => {
   // Mock default template in MemFS
   const json = {
-    'src/page.ejs': PAGE_EJS,
+    'src/page.njk': PAGE_NJK,
     'src/template/default/index.md': INDEX_MD_DEFAULT,
     'src/template/default/site.json': SITE_JSON_DEFAULT,
     'src/template/default/_markbind/boilerplates/': '',
@@ -523,7 +523,7 @@ test('Site convert with custom _Footer.md, no _Sidebar.md, README.md generates c
 
 test('Site deploys with default settings', async () => {
   const json = {
-    'src/page.ejs': PAGE_EJS,
+    'src/page.njk': PAGE_NJK,
     'site.json': SITE_JSON_DEFAULT,
     _site: {},
   };
@@ -543,7 +543,7 @@ test('Site deploys with custom settings', async () => {
     branch: 'master',
   };
   const json = {
-    'src/page.ejs': PAGE_EJS,
+    'src/page.njk': PAGE_NJK,
     'site.json': JSON.stringify(customConfig),
     _site: {},
   };
@@ -557,7 +557,7 @@ test('Site deploys with custom settings', async () => {
 
 test('Site should not deploy without a built site', async () => {
   const json = {
-    'src/page.ejs': PAGE_EJS,
+    'src/page.njk': PAGE_NJK,
     'site.json': SITE_JSON_DEFAULT,
   };
   fs.vol.fromJSON(json, '');
@@ -591,7 +591,7 @@ describe('Site deploy with Travis', () => {
     process.env.TRAVIS_REPO_SLUG = 'TRAVIS_USER/TRAVIS_REPO';
 
     const json = {
-      'src/page.ejs': PAGE_EJS,
+      'src/page.njk': PAGE_NJK,
       'site.json': SITE_JSON_DEFAULT,
       _site: {},
     };
@@ -611,7 +611,7 @@ describe('Site deploy with Travis', () => {
     const customRepoConfig = JSON.parse(SITE_JSON_DEFAULT);
     customRepoConfig.deploy.repo = 'https://github.com/USER/REPO.git';
     const json = {
-      'src/page.ejs': PAGE_EJS,
+      'src/page.njk': PAGE_NJK,
       'site.json': JSON.stringify(customRepoConfig),
       _site: {},
     };
@@ -628,7 +628,7 @@ describe('Site deploy with Travis', () => {
     process.env.TRAVIS_REPO_SLUG = 'TRAVIS_USER/TRAVIS_REPO.github.io';
 
     const json = {
-      'src/page.ejs': PAGE_EJS,
+      'src/page.njk': PAGE_NJK,
       'site.json': SITE_JSON_DEFAULT,
       _site: {},
     };
@@ -641,7 +641,7 @@ describe('Site deploy with Travis', () => {
 
   test('Site deploy -t/--travis should not deploy if not in Travis', async () => {
     const json = {
-      'src/page.ejs': PAGE_EJS,
+      'src/page.njk': PAGE_NJK,
       'site.json': SITE_JSON_DEFAULT,
       _site: {},
     };
@@ -656,7 +656,7 @@ describe('Site deploy with Travis', () => {
     process.env.TRAVIS = true;
 
     const json = {
-      'src/page.ejs': PAGE_EJS,
+      'src/page.njk': PAGE_NJK,
       'site.json': SITE_JSON_DEFAULT,
       _site: {},
     };
@@ -674,7 +674,7 @@ describe('Site deploy with Travis', () => {
     const invalidRepoConfig = JSON.parse(SITE_JSON_DEFAULT);
     invalidRepoConfig.deploy.repo = 'INVALID_GITHUB_REPO';
     const json = {
-      'src/page.ejs': PAGE_EJS,
+      'src/page.njk': PAGE_NJK,
       'site.json': JSON.stringify(invalidRepoConfig),
       _site: {},
     };
@@ -792,7 +792,7 @@ siteJsonResolvePropertiesTestCases.forEach((testCase) => {
       },
     };
     const json = {
-      'src/page.ejs': PAGE_EJS,
+      'src/page.njk': PAGE_NJK,
       'index.md': '',
     };
     fs.vol.fromJSON(json, '');
@@ -828,7 +828,7 @@ test('Site config throws error on duplicate page src', async () => {
     },
   };
   const json = {
-    'src/page.ejs': PAGE_EJS,
+    'src/page.njk': PAGE_NJK,
     'index.md': '',
   };
   fs.vol.fromJSON(json, '');
