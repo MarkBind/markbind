@@ -26,13 +26,13 @@ function insertCss(cssCode) {
 }
 
 function setupAnchors() {
-  const navBarSelector = jQuery('nav, .navbar');
-  const isFixed = navBarSelector.filter('.navbar-fixed').length !== 0;
-  const navbarHeight = navBarSelector.height();
+  const headerSelector = jQuery('header');
+  const isFixed = headerSelector.filter('.header-fixed').length !== 0;
+  const headerHeight = headerSelector.height();
   const topPadding = 1;
   if (isFixed) {
-    jQuery('.nav-inner').css('padding-top', `calc(${navbarHeight}px + ${2 * topPadding}rem)`);
-    jQuery('#content-wrapper').css('padding-top', `calc(${navbarHeight}px + ${2 * topPadding}rem)`);
+    jQuery('.nav-inner').css('padding-top', `calc(${headerHeight}px + ${2 * topPadding}rem)`);
+    jQuery('#content-wrapper').css('padding-top', `calc(${headerHeight}px + ${2 * topPadding}rem)`);
   }
   jQuery('h1, h2, h3, h4, h5, h6, .header-wrapper').each((index, heading) => {
     if (heading.id) {
@@ -57,7 +57,7 @@ function setupAnchors() {
         );
         jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
         const headingHeight = jQuery(heading).height();
-        const heightOffset = navbarHeight + headingHeight;
+        const heightOffset = headerHeight + headingHeight;
         const spanCss = `span#${spanId} { margin-top: calc(-${heightOffset}px - ${topPadding}rem);\n`
           + '    display: block;\n'
           + `    height: calc(${heightOffset}px + ${topPadding}rem);\n`
