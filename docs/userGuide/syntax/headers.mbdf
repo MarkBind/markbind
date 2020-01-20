@@ -23,6 +23,8 @@ In the page that you want to include the header:
 ```
 </div>
 
+### Adding reading progress indicators
+
 You can also choose to add a <trigger for="pop:progress-indicator">reading progress indicator</trigger> to let the reader know how far along they are in the page.
 The following markup can be added to the header file under the `<header>` tag:
 ```html
