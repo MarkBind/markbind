@@ -46,7 +46,7 @@ module.exports = {
   FOOTER_PATH: '_markbind/footers/footer.md',
   INDEX_MARKDOWN_FILE: 'index.md',
   MARKBIND_PLUGIN_PREFIX: 'markbind-plugin-',
-  PAGE_TEMPLATE_NAME: 'page.ejs',
+  PAGE_TEMPLATE_NAME: 'page.njk',
   PROJECT_PLUGIN_FOLDER_NAME: '_markbind/plugins',
   SITE_CONFIG_NAME: 'site.json',
   SITE_DATA_NAME: 'siteData.json',
