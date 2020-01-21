@@ -95,16 +95,51 @@ function setupSiteNav() {
   );
 }
 
+function setReadingBarWidth(progress) {
+  const amountScrolled = document.documentElement.scrollTop || document.body.scrollTop;
+  const pageHeight = (document.documentElement.scrollHeight || document.body.scrollHeight)
+    - document.documentElement.clientHeight;
+  const scrollPercentage = (amountScrolled / pageHeight) * 100;
+  progress.style.setProperty('--scroll', `${scrollPercentage}%`);
+}
+
+function checkHeightChange(prevHeight, callback) {
+  const curHeight = document.body.clientHeight;
+  if (prevHeight !== curHeight) {
+    callback();
+  }
+  if (document.body.onElementHeightChangeTimer) {
+    clearTimeout(document.body.onElementHeightChangeTimer);
+  }
+
+  document.body.onElementHeightChangeTimer = setTimeout(checkHeightChange, 200,
+                                                        curHeight, callback);
+}
+
+function onElementHeightChange(callback) {
+  const prevHeight = document.body.clientHeight;
+  checkHeightChange(prevHeight, callback);
+}
+
 function setupReadingProgress() {
   const progress = document.querySelector('.progress');
 
-  document.addEventListener('scroll', () => {
-    const amountScrolled = (document.documentElement.scrollTop || document.body.scrollTop);
-    const pageHeight = ((document.documentElement.scrollHeight || document.body.scrollHeight)
-                        - document.documentElement.clientHeight);
-    const scrollPercentage = (amountScrolled / pageHeight) * 100;
-    progress.style.setProperty('--scroll', `${scrollPercentage}%`);
+  // In case the author has not enabled the indicator
+  if (progress === null) {
+    return;
+  }
+
+  onElementHeightChange(() => {
+    setReadingBarWidth(progress);
   });
+
+  window.onscroll = () => {
+    setReadingBarWidth(progress);
+  };
+
+  window.onresize = () => {
+    setReadingBarWidth(progress);
+  };
 }
 
 function setup() {
