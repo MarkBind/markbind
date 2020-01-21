@@ -11,7 +11,7 @@ const markdownIt = require('markdown-it')({
     }
     const lines = str.split('\n');
     lines.pop(); // last line is always a single '\n' newline, so we remove it
-    return `<span>${lines.join('</span><span>')}</span>`;
+    return `<span>${lines.join('</span><span>')}</span>`; //wrap all lines with <span> so we can number them
   }
 });
 const slugify = require('@sindresorhus/slugify');
