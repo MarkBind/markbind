@@ -578,6 +578,7 @@ class Site {
     return new Promise((resolve, reject) => {
       Promise.resolve('')
         .then(() => this.updateAddressablePages())
+        // ignore the warning on next line as IDE doesn't understand `delay` very well
         .then(filesToRemove => this.removeAsset(filesToRemove))
         .then(() => this.buildSourceFiles())
         .then(resolve)

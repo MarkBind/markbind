@@ -39,20 +39,18 @@ class Parser {
     this.staticIncludeSrc = [];
     this.boilerplateIncludeSrc = [];
     this.missingIncludeSrc = [];
-    this.VARIABLE_LOOKUP = new Map();
-    this.FILE_ALIASES = new Map();
-    this.PROCESSED_INNER_VARIABLES = new Set();
   }
 
   /**
    * Returns an object containing the imported variables for specified file
    * @param file file name to get the imported variables for
    */
+  // eslint-disable-next-line class-methods-use-this
   getImportedVariableMap(file) {
     const innerVariables = {};
-    this.FILE_ALIASES.get(file).forEach((actualPath, alias) => {
+    Parser.FILE_ALIASES.get(file).forEach((actualPath, alias) => {
       innerVariables[alias] = {};
-      const variables = this.VARIABLE_LOOKUP.get(actualPath);
+      const variables = Parser.VARIABLE_LOOKUP.get(actualPath);
       variables.forEach((value, name) => {
         innerVariables[alias][name] = value;
       });
@@ -67,15 +65,15 @@ class Parser {
    * @param userDefinedVariables global variables
    * @param includedVariables variables from parent include
    */
+  // eslint-disable-next-line class-methods-use-this
   extractPageVariables(fileName, data, userDefinedVariables, includedVariables) {
     const $ = cheerio.load(data);
     const pageVariables = {};
-    this.VARIABLE_LOOKUP.set(fileName, new Map());
+    Parser.VARIABLE_LOOKUP.set(fileName, new Map());
     /**
      * <import>ed variables have not been processed yet, we replace such variables with itself first.
      */
     const importedVariables = {};
-    const self = this;
     $('import[from]').each((index, element) => {
       const variableNames = Object.keys(element.attribs)
         .filter(name => name !== 'from' && name !== 'as');
@@ -107,7 +105,7 @@ class Parser {
           ...importedVariables, ...pageVariables, ...userDefinedVariables, ...includedVariables,
         });
         pageVariables[variableName] = variableValue;
-        self.VARIABLE_LOOKUP.get(fileName).set(variableName, variableValue);
+        Parser.VARIABLE_LOOKUP.get(fileName).set(variableName, variableValue);
       }
     });
     return { ...importedVariables, ...pageVariables };
@@ -180,7 +178,7 @@ class Parser {
       decodeEntities: false,
     });
     const aliases = new Map();
-    this.FILE_ALIASES.set(cwf, aliases);
+    Parser.FILE_ALIASES.set(cwf, aliases);
     $('import[from]').each((index, element) => {
       const filePath = path.resolve(path.dirname(cwf), element.attribs.from);
       const variableNames = Object.keys(element.attribs)
@@ -197,12 +195,12 @@ class Parser {
       // Render inner file content
       const { content: renderedContent, childContext, userDefinedVariables }
         = this._renderIncludeFile(filePath, element, context, config);
-      if (!this.PROCESSED_INNER_VARIABLES.has(filePath)) {
-        this.PROCESSED_INNER_VARIABLES.add(filePath);
+      if (!Parser.PROCESSED_INNER_VARIABLES.has(filePath)) {
+        Parser.PROCESSED_INNER_VARIABLES.add(filePath);
         this._extractInnerVariables(renderedContent, childContext, config);
       }
       const innerVariables = this.getImportedVariableMap(filePath);
-      this.VARIABLE_LOOKUP.get(filePath).forEach((value, variableName, map) => {
+      Parser.VARIABLE_LOOKUP.get(filePath).forEach((value, variableName, map) => {
         map.set(variableName, nunjucks.renderString(value, { ...userDefinedVariables, ...innerVariables }));
       });
     });
@@ -291,8 +289,8 @@ class Parser {
       = this._renderIncludeFile(actualFilePath, element, context, config, filePath);
       childContext.source = isIncludeSrcMd ? 'md' : 'html';
       childContext.callStack.push(context.cwf);
-      if (!this.PROCESSED_INNER_VARIABLES.has(filePath)) {
-        this.PROCESSED_INNER_VARIABLES.add(filePath);
+      if (!Parser.PROCESSED_INNER_VARIABLES.has(filePath)) {
+        Parser.PROCESSED_INNER_VARIABLES.add(filePath);
         this._extractInnerVariables(content, childContext, config);
       }
       const innerVariables = this.getImportedVariableMap(filePath);
@@ -758,10 +756,10 @@ class Parser {
     return nunjucks.renderString(pageData, { baseUrl: newBaseUrl }, { path: filePath });
   }
 
-  resetVariables() {
-    this.VARIABLE_LOOKUP.clear();
-    this.FILE_ALIASES.clear();
-    this.PROCESSED_INNER_VARIABLES.clear();
+  static resetVariables() {
+    Parser.VARIABLE_LOOKUP.clear();
+    Parser.FILE_ALIASES.clear();
+    Parser.PROCESSED_INNER_VARIABLES.clear();
   }
 
   /**
@@ -846,5 +844,8 @@ class Parser {
   }
 }
 
+Parser.VARIABLE_LOOKUP = new Map();
+Parser.FILE_ALIASES = new Map();
+Parser.PROCESSED_INNER_VARIABLES = new Set();
 
 module.exports = Parser;
