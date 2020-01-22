@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html>
 <head>
     {{ headFileTopContent }}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="generator" content=" markBindVersion ">
+    <meta name="generator" content="{{ markBindVersion }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ title }}</title>
     <link rel="stylesheet" href="{{ asset.bootstrap }}">
@@ -47,8 +47,8 @@
 <script src="{{ asset.polyfillJs }}"></script>
 <script src="{{ asset.bootstrapVueJs }}"></script>
 <script>
-  const baseUrl = '{{ baseUrl }}';
-  const enableSearch = {{ enableSearch }};
+  const baseUrl = '{{ baseUrl }}'
+  const enableSearch = {{ enableSearch }}
 </script>
 <script src="{{ asset.setup }}"></script>
 

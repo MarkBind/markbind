@@ -361,12 +361,8 @@ test('Site resolves variables referencing other variables', async () => {
   expect(root.level1).toEqual('variable');
   expect(root.level2).toEqual('variable');
   const expectedTextSpan = '<span style="color: blue">Blue text</span>';
-  const expectedTextSpanEscaped = expectedTextSpan
-    .replace(/"/g, '&quot;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
   expect(root.level3).toEqual(expectedTextSpan);
-  expect(root.level4).toEqual(expectedTextSpanEscaped);
+  expect(root.level4).toEqual(expectedTextSpan);
 });
 
 test('Site read correct user defined variables', async () => {
