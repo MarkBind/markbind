@@ -80,6 +80,23 @@ You can find more information at the [VueStrap repo](https://github.com/MarkBind
 
 ## Development Process
 
+### Prerequisite
+
+MarkBind requires the following dependencies:
+
+* Node.js (LTS or higher) [with npm version of 6.12.1 or higher]
+* Java 8 or later (required to run the PlantUML JAR executable)
+* Graphviz v2.38 or later (required to generate PlantUML diagrams)
+
+Before cloning MarkBind's repo, run
+
+* `node --version` for Node.js
+* `npm --version` for NPM
+* `java --version` for Java
+* `dot -V` for Graphviz
+
+to make sure that you have all necessary dependencies installed and accessible in the path variable.
+
 ### Development
 
 1. Fork and clone the MarkBind repo.

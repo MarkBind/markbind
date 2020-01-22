@@ -676,6 +676,15 @@ class Site {
   }
 
   /**
+   * Checks if a specified file path is a plugin source file
+   * @param filePath file path to check
+   * @returns {boolean} whether the file path matches a plugin source file path
+   */
+  isPluginSourceFile(filePath) {
+    return this.pages.some(page => page.pluginSourceFiles.has(filePath));
+  }
+
+  /**
    * Loads a plugin
    * @param plugin name of the plugin
    * @param isDefault whether the plugin is a default plugin
@@ -789,11 +798,6 @@ class Site {
     });
   }
 
-  /**
-   * Re-renders pages that contain the original file path
-   * as the source file or as a static/dynamic included file
-   * @param filePaths array of paths corresponding to files that have changed
-   */
   regenerateAffectedPages(filePaths) {
     const builtFiles = new Set();
     const processingFiles = [];
@@ -803,8 +807,13 @@ class Site {
     }
     this._setTimestampVariable();
     this.pages.forEach((page) => {
-      if (shouldRebuildAllPages || filePaths.some(filePath => page.includedFiles.has(filePath))) {
-        // eslint-disable-next-line no-param-reassign
+      if (shouldRebuildAllPages || filePaths.some((filePath) => {
+        const isIncludedFile = page.includedFiles.has(filePath);
+        const isPluginSourceFile = page.pluginSourceFiles.has(filePath);
+
+        return isIncludedFile || isPluginSourceFile;
+      })) {
+      // eslint-disable-next-line no-param-reassign
         page.userDefinedVariablesMap = this.userDefinedVariablesMap;
         processingFiles.push(page.generate(builtFiles)
           .catch((err) => {

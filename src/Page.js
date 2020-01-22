@@ -9,6 +9,8 @@ const Promise = require('bluebird');
 
 const _ = {};
 _.isString = require('lodash/isString');
+_.isObject = require('lodash/isObject');
+_.isArray = require('lodash/isArray');
 
 const CyclicReferenceError = require('./lib/markbind/src/handlers/cyclicReferenceError.js');
 const { ensurePosix } = require('./lib/markbind/src/utils');
@@ -16,6 +18,7 @@ const FsUtil = require('./util/fsUtil');
 const logger = require('./util/logger');
 const MarkBind = require('./lib/markbind/src/parser');
 const md = require('./lib/markbind/src/lib/markdown-it');
+const utils = require('./lib/markbind/src/utils');
 
 const CLI_VERSION = require('../package.json').version;
 
@@ -35,13 +38,13 @@ const {
   PAGE_NAV_ID,
   PAGE_NAV_TITLE_CLASS,
   SITE_NAV_ID,
+  SITE_NAV_LIST_CLASS,
   TITLE_PREFIX_SEPARATOR,
+  DROPDOWN_BUTTON_ICON_HTML,
+  DROPDOWN_EXPAND_KEYWORD,
   TEMP_NAVBAR_CLASS,
   TEMP_DROPDOWN_CLASS,
   TEMP_DROPDOWN_PLACEHOLDER_CLASS,
-  DROPDOWN_BUTTON_ICON_HTML,
-  DROPDOWN_EXPAND_KEYWORD,
-  SITE_NAV_LIST_CLASS,
 } = require('./constants');
 
 cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
@@ -68,21 +71,25 @@ class Page {
     this.title = pageConfig.title || '';
     this.titlePrefix = pageConfig.titlePrefix;
     this.userDefinedVariablesMap = pageConfig.userDefinedVariablesMap;
+
     // the source file for rendering this page
     this.sourcePath = pageConfig.sourcePath;
     // the temp path for writing intermediate result
     this.tempPath = pageConfig.tempPath;
     // the output path of this page
     this.resultPath = pageConfig.resultPath;
+
     this.frontMatter = {};
     this.headFileBottomContent = '';
     this.headFileTopContent = '';
     this.headings = {};
     this.headingIndexingLevel = pageConfig.headingIndexingLevel;
     this.includedFiles = new Set();
+    this.pluginSourceFiles = new Set();
     this.keywords = {};
     this.navigableHeadings = {};
     this.pageSectionsHtml = {};
+
     // Flag to indicate whether this page has a site nav
     this.hasSiteNav = false;
   }
@@ -93,9 +100,10 @@ class Page {
       : this.title;
     // construct temporary asset object with only POSIX-style paths
     const asset = {};
-    Object.entries(this.asset).forEach(([key, value]) => {
-      asset[key] = _.isString(value) ? ensurePosix(value) : value;
-    });
+    Object.entries(this.asset)
+      .forEach(([key, value]) => {
+        asset[key] = _.isString(value) ? ensurePosix(value) : value;
+      });
     return {
       asset,
       baseUrl: this.baseUrl,
@@ -148,33 +156,40 @@ class Page {
       return;
     }
     const $ = cheerio.load(content);
-    $('modal').remove();
-    $(elementSelector).each((i, elem) => {
-      // Check if heading or panel is already inside an unexpanded panel
-      let isInsideUnexpandedPanel = false;
-      $(elem).parents('panel').each((j, elemParent) => {
-        if (elemParent.attribs.expanded === undefined) {
-          isInsideUnexpandedPanel = true;
-          return false;
+    $('modal')
+      .remove();
+    $(elementSelector)
+      .each((i, elem) => {
+        // Check if heading or panel is already inside an unexpanded panel
+        let isInsideUnexpandedPanel = false;
+        $(elem)
+          .parents('panel')
+          .each((j, elemParent) => {
+            if (elemParent.attribs.expanded === undefined) {
+              isInsideUnexpandedPanel = true;
+              return false;
+            }
+            return true;
+          });
+        if (isInsideUnexpandedPanel) {
+          return;
         }
-        return true;
+        if (elem.name === 'panel') {
+          // Get heading from Panel header attribute
+          if (elem.attribs.header) {
+            this.collectNavigableHeadings(md.render(elem.attribs.header));
+          }
+        } else if ($(elem)
+          .attr('id') !== undefined) {
+          // Headings already in content, with a valid ID
+          this.navigableHeadings[$(elem)
+            .attr('id')] = {
+            text: $(elem)
+              .text(),
+            level: elem.name.replace('h', ''),
+          };
+        }
       });
-      if (isInsideUnexpandedPanel) {
-        return;
-      }
-      if (elem.name === 'panel') {
-        // Get heading from Panel header attribute
-        if (elem.attribs.header) {
-          this.collectNavigableHeadings(md.render(elem.attribs.header));
-        }
-      } else if ($(elem).attr('id') !== undefined) {
-        // Headings already in content, with a valid ID
-        this.navigableHeadings[$(elem).attr('id')] = {
-          text: $(elem).text(),
-          level: elem.name.replace('h', ''),
-        };
-      }
-    });
   }
 
   /**
@@ -186,7 +201,8 @@ class Page {
     this.headings = {};
     this.keywords = {};
     // Collect headings and keywords
-    this.collectHeadingsAndKeywordsInContent($(`#${CONTENT_WRAPPER_ID}`).html(), null, false, []);
+    this.collectHeadingsAndKeywordsInContent($(`#${CONTENT_WRAPPER_ID}`)
+      .html(), null, false, []);
   }
 
   /**
@@ -196,8 +212,10 @@ class Page {
   collectHeadingsAndKeywordsInContent(content, lastHeading, excludeHeadings, sourceTraversalStack) {
     let $ = cheerio.load(content);
     const headingsSelector = Page.generateHeadingSelector(this.headingIndexingLevel);
-    $('modal').remove();
-    $('panel').not('panel panel')
+    $('modal')
+      .remove();
+    $('panel')
+      .not('panel panel')
       .each((index, panel) => {
         if (panel.attribs.header) {
           this.collectHeadingsAndKeywordsInContent(
@@ -212,7 +230,8 @@ class Page {
         }
         if (panel.attribs.header) {
           const panelHeader = md.render(panel.attribs.header);
-          if ($(panelHeader).is(headingsSelector)) {
+          if ($(panelHeader)
+            .is(headingsSelector)) {
             closestHeading = $(panelHeader);
           }
         }
@@ -237,7 +256,8 @@ class Page {
           if (panel.attribs.fragment) {
             $ = cheerio.load(includeContent);
             this.collectHeadingsAndKeywordsInContent(
-              $(`#${panel.attribs.fragment}`).html(),
+              $(`#${panel.attribs.fragment}`)
+                .html(),
               closestHeading,
               shouldExcludeHeadings,
               childSourceTraversalStack);
@@ -250,7 +270,8 @@ class Page {
           }
         } else {
           this.collectHeadingsAndKeywordsInContent(
-            $(panel).html(),
+            $(panel)
+              .html(),
             closestHeading,
             shouldExcludeHeadings,
             sourceTraversalStack);
@@ -258,24 +279,31 @@ class Page {
       });
     $ = cheerio.load(content);
     if (this.headingIndexingLevel > 0) {
-      $('modal').remove();
-      $('panel').remove();
+      $('modal')
+        .remove();
+      $('panel')
+        .remove();
       if (!excludeHeadings) {
-        $(headingsSelector).each((i, heading) => {
-          this.headings[$(heading).attr('id')] = $(heading).text();
-        });
+        $(headingsSelector)
+          .each((i, heading) => {
+            this.headings[$(heading)
+              .attr('id')] = $(heading)
+              .text();
+          });
       }
-      $('.keyword').each((i, keyword) => {
-        let closestHeading = Page.getClosestHeading($, headingsSelector, keyword);
-        if (excludeHeadings || !closestHeading) {
-          if (!lastHeading) {
-            logger.warn(`Missing heading for keyword: ${$(keyword).text()}`);
-            return;
+      $('.keyword')
+        .each((i, keyword) => {
+          let closestHeading = Page.getClosestHeading($, headingsSelector, keyword);
+          if (excludeHeadings || !closestHeading) {
+            if (!lastHeading) {
+              logger.warn(`Missing heading for keyword: ${$(keyword)
+                .text()}`);
+              return;
+            }
+            closestHeading = lastHeading;
           }
-          closestHeading = lastHeading;
-        }
-        this.linkKeywordToHeading($, keyword, closestHeading);
-      });
+          this.linkKeywordToHeading($, keyword, closestHeading);
+        });
     }
   }
 
@@ -286,21 +314,24 @@ class Page {
    * @param heading to link
    */
   linkKeywordToHeading($, keyword, heading) {
-    const headingId = $(heading).attr('id');
+    const headingId = $(heading)
+      .attr('id');
     if (!(headingId in this.keywords)) {
       this.keywords[headingId] = [];
     }
-    this.keywords[headingId].push($(keyword).text());
+    this.keywords[headingId].push($(keyword)
+      .text());
   }
 
   /**
    * Concatenates keywords in this.keywords to heading text in this.headings
    */
   concatenateHeadingsAndKeywords() {
-    Object.keys(this.keywords).forEach((headingId) => {
-      const keywordString = this.keywords[headingId].join(', ');
-      this.headings[headingId] += ` | ${keywordString}`;
-    });
+    Object.keys(this.keywords)
+      .forEach((headingId) => {
+        const keywordString = this.keywords[headingId].join(', ');
+        this.headings[headingId] += ` | ${keywordString}`;
+      });
   }
 
   /**
@@ -318,7 +349,8 @@ class Page {
   collectFrontMatter(includedPage) {
     const $ = cheerio.load(includedPage);
     const frontMatter = $('frontmatter');
-    if (frontMatter.text().trim()) {
+    if (frontMatter.text()
+      .trim()) {
       // Retrieves the front matter from either the first frontmatter element
       // or from a frontmatter element that includes from another file
       // The latter case will result in the data being wrapped in a div
@@ -363,9 +395,9 @@ class Page {
   }
 
   /**
-    * Inserts the page layout's header to the start of the page
-    * @param pageData a page with its front matter collected
-    */
+   * Inserts the page layout's header to the start of the page
+   * @param pageData a page with its front matter collected
+   */
   insertHeaderFile(pageData) {
     const { header } = this.frontMatter;
     let headerFile;
@@ -451,13 +483,20 @@ class Page {
       throw new Error(`More than one <navigation> tag found in ${siteNavPath}`);
     } else if (siteNavDataSelector('navigation').length === 1) {
       const siteNavHtml
-        = md.render(siteNavDataSelector('navigation').html().trim().replace(/\n\s*\n/g, '\n'));
+        = md.render(siteNavDataSelector('navigation')
+          .html()
+          .trim()
+          .replace(/\n\s*\n/g, '\n'));
       // Add Bootstrap padding class to rendered unordered list
       const siteNavHtmlSelector = cheerio.load(siteNavHtml, { xmlMode: false });
-      siteNavHtmlSelector('ul').first().addClass('px-0');
-      siteNavHtmlSelector('ul ul').addClass('pl-3');
+      siteNavHtmlSelector('ul')
+        .first()
+        .addClass('px-0');
+      siteNavHtmlSelector('ul ul')
+        .addClass('pl-3');
       const formattedSiteNav = Page.formatSiteNav(siteNavHtmlSelector.html(), this.src);
-      siteNavDataSelector('navigation').replaceWith(formattedSiteNav);
+      siteNavDataSelector('navigation')
+        .replaceWith(formattedSiteNav);
     }
     // Wrap sections
     const wrappedSiteNav = `<nav id="${SITE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
@@ -477,44 +516,45 @@ class Page {
   generatePageNavHeadingHtml() {
     let headingHTML = '';
     const headingStack = [];
-    Object.keys(this.navigableHeadings).forEach((key) => {
-      const currentHeadingLevel = this.navigableHeadings[key].level;
-      const currentHeadingHTML = `<a class="nav-link py-1" href="#${key}">`
-        + `${this.navigableHeadings[key].text}&#x200E;</a>\n`;
-      const nestedHeadingHTML = '<nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">\n'
-        + `${currentHeadingHTML}`;
-      if (headingStack.length === 0 || headingStack[headingStack.length - 1] === currentHeadingLevel) {
-        // Add heading without nesting, into headingHTML
-        headingHTML += currentHeadingHTML;
-      } else {
-        // Stack has at least 1 other heading level
-        let topOfHeadingStack = headingStack[headingStack.length - 1];
-        if (topOfHeadingStack < currentHeadingLevel) {
-          // Increase nesting level by 1
-          headingHTML += nestedHeadingHTML;
+    Object.keys(this.navigableHeadings)
+      .forEach((key) => {
+        const currentHeadingLevel = this.navigableHeadings[key].level;
+        const currentHeadingHTML = `<a class="nav-link py-1" href="#${key}">`
+          + `${this.navigableHeadings[key].text}&#x200E;</a>\n`;
+        const nestedHeadingHTML = '<nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">\n'
+          + `${currentHeadingHTML}`;
+        if (headingStack.length === 0 || headingStack[headingStack.length - 1] === currentHeadingLevel) {
+          // Add heading without nesting, into headingHTML
+          headingHTML += currentHeadingHTML;
         } else {
-          // Close any nested list with heading level higher than current
-          while (headingStack.length > 1 && topOfHeadingStack > currentHeadingLevel) {
-            headingHTML += '</nav>\n';
-            headingStack.pop();
-            topOfHeadingStack = headingStack[headingStack.length - 1];
-          }
+          // Stack has at least 1 other heading level
+          let topOfHeadingStack = headingStack[headingStack.length - 1];
           if (topOfHeadingStack < currentHeadingLevel) {
             // Increase nesting level by 1
             headingHTML += nestedHeadingHTML;
           } else {
-            headingHTML += currentHeadingHTML;
+            // Close any nested list with heading level higher than current
+            while (headingStack.length > 1 && topOfHeadingStack > currentHeadingLevel) {
+              headingHTML += '</nav>\n';
+              headingStack.pop();
+              topOfHeadingStack = headingStack[headingStack.length - 1];
+            }
+            if (topOfHeadingStack < currentHeadingLevel) {
+              // Increase nesting level by 1
+              headingHTML += nestedHeadingHTML;
+            } else {
+              headingHTML += currentHeadingHTML;
+            }
           }
         }
-      }
-      // Update heading level stack
-      if (headingStack.length === 0 || headingStack[headingStack.length - 1] !== currentHeadingLevel) {
-        headingStack.push(currentHeadingLevel);
-      }
-    });
+        // Update heading level stack
+        if (headingStack.length === 0 || headingStack[headingStack.length - 1] !== currentHeadingLevel) {
+          headingStack.push(currentHeadingLevel);
+        }
+      });
     // Ensure proper closing for any nested lists towards the end
     while (headingStack.length > 1
-      && headingStack[headingStack.length - 1] > headingStack[headingStack.length - 2]) {
+    && headingStack[headingStack.length - 1] > headingStack[headingStack.length - 2]) {
       headingHTML += '</nav>\n';
       headingStack.pop();
     }
@@ -541,7 +581,8 @@ class Page {
     if (this.isPageNavigationSpecifierValid()) {
       const $ = cheerio.load(this.content, { xmlMode: false });
       this.navigableHeadings = {};
-      this.collectNavigableHeadings($(`#${CONTENT_WRAPPER_ID}`).html());
+      this.collectNavigableHeadings($(`#${CONTENT_WRAPPER_ID}`)
+        .html());
       const pageNavTitleHtml = this.generatePageNavTitleHtml();
       const pageNavHeadingHTML = this.generatePageNavHeadingHtml();
       this.pageSectionsHtml[`#${PAGE_NAV_ID}`]
@@ -562,7 +603,9 @@ class Page {
     const collectedTopContent = [];
     const collectedBottomContent = [];
     if (head) {
-      headFiles = head.replace(/, */g, ',').split(',').map(headFile => path.join(HEAD_FOLDER_PATH, headFile));
+      headFiles = head.replace(/, */g, ',')
+        .split(',')
+        .map(headFile => path.join(HEAD_FOLDER_PATH, headFile));
     } else {
       headFiles = [path.join(LAYOUT_FOLDER_PATH, this.frontMatter.layout, LAYOUT_HEAD)];
     }
@@ -577,17 +620,26 @@ class Page {
       // Map variables
       const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
       const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
-      const headFileMappedData = nunjucks.renderString(headFileContent, userDefinedVariables).trim();
+      const headFileMappedData = nunjucks.renderString(headFileContent, userDefinedVariables)
+        .trim();
       // Split top and bottom contents
       const $ = cheerio.load(headFileMappedData, { xmlMode: false });
       if ($('head-top').length) {
-        collectedTopContent.push(nunjucks.renderString($('head-top').html(), { baseUrl, hostBaseUrl })
+        collectedTopContent.push(nunjucks.renderString($('head-top')
+          .html(), {
+          baseUrl,
+          hostBaseUrl,
+        })
           .trim()
           .replace(/\n\s*\n/g, '\n')
           .replace(/\n/g, '\n    '));
-        $('head-top').remove();
+        $('head-top')
+          .remove();
       }
-      collectedBottomContent.push(nunjucks.renderString($.html(), { baseUrl, hostBaseUrl })
+      collectedBottomContent.push(nunjucks.renderString($.html(), {
+        baseUrl,
+        hostBaseUrl,
+      })
         .trim()
         .replace(/\n\s*\n/g, '\n')
         .replace(/\n/g, '\n    '));
@@ -599,17 +651,22 @@ class Page {
   static insertTemporaryStyles(pageData) {
     const $ = cheerio.load(pageData);
     // inject temporary navbar styles
-    $('navbar').addClass(TEMP_NAVBAR_CLASS);
+    $('navbar')
+      .addClass(TEMP_NAVBAR_CLASS);
     // inject temporary dropdown styles
-    $('dropdown').each((i, element) => {
-      const attributes = element.attribs;
-      const placeholder = `<div>${attributes.text || ''}</div>`;
-      $(element).before(placeholder);
-      $(element).prev()
-        .addClass(attributes.class)
-        .addClass(TEMP_DROPDOWN_PLACEHOLDER_CLASS);
-      $(element).addClass(TEMP_DROPDOWN_CLASS);
-    });
+    $('dropdown')
+      .each((i, element) => {
+        const attributes = element.attribs;
+        const placeholder = `<div>${attributes.text || ''}</div>`;
+        $(element)
+          .before(placeholder);
+        $(element)
+          .prev()
+          .addClass(attributes.class)
+          .addClass(TEMP_DROPDOWN_PLACEHOLDER_CLASS);
+        $(element)
+          .addClass(TEMP_DROPDOWN_CLASS);
+      });
     return $.html();
   }
 
@@ -620,7 +677,8 @@ class Page {
     if (pageSection.length === 0) {
       return;
     }
-    this.pageSectionsHtml[section] = htmlBeautify($.html(section), { indent_size: 2 }).trim();
+    this.pageSectionsHtml[section] = htmlBeautify($.html(section), { indent_size: 2 })
+      .trim();
     pageSection.remove();
     this.content = htmlBeautify($.html(), { indent_size: 2 });
   }
@@ -649,6 +707,7 @@ class Page {
         })
         .then(result => Page.removePageHeaderAndFooter(result))
         .then(result => Page.addContentWrapper(result))
+        .then(result => this.collectPluginSources(result))
         .then(result => this.preRender(result))
         .then(result => this.insertSiteNav((result)))
         .then(result => this.insertHeaderFile(result))
@@ -663,26 +722,35 @@ class Page {
         .then(result => MarkBind.unwrapIncludeSrc(result))
         .then((result) => {
           this.content = htmlBeautify(result, { indent_size: 2 });
+
           const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap);
           const baseUrl = newBaseUrl ? `${this.baseUrl}/${newBaseUrl}` : this.baseUrl;
           const hostBaseUrl = this.baseUrl;
+
           this.addLayoutFiles();
           this.collectHeadFiles(baseUrl, hostBaseUrl);
-          this.content = nunjucks.renderString(this.content, { baseUrl, hostBaseUrl });
+
+          this.content = nunjucks.renderString(this.content, {
+            baseUrl,
+            hostBaseUrl,
+          });
+
           this.collectAllPageSections();
           this.buildPageNav();
-          return fs.outputFileAsync(
-            this.resultPath,
-            htmlBeautify(this.template(this.prepareTemplateData()),
-                         { indent_size: 2 }));
+
+          return fs.outputFileAsync(this.resultPath, htmlBeautify(
+            this.template(this.prepareTemplateData()),
+            { indent_size: 2 },
+          ));
         })
         .then(() => {
           const resolvingFiles = [];
-          Page.unique(markbinder.getDynamicIncludeSrc()).forEach((source) => {
-            if (!FsUtil.isUrl(source.to)) {
-              resolvingFiles.push(this.resolveDependency(source, builtFiles));
-            }
-          });
+          Page.unique(markbinder.getDynamicIncludeSrc())
+            .forEach((source) => {
+              if (!FsUtil.isUrl(source.to)) {
+                resolvingFiles.push(this.resolveDependency(source, builtFiles));
+              }
+            });
           return Promise.all(resolvingFiles);
         })
         .then(() => {
@@ -712,18 +780,102 @@ class Page {
   }
 
   /**
+   * Collects file sources provided by plugins for the page for live reloading
+   */
+  collectPluginSources(content) {
+    const self = this;
+
+    Object.entries(self.plugins)
+      .forEach(([pluginName, plugin]) => {
+        if (!plugin.getSources) {
+          return;
+        }
+
+        const result = plugin.getSources(content, self.pluginsContext[pluginName] || {},
+                                         self.frontMatter, self.getPluginConfig());
+
+        let pageContextSources;
+        let domTagSourcesMap;
+
+        if (_.isArray(result)) {
+          pageContextSources = result;
+        } else if (_.isObject(result)) {
+          pageContextSources = result.sources;
+          domTagSourcesMap = result.tagMap;
+        } else {
+          logger.warn(`${pluginName} returned unsupported type for ${self.sourcePath}`);
+          return;
+        }
+
+        if (pageContextSources) {
+          pageContextSources.forEach((src) => {
+            if (src === undefined || src === '' || utils.isUrl(src)) {
+              return;
+            } else if (utils.isAbsolutePath(src)) {
+              self.pluginSourceFiles.add(path.resolve(src));
+              return;
+            }
+
+            // Resolve relative paths from the current page source
+            const originalSrcFolder = path.dirname(self.sourcePath);
+            const resolvedResourcePath = path.resolve(originalSrcFolder, src);
+
+            self.pluginSourceFiles.add(resolvedResourcePath);
+          });
+        }
+
+        if (domTagSourcesMap) {
+          const $ = cheerio.load(content, { xmlMode: true });
+
+          domTagSourcesMap.forEach(([tagName, attrName]) => {
+            if (!_.isString(tagName) || !_.isString(attrName)) {
+              logger.warn(`Invalid tag or attribute provided in tagMap by ${pluginName} plugin.`);
+              return;
+            }
+
+            const selector = `${tagName}[${attrName}]`;
+            $(selector)
+              .each((i, el) => {
+                const elem = $(el);
+
+                let src = elem.attr(attrName);
+
+                src = ensurePosix(src);
+                if (src === '' || utils.isUrl(src)) {
+                  return;
+                } else if (utils.isAbsolutePath(src)) {
+                  self.pluginSourceFiles.add(path.resolve(src));
+                  return;
+                }
+
+                // Resolve relative paths from the include page source, or current page source otherwise
+                const firstParent = elem.closest('div[data-included-from], span[data-included-from]');
+                const originalSrc = firstParent.attr('data-included-from') || self.sourcePath;
+                const originalSrcFolder = path.dirname(originalSrc);
+                const resolvedResourcePath = path.resolve(originalSrcFolder, src);
+
+                self.pluginSourceFiles.add(resolvedResourcePath);
+              });
+          });
+        }
+      });
+
+    return content;
+  }
+
+  /**
    * Entry point for plugin pre-render
    */
   preRender(content) {
     let preRenderedContent = content;
-    Object.entries(this.plugins).forEach(([pluginName, plugin]) => {
-      if (plugin.preRender) {
-        preRenderedContent
-          = plugin.preRender(
-            preRenderedContent,
-            this.pluginsContext[pluginName] || {}, this.frontMatter, this.getPluginConfig());
-      }
-    });
+    Object.entries(this.plugins)
+      .forEach(([pluginName, plugin]) => {
+        if (plugin.preRender) {
+          preRenderedContent
+            = plugin.preRender(preRenderedContent, this.pluginsContext[pluginName] || {},
+                               this.frontMatter, this.getPluginConfig());
+        }
+      });
     return preRenderedContent;
   }
 
@@ -732,14 +884,15 @@ class Page {
    */
   postRender(content) {
     let postRenderedContent = content;
-    Object.entries(this.plugins).forEach(([pluginName, plugin]) => {
-      if (plugin.postRender) {
-        postRenderedContent
-          = plugin.postRender(
-            postRenderedContent,
-            this.pluginsContext[pluginName] || {}, this.frontMatter, this.getPluginConfig());
-      }
-    });
+    Object.entries(this.plugins)
+      .forEach(([pluginName, plugin]) => {
+        if (plugin.postRender) {
+          postRenderedContent
+            = plugin.postRender(
+              postRenderedContent,
+              this.pluginsContext[pluginName] || {}, this.frontMatter, this.getPluginConfig());
+        }
+      });
     return postRenderedContent;
   }
 
@@ -755,18 +908,19 @@ class Page {
     const scriptUtils = {
       buildScript: src => `<script src="${src}"></script>`,
     };
-    Object.entries(this.plugins).forEach(([pluginName, plugin]) => {
-      if (plugin.getLinks) {
-        const pluginLinks
-          = plugin.getLinks(content, this.pluginsContext[pluginName], this.frontMatter, linkUtils);
-        links = links.concat(pluginLinks);
-      }
-      if (plugin.getScripts) {
-        const pluginScripts
-          = plugin.getScripts(content, this.pluginsContext[pluginName], this.frontMatter, scriptUtils);
-        scripts = scripts.concat(pluginScripts);
-      }
-    });
+    Object.entries(this.plugins)
+      .forEach(([pluginName, plugin]) => {
+        if (plugin.getLinks) {
+          const pluginLinks
+            = plugin.getLinks(content, this.pluginsContext[pluginName], this.frontMatter, linkUtils);
+          links = links.concat(pluginLinks);
+        }
+        if (plugin.getScripts) {
+          const pluginScripts
+            = plugin.getScripts(content, this.pluginsContext[pluginName], this.frontMatter, scriptUtils);
+          scripts = scripts.concat(pluginScripts);
+        }
+      });
     this.asset.pluginLinks = links;
     this.asset.pluginScripts = scripts;
     return content;
@@ -834,15 +988,21 @@ class Page {
           const newBaseUrl = Page.calculateNewBaseUrl(file, this.rootPath, this.baseUrlMap);
           const baseUrl = newBaseUrl ? `${this.baseUrl}/${newBaseUrl}` : this.baseUrl;
           const hostBaseUrl = this.baseUrl;
-          const content = nunjucks.renderString(result, { baseUrl, hostBaseUrl });
+          const content = nunjucks.renderString(result, {
+            baseUrl,
+            hostBaseUrl,
+          });
           return fs.outputFileAsync(resultPath, htmlBeautify(content, { indent_size: 2 }));
         })
         .then(() => {
           // Recursion call to resolve nested dependency
           const resolvingFiles = [];
-          Page.unique(markbinder.getDynamicIncludeSrc()).forEach((src) => {
-            if (!FsUtil.isUrl(src.to)) { resolvingFiles.push(this.resolveDependency(src, builtFiles)); }
-          });
+          Page.unique(markbinder.getDynamicIncludeSrc())
+            .forEach((src) => {
+              if (!FsUtil.isUrl(src.to)) {
+                resolvingFiles.push(this.resolveDependency(src, builtFiles));
+              }
+            });
           return Promise.all(resolvingFiles);
         })
         .then(() => {
@@ -858,7 +1018,8 @@ class Page {
 
   static addContentWrapper(pageData) {
     const $ = cheerio.load(pageData);
-    $(`#${CONTENT_WRAPPER_ID}`).removeAttr('id');
+    $(`#${CONTENT_WRAPPER_ID}`)
+      .removeAttr('id');
     return `<div id="${CONTENT_WRAPPER_ID}">\n\n`
       + `${$.html()}\n`
       + '</div>';
@@ -894,60 +1055,84 @@ class Page {
 
   static formatSiteNav(renderedSiteNav, src) {
     const $ = cheerio.load(renderedSiteNav);
-    const listItems = $.root().find('ul').first().children();
+    const listItems = $.root()
+      .find('ul')
+      .first()
+      .children();
     if (listItems.length === 0) {
       return renderedSiteNav;
     }
     // Tidy up the style of the unordered list <ul>
-    listItems.parent().addClass(`${SITE_NAV_LIST_CLASS}`);
+    listItems.parent()
+      .addClass(`${SITE_NAV_LIST_CLASS}`);
 
     // Set class of <a> to ${SITE_NAV_ID}__a to style links
-    listItems.find('a[href]').addClass(`${SITE_NAV_ID}__a`);
+    listItems.find('a[href]')
+      .addClass(`${SITE_NAV_ID}__a`);
 
     // Highlight current page
     const currentPageHtmlPath = src.replace(/\.(md|mbd)$/, '.html');
-    listItems.find(`a[href='{{baseUrl}}/${currentPageHtmlPath}']`).addClass('current');
+    listItems.find(`a[href='{{baseUrl}}/${currentPageHtmlPath}']`)
+      .addClass('current');
 
     listItems.each(function () {
       // Tidy up the style of each list item
-      $(this).addClass('mt-2');
+      $(this)
+        .addClass('mt-2');
       // Do not render dropdown menu for list items with <a> tag
-      if ($(this).children('a').length) {
-        const nestedList = $(this).children('ul').first();
+      if ($(this)
+        .children('a').length) {
+        const nestedList = $(this)
+          .children('ul')
+          .first();
         if (nestedList.length) {
           // Double wrap to counter replaceWith removing <li>
-          nestedList.parent().wrap('<li class="mt-2"></li>');
+          nestedList.parent()
+            .wrap('<li class="mt-2"></li>');
           // Recursively format nested lists without dropdown wrapper
-          nestedList.parent().replaceWith(Page.formatSiteNav(nestedList.parent().html(), src));
+          nestedList.parent()
+            .replaceWith(Page.formatSiteNav(nestedList.parent()
+              .html(), src));
         }
         // Found nested list, render dropdown menu
-      } else if ($(this).children('ul').length) {
-        const nestedList = $(this).children('ul').first();
-        const dropdownTitle = $(this).contents().not('ul');
+      } else if ($(this)
+        .children('ul').length) {
+        const nestedList = $(this)
+          .children('ul')
+          .first();
+        const dropdownTitle = $(this)
+          .contents()
+          .not('ul');
         // Replace the title with the dropdown wrapper
         dropdownTitle.remove();
         // Check if dropdown is expanded by default or if the current page is in a dropdown
-        const shouldExpandDropdown = dropdownTitle.toString().includes(DROPDOWN_EXPAND_KEYWORD)
-          || Boolean(nestedList.find(`a[href='{{baseUrl}}/${currentPageHtmlPath}']`).text());
+        const shouldExpandDropdown = dropdownTitle.toString()
+          .includes(DROPDOWN_EXPAND_KEYWORD)
+          || Boolean(nestedList.find(`a[href='{{baseUrl}}/${currentPageHtmlPath}']`)
+            .text());
         if (shouldExpandDropdown) {
           const expandKeywordRegex = new RegExp(DROPDOWN_EXPAND_KEYWORD, 'g');
-          const dropdownTitleWithoutKeyword = dropdownTitle.toString().replace(expandKeywordRegex, '');
+          const dropdownTitleWithoutKeyword = dropdownTitle.toString()
+            .replace(expandKeywordRegex, '');
           const rotatedIcon = cheerio.load(DROPDOWN_BUTTON_ICON_HTML, { xmlMode: false })('i')
             .addClass('rotate-icon');
           nestedList.wrap('<div class="dropdown-container dropdown-container-open"></div>');
-          $(this).prepend('<button class="dropdown-btn dropdown-btn-open">'
-            + `${dropdownTitleWithoutKeyword} `
-            + `${rotatedIcon}\n`
-            + '</button>');
+          $(this)
+            .prepend('<button class="dropdown-btn dropdown-btn-open">'
+              + `${dropdownTitleWithoutKeyword} `
+              + `${rotatedIcon}\n`
+              + '</button>');
         } else {
           nestedList.wrap('<div class="dropdown-container"></div>');
-          $(this).prepend('<button class="dropdown-btn">'
-            + `${dropdownTitle} `
-            + `${DROPDOWN_BUTTON_ICON_HTML}\n`
-            + '</button>');
+          $(this)
+            .prepend('<button class="dropdown-btn">'
+              + `${dropdownTitle} `
+              + `${DROPDOWN_BUTTON_ICON_HTML}\n`
+              + '</button>');
         }
         // Recursively format nested lists
-        nestedList.replaceWith(Page.formatSiteNav(nestedList.parent().html(), src));
+        nestedList.replaceWith(Page.formatSiteNav(nestedList.parent()
+          .html(), src));
       }
     });
     return $.html();
@@ -978,7 +1163,8 @@ class Page {
    * @param element to find closest heading
    */
   static getClosestHeading($, headingsSelector, element) {
-    const prevElements = $(element).prevAll();
+    const prevElements = $(element)
+      .prevAll();
     for (let i = 0; i < prevElements.length; i += 1) {
       const currentElement = $(prevElements[i]);
       if (currentElement.is(headingsSelector)) {
@@ -989,10 +1175,12 @@ class Page {
         return childHeadings.last();
       }
     }
-    if ($(element).parent().length === 0) {
+    if ($(element)
+      .parent().length === 0) {
       return null;
     }
-    return Page.getClosestHeading($, headingsSelector, $(element).parent());
+    return Page.getClosestHeading($, headingsSelector, $(element)
+      .parent());
   }
 }
 

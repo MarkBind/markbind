@@ -85,12 +85,9 @@ function generateDiagram(src, cwf, config) {
       errorLog += errorMsg;
     });
 
-    childProcess.on('close', (code) => {
-      if (code !== 0) {
-        logger.error(`${ERR_PROCESSING} ${rawDiagramPath}`);
-        // This goes to the log file, but not shown on the console
-        logger.debug(errorLog);
-      }
+    childProcess.on('exit', () => {
+      // This goes to the log file, but not shown on the console
+      logger.debug(errorLog);
     });
   });
 
@@ -99,6 +96,8 @@ function generateDiagram(src, cwf, config) {
 
 module.exports = {
   preRender: (content, pluginContext, frontmatter, config) => {
+    // Clear <puml> tags processed before for live reload
+    processedDiagrams.clear();
     // Processes all <puml> tags
     const $ = cheerio.load(content, { xmlMode: true });
     $('puml').each((i, tag) => {
@@ -111,4 +110,7 @@ module.exports = {
 
     return $.html();
   },
+  getSources: () => ({
+    tagMap: [['puml', 'src']],
+  }),
 };

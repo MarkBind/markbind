@@ -78,8 +78,62 @@
 </span>
 </include>
 
+**Markbind also supports a light color scheme for boxes**
 
-**You can customize the TipBox's appearance.**
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```html
+<box type="info" light>
+    info light
+</box>
+<box type="warning" light>
+    warning light
+</box>
+<box type="success" light>
+    success light
+</box>
+<box type="important" light>
+    important light
+</box>
+<box type="wrong" light>
+    wrong light
+</box>
+<box type="tip" light>
+    tip light
+</box>
+<box type="definition" light>
+    definition light
+</box>
+```
+</span>
+<span id="output">
+
+<box type="info" light>
+    info light
+</box>
+<box type="warning" light>
+    warning light
+</box>
+<box type="success" light>
+    success light
+</box>
+<box type="important" light>
+    important light
+</box>
+<box type="wrong" light>
+    wrong light
+</box>
+<box type="tip" light>
+    tip light
+</box>
+<box type="definition" light>
+    definition light
+</box>
+</span>
+</include>
+
+**You can customize the Box's appearance.**
 
 <include src="outputBox.md" boilerplate >
 <span id="code">
@@ -114,6 +168,7 @@ color | `String` | `null` | Color of the text.
 dismissible | `Boolean` | `false` | Adds a button to close the box to the top right corner.
 icon | `String` | `null` |
 type | `String` | `'none'` | Supports: `info`, `warning`, `success`, `important`, `wrong`, `tip`, `definition`, or empty for default.
+light | `Boolean` | `false` | Uses a light color scheme for the box.
 
 <span id="short" class="d-none">
 ```html
