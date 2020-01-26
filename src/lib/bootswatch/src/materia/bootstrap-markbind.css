@@ -1,0 +1,33 @@
+.alert-warning-darker {
+    background-color: #f79300;
+    color: #f9f5ef;
+}
+
+.alert-info-darker {
+    background-color: #a120b7;
+    color: #f5f2f2;
+}
+
+.alert-success-darker {
+    background-color: #30a734;
+    color: #f9fbfa;
+}
+
+.alert-danger-darker {
+    background-color: #dc0f17;
+    color: #f7f5f5;
+}
+
+.alert-default-darker {
+    background-color: #afb0b1cc;
+    color: #000;
+}
+
+.alert-border-left {
+    background-image: none;
+}
+
+.tipbox-header-wrapper > .close-with-heading {
+    margin-top: 0.15rem;
+    font-size: 1.8rem;
+}

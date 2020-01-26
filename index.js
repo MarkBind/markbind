@@ -98,6 +98,7 @@ program
   .option('-o, --one-page <file>', 'render and serve only a single page in the site')
   .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
+  .option('-d, --dev', 'enables some developer options')
   .action((userSpecifiedRoot, options) => {
     let rootFolder;
     try {
@@ -114,7 +115,8 @@ program
       options.onePage = ensurePosix(options.onePage);
     }
 
-    const site = new Site(rootFolder, outputFolder, options.onePage, options.forceReload, options.siteConfig);
+    const site = new Site(rootFolder, outputFolder, options.onePage, options.forceReload, options.siteConfig,
+                          options.dev);
 
     const addHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);

@@ -38,6 +38,7 @@ test('Site Generate builds the correct amount of assets', async () => {
     'asset/css/markbind.css': '',
     'asset/css/page-nav.css': '',
     'asset/css/site-nav.css': '',
+    'asset/css/bootstrap-markbind.css': '',
 
     'asset/js/bootstrap-utility.min.js': '',
     'asset/js/setup.js': '',
@@ -60,7 +61,7 @@ test('Site Generate builds the correct amount of assets', async () => {
   await site.generate();
   const paths = Object.keys(fs.vol.toJSON());
   const originalNumFiles = Object.keys(json).length;
-  const expectedNumBuilt = 20;
+  const expectedNumBuilt = 21;
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
   // site
@@ -79,6 +80,7 @@ test('Site Generate builds the correct amount of assets', async () => {
   expect(fs.existsSync(path.resolve('inner/_site/markbind/css/markbind.css'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/css/page-nav.css'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/css/site-nav.css'))).toEqual(true);
+  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/bootstrap-markbind.css'))).toEqual(true);
 
   // js
   expect(fs.existsSync(path.resolve('inner/_site/markbind/js/setup.js'))).toEqual(true);

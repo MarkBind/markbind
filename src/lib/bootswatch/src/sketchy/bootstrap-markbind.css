@@ -1,0 +1,38 @@
+.alert-warning-darker {
+    background-color: #ffdc73;
+    margin: -2px;
+    width: calc(100% + 4px) !important;
+}
+
+.alert-info-darker {
+    background-color: #37bbd3;
+    color: #fff;
+    margin: -2px;
+    width: calc(100% + 4px) !important;
+}
+
+.alert-success-darker {
+    background-color: #53de53bd;
+    color: #fbfffc;
+    margin: -2px;
+    width: calc(100% + 4px) !important;
+}
+
+.alert-danger-darker {
+    background-color: #f05151db;
+    color: #f5f2f2;
+    margin: -2px;
+    width: calc(100% + 4px) !important;
+}
+
+.alert-default-darker {
+    background-color: #afb0b1b0;
+    color: #2e2f30;
+    margin: -2px;
+    width: calc(100% + 4px) !important;
+}
+
+.tipbox-header-wrapper > .close-with-heading {
+    margin-top: -0.625rem;
+    font-size: 1.2rem;
+}

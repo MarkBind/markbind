@@ -64,6 +64,10 @@ function getBootswatchThemePath(theme) {
   return path.join(__dirname, '..', 'node_modules', 'bootswatch', 'dist', theme, 'bootstrap.min.css');
 }
 
+function getExtraBootswatchThemePath(theme) {
+  return path.join(__dirname, 'lib', 'bootswatch', 'src', theme, 'bootstrap-markbind.css');
+}
+
 const SUPPORTED_THEMES_PATHS = {
   'bootswatch-cerulean': getBootswatchThemePath('cerulean'),
   'bootswatch-cosmo': getBootswatchThemePath('cosmo'),
@@ -81,6 +85,25 @@ const SUPPORTED_THEMES_PATHS = {
   'bootswatch-spacelab': getBootswatchThemePath('spacelab'),
   'bootswatch-united': getBootswatchThemePath('united'),
   'bootswatch-yeti': getBootswatchThemePath('yeti'),
+};
+
+const SUPPORTED_THEMES_EXTRAS_PATHS = {
+  'bootswatch-cerulean': getExtraBootswatchThemePath('cerulean'),
+  'bootswatch-cosmo': getExtraBootswatchThemePath('cosmo'),
+  'bootswatch-flatly': getExtraBootswatchThemePath('flatly'),
+  'bootswatch-journal': getExtraBootswatchThemePath('journal'),
+  'bootswatch-litera': getExtraBootswatchThemePath('litera'),
+  'bootswatch-lumen': getExtraBootswatchThemePath('lumen'),
+  'bootswatch-lux': getExtraBootswatchThemePath('lux'),
+  'bootswatch-materia': getExtraBootswatchThemePath('materia'),
+  'bootswatch-minty': getExtraBootswatchThemePath('minty'),
+  'bootswatch-pulse': getExtraBootswatchThemePath('pulse'),
+  'bootswatch-sandstone': getExtraBootswatchThemePath('sandstone'),
+  'bootswatch-simplex': getExtraBootswatchThemePath('simplex'),
+  'bootswatch-sketchy': getExtraBootswatchThemePath('sketchy'),
+  'bootswatch-spacelab': getExtraBootswatchThemePath('spacelab'),
+  'bootswatch-united': getExtraBootswatchThemePath('united'),
+  'bootswatch-yeti': getExtraBootswatchThemePath('yeti'),
 };
 
 const ABOUT_MARKDOWN_DEFAULT = '# About\n'
@@ -101,7 +124,8 @@ const TOP_NAV_DEFAULT = '<header><navbar placement="top" type="inverse">\n'
 
 const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${CLI_VERSION}</a>`;
 
-function Site(rootPath, outputPath, onePagePath, forceReload = false, siteConfigPath = SITE_CONFIG_NAME) {
+function Site(rootPath, outputPath, onePagePath, forceReload = false, siteConfigPath = SITE_CONFIG_NAME,
+              dev = false) {
   this.rootPath = rootPath;
   this.outputPath = outputPath;
   this.tempPath = path.join(rootPath, TEMP_FOLDER_NAME);
@@ -120,6 +144,7 @@ function Site(rootPath, outputPath, onePagePath, forceReload = false, siteConfig
   this.baseUrlMap = new Set();
   this.forceReload = forceReload;
   this.onePagePath = onePagePath;
+  this.dev = dev;
   this.plugins = {};
   this.siteConfig = {};
   this.siteConfigPath = siteConfigPath;
@@ -241,6 +266,9 @@ Site.prototype.createPage = function (config) {
                                 path.join(this.siteAssetsDestPath, 'css', 'page-nav.css')),
       siteNavCss: path.relative(path.dirname(resultPath),
                                 path.join(this.siteAssetsDestPath, 'css', 'site-nav.css')),
+      bootstrapMarkbindCss: path.relative(path.dirname(resultPath),
+                                          path.join(this.siteAssetsDestPath, 'css',
+                                                    'bootstrap-markbind.css')),
       bootstrapUtilityJs: path.relative(path.dirname(resultPath),
                                         path.join(this.siteAssetsDestPath, 'js', 'bootstrap-utility.min.js')),
       bootstrapVueJs: path.relative(path.dirname(resultPath),
@@ -898,6 +926,17 @@ Site.prototype.copyFontAwesomeAsset = function () {
  * Copies MarkBind assets to the assets folder
  */
 Site.prototype.copyMarkBindAsset = function () {
+  const maybeOverrideDefaultBootstrapThemeExtras = (theme) => {
+    if (!_.has(SUPPORTED_THEMES_EXTRAS_PATHS, theme)) {
+      return _.noop;
+    }
+
+    const themeSrcPath = SUPPORTED_THEMES_EXTRAS_PATHS[theme];
+    const themeDestPath = path.join(this.siteAssetsDestPath, 'css', 'bootstrap-markbind.css');
+
+    return fs.copyAsync(themeSrcPath, themeDestPath);
+  };
+
   const maybeOverrideDefaultBootstrapTheme = () => {
     const { theme } = this.siteConfig;
     if (!theme || !_.has(SUPPORTED_THEMES_PATHS, theme)) {
@@ -907,15 +946,39 @@ Site.prototype.copyMarkBindAsset = function () {
     const themeSrcPath = SUPPORTED_THEMES_PATHS[theme];
     const themeDestPath = path.join(this.siteAssetsDestPath, 'css', 'bootstrap.min.css');
 
-    return new Promise((resolve, reject) => {
-      fs.copyAsync(themeSrcPath, themeDestPath)
-        .then(resolve)
-        .catch(reject);
+    return fs.copyAsync(themeSrcPath, themeDestPath)
+      .then(maybeOverrideDefaultBootstrapThemeExtras(theme));
+  };
+
+  const maybeDevCopyAllThemes = () => {
+    if (!this.dev) {
+      return;
+    }
+    logger.info('Dev mode enabled, copying all stylesheets');
+
+    const copyBootSwatchThemes = Object.values(SUPPORTED_THEMES_PATHS).map((themeSrcPath, index) => {
+      const themeDestPath = path.join(this.siteAssetsDestPath, 'dev', 'css',
+                                      'bootswatch', (index + 1).toString(10), 'bootstrap.min.css');
+
+      return fs.copyAsync(themeSrcPath, themeDestPath);
     });
+
+    const copyBootSwatchExtraThemes = Object.values(SUPPORTED_THEMES_EXTRAS_PATHS)
+      .map((themeSrcPath, index) => {
+        const themeDestPath = path.join(this.siteAssetsDestPath, 'dev', 'css',
+                                        'bootswatchExtras', (index + 1).toString(10),
+                                        'bootstrap-markbind.css');
+        return fs.copyAsync(themeSrcPath, themeDestPath);
+      });
+
+    const allPromises = copyBootSwatchThemes.concat(copyBootSwatchExtraThemes);
+
+    Promise.all(allPromises);
   };
 
   return fs.copyAsync(this.siteAssetsSrcPath, this.siteAssetsDestPath)
-    .then(maybeOverrideDefaultBootstrapTheme);
+    .then(maybeOverrideDefaultBootstrapTheme)
+    .then(maybeDevCopyAllThemes);
 };
 
 /**
