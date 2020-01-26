@@ -1,0 +1,24 @@
+.alert-warning-darker {
+    background-color: #ffd960;
+    color: #6d550f;
+}
+
+.alert-info-darker {
+    background-color: #37bbd3;
+    color: #f5f2f2;
+}
+
+.alert-success-darker {
+    background-color: #53de53bd;
+    color: #181918bd;
+}
+
+.alert-danger-darker {
+    background-color: #f05151db;
+    color: #f5f2f2;
+}
+
+.alert-default-darker {
+    background-color: #afb0b1cc;
+    color: #2e2f30;
+}
