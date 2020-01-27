@@ -47,6 +47,7 @@ test('Site Generate builds the correct amount of assets', async () => {
     'node_modules/@fortawesome/fontawesome-free/css/all.min.css': '',
     'node_modules/@fortawesome/fontawesome-free/webfonts/font1.svg': '',
     'node_modules/@fortawesome/fontawesome-free/webfonts/font2.ttf': '',
+    'node_modules/@primer/octicons/build/build.css': '',
 
     'inner/_markbind/layouts/default/footer.md': '',
     'inner/_markbind/layouts/default/head.md': '',
@@ -60,7 +61,7 @@ test('Site Generate builds the correct amount of assets', async () => {
   await site.generate();
   const paths = Object.keys(fs.vol.toJSON());
   const originalNumFiles = Object.keys(json).length;
-  const expectedNumBuilt = 20;
+  const expectedNumBuilt = 21;
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
   // site
@@ -79,6 +80,7 @@ test('Site Generate builds the correct amount of assets', async () => {
   expect(fs.existsSync(path.resolve('inner/_site/markbind/css/markbind.css'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/css/page-nav.css'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/css/site-nav.css'))).toEqual(true);
+  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/octicons.css'))).toEqual(true);
 
   // js
   expect(fs.existsSync(path.resolve('inner/_site/markbind/js/setup.js'))).toEqual(true);
