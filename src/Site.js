@@ -869,7 +869,7 @@ class Site {
   }
 
   /**
-   * Copies Octicon assets to the assets folder
+   * Minifies and copies Octicon assets to the assets folder
    */
   copyOcticonsAsset() {
     const octiconsRootSrcPath = path.join(__dirname, '..', 'node_modules', '@primer', 'octicons', 'build');
