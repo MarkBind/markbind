@@ -9,6 +9,9 @@ module.exports = {
   HEADERS_FOLDER_PATH: '_markbind/headers',
   LAYOUT_DEFAULT_NAME: 'default',
   LAYOUT_FOLDER_PATH: '_markbind/layouts',
+
+  LAYOUT_PAGE: 'page.md',
+  LAYOUT_PAGE_BODY_VARIABLE: 'MAIN_CONTENT_BODY',
   LAYOUT_FOOTER: 'footer.md',
   LAYOUT_HEAD: 'head.md',
   LAYOUT_HEADER: 'header.md',
