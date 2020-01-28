@@ -13,22 +13,22 @@
     <link rel="stylesheet" href="{{ asset.glyphicons }}">
     <link rel="stylesheet" href="{{ asset.highlight }}">
     <link rel="stylesheet" href="{{ asset.markbind }}">
-    {% if asset.pluginLinks %}
-        {% for link in asset.pluginLinks %}
-            {{ link }}
-        {% endfor %}
-    {% endif %}
+    {%- if asset.pluginLinks %}
+    {%- for link in asset.pluginLinks %}
+        {{ link }}
+    {%- endfor %}
+    {%- endif %}
     <link rel="stylesheet" href="{{ asset.layoutStyle }}">
-    {% if siteNav %}
+    {%- if siteNav %}
         <link rel="stylesheet" href="{{ asset.siteNavCss }}">
-    {% endif %}
-    {% if pageNav %}
+    {%- endif %}
+    {%- if pageNav %}
         <link rel="stylesheet" href="{{ asset.pageNavCss }}">
-    {% endif %}
+    {%- endif %}
     {{ headFileBottomContent }}
-    {% if faviconUrl %}
+    {%- if faviconUrl %}
         <link rel="icon" href="{{ faviconUrl }}">
-    {% endif %}
+    {%- endif %}
 </head>
 <body {% if pageNav %} data-spy="scroll" data-target="#page-nav" data-offset="100" {% endif %}>
 <div id="app">
@@ -52,17 +52,17 @@
 </script>
 <script src="{{ asset.setup }}"></script>
 
-{% if asset.externalScripts %}
-    {% for script in asset.externalScripts %}
-        <script src="{{ script }}"></script>
-    {% endfor %}
-{% endif %}
+{%- if asset.externalScripts %}
+{%- for script in asset.externalScripts %}
+    <script src="{{ script }}"></script>
+{%- endfor %}
+{%- endif %}
 
-{% if asset.pluginScripts %}
-    {% for script in asset.pluginScripts %}
-        {{ script }}
-    {% endfor %}
-{% endif %}
+{%- if asset.pluginScripts %}
+{%- for script in asset.pluginScripts %}
+    {{ script }}
+{%- endfor %}
+{%- endif %}
 
 <script src="{{ asset.layoutScript }}"></script>
 </html>
