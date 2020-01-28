@@ -31,6 +31,8 @@ const {
   LAYOUT_FOOTER,
   LAYOUT_HEAD,
   LAYOUT_HEADER,
+  LAYOUT_PAGE,
+  LAYOUT_PAGE_BODY_VARIABLE,
   LAYOUT_NAVIGATION,
   NAVIGATION_FOLDER_PATH,
   CONTENT_WRAPPER_ID,
@@ -395,6 +397,56 @@ class Page {
   }
 
   /**
+ * Produces expressive layouts by inserting page data into pre-specified layout
+ * @param pageData a page with its front matter collected
+ */
+  generateExpressiveLayout(pageData, fileConfig) {
+    const nj = nunjucks;
+    const markbinder = new MarkBind({
+      errorHandler: logger.error,
+    });
+    nj.configure({
+      autoescape: false,
+    });
+    const template = {};
+    template[LAYOUT_PAGE_BODY_VARIABLE] = pageData;
+    const { layout } = this.frontMatter;
+    const layoutPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH, layout);
+    const layoutPagePath = path.join(layoutPath, LAYOUT_PAGE);
+
+    if (!fs.existsSync(layoutPagePath)) {
+      return pageData;
+    }
+    const layoutFileConfig = {
+      ...fileConfig,
+      cwf: layoutPagePath,
+      additionalVariables: {
+      },
+    };
+
+    layoutFileConfig.additionalVariables[LAYOUT_PAGE_BODY_VARIABLE] = `{{${LAYOUT_PAGE_BODY_VARIABLE}}}`;
+
+    // Set expressive layout file as an includedFile
+    this.includedFiles.add(layoutPagePath);
+    return new Promise((resolve, reject) => {
+    // Retrieve Expressive Layouts page and insert content
+      fs.readFileAsync(layoutPagePath, 'utf8')
+        .then(result => markbinder.includeData(layoutPagePath, result, layoutFileConfig))
+        .then(result => nj.renderString(result, template))
+        .then((result) => {
+          this.collectIncludedFiles(markbinder.getDynamicIncludeSrc());
+          this.collectIncludedFiles(markbinder.getStaticIncludeSrc());
+          this.collectIncludedFiles(markbinder.getBoilerplateIncludeSrc());
+          this.collectIncludedFiles(markbinder.getMissingIncludeSrc());
+          return result;
+        })
+        .then(resolve)
+        .catch(reject);
+    });
+  }
+
+
+  /**
    * Inserts the page layout's header to the start of the page
    * @param pageData a page with its front matter collected
    */
@@ -705,6 +757,7 @@ class Page {
           this.collectFrontMatter(result);
           return Page.removeFrontMatter(result);
         })
+        .then(result => this.generateExpressiveLayout(result, fileConfig))
         .then(result => Page.removePageHeaderAndFooter(result))
         .then(result => Page.addContentWrapper(result))
         .then(result => this.collectPluginSources(result))
