@@ -302,12 +302,12 @@ pre {
     counter-reset: line;
 }
 
-.hljs > span {
+.hljs:not(.inline) > span {
     display: block;
 }
 
 /* display line numbers beside each span */
-.hljs > span::before {
+.hljs:not(.inline) > span::before {
     display: inline-block;
     counter-increment: line;
     content: counter(line);
