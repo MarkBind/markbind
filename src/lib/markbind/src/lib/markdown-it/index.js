@@ -36,10 +36,15 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const token = tokens[idx];
   const lang = tokens.info || '';
   let str = token.content;
+  let highlighted = false;
   if (lang && hljs.getLanguage(lang)) {
     try {
       str = hljs.highlight(lang, str).value;
+      highlighted = true;
     } catch (__) {}
+  }
+  if (!highlighted) {
+    str = markdownIt.utils.escapeHtml(str);
   }
   const lines = str.split('\n');
   lines.pop(); // last line is always a single '\n' newline, so we remove it
