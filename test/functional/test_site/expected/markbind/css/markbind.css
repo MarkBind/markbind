@@ -297,3 +297,23 @@ panel[minimized]:not([expanded])::before {
 li.footnote-item:target {
     background-color: #eee;
 }
+
+pre {
+    counter-reset: line;
+}
+
+.hljs:not(.inline) > span {
+    display: block;
+}
+
+/* display line numbers beside each span */
+.hljs:not(.inline):not(.no-line-numbers) > span::before {
+    display: inline-block;
+    counter-increment: line;
+    content: counter(line);
+    width: 3em;
+    border-right: 1px solid #ddd;
+    padding: 0 0.5em;
+    margin-right: 0.5em;
+    color: #888;
+}
