@@ -34,7 +34,7 @@ markdownIt.renderer.rules.table_close = (tokens, idx) => {
 // syntax highlight code fences and add line numbers
 markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const token = tokens[idx];
-  const lang = tokens.info || '';
+  const lang = token.info || '';
   let str = token.content;
   let highlighted = false;
   if (lang && hljs.getLanguage(lang)) {
@@ -49,9 +49,10 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const lines = str.split('\n');
   lines.pop(); // last line is always a single '\n' newline, so we remove it
   str =  lines.map(line => `<span>${line}</span>`).join(''); //wrap all lines with <span> so we can number them
-  token.attrSet('class', `hljs`);
-  if (lang) {
-    token.attrSet('class', lang);
+  token.attrJoin('class', 'hljs');
+
+  if (highlighted) {
+    token.attrJoin('class', lang);
   }
   return `<pre><code ${slf.renderAttrs(token)}>${str}</code></pre>`;
 };

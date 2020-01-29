@@ -307,7 +307,7 @@ pre {
 }
 
 /* display line numbers beside each span */
-.hljs:not(.inline) > span::before {
+.hljs:not(.inline):not(.no-line-numbers) > span::before {
     display: inline-block;
     counter-increment: line;
     content: counter(line);
@@ -316,9 +316,4 @@ pre {
     padding: 0 0.5em;
     margin-right: 0.5em;
     color: #888;
-}
-
-/* hide line numbers */
-.no-line-numbers > span::before {
-    content: none;
 }
