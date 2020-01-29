@@ -1,18 +1,7 @@
 const hljs = require('highlight.js');
 const markdownIt = require('markdown-it')({
   html: true,
-  linkify: true,
-  langPrefix: 'hljs ',
-  highlight: function (str, lang) {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        str = hljs.highlight(lang, str).value;
-      } catch (__) {}
-    }
-    const lines = str.split('\n');
-    lines.pop(); // last line is always a single '\n' newline, so we remove it
-    return `<span>${lines.join('</span><span>')}</span>`; //wrap all lines with <span> so we can number them
-  }
+  linkify: true
 });
 const slugify = require('@sindresorhus/slugify');
 
@@ -40,6 +29,26 @@ markdownIt.renderer.rules.table_open = (tokens, idx) => {
 };
 markdownIt.renderer.rules.table_close = (tokens, idx) => {
   return '</table></div>';
+};
+
+// syntax highlight code fences and add line numbers
+markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
+  const token = tokens[idx];
+  const lang = tokens.info || '';
+  let str = token.content;
+  if (lang && hljs.getLanguage(lang)) {
+    try {
+      str = hljs.highlight(lang, str).value;
+    } catch (__) {}
+  }
+  const lines = str.split('\n');
+  lines.pop(); // last line is always a single '\n' newline, so we remove it
+  str =  lines.map(line => `<span>${line}</span>`).join(''); //wrap all lines with <span> so we can number them
+  token.attrSet('class', `hljs`);
+  if (lang) {
+    token.attrSet('class', lang);
+  }
+  return `<pre><code ${slf.renderAttrs(token)}>${str}</code></pre>`;
 };
 
 // highlight inline code
