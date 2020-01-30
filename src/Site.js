@@ -1,5 +1,4 @@
 const cheerio = require('cheerio');
-const ejs = require('ejs');
 const fs = require('fs-extra-promise');
 const ghpages = require('gh-pages');
 const ignore = require('ignore');
@@ -112,7 +111,8 @@ function Site(rootPath, outputPath, onePagePath, forceReload = false, siteConfig
 
   // Page template path
   this.pageTemplatePath = path.join(__dirname, PAGE_TEMPLATE_NAME);
-  this.pageTemplate = ejs.compile(fs.readFileSync(this.pageTemplatePath, 'utf8'));
+  const env = nunjucks.configure({ autoescape: false });
+  this.pageTemplate = nunjucks.compile(fs.readFileSync(this.pageTemplatePath, 'utf8'), env);
   this.pages = [];
 
   // Other properties
