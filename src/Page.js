@@ -880,7 +880,7 @@ Page.prototype.generate = function (builtFiles) {
         this.buildPageNav();
 
         return fs.outputFileAsync(this.resultPath, htmlBeautify(
-          this.template(this.prepareTemplateData()),
+          this.template.render(this.prepareTemplateData()),
           { indent_size: 2 },
         ));
       })
