@@ -7,44 +7,52 @@ module.exports.LAYOUT_FILES_DEFAULT = [
 ];
 
 module.exports.LAYOUT_SCRIPTS_DEFAULT = '// eslint-disable-next-line no-undef\n'
-+ 'MarkBind.afterSetup(() => {\n'
-+ '  // Include code to be called after MarkBind setup here.\n'
-+ '});\n';
+  + 'MarkBind.afterSetup(() => {\n'
+  + '  // Include code to be called after MarkBind setup here.\n'
+  + '});\n';
 
-module.exports.PAGE_EJS = '<!DOCTYPE html>\n'
-  + '<html>\n'
-  + '<head>\n'
-  + '    <%- headFileTopContent %>\n'
-  + '    <meta charset="utf-8">\n'
-  + '    <meta http-equiv="X-UA-Compatible" content="IE=edge">\n'
-  + '    <meta name="viewport" content="width=device-width, initial-scale=1">\n'
-  + '    <title><%= title %></title>\n'
-  + '    <link rel="stylesheet" href="<%- asset.bootstrap %>">\n'
-  + '    <link rel="stylesheet" href="<%- asset.bootstrapVue %>">\n'
-  + '    <link rel="stylesheet" href="<%- asset.fontAwesome %>" >\n'
-  + '    <link rel="stylesheet" href="<%- asset.glyphicons %>" >\n'
-  + '    <link rel="stylesheet" href="<%- asset.highlight %>">\n'
-  + '    <link rel="stylesheet" href="<%- asset.markbind %>">\n'
-  + '    <link rel="stylesheet" href="<%- asset.layoutStyle %>">\n'
-  + '    <% if (siteNav) { %><link rel="stylesheet" href="<%- asset.siteNavCss %>"><% } %>\n'
-  + '    <%- headFileBottomContent %>\n'
-  + '    <% if (faviconUrl) { %><link rel="icon" href="<%- faviconUrl %>"><% } %>\n'
-  + '</head>\n'
-  + '<body>\n'
-  + '<div id="app">\n'
-  + '    <%- content %>\n'
-  + '</div>\n'
-  + '</body>\n'
-  + '<script src="<%- asset.vue %>"></script>\n'
-  + '<script src="<%- asset.vueStrap %>"></script>\n'
-  + '<script src="<%- asset.polyfillJs %>"></script>\n'
-  + '<script src="<%- asset.bootstrapVueJs %>"></script>\n'
-  + '<script>\n'
-  + '    const baseUrl = \'<%- baseUrl %>\'\n'
-  + '</script>\n'
-  + '<script src="<%- asset.setup %>"></script>\n'
-  + '<script src="<%- asset.layoutScript %>"></script>\n'
-  + '</html>\n';
+module.exports.PAGE_NJK = `
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    {{ headFileTopContent }}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="generator" content=" markBindVersion ">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ asset.bootstrap }}">
+    <link rel="stylesheet" href="{{ asset.bootstrapVue }}">
+    <link rel="stylesheet" href="{{ asset.fontAwesome }}">
+    <link rel="stylesheet" href="{{ asset.glyphicons }}">
+    <link rel="stylesheet" href="{{ asset.highlight }}">
+    <link rel="stylesheet" href="{{ asset.markbind }}">
+    <link rel="stylesheet" href="{{ asset.layoutStyle }}">
+    {% if siteNav %}
+        <link rel="stylesheet" href="{{ asset.siteNavCss }}">
+    {% endif %}
+    {{ headFileBottomContent }}
+    {% if faviconUrl %}
+        <link rel="icon" href="{{ faviconUrl }}">
+    {% endif %}
+</head>
+<body>
+<div id="app">
+    {{ content }}
+</div>
+</body>
+<script src="{{ asset.vue }}"></script>
+<script src="{{ asset.vueStrap }}"></script>
+<script src="{{ asset.bootstrapUtilityJs }}"></script>
+<script src="{{ asset.polyfillJs }}"></script>
+<script src="{{ asset.bootstrapVueJs }}"></script>
+<script>
+  const baseUrl = '{{ baseUrl }}';
+</script>
+<script src="{{ asset.setup }}"></script>
+<script src="{{ asset.layoutScript }}"></script>
+</html>
+`;
 
 module.exports.SITE_JSON_DEFAULT = '{\n'
   + '  "baseUrl": "",\n'
