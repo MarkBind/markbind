@@ -13,32 +13,26 @@
     <link rel="stylesheet" href="{{ asset.glyphicons }}">
     <link rel="stylesheet" href="{{ asset.highlight }}">
     <link rel="stylesheet" href="{{ asset.markbind }}">
-    {%- if asset.pluginLinks %}
-    {%- for link in asset.pluginLinks %}
+    {%- if asset.pluginLinks -%}
+    {%- for link in asset.pluginLinks -%}
         {{ link }}
-    {%- endfor %}
-    {%- endif %}
+    {%- endfor -%}
+    {%- endif -%}
     <link rel="stylesheet" href="{{ asset.layoutStyle }}">
-    {%- if siteNav %}
-        <link rel="stylesheet" href="{{ asset.siteNavCss }}">
-    {%- endif %}
-    {%- if pageNav %}
-        <link rel="stylesheet" href="{{ asset.pageNavCss }}">
-    {%- endif %}
-    {{ headFileBottomContent }}
-    {%- if faviconUrl %}
-        <link rel="icon" href="{{ faviconUrl }}">
-    {%- endif %}
+    {%- if siteNav -%} <link rel="stylesheet" href="{{ asset.siteNavCss }}"> {%- endif -%}
+    {%- if pageNav -%} <link rel="stylesheet" href="{{ asset.pageNavCss }}"> {%- endif -%}
+    {{- headFileBottomContent -}}
+    {%- if faviconUrl -%} <link rel="icon" href="{{ faviconUrl }}"> {%- endif -%}
 </head>
 <body {% if pageNav %} data-spy="scroll" data-target="#page-nav" data-offset="100" {% endif %}>
 <div id="app">
-    {{ headerHtml }}
+    {{ headerHtml -}}
     <div id="flex-body">
-        {{ siteNavHtml }}
+        {{ siteNavHtml -}}
         {{ content }}
-        {{ pageNavHtml }}
+        {{ pageNavHtml -}}
     </div>
-    {{ footerHtml }}
+    {{ footerHtml -}}
 </div>
 </body>
 <script src="{{ asset.vue }}"></script>
@@ -51,18 +45,15 @@
   const enableSearch = {{ enableSearch }}
 </script>
 <script src="{{ asset.setup }}"></script>
-
 {%- if asset.externalScripts %}
 {%- for script in asset.externalScripts %}
     <script src="{{ script }}"></script>
 {%- endfor %}
 {%- endif %}
-
 {%- if asset.pluginScripts %}
 {%- for script in asset.pluginScripts %}
     {{ script }}
 {%- endfor %}
 {%- endif %}
-
 <script src="{{ asset.layoutScript }}"></script>
 </html>
