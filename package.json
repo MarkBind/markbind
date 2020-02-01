@@ -30,6 +30,7 @@
     "find-up": "^4.1.0",
     "fs-extra-promise": "^1.0.1",
     "gh-pages": "^2.1.1",
+    "glob": "^7.1.6",
     "highlight.js": "^9.14.2",
     "htmlparser2": "^3.10.1",
     "ignore": "^5.1.4",

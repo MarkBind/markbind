@@ -1,6 +1,7 @@
 const cheerio = require('cheerio');
 const fs = require('fs-extra-promise');
 const ghpages = require('gh-pages');
+const glob = require('glob');
 const ignore = require('ignore');
 const nunjucks = require('nunjucks');
 const path = require('path');
@@ -813,7 +814,7 @@ class Site {
 
         return isIncludedFile || isPluginSourceFile;
       })) {
-      // eslint-disable-next-line no-param-reassign
+        // eslint-disable-next-line no-param-reassign
         page.userDefinedVariablesMap = this.userDefinedVariablesMap;
         processingFiles.push(page.generate(builtFiles)
           .catch((err) => {
@@ -899,9 +900,21 @@ class Site {
       return Promise.resolve();
     }
     return new Promise((resolve, reject) => {
-      fs.copyAsync(siteLayoutPath, layoutsDestPath)
-        .then(resolve)
-        .catch(reject);
+      glob(`${siteLayoutPath}/**/*`, (err, res) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(res);
+        }
+      });
+    }).then((files) => {
+      if (!files) {
+        return Promise.resolve();
+      }
+      const filteredFiles = files.filter(file => _.includes(file, '.') && !_.includes(file, '.md'));
+      const copyAll = Promise.all(filteredFiles.map(file =>
+        fs.copyAsync(file, layoutsDestPath + file.substring(siteLayoutPath.length))));
+      return copyAll.then(() => Promise.resolve());
     });
   }
 
