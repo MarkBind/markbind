@@ -61,8 +61,8 @@
   },
   "scripts": {
     "autolint": "npm run lintfix && npm run csslintfix",
-    "csslint": "./node_modules/.bin/stylelint **/*.css !**/*.min.css",
-    "csslintfix": "./node_modules/.bin/stylelint **/*.css !**/*.min.css --fix",
+    "csslint": "./node_modules/.bin/stylelint **/*.css",
+    "csslintfix": "./node_modules/.bin/stylelint **/*.css --fix",
     "jest": "jest",
     "lint": "./node_modules/.bin/eslint .",
     "lintfix": "./node_modules/.bin/eslint . --fix",
