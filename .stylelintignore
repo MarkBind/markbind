@@ -1,2 +1,2 @@
 **/*.min.css
-test/functional/**/*.css
+test/functional/**/expected/**/*.css
