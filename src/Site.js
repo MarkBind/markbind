@@ -1,7 +1,6 @@
 const cheerio = require('cheerio');
 const fs = require('fs-extra-promise');
 const ghpages = require('gh-pages');
-const glob = require('glob');
 const ignore = require('ignore');
 const nunjucks = require('nunjucks');
 const path = require('path');
@@ -899,21 +898,16 @@ class Site {
     if (!fs.existsSync(siteLayoutPath)) {
       return Promise.resolve();
     }
-    return new Promise((resolve, reject) => {
-      glob(`${siteLayoutPath}/**/*`, (err, res) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(res);
-        }
-      });
+    return new Promise((resolve) => {
+      const files = walkSync(siteLayoutPath);
+      resolve(files);
     }).then((files) => {
       if (!files) {
         return Promise.resolve();
       }
       const filteredFiles = files.filter(file => _.includes(file, '.') && !_.includes(file, '.md'));
       const copyAll = Promise.all(filteredFiles.map(file =>
-        fs.copyAsync(file, layoutsDestPath + file.substring(siteLayoutPath.length))));
+        fs.copyAsync(siteLayoutPath + "/" + file, layoutsDestPath + "/" + file)));
       return copyAll.then(() => Promise.resolve());
     });
   }

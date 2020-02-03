@@ -87,10 +87,6 @@ test('Site Generate builds the correct amount of assets', async () => {
   expect(fs.existsSync(path.resolve('inner/_site/markbind/fontawesome/webfonts/font2.ttf'))).toEqual(true);
 
   // layouts
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/layouts/default/footer.md'))).toEqual(false);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/layouts/default/head.md'))).toEqual(false);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/layouts/default/header.md'))).toEqual(false);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/layouts/default/navigation.md'))).toEqual(false);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/layouts/default/scripts.js'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/layouts/default/styles.css'))).toEqual(true);
 });
