@@ -96,6 +96,77 @@
 </span>
 </include>
 
+**You can also use raw HTML as the content of dropdown menus.**
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```html
+<!--You can format the text using HTML tags such as <strong>-->
+<dropdown text="<strong>Strong text</strong>" type="warning">
+    <!--Note that as the dropdown items are also HTML-compatible, formatting them is possible as well-->
+    <li><a href="#dropdown" class="dropdown-item"><i>Italic</i></a></li>
+    <li><a href="#dropdown" class="dropdown-item">
+        <i class="fas fa-dragon"></i> Dragon Icon
+    </a></li>
+    <li><a href="#dropdown" class="dropdown-item">Something else here</a></li>
+    <li role="separator" class="dropdown-divider"></li>
+    <li><a href="#dropdown" class="dropdown-item" style="color: rebeccapurple;">
+        <strong>Purple bold link</strong>
+    </a></li>
+</dropdown>
+
+<!--You may also use Font Awesome icons as the dropdown menu-->
+<!--Be careful about escaping double quotation mark: here we used single quote instead-->
+<dropdown text="<i class='fas fa-band-aid'></i> Band Aid" type="info">
+    <li><a href="#dropdown" class="dropdown-item">
+        <i class="fas fa-tablets"></i> Tablets
+    </a></li>
+    <li><a href="#dropdown" class="dropdown-item">
+        <i class="fas fa-pills"></i> Pills
+    </a></li>
+    <li><a href="#dropdown" class="dropdown-item">
+        <i class="fas fa-capsules"></i> Capsules
+    </a></li>
+</dropdown>
+
+<!--Images are also available.-->
+<dropdown 
+    text="<img src='https://via.placeholder.com/128x40.png?text=Image+Placeholder'>">
+    <li><a href="#dropdown" class="dropdown-item">Something else here</a></li>
+</dropdown>
+```
+</span>
+<span id="output">
+<dropdown text="<strong>Strong text</strong>" type="warning">
+    <li><a href="#dropdown" class="dropdown-item"><i>Italic</i></a></li>
+    <li><a href="#dropdown" class="dropdown-item">
+        <i class="fas fa-dragon"></i> Dragon Icon
+    </a></li>
+    <li><a href="#dropdown" class="dropdown-item">Something else here</a></li>
+    <li role="separator" class="dropdown-divider"></li>
+    <li><a href="#dropdown" class="dropdown-item" style="color: rebeccapurple;">
+        <strong>Purple bold link</strong>
+    </a></li>
+</dropdown>
+<dropdown text="<i class='fas fa-band-aid'></i> Band Aid" type="info">
+    <li><a href="#dropdown" class="dropdown-item">
+        <i class="fas fa-tablets"></i> Tablets
+    </a></li>
+    <li><a href="#dropdown" class="dropdown-item">
+        <i class="fas fa-pills"></i> Pills
+    </a></li>
+    <li><a href="#dropdown" class="dropdown-item">
+        <i class="fas fa-capsules"></i> Capsules
+    </a></li>
+</dropdown>
+<dropdown 
+    text="<img src='https://via.placeholder.com/128x40.png?text=Image+Placeholder'>">
+    <li><a href="#dropdown" class="dropdown-item">Something else here</a></li>
+</dropdown>
+</span>
+</include>
+
 ****Options****
 
 Name | Type | Default | Description
