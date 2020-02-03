@@ -70,7 +70,7 @@ The example paragraph below has the following dynamic elements: a tooltip, a pop
 
 In <tooltip content="Computer Science">CS</tooltip>, a binary tree is a <trigger for="pop:index-tree">tree data structure</trigger> in which each node has at most two children, which are referred to as the _left child_ and the _right child_. <trigger trigger="click" for="modal:index-primitive">Primitive data types</trigger> on the other hand ...
 
-<popover id="pop:index-tree" title="An example tree data structure" placement="top">
+<popover id="pop:index-tree" header="An example tree data structure" placement="top">
   <div slot="content">
 
 ![](https://upload.wikimedia.org/wikipedia/commons/f/f7/Binary_tree.svg)<br>
@@ -79,7 +79,7 @@ In <tooltip content="Computer Science">CS</tooltip>, a binary tree is a <trigger
   </div>
 </popover>
 
-<modal large title="Some examples of primitive data types" id="modal:index-primitive">
+<modal large header="Some examples of primitive data types" id="modal:index-primitive">
   <include src="pages/primitiveDataTypes.md" />
 </modal>
 
@@ -153,7 +153,7 @@ In CS, a binary tree is a tree data structure in which each node has at most two
   <include src="pages/primitiveDataTypes.md" />
 </panel>
 
-<modal large title="Some examples of primitive data types" id="modal:index-primitive2">
+<modal large header="Some examples of primitive data types" id="modal:index-primitive2">
   <include src="pages/primitiveDataTypes.md" />
 </modal>
 

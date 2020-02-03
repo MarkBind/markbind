@@ -247,7 +247,7 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 <trigger for="modal-with-panel">trigger</trigger>
 
-<modal title="modal title with panel inside" id="modal-with-panel">
+<modal header="modal title with panel inside" id="modal-with-panel">
   <panel header="## Panel inside modal" expanded>
   
   **Panel content inside modal**
