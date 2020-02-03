@@ -298,7 +298,7 @@ li.footnote-item:target {
     background-color: #eee;
 }
 
-pre {
+pre.hljs {
     counter-reset: line;
 }
 
@@ -314,7 +314,7 @@ pre {
     content: counter(line);
     counter-increment: line;
     margin-right: 0.5em;
-    text-align: right;
     padding: 0 0.5em;
+    text-align: right;
     width: 3em;
 }
