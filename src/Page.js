@@ -500,7 +500,7 @@ class Page {
     if (footer === FRONT_MATTER_NONE_ATTR) {
       return pageData;
     }
-    
+
     let footerFile;
     if (footer) {
       footerFile = path.join(FOOTERS_FOLDER_PATH, footer);
