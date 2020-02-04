@@ -54,7 +54,18 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   if (highlighted) {
     token.attrJoin('class', lang);
   }
-  return `<pre><code ${slf.renderAttrs(token)}>${str}</code></pre>`;
+
+  const heading = token.attrGet('heading')
+  console.log(heading)
+  if (heading) {
+    return `<div class='code-block'>`
+      + `<div class='code-block-heading'><span>` + heading + `<span></div>` 
+      + `<div class='code-block-content'><pre><code ${slf.renderAttrs(token)}>${str}</code></pre></div>`
+      + `</div>`;
+  } else {
+    return `<pre><code ${slf.renderAttrs(token)}>${str}</code></pre>`;
+  }
+
 };
 
 // highlight inline code
