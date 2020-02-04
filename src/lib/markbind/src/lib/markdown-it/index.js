@@ -1,19 +1,7 @@
 const hljs = require('highlight.js');
 const markdownIt = require('markdown-it')({
   html: true,
-  linkify: true,
-  highlight: function (str, lang) {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return '<pre><code class="hljs ' + lang + '">' +
-          hljs.highlight(lang, str, true).value +
-          '</code></pre>';
-      } catch (__) {
-      }
-    }
-
-    return '<pre><code class="hljs">' + markdownIt.utils.escapeHtml(str) + '</code></pre>';
-  }
+  linkify: true
 });
 const slugify = require('@sindresorhus/slugify');
 
@@ -41,6 +29,41 @@ markdownIt.renderer.rules.table_open = (tokens, idx) => {
 };
 markdownIt.renderer.rules.table_close = (tokens, idx) => {
   return '</table></div>';
+};
+
+markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
+  const token = tokens[idx];
+  console.log(token)
+  const lang = token.info || '';
+  let str = token.content;
+  let highlighted = false;
+  if (lang && hljs.getLanguage(lang)) {
+    try {
+      str = hljs.highlight(lang, str).value;
+      highlighted = true;
+    } catch (__) {}
+  }
+  if (!highlighted) {
+    str = markdownIt.utils.escapeHtml(str);
+  }
+
+  token.attrJoin('class', 'hljs');
+
+  if (highlighted) {
+    token.attrJoin('class', lang);
+  }
+
+  const heading = token.attrGet('heading')
+  console.log(heading)
+  if (heading) {
+    return `<div class='code-block'>`
+      + `<div class='code-block-heading'><span>` + heading + `<span></div>` 
+      + `<div class='code-block-content'><pre><code ${slf.renderAttrs(token)}>${str}</code></pre></div>`
+      + `</div>`;
+  } else {
+    return `<pre><code ${slf.renderAttrs(token)}>${str}</code></pre>`;
+  }
+
 };
 
 // highlight inline code

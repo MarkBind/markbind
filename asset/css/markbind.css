@@ -24,6 +24,29 @@ pre > code.hljs {
     border-radius: 5px;
 }
 
+.code-block {
+    position: relative;
+
+}
+
+.code-block > .code-block-heading {
+    background-color: #b4b4b9;
+    border-radius: 0 6px 0 6px;
+    color: #f8f8ff;
+    /* display: inline-block; */
+    /* font-size: 100%; */
+    line-height: 1;
+    padding: 0.25em 0.4em;
+    /* position: absolute;
+    right: 0px; */
+    display: block;
+}
+
+.code-block > .code-block-content {
+    display: block;
+}
+
+
 kbd {
     background-color: #fafbfc;
     border: 1px solid #c6cbd1;
