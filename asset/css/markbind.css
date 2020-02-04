@@ -22,6 +22,7 @@ pre > code.hljs {
     border: 1px solid rgb(200, 200, 200);
     border: 1px solid rgba(200, 200, 200, 0.3);
     border-radius: 5px;
+    counter-reset: line;
 }
 
 kbd {
@@ -296,10 +297,6 @@ panel[minimized]:not([expanded])::before {
 
 li.footnote-item:target {
     background-color: #eee;
-}
-
-pre.hljs {
-    counter-reset: line;
 }
 
 .hljs:not(.inline) > span {
