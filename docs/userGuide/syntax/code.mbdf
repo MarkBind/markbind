@@ -67,7 +67,7 @@ or the java code `public static void main(String[] args)`{.java}.
 </span>
 </include>
 
-MarkBind can provide a headings for your code block.
+MarkBind can apply headings for your code block. 
 
 <include src="outputBox.md" boilerplate >
 <span id="code">
