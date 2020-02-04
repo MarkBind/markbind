@@ -55,7 +55,6 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   }
 
   const heading = token.attrGet('heading')
-  console.log(heading)
   if (heading) {
     return `<div class='code-block'>`
       + `<div class='code-block-heading'><span>` + heading + `<span></div>` 
