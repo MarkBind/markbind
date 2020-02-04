@@ -32,7 +32,6 @@ markdownIt.renderer.rules.table_close = (tokens, idx) => {
 
 markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const token = tokens[idx];
-  console.log(token)
   const lang = token.info || '';
   let str = token.content;
   let highlighted = false;
@@ -53,7 +52,6 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   }
 
   const heading = token.attrGet('heading')
-  console.log(heading)
   if (heading) {
     return `<div class='code-block'>`
       + `<div class='code-block-heading'><span>` + heading + `<span></div>` 
