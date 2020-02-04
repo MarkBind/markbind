@@ -67,6 +67,29 @@ or the java code `public static void main(String[] args)`{.java}.
 </span>
 </include>
 
+MarkBind can provide a headings for your code block.
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+````
+```xml {heading="xml"}
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+````
+</span>
+<span id="output">
+
+```xml {heading="xml"}
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+</span>
+</include>
+
 <span id="short" class="d-none">
 ````
 ```xml
