@@ -160,6 +160,37 @@
 </span>
 </include>
 
+**You can also use icons and resize them accordingly.**
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+```html
+<box type="warning" icon=":fas-camera:" icon-size="2x" heading="Tip box heading">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</box>
+<box type="definition" icon-size="2x" heading="Tip box heading" dismissible>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</box>
+<box type="important" icon-size="3x" heading="Tip box heading">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</box>
+```
+</span>
+
+<span id="output">
+
+<box type="warning" icon=":fas-camera:" icon-size="2x" heading="Tip box heading">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</box>
+<box type="definition" icon-size="2x" heading="Tip box heading" dismissible>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</box>
+<box type="important" icon-size="3x" heading="Tip box heading">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</box>
+</span>
+</include>
+
 ****Options****
 Name | Type | Default | Description
 --- | --- | --- | ---
@@ -169,6 +200,7 @@ border-left-color | `String` | `null` | Overrides border-color for the left bord
 color | `String` | `null` | Color of the text.
 dismissible | `Boolean` | `false` | Adds a button to close the box to the top right corner.
 icon | `String` | `null` | Inline MarkDown text of the icon displayed on the left.
+icon-size | `String` | `null` | Resizes the icon. Supports integer-scaling of the icon dimensions e.g. `2x`, `3x`, `4x`, etc.  
 header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>heading <br> (deprecated)</small> | `String` | `null` | Plain text of the header on the top right corner.
 type | `String` | `'none'` | Supports: `info`, `warning`, `success`, `important`, `wrong`, `tip`, `definition`, or empty for default.
 light | `Boolean` | `false` | Uses a light color scheme for the box.
