@@ -135,6 +135,61 @@
 </span>
 </include>
 
+**Markbind also supports a seamless style of boxes (similar to AsciiDoc)**
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```html
+<box type="info" seamless>
+    info seamless
+</box>
+<box type="warning" seamless>
+    warning seamless
+</box>
+<box type="success" seamless>
+    success seamless
+</box>
+<box type="important" seamless>
+    important seamless
+</box>
+<box type="wrong" seamless>
+    wrong seamless
+</box>
+<box type="tip" seamless>
+    tip seamless
+</box>
+<box type="definition" seamless>
+    definition seamless
+</box>
+```
+</span>
+<span id="output">
+
+<box type="info" seamless>
+    info seamless
+</box>
+<box type="warning" seamless>
+    warning seamless
+</box>
+<box type="success" seamless>
+    success seamless
+</box>
+<box type="important" seamless>
+    important seamless
+</box>
+<box type="wrong" seamless>
+    wrong seamless
+</box>
+<box type="tip" seamless>
+    tip seamless
+</box>
+<box type="definition" seamless>
+    definition seamless
+</box>
+</span>
+</include>
+
 **You can customize the Box's appearance.**
 
 <include src="outputBox.md" boilerplate >
