@@ -31,19 +31,20 @@ pre > code.hljs {
 }
 
 .code-block > .code-block-heading {
-    background-color: #b4b4b9;
-    border-radius: 0 6px 0 6px;
-    color: #f8f8ff;
-    /* display: inline-block; */
-    /* font-size: 100%; */
-    line-height: 1;
-    padding: 0.25em 0.4em;
-    /* position: absolute;
-    right: 0px; */
+    background-color: #ebebff;
+    border-radius: 6px 6px 6px 6px;
+    color: #8787a5;
     display: block;
+    float: right;
+    font-size: 85%;
+    line-height: 1;
+    max-width: 85%;
+    padding: 0.25em 0.4em;
+    text-align: right;
 }
 
 .code-block > .code-block-content {
+    clear: both;
     display: block;
 }
 
