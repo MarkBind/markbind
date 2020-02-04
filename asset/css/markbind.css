@@ -27,7 +27,6 @@ pre > code.hljs {
 
 .code-block {
     position: relative;
-
 }
 
 .code-block > .code-block-heading {
@@ -47,7 +46,6 @@ pre > code.hljs {
     clear: both;
     display: block;
 }
-
 
 kbd {
     background-color: #fafbfc;
