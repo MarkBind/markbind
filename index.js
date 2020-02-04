@@ -50,7 +50,7 @@ program.outputHelp = function (cb) {
 
 program
   .allowUnknownOption()
-  .usage(' <command>');
+  .usage('<command>');
 
 program
   .name('markbind')
@@ -198,23 +198,6 @@ program
   });
 
 program
-  .command('deploy')
-  .alias('d')
-  .description('deploy the site to the repo\'s Github pages.')
-  .option('-t, --travis [tokenVar]', 'deploy the site in Travis [GITHUB_TOKEN]')
-  .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
-  .action((options) => {
-    const rootFolder = path.resolve(process.cwd());
-    const outputRoot = path.join(rootFolder, '_site');
-    new Site(rootFolder, outputRoot, undefined, undefined, options.siteConfig).deploy(options.travis)
-      .then(() => {
-        logger.info('Deployed!');
-      })
-      .catch(handleError);
-    printHeader();
-  });
-
-program
   .command('build [root] [output]')
   .alias('b')
   .option('--baseUrl [baseUrl]',
@@ -239,6 +222,23 @@ program
         logger.info('Build success!');
       })
       .catch(handleError);
+  });
+
+program
+  .command('deploy')
+  .alias('d')
+  .description('deploy the site to the repo\'s Github pages')
+  .option('-t, --travis [tokenVar]', 'deploy the site in Travis [GITHUB_TOKEN]')
+  .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
+  .action((options) => {
+    const rootFolder = path.resolve(process.cwd());
+    const outputRoot = path.join(rootFolder, '_site');
+    new Site(rootFolder, outputRoot, undefined, undefined, options.siteConfig).deploy(options.travis)
+      .then(() => {
+        logger.info('Deployed!');
+      })
+      .catch(handleError);
+    printHeader();
   });
 
 program.parse(process.argv);
