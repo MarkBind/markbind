@@ -16,15 +16,15 @@
   <link rel="stylesheet" href="markbind/css/markbind.css">
   <link rel="stylesheet" href="STYLESHEET_LINK">
   <link rel="stylesheet" href="markbind/layouts/default/styles.css">
-
-
   <meta name="default-head-bottom">
   <link rel="icon" href="/test_site/favicon.png">
 </head>
 
 <body>
   <div id="app">
+
     <div id="flex-body">
+
       <div id="content-wrapper">
         <h1 id="root-file">Root file<a class="fa fa-anchor" href="#root-file"></a></h1>
         <h1 id="should-have-anchor">should have anchor<a class="fa fa-anchor" href="#should-have-anchor"></a></h1>
@@ -33,10 +33,9 @@
         <h4 id="should-have-anchor-4">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-4"></a></h4>
         <h5 id="should-have-anchor-5">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-5"></a></h5>
         <h6 id="should-have-anchor-6">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-6"></a></h6>
-        <panel header="#### should have anchor<a class='fa fa-anchor' href='#should-have-anchor'></a>">
-          Lorem ipsum
+        <panel id="should-have-anchor-7"><template slot="_header"><h4 id="should-have-anchor-7">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-7"></a></h4></template> Lorem ipsum
         </panel>
-        <panel header="Collapsed">
+        <panel><template slot="_header"><p>Collapsed</p></template>
           <p>Headings in a collapsed-by-default panel should <strong>not</strong> have anchors</p>
           <h1 id="should-not-have-anchor">should not have anchor<a class="fa fa-anchor" href="#should-not-have-anchor"></a></h1>
           <h2 id="should-not-have-anchor-2">should not have anchor<a class="fa fa-anchor" href="#should-not-have-anchor-2"></a></h2>
@@ -45,29 +44,28 @@
           <h5 id="should-not-have-anchor-5">should not have anchor<a class="fa fa-anchor" href="#should-not-have-anchor-5"></a></h5>
           <h6 id="should-not-have-anchor-6">should not have anchor<a class="fa fa-anchor" href="#should-not-have-anchor-6"></a></h6>
         </panel>
-        <panel header="Expanded" expanded="">
+        <panel expanded=""><template slot="_header"><p>Expanded</p></template>
           <p>Headings in a expanded-by-default panel <strong>should</strong> have anchors</p>
-          <h1 id="should-have-anchor-7">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-7"></a></h1>
-          <h2 id="should-have-anchor-8">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-8"></a></h2>
-          <h3 id="should-have-anchor-9">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-9"></a></h3>
-          <h4 id="should-have-anchor-10">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-10"></a></h4>
-          <h5 id="should-have-anchor-11">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-11"></a></h5>
-          <h6 id="should-have-anchor-12">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-12"></a></h6>
+          <h1 id="should-have-anchor-8">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-8"></a></h1>
+          <h2 id="should-have-anchor-9">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-9"></a></h2>
+          <h3 id="should-have-anchor-10">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-10"></a></h3>
+          <h4 id="should-have-anchor-11">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-11"></a></h4>
+          <h5 id="should-have-anchor-12">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-12"></a></h5>
+          <h6 id="should-have-anchor-13">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-13"></a></h6>
         </panel>
         <hr>
         <div>
           <h1 id="included-file">Included File<a class="fa fa-anchor" href="#included-file"></a></h1>
           <br>
-          <h1 id="should-have-anchor-13">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-13"></a></h1>
-          <h2 id="should-have-anchor-14">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-14"></a></h2>
-          <h3 id="should-have-anchor-15">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-15"></a></h3>
-          <h4 id="should-have-anchor-16">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-16"></a></h4>
-          <h5 id="should-have-anchor-17">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-17"></a></h5>
-          <h6 id="should-have-anchor-18">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-18"></a></h6>
-          <panel header="#### should have anchor<a class='fa fa-anchor' href='#should-have-anchor'></a>">
-            Lorem ipsum
+          <h1 id="should-have-anchor-14">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-14"></a></h1>
+          <h2 id="should-have-anchor-15">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-15"></a></h2>
+          <h3 id="should-have-anchor-16">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-16"></a></h3>
+          <h4 id="should-have-anchor-17">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-17"></a></h4>
+          <h5 id="should-have-anchor-18">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-18"></a></h5>
+          <h6 id="should-have-anchor-19">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-19"></a></h6>
+          <panel id="should-have-anchor-20"><template slot="_header"><h4 id="should-have-anchor-20">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-20"></a></h4></template> Lorem ipsum
           </panel>
-          <panel header="Collapsed">
+          <panel><template slot="_header"><p>Collapsed</p></template>
             <p>Headings in a collapsed-by-default panel should <strong>not</strong> have anchors</p>
             <h1 id="should-not-have-anchor-7">should not have anchor<a class="fa fa-anchor" href="#should-not-have-anchor-7"></a></h1>
             <h2 id="should-not-have-anchor-8">should not have anchor<a class="fa fa-anchor" href="#should-not-have-anchor-8"></a></h2>
@@ -76,17 +74,18 @@
             <h5 id="should-not-have-anchor-11">should not have anchor<a class="fa fa-anchor" href="#should-not-have-anchor-11"></a></h5>
             <h6 id="should-not-have-anchor-12">should not have anchor<a class="fa fa-anchor" href="#should-not-have-anchor-12"></a></h6>
           </panel>
-          <panel header="Expanded" expanded="">
+          <panel expanded=""><template slot="_header"><p>Expanded</p></template>
             <p>Headings in a expanded-by-default panel <strong>should</strong> have anchors</p>
-            <h1 id="should-have-anchor-19">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-19"></a></h1>
-            <h2 id="should-have-anchor-20">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-20"></a></h2>
-            <h3 id="should-have-anchor-21">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-21"></a></h3>
-            <h4 id="should-have-anchor-22">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-22"></a></h4>
-            <h5 id="should-have-anchor-23">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-23"></a></h5>
-            <h6 id="should-have-anchor-24">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-24"></a></h6>
+            <h1 id="should-have-anchor-21">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-21"></a></h1>
+            <h2 id="should-have-anchor-22">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-22"></a></h2>
+            <h3 id="should-have-anchor-23">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-23"></a></h3>
+            <h4 id="should-have-anchor-24">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-24"></a></h4>
+            <h5 id="should-have-anchor-25">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-25"></a></h5>
+            <h6 id="should-have-anchor-26">should have anchor<a class="fa fa-anchor" href="#should-have-anchor-26"></a></h6>
           </panel>
         </div>
       </div>
+
     </div>
     <footer>
       <div class="text-center">
@@ -122,6 +121,7 @@
 
   gtag('config', 'TRACKING-ID');
 </script>
+
 <script src="markbind/layouts/default/scripts.js"></script>
 
 </html>

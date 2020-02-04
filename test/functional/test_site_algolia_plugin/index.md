@@ -8,14 +8,14 @@
 
 **Dropdowns should have algolia-no-index class**
 
-<dropdown text="Dropdown">
+<dropdown header="Dropdown">
   <li><a class="dropdown-item" href="/">One</a></li>
   <li><a class="dropdown-item" href="/">Two</a></li>
 </dropdown>
 
 **Modal content should have algolia-no-index class**
 
-<modal title="Modal" id="modal:trigger_id">
+<modal header="Modal" id="modal:trigger_id">
   Content should have `algolia-no-index` class
 </modal>
 <trigger for="modal:trigger_id">Trigger should not have `algolia-no-index` class</trigger>
@@ -32,12 +32,12 @@
 
 **Popover content should have algolia-no-index class**
 
-<popover effect="fade" title="Title" placement="top">
+<popover effect="fade" header="Title" placement="top">
   <div slot="content">Content should have `algolia-no-index` class</div>
   <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
 </popover>
 
-<popover effect="fade" title="Title" content="Content as attribute does not require `algolia-no-index` class" placement="top">
+<popover effect="fade" header="Title" content="Content as attribute does not require `algolia-no-index` class" placement="top">
   <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
 </popover>
 

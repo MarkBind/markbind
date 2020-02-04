@@ -16,8 +16,6 @@
   <link rel="stylesheet" href="../markbind/css/markbind.css">
   <link rel="stylesheet" href="STYLESHEET_LINK">
   <link rel="stylesheet" href="../markbind/layouts/default/styles.css">
-
-
   <meta name="default-head-bottom">
   <link rel="icon" href="/test_site/favicon.png">
 </head>
@@ -34,6 +32,7 @@
         <br></div>
     </header>
     <div id="flex-body">
+
       <div id="content-wrapper">
         <div class="website-content">
           <p><strong>popover initiated by trigger: honor trigger attribute</strong></p>
@@ -58,7 +57,7 @@
             <p>This is to reproduce
               <trigger trigger="click" for="modal:bugRepro">multiple inclusions of a modal bug</trigger>
             </p>
-            <modal large="" title="Establishing Requirements" id="modal:bugRepro">
+            <modal large="" id="modal:bugRepro"><template slot="_header">Establishing Requirements</template>
               <div>
                 <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
                   do.
@@ -70,7 +69,7 @@
             <p>This is to reproduce
               <trigger trigger="click" for="modal:bugRepro">multiple inclusions of a modal bug</trigger>
             </p>
-            <modal large="" title="Establishing Requirements" id="modal:bugRepro">
+            <modal large="" id="modal:bugRepro"><template slot="_header">Establishing Requirements</template>
               <div>
                 <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
                   do.
@@ -85,6 +84,7 @@
             <a href="https://github.com">link text</a>]</p>
         </div>
       </div>
+
     </div>
     <footer>
       <div class="text-center">
@@ -120,6 +120,7 @@
 
   gtag('config', 'TRACKING-ID');
 </script>
+
 <script src="../markbind/layouts/default/scripts.js"></script>
 
 </html>
