@@ -251,4 +251,32 @@ module.exports.PARSE_BOX_ICON_EXPECTED = `
 </box>
 `;
 
+module.exports.PARSE_BOX_HEADER = `
+<box header="#### Lorem ipsum dolor sit amet :rocket:">
+  Header attribute should be inserted as internal _header slot and deleted.
+</box>
+`;
+
+module.exports.PARSE_BOX_HEADER_EXPECTED = `
+<box><template slot="_header"><h4>Lorem ipsum dolor sit amet 🚀</h4>
+</template>
+  Header attribute should be inserted as internal _header slot and deleted.
+</box>
+`;
+
+// todo remove this test once 'heading' attribute is fully deprecated for boxes
+
+module.exports.PARSE_BOX_HEADING = `
+<box heading="#### Lorem ipsum dolor sit amet :rocket:">
+  Heading attribute should be inserted as internal _header slot and deleted.
+</box>
+`;
+
+module.exports.PARSE_BOX_HEADING_EXPECTED = `
+<box><template slot="_header"><h4>Lorem ipsum dolor sit amet 🚀</h4>
+</template>
+  Heading attribute should be inserted as internal _header slot and deleted.
+</box>
+`;
+
 /* eslint-enable max-len */
