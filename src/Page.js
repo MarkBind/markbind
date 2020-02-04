@@ -471,6 +471,10 @@ class Page {
    */
   insertHeaderFile(pageData) {
     const { header } = this.frontMatter;
+    if (header === FRONT_MATTER_NONE_ATTR) {
+      return pageData;
+    }
+
     let headerFile;
     if (header) {
       headerFile = path.join(HEADERS_FOLDER_PATH, header);
@@ -528,6 +532,10 @@ class Page {
    */
   insertSiteNav(pageData) {
     const { siteNav } = this.frontMatter;
+    if (siteNav === FRONT_MATTER_NONE_ATTR) {
+      return pageData;
+    }
+
     let siteNavFile;
     if (siteNav) {
       siteNavFile = path.join(NAVIGATION_FOLDER_PATH, siteNav);
@@ -674,6 +682,10 @@ class Page {
 
   collectHeadFiles(baseUrl, hostBaseUrl) {
     const { head } = this.frontMatter;
+    if (head === FRONT_MATTER_NONE_ATTR) {
+      return;
+    }
+
     let headFiles;
     const collectedTopContent = [];
     const collectedBottomContent = [];
