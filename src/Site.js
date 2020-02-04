@@ -235,7 +235,7 @@ class Site {
                                   path.join(this.siteAssetsDestPath, 'glyphicons', 'css',
                                             'bootstrap-glyphicons.min.css')),
         octicons: path.relative(path.dirname(resultPath),
-                                path.join(this.siteAssetsDestPath, 'css', 'octicons.min.css')),
+                                path.join(this.siteAssetsDestPath, 'css', 'octicons.css')),
         highlight: path.relative(path.dirname(resultPath),
                                  path.join(this.siteAssetsDestPath, 'css', 'github.min.css')),
         markbind: path.relative(path.dirname(resultPath),
@@ -869,23 +869,14 @@ class Site {
   }
 
   /**
-   * Minifies and copies Octicon assets to the assets folder
+   * Copies Octicon assets to the assets folder
    */
   copyOcticonsAsset() {
     const octiconsRootSrcPath = path.join(__dirname, '..', 'node_modules', '@primer', 'octicons', 'build');
     const octiconsCssSrcPath = path.join(octiconsRootSrcPath, 'build.css');
-    const octiconsCssDestPath = path.join(this.siteAssetsDestPath, 'css', 'octicons.min.css');
+    const octiconsCssDestPath = path.join(this.siteAssetsDestPath, 'css', 'octicons.css');
 
-    const minifiedCss = fs.readFileSync(octiconsCssSrcPath).toString().replace(/\s/g, '');
-
-    return new Promise((resolve, reject) => {
-      try {
-        fs.writeFileSync(octiconsCssDestPath, minifiedCss);
-        resolve();
-      } catch (error) {
-        Site.rejectHandler(reject, error, []);
-      }
-    });
+    return fs.copyAsync(octiconsCssSrcPath, octiconsCssDestPath);
   }
 
   /**
