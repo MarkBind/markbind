@@ -813,7 +813,7 @@ class Site {
 
         return isIncludedFile || isPluginSourceFile;
       })) {
-        // eslint-disable-next-line no-param-reassign
+      // eslint-disable-next-line no-param-reassign
         page.userDefinedVariablesMap = this.userDefinedVariablesMap;
         processingFiles.push(page.generate(builtFiles)
           .catch((err) => {
