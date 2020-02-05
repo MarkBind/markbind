@@ -683,6 +683,8 @@ class Page {
   collectHeadFiles(baseUrl, hostBaseUrl) {
     const { head } = this.frontMatter;
     if (head === FRONT_MATTER_NONE_ATTR) {
+      this.headFileTopContent = '';
+      this.headFileBottomContent = '';
       return;
     }
 
