@@ -137,6 +137,10 @@
 
 **Markbind also supports a seamless style of boxes (similar to AsciiDoc)**
 
+<box type="info">
+As <code>light</code> and <code>seamless</code> are mutually exclusive styles, <code>light</code> takes priority over <code>seamless</code>.
+</box>
+
 <include src="outputBox.md" boilerplate >
 <span id="code">
 
@@ -227,6 +231,7 @@ icon | `String` | `null` | Inline MarkDown text of the icon displayed on the lef
 header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>heading <br> (deprecated)</small> | `String` | `null` | Plain text of the header on the top right corner.
 type | `String` | `'none'` | Supports: `info`, `warning`, `success`, `important`, `wrong`, `tip`, `definition`, or empty for default.
 light | `Boolean` | `false` | Uses a light color scheme for the box.
+seamless | `Boolean` | `false` | Uses a seamless (AsciiDoc) style for the box.
 
 <span id="short" class="d-none">
 ```html
