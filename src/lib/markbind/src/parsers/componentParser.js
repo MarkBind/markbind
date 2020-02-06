@@ -182,6 +182,14 @@ function _parseBoxAttributes(element) {
 }
 
 /*
+ * Dropdowns
+ */
+
+function _parseDropdownAttributes(element) {
+  _parseAttributeWithoutOverride(element, 'header', true, '_header');
+}
+
+/*
  * API
  */
 
@@ -206,6 +214,9 @@ function parseComponents(element, errorHandler) {
       break;
     case 'box':
       _parseBoxAttributes(element);
+      break;
+    case 'dropdown':
+      _parseDropdownAttributes(element);
       break;
     default:
       break;
