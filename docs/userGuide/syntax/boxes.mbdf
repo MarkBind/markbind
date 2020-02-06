@@ -165,13 +165,13 @@
 <include src="outputBox.md" boilerplate >
 <span id="code">
 ```html
-<box type="warning" icon=":fas-camera:" icon-size="2x" heading="Tip box heading">
+<box type="warning" icon=":fas-camera:">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </box>
-<box type="definition" icon-size="2x" heading="Tip box heading" dismissible>
+<box type="warning" icon=":fas-camera:" icon-size="2x">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </box>
-<box type="important" icon-size="3x" heading="Tip box heading">
+<box type="warning" icon=":fas-camera:" icon-size="3x">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </box>
 ```
@@ -179,13 +179,13 @@
 
 <span id="output">
 
-<box type="warning" icon=":fas-camera:" icon-size="2x" heading="Tip box heading">
+<box type="warning" icon=":fas-camera:">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </box>
-<box type="definition" icon-size="2x" heading="Tip box heading" dismissible>
+<box type="warning" icon=":fas-camera:" icon-size="2x">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </box>
-<box type="important" icon-size="3x" heading="Tip box heading">
+<box type="warning" icon=":fas-camera:" icon-size="3x">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </box>
 </span>
