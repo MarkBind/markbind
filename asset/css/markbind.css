@@ -25,6 +25,32 @@ pre > code.hljs {
     counter-reset: line;
 }
 
+pre > code.hljs[heading] {
+    border-top-right-radius: 0;
+}
+
+.code-block {
+    position: relative;
+}
+
+.code-block-heading {
+    background-color: #f2f2ff;
+    border-radius: 6px 6px 0 0;
+    color: #8787a5;
+    float: right;
+    font-size: 85%;
+    line-height: 1;
+    max-width: 85%;
+    overflow-wrap: break-word;
+    padding: 0.25em 0.4em;
+    text-align: right;
+}
+
+.code-block-content {
+    clear: both;
+    display: block;
+}
+
 kbd {
     background-color: #fafbfc;
     border: 1px solid #c6cbd1;
@@ -368,4 +394,8 @@ li.footnote-item:target {
     -ms-transform: scale(1);
     transform: scale(1);
     opacity: 1;
+}
+
+code > span.highlighted {
+    background: lavender;
 }
