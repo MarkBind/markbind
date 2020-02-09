@@ -47,7 +47,9 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   }
   const lines = str.split('\n');
   lines.pop(); // last line is always a single '\n' newline, so we remove it
-  str =  lines.map(line => `<span>${line}</span>`).join(''); //wrap all lines with <span> so we can number them
+  str =  lines.map(line => `<span>${line || '&#x200B;'}</span>`).join('');
+  // wrap all lines with <span> so we can number them
+  // if a line is empty we put a 0 width non breaking space
   token.attrJoin('class', 'hljs');
 
   if (highlighted) {
