@@ -9,6 +9,9 @@ module.exports = {
   HEADERS_FOLDER_PATH: '_markbind/headers',
   LAYOUT_DEFAULT_NAME: 'default',
   LAYOUT_FOLDER_PATH: '_markbind/layouts',
+
+  LAYOUT_PAGE: 'page.md',
+  LAYOUT_PAGE_BODY_VARIABLE: 'MAIN_CONTENT_BODY',
   LAYOUT_FOOTER: 'footer.md',
   LAYOUT_HEAD: 'head.md',
   LAYOUT_HEADER: 'header.md',
@@ -46,7 +49,7 @@ module.exports = {
   FOOTER_PATH: '_markbind/footers/footer.md',
   INDEX_MARKDOWN_FILE: 'index.md',
   MARKBIND_PLUGIN_PREFIX: 'markbind-plugin-',
-  PAGE_TEMPLATE_NAME: 'page.ejs',
+  PAGE_TEMPLATE_NAME: 'page.njk',
   PROJECT_PLUGIN_FOLDER_NAME: '_markbind/plugins',
   SITE_CONFIG_NAME: 'site.json',
   SITE_DATA_NAME: 'siteData.json',

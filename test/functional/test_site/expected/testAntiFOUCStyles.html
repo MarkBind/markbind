@@ -5,7 +5,7 @@
   <meta name="default-head-top">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="MarkBind 2.9.0">
+  <meta name="generator" content="MarkBind 2.10.0">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hello World</title>
   <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
@@ -16,22 +16,22 @@
   <link rel="stylesheet" href="markbind/css/markbind.css">
   <link rel="stylesheet" href="STYLESHEET_LINK">
   <link rel="stylesheet" href="markbind/layouts/default/styles.css">
-
-
   <meta name="default-head-bottom">
   <link rel="icon" href="/test_site/favicon.png">
 </head>
 
 <body>
   <div id="app">
+
     <div id="flex-body">
+
       <div id="content-wrapper">
 
         <navbar type="dark" class="temp-navbar">
           <li><a href="/" class="nav-link">One</a></li>
           <li><a href="/" class="nav-link">Two</a></li>
           <div class="nav-link temp-dropdown-placeholder">Dropdown</div>
-          <dropdown text="Dropdown" class="nav-link temp-dropdown">
+          <dropdown header="Dropdown" class="nav-link temp-dropdown">
             <li><a class="dropdown-item" href="/">Dropdown One</a></li>
             <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
           </dropdown>
@@ -39,7 +39,7 @@
 
         <p><strong>Test dropdown in body with text and class attributes</strong></p>
         <div class="test-class temp-dropdown-placeholder">Test One</div>
-        <dropdown text="Test One" class="test-class temp-dropdown">
+        <dropdown header="Test One" class="test-class temp-dropdown">
           <li><a class="dropdown-item" href="/">Dropdown One</a></li>
           <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
         </dropdown>
@@ -58,6 +58,7 @@
         <p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
         <p>Some text</p>
       </div>
+
     </div>
     <footer>
       <div class="text-center">
@@ -93,6 +94,7 @@
 
   gtag('config', 'TRACKING-ID');
 </script>
+
 <script src="markbind/layouts/default/scripts.js"></script>
 
 </html>

@@ -74,15 +74,22 @@ Using the normal syntax, you are only able to use markdown formatting on heading
 **Panel Slot Options:**
 Slot name | Default class | Notes
 --- | --- | --- 
-`header` | `card-title` | Aligning text to the center of the panel is not possible, as the header element does not take up the entire container.
+header | `card-title` | Aligning text to the center of the panel is not possible, as the header element does not take up the entire container.
 
 **Modal Slot Options:**
 When using slots for Modals, you need to add a single blank line before each `<modal>` tag, in order for the customization to render correctly.
 
 Slot name | Default class | Notes
 --- | --- | ---
-`modal-header` | `modal-title` |
-`modal-footer` | `modal-footer` | Specifying `modal-footer` will override the `ok-text` attribute, and the OK button will not render.
+header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>`modal-header` <br> (deprecated)</small>  | `modal-title` |
+footer <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>`modal-footer` <br> (deprecated)</small> | `modal-footer` | Specifying `modal-footer` will override the `ok-text` attribute, and the OK button will not render.
+
+**Popover Slot Options:**
+Slot name | Default class
+--- | --- | ---
+header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>`title` <br> (deprecated)</small>  | `popover-header`
+content | `popover-body` 
+
 
 ### Inserting custom classes into components
 

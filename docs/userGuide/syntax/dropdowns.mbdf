@@ -6,7 +6,7 @@
 <span id="code">
 
 ```html
-<dropdown text="Action" type="primary">
+<dropdown header="Action" type="primary">
   <li><a href="#dropdown" class="dropdown-item">Action</a></li>
   <li><a href="#dropdown" class="dropdown-item">Another action</a></li>
   <li><a href="#dropdown" class="dropdown-item">Something else here</a></li>
@@ -14,21 +14,21 @@
   <li><a href="#dropdown" class="dropdown-item">Separated link</a></li>
 </dropdown>
 
-<!-- For segmented dropdown, ignore text and add a "before" slot -->
+<!-- For segmented dropdown, ignore header and add a "before" slot -->
 <dropdown type="info">
   <button slot="before" type="button" class="btn btn-info">Segmented</button>
   <li><a href="#dropdown" class="dropdown-item">...</a></li>
 </dropdown>
 
 <!-- Right aligned list -->
-<dropdown text="Right aligned list" type="primary" menu-align-right>
+<dropdown header="Right aligned list" type="primary" menu-align-right>
   <li><a href="#dropdown" class="dropdown-item">Something else here</a></li>
 </dropdown>
 ```
 </span>
 <span id="output">
 
-<dropdown text="Action" type="primary">
+<dropdown header="Action" type="primary">
   <li><a href="#dropdown" class="dropdown-item">Action</a></li>
   <li><a href="#dropdown" class="dropdown-item">Another action</a></li>
   <li><a href="#dropdown" class="dropdown-item">Something else here</a></li>
@@ -41,7 +41,7 @@
   <li><a href="#dropdown" class="dropdown-item">...</a></li>
 </dropdown>
 
-<dropdown text="Right aligned list" type="primary" menu-align-right>
+<dropdown header="Right aligned list" type="primary" menu-align-right>
   <li><a href="#dropdown" class="dropdown-item">Something else here</a></li>
 </dropdown>
 </span>
@@ -102,7 +102,7 @@ Name | Type | Default | Description
 --- | --- | --- | ---
 disabled | `Boolean` | `false` | Whether Dropdown can be opened.
 menu-align-right | `Boolean` | `false` | Whether the dropdown list will be right-aligned.
-text | `String` | `''` | Dropdown button text.
+header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>text <br> (deprecated)</small> | `String` | `''` | Dropdown button header text.
 type | `String` | `default` | Supports: `default`, `primary`, `danger`, `info`, `warning`, `success`.
 
 <div class="indented">
@@ -114,7 +114,7 @@ type | `String` | `default` | Supports: `default`, `primary`, `danger`, `info`, 
 <span id="short" class="d-none">
 
 ```markdown
-<dropdown text="Action" type="primary">
+<dropdown header="Action" type="primary">
   <li><a href="#dropdown" class="dropdown-item">Action</a></li>
   <li><a href="#dropdown" class="dropdown-item">Another action</a></li>
   <li role="separator" class="dropdown-divider"></li>
@@ -125,7 +125,7 @@ type | `String` | `default` | Supports: `default`, `primary`, `danger`, `info`, 
 
 <span id="examples" class="d-none">
 
-<dropdown text="Action" type="primary">
+<dropdown header="Action" type="primary">
   <li><a href="#dropdown" class="dropdown-item">Action</a></li>
   <li><a href="#dropdown" class="dropdown-item">Another action</a></li>
   <li><a href="#dropdown" class="dropdown-item">Something else here</a></li>
@@ -133,7 +133,7 @@ type | `String` | `default` | Supports: `default`, `primary`, `danger`, `info`, 
   <li><a href="#dropdown" class="dropdown-item">Separated link</a></li>
 </dropdown>
 
-<!-- For segmented dropdown, ignore text and add a "before" slot -->
+<!-- For segmented dropdown, ignore header and add a "before" slot -->
 <dropdown type="info">
   <button slot="before" type="button" class="btn btn-info">Segmented</button>
   <li><a href="#dropdown" class="dropdown-item">...</a></li>

@@ -60,6 +60,10 @@ code.hljs.inline {
     padding: 0;
 }
 
+code.hljs:hover {
+    white-space: pre-wrap;
+}
+
 .markbind-table {
     width: auto;
 }
@@ -135,6 +139,11 @@ footer {
     padding-right: 20px;
     padding-top: 1rem;
     top: 0;
+}
+
+/* TODO move this back to markdown-it-attr if bundling is implemented */
+.dimmed {
+    color: #777;
 }
 
 /* Bootstrap small(sm) responsive breakpoint */
@@ -301,6 +310,8 @@ li.footnote-item:target {
 
 .hljs:not(.inline) > span {
     display: block;
+    padding: 0 0.5em 0 3.5em;
+    position: relative;
 }
 
 /* display line numbers beside each span */
@@ -310,8 +321,11 @@ li.footnote-item:target {
     color: #888;
     content: counter(line);
     counter-increment: line;
+    left: 0;
     margin-right: 0.5em;
-    padding: 0 0.5em;
+    padding-right: 0.5em;
+    position: absolute;
     text-align: right;
+    top: 0;
     width: 3em;
 }

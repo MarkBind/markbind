@@ -513,6 +513,7 @@ test('includeFile replaces <include dynamic> with <panel>', async () => {
 test('renderFile converts markdown headers to <h1>', async () => {
   const markbinder = new MarkBind();
   const rootPath = path.resolve('');
+  const headerIdMap = {};
   const indexPath = path.resolve('index.md');
 
   const index = ['# Index'].join('\n');
@@ -528,6 +529,7 @@ test('renderFile converts markdown headers to <h1>', async () => {
   const result = await markbinder.renderFile(indexPath, {
     baseUrlMap,
     rootPath,
+    headerIdMap,
   });
 
   const expected = [

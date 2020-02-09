@@ -7,7 +7,7 @@
 
 ```html
 More about <trigger for="modal:loremipsum">trigger</trigger>.
-<modal title="**Modal title** :rocket:" id="modal:loremipsum">
+<modal header="**Modal header** :rocket:" id="modal:loremipsum">
   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
   magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
   consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
@@ -18,7 +18,7 @@ This is the same <trigger for="modal:loremipsum">trigger</trigger> as last one.
 
 <trigger for="modal:centered">This is a trigger for a centered modal</trigger>.
 
-<modal title="**Centered** :rocket:" id="modal:centered" center>
+<modal header="**Centered** :rocket:" id="modal:centered" center>
   Centered
 </modal>
 
@@ -27,7 +27,7 @@ This is the same <trigger for="modal:loremipsum">trigger</trigger> as last one.
 <span id="output">
 
   More about <trigger for="modal:loremipsum">trigger</trigger>.
-  <modal title="**Modal title** :rocket:" id="modal:loremipsum">
+  <modal header="**Modal header** :rocket:" id="modal:loremipsum">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
       consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
@@ -38,7 +38,7 @@ This is the same <trigger for="modal:loremipsum">trigger</trigger> as last one.
 
   <trigger for="modal:centered">This is a trigger for a centered modal</trigger>.
 
-  <modal title="**Centered** :rocket:" id="modal:centered" center>
+  <modal header="**Centered** :rocket:" id="modal:centered" center>
     Centered
   </modal>
 </span>
@@ -51,7 +51,7 @@ This is the same <trigger for="modal:loremipsum">trigger</trigger> as last one.
 ****Options****
 Name | type | Default | Description
 --- | --- | --- | ---
-title | `String` | `''` | Title of the Modal component.
+header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>title <br> (deprecated)</small> | `String` | `''` | Header of the Modal component. Supports inline markdown text.
 ok-text | `String` | `''` | Text for the OK button.
 effect | `String` | `zoom` | Supports: `zoom`, `fade`.
 id | `String` | | Used by [Trigger](#trigger) to activate the Modal by id.
@@ -65,7 +65,7 @@ backdrop | `Boolean` | `true` | Enables closing the Modal by clicking on the bac
 
 ```html
 Click <trigger trigger="click" for="modal:unused">here</trigger> to open a modal.
-<modal title="Modal title" id="modal:unused">
+<modal header="Modal header" id="modal:unused">
     Modal content
 </modal>
 ```
@@ -74,7 +74,7 @@ Click <trigger trigger="click" for="modal:unused">here</trigger> to open a modal
 <span id="examples" class="d-none">
 
 Hover <trigger large for="modal:unused">here</trigger> to open a modal.
-<modal title="Modal title" ok-text="OK" id="modal:unused">
+<modal header="Modal header" ok-text="OK" id="modal:unused">
   Modal content
 </modal>
 </span>
