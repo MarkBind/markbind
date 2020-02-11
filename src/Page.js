@@ -52,7 +52,39 @@ const {
 cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
+
 class Page {
+  /**
+   * A page configuration object.
+   * @typedef {Object<string, any>} PageConfig
+   * @property {string} asset
+   * @property {string} baseUrl
+   * @property {Object<string, string>} baseUrlMap // ??
+   * @property {string} content
+   * @property {string} faviconUrl
+   * @property {Object<string, any>} frontmatter
+   * @property {string} layout
+   * @property {string} layoutsAssetPath
+   * @property {string} rootPath
+   * @property {boolean} enableSearch
+   * @property {boolean} globalOverride
+   * @property {Array} plugins
+   * @property {Object<string, Object<string, any>>} pluginsContext
+   * @property {boolean} searchable
+   * @property {string} src
+   * @property {string} pageTemplate // ??
+   * @property {string} title
+   * @property {string} titlePrefix
+   * @property {Object<string, any>} userDefinedVariablesMap // ??
+   * @property {string} sourcePath the source file for rendering this page
+   * @property {string} tempPath the temp path for writing intermediate result
+   * @property {string} resultPath the output path of this page
+   * @property {number} headingIndexingLevel
+   */
+
+  /**
+   * @param {PageConfig} pageConfig
+   */
   constructor(pageConfig) {
     this.asset = pageConfig.asset;
     this.baseUrl = pageConfig.baseUrl;
@@ -97,6 +129,17 @@ class Page {
     this.hasSiteNav = false;
   }
 
+  // TODO(le0tan): document template data
+  /**
+   * A template data object.
+   * @typedef {Object<string, any>} TemplateData
+   * @property {Object<string, any>} asset
+   * @property {string} baseUrl
+   * /
+
+  /**
+   * @returns {TemplateData} templateData
+   */
   prepareTemplateData() {
     const prefixedTitle = this.titlePrefix
       ? this.titlePrefix + (this.title ? TITLE_PREFIX_SEPARATOR + this.title : '')
