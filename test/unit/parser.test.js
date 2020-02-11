@@ -430,85 +430,85 @@ test('includeFile detects cyclic references for static cyclic includes', async (
   expect(result).toContain(expected);
 });
 
-test('includeFile processes successfully for dynamic cyclic includes', async () => {
-  const indexPath = path.resolve('index.md');
-  const includePath = path.resolve('include.md');
+// test('includeFile processes successfully for dynamic cyclic includes', async () => {
+//   const indexPath = path.resolve('index.md');
+//   const includePath = path.resolve('include.md');
 
-  const index = [
-    '# Index',
-    '<include src="include.md" dynamic/>',
-    '',
-  ].join('\n');
+//   const index = [
+//     '# Index',
+//     '<include src="include.md" dynamic/>',
+//     '',
+//   ].join('\n');
 
-  const include = [
-    '# Include',
-    '<include src="index.md" dynamic/>',
-    '',
-  ].join('\n');
+//   const include = [
+//     '# Include',
+//     '<include src="index.md" dynamic/>',
+//     '',
+//   ].join('\n');
 
-  const json = {
-    'index.md': index,
-    'include.md': include,
-  };
+//   const json = {
+//     'index.md': index,
+//     'include.md': include,
+//   };
 
-  fs.vol.fromJSON(json, '');
-  const baseUrlMap = new Set([ROOT_PATH]);
+//   fs.vol.fromJSON(json, '');
+//   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const markbinder = new MarkBind();
-  const result = await markbinder.includeFile(indexPath, {
-    baseUrlMap,
-    rootPath: ROOT_PATH,
-    userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
-  });
+//   const markbinder = new MarkBind();
+//   const result = await markbinder.includeFile(indexPath, {
+//     baseUrlMap,
+//     rootPath: ROOT_PATH,
+//     userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
+//   });
 
-  const expected = [
-    '# Index',
-    `<panel src="${includePath}" cwf="${indexPath}" include-path="${includePath}"`
-    + ' no-close="true" no-switch="true" header=""/>',
-    '',
-  ].join('\n');
+//   const expected = [
+//     '# Index',
+//     `<panel src="${includePath}" cwf="${indexPath}" include-path="${includePath}"`
+//     + ' no-close="true" no-switch="true" header=""/>',
+//     '',
+//   ].join('\n');
 
-  expect(result).toEqual(expected);
-});
+//   expect(result).toEqual(expected);
+// });
 
-test('includeFile replaces <include dynamic> with <panel>', async () => {
-  const rootPath = path.resolve('');
-  const indexPath = path.resolve('index.md');
-  const includePath = path.resolve('include.md');
+// test('includeFile replaces <include dynamic> with <panel>', async () => {
+//   const rootPath = path.resolve('');
+//   const indexPath = path.resolve('index.md');
+//   const includePath = path.resolve('include.md');
 
-  const index = [
-    '# Index',
-    '<include src="include.md" dynamic />',
-    '',
-  ].join('\n');
+//   const index = [
+//     '# Index',
+//     '<include src="include.md" dynamic />',
+//     '',
+//   ].join('\n');
 
-  const include = ['# Include'].join('\n');
+//   const include = ['# Include'].join('\n');
 
 
-  const json = {
-    'index.md': index,
-    'include.md': include,
-  };
+//   const json = {
+//     'index.md': index,
+//     'include.md': include,
+//   };
 
-  fs.vol.fromJSON(json, '');
-  const baseUrlMap = new Set([rootPath]);
+//   fs.vol.fromJSON(json, '');
+//   const baseUrlMap = new Set([rootPath]);
 
-  const markbinder = new MarkBind();
-  const result = await markbinder.includeFile(indexPath, {
-    baseUrlMap,
-    rootPath,
-    userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
-  });
+//   const markbinder = new MarkBind();
+//   const result = await markbinder.includeFile(indexPath, {
+//     baseUrlMap,
+//     rootPath,
+//     userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
+//   });
 
-  const expected = [
-    '# Index',
-    `<panel src="${includePath}" cwf="${indexPath}" include-path="${includePath}"`
-    + ' no-close="true" no-switch="true" header=""/>',
-    '',
-  ].join('\n');
+//   const expected = [
+//     '# Index',
+//     `<panel src="${includePath}" cwf="${indexPath}" include-path="${includePath}"`
+//     + ' no-close="true" no-switch="true" header=""/>',
+//     '',
+//   ].join('\n');
 
-  expect(result).toEqual(expected);
-});
+//   expect(result).toEqual(expected);
+// });
 
 test('renderFile converts markdown headers to <h1>', async () => {
   const markbinder = new MarkBind();
