@@ -21,6 +21,8 @@ const Site = require('./src/Site');
 const {
   ACCEPTED_COMMANDS,
   ACCEPTED_COMMANDS_ALIAS,
+  INDEX_MARKDOWN_FILE,
+  LAZY_LOADING_SITE_FILE_NAME,
 } = require('./src/constants');
 const CLI_VERSION = require('./package.json').version;
 
@@ -95,26 +97,30 @@ program
   .description('build then serve a website from a directory')
   .option('-f, --force-reload', 'force a full reload of all site files when a file is changed')
   .option('-n, --no-open', 'do not automatically open the site in browser')
-  .option('-o, --one-page <file>', 'render and serve only a single page in the site')
+  .option('-o, --one-page [file]', 'build and serve only a single page in the site initially,'
+    + 'building more pages when they are navigated to. Also lazily rebuilds only the page being viewed when'
+    + 'there are changes to the source files (if needed), building others when navigated to')
   .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
   .action((userSpecifiedRoot, options) => {
     let rootFolder;
     try {
       rootFolder = cliUtil.findRootFolder(userSpecifiedRoot, options.siteConfig);
+
+      if (options.forceReload && options.onePage) {
+        handleError(new Error('Oops! You shouldn\'t need to use the --force-reload option with --one-page.'));
+        process.exit();
+      }
     } catch (err) {
       handleError(err);
     }
     const logsFolder = path.join(rootFolder, '_markbind/logs');
     const outputFolder = path.join(rootFolder, '_site');
 
-    if (options.onePage) {
-      // replace slashes for paths on Windows
-      // eslint-disable-next-line no-param-reassign
-      options.onePage = ensurePosix(options.onePage);
-    }
+    let onePagePath = options.onePage === true ? INDEX_MARKDOWN_FILE : options.onePage;
+    onePagePath = onePagePath ? ensurePosix(onePagePath) : onePagePath;
 
-    const site = new Site(rootFolder, outputFolder, options.onePage, options.forceReload, options.siteConfig);
+    const site = new Site(rootFolder, outputFolder, onePagePath, options.forceReload, options.siteConfig);
 
     const addHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
@@ -152,12 +158,15 @@ program
       });
     };
 
+    const onePageHtmlUrl = onePagePath && `/${onePagePath.replace(/\.(md|mbd|mbdf)$/, '.html')}`;
+
     // server config
     const serverConfig = {
-      open: options.open && (options.onePage ? `/${options.onePage.replace(/\.(md|mbd)$/, '.html')}` : true),
+      open: options.open && (onePageHtmlUrl || true),
       logLevel: 0,
       root: outputFolder,
       port: options.port || 8080,
+      middleware: [],
       mount: [],
     };
 
@@ -167,6 +176,30 @@ program
       .readSiteConfig()
       .then((config) => {
         serverConfig.mount.push([config.baseUrl || '/', outputFolder]);
+
+        if (onePagePath) {
+          const lazyReloadMiddleware = function (req, res, next) {
+            const isHtmlFile = req.url.endsWith('.html');
+
+            if (isHtmlFile) {
+              const isDynamicIncludeHtmlFile = req.url.endsWith('._include_.html');
+
+              if (!isDynamicIncludeHtmlFile) {
+                const urlWithoutBaseUrl = req.url.replace(config.baseUrl, '');
+                const urlWithoutExtension = fsUtil.removeExtension(urlWithoutBaseUrl);
+
+                const didInitiateRebuild = site.changeCurrentPage(urlWithoutExtension);
+                if (didInitiateRebuild) {
+                  req.url = ensurePosix(path.join(config.baseUrl || '/', LAZY_LOADING_SITE_FILE_NAME));
+                }
+              }
+            }
+            next();
+          };
+
+          serverConfig.middleware.push(lazyReloadMiddleware);
+        }
+
         return site.generate();
       })
       .then(() => {
