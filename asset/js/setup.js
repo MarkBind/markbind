@@ -140,6 +140,26 @@ function setupWithSearch() {
   setupSiteNav();
 }
 
+function getInnerPopoverContent(element) {
+  const contentElement = element.querySelector('[data-mb-html-for=content]');
+  return contentElement === null ? '' : contentElement.innerHTML;
+}
+
+function getInnerPopoverTitle(element) {
+  const titleElement = element.querySelector('[data-mb-html-for=header]');
+  return titleElement === null ? '' : titleElement.innerHTML;
+}
+
+// eslint-disable-next-line no-unused-vars
+function getPopoverContentById(element) {
+  return getInnerPopoverContent(document.getElementById(element.attributes.for.value));
+}
+
+// eslint-disable-next-line no-unused-vars
+function getPopoverTitleById(element) {
+  return getInnerPopoverTitle(document.getElementById(element.attributes.for.value));
+}
+
 if (enableSearch) {
   setupWithSearch();
 } else {

@@ -302,3 +302,13 @@ panel[minimized]:not([expanded])::before {
 li.footnote-item:target {
     background-color: #eee;
 }
+
+/* hide popover, modal, tooltip content */
+[data-mb-html-for] {
+    display: none;
+}
+
+/* styles for triggers */
+.trigger {
+    text-decoration: underline dotted;
+}

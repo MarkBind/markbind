@@ -42,6 +42,26 @@ function _parseAttributeWithoutOverride(element, attribute, isInline, slotName =
   delete el.attribs[attribute];
 }
 
+/**
+ * Takes an element, looks for direct elements with slots and transforms to avoid Vue parsing.
+ * @param element Element to transform
+ */
+function _transformSlottedComponents(element) {
+  element.children.forEach((c) => {
+    const child = c;
+    const slot = child.attribs && child.attribs.slot;
+    if (slot) {
+      // Turns <div slot="content">... into <div data-mb-html-for=content>...
+      child.attribs['data-mb-html-for'] = slot;
+      delete child.attribs.slot;
+    }
+    // similarly, need to transform templates to avoid Vue parsing
+    if (child.name === 'template') {
+      child.name = 'span';
+    }
+  });
+}
+
 /*
  * Panels
  */
@@ -119,16 +139,38 @@ function _assignPanelId(element) {
   }
 }
 
+/*
+ * Triggers
+ */
+
+function _parseTrigger(element) {
+  const el = element;
+  el.name = 'span';
+  const trigger = el.attribs.trigger || 'hover';
+  const placement = el.attribs.placement || 'top';
+  el.attribs[`v-b-popover.${trigger}.${placement}.html`]
+    = '{title:getPopoverTitleById, content:getPopoverContentById}';
+  el.attribs.class = el.attribs.class ? el.attribs.class + " trigger" : "trigger";
+}
 
 /*
  * Popovers
  */
 
-function _parsePopoverAttributes(element) {
-  _parseAttributeWithoutOverride(element, 'content', true);
-  _parseAttributeWithoutOverride(element, 'header', true);
+function _parsePopover(element) {
+  const el = element;
+  _parseAttributeWithoutOverride(el, 'content', true);
+  _parseAttributeWithoutOverride(el, 'header', true);
   // TODO deprecate title attribute for popovers
-  _parseAttributeWithoutOverride(element, 'title', true, 'header');
+  _parseAttributeWithoutOverride(el, 'title', true, 'header');
+
+  el.name = 'span';
+  const trigger = el.attribs.trigger || 'hover';
+  const placement = el.attribs.placement || 'top';
+  el.attribs[`v-b-popover.${trigger}.${placement}.html`]
+    = '{title:getInnerPopoverTitle, content:getInnerPopoverContent}';
+  el.attribs.class = el.attribs.class ? el.attribs.class + " trigger" : "trigger";
+  _transformSlottedComponents(el);
 }
 
 /*
@@ -191,8 +233,11 @@ function parseComponents(element, errorHandler) {
     case 'panel':
       _parsePanelAttributes(element);
       break;
+    case 'trigger':
+      _parseTrigger(element);
+      break;
     case 'popover':
-      _parsePopoverAttributes(element);
+      _parsePopover(element);
       break;
     case 'tooltip':
       _parseTooltipAttributes(element);
