@@ -149,7 +149,9 @@ function _parseTrigger(element) {
   const trigger = el.attribs.trigger || 'hover';
   const placement = el.attribs.placement || 'top';
   el.attribs[`v-b-popover.${trigger}.${placement}.html`]
-    = '{title:getPopoverTitleById, content:getPopoverContentById}';
+    = '{title:popoverHeaderGetter, content:popoverContentGetter}';
+  el.attribs[`v-b-tooltip.${trigger}.${placement}.html`]
+    = 'tooltipContentGetter';
   el.attribs.class = el.attribs.class ? el.attribs.class + " trigger" : "trigger";
 }
 
@@ -167,8 +169,9 @@ function _parsePopover(element) {
   el.name = 'span';
   const trigger = el.attribs.trigger || 'hover';
   const placement = el.attribs.placement || 'top';
+  el.attribs['data-mb-component-type'] = 'popover';
   el.attribs[`v-b-popover.${trigger}.${placement}.html`]
-    = '{title:getInnerPopoverTitle, content:getInnerPopoverContent}';
+    = '{title:popoverInnerHeaderGetter, content:popoverInnerContentGetter}';
   el.attribs.class = el.attribs.class ? el.attribs.class + " trigger" : "trigger";
   _transformSlottedComponents(el);
 }
@@ -177,8 +180,18 @@ function _parsePopover(element) {
  * Tooltips
  */
 
-function _parseTooltipAttributes(element) {
-  _parseAttributeWithoutOverride(element, 'content', true, '_content');
+function _parseTooltip(element) {
+  const el = element;
+  _parseAttributeWithoutOverride(el, 'content', true, '_content');
+
+  el.name = 'span';
+  const trigger = el.attribs.trigger || 'hover';
+  const placement = el.attribs.placement || 'top';
+  el.attribs['data-mb-component-type'] = 'tooltip';
+  el.attribs[`v-b-tooltip.${trigger}.${placement}.html`]
+    = 'tooltipInnerContentGetter';
+  el.attribs.class = el.attribs.class ? el.attribs.class + " trigger" : "trigger";
+  _transformSlottedComponents(el);
 }
 
 /*
@@ -240,7 +253,7 @@ function parseComponents(element, errorHandler) {
       _parsePopover(element);
       break;
     case 'tooltip':
-      _parseTooltipAttributes(element);
+      _parseTooltip(element);
       break;
     case 'modal':
       _parseModalAttributes(element);
