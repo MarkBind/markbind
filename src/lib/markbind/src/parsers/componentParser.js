@@ -186,7 +186,22 @@ function _parseBoxAttributes(element) {
  */
 
 function _parseDropdownAttributes(element) {
-  _parseAttributeWithoutOverride(element, 'header', true, '_header');
+  const el = element;
+  const slotChildren = el.children && el.children.filter(child => _.has(child.attribs, 'slot'));
+  const hasHeaderSlot = slotChildren && slotChildren.some(child => child.attribs.slot === 'header');
+
+  // If header slot is present, the header attribute has no effect, and we can simply remove it.
+  if (hasHeaderSlot) {
+    delete el.attribs.header;
+    return;
+  }
+
+  // header attribute takes priority over text attribute
+  if (_.has(element.attribs, 'header')) {
+    _parseAttributeWithoutOverride(element, 'header', true, '_header');
+  } else {
+    _parseAttributeWithoutOverride(element, 'text', true, '_header');
+  }
 }
 
 /*
