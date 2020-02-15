@@ -136,6 +136,11 @@ footer {
     top: 0;
 }
 
+/* TODO move this back to markdown-it-attr if bundling is implemented */
+.dimmed {
+    color: #777;
+}
+
 /* Bootstrap small(sm) responsive breakpoint */
 @media (max-width: 767.98px) {
     .dropdown-menu > li > a {

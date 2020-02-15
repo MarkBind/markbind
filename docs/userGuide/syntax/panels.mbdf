@@ -277,10 +277,10 @@
 </include>
 
 ****Options****
-Name | Type | Default | Description 
+Name | Type | Default | Description
 --- | --- | --- | ---
-header | `String` | `''` | The clickable text on the Panel's header.
-alt | `String` | Panel header | The clickable text on the minimised Panel.
+header | `String` | `''` | The clickable text on the Panel's header. Supports MarkDown text.
+alt | `String` | Panel header | The clickable text on the minimised Panel. Supports MarkDown text.
 expandable | `Boolean`| `true` | Whether Panel is expandable.
 expanded | `Boolean` | `false` | Whether Panel is expanded or collapsed when loaded in.
 minimized | `Boolean` | `false` | Whether Panel is minimized.

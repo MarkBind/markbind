@@ -234,6 +234,8 @@ class Site {
         glyphicons: path.relative(path.dirname(resultPath),
                                   path.join(this.siteAssetsDestPath, 'glyphicons', 'css',
                                             'bootstrap-glyphicons.min.css')),
+        octicons: path.relative(path.dirname(resultPath),
+                                path.join(this.siteAssetsDestPath, 'css', 'octicons.css')),
         highlight: path.relative(path.dirname(resultPath),
                                  path.join(this.siteAssetsDestPath, 'css', 'github.min.css')),
         markbind: path.relative(path.dirname(resultPath),
@@ -526,6 +528,7 @@ class Site {
         .then(() => this.buildSourceFiles())
         .then(() => this.copyMarkBindAsset())
         .then(() => this.copyFontAwesomeAsset())
+        .then(() => this.copyOcticonsAsset())
         .then(() => this.copyLayouts())
         .then(() => this.updateSiteData())
         .then(() => {
@@ -846,7 +849,6 @@ class Site {
     this.pages.forEach((page) => {
       if (generateForAllPages || filePaths.some(filePath => page.includedFiles.has(filePath))) {
         page.collectHeadingsAndKeywords();
-        page.concatenateHeadingsAndKeywords();
       }
     });
     this.writeSiteData();
@@ -863,6 +865,17 @@ class Site {
     const faFontsDestPath = path.join(this.siteAssetsDestPath, 'fontawesome', 'webfonts');
 
     return fs.copyAsync(faCssSrcPath, faCssDestPath).then(fs.copyAsync(faFontsSrcPath, faFontsDestPath));
+  }
+
+  /**
+   * Copies Octicon assets to the assets folder
+   */
+  copyOcticonsAsset() {
+    const octiconsRootSrcPath = path.join(__dirname, '..', 'node_modules', '@primer', 'octicons', 'build');
+    const octiconsCssSrcPath = path.join(octiconsRootSrcPath, 'build.css');
+    const octiconsCssDestPath = path.join(this.siteAssetsDestPath, 'css', 'octicons.css');
+
+    return fs.copyAsync(octiconsCssSrcPath, octiconsCssDestPath);
   }
 
   /**
@@ -921,7 +934,11 @@ class Site {
       const siteData = {
         enableSearch: this.siteConfig.enableSearch,
         pages: this.pages.filter(page => page.searchable)
-          .map(page => ({ headings: page.headings, ...page.frontMatter })),
+          .map(page => ({
+            ...page.frontMatter,
+            headings: page.headings,
+            headingKeywords: page.keywords,
+          })),
       };
 
       fs.outputJsonAsync(siteDataPath, siteData)

@@ -16,7 +16,7 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userguid
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
   <!-- You can use dropdown component -->
-  <dropdown text="Dropdown" class="nav-link">
+  <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
   </dropdown>
   <!-- For right positioning use slot -->
@@ -29,7 +29,7 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userguid
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
   <!-- You can use dropdown component -->
-  <dropdown text="Dropdown" class="nav-link">
+  <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
   </dropdown>
   <!-- For right positioning use slot -->
@@ -42,7 +42,7 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userguid
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
   <!-- You can use dropdown component -->
-  <dropdown text="Dropdown" class="nav-link">
+  <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
   </dropdown>
   <!-- For right positioning use slot -->
@@ -60,7 +60,7 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userguid
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
   <!-- You can use dropdown component -->
-  <dropdown text="Dropdown" class="nav-link">
+  <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
   </dropdown>
   <!-- For right positioning use slot -->
@@ -73,7 +73,7 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userguid
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
   <!-- You can use dropdown component -->
-  <dropdown text="Dropdown" class="nav-link">
+  <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
   </dropdown>
   <!-- For right positioning use slot -->
@@ -86,7 +86,7 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userguid
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
   <!-- You can use dropdown component -->
-  <dropdown text="Dropdown" class="nav-link">
+  <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
   </dropdown>
   <!-- For right positioning use slot -->
@@ -118,7 +118,7 @@ If you wish to further customize your navbar beyond the primary, dark, and light
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
   <!-- You can use dropdown component -->
-  <dropdown text="Dropdown" class="nav-link">
+  <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
   </dropdown>
   <!-- For right positioning use slot -->
@@ -136,7 +136,7 @@ If you wish to further customize your navbar beyond the primary, dark, and light
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
   <!-- You can use dropdown component -->
-  <dropdown text="Dropdown" class="nav-link">
+  <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
   </dropdown>
   <!-- For right positioning use slot -->
@@ -149,7 +149,7 @@ If you wish to further customize your navbar beyond the primary, dark, and light
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
   <!-- You can use dropdown component -->
-  <dropdown text="Dropdown" class="nav-link">
+  <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
   </dropdown>
   <!-- For right positioning use slot -->
@@ -162,7 +162,7 @@ If you wish to further customize your navbar beyond the primary, dark, and light
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
   <!-- You can use dropdown component -->
-  <dropdown text="Dropdown" class="nav-link">
+  <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
   </dropdown>
   <!-- For right positioning use slot -->

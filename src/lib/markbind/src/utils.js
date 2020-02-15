@@ -72,4 +72,32 @@ module.exports = {
   createErrorElement(error) {
     return `<div style="color: red">${error.message}</div>`;
   },
+
+  /**
+   * Traverses the dom depth-first from the specified element to concatenate
+   * all text of the specified element.
+   * @param element Root element to search from
+   * @returns string The concatenated text, or undefined if it is an empty string.
+   */
+  getTextContent(element) {
+    const elements = element.children;
+    if (!elements || !elements.length) {
+      return undefined;
+    }
+
+    const elementStack = elements.slice();
+    const text = [];
+    while (elementStack.length) {
+      const nextEl = elementStack.shift();
+      if (nextEl.type === 'text') {
+        text.push(nextEl.data);
+      }
+
+      if (nextEl.children && nextEl.type !== 'comment') {
+        elementStack.unshift(...nextEl.children);
+      }
+    }
+
+    return text.join('').trim();
+  },
 };
