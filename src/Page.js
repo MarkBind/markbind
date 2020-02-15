@@ -344,17 +344,6 @@ class Page {
   }
 
   /**
-   * Concatenates keywords in this.keywords to heading text in this.headings
-   */
-  concatenateHeadingsAndKeywords() {
-    Object.keys(this.keywords)
-      .forEach((headingId) => {
-        const keywordString = this.keywords[headingId].join(', ');
-        this.headings[headingId] += ` | ${keywordString}`;
-      });
-  }
-
-  /**
    * Records the dynamic or static included files into this.includedFiles
    * @param dependencies array of maps of the external dependency and where it is included
    */

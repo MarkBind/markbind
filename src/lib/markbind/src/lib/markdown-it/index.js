@@ -59,7 +59,7 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
         return highlightedLine.value;
       });
       highlighted = true;
-    } catch {}
+    } catch (_) {}
   }
   if (!highlighted) {
     lines = markdownIt.utils.escapeHtml(str).split('\n');
