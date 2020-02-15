@@ -36,22 +36,42 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const lang = token.info || '';
   let str = token.content;
   let highlighted = false;
+  let lines;
   if (lang && hljs.getLanguage(lang)) {
     try {
-      str = hljs.highlight(lang, str).value;
+      /* We cannot syntax highlight THEN split by lines. For eg:
+      ```markdown
+      *****
+      -----
+      ```
+
+      becomes
+
+      <span class="hljs-section">*****
+      -----</span>
+      Note the line break contained inside a <span> element.
+      So we have to split by lines THEN syntax highlight.
+       */
+      let state = null; // state stores the current parse state of hljs, so that we can pass it on line by line
+      lines = str.split('\n').map((line) => {
+        const highlightedLine = hljs.highlight(lang, line, true, state);
+        state = highlightedLine.top;
+        return highlightedLine.value;
+      });
       highlighted = true;
-    } catch (__) {}
+    } catch {}
   }
   if (!highlighted) {
-    str = markdownIt.utils.escapeHtml(str);
+    lines = markdownIt.utils.escapeHtml(str).split('\n');
   }
-  const lines = str.split('\n');
   lines.pop(); // last line is always a single '\n' newline, so we remove it
-  str =  lines.map(line => `<span>${line || '&#x200B;'}</span>`).join('');
-  // wrap all lines with <span> so we can number them
-  // if a line is empty we put a 0 width non breaking space
-  token.attrJoin('class', 'hljs');
 
+  /* wrap all lines with <span> so we can number them
+  if a line is empty we put a 0 width non breaking space
+   */
+  str =  lines.map(line => `<span>${line || '&#x200B;'}</span>`).join('');
+
+  token.attrJoin('class', 'hljs');
   if (highlighted) {
     token.attrJoin('class', lang);
   }
