@@ -2,13 +2,14 @@
   "enableSearch": true,
   "pages": [
     {
-      "headings": {
-        "welcome-to-markbind": "Welcome to Markbind"
-      },
       "footer": "footer.md",
       "src": "index.md",
       "title": "Landing Page",
-      "layout": "default"
+      "layout": "default",
+      "headings": {
+        "welcome-to-markbind": "Welcome to Markbind"
+      },
+      "headingKeywords": {}
     }
   ]
 }

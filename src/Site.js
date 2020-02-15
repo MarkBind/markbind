@@ -849,7 +849,6 @@ class Site {
     this.pages.forEach((page) => {
       if (generateForAllPages || filePaths.some(filePath => page.includedFiles.has(filePath))) {
         page.collectHeadingsAndKeywords();
-        page.concatenateHeadingsAndKeywords();
       }
     });
     this.writeSiteData();
@@ -928,7 +927,11 @@ class Site {
       const siteData = {
         enableSearch: this.siteConfig.enableSearch,
         pages: this.pages.filter(page => page.searchable)
-          .map(page => ({ headings: page.headings, ...page.frontMatter })),
+          .map(page => ({
+            ...page.frontMatter,
+            headings: page.headings,
+            headingKeywords: page.keywords,
+          })),
       };
 
       fs.outputJsonAsync(siteDataPath, siteData)
