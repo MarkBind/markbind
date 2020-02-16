@@ -3,14 +3,20 @@ const cheerio = require('cheerio');
 const cryptoJS = require('crypto-js');
 const fs = require('fs');
 const { exec } = require('child_process');
+
+const parserUtil = require('../lib/markbind/src/utils');
 const logger = require('../util/logger');
 const fsUtil = require('../util/fsUtil');
-
-const PLANTUML_JAR_NAME = 'plantuml.jar';
-
+const md = require('../lib/markbind/src/lib/markdown-it');
 const {
   ATTRIB_RESULT_PATH,
 } = require('../lib/markbind/src/constants');
+
+const _ = {};
+_.hasIn = require('lodash/hasIn');
+
+const PLANTUML_JAR_NAME = 'plantuml.jar';
+const PUML_NAME = 'puml';
 
 function getFileName(context, content) {
   if (context.name !== undefined) {
@@ -43,7 +49,7 @@ function generateElement(context) {
 * Curry function takes in context returning a widgetHandler function
 * PUML widgetHandler takes in raw PUML contents and returns img with puml
 */
-function parseAndRenderPUML(context) {
+function parseAndRender(context) {
   return function (content) {
     const outputDir = path.dirname(context.resultPath);
     const fileName = getFileName(context, content);
@@ -92,9 +98,62 @@ function parseAndRenderPUML(context) {
   };
 }
 
+class Puml {
+  constructor() {
+    this.name = PUML_NAME;
+  }
+
+  preprocess(config, context, pumlElement) { // eslint-disable-line class-methods-use-this
+    const element = pumlElement;
+    if (!_.hasIn(element.attribs, 'src')) {
+      return element;
+    }
+    const resultPath = path.resolve(path.dirname(config.resultPath), element.attribs.src);
+    const pumlContext = {
+      resultPath,
+      ...element.attribs,
+    };
+
+    // Path of the .puml file
+    const rawDiagramPath = path.resolve(path.dirname(context.cwf), pumlContext.src);
+    const pumlContent = fs.readFileSync(rawDiagramPath, 'utf8');
+    const generatePUML = parseAndRender(pumlContext);
+
+    const childrenDOM = generatePUML(pumlContent);
+    element.name = 'div';
+    element.attribs = {};
+
+    element.children = cheerio.parseHTML(childrenDOM);
+    element.children.cwf = context.cwf;
+    return element;
+  }
+
+  parse(config, context, pumlElement) {
+    const element = pumlElement;
+
+    const pumlContext = {
+      resultPath: config.resultPath,
+      ...element.attribs,
+    };
+
+    element.name = 'div';
+    element.attribs = {};
+    cheerio.prototype.options.xmlMode = false;
+    const generatePUML = parseAndRender(pumlContext);
+    const widgetHandler = {};
+    widgetHandler[this.name] = generatePUML;
+
+    const pumlContent = parserUtil.extractCodeElement(element, this.name);
+
+    element.children = cheerio.parseHTML(md.render(cheerio.html(pumlContent), widgetHandler), true);
+    return element;
+  }
+}
+
 /*
 * Parse and render PUML widget
 */
 module.exports = {
-  parseAndRender: parseAndRenderPUML,
+  parseAndRender,
+  Puml,
 };

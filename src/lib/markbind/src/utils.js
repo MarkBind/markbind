@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const cheerio = require('cheerio');
 
 const { markdownFileExts } = require('./constants');
 
@@ -99,5 +100,22 @@ module.exports = {
     }
 
     return text.join('').trim();
+  },
+
+  extractCodeElement(element, codeLanguage = '') {
+    let codeBlockElement = cheerio.parseHTML('<div></div>', true)[0];
+
+    element.children.forEach((child) => {
+      if (child.name === 'pre' && child.children.length >= 1) {
+        const [nestedChild] = child.children;
+        if (nestedChild.name !== 'code') {
+          return;
+        }
+        [codeBlockElement] = nestedChild.children;
+        codeBlockElement.data = `\`\`\`${codeLanguage}\n${codeBlockElement.data}\n\`\`\``;
+      }
+    });
+
+    return codeBlockElement;
   },
 };
