@@ -39,6 +39,7 @@ module.exports = {
   CONFIG_FOLDER_NAME: '_markbind',
   HEADING_INDEXING_LEVEL_DEFAULT: 3,
   SITE_ASSET_FOLDER_NAME: 'asset',
+  SITE_FOLDER_NAME: '_site',
   TEMP_FOLDER_NAME: '.temp',
   TEMPLATE_SITE_ASSET_FOLDER_NAME: 'markbind',
 
