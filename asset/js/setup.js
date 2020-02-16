@@ -29,10 +29,16 @@ function setupAnchors() {
   const headerSelector = jQuery('header');
   const isFixed = headerSelector.filter('.header-fixed').length !== 0;
   const headerHeight = headerSelector.height();
-  const topPadding = 1;
   if (isFixed) {
-    jQuery('.nav-inner').css('padding-top', `calc(${headerHeight}px + ${2 * topPadding}rem)`);
-    jQuery('#content-wrapper').css('padding-top', `calc(${headerHeight}px + ${2 * topPadding}rem)`);
+    jQuery('.nav-inner').css('padding-top', `calc(${headerHeight}px)`);
+    jQuery('#content-wrapper').css('padding-top', `calc(${headerHeight}px)`);
+    insertCss(
+      `span.anchor {
+      display: block;
+      position: relative;
+      top: -${headerHeight}px
+      }`,
+    );
   }
   jQuery('h1, h2, h3, h4, h5, h6, .header-wrapper').each((index, heading) => {
     if (heading.id) {
@@ -47,23 +53,8 @@ function setupAnchors() {
          * the headings from being covered by the navbar.
          */
         const spanId = heading.id;
-        jQuery(heading).append(
-          jQuery('<span/>',
-                 {
-                   id: spanId,
-                   class: 'anchor',
-                 },
-          ),
-        );
+        heading.insertAdjacentHTML('beforebegin', `<span id="${spanId}" class="anchor"></span>`);
         jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
-        const headingHeight = jQuery(heading).height();
-        const heightOffset = headerHeight + headingHeight;
-        const spanCss = `span#${spanId} { margin-top: calc(-${heightOffset}px - ${topPadding}rem);\n`
-          + '    display: block;\n'
-          + `    height: calc(${heightOffset}px + ${topPadding}rem);\n`
-          + '    visibility: hidden;\n'
-          + '    position: relative; }';
-        insertCss(spanCss);
       }
     }
   });
