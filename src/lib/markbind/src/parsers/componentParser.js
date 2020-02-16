@@ -193,13 +193,17 @@ function _parseDropdownAttributes(element) {
   // If header slot is present, the header attribute has no effect, and we can simply remove it.
   if (hasHeaderSlot) {
     delete el.attribs.header;
+    // TODO deprecate text attribute of dropdown
+    delete el.attribs.text;
     return;
   }
 
   // header attribute takes priority over text attribute
   if (_.has(element.attribs, 'header')) {
     _parseAttributeWithoutOverride(element, 'header', true, '_header');
+    delete el.attribs.text;
   } else {
+    // TODO deprecate text attribute of dropdown
     _parseAttributeWithoutOverride(element, 'text', true, '_header');
   }
 }
