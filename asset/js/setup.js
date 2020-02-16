@@ -29,6 +29,7 @@ function setupAnchors() {
   const headerSelector = jQuery('header');
   const isFixed = headerSelector.filter('.header-fixed').length !== 0;
   const headerHeight = headerSelector.height();
+  const bufferHeight = 1;
   if (isFixed) {
     jQuery('.nav-inner').css('padding-top', `calc(${headerHeight}px)`);
     jQuery('#content-wrapper').css('padding-top', `calc(${headerHeight}px)`);
@@ -36,7 +37,7 @@ function setupAnchors() {
       `span.anchor {
       display: block;
       position: relative;
-      top: -${headerHeight}px
+      top: calc(-${headerHeight}px - ${bufferHeight}rem)
       }`,
     );
   }
