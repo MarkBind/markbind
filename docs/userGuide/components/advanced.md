@@ -90,6 +90,10 @@ Slot name | Default class
 header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>`title` <br> (deprecated)</small>  | `popover-header`
 content | `popover-body` 
 
+**Dropdown Slot Options:**
+Slot name |
+--- | 
+header |
 
 ### Inserting custom classes into components
 
