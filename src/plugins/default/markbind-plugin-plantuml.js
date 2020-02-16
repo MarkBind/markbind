@@ -110,10 +110,7 @@ module.exports = {
 
     return $.html();
   },
-  getSources: (content) => {
-    // Add all src attributes in <puml> tags to watch list
-    const $ = cheerio.load(content, { xmlMode: true });
-
-    return $('puml').map((i, tag) => tag.attribs.src).get();
-  },
+  getSources: () => ({
+    tagMap: [['puml', 'src']],
+  }),
 };

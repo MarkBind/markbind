@@ -1,6 +1,6 @@
 {
   "name": "markbind",
-  "version": "2.9.0",
+  "version": "2.10.0",
   "description": "MarkBind core module.",
   "main": "src/parser.js",
   "keywords": [
@@ -28,6 +28,8 @@
     "markdown-it-ins": "^2.0.0",
     "markdown-it-mark": "^2.0.0",
     "markdown-it-regexp": "^0.4.0",
+    "markdown-it-sub": "^1.0.0",
+    "markdown-it-sup": "^1.0.0",
     "markdown-it-table-of-contents": "^0.4.4",
     "markdown-it-task-lists": "^1.4.1",
     "markdown-it-video": "^0.6.3",

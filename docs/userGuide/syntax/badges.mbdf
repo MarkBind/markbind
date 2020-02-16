@@ -65,8 +65,8 @@ Buttons:
 
 Headings:
 
-### Feature X <span class="badge badge-danger">beta</span>
-##### Feature Y <span class="badge badge-pill badge-success">stable</span>
+### Feature X <span class="badge badge-danger">beta</span> {.no-index}
+##### Feature Y <span class="badge badge-pill badge-success">stable</span> {.no-index}
 ```
 </span>
 <span id="output">
@@ -82,8 +82,8 @@ Buttons:
 
 Headings:
 
-### Feature X <span class="badge badge-danger">beta</span>
-##### Feature Y <span class="badge badge-pill badge-success">stable</span>
+### Feature X <span class="badge badge-danger">beta</span> {.no-index}
+##### Feature Y <span class="badge badge-pill badge-success">stable</span> {.no-index}
 </span>
 </include>
 
@@ -111,6 +111,6 @@ Headings:
 <span class="badge badge-pill badge-success">Success</span>
 <button type="button" class="btn btn-primary">
   Difficulty Level <span class="badge badge-light">4</span>
-##### Feature Y <span class="badge badge-pill badge-warning">stable</span>
+##### Feature Y <span class="badge badge-pill badge-warning">stable</span> {.no-index}
 </button>
 </span>

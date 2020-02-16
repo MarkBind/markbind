@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {{ headFileTopContent }}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="generator" content="{{ markBindVersion }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ asset.bootstrap }}">
+    <link rel="stylesheet" href="{{ asset.bootstrapVue }}">
+    <link rel="stylesheet" href="{{ asset.fontAwesome }}">
+    <link rel="stylesheet" href="{{ asset.glyphicons }}">
+    <link rel="stylesheet" href="{{ asset.octicons }}">
+    <link rel="stylesheet" href="{{ asset.highlight }}">
+    <link rel="stylesheet" href="{{ asset.markbind }}">
+    {%- if asset.pluginLinks -%}
+    {%- for link in asset.pluginLinks -%}
+        {{ link }}
+    {%- endfor -%}
+    {%- endif -%}
+    <link rel="stylesheet" href="{{ asset.layoutStyle }}">
+    {%- if siteNav -%} <link rel="stylesheet" href="{{ asset.siteNavCss }}"> {%- endif -%}
+    {%- if pageNav -%} <link rel="stylesheet" href="{{ asset.pageNavCss }}"> {%- endif -%}
+    {{- headFileBottomContent -}}
+    {%- if faviconUrl -%} <link rel="icon" href="{{ faviconUrl }}"> {%- endif -%}
+</head>
+<body {% if pageNav %} data-spy="scroll" data-target="#page-nav" data-offset="100" {% endif %}>
+<div id="app">
+    {{ headerHtml -}}
+    <div id="flex-body">
+        {{ siteNavHtml -}}
+        {{ content }}
+        {{ pageNavHtml -}}
+    </div>
+    {{ footerHtml -}}
+</div>
+</body>
+<script src="{{ asset.vue }}"></script>
+<script src="{{ asset.vueStrap }}"></script>
+<script src="{{ asset.bootstrapUtilityJs }}"></script>
+<script src="{{ asset.polyfillJs }}"></script>
+<script src="{{ asset.bootstrapVueJs }}"></script>
+<script>
+  const baseUrl = '{{ baseUrl }}'
+  const enableSearch = {{ enableSearch }}
+</script>
+<script src="{{ asset.setup }}"></script>
+{%- if asset.externalScripts %}
+{%- for script in asset.externalScripts %}
+    <script src="{{ script }}"></script>
+{%- endfor %}
+{%- endif %}
+{%- if asset.pluginScripts %}
+{%- for script in asset.pluginScripts %}
+    {{ script }}
+{%- endfor %}
+{%- endif %}
+<script src="{{ asset.layoutScript }}"></script>
+</html>

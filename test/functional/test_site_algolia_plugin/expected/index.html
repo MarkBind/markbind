@@ -5,21 +5,19 @@
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="MarkBind 2.9.0">
+  <meta name="generator" content="MarkBind 2.10.0">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hello World</title>
   <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
   <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
   <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
+  <link rel="stylesheet" href="markbind/css/octicons.css">
   <link rel="stylesheet" href="markbind/css/github.min.css">
   <link rel="stylesheet" href="markbind/css/markbind.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
   <link rel="stylesheet" href="markbind/layouts/default/styles.css">
   <link rel="stylesheet" href="markbind/css/site-nav.css">
-
-
-
 </head>
 
 <body>
@@ -36,27 +34,24 @@
         <p><strong>Test Algolia plugin adds algolia-no-index classes</strong></p>
         <p><strong>Dropdowns should have algolia-no-index class</strong></p>
         <div class="temp-dropdown-placeholder">Dropdown</div>
-        <dropdown text="Dropdown" class="temp-dropdown algolia-no-index">
+        <dropdown header="Dropdown" class="temp-dropdown algolia-no-index">
           <li><a class="dropdown-item" href="/">One</a></li>
           <li><a class="dropdown-item" href="/">Two</a></li>
         </dropdown>
         <p><strong>Modal content should have algolia-no-index class</strong></p>
-        <modal title="Modal" id="modal:trigger_id" class="algolia-no-index">
-          Content should have `algolia-no-index` class
+        <modal id="modal:trigger_id" class="algolia-no-index"><template slot="_header">Modal</template> Content should have `algolia-no-index` class
         </modal>
         <trigger for="modal:trigger_id">Trigger should not have `algolia-no-index` class</trigger>
         <p><strong>Panels that are not expanded should have algolia-no-index class</strong></p>
-        <panel header="Panel" class="algolia-no-index">
-          Content
+        <panel class="algolia-no-index"><template slot="_header"><p>Panel</p></template> Content
         </panel>
-        <panel header="Panel" expanded="">
-          Content
+        <panel expanded=""><template slot="_header"><p>Panel</p></template> Content
         </panel>
         <p><strong>Popover content should have algolia-no-index class</strong></p>
-        <popover effect="fade" title="Title" placement="top">
+        <popover effect="fade" placement="top"><template slot="header">Title</template>
           <div slot="content" class="algolia-no-index">Content should have `algolia-no-index` class</div>
           <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button></popover>
-        <popover effect="fade" title="Title" content="Content as attribute does not require `algolia-no-index` class" placement="top">
+        <popover effect="fade" placement="top"><template slot="header">Title</template><template slot="content">Content as attribute does not require <code>algolia-no-index</code> class</template>
           <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button></popover>
         <p><strong>Question hint and answer should have algolia-no-index class</strong></p>
         <question>
@@ -66,42 +61,42 @@
         </question>
         <p><strong>Tabs except first tab should have algolia-no-index class</strong></p>
         <tabs>
-          <tab header="First Tab">
-            Content<br>Content<br>Content<br>Content
+          <tab><template slot="_header">First Tab</template> Content
+            <br>Content<br>Content<br>Content
           </tab>
-          <tab header="Second Tab" class="algolia-no-index">
-            Content<br>Content<br>Content<br>Content
+          <tab class="algolia-no-index"><template slot="_header">Second Tab</template> Content
+            <br>Content<br>Content<br>Content
           </tab>
         </tabs>
         <tabs>
-          <tab-group header="First Group">
-            <tab header="First Tab">
-              Content<br>Content<br>Content<br>Content
+          <tab-group><template slot="_header">First Group</template>
+            <tab class="algolia-no-index"><template slot="_header">First Tab</template> Content
+              <br>Content<br>Content<br>Content
             </tab>
-            <tab header="Second Tab" class="algolia-no-index">
-              Content<br>Content<br>Content<br>Content
+            <tab class="algolia-no-index"><template slot="_header">Second Tab</template> Content
+              <br>Content<br>Content<br>Content
             </tab>
           </tab-group>
-          <tab-group header="Second Group" class="algolia-no-index">
-            <tab header="First Tab">
-              Content<br>Content<br>Content<br>Content
+          <tab-group class="algolia-no-index"><template slot="_header">Second Group</template>
+            <tab class="algolia-no-index"><template slot="_header">First Tab</template> Content
+              <br>Content<br>Content<br>Content
             </tab>
-            <tab header="Second Tab" class="algolia-no-index">
-              Content<br>Content<br>Content<br>Content
+            <tab class="algolia-no-index"><template slot="_header">Second Tab</template> Content
+              <br>Content<br>Content<br>Content
             </tab>
           </tab-group>
         </tabs>
         <tabs>
-          <tab-group header="Outer One">
-            <tab header="First Tab">
-              Content<br>Content<br>Content<br>Content
+          <tab-group><template slot="_header">Outer One</template>
+            <tab class="algolia-no-index"><template slot="_header">First Tab</template> Content
+              <br>Content<br>Content<br>Content
             </tab>
-            <tab header="Second Tab" class="algolia-no-index">
-              Content<br>Content<br>Content<br>Content
+            <tab class="algolia-no-index"><template slot="_header">Second Tab</template> Content
+              <br>Content<br>Content<br>Content
             </tab>
           </tab-group>
-          <tab header="Outer Two" class="algolia-no-index">
-            Content<br>Content<br>Content<br>Content
+          <tab class="algolia-no-index"><template slot="_header">Outer Two</template> Content
+            <br>Content<br>Content<br>Content
           </tab>
         </tabs>
       </div>
