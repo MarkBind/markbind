@@ -299,6 +299,9 @@ seamless | `Boolean` | `false` | Uses a seamless style for the box. If `light` i
 no-border | `Boolean` | `false` | Removes border, except if styled by `border-color` or `border-left-color`. 
 no-backgound | `Boolean` | `false` | Removes background, except if styled by `backgound-color` option.
 no-icon | `Boolean` | `false` | Removes icon, except if icon is displayed via `icon` option.
+type | `String` | `'none'` | Supports: `info`, `warning`, `success`, `important`, `wrong`, `tip`, `definition`, or empty for default.
+light | `Boolean` | `false` | Uses a light color scheme for the box.
+seamless | `Boolean` | `false` | Uses a seamless style for the box. If `light` is specified, this style will not be activated.
 
 <span id="short" class="d-none">
 ```html
