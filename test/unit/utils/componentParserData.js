@@ -251,4 +251,58 @@ module.exports.PARSE_BOX_ICON_EXPECTED = `
 </box>
 `;
 
+/**
+ * Dropdowns
+ */
+
+module.exports.PARSE_DROPDOWN_HEADER_EXPECTED = `
+<dropdown><template slot="_header"><strong>Lorem ipsum dolor sit amet</strong></template>
+  Header attribute should be inserted as internal _header slot and deleted.
+</dropdown>
+`;
+
+module.exports.PARSE_DROPDOWN_HEADER = `
+<dropdown header="**Lorem ipsum dolor sit amet**">
+  Header attribute should be inserted as internal _header slot and deleted.
+</dropdown>
+`;
+
+module.exports.PARSE_DROPDOWN_TEXT_ATTR_EXPECTED = `
+<dropdown><template slot="_header"><strong>Lorem ipsum dolor sit amet</strong></template>
+  Text attribute should be inserted as internal _header slot and deleted.
+</dropdown>
+`;
+
+module.exports.PARSE_DROPDOWN_TEXT_ATTR = `
+<dropdown text="**Lorem ipsum dolor sit amet**">
+  Text attribute should be inserted as internal _header slot and deleted.
+</dropdown>
+`;
+
+module.exports.PARSE_DROPDOWN_HEADER_SHADOWS_TEXT_EXPECTED = `
+<dropdown text="Not expected text"><template slot="_header"><strong>Lorem ipsum dolor sit amet</strong></template>
+  Header attribute should be inserted as internal _header slot and deleted. Text attribute should be ignored.
+</dropdown>
+`;
+
+module.exports.PARSE_DROPDOWN_HEADER_SHADOWS_TEXT = `
+<dropdown text="Not expected text" header="**Lorem ipsum dolor sit amet**">
+  Header attribute should be inserted as internal _header slot and deleted. Text attribute should be ignored.
+</dropdown>
+`;
+
+module.exports.PARSE_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
+<dropdown>
+  <strong slot="header">slot text</strong>
+  Header attribute should be ignored and deleted while header slot is reserved.
+</dropdown>
+`;
+
+module.exports.PARSE_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY = `
+<dropdown header="**Lorem ipsum dolor sit amet**">
+  <strong slot="header">slot text</strong>
+  Header attribute should be ignored and deleted while header slot is reserved.
+</dropdown>
+`;
+
 /* eslint-enable max-len */
