@@ -375,7 +375,7 @@ pre {
     position: relative;
 }
 
-pre > .copy-btn-icon {
+.copy-btn {
     background-color: #b4b4b9;
     border-radius: 0.25rem;
     color: #f8f8ff;
@@ -384,14 +384,14 @@ pre > .copy-btn-icon {
     line-height: 1;
     padding: 0.25em 0.4em;
     position: absolute;
-    right: 0.3em;
+    right: 0.5em;
     text-align: center;
     top: 0.4em;
     vertical-align: baseline;
     white-space: nowrap;
 }
 
-pre .copy-btn-icon:hover {
+.copy-btn:hover {
     color: #555;
 }
 
@@ -400,17 +400,13 @@ pre .copy-btn-icon:hover {
     display: flex;
 }
 
-.copy-btn-icon svg {
+.copy-btn svg {
     fill: currentColor;
     margin-right: 0.4em;
 }
 
 .copy-btn-label {
     font-size: 11px;
-}
-
-.copy-btn {
-    right: 10px;
 }
 
 .copy-btn:focus {

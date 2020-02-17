@@ -1,15 +1,15 @@
-#### `copyCode`: Enabling code-blocks to be copied
+#### `codeBlockCopyButtons`: Enabling code-blocks to be copied
 
 This plugin allows you to copy code in code-blocks on a button-click.
 
-To enable it, simply add `copyCode` to your site's plugins.
+To enable it, simply add `codeBlockCopyButtons` to your site's plugins.
 
 ```js
 site.json
 {
   ...
   "plugins": [
-    "copyCode"
+    "codeBlockCopyButtons"
   ],
 }
 ```

@@ -66,15 +66,6 @@ module.exports = {
   ALGOLIA_JS_URL: 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js',
   ALGOLIA_INPUT_SELECTOR: '#algolia-search-input',
 
-  // src/plugins/copyCode.js
-  COPIED_TO_CLIPBOARD: 'Copied!',
-  COPY_ICON: '<svg class="cpy" xmlns="http://www.w3.org/2000/svg" width="15" height="15"'
-  + 'viewBox="0 0 24 24"><path d="M13.508 11.504l.93-2.494 2.998 6.268-6.31 2.779.'
-  + '894-2.478s-8.271-4.205-7.924-11.58c2.716 5.939 9.412 7.505 9.412 7.505zm7.492-9.'
-  + '504v-2h-21v21h2v-19h19zm-14.633 2c.441.757.958 1.422 1.521 2h14.112v16h-16v-8.'
-  + '548c-.713-.752-1.4-1.615-2-2.576v13.124h20v-20h-17.633z" class="cpy"/></svg>',
-  COPY_TO_CLIPBOARD: 'Copy',
-
   // src/plugins/default/markbind-plugin-anchors.js
   ANCHOR_HTML: '<a class="fa fa-anchor" href="#"></a>',
   HEADER_TAGS: 'h1, h2, h3, h4, h5, h6',
