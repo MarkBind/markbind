@@ -9,7 +9,7 @@ const COPY_ICON = '<svg class="cpy" xmlns="http://www.w3.org/2000/svg" width="15
 const COPY_TO_CLIPBOARD = 'Copy';
 
 function getButtonHTML() {
-  const html = `<button onclick="copyCodeBlock()" class="copy-btn" type="button">
+  const html = `<button onclick="copyCodeBlock(this)" class="copy-btn" type="button">
     <div class="copy-btn-body">
     ${COPY_ICON}
     <strong class="copy-btn-label">${COPY_TO_CLIPBOARD}</strong>
@@ -18,55 +18,32 @@ function getButtonHTML() {
   return html;
 }
 
-function getCopyCodeBlockScript() {
-  return `<script>
-    function copyCodeBlock() {
-        let element = event.target;
-        const elementClassList = [...element.classList];
-        let parents = [];
-        let copyButton = null;
-        while (element) {
-            parents.unshift(element);
-            const classList = element.classList;
-            if (classList) {
-                classList.forEach((value, key, obj) => {
-                    if (value === 'copy-btn') {
-                        copyButton = element;
-                    }
-                });
-            }
-            element = element.parentNode;
-        }
-        
-        let pre;
-        for (const obj of parents) {
-                if (obj['outerHTML'] && obj['outerHTML'].indexOf('<pre>') === 0) {
-                    pre = obj;
-            }
-        }
+
+const copyCodeBlockScript = `<script>
+    function copyCodeBlock(element) {
+        const pre = element.parentElement;
         const codeElement = pre.querySelector('code');
-        
+        const copyButtonLabel = element.querySelector('.copy-btn-label');
+
         // create dummy text element to select() the text field
         const textElement = document.createElement('textarea');
         textElement.value = codeElement.textContent;
         document.body.appendChild(textElement);
         textElement.select();
-        
+
         document.execCommand('copy');
         document.body.removeChild(textElement);
-        
-        const buttonLabel = copyButton.querySelector('.copy-btn-label');
-        buttonLabel.textContent = '${COPIED_TO_CLIPBOARD}';
+
+        copyButtonLabel.textContent = '${COPIED_TO_CLIPBOARD}';
         setTimeout(function() {
-            buttonLabel.textContent = '${COPY_TO_CLIPBOARD}';
-        }, 3000);
+            copyButtonLabel.textContent = '${COPY_TO_CLIPBOARD}';
+        }, 2000);
     }
     </script>`;
-}
 
 
 module.exports = {
-  getScripts: () => getCopyCodeBlockScript(),
+  getScripts: () => copyCodeBlockScript,
   postRender: (content) => {
     const $ = cheerio.load(content, { xmlMode: false });
     const codeBlockSelector = 'pre';
