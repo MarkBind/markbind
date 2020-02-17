@@ -143,8 +143,6 @@ function setupWithSearch() {
 function makeInnerGetterFor(attribute) {
   return (element) => {
     const innerElement = element.querySelector(`[data-mb-html-for="${attribute}"]`);
-    console.log(attribute)
-    console.log(innerElement);
     return innerElement === null ? '' : innerElement.innerHTML;
   };
 }
@@ -152,8 +150,6 @@ function makeInnerGetterFor(attribute) {
 function makeHtmlGetterFor(componentType, attribute) {
   return (element) => {
     const contentWrapper = document.getElementById(element.attributes.for.value);
-    console.log(contentWrapper.dataset.mbComponentType)
-    console.log(componentType);
     return contentWrapper.dataset.mbComponentType === componentType
       ? makeInnerGetterFor(attribute)(contentWrapper) : '';
   };
@@ -163,8 +159,11 @@ function makeHtmlGetterFor(componentType, attribute) {
 /* eslint-disable no-unused-vars */
 const popoverContentGetter = makeHtmlGetterFor('popover', 'content');
 const popoverHeaderGetter = makeHtmlGetterFor('popover', 'header');
-const popoverInnerContentGetter = makeInnerGetterFor('_content');
+const popoverInnerContentGetter = makeInnerGetterFor('content');
 const popoverInnerHeaderGetter = makeInnerGetterFor('header');
+
+const popoverGenerator = { title: popoverHeaderGetter, content: popoverContentGetter };
+const popoverInnerGenerator = { title: popoverInnerHeaderGetter, content: popoverInnerContentGetter };
 
 const tooltipContentGetter = makeHtmlGetterFor('tooltip', '_content');
 const tooltipInnerContentGetter = makeInnerGetterFor('_content');

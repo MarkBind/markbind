@@ -149,10 +149,12 @@ function _parseTrigger(element) {
   const trigger = el.attribs.trigger || 'hover';
   const placement = el.attribs.placement || 'top';
   el.attribs[`v-b-popover.${trigger}.${placement}.html`]
-    = '{title:popoverHeaderGetter, content:popoverContentGetter}';
+    = 'popoverGenerator';
   el.attribs[`v-b-tooltip.${trigger}.${placement}.html`]
     = 'tooltipContentGetter';
-  el.attribs.class = el.attribs.class ? el.attribs.class + " trigger" : "trigger";
+  const convertedTrigger = trigger === 'hover' ? 'mouseover' : trigger;
+  el.attribs[`v-on:${convertedTrigger}`] = `$refs['${el.attribs.for}'].show()`;
+  el.attribs.class = el.attribs.class ? `${el.attribs.class} trigger` : 'trigger';
 }
 
 /*
@@ -171,8 +173,8 @@ function _parsePopover(element) {
   const placement = el.attribs.placement || 'top';
   el.attribs['data-mb-component-type'] = 'popover';
   el.attribs[`v-b-popover.${trigger}.${placement}.html`]
-    = '{title:popoverInnerHeaderGetter, content:popoverInnerContentGetter}';
-  el.attribs.class = el.attribs.class ? el.attribs.class + " trigger" : "trigger";
+    = 'popoverInnerGenerator';
+  el.attribs.class = el.attribs.class ? `${el.attribs.class} trigger` : 'trigger';
   _transformSlottedComponents(el);
 }
 
@@ -190,7 +192,7 @@ function _parseTooltip(element) {
   el.attribs['data-mb-component-type'] = 'tooltip';
   el.attribs[`v-b-tooltip.${trigger}.${placement}.html`]
     = 'tooltipInnerContentGetter';
-  el.attribs.class = el.attribs.class ? el.attribs.class + " trigger" : "trigger";
+  el.attribs.class = el.attribs.class ? `${el.attribs.class} trigger` : 'trigger';
   _transformSlottedComponents(el);
 }
 
@@ -210,14 +212,48 @@ function _renameSlot(element, originalName, newName) {
   }
 }
 
+function _renameAttribute(element, originalAttribute, newAttribute) {
+  const el = element;
+  if (_.has(el.attribs, originalAttribute)) {
+    el.attribs[newAttribute] = el.attribs[originalAttribute];
+    delete el.attribs[originalAttribute];
+  }
+}
+
 function _parseModalAttributes(element) {
-  _parseAttributeWithoutOverride(element, 'header', true, '_header');
+  const el = element;
+  _parseAttributeWithoutOverride(el, 'header', true, 'modal-title');
   // TODO deprecate title attribute for modals
-  _parseAttributeWithoutOverride(element, 'title', true, '_header');
+  _parseAttributeWithoutOverride(el, 'title', true, 'modal-title');
 
   // TODO deprecate modal-header, modal-footer attributes for modals
-  _renameSlot(element, 'modal-header', 'header');
-  _renameSlot(element, 'modal-footer', 'footer');
+  _renameSlot(el, 'header', 'modal-header');
+  _renameSlot(el, 'footer', 'modal-footer');
+
+  el.name = 'b-modal';
+
+  _renameAttribute(el, 'ok-text', 'ok-title');
+  _renameAttribute(el, 'center', 'centered');
+
+  if (el.attribs.backdrop === 'false') {
+    el.attribs['no-close-on-backdrop'] = '';
+  }
+  delete el.attribs.backdrop;
+
+  let size = '';
+  if (_.has(el.attribs, 'large')) {
+    size = 'lg';
+    delete el.attribs.large;
+  } else if (_.has(el.attribs, 'small')) {
+    size = 'sm';
+    delete el.attribs.small;
+  }
+  el.attribs.size = size;
+
+  const effect = el.attribs.effect === 'fade' ? '' : 'mb-zoom';
+  el.attribs['modal-class'] = effect;
+
+  el.attribs.ref = el.attribs.id;
 }
 
 /*
