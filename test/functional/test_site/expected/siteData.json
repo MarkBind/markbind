@@ -2,53 +2,16 @@
   "enableSearch": true,
   "pages": [
     {
-      "headings": {},
       "title": "Open Bugs",
       "header": "header.md",
       "src": "bugs/index.md",
       "layout": "default",
       "globalOverrideProperty": "Overridden by global override",
-      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {},
+      "headingKeywords": {}
     },
     {
-      "headings": {
-        "panel-with-heading": "Panel with heading | panel keyword",
-        "panel-without-heading-with-keyword": "Panel without heading with keyword",
-        "panel-with-heading-with-keyword": "Panel with heading with keyword",
-        "panel-without-src-header": "Panel without src header",
-        "panel-with-normal-src-header": "Panel with normal src header",
-        "panel-with-src-from-a-page-segment-header": "Panel with src from a page segment header",
-        "boilerplate-referencing": "Boilerplate referencing",
-        "referencing-specified-path-in-boilerplate": "Referencing specified path in boilerplate",
-        "outer-nested-panel": "Outer nested panel",
-        "outer-nested-panel-without-src": "Outer nested panel without src",
-        "panel-with-src-from-another-markbind-site-header": "Panel with src from another Markbind site header",
-        "panel-with-src-from-another-markbind-site-header-2": "Panel with src from another Markbind site header",
-        "panel-inside-modal": "Panel inside modal",
-        "unexpanded-panel-header": "Unexpanded panel header",
-        "keyword-should-be-tagged-to-this-heading-not-the-panel-heading": "Keyword should be tagged to this heading, not the panel heading | panel keyword",
-        "panel-normal-source-content-headings": "Panel normal source content headings",
-        "panel-source-segment-content-headings": "Panel source segment content headings",
-        "boilerplate-test-for-panel-heading": "boilerplate test for panel heading",
-        "heading-in-panel-boilerplate": "heading in panel boilerplate",
-        "nested-panel": "Nested Panel",
-        "normal-panel-content-heading": "Normal panel content heading",
-        "inner-panel-header-without-src": "Inner panel header without src",
-        "feature-list": "Feature list",
-        "heading-with-multiple-keywords": "Heading with multiple keywords | keyword 1, keyword 2",
-        "heading-with-keyword-in-panel": "Heading with keyword in panel | panel keyword",
-        "keyword-should-be-tagged-to-the-panel-heading-not-this-heading": "Keyword should be tagged to the panel heading, not this heading | panel keyword",
-        "heading-with-included-keyword": "Heading with included keyword | included keyword",
-        "included-heading": "Included Heading | Keyword with included heading",
-        "heading-with-nested-keyword": "Heading with nested keyword | nested keyword",
-        "heading-with-hidden-keyword": "Heading with hidden keyword | invisible keyword",
-        "establishing-requirements": "Establishing Requirements",
-        "brainstorming": "Brainstorming",
-        "user-surveys": "User surveys",
-        "focus-groups": "Focus groups",
-        "markbind-plugin-pre-render": "Markbind Plugin Pre-render",
-        "level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed": "Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed"
-      },
       "title": "Hello World",
       "header": "header.md",
       "footer": "footer.md",
@@ -68,79 +31,160 @@
         "-tag-site-override-specific*"
       ],
       "src": "index.md",
-      "layout": "default"
+      "layout": "default",
+      "headings": {
+        "panel-with-heading": "Panel with heading",
+        "panel-without-heading-with-keyword": "Panel without heading with keyword",
+        "panel-with-heading-with-keyword": "Panel with heading with keyword",
+        "panel-without-src-header": "Panel without src header",
+        "panel-with-normal-src-header": "Panel with normal src header",
+        "panel-with-src-from-a-page-segment-header": "Panel with src from a page segment header",
+        "boilerplate-referencing": "Boilerplate referencing",
+        "referencing-specified-path-in-boilerplate": "Referencing specified path in boilerplate",
+        "outer-nested-panel": "Outer nested panel",
+        "outer-nested-panel-without-src": "Outer nested panel without src",
+        "panel-with-src-from-another-markbind-site-header": "Panel with src from another Markbind site header",
+        "panel-with-src-from-another-markbind-site-header-2": "Panel with src from another Markbind site header",
+        "panel-inside-modal": "Panel inside modal",
+        "unexpanded-panel-header": "Unexpanded panel header",
+        "keyword-should-be-tagged-to-this-heading-not-the-panel-heading": "Keyword should be tagged to this heading, not the panel heading",
+        "panel-normal-source-content-headings": "Panel normal source content headings",
+        "panel-source-segment-content-headings": "Panel source segment content headings",
+        "boilerplate-test-for-panel-heading": "boilerplate test for panel heading",
+        "heading-in-panel-boilerplate": "heading in panel boilerplate",
+        "nested-panel": "Nested Panel",
+        "normal-panel-content-heading": "Normal panel content heading",
+        "inner-panel-header-without-src": "Inner panel header without src",
+        "feature-list": "Feature list",
+        "heading-with-multiple-keywords": "Heading with multiple keywords",
+        "heading-with-keyword-in-panel": "Heading with keyword in panel",
+        "keyword-should-be-tagged-to-the-panel-heading-not-this-heading": "Keyword should be tagged to the panel heading, not this heading",
+        "heading-with-included-keyword": "Heading with included keyword",
+        "included-heading": "Included Heading",
+        "heading-with-nested-keyword": "Heading with nested keyword",
+        "heading-with-hidden-keyword": "Heading with hidden keyword",
+        "establishing-requirements": "Establishing Requirements",
+        "brainstorming": "Brainstorming",
+        "user-surveys": "User surveys",
+        "focus-groups": "Focus groups",
+        "markbind-plugin-pre-render": "Markbind Plugin Pre-render",
+        "level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed": "Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed"
+      },
+      "headingKeywords": {
+        "heading-with-keyword-in-panel": [
+          "panel keyword"
+        ],
+        "panel-with-heading": [
+          "panel keyword"
+        ],
+        "keyword-should-be-tagged-to-this-heading-not-the-panel-heading": [
+          "panel keyword"
+        ],
+        "heading-with-multiple-keywords": [
+          "keyword 1",
+          "keyword 2"
+        ],
+        "keyword-should-be-tagged-to-the-panel-heading-not-this-heading": [
+          "panel keyword"
+        ],
+        "heading-with-included-keyword": [
+          "included keyword"
+        ],
+        "included-heading": [
+          "Keyword with included heading"
+        ],
+        "heading-with-nested-keyword": [
+          "nested keyword"
+        ],
+        "heading-with-hidden-keyword": [
+          "invisible keyword"
+        ]
+      }
     },
     {
-      "headings": {
-        "feature-list": "Feature list"
-      },
       "src": "sub_site/index.md",
       "title": "",
       "layout": "default",
       "globalOverrideProperty": "Overridden by global override",
-      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {
+        "feature-list": "Feature list"
+      },
+      "headingKeywords": {}
     },
     {
-      "headings": {
-        "some-heading": "Some heading"
-      },
       "src": "test_md_fragment.md",
       "title": "",
       "layout": "default",
       "globalOverrideProperty": "Overridden by global override",
-      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {
+        "some-heading": "Some heading"
+      },
+      "headingKeywords": {}
     },
     {
-      "headings": {},
       "layout": "testAfterSetup",
       "src": "testAfterSetup.md",
       "title": "Hello World",
       "globalOverrideProperty": "Overridden by global override",
-      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {},
+      "headingKeywords": {}
     },
     {
-      "headings": {},
       "src": "testEmptyFrontmatter.md",
       "title": "Hello World",
       "layout": "default",
       "globalOverrideProperty": "Overridden by global override",
-      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {},
+      "headingKeywords": {}
     },
     {
-      "headings": {},
       "src": "testExternalScripts.md",
       "title": "Hello World",
       "layout": "default",
       "globalOverrideProperty": "Overridden by global override",
-      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {},
+      "headingKeywords": {}
     },
     {
-      "headings": {},
       "title": "Hello World",
       "head": "overwriteLayoutHead.md",
       "layout": "testLayout",
       "src": "testLayouts.md",
       "globalOverrideProperty": "Overridden by global override",
-      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {},
+      "headingKeywords": {}
     },
     {
-      "headings": {},
       "title": "Hello World",
       "head": "overwriteLayoutHead.md",
       "layout": "testLayout",
       "src": "testLayoutsOverride.md",
       "globalOverrideProperty": "Overridden by global override",
-      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {},
+      "headingKeywords": {}
     },
     {
-      "headings": {},
       "src": "testAntiFOUCStyles.md",
       "title": "Hello World",
       "layout": "default",
       "globalOverrideProperty": "Overridden by global override",
-      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {},
+      "headingKeywords": {}
     },
     {
+      "title": "Anchor Generation Test",
+      "src": "testAnchorGeneration.md",
+      "layout": "default",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
       "headings": {
         "should-have-anchor-7": "should have anchor",
         "should-have-anchor-20": "should have anchor",
@@ -163,56 +207,57 @@
         "should-have-anchor-16": "should have anchor",
         "should-have-anchor-17": "should have anchor"
       },
-      "title": "Anchor Generation Test",
-      "src": "testAnchorGeneration.md",
-      "layout": "default",
-      "globalOverrideProperty": "Overridden by global override",
-      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      "headingKeywords": {}
     },
     {
-      "headings": {
-        "569-stray-space-after-tooltip": "569: Stray space after tooltip"
-      },
       "src": "testTooltipSpacing.mbd",
       "title": "Tooltip Spacing Test",
       "layout": "default",
       "globalOverrideProperty": "Overridden by global override",
-      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {
+        "569-stray-space-after-tooltip": "569: Stray space after tooltip"
+      },
+      "headingKeywords": {}
     },
     {
-      "headings": {},
       "src": "testThumbnails.md",
       "title": "Thumbnails Test",
       "layout": "default",
       "globalOverrideProperty": "Overridden by global override",
-      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {},
+      "headingKeywords": {}
     },
     {
-      "headings": {},
       "src": "testPlantUML.md",
       "title": "PlantUML Test",
       "layout": "default",
       "globalOverrideProperty": "Overridden by global override",
-      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {},
+      "headingKeywords": {}
     },
     {
-      "headings": {
-        "trying-to-access-a-page-variable": "Trying to access a page variable:",
-        "trying-to-access-an-imported-variable-via-namespace": "Trying to access an imported variable via namespace:"
-      },
       "src": "testImportVariables.md",
       "title": "Imported Variables Test",
       "layout": "default",
       "globalOverrideProperty": "Overridden by global override",
-      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {
+        "trying-to-access-a-page-variable": "Trying to access a page variable:",
+        "trying-to-access-an-imported-variable-via-namespace": "Trying to access an imported variable via namespace:"
+      },
+      "headingKeywords": {}
     },
     {
-      "headings": {},
       "src": "testPanelsWithImportedVariables.md",
       "title": "Panels with Imported Variables Test",
       "layout": "default",
       "globalOverrideProperty": "Overridden by global override",
-      "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {},
+      "headingKeywords": {}
     }
   ]
 }
