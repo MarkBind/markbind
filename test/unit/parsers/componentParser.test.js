@@ -68,7 +68,7 @@ test('parseComponent parses modal attributes and inserts into dom as slots corre
   parseAndVerifyTemplate(testData.PARSE_MODAL_TITLE_NO_OVERRIDE,
                          testData.PARSE_MODAL_TITLE_NO_OVERRIDE_EXPECTED);
 
-  // todo remove these once 'modal-header' / 'modal-footer' for popover is fully deprecated
+  // todo remove these once 'modal-header' / 'modal-footer' for modal is fully deprecated
   parseAndVerifyTemplate(testData.PARSE_MODAL_SLOTS_RENAMING,
                          testData.PARSE_MODAL_SLOTS_RENAMING_EXPECTED);
 });

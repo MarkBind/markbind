@@ -84,9 +84,9 @@ module.exports.PARSE_POPOVER_ATTRIBUTES = `
 `;
 
 module.exports.PARSE_POPOVER_ATTRIBUTES_EXPECTED = `
-<popover><template slot="header"><strong>Lorem ipsum</strong></template><template slot="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.</template>
+<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGenerator" class="trigger"><span data-mb-html-for="header"><strong>Lorem ipsum</strong></span><span data-mb-html-for="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.</span>
   Content and header attributes should be parsed and inserted under panel as slots and deleted.
-</popover>
+</span>
 `;
 
 module.exports.PARSE_POPOVER_ATTRIBUTES_NO_OVERRIDE = `
@@ -99,25 +99,25 @@ module.exports.PARSE_POPOVER_ATTRIBUTES_NO_OVERRIDE = `
 `;
 
 module.exports.PARSE_POPOVER_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
-<popover>
-  <div slot="header">Some header slot content that should not be overwritten</div>
-  <div slot="content">Some content slot that should not be overwritten</div>
+<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGenerator" class="trigger">
+  <div data-mb-html-for="header">Some header slot content that should not be overwritten</div>
+  <div data-mb-html-for="content">Some content slot that should not be overwritten</div>
   Content and header attributes should not be inserted under panel as slots, but should be deleted.
-</popover>
+</span>
 `;
 
 // todo remove tests for these once 'title' attribute is fully deprecated for popovers
 
 module.exports.PARSE_POPOVER_TITLE = `
 <popover title="**Lorem ipsum**">
-  Title attribute should be parsed and inserted under panel as header slot and deleted.
+  Title attribute should be parsed and inserted under popover as header slot and deleted.
 </popover>
 `;
 
 module.exports.PARSE_POPOVER_TITLE_EXPECTED = `
-<popover><template slot="header"><strong>Lorem ipsum</strong></template>
-  Title attribute should be parsed and inserted under panel as header slot and deleted.
-</popover>
+<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGenerator" class="trigger"><span data-mb-html-for="header"><strong>Lorem ipsum</strong></span>
+  Title attribute should be parsed and inserted under popover as header slot and deleted.
+</span>
 `;
 
 module.exports.PARSE_POPOVER_TITLE_NO_OVERRIDE = `
@@ -127,9 +127,9 @@ module.exports.PARSE_POPOVER_TITLE_NO_OVERRIDE = `
 `;
 
 module.exports.PARSE_POPOVER_TITLE_NO_OVERRIDE_EXPECTED = `
-<popover><template slot="header"><strong>Header header</strong></template>
+<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGenerator" class="trigger"><span data-mb-html-for="header"><strong>Header header</strong></span>
   Title attribute should not be inserted as slot as header attribute is present, and should be deleted.
-</popover>
+</span>
 `;
 
 /*
@@ -143,9 +143,9 @@ module.exports.PARSE_TOOLTIP_CONTENT = `
 `;
 
 module.exports.PARSE_TOOLTIP_CONTENT_EXPECTED = `
-<tooltip><template slot="_content">Lorem ipsum dolor sit amet</template>
+<span data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger"><span data-mb-html-for="_content">Lorem ipsum dolor sit amet</span>
   <button>Content attribute should be inserted as _content internal slot</button>
-</tooltip>
+</span>
 `;
 
 /*
@@ -154,14 +154,14 @@ module.exports.PARSE_TOOLTIP_CONTENT_EXPECTED = `
 
 module.exports.PARSE_MODAL_HEADER = `
 <modal header="_Lorem ipsum dolor sit amet_">
-  Header attribute should be inserted as internal _header slot.
+  Header attribute should be inserted as bootstrap-vue modal-title slot.
 </modal>
 `;
 
 module.exports.PARSE_MODAL_HEADER_EXPECTED = `
-<modal><template slot="_header"><em>Lorem ipsum dolor sit amet</em></template>
-  Header attribute should be inserted as internal _header slot.
-</modal>
+<b-modal size="" modal-class="mb-zoom"><template slot="modal-title"><em>Lorem ipsum dolor sit amet</em></template>
+  Header attribute should be inserted as bootstrap-vue modal-title slot.
+</b-modal>
 `;
 
 // todo remove tests for these once 'title' attribute is fully deprecated for modals
@@ -173,9 +173,9 @@ module.exports.PARSE_MODAL_TITLE = `
 `;
 
 module.exports.PARSE_MODAL_TITLE_EXPECTED = `
-<modal><template slot="_header"><strong>Lorem ipsum dolor sit amet</strong></template>
+<b-modal size="" modal-class="mb-zoom"><template slot="modal-title"><strong>Lorem ipsum dolor sit amet</strong></template>
   Title attribute should be inserted as internal _header slot.
-</modal>
+</b-modal>
 `;
 
 module.exports.PARSE_MODAL_TITLE_NO_OVERRIDE = `
@@ -185,9 +185,9 @@ module.exports.PARSE_MODAL_TITLE_NO_OVERRIDE = `
 `;
 
 module.exports.PARSE_MODAL_TITLE_NO_OVERRIDE_EXPECTED = `
-<modal><template slot="_header"><strong>Header header</strong></template>
+<b-modal size="" modal-class="mb-zoom"><template slot="modal-title"><strong>Header header</strong></template>
   Title attribute should not have priority over newer header attribute, and should be deleted.
-</modal>
+</b-modal>
 `;
 
 // todo remove these once modal-header modal-footer slot names are deprecated fully.
@@ -200,10 +200,10 @@ module.exports.PARSE_MODAL_SLOTS_RENAMING = `
 `;
 
 module.exports.PARSE_MODAL_SLOTS_RENAMING_EXPECTED = `
-<modal>
-  <div slot="header">Should be renamed to header</div>
-  <div slot="footer">Should be renamed to footer</div>
-</modal>
+<b-modal size="" modal-class="mb-zoom">
+  <div slot="modal-header">Should be renamed to header</div>
+  <div slot="modal-footer">Should be renamed to footer</div>
+</b-modal>
 `;
 
 

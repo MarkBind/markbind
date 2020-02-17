@@ -253,7 +253,9 @@ function _parseModalAttributes(element) {
   const effect = el.attribs.effect === 'fade' ? '' : 'mb-zoom';
   el.attribs['modal-class'] = effect;
 
-  el.attribs.ref = el.attribs.id;
+  if (_.has(el.attribs, 'id')) {
+    el.attribs.ref = el.attribs.id;
+  }
 }
 
 /*
