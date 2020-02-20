@@ -1,5 +1,11 @@
 const cheerio = module.parent.require('cheerio');
 
+const ESCAPE_REGEX = new RegExp('{% *raw *%}(.*?){% *endraw *%}', 'gs');
+
+function removeEscapeTags(_, p1) {
+  return p1;
+}
+
 /*
  Simple test plugin that whitelists <testtag> as a special tag.
  If encountered, it wraps the text node inside with some indication text as to
@@ -17,11 +23,20 @@ function preRender(content) {
     $(testElement).text(wrappedText);
   });
 
+  const escapedNunjucks = $('mustache');
+  escapedNunjucks.each((index, element) => {
+    const unwrappedText = $(element).text();
+    const unescapedText = unwrappedText.replace(ESCAPE_REGEX, removeEscapeTags);
+    const transformedText = unescapedText.replace(/{/g, '!success').replace(/}/g, 'success!');
+    $(element).text(transformedText);
+  });
+
+
   return $.html();
 }
 
 
 module.exports = {
   preRender,
-  getSpecialTags: () => ['testtag'],
+  getSpecialTags: () => ['testtag', 'mustache'],
 };
