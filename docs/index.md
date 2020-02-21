@@ -8,6 +8,28 @@
 
 <h1 class="display-3"><md>**MarkBind**</md></h1>
 
+PLUGIN DEMO
+
+```html
+<puml src="demo.puml" />
+```
+Output below:
+
+<puml src="demo.puml" />
+
+Output above^
+
+```html
+<include src="includepuml.md" dynamic/>
+```
+Output below:
+
+<include src="includepuml.md" dynamic/>
+
+Output above^
+
+END PLUGIN DEMO
+
 <span class="lead">
 
 <big>**Generate <tooltip content="as opposed to _one-size-fits-all_ static content">_more dynamic_</tooltip> websites from Markdown text.**</big>

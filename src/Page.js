@@ -1035,6 +1035,8 @@ class Page {
         cwf: file,
       })
         .then(result => Page.removeFrontMatter(result))
+        .then(result => this.collectPluginSources(result))
+        .then(result => this.preRender(result))
         .then(result => markbinder.resolveBaseUrl(result, {
           baseUrlMap: this.baseUrlMap,
           rootPath: this.rootPath,
@@ -1047,6 +1049,8 @@ class Page {
           rootPath: this.rootPath,
           headerIdMap: {},
         }))
+        .then(result => this.postRender(result))
+        .then(result => this.collectPluginsAssets(result))
         .then(result => markbinder.processDynamicResources(file, result))
         .then((result) => {
           // resolve the site base url here
