@@ -97,3 +97,23 @@ test('postParseComponent assigns the correct header id to panels', () => {
                          testData.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_SLOT_EXPECTED,
                          true);
 });
+
+test('parseComponent parses dropdown header attribute and inserts into DOM as _header slot correctly', () => {
+  parseAndVerifyTemplate(testData.PARSE_DROPDOWN_HEADER,
+                         testData.PARSE_DROPDOWN_HEADER_EXPECTED);
+});
+
+test('parseComponent parses dropdown text attribute and inserts into DOM as _header slot correctly', () => {
+  parseAndVerifyTemplate(testData.PARSE_DROPDOWN_TEXT_ATTR,
+                         testData.PARSE_DROPDOWN_TEXT_ATTR_EXPECTED);
+});
+
+test('parseComponent parses dropdown with header taking priority over text attribute', () => {
+  parseAndVerifyTemplate(testData.PARSE_DROPDOWN_HEADER_SHADOWS_TEXT,
+                         testData.PARSE_DROPDOWN_HEADER_SHADOWS_TEXT_EXPECTED);
+});
+
+test('parseComponent parses dropdown with header slot taking priority over header attribute', () => {
+  parseAndVerifyTemplate(testData.PARSE_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY,
+                         testData.PARSE_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
+});

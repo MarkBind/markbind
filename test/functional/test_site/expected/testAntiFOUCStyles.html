@@ -30,7 +30,7 @@
           <li><a href="/" class="nav-link">One</a></li>
           <li><a href="/" class="nav-link">Two</a></li>
           <div class="nav-link temp-dropdown-placeholder">Dropdown</div>
-          <dropdown header="Dropdown" class="nav-link temp-dropdown">
+          <dropdown class="nav-link temp-dropdown"><template slot="_header">Dropdown</template>
             <li><a class="dropdown-item" href="/">Dropdown One</a></li>
             <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
           </dropdown>
@@ -38,7 +38,7 @@
 
         <p><strong>Test dropdown in body with text and class attributes</strong></p>
         <div class="test-class temp-dropdown-placeholder">Test One</div>
-        <dropdown header="Test One" class="test-class temp-dropdown">
+        <dropdown class="test-class temp-dropdown"><template slot="_header">Test One</template>
           <li><a class="dropdown-item" href="/">Dropdown One</a></li>
           <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
         </dropdown>
