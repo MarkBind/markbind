@@ -920,7 +920,7 @@ class Site {
       }
       const filteredFiles = files.filter(file => _.includes(file, '.') && !_.includes(file, '.md'));
       const copyAll = Promise.all(filteredFiles.map(file =>
-        fs.copyAsync(`${siteLayoutPath}/${file}`, `${layoutsDestPath}/${file}`)));
+        fs.copyAsync(path.join(siteLayoutPath, file), path.join(layoutsDestPath, file))));
       return copyAll.then(() => Promise.resolve());
     });
   }
