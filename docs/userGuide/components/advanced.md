@@ -91,9 +91,9 @@ header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>`title` <br> (de
 content | `popover-body` 
 
 **Dropdown Slot Options:**
-Slot name |
---- | 
-header |
+Slot name | Default class
+--- | ---
+header | `dropdown-toggle`
 
 ### Inserting custom classes into components
 
