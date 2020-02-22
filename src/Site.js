@@ -52,6 +52,7 @@ const {
   SITE_ASSET_FOLDER_NAME,
   SITE_CONFIG_NAME,
   SITE_DATA_NAME,
+  SITE_FOLDER_NAME,
   TEMP_FOLDER_NAME,
   TEMPLATE_SITE_ASSET_FOLDER_NAME,
   USER_VARIABLES_PATH,
@@ -427,7 +428,7 @@ class Site {
       globPages.concat(walkSync(this.rootPath, {
         directories: false,
         globs: [addressableGlob.glob],
-        ignore: [CONFIG_FOLDER_NAME],
+        ignore: [CONFIG_FOLDER_NAME, SITE_FOLDER_NAME],
       }).map(globPath => ({
         src: globPath,
         searchable: addressableGlob.searchable,
