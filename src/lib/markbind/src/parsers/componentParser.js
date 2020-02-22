@@ -179,6 +179,12 @@ function _parseTabAttributes(element) {
 
 function _parseBoxAttributes(element) {
   _parseAttributeWithoutOverride(element, 'icon', true, '_icon');
+  _parseAttributeWithoutOverride(element, 'header', false, '_header');
+
+  // TODO deprecate heading attribute for box
+  _parseAttributeWithoutOverride(element, 'heading', false, '_header');
+
+  // TODO warn when light and seamless attributes are both present
 }
 
 /*

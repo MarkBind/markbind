@@ -52,6 +52,7 @@ const {
   SITE_ASSET_FOLDER_NAME,
   SITE_CONFIG_NAME,
   SITE_DATA_NAME,
+  SITE_FOLDER_NAME,
   TEMP_FOLDER_NAME,
   TEMPLATE_SITE_ASSET_FOLDER_NAME,
   USER_VARIABLES_PATH,
@@ -234,6 +235,8 @@ class Site {
         glyphicons: path.relative(path.dirname(resultPath),
                                   path.join(this.siteAssetsDestPath, 'glyphicons', 'css',
                                             'bootstrap-glyphicons.min.css')),
+        octicons: path.relative(path.dirname(resultPath),
+                                path.join(this.siteAssetsDestPath, 'css', 'octicons.css')),
         highlight: path.relative(path.dirname(resultPath),
                                  path.join(this.siteAssetsDestPath, 'css', 'github.min.css')),
         markbind: path.relative(path.dirname(resultPath),
@@ -425,7 +428,7 @@ class Site {
       globPages.concat(walkSync(this.rootPath, {
         directories: false,
         globs: [addressableGlob.glob],
-        ignore: [CONFIG_FOLDER_NAME],
+        ignore: [CONFIG_FOLDER_NAME, SITE_FOLDER_NAME],
       }).map(globPath => ({
         src: globPath,
         searchable: addressableGlob.searchable,
@@ -526,6 +529,7 @@ class Site {
         .then(() => this.buildSourceFiles())
         .then(() => this.copyMarkBindAsset())
         .then(() => this.copyFontAwesomeAsset())
+        .then(() => this.copyOcticonsAsset())
         .then(() => this.copyLayouts())
         .then(() => this.updateSiteData())
         .then(() => {
@@ -846,7 +850,6 @@ class Site {
     this.pages.forEach((page) => {
       if (generateForAllPages || filePaths.some(filePath => page.includedFiles.has(filePath))) {
         page.collectHeadingsAndKeywords();
-        page.concatenateHeadingsAndKeywords();
       }
     });
     this.writeSiteData();
@@ -863,6 +866,17 @@ class Site {
     const faFontsDestPath = path.join(this.siteAssetsDestPath, 'fontawesome', 'webfonts');
 
     return fs.copyAsync(faCssSrcPath, faCssDestPath).then(fs.copyAsync(faFontsSrcPath, faFontsDestPath));
+  }
+
+  /**
+   * Copies Octicon assets to the assets folder
+   */
+  copyOcticonsAsset() {
+    const octiconsRootSrcPath = path.join(__dirname, '..', 'node_modules', '@primer', 'octicons', 'build');
+    const octiconsCssSrcPath = path.join(octiconsRootSrcPath, 'build.css');
+    const octiconsCssDestPath = path.join(this.siteAssetsDestPath, 'css', 'octicons.css');
+
+    return fs.copyAsync(octiconsCssSrcPath, octiconsCssDestPath);
   }
 
   /**
@@ -898,10 +912,17 @@ class Site {
     if (!fs.existsSync(siteLayoutPath)) {
       return Promise.resolve();
     }
-    return new Promise((resolve, reject) => {
-      fs.copyAsync(siteLayoutPath, layoutsDestPath)
-        .then(resolve)
-        .catch(reject);
+    return new Promise((resolve) => {
+      const files = walkSync(siteLayoutPath);
+      resolve(files);
+    }).then((files) => {
+      if (!files) {
+        return Promise.resolve();
+      }
+      const filteredFiles = files.filter(file => _.includes(file, '.') && !_.includes(file, '.md'));
+      const copyAll = Promise.all(filteredFiles.map(file =>
+        fs.copyAsync(path.join(siteLayoutPath, file), path.join(layoutsDestPath, file))));
+      return copyAll.then(() => Promise.resolve());
     });
   }
 
@@ -914,7 +935,11 @@ class Site {
       const siteData = {
         enableSearch: this.siteConfig.enableSearch,
         pages: this.pages.filter(page => page.searchable)
-          .map(page => ({ headings: page.headings, ...page.frontMatter })),
+          .map(page => ({
+            ...page.frontMatter,
+            headings: page.headings,
+            headingKeywords: page.keywords,
+          })),
       };
 
       fs.outputJsonAsync(siteDataPath, siteData)
