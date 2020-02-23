@@ -84,6 +84,14 @@ code.hljs.inline {
   * This section covers the common styles used within Header, Footer and Side Navigation bars
   */
 
+/* Header */
+
+header.header-fixed {
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+}
+
 /* #app is treated as the main container */
 #app {
     display: flex;
