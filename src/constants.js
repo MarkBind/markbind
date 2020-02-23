@@ -20,6 +20,7 @@ module.exports = {
 
   CONTENT_WRAPPER_ID: 'content-wrapper',
   FRONT_MATTER_FENCE: '---',
+  FRONT_MATTER_NONE_ATTR: 'none',
   PAGE_NAV_ID: 'page-nav',
   PAGE_NAV_TITLE_CLASS: 'page-nav-title',
   SITE_NAV_ID: 'site-nav',

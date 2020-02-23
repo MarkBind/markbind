@@ -24,6 +24,7 @@ In the page that you want to include the footer:
 Notes:
 - Any inline footers will be removed by MarkBind to ensure compatibility with footer files.
 - If a [Layout]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#page-layouts) is specified, the footer file specified in the `<frontmatter>` will override the footer within the Layout.
+- If you wish to use a Layout but exclude its footer file, specify `footer: none` in the `<frontmatter>` of the page.
 - [MarkBind Components]({{ baseUrl }}/userGuide/usingComponents.html) and [`<include>` tags]({{ baseUrl }}/userGuide/reusingContents.html#the-include-tag) are not supported in footers.
 
 <span id="short" class="d-none">
