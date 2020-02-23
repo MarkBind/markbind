@@ -5,9 +5,9 @@
   <meta name="default-head-top">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="MarkBind 2.11.0">
+  <meta name="generator" content="MarkBind 2.10.0">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tooltip Spacing Test</title>
+  <title>Code Blocks Line Splitting</title>
   <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
   <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
   <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
@@ -25,12 +25,13 @@
   <div id="app">
     <div id="flex-body">
       <div id="content-wrapper">
-        <h1 id="569-stray-space-after-tooltip">569: Stray space after tooltip<a class="fa fa-anchor" href="#569-stray-space-after-tooltip"></a></h1>
-        <pre><code class="hljs"><span>&lt;tooltip&gt;tooltip&lt;/tooltip&gt;, test</span><span>&#x200B;</span><span>&lt;trigger&gt;trigger&lt;/trigger&gt;, test</span></code></pre>
-        <p>
-          <tooltip>tooltip</tooltip>, test</p>
-        <p>
-          <trigger>trigger</trigger>, test</p>
+        <p><strong>Code blocks test</strong></p>
+        <p><strong>Multiple linebreaks, no highlight</strong></p>
+        <pre><code class="hljs"><span>Four empty lines below</span><span>&#x200B;</span><span>&#x200B;</span><span>&#x200B;</span><span>&#x200B;</span><span>Four empty lines above</span></code></pre>
+        <p><strong>Multiple linebreaks, with highlight</strong></p>
+        <pre><code class="hljs js"><span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fourEmptyLinesBelow</span>(<span class="hljs-params"></span>) </span>{</span><span>&#x200B;</span><span>&#x200B;</span><span>&#x200B;</span><span>&#x200B;</span><span>} <span class="hljs-comment">// four empty lines above</span></span></code></pre>
+        <p><strong>hljs span spanning multiple lines</strong></p>
+        <pre><code class="hljs markdown"><span><span class="hljs-strong">*****</span></span><span>-----</span></code></pre>
       </div>
     </div>
     <footer>

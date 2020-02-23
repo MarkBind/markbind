@@ -22,6 +22,7 @@ pre > code.hljs {
     border: 1px solid rgb(200, 200, 200);
     border: 1px solid rgba(200, 200, 200, 0.3);
     border-radius: 5px;
+    counter-reset: line;
 }
 
 kbd {
@@ -57,6 +58,10 @@ code.hljs.inline {
     color: #333;
     display: initial;
     padding: 0;
+}
+
+code.hljs:hover {
+    white-space: pre-wrap;
 }
 
 .markbind-table {
@@ -309,4 +314,29 @@ panel[minimized]:not([expanded])::before {
 
 li.footnote-item:target {
     background-color: #eee;
+}
+
+.hljs:not(.inline) > span {
+    display: block;
+}
+
+.hljs:not(.inline):not(.no-line-numbers) > span {
+    padding: 0 0.5em 0 3.5em;
+    position: relative;
+}
+
+/* display line numbers beside each span */
+.hljs:not(.inline):not(.no-line-numbers) > span::before {
+    border-right: 1px solid #ddd;
+    display: inline-block;
+    color: #888;
+    content: counter(line);
+    counter-increment: line;
+    left: 0;
+    margin-right: 0.5em;
+    padding-right: 0.5em;
+    position: absolute;
+    text-align: right;
+    top: 0;
+    width: 3em;
 }

@@ -1,6 +1,6 @@
 ## Code
 
-MarkBind can provide syntax coloring for a code block (aka _Fenced Code Blocks_).
+MarkBind can provide syntax coloring and line numbers for a code block (aka _Fenced Code Blocks_).
 <span id="main-example">
 <include src="outputBox.md" boilerplate >
 <span id="code">
@@ -23,6 +23,29 @@ MarkBind can provide syntax coloring for a code block (aka _Fenced Code Blocks_)
 </span>
 </include>
 </span>
+
+As seen above, line numbers are automatically provided for a code block. To hide line numbers, add the class `no-line-numbers ` to the code block like below:
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+````
+```xml {.no-line-numbers}
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+````
+</span>
+<span id="output">
+
+```xml {.no-line-numbers}
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+</span>
+</include>
 
 <small>More info: https://www.markdownguide.org/extended-syntax#fenced-code-blocks</small>
 
