@@ -26,6 +26,7 @@ In the page that you want to include the header:
 Notes:
 - Any inline headers will be removed by MarkBind to ensure compatibility with header files.
 - If a [Layout]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#page-layouts) is specified, the header file specified in the `<frontmatter>` will override the header within the Layout.
+- If you wish to use a Layout but exclude its header file, specify `header: none` in the `<frontmatter>` of the page.
 - [MarkBind Components]({{ baseUrl }}/userGuide/usingComponents.html) and [`<include>` tags]({{ baseUrl }}/userGuide/reusingContents.html#the-include-tag) are not supported in headers.
 
 <span id="short" class="d-none">

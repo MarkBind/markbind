@@ -78,3 +78,5 @@ To specify that you want to insert `myCustomLinks.md` into the `<head>` of `myPa
  </frontmatter>
 ```
 </span>
+
+If you wish to use a [Layout]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#page-layouts) but exclude its head file, specify `head: none` in the `<frontmatter>` of the page.

@@ -5,7 +5,7 @@
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="MarkBind 2.10.0">
+  <meta name="generator" content="MarkBind 2.11.0">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hello World</title>
   <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
@@ -34,7 +34,7 @@
         <p><strong>Test Algolia plugin adds algolia-no-index classes</strong></p>
         <p><strong>Dropdowns should have algolia-no-index class</strong></p>
         <div class="temp-dropdown-placeholder">Dropdown</div>
-        <dropdown header="Dropdown" class="temp-dropdown algolia-no-index">
+        <dropdown class="temp-dropdown algolia-no-index"><template slot="_header">Dropdown</template>
           <li><a class="dropdown-item" href="/">One</a></li>
           <li><a class="dropdown-item" href="/">Two</a></li>
         </dropdown>
