@@ -12,11 +12,16 @@ const Promise = require('bluebird');
 const _ = {};
 _.isBoolean = require('lodash/isBoolean');
 
+const JSDOMRenderer = require('@prerenderer/renderer-puppeteer');
+const mkdirp = require('mkdirp');
 const cliUtil = require('./src/util/cliUtil');
 const { ensurePosix } = require('./src/lib/markbind/src/utils');
 const fsUtil = require('./src/util/fsUtil');
 const logger = require('./src/util/logger');
 const Site = require('./src/Site');
+
+const Prerenderer = require('@prerenderer/prerenderer');
+// Make sure you install a renderer as well!
 
 const {
   ACCEPTED_COMMANDS,
@@ -216,8 +221,50 @@ program
     const defaultOutputRoot = path.join(rootFolder, '_site');
     const outputFolder = output ? path.resolve(process.cwd(), output) : defaultOutputRoot;
     printHeader();
+
+    const prerenderer = new Prerenderer({
+      // Required - The path to the app to prerender. Should have an index.html and any other needed assets.
+      staticDir: outputFolder,
+      // The plugin that actually renders the page.
+      renderer: new JSDOMRenderer()
+    });
+    prerenderer.initialize()
+      .then(() => {
+        // List of routes to render.
+        return prerenderer.renderRoutes(['/'])
+      })
+      .then(renderedRoutes => {
+        // renderedRoutes is an array of objects in the format:
+        // {
+        //   route: String (The route rendered)
+        //   html: String (The resulting HTML)
+        // }
+        renderedRoutes.forEach(renderedRoute => {
+          console.log(renderedRoute.route);
+          try {
+            // A smarter implementation would be required, but this does okay for an example.
+            // Don't copy this directly!!!
+            const outputDir = path.join(outputFolder, renderedRoute.route)
+            const outputFile = `${outputDir}/index.html`
+
+            mkdirp.sync(outputDir)
+            fs.writeFileSync(outputFile, renderedRoute.html.trim())
+          } catch (e) {
+            // Handle errors.
+          }
+        })
+
+        // Shut down the file server and renderer.
+        prerenderer.destroy()
+      })
+      .catch(err => {
+        // Shut down the server and renderer.
+        prerenderer.destroy()
+        // Handle errors.
+      })
     new Site(rootFolder, outputFolder, undefined, undefined, options.siteConfig)
       .generate(baseUrl)
+
       .then(() => {
         logger.info('Build success!');
       })
