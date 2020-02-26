@@ -1,1 +1,0 @@
-<puml src="demo.puml" />
