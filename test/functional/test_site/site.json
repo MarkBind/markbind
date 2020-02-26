@@ -71,6 +71,10 @@
     {
       "src": "testPanelsWithImportedVariables.md",
       "title": "Panels with Imported Variables Test"
+    },
+    {
+      "src": "testIncludePluginsRendered.md",
+      "title": "Included files should have plugins rendered on them"
     }
   ],
   "ignore": [
