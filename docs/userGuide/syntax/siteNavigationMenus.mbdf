@@ -89,6 +89,8 @@ A siteNav has a fixed width of 300 pixels for its contents. A siteNavs is [_resp
 
 There is no limit to the number of nesting levels or the number of items in the menu, but note that any content exceeding a height of 1000 pixels will be cut off.
 
+If you wish to use a Layout but exclude its navigation file, specify `siteNav: none` in the `<frontmatter>` of the page.
+
 
 <span id="short" class="d-none">
 

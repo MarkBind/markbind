@@ -37,6 +37,7 @@ const {
   NAVIGATION_FOLDER_PATH,
   CONTENT_WRAPPER_ID,
   FRONT_MATTER_FENCE,
+  FRONT_MATTER_NONE_ATTR,
   PAGE_NAV_ID,
   PAGE_NAV_TITLE_CLASS,
   SITE_NAV_ID,
@@ -459,6 +460,10 @@ class Page {
    */
   insertHeaderFile(pageData) {
     const { header } = this.frontMatter;
+    if (header === FRONT_MATTER_NONE_ATTR) {
+      return pageData;
+    }
+
     let headerFile;
     if (header) {
       headerFile = path.join(HEADERS_FOLDER_PATH, header);
@@ -485,6 +490,10 @@ class Page {
    */
   insertFooterFile(pageData) {
     const { footer } = this.frontMatter;
+    if (footer === FRONT_MATTER_NONE_ATTR) {
+      return pageData;
+    }
+
     let footerFile;
     if (footer) {
       footerFile = path.join(FOOTERS_FOLDER_PATH, footer);
@@ -512,6 +521,10 @@ class Page {
    */
   insertSiteNav(pageData) {
     const { siteNav } = this.frontMatter;
+    if (siteNav === FRONT_MATTER_NONE_ATTR) {
+      return pageData;
+    }
+
     let siteNavFile;
     if (siteNav) {
       siteNavFile = path.join(NAVIGATION_FOLDER_PATH, siteNav);
@@ -658,6 +671,12 @@ class Page {
 
   collectHeadFiles(baseUrl, hostBaseUrl) {
     const { head } = this.frontMatter;
+    if (head === FRONT_MATTER_NONE_ATTR) {
+      this.headFileTopContent = '';
+      this.headFileBottomContent = '';
+      return;
+    }
+
     let headFiles;
     const collectedTopContent = [];
     const collectedBottomContent = [];
