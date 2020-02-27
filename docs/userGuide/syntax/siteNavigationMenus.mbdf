@@ -14,12 +14,15 @@ Steps to add a siteNav:
 
 <code>
 * [:house: Home]({{ showBaseUrlText }}/index.html)<br>
+<hr><hr>
 * Docs<br>
 &nbsp;&nbsp;* [User Guide]({{ showBaseUrlText }}/ug.html)<br>
 &nbsp;&nbsp;* [Dev Guide]({{ showBaseUrlText }}/dg.html)<br>
+<hr><hr>
 * [Search]({{ showBaseUrlText }}/search.html)<br>
 &nbsp;&nbsp;* [Google Search](https://www.google.com/)<br>
 &nbsp;&nbsp;* [YouTube Search](https://www.youtube.com/)<br>
+<hr><hr>
 * [Contact]({{ showBaseUrlText }}/contact.html)
 </code>
 </box>
@@ -53,6 +56,7 @@ Here's how the above siteNav will appear:
       <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.youtube.com">YouTube Search</a></li>
     </ul>
   </li>
+  <li style="margin-top:10px"><a class="site-nav__a" href="/contact.html">Contact</a></li>
 </ul>
 
 </div>
