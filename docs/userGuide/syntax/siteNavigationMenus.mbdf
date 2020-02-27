@@ -19,11 +19,11 @@ Steps to add a siteNav:
 &nbsp;&nbsp;* [User Guide]({{ showBaseUrlText }}/ug.html)<br>
 &nbsp;&nbsp;* [Dev Guide]({{ showBaseUrlText }}/dg.html)<br>
 ---
-* [Search]({{ showBaseUrlText }}/search.html)<br>
+<br>* [Search]({{ showBaseUrlText }}/search.html)<br>
 &nbsp;&nbsp;* [Google Search](https://www.google.com/)<br>
 &nbsp;&nbsp;* [YouTube Search](https://www.youtube.com/)<br>
 ---
-* [Contact]({{ showBaseUrlText }}/contact.html)
+<br>* [Contact]({{ showBaseUrlText }}/contact.html)
 </code>
 </box>
 
