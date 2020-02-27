@@ -15,6 +15,7 @@ Steps to add a siteNav:
 <code>
 * [:house: Home]({{ showBaseUrlText }}/index.html)<br>
 ---
+<br><br>
 * Docs<br>
 &nbsp;&nbsp;* [User Guide]({{ showBaseUrlText }}/ug.html)<br>
 &nbsp;&nbsp;* [Dev Guide]({{ showBaseUrlText }}/dg.html)<br>
