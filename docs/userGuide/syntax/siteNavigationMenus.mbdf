@@ -14,7 +14,7 @@ Steps to add a siteNav:
 
 <code>
 * [:house: Home]({{ showBaseUrlText }}/index.html)<br>
-<hr><hr>
+---
 * Docs<br>
 &nbsp;&nbsp;* [User Guide]({{ showBaseUrlText }}/ug.html)<br>
 &nbsp;&nbsp;* [Dev Guide]({{ showBaseUrlText }}/dg.html)<br>
@@ -40,6 +40,7 @@ Here's how the above siteNav will appear:
 
 <ul style="list-style-type: none; margin-left:-1em">
   <li style="margin-top: 10px"><a class="site-nav__a" href="/index.html">🏠 Home</a></li>
+  <hr>
   <li style="margin-top: 10px">
     <button class="dropdown-btn">Docs <i class="dropdown-btn-icon">
       <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
@@ -50,12 +51,14 @@ Here's how the above siteNav will appear:
       </ul>
     </div>
   </li>
+  <hr>
   <li style="margin-top:10px"><a class="site-nav__a" href="">Search</a>
     <ul style="list-style-type: none; margin-left:-1em">
       <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.google.com">Google Search</a></li>
       <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.youtube.com">YouTube Search</a></li>
     </ul>
   </li>
+  <hr>
   <li style="margin-top:10px"><a class="site-nav__a" href="/contact.html">Contact</a></li>
 </ul>
 
