@@ -1,3 +1,0 @@
-<navigation>
-* [Layout Nav]
-</navigation>

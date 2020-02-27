@@ -912,10 +912,17 @@ class Site {
     if (!fs.existsSync(siteLayoutPath)) {
       return Promise.resolve();
     }
-    return new Promise((resolve, reject) => {
-      fs.copyAsync(siteLayoutPath, layoutsDestPath)
-        .then(resolve)
-        .catch(reject);
+    return new Promise((resolve) => {
+      const files = walkSync(siteLayoutPath);
+      resolve(files);
+    }).then((files) => {
+      if (!files) {
+        return Promise.resolve();
+      }
+      const filteredFiles = files.filter(file => _.includes(file, '.') && !_.includes(file, '.md'));
+      const copyAll = Promise.all(filteredFiles.map(file =>
+        fs.copyAsync(path.join(siteLayoutPath, file), path.join(layoutsDestPath, file))));
+      return copyAll.then(() => Promise.resolve());
     });
   }
 

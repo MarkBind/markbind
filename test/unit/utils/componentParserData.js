@@ -251,4 +251,90 @@ module.exports.PARSE_BOX_ICON_EXPECTED = `
 </box>
 `;
 
+module.exports.PARSE_BOX_HEADER = `
+<box header="#### Lorem ipsum dolor sit amet :rocket:">
+  Header attribute should be inserted as internal _header slot and deleted.
+</box>
+`;
+
+module.exports.PARSE_BOX_HEADER_EXPECTED = `
+<box><template slot="_header"><h4>Lorem ipsum dolor sit amet 🚀</h4>
+</template>
+  Header attribute should be inserted as internal _header slot and deleted.
+</box>
+`;
+
+// todo remove this test once 'heading' attribute is fully deprecated for boxes
+
+module.exports.PARSE_BOX_HEADING = `
+<box heading="#### Lorem ipsum dolor sit amet :rocket:">
+  Heading attribute should be inserted as internal _header slot and deleted.
+</box>
+`;
+
+module.exports.PARSE_BOX_HEADING_EXPECTED = `
+<box><template slot="_header"><h4>Lorem ipsum dolor sit amet 🚀</h4>
+</template>
+  Heading attribute should be inserted as internal _header slot and deleted.
+</box>
+`;
+
+/**
+ * Dropdowns
+ */
+
+module.exports.PARSE_DROPDOWN_HEADER = `
+<dropdown header="**Lorem ipsum dolor sit amet**">
+  Header attribute should be inserted as internal _header slot and deleted.
+</dropdown>
+`;
+
+module.exports.PARSE_DROPDOWN_HEADER_EXPECTED = `
+<dropdown><template slot="_header"><strong>Lorem ipsum dolor sit amet</strong></template>
+  Header attribute should be inserted as internal _header slot and deleted.
+</dropdown>
+`;
+
+// TODO deprecate text attribute of dropdown
+module.exports.PARSE_DROPDOWN_TEXT_ATTR = `
+<dropdown text="**Lorem ipsum dolor sit amet**">
+  Text attribute should be inserted as internal _header slot and deleted.
+</dropdown>
+`;
+
+// TODO deprecate text attribute of dropdown
+module.exports.PARSE_DROPDOWN_TEXT_ATTR_EXPECTED = `
+<dropdown><template slot="_header"><strong>Lorem ipsum dolor sit amet</strong></template>
+  Text attribute should be inserted as internal _header slot and deleted.
+</dropdown>
+`;
+
+// TODO deprecate text attribute of dropdown
+module.exports.PARSE_DROPDOWN_HEADER_SHADOWS_TEXT = `
+<dropdown text="Not expected text" header="**Lorem ipsum dolor sit amet**">
+  Header attribute should be inserted as internal _header slot and deleted. Text attribute should be ignored.
+</dropdown>
+`;
+
+// TODO deprecate text attribute of dropdown
+module.exports.PARSE_DROPDOWN_HEADER_SHADOWS_TEXT_EXPECTED = `
+<dropdown><template slot="_header"><strong>Lorem ipsum dolor sit amet</strong></template>
+  Header attribute should be inserted as internal _header slot and deleted. Text attribute should be ignored.
+</dropdown>
+`;
+
+module.exports.PARSE_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY = `
+<dropdown header="**Lorem ipsum dolor sit amet**" text="shouldn't appear in result">
+  <strong slot="header">slot text</strong>
+  Header attribute should be ignored and deleted while header slot is reserved.
+</dropdown>
+`;
+
+module.exports.PARSE_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
+<dropdown>
+  <strong slot="header">slot text</strong>
+  Header attribute should be ignored and deleted while header slot is reserved.
+</dropdown>
+`;
+
 /* eslint-enable max-len */

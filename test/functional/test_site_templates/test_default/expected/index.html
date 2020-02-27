@@ -5,7 +5,7 @@
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="MarkBind 2.10.0">
+  <meta name="generator" content="MarkBind 2.11.0">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Landing Page</title>
   <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
@@ -28,7 +28,7 @@
         <li><a href="/contents/topic1.html" class="nav-link">Topic 1</a></li>
         <li><a href="/contents/topic2.html" class="nav-link">Topic 2</a></li>
         <div class="nav-link temp-dropdown-placeholder">Topic 3</div>
-        <dropdown header="Topic 3" class="nav-link temp-dropdown">
+        <dropdown class="nav-link temp-dropdown"><template slot="_header">Topic 3</template>
           <li><a href="/contents/topic3a.html" class="dropdown-item">Topic 3a</a></li>
           <li><a href="/contents/topic3b.html" class="dropdown-item">Topic 3b</a></li>
         </dropdown>
@@ -87,10 +87,7 @@
           </li>
         </ul>
         <p><strong>A <code>code</code> example:</strong></p>
-        <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
-</code></pre>
+        <pre><code class="hljs html"><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span></span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span></span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span></span></code></pre>
         <h2 id="sub-heading-1-1">Sub Heading 1.1<a class="fa fa-anchor" href="#sub-heading-1-1"></a></h2>
         <p>A
           <tooltip effect="scale" placement="top" trigger="hover"><template slot="_content">❗️ some <strong>important explanation</strong></template>tooltip</tooltip>, a
@@ -155,16 +152,15 @@
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
           in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </box>
-        <box type="tip" heading="Tip box heading">
-          tip
+        <box type="tip"><template slot="_header"><p>Tip box heading</p></template> tip
         </box>
-        <box type="success" heading="Tip box heading">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <box type="success"><template slot="_header"><p>Tip box heading</p></template> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+          nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum.
         </box>
-        <box type="important" dismissible="" heading="Tip box heading">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <box type="important" dismissible=""><template slot="_header"><p>Tip box heading</p></template> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+          nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum.
         </box>
         <br>
         <h1 id="heading-3">Heading 3<a class="fa fa-anchor" href="#heading-3"></a></h1>

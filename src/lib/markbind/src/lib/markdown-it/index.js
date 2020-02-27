@@ -1,19 +1,7 @@
 const hljs = require('highlight.js');
 const markdownIt = require('markdown-it')({
   html: true,
-  linkify: true,
-  highlight: function (str, lang) {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return '<pre><code class="hljs ' + lang + '">' +
-          hljs.highlight(lang, str, true).value +
-          '</code></pre>';
-      } catch (__) {
-      }
-    }
-
-    return '<pre><code class="hljs">' + markdownIt.utils.escapeHtml(str) + '</code></pre>';
-  }
+  linkify: true
 });
 const slugify = require('@sindresorhus/slugify');
 
@@ -40,6 +28,54 @@ markdownIt.renderer.rules.table_open = (tokens, idx) => {
 };
 markdownIt.renderer.rules.table_close = (tokens, idx) => {
   return '</table></div>';
+};
+
+// syntax highlight code fences and add line numbers
+markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
+  const token = tokens[idx];
+  const lang = token.info || '';
+  let str = token.content;
+  let highlighted = false;
+  let lines;
+  if (lang && hljs.getLanguage(lang)) {
+    try {
+      /* We cannot syntax highlight THEN split by lines. For eg:
+      ```markdown
+      *****
+      -----
+      ```
+
+      becomes
+
+      <span class="hljs-section">*****
+      -----</span>
+      Note the line break contained inside a <span> element.
+      So we have to split by lines THEN syntax highlight.
+       */
+      let state = null; // state stores the current parse state of hljs, so that we can pass it on line by line
+      lines = str.split('\n').map((line) => {
+        const highlightedLine = hljs.highlight(lang, line, true, state);
+        state = highlightedLine.top;
+        return highlightedLine.value;
+      });
+      highlighted = true;
+    } catch (_) {}
+  }
+  if (!highlighted) {
+    lines = markdownIt.utils.escapeHtml(str).split('\n');
+  }
+  lines.pop(); // last line is always a single '\n' newline, so we remove it
+
+  /* wrap all lines with <span> so we can number them
+  if a line is empty we put a 0 width non breaking space
+   */
+  str =  lines.map(line => `<span>${line || '&#x200B;'}</span>`).join('');
+
+  token.attrJoin('class', 'hljs');
+  if (highlighted) {
+    token.attrJoin('class', lang);
+  }
+  return `<pre><code ${slf.renderAttrs(token)}>${str}</code></pre>`;
 };
 
 // highlight inline code
