@@ -235,6 +235,8 @@ function _parseModalAttributes(element) {
   _renameAttribute(el, 'ok-text', 'ok-title');
   _renameAttribute(el, 'center', 'centered');
 
+  el.attribs['ok-only'] = ''; // only show OK button
+
   if (el.attribs.backdrop === 'false') {
     el.attribs['no-close-on-backdrop'] = '';
   }
