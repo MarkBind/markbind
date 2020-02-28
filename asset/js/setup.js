@@ -186,8 +186,12 @@ function makeHtmlGetterFor(componentType, attribute) {
   };
 }
 
-
 /* eslint-disable no-unused-vars */
+/*
+ These getters are used by triggers to get their popover/tooltip content.
+ We need to create a completely new popover/tooltip for each trigger due to bootstrap-vue's implementation,
+ so this is how we retrieve our contents.
+*/
 const popoverContentGetter = makeHtmlGetterFor('popover', 'content');
 const popoverHeaderGetter = makeHtmlGetterFor('popover', 'header');
 const popoverInnerContentGetter = makeInnerGetterFor('content');

@@ -44,20 +44,21 @@ function _parseAttributeWithoutOverride(element, attribute, isInline, slotName =
 
 /**
  * Takes an element, looks for direct elements with slots and transforms to avoid Vue parsing.
+ * This is so that we can use bootstrap-vue popovers, tooltips, and modals.
  * @param element Element to transform
  */
 function _transformSlottedComponents(element) {
-  element.children.forEach((c) => {
-    const child = c;
-    const slot = child.attribs && child.attribs.slot;
+  element.children.forEach((child) => {
+    const c = child;
+    const slot = c.attribs && c.attribs.slot;
     if (slot) {
       // Turns <div slot="content">... into <div data-mb-html-for=content>...
-      child.attribs['data-mb-html-for'] = slot;
-      delete child.attribs.slot;
+      c.attribs['data-mb-html-for'] = slot;
+      delete c.attribs.slot;
     }
     // similarly, need to transform templates to avoid Vue parsing
-    if (child.name === 'template') {
-      child.name = 'span';
+    if (c.name === 'template') {
+      c.name = 'span';
     }
   });
 }
@@ -141,6 +142,17 @@ function _assignPanelId(element) {
 
 /*
  * Triggers
+ *
+ * At "compile time", we can't tell whether a trigger references a modal, popover, or toolip,
+ * since that element might not even processed yet.
+ *
+ * So, we make every trigger try all 3. It will attempt to open a tooltip, popover, and modal.
+ *
+ * For tooltips and popovers, we call the relevant content getters inside asset/js/setup.js.
+ * They will check to see if the element id exists, and whether it is a popover/tooltip,
+ * and then return the content as needed.
+ *
+ * For modals, we make it attempt to show the modal if it exists.
  */
 
 function _parseTrigger(element) {
@@ -159,6 +171,10 @@ function _parseTrigger(element) {
 
 /*
  * Popovers
+ *
+ * We hide the content and header via _transformSlottedComponents, for retrieval by triggers.
+ *
+ * Then, we add in a trigger for this popover.
  */
 
 function _parsePopover(element) {
@@ -180,6 +196,8 @@ function _parsePopover(element) {
 
 /*
  * Tooltips
+ *
+ * Similar to popovers.
  */
 
 function _parseTooltip(element) {
@@ -195,10 +213,6 @@ function _parseTooltip(element) {
   el.attribs.class = el.attribs.class ? `${el.attribs.class} trigger` : 'trigger';
   _transformSlottedComponents(el);
 }
-
-/*
- * Modals
- */
 
 function _renameSlot(element, originalName, newName) {
   if (element.children) {
@@ -220,6 +234,13 @@ function _renameAttribute(element, originalAttribute, newAttribute) {
   }
 }
 
+/*
+ * Modals
+ *
+ * We are using bootstrap-vue modals, and some of their attributes/slots differ from ours.
+ * So, we will transform from markbind-modal syntax into bootstrap-vue modal syntax.
+ */
+
 function _parseModalAttributes(element) {
   const el = element;
   _parseAttributeWithoutOverride(el, 'header', true, 'modal-title');
@@ -235,7 +256,7 @@ function _parseModalAttributes(element) {
   _renameAttribute(el, 'ok-text', 'ok-title');
   _renameAttribute(el, 'center', 'centered');
 
-  el.attribs['ok-only'] = ''; // only show OK button
+  el.attribs['ok-only'] = '';
 
   if (el.attribs.backdrop === 'false') {
     el.attribs['no-close-on-backdrop'] = '';
@@ -252,6 +273,7 @@ function _parseModalAttributes(element) {
   }
   el.attribs.size = size;
 
+  // default for markbind is zoom, default for bootstrap-vue is fade
   const effect = el.attribs.effect === 'fade' ? '' : 'mb-zoom';
   el.attribs['modal-class'] = effect;
 
