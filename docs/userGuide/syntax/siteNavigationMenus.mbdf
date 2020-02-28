@@ -3,7 +3,7 @@
 **A _Site Navigation Menu_ (==_siteNav_ for short==) is a fixed menu on the ==left edge== of a page**, that can be used to show a road map of the main pages of your site.
 
 Steps to add a siteNav:
-1. Format your siteNav as an unordered Markdown list and save it inside the `_markbind/navigation` directory.
+1. Format your siteNav as an unordered Markdown list and save it inside the `_markbind/navigation` directory. You may include dividers in the siteNav via [horizontal rules]({{ showBaseUrlText }}/userguide/readerfacingfeatures#horizontal-rules)
 2. Specify the file as the value of the `siteNav` attribute in the `<frontmatter>` of the page.
 
 <div class="indented">
@@ -12,19 +12,16 @@ Steps to add a siteNav:
 
 <box>
 
-<code>
-* [:house: Home]({{ showBaseUrlText }}/index.html)<br>
----
-<br>* Docs<br>
-&nbsp;&nbsp;* [User Guide]({{ showBaseUrlText }}/ug.html)<br>
-&nbsp;&nbsp;* [Dev Guide]({{ showBaseUrlText }}/dg.html)<br>
----
-<br>* [Search]({{ showBaseUrlText }}/search.html)<br>
-&nbsp;&nbsp;* [Google Search](https://www.google.com/)<br>
-&nbsp;&nbsp;* [YouTube Search](https://www.youtube.com/)<br>
----
-<br>* [Contact]({{ showBaseUrlText }}/contact.html)
-</code>
+```{.no-line-numbers}
+* [:house: Home]({{ showBaseUrlText }}/index.html)
+* Docs
+  * [User Guide]({{ showBaseUrlText }}/ug.html)
+  * [Dev Guide]({{ showBaseUrlText }}/dg.html)
+* [Search]({{ showBaseUrlText }}/search.html)
+  * [Google Search](https://www.google.com/)
+  * [YouTube Search](https://www.youtube.com/)
+* [Contact]({{ showBaseUrlText }}/contact.html)
+```
 </box>
 
 Here's how another page can make use of the above siteNav:
@@ -40,7 +37,6 @@ Here's how the above siteNav will appear:
 
 <ul style="list-style-type: none; margin-left:-1em">
   <li style="margin-top: 10px"><a class="site-nav__a" href="/index.html">🏠 Home</a></li>
-  <hr>
   <li style="margin-top: 10px">
     <button class="dropdown-btn">Docs <i class="dropdown-btn-icon">
       <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
@@ -51,14 +47,12 @@ Here's how the above siteNav will appear:
       </ul>
     </div>
   </li>
-  <hr>
   <li style="margin-top:10px"><a class="site-nav__a" href="">Search</a>
     <ul style="list-style-type: none; margin-left:-1em">
       <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.google.com">Google Search</a></li>
       <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.youtube.com">YouTube Search</a></li>
     </ul>
   </li>
-  <hr>
   <li style="margin-top:10px"><a class="site-nav__a" href="/contact.html">Contact</a></li>
 </ul>
 
