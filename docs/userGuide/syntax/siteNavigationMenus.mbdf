@@ -3,7 +3,7 @@
 **A _Site Navigation Menu_ (==_siteNav_ for short==) is a fixed menu on the ==left edge== of a page**, that can be used to show a road map of the main pages of your site.
 
 Steps to add a siteNav:
-1. Format your siteNav as an unordered Markdown list and save it inside the `_markbind/navigation` directory. You may include dividers in the siteNav via [horizontal rules]({{ showBaseUrlText }}/userguide/readerfacingfeatures#horizontal-rules)
+1. Format your siteNav as an unordered Markdown list and save it inside the `_markbind/navigation` directory. You may include dividers in the siteNav via <a target="_blank" href="{{ baseUrl }}/userGuide/readerfacingfeatures#horizontal-rules">horizontal rules</a>.
 2. Specify the file as the value of the `siteNav` attribute in the `<frontmatter>` of the page.
 
 <div class="indented">
@@ -11,14 +11,14 @@ Steps to add a siteNav:
 {{ icon_example }} Here is an example siteNav code saved in **`_markbind/navigation/`**`mySiteNav.md` file:
 
 ```{.no-line-numbers}
-* [:house: Home]({{ showBaseUrlText }}/index.html)
+* [:house: Home]({{ baseUrl }}/index.html)
 * Docs
-  * [User Guide]({{ showBaseUrlText }}/ug.html)
-  * [Dev Guide]({{ showBaseUrlText }}/dg.html)
-* [Search]({{ showBaseUrlText }}/search.html)
+  * [User Guide]({{ baseUrl }}/ug.html)
+  * [Dev Guide]({{ baseUrl }}/dg.html)
+* [Search]({{ baseUrl }}/search.html)
   * [Google Search](https://www.google.com/)
   * [YouTube Search](https://www.youtube.com/)
-* [Contact]({{ showBaseUrlText }}/contact.html)
+* [Contact]({{ baseUrl }}/contact.html)
 ```
 
 Here's how another page can make use of the above siteNav:
