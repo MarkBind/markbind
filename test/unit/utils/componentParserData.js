@@ -159,7 +159,7 @@ module.exports.PARSE_MODAL_HEADER = `
 `;
 
 module.exports.PARSE_MODAL_HEADER_EXPECTED = `
-<b-modal size="" modal-class="mb-zoom"><template slot="modal-title"><em>Lorem ipsum dolor sit amet</em></template>
+<b-modal ok-only="" size="" modal-class="mb-zoom"><template slot="modal-title"><em>Lorem ipsum dolor sit amet</em></template>
   Header attribute should be inserted as bootstrap-vue modal-title slot.
 </b-modal>
 `;
@@ -173,7 +173,7 @@ module.exports.PARSE_MODAL_TITLE = `
 `;
 
 module.exports.PARSE_MODAL_TITLE_EXPECTED = `
-<b-modal size="" modal-class="mb-zoom"><template slot="modal-title"><strong>Lorem ipsum dolor sit amet</strong></template>
+<b-modal ok-only="" size="" modal-class="mb-zoom"><template slot="modal-title"><strong>Lorem ipsum dolor sit amet</strong></template>
   Title attribute should be inserted as internal _header slot.
 </b-modal>
 `;
@@ -185,7 +185,7 @@ module.exports.PARSE_MODAL_TITLE_NO_OVERRIDE = `
 `;
 
 module.exports.PARSE_MODAL_TITLE_NO_OVERRIDE_EXPECTED = `
-<b-modal size="" modal-class="mb-zoom"><template slot="modal-title"><strong>Header header</strong></template>
+<b-modal ok-only="" size="" modal-class="mb-zoom"><template slot="modal-title"><strong>Header header</strong></template>
   Title attribute should not have priority over newer header attribute, and should be deleted.
 </b-modal>
 `;
@@ -200,7 +200,7 @@ module.exports.PARSE_MODAL_SLOTS_RENAMING = `
 `;
 
 module.exports.PARSE_MODAL_SLOTS_RENAMING_EXPECTED = `
-<b-modal size="" modal-class="mb-zoom">
+<b-modal ok-only="" size="" modal-class="mb-zoom">
   <div slot="modal-header">Should be renamed to header</div>
   <div slot="modal-footer">Should be renamed to footer</div>
 </b-modal>
