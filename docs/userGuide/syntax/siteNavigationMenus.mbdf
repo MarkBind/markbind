@@ -10,8 +10,6 @@ Steps to add a siteNav:
 
 {{ icon_example }} Here is an example siteNav code saved in **`_markbind/navigation/`**`mySiteNav.md` file:
 
-<box>
-
 ```{.no-line-numbers}
 * [:house: Home]({{ showBaseUrlText }}/index.html)
 * Docs
@@ -22,7 +20,6 @@ Steps to add a siteNav:
   * [YouTube Search](https://www.youtube.com/)
 * [Contact]({{ showBaseUrlText }}/contact.html)
 ```
-</box>
 
 Here's how another page can make use of the above siteNav:
 
