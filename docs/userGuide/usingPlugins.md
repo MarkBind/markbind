@@ -3,6 +3,7 @@
 <frontmatter>
   title: "User Guide: {{ title }}"
   layout: userGuide
+  pageNav: "default"
 </frontmatter>
 
 # Using Plugins
