@@ -144,7 +144,7 @@ function _assignPanelId(element) {
  * Triggers
  *
  * At "compile time", we can't tell whether a trigger references a modal, popover, or toolip,
- * since that element might not even processed yet.
+ * since that element might not have been processed yet.
  *
  * So, we make every trigger try all 3. It will attempt to open a tooltip, popover, and modal.
  *
@@ -238,7 +238,7 @@ function _renameAttribute(element, originalAttribute, newAttribute) {
  * Modals
  *
  * We are using bootstrap-vue modals, and some of their attributes/slots differ from ours.
- * So, we will transform from markbind-modal syntax into bootstrap-vue modal syntax.
+ * So, we will transform from markbind modal syntax into bootstrap-vue modal syntax.
  */
 
 function _parseModalAttributes(element) {
@@ -256,7 +256,7 @@ function _parseModalAttributes(element) {
   _renameAttribute(el, 'ok-text', 'ok-title');
   _renameAttribute(el, 'center', 'centered');
 
-  el.attribs['ok-only'] = '';
+  el.attribs['ok-only'] = ''; // only show OK button
 
   if (el.attribs.backdrop === 'false') {
     el.attribs['no-close-on-backdrop'] = '';
