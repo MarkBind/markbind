@@ -56,7 +56,21 @@ Represents the root directory of the project. Used for specifying intra-site lin
 
 ##### Built-in Variable: `timestamp`
 
-<code>{<span></span>{ timestamp }}</code> is the time stamp (in UTC) that indicates when the page was generated.
+<code>{<span></span>{ timestamp }}</code> is the time stamp that indicates when the page was generated.
+
+You can set the time zone and locale in `site.json` like so - 
+
+```js
+site.json
+{
+  ...
+  "timeZone": "Asia/Singapore",
+  "locale": "en-US",
+  ...
+}
+```
+
+The default values of `"timeZone"` and `"locale"` are `"UTC"` and `"en-GB"` respectively.
 
 <div class="indented">
 
