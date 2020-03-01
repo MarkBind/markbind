@@ -21,25 +21,24 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
  * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
  */
 function _parseAttributeWithoutOverride(element, attribute, isInline, slotName = attribute) {
-  const el = element;
+  const hasAttributeSlot = element.children
+    && element.children.some(child => _.has(child.attribs, 'slot') && child.attribs.slot === slotName);
 
-  const hasAttributeSlot = el.children
-    && el.children.some(child => _.has(child.attribs, 'slot') && child.attribs.slot === slotName);
-
-  if (!hasAttributeSlot && _.has(el.attribs, attribute)) {
+  if (!hasAttributeSlot && _.has(element.attribs, attribute)) {
     let rendered;
     if (isInline) {
-      rendered = vueAttrRenderer.renderInline(el.attribs[attribute]);
+      rendered = vueAttrRenderer.renderInline(element.attribs[attribute]);
     } else {
-      rendered = vueAttrRenderer.render(el.attribs[attribute]);
+      rendered = vueAttrRenderer.render(element.attribs[attribute]);
     }
 
     const attributeSlotElement = cheerio.parseHTML(
       `<template slot="${slotName}">${rendered}</template>`, true);
-    el.children = el.children ? attributeSlotElement.concat(el.children) : attributeSlotElement;
+    element.children
+      = element.children ? attributeSlotElement.concat(element.children) : attributeSlotElement;
   }
 
-  delete el.attribs[attribute];
+  delete element.attribs[attribute];
 }
 
 /*
@@ -47,17 +46,15 @@ function _parseAttributeWithoutOverride(element, attribute, isInline, slotName =
  */
 
 function _parsePanelAttributes(element) {
-  const el = element;
-
   _parseAttributeWithoutOverride(element, 'alt', false, '_alt');
 
-  const slotChildren = el.children && el.children.filter(child => _.has(child.attribs, 'slot'));
+  const slotChildren = element.children && element.children.filter(child => _.has(child.attribs, 'slot'));
   const hasAltSlot = slotChildren && slotChildren.some(child => child.attribs.slot === '_alt');
   const hasHeaderSlot = slotChildren && slotChildren.some(child => child.attribs.slot === 'header');
 
   // If both are present, the header attribute has no effect, and we can simply remove it.
   if (hasAltSlot && hasHeaderSlot) {
-    delete el.attribs.header;
+    delete element.attribs.header;
     return;
   }
 
@@ -97,9 +94,7 @@ function _findHeaderElement(element) {
  * @param element The root panel element
  */
 function _assignPanelId(element) {
-  const el = element;
-
-  const slotChildren = el.children && el.children.filter(child => _.has(child.attribs, 'slot'));
+  const slotChildren = element.children && element.children.filter(child => _.has(child.attribs, 'slot'));
   const headerSlot = slotChildren.find(child => child.attribs.slot === 'header');
   const headerAttributeSlot = slotChildren.find(child => child.attribs.slot === '_header');
 
@@ -115,7 +110,7 @@ function _assignPanelId(element) {
         + 'Please report this to the MarkBind developers. Thank you!');
     }
 
-    el.attribs.id = header.attribs.id;
+    element.attribs.id = header.attribs.id;
   }
 }
 
@@ -145,9 +140,7 @@ function _parseTooltipAttributes(element) {
 
 function _renameSlot(element, originalName, newName) {
   if (element.children) {
-    element.children.forEach((c) => {
-      const child = c;
-
+    element.children.forEach((child) => {
       if (_.has(child.attribs, 'slot') && child.attribs.slot === originalName) {
         child.attribs.slot = newName;
       }
@@ -192,22 +185,21 @@ function _parseBoxAttributes(element) {
  */
 
 function _parseDropdownAttributes(element) {
-  const el = element;
-  const slotChildren = el.children && el.children.filter(child => _.has(child.attribs, 'slot'));
+  const slotChildren = element.children && element.children.filter(child => _.has(child.attribs, 'slot'));
   const hasHeaderSlot = slotChildren && slotChildren.some(child => child.attribs.slot === 'header');
 
   // If header slot is present, the header attribute has no effect, and we can simply remove it.
   if (hasHeaderSlot) {
-    delete el.attribs.header;
+    delete element.attribs.header;
     // TODO deprecate text attribute of dropdown
-    delete el.attribs.text;
+    delete element.attribs.text;
     return;
   }
 
   // header attribute takes priority over text attribute
   if (_.has(element.attribs, 'header')) {
     _parseAttributeWithoutOverride(element, 'header', true, '_header');
-    delete el.attribs.text;
+    delete element.attribs.text;
   } else {
     // TODO deprecate text attribute of dropdown
     _parseAttributeWithoutOverride(element, 'text', true, '_header');
