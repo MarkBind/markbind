@@ -50,7 +50,7 @@ Here's how the above siteNav will appear:
       <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.youtube.com">YouTube Search</a></li>
     </ul>
   </li>
-  <li style="margin-top:10px"><a class="site-nav__a" href="/contact.html">Contact</a></li>
+  <li style="margin-top:10px"><a class="site-nav__a" href="">Contact</a></li>
 </ul>
 
 </div>
