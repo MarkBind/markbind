@@ -83,7 +83,7 @@ You may have additional HTML and Markdown content in a <tooltip content="the fil
 
 More than one siteNav file can be in `_markbind/navigation/` directory but a page may not have more than one siteNav.
 
-A siteNav has a fixed width of 300 pixels for its contents. A siteNavs is [_responsive_](https://www.w3schools.com/html/html_responsive.asp) in that it will collapse to a menu button when the screen width is smaller than 992 pixels. It will then be completely hidden when the screen size is smaller than 576 pixels.
+A siteNav has a fixed width of 300 pixels for its contents. A siteNav is [_responsive_](https://www.w3schools.com/html/html_responsive.asp) in that it will collapse to a menu button when the screen width is smaller than 992 pixels. It will then be completely hidden when the screen size is smaller than 576 pixels.
 
 There is no limit to the number of nesting levels or the number of items in the menu, but note that any content exceeding a height of 1000 pixels will be cut off.
 
