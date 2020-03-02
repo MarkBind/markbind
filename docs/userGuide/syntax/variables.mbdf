@@ -58,19 +58,9 @@ Represents the root directory of the project. Used for specifying intra-site lin
 
 <code>{<span></span>{ timestamp }}</code> is the time stamp that indicates when the page was generated.
 
-You can set the time zone and locale in `site.json` like so - 
+Compiled in the following gists are lists of possible [time zone](https://gist.github.com/yash-chowdhary/136df3f6721f2fd1d5ea46b14f7c531c) and [locale](https://gist.github.com/yash-chowdhary/674654bdd977b063de008c1b3655a515) options.
 
-```js
-site.json
-{
-  ...
-  "timeZone": "Asia/Singapore",
-  "locale": "en-US",
-  ...
-}
-```
-
-The default values of `"timeZone"` and `"locale"` are `"UTC"` and `"en-GB"` respectively.
+The default values of `"timeZone"` and `"locale"` are `"UTC"` and `"en-GB"` respectively. The following example showcases the use of the `"Asia/Singapore"` time zone.
 
 <div class="indented">
 
