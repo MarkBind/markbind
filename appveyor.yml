@@ -1,6 +1,5 @@
-# AppVeyor configuration file
 environment:
-  nodejs_version: "8"
+  nodejs_version: "10"
 
 # Install scripts
 install:
