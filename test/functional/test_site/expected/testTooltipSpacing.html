@@ -27,10 +27,8 @@
       <div id="content-wrapper">
         <h1 id="569-stray-space-after-tooltip">569: Stray space after tooltip<a class="fa fa-anchor" href="#569-stray-space-after-tooltip"></a></h1>
         <pre><code class="hljs"><span>&lt;tooltip&gt;tooltip&lt;/tooltip&gt;, test</span><span>&#x200B;</span><span>&lt;trigger&gt;trigger&lt;/trigger&gt;, test</span></code></pre>
-        <p>
-          <tooltip>tooltip</tooltip>, test</p>
-        <p>
-          <trigger>trigger</trigger>, test</p>
+        <p><span data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger">tooltip</span>, test</p>
+        <p><span v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['undefined'].show()" class="trigger">trigger</span>, test</p>
       </div>
     </div>
     <footer>

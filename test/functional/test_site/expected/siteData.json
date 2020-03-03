@@ -45,6 +45,7 @@
         "outer-nested-panel-without-src": "Outer nested panel without src",
         "panel-with-src-from-another-markbind-site-header": "Panel with src from another Markbind site header",
         "panel-with-src-from-another-markbind-site-header-2": "Panel with src from another Markbind site header",
+        "panel-inside-modal": "Panel inside modal",
         "unexpanded-panel-header": "Unexpanded panel header",
         "keyword-should-be-tagged-to-this-heading-not-the-panel-heading": "Keyword should be tagged to this heading, not the panel heading",
         "panel-normal-source-content-headings": "Panel normal source content headings",

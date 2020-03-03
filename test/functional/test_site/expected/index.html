@@ -146,16 +146,9 @@
         <div class="website-content">
           <p><strong>Test footnotes</strong></p>
           <div>
-            <p><strong>Normal footnotes:</strong> Here is a footnote reference,
-              <trigger for="pop:footnote1"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#footnote1" id="footnoteref1">[1]</a></sup></trigger> and another.
-              <trigger for="pop:footnote2"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#footnote2" id="footnoteref2">[2]</a></sup></trigger>
-            </p>
-            <p>Here is a repeated footnote to
-              <trigger for="pop:footnote1"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#footnote1" id="footnoteref1:1">[1]</a></sup></trigger>
-            </p>
-            <p><strong>Inline footnotes:</strong> Here is an inline note.
-              <trigger for="pop:footnote3"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#footnote3" id="footnoteref3">[3]</a></sup></trigger>
-            </p>
+            <p><strong>Normal footnotes:</strong> Here is a footnote reference,<span for="pop:footnote1" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['pop:footnote1'].show()" class="trigger"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#footnote1" id="footnoteref1">[1]</a></sup></span>              and another.<span for="pop:footnote2" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['pop:footnote2'].show()" class="trigger"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#footnote2" id="footnoteref2">[2]</a></sup></span></p>
+            <p>Here is a repeated footnote to <span for="pop:footnote1" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['pop:footnote1'].show()" class="trigger"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#footnote1" id="footnoteref1:1">[1]</a></sup></span></p>
+            <p><strong>Inline footnotes:</strong> Here is an inline note.<span for="pop:footnote3" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['pop:footnote3'].show()" class="trigger"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#footnote3" id="footnoteref3">[3]</a></sup></span></p>
           </div>
           <p><strong>Variables that reference another variable</strong></p>
           <p>This variable can be referenced.</p>
@@ -285,8 +278,8 @@
             <h4 id="user-surveys">User surveys<a class="fa fa-anchor" href="#user-surveys"></a></h4>
             <p>Carefully designed questionnaires can be used to solicit responses and opinions from a large number of users regarding any current system or a new innovation.</p>
             <h4 id="focus-groups">Focus groups<a class="fa fa-anchor" href="#focus-groups"></a></h4>
-            <p>Focus groups are a kind of informal interview within an interactive group setting. A
-              <tooltip><template slot="_content">e.g. potential users, beta testers</template>group of people</tooltip>
+            <p>Focus groups are a kind of informal interview within an interactive group setting. A <span data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger"><span data-mb-html-for="_content">e.g. potential users, beta testers</span>group
+              of people</span>
               are asked about their understanding of a specific issue or a process. Focus groups can bring out undiscovered conflicts and misunderstandings among stakeholder interests which can then be resolved or clarified as necessary.</p>
           </div>
           <p><strong>Include segment</strong></p>
@@ -448,14 +441,12 @@ specification that specifies how the product will address the requirements. </sp
           <panel src="/test_site/sub_site/testReuse._include_.html" expanded="" id="panel-with-src-from-another-markbind-site-header-2"><template slot="_header"><h2 id="panel-with-src-from-another-markbind-site-header-2">Panel with src from another Markbind site header<a class="fa fa-anchor" href="#panel-with-src-from-another-markbind-site-header-2"></a></h2></template></panel>
         </div>
         <p><strong>Modal with panel inside</strong></p>
-        <p>
-          <trigger for="modal-with-panel">trigger</trigger>
-        </p>
-        <modal id="modal-with-panel"><template slot="_header">modal title with panel inside</template>
+        <p><span for="modal-with-panel" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['modal-with-panel'].show()" class="trigger">trigger</span></p>
+        <b-modal id="modal-with-panel" ok-only="" size="" modal-class="mb-zoom" ref="modal-with-panel"><template slot="modal-title">modal title with panel inside</template>
           <panel expanded="" id="panel-inside-modal"><template slot="_header"><h2 id="panel-inside-modal">Panel inside modal<a class="fa fa-anchor" href="#panel-inside-modal"></a></h2></template>
             <p><strong>Panel content inside modal</strong></p>
           </panel>
-        </modal>
+        </b-modal>
         <p><strong>Unexpanded panel</strong></p>
         <panel id="unexpanded-panel-header"><template slot="_header"><h2 id="unexpanded-panel-header">Unexpanded panel header<a class="fa fa-anchor" href="#unexpanded-panel-header"></a></h2></template>
           <p><strong>Panel content of unexpanded panel should not appear in search data</strong></p>
@@ -570,6 +561,7 @@ specification that specifies how the product will address the requirements. </sp
               <a class="nav-link py-1" href="#inner-panel-header-without-src">Inner panel header without src&#x200E;</a>
               <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site-header">Panel with src from another Markbind site header&#x200E;</a>
               <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site-header-2">Panel with src from another Markbind site header&#x200E;</a>
+              <a class="nav-link py-1" href="#panel-inside-modal">Panel inside modal&#x200E;</a>
               <a class="nav-link py-1" href="#unexpanded-panel-header">Unexpanded panel header&#x200E;</a>
             </nav>
             <a class="nav-link py-1" href="#markbind-plugin-pre-render">Markbind Plugin Pre-render&#x200E;</a>

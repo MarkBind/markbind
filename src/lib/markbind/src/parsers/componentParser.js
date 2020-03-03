@@ -42,6 +42,27 @@ function _parseAttributeWithoutOverride(element, attribute, isInline, slotName =
   delete el.attribs[attribute];
 }
 
+/**
+ * Takes an element, looks for direct elements with slots and transforms to avoid Vue parsing.
+ * This is so that we can use bootstrap-vue popovers, tooltips, and modals.
+ * @param element Element to transform
+ */
+function _transformSlottedComponents(element) {
+  element.children.forEach((child) => {
+    const c = child;
+    const slot = c.attribs && c.attribs.slot;
+    if (slot) {
+      // Turns <div slot="content">... into <div data-mb-html-for=content>...
+      c.attribs['data-mb-html-for'] = slot;
+      delete c.attribs.slot;
+    }
+    // similarly, need to transform templates to avoid Vue parsing
+    if (c.name === 'template') {
+      c.name = 'span';
+    }
+  });
+}
+
 /*
  * Panels
  */
@@ -119,29 +140,79 @@ function _assignPanelId(element) {
   }
 }
 
+/*
+ * Triggers
+ *
+ * At "compile time", we can't tell whether a trigger references a modal, popover, or toolip,
+ * since that element might not have been processed yet.
+ *
+ * So, we make every trigger try all 3. It will attempt to open a tooltip, popover, and modal.
+ *
+ * For tooltips and popovers, we call the relevant content getters inside asset/js/setup.js.
+ * They will check to see if the element id exists, and whether it is a popover/tooltip,
+ * and then return the content as needed.
+ *
+ * For modals, we make it attempt to show the modal if it exists.
+ */
+
+function _parseTrigger(element) {
+  const el = element;
+  el.name = 'span';
+  const trigger = el.attribs.trigger || 'hover';
+  const placement = el.attribs.placement || 'top';
+  el.attribs[`v-b-popover.${trigger}.${placement}.html`]
+    = 'popoverGenerator';
+  el.attribs[`v-b-tooltip.${trigger}.${placement}.html`]
+    = 'tooltipContentGetter';
+  const convertedTrigger = trigger === 'hover' ? 'mouseover' : trigger;
+  el.attribs[`v-on:${convertedTrigger}`] = `$refs['${el.attribs.for}'].show()`;
+  el.attribs.class = el.attribs.class ? `${el.attribs.class} trigger` : 'trigger';
+}
 
 /*
  * Popovers
+ *
+ * We hide the content and header via _transformSlottedComponents, for retrieval by triggers.
+ *
+ * Then, we add in a trigger for this popover.
  */
 
-function _parsePopoverAttributes(element) {
-  _parseAttributeWithoutOverride(element, 'content', true);
-  _parseAttributeWithoutOverride(element, 'header', true);
+function _parsePopover(element) {
+  const el = element;
+  _parseAttributeWithoutOverride(el, 'content', true);
+  _parseAttributeWithoutOverride(el, 'header', true);
   // TODO deprecate title attribute for popovers
-  _parseAttributeWithoutOverride(element, 'title', true, 'header');
+  _parseAttributeWithoutOverride(el, 'title', true, 'header');
+
+  el.name = 'span';
+  const trigger = el.attribs.trigger || 'hover';
+  const placement = el.attribs.placement || 'top';
+  el.attribs['data-mb-component-type'] = 'popover';
+  el.attribs[`v-b-popover.${trigger}.${placement}.html`]
+    = 'popoverInnerGenerator';
+  el.attribs.class = el.attribs.class ? `${el.attribs.class} trigger` : 'trigger';
+  _transformSlottedComponents(el);
 }
 
 /*
  * Tooltips
+ *
+ * Similar to popovers.
  */
 
-function _parseTooltipAttributes(element) {
-  _parseAttributeWithoutOverride(element, 'content', true, '_content');
+function _parseTooltip(element) {
+  const el = element;
+  _parseAttributeWithoutOverride(el, 'content', true, '_content');
+
+  el.name = 'span';
+  const trigger = el.attribs.trigger || 'hover';
+  const placement = el.attribs.placement || 'top';
+  el.attribs['data-mb-component-type'] = 'tooltip';
+  el.attribs[`v-b-tooltip.${trigger}.${placement}.html`]
+    = 'tooltipInnerContentGetter';
+  el.attribs.class = el.attribs.class ? `${el.attribs.class} trigger` : 'trigger';
+  _transformSlottedComponents(el);
 }
-
-/*
- * Modals
- */
 
 function _renameSlot(element, originalName, newName) {
   if (element.children) {
@@ -155,14 +226,60 @@ function _renameSlot(element, originalName, newName) {
   }
 }
 
+function _renameAttribute(element, originalAttribute, newAttribute) {
+  const el = element;
+  if (_.has(el.attribs, originalAttribute)) {
+    el.attribs[newAttribute] = el.attribs[originalAttribute];
+    delete el.attribs[originalAttribute];
+  }
+}
+
+/*
+ * Modals
+ *
+ * We are using bootstrap-vue modals, and some of their attributes/slots differ from ours.
+ * So, we will transform from markbind modal syntax into bootstrap-vue modal syntax.
+ */
+
 function _parseModalAttributes(element) {
-  _parseAttributeWithoutOverride(element, 'header', true, '_header');
+  const el = element;
+  _parseAttributeWithoutOverride(el, 'header', true, 'modal-title');
   // TODO deprecate title attribute for modals
-  _parseAttributeWithoutOverride(element, 'title', true, '_header');
+  _parseAttributeWithoutOverride(el, 'title', true, 'modal-title');
 
   // TODO deprecate modal-header, modal-footer attributes for modals
-  _renameSlot(element, 'modal-header', 'header');
-  _renameSlot(element, 'modal-footer', 'footer');
+  _renameSlot(el, 'header', 'modal-header');
+  _renameSlot(el, 'footer', 'modal-footer');
+
+  el.name = 'b-modal';
+
+  _renameAttribute(el, 'ok-text', 'ok-title');
+  _renameAttribute(el, 'center', 'centered');
+
+  el.attribs['ok-only'] = ''; // only show OK button
+
+  if (el.attribs.backdrop === 'false') {
+    el.attribs['no-close-on-backdrop'] = '';
+  }
+  delete el.attribs.backdrop;
+
+  let size = '';
+  if (_.has(el.attribs, 'large')) {
+    size = 'lg';
+    delete el.attribs.large;
+  } else if (_.has(el.attribs, 'small')) {
+    size = 'sm';
+    delete el.attribs.small;
+  }
+  el.attribs.size = size;
+
+  // default for markbind is zoom, default for bootstrap-vue is fade
+  const effect = el.attribs.effect === 'fade' ? '' : 'mb-zoom';
+  el.attribs['modal-class'] = effect;
+
+  if (_.has(el.attribs, 'id')) {
+    el.attribs.ref = el.attribs.id;
+  }
 }
 
 /*
@@ -224,11 +341,14 @@ function parseComponents(element, errorHandler) {
     case 'panel':
       _parsePanelAttributes(element);
       break;
+    case 'trigger':
+      _parseTrigger(element);
+      break;
     case 'popover':
-      _parsePopoverAttributes(element);
+      _parsePopover(element);
       break;
     case 'tooltip':
-      _parseTooltipAttributes(element);
+      _parseTooltip(element);
       break;
     case 'modal':
       _parseModalAttributes(element);
