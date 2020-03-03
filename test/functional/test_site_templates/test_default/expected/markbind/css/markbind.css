@@ -51,6 +51,10 @@ pre > code.hljs[heading] {
     display: block;
 }
 
+code > span.highlighted {
+    background: lavender;
+}
+
 kbd {
     background-color: #fafbfc;
     border: 1px solid #c6cbd1;
@@ -394,8 +398,4 @@ li.footnote-item:target {
     -ms-transform: scale(1);
     transform: scale(1);
     opacity: 1;
-}
-
-code > span.highlighted {
-    background: lavender;
 }
