@@ -11,4 +11,6 @@ Here is a sample feature list from Minesweeper (only a brief description has bee
 3. Versus play – Two players can play against each other.
 4. Timer – Additional fixed time restriction on the player. 
 
+<div id="image">
 <img src="{{baseUrl}}/images/I'm not allowed to use my favorite tool.png">
+</div>

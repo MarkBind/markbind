@@ -1060,6 +1060,7 @@ class Page {
         .then(result => this.postRender(result))
         .then(result => this.collectPluginsAssets(result))
         .then(result => markbinder.processDynamicResources(file, result))
+        .then(result => MarkBind.unwrapIncludeSrc(result))
         .then((result) => {
           // resolve the site base url here
           const { relative } = urlUtils.getParentSiteAbsoluteAndRelativePaths(file, this.rootPath,
