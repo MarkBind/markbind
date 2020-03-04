@@ -369,3 +369,45 @@ li.footnote-item:target {
     transform: scale(1);
     opacity: 1;
 }
+
+/* "Copy" code block button */
+pre {
+    position: relative;
+}
+
+.copy-btn {
+    background-color: #b4b4b9;
+    border-radius: 0.25rem;
+    color: #f8f8ff;
+    display: inline-block;
+    font-size: 75%;
+    line-height: 1;
+    padding: 0.25em 0.4em;
+    position: absolute;
+    right: 0.5em;
+    text-align: center;
+    top: 0.4em;
+    white-space: nowrap;
+}
+
+.copy-btn:hover {
+    color: #555;
+}
+
+.copy-btn-body {
+    align-items: center;
+    display: flex;
+}
+
+.copy-btn svg {
+    fill: currentColor;
+    margin-right: 0.4em;
+}
+
+.copy-btn-label {
+    font-size: 11px;
+}
+
+.copy-btn:focus {
+    outline: none;
+}
