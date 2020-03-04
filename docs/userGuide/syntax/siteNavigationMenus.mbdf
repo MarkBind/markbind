@@ -12,12 +12,15 @@ Steps to add a siteNav:
 
 ```{.no-line-numbers}
 * [:house: Home]({{ baseUrl }}/index.html)
+---
 * Docs
   * [User Guide]({{ baseUrl }}/ug.html)
   * [Dev Guide]({{ baseUrl }}/dg.html)
 * [Search]({{ baseUrl }}/search.html)
+---
   * [Google Search](https://www.google.com/)
   * [YouTube Search](https://www.youtube.com/)
+---
 * [Contact]({{ baseUrl }}/contact.html)
 ```
 
@@ -34,6 +37,7 @@ Here's how the above siteNav will appear:
 
 <ul style="list-style-type: none; margin-left:-1em">
   <li style="margin-top: 10px"><a class="site-nav__a" href="/index.html">🏠 Home</a></li>
+  <hr>
   <li style="margin-top: 10px">
     <button class="dropdown-btn">Docs <i class="dropdown-btn-icon">
       <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
@@ -44,12 +48,14 @@ Here's how the above siteNav will appear:
       </ul>
     </div>
   </li>
+  <hr>
   <li style="margin-top:10px"><a class="site-nav__a" href="">Search</a>
     <ul style="list-style-type: none; margin-left:-1em">
       <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.google.com">Google Search</a></li>
       <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.youtube.com">YouTube Search</a></li>
     </ul>
   </li>
+  <hr>
   <li style="margin-top:10px"><a class="site-nav__a" href="">Contact</a></li>
 </ul>
 
