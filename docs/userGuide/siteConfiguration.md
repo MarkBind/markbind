@@ -201,8 +201,20 @@ The example above uses tags as an example of configuring plugin settings, refer 
 
 #### **`timeZone`**
 
-**Time zone of the time stamp that indicates when the page was generated.** Default: `"UTC"`. See [User Guide: Built-in Variable: `timestamp`](reusingContents.html#built-in-variable-timestamp) for more details.
+**Time zone of the [time stamp](reusingContents.html#built-in-variable-timestamp).** Default: `"UTC"`. 
+
+<panel type="minimal" header="Time Zone Options">
+  <include src="pages/timeZones.md" />
+</panel>
+
+<br>
 
 #### **`locale`**
 
-**Language by locale used for the time stamp.** Default: `"en-GB"`. The date format is thus - <br> `<Day>, <Date> <Month> <Year>, <24-hour Time> <Time Zone Code>`. See [User Guide: Built-in Variable: `timestamp`](reusingContents.html#built-in-variable-timestamp) for more details.
+**Language by locale used for the [time stamp](reusingContents.html#built-in-variable-timestamp).** Default: `"en-GB"` (`English (United Kingdom)`). <br>
+The date format is thus - <br>
+`<Day>, <Date> <Month> <Year>, <24-hour Time> <Time Zone Code>`. 
+
+<panel type="minimal" header="Locale Options">
+  <include src="pages/locales.md" />
+</panel>
