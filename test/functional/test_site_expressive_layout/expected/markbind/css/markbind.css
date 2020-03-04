@@ -340,3 +340,74 @@ li.footnote-item:target {
     top: 0;
     width: 3em;
 }
+
+/* hide popover, modal, tooltip content */
+[data-mb-html-for] {
+    display: none;
+}
+
+/* styles for triggers */
+.trigger {
+    text-decoration: underline dotted;
+}
+
+.modal.mb-zoom {
+    -webkit-transform: scale(0.1);
+    -moz-transform: scale(0.1);
+    -ms-transform: scale(0.1);
+    transform: scale(0.1);
+    opacity: 0;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.modal.mb-zoom.show {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* "Copy" code block button */
+pre {
+    position: relative;
+}
+
+.copy-btn {
+    background-color: #b4b4b9;
+    border-radius: 0.25rem;
+    color: #f8f8ff;
+    display: inline-block;
+    font-size: 75%;
+    line-height: 1;
+    padding: 0.25em 0.4em;
+    position: absolute;
+    right: 0.5em;
+    text-align: center;
+    top: 0.4em;
+    white-space: nowrap;
+}
+
+.copy-btn:hover {
+    color: #555;
+}
+
+.copy-btn-body {
+    align-items: center;
+    display: flex;
+}
+
+.copy-btn svg {
+    fill: currentColor;
+    margin-right: 0.4em;
+}
+
+.copy-btn-label {
+    font-size: 11px;
+}
+
+.copy-btn:focus {
+    outline: none;
+}

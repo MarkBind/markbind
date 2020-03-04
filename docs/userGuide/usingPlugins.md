@@ -207,6 +207,7 @@ Disabling the `anchors` plugin:
 MarkBind has a set of built-in plugins that can be used immediately without installation.
 
 <include src="plugins/algolia.mbdf" />
+<include src="plugins/codeBlockCopyButtons.mbdf" />
 <include src="plugins/filterTags.mbdf" />
 <include src="plugins/googleAnalytics.mbdf" />
 

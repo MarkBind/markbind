@@ -171,6 +171,39 @@ function setupWithSearch() {
   setupSiteNav();
 }
 
+function makeInnerGetterFor(attribute) {
+  return (element) => {
+    const innerElement = element.querySelector(`[data-mb-html-for="${attribute}"]`);
+    return innerElement === null ? '' : innerElement.innerHTML;
+  };
+}
+
+function makeHtmlGetterFor(componentType, attribute) {
+  return (element) => {
+    const contentWrapper = document.getElementById(element.attributes.for.value);
+    return contentWrapper.dataset.mbComponentType === componentType
+      ? makeInnerGetterFor(attribute)(contentWrapper) : '';
+  };
+}
+
+/* eslint-disable no-unused-vars */
+/*
+ These getters are used by triggers to get their popover/tooltip content.
+ We need to create a completely new popover/tooltip for each trigger due to bootstrap-vue's implementation,
+ so this is how we retrieve our contents.
+*/
+const popoverContentGetter = makeHtmlGetterFor('popover', 'content');
+const popoverHeaderGetter = makeHtmlGetterFor('popover', 'header');
+const popoverInnerContentGetter = makeInnerGetterFor('content');
+const popoverInnerHeaderGetter = makeInnerGetterFor('header');
+
+const popoverGenerator = { title: popoverHeaderGetter, content: popoverContentGetter };
+const popoverInnerGenerator = { title: popoverInnerHeaderGetter, content: popoverInnerContentGetter };
+
+const tooltipContentGetter = makeHtmlGetterFor('tooltip', '_content');
+const tooltipInnerContentGetter = makeInnerGetterFor('_content');
+/* eslint-enable no-unused-vars */
+
 if (enableSearch) {
   setupWithSearch();
 } else {
