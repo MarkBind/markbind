@@ -797,8 +797,7 @@ class Page {
         .then(result => this.insertFooterFile(result))
         .then(result => Page.insertTemporaryStyles(result))
         .then(result => markbinder.resolveBaseUrl(result, fileConfig))
-        .then(result => fs.outputFileAsync(this.tempPath, result))
-        .then(() => markbinder.renderFile(this.tempPath, fileConfig))
+        .then(result => markbinder.renderFile(result, this.tempPath, fileConfig))
         .then(result => this.postRender(result))
         .then(result => this.collectPluginsAssets(result))
         .then(result => markbinder.processDynamicResources(this.sourcePath, result))
@@ -1062,8 +1061,7 @@ class Page {
           isDynamic: true,
           dynamicSource: source,
         }))
-        .then(result => fs.outputFileAsync(tempPath, result))
-        .then(() => markbinder.renderFile(tempPath, {
+        .then(result => markbinder.renderFile(result, tempPath, {
           baseUrlMap: this.baseUrlMap,
           rootPath: this.rootPath,
           headerIdMap: {},

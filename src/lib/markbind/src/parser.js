@@ -497,9 +497,9 @@ class Parser {
     });
   }
 
-  renderFile(file, config) {
+  renderFile(content, filePath, config) {
     const context = {};
-    context.cwf = file; // current working file
+    context.cwf = filePath; // current working file
     context.mode = 'render';
     return new Promise((resolve, reject) => {
       const handler = new htmlparser.DomHandler((error, dom) => {
@@ -512,7 +512,7 @@ class Parser {
           try {
             parsed = this._parse(d, context, config);
           } catch (err) {
-            err.message += `\nError while rendering '${file}'`;
+            err.message += `\nError while rendering '${filePath}'`;
             this._onError(err);
             parsed = utils.createErrorNode(d, err);
           }
@@ -529,25 +529,18 @@ class Parser {
         xmlMode: true,
         decodeEntities: false,
       });
-      // Read files
-      fs.readFile(file, (err, data) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-        const fileExt = utils.getExt(file);
-        if (utils.isMarkdownFileExt(fileExt)) {
-          const inputData = md.render(data.toString());
-          context.source = 'md';
-          parser.parseComplete(inputData);
-        } else if (fileExt === 'html') {
-          context.source = 'html';
-          parser.parseComplete(data);
-        } else {
-          const error = new Error(`Unsupported File Extension: '${fileExt}'`);
-          reject(error);
-        }
-      });
+      const fileExt = utils.getExt(filePath);
+      if (utils.isMarkdownFileExt(fileExt)) {
+        const inputData = md.render(content);
+        context.source = 'md';
+        parser.parseComplete(inputData);
+      } else if (fileExt === 'html') {
+        context.source = 'html';
+        parser.parseComplete(content);
+      } else {
+        const error = new Error(`Unsupported File Extension: '${fileExt}'`);
+        reject(error);
+      }
     });
   }
 
