@@ -44,20 +44,19 @@ function _parseAttributeWithoutOverride(node, attribute, isInline, slotName = at
 /**
  * Takes an element, looks for direct elements with slots and transforms to avoid Vue parsing.
  * This is so that we can use bootstrap-vue popovers, tooltips, and modals.
- * @param element Element to transform
+ * @param node Element to transform
  */
-function _transformSlottedComponents(element) {
-  element.children.forEach((child) => {
-    const c = child;
-    const slot = c.attribs && c.attribs.slot;
+function _transformSlottedComponents(node) {
+  node.children.forEach((child) => {
+    const slot = child.attribs && child.attribs.slot;
     if (slot) {
       // Turns <div slot="content">... into <div data-mb-html-for=content>...
-      c.attribs['data-mb-html-for'] = slot;
-      delete c.attribs.slot;
+      child.attribs['data-mb-html-for'] = slot;
+      delete child.attribs.slot;
     }
     // similarly, need to transform templates to avoid Vue parsing
-    if (c.name === 'template') {
-      c.name = 'span';
+    if (child.name === 'template') {
+      child.name = 'span';
     }
   });
 }
@@ -150,18 +149,17 @@ function _assignPanelId(node) {
  * For modals, we make it attempt to show the modal if it exists.
  */
 
-function _parseTrigger(element) {
-  const el = element;
-  el.name = 'span';
-  const trigger = el.attribs.trigger || 'hover';
-  const placement = el.attribs.placement || 'top';
-  el.attribs[`v-b-popover.${trigger}.${placement}.html`]
+function _parseTrigger(node) {
+  node.name = 'span';
+  const trigger = node.attribs.trigger || 'hover';
+  const placement = node.attribs.placement || 'top';
+  node.attribs[`v-b-popover.${trigger}.${placement}.html`]
     = 'popoverGenerator';
-  el.attribs[`v-b-tooltip.${trigger}.${placement}.html`]
+  node.attribs[`v-b-tooltip.${trigger}.${placement}.html`]
     = 'tooltipContentGetter';
   const convertedTrigger = trigger === 'hover' ? 'mouseover' : trigger;
-  el.attribs[`v-on:${convertedTrigger}`] = `$refs['${el.attribs.for}'].show()`;
-  el.attribs.class = el.attribs.class ? `${el.attribs.class} trigger` : 'trigger';
+  node.attribs[`v-on:${convertedTrigger}`] = `$refs['${node.attribs.for}'].show()`;
+  node.attribs.class = node.attribs.class ? `${node.attribs.class} trigger` : 'trigger';
 }
 
 /*
@@ -172,22 +170,20 @@ function _parseTrigger(element) {
  * Then, we add in a trigger for this popover.
  */
 
-function _parsePopover(element) {
-  const el = element;
-  _parseAttributeWithoutOverride(el, 'content', true);
-  _parseAttributeWithoutOverride(el, 'header', true);
+function _parsePopover(node) {
+  _parseAttributeWithoutOverride(node, 'content', true);
+  _parseAttributeWithoutOverride(node, 'header', true);
   // TODO deprecate title attribute for popovers
   _parseAttributeWithoutOverride(node, 'title', true, 'header');
-  _parseAttributeWithoutOverride(el, 'title', true, 'header');
 
-  el.name = 'span';
-  const trigger = el.attribs.trigger || 'hover';
-  const placement = el.attribs.placement || 'top';
-  el.attribs['data-mb-component-type'] = 'popover';
-  el.attribs[`v-b-popover.${trigger}.${placement}.html`]
+  node.name = 'span';
+  const trigger = node.attribs.trigger || 'hover';
+  const placement = node.attribs.placement || 'top';
+  node.attribs['data-mb-component-type'] = 'popover';
+  node.attribs[`v-b-popover.${trigger}.${placement}.html`]
     = 'popoverInnerGenerator';
-  el.attribs.class = el.attribs.class ? `${el.attribs.class} trigger` : 'trigger';
-  _transformSlottedComponents(el);
+  node.attribs.class = node.attribs.class ? `${node.attribs.class} trigger` : 'trigger';
+  _transformSlottedComponents(node);
 }
 
 /*
@@ -196,18 +192,17 @@ function _parsePopover(element) {
  * Similar to popovers.
  */
 
-function _parseTooltip(element) {
-  const el = element;
-  _parseAttributeWithoutOverride(el, 'content', true, '_content');
+function _parseTooltip(node) {
+  _parseAttributeWithoutOverride(node, 'content', true, '_content');
 
-  el.name = 'span';
-  const trigger = el.attribs.trigger || 'hover';
-  const placement = el.attribs.placement || 'top';
-  el.attribs['data-mb-component-type'] = 'tooltip';
-  el.attribs[`v-b-tooltip.${trigger}.${placement}.html`]
+  node.name = 'span';
+  const trigger = node.attribs.trigger || 'hover';
+  const placement = node.attribs.placement || 'top';
+  node.attribs['data-mb-component-type'] = 'tooltip';
+  node.attribs[`v-b-tooltip.${trigger}.${placement}.html`]
     = 'tooltipInnerContentGetter';
-  el.attribs.class = el.attribs.class ? `${el.attribs.class} trigger` : 'trigger';
-  _transformSlottedComponents(el);
+  node.attribs.class = node.attribs.class ? `${node.attribs.class} trigger` : 'trigger';
+  _transformSlottedComponents(node);
 }
 
 function _renameSlot(node, originalName, newName) {
@@ -220,11 +215,10 @@ function _renameSlot(node, originalName, newName) {
   }
 }
 
-function _renameAttribute(element, originalAttribute, newAttribute) {
-  const el = element;
-  if (_.has(el.attribs, originalAttribute)) {
-    el.attribs[newAttribute] = el.attribs[originalAttribute];
-    delete el.attribs[originalAttribute];
+function _renameAttribute(node, originalAttribute, newAttribute) {
+  if (_.has(node.attribs, originalAttribute)) {
+    node.attribs[newAttribute] = node.attribs[originalAttribute];
+    delete node.attribs[originalAttribute];
   }
 }
 
@@ -236,45 +230,42 @@ function _renameAttribute(element, originalAttribute, newAttribute) {
  */
 
 function _parseModalAttributes(node) {
-  _parseAttributeWithoutOverride(node, 'header', true, '_header');
+  _parseAttributeWithoutOverride(node, 'header', true, 'modal-title');
   // TODO deprecate title attribute for modals
-  _parseAttributeWithoutOverride(node, 'title', true, '_header');
-  _parseAttributeWithoutOverride(el, 'title', true, 'modal-title');
+  _parseAttributeWithoutOverride(node, 'title', true, 'modal-title');
 
   // TODO deprecate modal-header, modal-footer attributes for modals
-  _renameSlot(node, 'modal-header', 'header');
-  _renameSlot(node, 'modal-footer', 'footer');
-  _renameSlot(el, 'header', 'modal-header');
-  _renameSlot(el, 'footer', 'modal-footer');
+  _renameSlot(node, 'header', 'modal-header');
+  _renameSlot(node, 'footer', 'modal-footer');
 
-  el.name = 'b-modal';
+  node.name = 'b-modal';
 
-  _renameAttribute(el, 'ok-text', 'ok-title');
-  _renameAttribute(el, 'center', 'centered');
+  _renameAttribute(node, 'ok-text', 'ok-title');
+  _renameAttribute(node, 'center', 'centered');
 
-  el.attribs['ok-only'] = ''; // only show OK button
+  node.attribs['ok-only'] = ''; // only show OK button
 
-  if (el.attribs.backdrop === 'false') {
-    el.attribs['no-close-on-backdrop'] = '';
+  if (node.attribs.backdrop === 'false') {
+    node.attribs['no-close-on-backdrop'] = '';
   }
-  delete el.attribs.backdrop;
+  delete node.attribs.backdrop;
 
   let size = '';
-  if (_.has(el.attribs, 'large')) {
+  if (_.has(node.attribs, 'large')) {
     size = 'lg';
-    delete el.attribs.large;
-  } else if (_.has(el.attribs, 'small')) {
+    delete node.attribs.large;
+  } else if (_.has(node.attribs, 'small')) {
     size = 'sm';
-    delete el.attribs.small;
+    delete node.attribs.small;
   }
-  el.attribs.size = size;
+  node.attribs.size = size;
 
   // default for markbind is zoom, default for bootstrap-vue is fade
-  const effect = el.attribs.effect === 'fade' ? '' : 'mb-zoom';
-  el.attribs['modal-class'] = effect;
+  const effect = node.attribs.effect === 'fade' ? '' : 'mb-zoom';
+  node.attribs['modal-class'] = effect;
 
-  if (_.has(el.attribs, 'id')) {
-    el.attribs.ref = el.attribs.id;
+  if (_.has(node.attribs, 'id')) {
+    node.attribs.ref = node.attribs.id;
   }
 }
 
