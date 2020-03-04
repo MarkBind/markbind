@@ -76,15 +76,15 @@ class Parser {
      * <import>ed variables have not been processed yet, we replace such variables with itself first.
      */
     const importedVariables = {};
-    $('import[from]').each((index, element) => {
-      const variableNames = Object.keys(element.attribs)
+    $('import[from]').each((index, node) => {
+      const variableNames = Object.keys(node.attribs)
         .filter(name => name !== 'from' && name !== 'as');
       // If no namespace is provided, we use the smallest name as one...
       const largestName = variableNames.sort()[0];
       // ... and prepend it with $__MARKBIND__ to reduce collisions.
       const generatedAlias = IMPORTED_VARIABLE_PREFIX + largestName;
-      const hasAlias = _.hasIn(element.attribs, 'as');
-      const alias = hasAlias ? element.attribs.as : generatedAlias;
+      const hasAlias = _.hasIn(node.attribs, 'as');
+      const alias = hasAlias ? node.attribs.as : generatedAlias;
       importedVariables[alias] = new Proxy({}, {
         get(obj, prop) {
           return `{{${alias}.${prop}}}`;
@@ -144,22 +144,22 @@ class Parser {
     return node;
   }
 
-  _renderIncludeFile(filePath, element, context, config, asIfAt = filePath) {
+  _renderIncludeFile(filePath, node, context, config, asIfAt = filePath) {
     try {
       this._fileCache[filePath] = this._fileCache[filePath]
         ? this._fileCache[filePath] : fs.readFileSync(filePath, 'utf8');
     } catch (e) {
       // Read file fail
-      const missingReferenceErrorMessage = `Missing reference in: ${element.attribs[ATTRIB_CWF]}`;
+      const missingReferenceErrorMessage = `Missing reference in: ${node.attribs[ATTRIB_CWF]}`;
       e.message += `\n${missingReferenceErrorMessage}`;
       this._onError(e);
-      return Parser.createErrorNode(element, e);
+      return Parser.createErrorNode(node, e);
     }
     const fileContent = this._fileCache[filePath]; // cache the file contents to save some I/O
     const { parent, relative } = Parser.calculateNewBaseUrls(asIfAt, config.rootPath, config.baseUrlMap);
     const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
     // Extract included variables from the PARENT file
-    const includeVariables = Parser.extractIncludeVariables(element, context.variables);
+    const includeVariables = Parser.extractIncludeVariables(node, context.variables);
     // Extract page variables from the CHILD file
     const pageVariables
       = this.extractPageVariables(asIfAt, fileContent, userDefinedVariables, includeVariables);
@@ -181,22 +181,22 @@ class Parser {
     });
     const aliases = new Map();
     Parser.FILE_ALIASES.set(cwf, aliases);
-    $('import[from]').each((index, element) => {
-      const filePath = path.resolve(path.dirname(cwf), element.attribs.from);
-      const variableNames = Object.keys(element.attribs)
+    $('import[from]').each((index, node) => {
+      const filePath = path.resolve(path.dirname(cwf), node.attribs.from);
+      const variableNames = Object.keys(node.attribs)
         .filter(name => name !== 'from' && name !== 'as');
       // If no namespace is provided, we use the smallest name as one
       const largestName = variableNames.sort()[0];
       // ... and prepend it with $__MARKBIND__ to reduce collisions.
       const generatedAlias = IMPORTED_VARIABLE_PREFIX + largestName;
-      const alias = _.hasIn(element.attribs, 'as')
-        ? element.attribs.as
+      const alias = _.hasIn(node.attribs, 'as')
+        ? node.attribs.as
         : generatedAlias;
       aliases.set(alias, filePath);
       this.staticIncludeSrc.push({ from: context.cwf, to: filePath });
       // Render inner file content
       const { content: renderedContent, childContext, userDefinedVariables }
-        = this._renderIncludeFile(filePath, element, context, config);
+        = this._renderIncludeFile(filePath, node, context, config);
       if (!Parser.PROCESSED_INNER_VARIABLES.has(filePath)) {
         Parser.PROCESSED_INNER_VARIABLES.add(filePath);
         this._extractInnerVariables(renderedContent, childContext, config);
@@ -832,19 +832,19 @@ class Parser {
     return node;
   }
 
-  static _rebaseReferenceForStaticIncludes(pageData, element, config) {
+  static _rebaseReferenceForStaticIncludes(pageData, node, config) {
     if (!config) {
       return pageData;
     }
     if (!pageData.includes('{{baseUrl}}')) {
       return pageData;
     }
-    const filePath = element.attribs[ATTRIB_INCLUDE_PATH];
+    const filePath = node.attribs[ATTRIB_INCLUDE_PATH];
     const fileBase = Parser.calculateNewBaseUrls(filePath, config.rootPath, config.baseUrlMap);
     if (!fileBase.relative) {
       return pageData;
     }
-    const currentPath = element.attribs[ATTRIB_CWF];
+    const currentPath = node.attribs[ATTRIB_CWF];
     const currentBase = Parser.calculateNewBaseUrls(currentPath, config.rootPath, config.baseUrlMap);
     if (currentBase.relative === fileBase.relative) {
       return pageData;

@@ -15,59 +15,59 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 /**
  * Parses the markdown attribute of the provided element, inserting the corresponding <slot> child
  * if there is no pre-existing slot child with the name of the attribute present.
- * @param element Element to parse
+ * @param node Element to parse
  * @param attribute Attribute name to parse
  * @param isInline Whether to parse the attribute with only inline markdown-it rules
  * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
  */
-function _parseAttributeWithoutOverride(element, attribute, isInline, slotName = attribute) {
-  const hasAttributeSlot = element.children
-    && element.children.some(child => _.has(child.attribs, 'slot') && child.attribs.slot === slotName);
+function _parseAttributeWithoutOverride(node, attribute, isInline, slotName = attribute) {
+  const hasAttributeSlot = node.children
+    && node.children.some(child => _.has(child.attribs, 'slot') && child.attribs.slot === slotName);
 
-  if (!hasAttributeSlot && _.has(element.attribs, attribute)) {
+  if (!hasAttributeSlot && _.has(node.attribs, attribute)) {
     let rendered;
     if (isInline) {
-      rendered = vueAttrRenderer.renderInline(element.attribs[attribute]);
+      rendered = vueAttrRenderer.renderInline(node.attribs[attribute]);
     } else {
-      rendered = vueAttrRenderer.render(element.attribs[attribute]);
+      rendered = vueAttrRenderer.render(node.attribs[attribute]);
     }
 
     const attributeSlotElement = cheerio.parseHTML(
       `<template slot="${slotName}">${rendered}</template>`, true);
-    element.children
-      = element.children ? attributeSlotElement.concat(element.children) : attributeSlotElement;
+    node.children
+      = node.children ? attributeSlotElement.concat(node.children) : attributeSlotElement;
   }
 
-  delete element.attribs[attribute];
+  delete node.attribs[attribute];
 }
 
 /*
  * Panels
  */
 
-function _parsePanelAttributes(element) {
-  _parseAttributeWithoutOverride(element, 'alt', false, '_alt');
+function _parsePanelAttributes(node) {
+  _parseAttributeWithoutOverride(node, 'alt', false, '_alt');
 
-  const slotChildren = element.children && element.children.filter(child => _.has(child.attribs, 'slot'));
+  const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
   const hasAltSlot = slotChildren && slotChildren.some(child => child.attribs.slot === '_alt');
   const hasHeaderSlot = slotChildren && slotChildren.some(child => child.attribs.slot === 'header');
 
   // If both are present, the header attribute has no effect, and we can simply remove it.
   if (hasAltSlot && hasHeaderSlot) {
-    delete element.attribs.header;
+    delete node.attribs.header;
     return;
   }
 
-  _parseAttributeWithoutOverride(element, 'header', false, '_header');
+  _parseAttributeWithoutOverride(node, 'header', false, '_header');
 }
 
 /**
  * Traverses the dom breadth-first from the specified element to find a html heading child.
- * @param element Root element to search from
+ * @param node Root element to search from
  * @returns {undefined|*} The header element, or undefined if none is found.
  */
-function _findHeaderElement(element) {
-  const elements = element.children;
+function _findHeaderElement(node) {
+  const elements = node.children;
   if (!elements || !elements.length) {
     return undefined;
   }
@@ -91,10 +91,10 @@ function _findHeaderElement(element) {
  * Assigns an id to the root element of a panel component using the heading specified in the
  * panel's header slot or attribute (if any), with the header slot having priority if present.
  * This is to ensure anchors still work when panels are in their minimized form.
- * @param element The root panel element
+ * @param node The root panel element
  */
-function _assignPanelId(element) {
-  const slotChildren = element.children && element.children.filter(child => _.has(child.attribs, 'slot'));
+function _assignPanelId(node) {
+  const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
   const headerSlot = slotChildren.find(child => child.attribs.slot === 'header');
   const headerAttributeSlot = slotChildren.find(child => child.attribs.slot === '_header');
 
@@ -110,7 +110,7 @@ function _assignPanelId(element) {
         + 'Please report this to the MarkBind developers. Thank you!');
     }
 
-    element.attribs.id = header.attribs.id;
+    node.attribs.id = header.attribs.id;
   }
 }
 
@@ -119,28 +119,28 @@ function _assignPanelId(element) {
  * Popovers
  */
 
-function _parsePopoverAttributes(element) {
-  _parseAttributeWithoutOverride(element, 'content', true);
-  _parseAttributeWithoutOverride(element, 'header', true);
+function _parsePopoverAttributes(node) {
+  _parseAttributeWithoutOverride(node, 'content', true);
+  _parseAttributeWithoutOverride(node, 'header', true);
   // TODO deprecate title attribute for popovers
-  _parseAttributeWithoutOverride(element, 'title', true, 'header');
+  _parseAttributeWithoutOverride(node, 'title', true, 'header');
 }
 
 /*
  * Tooltips
  */
 
-function _parseTooltipAttributes(element) {
-  _parseAttributeWithoutOverride(element, 'content', true, '_content');
+function _parseTooltipAttributes(node) {
+  _parseAttributeWithoutOverride(node, 'content', true, '_content');
 }
 
 /*
  * Modals
  */
 
-function _renameSlot(element, originalName, newName) {
-  if (element.children) {
-    element.children.forEach((child) => {
+function _renameSlot(node, originalName, newName) {
+  if (node.children) {
+    node.children.forEach((child) => {
       if (_.has(child.attribs, 'slot') && child.attribs.slot === originalName) {
         child.attribs.slot = newName;
       }
@@ -148,34 +148,34 @@ function _renameSlot(element, originalName, newName) {
   }
 }
 
-function _parseModalAttributes(element) {
-  _parseAttributeWithoutOverride(element, 'header', true, '_header');
+function _parseModalAttributes(node) {
+  _parseAttributeWithoutOverride(node, 'header', true, '_header');
   // TODO deprecate title attribute for modals
-  _parseAttributeWithoutOverride(element, 'title', true, '_header');
+  _parseAttributeWithoutOverride(node, 'title', true, '_header');
 
   // TODO deprecate modal-header, modal-footer attributes for modals
-  _renameSlot(element, 'modal-header', 'header');
-  _renameSlot(element, 'modal-footer', 'footer');
+  _renameSlot(node, 'modal-header', 'header');
+  _renameSlot(node, 'modal-footer', 'footer');
 }
 
 /*
  * Tabs
  */
 
-function _parseTabAttributes(element) {
-  _parseAttributeWithoutOverride(element, 'header', true, '_header');
+function _parseTabAttributes(node) {
+  _parseAttributeWithoutOverride(node, 'header', true, '_header');
 }
 
 /*
  * Tip boxes
  */
 
-function _parseBoxAttributes(element) {
-  _parseAttributeWithoutOverride(element, 'icon', true, '_icon');
-  _parseAttributeWithoutOverride(element, 'header', false, '_header');
+function _parseBoxAttributes(node) {
+  _parseAttributeWithoutOverride(node, 'icon', true, '_icon');
+  _parseAttributeWithoutOverride(node, 'header', false, '_header');
 
   // TODO deprecate heading attribute for box
-  _parseAttributeWithoutOverride(element, 'heading', false, '_header');
+  _parseAttributeWithoutOverride(node, 'heading', false, '_header');
 
   // TODO warn when light and seamless attributes are both present
 }
@@ -184,25 +184,25 @@ function _parseBoxAttributes(element) {
  * Dropdowns
  */
 
-function _parseDropdownAttributes(element) {
-  const slotChildren = element.children && element.children.filter(child => _.has(child.attribs, 'slot'));
+function _parseDropdownAttributes(node) {
+  const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
   const hasHeaderSlot = slotChildren && slotChildren.some(child => child.attribs.slot === 'header');
 
   // If header slot is present, the header attribute has no effect, and we can simply remove it.
   if (hasHeaderSlot) {
-    delete element.attribs.header;
+    delete node.attribs.header;
     // TODO deprecate text attribute of dropdown
-    delete element.attribs.text;
+    delete node.attribs.text;
     return;
   }
 
   // header attribute takes priority over text attribute
-  if (_.has(element.attribs, 'header')) {
-    _parseAttributeWithoutOverride(element, 'header', true, '_header');
-    delete element.attribs.text;
+  if (_.has(node.attribs, 'header')) {
+    _parseAttributeWithoutOverride(node, 'header', true, '_header');
+    delete node.attribs.text;
   } else {
     // TODO deprecate text attribute of dropdown
-    _parseAttributeWithoutOverride(element, 'text', true, '_header');
+    _parseAttributeWithoutOverride(node, 'text', true, '_header');
   }
 }
 
@@ -210,30 +210,30 @@ function _parseDropdownAttributes(element) {
  * API
  */
 
-function parseComponents(element, errorHandler) {
+function parseComponents(node, errorHandler) {
   try {
-    switch (element.name) {
+    switch (node.name) {
     case 'panel':
-      _parsePanelAttributes(element);
+      _parsePanelAttributes(node);
       break;
     case 'popover':
-      _parsePopoverAttributes(element);
+      _parsePopoverAttributes(node);
       break;
     case 'tooltip':
-      _parseTooltipAttributes(element);
+      _parseTooltipAttributes(node);
       break;
     case 'modal':
-      _parseModalAttributes(element);
+      _parseModalAttributes(node);
       break;
     case 'tab':
     case 'tab-group':
-      _parseTabAttributes(element);
+      _parseTabAttributes(node);
       break;
     case 'box':
-      _parseBoxAttributes(element);
+      _parseBoxAttributes(node);
       break;
     case 'dropdown':
-      _parseDropdownAttributes(element);
+      _parseDropdownAttributes(node);
       break;
     default:
       break;
@@ -248,11 +248,11 @@ function parseComponents(element, errorHandler) {
   }
 }
 
-function postParseComponents(element, errorHandler) {
+function postParseComponents(node, errorHandler) {
   try {
-    switch (element.name) {
+    switch (node.name) {
     case 'panel':
-      _assignPanelId(element);
+      _assignPanelId(node);
       break;
     default:
       break;
