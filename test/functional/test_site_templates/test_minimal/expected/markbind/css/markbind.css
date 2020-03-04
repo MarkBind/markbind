@@ -94,7 +94,7 @@ code.hljs:hover {
 header.header-fixed {
     position: fixed;
     width: 100%;
-    z-index: 9999;
+    z-index: 1000;
 }
 
 /* #app is treated as the main container */
