@@ -4,7 +4,6 @@ const fs = require('fs-extra-promise');
 const htmlBeautify = require('js-beautify').html;
 const nunjucks = require('nunjucks');
 const path = require('path');
-const pathIsInside = require('path-is-inside');
 const Promise = require('bluebird');
 const nunjuckUtils = require('./lib/markbind/src/utils/nunjuckUtils');
 
@@ -20,6 +19,7 @@ const logger = require('./util/logger');
 const MarkBind = require('./lib/markbind/src/parser');
 const md = require('./lib/markbind/src/lib/markdown-it');
 const utils = require('./lib/markbind/src/utils');
+const urlUtils = require('./lib/markbind/src/utils/urls');
 
 const CLI_VERSION = require('../package.json').version;
 
@@ -480,8 +480,8 @@ class Page {
     // Set header file as an includedFile
     this.includedFiles.add(headerPath);
     // Map variables
-    const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
-    const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
+    const parentSite = urlUtils.getParentSiteAbsolutePath(this.sourcePath, this.rootPath, this.baseUrlMap);
+    const userDefinedVariables = this.userDefinedVariablesMap[parentSite];
     return `${nunjuckUtils.renderEscaped(nunjucks, headerContent, userDefinedVariables)}\n${pageData}`;
   }
 
@@ -510,8 +510,8 @@ class Page {
     // Set footer file as an includedFile
     this.includedFiles.add(footerPath);
     // Map variables
-    const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
-    const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
+    const parentSite = urlUtils.getParentSiteAbsolutePath(this.sourcePath, this.rootPath, this.baseUrlMap);
+    const userDefinedVariables = this.userDefinedVariablesMap[parentSite];
     return `${pageData}\n${nunjuckUtils.renderEscaped(nunjucks, footerContent, userDefinedVariables)}`;
   }
 
@@ -547,8 +547,8 @@ class Page {
     // Set siteNav file as an includedFile
     this.includedFiles.add(siteNavPath);
     // Map variables
-    const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
-    const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
+    const parentSite = urlUtils.getParentSiteAbsolutePath(this.sourcePath, this.rootPath, this.baseUrlMap);
+    const userDefinedVariables = this.userDefinedVariablesMap[parentSite];
     const siteNavMappedData = nunjuckUtils.renderEscaped(nunjucks, siteNavContent, userDefinedVariables);
     // Convert to HTML
     const siteNavDataSelector = cheerio.load(siteNavMappedData);
@@ -697,8 +697,8 @@ class Page {
       // Set head file as an includedFile
       this.includedFiles.add(headFilePath);
       // Map variables
-      const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
-      const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
+      const parentSite = urlUtils.getParentSiteAbsolutePath(this.sourcePath, this.rootPath, this.baseUrlMap);
+      const userDefinedVariables = this.userDefinedVariablesMap[parentSite];
       const headFileMappedData = nunjuckUtils.renderEscaped(nunjucks, headFileContent, userDefinedVariables)
         .trim();
       // Split top and bottom contents
@@ -808,8 +808,9 @@ class Page {
         .then((result) => {
           this.content = htmlBeautify(result, Page.htmlBeautifyOptions);
 
-          const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap);
-          const baseUrl = newBaseUrl ? `${this.baseUrl}/${newBaseUrl}` : this.baseUrl;
+          const { relative } = urlUtils.getParentSiteAbsoluteAndRelativePaths(this.sourcePath, this.rootPath,
+                                                                              this.baseUrlMap);
+          const baseUrl = relative ? `${this.baseUrl}/${utils.ensurePosix(relative)}` : this.baseUrl;
           const hostBaseUrl = this.baseUrl;
 
           this.addLayoutFiles();
@@ -1026,7 +1027,6 @@ class Page {
    * @param builtFiles set of files already pre-rendered by another page
    */
   resolveDependency(dependency, builtFiles) {
-    const source = dependency.from;
     const file = dependency.asIfTo;
     return new Promise((resolve, reject) => {
       const resultDir = path.dirname(path.resolve(this.resultPath, path.relative(this.sourcePath, file)));
@@ -1061,8 +1061,6 @@ class Page {
         .then(result => markbinder.resolveBaseUrl(result, {
           baseUrlMap: this.baseUrlMap,
           rootPath: this.rootPath,
-          isDynamic: true,
-          dynamicSource: source,
         }))
         .then(result => fs.outputFileAsync(tempPath, result))
         .then(() => markbinder.renderFile(tempPath, {
@@ -1075,8 +1073,9 @@ class Page {
         .then(result => markbinder.processDynamicResources(file, result))
         .then((result) => {
           // resolve the site base url here
-          const newBaseUrl = Page.calculateNewBaseUrl(file, this.rootPath, this.baseUrlMap);
-          const baseUrl = newBaseUrl ? `${this.baseUrl}/${newBaseUrl}` : this.baseUrl;
+          const { relative } = urlUtils.getParentSiteAbsoluteAndRelativePaths(file, this.rootPath,
+                                                                              this.baseUrlMap);
+          const baseUrl = relative ? `${this.baseUrl}/${utils.ensurePosix(relative)}` : this.baseUrl;
           const hostBaseUrl = this.baseUrl;
           const content = nunjucks.renderString(result, {
             baseUrl,
@@ -1113,23 +1112,6 @@ class Page {
     return `<div id="${CONTENT_WRAPPER_ID}">\n\n`
       + `${$.html()}\n`
       + '</div>';
-  }
-
-  static calculateNewBaseUrl(filePath, root, lookUp) {
-    function calculate(file, result) {
-      if (file === root || !pathIsInside(file, root)) {
-        return undefined;
-      }
-      const parent = path.dirname(file);
-      if (lookUp.has(parent) && result.length === 1) {
-        return path.relative(root, result[0]);
-      } else if (lookUp.has(parent)) {
-        return calculate(parent, [parent]);
-      }
-      return calculate(parent, result);
-    }
-
-    return calculate(filePath, []);
   }
 
   static removePageHeaderAndFooter(pageData) {

@@ -153,6 +153,18 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 <include src="sub_site/testReuse.md#imageTest" />
 
+**Include nested sub-site directly**
+
+<box>
+<include src="sub_site/nested_sub_site/index.md" />
+</box>
+
+**Include nested sub-site from sub-site**
+
+<box>
+<include src="sub_site/testSubsiteAndNestedSubsiteBaseUrl.md" />
+</box>
+
 **Trimmed include** 
 
 **<include src="testTrimInclude.md" trim inline />**
