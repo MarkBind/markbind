@@ -32,9 +32,9 @@ To specify that you want to insert `myCustomLinks.md` into the `<head>` of `myPa
 
 {{ icon_example }} Here's how you can force the line `<script ... > ... </script>` to be inserted at the top of the `<head>` section.
 
-```html {highlight-lines="1,3"}
+```html {.no-line-numbers} {highlight-lines="1,3"}
 <head-top>
-<script src="`{{ baseUrl }}`/js/myCustomScript.js"></script>
+  <script src="`{{ baseUrl }}`/js/myCustomScript.js"></script>
 </head-top>
 <link rel="stylesheet" href="`{{ baseUrl }}`/css/main.css">
 <link rel="stylesheet" href="`{{ baseUrl }}`/css/extra.css">
@@ -58,15 +58,13 @@ To specify that you want to insert `myCustomLinks.md` into the `<head>` of `myPa
 
 `_markbind/head/myCustomLinks.md`:
 
-<box>
-
-**`<head-top>`**<br>
-&nbsp;&nbsp;`<script src="`{{ showBaseUrlCode }}`/js/myCustomScript.js"></script>`<br>
-**`</head-top>`**<br>
-`<link rel="stylesheet" href="`{{ showBaseUrlCode }}`/css/main.css">`<br>
-`<link rel="stylesheet" href="`{{ showBaseUrlCode }}`/css/extra.css">`
-
-</box>
+```html{.no-line-numbers}
+<head-top>
+<script src="`{{ showBaseUrlCode }}`/js/myCustomScript.js"></script>
+</head-top>
+<link rel="stylesheet" href="`{{ showBaseUrlCode }}`/css/main.css">
+<link rel="stylesheet" href="`{{ showBaseUrlCode }}`/css/extra.css">
+```
 
 ```html
  <frontmatter>
