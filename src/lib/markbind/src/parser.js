@@ -263,7 +263,13 @@ class Parser {
 
     if ((/^h[1-6]$/).test(node.name) && !node.attribs.id) {
       const textContent = utils.getTextContent(node);
-      const slugifiedHeading = slugify(textContent, { decamelize: false });
+      const slugifiedHeading = slugify(textContent, {
+        decamelize: false,
+        customReplacements: [
+          ['and lt', ''],
+          ['and gt', ''],
+        ],
+      });
 
       let headerId = slugifiedHeading;
       const { headerIdMap } = config;
