@@ -125,10 +125,6 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 <include src="requirements/EstablishingRequirements.md#preview" />
 
-<!-- **Dynamic include**
-
-<include src="requirements/SpecifyingRequirements.md" name="Dynamic Include" dynamic /> -->
-
 **Boilerplate include**
 
 <include src="requirements/boilerTest.md" name="Boilerplate Referencing" boilerplate />
