@@ -236,30 +236,10 @@ function _isHtmlIncludingMarkdown(node, context, filePath) {
   return isIncludeSrcMd;
 }
 
-function _preprocessDynamicInclude(node, context, parser, hash, filePath, actualFilePath) {
-  const element = node;
-  element.name = 'panel';
-  element.attribs.src = filePath;
-
-  element.attribs['no-close'] = true;
-  element.attribs['no-switch'] = true;
-  element.attribs.header = element.attribs.name || '';
-
-  if (hash) {
-    element.attribs.fragment = hash.substring(1);
-  }
-
-  parser.dynamicIncludeSrc.push({ from: context.cwf, to: actualFilePath, asIfTo: element.attribs.src });
-  delete element.attribs.dynamic;
-
-  return element;
-}
-
 /**
  * PreProcesses includes.
  * Replaces it with an error node if the specified src is invalid,
  * or an empty node if the src is invalid but optional.
- * Replaces it with a panel with the appropriate content if the dynamic attribute is specified.
  */
 function _preprocessInclude(node, context, config, parser) {
   const element = node;
@@ -295,13 +275,9 @@ function _preprocessInclude(node, context, config, parser) {
 
   const isInline = _.has(element.attribs, 'inline');
   const isTrim = _.has(element.attribs, 'trim');
-  const isDynamic = _.has(element.attribs, 'dynamic');
 
   element.name = isInline ? 'span' : 'div';
   element.attribs[ATTRIB_INCLUDE_PATH] = filePath;
-
-  // Use a 'plain' panel for a dynamic include
-  if (isDynamic) return _preprocessDynamicInclude(element, context, parser, hash, filePath, actualFilePath);
 
   // No need to process url contents
   if (isUrl) return element;
