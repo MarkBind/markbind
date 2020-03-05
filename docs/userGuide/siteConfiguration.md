@@ -218,3 +218,4 @@ The date format is thus - <br>
 <panel type="minimal" header="Locale Options">
   <include src="pages/locales.md" />
 </panel>
+<br>
