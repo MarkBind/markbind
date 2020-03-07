@@ -763,6 +763,7 @@ class Page {
   }
 
   collectAllPageSections() {
+    this.pageSectionsHtml = {}; // This resets the pageSectionsHTML whenever we collect.
     this.collectPageSection('header');
     this.collectPageSection(`#${SITE_NAV_ID}`);
     this.collectPageSection('footer');
