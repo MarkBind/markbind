@@ -299,7 +299,7 @@ function _renameAttribute(node, originalAttribute, newAttribute) {
 function _parseModalAttributes(node) {
   _warnDeprecatedAttributes(node, { title: 'header' });
   _warnDeprecatedSlotNames(node, { 'modal-header': 'header', 'modal-footer': 'footer' });
-  
+
   _parseAttributeWithoutOverride(node, 'header', true, 'modal-title');
   _parseAttributeWithoutOverride(node, 'title', true, 'modal-title');
 
