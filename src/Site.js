@@ -8,6 +8,9 @@ const Promise = require('bluebird');
 const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
 const MarkBind = require('./lib/markbind/src/parser');
+const injectHtmlParser2SpecialTags = require('./lib/markbind/src/patches/htmlparser2');
+const injectMarkdownItSpecialTags = require(
+  './lib/markbind/src/lib/markdown-it-shared/markdown-it-escape-special-tags');
 
 const _ = {};
 _.difference = require('lodash/difference');
@@ -525,6 +528,7 @@ class Site {
         .then(() => this.collectBaseUrl())
         .then(() => this.collectUserDefinedVariablesMap())
         .then(() => this.collectPlugins())
+        .then(() => this.collectPluginSpecialTags())
         .then(() => this.buildAssets())
         .then(() => this.buildSourceFiles())
         .then(() => this.copyMarkBindAsset())
@@ -734,6 +738,35 @@ class Site {
                                ['pluginsContext', plugin.replace(markbindPrefixRegex, ''), 'off'],
                                false))
       .forEach(plugin => this.loadPlugin(plugin, true));
+  }
+
+  /**
+   * Collects the special tags of the site's plugins, and injects them into the parsers.
+   */
+  collectPluginSpecialTags() {
+    const tagsToIgnore = new Set();
+
+    Object.values(this.plugins).forEach((plugin) => {
+      if (!plugin.getSpecialTags) {
+        return;
+      }
+
+      plugin.getSpecialTags(plugin.pluginsContext)
+        .forEach((tagName) => {
+          if (!tagName) {
+            return;
+          }
+
+          tagsToIgnore.add(tagName.toLowerCase());
+        });
+    });
+
+    injectHtmlParser2SpecialTags(tagsToIgnore);
+    injectMarkdownItSpecialTags(tagsToIgnore);
+    Page.htmlBeautifyOptions = {
+      indent_size: 2,
+      content_unformatted: ['pre', ...tagsToIgnore],
+    };
   }
 
   /**
@@ -1014,7 +1047,17 @@ class Site {
   }
 
   _setTimestampVariable() {
-    const time = new Date().toUTCString();
+    const timeZone = this.siteConfig.timeZone ? this.siteConfig.timeZone : 'UTC';
+    const locale = this.siteConfig.locale ? this.siteConfig.locale : 'en-GB';
+    const options = {
+      weekday: 'short',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      timeZone,
+      timeZoneName: 'short',
+    };
+    const time = new Date().toLocaleTimeString(locale, options);
     Object.keys(this.userDefinedVariablesMap).forEach((base) => {
       this.userDefinedVariablesMap[base].timestamp = time;
     });

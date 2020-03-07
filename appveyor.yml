@@ -1,0 +1,17 @@
+environment:
+  nodejs_version: "10"
+
+# Install scripts
+install:
+  # Install nodejs version
+  - ps: Install-Product node $env:nodejs_version
+  # Install modules
+  - npm ci
+
+# Post-install test scripts
+test_script:
+  - node --version
+  - npm --version
+  - npm run testwin
+
+build: off

@@ -16,8 +16,8 @@ Steps to add a siteNav:
 * Docs
   * [User Guide]({{ baseUrl }}/ug.html)
   * [Dev Guide]({{ baseUrl }}/dg.html)
-* [Search]({{ baseUrl }}/search.html)
 ---
+* [Search]({{ baseUrl }}/search.html)
   * [Google Search](https://www.google.com/)
   * [YouTube Search](https://www.youtube.com/)
 ---

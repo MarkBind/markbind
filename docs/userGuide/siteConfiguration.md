@@ -198,3 +198,24 @@ The example above uses tags as an example of configuring plugin settings, refer 
 #### **`enableSearch`**
 
 **Specifies that the website should use MarkBind's search functionality.** Default: `true`. See [User Guide: Making the Site Searchable](makingTheSiteSearchable.html) for more details.
+
+#### **`timeZone`**
+
+**Time zone of the [time stamp](reusingContents.html#built-in-variable-timestamp).** Default: `"UTC"`. 
+
+<panel type="minimal" header="Time Zone Options">
+  <include src="pages/timeZones.md" />
+</panel>
+
+<br>
+
+#### **`locale`**
+
+**Language by locale used for the [time stamp](reusingContents.html#built-in-variable-timestamp).** Default: `"en-GB"` (`English (United Kingdom)`). <br>
+The date format is thus - <br>
+`<Day>, <Date> <Month> <Year>, <24-hour Time> <Time Zone Code>`. 
+
+<panel type="minimal" header="Locale Options">
+  <include src="pages/locales.md" />
+</panel>
+<br>

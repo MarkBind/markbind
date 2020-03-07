@@ -64,18 +64,57 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   if (!highlighted) {
     lines = markdownIt.utils.escapeHtml(str).split('\n');
   }
+  
+  const highlightLinesInput = token.attrGet('highlight-lines');
+  let lineNumbersAndRanges = [];
+  if (highlightLinesInput) {
+    // example input format: "1,4-7,8,11-55"
+    //               output: [[1],[4,7],[8],[11,55]]
+    // the output is an array contaning either single line numbers [lineNum] or ranges [start, end]
+    // ',' delimits either single line numbers (eg: 1) or ranges (eg: 4-7)
+    highlightLines = highlightLinesInput.split(',');
+    // if it's the single number, it will just be parsed as an int, (eg: ['1'] --> [1] )
+    // if it's a range, it will be parsed as as an array of two ints (eg: ['4-7'] --> [4,6])
+    lineNumbersAndRanges = highlightLines.map(elem => elem.split('-').map(lineNumber => parseInt(lineNumber, 10)));
+  }
+  
   lines.pop(); // last line is always a single '\n' newline, so we remove it
-
-  /* wrap all lines with <span> so we can number them
-  if a line is empty we put a 0 width non breaking space
-   */
-  str =  lines.map(line => `<span>${line || '&#x200B;'}</span>`).join('');
+  // wrap all lines with <span> so we can number them
+  str = lines.map((line, index) => {
+    // if a line is empty we put a 0 width non breaking space
+    const content = line || '&#x200B;';
+    const currentLineNumber = index + 1;
+    // check if there is at least one range or line number that matches the current line number
+    // Note: The algorithm is based off markdown-it-highlight-lines (https://github.com/egoist/markdown-it-highlight-lines/blob/master/src/index.js) 
+    //       This is an O(n^2) solution wrt to the number of lines
+    //       I opt to use this approach because it's simple, and it is unlikely that the number of elements in `lineNumbersAndRanges` will be large
+    //       There is possible room for improvement for a more efficient algo that is O(n).
+    const inRange = lineNumbersAndRanges.some(([start, end]) => {
+      if (start && end) {
+        return currentLineNumber >= start && currentLineNumber <= end;
+      }
+      return currentLineNumber === start;
+    });
+    if (inRange) {
+      return `<span class="highlighted">${content}</span>`;
+    }
+    return `<span>${content}</span>`;
+  }).join('');
 
   token.attrJoin('class', 'hljs');
   if (highlighted) {
     token.attrJoin('class', lang);
   }
-  return `<pre><code ${slf.renderAttrs(token)}>${str}</code></pre>`;
+
+  const heading = token.attrGet('heading');
+  const codeBlockContent = `<pre><code ${slf.renderAttrs(token)}>${str}</code></pre>`;
+  if (heading) {
+    return '<div class="code-block">'
+      + `<div class="code-block-heading"><span>${heading}</span></div>`
+      + `<div class="code-block-content">${codeBlockContent}</div>`
+      + '</div>';
+  }
+  return codeBlockContent;
 };
 
 // highlight inline code
