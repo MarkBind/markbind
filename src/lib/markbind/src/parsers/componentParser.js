@@ -15,50 +15,48 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 /**
  * Parses the markdown attribute of the provided element, inserting the corresponding <slot> child
  * if there is no pre-existing slot child with the name of the attribute present.
- * @param element Element to parse
+ * @param node Element to parse
  * @param attribute Attribute name to parse
  * @param isInline Whether to parse the attribute with only inline markdown-it rules
  * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
  */
-function _parseAttributeWithoutOverride(element, attribute, isInline, slotName = attribute) {
-  const el = element;
+function _parseAttributeWithoutOverride(node, attribute, isInline, slotName = attribute) {
+  const hasAttributeSlot = node.children
+    && node.children.some(child => _.has(child.attribs, 'slot') && child.attribs.slot === slotName);
 
-  const hasAttributeSlot = el.children
-    && el.children.some(child => _.has(child.attribs, 'slot') && child.attribs.slot === slotName);
-
-  if (!hasAttributeSlot && _.has(el.attribs, attribute)) {
+  if (!hasAttributeSlot && _.has(node.attribs, attribute)) {
     let rendered;
     if (isInline) {
-      rendered = vueAttrRenderer.renderInline(el.attribs[attribute]);
+      rendered = vueAttrRenderer.renderInline(node.attribs[attribute]);
     } else {
-      rendered = vueAttrRenderer.render(el.attribs[attribute]);
+      rendered = vueAttrRenderer.render(node.attribs[attribute]);
     }
 
     const attributeSlotElement = cheerio.parseHTML(
       `<template slot="${slotName}">${rendered}</template>`, true);
-    el.children = el.children ? attributeSlotElement.concat(el.children) : attributeSlotElement;
+    node.children
+      = node.children ? attributeSlotElement.concat(node.children) : attributeSlotElement;
   }
 
-  delete el.attribs[attribute];
+  delete node.attribs[attribute];
 }
 
 /**
  * Takes an element, looks for direct elements with slots and transforms to avoid Vue parsing.
  * This is so that we can use bootstrap-vue popovers, tooltips, and modals.
- * @param element Element to transform
+ * @param node Element to transform
  */
-function _transformSlottedComponents(element) {
-  element.children.forEach((child) => {
-    const c = child;
-    const slot = c.attribs && c.attribs.slot;
+function _transformSlottedComponents(node) {
+  node.children.forEach((child) => {
+    const slot = child.attribs && child.attribs.slot;
     if (slot) {
       // Turns <div slot="content">... into <div data-mb-html-for=content>...
-      c.attribs['data-mb-html-for'] = slot;
-      delete c.attribs.slot;
+      child.attribs['data-mb-html-for'] = slot;
+      delete child.attribs.slot;
     }
     // similarly, need to transform templates to avoid Vue parsing
-    if (c.name === 'template') {
-      c.name = 'span';
+    if (child.name === 'template') {
+      child.name = 'span';
     }
   });
 }
@@ -67,22 +65,20 @@ function _transformSlottedComponents(element) {
  * Panels
  */
 
-function _parsePanelAttributes(element) {
-  const el = element;
+function _parsePanelAttributes(node) {
+  _parseAttributeWithoutOverride(node, 'alt', false, '_alt');
 
-  _parseAttributeWithoutOverride(element, 'alt', false, '_alt');
-
-  const slotChildren = el.children && el.children.filter(child => _.has(child.attribs, 'slot'));
+  const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
   const hasAltSlot = slotChildren && slotChildren.some(child => child.attribs.slot === '_alt');
   const hasHeaderSlot = slotChildren && slotChildren.some(child => child.attribs.slot === 'header');
 
   // If both are present, the header attribute has no effect, and we can simply remove it.
   if (hasAltSlot && hasHeaderSlot) {
-    delete el.attribs.header;
+    delete node.attribs.header;
     return;
   }
 
-  _parseAttributeWithoutOverride(element, 'header', false, '_header');
+  _parseAttributeWithoutOverride(node, 'header', false, '_header');
 }
 
 /**
@@ -90,8 +86,8 @@ function _parsePanelAttributes(element) {
  * @param element Root element to search from
  * @returns {undefined|*} The header element, or undefined if none is found.
  */
-function _findHeaderElement(element) {
-  const elements = element.children;
+function _findHeaderElement(node) {
+  const elements = node.children;
   if (!elements || !elements.length) {
     return undefined;
   }
@@ -115,12 +111,10 @@ function _findHeaderElement(element) {
  * Assigns an id to the root element of a panel component using the heading specified in the
  * panel's header slot or attribute (if any), with the header slot having priority if present.
  * This is to ensure anchors still work when panels are in their minimized form.
- * @param element The root panel element
+ * @param node The root panel element
  */
-function _assignPanelId(element) {
-  const el = element;
-
-  const slotChildren = el.children && el.children.filter(child => _.has(child.attribs, 'slot'));
+function _assignPanelId(node) {
+  const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
   const headerSlot = slotChildren.find(child => child.attribs.slot === 'header');
   const headerAttributeSlot = slotChildren.find(child => child.attribs.slot === '_header');
 
@@ -136,7 +130,7 @@ function _assignPanelId(element) {
         + 'Please report this to the MarkBind developers. Thank you!');
     }
 
-    el.attribs.id = header.attribs.id;
+    node.attribs.id = header.attribs.id;
   }
 }
 
@@ -155,18 +149,17 @@ function _assignPanelId(element) {
  * For modals, we make it attempt to show the modal if it exists.
  */
 
-function _parseTrigger(element) {
-  const el = element;
-  el.name = 'span';
-  const trigger = el.attribs.trigger || 'hover';
-  const placement = el.attribs.placement || 'top';
-  el.attribs[`v-b-popover.${trigger}.${placement}.html`]
+function _parseTrigger(node) {
+  node.name = 'span';
+  const trigger = node.attribs.trigger || 'hover';
+  const placement = node.attribs.placement || 'top';
+  node.attribs[`v-b-popover.${trigger}.${placement}.html`]
     = 'popoverGenerator';
-  el.attribs[`v-b-tooltip.${trigger}.${placement}.html`]
+  node.attribs[`v-b-tooltip.${trigger}.${placement}.html`]
     = 'tooltipContentGetter';
   const convertedTrigger = trigger === 'hover' ? 'mouseover' : trigger;
-  el.attribs[`v-on:${convertedTrigger}`] = `$refs['${el.attribs.for}'].show()`;
-  el.attribs.class = el.attribs.class ? `${el.attribs.class} trigger` : 'trigger';
+  node.attribs[`v-on:${convertedTrigger}`] = `$refs['${node.attribs.for}'].show()`;
+  node.attribs.class = node.attribs.class ? `${node.attribs.class} trigger` : 'trigger';
 }
 
 /*
@@ -177,21 +170,20 @@ function _parseTrigger(element) {
  * Then, we add in a trigger for this popover.
  */
 
-function _parsePopover(element) {
-  const el = element;
-  _parseAttributeWithoutOverride(el, 'content', true);
-  _parseAttributeWithoutOverride(el, 'header', true);
+function _parsePopover(node) {
+  _parseAttributeWithoutOverride(node, 'content', true);
+  _parseAttributeWithoutOverride(node, 'header', true);
   // TODO deprecate title attribute for popovers
-  _parseAttributeWithoutOverride(el, 'title', true, 'header');
+  _parseAttributeWithoutOverride(node, 'title', true, 'header');
 
-  el.name = 'span';
-  const trigger = el.attribs.trigger || 'hover';
-  const placement = el.attribs.placement || 'top';
-  el.attribs['data-mb-component-type'] = 'popover';
-  el.attribs[`v-b-popover.${trigger}.${placement}.html`]
+  node.name = 'span';
+  const trigger = node.attribs.trigger || 'hover';
+  const placement = node.attribs.placement || 'top';
+  node.attribs['data-mb-component-type'] = 'popover';
+  node.attribs[`v-b-popover.${trigger}.${placement}.html`]
     = 'popoverInnerGenerator';
-  el.attribs.class = el.attribs.class ? `${el.attribs.class} trigger` : 'trigger';
-  _transformSlottedComponents(el);
+  node.attribs.class = node.attribs.class ? `${node.attribs.class} trigger` : 'trigger';
+  _transformSlottedComponents(node);
 }
 
 /*
@@ -200,25 +192,22 @@ function _parsePopover(element) {
  * Similar to popovers.
  */
 
-function _parseTooltip(element) {
-  const el = element;
-  _parseAttributeWithoutOverride(el, 'content', true, '_content');
+function _parseTooltip(node) {
+  _parseAttributeWithoutOverride(node, 'content', true, '_content');
 
-  el.name = 'span';
-  const trigger = el.attribs.trigger || 'hover';
-  const placement = el.attribs.placement || 'top';
-  el.attribs['data-mb-component-type'] = 'tooltip';
-  el.attribs[`v-b-tooltip.${trigger}.${placement}.html`]
+  node.name = 'span';
+  const trigger = node.attribs.trigger || 'hover';
+  const placement = node.attribs.placement || 'top';
+  node.attribs['data-mb-component-type'] = 'tooltip';
+  node.attribs[`v-b-tooltip.${trigger}.${placement}.html`]
     = 'tooltipInnerContentGetter';
-  el.attribs.class = el.attribs.class ? `${el.attribs.class} trigger` : 'trigger';
-  _transformSlottedComponents(el);
+  node.attribs.class = node.attribs.class ? `${node.attribs.class} trigger` : 'trigger';
+  _transformSlottedComponents(node);
 }
 
-function _renameSlot(element, originalName, newName) {
-  if (element.children) {
-    element.children.forEach((c) => {
-      const child = c;
-
+function _renameSlot(node, originalName, newName) {
+  if (node.children) {
+    node.children.forEach((child) => {
       if (_.has(child.attribs, 'slot') && child.attribs.slot === originalName) {
         child.attribs.slot = newName;
       }
@@ -226,11 +215,10 @@ function _renameSlot(element, originalName, newName) {
   }
 }
 
-function _renameAttribute(element, originalAttribute, newAttribute) {
-  const el = element;
-  if (_.has(el.attribs, originalAttribute)) {
-    el.attribs[newAttribute] = el.attribs[originalAttribute];
-    delete el.attribs[originalAttribute];
+function _renameAttribute(node, originalAttribute, newAttribute) {
+  if (_.has(node.attribs, originalAttribute)) {
+    node.attribs[newAttribute] = node.attribs[originalAttribute];
+    delete node.attribs[originalAttribute];
   }
 }
 
@@ -241,44 +229,43 @@ function _renameAttribute(element, originalAttribute, newAttribute) {
  * So, we will transform from markbind modal syntax into bootstrap-vue modal syntax.
  */
 
-function _parseModalAttributes(element) {
-  const el = element;
-  _parseAttributeWithoutOverride(el, 'header', true, 'modal-title');
+function _parseModalAttributes(node) {
+  _parseAttributeWithoutOverride(node, 'header', true, 'modal-title');
   // TODO deprecate title attribute for modals
-  _parseAttributeWithoutOverride(el, 'title', true, 'modal-title');
+  _parseAttributeWithoutOverride(node, 'title', true, 'modal-title');
 
   // TODO deprecate modal-header, modal-footer attributes for modals
-  _renameSlot(el, 'header', 'modal-header');
-  _renameSlot(el, 'footer', 'modal-footer');
+  _renameSlot(node, 'header', 'modal-header');
+  _renameSlot(node, 'footer', 'modal-footer');
 
-  el.name = 'b-modal';
+  node.name = 'b-modal';
 
-  _renameAttribute(el, 'ok-text', 'ok-title');
-  _renameAttribute(el, 'center', 'centered');
+  _renameAttribute(node, 'ok-text', 'ok-title');
+  _renameAttribute(node, 'center', 'centered');
 
-  el.attribs['ok-only'] = ''; // only show OK button
+  node.attribs['ok-only'] = ''; // only show OK button
 
-  if (el.attribs.backdrop === 'false') {
-    el.attribs['no-close-on-backdrop'] = '';
+  if (node.attribs.backdrop === 'false') {
+    node.attribs['no-close-on-backdrop'] = '';
   }
-  delete el.attribs.backdrop;
+  delete node.attribs.backdrop;
 
   let size = '';
-  if (_.has(el.attribs, 'large')) {
+  if (_.has(node.attribs, 'large')) {
     size = 'lg';
-    delete el.attribs.large;
-  } else if (_.has(el.attribs, 'small')) {
+    delete node.attribs.large;
+  } else if (_.has(node.attribs, 'small')) {
     size = 'sm';
-    delete el.attribs.small;
+    delete node.attribs.small;
   }
-  el.attribs.size = size;
+  node.attribs.size = size;
 
   // default for markbind is zoom, default for bootstrap-vue is fade
-  const effect = el.attribs.effect === 'fade' ? '' : 'mb-zoom';
-  el.attribs['modal-class'] = effect;
+  const effect = node.attribs.effect === 'fade' ? '' : 'mb-zoom';
+  node.attribs['modal-class'] = effect;
 
-  if (_.has(el.attribs, 'id')) {
-    el.attribs.ref = el.attribs.id;
+  if (_.has(node.attribs, 'id')) {
+    node.attribs.ref = node.attribs.id;
   }
 }
 
@@ -286,20 +273,20 @@ function _parseModalAttributes(element) {
  * Tabs
  */
 
-function _parseTabAttributes(element) {
-  _parseAttributeWithoutOverride(element, 'header', true, '_header');
+function _parseTabAttributes(node) {
+  _parseAttributeWithoutOverride(node, 'header', true, '_header');
 }
 
 /*
  * Tip boxes
  */
 
-function _parseBoxAttributes(element) {
-  _parseAttributeWithoutOverride(element, 'icon', true, '_icon');
-  _parseAttributeWithoutOverride(element, 'header', false, '_header');
+function _parseBoxAttributes(node) {
+  _parseAttributeWithoutOverride(node, 'icon', true, '_icon');
+  _parseAttributeWithoutOverride(node, 'header', false, '_header');
 
   // TODO deprecate heading attribute for box
-  _parseAttributeWithoutOverride(element, 'heading', false, '_header');
+  _parseAttributeWithoutOverride(node, 'heading', false, '_header');
 
   // TODO warn when light and seamless attributes are both present
 }
@@ -308,26 +295,25 @@ function _parseBoxAttributes(element) {
  * Dropdowns
  */
 
-function _parseDropdownAttributes(element) {
-  const el = element;
-  const slotChildren = el.children && el.children.filter(child => _.has(child.attribs, 'slot'));
+function _parseDropdownAttributes(node) {
+  const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
   const hasHeaderSlot = slotChildren && slotChildren.some(child => child.attribs.slot === 'header');
 
   // If header slot is present, the header attribute has no effect, and we can simply remove it.
   if (hasHeaderSlot) {
-    delete el.attribs.header;
+    delete node.attribs.header;
     // TODO deprecate text attribute of dropdown
-    delete el.attribs.text;
+    delete node.attribs.text;
     return;
   }
 
   // header attribute takes priority over text attribute
-  if (_.has(element.attribs, 'header')) {
-    _parseAttributeWithoutOverride(element, 'header', true, '_header');
-    delete el.attribs.text;
+  if (_.has(node.attribs, 'header')) {
+    _parseAttributeWithoutOverride(node, 'header', true, '_header');
+    delete node.attribs.text;
   } else {
     // TODO deprecate text attribute of dropdown
-    _parseAttributeWithoutOverride(element, 'text', true, '_header');
+    _parseAttributeWithoutOverride(node, 'text', true, '_header');
   }
 }
 
@@ -335,33 +321,33 @@ function _parseDropdownAttributes(element) {
  * API
  */
 
-function parseComponents(element, errorHandler) {
+function parseComponents(node, errorHandler) {
   try {
-    switch (element.name) {
+    switch (node.name) {
     case 'panel':
-      _parsePanelAttributes(element);
+      _parsePanelAttributes(node);
       break;
     case 'trigger':
-      _parseTrigger(element);
+      _parseTrigger(node);
       break;
     case 'popover':
-      _parsePopover(element);
+      _parsePopover(node);
       break;
     case 'tooltip':
-      _parseTooltip(element);
+      _parseTooltip(node);
       break;
     case 'modal':
-      _parseModalAttributes(element);
+      _parseModalAttributes(node);
       break;
     case 'tab':
     case 'tab-group':
-      _parseTabAttributes(element);
+      _parseTabAttributes(node);
       break;
     case 'box':
-      _parseBoxAttributes(element);
+      _parseBoxAttributes(node);
       break;
     case 'dropdown':
-      _parseDropdownAttributes(element);
+      _parseDropdownAttributes(node);
       break;
     default:
       break;
@@ -376,11 +362,11 @@ function parseComponents(element, errorHandler) {
   }
 }
 
-function postParseComponents(element, errorHandler) {
+function postParseComponents(node, errorHandler) {
   try {
-    switch (element.name) {
+    switch (node.name) {
     case 'panel':
-      _assignPanelId(element);
+      _assignPanelId(node);
       break;
     default:
       break;
