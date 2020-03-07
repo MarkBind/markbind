@@ -663,7 +663,7 @@ class Page {
         + `${pageNavHeadingHTML}\n`
         + '</nav>\n'
         + '</div>\n'
-        + '</nav>\n', { indent_size: 2 });
+        + '</nav>\n', Page.htmlBeautifyOptions);
     }
   }
 
@@ -754,13 +754,14 @@ class Page {
     if (pageSection.length === 0) {
       return;
     }
-    this.pageSectionsHtml[section] = htmlBeautify($.html(section), { indent_size: 2 })
+    this.pageSectionsHtml[section] = htmlBeautify($.html(section), Page.htmlBeautifyOptions)
       .trim();
     pageSection.remove();
-    this.content = htmlBeautify($.html(), { indent_size: 2 });
+    this.content = htmlBeautify($.html(), Page.htmlBeautifyOptions);
   }
 
   collectAllPageSections() {
+    this.pageSectionsHtml = {}; // This resets the pageSectionsHTML whenever we collect.
     this.collectPageSection('header');
     this.collectPageSection(`#${SITE_NAV_ID}`);
     this.collectPageSection('footer');
@@ -801,7 +802,7 @@ class Page {
         .then(result => markbinder.processDynamicResources(this.sourcePath, result))
         .then(result => MarkBind.unwrapIncludeSrc(result))
         .then((result) => {
-          this.content = htmlBeautify(result, { indent_size: 2 });
+          this.content = htmlBeautify(result, Page.htmlBeautifyOptions);
 
           const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap);
           const baseUrl = newBaseUrl ? `${this.baseUrl}/${newBaseUrl}` : this.baseUrl;
@@ -820,7 +821,7 @@ class Page {
 
           return fs.outputFileAsync(this.resultPath, htmlBeautify(
             this.template.render(this.prepareTemplateData()),
-            { indent_size: 2 },
+            Page.htmlBeautifyOptions,
           ));
         })
         .then(() => {
@@ -1069,7 +1070,7 @@ class Page {
             baseUrl,
             hostBaseUrl,
           });
-          return fs.outputFileAsync(resultPath, htmlBeautify(content, { indent_size: 2 }));
+          return fs.outputFileAsync(resultPath, htmlBeautify(content, Page.htmlBeautifyOptions));
         })
         .then(() => {
           // Recursion call to resolve nested dependency
