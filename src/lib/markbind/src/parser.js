@@ -255,11 +255,11 @@ class Parser {
     return $.html();
   }
 
-  _parse(node, context, config) {
+  _parse(node, config) {
     const element = node;
     const self = this;
     if (_.isArray(element)) {
-      return element.map(el => self._parse(el, context, config));
+      return element.map(el => self._parse(el, config));
     }
     if (Parser.isText(element)) {
       return element;
@@ -323,7 +323,7 @@ class Parser {
 
     if (element.children) {
       element.children.forEach((child) => {
-        self._parse(child, context, config);
+        self._parse(child, config);
       });
     }
 
@@ -497,10 +497,7 @@ class Parser {
     });
   }
 
-  renderFile(content, filePath, config) {
-    const context = {};
-    context.cwf = filePath; // current working file
-    context.mode = 'render';
+  render(content, filePath, config) {
     return new Promise((resolve, reject) => {
       const handler = new htmlparser.DomHandler((error, dom) => {
         if (error) {
@@ -510,7 +507,7 @@ class Parser {
         const nodes = dom.map((d) => {
           let parsed;
           try {
-            parsed = this._parse(d, context, config);
+            parsed = this._parse(d, config);
           } catch (err) {
             err.message += `\nError while rendering '${filePath}'`;
             this._onError(err);
@@ -532,10 +529,8 @@ class Parser {
       const fileExt = utils.getExt(filePath);
       if (utils.isMarkdownFileExt(fileExt)) {
         const inputData = md.render(content);
-        context.source = 'md';
         parser.parseComplete(inputData);
       } else if (fileExt === 'html') {
-        context.source = 'html';
         parser.parseComplete(content);
       } else {
         const error = new Error(`Unsupported File Extension: '${fileExt}'`);

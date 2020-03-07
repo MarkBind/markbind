@@ -77,8 +77,6 @@ class Page {
 
     // the source file for rendering this page
     this.sourcePath = pageConfig.sourcePath;
-    // the temp path for writing intermediate result
-    this.tempPath = pageConfig.tempPath;
     // the output path of this page
     this.resultPath = pageConfig.resultPath;
 
@@ -797,7 +795,7 @@ class Page {
         .then(result => this.insertFooterFile(result))
         .then(result => Page.insertTemporaryStyles(result))
         .then(result => markbinder.resolveBaseUrl(result, fileConfig))
-        .then(result => markbinder.renderFile(result, this.tempPath, fileConfig))
+        .then(result => markbinder.render(result, this.sourcePath, fileConfig))
         .then(result => this.postRender(result))
         .then(result => this.collectPluginsAssets(result))
         .then(result => markbinder.processDynamicResources(this.sourcePath, result))
@@ -1039,13 +1037,6 @@ class Page {
       const markbinder = new MarkBind({
         errorHandler: logger.error,
       });
-      let tempPath;
-      if (FsUtil.isInRoot(this.rootPath, file)) {
-        tempPath = path.join(path.dirname(this.tempPath), path.relative(this.rootPath, file));
-      } else {
-        logger.info(`Converting dynamic external resource ${file} to ${resultPath}`);
-        tempPath = path.join(path.dirname(this.tempPath), '.external', path.basename(file));
-      }
       return markbinder.includeFile(dependency.to, {
         baseUrlMap: this.baseUrlMap,
         userDefinedVariablesMap: this.userDefinedVariablesMap,
@@ -1061,7 +1052,7 @@ class Page {
           isDynamic: true,
           dynamicSource: source,
         }))
-        .then(result => markbinder.renderFile(result, tempPath, {
+        .then(result => markbinder.render(result, this.sourcePath, {
           baseUrlMap: this.baseUrlMap,
           rootPath: this.rootPath,
           headerIdMap: {},

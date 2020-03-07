@@ -520,7 +520,7 @@ test('renderFile converts markdown headers to <h1>', async () => {
 
   const baseUrlMap = new Set([rootPath]);
 
-  const result = await markbinder.renderFile(index, indexPath, {
+  const result = await markbinder.render(index, indexPath, {
     baseUrlMap,
     rootPath,
     headerIdMap,
