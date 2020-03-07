@@ -111,7 +111,6 @@ Using `-` at the start of a tag hides all tags matching the expression. This is 
 
 {{ icon_example }} Using general tags:
 ```html {heading="index.md"}
-
 <frontmatter>
   title: "Hello World"
   tags: ["language--java"]
@@ -123,7 +122,6 @@ Using `-` at the start of a tag hides all tags matching the expression. This is 
 ```
 
 ```json {heading="site.json"}
-
 {
   ...
   "plugins" : [
