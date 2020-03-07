@@ -11,7 +11,7 @@ A layout consists of the following files:
 1. A footer (filename: `footer.md`)
 1. Tweaks to the `<head>` (`head.md`)
 1. A site navigation menu (`navigation.md`)
-1. An expressive layout template to embed your content (`page.md`) 
+1. An expressive layout template to embed your content (`page.md`)
 1. Custom styles (`styles.css`)
 1. Custom scripts (`scripts.js`)
 
@@ -114,27 +114,18 @@ which injects the actual page content in every page. This allows you to build la
 
 {{ icon_example }} Adding statistics formula to the bottom of every page
 
-<box>
-<i>index.md</i>
-<br><br>
-
-  ```html
+  ```html {heading="index.md"}
   #### Main content of your page
 
   Content of your page
   ```
-</box>
 
-<box>
-<i>page.md</i>
-<br><br>
   {{ mainContentBody }}
-  ```html
+  ```html {heading="page.md"}
     <panel header="Statistics Formula for the class" type="primary">
       <img src="path_to_your_formula.png" />
     </panel>
   ```
-</box>
 
 Here's how the above content would appear:
 
