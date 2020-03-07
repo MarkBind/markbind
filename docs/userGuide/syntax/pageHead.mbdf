@@ -58,12 +58,12 @@ To specify that you want to insert `myCustomLinks.md` into the `<head>` of `myPa
 
 `_markbind/head/myCustomLinks.md`:
 
-```html{.no-line-numbers}{highlight-lines="1,3"}
+```html{.no-line-numbers, highlight-lines="1,3"}
 <head-top>
-<script src="`{{ showBaseUrlCode }}`/js/myCustomScript.js"></script>
+<script src="`{{ baseUrl }}`/js/myCustomScript.js"></script>
 </head-top>
-<link rel="stylesheet" href="`{{ showBaseUrlCode }}`/css/main.css">
-<link rel="stylesheet" href="`{{ showBaseUrlCode }}`/css/extra.css">
+<link rel="stylesheet" href="`{{ baseUrl }}`/css/main.css">
+<link rel="stylesheet" href="`{{ baseUrl }}`/css/extra.css">
 ```
 
 ```html
