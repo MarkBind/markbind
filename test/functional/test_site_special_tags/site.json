@@ -1,0 +1,24 @@
+{
+  "ignore": [
+    "_markbind/layouts/*",
+    "_markbind/logs/*",
+    "_site/*",
+    "site.json",
+    "testSpecialTag.js",
+    "*.md",
+    "*.mbd",
+    "*.mbdf",
+    "*.njk",
+    ".git/*",
+    "expected/*"
+  ],
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "Landing Page"
+    }
+  ],
+  "plugins": [
+    "testSpecialTag"
+  ]
+}
