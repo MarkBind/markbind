@@ -1047,7 +1047,17 @@ class Site {
   }
 
   _setTimestampVariable() {
-    const time = new Date().toUTCString();
+    const timeZone = this.siteConfig.timeZone ? this.siteConfig.timeZone : 'UTC';
+    const locale = this.siteConfig.locale ? this.siteConfig.locale : 'en-GB';
+    const options = {
+      weekday: 'short',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      timeZone,
+      timeZoneName: 'short',
+    };
+    const time = new Date().toLocaleTimeString(locale, options);
     Object.keys(this.userDefinedVariablesMap).forEach((base) => {
       this.userDefinedVariablesMap[base].timestamp = time;
     });

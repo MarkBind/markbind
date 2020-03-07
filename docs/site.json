@@ -1,5 +1,6 @@
 {
   "baseUrl": "",
+  "timeZone": "Asia/Singapore",
   "titlePrefix": "MarkBind",
   "pages": [
     {
