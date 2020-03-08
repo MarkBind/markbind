@@ -26,6 +26,7 @@
     "cheerio": "^0.22.0",
     "chokidar": "^3.3.0",
     "commander": "^3.0.2",
+    "crypto-js": "^4.0.0",
     "fastmatter": "^2.1.1",
     "figlet": "^1.2.4",
     "find-up": "^4.1.0",
