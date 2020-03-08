@@ -134,6 +134,45 @@ function _assignPanelId(node) {
   }
 }
 
+/**
+ * Check and warns if element has conflicting attributes.
+ * Note that attirbutes in `attrsConflictingWith` are not in conflict with each other,
+ * but only towards `attribute`
+ * @param node Root element to check
+ * @param attribute An attribute that is conflicting with other attributes
+ * @param attrsConflictingWith The attributes conflicting with `attribute`
+ */
+function _warnConflictingAttributes(node, attribute, attrsConflictingWith) {
+  if (!(attribute in node.attribs)) {
+    return;
+  }
+  attrsConflictingWith.forEach((conflictingAttr) => {
+    if (conflictingAttr in node.attribs) {
+      // TODO: Use logger here instead of console.warn. See issue #1060
+      // eslint-disable-next-line no-console
+      console.warn(`warn: Usage of conflicting ${node.name} attributes: `
+        + `'${attribute}' with '${conflictingAttr}'`);
+    }
+  });
+}
+
+/**
+ * Check and warns if element has a deprecated attribute.
+ * @param node Root element to check
+ * @param attributeNamePairs Object of attribute name pairs with each pair in the form deprecated : correct
+ */
+function _warnDeprecatedAttributes(node, attributeNamePairs) {
+  Object.entries(attributeNamePairs).forEach(([deprecatedAttrib, correctAttrib]) => {
+    if (deprecatedAttrib in node.attribs) {
+      // TODO: Use logger here instead of console.warn. See issue #1060
+      // eslint-disable-next-line no-console
+      console.warn(`warn: ${node.name} attribute '${deprecatedAttrib}' `
+        + `is deprecated and may be removed in the future. Please use '${correctAttrib}'`);
+    }
+  });
+}
+
+
 /*
  * Triggers
  *
@@ -171,9 +210,10 @@ function _parseTrigger(node) {
  */
 
 function _parsePopover(node) {
+  _warnDeprecatedAttributes(node, { title: 'header' });
+
   _parseAttributeWithoutOverride(node, 'content', true);
   _parseAttributeWithoutOverride(node, 'header', true);
-  // TODO deprecate title attribute for popovers
   _parseAttributeWithoutOverride(node, 'title', true, 'header');
 
   node.name = 'span';
@@ -184,6 +224,32 @@ function _parsePopover(node) {
     = 'popoverInnerGenerator';
   node.attribs.class = node.attribs.class ? `${node.attribs.class} trigger` : 'trigger';
   _transformSlottedComponents(node);
+}
+
+/**
+ * Check and warns if element has a deprecated slot name
+ * @param element Root element to check
+ * @param namePairs Object of slot name pairs with each pair in the form deprecated : correct
+ */
+
+function _warnDeprecatedSlotNames(element, namePairs) {
+  if (!(element.children)) {
+    return;
+  }
+  element.children.forEach((child) => {
+    if (!(_.has(child.attribs, 'slot'))) {
+      return;
+    }
+    Object.entries(namePairs).forEach(([deprecatedName, correctName]) => {
+      if (child.attribs.slot !== deprecatedName) {
+        return;
+      }
+      // TODO: Use logger here instead of console.warn. See issue #1060
+      // eslint-disable-next-line no-console
+      console.warn(`warn: ${element.name} slot name '${deprecatedName}' `
+        + `is deprecated and may be removed in the future. Please use '${correctName}'`);
+    });
+  });
 }
 
 /*
@@ -207,7 +273,8 @@ function _parseTooltip(node) {
 
 function _renameSlot(node, originalName, newName) {
   if (node.children) {
-    node.children.forEach((child) => {
+    node.children.forEach((c) => {
+      const child = c;
       if (_.has(child.attribs, 'slot') && child.attribs.slot === originalName) {
         child.attribs.slot = newName;
       }
@@ -230,11 +297,12 @@ function _renameAttribute(node, originalAttribute, newAttribute) {
  */
 
 function _parseModalAttributes(node) {
+  _warnDeprecatedAttributes(node, { title: 'header' });
+  _warnDeprecatedSlotNames(node, { 'modal-header': 'header', 'modal-footer': 'footer' });
+
   _parseAttributeWithoutOverride(node, 'header', true, 'modal-title');
-  // TODO deprecate title attribute for modals
   _parseAttributeWithoutOverride(node, 'title', true, 'modal-title');
 
-  // TODO deprecate modal-header, modal-footer attributes for modals
   _renameSlot(node, 'header', 'modal-header');
   _renameSlot(node, 'footer', 'modal-footer');
 
@@ -282,13 +350,16 @@ function _parseTabAttributes(node) {
  */
 
 function _parseBoxAttributes(node) {
+  _warnConflictingAttributes(node, 'light', ['seamless']);
+  _warnConflictingAttributes(node, 'no-background', ['background-color', 'seamless']);
+  _warnConflictingAttributes(node, 'no-border', ['border-color', 'border-left-color', 'seamless']);
+  _warnConflictingAttributes(node, 'no-icon', ['icon']);
+  _warnDeprecatedAttributes(node, { heading: 'header' });
+
   _parseAttributeWithoutOverride(node, 'icon', true, '_icon');
   _parseAttributeWithoutOverride(node, 'header', false, '_header');
 
-  // TODO deprecate heading attribute for box
   _parseAttributeWithoutOverride(node, 'heading', false, '_header');
-
-  // TODO warn when light and seamless attributes are both present
 }
 
 /*
@@ -301,18 +372,28 @@ function _parseDropdownAttributes(node) {
 
   // If header slot is present, the header attribute has no effect, and we can simply remove it.
   if (hasHeaderSlot) {
+    if (_.has(node.attribs, 'header')) {
+      // TODO: Use logger here instead of console.warn. See issue #1060
+      // eslint-disable-next-line no-console
+      console.warn(`warn: ${node.name} has a header slot, 'header' attribute has no effect.`);
+    }
+    if (_.has(node.attribs, 'text')) {
+      // TODO: Use logger here instead of console.warn. See issue #1060
+      // eslint-disable-next-line no-console
+      console.warn(`warn: ${node.name} has a header slot, 'text' attribute has no effect.`);
+    }
     delete node.attribs.header;
-    // TODO deprecate text attribute of dropdown
     delete node.attribs.text;
     return;
   }
 
-  // header attribute takes priority over text attribute
+  _warnDeprecatedAttributes(node, { text: 'header' });
+  _warnConflictingAttributes(node, 'header', ['text']);
+  // header attribute takes priority over text attribute if both 'text' and 'header' is used
   if (_.has(node.attribs, 'header')) {
     _parseAttributeWithoutOverride(node, 'header', true, '_header');
     delete node.attribs.text;
   } else {
-    // TODO deprecate text attribute of dropdown
     _parseAttributeWithoutOverride(node, 'text', true, '_header');
   }
 }
