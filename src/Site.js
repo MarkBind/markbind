@@ -195,6 +195,12 @@ class Site {
     return false;
   }
 
+  /**
+   * Read and store the site config from site.json, overwrite the default base URL
+   * if it's specified by the user.
+   * @param baseUrl user defined base URL (if exists)
+   * @returns {Promise}
+   */
   readSiteConfig(baseUrl) {
     return new Promise((resolve, reject) => {
       const siteConfigPath = path.join(this.rootPath, this.siteConfigPath);
@@ -224,6 +230,23 @@ class Site {
     });
   }
 
+  /**
+   * A page configuration object.
+   * @typedef {Object<string, any>} PageCreationConfig
+   * @property {string} faviconUrl
+   * @property {string} pageSrc
+   * @property {string} title
+   * @property {string} layout
+   * @property {Object<string, any>} frontmatter
+   * @property {boolean} searchable
+   * @property {Array<string>} externalScripts
+   * /
+
+  /**
+   * Create a Page object from the site and page creation config.
+   * @param {PageCreationConfig} config
+   * @returns {Page}
+   */
   createPage(config) {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
     const tempPath = path.join(this.tempPath, config.pageSrc);
@@ -291,7 +314,7 @@ class Site {
   }
 
   /**
-   * Converts an existing Github wiki or docs folder to a MarkBind website.
+   * Converts an existing GitHub wiki or docs folder to a MarkBind website.
    */
   convert() {
     return this.readSiteConfig()
@@ -479,6 +502,10 @@ class Site {
     return Promise.resolve();
   }
 
+  /**
+   * Collects the base url map in the site/subsites
+   * @returns {*}
+   */
   collectBaseUrl() {
     const candidates
       = walkSync(this.rootPath, { directories: false })
@@ -541,6 +568,11 @@ class Site {
     return false;
   }
 
+  /**
+   * Generate the website.
+   * @param baseUrl user defined base URL (if exists)
+   * @returns {Promise}
+   */
   generate(baseUrl) {
     const startTime = new Date();
     // Create the .tmp folder for storing intermediate results.
@@ -886,6 +918,11 @@ class Site {
     return undefined;
   }
 
+  /**
+   * Maps an array of addressable pages to an array of Page object
+   * @param {Array<Page>} addressablePages
+   * @param {String} faviconUrl
+   */
   mapAddressablePagesToPages(addressablePages, faviconUrl) {
     this.pages = addressablePages.map(page => this.createPage({
       faviconUrl,
@@ -1236,6 +1273,10 @@ class Site {
     return Promise.resolve();
   }
 }
+
+/**
+ * Below are functions that are not compatible with the ES6 class syntax.
+ */
 
 /**
  * Build/copy assets that are specified in filePaths

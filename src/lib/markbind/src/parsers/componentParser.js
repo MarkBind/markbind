@@ -83,7 +83,7 @@ function _parsePanelAttributes(node) {
 
 /**
  * Traverses the dom breadth-first from the specified element to find a html heading child.
- * @param element Root element to search from
+ * @param node Root element to search from
  * @returns {undefined|*} The header element, or undefined if none is found.
  */
 function _findHeaderElement(node) {

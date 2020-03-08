@@ -58,9 +58,9 @@ class Page {
   /**
    * A page configuration object.
    * @typedef {Object<string, any>} PageConfig
-   * @property {string} asset
+   * @property {Object<string, any>} asset
    * @property {string} baseUrl
-   * @property {Object<string, string>} baseUrlMap // ??
+   * @property {Set<any>} baseUrlMap
    * @property {string} content
    * @property {string} faviconUrl
    * @property {Object<string, any>} frontmatter
@@ -265,6 +265,9 @@ class Page {
   /**
    * Records headings and keywords inside content into this.headings and this.keywords respectively
    * @param content that contains the headings and keywords
+   * @param lastHeading
+   * @param excludeHeadings
+   * @param sourceTraversalStack
    */
   collectHeadingsAndKeywordsInContent(content, lastHeading, excludeHeadings, sourceTraversalStack) {
     let $ = cheerio.load(content);
@@ -314,8 +317,7 @@ class Page {
           const childSourceTraversalStack = sourceTraversalStack.slice();
           childSourceTraversalStack.push(includePath);
           if (childSourceTraversalStack.length > CyclicReferenceError.MAX_RECURSIVE_DEPTH) {
-            const error = new CyclicReferenceError(childSourceTraversalStack);
-            throw error;
+            throw new CyclicReferenceError(childSourceTraversalStack);
           }
           if (panel.attribs.fragment) {
             $ = cheerio.load(includeContent);
@@ -448,9 +450,10 @@ class Page {
   }
 
   /**
- * Produces expressive layouts by inserting page data into pre-specified layout
- * @param pageData a page with its front matter collected
- */
+   * Produces expressive layouts by inserting page data into pre-specified layout
+   * @param pageData a page with its front matter collected
+   * @param fileConfig
+   */
   generateExpressiveLayout(pageData, fileConfig) {
     const nj = nunjucks;
     const markbinder = new MarkBind({
