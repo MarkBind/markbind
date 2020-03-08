@@ -211,11 +211,10 @@ class Parser {
 
     $('img, pic, thumbnail').each(function () {
       const elem = $(this);
-      const resourcePath = utils.ensurePosix(elem.attr('src'));
-      if (resourcePath === undefined || resourcePath === '') {
-        // Found empty img/pic resource in resourcePath
+      if (!elem.attr('src')) {
         return;
       }
+      const resourcePath = utils.ensurePosix(elem.attr('src'));
       if (utils.isAbsolutePath(resourcePath) || utils.isUrl(resourcePath)) {
         // Do not rewrite.
         return;
