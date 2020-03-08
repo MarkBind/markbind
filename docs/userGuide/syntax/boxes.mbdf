@@ -33,9 +33,9 @@
 <box type="info" dismissible>
     dismissible info
 </box>
-<box type="success" header="Tip box header">
+<box type="success" header="#### Header :rocket:" icon-size="2x">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    <box type="warning" header="Tip box header" dismissible>
+    <box type="warning" header="You can use **markdown** here! :pizza:" dismissible>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     </box>
 </box>
@@ -70,9 +70,9 @@
 <box type="info" dismissible>
     dismissible info
 </box>
-<box type="success" header="Tip box header">
+<box type="success" header="#### Header :rocket:" icon-size="2x">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    <box type="warning" header="Tip box header" dismissible>
+    <box type="warning" header="You can use **markdown** here! :pizza:" dismissible>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     </box>
 </box>
@@ -135,6 +135,65 @@
 </span>
 </include>
 
+**MarkBind also supports a seamless style of boxes**
+
+<box type="info">
+As <code>light</code> and <code>seamless</code> are mutually exclusive styles, <code>light</code> takes priority over <code>seamless</code>.
+</box>
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```html
+<box type="info" seamless>
+    info seamless
+</box>
+<box type="warning" seamless>
+    warning seamless
+</box>
+<box type="success" seamless>
+    success seamless
+</box>
+<box type="important" seamless>
+    important seamless
+</box>
+<box type="wrong" seamless>
+    wrong seamless
+</box>
+<box type="tip" seamless>
+    tip seamless
+</box>
+<box type="definition" seamless>
+    definition seamless
+</box>
+```
+</span>
+<span id="output">
+
+<box type="info" seamless>
+    info seamless
+</box>
+<box type="warning" seamless>
+    warning seamless
+</box>
+<box type="success" seamless>
+    success seamless
+</box>
+<box type="important" seamless>
+    important seamless
+</box>
+<box type="wrong" seamless>
+    wrong seamless
+</box>
+<box type="tip" seamless>
+    tip seamless
+</box>
+<box type="definition" seamless>
+    definition seamless
+</box>
+</span>
+</include>
+
 **You can customize the Box's appearance.**
 
 <include src="outputBox.md" boilerplate >
@@ -160,6 +219,69 @@
 </span>
 </include>
 
+**You can remove the background, icon and borders of preset styles.**
+
+<box type="info">
+Custom styles (<code>background-color</code>, <code>border-color</code>, <code>border-left-color</code>, <code>icon</code>) as introduced in the previous section, takes precedence over and are not affected by <code>no-background</code>, <code>no-border</code>, <code>no-icon</code>
+</box>
+
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```html
+<box no-icon no-background type="success">
+    success box without a tick icon and backgound
+</box>
+
+<box no-border type="definition" light>
+    definition type box, light style without border
+</box>
+```
+</span>
+
+<span id="output">
+<box no-icon no-background type="success">
+    success box without a tick icon and backgound
+</box>
+
+<box no-border type="definition" light>
+    definition type box, light style without border
+</box>
+</span>
+</include>
+
+**You can also use icons and resize them accordingly.**
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+```html
+<box type="warning" icon=":fas-camera:">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</box>
+<box type="warning" icon=":fas-camera:" icon-size="2x">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</box>
+<box type="warning" icon=":fas-camera:" icon-size="3x">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</box>
+```
+</span>
+
+<span id="output">
+
+<box type="warning" icon=":fas-camera:">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</box>
+<box type="warning" icon=":fas-camera:" icon-size="2x">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</box>
+<box type="warning" icon=":fas-camera:" icon-size="3x">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</box>
+</span>
+</include>
+
 ****Options****
 Name | Type | Default | Description
 --- | --- | --- | ---
@@ -169,9 +291,17 @@ border-left-color | `String` | `null` | Overrides border-color for the left bord
 color | `String` | `null` | Color of the text.
 dismissible | `Boolean` | `false` | Adds a button to close the box to the top right corner.
 icon | `String` | `null` | Inline MarkDown text of the icon displayed on the left.
-header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>heading <br> (deprecated)</small> | `String` | `null` | Plain text of the header on the top right corner.
+icon-size | `String` | `null` | Resizes the icon. Supports integer-scaling of the icon dimensions e.g. `2x`, `3x`, `4x`, etc.
+header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>heading <br> (deprecated)</small> | `String` | `null` | Markdown text of the box header.
 type | `String` | `'none'` | Supports: `info`, `warning`, `success`, `important`, `wrong`, `tip`, `definition`, or empty for default.
 light | `Boolean` | `false` | Uses a light color scheme for the box.
+seamless | `Boolean` | `false` | Uses a seamless style for the box. If `light` is specified, this style will not be activated.
+no-border | `Boolean` | `false` | Removes border, except if styled by `border-color` or `border-left-color`. 
+no-backgound | `Boolean` | `false` | Removes background, except if styled by `backgound-color` option.
+no-icon | `Boolean` | `false` | Removes icon, except if icon is displayed via `icon` option.
+type | `String` | `'none'` | Supports: `info`, `warning`, `success`, `important`, `wrong`, `tip`, `definition`, or empty for default.
+light | `Boolean` | `false` | Uses a light color scheme for the box.
+seamless | `Boolean` | `false` | Uses a seamless style for the box. If `light` is specified, this style will not be activated.
 
 <span id="short" class="d-none">
 ```html

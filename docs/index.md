@@ -20,7 +20,7 @@ Optimized for creating text-heavy websites %%e.g., eLearning websites, online in
 
 #### {{ icon_check_blue }} Simple syntax. Dynamic content.
 
-MarkBind source files can be as simple as basic Markdown, but you can also [**use a mix of several popular syntax schemes**](userGuide/markBindSyntax.html) (<tooltip content="GitHub Flavored Markdown">GFMD</tooltip>, BootStrap, NunJucks, etc. as well as MarkBind's own custom syntax) to create more dynamic content that you cannot normally get from a typical markdown-to-html site generator.
+MarkBind source files can be as simple as basic Markdown, but you can also [**use a mix of several popular syntax schemes**](userGuide/markBindSyntaxOverview.html) (<tooltip content="GitHub Flavored Markdown">GFMD</tooltip>, BootStrap, NunJucks, etc. as well as MarkBind's own custom syntax) to create more dynamic content that you cannot normally get from a typical markdown-to-html site generator.
 
 Here are some simple text-formatting examples:
 

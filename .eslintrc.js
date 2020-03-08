@@ -29,6 +29,7 @@ module.exports = {
     "lodash/prefer-lodash-method": [0],
     "lodash/prefer-noop": [0],
     "max-len": ["error", { "code": 110 }],
+    "no-param-reassign": ["error", { "props": false }],
     "operator-linebreak": ["error", "before"],
     // override airbnb-base dev dependencies, latest version does not white list __mocks__
     "import/no-extraneous-dependencies": [

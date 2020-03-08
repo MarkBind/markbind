@@ -3,26 +3,26 @@
 **A _Site Navigation Menu_ (==_siteNav_ for short==) is a fixed menu on the ==left edge== of a page**, that can be used to show a road map of the main pages of your site.
 
 Steps to add a siteNav:
-1. Format your siteNav as an unordered Markdown list and save it inside the `_markbind/navigation` directory.
+1. Format your siteNav as an unordered Markdown list and save it inside the `_markbind/navigation` directory. You may include dividers in the siteNav via <a href="{{ baseUrl }}/userGuide/readerfacingfeatures#horizontal-rules">horizontal rules</a>.
 2. Specify the file as the value of the `siteNav` attribute in the `<frontmatter>` of the page.
 
 <div class="indented">
 
 {{ icon_example }} Here is an example siteNav code saved in **`_markbind/navigation/`**`mySiteNav.md` file:
 
-<box>
-
-<code>
-* [:house: Home]({{ showBaseUrlText }}/index.html)<br>
-* Docs<br>
-&nbsp;&nbsp;* [User Guide]({{ showBaseUrlText }}/ug.html)<br>
-&nbsp;&nbsp;* [Dev Guide]({{ showBaseUrlText }}/dg.html)<br>
-* [Search]({{ showBaseUrlText }}/search.html)<br>
-&nbsp;&nbsp;* [Google Search](https://www.google.com/)<br>
-&nbsp;&nbsp;* [YouTube Search](https://www.youtube.com/)<br>
-* [Contact]({{ showBaseUrlText }}/contact.html)
-</code>
-</box>
+```{.no-line-numbers}
+* [:house: Home]({{ baseUrl }}/index.html)
+---
+* Docs
+  * [User Guide]({{ baseUrl }}/ug.html)
+  * [Dev Guide]({{ baseUrl }}/dg.html)
+---
+* [Search]({{ baseUrl }}/search.html)
+  * [Google Search](https://www.google.com/)
+  * [YouTube Search](https://www.youtube.com/)
+---
+* [Contact]({{ baseUrl }}/contact.html)
+```
 
 Here's how another page can make use of the above siteNav:
 
@@ -37,6 +37,7 @@ Here's how the above siteNav will appear:
 
 <ul style="list-style-type: none; margin-left:-1em">
   <li style="margin-top: 10px"><a class="site-nav__a" href="/index.html">🏠 Home</a></li>
+  <hr>
   <li style="margin-top: 10px">
     <button class="dropdown-btn">Docs <i class="dropdown-btn-icon">
       <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
@@ -47,12 +48,15 @@ Here's how the above siteNav will appear:
       </ul>
     </div>
   </li>
+  <hr>
   <li style="margin-top:10px"><a class="site-nav__a" href="">Search</a>
     <ul style="list-style-type: none; margin-left:-1em">
       <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.google.com">Google Search</a></li>
       <li style="margin-top: 10px"><a class="site-nav__a" href="http://www.youtube.com">YouTube Search</a></li>
     </ul>
   </li>
+  <hr>
+  <li style="margin-top:10px"><a class="site-nav__a" href="">Contact</a></li>
 </ul>
 
 </div>
@@ -85,9 +89,11 @@ You may have additional HTML and Markdown content in a <tooltip content="the fil
 
 More than one siteNav file can be in `_markbind/navigation/` directory but a page may not have more than one siteNav.
 
-A siteNav has a fixed width of 300 pixels for its contents. A siteNavs is [_responsive_](https://www.w3schools.com/html/html_responsive.asp) in that it will collapse to a menu button when the screen width is smaller than 992 pixels. It will then be completely hidden when the screen size is smaller than 576 pixels.
+A siteNav has a fixed width of 300 pixels for its contents. A siteNav is [_responsive_](https://www.w3schools.com/html/html_responsive.asp) in that it will collapse to a menu button when the screen width is smaller than 992 pixels. It will then be completely hidden when the screen size is smaller than 576 pixels.
 
 There is no limit to the number of nesting levels or the number of items in the menu, but note that any content exceeding a height of 1000 pixels will be cut off.
+
+If you wish to use a Layout but exclude its navigation file, specify `siteNav: none` in the `<frontmatter>` of the page.
 
 
 <span id="short" class="d-none">

@@ -22,6 +22,37 @@ pre > code.hljs {
     border: 1px solid rgb(200, 200, 200);
     border: 1px solid rgba(200, 200, 200, 0.3);
     border-radius: 5px;
+    counter-reset: line;
+}
+
+pre > code.hljs[heading] {
+    border-top-right-radius: 0;
+}
+
+.code-block {
+    position: relative;
+}
+
+.code-block-heading {
+    background-color: #f2f2ff;
+    border-radius: 6px 6px 0 0;
+    color: #8787a5;
+    float: right;
+    font-size: 85%;
+    line-height: 1;
+    max-width: 85%;
+    overflow-wrap: break-word;
+    padding: 0.25em 0.4em;
+    text-align: right;
+}
+
+.code-block-content {
+    clear: both;
+    display: block;
+}
+
+code > span.highlighted {
+    background: lavender;
 }
 
 kbd {
@@ -59,6 +90,10 @@ code.hljs.inline {
     padding: 0;
 }
 
+code.hljs:hover {
+    white-space: pre-wrap;
+}
+
 .markbind-table {
     width: auto;
 }
@@ -83,6 +118,14 @@ code.hljs.inline {
   *
   * This section covers the common styles used within Header, Footer and Side Navigation bars
   */
+
+/* Header */
+
+header.header-fixed {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
 
 /* #app is treated as the main container */
 #app {
@@ -301,4 +344,100 @@ panel[minimized]:not([expanded])::before {
 
 li.footnote-item:target {
     background-color: #eee;
+}
+
+.hljs:not(.inline) > span {
+    display: block;
+}
+
+.hljs:not(.inline):not(.no-line-numbers) > span {
+    padding: 0 0.5em 0 3.5em;
+    position: relative;
+}
+
+/* display line numbers beside each span */
+.hljs:not(.inline):not(.no-line-numbers) > span::before {
+    border-right: 1px solid #ddd;
+    display: inline-block;
+    color: #888;
+    content: counter(line);
+    counter-increment: line;
+    left: 0;
+    margin-right: 0.5em;
+    padding-right: 0.5em;
+    position: absolute;
+    text-align: right;
+    top: 0;
+    width: 3em;
+}
+
+/* hide popover, modal, tooltip content */
+[data-mb-html-for] {
+    display: none;
+}
+
+/* styles for triggers */
+.trigger {
+    text-decoration: underline dotted;
+}
+
+.modal.mb-zoom {
+    -webkit-transform: scale(0.1);
+    -moz-transform: scale(0.1);
+    -ms-transform: scale(0.1);
+    transform: scale(0.1);
+    opacity: 0;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.modal.mb-zoom.show {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* "Copy" code block button */
+pre {
+    position: relative;
+}
+
+.copy-btn {
+    background-color: #b4b4b9;
+    border-radius: 0.25rem;
+    color: #f8f8ff;
+    display: inline-block;
+    font-size: 75%;
+    line-height: 1;
+    padding: 0.25em 0.4em;
+    position: absolute;
+    right: 0.5em;
+    text-align: center;
+    top: 0.4em;
+    white-space: nowrap;
+}
+
+.copy-btn:hover {
+    color: #555;
+}
+
+.copy-btn-body {
+    align-items: center;
+    display: flex;
+}
+
+.copy-btn svg {
+    fill: currentColor;
+    margin-right: 0.4em;
+}
+
+.copy-btn-label {
+    font-size: 11px;
+}
+
+.copy-btn:focus {
+    outline: none;
 }

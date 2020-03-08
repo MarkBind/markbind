@@ -6,7 +6,8 @@
 <span id="code">
 
 ```html
-<dropdown header="Action" type="primary">
+<!--Notice how header attribute supports inline MarkDown-->
+<dropdown header="*Action*" type="primary">
   <li><a href="#dropdown" class="dropdown-item">Action</a></li>
   <li><a href="#dropdown" class="dropdown-item">Another action</a></li>
   <li><a href="#dropdown" class="dropdown-item">Something else here</a></li>
@@ -28,7 +29,7 @@
 </span>
 <span id="output">
 
-<dropdown header="Action" type="primary">
+<dropdown header="*Action*" type="primary">
   <li><a href="#dropdown" class="dropdown-item">Action</a></li>
   <li><a href="#dropdown" class="dropdown-item">Another action</a></li>
   <li><a href="#dropdown" class="dropdown-item">Something else here</a></li>
@@ -102,7 +103,7 @@ Name | Type | Default | Description
 --- | --- | --- | ---
 disabled | `Boolean` | `false` | Whether Dropdown can be opened.
 menu-align-right | `Boolean` | `false` | Whether the dropdown list will be right-aligned.
-header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>text <br> (deprecated)</small> | `String` | `''` | Dropdown button header text.
+header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>text <br> (deprecated)</small> | `String` | `''` | Dropdown button header text. (Supports inline MarkDown syntax)
 type | `String` | `default` | Supports: `default`, `primary`, `danger`, `info`, `warning`, `success`.
 
 <div class="indented">

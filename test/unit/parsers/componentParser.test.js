@@ -68,7 +68,7 @@ test('parseComponent parses modal attributes and inserts into dom as slots corre
   parseAndVerifyTemplate(testData.PARSE_MODAL_TITLE_NO_OVERRIDE,
                          testData.PARSE_MODAL_TITLE_NO_OVERRIDE_EXPECTED);
 
-  // todo remove these once 'modal-header' / 'modal-footer' for popover is fully deprecated
+  // todo remove these once 'modal-header' / 'modal-footer' for modal is fully deprecated
   parseAndVerifyTemplate(testData.PARSE_MODAL_SLOTS_RENAMING,
                          testData.PARSE_MODAL_SLOTS_RENAMING_EXPECTED);
 });
@@ -83,6 +83,10 @@ test('parseComponent parses tab & tab-group attributes and inserts into dom as s
 test('parseComponent parses box attributes and inserts into dom as slots correctly', () => {
   parseAndVerifyTemplate(testData.PARSE_BOX_ICON,
                          testData.PARSE_BOX_ICON_EXPECTED);
+  parseAndVerifyTemplate(testData.PARSE_BOX_HEADER,
+                         testData.PARSE_BOX_HEADER_EXPECTED);
+  parseAndVerifyTemplate(testData.PARSE_BOX_HEADING,
+                         testData.PARSE_BOX_HEADING_EXPECTED);
 });
 
 test('postParseComponent assigns the correct header id to panels', () => {
@@ -92,4 +96,24 @@ test('postParseComponent assigns the correct header id to panels', () => {
   parseAndVerifyTemplate(testData.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_SLOT,
                          testData.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_SLOT_EXPECTED,
                          true);
+});
+
+test('parseComponent parses dropdown header attribute and inserts into DOM as _header slot correctly', () => {
+  parseAndVerifyTemplate(testData.PARSE_DROPDOWN_HEADER,
+                         testData.PARSE_DROPDOWN_HEADER_EXPECTED);
+});
+
+test('parseComponent parses dropdown text attribute and inserts into DOM as _header slot correctly', () => {
+  parseAndVerifyTemplate(testData.PARSE_DROPDOWN_TEXT_ATTR,
+                         testData.PARSE_DROPDOWN_TEXT_ATTR_EXPECTED);
+});
+
+test('parseComponent parses dropdown with header taking priority over text attribute', () => {
+  parseAndVerifyTemplate(testData.PARSE_DROPDOWN_HEADER_SHADOWS_TEXT,
+                         testData.PARSE_DROPDOWN_HEADER_SHADOWS_TEXT_EXPECTED);
+});
+
+test('parseComponent parses dropdown with header slot taking priority over header attribute', () => {
+  parseAndVerifyTemplate(testData.PARSE_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY,
+                         testData.PARSE_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
 });

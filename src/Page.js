@@ -37,6 +37,7 @@ const {
   NAVIGATION_FOLDER_PATH,
   CONTENT_WRAPPER_ID,
   FRONT_MATTER_FENCE,
+  FRONT_MATTER_NONE_ATTR,
   PAGE_NAV_ID,
   PAGE_NAV_TITLE_CLASS,
   SITE_NAV_ID,
@@ -387,17 +388,6 @@ class Page {
   }
 
   /**
-   * Concatenates keywords in this.keywords to heading text in this.headings
-   */
-  concatenateHeadingsAndKeywords() {
-    Object.keys(this.keywords)
-      .forEach((headingId) => {
-        const keywordString = this.keywords[headingId].join(', ');
-        this.headings[headingId] += ` | ${keywordString}`;
-      });
-  }
-
-  /**
    * Records the dynamic or static included files into this.includedFiles
    * @param dependencies array of maps of the external dependency and where it is included
    */
@@ -513,6 +503,10 @@ class Page {
    */
   insertHeaderFile(pageData) {
     const { header } = this.frontMatter;
+    if (header === FRONT_MATTER_NONE_ATTR) {
+      return pageData;
+    }
+
     let headerFile;
     if (header) {
       headerFile = path.join(HEADERS_FOLDER_PATH, header);
@@ -539,6 +533,10 @@ class Page {
    */
   insertFooterFile(pageData) {
     const { footer } = this.frontMatter;
+    if (footer === FRONT_MATTER_NONE_ATTR) {
+      return pageData;
+    }
+
     let footerFile;
     if (footer) {
       footerFile = path.join(FOOTERS_FOLDER_PATH, footer);
@@ -566,6 +564,10 @@ class Page {
    */
   insertSiteNav(pageData) {
     const { siteNav } = this.frontMatter;
+    if (siteNav === FRONT_MATTER_NONE_ATTR) {
+      return pageData;
+    }
+
     let siteNavFile;
     if (siteNav) {
       siteNavFile = path.join(NAVIGATION_FOLDER_PATH, siteNav);
@@ -706,12 +708,18 @@ class Page {
         + `${pageNavHeadingHTML}\n`
         + '</nav>\n'
         + '</div>\n'
-        + '</nav>\n', { indent_size: 2 });
+        + '</nav>\n', Page.htmlBeautifyOptions);
     }
   }
 
   collectHeadFiles(baseUrl, hostBaseUrl) {
     const { head } = this.frontMatter;
+    if (head === FRONT_MATTER_NONE_ATTR) {
+      this.headFileTopContent = '';
+      this.headFileBottomContent = '';
+      return;
+    }
+
     let headFiles;
     const collectedTopContent = [];
     const collectedBottomContent = [];
@@ -791,13 +799,14 @@ class Page {
     if (pageSection.length === 0) {
       return;
     }
-    this.pageSectionsHtml[section] = htmlBeautify($.html(section), { indent_size: 2 })
+    this.pageSectionsHtml[section] = htmlBeautify($.html(section), Page.htmlBeautifyOptions)
       .trim();
     pageSection.remove();
-    this.content = htmlBeautify($.html(), { indent_size: 2 });
+    this.content = htmlBeautify($.html(), Page.htmlBeautifyOptions);
   }
 
   collectAllPageSections() {
+    this.pageSectionsHtml = {}; // This resets the pageSectionsHTML whenever we collect.
     this.collectPageSection('header');
     this.collectPageSection(`#${SITE_NAV_ID}`);
     this.collectPageSection('footer');
@@ -839,7 +848,7 @@ class Page {
         .then(result => markbinder.processDynamicResources(this.sourcePath, result))
         .then(result => MarkBind.unwrapIncludeSrc(result))
         .then((result) => {
-          this.content = htmlBeautify(result, { indent_size: 2 });
+          this.content = htmlBeautify(result, Page.htmlBeautifyOptions);
 
           const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap);
           const baseUrl = newBaseUrl ? `${this.baseUrl}/${newBaseUrl}` : this.baseUrl;
@@ -858,7 +867,7 @@ class Page {
 
           return fs.outputFileAsync(this.resultPath, htmlBeautify(
             this.template.render(this.prepareTemplateData()),
-            { indent_size: 2 },
+            Page.htmlBeautifyOptions,
           ));
         })
         .then(() => {
@@ -1089,6 +1098,8 @@ class Page {
         cwf: file,
       })
         .then(result => Page.removeFrontMatter(result))
+        .then(result => this.collectPluginSources(result))
+        .then(result => this.preRender(result))
         .then(result => markbinder.resolveBaseUrl(result, {
           baseUrlMap: this.baseUrlMap,
           rootPath: this.rootPath,
@@ -1101,6 +1112,8 @@ class Page {
           rootPath: this.rootPath,
           headerIdMap: {},
         }))
+        .then(result => this.postRender(result))
+        .then(result => this.collectPluginsAssets(result))
         .then(result => markbinder.processDynamicResources(file, result))
         .then((result) => {
           // resolve the site base url here
@@ -1111,7 +1124,7 @@ class Page {
             baseUrl,
             hostBaseUrl,
           });
-          return fs.outputFileAsync(resultPath, htmlBeautify(content, { indent_size: 2 }));
+          return fs.outputFileAsync(resultPath, htmlBeautify(content, Page.htmlBeautifyOptions));
         })
         .then(() => {
           // Recursion call to resolve nested dependency

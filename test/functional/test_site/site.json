@@ -71,6 +71,14 @@
     {
       "src": "testPanelsWithImportedVariables.md",
       "title": "Panels with Imported Variables Test"
+    },
+    {
+      "src": "testCodeBlocks.md",
+      "title": "Code Blocks Line Splitting"
+    },
+    {
+      "src": "testIncludePluginsRendered.md",
+      "title": "Included files should have plugins rendered on them"
     }
   ],
   "ignore": [

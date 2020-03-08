@@ -61,9 +61,6 @@ Trigger
   <tooltip effect="scale" content="Lorem ipsum dolor sit amet" placement="top" trigger="click">
     <button class="btn btn-secondary">Click</button>
   </tooltip>
-  <tooltip effect="scale" content="Lorem ipsum dolor sit amet" placement="top" trigger="contextmenu">
-    <button class="btn btn-secondary">Contextmenu (right click)</button>
-  </tooltip>
   <br />
   <br />
   <tooltip effect="scale" content="Lorem ipsum dolor sit amet" placement="top" trigger="focus">
@@ -111,7 +108,7 @@ This is the same <trigger for="tt:trigger_id">trigger</trigger> as last one.
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------
-trigger	| `String` | `hover` | How the tooltip is triggered.<br>Supports: `click`, `focus`, `hover`, `contextmenu`.
+trigger	| `String` | `hover` | How the tooltip is triggered.<br>Supports: `click`, `focus`, `hover`.
 content | `String` | `''` | Text content of the tooltip.
 placement | `String` | `top` | How to position the tooltip.<br>Supports: `top`, `left`, `right`, `bottom`.
 

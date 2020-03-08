@@ -1,2 +1,3 @@
 **/*.min.css
+**/_site/**/*.css
 test/functional/**/expected/**/*.css

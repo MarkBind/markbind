@@ -1,11 +1,24 @@
 ## Code
 
-MarkBind can provide syntax coloring for a code block (aka _Fenced Code Blocks_).
+#### Fenced Code
+MarkBind provides several features, some of which are added on top of the existing functionality of Markdown's _fenced code blocks_.
+
+<small>More info: https://www.markdownguide.org/extended-syntax#fenced-code-blocks</small>
+
+
+Features:
+- Syntax coloring
+- Line numbering
+- Line highlighting
+- Code block headers 
+
+##### Syntax coloring
+To enable syntax coloring, specify a language next to the backticks before the fenced code block.
 <span id="main-example">
 <include src="outputBox.md" boilerplate >
 <span id="code">
 
-````
+```` {.no-line-numbers}
 ```xml
 <foo>
   <bar type="name">goo</bar>
@@ -24,9 +37,99 @@ MarkBind can provide syntax coloring for a code block (aka _Fenced Code Blocks_)
 </include>
 </span>
 
-<small>More info: https://www.markdownguide.org/extended-syntax#fenced-code-blocks</small>
+##### Line numbering
+Line numbers are automatically provided by default. To hide line numbers, add the class `no-line-numbers ` to the code block as below
 
-In addition, MarkBind can apply syntax-coloring on inline code too.
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```` {.no-line-numbers}
+```xml {.no-line-numbers}
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+````
+</span>
+<span id="output">
+
+```xml {.no-line-numbers}
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+</span>
+</include>
+
+##### Line highlighting
+To highlight lines, add the attribute `highlight-lines` with the line numbers as value, as shown below. You can specify ranges or individual line numbers.
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```` {.no-line-numbers}
+```java {highlight-lines="2,4,6-8"}
+import java.util.List;
+
+public class Inventory {
+    private List<Item> items;
+
+    public int getItemCount(){
+        return items.size();
+    }
+
+    //...
+}
+```
+````
+</span>
+<span id="output">
+
+```java {highlight-lines="2,4,6-8"}
+import java.util.List;
+
+public class Inventory {
+    private List<Item> items;
+
+    public int getItemCount(){
+        return items.size();
+    }
+
+    //...
+}
+```
+</span>
+</include>
+
+##### Heading
+To add a heading, add the attribute `heading` with the heading text as the value, as shown below.
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```` {.no-line-numbers}
+```xml {heading="Heading title"}
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+````
+</span>
+<span id="output">
+
+```xml {heading="Heading title"}
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+</span>
+</include>
+
+#### Inline Code
+##### Syntax coloring
+
+
+MarkBind can apply syntax-coloring on inline code too.
 
 <include src="outputBox.md" boilerplate >
 <span id="code">

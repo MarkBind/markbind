@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="default-head-top">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="MarkBind 2.12.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Code Blocks Line Splitting</title>
+  <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
+  <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
+  <link rel="stylesheet" href="markbind/css/octicons.css">
+  <link rel="stylesheet" href="markbind/css/github.min.css">
+  <link rel="stylesheet" href="markbind/css/markbind.css">
+  <link rel="stylesheet" href="STYLESHEET_LINK">
+  <link rel="stylesheet" href="markbind/layouts/default/styles.css">
+  <meta name="default-head-bottom">
+  <link rel="icon" href="/test_site/favicon.png">
+</head>
+
+<body>
+  <div id="app">
+    <div id="flex-body">
+      <div id="content-wrapper">
+        <p><strong>Code blocks test</strong></p>
+        <p><strong>Multiple linebreaks, no highlight</strong></p>
+        <pre><code class="hljs"><span>Four empty lines below</span><span>&#x200B;</span><span>&#x200B;</span><span>&#x200B;</span><span>&#x200B;</span><span>Four empty lines above</span></code></pre>
+        <p><strong>Multiple linebreaks, with highlight</strong></p>
+        <pre><code class="hljs js"><span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fourEmptyLinesBelow</span>(<span class="hljs-params"></span>) </span>{</span><span>&#x200B;</span><span>&#x200B;</span><span>&#x200B;</span><span>&#x200B;</span><span>} <span class="hljs-comment">// four empty lines above</span></span></code></pre>
+        <p><strong>hljs span spanning multiple lines</strong></p>
+        <pre><code class="hljs markdown"><span><span class="hljs-strong">*****</span></span><span>-----</span></code></pre>
+      </div>
+    </div>
+    <footer>
+      <div class="text-center">
+        Default footer
+      </div>
+    </footer>
+  </div>
+</body>
+<script src="markbind/js/vue.min.js"></script>
+<script src="markbind/js/vue-strap.min.js"></script>
+<script src="markbind/js/bootstrap-utility.min.js"></script>
+<script src="markbind/js/polyfill.min.js"></script>
+<script src="markbind/js/bootstrap-vue.min.js"></script>
+<script>
+  const baseUrl = '/test_site'
+  const enableSearch = true
+</script>
+<script src="markbind/js/setup.js"></script>
+<script src="SCRIPT_LINK"></script>
+<script>
+  alert("hello")
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'TRACKING-ID');
+</script>
+<script src="markbind/layouts/default/scripts.js"></script>
+
+</html>
