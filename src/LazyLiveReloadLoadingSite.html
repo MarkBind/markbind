@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Building ...</title>
+</head>
+<body>
+  <div id="loading-spinner"></div>
+  <div id="loading-text">... building your page ...</div>
+</body>
+
+<style>
+    body {
+        height: 90vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #loading-spinner {
+        height: 50px;
+        width: 50px;
+        border-width: 5px;
+        border-color: #00b0f0 lightgrey;
+        border-style: solid;
+        border-radius: 50%;
+        animation-name: loading-spinner;
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+
+    #loading-text {
+        position: absolute;
+        bottom: 20px;
+        color: #9b9b9b;
+        font-size: 1.2rem;
+        font-family: sans-serif;
+        animation-name: loading-text;
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+    }
+
+    @keyframes loading-spinner {
+        0% {
+            opacity: 0.5;
+        }
+
+        50% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0.5;
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes loading-text {
+        50% {
+            transform: translateY(-3px);
+        }
+    }
+</style>
+</html>

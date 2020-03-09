@@ -178,6 +178,26 @@ This allows files specified by the `src` attributes of `<puml>` tags to be watch
 }
 ```
 
+#### Special tags
+
+By default, content in html tags are parsed as html and markdown.
+
+However, you might want to create a plugin that has certain special tags containing conflicting syntax
+you do not wish to be parsed as html or markdown.
+
+You can implement the `getSpecialTags` method to blacklist the content in these special tags from parsing,
+removing such potential conflicts.
+
+- `getSpecialTags(pluginContext)`: Called during initial site generation to blacklist special tags.
+  - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
+  - Should return an array of string tag names to be blacklisted, with each tag name being at least 2 characters long.
+
+<box type="important">
+Note however, that variable interpolation syntax <code>{<span>{</span> variable_name <span>}</span>}</code> will act as per normal.
+Meaning, the user would still be able to use variables in your special tags!
+</box>
+
+
 ### Advanced: Default plugins
 
 MarkBind has a set of default plugins that it uses to carry out some of its features. These are enabled by default for every project and should be left alone.
