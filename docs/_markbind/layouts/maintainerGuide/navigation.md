@@ -2,5 +2,5 @@
 
 <span class="lead">**Maintainer Guide**</span>
 
-* [Developer Guide]({{baseUrl}}/devGuide/devGuide.html)
+* [Developer Guide]({{baseUrl}}/devGuide.html)
 </navigation>
