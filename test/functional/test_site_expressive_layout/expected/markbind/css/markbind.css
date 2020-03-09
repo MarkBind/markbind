@@ -381,6 +381,11 @@ li.footnote-item:target {
     text-decoration: underline dotted;
 }
 
+.trigger-click {
+    cursor: pointer;
+    text-decoration: underline dashed;
+}
+
 .modal.mb-zoom {
     -webkit-transform: scale(0.1);
     -moz-transform: scale(0.1);
