@@ -1,6 +1,6 @@
 <frontmatter>
   title: "Maintainer Guide"
-  layout: devGuide
+  layout: maintainerGuide
   pageNav: default
 </frontmatter>
 
