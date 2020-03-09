@@ -125,7 +125,8 @@ To add a heading, add the attribute `heading` with the heading text as the value
 </span>
 </include>
 
-**You can also use multiple features together, as shown below.**
+##### Using multiple features
+You can also use multiple features together, as shown below.
 
 <include src="outputBox.md" boilerplate >
 <span id="code">
