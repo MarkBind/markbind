@@ -10,7 +10,7 @@ Features:
 - Syntax coloring
 - Line numbering
 - Line highlighting
-- Code block headers 
+- Code block headers
 
 ##### Syntax coloring
 To enable syntax coloring, specify a language next to the backticks before the fenced code block.
@@ -108,7 +108,7 @@ To add a heading, add the attribute `heading` with the heading text as the value
 <span id="code">
 
 ```` {.no-line-numbers}
-```xml {heading="Heading title"}
+```xml {heading="Heading title", highlight-lines="2"}
 <foo>
   <bar type="name">goo</bar>
 </foo>
@@ -117,7 +117,7 @@ To add a heading, add the attribute `heading` with the heading text as the value
 </span>
 <span id="output">
 
-```xml {heading="Heading title"}
+```xml {heading="Heading title", highlight-lines="2"}
 <foo>
   <bar type="name">goo</bar>
 </foo>
