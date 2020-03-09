@@ -125,13 +125,13 @@ To add a heading, add the attribute `heading` with the heading text as the value
 </span>
 </include>
 
-You can also use multiple features together, as shown below.
+**You can also use multiple features together, as shown below.**
 
 <include src="outputBox.md" boilerplate >
 <span id="code">
 
 ```` {.no-line-numbers}
-```xml {heading="Heading title", highlight-lines="2"}
+```xml {highlight-lines="2", heading="Heading title"}
 <foo>
 <bar type="name">goo</bar>
 </foo>
@@ -140,7 +140,7 @@ You can also use multiple features together, as shown below.
 </span>
 <span id="output">
 
-```xml {heading="Heading title", highlight-lines="2"}
+```xml {highlight-lines="2", heading="Heading title"}
 <foo>
 <bar type="name">goo</bar>
 </foo>
