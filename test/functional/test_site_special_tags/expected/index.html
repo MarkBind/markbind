@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="MarkBind 2.12.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Landing Page</title>
+  <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
+  <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
+  <link rel="stylesheet" href="markbind/css/octicons.css">
+  <link rel="stylesheet" href="markbind/css/github.min.css">
+  <link rel="stylesheet" href="markbind/css/markbind.css">
+  <link rel="stylesheet" href="markbind/layouts/default/styles.css">
+</head>
+
+<body>
+  <div id="app">
+    <div id="flex-body">
+      <div id="content-wrapper">
+        <h1 id="functional-test-for-htmlparser2-and-markdown-it-patches-for-special-tags">Functional test for htmlparser2 and markdown-it patches for special tags<a class="fa fa-anchor" href="#functional-test-for-htmlparser2-and-markdown-it-patches-for-special-tags"></a></h1>
+        <h2 id="so-far-as-to-comply-with-the-commonmark-spec">So far as to comply with the commonmark spec<a class="fa fa-anchor" href="#so-far-as-to-comply-with-the-commonmark-spec"></a></h2>
+        <p>There should be no text between this and the next <code>&lt;hr&gt;</code> tag in the browser, since it is a <code>&lt;script&gt;</code> tag.<br> There should be an alert with the value of 2 as well.</p>
+        <script>
+          let x = 1;
+
+          x += 1;
+          alert(x);
+        </script>
+        <hr>
+        <p>There should be no text between this and the next <code>&lt;hr&gt;</code> tag in the browser, since it is a <code>&lt;style&gt;</code> tag.</p>
+        <style>
+          .bigger-text {
+            font-size: 10em;
+          }
+        </style>
+        <hr>
+        <p>There should be text between this and the next <code>&lt;hr&gt;</code> tag, since it is a special tag. All text should appear in the browser window as a single line, save for the comment which the browser still interprets. (but will be in the
+          expected output)
+        </p>
+        <testtag>!success
+
+<these>
+some text
+</these>
+
+<!-- -->
+
+//
+
+/*
+...
+*/
+
+success!</testtag>
+        <hr>
+        <p>This has the same content has the previous test, but it is <strong>not</strong> a special tag. The html comment <code>&lt;!-- --&gt;</code> should disappear in the expected output. The line <code>some text</code> should appear as per normal, and
+          not wrapped by a paragraph since a html tag precedes it without a blank line. The other lines should be parsed as markdown paragraphs, as per commonmark spec.</p>
+        <abc>
+          <these>
+            some text
+          </these>
+
+          <p>//</p>
+          <p>/* ... */
+          </p>
+        </abc>
+        <hr>
+        <p>This should pass the htmlparser2 patch but not the markdown-it patch as it violates commonmark.<br> All lines after the first <code>!success</code> wrapping text will be wrapped in a <code>&lt;p&gt;...&lt;/p&gt;</code> tag as it is parsed as a
+          markdown paragraph.
+        </p>
+        <div>
+          <testtag>!success
+<p>let x = 2;</p>
+<p>if (x &lt;= 5) {
+alert(x);
+}</p>
+<p>success!</testtag>
+        </div>
+        <hr>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="markbind/js/vue.min.js"></script>
+<script src="markbind/js/vue-strap.min.js"></script>
+<script src="markbind/js/bootstrap-utility.min.js"></script>
+<script src="markbind/js/polyfill.min.js"></script>
+<script src="markbind/js/bootstrap-vue.min.js"></script>
+<script>
+  const baseUrl = ''
+  const enableSearch = true
+</script>
+<script src="markbind/js/setup.js"></script>
+<script src="markbind/layouts/default/scripts.js"></script>
+
+</html>

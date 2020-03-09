@@ -69,6 +69,10 @@ var i = 0,
     BEFORE_SPECIAL            = i++, //S
     BEFORE_SPECIAL_END        = i++,   //S
 
+	/*
+	 SCRIPT and STYLE states are preserved to maintain consistency of
+	 un-patched methods using state numbers greater than them in htmlparser2.
+	 */
     BEFORE_SCRIPT_1           = i++, //C
     BEFORE_SCRIPT_2           = i++, //R
     BEFORE_SCRIPT_3           = i++, //I
@@ -95,20 +99,35 @@ var i = 0,
     IN_NUMERIC_ENTITY         = i++,
     IN_HEX_ENTITY             = i++, //X
 
-    j = 0,
+	SPECIAL_NONE              = 0,
 
-    SPECIAL_NONE              = j++,
-    SPECIAL_SCRIPT            = j++,
-    SPECIAL_STYLE             = j++;
+	/*
+	 Non parser-state constants
+	 */
+
+	// _matchSpecialTagsNextCharacters, _matchNextSpecialTagClosingCharacter
+	HAS_MATCHING              = -1,
+	NO_MATCH                  = -2,
+	HAS_MATCHED               = -3;
+
+function whitespace(c) {
+	return c === " " || c === "\n" || c === "\t" || c === "\f" || c === "\r";
+}
 
 Tokenizer.prototype._stateMarkdown = function(c){
  	if(c === '`') {
  		this._state = TEXT;
  	}
-}
+};
 
-Tokenizer.prototype._stateText = function(c){
-	if(c === '`'){
+/**
+ * Patched state text token handler to treat content in markdown code blocks
+ * and fences as markdown text.
+ * In conjunction with _stateMarkdown, the parser enter the MARKDOWN state after
+ * an odd number of consecutive backticks.
+ */
+Tokenizer.prototype._stateText = function(c) {
+	if (this._special === SPECIAL_NONE && c === '`') {
 		this._state = MARKDOWN;
 	} else if(c === "<"){
 		var isInequality = (this._index + 1 < this._buffer.length) && (this._buffer.charAt(this._index + 1) === '=');
@@ -129,6 +148,189 @@ Tokenizer.prototype._stateText = function(c){
 	}
 };
 
+
+Tokenizer.prototype.specialTagNames = [
+	'script',
+	'style',
+];
+
+/**
+ * Checks whether the token matches one of the first characters of the special tags,
+ * and initialises the _matchingSpecialTagIndexes array with the matches' indexes if so.
+ */
+Tokenizer.prototype._matchSpecialTagsFirstCharacters = function(c) {
+	this._matchingSpecialTagIndexes = [];
+	const numSpecialTags = this.specialTagNames.length;
+	const lowerCaseChar = c.toLowerCase();
+	for (let j = 0; j < numSpecialTags; j += 1) {
+		if (lowerCaseChar === this.specialTagNames[j][0]) {
+			this._matchingSpecialTagIndexes.push(j)
+		}
+	}
+
+	if (this._matchingSpecialTagIndexes.length > 0) {
+		this._nextSpecialTagMatchIndex = 1;
+		return true;
+	}
+	return false;
+};
+
+/**
+ * Processes the _matchingSpecialTagIndexes array, filtering out previous match indexes
+ * that do not match the current token.
+ * If one of the previous matches successfully matched, the match index is returned.
+ */
+Tokenizer.prototype._matchSpecialTagsNextCharacters = function(c) {
+	const matchingSpecialTags = [];
+	const numMatchingTags = this._matchingSpecialTagIndexes.length;
+	const lowerCaseChar = c.toLowerCase();
+
+	for (let j = 0; j < numMatchingTags; j += 1) {
+		const tagIndex = this._matchingSpecialTagIndexes[j];
+		const testChar = this.specialTagNames[tagIndex][this._nextSpecialTagMatchIndex];
+
+		if (testChar === undefined) {
+			if (c === "/" || c === ">" || whitespace(c)) {
+				return tagIndex;
+			}
+		} else if (testChar === lowerCaseChar) {
+			matchingSpecialTags.push(tagIndex);
+		}
+	}
+
+	this._matchingSpecialTagIndexes = matchingSpecialTags;
+
+	return this._matchingSpecialTagIndexes.length > 0
+		? HAS_MATCHING
+		: NO_MATCH;
+};
+
+/**
+ * Changes the Tokenizer state to BEFORE_SPECIAL if the token matches one of
+ * the first characters of _specialTagNames.
+ */
+Tokenizer.prototype._stateBeforeTagName = function(c) {
+	if (c === "/") {
+		this._state = BEFORE_CLOSING_TAG_NAME;
+	} else if (c === "<") {
+		this._cbs.ontext(this._getSection());
+		this._sectionStart = this._index;
+	} else if (c === ">" || this._special !== SPECIAL_NONE || whitespace(c)) {
+		this._state = TEXT;
+	} else if (c === "!") {
+		this._state = BEFORE_DECLARATION;
+		this._sectionStart = this._index + 1;
+	} else if (c === "?") {
+		this._state = IN_PROCESSING_INSTRUCTION;
+		this._sectionStart = this._index + 1;
+	} else {
+		// We want special tag treatment to be xmlMode independent for MarkBind.
+		this._state = this._matchSpecialTagsFirstCharacters(c)
+			? BEFORE_SPECIAL
+			: IN_TAG_NAME;
+		this._sectionStart = this._index;
+	}
+};
+
+/**
+ * Changes the Tokenizer state to IN_TAG_NAME or BEFORE_SPECIAL state again depending
+ * on whether there are still matches in _matchingSpecialTagIndexes.
+ */
+Tokenizer.prototype._stateBeforeSpecial = function(c) {
+	const result = this._matchSpecialTagsNextCharacters(c);
+	if (result === HAS_MATCHING) {
+		this._nextSpecialTagMatchIndex += 1;
+		return;
+	}
+
+	// Reset for _matchNextSpecialTagClosingCharacter later
+	this._nextSpecialTagMatchIndex = 0;
+
+	this._state = IN_TAG_NAME;
+	this._index--; //consume the token again
+
+	if (result === NO_MATCH) {
+		return;
+	}
+
+	/*
+	 Assign the one-based index of the matching tag in the special tags array.
+	 This is due to htmlparser2 using 0 for SPECIAL_NONE,
+	 which would conflict with a zero-based index.
+	*/
+	this._special = result + 1;
+};
+
+/**
+ * Processes the _special flag and _nextSpecialTagMatchIndex state variable,
+ * returning a flag indicating whether the current special tag has finished matching or not.
+ */
+Tokenizer.prototype._matchNextSpecialTagClosingCharacter = function(c) {
+	const nextTestChar = this.specialTagNames[this._special - 1][this._nextSpecialTagMatchIndex];
+
+	if (nextTestChar === undefined) {
+		this._nextSpecialTagMatchIndex = 0;
+		return (c === ">" || whitespace(c))
+			? HAS_MATCHED
+			: NO_MATCH;
+	} else if (nextTestChar === c.toLowerCase()) {
+		this._nextSpecialTagMatchIndex += 1;
+		return HAS_MATCHING;
+	}
+
+	this._nextSpecialTagMatchIndex = 0;
+	return NO_MATCH;
+};
+
+/**
+ * Changes the Tokenizer state to BEFORE_SPECIAL_END if the token matches one of
+ * the first character of the currently matched special tag.
+ */
+Tokenizer.prototype._stateBeforeCloseingTagName = function(c) {
+	if (whitespace(c));
+	else if (c === ">") {
+		this._state = TEXT;
+	} else if (this._special !== SPECIAL_NONE) {
+		if (this._matchNextSpecialTagClosingCharacter(c) !== NO_MATCH) {
+			this._state = BEFORE_SPECIAL_END;
+		} else {
+			this._state = TEXT;
+			this._index--;
+		}
+	} else {
+		this._state = IN_CLOSING_TAG_NAME;
+		this._sectionStart = this._index;
+	}
+};
+
+/**
+ * Changes the Tokenizer state back to TEXT, IN_TAG_NAME depending
+ * on whether the token has finished or is still matching
+ * the currently matched special tag.
+ */
+Tokenizer.prototype._stateBeforeSpecialEnd = function(c) {
+	const result = this._matchNextSpecialTagClosingCharacter(c);
+	if (result === HAS_MATCHING) {
+		return;
+	}
+
+	if (result === HAS_MATCHED) {
+		this._sectionStart = this._index - this.specialTagNames[this._special - 1].length;
+		this._special = SPECIAL_NONE;
+		this._state = IN_CLOSING_TAG_NAME;
+		this._index--; //reconsume the token
+		return;
+	}
+
+	this._index--;
+	this._state = TEXT;
+};
+
+/**
+ * Altered _parse handler that handles the extra MARKDOWN state.
+ * BEFORE/AFTER SCRIPT and STYLE state handlers are made redundant
+ * by the above patches and removed as well.
+ */
 Tokenizer.prototype._parse = function(){
 	while(this._index < this._buffer.length && this._running){
 		var c = this._buffer.charAt(this._index);
@@ -232,56 +434,6 @@ Tokenizer.prototype._parse = function(){
 		}
 
 		/*
-		* script
-		*/
-		else if(this._state === BEFORE_SCRIPT_1){
-			this._stateBeforeScript1(c);
-		} else if(this._state === BEFORE_SCRIPT_2){
-			this._stateBeforeScript2(c);
-		} else if(this._state === BEFORE_SCRIPT_3){
-			this._stateBeforeScript3(c);
-		} else if(this._state === BEFORE_SCRIPT_4){
-			this._stateBeforeScript4(c);
-		} else if(this._state === BEFORE_SCRIPT_5){
-			this._stateBeforeScript5(c);
-		}
-
-		else if(this._state === AFTER_SCRIPT_1){
-			this._stateAfterScript1(c);
-		} else if(this._state === AFTER_SCRIPT_2){
-			this._stateAfterScript2(c);
-		} else if(this._state === AFTER_SCRIPT_3){
-			this._stateAfterScript3(c);
-		} else if(this._state === AFTER_SCRIPT_4){
-			this._stateAfterScript4(c);
-		} else if(this._state === AFTER_SCRIPT_5){
-			this._stateAfterScript5(c);
-		}
-
-		/*
-		* style
-		*/
-		else if(this._state === BEFORE_STYLE_1){
-			this._stateBeforeStyle1(c);
-		} else if(this._state === BEFORE_STYLE_2){
-			this._stateBeforeStyle2(c);
-		} else if(this._state === BEFORE_STYLE_3){
-			this._stateBeforeStyle3(c);
-		} else if(this._state === BEFORE_STYLE_4){
-			this._stateBeforeStyle4(c);
-		}
-
-		else if(this._state === AFTER_STYLE_1){
-			this._stateAfterStyle1(c);
-		} else if(this._state === AFTER_STYLE_2){
-			this._stateAfterStyle2(c);
-		} else if(this._state === AFTER_STYLE_3){
-			this._stateAfterStyle3(c);
-		} else if(this._state === AFTER_STYLE_4){
-			this._stateAfterStyle4(c);
-		}
-
-		/*
 		* entities
 		*/
 		else if(this._state === BEFORE_ENTITY){
@@ -305,3 +457,12 @@ Tokenizer.prototype._parse = function(){
 
 	this._cleanup();
 };
+
+/**
+ * Injects the tagsToIgnore into the Tokenizer's specialTagNames.
+ */
+function injectIgnoreTags(tagsToIgnore) {
+	Tokenizer.prototype.specialTagNames = ['script', 'style', ...tagsToIgnore];
+}
+
+module.exports = injectIgnoreTags;

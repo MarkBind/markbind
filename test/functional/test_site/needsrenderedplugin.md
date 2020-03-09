@@ -1,0 +1,1 @@
+<panel><span heading><b>header</b></span> Content of panel</panel>
