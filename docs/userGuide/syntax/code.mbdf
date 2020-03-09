@@ -131,7 +131,7 @@ To add a heading, add the attribute `heading` with the heading text as the value
 <span id="code">
 
 ```` {.no-line-numbers}
-```xml {highlight-lines="2", heading="Heading title"}
+```xml {highlight-lines="2" heading="Heading title"}
 <foo>
 <bar type="name">goo</bar>
 </foo>
