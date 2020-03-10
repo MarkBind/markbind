@@ -64,6 +64,13 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   if (!highlighted) {
     lines = markdownIt.utils.escapeHtml(str).split('\n');
   }
+
+  const startFrom = Number(token.attrGet('start-from'));
+
+  if (startFrom) {
+    // counter is incremented on each span, so we need to subtract 1
+    token.attrJoin('style', `counter-set: line ${startFrom - 1};`);
+  }
   
   const highlightLinesInput = token.attrGet('highlight-lines');
   let lineNumbersAndRanges = [];

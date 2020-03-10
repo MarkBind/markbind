@@ -28,3 +28,9 @@ function fourEmptyLinesBelow() {
 *****
 -----
 ```
+
+**start-from attr causes inline style to be set**
+```markdown {start-from=30}
+*****
+-----
+```
