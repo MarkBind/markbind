@@ -32,7 +32,7 @@ To specify that you want to insert `myCustomLinks.md` into the `<head>` of `myPa
 
 {{ icon_example }} Here's how you can force the line `<script ... > ... </script>` to be inserted at the top of the `<head>` section.
 
-```html {highlight-lines="1,3", .no-line-numbers}
+```html {highlight-lines="1,3" .no-line-numbers}
 <head-top>
   <script src="{{ baseUrl }}/js/myCustomScript.js"></script>
 </head-top>
@@ -58,7 +58,7 @@ To specify that you want to insert `myCustomLinks.md` into the `<head>` of `myPa
 
 `_markbind/head/myCustomLinks.md`:
 
-```html{.no-line-numbers, highlight-lines="1,3"}
+```html{.no-line-numbers highlight-lines="1,3"}
 <head-top>
 <script src="`{{ baseUrl }}`/js/myCustomScript.js"></script>
 </head-top>
