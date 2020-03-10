@@ -2,13 +2,6 @@
   "enableSearch": true,
   "pages": [
     {
-      "src": "index.md",
-      "title": "Landing Page",
-      "layout": "default",
-      "headings": {},
-      "headingKeywords": {}
-    },
-    {
       "src": "Home.md",
       "title": "",
       "layout": "default",
@@ -81,6 +74,13 @@
       "siteNav": "site-nav.md",
       "src": "contents/topic3b.md",
       "title": "",
+      "layout": "default",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "index.md",
+      "title": "Landing Page",
       "layout": "default",
       "headings": {},
       "headingKeywords": {}
