@@ -134,7 +134,7 @@ You can also use multiple features together, as shown below.
 ```` {.no-line-numbers}
 ```xml {highlight-lines="2" heading="Heading title"}
 <foo>
-<bar type="name">goo</bar>
+  <bar type="name">goo</bar>
 </foo>
 ```
 ````
@@ -143,7 +143,7 @@ You can also use multiple features together, as shown below.
 
 ```xml {highlight-lines="2" heading="Heading title"}
 <foo>
-<bar type="name">goo</bar>
+  <bar type="name">goo</bar>
 </foo>
 ```
 </span>
