@@ -1,58 +1,42 @@
 <!DOCTYPE html>
 <html>
-
 <head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="generator" content="MarkBind 2.12.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
+    <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
+    <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
+    <link rel="stylesheet" href="markbind/css/octicons.css">
+    <link rel="stylesheet" href="markbind/css/github.min.css">
+    <link rel="stylesheet" href="markbind/css/markbind.css"><link rel="stylesheet" href="markbind/layouts/default/styles.css"><link rel="stylesheet" href="markbind/css/site-nav.css"></head>
+<body >
+<div id="app">
+    <header><navbar placement="top" type="inverse" class="temp-navbar">
+  <a slot="brand" href="/index.html" title="Home" class="navbar-brand"><i class="far fa-file-image"></i></a>
+  <li><a href="/index.html" class="nav-link">HOME</a></li>
+  <li><a href="/about.html" class="nav-link">ABOUT</a></li>
+  <li slot="right">
+    <form class="navbar-form">
+      <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right=""></searchbar></form></li></navbar></header><div id="flex-body">
+        <nav id="site-nav" class="navbar navbar-light bg-transparent">
+<div class="border-right-grey nav-inner position-sticky slim-scroll"><ul class="px-0 site-nav-list">
+<li class="mt-2">[[Home]]</li>
+<li class="mt-2">[[Page-1]]</li></ul></div></nav>
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="MarkBind 2.13.1">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
-  <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
-  <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
-  <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
-  <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
-  <link rel="stylesheet" href="markbind/css/octicons.css">
-  <link rel="stylesheet" href="markbind/css/github.min.css">
-  <link rel="stylesheet" href="markbind/css/markbind.css">
-  <link rel="stylesheet" href="markbind/layouts/default/styles.css">
-  <link rel="stylesheet" href="markbind/css/site-nav.css">
-</head>
+<div id="content-wrapper">
+<ul>
+<li>[[Home]]</li>
+<li>[[Page-1]]</li></ul></div>
 
-<body>
-  <div id="app">
-    <header>
-      <navbar placement="top" type="inverse" class="temp-navbar">
-        <a slot="brand" href="/index.html" title="Home" class="navbar-brand"><i class="far fa-file-image"></i></a>
-        <li><a href="/index.html" class="nav-link">HOME</a></li>
-        <li><a href="/about.html" class="nav-link">ABOUT</a></li>
-        <li slot="right">
-          <form class="navbar-form">
-            <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right=""></searchbar>
-          </form>
-        </li>
-      </navbar>
-    </header>
-    <div id="flex-body">
-      <nav id="site-nav" class="navbar navbar-light bg-transparent">
-        <div class="border-right-grey nav-inner position-sticky slim-scroll">
-          <ul class="px-0 site-nav-list">
-            <li class="mt-2">[[Home]]</li>
-            <li class="mt-2">[[Page-1]]</li>
-          </ul>
         </div>
-      </nav>
-      <div id="content-wrapper">
-        <ul>
-          <li>[[Home]]</li>
-          <li>[[Page-1]]</li>
-        </ul>
-      </div>
-    </div>
     <footer>
-      Custom footer.
-    </footer>
-  </div>
+	Custom footer.
+</footer></div>
 </body>
 <script src="markbind/js/vue.min.js"></script>
 <script src="markbind/js/vue-strap.min.js"></script>
@@ -65,5 +49,4 @@
 </script>
 <script src="markbind/js/setup.js"></script>
 <script src="markbind/layouts/default/scripts.js"></script>
-
 </html>

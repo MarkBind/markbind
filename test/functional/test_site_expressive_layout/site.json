@@ -1,5 +1,6 @@
 {
   "baseUrl": "/test_site_expressive_layout",
+  "jsBeautify": true,
   "titlePrefix": "",
   "ignore": [
     "_markbind/layouts/*",

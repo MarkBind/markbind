@@ -66,15 +66,20 @@ some text
 
 success!</testtag>
         <hr>
-        <p>This has the same content has the previous test, but it is <strong>not</strong> a special tag. The html comment <code>&lt;!-- --&gt;</code> should disappear in the expected output. The line <code>some text</code> should appear as per normal, and
-          not wrapped by a paragraph since a html tag precedes it without a blank line. The other lines should be parsed as markdown paragraphs, as per commonmark spec.</p>
+        <p>This has the same content has the previous test, but it is <strong>not</strong> a special tag.
+          The html comment <code>&lt;!-- --&gt;</code> should disappear in the expected output.
+          The line <code>some text</code> should appear as per normal, and not wrapped by a paragraph since
+          a html tag precedes it without a blank line.
+          The other lines should be parsed as markdown paragraphs, as per commonmark spec.</p>
         <abc>
           <these>
             some text
           </these>
 
           <p>//</p>
-          <p>/* ... */
+          <p>/*
+            ...
+            */
           </p>
         </abc>
         <hr>
