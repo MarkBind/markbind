@@ -237,6 +237,7 @@ class Site {
       faviconUrl: config.faviconUrl,
       frontmatter: config.frontmatter,
       globalOverride: this.siteConfig.globalOverride || {},
+      jsBeautify: this.siteConfig.jsBeautify,
       pageTemplate: this.pageTemplate,
       plugins: this.plugins || {},
       rootPath: this.rootPath,
