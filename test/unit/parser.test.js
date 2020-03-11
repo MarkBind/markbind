@@ -4,6 +4,7 @@ const MarkBind = require('../../src/lib/markbind/src/parser.js');
 const { USER_VARIABLES_DEFAULT } = require('./utils/data');
 
 jest.mock('fs');
+jest.mock('../../src/util/logger');
 
 afterEach(() => fs.vol.reset());
 
