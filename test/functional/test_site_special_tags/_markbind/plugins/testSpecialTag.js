@@ -2,10 +2,6 @@ const cheerio = module.parent.require('cheerio');
 
 const ESCAPE_REGEX = new RegExp('{% *raw *%}(.*?){% *endraw *%}', 'gs');
 
-function removeEscapeTags(_, p1) {
-  return p1;
-}
-
 /*
  Simple test plugin that whitelists <testtag> as a special tag.
  If encountered, it wraps the text node inside with some indication text as to
@@ -23,14 +19,23 @@ function preRender(content) {
     $(testElement).text(wrappedText);
   });
 
+  return $.html();
+}
+
+/*
+  Tests that special tags like <mustache> which would contain a lot of mustache syntax
+  like {{ }}, we are able to replace them with !success!success success!success!
+  without interference from other dependencies
+*/
+function postRender(content) {
+  const $ = cheerio.load(content);
   const escapedNunjucks = $('mustache');
   escapedNunjucks.each((index, element) => {
     const unwrappedText = $(element).text();
-    const unescapedText = unwrappedText.replace(ESCAPE_REGEX, removeEscapeTags);
+    const unescapedText = unwrappedText.replace(ESCAPE_REGEX, 'raw$1endraw');
     const transformedText = unescapedText.replace(/{/g, '!success').replace(/}/g, 'success!');
     $(element).text(transformedText);
   });
-
 
   return $.html();
 }
@@ -38,5 +43,6 @@ function preRender(content) {
 
 module.exports = {
   preRender,
+  postRender,
   getSpecialTags: () => ['testtag', 'mustache'],
 };

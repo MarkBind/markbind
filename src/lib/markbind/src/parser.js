@@ -146,10 +146,14 @@ class Parser {
     // Extract page variables from the CHILD file
     const pageVariables
       = this.extractPageVariables(asIfAt, fileContent, userDefinedVariables, includeVariables);
-    const content
-      = nunjuckUtils.renderEscaped(nunjucks, fileContent,
-                                   { ...pageVariables, ...includeVariables, ...userDefinedVariables },
-                                   { path: filePath });
+    const content = nunjuckUtils.renderEscaped(nunjucks,
+                                               fileContent,
+                                               {
+                                                 ...pageVariables,
+                                                 ...includeVariables,
+                                                 ...userDefinedVariables,
+                                               },
+                                               { path: filePath });
     const childContext = _.cloneDeep(context);
     childContext.cwf = asIfAt;
     childContext.variables = includeVariables;

@@ -799,7 +799,6 @@ class Page {
         .then(result => this.insertFooterFile(result))
         .then(result => Page.insertTemporaryStyles(result))
         .then(result => markbinder.resolveBaseUrl(result, fileConfig))
-        .then(result => nunjuckUtils.removeNunjucksEscapes(result))
         .then(result => fs.outputFileAsync(this.tempPath, result))
         .then(() => markbinder.renderFile(this.tempPath, fileConfig))
         .then(result => this.postRender(result))
@@ -1066,7 +1065,6 @@ class Page {
           isDynamic: true,
           dynamicSource: source,
         }))
-        .then(result => nunjuckUtils.removeNunjucksEscapes(result))
         .then(result => fs.outputFileAsync(tempPath, result))
         .then(() => markbinder.renderFile(tempPath, {
           baseUrlMap: this.baseUrlMap,

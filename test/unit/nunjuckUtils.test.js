@@ -27,10 +27,3 @@ test('Escaping nested nunjucks raw tags', () => {
   const escapedContent = nunjuckUtils.renderEscaped(nunjucks, escapedString);
   expect(escapedContent).toBe(escapedString);
 });
-
-test('Removing Nunjucks Raw Tags', () => {
-  const escapedString = 'This is a content with escaped data {%raw%} CONTENT {%endraw%}';
-  const removedEscapedString = nunjuckUtils.removeNunjucksEscapes(escapedString);
-  const expectedRemove = 'This is a content with escaped data  CONTENT ';
-  expect(removedEscapedString).toBe(expectedRemove);
-});

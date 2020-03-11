@@ -285,7 +285,3 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 ## Level 2 header (inside headingSearchIndex) with no-index attribute should not be indexed {.no-index}
 
 ###### Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed {.always-index}
-
-**Test NunjuckUtils**
-
-<include src="testNunjuckUtils.md" />
