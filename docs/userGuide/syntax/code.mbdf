@@ -10,7 +10,7 @@ Features:
 - Syntax coloring
 - Line numbering
 - Line highlighting
-- Code block headers 
+- Code block headers
 
 ##### Syntax coloring
 To enable syntax coloring, specify a language next to the backticks before the fenced code block.
@@ -118,6 +118,30 @@ To add a heading, add the attribute `heading` with the heading text as the value
 <span id="output">
 
 ```xml {heading="Heading title"}
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+</span>
+</include>
+
+##### Using multiple features
+You can also use multiple features together, as shown below.
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```` {.no-line-numbers}
+```xml {highlight-lines="2" heading="Heading title"}
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+````
+</span>
+<span id="output">
+
+```xml {highlight-lines="2" heading="Heading title"}
 <foo>
   <bar type="name">goo</bar>
 </foo>
