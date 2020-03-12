@@ -1,5 +1,5 @@
 <variable name="mainContentBody">
-<code>{<span></span>{ MAIN_CONTENT_BODY }}</code>
+{&#8203;{ MAIN_CONTENT_BODY }}
 </variable>
 
 ## Page Layouts
@@ -121,9 +121,6 @@ which injects the actual page content in every page. This allows you to build la
   ```
 
   ```html {heading="page.md"}
-    <variable name="mainContentBody">
-    {&#8203;{ MAIN_CONTENT_BODY }}
-    </variable>
     <panel header="Statistics Formula for the class" type="primary">
       <img src="path_to_your_formula.png" />
     </panel>
