@@ -121,6 +121,7 @@ which injects the actual page content in every page. This allows you to build la
   ```
 
   ```html {heading="page.md"}
+    {{ mainContentBody }}
     <panel header="Statistics Formula for the class" type="primary">
       <img src="path_to_your_formula.png" />
     </panel>
