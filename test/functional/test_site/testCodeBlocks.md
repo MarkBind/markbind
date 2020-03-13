@@ -34,3 +34,31 @@ function fourEmptyLinesBelow() {
 *****
 -----
 ```
+
+**highlight-lines attr causes corresponding lines to have 'highlighted' class**
+```markdown {highlight-lines="1,3,5-8"}
+1  highlighted
+2
+3  highlighted
+4
+5  highlighted
+6  highlighted
+7  highlighted
+8  highlighted
+9
+10
+```
+
+**highlight-lines attr with start-from attr cause corresponding lines to have 'highlighted' class based on 'start-from'**
+```markdown {start-from=11 highlight-lines="11,13,15-18"}
+11  highlighted
+12
+13  highlighted
+14
+15  highlighted
+16  highlighted
+17  highlighted
+18  highlighted
+19
+20
+```
