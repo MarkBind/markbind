@@ -82,7 +82,7 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
 
   if (startFromOneBased > 1) {
     // counter is incremented on each span, so we need to subtract 1
-    token.attrJoin('style', `counter-set: line ${startFromZeroBased};`);
+    token.attrJoin('style', `counter-reset: line ${startFromZeroBased};`);
   }
   
   const highlightLinesInput = getAttributeAndDelete(token, 'highlight-lines');
