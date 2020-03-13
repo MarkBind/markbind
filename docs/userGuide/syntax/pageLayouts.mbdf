@@ -1,3 +1,7 @@
+<!---
+Since we are using code blocks, we need to be able to escape the variable in the code block in order to render it as is rather than replace it with the actual value.
+TODO: Change to a proper escape tag once PR#1049 is ready. 
+-->
 <variable name="mainContentBody">
 {&#8203;{ MAIN_CONTENT_BODY }}
 </variable>
