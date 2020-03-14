@@ -815,11 +815,10 @@ class Page {
           this.addLayoutFiles();
           this.collectHeadFiles(baseUrl, hostBaseUrl);
 
-          this.content = nunjucks.renderString(this.content,
-                                               {
-                                                 baseUrl,
-                                                 hostBaseUrl,
-                                               });
+          this.content = nunjucks.renderString(this.content, {
+            baseUrl,
+            hostBaseUrl,
+          });
 
           this.collectAllPageSections();
           this.buildPageNav();
@@ -1079,11 +1078,10 @@ class Page {
           const newBaseUrl = Page.calculateNewBaseUrl(file, this.rootPath, this.baseUrlMap);
           const baseUrl = newBaseUrl ? `${this.baseUrl}/${newBaseUrl}` : this.baseUrl;
           const hostBaseUrl = this.baseUrl;
-          const content = nunjucks.renderString(result,
-                                                {
-                                                  baseUrl,
-                                                  hostBaseUrl,
-                                                });
+          const content = nunjucks.renderString(result, {
+            baseUrl,
+            hostBaseUrl,
+          });
           return fs.outputFileAsync(resultPath, htmlBeautify(content, Page.htmlBeautifyOptions));
         })
         .then(() => {

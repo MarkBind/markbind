@@ -21,9 +21,3 @@ test('Escaping multiple nunjucks raw tags', () => {
 
   expect(escapedContent).toBe(escapedString);
 });
-
-test('Escaping nested nunjucks raw tags', () => {
-  const escapedString = 'Nested escaped data: {% raw %} {% raw %} CONTENT {% endraw %}{% endraw %}';
-  const escapedContent = nunjuckUtils.renderEscaped(nunjucks, escapedString);
-  expect(escapedContent).toBe(escapedString);
-});

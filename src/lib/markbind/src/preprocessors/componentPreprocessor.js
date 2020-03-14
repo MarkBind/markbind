@@ -318,9 +318,9 @@ function _preprocessInclude(node, context, config, parser) {
   parser.extractInnerVariablesIfNotProcessed(content, childContext, config, filePath);
 
   const innerVariables = parser.getImportedVariableMap(filePath);
-  const fileContent = nunjuckUtils.renderEscaped(nunjucks,
-                                                 content,
-                                                 { ...userDefinedVariables, ...innerVariables });
+  const fileContent = nunjuckUtils.renderEscaped(nunjucks, content, {
+    ...userDefinedVariables, ...innerVariables,
+  });
 
   _deleteIncludeAttributes(element);
 
