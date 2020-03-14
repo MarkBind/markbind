@@ -71,6 +71,11 @@ Using the normal syntax, you are only able to use markdown formatting on heading
 </tip-box>
 <br>
 
+**Box Slot Options:**
+Slot name | Default class | Notes
+--- | --- | --- 
+_icon | (depends on box's `type` attribute) | Example: `<i slot="_icon" class="fas fa-times"></i>` will replace the icon with a cross sign in spite of the box's type.
+
 **Panel Slot Options:**
 Slot name | Default class | Notes
 --- | --- | --- 
