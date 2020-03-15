@@ -1,8 +1,8 @@
 ## Filter tags
 
-### Toggling alternative contents in a page
-
 You can use tags to selectively filter HTML elements when building a site.
+
+### Toggling alternative contents in a page
 
 Tags are specified by the `tags` attribute, **and can be attached to any HTML element**. During rendering, only elements that match tags specified in the `site.json` files will be rendered.
 
