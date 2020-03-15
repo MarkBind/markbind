@@ -1,4 +1,6 @@
-## `filterTags`: Toggling alternative contents in a page
+## Filter tags
+
+### Toggling alternative contents in a page
 
 You can use tags to selectively filter HTML elements when building a site.
 

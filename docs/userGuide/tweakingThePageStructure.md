@@ -4,7 +4,7 @@
 <frontmatter>
   title: "User Guide: {{ title }}"
   layout: userGuide
-  pageNav: 3
+  pageNav: 2
 </frontmatter>
 
 <span id="link" class="d-none">
