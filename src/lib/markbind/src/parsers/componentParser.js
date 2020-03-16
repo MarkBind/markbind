@@ -19,7 +19,6 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
  * @param attribute Attribute name to parse
  * @param isInline Whether to parse the attribute with only inline markdown-it rules
  * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
- * @param shouldDelete Whether to delete the said attrribute after it has been parsed
  */
 function _parseAttributeWithoutOverride(node, attribute, isInline, slotName = attribute) {
   const hasAttributeSlot = node.children
