@@ -42,7 +42,7 @@ function _parseAttributeWithoutOverride(node, attribute, isInline, slotName = at
 }
 
 /**
- * Parses the icon attribute of the box, if present, and applying the icon-size property for octicons
+ * Parses the icon attribute of the box, if present, and applies the icon-size property for octicons
  * @param node Element to parse
  */
 function _parseBoxIconSize(node) {
