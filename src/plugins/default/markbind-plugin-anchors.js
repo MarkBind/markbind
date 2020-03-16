@@ -1,19 +1,18 @@
 const cheerio = module.parent.require('cheerio');
 
-const {
-  ANCHOR_HTML,
-  HEADER_TAGS,
-} = require('../../constants');
+const CSS_FILE_NAME = 'markbind-plugin-anchors.css';
 
 /**
  * Adds anchor links to headers
  */
 module.exports = {
+  getLinks: (content, pluginContext, frontMatter, utils) => [utils.buildStylesheet(CSS_FILE_NAME)],
   postRender: (content) => {
     const $ = cheerio.load(content, { xmlMode: false });
-    $(HEADER_TAGS).each((i, heading) => {
+    $(':header').each((i, heading) => {
       if ($(heading).attr('id')) {
-        $(heading).append(ANCHOR_HTML.replace('#', `#${$(heading).attr('id')}`));
+        $(heading).append(
+          `<a class="fa fa-anchor" href="#${$(heading).attr('id')}" onclick="event.stopPropagation()"></a>`);
       }
     });
     return $.html();

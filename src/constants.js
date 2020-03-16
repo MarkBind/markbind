@@ -70,10 +70,6 @@ module.exports = {
   ALGOLIA_JS_URL: 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js',
   ALGOLIA_INPUT_SELECTOR: '#algolia-search-input',
 
-  // src/plugins/default/markbind-plugin-anchors.js
-  ANCHOR_HTML: '<a class="fa fa-anchor" href="#"></a>',
-  HEADER_TAGS: 'h1, h2, h3, h4, h5, h6',
-
   // src/plugins/default/markbind-plugin-plantuml.js
   ERR_PROCESSING: 'Error processing',
   ERR_READING: 'Error reading',

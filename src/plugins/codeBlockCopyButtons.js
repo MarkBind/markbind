@@ -43,7 +43,7 @@ const copyCodeBlockScript = `<script>
 
 
 module.exports = {
-  getScripts: () => copyCodeBlockScript,
+  getScripts: () => [copyCodeBlockScript],
   postRender: (content) => {
     const $ = cheerio.load(content, { xmlMode: false });
     const codeBlockSelector = 'pre';
