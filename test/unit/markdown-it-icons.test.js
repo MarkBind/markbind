@@ -1,4 +1,4 @@
-const expectedOcticon = require('@primer/octicons')['git-pull-request'].toSVG();
+const expectedOcticon = require('@primer/octicons')['git-pull-request'];
 
 const markdownIt = require('markdown-it')()
   .use(require('../../src/lib/markbind/src/lib/markdown-it-shared/markdown-it-icons'));

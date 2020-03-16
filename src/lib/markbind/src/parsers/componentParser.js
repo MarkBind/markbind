@@ -41,15 +41,28 @@ function _parseAttributeWithoutOverride(node, attribute, isInline, slotName = at
   delete node.attribs[attribute];
 }
 
+/**
+ * Parses the icon attribute of the box, if present, and applying the icon-size property for octicons
+ * @param node Element to parse
+ */
 function _parseBoxIconSize(node) {
   const hasAttributeSlot = node.children
     && node.children.some(child => _.has(child.attribs, 'slot') && child.attribs.slot === '_icon');
 
   if (!hasAttributeSlot && _.has(node.attribs, 'icon')) {
-    let { icon } = node.attribs;
-    const { 'icon-size': iconSize = '1x' } = node.attribs;
-    icon += iconSize;
-    const rendered = vueAttrRenderer.renderInline(icon);
+    const { icon } = node.attribs;
+    let rendered = vueAttrRenderer.renderInline(icon);
+    // If octicon, modify the height and width
+    if (icon.includes('octicon')) {
+      const octiconHeight = 16;
+      const octiconWidth = 12;
+      const { 'icon-size': iconSize = '1x' } = node.attribs;
+      const magnification = parseInt(iconSize.substring(0, iconSize.length - 1), 10);
+      const $ = cheerio.load(rendered);
+      $('svg').attr('width', `${octiconWidth * magnification}`);
+      $('svg').attr('height', `${octiconHeight * magnification}`);
+      rendered = $.html();
+    }
     const attributeSlotElement = cheerio.parseHTML(`<template slot="_icon">${rendered}</template>`, true);
     node.children = node.children ? attributeSlotElement.concat(node.children) : attributeSlotElement;
   }
