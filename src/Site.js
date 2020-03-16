@@ -56,6 +56,7 @@ const {
   MARKBIND_WEBSITE_URL,
   PAGE_TEMPLATE_NAME,
   PROJECT_PLUGIN_FOLDER_NAME,
+  PLUGIN_SITE_ASSET_FOLDER_NAME,
   SITE_ASSET_FOLDER_NAME,
   SITE_CONFIG_NAME,
   SITE_DATA_NAME,
@@ -892,6 +893,15 @@ class Site {
 
       // eslint-disable-next-line global-require, import/no-dynamic-require
       this.plugins[plugin] = require(pluginPath || plugin);
+
+      if (!this.plugins[plugin].getLinks && !this.plugins[plugin].getScripts) {
+        return;
+      }
+
+      // For resolving plugin asset source paths later
+      this.plugins[plugin]._pluginAbsolutePath = path.dirname(require.resolve(pluginPath || plugin));
+      this.plugins[plugin]._pluginAssetOutputPath = path.resolve(this.outputPath,
+                                                                 PLUGIN_SITE_ASSET_FOLDER_NAME, plugin);
     } catch (e) {
       logger.warn(`Unable to load plugin ${plugin}, skipping`);
     }

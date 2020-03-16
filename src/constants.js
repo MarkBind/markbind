@@ -43,6 +43,7 @@ module.exports = {
   SITE_FOLDER_NAME: '_site',
   TEMP_FOLDER_NAME: '.temp',
   TEMPLATE_SITE_ASSET_FOLDER_NAME: 'markbind',
+  PLUGIN_SITE_ASSET_FOLDER_NAME: 'plugins',
 
   ABOUT_MARKDOWN_FILE: 'about.md',
   BUILT_IN_PLUGIN_FOLDER_NAME: 'plugins',

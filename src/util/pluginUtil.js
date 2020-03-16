@@ -1,5 +1,5 @@
 const cryptoJS = require('crypto-js');
-const fs = require('fs');
+const fs = require('fs-extra-promise');
 const path = require('path');
 const fsUtil = require('./fsUtil');
 const logger = require('./logger');
@@ -8,7 +8,7 @@ const {
   ERR_READING,
 } = require('../constants');
 
-const pluginUtil = {
+module.exports = {
   /**
    * Returns the file path for the plugin tag.
    * Return based on given name if provided, or it will be based on src.
@@ -49,5 +49,3 @@ const pluginUtil = {
     return $(element).text();
   },
 };
-
-module.exports = pluginUtil;
