@@ -19,6 +19,7 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
  * @param attribute Attribute name to parse
  * @param isInline Whether to parse the attribute with only inline markdown-it rules
  * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
+ * @param shouldDelete Whether to delete the said attrribute after it has been parsed
  */
 function _parseAttributeWithoutOverride(node, attribute, isInline, slotName = attribute) {
   const hasAttributeSlot = node.children
@@ -39,6 +40,22 @@ function _parseAttributeWithoutOverride(node, attribute, isInline, slotName = at
   }
 
   delete node.attribs[attribute];
+}
+
+function _parseBoxIconSize(node) {
+  const hasAttributeSlot = node.children
+    && node.children.some(child => _.has(child.attribs, 'slot') && child.attribs.slot === '_icon');
+
+  if (!hasAttributeSlot && _.has(node.attribs, 'icon')) {
+    let { icon } = node.attribs;
+    const { 'icon-size': iconSize = '1x' } = node.attribs;
+    icon += iconSize;
+    const rendered = vueAttrRenderer.renderInline(icon);
+    const attributeSlotElement = cheerio.parseHTML(`<template slot="_icon">${rendered}</template>`, true);
+    node.children = node.children ? attributeSlotElement.concat(node.children) : attributeSlotElement;
+  }
+
+  delete node.attribs.icon;
 }
 
 /**
@@ -356,10 +373,9 @@ function _parseBoxAttributes(node) {
   _warnConflictingAttributes(node, 'no-icon', ['icon']);
   _warnDeprecatedAttributes(node, { heading: 'header' });
 
-  _parseAttributeWithoutOverride(node, 'icon', true, '_icon');
   _parseAttributeWithoutOverride(node, 'header', false, '_header');
-
   _parseAttributeWithoutOverride(node, 'heading', false, '_header');
+  _parseBoxIconSize(node);
 }
 
 /*
