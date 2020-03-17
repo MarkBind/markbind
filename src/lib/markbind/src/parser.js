@@ -263,8 +263,8 @@ class Parser {
 
     if ((/^h[1-6]$/).test(node.name) && !node.attribs.id) {
       const textContent = utils.getTextContent(node);
-      let cleanedContent = textContent.replace(/&lt;/g, '');
-      cleanedContent = cleanedContent.replace(/&gt;/g, '');
+      // remove the '&lt;' and '&gt;' symbols that markdown-it uses to escape '<' and '>'
+      const cleanedContent = textContent.replace(/&lt;|&gt;/g, '');
       const slugifiedHeading = slugify(cleanedContent, { decamelize: false });
 
       let headerId = slugifiedHeading;
