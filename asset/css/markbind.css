@@ -382,8 +382,7 @@ li.footnote-item:target {
 
 /* styles for triggers */
 .trigger {
-    display: inline-block;
-    text-decoration: underline dotted;
+    border-bottom: 1px dashed currentColor;
 }
 
 .trigger-click {
