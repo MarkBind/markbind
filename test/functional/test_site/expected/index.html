@@ -442,7 +442,7 @@ specification that specifies how the product will address the requirements. </sp
         </div>
         <p><strong>Modal with panel inside</strong></p>
         <p><span for="modal-with-panel" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['modal-with-panel'].show()" class="trigger">trigger</span></p>
-        <b-modal id="modal-with-panel" ok-only="" size="" modal-class="mb-zoom" ref="modal-with-panel"><template slot="modal-title">modal title with panel inside</template>
+        <b-modal id="modal-with-panel" hide-footer="" size="" modal-class="mb-zoom" ref="modal-with-panel"><template slot="modal-title">modal title with panel inside</template>
           <panel expanded="" id="panel-inside-modal"><template slot="_header"><h2 id="panel-inside-modal">Panel inside modal<a class="fa fa-anchor" href="#panel-inside-modal"></a></h2></template>
             <p><strong>Panel content inside modal</strong></p>
           </panel>

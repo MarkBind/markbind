@@ -311,7 +311,18 @@ function _parseModalAttributes(node) {
   _renameAttribute(node, 'ok-text', 'ok-title');
   _renameAttribute(node, 'center', 'centered');
 
-  node.attribs['ok-only'] = ''; // only show OK button
+  const hasOkTitle = _.has(node.attribs, 'ok-title');
+  const hasFooter = node.children.some(child =>
+    _.has(child.attribs, 'slot') && child.attribs.slot === 'modal-footer');
+
+  if (!hasFooter && !hasOkTitle) {
+    // markbind doesn't show the footer by default
+    node.attribs['hide-footer'] = '';
+  } else if (hasOkTitle) {
+    // bootstrap-vue default is to show ok and cancel
+    // if there's an ok-title, markbind only shows the OK button.
+    node.attribs['ok-only'] = '';
+  }
 
   if (node.attribs.backdrop === 'false') {
     node.attribs['no-close-on-backdrop'] = '';
