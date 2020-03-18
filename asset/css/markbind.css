@@ -442,33 +442,8 @@ pre {
     outline: none;
 }
 
-/* Octicon heading sizes */
-h1 .octicon {
-    height: 48px;
-    width: 48px;
-}
-
-h2 .octicon {
-    height: 38px;
-    width: 38px;
-}
-
-h3 .octicon {
-    height: 33px;
-    width: 33px;
-}
-
-h4 .octicon {
-    height: 28px;
-    width: 28px;
-}
-
-h5 .octicon {
-    height: 24px;
-    width: 24px;
-}
-
-h6 .octicon {
-    height: 19px;
-    width: 19px;
+/* Octicon sizing */
+.octicon {
+    height: 1em;
+    width: 1em;
 }
