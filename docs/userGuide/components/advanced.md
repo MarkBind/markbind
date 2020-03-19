@@ -72,9 +72,31 @@ Using the normal syntax, you are only able to use markdown formatting on heading
 <br>
 
 **Box Slot Options:**
-Slot name | Default class | Notes
---- | --- | --- 
-_icon | (depends on box's `type` attribute) | Example: `<i slot="_icon" class="fas fa-times"></i>` will replace the icon with a cross sign in spite of the box's type.
+
+Slot name | Default class |
+--- | --- |
+icon | (depends on box's `type` attribute) |
+
+*Example 1*: Override the default icon for a certain type of box.
+
+```html
+<box type="info">
+    <span slot="icon" class="text-danger"><md>:fas-home:</md></span>
+    info
+</box>
+```
+
+<box type="info">
+    <span slot="icon" class="text-danger"><md>:fas-home:</md></span>
+    info
+</box>
+
+*Example 2*: Use pictures (or even gifs) as icon for a box.
+
+<box type="info">
+    <img slot="icon" src="https://icons8.com/vue-static/landings/animated-icons/icons/cloud/cloud.gif"></img>
+    some very useful info
+</box>
 
 **Panel Slot Options:**
 Slot name | Default class | Notes
