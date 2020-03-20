@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta name="default-head-top">
   <meta charset="utf-8">
@@ -24,20 +23,19 @@
 <body>
   <div id="app">
     <div id="flex-body">
-      <div id="content-wrapper">
-        <p>The external script <a href="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">MathJax 2.75</a> should be included, and the following MathJax content should render:</p>
-        <box>
-          When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
-          $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
-        </box>
-      </div>
-    </div>
+        <div id="content-wrapper">
+<p>The external script <a href="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">MathJax 2.75</a> should be included, and the following MathJax content should render:</p>
+<box>
+When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
+$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+</box></div>
+
+
+        </div>
     <footer>
-      <div class="text-center">
-        Default footer
-      </div>
-    </footer>
-  </div>
+  <div class="text-center">
+    Default footer
+  </div></footer></div>
 </body>
 <script src="markbind/js/vue.min.js"></script>
 <script src="markbind/js/vue-strap.min.js"></script>
@@ -49,24 +47,18 @@
   const enableSearch = true
 </script>
 <script src="markbind/js/setup.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-<script src="SCRIPT_LINK"></script>
-<script>
-  alert("hello")
-</script>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag('js', new Date());
-
-  gtag('config', 'TRACKING-ID');
-</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script src="SCRIPT_LINK"></script>
+    <script>alert("hello")</script>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'TRACKING-ID');
+    </script>
 <script src="markbind/layouts/default/scripts.js"></script>
-
 </html>

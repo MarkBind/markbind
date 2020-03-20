@@ -35,7 +35,7 @@
     "highlight.js": "^9.14.2",
     "htmlparser2": "^3.10.1",
     "ignore": "^5.1.4",
-    "js-beautify": "^1.10.1-rc2",
+    "js-beautify": "^1.10.3",
     "live-server": "^1.2.1",
     "lodash": "^4.17.15",
     "markdown-it": "^8.4.2",

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta name="default-head-top">
   <meta charset="utf-8">
@@ -24,22 +23,21 @@
 <body>
   <div id="app">
     <div id="flex-body">
-      <div id="content-wrapper">
-        <p>Refer to this comment: <a href="https://github.com/MarkBind/markbind/pull/751#issuecomment-469670640">https://github.com/MarkBind/markbind/pull/751#issuecomment-469670640</a></p>
-        <div></div>
-        Title
-        <p><strong>Below panel is working</strong>
-          <panel src="/test_site/testImportVariables._include_.html"></panel>
-        </p>
-        <p><strong>Below should be a panel, but is now an error. Uncomment it to see the error.</strong></p>
-      </div>
-    </div>
+        <div id="content-wrapper">
+<p>Refer to this comment: <a href="https://github.com/MarkBind/markbind/pull/751#issuecomment-469670640">https://github.com/MarkBind/markbind/pull/751#issuecomment-469670640</a></p>
+<div></div>
+Title
+<p><strong>Below panel is working</strong>
+<panel src="/test_site/testImportVariables._include_.html"></panel></p>
+<p><strong>Below should be a panel, but is now an error. Uncomment it to see the error.</strong></p>
+</div>
+
+
+        </div>
     <footer>
-      <div class="text-center">
-        Default footer
-      </div>
-    </footer>
-  </div>
+  <div class="text-center">
+    Default footer
+  </div></footer></div>
 </body>
 <script src="markbind/js/vue.min.js"></script>
 <script src="markbind/js/vue-strap.min.js"></script>
@@ -51,23 +49,17 @@
   const enableSearch = true
 </script>
 <script src="markbind/js/setup.js"></script>
-<script src="SCRIPT_LINK"></script>
-<script>
-  alert("hello")
-</script>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag('js', new Date());
-
-  gtag('config', 'TRACKING-ID');
-</script>
+    <script src="SCRIPT_LINK"></script>
+    <script>alert("hello")</script>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'TRACKING-ID');
+    </script>
 <script src="markbind/layouts/default/scripts.js"></script>
-
 </html>

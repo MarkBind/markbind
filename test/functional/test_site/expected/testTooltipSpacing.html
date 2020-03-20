@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta name="default-head-top">
   <meta charset="utf-8">
@@ -24,19 +23,17 @@
 <body>
   <div id="app">
     <div id="flex-body">
-      <div id="content-wrapper">
-        <h1 id="569-stray-space-after-tooltip">569: Stray space after tooltip<a class="fa fa-anchor" href="#569-stray-space-after-tooltip"></a></h1>
-        <pre><code class="hljs"><span>&lt;tooltip&gt;tooltip&lt;/tooltip&gt;, test</span><span>&#x200B;</span><span>&lt;trigger&gt;trigger&lt;/trigger&gt;, test</span></code></pre>
-        <p><span data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger">tooltip</span>, test</p>
-        <p><span v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['undefined'].show()" class="trigger">trigger</span>, test</p>
-      </div>
-    </div>
+        <div id="content-wrapper">
+<h1 id="569-stray-space-after-tooltip">569: Stray space after tooltip<a class="fa fa-anchor" href="#569-stray-space-after-tooltip"></a></h1>
+<pre><code class="hljs"><span>&lt;tooltip&gt;tooltip&lt;/tooltip&gt;, test</span><span>&#x200B;</span><span>&lt;trigger&gt;trigger&lt;/trigger&gt;, test</span></code></pre><p><span data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger">tooltip</span>, test</p>
+<p><span v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['undefined'].show()" class="trigger">trigger</span>, test</p></div>
+
+
+        </div>
     <footer>
-      <div class="text-center">
-        Default footer
-      </div>
-    </footer>
-  </div>
+  <div class="text-center">
+    Default footer
+  </div></footer></div>
 </body>
 <script src="markbind/js/vue.min.js"></script>
 <script src="markbind/js/vue-strap.min.js"></script>
@@ -48,23 +45,17 @@
   const enableSearch = true
 </script>
 <script src="markbind/js/setup.js"></script>
-<script src="SCRIPT_LINK"></script>
-<script>
-  alert("hello")
-</script>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag('js', new Date());
-
-  gtag('config', 'TRACKING-ID');
-</script>
+    <script src="SCRIPT_LINK"></script>
+    <script>alert("hello")</script>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'TRACKING-ID');
+    </script>
 <script src="markbind/layouts/default/scripts.js"></script>
-
 </html>

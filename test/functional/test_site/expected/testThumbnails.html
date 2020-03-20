@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta name="default-head-top">
   <meta charset="utf-8">
@@ -24,118 +23,83 @@
 <body>
   <div id="app">
     <div id="flex-body">
-      <div id="content-wrapper">
-        <p><strong>Thumbnail test</strong></p>
-        <p><strong>Images</strong></p>
-        <p><strong>Square thumb, size = 100 (default)</strong>
-          <thumbnail src="http://placehold.it/800x600"></thumbnail>
-        </p>
-        <p><strong>Square thumb with alt=&quot;Test&quot;</strong>
-          <thumbnail alt="Test" src="/test_site/asdf"></thumbnail>
-        </p>
-        <p><strong>Square thumb, size = 200</strong>
-          <thumbnail src="http://placehold.it/800x600" size="200"></thumbnail>
-        </p>
-        <p><strong>Circle thumbs, size = 100</strong>
-          <thumbnail src="http://placehold.it/800x600" circle=""></thumbnail>
-          <thumbnail src="http://placehold.it/100x300" circle=""></thumbnail>
-        </p>
-        <p><strong>An actual image</strong>
-          <thumbnail circle="" size="300" src="/test_site/images/deer.jpg"></thumbnail>
-          <pic src="/test_site/images/deer.jpg" height="300"></pic>
-        </p>
-        <hr>
-        <p><strong>Broken link, still takes up the space it's supposed to</strong></p>
-        <p>
-          <thumbnail src="/broken_link" border=""></thumbnail>
-          <thumbnail src="http://placehold.it/300x100"></thumbnail>
-        </p>
-        <hr>
-        <p><strong>Borders</strong></p>
-        <div class="table-responsive">
-          <table class="markbind-table table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>Thumbnail</th>
-                <th>Attribute</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <thumbnail src="http://placehold.it/300x100"></thumbnail>
-                </td>
-                <td></td>
-                <td>no border</td>
-              </tr>
-              <tr>
-                <td>
-                  <thumbnail border="3px solid red" src="http://placehold.it/300x100"></thumbnail>
-                </td>
-                <td><code>border='3px solid red'</code></td>
-                <td>3 pixel thick solid red line</td>
-              </tr>
-              <tr>
-                <td>
-                  <thumbnail border="4px dotted blue" src="http://placehold.it/300x100"></thumbnail>
-                </td>
-                <td><code>4px dotted blue</code></td>
-                <td>4 pixel thick dotted blue line</td>
-              </tr>
-            </tbody>
-          </table>
+        <div id="content-wrapper">
+<p><strong>Thumbnail test</strong></p>
+<p><strong>Images</strong></p>
+<p><strong>Square thumb, size = 100 (default)</strong>
+<thumbnail src="http://placehold.it/800x600"></thumbnail></p>
+<p><strong>Square thumb with alt=&quot;Test&quot;</strong>
+<thumbnail alt="Test" src="/test_site/asdf"></thumbnail></p>
+<p><strong>Square thumb, size = 200</strong>
+<thumbnail src="http://placehold.it/800x600" size="200"></thumbnail></p>
+<p><strong>Circle thumbs, size = 100</strong>
+<thumbnail src="http://placehold.it/800x600" circle=""></thumbnail>
+<thumbnail src="http://placehold.it/100x300" circle=""></thumbnail></p>
+<p><strong>An actual image</strong>
+<thumbnail circle="" size="300" src="/test_site/images/deer.jpg"></thumbnail>
+<pic src="/test_site/images/deer.jpg" height="300"></pic></p>
+<hr>
+<p><strong>Broken link, still takes up the space it's supposed to</strong></p>
+<p><thumbnail src="/broken_link" border=""></thumbnail>
+<thumbnail src="http://placehold.it/300x100"></thumbnail></p>
+<hr>
+<p><strong>Borders</strong></p>
+<div class="table-responsive"><table class="markbind-table table table-bordered table-striped"><thead>
+<tr>
+<th>Thumbnail</th>
+<th>Attribute</th>
+<th>Description</th></tr></thead>
+<tbody>
+<tr>
+<td><thumbnail src="http://placehold.it/300x100"></thumbnail></td>
+<td></td>
+<td>no border</td></tr>
+<tr>
+<td><thumbnail border="3px solid red" src="http://placehold.it/300x100"></thumbnail></td>
+<td><code>border='3px solid red'</code></td>
+<td>3 pixel thick solid red line</td></tr>
+<tr>
+<td><thumbnail border="4px dotted blue" src="http://placehold.it/300x100"></thumbnail></td>
+<td><code>4px dotted blue</code></td>
+<td>4 pixel thick dotted blue line</td></tr></tbody></table></div><hr>
+<p><strong>Background</strong></p>
+<p><strong>Valid CSS properties</strong>
+<thumbnail background="lightblue" circle=""></thumbnail>
+<thumbnail background="#aaf" circle=""></thumbnail>
+<thumbnail background="rgba(120, 120, 200, 0.4)" circle=""></thumbnail></p>
+<p><strong>Invalid CSS properties</strong>
+<thumbnail background="asdf" border="1px solid black" circle=""></thumbnail></p>
+<p><strong>Empty</strong>
+<thumbnail background="" border="1px solid black" circle=""></thumbnail></p>
+<hr>
+<p><strong>Text/Emojis/Icons</strong></p>
+<p><strong>Text</strong>
+<thumbnail text="test" border="1px solid black" circle="">test</thumbnail></p>
+<p><strong>Markdown</strong>
+<thumbnail text="_test_" border="1px solid black" circle=""><em>test</em></thumbnail>
+<thumbnail text="**test**" border="1px solid black" circle=""><strong>test</strong></thumbnail></p>
+<p><strong>Emojis</strong>
+<thumbnail text=":x:" border="1px solid black" circle="">❌</thumbnail>
+<thumbnail text=":eggplant:" border="1px solid black" circle="">🍆</thumbnail></p>
+<p><strong>Icons</strong>
+<thumbnail text=":fab-github:" border="1px solid black" circle=""><span aria-hidden="true" class="fab fa-github"></span></thumbnail>
+<thumbnail text=":glyphicon-book:" background="#666" font-color="#eee" circle=""><span aria-hidden="true" class="glyphicon glyphicon-book"></span></thumbnail></p>
+<hr>
+<p><strong>font-size/font-color</strong></p>
+<p><strong>20px font-size</strong>
+<thumbnail text="test" border="1px solid black" font-size="20" circle="">test</thumbnail></p>
+<p><strong>40px font-size</strong>
+<thumbnail text="test" border="1px solid black" font-size="40" circle="">test</thumbnail></p>
+<p><strong>font-color</strong>
+<thumbnail text="blue" border="1px solid black" font-color="#669" circle="">blue</thumbnail>
+<thumbnail text="maroon" border="1px solid black" font-color="maroon" font-size="25" circle="">maroon</thumbnail></p></div>
+
+
         </div>
-        <hr>
-        <p><strong>Background</strong></p>
-        <p><strong>Valid CSS properties</strong>
-          <thumbnail background="lightblue" circle=""></thumbnail>
-          <thumbnail background="#aaf" circle=""></thumbnail>
-          <thumbnail background="rgba(120, 120, 200, 0.4)" circle=""></thumbnail>
-        </p>
-        <p><strong>Invalid CSS properties</strong>
-          <thumbnail background="asdf" border="1px solid black" circle=""></thumbnail>
-        </p>
-        <p><strong>Empty</strong>
-          <thumbnail background="" border="1px solid black" circle=""></thumbnail>
-        </p>
-        <hr>
-        <p><strong>Text/Emojis/Icons</strong></p>
-        <p><strong>Text</strong>
-          <thumbnail text="test" border="1px solid black" circle="">test</thumbnail>
-        </p>
-        <p><strong>Markdown</strong>
-          <thumbnail text="_test_" border="1px solid black" circle=""><em>test</em></thumbnail>
-          <thumbnail text="**test**" border="1px solid black" circle=""><strong>test</strong></thumbnail>
-        </p>
-        <p><strong>Emojis</strong>
-          <thumbnail text=":x:" border="1px solid black" circle="">❌</thumbnail>
-          <thumbnail text=":eggplant:" border="1px solid black" circle="">🍆</thumbnail>
-        </p>
-        <p><strong>Icons</strong>
-          <thumbnail text=":fab-github:" border="1px solid black" circle=""><span aria-hidden="true" class="fab fa-github"></span></thumbnail>
-          <thumbnail text=":glyphicon-book:" background="#666" font-color="#eee" circle=""><span aria-hidden="true" class="glyphicon glyphicon-book"></span></thumbnail>
-        </p>
-        <hr>
-        <p><strong>font-size/font-color</strong></p>
-        <p><strong>20px font-size</strong>
-          <thumbnail text="test" border="1px solid black" font-size="20" circle="">test</thumbnail>
-        </p>
-        <p><strong>40px font-size</strong>
-          <thumbnail text="test" border="1px solid black" font-size="40" circle="">test</thumbnail>
-        </p>
-        <p><strong>font-color</strong>
-          <thumbnail text="blue" border="1px solid black" font-color="#669" circle="">blue</thumbnail>
-          <thumbnail text="maroon" border="1px solid black" font-color="maroon" font-size="25" circle="">maroon</thumbnail>
-        </p>
-      </div>
-    </div>
     <footer>
-      <div class="text-center">
-        Default footer
-      </div>
-    </footer>
-  </div>
+  <div class="text-center">
+    Default footer
+  </div></footer></div>
 </body>
 <script src="markbind/js/vue.min.js"></script>
 <script src="markbind/js/vue-strap.min.js"></script>
@@ -147,23 +111,17 @@
   const enableSearch = true
 </script>
 <script src="markbind/js/setup.js"></script>
-<script src="SCRIPT_LINK"></script>
-<script>
-  alert("hello")
-</script>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag('js', new Date());
-
-  gtag('config', 'TRACKING-ID');
-</script>
+    <script src="SCRIPT_LINK"></script>
+    <script>alert("hello")</script>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'TRACKING-ID');
+    </script>
 <script src="markbind/layouts/default/scripts.js"></script>
-
 </html>

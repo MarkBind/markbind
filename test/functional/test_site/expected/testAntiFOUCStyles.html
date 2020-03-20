@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta name="default-head-top">
   <meta charset="utf-8">
@@ -24,46 +23,38 @@
 <body>
   <div id="app">
     <div id="flex-body">
-      <div id="content-wrapper">
+        <div id="content-wrapper">
 
-        <navbar type="dark" class="temp-navbar">
-          <li><a href="/" class="nav-link">One</a></li>
-          <li><a href="/" class="nav-link">Two</a></li>
-          <div class="nav-link temp-dropdown-placeholder">Dropdown</div>
-          <dropdown class="nav-link temp-dropdown"><template slot="_header">Dropdown</template>
-            <li><a class="dropdown-item" href="/">Dropdown One</a></li>
-            <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
-          </dropdown>
-        </navbar>
+<navbar type="dark" class="temp-navbar">
+  <li><a href="/" class="nav-link">One</a></li>
+  <li><a href="/" class="nav-link">Two</a></li>
+  <div class="nav-link temp-dropdown-placeholder">Dropdown</div><dropdown class="nav-link temp-dropdown"><template slot="_header">Dropdown</template>
+    <li><a class="dropdown-item" href="/">Dropdown One</a></li>
+    <li><a class="dropdown-item" href="/">Dropdown Two</a></li></dropdown></navbar>
 
-        <p><strong>Test dropdown in body with text and class attributes</strong></p>
-        <div class="test-class temp-dropdown-placeholder">Test One</div>
-        <dropdown class="test-class temp-dropdown"><template slot="_header">Test One</template>
-          <li><a class="dropdown-item" href="/">Dropdown One</a></li>
-          <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
-        </dropdown>
+<p><strong>Test dropdown in body with text and class attributes</strong></p>
+<div class="test-class temp-dropdown-placeholder">Test One</div><dropdown class="test-class temp-dropdown"><template slot="_header">Test One</template>
+  <li><a class="dropdown-item" href="/">Dropdown One</a></li>
+  <li><a class="dropdown-item" href="/">Dropdown Two</a></li></dropdown>
 
-        <p><strong>Test dropdown in body without text and class attributes</strong></p>
-        <div class="temp-dropdown-placeholder"></div>
-        <dropdown class="temp-dropdown">
-          <button slot="button" type="button" class="btn dropdown-toggle">
-            Test Two
-            <span class="caret"></span></button>
-          <li><a class="dropdown-item" href="/">Dropdown One</a></li>
-          <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
-        </dropdown>
+<p><strong>Test dropdown in body without text and class attributes</strong></p>
+<div class="temp-dropdown-placeholder"></div><dropdown class="temp-dropdown">
+  <button slot="button" type="button" class="btn dropdown-toggle">
+    Test Two
+    <span class="caret"></span></button>
+  <li><a class="dropdown-item" href="/">Dropdown One</a></li>
+  <li><a class="dropdown-item" href="/">Dropdown Two</a></li></dropdown>
 
-        <p><strong>Filler text</strong></p>
-        <p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
-        <p>Some text</p>
-      </div>
-    </div>
+<p><strong>Filler text</strong></p>
+<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p>Some text</p></div>
+
+
+        </div>
     <footer>
-      <div class="text-center">
-        Default footer
-      </div>
-    </footer>
-  </div>
+  <div class="text-center">
+    Default footer
+  </div></footer></div>
 </body>
 <script src="markbind/js/vue.min.js"></script>
 <script src="markbind/js/vue-strap.min.js"></script>
@@ -75,23 +66,17 @@
   const enableSearch = true
 </script>
 <script src="markbind/js/setup.js"></script>
-<script src="SCRIPT_LINK"></script>
-<script>
-  alert("hello")
-</script>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag('js', new Date());
-
-  gtag('config', 'TRACKING-ID');
-</script>
+    <script src="SCRIPT_LINK"></script>
+    <script>alert("hello")</script>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'TRACKING-ID');
+    </script>
 <script src="markbind/layouts/default/scripts.js"></script>
-
 </html>
