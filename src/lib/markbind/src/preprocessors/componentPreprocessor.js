@@ -8,6 +8,7 @@ const CyclicReferenceError = require('../handlers/cyclicReferenceError.js');
 const md = require('../lib/markdown-it');
 const utils = require('../utils');
 const urlUtils = require('../utils/urls');
+const nunjuckUtils = require('../utils/nunjuckUtils');
 
 const _ = {};
 _.has = require('lodash/has');
@@ -200,7 +201,7 @@ function _rebaseReferenceForStaticIncludes(pageData, element, config) {
   const newBase = fileBase.relative;
   const newBaseUrl = `{{hostBaseUrl}}/${newBase}`;
 
-  return nunjucks.renderString(pageData, { baseUrl: newBaseUrl }, { path: filePath });
+  return nunjuckUtils.renderEscaped(nunjucks, pageData, { baseUrl: newBaseUrl }, { path: filePath });
 }
 
 function _deleteIncludeAttributes(node) {
@@ -317,7 +318,9 @@ function _preprocessInclude(node, context, config, parser) {
   parser.extractInnerVariablesIfNotProcessed(content, childContext, config, filePath);
 
   const innerVariables = parser.getImportedVariableMap(filePath);
-  const fileContent = nunjucks.renderString(content, { ...userDefinedVariables, ...innerVariables });
+  const fileContent = nunjuckUtils.renderEscaped(nunjucks, content, {
+    ...userDefinedVariables, ...innerVariables,
+  });
 
   _deleteIncludeAttributes(element);
 
