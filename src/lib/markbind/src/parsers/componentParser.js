@@ -356,7 +356,7 @@ function _parseBoxAttributes(node) {
   _warnConflictingAttributes(node, 'no-icon', ['icon']);
   _warnDeprecatedAttributes(node, { heading: 'header' });
 
-  _parseAttributeWithoutOverride(node, 'icon', true, '_icon');
+  _parseAttributeWithoutOverride(node, 'icon', true, 'icon');
   _parseAttributeWithoutOverride(node, 'header', false, '_header');
 
   _parseAttributeWithoutOverride(node, 'heading', false, '_header');
