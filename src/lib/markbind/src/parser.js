@@ -521,8 +521,8 @@ class Parser {
       });
       const fileExt = utils.getExt(filePath);
       if (utils.isMarkdownFileExt(fileExt)) {
-        const inputData = md.render(content);
-        parser.parseComplete(inputData);
+        const renderedContent = md.render(content);
+        parser.parseComplete(renderedContent);
       } else if (fileExt === 'html') {
         parser.parseComplete(content);
       } else {
