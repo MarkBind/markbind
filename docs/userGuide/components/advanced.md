@@ -75,9 +75,9 @@ Using the normal syntax, you are only able to use markdown formatting on heading
 
 Slot name | Default class |
 --- | --- |
-icon | (depends on box's `type` attribute) |
+icon | depends on box's `type` attribute |
 
-*Example 1*: Override the default icon for a certain type of box.
+{{ icon_example }} Override the default icon for a certain type of box.
 
 ```html
 <box type="info">
@@ -91,11 +91,33 @@ icon | (depends on box's `type` attribute) |
     info
 </box>
 
-*Example 2*: Use pictures (or even gifs) as icon for a box.
+{{ icon_example }} Use pictures (or even gifs) as the icon for a box.
 
-<box type="info">
+```html
+<box type="info" seamless>
     <img slot="icon" src="https://icons8.com/vue-static/landings/animated-icons/icons/cloud/cloud.gif"></img>
     some very useful info
+</box>
+```
+
+<box type="info" seamless>
+    <img slot="icon" width="75%" src="https://icons8.com/vue-static/landings/animated-icons/icons/cloud/cloud.gif"></img>
+    some very useful info
+</box>
+
+{{ icon_example }} Use [thumbnail]({{ baseUrl }}/userGuide/usingComponents.html#thumbnails) as the icon. 
+
+
+```html
+<box type="info" light>
+    <thumbnail circle slot="icon" text=":book:" background="#dff5ff" size="50"/>
+    use thumbnail as the icon
+</box>
+```
+
+<box type="info" light>
+    <thumbnail circle slot="icon" text=":book:" background="#dff5ff" size="50"/>
+    use thumbnail as the icon
 </box>
 
 **Panel Slot Options:**
