@@ -46,6 +46,10 @@ pre > code.hljs[heading] {
     text-align: right;
 }
 
+.inline-markdown-heading {
+    line-height: 1.5;
+}
+
 .code-block-content {
     clear: both;
     display: block;

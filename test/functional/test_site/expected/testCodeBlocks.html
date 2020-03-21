@@ -38,6 +38,20 @@
         <pre><code class="hljs markdown"><span class="highlighted">1  highlighted</span><span>2</span><span class="highlighted">3  highlighted</span><span>4</span><span class="highlighted">5  highlighted</span><span class="highlighted">6  highlighted</span><span class="highlighted">7  highlighted</span><span class="highlighted">8  highlighted</span><span>9</span><span>10</span></code></pre>
         <p><strong>highlight-lines attr with start-from attr cause corresponding lines to have 'highlighted' class based on 'start-from'</strong></p>
         <pre><code style="counter-reset: line 10;" class="hljs markdown"><span class="highlighted">11  highlighted</span><span>12</span><span class="highlighted">13  highlighted</span><span>14</span><span class="highlighted">15  highlighted</span><span class="highlighted">16  highlighted</span><span class="highlighted">17  highlighted</span><span class="highlighted">18  highlighted</span><span>19</span><span>20</span></code></pre>
+        <p><strong>Code block heading</strong></p>
+        <div class="code-block">
+          <div class="code-block-heading"><span>A heading</span></div>
+          <div class="code-block-content">
+            <pre><code heading="A heading" class="hljs"><span>&lt;foo&gt;</span><span>    &lt;bar&gt;</span><span>&lt;/foo&gt;</span></code></pre>
+          </div>
+        </div>
+        <p><strong>Code block heading with inline markdown</strong></p>
+        <div class="code-block">
+          <div class="code-block-heading inline-markdown-heading"><span><strong>Bold</strong>, <em>Italic</em>, <em><strong>Bold and Italic</strong></em>, <s>Strike through</s>, <strong><strong>Super Bold</strong></strong>, <ins>Underline</ins>, <mark>Highlight</mark>, 👍 ❗️ ❌ 🚧<br>We support page breaks</span></div>
+          <div class="code-block-content">
+            <pre><code heading="**Bold**, _Italic_, ___Bold and Italic___, ~~Strike through~~, ****Super Bold****, ++Underline++, ==Highlight==, :+1: :exclamation: :x: :construction:&lt;br&gt;We support page breaks" class="hljs"><span>&lt;foo&gt;</span><span>    &lt;bar&gt;</span><span>&lt;/foo&gt;</span></code></pre>
+          </div>
+        </div>
       </div>
     </div>
     <footer>
