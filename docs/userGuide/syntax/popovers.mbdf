@@ -36,8 +36,8 @@
   <popover effect="scale" header="Header" content="Lorem ipsum dolor sit amet" placement="top" trigger="hover">
     <button class="btn btn-secondary">Mouseenter</button>
   </popover>
-  <popover effect="scale" header="Header" content="Lorem ipsum dolor sit amet" placement="top" trigger="contextmenu">
-    <button class="btn btn-secondary">Contextmenu (right click)</button>
+  <popover effect="scale" header="Header" content="Lorem ipsum dolor sit amet" placement="top" trigger="click">
+    <button class="btn btn-secondary">Click</button>
   </popover>
 </p>
 <h4 class="no-index">Markdown</h4>
