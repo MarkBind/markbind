@@ -287,19 +287,22 @@
             <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
               do.</p>
           </div>
-          <p><strong>Dynamic include</strong></p>
-          <p>
-            <panel src="/test_site/requirements/SpecifyingRequirements._include_.html" name="Dynamic Include" no-close="true" no-switch="true"><template slot="_header"><p>Dynamic Include</p></template></panel>
-          </p>
+
           <p><strong>Boilerplate include</strong></p>
           <div name="Boilerplate Referencing">
             <p>
               <panel src="/test_site/requirements/UserStories._include_.html" no-close=""><template slot="_header"><p>Boilerplate Includes</p></template></panel>
             </p>
           </div>
-          <p>
-            <panel src="/test_site/requirements/notInside._include_.html" name="Referencing specified path in boilerplate" no-close="true" no-switch="true"><template slot="_header"><p>Referencing specified path in boilerplate</p></template></panel>
-          </p>
+          <div name="Referencing specified path in boilerplate">
+            <h1 id="path-within-the-boilerplate-folder-is-separately-specified">Path within the boilerplate folder is separately specified<a class="fa fa-anchor" href="#path-within-the-boilerplate-folder-is-separately-specified"></a></h1>
+            <p>Like static include, pages within the site should be able to use files located in folders within boilerplate.</p>
+            <p>Also, the boilerplate file name (e.g. <code>inside.md</code>) and the file that it is supposed to act as (<code>notInside.md</code>) can be different.</p>
+            <p>This file should behaves as if it is in the <code>requirements</code> folder:</p>
+            <panel src="/test_site/requirements/NonFunctionalRequirements._include_.html"><template slot="_header"><p>Tested with the folllowing include</p></template>
+              <p></p>
+            </panel>
+          </div>
           <p><strong>Nested include</strong></p>
           <div>
             <ol>
@@ -549,6 +552,7 @@ specification that specifies how the product will address the requirements. </sp
                 <a class="nav-link py-1" href="#focus-groups">Focus groups&#x200E;</a>
               </nav>
             </nav>
+            <a class="nav-link py-1" href="#path-within-the-boilerplate-folder-is-separately-specified">Path within the boilerplate folder is separately specified&#x200E;</a>
             <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
               <a class="nav-link py-1" href="#feature-list">Feature list&#x200E;</a>
               <a class="nav-link py-1" href="#panel-without-src-header">Panel without src header&#x200E;</a>
