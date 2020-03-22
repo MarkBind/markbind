@@ -11,7 +11,7 @@ const MarkBind = require('./lib/markbind/src/parser');
 const nunjuckUtils = require('./lib/markbind/src/utils/nunjuckUtils');
 const injectHtmlParser2SpecialTags = require('./lib/markbind/src/patches/htmlparser2');
 const injectMarkdownItSpecialTags = require(
-  './lib/markbind/src/lib/markdown-it-shared/markdown-it-escape-special-tags');
+  './lib/markbind/src/lib/markdown-it/markdown-it-escape-special-tags');
 
 const _ = {};
 _.difference = require('lodash/difference');
