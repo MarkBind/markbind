@@ -1,6 +1,5 @@
 *.min.*
 src/lib/markbind/src/lib/markdown-it/*
-src/lib/markbind/src/lib/vue-attribute-renderer/*
 src/lib/markbind/src/lib/markdown-it-shared/*
 
 !.eslintrc.js
