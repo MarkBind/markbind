@@ -25,7 +25,7 @@
         <h1 id="functional-test-for-htmlparser2-and-markdown-it-patches-for-special-tags">Functional test for htmlparser2 and markdown-it patches for special tags<a class="fa fa-anchor" href="#functional-test-for-htmlparser2-and-markdown-it-patches-for-special-tags"></a></h1>
         <h2 id="so-far-as-to-comply-with-the-commonmark-spec">So far as to comply with the commonmark spec<a class="fa fa-anchor" href="#so-far-as-to-comply-with-the-commonmark-spec"></a></h2>
         <p>There should be no text between this and the next <code>&lt;hr&gt;</code> tag in the browser, since it is a <code>&lt;script&gt;</code> tag.<br>
-          There should be an alert with the value of 2 as well.</p>
+          There should be an alert with the value of 2 as well.<br></p>
         <script>
           let x = 1;
 
@@ -43,6 +43,14 @@
         <p>There should be text between this and the next <code>&lt;hr&gt;</code> tag, since it is a special tag.
           All text should appear in the browser window as a single line,
           save for the comment which the browser still interprets. (but will be in the expected output)</p>
+        <mustache>
+raw
+
+!success!success This should be enclosed in success string success!success!
+
+!success This should also be enclosed in success strings success!success!success!
+endraw
+</mustache>
         <testtag>!success
 
 <these>

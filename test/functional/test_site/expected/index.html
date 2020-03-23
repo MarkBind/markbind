@@ -262,6 +262,12 @@ Div with tag matching general tag
 </div>
 <p><strong>Div with tag matching general tag and specific tag (Hidden)</strong></p>
 
+            <p><strong>Div with tag matching front matter tag overridden by matching site tag</strong></p>
+            <div tags="tag-site-override-shown">
+              Div with tag matching front matter tag overridden by matching site tag
+            </div>
+            <p><strong>Div with tag matching general front matter tag not overridden by matching specific site tag (Hidden)</strong></p>
+
             <p><strong>Div with tag matching general front matter tag overridden by matching specific site tag</strong></p>
             <div tags="tag-site-override-shown">
               Div with tag matching general front matter tag overridden by matching specific site tag
@@ -310,7 +316,9 @@ Div with tag matching general tag
             <p>Like static include, pages within the site should be able to use files located in folders within boilerplate.</p>
             <p>Also, the boilerplate file name (e.g. <code>inside.md</code>) and the file that it is supposed to act as (<code>notInside.md</code>) can be different.</p>
             <p>This file should behaves as if it is in the <code>requirements</code> folder:</p>
-            <panel src="/test_site/requirements/NonFunctionalRequirements._include_.html"><template slot="_header"><p>Tested with the folllowing include</p></template>
+            <panel src="/test_site/requirements/NonFunctionalRequirements._include_.html"><template slot="_header">
+                <p>Tested with the folllowing include</p>
+              </template>
               <p></p>
             </panel>
           </div>
@@ -679,15 +687,8 @@ Div with tag matching general tag
         </section>
       </div>
 
-          <popover id="pop:footnote3">
-            <div slot="content">
-              <p>Inlines notes are easier to write, since
-                you don't have to pick an identifier and move down to type the
-                note.</p>
-            </div>
-          </popover>
-        </section>
-      </div>
+
+
       <nav id="page-nav" class="navbar navbar-light bg-transparent">
         <div class="border-left-grey nav-inner position-sticky slim-scroll">
           <a class="navbar-brand page-nav-title" href="#">Testing Page Navigation</a>
@@ -712,50 +713,6 @@ Div with tag matching general tag
               </nav>
             </nav>
             <a class="nav-link py-1" href="#path-within-the-boilerplate-folder-is-separately-specified">Path within the boilerplate folder is separately specified&#x200E;</a>
-            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
-              <a class="nav-link py-1" href="#feature-list">Feature list&#x200E;</a>
-              <a class="nav-link py-1" href="#panel-without-src-header">Panel without src header&#x200E;</a>
-              <a class="nav-link py-1" href="#panel-with-normal-src-header">Panel with normal src header&#x200E;</a>
-              <a class="nav-link py-1" href="#panel-with-src-from-a-page-segment-header">Panel with src from a page segment header&#x200E;</a>
-              <a class="nav-link py-1" href="#boilerplate-referencing">Boilerplate referencing&#x200E;</a>
-              <a class="nav-link py-1" href="#referencing-specified-path-in-boilerplate">Referencing specified path in boilerplate&#x200E;</a>
-              <a class="nav-link py-1" href="#outer-nested-panel">Outer nested panel&#x200E;</a>
-              <a class="nav-link py-1" href="#outer-nested-panel-without-src">Outer nested panel without src&#x200E;</a>
-              <a class="nav-link py-1" href="#inner-panel-header-without-src">Inner panel header without src&#x200E;</a>
-              <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site-header">Panel with src from another Markbind site header&#x200E;</a>
-              <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site-header-2">Panel with src from another Markbind site header&#x200E;</a>
-              <a class="nav-link py-1" href="#panel-inside-modal">Panel inside modal&#x200E;</a>
-              <a class="nav-link py-1" href="#unexpanded-panel-header">Unexpanded panel header&#x200E;</a>
-            </nav>
-            <a class="nav-link py-1" href="#markbind-plugin-pre-render">Markbind Plugin Pre-render&#x200E;</a>
-            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
-              <a class="nav-link py-1" href="#level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed">Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed&#x200E;</a>
-            </nav>
-
-
-      <nav id="page-nav" class="navbar navbar-light bg-transparent">
-        <div class="border-left-grey nav-inner position-sticky slim-scroll">
-          <a class="navbar-brand page-nav-title" href="#">Testing Page Navigation</a>
-          <nav class="nav nav-pills flex-column my-0 small no-flex-wrap">
-            <a class="nav-link py-1" href="#heading-with-multiple-keywords">Heading with multiple keywords&#x200E;</a>
-            <a class="nav-link py-1" href="#heading-with-keyword-in-panel">Heading with keyword in panel&#x200E;</a>
-            <a class="nav-link py-1" href="#panel-with-heading">Panel with heading&#x200E;</a>
-            <a class="nav-link py-1" href="#panel-without-heading-with-keyword">Panel without heading with keyword&#x200E;</a>
-            <a class="nav-link py-1" href="#keyword-should-be-tagged-to-this-heading-not-the-panel-heading">Keyword should be tagged to this heading, not the panel heading&#x200E;</a>
-            <a class="nav-link py-1" href="#panel-with-heading-with-keyword">Panel with heading with keyword&#x200E;</a>
-            <a class="nav-link py-1" href="#keyword-should-be-tagged-to-the-panel-heading-not-this-heading">Keyword should be tagged to the panel heading, not this heading&#x200E;</a>
-            <a class="nav-link py-1" href="#heading-with-included-keyword">Heading with included keyword&#x200E;</a>
-            <a class="nav-link py-1" href="#included-heading">Included Heading&#x200E;</a>
-            <a class="nav-link py-1" href="#heading-with-nested-keyword">Heading with nested keyword&#x200E;</a>
-            <a class="nav-link py-1" href="#heading-with-hidden-keyword">Heading with hidden keyword&#x200E;</a>
-            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
-              <a class="nav-link py-1" href="#establishing-requirements">Establishing Requirements&#x200E;</a>
-              <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
-                <a class="nav-link py-1" href="#brainstorming">Brainstorming&#x200E;</a>
-                <a class="nav-link py-1" href="#user-surveys">User surveys&#x200E;</a>
-                <a class="nav-link py-1" href="#focus-groups">Focus groups&#x200E;</a>
-              </nav>
-            </nav>
             <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
               <a class="nav-link py-1" href="#feature-list">Feature list&#x200E;</a>
               <a class="nav-link py-1" href="#panel-without-src-header">Panel without src header&#x200E;</a>
