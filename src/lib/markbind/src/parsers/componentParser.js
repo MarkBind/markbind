@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const _ = {};
 _.has = require('lodash/has');
 
-const vueAttrRenderer = require('../lib/vue-attribute-renderer');
+const md = require('../lib/markdown-it');
 
 cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
@@ -27,9 +27,9 @@ function _parseAttributeWithoutOverride(node, attribute, isInline, slotName = at
   if (!hasAttributeSlot && _.has(node.attribs, attribute)) {
     let rendered;
     if (isInline) {
-      rendered = vueAttrRenderer.renderInline(node.attribs[attribute]);
+      rendered = md.renderInline(node.attribs[attribute]);
     } else {
-      rendered = vueAttrRenderer.render(node.attribs[attribute]);
+      rendered = md.render(node.attribs[attribute]);
     }
 
     const attributeSlotElement = cheerio.parseHTML(
@@ -356,7 +356,7 @@ function _parseBoxAttributes(node) {
   _warnConflictingAttributes(node, 'no-icon', ['icon']);
   _warnDeprecatedAttributes(node, { heading: 'header' });
 
-  _parseAttributeWithoutOverride(node, 'icon', true, '_icon');
+  _parseAttributeWithoutOverride(node, 'icon', true, 'icon');
   _parseAttributeWithoutOverride(node, 'header', false, '_header');
 
   _parseAttributeWithoutOverride(node, 'heading', false, '_header');

@@ -241,13 +241,13 @@ module.exports.PARSE_TAB_GROUP_HEADER_EXPECTED = `
 
 module.exports.PARSE_BOX_ICON = `
 <box icon=":rocket:">
-  Icon attribute should be inserted as internal _icon slot and deleted.
+  Icon attribute should be inserted as internal icon slot and deleted.
 </box>
 `;
 
 module.exports.PARSE_BOX_ICON_EXPECTED = `
-<box><template slot="_icon">🚀</template>
-  Icon attribute should be inserted as internal _icon slot and deleted.
+<box><template slot="icon">🚀</template>
+  Icon attribute should be inserted as internal icon slot and deleted.
 </box>
 `;
 

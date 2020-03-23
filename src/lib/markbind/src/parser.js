@@ -7,6 +7,7 @@ const Promise = require('bluebird');
 const slugify = require('@sindresorhus/slugify');
 const componentParser = require('./parsers/componentParser');
 const componentPreprocessor = require('./preprocessors/componentPreprocessor');
+const nunjuckUtils = require('./utils/nunjuckUtils');
 
 const _ = {};
 _.clone = require('lodash/clone');
@@ -100,7 +101,7 @@ class Parser {
         return;
       }
       if (!pageVariables[variableName]) {
-        const variableValue = nunjucks.renderString(md.renderInline(variableElement.html()), {
+        const variableValue = nunjuckUtils.renderEscaped(nunjucks, md.renderInline(variableElement.html()), {
           ...importedVariables, ...pageVariables, ...userDefinedVariables, ...includedVariables,
         });
         pageVariables[variableName] = variableValue;
@@ -145,9 +146,13 @@ class Parser {
     // Extract page variables from the CHILD file
     const pageVariables
       = this.extractPageVariables(asIfAt, fileContent, userDefinedVariables, includeVariables);
-    const content = nunjucks.renderString(fileContent,
-                                          { ...pageVariables, ...includeVariables, ...userDefinedVariables },
-                                          { path: filePath });
+    const content = nunjuckUtils.renderEscaped(nunjucks, fileContent, {
+      ...pageVariables,
+      ...includeVariables,
+      ...userDefinedVariables,
+    }, {
+      path: filePath,
+    });
     const childContext = _.cloneDeep(context);
     childContext.cwf = asIfAt;
     childContext.variables = includeVariables;
@@ -180,8 +185,11 @@ class Parser {
         = this._renderIncludeFile(filePath, node, context, config);
       this.extractInnerVariablesIfNotProcessed(renderedContent, childContext, config, filePath);
       const innerVariables = this.getImportedVariableMap(filePath);
+
       Parser.VARIABLE_LOOKUP.get(filePath).forEach((value, variableName, map) => {
-        map.set(variableName, nunjucks.renderString(value, { ...userDefinedVariables, ...innerVariables }));
+        map.set(variableName, nunjuckUtils.renderEscaped(nunjucks, value, {
+          ...userDefinedVariables, ...innerVariables,
+        }));
       });
     });
   }
@@ -391,14 +399,17 @@ class Parser {
           = urlUtils.calculateNewBaseUrls(file, config.rootPath, config.baseUrlMap);
         const userDefinedVariables = config.userDefinedVariablesMap[path.resolve(parent, relative)];
         const pageVariables = this.extractPageVariables(file, data, userDefinedVariables, {});
-        let fileContent
-          = nunjucks.renderString(
-            data,
-            { ...pageVariables, ...userDefinedVariables },
-            { path: actualFilePath });
+        let fileContent = nunjuckUtils.renderEscaped(nunjucks, data, {
+          ...pageVariables,
+          ...userDefinedVariables,
+        }, {
+          path: actualFilePath,
+        });
         this._extractInnerVariables(fileContent, context, config);
         const innerVariables = this.getImportedVariableMap(context.cwf);
-        fileContent = nunjucks.renderString(fileContent, { ...userDefinedVariables, ...innerVariables });
+        fileContent = nunjuckUtils.renderEscaped(nunjucks, fileContent, {
+          ...userDefinedVariables, ...innerVariables,
+        });
         const fileExt = utils.getExt(file);
         if (utils.isMarkdownFileExt(fileExt)) {
           context.source = 'md';
@@ -461,16 +472,16 @@ class Parser {
       const { additionalVariables } = config;
       const pageVariables = this.extractPageVariables(actualFilePath, pageData, userDefinedVariables, {});
 
-      let fileContent = nunjucks.renderString(pageData,
-                                              {
-                                                ...pageVariables,
-                                                ...userDefinedVariables,
-                                                ...additionalVariables,
-                                              },
-                                              { path: actualFilePath });
+      let fileContent = nunjuckUtils.renderEscaped(nunjucks, pageData, {
+        ...pageVariables,
+        ...userDefinedVariables,
+        ...additionalVariables,
+      }, {
+        path: actualFilePath,
+      });
       this._extractInnerVariables(fileContent, currentContext, config);
       const innerVariables = this.getImportedVariableMap(currentContext.cwf);
-      fileContent = nunjucks.renderString(fileContent, {
+      fileContent = nunjuckUtils.renderEscaped(nunjucks, fileContent, {
         ...userDefinedVariables,
         ...additionalVariables,
         ...innerVariables,
@@ -613,7 +624,7 @@ class Parser {
                                                             this.rootPath, this.baseUrlMap);
           if (currentBase && currentBase.relative !== newBaseUrl) {
             cheerio.prototype.options.xmlMode = false;
-            const rendered = nunjucks.renderString(cheerio.html(node.children), {
+            const rendered = nunjuckUtils.renderEscaped(nunjucks, cheerio.html(node.children), {
               // This is to prevent the nunjuck call from converting {{hostBaseUrl}} to an empty string
               // and let the hostBaseUrl value be injected later.
               hostBaseUrl: '{{hostBaseUrl}}',

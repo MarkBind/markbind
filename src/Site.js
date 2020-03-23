@@ -8,9 +8,10 @@ const Promise = require('bluebird');
 const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
 const MarkBind = require('./lib/markbind/src/parser');
+const nunjuckUtils = require('./lib/markbind/src/utils/nunjuckUtils');
 const injectHtmlParser2SpecialTags = require('./lib/markbind/src/patches/htmlparser2');
 const injectMarkdownItSpecialTags = require(
-  './lib/markbind/src/lib/markdown-it-shared/markdown-it-escape-special-tags');
+  './lib/markbind/src/lib/markdown-it/markdown-it-escape-special-tags');
 
 const _ = {};
 _.difference = require('lodash/difference');
@@ -521,7 +522,7 @@ class Site {
       $('variable,span').each(function () {
         const name = $(this).attr('name') || $(this).attr('id');
         // Process the content of the variable with nunjucks, in case it refers to other variables.
-        const html = nunjucks.renderString($(this).html(), userDefinedVariables);
+        const html = nunjuckUtils.renderEscaped(nunjucks, $(this).html(), userDefinedVariables);
         userDefinedVariables[name] = html;
       });
     });

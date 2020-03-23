@@ -72,19 +72,17 @@ You may have additional HTML and Markdown content in a <tooltip content="the fil
 
 {{ icon_example }} A siteNav code using a `<navigation>` tag.
 
-<box>
+```{.no-line-numbers}
+# Site Map
+<navigation>
+* [:house: Home]({{ baseUr }}/index.html)
+* Docs
+  * [User Guide]({{ baseUrl }}/ug.html)
+  * [Dev Guide]({{ baseUrl }}/dg.html)
+* [Search]({{ baseUrl }}/search.html)
+</navigation>
+```
 
-<code>
-# Site Map<br>
-<strong><<span></span>navigation></strong><br>
-* [:house: Home]({{ showBaseUrlText }}/index.html)<br>
-* Docs<br>
-&nbsp;&nbsp;* [User Guide]({{ showBaseUrlText }}/ug.html)<br>
-&nbsp;&nbsp;* [Dev Guide]({{ showBaseUrlText }}/dg.html)<br>
-* [Search]({{ showBaseUrlText }}/search.html)<br>
-<strong><<span></span>/navigation></strong><br>
-</code>
-</box>
 </div>
 
 More than one siteNav file can be in `_markbind/navigation/` directory but a page may not have more than one siteNav.
@@ -98,17 +96,16 @@ If you wish to use a Layout but exclude its navigation file, specify `siteNav: n
 
 <span id="short" class="d-none">
 
-<code>
-# Site Map<br>
-<strong><<span></span>navigation></strong><br>
-* [:house: Home]({{ showBaseUrlText }}/index.html)<br>
-* Docs :expanded:<br>
-&nbsp;&nbsp;* [User Guide]({{ showBaseUrlText }}/ug.html)<br>
-&nbsp;&nbsp;* [Dev Guide]({{ showBaseUrlText }}/dg.html)<br>
-* [Search]({{ showBaseUrlText }}/search.html)<br>
-<strong><<span></span>/navigation></strong><br>
-</code>
-</box>
+```{.no-line-numbers}
+# Site Map
+<navigation>
+* [:house: Home]({{ baseUrl }}/index.html)
+* Docs :expanded:
+  * [User Guide]({{ baseUrl }}/ug.html)
+  * [Dev Guide]({{ baseUrl }}/dg.html)
+* [Search]({{ baseUrl }}/search.html)
+</navigation>
+```
 
 ```html
 <frontmatter>

@@ -6,6 +6,7 @@ const nunjucks = require('nunjucks');
 const path = require('path');
 const pathIsInside = require('path-is-inside');
 const Promise = require('bluebird');
+const nunjuckUtils = require('./lib/markbind/src/utils/nunjuckUtils');
 
 const _ = {};
 _.isString = require('lodash/isString');
@@ -440,7 +441,7 @@ class Page {
     // Retrieve Expressive Layouts page and insert content
       fs.readFileAsync(layoutPagePath, 'utf8')
         .then(result => markbinder.includeData(layoutPagePath, result, layoutFileConfig))
-        .then(result => nj.renderString(result, template))
+        .then(result => nunjuckUtils.renderEscaped(nj, result, template))
         .then((result) => {
           this.collectIncludedFiles(markbinder.getDynamicIncludeSrc());
           this.collectIncludedFiles(markbinder.getStaticIncludeSrc());
@@ -481,7 +482,7 @@ class Page {
     // Map variables
     const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
     const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
-    return `${nunjucks.renderString(headerContent, userDefinedVariables)}\n${pageData}`;
+    return `${nunjuckUtils.renderEscaped(nunjucks, headerContent, userDefinedVariables)}\n${pageData}`;
   }
 
   /**
@@ -511,7 +512,7 @@ class Page {
     // Map variables
     const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
     const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
-    return `${pageData}\n${nunjucks.renderString(footerContent, userDefinedVariables)}`;
+    return `${pageData}\n${nunjuckUtils.renderEscaped(nunjucks, footerContent, userDefinedVariables)}`;
   }
 
   /**
@@ -548,7 +549,7 @@ class Page {
     // Map variables
     const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
     const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
-    const siteNavMappedData = nunjucks.renderString(siteNavContent, userDefinedVariables);
+    const siteNavMappedData = nunjuckUtils.renderEscaped(nunjucks, siteNavContent, userDefinedVariables);
     // Convert to HTML
     const siteNavDataSelector = cheerio.load(siteNavMappedData);
     if (siteNavDataSelector('navigation').length > 1) {
@@ -698,12 +699,12 @@ class Page {
       // Map variables
       const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
       const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
-      const headFileMappedData = nunjucks.renderString(headFileContent, userDefinedVariables)
+      const headFileMappedData = nunjuckUtils.renderEscaped(nunjucks, headFileContent, userDefinedVariables)
         .trim();
       // Split top and bottom contents
       const $ = cheerio.load(headFileMappedData, { xmlMode: false });
       if ($('head-top').length) {
-        collectedTopContent.push(nunjucks.renderString($('head-top')
+        collectedTopContent.push(nunjuckUtils.renderEscaped(nunjucks, $('head-top')
           .html(), {
           baseUrl,
           hostBaseUrl,
@@ -714,7 +715,7 @@ class Page {
         $('head-top')
           .remove();
       }
-      collectedBottomContent.push(nunjucks.renderString($.html(), {
+      collectedBottomContent.push(nunjuckUtils.renderEscaped(nunjucks, $.html(), {
         baseUrl,
         hostBaseUrl,
       })
