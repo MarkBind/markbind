@@ -67,6 +67,7 @@
         "brainstorming": "Brainstorming",
         "user-surveys": "User surveys",
         "focus-groups": "Focus groups",
+        "path-within-the-boilerplate-folder-is-separately-specified": "Path within the boilerplate folder is separately specified",
         "markbind-plugin-pre-render": "Markbind Plugin Pre-render",
         "level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed": "Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed"
       },
@@ -110,6 +111,15 @@
       "headings": {
         "feature-list": "Feature list"
       },
+      "headingKeywords": {}
+    },
+    {
+      "src": "sub_site/nested_sub_site/index.md",
+      "title": "",
+      "layout": "default",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {},
       "headingKeywords": {}
     },
     {

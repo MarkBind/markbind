@@ -8,9 +8,10 @@ const Promise = require('bluebird');
 const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
 const MarkBind = require('./lib/markbind/src/parser');
+const nunjuckUtils = require('./lib/markbind/src/utils/nunjuckUtils');
 const injectHtmlParser2SpecialTags = require('./lib/markbind/src/patches/htmlparser2');
 const injectMarkdownItSpecialTags = require(
-  './lib/markbind/src/lib/markdown-it-shared/markdown-it-escape-special-tags');
+  './lib/markbind/src/lib/markdown-it/markdown-it-escape-special-tags');
 
 const _ = {};
 _.difference = require('lodash/difference');
@@ -226,7 +227,6 @@ class Site {
 
   createPage(config) {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
-    const tempPath = path.join(this.tempPath, config.pageSrc);
     const resultPath = path.join(this.outputPath, Site.setExtension(config.pageSrc, '.html'));
     return new Page({
       baseUrl: this.siteConfig.baseUrl,
@@ -250,7 +250,6 @@ class Site {
       headingIndexingLevel: this.siteConfig.headingIndexingLevel || HEADING_INDEXING_LEVEL_DEFAULT,
       userDefinedVariablesMap: this.userDefinedVariablesMap,
       sourcePath,
-      tempPath,
       resultPath,
       asset: {
         bootstrap: path.relative(path.dirname(resultPath),
@@ -521,7 +520,7 @@ class Site {
       $('variable,span').each(function () {
         const name = $(this).attr('name') || $(this).attr('id');
         // Process the content of the variable with nunjucks, in case it refers to other variables.
-        const html = nunjucks.renderString($(this).html(), userDefinedVariables);
+        const html = nunjuckUtils.renderEscaped(nunjucks, $(this).html(), userDefinedVariables);
         userDefinedVariables[name] = html;
       });
     });
