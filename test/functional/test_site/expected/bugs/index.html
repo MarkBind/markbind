@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta name="default-head-top">
   <meta charset="utf-8">
@@ -40,10 +41,16 @@
           <p>Repro:</p>
           <p>Steps to Reproduce</p>
         </div>
+      </div>
+
+
+    </div>
     <footer>
-  <div class="text-center">
-    Default footer
-  </div></footer></div>
+      <div class="text-center">
+        Default footer
+      </div>
+    </footer>
+  </div>
 </body>
 <script src="../markbind/js/vue.min.js"></script>
 <script src="../markbind/js/vue-strap.min.js"></script>
@@ -55,17 +62,23 @@
   const enableSearch = true
 </script>
 <script src="../markbind/js/setup.js"></script>
-    <script src="SCRIPT_LINK"></script>
-    <script>alert("hello")</script>
-    
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'TRACKING-ID');
-    </script>
+<script src="SCRIPT_LINK"></script>
+<script>
+  alert("hello")
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'TRACKING-ID');
+</script>
 <script src="../markbind/layouts/default/scripts.js"></script>
+
 </html>

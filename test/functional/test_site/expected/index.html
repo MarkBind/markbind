@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!-- Start of top level head file content insertion -->
   <script src="/test_site/headFiles/customScriptTop.js"></script>
@@ -487,13 +488,44 @@ Div with tag matching general tag
             <p><strong>Test missing variable with default</strong></p>
             <p>Missing Variable</p>
           </div>
-        </popover>
-      
-        <popover id="pop:footnote3">
-          <div slot="content">
-            <p>Inlines notes are easier to write, since
-you don't have to pick an identifier and move down to type the
-note.</p>
+          <p><strong>Trimmed include</strong></p>
+          <p><strong><span>Fragment with leading spaces and newline</span></strong></p>
+          <p><strong>Trimmed include fragment</strong></p>
+          <p><strong>Before | <span>Fragment with leading spaces and newline</span> | After</strong></p>
+          <p><strong>Include with custom variables</strong></p>
+          <div>
+            <p><strong>Test included variable as include attribute</strong></p>
+            <p>Included variable as include attribute</p>
+            <p><strong>Test included variable</strong></p>
+            <p>Included variable</p>
+            <p><strong>Test included variable with markdown</strong></p>
+            <p><strong><strong>Included variable with markdown</strong></strong></p>
+            <p><strong>Test included variable as attribute</strong></p>
+            <p style="color: blue">Test</p>
+            <p><strong>Test included variable as html element</strong></p>
+            <p><span>Included variable within html element</span></p>
+            <p><strong>Test included variable overridden by <a href="http://variables.md">variables.md</a></strong></p>
+            <p>Global Variable Overriding Included Variable</p>
+            <p><strong>Test included variables in included file</strong></p>
+            <div>
+              <p>Included variable in outer included file</p>
+              <p>Included variable overriding inner variable</p>
+            </div>
+            <p><strong>Inner included variables should not leak into other files</strong></p>
+            <div>
+              <p>Should be blank:</p>
+            </div>
+            <p><strong>Test included variable with global variable</strong></p>
+            <p>Included variable with Global Variable</p>
+            <p><strong>Test included variable overridden by set</strong></p>
+            <p>Inner variable overridden by set
+              Global variable overridden by set</p>
+            <p><strong>Test missing variable with default</strong></p>
+            <p>Missing Variable</p>
+          </div>
+          <p><strong>Included variables should not leak into other files</strong></p>
+          <div>
+            <p>Should be blank:</p>
           </div>
           <p><strong>Panel with shorthand heading syntax</strong></p>
           <panel>
@@ -629,6 +661,23 @@ note.</p>
             </div>
           </popover>
 
+          <popover id="pop:footnote2">
+            <div slot="content">
+              <p>Here's one with multiple blocks.</p>
+              <p>Subsequent paragraphs are indented to show that they
+                belong to the previous footnote.</p>
+            </div>
+          </popover>
+
+          <popover id="pop:footnote3">
+            <div slot="content">
+              <p>Inlines notes are easier to write, since
+                you don't have to pick an identifier and move down to type the
+                note.</p>
+            </div>
+          </popover>
+        </section>
+      </div>
 
           <popover id="pop:footnote3">
             <div slot="content">
@@ -683,58 +732,61 @@ note.</p>
               <a class="nav-link py-1" href="#level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed">Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed&#x200E;</a>
             </nav>
 
-        <nav id="page-nav" class="navbar navbar-light bg-transparent">
-<div class="border-left-grey nav-inner position-sticky slim-scroll">
-<a class="navbar-brand page-nav-title" href="#">Testing Page Navigation</a>
-<nav class="nav nav-pills flex-column my-0 small no-flex-wrap">
-<a class="nav-link py-1" href="#heading-with-multiple-keywords">Heading with multiple keywords&#x200E;</a>
-<a class="nav-link py-1" href="#heading-with-keyword-in-panel">Heading with keyword in panel&#x200E;</a>
-<a class="nav-link py-1" href="#panel-with-heading">Panel with heading&#x200E;</a>
-<a class="nav-link py-1" href="#panel-without-heading-with-keyword">Panel without heading with keyword&#x200E;</a>
-<a class="nav-link py-1" href="#keyword-should-be-tagged-to-this-heading-not-the-panel-heading">Keyword should be tagged to this heading, not the panel heading&#x200E;</a>
-<a class="nav-link py-1" href="#panel-with-heading-with-keyword">Panel with heading with keyword&#x200E;</a>
-<a class="nav-link py-1" href="#keyword-should-be-tagged-to-the-panel-heading-not-this-heading">Keyword should be tagged to the panel heading, not this heading&#x200E;</a>
-<a class="nav-link py-1" href="#heading-with-included-keyword">Heading with included keyword&#x200E;</a>
-<a class="nav-link py-1" href="#included-heading">Included Heading&#x200E;</a>
-<a class="nav-link py-1" href="#heading-with-nested-keyword">Heading with nested keyword&#x200E;</a>
-<a class="nav-link py-1" href="#heading-with-hidden-keyword">Heading with hidden keyword&#x200E;</a>
-<nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
-<a class="nav-link py-1" href="#establishing-requirements">Establishing Requirements&#x200E;</a>
-<nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
-<a class="nav-link py-1" href="#brainstorming">Brainstorming&#x200E;</a>
-<a class="nav-link py-1" href="#user-surveys">User surveys&#x200E;</a>
-<a class="nav-link py-1" href="#focus-groups">Focus groups&#x200E;</a>
-</nav>
-</nav>
-<nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
-<a class="nav-link py-1" href="#feature-list">Feature list&#x200E;</a>
-<a class="nav-link py-1" href="#panel-without-src-header">Panel without src header&#x200E;</a>
-<a class="nav-link py-1" href="#panel-with-normal-src-header">Panel with normal src header&#x200E;</a>
-<a class="nav-link py-1" href="#panel-with-src-from-a-page-segment-header">Panel with src from a page segment header&#x200E;</a>
-<a class="nav-link py-1" href="#boilerplate-referencing">Boilerplate referencing&#x200E;</a>
-<a class="nav-link py-1" href="#referencing-specified-path-in-boilerplate">Referencing specified path in boilerplate&#x200E;</a>
-<a class="nav-link py-1" href="#outer-nested-panel">Outer nested panel&#x200E;</a>
-<a class="nav-link py-1" href="#outer-nested-panel-without-src">Outer nested panel without src&#x200E;</a>
-<a class="nav-link py-1" href="#inner-panel-header-without-src">Inner panel header without src&#x200E;</a>
-<a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site-header">Panel with src from another Markbind site header&#x200E;</a>
-<a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site-header-2">Panel with src from another Markbind site header&#x200E;</a>
-<a class="nav-link py-1" href="#panel-inside-modal">Panel inside modal&#x200E;</a>
-<a class="nav-link py-1" href="#unexpanded-panel-header">Unexpanded panel header&#x200E;</a>
-</nav>
-<a class="nav-link py-1" href="#markbind-plugin-pre-render">Markbind Plugin Pre-render&#x200E;</a>
-<nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
-<a class="nav-link py-1" href="#level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed">Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed&#x200E;</a>
-</nav>
 
-</nav>
-</div>
-</nav>
-</div>
+      <nav id="page-nav" class="navbar navbar-light bg-transparent">
+        <div class="border-left-grey nav-inner position-sticky slim-scroll">
+          <a class="navbar-brand page-nav-title" href="#">Testing Page Navigation</a>
+          <nav class="nav nav-pills flex-column my-0 small no-flex-wrap">
+            <a class="nav-link py-1" href="#heading-with-multiple-keywords">Heading with multiple keywords&#x200E;</a>
+            <a class="nav-link py-1" href="#heading-with-keyword-in-panel">Heading with keyword in panel&#x200E;</a>
+            <a class="nav-link py-1" href="#panel-with-heading">Panel with heading&#x200E;</a>
+            <a class="nav-link py-1" href="#panel-without-heading-with-keyword">Panel without heading with keyword&#x200E;</a>
+            <a class="nav-link py-1" href="#keyword-should-be-tagged-to-this-heading-not-the-panel-heading">Keyword should be tagged to this heading, not the panel heading&#x200E;</a>
+            <a class="nav-link py-1" href="#panel-with-heading-with-keyword">Panel with heading with keyword&#x200E;</a>
+            <a class="nav-link py-1" href="#keyword-should-be-tagged-to-the-panel-heading-not-this-heading">Keyword should be tagged to the panel heading, not this heading&#x200E;</a>
+            <a class="nav-link py-1" href="#heading-with-included-keyword">Heading with included keyword&#x200E;</a>
+            <a class="nav-link py-1" href="#included-heading">Included Heading&#x200E;</a>
+            <a class="nav-link py-1" href="#heading-with-nested-keyword">Heading with nested keyword&#x200E;</a>
+            <a class="nav-link py-1" href="#heading-with-hidden-keyword">Heading with hidden keyword&#x200E;</a>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#establishing-requirements">Establishing Requirements&#x200E;</a>
+              <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+                <a class="nav-link py-1" href="#brainstorming">Brainstorming&#x200E;</a>
+                <a class="nav-link py-1" href="#user-surveys">User surveys&#x200E;</a>
+                <a class="nav-link py-1" href="#focus-groups">Focus groups&#x200E;</a>
+              </nav>
+            </nav>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#feature-list">Feature list&#x200E;</a>
+              <a class="nav-link py-1" href="#panel-without-src-header">Panel without src header&#x200E;</a>
+              <a class="nav-link py-1" href="#panel-with-normal-src-header">Panel with normal src header&#x200E;</a>
+              <a class="nav-link py-1" href="#panel-with-src-from-a-page-segment-header">Panel with src from a page segment header&#x200E;</a>
+              <a class="nav-link py-1" href="#boilerplate-referencing">Boilerplate referencing&#x200E;</a>
+              <a class="nav-link py-1" href="#referencing-specified-path-in-boilerplate">Referencing specified path in boilerplate&#x200E;</a>
+              <a class="nav-link py-1" href="#outer-nested-panel">Outer nested panel&#x200E;</a>
+              <a class="nav-link py-1" href="#outer-nested-panel-without-src">Outer nested panel without src&#x200E;</a>
+              <a class="nav-link py-1" href="#inner-panel-header-without-src">Inner panel header without src&#x200E;</a>
+              <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site-header">Panel with src from another Markbind site header&#x200E;</a>
+              <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site-header-2">Panel with src from another Markbind site header&#x200E;</a>
+              <a class="nav-link py-1" href="#panel-inside-modal">Panel inside modal&#x200E;</a>
+              <a class="nav-link py-1" href="#unexpanded-panel-header">Unexpanded panel header&#x200E;</a>
+            </nav>
+            <a class="nav-link py-1" href="#markbind-plugin-pre-render">Markbind Plugin Pre-render&#x200E;</a>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed">Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed&#x200E;</a>
+            </nav>
+
+          </nav>
+        </div>
+      </nav>
+    </div>
     <footer>
-<h1 id="heading-in-footer-should-not-be-indexed">Heading in footer should not be indexed<a class="fa fa-anchor" href="#heading-in-footer-should-not-be-indexed"></a></h1>
-  <div class="text-center">
-    This is a dynamic height footer that supports markdown <span>😄</span>!
-  </div></footer></div>
+      <h1 id="heading-in-footer-should-not-be-indexed">Heading in footer should not be indexed<a class="fa fa-anchor" href="#heading-in-footer-should-not-be-indexed"></a></h1>
+      <div class="text-center">
+        This is a dynamic height footer that supports markdown <span>😄</span>!
+      </div>
+    </footer>
+  </div>
 </body>
 <script src="markbind/js/vue.min.js"></script>
 <script src="markbind/js/vue-strap.min.js"></script>
@@ -746,17 +798,23 @@ note.</p>
   const enableSearch = true
 </script>
 <script src="markbind/js/setup.js"></script>
-    <script src="SCRIPT_LINK"></script>
-    <script>alert("hello")</script>
-    
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'TRACKING-ID');
-    </script>
+<script src="SCRIPT_LINK"></script>
+<script>
+  alert("hello")
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'TRACKING-ID');
+</script>
 <script src="markbind/layouts/default/scripts.js"></script>
+
 </html>
