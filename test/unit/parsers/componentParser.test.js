@@ -71,6 +71,10 @@ test('parseComponent parses modal attributes and inserts into dom as slots corre
   // todo remove these once 'modal-header' / 'modal-footer' for modal is fully deprecated
   parseAndVerifyTemplate(testData.PARSE_MODAL_SLOTS_RENAMING,
                          testData.PARSE_MODAL_SLOTS_RENAMING_EXPECTED);
+
+  // when the ok-text attr is set, footer shouldn't be disabled and ok-only attr should be added
+  parseAndVerifyTemplate(testData.PARSE_MODAL_OK_TEXT,
+                         testData.PARSE_MODAL_OK_TEXT_EXPECTED);
 });
 
 test('parseComponent parses tab & tab-group attributes and inserts into dom as slots correctly', () => {
