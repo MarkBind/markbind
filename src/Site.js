@@ -227,7 +227,6 @@ class Site {
 
   createPage(config) {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
-    const tempPath = path.join(this.tempPath, config.pageSrc);
     const resultPath = path.join(this.outputPath, Site.setExtension(config.pageSrc, '.html'));
     return new Page({
       baseUrl: this.siteConfig.baseUrl,
@@ -251,7 +250,6 @@ class Site {
       headingIndexingLevel: this.siteConfig.headingIndexingLevel || HEADING_INDEXING_LEVEL_DEFAULT,
       userDefinedVariablesMap: this.userDefinedVariablesMap,
       sourcePath,
-      tempPath,
       resultPath,
       asset: {
         bootstrap: path.relative(path.dirname(resultPath),

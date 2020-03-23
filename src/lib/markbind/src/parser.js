@@ -258,9 +258,9 @@ class Parser {
     return $.html();
   }
 
-  _parse(node, context, config) {
+  _parse(node, config) {
     if (_.isArray(node)) {
-      return node.map(el => this._parse(el, context, config));
+      return node.map(el => this._parse(el, config));
     }
     if (Parser.isText(node)) {
       return node;
@@ -324,7 +324,7 @@ class Parser {
 
     if (node.children) {
       node.children.forEach((child) => {
-        this._parse(child, context, config);
+        this._parse(child, config);
       });
     }
 
@@ -500,10 +500,7 @@ class Parser {
     });
   }
 
-  renderFile(file, config) {
-    const context = {};
-    context.cwf = file; // current working file
-    context.mode = 'render';
+  render(content, filePath, config) {
     return new Promise((resolve, reject) => {
       const handler = new htmlparser.DomHandler((error, dom) => {
         if (error) {
@@ -513,9 +510,9 @@ class Parser {
         const nodes = dom.map((d) => {
           let parsed;
           try {
-            parsed = this._parse(d, context, config);
+            parsed = this._parse(d, config);
           } catch (err) {
-            err.message += `\nError while rendering '${file}'`;
+            err.message += `\nError while rendering '${filePath}'`;
             this._onError(err);
             parsed = utils.createErrorNode(d, err);
           }
@@ -532,25 +529,16 @@ class Parser {
         xmlMode: true,
         decodeEntities: false,
       });
-      // Read files
-      fs.readFile(file, (err, data) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-        const fileExt = utils.getExt(file);
-        if (utils.isMarkdownFileExt(fileExt)) {
-          const inputData = md.render(data.toString());
-          context.source = 'md';
-          parser.parseComplete(inputData);
-        } else if (fileExt === 'html') {
-          context.source = 'html';
-          parser.parseComplete(data);
-        } else {
-          const error = new Error(`Unsupported File Extension: '${fileExt}'`);
-          reject(error);
-        }
-      });
+      const fileExt = utils.getExt(filePath);
+      if (utils.isMarkdownFileExt(fileExt)) {
+        const renderedContent = md.render(content);
+        parser.parseComplete(renderedContent);
+      } else if (fileExt === 'html') {
+        parser.parseComplete(content);
+      } else {
+        const error = new Error(`Unsupported File Extension: '${fileExt}'`);
+        reject(error);
+      }
     });
   }
 

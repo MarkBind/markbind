@@ -438,15 +438,9 @@ test('renderFile converts markdown headers to <h1>', async () => {
 
   const index = ['# Index'].join('\n');
 
-  const json = {
-    'index.md': index,
-  };
-
-  fs.vol.fromJSON(json, '');
-
   const baseUrlMap = new Set([rootPath]);
 
-  const result = await markbinder.renderFile(indexPath, {
+  const result = await markbinder.render(index, indexPath, {
     baseUrlMap,
     rootPath,
     headerIdMap,
