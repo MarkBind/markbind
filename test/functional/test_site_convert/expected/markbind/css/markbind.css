@@ -142,10 +142,10 @@ header.header-fixed {
 #content-wrapper {
     flex: 1;
     margin: 0 auto;
+    min-width: 0;
     max-width: 1000px;
     padding: 0 20px;
     transition: 0.4s;
-    width: 100%;
     -webkit-transition: 0.4s;
 }
 
