@@ -182,28 +182,6 @@ function _preProcessPanel(node, context, config, parser) {
  * Includes
  */
 
-
-function _rebaseReferenceForStaticIncludes(pageData, element, config) {
-  if (!config) return pageData;
-
-  if (!pageData.includes('{{baseUrl}}')) return pageData;
-
-  const filePath = element.attribs[ATTRIB_INCLUDE_PATH];
-  const fileBase = urlUtils.calculateNewBaseUrls(filePath, config.rootPath, config.baseUrlMap);
-
-  if (!fileBase.relative) return pageData;
-
-  const currentPath = element.attribs[ATTRIB_CWF];
-  const currentBase = urlUtils.calculateNewBaseUrls(currentPath, config.rootPath, config.baseUrlMap);
-
-  if (currentBase.relative === fileBase.relative) return pageData;
-
-  const newBase = fileBase.relative;
-  const newBaseUrl = `{{hostBaseUrl}}/${newBase}`;
-
-  return nunjuckUtils.renderEscaped(nunjucks, pageData, { baseUrl: newBaseUrl }, { path: filePath });
-}
-
 function _deleteIncludeAttributes(node) {
   const element = node;
 
@@ -334,7 +312,6 @@ function _preprocessInclude(node, context, config, parser) {
   if (isIncludeSrcMd) {
     actualContent = isInline ? actualContent : `\n\n${actualContent}\n`;
   }
-  actualContent = _rebaseReferenceForStaticIncludes(actualContent, element, config);
 
   // Flag with a data-included-from flag with the source filePath for calculating
   // the file path of dynamic resources ( images, anchors, plugin sources, etc. ) later

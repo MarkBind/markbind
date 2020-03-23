@@ -114,6 +114,15 @@
       "headingKeywords": {}
     },
     {
+      "src": "sub_site/nested_sub_site/index.md",
+      "title": "",
+      "layout": "default",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
       "src": "test_md_fragment.md",
       "title": "",
       "layout": "default",

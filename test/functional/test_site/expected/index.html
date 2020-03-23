@@ -287,7 +287,6 @@
             <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
               do.</p>
           </div>
-
           <p><strong>Boilerplate include</strong></p>
           <div name="Boilerplate Referencing">
             <p>
@@ -373,6 +372,35 @@ specification that specifies how the product will address the requirements. </sp
             <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png">
             <pic src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></pic>
           </div>
+          <p><strong>Include nested sub-site directly</strong></p>
+          <box>
+            <div>
+              <p><strong>baseUrl in a nested sub-site should correctly evaluate to the nested sub-site</strong></p>
+              <p>The base url in the nested_sub_site is /test_site/sub_site/nested_sub_site.</p>
+              <div>
+                <p><strong>baseUrl in a nested sub-site page's include should correctly evaluate to the nested sub-site</strong></p>
+                <p>The base url in the nested_sub_site page's include is /test_site/sub_site/nested_sub_site.</p>
+              </div>
+            </div>
+          </box>
+          <p><strong>Include nested sub-site from sub-site</strong></p>
+          <box>
+            <div>
+              <p><strong>baseUrl in a sub site should correctly evaluate</strong></p>
+              <p>The base url in sub_site is /test_site/sub_site.</p>
+              <p><strong>Subsite including nested subsite:</strong></p>
+              <box>
+                <div>
+                  <p><strong>baseUrl in a nested sub-site should correctly evaluate to the nested sub-site</strong></p>
+                  <p>The base url in the nested_sub_site is /test_site/sub_site/nested_sub_site.</p>
+                  <div>
+                    <p><strong>baseUrl in a nested sub-site page's include should correctly evaluate to the nested sub-site</strong></p>
+                    <p>The base url in the nested_sub_site page's include is /test_site/sub_site/nested_sub_site.</p>
+                  </div>
+                </div>
+              </box>
+            </div>
+          </box>
           <p><strong>Trimmed include</strong></p>
           <p><strong><span>Fragment with leading spaces and newline</span></strong></p>
           <p><strong>Trimmed include fragment</strong></p>
