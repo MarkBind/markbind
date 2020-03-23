@@ -496,41 +496,6 @@ Div with tag matching general tag
             <p><strong>Test missing variable with default</strong></p>
             <p>Missing Variable</p>
           </div>
-          <p><strong>Trimmed include</strong></p>
-          <p><strong><span>Fragment with leading spaces and newline</span></strong></p>
-          <p><strong>Trimmed include fragment</strong></p>
-          <p><strong>Before | <span>Fragment with leading spaces and newline</span> | After</strong></p>
-          <p><strong>Include with custom variables</strong></p>
-          <div>
-            <p><strong>Test included variable as include attribute</strong></p>
-            <p>Included variable as include attribute</p>
-            <p><strong>Test included variable</strong></p>
-            <p>Included variable</p>
-            <p><strong>Test included variable with markdown</strong></p>
-            <p><strong><strong>Included variable with markdown</strong></strong></p>
-            <p><strong>Test included variable as attribute</strong></p>
-            <p style="color: blue">Test</p>
-            <p><strong>Test included variable as html element</strong></p>
-            <p><span>Included variable within html element</span></p>
-            <p><strong>Test included variable overridden by <a href="http://variables.md">variables.md</a></strong></p>
-            <p>Global Variable Overriding Included Variable</p>
-            <p><strong>Test included variables in included file</strong></p>
-            <div>
-              <p>Included variable in outer included file</p>
-              <p>Included variable overriding inner variable</p>
-            </div>
-            <p><strong>Inner included variables should not leak into other files</strong></p>
-            <div>
-              <p>Should be blank:</p>
-            </div>
-            <p><strong>Test included variable with global variable</strong></p>
-            <p>Included variable with Global Variable</p>
-            <p><strong>Test included variable overridden by set</strong></p>
-            <p>Inner variable overridden by set
-              Global variable overridden by set</p>
-            <p><strong>Test missing variable with default</strong></p>
-            <p>Missing Variable</p>
-          </div>
           <p><strong>Included variables should not leak into other files</strong></p>
           <div>
             <p>Should be blank:</p>
@@ -589,7 +554,9 @@ Div with tag matching general tag
         <p><strong>Modal with panel inside</strong></p>
         <p><span for="modal-with-panel" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['modal-with-panel'].show()" class="trigger">trigger</span></p>
         <b-modal id="modal-with-panel" hide-footer="" size="" modal-class="mb-zoom" ref="modal-with-panel"><template slot="modal-title">modal title with panel inside</template>
-          <panel expanded="" id="panel-inside-modal"><template slot="_header"><h2 id="panel-inside-modal">Panel inside modal<a class="fa fa-anchor" href="#panel-inside-modal"></a></h2></template>
+          <panel expanded="" id="panel-inside-modal"><template slot="_header">
+              <h2 id="panel-inside-modal">Panel inside modal<a class="fa fa-anchor" href="#panel-inside-modal"></a></h2>
+            </template>
             <p><strong>Panel content inside modal</strong></p>
           </panel>
         </b-modal>
