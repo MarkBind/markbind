@@ -28,7 +28,7 @@ function preRender(content) {
   without interference from other dependencies
 */
 function postRender(content) {
-  const $ = cheerio.load(content);
+  const $ = cheerio.load(content, { xmlMode: false });
   const escapedNunjucks = $('mustache');
   escapedNunjucks.each((index, element) => {
     const unwrappedText = $(element).text();
@@ -44,5 +44,5 @@ function postRender(content) {
 module.exports = {
   preRender,
   postRender,
-  getSpecialTags: () => ['testtag', 'mustache'],
+  getSpecialTags: () => ['testtag', 'testselfclosingtag', 'mustache'],
 };

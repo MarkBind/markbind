@@ -76,6 +76,20 @@ some text
 
 ---
 
+There are two self closing special tags below, which should display nothing, but are present in the output.
+There is then one special tag with both and opening and closing tag with some text in it (`lorem ipsum...`).
+Note that script and style tags are still not allowed to be self-closing, as per the html5 spec.
+
+<testselfclosingtag />
+<testselfclosingtag />
+
+<testselfclosingtag>
+
+Lorem ipsum lorem ipsum
+</testselfclosingtag>
+
+---
+
 This should pass the htmlparser2 patch but not the markdown-it patch as it violates commonmark.<br>
 All lines after the first `!success` wrapping text will be wrapped in a `<p>...</p>` tag as it is
 parsed as a markdown paragraph.
