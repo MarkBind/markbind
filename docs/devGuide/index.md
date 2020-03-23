@@ -1,1 +1,1 @@
-<include src="devGuide.md" />
+{window.location.href=devGuide.md}
