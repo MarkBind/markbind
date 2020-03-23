@@ -1,4 +1,4 @@
-const markdownIt = require('../markdown-it');
+const markdownIt = require('./index');
 
 /*
  Custom patch for the api to escape content in certain special tags

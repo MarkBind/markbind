@@ -8,15 +8,17 @@ const slugify = require('@sindresorhus/slugify');
 // markdown-it plugins
 markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-ins'))
+  .use(require('markdown-it-sub'))
+  .use(require('markdown-it-sup'))
   .use(require('markdown-it-imsize'), {autofill: false})
   .use(require('markdown-it-table-of-contents'))
   .use(require('markdown-it-task-lists'), {enabled: true})
   .use(require('markdown-it-linkify-images'), {imgClass: 'img-fluid'})
   .use(require('markdown-it-attrs'))
-  .use(require('../markdown-it-shared/markdown-it-dimmed'))
+  .use(require('./markdown-it-dimmed'))
   .use(require('./markdown-it-radio-button'))
   .use(require('./markdown-it-block-embed'))
-  .use(require('../markdown-it-shared/markdown-it-icons'))
+  .use(require('./markdown-it-icons'))
   .use(require('./markdown-it-footnotes'));
 
 // fix link
@@ -29,6 +31,18 @@ markdownIt.renderer.rules.table_open = (tokens, idx) => {
 markdownIt.renderer.rules.table_close = (tokens, idx) => {
   return '</table></div>';
 };
+
+function getAttributeAndDelete(token, attr) {
+  const index = token.attrIndex(attr);
+  if (index === -1) {
+    return undefined;
+  }
+  // tokens are stored as an array of two-element-arrays:
+  // e.g. [ ['highlight-lines', '1,2,3'], ['start-from', '1'] ]
+  const value = token.attrs[index][1];
+  token.attrs.splice(index, 1);
+  return value;
+}
 
 // syntax highlight code fences and add line numbers
 markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
@@ -64,18 +78,31 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   if (!highlighted) {
     lines = markdownIt.utils.escapeHtml(str).split('\n');
   }
+
+  const startFromOneBased = Math.max(1, parseInt(getAttributeAndDelete(token, 'start-from'), 10) || 1);
+  const startFromZeroBased = startFromOneBased - 1;
+
+  if (startFromOneBased > 1) {
+    // counter is incremented on each span, so we need to subtract 1
+    token.attrJoin('style', `counter-reset: line ${startFromZeroBased};`);
+  }
   
-  const highlightLinesInput = token.attrGet('highlight-lines');
+  const highlightLinesInput = getAttributeAndDelete(token, 'highlight-lines');
   let lineNumbersAndRanges = [];
   if (highlightLinesInput) {
     // example input format: "1,4-7,8,11-55"
     //               output: [[1],[4,7],[8],[11,55]]
     // the output is an array contaning either single line numbers [lineNum] or ranges [start, end]
     // ',' delimits either single line numbers (eg: 1) or ranges (eg: 4-7)
-    highlightLines = highlightLinesInput.split(',');
+    const highlightLines = highlightLinesInput.split(',');
     // if it's the single number, it will just be parsed as an int, (eg: ['1'] --> [1] )
     // if it's a range, it will be parsed as as an array of two ints (eg: ['4-7'] --> [4,6])
-    lineNumbersAndRanges = highlightLines.map(elem => elem.split('-').map(lineNumber => parseInt(lineNumber, 10)));
+    function parseAndZeroBaseLineNumber(numberString) {
+      // authors provide line numbers to highlight based on the 'start-from' attribute if it exists
+      // so we need to shift them all back down to start at 0
+      return parseInt(numberString, 10) - startFromZeroBased;
+    }
+    lineNumbersAndRanges = highlightLines.map(elem => elem.split('-').map(parseAndZeroBaseLineNumber));
   }
   
   lines.pop(); // last line is always a single '\n' newline, so we remove it
@@ -134,7 +161,7 @@ markdownIt.renderer.rules.code_inline = (tokens, idx, options, env, slf) => {
   }
 };
 
-const fixedNumberEmojiDefs = require('../markdown-it-shared/markdown-it-emoji-fixed');
+const fixedNumberEmojiDefs = require('./markdown-it-emoji-fixed');
 markdownIt.use(require('markdown-it-emoji'), {
   defs: fixedNumberEmojiDefs
 });

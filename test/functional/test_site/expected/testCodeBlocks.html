@@ -32,6 +32,12 @@
         <pre><code class="hljs js"><span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fourEmptyLinesBelow</span>(<span class="hljs-params"></span>) </span>{</span><span>&#x200B;</span><span>&#x200B;</span><span>&#x200B;</span><span>&#x200B;</span><span>} <span class="hljs-comment">// four empty lines above</span></span></code></pre>
         <p><strong>hljs span spanning multiple lines</strong></p>
         <pre><code class="hljs markdown"><span><span class="hljs-strong">*****</span></span><span>-----</span></code></pre>
+        <p><strong>start-from attr causes inline style to be set</strong></p>
+        <pre><code style="counter-reset: line 29;" class="hljs markdown"><span><span class="hljs-strong">*****</span></span><span>-----</span></code></pre>
+        <p><strong>highlight-lines attr causes corresponding lines to have 'highlighted' class</strong></p>
+        <pre><code class="hljs markdown"><span class="highlighted">1  highlighted</span><span>2</span><span class="highlighted">3  highlighted</span><span>4</span><span class="highlighted">5  highlighted</span><span class="highlighted">6  highlighted</span><span class="highlighted">7  highlighted</span><span class="highlighted">8  highlighted</span><span>9</span><span>10</span></code></pre>
+        <p><strong>highlight-lines attr with start-from attr cause corresponding lines to have 'highlighted' class based on 'start-from'</strong></p>
+        <pre><code style="counter-reset: line 10;" class="hljs markdown"><span class="highlighted">11  highlighted</span><span>12</span><span class="highlighted">13  highlighted</span><span>14</span><span class="highlighted">15  highlighted</span><span class="highlighted">16  highlighted</span><span class="highlighted">17  highlighted</span><span class="highlighted">18  highlighted</span><span>19</span><span>20</span></code></pre>
       </div>
     </div>
     <footer>

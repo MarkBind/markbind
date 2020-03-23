@@ -112,9 +112,7 @@ Using `-` at the start of a tag hides all tags matching the expression. This is 
 <div class="indented">
 
 {{ icon_example }} Using general tags:
-```html
-index.md
-
+```html {heading="index.md"}
 <frontmatter>
   title: "Hello World"
   tags: ["language--java"]
@@ -125,9 +123,7 @@ index.md
 <p tags="language--python">print("Hello world")</p>
 ```
 
-```json
-site.json
-
+```json {heading="site.json"}
 {
   ...
   "plugins" : [
