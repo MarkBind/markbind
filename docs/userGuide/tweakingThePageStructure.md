@@ -43,7 +43,7 @@
 
 <hr><!-- ======================================================================================================= -->
 
-<include src="plugins/filterTags.mbdf" />
+<include src="plugins/tags.mbdf" />
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('usingPlugins', 'reusingContents') }}
