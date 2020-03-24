@@ -4,7 +4,7 @@
 <frontmatter>
   title: "User Guide: {{ title }}"
   layout: userGuide
-  pageNav: 3
+  pageNav: 2
 </frontmatter>
 
 <span id="link" class="d-none">
@@ -43,7 +43,7 @@
 
 <hr><!-- ======================================================================================================= -->
 
-<include src="plugins/filterTags.mbdf" />
+<include src="plugins/tags.mbdf" />
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('usingPlugins', 'reusingContents') }}
