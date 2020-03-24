@@ -228,7 +228,7 @@ MarkBind has a set of built-in plugins that can be used immediately without inst
 
 <include src="plugins/algolia.mbdf" />
 <include src="plugins/codeBlockCopyButtons.mbdf" />
-<include src="plugins/filterTags.mbdf" />
+<include src="plugins/tags.mbdf" />
 <include src="plugins/googleAnalytics.mbdf" />
 
 {% from "njk/common.njk" import previous_next %}
