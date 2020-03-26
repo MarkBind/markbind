@@ -42,6 +42,14 @@
         <p>There should be text between this and the next <code>&lt;hr&gt;</code> tag, since it is a special tag. All text should appear in the browser window as a single line, save for the comment which the browser still interprets. (but will be in the
           expected output)
         </p>
+        <mustache>
+raw
+
+!success!success This should be enclosed in success string success!success!
+
+!success This should also be enclosed in success strings success!success!success!
+endraw
+</mustache>
         <testtag>!success
 
 <these>
@@ -69,6 +77,15 @@ success!</testtag>
           <p>/* ... */
           </p>
         </abc>
+        <hr>
+        <p>There are two self closing special tags below, which should display nothing, but are present in the output. There is then one special tag with both and opening and closing tag with some text in it (<code>lorem ipsum...</code>). Note that script
+          and style tags are still not allowed to be self-closing, as per the html5 spec.</p>
+        <testselfclosingtag></testselfclosingtag>
+        <testselfclosingtag></testselfclosingtag>
+        <testselfclosingtag>
+
+Lorem ipsum lorem ipsum
+</testselfclosingtag>
         <hr>
         <p>This should pass the htmlparser2 patch but not the markdown-it patch as it violates commonmark.<br> All lines after the first <code>!success</code> wrapping text will be wrapped in a <code>&lt;p&gt;...&lt;/p&gt;</code> tag as it is parsed as a
           markdown paragraph.

@@ -29,6 +29,15 @@ There should be text between this and the next `<hr>` tag, since it is a special
 All text should appear in the browser window as a single line,
 save for the comment which the browser still interprets. (but will be in the expected output)
 
+<mustache>
+{%raw%}
+
+{{ This should be enclosed in success string }}
+
+{ This should also be enclosed in success strings }}}
+{%endraw%}
+</mustache>
+
 <testtag>
 <these>
 some text
@@ -64,6 +73,20 @@ some text
 ...
 */
 </abc>
+
+---
+
+There are two self closing special tags below, which should display nothing, but are present in the output.
+There is then one special tag with both and opening and closing tag with some text in it (`lorem ipsum...`).
+Note that script and style tags are still not allowed to be self-closing, as per the html5 spec.
+
+<testselfclosingtag />
+<testselfclosingtag />
+
+<testselfclosingtag>
+
+Lorem ipsum lorem ipsum
+</testselfclosingtag>
 
 ---
 

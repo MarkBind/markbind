@@ -125,15 +125,11 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 <include src="requirements/EstablishingRequirements.md#preview" />
 
-**Dynamic include**
-
-<include src="requirements/SpecifyingRequirements.md" name="Dynamic Include" dynamic />
-
 **Boilerplate include**
 
 <include src="requirements/boilerTest.md" name="Boilerplate Referencing" boilerplate />
 
-<include src="requirements/notInside.md" name="Referencing specified path in boilerplate" boilerplate="folder/inside.md" dynamic/>
+<include src="requirements/notInside.md" name="Referencing specified path in boilerplate" boilerplate="folder/inside.md"/>
 
 **Nested include**
 
@@ -156,6 +152,18 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 **Include segment from another Markbind site**
 
 <include src="sub_site/testReuse.md#imageTest" />
+
+**Include nested sub-site directly**
+
+<box>
+<include src="sub_site/nested_sub_site/index.md" />
+</box>
+
+**Include nested sub-site from sub-site**
+
+<box>
+<include src="sub_site/testSubsiteAndNestedSubsiteBaseUrl.md" />
+</box>
 
 **Trimmed include** 
 

@@ -70,7 +70,7 @@
 <box type="info" dismissible>
     dismissible info
 </box>
-<box type="success" header="#### Header :rocket:" icon-size="2x">
+<box type="success" header="#### Header :rocket: { .no-index }" icon-size="2x">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     <box type="warning" header="You can use **markdown** here! :pizza:" dismissible>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
