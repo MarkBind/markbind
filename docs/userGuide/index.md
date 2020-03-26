@@ -1,3 +1,3 @@
 <script>
-window.location.href = "gettingStarted.md"
+window.location.href = "gettingStarted.html"
 </script>
