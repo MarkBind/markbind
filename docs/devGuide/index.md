@@ -1,3 +1,3 @@
 <script>
-  window.location.href = ‘devGuide.html’
+  window.location.href = "devGuide.html"
 </script>
