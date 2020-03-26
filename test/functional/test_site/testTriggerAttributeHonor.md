@@ -1,4 +1,4 @@
-**Test Trigger Attribute is Honored**
+**Popover initiated by trigger should honor trigger attribute**
 
 <popover id="pop:xp-user-stories" trigger="click">
   popover
