@@ -79,6 +79,14 @@
     {
       "src": "testIncludePluginsRendered.md",
       "title": "Included files should have plugins rendered on them"
+    },
+    {
+      "src": "testIncludeMultipleModals.md",
+      "title": "Multiple inclusions of a modal should be supported"
+    },
+    {
+      "src": "testTriggerAttributeHonor.md",
+      "title": "Popover initiated by trigger should honor trigger attribute"
     }
   ],
   "ignore": [
