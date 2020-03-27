@@ -179,11 +179,11 @@ On Windows:
 
 When adding new features, you should also add new site content into an existing test site or create a new test site to demonstrate the new feature. This is to ensure that your feature can be tested by building that test site.
 
-1. Add a new test page, eg: newTestPage.md, containing a demonstration of the new feature.
+1. Add a new test page, e.g., `newTestPage.md`, containing a demonstration of the new feature.
 
 2. Open test\functional\test_site\site.json
 
-3. To include a new page, eg: newTestPage.md, add it to the pages array.
+3. To include a new page, e.g., `newTestPage.md`, add it to the pages array.
 
 ``` {heading="site.json" highlight-lines="16,17"}
 "pages": [
