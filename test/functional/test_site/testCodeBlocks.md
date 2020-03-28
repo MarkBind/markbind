@@ -62,3 +62,19 @@ function fourEmptyLinesBelow() {
 19
 20
 ```
+
+**Code block heading**
+
+```{heading="A heading"}
+<foo>
+    <bar>
+</foo>
+```
+
+**Code block heading with inline markdown**
+
+```{heading="**Bold**, _Italic_, ___Bold and Italic___, ~~Strike through~~, ****Super Bold****, ++Underline++, ==Highlight==, :+1: :exclamation: :x: :construction:<br>We support page breaks"}
+<foo>
+    <bar>
+</foo>
+```
