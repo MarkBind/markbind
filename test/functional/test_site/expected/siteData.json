@@ -297,7 +297,7 @@
       "headingKeywords": {}
     },
     {
-      "src": "testTriggerAttributeHonor.md",
+      "src": "testPopoverTrigger.md",
       "title": "Popover initiated by trigger should honor trigger attribute",
       "layout": "default",
       "globalOverrideProperty": "Overridden by global override",

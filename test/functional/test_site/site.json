@@ -85,7 +85,7 @@
       "title": "Multiple inclusions of a modal should be supported"
     },
     {
-      "src": "testTriggerAttributeHonor.md",
+      "src": "testPopoverTrigger.md",
       "title": "Popover initiated by trigger should honor trigger attribute"
     }
   ],
