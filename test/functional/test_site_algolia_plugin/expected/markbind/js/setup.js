@@ -53,9 +53,16 @@ function setupAnchors() {
          * by creating empty spans above the <h> tag we can prevent
          * the headings from being covered by the navbar.
          */
-        const spanId = heading.id;
-        heading.insertAdjacentHTML('beforebegin', `<span id="${spanId}" class="anchor"></span>`);
-        jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
+        const parentClass = jQuery(heading).parent().attr('class');
+        if (parentClass === undefined || !parentClass.includes('morph-display-wrapper')) {
+          const spanId = heading.id;
+          heading.insertAdjacentHTML('beforebegin', `<span id="${spanId}" class="anchor"></span>`);
+          jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
+        }
+        // No dummy span for morph panel to avoid undisplayed anchor point.
+        if (parentClass && parentClass.includes('morph-display-wrapper')) {
+          jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
+        }
       }
     }
   });

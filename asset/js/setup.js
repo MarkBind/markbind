@@ -54,7 +54,7 @@ function setupAnchors() {
          * the headings from being covered by the navbar.
          */
         const parentClass = jQuery(heading).parent().attr('class');
-        if (parentClass === undefined || !parentClass.includes('morph-display-wrapper')){
+        if (parentClass === undefined || !parentClass.includes('morph-display-wrapper')) {
           const spanId = heading.id;
           heading.insertAdjacentHTML('beforebegin', `<span id="${spanId}" class="anchor"></span>`);
           jQuery(heading).removeAttr('id'); // to avoid duplicated id problem

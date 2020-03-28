@@ -197,15 +197,15 @@
           <panel expanded=""><template slot="_header"><p>Panel with keyword</p></template>
             <span class="keyword">panel keyword</span></panel>
           <p><strong>Panel with heading with keyword</strong></p>
-          <panel expanded="" id="panel-with-heading"><template slot="_header"><h1 id="panel-with-heading">Panel with heading<a class="fa fa-anchor" href="#panel-with-heading"></a></h1></template>
+          <panel expanded="" id="panel-with-heading-panel"><template slot="_header"><h1 id="panel-with-heading">Panel with heading<a class="fa fa-anchor" href="#panel-with-heading"></a></h1></template>
             <span class="keyword">panel keyword</span></panel>
           <p><strong>Expanded panel without heading with keyword</strong></p>
-          <panel expanded="" id="panel-without-heading-with-keyword"><template slot="_header"><h1 id="panel-without-heading-with-keyword">Panel without heading with keyword<a class="fa fa-anchor" href="#panel-without-heading-with-keyword"></a></h1></template>
+          <panel expanded="" id="panel-without-heading-with-keyword-panel"><template slot="_header"><h1 id="panel-without-heading-with-keyword">Panel without heading with keyword<a class="fa fa-anchor" href="#panel-without-heading-with-keyword"></a></h1></template>
             <h1 id="keyword-should-be-tagged-to-this-heading-not-the-panel-heading">Keyword should be tagged to this heading, not the panel heading<a class="fa fa-anchor" href="#keyword-should-be-tagged-to-this-heading-not-the-panel-heading"></a></h1>
             <p><span class="keyword">panel keyword</span></p>
           </panel>
           <p><strong>Unexpanded panel with heading with keyword</strong>
-            <panel id="panel-with-heading-with-keyword"><template slot="_header"><h1 id="panel-with-heading-with-keyword">Panel with heading with keyword<a class="fa fa-anchor" href="#panel-with-heading-with-keyword"></a></h1></template></panel>
+            <panel id="panel-with-heading-with-keyword-panel"><template slot="_header"><h1 id="panel-with-heading-with-keyword">Panel with heading with keyword<a class="fa fa-anchor" href="#panel-with-heading-with-keyword"></a></h1></template></panel>
           </p>
           <h1 id="keyword-should-be-tagged-to-the-panel-heading-not-this-heading">Keyword should be tagged to the panel heading, not this heading<a class="fa fa-anchor" href="#keyword-should-be-tagged-to-the-panel-heading-not-this-heading"></a></h1>
           <p><span class="keyword">panel keyword</span></p>
@@ -446,42 +446,42 @@ specification that specifies how the product will address the requirements. </sp
         Heading
     </span></panel>
           <p><strong>Panel without src</strong></p>
-          <panel expanded="" id="panel-without-src-header"><template slot="_header"><h2 id="panel-without-src-header">Panel without src header<a class="fa fa-anchor" href="#panel-without-src-header"></a></h2></template>
+          <panel expanded="" id="panel-without-src-header-panel"><template slot="_header"><h2 id="panel-without-src-header">Panel without src header<a class="fa fa-anchor" href="#panel-without-src-header"></a></h2></template>
             <div>
               <p><strong>Panel without src content heading</strong></p>
             </div>
           </panel>
           <p><strong>Panel with normal src</strong></p>
-          <panel src="/test_site/testPanels/PanelNormalSource._include_.html" expanded="" id="panel-with-normal-src-header"><template slot="_header"><h2 id="panel-with-normal-src-header">Panel with normal src header<a class="fa fa-anchor" href="#panel-with-normal-src-header"></a></h2></template></panel>
+          <panel src="/test_site/testPanels/PanelNormalSource._include_.html" expanded="" id="panel-with-normal-src-header-panel"><template slot="_header"><h2 id="panel-with-normal-src-header">Panel with normal src header<a class="fa fa-anchor" href="#panel-with-normal-src-header"></a></h2></template></panel>
           <p><strong>Panel with src from a page segment</strong></p>
-          <panel src="/test_site/testPanels/PanelSourceContainsSegment._include_.html#segment" expanded="" fragment="segment" id="panel-with-src-from-a-page-segment-header"><template slot="_header"><h2 id="panel-with-src-from-a-page-segment-header">Panel with src from a page segment header<a class="fa fa-anchor" href="#panel-with-src-from-a-page-segment-header"></a></h2></template></panel>
+          <panel src="/test_site/testPanels/PanelSourceContainsSegment._include_.html#segment" expanded="" fragment="segment" id="panel-with-src-from-a-page-segment-header-panel"><template slot="_header"><h2 id="panel-with-src-from-a-page-segment-header">Panel with src from a page segment header<a class="fa fa-anchor" href="#panel-with-src-from-a-page-segment-header"></a></h2></template></panel>
           <p><strong>Panel with boilerplate</strong></p>
-          <panel src="/test_site/testPanels/boilerTestPanel._include_.html" expanded="" id="boilerplate-referencing"><template slot="_header"><h2 id="boilerplate-referencing">Boilerplate referencing<a class="fa fa-anchor" href="#boilerplate-referencing"></a></h2></template></panel>
-          <panel src="/test_site/testPanels/notInside._include_.html" expanded="" id="referencing-specified-path-in-boilerplate"><template slot="_header"><h2 id="referencing-specified-path-in-boilerplate">Referencing specified path in boilerplate<a class="fa fa-anchor" href="#referencing-specified-path-in-boilerplate"></a></h2></template></panel>
+          <panel src="/test_site/testPanels/boilerTestPanel._include_.html" expanded="" id="boilerplate-referencing-panel"><template slot="_header"><h2 id="boilerplate-referencing">Boilerplate referencing<a class="fa fa-anchor" href="#boilerplate-referencing"></a></h2></template></panel>
+          <panel src="/test_site/testPanels/notInside._include_.html" expanded="" id="referencing-specified-path-in-boilerplate-panel"><template slot="_header"><h2 id="referencing-specified-path-in-boilerplate">Referencing specified path in boilerplate<a class="fa fa-anchor" href="#referencing-specified-path-in-boilerplate"></a></h2></template></panel>
           <p><strong>Nested panel</strong></p>
-          <panel src="/test_site/testPanels/NestedPanel._include_.html" expanded="" id="outer-nested-panel"><template slot="_header"><h2 id="outer-nested-panel">Outer nested panel<a class="fa fa-anchor" href="#outer-nested-panel"></a></h2></template></panel>
+          <panel src="/test_site/testPanels/NestedPanel._include_.html" expanded="" id="outer-nested-panel-panel"><template slot="_header"><h2 id="outer-nested-panel">Outer nested panel<a class="fa fa-anchor" href="#outer-nested-panel"></a></h2></template></panel>
           <p><strong>Nested panel without src</strong></p>
-          <panel expanded="" id="outer-nested-panel-without-src"><template slot="_header"><h2 id="outer-nested-panel-without-src">Outer nested panel without src<a class="fa fa-anchor" href="#outer-nested-panel-without-src"></a></h2></template>
+          <panel expanded="" id="outer-nested-panel-without-src-panel"><template slot="_header"><h2 id="outer-nested-panel-without-src">Outer nested panel without src<a class="fa fa-anchor" href="#outer-nested-panel-without-src"></a></h2></template>
             <p><strong>Panel content of outer nested panel</strong></p>
-            <panel expanded="" id="inner-panel-header-without-src"><template slot="_header"><h2 id="inner-panel-header-without-src">Inner panel header without src<a class="fa fa-anchor" href="#inner-panel-header-without-src"></a></h2></template>
+            <panel expanded="" id="inner-panel-header-without-src-panel"><template slot="_header"><h2 id="inner-panel-header-without-src">Inner panel header without src<a class="fa fa-anchor" href="#inner-panel-header-without-src"></a></h2></template>
               <p><strong>Panel content of inner nested panel</strong></p>
             </panel>
           </panel>
           <p><strong>Panel with src from another Markbind site</strong></p>
-          <panel src="/test_site/sub_site/index._include_.html" expanded="" id="panel-with-src-from-another-markbind-site-header"><template slot="_header"><h2 id="panel-with-src-from-another-markbind-site-header">Panel with src from another Markbind site header<a class="fa fa-anchor" href="#panel-with-src-from-another-markbind-site-header"></a></h2></template></panel>
-          <panel src="/test_site/sub_site/testReuse._include_.html" expanded="" id="panel-with-src-from-another-markbind-site-header-2"><template slot="_header"><h2 id="panel-with-src-from-another-markbind-site-header-2">Panel with src from another Markbind site header<a class="fa fa-anchor" href="#panel-with-src-from-another-markbind-site-header-2"></a></h2></template></panel>
+          <panel src="/test_site/sub_site/index._include_.html" expanded="" id="panel-with-src-from-another-markbind-site-header-panel"><template slot="_header"><h2 id="panel-with-src-from-another-markbind-site-header">Panel with src from another Markbind site header<a class="fa fa-anchor" href="#panel-with-src-from-another-markbind-site-header"></a></h2></template></panel>
+          <panel src="/test_site/sub_site/testReuse._include_.html" expanded="" id="panel-with-src-from-another-markbind-site-header-2-panel"><template slot="_header"><h2 id="panel-with-src-from-another-markbind-site-header-2">Panel with src from another Markbind site header<a class="fa fa-anchor" href="#panel-with-src-from-another-markbind-site-header-2"></a></h2></template></panel>
         </div>
         <p><strong>Modal with panel inside</strong></p>
         <p><span for="modal-with-panel" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['modal-with-panel'].show()" class="trigger">trigger</span></p>
         <b-modal id="modal-with-panel" hide-footer="" size="" modal-class="mb-zoom" ref="modal-with-panel"><template slot="modal-title">modal title with panel inside</template>
-          <panel expanded="" id="panel-inside-modal"><template slot="_header"><h2 id="panel-inside-modal">Panel inside modal<a class="fa fa-anchor" href="#panel-inside-modal"></a></h2></template>
+          <panel expanded="" id="panel-inside-modal-panel"><template slot="_header"><h2 id="panel-inside-modal">Panel inside modal<a class="fa fa-anchor" href="#panel-inside-modal"></a></h2></template>
             <p><strong>Panel content inside modal</strong></p>
           </panel>
         </b-modal>
         <p><strong>Unexpanded panel</strong></p>
-        <panel id="unexpanded-panel-header"><template slot="_header"><h2 id="unexpanded-panel-header">Unexpanded panel header<a class="fa fa-anchor" href="#unexpanded-panel-header"></a></h2></template>
+        <panel id="unexpanded-panel-header-panel"><template slot="_header"><h2 id="unexpanded-panel-header">Unexpanded panel header<a class="fa fa-anchor" href="#unexpanded-panel-header"></a></h2></template>
           <p><strong>Panel content of unexpanded panel should not appear in search data</strong></p>
-          <panel expanded="" id="panel-header-inside-unexpanded-panel-should-not-appear-in-search-data"><template slot="_header"><h2 id="panel-header-inside-unexpanded-panel-should-not-appear-in-search-data">Panel header inside unexpanded panel should not appear in search data<a class="fa fa-anchor" href="#panel-header-inside-unexpanded-panel-should-not-appear-in-search-data"></a></h2></template>
+          <panel expanded="" id="panel-header-inside-unexpanded-panel-should-not-appear-in-search-data-panel"><template slot="_header"><h2 id="panel-header-inside-unexpanded-panel-should-not-appear-in-search-data">Panel header inside unexpanded panel should not appear in search data<a class="fa fa-anchor" href="#panel-header-inside-unexpanded-panel-should-not-appear-in-search-data"></a></h2></template>
             <p><strong>Panel content inside unexpanded panel should not appear in search data</strong></p>
           </panel>
         </panel>
