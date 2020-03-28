@@ -504,10 +504,10 @@ class Site {
     this.baseUrlMap.forEach((base) => {
       const userDefinedVariables = {};
       Object.assign(userDefinedVariables, markbindVariable);
-
+      const userDefinedVariablesPath = path.resolve(base, USER_VARIABLES_PATH);
+      const userDefinedVariablesDir = path.dirname(userDefinedVariablesPath);
       let content;
       try {
-        const userDefinedVariablesPath = path.resolve(base, USER_VARIABLES_PATH);
         content = fs.readFileSync(userDefinedVariablesPath, 'utf8');
       } catch (e) {
         content = '';
@@ -522,9 +522,27 @@ class Site {
       const $ = cheerio.load(content);
       $('variable,span').each(function () {
         const name = $(this).attr('name') || $(this).attr('id');
-        // Process the content of the variable with nunjucks, in case it refers to other variables.
-        const html = nunjuckUtils.renderEscaped(nunjucks, $(this).html(), userDefinedVariables);
-        userDefinedVariables[name] = html;
+        const variableSource = $(this).attr('from');
+
+        if (variableSource !== undefined) {
+          try {
+            const variableFilePath = path.resolve(userDefinedVariablesDir, variableSource);
+            const jsonData = fs.readFileSync(variableFilePath);
+            const varData = JSON.parse(jsonData);
+            Object.entries(varData).forEach(([varName, varValue]) => {
+              // Process the content of the variable with nunjucks, in case it refers to other variables.
+              const variableValue = nunjuckUtils.renderEscaped(nunjucks, varValue, userDefinedVariables);
+
+              userDefinedVariables[varName] = variableValue;
+            });
+          } catch (err) {
+            logger.warn(`Error ${err.message}`);
+          }
+        } else {
+          // Process the content of the variable with nunjucks, in case it refers to other variables.
+          const html = nunjuckUtils.renderEscaped(nunjucks, $(this).html(), userDefinedVariables);
+          userDefinedVariables[name] = html;
+        }
       });
     });
   }

@@ -18,6 +18,12 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 <include src="testFootnotes.md" />
 
+**Json Variable**
+
+{{ front }} {{ back }}
+
+{{ jsonVar1 }} {{ jsonVar2 }}
+
 **Variables that reference another variable**
 
 {{finalized_value}}
@@ -27,7 +33,9 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 **Page Variable**
 
 <variable name="page_variable">Page Variable</variable>
-{{ page_variable }}
+<variable from="jsonPageVariable.json" />
+
+{{ page_variable }} {{ json_page_variable }}
 
 **Page Variable with HTML and MD**
 
