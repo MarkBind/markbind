@@ -98,8 +98,11 @@ _(Optional)_ **The theme for the generated site.** Uses the default Bootstrap th
 
 **An array of pages to be rendered.**
 
-* **`src`**/**`glob`**: `src` can be used to specify a file e.g., `docs/index.md`.<br>
-    Alternatively, `glob` can be used to define a file pattern in the [_glob syntax_](https://en.wikipedia.org/wiki/Glob_(programming)) e.g., `**/*.md`.
+* **`src/glob`**
+  * `src` can be used to specify a single file, or an array of files.<br>
+  {{ icon_examples }} `docs/index.md` or `[ 'docs/index.md', 'docs/userGuide.md' ]` { .my-1 }
+  * `glob` can be used alternatively to define a file pattern in the [_glob syntax_](https://en.wikipedia.org/wiki/Glob_(programming)), or an array of such file patterns.<br>
+  {{ icon_examples }} `**/*.md` or `[ '**/*.md', '**/*.mbdf' ]` { .my-2 }
 * **`title`**: The page `<title>` for the generated web page. Titles specified here take priority over titles specified in the [front matter](addingPages.html#front-matter) of individual pages.
 * **`layout`**: The [layout](tweakingThePageStructure.html#page-layouts) to be used by the page. Default: `default`.
 * **`searchable`**: Specifies that the page(s) should be excluded from searching. Default: `yes`.

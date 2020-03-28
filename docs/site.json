@@ -4,32 +4,16 @@
   "titlePrefix": "MarkBind",
   "pages": [
     {
-      "glob": "**/*.mbd"
+      "glob": ["**/*.mbd", "*.md", "userGuide/*.md", "devGuide/*.md"]
     },
     {
-      "glob": "*.md"
-    },
-    {
-      "src": "index.md",
+      "src": [
+        "index.md",
+        "userGuide/fullSyntaxReference.md",
+        "userGuide/syntaxCheatSheet.md",
+        "userGuide/readerFacingFeatures.md"
+      ],
       "searchable": "no"
-    },
-    {
-      "glob": "userGuide/*.md"
-    },
-    {
-      "src": "userGuide/fullSyntaxReference.md",
-      "searchable": "no"
-    },
-    {
-      "src": "userGuide/syntaxCheatSheet.md",
-      "searchable": "no"
-    },
-    {
-      "src": "userGuide/readerFacingFeatures.md",
-      "searchable": "no"
-    },
-    {
-      "glob": "devGuide/*.md"
     }
   ],
   "plugins" : [
