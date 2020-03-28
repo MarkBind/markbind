@@ -15,6 +15,7 @@ const injectMarkdownItSpecialTags = require(
 
 const _ = {};
 _.difference = require('lodash/difference');
+_.flatMap = require('lodash/flatMap');
 _.get = require('lodash/get');
 _.has = require('lodash/has');
 _.includes = require('lodash/includes');
@@ -442,36 +443,38 @@ class Site {
    */
   collectAddressablePages() {
     const { pages } = this.siteConfig;
-    const addressableGlobs = pages.filter(page => page.glob);
-    this.addressablePages = pages.filter(page => page.src);
+    const pagesFromSrc = _.flatMap(pages.filter(page => page.src), page => (Array.isArray(page.src)
+      ? page.src.map(pageSrc => ({ ...page, src: pageSrc }))
+      : [page]));
     const set = new Set();
-    const duplicatePages = this.addressablePages
+    const duplicatePages = pagesFromSrc
       .filter(page => set.size === set.add(page.src).size)
       .map(page => page.src);
     if (duplicatePages.length > 0) {
       return Promise.reject(
         new Error(`Duplicate page entries found in site config: ${_.uniq(duplicatePages).join(', ')}`));
     }
-    const globPaths = addressableGlobs.reduce((globPages, addressableGlob) =>
-      globPages.concat(walkSync(this.rootPath, {
-        directories: false,
-        globs: [addressableGlob.glob],
-        ignore: [CONFIG_FOLDER_NAME, SITE_FOLDER_NAME],
-      }).map(globPath => ({
-        src: globPath,
-        searchable: addressableGlob.searchable,
-        layout: addressableGlob.layout,
-        frontmatter: addressableGlob.frontmatter,
-      }))), []);
-    // Add pages collected by walkSync and merge properties for pages
+    const pagesFromGlobs = _.flatMap(pages.filter(page => page.glob), page => walkSync(this.rootPath, {
+      directories: false,
+      globs: Array.isArray(page.glob) ? page.glob : [page.glob],
+      ignore: [CONFIG_FOLDER_NAME, SITE_FOLDER_NAME],
+    }).map(filePath => ({
+      src: filePath,
+      searchable: page.searchable,
+      layout: page.layout,
+      frontmatter: page.frontmatter,
+    })));
+    /*
+     Add pages collected from globs and merge properties for pages
+     Page properties collected from src have priority over page properties from globs,
+     while page properties from later entries take priority over earlier ones.
+     */
     const filteredPages = {};
-    globPaths.concat(this.addressablePages).forEach((page) => {
+    pagesFromGlobs.concat(pagesFromSrc).forEach((page) => {
       const filteredPage = _.omitBy(page, _.isUndefined);
-      if (page.src in filteredPages) {
-        filteredPages[page.src] = { ...filteredPages[page.src], ...filteredPage };
-      } else {
-        filteredPages[page.src] = filteredPage;
-      }
+      filteredPages[page.src] = page.src in filteredPages
+        ? { ...filteredPages[page.src], ...filteredPage }
+        : filteredPage;
     });
     this.addressablePages = Object.values(filteredPages);
 
@@ -501,10 +504,10 @@ class Site {
     this.baseUrlMap.forEach((base) => {
       const userDefinedVariables = {};
       Object.assign(userDefinedVariables, markbindVariable);
-
+      const userDefinedVariablesPath = path.resolve(base, USER_VARIABLES_PATH);
+      const userDefinedVariablesDir = path.dirname(userDefinedVariablesPath);
       let content;
       try {
-        const userDefinedVariablesPath = path.resolve(base, USER_VARIABLES_PATH);
         content = fs.readFileSync(userDefinedVariablesPath, 'utf8');
       } catch (e) {
         content = '';
@@ -519,9 +522,27 @@ class Site {
       const $ = cheerio.load(content);
       $('variable,span').each(function () {
         const name = $(this).attr('name') || $(this).attr('id');
-        // Process the content of the variable with nunjucks, in case it refers to other variables.
-        const html = nunjuckUtils.renderEscaped(nunjucks, $(this).html(), userDefinedVariables);
-        userDefinedVariables[name] = html;
+        const variableSource = $(this).attr('from');
+
+        if (variableSource !== undefined) {
+          try {
+            const variableFilePath = path.resolve(userDefinedVariablesDir, variableSource);
+            const jsonData = fs.readFileSync(variableFilePath);
+            const varData = JSON.parse(jsonData);
+            Object.entries(varData).forEach(([varName, varValue]) => {
+              // Process the content of the variable with nunjucks, in case it refers to other variables.
+              const variableValue = nunjuckUtils.renderEscaped(nunjucks, varValue, userDefinedVariables);
+
+              userDefinedVariables[varName] = variableValue;
+            });
+          } catch (err) {
+            logger.warn(`Error ${err.message}`);
+          }
+        } else {
+          // Process the content of the variable with nunjucks, in case it refers to other variables.
+          const html = nunjuckUtils.renderEscaped(nunjucks, $(this).html(), userDefinedVariables);
+          userDefinedVariables[name] = html;
+        }
       });
     });
   }

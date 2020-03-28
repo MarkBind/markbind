@@ -9,3 +9,4 @@
 <variable name="global_variable_overriding_included_variable">Global Variable Overriding Included Variable</variable>
 <variable name="global_variable">Global Variable</variable>
 <variable name="page_global_variable_overriding_page_variable">Global Variable Overriding Page Variable</variable>
+<variable from="variable.json"></variable>

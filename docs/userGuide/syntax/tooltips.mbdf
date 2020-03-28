@@ -22,9 +22,6 @@ Trigger
   <tooltip effect="scale" content="Lorem ipsum dolor sit amet" placement="top" trigger="click">
     <button class="btn btn-secondary">Click</button>
   </tooltip>
-  <tooltip effect="scale" content="Lorem ipsum dolor sit amet" placement="top" trigger="contextmenu">
-    <button class="btn btn-secondary">Contextmenu (right click)</button>
-  </tooltip>
   <br />
   <br />
   <tooltip effect="scale" content="Lorem ipsum dolor sit amet" placement="top" trigger="focus">
