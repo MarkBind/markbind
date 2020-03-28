@@ -181,7 +181,7 @@ When adding new features, you should also add new site content into an existing 
 
 1. Add a new test page, e.g., `newTestPage.md`, containing a demonstration of the new feature.
 
-2. Open test\functional\test_site\site.json
+2. Open `test/functional/test_site/site.json`
 
 3. To include a new page, e.g., `newTestPage.md`, add it to the pages array.
 
