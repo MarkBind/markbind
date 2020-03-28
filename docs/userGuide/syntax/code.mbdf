@@ -149,6 +149,25 @@ To add a heading, add the attribute `heading` with the heading text as the value
 </span>
 </include>
 
+Headings support inline Markdown, except for `Inline Code` and %%Dim%% text styles.
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```` {.no-line-numbers}
+```{heading="**Bold**, _Italic_, ___Bold and Italic___, ~~Strike through~~, ****Super Bold****, ++Underline++, ==Highlight==, :+1: :exclamation: :x: :construction:<br>We support page breaks"}
+<foo></foo>
+```
+````
+</span>
+<span id="output">
+
+```{heading="**Bold**, _Italic_, ___Bold and Italic___, ~~Strike through~~, ****Super Bold****, ++Underline++, ==Highlight==, :+1: :exclamation: :x: :construction:<br>We support page breaks"}
+<foo></foo>
+```
+</span>
+</include>
+
 ##### Using multiple features
 You can also use multiple features together, as shown below.
 

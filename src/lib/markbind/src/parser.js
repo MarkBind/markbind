@@ -9,6 +9,7 @@ const ensurePosix = require('ensure-posix-path');
 const componentParser = require('./parsers/componentParser');
 const componentPreprocessor = require('./preprocessors/componentPreprocessor');
 const nunjuckUtils = require('./utils/nunjuckUtils');
+const logger = require('../../../util/logger');
 
 const _ = {};
 _.clone = require('lodash/clone');
@@ -68,6 +69,7 @@ class Parser {
    */
   // eslint-disable-next-line class-methods-use-this
   extractPageVariables(fileName, data, userDefinedVariables, includedVariables) {
+    const fileDir = path.dirname(fileName);
     const $ = cheerio.load(data);
     const pageVariables = {};
     Parser.VARIABLE_LOOKUP.set(fileName, new Map());
@@ -93,20 +95,41 @@ class Parser {
         importedVariables[name] = `{{${alias}.${name}}}`;
       });
     });
+    const setPageVariable = (variableName, rawVariableValue) => {
+      const otherVariables = {
+        ...importedVariables,
+        ...pageVariables,
+        ...userDefinedVariables,
+        ...includedVariables,
+      };
+      const variableValue = nunjuckUtils.renderEscaped(nunjucks, rawVariableValue, otherVariables);
+      if (!pageVariables[variableName]) {
+        pageVariables[variableName] = variableValue;
+        Parser.VARIABLE_LOOKUP.get(fileName).set(variableName, variableValue);
+      }
+    };
     $('variable').each(function () {
       const variableElement = $(this);
       const variableName = variableElement.attr('name');
-      if (!variableName) {
-        // eslint-disable-next-line no-console
-        console.warn(`Missing 'name' for variable in ${fileName}\n`);
-        return;
-      }
-      if (!pageVariables[variableName]) {
-        const variableValue = nunjuckUtils.renderEscaped(nunjucks, md.renderInline(variableElement.html()), {
-          ...importedVariables, ...pageVariables, ...userDefinedVariables, ...includedVariables,
-        });
-        pageVariables[variableName] = variableValue;
-        Parser.VARIABLE_LOOKUP.get(fileName).set(variableName, variableValue);
+      const variableSource = $(this).attr('from');
+      if (variableSource !== undefined) {
+        try {
+          const variableFilePath = path.resolve(fileDir, variableSource);
+          const jsonData = fs.readFileSync(variableFilePath);
+          const varData = JSON.parse(jsonData);
+          Object.entries(varData).forEach(([varName, varValue]) => {
+            setPageVariable(varName, varValue);
+          });
+        } catch (err) {
+          logger.warn(`Error ${err.message}`);
+        }
+      } else {
+        if (!variableName) {
+          // eslint-disable-next-line no-console
+          console.warn(`Missing 'name' for variable in ${fileName}\n`);
+          return;
+        }
+        setPageVariable(variableName, md.renderInline(variableElement.html()));
       }
     });
     return { ...importedVariables, ...pageVariables };

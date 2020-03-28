@@ -152,6 +152,16 @@
       "headingKeywords": {}
     },
     {
+      "title": "Hello World",
+      "head": "overwriteLayoutHead.md",
+      "layout": "testLayout",
+      "src": "testLayoutsOverride.md",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
       "src": "testExternalScripts.md",
       "title": "Hello World",
       "layout": "default",
@@ -165,16 +175,6 @@
       "head": "overwriteLayoutHead.md",
       "layout": "testLayout",
       "src": "testLayouts.md",
-      "globalOverrideProperty": "Overridden by global override",
-      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
-      "headings": {},
-      "headingKeywords": {}
-    },
-    {
-      "title": "Hello World",
-      "head": "overwriteLayoutHead.md",
-      "layout": "testLayout",
-      "src": "testLayoutsOverride.md",
       "globalOverrideProperty": "Overridden by global override",
       "globalAndFrontMatterOverrideProperty": "Overridden by global override",
       "headings": {},
