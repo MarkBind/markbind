@@ -112,6 +112,7 @@ If you wish to further customize your navbar beyond the primary, dark, and light
 
 <modal header="Built-in background styles" id="modal:built-in-bg">
 <md>For instance, Bootstrap supports `.bg-danger`, `bg-info`, `bg-primary`, `bg-success`, `bg-warning` as background colors.</md>
+<md>In `{your-site}/_markbind/headers/header.md`, you can change `<navbar type="dark/primary/light">` to `<navbar type="none" add-class="bg-warning/danger/info/primary/success">` to apply Bootstrap background styles.</md>
 </modal>
 
 
