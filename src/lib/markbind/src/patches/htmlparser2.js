@@ -262,6 +262,29 @@ Tokenizer.prototype._stateBeforeSpecial = function(c) {
 };
 
 /**
+ * Patched self closing tag state handler that removes the special state
+ * if the special tag was self-closed.
+ */
+Tokenizer.prototype._stateInSelfClosingTag = function(c) {
+	if (c === ">") {
+		this._cbs.onselfclosingtag();
+		this._state = TEXT;
+		this._sectionStart = this._index + 1;
+		/*
+		 Allow all special tags to be self-closed.
+		 Script and style tags are also allowed to be self-closed,
+		 which breaks from the default html spec-compliant of behaviour of htmlparser2.
+		 We allow this as such tags would be expanded upon re-rendering the html anyway.
+		 ie. '<script ... />' would end up as '<script ...></script>'
+		 */
+		this._special = SPECIAL_NONE;
+	} else if (!whitespace(c)) {
+		this._state = BEFORE_ATTRIBUTE_NAME;
+		this._index--;
+	}
+};
+
+/**
  * Processes the _special flag and _nextSpecialTagMatchIndex state variable,
  * returning a flag indicating whether the current special tag has finished matching or not.
  */

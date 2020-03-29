@@ -18,6 +18,12 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 <include src="testFootnotes.md" />
 
+**Json Variable**
+
+{{ front }} {{ back }}
+
+{{ jsonVar1 }} {{ jsonVar2 }}
+
 **Variables that reference another variable**
 
 {{finalized_value}}
@@ -27,7 +33,9 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 **Page Variable**
 
 <variable name="page_variable">Page Variable</variable>
-{{ page_variable }}
+<variable from="jsonPageVariable.json" />
+
+{{ page_variable }} {{ json_page_variable }}
 
 **Page Variable with HTML and MD**
 
@@ -125,15 +133,11 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 <include src="requirements/EstablishingRequirements.md#preview" />
 
-**Dynamic include**
-
-<include src="requirements/SpecifyingRequirements.md" name="Dynamic Include" dynamic />
-
 **Boilerplate include**
 
 <include src="requirements/boilerTest.md" name="Boilerplate Referencing" boilerplate />
 
-<include src="requirements/notInside.md" name="Referencing specified path in boilerplate" boilerplate="folder/inside.md" dynamic/>
+<include src="requirements/notInside.md" name="Referencing specified path in boilerplate" boilerplate="folder/inside.md"/>
 
 **Nested include**
 
@@ -156,6 +160,38 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 **Include segment from another Markbind site**
 
 <include src="sub_site/testReuse.md#imageTest" />
+
+**Include nested sub-site directly**
+
+<box>
+<include src="sub_site/nested_sub_site/index.md" />
+</box>
+
+**Include nested sub-site from sub-site**
+
+<box>
+<include src="sub_site/testSubsiteAndNestedSubsiteBaseUrl.md" />
+</box>
+
+**Include a file using baseUrl**
+<include src="{{baseUrl}}/requirements/SpecifyingRequirements.md#preview" />
+<panel src="{{baseUrl}}/requirements/SpecifyingRequirements.md#preview" header="**same test with panels**" type="minimal" />
+
+**Include a file in a sub-folder that uses baseUrl**
+<include src="requirements/testBaseUrlInIncludeSrc.md" />
+<panel src="requirements/testBaseUrlInIncludeSrc.md" header="**same test with panels**" type="minimal" />
+
+**Include a file in a sub-folder that uses baseUrl using baseUrl**
+<include src="{{baseUrl}}/requirements/testBaseUrlInIncludeSrc.md" />
+<panel src="{{baseUrl}}/requirements/testBaseUrlInIncludeSrc.md" header="**same test with panels**" type="minimal" />
+
+**Include a file in a sub-site that uses baseUrl**
+<include src="sub_site/testBaseUrlInIncludeSrcSubSite.md" />
+<panel src="sub_site/testBaseUrlInIncludeSrcSubSite.md" header="**same test with panels**" type="minimal" />
+
+**Include a file in a sub-site that uses baseUrl using baseUrl**
+<include src="{{baseUrl}}/sub_site/testBaseUrlInIncludeSrcSubSite.md" />
+<panel src="{{baseUrl}}/sub_site/testBaseUrlInIncludeSrcSubSite.md" header="**same test with panels**" type="minimal" />
 
 **Trimmed include** 
 

@@ -179,20 +179,37 @@ program
 
         if (onePagePath) {
           const lazyReloadMiddleware = function (req, res, next) {
-            const isHtmlFile = req.url.endsWith('.html');
+            const urlExtension = path.posix.extname(req.url);
 
-            if (isHtmlFile) {
-              const isDynamicIncludeHtmlFile = req.url.endsWith('._include_.html');
+            const hasEndingSlash = req.url.endsWith('/');
+            const hasNoExtension = urlExtension === '';
+            const isHtmlFileRequest = urlExtension === '.html' || hasEndingSlash || hasNoExtension;
 
-              if (!isDynamicIncludeHtmlFile) {
-                const urlWithoutBaseUrl = req.url.replace(config.baseUrl, '');
-                const urlWithoutExtension = fsUtil.removeExtension(urlWithoutBaseUrl);
+            if (!isHtmlFileRequest || req.url.endsWith('._include_.html')) {
+              next();
+              return;
+            }
 
-                const didInitiateRebuild = site.changeCurrentPage(urlWithoutExtension);
-                if (didInitiateRebuild) {
-                  req.url = ensurePosix(path.join(config.baseUrl || '/', LAZY_LOADING_SITE_FILE_NAME));
-                }
+            if (hasNoExtension && !hasEndingSlash) {
+              // Urls of type 'host/userGuide' - check if 'userGuide' is a raw file or does not exist
+              const diskFilePath = path.resolve(rootFolder, req.url);
+              if (!fs.existsSync(diskFilePath) || !fs.isDirectorySync(diskFilePath)) {
+                // Request for a raw file
+                next();
+                return;
               }
+            }
+
+            const urlWithoutBaseUrl = req.url.replace(config.baseUrl, '');
+            // Map 'hostname/userGuide/' and 'hostname/userGuide' to hostname/userGuide/index.
+            const urlWithIndex = (hasNoExtension || hasEndingSlash)
+              ? path.posix.join(urlWithoutBaseUrl, 'index')
+              : urlWithoutBaseUrl;
+            const urlWithoutExtension = fsUtil.removeExtension(urlWithIndex);
+
+            const didInitiateRebuild = site.changeCurrentPage(urlWithoutExtension);
+            if (didInitiateRebuild) {
+              req.url = ensurePosix(path.join(config.baseUrl || '/', LAZY_LOADING_SITE_FILE_NAME));
             }
             next();
           };

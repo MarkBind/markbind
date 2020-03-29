@@ -1,5 +1,5 @@
-<include src="../plugins/filterTags.mbdf" />
+<include src="../plugins/tags.mbdf" />
 
 <span id="short" class="d-none">
-  <include src="../plugins/filterTags.mbdf#short" />
+  <include src="../plugins/tags.mbdf#short" />
 </span>

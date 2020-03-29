@@ -8,6 +8,7 @@ const CyclicReferenceError = require('../handlers/cyclicReferenceError.js');
 const md = require('../lib/markdown-it');
 const utils = require('../utils');
 const urlUtils = require('../utils/urls');
+const nunjuckUtils = require('../utils/nunjuckUtils');
 
 const _ = {};
 _.has = require('lodash/has');
@@ -107,9 +108,23 @@ function _getSrcFlagsAndFilePaths(element, context, config) {
   // We do this even if the src is not a url to get the hash, if any
   const includeSrc = url.parse(element.attribs.src);
 
-  const filePath = isUrl
-    ? element.attribs.src
-    : path.resolve(path.dirname(context.cwf), decodeURIComponent(includeSrc.path));
+  const baseUrlRegex = new RegExp('^{{\\s*baseUrl\\s*}}[/\\\\]');
+
+  let filePath;
+  if (isUrl) {
+    filePath = element.attribs.src;
+  } else {
+    const includePath = decodeURIComponent(includeSrc.path);
+
+    if (baseUrlRegex.test(includePath)) {
+      // The baseUrl has not been resolved during pre-processing, but we need the source file path
+      const parentSitePath = urlUtils.getParentSiteAbsolutePath(context.cwf, config.rootPath,
+                                                                config.baseUrlMap);
+      filePath = path.resolve(parentSitePath, includePath.replace(baseUrlRegex, ''));
+    } else {
+      filePath = path.resolve(path.dirname(context.cwf), includePath);
+    }
+  }
 
   const boilerplateFilePath = _getBoilerplateFilePath(element, config, filePath);
   const actualFilePath = boilerplateFilePath || filePath;
@@ -181,28 +196,6 @@ function _preProcessPanel(node, context, config, parser) {
  * Includes
  */
 
-
-function _rebaseReferenceForStaticIncludes(pageData, element, config) {
-  if (!config) return pageData;
-
-  if (!pageData.includes('{{baseUrl}}')) return pageData;
-
-  const filePath = element.attribs[ATTRIB_INCLUDE_PATH];
-  const fileBase = urlUtils.calculateNewBaseUrls(filePath, config.rootPath, config.baseUrlMap);
-
-  if (!fileBase.relative) return pageData;
-
-  const currentPath = element.attribs[ATTRIB_CWF];
-  const currentBase = urlUtils.calculateNewBaseUrls(currentPath, config.rootPath, config.baseUrlMap);
-
-  if (currentBase.relative === fileBase.relative) return pageData;
-
-  const newBase = fileBase.relative;
-  const newBaseUrl = `{{hostBaseUrl}}/${newBase}`;
-
-  return nunjucks.renderString(pageData, { baseUrl: newBaseUrl }, { path: filePath });
-}
-
 function _deleteIncludeAttributes(node) {
   const element = node;
 
@@ -236,30 +229,10 @@ function _isHtmlIncludingMarkdown(node, context, filePath) {
   return isIncludeSrcMd;
 }
 
-function _preprocessDynamicInclude(node, context, parser, hash, filePath, actualFilePath) {
-  const element = node;
-  element.name = 'panel';
-  element.attribs.src = filePath;
-
-  element.attribs['no-close'] = true;
-  element.attribs['no-switch'] = true;
-  element.attribs.header = element.attribs.name || '';
-
-  if (hash) {
-    element.attribs.fragment = hash.substring(1);
-  }
-
-  parser.dynamicIncludeSrc.push({ from: context.cwf, to: actualFilePath, asIfTo: element.attribs.src });
-  delete element.attribs.dynamic;
-
-  return element;
-}
-
 /**
  * PreProcesses includes.
  * Replaces it with an error node if the specified src is invalid,
  * or an empty node if the src is invalid but optional.
- * Replaces it with a panel with the appropriate content if the dynamic attribute is specified.
  */
 function _preprocessInclude(node, context, config, parser) {
   const element = node;
@@ -295,13 +268,9 @@ function _preprocessInclude(node, context, config, parser) {
 
   const isInline = _.has(element.attribs, 'inline');
   const isTrim = _.has(element.attribs, 'trim');
-  const isDynamic = _.has(element.attribs, 'dynamic');
 
   element.name = isInline ? 'span' : 'div';
   element.attribs[ATTRIB_INCLUDE_PATH] = filePath;
-
-  // Use a 'plain' panel for a dynamic include
-  if (isDynamic) return _preprocessDynamicInclude(element, context, parser, hash, filePath, actualFilePath);
 
   // No need to process url contents
   if (isUrl) return element;
@@ -317,7 +286,9 @@ function _preprocessInclude(node, context, config, parser) {
   parser.extractInnerVariablesIfNotProcessed(content, childContext, config, filePath);
 
   const innerVariables = parser.getImportedVariableMap(filePath);
-  const fileContent = nunjucks.renderString(content, { ...userDefinedVariables, ...innerVariables });
+  const fileContent = nunjuckUtils.renderEscaped(nunjucks, content, {
+    ...userDefinedVariables, ...innerVariables,
+  });
 
   _deleteIncludeAttributes(element);
 
@@ -355,7 +326,6 @@ function _preprocessInclude(node, context, config, parser) {
   if (isIncludeSrcMd) {
     actualContent = isInline ? actualContent : `\n\n${actualContent}\n`;
   }
-  actualContent = _rebaseReferenceForStaticIncludes(actualContent, element, config);
 
   // Flag with a data-included-from flag with the source filePath for calculating
   // the file path of dynamic resources ( images, anchors, plugin sources, etc. ) later

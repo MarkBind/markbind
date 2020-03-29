@@ -4,4 +4,6 @@
 
 * [Developer Guide]({{baseUrl}}/devGuide/devGuide.html)
 * [Maintainer Guide]({{baseUrl}}/devGuide/maintainerGuide.html)
+* [Contributing]({{baseUrl}}/devGuide/contributing.html)
+
 </navigation>

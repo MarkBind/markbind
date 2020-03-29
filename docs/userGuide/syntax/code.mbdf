@@ -10,7 +10,7 @@ Features:
 - Syntax coloring
 - Line numbering
 - Line highlighting
-- Code block headers 
+- Code block headers
 
 ##### Syntax coloring
 To enable syntax coloring, specify a language next to the backticks before the fenced code block.
@@ -38,7 +38,7 @@ To enable syntax coloring, specify a language next to the backticks before the f
 </span>
 
 ##### Line numbering
-Line numbers are automatically provided by default. To hide line numbers, add the class `no-line-numbers ` to the code block as below
+Line numbers are provided by default. To hide line numbers, add the class `no-line-numbers` to the code block as below
 
 <include src="outputBox.md" boilerplate >
 <span id="code">
@@ -60,6 +60,30 @@ Line numbers are automatically provided by default. To hide line numbers, add th
 ```
 </span>
 </include>
+
+You can have your line numbers start with a value other than `1` with the `start-from` attribute.
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```` {.no-line-numbers}
+```js {start-from=6}
+function add(a, b) {
+    return a + b;
+}
+```
+````
+</span>
+<span id="output">
+
+```js {start-from=6}
+function add(a, b) {
+    return a + b;
+}
+```
+</span>
+</include>
+
 
 ##### Line highlighting
 To highlight lines, add the attribute `highlight-lines` with the line numbers as value, as shown below. You can specify ranges or individual line numbers.
@@ -118,6 +142,49 @@ To add a heading, add the attribute `heading` with the heading text as the value
 <span id="output">
 
 ```xml {heading="Heading title"}
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+</span>
+</include>
+
+Headings support inline Markdown, except for `Inline Code` and %%Dim%% text styles.
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```` {.no-line-numbers}
+```{heading="**Bold**, _Italic_, ___Bold and Italic___, ~~Strike through~~, ****Super Bold****, ++Underline++, ==Highlight==, :+1: :exclamation: :x: :construction:<br>We support page breaks"}
+<foo></foo>
+```
+````
+</span>
+<span id="output">
+
+```{heading="**Bold**, _Italic_, ___Bold and Italic___, ~~Strike through~~, ****Super Bold****, ++Underline++, ==Highlight==, :+1: :exclamation: :x: :construction:<br>We support page breaks"}
+<foo></foo>
+```
+</span>
+</include>
+
+##### Using multiple features
+You can also use multiple features together, as shown below.
+
+<include src="outputBox.md" boilerplate >
+<span id="code">
+
+```` {.no-line-numbers}
+```xml {highlight-lines="2" heading="Heading title"}
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+````
+</span>
+<span id="output">
+
+```xml {highlight-lines="2" heading="Heading title"}
 <foo>
   <bar type="name">goo</bar>
 </foo>

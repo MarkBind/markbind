@@ -150,12 +150,16 @@
             <p>Here is a repeated footnote to <span for="pop:footnote1" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['pop:footnote1'].show()" class="trigger"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#footnote1" id="footnoteref1:1">[1]</a></sup></span></p>
             <p><strong>Inline footnotes:</strong> Here is an inline note.<span for="pop:footnote3" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['pop:footnote3'].show()" class="trigger"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#footnote3" id="footnoteref3">[3]</a></sup></span></p>
           </div>
+          <p><strong>Json Variable</strong></p>
+          <div> front back </div>
+          <p>Json Variable can be referenced Referencing jsonVar1: Json Variable can be referenced</p>
           <p><strong>Variables that reference another variable</strong></p>
           <p>This variable can be referenced.</p>
           <p>References can be several levels deep.</p>
           <p><strong>Page Variable</strong></p>
           <div></div>
-          Page Variable
+          <div></div>
+          <p>Page Variable Json Variable</p>
           <p><strong>Page Variable with HTML and MD</strong></p>
           <div></div>
           Page Variable with <span style="color: blue;">HTML</span> and <strong>Markdown</strong>
@@ -287,19 +291,21 @@
             <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
               do.</p>
           </div>
-          <p><strong>Dynamic include</strong></p>
-          <p>
-            <panel src="/test_site/requirements/SpecifyingRequirements._include_.html" name="Dynamic Include" no-close="true" no-switch="true"><template slot="_header"><p>Dynamic Include</p></template></panel>
-          </p>
           <p><strong>Boilerplate include</strong></p>
           <div name="Boilerplate Referencing">
             <p>
               <panel src="/test_site/requirements/UserStories._include_.html" no-close=""><template slot="_header"><p>Boilerplate Includes</p></template></panel>
             </p>
           </div>
-          <p>
-            <panel src="/test_site/requirements/notInside._include_.html" name="Referencing specified path in boilerplate" no-close="true" no-switch="true"><template slot="_header"><p>Referencing specified path in boilerplate</p></template></panel>
-          </p>
+          <div name="Referencing specified path in boilerplate">
+            <h1 id="path-within-the-boilerplate-folder-is-separately-specified">Path within the boilerplate folder is separately specified<a class="fa fa-anchor" href="#path-within-the-boilerplate-folder-is-separately-specified"></a></h1>
+            <p>Like static include, pages within the site should be able to use files located in folders within boilerplate.</p>
+            <p>Also, the boilerplate file name (e.g. <code>inside.md</code>) and the file that it is supposed to act as (<code>notInside.md</code>) can be different.</p>
+            <p>This file should behaves as if it is in the <code>requirements</code> folder:</p>
+            <panel src="/test_site/requirements/NonFunctionalRequirements._include_.html"><template slot="_header"><p>Tested with the folllowing include</p></template>
+              <p></p>
+            </panel>
+          </div>
           <p><strong>Nested include</strong></p>
           <div>
             <ol>
@@ -336,7 +342,9 @@ specification that specifies how the product will address the requirements. </sp
               <li>Versus play – Two players can play against each other.</li>
               <li>Timer – Additional fixed time restriction on the player.</li>
             </ol>
-            <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></div>
+            <div id="image">
+              <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></div>
+          </div>
           <div>
             <p>This is a page from another Markbind site. The purpose of this page is to ensure that reuse works as expected. All the following images should display correctly.</p>
             <p>Some variables:</p>
@@ -370,6 +378,69 @@ specification that specifies how the product will address the requirements. </sp
             <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png">
             <pic src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></pic>
           </div>
+          <p><strong>Include nested sub-site directly</strong></p>
+          <box>
+            <div>
+              <p><strong>baseUrl in a nested sub-site should correctly evaluate to the nested sub-site</strong></p>
+              <p>The base url in the nested_sub_site is /test_site/sub_site/nested_sub_site.</p>
+              <div>
+                <p><strong>baseUrl in a nested sub-site page's include should correctly evaluate to the nested sub-site</strong></p>
+                <p>The base url in the nested_sub_site page's include is /test_site/sub_site/nested_sub_site.</p>
+              </div>
+            </div>
+          </box>
+          <p><strong>Include nested sub-site from sub-site</strong></p>
+          <box>
+            <div>
+              <p><strong>baseUrl in a sub site should correctly evaluate</strong></p>
+              <p>The base url in sub_site is /test_site/sub_site.</p>
+              <p><strong>Subsite including nested subsite:</strong></p>
+              <box>
+                <div>
+                  <p><strong>baseUrl in a nested sub-site should correctly evaluate to the nested sub-site</strong></p>
+                  <p>The base url in the nested_sub_site is /test_site/sub_site/nested_sub_site.</p>
+                  <div>
+                    <p><strong>baseUrl in a nested sub-site page's include should correctly evaluate to the nested sub-site</strong></p>
+                    <p>The base url in the nested_sub_site page's include is /test_site/sub_site/nested_sub_site.</p>
+                  </div>
+                </div>
+              </box>
+            </div>
+          </box>
+          <p><strong>Include a file using baseUrl</strong></p>
+          <div>
+            <p>As we establish requirements, they should be recorded in some way for future reference, usually called a requirement specification. Furthermore, it is advisable to show these requirements to stakeholders, and refine requirements based on their
+              feedback. The next phase is to convert requirements into a product specification that specifies how the product will address the requirements.</p>
+          </div>
+          <panel src="/test_site/requirements/SpecifyingRequirements._include_.html#preview" type="minimal" fragment="preview"><template slot="_header"><p><strong>same test with panels</strong></p></template></panel>
+          <p><strong>Include a file in a sub-folder that uses baseUrl</strong></p>
+          <div>
+            <div>
+              <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
+                do.</p>
+            </div>
+          </div>
+          <panel src="/test_site/requirements/testBaseUrlInIncludeSrc._include_.html" type="minimal"><template slot="_header"><p><strong>same test with panels</strong></p></template></panel>
+          <p><strong>Include a file in a sub-folder that uses baseUrl using baseUrl</strong></p>
+          <div>
+            <div>
+              <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
+                do.</p>
+            </div>
+          </div>
+          <panel src="/test_site/requirements/testBaseUrlInIncludeSrc._include_.html" type="minimal"><template slot="_header"><p><strong>same test with panels</strong></p></template></panel>
+          <p><strong>Include a file in a sub-site that uses baseUrl</strong></p>
+          <div>
+            <div>
+              <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></div>
+          </div>
+          <panel src="/test_site/sub_site/testBaseUrlInIncludeSrcSubSite._include_.html" type="minimal"><template slot="_header"><p><strong>same test with panels</strong></p></template></panel>
+          <p><strong>Include a file in a sub-site that uses baseUrl using baseUrl</strong></p>
+          <div>
+            <div>
+              <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></div>
+          </div>
+          <panel src="/test_site/sub_site/testBaseUrlInIncludeSrcSubSite._include_.html" type="minimal"><template slot="_header"><p><strong>same test with panels</strong></p></template></panel>
           <p><strong>Trimmed include</strong></p>
           <p><strong><span>Fragment with leading spaces and newline</span></strong></p>
           <p><strong>Trimmed include fragment</strong></p>
@@ -442,7 +513,7 @@ specification that specifies how the product will address the requirements. </sp
         </div>
         <p><strong>Modal with panel inside</strong></p>
         <p><span for="modal-with-panel" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['modal-with-panel'].show()" class="trigger">trigger</span></p>
-        <b-modal id="modal-with-panel" ok-only="" size="" modal-class="mb-zoom" ref="modal-with-panel"><template slot="modal-title">modal title with panel inside</template>
+        <b-modal id="modal-with-panel" hide-footer="" size="" modal-class="mb-zoom" ref="modal-with-panel"><template slot="modal-title">modal title with panel inside</template>
           <panel expanded="" id="panel-inside-modal"><template slot="_header"><h2 id="panel-inside-modal">Panel inside modal<a class="fa fa-anchor" href="#panel-inside-modal"></a></h2></template>
             <p><strong>Panel content inside modal</strong></p>
           </panel>
@@ -549,6 +620,7 @@ specification that specifies how the product will address the requirements. </sp
                 <a class="nav-link py-1" href="#focus-groups">Focus groups&#x200E;</a>
               </nav>
             </nav>
+            <a class="nav-link py-1" href="#path-within-the-boilerplate-folder-is-separately-specified">Path within the boilerplate folder is separately specified&#x200E;</a>
             <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
               <a class="nav-link py-1" href="#feature-list">Feature list&#x200E;</a>
               <a class="nav-link py-1" href="#panel-without-src-header">Panel without src header&#x200E;</a>

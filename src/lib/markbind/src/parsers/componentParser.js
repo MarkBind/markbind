@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const _ = {};
 _.has = require('lodash/has');
 
-const vueAttrRenderer = require('../lib/vue-attribute-renderer');
+const md = require('../lib/markdown-it');
 
 cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
@@ -27,9 +27,9 @@ function _parseAttributeWithoutOverride(node, attribute, isInline, slotName = at
   if (!hasAttributeSlot && _.has(node.attribs, attribute)) {
     let rendered;
     if (isInline) {
-      rendered = vueAttrRenderer.renderInline(node.attribs[attribute]);
+      rendered = md.renderInline(node.attribs[attribute]);
     } else {
-      rendered = vueAttrRenderer.render(node.attribs[attribute]);
+      rendered = md.render(node.attribs[attribute]);
     }
 
     const attributeSlotElement = cheerio.parseHTML(
@@ -188,6 +188,11 @@ function _warnDeprecatedAttributes(node, attributeNamePairs) {
  * For modals, we make it attempt to show the modal if it exists.
  */
 
+function addTriggerClass(node, trigger) {
+  const triggerClass = trigger === 'click' ? 'trigger-click' : 'trigger';
+  node.attribs.class = node.attribs.class ? `${node.attribs.class} ${triggerClass}` : triggerClass;
+}
+
 function _parseTrigger(node) {
   node.name = 'span';
   const trigger = node.attribs.trigger || 'hover';
@@ -198,7 +203,7 @@ function _parseTrigger(node) {
     = 'tooltipContentGetter';
   const convertedTrigger = trigger === 'hover' ? 'mouseover' : trigger;
   node.attribs[`v-on:${convertedTrigger}`] = `$refs['${node.attribs.for}'].show()`;
-  node.attribs.class = node.attribs.class ? `${node.attribs.class} trigger` : 'trigger';
+  addTriggerClass(node, convertedTrigger);
 }
 
 /*
@@ -222,7 +227,7 @@ function _parsePopover(node) {
   node.attribs['data-mb-component-type'] = 'popover';
   node.attribs[`v-b-popover.${trigger}.${placement}.html`]
     = 'popoverInnerGenerator';
-  node.attribs.class = node.attribs.class ? `${node.attribs.class} trigger` : 'trigger';
+  addTriggerClass(node, trigger);
   _transformSlottedComponents(node);
 }
 
@@ -267,7 +272,7 @@ function _parseTooltip(node) {
   node.attribs['data-mb-component-type'] = 'tooltip';
   node.attribs[`v-b-tooltip.${trigger}.${placement}.html`]
     = 'tooltipInnerContentGetter';
-  node.attribs.class = node.attribs.class ? `${node.attribs.class} trigger` : 'trigger';
+  addTriggerClass(node, trigger);
   _transformSlottedComponents(node);
 }
 
@@ -311,7 +316,18 @@ function _parseModalAttributes(node) {
   _renameAttribute(node, 'ok-text', 'ok-title');
   _renameAttribute(node, 'center', 'centered');
 
-  node.attribs['ok-only'] = ''; // only show OK button
+  const hasOkTitle = _.has(node.attribs, 'ok-title');
+  const hasFooter = node.children.some(child =>
+    _.has(child.attribs, 'slot') && child.attribs.slot === 'modal-footer');
+
+  if (!hasFooter && !hasOkTitle) {
+    // markbind doesn't show the footer by default
+    node.attribs['hide-footer'] = '';
+  } else if (hasOkTitle) {
+    // bootstrap-vue default is to show ok and cancel
+    // if there's an ok-title, markbind only shows the OK button.
+    node.attribs['ok-only'] = '';
+  }
 
   if (node.attribs.backdrop === 'false') {
     node.attribs['no-close-on-backdrop'] = '';
@@ -356,7 +372,7 @@ function _parseBoxAttributes(node) {
   _warnConflictingAttributes(node, 'no-icon', ['icon']);
   _warnDeprecatedAttributes(node, { heading: 'header' });
 
-  _parseAttributeWithoutOverride(node, 'icon', true, '_icon');
+  _parseAttributeWithoutOverride(node, 'icon', true, 'icon');
   _parseAttributeWithoutOverride(node, 'header', false, '_header');
 
   _parseAttributeWithoutOverride(node, 'heading', false, '_header');
