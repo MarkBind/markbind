@@ -218,15 +218,14 @@ class Page {
      */
     this.keywords = {};
     /**
-     *
-     * @type {Object<string, Object>} An object storing the mapping from the
-     * navigable headings' id to an object of {text: NAV_TEXT, level: NAV_LEVEL}.
+     * An object storing the mapping from the navigable headings' id to an
+     * object of {text: NAV_TEXT, level: NAV_LEVEL}.
+     * @type {Object<string, Object>}
      */
     this.navigableHeadings = {};
     /**
-     *
-     * @type {Object<string, string>} A map from page section id to HTML content
-     * of that section.
+     * A map from page section id to HTML content of that section.
+     * @type {Object<string, string>}
      */
     this.pageSectionsHtml = {};
     /**
