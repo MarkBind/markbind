@@ -73,10 +73,10 @@ class Page {
    * @property {Object<string, Object<string, any>>} pluginsContext
    * @property {boolean} searchable
    * @property {string} src
-   * @property {string} pageTemplate // ??
+   * @property {string} pageTemplate template used for this page
    * @property {string} title
    * @property {string} titlePrefix
-   * @property {Object<string, any>} userDefinedVariablesMap // ??
+   * @property {Object<string, any>} userDefinedVariablesMap
    * @property {string} sourcePath the source file for rendering this page
    * @property {string} tempPath the temp path for writing intermediate result
    * @property {string} resultPath the output path of this page
@@ -87,55 +87,181 @@ class Page {
    * @param {PageConfig} pageConfig
    */
   constructor(pageConfig) {
+    /**
+     * @type {Object<string, any>}
+     */
     this.asset = pageConfig.asset;
+    /**
+     * @type {string}
+     */
     this.baseUrl = pageConfig.baseUrl;
+    /**
+     * @type {Set<any>}
+     */
     this.baseUrlMap = pageConfig.baseUrlMap;
+    /**
+     * @type {string|string}
+     */
     this.content = pageConfig.content || '';
+    /**
+     * @type {string}
+     */
     this.faviconUrl = pageConfig.faviconUrl;
+    /**
+     * @type {Object<string, any>|{}}
+     */
     this.frontmatterOverride = pageConfig.frontmatter || {};
+    /**
+     * @type {string}
+     */
     this.layout = pageConfig.layout;
+    /**
+     * @type {string}
+     */
     this.layoutsAssetPath = pageConfig.layoutsAssetPath;
+    /**
+     * @type {string}
+     */
     this.rootPath = pageConfig.rootPath;
+    /**
+     * @type {boolean}
+     */
     this.enableSearch = pageConfig.enableSearch;
+    /**
+     * @type {boolean}
+     */
     this.globalOverride = pageConfig.globalOverride;
+    /**
+     * @type {Array}
+     */
     this.plugins = pageConfig.plugins;
+    /**
+     * @type {Object<string, Object<string, any>>}
+     */
     this.pluginsContext = pageConfig.pluginsContext;
+    /**
+     * @type {boolean}
+     */
     this.searchable = pageConfig.searchable;
+    /**
+     * @type {string}
+     */
     this.src = pageConfig.src;
+    /**
+     * @type {string}
+     */
     this.template = pageConfig.pageTemplate;
+    /**
+     * @type {string|string}
+     */
     this.title = pageConfig.title || '';
+    /**
+     * @type {string}
+     */
     this.titlePrefix = pageConfig.titlePrefix;
+    /**
+     * @type {Object<string, any>}
+     */
     this.userDefinedVariablesMap = pageConfig.userDefinedVariablesMap;
 
-    // the source file for rendering this page
+    /**
+     * The source file for rendering this page
+     * @type {string}
+     */
     this.sourcePath = pageConfig.sourcePath;
-    // the temp path for writing intermediate result
+    /**
+     * The temp path for writing intermediate result
+     * @type {string}
+     */
     this.tempPath = pageConfig.tempPath;
-    // the output path of this page
+    /**
+     * The output path of this page
+     * @type {string}
+     */
     this.resultPath = pageConfig.resultPath;
 
+    /**
+     * https://markbind.org/userGuide/tweakingThePageStructure.html#front-matter
+     * @type {Object<string, any>}
+     */
     this.frontMatter = {};
+    /**
+     * @type {string}
+     */
     this.headFileBottomContent = '';
+    /**
+     * @type {string}
+     */
     this.headFileTopContent = '';
+    /**
+     * @type {Object<string, string>}
+     */
     this.headings = {};
+    /**
+     * https://markbind.org/userGuide/siteConfiguration.html#headingindexinglevel
+     * @type {number}
+     */
     this.headingIndexingLevel = pageConfig.headingIndexingLevel;
+    /**
+     * https://markbind.org/userGuide/reusingContents.html#includes
+     * @type {Set<any>}
+     */
     this.includedFiles = new Set();
+    /**
+     * https://markbind.org/userGuide/usingPlugins.html
+     * @type {Set<any>}
+     */
     this.pluginSourceFiles = new Set();
+    /**
+     * https://markbind.org/userGuide/makingTheSiteSearchable.html#keywords
+     * @type {Object<string, Array>}
+     */
     this.keywords = {};
+    /**
+     *
+     * @type {Object<string, Object>} An object storing the mapping from the
+     * navigable headings' id to an object of {text: NAV_TEXT, level: NAV_LEVEL}.
+     */
     this.navigableHeadings = {};
+    /**
+     *
+     * @type {Object<string, string>} A map from page section id to HTML content
+     * of that section.
+     */
     this.pageSectionsHtml = {};
+    /**
+     * Related to generating unique IDs for headers, please refer to parser.js.
+     * @type {Object<string, number>}
+     */
     this.headerIdMap = {};
 
-    // Flag to indicate whether this page has a site nav
+    /**
+     * Flag to indicate whether this page has a site nav.
+     * @type {boolean}
+     */
     this.hasSiteNav = false;
   }
 
-  // TODO(le0tan): document template data
   /**
    * A template data object.
    * @typedef {Object<string, any>} TemplateData
    * @property {Object<string, any>} asset
    * @property {string} baseUrl
+   * @property {string} content
+   * @property {string} faviconUrl
+   * @property {string} footerHtml
+   * @property {string} headerHtml
+   * @property {string} headFileBottomContent
+   * @property {string} headFileTopContent
+   * @property {string} markBindVersion A string of format `MarkBind {VERSION}`
+   * @property {boolean} pageNav true iff the page navigation is enabled.
+   * @property {string} pageNavHtml
+   * @property {boolean} siteNav true iff the site navigation is enabled.
+   * @property {string} siteNavHtml
+   * @property {string} title if title prefix is specified,
+   * this will be the prefixed title,
+   * otherwise the title itself.
+   * @property {boolean} enableSearch
    * /
 
   /**
@@ -180,6 +306,8 @@ class Page {
 
   /**
    * Generates element selector for page navigation, depending on specifier in front matter
+   * @param pageNav {string|number} 'default' refers to the configured heading indexing level,
+   * otherwise a number that indicates the indexing level.
    */
   generateElementSelectorForPageNav(pageNav) {
     if (pageNav === 'default') {
@@ -195,7 +323,7 @@ class Page {
   /**
    * Collect headings outside of models and unexpanded panels.
    * Collects headings from the header slots of unexpanded panels, but not its content.
-   * @param content, html content of a page
+   * @param content html content of a page
    */
   collectNavigableHeadings(content) {
     const { pageNav } = this.frontMatter;
@@ -452,7 +580,7 @@ class Page {
   /**
    * Produces expressive layouts by inserting page data into pre-specified layout
    * @param pageData a page with its front matter collected
-   * @param fileConfig
+   * @param {FileConfig} fileConfig
    */
   generateExpressiveLayout(pageData, fileConfig) {
     const nj = nunjucks;
@@ -795,7 +923,6 @@ class Page {
     return $.html();
   }
 
-
   collectPageSection(section) {
     const $ = cheerio.load(this.content, { xmlMode: false });
     const pageSection = $(section);
@@ -815,6 +942,15 @@ class Page {
     this.collectPageSection('footer');
   }
 
+  /**
+   * A file configuration object.
+   * @typedef {Object<string, any>} FileConfig
+   * @property {Set<any>} baseUrlMap
+   * @property {string} rootPath
+   * @property {Object<string, any>} userDefinedVariablesMap
+   * @property {Object<string, number>} headerIdMap
+   */
+
   generate(builtFiles) {
     this.includedFiles = new Set([this.sourcePath]);
     this.headerIdMap = {}; // Reset for live reload
@@ -822,6 +958,9 @@ class Page {
     const markbinder = new MarkBind({
       errorHandler: logger.error,
     });
+    /**
+     * @type {FileConfig}
+     */
     const fileConfig = {
       baseUrlMap: this.baseUrlMap,
       rootPath: this.rootPath,
@@ -895,7 +1034,20 @@ class Page {
   }
 
   /**
+   * A plugin configuration object.
+   * @typedef {Object<string, any>} PluginConfig
+   * @property {number} headingIndexingLevel
+   * @property {boolean} enableSearch
+   * @property {boolean} searchable
+   * @property {string} rootPath
+   * @property {string} sourcePath
+   * @property {Set} includedFiles
+   * @property {string} resultPath
+   */
+
+  /**
    * Retrieves page config for plugins
+   * @return {PluginConfig} pluginConfig
    */
   getPluginConfig() {
     return {
@@ -1151,6 +1303,11 @@ class Page {
     });
   }
 
+  /**
+   * Wraps the page in a div tag with id=CONTENT_WRAPPER_ID
+   * @param pageData
+   * @return {string}
+   */
   static addContentWrapper(pageData) {
     const $ = cheerio.load(pageData);
     $(`#${CONTENT_WRAPPER_ID}`)
