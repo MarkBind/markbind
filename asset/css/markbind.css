@@ -387,7 +387,7 @@ li.footnote-item:target {
 
 .trigger-click {
     cursor: pointer;
-    text-decoration: underline dashed;
+    border-bottom: 1px dashed currentColor;
 }
 
 .modal.mb-zoom {
