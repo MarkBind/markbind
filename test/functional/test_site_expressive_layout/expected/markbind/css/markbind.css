@@ -382,6 +382,7 @@ li.footnote-item:target {
 
 /* styles for triggers */
 .trigger {
+    display: inline-block;
     text-decoration: underline dotted;
 }
 
