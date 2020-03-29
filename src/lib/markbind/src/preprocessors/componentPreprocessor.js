@@ -108,9 +108,23 @@ function _getSrcFlagsAndFilePaths(element, context, config) {
   // We do this even if the src is not a url to get the hash, if any
   const includeSrc = url.parse(element.attribs.src);
 
-  const filePath = isUrl
-    ? element.attribs.src
-    : path.resolve(path.dirname(context.cwf), decodeURIComponent(includeSrc.path));
+  const baseUrlRegex = new RegExp('^{{\\s*baseUrl\\s*}}[/\\\\]');
+
+  let filePath;
+  if (isUrl) {
+    filePath = element.attribs.src;
+  } else {
+    const includePath = decodeURIComponent(includeSrc.path);
+
+    if (baseUrlRegex.test(includePath)) {
+      // The baseUrl has not been resolved during pre-processing, but we need the source file path
+      const parentSitePath = urlUtils.getParentSiteAbsolutePath(context.cwf, config.rootPath,
+                                                                config.baseUrlMap);
+      filePath = path.resolve(parentSitePath, includePath.replace(baseUrlRegex, ''));
+    } else {
+      filePath = path.resolve(path.dirname(context.cwf), includePath);
+    }
+  }
 
   const boilerplateFilePath = _getBoilerplateFilePath(element, config, filePath);
   const actualFilePath = boilerplateFilePath || filePath;

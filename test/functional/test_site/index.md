@@ -173,6 +173,26 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 <include src="sub_site/testSubsiteAndNestedSubsiteBaseUrl.md" />
 </box>
 
+**Include a file using baseUrl**
+<include src="{{baseUrl}}/requirements/SpecifyingRequirements.md#preview" />
+<panel src="{{baseUrl}}/requirements/SpecifyingRequirements.md#preview" header="**same test with panels**" type="minimal" />
+
+**Include a file in a sub-folder that uses baseUrl**
+<include src="requirements/testBaseUrlInIncludeSrc.md" />
+<panel src="requirements/testBaseUrlInIncludeSrc.md" header="**same test with panels**" type="minimal" />
+
+**Include a file in a sub-folder that uses baseUrl using baseUrl**
+<include src="{{baseUrl}}/requirements/testBaseUrlInIncludeSrc.md" />
+<panel src="{{baseUrl}}/requirements/testBaseUrlInIncludeSrc.md" header="**same test with panels**" type="minimal" />
+
+**Include a file in a sub-site that uses baseUrl**
+<include src="sub_site/testBaseUrlInIncludeSrcSubSite.md" />
+<panel src="sub_site/testBaseUrlInIncludeSrcSubSite.md" header="**same test with panels**" type="minimal" />
+
+**Include a file in a sub-site that uses baseUrl using baseUrl**
+<include src="{{baseUrl}}/sub_site/testBaseUrlInIncludeSrcSubSite.md" />
+<panel src="{{baseUrl}}/sub_site/testBaseUrlInIncludeSrcSubSite.md" header="**same test with panels**" type="minimal" />
+
 **Trimmed include** 
 
 **<include src="testTrimInclude.md" trim inline />**
