@@ -3,12 +3,15 @@
   "pages": [
     {
       "title": "Open Bugs",
-      "header": "header.md",
+      "header": "fixed_header.md",
+      "pageNav": 2,
       "src": "bugs/index.md",
       "layout": "default",
       "globalOverrideProperty": "Overridden by global override",
       "globalAndFrontMatterOverrideProperty": "Overridden by global override",
-      "headings": {},
+      "headings": {
+        "hello": "Hello"
+      },
       "headingKeywords": {}
     },
     {

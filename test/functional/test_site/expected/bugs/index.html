@@ -17,13 +17,14 @@
   <link rel="stylesheet" href="../markbind/css/markbind.css">
   <link rel="stylesheet" href="STYLESHEET_LINK">
   <link rel="stylesheet" href="../markbind/layouts/default/styles.css">
+  <link rel="stylesheet" href="../markbind/css/page-nav.css">
   <meta name="default-head-bottom">
   <link rel="icon" href="/test_site/favicon.png">
 </head>
 
-<body>
+<body data-spy="scroll" data-target="#page-nav" data-offset="100">
   <div id="app">
-    <header>
+    <header class="header-fixed">
       <navbar type="dark" class="temp-navbar">
         <a slot="brand" href="/" title="Home" class="navbar-brand">Markbind Test Site</a>
         <li><a class="nav-link" href="/test_site/bugs/index.html">Open Bugs</a></li>
@@ -35,6 +36,25 @@
     <div id="flex-body">
       <div id="content-wrapper">
         <div class="website-content">
+          <p><strong>Remove extra dummy spans for panel headers</strong></p>
+          <p><a href="https://github.com/MarkBind/markbind/issues/1104">Issue #1104</a></p>
+          <p><a href="https://github.com/MarkBind/markbind/issues/1071">Issue #1071</a></p>
+          <p>Repro:</p>
+          <panel id="hello-panel"><template slot="_header"><h1 id="hello">Hello<a class="fa fa-anchor" href="#hello"></a></h1></template> haha
+          </panel>
+          <p><strong>Make fixed navbar behind modals</strong></p>
+          <p><a href="https://github.com/MarkBind/markbind/issues/1069">Issue #1069</a></p>
+          <p>Repro: (This happens only when the modal is so long that it exceeds the area of the top navbar)</p>
+          <b-modal id="modal:loremipsum" hide-footer="" size="" modal-class="mb-zoom" ref="modal:loremipsum"><template slot="modal-title"><strong>Modal header</strong> 🚀</template> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+            mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem
+            ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing
+            elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+            esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </b-modal>
+          <br> This is the same <span for="modal:loremipsum" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['modal:loremipsum'].show()" class="trigger">trigger</span> as last one.
           <p><strong>popover initiated by trigger: honor trigger attribute</strong></p>
           <p><a href="https://github.com/MarkBind/markbind/issues/49">Issue #49</a></p>
           <p>Repro:</p>
@@ -75,6 +95,15 @@ of understanding what a software product should do.</p></div></div></span>
             <a href="https://github.com">link text</a>]</p>
         </div>
       </div>
+      <nav id="page-nav" class="navbar navbar-light bg-transparent">
+        <div class="border-left-grey nav-inner position-sticky slim-scroll">
+
+          <nav class="nav nav-pills flex-column my-0 small no-flex-wrap">
+            <a class="nav-link py-1" href="#hello">Hello&#x200E;</a>
+
+          </nav>
+        </div>
+      </nav>
     </div>
     <footer>
       <div class="text-center">
