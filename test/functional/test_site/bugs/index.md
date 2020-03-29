@@ -40,7 +40,7 @@ This is a link.
 **Problem with variables and boilerplates**
 
 ##### Sample User Guide Section
-To reproduce, in the main MarkDown file i.e. `index.md`, have a variable defined as fenced code, i.e. `myVar`. Then, in the boilerplate `outputBox.md`, the variable as rendered markdown is rendered correctly as expected, but as raw Markdown has addtional spans, henced showing up as blank lines in the code block.
+To reproduce, in the main MarkDown file i.e. `index.md`, have a variable defined as fenced code, i.e. `myVar`. Then, in the boilerplate `outputBox.md`, the variable as rendered markdown is rendered correctly as expected, but as raw Markdown has addtional spans, hence showing up as blank lines in the code block.
 <include src="outputBox.md" boilerplate >
 <variable name="myVar">
 ```html
