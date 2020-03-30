@@ -73,6 +73,22 @@ of understanding what a software product should do.</p></div></div></span>
           <p>Repro:</p>
           <p>This is a link. [
             <a href="https://github.com">link text</a>]</p>
+          <p><strong>Problem with variables and boilerplates</strong></p>
+          <h5 id="sample-user-guide-section">Sample User Guide Section<a class="fa fa-anchor" href="#sample-user-guide-section"></a></h5>
+          <p>To reproduce, in the main MarkDown file i.e. <code>index.md</code>, have a variable defined as fenced code, i.e. <code>myVar</code>. Then, in the boilerplate <code>outputBox.md</code>, the variable as rendered markdown is rendered correctly
+            as expected, but as raw Markdown has addtional spans, hence showing up as blank lines in the code block.</p>
+          <div>
+            <p><span class="dimmed">CODE:</span></p>
+            <div class="indented">
+              <pre><code class="no-line-numbers hljs"><span>&#x200B;</span><span>```html</span><span>&lt;foo&gt;</span><span>  &lt;bar type=&quot;name&quot;&gt;goo&lt;/bar&gt;</span><span>&lt;/foo&gt;</span><span>```</span><span>&#x200B;</span></code></pre>
+            </div>
+            <p><span class="dimmed">OUTPUT:</span></p>
+            <div class="indented">
+              <box border-left-color="grey" background-color="white">
+                <pre><code class="hljs html"><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span></span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span></span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span></span></code></pre>
+              </box>
+            </div>
+          </div>
         </div>
       </div>
     </div>

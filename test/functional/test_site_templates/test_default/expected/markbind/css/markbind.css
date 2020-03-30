@@ -451,3 +451,9 @@ pre {
 .copy-btn:focus {
     outline: none;
 }
+
+/* Octicon sizing */
+.octicon {
+    height: 1em;
+    width: 1em;
+}
