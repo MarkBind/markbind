@@ -15,83 +15,48 @@ Features:
 ##### Syntax coloring
 To enable syntax coloring, specify a language next to the backticks before the fenced code block.
 <span id="main-example">
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```` {.no-line-numbers}
+<include src="codeAndOutputCode.md" boilerplate >
+<variable name="code">
 ```xml
 <foo>
   <bar type="name">goo</bar>
 </foo>
 ```
-````
-</span>
-<span id="output">
-
-```xml
-<foo>
-  <bar type="name">goo</bar>
-</foo>
-```
-</span>
+</variable>
 </include>
 </span>
 
 ##### Line numbering
 Line numbers are provided by default. To hide line numbers, add the class `no-line-numbers` to the code block as below
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```` {.no-line-numbers}
+<include src="codeAndOutputCode.md" boilerplate >
+<variable name="code">
 ```xml {.no-line-numbers}
 <foo>
   <bar type="name">goo</bar>
 </foo>
 ```
-````
-</span>
-<span id="output">
-
-```xml {.no-line-numbers}
-<foo>
-  <bar type="name">goo</bar>
-</foo>
-```
-</span>
+</variable>
 </include>
 
 You can have your line numbers start with a value other than `1` with the `start-from` attribute.
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```` {.no-line-numbers}
+<include src="codeAndOutputCode.md" boilerplate >
+<variable name="code">
 ```js {start-from=6}
 function add(a, b) {
     return a + b;
 }
 ```
-````
-</span>
-<span id="output">
-
-```js {start-from=6}
-function add(a, b) {
-    return a + b;
-}
-```
-</span>
+</variable>
 </include>
 
 
 ##### Line highlighting
 To highlight lines, add the attribute `highlight-lines` with the line numbers as value, as shown below. You can specify ranges or individual line numbers.
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```` {.no-line-numbers}
+<include src="codeAndOutputCode.md" boilerplate >
+<variable name="code">
 ```java {highlight-lines="2,4,6-8"}
 import java.util.List;
 
@@ -105,90 +70,43 @@ public class Inventory {
     //...
 }
 ```
-````
-</span>
-<span id="output">
-
-```java {highlight-lines="2,4,6-8"}
-import java.util.List;
-
-public class Inventory {
-    private List<Item> items;
-
-    public int getItemCount(){
-        return items.size();
-    }
-
-    //...
-}
-```
-</span>
+</variable>
 </include>
 
 ##### Heading
 To add a heading, add the attribute `heading` with the heading text as the value, as shown below.
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```` {.no-line-numbers}
+<include src="codeAndOutputCode.md" boilerplate >
+<variable name="code">
 ```xml {heading="Heading title"}
 <foo>
   <bar type="name">goo</bar>
 </foo>
 ```
-````
-</span>
-<span id="output">
-
-```xml {heading="Heading title"}
-<foo>
-  <bar type="name">goo</bar>
-</foo>
-```
-</span>
+</variable>
 </include>
 
 Headings support inline Markdown, except for `Inline Code` and %%Dim%% text styles.
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```` {.no-line-numbers}
+<include src="codeAndOutputCode.md" boilerplate >
+<variable name="code">
 ```{heading="**Bold**, _Italic_, ___Bold and Italic___, ~~Strike through~~, ****Super Bold****, ++Underline++, ==Highlight==, :+1: :exclamation: :x: :construction:<br>We support page breaks"}
 <foo></foo>
 ```
-````
-</span>
-<span id="output">
-
-```{heading="**Bold**, _Italic_, ___Bold and Italic___, ~~Strike through~~, ****Super Bold****, ++Underline++, ==Highlight==, :+1: :exclamation: :x: :construction:<br>We support page breaks"}
-<foo></foo>
-```
-</span>
+</variable>
 </include>
 
 ##### Using multiple features
 You can also use multiple features together, as shown below.
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```` {.no-line-numbers}
+<include src="codeAndOutputCode.md" boilerplate >
+<variable name="code">
 ```xml {highlight-lines="2" heading="Heading title"}
 <foo>
   <bar type="name">goo</bar>
 </foo>
 ```
-````
-</span>
-<span id="output">
-
-```xml {highlight-lines="2" heading="Heading title"}
-<foo>
-  <bar type="name">goo</bar>
-</foo>
-```
+</variable>
 </span>
 </include>
 
@@ -198,20 +116,11 @@ You can also use multiple features together, as shown below.
 
 MarkBind can apply syntax-coloring on inline code too.
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```
-Consider the xml code `<bar type="name">goo</bar>`{.xml},
-or the java code `public static void main(String[] args)`{.java}.
-```
-
-</span>
-<span id="output">
-
+<include src="codeAndOutput.md" boilerplate >
+<variable name="code">
 Consider the xml code `<bar type="name">goo</bar>`{.xml},<br>
 or the java code `public static void main(String[] args)`{.java}.
-</span>
+</variable>
 </include>
 
 <span id="short" class="d-none">

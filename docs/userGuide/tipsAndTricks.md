@@ -13,23 +13,13 @@
 
 For Markdown syntax: To display a literal character that are normally used for Markdown formatting, add a backslash (`\`) in front of the character.
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```markdown
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
 \* item 1
 
-* item 1
-
-```
-</span>
-<span id="output">
-
-\* item 1
-
-* item 1
-</span>
-</include>
+* item 1 
+</variable>
 </span>
 
 <small>More info: [https://www.markdownguide.org/basic-syntax#escaping-characters](https://www.markdownguide.org/basic-syntax#escaping-characters)</small>

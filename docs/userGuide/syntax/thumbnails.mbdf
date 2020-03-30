@@ -2,10 +2,9 @@
 
 **A `thumbnail` component allows you to insert thumbnails using text, images, or icons.**
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```html
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
 <thumbnail circle src="../../images/deer.jpg" size="100"/>
 <thumbnail circle text=":book:" background="#dff5ff" size="100"/>
 <thumbnail circle text="___CS___" background="#333" font-color="white" size="100"/>
@@ -15,19 +14,7 @@
 <thumbnail text=":book:" background="#dff5ff" size="100"/>
 <thumbnail text="___CS___" background="#333" font-color="white" size="100"/>
 <thumbnail text=":fas-book:" font-color="darkgreen" border="3px solid darkgreen" size="100"/>
-```
-</span>#333
-<span id="output">
-<thumbnail circle src="../../images/deer.jpg" size="100"/>
-<thumbnail circle text=":book:" background="#dff5ff" size="100"/>
-<thumbnail circle text="___CS___" background="#333" font-color="white" size="100"/>
-<thumbnail circle text=":fas-book:" font-color="darkgreen" border="3px solid darkgreen" size="100"/>
-
-<thumbnail src="../../images/deer.jpg" size="100"/>
-<thumbnail text=":book:" background="#dff5ff" size="100"/>
-<thumbnail text="___CS___" background="#333" font-color="white" size="100"/>
-<thumbnail text=":fas-book:" font-color="darkgreen" border="3px solid darkgreen" size="100"/>
-</span>
+</variable>
 </include>
 
 ****Options****

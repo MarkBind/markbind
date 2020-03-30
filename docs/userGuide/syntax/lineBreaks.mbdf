@@ -2,22 +2,13 @@
 
 The preferred way to indicate line breaks is to use a `<br>` tag.
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```markdown
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
 This is the second sentence.<br>
 This should be on a new line.
 This will not be in a new line.
-```
-</span>
-<span id="output">
-
-This is the second sentence.<br>
-This should be on a new line.
-This will not be in a new line.
-</span>
-</include>
+</variable>
 
 <small>Alternate syntax: https://www.markdownguide.org/basic-syntax#line-breaks</small>
 

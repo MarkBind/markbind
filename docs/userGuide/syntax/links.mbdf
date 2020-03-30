@@ -3,40 +3,23 @@
 Basic style:
 
 <span id="main-example">
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```markdown
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
 MarkBind home is at [here](https://markbind.org).
-```
-</span>
-<span id="output">
-
-MarkBind home is at [here](https://markbind.org).
-</span>
+</variable>
 </include>
 </span>
 
 _Reference style_ links (i.e., specify the URL in a separate place):
 
-<include src="outputBox.md" boilerplate >
-
-<span id="code">
-
-```markdown
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
 MarkBind home is at [here][1].
 
 [1]: https://markbind.org
-
-```
-</span>
-<span id="output">
-
-MarkBind home is at [here][1]
-
-[1]: https://markbind.org
-
-</span>
+</variable>
 </include>
 
 <small>More info: https://www.markdownguide.org/basic-syntax#links</small>

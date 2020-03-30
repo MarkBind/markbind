@@ -1,17 +1,11 @@
 ## Emoji
 
 <span id="main-example">
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```markdown
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
 :+1: :exclamation: :x: :construction:
-```
-</span>
-<span id="output">
-
-:+1: :exclamation: :x: :construction:
-</span>
+</variable>
 </include>
 </span>
 

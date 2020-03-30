@@ -1,32 +1,21 @@
 ## Blockquotes
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```markdown
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
 Normal text
 > Blockquote, first paragraph
 >
 > Second paragraph
 >> Nested quoteblock
-```
-</span>
-<span id="output">
-
-Normal text
-> Blockquote, first paragraph
->
-> Second paragraph
->> Nested blockquote
-</span>
+</variable>
 </include>
 
 Alternatively, you can use `<blockquote>` tags:
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```markdown
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
 Normal text
 <blockquote>
 Blockquote, first paragraph
@@ -36,20 +25,7 @@ Second paragraph
 Nested blockquote
 </blockquote>
 </blockquote>
-```
-</span>
-<span id="output">
-
-Normal text
-<blockquote>
-Blockquote, first paragraph
-
-Second paragraph
-<blockquote>
-Nested blockquote
-</blockquote>
-</blockquote>
-</span>
+</variable>
 </include>
 
 <small>More info: https://www.markdownguide.org/basic-syntax#blockquotes-1</small>

@@ -3,21 +3,13 @@
 You can prepend the heading text with 1-6 `#` characters to indicate headings of levels 1-6.
 
 <span id="main-example">
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```markdown
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
 ### Heading level 3
 ...
 ###### Heading level 6
-```
-</span>
-<span id="output">
-
-### Heading level 3
-...
-###### Heading level 6
-</span>
+</variable>
 </include>
 </span>
 
