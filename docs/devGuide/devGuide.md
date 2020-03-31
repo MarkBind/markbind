@@ -183,7 +183,7 @@ When adding new features, you should also add new site content into an existing 
 
 2. Open `test/functional/test_site/site.json`
 
-3. To include a new page, e.g., `newTestPage.md`, add it to the pages array.
+3. To include the new page, i.e. `newTestPage.md`, add it to the `pages` array.
 
 ``` {heading="site.json" highlight-lines="16,17"}
 "pages": [
