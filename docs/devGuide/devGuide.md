@@ -175,7 +175,7 @@ On Windows:
   You should always check that the generated output is correct before committing any changes to the test sites.
 </box>
 
-#### Adding site content
+#### Adding test site content
 
 When adding new features, you should also add new site content into an existing test site or create a new test site to demonstrate the new feature. This is to ensure that your feature can be tested by building that test site.
 
