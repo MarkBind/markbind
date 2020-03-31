@@ -179,6 +179,8 @@ On Windows:
 
 When adding new features, you should also add new site content into an existing test site or create a new test site to demonstrate the new feature. This is to ensure that your feature can be tested by building that test site.
 
+To add a page to an existing test site, for this example, to `test_site`:
+
 1. Add a new test page, e.g., `newTestPage.md`, containing a demonstration of the new feature.
 
 2. Open the `site.json` corresponding to the test site, i.e. `test/functional/test_site/site.json`
@@ -210,7 +212,7 @@ When adding new features, you should also add new site content into an existing 
 4. Update the tests.
 
 <box type="info">
-  When creating a new test site, the directory name of the new test site should be added to <code>test/functional</code>.
+  When creating a new test site, the directory name of the new test site should be added to <code>test/functional/test_sites</code>.
 </box>
 
 ### Using ESLint
