@@ -64,7 +64,7 @@ The site generation logic is as follows:
 2. Create a Site model, where the site's root path is where `site.json` is located. The site model knows all the pages it contains, as well as the static assets. Static assets, such as stylesheets and JavaScript libraries, will be scanned and filtered, and then copied to the generated site folder (`_site/`).
 3. The Site model will create different Page models, and each Page model will generate a HTML page at the designated file location by calling MarkBind core library's *include* and *render* APIs.
 
-The generated page is rendered using [EJS](https://github.com/mde/ejs) and [nunjucks](https://mozilla.github.io/nunjucks/), and the page template could be found at `lib/template/page.ejs`.
+The generated page is rendered using [nunjucks](https://mozilla.github.io/nunjucks/), and the page template could be found at `lib/template/page.njk`.
 
 Static assets of MarkBind, such as stylesheets and JavaScript libraries, are located in `asset/` folder. They will be copied to the generated site and used in the generated pages. For each version update of VueStrap, copy the built library file to overwrite `asset/js/vue-strap.min.js`.
 
