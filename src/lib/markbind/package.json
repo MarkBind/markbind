@@ -1,6 +1,6 @@
 {
   "name": "markbind",
-  "version": "2.11.0",
+  "version": "2.12.0",
   "description": "MarkBind core module.",
   "main": "src/parser.js",
   "keywords": [
@@ -16,6 +16,7 @@
     "@sindresorhus/slugify": "^0.9.1",
     "bluebird": "^3.7.2",
     "cheerio": "^0.22.0",
+    "ensure-posix-path": "^1.1.1",
     "fastmatter": "^2.1.1",
     "highlight.js": "^9.14.2",
     "htmlparser2": "^3.10.1",

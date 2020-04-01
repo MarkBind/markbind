@@ -17,7 +17,7 @@
       "layout": "testAfterSetup"
     },
     {
-      "src": "testEmptyFrontmatter.md",
+      "src": ["testEmptyFrontmatter.md", "testLayoutsOverride.md"],
       "title": "Hello World",
       "layout": "testLayout"
     },
@@ -34,15 +34,7 @@
       "title": "Hello World"
     },
     {
-      "src": "testLayoutsOverride.md",
-      "title": "Hello World",
-      "layout": "testLayout"
-    },
-    {
-      "glob": "**/index.md"
-    },
-    {
-      "glob": "**/test_md_fragment.md"
+      "glob": ["**/index.md", "**/test_md_fragment.md"]
     },
     {
       "src": "testAntiFOUCStyles.md",
@@ -75,6 +67,10 @@
     {
       "src": "testCodeBlocks.md",
       "title": "Code Blocks Line Splitting"
+    },
+    {
+      "src": "testIncludePluginsRendered.md",
+      "title": "Included files should have plugins rendered on them"
     }
   ],
   "ignore": [

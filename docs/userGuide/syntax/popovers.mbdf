@@ -36,8 +36,8 @@
   <popover effect="scale" header="Header" content="Lorem ipsum dolor sit amet" placement="top" trigger="hover">
     <button class="btn btn-secondary">Mouseenter</button>
   </popover>
-  <popover effect="scale" header="Header" content="Lorem ipsum dolor sit amet" placement="top" trigger="contextmenu">
-    <button class="btn btn-secondary">Contextmenu (right click)</button>
+  <popover effect="scale" header="Header" content="Lorem ipsum dolor sit amet" placement="top" trigger="click">
+    <button class="btn btn-secondary">Click</button>
   </popover>
 </p>
 <h4 class="no-index">Markdown</h4>
@@ -93,9 +93,6 @@
   <popover effect="scale" header="Header" content="Lorem ipsum dolor sit amet" placement="top" trigger="hover">
     <button class="btn btn-secondary">Mouseenter</button>
   </popover>
-  <popover effect="scale" header="Header" content="Lorem ipsum dolor sit amet" placement="top" trigger="contextmenu">
-    <button class="btn btn-secondary">Contextmenu (right click)</button>
-  </popover>
 </p>
 <h4 class="no-index">Markdown</h4>
 <p>
@@ -146,8 +143,7 @@ This is the same <trigger for="pop:trigger_id">trigger</trigger> as last one.
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------
-trigger | `String` |	`hover`	| How the Popover is triggered.<br>Supports: `click`, `focus`, `hover`, `contextmenu`.
-effect | `String` | `fade` | Transition effect for Popover.<br>Supports: `scale`, `fade`.
+trigger | `String` |	`hover`	| How the Popover is triggered.<br>Supports: `click`, `focus`, `hover`.
 header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>title <br> (deprecated)</small> | `String` | `''` | Popover header, supports inline markdown text.
 content | `String` | `''` | Popover content, supports inline markdown text.
 placement | `String` | `top` | How to position the Popover.<br>Supports: `top`, `left`, `right`, `bottom`.

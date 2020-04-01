@@ -25,6 +25,40 @@ pre > code.hljs {
     counter-reset: line;
 }
 
+pre > code.hljs[heading] {
+    border-top-right-radius: 0;
+}
+
+.code-block {
+    position: relative;
+}
+
+.code-block-heading {
+    background-color: #f2f2ff;
+    border-radius: 6px 6px 0 0;
+    color: #8787a5;
+    float: right;
+    font-size: 85%;
+    line-height: 1;
+    max-width: 85%;
+    overflow-wrap: break-word;
+    padding: 0.25em 0.4em;
+    text-align: right;
+}
+
+.inline-markdown-heading {
+    line-height: 1.5;
+}
+
+.code-block-content {
+    clear: both;
+    display: block;
+}
+
+code > span.highlighted {
+    background: lavender;
+}
+
 kbd {
     background-color: #fafbfc;
     border: 1px solid #c6cbd1;
@@ -94,7 +128,7 @@ code.hljs:hover {
 header.header-fixed {
     position: fixed;
     width: 100%;
-    z-index: 9999;
+    z-index: 1000;
 }
 
 /* #app is treated as the main container */
@@ -112,10 +146,10 @@ header.header-fixed {
 #content-wrapper {
     flex: 1;
     margin: 0 auto;
+    min-width: 0;
     max-width: 1000px;
     padding: 0 20px;
     transition: 0.4s;
-    width: 100%;
     -webkit-transition: 0.4s;
 }
 
@@ -339,4 +373,86 @@ li.footnote-item:target {
     text-align: right;
     top: 0;
     width: 3em;
+}
+
+/* hide popover, modal, tooltip content */
+[data-mb-html-for] {
+    display: none;
+}
+
+/* styles for triggers */
+.trigger {
+    border-bottom: 1px dashed currentColor;
+}
+
+.trigger-click {
+    cursor: pointer;
+    border-bottom: 1px dashed currentColor;
+}
+
+.modal.mb-zoom {
+    -webkit-transform: scale(0.1);
+    -moz-transform: scale(0.1);
+    -ms-transform: scale(0.1);
+    transform: scale(0.1);
+    opacity: 0;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.modal.mb-zoom.show {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* "Copy" code block button */
+pre {
+    position: relative;
+}
+
+.copy-btn {
+    background-color: #b4b4b9;
+    border-radius: 0.25rem;
+    color: #f8f8ff;
+    display: inline-block;
+    font-size: 75%;
+    line-height: 1;
+    padding: 0.25em 0.4em;
+    position: absolute;
+    right: 0.5em;
+    text-align: center;
+    top: 0.4em;
+    white-space: nowrap;
+}
+
+.copy-btn:hover {
+    color: #555;
+}
+
+.copy-btn-body {
+    align-items: center;
+    display: flex;
+}
+
+.copy-btn svg {
+    fill: currentColor;
+    margin-right: 0.4em;
+}
+
+.copy-btn-label {
+    font-size: 11px;
+}
+
+.copy-btn:focus {
+    outline: none;
+}
+
+/* Octicon sizing */
+.octicon {
+    height: 1em;
+    width: 1em;
 }

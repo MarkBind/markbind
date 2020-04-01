@@ -18,14 +18,10 @@
         "title": "Hello World"
       },
       {
-        "glob": "**/index.md"
-      },
-      {
-        "glob": "**/*.+(md|mbd)"
+        "glob": ["**/index.md", "**/*.+(md|mbd)"]
       }
     ],
     "deploy": {
       "message": "Site Update."
     }
-  }
-  
+}

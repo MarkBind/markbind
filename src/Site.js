@@ -8,9 +8,14 @@ const Promise = require('bluebird');
 const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
 const MarkBind = require('./lib/markbind/src/parser');
+const nunjuckUtils = require('./lib/markbind/src/utils/nunjuckUtils');
+const injectHtmlParser2SpecialTags = require('./lib/markbind/src/patches/htmlparser2');
+const injectMarkdownItSpecialTags = require(
+  './lib/markbind/src/lib/markdown-it/markdown-it-escape-special-tags');
 
 const _ = {};
 _.difference = require('lodash/difference');
+_.flatMap = require('lodash/flatMap');
 _.get = require('lodash/get');
 _.has = require('lodash/has');
 _.includes = require('lodash/includes');
@@ -45,6 +50,9 @@ const {
   LAYOUT_DEFAULT_NAME,
   LAYOUT_FOLDER_PATH,
   LAYOUT_SITE_FOLDER_NAME,
+  LAZY_LOADING_SITE_FILE_NAME,
+  LAZY_LOADING_BUILD_TIME_RECOMMENDATION_LIMIT,
+  LAZY_LOADING_REBUILD_TIME_RECOMMENDATION_LIMIT,
   MARKBIND_PLUGIN_PREFIX,
   MARKBIND_WEBSITE_URL,
   PAGE_TEMPLATE_NAME,
@@ -121,11 +129,17 @@ class Site {
     this.addressablePages = [];
     this.baseUrlMap = new Set();
     this.forceReload = forceReload;
-    this.onePagePath = onePagePath;
     this.plugins = {};
     this.siteConfig = {};
     this.siteConfigPath = siteConfigPath;
     this.userDefinedVariablesMap = {};
+
+    // Lazy reload properties
+    this.onePagePath = onePagePath;
+    this.currentPageViewed = onePagePath
+      ? path.resolve(this.rootPath, FsUtil.removeExtension(onePagePath))
+      : '';
+    this.toRebuild = new Set();
   }
 
   /**
@@ -167,6 +181,22 @@ class Site {
     });
   }
 
+  /**
+   * Changes the site variable of the current page being viewed, building it if necessary.
+   * @param normalizedUrl BaseUrl-less and extension-less url of the page
+   * @return Boolean of whether the page needed to be rebuilt
+   */
+  changeCurrentPage(normalizedUrl) {
+    this.currentPageViewed = path.join(this.rootPath, normalizedUrl);
+
+    if (this.toRebuild.has(this.currentPageViewed)) {
+      this.rebuildPageBeingViewed(this.currentPageViewed);
+      return true;
+    }
+
+    return false;
+  }
+
   readSiteConfig(baseUrl) {
     return new Promise((resolve, reject) => {
       const siteConfigPath = path.join(this.rootPath, this.siteConfigPath);
@@ -198,7 +228,6 @@ class Site {
 
   createPage(config) {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
-    const tempPath = path.join(this.tempPath, config.pageSrc);
     const resultPath = path.join(this.outputPath, Site.setExtension(config.pageSrc, '.html'));
     return new Page({
       baseUrl: this.siteConfig.baseUrl,
@@ -222,7 +251,6 @@ class Site {
       headingIndexingLevel: this.siteConfig.headingIndexingLevel || HEADING_INDEXING_LEVEL_DEFAULT,
       userDefinedVariablesMap: this.userDefinedVariablesMap,
       sourcePath,
-      tempPath,
       resultPath,
       asset: {
         bootstrap: path.relative(path.dirname(resultPath),
@@ -402,10 +430,11 @@ class Site {
    * Updates the paths to be traversed as addressable pages and returns a list of filepaths to be deleted
    */
   updateAddressablePages() {
-    const oldAddressablePages = this.addressablePages.slice();
+    const oldAddressablePagesSources = this.addressablePages.slice().map(page => page.src);
     this.collectAddressablePages();
-    return _.difference(oldAddressablePages.map(page => page.src),
-                        this.addressablePages.map(page => page.src))
+    const newAddressablePagesSources = this.addressablePages.map(page => page.src);
+
+    return _.difference(oldAddressablePagesSources, newAddressablePagesSources)
       .map(filePath => Site.setExtension(filePath, '.html'));
   }
 
@@ -414,36 +443,38 @@ class Site {
    */
   collectAddressablePages() {
     const { pages } = this.siteConfig;
-    const addressableGlobs = pages.filter(page => page.glob);
-    this.addressablePages = pages.filter(page => page.src);
+    const pagesFromSrc = _.flatMap(pages.filter(page => page.src), page => (Array.isArray(page.src)
+      ? page.src.map(pageSrc => ({ ...page, src: pageSrc }))
+      : [page]));
     const set = new Set();
-    const duplicatePages = this.addressablePages
+    const duplicatePages = pagesFromSrc
       .filter(page => set.size === set.add(page.src).size)
       .map(page => page.src);
     if (duplicatePages.length > 0) {
       return Promise.reject(
         new Error(`Duplicate page entries found in site config: ${_.uniq(duplicatePages).join(', ')}`));
     }
-    const globPaths = addressableGlobs.reduce((globPages, addressableGlob) =>
-      globPages.concat(walkSync(this.rootPath, {
-        directories: false,
-        globs: [addressableGlob.glob],
-        ignore: [CONFIG_FOLDER_NAME, SITE_FOLDER_NAME],
-      }).map(globPath => ({
-        src: globPath,
-        searchable: addressableGlob.searchable,
-        layout: addressableGlob.layout,
-        frontmatter: addressableGlob.frontmatter,
-      }))), []);
-    // Add pages collected by walkSync and merge properties for pages
+    const pagesFromGlobs = _.flatMap(pages.filter(page => page.glob), page => walkSync(this.rootPath, {
+      directories: false,
+      globs: Array.isArray(page.glob) ? page.glob : [page.glob],
+      ignore: [CONFIG_FOLDER_NAME, SITE_FOLDER_NAME],
+    }).map(filePath => ({
+      src: filePath,
+      searchable: page.searchable,
+      layout: page.layout,
+      frontmatter: page.frontmatter,
+    })));
+    /*
+     Add pages collected from globs and merge properties for pages
+     Page properties collected from src have priority over page properties from globs,
+     while page properties from later entries take priority over earlier ones.
+     */
     const filteredPages = {};
-    globPaths.concat(this.addressablePages).forEach((page) => {
+    pagesFromGlobs.concat(pagesFromSrc).forEach((page) => {
       const filteredPage = _.omitBy(page, _.isUndefined);
-      if (page.src in filteredPages) {
-        filteredPages[page.src] = { ...filteredPages[page.src], ...filteredPage };
-      } else {
-        filteredPages[page.src] = filteredPage;
-      }
+      filteredPages[page.src] = page.src in filteredPages
+        ? { ...filteredPages[page.src], ...filteredPage }
+        : filteredPage;
     });
     this.addressablePages = Object.values(filteredPages);
 
@@ -473,10 +504,10 @@ class Site {
     this.baseUrlMap.forEach((base) => {
       const userDefinedVariables = {};
       Object.assign(userDefinedVariables, markbindVariable);
-
+      const userDefinedVariablesPath = path.resolve(base, USER_VARIABLES_PATH);
+      const userDefinedVariablesDir = path.dirname(userDefinedVariablesPath);
       let content;
       try {
-        const userDefinedVariablesPath = path.resolve(base, USER_VARIABLES_PATH);
         content = fs.readFileSync(userDefinedVariablesPath, 'utf8');
       } catch (e) {
         content = '';
@@ -491,9 +522,27 @@ class Site {
       const $ = cheerio.load(content);
       $('variable,span').each(function () {
         const name = $(this).attr('name') || $(this).attr('id');
-        // Process the content of the variable with nunjucks, in case it refers to other variables.
-        const html = nunjucks.renderString($(this).html(), userDefinedVariables);
-        userDefinedVariables[name] = html;
+        const variableSource = $(this).attr('from');
+
+        if (variableSource !== undefined) {
+          try {
+            const variableFilePath = path.resolve(userDefinedVariablesDir, variableSource);
+            const jsonData = fs.readFileSync(variableFilePath);
+            const varData = JSON.parse(jsonData);
+            Object.entries(varData).forEach(([varName, varValue]) => {
+              // Process the content of the variable with nunjucks, in case it refers to other variables.
+              const variableValue = nunjuckUtils.renderEscaped(nunjucks, varValue, userDefinedVariables);
+
+              userDefinedVariables[varName] = variableValue;
+            });
+          } catch (err) {
+            logger.warn(`Error ${err.message}`);
+          }
+        } else {
+          // Process the content of the variable with nunjucks, in case it refers to other variables.
+          const html = nunjuckUtils.renderEscaped(nunjucks, $(this).html(), userDefinedVariables);
+          userDefinedVariables[name] = html;
+        }
       });
     });
   }
@@ -518,24 +567,33 @@ class Site {
     fs.emptydirSync(this.tempPath);
     // Clean the output folder; create it if not exist.
     fs.emptydirSync(this.outputPath);
-    logger.info(`Website generation started at ${startTime.toLocaleTimeString()}`);
+    const lazyWebsiteGenerationString = this.onePagePath ? '(lazy) ' : '';
+    logger.info(`Website generation ${lazyWebsiteGenerationString}started at ${
+      startTime.toLocaleTimeString()}`);
     return new Promise((resolve, reject) => {
       this.readSiteConfig(baseUrl)
         .then(() => this.collectAddressablePages())
         .then(() => this.collectBaseUrl())
         .then(() => this.collectUserDefinedVariablesMap())
         .then(() => this.collectPlugins())
+        .then(() => this.collectPluginSpecialTags())
         .then(() => this.buildAssets())
-        .then(() => this.buildSourceFiles())
+        .then(() => (this.onePagePath ? this.lazyBuildSourceFiles() : this.buildSourceFiles()))
         .then(() => this.copyMarkBindAsset())
         .then(() => this.copyFontAwesomeAsset())
         .then(() => this.copyOcticonsAsset())
         .then(() => this.copyLayouts())
-        .then(() => this.updateSiteData())
+        .then(() => this.updateSiteData(this.onePagePath || undefined))
         .then(() => {
           const endTime = new Date();
           const totalBuildTime = (endTime - startTime) / 1000;
-          logger.info(`Website generation complete! Total build time: ${totalBuildTime}s`);
+          logger.info(`Website generation ${lazyWebsiteGenerationString}complete! Total build time: ${
+            totalBuildTime}s`);
+
+          if (!this.onePagePath && totalBuildTime > LAZY_LOADING_BUILD_TIME_RECOMMENDATION_LIMIT) {
+            logger.info('Your site took quite a while to build...'
+              + 'Have you considered using markbind serve -o when writing content to speed things up?');
+          }
         })
         .then(resolve)
         .catch((error) => {
@@ -561,6 +619,44 @@ class Site {
     });
   }
 
+  /**
+   * Adds all pages except the current page being viewed to toRebuild, flagging them for lazy building later.
+   */
+  lazyBuildAllPagesNotViewed() {
+    this.pages.forEach((page) => {
+      const normalizedUrl = FsUtil.removeExtension(page.sourcePath);
+      if (normalizedUrl !== this.currentPageViewed) {
+        this.toRebuild.add(normalizedUrl);
+      }
+    });
+
+    return Promise.resolve();
+  }
+
+  /**
+   * Only build landing page of the site, building more as the author goes to different links.
+   */
+  lazyBuildSourceFiles() {
+    return new Promise((resolve, reject) => {
+      logger.info('Generating landing page...');
+      this.generateLandingPage()
+        .then(() => {
+          const lazyLoadingSpinnerHtmlFilePath = path.join(__dirname, LAZY_LOADING_SITE_FILE_NAME);
+          const outputSpinnerHtmlFilePath = path.join(this.outputPath, LAZY_LOADING_SITE_FILE_NAME);
+
+          return fs.copyAsync(lazyLoadingSpinnerHtmlFilePath, outputSpinnerHtmlFilePath);
+        })
+        .then(() => fs.removeAsync(this.tempPath))
+        .then(() => this.lazyBuildAllPagesNotViewed())
+        .then(() => logger.info('Landing page built, other pages will be built as you navigate to them!'))
+        .then(resolve)
+        .catch((error) => {
+          // if error, remove the site and temp folders
+          Site.rejectHandler(reject, error, [this.tempPath, this.outputPath]);
+        });
+    });
+  }
+
   _rebuildAffectedSourceFiles(filePaths) {
     const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];
     const uniquePaths = _.uniq(filePathArray);
@@ -577,14 +673,73 @@ class Site {
     });
   }
 
+  _rebuildPageBeingViewed(normalizedUrls) {
+    const startTime = new Date();
+    const normalizedUrlArray = Array.isArray(normalizedUrls) ? normalizedUrls : [normalizedUrls];
+    const uniqueUrls = _.uniq(normalizedUrlArray);
+    uniqueUrls.forEach(normalizedUrl => logger.info(
+      `Building ${normalizedUrl} as some of its dependencies were changed since the last visit`));
+    MarkBind.resetVariables();
+
+    /*
+     Lazy loading only builds the page being viewed, but the user may be quick enough
+     to trigger multiple page builds before the first one has finished building,
+     hence we need to take this into account.
+     */
+    const regeneratePagesBeingViewed = uniqueUrls.map(normalizedUrl =>
+      new Promise((resolve, reject) => {
+        this._setTimestampVariable();
+        const pageToRebuild = this.pages.find(page =>
+          FsUtil.removeExtension(page.sourcePath) === normalizedUrl);
+
+        if (!pageToRebuild) {
+          Site.rejectHandler(reject,
+                             new Error(`Failed to rebuild ${normalizedUrl} during lazy loading`),
+                             [this.tempPath, this.outputPath]);
+        }
+
+        this.toRebuild.delete(normalizedUrl);
+        pageToRebuild.userDefinedVariablesMap = this.userDefinedVariablesMap;
+        pageToRebuild.generate(new Set())
+          .then(() => {
+            pageToRebuild.collectHeadingsAndKeywords();
+
+            return this.writeSiteData();
+          })
+          .then(() => {
+            const endTime = new Date();
+            const totalBuildTime = (endTime - startTime) / 1000;
+            logger.info(`Lazy website regeneration complete! Total build time: ${totalBuildTime}s`);
+          })
+          .then(resolve)
+          .catch((error) => {
+            logger.error(error);
+            reject(new Error(`Failed to rebuild ${normalizedUrl} during lazy loading`));
+          });
+      }),
+    );
+
+    return Promise.all(regeneratePagesBeingViewed)
+      .then(() => fs.removeAsync(this.tempPath));
+  }
+
   _rebuildSourceFiles() {
-    logger.warn('Rebuilding all source files');
+    logger.info('File added or removed, updating list of site\'s pages...');
     return new Promise((resolve, reject) => {
       Promise.resolve('')
         .then(() => this.updateAddressablePages())
-        // ignore the warning on next line as IDE doesn't understand `delay` very well
         .then(filesToRemove => this.removeAsset(filesToRemove))
-        .then(() => this.buildSourceFiles())
+        .then(() => {
+          if (this.onePagePath) {
+            this.mapAddressablePagesToPages(this.addressablePages || [], this.getFavIconUrl());
+
+            return this.rebuildPageBeingViewed(this.currentPageViewed)
+              .then(() => this.lazyBuildAllPagesNotViewed());
+          }
+
+          logger.warn('Rebuilding all pages...');
+          return this.buildSourceFiles();
+        })
         .then(resolve)
         .catch((error) => {
           // if error, remove the site and temp folders
@@ -736,53 +891,76 @@ class Site {
       .forEach(plugin => this.loadPlugin(plugin, true));
   }
 
+  getFavIconUrl() {
+    const { baseUrl, faviconPath } = this.siteConfig;
+
+    if (faviconPath) {
+      if (!fs.existsSync(path.join(this.rootPath, faviconPath))) {
+        logger.warn(`${faviconPath} does not exist`);
+      }
+      return url.join('/', baseUrl, faviconPath);
+    } else if (fs.existsSync(path.join(this.rootPath, FAVICON_DEFAULT_PATH))) {
+      return url.join('/', baseUrl, FAVICON_DEFAULT_PATH);
+    }
+
+    return undefined;
+  }
+
+  mapAddressablePagesToPages(addressablePages, faviconUrl) {
+    this.pages = addressablePages.map(page => this.createPage({
+      faviconUrl,
+      pageSrc: page.src,
+      title: page.title,
+      layout: page.layout,
+      frontmatter: page.frontmatter,
+      searchable: page.searchable !== 'no',
+      externalScripts: page.externalScripts,
+    }));
+  }
+
+  /**
+   * Collects the special tags of the site's plugins, and injects them into the parsers.
+   */
+  collectPluginSpecialTags() {
+    const tagsToIgnore = new Set();
+
+    Object.values(this.plugins).forEach((plugin) => {
+      if (!plugin.getSpecialTags) {
+        return;
+      }
+
+      plugin.getSpecialTags(plugin.pluginsContext)
+        .forEach((tagName) => {
+          if (!tagName) {
+            return;
+          }
+
+          tagsToIgnore.add(tagName.toLowerCase());
+        });
+    });
+
+    injectHtmlParser2SpecialTags(tagsToIgnore);
+    injectMarkdownItSpecialTags(tagsToIgnore);
+    Page.htmlBeautifyOptions = {
+      indent_size: 2,
+      content_unformatted: ['pre', ...tagsToIgnore],
+    };
+  }
+
   /**
    * Renders all pages specified in site configuration file to the output folder
    */
   generatePages() {
     // Run MarkBind include and render on each source file.
     // Render the final rendered page to the output folder.
-    const { baseUrl, faviconPath } = this.siteConfig;
     const addressablePages = this.addressablePages || [];
     const builtFiles = new Set();
     const processingFiles = [];
 
-    let faviconUrl;
-    if (faviconPath) {
-      faviconUrl = url.join('/', baseUrl, faviconPath);
-      if (!fs.existsSync(path.join(this.rootPath, faviconPath))) {
-        logger.warn(`${faviconPath} does not exist`);
-      }
-    } else if (fs.existsSync(path.join(this.rootPath, FAVICON_DEFAULT_PATH))) {
-      faviconUrl = url.join('/', baseUrl, FAVICON_DEFAULT_PATH);
-    }
+    const faviconUrl = this.getFavIconUrl();
 
     this._setTimestampVariable();
-    if (this.onePagePath) {
-      const page = addressablePages.find(p => p.src === this.onePagePath);
-      if (!page) {
-        return Promise.reject(new Error(`${this.onePagePath} is not specified in the site configuration.`));
-      }
-      this.pages.push(this.createPage({
-        faviconUrl,
-        pageSrc: page.src,
-        title: page.title,
-        layout: page.layout,
-        frontmatter: page.frontmatter,
-        searchable: page.searchable !== 'no',
-        externalScripts: page.externalScripts,
-      }));
-    } else {
-      this.pages = addressablePages.map(page => this.createPage({
-        faviconUrl,
-        pageSrc: page.src,
-        title: page.title,
-        layout: page.layout,
-        frontmatter: page.frontmatter,
-        searchable: page.searchable !== 'no',
-        externalScripts: page.externalScripts,
-      }));
-    }
+    this.mapAddressablePagesToPages(addressablePages, faviconUrl);
 
     const progressBar = new ProgressBar(`[:bar] :current / ${this.pages.length} pages built`,
                                         { total: this.pages.length });
@@ -802,7 +980,27 @@ class Site {
     });
   }
 
+  /**
+   * Renders only the starting page for lazy loading to the output folder.
+   */
+  generateLandingPage() {
+    const addressablePages = this.addressablePages || [];
+    const faviconUrl = this.getFavIconUrl();
+
+    this._setTimestampVariable();
+    this.mapAddressablePagesToPages(addressablePages, faviconUrl);
+
+    const landingPage = this.pages.find(page => page.src === this.onePagePath);
+    if (!landingPage) {
+      return Promise.reject(new Error(`${this.onePagePath} is not specified in the site configuration.`));
+    }
+
+    return landingPage.generate(new Set());
+  }
+
   regenerateAffectedPages(filePaths) {
+    const startTime = new Date();
+
     const builtFiles = new Set();
     const processingFiles = [];
     const shouldRebuildAllPages = this.collectUserDefinedVariablesMapIfNeeded(filePaths) || this.forceReload;
@@ -811,13 +1009,25 @@ class Site {
     }
     this._setTimestampVariable();
     this.pages.forEach((page) => {
-      if (shouldRebuildAllPages || filePaths.some((filePath) => {
+      const doFilePathsHaveSourceFiles = filePaths.some((filePath) => {
         const isIncludedFile = page.includedFiles.has(filePath);
         const isPluginSourceFile = page.pluginSourceFiles.has(filePath);
 
         return isIncludedFile || isPluginSourceFile;
-      })) {
-      // eslint-disable-next-line no-param-reassign
+      });
+
+      if (shouldRebuildAllPages || doFilePathsHaveSourceFiles) {
+        if (this.onePagePath) {
+          const normalizedSource = FsUtil.removeExtension(page.sourcePath);
+          const isPageBeingViewed = normalizedSource === this.currentPageViewed;
+
+          if (!isPageBeingViewed) {
+            this.toRebuild.add(normalizedSource);
+            return;
+          }
+        }
+
+        // eslint-disable-next-line no-param-reassign
         page.userDefinedVariablesMap = this.userDefinedVariablesMap;
         processingFiles.push(page.generate(builtFiles)
           .catch((err) => {
@@ -831,8 +1041,22 @@ class Site {
 
     return new Promise((resolve, reject) => {
       Promise.all(processingFiles)
-        .then(() => this.updateSiteData(shouldRebuildAllPages ? undefined : filePaths))
+        .then(() => {
+          // For lazy loading, we defer updating site data pages not being viewed,
+          // even if all pages should be rebuilt, until they are navigated to.
+          const shouldUpdateAllSiteData = shouldRebuildAllPages && !this.onePagePath;
+          return this.updateSiteData(shouldUpdateAllSiteData ? undefined : filePaths);
+        })
         .then(() => logger.info('Pages rebuilt'))
+        .then(() => {
+          const endTime = new Date();
+          const totalBuildTime = (endTime - startTime) / 1000;
+          logger.info(`Website regeneration complete! Total build time: ${totalBuildTime}s`);
+          if (!this.onePagePath && totalBuildTime > LAZY_LOADING_REBUILD_TIME_RECOMMENDATION_LIMIT) {
+            logger.info('Your pages took quite a while to rebuild...'
+              + 'Have you considered using markbind serve -o when writing content to speed things up?');
+          }
+        })
         .then(resolve)
         .catch(reject);
     });
@@ -847,8 +1071,9 @@ class Site {
    */
   updateSiteData(filePaths) {
     const generateForAllPages = filePaths === undefined;
+    const filePathsToUpdateData = Array.isArray(filePaths) ? filePaths : [filePaths];
     this.pages.forEach((page) => {
-      if (generateForAllPages || filePaths.some(filePath => page.includedFiles.has(filePath))) {
+      if (generateForAllPages || filePathsToUpdateData.some(filePath => page.includedFiles.has(filePath))) {
         page.collectHeadingsAndKeywords();
       }
     });
@@ -1014,7 +1239,17 @@ class Site {
   }
 
   _setTimestampVariable() {
-    const time = new Date().toUTCString();
+    const timeZone = this.siteConfig.timeZone ? this.siteConfig.timeZone : 'UTC';
+    const locale = this.siteConfig.locale ? this.siteConfig.locale : 'en-GB';
+    const options = {
+      weekday: 'short',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      timeZone,
+      timeZoneName: 'short',
+    };
+    const time = new Date().toLocaleTimeString(locale, options);
     Object.keys(this.userDefinedVariablesMap).forEach((base) => {
       this.userDefinedVariablesMap[base].timestamp = time;
     });
@@ -1027,6 +1262,9 @@ class Site {
  * @param filePaths a single path or an array of paths corresponding to the assets to build
  */
 Site.prototype.buildAsset = delay(Site.prototype._buildMultipleAssets, 1000);
+
+Site.prototype.rebuildPageBeingViewed
+  = delay(Site.prototype._rebuildPageBeingViewed, 1000);
 
 /**
  * Rebuild pages that are affected by changes in filePaths

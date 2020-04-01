@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="default-head-top">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="MarkBind 2.13.1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Included files should have plugins rendered on them</title>
+  <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
+  <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
+  <link rel="stylesheet" href="markbind/css/octicons.css">
+  <link rel="stylesheet" href="markbind/css/github.min.css">
+  <link rel="stylesheet" href="markbind/css/markbind.css">
+  <link rel="stylesheet" href="STYLESHEET_LINK">
+  <link rel="stylesheet" href="markbind/layouts/default/styles.css">
+  <meta name="default-head-bottom">
+  <link rel="icon" href="/test_site/favicon.png">
+</head>
+
+<body>
+  <div id="app">
+    <div id="flex-body">
+      <div id="content-wrapper">
+        <p>The contents of these two panels should be exactly the same.</p>
+        <p>
+          <panel src="/test_site/needsrenderedplugin._include_.html"></panel>
+        </p>
+        <panel>
+          <panel><span slot="header" class="card-title"><b>header</b></span> Content of panel</panel>
+        </panel>
+      </div>
+    </div>
+    <footer>
+      <div class="text-center">
+        Default footer
+      </div>
+    </footer>
+  </div>
+</body>
+<script src="markbind/js/vue.min.js"></script>
+<script src="markbind/js/vue-strap.min.js"></script>
+<script src="markbind/js/bootstrap-utility.min.js"></script>
+<script src="markbind/js/polyfill.min.js"></script>
+<script src="markbind/js/bootstrap-vue.min.js"></script>
+<script>
+  const baseUrl = '/test_site'
+  const enableSearch = true
+</script>
+<script src="markbind/js/setup.js"></script>
+<script src="SCRIPT_LINK"></script>
+<script>
+  alert("hello")
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'TRACKING-ID');
+</script>
+<script src="markbind/layouts/default/scripts.js"></script>
+
+</html>

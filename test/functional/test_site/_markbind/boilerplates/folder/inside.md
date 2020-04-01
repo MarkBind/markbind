@@ -1,6 +1,4 @@
-# Path within the boilerplate folder is separately specified
-
-This is dynamically included.  
+# Path within the boilerplate folder is separately specified 
 
 Like static include, pages within the site should be able to use files located in folders within boilerplate.  
 

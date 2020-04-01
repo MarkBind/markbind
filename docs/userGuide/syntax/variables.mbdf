@@ -56,7 +56,9 @@ Represents the root directory of the project. Used for specifying intra-site lin
 
 ##### Built-in Variable: `timestamp`
 
-<code>{<span></span>{ timestamp }}</code> is the time stamp (in UTC) that indicates when the page was generated.
+<code>{<span></span>{ timestamp }}</code> is the time stamp that indicates when the page was generated.
+
+The default values of `"timeZone"` and `"locale"` are `"UTC"` and `"en-GB"` respectively. The following example showcases the use of the `"Asia/Singapore"` time zone.
 
 <div class="indented">
 
@@ -170,6 +172,26 @@ However, this is a combination of *both* syntaxes above, and thus this will allo
 
 </box>
 
+### Defining variables with JSON
+
+You could also have your variables defined in a JSON file to define multiple variables in a more concise manner.
+
+{{ icon_example }}
+`variables.md`:
+```html
+<variable from="variables.json" />
+```
+
+`variables.json`:
+```json
+{
+  "variable1": "This is the first variable",
+  "variable2": "This is the second variable"
+}
+```
+
+Variables defined in JSON file will be scoped according to where it is being referenced.
+
 ### Variables: Tips and Tricks
 
 **Variables can refer to other variables** that are declared earlier, including built-in variables.
@@ -215,6 +237,25 @@ You must use the `safe` filter when using such variables:
 
 <code>{<span></span>{ const_note }}</code> :fas-arrow-right: <span style="color: blue">Note: </span> This is a constant.
 </div>
+
+When defining variables with incomplete HTML fragments, we can define variables as a separate JSON file.
+
+{{ icon_example }} variables containing HTML fragments:<br>
+
+`index.md`:
+```html
+<variable from="variableFileName.json" />
+```
+
+`variableFileName.json`:
+```json
+{
+  "back_fragment": "Back</div>",
+  "front_fragment": "<div>Front"
+}
+```
+
+<code>{<span></span>{ front_fragment }}</code> and <code>{<span></span>{ back_fragment }}</code> :fas-arrow-right: Front and Back
 
 <span id="short" class="d-none">
 

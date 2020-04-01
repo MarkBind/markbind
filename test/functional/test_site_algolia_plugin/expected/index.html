@@ -5,7 +5,7 @@
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="MarkBind 2.11.0">
+  <meta name="generator" content="MarkBind 2.13.1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hello World</title>
   <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
@@ -39,20 +39,20 @@
           <li><a class="dropdown-item" href="/">Two</a></li>
         </dropdown>
         <p><strong>Modal content should have algolia-no-index class</strong></p>
-        <modal id="modal:trigger_id" class="algolia-no-index"><template slot="_header">Modal</template> Content should have `algolia-no-index` class
-        </modal>
-        <trigger for="modal:trigger_id">Trigger should not have `algolia-no-index` class</trigger>
+        <b-modal id="modal:trigger_id" hide-footer="" size="" modal-class="mb-zoom" ref="modal:trigger_id"><template slot="modal-title">Modal</template> Content should have `algolia-no-index` class
+        </b-modal>
+        <span for="modal:trigger_id" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['modal:trigger_id'].show()" class="trigger">Trigger should not have `algolia-no-index` class</span>
         <p><strong>Panels that are not expanded should have algolia-no-index class</strong></p>
         <panel class="algolia-no-index"><template slot="_header"><p>Panel</p></template> Content
         </panel>
         <panel expanded=""><template slot="_header"><p>Panel</p></template> Content
         </panel>
         <p><strong>Popover content should have algolia-no-index class</strong></p>
-        <popover effect="fade" placement="top"><template slot="header">Title</template>
-          <div slot="content" class="algolia-no-index">Content should have `algolia-no-index` class</div>
-          <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button></popover>
-        <popover effect="fade" placement="top"><template slot="header">Title</template><template slot="content">Content as attribute does not require <code>algolia-no-index</code> class</template>
-          <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button></popover>
+        <span effect="fade" placement="top" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGenerator" class="trigger"><span data-mb-html-for="header">Title</span>
+        <div data-mb-html-for="content">Content should have `algolia-no-index` class</div>
+        <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button></span>
+        <span effect="fade" placement="top" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGenerator" class="trigger"><span data-mb-html-for="header">Title</span><span data-mb-html-for="content">Content as attribute does not require <code>algolia-no-index</code> class</span>
+        <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button></span>
         <p><strong>Question hint and answer should have algolia-no-index class</strong></p>
         <question>
           Question should not have `algolia-no-index` class

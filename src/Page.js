@@ -4,8 +4,8 @@ const fs = require('fs-extra-promise');
 const htmlBeautify = require('js-beautify').html;
 const nunjucks = require('nunjucks');
 const path = require('path');
-const pathIsInside = require('path-is-inside');
 const Promise = require('bluebird');
+const nunjuckUtils = require('./lib/markbind/src/utils/nunjuckUtils');
 
 const _ = {};
 _.isString = require('lodash/isString');
@@ -19,6 +19,7 @@ const logger = require('./util/logger');
 const MarkBind = require('./lib/markbind/src/parser');
 const md = require('./lib/markbind/src/lib/markdown-it');
 const utils = require('./lib/markbind/src/utils');
+const urlUtils = require('./lib/markbind/src/utils/urls');
 
 const CLI_VERSION = require('../package.json').version;
 
@@ -77,8 +78,6 @@ class Page {
 
     // the source file for rendering this page
     this.sourcePath = pageConfig.sourcePath;
-    // the temp path for writing intermediate result
-    this.tempPath = pageConfig.tempPath;
     // the output path of this page
     this.resultPath = pageConfig.resultPath;
 
@@ -440,7 +439,7 @@ class Page {
     // Retrieve Expressive Layouts page and insert content
       fs.readFileAsync(layoutPagePath, 'utf8')
         .then(result => markbinder.includeData(layoutPagePath, result, layoutFileConfig))
-        .then(result => nj.renderString(result, template))
+        .then(result => nunjuckUtils.renderEscaped(nj, result, template))
         .then((result) => {
           this.collectIncludedFiles(markbinder.getDynamicIncludeSrc());
           this.collectIncludedFiles(markbinder.getStaticIncludeSrc());
@@ -479,9 +478,9 @@ class Page {
     // Set header file as an includedFile
     this.includedFiles.add(headerPath);
     // Map variables
-    const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
-    const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
-    return `${nunjucks.renderString(headerContent, userDefinedVariables)}\n${pageData}`;
+    const parentSite = urlUtils.getParentSiteAbsolutePath(this.sourcePath, this.rootPath, this.baseUrlMap);
+    const userDefinedVariables = this.userDefinedVariablesMap[parentSite];
+    return `${nunjuckUtils.renderEscaped(nunjucks, headerContent, userDefinedVariables)}\n${pageData}`;
   }
 
   /**
@@ -509,9 +508,9 @@ class Page {
     // Set footer file as an includedFile
     this.includedFiles.add(footerPath);
     // Map variables
-    const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
-    const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
-    return `${pageData}\n${nunjucks.renderString(footerContent, userDefinedVariables)}`;
+    const parentSite = urlUtils.getParentSiteAbsolutePath(this.sourcePath, this.rootPath, this.baseUrlMap);
+    const userDefinedVariables = this.userDefinedVariablesMap[parentSite];
+    return `${pageData}\n${nunjuckUtils.renderEscaped(nunjucks, footerContent, userDefinedVariables)}`;
   }
 
   /**
@@ -546,9 +545,9 @@ class Page {
     // Set siteNav file as an includedFile
     this.includedFiles.add(siteNavPath);
     // Map variables
-    const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
-    const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
-    const siteNavMappedData = nunjucks.renderString(siteNavContent, userDefinedVariables);
+    const parentSite = urlUtils.getParentSiteAbsolutePath(this.sourcePath, this.rootPath, this.baseUrlMap);
+    const userDefinedVariables = this.userDefinedVariablesMap[parentSite];
+    const siteNavMappedData = nunjuckUtils.renderEscaped(nunjucks, siteNavContent, userDefinedVariables);
     // Convert to HTML
     const siteNavDataSelector = cheerio.load(siteNavMappedData);
     if (siteNavDataSelector('navigation').length > 1) {
@@ -665,7 +664,7 @@ class Page {
         + `${pageNavHeadingHTML}\n`
         + '</nav>\n'
         + '</div>\n'
-        + '</nav>\n', { indent_size: 2 });
+        + '</nav>\n', Page.htmlBeautifyOptions);
     }
   }
 
@@ -696,14 +695,14 @@ class Page {
       // Set head file as an includedFile
       this.includedFiles.add(headFilePath);
       // Map variables
-      const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap) || '';
-      const userDefinedVariables = this.userDefinedVariablesMap[path.join(this.rootPath, newBaseUrl)];
-      const headFileMappedData = nunjucks.renderString(headFileContent, userDefinedVariables)
+      const parentSite = urlUtils.getParentSiteAbsolutePath(this.sourcePath, this.rootPath, this.baseUrlMap);
+      const userDefinedVariables = this.userDefinedVariablesMap[parentSite];
+      const headFileMappedData = nunjuckUtils.renderEscaped(nunjucks, headFileContent, userDefinedVariables)
         .trim();
       // Split top and bottom contents
       const $ = cheerio.load(headFileMappedData, { xmlMode: false });
       if ($('head-top').length) {
-        collectedTopContent.push(nunjucks.renderString($('head-top')
+        collectedTopContent.push(nunjuckUtils.renderEscaped(nunjucks, $('head-top')
           .html(), {
           baseUrl,
           hostBaseUrl,
@@ -714,7 +713,7 @@ class Page {
         $('head-top')
           .remove();
       }
-      collectedBottomContent.push(nunjucks.renderString($.html(), {
+      collectedBottomContent.push(nunjuckUtils.renderEscaped(nunjucks, $.html(), {
         baseUrl,
         hostBaseUrl,
       })
@@ -756,13 +755,14 @@ class Page {
     if (pageSection.length === 0) {
       return;
     }
-    this.pageSectionsHtml[section] = htmlBeautify($.html(section), { indent_size: 2 })
+    this.pageSectionsHtml[section] = htmlBeautify($.html(section), Page.htmlBeautifyOptions)
       .trim();
     pageSection.remove();
-    this.content = htmlBeautify($.html(), { indent_size: 2 });
+    this.content = htmlBeautify($.html(), Page.htmlBeautifyOptions);
   }
 
   collectAllPageSections() {
+    this.pageSectionsHtml = {}; // This resets the pageSectionsHTML whenever we collect.
     this.collectPageSection('header');
     this.collectPageSection(`#${SITE_NAV_ID}`);
     this.collectPageSection('footer');
@@ -797,17 +797,17 @@ class Page {
         .then(result => this.insertFooterFile(result))
         .then(result => Page.insertTemporaryStyles(result))
         .then(result => markbinder.resolveBaseUrl(result, fileConfig))
-        .then(result => fs.outputFileAsync(this.tempPath, result))
-        .then(() => markbinder.renderFile(this.tempPath, fileConfig))
+        .then(result => markbinder.render(result, this.sourcePath, fileConfig))
         .then(result => this.postRender(result))
         .then(result => this.collectPluginsAssets(result))
         .then(result => markbinder.processDynamicResources(this.sourcePath, result))
         .then(result => MarkBind.unwrapIncludeSrc(result))
         .then((result) => {
-          this.content = htmlBeautify(result, { indent_size: 2 });
+          this.content = htmlBeautify(result, Page.htmlBeautifyOptions);
 
-          const newBaseUrl = Page.calculateNewBaseUrl(this.sourcePath, this.rootPath, this.baseUrlMap);
-          const baseUrl = newBaseUrl ? `${this.baseUrl}/${newBaseUrl}` : this.baseUrl;
+          const { relative } = urlUtils.getParentSiteAbsoluteAndRelativePaths(this.sourcePath, this.rootPath,
+                                                                              this.baseUrlMap);
+          const baseUrl = relative ? `${this.baseUrl}/${utils.ensurePosix(relative)}` : this.baseUrl;
           const hostBaseUrl = this.baseUrl;
 
           this.addLayoutFiles();
@@ -823,7 +823,7 @@ class Page {
 
           return fs.outputFileAsync(this.resultPath, htmlBeautify(
             this.template.render(this.prepareTemplateData()),
-            { indent_size: 2 },
+            Page.htmlBeautifyOptions,
           ));
         })
         .then(() => {
@@ -1024,7 +1024,6 @@ class Page {
    * @param builtFiles set of files already pre-rendered by another page
    */
   resolveDependency(dependency, builtFiles) {
-    const source = dependency.from;
     const file = dependency.asIfTo;
     return new Promise((resolve, reject) => {
       const resultDir = path.dirname(path.resolve(this.resultPath, path.relative(this.sourcePath, file)));
@@ -1040,13 +1039,6 @@ class Page {
       const markbinder = new MarkBind({
         errorHandler: logger.error,
       });
-      let tempPath;
-      if (FsUtil.isInRoot(this.rootPath, file)) {
-        tempPath = path.join(path.dirname(this.tempPath), path.relative(this.rootPath, file));
-      } else {
-        logger.info(`Converting dynamic external resource ${file} to ${resultPath}`);
-        tempPath = path.join(path.dirname(this.tempPath), '.external', path.basename(file));
-      }
       return markbinder.includeFile(dependency.to, {
         baseUrlMap: this.baseUrlMap,
         userDefinedVariablesMap: this.userDefinedVariablesMap,
@@ -1054,29 +1046,32 @@ class Page {
         cwf: file,
       })
         .then(result => Page.removeFrontMatter(result))
+        .then(result => this.collectPluginSources(result))
+        .then(result => this.preRender(result))
         .then(result => markbinder.resolveBaseUrl(result, {
           baseUrlMap: this.baseUrlMap,
           rootPath: this.rootPath,
-          isDynamic: true,
-          dynamicSource: source,
         }))
-        .then(result => fs.outputFileAsync(tempPath, result))
-        .then(() => markbinder.renderFile(tempPath, {
+        .then(result => markbinder.render(result, this.sourcePath, {
           baseUrlMap: this.baseUrlMap,
           rootPath: this.rootPath,
           headerIdMap: {},
         }))
+        .then(result => this.postRender(result))
+        .then(result => this.collectPluginsAssets(result))
         .then(result => markbinder.processDynamicResources(file, result))
+        .then(result => MarkBind.unwrapIncludeSrc(result))
         .then((result) => {
           // resolve the site base url here
-          const newBaseUrl = Page.calculateNewBaseUrl(file, this.rootPath, this.baseUrlMap);
-          const baseUrl = newBaseUrl ? `${this.baseUrl}/${newBaseUrl}` : this.baseUrl;
+          const { relative } = urlUtils.getParentSiteAbsoluteAndRelativePaths(file, this.rootPath,
+                                                                              this.baseUrlMap);
+          const baseUrl = relative ? `${this.baseUrl}/${utils.ensurePosix(relative)}` : this.baseUrl;
           const hostBaseUrl = this.baseUrl;
           const content = nunjucks.renderString(result, {
             baseUrl,
             hostBaseUrl,
           });
-          return fs.outputFileAsync(resultPath, htmlBeautify(content, { indent_size: 2 }));
+          return fs.outputFileAsync(resultPath, htmlBeautify(content, Page.htmlBeautifyOptions));
         })
         .then(() => {
           // Recursion call to resolve nested dependency
@@ -1107,23 +1102,6 @@ class Page {
     return `<div id="${CONTENT_WRAPPER_ID}">\n\n`
       + `${$.html()}\n`
       + '</div>';
-  }
-
-  static calculateNewBaseUrl(filePath, root, lookUp) {
-    function calculate(file, result) {
-      if (file === root || !pathIsInside(file, root)) {
-        return undefined;
-      }
-      const parent = path.dirname(file);
-      if (lookUp.has(parent) && result.length === 1) {
-        return path.relative(root, result[0]);
-      } else if (lookUp.has(parent)) {
-        return calculate(parent, [parent]);
-      }
-      return calculate(parent, result);
-    }
-
-    return calculate(filePath, []);
   }
 
   static removePageHeaderAndFooter(pageData) {

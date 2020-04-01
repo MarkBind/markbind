@@ -1,7 +1,13 @@
+const cheerio = require('cheerio');
 const fs = require('fs');
 const path = require('path');
 
-const { markdownFileExts } = require('./constants');
+const _ = {};
+_.pick = require('lodash/pick');
+
+const {
+  markdownFileExts,
+} = require('../constants');
 
 module.exports = {
   getCurrentDirectoryBase() {
@@ -40,13 +46,6 @@ module.exports = {
     return ext;
   },
 
-  wrapContent(content, front, tail) {
-    if (tail === undefined) {
-      return front + content + front;
-    }
-    return front + content + tail;
-  },
-
   setExtension(filename, ext) {
     return path.join(
       path.dirname(filename),
@@ -69,8 +68,14 @@ module.exports = {
             || filePath.includes('{{hostBaseUrl}}');
   },
 
-  createErrorElement(error) {
-    return `<div style="color: red">${error.message}</div>`;
+  createErrorNode(element, error) {
+    const errorElement = cheerio.parseHTML(
+      `<div style="color: red">${error.message}</div>`, true)[0];
+    return Object.assign(element, _.pick(errorElement, ['name', 'attribs', 'children']));
+  },
+
+  createEmptyNode() {
+    return cheerio.parseHTML('<div></div>', true)[0];
   },
 
   /**
