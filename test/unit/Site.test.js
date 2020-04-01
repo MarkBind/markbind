@@ -297,11 +297,17 @@ test('Site read site config for default', async () => {
   };
   fs.vol.fromJSON(json, '');
 
-  const siteConfigDefaults = { enableSearch: true };
-  const expectedSiteConfig = { ...JSON.parse(SITE_JSON_DEFAULT), ...siteConfigDefaults };
+  const expectedSiteConfigDefaults = { enableSearch: true };
+  const expectedSiteConfig = { ...JSON.parse(SITE_JSON_DEFAULT), ...expectedSiteConfigDefaults };
   const site = new Site('./', '_site');
-  await site.readSiteConfig();
-  expect(site.siteConfig).toEqual(expectedSiteConfig);
+  const siteConfig = await site.readSiteConfig();
+
+  expect(siteConfig.baseUrl).toEqual(expectedSiteConfig.baseUrl);
+  expect(siteConfig.titlePrefix).toEqual(expectedSiteConfig.titlePrefix);
+  expect(siteConfig.ignore).toEqual(expectedSiteConfig.ignore);
+  expect(siteConfig.pages).toEqual(expectedSiteConfig.pages);
+  expect(siteConfig.deploy).toEqual(expectedSiteConfig.deploy);
+  expect(siteConfig.enableSearch).toEqual(expectedSiteConfig.enableSearch);
 });
 
 test('Site read site config for custom site config', async () => {
@@ -330,8 +336,13 @@ test('Site read site config for custom site config', async () => {
   fs.vol.fromJSON(json, '');
 
   const site = new Site('./', '_site');
-  await site.readSiteConfig();
-  expect(site.siteConfig).toEqual(customSiteJson);
+  const siteConfig = await site.readSiteConfig();
+
+  expect(siteConfig.baseUrl).toEqual(customSiteJson.baseUrl);
+  expect(siteConfig.pages).toEqual(customSiteJson.pages);
+  expect(siteConfig.ignore).toEqual(customSiteJson.ignore);
+  expect(siteConfig.deploy).toEqual(customSiteJson.deploy);
+  expect(siteConfig.enableSearch).toEqual(customSiteJson.enableSearch);
 });
 
 test('Site resolves variables referencing other variables', async () => {
