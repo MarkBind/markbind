@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="default-head-top">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="MarkBind 2.12.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multiple inclusions of a modal should be supported</title>
+  <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
+  <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
+  <link rel="stylesheet" href="markbind/css/octicons.css">
+  <link rel="stylesheet" href="markbind/css/github.min.css">
+  <link rel="stylesheet" href="markbind/css/markbind.css">
+  <link rel="stylesheet" href="STYLESHEET_LINK">
+  <link rel="stylesheet" href="markbind/layouts/default/styles.css">
+  <meta name="default-head-bottom">
+  <link rel="icon" href="/test_site/favicon.png">
+</head>
+
+<body>
+  <div id="app">
+    <div id="flex-body">
+      <div id="content-wrapper">
+        <p><strong>Multiple inclusions of a modal should be supported</strong></p>
+        <div>
+
+          <b-modal id="modal:bugRepro" hide-footer="" size="lg" modal-class="mb-zoom" ref="modal:bugRepro"><template slot="modal-title">Establishing Requirements</template>
+            <div>
+              <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
+                do.</p>
+            </div>
+          </b-modal>
+        </div>
+        <div>
+
+          <b-modal id="modal:bugRepro" hide-footer="" size="lg" modal-class="mb-zoom" ref="modal:bugRepro"><template slot="modal-title">Establishing Requirements</template>
+            <div>
+              <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
+                do.</p>
+            </div>
+          </b-modal>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="text-center">
+        Default footer
+      </div>
+    </footer>
+  </div>
+</body>
+<script src="markbind/js/vue.min.js"></script>
+<script src="markbind/js/vue-strap.min.js"></script>
+<script src="markbind/js/bootstrap-utility.min.js"></script>
+<script src="markbind/js/polyfill.min.js"></script>
+<script src="markbind/js/bootstrap-vue.min.js"></script>
+<script>
+  const baseUrl = '/test_site'
+  const enableSearch = true
+</script>
+<script src="markbind/js/setup.js"></script>
+<script src="SCRIPT_LINK"></script>
+<script>
+  alert("hello")
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'TRACKING-ID');
+</script>
+<script src="markbind/layouts/default/scripts.js"></script>
+
+</html>
