@@ -1,6 +1,5 @@
 {
   "baseUrl": "/test_site",
-  "htmlBeautify": true,
   "faviconPath": "favicon.png",
   "titlePrefix": "",
   "pages": [

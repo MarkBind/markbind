@@ -1,5 +1,4 @@
 {
-  "htmlBeautify": true,
   "ignore": [
     "_markbind/layouts/*",
     "_markbind/logs/*",

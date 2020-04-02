@@ -1,6 +1,5 @@
 {
   "baseUrl": "/test_site_algolia_plugin",
-  "htmlBeautify": true,
   "titlePrefix": "",
   "ignore": [
     "_markbind/layouts/*",

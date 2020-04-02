@@ -1,6 +1,5 @@
 {
   "baseUrl": "/sub_site",
-  "htmlBeautify": true,
   "pages": [
     {
       "src": "index.md",

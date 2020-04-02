@@ -62,7 +62,7 @@ class Page {
     this.content = pageConfig.content || '';
     this.faviconUrl = pageConfig.faviconUrl;
     this.frontmatterOverride = pageConfig.frontmatter || {};
-    this.htmlBeautify = pageConfig.htmlBeautify;
+    this.disableHtmlBeautify = pageConfig.disableHtmlBeautify;
     this.layout = pageConfig.layout;
     this.layoutsAssetPath = pageConfig.layoutsAssetPath;
     this.rootPath = pageConfig.rootPath;
@@ -822,9 +822,9 @@ class Page {
           this.buildPageNav();
 
           const renderedTemplate = this.template.render(this.prepareTemplateData());
-          const outputTemplateHTML = this.htmlBeautify
-            ? htmlBeautify(renderedTemplate, Page.htmlBeautifyOptions)
-            : renderedTemplate;
+          const outputTemplateHTML = this.disableHtmlBeautify
+            ? renderedTemplate
+            : htmlBeautify(renderedTemplate, Page.htmlBeautifyOptions);
 
           return fs.outputFileAsync(this.resultPath, outputTemplateHTML);
         })
@@ -1073,9 +1073,9 @@ class Page {
             baseUrl,
             hostBaseUrl,
           });
-          const outputContentHTML = this.htmlBeautify
-            ? htmlBeautify(content, Page.htmlBeautifyOptions)
-            : content;
+          const outputContentHTML = this.disableHtmlBeautify
+            ? content
+            : htmlBeautify(content, Page.htmlBeautifyOptions);
           return fs.outputFileAsync(resultPath, outputContentHTML);
         })
         .then(() => {
