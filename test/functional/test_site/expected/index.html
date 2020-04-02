@@ -137,6 +137,7 @@
           </ul>
         </div>
       </nav>
+
       <div id="content-wrapper">
         <div class="website-content">
           <p><strong>Test footnotes</strong></p>
@@ -250,17 +251,18 @@
               Div with multiple tags
             </div>
             <p><strong>Div with hidden tag (Hidden)</strong></p>
-            
-<div>
-<p><strong>Div with tag in included file</strong></p>
-<div tags="tag-included-file">
-Div with tag in included file
-</div></div>
-<p><strong>Div with tag matching general tag</strong></p>
-<div tags="tag-exp-shown">
-Div with tag matching general tag
-</div>
-<p><strong>Div with tag matching general tag and specific tag (Hidden)</strong></p>
+
+            <div>
+              <p><strong>Div with tag in included file</strong></p>
+              <div tags="tag-included-file">
+                Div with tag in included file
+              </div>
+            </div>
+            <p><strong>Div with tag matching general tag</strong></p>
+            <div tags="tag-exp-shown">
+              Div with tag matching general tag
+            </div>
+            <p><strong>Div with tag matching general tag and specific tag (Hidden)</strong></p>
 
             <p><strong>Div with tag matching front matter tag overridden by matching site tag</strong></p>
             <div tags="tag-site-override-shown">
@@ -429,38 +431,52 @@ Div with tag matching general tag
           </box>
           <p><strong>Include a file using baseUrl</strong></p>
           <div>
-            <p>As we establish requirements, they should be recorded in some way for future reference, usually called a requirement specification. Furthermore, it is advisable to show these requirements to stakeholders, and refine requirements based on their
-              feedback. The next phase is to convert requirements into a product specification that specifies how the product will address the requirements.</p>
+            <p>As we establish requirements, they should be recorded in some way for future reference,
+              usually called a requirement specification. Furthermore, it is advisable to show these requirements to stakeholders,
+              and refine requirements based on their feedback. The next phase is to convert requirements into a product
+              specification that specifies how the product will address the requirements.</p>
           </div>
-          <panel src="/test_site/requirements/SpecifyingRequirements._include_.html#preview" type="minimal" fragment="preview"><template slot="_header"><p><strong>same test with panels</strong></p></template></panel>
+          <panel src="/test_site/requirements/SpecifyingRequirements._include_.html#preview" type="minimal" fragment="preview"><template slot="_header">
+              <p><strong>same test with panels</strong></p>
+            </template></panel>
           <p><strong>Include a file in a sub-folder that uses baseUrl</strong></p>
           <div>
             <div>
-              <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
-                do.</p>
+              <p>Requirements gathering, requirements elicitation, requirements analysis,
+                requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity
+                of understanding what a software product should do.</p>
             </div>
           </div>
-          <panel src="/test_site/requirements/testBaseUrlInIncludeSrc._include_.html" type="minimal"><template slot="_header"><p><strong>same test with panels</strong></p></template></panel>
+          <panel src="/test_site/requirements/testBaseUrlInIncludeSrc._include_.html" type="minimal"><template slot="_header">
+              <p><strong>same test with panels</strong></p>
+            </template></panel>
           <p><strong>Include a file in a sub-folder that uses baseUrl using baseUrl</strong></p>
           <div>
             <div>
-              <p>Requirements gathering, requirements elicitation, requirements analysis, requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity of understanding what a software product should
-                do.</p>
+              <p>Requirements gathering, requirements elicitation, requirements analysis,
+                requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity
+                of understanding what a software product should do.</p>
             </div>
           </div>
-          <panel src="/test_site/requirements/testBaseUrlInIncludeSrc._include_.html" type="minimal"><template slot="_header"><p><strong>same test with panels</strong></p></template></panel>
+          <panel src="/test_site/requirements/testBaseUrlInIncludeSrc._include_.html" type="minimal"><template slot="_header">
+              <p><strong>same test with panels</strong></p>
+            </template></panel>
           <p><strong>Include a file in a sub-site that uses baseUrl</strong></p>
           <div>
             <div>
               <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></div>
           </div>
-          <panel src="/test_site/sub_site/testBaseUrlInIncludeSrcSubSite._include_.html" type="minimal"><template slot="_header"><p><strong>same test with panels</strong></p></template></panel>
+          <panel src="/test_site/sub_site/testBaseUrlInIncludeSrcSubSite._include_.html" type="minimal"><template slot="_header">
+              <p><strong>same test with panels</strong></p>
+            </template></panel>
           <p><strong>Include a file in a sub-site that uses baseUrl using baseUrl</strong></p>
           <div>
             <div>
               <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></div>
           </div>
-          <panel src="/test_site/sub_site/testBaseUrlInIncludeSrcSubSite._include_.html" type="minimal"><template slot="_header"><p><strong>same test with panels</strong></p></template></panel>
+          <panel src="/test_site/sub_site/testBaseUrlInIncludeSrcSubSite._include_.html" type="minimal"><template slot="_header">
+              <p><strong>same test with panels</strong></p>
+            </template></panel>
           <p><strong>Trimmed include</strong></p>
           <p><strong><span>Fragment with leading spaces and newline</span></strong></p>
           <p><strong>Trimmed include fragment</strong></p>
