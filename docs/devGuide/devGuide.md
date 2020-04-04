@@ -206,13 +206,13 @@ To add a page to an existing test site, for this example, to `test_site`:
       "src": "newTestPage.md",
       "title": [some title you see fit]
     },
-    ....
+    ...
 ```
 
-4. Update the tests.
+4. Update the tests using `npm run updatetest`.
 
 <box type="info">
-  When creating a new test site, the directory name of the new test site should be added to <code>test/functional/test_sites</code>.
+  When creating a new test site, the directory name of the new test site should be added to `test/functional/test_sites` file.
 </box>
 
 ### Using ESLint
