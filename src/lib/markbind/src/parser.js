@@ -1,15 +1,14 @@
 const cheerio = require('cheerio');
 const fs = require('fs');
 const htmlparser = require('htmlparser2'); require('./patches/htmlparser2');
-const nunjucks = require('nunjucks');
 const path = require('path');
 const Promise = require('bluebird');
 const slugify = require('@sindresorhus/slugify');
 const ensurePosix = require('ensure-posix-path');
 const componentParser = require('./parsers/componentParser');
 const componentPreprocessor = require('./preprocessors/componentPreprocessor');
-const nunjuckUtils = require('./utils/nunjuckUtils');
 const logger = require('../../../util/logger');
+const njUtil = require('./utils/nunjuckUtils');
 
 const _ = {};
 _.clone = require('lodash/clone');
@@ -102,7 +101,7 @@ class Parser {
         ...userDefinedVariables,
         ...includedVariables,
       };
-      const variableValue = nunjuckUtils.renderEscaped(nunjucks, rawVariableValue, otherVariables);
+      const variableValue = njUtil.renderRaw(rawVariableValue, otherVariables, {}, false);
       if (!pageVariables[variableName]) {
         pageVariables[variableName] = variableValue;
         Parser.VARIABLE_LOOKUP.get(fileName).set(variableName, variableValue);
@@ -170,7 +169,7 @@ class Parser {
     // Extract page variables from the CHILD file
     const pageVariables
       = this.extractPageVariables(asIfAt, fileContent, userDefinedVariables, includeVariables);
-    const content = nunjuckUtils.renderEscaped(nunjucks, fileContent, {
+    const content = njUtil.renderRaw(fileContent, {
       ...pageVariables,
       ...includeVariables,
       ...userDefinedVariables,
@@ -211,7 +210,7 @@ class Parser {
       const innerVariables = this.getImportedVariableMap(filePath);
 
       Parser.VARIABLE_LOOKUP.get(filePath).forEach((value, variableName, map) => {
-        map.set(variableName, nunjuckUtils.renderEscaped(nunjucks, value, {
+        map.set(variableName, njUtil.renderRaw(value, {
           ...userDefinedVariables, ...innerVariables,
         }));
       });
@@ -424,7 +423,7 @@ class Parser {
         const parentSitePath = urlUtils.getParentSiteAbsolutePath(file, config.rootPath, config.baseUrlMap);
         const userDefinedVariables = config.userDefinedVariablesMap[parentSitePath];
         const pageVariables = this.extractPageVariables(file, data, userDefinedVariables, {});
-        let fileContent = nunjuckUtils.renderEscaped(nunjucks, data, {
+        let fileContent = njUtil.renderRaw(data, {
           ...pageVariables,
           ...userDefinedVariables,
         }, {
@@ -432,7 +431,7 @@ class Parser {
         });
         this._extractInnerVariables(fileContent, context, config);
         const innerVariables = this.getImportedVariableMap(context.cwf);
-        fileContent = nunjuckUtils.renderEscaped(nunjucks, fileContent, {
+        fileContent = njUtil.renderRaw(fileContent, {
           ...userDefinedVariables, ...innerVariables,
         });
         const fileExt = utils.getExt(file);
@@ -496,7 +495,7 @@ class Parser {
       const { additionalVariables } = config;
       const pageVariables = this.extractPageVariables(actualFilePath, pageData, userDefinedVariables, {});
 
-      let fileContent = nunjuckUtils.renderEscaped(nunjucks, pageData, {
+      let fileContent = njUtil.renderRaw(pageData, {
         ...pageVariables,
         ...userDefinedVariables,
         ...additionalVariables,
@@ -505,7 +504,7 @@ class Parser {
       });
       this._extractInnerVariables(fileContent, currentContext, config);
       const innerVariables = this.getImportedVariableMap(currentContext.cwf);
-      fileContent = nunjuckUtils.renderEscaped(nunjucks, fileContent, {
+      fileContent = njUtil.renderRaw(fileContent, {
         ...userDefinedVariables,
         ...additionalVariables,
         ...innerVariables,
@@ -625,7 +624,7 @@ class Parser {
     // Only re-render if include src and content are from different sites
     if (currentBase !== newBase.absolute) {
       cheerio.prototype.options.xmlMode = false;
-      const rendered = nunjuckUtils.renderEscaped(nunjucks, cheerio.html(node.children), {
+      const rendered = njUtil.renderRaw(cheerio.html(node.children), {
         // This is to prevent the nunjuck call from converting {{hostBaseUrl}} to an empty string
         // and let the hostBaseUrl value be injected later.
         hostBaseUrl: '{{hostBaseUrl}}',

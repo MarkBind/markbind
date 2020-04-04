@@ -2,10 +2,9 @@ const cheerio = require('cheerio');
 const fm = require('fastmatter');
 const fs = require('fs-extra-promise');
 const htmlBeautify = require('js-beautify').html;
-const nunjucks = require('nunjucks');
 const path = require('path');
 const Promise = require('bluebird');
-const nunjuckUtils = require('./lib/markbind/src/utils/nunjuckUtils');
+const njUtil = require('./lib/markbind/src/utils/nunjuckUtils');
 
 const _ = {};
 _.isString = require('lodash/isString');
@@ -409,12 +408,8 @@ class Page {
  * @param pageData a page with its front matter collected
  */
   generateExpressiveLayout(pageData, fileConfig) {
-    const nj = nunjucks;
     const markbinder = new MarkBind({
       errorHandler: logger.error,
-    });
-    nj.configure({
-      autoescape: false,
     });
     const template = {};
     template[LAYOUT_PAGE_BODY_VARIABLE] = pageData;
@@ -440,7 +435,7 @@ class Page {
     // Retrieve Expressive Layouts page and insert content
       fs.readFileAsync(layoutPagePath, 'utf8')
         .then(result => markbinder.includeData(layoutPagePath, result, layoutFileConfig))
-        .then(result => nunjuckUtils.renderEscaped(nj, result, template))
+        .then(result => njUtil.renderRaw(result, template, {}, false))
         .then((result) => {
           this.collectIncludedFiles(markbinder.getDynamicIncludeSrc());
           this.collectIncludedFiles(markbinder.getStaticIncludeSrc());
@@ -481,7 +476,7 @@ class Page {
     // Map variables
     const parentSite = urlUtils.getParentSiteAbsolutePath(this.sourcePath, this.rootPath, this.baseUrlMap);
     const userDefinedVariables = this.userDefinedVariablesMap[parentSite];
-    return `${nunjuckUtils.renderEscaped(nunjucks, headerContent, userDefinedVariables)}\n${pageData}`;
+    return `${njUtil.renderRaw(headerContent, userDefinedVariables)}\n${pageData}`;
   }
 
   /**
@@ -511,7 +506,7 @@ class Page {
     // Map variables
     const parentSite = urlUtils.getParentSiteAbsolutePath(this.sourcePath, this.rootPath, this.baseUrlMap);
     const userDefinedVariables = this.userDefinedVariablesMap[parentSite];
-    return `${pageData}\n${nunjuckUtils.renderEscaped(nunjucks, footerContent, userDefinedVariables)}`;
+    return `${pageData}\n${njUtil.renderRaw(footerContent, userDefinedVariables)}`;
   }
 
   /**
@@ -548,7 +543,7 @@ class Page {
     // Map variables
     const parentSite = urlUtils.getParentSiteAbsolutePath(this.sourcePath, this.rootPath, this.baseUrlMap);
     const userDefinedVariables = this.userDefinedVariablesMap[parentSite];
-    const siteNavMappedData = nunjuckUtils.renderEscaped(nunjucks, siteNavContent, userDefinedVariables);
+    const siteNavMappedData = njUtil.renderRaw(siteNavContent, userDefinedVariables);
     // Convert to HTML
     const siteNavDataSelector = cheerio.load(siteNavMappedData);
     if (siteNavDataSelector('navigation').length > 1) {
@@ -698,12 +693,12 @@ class Page {
       // Map variables
       const parentSite = urlUtils.getParentSiteAbsolutePath(this.sourcePath, this.rootPath, this.baseUrlMap);
       const userDefinedVariables = this.userDefinedVariablesMap[parentSite];
-      const headFileMappedData = nunjuckUtils.renderEscaped(nunjucks, headFileContent, userDefinedVariables)
+      const headFileMappedData = njUtil.renderRaw(headFileContent, userDefinedVariables)
         .trim();
       // Split top and bottom contents
       const $ = cheerio.load(headFileMappedData, { xmlMode: false });
       if ($('head-top').length) {
-        collectedTopContent.push(nunjuckUtils.renderEscaped(nunjucks, $('head-top')
+        collectedTopContent.push(njUtil.renderRaw($('head-top')
           .html(), {
           baseUrl,
           hostBaseUrl,
@@ -714,7 +709,7 @@ class Page {
         $('head-top')
           .remove();
       }
-      collectedBottomContent.push(nunjuckUtils.renderEscaped(nunjucks, $.html(), {
+      collectedBottomContent.push(njUtil.renderRaw($.html(), {
         baseUrl,
         hostBaseUrl,
       })
@@ -813,7 +808,7 @@ class Page {
           this.addLayoutFiles();
           this.collectHeadFiles(baseUrl, hostBaseUrl);
 
-          this.content = nunjucks.renderString(this.content, {
+          this.content = njUtil.renderString(this.content, {
             baseUrl,
             hostBaseUrl,
           });
@@ -1069,7 +1064,7 @@ class Page {
                                                                               this.baseUrlMap);
           const baseUrl = relative ? `${this.baseUrl}/${utils.ensurePosix(relative)}` : this.baseUrl;
           const hostBaseUrl = this.baseUrl;
-          const content = nunjucks.renderString(result, {
+          const content = njUtil.renderString(result, {
             baseUrl,
             hostBaseUrl,
           });

@@ -2,13 +2,12 @@ const cheerio = require('cheerio');
 const fs = require('fs-extra-promise');
 const ghpages = require('gh-pages');
 const ignore = require('ignore');
-const nunjucks = require('nunjucks');
 const path = require('path');
 const Promise = require('bluebird');
 const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
 const MarkBind = require('./lib/markbind/src/parser');
-const nunjuckUtils = require('./lib/markbind/src/utils/nunjuckUtils');
+const njUtil = require('./lib/markbind/src/utils/nunjuckUtils');
 const injectHtmlParser2SpecialTags = require('./lib/markbind/src/patches/htmlparser2');
 const injectMarkdownItSpecialTags = require(
   './lib/markbind/src/lib/markdown-it/markdown-it-escape-special-tags');
@@ -121,8 +120,7 @@ class Site {
 
     // Page template path
     this.pageTemplatePath = path.join(__dirname, PAGE_TEMPLATE_NAME);
-    const env = nunjucks.configure({ autoescape: false });
-    this.pageTemplate = nunjucks.compile(fs.readFileSync(this.pageTemplatePath, 'utf8'), env);
+    this.pageTemplate = njUtil.compile(fs.readFileSync(this.pageTemplatePath, 'utf8'));
     this.pages = [];
 
     // Other properties
@@ -532,7 +530,7 @@ class Site {
             const varData = JSON.parse(jsonData);
             Object.entries(varData).forEach(([varName, varValue]) => {
               // Process the content of the variable with nunjucks, in case it refers to other variables.
-              const variableValue = nunjuckUtils.renderEscaped(nunjucks, varValue, userDefinedVariables);
+              const variableValue = njUtil.renderRaw(varValue, userDefinedVariables, {}, false);
 
               userDefinedVariables[varName] = variableValue;
             });
@@ -541,7 +539,7 @@ class Site {
           }
         } else {
           // Process the content of the variable with nunjucks, in case it refers to other variables.
-          const html = nunjuckUtils.renderEscaped(nunjucks, $(this).html(), userDefinedVariables);
+          const html = njUtil.renderRaw($(this).html(), userDefinedVariables, {}, false);
           userDefinedVariables[name] = html;
         }
       });
