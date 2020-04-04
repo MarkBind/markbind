@@ -304,6 +304,17 @@
       "globalAndFrontMatterOverrideProperty": "Overridden by global override",
       "headings": {},
       "headingKeywords": {}
+    },
+    {
+      "src": "testDates.md",
+      "title": "Nunjucks date filter tests",
+      "layout": "default",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {
+        "dates": "Dates"
+      },
+      "headingKeywords": {}
     }
   ]
 }
