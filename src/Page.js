@@ -62,6 +62,7 @@ class Page {
     this.content = pageConfig.content || '';
     this.faviconUrl = pageConfig.faviconUrl;
     this.frontmatterOverride = pageConfig.frontmatter || {};
+    this.disableHtmlBeautify = pageConfig.disableHtmlBeautify;
     this.layout = pageConfig.layout;
     this.layoutsAssetPath = pageConfig.layoutsAssetPath;
     this.rootPath = pageConfig.rootPath;
@@ -657,14 +658,14 @@ class Page {
       const pageNavTitleHtml = this.generatePageNavTitleHtml();
       const pageNavHeadingHTML = this.generatePageNavHeadingHtml();
       this.pageSectionsHtml[`#${PAGE_NAV_ID}`]
-        = htmlBeautify(`<nav id="${PAGE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
-        + '<div class="border-left-grey nav-inner position-sticky slim-scroll">\n'
-        + `${pageNavTitleHtml}\n`
-        + '<nav class="nav nav-pills flex-column my-0 small no-flex-wrap">\n'
-        + `${pageNavHeadingHTML}\n`
-        + '</nav>\n'
-        + '</div>\n'
-        + '</nav>\n', Page.htmlBeautifyOptions);
+        = `<nav id="${PAGE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
+          + '<div class="border-left-grey nav-inner position-sticky slim-scroll">\n'
+          + `${pageNavTitleHtml}\n`
+          + '<nav class="nav nav-pills flex-column my-0 small no-flex-wrap">\n'
+          + `${pageNavHeadingHTML}\n`
+          + '</nav>\n'
+          + '</div>\n'
+          + '</nav>\n';
     }
   }
 
@@ -755,10 +756,9 @@ class Page {
     if (pageSection.length === 0) {
       return;
     }
-    this.pageSectionsHtml[section] = htmlBeautify($.html(section), Page.htmlBeautifyOptions)
-      .trim();
+    this.pageSectionsHtml[section] = $.html(section);
     pageSection.remove();
-    this.content = htmlBeautify($.html(), Page.htmlBeautifyOptions);
+    this.content = $.html();
   }
 
   collectAllPageSections() {
@@ -803,7 +803,7 @@ class Page {
         .then(result => markbinder.processDynamicResources(this.sourcePath, result))
         .then(result => MarkBind.unwrapIncludeSrc(result))
         .then((result) => {
-          this.content = htmlBeautify(result, Page.htmlBeautifyOptions);
+          this.content = result;
 
           const { relative } = urlUtils.getParentSiteAbsoluteAndRelativePaths(this.sourcePath, this.rootPath,
                                                                               this.baseUrlMap);
@@ -821,10 +821,12 @@ class Page {
           this.collectAllPageSections();
           this.buildPageNav();
 
-          return fs.outputFileAsync(this.resultPath, htmlBeautify(
-            this.template.render(this.prepareTemplateData()),
-            Page.htmlBeautifyOptions,
-          ));
+          const renderedTemplate = this.template.render(this.prepareTemplateData());
+          const outputTemplateHTML = this.disableHtmlBeautify
+            ? renderedTemplate
+            : htmlBeautify(renderedTemplate, Page.htmlBeautifyOptions);
+
+          return fs.outputFileAsync(this.resultPath, outputTemplateHTML);
         })
         .then(() => {
           const resolvingFiles = [];
@@ -1071,7 +1073,10 @@ class Page {
             baseUrl,
             hostBaseUrl,
           });
-          return fs.outputFileAsync(resultPath, htmlBeautify(content, Page.htmlBeautifyOptions));
+          const outputContentHTML = this.disableHtmlBeautify
+            ? content
+            : htmlBeautify(content, Page.htmlBeautifyOptions);
+          return fs.outputFileAsync(resultPath, outputContentHTML);
         })
         .then(() => {
           // Recursion call to resolve nested dependency
