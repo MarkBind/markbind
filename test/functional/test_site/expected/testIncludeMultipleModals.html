@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="MarkBind 2.13.1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PlantUML Test</title>
+  <title>Multiple inclusions of a modal should be supported</title>
   <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
   <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
   <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
@@ -25,34 +25,27 @@
   <div id="app">
     <div id="flex-body">
       <div id="content-wrapper">
-        <p><strong>PlantUML Test</strong></p>
-        <p>
-          <pic name="inline-output" src="/test_site/inline-output.png"></pic>
-        </p>
-        <p>
-          <pic src="/test_site/9c9e77fc0a983cb6b592e65733787bec.png"></pic>
-        </p>
-        <p><strong>Sequence Diagram</strong>
-          <pic src="/test_site/diagrams/sequence.png"></pic>
-        </p>
-        <p><strong>Use Case Diagram</strong>
-          <pic src="/test_site/diagrams/usecase.png"></pic>
-        </p>
-        <p><strong>Class Diagram</strong>
-          <pic src="/test_site/diagrams/class.png"></pic>
-        </p>
-        <p><strong>Activity Diagram</strong>
-          <pic src="/test_site/diagrams/activity.png"></pic>
-        </p>
-        <p><strong>Component Diagram</strong>
-          <pic src="/test_site/diagrams/component.png"></pic>
-        </p>
-        <p><strong>State Diagram</strong>
-          <pic src="/test_site/diagrams/state.png"></pic>
-        </p>
-        <p><strong>Object Diagram</strong>
-          <pic src="/test_site/diagrams/object.png"></pic>
-        </p>
+        <p><strong>Multiple inclusions of a modal should be supported</strong></p>
+        <div>
+
+          <b-modal id="modal:bugRepro" hide-footer="" size="lg" modal-class="mb-zoom" ref="modal:bugRepro"><template slot="modal-title">Establishing Requirements</template>
+            <div>
+              <p>Requirements gathering, requirements elicitation, requirements analysis,
+                requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity
+                of understanding what a software product should do.</p>
+            </div>
+          </b-modal>
+        </div>
+        <div>
+
+          <b-modal id="modal:bugRepro" hide-footer="" size="lg" modal-class="mb-zoom" ref="modal:bugRepro"><template slot="modal-title">Establishing Requirements</template>
+            <div>
+              <p>Requirements gathering, requirements elicitation, requirements analysis,
+                requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity
+                of understanding what a software product should do.</p>
+            </div>
+          </b-modal>
+        </div>
       </div>
 
 

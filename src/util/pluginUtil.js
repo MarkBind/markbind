@@ -24,7 +24,9 @@ const pluginUtil = {
       return `${filePath}.png`;
     }
 
-    const hashedContent = cryptoJS.MD5(content).toString();
+    // This is to keep the hash consistent across windows / unix systems
+    const normalizedContent = content.replace(/\r\n/g, '\n');
+    const hashedContent = cryptoJS.MD5(normalizedContent).toString();
     return `${hashedContent}.png`;
   },
 
