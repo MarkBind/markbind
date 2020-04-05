@@ -1,0 +1,6 @@
+{
+    "back": "back </div>",
+    "front": "<div> front",
+    "jsonVar1": "Json Variable can be referenced",
+    "jsonVar2": "Referencing jsonVar1: {{ jsonVar1 }}"
+}

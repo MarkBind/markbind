@@ -18,6 +18,12 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 <include src="testFootnotes.md" />
 
+**Json Variable**
+
+{{ front }} {{ back }}
+
+{{ jsonVar1 }} {{ jsonVar2 }}
+
 **Variables that reference another variable**
 
 {{finalized_value}}
@@ -27,7 +33,9 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 **Page Variable**
 
 <variable name="page_variable">Page Variable</variable>
-{{ page_variable }}
+<variable from="jsonPageVariable.json" />
+
+{{ page_variable }} {{ json_page_variable }}
 
 **Page Variable with HTML and MD**
 
@@ -164,6 +172,26 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 <box>
 <include src="sub_site/testSubsiteAndNestedSubsiteBaseUrl.md" />
 </box>
+
+**Include a file using baseUrl**
+<include src="{{baseUrl}}/requirements/SpecifyingRequirements.md#preview" />
+<panel src="{{baseUrl}}/requirements/SpecifyingRequirements.md#preview" header="**same test with panels**" type="minimal" />
+
+**Include a file in a sub-folder that uses baseUrl**
+<include src="requirements/testBaseUrlInIncludeSrc.md" />
+<panel src="requirements/testBaseUrlInIncludeSrc.md" header="**same test with panels**" type="minimal" />
+
+**Include a file in a sub-folder that uses baseUrl using baseUrl**
+<include src="{{baseUrl}}/requirements/testBaseUrlInIncludeSrc.md" />
+<panel src="{{baseUrl}}/requirements/testBaseUrlInIncludeSrc.md" header="**same test with panels**" type="minimal" />
+
+**Include a file in a sub-site that uses baseUrl**
+<include src="sub_site/testBaseUrlInIncludeSrcSubSite.md" />
+<panel src="sub_site/testBaseUrlInIncludeSrcSubSite.md" header="**same test with panels**" type="minimal" />
+
+**Include a file in a sub-site that uses baseUrl using baseUrl**
+<include src="{{baseUrl}}/sub_site/testBaseUrlInIncludeSrcSubSite.md" />
+<panel src="{{baseUrl}}/sub_site/testBaseUrlInIncludeSrcSubSite.md" header="**same test with panels**" type="minimal" />
 
 **Trimmed include** 
 

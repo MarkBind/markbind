@@ -3,23 +3,6 @@
   "pages": [
     {
       "header": "header.md",
-      "pageNav": 2,
-      "pageNavTitle": "Chapters of This Page",
-      "siteNav": "site-nav.md",
-      "src": "index.md",
-      "title": "Landing Page",
-      "layout": "default",
-      "headings": {
-        "heading-1": "Heading 1",
-        "sub-heading-1-1": "Sub Heading 1.1",
-        "sub-heading-1-2": "Sub Heading 1.2",
-        "heading-2": "Heading 2",
-        "heading-3": "Heading 3"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "header": "header.md",
       "siteNav": "site-nav.md",
       "src": "contents/topic1.md",
       "title": "",
@@ -54,6 +37,23 @@
       "title": "",
       "layout": "default",
       "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "header": "header.md",
+      "pageNav": 2,
+      "pageNavTitle": "Chapters of This Page",
+      "siteNav": "site-nav.md",
+      "src": "index.md",
+      "title": "Landing Page",
+      "layout": "default",
+      "headings": {
+        "heading-1": "Heading 1",
+        "sub-heading-1-1": "Sub Heading 1.1",
+        "sub-heading-1-2": "Sub Heading 1.2",
+        "heading-2": "Heading 2",
+        "heading-3": "Heading 3"
+      },
       "headingKeywords": {}
     }
   ]
