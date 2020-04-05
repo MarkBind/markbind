@@ -382,13 +382,12 @@ li.footnote-item:target {
 
 /* styles for triggers */
 .trigger {
-    display: inline-block;
-    text-decoration: underline dotted;
+    border-bottom: 1px dashed currentColor;
 }
 
 .trigger-click {
     cursor: pointer;
-    text-decoration: underline dashed;
+    border-bottom: 1px dashed currentColor;
 }
 
 .modal.mb-zoom {
@@ -450,4 +449,10 @@ pre {
 
 .copy-btn:focus {
     outline: none;
+}
+
+/* Octicon sizing */
+.octicon {
+    height: 1em;
+    width: 1em;
 }
