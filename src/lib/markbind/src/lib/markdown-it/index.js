@@ -121,9 +121,9 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
       return currentLineNumber === start;
     });
     if (inRange) {
-      return `<span class="highlighted">${line}</span><br>`;
+      return `<span class="highlighted">${line}<br></span>`;
     }
-    return `<span>${line}</span><br>`;
+    return `<span>${line}<br></span>`;
   }).join('');
 
   token.attrJoin('class', 'hljs');

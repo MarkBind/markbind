@@ -27,29 +27,29 @@
       <div id="content-wrapper">
         <p><strong>Code blocks test</strong></p>
         <p><strong>Multiple linebreaks, no highlight</strong></p>
-        <pre><code class="hljs"><span>Four empty lines below</span><br><span></span><br><span></span><br><span></span><br><span></span><br><span>Four empty lines above</span><br></code></pre>
+        <pre><code class="hljs"><span>Four empty lines below<br></span><span><br></span><span><br></span><span><br></span><span><br></span><span>Four empty lines above<br></span></code></pre>
         <p><strong>Multiple linebreaks, with highlight</strong></p>
-        <pre><code class="hljs js"><span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fourEmptyLinesBelow</span>(<span class="hljs-params"></span>) </span>{</span><br><span></span><br><span></span><br><span></span><br><span></span><br><span>} <span class="hljs-comment">// four empty lines above</span></span><br></code></pre>
+        <pre><code class="hljs js"><span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fourEmptyLinesBelow</span>(<span class="hljs-params"></span>) </span>{<br></span><span><br></span><span><br></span><span><br></span><span><br></span><span>} <span class="hljs-comment">// four empty lines above</span><br></span></code></pre>
         <p><strong>hljs span spanning multiple lines</strong></p>
-        <pre><code class="hljs markdown"><span><span class="hljs-strong">*****</span></span><br><span>-----</span><br></code></pre>
+        <pre><code class="hljs markdown"><span><span class="hljs-strong">*****</span><br></span><span>-----<br></span></code></pre>
         <p><strong>start-from attr causes inline style to be set</strong></p>
-        <pre><code style="counter-reset: line 29;" class="hljs markdown"><span><span class="hljs-strong">*****</span></span><br><span>-----</span><br></code></pre>
+        <pre><code style="counter-reset: line 29;" class="hljs markdown"><span><span class="hljs-strong">*****</span><br></span><span>-----<br></span></code></pre>
         <p><strong>highlight-lines attr causes corresponding lines to have 'highlighted' class</strong></p>
-        <pre><code class="hljs markdown"><span class="highlighted">1  highlighted</span><br><span>2</span><br><span class="highlighted">3  highlighted</span><br><span>4</span><br><span class="highlighted">5  highlighted</span><br><span class="highlighted">6  highlighted</span><br><span class="highlighted">7  highlighted</span><br><span class="highlighted">8  highlighted</span><br><span>9</span><br><span>10</span><br></code></pre>
+        <pre><code class="hljs markdown"><span class="highlighted">1  highlighted<br></span><span>2<br></span><span class="highlighted">3  highlighted<br></span><span>4<br></span><span class="highlighted">5  highlighted<br></span><span class="highlighted">6  highlighted<br></span><span class="highlighted">7  highlighted<br></span><span class="highlighted">8  highlighted<br></span><span>9<br></span><span>10<br></span></code></pre>
         <p><strong>highlight-lines attr with start-from attr cause corresponding lines to have 'highlighted' class based on 'start-from'</strong></p>
-        <pre><code style="counter-reset: line 10;" class="hljs markdown"><span class="highlighted">11  highlighted</span><br><span>12</span><br><span class="highlighted">13  highlighted</span><br><span>14</span><br><span class="highlighted">15  highlighted</span><br><span class="highlighted">16  highlighted</span><br><span class="highlighted">17  highlighted</span><br><span class="highlighted">18  highlighted</span><br><span>19</span><br><span>20</span><br></code></pre>
+        <pre><code style="counter-reset: line 10;" class="hljs markdown"><span class="highlighted">11  highlighted<br></span><span>12<br></span><span class="highlighted">13  highlighted<br></span><span>14<br></span><span class="highlighted">15  highlighted<br></span><span class="highlighted">16  highlighted<br></span><span class="highlighted">17  highlighted<br></span><span class="highlighted">18  highlighted<br></span><span>19<br></span><span>20<br></span></code></pre>
         <p><strong>Code block heading</strong></p>
         <div class="code-block">
           <div class="code-block-heading"><span>A heading</span></div>
           <div class="code-block-content">
-            <pre><code heading="A heading" class="hljs"><span>&lt;foo&gt;</span><br><span>    &lt;bar&gt;</span><br><span>&lt;/foo&gt;</span><br></code></pre>
+            <pre><code heading="A heading" class="hljs"><span>&lt;foo&gt;<br></span><span>    &lt;bar&gt;<br></span><span>&lt;/foo&gt;<br></span></code></pre>
           </div>
         </div>
         <p><strong>Code block heading with inline markdown</strong></p>
         <div class="code-block">
           <div class="code-block-heading inline-markdown-heading"><span><strong>Bold</strong>, <em>Italic</em>, <em><strong>Bold and Italic</strong></em>, <s>Strike through</s>, <strong><strong>Super Bold</strong></strong>, <ins>Underline</ins>, <mark>Highlight</mark>, 👍 ❗️ ❌ 🚧<br>We support page breaks</span></div>
           <div class="code-block-content">
-            <pre><code heading="**Bold**, _Italic_, ___Bold and Italic___, ~~Strike through~~, ****Super Bold****, ++Underline++, ==Highlight==, :+1: :exclamation: :x: :construction:&lt;br&gt;We support page breaks" class="hljs"><span>&lt;foo&gt;</span><br><span>    &lt;bar&gt;</span><br><span>&lt;/foo&gt;</span><br></code></pre>
+            <pre><code heading="**Bold**, _Italic_, ___Bold and Italic___, ~~Strike through~~, ****Super Bold****, ++Underline++, ==Highlight==, :+1: :exclamation: :x: :construction:&lt;br&gt;We support page breaks" class="hljs"><span>&lt;foo&gt;<br></span><span>    &lt;bar&gt;<br></span><span>&lt;/foo&gt;<br></span></code></pre>
           </div>
         </div>
       </div>
