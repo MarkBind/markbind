@@ -30,18 +30,26 @@ A PlantUML diagram file (.puml) can be inserted into a Markbind page using a `<p
 the same attributes as the `<pic>` tag, listed below:
 
 ****Options****
-Name | Type | Default | Description 
---- | --- | --- | ---
-alt | `string` | | **This must be specified.**<br>The alternative text of the diagram.
-height | `string` | | The height of the diagram in pixels.
-src | `string` | | **This must be specified.**<br>The URL of the diagram.<br>The URL can be specified as absolute or relative references. More info in: _[Intra-Site Links]({{baseUrl}}/userGuide/formattingContents.html#intraSiteLinks)_
-width | `string` | | The width of the diagram in pixels.<br>If both width and height are specified, width takes priority over height. It is to maintain the diagram's aspect ratio.
+Name | Type | Description
+--- | --- | ---
+alt | `string` | **This must be specified.**<br>The alternative text of the diagram.
+height | `string` | The height of the diagram in pixels.
+name | `string` | The name of the output file.
+src | `string` | The URL of the diagram if your PUML input is in another file.<br>The URL can be specified as absolute or relative references. More info in: _[Intra-Site Links]({{baseUrl}}/userGuide/formattingContents.html#intraSiteLinks)_
+width | `string` | The width of the diagram in pixels.<br>If both width and height are specified, width takes priority over height. It is to maintain the diagram's aspect ratio.
 
 
 ### Example
 
+You could have your PUML be written in a separate file or inline.
+
 <include src="outputBox.md" boilerplate>
 <span id="code">
+
+_Markbind page separate file_:
+```
+<puml src="diagrams/sequence.puml" width=300 />
+```
 
 _diagrams/sequence.puml_:
 ```
@@ -57,9 +65,20 @@ return success
 @enduml
 ```
 
-_Markbind page_:
+_Markbind page inline_:
 ```
-<puml src="diagrams/sequence.puml" width=300/>
+<puml width=300>
+@startuml
+alice -> bob ++ : hello
+bob -> bob ++ : self call
+bob -> bib ++  #005500 : hello
+bob -> george ** : create
+return done
+return rc
+bob -> george !! : delete
+return success
+@enduml
+</puml>
 ```
 
 </span>

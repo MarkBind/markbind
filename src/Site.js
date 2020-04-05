@@ -260,6 +260,7 @@ class Site {
       faviconUrl: config.faviconUrl,
       frontmatter: config.frontmatter,
       globalOverride: this.siteConfig.globalOverride || {},
+      disableHtmlBeautify: this.siteConfig.disableHtmlBeautify,
       pageTemplate: this.pageTemplate,
       plugins: this.plugins || {},
       rootPath: this.rootPath,
@@ -980,7 +981,7 @@ class Site {
     injectMarkdownItSpecialTags(tagsToIgnore);
     Page.htmlBeautifyOptions = {
       indent_size: 2,
-      content_unformatted: ['pre', ...tagsToIgnore],
+      content_unformatted: ['pre', 'textarea', ...tagsToIgnore],
     };
   }
 
