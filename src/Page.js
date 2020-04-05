@@ -60,7 +60,7 @@ class Page {
    * @typedef {Object<string, any>} PageConfig
    * @property {Object<string, any>} asset
    * @property {string} baseUrl
-   * @property {Set<any>} baseUrlMap
+   * @property {Set<string>} baseUrlMap the set of urls representing the sites' base directories
    * @property {string} content
    * @property {string} faviconUrl
    * @property {Object<string, any>} frontmatter
@@ -68,19 +68,21 @@ class Page {
    * @property {string} layoutsAssetPath
    * @property {string} rootPath
    * @property {boolean} enableSearch
-   * @property {boolean} globalOverride
+   * @property {boolean} globalOverride whether to globally overrides properties
+   * in the front matter of all pages
    * @property {Array} plugins
    * @property {Object<string, Object<string, any>>} pluginsContext
-   * @property {boolean} searchable
-   * @property {string} src
+   * @property {boolean} searchable whether to include this page in MarkBind's search functinality
+   * @property {string} src source path of the page
    * @property {string} pageTemplate template used for this page
    * @property {string} title
-   * @property {string} titlePrefix
+   * @property {string} titlePrefix https://markbind.org/userGuide/siteConfiguration.html#titleprefix
    * @property {Object<string, any>} userDefinedVariablesMap
    * @property {string} sourcePath the source file for rendering this page
    * @property {string} tempPath the temp path for writing intermediate result
    * @property {string} resultPath the output path of this page
-   * @property {number} headingIndexingLevel
+   * @property {number} headingIndexingLevel up to which level of headings will be used for searching index
+   * (https://markbind.org/userGuide/siteConfiguration.html#headingindexinglevel)
    */
 
   /**
@@ -96,7 +98,7 @@ class Page {
      */
     this.baseUrl = pageConfig.baseUrl;
     /**
-     * @type {Set<any>}
+     * @type {Set<string>} the set of urls representing the sites' base directories
      */
     this.baseUrlMap = pageConfig.baseUrlMap;
     /**
@@ -132,6 +134,7 @@ class Page {
      */
     this.globalOverride = pageConfig.globalOverride;
     /**
+     * Array of plugins used in this page.
      * @type {Array}
      */
     this.plugins = pageConfig.plugins;
@@ -199,12 +202,12 @@ class Page {
     this.headingIndexingLevel = pageConfig.headingIndexingLevel;
     /**
      * https://markbind.org/userGuide/reusingContents.html#includes
-     * @type {Set<any>}
+     * @type {Set<string>}
      */
     this.includedFiles = new Set();
     /**
      * https://markbind.org/userGuide/usingPlugins.html
-     * @type {Set<any>}
+     * @type {Set<string>}
      */
     this.pluginSourceFiles = new Set();
     /**
@@ -939,7 +942,7 @@ class Page {
   /**
    * A file configuration object.
    * @typedef {Object<string, any>} FileConfig
-   * @property {Set<any>} baseUrlMap
+   * @property {Set<string>} baseUrlMap the set of urls representing the sites' base directories
    * @property {string} rootPath
    * @property {Object<string, any>} userDefinedVariablesMap
    * @property {Object<string, number>} headerIdMap
@@ -1035,7 +1038,7 @@ class Page {
    * @property {boolean} searchable
    * @property {string} rootPath
    * @property {string} sourcePath
-   * @property {Set} includedFiles
+   * @property {Set<string>} includedFiles
    * @property {string} resultPath
    */
 
