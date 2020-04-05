@@ -130,7 +130,7 @@ function _assignPanelId(node) {
         + 'Please report this to the MarkBind developers. Thank you!');
     }
 
-    node.attribs.id = `${header.attribs.id}-panel`;
+    node.attribs.id = `${header.attribs.id}`;
   }
 }
 

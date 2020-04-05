@@ -33,13 +33,24 @@ function setupAnchors() {
   if (isFixed) {
     jQuery('.nav-inner').css('padding-top', `calc(${headerHeight}px)`);
     jQuery('#content-wrapper').css('padding-top', `calc(${headerHeight}px)`);
+    const headingTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+    for (let i = 0; i < headingTags.length; i += 1) {
+      const headingTag = headingTags[i];
+      insertCss(
+        `${headingTag}::before {
+          display: block;
+          content: '';
+          margin-top: calc(-${headerHeight}px - ${bufferHeight}rem);
+          height: calc(${headerHeight}px + ${bufferHeight}rem);
+        }`);
+    }
     insertCss(
-      `span.anchor {
-      display: block;
-      position: relative;
-      top: calc(-${headerHeight}px - ${bufferHeight}rem)
-      }`,
-    );
+      `span.card-container::before {
+          display: block;
+          content: '';
+          margin-top: calc(-${headerHeight}px - ${bufferHeight}rem);
+          height: calc(${headerHeight}px + ${bufferHeight}rem);
+        }`);
   }
   jQuery('h1, h2, h3, h4, h5, h6, .header-wrapper').each((index, heading) => {
     if (heading.id) {
@@ -47,23 +58,6 @@ function setupAnchors() {
                          () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'visible'));
       jQuery(heading).on('mouseleave',
                          () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'hidden'));
-      if (isFixed) {
-        /**
-         * Fixing the top navbar would break anchor navigation,
-         * by creating empty spans above the <h> tag we can prevent
-         * the headings from being covered by the navbar.
-         */
-        const parentClass = jQuery(heading).parent().attr('class');
-        if (parentClass === undefined || !parentClass.includes('morph-display-wrapper')) {
-          const spanId = heading.id;
-          heading.insertAdjacentHTML('beforebegin', `<span id="${spanId}" class="anchor"></span>`);
-          jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
-        }
-        // No dummy span for morph panel to avoid undisplayed anchor point.
-        if (parentClass && parentClass.includes('morph-display-wrapper')) {
-          jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
-        }
-      }
     }
   });
   jQuery('.fa-anchor').each((index, anchor) => {

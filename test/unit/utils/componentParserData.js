@@ -50,7 +50,7 @@ module.exports.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_ATTRIBUTE = `
 `;
 
 module.exports.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_ATTRIBUTE_EXPECTED = `
-<panel id="lorem-ipsum-panel"><template slot="_header"><h1 id="lorem-ipsum">Lorem ipsum</h1>
+<panel id="lorem-ipsum"><template slot="_header"><h1 id="lorem-ipsum">Lorem ipsum</h1>
 </template>
   Header and alt attributes should be parsed and inserted under panel as internal slots and deleted.
 </panel>
@@ -65,7 +65,7 @@ module.exports.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_SLOT = `
 `;
 
 module.exports.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_SLOT_EXPECTED = `
-<panel id="slot-header-panel"><template slot="_header"><h1 id="attribute-header">Attribute Header</h1>
+<panel id="slot-header"><template slot="_header"><h1 id="attribute-header">Attribute Header</h1>
 </template>
 <template slot="header"><h1 id="slot-header">Slot Header</h1></template>
   Header and alt attributes should be parsed and inserted under panel as internal slots and deleted.
