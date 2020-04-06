@@ -3,17 +3,11 @@
   "titlePrefix": "MarkBind",
   "pages": [
     {
-      "glob": "**/*.mbd"
-    },
-    {
-      "glob": "*.md"
+      "glob": ["**/*.mbd", "*.md", "devGuide/*.md"]
     },
     {
       "src": "index.md",
       "searchable": "no"
-    },
-    {
-      "glob": "devGuide/*.md"
     }
   ],
   "headingIndexingLevel": 6,

@@ -1,61 +1,73 @@
-const ANSI_RED = '\u001B[31m';
-const ANSI_GREEN = '\u001B[32m';
-const ANSI_GREY = '\u001B[90m';
-const ANSI_RESET = '\u001B[0m';
+const chalk = require('chalk');
+
+const EMPTY_LINE = '|-------------------empty-line-------------------|';
+const CONSECUTIVE_NEWLINE_REGEX = new RegExp('\\n{2,}', 'g');
+const WHITESPACE_REGEX = new RegExp('\\s+', 'g');
 
 class DiffPrinter {
   /**
-   * Prints line of text in colour provided
-   * @param {string} text text to print, default: no text
-   * @param {string} colour colour of text, default: no colour
+   * Replaces all newlines except the first with EMPTY_LINE.
    */
-  static printLine(text = '', colour = 'none') {
-    let ansiEscCode = '';
-    switch (colour) {
-    case 'red':
-      ansiEscCode = ANSI_RED;
-      break;
-    case 'green':
-      ansiEscCode = ANSI_GREEN;
-      break;
-    case 'grey':
-      ansiEscCode = ANSI_GREY;
-      break;
-    default:
-      ansiEscCode = '';
-      break;
+  static prependNewLines(match) {
+    return `\n${match.replace('\n', '').split('\n').join(`${EMPTY_LINE}\n`)}`;
+  }
+
+  static formatNewLines(value, prevVal, nextVal) {
+    let printValue;
+    printValue = value.replace(CONSECUTIVE_NEWLINE_REGEX, this.prependNewLines);
+
+    /**
+     * Replace consecutive newlines between current value and adjacent values
+     */
+
+    const currentValStartsWithNewLine = printValue.startsWith('\n');
+    const prevValEndsWithNewLine = prevVal && prevVal.endsWith('\n');
+    if (currentValStartsWithNewLine && prevValEndsWithNewLine) {
+      printValue = EMPTY_LINE + printValue;
     }
-    process.stderr.write(`${ansiEscCode}${text}${ANSI_RESET}\n`);
+
+    const currentValEndsWithNewLine = printValue.endsWith('\n');
+    const nextValStartsWithNewLine = nextVal && nextVal.startsWith('\n');
+    if (currentValEndsWithNewLine && nextValStartsWithNewLine) {
+      printValue += EMPTY_LINE;
+    }
+
+    return printValue;
   }
 
   /**
    * Splits and combines change objects such that their value contains a single line
    * Also adds ANSI Escape Codes for diffs and unchanged lines
-   * @param {Array} parts array of change objects returned by jsdiff#diffWords
+   * @param {Array} diffObjects array of change objects returned by jsdiff#diffWords
    * @returns {Array} change objects where their value contains a single line
    */
-  static generateLineParts(parts) {
-    let lineParts = [{ value: '' }];
-    parts.forEach(({ value, added, removed }) => {
-      let lines = value.split(/\n/);
-      let asciEscCode = ANSI_GREY;
-      if (added) asciEscCode = ANSI_GREEN;
-      else if (removed) asciEscCode = ANSI_RED;
-      lines = lines.map(line => ({
-        value: asciEscCode + line + ANSI_RESET,
-        diff: added || removed,
-      }));
-
-      if (lines.length) {
-        const prevPart = lineParts.pop();
-        lines[0] = {
-          value: prevPart.value + lines[0].value,
-          diff: lines[0].diff || prevPart.diff,
-        };
+  static generateLineParts(diffObjects) {
+    const parts = [];
+    diffObjects.forEach(({ value, added, removed }, i) => {
+      let printValue = value;
+      if (added || removed) {
+        printValue = this.formatNewLines(printValue,
+                                         diffObjects[i - 1] && diffObjects[i - 1].value,
+                                         diffObjects[i + 1] && diffObjects[i - 1].value);
+        printValue = added
+          ? chalk.green(printValue.replace(WHITESPACE_REGEX,
+                                           match => chalk.bgGreenBright(match)))
+          : chalk.red(printValue.replace(WHITESPACE_REGEX,
+                                         match => chalk.bgRedBright(match)));
+        parts.push({
+          value: printValue,
+          diff: true,
+        });
+      } else {
+        // Split into lines only when it is untouched to avoid printing too much of the untouched areas
+        const lineParts = printValue.split('\n').map((line, index, lines) => ({
+          value: (index === lines.length - 1) ? chalk.grey(line) : `${chalk.grey(line)}\n`,
+          diff: false,
+        }));
+        parts.push(...lineParts);
       }
-      lineParts = lineParts.concat(lines);
     });
-    return lineParts;
+    return parts;
   }
 
   /**
@@ -75,6 +87,11 @@ class DiffPrinter {
     });
   }
 
+  static printDiffFoundMessage(filePath) {
+    const message = chalk.grey(`\n-------------------------------------\nDiff found in ${filePath}\n\n`);
+    process.stderr.write(message);
+  }
+
   /**
    * Prints value in line objects that are set for printing
    * If there is a gap between lines, print ellipsis
@@ -86,11 +103,9 @@ class DiffPrinter {
       const prevPart = lineParts[i - 1];
       if (linePart.toPrint) {
         if (prevPart && !prevPart.toPrint) {
-          this.printLine();
-          this.printLine('...', 'grey');
-          this.printLine();
+          process.stderr.write(chalk.grey('\n...\n'));
         }
-        this.printLine(linePart.value, 'none'); // already has ANSI Escape Code
+        process.stderr.write(linePart.value);
       }
     });
   }

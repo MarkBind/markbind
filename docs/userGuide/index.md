@@ -1,1 +1,3 @@
-<include src="gettingStarted.md" />
+<script>
+  window.location.href = "gettingStarted.html"
+</script>

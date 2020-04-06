@@ -188,6 +188,11 @@ function _warnDeprecatedAttributes(node, attributeNamePairs) {
  * For modals, we make it attempt to show the modal if it exists.
  */
 
+function addTriggerClass(node, trigger) {
+  const triggerClass = trigger === 'click' ? 'trigger-click' : 'trigger';
+  node.attribs.class = node.attribs.class ? `${node.attribs.class} ${triggerClass}` : triggerClass;
+}
+
 function _parseTrigger(node) {
   node.name = 'span';
   const trigger = node.attribs.trigger || 'hover';
@@ -198,7 +203,7 @@ function _parseTrigger(node) {
     = 'tooltipContentGetter';
   const convertedTrigger = trigger === 'hover' ? 'mouseover' : trigger;
   node.attribs[`v-on:${convertedTrigger}`] = `$refs['${node.attribs.for}'].show()`;
-  node.attribs.class = node.attribs.class ? `${node.attribs.class} trigger` : 'trigger';
+  addTriggerClass(node, convertedTrigger);
 }
 
 /*
@@ -222,7 +227,7 @@ function _parsePopover(node) {
   node.attribs['data-mb-component-type'] = 'popover';
   node.attribs[`v-b-popover.${trigger}.${placement}.html`]
     = 'popoverInnerGenerator';
-  node.attribs.class = node.attribs.class ? `${node.attribs.class} trigger` : 'trigger';
+  addTriggerClass(node, trigger);
   _transformSlottedComponents(node);
 }
 
@@ -267,7 +272,7 @@ function _parseTooltip(node) {
   node.attribs['data-mb-component-type'] = 'tooltip';
   node.attribs[`v-b-tooltip.${trigger}.${placement}.html`]
     = 'tooltipInnerContentGetter';
-  node.attribs.class = node.attribs.class ? `${node.attribs.class} trigger` : 'trigger';
+  addTriggerClass(node, trigger);
   _transformSlottedComponents(node);
 }
 
