@@ -1,8 +1,8 @@
 const octicons = require('@primer/octicons');
 
 module.exports = require('markdown-it-regexp')(
-    /:(fa[brs]|glyphicon|octicon|octiconlight)-([a-z-]+)(~[a-z-]+)?:/,
-    (match, utils) => {
+    /:(fa[brs]|glyphicon|octicon|octiconlight)-([a-z-]+)~?([a-z-]+)?:/,
+    (match, _) => {
         let iconFontType = match[1];
         let iconFontName = match[2];
         let iconClass = match[3];
