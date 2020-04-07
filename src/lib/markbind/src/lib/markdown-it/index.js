@@ -108,8 +108,6 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   lines.pop(); // last line is always a single '\n' newline, so we remove it
   // wrap all lines with <span> so we can number them
   str = lines.map((line, index) => {
-    // if a line is empty we put a 0 width non breaking space
-    const content = line || '&#x200B;';
     const currentLineNumber = index + 1;
     // check if there is at least one range or line number that matches the current line number
     // Note: The algorithm is based off markdown-it-highlight-lines (https://github.com/egoist/markdown-it-highlight-lines/blob/master/src/index.js) 
@@ -123,9 +121,9 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
       return currentLineNumber === start;
     });
     if (inRange) {
-      return `<span class="highlighted">${content}</span>`;
+      return `<span class="highlighted">${line}<br></span>`;
     }
-    return `<span>${content}</span>`;
+    return `<span>${line}<br></span>`;
   }).join('');
 
   token.attrJoin('class', 'hljs');
