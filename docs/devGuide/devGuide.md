@@ -135,7 +135,7 @@ A: Please report this in a [new issue](https://github.com/MarkBind/markbind/issu
 Our test script does the following:
 
 1. Lints the code for any code and style errors using ESLint.
-1. Builds the test sites whose directory names are listed in `test/functional/test_sites`.
+1. Builds the test sites whose directory names are listed in `test/functional/test_site`.
 1. For each test site, compares the HTML files generated with the HTML files in its `expected` directory.
 
 #### Running tests
@@ -175,12 +175,44 @@ On Windows:
   You should always check that the generated output is correct before committing any changes to the test sites.
 </box>
 
-##### New features
+#### Adding test site content
 
 When adding new features, you should also add new site content into an existing test site or create a new test site to demonstrate the new feature. This is to ensure that your feature can be tested by building that test site.
 
+To add a page to an existing test site, for this example, to `test_site`:
+
+1. Add a new test page, e.g., `newTestPage.md`, containing a demonstration of the new feature.
+
+2. Open the `site.json` corresponding to the test site, i.e. `test/functional/test_site/site.json`
+
+3. To include the new page, i.e. `newTestPage.md`, add it to the `pages` array.
+
+``` {heading="site.json" highlight-lines="16,17"}
+"pages": [
+    {
+      "src": "index.md",
+      "title": "Hello World",
+      "frontmatter": {
+        "frontMatterOverrideProperty": "Overridden by front matter override",
+        "globalAndFrontMatterOverrideProperty":  "Overridden by front matter override"
+      }
+    },
+    ...
+    {
+      "src": "testLayouts.md",
+      "title": "Hello World"
+    },
+    {,
+      "src": "newTestPage.md",
+      "title": [some title you see fit]
+    },
+    ...
+```
+
+4. Update the tests using `npm run updatetest`.
+
 <box type="info">
-  When creating a new test site, the directory name of the new test site should be added to <code>test/functional/test_sites</code>.
+  When creating a new test site, the directory name of the new test site should be added to `test/functional/test_sites` file.
 </box>
 
 ### Using ESLint
