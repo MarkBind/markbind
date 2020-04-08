@@ -79,6 +79,10 @@
     {
       "src": "testPopoverTrigger.md",
       "title": "Popover initiated by trigger should honor trigger attribute"
+    },
+    {
+      "src": "testDates.md",
+      "title": "Nunjucks date filter tests"
     }
   ],
   "ignore": [

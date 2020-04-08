@@ -1,5 +1,4 @@
 const cheerio = require('cheerio');
-const nunjucks = require('nunjucks');
 const path = require('path');
 const url = require('url');
 
@@ -8,7 +7,7 @@ const CyclicReferenceError = require('../handlers/cyclicReferenceError.js');
 const md = require('../lib/markdown-it');
 const utils = require('../utils');
 const urlUtils = require('../utils/urls');
-const nunjuckUtils = require('../utils/nunjuckUtils');
+const njUtil = require('../utils/nunjuckUtils');
 
 const _ = {};
 _.has = require('lodash/has');
@@ -286,7 +285,7 @@ function _preprocessInclude(node, context, config, parser) {
   parser.extractInnerVariablesIfNotProcessed(content, childContext, config, filePath);
 
   const innerVariables = parser.getImportedVariableMap(filePath);
-  const fileContent = nunjuckUtils.renderEscaped(nunjucks, content, {
+  const fileContent = njUtil.renderRaw(content, {
     ...userDefinedVariables, ...innerVariables,
   });
 

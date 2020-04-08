@@ -10,3 +10,5 @@
 <variable name="global_variable">Global Variable</variable>
 <variable name="page_global_variable_overriding_page_variable">Global Variable Overriding Page Variable</variable>
 <variable from="variable.json"></variable>
+<variable name="base2">2019-01-01</variable>
+<variable name="formatted_date">{{ base2 | date("ddd D MMM", 10) }}</variable>
