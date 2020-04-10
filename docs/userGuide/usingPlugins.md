@@ -228,6 +228,7 @@ MarkBind has a set of built-in plugins that can be used immediately without inst
 
 <include src="plugins/algolia.mbdf" />
 <include src="plugins/codeBlockCopyButtons.mbdf" />
+<include src="plugins/fixedheader.mbdf" />
 <include src="plugins/tags.mbdf" />
 <include src="plugins/googleAnalytics.mbdf" />
 

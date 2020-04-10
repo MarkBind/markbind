@@ -1,0 +1,5 @@
+#### `fixedHeader`: Make Top Navigation Fixed
+
+This plugin allow you to fix the top navigation bar while keeping the anchor navigation function.
+
+To enable it, simply add `"fixedHeader"` to your site's plugins, and add `class="header-fixed"` attribute to the `<header>` element in file `{your_site}/_markbind/headers/header.md`.
