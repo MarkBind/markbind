@@ -296,8 +296,8 @@ class Site {
         siteNavCss: path.relative(path.dirname(resultPath),
                                   path.join(this.siteAssetsDestPath, 'css', 'site-nav.css')),
         bootstrapUtilityJs: path.relative(path.dirname(resultPath),
-                                          path.join(this.siteAssetsDestPath,
-                                                    'js', 'bootstrap-utility.min.js')),
+                                          path.join(this.siteAssetsDestPath, 'js',
+                                                    'bootstrap-utility.min.js')),
         bootstrapVueJs: path.relative(path.dirname(resultPath),
                                       path.join(this.siteAssetsDestPath, 'js', 'bootstrap-vue.min.js')),
         polyfillJs: path.relative(path.dirname(resultPath),
@@ -508,10 +508,9 @@ class Site {
    * @returns {*}
    */
   collectBaseUrl() {
-    const candidates
-      = walkSync(this.rootPath, { directories: false })
-        .filter(x => x.endsWith(this.siteConfigPath))
-        .map(x => path.resolve(this.rootPath, x));
+    const candidates = walkSync(this.rootPath, { directories: false })
+      .filter(x => x.endsWith(this.siteConfigPath))
+      .map(x => path.resolve(this.rootPath, x));
 
     this.baseUrlMap = new Set(candidates.map(candidate => path.dirname(candidate)));
 
@@ -915,10 +914,9 @@ class Site {
       .forEach(plugin => this.loadPlugin(plugin, false));
 
     const markbindPrefixRegex = new RegExp(`^${MARKBIND_PLUGIN_PREFIX}`);
-    defaultPlugins
-      .filter(plugin => !_.get(this.siteConfig,
-                               ['pluginsContext', plugin.replace(markbindPrefixRegex, ''), 'off'],
-                               false))
+    defaultPlugins.filter(plugin => !_.get(this.siteConfig,
+                                           ['pluginsContext', plugin.replace(markbindPrefixRegex, ''), 'off'],
+                                           false))
       .forEach(plugin => this.loadPlugin(plugin, true));
   }
 
@@ -965,14 +963,13 @@ class Site {
         return;
       }
 
-      plugin.getSpecialTags(plugin.pluginsContext)
-        .forEach((tagName) => {
-          if (!tagName) {
-            return;
-          }
+      plugin.getSpecialTags(plugin.pluginsContext).forEach((tagName) => {
+        if (!tagName) {
+          return;
+        }
 
-          tagsToIgnore.add(tagName.toLowerCase());
-        });
+        tagsToIgnore.add(tagName.toLowerCase());
+      });
     });
 
     injectHtmlParser2SpecialTags(tagsToIgnore);
@@ -1063,7 +1060,6 @@ class Site {
           }
         }
 
-        // eslint-disable-next-line no-param-reassign
         page.userDefinedVariablesMap = this.userDefinedVariablesMap;
         processingFiles.push(page.generate(builtFiles)
           .catch((err) => {
@@ -1226,8 +1222,8 @@ class Site {
           this.siteConfig.deploy = this.siteConfig.deploy || {};
           const basePath = this.siteConfig.deploy.baseDir || this.outputPath;
           if (!fs.existsSync(basePath)) {
-            reject(
-              new Error('The site directory does not exist. Please build the site first before deploy.'));
+            reject(new Error(
+              'The site directory does not exist. Please build the site first before deploy.'));
             return undefined;
           }
           const options = {};
@@ -1303,28 +1299,24 @@ class Site {
  */
 Site.prototype.buildAsset = delay(Site.prototype._buildMultipleAssets, 1000);
 
-Site.prototype.rebuildPageBeingViewed
-  = delay(Site.prototype._rebuildPageBeingViewed, 1000);
+Site.prototype.rebuildPageBeingViewed = delay(Site.prototype._rebuildPageBeingViewed, 1000);
 
 /**
  * Rebuild pages that are affected by changes in filePaths
  * @param filePaths a single path or an array of paths corresponding to the files that have changed
  */
-Site.prototype.rebuildAffectedSourceFiles
-  = delay(Site.prototype._rebuildAffectedSourceFiles, 1000);
+Site.prototype.rebuildAffectedSourceFiles = delay(Site.prototype._rebuildAffectedSourceFiles, 1000);
 
 /**
  * Rebuild all pages
  * @param filePaths a single path or an array of paths corresponding to the files that have changed
  */
-Site.prototype.rebuildSourceFiles
-  = delay(Site.prototype._rebuildSourceFiles, 1000);
+Site.prototype.rebuildSourceFiles = delay(Site.prototype._rebuildSourceFiles, 1000);
 
 /**
  * Remove assets that are specified in filePaths
  * @param filePaths a single path or an array of paths corresponding to the assets to remove
  */
-Site.prototype.removeAsset
-  = delay(Site.prototype._removeMultipleAssets, 1000);
+Site.prototype.removeAsset = delay(Site.prototype._removeMultipleAssets, 1000);
 
 module.exports = Site;

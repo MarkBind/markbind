@@ -66,8 +66,7 @@ class Parser {
    * @param userDefinedVariables global variables
    * @param includedVariables variables from parent include
    */
-  // eslint-disable-next-line class-methods-use-this
-  extractPageVariables(fileName, data, userDefinedVariables, includedVariables) {
+  static extractPageVariables(fileName, data, userDefinedVariables, includedVariables) {
     const fileDir = path.dirname(fileName);
     const $ = cheerio.load(data);
     const pageVariables = {};
@@ -77,8 +76,7 @@ class Parser {
      */
     const importedVariables = {};
     $('import[from]').each((index, element) => {
-      const variableNames = Object.keys(element.attribs)
-        .filter(name => name !== 'from' && name !== 'as');
+      const variableNames = Object.keys(element.attribs).filter(name => name !== 'from' && name !== 'as');
       // If no namespace is provided, we use the smallest name as one...
       const largestName = variableNames.sort()[0];
       // ... and prepend it with $__MARKBIND__ to reduce collisions.
@@ -152,8 +150,7 @@ class Parser {
 
   _renderIncludeFile(filePath, node, context, config, asIfAt = filePath) {
     try {
-      this._fileCache[filePath] = this._fileCache[filePath]
-        ? this._fileCache[filePath] : fs.readFileSync(filePath, 'utf8');
+      this._fileCache[filePath] = this._fileCache[filePath] || fs.readFileSync(filePath, 'utf8');
     } catch (e) {
       // Read file fail
       const missingReferenceErrorMessage = `Missing reference in: ${node.attribs[ATTRIB_CWF]}`;
@@ -167,8 +164,8 @@ class Parser {
     // Extract included variables from the PARENT file
     const includeVariables = Parser.extractIncludeVariables(node, context.variables);
     // Extract page variables from the CHILD file
-    const pageVariables
-      = this.extractPageVariables(asIfAt, fileContent, userDefinedVariables, includeVariables);
+    const pageVariables = Parser.extractPageVariables(asIfAt, fileContent,
+                                                      userDefinedVariables, includeVariables);
     const content = njUtil.renderRaw(fileContent, {
       ...pageVariables,
       ...includeVariables,
@@ -204,8 +201,11 @@ class Parser {
       aliases.set(alias, filePath);
       this.staticIncludeSrc.push({ from: context.cwf, to: filePath });
       // Render inner file content
-      const { content: renderedContent, childContext, userDefinedVariables }
-        = this._renderIncludeFile(filePath, node, context, config);
+      const {
+        content: renderedContent,
+        childContext,
+        userDefinedVariables,
+      } = this._renderIncludeFile(filePath, node, context, config);
       this.extractInnerVariablesIfNotProcessed(renderedContent, childContext, config, filePath);
       const innerVariables = this.getImportedVariableMap(filePath);
 
@@ -328,10 +328,8 @@ class Parser {
         break;
       }
       const fileExists = utils.fileExists(node.attribs.src)
-          || utils.fileExists(
-            urlUtils.calculateBoilerplateFilePath(
-              node.attribs.boilerplate,
-              node.attribs.src, config));
+          || utils.fileExists(urlUtils.calculateBoilerplateFilePath(node.attribs.boilerplate,
+                                                                    node.attribs.src, config));
       if (fileExists) {
         const { src, fragment } = node.attribs;
         const resultDir = path.dirname(path.join('{{hostBaseUrl}}', path.relative(config.rootPath, src)));
@@ -363,18 +361,16 @@ class Parser {
       return;
     }
     if (node.children) {
-      /* eslint-disable no-plusplus */
-      for (let n = 0; n < node.children.length; n++) {
+      for (let n = 0; n < node.children.length; n += 1) {
         const child = node.children[n];
         if (child.type === 'comment'
           || (child.type === 'text' && n === node.children.length - 1 && !/\S/.test(child.data))) {
           node.children.splice(n, 1);
-          n--;
+          n -= 1;
         } else if (child.type === 'tag') {
           this._trimNodes(child);
         }
       }
-      /* eslint-enable no-plusplus */
     }
   }
 
@@ -408,8 +404,7 @@ class Parser {
       });
       let actualFilePath = file;
       if (!utils.fileExists(file)) {
-        const boilerplateFilePath
-          = urlUtils.calculateBoilerplateFilePath(path.basename(file), file, config);
+        const boilerplateFilePath = urlUtils.calculateBoilerplateFilePath(path.basename(file), file, config);
         if (utils.fileExists(boilerplateFilePath)) {
           actualFilePath = boilerplateFilePath;
         }
@@ -422,7 +417,7 @@ class Parser {
         }
         const parentSitePath = urlUtils.getParentSiteAbsolutePath(file, config.rootPath, config.baseUrlMap);
         const userDefinedVariables = config.userDefinedVariablesMap[parentSitePath];
-        const pageVariables = this.extractPageVariables(file, data, userDefinedVariables, {});
+        const pageVariables = Parser.extractPageVariables(file, data, userDefinedVariables, {});
         let fileContent = njUtil.renderRaw(data, {
           ...pageVariables,
           ...userDefinedVariables,
@@ -493,7 +488,7 @@ class Parser {
       const parentSitePath = urlUtils.getParentSiteAbsolutePath(file, config.rootPath, config.baseUrlMap);
       const userDefinedVariables = config.userDefinedVariablesMap[parentSitePath];
       const { additionalVariables } = config;
-      const pageVariables = this.extractPageVariables(actualFilePath, pageData, userDefinedVariables, {});
+      const pageVariables = Parser.extractPageVariables(actualFilePath, pageData, userDefinedVariables, {});
 
       let fileContent = njUtil.renderRaw(pageData, {
         ...pageVariables,
