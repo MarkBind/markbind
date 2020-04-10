@@ -96,6 +96,8 @@ class Page {
 
     // Flag to indicate whether this page has a site nav
     this.hasSiteNav = false;
+
+    this.fixedHeader = pageConfig.fixedHeader;
   }
 
   prepareTemplateData() {
@@ -780,6 +782,7 @@ class Page {
       rootPath: this.rootPath,
       userDefinedVariablesMap: this.userDefinedVariablesMap,
       headerIdMap: this.headerIdMap,
+      fixedHeader: this.fixedHeader,
     };
     return new Promise((resolve, reject) => {
       markbinder.includeFile(this.sourcePath, fileConfig)

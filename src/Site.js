@@ -203,6 +203,7 @@ class Site {
       fs.readJsonAsync(siteConfigPath)
         .then((config) => {
           this.siteConfig = config;
+          this.siteConfig.fixedHeader = this.siteConfig.fixedHeader || false;
           this.siteConfig.baseUrl = (baseUrl === undefined) ? this.siteConfig.baseUrl : baseUrl;
           this.siteConfig.enableSearch = (config.enableSearch === undefined) || config.enableSearch;
           resolve(this.siteConfig);
@@ -229,7 +230,9 @@ class Site {
   createPage(config) {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
     const resultPath = path.join(this.outputPath, Site.setExtension(config.pageSrc, '.html'));
+    console.log(this.siteConfig.fixedHeader);
     return new Page({
+      fixedHeader: this.siteConfig.fixedHeader,
       baseUrl: this.siteConfig.baseUrl,
       baseUrlMap: this.baseUrlMap,
       content: '',

@@ -19,8 +19,10 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
  * @param attribute Attribute name to parse
  * @param isInline Whether to parse the attribute with only inline markdown-it rules
  * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
+ * @param isHeaderFixed Whether the top navigation bar is fixed
  */
-function _parseAttributeWithoutOverride(node, attribute, isInline, slotName = attribute) {
+function _parseAttributeWithoutOverride(node, attribute, isInline,
+                                        slotName = attribute, isHeaderFixed = false) {
   const hasAttributeSlot = node.children
     && node.children.some(child => _.has(child.attribs, 'slot') && child.attribs.slot === slotName);
 
@@ -33,7 +35,7 @@ function _parseAttributeWithoutOverride(node, attribute, isInline, slotName = at
     }
 
     const attributeSlotElement = cheerio.parseHTML(
-      `<template slot="${slotName}">${rendered}</template>`, true);
+      `<template slot="${slotName}">${isHeaderFixed ? '<a class="anchor"></a>' : ''} ${rendered}</template>`, true);
     node.children
       = node.children ? attributeSlotElement.concat(node.children) : attributeSlotElement;
   }
@@ -65,12 +67,13 @@ function _transformSlottedComponents(node) {
  * Panels
  */
 
-function _parsePanelAttributes(node) {
+function _parsePanelAttributes(node, config) {
   _parseAttributeWithoutOverride(node, 'alt', false, '_alt');
 
   const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
   const hasAltSlot = slotChildren && slotChildren.some(child => child.attribs.slot === '_alt');
   const hasHeaderSlot = slotChildren && slotChildren.some(child => child.attribs.slot === 'header');
+  const isHeaderFixed = config.fixedHeader;
 
   // If both are present, the header attribute has no effect, and we can simply remove it.
   if (hasAltSlot && hasHeaderSlot) {
@@ -78,7 +81,7 @@ function _parsePanelAttributes(node) {
     return;
   }
 
-  _parseAttributeWithoutOverride(node, 'header', false, '_header');
+  _parseAttributeWithoutOverride(node, 'header', false, '_header', isHeaderFixed);
 }
 
 /**
@@ -107,6 +110,27 @@ function _findHeaderElement(node) {
   return undefined;
 }
 
+function _findAnchorElement(node) {
+  const elements = node.children;
+  if (!elements || !elements.length) {
+    return undefined;
+  }
+
+  const elementQueue = elements.slice(0);
+  while (elementQueue.length) {
+    const nextEl = elementQueue.shift();
+    if (nextEl.name === 'a' && nextEl.attribs.class === 'anchor') {
+      return nextEl;
+    }
+
+    if (nextEl.children) {
+      nextEl.children.forEach(child => elementQueue.push(child));
+    }
+  }
+
+  return undefined;
+}
+
 /**
  * Assigns an id to the root element of a panel component using the heading specified in the
  * panel's header slot or attribute (if any), with the header slot having priority if present.
@@ -121,6 +145,8 @@ function _assignPanelId(node) {
   const slotElement = headerSlot || headerAttributeSlot;
   if (slotElement) {
     const header = _findHeaderElement(slotElement);
+    const anchor = _findAnchorElement(slotElement);
+
     if (!header) {
       return;
     }
@@ -131,6 +157,10 @@ function _assignPanelId(node) {
     }
 
     node.attribs.id = `${header.attribs.id}`;
+
+    if (anchor) {
+      anchor.attribs.id = `${header.attribs.id}`;
+    }
   }
 }
 
@@ -418,11 +448,11 @@ function _parseDropdownAttributes(node) {
  * API
  */
 
-function parseComponents(node, errorHandler) {
+function parseComponents(node, errorHandler, config = {}) {
   try {
     switch (node.name) {
     case 'panel':
-      _parsePanelAttributes(node);
+      _parsePanelAttributes(node, config);
       break;
     case 'trigger':
       _parseTrigger(node);

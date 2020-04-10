@@ -346,7 +346,7 @@ class Parser {
       break;
     }
 
-    componentParser.parseComponents(node, this._onError);
+    componentParser.parseComponents(node, this._onError, config);
 
     if (node.children) {
       node.children.forEach((child) => {
