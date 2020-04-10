@@ -1172,7 +1172,33 @@ class Page {
               this.pluginsContext[pluginName] || {}, this.frontMatter, this.getPluginConfig());
         }
       });
+    // After rendering everything, add dummy spans to headings if a fixed header is present.
+    postRenderedContent = Page._postRenderForFixedHeader(postRenderedContent);
     return postRenderedContent;
+  }
+
+  /**
+   * Generate dummy spans if fixed header is used.
+   * @param content HTML content to be rendered.
+   * @return {string} Rendered HTML content.
+   * @private
+   */
+  static _postRenderForFixedHeader(content) {
+    const $ = cheerio.load(content, { xmlMode: false });
+    const hasHeader = $('header')[0] !== undefined;
+    if (hasHeader) {
+      // Check if the first header has a class named 'header-fixed'
+      const isFixed = $('header')[0].attribs === undefined
+        ? false : $('header')[0].attribs.class === 'header-fixed';
+      if (isFixed) {
+        $('h1, h2, h3, h4, h5, h6, .header-wrapper').each((index, heading) => {
+          const spanId = heading.attribs.id;
+          $(heading).prepend(`<span id="${spanId}" class="anchor"></span>`);
+        });
+      }
+      return $.html();
+    }
+    return content;
   }
 
   /**
