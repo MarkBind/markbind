@@ -29,9 +29,22 @@ function setupAnchors() {
   const headerSelector = jQuery('header');
   const isFixed = headerSelector.filter('.header-fixed').length !== 0;
   const headerHeight = headerSelector.height();
+  const bufferHeight = 0;
   if (isFixed) {
     jQuery('.nav-inner').css('padding-top', `calc(${headerHeight}px)`);
     jQuery('#content-wrapper').css('padding-top', `calc(${headerHeight}px)`);
+    insertCss(
+      `span.anchor {
+      position: relative;
+      top: calc(-${headerHeight}px - ${bufferHeight}rem)
+      }`,
+    );
+    insertCss(`span.card-container::before {
+          display: block;
+          content: '';
+          margin-top: calc(-${headerHeight}px - ${bufferHeight}rem);
+          height: calc(${headerHeight}px + ${bufferHeight}rem);
+        }`);
   }
   jQuery('h1, h2, h3, h4, h5, h6, .header-wrapper').each((index, heading) => {
     if (heading.id) {
@@ -39,6 +52,9 @@ function setupAnchors() {
                          () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'visible'));
       jQuery(heading).on('mouseleave',
                          () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'hidden'));
+    }
+    if (isFixed) {
+      jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
     }
   });
   jQuery('.fa-anchor').each((index, anchor) => {

@@ -19,10 +19,9 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
  * @param attribute Attribute name to parse
  * @param isInline Whether to parse the attribute with only inline markdown-it rules
  * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
- * @param isHeaderFixed Whether the top navigation bar is fixed
  */
 function _parseAttributeWithoutOverride(node, attribute, isInline,
-                                        slotName = attribute, isHeaderFixed = false) {
+                                        slotName = attribute) {
   const hasAttributeSlot = node.children
     && node.children.some(child => _.has(child.attribs, 'slot') && child.attribs.slot === slotName);
 
@@ -35,7 +34,7 @@ function _parseAttributeWithoutOverride(node, attribute, isInline,
     }
 
     const attributeSlotElement = cheerio.parseHTML(
-      `<template slot="${slotName}">${isHeaderFixed ? '<a class="anchor"></a>' : ''} ${rendered}</template>`, true);
+      `<template slot="${slotName}">${rendered}</template>`, true);
     node.children
       = node.children ? attributeSlotElement.concat(node.children) : attributeSlotElement;
   }
@@ -67,13 +66,12 @@ function _transformSlottedComponents(node) {
  * Panels
  */
 
-function _parsePanelAttributes(node, config) {
+function _parsePanelAttributes(node) {
   _parseAttributeWithoutOverride(node, 'alt', false, '_alt');
 
   const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
   const hasAltSlot = slotChildren && slotChildren.some(child => child.attribs.slot === '_alt');
   const hasHeaderSlot = slotChildren && slotChildren.some(child => child.attribs.slot === 'header');
-  const isHeaderFixed = config.fixedHeader;
 
   // If both are present, the header attribute has no effect, and we can simply remove it.
   if (hasAltSlot && hasHeaderSlot) {
@@ -81,7 +79,7 @@ function _parsePanelAttributes(node, config) {
     return;
   }
 
-  _parseAttributeWithoutOverride(node, 'header', false, '_header', isHeaderFixed);
+  _parseAttributeWithoutOverride(node, 'header', false, '_header');
 }
 
 /**
@@ -448,11 +446,11 @@ function _parseDropdownAttributes(node) {
  * API
  */
 
-function parseComponents(node, errorHandler, config = {}) {
+function parseComponents(node, errorHandler) {
   try {
     switch (node.name) {
     case 'panel':
-      _parsePanelAttributes(node, config);
+      _parsePanelAttributes(node);
       break;
     case 'trigger':
       _parseTrigger(node);

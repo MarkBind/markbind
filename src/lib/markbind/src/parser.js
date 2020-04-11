@@ -309,6 +309,9 @@ class Parser {
       }
 
       node.attribs.id = headerId;
+      if (config.fixedHeader) {
+        node.children.push(cheerio.parseHTML(`<span id="${headerId}" class="anchor"></span>`));
+      }
     }
 
     switch (node.name) {
@@ -346,7 +349,7 @@ class Parser {
       break;
     }
 
-    componentParser.parseComponents(node, this._onError, config);
+    componentParser.parseComponents(node, this._onError);
 
     if (node.children) {
       node.children.forEach((child) => {
@@ -355,6 +358,10 @@ class Parser {
     }
 
     componentParser.postParseComponents(node, this._onError);
+
+    if (config.fixedHeader && (/^h[1-6]$/).test(node.name) && node.attribs.id) {
+      cheerio(node).append(cheerio.parseHTML(`<span id="${node.attribs.id}" class="anchor"></span>`));
+    }
 
     return node;
   }
