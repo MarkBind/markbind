@@ -353,6 +353,11 @@ class Parser {
 
     componentParser.postParseComponents(node, this._onError);
 
+    // If a fixed header is applied to this page, generate dummy spans as anchor points
+    if (config.fixedHeader && (/^h[1-6]$/).test(node.name) && node.attribs.id) {
+      cheerio(node).append(cheerio.parseHTML(`<span id="${node.attribs.id}" class="anchor"></span>`));
+    }
+
     return node;
   }
 

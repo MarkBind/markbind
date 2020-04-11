@@ -35,11 +35,16 @@ function setupAnchors() {
     jQuery('#content-wrapper').css('padding-top', `calc(${headerHeight}px)`);
     insertCss(
       `span.anchor {
-      display: block;
       position: relative;
       top: calc(-${headerHeight}px - ${bufferHeight}rem)
       }`,
     );
+    insertCss(`span.card-container::before {
+          display: block;
+          content: '';
+          margin-top: calc(-${headerHeight}px - ${bufferHeight}rem);
+          height: calc(${headerHeight}px + ${bufferHeight}rem);
+        }`);
   }
   jQuery('h1, h2, h3, h4, h5, h6, .header-wrapper').each((index, heading) => {
     if (heading.id) {
@@ -48,13 +53,6 @@ function setupAnchors() {
       jQuery(heading).on('mouseleave',
                          () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'hidden'));
       if (isFixed) {
-        /**
-         * Fixing the top navbar would break anchor navigation,
-         * by creating empty spans above the <h> tag we can prevent
-         * the headings from being covered by the navbar.
-         */
-        const spanId = heading.id;
-        heading.insertAdjacentHTML('beforebegin', `<span id="${spanId}" class="anchor"></span>`);
         jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
       }
     }

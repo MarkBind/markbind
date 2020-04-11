@@ -240,6 +240,12 @@ class Page {
      * @type {boolean}
      */
     this.hasSiteNav = false;
+
+    /**
+     * Flag to indicate whether a fixed header is enabled.
+     * @type {boolean}
+     */
+    this.fixedHeader = false;
   }
 
   /**
@@ -603,6 +609,7 @@ class Page {
 
   /**
    * Inserts the page layout's header to the start of the page
+   * Determines if a fixed header is present, update the page config accordingly
    * @param pageData a page with its front matter collected
    */
   insertHeaderFile(pageData) {
@@ -623,6 +630,12 @@ class Page {
     }
     // Retrieve Markdown file contents
     const headerContent = fs.readFileSync(headerPath, 'utf8');
+    // Decide if fixed header is applied
+    const headerSelector = cheerio.load(headerContent)('header');
+    if (headerSelector.length >= 1
+        && headerSelector[0].attribs.class === 'header-fixed') {
+      this.fixedHeader = true;
+    }
     // Set header file as an includedFile
     this.includedFiles.add(headerPath);
     // Map variables
@@ -927,7 +940,12 @@ class Page {
         .then(result => this.insertFooterFile(result))
         .then(result => Page.insertTemporaryStyles(result))
         .then(result => markbinder.resolveBaseUrl(result, fileConfig))
-        .then(result => markbinder.render(result, this.sourcePath, fileConfig))
+        .then((result) => {
+          // this.fixedHeader may be updated in previous step insertHeaderFile
+          // we need to reflect the update and pass it to the renderer, if necessary
+          fileConfig.fixedHeader = this.fixedHeader;
+          return markbinder.render(result, this.sourcePath, fileConfig);
+        })
         .then(result => this.postRender(result))
         .then(result => this.collectPluginsAssets(result))
         .then(result => markbinder.processDynamicResources(this.sourcePath, result))
