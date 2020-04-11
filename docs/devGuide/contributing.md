@@ -14,7 +14,7 @@ This project and everyone participating in it are governed by our [Code of Condu
 
 ## Things to do before getting started
 
-Make sure you have the project set up and ready. We have guides detailing what we [expect our contributors to know]({{baseurl}}/devguide/devguide#requirement), our required [environment]({{baseurl}}/devGuide.html#environment) and our [development process]({{baseurl}}/devGuide.html#development-process).
+Make sure you have the project set up and ready. We have guides detailing what we [expect our contributors to know]({{baseUrl}}/devGuide/devGuide.html#requirement), our required [environment]({{baseUrl}}/devGuide/devGuide.html#environment) and our [development process]({{baseUrl}}/devGuide/devGuide.html#development-process).
 
 ## How to contribute
 
@@ -55,7 +55,7 @@ Unsure where to begin contributing to MarkBind?
 
 We recommend that you start off by visiting the [Getting Started](https://markbind.org/userGuide/gettingStarted.html) section in the User Guide and try out MarkBind as a user. Exploring and understanding the various features it provides.
 
-If you have not done so yet, we also recommend visiting the [Developer Guide]({{baseurl}}/devGuide/index.html) to learn about the [structure of the project]({{baseurl}}/devGuide/index.html#project-structure), how to set up the [developer environment]({{baseurl}}/devGuide/index.html#development-process), and how to run [tests]({{baseurl}}/devGuide/devGuide.html#testing).
+If you have not done so yet, we also recommend visiting the [Developer Guide]({{baseUrl}}/devGuide/index.html) to learn about the [structure of the project]({{baseUrl}}/devGuide/index.html#project-structure), how to set up the [developer environment]({{baseUrl}}/devGuide/index.html#development-process), and how to run [tests]({{baseUrl}}/devGuide/devGuide.html#testing).
 
 When you're ready, you can start by looking through these issues marked <a href="https://github.com/MarkBind/markbind/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22+sort%3Acomments-desc" class="badge" style="color:white; background-color: #7057FF;">good first issue</a>.
 
