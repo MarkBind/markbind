@@ -414,6 +414,26 @@ function _parseDropdownAttributes(node) {
   }
 }
 
+/**
+ * Thumbnails
+ */
+
+function _parseThumbnailAttributes(node) {
+  const isImage = _.has(node.attribs, 'src') && node.attribs.src !== '';
+  if (isImage) {
+    return;
+  }
+
+  const text = _.has(node.attribs, 'text') ? node.attribs.text : '';
+  if (text === '') {
+    return;
+  }
+
+  const renderedText = md.renderInline(text);
+  node.children = cheerio.parseHTML(renderedText);
+  delete node.attribs.text;
+}
+
 /*
  * API
  */
@@ -445,6 +465,9 @@ function parseComponents(node, errorHandler) {
       break;
     case 'dropdown':
       _parseDropdownAttributes(node);
+      break;
+    case 'thumbnail':
+      _parseThumbnailAttributes(node);
       break;
     default:
       break;
