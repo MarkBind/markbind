@@ -110,6 +110,12 @@ var i = 0,
 	NO_MATCH                  = -2,
 	HAS_MATCHED               = -3;
 
+const DEFAULT_SPECIAL_TAGS = [
+	'script',
+	'style',
+	'variable',
+];
+
 function whitespace(c) {
 	return c === " " || c === "\n" || c === "\t" || c === "\f" || c === "\r";
 }
@@ -149,10 +155,7 @@ Tokenizer.prototype._stateText = function(c) {
 };
 
 
-Tokenizer.prototype.specialTagNames = [
-	'script',
-	'style',
-];
+Tokenizer.prototype.specialTagNames = [...DEFAULT_SPECIAL_TAGS];
 
 /**
  * Checks whether the token matches one of the first characters of the special tags,
@@ -485,7 +488,7 @@ Tokenizer.prototype._parse = function(){
  * Injects the tagsToIgnore into the Tokenizer's specialTagNames.
  */
 function injectIgnoreTags(tagsToIgnore) {
-	Tokenizer.prototype.specialTagNames = ['script', 'style', ...tagsToIgnore];
+	Tokenizer.prototype.specialTagNames = [...DEFAULT_SPECIAL_TAGS, ...tagsToIgnore];
 }
 
 module.exports = injectIgnoreTags;
