@@ -30,7 +30,7 @@ Contributors:
 * [**Jeremy Tan Jie Rui**](https://www.github.com/Parcly-Taxel): _Contributor_ since Jan 2020
 * [**Joshua Wong**](https://www.github.com/hcwong): _Contributor_ since Jan 2020
 * [**Phang Chun Rong**](https://www.github.com/crphang): _Contributor_ since Jan 2020
-* [**Tejas Bhuwania**](https://www.github.com/yash-chowdhary): _Contributor_ since Jan 2020
+* [**Tejas Bhuwania**](https://www.github.com/Tejas2805): _Contributor_ since Jan 2020
 
 Past Members:
 * [**Daniel Berzin Chua Yuan Siang**](https://github.com/danielbrzn): _Project Member_ for Jan 2018 - Aug 2018
