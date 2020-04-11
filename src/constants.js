@@ -43,6 +43,7 @@ module.exports = {
   SITE_FOLDER_NAME: '_site',
   TEMP_FOLDER_NAME: '.temp',
   TEMPLATE_SITE_ASSET_FOLDER_NAME: 'markbind',
+  PLUGIN_SITE_ASSET_FOLDER_NAME: 'plugins',
 
   ABOUT_MARKDOWN_FILE: 'about.md',
   BUILT_IN_PLUGIN_FOLDER_NAME: 'plugins',
@@ -68,10 +69,6 @@ module.exports = {
   ALGOLIA_CSS_URL: 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css',
   ALGOLIA_JS_URL: 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js',
   ALGOLIA_INPUT_SELECTOR: '#algolia-search-input',
-
-  // src/plugins/default/markbind-plugin-anchors.js
-  ANCHOR_HTML: '<a class="fa fa-anchor" href="#"></a>',
-  HEADER_TAGS: 'h1, h2, h3, h4, h5, h6',
 
   // src/plugins/default/markbind-plugin-plantuml.js
   ERR_PROCESSING: 'Error processing',

@@ -13,63 +13,47 @@ function scrollToUrlAnchorHeading() {
   }
 }
 
-function flattenModals() {
-  jQuery('.modal').each((index, modal) => {
-    jQuery(modal).detach().appendTo(jQuery('#app'));
-  });
-}
-
 function insertCss(cssCode) {
   const newNode = document.createElement('style');
   newNode.innerHTML = cssCode;
   document.getElementsByTagName('head')[0].appendChild(newNode);
 }
 
-function setupAnchors() {
+function setupAnchorsForFixedNavbar() {
   const headerSelector = jQuery('header');
   const isFixed = headerSelector.filter('.header-fixed').length !== 0;
+  if (!isFixed) {
+    return;
+  }
+
   const headerHeight = headerSelector.height();
   const bufferHeight = 1;
-  if (isFixed) {
-    jQuery('.nav-inner').css('padding-top', `calc(${headerHeight}px)`);
-    jQuery('#content-wrapper').css('padding-top', `calc(${headerHeight}px)`);
-    insertCss(
-      `span.anchor {
-      display: block;
-      position: relative;
-      top: calc(-${headerHeight}px - ${bufferHeight}rem)
-      }`,
-    );
-  }
+  jQuery('.nav-inner').css('padding-top', `calc(${headerHeight}px)`);
+  jQuery('#content-wrapper').css('padding-top', `calc(${headerHeight}px)`);
+  insertCss(
+    `span.anchor {
+    display: block;
+    position: relative;
+    top: calc(-${headerHeight}px - ${bufferHeight}rem)
+    }`,
+  );
   jQuery('h1, h2, h3, h4, h5, h6, .header-wrapper').each((index, heading) => {
     if (heading.id) {
-      jQuery(heading).on('mouseenter',
-                         () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'visible'));
-      jQuery(heading).on('mouseleave',
-                         () => jQuery(heading).find('.fa.fa-anchor').css('visibility', 'hidden'));
-      if (isFixed) {
-        /**
-         * Fixing the top navbar would break anchor navigation,
-         * by creating empty spans above the <h> tag we can prevent
-         * the headings from being covered by the navbar.
-         */
-        const spanId = heading.id;
-        heading.insertAdjacentHTML('beforebegin', `<span id="${spanId}" class="anchor"></span>`);
-        jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
-      }
+      /**
+       * Fixing the top navbar would break anchor navigation,
+       * by creating empty spans above the <h> tag we can prevent
+       * the headings from being covered by the navbar.
+       */
+      const spanId = heading.id;
+      heading.insertAdjacentHTML('beforebegin', `<span id="${spanId}" class="anchor"></span>`);
+      jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
     }
-  });
-  jQuery('.fa-anchor').each((index, anchor) => {
-    jQuery(anchor).on('click', function () {
-      window.location.href = jQuery(this).attr('href');
-    });
   });
 }
 
 function updateSearchData(vm) {
   jQuery.getJSON(`${baseUrl}/siteData.json`)
     .then((siteData) => {
-      // eslint-disable-next-line no-param-reassign
       vm.searchData = siteData.pages;
     });
 }
@@ -97,9 +81,8 @@ function executeAfterCreatedRoutines() {
 }
 
 function executeAfterMountedRoutines() {
-  flattenModals();
   scrollToUrlAnchorHeading();
-  setupAnchors();
+  setupAnchorsForFixedNavbar();
   MarkBind.executeAfterSetupScripts.resolve();
 }
 

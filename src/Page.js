@@ -40,6 +40,7 @@ const {
   FRONT_MATTER_NONE_ATTR,
   PAGE_NAV_ID,
   PAGE_NAV_TITLE_CLASS,
+  PLUGIN_SITE_ASSET_FOLDER_NAME,
   SITE_NAV_ID,
   SITE_NAV_LIST_CLASS,
   TITLE_PREFIX_SEPARATOR,
@@ -1119,6 +1120,45 @@ class Page {
   }
 
   /**
+   * Resolves a resource specified as an attribute in a html asset tag
+   * (eg. '<script>' or '<link>') provided by a plugin, and copies said asset
+   * into the plugin's asset output folder.
+   * Does nothing if the resource is a url.
+   * @param assetElementHtml The asset element html, as a string, such as '<script src="...">'
+   * @param tagName The name of the resource tag
+   * @param attrName The attribute name where the resource is specified in the tag
+   * @param plugin The plugin object from which to retrieve its asset src and output paths
+   * @param pluginName The name of the plugin, used to determine a unique output path for the plugin
+   * @return String html of the element, with the attribute's asset resolved
+   */
+  getResolvedAssetElement(assetElementHtml, tagName, attrName, plugin, pluginName) {
+    const $ = cheerio.load(assetElementHtml, { xmlMode: false });
+    const el = $(`${tagName}[${attrName}]`);
+
+    el.attr(attrName, (i, assetPath) => {
+      if (!assetPath || utils.isUrl(assetPath)) {
+        return assetPath;
+      }
+
+      const srcPath = path.resolve(plugin._pluginAbsolutePath, assetPath);
+      const srcBaseName = path.basename(srcPath);
+
+      fs.existsAsync(plugin._pluginAssetOutputPath)
+        .then(exists => exists || fs.mkdirp(plugin._pluginAssetOutputPath))
+        .then(() => {
+          const outputPath = path.join(plugin._pluginAssetOutputPath, srcBaseName);
+          fs.copyAsync(srcPath, outputPath, { overwrite: false });
+        })
+        .catch(err => logger.error(`Failed to copy asset ${assetPath} for plugin ${pluginName}\n${err}`));
+
+      return path.posix.join(this.baseUrl || '/', PLUGIN_SITE_ASSET_FOLDER_NAME, pluginName, srcBaseName);
+    });
+
+    return $.html();
+  }
+
+
+  /**
    * Collect page content inserted by plugins
    */
   collectPluginsAssets(content) {
@@ -1134,12 +1174,17 @@ class Page {
       if (plugin.getLinks) {
         const pluginLinks = plugin.getLinks(content, this.pluginsContext[pluginName],
                                             this.frontMatter, linkUtils);
-        links = links.concat(pluginLinks);
+        const resolvedPluginLinks = pluginLinks.map(linkHtml =>
+          this.getResolvedAssetElement(linkHtml, 'link', 'href', plugin, pluginName));
+        links = links.concat(resolvedPluginLinks);
       }
+
       if (plugin.getScripts) {
         const pluginScripts = plugin.getScripts(content, this.pluginsContext[pluginName],
                                                 this.frontMatter, scriptUtils);
-        scripts = scripts.concat(pluginScripts);
+        const resolvedPluginScripts = pluginScripts.map(scriptHtml =>
+          this.getResolvedAssetElement(scriptHtml, 'script', 'src', plugin, pluginName));
+        scripts = scripts.concat(resolvedPluginScripts);
       }
     });
     this.asset.pluginLinks = links;

@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="markbind/css/octicons.css">
   <link rel="stylesheet" href="markbind/css/github.min.css">
   <link rel="stylesheet" href="markbind/css/markbind.css">
+  <link rel="stylesheet" href="/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
   <link rel="stylesheet" href="markbind/layouts/default/styles.css">
   <link rel="stylesheet" href="markbind/css/site-nav.css">
   <link rel="stylesheet" href="markbind/css/page-nav.css">
@@ -64,11 +65,11 @@
         <br>
         <div class="jumbotron jumbotron-fluid bg-primary text-white">
           <div class="container">
-            <h1 class="display-4 no-index" id="landing-page-title">Landing Page Title<a class="fa fa-anchor" href="#landing-page-title"></a></h1>
+            <h1 class="display-4 no-index" id="landing-page-title">Landing Page Title<a class="fa fa-anchor" href="#landing-page-title" onclick="event.stopPropagation()"></a></h1>
             <p class="lead">A tagline can go here</p>
           </div>
         </div>
-        <h1 id="heading-1">Heading 1<a class="fa fa-anchor" href="#heading-1"></a></h1>
+        <h1 id="heading-1">Heading 1<a class="fa fa-anchor" href="#heading-1" onclick="event.stopPropagation()"></a></h1>
         <p>Some text some text some text some text some text some text some text. <strong>Some text some text some text some text some text <mark>some text</mark> some text</strong>. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.</p>
         <p><strong>A block quote:</strong></p>
         <blockquote>
@@ -87,7 +88,7 @@
         </ul>
         <p><strong>A <code>code</code> example:</strong></p>
         <pre><code class="hljs html"><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span><br></span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span><br></span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span><br></span></code></pre>
-        <h2 id="sub-heading-1-1">Sub Heading 1.1<a class="fa fa-anchor" href="#sub-heading-1-1"></a></h2>
+        <h2 id="sub-heading-1-1">Sub Heading 1.1<a class="fa fa-anchor" href="#sub-heading-1-1" onclick="event.stopPropagation()"></a></h2>
         <p>A <span effect="scale" placement="top" trigger="hover" data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger"><span data-mb-html-for="_content">❗️ some <strong>important explanation</strong></span>tooltip</span>, a <span for="modal:modalinfo" trigger="click" v-b-popover.click.top.html="popoverGenerator" v-b-tooltip.click.top.html="tooltipContentGetter" v-on:click="$refs['modal:modalinfo'].show()" class="trigger-click">modal</span>, a <a href="https://markbind.org/">link</a>, a <span class="badge badge-danger">badge</span>, another <span class="badge badge-warning">badge</span>.</p>
         <b-modal id="modal:modalinfo" hide-footer="" size="" modal-class="mb-zoom" ref="modal:modalinfo"><template slot="modal-title">Modal Title</template>
           Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
@@ -119,7 +120,7 @@
             </tbody>
           </table>
         </div>
-        <h2 id="sub-heading-1-2">Sub Heading 1.2<a class="fa fa-anchor" href="#sub-heading-1-2"></a></h2>
+        <h2 id="sub-heading-1-2">Sub Heading 1.2<a class="fa fa-anchor" href="#sub-heading-1-2" onclick="event.stopPropagation()"></a></h2>
         <p><strong>Media embeds:</strong></p>
         <div class="block-embed block-embed-service-youtube"><iframe type="text/html" src="//www.youtube.com/embed/v40b3ExbM0c" frameborder="0" width="640" height="390" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen></iframe></div>
         <p><strong>Tabs:</strong></p>
@@ -140,7 +141,7 @@
           </tab-group>
         </tabs>
         <br>
-        <h1 id="heading-2">Heading 2<a class="fa fa-anchor" href="#heading-2"></a></h1>
+        <h1 id="heading-2">Heading 2<a class="fa fa-anchor" href="#heading-2" onclick="event.stopPropagation()"></a></h1>
         <p><strong>Some boxes:</strong></p>
         <box>
           default
@@ -167,7 +168,7 @@
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </box>
         <br>
-        <h1 id="heading-3">Heading 3<a class="fa fa-anchor" href="#heading-3"></a></h1>
+        <h1 id="heading-3">Heading 3<a class="fa fa-anchor" href="#heading-3" onclick="event.stopPropagation()"></a></h1>
         <panel type="info"><template slot="_header">
             <p>Expandable panel</p>
           </template>
