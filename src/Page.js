@@ -611,8 +611,9 @@ class Page {
    * Inserts the page layout's header to the start of the page
    * Determines if a fixed header is present, update the page config accordingly
    * @param pageData a page with its front matter collected
+   * @param {FileConfig} fileConfig
    */
-  insertHeaderFile(pageData) {
+  insertHeaderFile(pageData, fileConfig) {
     const { header } = this.frontMatter;
     if (header === FRONT_MATTER_NONE_ATTR) {
       return pageData;
@@ -635,6 +636,7 @@ class Page {
     if (headerSelector.length >= 1
         && headerSelector[0].attribs.class === 'header-fixed') {
       this.fixedHeader = true;
+      fileConfig.fixedHeader = true;
     }
     // Set header file as an includedFile
     this.includedFiles.add(headerPath);
@@ -906,6 +908,7 @@ class Page {
    * @property {string} rootPath
    * @property {Object<string, any>} userDefinedVariablesMap
    * @property {Object<string, number>} headerIdMap
+   * @property {boolean} fixedHeader indicates whether the header of the page is fixed
    */
 
   generate(builtFiles) {
@@ -923,6 +926,7 @@ class Page {
       rootPath: this.rootPath,
       userDefinedVariablesMap: this.userDefinedVariablesMap,
       headerIdMap: this.headerIdMap,
+      fixedHeader: this.fixedHeader,
     };
     return new Promise((resolve, reject) => {
       markbinder.includeFile(this.sourcePath, fileConfig)
@@ -936,16 +940,11 @@ class Page {
         .then(result => this.collectPluginSources(result))
         .then(result => this.preRender(result))
         .then(result => this.insertSiteNav((result)))
-        .then(result => this.insertHeaderFile(result))
+        .then(result => this.insertHeaderFile(result, fileConfig))
         .then(result => this.insertFooterFile(result))
         .then(result => Page.insertTemporaryStyles(result))
         .then(result => markbinder.resolveBaseUrl(result, fileConfig))
-        .then((result) => {
-          // this.fixedHeader may be updated in previous step insertHeaderFile
-          // we need to reflect the update and pass it to the renderer, if necessary
-          fileConfig.fixedHeader = this.fixedHeader;
-          return markbinder.render(result, this.sourcePath, fileConfig);
-        })
+        .then(result => markbinder.render(result, this.sourcePath, fileConfig))
         .then(result => this.postRender(result))
         .then(result => this.collectPluginsAssets(result))
         .then(result => markbinder.processDynamicResources(this.sourcePath, result))
