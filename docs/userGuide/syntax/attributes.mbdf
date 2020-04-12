@@ -3,7 +3,7 @@
 Add classes, identifiers and attributes to your markdown with {.class #identifier attr=value attr2="spaced value"} curly brackets
 
 <include src="outputBox.md" boilerplate >
-<span id="markdown-it-attributes">
+<span id="code">
 
 ```
 # header {.style-me}
