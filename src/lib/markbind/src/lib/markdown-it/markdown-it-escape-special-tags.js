@@ -10,7 +10,7 @@ function escape_plugin(md, tagsToIgnore) {
   const HTML_OPEN_CLOSE_TAG_RE = require('markdown-it/lib/common/html_re').HTML_OPEN_CLOSE_TAG_RE;
 
   const specialTagsRegex = Array.from(tagsToIgnore)
-    .concat(['script|pre|style'])
+    .concat(['script|pre|style|variable'])
     .join('|');
   const startingSpecialTagRegex = new RegExp(`^<(${specialTagsRegex})(?=(\\s|>|$))`, 'i');
   const endingSpecialTagRegex = new RegExp(`<\\/(${specialTagsRegex})>`, 'i');

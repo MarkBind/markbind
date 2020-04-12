@@ -6,7 +6,7 @@
 # Full Syntax Reference
 
 {% set syntax_topics = {
-  headings: ['Headings', 'basic', 'reader-facing'],
+  headings : ['Headings', ['basic', 'reader-facing']],
   paragraphs : ['Paragraphs', ['basic']],
   lineBreaks : ['Line Breaks', ['basic']],
   textStyles : ['Text Styles', ['basic', 'reader-facing']],
