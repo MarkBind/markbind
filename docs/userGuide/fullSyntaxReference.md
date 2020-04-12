@@ -22,6 +22,7 @@
   icons : ['Icons', ['basic', 'reader-facing']],
   embeds : ['Embeds', ['basic', 'reader-facing']],
   dates : ['Dates', ['basic', 'reader-facing']],
+  markdownAttributes : ['Markdown-it-attributes', [basic, 'reader-facing]],
 
   frontmatter : ['Front Matter', ['other']],
   includes : ['Includes', ['other']],

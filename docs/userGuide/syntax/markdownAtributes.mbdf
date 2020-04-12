@@ -1,0 +1,20 @@
+## Markdown-it-attributes
+
+Add classes, identifiers and attributes to your markdown with {.class #identifier attr=value attr2="spaced value"} curly brackets
+
+<include src="outputBox.md" boilerplate >
+<span id="markdown-it-attributes">
+
+```
+# header {.style-me}
+paragraph {data-toggle=modal}
+```
+</span>
+<span id="output">
+
+```
+<h1 class="style-me">header</h1>
+<p data-toggle="modal">paragraph</p>
+```
+</span>
+</includes>
