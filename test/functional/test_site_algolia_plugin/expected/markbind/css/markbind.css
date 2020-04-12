@@ -73,20 +73,6 @@ kbd {
     outline: none !important;
 }
 
-.fa.fa-anchor {
-    color: #ccc;
-    display: inline;
-    font-size: 14px;
-    margin-left: 10px;
-    padding: 3px;
-    text-decoration: none;
-    visibility: hidden;
-}
-
-.fa.fa-anchor:hover {
-    color: #555;
-}
-
 code.hljs.inline {
     background: #f8f8f8;
     color: #333;

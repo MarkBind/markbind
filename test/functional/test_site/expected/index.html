@@ -20,7 +20,8 @@
   <link rel="stylesheet" href="markbind/css/octicons.css">
   <link rel="stylesheet" href="markbind/css/github.min.css">
   <link rel="stylesheet" href="markbind/css/markbind.css">
-  <link rel="stylesheet" href="STYLESHEET_LINK">
+  <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
+  <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
   <link rel="stylesheet" href="markbind/layouts/default/styles.css">
   <link rel="stylesheet" href="markbind/css/site-nav.css">
   <link rel="stylesheet" href="markbind/css/page-nav.css"><!-- Start of bottom level head file content insertion -->
@@ -49,12 +50,12 @@
         <div class="border-right-grey nav-inner position-sticky slim-scroll">
           <ul class="px-0 site-nav-list">
             <li class="mt-2">
-              <h2 id="navigation">Navigation<a class="fa fa-anchor" href="#navigation"></a></h2>
+              <h2 id="navigation">Navigation<a class="fa fa-anchor" href="#navigation" onclick="event.stopPropagation()"></a></h2>
             </li>
             <li class="mt-2"><a href="/test_site/index.html" class="site-nav__a current">Home 🏠</a></li>
             <li class="mt-2"><a href="/test_site/bugs/index.html" class="site-nav__a">Open Bugs 🐛</a></li>
             <li class="mt-2">
-              <h3 id="testing-site-nav">Testing Site-Nav<a class="fa fa-anchor" href="#testing-site-nav"></a></h3>
+              <h3 id="testing-site-nav">Testing Site-Nav<a class="fa fa-anchor" href="#testing-site-nav" onclick="event.stopPropagation()"></a></h3>
             </li>
             <li class="mt-2"><button class="dropdown-btn dropdown-btn-open"><strong>Dropdown </strong> <span aria-hidden="true" class="glyphicon glyphicon-search"></span> title ✏️
                 <i class="dropdown-btn-icon rotate-icon">
@@ -193,49 +194,49 @@
             <div></div>
             Page Variable Referencing Included Variable
           </div>
-          <h1 id="heading-with-multiple-keywords">Heading with multiple keywords<a class="fa fa-anchor" href="#heading-with-multiple-keywords"></a></h1>
+          <h1 id="heading-with-multiple-keywords">Heading with multiple keywords<a class="fa fa-anchor" href="#heading-with-multiple-keywords" onclick="event.stopPropagation()"></a></h1>
           <p><span class="keyword">keyword 1</span>
             <span class="keyword">keyword 2</span></p>
-          <h1 id="heading-with-keyword-in-panel">Heading with keyword in panel<a class="fa fa-anchor" href="#heading-with-keyword-in-panel"></a></h1>
+          <h1 id="heading-with-keyword-in-panel">Heading with keyword in panel<a class="fa fa-anchor" href="#heading-with-keyword-in-panel" onclick="event.stopPropagation()"></a></h1>
           <panel expanded=""><template slot="_header">
               <p>Panel with keyword</p>
             </template>
             <span class="keyword">panel keyword</span></panel>
           <p><strong>Panel with heading with keyword</strong></p>
           <panel expanded="" id="panel-with-heading"><template slot="_header">
-              <h1 id="panel-with-heading">Panel with heading<a class="fa fa-anchor" href="#panel-with-heading"></a></h1>
+              <h1 id="panel-with-heading">Panel with heading<a class="fa fa-anchor" href="#panel-with-heading" onclick="event.stopPropagation()"></a></h1>
             </template>
             <span class="keyword">panel keyword</span></panel>
           <p><strong>Expanded panel without heading with keyword</strong></p>
           <panel expanded="" id="panel-without-heading-with-keyword"><template slot="_header">
-              <h1 id="panel-without-heading-with-keyword">Panel without heading with keyword<a class="fa fa-anchor" href="#panel-without-heading-with-keyword"></a></h1>
+              <h1 id="panel-without-heading-with-keyword">Panel without heading with keyword<a class="fa fa-anchor" href="#panel-without-heading-with-keyword" onclick="event.stopPropagation()"></a></h1>
             </template>
-            <h1 id="keyword-should-be-tagged-to-this-heading-not-the-panel-heading">Keyword should be tagged to this heading, not the panel heading<a class="fa fa-anchor" href="#keyword-should-be-tagged-to-this-heading-not-the-panel-heading"></a></h1>
+            <h1 id="keyword-should-be-tagged-to-this-heading-not-the-panel-heading">Keyword should be tagged to this heading, not the panel heading<a class="fa fa-anchor" href="#keyword-should-be-tagged-to-this-heading-not-the-panel-heading" onclick="event.stopPropagation()"></a></h1>
             <p><span class="keyword">panel keyword</span></p>
           </panel>
           <p><strong>Unexpanded panel with heading with keyword</strong>
             <panel id="panel-with-heading-with-keyword"><template slot="_header">
-                <h1 id="panel-with-heading-with-keyword">Panel with heading with keyword<a class="fa fa-anchor" href="#panel-with-heading-with-keyword"></a></h1>
+                <h1 id="panel-with-heading-with-keyword">Panel with heading with keyword<a class="fa fa-anchor" href="#panel-with-heading-with-keyword" onclick="event.stopPropagation()"></a></h1>
               </template></panel>
           </p>
-          <h1 id="keyword-should-be-tagged-to-the-panel-heading-not-this-heading">Keyword should be tagged to the panel heading, not this heading<a class="fa fa-anchor" href="#keyword-should-be-tagged-to-the-panel-heading-not-this-heading"></a></h1>
+          <h1 id="keyword-should-be-tagged-to-the-panel-heading-not-this-heading">Keyword should be tagged to the panel heading, not this heading<a class="fa fa-anchor" href="#keyword-should-be-tagged-to-the-panel-heading-not-this-heading" onclick="event.stopPropagation()"></a></h1>
           <p><span class="keyword">panel keyword</span></p>
-          <h1 id="heading-with-included-keyword">Heading with included keyword<a class="fa fa-anchor" href="#heading-with-included-keyword"></a></h1>
+          <h1 id="heading-with-included-keyword">Heading with included keyword<a class="fa fa-anchor" href="#heading-with-included-keyword" onclick="event.stopPropagation()"></a></h1>
           <div>
             <p><span class="keyword">included keyword</span></p>
           </div>
           <div>
-            <h1 id="included-heading">Included Heading<a class="fa fa-anchor" href="#included-heading"></a></h1>
+            <h1 id="included-heading">Included Heading<a class="fa fa-anchor" href="#included-heading" onclick="event.stopPropagation()"></a></h1>
           </div>
           <span class="keyword">Keyword with included heading</span>
-          <h1 id="heading-with-nested-keyword">Heading with nested keyword<a class="fa fa-anchor" href="#heading-with-nested-keyword"></a></h1>
+          <h1 id="heading-with-nested-keyword">Heading with nested keyword<a class="fa fa-anchor" href="#heading-with-nested-keyword" onclick="event.stopPropagation()"></a></h1>
           <div>
             <div>
               <div>
                 <span class="keyword">nested keyword</span></div>
             </div>
           </div>
-          <h1 id="heading-with-hidden-keyword">Heading with hidden keyword<a class="fa fa-anchor" href="#heading-with-hidden-keyword"></a></h1>
+          <h1 id="heading-with-hidden-keyword">Heading with hidden keyword<a class="fa fa-anchor" href="#heading-with-hidden-keyword" onclick="event.stopPropagation()"></a></h1>
           <p><span class="keyword d-none">invisible keyword</span></p>
           <div>
             <p><strong>Div with frontmatter shown tag</strong></p>
@@ -277,22 +278,22 @@
           </div>
           <p><strong>Normal include</strong></p>
           <div>
-            <h3 id="establishing-requirements">Establishing Requirements<a class="fa fa-anchor" href="#establishing-requirements"></a></h3>
+            <h3 id="establishing-requirements">Establishing Requirements<a class="fa fa-anchor" href="#establishing-requirements" onclick="event.stopPropagation()"></a></h3>
             <p>
               <seg id="preview">Requirements gathering, requirements elicitation, requirements analysis,
                 requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity
                 of understanding what a software product should do.</seg>
             </p>
             <p>There are many techniques used during a requirements gathering. The following are some of the techniques.</p>
-            <h4 id="brainstorming">Brainstorming<a class="fa fa-anchor" href="#brainstorming"></a></h4>
+            <h4 id="brainstorming">Brainstorming<a class="fa fa-anchor" href="#brainstorming" onclick="event.stopPropagation()"></a></h4>
             <p>Brainstorming is a group activity designed to generate a large number of diverse and creative ideas for the solution
               of a problem. In a brainstorming session there are no &quot;bad&quot; ideas.
               The aim is to generate ideas; not to validate them. Brainstorming encourages you to &quot;think outside the box&quot; and
               put &quot;crazy&quot; ideas on the table without fear of rejection.</p>
-            <h4 id="user-surveys">User surveys<a class="fa fa-anchor" href="#user-surveys"></a></h4>
+            <h4 id="user-surveys">User surveys<a class="fa fa-anchor" href="#user-surveys" onclick="event.stopPropagation()"></a></h4>
             <p>Carefully designed questionnaires can be used to solicit responses and opinions from a large number of users regarding
               any current system or a new innovation.</p>
-            <h4 id="focus-groups">Focus groups<a class="fa fa-anchor" href="#focus-groups"></a></h4>
+            <h4 id="focus-groups">Focus groups<a class="fa fa-anchor" href="#focus-groups" onclick="event.stopPropagation()"></a></h4>
             <p>Focus groups are a kind of informal interview within an interactive group setting.
               A <span data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger"><span data-mb-html-for="_content">e.g. potential users, beta testers</span>group of people</span>
               are asked about their understanding of a specific issue or a process.
@@ -314,7 +315,7 @@
             </p>
           </div>
           <div name="Referencing specified path in boilerplate">
-            <h1 id="path-within-the-boilerplate-folder-is-separately-specified">Path within the boilerplate folder is separately specified<a class="fa fa-anchor" href="#path-within-the-boilerplate-folder-is-separately-specified"></a></h1>
+            <h1 id="path-within-the-boilerplate-folder-is-separately-specified">Path within the boilerplate folder is separately specified<a class="fa fa-anchor" href="#path-within-the-boilerplate-folder-is-separately-specified" onclick="event.stopPropagation()"></a></h1>
             <p>Like static include, pages within the site should be able to use files located in folders within boilerplate.</p>
             <p>Also, the boilerplate file name (e.g. <code>inside.md</code>) and the file that it is supposed to act as (<code>notInside.md</code>) can be different.</p>
             <p>This file should behaves as if it is in the <code>requirements</code> folder:</p>
@@ -351,7 +352,7 @@
           <p><strong>Include from another Markbind site</strong></p>
           <div>
             <p>This is a page from another Markbind site.</p>
-            <h2 id="feature-list">Feature list<a class="fa fa-anchor" href="#feature-list"></a></h2>
+            <h2 id="feature-list">Feature list<a class="fa fa-anchor" href="#feature-list" onclick="event.stopPropagation()"></a></h2>
             <p>It is a list of features (or functionalities) grouped according to some criteria such as priority
               (e.g. must-have, nice-to-have, etc. ), order of delivery, object or process related
               (e.g. order-related, invoice-related, etc.).
@@ -523,7 +524,7 @@
             </span></panel>
           <p><strong>Panel without src</strong></p>
           <panel expanded="" id="panel-without-src-header"><template slot="_header">
-              <h2 id="panel-without-src-header">Panel without src header<a class="fa fa-anchor" href="#panel-without-src-header"></a></h2>
+              <h2 id="panel-without-src-header">Panel without src header<a class="fa fa-anchor" href="#panel-without-src-header" onclick="event.stopPropagation()"></a></h2>
             </template>
             <div>
               <p><strong>Panel without src content heading</strong></p>
@@ -531,65 +532,65 @@
           </panel>
           <p><strong>Panel with normal src</strong></p>
           <panel src="/test_site/testPanels/PanelNormalSource._include_.html" expanded="" id="panel-with-normal-src-header"><template slot="_header">
-              <h2 id="panel-with-normal-src-header">Panel with normal src header<a class="fa fa-anchor" href="#panel-with-normal-src-header"></a></h2>
+              <h2 id="panel-with-normal-src-header">Panel with normal src header<a class="fa fa-anchor" href="#panel-with-normal-src-header" onclick="event.stopPropagation()"></a></h2>
             </template></panel>
           <p><strong>Panel with src from a page segment</strong></p>
           <panel src="/test_site/testPanels/PanelSourceContainsSegment._include_.html#segment" expanded="" fragment="segment" id="panel-with-src-from-a-page-segment-header"><template slot="_header">
-              <h2 id="panel-with-src-from-a-page-segment-header">Panel with src from a page segment header<a class="fa fa-anchor" href="#panel-with-src-from-a-page-segment-header"></a></h2>
+              <h2 id="panel-with-src-from-a-page-segment-header">Panel with src from a page segment header<a class="fa fa-anchor" href="#panel-with-src-from-a-page-segment-header" onclick="event.stopPropagation()"></a></h2>
             </template></panel>
           <p><strong>Panel with boilerplate</strong></p>
           <panel src="/test_site/testPanels/boilerTestPanel._include_.html" expanded="" id="boilerplate-referencing"><template slot="_header">
-              <h2 id="boilerplate-referencing">Boilerplate referencing<a class="fa fa-anchor" href="#boilerplate-referencing"></a></h2>
+              <h2 id="boilerplate-referencing">Boilerplate referencing<a class="fa fa-anchor" href="#boilerplate-referencing" onclick="event.stopPropagation()"></a></h2>
             </template></panel>
           <panel src="/test_site/testPanels/notInside._include_.html" expanded="" id="referencing-specified-path-in-boilerplate"><template slot="_header">
-              <h2 id="referencing-specified-path-in-boilerplate">Referencing specified path in boilerplate<a class="fa fa-anchor" href="#referencing-specified-path-in-boilerplate"></a></h2>
+              <h2 id="referencing-specified-path-in-boilerplate">Referencing specified path in boilerplate<a class="fa fa-anchor" href="#referencing-specified-path-in-boilerplate" onclick="event.stopPropagation()"></a></h2>
             </template></panel>
           <p><strong>Nested panel</strong></p>
           <panel src="/test_site/testPanels/NestedPanel._include_.html" expanded="" id="outer-nested-panel"><template slot="_header">
-              <h2 id="outer-nested-panel">Outer nested panel<a class="fa fa-anchor" href="#outer-nested-panel"></a></h2>
+              <h2 id="outer-nested-panel">Outer nested panel<a class="fa fa-anchor" href="#outer-nested-panel" onclick="event.stopPropagation()"></a></h2>
             </template></panel>
           <p><strong>Nested panel without src</strong></p>
           <panel expanded="" id="outer-nested-panel-without-src"><template slot="_header">
-              <h2 id="outer-nested-panel-without-src">Outer nested panel without src<a class="fa fa-anchor" href="#outer-nested-panel-without-src"></a></h2>
+              <h2 id="outer-nested-panel-without-src">Outer nested panel without src<a class="fa fa-anchor" href="#outer-nested-panel-without-src" onclick="event.stopPropagation()"></a></h2>
             </template>
             <p><strong>Panel content of outer nested panel</strong></p>
             <panel expanded="" id="inner-panel-header-without-src"><template slot="_header">
-                <h2 id="inner-panel-header-without-src">Inner panel header without src<a class="fa fa-anchor" href="#inner-panel-header-without-src"></a></h2>
+                <h2 id="inner-panel-header-without-src">Inner panel header without src<a class="fa fa-anchor" href="#inner-panel-header-without-src" onclick="event.stopPropagation()"></a></h2>
               </template>
               <p><strong>Panel content of inner nested panel</strong></p>
             </panel>
           </panel>
           <p><strong>Panel with src from another Markbind site</strong></p>
           <panel src="/test_site/sub_site/index._include_.html" expanded="" id="panel-with-src-from-another-markbind-site-header"><template slot="_header">
-              <h2 id="panel-with-src-from-another-markbind-site-header">Panel with src from another Markbind site header<a class="fa fa-anchor" href="#panel-with-src-from-another-markbind-site-header"></a></h2>
+              <h2 id="panel-with-src-from-another-markbind-site-header">Panel with src from another Markbind site header<a class="fa fa-anchor" href="#panel-with-src-from-another-markbind-site-header" onclick="event.stopPropagation()"></a></h2>
             </template></panel>
           <panel src="/test_site/sub_site/testReuse._include_.html" expanded="" id="panel-with-src-from-another-markbind-site-header-2"><template slot="_header">
-              <h2 id="panel-with-src-from-another-markbind-site-header-2">Panel with src from another Markbind site header<a class="fa fa-anchor" href="#panel-with-src-from-another-markbind-site-header-2"></a></h2>
+              <h2 id="panel-with-src-from-another-markbind-site-header-2">Panel with src from another Markbind site header<a class="fa fa-anchor" href="#panel-with-src-from-another-markbind-site-header-2" onclick="event.stopPropagation()"></a></h2>
             </template></panel>
         </div>
         <p><strong>Modal with panel inside</strong></p>
         <p><span for="modal-with-panel" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['modal-with-panel'].show()" class="trigger">trigger</span></p>
         <b-modal id="modal-with-panel" hide-footer="" size="" modal-class="mb-zoom" ref="modal-with-panel"><template slot="modal-title">modal title with panel inside</template>
           <panel expanded="" id="panel-inside-modal"><template slot="_header">
-              <h2 id="panel-inside-modal">Panel inside modal<a class="fa fa-anchor" href="#panel-inside-modal"></a></h2>
+              <h2 id="panel-inside-modal">Panel inside modal<a class="fa fa-anchor" href="#panel-inside-modal" onclick="event.stopPropagation()"></a></h2>
             </template>
             <p><strong>Panel content inside modal</strong></p>
           </panel>
         </b-modal>
         <p><strong>Unexpanded panel</strong></p>
         <panel id="unexpanded-panel-header"><template slot="_header">
-            <h2 id="unexpanded-panel-header">Unexpanded panel header<a class="fa fa-anchor" href="#unexpanded-panel-header"></a></h2>
+            <h2 id="unexpanded-panel-header">Unexpanded panel header<a class="fa fa-anchor" href="#unexpanded-panel-header" onclick="event.stopPropagation()"></a></h2>
           </template>
           <p><strong>Panel content of unexpanded panel should not appear in search data</strong></p>
           <panel expanded="" id="panel-header-inside-unexpanded-panel-should-not-appear-in-search-data"><template slot="_header">
-              <h2 id="panel-header-inside-unexpanded-panel-should-not-appear-in-search-data">Panel header inside unexpanded panel should not appear in search data<a class="fa fa-anchor" href="#panel-header-inside-unexpanded-panel-should-not-appear-in-search-data"></a></h2>
+              <h2 id="panel-header-inside-unexpanded-panel-should-not-appear-in-search-data">Panel header inside unexpanded panel should not appear in search data<a class="fa fa-anchor" href="#panel-header-inside-unexpanded-panel-should-not-appear-in-search-data" onclick="event.stopPropagation()"></a></h2>
             </template>
             <p><strong>Panel content inside unexpanded panel should not appear in search data</strong></p>
           </panel>
         </panel>
         <p><strong>Test plugin in markbind/plugins</strong></p>
         <div id="test-markbind-plugin">
-          <h1 id="markbind-plugin-pre-render">Markbind Plugin Pre-render<a class="fa fa-anchor" href="#markbind-plugin-pre-render"></a></h1>
+          <h1 id="markbind-plugin-pre-render">Markbind Plugin Pre-render<a class="fa fa-anchor" href="#markbind-plugin-pre-render" onclick="event.stopPropagation()"></a></h1>
           <p>Node Modules Plugin Post-render</p>
         </div>
         <p><strong>Test search indexing</strong></p>
@@ -627,8 +628,8 @@
             <pic src="/test_site/diagrams/object.png"></pic>
           </p>
         </div>
-        <h2 class="no-index" id="level-2-header-inside-headingsearchindex-with-no-index-attribute-should-not-be-indexed">Level 2 header (inside headingSearchIndex) with no-index attribute should not be indexed<a class="fa fa-anchor" href="#level-2-header-inside-headingsearchindex-with-no-index-attribute-should-not-be-indexed"></a></h2>
-        <h6 class="always-index" id="level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed">Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed<a class="fa fa-anchor" href="#level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed"></a></h6>
+        <h2 class="no-index" id="level-2-header-inside-headingsearchindex-with-no-index-attribute-should-not-be-indexed">Level 2 header (inside headingSearchIndex) with no-index attribute should not be indexed<a class="fa fa-anchor" href="#level-2-header-inside-headingsearchindex-with-no-index-attribute-should-not-be-indexed" onclick="event.stopPropagation()"></a></h2>
+        <h6 class="always-index" id="level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed">Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed<a class="fa fa-anchor" href="#level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed" onclick="event.stopPropagation()"></a></h6>
         <hr class="footnotes-sep">
         <section class="footnotes">
           <ol class="footnotes-list">
@@ -721,7 +722,7 @@
       </nav>
     </div>
     <footer>
-      <h1 id="heading-in-footer-should-not-be-indexed">Heading in footer should not be indexed<a class="fa fa-anchor" href="#heading-in-footer-should-not-be-indexed"></a></h1>
+      <h1 id="heading-in-footer-should-not-be-indexed">Heading in footer should not be indexed<a class="fa fa-anchor" href="#heading-in-footer-should-not-be-indexed" onclick="event.stopPropagation()"></a></h1>
       <div class="text-center">
         This is a dynamic height footer that supports markdown <span>😄</span>!
       </div>
@@ -738,9 +739,9 @@
   const enableSearch = true
 </script>
 <script src="markbind/js/setup.js"></script>
-<script src="SCRIPT_LINK"></script>
+<script src="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginScript.js"></script>
 <script>
-  alert("hello")
+  alert("Inline plugin script loaded!")
 </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

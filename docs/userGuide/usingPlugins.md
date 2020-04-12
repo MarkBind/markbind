@@ -117,14 +117,21 @@ Plugins can implement the methods `getLinks` and `getScripts` to add additional 
   - `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
   - `utils`: Object containing the following utility functions
     - `buildStylesheet(href)`: Builds a stylesheet link element with the specified `href`.
-  - Should return an array of string data containing link elements to be added.
+  - Should return an array of strings containing link elements to be added.
 - `getScripts(content, pluginContext, frontMatter, utils)`: Called to get script elements to be added after the body of the page.
   - `content`: The rendered HTML.
   - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
   - `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
   - `utils`: Object containing the following utility functions
     - `buildScript(src)`: Builds a script element with the specified `src`.
-  - Should return an array of string data containing script elements to be added.
+  - Should return an array of strings containing script elements to be added.
+
+<box type="success" header="Local assets">
+<md>
+You can set an absolute or relative file path as the `src` or `href` attribute in your `<script>` or `<link>` tags.
+MarkBind will copy these assets into the output directory and change the `src` or `href` attributes automatically!
+</md>
+</box>
 
 An example of a plugin which adds links and scripts to the page:
 

@@ -1,4 +1,5 @@
 {
+  "baseUrl": "",
   "ignore": [
     "_markbind/layouts/*",
     "_markbind/logs/*",

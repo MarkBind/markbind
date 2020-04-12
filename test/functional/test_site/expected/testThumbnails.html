@@ -15,7 +15,8 @@
   <link rel="stylesheet" href="markbind/css/octicons.css">
   <link rel="stylesheet" href="markbind/css/github.min.css">
   <link rel="stylesheet" href="markbind/css/markbind.css">
-  <link rel="stylesheet" href="STYLESHEET_LINK">
+  <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
+  <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
   <link rel="stylesheet" href="markbind/layouts/default/styles.css">
   <meta name="default-head-bottom">
   <link rel="icon" href="/test_site/favicon.png">
@@ -102,31 +103,31 @@
         <hr>
         <p><strong>Text/Emojis/Icons</strong></p>
         <p><strong>Text</strong>
-          <thumbnail text="test" border="1px solid black" circle="">test</thumbnail>
+          <thumbnail border="1px solid black" circle="">test</thumbnail>
         </p>
         <p><strong>Markdown</strong>
-          <thumbnail text="_test_" border="1px solid black" circle=""><em>test</em></thumbnail>
-          <thumbnail text="**test**" border="1px solid black" circle=""><strong>test</strong></thumbnail>
+          <thumbnail border="1px solid black" circle=""><em>test</em></thumbnail>
+          <thumbnail border="1px solid black" circle=""><strong>test</strong></thumbnail>
         </p>
         <p><strong>Emojis</strong>
-          <thumbnail text=":x:" border="1px solid black" circle="">❌</thumbnail>
-          <thumbnail text=":eggplant:" border="1px solid black" circle="">🍆</thumbnail>
+          <thumbnail border="1px solid black" circle="">❌</thumbnail>
+          <thumbnail border="1px solid black" circle="">🍆</thumbnail>
         </p>
         <p><strong>Icons</strong>
-          <thumbnail text=":fab-github:" border="1px solid black" circle=""><span aria-hidden="true" class="fab fa-github"></span></thumbnail>
-          <thumbnail text=":glyphicon-book:" background="#666" font-color="#eee" circle=""><span aria-hidden="true" class="glyphicon glyphicon-book"></span></thumbnail>
+          <thumbnail border="1px solid black" circle=""><span aria-hidden="true" class="fab fa-github"></span></thumbnail>
+          <thumbnail background="#666" font-color="#eee" circle=""><span aria-hidden="true" class="glyphicon glyphicon-book"></span></thumbnail>
         </p>
         <hr>
         <p><strong>font-size/font-color</strong></p>
         <p><strong>20px font-size</strong>
-          <thumbnail text="test" border="1px solid black" font-size="20" circle="">test</thumbnail>
+          <thumbnail border="1px solid black" font-size="20" circle="">test</thumbnail>
         </p>
         <p><strong>40px font-size</strong>
-          <thumbnail text="test" border="1px solid black" font-size="40" circle="">test</thumbnail>
+          <thumbnail border="1px solid black" font-size="40" circle="">test</thumbnail>
         </p>
         <p><strong>font-color</strong>
-          <thumbnail text="blue" border="1px solid black" font-color="#669" circle="">blue</thumbnail>
-          <thumbnail text="maroon" border="1px solid black" font-color="maroon" font-size="25" circle="">maroon</thumbnail>
+          <thumbnail border="1px solid black" font-color="#669" circle="">blue</thumbnail>
+          <thumbnail border="1px solid black" font-color="maroon" font-size="25" circle="">maroon</thumbnail>
         </p>
       </div>
 
@@ -149,9 +150,9 @@
   const enableSearch = true
 </script>
 <script src="markbind/js/setup.js"></script>
-<script src="SCRIPT_LINK"></script>
+<script src="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginScript.js"></script>
 <script>
-  alert("hello")
+  alert("Inline plugin script loaded!")
 </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

@@ -4,7 +4,6 @@ const url = require('url');
 
 const CyclicReferenceError = require('../handlers/cyclicReferenceError.js');
 
-const md = require('../lib/markdown-it');
 const utils = require('../utils');
 const urlUtils = require('../utils/urls');
 const njUtil = require('../utils/nunjuckUtils');
@@ -31,31 +30,6 @@ function _preProcessAllComponents(node, context) {
   element.attribs = element.attribs || {};
 
   element.attribs[ATTRIB_CWF] = path.resolve(context.cwf);
-}
-
-
-/*
- * Thumbnails
- */
-
-
-// TODO move this to componentParser
-function _preProcessThumbnail(node) {
-  const element = node;
-
-  const isImage = _.has(element.attribs, 'src') && element.attribs.src !== '';
-  if (isImage) {
-    return element;
-  }
-
-  const text = _.has(element.attribs, 'text') ? element.attribs.text : '';
-  if (text === '') {
-    return element;
-  }
-  const renderedText = md.renderInline(text);
-  element.children = cheerio.parseHTML(renderedText);
-
-  return element;
 }
 
 
@@ -378,8 +352,6 @@ function preProcessComponent(node, context, config, parser) {
   _preProcessAllComponents(element, context);
 
   switch (element.name) {
-  case 'thumbnail':
-    return _preProcessThumbnail(element);
   case 'panel':
     return _preProcessPanel(element, context, config, parser);
   case 'variable':

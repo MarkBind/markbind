@@ -15,7 +15,8 @@
   <link rel="stylesheet" href="../markbind/css/octicons.css">
   <link rel="stylesheet" href="../markbind/css/github.min.css">
   <link rel="stylesheet" href="../markbind/css/markbind.css">
-  <link rel="stylesheet" href="STYLESHEET_LINK">
+  <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
+  <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
   <link rel="stylesheet" href="../markbind/layouts/default/styles.css">
   <meta name="default-head-bottom">
   <link rel="icon" href="/test_site/favicon.png">
@@ -26,7 +27,7 @@
     <div id="flex-body">
       <div id="content-wrapper">
         <p>This is a page from another Markbind site.</p>
-        <h2 id="feature-list">Feature list<a class="fa fa-anchor" href="#feature-list"></a></h2>
+        <h2 id="feature-list">Feature list<a class="fa fa-anchor" href="#feature-list" onclick="event.stopPropagation()"></a></h2>
         <p>It is a list of features (or functionalities) grouped according to some criteria such as priority
           (e.g. must-have, nice-to-have, etc. ), order of delivery, object or process related
           (e.g. order-related, invoice-related, etc.).
@@ -60,9 +61,9 @@
   const enableSearch = true
 </script>
 <script src="../markbind/js/setup.js"></script>
-<script src="SCRIPT_LINK"></script>
+<script src="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginScript.js"></script>
 <script>
-  alert("hello")
+  alert("Inline plugin script loaded!")
 </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
