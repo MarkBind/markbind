@@ -2,10 +2,9 @@
 
 **You can use Dropdowns as a top level component.**
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```html
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
 <!--Notice how header attribute supports inline MarkDown-->
 <dropdown header="*Action*" type="primary">
   <li><a href="#dropdown" class="dropdown-item">Action</a></li>
@@ -25,35 +24,14 @@
 <dropdown header="Right aligned list" type="primary" menu-align-right>
   <li><a href="#dropdown" class="dropdown-item">Something else here</a></li>
 </dropdown>
-```
-</span>
-<span id="output">
-
-<dropdown header="*Action*" type="primary">
-  <li><a href="#dropdown" class="dropdown-item">Action</a></li>
-  <li><a href="#dropdown" class="dropdown-item">Another action</a></li>
-  <li><a href="#dropdown" class="dropdown-item">Something else here</a></li>
-  <li role="separator" class="dropdown-divider"></li>
-  <li><a href="#dropdown" class="dropdown-item">Separated link</a></li>
-</dropdown>
-
-<dropdown type="info">
-  <button slot="before" type="button" class="btn btn-info">Segmented</button>
-  <li><a href="#dropdown" class="dropdown-item">...</a></li>
-</dropdown>
-
-<dropdown header="Right aligned list" type="primary" menu-align-right>
-  <li><a href="#dropdown" class="dropdown-item">Something else here</a></li>
-</dropdown>
-</span>
+</variable>
 </include>
 
 **You can also use Dropdowns as a nested component (e.g. part of a button group).**
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```html
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
 <!-- In a button group -->
 <div class="btn-group d-flex" role="group">
   <a href="#dropdown" class="btn btn-danger w-100" role="button">Left</a>
@@ -73,28 +51,7 @@
   </dropdown>
   <a href="#dropdown" class="btn btn-success w-100" role="button">Right</a>
 </div>
-```
-</span>
-<span id="output">
-
-<div class="btn-group d-flex" role="group">
-  <a href="#dropdown" class="btn btn-danger w-100" role="button">Left</a>
-  <dropdown class="w-100">
-    <button slot="button" type="button" class="btn btn-warning dropdown-toggle w-100">
-      Action
-      <span class="caret"></span>
-    </button>
-    <ul slot="dropdown-menu" class="dropdown-menu">
-      <li><a href="#dropdown" class="dropdown-item">Action</a></li>
-      <li><a href="#dropdown" class="dropdown-item">Another action</a></li>
-      <li><a href="#dropdown" class="dropdown-item">Something else here</a></li>
-      <li role="separator" class="dropdown-divider"></li>
-      <li><a href="#dropdown" class="dropdown-item">Separated link</a></li>
-    </ul>
-  </dropdown>
-  <a href="#dropdown" class="btn btn-success w-100" role="button">Right</a>
-</div>
-</span>
+</variable>
 </include>
 
 ****Options****

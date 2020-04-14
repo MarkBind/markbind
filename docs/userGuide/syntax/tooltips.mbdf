@@ -1,45 +1,8 @@
 ## Tooltips
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```html
-<tooltip content="Lorem ipsum dolor sit amet" placement="top">
-  <button class="btn btn-secondary">Popover on top</button>
-</tooltip>
-<tooltip content="Lorem ipsum dolor sit amet" placement="left">
-  <button class="btn btn-secondary">Popover on left</button>
-</tooltip>
-<tooltip content="Lorem ipsum dolor sit amet" placement="right">
-  <button class="btn btn-secondary">Popover on right</button>
-</tooltip>
-<tooltip content="Lorem ipsum dolor sit amet" placement="bottom">
-  <button class="btn btn-secondary">Popover on bottom</button>
-</tooltip>
-<hr />
-Trigger
-<p>
-  <tooltip effect="scale" content="Lorem ipsum dolor sit amet" placement="top" trigger="click">
-    <button class="btn btn-secondary">Click</button>
-  </tooltip>
-  <br />
-  <br />
-  <tooltip effect="scale" content="Lorem ipsum dolor sit amet" placement="top" trigger="focus">
-    <input placeholder="Focus"></input>
-  </tooltip>
-</p>
-<h4>Markdown</h4>
-<tooltip effect="scale" content="*Hello* **World**">
-  <a href="">Hover me</a>
-</tooltip>
-<br />
-<br />
-<h4>Free Text</h4>
-<tooltip content="coupling is the degree of interdependence between software modules; a measure of how closely connected two routines or modules are; the strength of the relationships between modules."><i>coupling</i></tooltip>
-```
-</span>
-<span id="output">
-
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
 <tooltip content="Lorem ipsum dolor sit amet" placement="top">
   <button class="btn btn-secondary">Popover on top</button>
 </tooltip>
@@ -73,28 +36,19 @@ Trigger
 
 **Free Text**:
 <tooltip content="coupling is the degree of interdependence between software modules; a measure of how closely connected two routines or modules are; the strength of the relationships between modules."><i>coupling</i></tooltip>
-</span>
+</variable>
 </include>
 
 **Using trigger for Tooltip:**<br>
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```html
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
 More about <trigger for="tt:trigger_id">trigger</trigger>.
 <tooltip id="tt:trigger_id" content="This tooltip triggered by a trigger"></tooltip>
 <br>
 This is the same <trigger for="tt:trigger_id">trigger</trigger> as last one.
-```
-</span>
-<span id="output">
-
-More about <trigger for="tt:trigger_id">trigger</trigger>.
-<tooltip id="tt:trigger_id" content="This tooltip triggered by a trigger"></tooltip>
-<br>
-This is the same <trigger for="tt:trigger_id">trigger</trigger> as last one.
-</span>
+</variable>
 </include>
 
 <panel header="More about triggers">

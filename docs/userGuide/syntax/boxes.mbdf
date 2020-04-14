@@ -2,10 +2,9 @@
 
 **Box comes with different built-in types.**
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```html
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
 <box>
     default
 </box>
@@ -39,53 +38,14 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     </box>
 </box>
-```
-</span>
-<span id="output">
-
-<box>
-    default
-</box>
-<box type="info">
-    info
-</box>
-<box type="warning">
-    warning
-</box>
-<box type="success">
-    success
-</box>
-<box type="important">
-    important
-</box>
-<box type="wrong">
-    wrong
-</box>
-<box type="tip">
-    tip
-</box>
-<box type="definition">
-    definition
-</box>
-<box type="info" dismissible>
-    dismissible info
-</box>
-<box type="success" header="#### Header :rocket: { .no-index }" icon-size="2x">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    <box type="warning" header="You can use **markdown** here! :pizza:" dismissible>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    </box>
-</box>
-
-</span>
+</variable>
 </include>
 
 **Markbind also supports a light color scheme for boxes**
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```html
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
 <box type="info" light>
     info light
 </box>
@@ -107,32 +67,7 @@
 <box type="definition" light>
     definition light
 </box>
-```
-</span>
-<span id="output">
-
-<box type="info" light>
-    info light
-</box>
-<box type="warning" light>
-    warning light
-</box>
-<box type="success" light>
-    success light
-</box>
-<box type="important" light>
-    important light
-</box>
-<box type="wrong" light>
-    wrong light
-</box>
-<box type="tip" light>
-    tip light
-</box>
-<box type="definition" light>
-    definition light
-</box>
-</span>
+</variable>
 </include>
 
 **MarkBind also supports a seamless style of boxes**
@@ -141,10 +76,9 @@
 As <code>light</code> and <code>seamless</code> are mutually exclusive styles, <code>light</code> takes priority over <code>seamless</code>.
 </box>
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```html
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
 <box type="info" seamless>
     info seamless
 </box>
@@ -166,57 +100,21 @@ As <code>light</code> and <code>seamless</code> are mutually exclusive styles, <
 <box type="definition" seamless>
     definition seamless
 </box>
-```
-</span>
-<span id="output">
-
-<box type="info" seamless>
-    info seamless
-</box>
-<box type="warning" seamless>
-    warning seamless
-</box>
-<box type="success" seamless>
-    success seamless
-</box>
-<box type="important" seamless>
-    important seamless
-</box>
-<box type="wrong" seamless>
-    wrong seamless
-</box>
-<box type="tip" seamless>
-    tip seamless
-</box>
-<box type="definition" seamless>
-    definition seamless
-</box>
-</span>
+</variable>
 </include>
 
 **You can customize the Box's appearance.**
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```html
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
 <box background-color="white" border-color="grey" border-left-color="blue">
     default, styled as empty box with blue left border
 </box>
 <box type="info" icon=":rocket:">
     info, with rocket icon
 </box>
-```
-</span>
-<span id="output">
-
-<box background-color="white" border-color="grey" border-left-color="blue">
-    default, styled as empty box with blue left border
-</box>
-<box type="info" icon=":rocket:">
-    info, with rocket icon
-</box>
-</span>
+</variable>
 </include>
 
 **You can remove the background, icon and borders of preset styles.**
@@ -226,10 +124,9 @@ Custom styles (<code>background-color</code>, <code>border-color</code>, <code>b
 </box>
 
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```html
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
 <box no-icon no-background type="success">
     success box without a tick icon and backgound
 </box>
@@ -237,25 +134,14 @@ Custom styles (<code>background-color</code>, <code>border-color</code>, <code>b
 <box no-border type="definition" light>
     definition type box, light style without border
 </box>
-```
-</span>
-
-<span id="output">
-<box no-icon no-background type="success">
-    success box without a tick icon and backgound
-</box>
-
-<box no-border type="definition" light>
-    definition type box, light style without border
-</box>
-</span>
+</variable>
 </include>
 
 **You can also use icons and resize them accordingly.**
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-```html
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
 <box type="warning" icon=":fas-camera:">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </box>
@@ -265,21 +151,7 @@ Custom styles (<code>background-color</code>, <code>border-color</code>, <code>b
 <box type="warning" icon=":fas-camera:" icon-size="3x">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </box>
-```
-</span>
-
-<span id="output">
-
-<box type="warning" icon=":fas-camera:">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-</box>
-<box type="warning" icon=":fas-camera:" icon-size="2x">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-</box>
-<box type="warning" icon=":fas-camera:" icon-size="3x">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-</box>
-</span>
+</variable>
 </include>
 
 ****Options****

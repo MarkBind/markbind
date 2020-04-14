@@ -1,9 +1,8 @@
 ## Tabs
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```html
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
 <tabs>
   <tab header="First tab">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper ultrices lobortis.
@@ -23,30 +22,7 @@
     </tab>
   </tab-group>
 </tabs>
-```
-</span>
-<span id="output">
-
-  <tabs>
-    <tab header="First tab">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper ultrices lobortis.
-    </tab>
-    <tab header="Disabled second tab :x:" disabled>
-    </tab>
-    <tab-group header="Third tab group :milky_way:">
-      <tab header="Stars :star:">
-        Some stuff about stars ...
-      </tab>
-      <tab header="Disabled Moon :new_moon:" disabled>
-      </tab>
-    </tab-group>
-    <tab-group header="Disabled fourth tab group" disabled>
-      <tab header="Hidden tab">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper ultrices lobortis.
-      </tab>
-    </tab-group>
-  </tabs>
-</span>
+</variable>
 </include>
 
 ****Options****

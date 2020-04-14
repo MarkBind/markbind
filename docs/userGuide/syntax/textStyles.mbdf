@@ -3,52 +3,31 @@
 Markdown text styles:
 
 <span id="main-example-markdown">
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```markdown
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
 **Bold**, _Italic_, ___Bold and Italic___, `Inline Code`
-```
-</span>
-<span id="output">
-
-**Bold**, _Italic_, ___Bold and Italic___, `Inline Code`
-
-</span>
+</variable>
 </include>
 </span>
 
 Additional syntax from GFMD:
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```markdown
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
 ~~Strike through~~
-```
-</span>
-<span id="output">
-
-~~Strike through~~
-
-</span>
+</variable>
 </include>
 
 Syntax added by MarkBind:
 
 <span id="main-example-markbind">
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```markdown
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
 ****Super Bold****, ++Underline++, ==Highlight==, %%Dim%%, Super^script^, Sub~script~
-```
-</span>
-<span id="output">
-
-****Super Bold****, ++Underline++, ==Highlight==, %%Dim%%, Super^script^, Sub~script~
-
-</span>
+</variable>
 </include>
 </span>
 

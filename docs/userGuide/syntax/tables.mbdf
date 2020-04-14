@@ -1,24 +1,14 @@
 ## Tables
 
-<include src="outputBox.md" boilerplate >
-<span id="code">
-
-```markdown
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
 Animal | Trainable?| Price | Remarks
 :----- | :-------: | ----: | ----
 Ants   | no        | 5     |
 Bees   | no        | 20    |
 Cats|yes|100|
-```
-</span>
-<span id="output">
-
-Animal | Trainable?| Price | Remarks
-:----- | :-------: | ----: | ----
-Ants   | no        | 5     |
-Bees   | no        | 20    |
-Cats|yes|100|
-</span>
+</variable>
 </include>
 
 * Colons (`:`) in the 2nd line are optional and they indicates whether to left/center/right-align the values in that column.
