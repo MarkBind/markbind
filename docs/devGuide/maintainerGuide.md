@@ -28,6 +28,8 @@
     `Add built-in support for light themes from bootswatch (#745)`
     
     b. For non-trivial PRs, ensure that there is a sensible commit message accompanied by it. **Rationale:** So that future developers have an idea of what is going on for this PR without having to go back to the GitHub website.
+    
+    c. Before confirming the merge, do ensure that no other PRs have been merged to master **since the time you started drafting the merging commit's title and message**. Otherwise, you may face a glitch where GitHub merges your PR without squashing. (Reference: [MarkBind#1160](https://github.com/MarkBind/markbind/pull/1160))
 
 Please follow the [commit message convention](https://oss-generic.github.io/process/docs/FormatsAndConventions.html#commit-message). For example, for PR #745, the commit message is as follows:
 
