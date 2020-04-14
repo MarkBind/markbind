@@ -33,6 +33,7 @@ const delay = require('./util/delay');
 const FsUtil = require('./util/fsUtil');
 const logger = require('./util/logger');
 const Page = require('./Page');
+const SiteConfig = require('./SiteConfig');
 const Template = require('./template/template');
 
 const CLI_VERSION = require('../package.json').version;
@@ -44,7 +45,6 @@ const {
   CONFIG_FOLDER_NAME,
   FAVICON_DEFAULT_PATH,
   FOOTER_PATH,
-  HEADING_INDEXING_LEVEL_DEFAULT,
   INDEX_MARKDOWN_FILE,
   LAYOUT_DEFAULT_NAME,
   LAYOUT_FOLDER_PATH,
@@ -129,7 +129,10 @@ class Site {
     this.baseUrlMap = new Set();
     this.forceReload = forceReload;
     this.plugins = {};
-    this.siteConfig = {};
+    /**
+     * @type {undefined | SiteConfig}
+     */
+    this.siteConfig = undefined;
     this.siteConfigPath = siteConfigPath;
     this.userDefinedVariablesMap = {};
 
@@ -202,21 +205,17 @@ class Site {
    * @param baseUrl user defined base URL (if exists)
    * @returns {Promise}
    */
-  readSiteConfig(baseUrl) {
-    return new Promise((resolve, reject) => {
+  async readSiteConfig(baseUrl) {
+    try {
       const siteConfigPath = path.join(this.rootPath, this.siteConfigPath);
-      fs.readJsonAsync(siteConfigPath)
-        .then((config) => {
-          this.siteConfig = config;
-          this.siteConfig.baseUrl = (baseUrl === undefined) ? this.siteConfig.baseUrl : baseUrl;
-          this.siteConfig.enableSearch = (config.enableSearch === undefined) || config.enableSearch;
-          resolve(this.siteConfig);
-        })
-        .catch((err) => {
-          reject(new Error(`Failed to read the site config file '${this.siteConfigPath}' at`
-            + `${this.rootPath}:\n${err.message}\nPlease ensure the file exist or is valid`));
-        });
-    });
+      const siteConfigJson = fs.readJsonSync(siteConfigPath);
+      this.siteConfig = new SiteConfig(siteConfigJson, baseUrl);
+
+      return this.siteConfig;
+    } catch (err) {
+      throw (new Error(`Failed to read the site config file '${this.siteConfigPath}' at`
+        + `${this.rootPath}:\n${err.message}\nPlease ensure the file exist or is valid`));
+    }
   }
 
   listAssets(fileIgnore) {
@@ -255,11 +254,11 @@ class Site {
       baseUrl: this.siteConfig.baseUrl,
       baseUrlMap: this.baseUrlMap,
       content: '',
-      pluginsContext: this.siteConfig.pluginsContext || {},
+      pluginsContext: this.siteConfig.pluginsContext,
       faviconUrl: config.faviconUrl,
       frontmatter: config.frontmatter,
-      globalOverride: this.siteConfig.globalOverride || {},
       disableHtmlBeautify: this.siteConfig.disableHtmlBeautify,
+      globalOverride: this.siteConfig.globalOverride,
       pageTemplate: this.pageTemplate,
       plugins: this.plugins || {},
       rootPath: this.rootPath,
@@ -271,7 +270,7 @@ class Site {
       layout: config.layout,
       title: config.title || '',
       titlePrefix: this.siteConfig.titlePrefix,
-      headingIndexingLevel: this.siteConfig.headingIndexingLevel || HEADING_INDEXING_LEVEL_DEFAULT,
+      headingIndexingLevel: this.siteConfig.headingIndexingLevel,
       userDefinedVariablesMap: this.userDefinedVariablesMap,
       sourcePath,
       resultPath,
@@ -782,8 +781,7 @@ class Site {
   _buildMultipleAssets(filePaths) {
     const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];
     const uniquePaths = _.uniq(filePathArray);
-    const ignoreConfig = this.siteConfig.ignore || [];
-    const fileIgnore = ignore().add(ignoreConfig);
+    const fileIgnore = ignore().add(this.siteConfig.ignore);
     const fileRelativePaths = uniquePaths.map(filePath => path.relative(this.rootPath, filePath));
     const copyAssets = fileIgnore.filter(fileRelativePaths)
       .map(asset => fs.copyAsync(path.join(this.rootPath, asset), path.join(this.outputPath, asset)));
@@ -805,10 +803,8 @@ class Site {
   buildAssets() {
     logger.info('Building assets...');
     return new Promise((resolve, reject) => {
-      const ignoreConfig = this.siteConfig.ignore || [];
       const outputFolder = path.relative(this.rootPath, this.outputPath);
-      ignoreConfig.push(outputFolder); // ignore generated site folder
-      const fileIgnore = ignore().add(ignoreConfig);
+      const fileIgnore = ignore().add([...this.siteConfig.ignore, outputFolder]);
       // Scan and copy assets (excluding ignore files).
       this.listAssets(fileIgnore)
         .then(assets =>
@@ -911,10 +907,6 @@ class Site {
    * Load all plugins of the site
    */
   collectPlugins() {
-    if (!this.siteConfig.plugins) {
-      this.siteConfig.plugins = [];
-    }
-
     module.paths.push(path.join(this.rootPath, 'node_modules'));
 
     const defaultPlugins = Site.findDefaultPlugins();
@@ -1229,7 +1221,6 @@ class Site {
       const publish = Promise.promisify(ghpages.publish);
       this.readSiteConfig()
         .then(() => {
-          this.siteConfig.deploy = this.siteConfig.deploy || {};
           const basePath = this.siteConfig.deploy.baseDir || this.outputPath;
           if (!fs.existsSync(basePath)) {
             reject(new Error(
@@ -1281,17 +1272,15 @@ class Site {
   }
 
   _setTimestampVariable() {
-    const timeZone = this.siteConfig.timeZone ? this.siteConfig.timeZone : 'UTC';
-    const locale = this.siteConfig.locale ? this.siteConfig.locale : 'en-GB';
     const options = {
       weekday: 'short',
       year: 'numeric',
       month: 'short',
       day: 'numeric',
-      timeZone,
+      timeZone: this.siteConfig.timeZone,
       timeZoneName: 'short',
     };
-    const time = new Date().toLocaleTimeString(locale, options);
+    const time = new Date().toLocaleTimeString(this.siteConfig.locale, options);
     Object.keys(this.userDefinedVariablesMap).forEach((base) => {
       this.userDefinedVariablesMap[base].timestamp = time;
     });
