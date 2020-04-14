@@ -635,7 +635,7 @@ class Page {
     // Decide if fixed header is applied
     const headerSelector = cheerio.load(headerContent)('header');
     if (headerSelector.length >= 1
-        && headerSelector[0].attribs.class === 'header-fixed') {
+        && headerSelector[0].attribs.fixed !== undefined) {
       this.fixedHeader = true;
       fileConfig.fixedHeader = true;
     }

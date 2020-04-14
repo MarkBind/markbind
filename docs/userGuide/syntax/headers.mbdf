@@ -23,12 +23,12 @@ In the page that you want to include the header:
 ```
 </div>
 
-You can fix the header to be always on the top by add `class="header-fixed"` attribute to the `<header>` tag of your header file:
+You can fix the header to be always on the top by add `fixed` attribute to the `<header>` tag of your header file:
 
 {{ icon_example }}
 **`_markbind/headers/`**`header.md`:
 ```html
-<header class="header-fixed">
+<header fixed>
     <!--Normal header stuff goes here-->
 </header>
 

@@ -20,8 +20,8 @@ function insertCss(cssCode) {
 }
 
 function setupAnchorsForFixedNavbar() {
-  const headerSelector = jQuery('header');
-  const isFixed = headerSelector.filter('.header-fixed').length !== 0;
+  const headerSelector = jQuery('header[fixed]');
+  const isFixed = headerSelector.length !== 0;
   if (!isFixed) {
     return;
   }
