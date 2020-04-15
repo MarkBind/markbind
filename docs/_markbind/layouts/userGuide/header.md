@@ -1,4 +1,4 @@
-<header>
+<header fixed>
   <link rel="stylesheet" href="{{baseUrl}}/css/main.css">
   <navbar type="dark">
     <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand"><img src="{{baseUrl}}/images/logo-darkbackground.png" height="20"></a>

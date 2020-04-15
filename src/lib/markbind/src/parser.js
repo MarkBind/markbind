@@ -292,7 +292,9 @@ class Parser {
       node.name = node.name.toLowerCase();
     }
 
-    if ((/^h[1-6]$/).test(node.name) && !node.attribs.id) {
+    const isHeadingTag = (/^h[1-6]$/).test(node.name);
+
+    if (isHeadingTag && !node.attribs.id) {
       const textContent = utils.getTextContent(node);
       // remove the '&lt;' and '&gt;' symbols that markdown-it uses to escape '<' and '>'
       const cleanedContent = textContent.replace(/&lt;|&gt;/g, '');
@@ -352,6 +354,11 @@ class Parser {
     }
 
     componentParser.postParseComponents(node, this._onError);
+
+    // If a fixed header is applied to this page, generate dummy spans as anchor points
+    if (config.fixedHeader && isHeadingTag && node.attribs.id) {
+      cheerio(node).append(cheerio.parseHTML(`<span id="${node.attribs.id}" class="anchor"></span>`));
+    }
 
     return node;
   }

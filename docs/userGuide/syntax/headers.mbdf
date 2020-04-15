@@ -23,6 +23,17 @@ In the page that you want to include the header:
 ```
 </div>
 
+You can fix the header to be always on the top by add `fixed` attribute to the `<header>` tag of your header file:
+
+{{ icon_example }}
+**`_markbind/headers/`**`header.md`:
+```html
+<header fixed>
+    <!--Normal header stuff goes here-->
+</header>
+
+```
+
 Notes:
 - Any inline headers will be removed by MarkBind to ensure compatibility with header files.
 - If a [Layout]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#page-layouts) is specified, the header file specified in the `<frontmatter>` will override the header within the Layout.

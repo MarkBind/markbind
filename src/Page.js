@@ -241,6 +241,12 @@ class Page {
      * @type {boolean}
      */
     this.hasSiteNav = false;
+
+    /**
+     * Flag to indicate whether a fixed header is enabled.
+     * @type {boolean}
+     */
+    this.fixedHeader = false;
   }
 
   /**
@@ -604,9 +610,11 @@ class Page {
 
   /**
    * Inserts the page layout's header to the start of the page
+   * Determines if a fixed header is present, update the page config accordingly
    * @param pageData a page with its front matter collected
+   * @param {FileConfig} fileConfig
    */
-  insertHeaderFile(pageData) {
+  insertHeaderFile(pageData, fileConfig) {
     const { header } = this.frontMatter;
     if (header === FRONT_MATTER_NONE_ATTR) {
       return pageData;
@@ -624,6 +632,13 @@ class Page {
     }
     // Retrieve Markdown file contents
     const headerContent = fs.readFileSync(headerPath, 'utf8');
+    // Decide if fixed header is applied
+    const headerSelector = cheerio.load(headerContent)('header');
+    if (headerSelector.length >= 1
+        && headerSelector[0].attribs.fixed !== undefined) {
+      this.fixedHeader = true;
+      fileConfig.fixedHeader = true;
+    }
     // Set header file as an includedFile
     this.includedFiles.add(headerPath);
     // Map variables
@@ -894,6 +909,7 @@ class Page {
    * @property {string} rootPath
    * @property {Object<string, any>} userDefinedVariablesMap
    * @property {Object<string, number>} headerIdMap
+   * @property {boolean} fixedHeader indicates whether the header of the page is fixed
    */
 
   generate(builtFiles) {
@@ -911,6 +927,7 @@ class Page {
       rootPath: this.rootPath,
       userDefinedVariablesMap: this.userDefinedVariablesMap,
       headerIdMap: this.headerIdMap,
+      fixedHeader: this.fixedHeader,
     };
     return new Promise((resolve, reject) => {
       markbinder.includeFile(this.sourcePath, fileConfig)
@@ -924,7 +941,7 @@ class Page {
         .then(result => this.collectPluginSources(result))
         .then(result => this.preRender(result))
         .then(result => this.insertSiteNav((result)))
-        .then(result => this.insertHeaderFile(result))
+        .then(result => this.insertHeaderFile(result, fileConfig))
         .then(result => this.insertFooterFile(result))
         .then(result => Page.insertTemporaryStyles(result))
         .then(result => markbinder.resolveBaseUrl(result, fileConfig))

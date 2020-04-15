@@ -20,32 +20,30 @@ function insertCss(cssCode) {
 }
 
 function setupAnchorsForFixedNavbar() {
-  const headerSelector = jQuery('header');
-  const isFixed = headerSelector.filter('.header-fixed').length !== 0;
+  const headerSelector = jQuery('header[fixed]');
+  const isFixed = headerSelector.length !== 0;
   if (!isFixed) {
     return;
   }
 
   const headerHeight = headerSelector.height();
   const bufferHeight = 1;
-  jQuery('.nav-inner').css('padding-top', `calc(${headerHeight}px)`);
+  jQuery('.nav-inner').css('padding-top', `calc(${headerHeight}px + 1rem)`);
   jQuery('#content-wrapper').css('padding-top', `calc(${headerHeight}px)`);
   insertCss(
     `span.anchor {
-    display: block;
     position: relative;
     top: calc(-${headerHeight}px - ${bufferHeight}rem)
     }`,
   );
+  insertCss(`span.card-container::before {
+        display: block;
+        content: '';
+        margin-top: calc(-${headerHeight}px - ${bufferHeight}rem);
+        height: calc(${headerHeight}px + ${bufferHeight}rem);
+      }`);
   jQuery('h1, h2, h3, h4, h5, h6, .header-wrapper').each((index, heading) => {
     if (heading.id) {
-      /**
-       * Fixing the top navbar would break anchor navigation,
-       * by creating empty spans above the <h> tag we can prevent
-       * the headings from being covered by the navbar.
-       */
-      const spanId = heading.id;
-      heading.insertAdjacentHTML('beforebegin', `<span id="${spanId}" class="anchor"></span>`);
       jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
     }
   });
