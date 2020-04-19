@@ -3,7 +3,7 @@
   "titlePrefix": "MarkBind",
   "pages": [
     {
-      "glob": ["**/*.mbd", "*.md", "userGuide/*.md"]
+      "glob": ["**/*.mbd", "*.md", "userGuide/*.md",  "devGuide/*.md", "devGuide/*/*.md"]
     },
     {
       "src": [
@@ -20,7 +20,7 @@
   ],
   "pluginsContext" : {
     "filterTags" : {
-      "tags": ["environment--ug"]
+      "tags": ["environment--ug", "environment--dg"]
     }
   },
   "headingIndexingLevel": 6,
