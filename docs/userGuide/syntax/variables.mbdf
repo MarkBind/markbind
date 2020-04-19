@@ -177,9 +177,9 @@ However, this is a combination of *both* syntaxes above, and thus this will allo
 You could also have your variables defined in a JSON file to define multiple variables in a more concise manner.
 
 {{ icon_example }}
-`variables.md`:
+globally scoped variables `variables.md`:
 ```html
-<variable from="variables.json" />
+<variable from="PATH_TO_VARIABLE.json" />
 ```
 
 `variables.json`:
@@ -190,7 +190,17 @@ You could also have your variables defined in a JSON file to define multiple var
 }
 ```
 
-Variables defined in JSON file will be scoped according to where it is being referenced.
+Variables defined in JSON file will be scoped according to where it is being referenced. For json variables referenced in `variables.md`
+would be globally scoped like other global variables in that file. On the other hand:
+
+{{ icon_example }}
+locally scoped variables `index.md`:
+```html
+<variable from="PATH_TO_VARIABLE.json" />
+```
+
+JSON variables referenced within `index.md` would be a page variable accessible within the page `index.md`.
+
 
 ### Variables: Tips and Tricks
 
