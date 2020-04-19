@@ -5,16 +5,20 @@ Add classes, identifiers and attributes to your markdown with {.class #identifie
 <include src="outputBox.md" boilerplate >
 <span id="code">
 
+```` {.no-line-numbers}
+```xml {highlight-lines="2" heading="Heading title"}
+<foo>
+  <bar type="name">goo</bar>
+</foo>
 ```
-# header {.style-me}
-paragraph {data-toggle=modal}
-```
+````
 </span>
 <span id="output">
 
-```
-<h1 class="style-me">header</h1>
-<p data-toggle="modal">paragraph</p>
+```xml {highlight-lines="2" heading="Heading title"}
+<foo>
+  <bar type="name">goo</bar>
+</foo>
 ```
 </span>
-</includes>
+</include>
