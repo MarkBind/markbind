@@ -189,7 +189,7 @@ Here are the steps to set up Netlify to use a specific version of MarkBind.
    ```
 
 1. Now, follow the [previous instructions for setting up Netlify](#deploying-to-netlify) but with the following difference:<br>
-   In step 5, ==Set the `Build Command` to `markbind build --baseUrl`==
+   In step 5, Set the `Build Command` to `markbind build --baseUrl`
 
 </box>
 
