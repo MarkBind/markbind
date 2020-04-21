@@ -3,7 +3,7 @@
   "titlePrefix": "MarkBind",
   "pages": [
     {
-      "glob": ["**/*.mbd", "*.md", "userGuide/*.md",  "devGuide/*.md", "devGuide/*/*.md"]
+      "glob": ["**/*.mbd", "*.md", "userGuide/*.md", "devGuide/*.md", "devGuide/*/*.md"]
     },
     {
       "src": [
