@@ -74,14 +74,13 @@ $ npm install
 
 ```
 $ npm run build
-$ npm run builddev
 ```
 
-You should see changes in `vue.min.js`, `vue-strap.js.map` and `vue-strap.min.js`.
+You should see changes in `vue-strap.min.js`.
 
 * **Note:** Building vue-strap is optional if there's no changes since the last release of MarkBind. If there are no changes to the three files mentioned above, skip to the "Building MarkBind" section.
 
-* **Note:** Do take a glance at the diff for `vue.min.js` to see if there's any strange changes (e.g. the version of jQuery changes even though no one upgraded it).
+* **Note:** Do take a glance at the diff for `vue-strap.min.js` to see if there's any strange changes (e.g. the version of jQuery changes even though no one upgraded it).
 
 3. Commit the new changes.
 
@@ -241,6 +240,8 @@ $ markbind deploy
 <!-- List out each of the PR for this version in the following format: -->
 <!-- #ISSUE_NUMBER ISSUE_TITLE (#PR_NUMBER) -->
 
+## User Facing Changes
+
 ### Breaking Changes
 
 <!-- Any feature that is made obsolete -->
@@ -266,15 +267,25 @@ $ markbind deploy
 
 <!-- Pure changes to the documentation, such as typo, restructuring, etc -->
 
+## Other Changes
+
 ### Code Quality
 
-<!-- DevOps, refactoring, etc. -->
+<!-- Refactoring, etc. -->
+
+### DevOps Changes
+
+<!-- Tooling, etc. -->
 
 ### Dependencies
 
 <!-- Replace `OLD` with the previous version and `NEW` with the current version -->
 
 [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap): v2.0.1-markbind.OLD → v2.0.1-markbind.NEW
+
+### Miscellaneous
+
+<!-- Any other changes -->
 
 ```
 
