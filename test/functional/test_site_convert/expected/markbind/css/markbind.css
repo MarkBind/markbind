@@ -11,6 +11,10 @@ code {
     word-break: normal;
 }
 
+mark > code {
+    background: #ffffffd4;
+}
+
 pre.hljs > code {
     background: none;
 }
