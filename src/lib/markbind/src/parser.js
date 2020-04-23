@@ -33,8 +33,6 @@ const {
 class Parser {
   constructor(options) {
     this._options = options || {};
-    // eslint-disable-next-line no-console
-    this._onError = this._options.errorHandler || console.error;
     this._fileCache = {};
     this.dynamicIncludeSrc = [];
     this.staticIncludeSrc = [];
@@ -122,8 +120,7 @@ class Parser {
         }
       } else {
         if (!variableName) {
-          // eslint-disable-next-line no-console
-          console.warn(`Missing 'name' for variable in ${fileName}\n`);
+          logger.warn(`Missing 'name' for variable in ${fileName}\n`);
           return;
         }
         setPageVariable(variableName, md.renderInline(variableElement.html()));
@@ -155,7 +152,7 @@ class Parser {
       // Read file fail
       const missingReferenceErrorMessage = `Missing reference in: ${node.attribs[ATTRIB_CWF]}`;
       e.message += `\n${missingReferenceErrorMessage}`;
-      this._onError(e);
+      logger.error(e);
       return utils.createErrorNode(node, e);
     }
     const fileContent = this._fileCache[filePath]; // cache the file contents to save some I/O
@@ -345,7 +342,7 @@ class Parser {
       break;
     }
 
-    componentParser.parseComponents(node, this._onError);
+    componentParser.parseComponents(node);
 
     if (node.children) {
       node.children.forEach((child) => {
@@ -353,7 +350,7 @@ class Parser {
       });
     }
 
-    componentParser.postParseComponents(node, this._onError);
+    componentParser.postParseComponents(node);
 
     // If a fixed header is applied to this page, generate dummy spans as anchor points
     if (config.fixedHeader && isHeadingTag && node.attribs.id) {
@@ -398,7 +395,7 @@ class Parser {
             processed = componentPreprocessor.preProcessComponent(d, context, config, this);
           } catch (err) {
             err.message += `\nError while preprocessing '${file}'`;
-            this._onError(err);
+            logger.error(err);
             processed = utils.createErrorNode(d, err);
           }
           return processed;
@@ -479,7 +476,7 @@ class Parser {
             processed = componentPreprocessor.preProcessComponent(d, currentContext, config, this);
           } catch (err) {
             err.message += `\nError while preprocessing '${actualFilePath}'`;
-            this._onError(err);
+            logger.error(err);
             processed = utils.createErrorNode(d, err);
           }
           return processed;
@@ -538,7 +535,7 @@ class Parser {
             parsed = this._parse(d, config);
           } catch (err) {
             err.message += `\nError while rendering '${filePath}'`;
-            this._onError(err);
+            logger.error(err);
             parsed = utils.createErrorNode(d, err);
           }
           return parsed;
@@ -672,8 +669,7 @@ class Parser {
         }
         const variableName = child.attribs.name || child.attribs.id;
         if (!variableName) {
-          // eslint-disable-next-line no-console
-          console.warn(`Missing reference in ${includeElement.attribs[ATTRIB_CWF]}\n`
+          logger.warn(`Missing reference in ${includeElement.attribs[ATTRIB_CWF]}\n`
             + `Missing 'name' or 'id' in variable for ${includeElement.attribs.src} include.`);
           return;
         }
