@@ -11,7 +11,7 @@ code {
     word-break: normal;
 }
 
-mark > code {
+mark code {
     background: #ffffffd4;
 }
 
