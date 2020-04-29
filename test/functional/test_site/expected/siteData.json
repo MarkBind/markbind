@@ -271,7 +271,7 @@
     },
     {
       "src": "testCodeBlocks.md",
-      "title": "Code Blocks Line Splitting",
+      "title": "Test: Code Blocks",
       "layout": "default",
       "globalOverrideProperty": "Overridden by global override",
       "globalAndFrontMatterOverrideProperty": "Overridden by global override",
