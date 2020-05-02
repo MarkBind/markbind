@@ -25,7 +25,7 @@ function addNoIndexClasses(content) {
   const $ = cheerio.load(content, { xmlMode: false });
   const noIndexSelectors = [
     'dropdown',
-    'modal',
+    'b-modal',
     'panel:not([expanded])',
     'popover div[slot=content]',
     'question div[slot=hint]',
