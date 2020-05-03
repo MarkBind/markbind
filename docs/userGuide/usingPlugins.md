@@ -200,7 +200,8 @@ removing such potential conflicts.
   - Should return an array of string tag names to be blacklisted, with each tag name being at least 2 characters long.
 
 <box type="important">
-Note however, that variable interpolation syntax <code>{<span>{</span> variable_name <span>}</span>}</code> will act as per normal.
+
+Note however, that variable interpolation syntax {% raw %}`{{ variable_name }}`{% endraw %} will act as per normal.
 Meaning, the user would still be able to use variables in your special tags!
 </box>
 
