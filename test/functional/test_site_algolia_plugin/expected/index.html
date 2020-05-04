@@ -40,7 +40,7 @@
           <li><a class="dropdown-item" href="/">Two</a></li>
         </dropdown>
         <p><strong>Modal content should have algolia-no-index class</strong></p>
-        <b-modal id="modal:trigger_id" hide-footer="" size="" modal-class="mb-zoom" ref="modal:trigger_id"><template slot="modal-title">Modal</template>
+        <b-modal id="modal:trigger_id" hide-footer="" size="" modal-class="mb-zoom" ref="modal:trigger_id" class="algolia-no-index"><template slot="modal-title">Modal</template>
           Content should have `algolia-no-index` class
         </b-modal>
         <span for="modal:trigger_id" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['modal:trigger_id'].show()" class="trigger">Trigger should not have `algolia-no-index` class</span>
