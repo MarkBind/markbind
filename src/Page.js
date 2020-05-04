@@ -42,10 +42,13 @@ const {
   PAGE_NAV_TITLE_CLASS,
   PLUGIN_SITE_ASSET_FOLDER_NAME,
   SITE_NAV_ID,
+  SITE_NAV_EMPTY_LINE_REGEX,
+  SITE_NAV_ANCHOR_CLASS,
   SITE_NAV_LIST_CLASS,
+  SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX,
+  SITE_NAV_DROPDOWN_ICON_HTML,
+  SITE_NAV_DROPDOWN_ICON_ROTATED_HTML,
   TITLE_PREFIX_SEPARATOR,
-  DROPDOWN_BUTTON_ICON_HTML,
-  DROPDOWN_EXPAND_KEYWORD,
   TEMP_NAVBAR_CLASS,
   TEMP_DROPDOWN_CLASS,
   TEMP_DROPDOWN_PLACEHOLDER_CLASS,
@@ -672,55 +675,107 @@ class Page {
   insertSiteNav(pageData) {
     const { siteNav } = this.frontMatter;
     if (siteNav === FRONT_MATTER_NONE_ATTR) {
-      return pageData;
-    }
-
-    let siteNavFile;
-    if (siteNav) {
-      siteNavFile = path.join(NAVIGATION_FOLDER_PATH, siteNav);
-    } else {
-      siteNavFile = path.join(LAYOUT_FOLDER_PATH, this.frontMatter.layout, LAYOUT_NAVIGATION);
-    }
-    // Retrieve Markdown file contents
-    const siteNavPath = path.join(this.rootPath, siteNavFile);
-    if (!fs.existsSync(siteNavPath)) {
       this.hasSiteNav = false;
       return pageData;
     }
-    const siteNavContent = fs.readFileSync(siteNavPath, 'utf8');
+
+    const siteNavFile = siteNav
+      ? path.join(NAVIGATION_FOLDER_PATH, siteNav)
+      : path.join(LAYOUT_FOLDER_PATH, this.frontMatter.layout, LAYOUT_NAVIGATION);
+    const siteNavPath = path.join(this.rootPath, siteNavFile);
+    this.hasSiteNav = fs.existsSync(siteNavPath);
+    if (!this.hasSiteNav) {
+      return pageData;
+    }
+
+    const siteNavContent = fs.readFileSync(siteNavPath, 'utf8').trim();
     if (siteNavContent === '') {
       this.hasSiteNav = false;
       return pageData;
     }
-    this.hasSiteNav = true;
-    // Set siteNav file as an includedFile
     this.includedFiles.add(siteNavPath);
-    // Map variables
+
+    // Render variables
     const parentSite = urlUtils.getParentSiteAbsolutePath(this.sourcePath, this.rootPath, this.baseUrlMap);
     const userDefinedVariables = this.userDefinedVariablesMap[parentSite];
     const siteNavMappedData = njUtil.renderRaw(siteNavContent, userDefinedVariables);
-    // Convert to HTML
-    const siteNavDataSelector = cheerio.load(siteNavMappedData);
-    if (siteNavDataSelector('navigation').length > 1) {
+
+    // Check navigation elements
+    const $ = cheerio.load(siteNavMappedData);
+    const navigationElements = $('navigation');
+    if (navigationElements.length > 1) {
       throw new Error(`More than one <navigation> tag found in ${siteNavPath}`);
-    } else if (siteNavDataSelector('navigation').length === 1) {
-      const siteNavHtml = md.render(
-        siteNavDataSelector('navigation').html().trim().replace(/\n\s*\n/g, '\n'));
-      // Add Bootstrap padding class to rendered unordered list
-      const siteNavHtmlSelector = cheerio.load(siteNavHtml, { xmlMode: false });
-      siteNavHtmlSelector('ul').first().addClass('px-0');
-      siteNavHtmlSelector('ul ul').addClass('pl-3');
-      const formattedSiteNav = Page.formatSiteNav(siteNavHtmlSelector.html(), this.src);
-      siteNavDataSelector('navigation').replaceWith(formattedSiteNav);
     }
-    // Wrap sections
-    const wrappedSiteNav = `<nav id="${SITE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
-      + '<div class="border-right-grey nav-inner position-sticky slim-scroll">'
-      + `${siteNavDataSelector.html()}\n`
-      + '</div>\n'
-      + '</nav>';
-    return `${wrappedSiteNav}\n`
-      + `${pageData}`;
+    const siteNavHtml = md.render(navigationElements.length === 0
+      ? siteNavMappedData.replace(SITE_NAV_EMPTY_LINE_REGEX, '\n')
+      : navigationElements.html().replace(SITE_NAV_EMPTY_LINE_REGEX, '\n'));
+    const $nav = cheerio.load(siteNavHtml, { xmlMode: false });
+
+    // Add anchor classes and highlight current page's anchor, if any.
+    const currentPageHtmlPath = this.src.replace(/\.(md|mbd)$/, '.html');
+    const currentPageRegex = new RegExp(`{{ *baseUrl *}}/${currentPageHtmlPath}`);
+    $nav('a[href]').each((i, elem) => {
+      $nav(elem).addClass(SITE_NAV_ANCHOR_CLASS);
+      if (currentPageRegex.test($nav(elem).attr('href'))) {
+        $nav(elem).addClass('current');
+      }
+    });
+
+    $nav('ul').each((i1, ulElem) => {
+      const nestingLevel = $nav(ulElem).parents('ul').length;
+      $nav(ulElem).addClass(`${nestingLevel === 0 ? 'px-0' : 'pl-3'} ${SITE_NAV_LIST_CLASS}`);
+
+      $nav(ulElem).children('li').each((i2, liElem) => {
+        $nav(liElem).addClass('mt-2');
+        // Do not render dropdown menu for list items with <a> tag
+        if ($nav(liElem).children('a').length) {
+          return;
+        }
+
+        const nestedLists = $nav(liElem).children('ul');
+        if (nestedLists.length === 0) {
+          return;
+        }
+
+        // Found nested list, render dropdown menu
+        const nestedList = nestedLists.first();
+        const dropdownTitle = $nav(liElem).contents().not('ul');
+        const dropdownTitleText = dropdownTitle.toString().trim();
+        // Remove the 'old' children
+        dropdownTitle.remove();
+
+        const hasExpandedKeyword = SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX.test(dropdownTitleText);
+        const isParentListOfCurrentPage = !!nestedList.find('a.current').length;
+        const shouldExpandDropdown = hasExpandedKeyword || isParentListOfCurrentPage;
+        if (shouldExpandDropdown) {
+          nestedList.wrap('<div class="dropdown-container dropdown-container-open"></div>');
+          $nav(liElem).prepend('<button class="dropdown-btn dropdown-btn-open">'
+            + `${dropdownTitleText.replace(SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX, '')}\n`
+            + `${SITE_NAV_DROPDOWN_ICON_ROTATED_HTML}\n`
+            + '</button>');
+        } else {
+          nestedList.wrap('<div class="dropdown-container"></div>');
+          $nav(liElem).prepend('<button class="dropdown-btn">'
+            + `${dropdownTitleText}\n`
+            + `${SITE_NAV_DROPDOWN_ICON_HTML}\n`
+            + '</button>');
+        }
+      });
+    });
+
+    let formattedHtml;
+    if (navigationElements.length === 0) {
+      formattedHtml = $nav.html();
+    } else {
+      $('navigation').replaceWith($nav.root());
+      formattedHtml = $.html();
+    }
+
+    // Wrap sections and append page content
+    const wrappedSiteNav = `${`<nav id="${SITE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
+      + '<div class="border-right-grey nav-inner position-sticky slim-scroll">\n'}${formattedHtml}\n</div>\n`
+      + '</nav>\n';
+    return wrappedSiteNav + pageData;
   }
 
   /**
@@ -1290,68 +1345,6 @@ class Page {
     }
     // Remove preceding footers
     pageHeaderAndFooter.remove();
-    return $.html();
-  }
-
-  static formatSiteNav(renderedSiteNav, src) {
-    const $ = cheerio.load(renderedSiteNav);
-    const listItems = $.root().find('ul').first().children();
-    if (listItems.length === 0) {
-      return renderedSiteNav;
-    }
-    // Tidy up the style of the unordered list <ul>
-    listItems.parent().addClass(`${SITE_NAV_LIST_CLASS}`);
-
-    // Set class of <a> to ${SITE_NAV_ID}__a to style links
-    listItems.find('a[href]').addClass(`${SITE_NAV_ID}__a`);
-
-    // Highlight current page
-    const currentPageHtmlPath = src.replace(/\.(md|mbd)$/, '.html');
-    listItems.find(`a[href='{{baseUrl}}/${currentPageHtmlPath}']`).addClass('current');
-
-    listItems.each(function () {
-      // Tidy up the style of each list item
-      $(this).addClass('mt-2');
-      // Do not render dropdown menu for list items with <a> tag
-      if ($(this).children('a').length) {
-        const nestedList = $(this).children('ul').first();
-        if (nestedList.length) {
-          // Double wrap to counter replaceWith removing <li>
-          nestedList.parent()
-            .wrap('<li class="mt-2"></li>');
-          // Recursively format nested lists without dropdown wrapper
-          nestedList.parent().replaceWith(Page.formatSiteNav(nestedList.parent().html(), src));
-        }
-        // Found nested list, render dropdown menu
-      } else if ($(this).children('ul').length) {
-        const nestedList = $(this).children('ul').first();
-        const dropdownTitle = $(this).contents().not('ul');
-        // Replace the title with the dropdown wrapper
-        dropdownTitle.remove();
-        // Check if dropdown is expanded by default or if the current page is in a dropdown
-        const shouldExpandDropdown = dropdownTitle.toString().includes(DROPDOWN_EXPAND_KEYWORD)
-          || Boolean(nestedList.find(`a[href='{{baseUrl}}/${currentPageHtmlPath}']`).text());
-        if (shouldExpandDropdown) {
-          const expandKeywordRegex = new RegExp(DROPDOWN_EXPAND_KEYWORD, 'g');
-          const dropdownTitleWithoutKeyword = dropdownTitle.toString().replace(expandKeywordRegex, '');
-          const rotatedIcon = cheerio.load(DROPDOWN_BUTTON_ICON_HTML, { xmlMode: false })('i')
-            .addClass('rotate-icon');
-          nestedList.wrap('<div class="dropdown-container dropdown-container-open"></div>');
-          $(this).prepend('<button class="dropdown-btn dropdown-btn-open">'
-            + `${dropdownTitleWithoutKeyword} `
-            + `${rotatedIcon}\n`
-            + '</button>');
-        } else {
-          nestedList.wrap('<div class="dropdown-container"></div>');
-          $(this).prepend('<button class="dropdown-btn">'
-            + `${dropdownTitle} `
-            + `${DROPDOWN_BUTTON_ICON_HTML}\n`
-            + '</button>');
-        }
-        // Recursively format nested lists
-        nestedList.replaceWith(Page.formatSiteNav(nestedList.parent().html(), src));
-      }
-    });
     return $.html();
   }
 
