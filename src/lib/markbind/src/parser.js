@@ -38,7 +38,6 @@ class Parser {
     this._fileCache = {};
     this.dynamicIncludeSrc = [];
     this.staticIncludeSrc = [];
-    this.boilerplateIncludeSrc = [];
     this.missingIncludeSrc = [];
   }
 
@@ -138,10 +137,6 @@ class Parser {
 
   getStaticIncludeSrc() {
     return _.clone(this.staticIncludeSrc);
-  }
-
-  getBoilerplateIncludeSrc() {
-    return _.clone(this.boilerplateIncludeSrc);
   }
 
   getMissingIncludeSrc() {
@@ -384,7 +379,6 @@ class Parser {
   includeFile(file, config) {
     const context = {};
     context.cwf = config.cwf || file; // current working file
-    context.mode = 'include';
     context.callStack = [];
     return new Promise((resolve, reject) => {
       const handler = new htmlparser.DomHandler((error, dom) => {
@@ -465,7 +459,6 @@ class Parser {
       }
 
       const currentContext = context;
-      currentContext.mode = 'include';
       currentContext.callStack = [];
 
       const handler = new htmlparser.DomHandler((error, dom) => {
