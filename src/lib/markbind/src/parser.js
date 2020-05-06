@@ -373,7 +373,7 @@ class Parser {
     }
   }
 
-  includeFile(file, config) {
+  includeFile(file, content, config, additionalVariables = {}) {
     const context = {};
     context.cwf = config.cwf || file; // current working file
     context.callStack = [];
@@ -400,113 +400,29 @@ class Parser {
         xmlMode: true,
         decodeEntities: true,
       });
-      let actualFilePath = file;
-      if (!utils.fileExists(file)) {
-        const boilerplateFilePath = urlUtils.calculateBoilerplateFilePath(path.basename(file), file, config);
-        if (utils.fileExists(boilerplateFilePath)) {
-          actualFilePath = boilerplateFilePath;
-        }
-      }
-      // Read files
-      fs.readFile(actualFilePath, 'utf-8', (err, data) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-        const parentSitePath = urlUtils.getParentSiteAbsolutePath(file, config.rootPath, config.baseUrlMap);
-        const userDefinedVariables = config.userDefinedVariablesMap[parentSitePath];
-        const pageVariables = Parser.extractPageVariables(file, data, userDefinedVariables, {});
-        let fileContent = njUtil.renderRaw(data, {
-          ...pageVariables,
-          ...userDefinedVariables,
-        }, {
-          path: actualFilePath,
-        });
-        this._extractInnerVariables(fileContent, context, config);
-        const innerVariables = this.getImportedVariableMap(context.cwf);
-        fileContent = njUtil.renderRaw(fileContent, {
-          ...userDefinedVariables, ...innerVariables,
-        });
-        const fileExt = utils.getExt(file);
-        if (utils.isMarkdownFileExt(fileExt)) {
-          context.source = 'md';
-          parser.parseComplete(fileContent.toString());
-        } else if (fileExt === 'html') {
-          context.source = 'html';
-          parser.parseComplete(fileContent);
-        } else {
-          const error = new Error(`Unsupported File Extension: '${fileExt}'`);
-          reject(error);
-        }
-      });
-    });
-  }
-
-  includeData(file, pageData, config) {
-    const context = {};
-    context.cwf = config.cwf || file; // current working file
-
-    return new Promise((resolve, reject) => {
-      let actualFilePath = file;
-      if (!utils.fileExists(file)) {
-        const boilerplateFilePath = urlUtils.calculateBoilerplateFilePath(path.basename(file), file, config);
-        if (utils.fileExists(boilerplateFilePath)) {
-          actualFilePath = boilerplateFilePath;
-        }
-      }
-
-      const currentContext = context;
-      currentContext.callStack = [];
-
-      const handler = new htmlparser.DomHandler((error, dom) => {
-        if (error) {
-          reject(error);
-          return;
-        }
-        const nodes = dom.map((d) => {
-          let processed;
-          try {
-            processed = componentPreprocessor.preProcessComponent(d, currentContext, config, this);
-          } catch (err) {
-            err.message += `\nError while preprocessing '${actualFilePath}'`;
-            logger.error(err);
-            processed = utils.createErrorNode(d, err);
-          }
-          return processed;
-        });
-        resolve(cheerio.html(nodes));
-      });
-
-      const parser = new htmlparser.Parser(handler, {
-        xmlMode: true,
-        decodeEntities: true,
-      });
 
       const parentSitePath = urlUtils.getParentSiteAbsolutePath(file, config.rootPath, config.baseUrlMap);
       const userDefinedVariables = config.userDefinedVariablesMap[parentSitePath];
-      const { additionalVariables } = config;
-      const pageVariables = Parser.extractPageVariables(actualFilePath, pageData, userDefinedVariables, {});
-
-      let fileContent = njUtil.renderRaw(pageData, {
+      const pageVariables = Parser.extractPageVariables(file, content, userDefinedVariables, {});
+      let fileContent = njUtil.renderRaw(content, {
         ...pageVariables,
         ...userDefinedVariables,
         ...additionalVariables,
-      }, {
-        path: actualFilePath,
       });
-      this._extractInnerVariables(fileContent, currentContext, config);
-      const innerVariables = this.getImportedVariableMap(currentContext.cwf);
+      this._extractInnerVariables(fileContent, context, config);
+      const innerVariables = this.getImportedVariableMap(context.cwf);
       fileContent = njUtil.renderRaw(fileContent, {
         ...userDefinedVariables,
         ...additionalVariables,
         ...innerVariables,
       });
-      const fileExt = utils.getExt(actualFilePath);
+
+      const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
-        currentContext.source = 'md';
+        context.source = 'md';
         parser.parseComplete(fileContent.toString());
       } else if (fileExt === 'html') {
-        currentContext.source = 'html';
+        context.source = 'html';
         parser.parseComplete(fileContent);
       } else {
         const error = new Error(`Unsupported File Extension: '${fileExt}'`);
