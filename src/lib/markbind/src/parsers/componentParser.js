@@ -4,6 +4,7 @@ const _ = {};
 _.has = require('lodash/has');
 
 const md = require('../lib/markdown-it');
+const logger = require('../../../../util/logger');
 
 cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
@@ -148,9 +149,7 @@ function _warnConflictingAttributes(node, attribute, attrsConflictingWith) {
   }
   attrsConflictingWith.forEach((conflictingAttr) => {
     if (conflictingAttr in node.attribs) {
-      // TODO: Use logger here instead of console.warn. See issue #1060
-      // eslint-disable-next-line no-console
-      console.warn(`warn: Usage of conflicting ${node.name} attributes: `
+      logger.warn(`Usage of conflicting ${node.name} attributes: `
         + `'${attribute}' with '${conflictingAttr}'`);
     }
   });
@@ -164,9 +163,7 @@ function _warnConflictingAttributes(node, attribute, attrsConflictingWith) {
 function _warnDeprecatedAttributes(node, attributeNamePairs) {
   Object.entries(attributeNamePairs).forEach(([deprecatedAttrib, correctAttrib]) => {
     if (deprecatedAttrib in node.attribs) {
-      // TODO: Use logger here instead of console.warn. See issue #1060
-      // eslint-disable-next-line no-console
-      console.warn(`warn: ${node.name} attribute '${deprecatedAttrib}' `
+      logger.warn(`${node.name} attribute '${deprecatedAttrib}' `
         + `is deprecated and may be removed in the future. Please use '${correctAttrib}'`);
     }
   });
@@ -249,9 +246,7 @@ function _warnDeprecatedSlotNames(element, namePairs) {
       if (child.attribs.slot !== deprecatedName) {
         return;
       }
-      // TODO: Use logger here instead of console.warn. See issue #1060
-      // eslint-disable-next-line no-console
-      console.warn(`warn: ${element.name} slot name '${deprecatedName}' `
+      logger.warn(`${element.name} slot name '${deprecatedName}' `
         + `is deprecated and may be removed in the future. Please use '${correctName}'`);
     });
   });
@@ -389,14 +384,10 @@ function _parseDropdownAttributes(node) {
   // If header slot is present, the header attribute has no effect, and we can simply remove it.
   if (hasHeaderSlot) {
     if (_.has(node.attribs, 'header')) {
-      // TODO: Use logger here instead of console.warn. See issue #1060
-      // eslint-disable-next-line no-console
-      console.warn(`warn: ${node.name} has a header slot, 'header' attribute has no effect.`);
+      logger.warn(`${node.name} has a header slot, 'header' attribute has no effect.`);
     }
     if (_.has(node.attribs, 'text')) {
-      // TODO: Use logger here instead of console.warn. See issue #1060
-      // eslint-disable-next-line no-console
-      console.warn(`warn: ${node.name} has a header slot, 'text' attribute has no effect.`);
+      logger.warn(`${node.name} has a header slot, 'text' attribute has no effect.`);
     }
     delete node.attribs.header;
     delete node.attribs.text;
@@ -438,7 +429,7 @@ function _parseThumbnailAttributes(node) {
  * API
  */
 
-function parseComponents(node, errorHandler) {
+function parseComponents(node) {
   try {
     switch (node.name) {
     case 'panel':
@@ -473,16 +464,11 @@ function parseComponents(node, errorHandler) {
       break;
     }
   } catch (error) {
-    if (!errorHandler) {
-      // eslint-disable-next-line no-console
-      console.error(error);
-      return;
-    }
-    errorHandler(error);
+    logger.error(error);
   }
 }
 
-function postParseComponents(node, errorHandler) {
+function postParseComponents(node) {
   try {
     switch (node.name) {
     case 'panel':
@@ -492,12 +478,7 @@ function postParseComponents(node, errorHandler) {
       break;
     }
   } catch (error) {
-    if (!errorHandler) {
-      // eslint-disable-next-line no-console
-      console.error(error);
-      return;
-    }
-    errorHandler(error);
+    logger.error(error);
   }
 }
 

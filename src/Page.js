@@ -568,9 +568,7 @@ class Page {
    * @param {FileConfig} fileConfig
    */
   generateExpressiveLayout(pageData, fileConfig) {
-    const markbinder = new MarkBind({
-      errorHandler: logger.error,
-    });
+    const markbinder = new MarkBind();
     const template = {};
     template[LAYOUT_PAGE_BODY_VARIABLE] = pageData;
     const { layout } = this.frontMatter;
@@ -916,9 +914,7 @@ class Page {
     this.includedFiles = new Set([this.sourcePath]);
     this.headerIdMap = {}; // Reset for live reload
 
-    const markbinder = new MarkBind({
-      errorHandler: logger.error,
-    });
+    const markbinder = new MarkBind();
     /**
      * @type {FileConfig}
      */
@@ -1236,9 +1232,7 @@ class Page {
        * We create a local instance of Markbind for an empty dynamicIncludeSrc
        * so that we only recursively rebuild the file's included content
        */
-      const markbinder = new MarkBind({
-        errorHandler: logger.error,
-      });
+      const markbinder = new MarkBind();
       return markbinder.includeFile(dependency.to, {
         baseUrlMap: this.baseUrlMap,
         userDefinedVariablesMap: this.userDefinedVariablesMap,
