@@ -244,9 +244,7 @@ function _preprocessInclude(node, context, config, parser) {
   const {
     renderedContent,
     childContext,
-    includedSrces,
   } = variablePreprocessor.renderIncludeFile(actualFilePath, element, context, filePath);
-  includedSrces.forEach(src => parser.staticIncludeSrc.push(src));
 
   _deleteIncludeAttributes(element);
 
@@ -317,6 +315,16 @@ function _preprocessVariables() {
   return utils.createEmptyNode();
 }
 
+function _preprocessImports(node, parser) {
+  if (node.attribs.from) {
+    parser.staticIncludeSrc.push({
+      from: node.attribs.cwf,
+      to: path.resolve(node.attribs.cwf, node.attribs.from),
+    });
+  }
+
+  return utils.createEmptyNode();
+}
 
 /*
  * Body
@@ -343,8 +351,9 @@ function preProcessComponent(node, context, config, parser) {
   case 'panel':
     return _preProcessPanel(element, context, config, parser);
   case 'variable':
-  case 'import':
     return _preprocessVariables();
+  case 'import':
+    return _preprocessImports(node, parser);
   case 'include':
     return _preprocessInclude(element, context, config, parser);
   case 'body':

@@ -235,21 +235,15 @@ class Parser {
         decodeEntities: true,
       });
 
-      const outerContentRendered = this.variablePreprocessor.renderOuterVariables(content, file,
-                                                                                  additionalVariables);
-      this.variablePreprocessor.extractInnerVariables(outerContentRendered, context.cwf)
-        .forEach(src => this.staticIncludeSrc.push(src));
-      const innerContentRendered = this.variablePreprocessor.renderInnerVariables(outerContentRendered,
-                                                                                  file, context.cwf,
-                                                                                  additionalVariables);
+      const renderedContent = this.variablePreprocessor.renderPage(file, content, additionalVariables);
 
       const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
         context.source = 'md';
-        parser.parseComplete(innerContentRendered.toString());
+        parser.parseComplete(renderedContent.toString());
       } else if (fileExt === 'html') {
         context.source = 'html';
-        parser.parseComplete(innerContentRendered);
+        parser.parseComplete(renderedContent);
       } else {
         const error = new Error(`Unsupported File Extension: '${fileExt}'`);
         reject(error);

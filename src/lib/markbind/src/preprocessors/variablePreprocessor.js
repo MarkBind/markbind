@@ -9,14 +9,12 @@ _.has = require('lodash/has');
 _.isArray = require('lodash/isArray');
 _.isEmpty = require('lodash/isEmpty');
 
-const md = require('../lib/markdown-it');
 const njUtil = require('../utils/nunjuckUtils');
 const urlUtils = require('../utils/urls');
 const logger = require('../../../../util/logger');
 
 const {
   ATTRIB_CWF,
-  IMPORTED_VARIABLE_PREFIX,
 } = require('../constants');
 
 
@@ -66,29 +64,6 @@ class VariablePreprocessor {
      * @type {Object<string, Object<string, any>>}
      */
     this.userDefinedVariablesMap = {};
-
-    /*
-     * Page level
-     */
-
-    /**
-     * Map of file paths to another object containing its variable names matched to values
-     * @type {Object<string, Object<string, string>>}
-     */
-    this.fileVariableMap = {};
-
-    /**
-     * Map of file paths to another object containing its
-     * variable aliases matched to the respective imported file
-     * @type {Object<string, Object<string, string>>}
-     */
-    this.fileVariableAliasesMap = {};
-
-    /**
-     * Set of files that were already processed
-     * @type {Set<string>}
-     */
-    this.processedFiles = new Set();
   }
 
 
@@ -148,13 +123,21 @@ class VariablePreprocessor {
 
 
   /**
-   * Renders the supplied content using only the site variables belonging to the specified site of the file.
+   * Renders content belonging to a specified file path with the appropriate site's variables,
+   * with an optional set of lower and higher priority variables than the site variables to be rendered.
    * @param contentFilePath of the specified content to render
-   * @param content string
+   * @param content string to render
+   * @param lowerPriorityVariables than the site variables, if any
+   * @param higherPriorityVariables than the site variables, if any
    */
-  renderSiteVariables(contentFilePath, content) {
-    const parentSite = urlUtils.getParentSiteAbsolutePath(contentFilePath, this.rootPath, this.baseUrlMap);
-    return njUtil.renderRaw(content, this.userDefinedVariablesMap[parentSite]);
+  renderSiteVariables(contentFilePath, content, lowerPriorityVariables = {}, higherPriorityVariables = {}) {
+    const userDefinedVariables = this.getParentSiteVariables(contentFilePath);
+
+    return njUtil.renderRaw(content, {
+      ...lowerPriorityVariables,
+      ...userDefinedVariables,
+      ...higherPriorityVariables,
+    });
   }
 
 
@@ -163,220 +146,170 @@ class VariablePreprocessor {
    * Page level variable storage methods
    */
 
-
-  resetVariables() {
-    this.fileVariableMap = {};
-    this.fileVariableAliasesMap = {};
-    this.processedFiles.clear();
-  }
-
   /**
-   * Returns an object containing the <import>ed variables for the specified file.
-   * For variables specified with aliases, we construct the sub object containing the
-   * names and values of the variables tied to the alias.
-   * @param file to get the imported variables for
+   * Subroutine for {@link extractPageVariables}.
+   * Renders a variable declared via either a <variable name="..."> tag or <variable from="..."> json file
+   * and then adds it to {@link pageVariables}.
+   *
+   * @param pageVariables object to add the extracted page variables to
+   * @param elem "dom node" as parsed by htmlparser2
+   * @param elemHtml as outputted by $(elem).html()
+   * @param filePath that the <variable> tag is from
+   * @param renderVariable callback to render the extracted variable with before storing
    */
-  getImportedVariableMap(file) {
-    const innerVariables = {};
-    const fileAliases = this.fileVariableAliasesMap[file];
+  static addVariable(pageVariables, elem, elemHtml, filePath, renderVariable) {
+    const variableSource = elem.attribs.from;
+    if (variableSource) {
+      const variableFilePath = path.resolve(path.dirname(filePath), variableSource);
+      if (!fs.existsSync(variableFilePath)) {
+        logger.error(`The file ${variableSource} specified in 'from' attribute for json variable in ${
+          filePath} does not exist!\n`);
+        return;
+      }
+      const rawData = fs.readFileSync(variableFilePath);
 
-    Object.entries(fileAliases).forEach(([alias, actualPath]) => {
-      innerVariables[alias] = {};
-      const variables = this.fileVariableMap[actualPath];
+      try {
+        const jsonData = JSON.parse(rawData);
+        Object.entries(jsonData).forEach(([name, value]) => {
+          pageVariables[name] = renderVariable(filePath, value);
+        });
+      } catch (err) {
+        logger.warn(`Error in parsing json from ${variableFilePath}:\n${err.message}\n`);
+      }
+    } else {
+      const variableName = elem.attribs.name;
+      if (!variableName) {
+        logger.warn(`Missing 'name' for variable in ${filePath}\n`);
+        return;
+      }
 
-      Object.entries(variables).forEach(([name, value]) => {
-        innerVariables[alias][name] = value;
-      });
-    });
-
-    return innerVariables;
-  }
-
-  /**
-   * Retrieves a semi-unique alias for the given array of variable names from an import element
-   * by prepending the smallest variable name with $__MARKBIND__.
-   * Uses the alias declared in the 'as' attribute if there is one.
-   * @param variableNames of the import element, not referenced from the 'as' attribute
-   * @param node of the import element
-   * @return {string} Alias for the import element
-   */
-  static getAliasForImportVariables(variableNames, node) {
-    if (_.has(node.attribs, 'as')) {
-      return node.attribs.as;
+      pageVariables[variableName] = renderVariable(filePath, elemHtml);
     }
-    const largestName = variableNames.sort()[0];
-    return IMPORTED_VARIABLE_PREFIX + largestName;
   }
 
   /**
-   * Extracts a pseudo imported variables for the supplied content.
-   * @param $ loaded cheerio object of the content
-   * @return {{}} pseudo imported variables of the content
+   * Subroutine for {@link extractPageVariables}.
+   * Processes an <import> element with a 'from' attribute.
+   * {@link extractPageVariables} is recursively called to extract the other page's variables in doing so.
+   * Then, all locally declared variables of the imported file are assigned under the alias (if any),
+   * and any inline variables specified in the <import> element are also set in {@link pageImportedVariables}.
+   *
+   * @param pageImportedVariables object to add the extracted imported variables to
+   * @param elem "dom node" of the <import> element as parsed by htmlparser2
+   * @param filePath that the <variable> tag is from
+   * @param renderFrom callback to render the 'from' attribute with
    */
-  static extractPseudoImportedVariables($) {
-    const importedVariables = {};
-    $('import[from]').each((index, element) => {
-      const variableNames = Object.keys(element.attribs).filter(name => name !== 'from' && name !== 'as');
+  addImportVariables(pageImportedVariables, elem, filePath, renderFrom) {
+    // render the 'from' file path for the edge case that a variable is used inside it
+    const importedFilePath = renderFrom(filePath, elem.attribs.from);
+    const resolvedFilePath = path.resolve(path.dirname(filePath), importedFilePath);
+    if (!fs.existsSync(resolvedFilePath)) {
+      logger.error(`The file ${importedFilePath} specified in 'from' attribute for import in ${
+        filePath} does not exist!\n`);
+      return;
+    }
 
-      // Add pseudo variables for the alias's variables
-      const alias = VariablePreprocessor.getAliasForImportVariables(variableNames, element);
-      importedVariables[alias] = new Proxy({}, {
-        get(obj, prop) {
-          return `{{${alias}.${prop}}}`;
-        },
-      });
+    // recursively extract the imported page's variables first
+    const importedFileContent = fs.readFileSync(resolvedFilePath);
+    const { pageVariables: importedFilePageVariables } = this.extractPageVariables(resolvedFilePath,
+                                                                                   importedFileContent);
 
-      // Add pseudo variables for inline variables in the import element
-      variableNames.forEach((name) => {
-        importedVariables[name] = `{{${alias}.${name}}}`;
-      });
+    const alias = elem.attribs.as;
+    if (alias) {
+      // import everything under the alias if there is one
+      pageImportedVariables[alias] = importedFilePageVariables;
+    }
+
+    // additionally, import the inline variables without an alias
+    Object.keys(elem.attribs).filter((attr) => {
+      const isReservedAttribute = attr === 'from' || attr === 'as';
+      if (isReservedAttribute) {
+        return false;
+      }
+
+      const isExistingAttribute = !!importedFilePageVariables[attr];
+      if (!isExistingAttribute) {
+        logger.warn(`Invalid inline attribute ${attr} imported in ${filePath} from ${resolvedFilePath}\n`);
+        return false;
+      }
+
+      return true;
+    }).forEach((name) => {
+      pageImportedVariables[name] = importedFilePageVariables[name];
     });
-    return importedVariables;
   }
 
   /**
    * Extract page variables from a page.
-   * @param fileName for error printing
+   * These include all locally declared <variable>s and variables <import>ed from other pages.
+   * @param filePath for error printing
    * @param data to extract variables from
-   * @param includedVariables variables from parent include
+   * @param includeVariables from the parent include, if any, used during {@link renderIncludeFile}
    */
-  extractPageVariables(fileName, data, includedVariables) {
-    const fileDir = path.dirname(fileName);
+  extractPageVariables(filePath, data, includeVariables = {}) {
+    const pageVariables = {};
+    const pageImportedVariables = {};
+
     const $ = cheerio.load(data);
 
-    const importedVariables = VariablePreprocessor.extractPseudoImportedVariables($);
-    const pageVariables = {};
-    const userDefinedVariables = this.getContentParentSiteVariables(fileName);
-
-    const setPageVariableIfNotSetBefore = (variableName, rawVariableValue) => {
-      if (pageVariables[variableName]) {
-        return;
-      }
-
-      pageVariables[variableName] = njUtil.renderRaw(rawVariableValue, {
-        ...importedVariables,
+    /*
+     This is used to render extracted variables before storing.
+     Hence, variables can be used within other variables, subject to declaration order.
+     */
+    const renderVariable = (contentFilePath, content) => {
+      const previousVariables = {
+        ...pageImportedVariables,
         ...pageVariables,
-        ...userDefinedVariables,
-        ...includedVariables,
-      }, {}, false);
+        ...includeVariables,
+      };
+
+      return this.renderSiteVariables(contentFilePath, content, previousVariables);
     };
 
-    $('variable').each((index, node) => {
-      const variableSource = $(node).attr('from');
-      if (variableSource !== undefined) {
-        try {
-          const variableFilePath = path.resolve(fileDir, variableSource);
-          const jsonData = fs.readFileSync(variableFilePath);
-          const varData = JSON.parse(jsonData);
-          Object.entries(varData).forEach(([varName, varValue]) => {
-            setPageVariableIfNotSetBefore(varName, varValue);
-          });
-        } catch (err) {
-          logger.warn(`Error ${err.message}`);
-        }
+    // NOTE: Selecting both at once is important to respect variable/import declaration order
+    $('variable, import[from]').not('include > variable').each((index, elem) => {
+      if (elem.name === 'variable') {
+        VariablePreprocessor.addVariable(pageVariables, elem, $(elem).html(), filePath, renderVariable);
       } else {
-        const variableName = $(node).attr('name');
-        if (!variableName) {
-          logger.warn(`Missing 'name' for variable in ${fileName}\n`);
-          return;
-        }
-        setPageVariableIfNotSetBefore(variableName, md.renderInline($(node).html()));
+        /*
+         NOTE: we pass renderVariable here as well but not for rendering <import>ed variables again!
+         This is only for the edge case that variables are used in the 'from' attribute of
+         the <import> which we must resolve first.
+         */
+        this.addImportVariables(pageImportedVariables, elem, filePath, renderVariable);
       }
     });
 
-    this.fileVariableMap[fileName] = pageVariables;
-
-    return { ...importedVariables, ...pageVariables };
+    return { pageImportedVariables, pageVariables };
   }
 
   /**
-   * Extracts inner (nested) variables of the content,
-   * resolving the <import>s with respect to the supplied contentFilePath.
-   * @param content to extract from
-   * @param contentFilePath of the content
-   * @return {[]} Array of files that were imported
-   */
-  extractInnerVariables(content, contentFilePath) {
-    let staticIncludeSrcs = [];
-    const $ = cheerio.load(content, {
-      xmlMode: false,
-      decodeEntities: false,
-    });
-
-    const aliases = {};
-    this.fileVariableAliasesMap[contentFilePath] = aliases;
-
-    $('import[from]').each((index, node) => {
-      const filePath = path.resolve(path.dirname(contentFilePath), node.attribs.from);
-      staticIncludeSrcs.push({ from: contentFilePath, to: filePath });
-
-      const variableNames = Object.keys(node.attribs).filter(name => name !== 'from' && name !== 'as');
-      const alias = VariablePreprocessor.getAliasForImportVariables(variableNames, node);
-      aliases[alias] = filePath;
-
-      // Render inner file content and extract inner variables recursively
-      const {
-        content: renderedContent,
-        childContext,
-      } = this.renderIncludeFile(filePath, node, {});
-      const userDefinedVariables = this.getContentParentSiteVariables(filePath);
-      staticIncludeSrcs = [
-        ...staticIncludeSrcs,
-        ...this.extractInnerVariablesIfNotProcessed(renderedContent, childContext.cwf, filePath),
-      ];
-
-      // Re-render page variables with imported variables
-      const innerVariables = this.getImportedVariableMap(filePath);
-      const variables = this.fileVariableMap[filePath];
-      Object.entries(variables).forEach(([variableName, value]) => {
-        variables[variableName] = njUtil.renderRaw(value, {
-          ...userDefinedVariables, ...innerVariables,
-        });
-      });
-    });
-
-    return staticIncludeSrcs;
-  }
-
-  /**
-   * Extracts inner variables {@link extractInnerVariables} only if not processed before
-   */
-  extractInnerVariablesIfNotProcessed(content, contentFilePath, filePathToExtract) {
-    if (!this.processedFiles.has(filePathToExtract)) {
-      this.processedFiles.add(filePathToExtract);
-      return this.extractInnerVariables(content, contentFilePath);
-    }
-    return [];
-  }
-
-  /**
-   * Extracts variables specified as <include var-xx="..."> in include elements,
-   * adding them to the supplied variables if it does not already exist.
+   * Extracts variables specified as <include var-xx="..."> in include elements.
    * @param includeElement to extract inline variables from
-   * @param variables to add the extracted variables to
    */
-  static extractIncludeInlineVariables(includeElement, variables) {
+  static extractIncludeInlineVariables(includeElement) {
+    const includeInlineVariables = {};
+
     Object.keys(includeElement.attribs).forEach((attribute) => {
       if (!attribute.startsWith('var-')) {
         return;
       }
-      const variableName = attribute.replace(/^var-/, '');
-      if (!variables[variableName]) {
-        variables[variableName] = includeElement.attribs[attribute];
-      }
+      const variableName = attribute.slice(4);
+      includeInlineVariables[variableName] = includeElement.attribs[attribute];
     });
+
+    return includeInlineVariables;
   }
 
   /**
-   * Extracts variables specified as <variable> in include elements,
-   * adding them to the supplied variables if it does not already exist.
+   * Extracts variables specified as <variable> in include elements.
    * @param includeElement to search child nodes for
-   * @param variables to add the extracted variables to
    */
-  static extractIncludeChildElementVariables(includeElement, variables) {
+  static extractIncludeChildElementVariables(includeElement) {
     if (!(includeElement.children && includeElement.children.length)) {
-      return;
+      return {};
     }
+    const includeChildVariables = {};
 
     includeElement.children.forEach((child) => {
       if (child.name !== 'variable' && child.name !== 'span') {
@@ -384,15 +317,16 @@ class VariablePreprocessor {
       }
       const variableName = child.attribs.name || child.attribs.id;
       if (!variableName) {
-        // eslint-disable-next-line no-console
-        logger.warn(`Missing reference in ${includeElement.attribs[ATTRIB_CWF]}\n`
-          + `Missing 'name' or 'id' in variable for ${includeElement.attribs.src} include.`);
+        logger.warn(`Missing 'name' or 'id' in variable for ${includeElement.attribs.src}'s include in ${
+          includeElement.attribs[ATTRIB_CWF]}.\n`);
         return;
       }
-      if (!variables[variableName]) {
-        variables[variableName] = cheerio.html(child.children);
+      if (!includeChildVariables[variableName]) {
+        includeChildVariables[variableName] = cheerio.html(child.children);
       }
     });
+
+    return includeChildVariables;
   }
 
 
@@ -401,14 +335,15 @@ class VariablePreprocessor {
    * See https://markbind.org/userGuide/reusingContents.html#specifying-variables-in-an-include for usage.
    * It is a subroutine for {@link renderIncludeFile}
    * @param includeElement include element to extract variables from
-   * @param parentVariables defined by parent pages, which have greater priority
    */
-  static extractIncludeVariables(includeElement, parentVariables) {
-    const includedVariables = { ...parentVariables };
-    VariablePreprocessor.extractIncludeInlineVariables(includeElement, includedVariables);
-    VariablePreprocessor.extractIncludeChildElementVariables(includeElement, includedVariables);
+  static extractIncludeVariables(includeElement) {
+    const includeInlineVariables = VariablePreprocessor.extractIncludeInlineVariables(includeElement);
+    const includeChildVariables = VariablePreprocessor.extractIncludeChildElementVariables(includeElement);
 
-    return includedVariables;
+    return {
+      ...includeChildVariables,
+      ...includeInlineVariables,
+    };
   }
 
 
@@ -419,38 +354,40 @@ class VariablePreprocessor {
 
 
   /**
-   * Renders an include file with the supplied context, returning the rendered
+   * Renders an <include> file with the supplied context, returning the rendered
    * content and new context with respect to the child content.
    * @param filePath of the included file source
    * @param node of the include element
-   * @param context object containing the variables for the current context
+   * @param context object containing the parent <include> (if any) variables for the current context,
+   *        which have greater priority than the extracted include variables of the current context.
    * @param asIfAt where the included file should be rendered from
    */
-  renderIncludeFile(filePath, node, context, asIfAt = filePath) {
-    // Extract included variables from the include element, merging with the parent context variables
-    const includeVariables = VariablePreprocessor.extractIncludeVariables(node, context.variables);
-
-    // Extract page variables from the **included** file
+  renderIncludeFile(filePath, node, context, asIfAt) {
     const fileContent = fs.readFileSync(filePath, 'utf8');
-    const userDefinedVariables = this.getContentParentSiteVariables(asIfAt);
-    const pageVariables = this.extractPageVariables(asIfAt, fileContent, includeVariables);
+
+    // Extract included variables from the include element, merging with the parent context variables
+    const includeVariables = VariablePreprocessor.extractIncludeVariables(node);
+
+    // We pass in includeVariables as well to render <include> variables used in page <variable>s
+    // see "Test Page Variable and Included Variable Integrations" under test_site/index.md for an example
+    const {
+      pageImportedVariables,
+      pageVariables,
+    } = this.extractPageVariables(asIfAt, fileContent, includeVariables);
 
     // Render the included content with all the variables
-    const content = njUtil.renderRaw(fileContent, {
+    const renderedContent = this.renderSiteVariables(asIfAt, fileContent, {
+      ...pageImportedVariables,
       ...pageVariables,
       ...includeVariables,
-      ...userDefinedVariables,
+      ...context.variables,
     });
-
-    const includedSrces = this.extractInnerVariablesIfNotProcessed(content, asIfAt, asIfAt);
-    const renderedContent = this.renderInnerVariables(content, asIfAt, asIfAt);
 
     const childContext = _.cloneDeep(context);
     childContext.cwf = asIfAt;
     childContext.variables = includeVariables;
 
     return {
-      includedSrces,
       renderedContent,
       childContext,
     };
@@ -458,38 +395,27 @@ class VariablePreprocessor {
 
 
   /**
-   * Extracts the content page's variables, then renders it.
-   * @param content to render
+   * Renders content belonging to a page with the appropriate variables.
+   * In increasing order of priority (overriding),
+   * 1. <import>ed variables as extracted during {@link extractPageVariables}
+   * 2. locally declared <variable>s as extracted during {@link extractPageVariables}
+   *    (see https://markbind.org/userGuide/reusingContents.html#specifying-variables-in-an-include)
+   * 3. site variables as defined in variables.md
    * @param contentFilePath of the content to render
-   * @param additionalVariables if any
+   * @param content to render
+   * @param highestPriorityVariables to render with the highest priority if any.
+   *        This is currently only used for the MAIN_CONTENT_BODY in layouts.
    */
-  renderOuterVariables(content, contentFilePath, additionalVariables = {}) {
-    const pageVariables = this.extractPageVariables(contentFilePath, content, {});
-    const userDefinedVariables = this.getContentParentSiteVariables(contentFilePath);
+  renderPage(contentFilePath, content, highestPriorityVariables = {}) {
+    const {
+      pageImportedVariables,
+      pageVariables,
+    } = this.extractPageVariables(contentFilePath, content);
 
-    return njUtil.renderRaw(content, {
+    return this.renderSiteVariables(contentFilePath, content, {
+      ...pageImportedVariables,
       ...pageVariables,
-      ...userDefinedVariables,
-      ...additionalVariables,
-    });
-  }
-
-  /**
-   * Extracts the content's page's inner variables, then renders it.
-   * @param content to render
-   * @param contentFilePath of the content to render
-   * @param contentAsIfAtFilePath
-   * @param additionalVariables if any
-   */
-  renderInnerVariables(content, contentFilePath, contentAsIfAtFilePath, additionalVariables = {}) {
-    const userDefinedVariables = this.getContentParentSiteVariables(contentFilePath);
-    const innerVariables = this.getImportedVariableMap(contentAsIfAtFilePath);
-
-    return njUtil.renderRaw(content, {
-      ...userDefinedVariables,
-      ...additionalVariables,
-      ...innerVariables,
-    });
+    }, highestPriorityVariables);
   }
 }
 

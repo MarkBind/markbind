@@ -688,7 +688,6 @@ class Site {
     const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];
     const uniquePaths = _.uniq(filePathArray);
     logger.info('Rebuilding affected source files');
-    this.variablePreprocessor.resetVariables();
     return new Promise((resolve, reject) => {
       this.regenerateAffectedPages(uniquePaths)
         .then(() => fs.removeAsync(this.tempPath))
@@ -706,7 +705,6 @@ class Site {
     const uniqueUrls = _.uniq(normalizedUrlArray);
     uniqueUrls.forEach(normalizedUrl => logger.info(
       `Building ${normalizedUrl} as some of its dependencies were changed since the last visit`));
-    this.variablePreprocessor.resetVariables();
 
     /*
      Lazy loading only builds the page being viewed, but the user may be quick enough
