@@ -566,11 +566,9 @@ class Page {
    * Produces expressive layouts by inserting page data into pre-specified layout
    * @param pageData a page with its front matter collected
    * @param {FileConfig} fileConfig
+   * @param {Parser} markbinder instance from the caller, for adding the seen sources.
    */
-  generateExpressiveLayout(pageData, fileConfig) {
-    const markbinder = new MarkBind();
-    const template = {};
-    template[LAYOUT_PAGE_BODY_VARIABLE] = pageData;
+  generateExpressiveLayout(pageData, fileConfig, markbinder) {
     const { layout } = this.frontMatter;
     const layoutPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH, layout);
     const layoutPagePath = path.join(layoutPath, LAYOUT_PAGE);
@@ -578,30 +576,22 @@ class Page {
     if (!fs.existsSync(layoutPagePath)) {
       return pageData;
     }
-    const layoutFileConfig = {
-      ...fileConfig,
-      cwf: layoutPagePath,
-      additionalVariables: {},
-    };
-
-    layoutFileConfig.additionalVariables[LAYOUT_PAGE_BODY_VARIABLE] = `{{${LAYOUT_PAGE_BODY_VARIABLE}}}`;
 
     // Set expressive layout file as an includedFile
     this.includedFiles.add(layoutPagePath);
-    return new Promise((resolve, reject) => {
-    // Retrieve Expressive Layouts page and insert content
-      fs.readFileAsync(layoutPagePath, 'utf8')
-        .then(result => markbinder.includeData(layoutPagePath, result, layoutFileConfig))
-        .then(result => njUtil.renderRaw(result, template, {}, false))
-        .then((result) => {
-          this.collectIncludedFiles(markbinder.getDynamicIncludeSrc());
-          this.collectIncludedFiles(markbinder.getStaticIncludeSrc());
-          this.collectIncludedFiles(markbinder.getMissingIncludeSrc());
-          return result;
-        })
-        .then(resolve)
-        .catch(reject);
-    });
+    return fs.readFileAsync(layoutPagePath, 'utf8')
+      // Include file but with altered cwf (the layout page)
+      // Also render MAIN_CONTENT_BODY back to itself
+      .then(result => markbinder.includeFile(layoutPagePath, result, {
+        ...fileConfig,
+        cwf: layoutPagePath,
+      }, {
+        [LAYOUT_PAGE_BODY_VARIABLE]: `{{${LAYOUT_PAGE_BODY_VARIABLE}}}`,
+      }))
+      // Insert content
+      .then(result => njUtil.renderRaw(result, {
+        [LAYOUT_PAGE_BODY_VARIABLE]: pageData,
+      }, {}, false));
   }
 
 
@@ -924,70 +914,67 @@ class Page {
       headerIdMap: this.headerIdMap,
       fixedHeader: this.fixedHeader,
     };
-    return new Promise((resolve, reject) => {
-      markbinder.includeFile(this.sourcePath, fileConfig)
-        .then((result) => {
-          this.collectFrontMatter(result);
-          return Page.removeFrontMatter(result);
-        })
-        .then(result => this.generateExpressiveLayout(result, fileConfig))
-        .then(result => Page.removePageHeaderAndFooter(result))
-        .then(result => Page.addContentWrapper(result))
-        .then(result => this.collectPluginSources(result))
-        .then(result => this.preRender(result))
-        .then(result => this.insertSiteNav((result)))
-        .then(result => this.insertHeaderFile(result, fileConfig))
-        .then(result => this.insertFooterFile(result))
-        .then(result => Page.insertTemporaryStyles(result))
-        .then(result => markbinder.resolveBaseUrl(result, fileConfig))
-        .then(result => markbinder.render(result, this.sourcePath, fileConfig))
-        .then(result => this.postRender(result))
-        .then(result => this.collectPluginsAssets(result))
-        .then(result => markbinder.processDynamicResources(this.sourcePath, result))
-        .then(result => MarkBind.unwrapIncludeSrc(result))
-        .then((result) => {
-          this.content = result;
+    return fs.readFileAsync(this.sourcePath, 'utf-8')
+      .then(result => markbinder.includeFile(this.sourcePath, result, fileConfig))
+      .then((result) => {
+        this.collectFrontMatter(result);
+        return Page.removeFrontMatter(result);
+      })
+      .then(result => this.generateExpressiveLayout(result, fileConfig, markbinder))
+      .then(result => Page.removePageHeaderAndFooter(result))
+      .then(result => Page.addContentWrapper(result))
+      .then(result => this.collectPluginSources(result))
+      .then(result => this.preRender(result))
+      .then(result => this.insertSiteNav((result)))
+      .then(result => this.insertHeaderFile(result, fileConfig))
+      .then(result => this.insertFooterFile(result))
+      .then(result => Page.insertTemporaryStyles(result))
+      .then(result => markbinder.resolveBaseUrl(result, fileConfig))
+      .then(result => markbinder.render(result, this.sourcePath, fileConfig))
+      .then(result => this.postRender(result))
+      .then(result => this.collectPluginsAssets(result))
+      .then(result => markbinder.processDynamicResources(this.sourcePath, result))
+      .then(result => MarkBind.unwrapIncludeSrc(result))
+      .then((result) => {
+        this.content = result;
 
-          const { relative } = urlUtils.getParentSiteAbsoluteAndRelativePaths(this.sourcePath, this.rootPath,
-                                                                              this.baseUrlMap);
-          const baseUrl = relative ? `${this.baseUrl}/${utils.ensurePosix(relative)}` : this.baseUrl;
-          const hostBaseUrl = this.baseUrl;
+        const { relative } = urlUtils.getParentSiteAbsoluteAndRelativePaths(this.sourcePath, this.rootPath,
+                                                                            this.baseUrlMap);
+        const baseUrl = relative ? `${this.baseUrl}/${utils.ensurePosix(relative)}` : this.baseUrl;
+        const hostBaseUrl = this.baseUrl;
 
-          this.addLayoutFiles();
-          this.collectHeadFiles(baseUrl, hostBaseUrl);
+        this.addLayoutFiles();
+        this.collectHeadFiles(baseUrl, hostBaseUrl);
 
-          this.content = njUtil.renderString(this.content, {
-            baseUrl,
-            hostBaseUrl,
-          });
+        this.content = njUtil.renderString(this.content, {
+          baseUrl,
+          hostBaseUrl,
+        });
 
-          this.collectAllPageSections();
-          this.buildPageNav();
+        this.collectAllPageSections();
+        this.buildPageNav();
 
-          const renderedTemplate = this.template.render(this.prepareTemplateData());
-          const outputTemplateHTML = this.disableHtmlBeautify
-            ? renderedTemplate
-            : htmlBeautify(renderedTemplate, Page.htmlBeautifyOptions);
+        const renderedTemplate = this.template.render(this.prepareTemplateData());
+        const outputTemplateHTML = this.disableHtmlBeautify
+          ? renderedTemplate
+          : htmlBeautify(renderedTemplate, Page.htmlBeautifyOptions);
 
-          return fs.outputFileAsync(this.resultPath, outputTemplateHTML);
-        })
-        .then(() => {
-          const resolvingFiles = [];
-          Page.unique(markbinder.getDynamicIncludeSrc()).forEach((source) => {
-            if (!FsUtil.isUrl(source.to)) {
-              resolvingFiles.push(this.resolveDependency(source, builtFiles));
-            }
-          });
-          return Promise.all(resolvingFiles);
-        })
-        .then(() => {
-          this.collectIncludedFiles(markbinder.getDynamicIncludeSrc());
-          this.collectIncludedFiles(markbinder.getStaticIncludeSrc());
-          this.collectIncludedFiles(markbinder.getMissingIncludeSrc());
-        })
-        .then(resolve)
-        .catch(reject);
-    });
+        return fs.outputFileAsync(this.resultPath, outputTemplateHTML);
+      })
+      .then(() => {
+        const resolvingFiles = [];
+        Page.unique(markbinder.getDynamicIncludeSrc()).forEach((source) => {
+          if (!FsUtil.isUrl(source.to)) {
+            resolvingFiles.push(this.resolveDependency(source, builtFiles));
+          }
+        });
+        return Promise.all(resolvingFiles);
+      })
+      .then(() => {
+        this.collectIncludedFiles(markbinder.getDynamicIncludeSrc());
+        this.collectIncludedFiles(markbinder.getStaticIncludeSrc());
+        this.collectIncludedFiles(markbinder.getMissingIncludeSrc());
+      });
   }
 
   /**
@@ -1231,12 +1218,14 @@ class Page {
        * so that we only recursively rebuild the file's included content
        */
       const markbinder = new MarkBind();
-      return markbinder.includeFile(dependency.to, {
-        baseUrlMap: this.baseUrlMap,
-        userDefinedVariablesMap: this.userDefinedVariablesMap,
-        rootPath: this.rootPath,
-        cwf: file,
-      }).then(result => Page.removeFrontMatter(result))
+      return fs.readFileAsync(dependency.to, 'utf-8')
+        .then(result => markbinder.includeFile(dependency.to, result, {
+          baseUrlMap: this.baseUrlMap,
+          userDefinedVariablesMap: this.userDefinedVariablesMap,
+          rootPath: this.rootPath,
+          cwf: file,
+        }))
+        .then(result => Page.removeFrontMatter(result))
         .then(result => this.collectPluginSources(result))
         .then(result => this.preRender(result))
         .then(result => markbinder.resolveBaseUrl(result, {
