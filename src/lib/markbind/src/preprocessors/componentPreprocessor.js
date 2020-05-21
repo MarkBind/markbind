@@ -107,7 +107,6 @@ function _getSrcFlagsAndFilePaths(element, context, config) {
     isUrl,
     hash: includeSrc.hash,
     filePath,
-    boilerplateFilePath,
     actualFilePath,
   };
 }
@@ -141,7 +140,6 @@ function _preProcessPanel(node, context, config, parser) {
     isUrl,
     hash,
     filePath,
-    boilerplateFilePath,
     actualFilePath,
   } = _getSrcFlagsAndFilePaths(element, context, config);
 
@@ -156,10 +154,6 @@ function _preProcessPanel(node, context, config, parser) {
 
   element.attribs.src = filePath;
 
-  // TODO do we need boilerplateIncludeSrc?
-  if (boilerplateFilePath) {
-    parser.boilerplateIncludeSrc.push({ from: context.cwf, to: boilerplateFilePath });
-  }
   parser.dynamicIncludeSrc.push({ from: context.cwf, to: actualFilePath, asIfTo: filePath });
 
   return element;
@@ -221,7 +215,6 @@ function _preprocessInclude(node, context, config, parser) {
     isUrl,
     hash,
     filePath,
-    boilerplateFilePath,
     actualFilePath,
   } = _getSrcFlagsAndFilePaths(element, context, config);
 
@@ -233,11 +226,6 @@ function _preprocessInclude(node, context, config, parser) {
   // but segments still need to be processed further down
   if (isOptional && !hash) {
     delete element.attribs.optional;
-  }
-
-  // TODO do we need boilerplateIncludeSrc?
-  if (boilerplateFilePath) {
-    parser.boilerplateIncludeSrc.push({ from: context.cwf, to: boilerplateFilePath });
   }
 
   const isInline = _.has(element.attribs, 'inline');

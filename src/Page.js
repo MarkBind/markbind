@@ -596,7 +596,6 @@ class Page {
         .then((result) => {
           this.collectIncludedFiles(markbinder.getDynamicIncludeSrc());
           this.collectIncludedFiles(markbinder.getStaticIncludeSrc());
-          this.collectIncludedFiles(markbinder.getBoilerplateIncludeSrc());
           this.collectIncludedFiles(markbinder.getMissingIncludeSrc());
           return result;
         })
@@ -984,7 +983,6 @@ class Page {
         .then(() => {
           this.collectIncludedFiles(markbinder.getDynamicIncludeSrc());
           this.collectIncludedFiles(markbinder.getStaticIncludeSrc());
-          this.collectIncludedFiles(markbinder.getBoilerplateIncludeSrc());
           this.collectIncludedFiles(markbinder.getMissingIncludeSrc());
         })
         .then(resolve)
@@ -1282,7 +1280,6 @@ class Page {
         .then(() => {
           this.collectIncludedFiles(markbinder.getDynamicIncludeSrc());
           this.collectIncludedFiles(markbinder.getStaticIncludeSrc());
-          this.collectIncludedFiles(markbinder.getBoilerplateIncludeSrc());
           this.collectIncludedFiles(markbinder.getMissingIncludeSrc());
         })
         .then(resolve)
