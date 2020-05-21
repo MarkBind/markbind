@@ -432,6 +432,9 @@ function _parseThumbnailAttributes(node) {
 function parseComponents(node) {
   try {
     switch (node.name) {
+    case 'code':
+      node.attribs['v-pre'] = '';
+      break;
     case 'panel':
       _parsePanelAttributes(node);
       break;
