@@ -15,7 +15,7 @@ const CyclicReferenceError = require('./lib/markbind/src/handlers/cyclicReferenc
 const { ensurePosix } = require('./lib/markbind/src/utils');
 const FsUtil = require('./util/fsUtil');
 const logger = require('./util/logger');
-const MarkBind = require('./lib/markbind/src/parser');
+const Parser = require('./lib/markbind/src/parser');
 const md = require('./lib/markbind/src/lib/markdown-it');
 const utils = require('./lib/markbind/src/utils');
 const urlUtils = require('./lib/markbind/src/utils/urls');
@@ -170,6 +170,10 @@ class Page {
      * @type {Object<string, any>}
      */
     this.userDefinedVariablesMap = pageConfig.userDefinedVariablesMap;
+    /**
+     * @type {Parser}
+     */
+    this.parser = new Parser();
 
     /**
      * The source file for rendering this page
@@ -566,9 +570,8 @@ class Page {
    * Produces expressive layouts by inserting page data into pre-specified layout
    * @param pageData a page with its front matter collected
    * @param {FileConfig} fileConfig
-   * @param {Parser} markbinder instance from the caller, for adding the seen sources.
    */
-  generateExpressiveLayout(pageData, fileConfig, markbinder) {
+  generateExpressiveLayout(pageData, fileConfig) {
     const { layout } = this.frontMatter;
     const layoutPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH, layout);
     const layoutPagePath = path.join(layoutPath, LAYOUT_PAGE);
@@ -582,7 +585,7 @@ class Page {
     return fs.readFileAsync(layoutPagePath, 'utf8')
       // Include file but with altered cwf (the layout page)
       // Also render MAIN_CONTENT_BODY back to itself
-      .then(result => markbinder.includeFile(layoutPagePath, result, {
+      .then(result => this.parser.includeFile(layoutPagePath, result, {
         ...fileConfig,
         cwf: layoutPagePath,
       }, {
@@ -900,12 +903,14 @@ class Page {
    */
 
   generate(builtFiles) {
+    // Reset these for live reload, as the dependencies may have changed, or the heading ids updated
     this.includedFiles = new Set([this.sourcePath]);
-    this.headerIdMap = {}; // Reset for live reload
+    this.headerIdMap = {};
+    this.parser = new Parser();
 
-    const markbinder = new MarkBind();
     /**
      * @type {FileConfig}
+     * TODO make file config instance variables of Parser to avoid passing repeatedly into methods
      */
     const fileConfig = {
       baseUrlMap: this.baseUrlMap,
@@ -915,12 +920,12 @@ class Page {
       fixedHeader: this.fixedHeader,
     };
     return fs.readFileAsync(this.sourcePath, 'utf-8')
-      .then(result => markbinder.includeFile(this.sourcePath, result, fileConfig))
+      .then(result => this.parser.includeFile(this.sourcePath, result, fileConfig))
       .then((result) => {
         this.collectFrontMatter(result);
         return Page.removeFrontMatter(result);
       })
-      .then(result => this.generateExpressiveLayout(result, fileConfig, markbinder))
+      .then(result => this.generateExpressiveLayout(result, fileConfig))
       .then(result => Page.removePageHeaderAndFooter(result))
       .then(result => Page.addContentWrapper(result))
       .then(result => this.collectPluginSources(result))
@@ -929,12 +934,12 @@ class Page {
       .then(result => this.insertHeaderFile(result, fileConfig))
       .then(result => this.insertFooterFile(result))
       .then(result => Page.insertTemporaryStyles(result))
-      .then(result => markbinder.resolveBaseUrl(result, fileConfig))
-      .then(result => markbinder.render(result, this.sourcePath, fileConfig))
+      .then(result => this.parser.resolveBaseUrl(result, fileConfig))
+      .then(result => this.parser.render(result, this.sourcePath, fileConfig))
       .then(result => this.postRender(result))
       .then(result => this.collectPluginsAssets(result))
-      .then(result => markbinder.processDynamicResources(this.sourcePath, result))
-      .then(result => MarkBind.unwrapIncludeSrc(result))
+      .then(result => this.parser.processDynamicResources(this.sourcePath, result))
+      .then(result => Parser.unwrapIncludeSrc(result))
       .then((result) => {
         this.content = result;
 
@@ -961,19 +966,11 @@ class Page {
 
         return fs.outputFileAsync(this.resultPath, outputTemplateHTML);
       })
+      .then(() => this.resolveDependencies(builtFiles))
       .then(() => {
-        const resolvingFiles = [];
-        Page.unique(markbinder.getDynamicIncludeSrc()).forEach((source) => {
-          if (!FsUtil.isUrl(source.to)) {
-            resolvingFiles.push(this.resolveDependency(source, builtFiles));
-          }
-        });
-        return Promise.all(resolvingFiles);
-      })
-      .then(() => {
-        this.collectIncludedFiles(markbinder.getDynamicIncludeSrc());
-        this.collectIncludedFiles(markbinder.getStaticIncludeSrc());
-        this.collectIncludedFiles(markbinder.getMissingIncludeSrc());
+        this.collectIncludedFiles(this.parser.getDynamicIncludeSrc());
+        this.collectIncludedFiles(this.parser.getStaticIncludeSrc());
+        this.collectIncludedFiles(this.parser.getMissingIncludeSrc());
       });
   }
 
@@ -1198,6 +1195,18 @@ class Page {
     this.asset.layoutStyle = path.join(this.layoutsAssetPath, this.frontMatter.layout, 'styles.css');
   }
 
+
+  /**
+   * Extracts the parser's found dynamic sources and generates all of them.
+   * @param {Set<string>} builtFiles set of dependencies already built, passed from the {@link Site} instance
+   * @return {Promise} that resolves when all dependencies have finished generating
+   */
+  resolveDependencies(builtFiles) {
+    const dynamicSources = this.parser.getDynamicIncludeSrc();
+    const urlLessDependencies = dynamicSources.filter(dependency => !FsUtil.isUrl(dependency.to));
+    return Promise.all(urlLessDependencies.map(d => this.resolveDependency(d, builtFiles)));
+  }
+
   /**
    * Pre-render an external dynamic dependency
    * Does not pre-render if file is already pre-rendered by another page during site generation
@@ -1213,13 +1222,8 @@ class Page {
         return resolve();
       }
       builtFiles.add(resultPath);
-      /*
-       * We create a local instance of Markbind for an empty dynamicIncludeSrc
-       * so that we only recursively rebuild the file's included content
-       */
-      const markbinder = new MarkBind();
       return fs.readFileAsync(dependency.to, 'utf-8')
-        .then(result => markbinder.includeFile(dependency.to, result, {
+        .then(result => this.parser.includeFile(dependency.to, result, {
           baseUrlMap: this.baseUrlMap,
           userDefinedVariablesMap: this.userDefinedVariablesMap,
           rootPath: this.rootPath,
@@ -1228,19 +1232,19 @@ class Page {
         .then(result => Page.removeFrontMatter(result))
         .then(result => this.collectPluginSources(result))
         .then(result => this.preRender(result))
-        .then(result => markbinder.resolveBaseUrl(result, {
+        .then(result => this.parser.resolveBaseUrl(result, {
           baseUrlMap: this.baseUrlMap,
           rootPath: this.rootPath,
         }))
-        .then(result => markbinder.render(result, this.sourcePath, {
+        .then(result => this.parser.render(result, this.sourcePath, {
           baseUrlMap: this.baseUrlMap,
           rootPath: this.rootPath,
           headerIdMap: {},
         }))
         .then(result => this.postRender(result))
         .then(result => this.collectPluginsAssets(result))
-        .then(result => markbinder.processDynamicResources(file, result))
-        .then(result => MarkBind.unwrapIncludeSrc(result))
+        .then(result => this.parser.processDynamicResources(file, result))
+        .then(result => Parser.unwrapIncludeSrc(result))
         .then((result) => {
           // resolve the site base url here
           const { relative } = urlUtils.getParentSiteAbsoluteAndRelativePaths(file, this.rootPath,
@@ -1256,21 +1260,7 @@ class Page {
             : htmlBeautify(content, Page.htmlBeautifyOptions);
           return fs.outputFileAsync(resultPath, outputContentHTML);
         })
-        .then(() => {
-          // Recursion call to resolve nested dependency
-          const resolvingFiles = [];
-          Page.unique(markbinder.getDynamicIncludeSrc()).forEach((src) => {
-            if (!FsUtil.isUrl(src.to)) {
-              resolvingFiles.push(this.resolveDependency(src, builtFiles));
-            }
-          });
-          return Promise.all(resolvingFiles);
-        })
-        .then(() => {
-          this.collectIncludedFiles(markbinder.getDynamicIncludeSrc());
-          this.collectIncludedFiles(markbinder.getStaticIncludeSrc());
-          this.collectIncludedFiles(markbinder.getMissingIncludeSrc());
-        })
+        .then(() => this.resolveDependencies(builtFiles))
         .then(resolve)
         .catch(reject);
     });
@@ -1367,10 +1357,6 @@ class Page {
     }
     headingsSelectors = headingsSelectors.map(selector => `${selector}:not(.no-index)`);
     return headingsSelectors.join(',');
-  }
-
-  static unique(array) {
-    return [...new Set(array)];
   }
 
   /**
