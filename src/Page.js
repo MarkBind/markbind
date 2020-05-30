@@ -80,7 +80,7 @@ class Page {
    * @property {string} pageTemplate template used for this page
    * @property {string} title
    * @property {string} titlePrefix https://markbind.org/userGuide/siteConfiguration.html#titleprefix
-   * @property {Object<string, any>} userDefinedVariablesMap
+   * @property {VariablePreprocessor} variablePreprocessor
    * @property {string} sourcePath the source file for rendering this page
    * @property {string} tempPath the temp path for writing intermediate result
    * @property {string} resultPath the output path of this page
@@ -170,9 +170,9 @@ class Page {
      */
     this.titlePrefix = pageConfig.titlePrefix;
     /**
-     * @type {Object<string, any>}
+     * @type {VariablePreprocessor}
      */
-    this.userDefinedVariablesMap = pageConfig.userDefinedVariablesMap;
+    this.variablePreprocessor = pageConfig.variablePreprocessor;
 
     /**
      * The source file for rendering this page
@@ -631,10 +631,9 @@ class Page {
     }
     // Set header file as an includedFile
     this.includedFiles.add(headerPath);
-    // Map variables
-    const parentSite = urlUtils.getParentSiteAbsolutePath(this.sourcePath, this.rootPath, this.baseUrlMap);
-    const userDefinedVariables = this.userDefinedVariablesMap[parentSite];
-    return `${njUtil.renderRaw(headerContent, userDefinedVariables)}\n${pageData}`;
+
+    const renderedHeader = this.variablePreprocessor.renderSiteVariables(this.sourcePath, headerContent);
+    return `${renderedHeader}\n${pageData}`;
   }
 
   /**
@@ -661,10 +660,9 @@ class Page {
     const footerContent = fs.readFileSync(footerPath, 'utf8');
     // Set footer file as an includedFile
     this.includedFiles.add(footerPath);
-    // Map variables
-    const parentSite = urlUtils.getParentSiteAbsolutePath(this.sourcePath, this.rootPath, this.baseUrlMap);
-    const userDefinedVariables = this.userDefinedVariablesMap[parentSite];
-    return `${pageData}\n${njUtil.renderRaw(footerContent, userDefinedVariables)}`;
+
+    const renderedFooter = this.variablePreprocessor.renderSiteVariables(this.sourcePath, footerContent);
+    return `${pageData}\n${renderedFooter}`;
   }
 
   /**
@@ -695,10 +693,7 @@ class Page {
     }
     this.includedFiles.add(siteNavPath);
 
-    // Render variables
-    const parentSite = urlUtils.getParentSiteAbsolutePath(this.sourcePath, this.rootPath, this.baseUrlMap);
-    const userDefinedVariables = this.userDefinedVariablesMap[parentSite];
-    const siteNavMappedData = njUtil.renderRaw(siteNavContent, userDefinedVariables);
+    const siteNavMappedData = this.variablePreprocessor.renderSiteVariables(this.sourcePath, siteNavContent);
 
     // Check navigation elements
     const $ = cheerio.load(siteNavMappedData);
@@ -879,11 +874,9 @@ class Page {
       const headFileContent = fs.readFileSync(headFilePath, 'utf8');
       // Set head file as an includedFile
       this.includedFiles.add(headFilePath);
-      // Map variables
-      const parentSite = urlUtils.getParentSiteAbsolutePath(this.sourcePath, this.rootPath, this.baseUrlMap);
-      const userDefinedVariables = this.userDefinedVariablesMap[parentSite];
-      const headFileMappedData = njUtil.renderRaw(headFileContent, userDefinedVariables)
-        .trim();
+
+      const headFileMappedData = this.variablePreprocessor.renderSiteVariables(this.sourcePath,
+                                                                               headFileContent).trim();
       // Split top and bottom contents
       const $ = cheerio.load(headFileMappedData, { xmlMode: false });
       if ($('head-top').length) {
@@ -941,7 +934,7 @@ class Page {
    * @typedef {Object<string, any>} FileConfig
    * @property {Set<string>} baseUrlMap the set of urls representing the sites' base directories
    * @property {string} rootPath
-   * @property {Object<string, any>} userDefinedVariablesMap
+   * @property {VariablePreprocessor} variablePreprocessor
    * @property {Object<string, number>} headerIdMap
    * @property {boolean} fixedHeader indicates whether the header of the page is fixed
    */
@@ -949,15 +942,15 @@ class Page {
   generate(builtFiles) {
     this.includedFiles = new Set([this.sourcePath]);
     this.headerIdMap = {}; // Reset for live reload
-
-    const markbinder = new MarkBind();
+    const markbinder = new MarkBind({
+      variablePreprocessor: this.variablePreprocessor,
+    });
     /**
      * @type {FileConfig}
      */
     const fileConfig = {
       baseUrlMap: this.baseUrlMap,
       rootPath: this.rootPath,
-      userDefinedVariablesMap: this.userDefinedVariablesMap,
       headerIdMap: this.headerIdMap,
       fixedHeader: this.fixedHeader,
     };
@@ -1264,11 +1257,12 @@ class Page {
        * We create a local instance of Markbind for an empty dynamicIncludeSrc
        * so that we only recursively rebuild the file's included content
        */
-      const markbinder = new MarkBind();
+      const markbinder = new MarkBind({
+        variablePreprocessor: this.variablePreprocessor,
+      });
       return fs.readFileAsync(dependency.to, 'utf-8')
         .then(result => markbinder.includeFile(dependency.to, result, {
           baseUrlMap: this.baseUrlMap,
-          userDefinedVariablesMap: this.userDefinedVariablesMap,
           rootPath: this.rootPath,
           cwf: file,
         }))

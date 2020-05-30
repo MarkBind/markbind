@@ -1,5 +1,4 @@
 const cheerio = require('cheerio');
-const fs = require('fs');
 const htmlparser = require('htmlparser2'); require('./patches/htmlparser2');
 const path = require('path');
 const Promise = require('bluebird');
@@ -27,105 +26,14 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 const {
   ATTRIB_INCLUDE_PATH,
   ATTRIB_CWF,
-  IMPORTED_VARIABLE_PREFIX,
 } = require('./constants');
 
 class Parser {
-  constructor(options) {
-    this._options = options || {};
-    this._fileCache = {};
+  constructor(config) {
+    this.variablePreprocessor = config.variablePreprocessor;
     this.dynamicIncludeSrc = [];
     this.staticIncludeSrc = [];
     this.missingIncludeSrc = [];
-  }
-
-  /**
-   * Returns an object containing the imported variables for specified file
-   * @param file file name to get the imported variables for
-   */
-  // eslint-disable-next-line class-methods-use-this
-  getImportedVariableMap(file) {
-    const innerVariables = {};
-    Parser.FILE_ALIASES.get(file).forEach((actualPath, alias) => {
-      innerVariables[alias] = {};
-      const variables = Parser.VARIABLE_LOOKUP.get(actualPath);
-      variables.forEach((value, name) => {
-        innerVariables[alias][name] = value;
-      });
-    });
-    return innerVariables;
-  }
-
-  /**
-   * Extract page variables from a page
-   * @param filename for error printing
-   * @param data to extract variables from
-   * @param userDefinedVariables global variables
-   * @param includedVariables variables from parent include
-   */
-  static extractPageVariables(fileName, data, userDefinedVariables, includedVariables) {
-    const fileDir = path.dirname(fileName);
-    const $ = cheerio.load(data);
-    const pageVariables = {};
-    Parser.VARIABLE_LOOKUP.set(fileName, new Map());
-    /**
-     * <import>ed variables have not been processed yet, we replace such variables with itself first.
-     */
-    const importedVariables = {};
-    $('import[from]').each((index, element) => {
-      const variableNames = Object.keys(element.attribs).filter(name => name !== 'from' && name !== 'as');
-      // If no namespace is provided, we use the smallest name as one...
-      const largestName = variableNames.sort()[0];
-      // ... and prepend it with $__MARKBIND__ to reduce collisions.
-      const generatedAlias = IMPORTED_VARIABLE_PREFIX + largestName;
-      const hasAlias = _.hasIn(element.attribs, 'as');
-      const alias = hasAlias ? element.attribs.as : generatedAlias;
-      importedVariables[alias] = new Proxy({}, {
-        get(obj, prop) {
-          return `{{${alias}.${prop}}}`;
-        },
-      });
-      variableNames.forEach((name) => {
-        importedVariables[name] = `{{${alias}.${name}}}`;
-      });
-    });
-    const setPageVariable = (variableName, rawVariableValue) => {
-      const otherVariables = {
-        ...importedVariables,
-        ...pageVariables,
-        ...userDefinedVariables,
-        ...includedVariables,
-      };
-      const variableValue = njUtil.renderRaw(rawVariableValue, otherVariables, {}, false);
-      if (!pageVariables[variableName]) {
-        pageVariables[variableName] = variableValue;
-        Parser.VARIABLE_LOOKUP.get(fileName).set(variableName, variableValue);
-      }
-    };
-    $('variable').each(function () {
-      const variableElement = $(this);
-      const variableName = variableElement.attr('name');
-      const variableSource = $(this).attr('from');
-      if (variableSource !== undefined) {
-        try {
-          const variableFilePath = path.resolve(fileDir, variableSource);
-          const jsonData = fs.readFileSync(variableFilePath);
-          const varData = JSON.parse(jsonData);
-          Object.entries(varData).forEach(([varName, varValue]) => {
-            setPageVariable(varName, varValue);
-          });
-        } catch (err) {
-          logger.warn(`Error ${err.message}`);
-        }
-      } else {
-        if (!variableName) {
-          logger.warn(`Missing 'name' for variable in ${fileName}\n`);
-          return;
-        }
-        setPageVariable(variableName, md.renderInline(variableElement.html()));
-      }
-    });
-    return { ...importedVariables, ...pageVariables };
   }
 
   getDynamicIncludeSrc() {
@@ -138,82 +46,6 @@ class Parser {
 
   getMissingIncludeSrc() {
     return _.clone(this.missingIncludeSrc);
-  }
-
-  _renderIncludeFile(filePath, node, context, config, asIfAt = filePath) {
-    try {
-      this._fileCache[filePath] = this._fileCache[filePath] || fs.readFileSync(filePath, 'utf8');
-    } catch (e) {
-      // Read file fail
-      const missingReferenceErrorMessage = `Missing reference in: ${node.attribs[ATTRIB_CWF]}`;
-      e.message += `\n${missingReferenceErrorMessage}`;
-      logger.error(e);
-      return utils.createErrorNode(node, e);
-    }
-    const fileContent = this._fileCache[filePath]; // cache the file contents to save some I/O
-    const parentSitePath = urlUtils.getParentSiteAbsolutePath(asIfAt, config.rootPath, config.baseUrlMap);
-    const userDefinedVariables = config.userDefinedVariablesMap[parentSitePath];
-    // Extract included variables from the PARENT file
-    const includeVariables = Parser.extractIncludeVariables(node, context.variables);
-    // Extract page variables from the CHILD file
-    const pageVariables = Parser.extractPageVariables(asIfAt, fileContent,
-                                                      userDefinedVariables, includeVariables);
-    const content = njUtil.renderRaw(fileContent, {
-      ...pageVariables,
-      ...includeVariables,
-      ...userDefinedVariables,
-    }, {
-      path: filePath,
-    });
-    const childContext = _.cloneDeep(context);
-    childContext.cwf = asIfAt;
-    childContext.variables = includeVariables;
-    return { content, childContext, userDefinedVariables };
-  }
-
-  _extractInnerVariables(content, context, config) {
-    const { cwf } = context;
-    const $ = cheerio.load(content, {
-      xmlMode: false,
-      decodeEntities: false,
-    });
-    const aliases = new Map();
-    Parser.FILE_ALIASES.set(cwf, aliases);
-    $('import[from]').each((index, node) => {
-      const filePath = path.resolve(path.dirname(cwf), node.attribs.from);
-      const variableNames = Object.keys(node.attribs)
-        .filter(name => name !== 'from' && name !== 'as');
-      // If no namespace is provided, we use the smallest name as one
-      const largestName = variableNames.sort()[0];
-      // ... and prepend it with $__MARKBIND__ to reduce collisions.
-      const generatedAlias = IMPORTED_VARIABLE_PREFIX + largestName;
-      const alias = _.hasIn(node.attribs, 'as')
-        ? node.attribs.as
-        : generatedAlias;
-      aliases.set(alias, filePath);
-      this.staticIncludeSrc.push({ from: context.cwf, to: filePath });
-      // Render inner file content
-      const {
-        content: renderedContent,
-        childContext,
-        userDefinedVariables,
-      } = this._renderIncludeFile(filePath, node, context, config);
-      this.extractInnerVariablesIfNotProcessed(renderedContent, childContext, config, filePath);
-      const innerVariables = this.getImportedVariableMap(filePath);
-
-      Parser.VARIABLE_LOOKUP.get(filePath).forEach((value, variableName, map) => {
-        map.set(variableName, njUtil.renderRaw(value, {
-          ...userDefinedVariables, ...innerVariables,
-        }));
-      });
-    });
-  }
-
-  extractInnerVariablesIfNotProcessed(content, childContext, config, filePathToExtract) {
-    if (!Parser.PROCESSED_INNER_VARIABLES.has(filePathToExtract)) {
-      Parser.PROCESSED_INNER_VARIABLES.add(filePathToExtract);
-      this._extractInnerVariables(content, childContext, config);
-    }
   }
 
   processDynamicResources(context, html) {
@@ -377,6 +209,8 @@ class Parser {
     const context = {};
     context.cwf = config.cwf || file; // current working file
     context.callStack = [];
+    // TODO make componentPreprocessor a class to avoid this
+    config.variablePreprocessor = this.variablePreprocessor;
     return new Promise((resolve, reject) => {
       const handler = new htmlparser.DomHandler((error, dom) => {
         if (error) {
@@ -401,29 +235,21 @@ class Parser {
         decodeEntities: true,
       });
 
-      const parentSitePath = urlUtils.getParentSiteAbsolutePath(file, config.rootPath, config.baseUrlMap);
-      const userDefinedVariables = config.userDefinedVariablesMap[parentSitePath];
-      const pageVariables = Parser.extractPageVariables(file, content, userDefinedVariables, {});
-      let fileContent = njUtil.renderRaw(content, {
-        ...pageVariables,
-        ...userDefinedVariables,
-        ...additionalVariables,
-      });
-      this._extractInnerVariables(fileContent, context, config);
-      const innerVariables = this.getImportedVariableMap(context.cwf);
-      fileContent = njUtil.renderRaw(fileContent, {
-        ...userDefinedVariables,
-        ...additionalVariables,
-        ...innerVariables,
-      });
+      const outerContentRendered = this.variablePreprocessor.renderOuterVariables(content, file,
+                                                                                  additionalVariables);
+      this.variablePreprocessor.extractInnerVariables(outerContentRendered, context.cwf)
+        .forEach(src => this.staticIncludeSrc.push(src));
+      const innerContentRendered = this.variablePreprocessor.renderInnerVariables(outerContentRendered,
+                                                                                  file, context.cwf,
+                                                                                  additionalVariables);
 
       const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
         context.source = 'md';
-        parser.parseComplete(fileContent.toString());
+        parser.parseComplete(innerContentRendered.toString());
       } else if (fileExt === 'html') {
         context.source = 'html';
-        parser.parseComplete(fileContent);
+        parser.parseComplete(innerContentRendered);
       } else {
         const error = new Error(`Unsupported File Extension: '${fileExt}'`);
         reject(error);
@@ -545,54 +371,9 @@ class Parser {
     return node;
   }
 
-  static resetVariables() {
-    Parser.VARIABLE_LOOKUP.clear();
-    Parser.FILE_ALIASES.clear();
-    Parser.PROCESSED_INNER_VARIABLES.clear();
-  }
-
   static isText(node) {
     return node.type === 'text' || node.type === 'comment';
   }
-
-  /**
-   * Extract variables from an include element
-   * @param includeElement include element to extract variables from
-   * @param contextVariables variables defined by parent pages
-   */
-  static extractIncludeVariables(includeElement, contextVariables) {
-    const includedVariables = { ...contextVariables };
-    Object.keys(includeElement.attribs).forEach((attribute) => {
-      if (!attribute.startsWith('var-')) {
-        return;
-      }
-      const variableName = attribute.replace(/^var-/, '');
-      if (!includedVariables[variableName]) {
-        includedVariables[variableName] = includeElement.attribs[attribute];
-      }
-    });
-    if (includeElement.children) {
-      includeElement.children.forEach((child) => {
-        if (child.name !== 'variable' && child.name !== 'span') {
-          return;
-        }
-        const variableName = child.attribs.name || child.attribs.id;
-        if (!variableName) {
-          logger.warn(`Missing reference in ${includeElement.attribs[ATTRIB_CWF]}\n`
-            + `Missing 'name' or 'id' in variable for ${includeElement.attribs.src} include.`);
-          return;
-        }
-        if (!includedVariables[variableName]) {
-          includedVariables[variableName] = cheerio.html(child.children);
-        }
-      });
-    }
-    return includedVariables;
-  }
 }
-
-Parser.VARIABLE_LOOKUP = new Map();
-Parser.FILE_ALIASES = new Map();
-Parser.PROCESSED_INNER_VARIABLES = new Set();
 
 module.exports = Parser;

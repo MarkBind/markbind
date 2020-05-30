@@ -6,7 +6,7 @@ const path = require('path');
 const Promise = require('bluebird');
 const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
-const MarkBind = require('./lib/markbind/src/parser');
+const VariablePreprocessor = require('./lib/markbind/src/preprocessors/variablePreprocessor');
 const njUtil = require('./lib/markbind/src/utils/nunjuckUtils');
 const injectHtmlParser2SpecialTags = require('./lib/markbind/src/patches/htmlparser2');
 const injectMarkdownItSpecialTags = require(
@@ -134,7 +134,9 @@ class Site {
      */
     this.siteConfig = undefined;
     this.siteConfigPath = siteConfigPath;
-    this.userDefinedVariablesMap = {};
+
+    // Site wide variable preprocessor
+    this.variablePreprocessor = undefined;
 
     // Lazy reload properties
     this.onePagePath = onePagePath;
@@ -271,7 +273,7 @@ class Site {
       title: config.title || '',
       titlePrefix: this.siteConfig.titlePrefix,
       headingIndexingLevel: this.siteConfig.headingIndexingLevel,
-      userDefinedVariablesMap: this.userDefinedVariablesMap,
+      variablePreprocessor: this.variablePreprocessor,
       sourcePath,
       resultPath,
       asset: {
@@ -513,6 +515,7 @@ class Site {
       .map(x => path.resolve(this.rootPath, x));
 
     this.baseUrlMap = new Set(candidates.map(candidate => path.dirname(candidate)));
+    this.variablePreprocessor = new VariablePreprocessor(this.rootPath, this.baseUrlMap);
 
     return Promise.resolve();
   }
@@ -523,12 +526,9 @@ class Site {
   collectUserDefinedVariablesMap() {
     // The key is the base directory of the site/subsites,
     // while the value is a mapping of user defined variables
-    this.userDefinedVariablesMap = {};
-    const markbindVariable = { MarkBind: MARKBIND_LINK_HTML };
+    this.variablePreprocessor.resetUserDefinedVariablesMap();
 
     this.baseUrlMap.forEach((base) => {
-      const userDefinedVariables = {};
-      Object.assign(userDefinedVariables, markbindVariable);
       const userDefinedVariablesPath = path.resolve(base, USER_VARIABLES_PATH);
       const userDefinedVariablesDir = path.dirname(userDefinedVariablesPath);
       let content;
@@ -539,15 +539,17 @@ class Site {
         logger.warn(e.message);
       }
 
-      // This is to prevent the first nunjuck call from converting {{baseUrl}} to an empty string
-      // and let the baseUrl value be injected later.
-      userDefinedVariables.baseUrl = '{{baseUrl}}';
-      this.userDefinedVariablesMap[base] = userDefinedVariables;
+      /*
+       This is to prevent the first nunjuck call from converting {{baseUrl}} to an empty string
+       and let the baseUrl value be injected later.
+       */
+      this.variablePreprocessor.addUserDefinedVariable(base, 'baseUrl', '{{baseUrl}}');
+      this.variablePreprocessor.addUserDefinedVariable(base, 'MarkBind', MARKBIND_LINK_HTML);
 
       const $ = cheerio.load(content);
-      $('variable,span').each(function () {
-        const name = $(this).attr('name') || $(this).attr('id');
-        const variableSource = $(this).attr('from');
+      $('variable,span').each((index, element) => {
+        const name = $(element).attr('name') || $(element).attr('id');
+        const variableSource = $(element).attr('from');
 
         if (variableSource !== undefined) {
           try {
@@ -555,18 +557,13 @@ class Site {
             const jsonData = fs.readFileSync(variableFilePath);
             const varData = JSON.parse(jsonData);
             Object.entries(varData).forEach(([varName, varValue]) => {
-              // Process the content of the variable with nunjucks, in case it refers to other variables.
-              const variableValue = njUtil.renderRaw(varValue, userDefinedVariables, {}, false);
-
-              userDefinedVariables[varName] = variableValue;
+              this.variablePreprocessor.renderAndAddUserDefinedVariable(base, varName, varValue);
             });
           } catch (err) {
             logger.warn(`Error ${err.message}`);
           }
         } else {
-          // Process the content of the variable with nunjucks, in case it refers to other variables.
-          const html = njUtil.renderRaw($(this).html(), userDefinedVariables, {}, false);
-          userDefinedVariables[name] = html;
+          this.variablePreprocessor.renderAndAddUserDefinedVariable(base, name, $(element).html());
         }
       });
     });
@@ -691,7 +688,7 @@ class Site {
     const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];
     const uniquePaths = _.uniq(filePathArray);
     logger.info('Rebuilding affected source files');
-    MarkBind.resetVariables();
+    this.variablePreprocessor.resetVariables();
     return new Promise((resolve, reject) => {
       this.regenerateAffectedPages(uniquePaths)
         .then(() => fs.removeAsync(this.tempPath))
@@ -709,7 +706,7 @@ class Site {
     const uniqueUrls = _.uniq(normalizedUrlArray);
     uniqueUrls.forEach(normalizedUrl => logger.info(
       `Building ${normalizedUrl} as some of its dependencies were changed since the last visit`));
-    MarkBind.resetVariables();
+    this.variablePreprocessor.resetVariables();
 
     /*
      Lazy loading only builds the page being viewed, but the user may be quick enough
@@ -729,7 +726,6 @@ class Site {
         }
 
         this.toRebuild.delete(normalizedUrl);
-        pageToRebuild.userDefinedVariablesMap = this.userDefinedVariablesMap;
         pageToRebuild.generate(new Set())
           .then(() => {
             pageToRebuild.collectHeadingsAndKeywords();
@@ -1062,7 +1058,6 @@ class Site {
           }
         }
 
-        page.userDefinedVariablesMap = this.userDefinedVariablesMap;
         processingFiles.push(page.generate(builtFiles)
           .catch((err) => {
             logger.error(err);
@@ -1281,9 +1276,7 @@ class Site {
       timeZoneName: 'short',
     };
     const time = new Date().toLocaleTimeString(this.siteConfig.locale, options);
-    Object.keys(this.userDefinedVariablesMap).forEach((base) => {
-      this.userDefinedVariablesMap[base].timestamp = time;
-    });
+    this.variablePreprocessor.addUserDefinedVariableForAllSites('timestamp', time);
     return Promise.resolve();
   }
 }

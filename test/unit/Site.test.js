@@ -361,12 +361,12 @@ test('Site resolves variables referencing other variables', async () => {
   await site.collectBaseUrl();
   await site.collectUserDefinedVariablesMap();
 
-  const root = site.userDefinedVariablesMap[path.resolve('')];
+  const root = site.variablePreprocessor.userDefinedVariablesMap[path.resolve('')];
 
   // check all variables
   expect(root.level1).toEqual('variable');
   expect(root.level2).toEqual('variable');
-  const expectedTextSpan = '<span style="color: blue">Blue text</span>';
+  const expectedTextSpan = '&lt;span style=&quot;color: blue&quot;&gt;Blue text&lt;/span&gt;';
   expect(root.level3).toEqual(expectedTextSpan);
   expect(root.level4).toEqual(expectedTextSpan);
 });
@@ -391,10 +391,10 @@ test('Site read correct user defined variables', async () => {
   await site.collectBaseUrl();
   await site.collectUserDefinedVariablesMap();
 
-  const root = site.userDefinedVariablesMap[path.resolve('')];
-  const sub = site.userDefinedVariablesMap[path.resolve('sub')];
-  const subsub = site.userDefinedVariablesMap[path.resolve('sub/sub')];
-  const othersub = site.userDefinedVariablesMap[path.resolve('otherSub/sub')];
+  const root = site.variablePreprocessor.userDefinedVariablesMap[path.resolve('')];
+  const sub = site.variablePreprocessor.userDefinedVariablesMap[path.resolve('sub')];
+  const subsub = site.variablePreprocessor.userDefinedVariablesMap[path.resolve('sub/sub')];
+  const othersub = site.variablePreprocessor.userDefinedVariablesMap[path.resolve('otherSub/sub')];
 
   // check all baseUrls
   const baseUrl = '{{baseUrl}}';
