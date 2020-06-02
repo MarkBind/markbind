@@ -27,7 +27,7 @@
     <div id="flex-body">
       <div id="content-wrapper">
         <h1 id="569-stray-space-after-tooltip">569: Stray space after tooltip<a class="fa fa-anchor" href="#569-stray-space-after-tooltip" onclick="event.stopPropagation()"></a></h1>
-        <pre><code class="hljs"><span>&lt;tooltip&gt;tooltip&lt;/tooltip&gt;, test<br></span><span><br></span><span>&lt;trigger&gt;trigger&lt;/trigger&gt;, test<br></span></code></pre>
+        <pre><code class="hljs" v-pre=""><span>&lt;tooltip&gt;tooltip&lt;/tooltip&gt;, test<br></span><span><br></span><span>&lt;trigger&gt;trigger&lt;/trigger&gt;, test<br></span></code></pre>
         <p><span data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger">tooltip</span>, test</p>
         <p><span v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['undefined'].show()" class="trigger">trigger</span>, test</p>
       </div>

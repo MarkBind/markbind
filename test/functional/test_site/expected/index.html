@@ -317,8 +317,8 @@
           <div name="Referencing specified path in boilerplate">
             <h1 id="path-within-the-boilerplate-folder-is-separately-specified">Path within the boilerplate folder is separately specified<a class="fa fa-anchor" href="#path-within-the-boilerplate-folder-is-separately-specified" onclick="event.stopPropagation()"></a></h1>
             <p>Like static include, pages within the site should be able to use files located in folders within boilerplate.</p>
-            <p>Also, the boilerplate file name (e.g. <code>inside.md</code>) and the file that it is supposed to act as (<code>notInside.md</code>) can be different.</p>
-            <p>This file should behaves as if it is in the <code>requirements</code> folder:</p>
+            <p>Also, the boilerplate file name (e.g. <code v-pre="">inside.md</code>) and the file that it is supposed to act as (<code v-pre="">notInside.md</code>) can be different.</p>
+            <p>This file should behaves as if it is in the <code v-pre="">requirements</code> folder:</p>
             <panel src="/test_site/requirements/NonFunctionalRequirements._include_.html"><template slot="_header">
                 <p>Tested with the folllowing include</p>
               </template>
@@ -347,7 +347,7 @@
             <p><em>MarkBind supports .mbd files.</em></p>
           </div>
           <div>
-            <p><code>MarkBind supports .mbdf files.</code></p>
+            <p><code v-pre="">MarkBind supports .mbdf files.</code></p>
           </div>
           <p><strong>Include from another Markbind site</strong></p>
           <div>
@@ -630,6 +630,12 @@
         </div>
         <h2 class="no-index" id="level-2-header-inside-headingsearchindex-with-no-index-attribute-should-not-be-indexed">Level 2 header (inside headingSearchIndex) with no-index attribute should not be indexed<a class="fa fa-anchor" href="#level-2-header-inside-headingsearchindex-with-no-index-attribute-should-not-be-indexed" onclick="event.stopPropagation()"></a></h2>
         <h6 class="always-index" id="level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed">Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed<a class="fa fa-anchor" href="#level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed" onclick="event.stopPropagation()"></a></h6>
+        <p><strong>Test nunjucks raw tags</strong></p>
+        <p></p>
+        <div v-pre="">{{ variable interpolation syntax can be used with v-pre }}</div>
+        <div v-pre="">{{ nonExistentVariable }}</div>
+        <code v-pre="">{{ code elements should automatically be assigned v-pre }}</code>
+        <p></p>
         <hr class="footnotes-sep">
         <section class="footnotes">
           <ol class="footnotes-list">

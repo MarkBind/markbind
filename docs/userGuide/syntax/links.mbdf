@@ -32,16 +32,19 @@ Links to files of the generated site (e.g., an HTML page or an image file) can b
 
 Absolute paths:
 <div class="indented">
-Links should start with {{ showBaseUrlCode }} (which represents the root directory of the project). 
 
-{{ icon_example }} Here's how to specify a link to (1) a page, and (2) an image, using the {{ showBaseUrlCode }}:
+Links should start with {% raw %}`{{ baseUrl }}`{% endraw %} (which represents the root directory of the project). 
 
-1. <code>Click [here]({{ showBaseUrlCode }}/userGuide/reusingContents.html).</code>
-2. `![](`{{ showBaseUrlCode }}`/images/preview.png)`
+{{ icon_example }} Here's how to specify a link to (1) a page, and (2) an image, using the {% raw %}`{{ baseUrl }}`:
+
+1. `Click [here]({{ baseUrl }}/userGuide/reusingContents.html).`
+2. `![]({{ baseUrl }}/images/preview.png)`
 
 <box type="important">
-To ensure that links in the <code>_markbind/</code> folder work correctly across the entire site, they should be written as absolute paths, prepended with <code><span>{</span>{ baseUrl }}</code>. 
+
+To ensure that links in the <code>_markbind/</code> folder work correctly across the entire site, they should be written as absolute paths, prepended with `{{ baseUrl }}`. 
 </box>
+{% endraw %}
 </div>
 
 Relative paths:
