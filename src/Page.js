@@ -43,7 +43,7 @@ const {
   PLUGIN_SITE_ASSET_FOLDER_NAME,
   SITE_NAV_ID,
   SITE_NAV_EMPTY_LINE_REGEX,
-  SITE_NAV_ANCHOR_CLASS,
+  SITE_NAV_LIST_ITEM_CONTENT_CLASS,
   SITE_NAV_LIST_CLASS,
   SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX,
   SITE_NAV_DROPDOWN_ICON_HTML,
@@ -715,7 +715,6 @@ class Page {
     const currentPageHtmlPath = this.src.replace(/\.(md|mbd)$/, '.html');
     const currentPageRegex = new RegExp(`{{ *baseUrl *}}/${currentPageHtmlPath}`);
     $nav('a[href]').each((i, elem) => {
-      $nav(elem).addClass(SITE_NAV_ANCHOR_CLASS);
       if (currentPageRegex.test($nav(elem).attr('href'))) {
         $nav(elem).addClass('current');
       }
@@ -723,42 +722,35 @@ class Page {
 
     $nav('ul').each((i1, ulElem) => {
       const nestingLevel = $nav(ulElem).parents('ul').length;
-      $nav(ulElem).addClass(`${nestingLevel === 0 ? 'px-0' : 'pl-3'} ${SITE_NAV_LIST_CLASS}`);
+      $nav(ulElem).addClass(SITE_NAV_LIST_CLASS);
+      const listItemContentClasses = `${SITE_NAV_LIST_ITEM_CONTENT_CLASS} ${
+        SITE_NAV_LIST_ITEM_CONTENT_CLASS}-${nestingLevel}`;
 
       $nav(ulElem).children('li').each((i2, liElem) => {
-        $nav(liElem).addClass('mt-2');
-        // Do not render dropdown menu for list items with <a> tag
-        if ($nav(liElem).children('a').length) {
-          return;
-        }
-
         const nestedLists = $nav(liElem).children('ul');
+
+        const listItemContent = $nav(liElem).contents().not('ul');
+        const listItemContentHtml = $nav.html(listItemContent);
+        listItemContent.remove();
+        $nav(liElem).prepend(`<div class="${listItemContentClasses}" onclick="handleSiteNavClick(this)">`
+          + `${listItemContentHtml}</div>`);
         if (nestedLists.length === 0) {
           return;
         }
 
         // Found nested list, render dropdown menu
-        const nestedList = nestedLists.first();
-        const dropdownTitle = $nav(liElem).contents().not('ul');
-        const dropdownTitleText = dropdownTitle.toString().trim();
-        // Remove the 'old' children
-        dropdownTitle.remove();
+        const listItemParent = $nav(liElem).children().first();
 
-        const hasExpandedKeyword = SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX.test(dropdownTitleText);
-        const isParentListOfCurrentPage = !!nestedList.find('a.current').length;
+        const hasExpandedKeyword = SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX.test(listItemContentHtml);
+        const isParentListOfCurrentPage = !!nestedLists.find('a.current').length;
         const shouldExpandDropdown = hasExpandedKeyword || isParentListOfCurrentPage;
         if (shouldExpandDropdown) {
-          nestedList.wrap('<div class="dropdown-container dropdown-container-open"></div>');
-          $nav(liElem).prepend('<button class="dropdown-btn dropdown-btn-open">'
-            + `${dropdownTitleText.replace(SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX, '')}\n`
-            + `${SITE_NAV_DROPDOWN_ICON_ROTATED_HTML}\n`
-            + '</button>');
+          nestedLists.addClass('site-nav-dropdown-container site-nav-dropdown-container-open');
+          listItemParent.html(listItemContentHtml.replace(SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX, ''));
+          listItemParent.append(SITE_NAV_DROPDOWN_ICON_ROTATED_HTML);
         } else {
-          nestedList.wrap('<div class="dropdown-container"></div>');
-          $nav(liElem).prepend('<button class="dropdown-btn">'
-            + `${dropdownTitleText}\n`
-            + `${SITE_NAV_DROPDOWN_ICON_HTML}\n`
-            + '</button>');
+          nestedLists.addClass('site-nav-dropdown-container');
+          listItemParent.append(SITE_NAV_DROPDOWN_ICON_HTML);
         }
       });
     });
