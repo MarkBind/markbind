@@ -216,7 +216,7 @@ To turn off the option, add the following to `site.json` -
 
 #### **`timeZone`**
 
-**Time zone of the [time stamp](reusingContents.html#built-in-variable-timestamp).** Default: `"UTC"`. 
+**Time zone of the [time stamp](reusingContents.html#built-in-global-variables).** Default: `"UTC"`. 
 
 <panel type="minimal" header="Time Zone Options">
   <include src="pages/timeZones.md" />
@@ -226,7 +226,7 @@ To turn off the option, add the following to `site.json` -
 
 #### **`locale`**
 
-**Language by locale used for the [time stamp](reusingContents.html#built-in-variable-timestamp).** Default: `"en-GB"` (`English (United Kingdom)`). <br>
+**Language by locale used for the [time stamp](reusingContents.html#built-in-global-variables).** Default: `"en-GB"` (`English (United Kingdom)`). <br>
 The date format is thus - <br>
 `<Day>, <Date> <Month> <Year>, <24-hour Time> <Time Zone Code>`. 
 
