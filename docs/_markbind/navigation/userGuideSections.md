@@ -1,9 +1,9 @@
 <navigation>
 
-<span class="lead">**User Guide**</span>
+<span style="padding-left: 0.8rem; font-weight: bolder; font-size: 1.25em;">User Guide</span>
 
 * [Getting Started]({{baseUrl}}/userGuide/gettingStarted.html)
-* [Authoring Contents]({{baseUrl}}/userGuide/authoringContents.html)
+* [Authoring Contents]({{baseUrl}}/userGuide/authoringContents.html) :expanded:
   * [Adding Pages]({{baseUrl}}/userGuide/addingPages.html)
   * [MarkBind Syntax Overview]({{baseUrl}}/userGuide/markBindSyntaxOverview.html)
   * [Formatting Contents]({{baseUrl}}/userGuide/formattingContents.html)

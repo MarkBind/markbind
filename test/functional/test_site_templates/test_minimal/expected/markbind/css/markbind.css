@@ -165,10 +165,7 @@ footer {
        specifically for the sticky container to ensure adequate
        spacing between itself and the boundaries of the menus
      */
-    max-height: 90vh;
     overflow-y: auto;
-    padding-left: 20px;
-    padding-right: 20px;
     padding-top: 1rem;
     top: 0;
 }
