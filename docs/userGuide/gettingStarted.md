@@ -53,17 +53,17 @@ You can add the `--help` flag to any command to show the help screen. <br>
   e.g., `markbind init --help`
 </span>
 </include>
+<include src="tip.md" boilerplate >
+<span id="tip_body">
+The `init` command populates the project with the [default project template](https://markbind-init-typical.netlify.com/). Refer to [templates](templates.html) section to learn how to use a different template.
+</span>
+</include>
 
 
   </tab>
   <tab header="Starting with an existing project">
 
 Navigate to the project {{ tooltip_root_directory }}.
-
-</tab>
-<tab header="Starting with different templates">
-
-By default, you will initialize Markbind with a feature filled [template](https://markbind-init-typical.netlify.com/). By adding a flag `--template <template-name>` you can select a different template to initialize with. Learn about other [templates](templates.html).
 
 </tab>
 </tabs>
