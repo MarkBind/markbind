@@ -25,7 +25,6 @@
 
   frontmatter : ['Front Matter', ['other']],
   includes : ['Includes', ['other']],
-  searchBars : ['Search Bars', ['other', 'reader-facing']],
   keywords : ['Keywords', ['other']],
   pageHead : ['Page Head', ['other']],
   pageLayouts : ['Page Layouts', ['other']],
@@ -45,6 +44,7 @@
   pictures : ['Pictures', ['component', 'reader-facing']],
   popovers : ['Popovers', ['component', 'reader-facing']],
   questions : ['Questions', ['component', 'reader-facing']],
+  searchBars : ['Search Bars', ['component', 'reader-facing']],
   siteNavigationMenus : ['Site Navigation Menus', ['component', 'reader-facing']],
   tabs : ['Tabs', ['component', 'reader-facing']],
   thumbnails : ['Thumbnails', ['component', 'reader-facing']],
