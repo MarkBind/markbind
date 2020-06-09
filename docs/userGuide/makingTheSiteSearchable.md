@@ -19,7 +19,7 @@
 **MarkBind comes with with an in-built _site search_ facility** with the option to use third-party search services as well.
 </span>
 
-**All markdown and html headings of levels 1-3 are captured in the search index** by default. You can change this setting using the [`headingIndexLevel` property of the `site.json`](siteConfiguration.html#headingindexinglevel).
+**All markdown and html headings of levels 1-3 are captured in the search index** by default. You can change this setting using the [`headingIndexLevel` property of the `site.json`](siteJsonFile.html#headingindexinglevel).
 
 <box type="warning">
 

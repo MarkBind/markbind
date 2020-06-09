@@ -7,6 +7,7 @@
 # {{ title }}
 
 {% set pages = [
+  ['Setting Site Properties', 'settingSiteProperties'],
   ['Using Plugins', 'usingPlugins'],
   ['Making the site searchable', 'makingTheSiteSearchable'],
   ['Applying Themes', 'themes'],
@@ -27,4 +28,4 @@
 {% endfor %}
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('reusingContents', 'usingPlugins') }}
+{{ previous_next('reusingContents', 'settingSiteProperties') }}

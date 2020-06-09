@@ -18,14 +18,14 @@
 </span>
 
 Generic steps for deploying a MarkBind site:
-1. Set the [`baseUrl` property of the `site.json` file](siteConfiguration.html#baseUrl) to match the deploy location.
+1. Set the [`baseUrl` property of the `site.json` file](siteJsonFile.html#baseUrl) to match the deploy location.
 1. (Optional) Use the [`markbind serve` command](cliCommands.html#serve-command) to stage the site locally and confirm the contents are as expected.
 1. Use the [`markbind build` command](cliCommands.html#build-command) to generate the site from source files. That command puts the generated site files in a directory named `_site` (you can change the output directory using parameters supplied to the command).
 1. Upload the site files to the Web server. The sections below explain how to automate this step if you are deploying to some online platforms.
 
 
 Steps for deploying multiple MarkBind sites:
-1. Create multiple `site.json` files. Ensure that the [`baseUrl` property of each `site.json` file](siteConfiguration.html#baseUrl) matches its deploy location.
+1. Create multiple `site.json` files. Ensure that the [`baseUrl` property of each `site.json` file](siteJsonFile.html#baseUrl) matches its deploy location.
 1. (Optional) Use the [`markbind serve -s <file>` command](cliCommands.html#serve-command) to stage each site locally and confirm the contents are as expected.
 1. For each site:
     1. Use the [`markbind build -s <file>` command](cliCommands#build-command) to generate the site from source files.
@@ -50,8 +50,8 @@ If you are deploying to the site to GitHub pages, the `baseUrl` setting in the `
 
 You can override the default deployment settings %%(e.g., repo/branch to deploy)%% in the `site.json`'s `deploy` section:
 
-<panel type="seamless" header="**User Guide: Configuring the Site → `deploy`**" popup-url="siteConfiguration.html#deploy">
-  <include src="siteConfiguration.md#site-json-deploy" />
+<panel type="seamless" header="**User Guide: Configuring the Site → `deploy`**" popup-url="siteJsonFile.html#deploy">
+  <include src="siteJsonFile.md#site-json-deploy" />
 </panel>
 
 <br>
