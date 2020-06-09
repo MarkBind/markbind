@@ -43,19 +43,28 @@
     <div id="flex-body">
       <nav id="site-nav" class="navbar navbar-light bg-transparent">
         <div class="border-right-grey nav-inner position-sticky slim-scroll">
-          <ul class="px-0 site-nav-list">
-            <li class="mt-2"><a href="/index.html" class="site-nav__a current">Home 🏠</a></li>
-            <li class="mt-2"><a href="/contents/topic1.html" class="site-nav__a">Topic 1</a></li>
-            <li class="mt-2"><a href="/contents/topic2.html" class="site-nav__a">Topic 2</a></li>
-            <li class="mt-2"><button class="dropdown-btn dropdown-btn-open">Topic 3
-                <i class="dropdown-btn-icon rotate-icon">
-                  <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></button>
-              <div class="dropdown-container dropdown-container-open">
-                <ul class="pl-3 site-nav-list">
-                  <li class="mt-2"><a href="/contents/topic3a.html" class="site-nav__a">Topic 3a</a></li>
-                  <li class="mt-2"><a href="/contents/topic3b.html" class="site-nav__a">Topic 3b</a></li>
-                </ul>
-              </div>
+          <ul class="site-nav-list">
+            <li>
+              <div class="site-nav-list-item-content site-nav-list-item-content-0" onclick="handleSiteNavClick(this)"><a href="/index.html" class="current">Home 🏠</a></div>
+            </li>
+            <li>
+              <div class="site-nav-list-item-content site-nav-list-item-content-0" onclick="handleSiteNavClick(this)"><a href="/contents/topic1.html">Topic 1</a></div>
+            </li>
+            <li>
+              <div class="site-nav-list-item-content site-nav-list-item-content-0" onclick="handleSiteNavClick(this)"><a href="/contents/topic2.html">Topic 2</a></div>
+            </li>
+            <li>
+              <div class="site-nav-list-item-content site-nav-list-item-content-0" onclick="handleSiteNavClick(this)">Topic 3
+                <i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                  <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
+              <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
+                <li>
+                  <div class="site-nav-list-item-content site-nav-list-item-content-1" onclick="handleSiteNavClick(this)"><a href="/contents/topic3a.html">Topic 3a</a></div>
+                </li>
+                <li>
+                  <div class="site-nav-list-item-content site-nav-list-item-content-1" onclick="handleSiteNavClick(this)"><a href="/contents/topic3b.html">Topic 3b</a></div>
+                </li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -86,8 +95,8 @@
             </ol>
           </li>
         </ul>
-        <p><strong>A <code>code</code> example:</strong></p>
-        <pre><code class="hljs html"><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span><br></span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span><br></span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span><br></span></code></pre>
+        <p><strong>A <code v-pre="">code</code> example:</strong></p>
+        <pre><code class="hljs html" v-pre=""><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span><br></span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span><br></span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span><br></span></code></pre>
         <h2 id="sub-heading-1-1">Sub Heading 1.1<a class="fa fa-anchor" href="#sub-heading-1-1" onclick="event.stopPropagation()"></a></h2>
         <p>A <span effect="scale" placement="top" trigger="hover" data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger"><span data-mb-html-for="_content">❗️ some <strong>important explanation</strong></span>tooltip</span>, a <span for="modal:modalinfo" trigger="click" v-b-popover.click.top.html="popoverGenerator" v-b-tooltip.click.top.html="tooltipContentGetter" v-on:click="$refs['modal:modalinfo'].show()" class="trigger-click">modal</span>, a <a href="https://markbind.org/">link</a>, a <span class="badge badge-danger">badge</span>, another <span class="badge badge-warning">badge</span>.</p>
         <b-modal id="modal:modalinfo" hide-footer="" size="" modal-class="mb-zoom" ref="modal:modalinfo"><template slot="modal-title">Modal Title</template>

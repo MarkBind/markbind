@@ -26,8 +26,10 @@
     <div id="flex-body">
       <nav id="site-nav" class="navbar navbar-light bg-transparent">
         <div class="border-right-grey nav-inner position-sticky slim-scroll">
-          <ul class="px-0 site-nav-list">
-            <li class="mt-2"><a href="/test_site_algolia_plugin/index.html" class="site-nav__a current">Home <span aria-hidden="true" class="glyphicon glyphicon-home"></span></a></li>
+          <ul class="site-nav-list">
+            <li>
+              <div class="site-nav-list-item-content site-nav-list-item-content-0" onclick="handleSiteNavClick(this)"><a href="/test_site_algolia_plugin/index.html" class="current">Home <span aria-hidden="true" class="glyphicon glyphicon-home"></span></a></div>
+            </li>
           </ul>
         </div>
       </nav>
@@ -40,7 +42,7 @@
           <li><a class="dropdown-item" href="/">Two</a></li>
         </dropdown>
         <p><strong>Modal content should have algolia-no-index class</strong></p>
-        <b-modal id="modal:trigger_id" hide-footer="" size="" modal-class="mb-zoom" ref="modal:trigger_id"><template slot="modal-title">Modal</template>
+        <b-modal id="modal:trigger_id" hide-footer="" size="" modal-class="mb-zoom" ref="modal:trigger_id" class="algolia-no-index"><template slot="modal-title">Modal</template>
           Content should have `algolia-no-index` class
         </b-modal>
         <span for="modal:trigger_id" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['modal:trigger_id'].show()" class="trigger">Trigger should not have `algolia-no-index` class</span>
@@ -60,7 +62,7 @@
           <div data-mb-html-for="content">Content should have `algolia-no-index` class</div>
           <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
         </span>
-        <span effect="fade" placement="top" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGenerator" class="trigger"><span data-mb-html-for="header">Title</span><span data-mb-html-for="content">Content as attribute does not require <code>algolia-no-index</code> class</span>
+        <span effect="fade" placement="top" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGenerator" class="trigger"><span data-mb-html-for="header">Title</span><span data-mb-html-for="content">Content as attribute does not require <code v-pre="">algolia-no-index</code> class</span>
           <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button></span>
         <p><strong>Question hint and answer should have algolia-no-index class</strong></p>
         <question>

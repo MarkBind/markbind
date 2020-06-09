@@ -11,6 +11,10 @@ code {
     word-break: normal;
 }
 
+mark code {
+    background: #ffffffd4;
+}
+
 pre.hljs > code {
     background: none;
 }
@@ -161,10 +165,7 @@ footer {
        specifically for the sticky container to ensure adequate
        spacing between itself and the boundaries of the menus
      */
-    max-height: 90vh;
     overflow-y: auto;
-    padding-left: 20px;
-    padding-right: 20px;
     padding-top: 1rem;
     top: 0;
 }
@@ -368,7 +369,7 @@ li.footnote-item:target {
 
 /* styles for triggers */
 .trigger {
-    border-bottom: 1px dashed currentColor;
+    border-bottom: 1px dotted currentColor;
 }
 
 .trigger-click {

@@ -42,10 +42,13 @@ const {
   PAGE_NAV_TITLE_CLASS,
   PLUGIN_SITE_ASSET_FOLDER_NAME,
   SITE_NAV_ID,
+  SITE_NAV_EMPTY_LINE_REGEX,
+  SITE_NAV_LIST_ITEM_CONTENT_CLASS,
   SITE_NAV_LIST_CLASS,
+  SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX,
+  SITE_NAV_DROPDOWN_ICON_HTML,
+  SITE_NAV_DROPDOWN_ICON_ROTATED_HTML,
   TITLE_PREFIX_SEPARATOR,
-  DROPDOWN_BUTTON_ICON_HTML,
-  DROPDOWN_EXPAND_KEYWORD,
   TEMP_NAVBAR_CLASS,
   TEMP_DROPDOWN_CLASS,
   TEMP_DROPDOWN_PLACEHOLDER_CLASS,
@@ -338,7 +341,7 @@ class Page {
       return;
     }
     const $ = cheerio.load(content);
-    $('modal').remove();
+    $('b-modal').remove();
     this._collectNavigableHeadings($, $.root()[0], elementSelector);
   }
 
@@ -405,7 +408,7 @@ class Page {
   collectHeadingsAndKeywordsInContent(content, lastHeading, excludeHeadings, sourceTraversalStack) {
     let $ = cheerio.load(content);
     const headingsSelector = Page.generateHeadingSelector(this.headingIndexingLevel);
-    $('modal').remove();
+    $('b-modal').remove();
     $('panel').not('panel panel')
       .each((index, panel) => {
         const slotHeader = $(panel).children('[slot="header"]');
@@ -468,7 +471,7 @@ class Page {
       });
     $ = cheerio.load(content);
     if (this.headingIndexingLevel > 0) {
-      $('modal').remove();
+      $('b-modal').remove();
       $('panel').remove();
       if (!excludeHeadings) {
         $(headingsSelector).each((i, heading) => {
@@ -566,13 +569,9 @@ class Page {
    * Produces expressive layouts by inserting page data into pre-specified layout
    * @param pageData a page with its front matter collected
    * @param {FileConfig} fileConfig
+   * @param {Parser} markbinder instance from the caller, for adding the seen sources.
    */
-  generateExpressiveLayout(pageData, fileConfig) {
-    const markbinder = new MarkBind({
-      errorHandler: logger.error,
-    });
-    const template = {};
-    template[LAYOUT_PAGE_BODY_VARIABLE] = pageData;
+  generateExpressiveLayout(pageData, fileConfig, markbinder) {
     const { layout } = this.frontMatter;
     const layoutPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH, layout);
     const layoutPagePath = path.join(layoutPath, LAYOUT_PAGE);
@@ -580,31 +579,22 @@ class Page {
     if (!fs.existsSync(layoutPagePath)) {
       return pageData;
     }
-    const layoutFileConfig = {
-      ...fileConfig,
-      cwf: layoutPagePath,
-      additionalVariables: {},
-    };
-
-    layoutFileConfig.additionalVariables[LAYOUT_PAGE_BODY_VARIABLE] = `{{${LAYOUT_PAGE_BODY_VARIABLE}}}`;
 
     // Set expressive layout file as an includedFile
     this.includedFiles.add(layoutPagePath);
-    return new Promise((resolve, reject) => {
-    // Retrieve Expressive Layouts page and insert content
-      fs.readFileAsync(layoutPagePath, 'utf8')
-        .then(result => markbinder.includeData(layoutPagePath, result, layoutFileConfig))
-        .then(result => njUtil.renderRaw(result, template, {}, false))
-        .then((result) => {
-          this.collectIncludedFiles(markbinder.getDynamicIncludeSrc());
-          this.collectIncludedFiles(markbinder.getStaticIncludeSrc());
-          this.collectIncludedFiles(markbinder.getBoilerplateIncludeSrc());
-          this.collectIncludedFiles(markbinder.getMissingIncludeSrc());
-          return result;
-        })
-        .then(resolve)
-        .catch(reject);
-    });
+    return fs.readFileAsync(layoutPagePath, 'utf8')
+      // Include file but with altered cwf (the layout page)
+      // Also render MAIN_CONTENT_BODY back to itself
+      .then(result => markbinder.includeFile(layoutPagePath, result, {
+        ...fileConfig,
+        cwf: layoutPagePath,
+      }, {
+        [LAYOUT_PAGE_BODY_VARIABLE]: `{{${LAYOUT_PAGE_BODY_VARIABLE}}}`,
+      }))
+      // Insert content
+      .then(result => njUtil.renderRaw(result, {
+        [LAYOUT_PAGE_BODY_VARIABLE]: pageData,
+      }, {}, false));
   }
 
 
@@ -685,55 +675,99 @@ class Page {
   insertSiteNav(pageData) {
     const { siteNav } = this.frontMatter;
     if (siteNav === FRONT_MATTER_NONE_ATTR) {
-      return pageData;
-    }
-
-    let siteNavFile;
-    if (siteNav) {
-      siteNavFile = path.join(NAVIGATION_FOLDER_PATH, siteNav);
-    } else {
-      siteNavFile = path.join(LAYOUT_FOLDER_PATH, this.frontMatter.layout, LAYOUT_NAVIGATION);
-    }
-    // Retrieve Markdown file contents
-    const siteNavPath = path.join(this.rootPath, siteNavFile);
-    if (!fs.existsSync(siteNavPath)) {
       this.hasSiteNav = false;
       return pageData;
     }
-    const siteNavContent = fs.readFileSync(siteNavPath, 'utf8');
+
+    const siteNavFile = siteNav
+      ? path.join(NAVIGATION_FOLDER_PATH, siteNav)
+      : path.join(LAYOUT_FOLDER_PATH, this.frontMatter.layout, LAYOUT_NAVIGATION);
+    const siteNavPath = path.join(this.rootPath, siteNavFile);
+    this.hasSiteNav = fs.existsSync(siteNavPath);
+    if (!this.hasSiteNav) {
+      return pageData;
+    }
+
+    const siteNavContent = fs.readFileSync(siteNavPath, 'utf8').trim();
     if (siteNavContent === '') {
       this.hasSiteNav = false;
       return pageData;
     }
-    this.hasSiteNav = true;
-    // Set siteNav file as an includedFile
     this.includedFiles.add(siteNavPath);
-    // Map variables
+
+    // Render variables
     const parentSite = urlUtils.getParentSiteAbsolutePath(this.sourcePath, this.rootPath, this.baseUrlMap);
     const userDefinedVariables = this.userDefinedVariablesMap[parentSite];
     const siteNavMappedData = njUtil.renderRaw(siteNavContent, userDefinedVariables);
-    // Convert to HTML
-    const siteNavDataSelector = cheerio.load(siteNavMappedData);
-    if (siteNavDataSelector('navigation').length > 1) {
+
+    // Check navigation elements
+    const $ = cheerio.load(siteNavMappedData);
+    const navigationElements = $('navigation');
+    if (navigationElements.length > 1) {
       throw new Error(`More than one <navigation> tag found in ${siteNavPath}`);
-    } else if (siteNavDataSelector('navigation').length === 1) {
-      const siteNavHtml = md.render(
-        siteNavDataSelector('navigation').html().trim().replace(/\n\s*\n/g, '\n'));
-      // Add Bootstrap padding class to rendered unordered list
-      const siteNavHtmlSelector = cheerio.load(siteNavHtml, { xmlMode: false });
-      siteNavHtmlSelector('ul').first().addClass('px-0');
-      siteNavHtmlSelector('ul ul').addClass('pl-3');
-      const formattedSiteNav = Page.formatSiteNav(siteNavHtmlSelector.html(), this.src);
-      siteNavDataSelector('navigation').replaceWith(formattedSiteNav);
     }
-    // Wrap sections
-    const wrappedSiteNav = `<nav id="${SITE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
-      + '<div class="border-right-grey nav-inner position-sticky slim-scroll">'
-      + `${siteNavDataSelector.html()}\n`
-      + '</div>\n'
-      + '</nav>';
-    return `${wrappedSiteNav}\n`
-      + `${pageData}`;
+    const siteNavHtml = md.render(navigationElements.length === 0
+      ? siteNavMappedData.replace(SITE_NAV_EMPTY_LINE_REGEX, '\n')
+      : navigationElements.html().replace(SITE_NAV_EMPTY_LINE_REGEX, '\n'));
+    const $nav = cheerio.load(siteNavHtml, { xmlMode: false });
+
+    // Add anchor classes and highlight current page's anchor, if any.
+    const currentPageHtmlPath = this.src.replace(/\.(md|mbd)$/, '.html');
+    const currentPageRegex = new RegExp(`{{ *baseUrl *}}/${currentPageHtmlPath}`);
+    $nav('a[href]').each((i, elem) => {
+      if (currentPageRegex.test($nav(elem).attr('href'))) {
+        $nav(elem).addClass('current');
+      }
+    });
+
+    $nav('ul').each((i1, ulElem) => {
+      const nestingLevel = $nav(ulElem).parents('ul').length;
+      $nav(ulElem).addClass(SITE_NAV_LIST_CLASS);
+      const listItemContentClasses = `${SITE_NAV_LIST_ITEM_CONTENT_CLASS} ${
+        SITE_NAV_LIST_ITEM_CONTENT_CLASS}-${nestingLevel}`;
+
+      $nav(ulElem).children('li').each((i2, liElem) => {
+        const nestedLists = $nav(liElem).children('ul');
+
+        const listItemContent = $nav(liElem).contents().not('ul');
+        const listItemContentHtml = $nav.html(listItemContent);
+        listItemContent.remove();
+        $nav(liElem).prepend(`<div class="${listItemContentClasses}" onclick="handleSiteNavClick(this)">`
+          + `${listItemContentHtml}</div>`);
+        if (nestedLists.length === 0) {
+          return;
+        }
+
+        // Found nested list, render dropdown menu
+        const listItemParent = $nav(liElem).children().first();
+
+        const hasExpandedKeyword = SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX.test(listItemContentHtml);
+        const isParentListOfCurrentPage = !!nestedLists.find('a.current').length;
+        const shouldExpandDropdown = hasExpandedKeyword || isParentListOfCurrentPage;
+        if (shouldExpandDropdown) {
+          nestedLists.addClass('site-nav-dropdown-container site-nav-dropdown-container-open');
+          listItemParent.html(listItemContentHtml.replace(SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX, ''));
+          listItemParent.append(SITE_NAV_DROPDOWN_ICON_ROTATED_HTML);
+        } else {
+          nestedLists.addClass('site-nav-dropdown-container');
+          listItemParent.append(SITE_NAV_DROPDOWN_ICON_HTML);
+        }
+      });
+    });
+
+    let formattedHtml;
+    if (navigationElements.length === 0) {
+      formattedHtml = $nav.html();
+    } else {
+      $('navigation').replaceWith($nav.root());
+      formattedHtml = $.html();
+    }
+
+    // Wrap sections and append page content
+    const wrappedSiteNav = `${`<nav id="${SITE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
+      + '<div class="border-right-grey nav-inner position-sticky slim-scroll">\n'}${formattedHtml}\n</div>\n`
+      + '</nav>\n';
+    return wrappedSiteNav + pageData;
   }
 
   /**
@@ -916,9 +950,7 @@ class Page {
     this.includedFiles = new Set([this.sourcePath]);
     this.headerIdMap = {}; // Reset for live reload
 
-    const markbinder = new MarkBind({
-      errorHandler: logger.error,
-    });
+    const markbinder = new MarkBind();
     /**
      * @type {FileConfig}
      */
@@ -929,71 +961,67 @@ class Page {
       headerIdMap: this.headerIdMap,
       fixedHeader: this.fixedHeader,
     };
-    return new Promise((resolve, reject) => {
-      markbinder.includeFile(this.sourcePath, fileConfig)
-        .then((result) => {
-          this.collectFrontMatter(result);
-          return Page.removeFrontMatter(result);
-        })
-        .then(result => this.generateExpressiveLayout(result, fileConfig))
-        .then(result => Page.removePageHeaderAndFooter(result))
-        .then(result => Page.addContentWrapper(result))
-        .then(result => this.collectPluginSources(result))
-        .then(result => this.preRender(result))
-        .then(result => this.insertSiteNav((result)))
-        .then(result => this.insertHeaderFile(result, fileConfig))
-        .then(result => this.insertFooterFile(result))
-        .then(result => Page.insertTemporaryStyles(result))
-        .then(result => markbinder.resolveBaseUrl(result, fileConfig))
-        .then(result => markbinder.render(result, this.sourcePath, fileConfig))
-        .then(result => this.postRender(result))
-        .then(result => this.collectPluginsAssets(result))
-        .then(result => markbinder.processDynamicResources(this.sourcePath, result))
-        .then(result => MarkBind.unwrapIncludeSrc(result))
-        .then((result) => {
-          this.content = result;
+    return fs.readFileAsync(this.sourcePath, 'utf-8')
+      .then(result => markbinder.includeFile(this.sourcePath, result, fileConfig))
+      .then((result) => {
+        this.collectFrontMatter(result);
+        return Page.removeFrontMatter(result);
+      })
+      .then(result => this.generateExpressiveLayout(result, fileConfig, markbinder))
+      .then(result => Page.removePageHeaderAndFooter(result))
+      .then(result => Page.addContentWrapper(result))
+      .then(result => this.collectPluginSources(result))
+      .then(result => this.preRender(result))
+      .then(result => this.insertSiteNav((result)))
+      .then(result => this.insertHeaderFile(result, fileConfig))
+      .then(result => this.insertFooterFile(result))
+      .then(result => Page.insertTemporaryStyles(result))
+      .then(result => markbinder.resolveBaseUrl(result, fileConfig))
+      .then(result => markbinder.render(result, this.sourcePath, fileConfig))
+      .then(result => this.postRender(result))
+      .then(result => this.collectPluginsAssets(result))
+      .then(result => markbinder.processDynamicResources(this.sourcePath, result))
+      .then(result => MarkBind.unwrapIncludeSrc(result))
+      .then((result) => {
+        this.content = result;
 
-          const { relative } = urlUtils.getParentSiteAbsoluteAndRelativePaths(this.sourcePath, this.rootPath,
-                                                                              this.baseUrlMap);
-          const baseUrl = relative ? `${this.baseUrl}/${utils.ensurePosix(relative)}` : this.baseUrl;
-          const hostBaseUrl = this.baseUrl;
+        const { relative } = urlUtils.getParentSiteAbsoluteAndRelativePaths(this.sourcePath, this.rootPath,
+                                                                            this.baseUrlMap);
+        const baseUrl = relative ? `${this.baseUrl}/${utils.ensurePosix(relative)}` : this.baseUrl;
+        const hostBaseUrl = this.baseUrl;
 
-          this.addLayoutFiles();
-          this.collectHeadFiles(baseUrl, hostBaseUrl);
+        this.addLayoutFiles();
+        this.collectHeadFiles(baseUrl, hostBaseUrl);
 
-          this.content = njUtil.renderString(this.content, {
-            baseUrl,
-            hostBaseUrl,
-          });
+        this.content = njUtil.renderString(this.content, {
+          baseUrl,
+          hostBaseUrl,
+        });
 
-          this.collectAllPageSections();
-          this.buildPageNav();
+        this.collectAllPageSections();
+        this.buildPageNav();
 
-          const renderedTemplate = this.template.render(this.prepareTemplateData());
-          const outputTemplateHTML = this.disableHtmlBeautify
-            ? renderedTemplate
-            : htmlBeautify(renderedTemplate, Page.htmlBeautifyOptions);
+        const renderedTemplate = this.template.render(this.prepareTemplateData());
+        const outputTemplateHTML = this.disableHtmlBeautify
+          ? renderedTemplate
+          : htmlBeautify(renderedTemplate, Page.htmlBeautifyOptions);
 
-          return fs.outputFileAsync(this.resultPath, outputTemplateHTML);
-        })
-        .then(() => {
-          const resolvingFiles = [];
-          Page.unique(markbinder.getDynamicIncludeSrc()).forEach((source) => {
-            if (!FsUtil.isUrl(source.to)) {
-              resolvingFiles.push(this.resolveDependency(source, builtFiles));
-            }
-          });
-          return Promise.all(resolvingFiles);
-        })
-        .then(() => {
-          this.collectIncludedFiles(markbinder.getDynamicIncludeSrc());
-          this.collectIncludedFiles(markbinder.getStaticIncludeSrc());
-          this.collectIncludedFiles(markbinder.getBoilerplateIncludeSrc());
-          this.collectIncludedFiles(markbinder.getMissingIncludeSrc());
-        })
-        .then(resolve)
-        .catch(reject);
-    });
+        return fs.outputFileAsync(this.resultPath, outputTemplateHTML);
+      })
+      .then(() => {
+        const resolvingFiles = [];
+        Page.unique(markbinder.getDynamicIncludeSrc()).forEach((source) => {
+          if (!FsUtil.isUrl(source.to)) {
+            resolvingFiles.push(this.resolveDependency(source, builtFiles));
+          }
+        });
+        return Promise.all(resolvingFiles);
+      })
+      .then(() => {
+        this.collectIncludedFiles(markbinder.getDynamicIncludeSrc());
+        this.collectIncludedFiles(markbinder.getStaticIncludeSrc());
+        this.collectIncludedFiles(markbinder.getMissingIncludeSrc());
+      });
   }
 
   /**
@@ -1236,15 +1264,15 @@ class Page {
        * We create a local instance of Markbind for an empty dynamicIncludeSrc
        * so that we only recursively rebuild the file's included content
        */
-      const markbinder = new MarkBind({
-        errorHandler: logger.error,
-      });
-      return markbinder.includeFile(dependency.to, {
-        baseUrlMap: this.baseUrlMap,
-        userDefinedVariablesMap: this.userDefinedVariablesMap,
-        rootPath: this.rootPath,
-        cwf: file,
-      }).then(result => Page.removeFrontMatter(result))
+      const markbinder = new MarkBind();
+      return fs.readFileAsync(dependency.to, 'utf-8')
+        .then(result => markbinder.includeFile(dependency.to, result, {
+          baseUrlMap: this.baseUrlMap,
+          userDefinedVariablesMap: this.userDefinedVariablesMap,
+          rootPath: this.rootPath,
+          cwf: file,
+        }))
+        .then(result => Page.removeFrontMatter(result))
         .then(result => this.collectPluginSources(result))
         .then(result => this.preRender(result))
         .then(result => markbinder.resolveBaseUrl(result, {
@@ -1288,7 +1316,6 @@ class Page {
         .then(() => {
           this.collectIncludedFiles(markbinder.getDynamicIncludeSrc());
           this.collectIncludedFiles(markbinder.getStaticIncludeSrc());
-          this.collectIncludedFiles(markbinder.getBoilerplateIncludeSrc());
           this.collectIncludedFiles(markbinder.getMissingIncludeSrc());
         })
         .then(resolve)
@@ -1310,68 +1337,6 @@ class Page {
     }
     // Remove preceding footers
     pageHeaderAndFooter.remove();
-    return $.html();
-  }
-
-  static formatSiteNav(renderedSiteNav, src) {
-    const $ = cheerio.load(renderedSiteNav);
-    const listItems = $.root().find('ul').first().children();
-    if (listItems.length === 0) {
-      return renderedSiteNav;
-    }
-    // Tidy up the style of the unordered list <ul>
-    listItems.parent().addClass(`${SITE_NAV_LIST_CLASS}`);
-
-    // Set class of <a> to ${SITE_NAV_ID}__a to style links
-    listItems.find('a[href]').addClass(`${SITE_NAV_ID}__a`);
-
-    // Highlight current page
-    const currentPageHtmlPath = src.replace(/\.(md|mbd)$/, '.html');
-    listItems.find(`a[href='{{baseUrl}}/${currentPageHtmlPath}']`).addClass('current');
-
-    listItems.each(function () {
-      // Tidy up the style of each list item
-      $(this).addClass('mt-2');
-      // Do not render dropdown menu for list items with <a> tag
-      if ($(this).children('a').length) {
-        const nestedList = $(this).children('ul').first();
-        if (nestedList.length) {
-          // Double wrap to counter replaceWith removing <li>
-          nestedList.parent()
-            .wrap('<li class="mt-2"></li>');
-          // Recursively format nested lists without dropdown wrapper
-          nestedList.parent().replaceWith(Page.formatSiteNav(nestedList.parent().html(), src));
-        }
-        // Found nested list, render dropdown menu
-      } else if ($(this).children('ul').length) {
-        const nestedList = $(this).children('ul').first();
-        const dropdownTitle = $(this).contents().not('ul');
-        // Replace the title with the dropdown wrapper
-        dropdownTitle.remove();
-        // Check if dropdown is expanded by default or if the current page is in a dropdown
-        const shouldExpandDropdown = dropdownTitle.toString().includes(DROPDOWN_EXPAND_KEYWORD)
-          || Boolean(nestedList.find(`a[href='{{baseUrl}}/${currentPageHtmlPath}']`).text());
-        if (shouldExpandDropdown) {
-          const expandKeywordRegex = new RegExp(DROPDOWN_EXPAND_KEYWORD, 'g');
-          const dropdownTitleWithoutKeyword = dropdownTitle.toString().replace(expandKeywordRegex, '');
-          const rotatedIcon = cheerio.load(DROPDOWN_BUTTON_ICON_HTML, { xmlMode: false })('i')
-            .addClass('rotate-icon');
-          nestedList.wrap('<div class="dropdown-container dropdown-container-open"></div>');
-          $(this).prepend('<button class="dropdown-btn dropdown-btn-open">'
-            + `${dropdownTitleWithoutKeyword} `
-            + `${rotatedIcon}\n`
-            + '</button>');
-        } else {
-          nestedList.wrap('<div class="dropdown-container"></div>');
-          $(this).prepend('<button class="dropdown-btn">'
-            + `${dropdownTitle} `
-            + `${DROPDOWN_BUTTON_ICON_HTML}\n`
-            + '</button>');
-        }
-        // Recursively format nested lists
-        nestedList.replaceWith(Page.formatSiteNav(nestedList.parent().html(), src));
-      }
-    });
     return $.html();
   }
 

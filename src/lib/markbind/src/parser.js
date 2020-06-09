@@ -33,12 +33,9 @@ const {
 class Parser {
   constructor(options) {
     this._options = options || {};
-    // eslint-disable-next-line no-console
-    this._onError = this._options.errorHandler || console.error;
     this._fileCache = {};
     this.dynamicIncludeSrc = [];
     this.staticIncludeSrc = [];
-    this.boilerplateIncludeSrc = [];
     this.missingIncludeSrc = [];
   }
 
@@ -122,8 +119,7 @@ class Parser {
         }
       } else {
         if (!variableName) {
-          // eslint-disable-next-line no-console
-          console.warn(`Missing 'name' for variable in ${fileName}\n`);
+          logger.warn(`Missing 'name' for variable in ${fileName}\n`);
           return;
         }
         setPageVariable(variableName, md.renderInline(variableElement.html()));
@@ -140,10 +136,6 @@ class Parser {
     return _.clone(this.staticIncludeSrc);
   }
 
-  getBoilerplateIncludeSrc() {
-    return _.clone(this.boilerplateIncludeSrc);
-  }
-
   getMissingIncludeSrc() {
     return _.clone(this.missingIncludeSrc);
   }
@@ -155,7 +147,7 @@ class Parser {
       // Read file fail
       const missingReferenceErrorMessage = `Missing reference in: ${node.attribs[ATTRIB_CWF]}`;
       e.message += `\n${missingReferenceErrorMessage}`;
-      this._onError(e);
+      logger.error(e);
       return utils.createErrorNode(node, e);
     }
     const fileContent = this._fileCache[filePath]; // cache the file contents to save some I/O
@@ -345,7 +337,7 @@ class Parser {
       break;
     }
 
-    componentParser.parseComponents(node, this._onError);
+    componentParser.parseComponents(node);
 
     if (node.children) {
       node.children.forEach((child) => {
@@ -353,7 +345,7 @@ class Parser {
       });
     }
 
-    componentParser.postParseComponents(node, this._onError);
+    componentParser.postParseComponents(node);
 
     // If a fixed header is applied to this page, generate dummy spans as anchor points
     if (config.fixedHeader && isHeadingTag && node.attribs.id) {
@@ -381,10 +373,9 @@ class Parser {
     }
   }
 
-  includeFile(file, config) {
+  includeFile(file, content, config, additionalVariables = {}) {
     const context = {};
     context.cwf = config.cwf || file; // current working file
-    context.mode = 'include';
     context.callStack = [];
     return new Promise((resolve, reject) => {
       const handler = new htmlparser.DomHandler((error, dom) => {
@@ -398,95 +389,13 @@ class Parser {
             processed = componentPreprocessor.preProcessComponent(d, context, config, this);
           } catch (err) {
             err.message += `\nError while preprocessing '${file}'`;
-            this._onError(err);
+            logger.error(err);
             processed = utils.createErrorNode(d, err);
           }
           return processed;
         });
         resolve(cheerio.html(nodes));
       });
-      const parser = new htmlparser.Parser(handler, {
-        xmlMode: true,
-        decodeEntities: true,
-      });
-      let actualFilePath = file;
-      if (!utils.fileExists(file)) {
-        const boilerplateFilePath = urlUtils.calculateBoilerplateFilePath(path.basename(file), file, config);
-        if (utils.fileExists(boilerplateFilePath)) {
-          actualFilePath = boilerplateFilePath;
-        }
-      }
-      // Read files
-      fs.readFile(actualFilePath, 'utf-8', (err, data) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-        const parentSitePath = urlUtils.getParentSiteAbsolutePath(file, config.rootPath, config.baseUrlMap);
-        const userDefinedVariables = config.userDefinedVariablesMap[parentSitePath];
-        const pageVariables = Parser.extractPageVariables(file, data, userDefinedVariables, {});
-        let fileContent = njUtil.renderRaw(data, {
-          ...pageVariables,
-          ...userDefinedVariables,
-        }, {
-          path: actualFilePath,
-        });
-        this._extractInnerVariables(fileContent, context, config);
-        const innerVariables = this.getImportedVariableMap(context.cwf);
-        fileContent = njUtil.renderRaw(fileContent, {
-          ...userDefinedVariables, ...innerVariables,
-        });
-        const fileExt = utils.getExt(file);
-        if (utils.isMarkdownFileExt(fileExt)) {
-          context.source = 'md';
-          parser.parseComplete(fileContent.toString());
-        } else if (fileExt === 'html') {
-          context.source = 'html';
-          parser.parseComplete(fileContent);
-        } else {
-          const error = new Error(`Unsupported File Extension: '${fileExt}'`);
-          reject(error);
-        }
-      });
-    });
-  }
-
-  includeData(file, pageData, config) {
-    const context = {};
-    context.cwf = config.cwf || file; // current working file
-
-    return new Promise((resolve, reject) => {
-      let actualFilePath = file;
-      if (!utils.fileExists(file)) {
-        const boilerplateFilePath = urlUtils.calculateBoilerplateFilePath(path.basename(file), file, config);
-        if (utils.fileExists(boilerplateFilePath)) {
-          actualFilePath = boilerplateFilePath;
-        }
-      }
-
-      const currentContext = context;
-      currentContext.mode = 'include';
-      currentContext.callStack = [];
-
-      const handler = new htmlparser.DomHandler((error, dom) => {
-        if (error) {
-          reject(error);
-          return;
-        }
-        const nodes = dom.map((d) => {
-          let processed;
-          try {
-            processed = componentPreprocessor.preProcessComponent(d, currentContext, config, this);
-          } catch (err) {
-            err.message += `\nError while preprocessing '${actualFilePath}'`;
-            this._onError(err);
-            processed = utils.createErrorNode(d, err);
-          }
-          return processed;
-        });
-        resolve(cheerio.html(nodes));
-      });
-
       const parser = new htmlparser.Parser(handler, {
         xmlMode: true,
         decodeEntities: true,
@@ -494,29 +403,26 @@ class Parser {
 
       const parentSitePath = urlUtils.getParentSiteAbsolutePath(file, config.rootPath, config.baseUrlMap);
       const userDefinedVariables = config.userDefinedVariablesMap[parentSitePath];
-      const { additionalVariables } = config;
-      const pageVariables = Parser.extractPageVariables(actualFilePath, pageData, userDefinedVariables, {});
-
-      let fileContent = njUtil.renderRaw(pageData, {
+      const pageVariables = Parser.extractPageVariables(file, content, userDefinedVariables, {});
+      let fileContent = njUtil.renderRaw(content, {
         ...pageVariables,
         ...userDefinedVariables,
         ...additionalVariables,
-      }, {
-        path: actualFilePath,
       });
-      this._extractInnerVariables(fileContent, currentContext, config);
-      const innerVariables = this.getImportedVariableMap(currentContext.cwf);
+      this._extractInnerVariables(fileContent, context, config);
+      const innerVariables = this.getImportedVariableMap(context.cwf);
       fileContent = njUtil.renderRaw(fileContent, {
         ...userDefinedVariables,
         ...additionalVariables,
         ...innerVariables,
       });
-      const fileExt = utils.getExt(actualFilePath);
+
+      const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
-        currentContext.source = 'md';
+        context.source = 'md';
         parser.parseComplete(fileContent.toString());
       } else if (fileExt === 'html') {
-        currentContext.source = 'html';
+        context.source = 'html';
         parser.parseComplete(fileContent);
       } else {
         const error = new Error(`Unsupported File Extension: '${fileExt}'`);
@@ -538,7 +444,7 @@ class Parser {
             parsed = this._parse(d, config);
           } catch (err) {
             err.message += `\nError while rendering '${filePath}'`;
-            this._onError(err);
+            logger.error(err);
             parsed = utils.createErrorNode(d, err);
           }
           return parsed;
@@ -672,8 +578,7 @@ class Parser {
         }
         const variableName = child.attribs.name || child.attribs.id;
         if (!variableName) {
-          // eslint-disable-next-line no-console
-          console.warn(`Missing reference in ${includeElement.attribs[ATTRIB_CWF]}\n`
+          logger.warn(`Missing reference in ${includeElement.attribs[ATTRIB_CWF]}\n`
             + `Missing 'name' or 'id' in variable for ${includeElement.attribs.src} include.`);
           return;
         }

@@ -99,13 +99,15 @@ As MarkBind uses [VueStrap](https://bootstrap-vue.js.org/docs/components/alert/)
 
 [Nunjucks](https://mozilla.github.io/nunjucks/) is a JavaScript based templating tool. Here is a simple example:
 
-<box><span>
-`<ul>`<br>
-<code>{<span></span>% for item in [1, 2, 3, 4] %<span></span>}</code><br>
-&nbsp;&nbsp;`<li>`<code>Item {<span></span>{ item }}</code>`</li>`<br>
-<code>{<span></span>% endfor %<span></span>}</code><br>
-`</ul>`
-</span></box>
+{% raw %}
+```html { .no-line-numbers }
+<ul>
+{% for item in [1, 2, 3, 4] %}
+  <li>Item {{ item }}</li>
+{% endfor %}
+</ul>
+```
+{% endraw %}
 
 {{ icon_arrow_down }}
 

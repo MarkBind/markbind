@@ -1,9 +1,3 @@
-<variable name="showBaseUrlCode">
-<code>{<span></span>{ baseUrl }}</code>
-</variable>
-
-<variable name="showBaseUrlText">{<span></span>{ baseUrl }}</variable>
-
 <variable name="markbind_blue">#00B0F0</variable>
 
 <variable name="icon_arrow_down">:fas-arrow-down:</variable>

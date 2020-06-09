@@ -13,8 +13,9 @@ The advantage of font icons over emojis is font icons can be _styled_ to fit you
 </include>
 
 <box type="important">
-The syntax for icons has changed, and the earlier {<span></span>{ prefix_name }} syntax has been deprecated. <br>
-Please use the new :prefix-name: syntax instead.
+
+The syntax for icons has changed, and the earlier {%raw%}`{{ prefix_name }}`{%endraw%} syntax has been deprecated. <br>
+Please use the new `:prefix-name:` syntax instead.
 </box>
 
 ###### Using Font Awesome Icons

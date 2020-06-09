@@ -37,7 +37,7 @@ test('includeFile replaces <include> with <div>', async () => {
   const baseUrlMap = new Set([ROOT_PATH]);
 
   const markbinder = new MarkBind();
-  const result = await markbinder.includeFile(indexPath, {
+  const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
     userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
@@ -77,7 +77,7 @@ test('includeFile replaces <include src="exist.md" optional> with <div>', async 
   const baseUrlMap = new Set([ROOT_PATH]);
 
   const markbinder = new MarkBind();
-  const result = await markbinder.includeFile(indexPath, {
+  const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
     userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
@@ -113,7 +113,7 @@ test('includeFile replaces <include src="doesNotExist.md" optional> with empty <
   const baseUrlMap = new Set([ROOT_PATH]);
 
   const markbinder = new MarkBind();
-  const result = await markbinder.includeFile(indexPath, {
+  const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
     userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
@@ -152,7 +152,7 @@ test('includeFile replaces <include src="include.md#exists"> with <div>', async 
   const baseUrlMap = new Set([ROOT_PATH]);
 
   const markbinder = new MarkBind();
-  const result = await markbinder.includeFile(indexPath, {
+  const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
     userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
@@ -196,7 +196,7 @@ test('includeFile replaces <include src="include.md#exists" inline> with inline 
   const baseUrlMap = new Set([ROOT_PATH]);
 
   const markbinder = new MarkBind();
-  const result = await markbinder.includeFile(indexPath, {
+  const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
     userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
@@ -236,7 +236,7 @@ test('includeFile replaces <include src="include.md#exists" trim> with trimmed c
   const baseUrlMap = new Set([ROOT_PATH]);
 
   const markbinder = new MarkBind();
-  const result = await markbinder.includeFile(indexPath, {
+  const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
     userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
@@ -283,7 +283,7 @@ test('includeFile replaces <include src="include.md#doesNotExist"> with error <d
       expect(e.message).toEqual(expectedErrorMessage);
     },
   });
-  const result = await markbinder.includeFile(indexPath, {
+  const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
     userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
@@ -322,7 +322,7 @@ test('includeFile replaces <include src="include.md#exists" optional> with <div>
   const baseUrlMap = new Set([ROOT_PATH]);
 
   const markbinder = new MarkBind();
-  const result = await markbinder.includeFile(indexPath, {
+  const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
     userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
@@ -362,7 +362,7 @@ test('includeFile replaces <include src="include.md#doesNotExist" optional> with
   const baseUrlMap = new Set([ROOT_PATH]);
 
   const markbinder = new MarkBind();
-  const result = await markbinder.includeFile(indexPath, {
+  const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
     userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
@@ -420,7 +420,7 @@ test('includeFile detects cyclic references for static cyclic includes', async (
       expect(e.message).toEqual(expectedErrorMessage);
     },
   });
-  const result = await markbinder.includeFile(indexPath, {
+  const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
     userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,

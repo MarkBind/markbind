@@ -1,6 +1,7 @@
 const cheerio = require('cheerio');
 const path = require('path');
 const url = require('url');
+const logger = require('../../../../util/logger');
 
 const CyclicReferenceError = require('../handlers/cyclicReferenceError.js');
 
@@ -64,7 +65,7 @@ function _getFileExistsNode(element, context, config, parser, actualFilePath, is
     parser.missingIncludeSrc.push({ from: context.cwf, to: actualFilePath });
     const error = new Error(
       `No such file: ${actualFilePath}\nMissing reference in ${element.attribs[ATTRIB_CWF]}`);
-    parser._onError(error);
+    logger.error(error);
 
     return utils.createErrorNode(element, error);
   }
@@ -106,7 +107,6 @@ function _getSrcFlagsAndFilePaths(element, context, config) {
     isUrl,
     hash: includeSrc.hash,
     filePath,
-    boilerplateFilePath,
     actualFilePath,
   };
 }
@@ -140,7 +140,6 @@ function _preProcessPanel(node, context, config, parser) {
     isUrl,
     hash,
     filePath,
-    boilerplateFilePath,
     actualFilePath,
   } = _getSrcFlagsAndFilePaths(element, context, config);
 
@@ -155,10 +154,6 @@ function _preProcessPanel(node, context, config, parser) {
 
   element.attribs.src = filePath;
 
-  // TODO do we need boilerplateIncludeSrc?
-  if (boilerplateFilePath) {
-    parser.boilerplateIncludeSrc.push({ from: context.cwf, to: boilerplateFilePath });
-  }
   parser.dynamicIncludeSrc.push({ from: context.cwf, to: actualFilePath, asIfTo: filePath });
 
   return element;
@@ -212,7 +207,7 @@ function _preprocessInclude(node, context, config, parser) {
 
   if (_.isEmpty(element.attribs.src)) {
     const error = new Error(`Empty src attribute in include in: ${element.attribs[ATTRIB_CWF]}`);
-    parser._onError(error);
+    logger.error(error);
     return utils.createErrorNode(element, error);
   }
 
@@ -220,7 +215,6 @@ function _preprocessInclude(node, context, config, parser) {
     isUrl,
     hash,
     filePath,
-    boilerplateFilePath,
     actualFilePath,
   } = _getSrcFlagsAndFilePaths(element, context, config);
 
@@ -232,11 +226,6 @@ function _preprocessInclude(node, context, config, parser) {
   // but segments still need to be processed further down
   if (isOptional && !hash) {
     delete element.attribs.optional;
-  }
-
-  // TODO do we need boilerplateIncludeSrc?
-  if (boilerplateFilePath) {
-    parser.boilerplateIncludeSrc.push({ from: context.cwf, to: boilerplateFilePath });
   }
 
   const isInline = _.has(element.attribs, 'inline');
@@ -285,7 +274,7 @@ function _preprocessInclude(node, context, config, parser) {
       const hashSrcWithoutHash = hash.substring(1);
       const error = new Error(`No such segment '${hashSrcWithoutHash}' in file: ${actualFilePath}\n`
           + `Missing reference in ${element.attribs[ATTRIB_CWF]}`);
-      parser._onError(error);
+      logger.error(error);
 
       return utils.createErrorNode(element, error);
     }
@@ -309,7 +298,7 @@ function _preprocessInclude(node, context, config, parser) {
   if (element.children && element.children.length > 0) {
     if (childContext.callStack.length > CyclicReferenceError.MAX_RECURSIVE_DEPTH) {
       const error = new CyclicReferenceError(childContext.callStack);
-      parser._onError(error);
+      logger.error(error);
       return utils.createErrorNode(element, error);
     }
 

@@ -321,3 +321,13 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 ## Level 2 header (inside headingSearchIndex) with no-index attribute should not be indexed {.no-index}
 
 ###### Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed {.always-index}
+
+**Test nunjucks raw tags**
+
+{% raw %}
+
+<div v-pre>{{ variable interpolation syntax can be used with v-pre }}</div>
+<div v-pre>{{ nonExistentVariable }}</div>
+<code>{{ code elements should automatically be assigned v-pre }}</code>
+
+{% endraw %}
