@@ -34,6 +34,7 @@
 
   badges : ['Badges', ['component', 'reader-facing']],
   boxes : ['Boxes', ['component', 'reader-facing']],
+  diagrams : ['Diagrams', ['component', 'reader-facing']],
   dropdowns : ['Dropdowns', ['component', 'reader-facing']],
   footers : ['Footers', ['other', 'reader-facing']],
   headers: ['Headers', ['other', 'reader-facing']],
