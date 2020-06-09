@@ -9,3 +9,9 @@
 </div>
 <br>
 {% endmacro %}
+
+{% macro embed(heading, src) %}
+<panel type="seamless" header="{{ icon_embedding }} {{ heading }}" minimized>
+<include src="{{ src }}" />
+</panel>
+{% endmacro %}

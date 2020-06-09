@@ -2,6 +2,8 @@
 
 The `searchbar` component allows users to search all headings within any page on the site.
 
+<span id="body">
+
 <include src="outputBox.md" boilerplate >
 <span id="code">
 
@@ -50,6 +52,8 @@ See: [User Guide: Site Configuration → enableSearch]({{ baseUrl }}/userGuide/s
 %%{{ icon_info }} Related topic: [User Guide: Making the Site Searchable]({{ baseUrl }}/userGuide/makingTheSiteSearchable.html).%%
 
 %%{{ icon_info }} Related topic: [User Guide: Using Plugins → Algolia: Enabling Algolia DocSearch]({{ baseUrl }}/userGuide/usingPlugins.html#algolia-enabling-algolia-docsearch).%%
+
+</span> <!-- end of body -->
 
 <span id="short" class="d-none">
 

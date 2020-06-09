@@ -1,5 +1,6 @@
 <variable name="title" id="title">Making the Site Searchable</variable>
 <variable name="filename">makingTheSiteSearchable</variable>
+{% from "njk/common.njk" import embed with context %}
 
 <frontmatter>
   title: "User Guide: {{ title }}"
@@ -15,7 +16,7 @@
 
 <span class="lead" id="overview">
 
-**MarkBind comes with with an in-built _site search_ facility**. You can add a [Search Bar](usingComponents.html#search-bar) component to your pages %%(e.g., into the top navigation bar)%% to allow readers to search your website for keywords.
+**MarkBind comes with with an in-built _site search_ facility** with the option to use third-party search services as well.
 </span>
 
 **All markdown and html headings of levels 1-3 are captured in the search index** by default. You can change this setting using the [`headingIndexLevel` property of the `site.json`](siteConfiguration.html#headingindexinglevel).
@@ -32,7 +33,12 @@ See: [User Guide: Using Plugins → Algolia: Enabling Algolia DocSearch]({{ base
 If you do not wish to use MarkBind's searchbar (e.g. you have an external service provider), it may be helpful to include the option `enableSearch: false` in your `site.json`. This stops MarkBind from indexing search headings and speeds up building.
 </box>
 
-<include src="syntax/searchBars.mbdf" />
+## Search Bars
+
+You can add a search bar component to your website to allow users to search the site.
+
+{{ embed("Using components → **Search bars**", "syntax/searchBars.mbdf#body") }}
+<p/>
 <include src="syntax/keywords.mbdf" />
 <include src="syntax/indexing.mbdf" />
 
