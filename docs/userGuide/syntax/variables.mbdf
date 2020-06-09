@@ -164,9 +164,9 @@ In this case, all the variables in `title.md` are not accessible, as they are ov
 You could also have your variables defined in a JSON file to define multiple variables in a more concise manner.
 
 {{ icon_example }}
-`variables.md`:
+globally scoped variables `variables.md`:
 ```html {.no-line-numbers}
-<variable from="variables.json" />
+<variable from="PATH_TO_VARIABLE.json" />
 ```
 
 `variables.json`:
@@ -177,7 +177,17 @@ You could also have your variables defined in a JSON file to define multiple var
 }
 ```
 
-Variables defined in JSON file will be scoped according to where it is being referenced.
+Variables defined in a `.json` file will be scoped according to where it is being referenced. Json variables referenced in `variables.md`
+would be globally scoped like other global variables in that file.
+
+{{ icon_example }}
+locally scoped variables in `index.md`:
+```html
+<variable from="PATH_TO_VARIABLE.json" />
+```
+
+In this case, json variables referenced within `index.md` would be a page variable accessible within the page `index.md`.
+
 
 
 ### Tips and Tricks for variables
