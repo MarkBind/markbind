@@ -42,4 +42,4 @@ MarkBind sites can use Algolia Doc Search services easily via the Algolia plugin
 {{ embed("Using plugins → **Algolia**", "plugins/algolia.mbdf") }}
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('reusingContents', 'deployingTheSite') }}
+{{ previous_next('usingPlugins', 'themes') }}

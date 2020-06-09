@@ -1,12 +1,17 @@
 <variable name="title" id="title">Themes</variable>
+<variable name="filename" id="filename">themes</variable>
 <frontmatter>
   title: "User Guide: {{ title }}"
   layout: userGuide
 </frontmatter>
 
+<span id="link" class="d-none">
+<md>[_User Guide → {{ title }}_]({{ filename }}.html)</md>
+</span>
+
 # {{ title }}
 
-<span class="lead">
+<span class="lead" id="overview">
 
 **MarkBind supports the ability to style your website with a variety of themes.**
 
@@ -55,4 +60,4 @@ Currently, MarkBind supports all light themes from [Bootswatch](https://bootswat
 </div>
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('markBindInTheProjectWorkflow', '') }}
+{{ previous_next('makingTheSiteSearchable', 'deployingTheSite') }}

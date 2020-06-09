@@ -1,12 +1,17 @@
 <variable name="title" id="title">MarkBind in the Project Workflow</variable>
+<variable name="filename" id="filename">markBindInTheProjectWorkflow</variable>
 <frontmatter>
   title: "User Guide: {{ title }}"
   layout: userGuide
 </frontmatter>
 
+<span id="link" class="d-none">
+<md>[_User Guide → {{ title }}_]({{ filename }}.html)</md>
+</span>
+
 # {{ title }}
 
-<span class="lead">
+<span class="lead" id="overview">
 
 As **MarkBind is especially optimized as a project documentation tool**, it integrates well with the workflow of software project.
 </span>
@@ -59,4 +64,4 @@ To convert your existing project, follow these steps:
 </box> 
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('deployingTheSite', 'themes') }}
+{{ previous_next('deployingTheSite', '') }}

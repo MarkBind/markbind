@@ -154,4 +154,4 @@ Then, in a page-specific CSS file,
 Tags are a good way to create multiple variations of a page within the same source file, such as to filter content for creating multiple different versions of the same page. See [_User Guide: Tweaking the Page Structure → Tags_](tweakingThePageStructure.html#tags) section for more information.
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('tweakingThePageStructure', 'makingTheSiteSearchable') }}
+{{ previous_next('tweakingThePageStructure', 'workingWithSites') }}

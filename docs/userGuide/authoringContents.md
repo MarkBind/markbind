@@ -13,8 +13,7 @@
   ['Using Components', 'usingComponents'],
   ['Using HTML, JavaScript, CSS', 'usingHtmlJavaScriptCss'],
   ['Tweaking the Page Structure', 'tweakingThePageStructure'],
-  ['Reusing Contents', 'reusingContents'],
-  ['Making the Site Searchable', 'makingTheSiteSearchable']
+  ['Reusing Contents', 'reusingContents']
 ] %}
 
 {% for page in pages %}
