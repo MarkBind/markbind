@@ -21,13 +21,6 @@
 
 **All markdown and html headings of levels 1-3 are captured in the search index** by default. You can change this setting using the [`headingIndexLevel` property of the `site.json`](siteConfiguration.html#headingindexinglevel).
 
-<box type="info">
-
-MarkBind also provides a plugin for Algolia DocSearch, which provides full text search for your site.
-
-See: [User Guide: Using Plugins → Algolia: Enabling Algolia DocSearch]({{ baseUrl }}/userGuide/usingPlugins.html#algolia-enabling-algolia-docsearch).
-</box>
-
 <box type="warning">
 
 If you do not wish to use MarkBind's searchbar (e.g. you have an external service provider), it may be helpful to include the option `enableSearch: false` in your `site.json`. This stops MarkBind from indexing search headings and speeds up building.
@@ -41,6 +34,12 @@ You can add a search bar component to your website to allow users to search the 
 <p/>
 <include src="syntax/keywords.mbdf" />
 <include src="syntax/indexing.mbdf" />
+
+## Using External Search Services
+
+MarkBind sites can use Algolia Doc Search services easily via the Algolia plugin. Unlike the built-in search, Algolia provides full-text search. See the panel below for more info.
+
+{{ embed("Using plugins → **Algolia**", "plugins/algolia.mbdf") }}
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('reusingContents', 'deployingTheSite') }}
