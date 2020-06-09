@@ -7,7 +7,6 @@
   * [Adding Pages]({{baseUrl}}/userGuide/addingPages.html)
   * [MarkBind Syntax Overview]({{baseUrl}}/userGuide/markBindSyntaxOverview.html)
   * [Formatting Contents]({{baseUrl}}/userGuide/formattingContents.html)
-  * [Inserting PlantUML Diagrams]({{baseUrl}}/userGuide/puml.html)
   * [Using Components]({{baseUrl}}/userGuide/usingComponents.html)
   * [Using HTML, JavaScript, CSS]({{baseUrl}}/userGuide/usingHtmlJavaScriptCss.html)
   * [Using Plugins]({{baseUrl}}/userGuide/usingPlugins.html)

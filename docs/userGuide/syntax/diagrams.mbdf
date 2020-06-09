@@ -1,0 +1,144 @@
+## Diagrams
+
+You can use the [PlanUML](http://plantuml.com/) syntax to add diagrams.
+
+<box type="warning">
+
+**[Java](https://www.java.com/en/download/) and
+[Graphviz](https://www.graphviz.org/download/)
+must be installed to use this feature**
+
+* Java 8 or later (required to run the PlantUML JAR executable)
+* Graphviz v2.38 or later (required to generate _all_ diagrams)
+
+</box>
+
+<span id="main-example">
+<include src="outputBox.md" boilerplate>
+<span id="code">
+```
+<puml width=300>
+@startuml
+alice -> bob ++ : hello
+bob -> bob ++ : self call
+bob -> bib ++  #005500 : hello
+bob -> george ** : create
+return done
+return rc
+bob -> george !! : delete
+return success
+@enduml
+</puml>
+```
+</span>
+
+<span id="output">
+<pic src="../diagrams/sequence.png" width="300" />
+</span>
+
+</include>
+</span>
+
+Alternatively, a PlantUML diagram can be specified in a separate `.puml` file and inserted into a page using a `<puml>` tag.
+
+<include src="outputBox.md" boilerplate>
+<span id="code">
+
+`diagrams/sequence.puml`:
+```
+@startuml
+alice -> bob ++ : hello
+bob -> bob ++ : self call
+bob -> bib ++  #005500 : hello
+bob -> george ** : create
+return done
+return rc
+bob -> george !! : delete
+return success
+@enduml
+```
+
+in another file:
+```html
+<puml src="diagrams/sequence.puml" width=300 />
+```
+</span>
+
+<span id="output">
+<pic src="../diagrams/sequence.png" width="300" />
+</span>
+
+</include>
+
+<box type="info">
+
+The full PlantUML syntax reference can be found at plantuml.com/guide
+</box>
+
+<panel header="More examples">
+
+<span id="puml-examples">
+
+**Sequence Diagram**:<br>
+<pic src="../diagrams/sequence.png" />
+
+**Use Case Diagram**:<br>
+<pic src="../diagrams/usecase.png" />
+
+**Class Diagram**:<br>
+<pic src="../diagrams/class.png" />
+
+**Activity Diagram**:<br>
+<pic src="../diagrams/activity.png" />
+
+**Component Diagram**:<br>
+<pic src="../diagrams/component.png" />
+
+**State Diagram**:<br>
+<pic src="../diagrams/state.png" />
+
+**Object Diagram**:<br>
+<pic src="../diagrams/object.png" />
+
+**Gantt Diagram**:<br>
+<pic src="../diagrams/gantt.png" />
+
+**Entity Relation Diagram**:<br>
+<pic src="../diagrams/entityrelation.png" />
+
+**Ditaa Diagram**:<br>
+<pic src="../diagrams/ditaa.png" />
+
+**Archimate Diagram**:<br>
+<pic src="../diagrams/archimate.png" />
+
+</span>
+</panel>
+<p/>
+
+****Options****
+Name | Type | Description
+--- | --- | ---
+alt | `string` | The alternative text of the diagram.
+height | `string` | The height of the diagram in pixels.
+name | `string` | The name of the output file.
+src | `string` | The URL of the diagram if your diagram is in another `.puml` file.<br>The URL can be specified as absolute or relative references. More info in: _[Intra-Site Links]({{baseUrl}}/userGuide/formattingContents.html#intraSiteLinks)_
+width | `string` | The width of the diagram in pixels.<br>If both width and height are specified, width takes priority over height. It is to maintain the diagram's aspect ratio.
+
+<span id="short" class="d-none">
+
+```
+<puml width=300>
+@startuml
+alice -> bob ++ : hello
+bob -> bob ++ : self call
+@enduml
+</puml>
+```
+
+</span>
+<span id="examples" class="d-none">
+
+<include src="diagrams.mbdf#puml-examples" />
+
+</span>
