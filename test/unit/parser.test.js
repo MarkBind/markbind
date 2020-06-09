@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
-const MarkBind = require('../../src/lib/markbind/src/parser.js');
+const Parser = require('../../src/lib/markbind/src/parser.js');
+const VariablePreprocessor = require('../../src/lib/markbind/src/preprocessors/variablePreprocessor');
 const { USER_VARIABLES_DEFAULT } = require('./utils/data');
 
 jest.mock('fs');
@@ -9,11 +10,13 @@ jest.mock('../../src/util/logger');
 afterEach(() => fs.vol.reset());
 
 const ROOT_PATH = path.resolve('');
-const DEFAULT_USER_DEFINED_VARIABLES_MAP = {};
-DEFAULT_USER_DEFINED_VARIABLES_MAP[ROOT_PATH] = {
-  example: USER_VARIABLES_DEFAULT,
-  baseUrl: '{{baseUrl}}',
-};
+function getNewDefaultVariablePreprocessor() {
+  const DEFAULT_VARIABLE_PREPROCESSOR = new VariablePreprocessor(ROOT_PATH, new Set([ROOT_PATH]));
+  DEFAULT_VARIABLE_PREPROCESSOR.addUserDefinedVariable(ROOT_PATH, 'example', USER_VARIABLES_DEFAULT);
+  DEFAULT_VARIABLE_PREPROCESSOR.addUserDefinedVariable(ROOT_PATH, 'baseUrl', '{{baseUrl}}');
+
+  return DEFAULT_VARIABLE_PREPROCESSOR;
+}
 
 test('includeFile replaces <include> with <div>', async () => {
   const indexPath = path.resolve('index.md');
@@ -36,11 +39,10 @@ test('includeFile replaces <include> with <div>', async () => {
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const markbinder = new MarkBind();
+  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
-    userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
   });
 
   const expected = [
@@ -76,11 +78,10 @@ test('includeFile replaces <include src="exist.md" optional> with <div>', async 
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const markbinder = new MarkBind();
+  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
-    userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
   });
 
   const expected = [
@@ -112,11 +113,10 @@ test('includeFile replaces <include src="doesNotExist.md" optional> with empty <
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const markbinder = new MarkBind();
+  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
-    userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
   });
 
   const expected = [
@@ -151,11 +151,10 @@ test('includeFile replaces <include src="include.md#exists"> with <div>', async 
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const markbinder = new MarkBind();
+  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
-    userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
   });
 
   const expected = [
@@ -195,11 +194,10 @@ test('includeFile replaces <include src="include.md#exists" inline> with inline 
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const markbinder = new MarkBind();
+  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
-    userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
   });
 
   const expected = [
@@ -235,11 +233,10 @@ test('includeFile replaces <include src="include.md#exists" trim> with trimmed c
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const markbinder = new MarkBind();
+  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
-    userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
   });
 
   const expected = [
@@ -278,15 +275,10 @@ test('includeFile replaces <include src="include.md#doesNotExist"> with error <d
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const markbinder = new MarkBind({
-    errorHandler: (e) => {
-      expect(e.message).toEqual(expectedErrorMessage);
-    },
-  });
+  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
-    userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
   });
 
   const expected = [
@@ -321,11 +313,10 @@ test('includeFile replaces <include src="include.md#exists" optional> with <div>
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const markbinder = new MarkBind();
+  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
-    userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
   });
 
   const expected = [
@@ -361,11 +352,10 @@ test('includeFile replaces <include src="include.md#doesNotExist" optional> with
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const markbinder = new MarkBind();
+  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
-    userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
   });
 
   const expected = [
@@ -415,15 +405,10 @@ test('includeFile detects cyclic references for static cyclic includes', async (
     `\t${indexPath}`,
   ].join('\n');
 
-  const markbinder = new MarkBind({
-    errorHandler: (e) => {
-      expect(e.message).toEqual(expectedErrorMessage);
-    },
-  });
+  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
-    userDefinedVariablesMap: DEFAULT_USER_DEFINED_VARIABLES_MAP,
   });
 
   const expected = `<div style="color: red">${expectedErrorMessage}</div>`;
@@ -432,7 +417,7 @@ test('includeFile detects cyclic references for static cyclic includes', async (
 });
 
 test('renderFile converts markdown headers to <h1>', async () => {
-  const markbinder = new MarkBind();
+  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
   const rootPath = path.resolve('');
   const headerIdMap = {};
   const indexPath = path.resolve('index.md');

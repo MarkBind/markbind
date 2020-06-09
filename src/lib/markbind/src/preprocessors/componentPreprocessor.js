@@ -7,7 +7,6 @@ const CyclicReferenceError = require('../handlers/cyclicReferenceError.js');
 
 const utils = require('../utils');
 const urlUtils = require('../utils/urls');
-const njUtil = require('../utils/nunjuckUtils');
 
 const _ = {};
 _.has = require('lodash/has');
@@ -241,16 +240,11 @@ function _preprocessInclude(node, context, config, parser) {
 
   const isIncludeSrcMd = _isHtmlIncludingMarkdown(element, context, filePath);
 
-  const { content, childContext, userDefinedVariables }
-    = parser._renderIncludeFile(actualFilePath, element, context, config, filePath);
-  childContext.source = isIncludeSrcMd ? 'md' : 'html';
-  childContext.callStack.push(context.cwf);
-  parser.extractInnerVariablesIfNotProcessed(content, childContext, config, filePath);
-
-  const innerVariables = parser.getImportedVariableMap(filePath);
-  const fileContent = njUtil.renderRaw(content, {
-    ...userDefinedVariables, ...innerVariables,
-  });
+  const { variablePreprocessor } = config;
+  const {
+    renderedContent,
+    childContext,
+  } = variablePreprocessor.renderIncludeFile(actualFilePath, element, context, filePath);
 
   _deleteIncludeAttributes(element);
 
@@ -261,7 +255,7 @@ function _preprocessInclude(node, context, config, parser) {
 
   if (hash) {
     // Keep scripts in the fileContent
-    const src = cheerio.parseHTML(fileContent, true);
+    const src = cheerio.parseHTML(renderedContent, true);
     const $ = cheerio.load(src);
     const hashContent = $(hash).html();
 
@@ -282,7 +276,7 @@ function _preprocessInclude(node, context, config, parser) {
     // optional includes of segments have now been handled, so delete the attribute
     if (isOptional) delete element.attribs.optional;
   } else {
-    actualContent = (fileContent && isTrim) ? fileContent.trim() : fileContent;
+    actualContent = (renderedContent && isTrim) ? renderedContent.trim() : renderedContent;
   }
 
   if (isIncludeSrcMd) {
@@ -296,6 +290,9 @@ function _preprocessInclude(node, context, config, parser) {
   element.children = cheerio.parseHTML(childrenHtml, true);
 
   if (element.children && element.children.length > 0) {
+    childContext.source = isIncludeSrcMd ? 'md' : 'html';
+    childContext.callStack.push(context.cwf);
+
     if (childContext.callStack.length > CyclicReferenceError.MAX_RECURSIVE_DEPTH) {
       const error = new CyclicReferenceError(childContext.callStack);
       logger.error(error);
@@ -318,6 +315,16 @@ function _preprocessVariables() {
   return utils.createEmptyNode();
 }
 
+function _preprocessImports(node, parser) {
+  if (node.attribs.from) {
+    parser.staticIncludeSrc.push({
+      from: node.attribs.cwf,
+      to: path.resolve(node.attribs.cwf, node.attribs.from),
+    });
+  }
+
+  return utils.createEmptyNode();
+}
 
 /*
  * Body
@@ -344,8 +351,9 @@ function preProcessComponent(node, context, config, parser) {
   case 'panel':
     return _preProcessPanel(element, context, config, parser);
   case 'variable':
-  case 'import':
     return _preprocessVariables();
+  case 'import':
+    return _preprocessImports(node, parser);
   case 'include':
     return _preprocessInclude(element, context, config, parser);
   case 'body':

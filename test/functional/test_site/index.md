@@ -40,6 +40,7 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 **Page Variable with HTML and MD**
 
 <variable name="page_variable_with_HTML_and_MD">Page Variable with <span style="color: blue;">HTML</span> and **Markdown**</variable>
+
 {{ page_variable_with_HTML_and_MD }}
 
 **Nested Page Variable**
@@ -74,6 +75,12 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
   <variable name="included_variable">Included Variable</variable>
   <variable name="included_variable_overriding_page_variable">Included Variable Overriding Page Variable</variable>
 </include>
+
+Variables for includes should not be recognised as page variables, hence, there should be no text between **this**
+
+{{ included_variable_overriding_page_variable }}
+
+and **this**.
 
 # Heading with multiple keywords
 <span class="keyword">keyword 1</span>
