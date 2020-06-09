@@ -1,8 +1,8 @@
-#### `Google Analytics`: Enhancing site with Google Analytics
+### Plugin: GoogleAnalytics
 
-This plugin allows your web pages to be enhanced with [google analytics](https://analytics.google.com/analytics/web/#/) to track, analyse and improve your content.
+This plugin allows your web pages to be captured by [google analytics](https://analytics.google.com/analytics/web/#/).
 
-To enable it, add `googleAnalytics` to your site's plugins, and add the trackingID parameter via the `pluginsContext`.
+To enable it, add `googleAnalytics` to your site's plugins, and add the `trackingID` parameter via the `pluginsContext`.
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------
