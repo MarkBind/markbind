@@ -1,4 +1,5 @@
 <variable name="title" id="title">Using Plugins</variable>
+<variable name="filename" id="filename">usingPlugins</variable>
 
 <frontmatter>
   title: "User Guide: {{ title }}"
@@ -6,9 +7,13 @@
   pageNav: "default"
 </frontmatter>
 
-# Using Plugins
+<span id="link" class="d-none">
+<md>[_User Guide → {{ title }}_]({{ filename }}.html)</md>
+</span>
 
-<div class="lead">
+# {{ title }}
+
+<div class="lead" id="overview">
 
 A plugin is an extension that adds additional features to MarkBind. Some non-essential MarkBind functionalities are provided as plugins so that you can enable/disable/configure them as necessary. MarkBind also supports adding external plugins (written by you or other third parties).
 </div>
@@ -233,4 +238,4 @@ Meaning, the user would still be able to use variables in your special tags!
 
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('usingHtmlJavaScriptCss', 'tweakingThePageStructure') }}
+{{ previous_next('workingWithSites', 'makingTheSiteSearchable') }}
