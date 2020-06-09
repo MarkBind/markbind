@@ -8,21 +8,22 @@
 
 # Using Plugins
 
-A plugin is a user-defined extension that can add custom features to MarkBind. MarkBind plugins are `js` scripts that are loaded and run during the page generation. MarkBind allows plugins to modify a page's content during the page generation process.
+<div class="lead">
 
-<tip-box type="warning">
+A plugin is an extension that adds additional features to MarkBind. Some non-essential MarkBind functionalities are provided as plugins so that you can enable/disable/configure them as necessary. MarkBind also supports adding external plugins (written by you or other third parties).
+</div>
 
-**WARNING:** Plugins are executable programs that can be written by anyone. This means that they might contain malicious code that may damage your computer.
+<box type="info">
 
-Only run plugins from sources that you trust. Do not run the plugin if the source/origin of the plugin cannot be ascertained.
-</tip-box>
+MarkBind's philosophy is to _bake-in_ all necessary functionality into MarkBind itself rather than expect users to go hunting for suitable plugins. Hence, we do not anticipate MarkBind users to rely heavily on such external plugins.
+</box>
 
-### Adding Plugins
+## Managing Plugins
 
-Plugins are stored in the `_markbind/plugins` folder which is generated on `init`. To use a plugin, place the `js` source of the plugin in the `_markbind/plugins` folder and add the following options to `site.json`:
+Plugins are managed via the following two properties in the `site.json`.
 
-- `plugins`: An array of plugin names to use.
-- `pluginsContext`: A mapping of plugin names to parameters passed to each individual plugin. It is recommended to use key-value pairs for consistency.
+* `plugins`: An array of plugin names to use.
+* `pluginsContext`: Parameters passed to each plugin, specified as key-value pairs.
 
 For example:
 
@@ -35,16 +36,41 @@ For example:
   ],
   "pluginsContext": {
     "plugin1": {
-    	"input": "Input for Plugin 1"
+      "input": "Input for Plugin 1"
     },
     "plugin2": {
-    	"data": "Data for Plugin 2"
-    },
+      "data": "Data for Plugin 2"
+    }
   }
 }
 ```
 
+## Using Built-in Plugins
+
+
+MarkBind has a set of built-in plugins that can be used immediately without installation.
+
+<include src="plugins/algolia.mbdf" />
+<include src="plugins/codeBlockCopyButtons.mbdf" />
+<include src="plugins/tags.mbdf" />
+<include src="plugins/googleAnalytics.mbdf" />
+
+## Using External Plugins
+
+### Adding External Plugins
+
+<tip-box type="warning">
+
+**WARNING:** Plugins are executable programs that can be written by anyone. This means that they might contain malicious code that may damage your computer.
+
+Only run plugins from sources that you trust. Do not run the plugin if the source/origin of the plugin cannot be ascertained.
+</tip-box>
+
+Plugins come as `.js` files. To install an external plugin, simply put it in the `_markbind/plugins` folder. To use the plugin, update the `site.json` file the same way you did for built-in plugins.
+
 ### Writing Plugins
+
+MarkBind plugins are `js` scripts that are loaded and run during the page generation. MarkBind allows plugins to modify a page's content during the page generation process.
 
 #### Rendering
 
@@ -109,7 +135,7 @@ module.exports = {
 
 #### Assets
 
-Plugins can implement the methods `getLinks` and `getScripts` to add additional assets to the page. 
+Plugins can implement the methods `getLinks` and `getScripts` to add additional assets to the page.
 
 - `getLinks(content, pluginContext, frontMatter, utils)`: Called to get link elements to be added to the head of the page.
   - `content`: The rendered HTML.
@@ -140,7 +166,7 @@ An example of a plugin which adds links and scripts to the page:
 
 module.exports = {
   getLinks: (content, pluginContext, frontMatter, utils) => [utils.buildStylesheet('STYLESHEET_LINK')],
-  getScripts: (content, pluginContext, frontMatter, utils) => 
+  getScripts: (content, pluginContext, frontMatter, utils) =>
     [utils.buildScript('SCRIPT_LINK'), '<script>alert("hello")</script>'],
 };
 
@@ -205,39 +231,6 @@ Note however, that variable interpolation syntax {% raw %}`{{ variable_name }}`{
 Meaning, the user would still be able to use variables in your special tags!
 </box>
 
-
-### Advanced: Default plugins
-
-MarkBind has a set of default plugins that it uses to carry out some of its features. These are enabled by default for every project and should be left alone.
-
-Default Plugin | Functionality
---- | ---
-`anchors` | Attaches anchor links to the side of headings.
-`shorthandSyntax` | Allows for certain syntax shorthands.
-
-Although not advised, you can disable these by passing `"off": true` in the `pluginsContext`.
-
-Disabling the `anchors` plugin:
-
-```js
-{
-  ...
-  "pluginsContext": {
-    "anchors": {
-      "off": true
-    }
-  }
-}
-```
-
-### Built-in plugins
-
-MarkBind has a set of built-in plugins that can be used immediately without installation.
-
-<include src="plugins/algolia.mbdf" />
-<include src="plugins/codeBlockCopyButtons.mbdf" />
-<include src="plugins/tags.mbdf" />
-<include src="plugins/googleAnalytics.mbdf" />
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('usingHtmlJavaScriptCss', 'tweakingThePageStructure') }}

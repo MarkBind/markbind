@@ -1,8 +1,8 @@
-## Tags
+### Plugin: Tags
 
-You can use tags to selectively filter HTML elements when building a site.
+With this plugin you can use tags to selectively filter content when building a site.
 
-### Toggling alternative contents in a page
+#### Toggling alternative contents
 
 Tags are specified by the `tags` attribute, **and can be attached to any HTML element**. During rendering, only elements that match tags specified in the `site.json` files will be rendered.
 
@@ -83,7 +83,7 @@ Alternatively, you can specify tags to render for a page in the front matter.
 
 Tags in `site.json` will be merged with the ones in the front matter, and are processed after front matter tags. See [Hiding Tags](../tweakingThePageStructure.html#hiding-tags) for more information.
 
-### Advanced Tagging Tips
+#### Advanced Tagging Tips
 
 You can use a `*` in a tag name to match elements more generally. A `*` in a tag will match any number of characters at its position.
 
@@ -105,7 +105,7 @@ All 3 `<p>`s will be shown.
 
 </div>
 
-### Hiding Tags
+#### Hiding Tags
 
 Using `-` at the start of a tag hides all tags matching the expression. This is helpful for disabling a group of tags and enabling a particular tag.
 
