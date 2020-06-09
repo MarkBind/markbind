@@ -12,6 +12,7 @@
   * [Tweaking the Page Structure]({{baseUrl}}/userGuide/tweakingThePageStructure.html)
   * [Reusing Contents]({{baseUrl}}/userGuide/reusingContents.html)
 * [**Working with sites**]({{baseUrl}}/userGuide/workingWithSites.html)
+  * [Setting Site Properties]({{baseUrl}}/userGuide/settingSiteProperties.html)
   * [Using Plugins]({{baseUrl}}/userGuide/usingPlugins.html)
   * [Making the Site Searchable]({{baseUrl}}/userGuide/makingTheSiteSearchable.html)
   * [Applying Themes]({{baseUrl}}/userGuide/themes.html)
@@ -22,7 +23,7 @@
   * [Reader-Facing Features]({{baseUrl}}/userGuide/readerFacingFeatures.html)
   * [Full Syntax Reference]({{baseUrl}}/userGuide/fullSyntaxReference.html)
   * [Syntax Cheat Sheet]({{baseUrl}}/userGuide/syntaxCheatSheet.html)
-  * [Site Configuration]({{baseUrl}}/userGuide/siteConfiguration.html)
+  * [`site.json` File]({{baseUrl}}/userGuide/siteJasonFile.html)
   * [Tips & Tricks]({{baseUrl}}/userGuide/tipsAndTricks.html)
   * [Glossary]({{baseUrl}}/userGuide/glossary.html)
 </navigation>

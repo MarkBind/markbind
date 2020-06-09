@@ -19,7 +19,7 @@
 
 #### Specifying a Theme
 
-You can specify a theme for your site by using the [`theme` property of the `site.json`](siteConfiguration.html#theme). For example, to apply the Cerulean theme, add `"theme": "bootswatch-cerulean"` to your `site.json`.
+You can specify a theme for your site by using the [`theme` property of the `site.json`](siteJsonFile.html#theme). For example, to apply the Cerulean theme, add `"theme": "bootswatch-cerulean"` to your `site.json`.
 
 If no `theme` property is specified, your site will be styled with default Bootstrap theme.
 

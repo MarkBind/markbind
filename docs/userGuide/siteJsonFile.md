@@ -1,10 +1,10 @@
 <frontmatter>
-  title: "Configuring the Site"
+  title: "site.json File"
   layout: userGuide
   keywords: site.json
 </frontmatter>
 
-# Configuring the Site
+# `site.json` File
 
 <span class="lead">
 

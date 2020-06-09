@@ -238,4 +238,4 @@ Meaning, the user would still be able to use variables in your special tags!
 
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('workingWithSites', 'makingTheSiteSearchable') }}
+{{ previous_next('settingSiteProperties', 'makingTheSiteSearchable') }}
