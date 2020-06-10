@@ -2,6 +2,7 @@ const cryptoJS = require('crypto-js');
 const fs = require('fs-extra-promise');
 const path = require('path');
 const fsUtil = require('./fsUtil');
+const utils = require('../lib/markbind/src/utils');
 const logger = require('./logger');
 
 const {
@@ -14,7 +15,7 @@ module.exports = {
    * Return based on given name if provided, or it will be based on src.
    * If both are not provided, a md5 generated hash is provided for consistency.
    */
-  getFilePathForPlugin: (tagAttribs, content) => {
+  getFileNameForPlugin: (tagAttribs, content) => {
     if (tagAttribs.name !== undefined) {
       return `${fsUtil.removeExtension(tagAttribs.name)}.png`;
     }
@@ -31,12 +32,15 @@ module.exports = {
   },
 
   /**
-   * Returns the string content of the plugin.
+   * Returns the content of a node from a file pointed to by its 'src' attribute
+   * or the text it contains otherwise.
+   * This is only to be used during the preRender stage, where nodes have their 'cwf'
+   * attribute tagged to them.
    */
-  getPluginContent: ($, element, cwf) => {
-    if (element.attribs.src !== undefined) {
+  getNodeSrcOrTextContent: (node) => {
+    if (node.attribs.src !== undefined) {
       // Path of the plugin content
-      const rawPath = path.resolve(path.dirname(cwf), element.attribs.src);
+      const rawPath = path.resolve(path.dirname(node.attribs.cwf), node.attribs.src);
       try {
         return fs.readFileSync(rawPath, 'utf8');
       } catch (err) {
@@ -46,6 +50,6 @@ module.exports = {
       }
     }
 
-    return $(element).text();
+    return utils.getTextContent(node);
   },
 };

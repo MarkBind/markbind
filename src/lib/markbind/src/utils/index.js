@@ -87,7 +87,7 @@ module.exports = {
   getTextContent(element) {
     const elements = element.children;
     if (!elements || !elements.length) {
-      return undefined;
+      return '';
     }
 
     const elementStack = elements.slice();
@@ -103,6 +103,6 @@ module.exports = {
       }
     }
 
-    return text.join('').trim();
+    return text.join('');
   },
 };

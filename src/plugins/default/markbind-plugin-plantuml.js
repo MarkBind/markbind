@@ -3,7 +3,6 @@
  * Replaces <puml> tags with <pic> tags with the appropriate src attribute and generates the diagrams
  * by running the JAR executable
  */
-const cheerio = module.parent.require('cheerio');
 const fs = require('fs');
 const path = require('path');
 
@@ -16,9 +15,6 @@ const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 const {
   ERR_PROCESSING,
 } = require('../../constants');
-
-// Tracks diagrams that have already been processed
-const processedDiagrams = new Set();
 
 /**
  * Generates diagram and returns the file name of the diagram
@@ -33,9 +29,6 @@ function generateDiagram(fileName, content, config) {
   const outputDir = path.join(path.dirname(resultPath), path.dirname(fileName));
   // Path of the .puml file
   const outputFilePath = path.join(outputDir, path.basename(fileName));
-  // Tracks built files to avoid accessing twice
-  if (processedDiagrams.has(outputFilePath)) { return fileName; }
-  processedDiagrams.add(outputFilePath);
 
   // Creates output dir if it doesn't exist
   if (!fs.existsSync(outputDir)) {
@@ -76,24 +69,20 @@ function generateDiagram(fileName, content, config) {
 }
 
 module.exports = {
-  preRender: (content, pluginContext, frontmatter, config) => {
-    // Clear <puml> tags processed before for live reload
-    processedDiagrams.clear();
-    // Processes all <puml> tags
-    const $ = cheerio.load(content, { xmlMode: true });
-    $('puml').each((i, tag) => {
-      tag.name = 'pic';
-      const { cwf } = tag.attribs;
-      const pumlContent = pluginUtil.getPluginContent($, tag, cwf);
+  preRenderNode: (node, pluginContext, frontmatter, config) => {
+    if (node.name === 'puml') {
+      node.name = 'pic';
+      const pumlContent = pluginUtil.getNodeSrcOrTextContent(node);
 
-      const filePath = pluginUtil.getFilePathForPlugin(tag.attribs, pumlContent);
+      const fileName = pluginUtil.getFileNameForPlugin(node.attribs, pumlContent);
 
-      tag.attribs.src = generateDiagram(filePath, pumlContent, config);
-      tag.children = [];
-    });
+      node.attribs.src = generateDiagram(fileName, pumlContent, config);
+      node.children = [];
+    }
 
-    return $.html();
+    return node;
   },
+
   getSources: () => ({
     tagMap: [['puml', 'src']],
   }),
