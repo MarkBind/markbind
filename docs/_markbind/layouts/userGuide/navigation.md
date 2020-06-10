@@ -3,7 +3,8 @@
 <span style="padding-left: 0.8rem; font-weight: bolder; font-size: 1.25em;">User Guide</span>
 
 * [**Getting Started**]({{baseUrl}}/userGuide/gettingStarted.html)
-* [**Authoring Contents**]({{baseUrl}}/userGuide/authoringContents.html)
+* **Authoring Contents** :expanded:
+  * [Overview]({{baseUrl}}/userGuide/authoringContents.html)
   * [Adding Pages]({{baseUrl}}/userGuide/addingPages.html)
   * [MarkBind Syntax Overview]({{baseUrl}}/userGuide/markBindSyntaxOverview.html)
   * [Formatting Contents]({{baseUrl}}/userGuide/formattingContents.html)
@@ -11,7 +12,8 @@
   * [Using HTML, JavaScript, CSS]({{baseUrl}}/userGuide/usingHtmlJavaScriptCss.html)
   * [Tweaking the Page Structure]({{baseUrl}}/userGuide/tweakingThePageStructure.html)
   * [Reusing Contents]({{baseUrl}}/userGuide/reusingContents.html)
-* [**Working with sites**]({{baseUrl}}/userGuide/workingWithSites.html)
+* **Working with sites** :expanded:
+  * [Overview]({{baseUrl}}/userGuide/workingWithSites.html)
   * [Setting Site Properties]({{baseUrl}}/userGuide/settingSiteProperties.html)
   * [Using Plugins]({{baseUrl}}/userGuide/usingPlugins.html)
   * [Making the Site Searchable]({{baseUrl}}/userGuide/makingTheSiteSearchable.html)
