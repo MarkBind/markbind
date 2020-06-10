@@ -235,6 +235,7 @@
             <h1 id="keyword-should-be-tagged-to-this-heading-not-the-panel-heading">Keyword should be tagged to this heading, not the panel heading<a class="fa fa-anchor" href="#keyword-should-be-tagged-to-this-heading-not-the-panel-heading" onclick="event.stopPropagation()"></a></h1>
             <p><span class="keyword">panel keyword</span></p>
           </panel>
+          <p></p>
           <p><strong>Unexpanded panel with heading with keyword</strong>
             <panel id="panel-with-heading-with-keyword"><template slot="_header">
                 <h1 id="panel-with-heading-with-keyword">Panel with heading with keyword<a class="fa fa-anchor" href="#panel-with-heading-with-keyword" onclick="event.stopPropagation()"></a></h1>
@@ -340,11 +341,11 @@
             <p>Like static include, pages within the site should be able to use files located in folders within boilerplate.</p>
             <p>Also, the boilerplate file name (e.g. <code v-pre="">inside.md</code>) and the file that it is supposed to act as (<code v-pre="">notInside.md</code>) can be different.</p>
             <p>This file should behaves as if it is in the <code v-pre="">requirements</code> folder:</p>
-            <panel src="/test_site/requirements/NonFunctionalRequirements._include_.html"><template slot="_header">
-                <p>Tested with the folllowing include</p>
-              </template>
-              <p></p>
-            </panel>
+            <p>
+              <panel src="/test_site/requirements/NonFunctionalRequirements._include_.html"><template slot="_header">
+                  <p>Tested with the folllowing include</p>
+                </template></panel>
+            </p>
           </div>
           <p><strong>Nested include</strong></p>
           <div>
@@ -695,6 +696,7 @@
           </span>
         </section>
       </div>
+
 
 
 

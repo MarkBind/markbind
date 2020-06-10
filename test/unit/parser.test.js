@@ -121,7 +121,7 @@ test('includeFile replaces <include src="doesNotExist.md" optional> with empty <
 
   const expected = [
     '# Index',
-    '<div/>',
+    '<div></div>',
     '',
   ].join('\n');
 

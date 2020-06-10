@@ -8,7 +8,7 @@ module.exports = {
   preRender: (content, pluginContext) =>
     content.replace('Markbind Plugin Pre-render Placeholder', `${pluginContext.pre}`),
   postRender: (content, pluginContext) => {
-    const $ = cheerio.load(content, { xmlMode: false });
+    const $ = cheerio.load(content);
     $('#test-markbind-plugin').append(`${pluginContext.post}`);
     return $.html();
   },

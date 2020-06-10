@@ -1,4 +1,4 @@
-const cheerio = require('cheerio');
+const cheerio = require('cheerio'); require('./lib/markbind/src/patches/htmlparser2');
 const fs = require('fs-extra-promise');
 const ghpages = require('gh-pages');
 const ignore = require('ignore');

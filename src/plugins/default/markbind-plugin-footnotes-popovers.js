@@ -3,7 +3,7 @@ const { parseComponents } = require('../../lib/markbind/src/parsers/componentPar
 
 module.exports = {
   postRender: (content) => {
-    const $ = cheerio.load(content, { xmlMode: false });
+    const $ = cheerio.load(content);
     let popoversHtml = '';
     $('li.footnote-item').each((index, li) => {
       const id = `pop:footnote${index + 1}`;

@@ -1,4 +1,4 @@
-const cheerio = require('cheerio');
+const cheerio = require('cheerio'); require('./lib/markbind/src/patches/htmlparser2');
 const fm = require('fastmatter');
 const fs = require('fs-extra-promise');
 const htmlBeautify = require('js-beautify').html;
@@ -56,7 +56,6 @@ const {
   TEMP_DROPDOWN_PLACEHOLDER_CLASS,
 } = require('./constants');
 
-cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 class Page {
@@ -706,7 +705,7 @@ class Page {
     const siteNavHtml = md.render(navigationElements.length === 0
       ? siteNavMappedData.replace(SITE_NAV_EMPTY_LINE_REGEX, '\n')
       : navigationElements.html().replace(SITE_NAV_EMPTY_LINE_REGEX, '\n'));
-    const $nav = cheerio.load(siteNavHtml, { xmlMode: false });
+    const $nav = cheerio.load(siteNavHtml);
 
     // Add anchor classes and highlight current page's anchor, if any.
     const currentPageHtmlPath = this.src.replace(/\.(md|mbd)$/, '.html');
@@ -844,7 +843,7 @@ class Page {
    */
   buildPageNav() {
     if (this.isPageNavigationSpecifierValid()) {
-      const $ = cheerio.load(this.content, { xmlMode: false });
+      const $ = cheerio.load(this.content);
       this.navigableHeadings = {};
       this.collectNavigableHeadings($(`#${CONTENT_WRAPPER_ID}`).html());
       const pageNavTitleHtml = this.generatePageNavTitleHtml();
@@ -889,7 +888,7 @@ class Page {
       const headFileMappedData = this.variablePreprocessor.renderSiteVariables(this.sourcePath,
                                                                                headFileContent).trim();
       // Split top and bottom contents
-      const $ = cheerio.load(headFileMappedData, { xmlMode: false });
+      const $ = cheerio.load(headFileMappedData);
       if ($('head-top').length) {
         collectedTopContent.push($('head-top').html().trim().replace(/\n\s*\n/g, '\n')
           .replace(/\n/g, '\n    '));
@@ -918,7 +917,7 @@ class Page {
   }
 
   collectPageSection(section) {
-    const $ = cheerio.load(this.content, { xmlMode: false });
+    const $ = cheerio.load(this.content);
     const pageSection = $(section);
     if (pageSection.length === 0) {
       return;
@@ -1087,7 +1086,7 @@ class Page {
         }
 
         if (domTagSourcesMap) {
-          const $ = cheerio.load(content, { xmlMode: true });
+          const $ = cheerio.load(content);
 
           domTagSourcesMap.forEach(([tagName, attrName]) => {
             if (!_.isString(tagName) || !_.isString(attrName)) {
@@ -1166,7 +1165,7 @@ class Page {
    * @return String html of the element, with the attribute's asset resolved
    */
   getResolvedAssetElement(assetElementHtml, tagName, attrName, plugin, pluginName) {
-    const $ = cheerio.load(assetElementHtml, { xmlMode: false });
+    const $ = cheerio.load(assetElementHtml);
     const el = $(`${tagName}[${attrName}]`);
 
     el.attr(attrName, (i, assetPath) => {

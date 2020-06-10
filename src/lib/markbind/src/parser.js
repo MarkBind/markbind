@@ -17,7 +17,6 @@ _.isEmpty = require('lodash/isEmpty');
 const md = require('./lib/markdown-it');
 const utils = require('./utils');
 
-cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 class Parser {
@@ -41,7 +40,7 @@ class Parser {
   }
 
   static processDynamicResources(context, html, config) {
-    const $ = cheerio.load(html, { xmlMode: false });
+    const $ = cheerio.load(html);
 
     function getAbsoluteResourcePath(elem, relativeResourcePath) {
       const firstParent = elem.closest('div[data-included-from], span[data-included-from]');
@@ -83,7 +82,7 @@ class Parser {
   }
 
   static unwrapIncludeSrc(html) {
-    const $ = cheerio.load(html, { xmlMode: false });
+    const $ = cheerio.load(html);
     $('div[data-included-from], span[data-included-from]').each(function () {
       $(this).replaceWith($(this).contents());
     });
@@ -124,15 +123,11 @@ class Parser {
     switch (node.name) {
     case 'md':
       node.name = 'span';
-      cheerio.prototype.options.xmlMode = false;
       node.children = cheerio.parseHTML(md.renderInline(cheerio.html(node.children)), true);
-      cheerio.prototype.options.xmlMode = true;
       break;
     case 'markdown':
       node.name = 'div';
-      cheerio.prototype.options.xmlMode = false;
       node.children = cheerio.parseHTML(md.render(cheerio.html(node.children)), true);
-      cheerio.prototype.options.xmlMode = true;
       break;
     default:
       break;
@@ -199,7 +194,7 @@ class Parser {
         });
         resolve(cheerio.html(nodes));
       });
-      const parser = new htmlparser.Parser(handler, { xmlMode: true });
+      const parser = new htmlparser.Parser(handler);
 
       const renderedContent = this.variablePreprocessor.renderPage(file, content, additionalVariables);
 
@@ -238,11 +233,9 @@ class Parser {
         nodes.forEach((d) => {
           this._trimNodes(d);
         });
-        cheerio.prototype.options.xmlMode = false;
         resolve(cheerio.html(nodes));
-        cheerio.prototype.options.xmlMode = true;
       });
-      const parser = new htmlparser.Parser(handler, { xmlMode: true });
+      const parser = new htmlparser.Parser(handler);
       const fileExt = utils.getExt(filePath);
       if (utils.isMarkdownFileExt(fileExt)) {
         const renderedContent = md.render(content);

@@ -10,7 +10,6 @@ const {
   ATTRIB_CWF,
 } = require('../constants');
 
-cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 /*
