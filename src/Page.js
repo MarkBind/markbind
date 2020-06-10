@@ -10,6 +10,7 @@ const _ = {};
 _.isString = require('lodash/isString');
 _.isObject = require('lodash/isObject');
 _.isArray = require('lodash/isArray');
+_.isFunction = require('lodash/isFunction');
 
 const CyclicReferenceError = require('./lib/markbind/src/handlers/cyclicReferenceError.js');
 const { ensurePosix } = require('./lib/markbind/src/utils');
@@ -141,10 +142,10 @@ class Page {
      */
     this.globalOverride = pageConfig.globalOverride;
     /**
-     * Array of plugins used in this page.
-     * @type {Array}
+     * Plugin names and the corresponding plugins used in this page.
+     * @type {Object<string, Object>}
      */
-    this.plugins = pageConfig.plugins;
+    this.plugins = pageConfig.plugins || {};
     /**
      * @type {Object<string, Object<string, any>>}
      */
@@ -521,6 +522,7 @@ class Page {
   collectFrontMatter(includedPage) {
     const $ = cheerio.load(includedPage);
     const frontMatter = $('frontmatter');
+    Object.keys(this.frontMatter).forEach(k => delete this.frontMatter[k]);
     if (frontMatter.text().trim()) {
       // Retrieves the front matter from either the first frontmatter element
       // or from a frontmatter element that includes from another file
@@ -529,15 +531,16 @@ class Page {
         ? frontMatter.find('div')[0].children[0].data
         : frontMatter[0].children[0].data;
       const frontMatterWrapped = `${FRONT_MATTER_FENCE}\n${frontMatterData}\n${FRONT_MATTER_FENCE}`;
+
       // Parse front matter data
       const parsedData = fm(frontMatterWrapped);
-      this.frontMatter = { ...parsedData.attributes };
-      this.frontMatter.src = this.src;
+      parsedData.attributes.src = this.src;
       // Title specified in site.json will override title specified in front matter
-      this.frontMatter.title = (this.title || this.frontMatter.title || '');
+      parsedData.attributes.title = (this.title || parsedData.attributes.title || '');
       // Layout specified in site.json will override layout specified in the front matter
-      this.frontMatter.layout = (this.layout || this.frontMatter.layout || LAYOUT_DEFAULT_NAME);
-      this.frontMatter = { ...this.frontMatter, ...this.globalOverride, ...this.frontmatterOverride };
+      parsedData.attributes.layout = (this.layout || parsedData.attributes.layout || LAYOUT_DEFAULT_NAME);
+
+      Object.assign(this.frontMatter, parsedData.attributes, this.globalOverride, this.frontmatterOverride);
     } else {
       // Page is addressable but no front matter specified
       const defaultAttributes = {
@@ -545,11 +548,7 @@ class Page {
         title: this.title || '',
         layout: LAYOUT_DEFAULT_NAME,
       };
-      this.frontMatter = {
-        ...defaultAttributes,
-        ...this.globalOverride,
-        ...this.frontmatterOverride,
-      };
+      Object.assign(this.frontMatter, defaultAttributes, this.globalOverride, this.frontmatterOverride);
     }
     this.title = this.frontMatter.title;
   }
@@ -942,8 +941,12 @@ class Page {
   generate(builtFiles) {
     this.includedFiles = new Set([this.sourcePath]);
     this.headerIdMap = {}; // Reset for live reload
+
+    const pluginConfig = this.getPluginConfig();
+
     const markbinder = new MarkBind({
       variablePreprocessor: this.variablePreprocessor,
+      ...this.preparePluginHooks(pluginConfig),
     });
     /**
      * @type {FileConfig}
@@ -963,15 +966,15 @@ class Page {
       .then(result => this.generateExpressiveLayout(result, fileConfig, markbinder))
       .then(result => Page.removePageHeaderAndFooter(result))
       .then(result => Page.addContentWrapper(result))
-      .then(result => this.collectPluginSources(result))
-      .then(result => this.preRender(result))
+      .then(result => this.collectPluginSources(result, pluginConfig))
+      .then(result => this.preRender(result, pluginConfig))
       .then(result => this.insertSiteNav((result)))
       .then(result => this.insertHeaderFile(result, fileConfig))
       .then(result => this.insertFooterFile(result))
       .then(result => Page.insertTemporaryStyles(result))
       .then(result => markbinder.resolveBaseUrl(result, fileConfig))
       .then(result => markbinder.render(result, this.sourcePath, fileConfig))
-      .then(result => this.postRender(result))
+      .then(result => this.postRender(result, pluginConfig))
       .then(result => this.collectPluginsAssets(result))
       .then(result => markbinder.processDynamicResources(this.sourcePath, result))
       .then(result => MarkBind.unwrapIncludeSrc(result))
@@ -1033,7 +1036,7 @@ class Page {
    * Retrieves page config for plugins
    * @return {PluginConfig} pluginConfig
    */
-  getPluginConfig() {
+  getPluginConfig(override = {}) {
     return {
       headingIndexingLevel: this.headingIndexingLevel,
       enableSearch: this.enableSearch,
@@ -1042,13 +1045,27 @@ class Page {
       sourcePath: this.sourcePath,
       includedFiles: this.includedFiles,
       resultPath: this.resultPath,
+      ...override,
     };
+  }
+
+  preparePluginHooks(pluginConfig) {
+    // Prepare curried plugin node hooks
+    const preRenderNodeHooks = Object.entries(this.plugins)
+      .filter(([, plugin]) => _.isFunction(plugin.preRenderNode))
+      .map(([name, plugin]) => node => plugin.preRenderNode(node, this.pluginsContext[name] || {},
+                                                            this.frontMatter, pluginConfig));
+    const postRenderNodeHooks = Object.entries(this.plugins)
+      .filter(([, plugin]) => _.isFunction(plugin.postRenderNode))
+      .map(([name, plugin]) => node => plugin.postRenderNode(node, this.pluginsContext[name] || {},
+                                                             this.frontMatter, pluginConfig));
+    return { preRenderNodeHooks, postRenderNodeHooks };
   }
 
   /**
    * Collects file sources provided by plugins for the page for live reloading
    */
-  collectPluginSources(content) {
+  collectPluginSources(content, pluginConfig) {
     const self = this;
 
     Object.entries(self.plugins)
@@ -1058,7 +1075,7 @@ class Page {
         }
 
         const result = plugin.getSources(content, self.pluginsContext[pluginName] || {},
-                                         self.frontMatter, self.getPluginConfig());
+                                         self.frontMatter, pluginConfig);
 
         let pageContextSources;
         let domTagSourcesMap;
@@ -1132,12 +1149,12 @@ class Page {
   /**
    * Entry point for plugin pre-render
    */
-  preRender(content) {
+  preRender(content, pluginConfig) {
     let preRenderedContent = content;
     Object.entries(this.plugins).forEach(([pluginName, plugin]) => {
       if (plugin.preRender) {
         preRenderedContent = plugin.preRender(preRenderedContent, this.pluginsContext[pluginName] || {},
-                                              this.frontMatter, this.getPluginConfig());
+                                              this.frontMatter, pluginConfig);
       }
     });
     return preRenderedContent;
@@ -1146,12 +1163,12 @@ class Page {
   /**
    * Entry point for plugin post-render
    */
-  postRender(content) {
+  postRender(content, pluginConfig) {
     let postRenderedContent = content;
     Object.entries(this.plugins).forEach(([pluginName, plugin]) => {
       if (plugin.postRender) {
         postRenderedContent = plugin.postRender(postRenderedContent, this.pluginsContext[pluginName] || {},
-                                                this.frontMatter, this.getPluginConfig());
+                                                this.frontMatter, pluginConfig);
       }
     });
     return postRenderedContent;
@@ -1253,12 +1270,19 @@ class Page {
         return resolve();
       }
       builtFiles.add(resultPath);
+
+      const pluginConfig = this.getPluginConfig({
+        sourcePath: dependency.asIfTo,
+        resultPath,
+      });
+
       /*
        * We create a local instance of Markbind for an empty dynamicIncludeSrc
        * so that we only recursively rebuild the file's included content
        */
       const markbinder = new MarkBind({
         variablePreprocessor: this.variablePreprocessor,
+        ...this.preparePluginHooks(pluginConfig),
       });
       return fs.readFileAsync(dependency.to, 'utf-8')
         .then(result => markbinder.includeFile(dependency.to, result, {
@@ -1267,8 +1291,8 @@ class Page {
           cwf: file,
         }))
         .then(result => Page.removeFrontMatter(result))
-        .then(result => this.collectPluginSources(result))
-        .then(result => this.preRender(result))
+        .then(result => this.collectPluginSources(result, pluginConfig))
+        .then(result => this.preRender(result, pluginConfig))
         .then(result => markbinder.resolveBaseUrl(result, {
           baseUrlMap: this.baseUrlMap,
           rootPath: this.rootPath,
@@ -1278,7 +1302,7 @@ class Page {
           rootPath: this.rootPath,
           headerIdMap: {},
         }))
-        .then(result => this.postRender(result))
+        .then(result => this.postRender(result, pluginConfig))
         .then(result => this.collectPluginsAssets(result))
         .then(result => markbinder.processDynamicResources(file, result))
         .then(result => MarkBind.unwrapIncludeSrc(result))

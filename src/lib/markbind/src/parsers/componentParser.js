@@ -4,6 +4,7 @@ const _ = {};
 _.has = require('lodash/has');
 
 const md = require('../lib/markdown-it');
+const utils = require('../utils');
 const logger = require('../../../../util/logger');
 
 cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
@@ -471,17 +472,26 @@ function parseComponents(node) {
   }
 }
 
-function postParseComponents(node) {
+function postParseComponents(node, postRenderNodeHooks) {
   try {
-    switch (node.name) {
+    let element = node;
+
+    switch (element.name) {
     case 'panel':
-      _assignPanelId(node);
+      _assignPanelId(element);
       break;
     default:
       break;
     }
+
+    postRenderNodeHooks.forEach((hook) => {
+      element = hook(element);
+    });
+
+    return element;
   } catch (error) {
     logger.error(error);
+    return utils.createErrorNode(node, error);
   }
 }
 

@@ -29,11 +29,11 @@ const {
 } = require('./constants');
 
 class Parser {
-  constructor(config) {
-    this.variablePreprocessor = config.variablePreprocessor;
-    this.dynamicIncludeSrc = [];
-    this.staticIncludeSrc = [];
-    this.missingIncludeSrc = [];
+  constructor(options) {
+    this.variablePreprocessor = options.variablePreprocessor;
+    this.preRenderNodeHooks = options.preRenderNodeHooks || [];
+    this.postRenderNodeHooks = options.postRenderNodeHooks || [];
+    this.resetIncludeSrces();
   }
 
   getDynamicIncludeSrc() {
@@ -46,6 +46,12 @@ class Parser {
 
   getMissingIncludeSrc() {
     return _.clone(this.missingIncludeSrc);
+  }
+
+  resetIncludeSrces() {
+    this.dynamicIncludeSrc = [];
+    this.staticIncludeSrc = [];
+    this.missingIncludeSrc = [];
   }
 
   processDynamicResources(context, html) {
@@ -177,14 +183,12 @@ class Parser {
       });
     }
 
-    componentParser.postParseComponents(node);
-
     // If a fixed header is applied to this page, generate dummy spans as anchor points
     if (config.fixedHeader && isHeadingTag && node.attribs.id) {
       cheerio(node).append(cheerio.parseHTML(`<span id="${node.attribs.id}" class="anchor"></span>`));
     }
 
-    return node;
+    return componentParser.postParseComponents(node, this.postRenderNodeHooks);
   }
 
   _trimNodes(node) {

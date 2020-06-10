@@ -16,7 +16,7 @@ const parseAndVerifyTemplate = (template, expectedTemplate, postParse = false) =
     expect(error).toBeFalsy();
 
     if (postParse) {
-      dom.forEach(node => componentParser.postParseComponents(node));
+      dom.forEach(node => componentParser.postParseComponents(node, []));
     } else {
       dom.forEach(node => componentParser.parseComponents(node));
     }

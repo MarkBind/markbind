@@ -343,19 +343,21 @@ function _preprocessBody(node) {
 
 
 function preProcessComponent(node, context, config, parser) {
-  const element = node;
+  let element = node;
 
   _preProcessAllComponents(element, context);
 
   switch (element.name) {
   case 'panel':
-    return _preProcessPanel(element, context, config, parser);
+    element = _preProcessPanel(element, context, config, parser);
+    break;
   case 'variable':
     return _preprocessVariables();
   case 'import':
     return _preprocessImports(node, parser);
   case 'include':
-    return _preprocessInclude(element, context, config, parser);
+    element = _preprocessInclude(element, context, config, parser);
+    break;
   case 'body':
     _preprocessBody(element);
     // eslint-disable-next-line no-fallthrough
@@ -364,8 +366,13 @@ function preProcessComponent(node, context, config, parser) {
     if (element.children && element.children.length > 0) {
       element.children = element.children.map(e => preProcessComponent(e, context, config, parser));
     }
-    return element;
   }
+
+  parser.preRenderNodeHooks.forEach((hook) => {
+    element = hook(element);
+  });
+
+  return element;
 }
 
 
