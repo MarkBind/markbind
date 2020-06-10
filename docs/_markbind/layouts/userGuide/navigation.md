@@ -25,7 +25,7 @@
   * [Reader-Facing Features]({{baseUrl}}/userGuide/readerFacingFeatures.html)
   * [Full Syntax Reference]({{baseUrl}}/userGuide/fullSyntaxReference.html)
   * [Syntax Cheat Sheet]({{baseUrl}}/userGuide/syntaxCheatSheet.html)
-  * [`site.json` File]({{baseUrl}}/userGuide/siteJasonFile.html)
+  * [`site.json` File]({{baseUrl}}/userGuide/siteJsonFile.html)
   * [Tips & Tricks]({{baseUrl}}/userGuide/tipsAndTricks.html)
   * [Glossary]({{baseUrl}}/userGuide/glossary.html)
 </navigation>

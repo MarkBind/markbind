@@ -28,7 +28,7 @@ font-color | `string` | | The color of the text, affects normal text and icons (
 font-size | `string` | | Text size, defaults to half of `size`, affects text, icons and emojis
 size | `string` | 100 | The size of the thumbnail in pixels
 src | `string` | | The URL of the image.<br>The URL can be specified as absolute or relative references. More info in: _[Intra-Site Links]({{baseUrl}}/userGuide/formattingContents.html#intraSiteLinks)_
-text | `string` | | The text to use in the thumbnail, [icons]({{baseUrl}}/userGuide/formattingContents#icons), [emojis]({{baseUrl}}/userGuide/formattingContents#emoji) and markdown are supported here
+text | `string` | | The text to use in the thumbnail, [icons]({{baseUrl}}/userGuide/formattingContents.html#icons), [emojis]({{baseUrl}}/userGuide/formattingContents.html#emoji) and markdown are supported here
 
 <box type="info">
 
