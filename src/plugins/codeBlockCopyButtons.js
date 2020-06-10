@@ -9,13 +9,13 @@ const COPY_ICON = '<svg class="cpy" xmlns="http://www.w3.org/2000/svg" width="15
 const COPY_TO_CLIPBOARD = 'Copy';
 
 function getButtonHTML() {
-  const html = `<button onclick="copyCodeBlock(this)" class="copy-btn" type="button">
+  const buttonHtml = `<button onclick="copyCodeBlock(this)" class="copy-btn" type="button">
     <div class="copy-btn-body">
     ${COPY_ICON}
     <strong class="copy-btn-label">${COPY_TO_CLIPBOARD}</strong>
     </div>
     </button>`;
-  return html;
+  return cheerio.parseHTML(buttonHtml)[0];
 }
 
 
@@ -44,13 +44,10 @@ const copyCodeBlockScript = `<script>
 
 module.exports = {
   getScripts: () => [copyCodeBlockScript],
-  postRender: (content) => {
-    const $ = cheerio.load(content, { xmlMode: false });
-    const codeBlockSelector = 'pre';
-    const buttonHTML = getButtonHTML();
-    $(codeBlockSelector).each((i, codeBlock) => {
-      $(codeBlock).append(buttonHTML);
-    });
-    return $.html();
+  postRenderNode: (node) => {
+    if (node.name === 'pre') {
+      node.children.push(getButtonHTML());
+    }
+    return node;
   },
 };
