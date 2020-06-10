@@ -45,7 +45,7 @@ placeholder | `String` | `''` | The placeholder text shown when no keywords are 
 
 Note: If you are using MarkBind's search functionality, then `enableSearch` **must be set to `true` in `site.json`**.
 
-See: [User Guide: Site Configuration → enableSearch]({{ baseUrl }}/userGuide/siteConfiguration.html#enable-search).
+See: [User Guide: Site Configuration → enableSearch]({{ baseUrl }}/userGuide/siteJsonFile.html#enable-search).
 
 </box>
 

@@ -23,7 +23,7 @@
 * **`title`**: The title of the page. Will be used as the `<title>` attribute of the HTML page generated.
 * Other properties such as `keywords`, `layout`, `head` etc. will be explained in other places of this user guide.
 
-<include src="../siteConfiguration.md#page-property-overriding" />
+<include src="../siteJsonFile.md#page-property-overriding" />
 
 <span id="short" class="d-none">
 

@@ -28,7 +28,7 @@ Steps for deploying multiple MarkBind sites:
 1. Create multiple `site.json` files. Ensure that the [`baseUrl` property of each `site.json` file](siteJsonFile.html#baseUrl) matches its deploy location.
 1. (Optional) Use the [`markbind serve -s <file>` command](cliCommands.html#serve-command) to stage each site locally and confirm the contents are as expected.
 1. For each site:
-    1. Use the [`markbind build -s <file>` command](cliCommands#build-command) to generate the site from source files.
+    1. Use the [`markbind build -s <file>` command](cliCommands.html#build-command) to generate the site from source files.
     1. Upload the site files to the Web server. The sections below explain how to automate this step if you are deploying to some online platforms.
 
 
