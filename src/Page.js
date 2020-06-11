@@ -45,6 +45,7 @@ const {
   SITE_NAV_EMPTY_LINE_REGEX,
   SITE_NAV_LIST_ITEM_CONTENT_CLASS,
   SITE_NAV_LIST_CLASS,
+  SITE_NAV_LIST_CLASS_ROOT,
   SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX,
   SITE_NAV_DROPDOWN_ICON_HTML,
   SITE_NAV_DROPDOWN_ICON_ROTATED_HTML,
@@ -718,11 +719,18 @@ class Page {
     $nav('ul').each((i1, ulElem) => {
       const nestingLevel = $nav(ulElem).parents('ul').length;
       $nav(ulElem).addClass(SITE_NAV_LIST_CLASS);
+      if (nestingLevel === 0) {
+        $nav(ulElem).addClass(SITE_NAV_LIST_CLASS_ROOT);
+      }
       const listItemContentClasses = `${SITE_NAV_LIST_ITEM_CONTENT_CLASS} ${
         SITE_NAV_LIST_ITEM_CONTENT_CLASS}-${nestingLevel}`;
 
       $nav(ulElem).children('li').each((i2, liElem) => {
         const nestedLists = $nav(liElem).children('ul');
+        const nestedAnchors = $nav(liElem).children('a');
+        if (nestedLists.length === 0 && nestedAnchors.length === 0) {
+          return;
+        }
 
         const listItemContent = $nav(liElem).contents().not('ul');
         const listItemContentHtml = $nav.html(listItemContent);

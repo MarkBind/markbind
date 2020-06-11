@@ -48,11 +48,9 @@
     <div id="flex-body">
       <nav id="site-nav" class="navbar navbar-light bg-transparent">
         <div class="border-right-grey nav-inner position-sticky slim-scroll">
-          <ul class="site-nav-list">
+          <ul class="site-nav-list site-nav-list-root">
             <li>
-              <div class="site-nav-list-item-content site-nav-list-item-content-0" onclick="handleSiteNavClick(this)">
-                <h2 id="navigation">Navigation<a class="fa fa-anchor" href="#navigation" onclick="event.stopPropagation()"></a></h2>
-              </div>
+              <h2 id="navigation">Navigation<a class="fa fa-anchor" href="#navigation" onclick="event.stopPropagation()"></a></h2>
             </li>
             <li>
               <div class="site-nav-list-item-content site-nav-list-item-content-0" onclick="handleSiteNavClick(this)"><a href="/test_site/index.html" class="current">Home 🏠</a></div>
@@ -61,9 +59,7 @@
               <div class="site-nav-list-item-content site-nav-list-item-content-0" onclick="handleSiteNavClick(this)"><a href="/test_site/bugs/index.html">Open Bugs 🐛</a></div>
             </li>
             <li>
-              <div class="site-nav-list-item-content site-nav-list-item-content-0" onclick="handleSiteNavClick(this)">
-                <h3 id="testing-site-nav">Testing Site-Nav<a class="fa fa-anchor" href="#testing-site-nav" onclick="event.stopPropagation()"></a></h3>
-              </div>
+              <h3 id="testing-site-nav">Testing Site-Nav<a class="fa fa-anchor" href="#testing-site-nav" onclick="event.stopPropagation()"></a></h3>
             </li>
             <li>
               <div class="site-nav-list-item-content site-nav-list-item-content-0" onclick="handleSiteNavClick(this)"><strong>Dropdown </strong> <span aria-hidden="true" class="glyphicon glyphicon-search"></span> title ✏️
@@ -119,23 +115,17 @@
                 <i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
                   <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
               <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
-                <li>
-                  <div class="site-nav-list-item-content site-nav-list-item-content-1" onclick="handleSiteNavClick(this)">Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text</div>
-                </li>
+                <li>Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text</li>
                 <li>
                   <div class="site-nav-list-item-content site-nav-list-item-content-1" onclick="handleSiteNavClick(this)">Nested Dropdown Title
                     <i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
                       <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
                   <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
-                    <li>
-                      <div class="site-nav-list-item-content site-nav-list-item-content-2" onclick="handleSiteNavClick(this)">Hello Doge Hello Doge 🐶</div>
-                    </li>
+                    <li>Hello Doge Hello Doge 🐶</li>
                     <li>
                       <div class="site-nav-list-item-content site-nav-list-item-content-2" onclick="handleSiteNavClick(this)"><a href="/test_site/index.html" class="current"><strong>NESTED LINK</strong> Home 🏠</a></div>
                     </li>
-                    <li>
-                      <div class="site-nav-list-item-content site-nav-list-item-content-2" onclick="handleSiteNavClick(this)">Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit</div>
-                    </li>
+                    <li>Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit</li>
                   </ul>
                 </li>
               </ul>
@@ -145,17 +135,13 @@
                 <i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
                   <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
               <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
-                <li>
-                  <div class="site-nav-list-item-content site-nav-list-item-content-1" onclick="handleSiteNavClick(this)">Nested line break text ✂️</div>
-                </li>
+                <li>Nested line break text ✂️</li>
                 <li>
                   <div class="site-nav-list-item-content site-nav-list-item-content-1" onclick="handleSiteNavClick(this)"><a href="/test_site/index.html" class="current">Nested line break href</a>
                     <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
                       <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
                   <ul class="site-nav-dropdown-container site-nav-list">
-                    <li>
-                      <div class="site-nav-list-item-content site-nav-list-item-content-2" onclick="handleSiteNavClick(this)">Nested Nested line break text ✂️</div>
-                    </li>
+                    <li>Nested Nested line break text ✂️</li>
                   </ul>
                 </li>
                 <li>
@@ -163,9 +149,7 @@
                     <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
                       <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
                   <ul class="site-nav-dropdown-container site-nav-list">
-                    <li>
-                      <div class="site-nav-list-item-content site-nav-list-item-content-2" onclick="handleSiteNavClick(this)">Line break item 2 📘</div>
-                    </li>
+                    <li>Line break item 2 📘</li>
                   </ul>
                 </li>
               </ul>

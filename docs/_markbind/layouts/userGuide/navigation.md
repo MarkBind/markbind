@@ -1,6 +1,6 @@
 <navigation>
 
-<span style="padding-left: 0.8rem; font-weight: bolder; font-size: 1.25em;">User Guide</span>
+<span style="font-weight: bolder; font-size: 1.25em;">User Guide</span>
 
 * [**Getting Started**]({{baseUrl}}/userGuide/gettingStarted.html)
 * **Authoring Contents** :expanded:

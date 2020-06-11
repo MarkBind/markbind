@@ -23,8 +23,11 @@
 
 .site-nav-list {
     list-style-type: none;
-    cursor: pointer;
     padding-left: 0;
+}
+
+.site-nav-list-root {
+    margin: 0 -12px;
 }
 
 .site-nav-list-item-content {
@@ -32,6 +35,7 @@
     padding: 0.5rem 0 0 2.8rem;
     transition: background-color 0.08s;
     color: #454545;
+    cursor: pointer;
 }
 
 .site-nav-list-item-content-0 {
