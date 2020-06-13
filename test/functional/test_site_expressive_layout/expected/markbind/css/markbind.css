@@ -166,6 +166,8 @@ footer {
        spacing between itself and the boundaries of the menus
      */
     overflow-y: auto;
+    padding-left: 12px;
+    padding-right: 12px;
     padding-top: 1rem;
     top: 0;
 }
