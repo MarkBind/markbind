@@ -33,7 +33,7 @@ $ markbind
  | |  | | | (_| | | |    |   <  | |_) | | | | | | | | (_| |
  |_|  |_|  \__,_| |_|    |_|\_\ |____/  |_| |_| |_|  \__,_|
 
- v1.x.y
+ v2.x.y
 Usage: ...
 ```
 <big>**2. Initialize a new Project (or Start with an existing Project)**</big>
