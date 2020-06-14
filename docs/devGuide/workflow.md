@@ -98,20 +98,13 @@ To add a page to an existing test site, for this example, to `test_site`:
 
 We follow [our style guides](styleGuides.html). Using a linter will help check and fix some of the code style errors in your code. It will save time for both you and your code reviewer. The linting tool we use is [ESLint](https://eslint.org/). Here is a [gist](https://gist.github.com/nicholaschuayunzhi/bfe53dbb5f1a0f02d545d55956f9ab7e) with an explanation of the ESLint rules chosen in markbind-cli.
 
-Install developer dependencies (ESLint, related plugins) in your cloned markbind and markbind-cli repositories.
-
-```{.no-line-numbers}
-$ npm install --only=dev
-```
-
 Before making a commit or pull request, you should lint your code by running the following commands from the root of your project:
 
 * To lint a specific file: `./node_modules/.bin/eslint path/to/specificfile.js`
-* To lint all files: `./node_modules/.bin/eslint .`
+* To lint all files: `npm run lint`
 
 It is also possible to auto-fix some (not all) style errors:
-* Add the `--fix` flag to correct any fixable style errors<br>
-  e.g., `./node_modules/.bin/eslint . --fix`
+* To correct any fixable style errors, run `npm run lintfix`
 * To correct fixable style errors for both JavaScript and CSS, run `npm run autolint`
 
 <box type="tip" seamless>
