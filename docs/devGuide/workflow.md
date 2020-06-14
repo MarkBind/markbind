@@ -16,7 +16,7 @@ Our workflow is mostly based on the guidelines given at se-education.org/guides.
 
 * You can start by looking through [these issues](https://github.com/MarkBind/markbind/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22+sort%3Acomments-desc) marked <span href="" class="badge" style="color:white; background-color: #7057FF;">good first issue</span>. Don't do more than one of them though.
 * As we squash the commits when merging a PR, there is ==no need to follow a strict commit organization or write elaborate commit messages for each commit==.
-* You can refer to the [_Design_](design.html) page to learn about the design and implementation of RepoSense.
+* You can refer to the [_Design_](design.html) page to learn about the design and implementation of MarkBind.
 
 The sections below has more information about various stages of submitting a PR.
 
