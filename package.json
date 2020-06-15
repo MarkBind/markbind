@@ -80,6 +80,7 @@
   },
   "jest": {
     "testPathIgnorePatterns": [
+      "/frontend/",
       "/node_modules/",
       "test/functional"
     ]

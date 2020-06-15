@@ -1,3 +1,4 @@
 **/*.min.css
 **/_site/**/*.css
+frontend/components/**/*.css
 test/functional/**/expected/**/*.css

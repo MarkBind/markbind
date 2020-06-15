@@ -5,6 +5,7 @@ module.exports = {
     'jest': true,
   },
   'extends': ['airbnb-base', 'plugin:vue/recommended'],
+  'root': true,
   'rules': {
     'array-bracket-newline': ['error', { 'multiline': true }],
     'func-names': 'off',
