@@ -43,9 +43,11 @@ const {
   PLUGIN_SITE_ASSET_FOLDER_NAME,
   SITE_NAV_ID,
   SITE_NAV_EMPTY_LINE_REGEX,
-  SITE_NAV_LIST_ITEM_CONTENT_CLASS,
+  SITE_NAV_LIST_ITEM_CLASS,
+  SITE_NAV_DEFAULT_LIST_ITEM_CLASS,
   SITE_NAV_LIST_CLASS,
   SITE_NAV_LIST_CLASS_ROOT,
+  SITE_NAV_CUSTOM_LIST_ITEM_CLASS,
   SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX,
   SITE_NAV_DROPDOWN_ICON_HTML,
   SITE_NAV_DROPDOWN_ICON_ROTATED_HTML,
@@ -722,20 +724,22 @@ class Page {
       if (nestingLevel === 0) {
         $nav(ulElem).addClass(SITE_NAV_LIST_CLASS_ROOT);
       }
-      const listItemContentClasses = `${SITE_NAV_LIST_ITEM_CONTENT_CLASS} ${
-        SITE_NAV_LIST_ITEM_CONTENT_CLASS}-${nestingLevel}`;
+      const listItemLevelClass = `${SITE_NAV_LIST_ITEM_CLASS}-${nestingLevel}`;
+      const defaultListItemClass = `${SITE_NAV_DEFAULT_LIST_ITEM_CLASS} ${listItemLevelClass}`;
+      const customListItemClasses = `${SITE_NAV_CUSTOM_LIST_ITEM_CLASS} ${listItemLevelClass}`;
 
       $nav(ulElem).children('li').each((i2, liElem) => {
         const nestedLists = $nav(liElem).children('ul');
         const nestedAnchors = $nav(liElem).children('a');
         if (nestedLists.length === 0 && nestedAnchors.length === 0) {
+          $(liElem).addClass(customListItemClasses);
           return;
         }
 
         const listItemContent = $nav(liElem).contents().not('ul');
         const listItemContentHtml = $nav.html(listItemContent);
         listItemContent.remove();
-        $nav(liElem).prepend(`<div class="${listItemContentClasses}" onclick="handleSiteNavClick(this)">`
+        $nav(liElem).prepend(`<div class="${defaultListItemClass}" onclick="handleSiteNavClick(this)">`
           + `${listItemContentHtml}</div>`);
         if (nestedLists.length === 0) {
           return;
