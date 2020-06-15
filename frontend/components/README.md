@@ -1,17 +1,50 @@
-# vue-strap
-*This is a forked project from VueStrap, modified for use in MarkBind.*
+# MarkBind Vue components
 
-Bootstrap components built with Vue.js.
+This folder contains MarkBind's [Vue.js](https://vuejs.org/) UI components.
 
-This repository contains a set of native Vue.js components based on Bootstrap's markup and CSS. As a result no dependency on jQuery or Bootstrap's JavaScript is required. The only required dependencies are:
+Most of the styles are based on Bootstrap's markup and CSS, but no dependency on Bootstrap's JavaScript is required. The only required dependencies are:
 
 * [Vue.js](http://vuejs.org/) (required ^v2.x.x, test with v2.5.16).
 * [Bootstrap CSS](http://getbootstrap.com/) (required 4.x.x, test with 4.1.1). VueStrap doesn't depend on a very precise version of Bootstrap.
 
+## Components / directives
+
+Many of the components under this folder were originally from [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap), forked from [yuche/vue-strap](https://github.com/yuche/vue-strap), and modified to suit MarkBind's needs for educational and documentation websites.
+
+Some custom directives were also added for MarkBind's use.
+
+### MarkBind components ported from [Markbind/vue-strap](https://github.com/MarkBind/vue-strap):
+
+- Pic.vue
+- Question.vue
+- Retriever.vue
+- Searchbar.vue
+- SearchbarPageItem.vue
+- Thumbnail.vue
+- TipBox.vue
+
+### Custom directives ported from [Markbind/vue-strap](https://github.com/MarkBind/vue-strap)
+
+- Closeable.js
+- Float.js
+
+### VueStrap components modified for use in MarkBind
+
+- Affix.vue
+- Dropdown.vue
+- Navbar.vue
+- NestedPanel.vue
+- MinimalPanel.vue
+- Tab.vue
+- TabGroup.vue
+- Tabset.vue
+- Typeahead.vue
+
 ## Installation
 
 ### Browser globals
-The `dist` folder contains `vue-strap.js` and `vue-strap.min.js` with all components exported in the <code>window.VueStrap</code> object.
+
+The `dist` folder contains `vue-strap.js` and `vue-strap.min.js` with all components exported in the `window.VueStrap` object.
 
 ```html
 <script src="path/to/vue.js"></script>
@@ -31,7 +64,7 @@ The `dist` folder contains `vue-strap.js` and `vue-strap.min.js` with all compon
 ```
 
 ## Docs
-See the [documentation](https://markbind.github.io/vue-strap/) with live editable examples.
+See the [documentation](https://markbind.org/userGuide/usingComponents.html) with live editable examples.
 
 ## Local Setup
 * Install with `npm install`.
@@ -42,4 +75,4 @@ See the [documentation](https://markbind.github.io/vue-strap/) with live editabl
 * For Windows: `npm run lintwin`
 
 ## License
-vue-strap is licensed under [The MIT License](LICENSE).
+Both vue-strap and the modifications made are licensed under [The MIT License](LICENSE).
