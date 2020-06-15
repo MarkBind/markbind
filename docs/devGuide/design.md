@@ -14,21 +14,15 @@ This page gives you an overview of the MarkBind's internal design.
 
 ## Project structure
 
-MarkBind project consists of two repos:
+The MarkBind project is developed in a monorepo ([MarkBind/markbind](https://github.com/MarkBind/markbind)) of 3 packages:
 
-* [MarkBind](https://github.com/MarkBind/markbind)
+* The command-line interface (CLI) application, which accepts commands from users and then uses the core library to parse and generate web pages, resides in the root.
 
-  * The command-line interface (CLI) application that accepts commands from users, and uses the core library to parse and generate web pages resides in the root.
+* The core library, which resolves the content include path and renders Markdown content, resides in the `src/lib/markbind/` directory.
 
-  * The core library that resolves the content include path, and the rendering of Markdown contents resides in the `lib/markbind/` directory.
+* The UI components library, which MarkBind authors can use to create content with complex and interactive structure, resides in the `frontend/components/` directory.
 
-  Stack used: *Node.js*
-
-* [VueStrap library (forked version modified for MarkBind)](https://github.com/MarkBind/vue-strap)
-
-  * The UI components library used in MarkBind project. Users could use it in their contents to create complex and interactive structure.
-
-  Stack used: *Vue.js*
+  Stack used: *Node.js*, *Vue.js*
 
 ### MarkBind core library
 
@@ -62,8 +56,8 @@ The CLI program is built using [commander.js](https://github.com/tj/commander.js
 
 The auto deployment library used is [gh-pages](https://github.com/tschaub/gh-pages).
 
-### VueStrap
+### UI components library
 
-The VueStrap library is [Bootstrap](getbootstrap.com/components/) components rewritten in [Vue.js](vuejs.org). We forked it from the original repo, and changed it based on our needs for educational websites.
+This package consists of a mix of [Bootstrap](getbootstrap.com/components/) and proprietary components rewritten in [Vue.js](vuejs.org) based on our needs for educational websites.
 
-You can find more information at the [VueStrap repo](https://github.com/MarkBind/vue-strap).
+We forked it from the original [yuche/vue-strap](https://github.com/yuche/vue-strap) repo into the [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap) repo, and then later merged it into the main [MarkBind/markbind](https://github.com/MarkBind/markbind) repo.
