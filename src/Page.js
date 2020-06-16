@@ -346,7 +346,6 @@ class Page {
     this._collectNavigableHeadings($, $.root()[0], elementSelector);
   }
 
-
   _collectNavigableHeadings($, context, pageNavSelector) {
     $(pageNavSelector, context).each((i, elem) => {
       // Check if heading or panel is already inside an unexpanded panel
@@ -597,7 +596,6 @@ class Page {
         [LAYOUT_PAGE_BODY_VARIABLE]: pageData,
       }));
   }
-
 
   /**
    * Inserts the page layout's header to the start of the page
@@ -1189,7 +1187,6 @@ class Page {
 
     return $.html();
   }
-
 
   /**
    * Collect page content inserted by plugins

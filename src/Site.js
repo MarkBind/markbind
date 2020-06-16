@@ -1093,7 +1093,6 @@ class Site {
     });
   }
 
-
   /**
    * Uses heading data in built pages to generate heading and keyword information for siteData
    * Subsequently writes to siteData.json

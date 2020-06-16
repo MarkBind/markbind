@@ -16,11 +16,9 @@ const {
   ATTRIB_CWF,
 } = require('../constants');
 
-
 /*
  * All components
  */
-
 
 function _preProcessAllComponents(node, context) {
   const element = node;
@@ -31,11 +29,9 @@ function _preProcessAllComponents(node, context) {
   element.attribs[ATTRIB_CWF] = path.resolve(context.cwf);
 }
 
-
 /*
  * Common panel and include helper functions
  */
-
 
 function _getBoilerplateFilePath(node, config, filePath) {
   const element = node;
@@ -110,11 +106,9 @@ function _getSrcFlagsAndFilePaths(element, context, config) {
   };
 }
 
-
 /*
  * Panels
  */
-
 
 /**
  * PreProcesses panels with a src attribute specified.
@@ -160,7 +154,6 @@ function _preProcessPanel(node, context, config, parser) {
 
   return node;
 }
-
 
 /*
  * Includes
@@ -308,7 +301,6 @@ function _preprocessInclude(node, context, config, parser) {
   return element;
 }
 
-
 /*
  * Variable and imports
  */
@@ -332,17 +324,14 @@ function _preprocessImports(node, parser) {
  * Body
  */
 
-
 function _preprocessBody(node) {
   // eslint-disable-next-line no-console
   console.warn(`<body> tag found in ${node.attribs[ATTRIB_CWF]}. This may cause formatting errors.`);
 }
 
-
 /*
  * API
  */
-
 
 function preProcessComponent(node, context, config, parser) {
   const element = node;
@@ -369,7 +358,6 @@ function preProcessComponent(node, context, config, parser) {
     return element;
   }
 }
-
 
 module.exports = {
   preProcessComponent,

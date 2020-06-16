@@ -30,7 +30,6 @@ test('includeFile replaces <include> with <div>', async () => {
 
   const include = ['# Include'].join('\n');
 
-
   const json = {
     'index.md': index,
     'include.md': include,
@@ -169,7 +168,6 @@ test('includeFile replaces <include src="include.md#exists"> with <div>', async 
 
   expect(result).toEqual(expected);
 });
-
 
 test('includeFile replaces <include src="include.md#exists" inline> with inline content', async () => {
   const indexPath = path.resolve('index.md');

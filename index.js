@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-
 // Entry file for Markbind project
 const chokidar = require('chokidar');
 const fs = require('fs-extra-promise');
