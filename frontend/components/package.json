@@ -1,15 +1,34 @@
 {
   "name": "vue-strap",
-  "version": "1.1.36",
+  "version": "2.14.1",
   "description": "Bootstrap components built with Vue.js",
+  "keywords": [
+    "bootstrap",
+    "vue-bootstrap",
+    "vue-component",
+    "vue",
+    "markbind"
+  ],
+  "homepage": "https://markbind.org",
+  "license": "MIT",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "dist"
+  ],
   "main": "dist/vue-strap.js",
   "repository": {
     "type": "git",
-    "url": "yuche/vue-strap"
+    "url": "https://github.com/MarkBind/markbind.git"
   },
-  "homepage": "http://yuche.github.io/vue-strap/",
-  "directories": {
-    "src": "src/"
+  "scripts": {
+    "build": "webpack --progress --hide-modules --config  webpack.build.js",
+    "builddev": "webpack --progress --hide-modules --config  webpack.dev.js",
+    "lint": "./node_modules/.bin/eslint . --ext .js,.vue; exit 0",
+    "lintfix": "./node_modules/.bin/eslint . --fix --ext .js,.vue",
+    "lintwin": "./node_modules/.bin/eslint . --ext .js,.vue",
+    "test": "jest",
+    "updatesnapshot": "jest --updateSnapshot"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
@@ -20,19 +39,6 @@
     "webpack": "^4.42.1",
     "webpack-merge": "^4.2.2"
   },
-  "files": [
-    "LICENSE",
-    "README.md",
-    "CHANGELOG.md",
-    "src",
-    "dist"
-  ],
-  "keywords": [
-    "bootstrap",
-    "vue-bootstrap",
-    "vue-component",
-    "vue"
-  ],
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/plugin-transform-runtime": "^7.9.0",
@@ -48,7 +54,6 @@
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^6.2.2",
     "expose-loader": "^0.7.5",
-    "gh-pages": "^0.11.0",
     "jest": "^25.4.0",
     "jest-serializer-vue": "^2.0.2",
     "json-loader": "^0.5.7",
@@ -62,34 +67,5 @@
     "vue-template-compiler": "^2.6.11",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "presets": [
-            "es2015"
-          ]
-        }
-      ],
-      [
-        "vueify"
-      ]
-    ]
-  },
-  "scripts": {
-    "build": "webpack --progress --hide-modules --config  webpack.build.js",
-    "test": "jest",
-    "updatesnapshot": "jest --updateSnapshot",
-    "builddev": "webpack --progress --hide-modules --config  webpack.dev.js",
-    "gpages": "gh-pages -d .",
-    "lint": "./node_modules/.bin/eslint . --ext .js,.vue; exit 0",
-    "lintwin": "./node_modules/.bin/eslint . --ext .js,.vue",
-    "lintfix": "./node_modules/.bin/eslint . --fix --ext .js,.vue",
-    "postversion": "git push && git push --tags",
-    "version": "npm run build && git add -A dist"
-  },
-  "author": "yuche",
-  "license": "MIT"
+  }
 }
