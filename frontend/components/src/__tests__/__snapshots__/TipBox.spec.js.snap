@@ -1,0 +1,1179 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TipBox having custom background color renders correctly 1`] = `
+<div
+  class="alert box-container alert-default"
+  style="background-color: white; border-color: white;"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span />
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox having custom border color renders correctly 1`] = `
+<div
+  class="alert box-container alert-default"
+  style="border: 1px solid grey;"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span />
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox having custom border left color renders correctly 1`] = `
+<div
+  class="alert box-container alert-default"
+  style="border-left: 5px solid blue;"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span />
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox of default type with content renders correctly  1`] = `
+<div
+  class="alert box-container alert-default"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span />
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    >
+      This is the default box
+    </div>
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox of definition type light style renders correctly 1`] = `
+<div
+  class="alert box-container alert-info border-info text-info alert-border-left"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span>
+        <i
+          class="fas fa-atlas"
+        />
+      </span>
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents font-black"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox of definition type renders correctly 1`] = `
+<div
+  class="alert box-container alert-info"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span>
+        <i
+          class="fas fa-atlas"
+        />
+      </span>
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox of important type light style renders correctly 1`] = `
+<div
+  class="alert box-container alert-danger border-danger text-danger alert-border-left"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span>
+        <i
+          class="fas fa-flag"
+        />
+      </span>
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents font-black"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox of important type renders correctly 1`] = `
+<div
+  class="alert box-container alert-danger"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span>
+        <i
+          class="fas fa-flag"
+        />
+      </span>
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox of info type light style renders correctly 1`] = `
+<div
+  class="alert box-container alert-info border-info text-info alert-border-left"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span>
+        <i
+          class="fas fa-info"
+        />
+      </span>
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents font-black"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox of info type renders correctly 1`] = `
+<div
+  class="alert box-container alert-info"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span>
+        <i
+          class="fas fa-info"
+        />
+      </span>
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox of seamless style renders correctly 1`] = `
+<div
+  class="alert box-container alert-default seamless"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span />
+    </div>
+     
+    <div
+      aria-hidden="true"
+      class="vertical-divider alert-default"
+    />
+     
+    <div
+      class="contents seamless"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox of success type light style renders correctly 1`] = `
+<div
+  class="alert box-container alert-success border-success text-success alert-border-left"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span>
+        <i
+          class="fas fa-check"
+        />
+      </span>
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents font-black"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox of success type renders correctly 1`] = `
+<div
+  class="alert box-container alert-success"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span>
+        <i
+          class="fas fa-check"
+        />
+      </span>
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox of tip type light style renders correctly 1`] = `
+<div
+  class="alert box-container alert-success border-success text-success alert-border-left"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span>
+        <i
+          class="fas fa-lightbulb"
+        />
+      </span>
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents font-black"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox of tip type renders correctly 1`] = `
+<div
+  class="alert box-container alert-success"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span>
+        <i
+          class="fas fa-lightbulb"
+        />
+      </span>
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox of warning type light style renders correctly 1`] = `
+<div
+  class="alert box-container alert-warning border-warning text-warning alert-border-left"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span>
+        <i
+          class="fas fa-exclamation"
+        />
+      </span>
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents font-black"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox of warning type renders correctly 1`] = `
+<div
+  class="alert box-container alert-warning"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span>
+        <i
+          class="fas fa-exclamation"
+        />
+      </span>
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox of wrong type light style renders correctly 1`] = `
+<div
+  class="alert box-container alert-danger border-danger text-danger alert-border-left"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span>
+        <i
+          class="fas fa-times"
+        />
+      </span>
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents font-black"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox of wrong type renders correctly 1`] = `
+<div
+  class="alert box-container alert-danger"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span>
+        <i
+          class="fas fa-times"
+        />
+      </span>
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox with custom color renders correctly 1`] = `
+<div
+  class="alert box-container alert-default"
+  style="color: pink;"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span />
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox with dismissible option renders correctly 1`] = `
+<div
+  class="alert box-container alert-default"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper alert-dismissible"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span />
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox with header renders correctly 1`] = `
+<div
+  class="alert box-container alert-default"
+>
+  <div
+    class="box-header-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span />
+    </div>
+     
+    <div
+      class="box-header"
+    >
+      A header
+    </div>
+     
+    <button
+      aria-label="Close"
+      class="close close-with-heading"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper box-body-wrapper-with-heading"
+  >
+    <div
+      class="icon-wrapper"
+      style="display: none;"
+    >
+      <span />
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox with icon and icon-size renders correctly 1`] = `
+<div
+  class="alert box-container alert-info"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper fa-2x"
+    >
+      :rocket:
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox with icon renders correctly 1`] = `
+<div
+  class="alert box-container alert-info"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      :rocket:
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox with no-background option renders correctly 1`] = `
+<div
+  class="alert box-container alert-default no-background"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span />
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox with no-border option renders correctly 1`] = `
+<div
+  class="alert box-container alert-default no-border"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+    >
+      <span />
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TipBox with no-icon option renders correctly 1`] = `
+<div
+  class="alert box-container alert-success"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper"
+      style="display: none;"
+    >
+      <span>
+        <i
+          class="fas fa-check"
+        />
+      </span>
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      style="display: none;"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+      >
+        ×
+      </span>
+    </button>
+  </div>
+</div>
+`;

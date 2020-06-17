@@ -1,0 +1,31 @@
+*.min.*
+dist
+src/directives/Closeable.js
+src/directives/Float.js
+src/utils/NodeList.js
+src/utils/utils.js
+
+!.eslintrc.js
+
+# yuche/vue-strap
+src/Affix.vue
+src/Dropdown.vue
+src/index.js
+src/main.js
+src/Navbar.vue
+src/Panel.vue
+src/Tab.vue
+src/TabGroup.vue
+src/Tabset.vue
+src/Typeahead.vue
+
+# MarkBind/vue-strap
+src/panels/MinimalPanel.vue
+src/panels/NestedPanel.vue
+src/panels/PanelBase.js
+src/panels/PanelSwitch.vue
+src/Pic.vue
+src/Question.vue
+src/Retriever.vue
+src/Thumbnail.vue
+src/TipBox.vue

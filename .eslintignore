@@ -1,4 +1,5 @@
 *.min.*
+frontend
 src/lib/markbind/src/lib/markdown-it/*
 src/lib/markbind/src/lib/markdown-it-shared/*
 

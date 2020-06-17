@@ -73,15 +73,15 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
   You need to login to npm on your terminal with `npm adduser` first, before you can publish packages to npm.
 </box>
 
-### Building Vue-Strap
+### Building the UI components library
 
-1. **Navigate to the root** directory for vue-strap
+1. **Navigate to the components** directory by running `cd frontend/components` in the root directory of MarkBind.
 1. **Update dependencies** by running `npm install`
-1. **Build the assets** by executing `npm run build` after which you should see changes in `vue-strap.min.js`.
+1. **Build the assets** by executing `npm run build`, after which you should see changes in `frontend/components/dist/vue-strap.min.js`.
 
    <box type="info" seamless>
 
-   Building vue-strap is optional if there's no changes since the last release of MarkBind. If there are no changes to the three files mentioned above, skip to the "Building MarkBind" section.
+   Building vue-strap is optional if there's no changes to the components since the last release of MarkBind. If there are no changes to the three files mentioned above, skip to the "Building MarkBind" section.
    </box>
    <box type="info" seamless>
 
@@ -109,18 +109,18 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
 1. **Navigate to the root** directory for MarkBind
 1. **Update dependencies** by running `npm install`
-1. **If we did a new vue-strap release**:
+1. **If we did a new release for the Vue components**:
 
    Copy `vue-strap.min.js` from the vue-strap repository to the main asset folder, and to each of the test site's `expected/` folder.
 
    ```sh
    # copy to main asset folder
-   $ cp <VUE_STRAP_REPO>/dist/vue-strap.min.js <MARKBIND_REPO>/asset/js/vue-strap.mins.js
-   # for each test site's expected folder:
-   $ cp <VUE_STRAP_REPO>/dist/vue-strap.min.js <MARKBIND_REPO>/test/functional/<TEST_SITE_NAME>/expected/markbind/js/vue-strap.min.js
+   $ cp frontend/components/dist/vue-strap.min.js asset/js/vue-strap.min.js
    ```
+   
+   Run `npm updatetest` and ensure only the minified bundle is copied to each of the expected test site's folders. If there are other changes, discard them for now - refer to **Rebuild the test files**.
 
-   Commit the new vue-strap assets (replace `XYZ` with version number).
+   Commit only the new vue-strap assets (replace `XYZ` with version number).
 
    ```sh
    $ git commit -m 'Update vue-strap version to v2.0.1-markbind.XYZ'
