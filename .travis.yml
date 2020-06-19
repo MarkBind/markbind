@@ -1,6 +1,10 @@
 language: node_js
 node_js:
   - '10'
+install:
+  - npm run ci:all
+script:
+  - npm run test
 deploy:
   # deploy on release, to markbind.org
   - provider: script
