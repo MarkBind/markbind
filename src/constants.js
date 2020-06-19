@@ -25,9 +25,11 @@ module.exports = {
   PAGE_NAV_TITLE_CLASS: 'page-nav-title',
   SITE_NAV_ID: 'site-nav',
   SITE_NAV_EMPTY_LINE_REGEX: new RegExp('\\r?\\n\\s*\\r?\\n', 'g'),
+  SITE_NAV_LIST_ITEM_CLASS: 'site-nav-list-item',
   SITE_NAV_LIST_CLASS: 'site-nav-list',
   SITE_NAV_LIST_CLASS_ROOT: 'site-nav-list-root',
-  SITE_NAV_LIST_ITEM_CONTENT_CLASS: 'site-nav-list-item-content',
+  SITE_NAV_DEFAULT_LIST_ITEM_CLASS: 'site-nav-default-list-item',
+  SITE_NAV_CUSTOM_LIST_ITEM_CLASS: 'site-nav-custom-list-item',
   SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX: new RegExp(':expanded:', 'g'),
   SITE_NAV_DROPDOWN_ICON_HTML: '<i class="site-nav-dropdown-btn-icon" '
     + 'onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">\n'

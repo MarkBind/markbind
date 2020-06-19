@@ -30,7 +30,7 @@
     margin: 0 -12px;
 }
 
-.site-nav-list-item-content {
+.site-nav-default-list-item {
     display: flex;
     padding: 0.5rem 0 0 2.8rem;
     transition: background-color 0.08s;
@@ -38,37 +38,42 @@
     cursor: pointer;
 }
 
-.site-nav-list-item-content-0 {
+.site-nav-custom-list-item {
+    padding: 0.5rem 0 0 2.8rem;
+    color: #454545;
+}
+
+.site-nav-list-item-0 {
     padding: 0.8rem 0 0.4rem 0.8rem;
     font-weight: 600;
     font-size: 1.05em;
 }
 
-.site-nav-list-item-content-1 {
+.site-nav-list-item-1 {
     padding: 0.5rem 0 0.3rem 1.3rem;
 }
 
-.site-nav-list-item-content-2 {
+.site-nav-list-item-2 {
     padding: 0.5rem 0 0.2rem 1.8rem;
     font-size: 0.95em;
 }
 
-.site-nav-list-item-content-3 {
+.site-nav-list-item-3 {
     padding: 0.5rem 0 0.2rem 2.4rem;
     font-size: 0.87em;
 }
 
-.site-nav-list-item-content:hover {
+.site-nav-default-list-item:hover {
     background-color: rgba(214, 233, 255, 0.35);
 }
 
-.site-nav-list-item-content a {
+.site-nav-default-list-item a {
     display: inline-block;
     height: 100%;
     color: #454545;
 }
 
-.site-nav-list-item-content:hover a {
+.site-nav-default-list-item:hover a {
     color: black;
     text-decoration: none;
 }
