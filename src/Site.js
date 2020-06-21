@@ -308,8 +308,8 @@ class Site {
                              path.join(this.siteAssetsDestPath, 'js', 'setup.js')),
         vue: path.relative(path.dirname(resultPath),
                            path.join(this.siteAssetsDestPath, 'js', 'vue.min.js')),
-        vueStrap: path.relative(path.dirname(resultPath),
-                                path.join(this.siteAssetsDestPath, 'js', 'vue-strap.min.js')),
+        components: path.relative(path.dirname(resultPath),
+                                  path.join(this.siteAssetsDestPath, 'js', 'components.min.js')),
       },
     });
   }
@@ -607,6 +607,7 @@ class Site {
         .then(() => this.buildAssets())
         .then(() => (this.onePagePath ? this.lazyBuildSourceFiles() : this.buildSourceFiles()))
         .then(() => this.copyMarkBindAsset())
+        .then(() => this.copyComponentsAsset())
         .then(() => this.copyFontAwesomeAsset())
         .then(() => this.copyOcticonsAsset())
         .then(() => this.copyLayouts())
@@ -1129,6 +1130,17 @@ class Site {
     const octiconsCssDestPath = path.join(this.siteAssetsDestPath, 'css', 'octicons.css');
 
     return fs.copyAsync(octiconsCssSrcPath, octiconsCssDestPath);
+  }
+
+  /**
+   * Copies components.min.js bundle to the assets folder
+   */
+  copyComponentsAsset() {
+    const componentsSrcPath = path.join(__dirname, '..', 'frontend', 'components', 'dist',
+                                        'components.min.js');
+    const componentsDestPath = path.join(this.siteAssetsDestPath, 'js', 'components.min.js');
+
+    return fs.copyAsync(componentsSrcPath, componentsDestPath);
   }
 
   /**

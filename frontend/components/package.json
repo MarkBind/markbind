@@ -1,5 +1,5 @@
 {
-  "name": "vue-strap",
+  "name": "vue-components",
   "version": "2.14.1",
   "description": "Bootstrap components built with Vue.js",
   "keywords": [
@@ -16,7 +16,7 @@
     "README.md",
     "dist"
   ],
-  "main": "dist/vue-strap.js",
+  "main": "dist/components.min.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/MarkBind/markbind.git"

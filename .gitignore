@@ -21,7 +21,7 @@ coverage
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
-# Vue-strap coverage reports
+# Vue components coverage reports
 coverage
 
 # node-waf configuration

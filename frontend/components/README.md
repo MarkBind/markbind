@@ -5,7 +5,7 @@ This folder contains MarkBind's [Vue.js](https://vuejs.org/) UI components.
 Most of the styles are based on Bootstrap's markup and CSS, but no dependency on Bootstrap's JavaScript is required. The only required dependencies are:
 
 * [Vue.js](http://vuejs.org/) (required ^v2.x.x, test with v2.5.16).
-* [Bootstrap CSS](http://getbootstrap.com/) (required 4.x.x, test with 4.1.1). VueStrap doesn't depend on a very precise version of Bootstrap.
+* [Bootstrap CSS](http://getbootstrap.com/) (required 4.x.x, test with 4.1.1). MarkBind's Vue components doesn't depend on a very precise version of Bootstrap.
 
 ## Components / directives
 
@@ -44,15 +44,15 @@ Some custom directives were also added for MarkBind's use.
 
 ### Browser globals
 
-The `dist` folder contains `vue-strap.js` and `vue-strap.min.js` with all components exported in the `window.VueStrap` object.
+The `dist` folder contains `components.min.js` with all components exported in the `window.MarkBindVue` object.
 
 ```html
 <script src="path/to/vue.js"></script>
-<script src="path/to/vue-strap.js"></script>
+<script src="path/to/components.min.js"></script>
 <script>
     var vm = new Vue({
         components: {
-            alert: VueStrap.alert
+            alert: MarkBindVue.alert
         },
         el: "#app",
         data: {
