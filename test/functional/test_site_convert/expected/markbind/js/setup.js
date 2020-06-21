@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 
-Vue.use(VueStrap);
+Vue.use(MarkBindVue);
 
 function scrollToUrlAnchorHeading() {
   if (window.location.hash) {
@@ -113,7 +113,7 @@ function setup() {
 }
 
 function setupWithSearch() {
-  const { searchbar } = VueStrap.components;
+  const { searchbar } = MarkBindVue.components;
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
     el: '#app',

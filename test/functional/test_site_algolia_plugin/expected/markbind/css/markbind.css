@@ -224,7 +224,7 @@ footer {
 
 /* Temporary Anti-FOUC Styles */
 
-/* By default, some VueStrap components break the layout of the page before Vue is mounted,
+/* By default, some of MarkBind's Vue components break the layout of the page before Vue is mounted,
 so we apply temporary styles to fix the layout until Vue correctly updates the DOM. */
 
 .temp-navbar {
