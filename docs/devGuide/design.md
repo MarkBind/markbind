@@ -50,7 +50,7 @@ The site generation logic is as follows:
 
 The generated page is rendered using [nunjucks](https://mozilla.github.io/nunjucks/), and the page template could be found at `lib/template/page.njk`.
 
-Static assets of MarkBind, such as stylesheets and JavaScript libraries, are located in `asset/` folder. They will be copied to the generated site and used in the generated pages. For each version update of VueStrap, copy the built library file to overwrite `asset/js/vue-strap.min.js`.
+Static assets of MarkBind, such as stylesheets and JavaScript libraries, are located in `asset/` folder. They will be copied to the generated site and used in the generated pages.
 
 The CLI program is built using [commander.js](https://github.com/tj/commander.js/).
 
