@@ -89,9 +89,9 @@ More info: <include src="{{ filename }}#link" inline trim/>
 
 <!-- ======================================================================================================= -->
 
-#### {{ icon_check_blue }} Support for VueStrap and BootStrap
+#### {{ icon_check_blue }} MarkBind Vue components and BootStrap
 
-As MarkBind uses [VueStrap](https://bootstrap-vue.js.org/docs/components/alert/) (which in turn is based on [BootStrap](https://getbootstrap.com/docs/4.2/getting-started/introduction/)) internally, many of their syntax work within MarkBind files too.
+MarkBind has several core Vue.js components built on the popular [BootStrap](https://getbootstrap.com/docs/4.2/getting-started/introduction/) framework. Much of Bootstrap's features are supported in and out of these components as well.
 
 <!-- ======================================================================================================= -->
 

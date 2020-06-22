@@ -2,10 +2,10 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    'vue-strap': './src/index.js',
+    'components': path.join(__dirname, 'src', 'index.js'),
   },
   output: {
-    library: 'VueStrap',
+    library: 'MarkBindVue',
     libraryTarget: 'umd',
   },
   resolve: {

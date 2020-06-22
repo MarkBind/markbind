@@ -48,13 +48,13 @@ function install (Vue) {
   })
 }
 
-const VueStrap = {
+const MarkBindVue = {
   install,
   components: {}
 }
 
 Object.keys(components).forEach((key) => {
-  VueStrap.components[key] = components[key]
+  MarkBindVue.components[key] = components[key]
 })
 
-module.exports = VueStrap
+module.exports = MarkBindVue

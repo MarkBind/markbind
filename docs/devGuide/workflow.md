@@ -31,20 +31,21 @@ Do note [our style guides](styleGuides.html).
 Our test script does the following:
 
 1. Lints the code for any code and style errors using ESLint.
+1. Runs unit tests for the main and sub packages.
 1. Builds the test sites whose directory names are listed in `test/functional/test_site`.
 1. For each test site, compares the HTML files generated with the HTML files in its `expected` directory.
 
 #### Running tests
 
-To execute the tests, simply run:
+To execute all the tests, simply run:
 
 * Unix: `npm run test`
 * Windows: `npm run testwin`
 
 
-#### Updating tests
+#### Updating and writing tests
 
-Whether you are adding a new feature, updating existing features or fixing bugs, make sure to update the test sites to reflect the changes by running this command:
+Whether you are adding a new feature, updating existing features or fixing bugs, make sure to update the test files (test sites, snapshots) to reflect the changes by running the appropriate script:
 
 * Unix: `npm run updatetest`
 * Windows: `npm run updatetestwin`
@@ -53,7 +54,7 @@ Whether you are adding a new feature, updating existing features or fixing bugs,
   You should always check that the generated output is correct before committing any changes to the test sites.
 </box>
 
-#### Adding test site content
+##### Adding test site content
 
 When adding new features, you should also add new site content into an existing test site or create a new test site to demonstrate the new feature. This is to ensure that your feature can be tested by building that test site.
 
@@ -94,13 +95,20 @@ To add a page to an existing test site, for this example, to `test_site`:
   When creating a new test site, the directory name of the new test site should be added to `test/functional/test_sites` file.
 </box>
 
+##### Adding snapshot tests for components
+
+When making changes to the Vue components in `frontend/components`, you should add new snapshot tests or adapt existing ones as appropriate.
+
+Once you're done, be sure to run the `updatetest` script mentioned [above](#updating-and-writing-tests)!
+
+
 ## Linting
 
 We follow [our style guides](styleGuides.html). Using a linter will help check and fix some of the code style errors in your code. It will save time for both you and your code reviewer. The linting tool we use is [ESLint](https://eslint.org/). Here is a [gist](https://gist.github.com/nicholaschuayunzhi/bfe53dbb5f1a0f02d545d55956f9ab7e) with an explanation of the ESLint rules chosen in markbind-cli.
 
 Before making a commit or pull request, you should lint your code by running the following commands from the root of your project:
 
-* To lint a specific file: `./node_modules/.bin/eslint path/to/specificfile.js`
+* To lint a specific file: `eslint path/to/specificfile.js`
 * To lint all files: `npm run lint`
 
 It is also possible to auto-fix some (not all) style errors:
@@ -110,4 +118,10 @@ It is also possible to auto-fix some (not all) style errors:
 <box type="tip" seamless>
 
 ESLint has [integrations with popular editors](https://eslint.org/docs/user-guide/integrations). They offer features such as "fix errors on save", which will make development smoother.
+</box>
+
+<box type="tip" seamless>
+
+There are several versions of the _test and linting scripts_ in the main `package.json` that execute for only one of the main or sub packages,
+feel free to look into `package.json` and use them as you see fit!
 </box>

@@ -75,77 +75,42 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
 ### Building the UI components library
 
-1. **Navigate to the components** directory by running `cd frontend/components` in the root directory of MarkBind.
-1. **Update dependencies** by running `npm install`
-1. **Build the assets** by executing `npm run build`, after which you should see changes in `frontend/components/dist/vue-strap.min.js`.
+1. **Start with a "clean slate"** by running `npm run ci:all` or `npm run ciwin:all` in the root markbind directory, as this may affect the generated bundle.
+1. **Build the bundle** by executing `npm run build:components` in the root directory, after which you should see changes in `frontend/components/dist/components.min.js`.
 
    <box type="info" seamless>
 
-   Building vue-strap is optional if there's no changes to the components since the last release of MarkBind. If there are no changes to the three files mentioned above, skip to the "Building MarkBind" section.
+   Building the UI components bundle is optional if there are no changes to the files in `frontend/components/` since the last release of MarkBind.
    </box>
    <box type="info" seamless>
 
-   Do take a peek at the diff for `vue-strap.min.js` to see if there's any strange changes (e.g. the version of jQuery changes even though no one upgraded it).
+   Do take a peek at the diff for `components.min.js` to see if there are any strange changes (e.g. the version of jQuery changes even though no one upgraded it).
    </box>
-
-1. **Commit** the new changes (`git commit -am 'Update dist'`)
-
-1. **Tag** the new commit with the new version number, whereby `XYZ` is the incremented number of the previous release.<br>
-   e.g., `git tag v2.0.1-markbind.XYZ`
-
-   <box type="important" seamless>
-
-   The tag used is a lightweight tag. _Don't_ use an annotated tag.
-   </box>
-
-1. **Push** everything to the main vue-strap repository (replace `XYZ` with version number).
-
-   ```
-   $ git push upstream master
-   $ git push upstream v2.0.1-markbind.XYZ
-   ```
 
 ### Building MarkBind
 
-1. **Navigate to the root** directory for MarkBind
-1. **Update dependencies** by running `npm install`
-1. **If we did a new release for the Vue components**:
-
-   Copy `vue-strap.min.js` from the vue-strap repository to the main asset folder, and to each of the test site's `expected/` folder.
-
-   ```sh
-   # copy to main asset folder
-   $ cp frontend/components/dist/vue-strap.min.js asset/js/vue-strap.min.js
-   ```
-   
-   Run `npm updatetest` and ensure only the minified bundle is copied to each of the expected test site's folders. If there are other changes, discard them for now - refer to **Rebuild the test files**.
-
-   Commit only the new vue-strap assets (replace `XYZ` with version number).
-
-   ```sh
-   $ git commit -m 'Update vue-strap version to v2.0.1-markbind.XYZ'
-   ```
-
-   <box type="info" seamless>
-
-   We uniquely do this for each MarkBind release (rather than spontaneously update the vue-strap files for each affected PR), in order to reduce unnecessary merge conflicts. It also makes it easier for the maintainers to vet the changes.
-   </box>
+1. **Make sure to start with a "clean slate"** by running `npm run ci:all` or `npm run ciwin:all` in the root markbind directory if you haven't done so previously.
 
 1. **Increment the version number** by running `npm version`. Which to increment (`patch`, `minor` or `major`) depends on what PRs are merged for the new version, which means you must know beforehand about the changes.
 
    * If there are no significant changes, a `patch` is sufficient: `npm version patch`
    * If there are significant changes (e.g. breaking changes, new release), a `minor` release is needed:
      1. Run `npm version minor` as per normal.
-     1. Update the version number inside `src/lib/markbind/package-lock.json` and `src/lib/markbind/package.json` manually. This is because `npm version` will not automatically update the numbers from the outside. (Note: You do not have to commit these changes immediately, as we also have to rebuild the test files in the next step anyway.)
+        
+     1. Update the version number inside the `frontend/components` and `src/lib/markbind` packages similarly using `npm version minor` (as `npm version` does not update the subpackage versions automatically).
 
    * We rarely do `major` releases, but if necessary, the steps are the same as the `minor` release (just change `minor` to `major`).
+
+   <box type="info" seamless>
+  
+   [`npm version`](https://docs.npmjs.com/cli/version) creates a version commit with an appropriate tag. We will make use of the generated tag later.
+   </box>
 
 1. **Rebuild the test files**.
    * Unix: `npm run updatetest`
    * Windows: `npm run updatetestwin`
 
-
-   When rebuilding the expected test files, ensure that **only** the version number is updated. For example, this is correct:
+   When rebuilding the expected test files, ensure that **only** the version number is updated for the output `.html` files. For example, this is correct:
 
    ```diff
    diff --git a/test/functional/test_site/expected/bugs/index.html b/test/functional/test_site/expected/bugs/index.html
@@ -163,9 +128,16 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
         <link rel="stylesheet" href="../markbind/css/bootstrap.min.css">
    ```
 
-   However, if there are any extra lines changed, that means that someone screwed up the functional tests, and needs to be fixed accordingly!
+   If any other lines changed, that likely means the functional tests weren't updated in a pull request. Do revert everything done so far, and make a pull request specifically to fix that first!
 
-1. **Combine** the changes that you made in the last two steps with the version commit generated by `npm version`. To do so, amend the version commit and version tag by doing the following (change `vA.B.C` to the new version's string accordingly).
+1. **If we did a new release for the Vue components**: also ensure that the minified `components.min.js` bundle from [earlier](#building-the-ui-components-library) is copied to each of the expected test site's folders.
+
+   <box type="info" seamless>
+
+   We do this for each MarkBind release (rather than update `components.min.js` for each affected PR), in order to reduce unnecessary merge conflicts. It also makes it easier for the maintainers to vet the changes.
+   </box>
+
+1. **Combine** the changes that you made in the last two steps with the [version commit](https://docs.npmjs.com/cli/version) generated by `npm version`. To do so, amend the version commit and version tag by doing the following — take note to change `vA.B.C` to the new version.
 
    ```sh {.no-line-numbers}
    $ git commit -a --amend --reuse-message vA.B.C
@@ -180,7 +152,6 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    ```
 
 1. **Publish** by running `npm publish`. You should receive a notification by `npm` that the publish is successful.
-
 
 1. **Smoke test** the new version by installing the new version (run `npm i -g markbind-cli@A.B.C`) and playing around with it a bit to ensure that it works.
 
@@ -260,9 +231,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
       ### Dependencies
 
-      <!-- Replace `OLD` with the previous version and `NEW` with the current version -->
-
-      [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap): v2.0.1-markbind.OLD → v2.0.1-markbind.NEW
+      <!-- Dependency version upgrades of the main or any subpackages -->
 
       ### Miscellaneous
 
@@ -331,7 +300,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
       ### Dependencies
 
-      [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap): v2.0.1-markbind.20 → v2.0.1-markbind.21
+      Bump acorn from 7.1.0 to 7.1.1 in /src/lib/markbind (#1120)
       ```
 
    f. Click "Publish release".

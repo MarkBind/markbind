@@ -42,7 +42,8 @@ test('Site Generate builds the correct amount of assets', async () => {
     'asset/js/bootstrap-utility.min.js': '',
     'asset/js/setup.js': '',
     'asset/js/vue.min.js': '',
-    'asset/js/vue-strap.min.js': '',
+
+    'frontend/components/dist/components.min.js': '',
 
     'node_modules/@fortawesome/fontawesome-free/css/all.min.css': '',
     'node_modules/@fortawesome/fontawesome-free/webfonts/font1.svg': '',
@@ -82,7 +83,7 @@ test('Site Generate builds the correct amount of assets', async () => {
   // js
   expect(fs.existsSync(path.resolve('inner/_site/markbind/js/setup.js'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/js/vue.min.js'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/js/vue-strap.min.js'))).toEqual(true);
+  expect(fs.existsSync(path.resolve('inner/_site/markbind/js/components.min.js'))).toEqual(true);
 
   // Font Awesome assets
   expect(fs.existsSync(path.resolve('inner/_site/markbind/fontawesome/css/all.min.css'))).toEqual(true);

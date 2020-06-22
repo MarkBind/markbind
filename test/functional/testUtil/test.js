@@ -17,7 +17,7 @@ const TEST_BLACKLIST = ignore().add([
 ]);
 
 // Files that possibly have null characters but are not binary files
-const NULL_WHITELIST = ignore().add(['vue-strap.min.js']);
+const NULL_WHITELIST = ignore().add(['components.min.js']);
 
 const CRLF_REGEX = new RegExp('\\r\\n', 'g');
 

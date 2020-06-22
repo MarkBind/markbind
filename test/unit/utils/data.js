@@ -42,7 +42,7 @@ module.exports.PAGE_NJK = `
 </div>
 </body>
 <script src="{{ asset.vue }}"></script>
-<script src="{{ asset.vueStrap }}"></script>
+<script src="{{ asset.components }}"></script>
 <script src="{{ asset.bootstrapUtilityJs }}"></script>
 <script src="{{ asset.polyfillJs }}"></script>
 <script src="{{ asset.bootstrapVueJs }}"></script>

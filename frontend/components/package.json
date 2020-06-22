@@ -1,5 +1,5 @@
 {
-  "name": "vue-strap",
+  "name": "vue-components",
   "version": "2.14.1",
   "description": "Bootstrap components built with Vue.js",
   "keywords": [
@@ -16,19 +16,18 @@
     "README.md",
     "dist"
   ],
-  "main": "dist/vue-strap.js",
+  "main": "dist/components.min.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/MarkBind/markbind.git"
   },
   "scripts": {
     "build": "webpack --progress --hide-modules --config  webpack.build.js",
-    "builddev": "webpack --progress --hide-modules --config  webpack.dev.js",
-    "lint": "./node_modules/.bin/eslint . --ext .js,.vue; exit 0",
-    "lintfix": "./node_modules/.bin/eslint . --fix --ext .js,.vue",
-    "lintwin": "./node_modules/.bin/eslint . --ext .js,.vue",
+    "lint": "eslint . --ext .js,.vue",
+    "lintfix": "eslint . --fix --ext .js,.vue",
     "test": "jest",
-    "updatesnapshot": "jest --updateSnapshot"
+    "updatesnapshot": "jest --updateSnapshot",
+    "watch": "webpack --watch --progress --hide-modules --config  webpack.dev.js"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",

@@ -8,9 +8,8 @@ const config = require('./webpack.common.js');
 module.exports = merge(config, {
   mode: 'development',
   output: {
-    filename: '[name].js',
+    filename: '[name].min.js',
   },
-  devtool: 'source-map',
   plugins: [
     new VueLoaderPlugin(),
     new webpack.ProvidePlugin({
