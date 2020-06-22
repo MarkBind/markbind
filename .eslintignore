@@ -1,5 +1,6 @@
 *.min.*
 frontend
+node_modules
 src/lib/markbind/src/lib/markdown-it/*
 src/lib/markbind/src/lib/markdown-it-shared/*
 
