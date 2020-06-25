@@ -11,6 +11,7 @@ const njUtil = require('./lib/markbind/src/utils/nunjuckUtils');
 const injectHtmlParser2SpecialTags = require('./lib/markbind/src/patches/htmlparser2');
 const injectMarkdownItSpecialTags = require(
   './lib/markbind/src/lib/markdown-it/markdown-it-escape-special-tags');
+const utils = require('./lib/markbind/src/utils');
 
 const _ = {};
 _.difference = require('lodash/difference');
@@ -524,8 +525,6 @@ class Site {
    * Collects the user defined variables map in the site/subsites
    */
   collectUserDefinedVariablesMap() {
-    // The key is the base directory of the site/subsites,
-    // while the value is a mapping of user defined variables
     this.variablePreprocessor.resetUserDefinedVariablesMap();
 
     this.baseUrlMap.forEach((base) => {
@@ -540,13 +539,17 @@ class Site {
       }
 
       /*
-       This is to prevent the first nunjuck call from converting {{baseUrl}} to an empty string
-       and let the baseUrl value be injected later.
+       We retrieve the baseUrl of the (sub)site by appending the relative to the configured base url
+       i.e. We ignore the configured baseUrl of the sub sites.
        */
-      this.variablePreprocessor.addUserDefinedVariable(base, 'baseUrl', '{{baseUrl}}');
+      const siteRelativePathFromRoot = utils.ensurePosix(path.relative(this.rootPath, base));
+      const siteBaseUrl = siteRelativePathFromRoot === ''
+        ? this.siteConfig.baseUrl
+        : path.posix.join(this.siteConfig.baseUrl || '/', siteRelativePathFromRoot);
+      this.variablePreprocessor.addUserDefinedVariable(base, 'baseUrl', siteBaseUrl);
       this.variablePreprocessor.addUserDefinedVariable(base, 'MarkBind', MARKBIND_LINK_HTML);
 
-      const $ = cheerio.load(content);
+      const $ = cheerio.load(content, { decodeEntities: false });
       $('variable,span').each((index, element) => {
         const name = $(element).attr('name') || $(element).attr('id');
         const variableSource = $(element).attr('from');

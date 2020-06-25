@@ -29,15 +29,6 @@ There should be text between this and the next `<hr>` tag, since it is a special
 All text should appear in the browser window as a single line,
 save for the comment which the browser still interprets. (but will be in the expected output)
 
-<mustache>
-{%raw%}
-
-{{ This should be enclosed in success string }}
-
-{ This should also be enclosed in success strings }}}
-{%endraw%}
-</mustache>
-
 <testtag>
 <these>
 some text

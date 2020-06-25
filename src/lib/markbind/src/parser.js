@@ -3,11 +3,9 @@ const htmlparser = require('htmlparser2'); require('./patches/htmlparser2');
 const path = require('path');
 const Promise = require('bluebird');
 const slugify = require('@sindresorhus/slugify');
-const ensurePosix = require('ensure-posix-path');
 const componentParser = require('./parsers/componentParser');
 const componentPreprocessor = require('./preprocessors/componentPreprocessor');
 const logger = require('../../../util/logger');
-const njUtil = require('./utils/nunjuckUtils');
 
 const _ = {};
 _.clone = require('lodash/clone');
@@ -18,15 +16,9 @@ _.isEmpty = require('lodash/isEmpty');
 
 const md = require('./lib/markdown-it');
 const utils = require('./utils');
-const urlUtils = require('./utils/urls');
 
 cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
-
-const {
-  ATTRIB_INCLUDE_PATH,
-  ATTRIB_CWF,
-} = require('./constants');
 
 class Parser {
   constructor(config) {
@@ -48,20 +40,16 @@ class Parser {
     return _.clone(this.missingIncludeSrc);
   }
 
-  processDynamicResources(context, html) {
-    const $ = cheerio.load(html, {
-      xmlMode: false,
-      decodeEntities: false,
-    });
+  static processDynamicResources(context, html, config) {
+    const $ = cheerio.load(html, { xmlMode: false });
 
-    const { rootPath } = this;
     function getAbsoluteResourcePath(elem, relativeResourcePath) {
       const firstParent = elem.closest('div[data-included-from], span[data-included-from]');
       const originalSrc = utils.ensurePosix(firstParent.attr('data-included-from') || context);
       const originalSrcFolder = path.posix.dirname(originalSrc);
       const fullResourcePath = path.posix.join(originalSrcFolder, relativeResourcePath);
-      const resolvedResourcePath = path.posix.relative(utils.ensurePosix(rootPath), fullResourcePath);
-      return path.posix.join('{{hostBaseUrl}}', resolvedResourcePath);
+      const resolvedResourcePath = path.posix.relative(utils.ensurePosix(config.rootPath), fullResourcePath);
+      return path.posix.join(config.baseUrl || '/', resolvedResourcePath);
     }
 
     $('img, pic, thumbnail').each(function () {
@@ -70,7 +58,7 @@ class Parser {
         return;
       }
       const resourcePath = utils.ensurePosix(elem.attr('src'));
-      if (utils.isAbsolutePath(resourcePath) || utils.isUrl(resourcePath)) {
+      if (path.isAbsolute(resourcePath) || utils.isUrl(resourcePath)) {
         // Do not rewrite.
         return;
       }
@@ -84,7 +72,7 @@ class Parser {
         // Found empty href resource in resourcePath
         return;
       }
-      if (utils.isAbsolutePath(resourcePath) || utils.isUrl(resourcePath) || resourcePath.startsWith('#')) {
+      if (path.isAbsolute(resourcePath) || utils.isUrl(resourcePath) || resourcePath.startsWith('#')) {
         // Do not rewrite.
         return;
       }
@@ -95,10 +83,7 @@ class Parser {
   }
 
   static unwrapIncludeSrc(html) {
-    const $ = cheerio.load(html, {
-      xmlMode: false,
-      decodeEntities: false,
-    });
+    const $ = cheerio.load(html, { xmlMode: false });
     $('div[data-included-from], span[data-included-from]').each(function () {
       $(this).replaceWith($(this).contents());
     });
@@ -149,22 +134,6 @@ class Parser {
       node.children = cheerio.parseHTML(md.render(cheerio.html(node.children)), true);
       cheerio.prototype.options.xmlMode = true;
       break;
-    case 'panel': {
-      if (!_.hasIn(node.attribs, 'src')) { // dynamic panel
-        break;
-      }
-      const fileExists = utils.fileExists(node.attribs.src)
-          || utils.fileExists(urlUtils.calculateBoilerplateFilePath(node.attribs.boilerplate,
-                                                                    node.attribs.src, config));
-      if (fileExists) {
-        const { src, fragment } = node.attribs;
-        const resultDir = path.dirname(path.join('{{hostBaseUrl}}', path.relative(config.rootPath, src)));
-        const resultPath = path.join(resultDir, utils.setExtension(path.basename(src), '._include_.html'));
-        node.attribs.src = utils.ensurePosix(fragment ? `${resultPath}#${fragment}` : resultPath);
-      }
-      delete node.attribs.boilerplate;
-      break;
-    }
     default:
       break;
     }
@@ -230,10 +199,7 @@ class Parser {
         });
         resolve(cheerio.html(nodes));
       });
-      const parser = new htmlparser.Parser(handler, {
-        xmlMode: true,
-        decodeEntities: true,
-      });
+      const parser = new htmlparser.Parser(handler, { xmlMode: true });
 
       const renderedContent = this.variablePreprocessor.renderPage(file, content, additionalVariables);
 
@@ -276,10 +242,7 @@ class Parser {
         resolve(cheerio.html(nodes));
         cheerio.prototype.options.xmlMode = true;
       });
-      const parser = new htmlparser.Parser(handler, {
-        xmlMode: true,
-        decodeEntities: false,
-      });
+      const parser = new htmlparser.Parser(handler, { xmlMode: true });
       const fileExt = utils.getExt(filePath);
       if (utils.isMarkdownFileExt(fileExt)) {
         const renderedContent = md.render(content);
@@ -291,78 +254,6 @@ class Parser {
         reject(error);
       }
     });
-  }
-
-  resolveBaseUrl(pageData, config) {
-    const { baseUrlMap, rootPath } = config;
-    this.baseUrlMap = baseUrlMap;
-    this.rootPath = rootPath;
-
-    return new Promise((resolve, reject) => {
-      const handler = new htmlparser.DomHandler((error, dom) => {
-        if (error) {
-          reject(error);
-          return;
-        }
-        const nodes = dom.map(d => this._rebaseReference(d));
-        cheerio.prototype.options.xmlMode = false;
-        resolve(cheerio.html(nodes));
-        cheerio.prototype.options.xmlMode = true;
-      });
-      const parser = new htmlparser.Parser(handler, {
-        xmlMode: true,
-        decodeEntities: true,
-      });
-      parser.parseComplete(pageData);
-    });
-  }
-
-  /**
-   * Pre-renders the baseUrl of the provided node and its children according to
-   * the site they belong to, such that the final call to render baseUrl correctly
-   * resolves baseUrl according to the said site.
-   */
-  _rebaseReference(node) {
-    if (_.isArray(node)) {
-      return node.map(el => this._rebaseReference(el));
-    }
-    if (Parser.isText(node)) {
-      return node;
-    }
-
-    // Rebase children elements
-    node.children.forEach(el => this._rebaseReference(el));
-
-    const includeSourceFile = node.attribs[ATTRIB_CWF];
-    const includedSourceFile = node.attribs[ATTRIB_INCLUDE_PATH];
-    delete node.attribs[ATTRIB_CWF];
-    delete node.attribs[ATTRIB_INCLUDE_PATH];
-
-    // Skip rebasing for non-includes
-    if (!includedSourceFile || !node.children) {
-      return node;
-    }
-
-    // The site at which the file with the include element was pre-processed
-    const currentBase = urlUtils.getParentSiteAbsolutePath(includeSourceFile, this.rootPath, this.baseUrlMap);
-    // The site of the included file
-    const newBase = urlUtils.getParentSiteAbsoluteAndRelativePaths(includedSourceFile, this.rootPath,
-                                                                   this.baseUrlMap);
-
-    // Only re-render if include src and content are from different sites
-    if (currentBase !== newBase.absolute) {
-      cheerio.prototype.options.xmlMode = false;
-      const rendered = njUtil.renderRaw(cheerio.html(node.children), {
-        // This is to prevent the nunjuck call from converting {{hostBaseUrl}} to an empty string
-        // and let the hostBaseUrl value be injected later.
-        hostBaseUrl: '{{hostBaseUrl}}',
-        baseUrl: `{{hostBaseUrl}}/${ensurePosix(newBase.relative)}`,
-      }, { path: includedSourceFile });
-      node.children = cheerio.parseHTML(rendered, true);
-      cheerio.prototype.options.xmlMode = true;
-    }
-
-    return node;
   }
 
   static isText(node) {

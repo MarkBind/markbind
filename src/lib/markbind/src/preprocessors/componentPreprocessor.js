@@ -13,7 +13,6 @@ _.has = require('lodash/has');
 _.isEmpty = require('lodash/isEmpty');
 
 const {
-  ATTRIB_INCLUDE_PATH,
   ATTRIB_CWF,
 } = require('../constants');
 
@@ -81,19 +80,20 @@ function _getSrcFlagsAndFilePaths(element, context, config) {
   // We do this even if the src is not a url to get the hash, if any
   const includeSrc = url.parse(element.attribs.src);
 
-  const baseUrlRegex = new RegExp('^{{\\s*baseUrl\\s*}}[/\\\\]');
-
   let filePath;
   if (isUrl) {
     filePath = element.attribs.src;
   } else {
     const includePath = decodeURIComponent(includeSrc.path);
 
-    if (baseUrlRegex.test(includePath)) {
-      // The baseUrl has not been resolved during pre-processing, but we need the source file path
-      const parentSitePath = urlUtils.getParentSiteAbsolutePath(context.cwf, config.rootPath,
-                                                                config.baseUrlMap);
-      filePath = path.resolve(parentSitePath, includePath.replace(baseUrlRegex, ''));
+    if (path.posix.isAbsolute(includePath)) {
+      /*
+       If the src starts with the baseUrl (or simply '/' if there is no baseUrl specified),
+       get the relative path from the rootPath first,
+       then use it to resolve the absolute path of the referenced file on the filesystem.
+       */
+      const relativePathToFile = path.posix.relative(`${config.baseUrl}/`, includePath);
+      filePath = path.resolve(config.rootPath, relativePathToFile);
     } else {
       filePath = path.resolve(path.dirname(context.cwf), includePath);
     }
@@ -123,16 +123,14 @@ function _getSrcFlagsAndFilePaths(element, context, config) {
  * and adds the appropriate include.
  */
 function _preProcessPanel(node, context, config, parser) {
-  const element = node;
-
-  const hasSrc = _.has(element.attribs, 'src');
+  const hasSrc = _.has(node.attribs, 'src');
   if (!hasSrc) {
-    if (element.children && element.children.length > 0) {
+    if (node.children && node.children.length > 0) {
       // eslint-disable-next-line no-use-before-define
-      element.children = element.children.map(e => preProcessComponent(e, context, config, parser));
+      node.children = node.children.map(e => preProcessComponent(e, context, config, parser));
     }
 
-    return element;
+    return node;
   }
 
   const {
@@ -140,22 +138,27 @@ function _preProcessPanel(node, context, config, parser) {
     hash,
     filePath,
     actualFilePath,
-  } = _getSrcFlagsAndFilePaths(element, context, config);
+  } = _getSrcFlagsAndFilePaths(node, context, config);
 
-  const fileExistsNode = _getFileExistsNode(element, context, config, parser, actualFilePath);
+  const fileExistsNode = _getFileExistsNode(node, context, config, parser, actualFilePath);
   if (fileExistsNode) {
     return fileExistsNode;
   }
 
   if (!isUrl && hash) {
-    element.attribs.fragment = hash.substring(1);
+    node.attribs.fragment = hash.substring(1);
   }
 
-  element.attribs.src = filePath;
+  const { fragment } = node.attribs;
+  const relativePath = utils.setExtension(path.relative(config.rootPath, filePath), '._include_.html');
+  const fullResourcePath = path.posix.join(`${config.baseUrl}/`, utils.ensurePosix(relativePath));
+  node.attribs.src = fragment ? `${fullResourcePath}#${fragment}` : fullResourcePath;
+
+  delete node.attribs.boilerplate;
 
   parser.dynamicIncludeSrc.push({ from: context.cwf, to: actualFilePath, asIfTo: filePath });
 
-  return element;
+  return node;
 }
 
 
@@ -231,7 +234,6 @@ function _preprocessInclude(node, context, config, parser) {
   const isTrim = _.has(element.attribs, 'trim');
 
   element.name = isInline ? 'span' : 'div';
-  element.attribs[ATTRIB_INCLUDE_PATH] = filePath;
 
   // No need to process url contents
   if (isUrl) return element;
