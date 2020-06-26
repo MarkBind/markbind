@@ -7,8 +7,8 @@ const Promise = require('bluebird');
 const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
 
-const injectHtmlParser2SpecialTags = require('markbind/src/patches/htmlparser2');
-const injectMarkdownItSpecialTags = require('markbind/src/lib/markdown-it/markdown-it-escape-special-tags');
+const injectHtmlParser2SpecialTags = require('markbind/src/patches/htmlparser2').injectIgnoreTags;
+const injectMarkdownItSpecialTags = require('markbind/src/lib/markdown-it/markdown-it-escape-special-tags').injectTags;
 const njUtil = require('markbind/src/utils/nunjuckUtils');
 const utils = require('markbind/src/utils');
 const VariablePreprocessor = require('markbind/src/preprocessors/VariablePreprocessor');

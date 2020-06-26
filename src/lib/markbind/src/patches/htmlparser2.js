@@ -518,4 +518,6 @@ function injectIgnoreTags(tagsToIgnore) {
 	Tokenizer.prototype.specialTagNames = [...DEFAULT_SPECIAL_TAGS, ...tagsToIgnore];
 }
 
-module.exports = injectIgnoreTags;
+module.exports = {
+  injectIgnoreTags,
+};
