@@ -1,4 +1,32 @@
-const { Tokenizer } = require('htmlparser2');
+/*
+ * Four behaviours of htmlparser2 are patched here, the first 2 being 'convenience' patches
+ * to avoid repeated passing of lowerCaseAttributeNames and recognizeSelfClosing options.
+ * 1. Defaulting to self closing tag recognition
+ * 2. Disabling automatic attribute name conversion to lower case
+ * 3. Recognising text in markdown inline code / code blocks as raw text
+ * 4. Ability to inject/whitelist certain tags to be parsed like script/style tags do. (special tags)
+ */
+
+const { Tokenizer, Parser } = require('htmlparser2');
+
+/*
+ Enable any self closing tags '<xx />' to be parsed.
+ This allows MarkBind's own components to be recognised as such (e.g. '<panel />').
+ This is equivalent to the { recognizeSelfClosing: true } option of htmlparser2;
+ We modify the relevant code to avoid passing it in repeatedly.
+ */
+Parser.prototype.onselfclosingtag = function () {
+  this._closeCurrentTag();
+};
+
+/*
+ Disable automatic lower case conversion.
+ This is equivalent to the { lowerCaseAttributeNames: false } option of htmlparser2;
+ We modify the relevant code to avoid passing it in repeatedly as well.
+ */
+Parser.prototype.onattribname = function (name) {
+  this._attribname = name;
+};
 
 const MARKDOWN = Symbol('MARKDOWN');
 

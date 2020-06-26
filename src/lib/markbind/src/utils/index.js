@@ -62,12 +62,6 @@ module.exports = {
     return r.test(filePath);
   },
 
-  isAbsolutePath(filePath) {
-    return path.isAbsolute(filePath)
-            || filePath.includes('{{baseUrl}}')
-            || filePath.includes('{{hostBaseUrl}}');
-  },
-
   createErrorNode(element, error) {
     const errorElement = cheerio.parseHTML(
       `<div style="color: red">${error.message}</div>`, true)[0];

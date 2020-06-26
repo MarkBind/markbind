@@ -235,6 +235,7 @@
             <h1 id="keyword-should-be-tagged-to-this-heading-not-the-panel-heading">Keyword should be tagged to this heading, not the panel heading<a class="fa fa-anchor" href="#keyword-should-be-tagged-to-this-heading-not-the-panel-heading" onclick="event.stopPropagation()"></a></h1>
             <p><span class="keyword">panel keyword</span></p>
           </panel>
+          <p></p>
           <p><strong>Unexpanded panel with heading with keyword</strong>
             <panel id="panel-with-heading-with-keyword"><template slot="_header">
                 <h1 id="panel-with-heading-with-keyword">Panel with heading with keyword<a class="fa fa-anchor" href="#panel-with-heading-with-keyword" onclick="event.stopPropagation()"></a></h1>
@@ -340,11 +341,11 @@
             <p>Like static include, pages within the site should be able to use files located in folders within boilerplate.</p>
             <p>Also, the boilerplate file name (e.g. <code v-pre="">inside.md</code>) and the file that it is supposed to act as (<code v-pre="">notInside.md</code>) can be different.</p>
             <p>This file should behaves as if it is in the <code v-pre="">requirements</code> folder:</p>
-            <panel src="/test_site/requirements/NonFunctionalRequirements._include_.html"><template slot="_header">
-                <p>Tested with the folllowing include</p>
-              </template>
-              <p></p>
-            </panel>
+            <p>
+              <panel src="/test_site/requirements/NonFunctionalRequirements._include_.html"><template slot="_header">
+                  <p>Tested with the folllowing include</p>
+                </template></panel>
+            </p>
           </div>
           <p><strong>Nested include</strong></p>
           <div>
@@ -652,11 +653,9 @@
         <h2 class="no-index" id="level-2-header-inside-headingsearchindex-with-no-index-attribute-should-not-be-indexed">Level 2 header (inside headingSearchIndex) with no-index attribute should not be indexed<a class="fa fa-anchor" href="#level-2-header-inside-headingsearchindex-with-no-index-attribute-should-not-be-indexed" onclick="event.stopPropagation()"></a></h2>
         <h6 class="always-index" id="level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed">Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed<a class="fa fa-anchor" href="#level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed" onclick="event.stopPropagation()"></a></h6>
         <p><strong>Test nunjucks raw tags</strong></p>
-        <p></p>
         <div v-pre="">{{ variable interpolation syntax can be used with v-pre }}</div>
         <div v-pre="">{{ nonExistentVariable }}</div>
         <code v-pre="">{{ code elements should automatically be assigned v-pre }}</code>
-        <p></p>
         <hr class="footnotes-sep">
         <section class="footnotes">
           <ol class="footnotes-list">
@@ -697,6 +696,7 @@
           </span>
         </section>
       </div>
+
 
 
 

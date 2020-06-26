@@ -6,7 +6,10 @@ _.has = require('lodash/has');
 const md = require('../lib/markdown-it');
 const logger = require('../../../../util/logger');
 
-cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
+const {
+  ATTRIB_CWF,
+} = require('../constants');
+
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 /*
@@ -482,6 +485,10 @@ function postParseComponents(node) {
     }
   } catch (error) {
     logger.error(error);
+  }
+
+  if (node.attribs) {
+    delete node.attribs[ATTRIB_CWF];
   }
 }
 

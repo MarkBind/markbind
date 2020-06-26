@@ -44,14 +44,6 @@
         <p>There should be text between this and the next <code v-pre="">&lt;hr&gt;</code> tag, since it is a special tag.
           All text should appear in the browser window as a single line,
           save for the comment which the browser still interprets. (but will be in the expected output)</p>
-        <mustache>
-raw
-
-!success!success This should be enclosed in success string success!success!
-
-!success This should also be enclosed in success strings success!success!success!
-endraw
-</mustache>
         <testtag>!success
 
 <these>
@@ -84,6 +76,7 @@ success!</testtag>
             */
           </p>
         </abc>
+        <p></p>
         <hr>
         <p>There are two self closing special tags below, which should display nothing, but are present in the output.
           There is then one special tag with both and opening and closing tag with some text in it (<code v-pre="">lorem ipsum...</code>).
@@ -105,6 +98,7 @@ Lorem ipsum lorem ipsum
 alert(x);
 }</p>
 <p>success!</testtag>
+          <p></p>
         </div>
         <hr>
       </div>

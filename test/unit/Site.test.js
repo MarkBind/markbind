@@ -359,6 +359,7 @@ test('Site resolves variables referencing other variables', async () => {
   fs.vol.fromJSON(json, '');
 
   const site = new Site('./', '_site');
+  await site.readSiteConfig();
   await site.collectBaseUrl();
   await site.collectUserDefinedVariablesMap();
 
@@ -367,7 +368,7 @@ test('Site resolves variables referencing other variables', async () => {
   // check all variables
   expect(root.level1).toEqual('variable');
   expect(root.level2).toEqual('variable');
-  const expectedTextSpan = '&lt;span style=&quot;color: blue&quot;&gt;Blue text&lt;/span&gt;';
+  const expectedTextSpan = '<span style="color: blue">Blue text</span>';
   expect(root.level3).toEqual(expectedTextSpan);
   expect(root.level4).toEqual(expectedTextSpan);
 });
@@ -389,6 +390,7 @@ test('Site read correct user defined variables', async () => {
   fs.vol.fromJSON(json, '');
 
   const site = new Site('./', '_site');
+  await site.readSiteConfig();
   await site.collectBaseUrl();
   await site.collectUserDefinedVariablesMap();
 
@@ -398,11 +400,10 @@ test('Site read correct user defined variables', async () => {
   const othersub = site.variablePreprocessor.userDefinedVariablesMap[path.resolve('otherSub/sub')];
 
   // check all baseUrls
-  const baseUrl = '{{baseUrl}}';
-  expect(root.baseUrl).toEqual(baseUrl);
-  expect(sub.baseUrl).toEqual(baseUrl);
-  expect(subsub.baseUrl).toEqual(baseUrl);
-  expect(othersub.baseUrl).toEqual(baseUrl);
+  expect(root.baseUrl).toEqual('');
+  expect(sub.baseUrl).toEqual('/sub');
+  expect(subsub.baseUrl).toEqual('/sub/sub');
+  expect(othersub.baseUrl).toEqual('/otherSub/sub');
 
   // check other variables
   expect(root.variable).toEqual('variable');

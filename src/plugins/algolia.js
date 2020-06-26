@@ -22,7 +22,7 @@ function buildAlgoliaInitScript(pluginContext) {
 }
 
 function addNoIndexClasses(content) {
-  const $ = cheerio.load(content, { xmlMode: false });
+  const $ = cheerio.load(content);
   const noIndexSelectors = [
     'dropdown',
     'b-modal',

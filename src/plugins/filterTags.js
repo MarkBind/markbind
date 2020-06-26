@@ -10,7 +10,7 @@ function filterTags(tags, content) {
   if (!tags) {
     return content;
   }
-  const $ = cheerio.load(content, { xmlMode: false });
+  const $ = cheerio.load(content);
   const tagOperations = tags.map(tag => ({
     // Trim leading + or -, replace * with .*, add ^ and $
     tagExp: `^${escapeRegExp(tag.replace(/^(\+|-)/g, '')).replace(/\\\*/, '.*')}$`,

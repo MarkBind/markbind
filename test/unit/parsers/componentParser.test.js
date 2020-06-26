@@ -25,10 +25,7 @@ const parseAndVerifyTemplate = (template, expectedTemplate, postParse = false) =
     expect(result).toEqual(expectedTemplate);
   });
 
-  const htmlParser = new htmlparser.Parser(handler, {
-    xmlMode: true,
-    decodeEntities: false,
-  });
+  const htmlParser = new htmlparser.Parser(handler);
 
   htmlParser.parseComplete(template);
 };

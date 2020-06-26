@@ -8,7 +8,7 @@ const CSS_FILE_NAME = 'markbind-plugin-anchors.css';
 module.exports = {
   getLinks: (content, pluginContext, frontMatter, utils) => [utils.buildStylesheet(CSS_FILE_NAME)],
   postRender: (content) => {
-    const $ = cheerio.load(content, { xmlMode: false });
+    const $ = cheerio.load(content);
     $(':header').each((i, heading) => {
       if ($(heading).attr('id')) {
         $(heading).append(

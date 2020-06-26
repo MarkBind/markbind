@@ -89,7 +89,7 @@ class VariablePreprocessor {
    * This is to allow using previously declared site variables in site variables declared later on.
    */
   renderAndAddUserDefinedVariable(site, name, value) {
-    const renderedVal = njUtil.renderRaw(value, this.userDefinedVariablesMap[site], {}, false);
+    const renderedVal = njUtil.renderRaw(value, this.userDefinedVariablesMap[site]);
     this.addUserDefinedVariable(site, name, renderedVal);
   }
 

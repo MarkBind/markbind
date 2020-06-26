@@ -47,7 +47,7 @@ test('includeFile replaces <include> with <div>', async () => {
 
   const expected = [
     '# Index',
-    `<div cwf="${indexPath}" include-path="${includePath}">`
+    `<div cwf="${indexPath}">`
     + `<div data-included-from="${includePath}" cwf="${includePath}">`,
     '',
     '# Include',
@@ -86,7 +86,7 @@ test('includeFile replaces <include src="exist.md" optional> with <div>', async 
 
   const expected = [
     '# Index',
-    `<div cwf="${indexPath}" include-path="${existPath}">`
+    `<div cwf="${indexPath}">`
     + `<div data-included-from="${existPath}" cwf="${existPath}">`,
     '',
     '# Exist',
@@ -121,7 +121,7 @@ test('includeFile replaces <include src="doesNotExist.md" optional> with empty <
 
   const expected = [
     '# Index',
-    '<div/>',
+    '<div></div>',
     '',
   ].join('\n');
 
@@ -159,7 +159,7 @@ test('includeFile replaces <include src="include.md#exists"> with <div>', async 
 
   const expected = [
     '# Index',
-    `<div cwf="${indexPath}" include-path="${includePath}">`
+    `<div cwf="${indexPath}">`
     + `<div data-included-from="${includePath}" cwf="${includePath}">`,
     '',
     'existing segment',
@@ -202,7 +202,7 @@ test('includeFile replaces <include src="include.md#exists" inline> with inline 
 
   const expected = [
     '# Index',
-    `<span cwf="${indexPath}" include-path="${includePath}">`
+    `<span cwf="${indexPath}">`
     + `<span data-included-from="${includePath}" cwf="${includePath}">existing segment</span></span>`,
     '',
   ].join('\n');
@@ -241,7 +241,7 @@ test('includeFile replaces <include src="include.md#exists" trim> with trimmed c
 
   const expected = [
     '# Index',
-    `<div cwf="${indexPath}" include-path="${includePath}">`
+    `<div cwf="${indexPath}">`
     + `<div data-included-from="${includePath}" cwf="${includePath}">`,
     '',
     'existing segment',
@@ -321,7 +321,7 @@ test('includeFile replaces <include src="include.md#exists" optional> with <div>
 
   const expected = [
     '# Index',
-    `<div cwf="${indexPath}" include-path="${includePath}">`
+    `<div cwf="${indexPath}">`
     + `<div data-included-from="${includePath}" cwf="${includePath}">`,
     '',
     'existing segment',
@@ -360,7 +360,7 @@ test('includeFile replaces <include src="include.md#doesNotExist" optional> with
 
   const expected = [
     '# Index',
-    `<div cwf="${indexPath}" include-path="${includePath}">`
+    `<div cwf="${indexPath}">`
     + `<div data-included-from="${includePath}" cwf="${includePath}">`,
     '',
     '',

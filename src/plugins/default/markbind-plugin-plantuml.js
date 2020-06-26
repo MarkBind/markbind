@@ -80,7 +80,7 @@ module.exports = {
     // Clear <puml> tags processed before for live reload
     processedDiagrams.clear();
     // Processes all <puml> tags
-    const $ = cheerio.load(content, { xmlMode: true });
+    const $ = cheerio.load(content);
     $('puml').each((i, tag) => {
       tag.name = 'pic';
       const { cwf } = tag.attribs;

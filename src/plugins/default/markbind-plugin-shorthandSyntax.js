@@ -15,7 +15,7 @@ function convertPanelHeadings($) {
  */
 module.exports = {
   postRender: (content) => {
-    const $ = cheerio.load(content, { xmlMode: false });
+    const $ = cheerio.load(content);
     convertPanelHeadings($);
     return $.html();
   },

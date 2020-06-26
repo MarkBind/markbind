@@ -1,4 +1,4 @@
-const cheerio = require('cheerio');
+const cheerio = require('cheerio'); require('./lib/markbind/src/patches/htmlparser2');
 const fm = require('fastmatter');
 const fs = require('fs-extra-promise');
 const htmlBeautify = require('js-beautify').html;
@@ -18,7 +18,6 @@ const logger = require('./util/logger');
 const MarkBind = require('./lib/markbind/src/parser');
 const md = require('./lib/markbind/src/lib/markdown-it');
 const utils = require('./lib/markbind/src/utils');
-const urlUtils = require('./lib/markbind/src/utils/urls');
 
 const CLI_VERSION = require('../package.json').version;
 
@@ -57,7 +56,6 @@ const {
   TEMP_DROPDOWN_PLACEHOLDER_CLASS,
 } = require('./constants');
 
-cheerio.prototype.options.xmlMode = true; // Enable xml mode for self-closing tag
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 class Page {
@@ -597,7 +595,7 @@ class Page {
       // Insert content
       .then(result => njUtil.renderRaw(result, {
         [LAYOUT_PAGE_BODY_VARIABLE]: pageData,
-      }, {}, false));
+      }));
   }
 
 
@@ -707,11 +705,11 @@ class Page {
     const siteNavHtml = md.render(navigationElements.length === 0
       ? siteNavMappedData.replace(SITE_NAV_EMPTY_LINE_REGEX, '\n')
       : navigationElements.html().replace(SITE_NAV_EMPTY_LINE_REGEX, '\n'));
-    const $nav = cheerio.load(siteNavHtml, { xmlMode: false });
+    const $nav = cheerio.load(siteNavHtml);
 
     // Add anchor classes and highlight current page's anchor, if any.
     const currentPageHtmlPath = this.src.replace(/\.(md|mbd)$/, '.html');
-    const currentPageRegex = new RegExp(`{{ *baseUrl *}}/${currentPageHtmlPath}`);
+    const currentPageRegex = new RegExp(`${this.baseUrl}/${currentPageHtmlPath}`);
     $nav('a[href]').each((i, elem) => {
       if (currentPageRegex.test($nav(elem).attr('href'))) {
         $nav(elem).addClass('current');
@@ -845,7 +843,7 @@ class Page {
    */
   buildPageNav() {
     if (this.isPageNavigationSpecifierValid()) {
-      const $ = cheerio.load(this.content, { xmlMode: false });
+      const $ = cheerio.load(this.content);
       this.navigableHeadings = {};
       this.collectNavigableHeadings($(`#${CONTENT_WRAPPER_ID}`).html());
       const pageNavTitleHtml = this.generatePageNavTitleHtml();
@@ -862,7 +860,7 @@ class Page {
     }
   }
 
-  collectHeadFiles(baseUrl, hostBaseUrl) {
+  collectHeadFiles() {
     const { head } = this.frontMatter;
     if (head === FRONT_MATTER_NONE_ATTR) {
       this.headFileTopContent = '';
@@ -890,18 +888,13 @@ class Page {
       const headFileMappedData = this.variablePreprocessor.renderSiteVariables(this.sourcePath,
                                                                                headFileContent).trim();
       // Split top and bottom contents
-      const $ = cheerio.load(headFileMappedData, { xmlMode: false });
+      const $ = cheerio.load(headFileMappedData);
       if ($('head-top').length) {
-        collectedTopContent.push(njUtil.renderRaw($('head-top').html(), {
-          baseUrl,
-          hostBaseUrl,
-        }).trim().replace(/\n\s*\n/g, '\n').replace(/\n/g, '\n    '));
+        collectedTopContent.push($('head-top').html().trim().replace(/\n\s*\n/g, '\n')
+          .replace(/\n/g, '\n    '));
         $('head-top').remove();
       }
-      collectedBottomContent.push(njUtil.renderRaw($.html(), {
-        baseUrl,
-        hostBaseUrl,
-      }).trim().replace(/\n\s*\n/g, '\n').replace(/\n/g, '\n    '));
+      collectedBottomContent.push($.html().trim().replace(/\n\s*\n/g, '\n').replace(/\n/g, '\n    '));
     });
     this.headFileTopContent = collectedTopContent.join('\n    ');
     this.headFileBottomContent = collectedBottomContent.join('\n    ');
@@ -924,7 +917,7 @@ class Page {
   }
 
   collectPageSection(section) {
-    const $ = cheerio.load(this.content, { xmlMode: false });
+    const $ = cheerio.load(this.content);
     const pageSection = $(section);
     if (pageSection.length === 0) {
       return;
@@ -962,6 +955,7 @@ class Page {
      */
     const fileConfig = {
       baseUrlMap: this.baseUrlMap,
+      baseUrl: this.baseUrl,
       rootPath: this.rootPath,
       headerIdMap: this.headerIdMap,
       fixedHeader: this.fixedHeader,
@@ -981,27 +975,16 @@ class Page {
       .then(result => this.insertHeaderFile(result, fileConfig))
       .then(result => this.insertFooterFile(result))
       .then(result => Page.insertTemporaryStyles(result))
-      .then(result => markbinder.resolveBaseUrl(result, fileConfig))
       .then(result => markbinder.render(result, this.sourcePath, fileConfig))
       .then(result => this.postRender(result))
       .then(result => this.collectPluginsAssets(result))
-      .then(result => markbinder.processDynamicResources(this.sourcePath, result))
+      .then(result => MarkBind.processDynamicResources(this.sourcePath, result, fileConfig))
       .then(result => MarkBind.unwrapIncludeSrc(result))
       .then((result) => {
+        this.addLayoutScriptsAndStyles();
+        this.collectHeadFiles();
+
         this.content = result;
-
-        const { relative } = urlUtils.getParentSiteAbsoluteAndRelativePaths(this.sourcePath, this.rootPath,
-                                                                            this.baseUrlMap);
-        const baseUrl = relative ? `${this.baseUrl}/${utils.ensurePosix(relative)}` : this.baseUrl;
-        const hostBaseUrl = this.baseUrl;
-
-        this.addLayoutFiles();
-        this.collectHeadFiles(baseUrl, hostBaseUrl);
-
-        this.content = njUtil.renderString(this.content, {
-          baseUrl,
-          hostBaseUrl,
-        });
 
         this.collectAllPageSections();
         this.buildPageNav();
@@ -1089,7 +1072,7 @@ class Page {
           pageContextSources.forEach((src) => {
             if (src === undefined || src === '' || utils.isUrl(src)) {
               return;
-            } else if (utils.isAbsolutePath(src)) {
+            } else if (path.isAbsolute(src)) {
               self.pluginSourceFiles.add(path.resolve(src));
               return;
             }
@@ -1103,7 +1086,7 @@ class Page {
         }
 
         if (domTagSourcesMap) {
-          const $ = cheerio.load(content, { xmlMode: true });
+          const $ = cheerio.load(content);
 
           domTagSourcesMap.forEach(([tagName, attrName]) => {
             if (!_.isString(tagName) || !_.isString(attrName)) {
@@ -1121,7 +1104,7 @@ class Page {
                 src = ensurePosix(src);
                 if (src === '' || utils.isUrl(src)) {
                   return;
-                } else if (utils.isAbsolutePath(src)) {
+                } else if (path.isAbsolute(src)) {
                   self.pluginSourceFiles.add(path.resolve(src));
                   return;
                 }
@@ -1182,7 +1165,7 @@ class Page {
    * @return String html of the element, with the attribute's asset resolved
    */
   getResolvedAssetElement(assetElementHtml, tagName, attrName, plugin, pluginName) {
-    const $ = cheerio.load(assetElementHtml, { xmlMode: false });
+    const $ = cheerio.load(assetElementHtml);
     const el = $(`${tagName}[${attrName}]`);
 
     el.attr(attrName, (i, assetPath) => {
@@ -1245,7 +1228,7 @@ class Page {
   /**
    * Adds linked layout files to page assets
    */
-  addLayoutFiles() {
+  addLayoutScriptsAndStyles() {
     this.asset.layoutScript = path.join(this.layoutsAssetPath, this.frontMatter.layout, 'scripts.js');
     this.asset.layoutStyle = path.join(this.layoutsAssetPath, this.frontMatter.layout, 'styles.css');
   }
@@ -1272,41 +1255,30 @@ class Page {
       const markbinder = new MarkBind({
         variablePreprocessor: this.variablePreprocessor,
       });
+      /**
+       * @type {FileConfig}
+       */
+      const fileConfig = {
+        baseUrlMap: this.baseUrlMap,
+        baseUrl: this.baseUrl,
+        rootPath: this.rootPath,
+        headerIdMap: {},
+        cwf: file,
+      };
       return fs.readFileAsync(dependency.to, 'utf-8')
-        .then(result => markbinder.includeFile(dependency.to, result, {
-          baseUrlMap: this.baseUrlMap,
-          rootPath: this.rootPath,
-          cwf: file,
-        }))
+        .then(result => markbinder.includeFile(dependency.to, result, fileConfig))
         .then(result => Page.removeFrontMatter(result))
         .then(result => this.collectPluginSources(result))
         .then(result => this.preRender(result))
-        .then(result => markbinder.resolveBaseUrl(result, {
-          baseUrlMap: this.baseUrlMap,
-          rootPath: this.rootPath,
-        }))
-        .then(result => markbinder.render(result, this.sourcePath, {
-          baseUrlMap: this.baseUrlMap,
-          rootPath: this.rootPath,
-          headerIdMap: {},
-        }))
+        .then(result => markbinder.render(result, this.sourcePath, fileConfig))
         .then(result => this.postRender(result))
         .then(result => this.collectPluginsAssets(result))
-        .then(result => markbinder.processDynamicResources(file, result))
+        .then(result => MarkBind.processDynamicResources(file, result, fileConfig))
         .then(result => MarkBind.unwrapIncludeSrc(result))
         .then((result) => {
-          // resolve the site base url here
-          const { relative } = urlUtils.getParentSiteAbsoluteAndRelativePaths(file, this.rootPath,
-                                                                              this.baseUrlMap);
-          const baseUrl = relative ? `${this.baseUrl}/${utils.ensurePosix(relative)}` : this.baseUrl;
-          const hostBaseUrl = this.baseUrl;
-          const content = njUtil.renderString(result, {
-            baseUrl,
-            hostBaseUrl,
-          });
           const outputContentHTML = this.disableHtmlBeautify
-            ? content
-            : htmlBeautify(content, Page.htmlBeautifyOptions);
+            ? result
+            : htmlBeautify(result, Page.htmlBeautifyOptions);
           return fs.outputFileAsync(resultPath, outputContentHTML);
         })
         .then(() => {
