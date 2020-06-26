@@ -11,7 +11,7 @@ _.isString = require('lodash/isString');
 _.isObject = require('lodash/isObject');
 _.isArray = require('lodash/isArray');
 
-const CyclicReferenceError = require('markbind/src/handlers/CyclicReferenceError');
+const { CyclicReferenceError } = require('markbind/src/errors');
 const MarkBind = require('markbind/src/Parser');
 const md = require('markbind/src/lib/markdown-it');
 const utils = require('markbind/src/utils');
