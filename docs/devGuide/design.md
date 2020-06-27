@@ -28,7 +28,7 @@ The MarkBind project is developed in a monorepo ([MarkBind/markbind](https://git
 
 The core library parses the given Markdown file, processes all the content include, and renders all Markdown into HTML so that it could be displayed in a browser.
 
-All the core logic resides inside the `lib/parser.js` file. It exposes two important APIs: **include** and **render**.
+All the core logic resides inside the `src/Parser.js` file. It exposes two important APIs: **include** and **render**.
 
 *Include* and *Render* will first parse the given file as a DOM tree, and then recursively visit every node to check if it needs special handling.
 

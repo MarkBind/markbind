@@ -11,7 +11,7 @@ const injectHtmlParser2SpecialTags = require('markbind/src/patches/htmlparser2')
 const injectMarkdownItSpecialTags = require('markbind/src/lib/markdown-it/markdown-it-escape-special-tags');
 const njUtil = require('markbind/src/utils/nunjuckUtils');
 const utils = require('markbind/src/utils');
-const VariablePreprocessor = require('markbind/src/preprocessors/variablePreprocessor');
+const VariablePreprocessor = require('markbind/src/preprocessors/VariablePreprocessor');
 
 const _ = {};
 _.difference = require('lodash/difference');
