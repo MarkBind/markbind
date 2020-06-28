@@ -36,7 +36,7 @@ In the *Include* stage, it will check if the node will include new contents (for
 
 *Render* is a similar process to *Include*, but it will render the content recursively to ensure all Markdown are converted to HTML.
 
-MarkBind uses [markdown-it](https://github.com/markdown-it/markdown-it) to do the Markdown parsing and rendering. There are also several customized markdown-it plugins used in MarkBind, which are located inside the `lib/markdown-it/` directory.
+MarkBind uses [markdown-it](https://github.com/markdown-it/markdown-it) to do the Markdown parsing and rendering. There are also several customized markdown-it plugins used in MarkBind, which are located inside the `src/lib/markdown-it/` directory.
 
 ### MarkBind CLI
 
