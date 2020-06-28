@@ -11,10 +11,11 @@ const Promise = require('bluebird');
 const _ = {};
 _.isBoolean = require('lodash/isBoolean');
 
+const utils = require('./src/lib/markbind/src/utils');
+
 const cliUtil = require('./src/util/cliUtil');
 const fsUtil = require('./src/util/fsUtil');
 const logger = require('./src/util/logger');
-const utils = require('./src/lib/markbind/src/utils');
 
 const Site = require('./src/Site');
 

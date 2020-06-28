@@ -97,7 +97,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    * If there are significant changes (e.g. breaking changes, new release), a `minor` release is needed:
      1. Run `npm version minor` as per normal.
         
-     1. Update the version number inside the `frontend/components` and `src/lib/markbind` packages similarly using `npm version minor` (as `npm version` does not update the subpackage versions automatically).
+     1. Update the version number inside the `frontend/components/` and `packages/core/` packages similarly using `npm version minor` (as `npm version` does not update the subpackage versions automatically).
 
    * We rarely do `major` releases, but if necessary, the steps are the same as the `minor` release (just change `minor` to `major`).
 
@@ -300,7 +300,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
       ### Dependencies
 
-      Bump acorn from 7.1.0 to 7.1.1 in /src/lib/markbind (#1120)
+      Bump acorn from 7.1.0 to 7.1.1 in /packages/core (#1120)
       ```
 
    f. Click "Publish release".
