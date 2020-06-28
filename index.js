@@ -11,7 +11,7 @@ const Promise = require('bluebird');
 const _ = {};
 _.isBoolean = require('lodash/isBoolean');
 
-const utils = require('./src/lib/markbind/src/utils');
+const utils = require('@markbind/core/src/utils');
 
 const cliUtil = require('./src/util/cliUtil');
 const fsUtil = require('./src/util/fsUtil');

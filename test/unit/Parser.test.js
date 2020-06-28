@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
-const Parser = require('markbind/src/Parser');
-const VariablePreprocessor = require('markbind/src/preprocessors/VariablePreprocessor');
+const Parser = require('@markbind/core/src/Parser');
+const VariablePreprocessor = require('@markbind/core/src/preprocessors/VariablePreprocessor');
 const { USER_VARIABLES_DEFAULT } = require('./utils/data');
 
 jest.mock('fs');
