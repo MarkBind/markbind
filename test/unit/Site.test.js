@@ -43,7 +43,7 @@ test('Site Generate builds the correct amount of assets', async () => {
     'asset/js/setup.js': '',
     'asset/js/vue.min.js': '',
 
-    'frontend/components/dist/components.min.js': '',
+    'packages/vue-components/dist/components.min.js': '',
 
     'node_modules/@fortawesome/fontawesome-free/css/all.min.css': '',
     'node_modules/@fortawesome/fontawesome-free/webfonts/font1.svg': '',

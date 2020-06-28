@@ -1,7 +1,7 @@
 *.min.*
-frontend
 node_modules
 packages/core/src/lib/markdown-it/*
 packages/core/src/lib/markdown-it-shared/*
+packages/vue-components
 
 !.eslintrc.js

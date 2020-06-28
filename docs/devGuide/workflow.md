@@ -97,7 +97,7 @@ To add a page to an existing test site, for this example, to `test_site`:
 
 ##### Adding snapshot tests for components
 
-When making changes to the Vue components in `frontend/components`, you should add new snapshot tests or adapt existing ones as appropriate.
+When making changes to the Vue components in `packages/vue-components`, you should add new snapshot tests or adapt existing ones as appropriate.
 
 Once you're done, be sure to run the `updatetest` script mentioned [above](#updating-and-writing-tests)!
 

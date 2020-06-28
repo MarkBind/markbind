@@ -1137,7 +1137,7 @@ class Site {
    * Copies components.min.js bundle to the assets folder
    */
   copyComponentsAsset() {
-    const componentsSrcPath = path.join(__dirname, '..', 'frontend', 'components', 'dist',
+    const componentsSrcPath = path.join(__dirname, '..', 'packages', 'vue-components', 'dist',
                                         'components.min.js');
     const componentsDestPath = path.join(this.siteAssetsDestPath, 'js', 'components.min.js');
 

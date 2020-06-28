@@ -20,7 +20,7 @@ The MarkBind project is developed in a monorepo ([MarkBind/markbind](https://git
 
 * The core library, which resolves the content include path and renders Markdown content, resides in the `packages/core/` directory.
 
-* The UI components library, which MarkBind authors can use to create content with complex and interactive structure, resides in the `frontend/components/` directory.
+* The UI components library, which MarkBind authors can use to create content with complex and interactive structure, resides in the `packages/vue-components/` directory.
 
   Stack used: *Node.js*, *Vue.js*
 

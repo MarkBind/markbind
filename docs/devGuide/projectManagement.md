@@ -76,11 +76,11 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 ### Building the UI components library
 
 1. **Start with a "clean slate"** by running `npm run ci:all` or `npm run ciwin:all` in the root markbind directory, as this may affect the generated bundle.
-1. **Build the bundle** by executing `npm run build:components` in the root directory, after which you should see changes in `frontend/components/dist/components.min.js`.
+1. **Build the bundle** by executing `npm run build:components` in the root directory, after which you should see changes in `packages/vue-components/dist/components.min.js`.
 
    <box type="info" seamless>
 
-   Building the UI components bundle is optional if there are no changes to the files in `frontend/components/` since the last release of MarkBind.
+   Building the UI components bundle is optional if there are no changes to the files in `packages/vue-components/` since the last release of MarkBind.
    </box>
    <box type="info" seamless>
 
@@ -97,7 +97,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    * If there are significant changes (e.g. breaking changes, new release), a `minor` release is needed:
      1. Run `npm version minor` as per normal.
         
-     1. Update the version number inside the `frontend/components/` and `packages/core/` packages similarly using `npm version minor` (as `npm version` does not update the subpackage versions automatically).
+     1. Update the version number of `packages/core/` and `packages/vue-components/` similarly using `npm version minor` (as `npm version` does not update the subpackage versions automatically).
 
    * We rarely do `major` releases, but if necessary, the steps are the same as the `minor` release (just change `minor` to `major`).
 
