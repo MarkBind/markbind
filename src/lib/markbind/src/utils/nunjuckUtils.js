@@ -1,5 +1,5 @@
 const nunjucks = require('nunjucks');
-const dateFilter = require('../lib/nunjucks-extensions/nunjucks-date');
+const dateFilter = require('../lib/nunjucks-extensions/nunjucks-date').filter;
 
 const unescapedEnv = nunjucks.configure({ autoescape: false }).addFilter('date', dateFilter);
 

@@ -15,4 +15,6 @@ function filter(baseDate, format = DEFAULT_FORMAT, day = 0) {
   return calculateTarget(baseDate, day).format(format);
 }
 
-module.exports = filter;
+module.exports = {
+  filter,
+};

@@ -92,4 +92,6 @@ function injectTags(tagsToIgnore) {
   markdownIt.use(escape_plugin, tagsToIgnore);
 }
 
-module.exports = injectTags;
+module.exports = {
+  injectTags,
+};

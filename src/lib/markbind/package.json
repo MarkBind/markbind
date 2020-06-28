@@ -11,7 +11,7 @@
   ],
   "homepage": "https://markbind.org",
   "license": "MIT",
-  "main": "src/parser.js",
+  "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/MarkBind/markbind.git",
