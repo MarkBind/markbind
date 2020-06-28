@@ -1,6 +1,6 @@
 const cheerio = require('cheerio');
 const htmlparser = require('htmlparser2');
-const componentParser = require('../../../src/lib/markbind/src/parsers/componentParser');
+const componentParser = require('markbind/src/parsers/componentParser');
 const testData = require('../utils/componentParserData');
 
 /**

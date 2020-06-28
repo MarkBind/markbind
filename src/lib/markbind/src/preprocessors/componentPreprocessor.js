@@ -3,7 +3,7 @@ const path = require('path');
 const url = require('url');
 const logger = require('../../../../util/logger');
 
-const CyclicReferenceError = require('../handlers/cyclicReferenceError.js');
+const CyclicReferenceError = require('../handlers/cyclicReferenceError');
 
 const utils = require('../utils');
 const urlUtils = require('../utils/urls');

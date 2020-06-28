@@ -1,5 +1,5 @@
 const cheerio = module.parent.require('cheerio');
-const { parseComponents } = require('../../lib/markbind/src/parsers/componentParser.js');
+const { parseComponents } = require('markbind/src/parsers/componentParser');
 
 module.exports = {
   postRender: (content) => {
