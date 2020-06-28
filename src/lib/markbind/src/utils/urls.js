@@ -8,7 +8,6 @@ const {
   BOILERPLATE_FOLDER_NAME,
 } = require('../constants');
 
-
 /**
  * Calculates the absolute path of of the immediate parent site of the specified filePath.
  * @param filePath The absolute file path to look up that is nested inside the root directory

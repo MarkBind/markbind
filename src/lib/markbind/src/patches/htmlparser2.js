@@ -182,7 +182,6 @@ Tokenizer.prototype._stateText = function(c) {
 	}
 };
 
-
 Tokenizer.prototype.specialTagNames = [...DEFAULT_SPECIAL_TAGS];
 
 /**

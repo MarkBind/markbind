@@ -20,7 +20,6 @@ function preRender(content) {
   return $.html();
 }
 
-
 module.exports = {
   preRender,
   getSpecialTags: () => ['testtag', 'testselfclosingtag'],

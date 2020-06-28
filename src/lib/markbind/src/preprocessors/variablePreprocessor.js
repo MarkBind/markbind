@@ -17,7 +17,6 @@ const {
   ATTRIB_CWF,
 } = require('../constants');
 
-
 /**
  * All variable extraction and rendering is done here.
  *
@@ -66,12 +65,10 @@ class VariablePreprocessor {
     this.userDefinedVariablesMap = {};
   }
 
-
   /*
    * --------------------------------------------------
    * Site level variable storage methods
    */
-
 
   /**
    * Adds a variable for a site with the specified name and value.
@@ -121,7 +118,6 @@ class VariablePreprocessor {
    * Site level variable rendering methods
    */
 
-
   /**
    * Renders content belonging to a specified file path with the appropriate site's variables,
    * with an optional set of lower and higher priority variables than the site variables to be rendered.
@@ -139,7 +135,6 @@ class VariablePreprocessor {
       ...higherPriorityVariables,
     });
   }
-
 
   /*
    * --------------------------------------------------
@@ -329,7 +324,6 @@ class VariablePreprocessor {
     return includeChildVariables;
   }
 
-
   /**
    * Extract variables from an <include> element.
    * See https://markbind.org/userGuide/reusingContents.html#specifying-variables-in-an-include for usage.
@@ -346,12 +340,10 @@ class VariablePreprocessor {
     };
   }
 
-
   /*
    * --------------------------------------------------
    * Combined (both site and page variables) rendering methods
    */
-
 
   /**
    * Renders an <include> file with the supplied context, returning the rendered
@@ -392,7 +384,6 @@ class VariablePreprocessor {
       childContext,
     };
   }
-
 
   /**
    * Renders content belonging to a page with the appropriate variables.

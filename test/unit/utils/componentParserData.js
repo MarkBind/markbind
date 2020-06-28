@@ -218,7 +218,6 @@ module.exports.PARSE_MODAL_SLOTS_RENAMING_EXPECTED = `
 </b-modal>
 `;
 
-
 /*
  * Tab, tab-group
  */

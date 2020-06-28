@@ -135,7 +135,6 @@ fs.copySync = (src, dest) => {
  */
 fs.readJsonSync = filePath => JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
-
 /**
  * Mocking fs-extra#outputJsonSync
  */

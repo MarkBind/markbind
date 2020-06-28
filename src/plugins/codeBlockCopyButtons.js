@@ -18,7 +18,6 @@ function getButtonHTML() {
   return html;
 }
 
-
 const copyCodeBlockScript = `<script>
     function copyCodeBlock(element) {
         const pre = element.parentElement;
@@ -40,7 +39,6 @@ const copyCodeBlockScript = `<script>
         }, 2000);
     }
     </script>`;
-
 
 module.exports = {
   getScripts: () => [copyCodeBlockScript],

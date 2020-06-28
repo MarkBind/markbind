@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-
 // Entry file for Markbind project
 const chokidar = require('chokidar');
 const fs = require('fs-extra-promise');
@@ -13,9 +12,10 @@ const _ = {};
 _.isBoolean = require('lodash/isBoolean');
 
 const cliUtil = require('./src/util/cliUtil');
-const { ensurePosix } = require('./src/lib/markbind/src/utils');
 const fsUtil = require('./src/util/fsUtil');
 const logger = require('./src/util/logger');
+const utils = require('./src/lib/markbind/src/utils');
+
 const Site = require('./src/Site');
 
 const {
@@ -118,7 +118,7 @@ program
     const outputFolder = path.join(rootFolder, '_site');
 
     let onePagePath = options.onePage === true ? INDEX_MARKDOWN_FILE : options.onePage;
-    onePagePath = onePagePath ? ensurePosix(onePagePath) : onePagePath;
+    onePagePath = onePagePath ? utils.ensurePosix(onePagePath) : onePagePath;
 
     const site = new Site(rootFolder, outputFolder, onePagePath, options.forceReload, options.siteConfig);
 
@@ -209,7 +209,7 @@ program
 
             const didInitiateRebuild = site.changeCurrentPage(urlWithoutExtension);
             if (didInitiateRebuild) {
-              req.url = ensurePosix(path.join(config.baseUrl || '/', LAZY_LOADING_SITE_FILE_NAME));
+              req.url = utils.ensurePosix(path.join(config.baseUrl || '/', LAZY_LOADING_SITE_FILE_NAME));
             }
             next();
           };

@@ -172,7 +172,6 @@ function _warnDeprecatedAttributes(node, attributeNamePairs) {
   });
 }
 
-
 /*
  * Triggers
  *
@@ -491,7 +490,6 @@ function postParseComponents(node) {
     delete node.attribs[ATTRIB_CWF];
   }
 }
-
 
 module.exports = {
   parseComponents,

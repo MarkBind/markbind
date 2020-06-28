@@ -1,23 +1,23 @@
-const cheerio = require('cheerio'); require('./lib/markbind/src/patches/htmlparser2');
+const cheerio = require('cheerio'); require('markbind/src/patches/htmlparser2');
 const fm = require('fastmatter');
 const fs = require('fs-extra-promise');
 const htmlBeautify = require('js-beautify').html;
 const path = require('path');
 const Promise = require('bluebird');
-const njUtil = require('./lib/markbind/src/utils/nunjuckUtils');
+const njUtil = require('markbind/src/utils/nunjuckUtils');
 
 const _ = {};
 _.isString = require('lodash/isString');
 _.isObject = require('lodash/isObject');
 _.isArray = require('lodash/isArray');
 
-const CyclicReferenceError = require('./lib/markbind/src/handlers/cyclicReferenceError.js');
-const { ensurePosix } = require('./lib/markbind/src/utils');
+const CyclicReferenceError = require('markbind/src/handlers/cyclicReferenceError');
+const MarkBind = require('markbind/src/parser');
+const md = require('markbind/src/lib/markdown-it');
+const utils = require('markbind/src/utils');
+
 const FsUtil = require('./util/fsUtil');
 const logger = require('./util/logger');
-const MarkBind = require('./lib/markbind/src/parser');
-const md = require('./lib/markbind/src/lib/markdown-it');
-const utils = require('./lib/markbind/src/utils');
 
 const CLI_VERSION = require('../package.json').version;
 
@@ -285,7 +285,7 @@ class Page {
     // construct temporary asset object with only POSIX-style paths
     const asset = {};
     Object.entries(this.asset).forEach(([key, value]) => {
-      asset[key] = _.isString(value) ? ensurePosix(value) : value;
+      asset[key] = _.isString(value) ? utils.ensurePosix(value) : value;
     });
     return {
       asset,
@@ -345,7 +345,6 @@ class Page {
     $('b-modal').remove();
     this._collectNavigableHeadings($, $.root()[0], elementSelector);
   }
-
 
   _collectNavigableHeadings($, context, pageNavSelector) {
     $(pageNavSelector, context).each((i, elem) => {
@@ -597,7 +596,6 @@ class Page {
         [LAYOUT_PAGE_BODY_VARIABLE]: pageData,
       }));
   }
-
 
   /**
    * Inserts the page layout's header to the start of the page
@@ -1101,7 +1099,7 @@ class Page {
 
                 let src = elem.attr(attrName);
 
-                src = ensurePosix(src);
+                src = utils.ensurePosix(src);
                 if (src === '' || utils.isUrl(src)) {
                   return;
                 } else if (path.isAbsolute(src)) {
@@ -1189,7 +1187,6 @@ class Page {
 
     return $.html();
   }
-
 
   /**
    * Collect page content inserted by plugins
