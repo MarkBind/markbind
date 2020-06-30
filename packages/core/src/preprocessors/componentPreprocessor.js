@@ -1,7 +1,7 @@
 const cheerio = require('cheerio');
 const path = require('path');
 const url = require('url');
-const logger = require('../../../../util/logger');
+const logger = require('../utils/logger');
 
 const { CyclicReferenceError } = require('../errors');
 

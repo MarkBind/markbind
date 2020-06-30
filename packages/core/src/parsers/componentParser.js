@@ -4,7 +4,7 @@ const _ = {};
 _.has = require('lodash/has');
 
 const md = require('../lib/markdown-it');
-const logger = require('../../../../util/logger');
+const logger = require('../utils/logger');
 
 const {
   ATTRIB_CWF,

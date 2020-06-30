@@ -11,7 +11,7 @@ _.isEmpty = require('lodash/isEmpty');
 
 const njUtil = require('../utils/nunjuckUtils');
 const urlUtils = require('../utils/urls');
-const logger = require('../../../../util/logger');
+const logger = require('../utils/logger');
 
 const {
   ATTRIB_CWF,

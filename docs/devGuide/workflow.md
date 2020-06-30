@@ -97,7 +97,7 @@ To add a page to an existing test site, for this example, to `test_site`:
 
 ##### Adding snapshot tests for components
 
-When making changes to the Vue components in `frontend/components`, you should add new snapshot tests or adapt existing ones as appropriate.
+When making changes to the Vue components in `packages/vue-components`, you should add new snapshot tests or adapt existing ones as appropriate.
 
 Once you're done, be sure to run the `updatetest` script mentioned [above](#updating-and-writing-tests)!
 
@@ -130,7 +130,7 @@ feel free to look into `package.json` and use them as you see fit!
 
 We use `npm install <package folder>` to <tooltip content="take a look under the command in the link!">[hoist](https://docs.npmjs.com/cli/install)</tooltip> the MarkBind core package's dependencies to the root `node_modules`, avoiding dependency duplication between the `markbind-cli` and `markbind` packages where possible.
 
-Hence, when updating dependencies of the `markbind` core package, be sure to run the `npm install src/lib/markbind` command, or simply the `npm run install:markbind` script. If you upgraded the dependencies of multiple packages, simply run `npm run install:all` instead.
+Hence, when updating dependencies of the `markbind` core package, be sure to run the `npm install packages/core` command, or simply the `npm run install:core` script. If you upgraded the dependencies of multiple packages, simply run `npm run install:all` instead.
 
 If the dependency <tooltip content="i.e. is also listed under the root `package.json`">is also used</tooltip> in the root package, make sure to update its <tooltip content="as listed in the `package.json` file">version number</tooltip> as well!
 

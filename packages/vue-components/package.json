@@ -1,5 +1,5 @@
 {
-  "name": "vue-components",
+  "name": "@markbind/vue-components",
   "version": "2.14.1",
   "description": "Bootstrap components built with Vue.js",
   "keywords": [
@@ -19,7 +19,8 @@
   "main": "dist/components.min.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MarkBind/markbind.git"
+    "url": "https://github.com/MarkBind/markbind.git",
+    "directory": "packages/vue-components"
   },
   "scripts": {
     "build": "webpack --progress --hide-modules --config  webpack.build.js",

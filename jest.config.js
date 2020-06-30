@@ -1,7 +1,7 @@
 module.exports = {
   testPathIgnorePatterns: [
-    '/frontend/',
     '/node_modules/',
+    '/packages/vue-components/',
     '/test/functional/',
   ],
 };

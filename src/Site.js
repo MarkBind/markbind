@@ -1,4 +1,4 @@
-const cheerio = require('cheerio'); require('markbind/src/patches/htmlparser2');
+const cheerio = require('cheerio'); require('@markbind/core/src/patches/htmlparser2');
 const fs = require('fs-extra-promise');
 const ghpages = require('gh-pages');
 const ignore = require('ignore');
@@ -7,10 +7,10 @@ const Promise = require('bluebird');
 const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
 
-const markbind = require('markbind');
-const njUtil = require('markbind/src/utils/nunjuckUtils');
-const utils = require('markbind/src/utils');
-const VariablePreprocessor = require('markbind/src/preprocessors/VariablePreprocessor');
+const markbind = require('@markbind/core');
+const njUtil = require('@markbind/core/src/utils/nunjuckUtils');
+const utils = require('@markbind/core/src/utils');
+const VariablePreprocessor = require('@markbind/core/src/preprocessors/VariablePreprocessor');
 
 const _ = {};
 _.difference = require('lodash/difference');
@@ -1137,7 +1137,7 @@ class Site {
    * Copies components.min.js bundle to the assets folder
    */
   copyComponentsAsset() {
-    const componentsSrcPath = path.join(__dirname, '..', 'frontend', 'components', 'dist',
+    const componentsSrcPath = path.join(__dirname, '..', 'packages', 'vue-components', 'dist',
                                         'components.min.js');
     const componentsDestPath = path.join(this.siteAssetsDestPath, 'js', 'components.min.js');
 

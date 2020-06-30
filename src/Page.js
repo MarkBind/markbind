@@ -1,20 +1,20 @@
-const cheerio = require('cheerio'); require('markbind/src/patches/htmlparser2');
+const cheerio = require('cheerio'); require('@markbind/core/src/patches/htmlparser2');
 const fm = require('fastmatter');
 const fs = require('fs-extra-promise');
 const htmlBeautify = require('js-beautify').html;
 const path = require('path');
 const Promise = require('bluebird');
-const njUtil = require('markbind/src/utils/nunjuckUtils');
+const njUtil = require('@markbind/core/src/utils/nunjuckUtils');
 
 const _ = {};
 _.isString = require('lodash/isString');
 _.isObject = require('lodash/isObject');
 _.isArray = require('lodash/isArray');
 
-const { CyclicReferenceError } = require('markbind/src/errors');
-const MarkBind = require('markbind/src/Parser');
-const md = require('markbind/src/lib/markdown-it');
-const utils = require('markbind/src/utils');
+const { CyclicReferenceError } = require('@markbind/core/src/errors');
+const MarkBind = require('@markbind/core/src/Parser');
+const md = require('@markbind/core/src/lib/markdown-it');
+const utils = require('@markbind/core/src/utils');
 
 const FsUtil = require('./util/fsUtil');
 const logger = require('./util/logger');

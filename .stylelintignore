@@ -1,4 +1,4 @@
 **/*.min.css
 **/_site/**/*.css
-frontend/components/**/*.css
+packages/vue-components/**/*.css
 test/functional/**/expected/**/*.css

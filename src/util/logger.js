@@ -1,54 +1,46 @@
-/* eslint-disable no-console */
-
 const chalk = require('chalk');
 const figlet = require('figlet');
-const winston = require('winston');
 const DailyRotateFile = require('winston-daily-rotate-file');
+const winston = require('winston');
 
+const coreLogger = require('@markbind/core/src/utils/logger');
+
+// @markbind/core's consoleTransport but with level: info
+const consoleTransport = new (winston.transports.Console)({
+  colorize: true,
+  handleExceptions: true,
+  humanReadableUnhandledException: true,
+  level: 'info',
+  showLevel: true,
+});
+
+const dailyRotateFileTransport = new DailyRotateFile({
+  datePattern: 'YYYY-MM-DD',
+  dirname: '_markbind/logs',
+  filename: 'markbind-%DATE%.log',
+  handleExceptions: true,
+  humanReadableUnhandledException: true,
+  level: 'debug',
+  maxFiles: 5,
+  showLevel: true,
+});
+
+// Reconfigure the default instance logger winston provides with DailyRotateFile for markbind-cli
 winston.configure({
   exitOnError: false,
   transports: [
-    new (winston.transports.Console)({
-      colorize: true,
-      handleExceptions: true,
-      humanReadableUnhandledException: true,
-      level: 'info',
-      showLevel: true,
-    }),
-    new DailyRotateFile({
-      datePattern: 'YYYY-MM-DD',
-      dirname: '_markbind/logs',
-      filename: 'markbind-%DATE%.log',
-      handleExceptions: true,
-      humanReadableUnhandledException: true,
-      level: 'debug',
-      maxFiles: 5,
-      showLevel: true,
-    }),
+    consoleTransport,
+    dailyRotateFileTransport,
   ],
 });
 
 module.exports = {
-  error: (text) => {
-    winston.error(text);
-  },
-  warn: (text) => {
-    winston.warn(text);
-  },
-  info: (text) => {
-    winston.info(text);
-  },
-  verbose: (text) => {
-    winston.verbose(text);
-  },
-  debug: (text) => {
-    winston.debug(text);
-  },
-  log: (text) => {
-    console.log(text);
-  },
+  error: coreLogger.error,
+  warn: coreLogger.warn,
+  info: coreLogger.info,
+  verbose: coreLogger.verbose,
+  debug: coreLogger.debug,
+  /* eslint-disable no-console */
+  log: console.log,
   logo: () => console.log(chalk.cyan(figlet.textSync('MarkBind', { horizontalLayout: 'full' }))),
-  profile: (key) => {
-    winston.profile(key);
-  },
 };
