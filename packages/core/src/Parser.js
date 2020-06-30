@@ -5,7 +5,7 @@ const Promise = require('bluebird');
 const slugify = require('@sindresorhus/slugify');
 const componentParser = require('./parsers/componentParser');
 const componentPreprocessor = require('./preprocessors/componentPreprocessor');
-const logger = require('../../../src/util/logger');
+const logger = require('./utils/logger');
 
 const _ = {};
 _.clone = require('lodash/clone');

@@ -5,7 +5,6 @@ const VariablePreprocessor = require('@markbind/core/src/preprocessors/VariableP
 const { USER_VARIABLES_DEFAULT } = require('./utils/data');
 
 jest.mock('fs');
-jest.mock('../../src/util/logger');
 
 afterEach(() => fs.vol.reset());
 
