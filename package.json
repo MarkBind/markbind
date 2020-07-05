@@ -52,7 +52,7 @@
     "watch:components": "cd packages/vue-components && npm run watch"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.7.2",
+    "@fortawesome/fontawesome-free": "^5.13.1",
     "@markbind/core": "file:packages/core",
     "@primer/octicons": "^9.3.1",
     "bluebird": "^3.7.2",
