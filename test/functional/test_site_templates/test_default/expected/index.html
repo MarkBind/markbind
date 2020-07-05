@@ -35,7 +35,7 @@
         </dropdown>
         <li slot="right">
           <form class="navbar-form">
-            <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right=""></searchbar>
+            <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right></searchbar>
           </form>
         </li>
       </navbar>
@@ -95,11 +95,11 @@
             </ol>
           </li>
         </ul>
-        <p><strong>A <code v-pre="">code</code> example:</strong></p>
-        <pre><code class="hljs html" v-pre=""><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span><br></span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span><br></span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span><br></span></code></pre>
+        <p><strong>A <code v-pre>code</code> example:</strong></p>
+        <pre><code class="hljs html" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span><br></span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span><br></span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span><br></span></code></pre>
         <h2 id="sub-heading-1-1">Sub Heading 1.1<a class="fa fa-anchor" href="#sub-heading-1-1" onclick="event.stopPropagation()"></a></h2>
         <p>A <span effect="scale" placement="top" trigger="hover" data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger"><span data-mb-html-for="_content">❗️ some <strong>important explanation</strong></span>tooltip</span>, a <span for="modal:modalinfo" trigger="click" v-b-popover.click.top.html="popoverGenerator" v-b-tooltip.click.top.html="tooltipContentGetter" v-on:click="$refs['modal:modalinfo'].show()" class="trigger-click">modal</span>, a <a href="https://markbind.org/">link</a>, a <span class="badge badge-danger">badge</span>, another <span class="badge badge-warning">badge</span>.</p>
-        <b-modal id="modal:modalinfo" hide-footer="" size="" modal-class="mb-zoom" ref="modal:modalinfo"><template slot="modal-title">Modal Title</template>
+        <b-modal id="modal:modalinfo" hide-footer size modal-class="mb-zoom" ref="modal:modalinfo"><template slot="modal-title">Modal Title</template>
           Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
         </b-modal>
         <p><strong>A table:</strong></p>
@@ -131,7 +131,7 @@
         </div>
         <h2 id="sub-heading-1-2">Sub Heading 1.2<a class="fa fa-anchor" href="#sub-heading-1-2" onclick="event.stopPropagation()"></a></h2>
         <p><strong>Media embeds:</strong></p>
-        <div class="block-embed block-embed-service-youtube"><iframe type="text/html" src="//www.youtube.com/embed/v40b3ExbM0c" frameborder="0" width="640" height="390" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen></iframe></div>
+        <div class="block-embed block-embed-service-youtube"><iframe type="text/html" src="//www.youtube.com/embed/v40b3ExbM0c" frameborder="0" width="640" height="390" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
         <p><strong>Tabs:</strong></p>
         <tabs>
           <tab><template slot="_header">Tab X</template>
@@ -158,7 +158,7 @@
         <box type="info">
           info
         </box>
-        <box type="warning" dismissible="">
+        <box type="warning" dismissible>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </box>
         <box type="tip"><template slot="_header">
@@ -171,7 +171,7 @@
           </template>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </box>
-        <box type="important" dismissible=""><template slot="_header">
+        <box type="important" dismissible><template slot="_header">
             <p>Tip box heading</p>
           </template>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -184,7 +184,7 @@
           Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
         </panel>
         <br>
-        <panel type="success" minimized=""><template slot="_header">
+        <panel type="success" minimized><template slot="_header">
             <p>Expanded panel</p>
           </template><template slot="_alt">
             <p>Minimized panel</p>
@@ -201,7 +201,7 @@
         </panel>
         <br>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          <panel type="minimal" popup-url="https://markbind.org/userGuide/usingComponents.html#panels" no-switch=""><template slot="_header">
+          <panel type="minimal" popup-url="https://markbind.org/userGuide/usingComponents.html#panels" no-switch><template slot="_header">
               <p><em><strong>Minimal panel <strong>-&gt;</strong></strong></em></p>
             </template><template slot="_alt">
               <p>Minimal panel</p>
