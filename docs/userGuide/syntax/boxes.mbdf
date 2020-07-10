@@ -1,6 +1,6 @@
 ## Boxes
 
-**Box comes with different built-in types.**
+**Boxes come with different built-in types.**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
@@ -33,10 +33,12 @@
     dismissible info
 </box>
 <box type="success" header="#### Header :rocket:" icon-size="2x">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    <box type="warning" header="You can use **markdown** here! :pizza:" dismissible>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    </box>
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+  <box type="warning" header="You can use **markdown** here! :pizza:" dismissible>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  </box>
 </box>
 </variable>
 </include>
@@ -46,6 +48,9 @@
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
+<box light>
+    default light
+</box>
 <box type="info" light>
     info light
 </box>
@@ -67,18 +72,25 @@
 <box type="definition" light>
     definition light
 </box>
+<box type="definition" header="##### Header markdown :rocket:" light>
+    definition light with header markdown
+</box>
 </variable>
 </include>
 
 **MarkBind also supports a seamless style of boxes**
 
 <box type="info">
-As <code>light</code> and <code>seamless</code> are mutually exclusive styles, <code>light</code> takes priority over <code>seamless</code>.
+
+As `light` and `seamless` are mutually exclusive styles, `light` takes priority over `seamless`.
 </box>
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
+<box seamless>
+    default seamless
+</box>
 <box type="info" seamless>
     info seamless
 </box>
@@ -97,32 +109,33 @@ As <code>light</code> and <code>seamless</code> are mutually exclusive styles, <
 <box type="tip" seamless>
     tip seamless
 </box>
-<box type="definition" seamless>
-    definition seamless
+<box type="definition" seamless dismissible>
+    dismissible definition seamless
+</box>
+<box type="definition" header="##### Header markdown :rocket:" seamless>
+    success seamless with header markdown
 </box>
 </variable>
 </include>
 
-**You can customize the Box's appearance.**
+**You can further customize the Box's appearance.**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<box background-color="white" border-color="grey" border-left-color="blue">
-    default, styled as empty box with blue left border
+<box background-color="#ffca6a" border-color="grey" border-left-color="#8b5a01">
+default type, styled as an orange box with a brown left border
 </box>
-<box type="info" icon=":rocket:">
-    info, with rocket icon
+<box type="info" color="red" icon=":rocket:">
+
+info, with a custom markdown rocket icon and `red` colored text.
+
+You can use any inline markdown in the `icon` property.
 </box>
 </variable>
 </include>
 
 **You can remove the background, icon and borders of preset styles.**
-
-<box type="info">
-Custom styles (<code>background-color</code>, <code>border-color</code>, <code>border-left-color</code>, <code>icon</code>) as introduced in the previous section, takes precedence over and are not affected by <code>no-background</code>, <code>no-border</code>, <code>no-icon</code>
-</box>
-
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
@@ -137,18 +150,23 @@ Custom styles (<code>background-color</code>, <code>border-color</code>, <code>b
 </variable>
 </include>
 
+<box header="Note" type="info" seamless>
+
+Custom styles **(** `background-color`, `border-color`, `border-left-color`, `icon` **)** as introduced in the previous section, takes precedence over the `no-background`, `no-border`, `no-icon` attributes.
+</box>
+
 **You can also use icons and resize them accordingly.**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<box type="warning" icon=":fas-camera:">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+<box type="success" icon=":fas-camera:">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit
 </box>
 <box type="warning" icon=":fas-camera:" icon-size="2x">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 </box>
-<box type="warning" icon=":fas-camera:" icon-size="3x">
+<box type="definition" icon=":fas-camera:" icon-size="3x">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </box>
 </variable>
@@ -165,15 +183,13 @@ dismissible | `Boolean` | `false` | Adds a button to close the box to the top ri
 icon | `String` | `null` | Inline MarkDown text of the icon displayed on the left.
 icon-size | `String` | `null` | Resizes the icon. Supports integer-scaling of the icon dimensions e.g. `2x`, `3x`, `4x`, etc.
 header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>heading <br> (deprecated)</small> | `String` | `null` | Markdown text of the box header.
-type | `String` | `'none'` | Supports: `info`, `warning`, `success`, `important`, `wrong`, `tip`, `definition`, or empty for default.
+type | `String` | `''` | Supports: `info`, `warning`, `success`, `important`, `wrong`, `tip`, `definition`, or empty for default.
 light | `Boolean` | `false` | Uses a light color scheme for the box.
 seamless | `Boolean` | `false` | Uses a seamless style for the box. If `light` is specified, this style will not be activated.
 no-border | `Boolean` | `false` | Removes border, except if styled by `border-color` or `border-left-color`. 
 no-backgound | `Boolean` | `false` | Removes background, except if styled by `backgound-color` option.
 no-icon | `Boolean` | `false` | Removes icon, except if icon is displayed via `icon` option.
-type | `String` | `'none'` | Supports: `info`, `warning`, `success`, `important`, `wrong`, `tip`, `definition`, or empty for default.
-light | `Boolean` | `false` | Uses a light color scheme for the box.
-seamless | `Boolean` | `false` | Uses a seamless style for the box. If `light` is specified, this style will not be activated.
+
 
 <span id="short" class="d-none">
 ```html

@@ -20,6 +20,7 @@ module.exports = {
       },
     ],
     'max-len': ['error', { 'code': 110 }],
+    'no-underscore-dangle': 'off',
     'operator-linebreak': ['error', 'before'],
     'quote-props': 'off',
     'vue/html-self-closing': [

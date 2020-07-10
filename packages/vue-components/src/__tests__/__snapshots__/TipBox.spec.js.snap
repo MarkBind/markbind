@@ -12,11 +12,7 @@ exports[`TipBox having custom background color renders correctly 1`] = `
   <div
     class="box-body-wrapper"
   >
-    <div
-      class="icon-wrapper"
-    >
-      <span />
-    </div>
+    <!---->
      
     <!---->
      
@@ -24,19 +20,7 @@ exports[`TipBox having custom background color renders correctly 1`] = `
       class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
@@ -53,11 +37,7 @@ exports[`TipBox having custom border color renders correctly 1`] = `
   <div
     class="box-body-wrapper"
   >
-    <div
-      class="icon-wrapper"
-    >
-      <span />
-    </div>
+    <!---->
      
     <!---->
      
@@ -65,19 +45,7 @@ exports[`TipBox having custom border color renders correctly 1`] = `
       class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
@@ -94,11 +62,7 @@ exports[`TipBox having custom border left color renders correctly 1`] = `
   <div
     class="box-body-wrapper"
   >
-    <div
-      class="icon-wrapper"
-    >
-      <span />
-    </div>
+    <!---->
      
     <!---->
      
@@ -106,19 +70,7 @@ exports[`TipBox having custom border left color renders correctly 1`] = `
       class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
@@ -134,11 +86,7 @@ exports[`TipBox of default type with content renders correctly  1`] = `
   <div
     class="box-body-wrapper"
   >
-    <div
-      class="icon-wrapper"
-    >
-      <span />
-    </div>
+    <!---->
      
     <!---->
      
@@ -148,26 +96,14 @@ exports[`TipBox of default type with content renders correctly  1`] = `
       This is the default box
     </div>
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
 
 exports[`TipBox of definition type light style renders correctly 1`] = `
 <div
-  class="alert box-container alert-info border-info text-info alert-border-left"
+  class="alert box-container border-primary alert-border-left"
 >
   <!---->
    
@@ -177,57 +113,11 @@ exports[`TipBox of definition type light style renders correctly 1`] = `
     class="box-body-wrapper"
   >
     <div
-      class="icon-wrapper"
+      class="icon-wrapper  text-primary"
     >
-      <span>
-        <i
-          class="fas fa-atlas"
-        />
-      </span>
-    </div>
-     
-    <!---->
-     
-    <div
-      class="contents font-black"
-    />
-     
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
-  </div>
-</div>
-`;
-
-exports[`TipBox of definition type renders correctly 1`] = `
-<div
-  class="alert box-container alert-info"
->
-  <!---->
-   
-  <!---->
-   
-  <div
-    class="box-body-wrapper"
-  >
-    <div
-      class="icon-wrapper"
-    >
-      <span>
-        <i
-          class="fas fa-atlas"
-        />
-      </span>
+      <i
+        class="fas fa-atlas"
+      />
     </div>
      
     <!---->
@@ -236,26 +126,14 @@ exports[`TipBox of definition type renders correctly 1`] = `
       class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
 
-exports[`TipBox of important type light style renders correctly 1`] = `
+exports[`TipBox of definition type renders correctly 1`] = `
 <div
-  class="alert box-container alert-danger border-danger text-danger alert-border-left"
+  class="alert box-container alert-primary"
 >
   <!---->
    
@@ -267,32 +145,48 @@ exports[`TipBox of important type light style renders correctly 1`] = `
     <div
       class="icon-wrapper"
     >
-      <span>
-        <i
-          class="fas fa-flag"
-        />
-      </span>
+      <i
+        class="fas fa-atlas"
+      />
     </div>
      
     <!---->
      
     <div
-      class="contents font-black"
+      class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
+    <!---->
+  </div>
+</div>
+`;
+
+exports[`TipBox of important type light style renders correctly 1`] = `
+<div
+  class="alert box-container border-danger alert-border-left"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <div
+      class="icon-wrapper  text-danger"
     >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+      <i
+        class="fas fa-flag"
+      />
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <!---->
   </div>
 </div>
 `;
@@ -311,11 +205,9 @@ exports[`TipBox of important type renders correctly 1`] = `
     <div
       class="icon-wrapper"
     >
-      <span>
-        <i
-          class="fas fa-flag"
-        />
-      </span>
+      <i
+        class="fas fa-flag"
+      />
     </div>
      
     <!---->
@@ -324,26 +216,14 @@ exports[`TipBox of important type renders correctly 1`] = `
       class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
 
 exports[`TipBox of info type light style renders correctly 1`] = `
 <div
-  class="alert box-container alert-info border-info text-info alert-border-left"
+  class="alert box-container border-info alert-border-left"
 >
   <!---->
    
@@ -353,34 +233,20 @@ exports[`TipBox of info type light style renders correctly 1`] = `
     class="box-body-wrapper"
   >
     <div
-      class="icon-wrapper"
+      class="icon-wrapper  text-info"
     >
-      <span>
-        <i
-          class="fas fa-info"
-        />
-      </span>
+      <i
+        class="fas fa-info"
+      />
     </div>
      
     <!---->
      
     <div
-      class="contents font-black"
+      class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
@@ -399,11 +265,9 @@ exports[`TipBox of info type renders correctly 1`] = `
     <div
       class="icon-wrapper"
     >
-      <span>
-        <i
-          class="fas fa-info"
-        />
-      </span>
+      <i
+        class="fas fa-info"
+      />
     </div>
      
     <!---->
@@ -412,26 +276,14 @@ exports[`TipBox of info type renders correctly 1`] = `
       class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
 
 exports[`TipBox of seamless style renders correctly 1`] = `
 <div
-  class="alert box-container alert-default seamless"
+  class="alert box-container seamless"
 >
   <!---->
    
@@ -440,11 +292,7 @@ exports[`TipBox of seamless style renders correctly 1`] = `
   <div
     class="box-body-wrapper"
   >
-    <div
-      class="icon-wrapper"
-    >
-      <span />
-    </div>
+    <!---->
      
     <div
       aria-hidden="true"
@@ -452,29 +300,17 @@ exports[`TipBox of seamless style renders correctly 1`] = `
     />
      
     <div
-      class="contents seamless"
+      class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
 
 exports[`TipBox of success type light style renders correctly 1`] = `
 <div
-  class="alert box-container alert-success border-success text-success alert-border-left"
+  class="alert box-container border-success alert-border-left"
 >
   <!---->
    
@@ -484,34 +320,20 @@ exports[`TipBox of success type light style renders correctly 1`] = `
     class="box-body-wrapper"
   >
     <div
-      class="icon-wrapper"
+      class="icon-wrapper  text-success"
     >
-      <span>
-        <i
-          class="fas fa-check"
-        />
-      </span>
+      <i
+        class="fas fa-check"
+      />
     </div>
      
     <!---->
      
     <div
-      class="contents font-black"
+      class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
@@ -530,11 +352,9 @@ exports[`TipBox of success type renders correctly 1`] = `
     <div
       class="icon-wrapper"
     >
-      <span>
-        <i
-          class="fas fa-check"
-        />
-      </span>
+      <i
+        class="fas fa-check"
+      />
     </div>
      
     <!---->
@@ -543,26 +363,14 @@ exports[`TipBox of success type renders correctly 1`] = `
       class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
 
 exports[`TipBox of tip type light style renders correctly 1`] = `
 <div
-  class="alert box-container alert-success border-success text-success alert-border-left"
+  class="alert box-container border-success alert-border-left"
 >
   <!---->
    
@@ -572,34 +380,20 @@ exports[`TipBox of tip type light style renders correctly 1`] = `
     class="box-body-wrapper"
   >
     <div
-      class="icon-wrapper"
+      class="icon-wrapper  text-success"
     >
-      <span>
-        <i
-          class="fas fa-lightbulb"
-        />
-      </span>
+      <i
+        class="fas fa-lightbulb"
+      />
     </div>
      
     <!---->
      
     <div
-      class="contents font-black"
+      class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
@@ -618,11 +412,9 @@ exports[`TipBox of tip type renders correctly 1`] = `
     <div
       class="icon-wrapper"
     >
-      <span>
-        <i
-          class="fas fa-lightbulb"
-        />
-      </span>
+      <i
+        class="fas fa-lightbulb"
+      />
     </div>
      
     <!---->
@@ -631,26 +423,14 @@ exports[`TipBox of tip type renders correctly 1`] = `
       class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
 
 exports[`TipBox of warning type light style renders correctly 1`] = `
 <div
-  class="alert box-container alert-warning border-warning text-warning alert-border-left"
+  class="alert box-container border-warning alert-border-left"
 >
   <!---->
    
@@ -660,34 +440,20 @@ exports[`TipBox of warning type light style renders correctly 1`] = `
     class="box-body-wrapper"
   >
     <div
-      class="icon-wrapper"
+      class="icon-wrapper  text-warning"
     >
-      <span>
-        <i
-          class="fas fa-exclamation"
-        />
-      </span>
+      <i
+        class="fas fa-exclamation"
+      />
     </div>
      
     <!---->
      
     <div
-      class="contents font-black"
+      class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
@@ -706,11 +472,9 @@ exports[`TipBox of warning type renders correctly 1`] = `
     <div
       class="icon-wrapper"
     >
-      <span>
-        <i
-          class="fas fa-exclamation"
-        />
-      </span>
+      <i
+        class="fas fa-exclamation"
+      />
     </div>
      
     <!---->
@@ -719,26 +483,14 @@ exports[`TipBox of warning type renders correctly 1`] = `
       class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
 
 exports[`TipBox of wrong type light style renders correctly 1`] = `
 <div
-  class="alert box-container alert-danger border-danger text-danger alert-border-left"
+  class="alert box-container border-danger alert-border-left"
 >
   <!---->
    
@@ -748,34 +500,20 @@ exports[`TipBox of wrong type light style renders correctly 1`] = `
     class="box-body-wrapper"
   >
     <div
-      class="icon-wrapper"
+      class="icon-wrapper  text-danger"
     >
-      <span>
-        <i
-          class="fas fa-times"
-        />
-      </span>
+      <i
+        class="fas fa-times"
+      />
     </div>
      
     <!---->
      
     <div
-      class="contents font-black"
+      class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
@@ -794,11 +532,9 @@ exports[`TipBox of wrong type renders correctly 1`] = `
     <div
       class="icon-wrapper"
     >
-      <span>
-        <i
-          class="fas fa-times"
-        />
-      </span>
+      <i
+        class="fas fa-times"
+      />
     </div>
      
     <!---->
@@ -807,19 +543,7 @@ exports[`TipBox of wrong type renders correctly 1`] = `
       class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
@@ -827,7 +551,6 @@ exports[`TipBox of wrong type renders correctly 1`] = `
 exports[`TipBox with custom color renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
-  style="color: pink;"
 >
   <!---->
    
@@ -836,31 +559,16 @@ exports[`TipBox with custom color renders correctly 1`] = `
   <div
     class="box-body-wrapper"
   >
-    <div
-      class="icon-wrapper"
-    >
-      <span />
-    </div>
+    <!---->
      
     <!---->
      
     <div
       class="contents"
+      style="color: pink;"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
@@ -876,11 +584,7 @@ exports[`TipBox with dismissible option renders correctly 1`] = `
   <div
     class="box-body-wrapper alert-dismissible"
   >
-    <div
-      class="icon-wrapper"
-    >
-      <span />
-    </div>
+    <!---->
      
     <!---->
      
@@ -911,11 +615,7 @@ exports[`TipBox with header renders correctly 1`] = `
   <div
     class="box-header-wrapper"
   >
-    <div
-      class="icon-wrapper"
-    >
-      <span />
-    </div>
+    <!---->
      
     <div
       class="box-header"
@@ -923,19 +623,7 @@ exports[`TipBox with header renders correctly 1`] = `
       A header
     </div>
      
-    <button
-      aria-label="Close"
-      class="close close-with-heading"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
    
   <!---->
@@ -943,12 +631,7 @@ exports[`TipBox with header renders correctly 1`] = `
   <div
     class="box-body-wrapper box-body-wrapper-with-heading"
   >
-    <div
-      class="icon-wrapper"
-      style="display: none;"
-    >
-      <span />
-    </div>
+    <!---->
      
     <!---->
      
@@ -956,19 +639,7 @@ exports[`TipBox with header renders correctly 1`] = `
       class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
@@ -996,19 +667,7 @@ exports[`TipBox with icon and icon-size renders correctly 1`] = `
       class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
@@ -1036,19 +695,7 @@ exports[`TipBox with icon renders correctly 1`] = `
       class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
@@ -1064,11 +711,7 @@ exports[`TipBox with no-background option renders correctly 1`] = `
   <div
     class="box-body-wrapper"
   >
-    <div
-      class="icon-wrapper"
-    >
-      <span />
-    </div>
+    <!---->
      
     <!---->
      
@@ -1076,19 +719,7 @@ exports[`TipBox with no-background option renders correctly 1`] = `
       class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
@@ -1104,11 +735,7 @@ exports[`TipBox with no-border option renders correctly 1`] = `
   <div
     class="box-body-wrapper"
   >
-    <div
-      class="icon-wrapper"
-    >
-      <span />
-    </div>
+    <!---->
      
     <!---->
      
@@ -1116,19 +743,7 @@ exports[`TipBox with no-border option renders correctly 1`] = `
       class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;
@@ -1144,16 +759,7 @@ exports[`TipBox with no-icon option renders correctly 1`] = `
   <div
     class="box-body-wrapper"
   >
-    <div
-      class="icon-wrapper"
-      style="display: none;"
-    >
-      <span>
-        <i
-          class="fas fa-check"
-        />
-      </span>
-    </div>
+    <!---->
      
     <!---->
      
@@ -1161,19 +767,7 @@ exports[`TipBox with no-icon option renders correctly 1`] = `
       class="contents"
     />
      
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      style="display: none;"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
-      >
-        ×
-      </span>
-    </button>
+    <!---->
   </div>
 </div>
 `;

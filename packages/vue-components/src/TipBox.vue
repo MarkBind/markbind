@@ -1,221 +1,290 @@
 <template>
-    <div class="alert box-container" :class="[boxStyle, addClass, lightStyle, seamlessStyle, noBackgroundStyle, noBorderStyle]" :style="customStyle">
-        <div v-if="headerBool" :class="['box-header-wrapper', { 'alert-dismissible': dismissible }]">
-            <div v-show="hasIcon" class="icon-wrapper" :class="[iconStyle]">
-                <slot name="icon">
-                    <span v-html="iconType"></span>
-                </slot>
-            </div>
-            <div class="box-header">
-                <slot name="_header"></slot>
-            </div>
-            <button v-show="dismissible" type="button" class="close close-with-heading" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div v-if="horizontalDividerBool" class="horizontal-divider" :class="boxStyle" aria-hidden="true"></div>
-        <div :class="['box-body-wrapper', { 'alert-dismissible': dismissible && !headerBool, 'box-body-wrapper-with-heading': headerBool }]">
-            <div v-show="hasIcon && !headerBool" class="icon-wrapper" :class="[iconStyle]">
-                <slot name="icon">
-                    <span v-html="iconType"></span>
-                </slot>
-            </div>
-            <div v-if="verticalDividerBool" class="vertical-divider" :class="boxStyle" aria-hidden="true"></div>
-            <div class="contents" :class="[fontBlack, seamlessStyle]">
-                <slot></slot>
-            </div>
-            <button v-show="dismissible && !headerBool" type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+  <div :class="['alert box-container', containerStyle(), addClass]" :style="customStyle()">
+    <!-- Header wrapper, not rendered if there is no header attribute -->
+    <div v-if="headerBool()" :class="['box-header-wrapper', { 'alert-dismissible': dismissible }]">
+      <!-- icon on the left of the header -->
+      <div v-if="iconBool()" :class="['icon-wrapper', iconStyle()]">
+        <slot name="icon">
+          <i :class="['fas', getFontAwesomeIconStyle()]"></i>
+        </slot>
+      </div>
+
+      <!-- header -->
+      <div class="box-header">
+        <slot name="_header"></slot>
+      </div>
+
+      <!-- dismiss button to the right of the header -->
+      <button
+        v-if="dismissible"
+        type="button"
+        class="close close-with-heading"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
+
+    <!-- Header wrapper -- body wrapper divider for seamless boxes with the header attribute -->
+    <div
+      v-if="horizontalDividerBool()"
+      class="horizontal-divider"
+      :class="getBootstrapAlertStyle()"
+      aria-hidden="true"
+    ></div>
+
+    <!-- Body wrapper -->
+    <div
+      :class="[
+        'box-body-wrapper',
+        {
+          'alert-dismissible': dismissible && !headerBool(),
+          'box-body-wrapper-with-heading': headerBool()
+        }]"
+    >
+      <!-- icon on the left, not shown if there is a header -->
+      <div v-if="iconBool() && !headerBool()" :class="['icon-wrapper', iconStyle()]">
+        <slot name="icon">
+          <i :class="['fas', getFontAwesomeIconStyle()]"></i>
+        </slot>
+      </div>
+
+      <!-- Icon -- content divider for seamless boxes without the header attribute -->
+      <div
+        v-if="verticalDividerBool()"
+        class="vertical-divider"
+        :class="getBootstrapAlertStyle()"
+        aria-hidden="true"
+      ></div>
+
+      <!-- Content wrapper -->
+      <div class="contents" :style="customColorStyle()">
+        <slot></slot>
+      </div>
+
+      <!-- dismiss button on the right, not shown if there is a header -->
+      <button
+        v-if="dismissible && !headerBool()"
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
 </template>
 
 <script>
 
-  export default {
-    props: {
-      dismissible: {
-        type: Boolean,
-        default: false
-      },
-      backgroundColor: {
-        type: String,
-        default: null
-      },
-      borderColor: {
-        type: String,
-        default: null
-      },
-      borderLeftColor: {
-        type: String,
-        default: null
-      },
-      color: {
-        type: String,
-        default: null
-      },
-      icon: {
-        type: String,
-        default: null
-      },
-      iconSize: {
-        type: String,
-        default: null
-      },
-      type: {
-        type: String,
-        default: 'none'
-      },
-      addClass: {
-        type: String,
-        default: ''
-      },
-      light: {
-        type: Boolean,
-        default: false,
-      },
-      seamless: {
-        type: Boolean,
-        default: false,
-      },
-      noIcon: {
-        type: Boolean,
-        default: false,
-      },
-      noBackground: {
-        type: Boolean,
-        default: false,
-      },
-      noBorder: {
-        type: Boolean,
-        default: false,
+export default {
+  props: {
+    dismissible: {
+      type: Boolean,
+      default: false,
+    },
+    backgroundColor: {
+      type: String,
+      default: null,
+    },
+    borderColor: {
+      type: String,
+      default: null,
+    },
+    borderLeftColor: {
+      type: String,
+      default: null,
+    },
+    color: {
+      type: String,
+      default: null,
+    },
+    icon: {
+      type: String,
+      default: null,
+    },
+    iconSize: {
+      type: String,
+      default: null,
+    },
+    type: {
+      type: String,
+      default: '',
+    },
+    addClass: {
+      type: String,
+      default: '',
+    },
+    light: {
+      type: Boolean,
+      default: false,
+    },
+    seamless: {
+      type: Boolean,
+      default: false,
+    },
+    noIcon: {
+      type: Boolean,
+      default: false,
+    },
+    noBackground: {
+      type: Boolean,
+      default: false,
+    },
+    noBorder: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  methods: {
+    isSeamless() {
+      return !this.light && this.seamless;
+    },
+    verticalDividerBool() {
+      return this.isSeamless() && !this.headerBool();
+    },
+    horizontalDividerBool() {
+      return this.isSeamless() && this.headerBool();
+    },
+    headerBool() {
+      return !!this.$slots._header;
+    },
+    iconBool() {
+      // this.$slots.icon is either undefined or an object
+      const isIconSlotFilled = !!this.$slots.icon;
+      return (!this.noIcon && this.type) || isIconSlotFilled;
+    },
+    containerStyle() {
+      let containerStyle;
+
+      if (this.light) {
+        containerStyle = `${this.getBootstrapBorderStyle()} alert-border-left`;
+      } else if (this.seamless) {
+        containerStyle = 'seamless';
+      } else {
+        containerStyle = this.getBootstrapAlertStyle();
+      }
+
+      if (this.noBackground) {
+        containerStyle += ' no-background';
+      }
+
+      if (this.noBorder) {
+        containerStyle += ' no-border';
+      }
+
+      return containerStyle;
+    },
+    customStyle() {
+      const style = {};
+      if (this.backgroundColor) {
+        style.backgroundColor = this.backgroundColor;
+        style.borderColor = this.backgroundColor;
+      }
+      if (this.borderColor) {
+        style.border = `1px solid ${this.borderColor}`;
+      }
+      if (this.borderLeftColor) {
+        style.borderLeft = `5px solid ${this.borderLeftColor}`;
+      }
+      return style;
+    },
+    customColorStyle() {
+      if (this.color) {
+        return { color: this.color };
+      }
+      return {};
+    },
+    iconStyle() {
+      let iconStyle = '';
+      if (this.iconSize) {
+        iconStyle += `fa-${this.iconSize}`;
+      }
+
+      if (this.light || this.seamless) {
+        iconStyle += ` ${this.getBootstrapTextStyle()}`;
+      }
+
+      return iconStyle;
+    },
+    getBootstrapAlertStyle() {
+      switch (this.type) {
+      case 'warning':
+        return 'alert-warning';
+      case 'info':
+        return 'alert-info';
+      case 'definition':
+        return 'alert-primary';
+      case 'success':
+      case 'tip':
+        return 'alert-success';
+      case 'important':
+      case 'wrong':
+        return 'alert-danger';
+      default:
+        return 'alert-default';
       }
     },
-    computed: {
-      isSeamless() {
-        return !this.light && this.seamless;
-      },
-      verticalDividerBool() {
-        return this.isSeamless && !this.headerBool;
-      },
-      horizontalDividerBool() {
-          return this.isSeamless && this.headerBool;
-      },
-      headerBool() {
-        return !!this.$slots._header;
-      },
-      boxStyle() {
-        switch (this.type) {
-          case 'warning':
-            return 'alert-warning'
-          case 'info':
-          case 'definition':
-            return 'alert-info'
-          case 'success':
-          case 'tip':
-            return 'alert-success'
-          case 'important':
-          case 'wrong':
-            return 'alert-danger'
-          default:
-            return 'alert-default'
-        }
-      },
-      lightStyle() {
-        if (this.light) {
-          switch (this.type) {
-            case 'warning':
-              return 'border-warning text-warning alert-border-left';
-            case 'info':
-            case 'definition':
-              return 'border-info text-info alert-border-left';
-            case 'success':
-            case 'tip':
-              return 'border-success text-success alert-border-left';
-            case 'important':
-            case 'wrong':
-              return 'border-danger text-danger alert-border-left';
-            default:
-              return 'alert-border-left';
-          }
-        }
-        return '';
-      },
-      customStyle() {
-        var style = {};
-        if (this.backgroundColor) {
-          style.backgroundColor = this.backgroundColor;
-          style.borderColor = this.backgroundColor;
-        }
-        if (this.borderColor) {
-          style.border = `1px solid ${this.borderColor}`;
-        }
-        if (this.borderLeftColor) {
-          style.borderLeft = `5px solid ${this.borderLeftColor}`;
-        }
-        if (this.color) {
-          style.color = this.color;
-        }
-        return style;
-      },
-      seamlessStyle() {
-        if (this.isSeamless) {
-          return 'seamless';
-        }
-        return '';
-      },
-      fontBlack() {
-        if (this.light) {
-          return 'font-black';
-        }
-        return '';
-      },
-      hasIcon() {
-        // this.$slots.icon is either undefined or an object
-        const isIconSlotFilled = !!this.$slots.icon;
-        return !this.noIcon || isIconSlotFilled;
-      },
-      iconType() {
-        switch (this.type) {
-          case 'wrong':
-            return '<i class="fas fa-times"></i>';
-          case 'warning':
-            return '<i class="fas fa-exclamation"></i>';
-          case 'info':
-            return '<i class="fas fa-info"></i>';
-          case 'success':
-            return '<i class="fas fa-check"></i>';
-          case 'important':
-            return '<i class="fas fa-flag"></i>';
-          case 'tip':
-            return '<i class="fas fa-lightbulb"></i>';
-          case 'definition':
-            return '<i class="fas fa-atlas"></i>';
-          default:
-            return '';
-        }
-      },
-      iconStyle() {
-        if (this.iconSize) {
-          return `fa-${this.iconSize}`;
-        }
-        return '';
-      },
-      noBackgroundStyle() {
-        if (this.noBackground) {
-          return 'no-background';
-        }
-        return '';
-      },
-      noBorderStyle() {
-        if (this.noBorder) {
-          return 'no-border';
-        }
+    getBootstrapTextStyle() {
+      switch (this.type) {
+      case 'warning':
+        return 'text-warning';
+      case 'info':
+        return 'text-info';
+      case 'definition':
+        return 'text-primary';
+      case 'success':
+      case 'tip':
+        return 'text-success';
+      case 'important':
+      case 'wrong':
+        return 'text-danger';
+      default:
         return '';
       }
-    }
-  }
+    },
+    getBootstrapBorderStyle() {
+      switch (this.type) {
+      case 'warning':
+        return 'border-warning';
+      case 'info':
+        return 'border-info';
+      case 'definition':
+        return 'border-primary';
+      case 'success':
+      case 'tip':
+        return 'border-success';
+      case 'important':
+      case 'wrong':
+        return 'border-danger';
+      default:
+        return '';
+      }
+    },
+    getFontAwesomeIconStyle() {
+      switch (this.type) {
+      case 'wrong':
+        return 'fa-times';
+      case 'warning':
+        return 'fa-exclamation';
+      case 'info':
+        return 'fa-info';
+      case 'success':
+        return 'fa-check';
+      case 'important':
+        return 'fa-flag';
+      case 'tip':
+        return 'fa-lightbulb';
+      case 'definition':
+        return 'fa-atlas';
+      default:
+        return '';
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -230,7 +299,7 @@
         flex-direction: row;
         align-items: center;
         width: 100%;
-        padding: 0.28em 1.25rem;
+        padding: 0.4rem 1.25rem 0.28rem 1.25rem;
         border-radius: 6px 6px 0 0;
     }
 
@@ -245,9 +314,8 @@
         padding: 0.75rem 0.5rem;
     }
 
-    .box-container.seamless {
-        background-color: transparent;
-        border-color: transparent;
+    .box-container.seamless > div.box-body-wrapper > .contents {
+        padding-left: 12px;
     }
 
     .heading {
@@ -276,9 +344,9 @@
     }
 
     .icon-wrapper {
-        display: flex;
-        justify-content: center;
-        margin-right: .5em;
+        display: inline;
+        text-align: center;
+        margin-right: 0.5em;
         min-width: 1em;
     }
 
@@ -296,10 +364,6 @@
         width: 100%;
     }
 
-    .contents.seamless {
-        padding-left: 12px;
-    }
-
     .contents > :last-child {
         margin-bottom: 0;
     }
@@ -314,10 +378,6 @@
         background-color: #f9f8f8;
         border-left: solid;
         border-width: 0px 0px 0px 5px;
-    }
-
-    .font-black {
-        color: #24292e;
     }
 
     .vertical-divider {
