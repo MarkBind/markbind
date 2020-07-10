@@ -1,4 +1,4 @@
-const cheerio = require('cheerio'); require('@markbind/core/src/patches/htmlparser2');
+const cheerio = require('cheerio'); require('../patches/htmlparser2');
 const fm = require('fastmatter');
 const fs = require('fs-extra-promise');
 const htmlBeautify = require('js-beautify').html;
@@ -10,23 +10,21 @@ _.isString = require('lodash/isString');
 _.isObject = require('lodash/isObject');
 _.isArray = require('lodash/isArray');
 
-const { CyclicReferenceError } = require('@markbind/core/src/errors');
-const MarkBind = require('@markbind/core/src/Parser');
-const md = require('@markbind/core/src/lib/markdown-it');
-const FsUtil = require('@markbind/core/src/utils/fsUtil');
-const njUtil = require('@markbind/core/src/utils/nunjuckUtils');
-const utils = require('@markbind/core/src/utils');
+const { CyclicReferenceError } = require('../errors');
+const MarkBind = require('../Parser');
+const md = require('../lib/markdown-it');
 
-const logger = require('./util/logger');
+const FsUtil = require('../utils/fsUtil');
+const njUtil = require('../utils/nunjuckUtils');
+const utils = require('../utils');
+const logger = require('../utils/logger');
 
-const CLI_VERSION = require('../package.json').version;
+const PACKAGE_VERSION = require('../../package.json').version;
 
 const {
   FOOTERS_FOLDER_PATH,
   HEAD_FOLDER_PATH,
   HEADERS_FOLDER_PATH,
-  LAYOUT_DEFAULT_NAME,
-  LAYOUT_FOLDER_PATH,
   LAYOUT_FOOTER,
   LAYOUT_HEAD,
   LAYOUT_HEADER,
@@ -39,7 +37,6 @@ const {
   FRONT_MATTER_NONE_ATTR,
   PAGE_NAV_ID,
   PAGE_NAV_TITLE_CLASS,
-  PLUGIN_SITE_ASSET_FOLDER_NAME,
   SITE_NAV_ID,
   SITE_NAV_EMPTY_LINE_REGEX,
   SITE_NAV_LIST_ITEM_CLASS,
@@ -55,6 +52,12 @@ const {
   TEMP_DROPDOWN_CLASS,
   TEMP_DROPDOWN_PLACEHOLDER_CLASS,
 } = require('./constants');
+
+const {
+  LAYOUT_DEFAULT_NAME,
+  LAYOUT_FOLDER_PATH,
+  PLUGIN_SITE_ASSET_FOLDER_NAME,
+} = require('../constants');
 
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
@@ -300,7 +303,7 @@ class Page {
       headerHtml: this.pageSectionsHtml.header || '',
       headFileBottomContent: this.headFileBottomContent,
       headFileTopContent: this.headFileTopContent,
-      markBindVersion: `MarkBind ${CLI_VERSION}`,
+      markBindVersion: `MarkBind ${PACKAGE_VERSION}`,
       pageNav: this.isPageNavigationSpecifierValid(),
       pageNavHtml: this.pageSectionsHtml[`#${PAGE_NAV_ID}`] || '',
       siteNav: this.hasSiteNav,

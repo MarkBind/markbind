@@ -21,7 +21,7 @@ const DEFAULT_TEMPLATE = 'default';
 
 jest.mock('fs');
 jest.mock('walk-sync');
-jest.mock('../../src/Page');
+jest.mock('@markbind/core/src/Page');
 jest.mock('gh-pages');
 jest.mock('../../src/util/logger');
 

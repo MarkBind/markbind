@@ -8,10 +8,16 @@ const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
 
 const markbind = require('@markbind/core');
+const Page = require('@markbind/core/src/Page');
+const VariablePreprocessor = require('@markbind/core/src/preprocessors/VariablePreprocessor');
 const FsUtil = require('@markbind/core/src/utils/fsUtil');
 const njUtil = require('@markbind/core/src/utils/nunjuckUtils');
 const utils = require('@markbind/core/src/utils');
-const VariablePreprocessor = require('@markbind/core/src/preprocessors/VariablePreprocessor');
+const {
+  LAYOUT_DEFAULT_NAME,
+  LAYOUT_FOLDER_PATH,
+  PLUGIN_SITE_ASSET_FOLDER_NAME,
+} = require('@markbind/core/src/constants');
 
 const _ = {};
 _.difference = require('lodash/difference');
@@ -32,7 +38,6 @@ url.join = path.posix.join;
 
 const delay = require('./util/delay');
 const logger = require('./util/logger');
-const Page = require('./Page');
 const SiteConfig = require('./SiteConfig');
 const Template = require('./template/template');
 
@@ -44,8 +49,6 @@ const {
   FAVICON_DEFAULT_PATH,
   FOOTER_PATH,
   INDEX_MARKDOWN_FILE,
-  LAYOUT_DEFAULT_NAME,
-  LAYOUT_FOLDER_PATH,
   LAYOUT_SITE_FOLDER_NAME,
   LAZY_LOADING_SITE_FILE_NAME,
   LAZY_LOADING_BUILD_TIME_RECOMMENDATION_LIMIT,
@@ -57,7 +60,6 @@ const {
   MAX_CONCURRENT_PAGE_GENERATION_PROMISES,
   PAGE_TEMPLATE_NAME,
   PROJECT_PLUGIN_FOLDER_NAME,
-  PLUGIN_SITE_ASSET_FOLDER_NAME,
   SITE_ASSET_FOLDER_NAME,
   SITE_CONFIG_NAME,
   SITE_DATA_NAME,

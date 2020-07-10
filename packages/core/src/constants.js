@@ -1,4 +1,9 @@
 module.exports = {
+  // Page.js and Site.js
+  LAYOUT_DEFAULT_NAME: 'default',
+  LAYOUT_FOLDER_PATH: '_markbind/layouts',
+  PLUGIN_SITE_ASSET_FOLDER_NAME: 'plugins',
+
   // packages/core/src/Parser.js
   ATTRIB_CWF: 'cwf',
 
