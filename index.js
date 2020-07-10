@@ -11,19 +11,20 @@ const Promise = require('bluebird');
 const _ = {};
 _.isBoolean = require('lodash/isBoolean');
 
+const { Site } = require('@markbind/core');
 const fsUtil = require('@markbind/core/src/utils/fsUtil');
 const utils = require('@markbind/core/src/utils');
+const {
+  INDEX_MARKDOWN_FILE,
+  LAZY_LOADING_SITE_FILE_NAME,
+} = require('@markbind/core/src/Site/constants');
 
 const cliUtil = require('./src/util/cliUtil');
 const logger = require('./src/util/logger');
 
-const Site = require('./src/Site');
-
 const {
   ACCEPTED_COMMANDS,
   ACCEPTED_COMMANDS_ALIAS,
-  INDEX_MARKDOWN_FILE,
-  LAZY_LOADING_SITE_FILE_NAME,
 } = require('./src/constants');
 const CLI_VERSION = require('./package.json').version;
 

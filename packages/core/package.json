@@ -18,16 +18,21 @@
     "directory": "packages/core"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.1",
+    "@markbind/vue-components": "file:../vue-components",
     "@primer/octicons": "^9.3.1",
     "@sindresorhus/slugify": "^0.9.1",
     "bluebird": "^3.7.2",
+    "bootswatch": "^4.4.1",
     "cheerio": "^0.22.0",
     "crypto-js": "^4.0.0",
     "ensure-posix-path": "^1.1.1",
     "fastmatter": "^2.1.1",
     "fs-extra-promise": "^1.0.1",
+    "gh-pages": "^2.1.1",
     "highlight.js": "^9.14.2",
     "htmlparser2": "^3.10.1",
+    "ignore": "^5.1.4",
     "js-beautify": "^1.10.3",
     "lodash": "^4.17.15",
     "markdown-it": "^11.0.0",
@@ -46,6 +51,8 @@
     "moment": "^2.24.0",
     "nunjucks": "^3.2.0",
     "path-is-inside": "^1.0.2",
+    "progress": "^2.0.3",
+    "walk-sync": "^2.0.2",
     "winston": "^2.4.4"
   }
 }

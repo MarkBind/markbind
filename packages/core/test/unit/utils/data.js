@@ -13,7 +13,7 @@ module.exports.LAYOUT_SCRIPTS_DEFAULT = '// eslint-disable-next-line no-undef\n'
   + '  // Include code to be called after MarkBind setup here.\n'
   + '});\n';
 
-module.exports.PAGE_NJK = `
+const PAGE_NJK = `
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
@@ -55,6 +55,9 @@ module.exports.PAGE_NJK = `
 <script src="{{ asset.layoutScript }}"></script>
 </html>
 `;
+module.exports.PAGE_NJK = {
+  [path.join(__dirname, '../../../src/Page/page.njk')]: PAGE_NJK,
+};
 
 module.exports.SITE_JSON_DEFAULT = '{\n'
   + '  "baseUrl": "",\n'
@@ -140,7 +143,7 @@ module.exports.USER_VARIABLES_DEFAULT = '<variable name="example">\n'
   + 'More generally, surround the segment\'s id with double curly braces.\n'
   + '</variable>';
 
-const DEFAULT_TEMPLATE_DIRECTORY = path.dirname(require.resolve('@markbind/core/template/default/site.json'));
+const DEFAULT_TEMPLATE_DIRECTORY = path.join(__dirname, '../../../template/default');
 
 function getDefaultTemplateFileFullPath(relativePath) {
   return path.join(DEFAULT_TEMPLATE_DIRECTORY, relativePath);
@@ -166,7 +169,7 @@ module.exports.DEFAULT_TEMPLATE_FILES = {
     .LAYOUT_SCRIPTS_DEFAULT,
 };
 
-const ASSET_DIRECTORY = path.join(path.dirname(require.resolve('@markbind/core/package.json')), 'asset');
+const ASSET_DIRECTORY = path.join(__dirname, '../../../asset');
 function getAssetFileFullPath(relativePath) {
   return path.join(ASSET_DIRECTORY, relativePath);
 }
@@ -182,4 +185,12 @@ module.exports.ASSETS = {
   [getAssetFileFullPath('js/bootstrap-utility.min.js')]: '',
   [getAssetFileFullPath('js/setup.js')]: '',
   [getAssetFileFullPath('js/vue.min.js')]: '',
+};
+
+const faPackageRootPath = path.dirname(require.resolve('@fortawesome/fontawesome-free/package.json'));
+module.exports.EXTERNAL_ASSETS = {
+  [path.join(faPackageRootPath, 'css/all.min.css')]: '',
+  [path.join(faPackageRootPath, 'webfonts/font1.svg')]: '',
+  [path.join(faPackageRootPath, 'webfonts/font2.ttf')]: '',
+  [require.resolve('@primer/octicons/build/build.css')]: '',
 };

@@ -52,11 +52,8 @@
     "watch:components": "cd packages/vue-components && npm run watch"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.1",
     "@markbind/core": "file:packages/core",
-    "@primer/octicons": "^10.0.0",
     "bluebird": "^3.7.2",
-    "bootswatch": "^4.4.1",
     "chalk": "^3.0.0",
     "cheerio": "^0.22.0",
     "chokidar": "^3.3.0",
@@ -64,12 +61,8 @@
     "figlet": "^1.2.4",
     "find-up": "^4.1.0",
     "fs-extra-promise": "^1.0.1",
-    "gh-pages": "^2.1.1",
-    "ignore": "^5.1.4",
     "live-server": "^1.2.1",
     "lodash": "^4.17.15",
-    "progress": "^2.0.3",
-    "walk-sync": "^2.0.2",
     "winston": "^2.4.4",
     "winston-daily-rotate-file": "^3.10.0"
   },
@@ -79,10 +72,12 @@
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-lodash": "^7.1.0",
+    "ignore": "^5.1.4",
     "istextorbinary": "^3.3.0",
     "jest": "^25.1.0",
     "memfs": "^3.0.1",
     "stylelint": "^12.0.0",
-    "stylelint-config-standard": "^19.0.0"
+    "stylelint-config-standard": "^19.0.0",
+    "walk-sync": "^2.0.2"
   }
 }
