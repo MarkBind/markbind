@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports.LAYOUT_FILES_DEFAULT = [
   'footer.md',
   'head.md',
@@ -137,3 +139,29 @@ module.exports.USER_VARIABLES_DEFAULT = '<variable name="example">\n'
   + 'To inject this HTML segment in your markbind files, use {{ example }} where you want to place it.\n'
   + 'More generally, surround the segment\'s id with double curly braces.\n'
   + '</variable>';
+
+const DEFAULT_TEMPLATE_DIRECTORY = path.dirname(require.resolve('@markbind/core/template/default/site.json'));
+
+function getDefaultTemplateFileFullPath(relativePath) {
+  return path.join(DEFAULT_TEMPLATE_DIRECTORY, relativePath);
+}
+module.exports.getDefaultTemplateFileFullPath = getDefaultTemplateFileFullPath;
+
+module.exports.DEFAULT_TEMPLATE_FILES = {
+  [getDefaultTemplateFileFullPath('index.md')]: module.exports.INDEX_MD_DEFAULT,
+  [getDefaultTemplateFileFullPath('site.json')]: module.exports.SITE_JSON_DEFAULT,
+  [getDefaultTemplateFileFullPath('_markbind/boilerplates/')]: '',
+  [getDefaultTemplateFileFullPath('_markbind/head/')]: '',
+  [getDefaultTemplateFileFullPath('_markbind/headers/header.md')]: module.exports.HEADER_MD_DEFAULT,
+  [getDefaultTemplateFileFullPath('_markbind/footers/footer.md')]: module.exports.FOOTER_MD_DEFAULT,
+  [getDefaultTemplateFileFullPath('_markbind/navigation/site-nav.md')]: module.exports.SITE_NAV_MD_DEFAULT,
+  [getDefaultTemplateFileFullPath('_markbind/variables.md')]: module.exports.USER_VARIABLES_DEFAULT,
+  [getDefaultTemplateFileFullPath('_markbind/plugins')]: '',
+  [getDefaultTemplateFileFullPath('_markbind/layouts/default/footer.md')]: '',
+  [getDefaultTemplateFileFullPath('_markbind/layouts/default/header.md')]: '',
+  [getDefaultTemplateFileFullPath('_markbind/layouts/default/head.md')]: '',
+  [getDefaultTemplateFileFullPath('_markbind/layouts/default/navigation.md')]: '',
+  [getDefaultTemplateFileFullPath('_markbind/layouts/default/styles.css')]: '',
+  [getDefaultTemplateFileFullPath('_markbind/layouts/default/scripts.js')]: module.exports
+    .LAYOUT_SCRIPTS_DEFAULT,
+};

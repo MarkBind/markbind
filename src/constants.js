@@ -34,7 +34,4 @@ module.exports = {
   WIKI_SITE_NAV_PATH: '_Sidebar.md',
   WIKI_FOOTER_PATH: '_Footer.md',
   MARKBIND_WEBSITE_URL: 'https://markbind.org/',
-
-  // src/template/template.js
-  requiredFiles: ['index.md', 'site.json', '_markbind/'],
 };

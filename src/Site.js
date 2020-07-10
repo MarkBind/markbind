@@ -10,6 +10,8 @@ const walkSync = require('walk-sync');
 const markbind = require('@markbind/core');
 const Page = require('@markbind/core/src/Page');
 const VariablePreprocessor = require('@markbind/core/src/preprocessors/VariablePreprocessor');
+const Template = require('@markbind/core/template/template');
+
 const FsUtil = require('@markbind/core/src/utils/fsUtil');
 const njUtil = require('@markbind/core/src/utils/nunjuckUtils');
 const utils = require('@markbind/core/src/utils');
@@ -39,7 +41,6 @@ url.join = path.posix.join;
 const delay = require('./util/delay');
 const logger = require('./util/logger');
 const SiteConfig = require('./SiteConfig');
-const Template = require('./template/template');
 
 const CLI_VERSION = require('../package.json').version;
 
