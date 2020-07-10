@@ -120,7 +120,7 @@ class Site {
     this.tempPath = path.join(rootPath, TEMP_FOLDER_NAME);
 
     // MarkBind assets to be copied
-    this.siteAssetsSrcPath = path.resolve(__dirname, '..', SITE_ASSET_FOLDER_NAME);
+    this.siteAssetsSrcPath = path.resolve(__dirname, '../packages/core', SITE_ASSET_FOLDER_NAME);
     this.siteAssetsDestPath = path.join(outputPath, TEMPLATE_SITE_ASSET_FOLDER_NAME);
 
     // Page template path

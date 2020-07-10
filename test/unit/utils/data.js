@@ -165,3 +165,21 @@ module.exports.DEFAULT_TEMPLATE_FILES = {
   [getDefaultTemplateFileFullPath('_markbind/layouts/default/scripts.js')]: module.exports
     .LAYOUT_SCRIPTS_DEFAULT,
 };
+
+const ASSET_DIRECTORY = path.join(path.dirname(require.resolve('@markbind/core/package.json')), 'asset');
+function getAssetFileFullPath(relativePath) {
+  return path.join(ASSET_DIRECTORY, relativePath);
+}
+
+module.exports.ASSETS = {
+  [getAssetFileFullPath('css/bootstrap.min.css')]: '',
+  [getAssetFileFullPath('css/bootstrap.min.css.map')]: '',
+  [getAssetFileFullPath('css/github.min.css')]: '',
+  [getAssetFileFullPath('css/markbind.css')]: '',
+  [getAssetFileFullPath('css/page-nav.css')]: '',
+  [getAssetFileFullPath('css/site-nav.css')]: '',
+
+  [getAssetFileFullPath('js/bootstrap-utility.min.js')]: '',
+  [getAssetFileFullPath('js/setup.js')]: '',
+  [getAssetFileFullPath('js/vue.min.js')]: '',
+};

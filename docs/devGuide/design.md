@@ -38,6 +38,8 @@ In the *Include* stage, it will check if the node will include new contents (for
 
 MarkBind uses [markdown-it](https://github.com/markdown-it/markdown-it) to do the Markdown parsing and rendering. There are also several customized markdown-it plugins used in MarkBind, which are located inside the `src/lib/markdown-it/` directory.
 
+Static assets of MarkBind, such as stylesheets and JavaScript libraries, are located in `asset/` folder. They will be copied to the generated site and used in the generated pages.
+
 ### MarkBind CLI
 
 The CLI application handles the site generation logic. It contains the command handling logic, as well as the Site and Page models.
@@ -49,8 +51,6 @@ The site generation logic is as follows:
 3. The Site model will create different Page models, and each Page model will generate a HTML page at the designated file location by calling MarkBind core library's *include* and *render* APIs.
 
 The generated page is rendered using [nunjucks](https://mozilla.github.io/nunjucks/), and the page template could be found at `lib/template/page.njk`.
-
-Static assets of MarkBind, such as stylesheets and JavaScript libraries, are located in `asset/` folder. They will be copied to the generated site and used in the generated pages.
 
 The CLI program is built using [commander.js](https://github.com/tj/commander.js/).
 

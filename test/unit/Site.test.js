@@ -5,6 +5,7 @@ const Site = require('../../src/Site');
 
 const {
   ABOUT_MD_DEFAULT,
+  ASSETS,
   FOOTER_MD_DEFAULT,
   HEADER_MD_DEFAULT,
   INDEX_MD_DEFAULT,
@@ -34,16 +35,7 @@ test('Site Generate builds the correct amount of assets', async () => {
     'src/page.njk': PAGE_NJK,
     'inner/site.json': SITE_JSON_DEFAULT,
 
-    'asset/css/bootstrap.min.css': '',
-    'asset/css/bootstrap.min.css.map': '',
-    'asset/css/github.min.css': '',
-    'asset/css/markbind.css': '',
-    'asset/css/page-nav.css': '',
-    'asset/css/site-nav.css': '',
-
-    'asset/js/bootstrap-utility.min.js': '',
-    'asset/js/setup.js': '',
-    'asset/js/vue.min.js': '',
+    ...ASSETS,
 
     'packages/vue-components/dist/components.min.js': '',
 
