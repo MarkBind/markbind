@@ -54,6 +54,7 @@ const {
   LAZY_LOADING_REBUILD_TIME_RECOMMENDATION_LIMIT,
   MARKBIND_PLUGIN_PREFIX,
   MARKBIND_WEBSITE_URL,
+  MAX_CONCURRENT_PAGE_GENERATION_PROMISES,
   PAGE_TEMPLATE_NAME,
   PROJECT_PLUGIN_FOLDER_NAME,
   PLUGIN_SITE_ASSET_FOLDER_NAME,
@@ -264,6 +265,7 @@ class Site {
       pageTemplate: this.pageTemplate,
       plugins: this.plugins || {},
       rootPath: this.rootPath,
+      siteOutputPath: this.outputPath,
       enableSearch: this.siteConfig.enableSearch,
       searchable: this.siteConfig.enableSearch && config.searchable,
       src: config.pageSrc,
@@ -690,7 +692,7 @@ class Site {
   _rebuildAffectedSourceFiles(filePaths) {
     const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];
     const uniquePaths = _.uniq(filePathArray);
-    logger.info('Rebuilding affected source files');
+
     return new Promise((resolve, reject) => {
       this.regenerateAffectedPages(uniquePaths)
         .then(() => fs.removeAsync(this.tempPath))
@@ -980,36 +982,62 @@ class Site {
   }
 
   /**
+   * Creates the supplied pages' page generation promises at a throttled rate.
+   * This is done to avoid pushing too many callbacks into the event loop at once. (#1245)
+   * @param {Array<Page>} pages to generate
+   * @return {Promise} that resolves once all pages have generated
+   */
+  static generatePagesThrottled(pages) {
+    const builtFiles = new Set();
+
+    const progressBar = new ProgressBar(`[:bar] :current / ${pages.length} pages built`,
+                                        { total: pages.length });
+    progressBar.render();
+
+    return new Promise((resolve, reject) => {
+      let numPagesGenerated = 0;
+
+      // Map pages into array of callbacks for delayed execution
+      const pageGenerationQueue = pages.map(page => () => page.generate(builtFiles)
+        .then(() => {
+          progressBar.tick();
+          numPagesGenerated += 1;
+
+          if (pageGenerationQueue.length) {
+            pageGenerationQueue.pop()();
+          } else if (numPagesGenerated === pages.length) {
+            resolve();
+          }
+        })
+        .catch((err) => {
+          logger.error(err);
+          reject(new Error(`Error while generating ${page.sourcePath}`));
+        }));
+
+      /*
+       Take the first MAX_CONCURRENT_PAGE_GENERATION_PROMISES callbacks and execute them.
+       Whenever a page generation callback resolves,
+       it pops the next unprocessed callback off pageGenerationQueue and executes it.
+       */
+      pageGenerationQueue.splice(0, MAX_CONCURRENT_PAGE_GENERATION_PROMISES)
+        .forEach(generatePage => generatePage());
+    });
+  }
+
+  /**
    * Renders all pages specified in site configuration file to the output folder
    */
   generatePages() {
     // Run MarkBind include and render on each source file.
     // Render the final rendered page to the output folder.
     const addressablePages = this.addressablePages || [];
-    const builtFiles = new Set();
-    const processingFiles = [];
 
     const faviconUrl = this.getFavIconUrl();
 
     this._setTimestampVariable();
     this.mapAddressablePagesToPages(addressablePages, faviconUrl);
 
-    const progressBar = new ProgressBar(`[:bar] :current / ${this.pages.length} pages built`,
-                                        { total: this.pages.length });
-    progressBar.render();
-    this.pages.forEach((page) => {
-      processingFiles.push(page.generate(builtFiles)
-        .then(() => progressBar.tick())
-        .catch((err) => {
-          logger.error(err);
-          return Promise.reject(new Error(`Error while generating ${page.sourcePath}`));
-        }));
-    });
-    return new Promise((resolve, reject) => {
-      Promise.all(processingFiles)
-        .then(resolve)
-        .catch(reject);
-    });
+    return Site.generatePagesThrottled(this.pages);
   }
 
   /**
@@ -1033,14 +1061,12 @@ class Site {
   regenerateAffectedPages(filePaths) {
     const startTime = new Date();
 
-    const builtFiles = new Set();
-    const processingFiles = [];
     const shouldRebuildAllPages = this.collectUserDefinedVariablesMapIfNeeded(filePaths) || this.forceReload;
     if (shouldRebuildAllPages) {
       logger.warn('Rebuilding all pages as variables file was changed, or the --force-reload flag was set');
     }
     this._setTimestampVariable();
-    this.pages.forEach((page) => {
+    const pagesToRegenerate = this.pages.filter((page) => {
       const doFilePathsHaveSourceFiles = filePaths.some((filePath) => {
         const isIncludedFile = page.includedFiles.has(filePath);
         const isPluginSourceFile = page.pluginSourceFiles.has(filePath);
@@ -1055,41 +1081,39 @@ class Site {
 
           if (!isPageBeingViewed) {
             this.toRebuild.add(normalizedSource);
-            return;
+            return false;
           }
         }
 
-        processingFiles.push(page.generate(builtFiles)
-          .catch((err) => {
-            logger.error(err);
-            return Promise.reject(new Error(`Error while generating ${page.sourcePath}`));
-          }));
+        return true;
       }
+
+      return false;
     });
+    if (!pagesToRegenerate.length) {
+      logger.info('No pages needed to be rebuilt');
+      return Promise.resolve();
+    }
 
-    logger.info(`Rebuilding ${processingFiles.length} pages`);
+    logger.info(`Rebuilding ${pagesToRegenerate.length} pages`);
 
-    return new Promise((resolve, reject) => {
-      Promise.all(processingFiles)
-        .then(() => {
-          // For lazy loading, we defer updating site data pages not being viewed,
-          // even if all pages should be rebuilt, until they are navigated to.
-          const shouldUpdateAllSiteData = shouldRebuildAllPages && !this.onePagePath;
-          return this.updateSiteData(shouldUpdateAllSiteData ? undefined : filePaths);
-        })
-        .then(() => logger.info('Pages rebuilt'))
-        .then(() => {
-          const endTime = new Date();
-          const totalBuildTime = (endTime - startTime) / 1000;
-          logger.info(`Website regeneration complete! Total build time: ${totalBuildTime}s`);
-          if (!this.onePagePath && totalBuildTime > LAZY_LOADING_REBUILD_TIME_RECOMMENDATION_LIMIT) {
-            logger.info('Your pages took quite a while to rebuild...'
+    return Site.generatePagesThrottled(pagesToRegenerate)
+      .then(() => {
+        // For lazy loading, we defer updating site data pages not being viewed,
+        // even if all pages should be rebuilt, until they are navigated to.
+        const shouldUpdateAllSiteData = shouldRebuildAllPages && !this.onePagePath;
+        return this.updateSiteData(shouldUpdateAllSiteData ? undefined : filePaths);
+      })
+      .then(() => logger.info('Pages rebuilt'))
+      .then(() => {
+        const endTime = new Date();
+        const totalBuildTime = (endTime - startTime) / 1000;
+        logger.info(`Website regeneration complete! Total build time: ${totalBuildTime}s`);
+        if (!this.onePagePath && totalBuildTime > LAZY_LOADING_REBUILD_TIME_RECOMMENDATION_LIMIT) {
+          logger.info('Your pages took quite a while to rebuild...'
               + 'Have you considered using markbind serve -o when writing content to speed things up?');
-          }
-        })
-        .then(resolve)
-        .catch(reject);
-    });
+        }
+      });
   }
 
   /**

@@ -10,11 +10,14 @@ const {
 
 module.exports = {
   /**
-   * Returns the file path for the plugin tag.
-   * Return based on given name if provided, or it will be based on src.
-   * If both are not provided, a md5 generated hash is provided for consistency.
+   * Returns the file name of the tag, based on (in decreasing priority):
+   * - the name attribute
+   * - the base file name of the 'src' attribute
+   * - a md5 hash of the content
+   * @param tagAttribs object containing the attributes of the tag
+   * @param content of the tag, which can be it's html content or content pointed to by 'src'
    */
-  getFilePathForPlugin: (tagAttribs, content) => {
+  getPngFileName: (tagAttribs, content) => {
     if (tagAttribs.name !== undefined) {
       return `${fsUtil.removeExtension(tagAttribs.name)}.png`;
     }
@@ -31,9 +34,10 @@ module.exports = {
   },
 
   /**
-   * Returns the string content of the plugin.
+   * Returns the string content of a tag pointed to by the 'src' attribute,
+   * or simply it's html text content if there is none.
    */
-  getPluginContent: ($, element, cwf) => {
+  getSrcOrTextContent: ($, element, cwf) => {
     if (element.attribs.src !== undefined) {
       // Path of the plugin content
       const rawPath = path.resolve(path.dirname(cwf), element.attribs.src);

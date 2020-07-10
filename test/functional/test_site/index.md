@@ -325,6 +325,9 @@ and **this**.
 **Test PlantUML live reload with include**
 <include src="testPlantUML.md" />
 
+**Test PlantUML in sub folder**
+<include src="sub_site/testPlantUMLSubFolderInclude.mbdf" />
+
 ## Level 2 header (inside headingSearchIndex) with no-index attribute should not be indexed {.no-index}
 
 ###### Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed {.always-index}

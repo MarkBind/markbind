@@ -134,6 +134,10 @@ class Page {
      */
     this.rootPath = pageConfig.rootPath;
     /**
+     * @type {string}
+     */
+    this.siteOutputPath = pageConfig.siteOutputPath;
+    /**
      * @type {boolean}
      */
     this.enableSearch = pageConfig.enableSearch;
@@ -1028,10 +1032,12 @@ class Page {
    */
   getPluginConfig() {
     return {
+      baseUrl: this.baseUrl,
       headingIndexingLevel: this.headingIndexingLevel,
       enableSearch: this.enableSearch,
       searchable: this.searchable,
       rootPath: this.rootPath,
+      siteOutputPath: this.siteOutputPath,
       sourcePath: this.sourcePath,
       includedFiles: this.includedFiles,
       resultPath: this.resultPath,
