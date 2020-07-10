@@ -1,7 +1,7 @@
 const cheerio = require('cheerio');
 const htmlparser = require('htmlparser2');
-const componentParser = require('@markbind/core/src/parsers/componentParser');
-const testData = require('../utils/componentParserData');
+const componentParser = require('../../src/parsers/componentParser');
+const testData = require('./componentParser.data');
 
 /**
  * Runs the parseComponent or postParseComponent method of componentParser on the provided

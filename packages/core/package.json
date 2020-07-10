@@ -18,6 +18,7 @@
     "directory": "packages/core"
   },
   "dependencies": {
+    "@primer/octicons": "^9.3.1",
     "@sindresorhus/slugify": "^0.9.1",
     "bluebird": "^3.7.2",
     "cheerio": "^0.22.0",

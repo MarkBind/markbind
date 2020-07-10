@@ -65,7 +65,6 @@
     "find-up": "^4.1.0",
     "fs-extra-promise": "^1.0.1",
     "gh-pages": "^2.1.1",
-    "htmlparser2": "^3.10.1",
     "ignore": "^5.1.4",
     "live-server": "^1.2.1",
     "lodash": "^4.17.15",

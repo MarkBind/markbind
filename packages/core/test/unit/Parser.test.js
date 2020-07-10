@@ -1,8 +1,7 @@
 const path = require('path');
 const fs = require('fs');
-const Parser = require('@markbind/core/src/Parser');
-const VariablePreprocessor = require('@markbind/core/src/preprocessors/VariablePreprocessor');
-const { USER_VARIABLES_DEFAULT } = require('./utils/data');
+const Parser = require('../../src/Parser');
+const VariablePreprocessor = require('../../src/preprocessors/VariablePreprocessor');
 
 jest.mock('fs');
 
@@ -11,7 +10,6 @@ afterEach(() => fs.vol.reset());
 const ROOT_PATH = path.resolve('');
 function getNewDefaultVariablePreprocessor() {
   const DEFAULT_VARIABLE_PREPROCESSOR = new VariablePreprocessor(ROOT_PATH, new Set([ROOT_PATH]));
-  DEFAULT_VARIABLE_PREPROCESSOR.addUserDefinedVariable(ROOT_PATH, 'example', USER_VARIABLES_DEFAULT);
   DEFAULT_VARIABLE_PREPROCESSOR.addUserDefinedVariable(ROOT_PATH, 'baseUrl', '{{baseUrl}}');
 
   return DEFAULT_VARIABLE_PREPROCESSOR;
