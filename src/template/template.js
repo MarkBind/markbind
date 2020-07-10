@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs-extra-promise');
-const fsUtils = require('../util/fsUtil');
+
+const fsUtils = require('@markbind/core/src/utils/fsUtil');
 
 const { requiredFiles } = require('../constants');
 

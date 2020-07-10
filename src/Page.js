@@ -4,7 +4,6 @@ const fs = require('fs-extra-promise');
 const htmlBeautify = require('js-beautify').html;
 const path = require('path');
 const Promise = require('bluebird');
-const njUtil = require('@markbind/core/src/utils/nunjuckUtils');
 
 const _ = {};
 _.isString = require('lodash/isString');
@@ -14,9 +13,10 @@ _.isArray = require('lodash/isArray');
 const { CyclicReferenceError } = require('@markbind/core/src/errors');
 const MarkBind = require('@markbind/core/src/Parser');
 const md = require('@markbind/core/src/lib/markdown-it');
+const FsUtil = require('@markbind/core/src/utils/fsUtil');
+const njUtil = require('@markbind/core/src/utils/nunjuckUtils');
 const utils = require('@markbind/core/src/utils');
 
-const FsUtil = require('./util/fsUtil');
 const logger = require('./util/logger');
 
 const CLI_VERSION = require('../package.json').version;

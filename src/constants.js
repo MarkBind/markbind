@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   // index.js
   ACCEPTED_COMMANDS: ['init', 'build', 'serve', 'deploy'],
@@ -55,11 +57,12 @@ module.exports = {
   PLUGIN_SITE_ASSET_FOLDER_NAME: 'plugins',
 
   ABOUT_MARKDOWN_FILE: 'about.md',
-  BUILT_IN_PLUGIN_FOLDER_NAME: 'plugins',
-  BUILT_IN_DEFAULT_PLUGIN_FOLDER_NAME: 'plugins/default',
   FAVICON_DEFAULT_PATH: 'favicon.ico',
   FOOTER_PATH: '_markbind/footers/footer.md',
   INDEX_MARKDOWN_FILE: 'index.md',
+  MARKBIND_DEFAULT_PLUGIN_DIRECTORY: path.join(path.dirname(require.resolve('@markbind/core')),
+                                               'src/plugins/default'),
+  MARKBIND_PLUGIN_DIRECTORY: path.join(path.dirname(require.resolve('@markbind/core')), 'src/plugins'),
   MARKBIND_PLUGIN_PREFIX: 'markbind-plugin-',
   MAX_CONCURRENT_PAGE_GENERATION_PROMISES: 4,
   PAGE_TEMPLATE_NAME: 'page.njk',
@@ -75,18 +78,6 @@ module.exports = {
   WIKI_FOOTER_PATH: '_Footer.md',
   MARKBIND_WEBSITE_URL: 'https://markbind.org/',
 
-  // src/plugins/algolia.js
-  ALGOLIA_CSS_URL: 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css',
-  ALGOLIA_JS_URL: 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js',
-  ALGOLIA_INPUT_SELECTOR: '#algolia-search-input',
-
-  // src/plugins/default/markbind-plugin-plantuml.js
-  ERR_PROCESSING: 'Error processing',
-  ERR_READING: 'Error reading',
-
   // src/template/template.js
   requiredFiles: ['index.md', 'site.json', '_markbind/'],
-
-  // src/util/fsUtil.js
-  sourceFileExtNames: ['.html', '.md', '.mbd', '.mbdf'],
 };

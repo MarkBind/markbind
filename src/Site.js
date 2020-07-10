@@ -8,6 +8,7 @@ const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
 
 const markbind = require('@markbind/core');
+const FsUtil = require('@markbind/core/src/utils/fsUtil');
 const njUtil = require('@markbind/core/src/utils/nunjuckUtils');
 const utils = require('@markbind/core/src/utils');
 const VariablePreprocessor = require('@markbind/core/src/preprocessors/VariablePreprocessor');
@@ -30,7 +31,6 @@ const url = {};
 url.join = path.posix.join;
 
 const delay = require('./util/delay');
-const FsUtil = require('./util/fsUtil');
 const logger = require('./util/logger');
 const Page = require('./Page');
 const SiteConfig = require('./SiteConfig');
@@ -40,8 +40,6 @@ const CLI_VERSION = require('../package.json').version;
 
 const {
   ABOUT_MARKDOWN_FILE,
-  BUILT_IN_PLUGIN_FOLDER_NAME,
-  BUILT_IN_DEFAULT_PLUGIN_FOLDER_NAME,
   CONFIG_FOLDER_NAME,
   FAVICON_DEFAULT_PATH,
   FOOTER_PATH,
@@ -52,6 +50,8 @@ const {
   LAZY_LOADING_SITE_FILE_NAME,
   LAZY_LOADING_BUILD_TIME_RECOMMENDATION_LIMIT,
   LAZY_LOADING_REBUILD_TIME_RECOMMENDATION_LIMIT,
+  MARKBIND_DEFAULT_PLUGIN_DIRECTORY,
+  MARKBIND_PLUGIN_DIRECTORY,
   MARKBIND_PLUGIN_PREFIX,
   MARKBIND_WEBSITE_URL,
   MAX_CONCURRENT_PAGE_GENERATION_PROMISES,
@@ -832,15 +832,15 @@ class Site {
     }
 
     // Check in src folder
-    const srcPath = path.join(__dirname, BUILT_IN_PLUGIN_FOLDER_NAME, `${plugin}.js`);
-    if (fs.existsSync(srcPath)) {
-      return srcPath;
+    const markbindPluginPath = path.join(MARKBIND_PLUGIN_DIRECTORY, `${plugin}.js`);
+    if (fs.existsSync(markbindPluginPath)) {
+      return markbindPluginPath;
     }
 
     // Check in default folder
-    const defaultPath = path.join(__dirname, BUILT_IN_DEFAULT_PLUGIN_FOLDER_NAME, `${plugin}.js`);
-    if (fs.existsSync(defaultPath)) {
-      return defaultPath;
+    const markbindDefaultPluginPath = path.join(MARKBIND_DEFAULT_PLUGIN_DIRECTORY, `${plugin}.js`);
+    if (fs.existsSync(markbindDefaultPluginPath)) {
+      return markbindDefaultPluginPath;
     }
 
     return '';
@@ -850,11 +850,10 @@ class Site {
    * Finds plugins in the site's default plugin folder
    */
   static findDefaultPlugins() {
-    const globPath = path.join(__dirname, BUILT_IN_DEFAULT_PLUGIN_FOLDER_NAME);
-    if (!fs.existsSync(globPath)) {
+    if (!fs.existsSync(MARKBIND_DEFAULT_PLUGIN_DIRECTORY)) {
       return [];
     }
-    return walkSync(globPath, {
+    return walkSync(MARKBIND_DEFAULT_PLUGIN_DIRECTORY, {
       directories: false,
       globs: [`${MARKBIND_PLUGIN_PREFIX}*.js`],
     }).map(file => path.parse(file).name);
@@ -882,7 +881,7 @@ class Site {
       }
 
       const pluginPath = Site.getPluginPath(this.rootPath, plugin);
-      if (isDefault && !pluginPath.startsWith(path.join(__dirname, BUILT_IN_DEFAULT_PLUGIN_FOLDER_NAME))) {
+      if (isDefault && !pluginPath.startsWith(MARKBIND_DEFAULT_PLUGIN_DIRECTORY)) {
         logger.warn(`Default plugin ${plugin} will be overridden`);
       }
 

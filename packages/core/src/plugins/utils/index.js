@@ -1,12 +1,12 @@
 const cryptoJS = require('crypto-js');
 const fs = require('fs-extra-promise');
 const path = require('path');
-const fsUtil = require('./fsUtil');
-const logger = require('./logger');
+const fsUtil = require('../../utils/fsUtil');
+const logger = require('../../utils/logger');
 
 const {
   ERR_READING,
-} = require('../constants');
+} = require('../../constants');
 
 module.exports = {
   /**
