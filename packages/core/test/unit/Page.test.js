@@ -1,9 +1,9 @@
 const path = require('path');
+const Page = require('../../src/Page');
 const {
   COLLECT_PLUGIN_SOURCES,
   COLLECT_PLUGIN_TEST_PLUGIN,
-} = require('./utils/pageData');
-const Page = require('../../src/Page');
+} = require('./Page.data');
 
 test('Page#collectIncludedFiles collects included files from 1 dependency object', () => {
   const page = new Page({});

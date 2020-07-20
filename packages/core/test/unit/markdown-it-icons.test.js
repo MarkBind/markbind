@@ -1,6 +1,6 @@
 const expectedOcticon = require('@primer/octicons')['git-pull-request'].toSVG();
 
-const markdownIt = require('@markbind/core/src/lib/markdown-it');
+const markdownIt = require('../../src/lib/markdown-it');
 
 test('markdown-it-icons renders icon syntax correctly', () => {
   const source = ':fab-font-awesome: :glyphicon-home: :octicon-git-pull-request:';

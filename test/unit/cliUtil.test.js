@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const { SITE_JSON_DEFAULT } = require('@markbind/core/test/unit/utils/data');
 const cliUtil = require('../../src/util/cliUtil');
-const { SITE_JSON_DEFAULT } = require('./utils/data');
 
 jest.mock('fs');
 jest.mock('process');

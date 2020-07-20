@@ -8,10 +8,9 @@ const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
 
-const { ensurePosix } = require('@markbind/core/src/utils');
-
-const logger = require('../../util/logger');
-const pluginUtil = require('../../util/pluginUtil');
+const { ensurePosix } = require('../../utils');
+const logger = require('../../utils/logger');
+const pluginUtil = require('../utils');
 
 const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 

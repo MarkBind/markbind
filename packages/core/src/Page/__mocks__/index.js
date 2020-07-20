@@ -1,6 +1,6 @@
 // mock generate
 
-const Page = jest.genMockFromModule('../Page');
+const Page = jest.genMockFromModule('../index');
 
 Page.prototype.generate = () => Promise.resolve('');
 

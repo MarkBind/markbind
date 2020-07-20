@@ -1,4 +1,4 @@
-const cheerio = require('cheerio'); require('@markbind/core/src/patches/htmlparser2');
+const cheerio = require('cheerio'); require('../patches/htmlparser2');
 const fs = require('fs-extra-promise');
 const ghpages = require('gh-pages');
 const ignore = require('ignore');
@@ -7,10 +7,23 @@ const Promise = require('bluebird');
 const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
 
-const markbind = require('@markbind/core');
-const njUtil = require('@markbind/core/src/utils/nunjuckUtils');
-const utils = require('@markbind/core/src/utils');
-const VariablePreprocessor = require('@markbind/core/src/preprocessors/VariablePreprocessor');
+const SiteConfig = require('./SiteConfig');
+const Page = require('../Page');
+const { ignoreTags } = require('../patches');
+const VariablePreprocessor = require('../preprocessors/VariablePreprocessor');
+const Template = require('../../template/template');
+
+const FsUtil = require('../utils/fsUtil');
+const njUtil = require('../utils/nunjuckUtils');
+const delay = require('../utils/delay');
+const logger = require('../utils/logger');
+const utils = require('../utils');
+
+const {
+  LAYOUT_DEFAULT_NAME,
+  LAYOUT_FOLDER_PATH,
+  PLUGIN_SITE_ASSET_FOLDER_NAME,
+} = require('../constants');
 
 const _ = {};
 _.difference = require('lodash/difference');
@@ -29,35 +42,25 @@ _.uniq = require('lodash/uniq');
 const url = {};
 url.join = path.posix.join;
 
-const delay = require('./util/delay');
-const FsUtil = require('./util/fsUtil');
-const logger = require('./util/logger');
-const Page = require('./Page');
-const SiteConfig = require('./SiteConfig');
-const Template = require('./template/template');
-
-const CLI_VERSION = require('../package.json').version;
+const MARKBIND_VERSION = require('../../package.json').version;
 
 const {
   ABOUT_MARKDOWN_FILE,
-  BUILT_IN_PLUGIN_FOLDER_NAME,
-  BUILT_IN_DEFAULT_PLUGIN_FOLDER_NAME,
   CONFIG_FOLDER_NAME,
   FAVICON_DEFAULT_PATH,
   FOOTER_PATH,
   INDEX_MARKDOWN_FILE,
-  LAYOUT_DEFAULT_NAME,
-  LAYOUT_FOLDER_PATH,
   LAYOUT_SITE_FOLDER_NAME,
   LAZY_LOADING_SITE_FILE_NAME,
   LAZY_LOADING_BUILD_TIME_RECOMMENDATION_LIMIT,
   LAZY_LOADING_REBUILD_TIME_RECOMMENDATION_LIMIT,
+  MARKBIND_DEFAULT_PLUGIN_DIRECTORY,
+  MARKBIND_PLUGIN_DIRECTORY,
   MARKBIND_PLUGIN_PREFIX,
   MARKBIND_WEBSITE_URL,
   MAX_CONCURRENT_PAGE_GENERATION_PROMISES,
   PAGE_TEMPLATE_NAME,
   PROJECT_PLUGIN_FOLDER_NAME,
-  PLUGIN_SITE_ASSET_FOLDER_NAME,
   SITE_ASSET_FOLDER_NAME,
   SITE_CONFIG_NAME,
   SITE_DATA_NAME,
@@ -108,7 +111,7 @@ const TOP_NAV_DEFAULT = '<header><navbar placement="top" type="inverse">\n'
   + '  </li>\n'
   + '</navbar></header>';
 
-const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${CLI_VERSION}</a>`;
+const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${MARKBIND_VERSION}</a>`;
 
 class Site {
   constructor(rootPath, outputPath, onePagePath, forceReload = false, siteConfigPath = SITE_CONFIG_NAME) {
@@ -117,11 +120,11 @@ class Site {
     this.tempPath = path.join(rootPath, TEMP_FOLDER_NAME);
 
     // MarkBind assets to be copied
-    this.siteAssetsSrcPath = path.resolve(__dirname, '..', SITE_ASSET_FOLDER_NAME);
+    this.siteAssetsSrcPath = path.resolve(__dirname, '../..', SITE_ASSET_FOLDER_NAME);
     this.siteAssetsDestPath = path.join(outputPath, TEMPLATE_SITE_ASSET_FOLDER_NAME);
 
     // Page template path
-    this.pageTemplatePath = path.join(__dirname, PAGE_TEMPLATE_NAME);
+    this.pageTemplatePath = path.join(__dirname, '../Page', PAGE_TEMPLATE_NAME);
     this.pageTemplate = njUtil.compile(fs.readFileSync(this.pageTemplatePath, 'utf8'));
     this.pages = [];
 
@@ -832,15 +835,15 @@ class Site {
     }
 
     // Check in src folder
-    const srcPath = path.join(__dirname, BUILT_IN_PLUGIN_FOLDER_NAME, `${plugin}.js`);
-    if (fs.existsSync(srcPath)) {
-      return srcPath;
+    const markbindPluginPath = path.join(MARKBIND_PLUGIN_DIRECTORY, `${plugin}.js`);
+    if (fs.existsSync(markbindPluginPath)) {
+      return markbindPluginPath;
     }
 
     // Check in default folder
-    const defaultPath = path.join(__dirname, BUILT_IN_DEFAULT_PLUGIN_FOLDER_NAME, `${plugin}.js`);
-    if (fs.existsSync(defaultPath)) {
-      return defaultPath;
+    const markbindDefaultPluginPath = path.join(MARKBIND_DEFAULT_PLUGIN_DIRECTORY, `${plugin}.js`);
+    if (fs.existsSync(markbindDefaultPluginPath)) {
+      return markbindDefaultPluginPath;
     }
 
     return '';
@@ -850,11 +853,10 @@ class Site {
    * Finds plugins in the site's default plugin folder
    */
   static findDefaultPlugins() {
-    const globPath = path.join(__dirname, BUILT_IN_DEFAULT_PLUGIN_FOLDER_NAME);
-    if (!fs.existsSync(globPath)) {
+    if (!fs.existsSync(MARKBIND_DEFAULT_PLUGIN_DIRECTORY)) {
       return [];
     }
-    return walkSync(globPath, {
+    return walkSync(MARKBIND_DEFAULT_PLUGIN_DIRECTORY, {
       directories: false,
       globs: [`${MARKBIND_PLUGIN_PREFIX}*.js`],
     }).map(file => path.parse(file).name);
@@ -882,7 +884,7 @@ class Site {
       }
 
       const pluginPath = Site.getPluginPath(this.rootPath, plugin);
-      if (isDefault && !pluginPath.startsWith(path.join(__dirname, BUILT_IN_DEFAULT_PLUGIN_FOLDER_NAME))) {
+      if (isDefault && !pluginPath.startsWith(MARKBIND_DEFAULT_PLUGIN_DIRECTORY)) {
         logger.warn(`Default plugin ${plugin} will be overridden`);
       }
 
@@ -973,7 +975,7 @@ class Site {
       });
     });
 
-    markbind.ignoreTags(tagsToIgnore);
+    ignoreTags(tagsToIgnore);
 
     Page.htmlBeautifyOptions = {
       indent_size: 2,
@@ -1137,7 +1139,7 @@ class Site {
    * Copies Font Awesome assets to the assets folder
    */
   copyFontAwesomeAsset() {
-    const faRootSrcPath = path.join(__dirname, '..', 'node_modules', '@fortawesome', 'fontawesome-free');
+    const faRootSrcPath = path.dirname(require.resolve('@fortawesome/fontawesome-free/package.json'));
     const faCssSrcPath = path.join(faRootSrcPath, 'css', 'all.min.css');
     const faCssDestPath = path.join(this.siteAssetsDestPath, 'fontawesome', 'css', 'all.min.css');
     const faFontsSrcPath = path.join(faRootSrcPath, 'webfonts');
@@ -1150,8 +1152,7 @@ class Site {
    * Copies Octicon assets to the assets folder
    */
   copyOcticonsAsset() {
-    const octiconsRootSrcPath = path.join(__dirname, '..', 'node_modules', '@primer', 'octicons', 'build');
-    const octiconsCssSrcPath = path.join(octiconsRootSrcPath, 'build.css');
+    const octiconsCssSrcPath = require.resolve('@primer/octicons/build/build.css');
     const octiconsCssDestPath = path.join(this.siteAssetsDestPath, 'css', 'octicons.css');
 
     return fs.copyAsync(octiconsCssSrcPath, octiconsCssDestPath);
@@ -1161,8 +1162,7 @@ class Site {
    * Copies components.min.js bundle to the assets folder
    */
   copyComponentsAsset() {
-    const componentsSrcPath = path.join(__dirname, '..', 'packages', 'vue-components', 'dist',
-                                        'components.min.js');
+    const componentsSrcPath = require.resolve('@markbind/vue-components/dist/components.min.js');
     const componentsDestPath = path.join(this.siteAssetsDestPath, 'js', 'components.min.js');
 
     return fs.copyAsync(componentsSrcPath, componentsDestPath);

@@ -5,6 +5,8 @@ const Site = require('../../src/Site');
 
 const {
   ABOUT_MD_DEFAULT,
+  ASSETS,
+  EXTERNAL_ASSETS,
   FOOTER_MD_DEFAULT,
   HEADER_MD_DEFAULT,
   INDEX_MD_DEFAULT,
@@ -15,40 +17,29 @@ const {
   USER_VARIABLES_DEFAULT,
   LAYOUT_FILES_DEFAULT,
   LAYOUT_SCRIPTS_DEFAULT,
+  getDefaultTemplateFileFullPath,
+  DEFAULT_TEMPLATE_FILES,
 } = require('./utils/data');
 
 const DEFAULT_TEMPLATE = 'default';
 
 jest.mock('fs');
 jest.mock('walk-sync');
-jest.mock('../../src/Page');
+jest.mock('@markbind/core/src/Page');
 jest.mock('gh-pages');
-jest.mock('../../src/util/logger');
 
 afterEach(() => fs.vol.reset());
 
 test('Site Generate builds the correct amount of assets', async () => {
   const json = {
-    'src/page.njk': PAGE_NJK,
+    ...PAGE_NJK,
     'inner/site.json': SITE_JSON_DEFAULT,
 
-    'asset/css/bootstrap.min.css': '',
-    'asset/css/bootstrap.min.css.map': '',
-    'asset/css/github.min.css': '',
-    'asset/css/markbind.css': '',
-    'asset/css/page-nav.css': '',
-    'asset/css/site-nav.css': '',
-
-    'asset/js/bootstrap-utility.min.js': '',
-    'asset/js/setup.js': '',
-    'asset/js/vue.min.js': '',
+    ...ASSETS,
 
     'packages/vue-components/dist/components.min.js': '',
 
-    'node_modules/@fortawesome/fontawesome-free/css/all.min.css': '',
-    'node_modules/@fortawesome/fontawesome-free/webfonts/font1.svg': '',
-    'node_modules/@fortawesome/fontawesome-free/webfonts/font2.ttf': '',
-    'node_modules/@primer/octicons/build/build.css': '',
+    ...EXTERNAL_ASSETS,
 
     'inner/_markbind/layouts/default/scripts.js': '',
     'inner/_markbind/layouts/default/styles.css': '',
@@ -98,8 +89,8 @@ test('Site Generate builds the correct amount of assets', async () => {
 test('Site Init with invalid template fails', async () => {
   // Mock default template in MemFS without site config
   const json = {
-    'src/page.njk': PAGE_NJK,
-    'src/template/default/index.md': INDEX_MD_DEFAULT,
+    ...PAGE_NJK,
+    [getDefaultTemplateFileFullPath('index.md')]: INDEX_MD_DEFAULT,
   };
 
   fs.vol.fromJSON(json, '');
@@ -117,9 +108,9 @@ test('Site Init does not overwrite existing files', async () => {
   // Mock default template in MemFS
   const json = {
     'index.md': EXISTING_INDEX_MD,
-    'src/page.njk': PAGE_NJK,
-    'src/template/default/index.md': INDEX_MD_DEFAULT,
-    'src/template/default/site.json': SITE_JSON_DEFAULT,
+    ...PAGE_NJK,
+    [getDefaultTemplateFileFullPath('index.md')]: INDEX_MD_DEFAULT,
+    [getDefaultTemplateFileFullPath('site.json')]: SITE_JSON_DEFAULT,
   };
 
   fs.vol.fromJSON(json, '');
@@ -131,22 +122,8 @@ test('Site Init does not overwrite existing files', async () => {
 test('Site Init in existing directory generates correct assets', async () => {
   // Mock default template in MemFS
   const json = {
-    'src/page.njk': PAGE_NJK,
-    'src/template/default/index.md': INDEX_MD_DEFAULT,
-    'src/template/default/site.json': SITE_JSON_DEFAULT,
-    'src/template/default/_markbind/boilerplates/': '',
-    'src/template/default/_markbind/head/': '',
-    'src/template/default/_markbind/headers/header.md': HEADER_MD_DEFAULT,
-    'src/template/default/_markbind/footers/footer.md': FOOTER_MD_DEFAULT,
-    'src/template/default/_markbind/navigation/site-nav.md': SITE_NAV_MD_DEFAULT,
-    'src/template/default/_markbind/variables.md': USER_VARIABLES_DEFAULT,
-    'src/template/default/_markbind/plugins': '',
-    'src/template/default/_markbind/layouts/default/footer.md': '',
-    'src/template/default/_markbind/layouts/default/header.md': '',
-    'src/template/default/_markbind/layouts/default/head.md': '',
-    'src/template/default/_markbind/layouts/default/navigation.md': '',
-    'src/template/default/_markbind/layouts/default/styles.css': '',
-    'src/template/default/_markbind/layouts/default/scripts.js': LAYOUT_SCRIPTS_DEFAULT,
+    ...PAGE_NJK,
+    ...DEFAULT_TEMPLATE_FILES,
   };
 
   fs.vol.fromJSON(json, '');
@@ -195,22 +172,8 @@ test('Site Init in existing directory generates correct assets', async () => {
 test('Site Init in directory which does not exist generates correct assets', async () => {
   // Mock default template in MemFS
   const json = {
-    'src/page.njk': PAGE_NJK,
-    'src/template/default/index.md': INDEX_MD_DEFAULT,
-    'src/template/default/site.json': SITE_JSON_DEFAULT,
-    'src/template/default/_markbind/boilerplates/': '',
-    'src/template/default/_markbind/head/': '',
-    'src/template/default/_markbind/headers/header.md': HEADER_MD_DEFAULT,
-    'src/template/default/_markbind/footers/footer.md': FOOTER_MD_DEFAULT,
-    'src/template/default/_markbind/navigation/site-nav.md': SITE_NAV_MD_DEFAULT,
-    'src/template/default/_markbind/variables.md': USER_VARIABLES_DEFAULT,
-    'src/template/default/_markbind/plugins': '',
-    'src/template/default/_markbind/layouts/default/footer.md': '',
-    'src/template/default/_markbind/layouts/default/header.md': '',
-    'src/template/default/_markbind/layouts/default/head.md': '',
-    'src/template/default/_markbind/layouts/default/navigation.md': '',
-    'src/template/default/_markbind/layouts/default/styles.css': '',
-    'src/template/default/_markbind/layouts/default/scripts.js': LAYOUT_SCRIPTS_DEFAULT,
+    ...PAGE_NJK,
+    ...DEFAULT_TEMPLATE_FILES,
   };
   fs.vol.fromJSON(json, '');
 
@@ -261,7 +224,7 @@ test('Site Init in directory which does not exist generates correct assets', asy
 
 test('Site baseurls are correct for sub nested subsites', async () => {
   const json = {
-    'src/page.njk': PAGE_NJK,
+    ...PAGE_NJK,
     'site.json': SITE_JSON_DEFAULT,
     'sub/site.json': SITE_JSON_DEFAULT,
     'sub/sub/site.json': SITE_JSON_DEFAULT,
@@ -278,7 +241,7 @@ test('Site baseurls are correct for sub nested subsites', async () => {
 
 test('Site removeAsync removes the correct asset', async () => {
   const json = {
-    'src/page.njk': PAGE_NJK,
+    ...PAGE_NJK,
     '_site/toRemove.jpg': '',
     '_site/dontRemove.png': '',
     'toRemove.html': '',
@@ -293,7 +256,7 @@ test('Site removeAsync removes the correct asset', async () => {
 
 test('Site read site config for default', async () => {
   const json = {
-    'src/page.njk': PAGE_NJK,
+    ...PAGE_NJK,
     'site.json': SITE_JSON_DEFAULT,
   };
   fs.vol.fromJSON(json, '');
@@ -331,7 +294,7 @@ test('Site read site config for custom site config', async () => {
     enableSearch: true,
   };
   const json = {
-    'src/page.njk': PAGE_NJK,
+    ...PAGE_NJK,
     'site.json': JSON.stringify(customSiteJson),
   };
   fs.vol.fromJSON(json, '');
@@ -348,7 +311,7 @@ test('Site read site config for custom site config', async () => {
 
 test('Site resolves variables referencing other variables', async () => {
   const json = {
-    'src/page.njk': PAGE_NJK,
+    ...PAGE_NJK,
     'site.json': SITE_JSON_DEFAULT,
     '_markbind/variables.md':
     '<variable name="level1">variable</variable>'
@@ -375,7 +338,7 @@ test('Site resolves variables referencing other variables', async () => {
 
 test('Site read correct user defined variables', async () => {
   const json = {
-    'src/page.njk': PAGE_NJK,
+    ...PAGE_NJK,
     'site.json': SITE_JSON_DEFAULT,
     'sub/site.json': SITE_JSON_DEFAULT,
     'sub/sub/site.json': SITE_JSON_DEFAULT,
@@ -418,22 +381,8 @@ test('Site read correct user defined variables', async () => {
 test('Site convert generates correct assets', async () => {
   // Mock default template in MemFS
   const json = {
-    'src/page.njk': PAGE_NJK,
-    'src/template/default/index.md': INDEX_MD_DEFAULT,
-    'src/template/default/site.json': SITE_JSON_DEFAULT,
-    'src/template/default/_markbind/boilerplates/': '',
-    'src/template/default/_markbind/head/': '',
-    'src/template/default/_markbind/headers/header.md': HEADER_MD_DEFAULT,
-    'src/template/default/_markbind/footers/footer.md': FOOTER_MD_DEFAULT,
-    'src/template/default/_markbind/navigation/site-nav.md': SITE_NAV_MD_DEFAULT,
-    'src/template/default/_markbind/variables.md': USER_VARIABLES_DEFAULT,
-    'src/template/default/_markbind/plugins': '',
-    'src/template/default/_markbind/layouts/default/footer.md': '',
-    'src/template/default/_markbind/layouts/default/header.md': '',
-    'src/template/default/_markbind/layouts/default/head.md': '',
-    'src/template/default/_markbind/layouts/default/navigation.md': '',
-    'src/template/default/_markbind/layouts/default/styles.css': '',
-    'src/template/default/_markbind/layouts/default/scripts.js': LAYOUT_SCRIPTS_DEFAULT,
+    ...PAGE_NJK,
+    ...DEFAULT_TEMPLATE_FILES,
   };
   fs.vol.fromJSON(json, '');
   await Site.initSite('inner/', DEFAULT_TEMPLATE);
@@ -471,22 +420,8 @@ test('Site convert generates correct assets', async () => {
 test('Site convert with custom _Footer.md, no _Sidebar.md, README.md generates correct assets', async () => {
   // Mock default template in MemFS
   const json = {
-    'src/page.njk': PAGE_NJK,
-    'src/template/default/index.md': INDEX_MD_DEFAULT,
-    'src/template/default/site.json': SITE_JSON_DEFAULT,
-    'src/template/default/_markbind/boilerplates/': '',
-    'src/template/default/_markbind/head/': '',
-    'src/template/default/_markbind/headers/header.md': HEADER_MD_DEFAULT,
-    'src/template/default/_markbind/footers/footer.md': FOOTER_MD_DEFAULT,
-    'src/template/default/_markbind/navigation/site-nav.md': SITE_NAV_MD_DEFAULT,
-    'src/template/default/_markbind/variables.md': USER_VARIABLES_DEFAULT,
-    'src/template/default/_markbind/plugins': '',
-    'src/template/default/_markbind/layouts/default/footer.md': '',
-    'src/template/default/_markbind/layouts/default/header.md': '',
-    'src/template/default/_markbind/layouts/default/head.md': '',
-    'src/template/default/_markbind/layouts/default/navigation.md': '',
-    'src/template/default/_markbind/layouts/default/styles.css': '',
-    'src/template/default/_markbind/layouts/default/scripts.js': LAYOUT_SCRIPTS_DEFAULT,
+    ...PAGE_NJK,
+    ...DEFAULT_TEMPLATE_FILES,
     // Custom Footer and README
     'inner/_Footer.md': 'Custom footer.',
     'inner/README.md': 'This is the README',
@@ -527,7 +462,7 @@ test('Site convert with custom _Footer.md, no _Sidebar.md, README.md generates c
 
 test('Site deploys with default settings', async () => {
   const json = {
-    'src/page.njk': PAGE_NJK,
+    ...PAGE_NJK,
     'site.json': SITE_JSON_DEFAULT,
     _site: {},
   };
@@ -547,7 +482,7 @@ test('Site deploys with custom settings', async () => {
     branch: 'master',
   };
   const json = {
-    'src/page.njk': PAGE_NJK,
+    ...PAGE_NJK,
     'site.json': JSON.stringify(customConfig),
     _site: {},
   };
@@ -561,7 +496,7 @@ test('Site deploys with custom settings', async () => {
 
 test('Site should not deploy without a built site', async () => {
   const json = {
-    'src/page.njk': PAGE_NJK,
+    ...PAGE_NJK,
     'site.json': SITE_JSON_DEFAULT,
   };
   fs.vol.fromJSON(json, '');
@@ -595,7 +530,7 @@ describe('Site deploy with Travis', () => {
     process.env.TRAVIS_REPO_SLUG = 'TRAVIS_USER/TRAVIS_REPO';
 
     const json = {
-      'src/page.njk': PAGE_NJK,
+      ...PAGE_NJK,
       'site.json': SITE_JSON_DEFAULT,
       _site: {},
     };
@@ -615,7 +550,7 @@ describe('Site deploy with Travis', () => {
     const customRepoConfig = JSON.parse(SITE_JSON_DEFAULT);
     customRepoConfig.deploy.repo = 'https://github.com/USER/REPO.git';
     const json = {
-      'src/page.njk': PAGE_NJK,
+      ...PAGE_NJK,
       'site.json': JSON.stringify(customRepoConfig),
       _site: {},
     };
@@ -632,7 +567,7 @@ describe('Site deploy with Travis', () => {
     process.env.TRAVIS_REPO_SLUG = 'TRAVIS_USER/TRAVIS_REPO.github.io';
 
     const json = {
-      'src/page.njk': PAGE_NJK,
+      ...PAGE_NJK,
       'site.json': SITE_JSON_DEFAULT,
       _site: {},
     };
@@ -645,7 +580,7 @@ describe('Site deploy with Travis', () => {
 
   test('Site deploy -t/--travis should not deploy if not in Travis', async () => {
     const json = {
-      'src/page.njk': PAGE_NJK,
+      ...PAGE_NJK,
       'site.json': SITE_JSON_DEFAULT,
       _site: {},
     };
@@ -660,7 +595,7 @@ describe('Site deploy with Travis', () => {
     process.env.TRAVIS = true;
 
     const json = {
-      'src/page.njk': PAGE_NJK,
+      ...PAGE_NJK,
       'site.json': SITE_JSON_DEFAULT,
       _site: {},
     };
@@ -678,7 +613,7 @@ describe('Site deploy with Travis', () => {
     const invalidRepoConfig = JSON.parse(SITE_JSON_DEFAULT);
     invalidRepoConfig.deploy.repo = 'INVALID_GITHUB_REPO';
     const json = {
-      'src/page.njk': PAGE_NJK,
+      ...PAGE_NJK,
       'site.json': JSON.stringify(invalidRepoConfig),
       _site: {},
     };
@@ -796,7 +731,7 @@ siteJsonResolvePropertiesTestCases.forEach((testCase) => {
       },
     };
     const json = {
-      'src/page.njk': PAGE_NJK,
+      ...PAGE_NJK,
       'index.md': '',
     };
     fs.vol.fromJSON(json, '');
@@ -832,7 +767,7 @@ test('Site config throws error on duplicate page src', async () => {
     },
   };
   const json = {
-    'src/page.njk': PAGE_NJK,
+    ...PAGE_NJK,
     'index.md': '',
   };
   fs.vol.fromJSON(json, '');

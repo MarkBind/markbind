@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports.LAYOUT_FILES_DEFAULT = [
   'footer.md',
   'head.md',
@@ -11,7 +13,7 @@ module.exports.LAYOUT_SCRIPTS_DEFAULT = '// eslint-disable-next-line no-undef\n'
   + '  // Include code to be called after MarkBind setup here.\n'
   + '});\n';
 
-module.exports.PAGE_NJK = `
+const PAGE_NJK = `
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
@@ -53,6 +55,9 @@ module.exports.PAGE_NJK = `
 <script src="{{ asset.layoutScript }}"></script>
 </html>
 `;
+module.exports.PAGE_NJK = {
+  [path.join(__dirname, '../../../src/Page/page.njk')]: PAGE_NJK,
+};
 
 module.exports.SITE_JSON_DEFAULT = '{\n'
   + '  "baseUrl": "",\n'
@@ -137,3 +142,55 @@ module.exports.USER_VARIABLES_DEFAULT = '<variable name="example">\n'
   + 'To inject this HTML segment in your markbind files, use {{ example }} where you want to place it.\n'
   + 'More generally, surround the segment\'s id with double curly braces.\n'
   + '</variable>';
+
+const DEFAULT_TEMPLATE_DIRECTORY = path.join(__dirname, '../../../template/default');
+
+function getDefaultTemplateFileFullPath(relativePath) {
+  return path.join(DEFAULT_TEMPLATE_DIRECTORY, relativePath);
+}
+module.exports.getDefaultTemplateFileFullPath = getDefaultTemplateFileFullPath;
+
+module.exports.DEFAULT_TEMPLATE_FILES = {
+  [getDefaultTemplateFileFullPath('index.md')]: module.exports.INDEX_MD_DEFAULT,
+  [getDefaultTemplateFileFullPath('site.json')]: module.exports.SITE_JSON_DEFAULT,
+  [getDefaultTemplateFileFullPath('_markbind/boilerplates/')]: '',
+  [getDefaultTemplateFileFullPath('_markbind/head/')]: '',
+  [getDefaultTemplateFileFullPath('_markbind/headers/header.md')]: module.exports.HEADER_MD_DEFAULT,
+  [getDefaultTemplateFileFullPath('_markbind/footers/footer.md')]: module.exports.FOOTER_MD_DEFAULT,
+  [getDefaultTemplateFileFullPath('_markbind/navigation/site-nav.md')]: module.exports.SITE_NAV_MD_DEFAULT,
+  [getDefaultTemplateFileFullPath('_markbind/variables.md')]: module.exports.USER_VARIABLES_DEFAULT,
+  [getDefaultTemplateFileFullPath('_markbind/plugins')]: '',
+  [getDefaultTemplateFileFullPath('_markbind/layouts/default/footer.md')]: '',
+  [getDefaultTemplateFileFullPath('_markbind/layouts/default/header.md')]: '',
+  [getDefaultTemplateFileFullPath('_markbind/layouts/default/head.md')]: '',
+  [getDefaultTemplateFileFullPath('_markbind/layouts/default/navigation.md')]: '',
+  [getDefaultTemplateFileFullPath('_markbind/layouts/default/styles.css')]: '',
+  [getDefaultTemplateFileFullPath('_markbind/layouts/default/scripts.js')]: module.exports
+    .LAYOUT_SCRIPTS_DEFAULT,
+};
+
+const ASSET_DIRECTORY = path.join(__dirname, '../../../asset');
+function getAssetFileFullPath(relativePath) {
+  return path.join(ASSET_DIRECTORY, relativePath);
+}
+
+module.exports.ASSETS = {
+  [getAssetFileFullPath('css/bootstrap.min.css')]: '',
+  [getAssetFileFullPath('css/bootstrap.min.css.map')]: '',
+  [getAssetFileFullPath('css/github.min.css')]: '',
+  [getAssetFileFullPath('css/markbind.css')]: '',
+  [getAssetFileFullPath('css/page-nav.css')]: '',
+  [getAssetFileFullPath('css/site-nav.css')]: '',
+
+  [getAssetFileFullPath('js/bootstrap-utility.min.js')]: '',
+  [getAssetFileFullPath('js/setup.js')]: '',
+  [getAssetFileFullPath('js/vue.min.js')]: '',
+};
+
+const faPackageRootPath = path.dirname(require.resolve('@fortawesome/fontawesome-free/package.json'));
+module.exports.EXTERNAL_ASSETS = {
+  [path.join(faPackageRootPath, 'css/all.min.css')]: '',
+  [path.join(faPackageRootPath, 'webfonts/font1.svg')]: '',
+  [path.join(faPackageRootPath, 'webfonts/font2.ttf')]: '',
+  [require.resolve('@primer/octicons/build/build.css')]: '',
+};
