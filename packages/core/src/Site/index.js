@@ -139,8 +139,8 @@ class Site {
     this.siteConfig = undefined;
     this.siteConfigPath = siteConfigPath;
 
-    // Site wide variable preprocessor
-    this.variablePreprocessor = undefined;
+    // Site wide variable processor
+    this.variableProcessor = undefined;
 
     // Lazy reload properties
     this.onePagePath = onePagePath;
@@ -278,7 +278,7 @@ class Site {
       title: config.title || '',
       titlePrefix: this.siteConfig.titlePrefix,
       headingIndexingLevel: this.siteConfig.headingIndexingLevel,
-      variablePreprocessor: this.variablePreprocessor,
+      variableProcessor: this.variableProcessor,
       sourcePath,
       resultPath,
       asset: {
@@ -520,7 +520,7 @@ class Site {
       .map(x => path.resolve(this.rootPath, x));
 
     this.baseUrlMap = new Set(candidates.map(candidate => path.dirname(candidate)));
-    this.variablePreprocessor = new VariablePreprocessor(this.rootPath, this.baseUrlMap);
+    this.variableProcessor = new VariableProcessor(this.rootPath, this.baseUrlMap);
 
     return Promise.resolve();
   }
@@ -529,7 +529,7 @@ class Site {
    * Collects the user defined variables map in the site/subsites
    */
   collectUserDefinedVariablesMap() {
-    this.variablePreprocessor.resetUserDefinedVariablesMap();
+    this.variableProcessor.resetUserDefinedVariablesMap();
 
     this.baseUrlMap.forEach((base) => {
       const userDefinedVariablesPath = path.resolve(base, USER_VARIABLES_PATH);
@@ -550,8 +550,8 @@ class Site {
       const siteBaseUrl = siteRelativePathFromRoot === ''
         ? this.siteConfig.baseUrl
         : path.posix.join(this.siteConfig.baseUrl || '/', siteRelativePathFromRoot);
-      this.variablePreprocessor.addUserDefinedVariable(base, 'baseUrl', siteBaseUrl);
-      this.variablePreprocessor.addUserDefinedVariable(base, 'MarkBind', MARKBIND_LINK_HTML);
+      this.variableProcessor.addUserDefinedVariable(base, 'baseUrl', siteBaseUrl);
+      this.variableProcessor.addUserDefinedVariable(base, 'MarkBind', MARKBIND_LINK_HTML);
 
       const $ = cheerio.load(content, { decodeEntities: false });
       $('variable,span').each((index, element) => {
@@ -564,13 +564,13 @@ class Site {
             const jsonData = fs.readFileSync(variableFilePath);
             const varData = JSON.parse(jsonData);
             Object.entries(varData).forEach(([varName, varValue]) => {
-              this.variablePreprocessor.renderAndAddUserDefinedVariable(base, varName, varValue);
+              this.variableProcessor.renderAndAddUserDefinedVariable(base, varName, varValue);
             });
           } catch (err) {
             logger.warn(`Error ${err.message}`);
           }
         } else {
-          this.variablePreprocessor.renderAndAddUserDefinedVariable(base, name, $(element).html());
+          this.variableProcessor.renderAndAddUserDefinedVariable(base, name, $(element).html());
         }
       });
     });
@@ -1311,7 +1311,7 @@ class Site {
       timeZoneName: 'short',
     };
     const time = new Date().toLocaleTimeString(this.siteConfig.locale, options);
-    this.variablePreprocessor.addUserDefinedVariableForAllSites('timestamp', time);
+    this.variableProcessor.addUserDefinedVariableForAllSites('timestamp', time);
     return Promise.resolve();
   }
 }

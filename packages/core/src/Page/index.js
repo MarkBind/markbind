@@ -83,7 +83,7 @@ class Page {
    * @property {string} pageTemplate template used for this page
    * @property {string} title
    * @property {string} titlePrefix https://markbind.org/userGuide/siteConfiguration.html#titleprefix
-   * @property {VariablePreprocessor} variablePreprocessor
+   * @property {VariableProcessor} variableProcessor
    * @property {string} sourcePath the source file for rendering this page
    * @property {string} tempPath the temp path for writing intermediate result
    * @property {string} resultPath the output path of this page
@@ -177,9 +177,9 @@ class Page {
      */
     this.titlePrefix = pageConfig.titlePrefix;
     /**
-     * @type {VariablePreprocessor}
+     * @type {VariableProcessor}
      */
-    this.variablePreprocessor = pageConfig.variablePreprocessor;
+    this.variableProcessor = pageConfig.variableProcessor;
 
     /**
      * The source file for rendering this page
@@ -641,7 +641,7 @@ class Page {
     // Set header file as an includedFile
     this.includedFiles.add(headerPath);
 
-    const renderedHeader = this.variablePreprocessor.renderSiteVariables(this.sourcePath, headerContent);
+    const renderedHeader = this.variableProcessor.renderSiteVariables(this.sourcePath, headerContent);
     return `${renderedHeader}\n${pageData}`;
   }
 
@@ -670,7 +670,7 @@ class Page {
     // Set footer file as an includedFile
     this.includedFiles.add(footerPath);
 
-    const renderedFooter = this.variablePreprocessor.renderSiteVariables(this.sourcePath, footerContent);
+    const renderedFooter = this.variableProcessor.renderSiteVariables(this.sourcePath, footerContent);
     return `${pageData}\n${renderedFooter}`;
   }
 
@@ -702,7 +702,7 @@ class Page {
     }
     this.includedFiles.add(siteNavPath);
 
-    const siteNavMappedData = this.variablePreprocessor.renderSiteVariables(this.sourcePath, siteNavContent);
+    const siteNavMappedData = this.variableProcessor.renderSiteVariables(this.sourcePath, siteNavContent);
 
     // Check navigation elements
     const $ = cheerio.load(siteNavMappedData);
@@ -893,8 +893,8 @@ class Page {
       // Set head file as an includedFile
       this.includedFiles.add(headFilePath);
 
-      const headFileMappedData = this.variablePreprocessor.renderSiteVariables(this.sourcePath,
-                                                                               headFileContent).trim();
+      const headFileMappedData = this.variableProcessor.renderSiteVariables(this.sourcePath,
+                                                                            headFileContent).trim();
       // Split top and bottom contents
       const $ = cheerio.load(headFileMappedData);
       if ($('head-top').length) {
@@ -947,7 +947,7 @@ class Page {
    * @typedef {Object<string, any>} FileConfig
    * @property {Set<string>} baseUrlMap the set of urls representing the sites' base directories
    * @property {string} rootPath
-   * @property {VariablePreprocessor} variablePreprocessor
+   * @property {VariableProcessor} variableProcessor
    * @property {Object<string, number>} headerIdMap
    * @property {boolean} fixedHeader indicates whether the header of the page is fixed
    */
@@ -956,7 +956,7 @@ class Page {
     this.includedFiles = new Set([this.sourcePath]);
     this.headerIdMap = {}; // Reset for live reload
     const markbinder = new MarkBind({
-      variablePreprocessor: this.variablePreprocessor,
+      variableProcessor: this.variableProcessor,
     });
     /**
      * @type {FileConfig}
@@ -1263,7 +1263,7 @@ class Page {
        * so that we only recursively rebuild the file's included content
        */
       const markbinder = new MarkBind({
-        variablePreprocessor: this.variablePreprocessor,
+        variableProcessor: this.variableProcessor,
       });
       /**
        * @type {FileConfig}

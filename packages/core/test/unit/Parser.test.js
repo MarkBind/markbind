@@ -1,18 +1,18 @@
 const path = require('path');
 const fs = require('fs');
 const Parser = require('../../src/Parser');
-const VariablePreprocessor = require('../../src/preprocessors/VariablePreprocessor');
+const VariableProcessor = require('../../src/variables/VariableProcessor');
 
 jest.mock('fs');
 
 afterEach(() => fs.vol.reset());
 
 const ROOT_PATH = path.resolve('');
-function getNewDefaultVariablePreprocessor() {
-  const DEFAULT_VARIABLE_PREPROCESSOR = new VariablePreprocessor(ROOT_PATH, new Set([ROOT_PATH]));
-  DEFAULT_VARIABLE_PREPROCESSOR.addUserDefinedVariable(ROOT_PATH, 'baseUrl', '{{baseUrl}}');
+function getNewDefaultVariableProcessor() {
+  const DEFAULT_VARIABLE_PROCESSOR = new VariableProcessor(ROOT_PATH, new Set([ROOT_PATH]));
+  DEFAULT_VARIABLE_PROCESSOR.addUserDefinedVariable(ROOT_PATH, 'baseUrl', '{{baseUrl}}');
 
-  return DEFAULT_VARIABLE_PREPROCESSOR;
+  return DEFAULT_VARIABLE_PROCESSOR;
 }
 
 test('includeFile replaces <include> with <div>', async () => {
@@ -35,7 +35,7 @@ test('includeFile replaces <include> with <div>', async () => {
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
+  const markbinder = new Parser({ variableProcessor: getNewDefaultVariableProcessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
@@ -74,7 +74,7 @@ test('includeFile replaces <include src="exist.md" optional> with <div>', async 
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
+  const markbinder = new Parser({ variableProcessor: getNewDefaultVariableProcessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
@@ -109,7 +109,7 @@ test('includeFile replaces <include src="doesNotExist.md" optional> with empty <
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
+  const markbinder = new Parser({ variableProcessor: getNewDefaultVariableProcessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
@@ -147,7 +147,7 @@ test('includeFile replaces <include src="include.md#exists"> with <div>', async 
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
+  const markbinder = new Parser({ variableProcessor: getNewDefaultVariableProcessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
@@ -189,7 +189,7 @@ test('includeFile replaces <include src="include.md#exists" inline> with inline 
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
+  const markbinder = new Parser({ variableProcessor: getNewDefaultVariableProcessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
@@ -228,7 +228,7 @@ test('includeFile replaces <include src="include.md#exists" trim> with trimmed c
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
+  const markbinder = new Parser({ variableProcessor: getNewDefaultVariableProcessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
@@ -270,7 +270,7 @@ test('includeFile replaces <include src="include.md#doesNotExist"> with error <d
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
+  const markbinder = new Parser({ variableProcessor: getNewDefaultVariableProcessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
@@ -308,7 +308,7 @@ test('includeFile replaces <include src="include.md#exists" optional> with <div>
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
+  const markbinder = new Parser({ variableProcessor: getNewDefaultVariableProcessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
@@ -347,7 +347,7 @@ test('includeFile replaces <include src="include.md#doesNotExist" optional> with
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
+  const markbinder = new Parser({ variableProcessor: getNewDefaultVariableProcessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
@@ -400,7 +400,7 @@ test('includeFile detects cyclic references for static cyclic includes', async (
     `\t${indexPath}`,
   ].join('\n');
 
-  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
+  const markbinder = new Parser({ variableProcessor: getNewDefaultVariableProcessor() });
   const result = await markbinder.includeFile(indexPath, index, {
     baseUrlMap,
     rootPath: ROOT_PATH,
@@ -412,7 +412,7 @@ test('includeFile detects cyclic references for static cyclic includes', async (
 });
 
 test('renderFile converts markdown headers to <h1>', async () => {
-  const markbinder = new Parser({ variablePreprocessor: getNewDefaultVariablePreprocessor() });
+  const markbinder = new Parser({ variableProcessor: getNewDefaultVariableProcessor() });
   const rootPath = path.resolve('');
   const headerIdMap = {};
   const indexPath = path.resolve('index.md');
