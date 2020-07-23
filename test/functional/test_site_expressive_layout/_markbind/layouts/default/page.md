@@ -13,4 +13,10 @@
 
 Bottom Content
 
+
+
 <include src="imported.md" />
+
+{% raw %}
+**Test that {% raw %} and {% endraw %} tags work in the layouts file**
+{% endraw %}

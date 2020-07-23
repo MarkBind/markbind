@@ -15,7 +15,6 @@ const MarkBind = require('../Parser');
 const md = require('../lib/markdown-it');
 
 const FsUtil = require('../utils/fsUtil');
-const njUtil = require('../utils/nunjuckUtils');
 const utils = require('../utils');
 const logger = require('../utils/logger');
 
@@ -573,7 +572,7 @@ class Page {
   }
 
   /**
-   * Produces expressive layouts by inserting page data into pre-specified layout
+   * Renders expressive layouts by inserting page data into pre-specified layout
    * @param pageData a page with its front matter collected
    * @param {FileConfig} fileConfig
    * @param {Parser} markbinder instance from the caller, for adding the seen sources.
@@ -590,16 +589,20 @@ class Page {
     // Set expressive layout file as an includedFile
     this.includedFiles.add(layoutPagePath);
     return fs.readFileAsync(layoutPagePath, 'utf8')
-      // Include file but with altered cwf (the layout page)
-      // Also render MAIN_CONTENT_BODY back to itself
+      /*
+       Render {{ MAIN_CONTENT_BODY }} and {% raw/endraw %} back to itself first,
+       which is then dealt with in the call below to {@link renderSiteVariables}.
+       */
+      .then(result => this.variableProcessor.renderPage(layoutPagePath, result, {
+        [LAYOUT_PAGE_BODY_VARIABLE]: `{{${LAYOUT_PAGE_BODY_VARIABLE}}}`,
+      }, true))
+      // Include file with the cwf set to the layout page path
       .then(result => markbinder.includeFile(layoutPagePath, result, {
         ...fileConfig,
         cwf: layoutPagePath,
-      }, {
-        [LAYOUT_PAGE_BODY_VARIABLE]: `{{${LAYOUT_PAGE_BODY_VARIABLE}}}`,
       }))
-      // Insert content
-      .then(result => njUtil.renderRaw(result, {
+      // Note: The {% raw/endraw %}s previously kept are removed here.
+      .then(result => this.variableProcessor.renderSiteVariables(this.rootPath, result, {
         [LAYOUT_PAGE_BODY_VARIABLE]: pageData,
       }));
   }
@@ -966,6 +969,7 @@ class Page {
       fixedHeader: this.fixedHeader,
     };
     return fs.readFileAsync(this.sourcePath, 'utf-8')
+      .then(result => this.variableProcessor.renderPage(this.sourcePath, result))
       .then(result => markbinder.includeFile(this.sourcePath, result, fileConfig))
       .then((result) => {
         this.collectFrontMatter(result);
@@ -1272,6 +1276,7 @@ class Page {
         cwf: file,
       };
       return fs.readFileAsync(dependency.to, 'utf-8')
+        .then(result => this.variableProcessor.renderPage(dependency.to, result))
         .then(result => markbinder.includeFile(dependency.to, result, fileConfig))
         .then(result => Page.removeFrontMatter(result))
         .then(result => this.collectPluginSources(result))

@@ -9,12 +9,12 @@ const walkSync = require('walk-sync');
 
 const SiteConfig = require('./SiteConfig');
 const Page = require('../Page');
+const VariableProcessor = require('../variables/VariableProcessor');
+const VariableRenderer = require('../variables/VariableRenderer');
 const { ignoreTags } = require('../patches');
-const VariablePreprocessor = require('../preprocessors/VariablePreprocessor');
 const Template = require('../../template/template');
 
 const FsUtil = require('../utils/fsUtil');
-const njUtil = require('../utils/nunjuckUtils');
 const delay = require('../utils/delay');
 const logger = require('../utils/logger');
 const utils = require('../utils');
@@ -125,7 +125,7 @@ class Site {
 
     // Page template path
     this.pageTemplatePath = path.join(__dirname, '../Page', PAGE_TEMPLATE_NAME);
-    this.pageTemplate = njUtil.compile(fs.readFileSync(this.pageTemplatePath, 'utf8'));
+    this.pageTemplate = VariableRenderer.compile(fs.readFileSync(this.pageTemplatePath, 'utf8'));
     this.pages = [];
 
     // Other properties

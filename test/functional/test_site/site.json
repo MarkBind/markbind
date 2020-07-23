@@ -31,6 +31,14 @@
     },
     {
       "src": "testLayouts.md",
+      "title": "Test nunjucks path resolving"
+    },
+    {
+      "src": [
+        "testNunjucksPathResolving.md",
+        "sub_site/testNunjucksPathResolving.md",
+        "sub_site/nested_sub_site/testNunjucksPathResolving.md"
+      ],
       "title": "Hello World"
     },
     {
