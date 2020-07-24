@@ -360,7 +360,6 @@ describe('TipBox', () => {
     const wrapper = mount(TipBox, {
       slots: {
         icon: ':fas-plus:',
-        _header: 'A header',
       },
       propsData: {
         iconColor: 'red',
