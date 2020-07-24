@@ -342,4 +342,27 @@ describe('TipBox', () => {
     });
     expect(wrapper.element).toMatchSnapshot();
   });
+
+  test('with custom icon color and no header renders correctly', () => {
+    const wrapper = mount(TipBox, {
+      propsData: {
+        icon: ':fas-plus:',
+        iconColor: 'red',
+      },
+    });
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
+  test('with with custom icon color and header renders correctly', () => {
+    const wrapper = mount(TipBox, {
+      slots: {
+        _header: 'A header',
+      },
+      propsData: {
+        icon: ':fas-plus:',
+        iconColor: 'red',
+      },
+    });
+    expect(wrapper.element).toMatchSnapshot();
+  });
 });
