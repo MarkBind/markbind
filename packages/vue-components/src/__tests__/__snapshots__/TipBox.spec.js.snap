@@ -583,15 +583,15 @@ exports[`TipBox with custom icon color and header renders correctly 1`] = `
       class="icon-wrapper"
       style="color: red;"
     >
-      :fa-plus:
+      :fas-plus:
     </div>
-
+     
     <div
       class="box-header"
     >
       A header
     </div>
-    
+     
     <!---->
   </div>
    
@@ -624,8 +624,6 @@ exports[`TipBox with custom icon color and no header renders correctly 1`] = `
   <div
     class="box-body-wrapper"
   >
-    <!---->
-    
     <div
       class="icon-wrapper"
       style="color: red;"
