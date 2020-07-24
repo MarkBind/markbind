@@ -346,10 +346,10 @@ describe('TipBox', () => {
   test('with custom icon color and header renders correctly', () => {
     const wrapper = mount(TipBox, {
       slots: {
+        icon: ':fas-plus:',
         _header: 'A header',
       },
       propsData: {
-        icon: ':fas-plus:',
         iconColor: 'red',
       },
     });
@@ -358,8 +358,11 @@ describe('TipBox', () => {
 
   test('with custom icon color and no header renders correctly', () => {
     const wrapper = mount(TipBox, {
-      propsData: {
+      slots: {
         icon: ':fas-plus:',
+        _header: 'A header',
+      },
+      propsData: {
         iconColor: 'red',
       },
     });
