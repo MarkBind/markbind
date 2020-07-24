@@ -155,7 +155,7 @@ You can use any inline markdown in the `icon` property.
 Custom styles **(** `background-color`, `border-color`, `border-left-color`, `icon` **)** as introduced in the previous section, takes precedence over the `no-background`, `no-border`, `no-icon` attributes.
 </box>
 
-**You can also use icons and resize them accordingly.**
+**You can also use icons, resize them and change their color accordingly.**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
@@ -167,6 +167,9 @@ Custom styles **(** `background-color`, `border-color`, `border-left-color`, `ic
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 </box>
 <box type="definition" icon=":fas-camera:" icon-size="3x">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</box>
+<box type="info" icon=":fas-camera:" icon-color="red" icon-size="3x">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </box>
 </variable>
@@ -182,6 +185,7 @@ color | `String` | `null` | Color of the text.
 dismissible | `Boolean` | `false` | Adds a button to close the box to the top right corner.
 icon | `String` | `null` | Inline MarkDown text of the icon displayed on the left.
 icon-size | `String` | `null` | Resizes the icon. Supports integer-scaling of the icon dimensions e.g. `2x`, `3x`, `4x`, etc.
+icon-color | `String` | `null` | Color of the icon.
 header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>heading <br> (deprecated)</small> | `String` | `null` | Markdown text of the box header.
 type | `String` | `''` | Supports: `info`, `warning`, `success`, `important`, `wrong`, `tip`, `definition`, or empty for default.
 light | `Boolean` | `false` | Uses a light color scheme for the box.

@@ -3,7 +3,11 @@
     <!-- Header wrapper, not rendered if there is no header attribute -->
     <div v-if="headerBool()" :class="['box-header-wrapper', { 'alert-dismissible': dismissible }]">
       <!-- icon on the left of the header -->
-      <div v-if="iconBool()" :class="['icon-wrapper', iconStyle()]">
+      <div
+        v-if="iconBool()"
+        :class="['icon-wrapper', iconStyle()]"
+        :style="customIconColorStyle()"
+      >
         <slot name="icon">
           <i :class="['fas', getFontAwesomeIconStyle()]"></i>
         </slot>
@@ -44,7 +48,11 @@
         }]"
     >
       <!-- icon on the left, not shown if there is a header -->
-      <div v-if="iconBool() && !headerBool()" :class="['icon-wrapper', iconStyle()]">
+      <div
+        v-if="iconBool() && !headerBool()"
+        :class="['icon-wrapper', iconStyle()]"
+        :style="customIconColorStyle()"
+      >
         <slot name="icon">
           <i :class="['fas', getFontAwesomeIconStyle()]"></i>
         </slot>
@@ -106,6 +114,10 @@ export default {
       default: null,
     },
     iconSize: {
+      type: String,
+      default: null,
+    },
+    iconColor: {
       type: String,
       default: null,
     },
@@ -208,6 +220,12 @@ export default {
       }
 
       return iconStyle;
+    },
+    customIconColorStyle() {
+      if (this.iconColor) {
+        return { color: this.iconColor };
+      }
+      return {};
     },
     getBootstrapAlertStyle() {
       switch (this.type) {
