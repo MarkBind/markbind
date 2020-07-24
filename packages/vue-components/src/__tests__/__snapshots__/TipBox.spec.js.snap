@@ -572,6 +572,80 @@ exports[`TipBox with custom color renders correctly 1`] = `
   </div>
 </div>
 `;
+exports[`TipBox with custom icon color and header renders correctly 1`] = `
+<div
+  class="alert box-container alert-default"
+>
+  <div
+    class="box-header-wrapper"
+  >
+    <div
+      class="icon-wrapper" style="color: red;"
+    >
+      <span
+        class="fas fa-plus"
+      />
+    </div>
+    <div
+      class="box-header"
+    >
+      A header
+    </div>
+
+    <!---->
+  </div>
+
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper box-body-wrapper-with-heading"
+  >
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <!---->
+  </div>
+</div>
+`;
+
+exports[`TipBox with custom icon color and no header renders correctly 1`] = `
+<div
+  class="alert box-container alert-default"
+>
+  <!---->
+   
+  <!---->
+   
+  <div
+    class="box-body-wrapper"
+  >
+    <!---->
+    
+    <div
+      class="icon-wrapper" style="color: red;"
+    >
+      <span
+        class="fas fa-plus"
+      />
+    </div>
+     
+    <!---->
+     
+    <div
+      class="contents"
+    />
+     
+    <!---->
+  </div>
+</div>
+`;
+
 
 exports[`TipBox with dismissible option renders correctly 1`] = `
 <div
