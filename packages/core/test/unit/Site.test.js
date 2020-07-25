@@ -326,7 +326,7 @@ test('Site resolves variables referencing other variables', async () => {
   await site.collectBaseUrl();
   await site.collectUserDefinedVariablesMap();
 
-  const root = site.variablePreprocessor.userDefinedVariablesMap[path.resolve('')];
+  const root = site.variableProcessor.userDefinedVariablesMap[path.resolve('')];
 
   // check all variables
   expect(root.level1).toEqual('variable');
@@ -357,10 +357,10 @@ test('Site read correct user defined variables', async () => {
   await site.collectBaseUrl();
   await site.collectUserDefinedVariablesMap();
 
-  const root = site.variablePreprocessor.userDefinedVariablesMap[path.resolve('')];
-  const sub = site.variablePreprocessor.userDefinedVariablesMap[path.resolve('sub')];
-  const subsub = site.variablePreprocessor.userDefinedVariablesMap[path.resolve('sub/sub')];
-  const othersub = site.variablePreprocessor.userDefinedVariablesMap[path.resolve('otherSub/sub')];
+  const root = site.variableProcessor.userDefinedVariablesMap[path.resolve('')];
+  const sub = site.variableProcessor.userDefinedVariablesMap[path.resolve('sub')];
+  const subsub = site.variableProcessor.userDefinedVariablesMap[path.resolve('sub/sub')];
+  const othersub = site.variableProcessor.userDefinedVariablesMap[path.resolve('otherSub/sub')];
 
   // check all baseUrls
   expect(root.baseUrl).toEqual('');

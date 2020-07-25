@@ -170,10 +170,37 @@
       "headingKeywords": {}
     },
     {
-      "title": "Hello World",
+      "title": "Test nunjucks path resolving",
       "head": "overwriteLayoutHead.md",
       "layout": "testLayout",
       "src": "testLayouts.md",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testNunjucksPathResolving.md",
+      "title": "Hello World",
+      "layout": "default",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "sub_site/testNunjucksPathResolving.md",
+      "title": "Hello World",
+      "layout": "default",
+      "globalOverrideProperty": "Overridden by global override",
+      "globalAndFrontMatterOverrideProperty": "Overridden by global override",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "sub_site/nested_sub_site/testNunjucksPathResolving.md",
+      "title": "Hello World",
+      "layout": "default",
       "globalOverrideProperty": "Overridden by global override",
       "globalAndFrontMatterOverrideProperty": "Overridden by global override",
       "headings": {},

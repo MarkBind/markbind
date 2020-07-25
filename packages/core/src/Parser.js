@@ -21,7 +21,7 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 class Parser {
   constructor(config) {
-    this.variablePreprocessor = config.variablePreprocessor;
+    this.variableProcessor = config.variableProcessor;
     this.dynamicIncludeSrc = [];
     this.staticIncludeSrc = [];
     this.missingIncludeSrc = [];
@@ -169,12 +169,12 @@ class Parser {
     }
   }
 
-  includeFile(file, content, config, additionalVariables = {}) {
+  includeFile(file, content, config) {
     const context = {};
     context.cwf = config.cwf || file; // current working file
     context.callStack = [];
     // TODO make componentPreprocessor a class to avoid this
-    config.variablePreprocessor = this.variablePreprocessor;
+    config.variableProcessor = this.variableProcessor;
     return new Promise((resolve, reject) => {
       const handler = new htmlparser.DomHandler((error, dom) => {
         if (error) {
@@ -196,15 +196,13 @@ class Parser {
       });
       const parser = new htmlparser.Parser(handler);
 
-      const renderedContent = this.variablePreprocessor.renderPage(file, content, additionalVariables);
-
       const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
         context.source = 'md';
-        parser.parseComplete(renderedContent.toString());
+        parser.parseComplete(content);
       } else if (fileExt === 'html') {
         context.source = 'html';
-        parser.parseComplete(renderedContent);
+        parser.parseComplete(content);
       } else {
         const error = new Error(`Unsupported File Extension: '${fileExt}'`);
         reject(error);

@@ -9,9 +9,9 @@ _.has = require('lodash/has');
 _.isArray = require('lodash/isArray');
 _.isEmpty = require('lodash/isEmpty');
 
-const njUtil = require('../utils/nunjuckUtils');
 const urlUtils = require('../utils/urls');
 const logger = require('../utils/logger');
+const VariableRenderer = require('./VariableRenderer');
 
 const {
   ATTRIB_CWF,
@@ -43,7 +43,7 @@ const {
  *    These methods are similar to (2), but in addition to the site variables, they
  *    render the content with the page variables extracted from (3) as well.
  */
-class VariablePreprocessor {
+class VariableProcessor {
   constructor(rootPath, baseUrlMap) {
     /**
      * Root site path
@@ -63,6 +63,18 @@ class VariablePreprocessor {
      * @type {Object<string, Object<string, any>>}
      */
     this.userDefinedVariablesMap = {};
+
+    /**
+     * Map of sites' root paths to the respective VariableRenderer instances
+     * @type {Object<string, VariableRenderer>}
+     */
+    this.variableRendererMap = {};
+
+    // Set up userDefinedVariablesMap and variableRendererMap
+    this.baseUrlMap.forEach((siteRootPath) => {
+      this.userDefinedVariablesMap[siteRootPath] = {};
+      this.variableRendererMap[siteRootPath] = new VariableRenderer(siteRootPath);
+    });
   }
 
   /*
@@ -77,7 +89,6 @@ class VariablePreprocessor {
    * @param value of the variable
    */
   addUserDefinedVariable(site, name, value) {
-    this.userDefinedVariablesMap[site] = this.userDefinedVariablesMap[site] || {};
     this.userDefinedVariablesMap[site][name] = value;
   }
 
@@ -86,7 +97,7 @@ class VariablePreprocessor {
    * This is to allow using previously declared site variables in site variables declared later on.
    */
   renderAndAddUserDefinedVariable(site, name, value) {
-    const renderedVal = njUtil.renderRaw(value, this.userDefinedVariablesMap[site]);
+    const renderedVal = this.variableRendererMap[site].render(value, this.userDefinedVariablesMap[site]);
     this.addUserDefinedVariable(site, name, renderedVal);
   }
 
@@ -100,6 +111,9 @@ class VariablePreprocessor {
 
   resetUserDefinedVariablesMap() {
     this.userDefinedVariablesMap = {};
+    this.baseUrlMap.forEach((siteRootPath) => {
+      this.userDefinedVariablesMap[siteRootPath] = {};
+    });
   }
 
   /**
@@ -124,16 +138,21 @@ class VariablePreprocessor {
    * @param contentFilePath of the specified content to render
    * @param content string to render
    * @param lowerPriorityVariables than the site variables, if any
-   * @param higherPriorityVariables than the site variables, if any
+   * @param higherPriorityVariables than the site variables, if any.
+   *        Currently only used for layouts.
+   @param keepPercentRaw whether to reoutput {% raw/endraw %} tags, also used only for layouts.
    */
-  renderSiteVariables(contentFilePath, content, lowerPriorityVariables = {}, higherPriorityVariables = {}) {
+  renderSiteVariables(contentFilePath, content, lowerPriorityVariables = {},
+                      higherPriorityVariables = {}, keepPercentRaw = false) {
     const userDefinedVariables = this.getParentSiteVariables(contentFilePath);
+    const parentSitePath = urlUtils.getParentSiteAbsolutePath(contentFilePath, this.rootPath,
+                                                              this.baseUrlMap);
 
-    return njUtil.renderRaw(content, {
+    return this.variableRendererMap[parentSitePath].render(content, {
       ...lowerPriorityVariables,
       ...userDefinedVariables,
       ...higherPriorityVariables,
-    });
+    }, keepPercentRaw);
   }
 
   /*
@@ -264,7 +283,7 @@ class VariablePreprocessor {
     // NOTE: Selecting both at once is important to respect variable/import declaration order
     $('variable, import[from]').not('include > variable').each((index, elem) => {
       if (elem.name === 'variable') {
-        VariablePreprocessor.addVariable(pageVariables, elem, $(elem).html(), filePath, renderVariable);
+        VariableProcessor.addVariable(pageVariables, elem, $(elem).html(), filePath, renderVariable);
       } else {
         /*
          NOTE: we pass renderVariable here as well but not for rendering <import>ed variables again!
@@ -331,8 +350,8 @@ class VariablePreprocessor {
    * @param includeElement include element to extract variables from
    */
   static extractIncludeVariables(includeElement) {
-    const includeInlineVariables = VariablePreprocessor.extractIncludeInlineVariables(includeElement);
-    const includeChildVariables = VariablePreprocessor.extractIncludeChildElementVariables(includeElement);
+    const includeInlineVariables = VariableProcessor.extractIncludeInlineVariables(includeElement);
+    const includeChildVariables = VariableProcessor.extractIncludeChildElementVariables(includeElement);
 
     return {
       ...includeChildVariables,
@@ -358,7 +377,7 @@ class VariablePreprocessor {
     const fileContent = fs.readFileSync(filePath, 'utf8');
 
     // Extract included variables from the include element, merging with the parent context variables
-    const includeVariables = VariablePreprocessor.extractIncludeVariables(node);
+    const includeVariables = VariableProcessor.extractIncludeVariables(node);
 
     // We pass in includeVariables as well to render <include> variables used in page <variable>s
     // see "Test Page Variable and Included Variable Integrations" under test_site/index.md for an example
@@ -396,8 +415,9 @@ class VariablePreprocessor {
    * @param content to render
    * @param highestPriorityVariables to render with the highest priority if any.
    *        This is currently only used for the MAIN_CONTENT_BODY in layouts.
+   * @param keepPercentRaw whether to reoutput {% raw/endraw %} tags, also used only for layouts.
    */
-  renderPage(contentFilePath, content, highestPriorityVariables = {}) {
+  renderPage(contentFilePath, content, highestPriorityVariables = {}, keepPercentRaw = false) {
     const {
       pageImportedVariables,
       pageVariables,
@@ -406,8 +426,8 @@ class VariablePreprocessor {
     return this.renderSiteVariables(contentFilePath, content, {
       ...pageImportedVariables,
       ...pageVariables,
-    }, highestPriorityVariables);
+    }, highestPriorityVariables, keepPercentRaw);
   }
 }
 
-module.exports = VariablePreprocessor;
+module.exports = VariableProcessor;

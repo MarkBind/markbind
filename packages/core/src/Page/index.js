@@ -15,7 +15,6 @@ const MarkBind = require('../Parser');
 const md = require('../lib/markdown-it');
 
 const FsUtil = require('../utils/fsUtil');
-const njUtil = require('../utils/nunjuckUtils');
 const utils = require('../utils');
 const logger = require('../utils/logger');
 
@@ -84,7 +83,7 @@ class Page {
    * @property {string} pageTemplate template used for this page
    * @property {string} title
    * @property {string} titlePrefix https://markbind.org/userGuide/siteConfiguration.html#titleprefix
-   * @property {VariablePreprocessor} variablePreprocessor
+   * @property {VariableProcessor} variableProcessor
    * @property {string} sourcePath the source file for rendering this page
    * @property {string} tempPath the temp path for writing intermediate result
    * @property {string} resultPath the output path of this page
@@ -178,9 +177,9 @@ class Page {
      */
     this.titlePrefix = pageConfig.titlePrefix;
     /**
-     * @type {VariablePreprocessor}
+     * @type {VariableProcessor}
      */
-    this.variablePreprocessor = pageConfig.variablePreprocessor;
+    this.variableProcessor = pageConfig.variableProcessor;
 
     /**
      * The source file for rendering this page
@@ -573,7 +572,7 @@ class Page {
   }
 
   /**
-   * Produces expressive layouts by inserting page data into pre-specified layout
+   * Renders expressive layouts by inserting page data into pre-specified layout
    * @param pageData a page with its front matter collected
    * @param {FileConfig} fileConfig
    * @param {Parser} markbinder instance from the caller, for adding the seen sources.
@@ -590,16 +589,20 @@ class Page {
     // Set expressive layout file as an includedFile
     this.includedFiles.add(layoutPagePath);
     return fs.readFileAsync(layoutPagePath, 'utf8')
-      // Include file but with altered cwf (the layout page)
-      // Also render MAIN_CONTENT_BODY back to itself
+      /*
+       Render {{ MAIN_CONTENT_BODY }} and {% raw/endraw %} back to itself first,
+       which is then dealt with in the call below to {@link renderSiteVariables}.
+       */
+      .then(result => this.variableProcessor.renderPage(layoutPagePath, result, {
+        [LAYOUT_PAGE_BODY_VARIABLE]: `{{${LAYOUT_PAGE_BODY_VARIABLE}}}`,
+      }, true))
+      // Include file with the cwf set to the layout page path
       .then(result => markbinder.includeFile(layoutPagePath, result, {
         ...fileConfig,
         cwf: layoutPagePath,
-      }, {
-        [LAYOUT_PAGE_BODY_VARIABLE]: `{{${LAYOUT_PAGE_BODY_VARIABLE}}}`,
       }))
-      // Insert content
-      .then(result => njUtil.renderRaw(result, {
+      // Note: The {% raw/endraw %}s previously kept are removed here.
+      .then(result => this.variableProcessor.renderSiteVariables(this.rootPath, result, {
         [LAYOUT_PAGE_BODY_VARIABLE]: pageData,
       }));
   }
@@ -638,7 +641,7 @@ class Page {
     // Set header file as an includedFile
     this.includedFiles.add(headerPath);
 
-    const renderedHeader = this.variablePreprocessor.renderSiteVariables(this.sourcePath, headerContent);
+    const renderedHeader = this.variableProcessor.renderSiteVariables(this.sourcePath, headerContent);
     return `${renderedHeader}\n${pageData}`;
   }
 
@@ -667,7 +670,7 @@ class Page {
     // Set footer file as an includedFile
     this.includedFiles.add(footerPath);
 
-    const renderedFooter = this.variablePreprocessor.renderSiteVariables(this.sourcePath, footerContent);
+    const renderedFooter = this.variableProcessor.renderSiteVariables(this.sourcePath, footerContent);
     return `${pageData}\n${renderedFooter}`;
   }
 
@@ -699,7 +702,7 @@ class Page {
     }
     this.includedFiles.add(siteNavPath);
 
-    const siteNavMappedData = this.variablePreprocessor.renderSiteVariables(this.sourcePath, siteNavContent);
+    const siteNavMappedData = this.variableProcessor.renderSiteVariables(this.sourcePath, siteNavContent);
 
     // Check navigation elements
     const $ = cheerio.load(siteNavMappedData);
@@ -890,8 +893,8 @@ class Page {
       // Set head file as an includedFile
       this.includedFiles.add(headFilePath);
 
-      const headFileMappedData = this.variablePreprocessor.renderSiteVariables(this.sourcePath,
-                                                                               headFileContent).trim();
+      const headFileMappedData = this.variableProcessor.renderSiteVariables(this.sourcePath,
+                                                                            headFileContent).trim();
       // Split top and bottom contents
       const $ = cheerio.load(headFileMappedData);
       if ($('head-top').length) {
@@ -944,7 +947,7 @@ class Page {
    * @typedef {Object<string, any>} FileConfig
    * @property {Set<string>} baseUrlMap the set of urls representing the sites' base directories
    * @property {string} rootPath
-   * @property {VariablePreprocessor} variablePreprocessor
+   * @property {VariableProcessor} variableProcessor
    * @property {Object<string, number>} headerIdMap
    * @property {boolean} fixedHeader indicates whether the header of the page is fixed
    */
@@ -953,7 +956,7 @@ class Page {
     this.includedFiles = new Set([this.sourcePath]);
     this.headerIdMap = {}; // Reset for live reload
     const markbinder = new MarkBind({
-      variablePreprocessor: this.variablePreprocessor,
+      variableProcessor: this.variableProcessor,
     });
     /**
      * @type {FileConfig}
@@ -966,6 +969,7 @@ class Page {
       fixedHeader: this.fixedHeader,
     };
     return fs.readFileAsync(this.sourcePath, 'utf-8')
+      .then(result => this.variableProcessor.renderPage(this.sourcePath, result))
       .then(result => markbinder.includeFile(this.sourcePath, result, fileConfig))
       .then((result) => {
         this.collectFrontMatter(result);
@@ -1259,7 +1263,7 @@ class Page {
        * so that we only recursively rebuild the file's included content
        */
       const markbinder = new MarkBind({
-        variablePreprocessor: this.variablePreprocessor,
+        variableProcessor: this.variableProcessor,
       });
       /**
        * @type {FileConfig}
@@ -1272,6 +1276,7 @@ class Page {
         cwf: file,
       };
       return fs.readFileAsync(dependency.to, 'utf-8')
+        .then(result => this.variableProcessor.renderPage(dependency.to, result))
         .then(result => markbinder.includeFile(dependency.to, result, fileConfig))
         .then(result => Page.removeFrontMatter(result))
         .then(result => this.collectPluginSources(result))

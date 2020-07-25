@@ -235,11 +235,11 @@ function _preprocessInclude(node, context, config, parser) {
 
   const isIncludeSrcMd = _isHtmlIncludingMarkdown(element, context, filePath);
 
-  const { variablePreprocessor } = config;
+  const { variableProcessor } = config;
   const {
     renderedContent,
     childContext,
-  } = variablePreprocessor.renderIncludeFile(actualFilePath, element, context, filePath);
+  } = variableProcessor.renderIncludeFile(actualFilePath, element, context, filePath);
 
   _deleteIncludeAttributes(element);
 
