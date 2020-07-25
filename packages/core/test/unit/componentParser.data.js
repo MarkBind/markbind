@@ -73,6 +73,85 @@ module.exports.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_SLOT_EXPECTED = `
 `;
 
 /*
+ * Questions, QOption and Quizzes
+ */
+
+module.exports.PARSE_QUESTION_ATTRIBUTES = `
+<question header="**header**" hint="**hint**" answer="**answer**">
+</question>
+`;
+
+module.exports.PARSE_QUESTION_ATTRIBUTES_EXPECTED = `
+<question><template slot="answer"><p><strong>answer</strong></p>
+</template><template slot="hint"><p><strong>hint</strong></p>
+</template><template slot="header"><p><strong>header</strong></p>
+</template>
+</question>
+`;
+
+module.exports.PARSE_QUESTION_ATTRIBUTES_NO_OVERRIDE = `
+<question header="**header**" hint="**hint**" answer="**answer**">
+<template slot="header"></template>
+<template slot="hint"></template>
+<template slot="answer"></template>
+</question>
+`;
+
+module.exports.PARSE_QUESTION_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
+<question>
+<template slot="header"></template>
+<template slot="hint"></template>
+<template slot="answer"></template>
+</question>
+`;
+
+module.exports.PARSE_QOPTION_ATTRIBUTES = `
+<q-option reason="**lorem ipsum**">
+</q-option>
+`;
+
+module.exports.PARSE_QOPTION_ATTRIBUTES_EXPECTED = `
+<q-option><template slot="reason"><p><strong>lorem ipsum</strong></p>
+</template>
+</q-option>
+`;
+
+module.exports.PARSE_QOPTION_ATTRIBUTES_NO_OVERRIDE = `
+<q-option reason="**lorem ipsum**">
+<template slot="reason"></template>
+</q-option>
+`;
+
+module.exports.PARSE_QOPTION_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
+<q-option>
+<template slot="reason"></template>
+</q-option>
+`;
+
+module.exports.PARSE_QUIZ_ATTRIBUTES = `
+<quiz intro="**lorem ipsum**">
+</quiz>
+`;
+
+module.exports.PARSE_QUIZ_ATTRIBUTES_EXPECTED = `
+<quiz><template slot="intro"><p><strong>lorem ipsum</strong></p>
+</template>
+</quiz>
+`;
+
+module.exports.PARSE_QUIZ_ATTRIBUTES_NO_OVERRIDE = `
+<quiz intro="**lorem ipsum**">
+<template slot="intro"></template>
+</quiz>
+`;
+
+module.exports.PARSE_QUIZ_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
+<quiz>
+<template slot="intro"></template>
+</quiz>
+`;
+
+/*
  * Popovers
  */
 
