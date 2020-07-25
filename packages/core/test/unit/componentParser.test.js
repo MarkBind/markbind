@@ -37,6 +37,27 @@ test('parseComponent parses panel attributes and inserts into dom as slots corre
                          testData.PARSE_PANEL_HEADER_NO_OVERRIDE_EXPECTED);
 });
 
+test('parseComponent parses question attributes and inserts into dom as slots correctly', () => {
+  parseAndVerifyTemplate(testData.PARSE_QUESTION_ATTRIBUTES,
+                         testData.PARSE_QUESTION_ATTRIBUTES_EXPECTED);
+  parseAndVerifyTemplate(testData.PARSE_QUESTION_ATTRIBUTES_NO_OVERRIDE,
+                         testData.PARSE_QUESTION_ATTRIBUTES_NO_OVERRIDE_EXPECTED);
+});
+
+test('parseComponent parses q-option attributes and inserts into dom as slots correctly', () => {
+  parseAndVerifyTemplate(testData.PARSE_QOPTION_ATTRIBUTES,
+                         testData.PARSE_QOPTION_ATTRIBUTES_EXPECTED);
+  parseAndVerifyTemplate(testData.PARSE_QOPTION_ATTRIBUTES_NO_OVERRIDE,
+                         testData.PARSE_QOPTION_ATTRIBUTES_NO_OVERRIDE_EXPECTED);
+});
+
+test('parseComponent parses quiz attributes and inserts into dom as slots correctly', () => {
+  parseAndVerifyTemplate(testData.PARSE_QUIZ_ATTRIBUTES_EXPECTED,
+                         testData.PARSE_QUIZ_ATTRIBUTES_EXPECTED);
+  parseAndVerifyTemplate(testData.PARSE_QUIZ_ATTRIBUTES_NO_OVERRIDE,
+                         testData.PARSE_QUIZ_ATTRIBUTES_NO_OVERRIDE_EXPECTED);
+});
+
 test('parseComponent parses popover attributes and inserts into dom as slots correctly', () => {
   parseAndVerifyTemplate(testData.PARSE_POPOVER_ATTRIBUTES,
                          testData.PARSE_POPOVER_ATTRIBUTES_EXPECTED);

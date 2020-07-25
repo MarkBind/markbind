@@ -1,0 +1,894 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Quizzes intro screen with intro text renders correctly 1`] = `
+<div
+  class="quiz-container"
+>
+  <div
+    class="card intro-outro-card"
+  >
+    <div
+      class="card-body"
+    >
+      <h1>
+        Intro
+      </h1>
+       
+      <h5>
+        0 questions
+      </h5>
+       
+      <hr />
+       
+      <button
+        class="btn btn-primary d-inline-block"
+        type="button"
+      >
+        
+        Start
+      
+      </button>
+    </div>
+  </div>
+   
+  <div
+    class="progress"
+    style="height: 1px; display: none;"
+  >
+    <div
+      aria-valuemax="0"
+      aria-valuemin="0"
+      aria-valuenow="0"
+      class="progress-bar"
+      role="progressbar"
+    />
+  </div>
+    
+  <transition-stub
+    name="intro-outro-card"
+  >
+    <!---->
+  </transition-stub>
+</div>
+`;
+
+exports[`Quizzes with 2 questions retry goes back to first 1`] = `
+<div
+  class="quiz-container"
+>
+  <!---->
+   
+  <div
+    class="progress"
+    style="height: 1px;"
+  >
+    <div
+      aria-valuemax="2"
+      aria-valuemin="0"
+      aria-valuenow="1"
+      class="progress-bar"
+      role="progressbar"
+      style="width: 50%;"
+    />
+  </div>
+   
+  <transition-stub
+    name="question"
+  >
+    <div
+      class="card question"
+    >
+      <!---->
+       
+      <div
+        class="card-body"
+      >
+        
+  ... Mcq question ...
+  
+        <div
+          class="form-control"
+        >
+          <div
+            class="row"
+          >
+            <svg
+              class="radio-svg"
+              viewBox="0 0 100 100"
+            >
+              <circle
+                cx="50"
+                cy="50"
+                fill="none"
+                r="47"
+                stroke="black"
+                stroke-width="4"
+              />
+               
+              <circle
+                cx="50"
+                cy="50"
+                fill="dodgerblue"
+                r="25"
+                style="display: none;"
+              />
+            </svg>
+             
+            <div
+              class="col content"
+            >
+              opt 1 correct
+            </div>
+             
+            <div
+              class="col-1"
+            >
+              <!---->
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <div
+          class="form-control"
+        >
+          <div
+            class="row"
+          >
+            <svg
+              class="radio-svg"
+              viewBox="0 0 100 100"
+            >
+              <circle
+                cx="50"
+                cy="50"
+                fill="none"
+                r="47"
+                stroke="black"
+                stroke-width="4"
+              />
+               
+              <circle
+                cx="50"
+                cy="50"
+                fill="dodgerblue"
+                r="25"
+                style="display: none;"
+              />
+            </svg>
+             
+            <div
+              class="col content"
+            >
+              opt 2
+            </div>
+             
+            <div
+              class="col-1"
+            >
+              <!---->
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <div
+          class="form-control"
+        >
+          <div
+            class="row"
+          >
+            <svg
+              class="radio-svg"
+              viewBox="0 0 100 100"
+            >
+              <circle
+                cx="50"
+                cy="50"
+                fill="none"
+                r="47"
+                stroke="black"
+                stroke-width="4"
+              />
+               
+              <circle
+                cx="50"
+                cy="50"
+                fill="dodgerblue"
+                r="25"
+                style="display: none;"
+              />
+            </svg>
+             
+            <div
+              class="col content"
+            >
+              opt 3
+            </div>
+             
+            <div
+              class="col-1"
+            >
+              <!---->
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+      </div>
+       
+      <div
+        class="card-footer alert-light border-top border-light text-dark"
+      >
+        <!---->
+         
+        <transition-group-stub
+          class="float-right"
+          name="q-btn"
+          tag="div"
+        >
+          <!---->
+           
+          <button
+            class="btn btn-primary q-btn ml-1"
+            type="button"
+          >
+            
+          Check
+        
+          </button>
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+        </transition-group-stub>
+      </div>
+    </div>
+  </transition-stub>
+  <transition-stub
+    name="question"
+  >
+    <!---->
+  </transition-stub>
+   
+  <transition-stub
+    name="intro-outro-card"
+  >
+    <!---->
+  </transition-stub>
+</div>
+`;
+
+exports[`Quizzes with all questions marks 2/3 correct shows ending screen 1`] = `
+<div
+  class="quiz-container"
+>
+  <!---->
+   
+  <div
+    class="progress"
+    style="height: 1px; display: none;"
+  >
+    <div
+      aria-valuemax="3"
+      aria-valuemin="0"
+      aria-valuenow="4"
+      class="progress-bar"
+      role="progressbar"
+      style="width: 133.33333333333331%;"
+    />
+  </div>
+   
+  <transition-stub
+    name="question"
+  >
+    <!---->
+  </transition-stub>
+  <transition-stub
+    name="question"
+  >
+    <!---->
+  </transition-stub>
+  <transition-stub
+    name="question"
+  >
+    <!---->
+  </transition-stub>
+   
+  <transition-stub
+    name="intro-outro-card"
+  >
+    <div
+      class="card intro-outro-card"
+    >
+      <div
+        class="card-body"
+      >
+        <h4
+          class="mb-3"
+        >
+          
+          Well done!
+        
+        </h4>
+         
+        <svg
+          height="120px"
+          viewBox="0 0 100 100"
+          width="120px"
+        >
+          <circle
+            class="score-background-circle"
+            cx="50"
+            cy="50"
+            r="42"
+          />
+           
+          <circle
+            class="score-circle"
+            cx="50"
+            cy="50"
+            r="42"
+            stroke-dashoffset="264"
+            transform="rotate(-90, 50, 50)"
+          />
+           
+          <text
+            class="score"
+            textLength="56"
+            x="22"
+            y="57"
+          >
+            2 / 3
+          </text>
+        </svg>
+         
+        <hr />
+         
+        <button
+          class="btn btn-outline-primary"
+          type="button"
+        >
+          
+          Retry
+        
+        </button>
+      </div>
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`Quizzes with checkbox question marked incorrect shows next button after answering 1`] = `
+<div
+  class="quiz-container"
+>
+  <!---->
+   
+  <div
+    class="progress"
+    style="height: 1px;"
+  >
+    <div
+      aria-valuemax="1"
+      aria-valuemin="0"
+      aria-valuenow="1"
+      class="progress-bar"
+      role="progressbar"
+      style="width: 100%;"
+    />
+  </div>
+   
+  <transition-stub
+    name="question"
+  >
+    <div
+      class="card question"
+    >
+      <!---->
+       
+      <div
+        class="card-body"
+      >
+        
+  ... Checkbox question ...
+  
+        <div
+          class="form-control success"
+        >
+          <label
+            class="checkbox-label disabled"
+          >
+            <input
+              class="checkbox"
+              disabled="disabled"
+              onclick="event.stopPropagation()"
+              type="checkbox"
+            />
+             
+            <div
+              class="col content"
+            >
+              opt 1 correct
+            </div>
+             
+            <div
+              class="col-1"
+            >
+              <div>
+                <i
+                  class="fa fa-check text-success"
+                />
+              </div>
+            </div>
+          </label>
+           
+          <!---->
+        </div>
+         
+        <div
+          class="form-control danger"
+        >
+          <label
+            class="checkbox-label disabled"
+          >
+            <input
+              class="checkbox"
+              disabled="disabled"
+              onclick="event.stopPropagation()"
+              type="checkbox"
+            />
+             
+            <div
+              class="col content"
+            >
+              opt 2
+            </div>
+             
+            <div
+              class="col-1"
+            >
+              <div>
+                <i
+                  class="fa fa-times text-danger"
+                />
+              </div>
+            </div>
+          </label>
+           
+          <!---->
+        </div>
+         
+        <div
+          class="form-control success"
+        >
+          <label
+            class="checkbox-label disabled"
+          >
+            <input
+              class="checkbox"
+              disabled="disabled"
+              onclick="event.stopPropagation()"
+              type="checkbox"
+            />
+             
+            <div
+              class="col content"
+            >
+              opt 3 correct
+            </div>
+             
+            <div
+              class="col-1"
+            >
+              <div>
+                <i
+                  class="fa fa-check text-success"
+                />
+              </div>
+            </div>
+          </label>
+           
+          <!---->
+        </div>
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+      </div>
+       
+      <div
+        class="card-footer alert-light border-top border-light text-dark"
+      >
+        <i
+          class="fa fa-times text-danger border-danger result-icon"
+        />
+         
+        <transition-group-stub
+          class="float-right"
+          name="q-btn"
+          tag="div"
+        >
+          <!---->
+           
+          <!---->
+           
+          <button
+            class="btn btn-primary q-btn ml-1"
+            type="button"
+          >
+            
+          Next
+        
+          </button>
+           
+          <!---->
+           
+          <!---->
+        </transition-group-stub>
+      </div>
+    </div>
+  </transition-stub>
+   
+  <transition-stub
+    name="intro-outro-card"
+  >
+    <!---->
+  </transition-stub>
+</div>
+`;
+
+exports[`Quizzes with mcq question marked correct shows next button after answering 1`] = `
+<div
+  class="quiz-container"
+>
+  <!---->
+   
+  <div
+    class="progress"
+    style="height: 1px;"
+  >
+    <div
+      aria-valuemax="1"
+      aria-valuemin="0"
+      aria-valuenow="1"
+      class="progress-bar"
+      role="progressbar"
+      style="width: 100%;"
+    />
+  </div>
+   
+  <transition-stub
+    name="question"
+  >
+    <div
+      class="card question"
+    >
+      <!---->
+       
+      <div
+        class="card-body"
+      >
+        
+  ... Mcq question ...
+  
+        <div
+          class="form-control success"
+        >
+          <div
+            class="row disabled"
+          >
+            <svg
+              class="radio-svg"
+              viewBox="0 0 100 100"
+            >
+              <circle
+                cx="50"
+                cy="50"
+                fill="none"
+                r="47"
+                stroke="black"
+                stroke-width="4"
+              />
+               
+              <circle
+                cx="50"
+                cy="50"
+                fill="dodgerblue"
+                r="25"
+                style=""
+              />
+            </svg>
+             
+            <div
+              class="col content"
+            >
+              opt 1 correct
+            </div>
+             
+            <div
+              class="col-1"
+            >
+              <div>
+                <i
+                  class="fa fa-check text-success"
+                />
+              </div>
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <div
+          class="form-control danger"
+        >
+          <div
+            class="row disabled"
+          >
+            <svg
+              class="radio-svg"
+              viewBox="0 0 100 100"
+            >
+              <circle
+                cx="50"
+                cy="50"
+                fill="none"
+                r="47"
+                stroke="black"
+                stroke-width="4"
+              />
+               
+              <circle
+                cx="50"
+                cy="50"
+                fill="dodgerblue"
+                r="25"
+                style="display: none;"
+              />
+            </svg>
+             
+            <div
+              class="col content"
+            >
+              opt 2
+            </div>
+             
+            <div
+              class="col-1"
+            >
+              <div>
+                <i
+                  class="fa fa-times text-danger"
+                />
+              </div>
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <div
+          class="form-control danger"
+        >
+          <div
+            class="row disabled"
+          >
+            <svg
+              class="radio-svg"
+              viewBox="0 0 100 100"
+            >
+              <circle
+                cx="50"
+                cy="50"
+                fill="none"
+                r="47"
+                stroke="black"
+                stroke-width="4"
+              />
+               
+              <circle
+                cx="50"
+                cy="50"
+                fill="dodgerblue"
+                r="25"
+                style="display: none;"
+              />
+            </svg>
+             
+            <div
+              class="col content"
+            >
+              opt 3
+            </div>
+             
+            <div
+              class="col-1"
+            >
+              <div>
+                <i
+                  class="fa fa-times text-danger"
+                />
+              </div>
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+      </div>
+       
+      <div
+        class="card-footer alert-light border-top border-light text-dark"
+      >
+        <i
+          class="fa fa-check text-success border-success result-icon"
+        />
+         
+        <transition-group-stub
+          class="float-right"
+          name="q-btn"
+          tag="div"
+        >
+          <!---->
+           
+          <!---->
+           
+          <button
+            class="btn btn-primary q-btn ml-1"
+            type="button"
+          >
+            
+          Next
+        
+          </button>
+           
+          <!---->
+           
+          <!---->
+        </transition-group-stub>
+      </div>
+    </div>
+  </transition-stub>
+   
+  <transition-stub
+    name="intro-outro-card"
+  >
+    <!---->
+  </transition-stub>
+</div>
+`;
+
+exports[`Quizzes with text question marked correct shows next button after answering 1`] = `
+<div
+  class="quiz-container"
+>
+  <!---->
+   
+  <div
+    class="progress"
+    style="height: 1px;"
+  >
+    <div
+      aria-valuemax="1"
+      aria-valuemin="0"
+      aria-valuenow="1"
+      class="progress-bar"
+      role="progressbar"
+      style="width: 100%;"
+    />
+  </div>
+   
+  <transition-stub
+    name="question"
+  >
+    <div
+      class="card question"
+    >
+      <!---->
+       
+      <div
+        class="card-body"
+      >
+        
+  ... Text question ...
+   
+        <div
+          class="mb-2"
+        >
+          <textarea
+            class="form-control"
+            disabled="disabled"
+          />
+           
+          <div>
+            <hr />
+             
+            <strong>
+              
+            Keywords: 
+            
+              <span
+                class="badge badge-pill badge-light font-weight-normal"
+              >
+                
+              abc
+            
+              </span>
+            </strong>
+          </div>
+        </div>
+         
+        <div
+          class="answer"
+        >
+          text question answer
+        </div>
+         
+        <!---->
+      </div>
+       
+      <div
+        class="card-footer alert-light border-top border-light text-dark"
+      >
+        <i
+          class="fa fa-check text-success border-success result-icon"
+        />
+         
+        <transition-group-stub
+          class="float-right"
+          name="q-btn"
+          tag="div"
+        >
+          <button
+            class="btn btn-success q-btn ml-1"
+            type="button"
+          >
+            
+          Hint
+        
+          </button>
+           
+          <!---->
+           
+          <button
+            class="btn btn-primary q-btn ml-1"
+            type="button"
+          >
+            
+          Next
+        
+          </button>
+           
+          <!---->
+           
+          <!---->
+        </transition-group-stub>
+      </div>
+    </div>
+  </transition-stub>
+   
+  <transition-stub
+    name="intro-outro-card"
+  >
+    <!---->
+  </transition-stub>
+</div>
+`;

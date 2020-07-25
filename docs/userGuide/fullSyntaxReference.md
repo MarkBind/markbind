@@ -43,7 +43,7 @@
   panels : ['Panels', ['component', 'reader-facing']],
   pictures : ['Pictures', ['component', 'reader-facing']],
   popovers : ['Popovers', ['component', 'reader-facing']],
-  questions : ['Questions', ['component', 'reader-facing']],
+  questions : ['Questions and Quizzes', ['component', 'reader-facing']],
   searchBars : ['Search Bars', ['component', 'reader-facing']],
   siteNavigationMenus : ['Site Navigation Menus', ['component', 'reader-facing']],
   tabs : ['Tabs', ['component', 'reader-facing']],

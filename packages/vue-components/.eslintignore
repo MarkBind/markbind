@@ -25,6 +25,5 @@ src/panels/NestedPanel.vue
 src/panels/PanelBase.js
 src/panels/PanelSwitch.vue
 src/Pic.vue
-src/Question.vue
 src/Retriever.vue
 src/Thumbnail.vue

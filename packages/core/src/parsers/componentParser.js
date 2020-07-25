@@ -173,6 +173,24 @@ function _warnDeprecatedAttributes(node, attributeNamePairs) {
 }
 
 /*
+ * Questions, QOption, and Quizzes
+ */
+
+function _parseQuestion(node) {
+  _parseAttributeWithoutOverride(node, 'header', false, 'header');
+  _parseAttributeWithoutOverride(node, 'hint', false, 'hint');
+  _parseAttributeWithoutOverride(node, 'answer', false, 'answer');
+}
+
+function _parseQOption(node) {
+  _parseAttributeWithoutOverride(node, 'reason', false, 'reason');
+}
+
+function _parseQuiz(node) {
+  _parseAttributeWithoutOverride(node, 'intro', false, 'intro');
+}
+
+/*
  * Triggers
  *
  * At "compile time", we can't tell whether a trigger references a modal, popover, or toolip,
@@ -439,6 +457,15 @@ function parseComponents(node) {
       break;
     case 'panel':
       _parsePanelAttributes(node);
+      break;
+    case 'question':
+      _parseQuestion(node);
+      break;
+    case 'q-option':
+      _parseQOption(node);
+      break;
+    case 'quiz':
+      _parseQuiz(node);
       break;
     case 'trigger':
       _parseTrigger(node);
