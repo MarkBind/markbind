@@ -20,6 +20,7 @@ module.exports = {
       },
     ],
     'max-len': ['error', { 'code': 110 }],
+    'no-param-reassign': ['error', { 'props': false }],
     'no-underscore-dangle': 'off',
     'operator-linebreak': ['error', 'before'],
     'quote-props': 'off',

@@ -13,10 +13,14 @@ Many of the components under this folder were originally from [MarkBind/vue-stra
 
 Some custom directives were also added for MarkBind's use.
 
+### MarkBind components newly created or revamped since moving here
+- Question.vue
+- QOption.vue
+- Quiz.vue
+
 ### MarkBind components ported from [Markbind/vue-strap](https://github.com/MarkBind/vue-strap):
 
 - Pic.vue
-- Question.vue
 - Retriever.vue
 - Searchbar.vue
 - SearchbarPageItem.vue

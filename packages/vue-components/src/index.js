@@ -4,7 +4,9 @@ import dropdown from './Dropdown.vue'
 import navbar from './Navbar.vue'
 import panel from './Panel.vue'
 import pic from './Pic.vue'
-import question from './Question.vue'
+import quiz from './questions/Quiz.vue'
+import question from './questions/Question.vue'
+import qOption from './questions/QOption.vue'
 import retriever from './Retriever.vue'
 import searchbar from './Searchbar.vue'
 import tab from './Tab.vue'
@@ -21,7 +23,9 @@ const components = {
   navbar,
   panel,
   pic,
+  quiz,
   question,
+  qOption,
   retriever,
   searchbar,
   tab,
