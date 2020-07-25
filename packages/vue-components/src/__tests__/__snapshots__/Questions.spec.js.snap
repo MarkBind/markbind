@@ -1,0 +1,2127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox Questions and QOptions of answered correctly with unshown hint without header renders correctly 1`] = `
+<transition-stub>
+  <div
+    class="card question"
+  >
+    <!---->
+     
+    <div
+      class="card-body"
+    >
+      Question content
+      <div
+        class="form-control danger"
+      >
+        <label
+          class="checkbox-label disabled"
+        >
+          <input
+            class="checkbox"
+            disabled="disabled"
+            onclick="event.stopPropagation()"
+            type="checkbox"
+          />
+           
+          <div
+            class="col content"
+          >
+            opt 1 - incorrect, not selected
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <div>
+              <i
+                class="fa fa-times text-danger"
+              />
+            </div>
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control danger"
+      >
+        <label
+          class="checkbox-label disabled"
+        >
+          <input
+            class="checkbox"
+            disabled="disabled"
+            onclick="event.stopPropagation()"
+            type="checkbox"
+          />
+           
+          <div
+            class="col content"
+          >
+            opt 2 - incorrect, not selected, with reason
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <div>
+              <i
+                class="fa fa-times text-danger align-bottom"
+              />
+            </div>
+          </div>
+        </label>
+         
+        <div>
+          <hr />
+           
+          <div
+            class="reason"
+          >
+            opt 2 reason
+          </div>
+        </div>
+      </div>
+      <div
+        class="form-control success"
+      >
+        <label
+          class="checkbox-label disabled"
+        >
+          <input
+            class="checkbox"
+            disabled="disabled"
+            onclick="event.stopPropagation()"
+            type="checkbox"
+          />
+           
+          <div
+            class="col content"
+          >
+            opt 3 - correct, selected
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <div>
+              <i
+                class="fa fa-check text-success"
+              />
+            </div>
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control success"
+      >
+        <label
+          class="checkbox-label disabled"
+        >
+          <input
+            class="checkbox"
+            disabled="disabled"
+            onclick="event.stopPropagation()"
+            type="checkbox"
+          />
+           
+          <div
+            class="col content"
+          >
+            opt 4 - correct, selected, with reason
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <div>
+              <i
+                class="fa fa-check text-success align-bottom"
+              />
+            </div>
+          </div>
+        </label>
+         
+        <div>
+          <hr />
+           
+          <div
+            class="reason"
+          >
+            opt 4 reason
+          </div>
+        </div>
+      </div>
+       
+      <!---->
+       
+      <!---->
+       
+      <!---->
+    </div>
+     
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <i
+        class="fa fa-check text-success border-success result-icon"
+      />
+       
+      <transition-group-stub
+        class="float-right"
+        name="q-btn"
+        tag="div"
+      >
+        <button
+          class="btn btn-success q-btn ml-1"
+          type="button"
+        >
+          
+          Hint
+        
+        </button>
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+      </transition-group-stub>
+    </div>
+  </div>
+</transition-stub>
+`;
+
+exports[`Checkbox Questions and QOptions of answered wrongly with header without hint renders correctly 1`] = `
+<transition-stub>
+  <div
+    class="card question shake"
+  >
+    <div
+      class="card-header alert-light border-bottom border-light text-dark"
+    >
+      Checkbox question header
+    </div>
+     
+    <div
+      class="card-body"
+    >
+      Question content
+      <div
+        class="form-control danger"
+      >
+        <label
+          class="checkbox-label disabled"
+        >
+          <input
+            class="checkbox"
+            disabled="disabled"
+            onclick="event.stopPropagation()"
+            type="checkbox"
+          />
+           
+          <div
+            class="col content"
+          >
+            opt 1 - incorrect, selected
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <div>
+              <i
+                class="fa fa-times text-danger"
+              />
+            </div>
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control danger"
+      >
+        <label
+          class="checkbox-label disabled"
+        >
+          <input
+            class="checkbox"
+            disabled="disabled"
+            onclick="event.stopPropagation()"
+            type="checkbox"
+          />
+           
+          <div
+            class="col content"
+          >
+            opt 2 - incorrect, selected, with reason
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <div>
+              <i
+                class="fa fa-times text-danger align-bottom"
+              />
+            </div>
+          </div>
+        </label>
+         
+        <div>
+          <hr />
+           
+          <div
+            class="reason"
+          >
+            opt 2 reason
+          </div>
+        </div>
+      </div>
+      <div
+        class="form-control success"
+      >
+        <label
+          class="checkbox-label disabled"
+        >
+          <input
+            class="checkbox"
+            disabled="disabled"
+            onclick="event.stopPropagation()"
+            type="checkbox"
+          />
+           
+          <div
+            class="col content"
+          >
+            opt 3 - correct, selected
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <div>
+              <i
+                class="fa fa-check text-success"
+              />
+            </div>
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control success"
+      >
+        <label
+          class="checkbox-label disabled"
+        >
+          <input
+            class="checkbox"
+            disabled="disabled"
+            onclick="event.stopPropagation()"
+            type="checkbox"
+          />
+           
+          <div
+            class="col content"
+          >
+            opt 4 - correct, not selected, with reason
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <div>
+              <i
+                class="fa fa-check text-success align-bottom"
+              />
+            </div>
+          </div>
+        </label>
+         
+        <div>
+          <hr />
+           
+          <div
+            class="reason"
+          >
+            opt 4 reason
+          </div>
+        </div>
+      </div>
+       
+      <!---->
+       
+      <!---->
+       
+      <!---->
+    </div>
+     
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <i
+        class="fa fa-times text-danger border-danger result-icon"
+      />
+       
+      <transition-group-stub
+        class="float-right"
+        name="q-btn"
+        tag="div"
+      >
+        <!---->
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+      </transition-group-stub>
+    </div>
+  </div>
+</transition-stub>
+`;
+
+exports[`Checkbox Questions and QOptions of checked wrongly with shown hint without header renders correctly 1`] = `
+<transition-stub>
+  <div
+    class="card question shake"
+  >
+    <!---->
+     
+    <div
+      class="card-body"
+    >
+      Question content
+      <div
+        class="form-control alert-light text-dark border border-secondary"
+      >
+        <label
+          class="checkbox-label"
+        >
+          <input
+            class="checkbox"
+            onclick="event.stopPropagation()"
+            type="checkbox"
+          />
+           
+          <div
+            class="col content"
+          >
+            opt 1 - incorrect, selected
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <!---->
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control alert-light text-dark border border-secondary"
+      >
+        <label
+          class="checkbox-label"
+        >
+          <input
+            class="checkbox"
+            onclick="event.stopPropagation()"
+            type="checkbox"
+          />
+           
+          <div
+            class="col content"
+          >
+            opt 2 - incorrect, selected, with reason
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <!---->
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control alert-light text-dark border border-secondary"
+      >
+        <label
+          class="checkbox-label"
+        >
+          <input
+            class="checkbox"
+            onclick="event.stopPropagation()"
+            type="checkbox"
+          />
+           
+          <div
+            class="col content"
+          >
+            opt 3 - correct, selected
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <!---->
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control alert-light text-dark border border-secondary"
+      >
+        <label
+          class="checkbox-label"
+        >
+          <input
+            class="checkbox"
+            onclick="event.stopPropagation()"
+            type="checkbox"
+          />
+           
+          <div
+            class="col content"
+          >
+            opt 4 - correct, selected, with reason
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <!---->
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+       
+      <!---->
+       
+      <!---->
+       
+      <box-stub
+        class="mb-0 mt-3"
+        type="tip"
+      >
+        checkbox question hint
+      </box-stub>
+    </div>
+     
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <i
+        class="fa fa-times text-danger border-danger result-icon"
+      />
+       
+      <transition-group-stub
+        class="float-right"
+        name="q-btn"
+        tag="div"
+      >
+        <!---->
+         
+        <!---->
+         
+        <!---->
+         
+        <button
+          class="btn btn-info q-btn ml-1"
+          type="button"
+        >
+          
+          Show
+        
+        </button>
+         
+        <button
+          class="btn btn-primary q-btn ml-1"
+          type="button"
+        >
+          
+          Retry
+        
+        </button>
+      </transition-group-stub>
+    </div>
+  </div>
+</transition-stub>
+`;
+
+exports[`Checkbox Questions and QOptions of unanswered with header without hint renders correctly  1`] = `
+<transition-stub>
+  <div
+    class="card question"
+  >
+    <div
+      class="card-header alert-light border-bottom border-light text-dark"
+    >
+      Checkbox question header
+    </div>
+     
+    <div
+      class="card-body"
+    >
+      Question content
+      <div
+        class="form-control alert-light text-dark border border-secondary"
+      >
+        <label
+          class="checkbox-label"
+        >
+          <input
+            class="checkbox"
+            onclick="event.stopPropagation()"
+            type="checkbox"
+          />
+           
+          <div
+            class="col content"
+          >
+            opt 1 - incorrect, selected
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <!---->
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control"
+      >
+        <label
+          class="checkbox-label"
+        >
+          <input
+            class="checkbox"
+            onclick="event.stopPropagation()"
+            type="checkbox"
+          />
+           
+          <div
+            class="col content"
+          >
+            opt 2 - incorrect, not selected, with reason
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <!---->
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control alert-light text-dark border border-secondary"
+      >
+        <label
+          class="checkbox-label"
+        >
+          <input
+            class="checkbox"
+            onclick="event.stopPropagation()"
+            type="checkbox"
+          />
+           
+          <div
+            class="col content"
+          >
+            opt 3 - correct, selected
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <!---->
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control"
+      >
+        <label
+          class="checkbox-label"
+        >
+          <input
+            class="checkbox"
+            onclick="event.stopPropagation()"
+            type="checkbox"
+          />
+           
+          <div
+            class="col content"
+          >
+            opt 4 - correct, not selected, with reason
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <!---->
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+       
+      <!---->
+       
+      <!---->
+       
+      <!---->
+    </div>
+     
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <!---->
+       
+      <transition-group-stub
+        class="float-right"
+        name="q-btn"
+        tag="div"
+      >
+        <!---->
+         
+        <button
+          class="btn btn-primary q-btn ml-1"
+          type="button"
+        >
+          
+          Check
+        
+        </button>
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+      </transition-group-stub>
+    </div>
+  </div>
+</transition-stub>
+`;
+
+exports[`Mcq Questions and QOptions of answered correctly with unshown hint without header renders correctly 1`] = `
+<transition-stub>
+  <div
+    class="card question"
+  >
+    <!---->
+     
+    <div
+      class="card-body"
+    >
+      Question content
+      <div
+        class="form-control danger"
+      >
+        <div
+          class="row disabled"
+        >
+          <svg
+            class="radio-svg"
+            viewBox="0 0 100 100"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              fill="none"
+              r="47"
+              stroke="black"
+              stroke-width="4"
+            />
+             
+            <circle
+              cx="50"
+              cy="50"
+              fill="dodgerblue"
+              r="25"
+              style="display: none;"
+            />
+          </svg>
+           
+          <div
+            class="col content"
+          >
+            opt 1 - incorrect, not selected
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <div>
+              <i
+                class="fa fa-times text-danger"
+              />
+            </div>
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control danger"
+      >
+        <div
+          class="row disabled"
+        >
+          <svg
+            class="radio-svg"
+            viewBox="0 0 100 100"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              fill="none"
+              r="47"
+              stroke="black"
+              stroke-width="4"
+            />
+             
+            <circle
+              cx="50"
+              cy="50"
+              fill="dodgerblue"
+              r="25"
+              style="display: none;"
+            />
+          </svg>
+           
+          <div
+            class="col content"
+          >
+            opt 2 - incorrect, not selected, with reason
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <div>
+              <i
+                class="fa fa-times text-danger align-bottom"
+              />
+            </div>
+          </div>
+        </div>
+         
+        <div>
+          <hr />
+           
+          <div
+            class="reason"
+          >
+            opt 2 reason
+          </div>
+        </div>
+      </div>
+      <div
+        class="form-control success"
+      >
+        <div
+          class="row disabled"
+        >
+          <svg
+            class="radio-svg"
+            viewBox="0 0 100 100"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              fill="none"
+              r="47"
+              stroke="black"
+              stroke-width="4"
+            />
+             
+            <circle
+              cx="50"
+              cy="50"
+              fill="dodgerblue"
+              r="25"
+              style=""
+            />
+          </svg>
+           
+          <div
+            class="col content"
+          >
+            opt 3 - correct, selected
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <div>
+              <i
+                class="fa fa-check text-success"
+              />
+            </div>
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control success"
+      >
+        <div
+          class="row disabled"
+        >
+          <svg
+            class="radio-svg"
+            viewBox="0 0 100 100"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              fill="none"
+              r="47"
+              stroke="black"
+              stroke-width="4"
+            />
+             
+            <circle
+              cx="50"
+              cy="50"
+              fill="dodgerblue"
+              r="25"
+              style="display: none;"
+            />
+          </svg>
+           
+          <div
+            class="col content"
+          >
+            opt 4 - correct, not selected, with reason
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <div>
+              <i
+                class="fa fa-check text-success align-bottom"
+              />
+            </div>
+          </div>
+        </div>
+         
+        <div>
+          <hr />
+           
+          <div
+            class="reason"
+          >
+            opt 4 reason
+          </div>
+        </div>
+      </div>
+       
+      <!---->
+       
+      <!---->
+       
+      <!---->
+    </div>
+     
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <i
+        class="fa fa-check text-success border-success result-icon"
+      />
+       
+      <transition-group-stub
+        class="float-right"
+        name="q-btn"
+        tag="div"
+      >
+        <button
+          class="btn btn-success q-btn ml-1"
+          type="button"
+        >
+          
+          Hint
+        
+        </button>
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+      </transition-group-stub>
+    </div>
+  </div>
+</transition-stub>
+`;
+
+exports[`Mcq Questions and QOptions of answered wrongly with header without hint renders correctly 1`] = `
+<transition-stub>
+  <div
+    class="card question shake"
+  >
+    <div
+      class="card-header alert-light border-bottom border-light text-dark"
+    >
+      mcq question header
+    </div>
+     
+    <div
+      class="card-body"
+    >
+      Question content
+      <div
+        class="form-control danger"
+      >
+        <div
+          class="row disabled"
+        >
+          <svg
+            class="radio-svg"
+            viewBox="0 0 100 100"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              fill="none"
+              r="47"
+              stroke="black"
+              stroke-width="4"
+            />
+             
+            <circle
+              cx="50"
+              cy="50"
+              fill="dodgerblue"
+              r="25"
+              style="display: none;"
+            />
+          </svg>
+           
+          <div
+            class="col content"
+          >
+            opt 1 - incorrect, not selected
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <div>
+              <i
+                class="fa fa-times text-danger"
+              />
+            </div>
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control danger"
+      >
+        <div
+          class="row disabled"
+        >
+          <svg
+            class="radio-svg"
+            viewBox="0 0 100 100"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              fill="none"
+              r="47"
+              stroke="black"
+              stroke-width="4"
+            />
+             
+            <circle
+              cx="50"
+              cy="50"
+              fill="dodgerblue"
+              r="25"
+              style=""
+            />
+          </svg>
+           
+          <div
+            class="col content"
+          >
+            opt 2 - incorrect, selected, with reason
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <div>
+              <i
+                class="fa fa-times text-danger align-bottom"
+              />
+            </div>
+          </div>
+        </div>
+         
+        <div>
+          <hr />
+           
+          <div
+            class="reason"
+          >
+            opt 2 reason
+          </div>
+        </div>
+      </div>
+      <div
+        class="form-control success"
+      >
+        <div
+          class="row disabled"
+        >
+          <svg
+            class="radio-svg"
+            viewBox="0 0 100 100"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              fill="none"
+              r="47"
+              stroke="black"
+              stroke-width="4"
+            />
+             
+            <circle
+              cx="50"
+              cy="50"
+              fill="dodgerblue"
+              r="25"
+              style="display: none;"
+            />
+          </svg>
+           
+          <div
+            class="col content"
+          >
+            opt 3 - correct, not selected
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <div>
+              <i
+                class="fa fa-check text-success"
+              />
+            </div>
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control success"
+      >
+        <div
+          class="row disabled"
+        >
+          <svg
+            class="radio-svg"
+            viewBox="0 0 100 100"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              fill="none"
+              r="47"
+              stroke="black"
+              stroke-width="4"
+            />
+             
+            <circle
+              cx="50"
+              cy="50"
+              fill="dodgerblue"
+              r="25"
+              style="display: none;"
+            />
+          </svg>
+           
+          <div
+            class="col content"
+          >
+            opt 4 - correct, not selected, with reason
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <div>
+              <i
+                class="fa fa-check text-success align-bottom"
+              />
+            </div>
+          </div>
+        </div>
+         
+        <div>
+          <hr />
+           
+          <div
+            class="reason"
+          >
+            opt 4 reason
+          </div>
+        </div>
+      </div>
+       
+      <!---->
+       
+      <!---->
+       
+      <!---->
+    </div>
+     
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <i
+        class="fa fa-times text-danger border-danger result-icon"
+      />
+       
+      <transition-group-stub
+        class="float-right"
+        name="q-btn"
+        tag="div"
+      >
+        <!---->
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+      </transition-group-stub>
+    </div>
+  </div>
+</transition-stub>
+`;
+
+exports[`Mcq Questions and QOptions of checked wrongly with shown hint without header renders correctly 1`] = `
+<transition-stub>
+  <div
+    class="card question shake"
+  >
+    <!---->
+     
+    <div
+      class="card-body"
+    >
+      Question content
+      <div
+        class="form-control"
+      >
+        <div
+          class="row"
+        >
+          <svg
+            class="radio-svg"
+            viewBox="0 0 100 100"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              fill="none"
+              r="47"
+              stroke="black"
+              stroke-width="4"
+            />
+             
+            <circle
+              cx="50"
+              cy="50"
+              fill="dodgerblue"
+              r="25"
+              style="display: none;"
+            />
+          </svg>
+           
+          <div
+            class="col content"
+          >
+            opt 1 - incorrect, not selected
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <!---->
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control alert-light text-dark border border-secondary"
+      >
+        <div
+          class="row"
+        >
+          <svg
+            class="radio-svg"
+            viewBox="0 0 100 100"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              fill="none"
+              r="47"
+              stroke="black"
+              stroke-width="4"
+            />
+             
+            <circle
+              cx="50"
+              cy="50"
+              fill="dodgerblue"
+              r="25"
+              style=""
+            />
+          </svg>
+           
+          <div
+            class="col content"
+          >
+            opt 2 - incorrect, selected, with reason
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <!---->
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control"
+      >
+        <div
+          class="row"
+        >
+          <svg
+            class="radio-svg"
+            viewBox="0 0 100 100"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              fill="none"
+              r="47"
+              stroke="black"
+              stroke-width="4"
+            />
+             
+            <circle
+              cx="50"
+              cy="50"
+              fill="dodgerblue"
+              r="25"
+              style="display: none;"
+            />
+          </svg>
+           
+          <div
+            class="col content"
+          >
+            opt 3 - correct, not selected
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <!---->
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control"
+      >
+        <div
+          class="row"
+        >
+          <svg
+            class="radio-svg"
+            viewBox="0 0 100 100"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              fill="none"
+              r="47"
+              stroke="black"
+              stroke-width="4"
+            />
+             
+            <circle
+              cx="50"
+              cy="50"
+              fill="dodgerblue"
+              r="25"
+              style="display: none;"
+            />
+          </svg>
+           
+          <div
+            class="col content"
+          >
+            opt 4 - correct, not selected, with reason
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <!---->
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+       
+      <!---->
+       
+      <!---->
+       
+      <box-stub
+        class="mb-0 mt-3"
+        type="tip"
+      >
+        mcq question hint
+      </box-stub>
+    </div>
+     
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <i
+        class="fa fa-times text-danger border-danger result-icon"
+      />
+       
+      <transition-group-stub
+        class="float-right"
+        name="q-btn"
+        tag="div"
+      >
+        <!---->
+         
+        <!---->
+         
+        <!---->
+         
+        <button
+          class="btn btn-info q-btn ml-1"
+          type="button"
+        >
+          
+          Show
+        
+        </button>
+         
+        <button
+          class="btn btn-primary q-btn ml-1"
+          type="button"
+        >
+          
+          Retry
+        
+        </button>
+      </transition-group-stub>
+    </div>
+  </div>
+</transition-stub>
+`;
+
+exports[`Mcq Questions and QOptions of unanswered with shown hint and header renders correctly 1`] = `
+<transition-stub>
+  <div
+    class="card question"
+  >
+    <div
+      class="card-header alert-light border-bottom border-light text-dark"
+    >
+      unanswered mcq question header
+    </div>
+     
+    <div
+      class="card-body"
+    >
+      Question content
+      <div
+        class="form-control"
+      >
+        <div
+          class="row"
+        >
+          <svg
+            class="radio-svg"
+            viewBox="0 0 100 100"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              fill="none"
+              r="47"
+              stroke="black"
+              stroke-width="4"
+            />
+             
+            <circle
+              cx="50"
+              cy="50"
+              fill="dodgerblue"
+              r="25"
+              style="display: none;"
+            />
+          </svg>
+           
+          <div
+            class="col content"
+          >
+            opt 1 - incorrect, not selected
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <!---->
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control"
+      >
+        <div
+          class="row"
+        >
+          <svg
+            class="radio-svg"
+            viewBox="0 0 100 100"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              fill="none"
+              r="47"
+              stroke="black"
+              stroke-width="4"
+            />
+             
+            <circle
+              cx="50"
+              cy="50"
+              fill="dodgerblue"
+              r="25"
+              style="display: none;"
+            />
+          </svg>
+           
+          <div
+            class="col content"
+          >
+            opt 2 - incorrect, not selected, with reason
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <!---->
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control"
+      >
+        <div
+          class="row"
+        >
+          <svg
+            class="radio-svg"
+            viewBox="0 0 100 100"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              fill="none"
+              r="47"
+              stroke="black"
+              stroke-width="4"
+            />
+             
+            <circle
+              cx="50"
+              cy="50"
+              fill="dodgerblue"
+              r="25"
+              style="display: none;"
+            />
+          </svg>
+           
+          <div
+            class="col content"
+          >
+            opt 3 - correct, selected
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <!---->
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control"
+      >
+        <div
+          class="row"
+        >
+          <svg
+            class="radio-svg"
+            viewBox="0 0 100 100"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              fill="none"
+              r="47"
+              stroke="black"
+              stroke-width="4"
+            />
+             
+            <circle
+              cx="50"
+              cy="50"
+              fill="dodgerblue"
+              r="25"
+              style="display: none;"
+            />
+          </svg>
+           
+          <div
+            class="col content"
+          >
+            opt 4 - correct, not selected, with reason
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <!---->
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+       
+      <!---->
+       
+      <!---->
+       
+      <box-stub
+        class="mb-0 mt-3"
+        type="tip"
+      >
+        mcq question hint
+      </box-stub>
+    </div>
+     
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <!---->
+       
+      <transition-group-stub
+        class="float-right"
+        name="q-btn"
+        tag="div"
+      >
+        <!---->
+         
+        <button
+          class="btn btn-primary q-btn ml-1"
+          type="button"
+        >
+          
+          Check
+        
+        </button>
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+      </transition-group-stub>
+    </div>
+  </div>
+</transition-stub>
+`;
+
+exports[`Text Questions of answered correctly with answer without header, hint, keywords renders correctly 1`] = `
+<transition-stub>
+  <div
+    class="card question"
+  >
+    <!---->
+     
+    <div
+      class="card-body"
+    >
+      Question content 
+      <div
+        class="mb-2"
+      >
+        <textarea
+          class="form-control"
+          disabled="disabled"
+        />
+         
+        <div>
+          <hr />
+           
+          <strong>
+            No answer checking keywords provided
+          </strong>
+        </div>
+      </div>
+       
+      <div
+        class="answer"
+      >
+        text question answer
+      </div>
+       
+      <!---->
+    </div>
+     
+    <!---->
+  </div>
+</transition-stub>
+`;
+
+exports[`Text Questions of answered correctly with answer, unshown hint without header renders correctly 1`] = `
+<transition-stub>
+  <div
+    class="card question"
+  >
+    <!---->
+     
+    <div
+      class="card-body"
+    >
+      Question content 
+      <div
+        class="mb-2"
+      >
+        <textarea
+          class="form-control"
+          disabled="disabled"
+        />
+         
+        <div>
+          <hr />
+           
+          <strong>
+            
+            Keywords: 
+            
+            <span
+              class="badge badge-pill badge-light font-weight-normal"
+            >
+              
+              abc
+            
+            </span>
+            <span
+              class="badge badge-pill badge-light font-weight-normal"
+            >
+              
+              123
+            
+            </span>
+          </strong>
+        </div>
+      </div>
+       
+      <div
+        class="answer"
+      >
+        text question answer
+      </div>
+       
+      <!---->
+    </div>
+     
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <i
+        class="fa fa-check text-success border-success result-icon"
+      />
+       
+      <transition-group-stub
+        class="float-right"
+        name="q-btn"
+        tag="div"
+      >
+        <button
+          class="btn btn-success q-btn ml-1"
+          type="button"
+        >
+          
+          Hint
+        
+        </button>
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+      </transition-group-stub>
+    </div>
+  </div>
+</transition-stub>
+`;
+
+exports[`Text Questions of answered wrongly with answer, header without hint renders correctly 1`] = `
+<transition-stub>
+  <div
+    class="card question shake"
+  >
+    <div
+      class="card-header alert-light border-bottom border-light text-dark"
+    >
+      Text question header
+    </div>
+     
+    <div
+      class="card-body"
+    >
+      Question content 
+      <div
+        class="mb-2"
+      >
+        <textarea
+          class="form-control"
+          disabled="disabled"
+        />
+         
+        <div>
+          <hr />
+           
+          <strong>
+            
+            Keywords: 
+            
+            <span
+              class="badge badge-pill badge-light font-weight-normal"
+            >
+              
+              abc
+            
+            </span>
+            <span
+              class="badge badge-pill badge-light font-weight-normal"
+            >
+              
+              123
+            
+            </span>
+          </strong>
+        </div>
+      </div>
+       
+      <div
+        class="answer"
+      >
+        text question answer
+      </div>
+       
+      <!---->
+    </div>
+     
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <i
+        class="fa fa-times text-danger border-danger result-icon"
+      />
+       
+      <transition-group-stub
+        class="float-right"
+        name="q-btn"
+        tag="div"
+      >
+        <!---->
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+      </transition-group-stub>
+    </div>
+  </div>
+</transition-stub>
+`;
+
+exports[`Text Questions of checked wrongly with answer shown hint without header renders correctly 1`] = `
+<transition-stub>
+  <div
+    class="card question shake"
+  >
+    <!---->
+     
+    <div
+      class="card-body"
+    >
+      Question content 
+      <div
+        class="mb-2"
+      >
+        <textarea
+          class="form-control"
+        />
+         
+        <!---->
+      </div>
+       
+      <!---->
+       
+      <box-stub
+        class="mb-0 mt-3"
+        type="tip"
+      >
+        text question hint
+      </box-stub>
+    </div>
+     
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <i
+        class="fa fa-times text-danger border-danger result-icon"
+      />
+       
+      <transition-group-stub
+        class="float-right"
+        name="q-btn"
+        tag="div"
+      >
+        <!---->
+         
+        <!---->
+         
+        <!---->
+         
+        <button
+          class="btn btn-info q-btn ml-1"
+          type="button"
+        >
+          
+          Show
+        
+        </button>
+         
+        <button
+          class="btn btn-primary q-btn ml-1"
+          type="button"
+        >
+          
+          Retry
+        
+        </button>
+      </transition-group-stub>
+    </div>
+  </div>
+</transition-stub>
+`;
+
+exports[`Text Questions of unanswered with shown hint, header without answer renders correctly  1`] = `
+<transition-stub>
+  <div
+    class="card question"
+  >
+    <div
+      class="card-header alert-light border-bottom border-light text-dark"
+    >
+      Text question header
+    </div>
+     
+    <div
+      class="card-body"
+    >
+      Question content 
+      <div
+        class="mb-2"
+      >
+        <textarea
+          class="form-control"
+        />
+         
+        <!---->
+      </div>
+       
+      <!---->
+       
+      <box-stub
+        class="mb-0 mt-3"
+        type="tip"
+      >
+        text question hint
+      </box-stub>
+    </div>
+     
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <!---->
+       
+      <transition-group-stub
+        class="float-right"
+        name="q-btn"
+        tag="div"
+      >
+        <!---->
+         
+        <button
+          class="btn btn-primary q-btn ml-1"
+          type="button"
+        >
+          
+          Check
+        
+        </button>
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+      </transition-group-stub>
+    </div>
+  </div>
+</transition-stub>
+`;
+
+exports[`Typeless Questions of answered with answer, header without hint renders correctly 1`] = `
+<transition-stub>
+  <div
+    class="card question"
+  >
+    <div
+      class="card-header alert-light border-bottom border-light text-dark"
+    >
+      Typeless question header
+    </div>
+     
+    <div
+      class="card-body"
+    >
+      Question content 
+      <!---->
+       
+      <div
+        class="answer"
+      >
+        Typeless question answer
+      </div>
+       
+      <!---->
+    </div>
+     
+    <!---->
+  </div>
+</transition-stub>
+`;
+
+exports[`Typeless Questions of answered with answer, header, shown hint renders correctly 1`] = `
+<transition-stub>
+  <div
+    class="card question"
+  >
+    <div
+      class="card-header alert-light border-bottom border-light text-dark"
+    >
+      Typeless question header
+    </div>
+     
+    <div
+      class="card-body"
+    >
+      Question content 
+      <!---->
+       
+      <div
+        class="answer"
+      >
+        Typeless question answer
+      </div>
+       
+      <box-stub
+        class="mb-0 mt-3"
+        type="tip"
+      >
+        Typeless question hint
+      </box-stub>
+    </div>
+     
+    <!---->
+  </div>
+</transition-stub>
+`;
