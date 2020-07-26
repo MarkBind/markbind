@@ -38,7 +38,9 @@ module.exports = {
         use: [
           {
             loader: 'expose-loader',
-            options: 'jQuery',
+            options: {
+              exposes: 'jQuery',
+            },
           },
         ],
       },
