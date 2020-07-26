@@ -10,6 +10,7 @@ module.exports = {
     'array-bracket-newline': ['error', { 'multiline': true }],
     'func-names': 'off',
     'function-paren-newline': 'off',
+    'import/no-extraneous-dependencies': ['error', { 'packageDir': './' }],
     'indent': [
       'error',
       2,
