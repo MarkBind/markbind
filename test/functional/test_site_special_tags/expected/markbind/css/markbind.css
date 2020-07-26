@@ -84,10 +84,6 @@ code.hljs.inline {
     padding: 0;
 }
 
-code.hljs:hover {
-    white-space: pre-wrap;
-}
-
 .markbind-table {
     width: auto;
 }
