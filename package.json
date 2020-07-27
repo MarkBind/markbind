@@ -2,6 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
+    "build:components": "cd packages/vue-components && npm run build",
     "csslint": "stylelint **/*.css",
     "csslintfix": "stylelint **/*.css --fix",
     "lint": "eslint . --ext .js,.vue && npm run csslint",
@@ -10,6 +11,7 @@
     "testwin": "npm run lint && lerna run testwin --stream",
     "updatetest": "lerna run updatetest --stream",
     "updatetestwin": "lerna run updatetestwin --stream"
+    "watch:components": "cd packages/vue-components && npm run watch"
   },
   "devDependencies": {
     "eslint": "^7.4.0",
