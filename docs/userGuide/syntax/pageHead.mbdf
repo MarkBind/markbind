@@ -43,14 +43,13 @@ To specify that you want to insert `myCustomLinks.md` into the `<head>` of `myPa
 </div>
 
 **Multiple head files can be included** within a page by providing a comma separated list. They will be added to the `<head>` in the order in which they are listed.
-**You may specify raw `.js` or `.css` files** as your head file if you wish to do so.
 
 <div class="indented">
 
 {{ icon_example }}
 ```html
 <frontmatter>
-  head: customStyles.md, extraScripts.md, extra.css, other.js
+  head: customStyles.md, extraScripts.md
 </frontmatter>
 ```
 </div>
