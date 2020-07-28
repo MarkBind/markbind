@@ -21,11 +21,6 @@
     "url": "https://github.com/MarkBind/markbind.git"
   },
   "scripts": {
-    "ci:all": "npm ci && cd packages/vue-components && npm ci",
-    "ciwin:all": "npm ci && npm run install:components",
-    "install:all": "npm install && npm run install:core && npm run install:components",
-    "install:components": "cd packages/vue-components && npm install",
-    "install:core": "npm install packages/core",
     "test": "jest && cd test/functional && ./test.sh",
     "testwin": "jest && cd test/functional && test.bat",
     "updatetest": "cd test/functional && ./update.sh",

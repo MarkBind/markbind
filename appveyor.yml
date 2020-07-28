@@ -6,7 +6,7 @@ install:
   # Install nodejs version
   - ps: Install-Product node $env:nodejs_version
   # Install modules
-  - npm run ciwin:all
+  - npm run setup
 
 # Post-install test scripts
 test_script:

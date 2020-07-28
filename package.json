@@ -7,10 +7,11 @@
     "csslintfix": "stylelint **/*.css --fix",
     "lint": "eslint . --ext .js,.vue && npm run csslint",
     "lintfix": "eslint . --ext .js,.vue --fix && npm run csslintfix",
+    "setup": "npm ci && lerna bootstrap --hoist",
     "test": "npm run lint && lerna run test --stream",
     "testwin": "npm run lint && lerna run testwin --stream",
     "updatetest": "lerna run updatetest --stream",
-    "updatetestwin": "lerna run updatetestwin --stream"
+    "updatetestwin": "lerna run updatetestwin --stream",
     "watch:components": "cd packages/vue-components && npm run watch"
   },
   "devDependencies": {
