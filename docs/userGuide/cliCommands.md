@@ -39,7 +39,7 @@ Usage: markbind <command>
   Root directory. Default is the current directory.<br>
   {{ icon_example }} `./myWebsite`
 
-<panel header="**Options** :fas-cogs:" type="minimal">
+<panel header="**Options** :fas-cogs:" type="minimal" expanded>
 
 **Options** :fas-cogs:
 
@@ -76,7 +76,7 @@ Usage: markbind <command>
   Root directory. The default is the directory where this command was executed.<br>
   {{ icon_example }} `./myWebsite`
 
-<panel header="**Options** :fas-cogs:" type="minimal">
+<panel header="**Options** :fas-cogs:" type="minimal" expanded>
 
 **Options** :fas-cogs:
 
@@ -135,7 +135,7 @@ The caveat is that not building all pages during the initial process, or not reb
   Read source files from the `[root]` directory and put the generated files in the specified `[output]` directory<br>
   {{ icon_example }} `./myWebsite ../myOutDir`
 
-<panel header="**Options** :fas-cogs:" type="minimal">
+<panel header="**Options** :fas-cogs:" type="minimal" expanded>
 
 **Options** :fas-cogs:
 
@@ -165,7 +165,7 @@ The caveat is that not building all pages during the initial process, or not reb
 
 **Description:** Deploys the site to the repo's Github pages by pushing everything in the generated site (default dir: `_site`) to the `gh-pages` branch of the current git working directory's remote repo.
 
-<panel header="**Options** :fas-cogs:" type="minimal">
+<panel header="**Options** :fas-cogs:" type="minimal" expanded>
 
 **Options** :fas-cogs:
 
