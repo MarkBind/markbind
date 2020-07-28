@@ -18,18 +18,18 @@
 <hr />
 Trigger
 <p>
-  <tooltip effect="scale" content="Lorem ipsum dolor sit amet" placement="top" trigger="click">
+  <tooltip content="Lorem ipsum dolor sit amet" placement="top" trigger="click">
     <button class="btn btn-secondary">Click</button>
   </tooltip>
   <br />
   <br />
-  <tooltip effect="scale" content="Lorem ipsum dolor sit amet" placement="top" trigger="focus">
+  <tooltip content="Lorem ipsum dolor sit amet" placement="top" trigger="focus">
     <input placeholder="Focus"></input>
   </tooltip>
 </p>
 
 **Markdown**:
-<tooltip effect="scale" content="*Hello* **World**">
+<tooltip content="*Hello* **World**">
   <a href="">Hover me</a>
 </tooltip>
 <br />
