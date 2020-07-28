@@ -18,6 +18,11 @@
 ```
 </div>
 
+<box type="warning" seamless>
+
+Should you need more expressive formatting, or encounter any issues when formatting the frontmatter, note that the frontmatter follows the [yaml](https://yaml.org/refcard.html) spec.
+</box>
+
 **Page properties:**
 
 * **`title`**: The title of the page. Will be used as the `<title>` attribute of the HTML page generated.
