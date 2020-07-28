@@ -18,7 +18,7 @@
     "directory": "packages/core"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.1",
+    "@fortawesome/fontawesome-free": "^5.14.0",
     "@markbind/vue-components": "file:../vue-components",
     "@primer/octicons": "^9.3.1",
     "@sindresorhus/slugify": "^0.9.1",
