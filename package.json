@@ -1,6 +1,12 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "test": "lerna run test --stream",
+    "testwin": "lerna run testwin --stream",
+    "updatetest": "lerna run updatetest --stream",
+    "updatetestwin": "lerna run updatetestwin --stream"
+  },
   "devDependencies": {
     "lerna": "^3.22.1"
   }

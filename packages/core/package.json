@@ -61,5 +61,9 @@
     "progress": "^2.0.3",
     "walk-sync": "^2.0.2",
     "winston": "^2.4.4"
+  },
+  "devDependencies": {
+    "jest": "^26.1.0",
+    "memfs": "^3.0.1"
   }
 }

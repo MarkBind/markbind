@@ -30,7 +30,9 @@
     "lint": "eslint . --ext .js,.vue",
     "lintfix": "eslint . --fix --ext .js,.vue",
     "test": "jest",
-    "updatesnapshot": "jest --updateSnapshot",
+    "testwin": "jest",
+    "updatetest": "jest --updateSnapshot",
+    "updatetestwin": "jest --updateSnapshot",
     "watch": "webpack --watch --progress --hide-modules --config  webpack.dev.js"
   },
   "devDependencies": {
