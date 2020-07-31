@@ -36,9 +36,9 @@ export default {
     highlight(value, phrase) {
       function getMatchIntervals() {
         const regexes = phrase.split(' ')
-          .filter((searchKeyword) => searchKeyword !== '')
-          .map((searchKeyword) => searchKeyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
-          .map((searchKeyword) => new RegExp(`(${searchKeyword})`, 'gi'));
+          .filter(searchKeyword => searchKeyword !== '')
+          .map(searchKeyword => searchKeyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+          .map(searchKeyword => new RegExp(`(${searchKeyword})`, 'gi'));
         const matchIntervals = [];
         regexes.forEach((regex) => {
           let match = regex.exec(value);

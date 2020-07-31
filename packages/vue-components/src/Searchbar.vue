@@ -21,9 +21,9 @@ export default {
       }
       const pages = [];
       const regexes = this.value.split(' ')
-        .filter((searchKeyword) => searchKeyword !== '')
-        .map((searchKeyword) => searchKeyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
-        .map((searchKeyword) => new RegExp(searchKeyword, 'ig'));
+        .filter(searchKeyword => searchKeyword !== '')
+        .map(searchKeyword => searchKeyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+        .map(searchKeyword => new RegExp(searchKeyword, 'ig'));
       this.data.forEach((entry) => {
         const {
           headings,
@@ -45,9 +45,9 @@ export default {
         if (totalPageMatches > 0) {
           const pageHeadings = [];
           Object.entries(headings).forEach(([id, text]) => {
-            const matchesHeading = regexes.some((regex) => regex.test(text));
+            const matchesHeading = regexes.some(regex => regex.test(text));
             const matchesKeywords = headingKeywords[id] && headingKeywords[id]
-              .some((keyword) => regexes.some((regex) => regex.test(keyword)));
+              .some(keyword => regexes.some(regex => regex.test(keyword)));
 
             if (matchesHeading || matchesKeywords) {
               const headingSearchTargets = [
@@ -85,6 +85,7 @@ export default {
           return page;
         });
     },
+    // eslint-disable-next-line lodash/prefer-constant
     entryTemplate() {
       return 'searchbarPageItem';
     },

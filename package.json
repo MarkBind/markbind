@@ -2,12 +2,22 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "test": "lerna run test --stream",
-    "testwin": "lerna run testwin --stream",
+    "csslint": "stylelint **/*.css",
+    "csslintfix": "stylelint **/*.css --fix",
+    "lint": "eslint . --ext .js,.vue && npm run csslint",
+    "lintfix": "eslint . --ext .js,.vue --fix && npm run csslintfix",
+    "test": "npm run lint && lerna run test --stream",
+    "testwin": "npm run lint && lerna run testwin --stream",
     "updatetest": "lerna run updatetest --stream",
     "updatetestwin": "lerna run updatetestwin --stream"
   },
   "devDependencies": {
+    "eslint": "^7.4.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-lodash": "^7.1.0",
+    "stylelint": "^12.0.0",
+    "stylelint-config-standard": "^19.0.0",
     "lerna": "^3.22.1"
   }
 }

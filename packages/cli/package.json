@@ -21,21 +21,12 @@
     "url": "https://github.com/MarkBind/markbind.git"
   },
   "scripts": {
-    "autolint": "npm run lintfix && npm run csslintfix",
     "build:components": "cd packages/vue-components && npm run build",
     "ci:all": "npm ci && cd packages/vue-components && npm ci",
     "ciwin:all": "npm ci && npm run install:components",
-    "csslint": "stylelint **/*.css",
-    "csslintfix": "stylelint **/*.css --fix",
     "install:all": "npm install && npm run install:core && npm run install:components",
     "install:components": "cd packages/vue-components && npm install",
     "install:core": "npm install packages/core",
-    "lint": "npm run lint:cli && npm run lint:components",
-    "lint:cli": "eslint .",
-    "lint:components": "cd packages/vue-components && npm run lint",
-    "lintfix": "npm run lintfix:cli && npm run lintfix:components",
-    "lintfix:cli": "eslint . --fix",
-    "lintfix:components": "cd packages/vue-components && npm run lintfix",
     "test": "jest && cd test/functional && ./test.sh",
     "testwin": "jest && cd test/functional && test.bat",
     "updatetest": "cd test/functional && ./update.sh",
@@ -59,16 +50,10 @@
   },
   "devDependencies": {
     "diff": "^4.0.1",
-    "eslint": "^7.4.0",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-lodash": "^7.1.0",
     "ignore": "^5.1.4",
     "istextorbinary": "^3.3.0",
     "jest": "^26.1.0",
     "memfs": "^3.0.1",
-    "stylelint": "^12.0.0",
-    "stylelint-config-standard": "^19.0.0",
     "walk-sync": "^2.0.2"
   }
 }
