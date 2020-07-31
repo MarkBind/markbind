@@ -17,6 +17,7 @@
   links : ['Links', ['basic', 'reader-facing']],
   footnotes: ['Footnotes', ['basic', 'reader-facing']],
   images : ['Images', ['basic', 'reader-facing']],
+  attributes: ['Classes, Attributes & Identifiers', ['basic', 'reader-facing']],
   tables : ['Tables', ['basic', 'reader-facing']],
   emoji : ['Emoji', ['basic', 'reader-facing']],
   icons : ['Icons', ['basic', 'reader-facing']],

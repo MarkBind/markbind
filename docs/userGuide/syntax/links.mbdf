@@ -30,10 +30,10 @@ MarkBind home is at [here][1].
 
 Links to files of the generated site (e.g., an HTML page or an image file) can be specified either as relative paths or absolute paths.
 
-Absolute paths:
+****Absolute paths****
 <div class="indented">
 
-Links should start with {% raw %}`{{ baseUrl }}`{% endraw %} (which represents the root directory of the project). 
+Links should start with {% raw %}`{{ baseUrl }}`{% endraw %} (which represents the root directory of the site).
 
 {{ icon_example }} Here's how to specify a link to (1) a page, and (2) an image, using the {% raw %}`{{ baseUrl }}`:
 
@@ -47,14 +47,14 @@ To ensure that links in the <code>_markbind/</code> folder work correctly across
 {% endraw %}
 </div>
 
-Relative paths:
+****Relative paths****
 
 <div class="indented">
 
 {{ icon_example }} Assuming that we have the following folder structure:
 ```
-c:/course/
-  ├── textbook/
+C:\course\
+  ├── textbook\
   |      ├── subsite.md
   |      ├── image.png
   |      └── site.json
@@ -65,20 +65,21 @@ c:/course/
 Within `textbook/subsite.md`, we can refer to the image using:
 ```html
 <img src="image.png" />
+<!-- or -->
+![](image.png)
 ```
 Within `index.md`, we can also display the image using
 ```html
 <img src="textbook/image.png" />
-```
-or by including `subsite.md`:
-```html
-<include src="textbook/subsite.md" />
+<!-- or -->
+![](textbook/image.png)
 ```
 
-<box type="important">
-    Relative links to resources (e.g. images, hrefs) should be valid relative to the original, included file. In other words, the links should be accessible when traversing starting from the location of the included file.
-    <br>
-    In the example above, <code>image.png</code> is in the same directory as <code>subsite.md</code>. When using relative references, the correct path is <code>image.png</code> and not <code>textbook/image.png</code>.
+<box type="warning">
+
+  Relative links to resources (e.g. images, hrefs) should be valid **relative to the file where the link is defined**.
+
+  In the example above, `image.png` is in the same directory as `subsite.md`. Thus, the correct path is `image.png` and not `textbook/image.png`.
 </box>
 
 </div>
