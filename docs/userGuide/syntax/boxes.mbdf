@@ -1,3 +1,5 @@
+<import slot_info_trigger from="../components/advanced.md"></import>
+
 ## Boxes
 
 **Boxes come with different built-in types.**
@@ -183,10 +185,10 @@ border-color | `String` | `null` |
 border-left-color | `String` | `null` | Overrides border-color for the left border.
 color | `String` | `null` | Color of the text.
 dismissible | `Boolean` | `false` | Adds a button to close the box to the top right corner.
-icon | `String` | `null` | Inline MarkDown text of the icon displayed on the left.
+icon{{slot_info_trigger}} | `String` | `null` | Inline MarkDown text of the icon displayed on the left.
 icon-size | `String` | `null` | Resizes the icon. Supports integer-scaling of the icon dimensions e.g. `2x`, `3x`, `4x`, etc.
 icon-color | `String` | `null` | Color of the icon.
-header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>heading <br> (deprecated)</small> | `String` | `null` | Markdown text of the box header.
+header{{slot_info_trigger}} <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>heading <br> (deprecated)</small> | `String` | `null` | Markdown text of the box header.
 type | `String` | `''` | Supports: `info`, `warning`, `success`, `important`, `wrong`, `tip`, `definition`, or empty for default.
 light | `Boolean` | `false` | Uses a light color scheme for the box.
 seamless | `Boolean` | `false` | Uses a seamless style for the box. If `light` is specified, this style will not be activated.

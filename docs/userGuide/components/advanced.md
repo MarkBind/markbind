@@ -1,81 +1,66 @@
 ## Advanced Tips and Tricks
 
-### Rich formatting in headings/titles
+<variable name="slot_info_trigger"><trigger for="on-slots" trigger="click"><strong>^\[S\]^</strong></trigger></variable>
+<variable name="slot_type_info_trigger"><trigger for="on-slots" trigger="click">Slot</trigger></variable>
 
-Using the normal syntax, you are only able to use markdown formatting on headings. If you would like more styling options, you can define an element within the component that acts as your heading. This is done by adding a <md>`slot`</md> attribute with the correct name to that element.
+### Richer formatting of attributes using slots
 
-<tip-box border-left-color="#00B0F0">
-  <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
-  <panel expanded>
-    <p slot="header" class="card-title">
-      <i><strong>
-        <span style="color:#FF0000;">R  </span>
-        <span style="color:#FF7F00;">A  </span>
-        <span style="color:#FFFF00;">I  </span>
-        <span style="color:#00FF00;">N  </span>
-        <span style="color:#0000FF;">B  </span>
-        <span style="color:#4B0082;">O  </span>
-        <span style="color:#9400D3;">W  </span>
-      </strong></i>
-    </p>
-    As shown in this panel, using the header slot allows you to customize the Panel's header using HTML.
-  </panel>
-</tip-box>
+<div id="slots">
 
-<tip-box border-left-color="#00B0F0">
-  <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
-  <trigger for="modal:tip-example" trigger="click">Click here to show Modal.</trigger>
-  
-  <modal id="modal:tip-example">
-    <div slot="modal-header" class="modal-title text-center">
-      <span style="font-size:20pt"><span style="color:red;">BIG</span> header</span>
-    </div>
-      Modal allows you to style both header and footer individually, with style classes and inline styles.
-    <div slot="modal-footer" class="text-center">
-      <span style="font-size:10pt">Tiny <span style="color:green;">footer</span></span>
-    </div>
-  </modal>
-</tip-box>
+Most component attributes allow a richer form of formatting using slots, denoted by an attribute<strong>^\[S\]^</strong> superscript in the respective components' tables.
+In other cases, when the option is of type "Slot", only the slot option is available.
 
-<tip-box border-left-color="black">
-<i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
+You can define such a slot within the component by adding a `slot="attribute name"` attribute to any element within the slot.
 
-```html
+{{ icon_example }}
+
+<include src="codeAndOutput.md" boilerplate>
+<variable name="code">
 <panel expanded>
   <p slot="header" class="card-title">
     <i><strong>
-      <span style="color:#FF0000;">R  </span>
-      <span style="color:#FF7F00;">A  </span>
-      <span style="color:#FFFF00;">I  </span>
-      <span style="color:#00FF00;">N  </span>
-      <span style="color:#0000FF;">B  </span>
-      <span style="color:#4B0082;">O  </span>
-      <span style="color:#9400D3;">W  </span>
+      <span style="color:#FF0000;">R</span>
+      <span style="color:#FF7F00;">A</span>
+      <span style="color:#FFFF00;">I</span>
+      <span style="color:#00FF00;">N</span>
+      <span style="color:#0000FF;">B</span>
+      <span style="color:#4B0082;">O</span>
+      <span style="color:#9400D3;">W</span>
     </strong></i>
   </p>
-  As shown in this panel, using the header slot allows you to customize the Panel's header using HTML.
+  As shown in this panel, using the header slot
+  allows you to customize the Panel's header using HTML.
 </panel>
+</variable>
+<variable name="highlightStyle">html</variable>
+</include>
+</div>
+  
+<modal header="Richer formatting of attributes using slots" id="on-slots" large>
+<include src="advanced.md#slots" />
+</modal>
 
+**Other examples of slots in use**
+
+{{ icon_example }} Custom modal header
+
+<include src="codeAndOutput.md" boilerplate>
+<variable name="code">
 <trigger for="modal:tip-example" trigger="click">Click here to show Modal.</trigger>
 
 <modal id="modal:tip-example">
-  <div slot="modal-header" class="modal-title text-center">
+  <div slot="header" class="modal-title text-center">
     <span style="font-size:20pt"><span style="color:red;">BIG</span> header</span>
   </div>
     Modal allows you to style both header and footer individually, with style classes and inline styles.
-  <div slot="modal-footer" class="text-center">
+  <div slot="footer" class="text-center">
     <span style="font-size:10pt">Tiny <span style="color:green;">footer</span></span>
   </div>
 </modal>
-```
-</tip-box>
-<br>
+</variable>
+<variable name="highlightStyle">html</variable>
+</include>
 
-**Box Slot Options:**
-
-Slot name | Default class |
---- | --- |
-icon | depends on box's `type` attribute |
 
 {{ icon_example }} Override the default icon for a certain type of box.
 
@@ -120,31 +105,7 @@ icon | depends on box's `type` attribute |
     use thumbnail as the icon
 </box>
 
-**Panel Slot Options:**
-Slot name | Default class | Notes
---- | --- | --- 
-header | `card-title` | Aligning text to the center of the panel is not possible, as the header element does not take up the entire container.
-
-**Modal Slot Options:**
-When using slots for Modals, you need to add a single blank line before each `<modal>` tag, in order for the customization to render correctly.
-
-Slot name | Default class | Notes
---- | --- | ---
-header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>`modal-header` <br> (deprecated)</small>  | `modal-title` |
-footer <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>`modal-footer` <br> (deprecated)</small> | `modal-footer` | Specifying `modal-footer` will override the `ok-text` attribute, and the OK button will not render.
-
-**Popover Slot Options:**
-Slot name | Default class
---- | --- | ---
-header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>`title` <br> (deprecated)</small>  | `popover-header`
-content | `popover-body` 
-
-**Dropdown Slot Options:**
-Slot name | Default class
---- | ---
-header | `dropdown-toggle`
-
-### Inserting custom classes into components
+### Inserting custom classes into components {.mt-4 .mb-3}
 
 Every component documented in our user guide allows you to insert your own defined CSS classes.
 This is done by adding the `add-class` attribute to a component along with the desired class names.

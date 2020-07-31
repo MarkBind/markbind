@@ -1,3 +1,5 @@
+<import slot_info_trigger slot_type_info_trigger from="../components/advanced.md"></import>
+
 ## Questions and Quizzes
 
 Question and quiz components provide an easy way to test readers on the relevant content topic in the page. {.mt-3}
@@ -134,10 +136,8 @@ Placing the question into the header is entirely optional. You may also wish to 
 Name | Type | Default | Description
 --- | --- | --- | ---
 type | `String` | `''` | The type of question. Supports `mcq`, `checkbox` or `text`.
-header | `String` | `''` | The markup to insert into the question header. The header is omitted if this is not provided.
-header | Slot | empty | Functions similar to the `header` option, and overrides it if both are present.
-hint  | `String` | `''` | The content to display in the hint box.
-hint  | Slot | empty | Functions similar to the `hint` option, and overrides it if both are present.
+header{{slot_info_trigger}} | `String` | `''` | The markup to insert into the question header. The header is omitted if this is not provided.
+hint{{slot_info_trigger}}  | `String` | `''` | The content to display in the hint box.
 
 
 #### MCQ and Checkbox Questions {.mt-4 .mb-3}
@@ -210,8 +210,7 @@ Optionally, you can provide the reason for the particular option using the `<q-o
 Name | Type | Default | Description
 --- | --- | --- | ---
 correct | `Boolean` | `false` | Whether this option (placed under either a MCQ or checkbox question) is correct. You may have multiple correct answers in either case.
-reason  | `String` | `''` | The explanation markup to display for the option once the answer is checked.
-reason  | Slot | empty | The explanation to display for the option once the answer is checked. Overrides the reason option if both are present.
+reason{{slot_info_trigger}}  | `String` | `''` | The explanation markup to display for the option once the answer is checked.
 
 
 #### Text Questions {.mt-4 .mb-3}
@@ -267,8 +266,7 @@ Name | Type | Default | Description
 --- | --- | --- | ---
 keywords | `String` | `''` | Comma delimited string of keywords or phrases to match the user's answer against.
 threshold | `Number` | `0.5` | Minimum proportion of keywords that have to be matched in the user's answer for the answer to be marked as correct.
-answer | `String` | `''` | The answer or explanation to display when the user clicks the check button.
-answer | Slot | empty | The answer or explanation to display when the user clicks the check button. Overrides the answer attribute if both are present.
+answer{{slot_info_trigger}} | `String` | `''` | The answer or explanation to display when the user clicks the check button.
 
 <box type="important" header="Deprecation notes">
 
