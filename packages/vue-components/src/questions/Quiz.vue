@@ -145,10 +145,10 @@ export default {
       }
     },
     reset() {
-      this.questions.forEach((question) => question.reset());
+      this.questions.forEach(question => question.reset());
     },
     complete() {
-      this.score = this.questions.filter((q) => q.qState.state === STATE_CORRECT).length;
+      this.score = this.questions.filter(q => q.qState.state === STATE_CORRECT).length;
       this.state = STATE_QUIZ_DONE;
       this.reset();
     },

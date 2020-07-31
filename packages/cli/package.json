@@ -1,0 +1,52 @@
+{
+  "name": "markbind-cli",
+  "version": "2.14.1",
+  "description": "Command line interface for MarkBind",
+  "keywords": [
+    "mark",
+    "markdown",
+    "markbind",
+    "fragment",
+    "reusable",
+    "CLI"
+  ],
+  "homepage": "https://markbind.org",
+  "license": "MIT",
+  "main": "index.js",
+  "bin": {
+    "markbind": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MarkBind/markbind.git"
+  },
+  "scripts": {
+    "test": "jest && cd test/functional && ./test.sh",
+    "testwin": "jest && cd test/functional && test.bat",
+    "updatetest": "cd test/functional && ./update.sh",
+    "updatetestwin": "cd test/functional && update.bat"
+  },
+  "dependencies": {
+    "@markbind/core": "2.14.1",
+    "bluebird": "^3.7.2",
+    "chalk": "^3.0.0",
+    "cheerio": "^0.22.0",
+    "chokidar": "^3.3.0",
+    "commander": "^3.0.2",
+    "figlet": "^1.2.4",
+    "find-up": "^4.1.0",
+    "fs-extra-promise": "^1.0.1",
+    "live-server": "^1.2.1",
+    "lodash": "^4.17.15",
+    "winston": "^2.4.4",
+    "winston-daily-rotate-file": "^3.10.0"
+  },
+  "devDependencies": {
+    "diff": "^4.0.1",
+    "ignore": "^5.1.4",
+    "istextorbinary": "^3.3.0",
+    "jest": "^26.1.0",
+    "memfs": "^3.0.1",
+    "walk-sync": "^2.0.2"
+  }
+}

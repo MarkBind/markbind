@@ -2,13 +2,16 @@ language: node_js
 node_js:
   - '10'
 install:
-  - npm run ci:all
+  - npm run setup
 script:
   - npm run test
 deploy:
   # deploy on release, to markbind.org
   - provider: script
-    script: cd docs && ../index.js build -s ug-site.json && ../index.js deploy -s ug-site.json --travis
+    script: >-
+      cd docs &&
+      ../packages/cli/index.js build -s ug-site.json &&
+      ../packages/cli/index.js deploy -s ug-site.json --travis
     skip_cleanup: true
     on:
       repo: MarkBind/markbind
@@ -16,7 +19,10 @@ deploy:
       condition: $TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+
   # deploy on any commit to master, to markbind.org/devdocs
   - provider: script
-    script: cd docs && ../index.js build -s dg-site.json && ../index.js deploy -s dg-site.json --travis
+    script: >-
+      cd docs &&
+      ../packages/cli/index.js build -s dg-site.json &&
+      ../packages/cli/index.js deploy -s dg-site.json --travis
     skip_cleanup: true
     on:
       repo: MarkBind/markbind

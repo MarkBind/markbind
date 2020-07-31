@@ -25,8 +25,8 @@ const DEFAULT_TEMPLATE = 'default';
 
 jest.mock('fs');
 jest.mock('walk-sync');
-jest.mock('@markbind/core/src/Page');
 jest.mock('gh-pages');
+jest.mock('../../src/Page');
 
 afterEach(() => fs.vol.reset());
 
@@ -37,7 +37,7 @@ test('Site Generate builds the correct amount of assets', async () => {
 
     ...ASSETS,
 
-    'packages/vue-components/dist/components.min.js': '',
+    [require.resolve('@markbind/vue-components/dist/components.min.js')]: '',
 
     ...EXTERNAL_ASSETS,
 

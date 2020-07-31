@@ -212,7 +212,7 @@ export default {
   },
   methods: {
     keywordsSplitTrimmed() {
-      return this.keywords.split(',').filter((keyword) => keyword.trim() !== '');
+      return this.keywords.split(',').filter(keyword => keyword.trim() !== '');
     },
     isMcqOrCheckboxQuestion() {
       return this.type === 'mcq' || this.type === 'checkbox';
@@ -243,7 +243,7 @@ export default {
       }
     },
     checkMcqAnswer(markAsAnsweredIfWrong) {
-      const selectedAnswer = this.answers.find((answer) => answer.selected);
+      const selectedAnswer = this.answers.find(answer => answer.selected);
       if (!selectedAnswer) {
         return;
       }
@@ -255,7 +255,7 @@ export default {
       }
     },
     checkCheckboxAnswer(markAsAnsweredIfWrong) {
-      const correctAnswers = this.answers.filter((answer) => answer.answeredCorrectly);
+      const correctAnswers = this.answers.filter(answer => answer.answeredCorrectly);
 
       if (correctAnswers.length === this.answers.length) {
         this.markAsCorrect();

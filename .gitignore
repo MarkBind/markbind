@@ -2,6 +2,7 @@
 # Logs
 logs
 *.log
+lerna-debug.log
 npm-debug.log*
 
 # Runtime data
@@ -43,7 +44,7 @@ jspm_packages
 docs/_site/*
 
 # Generated site (MarkBind)
-test/functional/*/_site
+packages/cli/test/functional/*/_site
 
 # vscode configuration
 .vscode/

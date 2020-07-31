@@ -32,14 +32,15 @@ We recommend the **WebStorm IDE** for working with MarkBind code.
 ## Setting up the dev environment
 
 1. **Fork and clone** the MarkBind repo.
-1. **Install dependencies** by running `npm run ci:all`
-   <popover header="Why **2** `ci` commands?" content="Our components subpackage depends on `node-sass` indirectly, which depends on `fsevents`.<br><br> `fsevents` is not needed nor compatible with Windows, and `npm ci` does not respect this since it uses `package-lock.json`.">(`ciwin:all` if you are on a Windows machine)</popover>
-   in the root folder of your cloned repo.
-1. **To bind your cloned version of MarkBind to your console** (instead of the released version of MarkBind), run `npm link` in the root folder of the cloned repo.
+1. **To bind your cloned version of MarkBind to your console** (instead of the released version of MarkBind), run `npm link` in the `packages/cli` folder of the cloned repo first.
 
    <box type="tip" seamless>
 
-   To go back to the released version of MarkBind, run `npm unlink` followed by `npm i -g markbind-cli`
+   To go back to the released version of MarkBind, run `npm unlink` in the same directory, followed by `npm i -g markbind-cli`
    </box>
+1. **Install dependencies** by running <popover content="Under the hood, this calls `npm ci` and `lerna bootstrap`">`npm run setup`</popover> in the **root folder** of your cloned repo.
+  <box type="info" seamless>
+  MarkBind uses <md>[lerna](https://github.com/lerna/lerna)</md>, a popular multi-package development tool, to manage it's dependencies. It is essentially a high level wrapper over node and npm's functionalities
+  </box>
 
-1. **Congrats!** Now you ready to start modifying MarkBind code.
+1. **Congratulations!** Now you ready to start modifying MarkBind code.

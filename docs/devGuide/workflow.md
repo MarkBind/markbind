@@ -30,9 +30,9 @@ Do note [our style guides](styleGuides.html).
 
 Our test script does the following:
 
-1. Lints the code for any code and style errors using ESLint.
-1. Runs unit tests for the main and sub packages.
-1. Builds the test sites whose directory names are listed in `test/functional/test_site`.
+1. Lints the code (`.js`, `.vue`) and stylesheets (`.css`) for any style errors using [ESLint](https://eslint.org/) and [StyleLint](https://stylelint.io/).
+1. Runs unit tests for all packages with [Jest](https://jestjs.io/).
+1. Builds the test sites whose directory names are listed in `packages/cli/test/functional/test_site`.
 1. For each test site, compares the HTML files generated with the HTML files in its `expected` directory.
 
 #### Running tests
@@ -62,7 +62,7 @@ To add a page to an existing test site, for this example, to `test_site`:
 
 1. Add a new test page, e.g., `newTestPage.md`, containing a demonstration of the new feature.
 
-1. Open the `site.json` corresponding to the test site, i.e. `test/functional/test_site/site.json`
+1. Open the `site.json` corresponding to the test site, i.e. `packages/cli/test/functional/test_site/site.json`
 
 1. To include the new page, i.e. `newTestPage.md`, add it to the `pages` array.
 
@@ -92,7 +92,7 @@ To add a page to an existing test site, for this example, to `test_site`:
 
 <box type="info">
 
-  When creating a new test site, the directory name of the new test site should be added to `test/functional/test_sites` file.
+  When creating a new test site, the directory name of the new test site should be added to `packages/cli/test/functional/test_sites` file.
 </box>
 
 ##### Adding snapshot tests for components
@@ -104,38 +104,28 @@ Once you're done, be sure to run the `updatetest` script mentioned [above](#upda
 
 ## Linting
 
-We follow [our style guides](styleGuides.html). Using a linter will help check and fix some of the code style errors in your code. It will save time for both you and your code reviewer. The linting tool we use is [ESLint](https://eslint.org/). Here is a [gist](https://gist.github.com/nicholaschuayunzhi/bfe53dbb5f1a0f02d545d55956f9ab7e) with an explanation of the ESLint rules chosen in markbind-cli.
+We follow [our style guides](styleGuides.html). Using a linter will help check and fix some of the code style errors in your code. It will save time for both you and your code reviewer. The linting tool we use is [ESLint](https://eslint.org/) and [StyleLint](https://stylelint.io/). Here is a [gist](https://gist.github.com/nicholaschuayunzhi/bfe53dbb5f1a0f02d545d55956f9ab7e) with an explanation of the ESLint rules chosen in markbind-cli.
 
 Before making a commit or pull request, you should lint your code by running the following commands from the root of your project:
 
 * To lint a specific file: `eslint path/to/specificfile.js`
 * To lint all files: `npm run lint`
 
-It is also possible to auto-fix some (not all) style errors:
-* To correct any fixable style errors, run `npm run lintfix`
-* To correct fixable style errors for both JavaScript and CSS, run `npm run autolint`
+It is also possible to auto-fix some (not all) style errors, using `npm run lintfix`.
 
 <box type="tip" seamless>
 
 ESLint has [integrations with popular editors](https://eslint.org/docs/user-guide/integrations). They offer features such as "fix errors on save", which will make development smoother.
 </box>
 
-<box type="tip" seamless>
+## Dependency management
 
-There are several versions of the _test and linting scripts_ in the main `package.json` that execute for only one of the main or sub packages,
-feel free to look into `package.json` and use them as you see fit!
-</box>
+As mentioned in the [setting up](settingUp.html#setting-up-the-dev-environment) page, MarkBind uses [lerna](https://github.com/lerna/lerna) to manage the dependencies of its [various packages](design.html).
 
-## Updating dependencies
+Hence, instead of manually updating the version numbers in the packages' `package.json` files, you may consider using the `lerna add` [command](https://github.com/lerna/lerna/tree/master/commands/add#readme) to speed things up!
 
-We use `npm install <package folder>` to <tooltip content="take a look under the command in the link!">[hoist](https://docs.npmjs.com/cli/install)</tooltip> the MarkBind core package's dependencies to the root `node_modules`, avoiding dependency duplication between the `markbind-cli` and `markbind` packages where possible.
-
-Hence, when updating dependencies of the `markbind` core package, be sure to run the `npm install packages/core` command, or simply the `npm run install:core` script. If you upgraded the dependencies of multiple packages, simply run `npm run install:all` instead.
-
-If the dependency <tooltip content="i.e. is also listed under the root `package.json`">is also used</tooltip> in the root package, make sure to update its <tooltip content="as listed in the `package.json` file">version number</tooltip> as well!
+Also, when updating dependencies, ensure that it is updated in _all_ packages using that dependency.
 
 <box type="warning">
-
-Conversely, when updating dependencies of the *root* package, be sure to still check whether any subpackages list this as a dependency!
-If so, follow the above process as well.
+Dependency updates are not trivial, and can be the source of subtle bugs. You should always check the respective dependency changelogs before doing so!
 </box>
