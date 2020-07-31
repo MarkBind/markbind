@@ -1,3 +1,5 @@
+<import slot_info_trigger from="../components/advanced.md"></import>
+
 ## Panels
 
 **Panel is a flexible container that supports collapsing and expanding its content. It is expandable by default.**
@@ -157,7 +159,7 @@
 ****Options****
 Name | Type | Default | Description
 --- | --- | --- | ---
-header | `String` | `''` | The clickable text on the Panel's header. Supports MarkDown text.
+header{{slot_info_trigger}} | `String` | `''` | The clickable text on the Panel's header. Supports MarkDown text.
 alt | `String` | Panel header | The clickable text on the minimised Panel. Supports MarkDown text.
 expandable | `Boolean`| `true` | Whether Panel is expandable.
 expanded | `Boolean` | `false` | Whether Panel is expanded or collapsed when loaded in.

@@ -1,3 +1,5 @@
+<import slot_info_trigger from="../components/advanced.md"></import>
+
 ## Dropdowns
 
 **You can use Dropdowns as a top level component.**
@@ -60,7 +62,7 @@ Name | Type | Default | Description
 --- | --- | --- | ---
 disabled | `Boolean` | `false` | Whether Dropdown can be opened.
 menu-align-right | `Boolean` | `false` | Whether the dropdown list will be right-aligned.
-header <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>text <br> (deprecated)</small> | `String` | `''` | Dropdown button header text. (Supports inline MarkDown syntax)
+header{{slot_info_trigger}} <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>text <br> (deprecated)</small> | `String` | `''` | Dropdown button header text. (Supports inline MarkDown syntax)
 type | `String` | `default` | Supports: `default`, `primary`, `danger`, `info`, `warning`, `success`.
 
 <div class="indented">
