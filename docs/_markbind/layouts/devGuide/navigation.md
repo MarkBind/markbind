@@ -6,6 +6,7 @@
 * [Setting up]({{baseUrl}}/devGuide/settingUp.html)
 * [Workflow]({{baseUrl}}/devGuide/workflow.html)
 * [Design]({{baseUrl}}/devGuide/design.html)
+* [Writing Plugins]({{baseUrl}}/devGuide/writingPlugins.html)
 * [Project management]({{baseUrl}}/devGuide/projectManagement.html)
 * Appendices :expanded:
   * [Style guides]({{baseUrl}}/devGuide/styleGuides.html)
