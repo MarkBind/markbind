@@ -2039,14 +2039,7 @@ exports[`Text Questions of unanswered with shown hint, header without answer ren
       >
         <!---->
          
-        <button
-          class="btn btn-primary q-btn ml-1"
-          type="button"
-        >
-          
-          Check
-        
-        </button>
+        <!---->
          
         <!---->
          

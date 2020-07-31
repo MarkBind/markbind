@@ -85,8 +85,9 @@
           >
             Hint
           </button>
+          <!-- Gracefully deprecate invalid question types without answers -->
           <button
-            v-if="qState.state === 0"
+            v-if="qState.state === 0 && !(!isValidTypeAndNotTextWithoutKeywords() && !$slots.answer)"
             key="check"
             type="button"
             class="btn btn-primary q-btn ml-1"
