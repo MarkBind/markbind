@@ -15,7 +15,7 @@
 
 <span class="lead" id="overview">
 
-**MarkBind supports a wide collection of Markdown-like basic content formatting syntax** such as text stying, tables, lists, images, links, etc.
+**MarkBind supports a wide collection of Markdown-like basic content formatting syntax** such as text styling, tables, lists, images, links, etc.
 
 </span>
 
