@@ -2,6 +2,7 @@
 # Logs
 logs
 *.log
+lerna-debug.log
 npm-debug.log*
 
 # Runtime data

@@ -17,9 +17,16 @@
     "url": "https://github.com/MarkBind/markbind.git",
     "directory": "packages/core"
   },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "jest",
+    "testwin": "jest"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
-    "@markbind/vue-components": "file:../vue-components",
+    "@markbind/vue-components": "2.14.1",
     "@primer/octicons": "^9.3.1",
     "@sindresorhus/slugify": "^0.9.1",
     "bluebird": "^3.7.2",
