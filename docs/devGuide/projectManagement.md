@@ -84,7 +84,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    The end result of this command is version commit with an appropriate tag. We will make use of the generated tag and commit message later.
    </box>
 
-1. **Build the vue-components package bundle** by executing `npm run build:components` in the root directory, after which you should see changes in `packages/vue-components/dist/components.min.js`. <br><br>Take a peek at the diff for `components.min.js` to see if there are any strange changes (e.g. the version of jQuery changes even though no one upgraded it).
+1. **Build the vue-components package bundle** by executing `npm run build:components` in the root directory, after which you should see changes in `packages/vue-components/dist/components.min.js`. <br><br>Take a peek at the diff for `components.min.js` to see if there are any strange changes.
 
    <box type="tip" seamless>
     

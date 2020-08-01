@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
@@ -9,10 +8,5 @@ module.exports = merge(config, {
   output: {
     filename: '[name].min.js',
   },
-  plugins: [
-    new VueLoaderPlugin(),
-    new webpack.ProvidePlugin({
-      jQuery: 'jquery',
-    }),
-  ],
+  plugins: [new VueLoaderPlugin()],
 });
