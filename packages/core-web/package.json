@@ -1,0 +1,25 @@
+{
+  "name": "@markbind/core-web",
+  "version": "2.15.2",
+  "description": "MarkBind core browser module",
+  "keywords": [
+    "mark",
+    "markbind"
+  ],
+  "homepage": "https://markbind.org",
+  "license": "MIT",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "dist"
+  ],
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MarkBind/markbind.git",
+    "directory": "packages/core-web"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
