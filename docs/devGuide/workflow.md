@@ -32,23 +32,21 @@ Our test script does the following:
 
 1. Lints the code (`.js`, `.vue`) and stylesheets (`.css`) for any style errors using [ESLint](https://eslint.org/) and [StyleLint](https://stylelint.io/).
 1. Runs unit tests for all packages with [Jest](https://jestjs.io/).
-1. Builds the test sites whose directory names are listed in `packages/cli/test/functional/test_site`.
+1. Builds the test sites whose directory names are listed in `packages/cli/test/functional/testSites.js`.
 1. For each test site, compares the HTML files generated with the HTML files in its `expected` directory.
 
-#### Running tests
+To run the test script, use: `npm run test`
 
-To execute all the tests, simply run:
+<box type="tip" seamless>
 
-* Unix: `npm run test`
-* Windows: `npm run testwin`
-
+If you only want to run tests for one of the packages (`packages/*`), simply switch into the appropriate directory and use `npm run test` as well!
+</box>
 
 #### Updating and writing tests
 
-Whether you are adding a new feature, updating existing features or fixing bugs, make sure to update the test files (test sites, snapshots) to reflect the changes by running the appropriate script:
+Whether you are adding a new feature, updating existing features or fixing bugs, make sure to update the **source** test files (test sites, snapshots) to reflect the changes.
 
-* Unix: `npm run updatetest`
-* Windows: `npm run updatetestwin`
+After which, you can update the **expected** test files with: `npm run updatetest`
 
 <box type="warning" seamless>
   You should always check that the generated output is correct before committing any changes to the test sites.
@@ -90,9 +88,9 @@ To add a page to an existing test site, for this example, to `test_site`:
 
 1. Update the tests using `npm run updatetest`.
 
-<box type="info">
+<box type="info" seamless>
 
-  When creating a new test site, the directory name of the new test site should be added to `packages/cli/test/functional/test_sites` file.
+  If creating a new test site instead, the directory name of the new test site should be added to `packages/cli/test/functional/testSites.js` file.
 </box>
 
 ##### Adding snapshot tests for components

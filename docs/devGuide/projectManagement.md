@@ -91,9 +91,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    Building the UI components bundle is optional if there are no changes to the files in `packages/vue-components/` since the last release of MarkBind. If so, you may skip this step.
    </box>
 
-1. **Rebuild the test files**.
-   * Unix: `npm run updatetest`
-   * Windows: `npm run updatetestwin`
+1. **Rebuild the test files** using `npm run updatetest`
 
    When rebuilding the expected test files, ensure that **only** the version number is updated for the output `.html` files. For example, this is correct:
 
