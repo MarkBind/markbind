@@ -48,7 +48,6 @@
     "expose-loader": "^1.0.0",
     "jest": "^26.1.0",
     "jest-serializer-vue": "^2.0.2",
-    "jquery": "^3.5.0",
     "vue": "^2.6.11",
     "vue-jest": "^3.0.6",
     "vue-loader": "^15.9.3",

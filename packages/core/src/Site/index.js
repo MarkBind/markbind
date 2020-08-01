@@ -313,6 +313,8 @@ class Site {
                            path.join(this.siteAssetsDestPath, 'js', 'vue.min.js')),
         components: path.relative(path.dirname(resultPath),
                                   path.join(this.siteAssetsDestPath, 'js', 'components.min.js')),
+        jQuery: path.relative(path.dirname(resultPath),
+                              path.join(this.siteAssetsDestPath, 'js', 'jquery.min.js')),
       },
     });
   }
