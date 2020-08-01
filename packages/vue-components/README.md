@@ -11,7 +11,9 @@ Most of the styles are based on Bootstrap's markup and CSS, but no dependency on
 
 Many of the components under this folder were originally from [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap), forked from [yuche/vue-strap](https://github.com/yuche/vue-strap), and modified to suit MarkBind's needs for educational and documentation websites.
 
-Some custom directives were also added for MarkBind's use.
+The generated bundle also includes some of [BootstrapVue's](https://bootstrap-vue.org/) components.
+
+Some custom components and directives are also added for MarkBind's use.
 
 ### MarkBind components newly created or revamped since moving here
 - Question.vue
@@ -43,6 +45,12 @@ Some custom directives were also added for MarkBind's use.
 - TabGroup.vue
 - Tabset.vue
 - Typeahead.vue
+
+### BootstrapVue components included in the bundle
+
+- Modals
+- Popovers
+- Tooltips
 
 ## Installation
 

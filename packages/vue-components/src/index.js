@@ -1,3 +1,13 @@
+// Components and directives from bootstrap-vue
+/* eslint-disable import/no-extraneous-dependencies */
+import {
+  ModalPlugin,
+  PopoverPlugin,
+  TooltipPlugin,
+} from 'bootstrap-vue';
+/* eslint-enable import/no-extraneous-dependencies */
+
+// Custom / modified components and components from yuche/vue-strap
 import affix from './Affix.vue';
 import closeable from './directives/Closeable';
 import dropdown from './Dropdown.vue';
@@ -41,24 +51,17 @@ const directives = {
 };
 
 function install(Vue) {
-  if (install.installed) return;
-  install.installed = true;
-
   Object.keys(directives).forEach((key) => {
     Vue.directive(key, directives[key]);
   });
   Object.keys(components).forEach((key) => {
     Vue.component(key, components[key]);
   });
+  Vue.use(ModalPlugin);
+  Vue.use(PopoverPlugin);
+  Vue.use(TooltipPlugin);
 }
 
-const MarkBindVue = {
-  install,
-  components: {},
-};
-
-Object.keys(components).forEach((key) => {
-  MarkBindVue.components[key] = components[key];
-});
+const MarkBindVue = { install };
 
 export default MarkBindVue;

@@ -1,11 +1,4 @@
 module.exports = {
-  presets: [
-    [
-      '@babel/preset-env',
-      {
-        modules: 'umd',
-      },
-    ],
-  ],
+  presets: ['@babel/preset-env'],
   plugins: ['@babel/plugin-transform-runtime'],
 };
