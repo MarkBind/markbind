@@ -10,50 +10,78 @@
       </button>
     </div>
     <div v-show="!localMinimized" class="card card-flex">
-      <div :class="['header-wrapper', { 'header-wrapper-bottom': isHeaderAtBottom, 'header-toggle': isExpandableCard }]"
-           @click.prevent.stop="isExpandableCard && toggle()">
+      <div
+        :class="['header-wrapper',
+                 { 'header-wrapper-bottom': isHeaderAtBottom, 'header-toggle': isExpandableCard }]"
+        @click.prevent.stop="isExpandableCard && toggle()"
+      >
         <transition name="header-fade">
-          <span v-show="!isHeaderAtBottom" ref="headerWrapper"
-                :class="['card-title', 'card-title-transparent', { 'ellipses': !hasHeaderBool }]">
+          <span
+            v-show="!isHeaderAtBottom"
+            ref="headerWrapper"
+            :class="['card-title', 'card-title-transparent', { 'ellipses': !hasHeaderBool }]"
+          >
             <slot name="header">
               <span class="card-title-inline"><slot name="_header"></slot></span>
-              <span v-show="showDownSwitch" aria-hidden="true"
-                    class="minimal-button glyphicon glyphicon-menu-down minimal-menu-down"></span>
+              <span
+                v-show="showDownSwitch"
+                aria-hidden="true"
+                class="minimal-button glyphicon glyphicon-menu-down minimal-menu-down"
+              ></span>
             </slot>
           </span>
         </transition>
         <div :class="['button-wrapper', { 'button-wrapper-expanded': isHeaderAtBottom }]">
           <slot name="button">
-            <button v-show="!noCloseBool" class="minimal-button" type="button" @click.stop="close()">
+            <button
+              v-show="!noCloseBool"
+              class="minimal-button"
+              type="button"
+              @click.stop="close()"
+            >
               <span class="glyphicon glyphicon-remove minimal-close-button" aria-hidden="true"></span>
             </button>
-            <button v-show="popupUrl !== null" class="minimal-button" type="button" @click.stop="openPopup()">
+            <button
+              v-show="popupUrl !== null"
+              class="minimal-button"
+              type="button"
+              @click.stop="openPopup()"
+            >
               <span class="glyphicon glyphicon-new-window minimal-popup-button" aria-hidden="true"></span>
             </button>
-            <button v-show="isHeaderAtBottom && isExpandableCard && bottomSwitchBool" class="minimal-button" type="button">
+            <button
+              v-show="isHeaderAtBottom && isExpandableCard && bottomSwitchBool"
+              class="minimal-button"
+              type="button"
+            >
               <span class="glyphicon glyphicon-menu-up minimal-menu-up" aria-hidden="true"></span>
             </button>
           </slot>
         </div>
       </div>
-      <transition @before-enter="beforeExpandMinimal"
-                  @enter="duringExpand"
-                  @after-enter="afterExpand"
-                  @before-leave="beforeCollapse"
-                  @leave="duringCollapse"
-                  @after-leave="afterCollapseMinimal"
-                  v-if="preloadBool || wasRetrieverLoaded"
+      <transition
+        v-if="preloadBool || wasRetrieverLoaded"
+        @before-enter="beforeExpandMinimal"
+        @enter="duringExpand"
+        @after-enter="afterExpand"
+        @before-leave="beforeCollapse"
+        @leave="duringCollapse"
+        @after-leave="afterCollapseMinimal"
       >
-        <div v-show="localExpanded"
-             class="card-collapse"
-             ref="panel">
+        <div
+          v-show="localExpanded"
+          ref="panel"
+          class="card-collapse"
+        >
           <div class="card-body">
             <slot></slot>
-            <retriever v-if="hasSrc"
-                       ref="retriever"
-                       :src="src"
-                       :fragment="fragment"
-                       @src-loaded="setMaxHeight"/>
+            <retriever
+              v-if="hasSrc"
+              ref="retriever"
+              :src="src"
+              :fragment="fragment"
+              @src-loaded="setMaxHeight"
+            />
           </div>
         </div>
       </transition>
@@ -90,9 +118,9 @@ export default {
       this.isHeaderAtBottom = true;
       this.beforeExpand(el);
     },
-    afterCollapseMinimal(el) {
+    afterCollapseMinimal() {
       this.isHeaderAtBottom = false;
-    }
+    },
   },
   created() {
     this.isHeaderAtBottom = this.localExpanded;
@@ -192,7 +220,7 @@ export default {
     border: 0;
     margin-left: 0;
   }
-  
+
   .card:hover .button-wrapper {
     opacity: 1;
   }

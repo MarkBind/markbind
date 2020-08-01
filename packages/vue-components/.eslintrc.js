@@ -3,6 +3,10 @@ module.exports = {
     '../../.eslintrc.js',
     'plugin:vue/recommended',
   ],
+  'globals': {
+    'jQuery': 'readonly',
+    'Vue': 'readonly',
+  },
   'rules': {
     'quote-props': 'off',
     'vue/html-self-closing': [

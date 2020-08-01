@@ -5,30 +5,32 @@
 </template>
 
 <script>
-import {getFragmentByHash, toBoolean} from './utils/utils.js'
+import { getFragmentByHash, toBoolean } from './utils/utils';
 
 export default {
   props: {
     src: {
-      type: String
+      type: String,
+      default: null,
     },
     fragment: {
-      type: String // fragment identified (the '#' in URI)
+      type: String, // fragment identified (the '#' in URI)
+      default: null,
     },
     delay: {
       type: Boolean,
-      default: false
+      default: false,
     },
-    _hasFetched: {
+    hasFetched: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     // Vue 2.0 coerce migration
-    delayBool () {
+    delayBool() {
       return toBoolean(this.delay);
-    }
+    },
     // Vue 2.0 coerce migration end
   },
   methods: {
@@ -36,54 +38,58 @@ export default {
       if (!this.src) {
         return;
       }
-      if (this._hasFetched) {
+      if (this.hasFetched) {
         return;
       }
       jQuery.get(this.src)
         .done((response) => {
-          var result = response;
+          let result = response;
           if (this.fragment) {
-            var tempDom = jQuery('<temp>').append(jQuery.parseHTML(result));
-            var appContainer = jQuery('#' + this.fragment, tempDom);
+            const tempDom = jQuery('<temp>').append(jQuery.parseHTML(result));
+            const appContainer = jQuery(`#${this.fragment}`, tempDom);
             result = appContainer.html();
           }
-          this._hasFetched = true
+          this.hasFetched = true;
           // result is empty / undefined
-          if (result == void(0) && this.fragment) {
-            this.$el.innerHTML = `<strong>Error</strong>: Failed to retrieve page fragment: ${this.src}#${this.fragment}`
-            return
+          if (result === undefined && this.fragment) {
+            this.$el.innerHTML
+                = `<strong>Error</strong>: Failed to retrieve page fragment: ${this.src}#${this.fragment}`;
+            return;
           }
 
           // Mount result in retriever
-          let tempComponent = Vue.extend({
+          const TempComponent = Vue.extend({
             template: `<div>\n${result}\n</div>`,
-          })
-          new tempComponent().$mount(this.$el);
+          });
+          new TempComponent().$mount(this.$el);
           this.$emit('src-loaded');
         })
         .fail((error) => {
-          console.error(error.responseText)
-          this.$el.innerHTML = `<strong>Error</strong>: Failed to retrieve content from source: <em>${this.src}</em>`
+          // eslint-disable-next-line no-console
+          console.error(error.responseText);
+          this.$el.innerHTML
+              = `<strong>Error</strong>: Failed to retrieve content from source: <em>${this.src}</em>`;
           this.$emit('src-loaded');
         });
-    }
+    },
   },
   mounted() {
-    this.$nextTick( function () {
-        if (!this.src) {
-          this.$el.innerHTML = ''
-        } else {
-          var hash = getFragmentByHash(this.src)
-          if (hash) {
-            this.fragment = hash
-            this.src = this.src.split('#')[0];
-          }
+    this.$nextTick(function () {
+      if (!this.src) {
+        this.$el.innerHTML = '';
+      } else {
+        const hash = getFragmentByHash(this.src);
+        if (hash) {
+          this.fragment = hash;
+          // eslint-disable-next-line prefer-destructuring
+          this.src = this.src.split('#')[0];
         }
+      }
 
-        if (!this.delayBool) {
-          this.fetch();
-        }
-    })
-  }
-}
+      if (!this.delayBool) {
+        this.fetch();
+      }
+    });
+  },
+};
 </script>

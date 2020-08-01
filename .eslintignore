@@ -16,22 +16,11 @@ packages/vue-components/src/utils/utils.js
 # yuche/vue-strap
 packages/vue-components/src/Affix.vue
 packages/vue-components/src/Dropdown.vue
-packages/vue-components/src/index.js
 packages/vue-components/src/main.js
 packages/vue-components/src/Navbar.vue
-packages/vue-components/src/Panel.vue
 packages/vue-components/src/Tab.vue
 packages/vue-components/src/TabGroup.vue
 packages/vue-components/src/Tabset.vue
 packages/vue-components/src/Typeahead.vue
-
-# MarkBind/vue-strap
-packages/vue-components/src/panels/MinimalPanel.vue
-packages/vue-components/src/panels/NestedPanel.vue
-packages/vue-components/src/panels/PanelBase.js
-packages/vue-components/src/panels/PanelSwitch.vue
-packages/vue-components/src/Pic.vue
-packages/vue-components/src/Retriever.vue
-packages/vue-components/src/Thumbnail.vue
 
 # --- packages/vue-components end ---

@@ -1,40 +1,45 @@
 <template>
-    <button type="button" :class="['collapse-button', 'btn', isLightBg ? 'btn-outline-secondary' : 'btn-outline-light']">
-        <span :class="['glyphicon', {'glyphicon-menu-down': !isOpenBool, 'glyphicon-menu-up': isOpenBool}]"
-              aria-hidden="true"></span>
-    </button>
+  <button
+    type="button"
+    :class="['collapse-button', 'btn', isLightBg ? 'btn-outline-secondary' : 'btn-outline-light']"
+  >
+    <span
+      :class="['glyphicon', {'glyphicon-menu-down': !isOpenBool, 'glyphicon-menu-up': isOpenBool}]"
+      aria-hidden="true"
+    ></span>
+  </button>
 </template>
 
 <script>
-  import {toBoolean} from '../utils/utils.js'
+import { toBoolean } from '../utils/utils';
 
-  export default {
-    props: {
-      isOpen: {
-        type: Boolean,
-        default: null
-      },
-      isLightBg: {
-        type: Boolean,
-        default: true
-      }
+export default {
+  props: {
+    isOpen: {
+      type: Boolean,
+      default: null,
     },
-    computed: {
-      isOpenBool () {
-        return toBoolean(this.isOpen);
-      }
+    isLightBg: {
+      type: Boolean,
+      default: true,
     },
-    methods: {
-      toggle () {
-        this.isOpen = !this.isOpenBool
-      }
+  },
+  computed: {
+    isOpenBool() {
+      return toBoolean(this.isOpen);
     },
-    created () {
-      if (this.isOpen === null) {
-        this.isOpen = false
-      }
+  },
+  methods: {
+    toggle() {
+      this.isOpen = !this.isOpenBool;
+    },
+  },
+  created() {
+    if (this.isOpen === null) {
+      this.isOpen = false;
     }
-  }
+  },
+};
 </script>
 
 <style>

@@ -1,74 +1,94 @@
 <template>
-  <span :class="['card-container', addClass]" ref="cardContainer">
-      <div class="morph" v-show="localMinimized">
-          <button :class="['morph-display-wrapper', 'btn', btnType, 'card-title']" @click="open()">
-              <slot name="_alt">
-                  <slot name="_header">
-                      <slot name="header"></slot>
-                  </slot>
-              </slot>
-          </button>
+  <span ref="cardContainer" :class="['card-container', addClass]">
+    <div v-show="localMinimized" class="morph">
+      <button :class="['morph-display-wrapper', 'btn', btnType, 'card-title']" @click="open()">
+        <slot name="_alt">
+          <slot name="_header">
+            <slot name="header"></slot>
+          </slot>
+        </slot>
+      </button>
+    </div>
+    <div v-show="!localMinimized" :class="['card', { 'expandable-card': isExpandableCard }, borderType]">
+      <div
+        :class="['card-header',{'header-toggle':isExpandableCard}, cardType, borderType]"
+        @click.prevent.stop="isExpandableCard && toggle()"
+      >
+        <div class="caret-wrapper">
+          <span
+            v-if="showCaret"
+            :class="['glyphicon', localExpanded ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right']"
+          ></span>
+        </div>
+        <div ref="headerWrapper" class="header-wrapper">
+          <slot name="header">
+            <div :class="['card-title', cardType, {'text-white':!isLightBg}]">
+              <slot name="_header"></slot>
+            </div>
+          </slot>
+        </div>
+        <div class="button-wrapper">
+          <slot name="button">
+            <panel-switch
+              v-show="isExpandableCard && !noSwitchBool && !showCaret"
+              :is-open="localExpanded"
+              :is-light-bg="isLightBg"
+            />
+            <button
+              v-show="!noCloseBool"
+              type="button"
+              class="close-button btn"
+              :class="[isLightBg ? 'btn-outline-secondary' : 'btn-outline-light',
+                       { 'seamless-button': isSeamless }]"
+              @click.stop="close()"
+            >
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </button>
+            <button
+              v-show="popupUrl"
+              type="button"
+              class="popup-button btn"
+              :class="[isLightBg ? 'btn-outline-secondary' : 'btn-outline-light',
+                       { 'seamless-button': isSeamless }]"
+              @click.stop="openPopup()"
+            >
+              <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
+            </button>
+          </slot>
+        </div>
       </div>
-      <div :class="['card', { 'expandable-card': isExpandableCard }, borderType]" v-show="!localMinimized">
-          <div :class="['card-header',{'header-toggle':isExpandableCard}, cardType, borderType]"
-               @click.prevent.stop="isExpandableCard && toggle()">
-              <div class="caret-wrapper">
-                  <span :class="['glyphicon', localExpanded ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right']" v-if="showCaret"></span>
-              </div>
-              <div class="header-wrapper" ref="headerWrapper">
-                  <slot name="header">
-                      <div :class="['card-title', cardType, {'text-white':!isLightBg}]">
-                          <slot name="_header"></slot>
-                      </div>
-                  </slot>
-              </div>
-              <div class="button-wrapper">
-                  <slot name="button">
-                      <panel-switch v-show="isExpandableCard && !noSwitchBool && !showCaret"
-                                    :is-open="localExpanded"
-                                    :is-light-bg="isLightBg"></panel-switch>
-                      <button type="button"
-                              class="close-button btn"
-                              :class="[isLightBg ? 'btn-outline-secondary' : 'btn-outline-light', { 'seamless-button': isSeamless }]"
-                              v-show="!noCloseBool"
-                              @click.stop="close()">
-                          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                      </button>
-                      <button type="button"
-                              class="popup-button btn"
-                              :class="[isLightBg ? 'btn-outline-secondary' : 'btn-outline-light', { 'seamless-button': isSeamless }]"
-                              v-show="this.popupUrl"
-                              @click.stop="openPopup()">
-                          <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
-                      </button>
-                  </slot>
-              </div>
+      <transition
+        v-if="preloadBool || wasRetrieverLoaded"
+        @before-enter="beforeExpand"
+        @enter="duringExpand"
+        @after-enter="afterExpand"
+        @before-leave="beforeCollapse"
+        @leave="duringCollapse"
+      >
+        <div
+          v-show="localExpanded"
+          ref="panel"
+          class="card-collapse"
+        >
+          <div class="card-body">
+            <slot></slot>
+            <retriever
+              v-if="hasSrc"
+              ref="retriever"
+              :src="src"
+              :fragment="fragment"
+              @src-loaded="setMaxHeight"
+            />
+            <panel-switch
+              v-show="isExpandableCard && bottomSwitchBool"
+              :is-open="localExpanded"
+              @click.native.stop.prevent="toggle()"
+            />
           </div>
-          <transition @before-enter="beforeExpand"
-                      @enter="duringExpand"
-                      @after-enter="afterExpand"
-                      @before-leave="beforeCollapse"
-                      @leave="duringCollapse"
-                      v-if="preloadBool || wasRetrieverLoaded"
-          >
-              <div class="card-collapse"
-                   ref="panel"
-                   v-show="localExpanded"
-              >
-                  <div class="card-body">
-                      <slot></slot>
-                      <retriever v-if="hasSrc"
-                                 ref="retriever"
-                                 :src="src"
-                                 :fragment="fragment"
-                                 @src-loaded="setMaxHeight" />
-                      <panel-switch v-show="isExpandableCard && bottomSwitchBool" :is-open="localExpanded"
-                                    @click.native.stop.prevent="toggle()" />
-                  </div>
-                  <hr v-show="isSeamless" />
-              </div>
-          </transition>
-      </div>
+          <hr v-show="isSeamless" />
+        </div>
+      </transition>
+    </div>
   </span>
 </template>
 
@@ -125,12 +145,12 @@ export default {
         overflow: hidden;
         transition: max-height 0.5s ease-in-out;
     }
-    
+
     .seamless-button {
         opacity: 0;
         transition: 0.3s opacity;
     }
-    
+
     .card-header:hover .seamless-button {
         opacity: 1;
     }
