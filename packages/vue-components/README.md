@@ -36,7 +36,6 @@ Some custom components and directives are also added for MarkBind's use.
 
 ### VueStrap components modified for use in MarkBind
 
-- Affix.vue
 - Dropdown.vue
 - Navbar.vue
 - NestedPanel.vue
