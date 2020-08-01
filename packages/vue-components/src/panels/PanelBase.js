@@ -1,4 +1,4 @@
-import { getFragmentByHash, toBoolean, toNumber } from '../utils/utils';
+import { getFragmentByHash, toBoolean } from '../utils/utils';
 
 export default {
   props: {
@@ -102,7 +102,9 @@ export default {
         as we need to know the scrollHeight of the content for the animation to work.
         */
         this.wasRetrieverLoaded = true;
-        this.$nextTick(() => this.localExpanded = true);
+        this.$nextTick(() => {
+          this.localExpanded = true;
+        });
       } else {
         this.localExpanded = !this.localExpanded;
       }
@@ -113,7 +115,9 @@ export default {
     },
     open() {
       this.wasRetrieverLoaded = true;
-      this.$nextTick(() => this.localExpanded = true);
+      this.$nextTick(() => {
+        this.localExpanded = true;
+      });
       this.localMinimized = false;
     },
     openPopup() {
@@ -125,7 +129,7 @@ export default {
         this.$refs.panel.style.maxHeight = 'none';
         return;
       }
-      
+
       /*
       Otherwise, since the vue transition is dependent on localExpanded, we have to manually
       set our own transition end handlers here for the initial loading of the content.
@@ -134,7 +138,7 @@ export default {
         this.$refs.panel.style.maxHeight = 'none';
         this.$refs.panel.removeEventListener('transitionend', onExpandDone);
       };
-      
+
       this.$refs.panel.addEventListener('transitionend', onExpandDone);
       this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
     },
@@ -142,7 +146,7 @@ export default {
       el.style.maxHeight = '0';
     },
     duringExpand(el) {
-      jQuery("html").stop();
+      jQuery('html').stop();
       el.style.maxHeight = `${el.scrollHeight}px`;
     },
     afterExpand(el) {
@@ -153,9 +157,9 @@ export default {
     },
     duringCollapse(el) {
       if (this.$el.getBoundingClientRect().top < 0) {
-        jQuery("html").animate({
-          scrollTop: window.scrollY + this.$el.getBoundingClientRect().top - 3
-        }, 500, 'swing')
+        jQuery('html').animate({
+          scrollTop: window.scrollY + this.$el.getBoundingClientRect().top - 3,
+        }, 500, 'swing');
       }
       el.style.maxHeight = '0';
     },
@@ -165,14 +169,19 @@ export default {
       const hash = getFragmentByHash(this.src);
       if (hash) {
         this.fragment = hash;
+        // eslint-disable-next-line prefer-destructuring
         this.src = this.src.split('#')[0];
       }
     }
     // Edge case where user might want non-expandable card that isn't expanded by default
     const notExpandableNoExpand = !this.expandableBool && this.expanded !== 'false';
+
     // Set local data to computed prop value
-    this.localExpanded = notExpandableNoExpand || this.expandedBool; // Ensure this expr ordering is maintained
-    this.wasRetrieverLoaded = this.localExpanded; // If it is expanded, load the retriever immediately.
+
+    // Ensure this expr ordering is maintained
+    this.localExpanded = notExpandableNoExpand || this.expandedBool;
+    // If it is expanded, load the retriever immediately.
+    this.wasRetrieverLoaded = this.localExpanded;
     this.localMinimized = this.minimizedBool;
   },
 };

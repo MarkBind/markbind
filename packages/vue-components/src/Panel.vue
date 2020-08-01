@@ -1,19 +1,23 @@
 <template>
-    <minimal-panel v-if="isMinimal" v-bind="$attrs">
-        <template v-for="(node, name) in $slots" :slot="name">
-            <slot :name="name"></slot>
-        </template>
-    </minimal-panel>
-    <nested-panel v-else :type="type" v-bind="$attrs">
-        <template v-for="(node, name) in $slots" :slot="name">
-            <slot :name="name"></slot>
-        </template>
-    </nested-panel>
+  <minimal-panel v-if="isMinimal" v-bind="$attrs">
+    <template v-for="(node, name) in $slots" :slot="name">
+      <slot :name="name"></slot>
+    </template>
+  </minimal-panel>
+  <nested-panel
+    v-else
+    :type="type"
+    v-bind="$attrs"
+  >
+    <template v-for="(node, name) in $slots" :slot="name">
+      <slot :name="name"></slot>
+    </template>
+  </nested-panel>
 </template>
 
 <script>
-import nestedPanel from "./panels/NestedPanel.vue";
-import minimalPanel from "./panels/MinimalPanel.vue";
+import nestedPanel from './panels/NestedPanel.vue';
+import minimalPanel from './panels/MinimalPanel.vue';
 
 export default {
   components: {
@@ -29,7 +33,7 @@ export default {
   computed: {
     isMinimal() {
       return this.type === 'minimal';
-    }
-  }
-}
+    },
+  },
+};
 </script>
