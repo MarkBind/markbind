@@ -61,4 +61,4 @@ Object.keys(components).forEach((key) => {
   MarkBindVue.components[key] = components[key]
 })
 
-module.exports = MarkBindVue
+export default MarkBindVue;
