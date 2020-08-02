@@ -12,6 +12,8 @@ _.isArray = require('lodash/isArray');
 
 const { CyclicReferenceError } = require('../errors');
 const MarkBind = require('../Parser');
+const { PageSources } = require('./PageSources');
+const { ComponentPreprocessor } = require('../preprocessors/ComponentPreprocessor');
 const md = require('../lib/markdown-it');
 
 const FsUtil = require('../utils/fsUtil');
@@ -575,9 +577,9 @@ class Page {
    * Renders expressive layouts by inserting page data into pre-specified layout
    * @param pageData a page with its front matter collected
    * @param {FileConfig} fileConfig
-   * @param {Parser} markbinder instance from the caller, for adding the seen sources.
+   * @param {ComponentPreprocessor} componentPreprocessor for running {@link includeFile} on the layout
    */
-  generateExpressiveLayout(pageData, fileConfig, markbinder) {
+  generateExpressiveLayout(pageData, fileConfig, componentPreprocessor) {
     const { layout } = this.frontMatter;
     const layoutPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH, layout);
     const layoutPagePath = path.join(layoutPath, LAYOUT_PAGE);
@@ -597,10 +599,7 @@ class Page {
         [LAYOUT_PAGE_BODY_VARIABLE]: `{{${LAYOUT_PAGE_BODY_VARIABLE}}}`,
       }, true))
       // Include file with the cwf set to the layout page path
-      .then(result => markbinder.includeFile(layoutPagePath, result, {
-        ...fileConfig,
-        cwf: layoutPagePath,
-      }))
+      .then(result => componentPreprocessor.includeFile(layoutPagePath, result))
       // Note: The {% raw/endraw %}s previously kept are removed here.
       .then(result => this.variableProcessor.renderSiteVariables(this.rootPath, result, {
         [LAYOUT_PAGE_BODY_VARIABLE]: pageData,
@@ -955,9 +954,7 @@ class Page {
   generate(builtFiles) {
     this.includedFiles = new Set([this.sourcePath]);
     this.headerIdMap = {}; // Reset for live reload
-    const markbinder = new MarkBind({
-      variableProcessor: this.variableProcessor,
-    });
+    const markbinder = new MarkBind();
     /**
      * @type {FileConfig}
      */
@@ -968,14 +965,17 @@ class Page {
       headerIdMap: this.headerIdMap,
       fixedHeader: this.fixedHeader,
     };
+    const pageSources = new PageSources();
+    const componentPreprocessor = new ComponentPreprocessor(fileConfig, this.variableProcessor, pageSources);
+
     return fs.readFileAsync(this.sourcePath, 'utf-8')
       .then(result => this.variableProcessor.renderPage(this.sourcePath, result))
-      .then(result => markbinder.includeFile(this.sourcePath, result, fileConfig))
+      .then(result => componentPreprocessor.includeFile(this.sourcePath, result))
       .then((result) => {
         this.collectFrontMatter(result);
         return Page.removeFrontMatter(result);
       })
-      .then(result => this.generateExpressiveLayout(result, fileConfig, markbinder))
+      .then(result => this.generateExpressiveLayout(result, fileConfig, componentPreprocessor))
       .then(result => Page.removePageHeaderAndFooter(result))
       .then(result => Page.addContentWrapper(result))
       .then(result => this.collectPluginSources(result))
@@ -1007,7 +1007,7 @@ class Page {
       })
       .then(() => {
         const resolvingFiles = [];
-        Page.unique(markbinder.getDynamicIncludeSrc()).forEach((source) => {
+        Page.unique(pageSources.getDynamicIncludeSrc()).forEach((source) => {
           if (!FsUtil.isUrl(source.to)) {
             resolvingFiles.push(this.resolveDependency(source, builtFiles));
           }
@@ -1015,9 +1015,9 @@ class Page {
         return Promise.all(resolvingFiles);
       })
       .then(() => {
-        this.collectIncludedFiles(markbinder.getDynamicIncludeSrc());
-        this.collectIncludedFiles(markbinder.getStaticIncludeSrc());
-        this.collectIncludedFiles(markbinder.getMissingIncludeSrc());
+        this.collectIncludedFiles(pageSources.getDynamicIncludeSrc());
+        this.collectIncludedFiles(pageSources.getStaticIncludeSrc());
+        this.collectIncludedFiles(pageSources.getMissingIncludeSrc());
       });
   }
 
@@ -1262,9 +1262,7 @@ class Page {
        * We create a local instance of Markbind for an empty dynamicIncludeSrc
        * so that we only recursively rebuild the file's included content
        */
-      const markbinder = new MarkBind({
-        variableProcessor: this.variableProcessor,
-      });
+      const markbinder = new MarkBind();
       /**
        * @type {FileConfig}
        */
@@ -1273,11 +1271,14 @@ class Page {
         baseUrl: this.baseUrl,
         rootPath: this.rootPath,
         headerIdMap: {},
-        cwf: file,
       };
+      const pageSources = new PageSources();
+      const componentPreprocessor = new ComponentPreprocessor(fileConfig, this.variableProcessor,
+                                                              pageSources);
+
       return fs.readFileAsync(dependency.to, 'utf-8')
         .then(result => this.variableProcessor.renderPage(dependency.to, result))
-        .then(result => markbinder.includeFile(dependency.to, result, fileConfig))
+        .then(result => componentPreprocessor.includeFile(dependency.to, result, file))
         .then(result => Page.removeFrontMatter(result))
         .then(result => this.collectPluginSources(result))
         .then(result => this.preRender(result))
@@ -1295,7 +1296,7 @@ class Page {
         .then(() => {
           // Recursion call to resolve nested dependency
           const resolvingFiles = [];
-          Page.unique(markbinder.getDynamicIncludeSrc()).forEach((src) => {
+          Page.unique(pageSources.getDynamicIncludeSrc()).forEach((src) => {
             if (!FsUtil.isUrl(src.to)) {
               resolvingFiles.push(this.resolveDependency(src, builtFiles));
             }
@@ -1303,9 +1304,9 @@ class Page {
           return Promise.all(resolvingFiles);
         })
         .then(() => {
-          this.collectIncludedFiles(markbinder.getDynamicIncludeSrc());
-          this.collectIncludedFiles(markbinder.getStaticIncludeSrc());
-          this.collectIncludedFiles(markbinder.getMissingIncludeSrc());
+          this.collectIncludedFiles(pageSources.getDynamicIncludeSrc());
+          this.collectIncludedFiles(pageSources.getStaticIncludeSrc());
+          this.collectIncludedFiles(pageSources.getMissingIncludeSrc());
         })
         .then(resolve)
         .catch(reject);

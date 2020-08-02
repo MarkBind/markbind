@@ -4,7 +4,6 @@ const path = require('path');
 const Promise = require('bluebird');
 const slugify = require('@sindresorhus/slugify');
 const componentParser = require('./parsers/componentParser');
-const componentPreprocessor = require('./preprocessors/componentPreprocessor');
 const logger = require('./utils/logger');
 
 const _ = {};
@@ -20,25 +19,6 @@ const utils = require('./utils');
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 class Parser {
-  constructor(config) {
-    this.variableProcessor = config.variableProcessor;
-    this.dynamicIncludeSrc = [];
-    this.staticIncludeSrc = [];
-    this.missingIncludeSrc = [];
-  }
-
-  getDynamicIncludeSrc() {
-    return _.clone(this.dynamicIncludeSrc);
-  }
-
-  getStaticIncludeSrc() {
-    return _.clone(this.staticIncludeSrc);
-  }
-
-  getMissingIncludeSrc() {
-    return _.clone(this.missingIncludeSrc);
-  }
-
   static processDynamicResources(context, html, config) {
     const $ = cheerio.load(html);
 
@@ -167,47 +147,6 @@ class Parser {
         }
       }
     }
-  }
-
-  includeFile(file, content, config) {
-    const context = {};
-    context.cwf = config.cwf || file; // current working file
-    context.callStack = [];
-    // TODO make componentPreprocessor a class to avoid this
-    config.variableProcessor = this.variableProcessor;
-    return new Promise((resolve, reject) => {
-      const handler = new htmlparser.DomHandler((error, dom) => {
-        if (error) {
-          reject(error);
-          return;
-        }
-        const nodes = dom.map((d) => {
-          let processed;
-          try {
-            processed = componentPreprocessor.preProcessComponent(d, context, config, this);
-          } catch (err) {
-            err.message += `\nError while preprocessing '${file}'`;
-            logger.error(err);
-            processed = utils.createErrorNode(d, err);
-          }
-          return processed;
-        });
-        resolve(cheerio.html(nodes));
-      });
-      const parser = new htmlparser.Parser(handler);
-
-      const fileExt = utils.getExt(file);
-      if (utils.isMarkdownFileExt(fileExt)) {
-        context.source = 'md';
-        parser.parseComplete(content);
-      } else if (fileExt === 'html') {
-        context.source = 'html';
-        parser.parseComplete(content);
-      } else {
-        const error = new Error(`Unsupported File Extension: '${fileExt}'`);
-        reject(error);
-      }
-    });
   }
 
   render(content, filePath, config) {
