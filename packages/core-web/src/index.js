@@ -1,6 +1,10 @@
-/* eslint-disable no-undef */
+// eslint-disable-next-line import/no-extraneous-dependencies
+import MarkBindVue from '@markbind/vue-components/src';
+import './styles/index.css';
 
-Vue.use(MarkBindVue.default);
+/* global Vue, window, document, jQuery, baseUrl */
+
+Vue.use(MarkBindVue);
 
 function scrollToUrlAnchorHeading() {
   if (window.location.hash) {
@@ -56,18 +60,6 @@ function updateSearchData(vm) {
     });
 }
 
-const MarkBind = {
-  executeAfterSetupScripts: jQuery.Deferred(),
-};
-
-MarkBind.afterSetup = (func) => {
-  if (document.readyState !== 'loading') {
-    func();
-  } else {
-    MarkBind.executeAfterSetupScripts.then(func);
-  }
-};
-
 function removeTemporaryStyles() {
   jQuery('.temp-navbar').removeClass('temp-navbar');
   jQuery('.temp-dropdown').removeClass('temp-dropdown');
@@ -81,11 +73,9 @@ function executeAfterCreatedRoutines() {
 function executeAfterMountedRoutines() {
   scrollToUrlAnchorHeading();
   setupAnchorsForFixedNavbar();
-  MarkBind.executeAfterSetupScripts.resolve();
 }
 
-// eslint-disable-next-line no-unused-vars
-function handleSiteNavClick(elem, useAnchor = true) {
+window.handleSiteNavClick = function (elem, useAnchor = true) {
   if (useAnchor) {
     const anchorElements = elem.getElementsByTagName('a');
     if (anchorElements.length) {
@@ -97,7 +87,7 @@ function handleSiteNavClick(elem, useAnchor = true) {
   const dropdownIcon = elem.lastElementChild;
   dropdownContent.classList.toggle('site-nav-dropdown-container-open');
   dropdownIcon.classList.toggle('site-nav-rotate-icon');
-}
+};
 
 function setup() {
   // eslint-disable-next-line no-unused-vars
@@ -153,7 +143,6 @@ function makeHtmlGetterFor(componentType, attribute) {
   };
 }
 
-/* eslint-disable no-unused-vars */
 /*
  These getters are used by triggers to get their popover/tooltip content.
  We need to create a completely new popover/tooltip for each trigger due to bootstrap-vue's implementation,
@@ -164,15 +153,10 @@ const popoverHeaderGetter = makeHtmlGetterFor('popover', 'header');
 const popoverInnerContentGetter = makeInnerGetterFor('content');
 const popoverInnerHeaderGetter = makeInnerGetterFor('header');
 
-const popoverGenerator = { title: popoverHeaderGetter, content: popoverContentGetter };
-const popoverInnerGenerator = { title: popoverInnerHeaderGetter, content: popoverInnerContentGetter };
+window.popoverGenerator = { title: popoverHeaderGetter, content: popoverContentGetter };
+window.popoverInnerGenerator = { title: popoverInnerHeaderGetter, content: popoverInnerContentGetter };
 
-const tooltipContentGetter = makeHtmlGetterFor('tooltip', '_content');
-const tooltipInnerContentGetter = makeInnerGetterFor('_content');
-/* eslint-enable no-unused-vars */
+window.tooltipContentGetter = makeHtmlGetterFor('tooltip', '_content');
+window.tooltipInnerContentGetter = makeInnerGetterFor('_content');
 
-if (enableSearch) {
-  setupWithSearch();
-} else {
-  setup();
-}
+export default { setup, setupWithSearch };
