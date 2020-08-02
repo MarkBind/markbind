@@ -1,7 +1,7 @@
 const cheerio = require('cheerio');
 const htmlparser = require('htmlparser2');
-const componentParser = require('../../src/parsers/componentParser');
-const testData = require('./componentParser.data');
+const { ComponentParser } = require('../../src/parsers/ComponentParser');
+const testData = require('./ComponentParser.data');
 
 /**
  * Runs the parseComponent or postParseComponent method of componentParser on the provided
@@ -16,9 +16,9 @@ const parseAndVerifyTemplate = (template, expectedTemplate, postParse = false) =
     expect(error).toBeFalsy();
 
     if (postParse) {
-      dom.forEach(node => componentParser.postParseComponents(node));
+      dom.forEach(node => ComponentParser.postParseComponents(node));
     } else {
-      dom.forEach(node => componentParser.parseComponents(node));
+      dom.forEach(node => ComponentParser.parseComponents(node));
     }
     const result = cheerio.html(dom);
 
