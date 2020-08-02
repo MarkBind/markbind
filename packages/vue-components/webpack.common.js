@@ -8,6 +8,9 @@ module.exports = {
     library: 'MarkBindVue',
     libraryTarget: 'umd',
   },
+  externals: {
+    vue: 'Vue',
+  },
   resolve: {
     modules: [path.resolve(__dirname), 'node_modules'],
   },
