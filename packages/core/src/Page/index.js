@@ -955,9 +955,7 @@ class Page {
   generate(builtFiles) {
     this.includedFiles = new Set([this.sourcePath]);
     this.headerIdMap = {}; // Reset for live reload
-    const markbinder = new MarkBind({
-      variableProcessor: this.variableProcessor,
-    });
+    const markbinder = new MarkBind();
     /**
      * @type {FileConfig}
      */
@@ -1262,9 +1260,7 @@ class Page {
        * We create a local instance of Markbind for an empty dynamicIncludeSrc
        * so that we only recursively rebuild the file's included content
        */
-      const markbinder = new MarkBind({
-        variableProcessor: this.variableProcessor,
-      });
+      const markbinder = new MarkBind();
       /**
        * @type {FileConfig}
        */

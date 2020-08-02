@@ -17,6 +17,8 @@ const {
   ATTRIB_CWF,
 } = require('../constants');
 
+cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
+
 class ComponentPreprocessor {
   constructor(config, variableProcessor, pageSources) {
     this.config = config;
@@ -374,6 +376,46 @@ class ComponentPreprocessor {
       }
       return element;
     }
+  }
+
+  includeFile(file, content, config) {
+    const context = {};
+    context.cwf = config.cwf || file; // current working file
+    context.callStack = [];
+
+    return new Promise((resolve, reject) => {
+      const handler = new htmlparser.DomHandler((error, dom) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        const nodes = dom.map((d) => {
+          let processed;
+          try {
+            processed = this.preProcessComponent(d, context);
+          } catch (err) {
+            err.message += `\nError while preprocessing '${file}'`;
+            logger.error(err);
+            processed = utils.createErrorNode(d, err);
+          }
+          return processed;
+        });
+        resolve(cheerio.html(nodes));
+      });
+      const parser = new htmlparser.Parser(handler);
+
+      const fileExt = utils.getExt(file);
+      if (utils.isMarkdownFileExt(fileExt)) {
+        context.source = 'md';
+        parser.parseComplete(content);
+      } else if (fileExt === 'html') {
+        context.source = 'html';
+        parser.parseComplete(content);
+      } else {
+        const error = new Error(`Unsupported File Extension: '${fileExt}'`);
+        reject(error);
+      }
+    });
   }
 }
 
