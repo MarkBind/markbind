@@ -5,7 +5,10 @@ const slugify = require('@sindresorhus/slugify');
 
 const _ = {};
 _.isArray = require('lodash/isArray');
+_.cloneDeep = require('lodash/cloneDeep');
 _.has = require('lodash/has');
+
+const { convertRelativeLinks } = require('./linkProcessor');
 
 const md = require('../lib/markdown-it');
 const utils = require('../utils');
@@ -556,9 +559,9 @@ class ComponentParser {
     }
   }
 
-  _parse(node) {
+  _parse(node, context) {
     if (_.isArray(node)) {
-      return node.map(el => this._parse(el));
+      return node.map(el => this._parse(el, context));
     }
     if (ComponentParser._isText(node)) {
       return node;
@@ -566,6 +569,16 @@ class ComponentParser {
     if (node.name) {
       node.name = node.name.toLowerCase();
     }
+
+    // use the flagged cwf from ComponentPreprocessor to clone the context with the new flagged cwf.
+    // TODO merge the two processes to avoid dirty data-included-from hacks
+    if (node.attribs && node.attribs['data-included-from']) {
+      // eslint-disable-next-line no-param-reassign
+      context = _.cloneDeep(context);
+      context.cwf = node.attribs['data-included-from'];
+    }
+
+    convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);
 
     const isHeadingTag = (/^h[1-6]$/).test(node.name);
 
@@ -604,7 +617,7 @@ class ComponentParser {
 
     if (node.children) {
       node.children.forEach((child) => {
-        this._parse(child);
+        this._parse(child, context);
       });
     }
 
@@ -618,7 +631,10 @@ class ComponentParser {
     return node;
   }
 
-  render(content, filePath) {
+  render(file, content, cwf = file) {
+    const context = {};
+    context.cwf = cwf; // current working file
+
     return new Promise((resolve, reject) => {
       const handler = new htmlparser.DomHandler((error, dom) => {
         if (error) {
@@ -628,9 +644,9 @@ class ComponentParser {
         const nodes = dom.map((d) => {
           let parsed;
           try {
-            parsed = this._parse(d);
+            parsed = this._parse(d, context);
           } catch (err) {
-            err.message += `\nError while rendering '${filePath}'`;
+            err.message += `\nError while rendering '${file}'`;
             logger.error(err);
             parsed = utils.createErrorNode(d, err);
           }
@@ -641,7 +657,7 @@ class ComponentParser {
         resolve(cheerio.html(nodes));
       });
       const parser = new htmlparser.Parser(handler);
-      const fileExt = utils.getExt(filePath);
+      const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
         const renderedContent = md.render(content);
         parser.parseComplete(renderedContent);

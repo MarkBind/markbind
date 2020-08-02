@@ -986,10 +986,9 @@ class Page {
       .then(result => this.insertHeaderFile(result, fileConfig))
       .then(result => this.insertFooterFile(result))
       .then(result => Page.insertTemporaryStyles(result))
-      .then(result => componentParser.render(result, this.sourcePath))
+      .then(result => componentParser.render(this.sourcePath, result))
       .then(result => this.postRender(result))
       .then(result => this.collectPluginsAssets(result))
-      .then(result => MarkBind.processDynamicResources(this.sourcePath, result, fileConfig))
       .then(result => MarkBind.unwrapIncludeSrc(result))
       .then((result) => {
         this.addLayoutScriptsAndStyles();
@@ -1281,10 +1280,9 @@ class Page {
         .then(result => Page.removeFrontMatter(result))
         .then(result => this.collectPluginSources(result))
         .then(result => this.preRender(result))
-        .then(result => componentParser.render(result, this.sourcePath))
+        .then(result => componentParser.render(dependency.to, result, file))
         .then(result => this.postRender(result))
         .then(result => this.collectPluginsAssets(result))
-        .then(result => MarkBind.processDynamicResources(file, result, fileConfig))
         .then(result => MarkBind.unwrapIncludeSrc(result))
         .then((result) => {
           const outputContentHTML = this.disableHtmlBeautify
