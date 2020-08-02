@@ -1,5 +1,5 @@
 const cheerio = module.parent.require('cheerio');
-const { parseComponents } = require('../../parsers/componentParser');
+const { ComponentParser } = require('../../parsers/ComponentParser');
 
 module.exports = {
   postRender: (content) => {
@@ -19,7 +19,7 @@ module.exports = {
       .append($('hr.footnotes-sep'))
       .append($('section.footnotes').append(popoversHtml));
     $('section.footnotes popover').each((index, popover) => {
-      parseComponents(popover);
+      ComponentParser.parseComponents(popover);
     });
     return $.html();
   },

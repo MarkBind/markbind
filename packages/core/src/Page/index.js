@@ -14,6 +14,7 @@ const { CyclicReferenceError } = require('../errors');
 const MarkBind = require('../Parser');
 const { PageSources } = require('./PageSources');
 const { ComponentPreprocessor } = require('../preprocessors/ComponentPreprocessor');
+const { ComponentParser } = require('../parsers/ComponentParser');
 const md = require('../lib/markdown-it');
 
 const FsUtil = require('../utils/fsUtil');
@@ -954,7 +955,7 @@ class Page {
   generate(builtFiles) {
     this.includedFiles = new Set([this.sourcePath]);
     this.headerIdMap = {}; // Reset for live reload
-    const markbinder = new MarkBind();
+
     /**
      * @type {FileConfig}
      */
@@ -967,6 +968,7 @@ class Page {
     };
     const pageSources = new PageSources();
     const componentPreprocessor = new ComponentPreprocessor(fileConfig, this.variableProcessor, pageSources);
+    const componentParser = new ComponentParser(fileConfig);
 
     return fs.readFileAsync(this.sourcePath, 'utf-8')
       .then(result => this.variableProcessor.renderPage(this.sourcePath, result))
@@ -984,7 +986,7 @@ class Page {
       .then(result => this.insertHeaderFile(result, fileConfig))
       .then(result => this.insertFooterFile(result))
       .then(result => Page.insertTemporaryStyles(result))
-      .then(result => markbinder.render(result, this.sourcePath, fileConfig))
+      .then(result => componentParser.render(result, this.sourcePath))
       .then(result => this.postRender(result))
       .then(result => this.collectPluginsAssets(result))
       .then(result => MarkBind.processDynamicResources(this.sourcePath, result, fileConfig))
@@ -1258,11 +1260,7 @@ class Page {
         return resolve();
       }
       builtFiles.add(resultPath);
-      /*
-       * We create a local instance of Markbind for an empty dynamicIncludeSrc
-       * so that we only recursively rebuild the file's included content
-       */
-      const markbinder = new MarkBind();
+
       /**
        * @type {FileConfig}
        */
@@ -1275,6 +1273,7 @@ class Page {
       const pageSources = new PageSources();
       const componentPreprocessor = new ComponentPreprocessor(fileConfig, this.variableProcessor,
                                                               pageSources);
+      const componentParser = new ComponentParser(fileConfig);
 
       return fs.readFileAsync(dependency.to, 'utf-8')
         .then(result => this.variableProcessor.renderPage(dependency.to, result))
@@ -1282,7 +1281,7 @@ class Page {
         .then(result => Page.removeFrontMatter(result))
         .then(result => this.collectPluginSources(result))
         .then(result => this.preRender(result))
-        .then(result => markbinder.render(result, this.sourcePath, fileConfig))
+        .then(result => componentParser.render(result, this.sourcePath))
         .then(result => this.postRender(result))
         .then(result => this.collectPluginsAssets(result))
         .then(result => MarkBind.processDynamicResources(file, result, fileConfig))

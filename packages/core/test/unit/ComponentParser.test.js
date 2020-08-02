@@ -1,7 +1,7 @@
 const cheerio = require('cheerio');
 const htmlparser = require('htmlparser2');
-const componentParser = require('../../src/parsers/componentParser');
-const testData = require('./componentParser.data');
+const { ComponentParser } = require('../../src/parsers/ComponentParser');
+const testData = require('./ComponentParser.data');
 
 /**
  * Runs the parseComponent or postParseComponent method of componentParser on the provided
@@ -16,9 +16,9 @@ const parseAndVerifyTemplate = (template, expectedTemplate, postParse = false) =
     expect(error).toBeFalsy();
 
     if (postParse) {
-      dom.forEach(node => componentParser.postParseComponents(node));
+      dom.forEach(node => ComponentParser.postParseComponents(node));
     } else {
-      dom.forEach(node => componentParser.parseComponents(node));
+      dom.forEach(node => ComponentParser.parseComponents(node));
     }
     const result = cheerio.html(dom);
 
@@ -138,4 +138,20 @@ test('parseComponent parses dropdown with header taking priority over text attri
 test('parseComponent parses dropdown with header slot taking priority over header attribute', () => {
   parseAndVerifyTemplate(testData.PARSE_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY,
                          testData.PARSE_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
+});
+
+test('renderFile converts markdown headers to <h1> with an id', async () => {
+  const componentParser = new ComponentParser({ headerIdMap: {} });
+  const indexPath = 'index.md';
+
+  const index = ['# Index'].join('\n');
+
+  const result = await componentParser.render(index, indexPath);
+
+  const expected = [
+    '<h1 id="index">Index</h1>',
+    '',
+  ].join('\n');
+
+  expect(result).toEqual(expected);
 });
