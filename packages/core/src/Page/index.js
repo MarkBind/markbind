@@ -11,7 +11,6 @@ _.isObject = require('lodash/isObject');
 _.isArray = require('lodash/isArray');
 
 const { CyclicReferenceError } = require('../errors');
-const MarkBind = require('../Parser');
 const { PageSources } = require('./PageSources');
 const { ComponentPreprocessor } = require('../preprocessors/ComponentPreprocessor');
 const { ComponentParser } = require('../parsers/ComponentParser');
@@ -989,7 +988,7 @@ class Page {
       .then(result => componentParser.render(this.sourcePath, result))
       .then(result => this.postRender(result))
       .then(result => this.collectPluginsAssets(result))
-      .then(result => MarkBind.unwrapIncludeSrc(result))
+      .then(result => Page.unwrapIncludeSrc(result))
       .then((result) => {
         this.addLayoutScriptsAndStyles();
         this.collectHeadFiles();
@@ -1283,7 +1282,7 @@ class Page {
         .then(result => componentParser.render(dependency.to, result, file))
         .then(result => this.postRender(result))
         .then(result => this.collectPluginsAssets(result))
-        .then(result => MarkBind.unwrapIncludeSrc(result))
+        .then(result => Page.unwrapIncludeSrc(result))
         .then((result) => {
           const outputContentHTML = this.disableHtmlBeautify
             ? result
@@ -1324,6 +1323,15 @@ class Page {
     }
     // Remove preceding footers
     pageHeaderAndFooter.remove();
+    return $.html();
+  }
+
+  static unwrapIncludeSrc(html) {
+    const $ = cheerio.load(html);
+    // TODO combine {@link ComponentPreprocessor} and {@link ComponentParser} processes so we don't need this
+    $('div[data-included-from], span[data-included-from]').each(function () {
+      $(this).replaceWith($(this).contents());
+    });
     return $.html();
   }
 
