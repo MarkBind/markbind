@@ -1,9 +1,14 @@
 const cheerio = require('cheerio');
+const htmlparser = require('htmlparser2'); require('../patches/htmlparser2');
+const Promise = require('bluebird');
+const slugify = require('@sindresorhus/slugify');
 
 const _ = {};
+_.isArray = require('lodash/isArray');
 _.has = require('lodash/has');
 
 const md = require('../lib/markdown-it');
+const utils = require('../utils');
 const logger = require('../utils/logger');
 
 const {
@@ -16,6 +21,28 @@ class ComponentParser {
   /*
    * Private utility functions
    */
+
+  static _trimNodes(node) {
+    if (node.name === 'pre' || node.name === 'code') {
+      return;
+    }
+    if (node.children) {
+      for (let n = 0; n < node.children.length; n += 1) {
+        const child = node.children[n];
+        if (child.type === 'comment'
+          || (child.type === 'text' && n === node.children.length - 1 && !/\S/.test(child.data))) {
+          node.children.splice(n, 1);
+          n -= 1;
+        } else if (child.type === 'tag') {
+          ComponentParser._trimNodes(child);
+        }
+      }
+    }
+  }
+
+  static _isText(node) {
+    return node.type === 'text' || node.type === 'comment';
+  }
 
   /**
    * Parses the markdown attribute of the provided element, inserting the corresponding <slot> child
@@ -523,6 +550,104 @@ class ComponentParser {
     if (node.attribs) {
       delete node.attribs[ATTRIB_CWF];
     }
+  }
+
+  static _parse(node, config) {
+    if (_.isArray(node)) {
+      return node.map(el => ComponentParser._parse(el, config));
+    }
+    if (ComponentParser._isText(node)) {
+      return node;
+    }
+    if (node.name) {
+      node.name = node.name.toLowerCase();
+    }
+
+    const isHeadingTag = (/^h[1-6]$/).test(node.name);
+
+    if (isHeadingTag && !node.attribs.id) {
+      const textContent = utils.getTextContent(node);
+      // remove the '&lt;' and '&gt;' symbols that markdown-it uses to escape '<' and '>'
+      const cleanedContent = textContent.replace(/&lt;|&gt;/g, '');
+      const slugifiedHeading = slugify(cleanedContent, { decamelize: false });
+
+      let headerId = slugifiedHeading;
+      const { headerIdMap } = config;
+      if (headerIdMap[slugifiedHeading]) {
+        headerId = `${slugifiedHeading}-${headerIdMap[slugifiedHeading]}`;
+        headerIdMap[slugifiedHeading] += 1;
+      } else {
+        headerIdMap[slugifiedHeading] = 2;
+      }
+
+      node.attribs.id = headerId;
+    }
+
+    switch (node.name) {
+    case 'md':
+      node.name = 'span';
+      node.children = cheerio.parseHTML(md.renderInline(cheerio.html(node.children)), true);
+      break;
+    case 'markdown':
+      node.name = 'div';
+      node.children = cheerio.parseHTML(md.render(cheerio.html(node.children)), true);
+      break;
+    default:
+      break;
+    }
+
+    ComponentParser.parseComponents(node);
+
+    if (node.children) {
+      node.children.forEach((child) => {
+        ComponentParser._parse(child, config);
+      });
+    }
+
+    ComponentParser.postParseComponents(node);
+
+    // If a fixed header is applied to the page, generate dummy spans as anchor points
+    if (config.fixedHeader && isHeadingTag && node.attribs.id) {
+      cheerio(node).append(cheerio.parseHTML(`<span id="${node.attribs.id}" class="anchor"></span>`));
+    }
+
+    return node;
+  }
+
+  static render(content, filePath, config) {
+    return new Promise((resolve, reject) => {
+      const handler = new htmlparser.DomHandler((error, dom) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        const nodes = dom.map((d) => {
+          let parsed;
+          try {
+            parsed = ComponentParser._parse(d, config);
+          } catch (err) {
+            err.message += `\nError while rendering '${filePath}'`;
+            logger.error(err);
+            parsed = utils.createErrorNode(d, err);
+          }
+          return parsed;
+        });
+        nodes.forEach(d => ComponentParser._trimNodes(d));
+
+        resolve(cheerio.html(nodes));
+      });
+      const parser = new htmlparser.Parser(handler);
+      const fileExt = utils.getExt(filePath);
+      if (utils.isMarkdownFileExt(fileExt)) {
+        const renderedContent = md.render(content);
+        parser.parseComplete(renderedContent);
+      } else if (fileExt === 'html') {
+        parser.parseComplete(content);
+      } else {
+        const error = new Error(`Unsupported File Extension: '${fileExt}'`);
+        reject(error);
+      }
+    });
   }
 }
 
