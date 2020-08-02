@@ -378,9 +378,9 @@ class ComponentPreprocessor {
     }
   }
 
-  includeFile(file, content, config) {
+  includeFile(file, content, cwf = file) {
     const context = {};
-    context.cwf = config.cwf || file; // current working file
+    context.cwf = cwf; // current working file
     context.callStack = [];
 
     return new Promise((resolve, reject) => {
