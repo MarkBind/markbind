@@ -1,4 +1,5 @@
 const cheerio = require('cheerio');
+const htmlparser = require('htmlparser2'); require('../patches/htmlparser2');
 const path = require('path');
 const url = require('url');
 const logger = require('../utils/logger');
@@ -17,9 +18,10 @@ const {
 } = require('../constants');
 
 class ComponentPreprocessor {
-  constructor(config, variableProcessor) {
+  constructor(config, variableProcessor, pageSources) {
     this.config = config;
     this.variableProcessor = variableProcessor;
+    this.pageSources = pageSources;
   }
 
   /*
@@ -56,13 +58,13 @@ class ComponentPreprocessor {
    * Returns either an empty or error node depending on whether the file specified exists
    * and whether this file is optional if not.
    */
-  static _getFileExistsNode(element, context, parser, actualFilePath, isOptional = false) {
+  _getFileExistsNode(element, context, actualFilePath, isOptional = false) {
     if (!utils.fileExists(actualFilePath)) {
       if (isOptional) {
         return utils.createEmptyNode();
       }
 
-      parser.missingIncludeSrc.push({
+      this.pageSources.missingIncludeSrc.push({
         from: context.cwf,
         to: actualFilePath,
       });
@@ -125,11 +127,11 @@ class ComponentPreprocessor {
    * Otherwise, sets the fragment attribute of the panel as parsed from the src,
    * and adds the appropriate include.
    */
-  _preProcessPanel(node, context, parser) {
+  _preProcessPanel(node, context) {
     const hasSrc = _.has(node.attribs, 'src');
     if (!hasSrc) {
       if (node.children && node.children.length > 0) {
-        node.children = node.children.map(e => this.preProcessComponent(e, context, parser));
+        node.children = node.children.map(e => this.preProcessComponent(e, context));
       }
 
       return node;
@@ -142,7 +144,7 @@ class ComponentPreprocessor {
       actualFilePath,
     } = this._getSrcFlagsAndFilePaths(node, context);
 
-    const fileExistsNode = ComponentPreprocessor._getFileExistsNode(node, context, parser, actualFilePath);
+    const fileExistsNode = this._getFileExistsNode(node, context, actualFilePath);
     if (fileExistsNode) {
       return fileExistsNode;
     }
@@ -158,7 +160,7 @@ class ComponentPreprocessor {
 
     delete node.attribs.boilerplate;
 
-    parser.dynamicIncludeSrc.push({
+    this.pageSources.dynamicIncludeSrc.push({
       from: context.cwf,
       to: actualFilePath,
       asIfTo: filePath,
@@ -210,7 +212,7 @@ class ComponentPreprocessor {
    * Replaces it with an error node if the specified src is invalid,
    * or an empty node if the src is invalid but optional.
    */
-  _preprocessInclude(node, context, parser) {
+  _preprocessInclude(node, context) {
     const element = node;
 
     if (_.isEmpty(element.attribs.src)) {
@@ -227,8 +229,7 @@ class ComponentPreprocessor {
     } = this._getSrcFlagsAndFilePaths(element, context);
 
     const isOptional = _.has(element.attribs, 'optional');
-    const fileExistsNode = ComponentPreprocessor._getFileExistsNode(element, context, parser,
-                                                                    actualFilePath, isOptional);
+    const fileExistsNode = this._getFileExistsNode(element, context, actualFilePath, isOptional);
     if (fileExistsNode) return fileExistsNode;
 
     // optional includes of whole files have been handled,
@@ -245,7 +246,7 @@ class ComponentPreprocessor {
     // No need to process url contents
     if (isUrl) return element;
 
-    parser.staticIncludeSrc.push({
+    this.pageSources.staticIncludeSrc.push({
       from: context.cwf,
       to: actualFilePath,
     });
@@ -311,7 +312,7 @@ class ComponentPreprocessor {
         return utils.createErrorNode(element, error);
       }
 
-      element.children = element.children.map(e => this.preProcessComponent(e, childContext, parser));
+      element.children = element.children.map(e => this.preProcessComponent(e, childContext));
     }
 
     return element;
@@ -325,9 +326,9 @@ class ComponentPreprocessor {
     return utils.createEmptyNode();
   }
 
-  static _preprocessImports(node, parser) {
+  _preprocessImports(node) {
     if (node.attribs.from) {
-      parser.staticIncludeSrc.push({
+      this.pageSources.staticIncludeSrc.push({
         from: node.attribs.cwf,
         to: path.resolve(node.attribs.cwf, node.attribs.from),
       });
@@ -349,27 +350,27 @@ class ComponentPreprocessor {
    * API
    */
 
-  preProcessComponent(node, context, parser) {
+  preProcessComponent(node, context) {
     const element = node;
 
     ComponentPreprocessor._preProcessAllComponents(element, context);
 
     switch (element.name) {
     case 'panel':
-      return this._preProcessPanel(element, context, parser);
+      return this._preProcessPanel(element, context);
     case 'variable':
       return ComponentPreprocessor._preprocessVariables();
     case 'import':
-      return ComponentPreprocessor._preprocessImports(node, parser);
+      return this._preprocessImports(node);
     case 'include':
-      return this._preprocessInclude(element, context, parser);
+      return this._preprocessInclude(element, context);
     case 'body':
       ComponentPreprocessor._preprocessBody(element);
       // eslint-disable-next-line no-fallthrough
     default:
       // preprocess children
       if (element.children && element.children.length > 0) {
-        element.children = element.children.map(e => this.preProcessComponent(e, context, parser));
+        element.children = element.children.map(e => this.preProcessComponent(e, context));
       }
       return element;
     }

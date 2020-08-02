@@ -22,21 +22,6 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 class Parser {
   constructor(config) {
     this.variableProcessor = config.variableProcessor;
-    this.dynamicIncludeSrc = [];
-    this.staticIncludeSrc = [];
-    this.missingIncludeSrc = [];
-  }
-
-  getDynamicIncludeSrc() {
-    return _.clone(this.dynamicIncludeSrc);
-  }
-
-  getStaticIncludeSrc() {
-    return _.clone(this.staticIncludeSrc);
-  }
-
-  getMissingIncludeSrc() {
-    return _.clone(this.missingIncludeSrc);
   }
 
   static processDynamicResources(context, html, config) {
