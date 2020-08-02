@@ -139,3 +139,19 @@ test('parseComponent parses dropdown with header slot taking priority over heade
   parseAndVerifyTemplate(testData.PARSE_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY,
                          testData.PARSE_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
 });
+
+test('renderFile converts markdown headers to <h1> with an id', async () => {
+  const componentParser = new ComponentParser({ headerIdMap: {} });
+  const indexPath = 'index.md';
+
+  const index = ['# Index'].join('\n');
+
+  const result = await componentParser.render(index, indexPath);
+
+  const expected = [
+    '<h1 id="index">Index</h1>',
+    '',
+  ].join('\n');
+
+  expect(result).toEqual(expected);
+});
