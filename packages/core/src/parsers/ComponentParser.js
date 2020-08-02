@@ -18,6 +18,10 @@ const {
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 class ComponentParser {
+  constructor(config) {
+    this.config = config;
+  }
+
   /*
    * Private utility functions
    */
@@ -552,9 +556,9 @@ class ComponentParser {
     }
   }
 
-  static _parse(node, config) {
+  _parse(node) {
     if (_.isArray(node)) {
-      return node.map(el => ComponentParser._parse(el, config));
+      return node.map(el => this._parse(el));
     }
     if (ComponentParser._isText(node)) {
       return node;
@@ -572,7 +576,7 @@ class ComponentParser {
       const slugifiedHeading = slugify(cleanedContent, { decamelize: false });
 
       let headerId = slugifiedHeading;
-      const { headerIdMap } = config;
+      const { headerIdMap } = this.config;
       if (headerIdMap[slugifiedHeading]) {
         headerId = `${slugifiedHeading}-${headerIdMap[slugifiedHeading]}`;
         headerIdMap[slugifiedHeading] += 1;
@@ -600,21 +604,21 @@ class ComponentParser {
 
     if (node.children) {
       node.children.forEach((child) => {
-        ComponentParser._parse(child, config);
+        this._parse(child);
       });
     }
 
     ComponentParser.postParseComponents(node);
 
     // If a fixed header is applied to the page, generate dummy spans as anchor points
-    if (config.fixedHeader && isHeadingTag && node.attribs.id) {
+    if (this.config.fixedHeader && isHeadingTag && node.attribs.id) {
       cheerio(node).append(cheerio.parseHTML(`<span id="${node.attribs.id}" class="anchor"></span>`));
     }
 
     return node;
   }
 
-  static render(content, filePath, config) {
+  render(content, filePath) {
     return new Promise((resolve, reject) => {
       const handler = new htmlparser.DomHandler((error, dom) => {
         if (error) {
@@ -624,7 +628,7 @@ class ComponentParser {
         const nodes = dom.map((d) => {
           let parsed;
           try {
-            parsed = ComponentParser._parse(d, config);
+            parsed = this._parse(d);
           } catch (err) {
             err.message += `\nError while rendering '${filePath}'`;
             logger.error(err);
