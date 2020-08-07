@@ -20,6 +20,7 @@ deploy:
   # deploy on any commit to master, to markbind.org/devdocs
   - provider: script
     script: >-
+      npm run build:components &&
       cd docs &&
       ../packages/cli/index.js build -s dg-site.json &&
       ../packages/cli/index.js deploy -s dg-site.json --travis
