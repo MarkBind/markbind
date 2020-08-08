@@ -14,7 +14,7 @@
 Optimized for creating text-heavy websites %%e.g., eLearning websites, online instruction manuals, project documentation etc.%%.
 </span>
 
-<b-btn variant="primary" href="userGuide/">Get Started</b-btn>
+<a class="btn btn-primary" href="userGuide/">Get Started</a>
 
 <hr>
 
@@ -167,7 +167,7 @@ Installing MarkBind takes just one command. Creating a new MarkBind site too tak
 
 As MarkBind is also optimized for project documentation, it can easily [integrate with the workflow of a software project](userGuide/markBindInTheProjectWorkflow.html).
 
-<b-btn variant="primary" href="userGuide/">Get Started</b-btn>
+<a class="btn btn-primary" href="userGuide/">Get Started</a>
 
 </div>
 
