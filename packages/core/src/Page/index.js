@@ -134,6 +134,22 @@ class Page {
      */
     this.layoutsAssetPath = pageConfig.layoutsAssetPath;
     /**
+     * @type {string | boolean}
+     */
+    this.header = false;
+    /**
+     * @type {string | boolean}
+     */
+    this.footer = false;
+    /**
+     * @type {string | boolean}
+     */
+    this.siteNav = false;
+    /**
+     * @type {Array<string> | boolean}
+     */
+    this.head = false;
+    /**
      * @type {string}
      */
     this.rootPath = pageConfig.rootPath;
@@ -249,12 +265,6 @@ class Page {
     this.headerIdMap = {};
 
     /**
-     * Flag to indicate whether this page has a site nav.
-     * @type {boolean}
-     */
-    this.hasSiteNav = false;
-
-    /**
      * Flag to indicate whether a fixed header is enabled.
      * @type {boolean}
      */
@@ -307,7 +317,7 @@ class Page {
       markBindVersion: `MarkBind ${PACKAGE_VERSION}`,
       pageNav: this.isPageNavigationSpecifierValid(),
       pageNavHtml: this.pageSectionsHtml[`#${PAGE_NAV_ID}`] || '',
-      siteNav: this.hasSiteNav,
+      siteNav: this.siteNav,
       siteNavHtml: this.pageSectionsHtml[`#${SITE_NAV_ID}`] || '',
       title: prefixedTitle,
       enableSearch: this.enableSearch,
@@ -547,10 +557,38 @@ class Page {
       ...this.globalOverride,
       ...this.frontmatterOverride,
     };
+  }
 
-    // FrontMatter properties always have lower priority than site configuration properties
+  /**
+   * Uses the collected frontmatter from {@link collectFrontMatter} to extract the {@link Page}'s
+   * instance configurations.
+   * FrontMatter properties always have lower priority than site configuration properties.
+   */
+  processFrontMatter() {
     this.title = this.title || this.frontMatter.title || '';
     this.layout = this.layout || this.frontMatter.layout || LAYOUT_DEFAULT_NAME;
+
+    /*
+     Set to false if the frontMatter attribute is 'none',
+     set it to the filePath of the layout file specified by the frontMatter (if present),
+     otherwise set it to the filePath of the layout file of {@code this.layout}.
+     */
+    this.header = this.frontMatter.header !== FRONT_MATTER_NONE_ATTR
+      && (this.frontMatter.header
+        ? path.join(this.rootPath, HEADERS_FOLDER_PATH, this.frontMatter.header)
+        : path.join(this.rootPath, LAYOUT_FOLDER_PATH, this.layout, LAYOUT_HEADER));
+    this.footer = this.frontMatter.footer !== FRONT_MATTER_NONE_ATTR
+      && (this.frontMatter.footer
+        ? path.join(this.rootPath, FOOTERS_FOLDER_PATH, this.frontMatter.footer)
+        : path.join(this.rootPath, LAYOUT_FOLDER_PATH, this.layout, LAYOUT_FOOTER));
+    this.siteNav = this.frontMatter.siteNav !== FRONT_MATTER_NONE_ATTR
+      && (this.frontMatter.siteNav
+        ? path.join(this.rootPath, NAVIGATION_FOLDER_PATH, this.frontMatter.siteNav)
+        : path.join(this.rootPath, LAYOUT_FOLDER_PATH, this.layout, LAYOUT_NAVIGATION));
+    this.head = this.frontMatter.head !== FRONT_MATTER_NONE_ATTR
+      && (this.frontMatter.head
+        ? this.frontMatter.head.split(/ *, */).map(file => path.join(this.rootPath, HEAD_FOLDER_PATH, file))
+        : [path.join(this.rootPath, LAYOUT_FOLDER_PATH, this.layout, LAYOUT_HEAD)]);
   }
 
   /**
@@ -603,23 +641,11 @@ class Page {
    * @param {FileConfig} fileConfig
    */
   insertHeaderFile(pageData, fileConfig) {
-    const { header } = this.frontMatter;
-    if (header === FRONT_MATTER_NONE_ATTR) {
-      return pageData;
-    }
-
-    let headerFile;
-    if (header) {
-      headerFile = path.join(HEADERS_FOLDER_PATH, header);
-    } else {
-      headerFile = path.join(LAYOUT_FOLDER_PATH, this.layout, LAYOUT_HEADER);
-    }
-    const headerPath = path.join(this.rootPath, headerFile);
-    if (!fs.existsSync(headerPath)) {
+    if (!this.header || !fs.existsSync(this.header)) {
       return pageData;
     }
     // Retrieve Markdown file contents
-    const headerContent = fs.readFileSync(headerPath, 'utf8');
+    const headerContent = fs.readFileSync(this.header, 'utf8');
     // Decide if fixed header is applied
     const headerSelector = cheerio.load(headerContent)('header');
     if (headerSelector.length >= 1
@@ -628,7 +654,7 @@ class Page {
       fileConfig.fixedHeader = true;
     }
     // Set header file as an includedFile
-    this.includedFiles.add(headerPath);
+    this.includedFiles.add(this.header);
 
     const renderedHeader = this.variableProcessor.renderSiteVariables(this.sourcePath, headerContent);
     return `${renderedHeader}\n${pageData}`;
@@ -639,25 +665,13 @@ class Page {
    * @param pageData a page with its front matter collected
    */
   insertFooterFile(pageData) {
-    const { footer } = this.frontMatter;
-    if (footer === FRONT_MATTER_NONE_ATTR) {
-      return pageData;
-    }
-
-    let footerFile;
-    if (footer) {
-      footerFile = path.join(FOOTERS_FOLDER_PATH, footer);
-    } else {
-      footerFile = path.join(LAYOUT_FOLDER_PATH, this.layout, LAYOUT_FOOTER);
-    }
-    const footerPath = path.join(this.rootPath, footerFile);
-    if (!fs.existsSync(footerPath)) {
+    if (!this.footer || !fs.existsSync(this.footer)) {
       return pageData;
     }
     // Retrieve Markdown file contents
-    const footerContent = fs.readFileSync(footerPath, 'utf8');
+    const footerContent = fs.readFileSync(this.footer, 'utf8');
     // Set footer file as an includedFile
-    this.includedFiles.add(footerPath);
+    this.includedFiles.add(this.footer);
 
     const renderedFooter = this.variableProcessor.renderSiteVariables(this.sourcePath, footerContent);
     return `${pageData}\n${renderedFooter}`;
@@ -669,27 +683,17 @@ class Page {
    * @throws (Error) if there is more than one instance of the <navigation> tag
    */
   insertSiteNav(pageData) {
-    const { siteNav } = this.frontMatter;
-    if (siteNav === FRONT_MATTER_NONE_ATTR) {
-      this.hasSiteNav = false;
+    if (!this.siteNav || !fs.existsSync(this.siteNav)) {
+      this.siteNav = false;
       return pageData;
     }
 
-    const siteNavFile = siteNav
-      ? path.join(NAVIGATION_FOLDER_PATH, siteNav)
-      : path.join(LAYOUT_FOLDER_PATH, this.layout, LAYOUT_NAVIGATION);
-    const siteNavPath = path.join(this.rootPath, siteNavFile);
-    this.hasSiteNav = fs.existsSync(siteNavPath);
-    if (!this.hasSiteNav) {
-      return pageData;
-    }
-
-    const siteNavContent = fs.readFileSync(siteNavPath, 'utf8').trim();
+    const siteNavContent = fs.readFileSync(this.siteNav, 'utf8').trim();
     if (siteNavContent === '') {
-      this.hasSiteNav = false;
+      this.siteNav = false;
       return pageData;
     }
-    this.includedFiles.add(siteNavPath);
+    this.includedFiles.add(this.siteNav);
 
     const siteNavMappedData = this.variableProcessor.renderSiteVariables(this.sourcePath, siteNavContent);
 
@@ -697,7 +701,7 @@ class Page {
     const $ = cheerio.load(siteNavMappedData);
     const navigationElements = $('navigation');
     if (navigationElements.length > 1) {
-      throw new Error(`More than one <navigation> tag found in ${siteNavPath}`);
+      throw new Error(`More than one <navigation> tag found in ${this.siteNav}`);
     }
     const siteNavHtml = md.render(navigationElements.length === 0
       ? siteNavMappedData.replace(SITE_NAV_EMPTY_LINE_REGEX, '\n')
@@ -858,23 +862,15 @@ class Page {
   }
 
   collectHeadFiles() {
-    const { head } = this.frontMatter;
-    if (head === FRONT_MATTER_NONE_ATTR) {
+    if (!this.head) {
       this.headFileTopContent = '';
       this.headFileBottomContent = '';
       return;
     }
 
-    let headFiles;
     const collectedTopContent = [];
     const collectedBottomContent = [];
-    if (head) {
-      headFiles = head.replace(/, */g, ',').split(',').map(headFile => path.join(HEAD_FOLDER_PATH, headFile));
-    } else {
-      headFiles = [path.join(LAYOUT_FOLDER_PATH, this.layout, LAYOUT_HEAD)];
-    }
-    headFiles.forEach((headFile) => {
-      const headFilePath = path.join(this.rootPath, headFile);
+    this.head.forEach((headFilePath) => {
       if (!fs.existsSync(headFilePath)) {
         return;
       }
@@ -964,6 +960,7 @@ class Page {
       .then(result => componentPreprocessor.includeFile(this.sourcePath, result))
       .then((result) => {
         this.collectFrontMatter(result);
+        this.processFrontMatter();
         return Page.removeFrontMatter(result);
       })
       .then(result => this.generateExpressiveLayout(result, fileConfig, componentPreprocessor))
