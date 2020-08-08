@@ -529,6 +529,7 @@ class Page {
   collectFrontMatter(includedPage) {
     const $ = cheerio.load(includedPage);
     const frontMatter = $('frontmatter');
+    let pageFrontMatter = {};
     if (frontMatter.text().trim()) {
       // Retrieves the front matter from either the first frontmatter element
       // or from a frontmatter element that includes from another file
@@ -537,29 +538,19 @@ class Page {
         ? frontMatter.find('div')[0].children[0].data
         : frontMatter[0].children[0].data;
       const frontMatterWrapped = `${FRONT_MATTER_FENCE}\n${frontMatterData}\n${FRONT_MATTER_FENCE}`;
-      // Parse front matter data
-      const parsedData = fm(frontMatterWrapped);
-      this.frontMatter = { ...parsedData.attributes };
-      this.frontMatter.src = this.src;
-      // Title specified in site.json will override title specified in front matter
-      this.frontMatter.title = (this.title || this.frontMatter.title || '');
-      // Layout specified in site.json will override layout specified in the front matter
-      this.frontMatter.layout = (this.layout || this.frontMatter.layout || LAYOUT_DEFAULT_NAME);
-      this.frontMatter = { ...this.frontMatter, ...this.globalOverride, ...this.frontmatterOverride };
-    } else {
-      // Page is addressable but no front matter specified
-      const defaultAttributes = {
-        src: this.src,
-        title: this.title || '',
-        layout: LAYOUT_DEFAULT_NAME,
-      };
-      this.frontMatter = {
-        ...defaultAttributes,
-        ...this.globalOverride,
-        ...this.frontmatterOverride,
-      };
+
+      pageFrontMatter = fm(frontMatterWrapped).attributes;
     }
-    this.title = this.frontMatter.title;
+
+    this.frontMatter = {
+      ...pageFrontMatter,
+      ...this.globalOverride,
+      ...this.frontmatterOverride,
+    };
+
+    // FrontMatter properties always have lower priority than site configuration properties
+    this.title = this.title || this.frontMatter.title || '';
+    this.layout = this.layout || this.frontMatter.layout || LAYOUT_DEFAULT_NAME;
   }
 
   /**
@@ -580,8 +571,7 @@ class Page {
    * @param {ComponentPreprocessor} componentPreprocessor for running {@link includeFile} on the layout
    */
   generateExpressiveLayout(pageData, fileConfig, componentPreprocessor) {
-    const { layout } = this.frontMatter;
-    const layoutPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH, layout);
+    const layoutPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH, this.layout);
     const layoutPagePath = path.join(layoutPath, LAYOUT_PAGE);
 
     if (!fs.existsSync(layoutPagePath)) {
@@ -622,7 +612,7 @@ class Page {
     if (header) {
       headerFile = path.join(HEADERS_FOLDER_PATH, header);
     } else {
-      headerFile = path.join(LAYOUT_FOLDER_PATH, this.frontMatter.layout, LAYOUT_HEADER);
+      headerFile = path.join(LAYOUT_FOLDER_PATH, this.layout, LAYOUT_HEADER);
     }
     const headerPath = path.join(this.rootPath, headerFile);
     if (!fs.existsSync(headerPath)) {
@@ -658,7 +648,7 @@ class Page {
     if (footer) {
       footerFile = path.join(FOOTERS_FOLDER_PATH, footer);
     } else {
-      footerFile = path.join(LAYOUT_FOLDER_PATH, this.frontMatter.layout, LAYOUT_FOOTER);
+      footerFile = path.join(LAYOUT_FOLDER_PATH, this.layout, LAYOUT_FOOTER);
     }
     const footerPath = path.join(this.rootPath, footerFile);
     if (!fs.existsSync(footerPath)) {
@@ -687,7 +677,7 @@ class Page {
 
     const siteNavFile = siteNav
       ? path.join(NAVIGATION_FOLDER_PATH, siteNav)
-      : path.join(LAYOUT_FOLDER_PATH, this.frontMatter.layout, LAYOUT_NAVIGATION);
+      : path.join(LAYOUT_FOLDER_PATH, this.layout, LAYOUT_NAVIGATION);
     const siteNavPath = path.join(this.rootPath, siteNavFile);
     this.hasSiteNav = fs.existsSync(siteNavPath);
     if (!this.hasSiteNav) {
@@ -881,7 +871,7 @@ class Page {
     if (head) {
       headFiles = head.replace(/, */g, ',').split(',').map(headFile => path.join(HEAD_FOLDER_PATH, headFile));
     } else {
-      headFiles = [path.join(LAYOUT_FOLDER_PATH, this.frontMatter.layout, LAYOUT_HEAD)];
+      headFiles = [path.join(LAYOUT_FOLDER_PATH, this.layout, LAYOUT_HEAD)];
     }
     headFiles.forEach((headFile) => {
       const headFilePath = path.join(this.rootPath, headFile);
@@ -1239,8 +1229,8 @@ class Page {
    * Adds linked layout files to page assets
    */
   addLayoutScriptsAndStyles() {
-    this.asset.layoutScript = path.join(this.layoutsAssetPath, this.frontMatter.layout, 'scripts.js');
-    this.asset.layoutStyle = path.join(this.layoutsAssetPath, this.frontMatter.layout, 'styles.css');
+    this.asset.layoutScript = path.join(this.layoutsAssetPath, this.layout, 'scripts.js');
+    this.asset.layoutStyle = path.join(this.layoutsAssetPath, this.layout, 'styles.css');
   }
 
   /**
