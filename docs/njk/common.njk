@@ -1,10 +1,10 @@
 {% macro previous_next(previous_page, next_page) %}
 <div class="clearfix">
 {% if previous_page != ''%}
-<span class="float-left"><b-btn variant="light" href="{{ baseUrl }}/userGuide/{{ previous_page }}.html"><md>:far-arrow-alt-circle-left: <include src="{{ previous_page }}.md#title" inline /></md></b-btn></span>
+<span class="float-left"><a class="btn btn-light" href="{{ baseUrl }}/userGuide/{{ previous_page }}.html"><md>:far-arrow-alt-circle-left: <include src="{{ previous_page }}.md#title" inline /></md></a></span>
 {% endif %}
 {% if next_page != ''%}
-<span class="float-right"><b-btn variant="light" href="{{ baseUrl }}/userGuide/{{ next_page }}.html"><md><include src="{{ next_page }}.md#title" inline /> :far-arrow-alt-circle-right:</md></b-btn></span>
+<span class="float-right"><a class="btn btn-light" href="{{ baseUrl }}/userGuide/{{ next_page }}.html"><md><include src="{{ next_page }}.md#title" inline /> :far-arrow-alt-circle-right:</md></a></span>
 {% endif %}
 </div>
 <br>
