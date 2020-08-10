@@ -1225,7 +1225,8 @@ class Site {
         enableSearch: this.siteConfig.enableSearch,
         pages: this.pages.filter(page => page.searchable)
           .map(page => ({
-            ...page.frontMatter,
+            src: page.src,
+            title: page.title,
             headings: page.headings,
             headingKeywords: page.keywords,
           })),

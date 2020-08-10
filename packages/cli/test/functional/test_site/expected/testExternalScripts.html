@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <meta name="default-head-top">
+  <meta name="head-top">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="MarkBind 2.15.2">
@@ -21,14 +21,22 @@
   <script src="markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
-  <link rel="stylesheet" href="markbind/layouts/default/styles.css">
-  <meta name="default-head-bottom">
+  <link rel="stylesheet" href="markbind/layouts/testLayout/styles.css">
+  <link rel="stylesheet" href="markbind/css/site-nav.css">
+  <meta name="head-bottom">
   <link rel="icon" href="/test_site/favicon.png">
 </head>
 
 <body>
   <div id="app">
     <div id="flex-body">
+      <nav id="site-nav" class="navbar navbar-light bg-transparent">
+        <div class="border-right-grey nav-inner position-sticky slim-scroll">
+          <ul class="site-nav-list site-nav-list-root">
+            <li class="site-nav-custom-list-item site-nav-list-item-0">[Layout Nav]</li>
+          </ul>
+        </div>
+      </nav>
       <div id="content-wrapper">
         <p>The external script <a href="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">MathJax 2.75</a> should be included, and the following MathJax content should render:</p>
         <box>
@@ -41,7 +49,7 @@
     </div>
     <footer>
       <div class="text-center">
-        Default footer
+        Layout footer
       </div>
     </footer>
   </div>
@@ -70,6 +78,6 @@
 
   gtag('config', 'TRACKING-ID');
 </script>
-<script src="markbind/layouts/default/scripts.js"></script>
+<script src="markbind/layouts/testLayout/scripts.js"></script>
 
 </html>
