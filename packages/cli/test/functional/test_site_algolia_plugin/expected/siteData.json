@@ -2,11 +2,8 @@
   "enableSearch": true,
   "pages": [
     {
-      "title": "Hello World",
-      "footer": "footer.md",
-      "siteNav": "site-nav.md",
       "src": "index.md",
-      "layout": "default",
+      "title": "Hello World",
       "headings": {},
       "headingKeywords": {}
     }
