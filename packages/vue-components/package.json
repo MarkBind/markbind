@@ -28,9 +28,7 @@
   "scripts": {
     "build": "webpack --progress --hide-modules --config  webpack.build.js",
     "test": "jest",
-    "testwin": "jest",
     "updatetest": "jest --updateSnapshot",
-    "updatetestwin": "jest --updateSnapshot",
     "watch": "webpack --watch --progress --hide-modules --config  webpack.dev.js"
   },
   "devDependencies": {

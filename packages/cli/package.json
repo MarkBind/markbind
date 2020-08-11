@@ -21,10 +21,8 @@
     "url": "https://github.com/MarkBind/markbind.git"
   },
   "scripts": {
-    "test": "jest && cd test/functional && ./test.sh",
-    "testwin": "jest && cd test/functional && test.bat",
-    "updatetest": "cd test/functional && ./update.sh",
-    "updatetestwin": "cd test/functional && update.bat"
+    "test": "jest && cd test/functional && node test.js",
+    "updatetest": "cd test/functional && node updatetest.js"
   },
   "dependencies": {
     "@markbind/core": "2.15.2",
