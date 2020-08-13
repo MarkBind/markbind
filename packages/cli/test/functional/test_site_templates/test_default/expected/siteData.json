@@ -2,51 +2,34 @@
   "enableSearch": true,
   "pages": [
     {
-      "header": "header.md",
-      "siteNav": "site-nav.md",
       "src": "contents/topic1.md",
       "title": "",
-      "layout": "default",
       "headings": {
         "topic-1": "Topic 1"
       },
       "headingKeywords": {}
     },
     {
-      "header": "header.md",
-      "siteNav": "site-nav.md",
       "src": "contents/topic2.md",
       "title": "",
-      "layout": "default",
       "headings": {},
       "headingKeywords": {}
     },
     {
-      "header": "header.md",
-      "siteNav": "site-nav.md",
       "src": "contents/topic3a.md",
       "title": "",
-      "layout": "default",
       "headings": {},
       "headingKeywords": {}
     },
     {
-      "header": "header.md",
-      "siteNav": "site-nav.md",
       "src": "contents/topic3b.md",
       "title": "",
-      "layout": "default",
       "headings": {},
       "headingKeywords": {}
     },
     {
-      "header": "header.md",
-      "pageNav": 2,
-      "pageNavTitle": "Chapters of This Page",
-      "siteNav": "site-nav.md",
       "src": "index.md",
       "title": "Landing Page",
-      "layout": "default",
       "headings": {
         "heading-1": "Heading 1",
         "sub-heading-1-1": "Sub Heading 1.1",
