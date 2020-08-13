@@ -4,12 +4,14 @@
     {
       "src": "Home.md",
       "title": "",
+      "layout": "default",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "Page-1.md",
       "title": "",
+      "layout": "default",
       "headings": {
         "page-1": "Page 1"
       },
@@ -18,52 +20,68 @@
     {
       "src": "_Footer.md",
       "title": "",
+      "layout": "default",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "_Sidebar.md",
       "title": "",
+      "layout": "default",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "about.md",
       "title": "",
+      "layout": "default",
       "headings": {
         "about": "About"
       },
       "headingKeywords": {}
     },
     {
+      "header": "header.md",
+      "siteNav": "site-nav.md",
       "src": "contents/topic1.md",
       "title": "",
+      "layout": "default",
       "headings": {
         "topic-1": "Topic 1"
       },
       "headingKeywords": {}
     },
     {
+      "header": "header.md",
+      "siteNav": "site-nav.md",
       "src": "contents/topic2.md",
       "title": "",
+      "layout": "default",
       "headings": {},
       "headingKeywords": {}
     },
     {
+      "header": "header.md",
+      "siteNav": "site-nav.md",
       "src": "contents/topic3a.md",
       "title": "",
+      "layout": "default",
       "headings": {},
       "headingKeywords": {}
     },
     {
+      "header": "header.md",
+      "siteNav": "site-nav.md",
       "src": "contents/topic3b.md",
       "title": "",
+      "layout": "default",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "index.md",
       "title": "Landing Page",
+      "layout": "default",
       "headings": {},
       "headingKeywords": {}
     }

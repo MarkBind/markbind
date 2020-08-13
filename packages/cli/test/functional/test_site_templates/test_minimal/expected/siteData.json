@@ -2,8 +2,10 @@
   "enableSearch": true,
   "pages": [
     {
+      "footer": "footer.md",
       "src": "index.md",
       "title": "Hello World",
+      "layout": "default",
       "headings": {
         "welcome-to-markbind": "Welcome to Markbind"
       },
