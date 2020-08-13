@@ -20,10 +20,6 @@
   <link rel="stylesheet" href="markbind/css/octicons.css">
   <link rel="stylesheet" href="markbind/css/github.min.css">
   <link rel="stylesheet" href="markbind/css/markbind.css">
-  <script src="markbind/js/polyfill.min.js"></script>
-  <script src="markbind/js/vue.min.js"></script>
-  <script src="markbind/js/components.min.js"></script>
-  <script src="markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
   <link rel="stylesheet" href="markbind/layouts/default/styles.css">
@@ -167,10 +163,10 @@
           <p><strong>Test footnotes</strong></p>
           <div>
             <p><strong>Normal footnotes:</strong>
-              Here is a footnote reference,<span for="pop:footnote1" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['pop:footnote1'].show()" class="trigger"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#fn1" id="fnref1">[1]</a></sup></span> and another.<span for="pop:footnote2" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['pop:footnote2'].show()" class="trigger"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#fn2" id="fnref2">[2]</a></sup></span></p>
-            <p>Here is a repeated footnote to <span for="pop:footnote1" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['pop:footnote1'].show()" class="trigger"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#fn1" id="fnref1:1">[1:1]</a></sup></span></p>
+              Here is a footnote reference,<span for="pop:footnote1" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['pop:footnote1'].show()" class="trigger"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#footnote1" id="footnoteref1">[1]</a></sup></span> and another.<span for="pop:footnote2" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['pop:footnote2'].show()" class="trigger"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#footnote2" id="footnoteref2">[2]</a></sup></span></p>
+            <p>Here is a repeated footnote to <span for="pop:footnote1" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['pop:footnote1'].show()" class="trigger"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#footnote1" id="footnoteref1:1">[1]</a></sup></span></p>
             <p><strong>Inline footnotes:</strong>
-              Here is an inline note.<span for="pop:footnote3" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['pop:footnote3'].show()" class="trigger"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#fn3" id="fnref3">[3]</a></sup></span></p>
+              Here is an inline note.<span for="pop:footnote3" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['pop:footnote3'].show()" class="trigger"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#footnote3" id="footnoteref3">[3]</a></sup></span></p>
           </div>
           <p><strong>Json Variable</strong></p>
           <div> front back </div>
@@ -669,15 +665,15 @@
         <hr class="footnotes-sep">
         <section class="footnotes">
           <ol class="footnotes-list">
-            <li id="fn1" class="footnote-item">
+            <li id="footnote1" class="footnote-item">
               <p>Here is the footnote. Footnotes will appear at the bottom of the page.</p>
             </li>
-            <li id="fn2" class="footnote-item">
+            <li id="footnote2" class="footnote-item">
               <p>Here's one with multiple blocks.</p>
               <p>Subsequent paragraphs are indented to show that they
                 belong to the previous footnote.</p>
             </li>
-            <li id="fn3" class="footnote-item">
+            <li id="footnote3" class="footnote-item">
               <p>Inlines notes are easier to write, since
                 you don't have to pick an identifier and move down to type the
                 note.</p>
@@ -765,7 +761,11 @@
     </footer>
   </div>
 </body>
+<script src="markbind/js/vue.min.js"></script>
+<script src="markbind/js/components.min.js"></script>
 <script src="markbind/js/bootstrap-utility.min.js"></script>
+<script src="markbind/js/polyfill.min.js"></script>
+<script src="markbind/js/bootstrap-vue.min.js"></script>
 <script>
   const baseUrl = '/test_site'
   const enableSearch = true
