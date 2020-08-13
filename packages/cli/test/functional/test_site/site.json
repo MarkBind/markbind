@@ -91,6 +91,10 @@
     {
       "src": "testDates.md",
       "title": "Nunjucks date filter tests"
+		},
+		{
+      "src": "testVariableContainsInclude.md",
+      "title": "Variable should be able to store included content fragments"
     }
   ],
   "ignore": [
