@@ -13,6 +13,7 @@ _.isBoolean = require('lodash/isBoolean');
 
 const { Site } = require('@markbind/core');
 const fsUtil = require('@markbind/core/src/utils/fsUtil');
+const gitUtil = require('@markbind/core/src/utils/git');
 const utils = require('@markbind/core/src/utils');
 const {
   INDEX_MARKDOWN_FILE,
