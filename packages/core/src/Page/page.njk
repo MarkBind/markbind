@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset.glyphicons }}">
     <link rel="stylesheet" href="{{ asset.octicons }}">
     <link rel="stylesheet" href="{{ asset.highlight }}">
-    <link rel="stylesheet" href="{{ asset.markBindCss }}">
+    {%- if not dev -%}<link rel="stylesheet" href="{{ asset.markBindCss }}">{%- endif -%}
     <script src="{{ asset.polyfillJs }}"></script>
     <script src="{{ asset.vue }}"></script>
     <script src="{{ asset.markBindJs }}"></script>

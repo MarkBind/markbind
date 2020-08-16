@@ -22,9 +22,21 @@ The sections below has more information about various stages of submitting a PR.
 
 ## Writing code
 
-Use JavaScript ES6 features if possible for better performance, e.g. Promise instead of callback.
+#### General tips
 
-Do note [our style guides](styleGuides.html).
+* Use JavaScript ES6 features if possible for better performance, e.g. Promise instead of callback.
+* Do note [our style guides](styleGuides.html).
+
+#### Editing frontend features
+
+We update the frontend `markbind.min.js` and `markbind.min.css` bundles during release only, and not in pull requests.
+
+Hence, if you need to view the latest frontend changes (relating to `packages/core-web` or `packages/vue-components`), you can either:
+1. Run `npm run build:web` in the root directory, which builds the above bundles,
+   then run your markbind-cli [command](https://markbind.org/userGuide/cliCommands.html) of choice.
+2. Run `markbind serve -d` (with any other applicable options). (**recommended**)<br>
+   This adds the necessary webpack middlewares to the development server to compile the above bundles,
+   and enables live and hot reloading for frontend source files. 
 
 ## Testing
 

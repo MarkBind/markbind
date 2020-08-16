@@ -113,7 +113,10 @@ const TOP_NAV_DEFAULT = '<header><navbar placement="top" type="inverse">\n'
 const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${MARKBIND_VERSION}</a>`;
 
 class Site {
-  constructor(rootPath, outputPath, onePagePath, forceReload = false, siteConfigPath = SITE_CONFIG_NAME) {
+  constructor(rootPath, outputPath, onePagePath, forceReload = false,
+              siteConfigPath = SITE_CONFIG_NAME, dev) {
+    this.dev = !!dev;
+
     this.rootPath = rootPath;
     this.outputPath = outputPath;
     this.tempPath = path.join(rootPath, TEMP_FOLDER_NAME);
@@ -255,6 +258,7 @@ class Site {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
     const resultPath = path.join(this.outputPath, Site.setExtension(config.pageSrc, '.html'));
     return new Page({
+      dev: this.dev,
       baseUrl: this.siteConfig.baseUrl,
       baseUrlMap: this.baseUrlMap,
       content: '',
