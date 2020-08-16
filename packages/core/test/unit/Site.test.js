@@ -778,3 +778,49 @@ test('Site config throws error on duplicate page src', async () => {
     .rejects
     .toThrow(new Error('Duplicate page entries found in site config: index.md'));
 });
+
+const siteJsonPageExclusionTestCases = [
+  {
+    name: 'Site.json excludes pages by glob exclude',
+    pages: [
+      {
+        glob: '*.md',
+        globExclude: ['exclude.md'],
+      },
+    ],
+    expected: [
+      {
+        src: 'index.md',
+      },
+    ],
+  },
+];
+
+siteJsonPageExclusionTestCases.forEach((testCase) => {
+  test(testCase.name, async () => {
+    const customSiteConfig = {
+      baseUrl: '',
+      pages: testCase.pages,
+      ignore: [
+        '_site/*',
+        '*.json',
+        '*.md',
+      ],
+      deploy: {
+        message: 'Site Update.',
+      },
+    };
+    const json = {
+      ...PAGE_NJK,
+      'index.md': '',
+      'exclude.md': '',
+    };
+    fs.vol.fromJSON(json, '');
+
+    const site = new Site('./', '_site');
+    site.siteConfig = customSiteConfig;
+    await site.collectAddressablePages();
+    expect(site.addressablePages)
+      .toEqual(testCase.expected);
+  });
+});
