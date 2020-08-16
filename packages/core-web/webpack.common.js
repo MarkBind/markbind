@@ -2,10 +2,12 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    'components': path.join(__dirname, 'src', 'index.js'),
+    markbind: path.join(__dirname, 'src', 'index.js'),
   },
   output: {
-    library: 'MarkBindVue',
+    filename: 'js/[name].min.js',
+    library: 'MarkBind',
+    libraryExport: 'default',
     libraryTarget: 'umd',
   },
   externals: {
@@ -26,14 +28,10 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
+            options: {
+              rootMode: 'upward',
+            },
           },
-        ],
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'vue-style-loader',
-          'css-loader',
         ],
       },
     ],
