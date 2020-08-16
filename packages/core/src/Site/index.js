@@ -486,7 +486,11 @@ class Site {
     const pagesFromGlobs = _.flatMap(pages.filter(page => page.glob), page => walkSync(this.rootPath, {
       directories: false,
       globs: Array.isArray(page.glob) ? page.glob : [page.glob],
-      ignore: [CONFIG_FOLDER_NAME, SITE_FOLDER_NAME],
+      ignore: [
+        CONFIG_FOLDER_NAME,
+        SITE_FOLDER_NAME,
+        ...(page.globExclude ? page.globExclude : []),
+      ],
     }).map(filePath => ({
       src: filePath,
       searchable: page.searchable,
