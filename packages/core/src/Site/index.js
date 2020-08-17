@@ -489,7 +489,7 @@ class Site {
       ignore: [
         CONFIG_FOLDER_NAME,
         SITE_FOLDER_NAME,
-        ...pagesExclude.concat(page.globExclude ? page.globExclude : []),
+        ...pagesExclude.concat(page.globExclude || []),
       ],
     }).map(filePath => ({
       src: filePath,
