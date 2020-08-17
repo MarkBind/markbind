@@ -14,15 +14,14 @@
   <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
   <link rel="stylesheet" href="markbind/css/octicons.css">
   <link rel="stylesheet" href="markbind/css/github.min.css">
-  <link rel="stylesheet" href="markbind/css/markbind.css">
+  <link rel="stylesheet" href="markbind/css/markbind.min.css">
   <script src="markbind/js/polyfill.min.js"></script>
   <script src="markbind/js/vue.min.js"></script>
-  <script src="markbind/js/components.min.js"></script>
+  <script src="markbind/js/markbind.min.js"></script>
   <script src="markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
   <link rel="stylesheet" href="markbind/layouts/testLayout/styles.css">
-  <link rel="stylesheet" href="markbind/css/site-nav.css">
   <meta name="head-bottom">
   <link rel="icon" href="/test_site/favicon.png">
 </head>
@@ -53,9 +52,8 @@
 <script src="markbind/js/bootstrap-utility.min.js"></script>
 <script>
   const baseUrl = '/test_site'
-  const enableSearch = true
+  MarkBind.setupWithSearch()
 </script>
-<script src="markbind/js/setup.js"></script>
 <script src="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginScript.js"></script>
 <script>
   alert("Inline plugin script loaded!")
@@ -74,5 +72,8 @@
   gtag('config', 'TRACKING-ID');
 </script>
 <script src="markbind/layouts/testLayout/scripts.js"></script>
+<script>
+  if (MarkBind.AfterSetup) MarkBind.AfterSetup()
+</script>
 
 </html>
