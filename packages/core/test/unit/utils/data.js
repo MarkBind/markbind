@@ -169,7 +169,7 @@ module.exports.DEFAULT_TEMPLATE_FILES = {
     .LAYOUT_SCRIPTS_DEFAULT,
 };
 
-const ASSET_DIRECTORY = path.join(__dirname, '../../../asset');
+const ASSET_DIRECTORY = path.join(path.dirname(require.resolve('@markbind/core-web/package.json')), 'asset');
 function getAssetFileFullPath(relativePath) {
   return path.join(ASSET_DIRECTORY, relativePath);
 }

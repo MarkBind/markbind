@@ -12,7 +12,7 @@ module.exports = {
   ],
   'transform': {
     '.*\\.(vue)$': 'vue-jest',
-    '^.+\\.js$': 'babel-jest',
+    '^.+\\.js$': ['babel-jest', { rootMode: 'upward' }],
   },
   'snapshotSerializers': ['jest-serializer-vue'],
 };

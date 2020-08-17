@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@markbind/core": "2.15.2",
+    "@markbind/core-web": "2.15.2",
     "bluebird": "^3.7.2",
     "chalk": "^3.0.0",
     "cheerio": "^0.22.0",

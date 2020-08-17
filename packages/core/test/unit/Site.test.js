@@ -37,7 +37,8 @@ test('Site Generate builds the correct amount of assets', async () => {
 
     ...ASSETS,
 
-    [require.resolve('@markbind/vue-components/dist/components.min.js')]: '',
+    [require.resolve('@markbind/core-web/dist/js/markbind.min.js')]: '',
+    [require.resolve('@markbind/core-web/dist/css/markbind.min.css')]: '',
 
     ...EXTERNAL_ASSETS,
 
@@ -50,7 +51,7 @@ test('Site Generate builds the correct amount of assets', async () => {
   const paths = Object.keys(fs.vol.toJSON());
   const originalNumFiles = Object.keys(json).length;
 
-  const expectedNumBuilt = 17;
+  const expectedNumBuilt = 18;
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
   // site
@@ -66,15 +67,13 @@ test('Site Generate builds the correct amount of assets', async () => {
   expect(fs.existsSync(path.resolve('inner/_site/markbind/css/bootstrap.min.css'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/css/bootstrap.min.css.map'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/css/github.min.css'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/markbind.css'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/page-nav.css'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/site-nav.css'))).toEqual(true);
+  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/markbind.min.css'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/css/octicons.css'))).toEqual(true);
 
   // js
   expect(fs.existsSync(path.resolve('inner/_site/markbind/js/setup.js'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/js/vue.min.js'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/js/components.min.js'))).toEqual(true);
+  expect(fs.existsSync(path.resolve('inner/_site/markbind/js/markbind.min.js'))).toEqual(true);
 
   // Font Awesome assets
   expect(fs.existsSync(path.resolve('inner/_site/markbind/fontawesome/css/all.min.css'))).toEqual(true);

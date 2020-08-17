@@ -1,0 +1,1 @@
+<div id="fragment">content fragment</div>
