@@ -162,7 +162,7 @@ The following properties will apply to `index.md`:
 #### **`pagesExclude`**
 **An array of file patterns to be excluded from rendering.** The exclusion pattern follows the glob syntax.
 
-This property is the global variant to the `globExclude` property and is functionally identical to it. If both properties are used simultaneously, the file patterns will be combined into one.
+This property is the global variant to the `globExclude` property and is functionally identical to it. If the two are used at once, the file patterns from both properties will be combined when excluding pages.
 
 #### **`externalScripts`**
 
