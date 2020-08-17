@@ -721,6 +721,7 @@ siteJsonResolvePropertiesTestCases.forEach((testCase) => {
     const customSiteConfig = {
       baseUrl: '',
       pages: testCase.pages,
+      pagesExclude: [],
       ignore: [
         '_site/*',
         '*.json',
@@ -794,6 +795,31 @@ const siteJsonPageExclusionTestCases = [
       },
     ],
   },
+  {
+    name: 'Site.json excludes pages by pages exclude',
+    pages: [
+      {
+        glob: '*.md',
+      },
+    ],
+    pagesExclude: ['exclude.md'],
+    expected: [
+      {
+        src: 'index.md',
+      },
+    ],
+  },
+  {
+    name: 'Site.json excludes pages by combination of pages exclude and glob exclude',
+    pages: [
+      {
+        glob: '*.md',
+        globExclude: ['exclude.md'],
+      },
+    ],
+    pagesExclude: ['index.md'],
+    expected: [],
+  },
 ];
 
 siteJsonPageExclusionTestCases.forEach((testCase) => {
@@ -801,6 +827,7 @@ siteJsonPageExclusionTestCases.forEach((testCase) => {
     const customSiteConfig = {
       baseUrl: '',
       pages: testCase.pages,
+      pagesExclude: testCase.pagesExclude || [],
       ignore: [
         '_site/*',
         '*.json',
