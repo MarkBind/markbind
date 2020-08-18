@@ -98,6 +98,10 @@ class Page {
    */
   constructor(pageConfig) {
     /**
+     * @type {boolean}
+     */
+    this.dev = pageConfig.dev;
+    /**
      * @type {Object<string, any>}
      */
     this.asset = pageConfig.asset;
@@ -309,6 +313,7 @@ class Page {
       asset,
       baseUrl: this.baseUrl,
       content: this.content,
+      dev: this.dev,
       faviconUrl: this.faviconUrl,
       footerHtml: this.pageSectionsHtml.footer || '',
       headerHtml: this.pageSectionsHtml.header || '',

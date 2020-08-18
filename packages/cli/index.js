@@ -104,6 +104,7 @@ program
     + 'there are changes to the source files (if needed), building others when navigated to')
   .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
+  .option('-d, --dev', 'development mode, enabling live & hot reload for frontend source files.')
   .action((userSpecifiedRoot, options) => {
     let rootFolder;
     try {
@@ -122,7 +123,8 @@ program
     let onePagePath = options.onePage === true ? INDEX_MARKDOWN_FILE : options.onePage;
     onePagePath = onePagePath ? utils.ensurePosix(onePagePath) : onePagePath;
 
-    const site = new Site(rootFolder, outputFolder, onePagePath, options.forceReload, options.siteConfig);
+    const site = new Site(rootFolder, outputFolder, onePagePath,
+                          options.forceReload, options.siteConfig, options.dev);
 
     const addHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
@@ -160,11 +162,9 @@ program
       });
     };
 
-    const onePageHtmlUrl = onePagePath && `/${onePagePath.replace(/\.(md|mbd|mbdf)$/, '.html')}`;
-
     // server config
     const serverConfig = {
-      open: options.open && (onePageHtmlUrl || true),
+      open: options.open,
       logLevel: 0,
       root: outputFolder,
       port: options.port || 8080,
@@ -178,6 +178,13 @@ program
       .readSiteConfig()
       .then((config) => {
         serverConfig.mount.push([config.baseUrl || '/', outputFolder]);
+
+        if (options.dev) {
+          // eslint-disable-next-line global-require
+          const getMiddlewares = require('@markbind/core-web/webpack.dev');
+          getMiddlewares(`${config.baseUrl}/markbind`)
+            .forEach(middleware => serverConfig.middleware.push(middleware));
+        }
 
         if (onePagePath) {
           const lazyReloadMiddleware = function (req, res, next) {
@@ -216,7 +223,12 @@ program
             next();
           };
 
+          const onePageHtmlUrl = `${config.baseUrl}/${onePagePath.replace(/\.(md|mbd|mbdf)$/, '.html')}`;
+          serverConfig.open = serverConfig.open && onePageHtmlUrl;
+
           serverConfig.middleware.push(lazyReloadMiddleware);
+        } else {
+          serverConfig.open = serverConfig.open && `${config.baseUrl}/`;
         }
 
         return site.generate();
