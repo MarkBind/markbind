@@ -720,6 +720,7 @@ siteJsonResolvePropertiesTestCases.forEach((testCase) => {
     const customSiteConfig = {
       baseUrl: '',
       pages: testCase.pages,
+      pagesExclude: [],
       ignore: [
         '_site/*',
         '*.json',
@@ -776,4 +777,76 @@ test('Site config throws error on duplicate page src', async () => {
   expect(site.collectAddressablePages())
     .rejects
     .toThrow(new Error('Duplicate page entries found in site config: index.md'));
+});
+
+const siteJsonPageExclusionTestCases = [
+  {
+    name: 'Site.json excludes pages by glob exclude',
+    pages: [
+      {
+        glob: '*.md',
+        globExclude: ['exclude.md'],
+      },
+    ],
+    expected: [
+      {
+        src: 'index.md',
+      },
+    ],
+  },
+  {
+    name: 'Site.json excludes pages by pages exclude',
+    pages: [
+      {
+        glob: '*.md',
+      },
+    ],
+    pagesExclude: ['exclude.md'],
+    expected: [
+      {
+        src: 'index.md',
+      },
+    ],
+  },
+  {
+    name: 'Site.json excludes pages by combination of pages exclude and glob exclude',
+    pages: [
+      {
+        glob: '*.md',
+        globExclude: ['exclude.md'],
+      },
+    ],
+    pagesExclude: ['index.md'],
+    expected: [],
+  },
+];
+
+siteJsonPageExclusionTestCases.forEach((testCase) => {
+  test(testCase.name, async () => {
+    const customSiteConfig = {
+      baseUrl: '',
+      pages: testCase.pages,
+      pagesExclude: testCase.pagesExclude || [],
+      ignore: [
+        '_site/*',
+        '*.json',
+        '*.md',
+      ],
+      deploy: {
+        message: 'Site Update.',
+      },
+    };
+    const json = {
+      ...PAGE_NJK,
+      'index.md': '',
+      'exclude.md': '',
+    };
+    fs.vol.fromJSON(json, '');
+
+    const site = new Site('./', '_site');
+    site.siteConfig = customSiteConfig;
+    await site.collectAddressablePages();
+    expect(site.addressablePages)
+      .toEqual(testCase.expected);
+  });
 });
