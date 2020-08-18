@@ -34,10 +34,10 @@ Here is a typical `site.json` file:
     },
     {
       "glob": "**/index.md",
-      "globExclude": ["internal/index.md"]
+      "globExclude": ["subsite/**/index.md"]
     }
   ],
-  "pagesExclude": ["admin/index.md"],
+  "pagesExclude": ["subsite/*.md"],
   "externalScripts": [
     "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
   ],
