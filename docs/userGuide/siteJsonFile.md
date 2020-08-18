@@ -33,11 +33,12 @@ Here is a typical `site.json` file:
       }
     },
     {
-      "glob": "**/index.md",
-      "globExclude": ["subsite/**/index.md"]
+      "glob": "topics/**/*.md",
+      "globExclude": ["topics/*/appendix/*.md"],
+      "layout": "subtopic"
     }
   ],
-  "pagesExclude": ["subsite/*.md"],
+  "pagesExclude": ["subsite/**/*.md"],
   "externalScripts": [
     "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
   ],
