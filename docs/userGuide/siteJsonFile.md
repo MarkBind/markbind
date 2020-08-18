@@ -33,9 +33,12 @@ Here is a typical `site.json` file:
       }
     },
     {
-      "glob": "**/index.md"
+      "glob": "topics/**/*.md",
+      "globExclude": ["topics/*/appendix/*.md"],
+      "layout": "subtopic"
     }
   ],
+  "pagesExclude": ["subsite/**/*.md"],
   "externalScripts": [
     "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
   ],
@@ -103,6 +106,7 @@ _(Optional)_ **The theme for the generated site.** Uses the default Bootstrap th
   {{ icon_examples }} `docs/index.md` or `[ 'docs/index.md', 'docs/userGuide.md' ]` { .my-1 }
   * `glob` can be used alternatively to define a file pattern in the [_glob syntax_](https://en.wikipedia.org/wiki/Glob_(programming)), or an array of such file patterns.<br>
   {{ icon_examples }} `**/*.md` or `[ '**/*.md', '**/*.mbdf' ]` { .my-2 }
+* **`globExclude`**: An array of file patterns to be excluded from rendering when using `glob`, also defined in the glob syntax.
 * **`title`**: The page `<title>` for the generated web page. Titles specified here take priority over titles specified in the [front matter](addingPages.html#front-matter) of individual pages.
 * **`layout`**: The [layout](tweakingThePageStructure.html#page-layouts) to be used by the page. Default: `default`.
 * **`searchable`**: Specifies that the page(s) should be excluded from searching. Default: `yes`.
@@ -155,6 +159,11 @@ The following properties will apply to `index.md`:
 </div>
 </box>
 </span>
+
+#### **`pagesExclude`**
+**An array of file patterns to be excluded from rendering.** The exclusion pattern follows the glob syntax.
+
+This property is the global variant to the `globExclude` property and is functionally identical to it. If the two are used at once, the file patterns from both properties will be combined when excluding pages.
 
 #### **`externalScripts`**
 

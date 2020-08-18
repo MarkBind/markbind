@@ -471,7 +471,7 @@ class Site {
    * Collects the paths to be traversed as addressable pages
    */
   collectAddressablePages() {
-    const { pages } = this.siteConfig;
+    const { pages, pagesExclude } = this.siteConfig;
     const pagesFromSrc = _.flatMap(pages.filter(page => page.src), page => (Array.isArray(page.src)
       ? page.src.map(pageSrc => ({ ...page, src: pageSrc }))
       : [page]));
@@ -486,7 +486,11 @@ class Site {
     const pagesFromGlobs = _.flatMap(pages.filter(page => page.glob), page => walkSync(this.rootPath, {
       directories: false,
       globs: Array.isArray(page.glob) ? page.glob : [page.glob],
-      ignore: [CONFIG_FOLDER_NAME, SITE_FOLDER_NAME],
+      ignore: [
+        CONFIG_FOLDER_NAME,
+        SITE_FOLDER_NAME,
+        ...pagesExclude.concat(page.globExclude || []),
+      ],
     }).map(filePath => ({
       src: filePath,
       searchable: page.searchable,
