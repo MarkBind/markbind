@@ -1,7 +1,7 @@
 const simpleGit = require('simple-git');
 const logger = require('./logger');
 
-const git = simpleGit();
+const git = simpleGit({ baseDir: process.cwd() });
 
 /**
  * Wrapper around simple-git providing helper functions to retrieve repo remote URLs.
