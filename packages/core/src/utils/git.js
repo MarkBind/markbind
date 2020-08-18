@@ -20,7 +20,6 @@ module.exports = {
       });
   },
   async getRemoteUrl(remote) {
-    logger.info(remote);
     return git.remote(['get-url', remote])
       .catch((err) => {
         logger.warn(err);

@@ -1242,14 +1242,6 @@ class Site {
     });
   }
 
-  printDeployedUrl() {
-    // If a CNAME file exists on origin/gh-pages, that contains the (custom) deployed url.
-
-    // Otherwise, retrieve site.json's manually configured deploy url
-
-    // Otherwise, manually construct the url from the remote url
-  }
-
   deploy(travisTokenVar) {
     const defaultDeployConfig = {
       branch: 'gh-pages',
@@ -1314,7 +1306,7 @@ class Site {
           options.branch = this.siteConfig.deploy.branch || defaultDeployConfig.branch;
           return Site.getDeploymentUrl(options);
         })
-        .then(deploymentUrl => (deploymentUrl != null ? resolve(`Deployed at ${deploymentUrl}!`) : resolve('Deployed!')))
+        .then(depUrl => (depUrl != null ? resolve(`Deployed at ${depUrl}!`) : resolve('Deployed!')))
         .catch(reject);
     });
   }
@@ -1365,27 +1357,6 @@ class Site {
         logger.error(err);
         return null;
       });
-
-    // return new Promise((resolve) => {
-    //   gitUtil.getRemoteBranchFile('blob', remote, branch, 'CNAME')
-    //     .then((cname) => {
-    //       if (cname) {
-    //         return resolve(cname);
-    //       } else if (repo) {
-    //         logger.info('hi');
-    //         // no cname file found, try using the repo url
-    //         return resolve(constructGhPagesUrl(repo));
-    //       }
-    //       // no repo url specified in site.json, construct from remote url
-    //       logger.info('hi2');
-    //       return gitUtil.getRemoteUrl(remote);
-    //     })
-    //     .then(remoteUrl => resolve(constructGhPagesUrl(remoteUrl)))
-    //     .catch((err) => {
-    //       logger.error(err);
-    //       return resolve(null);
-    //     });
-    // });
   }
 
   _setTimestampVariable() {
