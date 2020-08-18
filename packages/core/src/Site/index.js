@@ -18,6 +18,7 @@ const FsUtil = require('../utils/fsUtil');
 const delay = require('../utils/delay');
 const logger = require('../utils/logger');
 const utils = require('../utils');
+const gitUtil = require('../utils/git');
 
 const {
   LAYOUT_DEFAULT_NAME,
@@ -1241,11 +1242,20 @@ class Site {
     });
   }
 
+  printDeployedUrl() {
+    // If a CNAME file exists on origin/gh-pages, that contains the (custom) deployed url.
+
+    // Otherwise, retrieve site.json's manually configured deploy url
+
+    // Otherwise, manually construct the url from the remote url
+  }
+
   deploy(travisTokenVar) {
     const defaultDeployConfig = {
       branch: 'gh-pages',
       message: 'Site Update.',
       repo: '',
+      remote: 'origin',
     };
     process.env.NODE_DEBUG = 'gh-pages';
     return new Promise((resolve, reject) => {
@@ -1297,9 +1307,85 @@ class Site {
 
           return publish(basePath, options);
         })
-        .then(resolve)
+        .then(() => {
+          const options = {};
+          options.remote = defaultDeployConfig.remote;
+          options.repo = this.siteConfig.deploy.repo || defaultDeployConfig.repo;
+          options.branch = this.siteConfig.deploy.branch || defaultDeployConfig.branch;
+          return Site.getDeploymentUrl(options);
+        })
+        .then(deploymentUrl => (deploymentUrl != null ? resolve(`Deployed at ${deploymentUrl}!`) : resolve('Deployed!')))
         .catch(reject);
     });
+  }
+
+  /**
+   * Gets the url where the website is deployed at.
+   */
+  static getDeploymentUrl(options) {
+    const HTTPS_PART = 'https://';
+    const SSH_PART = 'git@github.com:';
+    const GITHUB_IO_PART = 'github.io';
+
+    // https://<name|org name>.github.io/<repo name>/
+    function constructGhPagesUrl(remoteUrl) {
+      if (remoteUrl.includes(HTTPS_PART)) {
+        // https://github.com/<name|org>/<repo>.git (HTTPS)
+        const parts = remoteUrl.split('/');
+        const repoName = parts[parts.length - 1].toLowerCase();
+        const name = parts[parts.length - 2].toLowerCase();
+        return `https://${name}.${GITHUB_IO_PART}/${repoName}`;
+      } else if (remoteUrl.includes(SSH_PART)) {
+        // git@github.com:<name|org>/<repo>.git (SSH)
+        const parts = remoteUrl.split('/');
+        const repoName = parts[parts.length - 1].toLowerCase();
+        const name = (parts[0].split(':'))[0];
+        return `https://${name}.${GITHUB_IO_PART}/${repoName}`;
+      }
+      throw new Error(`Unknown remote url ${remoteUrl}`);
+    }
+
+    const { remote, branch, repo } = options;
+    const cnamePm = gitUtil.getRemoteBranchFile('blob', remote, branch, 'CNAME');
+    const remoteUrlPm = gitUtil.getRemoteUrl(remote);
+    const promises = [cnamePm, remoteUrlPm];
+
+    return Promise.all(promises)
+      .then((results) => {
+        const cname = results[0];
+        const remoteUrl = results[1];
+        if (cname) {
+          return cname;
+        } else if (repo) {
+          return constructGhPagesUrl(repo);
+        }
+        return constructGhPagesUrl(remoteUrl);
+      })
+      .catch((err) => {
+        logger.error(err);
+        return null;
+      });
+
+    // return new Promise((resolve) => {
+    //   gitUtil.getRemoteBranchFile('blob', remote, branch, 'CNAME')
+    //     .then((cname) => {
+    //       if (cname) {
+    //         return resolve(cname);
+    //       } else if (repo) {
+    //         logger.info('hi');
+    //         // no cname file found, try using the repo url
+    //         return resolve(constructGhPagesUrl(repo));
+    //       }
+    //       // no repo url specified in site.json, construct from remote url
+    //       logger.info('hi2');
+    //       return gitUtil.getRemoteUrl(remote);
+    //     })
+    //     .then(remoteUrl => resolve(constructGhPagesUrl(remoteUrl)))
+    //     .catch((err) => {
+    //       logger.error(err);
+    //       return resolve(null);
+    //     });
+    // });
   }
 
   _setTimestampVariable() {

@@ -7,21 +7,24 @@ const git = simpleGit();
  * Wrapper around simple-git providing helper functions to retrieve repo remote URLs.
  */
 module.exports = {
-  getRepoRemoteUrl() {
-
-  },
-  getOriginUrl() {
-
-  },
-  // Returns the cname found in /CNAME of the gh-pages branch of the current repo.
-  getCname() {
-    git.catFile(['blob', 'origin/gh-pages:CNAME'], (err, result) => {
-      if (err) {
-        logger.error(err);
+  /**
+   * Returns the contents of a remote file, undefined otherwise.
+   * See: https://git-scm.com/docs/git-cat-file for accepted values for each input.
+   */
+  async getRemoteBranchFile(type, remote, branch, fileName) {
+    const catFileTarget = `${remote}/${branch}:${fileName}`;
+    return git.catFile([type, catFileTarget])
+      .catch((err) => {
+        logger.warn(err);
         return undefined;
-      }
-      logger.info(result);
-      return result;
-    });
+      });
+  },
+  async getRemoteUrl(remote) {
+    logger.info(remote);
+    return git.remote(['get-url', remote])
+      .catch((err) => {
+        logger.warn(err);
+        return undefined;
+      });
   },
 };

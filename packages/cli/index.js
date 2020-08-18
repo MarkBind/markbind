@@ -13,7 +13,6 @@ _.isBoolean = require('lodash/isBoolean');
 
 const { Site } = require('@markbind/core');
 const fsUtil = require('@markbind/core/src/utils/fsUtil');
-const gitUtil = require('@markbind/core/src/utils/git');
 const utils = require('@markbind/core/src/utils');
 const {
   INDEX_MARKDOWN_FILE,
@@ -287,9 +286,7 @@ program
     const rootFolder = path.resolve(process.cwd());
     const outputRoot = path.join(rootFolder, '_site');
     new Site(rootFolder, outputRoot, undefined, undefined, options.siteConfig).deploy(options.travis)
-      .then(() => {
-        logger.info('Deployed!');
-      })
+      .then(deployMsg => logger.info(deployMsg))
       .catch(handleError);
     printHeader();
   });
