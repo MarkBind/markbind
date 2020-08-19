@@ -27,6 +27,11 @@ jest.mock('fs');
 jest.mock('walk-sync');
 jest.mock('gh-pages');
 jest.mock('../../src/Page');
+jest.mock('simple-git', () => () => ({
+  ...jest.requireActual('simple-git')(),
+  catFile: jest.fn(),
+  remote: jest.fn(),
+}));
 
 afterEach(() => fs.vol.reset());
 

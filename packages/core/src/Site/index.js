@@ -6,6 +6,7 @@ const path = require('path');
 const Promise = require('bluebird');
 const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
+const simpleGit = require('simple-git');
 
 const SiteConfig = require('./SiteConfig');
 const Page = require('../Page');
@@ -1303,11 +1304,12 @@ class Site {
           return publish(basePath, options);
         })
         .then(() => {
+          const git = simpleGit({ baseDir: process.cwd() });
           const options = {};
           options.remote = defaultDeployConfig.remote;
           options.repo = this.siteConfig.deploy.repo || defaultDeployConfig.repo;
           options.branch = this.siteConfig.deploy.branch || defaultDeployConfig.branch;
-          return Site.getDeploymentUrl(options);
+          return Site.getDeploymentUrl(git, options);
         })
         .then(depUrl => (depUrl != null ? resolve(`Deployed at ${depUrl}!`) : resolve('Deployed!')))
         .catch(reject);
@@ -1317,7 +1319,7 @@ class Site {
   /**
    * Gets the url where the website is deployed at.
    */
-  static getDeploymentUrl(options) {
+  static getDeploymentUrl(git, options) {
     const HTTPS_PART = 'https://';
     const SSH_PART = 'git@github.com:';
     const GITHUB_IO_PART = 'github.io';
@@ -1341,8 +1343,8 @@ class Site {
     }
 
     const { remote, branch, repo } = options;
-    const cnamePm = gitUtil.getRemoteBranchFile('blob', remote, branch, 'CNAME');
-    const remoteUrlPm = gitUtil.getRemoteUrl(remote);
+    const cnamePm = gitUtil.getRemoteBranchFile(git, 'blob', remote, branch, 'CNAME');
+    const remoteUrlPm = gitUtil.getRemoteUrl(git, remote);
     const promises = [cnamePm, remoteUrlPm];
 
     return Promise.all(promises)
