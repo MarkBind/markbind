@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+  context: __dirname,
   entry: {
     markbind: path.join(__dirname, 'src', 'index.js'),
   },
@@ -29,6 +30,7 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
+              root: __dirname,
               rootMode: 'upward',
             },
           },
