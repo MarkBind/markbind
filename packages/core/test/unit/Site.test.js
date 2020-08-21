@@ -29,8 +29,11 @@ jest.mock('gh-pages');
 jest.mock('../../src/Page');
 jest.mock('simple-git', () => () => ({
   ...jest.requireActual('simple-git')(),
-  catFile: jest.fn(),
-  remote: jest.fn(),
+  // A test file should reduce dependencies on external libraries; use pure js functions instead.
+  // eslint-disable-next-line lodash/prefer-constant
+  catFile: jest.fn(() => 'mock-test-website.com'),
+  // eslint-disable-next-line lodash/prefer-constant
+  remote: jest.fn(() => 'https://github.com/mockName/mockRepo.git'),
 }));
 
 afterEach(() => fs.vol.reset());
@@ -475,7 +478,12 @@ test('Site deploys with default settings', async () => {
   await site.deploy();
   expect(ghpages.dir).toEqual('_site');
   expect(ghpages.options)
-    .toEqual({ branch: 'gh-pages', message: 'Site Update.', repo: '' });
+    .toEqual({
+      branch: 'gh-pages',
+      message: 'Site Update.',
+      repo: '',
+      remote: 'origin',
+    });
 });
 
 test('Site deploys with custom settings', async () => {
@@ -495,7 +503,12 @@ test('Site deploys with custom settings', async () => {
   await site.deploy();
   expect(ghpages.dir).toEqual('_site');
   expect(ghpages.options)
-    .toEqual({ branch: 'master', message: 'Custom Site Update.', repo: 'https://github.com/USER/REPO.git' });
+    .toEqual({
+      branch: 'master',
+      message: 'Custom Site Update.',
+      repo: 'https://github.com/USER/REPO.git',
+      remote: 'origin',
+    });
 });
 
 test('Site should not deploy without a built site', async () => {

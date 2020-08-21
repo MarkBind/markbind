@@ -1301,51 +1301,52 @@ class Site {
             };
           }
 
-          return publish(basePath, options);
+          publish(basePath, options);
+          return options;
         })
-        .then(() => {
+        .then((options) => {
           const git = simpleGit({ baseDir: process.cwd() });
-          const options = {};
           options.remote = defaultDeployConfig.remote;
-          options.repo = this.siteConfig.deploy.repo || defaultDeployConfig.repo;
-          options.branch = this.siteConfig.deploy.branch || defaultDeployConfig.branch;
           return Site.getDeploymentUrl(git, options);
         })
-        .then(depUrl => (depUrl != null ? resolve(`Deployed at ${depUrl}!`) : resolve('Deployed!')))
+        .then(depUrl => resolve(depUrl))
         .catch(reject);
     });
   }
 
   /**
-   * Gets the url where the website is deployed at.
+   * Gets the deployed website's url, returning null if there was an error retrieving it.
    */
   static getDeploymentUrl(git, options) {
-    const HTTPS_PART = 'https://';
-    const SSH_PART = 'git@github.com:';
+    const HTTPS_PREAMBLE = 'https://';
+    const SSH_PREAMBLE = 'git@github.com:';
     const GITHUB_IO_PART = 'github.io';
 
     // https://<name|org name>.github.io/<repo name>/
     function constructGhPagesUrl(remoteUrl) {
-      if (remoteUrl.includes(HTTPS_PART)) {
+      if (!remoteUrl) {
+        return null;
+      }
+      if (remoteUrl.startsWith(HTTPS_PREAMBLE)) {
         // https://github.com/<name|org>/<repo>.git (HTTPS)
         const parts = remoteUrl.split('/');
         const repoName = parts[parts.length - 1].toLowerCase();
         const name = parts[parts.length - 2].toLowerCase();
         return `https://${name}.${GITHUB_IO_PART}/${repoName}`;
-      } else if (remoteUrl.includes(SSH_PART)) {
+      } else if (remoteUrl.startsWith(SSH_PREAMBLE)) {
         // git@github.com:<name|org>/<repo>.git (SSH)
         const parts = remoteUrl.split('/');
         const repoName = parts[parts.length - 1].toLowerCase();
-        const name = (parts[0].split(':'))[0];
+        const name = parts[0].substring(SSH_PREAMBLE.length);
         return `https://${name}.${GITHUB_IO_PART}/${repoName}`;
       }
-      throw new Error(`Unknown remote url ${remoteUrl}`);
+      return null;
     }
 
     const { remote, branch, repo } = options;
-    const cnamePm = gitUtil.getRemoteBranchFile(git, 'blob', remote, branch, 'CNAME');
-    const remoteUrlPm = gitUtil.getRemoteUrl(git, remote);
-    const promises = [cnamePm, remoteUrlPm];
+    const cnamePromise = gitUtil.getRemoteBranchFile(git, 'blob', remote, branch, 'CNAME');
+    const remoteUrlPromise = gitUtil.getRemoteUrl(git, remote);
+    const promises = [cnamePromise, remoteUrlPromise];
 
     return Promise.all(promises)
       .then((results) => {

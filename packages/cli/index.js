@@ -298,7 +298,7 @@ program
     const rootFolder = path.resolve(process.cwd());
     const outputRoot = path.join(rootFolder, '_site');
     new Site(rootFolder, outputRoot, undefined, undefined, options.siteConfig).deploy(options.travis)
-      .then(deployMsg => logger.info(deployMsg))
+      .then(depUrl => (depUrl !== null ? logger.info(`Deployed at ${depUrl}!`) : logger.info('Deployed!')))
       .catch(handleError);
     printHeader();
   });
