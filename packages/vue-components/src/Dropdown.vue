@@ -57,7 +57,7 @@ export default {
       type: String,
       default: ''
     }
-	},
+  },
   data: {
     navbarHeight: 0,
   },
