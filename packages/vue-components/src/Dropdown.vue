@@ -57,6 +57,9 @@ export default {
       type: String,
       default: ''
     }
+	},
+  data: {
+    navbarHeight: 0,
   },
   computed: {
     btnType () {
@@ -112,7 +115,22 @@ export default {
     showDropdownMenu() {
       this.show = true;
       $(this.$refs.dropdown).findChildren('ul').each(ul => ul.classList.toggle('show', true));
+      this.setDropdownMaxHeight();
     },
+    initialiseDropdownReactivity() {
+      this.navbarHeight = document.querySelector('.navbar').offsetHeight;
+      let timer;
+      window.addEventListener('resize', () => { 
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          this.setDropdownMaxHeight()
+        }, 300);
+      });
+    },
+    setDropdownMaxHeight() {
+      document.documentElement.style
+        .setProperty('--max-dropdown-height', `${(window.innerHeight - this.navbarHeight)}px`)
+    }
   },
   mounted () {
     const $el = $(this.$refs.dropdown)
@@ -131,6 +149,7 @@ export default {
       return false
     })
     $el.findChildren('ul').on('click', 'li>a', e => { this.hideDropdownMenu() })
+    this.initialiseDropdownReactivity();
   },
   beforeDestroy () {
     const $el = $(this.$refs.dropdown)
@@ -142,6 +161,11 @@ export default {
 </script>
 
 <style scoped>
+
+:root {
+  --max-dropdown-height: 100%;
+}
+
 .secret {
   position: absolute;
   clip: rect(0 0 0 0);
@@ -161,4 +185,10 @@ export default {
 .dropdown-toggle {
   cursor: pointer;
 }
+
+.dropdown-menu {
+  max-height: var(--max-dropdown-height);
+  overflow-y: auto;
+}
+
 </style>
