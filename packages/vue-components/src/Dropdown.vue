@@ -115,21 +115,21 @@ export default {
     showDropdownMenu() {
       this.show = true;
       $(this.$refs.dropdown).findChildren('ul').each(ul => ul.classList.toggle('show', true));
-      this.setDropdownMaxHeight();
+      this.setDropdownMenuMaxHeight();
     },
-    initialiseDropdownReactivity() {
+    initialiseDropdownMenuResponsivity() {
       this.navbarHeight = document.querySelector('.navbar').offsetHeight;
       let timer;
       window.addEventListener('resize', () => { 
         clearTimeout(timer);
         timer = setTimeout(() => {
-          this.setDropdownMaxHeight()
+          this.setDropdownMenuMaxHeight()
         }, 300);
       });
     },
-    setDropdownMaxHeight() {
+    setDropdownMenuMaxHeight() {
       document.documentElement.style
-        .setProperty('--max-dropdown-height', `${(window.innerHeight - this.navbarHeight)}px`)
+        .setProperty('--dropdown-menu-max-height', `${(window.innerHeight - this.navbarHeight)}px`)
     }
   },
   mounted () {
@@ -149,7 +149,7 @@ export default {
       return false
     })
     $el.findChildren('ul').on('click', 'li>a', e => { this.hideDropdownMenu() })
-    this.initialiseDropdownReactivity();
+    this.initialiseDropdownMenuResponsivity();
   },
   beforeDestroy () {
     const $el = $(this.$refs.dropdown)
@@ -163,7 +163,7 @@ export default {
 <style scoped>
 
 :root {
-  --max-dropdown-height: 100%;
+  --dropdown-menu-max-height: 100%;
 }
 
 .secret {
@@ -187,7 +187,7 @@ export default {
 }
 
 .dropdown-menu {
-  max-height: var(--max-dropdown-height);
+  max-height: var(--dropdown-menu-max-height);
   overflow-y: auto;
 }
 
