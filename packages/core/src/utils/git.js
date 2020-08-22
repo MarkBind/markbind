@@ -1,7 +1,5 @@
-const logger = require('./logger');
-
 /**
- * Wrapper around simple-git providing helper functions to retrieve repo remote URLs.
+ * Contains methods using simple-git to perform commands relating to git.
  */
 module.exports = {
   /**
@@ -13,7 +11,6 @@ module.exports = {
       const catFileTarget = `${remote}/${branch}:${fileName}`;
       return await simpleGit.catFile([type, catFileTarget]);
     } catch (e) {
-      logger.warn(e);
       return undefined;
     }
   },
@@ -24,7 +21,6 @@ module.exports = {
     try {
       return await simpleGit.remote(['get-url', remote]);
     } catch (e) {
-      logger.warn(e);
       return undefined;
     }
   },

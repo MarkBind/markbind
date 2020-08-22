@@ -1350,8 +1350,8 @@ class Site {
 
     return Promise.all(promises)
       .then((results) => {
-        const cname = results[0];
-        const remoteUrl = results[1];
+        const cname = results[0].trim();
+        const remoteUrl = results[1].trim();
         if (cname) {
           return cname;
         } else if (repo) {
