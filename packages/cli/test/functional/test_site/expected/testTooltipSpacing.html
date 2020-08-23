@@ -14,10 +14,10 @@
   <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
   <link rel="stylesheet" href="markbind/css/octicons.css">
   <link rel="stylesheet" href="markbind/css/github.min.css">
-  <link rel="stylesheet" href="markbind/css/markbind.css">
+  <link rel="stylesheet" href="markbind/css/markbind.min.css">
   <script src="markbind/js/polyfill.min.js"></script>
   <script src="markbind/js/vue.min.js"></script>
-  <script src="markbind/js/components.min.js"></script>
+  <script src="markbind/js/markbind.min.js"></script>
   <script src="markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
@@ -31,7 +31,10 @@
     <div id="flex-body">
       <div id="content-wrapper">
         <h1 id="569-stray-space-after-tooltip">569: Stray space after tooltip<a class="fa fa-anchor" href="#569-stray-space-after-tooltip" onclick="event.stopPropagation()"></a></h1>
-        <pre><code class="hljs" v-pre><span>&lt;tooltip&gt;tooltip&lt;/tooltip&gt;, test<br></span><span><br></span><span>&lt;trigger&gt;trigger&lt;/trigger&gt;, test<br></span></code></pre>
+        <pre><code class="hljs" v-pre><span>&lt;tooltip&gt;tooltip&lt;/tooltip&gt;, test
+</span><span>
+</span><span>&lt;trigger&gt;trigger&lt;/trigger&gt;, test
+</span></code></pre>
         <p><span data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger">tooltip</span>, test</p>
         <p><span v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['undefined'].show()" class="trigger">trigger</span>, test</p>
       </div>
@@ -48,9 +51,8 @@
 <script src="markbind/js/bootstrap-utility.min.js"></script>
 <script>
   const baseUrl = '/test_site'
-  const enableSearch = true
+  MarkBind.setupWithSearch()
 </script>
-<script src="markbind/js/setup.js"></script>
 <script src="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginScript.js"></script>
 <script>
   alert("Inline plugin script loaded!")
@@ -69,5 +71,8 @@
   gtag('config', 'TRACKING-ID');
 </script>
 <script src="markbind/layouts/default/scripts.js"></script>
+<script>
+  if (MarkBind.AfterSetup) MarkBind.AfterSetup()
+</script>
 
 </html>

@@ -43,6 +43,11 @@ class SiteConfig {
     /**
      * @type {Array}
      */
+    this.pagesExclude = siteConfigJson.pagesExclude || [];
+
+    /**
+     * @type {Array}
+     */
     this.ignore = siteConfigJson.ignore || [];
     /**
      * @type {Array}

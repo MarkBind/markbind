@@ -61,7 +61,6 @@ const {
   MAX_CONCURRENT_PAGE_GENERATION_PROMISES,
   PAGE_TEMPLATE_NAME,
   PROJECT_PLUGIN_FOLDER_NAME,
-  SITE_ASSET_FOLDER_NAME,
   SITE_CONFIG_NAME,
   SITE_DATA_NAME,
   SITE_FOLDER_NAME,
@@ -114,13 +113,15 @@ const TOP_NAV_DEFAULT = '<header><navbar placement="top" type="inverse">\n'
 const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${MARKBIND_VERSION}</a>`;
 
 class Site {
-  constructor(rootPath, outputPath, onePagePath, forceReload = false, siteConfigPath = SITE_CONFIG_NAME) {
+  constructor(rootPath, outputPath, onePagePath, forceReload = false,
+              siteConfigPath = SITE_CONFIG_NAME, dev) {
+    this.dev = !!dev;
+
     this.rootPath = rootPath;
     this.outputPath = outputPath;
     this.tempPath = path.join(rootPath, TEMP_FOLDER_NAME);
 
     // MarkBind assets to be copied
-    this.siteAssetsSrcPath = path.resolve(__dirname, '../..', SITE_ASSET_FOLDER_NAME);
     this.siteAssetsDestPath = path.join(outputPath, TEMPLATE_SITE_ASSET_FOLDER_NAME);
 
     // Page template path
@@ -257,6 +258,7 @@ class Site {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
     const resultPath = path.join(this.outputPath, Site.setExtension(config.pageSrc, '.html'));
     return new Page({
+      dev: this.dev,
       baseUrl: this.siteConfig.baseUrl,
       baseUrlMap: this.baseUrlMap,
       content: '',
@@ -296,8 +298,10 @@ class Site {
                                 path.join(this.siteAssetsDestPath, 'css', 'octicons.css')),
         highlight: path.relative(path.dirname(resultPath),
                                  path.join(this.siteAssetsDestPath, 'css', 'github.min.css')),
-        markbind: path.relative(path.dirname(resultPath),
-                                path.join(this.siteAssetsDestPath, 'css', 'markbind.css')),
+        markBindCss: path.relative(path.dirname(resultPath),
+                                   path.join(this.siteAssetsDestPath, 'css', 'markbind.min.css')),
+        markBindJs: path.relative(path.dirname(resultPath),
+                                  path.join(this.siteAssetsDestPath, 'js', 'markbind.min.js')),
         pageNavCss: path.relative(path.dirname(resultPath),
                                   path.join(this.siteAssetsDestPath, 'css', 'page-nav.css')),
         siteNavCss: path.relative(path.dirname(resultPath),
@@ -307,12 +311,8 @@ class Site {
                                                     'bootstrap-utility.min.js')),
         polyfillJs: path.relative(path.dirname(resultPath),
                                   path.join(this.siteAssetsDestPath, 'js', 'polyfill.min.js')),
-        setup: path.relative(path.dirname(resultPath),
-                             path.join(this.siteAssetsDestPath, 'js', 'setup.js')),
         vue: path.relative(path.dirname(resultPath),
                            path.join(this.siteAssetsDestPath, 'js', 'vue.min.js')),
-        components: path.relative(path.dirname(resultPath),
-                                  path.join(this.siteAssetsDestPath, 'js', 'components.min.js')),
         jQuery: path.relative(path.dirname(resultPath),
                               path.join(this.siteAssetsDestPath, 'js', 'jquery.min.js')),
       },
@@ -471,7 +471,7 @@ class Site {
    * Collects the paths to be traversed as addressable pages
    */
   collectAddressablePages() {
-    const { pages } = this.siteConfig;
+    const { pages, pagesExclude } = this.siteConfig;
     const pagesFromSrc = _.flatMap(pages.filter(page => page.src), page => (Array.isArray(page.src)
       ? page.src.map(pageSrc => ({ ...page, src: pageSrc }))
       : [page]));
@@ -486,7 +486,11 @@ class Site {
     const pagesFromGlobs = _.flatMap(pages.filter(page => page.glob), page => walkSync(this.rootPath, {
       directories: false,
       globs: Array.isArray(page.glob) ? page.glob : [page.glob],
-      ignore: [CONFIG_FOLDER_NAME, SITE_FOLDER_NAME],
+      ignore: [
+        CONFIG_FOLDER_NAME,
+        SITE_FOLDER_NAME,
+        ...pagesExclude.concat(page.globExclude || []),
+      ],
     }).map(filePath => ({
       src: filePath,
       searchable: page.searchable,
@@ -613,8 +617,8 @@ class Site {
         .then(() => this.collectPluginSpecialTags())
         .then(() => this.buildAssets())
         .then(() => (this.onePagePath ? this.lazyBuildSourceFiles() : this.buildSourceFiles()))
-        .then(() => this.copyMarkBindAsset())
-        .then(() => this.copyComponentsAsset())
+        .then(() => this.copyCoreWebAsset())
+        .then(() => this.copyBootswatchTheme())
         .then(() => this.copyFontAwesomeAsset())
         .then(() => this.copyOcticonsAsset())
         .then(() => this.copyLayouts())
@@ -1159,37 +1163,40 @@ class Site {
   }
 
   /**
-   * Copies components.min.js bundle to the assets folder
+   * Copies core-web bundles and external assets to the assets output folder
    */
-  copyComponentsAsset() {
-    const componentsSrcPath = require.resolve('@markbind/vue-components/dist/components.min.js');
-    const componentsDestPath = path.join(this.siteAssetsDestPath, 'js', 'components.min.js');
+  copyCoreWebAsset() {
+    const coreWebRootPath = path.dirname(require.resolve('@markbind/core-web/package.json'));
+    const coreWebAssetPath = path.join(coreWebRootPath, 'asset');
+    fs.copySync(coreWebAssetPath, this.siteAssetsDestPath);
 
-    return fs.copyAsync(componentsSrcPath, componentsDestPath);
+    const filesToCopy = [
+      'js/markbind.min.js',
+      'css/markbind.min.css',
+    ];
+
+    const copyAll = filesToCopy.map((file) => {
+      const srcPath = path.join(coreWebRootPath, 'dist', file);
+      const destPath = path.join(this.siteAssetsDestPath, file);
+      return fs.copyAsync(srcPath, destPath);
+    });
+
+    return Promise.all(copyAll);
   }
 
   /**
-   * Copies MarkBind assets to the assets folder
+   * Copies bootswatch theme to the assets folder if a valid theme is specified
    */
-  copyMarkBindAsset() {
-    const maybeOverrideDefaultBootstrapTheme = () => {
-      const { theme } = this.siteConfig;
-      if (!theme || !_.has(SUPPORTED_THEMES_PATHS, theme)) {
-        return _.noop;
-      }
+  copyBootswatchTheme() {
+    const { theme } = this.siteConfig;
+    if (!theme || !_.has(SUPPORTED_THEMES_PATHS, theme)) {
+      return _.noop;
+    }
 
-      const themeSrcPath = SUPPORTED_THEMES_PATHS[theme];
-      const themeDestPath = path.join(this.siteAssetsDestPath, 'css', 'bootstrap.min.css');
+    const themeSrcPath = SUPPORTED_THEMES_PATHS[theme];
+    const themeDestPath = path.join(this.siteAssetsDestPath, 'css', 'bootstrap.min.css');
 
-      return new Promise((resolve, reject) => {
-        fs.copyAsync(themeSrcPath, themeDestPath)
-          .then(resolve)
-          .catch(reject);
-      });
-    };
-
-    return fs.copyAsync(this.siteAssetsSrcPath, this.siteAssetsDestPath)
-      .then(maybeOverrideDefaultBootstrapTheme);
+    return fs.copyAsync(themeSrcPath, themeDestPath);
   }
 
   /**

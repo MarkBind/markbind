@@ -248,6 +248,14 @@
         "dates": "Dates"
       },
       "headingKeywords": {}
+    },
+    {
+      "src": "testVariableContainsInclude.md",
+      "title": "Variable should be able to store included content fragments",
+      "headings": {
+        "content-fragment": "content fragment"
+      },
+      "headingKeywords": {}
     }
   ]
 }

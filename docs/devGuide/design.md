@@ -14,13 +14,15 @@ This page gives you an overview of the MarkBind's internal design.
 
 ## Project structure
 
-The MarkBind project is developed in a monorepo ([MarkBind/markbind](https://github.com/MarkBind/markbind)) of 3 packages:
+The MarkBind project is developed in a monorepo ([MarkBind/markbind](https://github.com/MarkBind/markbind)) of 4 packages:
 
 * The command-line interface (CLI) application, which accepts commands from users and then uses the core library to parse and generate web pages, resides in the root.
 
 * The core library, which parses and processes MarkBind's various syntaxes, resides in the `packages/core/` directory.
 
 * The UI components library, which MarkBind authors can use to create content with complex and interactive structure, resides in the `packages/vue-components/` directory.
+
+* The core web library, which contains a generated web bundle from various setup scripts and the UI components library, resides in `packages/core-web/`.
 
   Stacks used: *Node.js*, *Vue.js*
 
@@ -56,3 +58,11 @@ The CLI program is built using [commander.js](https://github.com/tj/commander.js
 This package consists of a mix of [Bootstrap](getbootstrap.com/components/) and proprietary components rewritten in [Vue.js](vuejs.org) based on our needs for educational websites.
 
 We forked it from the original [yuche/vue-strap](https://github.com/yuche/vue-strap) repo into the [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap) repo, and then later merged it into the main [MarkBind/markbind](https://github.com/MarkBind/markbind) repo.
+
+### MarkBind core-web library
+
+This package houses the various frontend assets used in the core package.
+
+Some external assets included are Vue.js, jQuery, bootstrap bundles, and fontawesome bundles.
+ 
+Internal bundles are also present, generated from setup scripts, custom stylesheets and the UI components library.

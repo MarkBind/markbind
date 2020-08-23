@@ -14,15 +14,13 @@
   <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
   <link rel="stylesheet" href="markbind/css/octicons.css">
   <link rel="stylesheet" href="markbind/css/github.min.css">
-  <link rel="stylesheet" href="markbind/css/markbind.css">
+  <link rel="stylesheet" href="markbind/css/markbind.min.css">
   <script src="markbind/js/polyfill.min.js"></script>
   <script src="markbind/js/vue.min.js"></script>
-  <script src="markbind/js/components.min.js"></script>
+  <script src="markbind/js/markbind.min.js"></script>
   <script src="markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
   <link rel="stylesheet" href="markbind/layouts/default/styles.css">
-  <link rel="stylesheet" href="markbind/css/site-nav.css">
-  <link rel="stylesheet" href="markbind/css/page-nav.css">
 </head>
 
 <body data-spy="scroll" data-target="#page-nav" data-offset="100">
@@ -100,7 +98,10 @@
           </li>
         </ul>
         <p><strong>A <code v-pre>code</code> example:</strong></p>
-        <pre><code class="hljs html" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span><br></span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span><br></span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span><br></span></code></pre>
+        <pre><code class="hljs html" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
+</span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
+</span></code></pre>
         <h2 id="sub-heading-1-1">Sub Heading 1.1<a class="fa fa-anchor" href="#sub-heading-1-1" onclick="event.stopPropagation()"></a></h2>
         <p>A <span effect="scale" placement="top" trigger="hover" data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger"><span data-mb-html-for="_content">❗️ some <strong>important explanation</strong></span>tooltip</span>, a <span for="modal:modalinfo" trigger="click" v-b-popover.click.top.html="popoverGenerator" v-b-tooltip.click.top.html="tooltipContentGetter" v-on:click="$refs['modal:modalinfo'].show()" class="trigger-click">modal</span>, a <a href="https://markbind.org/">link</a>, a <span class="badge badge-danger">badge</span>, another <span class="badge badge-warning">badge</span>.</p>
         <b-modal id="modal:modalinfo" hide-footer size modal-class="mb-zoom" ref="modal:modalinfo"><template slot="modal-title">Modal Title</template>
@@ -243,9 +244,11 @@
 <script src="markbind/js/bootstrap-utility.min.js"></script>
 <script>
   const baseUrl = ''
-  const enableSearch = true
+  MarkBind.setupWithSearch()
 </script>
-<script src="markbind/js/setup.js"></script>
 <script src="markbind/layouts/default/scripts.js"></script>
+<script>
+  if (MarkBind.AfterSetup) MarkBind.AfterSetup()
+</script>
 
 </html>

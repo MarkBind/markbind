@@ -37,7 +37,8 @@ test('Site Generate builds the correct amount of assets', async () => {
 
     ...ASSETS,
 
-    [require.resolve('@markbind/vue-components/dist/components.min.js')]: '',
+    [require.resolve('@markbind/core-web/dist/js/markbind.min.js')]: '',
+    [require.resolve('@markbind/core-web/dist/css/markbind.min.css')]: '',
 
     ...EXTERNAL_ASSETS,
 
@@ -50,7 +51,7 @@ test('Site Generate builds the correct amount of assets', async () => {
   const paths = Object.keys(fs.vol.toJSON());
   const originalNumFiles = Object.keys(json).length;
 
-  const expectedNumBuilt = 17;
+  const expectedNumBuilt = 18;
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
   // site
@@ -66,15 +67,13 @@ test('Site Generate builds the correct amount of assets', async () => {
   expect(fs.existsSync(path.resolve('inner/_site/markbind/css/bootstrap.min.css'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/css/bootstrap.min.css.map'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/css/github.min.css'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/markbind.css'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/page-nav.css'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/site-nav.css'))).toEqual(true);
+  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/markbind.min.css'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/css/octicons.css'))).toEqual(true);
 
   // js
   expect(fs.existsSync(path.resolve('inner/_site/markbind/js/setup.js'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/js/vue.min.js'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/js/components.min.js'))).toEqual(true);
+  expect(fs.existsSync(path.resolve('inner/_site/markbind/js/markbind.min.js'))).toEqual(true);
 
   // Font Awesome assets
   expect(fs.existsSync(path.resolve('inner/_site/markbind/fontawesome/css/all.min.css'))).toEqual(true);
@@ -721,6 +720,7 @@ siteJsonResolvePropertiesTestCases.forEach((testCase) => {
     const customSiteConfig = {
       baseUrl: '',
       pages: testCase.pages,
+      pagesExclude: [],
       ignore: [
         '_site/*',
         '*.json',
@@ -777,4 +777,76 @@ test('Site config throws error on duplicate page src', async () => {
   expect(site.collectAddressablePages())
     .rejects
     .toThrow(new Error('Duplicate page entries found in site config: index.md'));
+});
+
+const siteJsonPageExclusionTestCases = [
+  {
+    name: 'Site.json excludes pages by glob exclude',
+    pages: [
+      {
+        glob: '*.md',
+        globExclude: ['exclude.md'],
+      },
+    ],
+    expected: [
+      {
+        src: 'index.md',
+      },
+    ],
+  },
+  {
+    name: 'Site.json excludes pages by pages exclude',
+    pages: [
+      {
+        glob: '*.md',
+      },
+    ],
+    pagesExclude: ['exclude.md'],
+    expected: [
+      {
+        src: 'index.md',
+      },
+    ],
+  },
+  {
+    name: 'Site.json excludes pages by combination of pages exclude and glob exclude',
+    pages: [
+      {
+        glob: '*.md',
+        globExclude: ['exclude.md'],
+      },
+    ],
+    pagesExclude: ['index.md'],
+    expected: [],
+  },
+];
+
+siteJsonPageExclusionTestCases.forEach((testCase) => {
+  test(testCase.name, async () => {
+    const customSiteConfig = {
+      baseUrl: '',
+      pages: testCase.pages,
+      pagesExclude: testCase.pagesExclude || [],
+      ignore: [
+        '_site/*',
+        '*.json',
+        '*.md',
+      ],
+      deploy: {
+        message: 'Site Update.',
+      },
+    };
+    const json = {
+      ...PAGE_NJK,
+      'index.md': '',
+      'exclude.md': '',
+    };
+    fs.vol.fromJSON(json, '');
+
+    const site = new Site('./', '_site');
+    site.siteConfig = customSiteConfig;
+    await site.collectAddressablePages();
+    expect(site.addressablePages)
+      .toEqual(testCase.expected);
+  });
 });
