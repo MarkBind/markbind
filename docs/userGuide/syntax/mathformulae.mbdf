@@ -1,0 +1,32 @@
+## Math Formulae
+Markbind supports typesetting math equations with [KaTeX](https://katex.org).
+
+<box type="info">
+
+Insert inline equations by enclosing them in single dollar signs `$`.
+
+Insert block equations by enclosing them in double dollar signs `$$`.
+</box>
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
+$e^{i\pi}+1=0$
+$$e^{i\pi}+1=0$$
+</variable>
+</include>
+
+<small>More info on allowed symbols: https://katex.org/docs/support_table.html</small>
+
+<span id="short" class="d-none">
+
+```markdown
+$e^{i\pi}+1=0$
+$$e^{i\pi}+1=0$$
+```
+</span>
+<span id="examples" class="d-none">
+
+$e^{i\pi}+1=0$
+$$e^{i\pi}+1=0$$
+</span>
