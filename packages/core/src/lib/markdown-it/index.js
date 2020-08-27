@@ -5,6 +5,9 @@ const markdownIt = require('markdown-it')({
 });
 const slugify = require('@sindresorhus/slugify');
 
+const logger = require('../../utils/logger');
+const LINESLICE_REGEX = new RegExp('(\\d+)\\[(\\d*):(\\d*)]', 'g')
+
 // markdown-it plugins
 markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-ins'))
@@ -86,43 +89,90 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
     // counter is incremented on each span, so we need to subtract 1
     token.attrJoin('style', `counter-reset: line ${startFromZeroBased};`);
   }
-  
+
   const highlightLinesInput = getAttributeAndDelete(token, 'highlight-lines');
-  let lineNumbersAndRanges = [];
+  let highlightRules = [];
   if (highlightLinesInput) {
-    // example input format: "1,4-7,8,11-55"
-    //               output: [[1],[4,7],[8],[11,55]]
-    // the output is an array contaning either single line numbers [lineNum] or ranges [start, end]
-    // ',' delimits either single line numbers (eg: 1) or ranges (eg: 4-7)
+    // example input format: "1,4-7,8,11-55,2[5:7],4[:]"
+    //               output: [[1],[4,7],[8],[11,55],[2,5,7],[4,-1,-1]]
+    // the output is an array containing either single line numbers [lineNum], ranges [start, end]
+    // or single line number with slice [lineNum, start, end]
+    // ',' delimits either single line numbers (eg: 1), ranges (eg: 4-7), or line number with slice
+    // (e.g. 2[5:7])
     const highlightLines = highlightLinesInput.split(',');
-    // if it's the single number, it will just be parsed as an int, (eg: ['1'] --> [1] )
-    // if it's a range, it will be parsed as as an array of two ints (eg: ['4-7'] --> [4,6])
+    // if it's a single number, it will just be parsed as an int, (eg: ['1'] --> [1] )
+    // if it's a range, it will be parsed as as an array of two ints (eg: ['4-7'] --> [4,7])
+    // if it's a single number with a slice, it will be parsed as an array of three ints, with the
+    // latter two having a default of -1 if not specified (eg: ['2[5:7]'] --> [2, 5, 7])
     function parseAndZeroBaseLineNumber(numberString) {
       // authors provide line numbers to highlight based on the 'start-from' attribute if it exists
       // so we need to shift them all back down to start at 0
       return parseInt(numberString, 10) - startFromZeroBased;
     }
-    lineNumbersAndRanges = highlightLines.map(elem => elem.split('-').map(parseAndZeroBaseLineNumber));
+    highlightRules = highlightLines.map(elem => {
+      // tries to match to the line slice pattern
+      const matchGroups = [...elem.matchAll(LINESLICE_REGEX)];
+      if (matchGroups.length > 0) {
+        let numbers = matchGroups[0].slice(1); // keep the group matches only
+        logger.info(numbers);
+
+        // only the first number is a line number, the rest are regular numbers
+        numbers[0] = parseAndZeroBaseLineNumber(numbers[0]);
+        numbers = numbers.map(x => x !== '' ? parseInt(x, 10) : -1);
+        return numbers;
+      }
+
+      // match fails, either single number or line ranges
+      return elem.split('-').map(parseAndZeroBaseLineNumber)
+    });
+    logger.info(highlightRules);
   }
-  
+
   lines.pop(); // last line is always a single '\n' newline, so we remove it
   // wrap all lines with <span> so we can number them
   str = lines.map((line, index) => {
     const currentLineNumber = index + 1;
     // check if there is at least one range or line number that matches the current line number
-    // Note: The algorithm is based off markdown-it-highlight-lines (https://github.com/egoist/markdown-it-highlight-lines/blob/master/src/index.js) 
+    // Note: The algorithm is based off markdown-it-highlight-lines (https://github.com/egoist/markdown-it-highlight-lines/blob/master/src/index.js)
     //       This is an O(n^2) solution wrt to the number of lines
     //       I opt to use this approach because it's simple, and it is unlikely that the number of elements in `lineNumbersAndRanges` will be large
     //       There is possible room for improvement for a more efficient algo that is O(n).
-    const inRange = lineNumbersAndRanges.some(([start, end]) => {
-      if (start && end) {
-        return currentLineNumber >= start && currentLineNumber <= end;
+    // Edit (28/8/2020): I changed the approach from using some() to a simple for-loop. It is still O(n^2).
+    //                   Reason: now with different highlighting methods (whole line/text only),
+    //                   checks must be done to determine what method a particular rule follows.
+    //                   As now checking has to be done at the rule-matching AND the return handling,
+    //                   it's more succinct to write a for-loop so that we can do both without
+    //                   being redundant (wrt. writing if-else conditions).
+    for (let i = 0; i < highlightRules.length; i++) {
+      const [a, b, c] = highlightRules[i];
+
+      // "line slice" format
+      if (a && b && c) {
+        if (currentLineNumber === a) {
+          const contentIdx = line.search(/\S|$/)
+          const indents = line.substr(0, contentIdx)
+          const content = line.substr(contentIdx)
+          if (b === -1 && c === -1) {
+            // whole text
+            return `<span>${indents}<span class="highlighted">${content}</span></span>`;
+          }
+        }
       }
-      return currentLineNumber === start;
-    });
-    if (inRange) {
-      return `<span class="highlighted">${line}\n</span>`;
+
+      // "line range" format
+      if (a && b) {
+        if (currentLineNumber >= a && currentLineNumber <= b) {
+          return `<span class="highlighted">${line}</span>`;
+        }
+      }
+
+      // "line number" format
+      if (currentLineNumber === a) {
+        return `<span class="highlighted">${line}</span>`;
+      }
     }
+
+    // not highlighted
     return `<span>${line}\n</span>`;
   }).join('');
 

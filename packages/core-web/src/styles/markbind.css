@@ -59,7 +59,7 @@ pre > code.hljs[heading] {
     display: block;
 }
 
-code > span.highlighted {
+code span.highlighted {
     background: lavender;
 }
 
