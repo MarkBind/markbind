@@ -8,6 +8,15 @@ Insert inline equations by enclosing them in single dollar signs `$`.
 Insert block equations by enclosing them in double dollar signs `$$`.
 </box>
 
+<box type="important">
+
+Do not leave any whitespace between the dollar signs and your equation, or formatting will not work.
+
+Incorrect: `$  1+1=2  $`, Correct: `$1+1=2$`
+
+Incorrect: `$$ 1+1=2$$`, Correct: `$$1+1=2$$`
+</box>
+
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
