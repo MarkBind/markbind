@@ -5,7 +5,6 @@ const markdownIt = require('markdown-it')({
 });
 const slugify = require('@sindresorhus/slugify');
 
-const logger = require('../../utils/logger');
 const LINESLICE_REGEX = new RegExp('(\\d+)\\[(\\d*):(\\d*)]', 'g')
 
 // markdown-it plugins
@@ -114,7 +113,6 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
       const matchGroups = [...elem.matchAll(LINESLICE_REGEX)];
       if (matchGroups.length > 0) {
         let numbers = matchGroups[0].slice(1); // keep the group matches only
-        logger.info(numbers);
 
         // only the first number is a line number, the rest are regular numbers
         numbers[0] = parseAndZeroBaseLineNumber(numbers[0]);
@@ -125,7 +123,6 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
       // match fails, either single number or line ranges
       return elem.split('-').map(parseAndZeroBaseLineNumber)
     });
-    logger.info(highlightRules);
   }
 
   lines.pop(); // last line is always a single '\n' newline, so we remove it
