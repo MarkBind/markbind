@@ -149,9 +149,10 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
           const contentIdx = line.search(/\S|$/)
           const indents = line.substr(0, contentIdx)
           const content = line.substr(contentIdx)
+
           if (b === -1 && c === -1) {
             // whole text
-            return `<span>${indents}<span class="highlighted">${content}</span></span>`;
+            return `<span>${indents}<span class="highlighted">${content}</span>\n</span>`;
           }
         }
       }
@@ -159,13 +160,13 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
       // "line range" format
       if (a && b) {
         if (currentLineNumber >= a && currentLineNumber <= b) {
-          return `<span class="highlighted">${line}</span>`;
+          return `<span class="highlighted">${line}\n</span>`;
         }
       }
 
       // "line number" format
       if (currentLineNumber === a) {
-        return `<span class="highlighted">${line}</span>`;
+        return `<span class="highlighted">${line}\n</span>`;
       }
     }
 
