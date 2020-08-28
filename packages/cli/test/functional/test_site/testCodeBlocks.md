@@ -56,6 +56,13 @@ Content in a fenced code block
 20
 ```
 
+**`highlight-lines` attr with line-slice format should not highlight leading/trailing spaces
+```xml {highlight-lines="2[:],3[:]"}
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+
 **Should render correctly with heading**
 
 ```{heading="A heading"}

@@ -72,6 +72,11 @@
 </span><span>19
 </span><span>20
 </span></code></pre>
+        <p>**<code v-pre>highlight-lines</code> attr with line-slice format should not highlight leading/trailing spaces</p>
+        <pre><code class="hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
+</span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
+</span></code></pre>
         <p><strong>Should render correctly with heading</strong></p>
         <div class="code-block">
           <div class="code-block-heading"><span>A heading</span></div>
