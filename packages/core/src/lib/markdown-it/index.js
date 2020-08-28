@@ -5,7 +5,7 @@ const markdownIt = require('markdown-it')({
 });
 const slugify = require('@sindresorhus/slugify');
 
-const LINESLICE_REGEX = new RegExp('(\\d+)\\[(\\d*):(\\d*)]', 'g')
+const LINESLICE_REGEX = new RegExp('(\\d+)\\[(\\d*):(\\d*)]')
 
 // markdown-it plugins
 markdownIt.use(require('markdown-it-mark'))
@@ -110,9 +110,10 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
     }
     highlightRules = highlightLines.map(elem => {
       // tries to match to the line slice pattern
-      const matchGroups = [...elem.matchAll(LINESLICE_REGEX)];
-      if (matchGroups.length > 0) {
-        let numbers = matchGroups[0].slice(1); // keep the group matches only
+      const matches = elem.match(LINESLICE_REGEX);
+      if (matches) {
+        // keep the capturing group matches only
+        let numbers = matches.slice(1);
 
         // only the first number is a line number, the rest are regular numbers
         numbers[0] = parseAndZeroBaseLineNumber(numbers[0]);
