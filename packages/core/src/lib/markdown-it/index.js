@@ -5,7 +5,7 @@ const markdownIt = require('markdown-it')({
 });
 const slugify = require('@sindresorhus/slugify');
 
-const LINESLICE_REGEX = new RegExp('(\\d+)\\[(\\d*):(\\d*)]')
+const LINESLICE_REGEX = new RegExp('(\\d+)\\[(\\d*):(\\d*)]');
 
 // markdown-it plugins
 markdownIt.use(require('markdown-it-mark'))
@@ -102,26 +102,32 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
     // EXAMPLE: input "1,4-7,8,11-55,2[5:7],4[3:]"
     //         output [[1],[4,7],[8],[11,55],[2,5,7],[4,3,-1]]
     const highlightLines = highlightLinesInput.split(',');
-    function parseAndZeroBaseLineNumber(ruleString) {
-      // authors provide line numbers to highlight based on the 'start-from' attribute if it exists
-      // so we need to shift them all back down to start at 0
+    function parseRule(ruleString) {
+      // Note: authors provide line numbers based on the 'start-from' attribute if it exists,
+      //       so we need to shift line numbers back down to start at 0
 
-      // tries to match to the line slice pattern
-      const matches = ruleString.match(LINESLICE_REGEX);
-      if (matches) {
-        // keep the capturing group matches only
-        let numbers = matches.slice(1);
+      const ruleComponents = ruleString.split('-').map(comp => {
+        // tries to match to the line slice pattern
+        const matches = comp.match(LINESLICE_REGEX);
+        if (matches) {
+          // keep the capturing group matches only
+          let numbers = matches.slice(1);
 
-        // only the first number is a line number, the rest are regular numbers
-        numbers = numbers.map(x => x !== '' ? parseInt(x, 10) : -1);
-        numbers[0] -= startFromZeroBased;
-        return numbers;
-      }
+          // only the first number is a line number, the rest are regular numbers
+          numbers = numbers.map(x => x !== '' ? parseInt(x, 10) : -1);
+          numbers[0] -= startFromZeroBased;
+          return numbers;
+        }
 
-      // match fails, so it is just line numbers
-      return parseInt(ruleString, 10) - startFromZeroBased;
+        // match fails, so it is just line numbers
+        return comp.split('-').map(x => parseInt(x, 10) - startFromZeroBased);
+      });
+
+      // if length is only one, that means split didn't do anything but create an unnecessary wrapping
+      // array, so unwrap the component from that
+      return ruleComponents.length === 1 ? ruleComponents[0] : ruleComponents;
     }
-    highlightRules = highlightLines.map(elem => elem.split('-').map(parseAndZeroBaseLineNumber));
+    highlightRules = highlightLines.map(parseRule);
   }
 
   lines.pop(); // last line is always a single '\n' newline, so we remove it
