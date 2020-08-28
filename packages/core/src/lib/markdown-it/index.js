@@ -102,27 +102,26 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
     // EXAMPLE: input "1,4-7,8,11-55,2[5:7],4[3:]"
     //         output [[1],[4,7],[8],[11,55],[2,5,7],[4,3,-1]]
     const highlightLines = highlightLinesInput.split(',');
-    function parseAndZeroBaseLineNumber(numberString) {
+    function parseAndZeroBaseLineNumber(ruleString) {
       // authors provide line numbers to highlight based on the 'start-from' attribute if it exists
       // so we need to shift them all back down to start at 0
-      return parseInt(numberString, 10) - startFromZeroBased;
-    }
-    highlightRules = highlightLines.map(elem => {
+
       // tries to match to the line slice pattern
-      const matches = elem.match(LINESLICE_REGEX);
+      const matches = ruleString.match(LINESLICE_REGEX);
       if (matches) {
         // keep the capturing group matches only
         let numbers = matches.slice(1);
 
         // only the first number is a line number, the rest are regular numbers
-        numbers[0] = parseAndZeroBaseLineNumber(numbers[0]);
         numbers = numbers.map(x => x !== '' ? parseInt(x, 10) : -1);
+        numbers[0] -= startFromZeroBased;
         return numbers;
       }
 
-      // match fails, either single number or line ranges
-      return elem.split('-').map(parseAndZeroBaseLineNumber)
-    });
+      // match fails, so it is just line numbers
+      return parseInt(ruleString, 10) - startFromZeroBased;
+    }
+    highlightRules = highlightLines.map(elem => elem.split('-').map(parseAndZeroBaseLineNumber));
   }
 
   lines.pop(); // last line is always a single '\n' newline, so we remove it
