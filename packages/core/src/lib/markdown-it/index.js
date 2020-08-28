@@ -92,17 +92,16 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const highlightLinesInput = getAttributeAndDelete(token, 'highlight-lines');
   let highlightRules = [];
   if (highlightLinesInput) {
-    // example input format: "1,4-7,8,11-55,2[5:7],4[:]"
-    //               output: [[1],[4,7],[8],[11,55],[2,5,7],[4,-1,-1]]
-    // the output is an array containing either single line numbers [lineNum], ranges [start, end]
-    // or single line number with slice [lineNum, start, end]
-    // ',' delimits either single line numbers (eg: 1), ranges (eg: 4-7), or line number with slice
-    // (e.g. 2[5:7])
+    // INPUT: a comma-delimited string with each entry be a line number (eg: 1), a range (eg: 4-7),
+    //   or a slice of a line (eg: 4[3:])
+    // OUTPUT: an array containing arrays of one, two, or three ints
+    //   if it's a single number, it will just be parsed as an int
+    //   if it's a range, it will be parsed as as an array of two ints
+    //   if it's a single number with a slice, it will be parsed as an array of three ints, with the
+    //     latter two having a default of -1 if not specified
+    // EXAMPLE: input "1,4-7,8,11-55,2[5:7],4[3:]"
+    //         output [[1],[4,7],[8],[11,55],[2,5,7],[4,3,-1]]
     const highlightLines = highlightLinesInput.split(',');
-    // if it's a single number, it will just be parsed as an int, (eg: ['1'] --> [1] )
-    // if it's a range, it will be parsed as as an array of two ints (eg: ['4-7'] --> [4,7])
-    // if it's a single number with a slice, it will be parsed as an array of three ints, with the
-    // latter two having a default of -1 if not specified (eg: ['2[5:7]'] --> [2, 5, 7])
     function parseAndZeroBaseLineNumber(numberString) {
       // authors provide line numbers to highlight based on the 'start-from' attribute if it exists
       // so we need to shift them all back down to start at 0
@@ -130,17 +129,16 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   // wrap all lines with <span> so we can number them
   str = lines.map((line, index) => {
     const currentLineNumber = index + 1;
-    // check if there is at least one range or line number that matches the current line number
+    // check if there is a highlight rule that is applicable to the line number, and handle accordingly
     // Note: The algorithm is based off markdown-it-highlight-lines (https://github.com/egoist/markdown-it-highlight-lines/blob/master/src/index.js)
     //       This is an O(n^2) solution wrt to the number of lines
     //       I opt to use this approach because it's simple, and it is unlikely that the number of elements in `lineNumbersAndRanges` will be large
     //       There is possible room for improvement for a more efficient algo that is O(n).
     // Edit (28/8/2020): I changed the approach from using some() to a simple for-loop. It is still O(n^2).
-    //                   Reason: now with different highlighting methods (whole line/text only),
+    //                   Reason, now with different highlighting methods (whole-line/text-only),
     //                   checks must be done to determine what method a particular rule follows.
-    //                   As now checking has to be done at the rule-matching AND the return handling,
-    //                   it's more succinct to write a for-loop so that we can do both without
-    //                   being redundant (wrt. writing if-else conditions).
+    //                   As now checking has to be done at rule matching and return handling,
+    //                   it's more concise to write a for-loop so that we can perform both in one block.
     for (let i = 0; i < highlightRules.length; i++) {
       const [a, b, c] = highlightRules[i];
 
