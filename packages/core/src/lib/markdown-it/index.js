@@ -52,6 +52,13 @@ function isLineSlice(ruleComponent) {
     && ruleComponent.every(Number.isInteger);
 }
 
+function splitCodeAndIndentation(codeStr) {
+  const codeStartIdx = codeStr.search(/\S|$/);
+  const indents = codeStr.substr(0, codeStartIdx);
+  const content = codeStr.substr(codeStartIdx);
+  return [indents, content];
+}
+
 // syntax highlight code fences and add line numbers
 markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const token = tokens[idx];
@@ -152,30 +159,38 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
     //                   As now checking has to be done at rule matching and return handling,
     //                   it's more concise to write a for-loop so that we can perform both in one block.
     for (let i = 0; i < highlightRules.length; i++) {
-      const [a, b, c] = highlightRules[i];
+      const rule = highlightRules[i];
+      const [a, b, c] = rule; // can be up to three items
 
-      // "line slice" format
-      if (a && b && c) {
+      // "line slice" type
+      if (isLineSlice(rule)) {
         if (currentLineNumber === a) {
-          const contentIdx = line.search(/\S|$/)
-          const indents = line.substr(0, contentIdx)
-          const content = line.substr(contentIdx)
+          const [indents, content] = splitCodeAndIndentation(line);
 
+          // whole text highlight
           if (b === -1 && c === -1) {
-            // whole text
             return `<span>${indents}<span class="highlighted">${content}</span>\n</span>`;
           }
         }
       }
 
-      // "line range" format
+      // "line range" type
       if (a && b) {
-        if (currentLineNumber >= a && currentLineNumber <= b) {
-          return `<span class="highlighted">${line}\n</span>`;
+        const isTextOnlyHighlight = isLineSlice(a) || isLineSlice(b);
+        const lineStart = isLineSlice(a) ? a[0] : a;
+        const lineEnd = isLineSlice(b) ? b[0] : b;
+
+        if (lineStart <= currentLineNumber && currentLineNumber <= lineEnd) {
+          if (isTextOnlyHighlight) {
+            const [indents, content] = splitCodeAndIndentation(line);
+            return `<span>${indents}<span class="highlighted">${content}</span>\n</span>`;
+          }
+
+          return `<span class="highlighted">${line}\n</span>`
         }
       }
 
-      // "line number" format
+      // "line number" type
       if (currentLineNumber === a) {
         return `<span class="highlighted">${line}\n</span>`;
       }
