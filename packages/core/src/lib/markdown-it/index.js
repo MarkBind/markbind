@@ -106,14 +106,16 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   let highlightRules = [];
   if (highlightLinesInput) {
     // INPUT: a comma-delimited string with each entry be a line number (eg: 1), a range (eg: 4-7),
-    //   or a slice of a line (eg: 4[3:])
-    // OUTPUT: an array containing arrays of one, two, or three ints
-    //   if it's a single number, it will just be parsed as an int
+    //   a slice of a line (eg: 8[2:5]), a range with line slice (eg: 11[:]-20)
+    // OUTPUT: an array containing arrays of one, two, or three items
+    //   if it's a single number, it will just be parsed as an array of one int
     //   if it's a range, it will be parsed as as an array of two ints
     //   if it's a single number with a slice, it will be parsed as an array of three ints, with the
     //     latter two having a default of -1 if not specified
-    // EXAMPLE: input "1,4-7,8,11-55,2[5:7],4[3:]"
-    //         output [[1],[4,7],[8],[11,55],[2,5,7],[4,3,-1]]
+    //   if it's a range with slice, it will be parsed as an array of two items whose types correspond
+    //     to the formats above (for single number and number with slice)
+    // EXAMPLE: input "1,4-7,8[2:5],10[2:],11[:]-20"
+    //         output [[1],[4,7],[8,2,5],[10,2,-1],[[11,-1,-1], 20]]
     const highlightLines = highlightLinesInput.split(',');
     function parseRule(ruleString) {
       // Note: authors provide line numbers based on the 'start-from' attribute if it exists,
@@ -136,7 +138,7 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
         return parseInt(comp, 10) - startFromZeroBased;
       });
 
-      // If the only component is a line-slice, then the array wrap is unnecessary as the component itself
+      // If the only component is a line-slice, then the outer array is unnecessary as the component itself
       // is already an array
       const firstComponent = ruleComponents[0];
       return ruleComponents.length === 1 && isLineSlice(firstComponent) ? firstComponent : ruleComponents;
