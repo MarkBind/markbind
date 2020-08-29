@@ -792,7 +792,14 @@ class Site {
     const fileIgnore = ignore().add(this.siteConfig.ignore);
     const fileRelativePaths = uniquePaths.map(filePath => path.relative(this.rootPath, filePath));
     const copyAssets = fileIgnore.filter(fileRelativePaths)
-      .map(asset => fs.copyAsync(path.join(this.rootPath, asset), path.join(this.outputPath, asset)));
+      .map((asset) => {
+        // Hotfix: _markbind/layouts incorrectly copied to _site/_markbind/layouts (should be _site/markbind)
+        const toAsset = asset.startsWith(path.join('_markbind', 'layouts'))
+          || asset.startsWith('_markbind/layouts')
+          ? asset.replace('_markbind', 'markbind')
+          : asset;
+        return fs.copyAsync(path.join(this.rootPath, asset), path.join(this.outputPath, toAsset));
+      });
     return Promise.all(copyAssets)
       .then(() => logger.info('Assets built'));
   }
@@ -816,9 +823,15 @@ class Site {
       // Scan and copy assets (excluding ignore files).
       this.listAssets(fileIgnore)
         .then(assets =>
-          assets.map(asset =>
-            fs.copyAsync(path.join(this.rootPath, asset), path.join(this.outputPath, asset))),
-        )
+          assets.map((asset) => {
+            // Hotfix: _markbind/layouts wrongly copied to _site/_markbind/layouts (should be _site/markbind)
+            const toAsset = asset.startsWith(path.join('_markbind', 'layouts'))
+            || asset.startsWith('_markbind/layouts')
+              ? asset.replace('_markbind', 'markbind')
+              : asset;
+            return fs.copyAsync(path.join(this.rootPath, asset), path.join(this.outputPath, toAsset));
+          },
+          ))
         .then(copyAssets => Promise.all(copyAssets))
         .then(() => logger.info('Assets built'))
         .then(resolve)
