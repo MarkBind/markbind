@@ -46,6 +46,12 @@ function getAttributeAndDelete(token, attr) {
   return value;
 }
 
+function isLineSlice(ruleComponent) {
+  return Array.isArray(ruleComponent)
+    && ruleComponent.length === 3
+    && ruleComponent.every(Number.isInteger);
+}
+
 // syntax highlight code fences and add line numbers
 markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const token = tokens[idx];
@@ -106,7 +112,7 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
       // Note: authors provide line numbers based on the 'start-from' attribute if it exists,
       //       so we need to shift line numbers back down to start at 0
 
-      const ruleComponents = ruleString.split('-').map(comp => {
+      let ruleComponents = ruleString.split('-').map(comp => {
         // tries to match to the line slice pattern
         const matches = comp.match(LINESLICE_REGEX);
         if (matches) {
@@ -120,12 +126,13 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
         }
 
         // match fails, so it is just line numbers
-        return comp.split('-').map(x => parseInt(x, 10) - startFromZeroBased);
+        return parseInt(comp, 10) - startFromZeroBased;
       });
 
-      // if length is only one, that means split didn't do anything but create an unnecessary wrapping
-      // array, so unwrap the component from that
-      return ruleComponents.length === 1 ? ruleComponents[0] : ruleComponents;
+      // If the only component is a line-slice, then the array wrap is unnecessary as the component itself
+      // is already an array
+      const firstComponent = ruleComponents[0];
+      return ruleComponents.length === 1 && isLineSlice(firstComponent) ? firstComponent : ruleComponents;
     }
     highlightRules = highlightLines.map(parseRule);
   }
