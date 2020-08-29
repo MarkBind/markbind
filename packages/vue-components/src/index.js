@@ -23,7 +23,6 @@ import tabGroup from './TabGroup.vue';
 import tabset from './Tabset.vue';
 import thumbnail from './Thumbnail.vue';
 import tipBox from './TipBox.vue';
-import typeahead from './Typeahead.vue';
 
 const components = {
   box: tipBox,
@@ -41,7 +40,6 @@ const components = {
   tabs: tabset,
   thumbnail,
   tipBox,
-  typeahead,
 };
 
 const directives = {

@@ -1,9 +1,100 @@
+<template>
+  <div style="position: relative;">
+    <input
+      :id="inputId"
+      v-model="value"
+      type="text"
+      class="form-control"
+      :placeholder="placeholder"
+      autocomplete="off"
+      @input="update"
+      @keydown.up="up"
+      @keydown.down="down"
+      @keydown.enter="hit"
+      @keydown.esc="reset"
+      @blur="showDropdown = false"
+    />
+    <ul ref="dropdown" :class="dropdownMenuClasses">
+      <li
+        v-for="(item, index) in items"
+        :key="index"
+        :class="{ 'table-active': isActive(index) }"
+      >
+        <a
+          class="dropdown-item"
+          @mousedown.prevent="hit"
+          @mousemove="setActive(index)"
+        >
+          <searchbar-page-item :item="item" :value="value" />
+        </a>
+      </li>
+    </ul>
+  </div>
+</template>
+
 <script>
-import typeahead from './Typeahead.vue';
 import searchbarPageItem from './SearchbarPageItem.vue';
+import { delayer, getJSON } from './utils/utils';
+
+const _DELAY_ = 200;
 
 export default {
-  extends: typeahead,
+  created() {
+    this.items = this.primitiveData;
+  },
+  props: {
+    value: {
+      type: String,
+      default: '',
+    },
+    data: {
+      type: Array,
+      default: () => [],
+    },
+    limit: {
+      type: Number,
+      default: 8,
+    },
+    async: {
+      type: String,
+      default: '',
+    },
+    key: {
+      type: String,
+      default: null,
+    },
+    onHit: {
+      type: Function,
+      default(items) {
+        this.reset();
+        this.value = items;
+      },
+    },
+    placeholder: {
+      type: String,
+      default: 'Search',
+    },
+    delay: {
+      type: Number,
+      default: _DELAY_,
+    },
+    menuAlignRight: {
+      type: Boolean,
+      default: false,
+    },
+    algolia: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {
+      showDropdown: false,
+      noResults: true,
+      current: 0,
+      items: [],
+    };
+  },
   computed: {
     primitiveData() {
       // Returns the total number of matches between an array of regex patterns and string search targets.
@@ -85,12 +176,53 @@ export default {
           return page;
         });
     },
-    // eslint-disable-next-line lodash/prefer-constant
-    entryTemplate() {
-      return 'searchbarPageItem';
+    inputId() {
+      return this.algolia ? 'algolia-search-input' : null;
+    },
+    dropdownMenuClasses() {
+      return [
+        'dropdown-menu',
+        'search-dropdown-menu',
+        { show: this.showDropdown },
+        { 'dropdown-menu-right': this.menuAlignRight },
+      ];
     },
   },
   methods: {
+    update() {
+      if (!this.value) {
+        this.reset();
+        return false;
+      }
+      if (this.data) {
+        this.items = this.primitiveData;
+        this.showDropdown = this.items.length > 0;
+      }
+      if (this.async) this.query();
+      return true;
+    },
+    query: delayer(function () {
+      getJSON(this.async + this.value).then((data) => {
+        this.items = (this.key ? data[this.key] : data).slice(0, this.limit);
+        this.showDropdown = this.items.length;
+      });
+    }, 'delay', _DELAY_),
+    reset() {
+      this.items = [];
+      this.value = '';
+      this.loading = false;
+      this.showDropdown = false;
+    },
+    setActive(index) {
+      this.current = index;
+    },
+    isActive(index) {
+      return this.current === index;
+    },
+    hit(e) {
+      e.preventDefault();
+      this.onHit(this.items[this.current], this);
+    },
     down() {
       if (this.current < this.items.length - 1) {
         this.current += 1;
@@ -127,6 +259,10 @@ export default {
   min-width: 30em;
   max-height: 30em;
   overflow-y: scroll;
+}
+
+.dropdown-menu > li > a {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
