@@ -89,6 +89,31 @@ window.handleSiteNavClick = function (elem, useAnchor = true) {
   dropdownIcon.classList.toggle('site-nav-rotate-icon');
 };
 
+window.handleScrollTop = function () {
+  document.body.scrollIntoView({ block: 'start', behavior: 'smooth' });
+};
+
+function displayScrollTopButton() {
+  const scrollTopButton = document.querySelector('#scroll-top-button');
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    scrollTopButton.style.display = 'block';
+  } else {
+    scrollTopButton.style.display = 'none';
+  }
+}
+
+function initDisplayScrollTopButton() {
+  let timer;
+  window.addEventListener('scroll', () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      displayScrollTopButton();
+    }, 100);
+  });
+}
+
+initDisplayScrollTopButton();
+
 function setup() {
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({

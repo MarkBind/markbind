@@ -1304,7 +1304,13 @@ class Page {
   static addContentWrapper(pageData) {
     const $ = cheerio.load(pageData);
     $(`#${CONTENT_WRAPPER_ID}`).removeAttr('id');
-    return `<div id="${CONTENT_WRAPPER_ID}">\n\n${$.html()}\n</div>`;
+    return `<div id="${CONTENT_WRAPPER_ID}">\n\n${this.addScrollToTopButton($.html())}\n</div>`;
+  }
+
+  static addScrollToTopButton(pageData) {
+    const button = '<i class="fa fa-arrow-circle-up fa-lg" id="scroll-top-button" '
+    + 'onclick="handleScrollTop()" aria-hidden="true"/>';
+    return `${pageData}\n${button}`;
   }
 
   static removePageHeaderAndFooter(pageData) {
