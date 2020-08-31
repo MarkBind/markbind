@@ -70,14 +70,14 @@ An example that uses KaTeX to generate math equations:
   <td>
 
 ```markdown
-Euler's Identity $e^{i\pi}+1=0$ is a beautiful formula.
+Euler's Identity \(e^{i\pi}+1=0\) is a beautiful formula.
 ```
   </td>
   <td>&nbsp;→&nbsp;</td>
   <td><br>
 <tip-box>
 
-Euler's Identity $e^{i\pi}+1=0$ is a beautiful formula.
+Euler's Identity \(e^{i\pi}+1=0\) is a beautiful formula.
 
 </tipbox>
   </td>
