@@ -150,16 +150,6 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   // wrap all lines with <span> so we can number them
   str = lines.map((line, index) => {
     const currentLineNumber = index + 1;
-    // check if there is a highlight rule that is applicable to the line number, and handle accordingly
-    // Note: The algorithm is based off markdown-it-highlight-lines (https://github.com/egoist/markdown-it-highlight-lines/blob/master/src/index.js)
-    //       This is an O(n^2) solution wrt to the number of lines
-    //       I opt to use this approach because it's simple, and it is unlikely that the number of elements in `lineNumbersAndRanges` will be large
-    //       There is possible room for improvement for a more efficient algo that is O(n).
-    // Edit (28/8/2020): I changed the approach from using some() to a simple for-loop. It is still O(n^2).
-    //                   Reason, now with different highlighting methods (whole-line/text-only),
-    //                   checks must be done to determine what method a particular rule follows.
-    //                   As now checking has to be done at rule matching and return handling,
-    //                   it's more concise to write a for-loop so that we can perform both in one block.
     for (let i = 0; i < highlightRules.length; i++) {
       const rule = highlightRules[i];
       const [a, b, c] = rule; // can be up to three items
