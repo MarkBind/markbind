@@ -1,6 +1,5 @@
 #scroll-top-button {
-    --scroll-top-button-normal-opacity: 40%;
-    --scroll-top-button-light-opacity: 15%;
+    --scroll-top-button-opacity: 40%;
 
     display: none;
     position: fixed;
