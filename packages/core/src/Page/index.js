@@ -971,6 +971,7 @@ class Page {
       .then(result => this.generateExpressiveLayout(result, fileConfig, componentPreprocessor))
       .then(result => Page.removePageHeaderAndFooter(result))
       .then(result => Page.addContentWrapper(result))
+      .then(result => Page.addScrollToTopButton(result))
       .then(result => this.collectPluginSources(result))
       .then(result => this.preRender(result))
       .then(result => this.insertSiteNav((result)))
@@ -1304,7 +1305,7 @@ class Page {
   static addContentWrapper(pageData) {
     const $ = cheerio.load(pageData);
     $(`#${CONTENT_WRAPPER_ID}`).removeAttr('id');
-    return `<div id="${CONTENT_WRAPPER_ID}">\n\n${this.addScrollToTopButton($.html())}\n</div>`;
+    return `<div id="${CONTENT_WRAPPER_ID}">\n\n${$.html()}\n</div>`;
   }
 
   static addScrollToTopButton(pageData) {
