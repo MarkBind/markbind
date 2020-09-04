@@ -11,3 +11,7 @@
 #scroll-top-button:hover {
     opacity: 70%;
 }
+
+#scroll-top-button:active {
+    opacity: 100%;
+}
