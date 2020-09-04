@@ -8,6 +8,11 @@
     opacity: 40%;
 }
 
+#scroll-top-button,
+.lighten {
+    opacity: 20%;
+}
+
 #scroll-top-button:hover {
     opacity: 70%;
 }

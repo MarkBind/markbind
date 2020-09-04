@@ -93,22 +93,43 @@ window.handleScrollTop = function () {
   document.body.scrollIntoView({ block: 'start', behavior: 'smooth' });
 };
 
-function displayScrollTopButton() {
-  const scrollTopButton = document.querySelector('#scroll-top-button');
+function displayScrollTopButton(scrollTopButton) {
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
     scrollTopButton.style.display = 'block';
+    // scrollTopButton.style.removeProperty('opacity');
+    scrollTopButton.classList.remove('lighten');
+    // scrollTopButton.style.opacity = '40%';
   } else {
     scrollTopButton.style.display = 'none';
   }
 }
 
+function triggerScrollTopButton(timers) {
+  clearTimeout(timers.displayButtonTimer);
+  clearTimeout(timers.lightenButtonTimer);
+  timers.displayButtonTimer = setTimeout(() => {
+    const scrollTopButton = document.querySelector('#scroll-top-button');
+    displayScrollTopButton(scrollTopButton);
+    timers.lightenButtonTimer = setTimeout(() => {
+      // lightens the scroll-top-button after 2 seconds of button inactivity
+      // prevent the button from obscuring the content
+      // if (!jQuery('#scroll-top-button').hasClass('lighten')) {
+      if (!scrollTopButton.classList.contains('lighten')) {
+        scrollTopButton.classList.add('lighten');
+        // scrollTopButton.className += ' lighten';
+        // scrollTopButton.style.opacity = '20%';
+      }
+    }, 2000);
+  }, 100);
+}
+
 function initDisplayScrollTopButton() {
-  let timer;
+  const timers = {
+    displayButtonTimer: 0,
+    lightenButtonTimer: 0,
+  };
   window.addEventListener('scroll', () => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      displayScrollTopButton();
-    }, 100);
+    triggerScrollTopButton(timers);
   });
 }
 
