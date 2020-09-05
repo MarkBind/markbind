@@ -1,34 +1,28 @@
 ## Math Formulae
-Markbind supports typesetting math equations with [KaTeX](https://katex.org).
+Markbind supports typesetting TeX math equations. [KaTeX](https://katex.org) is used as a fast math renderer.
 
 <box type="info">
 
-Insert inline equations by enclosing them in round brackets `\( ... \)`.
+Insert `inline` equations by enclosing them in round brackets `\( ... \)`.
 
-Insert block equations by enclosing them in square brackets `\[ ... \]`.
+Insert `display` equations by enclosing them in square brackets `\[ ... \]`.
 
-Insert numbered block equations by enclosing the equation square brackets and the equation number in curly brackets `\[ ... \] (1)`.
+Insert numbered `display` equations by enclosing the equation square brackets and the equation number in curly brackets `\[ ... \] (1)`.
 </box>
 
 <box type="important">
 
-You may leave whitespace between the brackets and your equation.
+When typing `display` equations, this does not work as well:
 
-Correct: `\( 1+1=2 \)`, Correct: `\(1+1=2\)`
-
-Ensure that there is a newline between an inline equation and a block equation, or formatting will not work.
-
-Incorrect:
 ```markdown
-\(1+1=2\)
+abc
 \[2+2=4\]
 ```
 
-Correct:
+or this
 ```markdown
-\(1+1=2\)
-
-\[2+2=4\]
+> abc
+> \[2+2=4\]
 ```
 </box>
 
@@ -41,6 +35,14 @@ Correct:
 \[ e^{i\pi}+1=0 \]
 \[\frac{1}{3}+\frac{2}{3}=1\] (1)
 
+Bad examples:
+
+\(1+1=2\)
+\[2+2=4\]
+
+> abc
+> \[2+2=4\]
+
 </variable>
 </include>
 
@@ -49,12 +51,29 @@ Correct:
 <span id="short" class="d-none">
 
 ```markdown
-\(e^{i\pi}+1=0\)
-\[e^{i\pi}+1=0\]
+\( e^{i\pi}+1=0 \)
+\(\frac{1}{3}+\frac{2}{3}=1\)
+
+\[ e^{i\pi}+1=0 \]
+\[\frac{1}{3}+\frac{2}{3}=1\] (1)
+
+A bad example:
+
+\(1+1=2\)
+\[2+2=4\]
+
 ```
 </span>
 <span id="examples" class="d-none">
 
-\(e^{i\pi}+1=0\)
-\[e^{i\pi}+1=0\]
+\( e^{i\pi}+1=0 \)
+\(\frac{1}{3}+\frac{2}{3}=1\)
+
+\[ e^{i\pi}+1=0 \]
+\[\frac{1}{3}+\frac{2}{3}=1\] (1)
+
+A bad example:
+
+\(1+1=2\)
+\[2+2=4\]
 </span>
