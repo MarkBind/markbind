@@ -6,6 +6,7 @@ const path = require('path');
 const Promise = require('bluebird');
 const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
+const simpleGit = require('simple-git');
 
 const SiteConfig = require('./SiteConfig');
 const Page = require('../Page');
@@ -18,6 +19,7 @@ const FsUtil = require('../utils/fsUtil');
 const delay = require('../utils/delay');
 const logger = require('../utils/logger');
 const utils = require('../utils');
+const gitUtil = require('../utils/git');
 
 const {
   LAYOUT_DEFAULT_NAME,
@@ -1260,6 +1262,7 @@ class Site {
       branch: 'gh-pages',
       message: 'Site Update.',
       repo: '',
+      remote: 'origin',
     };
     process.env.NODE_DEBUG = 'gh-pages';
     return new Promise((resolve, reject) => {
@@ -1309,11 +1312,68 @@ class Site {
             };
           }
 
-          return publish(basePath, options);
+          publish(basePath, options);
+          return options;
         })
-        .then(resolve)
+        .then((options) => {
+          const git = simpleGit({ baseDir: process.cwd() });
+          options.remote = defaultDeployConfig.remote;
+          return Site.getDeploymentUrl(git, options);
+        })
+        .then(depUrl => resolve(depUrl))
         .catch(reject);
     });
+  }
+
+  /**
+   * Gets the deployed website's url, returning null if there was an error retrieving it.
+   */
+  static getDeploymentUrl(git, options) {
+    const HTTPS_PREAMBLE = 'https://';
+    const SSH_PREAMBLE = 'git@github.com:';
+    const GITHUB_IO_PART = 'github.io';
+
+    // https://<name|org name>.github.io/<repo name>/
+    function constructGhPagesUrl(remoteUrl) {
+      if (!remoteUrl) {
+        return null;
+      }
+      if (remoteUrl.startsWith(HTTPS_PREAMBLE)) {
+        // https://github.com/<name|org>/<repo>.git (HTTPS)
+        const parts = remoteUrl.split('/');
+        const repoName = parts[parts.length - 1].toLowerCase();
+        const name = parts[parts.length - 2].toLowerCase();
+        return `https://${name}.${GITHUB_IO_PART}/${repoName}`;
+      } else if (remoteUrl.startsWith(SSH_PREAMBLE)) {
+        // git@github.com:<name|org>/<repo>.git (SSH)
+        const parts = remoteUrl.split('/');
+        const repoName = parts[parts.length - 1].toLowerCase();
+        const name = parts[0].substring(SSH_PREAMBLE.length);
+        return `https://${name}.${GITHUB_IO_PART}/${repoName}`;
+      }
+      return null;
+    }
+
+    const { remote, branch, repo } = options;
+    const cnamePromise = gitUtil.getRemoteBranchFile(git, 'blob', remote, branch, 'CNAME');
+    const remoteUrlPromise = gitUtil.getRemoteUrl(git, remote);
+    const promises = [cnamePromise, remoteUrlPromise];
+
+    return Promise.all(promises)
+      .then((results) => {
+        const cname = results[0].trim();
+        const remoteUrl = results[1].trim();
+        if (cname) {
+          return cname;
+        } else if (repo) {
+          return constructGhPagesUrl(repo);
+        }
+        return constructGhPagesUrl(remoteUrl);
+      })
+      .catch((err) => {
+        logger.error(err);
+        return null;
+      });
   }
 
   _setTimestampVariable() {
