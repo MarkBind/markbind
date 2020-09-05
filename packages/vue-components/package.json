@@ -23,7 +23,7 @@
     "directory": "packages/vue-components"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --colors",
     "updatetest": "jest --updateSnapshot"
   },
   "devDependencies": {
