@@ -24,10 +24,6 @@ module.exports = {
         use: 'vue-loader',
       },
       {
-        test: /\.(woff|woff2|ttf|eot)$/,
-        use: 'file-loader?name=fonts/[name].[ext]!static',
-      },
-      {
         test: /\.js$/,
         exclude: /node_modules|vue\/src|vue-router\/|vue-loader\/|vue-hot-reload-api\//,
         use: [
@@ -36,6 +32,17 @@ module.exports = {
             options: {
               root: __dirname,
               rootMode: 'upward',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(woff|woff2|ttf|eot)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'fonts/[name].[ext]',
             },
           },
         ],

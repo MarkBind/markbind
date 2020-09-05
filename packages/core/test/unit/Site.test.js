@@ -7,6 +7,7 @@ const {
   ABOUT_MD_DEFAULT,
   ASSETS,
   EXTERNAL_ASSETS,
+  FONTS,
   FOOTER_MD_DEFAULT,
   HEADER_MD_DEFAULT,
   INDEX_MD_DEFAULT,
@@ -39,6 +40,7 @@ test('Site Generate builds the correct amount of assets', async () => {
 
     [require.resolve('@markbind/core-web/dist/js/markbind.min.js')]: '',
     [require.resolve('@markbind/core-web/dist/css/markbind.min.css')]: '',
+    ...FONTS,
 
     ...EXTERNAL_ASSETS,
 
@@ -51,7 +53,7 @@ test('Site Generate builds the correct amount of assets', async () => {
   const paths = Object.keys(fs.vol.toJSON());
   const originalNumFiles = Object.keys(json).length;
 
-  const expectedNumBuilt = 18;
+  const expectedNumBuilt = 78;
   expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
 
   // site
@@ -74,6 +76,9 @@ test('Site Generate builds the correct amount of assets', async () => {
   expect(fs.existsSync(path.resolve('inner/_site/markbind/js/setup.js'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/js/vue.min.js'))).toEqual(true);
   expect(fs.existsSync(path.resolve('inner/_site/markbind/js/markbind.min.js'))).toEqual(true);
+
+  // katex fonts
+  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/fonts'))).toEqual(true);
 
   // Font Awesome assets
   expect(fs.existsSync(path.resolve('inner/_site/markbind/fontawesome/css/all.min.css'))).toEqual(true);

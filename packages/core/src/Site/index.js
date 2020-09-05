@@ -1170,18 +1170,25 @@ class Site {
     const coreWebAssetPath = path.join(coreWebRootPath, 'asset');
     fs.copySync(coreWebAssetPath, this.siteAssetsDestPath);
 
+    const dirsToCopy = ['fonts'];
     const filesToCopy = [
       'js/markbind.min.js',
       'css/markbind.min.css',
     ];
 
-    const copyAll = filesToCopy.map((file) => {
+    const copyAllFiles = filesToCopy.map((file) => {
       const srcPath = path.join(coreWebRootPath, 'dist', file);
       const destPath = path.join(this.siteAssetsDestPath, file);
       return fs.copyAsync(srcPath, destPath);
     });
 
-    return Promise.all(copyAll);
+    const copyFontsDir = dirsToCopy.map((dir) => {
+      const srcPath = path.join(coreWebRootPath, 'dist', dir);
+      const destPath = path.join(this.siteAssetsDestPath, 'css', dir);
+      return fs.copyAsync(srcPath, destPath);
+    });
+
+    return Promise.all([...copyAllFiles, ...copyFontsDir]);
   }
 
   /**

@@ -194,3 +194,49 @@ module.exports.EXTERNAL_ASSETS = {
   [path.join(faPackageRootPath, 'webfonts/font2.ttf')]: '',
   [require.resolve('@primer/octicons/build/build.css')]: '',
 };
+
+const DIST_DIRECTORY = path.join(path.dirname(require.resolve('@markbind/core-web/package.json')), 'dist');
+function getDistFileFullPath(relativePath) {
+  return path.join(DIST_DIRECTORY, relativePath);
+}
+
+const KATEX_FONTS = [
+  'KaTeX_AMS-Regular.ttf', 'KaTeX_AMS-Regular.woff',
+  'KaTeX_AMS-Regular.woff2', 'KaTeX_Caligraphic-Bold.ttf',
+  'KaTeX_Caligraphic-Bold.woff', 'KaTeX_Caligraphic-Bold.woff2',
+  'KaTeX_Caligraphic-Regular.ttf', 'KaTeX_Caligraphic-Regular.woff',
+  'KaTeX_Caligraphic-Regular.woff2', 'KaTeX_Fraktur-Bold.ttf',
+  'KaTeX_Fraktur-Bold.woff', 'KaTeX_Fraktur-Bold.woff2',
+  'KaTeX_Fraktur-Regular.ttf', 'KaTeX_Fraktur-Regular.woff',
+  'KaTeX_Fraktur-Regular.woff2', 'KaTeX_Main-Bold.ttf',
+  'KaTeX_Main-Bold.woff', 'KaTeX_Main-Bold.woff2',
+  'KaTeX_Main-BoldItalic.ttf', 'KaTeX_Main-BoldItalic.woff',
+  'KaTeX_Main-BoldItalic.woff2', 'KaTeX_Main-Italic.ttf',
+  'KaTeX_Main-Italic.woff', 'KaTeX_Main-Italic.woff2',
+  'KaTeX_Main-Regular.ttf', 'KaTeX_Main-Regular.woff',
+  'KaTeX_Main-Regular.woff2', 'KaTeX_Math-BoldItalic.ttf',
+  'KaTeX_Math-BoldItalic.woff', 'KaTeX_Math-BoldItalic.woff2',
+  'KaTeX_Math-Italic.ttf', 'KaTeX_Math-Italic.woff',
+  'KaTeX_Math-Italic.woff2', 'KaTeX_SansSerif-Bold.ttf',
+  'KaTeX_SansSerif-Bold.woff', 'KaTeX_SansSerif-Bold.woff2',
+  'KaTeX_SansSerif-Italic.ttf', 'KaTeX_SansSerif-Italic.woff',
+  'KaTeX_SansSerif-Italic.woff2', 'KaTeX_SansSerif-Regular.ttf',
+  'KaTeX_SansSerif-Regular.woff', 'KaTeX_SansSerif-Regular.woff2',
+  'KaTeX_Script-Regular.ttf', 'KaTeX_Script-Regular.woff',
+  'KaTeX_Script-Regular.woff2', 'KaTeX_Size1-Regular.ttf',
+  'KaTeX_Size1-Regular.woff', 'KaTeX_Size1-Regular.woff2',
+  'KaTeX_Size2-Regular.ttf', 'KaTeX_Size2-Regular.woff',
+  'KaTeX_Size2-Regular.woff2', 'KaTeX_Size3-Regular.ttf',
+  'KaTeX_Size3-Regular.woff', 'KaTeX_Size3-Regular.woff2',
+  'KaTeX_Size4-Regular.ttf', 'KaTeX_Size4-Regular.woff',
+  'KaTeX_Size4-Regular.woff2', 'KaTeX_Typewriter-Regular.ttf',
+  'KaTeX_Typewriter-Regular.woff', 'KaTeX_Typewriter-Regular.woff2',
+];
+function getAllFonts() {
+  const fontMapping = KATEX_FONTS.map(name => ({
+    [getDistFileFullPath(`fonts/${name}`)]: '',
+  }));
+  return Object.assign({}, ...fontMapping);
+}
+
+module.exports.FONTS = getAllFonts();
