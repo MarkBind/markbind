@@ -244,7 +244,7 @@ class Page {
       siteNav: this.siteNav,
       siteNavHtml: this.pageSectionsHtml[`#${SITE_NAV_ID}`] || '',
       title: prefixedTitle,
-      enableSearch: this.pageConfig.searchable,
+      enableSearch: this.pageConfig.enableSearch,
     };
   }
 
