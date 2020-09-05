@@ -10,6 +10,7 @@ const simpleGit = require('simple-git');
 
 const SiteConfig = require('./SiteConfig');
 const Page = require('../Page');
+const { PageConfig } = require('../Page/PageConfig');
 const VariableProcessor = require('../variables/VariableProcessor');
 const VariableRenderer = require('../variables/VariableRenderer');
 const { ignoreTags } = require('../patches');
@@ -259,32 +260,7 @@ class Site {
   createPage(config) {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
     const resultPath = path.join(this.outputPath, Site.setExtension(config.pageSrc, '.html'));
-    return new Page({
-      dev: this.dev,
-      baseUrl: this.siteConfig.baseUrl,
-      baseUrlMap: this.baseUrlMap,
-      content: '',
-      pluginsContext: this.siteConfig.pluginsContext,
-      faviconUrl: config.faviconUrl,
-      frontmatter: config.frontmatter,
-      disableHtmlBeautify: this.siteConfig.disableHtmlBeautify,
-      globalOverride: this.siteConfig.globalOverride,
-      pageTemplate: this.pageTemplate,
-      plugins: this.plugins || {},
-      rootPath: this.rootPath,
-      siteOutputPath: this.outputPath,
-      enableSearch: this.siteConfig.enableSearch,
-      searchable: this.siteConfig.enableSearch && config.searchable,
-      src: config.pageSrc,
-      layoutsAssetPath: path.relative(path.dirname(resultPath),
-                                      path.join(this.siteAssetsDestPath, LAYOUT_SITE_FOLDER_NAME)),
-      layout: config.layout,
-      title: config.title || '',
-      titlePrefix: this.siteConfig.titlePrefix,
-      headingIndexingLevel: this.siteConfig.headingIndexingLevel,
-      variableProcessor: this.variableProcessor,
-      sourcePath,
-      resultPath,
+    const pageConfig = new PageConfig({
       asset: {
         bootstrap: path.relative(path.dirname(resultPath),
                                  path.join(this.siteAssetsDestPath, 'css', 'bootstrap.min.css')),
@@ -318,7 +294,31 @@ class Site {
         jQuery: path.relative(path.dirname(resultPath),
                               path.join(this.siteAssetsDestPath, 'js', 'jquery.min.js')),
       },
+      baseUrl: this.siteConfig.baseUrl,
+      baseUrlMap: this.baseUrlMap,
+      dev: this.dev,
+      disableHtmlBeautify: this.siteConfig.disableHtmlBeautify,
+      faviconUrl: config.faviconUrl,
+      frontmatterOverride: config.frontmatter,
+      globalOverride: this.siteConfig.globalOverride,
+      headingIndexingLevel: this.siteConfig.headingIndexingLevel,
+      layout: config.layout,
+      layoutsAssetPath: path.relative(path.dirname(resultPath),
+                                      path.join(this.siteAssetsDestPath, LAYOUT_SITE_FOLDER_NAME)),
+      plugins: this.plugins || {},
+      pluginsContext: this.siteConfig.pluginsContext,
+      resultPath,
+      rootPath: this.rootPath,
+      searchable: this.siteConfig.enableSearch && config.searchable,
+      siteOutputPath: this.outputPath,
+      sourcePath,
+      src: config.pageSrc,
+      title: config.title || '',
+      titlePrefix: this.siteConfig.titlePrefix,
+      template: this.pageTemplate,
+      variableProcessor: this.variableProcessor,
     });
+    return new Page(pageConfig);
   }
 
   /**
@@ -665,7 +665,7 @@ class Site {
    */
   lazyBuildAllPagesNotViewed() {
     this.pages.forEach((page) => {
-      const normalizedUrl = FsUtil.removeExtension(page.sourcePath);
+      const normalizedUrl = FsUtil.removeExtension(page.pageConfig.sourcePath);
       if (normalizedUrl !== this.currentPageViewed) {
         this.toRebuild.add(normalizedUrl);
       }
@@ -729,7 +729,7 @@ class Site {
       new Promise((resolve, reject) => {
         this._setTimestampVariable();
         const pageToRebuild = this.pages.find(page =>
-          FsUtil.removeExtension(page.sourcePath) === normalizedUrl);
+          FsUtil.removeExtension(page.pageConfig.sourcePath) === normalizedUrl);
 
         if (!pageToRebuild) {
           Site.rejectHandler(reject,
@@ -1058,7 +1058,7 @@ class Site {
     this._setTimestampVariable();
     this.mapAddressablePagesToPages(addressablePages, faviconUrl);
 
-    const landingPage = this.pages.find(page => page.src === this.onePagePath);
+    const landingPage = this.pages.find(page => page.pageConfig.src === this.onePagePath);
     if (!landingPage) {
       return Promise.reject(new Error(`${this.onePagePath} is not specified in the site configuration.`));
     }
@@ -1084,7 +1084,7 @@ class Site {
 
       if (shouldRebuildAllPages || doFilePathsHaveSourceFiles) {
         if (this.onePagePath) {
-          const normalizedSource = FsUtil.removeExtension(page.sourcePath);
+          const normalizedSource = FsUtil.removeExtension(page.pageConfig.sourcePath);
           const isPageBeingViewed = normalizedSource === this.currentPageViewed;
 
           if (!isPageBeingViewed) {
@@ -1239,9 +1239,9 @@ class Site {
       const siteDataPath = path.join(this.outputPath, SITE_DATA_NAME);
       const siteData = {
         enableSearch: this.siteConfig.enableSearch,
-        pages: this.pages.filter(page => page.searchable)
+        pages: this.pages.filter(page => page.pageConfig.searchable)
           .map(page => ({
-            src: page.src,
+            src: page.pageConfig.src,
             title: page.title,
             headings: page.headings,
             headingKeywords: page.keywords,
