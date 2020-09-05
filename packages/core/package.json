@@ -21,7 +21,7 @@
     "access": "public"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest --colors"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
