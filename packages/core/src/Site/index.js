@@ -298,6 +298,7 @@ class Site {
       baseUrlMap: this.baseUrlMap,
       dev: this.dev,
       disableHtmlBeautify: this.siteConfig.disableHtmlBeautify,
+      enableSearch: this.siteConfig.enableSearch,
       faviconUrl: config.faviconUrl,
       frontmatterOverride: config.frontmatter,
       globalOverride: this.siteConfig.globalOverride,

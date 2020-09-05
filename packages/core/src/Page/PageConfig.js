@@ -30,6 +30,10 @@ class PageConfig {
      */
     this.dev = args.dev;
     /**
+     * @type {boolean}
+     */
+    this.enableSearch = args.enableSearch;
+    /**
      * @type {string}
      */
     this.faviconUrl = args.faviconUrl;
