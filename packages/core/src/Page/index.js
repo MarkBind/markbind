@@ -6,6 +6,7 @@ const path = require('path');
 const Promise = require('bluebird');
 
 const _ = {};
+_.cloneDeep = require('lodash/cloneDeep');
 _.isString = require('lodash/isString');
 _.isObject = require('lodash/isObject');
 _.isArray = require('lodash/isArray');
@@ -64,215 +65,133 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 class Page {
   /**
-   * A page configuration object.
-   * @typedef {Object<string, any>} PageConfig
-   * @property {Object<string, any>} asset
-   * @property {string} baseUrl
-   * @property {Set<string>} baseUrlMap the set of urls representing the sites' base directories
-   * @property {string} content
-   * @property {string} faviconUrl
-   * @property {Object<string, any>} frontmatter
-   * @property {string} layout
-   * @property {string} layoutsAssetPath
-   * @property {string} rootPath
-   * @property {boolean} enableSearch
-   * @property {boolean} globalOverride whether to globally overrides properties
-   * in the front matter of all pages
-   * @property {Array} plugins
-   * @property {Object<string, Object<string, any>>} pluginsContext
-   * @property {boolean} searchable whether to include this page in MarkBind's search functinality
-   * @property {string} src source path of the page
-   * @property {string} pageTemplate template used for this page
-   * @property {string} title
-   * @property {string} titlePrefix https://markbind.org/userGuide/siteConfiguration.html#titleprefix
-   * @property {VariableProcessor} variableProcessor
-   * @property {string} sourcePath the source file for rendering this page
-   * @property {string} tempPath the temp path for writing intermediate result
-   * @property {string} resultPath the output path of this page
-   * @property {number} headingIndexingLevel up to which level of headings will be used for searching index
-   * (https://markbind.org/userGuide/siteConfiguration.html#headingindexinglevel)
-   */
-
-  /**
    * @param {PageConfig} pageConfig
    */
   constructor(pageConfig) {
     /**
-     * @type {boolean}
+     * Page configuration passed from {@link Site}.
+     * This should not be mutated.
+     * @type {PageConfig}
      */
-    this.dev = pageConfig.dev;
-    /**
-     * @type {Object<string, any>}
-     */
-    this.asset = pageConfig.asset;
-    /**
-     * @type {string}
-     */
-    this.baseUrl = pageConfig.baseUrl;
-    /**
-     * @type {Set<string>} the set of urls representing the sites' base directories
-     */
-    this.baseUrlMap = pageConfig.baseUrlMap;
-    /**
-     * @type {string|string}
-     */
-    this.content = pageConfig.content || '';
-    /**
-     * @type {string}
-     */
-    this.faviconUrl = pageConfig.faviconUrl;
-    /**
-     * @type {Object<string, any>|{}}
-     */
-    this.frontmatterOverride = pageConfig.frontmatter || {};
-    /**
-     * @type {boolean}
-     */
-    this.disableHtmlBeautify = pageConfig.disableHtmlBeautify;
-    /**
-     * @type {string}
-     */
-    this.layout = pageConfig.layout;
-    /**
-     * @type {string}
-     */
-    this.layoutsAssetPath = pageConfig.layoutsAssetPath;
-    /**
-     * @type {string | boolean}
-     */
-    this.header = false;
-    /**
-     * @type {string | boolean}
-     */
-    this.footer = false;
-    /**
-     * @type {string | boolean}
-     */
-    this.siteNav = false;
-    /**
-     * @type {Array<string> | boolean}
-     */
-    this.head = false;
-    /**
-     * @type {string}
-     */
-    this.rootPath = pageConfig.rootPath;
-    /**
-     * @type {string}
-     */
-    this.siteOutputPath = pageConfig.siteOutputPath;
-    /**
-     * @type {boolean}
-     */
-    this.enableSearch = pageConfig.enableSearch;
-    /**
-     * @type {boolean}
-     */
-    this.globalOverride = pageConfig.globalOverride;
-    /**
-     * Array of plugins used in this page.
-     * @type {Array}
-     */
-    this.plugins = pageConfig.plugins;
-    /**
-     * @type {Object<string, Object<string, any>>}
-     */
-    this.pluginsContext = pageConfig.pluginsContext;
-    /**
-     * @type {boolean}
-     */
-    this.searchable = pageConfig.searchable;
-    /**
-     * @type {string}
-     */
-    this.src = pageConfig.src;
-    /**
-     * @type {string}
-     */
-    this.template = pageConfig.pageTemplate;
-    /**
-     * @type {string|string}
-     */
-    this.title = pageConfig.title || '';
-    /**
-     * @type {string}
-     */
-    this.titlePrefix = pageConfig.titlePrefix;
-    /**
-     * @type {VariableProcessor}
-     */
-    this.variableProcessor = pageConfig.variableProcessor;
+    this.pageConfig = pageConfig;
+  }
 
+  /**
+   * Resets or initialises all stateful variables of the page,
+   * which differs from one page generation call to another.
+   */
+  resetState() {
     /**
-     * The source file for rendering this page
+     * Object containing asset names as keys and their corresponding file paths,
+     * or an array of <link/script> elements extracted from plugins during {@link collectPluginsAssets}.
+     * @type {Object<string, string | Array<string>>}
+     */
+    this.asset = _.cloneDeep(this.pageConfig.asset);
+    /**
      * @type {string}
      */
-    this.sourcePath = pageConfig.sourcePath;
+    this.content = '';
     /**
-     * The output path of this page
-     * @type {string}
-     */
-    this.resultPath = pageConfig.resultPath;
-
-    /**
+     * The pure frontMatter of the page as collected in {@link collectFrontMatter}.
      * https://markbind.org/userGuide/tweakingThePageStructure.html#front-matter
      * @type {Object<string, any>}
      */
     this.frontMatter = {};
     /**
-     * @type {string}
-     */
-    this.headFileBottomContent = '';
-    /**
-     * @type {string}
-     */
-    this.headFileTopContent = '';
-    /**
+     * Map of heading ids to its text content
      * @type {Object<string, string>}
      */
     this.headings = {};
     /**
-     * https://markbind.org/userGuide/siteConfiguration.html#headingindexinglevel
-     * @type {number}
+     * Stores the next integer to append to a heading id, for resolving heading id conflicts
+     * @type {Object<string, number>}
      */
-    this.headingIndexingLevel = pageConfig.headingIndexingLevel;
+    this.headerIdMap = {};
     /**
+     * Set of included files (dependencies) used for live reload
      * https://markbind.org/userGuide/reusingContents.html#includes
      * @type {Set<string>}
      */
-    this.includedFiles = new Set();
+    this.includedFiles = new Set([this.pageConfig.sourcePath]);
     /**
-     * https://markbind.org/userGuide/usingPlugins.html
-     * @type {Set<string>}
-     */
-    this.pluginSourceFiles = new Set();
-    /**
+     * Map of heading ids (that closest to the keyword) to the keyword text content
      * https://markbind.org/userGuide/makingTheSiteSearchable.html#keywords
      * @type {Object<string, Array>}
      */
     this.keywords = {};
-    /**
-     * An object storing the mapping from the navigable headings' id to an
-     * object of {text: NAV_TEXT, level: NAV_LEVEL}.
-     * @type {Object<string, Object>}
-     */
-    this.navigableHeadings = {};
     /**
      * A map from page section id to HTML content of that section.
      * @type {Object<string, string>}
      */
     this.pageSectionsHtml = {};
     /**
-     * Related to generating unique IDs for headers, please refer to parser.js.
-     * @type {Object<string, number>}
+     * Set of included files (dependencies) from plugins used for live reload
+     * https://markbind.org/userGuide/usingPlugins.html
+     * @type {Set<string>}
      */
-    this.headerIdMap = {};
+    this.pluginSourceFiles = new Set();
+    /**
+     * The title of the page.
+     * This is initially set to the title specified in the site configuration,
+     * if there is none, we look for one in the frontMatter(s) as well.
+     * @type {string}
+     */
+    this.title = this.pageConfig.title || '';
+
+    /*
+     * Layouts related properties
+     */
 
     /**
-     * Flag to indicate whether a fixed header is enabled.
+     * The layout to use for this page, which may be further mutated in {@link processFrontMatter.}
+     * @type {string}
+     */
+    this.layout = this.pageConfig.layout;
+    /**
+     * Flag to indicate whether a fixed header is enabled, as detected in {@link insertHeaderFile}.
      * @type {boolean}
      */
     this.fixedHeader = false;
+    /**
+     * Footer file path for the page, or false if none.
+     * The footer may be from a layout, or from the _markbind/footers directory.
+     * @type {string | boolean}
+     */
+    this.footer = false;
+    /**
+     * Head file from the layout, or false if none.
+     * @type {Array<string> | boolean}
+     */
+    this.head = false;
+    /**
+     * Content as collected from the head file, to be inserted right before the closing </head> tag.
+     * @type {string}
+     */
+    this.headFileBottomContent = '';
+    /**
+     * Content as collected from the head file, to be inserted right after the starting <head> tag.
+     * @type {string}
+     */
+    this.headFileTopContent = '';
+    /**
+     * Header file path for the page, or false if none.
+     * The header may be from a layout, or from the _markbind/headers directory.
+     * @type {string | boolean}
+     */
+    this.header = false;
+    /**
+     * An object storing the mapping from the navigable headings' id to an
+     * object of {text: NAV_TEXT, level: NAV_LEVEL}.
+     * Used for page nav generation.
+     * @type {Object<string, Object>}
+     */
+    this.navigableHeadings = {};
+    /**
+     * Site navigation file path for the page, or false if none.
+     * The site nav may be from a layout, or from the _markbind/navigation directory.
+     * @type {string | boolean}
+     */
+    this.siteNav = false;
   }
 
   /**
@@ -294,15 +213,15 @@ class Page {
    * @property {string} title if title prefix is specified,
    * this will be the prefixed title,
    * otherwise the title itself.
-   * @property {boolean} enableSearch
+   * @property {boolean} searchable
    * /
 
   /**
    * @returns {TemplateData} templateData
    */
   prepareTemplateData() {
-    const prefixedTitle = this.titlePrefix
-      ? this.titlePrefix + (this.title ? TITLE_PREFIX_SEPARATOR + this.title : '')
+    const prefixedTitle = this.pageConfig.titlePrefix
+      ? this.pageConfig.titlePrefix + (this.title ? TITLE_PREFIX_SEPARATOR + this.title : '')
       : this.title;
     // construct temporary asset object with only POSIX-style paths
     const asset = {};
@@ -311,10 +230,10 @@ class Page {
     });
     return {
       asset,
-      baseUrl: this.baseUrl,
+      baseUrl: this.pageConfig.baseUrl,
       content: this.content,
-      dev: this.dev,
-      faviconUrl: this.faviconUrl,
+      dev: this.pageConfig.dev,
+      faviconUrl: this.pageConfig.faviconUrl,
       footerHtml: this.pageSectionsHtml.footer || '',
       headerHtml: this.pageSectionsHtml.header || '',
       headFileBottomContent: this.headFileBottomContent,
@@ -325,7 +244,7 @@ class Page {
       siteNav: this.siteNav,
       siteNavHtml: this.pageSectionsHtml[`#${SITE_NAV_ID}`] || '',
       title: prefixedTitle,
-      enableSearch: this.enableSearch,
+      enableSearch: this.pageConfig.searchable,
     };
   }
 
@@ -344,8 +263,7 @@ class Page {
    */
   generateElementSelectorForPageNav(pageNav) {
     if (pageNav === 'default') {
-      // Use specified navigation level or default in this.headingIndexingLevel
-      return `${Page.generateHeadingSelector(this.headingIndexingLevel)}, panel`;
+      return `${Page.generateHeadingSelector(this.pageConfig.headingIndexingLevel)}, panel`;
     } else if (Number.isInteger(pageNav)) {
       return `${Page.generateHeadingSelector(parseInt(pageNav, 10))}, panel`;
     }
@@ -413,11 +331,7 @@ class Page {
    * Records headings and keywords inside rendered page into this.headings and this.keywords respectively
    */
   collectHeadingsAndKeywords() {
-    const $ = cheerio.load(fs.readFileSync(this.resultPath));
-    // Re-initialise objects in the event of Site.regenerateAffectedPages
-    this.headings = {};
-    this.keywords = {};
-    // Collect headings and keywords
+    const $ = cheerio.load(fs.readFileSync(this.pageConfig.resultPath));
     this.collectHeadingsAndKeywordsInContent($(`#${CONTENT_WRAPPER_ID}`).html(), null, false, []);
   }
 
@@ -430,7 +344,7 @@ class Page {
    */
   collectHeadingsAndKeywordsInContent(content, lastHeading, excludeHeadings, sourceTraversalStack) {
     let $ = cheerio.load(content);
-    const headingsSelector = Page.generateHeadingSelector(this.headingIndexingLevel);
+    const headingsSelector = Page.generateHeadingSelector(this.pageConfig.headingIndexingLevel);
     $('b-modal').remove();
     $('panel').not('panel panel')
       .each((index, panel) => {
@@ -463,12 +377,12 @@ class Page {
         }
         if (panel.attribs.src) {
           const src = panel.attribs.src.split('#')[0];
-          const buildInnerDir = path.dirname(this.sourcePath);
-          const resultInnerDir = path.dirname(this.resultPath);
-          const includeRelativeToBuildRootDirPath = this.baseUrl
-            ? path.relative(this.baseUrl, src)
+          const buildInnerDir = path.dirname(this.pageConfig.sourcePath);
+          const resultInnerDir = path.dirname(this.pageConfig.resultPath);
+          const includeRelativeToBuildRootDirPath = this.pageConfig.baseUrl
+            ? path.relative(this.pageConfig.baseUrl, src)
             : src.substring(1);
-          const includeAbsoluteToBuildRootDirPath = path.resolve(this.rootPath,
+          const includeAbsoluteToBuildRootDirPath = path.resolve(this.pageConfig.rootPath,
                                                                  includeRelativeToBuildRootDirPath);
           const includeRelativeToInnerDirPath
             = path.relative(buildInnerDir, includeAbsoluteToBuildRootDirPath);
@@ -493,7 +407,7 @@ class Page {
         }
       });
     $ = cheerio.load(content);
-    if (this.headingIndexingLevel > 0) {
+    if (this.pageConfig.headingIndexingLevel > 0) {
       $('b-modal').remove();
       $('panel').remove();
       if (!excludeHeadings) {
@@ -559,8 +473,8 @@ class Page {
 
     this.frontMatter = {
       ...pageFrontMatter,
-      ...this.globalOverride,
-      ...this.frontmatterOverride,
+      ...this.pageConfig.globalOverride,
+      ...this.pageConfig.frontmatterOverride,
     };
   }
 
@@ -580,20 +494,21 @@ class Page {
      */
     this.header = this.frontMatter.header !== FRONT_MATTER_NONE_ATTR
       && (this.frontMatter.header
-        ? path.join(this.rootPath, HEADERS_FOLDER_PATH, this.frontMatter.header)
-        : path.join(this.rootPath, LAYOUT_FOLDER_PATH, this.layout, LAYOUT_HEADER));
+        ? path.join(this.pageConfig.rootPath, HEADERS_FOLDER_PATH, this.frontMatter.header)
+        : path.join(this.pageConfig.rootPath, LAYOUT_FOLDER_PATH, this.layout, LAYOUT_HEADER));
     this.footer = this.frontMatter.footer !== FRONT_MATTER_NONE_ATTR
       && (this.frontMatter.footer
-        ? path.join(this.rootPath, FOOTERS_FOLDER_PATH, this.frontMatter.footer)
-        : path.join(this.rootPath, LAYOUT_FOLDER_PATH, this.layout, LAYOUT_FOOTER));
+        ? path.join(this.pageConfig.rootPath, FOOTERS_FOLDER_PATH, this.frontMatter.footer)
+        : path.join(this.pageConfig.rootPath, LAYOUT_FOLDER_PATH, this.layout, LAYOUT_FOOTER));
     this.siteNav = this.frontMatter.siteNav !== FRONT_MATTER_NONE_ATTR
       && (this.frontMatter.siteNav
-        ? path.join(this.rootPath, NAVIGATION_FOLDER_PATH, this.frontMatter.siteNav)
-        : path.join(this.rootPath, LAYOUT_FOLDER_PATH, this.layout, LAYOUT_NAVIGATION));
+        ? path.join(this.pageConfig.rootPath, NAVIGATION_FOLDER_PATH, this.frontMatter.siteNav)
+        : path.join(this.pageConfig.rootPath, LAYOUT_FOLDER_PATH, this.layout, LAYOUT_NAVIGATION));
     this.head = this.frontMatter.head !== FRONT_MATTER_NONE_ATTR
       && (this.frontMatter.head
-        ? this.frontMatter.head.split(/ *, */).map(file => path.join(this.rootPath, HEAD_FOLDER_PATH, file))
-        : [path.join(this.rootPath, LAYOUT_FOLDER_PATH, this.layout, LAYOUT_HEAD)]);
+        ? this.frontMatter.head.split(/ *, */).map(file => path.join(this.pageConfig.rootPath,
+                                                                     HEAD_FOLDER_PATH, file))
+        : [path.join(this.pageConfig.rootPath, LAYOUT_FOLDER_PATH, this.layout, LAYOUT_HEAD)]);
   }
 
   /**
@@ -614,7 +529,7 @@ class Page {
    * @param {ComponentPreprocessor} componentPreprocessor for running {@link includeFile} on the layout
    */
   generateExpressiveLayout(pageData, fileConfig, componentPreprocessor) {
-    const layoutPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH, this.layout);
+    const layoutPath = path.join(this.pageConfig.rootPath, LAYOUT_FOLDER_PATH, this.layout);
     const layoutPagePath = path.join(layoutPath, LAYOUT_PAGE);
 
     if (!fs.existsSync(layoutPagePath)) {
@@ -628,15 +543,16 @@ class Page {
        Render {{ MAIN_CONTENT_BODY }} and {% raw/endraw %} back to itself first,
        which is then dealt with in the call below to {@link renderSiteVariables}.
        */
-      .then(result => this.variableProcessor.renderPage(layoutPagePath, result, {
+      .then(result => this.pageConfig.variableProcessor.renderPage(layoutPagePath, result, {
         [LAYOUT_PAGE_BODY_VARIABLE]: `{{${LAYOUT_PAGE_BODY_VARIABLE}}}`,
       }, true))
       // Include file with the cwf set to the layout page path
       .then(result => componentPreprocessor.includeFile(layoutPagePath, result))
       // Note: The {% raw/endraw %}s previously kept are removed here.
-      .then(result => this.variableProcessor.renderSiteVariables(this.rootPath, result, {
-        [LAYOUT_PAGE_BODY_VARIABLE]: pageData,
-      }));
+      .then(result => this.pageConfig.variableProcessor.renderSiteVariables(
+        this.pageConfig.rootPath, result, {
+          [LAYOUT_PAGE_BODY_VARIABLE]: pageData,
+        }));
   }
 
   /**
@@ -661,7 +577,8 @@ class Page {
     // Set header file as an includedFile
     this.includedFiles.add(this.header);
 
-    const renderedHeader = this.variableProcessor.renderSiteVariables(this.sourcePath, headerContent);
+    const renderedHeader = this.pageConfig.variableProcessor.renderSiteVariables(this.pageConfig.sourcePath,
+                                                                                 headerContent);
     return `${renderedHeader}\n${pageData}`;
   }
 
@@ -678,7 +595,8 @@ class Page {
     // Set footer file as an includedFile
     this.includedFiles.add(this.footer);
 
-    const renderedFooter = this.variableProcessor.renderSiteVariables(this.sourcePath, footerContent);
+    const renderedFooter = this.pageConfig.variableProcessor.renderSiteVariables(this.pageConfig.sourcePath,
+                                                                                 footerContent);
     return `${pageData}\n${renderedFooter}`;
   }
 
@@ -700,7 +618,8 @@ class Page {
     }
     this.includedFiles.add(this.siteNav);
 
-    const siteNavMappedData = this.variableProcessor.renderSiteVariables(this.sourcePath, siteNavContent);
+    const siteNavMappedData = this.pageConfig.variableProcessor.renderSiteVariables(
+      this.pageConfig.sourcePath, siteNavContent);
 
     // Check navigation elements
     const $ = cheerio.load(siteNavMappedData);
@@ -714,8 +633,8 @@ class Page {
     const $nav = cheerio.load(siteNavHtml);
 
     // Add anchor classes and highlight current page's anchor, if any.
-    const currentPageHtmlPath = this.src.replace(/\.(md|mbd)$/, '.html');
-    const currentPageRegex = new RegExp(`${this.baseUrl}/${currentPageHtmlPath}`);
+    const currentPageHtmlPath = this.pageConfig.src.replace(/\.(md|mbd)$/, '.html');
+    const currentPageRegex = new RegExp(`${this.pageConfig.baseUrl}/${currentPageHtmlPath}`);
     $nav('a[href]').each((i, elem) => {
       if (currentPageRegex.test($nav(elem).attr('href'))) {
         $nav(elem).addClass('current');
@@ -883,8 +802,8 @@ class Page {
       // Set head file as an includedFile
       this.includedFiles.add(headFilePath);
 
-      const headFileMappedData = this.variableProcessor.renderSiteVariables(this.sourcePath,
-                                                                            headFileContent).trim();
+      const headFileMappedData = this.pageConfig.variableProcessor.renderSiteVariables(
+        this.pageConfig.sourcePath, headFileContent).trim();
       // Split top and bottom contents
       const $ = cheerio.load(headFileMappedData);
       if ($('head-top').length) {
@@ -943,26 +862,26 @@ class Page {
    */
 
   generate(builtFiles) {
-    this.includedFiles = new Set([this.sourcePath]);
-    this.headerIdMap = {}; // Reset for live reload
+    this.resetState(); // Reset for live reload
 
     /**
      * @type {FileConfig}
      */
     const fileConfig = {
-      baseUrlMap: this.baseUrlMap,
-      baseUrl: this.baseUrl,
-      rootPath: this.rootPath,
+      baseUrlMap: this.pageConfig.baseUrlMap,
+      baseUrl: this.pageConfig.baseUrl,
+      rootPath: this.pageConfig.rootPath,
       headerIdMap: this.headerIdMap,
       fixedHeader: this.fixedHeader,
     };
     const pageSources = new PageSources();
-    const componentPreprocessor = new ComponentPreprocessor(fileConfig, this.variableProcessor, pageSources);
+    const componentPreprocessor = new ComponentPreprocessor(fileConfig, this.pageConfig.variableProcessor,
+                                                            pageSources);
     const componentParser = new ComponentParser(fileConfig);
 
-    return fs.readFileAsync(this.sourcePath, 'utf-8')
-      .then(result => this.variableProcessor.renderPage(this.sourcePath, result))
-      .then(result => componentPreprocessor.includeFile(this.sourcePath, result))
+    return fs.readFileAsync(this.pageConfig.sourcePath, 'utf-8')
+      .then(result => this.pageConfig.variableProcessor.renderPage(this.pageConfig.sourcePath, result))
+      .then(result => componentPreprocessor.includeFile(this.pageConfig.sourcePath, result))
       .then((result) => {
         this.collectFrontMatter(result);
         this.processFrontMatter();
@@ -977,7 +896,7 @@ class Page {
       .then(result => this.insertHeaderFile(result, fileConfig))
       .then(result => this.insertFooterFile(result))
       .then(result => Page.insertTemporaryStyles(result))
-      .then(result => componentParser.render(this.sourcePath, result))
+      .then(result => componentParser.render(this.pageConfig.sourcePath, result))
       .then(result => this.postRender(result))
       .then(result => this.collectPluginsAssets(result))
       .then(result => Page.unwrapIncludeSrc(result))
@@ -990,12 +909,12 @@ class Page {
         this.collectAllPageSections();
         this.buildPageNav();
 
-        const renderedTemplate = this.template.render(this.prepareTemplateData());
-        const outputTemplateHTML = this.disableHtmlBeautify
+        const renderedTemplate = this.pageConfig.template.render(this.prepareTemplateData());
+        const outputTemplateHTML = this.pageConfig.disableHtmlBeautify
           ? renderedTemplate
           : htmlBeautify(renderedTemplate, Page.htmlBeautifyOptions);
 
-        return fs.outputFileAsync(this.resultPath, outputTemplateHTML);
+        return fs.outputFileAsync(this.pageConfig.resultPath, outputTemplateHTML);
       })
       .then(() => {
         const resolvingFiles = [];
@@ -1017,7 +936,6 @@ class Page {
    * A plugin configuration object.
    * @typedef {Object<string, any>} PluginConfig
    * @property {number} headingIndexingLevel
-   * @property {boolean} enableSearch
    * @property {boolean} searchable
    * @property {string} rootPath
    * @property {string} sourcePath
@@ -1031,15 +949,14 @@ class Page {
    */
   getPluginConfig() {
     return {
-      baseUrl: this.baseUrl,
-      headingIndexingLevel: this.headingIndexingLevel,
-      enableSearch: this.enableSearch,
-      searchable: this.searchable,
-      rootPath: this.rootPath,
-      siteOutputPath: this.siteOutputPath,
-      sourcePath: this.sourcePath,
+      baseUrl: this.pageConfig.baseUrl,
+      headingIndexingLevel: this.pageConfig.headingIndexingLevel,
+      searchable: this.pageConfig.searchable,
+      rootPath: this.pageConfig.rootPath,
+      siteOutputPath: this.pageConfig.siteOutputPath,
+      sourcePath: this.pageConfig.sourcePath,
       includedFiles: this.includedFiles,
-      resultPath: this.resultPath,
+      resultPath: this.pageConfig.resultPath,
     };
   }
 
@@ -1049,13 +966,13 @@ class Page {
   collectPluginSources(content) {
     const self = this;
 
-    Object.entries(self.plugins)
+    Object.entries(self.pageConfig.plugins)
       .forEach(([pluginName, plugin]) => {
         if (!plugin.getSources) {
           return;
         }
 
-        const result = plugin.getSources(content, self.pluginsContext[pluginName] || {},
+        const result = plugin.getSources(content, self.pageConfig.pluginsContext[pluginName] || {},
                                          self.frontMatter, self.getPluginConfig());
 
         let pageContextSources;
@@ -1067,7 +984,7 @@ class Page {
           pageContextSources = result.sources;
           domTagSourcesMap = result.tagMap;
         } else {
-          logger.warn(`${pluginName} returned unsupported type for ${self.sourcePath}`);
+          logger.warn(`${pluginName} returned unsupported type for ${self.pageConfig.sourcePath}`);
           return;
         }
 
@@ -1081,7 +998,7 @@ class Page {
             }
 
             // Resolve relative paths from the current page source
-            const originalSrcFolder = path.dirname(self.sourcePath);
+            const originalSrcFolder = path.dirname(self.pageConfig.sourcePath);
             const resolvedResourcePath = path.resolve(originalSrcFolder, src);
 
             self.pluginSourceFiles.add(resolvedResourcePath);
@@ -1114,7 +1031,7 @@ class Page {
 
                 // Resolve relative paths from the include page source, or current page source otherwise
                 const firstParent = elem.closest('div[data-included-from], span[data-included-from]');
-                const originalSrc = firstParent.attr('data-included-from') || self.sourcePath;
+                const originalSrc = firstParent.attr('data-included-from') || self.pageConfig.sourcePath;
                 const originalSrcFolder = path.dirname(originalSrc);
                 const resolvedResourcePath = path.resolve(originalSrcFolder, src);
 
@@ -1132,9 +1049,10 @@ class Page {
    */
   preRender(content) {
     let preRenderedContent = content;
-    Object.entries(this.plugins).forEach(([pluginName, plugin]) => {
+    Object.entries(this.pageConfig.plugins).forEach(([pluginName, plugin]) => {
       if (plugin.preRender) {
-        preRenderedContent = plugin.preRender(preRenderedContent, this.pluginsContext[pluginName] || {},
+        preRenderedContent = plugin.preRender(preRenderedContent,
+                                              this.pageConfig.pluginsContext[pluginName] || {},
                                               this.frontMatter, this.getPluginConfig());
       }
     });
@@ -1146,9 +1064,10 @@ class Page {
    */
   postRender(content) {
     let postRenderedContent = content;
-    Object.entries(this.plugins).forEach(([pluginName, plugin]) => {
+    Object.entries(this.pageConfig.plugins).forEach(([pluginName, plugin]) => {
       if (plugin.postRender) {
-        postRenderedContent = plugin.postRender(postRenderedContent, this.pluginsContext[pluginName] || {},
+        postRenderedContent = plugin.postRender(postRenderedContent,
+                                                this.pageConfig.pluginsContext[pluginName] || {},
                                                 this.frontMatter, this.getPluginConfig());
       }
     });
@@ -1187,7 +1106,8 @@ class Page {
         })
         .catch(err => logger.error(`Failed to copy asset ${assetPath} for plugin ${pluginName}\n${err}`));
 
-      return path.posix.join(this.baseUrl || '/', PLUGIN_SITE_ASSET_FOLDER_NAME, pluginName, srcBaseName);
+      return path.posix.join(this.pageConfig.baseUrl || '/', PLUGIN_SITE_ASSET_FOLDER_NAME,
+                             pluginName, srcBaseName);
     });
 
     return $.html();
@@ -1205,9 +1125,9 @@ class Page {
     const scriptUtils = {
       buildScript: src => `<script src="${src}"></script>`,
     };
-    Object.entries(this.plugins).forEach(([pluginName, plugin]) => {
+    Object.entries(this.pageConfig.plugins).forEach(([pluginName, plugin]) => {
       if (plugin.getLinks) {
-        const pluginLinks = plugin.getLinks(content, this.pluginsContext[pluginName],
+        const pluginLinks = plugin.getLinks(content, this.pageConfig.pluginsContext[pluginName],
                                             this.frontMatter, linkUtils);
         const resolvedPluginLinks = pluginLinks.map(linkHtml =>
           this.getResolvedAssetElement(linkHtml, 'link', 'href', plugin, pluginName));
@@ -1215,7 +1135,7 @@ class Page {
       }
 
       if (plugin.getScripts) {
-        const pluginScripts = plugin.getScripts(content, this.pluginsContext[pluginName],
+        const pluginScripts = plugin.getScripts(content, this.pageConfig.pluginsContext[pluginName],
                                                 this.frontMatter, scriptUtils);
         const resolvedPluginScripts = pluginScripts.map(scriptHtml =>
           this.getResolvedAssetElement(scriptHtml, 'script', 'src', plugin, pluginName));
@@ -1231,8 +1151,8 @@ class Page {
    * Adds linked layout files to page assets
    */
   addLayoutScriptsAndStyles() {
-    this.asset.layoutScript = path.join(this.layoutsAssetPath, this.layout, 'scripts.js');
-    this.asset.layoutStyle = path.join(this.layoutsAssetPath, this.layout, 'styles.css');
+    this.asset.layoutScript = path.join(this.pageConfig.layoutsAssetPath, this.layout, 'scripts.js');
+    this.asset.layoutStyle = path.join(this.pageConfig.layoutsAssetPath, this.layout, 'styles.css');
   }
 
   /**
@@ -1244,7 +1164,8 @@ class Page {
   resolveDependency(dependency, builtFiles) {
     const file = dependency.asIfTo;
     return new Promise((resolve, reject) => {
-      const resultDir = path.dirname(path.resolve(this.resultPath, path.relative(this.sourcePath, file)));
+      const resultDir = path.dirname(path.resolve(this.pageConfig.resultPath,
+                                                  path.relative(this.pageConfig.sourcePath, file)));
       const resultPath = path.join(resultDir, FsUtil.setExtension(path.basename(file), '._include_.html'));
       if (builtFiles.has(resultPath)) {
         return resolve();
@@ -1255,18 +1176,18 @@ class Page {
        * @type {FileConfig}
        */
       const fileConfig = {
-        baseUrlMap: this.baseUrlMap,
-        baseUrl: this.baseUrl,
-        rootPath: this.rootPath,
+        baseUrlMap: this.pageConfig.baseUrlMap,
+        baseUrl: this.pageConfig.baseUrl,
+        rootPath: this.pageConfig.rootPath,
         headerIdMap: {},
       };
       const pageSources = new PageSources();
-      const componentPreprocessor = new ComponentPreprocessor(fileConfig, this.variableProcessor,
+      const componentPreprocessor = new ComponentPreprocessor(fileConfig, this.pageConfig.variableProcessor,
                                                               pageSources);
       const componentParser = new ComponentParser(fileConfig);
 
       return fs.readFileAsync(dependency.to, 'utf-8')
-        .then(result => this.variableProcessor.renderPage(dependency.to, result))
+        .then(result => this.pageConfig.variableProcessor.renderPage(dependency.to, result))
         .then(result => componentPreprocessor.includeFile(dependency.to, result, file))
         .then(result => Page.removeFrontMatter(result))
         .then(result => this.collectPluginSources(result))
@@ -1276,7 +1197,7 @@ class Page {
         .then(result => this.collectPluginsAssets(result))
         .then(result => Page.unwrapIncludeSrc(result))
         .then((result) => {
-          const outputContentHTML = this.disableHtmlBeautify
+          const outputContentHTML = this.pageConfig.disableHtmlBeautify
             ? result
             : htmlBeautify(result, Page.htmlBeautifyOptions);
           return fs.outputFileAsync(resultPath, outputContentHTML);
