@@ -6,6 +6,8 @@
     z-index: 99;
     cursor: pointer;
     opacity: 0.4;
+    transition-property: opacity;
+    transition-duration: 0.25s;
 }
 
 #scroll-top-button.lighten {
