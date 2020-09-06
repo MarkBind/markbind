@@ -93,11 +93,7 @@ window.handleScrollTop = function () {
   document.body.scrollIntoView({ block: 'start', behavior: 'smooth' });
 };
 
-function setScrollTopButtonOpacity(scrollTopButton, opacity = '40%') {
-  scrollTopButton.style.setProperty('--scroll-top-button-opacity', opacity);
-}
-
-function displayScrollTopButton(scrollTopButton) {
+function displayOrHideScrollTopButton(scrollTopButton) {
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
     scrollTopButton.style.display = 'block';
   } else {
@@ -105,16 +101,20 @@ function displayScrollTopButton(scrollTopButton) {
   }
 }
 
-function triggerScrollTopButton(timers) {
+function triggerScrollTopButton(scrollTopButton, timers) {
   clearTimeout(timers.displayButtonTimer);
   clearTimeout(timers.lightenButtonTimer);
-  const scrollTopButton = document.querySelector('#scroll-top-button');
-  setScrollTopButtonOpacity(scrollTopButton); // normal button opacity
+  // const scrollTopButton = document.querySelector('#scroll-top-button');
+  scrollTopButton.classList.remove('lighten');
   timers.displayButtonTimer = setTimeout(() => {
-    displayScrollTopButton(scrollTopButton);
+    displayOrHideScrollTopButton(scrollTopButton);
     timers.lightenButtonTimer = setTimeout(() => {
-      setScrollTopButtonOpacity(scrollTopButton, '15%'); // light button opacity
-    }, 750);
+      // lightens the scroll-top-button after 1 seconds of button inactivity
+      // prevents the button from obscuring the content
+      if (!scrollTopButton.classList.contains('lighten')) {
+        scrollTopButton.classList.add('lighten');
+      }
+    }, 1000);
   }, 100);
 }
 
@@ -123,9 +123,19 @@ function initDisplayScrollTopButton() {
     displayButtonTimer: 0,
     lightenButtonTimer: 0,
   };
-  window.addEventListener('scroll', () => {
-    triggerScrollTopButton(timers);
+  const checkElement = async (selector) => {
+    while (document.querySelector(selector) === null) {
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+    }
+    return document.querySelector(selector);
+  };
+  checkElement('#scroll-top-button').then((scrollTopButton) => {
+    window.addEventListener('scroll', () => {
+      console.log(scrollTopButton);
+      triggerScrollTopButton(scrollTopButton, timers);
+    });
   });
+  // const scrollTopButton = document.querySelector('#scroll-top-button');
 }
 
 initDisplayScrollTopButton();

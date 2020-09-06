@@ -1,13 +1,15 @@
 #scroll-top-button {
-    --scroll-top-button-opacity: 40%;
-
     display: none;
     position: fixed;
     bottom: 20px;
     right: 30px;
     z-index: 99;
     cursor: pointer;
-    opacity: var(--scroll-top-button-opacity);
+    opacity: 40%;
+}
+
+#scroll-top-button.lighten {
+    opacity: 20%;
 }
 
 #scroll-top-button:hover {
