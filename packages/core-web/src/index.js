@@ -93,16 +93,10 @@ window.handleScrollTop = function () {
   document.body.scrollIntoView({ block: 'start', behavior: 'smooth' });
 };
 
-function resetScrollTopButton(scrollTopButton, timers) {
-  clearTimeout(timers.displayButtonTimer);
-  clearTimeout(timers.lightenButtonTimer);
-  scrollTopButton.classList.remove('lighten');
-}
-
 function lightenScrollTopButton(scrollTopButton, timers) {
+  // lightens the scroll-top-button after 1 second of button inactivity
+  // prevents the button from obscuring the content
   timers.lightenButtonTimer = setTimeout(() => {
-    // lightens the scroll-top-button after 1 seconds of button inactivity
-    // prevents the button from obscuring the content
     if (!scrollTopButton.classList.contains('lighten')) {
       scrollTopButton.classList.add('lighten');
     }
@@ -110,7 +104,7 @@ function lightenScrollTopButton(scrollTopButton, timers) {
 }
 
 function showOrHideScrollTopButton(scrollTopButton, timers) {
-  timers.displayButtonTimer = setTimeout(() => {
+  timers.showOrHideButtonTimer = setTimeout(() => {
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
       scrollTopButton.style.display = 'block';
       lightenScrollTopButton(scrollTopButton, timers);
@@ -120,7 +114,13 @@ function showOrHideScrollTopButton(scrollTopButton, timers) {
   }, 100);
 }
 
-function displayScrollTopButton(timers) {
+function resetScrollTopButton(scrollTopButton, timers) {
+  clearTimeout(timers.displayButtonTimer);
+  clearTimeout(timers.lightenButtonTimer);
+  scrollTopButton.classList.remove('lighten');
+}
+
+function promptScrollTopButton(timers) {
   const scrollTopButton = document.querySelector('#scroll-top-button');
   resetScrollTopButton(scrollTopButton, timers);
   showOrHideScrollTopButton(scrollTopButton, timers);
@@ -128,11 +128,11 @@ function displayScrollTopButton(timers) {
 
 function initScrollTopButton() {
   const timers = {
-    displayButtonTimer: 0,
+    showOrHideButtonTimer: 0,
     lightenButtonTimer: 0,
   };
   window.addEventListener('scroll', () => {
-    displayScrollTopButton(timers);
+    promptScrollTopButton(timers);
   });
 }
 
