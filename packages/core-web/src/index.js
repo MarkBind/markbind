@@ -101,10 +101,10 @@ function displayOrHideScrollTopButton(scrollTopButton) {
   }
 }
 
-function triggerScrollTopButton(scrollTopButton, timers) {
+function triggerScrollTopButton(timers) {
   clearTimeout(timers.displayButtonTimer);
   clearTimeout(timers.lightenButtonTimer);
-  // const scrollTopButton = document.querySelector('#scroll-top-button');
+  const scrollTopButton = document.querySelector('#scroll-top-button');
   scrollTopButton.classList.remove('lighten');
   timers.displayButtonTimer = setTimeout(() => {
     displayOrHideScrollTopButton(scrollTopButton);
@@ -123,19 +123,9 @@ function initDisplayScrollTopButton() {
     displayButtonTimer: 0,
     lightenButtonTimer: 0,
   };
-  const checkElement = async (selector) => {
-    while (document.querySelector(selector) === null) {
-      await new Promise((resolve) => requestAnimationFrame(resolve));
-    }
-    return document.querySelector(selector);
-  };
-  checkElement('#scroll-top-button').then((scrollTopButton) => {
-    window.addEventListener('scroll', () => {
-      console.log(scrollTopButton);
-      triggerScrollTopButton(scrollTopButton, timers);
-    });
+  window.addEventListener('scroll', () => {
+    triggerScrollTopButton(timers);
   });
-  // const scrollTopButton = document.querySelector('#scroll-top-button');
 }
 
 initDisplayScrollTopButton();
