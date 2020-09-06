@@ -93,42 +93,50 @@ window.handleScrollTop = function () {
   document.body.scrollIntoView({ block: 'start', behavior: 'smooth' });
 };
 
-function displayOrHideScrollTopButton(scrollTopButton) {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    scrollTopButton.style.display = 'block';
-  } else {
-    scrollTopButton.style.display = 'none';
-  }
-}
-
-function triggerScrollTopButton(timers) {
+function resetScrollTopButton(scrollTopButton, timers) {
   clearTimeout(timers.displayButtonTimer);
   clearTimeout(timers.lightenButtonTimer);
-  const scrollTopButton = document.querySelector('#scroll-top-button');
   scrollTopButton.classList.remove('lighten');
+}
+
+function lightenScrollTopButton(scrollTopButton, timers) {
+  timers.lightenButtonTimer = setTimeout(() => {
+    // lightens the scroll-top-button after 1 seconds of button inactivity
+    // prevents the button from obscuring the content
+    if (!scrollTopButton.classList.contains('lighten')) {
+      scrollTopButton.classList.add('lighten');
+    }
+  }, 1000);
+}
+
+function showOrHideScrollTopButton(scrollTopButton, timers) {
   timers.displayButtonTimer = setTimeout(() => {
-    displayOrHideScrollTopButton(scrollTopButton);
-    timers.lightenButtonTimer = setTimeout(() => {
-      // lightens the scroll-top-button after 1 seconds of button inactivity
-      // prevents the button from obscuring the content
-      if (!scrollTopButton.classList.contains('lighten')) {
-        scrollTopButton.classList.add('lighten');
-      }
-    }, 1000);
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      scrollTopButton.style.display = 'block';
+      lightenScrollTopButton(scrollTopButton, timers);
+    } else {
+      scrollTopButton.style.display = 'none';
+    }
   }, 100);
 }
 
-function initDisplayScrollTopButton() {
+function displayScrollTopButton(timers) {
+  const scrollTopButton = document.querySelector('#scroll-top-button');
+  resetScrollTopButton(scrollTopButton, timers);
+  showOrHideScrollTopButton(scrollTopButton, timers);
+}
+
+function initScrollTopButton() {
   const timers = {
     displayButtonTimer: 0,
     lightenButtonTimer: 0,
   };
   window.addEventListener('scroll', () => {
-    triggerScrollTopButton(timers);
+    displayScrollTopButton(timers);
   });
 }
 
-initDisplayScrollTopButton();
+initScrollTopButton();
 
 function setup() {
   // eslint-disable-next-line no-unused-vars
