@@ -1,14 +1,11 @@
 ## Math Formulae
 Markbind supports typesetting TeX math equations. [KaTeX](https://katex.org) is used as a fast math renderer.
 
-<box type="info">
-
 Insert **inline** equations by enclosing them in round brackets `\( ... \)`.
 
 Insert **display** equations by enclosing them in square brackets `\[ ... \]`.
 
 Insert numbered **display** equations by enclosing the equation square brackets and the equation number in curly brackets `\[ ... \] (1)`.
-</box>
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
