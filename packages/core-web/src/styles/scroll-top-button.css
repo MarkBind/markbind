@@ -12,8 +12,10 @@
     opacity: 20%;
 }
 
-#scroll-top-button:hover {
-    opacity: 70%;
+@media (hover: hover) {
+    #scroll-top-button:hover {
+        opacity: 70%;
+    }
 }
 
 #scroll-top-button:active {
