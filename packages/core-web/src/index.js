@@ -3,8 +3,6 @@ import MarkBindVue from '@markbind/vue-components/src';
 import initScrollTopButton from './scrollTopButton';
 import './styles/index.css';
 
-/* global Vue, window, document, jQuery, baseUrl */
-
 Vue.use(MarkBindVue);
 
 function scrollToUrlAnchorHeading() {
