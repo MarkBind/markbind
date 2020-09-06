@@ -6,6 +6,7 @@ module.exports = {
   'globals': {
     'jQuery': 'readonly',
     'Vue': 'readonly',
+    'baseUrl': 'readonly',
   },
   'rules': {
     'quote-props': 'off',
