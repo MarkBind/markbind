@@ -195,6 +195,17 @@ class Page {
   }
 
   /**
+   * Checks if the provided filePath is a dependency of the page
+   * @param {string} filePath to check
+   */
+  isDependency(filePath) {
+    return (this.includedFiles
+      && this.includedFiles.has(filePath))
+      || (this.pluginSourceFiles
+      && this.pluginSourceFiles.has(filePath));
+  }
+
+  /**
    * A template data object.
    * @typedef {Object<string, any>} TemplateData
    * @property {Object<string, any>} asset
