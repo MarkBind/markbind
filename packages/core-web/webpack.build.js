@@ -6,6 +6,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const config = require('./webpack.common.js');
 
+/* eslint-disable-next-line */
 module.exports = merge(config, {
   mode: 'production',
   module: {
