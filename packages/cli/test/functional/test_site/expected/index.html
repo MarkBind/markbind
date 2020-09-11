@@ -165,10 +165,13 @@
           <p><strong>Test footnotes</strong></p>
           <div>
             <p><strong>Normal footnotes:</strong>
-              Here is a footnote reference,<span for="pop:footnote1" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['pop:footnote1'].show()" class="trigger"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#fn1" id="fnref1">[1]</a></sup></span> and another.<span for="pop:footnote2" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['pop:footnote2'].show()" class="trigger"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#fn2" id="fnref2">[2]</a></sup></span></p>
-            <p>Here is a repeated footnote to <span for="pop:footnote1" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['pop:footnote1'].show()" class="trigger"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#fn1" id="fnref1:1">[1:1]</a></sup></span></p>
+              Here is a footnote reference,<trigger for="pop:footnote1"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#fn1" id="fnref1">[1]</a></sup></trigger> and another.<trigger for="pop:footnote2"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#fn2" id="fnref2">[2]</a></sup></trigger>
+            </p>
+            <p>Here is a repeated footnote to <trigger for="pop:footnote1"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#fn1" id="fnref1:1">[1:1]</a></sup></trigger>
+            </p>
             <p><strong>Inline footnotes:</strong>
-              Here is an inline note.<span for="pop:footnote3" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['pop:footnote3'].show()" class="trigger"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#fn3" id="fnref3">[3]</a></sup></span></p>
+              Here is an inline note.<trigger for="pop:footnote3"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#fn3" id="fnref3">[3]</a></sup></trigger>
+            </p>
           </div>
           <p><strong>Json Variable</strong></p>
           <div> front back </div>
@@ -319,7 +322,7 @@
               any current system or a new innovation.</p>
             <h4 id="focus-groups">Focus groups<a class="fa fa-anchor" href="#focus-groups" onclick="event.stopPropagation()"></a></h4>
             <p>Focus groups are a kind of informal interview within an interactive group setting.
-              A <span data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger"><span data-mb-html-for="_content">e.g. potential users, beta testers</span>group of people</span>
+              A <span data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger"><span data-mb-slot-name="_content">e.g. potential users, beta testers</span>group of people</span>
               are asked about their understanding of a specific issue or a process.
               Focus groups can bring out undiscovered conflicts and misunderstandings among stakeholder interests which can then be
               resolved or clarified as necessary.</p>
@@ -593,7 +596,9 @@
             </template></panel>
         </div>
         <p><strong>Modal with panel inside</strong></p>
-        <p><span for="modal-with-panel" v-b-popover.hover.top.html="popoverGenerator" v-b-tooltip.hover.top.html="tooltipContentGetter" v-on:mouseover="$refs['modal-with-panel'].show()" class="trigger">trigger</span></p>
+        <p>
+          <trigger for="modal-with-panel">trigger</trigger>
+        </p>
         <b-modal id="modal-with-panel" hide-footer size modal-class="mb-zoom" ref="modal-with-panel"><template slot="modal-title">modal title with panel inside</template>
           <panel expanded id="panel-inside-modal"><template slot="_header">
               <h2 id="panel-inside-modal">Panel inside modal<a class="fa fa-anchor" href="#panel-inside-modal" onclick="event.stopPropagation()"></a></h2>
@@ -682,22 +687,22 @@
                 note.</p>
             </li>
           </ol>
-          <span id="pop:footnote1" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGenerator" class="trigger">
-            <div data-mb-html-for="content">
+          <span id="pop:footnote1" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger">
+            <div data-mb-slot-name="content">
               <p>Here is the footnote. Footnotes will appear at the bottom of the page.</p>
             </div>
           </span>
 
-          <span id="pop:footnote2" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGenerator" class="trigger">
-            <div data-mb-html-for="content">
+          <span id="pop:footnote2" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger">
+            <div data-mb-slot-name="content">
               <p>Here's one with multiple blocks.</p>
               <p>Subsequent paragraphs are indented to show that they
                 belong to the previous footnote.</p>
             </div>
           </span>
 
-          <span id="pop:footnote3" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGenerator" class="trigger">
-            <div data-mb-html-for="content">
+          <span id="pop:footnote3" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger">
+            <div data-mb-slot-name="content">
               <p>Inlines notes are easier to write, since
                 you don't have to pick an identifier and move down to type the
                 note.</p>

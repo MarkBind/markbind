@@ -360,12 +360,12 @@ li.footnote-item:target {
     width: 3em;
 }
 
-/* hide popover, modal, tooltip content */
-[data-mb-html-for] {
+/* hide popover, tooltip content */
+[data-mb-slot-name] {
     display: none;
 }
 
-/* styles for triggers */
+/* styles for triggers, popovers, tooltips */
 .trigger {
     border-bottom: 1px dotted currentColor;
 }
@@ -373,6 +373,10 @@ li.footnote-item:target {
 .trigger-click {
     cursor: pointer;
     border-bottom: 1px dashed currentColor;
+}
+
+.trigger-click:focus {
+    outline: none;
 }
 
 .modal.mb-zoom {

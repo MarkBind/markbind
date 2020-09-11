@@ -163,7 +163,7 @@ module.exports.PARSE_POPOVER_ATTRIBUTES = `
 `;
 
 module.exports.PARSE_POPOVER_ATTRIBUTES_EXPECTED = `
-<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGenerator" class="trigger"><span data-mb-html-for="header"><strong>Lorem ipsum</strong></span><span data-mb-html-for="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.</span>
+<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger"><span data-mb-slot-name="header"><strong>Lorem ipsum</strong></span><span data-mb-slot-name="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.</span>
   Content and header attributes should be parsed and inserted under panel as slots and deleted.
 </span>
 `;
@@ -178,9 +178,9 @@ module.exports.PARSE_POPOVER_ATTRIBUTES_NO_OVERRIDE = `
 `;
 
 module.exports.PARSE_POPOVER_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
-<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGenerator" class="trigger">
-  <div data-mb-html-for="header">Some header slot content that should not be overwritten</div>
-  <div data-mb-html-for="content">Some content slot that should not be overwritten</div>
+<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger">
+  <div data-mb-slot-name="header">Some header slot content that should not be overwritten</div>
+  <div data-mb-slot-name="content">Some content slot that should not be overwritten</div>
   Content and header attributes should not be inserted under panel as slots, but should be deleted.
 </span>
 `;
@@ -194,7 +194,7 @@ module.exports.PARSE_POPOVER_TITLE = `
 `;
 
 module.exports.PARSE_POPOVER_TITLE_EXPECTED = `
-<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGenerator" class="trigger"><span data-mb-html-for="header"><strong>Lorem ipsum</strong></span>
+<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger"><span data-mb-slot-name="header"><strong>Lorem ipsum</strong></span>
   Title attribute should be parsed and inserted under popover as header slot and deleted.
 </span>
 `;
@@ -206,7 +206,7 @@ module.exports.PARSE_POPOVER_TITLE_NO_OVERRIDE = `
 `;
 
 module.exports.PARSE_POPOVER_TITLE_NO_OVERRIDE_EXPECTED = `
-<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGenerator" class="trigger"><span data-mb-html-for="header"><strong>Header header</strong></span>
+<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger"><span data-mb-slot-name="header"><strong>Header header</strong></span>
   Title attribute should not be inserted as slot as header attribute is present, and should be deleted.
 </span>
 `;
@@ -222,7 +222,7 @@ module.exports.PARSE_TOOLTIP_CONTENT = `
 `;
 
 module.exports.PARSE_TOOLTIP_CONTENT_EXPECTED = `
-<span data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger"><span data-mb-html-for="_content">Lorem ipsum dolor sit amet</span>
+<span data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger"><span data-mb-slot-name="_content">Lorem ipsum dolor sit amet</span>
   <button>Content attribute should be inserted as _content internal slot</button>
 </span>
 `;
