@@ -712,6 +712,23 @@ class Site {
     return new Promise((resolve, reject) => {
       this.regenerateAffectedPages(uniquePaths)
         .then(() => fs.removeAsync(this.tempPath))
+        .then(() => {
+          // copy scripts
+          const getDirectories = source =>
+            fs.readdirSync(source, { withFileTypes: true })
+              .filter(dirent => dirent.isDirectory())
+              .map(dirent => dirent.name);
+          const fromFolder = path.join(this.rootPath, CONFIG_FOLDER_NAME, LAYOUT_SITE_FOLDER_NAME);
+          // eslint-disable-next-line max-len
+          const toFolder = path.join(this.outputPath, TEMPLATE_SITE_ASSET_FOLDER_NAME, LAYOUT_SITE_FOLDER_NAME);
+          getDirectories(fromFolder).forEach((dir) => {
+            const scriptPath = path.join(fromFolder, dir, 'scripts.js');
+            const scriptDest = path.join(toFolder, dir, 'scripts.js');
+            if (fs.existsSync(scriptPath)) {
+              fs.copyAsync(scriptPath, path.join(scriptDest));
+            }
+          });
+        })
         .then(resolve)
         .catch((error) => {
           // if error, remove the site and temp folders
@@ -798,9 +815,10 @@ class Site {
     const uniquePaths = _.uniq(filePathArray);
     const fileIgnore = ignore().add(this.siteConfig.ignore);
     const fileRelativePaths = uniquePaths.map(filePath => path.relative(this.rootPath, filePath));
-    const copyAssets = fileIgnore.filter(fileRelativePaths)
-      .map(asset => fs.copyAsync(path.join(this.rootPath, asset), path.join(this.outputPath, asset)));
-    return Promise.all(copyAssets)
+    const copyAssets = fileIgnore.filter(fileRelativePaths);
+    const copyAssets2 = copyAssets.map(
+      asset => fs.copyAsync(path.join(this.rootPath, asset), path.join(this.outputPath, asset)));
+    return Promise.all(copyAssets2)
       .then(() => logger.info('Assets built'));
   }
 
