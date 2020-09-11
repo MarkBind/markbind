@@ -486,6 +486,16 @@ class ComponentParser {
     delete node.attribs.text;
   }
 
+  /**
+   * Annotations are added automatically by KaTeX when rendering math formulae.
+   */
+
+  static _parseAnnotationAttributes(node) {
+    if (!_.has(node.attribs, 'v-pre')) {
+      node.attribs['v-pre'] = true;
+    }
+  }
+
   /*
    * API
    */
@@ -532,6 +542,9 @@ class ComponentParser {
         break;
       case 'thumbnail':
         ComponentParser._parseThumbnailAttributes(node);
+        break;
+      case 'annotation':
+        ComponentParser._parseAnnotationAttributes(node);
         break;
       default:
         break;
