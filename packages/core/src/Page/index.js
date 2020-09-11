@@ -195,6 +195,17 @@ class Page {
   }
 
   /**
+   * Checks if the provided filePath is a dependency of the page
+   * @param {string} filePath to check
+   */
+  isDependency(filePath) {
+    return (this.includedFiles
+      && this.includedFiles.has(filePath))
+      || (this.pluginSourceFiles
+      && this.pluginSourceFiles.has(filePath));
+  }
+
+  /**
    * A template data object.
    * @typedef {Object<string, any>} TemplateData
    * @property {Object<string, any>} asset
@@ -889,6 +900,7 @@ class Page {
       })
       .then(result => this.generateExpressiveLayout(result, fileConfig, componentPreprocessor))
       .then(result => Page.removePageHeaderAndFooter(result))
+      .then(result => Page.addScrollToTopButton(result))
       .then(result => Page.addContentWrapper(result))
       .then(result => this.collectPluginSources(result))
       .then(result => this.preRender(result))
@@ -1226,6 +1238,12 @@ class Page {
     const $ = cheerio.load(pageData);
     $(`#${CONTENT_WRAPPER_ID}`).removeAttr('id');
     return `<div id="${CONTENT_WRAPPER_ID}">\n\n${$.html()}\n</div>`;
+  }
+
+  static addScrollToTopButton(pageData) {
+    const button = '<i class="fa fa-arrow-circle-up fa-lg" id="scroll-top-button" '
+    + 'onclick="handleScrollTop()" aria-hidden="true"/>';
+    return `${pageData}\n${button}`;
   }
 
   static removePageHeaderAndFooter(pageData) {

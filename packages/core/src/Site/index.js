@@ -470,6 +470,18 @@ class Site {
       .map(filePath => Site.setExtension(filePath, '.html'));
   }
 
+  getPageGlobPaths(page, pagesExclude) {
+    return walkSync(this.rootPath, {
+      directories: false,
+      globs: Array.isArray(page.glob) ? page.glob : [page.glob],
+      ignore: [
+        CONFIG_FOLDER_NAME,
+        SITE_FOLDER_NAME,
+        ...pagesExclude.concat(page.globExclude || []),
+      ],
+    });
+  }
+
   /**
    * Collects the paths to be traversed as addressable pages
    */
@@ -486,20 +498,14 @@ class Site {
       return Promise.reject(
         new Error(`Duplicate page entries found in site config: ${_.uniq(duplicatePages).join(', ')}`));
     }
-    const pagesFromGlobs = _.flatMap(pages.filter(page => page.glob), page => walkSync(this.rootPath, {
-      directories: false,
-      globs: Array.isArray(page.glob) ? page.glob : [page.glob],
-      ignore: [
-        CONFIG_FOLDER_NAME,
-        SITE_FOLDER_NAME,
-        ...pagesExclude.concat(page.globExclude || []),
-      ],
-    }).map(filePath => ({
-      src: filePath,
-      searchable: page.searchable,
-      layout: page.layout,
-      frontmatter: page.frontmatter,
-    })));
+    const pagesFromGlobs = _.flatMap(pages.filter(page => page.glob),
+                                     page => this.getPageGlobPaths(page, pagesExclude)
+                                       .map(filePath => ({
+                                         src: filePath,
+                                         searchable: page.searchable,
+                                         layout: page.layout,
+                                         frontmatter: page.frontmatter,
+                                       })));
     /*
      Add pages collected from globs and merge properties for pages
      Page properties collected from src have priority over page properties from globs,
@@ -625,7 +631,7 @@ class Site {
         .then(() => this.copyFontAwesomeAsset())
         .then(() => this.copyOcticonsAsset())
         .then(() => this.copyLayouts())
-        .then(() => this.updateSiteData(this.onePagePath || undefined))
+        .then(() => this.updateSiteData(this.onePagePath ? [this.onePagePath] : undefined))
         .then(() => {
           const endTime = new Date();
           const totalBuildTime = (endTime - startTime) / 1000;
@@ -763,7 +769,7 @@ class Site {
   }
 
   _rebuildSourceFiles() {
-    logger.info('File added or removed, updating list of site\'s pages...');
+    logger.info('Page added or removed, updating list of site\'s pages...');
     return new Promise((resolve, reject) => {
       Promise.resolve('')
         .then(() => this.updateAddressablePages())
@@ -870,12 +876,31 @@ class Site {
   }
 
   /**
-   * Checks if a specified file path is a plugin source file
-   * @param filePath file path to check
-   * @returns {boolean} whether the file path matches a plugin source file path
+   * Checks if a specified file path is a dependency of a page
+   * @param {string} filePath file path to check
+   * @returns {boolean} whether the file path is a dependency of any of the site's pages
    */
-  isPluginSourceFile(filePath) {
-    return this.pages.some(page => page.pluginSourceFiles.has(filePath));
+  isDependencyOfPage(filePath) {
+    return this.pages.some(page => page.isDependency(filePath));
+  }
+
+  /**
+   * Checks if a specified file path satisfies a src or glob in any of the page configurations.
+   * @param {string} filePath file path to check
+   * @returns {boolean} whether the file path is satisfies any glob
+   */
+  isFilepathAPage(filePath) {
+    const { pages, pagesExclude } = this.siteConfig;
+    const relativeFilePath = utils.ensurePosix(path.relative(this.rootPath, filePath));
+    const srcesFromPages = _.flatMap(pages.filter(page => page.src),
+                                     page => (Array.isArray(page.src) ? page.src : [page.src]));
+    if (srcesFromPages.includes(relativeFilePath)) {
+      return true;
+    }
+
+    const filePathsFromGlobs = _.flatMap(pages.filter(page => page.glob),
+                                         page => this.getPageGlobPaths(page, pagesExclude));
+    return filePathsFromGlobs.some(fp => fp === relativeFilePath);
   }
 
   /**
@@ -1076,12 +1101,7 @@ class Site {
     }
     this._setTimestampVariable();
     const pagesToRegenerate = this.pages.filter((page) => {
-      const doFilePathsHaveSourceFiles = filePaths.some((filePath) => {
-        const isIncludedFile = page.includedFiles.has(filePath);
-        const isPluginSourceFile = page.pluginSourceFiles.has(filePath);
-
-        return isIncludedFile || isPluginSourceFile;
-      });
+      const doFilePathsHaveSourceFiles = filePaths.some(filePath => page.isDependency(filePath));
 
       if (shouldRebuildAllPages || doFilePathsHaveSourceFiles) {
         if (this.onePagePath) {
@@ -1128,14 +1148,13 @@ class Site {
   /**
    * Uses heading data in built pages to generate heading and keyword information for siteData
    * Subsequently writes to siteData.json
-   * @param filePaths optional array of updated file paths during live preview.
-   *                  If undefined, generate site data for all pages
+   * @param {Array<string>} filePaths optional array of updated file paths during live preview.
+   *                        If undefined, generate site data for all pages
    */
   updateSiteData(filePaths) {
     const generateForAllPages = filePaths === undefined;
-    const filePathsToUpdateData = Array.isArray(filePaths) ? filePaths : [filePaths];
     this.pages.forEach((page) => {
-      if (generateForAllPages || filePathsToUpdateData.some(filePath => page.includedFiles.has(filePath))) {
+      if (generateForAllPages || filePaths.some(filePath => page.isDependency(filePath))) {
         page.collectHeadingsAndKeywords();
       }
     });
