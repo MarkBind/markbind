@@ -27,6 +27,7 @@ const {
   FOOTERS_FOLDER_PATH,
   HEAD_FOLDER_PATH,
   HEADERS_FOLDER_PATH,
+  LAYOUTS_FOLDER_PATH,
   LAYOUT_FOOTER,
   LAYOUT_HEAD,
   LAYOUT_HEADER,
@@ -1165,8 +1166,8 @@ class Page {
   addLayoutScriptsAndStyles() {
     this.asset.layoutScript = path.join(this.pageConfig.layoutsAssetPath, this.layout, 'scripts.js');
     this.asset.layoutStyle = path.join(this.pageConfig.layoutsAssetPath, this.layout, 'styles.css');
-    this.includedFiles.add(path.join(process.cwd(), '_markbind', 'layouts', this.layout, 'scripts.js'));
-    this.includedFiles.add(path.join(process.cwd(), '_markbind', 'layouts', this.layout, 'styles.css'));
+    this.includedFiles.add(path.join(process.cwd(), LAYOUTS_FOLDER_PATH, this.layout, 'scripts.js'));
+    this.includedFiles.add(path.join(process.cwd(), LAYOUTS_FOLDER_PATH, this.layout, 'styles.css'));
   }
 
   /**
