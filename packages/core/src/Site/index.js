@@ -712,6 +712,7 @@ class Site {
     return new Promise((resolve, reject) => {
       this.regenerateAffectedPages(uniquePaths)
         .then(() => fs.removeAsync(this.tempPath))
+        .then(() => this.copyLayouts())
         .then(resolve)
         .catch((error) => {
           // if error, remove the site and temp folders

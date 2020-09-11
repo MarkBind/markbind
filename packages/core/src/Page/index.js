@@ -1165,6 +1165,10 @@ class Page {
   addLayoutScriptsAndStyles() {
     this.asset.layoutScript = path.join(this.pageConfig.layoutsAssetPath, this.layout, 'scripts.js');
     this.asset.layoutStyle = path.join(this.pageConfig.layoutsAssetPath, this.layout, 'styles.css');
+    this.includedFiles.add(
+      path.join(this.pageConfig.rootPath, LAYOUT_FOLDER_PATH, this.layout, 'scripts.js'));
+    this.includedFiles.add(
+      path.join(this.pageConfig.rootPath, LAYOUT_FOLDER_PATH, this.layout, 'styles.css'));
   }
 
   /**
