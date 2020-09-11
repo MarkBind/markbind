@@ -2,7 +2,6 @@ module.exports = {
   FOOTERS_FOLDER_PATH: '_markbind/footers',
   HEAD_FOLDER_PATH: '_markbind/head',
   HEADERS_FOLDER_PATH: '_markbind/headers',
-  LAYOUTS_FOLDER_PATH: '_markbind/layouts',
 
   LAYOUT_PAGE: 'page.md',
   LAYOUT_PAGE_BODY_VARIABLE: 'MAIN_CONTENT_BODY',

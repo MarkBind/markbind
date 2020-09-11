@@ -799,10 +799,9 @@ class Site {
     const uniquePaths = _.uniq(filePathArray);
     const fileIgnore = ignore().add(this.siteConfig.ignore);
     const fileRelativePaths = uniquePaths.map(filePath => path.relative(this.rootPath, filePath));
-    const copyAssets = fileIgnore.filter(fileRelativePaths);
-    const copyAssets2 = copyAssets.map(
-      asset => fs.copyAsync(path.join(this.rootPath, asset), path.join(this.outputPath, asset)));
-    return Promise.all(copyAssets2)
+    const copyAssets = fileIgnore.filter(fileRelativePaths)
+      .map(asset => fs.copyAsync(path.join(this.rootPath, asset), path.join(this.outputPath, asset)));
+    return Promise.all(copyAssets)
       .then(() => logger.info('Assets built'));
   }
 
