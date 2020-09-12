@@ -367,11 +367,13 @@ li.footnote-item:target {
 
 /* styles for triggers, popovers, tooltips */
 .trigger {
+    display: inline-block;
     border-bottom: 1px dotted currentColor;
 }
 
 .trigger-click {
     cursor: pointer;
+    display: inline-block;
     border-bottom: 1px dashed currentColor;
 }
 
