@@ -1,5 +1,7 @@
 const cheerio = require('cheerio'); require('../patches/htmlparser2');
 const fs = require('fs-extra');
+// TODO: figure out why the only usage of fse breaks when changed to outputJson.
+const fse = require('fs-extra-promise');
 const ghpages = require('gh-pages');
 const ignore = require('ignore');
 const path = require('path');
@@ -1269,7 +1271,7 @@ class Site {
           })),
       };
 
-      fs.outputJson(siteDataPath, siteData)
+      fse.outputJsonAsync(siteDataPath, siteData)
         .then(() => logger.info('Site data built'))
         .then(resolve)
         .catch((error) => {
