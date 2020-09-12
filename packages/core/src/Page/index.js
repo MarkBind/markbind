@@ -1,6 +1,6 @@
 const cheerio = require('cheerio'); require('../patches/htmlparser2');
 const fm = require('fastmatter');
-const fs = require('fs-extra-promise');
+const fs = require('fs-extra');
 const htmlBeautify = require('js-beautify').html;
 const path = require('path');
 const Promise = require('bluebird');
@@ -549,7 +549,7 @@ class Page {
 
     // Set expressive layout file as an includedFile
     this.includedFiles.add(layoutPagePath);
-    return fs.readFileAsync(layoutPagePath, 'utf8')
+    return fs.readFile(layoutPagePath, 'utf8')
       /*
        Render {{ MAIN_CONTENT_BODY }} and {% raw/endraw %} back to itself first,
        which is then dealt with in the call below to {@link renderSiteVariables}.
@@ -890,7 +890,7 @@ class Page {
                                                             pageSources);
     const componentParser = new ComponentParser(fileConfig);
 
-    return fs.readFileAsync(this.pageConfig.sourcePath, 'utf-8')
+    return fs.readFile(this.pageConfig.sourcePath, 'utf-8')
       .then(result => this.pageConfig.variableProcessor.renderPage(this.pageConfig.sourcePath, result))
       .then(result => componentPreprocessor.includeFile(this.pageConfig.sourcePath, result))
       .then((result) => {
@@ -926,7 +926,7 @@ class Page {
           ? renderedTemplate
           : htmlBeautify(renderedTemplate, Page.htmlBeautifyOptions);
 
-        return fs.outputFileAsync(this.pageConfig.resultPath, outputTemplateHTML);
+        return fs.outputFile(this.pageConfig.resultPath, outputTemplateHTML);
       })
       .then(() => {
         const resolvingFiles = [];
@@ -1110,11 +1110,10 @@ class Page {
       const srcPath = path.resolve(plugin._pluginAbsolutePath, assetPath);
       const srcBaseName = path.basename(srcPath);
 
-      fs.existsAsync(plugin._pluginAssetOutputPath)
-        .then(exists => exists || fs.mkdirp(plugin._pluginAssetOutputPath))
+      fs.ensureDir(plugin._pluginAssetOutputPath)
         .then(() => {
           const outputPath = path.join(plugin._pluginAssetOutputPath, srcBaseName);
-          fs.copyAsync(srcPath, outputPath, { overwrite: false });
+          fs.copy(srcPath, outputPath, { overwrite: false });
         })
         .catch(err => logger.error(`Failed to copy asset ${assetPath} for plugin ${pluginName}\n${err}`));
 
@@ -1202,7 +1201,7 @@ class Page {
                                                               pageSources);
       const componentParser = new ComponentParser(fileConfig);
 
-      return fs.readFileAsync(dependency.to, 'utf-8')
+      return fs.readFile(dependency.to, 'utf-8')
         .then(result => this.pageConfig.variableProcessor.renderPage(dependency.to, result))
         .then(result => componentPreprocessor.includeFile(dependency.to, result, file))
         .then(result => Page.removeFrontMatter(result))
@@ -1216,7 +1215,7 @@ class Page {
           const outputContentHTML = this.pageConfig.disableHtmlBeautify
             ? result
             : htmlBeautify(result, Page.htmlBeautifyOptions);
-          return fs.outputFileAsync(resultPath, outputContentHTML);
+          return fs.outputFile(resultPath, outputContentHTML);
         })
         .then(() => {
           // Recursion call to resolve nested dependency
