@@ -1,5 +1,5 @@
 const path = require('path');
-const fs = require('fs-extra-promise');
+const fs = require('fs-extra');
 const ghpages = require('gh-pages');
 const Site = require('../../src/Site');
 
