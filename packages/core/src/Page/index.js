@@ -1113,7 +1113,7 @@ class Page {
       fs.ensureDir(plugin._pluginAssetOutputPath)
         .then(() => {
           const outputPath = path.join(plugin._pluginAssetOutputPath, srcBaseName);
-          fs.copy(srcPath, outputPath, { overwrite: false });
+          fs.copySync(srcPath, outputPath, { overwrite: false });
         })
         .catch(err => logger.error(`Failed to copy asset ${assetPath} for plugin ${pluginName}\n${err}`));
 
