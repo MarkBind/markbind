@@ -12,6 +12,7 @@ _.isEmpty = require('lodash/isEmpty');
 const urlUtils = require('../utils/urls');
 const logger = require('../utils/logger');
 const VariableRenderer = require('./VariableRenderer');
+const { PageSources } = require('../Page/PageSources');
 
 const {
   ATTRIB_CWF,
@@ -79,6 +80,15 @@ class VariableProcessor {
 
   /*
    * --------------------------------------------------
+   * Utility methods
+   */
+
+  invalidateCache() {
+    Object.values(this.variableRendererMap).forEach(variableRenderer => variableRenderer.invalidateCache());
+  }
+
+  /*
+   * --------------------------------------------------
    * Site level variable storage methods
    */
 
@@ -97,7 +107,8 @@ class VariableProcessor {
    * This is to allow using previously declared site variables in site variables declared later on.
    */
   renderAndAddUserDefinedVariable(site, name, value) {
-    const renderedVal = this.variableRendererMap[site].render(value, this.userDefinedVariablesMap[site]);
+    const renderedVal = this.variableRendererMap[site].render(value, this.userDefinedVariablesMap[site],
+                                                              new PageSources());
     this.addUserDefinedVariable(site, name, renderedVal);
   }
 
@@ -137,12 +148,13 @@ class VariableProcessor {
    * with an optional set of lower and higher priority variables than the site variables to be rendered.
    * @param contentFilePath of the specified content to render
    * @param content string to render
+   * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
    * @param lowerPriorityVariables than the site variables, if any
    * @param higherPriorityVariables than the site variables, if any.
    *        Currently only used for layouts.
    @param keepPercentRaw whether to reoutput {% raw/endraw %} tags, also used only for layouts.
    */
-  renderSiteVariables(contentFilePath, content, lowerPriorityVariables = {},
+  renderSiteVariables(contentFilePath, content, pageSources, lowerPriorityVariables = {},
                       higherPriorityVariables = {}, keepPercentRaw = false) {
     const userDefinedVariables = this.getParentSiteVariables(contentFilePath);
     const parentSitePath = urlUtils.getParentSiteAbsolutePath(contentFilePath, this.rootPath,
@@ -152,7 +164,7 @@ class VariableProcessor {
       ...lowerPriorityVariables,
       ...userDefinedVariables,
       ...higherPriorityVariables,
-    }, keepPercentRaw);
+    }, pageSources, keepPercentRaw);
   }
 
   /*
@@ -210,10 +222,11 @@ class VariableProcessor {
    *
    * @param pageImportedVariables object to add the extracted imported variables to
    * @param elem "dom node" of the <import> element as parsed by htmlparser2
+   * @param {PageSources} pageSources instance to add sources from rendering imported variables
    * @param filePath that the <variable> tag is from
    * @param renderFrom callback to render the 'from' attribute with
    */
-  addImportVariables(pageImportedVariables, elem, filePath, renderFrom) {
+  addImportVariables(pageImportedVariables, elem, pageSources, filePath, renderFrom) {
     // render the 'from' file path for the edge case that a variable is used inside it
     const importedFilePath = renderFrom(filePath, elem.attribs.from);
     const resolvedFilePath = path.resolve(path.dirname(filePath), importedFilePath);
@@ -225,8 +238,10 @@ class VariableProcessor {
 
     // recursively extract the imported page's variables first
     const importedFileContent = fs.readFileSync(resolvedFilePath);
-    const { pageVariables: importedFilePageVariables } = this.extractPageVariables(resolvedFilePath,
-                                                                                   importedFileContent);
+    pageSources.staticIncludeSrc.push({ to: resolvedFilePath });
+    const {
+      pageVariables: importedFilePageVariables,
+    } = this.extractPageVariables(resolvedFilePath, importedFileContent, pageSources);
 
     const alias = elem.attribs.as;
     if (alias) {
@@ -258,9 +273,10 @@ class VariableProcessor {
    * These include all locally declared <variable>s and variables <import>ed from other pages.
    * @param filePath for error printing
    * @param data to extract variables from
+   * @param {PageSources} pageSources to add sources found when rendering extracted variables to
    * @param includeVariables from the parent include, if any, used during {@link renderIncludeFile}
    */
-  extractPageVariables(filePath, data, includeVariables = {}) {
+  extractPageVariables(filePath, data, pageSources, includeVariables = {}) {
     const pageVariables = {};
     const pageImportedVariables = {};
 
@@ -277,7 +293,7 @@ class VariableProcessor {
         ...includeVariables,
       };
 
-      return this.renderSiteVariables(contentFilePath, content, previousVariables);
+      return this.renderSiteVariables(contentFilePath, content, pageSources, previousVariables);
     };
 
     // NOTE: Selecting both at once is important to respect variable/import declaration order
@@ -290,7 +306,7 @@ class VariableProcessor {
          This is only for the edge case that variables are used in the 'from' attribute of
          the <import> which we must resolve first.
          */
-        this.addImportVariables(pageImportedVariables, elem, filePath, renderVariable);
+        this.addImportVariables(pageImportedVariables, elem, pageSources, filePath, renderVariable);
       }
     });
 
@@ -368,12 +384,13 @@ class VariableProcessor {
    * Renders an <include> file with the supplied context, returning the rendered
    * content and new context with respect to the child content.
    * @param filePath of the included file source
+   * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
    * @param node of the include element
    * @param context object containing the parent <include> (if any) variables for the current context,
    *        which have greater priority than the extracted include variables of the current context.
    * @param asIfAt where the included file should be rendered from
    */
-  renderIncludeFile(filePath, node, context, asIfAt) {
+  renderIncludeFile(filePath, pageSources, node, context, asIfAt) {
     const fileContent = fs.readFileSync(filePath, 'utf8');
 
     // Extract included variables from the include element, merging with the parent context variables
@@ -384,10 +401,10 @@ class VariableProcessor {
     const {
       pageImportedVariables,
       pageVariables,
-    } = this.extractPageVariables(asIfAt, fileContent, includeVariables);
+    } = this.extractPageVariables(asIfAt, fileContent, pageSources, includeVariables);
 
     // Render the included content with all the variables
-    const renderedContent = this.renderSiteVariables(asIfAt, fileContent, {
+    const renderedContent = this.renderSiteVariables(asIfAt, fileContent, pageSources, {
       ...pageImportedVariables,
       ...pageVariables,
       ...includeVariables,
@@ -413,17 +430,18 @@ class VariableProcessor {
    * 3. site variables as defined in variables.md
    * @param contentFilePath of the content to render
    * @param content to render
+   * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
    * @param highestPriorityVariables to render with the highest priority if any.
    *        This is currently only used for the MAIN_CONTENT_BODY in layouts.
    * @param keepPercentRaw whether to reoutput {% raw/endraw %} tags, also used only for layouts.
    */
-  renderPage(contentFilePath, content, highestPriorityVariables = {}, keepPercentRaw = false) {
+  renderPage(contentFilePath, content, pageSources, highestPriorityVariables = {}, keepPercentRaw = false) {
     const {
       pageImportedVariables,
       pageVariables,
-    } = this.extractPageVariables(contentFilePath, content);
+    } = this.extractPageVariables(contentFilePath, content, pageSources);
 
-    return this.renderSiteVariables(contentFilePath, content, {
+    return this.renderSiteVariables(contentFilePath, content, pageSources, {
       ...pageImportedVariables,
       ...pageVariables,
     }, highestPriorityVariables, keepPercentRaw);

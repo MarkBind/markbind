@@ -696,6 +696,7 @@ class Site {
     const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];
     const uniquePaths = _.uniq(filePathArray);
     this.runBeforeSiteGenerateHooks();
+    this.variableProcessor.invalidateCache(); // invalidate internal nunjucks cache for file changes
 
     return this.regenerateAffectedPages(uniquePaths)
       .then(() => fs.remove(this.tempPath))
@@ -742,8 +743,9 @@ class Site {
 
   _rebuildSourceFiles() {
     logger.info('Page added or removed, updating list of site\'s pages...');
-    const removedPageFilePaths = this.updateAddressablePages();
+    this.variableProcessor.invalidateCache(); // invalidate internal nunjucks cache for file removals
 
+    const removedPageFilePaths = this.updateAddressablePages();
     return this.removeAsset(removedPageFilePaths)
       .then(() => {
         if (this.onePagePath) {

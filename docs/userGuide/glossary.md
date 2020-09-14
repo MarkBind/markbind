@@ -3,17 +3,20 @@
   layout: userGuide
 </frontmatter>
 
-#### Live Preview
+#### Live Preview <span style="font-size: 0.8em;">:fas-sync:</span>
 
 <span id="live-preview">
-<md>**_Live preview_ is the regenerating the site upon any change to source files and reloading the updated site in the Browser**.</md>
 
-{{ icon_info }} Live preview works for the following file types only: `css`, `.html`, `.md`, <tooltip content="MarkBind file">`.mbd`</tooltip>, <tooltip content="MarkBind fragment">`.mbdf`</tooltip>. Changes to `css` might may not be visible in the site until you do a manual refresh of the page.
+**_Live preview_** is:
+- Regeneration of affected content upon any change to <tooltip content="`.md`, `.mbd`, `.mbdf`, `.njk` files ... anything your content depends on!">source files</tooltip>, then reloading the updated site in the Browser.
+
+- Copying <tooltip content="files that don't affect page generation (eg. images), but are used in the site">assets</tooltip> to the site output folder.
 
 Use [the `serve` command](cliCommands.html#serve-command) to launch a live preview.
 
 </span>
 
+<br>
 
 #### `.mbd` extension
 
