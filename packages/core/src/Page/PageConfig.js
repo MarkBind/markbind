@@ -51,6 +51,11 @@ class PageConfig {
      */
     this.headingIndexingLevel = args.headingIndexingLevel;
     /**
+     * Highlight style for code fences
+     * @type {string}
+     */
+    this.highlightStyle = args.highlightStyle;
+    /**
      * @type {string}
      */
     this.layout = args.layout;

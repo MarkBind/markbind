@@ -260,6 +260,7 @@ class Site {
   createPage(config) {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
     const resultPath = path.join(this.outputPath, Site.setExtension(config.pageSrc, '.html'));
+    const highlightAsset = this.siteConfig.highlightStyle === 'dark' ? 'vs2015.min.css' : 'github.min.css';
     const pageConfig = new PageConfig({
       asset: {
         bootstrap: path.relative(path.dirname(resultPath),
@@ -275,7 +276,7 @@ class Site {
         octicons: path.relative(path.dirname(resultPath),
                                 path.join(this.siteAssetsDestPath, 'css', 'octicons.css')),
         highlight: path.relative(path.dirname(resultPath),
-                                 path.join(this.siteAssetsDestPath, 'css', 'vs2015.min.css')),
+                                 path.join(this.siteAssetsDestPath, 'css', highlightAsset)),
         markBindCss: path.relative(path.dirname(resultPath),
                                    path.join(this.siteAssetsDestPath, 'css', 'markbind.min.css')),
         markBindJs: path.relative(path.dirname(resultPath),
@@ -303,6 +304,7 @@ class Site {
       frontmatterOverride: config.frontmatter,
       globalOverride: this.siteConfig.globalOverride,
       headingIndexingLevel: this.siteConfig.headingIndexingLevel,
+      highlightStyle: this.siteConfig.highlightStyle,
       layout: config.layout,
       layoutsAssetPath: path.relative(path.dirname(resultPath),
                                       path.join(this.siteAssetsDestPath, LAYOUT_SITE_FOLDER_NAME)),

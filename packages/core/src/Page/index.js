@@ -796,6 +796,14 @@ class Page {
     }
   }
 
+  adjustHighlightStyle() {
+    const $ = cheerio.load(this.content);
+    const style = this.pageConfig.highlightStyle;
+    $('pre > code').addClass(`hl-${style}`);
+    $('code > span.highlighted').addClass(`highlighted-${style}`);
+    this.content = $.html();
+  }
+
   collectHeadFiles() {
     if (!this.head) {
       this.headFileTopContent = '';
@@ -920,6 +928,7 @@ class Page {
 
         this.collectAllPageSections();
         this.buildPageNav();
+        this.adjustHighlightStyle();
 
         const renderedTemplate = this.pageConfig.template.render(this.prepareTemplateData());
         const outputTemplateHTML = this.pageConfig.disableHtmlBeautify

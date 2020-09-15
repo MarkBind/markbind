@@ -21,12 +21,19 @@ pre.hljs > code {
 
 pre > code.hljs {
     -webkit-background-clip: padding-box; /* for Safari */
-    background: #1e1e1e;
     background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
     border: 1px solid rgb(200, 200, 200);
     border: 1px solid rgba(200, 200, 200, 0.3);
     border-radius: 5px;
     counter-reset: line;
+}
+
+pre > code.hl-light {
+    background: ghostwhite;
+}
+
+pre > code.hl-dark {
+    background: #1e1e1e;
 }
 
 pre > code.hljs[heading] {
@@ -59,13 +66,18 @@ pre > code.hljs[heading] {
     display: block;
 }
 
-code > span.highlighted {
+code > span.highlighted-light {
+    background: lavender;
+}
+
+code > span.highlighted-dark {
     background: #474949;
 }
 
 @media print {
     pre > code.hljs {
         background: ghostwhite;
+        color: #333;
     }
 
     code > span.highlighted {

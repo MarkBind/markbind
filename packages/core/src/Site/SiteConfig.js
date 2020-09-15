@@ -37,6 +37,11 @@ class SiteConfig {
     this.theme = siteConfigJson.theme || false;
 
     /**
+     * @type {string}
+     */
+    this.highlightStyle = siteConfigJson.highlightStyle || 'dark';
+
+    /**
      * @type {Array}
      */
     this.pages = siteConfigJson.pages || [];
