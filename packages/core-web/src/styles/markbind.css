@@ -21,7 +21,7 @@ pre.hljs > code {
 
 pre > code.hljs {
     -webkit-background-clip: padding-box; /* for Safari */
-    background: ghostwhite;
+    background: #1e1e1e;
     background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
     border: 1px solid rgb(200, 200, 200);
     border: 1px solid rgba(200, 200, 200, 0.3);
@@ -60,7 +60,17 @@ pre > code.hljs[heading] {
 }
 
 code > span.highlighted {
-    background: lavender;
+    background: #474949;
+}
+
+@media print {
+    pre > code.hljs {
+        background: ghostwhite;
+    }
+
+    code > span.highlighted {
+        background: lavender;
+    }
 }
 
 kbd {

@@ -275,7 +275,7 @@ class Site {
         octicons: path.relative(path.dirname(resultPath),
                                 path.join(this.siteAssetsDestPath, 'css', 'octicons.css')),
         highlight: path.relative(path.dirname(resultPath),
-                                 path.join(this.siteAssetsDestPath, 'css', 'github.min.css')),
+                                 path.join(this.siteAssetsDestPath, 'css', 'vs2015.min.css')),
         markBindCss: path.relative(path.dirname(resultPath),
                                    path.join(this.siteAssetsDestPath, 'css', 'markbind.min.css')),
         markBindJs: path.relative(path.dirname(resultPath),
