@@ -19,6 +19,7 @@ Here is a typical `site.json` file:
   "faviconPath": "myfavicon.png",
   "titlePrefix": "FooBar Dev Docs",
   "theme": "bootswatch-cerulean",
+  "highlightStyle": "light",
   "pages": [
     {
       "src": "index.md",
@@ -96,6 +97,10 @@ Here is a typical `site.json` file:
 
 _(Optional)_ **The theme for the generated site.** Uses the default Bootstrap theme if not specified. See [User Guide: Themes](themes.html) for more details.
 
+
+#### **`highlightStyle`**
+
+_(Optional)_ **The style for the fenced code blocks in the site.** Accepts either `"light"` or `"dark"`, and defaults to `"dark"` if not specified.
 
 #### **`pages`**
 
