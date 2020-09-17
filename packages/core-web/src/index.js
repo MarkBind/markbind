@@ -32,7 +32,7 @@ function setupAnchorsForFixedNavbar() {
   const headerHeight = headerSelector.height();
   const bufferHeight = 1;
   jQuery('.nav-inner').css('padding-top', `calc(${headerHeight}px + 1rem)`);
-  jQuery('#content-wrapper').css('padding-top', `calc(${headerHeight}px)`);
+  jQuery('#content-wrapper').css('padding-top', `calc(${headerHeight}px + 0.8rem)`);
   insertCss(
     `span.anchor {
     position: relative;

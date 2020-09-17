@@ -12,6 +12,7 @@
 }
 
 #site-nav .nav-inner {
+    padding-bottom: 20px;
     max-height: 100vh;
 }
 
