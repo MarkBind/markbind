@@ -1270,8 +1270,9 @@ class Site {
           })),
       };
 
-      // TODO: figure out why the only usage of fse breaks when changed to outputJson.
-      fse.outputJsonAsync(siteDataPath, siteData)
+      fse.outputJsonAsync();
+
+      fs.outputJson(siteDataPath, siteData, { spaces: 2 })
         .then(() => logger.info('Site data built'))
         .then(resolve)
         .catch((error) => {
