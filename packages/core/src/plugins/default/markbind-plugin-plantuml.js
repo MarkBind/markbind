@@ -37,7 +37,7 @@ function generateDiagram(imageOutputPath, content) {
   }
 
   // Java command to launch PlantUML jar
-  const cmd = `java -jar "${JAR_PATH}" -pipe > "${imageOutputPath}"`;
+  const cmd = `java -jar "${JAR_PATH}" -nometadata -pipe > "${imageOutputPath}"`;
   const childProcess = exec(cmd);
 
   let errorLog = '';
