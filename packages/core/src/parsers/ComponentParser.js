@@ -616,66 +616,16 @@ class ComponentParser {
 
   static convertMdExtToHtmlExt(renderedContent) {
     const $ = cheerio.load(renderedContent);
-    console.log('\n\n\n\n\n HERE \n\n\n\n\n\n');
     $('a').toArray().forEach((element) => {
       const href = $(element).attr('href');
-      console.log("hi: " + href);
-      if (href && href.includes('.html')) {
-        const len = href.length;
-        const newHref = `${href.substring(0, len - 5)}.md`;
+      const hasMdExtension = href && href.slice(-3) === '.md';
+      const hasNoConvert = $(element).attr('no-convert');
+      if (hasMdExtension && !hasNoConvert) {
+        const newHref = `${href.substring(0, href.length - 3)}.html`;
         $(element).attr('href', newHref);
-        console.log("new: " + $(element).attr('href') + '\n');
       }
     });
-    const list = $('a')
-      .toArray()
-      .map(element => $(element).attr('href'));
-    list.forEach((item) => {console.log(item);});
-    console.log('\n\n\n\n\n END \n\n\n\n\n\n');
     return $.html();
-    // $('a').forEach(() => {
-    //   const href = $(this).attr('href');
-    //   console.log(href + '\n');
-    // });
-    // let attribsHolder;
-    // const parser = new htmlparser.Parser(
-    //   {
-    //     onopentag(name, attribs) {
-    //       console.log('\n\n\n\n\n HERE \n\n\n\n\n\n');
-    //       console.log(attribs.href);
-    //       if (name === 'a' && attribs.href && attribs.href.slice(-5) === '.html') {
-    //         console.log('\n\n\n\n\n INSIDE \n\n\n\n\n\n');
-    //         console.log(attribs.href + '\n');
-    //         const len = attribs.href.length;
-    //         attribs.href = attribs.href.substring(0, len - 5) + '.md';
-    //         console.log(attribs.href + '\n');
-    //         // attribs.href.replace('.html', '.md');
-    //         attribsHolder = attribs;
-    //       }
-    //       console.log('\n\n\n\n\n PASSED \n\n\n\n\n\n');
-    //     },
-    //     onattribute(name, value) {
-    //       if (name === 'no-convert') {
-    //         // revert the change from .md to .html
-    //         attribsHolder.href.replace('.md', '.html');
-    //       }
-    //     },
-    //     // onopentag(name, attribs) {
-    //     //   if (name === 'a' && attribs.href.includes('.md')) {
-    //     //     attribs.href.replace('.md', '.html');
-    //     //     attribsHolder = attribs;
-    //     //   }
-    //     // },
-    //     // onattribute(name, value) {
-    //     //   if (name === 'no-convert') {
-    //     //     // revert the change from .md to .html
-    //     //     attribsHolder.href.replace('.html', '.md');
-    //     //   }
-    //     // },
-    //   },
-    //   { decodeEntities: true },
-    // );
-    // parser.write(renderedContent);
   }
 
   render(file, content, cwf = file) {
@@ -707,14 +657,7 @@ class ComponentParser {
       const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
         let renderedContent = md.render(content);
-        console.log(file + '\n');
-        console.log('-----START OF RENDERED CONTENT-----');
-        console.log(renderedContent);
-        console.log('-----END OF RENDERED CONTENT-----');
         renderedContent = ComponentParser.convertMdExtToHtmlExt(renderedContent);
-        console.log('-----START OF CONVERTED RENDERED CONTENT-----');
-        console.log(renderedContent);
-        console.log('-----END OF CONVERTED RENDERED CONTENT-----');
         parser.parseComplete(renderedContent);
       } else if (fileExt === 'html') {
         parser.parseComplete(content);
