@@ -68,9 +68,10 @@ function generateDiagram(imageOutputPath, content) {
 }
 
 module.exports = {
-  preRender: (content, pluginContext, frontmatter, config) => {
+  beforeSiteGenerate: () => {
     processedDiagrams.clear();
-
+  },
+  preRender: (content, pluginContext, frontmatter, config) => {
     // Processes all <puml> tags
     const $ = cheerio.load(content);
     $('puml').each((i, tag) => {
