@@ -2,7 +2,7 @@
 
 // Mock specific functions of walk-sync module
 // copied from node modules but inject mocked fs module
-const fs = require('./fs-extra-promise');
+const fs = require('fs-extra');
 
 var MatcherCollection = require('matcher-collection');
 var ensurePosix = require('ensure-posix-path');

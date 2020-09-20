@@ -1,6 +1,5 @@
 const cheerio = require('cheerio'); require('../patches/htmlparser2');
 const fs = require('fs-extra');
-const fse = require('fs-extra-promise');
 const ghpages = require('gh-pages');
 const ignore = require('ignore');
 const path = require('path');
@@ -1269,8 +1268,6 @@ class Site {
             headingKeywords: page.keywords,
           })),
       };
-
-      fse.outputJsonAsync();
 
       fs.outputJson(siteDataPath, siteData, { spaces: 2 })
         .then(() => logger.info('Site data built'))
