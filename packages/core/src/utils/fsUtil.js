@@ -1,13 +1,7 @@
 const path = require('path');
 const fs = require('fs-extra-promise');
 
-const { sourceFileExtNames } = require('../constants');
-
 module.exports = {
-  isSourceFile(filePath) {
-    return sourceFileExtNames.includes(path.extname(filePath));
-  },
-
   isInRoot: (root, fileName) => {
     let normalizedRoot = path.normalize(root);
     if (normalizedRoot === '.') {

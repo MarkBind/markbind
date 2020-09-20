@@ -26,6 +26,103 @@ The sections below has more information about various stages of submitting a PR.
 
 * Use JavaScript ES6 features if possible for better performance, e.g. Promise instead of callback.
 * Do note [our style guides](styleGuides.html).
+* Do set up your IDE debugger! We provide several sample configurations for <trigger trigger="click" for="webstorm-debug">WebStorm</trigger> and <trigger trigger="click" for="vs-code-debug">VS Code</trigger>.
+
+  <modal header="Debugging Configurations - WebStorm" id="webstorm-debug" large>
+  
+  Refer [here](https://blog.jetbrains.com/webstorm/2018/01/how-to-debug-with-webstorm/) for a quick guide on adding debugging and running configuration in WebStorm, and how to run them.
+  
+  Once done, see these screenshots for sample debugging configurations, and tweak them further to suit your needs.
+  
+  **1. Using the docs as a development environment**, with:
+    - the [lazy reload `-o`](https://markbind.org/userGuide/cliCommands.html#serve-command) option to speed up page building
+    - the `-d` developer option. (see [below]((#editing-frontend-features)))
+    
+    {.mb-3}  
+  
+    ![]({{baseUrl}}/images/debugger/WebStorm_1.png) {.ml-4}
+  
+  **2. Debugging all tests** in the `npm run test` script:
+  
+    ![]({{baseUrl}}/images/debugger/WebStorm_2.png) {.ml-4}
+    
+  **3. Debugging only the cli package's tests**:
+    
+    ![]({{baseUrl}}/images/debugger/WebStorm_3.png) {.ml-4}
+  
+  </modal>
+
+  <modal header="Debugging Configurations - VS Code" id="vs-code-debug" large>
+  
+  Refer [here](https://code.visualstudio.com/docs/editor/debugging) for a general guide on adding and running debugging configurations in VS Code.
+  
+  In your `.vscode/launch.json` file, you may use these sample configurations as a baseline, and tweak them as you see fit.
+  
+  **1. Using the docs as a development environment**, with:
+    - the [lazy reload `-o`](https://markbind.org/userGuide/cliCommands.html#serve-command) option to speed up page building
+    - the `-d` developer option. (see [below]((#editing-frontend-features)))
+      
+    {.mb-3}  
+    
+    ```json {.ml-4 .no-line-numbers heading="launch.json"}
+    {
+        "configurations": [
+            {
+                "type": "node",
+                "request": "launch",
+                "name": "Dev Docs",
+                "skipFiles": [
+                    "<node_internals>/**"
+                ],
+                "cwd": "${workspaceFolder}/docs",
+                "program": "${workspaceFolder}/packages/cli/index.js",
+                "args": ["serve", "-o", "-d"]
+            }
+        ]
+    }
+    ```
+  
+  **2. Debugging all tests** in the `npm run test` script:
+  
+    ```json {.ml-4 .no-line-numbers heading="launch.json"}
+    {
+        "configurations": [
+            {
+                "type": "node",
+                "request": "launch",
+                "name": "test",
+                "skipFiles": [
+                    "<node_internals>/**"
+                ],
+                "cwd": "${workspaceFolder}",
+                "runtimeExecutable": "npm",
+                "runtimeArgs": ["run", "test"]
+            }
+        ]
+    }
+    ```
+  
+  **3. Debugging only the cli package's tests**:
+    
+    ```json {.ml-4 .no-line-numbers heading="launch.json"}
+    {
+        "configurations": [
+            {
+                "type": "node",
+                "request": "launch",
+                "name": "test cli",
+                "skipFiles": [
+                    "<node_internals>/**"
+                ],
+                "cwd": "${workspaceFolder}/packages/cli",
+                "runtimeExecutable": "npm",
+                "runtimeArgs": ["run", "test"]
+            }
+        ]
+    }
+    ```
+    
+  </modal>
 
 #### Editing frontend features
 

@@ -10,6 +10,7 @@ const simpleGit = require('simple-git');
 
 const SiteConfig = require('./SiteConfig');
 const Page = require('../Page');
+const { PageConfig } = require('../Page/PageConfig');
 const VariableProcessor = require('../variables/VariableProcessor');
 const VariableRenderer = require('../variables/VariableRenderer');
 const { ignoreTags } = require('../patches');
@@ -259,32 +260,7 @@ class Site {
   createPage(config) {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
     const resultPath = path.join(this.outputPath, Site.setExtension(config.pageSrc, '.html'));
-    return new Page({
-      dev: this.dev,
-      baseUrl: this.siteConfig.baseUrl,
-      baseUrlMap: this.baseUrlMap,
-      content: '',
-      pluginsContext: this.siteConfig.pluginsContext,
-      faviconUrl: config.faviconUrl,
-      frontmatter: config.frontmatter,
-      disableHtmlBeautify: this.siteConfig.disableHtmlBeautify,
-      globalOverride: this.siteConfig.globalOverride,
-      pageTemplate: this.pageTemplate,
-      plugins: this.plugins || {},
-      rootPath: this.rootPath,
-      siteOutputPath: this.outputPath,
-      enableSearch: this.siteConfig.enableSearch,
-      searchable: this.siteConfig.enableSearch && config.searchable,
-      src: config.pageSrc,
-      layoutsAssetPath: path.relative(path.dirname(resultPath),
-                                      path.join(this.siteAssetsDestPath, LAYOUT_SITE_FOLDER_NAME)),
-      layout: config.layout,
-      title: config.title || '',
-      titlePrefix: this.siteConfig.titlePrefix,
-      headingIndexingLevel: this.siteConfig.headingIndexingLevel,
-      variableProcessor: this.variableProcessor,
-      sourcePath,
-      resultPath,
+    const pageConfig = new PageConfig({
       asset: {
         bootstrap: path.relative(path.dirname(resultPath),
                                  path.join(this.siteAssetsDestPath, 'css', 'bootstrap.min.css')),
@@ -318,7 +294,32 @@ class Site {
         jQuery: path.relative(path.dirname(resultPath),
                               path.join(this.siteAssetsDestPath, 'js', 'jquery.min.js')),
       },
+      baseUrl: this.siteConfig.baseUrl,
+      baseUrlMap: this.baseUrlMap,
+      dev: this.dev,
+      disableHtmlBeautify: this.siteConfig.disableHtmlBeautify,
+      enableSearch: this.siteConfig.enableSearch,
+      faviconUrl: config.faviconUrl,
+      frontmatterOverride: config.frontmatter,
+      globalOverride: this.siteConfig.globalOverride,
+      headingIndexingLevel: this.siteConfig.headingIndexingLevel,
+      layout: config.layout,
+      layoutsAssetPath: path.relative(path.dirname(resultPath),
+                                      path.join(this.siteAssetsDestPath, LAYOUT_SITE_FOLDER_NAME)),
+      plugins: this.plugins || {},
+      pluginsContext: this.siteConfig.pluginsContext,
+      resultPath,
+      rootPath: this.rootPath,
+      searchable: this.siteConfig.enableSearch && config.searchable,
+      siteOutputPath: this.outputPath,
+      sourcePath,
+      src: config.pageSrc,
+      title: config.title || '',
+      titlePrefix: this.siteConfig.titlePrefix,
+      template: this.pageTemplate,
+      variableProcessor: this.variableProcessor,
     });
+    return new Page(pageConfig);
   }
 
   /**
@@ -469,6 +470,18 @@ class Site {
       .map(filePath => Site.setExtension(filePath, '.html'));
   }
 
+  getPageGlobPaths(page, pagesExclude) {
+    return walkSync(this.rootPath, {
+      directories: false,
+      globs: Array.isArray(page.glob) ? page.glob : [page.glob],
+      ignore: [
+        CONFIG_FOLDER_NAME,
+        SITE_FOLDER_NAME,
+        ...pagesExclude.concat(page.globExclude || []),
+      ],
+    });
+  }
+
   /**
    * Collects the paths to be traversed as addressable pages
    */
@@ -485,20 +498,14 @@ class Site {
       return Promise.reject(
         new Error(`Duplicate page entries found in site config: ${_.uniq(duplicatePages).join(', ')}`));
     }
-    const pagesFromGlobs = _.flatMap(pages.filter(page => page.glob), page => walkSync(this.rootPath, {
-      directories: false,
-      globs: Array.isArray(page.glob) ? page.glob : [page.glob],
-      ignore: [
-        CONFIG_FOLDER_NAME,
-        SITE_FOLDER_NAME,
-        ...pagesExclude.concat(page.globExclude || []),
-      ],
-    }).map(filePath => ({
-      src: filePath,
-      searchable: page.searchable,
-      layout: page.layout,
-      frontmatter: page.frontmatter,
-    })));
+    const pagesFromGlobs = _.flatMap(pages.filter(page => page.glob),
+                                     page => this.getPageGlobPaths(page, pagesExclude)
+                                       .map(filePath => ({
+                                         src: filePath,
+                                         searchable: page.searchable,
+                                         layout: page.layout,
+                                         frontmatter: page.frontmatter,
+                                       })));
     /*
      Add pages collected from globs and merge properties for pages
      Page properties collected from src have priority over page properties from globs,
@@ -624,7 +631,7 @@ class Site {
         .then(() => this.copyFontAwesomeAsset())
         .then(() => this.copyOcticonsAsset())
         .then(() => this.copyLayouts())
-        .then(() => this.updateSiteData(this.onePagePath || undefined))
+        .then(() => this.updateSiteData(this.onePagePath ? [this.onePagePath] : undefined))
         .then(() => {
           const endTime = new Date();
           const totalBuildTime = (endTime - startTime) / 1000;
@@ -665,7 +672,7 @@ class Site {
    */
   lazyBuildAllPagesNotViewed() {
     this.pages.forEach((page) => {
-      const normalizedUrl = FsUtil.removeExtension(page.sourcePath);
+      const normalizedUrl = FsUtil.removeExtension(page.pageConfig.sourcePath);
       if (normalizedUrl !== this.currentPageViewed) {
         this.toRebuild.add(normalizedUrl);
       }
@@ -705,6 +712,7 @@ class Site {
     return new Promise((resolve, reject) => {
       this.regenerateAffectedPages(uniquePaths)
         .then(() => fs.removeAsync(this.tempPath))
+        .then(() => this.copyLayouts())
         .then(resolve)
         .catch((error) => {
           // if error, remove the site and temp folders
@@ -729,7 +737,7 @@ class Site {
       new Promise((resolve, reject) => {
         this._setTimestampVariable();
         const pageToRebuild = this.pages.find(page =>
-          FsUtil.removeExtension(page.sourcePath) === normalizedUrl);
+          FsUtil.removeExtension(page.pageConfig.sourcePath) === normalizedUrl);
 
         if (!pageToRebuild) {
           Site.rejectHandler(reject,
@@ -762,7 +770,7 @@ class Site {
   }
 
   _rebuildSourceFiles() {
-    logger.info('File added or removed, updating list of site\'s pages...');
+    logger.info('Page added or removed, updating list of site\'s pages...');
     return new Promise((resolve, reject) => {
       Promise.resolve('')
         .then(() => this.updateAddressablePages())
@@ -869,12 +877,31 @@ class Site {
   }
 
   /**
-   * Checks if a specified file path is a plugin source file
-   * @param filePath file path to check
-   * @returns {boolean} whether the file path matches a plugin source file path
+   * Checks if a specified file path is a dependency of a page
+   * @param {string} filePath file path to check
+   * @returns {boolean} whether the file path is a dependency of any of the site's pages
    */
-  isPluginSourceFile(filePath) {
-    return this.pages.some(page => page.pluginSourceFiles.has(filePath));
+  isDependencyOfPage(filePath) {
+    return this.pages.some(page => page.isDependency(filePath));
+  }
+
+  /**
+   * Checks if a specified file path satisfies a src or glob in any of the page configurations.
+   * @param {string} filePath file path to check
+   * @returns {boolean} whether the file path is satisfies any glob
+   */
+  isFilepathAPage(filePath) {
+    const { pages, pagesExclude } = this.siteConfig;
+    const relativeFilePath = utils.ensurePosix(path.relative(this.rootPath, filePath));
+    const srcesFromPages = _.flatMap(pages.filter(page => page.src),
+                                     page => (Array.isArray(page.src) ? page.src : [page.src]));
+    if (srcesFromPages.includes(relativeFilePath)) {
+      return true;
+    }
+
+    const filePathsFromGlobs = _.flatMap(pages.filter(page => page.glob),
+                                         page => this.getPageGlobPaths(page, pagesExclude));
+    return filePathsFromGlobs.some(fp => fp === relativeFilePath);
   }
 
   /**
@@ -1058,7 +1085,7 @@ class Site {
     this._setTimestampVariable();
     this.mapAddressablePagesToPages(addressablePages, faviconUrl);
 
-    const landingPage = this.pages.find(page => page.src === this.onePagePath);
+    const landingPage = this.pages.find(page => page.pageConfig.src === this.onePagePath);
     if (!landingPage) {
       return Promise.reject(new Error(`${this.onePagePath} is not specified in the site configuration.`));
     }
@@ -1075,16 +1102,11 @@ class Site {
     }
     this._setTimestampVariable();
     const pagesToRegenerate = this.pages.filter((page) => {
-      const doFilePathsHaveSourceFiles = filePaths.some((filePath) => {
-        const isIncludedFile = page.includedFiles.has(filePath);
-        const isPluginSourceFile = page.pluginSourceFiles.has(filePath);
-
-        return isIncludedFile || isPluginSourceFile;
-      });
+      const doFilePathsHaveSourceFiles = filePaths.some(filePath => page.isDependency(filePath));
 
       if (shouldRebuildAllPages || doFilePathsHaveSourceFiles) {
         if (this.onePagePath) {
-          const normalizedSource = FsUtil.removeExtension(page.sourcePath);
+          const normalizedSource = FsUtil.removeExtension(page.pageConfig.sourcePath);
           const isPageBeingViewed = normalizedSource === this.currentPageViewed;
 
           if (!isPageBeingViewed) {
@@ -1127,14 +1149,13 @@ class Site {
   /**
    * Uses heading data in built pages to generate heading and keyword information for siteData
    * Subsequently writes to siteData.json
-   * @param filePaths optional array of updated file paths during live preview.
-   *                  If undefined, generate site data for all pages
+   * @param {Array<string>} filePaths optional array of updated file paths during live preview.
+   *                        If undefined, generate site data for all pages
    */
   updateSiteData(filePaths) {
     const generateForAllPages = filePaths === undefined;
-    const filePathsToUpdateData = Array.isArray(filePaths) ? filePaths : [filePaths];
     this.pages.forEach((page) => {
-      if (generateForAllPages || filePathsToUpdateData.some(filePath => page.includedFiles.has(filePath))) {
+      if (generateForAllPages || filePaths.some(filePath => page.isDependency(filePath))) {
         page.collectHeadingsAndKeywords();
       }
     });
@@ -1172,18 +1193,25 @@ class Site {
     const coreWebAssetPath = path.join(coreWebRootPath, 'asset');
     fs.copySync(coreWebAssetPath, this.siteAssetsDestPath);
 
+    const dirsToCopy = ['fonts'];
     const filesToCopy = [
       'js/markbind.min.js',
       'css/markbind.min.css',
     ];
 
-    const copyAll = filesToCopy.map((file) => {
+    const copyAllFiles = filesToCopy.map((file) => {
       const srcPath = path.join(coreWebRootPath, 'dist', file);
       const destPath = path.join(this.siteAssetsDestPath, file);
       return fs.copyAsync(srcPath, destPath);
     });
 
-    return Promise.all(copyAll);
+    const copyFontsDir = dirsToCopy.map((dir) => {
+      const srcPath = path.join(coreWebRootPath, 'dist', dir);
+      const destPath = path.join(this.siteAssetsDestPath, 'css', dir);
+      return fs.copyAsync(srcPath, destPath);
+    });
+
+    return Promise.all([...copyAllFiles, ...copyFontsDir]);
   }
 
   /**
@@ -1232,9 +1260,9 @@ class Site {
       const siteDataPath = path.join(this.outputPath, SITE_DATA_NAME);
       const siteData = {
         enableSearch: this.siteConfig.enableSearch,
-        pages: this.pages.filter(page => page.searchable)
+        pages: this.pages.filter(page => page.pageConfig.searchable)
           .map(page => ({
-            src: page.src,
+            src: page.pageConfig.src,
             title: page.title,
             headings: page.headings,
             headingKeywords: page.keywords,

@@ -23,6 +23,7 @@
   icons : ['Icons', ['basic', 'reader-facing']],
   embeds : ['Embeds', ['basic', 'reader-facing']],
   dates : ['Dates', ['basic', 'reader-facing']],
+  mathformulae : ['Math Formulae', ['basic', 'reader-facing']],
 
   frontmatter : ['Front Matter', ['other']],
   includes : ['Includes', ['other']],

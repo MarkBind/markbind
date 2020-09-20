@@ -18,6 +18,8 @@ function printFailedMessage(err, siteName) {
   console.log(`Test result: ${siteName} FAILED`);
 }
 
+process.env.FORCE_COLOR = '3';
+
 const execOptions = {
   stdio: ['inherit', 'inherit', 'inherit'],
 };

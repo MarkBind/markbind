@@ -17,6 +17,8 @@ function printFailedMessage(err, siteName) {
   console.log(`Failed to update: ${siteName}`);
 }
 
+process.env.FORCE_COLOR = '3';
+
 const execOptions = {
   stdio: ['inherit', 'inherit', 'inherit'],
 };

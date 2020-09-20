@@ -6,24 +6,30 @@ const {
 } = require('./Page.data');
 
 test('Page#collectIncludedFiles collects included files from 1 dependency object', () => {
-  const page = new Page({});
+  const sourcePath = process.cwd();
+  const page = new Page({ sourcePath });
+  page.resetState();
   page.collectIncludedFiles([{ to: 'somewhere' }]);
 
-  expect(page.includedFiles).toEqual(new Set(['somewhere']));
+  expect(page.includedFiles).toEqual(new Set(['somewhere', sourcePath]));
 });
 
 test('Page#collectIncludedFiles ignores other keys in dependency', () => {
-  const page = new Page({});
+  const sourcePath = process.cwd();
+  const page = new Page({ sourcePath });
+  page.resetState();
   page.collectIncludedFiles([{ to: 'somewhere', from: 'somewhere else' }]);
 
-  expect(page.includedFiles).toEqual(new Set(['somewhere']));
+  expect(page.includedFiles).toEqual(new Set(['somewhere', sourcePath]));
 });
 
 test('Page#collectIncludedFiles collects nothing', () => {
-  const page = new Page({});
+  const sourcePath = process.cwd();
+  const page = new Page({ sourcePath });
+  page.resetState();
   page.collectIncludedFiles([]);
 
-  expect(page.includedFiles).toEqual(new Set());
+  expect(page.includedFiles).toEqual(new Set([sourcePath]));
 });
 
 test('Page#collectPluginSources collects correct sources', () => {
@@ -32,6 +38,7 @@ test('Page#collectPluginSources collects correct sources', () => {
     plugins: { testPlugin: COLLECT_PLUGIN_TEST_PLUGIN },
     pluginsContext: { testPlugin: {} },
   });
+  page.resetState();
   page.collectPluginSources(COLLECT_PLUGIN_SOURCES);
 
   const EXPECTED_SOURCE_FILES = new Set([
