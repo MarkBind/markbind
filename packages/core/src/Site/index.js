@@ -1,5 +1,5 @@
 const cheerio = require('cheerio'); require('../patches/htmlparser2');
-const fs = require('fs-extra-promise');
+const fs = require('fs-extra');
 const ghpages = require('gh-pages');
 const ignore = require('ignore');
 const path = require('path');
@@ -161,7 +161,7 @@ class Site {
 
   static rejectHandler(reject, error, removeFolders) {
     logger.warn(error);
-    Promise.all(removeFolders.map(folder => fs.removeAsync(folder)))
+    Promise.all(removeFolders.map(folder => fs.remove(folder)))
       .then(() => {
         reject(error);
       })
@@ -347,7 +347,7 @@ class Site {
     const filePath = fileNames.find(fileName => fs.existsSync(path.join(this.rootPath, fileName)));
     // if none of the files exist, do nothing
     if (_.isUndefined(filePath)) return Promise.resolve();
-    return fs.copyAsync(path.join(this.rootPath, filePath), indexPagePath)
+    return fs.copy(path.join(this.rootPath, filePath), indexPagePath)
       .catch(() => Promise.reject(new Error(`Failed to copy over ${filePath}`)));
   }
 
@@ -356,12 +356,12 @@ class Site {
    */
   addAboutPage() {
     const aboutPath = path.join(this.rootPath, ABOUT_MARKDOWN_FILE);
-    return fs.accessAsync(aboutPath)
+    return fs.access(aboutPath)
       .catch(() => {
         if (fs.existsSync(aboutPath)) {
           return Promise.resolve();
         }
-        return fs.outputFileAsync(aboutPath, ABOUT_MARKDOWN_DEFAULT);
+        return fs.outputFile(aboutPath, ABOUT_MARKDOWN_DEFAULT);
       });
   }
 
@@ -372,7 +372,7 @@ class Site {
     const siteLayoutPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH);
     const siteLayoutHeaderDefaultPath = path.join(siteLayoutPath, LAYOUT_DEFAULT_NAME, 'header.md');
 
-    return fs.outputFileAsync(siteLayoutHeaderDefaultPath, TOP_NAV_DEFAULT);
+    return fs.outputFile(siteLayoutHeaderDefaultPath, TOP_NAV_DEFAULT);
   }
 
   /**
@@ -384,15 +384,15 @@ class Site {
     const siteLayoutFooterDefaultPath = path.join(siteLayoutPath, LAYOUT_DEFAULT_NAME, 'footer.md');
     const wikiFooterPath = path.join(this.rootPath, WIKI_FOOTER_PATH);
 
-    return fs.accessAsync(wikiFooterPath)
+    return fs.access(wikiFooterPath)
       .then(() => {
         const footerContent = fs.readFileSync(wikiFooterPath, 'utf8');
         const wrappedFooterContent = `<footer>\n\t${footerContent}\n</footer>`;
-        return fs.outputFileAsync(siteLayoutFooterDefaultPath, wrappedFooterContent);
+        return fs.outputFile(siteLayoutFooterDefaultPath, wrappedFooterContent);
       })
       .catch(() => {
         if (fs.existsSync(footerPath)) {
-          return fs.copyAsync(footerPath, siteLayoutFooterDefaultPath);
+          return fs.copy(footerPath, siteLayoutFooterDefaultPath);
         }
         return Promise.resolve();
       });
@@ -406,7 +406,7 @@ class Site {
     const siteLayoutSiteNavDefaultPath = path.join(siteLayoutPath, LAYOUT_DEFAULT_NAME, 'navigation.md');
     const wikiSiteNavPath = path.join(this.rootPath, WIKI_SITE_NAV_PATH);
 
-    return fs.accessAsync(wikiSiteNavPath)
+    return fs.access(wikiSiteNavPath)
       .then(() => {
         const siteNavContent = fs.readFileSync(wikiSiteNavPath, 'utf8');
         const wrappedSiteNavContent = `<navigation>\n${siteNavContent}\n</navigation>`;
@@ -436,7 +436,7 @@ class Site {
         siteNavContent += `* [${pageName}](${pageUrl})\n`;
       });
     const wrappedSiteNavContent = `<navigation>\n${siteNavContent}\n</navigation>`;
-    return fs.outputFileAsync(siteLayoutSiteNavDefaultPath, wrappedSiteNavContent);
+    return fs.outputFile(siteLayoutSiteNavDefaultPath, wrappedSiteNavContent);
   }
 
   /**
@@ -444,11 +444,11 @@ class Site {
    */
   addDefaultLayoutToSiteConfig() {
     const configPath = path.join(this.rootPath, SITE_CONFIG_NAME);
-    return fs.readJsonAsync(configPath)
+    return fs.readJson(configPath)
       .then((config) => {
         const layoutObj = { glob: '**/*.+(md|mbd)', layout: LAYOUT_DEFAULT_NAME };
         config.pages.push(layoutObj);
-        return fs.outputJsonAsync(configPath, config);
+        return fs.outputJson(configPath, config);
       });
   }
 
@@ -661,7 +661,7 @@ class Site {
     return new Promise((resolve, reject) => {
       logger.info('Generating pages...');
       this.generatePages()
-        .then(() => fs.removeAsync(this.tempPath))
+        .then(() => fs.remove(this.tempPath))
         .then(() => logger.info('Pages built'))
         .then(resolve)
         .catch((error) => {
@@ -698,9 +698,9 @@ class Site {
           const lazyLoadingSpinnerHtmlFilePath = path.join(__dirname, LAZY_LOADING_SITE_FILE_NAME);
           const outputSpinnerHtmlFilePath = path.join(this.outputPath, LAZY_LOADING_SITE_FILE_NAME);
 
-          return fs.copyAsync(lazyLoadingSpinnerHtmlFilePath, outputSpinnerHtmlFilePath);
+          return fs.copy(lazyLoadingSpinnerHtmlFilePath, outputSpinnerHtmlFilePath);
         })
-        .then(() => fs.removeAsync(this.tempPath))
+        .then(() => fs.remove(this.tempPath))
         .then(() => this.lazyBuildAllPagesNotViewed())
         .then(() => logger.info('Landing page built, other pages will be built as you navigate to them!'))
         .then(resolve)
@@ -718,7 +718,7 @@ class Site {
 
     return new Promise((resolve, reject) => {
       this.regenerateAffectedPages(uniquePaths)
-        .then(() => fs.removeAsync(this.tempPath))
+        .then(() => fs.remove(this.tempPath))
         .then(() => this.copyLayouts())
         .then(resolve)
         .catch((error) => {
@@ -774,7 +774,7 @@ class Site {
     );
 
     return Promise.all(regeneratePagesBeingViewed)
-      .then(() => fs.removeAsync(this.tempPath));
+      .then(() => fs.remove(this.tempPath));
   }
 
   _rebuildSourceFiles() {
@@ -808,7 +808,7 @@ class Site {
     const fileIgnore = ignore().add(this.siteConfig.ignore);
     const fileRelativePaths = uniquePaths.map(filePath => path.relative(this.rootPath, filePath));
     const copyAssets = fileIgnore.filter(fileRelativePaths)
-      .map(asset => fs.copyAsync(path.join(this.rootPath, asset), path.join(this.outputPath, asset)));
+      .map(asset => fs.copy(path.join(this.rootPath, asset), path.join(this.outputPath, asset)));
     return Promise.all(copyAssets)
       .then(() => logger.info('Assets built'));
   }
@@ -819,7 +819,7 @@ class Site {
     const fileRelativePaths = uniquePaths.map(filePath => path.relative(this.rootPath, filePath));
     const filesToRemove = fileRelativePaths.map(
       fileRelativePath => path.join(this.outputPath, fileRelativePath));
-    const removeFiles = filesToRemove.map(asset => fs.removeAsync(asset));
+    const removeFiles = filesToRemove.map(asset => fs.remove(asset));
     return Promise.all(removeFiles)
       .then(() => logger.info('Assets removed'));
   }
@@ -833,7 +833,7 @@ class Site {
       this.listAssets(fileIgnore)
         .then(assets =>
           assets.map(asset =>
-            fs.copyAsync(path.join(this.rootPath, asset), path.join(this.outputPath, asset))),
+            fs.copy(path.join(this.rootPath, asset), path.join(this.outputPath, asset))),
         )
         .then(copyAssets => Promise.all(copyAssets))
         .then(() => logger.info('Assets built'))
@@ -1196,7 +1196,7 @@ class Site {
     const faFontsSrcPath = path.join(faRootSrcPath, 'webfonts');
     const faFontsDestPath = path.join(this.siteAssetsDestPath, 'fontawesome', 'webfonts');
 
-    return fs.copyAsync(faCssSrcPath, faCssDestPath).then(fs.copyAsync(faFontsSrcPath, faFontsDestPath));
+    return fs.copy(faCssSrcPath, faCssDestPath).then(() => fs.copy(faFontsSrcPath, faFontsDestPath));
   }
 
   /**
@@ -1206,7 +1206,7 @@ class Site {
     const octiconsCssSrcPath = require.resolve('@primer/octicons/build/build.css');
     const octiconsCssDestPath = path.join(this.siteAssetsDestPath, 'css', 'octicons.css');
 
-    return fs.copyAsync(octiconsCssSrcPath, octiconsCssDestPath);
+    return fs.copy(octiconsCssSrcPath, octiconsCssDestPath);
   }
 
   /**
@@ -1226,13 +1226,13 @@ class Site {
     const copyAllFiles = filesToCopy.map((file) => {
       const srcPath = path.join(coreWebRootPath, 'dist', file);
       const destPath = path.join(this.siteAssetsDestPath, file);
-      return fs.copyAsync(srcPath, destPath);
+      return fs.copy(srcPath, destPath);
     });
 
     const copyFontsDir = dirsToCopy.map((dir) => {
       const srcPath = path.join(coreWebRootPath, 'dist', dir);
       const destPath = path.join(this.siteAssetsDestPath, 'css', dir);
-      return fs.copyAsync(srcPath, destPath);
+      return fs.copy(srcPath, destPath);
     });
 
     return Promise.all([...copyAllFiles, ...copyFontsDir]);
@@ -1250,7 +1250,7 @@ class Site {
     const themeSrcPath = SUPPORTED_THEMES_PATHS[theme];
     const themeDestPath = path.join(this.siteAssetsDestPath, 'css', 'bootstrap.min.css');
 
-    return fs.copyAsync(themeSrcPath, themeDestPath);
+    return fs.copy(themeSrcPath, themeDestPath);
   }
 
   /**
@@ -1271,7 +1271,7 @@ class Site {
       }
       const filteredFiles = files.filter(file => _.includes(file, '.') && !_.includes(file, '.md'));
       const copyAll = Promise.all(filteredFiles.map(file =>
-        fs.copyAsync(path.join(siteLayoutPath, file), path.join(layoutsDestPath, file))));
+        fs.copy(path.join(siteLayoutPath, file), path.join(layoutsDestPath, file))));
       return copyAll.then(() => Promise.resolve());
     });
   }
@@ -1293,7 +1293,7 @@ class Site {
           })),
       };
 
-      fs.outputJsonAsync(siteDataPath, siteData)
+      fs.outputJson(siteDataPath, siteData, { spaces: 2 })
         .then(() => logger.info('Site data built'))
         .then(resolve)
         .catch((error) => {

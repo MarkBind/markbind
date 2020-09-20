@@ -1,5 +1,5 @@
 const path = require('path');
-const fs = require('fs-extra-promise');
+const fs = require('fs-extra');
 const { execSync } = require('child_process');
 
 const { compare } = require('./testUtil/compare');
