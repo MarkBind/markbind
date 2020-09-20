@@ -137,6 +137,7 @@ class Site {
     this.baseUrlMap = new Set();
     this.forceReload = forceReload;
     this.plugins = {};
+    this.pluginsBeforeSiteGenerate = [];
     /**
      * @type {undefined | SiteConfig}
      */
@@ -623,6 +624,7 @@ class Site {
         .then(() => this.collectBaseUrl())
         .then(() => this.collectUserDefinedVariablesMap())
         .then(() => this.collectPlugins())
+        .then(() => this.collectPluginSiteHooks())
         .then(() => this.collectPluginSpecialTags())
         .then(() => this.buildAssets())
         .then(() => (this.onePagePath ? this.lazyBuildSourceFiles() : this.buildSourceFiles()))
@@ -654,6 +656,8 @@ class Site {
    * Build all pages of the site
    */
   buildSourceFiles() {
+    this.runBeforeSiteGenerateHooks();
+
     return new Promise((resolve, reject) => {
       logger.info('Generating pages...');
       this.generatePages()
@@ -685,6 +689,8 @@ class Site {
    * Only build landing page of the site, building more as the author goes to different links.
    */
   lazyBuildSourceFiles() {
+    this.runBeforeSiteGenerateHooks();
+
     return new Promise((resolve, reject) => {
       logger.info('Generating landing page...');
       this.generateLandingPage()
@@ -708,6 +714,7 @@ class Site {
   _rebuildAffectedSourceFiles(filePaths) {
     const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];
     const uniquePaths = _.uniq(filePathArray);
+    this.runBeforeSiteGenerateHooks();
 
     return new Promise((resolve, reject) => {
       this.regenerateAffectedPages(uniquePaths)
@@ -727,6 +734,7 @@ class Site {
     const uniqueUrls = _.uniq(normalizedUrlArray);
     uniqueUrls.forEach(normalizedUrl => logger.info(
       `Building ${normalizedUrl} as some of its dependencies were changed since the last visit`));
+    this.runBeforeSiteGenerateHooks();
 
     /*
      Lazy loading only builds the page being viewed, but the user may be quick enough
@@ -989,6 +997,15 @@ class Site {
   }
 
   /**
+   * Collect the before site generate hooks
+   */
+  collectPluginSiteHooks() {
+    this.pluginsBeforeSiteGenerate = Object.values(this.plugins)
+      .filter(plugin => plugin.beforeSiteGenerate)
+      .map(plugin => plugin.beforeSiteGenerate);
+  }
+
+  /**
    * Collects the special tags of the site's plugins, and injects them into the parsers.
    */
   collectPluginSpecialTags() {
@@ -1014,6 +1031,13 @@ class Site {
       indent_size: 2,
       content_unformatted: ['pre', 'textarea', ...tagsToIgnore],
     };
+  }
+
+  /**
+   * Executes beforeSiteGenerate hooks from plugins
+   */
+  runBeforeSiteGenerateHooks() {
+    this.pluginsBeforeSiteGenerate.forEach(cb => cb());
   }
 
   /**
