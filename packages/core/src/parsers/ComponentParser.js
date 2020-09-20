@@ -619,12 +619,12 @@ class ComponentParser {
     console.log('\n\n\n\n\n HERE \n\n\n\n\n\n');
     $('a').toArray().forEach((element) => {
       const href = $(element).attr('href');
-      console.log(href + '\n');
+      console.log("hi: " + href);
       if (href && href.includes('.html')) {
         const len = href.length;
         const newHref = `${href.substring(0, len - 5)}.md`;
         $(element).attr('href', newHref);
-        console.log($(element).attr('href'));
+        console.log("new: " + $(element).attr('href') + '\n');
       }
     });
     const list = $('a')
