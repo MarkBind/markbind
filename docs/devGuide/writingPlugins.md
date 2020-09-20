@@ -169,3 +169,12 @@ removing such potential conflicts.
 Note however, that variable interpolation syntax {% raw %}`{{ variable_name }}`{% endraw %} will act as per normal.
 Meaning, the user would still be able to use variables in your special tags!
 </box>
+
+## Lifecycle hooks
+
+You may also need to maintain some plugin state during site generation, then reset this when the site or pages are regenerated.
+
+To do this, you may implement the `beforeSiteGenerate` method.
+
+- `beforeSiteGenerate()`: Called during initial site generation and subsequent regenerations during live preview.
+  - No return value is required.
