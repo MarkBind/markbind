@@ -97,6 +97,11 @@ const SUPPORTED_THEMES_PATHS = {
   'bootswatch-yeti': getBootswatchThemePath('yeti'),
 };
 
+const HIGHLIGHT_ASSETS = {
+  dark: 'vs2015.min.css',
+  light: 'github.min.css',
+};
+
 const ABOUT_MARKDOWN_DEFAULT = '# About\n'
   + 'Welcome to your **About Us** page.\n';
 
@@ -260,7 +265,7 @@ class Site {
   createPage(config) {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
     const resultPath = path.join(this.outputPath, Site.setExtension(config.pageSrc, '.html'));
-    const highlightAsset = this.siteConfig.highlightStyle === 'dark' ? 'vs2015.min.css' : 'github.min.css';
+    const codeTheme = this.siteConfig.style.codeTheme === 'light' ? 'light' : 'dark';
     const pageConfig = new PageConfig({
       asset: {
         bootstrap: path.relative(path.dirname(resultPath),
@@ -276,7 +281,7 @@ class Site {
         octicons: path.relative(path.dirname(resultPath),
                                 path.join(this.siteAssetsDestPath, 'css', 'octicons.css')),
         highlight: path.relative(path.dirname(resultPath),
-                                 path.join(this.siteAssetsDestPath, 'css', highlightAsset)),
+                                 path.join(this.siteAssetsDestPath, 'css', HIGHLIGHT_ASSETS[codeTheme])),
         markBindCss: path.relative(path.dirname(resultPath),
                                    path.join(this.siteAssetsDestPath, 'css', 'markbind.min.css')),
         markBindJs: path.relative(path.dirname(resultPath),
@@ -304,7 +309,7 @@ class Site {
       frontmatterOverride: config.frontmatter,
       globalOverride: this.siteConfig.globalOverride,
       headingIndexingLevel: this.siteConfig.headingIndexingLevel,
-      highlightStyle: this.siteConfig.highlightStyle,
+      style: this.siteConfig.style,
       layout: config.layout,
       layoutsAssetPath: path.relative(path.dirname(resultPath),
                                       path.join(this.siteAssetsDestPath, LAYOUT_SITE_FOLDER_NAME)),

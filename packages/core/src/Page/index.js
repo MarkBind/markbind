@@ -796,11 +796,11 @@ class Page {
     }
   }
 
-  adjustHighlightStyle() {
+  applyCodeTheme() {
     const $ = cheerio.load(this.content);
-    const style = this.pageConfig.highlightStyle;
-    $('pre > code').addClass(`hl-${style}`);
-    $('code > span.highlighted').addClass(`highlighted-${style}`);
+    const theme = this.pageConfig.style.codeTheme === 'light' ? 'light' : 'dark';
+    $('pre > code').addClass(`hl-${theme}`);
+    $('code > span.highlighted').addClass(`highlighted-${theme}`);
     this.content = $.html();
   }
 
@@ -928,7 +928,7 @@ class Page {
 
         this.collectAllPageSections();
         this.buildPageNav();
-        this.adjustHighlightStyle();
+        this.applyCodeTheme();
 
         const renderedTemplate = this.pageConfig.template.render(this.prepareTemplateData());
         const outputTemplateHTML = this.pageConfig.disableHtmlBeautify

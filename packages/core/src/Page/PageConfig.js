@@ -51,10 +51,10 @@ class PageConfig {
      */
     this.headingIndexingLevel = args.headingIndexingLevel;
     /**
-     * Highlight style for code fences
-     * @type {string}
+     * Styling options for the page.
+     * @type {Object<string, any>}
      */
-    this.highlightStyle = args.highlightStyle;
+    this.style = args.style;
     /**
      * @type {string}
      */
