@@ -28,14 +28,6 @@ pre > code.hljs {
     counter-reset: line;
 }
 
-pre > code.hl-light {
-    background: ghostwhite;
-}
-
-pre > code.hl-dark {
-    background: #1e1e1e;
-}
-
 pre > code.hljs[heading] {
     border-top-right-radius: 0;
 }
