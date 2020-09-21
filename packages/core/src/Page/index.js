@@ -796,14 +796,6 @@ class Page {
     }
   }
 
-  applyCodeTheme() {
-    const $ = cheerio.load(this.content);
-    const theme = this.pageConfig.style.codeTheme === 'light' ? 'light' : 'dark';
-    $('pre > code').addClass(`hl-${theme}`);
-    $('code > span.highlighted').addClass(`highlighted-${theme}`);
-    this.content = $.html();
-  }
-
   collectHeadFiles() {
     if (!this.head) {
       this.headFileTopContent = '';
@@ -892,6 +884,7 @@ class Page {
       rootPath: this.pageConfig.rootPath,
       headerIdMap: this.headerIdMap,
       fixedHeader: this.fixedHeader,
+      style: this.pageConfig.style,
     };
     const pageSources = new PageSources();
     const componentPreprocessor = new ComponentPreprocessor(fileConfig, this.pageConfig.variableProcessor,
@@ -928,7 +921,6 @@ class Page {
 
         this.collectAllPageSections();
         this.buildPageNav();
-        this.applyCodeTheme();
 
         const renderedTemplate = this.pageConfig.template.render(this.prepareTemplateData());
         const outputTemplateHTML = this.pageConfig.disableHtmlBeautify

@@ -101,6 +101,28 @@ class ComponentParser {
   }
 
   /*
+   * Fenced Code Blocks
+   */
+
+  /**
+   * Adds theme-specific line-highlighting style to the highlighted lines in the code block
+   * that have the 'highlighted' class.
+   * @param node The code block node
+   */
+  _addLineHighlightStyle(node) {
+    if (!node.attribs || !_.has(node.attribs, 'class') || node.attribs.class.search('hljs') === -1) {
+      return;
+    }
+
+    const style = this.config.style.codeTheme;
+    node.children.forEach((line) => {
+      if (line.attribs && _.has(line.attribs, 'class') && line.attribs.class.search('highlighted') !== -1) {
+        line.attribs.class = `${line.attribs.class} highlighted-${style}`;
+      }
+    });
+  }
+
+  /*
    * Panels
    */
 
@@ -605,6 +627,14 @@ class ComponentParser {
     }
 
     ComponentParser.postParseComponents(node);
+
+    switch (node.name) {
+    case 'code':
+      this._addLineHighlightStyle(node);
+      break;
+    default:
+      break;
+    }
 
     // If a fixed header is applied to the page, generate dummy spans as anchor points
     if (this.config.fixedHeader && isHeadingTag && node.attribs.id) {
