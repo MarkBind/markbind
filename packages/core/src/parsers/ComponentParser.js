@@ -114,7 +114,7 @@ class ComponentParser {
       return;
     }
 
-    const style = this.config.style.codeTheme;
+    const style = this.config.style.codeTheme || 'dark';
     node.children.forEach((line) => {
       if (line.attribs && _.has(line.attribs, 'class') && line.attribs.class.search('highlighted') !== -1) {
         line.attribs.class = `${line.attribs.class} highlighted-${style}`;

@@ -1197,6 +1197,7 @@ class Page {
         baseUrl: this.pageConfig.baseUrl,
         rootPath: this.pageConfig.rootPath,
         headerIdMap: {},
+        style: this.pageConfig.style,
       };
       const pageSources = new PageSources();
       const componentPreprocessor = new ComponentPreprocessor(fileConfig, this.pageConfig.variableProcessor,

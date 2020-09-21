@@ -265,7 +265,7 @@ class Site {
   createPage(config) {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
     const resultPath = path.join(this.outputPath, Site.setExtension(config.pageSrc, '.html'));
-    const codeTheme = this.siteConfig.style.codeTheme === 'light' ? 'light' : 'dark';
+    const codeTheme = this.siteConfig.style.codeTheme || 'dark';
     const pageConfig = new PageConfig({
       asset: {
         bootstrap: path.relative(path.dirname(resultPath),
