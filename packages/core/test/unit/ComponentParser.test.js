@@ -112,9 +112,6 @@ test('parseComponent parses box attributes and inserts into dom as slots correct
 });
 
 test('postParseComponent assigns the correct header id to panels', () => {
-  parseAndVerifyTemplate(testData.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_ATTRIBUTE,
-                         testData.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_ATTRIBUTE_EXPECTED,
-                         true);
   parseAndVerifyTemplate(testData.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_SLOT,
                          testData.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_SLOT_EXPECTED,
                          true);

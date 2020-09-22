@@ -315,7 +315,7 @@ class Page {
       }
 
       // Check if heading / panel is under a panel's header slots, which is handled specially below.
-      const slotParents = $(elem).parentsUntil(context).filter('[slot="header"], [slot="_header"]').not(elem);
+      const slotParents = $(elem).parentsUntil(context).filter('[slot="header"]').not(elem);
       const panelSlotParents = slotParents.parent('panel');
       if (panelSlotParents.length) {
         return;
@@ -323,8 +323,7 @@ class Page {
 
       if (elem.name === 'panel') {
         // Recurse only on the slot which has priority
-        let headings = $(elem).children('[slot="header"]');
-        headings = headings.length ? headings : $(elem).children('[slot="_header"]');
+        const headings = $(elem).children('[slot="header"]');
         if (!headings.length) return;
 
         this._collectNavigableHeadings($, headings.first(), pageNavSelector);
@@ -363,12 +362,6 @@ class Page {
         if (slotHeader.length) {
           this.collectHeadingsAndKeywordsInContent(slotHeader.html(),
                                                    lastHeading, excludeHeadings, sourceTraversalStack);
-        } else {
-          const headerAttr = $(panel).children('[slot="_header"]');
-          if (headerAttr.length) {
-            this.collectHeadingsAndKeywordsInContent(headerAttr.html(),
-                                                     lastHeading, excludeHeadings, sourceTraversalStack);
-          }
         }
       })
       .each((index, panel) => {
@@ -380,12 +373,8 @@ class Page {
         const slotHeadings = $(panel).children('[slot="header"]').find(':header');
         if (slotHeadings.length) {
           closestHeading = slotHeadings.first();
-        } else {
-          const attributeHeadings = $(panel).children('[slot="_header"]').find(':header');
-          if (attributeHeadings.length) {
-            closestHeading = attributeHeadings.first();
-          }
         }
+
         if (panel.attribs.src) {
           const src = panel.attribs.src.split('#')[0];
           const buildInnerDir = path.dirname(this.pageConfig.sourcePath);

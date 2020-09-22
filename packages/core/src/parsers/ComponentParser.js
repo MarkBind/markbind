@@ -106,18 +106,7 @@ class ComponentParser {
 
   static _parsePanelAttributes(node) {
     ComponentParser._parseAttributeWithoutOverride(node, 'alt', false, '_alt');
-
-    const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
-    const hasAltSlot = slotChildren && slotChildren.some(child => child.attribs.slot === '_alt');
-    const hasHeaderSlot = slotChildren && slotChildren.some(child => child.attribs.slot === 'header');
-
-    // If both are present, the header attribute has no effect, and we can simply remove it.
-    if (hasAltSlot && hasHeaderSlot) {
-      delete node.attribs.header;
-      return;
-    }
-
-    ComponentParser._parseAttributeWithoutOverride(node, 'header', false, '_header');
+    ComponentParser._parseAttributeWithoutOverride(node, 'header', false);
   }
 
   /**
@@ -155,11 +144,9 @@ class ComponentParser {
   static _assignPanelId(node) {
     const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
     const headerSlot = slotChildren.find(child => child.attribs.slot === 'header');
-    const headerAttributeSlot = slotChildren.find(child => child.attribs.slot === '_header');
 
-    const slotElement = headerSlot || headerAttributeSlot;
-    if (slotElement) {
-      const header = ComponentParser._findHeaderElement(slotElement);
+    if (headerSlot) {
+      const header = ComponentParser._findHeaderElement(headerSlot);
       if (!header) {
         return;
       }
