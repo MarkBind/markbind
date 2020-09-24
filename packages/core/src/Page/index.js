@@ -927,6 +927,7 @@ class Page {
         return Promise.all(resolvingFiles);
       })
       .then(() => {
+        this.collectHeadingsAndKeywords();
         this.collectIncludedFiles(pageSources.getDynamicIncludeSrc());
         this.collectIncludedFiles(pageSources.getStaticIncludeSrc());
         this.collectIncludedFiles(pageSources.getMissingIncludeSrc());

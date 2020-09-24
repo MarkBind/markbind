@@ -633,7 +633,7 @@ class Site {
         .then(() => this.copyFontAwesomeAsset())
         .then(() => this.copyOcticonsAsset())
         .then(() => this.copyLayouts())
-        .then(() => this.updateSiteData(this.onePagePath ? [this.onePagePath] : undefined))
+        .then(() => this.writeSiteData())
         .then(() => {
           const endTime = new Date();
           const totalBuildTime = (endTime - startTime) / 1000;
@@ -755,11 +755,7 @@ class Site {
 
         this.toRebuild.delete(normalizedUrl);
         pageToRebuild.generate(new Set())
-          .then(() => {
-            pageToRebuild.collectHeadingsAndKeywords();
-
-            return this.writeSiteData();
-          })
+          .then(() => this.writeSiteData())
           .then(() => {
             const endTime = new Date();
             const totalBuildTime = (endTime - startTime) / 1000;
@@ -1152,12 +1148,7 @@ class Site {
     logger.info(`Rebuilding ${pagesToRegenerate.length} pages`);
 
     return Site.generatePagesThrottled(pagesToRegenerate)
-      .then(() => {
-        // For lazy loading, we defer updating site data pages not being viewed,
-        // even if all pages should be rebuilt, until they are navigated to.
-        const shouldUpdateAllSiteData = shouldRebuildAllPages && !this.onePagePath;
-        return this.updateSiteData(shouldUpdateAllSiteData ? undefined : filePaths);
-      })
+      .then(() => this.writeSiteData())
       .then(() => logger.info('Pages rebuilt'))
       .then(() => {
         const endTime = new Date();
@@ -1168,22 +1159,6 @@ class Site {
               + 'Have you considered using markbind serve -o when writing content to speed things up?');
         }
       });
-  }
-
-  /**
-   * Uses heading data in built pages to generate heading and keyword information for siteData
-   * Subsequently writes to siteData.json
-   * @param {Array<string>} filePaths optional array of updated file paths during live preview.
-   *                        If undefined, generate site data for all pages
-   */
-  updateSiteData(filePaths) {
-    const generateForAllPages = filePaths === undefined;
-    this.pages.forEach((page) => {
-      if (generateForAllPages || filePaths.some(filePath => page.isDependency(filePath))) {
-        page.collectHeadingsAndKeywords();
-      }
-    });
-    this.writeSiteData();
   }
 
   /**
@@ -1277,14 +1252,14 @@ class Site {
   }
 
   /**
-   * Writes the site data to a file
+   * Writes the site data to siteData.json
    */
   writeSiteData() {
     return new Promise((resolve, reject) => {
       const siteDataPath = path.join(this.outputPath, SITE_DATA_NAME);
       const siteData = {
         enableSearch: this.siteConfig.enableSearch,
-        pages: this.pages.filter(page => page.pageConfig.searchable)
+        pages: this.pages.filter(page => page.pageConfig.searchable && page.headings)
           .map(page => ({
             src: page.pageConfig.src,
             title: page.title,
