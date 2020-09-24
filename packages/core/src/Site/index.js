@@ -159,14 +159,11 @@ class Site {
    * Util Methods
    */
 
-  static rejectHandler(reject, error, removeFolders) {
+  static rejectHandler(error, removeFolders) {
     logger.warn(error);
-    Promise.all(removeFolders.map(folder => fs.remove(folder)))
-      .then(() => {
-        reject(error);
-      })
+    return Promise.all(removeFolders.map(folder => fs.remove(folder)))
       .catch((err) => {
-        reject(new Error(`${error.message}\n${err.message}`));
+        logger.error(`Failed to remove generated files after error!\n${err.message}`);
       });
   }
 
@@ -618,38 +615,34 @@ class Site {
     const lazyWebsiteGenerationString = this.onePagePath ? '(lazy) ' : '';
     logger.info(`Website generation ${lazyWebsiteGenerationString}started at ${
       startTime.toLocaleTimeString()}`);
-    return new Promise((resolve, reject) => {
-      this.readSiteConfig(baseUrl)
-        .then(() => this.collectAddressablePages())
-        .then(() => this.collectBaseUrl())
-        .then(() => this.collectUserDefinedVariablesMap())
-        .then(() => this.collectPlugins())
-        .then(() => this.collectPluginSiteHooks())
-        .then(() => this.collectPluginSpecialTags())
-        .then(() => this.buildAssets())
-        .then(() => (this.onePagePath ? this.lazyBuildSourceFiles() : this.buildSourceFiles()))
-        .then(() => this.copyCoreWebAsset())
-        .then(() => this.copyBootswatchTheme())
-        .then(() => this.copyFontAwesomeAsset())
-        .then(() => this.copyOcticonsAsset())
-        .then(() => this.copyLayouts())
-        .then(() => this.writeSiteData())
-        .then(() => {
-          const endTime = new Date();
-          const totalBuildTime = (endTime - startTime) / 1000;
-          logger.info(`Website generation ${lazyWebsiteGenerationString}complete! Total build time: ${
-            totalBuildTime}s`);
 
-          if (!this.onePagePath && totalBuildTime > LAZY_LOADING_BUILD_TIME_RECOMMENDATION_LIMIT) {
-            logger.info('Your site took quite a while to build...'
+    return this.readSiteConfig(baseUrl)
+      .then(() => this.collectAddressablePages())
+      .then(() => this.collectBaseUrl())
+      .then(() => this.collectUserDefinedVariablesMap())
+      .then(() => this.collectPlugins())
+      .then(() => this.collectPluginSiteHooks())
+      .then(() => this.collectPluginSpecialTags())
+      .then(() => this.buildAssets())
+      .then(() => (this.onePagePath ? this.lazyBuildSourceFiles() : this.buildSourceFiles()))
+      .then(() => this.copyCoreWebAsset())
+      .then(() => this.copyBootswatchTheme())
+      .then(() => this.copyFontAwesomeAsset())
+      .then(() => this.copyOcticonsAsset())
+      .then(() => this.copyLayouts())
+      .then(() => this.writeSiteData())
+      .then(() => {
+        const endTime = new Date();
+        const totalBuildTime = (endTime - startTime) / 1000;
+        logger.info(`Website generation ${lazyWebsiteGenerationString}complete! Total build time: ${
+          totalBuildTime}s`);
+
+        if (!this.onePagePath && totalBuildTime > LAZY_LOADING_BUILD_TIME_RECOMMENDATION_LIMIT) {
+          logger.info('Your site took quite a while to build...'
               + 'Have you considered using markbind serve -o when writing content to speed things up?');
-          }
-        })
-        .then(resolve)
-        .catch((error) => {
-          Site.rejectHandler(reject, error, [this.tempPath, this.outputPath]);
-        });
-    });
+        }
+      })
+      .catch(error => Site.rejectHandler(error, [this.tempPath, this.outputPath]));
   }
 
   /**
@@ -657,18 +650,12 @@ class Site {
    */
   buildSourceFiles() {
     this.runBeforeSiteGenerateHooks();
+    logger.info('Generating pages...');
 
-    return new Promise((resolve, reject) => {
-      logger.info('Generating pages...');
-      this.generatePages()
-        .then(() => fs.remove(this.tempPath))
-        .then(() => logger.info('Pages built'))
-        .then(resolve)
-        .catch((error) => {
-          // if error, remove the site and temp folders
-          Site.rejectHandler(reject, error, [this.tempPath, this.outputPath]);
-        });
-    });
+    return this.generatePages()
+      .then(() => fs.remove(this.tempPath))
+      .then(() => logger.info('Pages built'))
+      .catch(error => Site.rejectHandler(error, [this.tempPath, this.outputPath]));
   }
 
   /**
@@ -690,25 +677,19 @@ class Site {
    */
   lazyBuildSourceFiles() {
     this.runBeforeSiteGenerateHooks();
+    logger.info('Generating landing page...');
 
-    return new Promise((resolve, reject) => {
-      logger.info('Generating landing page...');
-      this.generateLandingPage()
-        .then(() => {
-          const lazyLoadingSpinnerHtmlFilePath = path.join(__dirname, LAZY_LOADING_SITE_FILE_NAME);
-          const outputSpinnerHtmlFilePath = path.join(this.outputPath, LAZY_LOADING_SITE_FILE_NAME);
+    return this.generateLandingPage()
+      .then(() => {
+        const lazyLoadingSpinnerHtmlFilePath = path.join(__dirname, LAZY_LOADING_SITE_FILE_NAME);
+        const outputSpinnerHtmlFilePath = path.join(this.outputPath, LAZY_LOADING_SITE_FILE_NAME);
 
-          return fs.copy(lazyLoadingSpinnerHtmlFilePath, outputSpinnerHtmlFilePath);
-        })
-        .then(() => fs.remove(this.tempPath))
-        .then(() => this.lazyBuildAllPagesNotViewed())
-        .then(() => logger.info('Landing page built, other pages will be built as you navigate to them!'))
-        .then(resolve)
-        .catch((error) => {
-          // if error, remove the site and temp folders
-          Site.rejectHandler(reject, error, [this.tempPath, this.outputPath]);
-        });
-    });
+        return fs.copy(lazyLoadingSpinnerHtmlFilePath, outputSpinnerHtmlFilePath);
+      })
+      .then(() => fs.remove(this.tempPath))
+      .then(() => this.lazyBuildAllPagesNotViewed())
+      .then(() => logger.info('Landing page built, other pages will be built as you navigate to them!'))
+      .catch(error => Site.rejectHandler(error, [this.tempPath, this.outputPath]));
   }
 
   _rebuildAffectedSourceFiles(filePaths) {
@@ -716,16 +697,10 @@ class Site {
     const uniquePaths = _.uniq(filePathArray);
     this.runBeforeSiteGenerateHooks();
 
-    return new Promise((resolve, reject) => {
-      this.regenerateAffectedPages(uniquePaths)
-        .then(() => fs.remove(this.tempPath))
-        .then(() => this.copyLayouts())
-        .then(resolve)
-        .catch((error) => {
-          // if error, remove the site and temp folders
-          Site.rejectHandler(reject, error, [this.tempPath, this.outputPath]);
-        });
-    });
+    return this.regenerateAffectedPages(uniquePaths)
+      .then(() => fs.remove(this.tempPath))
+      .then(() => this.copyLayouts())
+      .catch(error => Site.rejectHandler(error, [this.tempPath, this.outputPath]));
   }
 
   _rebuildPageBeingViewed(normalizedUrls) {
@@ -741,33 +716,25 @@ class Site {
      to trigger multiple page builds before the first one has finished building,
      hence we need to take this into account.
      */
-    const regeneratePagesBeingViewed = uniqueUrls.map(normalizedUrl =>
-      new Promise((resolve, reject) => {
-        this._setTimestampVariable();
-        const pageToRebuild = this.pages.find(page =>
-          FsUtil.removeExtension(page.pageConfig.sourcePath) === normalizedUrl);
+    const regeneratePagesBeingViewed = uniqueUrls.map((normalizedUrl) => {
+      this._setTimestampVariable();
+      const pageToRebuild = this.pages.find(page =>
+        FsUtil.removeExtension(page.pageConfig.sourcePath) === normalizedUrl);
 
-        if (!pageToRebuild) {
-          Site.rejectHandler(reject,
-                             new Error(`Failed to rebuild ${normalizedUrl} during lazy loading`),
-                             [this.tempPath, this.outputPath]);
-        }
+      if (!pageToRebuild) {
+        return Promise.resolve();
+      }
 
-        this.toRebuild.delete(normalizedUrl);
-        pageToRebuild.generate({})
-          .then(() => this.writeSiteData())
-          .then(() => {
-            const endTime = new Date();
-            const totalBuildTime = (endTime - startTime) / 1000;
-            logger.info(`Lazy website regeneration complete! Total build time: ${totalBuildTime}s`);
-          })
-          .then(resolve)
-          .catch((error) => {
-            logger.error(error);
-            reject(new Error(`Failed to rebuild ${normalizedUrl} during lazy loading`));
-          });
-      }),
-    );
+      this.toRebuild.delete(normalizedUrl);
+      return pageToRebuild.generate({})
+        .then(() => this.writeSiteData())
+        .then(() => {
+          const endTime = new Date();
+          const totalBuildTime = (endTime - startTime) / 1000;
+          logger.info(`Lazy website regeneration complete! Total build time: ${totalBuildTime}s`);
+        })
+        .catch(error => Site.rejectHandler(error, [this.tempPath, this.outputPath]));
+    });
 
     return Promise.all(regeneratePagesBeingViewed)
       .then(() => fs.remove(this.tempPath));
@@ -775,27 +742,21 @@ class Site {
 
   _rebuildSourceFiles() {
     logger.info('Page added or removed, updating list of site\'s pages...');
-    return new Promise((resolve, reject) => {
-      Promise.resolve('')
-        .then(() => this.updateAddressablePages())
-        .then(filesToRemove => this.removeAsset(filesToRemove))
-        .then(() => {
-          if (this.onePagePath) {
-            this.mapAddressablePagesToPages(this.addressablePages || [], this.getFavIconUrl());
+    const removedPageFilePaths = this.updateAddressablePages();
 
-            return this.rebuildPageBeingViewed(this.currentPageViewed)
-              .then(() => this.lazyBuildAllPagesNotViewed());
-          }
+    return this.removeAsset(removedPageFilePaths)
+      .then(() => {
+        if (this.onePagePath) {
+          this.mapAddressablePagesToPages(this.addressablePages || [], this.getFavIconUrl());
 
-          logger.warn('Rebuilding all pages...');
-          return this.buildSourceFiles();
-        })
-        .then(resolve)
-        .catch((error) => {
-          // if error, remove the site and temp folders
-          Site.rejectHandler(reject, error, [this.tempPath, this.outputPath]);
-        });
-    });
+          return this.rebuildPageBeingViewed(this.currentPageViewed)
+            .then(() => this.lazyBuildAllPagesNotViewed());
+        }
+
+        logger.warn('Rebuilding all pages...');
+        return this.buildSourceFiles();
+      })
+      .catch(error => Site.rejectHandler(error, [this.tempPath, this.outputPath]));
   }
 
   _buildMultipleAssets(filePaths) {
@@ -822,22 +783,18 @@ class Site {
 
   buildAssets() {
     logger.info('Building assets...');
-    return new Promise((resolve, reject) => {
-      const outputFolder = path.relative(this.rootPath, this.outputPath);
-      const fileIgnore = ignore().add([...this.siteConfig.ignore, outputFolder]);
-      // Scan and copy assets (excluding ignore files).
-      this.listAssets(fileIgnore)
-        .then(assets =>
-          assets.map(asset =>
-            fs.copy(path.join(this.rootPath, asset), path.join(this.outputPath, asset))),
-        )
-        .then(copyAssets => Promise.all(copyAssets))
-        .then(() => logger.info('Assets built'))
-        .then(resolve)
-        .catch((error) => {
-          Site.rejectHandler(reject, error, []); // assets won't affect deletion
-        });
-    });
+    const outputFolder = path.relative(this.rootPath, this.outputPath);
+    const fileIgnore = ignore().add([...this.siteConfig.ignore, outputFolder]);
+
+    // Scan and copy assets (excluding ignore files).
+    return this.listAssets(fileIgnore)
+      .then(assets =>
+        assets.map(asset =>
+          fs.copy(path.join(this.rootPath, asset), path.join(this.outputPath, asset))),
+      )
+      .then(copyAssets => Promise.all(copyAssets))
+      .then(() => logger.info('Assets built'))
+      .catch(error => Site.rejectHandler(error, [])); // assets won't affect deletion
   }
 
   /**
@@ -1158,7 +1115,8 @@ class Site {
           logger.info('Your pages took quite a while to rebuild...'
               + 'Have you considered using markbind serve -o when writing content to speed things up?');
         }
-      });
+      })
+      .catch(error => Site.rejectHandler(error, []));
   }
 
   /**
@@ -1255,26 +1213,21 @@ class Site {
    * Writes the site data to siteData.json
    */
   writeSiteData() {
-    return new Promise((resolve, reject) => {
-      const siteDataPath = path.join(this.outputPath, SITE_DATA_NAME);
-      const siteData = {
-        enableSearch: this.siteConfig.enableSearch,
-        pages: this.pages.filter(page => page.pageConfig.searchable && page.headings)
-          .map(page => ({
-            src: page.pageConfig.src,
-            title: page.title,
-            headings: page.headings,
-            headingKeywords: page.keywords,
-          })),
-      };
+    const siteDataPath = path.join(this.outputPath, SITE_DATA_NAME);
+    const siteData = {
+      enableSearch: this.siteConfig.enableSearch,
+      pages: this.pages.filter(page => page.pageConfig.searchable && page.headings)
+        .map(page => ({
+          src: page.pageConfig.src,
+          title: page.title,
+          headings: page.headings,
+          headingKeywords: page.keywords,
+        })),
+    };
 
-      fs.outputJson(siteDataPath, siteData, { spaces: 2 })
-        .then(() => logger.info('Site data built'))
-        .then(resolve)
-        .catch((error) => {
-          Site.rejectHandler(reject, error, [this.tempPath, this.outputPath]);
-        });
-    });
+    return fs.outputJson(siteDataPath, siteData, { spaces: 2 })
+      .then(() => logger.info('Site data built'))
+      .catch(error => Site.rejectHandler(error, [this.tempPath, this.outputPath]));
   }
 
   deploy(travisTokenVar) {
