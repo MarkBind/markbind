@@ -754,7 +754,7 @@ class Site {
         }
 
         this.toRebuild.delete(normalizedUrl);
-        pageToRebuild.generate(new Set())
+        pageToRebuild.generate({})
           .then(() => this.writeSiteData())
           .then(() => {
             const endTime = new Date();
@@ -1043,7 +1043,7 @@ class Site {
    * @return {Promise} that resolves once all pages have generated
    */
   static generatePagesThrottled(pages) {
-    const builtFiles = new Set();
+    const builtFiles = {};
 
     const progressBar = new ProgressBar(`[:bar] :current / ${pages.length} pages built`,
                                         { total: pages.length });
@@ -1110,7 +1110,7 @@ class Site {
       return Promise.reject(new Error(`${this.onePagePath} is not specified in the site configuration.`));
     }
 
-    return landingPage.generate(new Set());
+    return landingPage.generate({});
   }
 
   regenerateAffectedPages(filePaths) {

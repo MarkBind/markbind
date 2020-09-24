@@ -927,10 +927,10 @@ class Page {
         return Promise.all(resolvingFiles);
       })
       .then(() => {
-        this.collectHeadingsAndKeywords();
         this.collectIncludedFiles(pageSources.getDynamicIncludeSrc());
         this.collectIncludedFiles(pageSources.getStaticIncludeSrc());
         this.collectIncludedFiles(pageSources.getMissingIncludeSrc());
+        this.collectHeadingsAndKeywords();
       });
   }
 
@@ -1164,19 +1164,17 @@ class Page {
    * Pre-render an external dynamic dependency
    * Does not pre-render if file is already pre-rendered by another page during site generation
    * @param dependency a map of the external dependency and where it is included
-   * @param builtFiles set of files already pre-rendered by another page
+   * @param {Object<string, Promise>} builtFiles map of dynamic dependencies' filepaths
+   *                                  to its generation promises
    */
   resolveDependency(dependency, builtFiles) {
     const file = dependency.asIfTo;
-    return new Promise((resolve, reject) => {
-      const resultDir = path.dirname(path.resolve(this.pageConfig.resultPath,
-                                                  path.relative(this.pageConfig.sourcePath, file)));
-      const resultPath = path.join(resultDir, FsUtil.setExtension(path.basename(file), '._include_.html'));
-      if (builtFiles.has(resultPath)) {
-        return resolve();
-      }
-      builtFiles.add(resultPath);
+    const resultDir = path.dirname(path.resolve(this.pageConfig.resultPath,
+                                                path.relative(this.pageConfig.sourcePath, file)));
+    const resultPath = path.join(resultDir, FsUtil.setExtension(path.basename(file), '._include_.html'));
 
+    // Return existing generation promise if any, otherwise create a new one
+    builtFiles[resultPath] = builtFiles[resultPath] || new Promise((resolve, reject) => {
       /**
        * @type {FileConfig}
        */
@@ -1225,6 +1223,8 @@ class Page {
         .then(resolve)
         .catch(reject);
     });
+
+    return builtFiles[resultPath];
   }
 
   static addContentWrapper(pageData) {
