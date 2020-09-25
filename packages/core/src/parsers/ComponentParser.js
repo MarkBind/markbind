@@ -544,17 +544,12 @@ class ComponentParser {
 
   static convertMdExtToHtmlExt(node) {
     if (node.attribs && node.attribs.href) {
-      // console.log(JSON.stringify(node.attribs) + '\n');
-      // console.log('before: ' + node.attribs.href + '\n');
       const { href } = node.attribs;
       const hasMdExtension = href && href.slice(-3) === '.md';
-      // console.log('hasMdExtension: ' + hasMdExtension);
       const hasNoConvert = _.has(node.attribs, 'no-convert');
       if (hasMdExtension && !hasNoConvert) {
         const newHref = `${href.substring(0, href.length - 3)}.html`;
-        console.log('before: ' + node.attribs.href + '\n');
         node.attribs.href = newHref;
-        console.log('after: ' + node.attribs.href + '\n\n\n');
       }
     }
   }
