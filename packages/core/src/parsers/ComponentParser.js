@@ -8,7 +8,7 @@ _.isArray = require('lodash/isArray');
 _.cloneDeep = require('lodash/cloneDeep');
 _.has = require('lodash/has');
 
-const { convertRelativeLinks } = require('./linkProcessor');
+const { convertRelativeLinks, convertMdExtToHtmlExt } = require('./linkProcessor');
 
 const md = require('../lib/markdown-it');
 const utils = require('../utils');
@@ -542,18 +542,6 @@ class ComponentParser {
     }
   }
 
-  static convertMdExtToHtmlExt(node) {
-    if (node.attribs && node.attribs.href) {
-      const { href } = node.attribs;
-      const hasMdExtension = href && href.slice(-3) === '.md';
-      const hasNoConvert = _.has(node.attribs, 'no-convert');
-      if (hasMdExtension && !hasNoConvert) {
-        const newHref = `${href.substring(0, href.length - 3)}.html`;
-        node.attribs.href = newHref;
-      }
-    }
-  }
-
   _parse(node, context) {
     if (_.isArray(node)) {
       return node.map(el => this._parse(el, context));
@@ -573,7 +561,7 @@ class ComponentParser {
       context.cwf = node.attribs['data-included-from'];
     }
     convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);
-    ComponentParser.convertMdExtToHtmlExt(node);
+    convertMdExtToHtmlExt(node);
 
     const isHeadingTag = (/^h[1-6]$/).test(node.name);
 

@@ -1,5 +1,5 @@
 const path = require('path');
-
+const lodashHas = require('lodash/has');
 const utils = require('../utils');
 
 const defaultTagLinkMap = {
@@ -45,6 +45,19 @@ function convertRelativeLinks(node, cwf, rootPath, baseUrl) {
   node.attribs[linkAttribName] = path.posix.join(baseUrl || '/', resourcePathFromRoot);
 }
 
+function convertMdExtToHtmlExt(node) {
+  if (node.attribs && node.attribs.href) {
+    const { href } = node.attribs;
+    const hasMdExtension = href && href.slice(-3) === '.md';
+    const hasNoConvert = lodashHas(node.attribs, 'no-convert');
+    if (hasMdExtension && !hasNoConvert) {
+      const newHref = `${href.substring(0, href.length - 3)}.html`;
+      node.attribs.href = newHref;
+    }
+  }
+}
+
 module.exports = {
   convertRelativeLinks,
+  convertMdExtToHtmlExt,
 };
