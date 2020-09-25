@@ -542,6 +542,23 @@ class ComponentParser {
     }
   }
 
+  static convertMdExtToHtmlExt(node) {
+    if (node.attribs && node.attribs.href) {
+      // console.log(JSON.stringify(node.attribs) + '\n');
+      // console.log('before: ' + node.attribs.href + '\n');
+      const { href } = node.attribs;
+      const hasMdExtension = href && href.slice(-3) === '.md';
+      // console.log('hasMdExtension: ' + hasMdExtension);
+      const hasNoConvert = _.has(node.attribs, 'no-convert');
+      if (hasMdExtension && !hasNoConvert) {
+        const newHref = `${href.substring(0, href.length - 3)}.html`;
+        console.log('before: ' + node.attribs.href + '\n');
+        node.attribs.href = newHref;
+        console.log('after: ' + node.attribs.href + '\n\n\n');
+      }
+    }
+  }
+
   _parse(node, context) {
     if (_.isArray(node)) {
       return node.map(el => this._parse(el, context));
@@ -560,8 +577,8 @@ class ComponentParser {
       context = _.cloneDeep(context);
       context.cwf = node.attribs['data-included-from'];
     }
-
     convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);
+    ComponentParser.convertMdExtToHtmlExt(node);
 
     const isHeadingTag = (/^h[1-6]$/).test(node.name);
 
@@ -614,20 +631,6 @@ class ComponentParser {
     return node;
   }
 
-  static convertMdExtToHtmlExt(renderedContent) {
-    const $ = cheerio.load(renderedContent);
-    $('a').toArray().forEach((element) => {
-      const href = $(element).attr('href');
-      const hasMdExtension = href && href.slice(-3) === '.md';
-      const hasNoConvert = $(element).attr('no-convert');
-      if (hasMdExtension && !hasNoConvert) {
-        const newHref = `${href.substring(0, href.length - 3)}.html`;
-        $(element).attr('href', newHref);
-      }
-    });
-    return $.html();
-  }
-
   render(file, content, cwf = file) {
     const context = {};
     context.cwf = cwf; // current working file
@@ -656,8 +659,7 @@ class ComponentParser {
       const parser = new htmlparser.Parser(handler);
       const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
-        let renderedContent = md.render(content);
-        renderedContent = ComponentParser.convertMdExtToHtmlExt(renderedContent);
+        const renderedContent = md.render(content);
         parser.parseComplete(renderedContent);
       } else if (fileExt === 'html') {
         parser.parseComplete(content);
