@@ -23,6 +23,12 @@ function insertCss(cssCode) {
 }
 
 function setupAnchorsForFixedNavbar() {
+  jQuery(':header').each((index, heading) => {
+    if (heading.id) {
+      jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
+    }
+  });
+
   const headerSelector = jQuery('header[fixed]');
   const isFixed = headerSelector.length !== 0;
   if (!isFixed) {
@@ -45,11 +51,6 @@ function setupAnchorsForFixedNavbar() {
         margin-top: calc(-${headerHeight}px - ${bufferHeight}rem);
         height: calc(${headerHeight}px + ${bufferHeight}rem);
       }`);
-  jQuery('h1, h2, h3, h4, h5, h6, .header-wrapper').each((index, heading) => {
-    if (heading.id) {
-      jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
-    }
-  });
 }
 
 function updateSearchData(vm) {

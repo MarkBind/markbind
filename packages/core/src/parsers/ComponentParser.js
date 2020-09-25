@@ -594,8 +594,8 @@ class ComponentParser {
     ComponentParser.postParseComponents(node);
 
     // If a fixed header is applied to the page, generate dummy spans as anchor points
-    if (this.config.fixedHeader && isHeadingTag && node.attribs.id) {
-      cheerio(node).append(cheerio.parseHTML(`<span id="${node.attribs.id}" class="anchor"></span>`));
+    if (isHeadingTag && node.attribs.id) {
+      cheerio(node).prepend(`<span id="${node.attribs.id}" class="anchor"></span>`);
     }
 
     return node;
