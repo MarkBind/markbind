@@ -148,11 +148,6 @@ class Page {
      */
     this.layout = this.pageConfig.layout;
     /**
-     * Flag to indicate whether a fixed header is enabled, as detected in {@link insertHeaderFile}.
-     * @type {boolean}
-     */
-    this.fixedHeader = false;
-    /**
      * Footer file path for the page, or false if none.
      * The footer may be from a layout, or from the _markbind/footers directory.
      * @type {string | boolean}
@@ -559,22 +554,13 @@ class Page {
    * Inserts the page layout's header to the start of the page
    * Determines if a fixed header is present, update the page config accordingly
    * @param pageData a page with its front matter collected
-   * @param {FileConfig} fileConfig
    */
-  insertHeaderFile(pageData, fileConfig) {
+  insertHeaderFile(pageData) {
     if (!this.header || !fs.existsSync(this.header)) {
       return pageData;
     }
     // Retrieve Markdown file contents
     const headerContent = fs.readFileSync(this.header, 'utf8');
-    // Decide if fixed header is applied
-    const headerSelector = cheerio.load(headerContent)('header');
-    if (headerSelector.length >= 1
-        && headerSelector[0].attribs.fixed !== undefined) {
-      this.fixedHeader = true;
-      fileConfig.fixedHeader = true;
-    }
-    // Set header file as an includedFile
     this.includedFiles.add(this.header);
 
     const renderedHeader = this.pageConfig.variableProcessor.renderSiteVariables(this.pageConfig.sourcePath,
@@ -858,7 +844,6 @@ class Page {
    * @property {string} rootPath
    * @property {VariableProcessor} variableProcessor
    * @property {Object<string, number>} headerIdMap
-   * @property {boolean} fixedHeader indicates whether the header of the page is fixed
    */
 
   generate(builtFiles) {
@@ -872,7 +857,6 @@ class Page {
       baseUrl: this.pageConfig.baseUrl,
       rootPath: this.pageConfig.rootPath,
       headerIdMap: this.headerIdMap,
-      fixedHeader: this.fixedHeader,
     };
     const pageSources = new PageSources();
     const componentPreprocessor = new ComponentPreprocessor(fileConfig, this.pageConfig.variableProcessor,
@@ -894,7 +878,7 @@ class Page {
       .then(result => this.collectPluginSources(result))
       .then(result => this.preRender(result))
       .then(result => this.insertSiteNav((result)))
-      .then(result => this.insertHeaderFile(result, fileConfig))
+      .then(result => this.insertHeaderFile(result))
       .then(result => this.insertFooterFile(result))
       .then(result => Page.insertTemporaryStyles(result))
       .then(result => componentParser.render(this.pageConfig.sourcePath, result))
