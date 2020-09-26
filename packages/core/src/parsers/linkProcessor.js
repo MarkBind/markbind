@@ -46,9 +46,9 @@ function convertRelativeLinks(node, cwf, rootPath, baseUrl) {
 }
 
 function convertMdExtToHtmlExt(node) {
-  if (node.attribs && node.attribs.href) {
+  if (node.name === 'a' && node.attribs && node.attribs.href) {
     const { href } = node.attribs;
-    const hasMdExtension = href && href.slice(-3) === '.md';
+    const hasMdExtension = href.slice(-3) === '.md';
     const hasNoConvert = lodashHas(node.attribs, 'no-convert');
     if (hasMdExtension && !hasNoConvert) {
       const newHref = `${href.substring(0, href.length - 3)}.html`;
