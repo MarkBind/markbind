@@ -38,13 +38,23 @@
 
 {{ included_variable_with_global_variable }}
 
-{% set included_variable = "Inner variable overridden by set" %}
-{% set global_variable = "Global variable overridden by set" %}
+{% set included_variable = "Set should be overridden by include variable - This should not appear" %}
+{% set global_variable = "Set should be overridden by global variable - This should not appear" %}
 
-**Test included variable overridden by set**
+**Test nunjucks set overridden by include variable and global variable**
 
 {{ included_variable }}
 {{ global_variable }}
+
+{% from "testIncludeVariablesIncludedFile.md" import included_variable, global_variable %}
+
+**Test nunjucks import overridden by include variable and global variable**
+
+{{ included_variable }}
+{{ global_variable }}
+
+
+{% include "testIncludeVariablesInner.md" %}
 
 **Test missing variable with default**
 
