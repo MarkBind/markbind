@@ -1313,16 +1313,17 @@ class Site {
       if (!remoteUrl) {
         return null;
       }
+      const parts = remoteUrl.split('/');
       if (remoteUrl.startsWith(HTTPS_PREAMBLE)) {
         // https://github.com/<name|org>/<repo>.git (HTTPS)
-        const parts = remoteUrl.split('/');
-        const repoName = parts[parts.length - 1].toLowerCase();
+        const repoNameWithExt = parts[parts.length - 1];
+        const repoName = repoNameWithExt.substring(0, repoNameWithExt.lastIndexOf('.'));
         const name = parts[parts.length - 2].toLowerCase();
         return `https://${name}.${GITHUB_IO_PART}/${repoName}`;
       } else if (remoteUrl.startsWith(SSH_PREAMBLE)) {
         // git@github.com:<name|org>/<repo>.git (SSH)
-        const parts = remoteUrl.split('/');
-        const repoName = parts[parts.length - 1].toLowerCase();
+        const repoNameWithExt = parts[parts.length - 1];
+        const repoName = repoNameWithExt.substring(0, repoNameWithExt.lastIndexOf('.'));
         const name = parts[0].substring(SSH_PREAMBLE.length);
         return `https://${name}.${GITHUB_IO_PART}/${repoName}`;
       }
@@ -1336,14 +1337,14 @@ class Site {
 
     return Promise.all(promises)
       .then((results) => {
-        const cname = results[0].trim();
-        const remoteUrl = results[1].trim();
+        const cname = results[0];
+        const remoteUrl = results[1];
         if (cname) {
-          return cname;
+          return cname.trim();
         } else if (repo) {
           return constructGhPagesUrl(repo);
         }
-        return constructGhPagesUrl(remoteUrl);
+        return constructGhPagesUrl(remoteUrl.trim());
       })
       .catch((err) => {
         logger.error(err);
