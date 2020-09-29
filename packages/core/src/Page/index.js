@@ -884,7 +884,6 @@ class Page {
       rootPath: this.pageConfig.rootPath,
       headerIdMap: this.headerIdMap,
       fixedHeader: this.fixedHeader,
-      style: this.pageConfig.style,
     };
     const pageSources = new PageSources();
     const componentPreprocessor = new ComponentPreprocessor(fileConfig, this.pageConfig.variableProcessor,
@@ -1197,7 +1196,6 @@ class Page {
         baseUrl: this.pageConfig.baseUrl,
         rootPath: this.pageConfig.rootPath,
         headerIdMap: {},
-        style: this.pageConfig.style,
       };
       const pageSources = new PageSources();
       const componentPreprocessor = new ComponentPreprocessor(fileConfig, this.pageConfig.variableProcessor,

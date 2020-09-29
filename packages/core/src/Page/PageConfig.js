@@ -51,11 +51,6 @@ class PageConfig {
      */
     this.headingIndexingLevel = args.headingIndexingLevel;
     /**
-     * Styling options for the page.
-     * @type {Object<string, any>}
-     */
-    this.style = args.style;
-    /**
      * @type {string}
      */
     this.layout = args.layout;

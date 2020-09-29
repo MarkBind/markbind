@@ -309,7 +309,6 @@ class Site {
       frontmatterOverride: config.frontmatter,
       globalOverride: this.siteConfig.globalOverride,
       headingIndexingLevel: this.siteConfig.headingIndexingLevel,
-      style: this.siteConfig.style,
       layout: config.layout,
       layoutsAssetPath: path.relative(path.dirname(resultPath),
                                       path.join(this.siteAssetsDestPath, LAYOUT_SITE_FOLDER_NAME)),
