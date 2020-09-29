@@ -3,9 +3,7 @@
     <div v-show="localMinimized" class="morph">
       <button :class="['morph-display-wrapper', 'btn', btnType, 'card-title']" @click="open()">
         <slot name="_alt">
-          <slot name="_header">
-            <slot name="header"></slot>
-          </slot>
+          <slot name="header"></slot>
         </slot>
       </button>
     </div>
@@ -20,12 +18,8 @@
             :class="['glyphicon', localExpanded ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right']"
           ></span>
         </div>
-        <div ref="headerWrapper" class="header-wrapper">
-          <slot name="header">
-            <div :class="['card-title', cardType, {'text-white':!isLightBg}]">
-              <slot name="_header"></slot>
-            </div>
-          </slot>
+        <div ref="headerWrapper" :class="['header-wrapper card-title', cardType, {'text-white':!isLightBg}]">
+          <slot name="header"></slot>
         </div>
         <div class="button-wrapper">
           <slot name="button">

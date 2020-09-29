@@ -2,7 +2,7 @@
 
 // Entry file for Markbind project
 const chokidar = require('chokidar');
-const fs = require('fs-extra-promise');
+const fs = require('fs-extra');
 const liveServer = require('live-server');
 const path = require('path');
 const program = require('commander');
@@ -202,7 +202,7 @@ program
             if (hasNoExtension && !hasEndingSlash) {
               // Urls of type 'host/userGuide' - check if 'userGuide' is a raw file or does not exist
               const diskFilePath = path.resolve(rootFolder, req.url);
-              if (!fs.existsSync(diskFilePath) || !fs.isDirectorySync(diskFilePath)) {
+              if (!fs.existsSync(diskFilePath) || !(fs.statSync(diskFilePath).isDirectory())) {
                 // Request for a raw file
                 next();
                 return;

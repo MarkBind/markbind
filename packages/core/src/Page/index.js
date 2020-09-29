@@ -1,6 +1,6 @@
 const cheerio = require('cheerio'); require('../patches/htmlparser2');
 const fm = require('fastmatter');
-const fs = require('fs-extra-promise');
+const fs = require('fs-extra');
 const htmlBeautify = require('js-beautify').html;
 const path = require('path');
 const Promise = require('bluebird');
@@ -147,11 +147,6 @@ class Page {
      * @type {string}
      */
     this.layout = this.pageConfig.layout;
-    /**
-     * Flag to indicate whether a fixed header is enabled, as detected in {@link insertHeaderFile}.
-     * @type {boolean}
-     */
-    this.fixedHeader = false;
     /**
      * Footer file path for the page, or false if none.
      * The footer may be from a layout, or from the _markbind/footers directory.
@@ -315,7 +310,7 @@ class Page {
       }
 
       // Check if heading / panel is under a panel's header slots, which is handled specially below.
-      const slotParents = $(elem).parentsUntil(context).filter('[slot="header"], [slot="_header"]').not(elem);
+      const slotParents = $(elem).parentsUntil(context).filter('[slot="header"]').not(elem);
       const panelSlotParents = slotParents.parent('panel');
       if (panelSlotParents.length) {
         return;
@@ -323,8 +318,7 @@ class Page {
 
       if (elem.name === 'panel') {
         // Recurse only on the slot which has priority
-        let headings = $(elem).children('[slot="header"]');
-        headings = headings.length ? headings : $(elem).children('[slot="_header"]');
+        const headings = $(elem).children('[slot="header"]');
         if (!headings.length) return;
 
         this._collectNavigableHeadings($, headings.first(), pageNavSelector);
@@ -363,12 +357,6 @@ class Page {
         if (slotHeader.length) {
           this.collectHeadingsAndKeywordsInContent(slotHeader.html(),
                                                    lastHeading, excludeHeadings, sourceTraversalStack);
-        } else {
-          const headerAttr = $(panel).children('[slot="_header"]');
-          if (headerAttr.length) {
-            this.collectHeadingsAndKeywordsInContent(headerAttr.html(),
-                                                     lastHeading, excludeHeadings, sourceTraversalStack);
-          }
         }
       })
       .each((index, panel) => {
@@ -380,12 +368,8 @@ class Page {
         const slotHeadings = $(panel).children('[slot="header"]').find(':header');
         if (slotHeadings.length) {
           closestHeading = slotHeadings.first();
-        } else {
-          const attributeHeadings = $(panel).children('[slot="_header"]').find(':header');
-          if (attributeHeadings.length) {
-            closestHeading = attributeHeadings.first();
-          }
         }
+
         if (panel.attribs.src) {
           const src = panel.attribs.src.split('#')[0];
           const buildInnerDir = path.dirname(this.pageConfig.sourcePath);
@@ -538,8 +522,9 @@ class Page {
    * @param pageData a page with its front matter collected
    * @param {FileConfig} fileConfig
    * @param {ComponentPreprocessor} componentPreprocessor for running {@link includeFile} on the layout
+   * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
    */
-  generateExpressiveLayout(pageData, fileConfig, componentPreprocessor) {
+  generateExpressiveLayout(pageData, fileConfig, componentPreprocessor, pageSources) {
     const layoutPath = path.join(this.pageConfig.rootPath, LAYOUT_FOLDER_PATH, this.layout);
     const layoutPagePath = path.join(layoutPath, LAYOUT_PAGE);
 
@@ -549,19 +534,19 @@ class Page {
 
     // Set expressive layout file as an includedFile
     this.includedFiles.add(layoutPagePath);
-    return fs.readFileAsync(layoutPagePath, 'utf8')
+    return fs.readFile(layoutPagePath, 'utf8')
       /*
        Render {{ MAIN_CONTENT_BODY }} and {% raw/endraw %} back to itself first,
        which is then dealt with in the call below to {@link renderSiteVariables}.
        */
-      .then(result => this.pageConfig.variableProcessor.renderPage(layoutPagePath, result, {
+      .then(result => this.pageConfig.variableProcessor.renderPage(layoutPagePath, result, pageSources, {
         [LAYOUT_PAGE_BODY_VARIABLE]: `{{${LAYOUT_PAGE_BODY_VARIABLE}}}`,
       }, true))
       // Include file with the cwf set to the layout page path
       .then(result => componentPreprocessor.includeFile(layoutPagePath, result))
       // Note: The {% raw/endraw %}s previously kept are removed here.
       .then(result => this.pageConfig.variableProcessor.renderSiteVariables(
-        this.pageConfig.rootPath, result, {
+        this.pageConfig.rootPath, result, pageSources, {
           [LAYOUT_PAGE_BODY_VARIABLE]: pageData,
         }));
   }
@@ -570,34 +555,27 @@ class Page {
    * Inserts the page layout's header to the start of the page
    * Determines if a fixed header is present, update the page config accordingly
    * @param pageData a page with its front matter collected
-   * @param {FileConfig} fileConfig
+   * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
    */
-  insertHeaderFile(pageData, fileConfig) {
+  insertHeaderFile(pageData, pageSources) {
     if (!this.header || !fs.existsSync(this.header)) {
       return pageData;
     }
     // Retrieve Markdown file contents
     const headerContent = fs.readFileSync(this.header, 'utf8');
-    // Decide if fixed header is applied
-    const headerSelector = cheerio.load(headerContent)('header');
-    if (headerSelector.length >= 1
-        && headerSelector[0].attribs.fixed !== undefined) {
-      this.fixedHeader = true;
-      fileConfig.fixedHeader = true;
-    }
-    // Set header file as an includedFile
     this.includedFiles.add(this.header);
 
     const renderedHeader = this.pageConfig.variableProcessor.renderSiteVariables(this.pageConfig.sourcePath,
-                                                                                 headerContent);
+                                                                                 headerContent, pageSources);
     return `${renderedHeader}\n${pageData}`;
   }
 
   /**
    * Inserts the footer specified in front matter to the end of the page
    * @param pageData a page with its front matter collected
+   * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
    */
-  insertFooterFile(pageData) {
+  insertFooterFile(pageData, pageSources) {
     if (!this.footer || !fs.existsSync(this.footer)) {
       return pageData;
     }
@@ -607,16 +585,17 @@ class Page {
     this.includedFiles.add(this.footer);
 
     const renderedFooter = this.pageConfig.variableProcessor.renderSiteVariables(this.pageConfig.sourcePath,
-                                                                                 footerContent);
+                                                                                 footerContent, pageSources);
     return `${pageData}\n${renderedFooter}`;
   }
 
   /**
    * Inserts a site navigation bar using the file specified in the front matter
    * @param pageData, a page with its front matter collected
+   * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
    * @throws (Error) if there is more than one instance of the <navigation> tag
    */
-  insertSiteNav(pageData) {
+  insertSiteNav(pageData, pageSources) {
     if (!this.siteNav || !fs.existsSync(this.siteNav)) {
       this.siteNav = false;
       return pageData;
@@ -630,7 +609,7 @@ class Page {
     this.includedFiles.add(this.siteNav);
 
     const siteNavMappedData = this.pageConfig.variableProcessor.renderSiteVariables(
-      this.pageConfig.sourcePath, siteNavContent);
+      this.pageConfig.sourcePath, siteNavContent, pageSources);
 
     // Check navigation elements
     const $ = cheerio.load(siteNavMappedData);
@@ -796,7 +775,11 @@ class Page {
     }
   }
 
-  collectHeadFiles() {
+  /**
+   * Collect head files into {@link headFileTopContent} and {@link headFileBottomContent}
+   * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
+   */
+  collectHeadFiles(pageSources) {
     if (!this.head) {
       this.headFileTopContent = '';
       this.headFileBottomContent = '';
@@ -814,7 +797,7 @@ class Page {
       this.includedFiles.add(headFilePath);
 
       const headFileMappedData = this.pageConfig.variableProcessor.renderSiteVariables(
-        this.pageConfig.sourcePath, headFileContent).trim();
+        this.pageConfig.sourcePath, headFileContent, pageSources).trim();
       // Split top and bottom contents
       const $ = cheerio.load(headFileMappedData);
       if ($('head-top').length) {
@@ -869,7 +852,6 @@ class Page {
    * @property {string} rootPath
    * @property {VariableProcessor} variableProcessor
    * @property {Object<string, number>} headerIdMap
-   * @property {boolean} fixedHeader indicates whether the header of the page is fixed
    */
 
   generate(builtFiles) {
@@ -883,30 +865,30 @@ class Page {
       baseUrl: this.pageConfig.baseUrl,
       rootPath: this.pageConfig.rootPath,
       headerIdMap: this.headerIdMap,
-      fixedHeader: this.fixedHeader,
     };
     const pageSources = new PageSources();
     const componentPreprocessor = new ComponentPreprocessor(fileConfig, this.pageConfig.variableProcessor,
                                                             pageSources);
     const componentParser = new ComponentParser(fileConfig);
 
-    return fs.readFileAsync(this.pageConfig.sourcePath, 'utf-8')
-      .then(result => this.pageConfig.variableProcessor.renderPage(this.pageConfig.sourcePath, result))
+    return fs.readFile(this.pageConfig.sourcePath, 'utf-8')
+      .then(result => this.pageConfig.variableProcessor.renderPage(this.pageConfig.sourcePath,
+                                                                   result, pageSources))
       .then(result => componentPreprocessor.includeFile(this.pageConfig.sourcePath, result))
       .then((result) => {
         this.collectFrontMatter(result);
         this.processFrontMatter();
         return Page.removeFrontMatter(result);
       })
-      .then(result => this.generateExpressiveLayout(result, fileConfig, componentPreprocessor))
+      .then(result => this.generateExpressiveLayout(result, fileConfig, componentPreprocessor, pageSources))
       .then(result => Page.removePageHeaderAndFooter(result))
       .then(result => Page.addScrollToTopButton(result))
       .then(result => Page.addContentWrapper(result))
       .then(result => this.collectPluginSources(result))
       .then(result => this.preRender(result))
-      .then(result => this.insertSiteNav((result)))
-      .then(result => this.insertHeaderFile(result, fileConfig))
-      .then(result => this.insertFooterFile(result))
+      .then(result => this.insertSiteNav(result, pageSources))
+      .then(result => this.insertHeaderFile(result, pageSources))
+      .then(result => this.insertFooterFile(result, pageSources))
       .then(result => Page.insertTemporaryStyles(result))
       .then(result => componentParser.render(this.pageConfig.sourcePath, result))
       .then(result => this.postRender(result))
@@ -914,7 +896,7 @@ class Page {
       .then(result => Page.unwrapIncludeSrc(result))
       .then((result) => {
         this.addLayoutScriptsAndStyles();
-        this.collectHeadFiles();
+        this.collectHeadFiles(pageSources);
 
         this.content = result;
 
@@ -926,7 +908,7 @@ class Page {
           ? renderedTemplate
           : htmlBeautify(renderedTemplate, Page.htmlBeautifyOptions);
 
-        return fs.outputFileAsync(this.pageConfig.resultPath, outputTemplateHTML);
+        return fs.outputFile(this.pageConfig.resultPath, outputTemplateHTML);
       })
       .then(() => {
         const resolvingFiles = [];
@@ -941,6 +923,7 @@ class Page {
         this.collectIncludedFiles(pageSources.getDynamicIncludeSrc());
         this.collectIncludedFiles(pageSources.getStaticIncludeSrc());
         this.collectIncludedFiles(pageSources.getMissingIncludeSrc());
+        this.collectHeadingsAndKeywords();
       });
   }
 
@@ -1110,11 +1093,10 @@ class Page {
       const srcPath = path.resolve(plugin._pluginAbsolutePath, assetPath);
       const srcBaseName = path.basename(srcPath);
 
-      fs.existsAsync(plugin._pluginAssetOutputPath)
-        .then(exists => exists || fs.mkdirp(plugin._pluginAssetOutputPath))
+      fs.ensureDir(plugin._pluginAssetOutputPath)
         .then(() => {
           const outputPath = path.join(plugin._pluginAssetOutputPath, srcBaseName);
-          fs.copyAsync(srcPath, outputPath, { overwrite: false });
+          fs.copySync(srcPath, outputPath, { overwrite: false });
         })
         .catch(err => logger.error(`Failed to copy asset ${assetPath} for plugin ${pluginName}\n${err}`));
 
@@ -1175,19 +1157,17 @@ class Page {
    * Pre-render an external dynamic dependency
    * Does not pre-render if file is already pre-rendered by another page during site generation
    * @param dependency a map of the external dependency and where it is included
-   * @param builtFiles set of files already pre-rendered by another page
+   * @param {Object<string, Promise>} builtFiles map of dynamic dependencies' filepaths
+   *                                  to its generation promises
    */
   resolveDependency(dependency, builtFiles) {
     const file = dependency.asIfTo;
-    return new Promise((resolve, reject) => {
-      const resultDir = path.dirname(path.resolve(this.pageConfig.resultPath,
-                                                  path.relative(this.pageConfig.sourcePath, file)));
-      const resultPath = path.join(resultDir, FsUtil.setExtension(path.basename(file), '._include_.html'));
-      if (builtFiles.has(resultPath)) {
-        return resolve();
-      }
-      builtFiles.add(resultPath);
+    const resultDir = path.dirname(path.resolve(this.pageConfig.resultPath,
+                                                path.relative(this.pageConfig.sourcePath, file)));
+    const resultPath = path.join(resultDir, FsUtil.setExtension(path.basename(file), '._include_.html'));
 
+    // Return existing generation promise if any, otherwise create a new one
+    builtFiles[resultPath] = builtFiles[resultPath] || new Promise((resolve, reject) => {
       /**
        * @type {FileConfig}
        */
@@ -1202,8 +1182,8 @@ class Page {
                                                               pageSources);
       const componentParser = new ComponentParser(fileConfig);
 
-      return fs.readFileAsync(dependency.to, 'utf-8')
-        .then(result => this.pageConfig.variableProcessor.renderPage(dependency.to, result))
+      return fs.readFile(dependency.to, 'utf-8')
+        .then(result => this.pageConfig.variableProcessor.renderPage(dependency.to, result, pageSources))
         .then(result => componentPreprocessor.includeFile(dependency.to, result, file))
         .then(result => Page.removeFrontMatter(result))
         .then(result => this.collectPluginSources(result))
@@ -1216,7 +1196,7 @@ class Page {
           const outputContentHTML = this.pageConfig.disableHtmlBeautify
             ? result
             : htmlBeautify(result, Page.htmlBeautifyOptions);
-          return fs.outputFileAsync(resultPath, outputContentHTML);
+          return fs.outputFile(resultPath, outputContentHTML);
         })
         .then(() => {
           // Recursion call to resolve nested dependency
@@ -1236,6 +1216,8 @@ class Page {
         .then(resolve)
         .catch(reject);
     });
+
+    return builtFiles[resultPath];
   }
 
   static addContentWrapper(pageData) {

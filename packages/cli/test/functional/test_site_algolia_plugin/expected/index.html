@@ -50,12 +50,12 @@
         </b-modal>
         <trigger for="modal:trigger_id">Trigger should not have `algolia-no-index` class</trigger>
         <p><strong>Panels that are not expanded should have algolia-no-index class</strong></p>
-        <panel class="algolia-no-index"><template slot="_header">
+        <panel class="algolia-no-index"><template slot="header">
             <p>Panel</p>
           </template>
           Content
         </panel>
-        <panel expanded><template slot="_header">
+        <panel expanded><template slot="header">
             <p>Panel</p>
           </template>
           Content

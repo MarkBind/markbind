@@ -1,4 +1,4 @@
-const nunjucks = require('nunjucks');
+const nunjucks = require('nunjucks'); require('../patches/nunjucks');
 const { filter: dateFilter } = require('../lib/nunjucks-extensions/nunjucks-date');
 
 const unescapedEnv = nunjucks.configure({ autoescape: false }).addFilter('date', dateFilter);
@@ -63,20 +63,37 @@ function preEscapeRawTags(pageData) {
  */
 class VariableRenderer {
   constructor(siteRootPath) {
+    /**
+     * @type {PageSources}
+     */
+    this.pageSources = undefined;
+
     this.nj = nunjucks.configure(siteRootPath, { autoescape: false }).addFilter('date', dateFilter);
+    this.nj.on('load', (name, source) => {
+      this.pageSources.staticIncludeSrc.push({ to: source.path });
+    });
   }
 
   /**
    * Processes content with the instance's nunjucks environment.
    * @param content to process
    * @param variables to render the content with
+   * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
    * @param keepPercentRaw whether to keep the {% raw/endraw %} nunjucks tags
    * @return {String} nunjucks processed content
    */
-  render(content, variables = {}, keepPercentRaw = false) {
+  render(content, variables = {}, pageSources, keepPercentRaw = false) {
+    this.pageSources = pageSources;
     return keepPercentRaw
       ? this.nj.renderString(preEscapeRawTags(content), variables)
       : this.nj.renderString(content, variables);
+  }
+
+  /**
+   Invalidate the internal nunjucks template cache
+   */
+  invalidateCache() {
+    this.nj.invalidateCache();
   }
 
   /**

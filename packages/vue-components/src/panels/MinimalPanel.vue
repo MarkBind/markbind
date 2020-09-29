@@ -3,9 +3,7 @@
     <div v-show="localMinimized" class="morph">
       <button class="morph-display-wrapper btn card-title morph-title" @click="open()">
         <slot name="_alt">
-          <slot name="_header">
-            <slot name="header"></slot>
-          </slot>
+          <slot name="header"></slot>
         </slot>
       </button>
     </div>
@@ -21,14 +19,12 @@
             ref="headerWrapper"
             :class="['card-title', 'card-title-transparent', { 'ellipses': !hasHeaderBool }]"
           >
-            <slot name="header">
-              <span class="card-title-inline"><slot name="_header"></slot></span>
-              <span
-                v-show="showDownSwitch"
-                aria-hidden="true"
-                class="minimal-button glyphicon glyphicon-menu-down minimal-menu-down"
-              ></span>
-            </slot>
+            <span class="card-title-inline"><slot name="header"></slot></span>
+            <span
+              v-show="showDownSwitch"
+              aria-hidden="true"
+              class="minimal-button glyphicon glyphicon-menu-down minimal-menu-down"
+            ></span>
           </span>
         </transition>
         <div :class="['button-wrapper', { 'button-wrapper-expanded': isHeaderAtBottom }]">
