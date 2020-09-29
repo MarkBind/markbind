@@ -39,16 +39,16 @@
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
 </span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
 </span></code></pre>
-        <p><strong><code v-pre>no-line-numbers</code> attr should hide corresponding line numbers</strong></p>
+        <p><strong><code class="hljs inline" v-pre>no-line-numbers</code> attr should hide corresponding line numbers</strong></p>
         <pre><code class="no-line-numbers hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
 </span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
 </span></code></pre>
-        <p><strong><code v-pre>start-from</code> attr should set inline css in <code v-pre>&lt;code&gt;</code> tag, enabling lines to start from a specific line number</strong></p>
+        <p><strong><code class="hljs inline" v-pre>start-from</code> attr should set inline css in <code class="hljs inline" v-pre>&lt;code&gt;</code> tag, enabling lines to start from a specific line number</strong></p>
         <pre><code style="counter-reset: line 29;" class="hljs markdown" v-pre><span><span class="hljs-strong">*****</span>
 </span><span>-----
 </span></code></pre>
-        <p><strong><code v-pre>highlight-lines</code> attr causes corresponding lines to have 'highlighted' class</strong></p>
+        <p><strong><code class="hljs inline" v-pre>highlight-lines</code> attr causes corresponding lines to have 'highlighted' class</strong></p>
         <pre><code class="hljs markdown" v-pre><span class="highlighted">1  highlighted
 </span><span>2
 </span><span class="highlighted">3  highlighted
@@ -60,7 +60,7 @@
 </span><span>9
 </span><span>10
 </span></code></pre>
-        <p><strong><code v-pre>highlight-lines</code> attr with <code v-pre>start-from</code> attr should cause corresponding lines to have 'highlighted' class based on <code v-pre>start-from</code></strong></p>
+        <p><strong><code class="hljs inline" v-pre>highlight-lines</code> attr with <code class="hljs inline" v-pre>start-from</code> attr should cause corresponding lines to have 'highlighted' class based on <code class="hljs inline" v-pre>start-from</code></strong></p>
         <pre><code style="counter-reset: line 10;" class="hljs markdown" v-pre><span class="highlighted">11  highlighted
 </span><span>12
 </span><span class="highlighted">13  highlighted
@@ -122,7 +122,7 @@
 </span><span>} <span class="hljs-comment">// four empty lines above, one below</span>
 </span><span>
 </span></code></pre>
-        <p><strong>span with <code v-pre>hljs</code> class should span multiple lines <a href="https://github.com/MarkBind/markbind/pull/991#issuecomment-586547275">(Link for context)</a></strong></p>
+        <p><strong>span with <code class="hljs inline" v-pre>hljs</code> class should span multiple lines <a href="https://github.com/MarkBind/markbind/pull/991#issuecomment-586547275">(Link for context)</a></strong></p>
         <pre><code class="hljs markdown" v-pre><span><span class="hljs-strong">*****</span>
 </span><span>-----
 </span></code></pre>
