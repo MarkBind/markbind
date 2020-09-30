@@ -865,6 +865,9 @@ class Page {
       baseUrl: this.pageConfig.baseUrl,
       rootPath: this.pageConfig.rootPath,
       headerIdMap: this.headerIdMap,
+      ignore: this.pageConfig.ignore,
+      addressablePagesSource: this.pageConfig.addressablePagesSource,
+      pageSrc: this.pageConfig.src,
     };
     const pageSources = new PageSources();
     const componentPreprocessor = new ComponentPreprocessor(fileConfig, this.pageConfig.variableProcessor,

@@ -8,7 +8,7 @@ _.isArray = require('lodash/isArray');
 _.cloneDeep = require('lodash/cloneDeep');
 _.has = require('lodash/has');
 
-const { convertRelativeLinks, convertMdExtToHtmlExt } = require('./linkProcessor');
+const linkProcessor = require('./linkProcessor');
 
 const md = require('../lib/markdown-it');
 const utils = require('../utils');
@@ -547,8 +547,12 @@ class ComponentParser {
       context = _.cloneDeep(context);
       context.cwf = node.attribs['data-included-from'];
     }
-    convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);
-    convertMdExtToHtmlExt(node);
+
+    if (linkProcessor.hasTagLink(node)) {
+      linkProcessor.convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);
+      linkProcessor.convertMdAndMbdExtToHtmlExt(node);
+      linkProcessor.validateIntraLink(node, context.cwf, this.config);
+    }
 
     const isHeadingTag = (/^h[1-6]$/).test(node.name);
 
