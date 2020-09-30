@@ -21,10 +21,7 @@ pre.hljs > code {
 
 pre > code.hljs {
     -webkit-background-clip: padding-box; /* for Safari */
-    background: ghostwhite;
     background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
-    border: 1px solid rgb(200, 200, 200);
-    border: 1px solid rgba(200, 200, 200, 0.3);
     border-radius: 5px;
     counter-reset: line;
 }
@@ -38,9 +35,7 @@ pre > code.hljs[heading] {
 }
 
 .code-block-heading {
-    background-color: #f2f2ff;
     border-radius: 6px 6px 0 0;
-    color: #8787a5;
     float: right;
     font-size: 85%;
     line-height: 1;
@@ -59,8 +54,16 @@ pre > code.hljs[heading] {
     display: block;
 }
 
-code > span.highlighted {
-    background: lavender;
+/* switch to light style on print view */
+@media print {
+    pre > code.hljs {
+        background: ghostwhite;
+        color: #333;
+    }
+
+    code span.highlighted {
+        background: lavender;
+    }
 }
 
 kbd {
@@ -78,10 +81,8 @@ kbd {
 }
 
 code.hljs.inline {
-    background: #f8f8f8;
-    color: #333;
     display: initial;
-    padding: 0;
+    padding: 0.2em 0.4em;
 }
 
 .markbind-table {
@@ -403,23 +404,23 @@ pre {
     position: relative;
 }
 
-.copy-btn {
-    background-color: #b4b4b9;
-    border-radius: 0.25rem;
-    color: #f8f8ff;
+button.copy-btn {
+    border: none;
+    background-color: transparent;
+    color: darkgray;
+    cursor: pointer;
     display: inline-block;
-    font-size: 75%;
-    line-height: 1;
-    padding: 0.25em 0.4em;
+    padding: 0.35rem;
     position: absolute;
-    right: 0.5em;
+    right: 0.1rem;
+    top: 0.1rem;
     text-align: center;
-    top: 0.4em;
     white-space: nowrap;
 }
 
 .copy-btn:hover {
-    color: #555;
+    transition: all 0.5s ease;
+    box-shadow: 0 0 0.25rem rgba(173, 173, 173, 0.8);
 }
 
 .copy-btn-body {
@@ -429,15 +430,10 @@ pre {
 
 .copy-btn svg {
     fill: currentColor;
-    margin-right: 0.4em;
-}
-
-.copy-btn-label {
-    font-size: 11px;
 }
 
 .copy-btn:focus {
-    outline: none;
+    box-shadow: 0 0 0.125rem rgba(173, 173, 173, 0.8);
 }
 
 /* Octicon sizing */

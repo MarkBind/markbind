@@ -109,6 +109,16 @@ class PageConfig {
      * @type {VariableProcessor}
      */
     this.variableProcessor = args.variableProcessor;
+    /**
+     * Array of file types to ignore
+     * @type {Array}
+     */
+    this.ignore = args.ignore;
+    /**
+     * Array of page source objects
+     * @type {Array}
+     */
+    this.addressablePagesSource = args.addressablePagesSource;
   }
 }
 

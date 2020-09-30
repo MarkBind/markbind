@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
   <link rel="stylesheet" href="markbind/css/octicons.css">
-  <link rel="stylesheet" href="markbind/css/github.min.css">
+  <link rel="stylesheet" href="markbind/css/codeblock-dark.min.css">
   <link rel="stylesheet" href="markbind/css/markbind.min.css">
   <script src="markbind/js/polyfill.min.js"></script>
   <script src="markbind/js/vue.min.js"></script>
@@ -159,6 +159,9 @@
           </ul>
         </div>
       </nav>
+
+      <p><strong>Relative Link Test</strong> This is a relative Intra-Site link (see <a href="/test_site/testTags.html">Tags</a>)</p>
+      <p></p>
 
       <div id="content-wrapper">
         <div class="website-content">
@@ -344,8 +347,8 @@
           <div name="Referencing specified path in boilerplate">
             <h1 id="path-within-the-boilerplate-folder-is-separately-specified"><span id="path-within-the-boilerplate-folder-is-separately-specified" class="anchor"></span>Path within the boilerplate folder is separately specified<a class="fa fa-anchor" href="#path-within-the-boilerplate-folder-is-separately-specified" onclick="event.stopPropagation()"></a></h1>
             <p>Like static include, pages within the site should be able to use files located in folders within boilerplate.</p>
-            <p>Also, the boilerplate file name (e.g. <code v-pre>inside.md</code>) and the file that it is supposed to act as (<code v-pre>notInside.md</code>) can be different.</p>
-            <p>This file should behaves as if it is in the <code v-pre>requirements</code> folder:</p>
+            <p>Also, the boilerplate file name (e.g. <code class="hljs inline no-lang" v-pre>inside.md</code>) and the file that it is supposed to act as (<code class="hljs inline no-lang" v-pre>notInside.md</code>) can be different.</p>
+            <p>This file should behaves as if it is in the <code class="hljs inline no-lang" v-pre>requirements</code> folder:</p>
             <p>
               <panel src="/test_site/requirements/NonFunctionalRequirements._include_.html"><template slot="header">
                   <p>Tested with the folllowing include</p>
@@ -374,7 +377,7 @@
             <p><em>MarkBind supports .mbd files.</em></p>
           </div>
           <div>
-            <p><code v-pre>MarkBind supports .mbdf files.</code></p>
+            <p><code class="hljs inline no-lang" v-pre>MarkBind supports .mbdf files.</code></p>
           </div>
           <p><strong>Include from another Markbind site</strong></p>
           <div>
@@ -710,8 +713,6 @@
           </span>
         </section>
       </div>
-
-
 
 
       <nav id="page-nav" class="navbar navbar-light bg-transparent">

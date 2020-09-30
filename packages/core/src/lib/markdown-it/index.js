@@ -5,6 +5,8 @@ const markdownIt = require('markdown-it')({
 });
 const slugify = require('@sindresorhus/slugify');
 
+const { HighlightRule } = require('./highlight/HighlightRule.js');
+
 // markdown-it plugins
 markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-ins'))
@@ -87,43 +89,27 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
     // counter is incremented on each span, so we need to subtract 1
     token.attrJoin('style', `counter-reset: line ${startFromZeroBased};`);
   }
-  
+
   const highlightLinesInput = getAttributeAndDelete(token, 'highlight-lines');
-  let lineNumbersAndRanges = [];
+  let highlightRules = [];
   if (highlightLinesInput) {
-    // example input format: "1,4-7,8,11-55"
-    //               output: [[1],[4,7],[8],[11,55]]
-    // the output is an array contaning either single line numbers [lineNum] or ranges [start, end]
-    // ',' delimits either single line numbers (eg: 1) or ranges (eg: 4-7)
     const highlightLines = highlightLinesInput.split(',');
-    // if it's the single number, it will just be parsed as an int, (eg: ['1'] --> [1] )
-    // if it's a range, it will be parsed as as an array of two ints (eg: ['4-7'] --> [4,6])
-    function parseAndZeroBaseLineNumber(numberString) {
-      // authors provide line numbers to highlight based on the 'start-from' attribute if it exists
-      // so we need to shift them all back down to start at 0
-      return parseInt(numberString, 10) - startFromZeroBased;
-    }
-    lineNumbersAndRanges = highlightLines.map(elem => elem.split('-').map(parseAndZeroBaseLineNumber));
+    highlightRules = highlightLines.map(HighlightRule.parseRule);
+    // Note: authors provide line numbers based on the 'start-from' attribute if it exists,
+    //       so we need to shift line numbers back down to start at 0
+    highlightRules.forEach(rule => rule.offsetLines(-startFromZeroBased));
   }
-  
+
   lines.pop(); // last line is always a single '\n' newline, so we remove it
   // wrap all lines with <span> so we can number them
   str = lines.map((line, index) => {
     const currentLineNumber = index + 1;
-    // check if there is at least one range or line number that matches the current line number
-    // Note: The algorithm is based off markdown-it-highlight-lines (https://github.com/egoist/markdown-it-highlight-lines/blob/master/src/index.js) 
-    //       This is an O(n^2) solution wrt to the number of lines
-    //       I opt to use this approach because it's simple, and it is unlikely that the number of elements in `lineNumbersAndRanges` will be large
-    //       There is possible room for improvement for a more efficient algo that is O(n).
-    const inRange = lineNumbersAndRanges.some(([start, end]) => {
-      if (start && end) {
-        return currentLineNumber >= start && currentLineNumber <= end;
-      }
-      return currentLineNumber === start;
-    });
-    if (inRange) {
-      return `<span class="highlighted">${line}\n</span>`;
+    const rule = highlightRules.find(rule => rule.shouldApplyHighlight(currentLineNumber))
+    if (rule) {
+      return rule.applyHighlight(line);
     }
+
+    // not highlighted
     return `<span>${line}\n</span>`;
   }).join('');
 
@@ -149,13 +135,15 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
 markdownIt.renderer.rules.code_inline = (tokens, idx, options, env, slf) => {
   const token = tokens[idx];
   const lang = token.attrGet('class');
+  const inlineClass = `hljs inline`;
 
   if (lang && hljs.getLanguage(lang)) {
-    token.attrSet('class', `hljs inline ${lang}`);
+    token.attrSet('class', `${inlineClass} ${lang}`);
     return '<code' + slf.renderAttrs(token) + '>'
       + hljs.highlight(lang, token.content, true).value
       + '</code>';
   } else {
+    token.attrSet('class', `${inlineClass} no-lang`);
     return '<code' + slf.renderAttrs(token) + '>'
       + markdownIt.utils.escapeHtml(token.content)
       + '</code>';

@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="../../markbind/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="../../markbind/glyphicons/css/bootstrap-glyphicons.min.css">
   <link rel="stylesheet" href="../../markbind/css/octicons.css">
-  <link rel="stylesheet" href="../../markbind/css/github.min.css">
+  <link rel="stylesheet" href="../../markbind/css/codeblock-dark.min.css">
   <link rel="stylesheet" href="../../markbind/css/markbind.min.css">
   <script src="../../markbind/js/polyfill.min.js"></script>
   <script src="../../markbind/js/vue.min.js"></script>
@@ -29,6 +29,7 @@
 <body>
   <div id="app">
     <div id="flex-body">
+
       <div id="content-wrapper">
         <p>Test for nunjucks' various functions that use a path.
           By design, nunjucks' relative paths resolve from the configured template root directory.</p>
@@ -36,15 +37,13 @@
           The root directory in this case is the respective root directory of the root site or sub sites.</p>
         <hr>
         <p><strong>Test {% include %}</strong></p>
-        <p>This is content from testNunjucksPathResolvingInclude.mbdf located at <code v-pre>sub_site/nested_sub_site</code></p>
+        <p>This is content from testNunjucksPathResolvingInclude.mbdf located at <code class="hljs inline no-lang" v-pre>sub_site/nested_sub_site</code></p>
         <hr>
         <p><strong>Test {% import %}</strong></p>
         <p>variable to import</p>
         <hr>
         <p><i class="fa fa-arrow-circle-up fa-lg" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i></p>
       </div>
-
-
     </div>
     <footer>
       <div class="text-center">
