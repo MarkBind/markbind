@@ -112,9 +112,6 @@ test('parseComponent parses box attributes and inserts into dom as slots correct
 });
 
 test('postParseComponent assigns the correct header id to panels', () => {
-  parseAndVerifyTemplate(testData.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_ATTRIBUTE,
-                         testData.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_ATTRIBUTE_EXPECTED,
-                         true);
   parseAndVerifyTemplate(testData.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_SLOT,
                          testData.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_SLOT_EXPECTED,
                          true);
@@ -149,7 +146,7 @@ test('renderFile converts markdown headers to <h1> with an id', async () => {
   const result = await componentParser.render(indexPath, index);
 
   const expected = [
-    '<h1 id="index">Index</h1>',
+    '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
     '',
   ].join('\n');
 

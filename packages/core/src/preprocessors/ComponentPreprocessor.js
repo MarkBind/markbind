@@ -258,7 +258,8 @@ class ComponentPreprocessor {
     const {
       renderedContent,
       childContext,
-    } = this.variableProcessor.renderIncludeFile(actualFilePath, element, context, filePath);
+    } = this.variableProcessor.renderIncludeFile(actualFilePath, this.pageSources, element,
+                                                 context, filePath);
 
     ComponentPreprocessor._deleteIncludeAttributes(element);
 
@@ -321,25 +322,6 @@ class ComponentPreprocessor {
   }
 
   /*
-   * Variable and imports
-   */
-
-  static _preprocessVariables() {
-    return utils.createEmptyNode();
-  }
-
-  _preprocessImports(node) {
-    if (node.attribs.from) {
-      this.pageSources.staticIncludeSrc.push({
-        from: node.attribs.cwf,
-        to: path.resolve(node.attribs.cwf, node.attribs.from),
-      });
-    }
-
-    return utils.createEmptyNode();
-  }
-
-  /*
    * Body
    */
 
@@ -361,9 +343,8 @@ class ComponentPreprocessor {
     case 'panel':
       return this._preProcessPanel(element, context);
     case 'variable':
-      return ComponentPreprocessor._preprocessVariables();
     case 'import':
-      return this._preprocessImports(node);
+      return utils.createEmptyNode();
     case 'include':
       return this._preprocessInclude(element, context);
     case 'body':

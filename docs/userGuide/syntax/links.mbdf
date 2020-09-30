@@ -30,6 +30,27 @@ MarkBind home is at [here][1].
 
 Links to files of the generated site (e.g., an HTML page or an image file) can be specified either as relative paths or absolute paths.
 
+****Auto-conversion of extension****
+
+<div class="indented">
+
+You may link to markdown files using its original extension (**.md**) as it will automatically be converted to a html extension (**.html**) when the site is generated. 
+
+{{ icon_example }}
+`Click [here](index.md)` --- *auto-conversion* ---> `Click [here](index.html)`
+
+<box type="warning">
+
+If you wish to disable the auto-conversion, you may use the `no-convert` attribute in your link. 
+
+{{ icon_example }}
+`Click [here](index.md) {.no-convert}`
+
+</box>
+
+</div>
+
+
 ****Absolute paths****
 <div class="indented">
 

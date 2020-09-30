@@ -1,5 +1,5 @@
 const cryptoJS = require('crypto-js');
-const fs = require('fs-extra-promise');
+const fs = require('fs-extra');
 const path = require('path');
 const fsUtil = require('../../utils/fsUtil');
 const logger = require('../../utils/logger');

@@ -8,7 +8,7 @@ _.isArray = require('lodash/isArray');
 _.cloneDeep = require('lodash/cloneDeep');
 _.has = require('lodash/has');
 
-const { convertRelativeLinks } = require('./linkProcessor');
+const { convertRelativeLinks, convertMdExtToHtmlExt } = require('./linkProcessor');
 
 const md = require('../lib/markdown-it');
 const utils = require('../utils');
@@ -106,18 +106,7 @@ class ComponentParser {
 
   static _parsePanelAttributes(node) {
     ComponentParser._parseAttributeWithoutOverride(node, 'alt', false, '_alt');
-
-    const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
-    const hasAltSlot = slotChildren && slotChildren.some(child => child.attribs.slot === '_alt');
-    const hasHeaderSlot = slotChildren && slotChildren.some(child => child.attribs.slot === 'header');
-
-    // If both are present, the header attribute has no effect, and we can simply remove it.
-    if (hasAltSlot && hasHeaderSlot) {
-      delete node.attribs.header;
-      return;
-    }
-
-    ComponentParser._parseAttributeWithoutOverride(node, 'header', false, '_header');
+    ComponentParser._parseAttributeWithoutOverride(node, 'header', false);
   }
 
   /**
@@ -155,11 +144,9 @@ class ComponentParser {
   static _assignPanelId(node) {
     const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
     const headerSlot = slotChildren.find(child => child.attribs.slot === 'header');
-    const headerAttributeSlot = slotChildren.find(child => child.attribs.slot === '_header');
 
-    const slotElement = headerSlot || headerAttributeSlot;
-    if (slotElement) {
-      const header = ComponentParser._findHeaderElement(slotElement);
+    if (headerSlot) {
+      const header = ComponentParser._findHeaderElement(headerSlot);
       if (!header) {
         return;
       }
@@ -560,8 +547,8 @@ class ComponentParser {
       context = _.cloneDeep(context);
       context.cwf = node.attribs['data-included-from'];
     }
-
     convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);
+    convertMdExtToHtmlExt(node);
 
     const isHeadingTag = (/^h[1-6]$/).test(node.name);
 
@@ -607,8 +594,8 @@ class ComponentParser {
     ComponentParser.postParseComponents(node);
 
     // If a fixed header is applied to the page, generate dummy spans as anchor points
-    if (this.config.fixedHeader && isHeadingTag && node.attribs.id) {
-      cheerio(node).append(cheerio.parseHTML(`<span id="${node.attribs.id}" class="anchor"></span>`));
+    if (isHeadingTag && node.attribs.id) {
+      cheerio(node).prepend(`<span id="${node.attribs.id}" class="anchor"></span>`);
     }
 
     return node;
