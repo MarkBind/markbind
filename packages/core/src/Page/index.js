@@ -567,7 +567,7 @@ class Page {
 
     const renderedHeader = this.pageConfig.variableProcessor.renderSiteVariables(this.pageConfig.sourcePath,
                                                                                  headerContent, pageSources);
-    return `${renderedHeader}\n${pageData}`;
+    return `<div data-included-from="${this.header}">${renderedHeader}</div>\n${pageData}`;
   }
 
   /**
@@ -586,7 +586,7 @@ class Page {
 
     const renderedFooter = this.pageConfig.variableProcessor.renderSiteVariables(this.pageConfig.sourcePath,
                                                                                  footerContent, pageSources);
-    return `${pageData}\n${renderedFooter}`;
+    return `<div data-included-from="${this.footer}">${pageData}</div>\n${renderedFooter}`;
   }
 
   /**
@@ -687,7 +687,7 @@ class Page {
     const wrappedSiteNav = `${`<nav id="${SITE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
       + '<div class="border-right-grey nav-inner position-sticky slim-scroll">\n'}${formattedHtml}\n</div>\n`
       + '</nav>\n';
-    return wrappedSiteNav + pageData;
+    return `<div data-included-from="${this.siteNav}">${wrappedSiteNav}</div>\n${pageData}`;
   }
 
   /**
