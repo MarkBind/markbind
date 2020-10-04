@@ -157,7 +157,7 @@ markdownIt.renderer.rules.code_inline = (tokens, idx, options, env, slf) => {
       + hljs.highlight(lang, token.content, true).value
       + '</code>';
   } else {
-    token.attrSet('class', inlineClass);
+    token.attrSet('class', `${inlineClass} no-lang`);
     return '<code' + slf.renderAttrs(token) + '>'
       + markdownIt.utils.escapeHtml(token.content)
       + '</code>';
