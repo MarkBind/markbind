@@ -250,7 +250,7 @@
       "headingKeywords": {}
     },
     {
-      "src": "testvariablecontainsinclude.md",
+      "src": "testVariableContainsInclude.md",
       "title": "Variable should be able to store included content fragments",
       "headings": {
         "content-fragment": "content fragment"
