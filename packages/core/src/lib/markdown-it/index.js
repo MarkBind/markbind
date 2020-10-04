@@ -157,18 +157,15 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
       // "line slice" type
       if (isLineSlice(rule)) {
         if (currentLineNumber === a) {
-          const [indents, content] = splitCodeAndIndentation(line);
-
-          // whole text highlight
-          if (b === -1 && c === -1) {
-            return `<span>${indents}<span class="highlighted">${content}</span>\n</span>`;
-          }
+          // Currently only highlights whole-line
+          // TODO: Implement highlighting by slice index
+          return `<span class="highlighted">${line}\n</span>`;
         }
       }
 
       // "line range" type
       if (a && b) {
-        const isTextOnlyHighlight = isLineSlice(a) || isLineSlice(b);
+        const isTextOnlyHighlight = !isLineSlice(a) && !isLineSlice(b);
         const lineStart = isLineSlice(a) ? a[0] : a;
         const lineEnd = isLineSlice(b) ? b[0] : b;
 
@@ -182,9 +179,10 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
         }
       }
 
-      // "line number" type
+      // "line number" type: highlight text-only
       if (currentLineNumber === a) {
-        return `<span class="highlighted">${line}\n</span>`;
+        const [indents, content] = splitCodeAndIndentation(line);
+        return `<span>${indents}<span class="highlighted">${content}</span>\n</span>`;
       }
     }
 
