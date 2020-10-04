@@ -149,13 +149,15 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
 markdownIt.renderer.rules.code_inline = (tokens, idx, options, env, slf) => {
   const token = tokens[idx];
   const lang = token.attrGet('class');
+  const inlineClass = `hljs inline`;
 
   if (lang && hljs.getLanguage(lang)) {
-    token.attrSet('class', `hljs inline ${lang}`);
+    token.attrSet('class', `${inlineClass} ${lang}`);
     return '<code' + slf.renderAttrs(token) + '>'
       + hljs.highlight(lang, token.content, true).value
       + '</code>';
   } else {
+    token.attrSet('class', `${inlineClass} no-lang`);
     return '<code' + slf.renderAttrs(token) + '>'
       + markdownIt.utils.escapeHtml(token.content)
       + '</code>';

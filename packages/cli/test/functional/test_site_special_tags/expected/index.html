@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
   <link rel="stylesheet" href="markbind/css/octicons.css">
-  <link rel="stylesheet" href="markbind/css/github.min.css">
+  <link rel="stylesheet" href="markbind/css/codeblock-dark.min.css">
   <link rel="stylesheet" href="markbind/css/markbind.min.css">
   <script src="markbind/js/polyfill.min.js"></script>
   <script src="markbind/js/vue.min.js"></script>
@@ -29,7 +29,7 @@
       <div id="content-wrapper">
         <h1 id="functional-test-for-htmlparser2-and-markdown-it-patches-for-special-tags"><span id="functional-test-for-htmlparser2-and-markdown-it-patches-for-special-tags" class="anchor"></span>Functional test for htmlparser2 and markdown-it patches for special tags<a class="fa fa-anchor" href="#functional-test-for-htmlparser2-and-markdown-it-patches-for-special-tags" onclick="event.stopPropagation()"></a></h1>
         <h2 id="so-far-as-to-comply-with-the-commonmark-spec"><span id="so-far-as-to-comply-with-the-commonmark-spec" class="anchor"></span>So far as to comply with the commonmark spec<a class="fa fa-anchor" href="#so-far-as-to-comply-with-the-commonmark-spec" onclick="event.stopPropagation()"></a></h2>
-        <p>There should be no text between this and the next <code v-pre>&lt;hr&gt;</code> tag in the browser, since it is a <code v-pre>&lt;script&gt;</code> tag.<br>
+        <p>There should be no text between this and the next <code class="hljs inline no-lang" v-pre>&lt;hr&gt;</code> tag in the browser, since it is a <code class="hljs inline no-lang" v-pre>&lt;script&gt;</code> tag.<br>
           There should be an alert with the value of 2 as well.</p>
         <script>
           let x = 1;
@@ -38,14 +38,14 @@
           alert(x);
         </script>
         <hr>
-        <p>There should be no text between this and the next <code v-pre>&lt;hr&gt;</code> tag in the browser, since it is a <code v-pre>&lt;style&gt;</code> tag.</p>
+        <p>There should be no text between this and the next <code class="hljs inline no-lang" v-pre>&lt;hr&gt;</code> tag in the browser, since it is a <code class="hljs inline no-lang" v-pre>&lt;style&gt;</code> tag.</p>
         <style>
           .bigger-text {
             font-size: 10em;
           }
         </style>
         <hr>
-        <p>There should be text between this and the next <code v-pre>&lt;hr&gt;</code> tag, since it is a special tag.
+        <p>There should be text between this and the next <code class="hljs inline no-lang" v-pre>&lt;hr&gt;</code> tag, since it is a special tag.
           All text should appear in the browser window as a single line,
           save for the comment which the browser still interprets. (but will be in the expected output)</p>
         <testtag>!success
@@ -65,8 +65,8 @@ some text
 success!</testtag>
         <hr>
         <p>This has the same content has the previous test, but it is <strong>not</strong> a special tag.
-          The html comment <code v-pre>&lt;!-- --&gt;</code> should disappear in the expected output.
-          The line <code v-pre>some text</code> should appear as per normal, and not wrapped by a paragraph since
+          The html comment <code class="hljs inline no-lang" v-pre>&lt;!-- --&gt;</code> should disappear in the expected output.
+          The line <code class="hljs inline no-lang" v-pre>some text</code> should appear as per normal, and not wrapped by a paragraph since
           a html tag precedes it without a blank line.
           The other lines should be parsed as markdown paragraphs, as per commonmark spec.</p>
         <abc>
@@ -83,7 +83,7 @@ success!</testtag>
         <p></p>
         <hr>
         <p>There are two self closing special tags below, which should display nothing, but are present in the output.
-          There is then one special tag with both and opening and closing tag with some text in it (<code v-pre>lorem ipsum...</code>).
+          There is then one special tag with both and opening and closing tag with some text in it (<code class="hljs inline no-lang" v-pre>lorem ipsum...</code>).
           Note that script and style tags are still not allowed to be self-closing, as per the html5 spec.</p>
         <testselfclosingtag></testselfclosingtag>
         <testselfclosingtag></testselfclosingtag>
@@ -93,7 +93,7 @@ Lorem ipsum lorem ipsum
 </testselfclosingtag>
         <hr>
         <p>This should pass the htmlparser2 patch but not the markdown-it patch as it violates commonmark.<br>
-          All lines after the first <code v-pre>!success</code> wrapping text will be wrapped in a <code v-pre>&lt;p&gt;...&lt;/p&gt;</code> tag as it is
+          All lines after the first <code class="hljs inline no-lang" v-pre>!success</code> wrapping text will be wrapped in a <code class="hljs inline no-lang" v-pre>&lt;p&gt;...&lt;/p&gt;</code> tag as it is
           parsed as a markdown paragraph.</p>
         <div>
           <testtag>!success

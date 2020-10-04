@@ -97,6 +97,11 @@ const SUPPORTED_THEMES_PATHS = {
   'bootswatch-yeti': getBootswatchThemePath('yeti'),
 };
 
+const HIGHLIGHT_ASSETS = {
+  dark: 'codeblock-dark.min.css',
+  light: 'codeblock-light.min.css',
+};
+
 const ABOUT_MARKDOWN_DEFAULT = '# About\n'
   + 'Welcome to your **About Us** page.\n';
 
@@ -258,6 +263,7 @@ class Site {
   createPage(config) {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
     const resultPath = path.join(this.outputPath, Site.setExtension(config.pageSrc, '.html'));
+    const codeTheme = this.siteConfig.style.codeTheme || 'dark';
     const pageConfig = new PageConfig({
       asset: {
         bootstrap: path.relative(path.dirname(resultPath),
@@ -273,7 +279,7 @@ class Site {
         octicons: path.relative(path.dirname(resultPath),
                                 path.join(this.siteAssetsDestPath, 'css', 'octicons.css')),
         highlight: path.relative(path.dirname(resultPath),
-                                 path.join(this.siteAssetsDestPath, 'css', 'github.min.css')),
+                                 path.join(this.siteAssetsDestPath, 'css', HIGHLIGHT_ASSETS[codeTheme])),
         markBindCss: path.relative(path.dirname(resultPath),
                                    path.join(this.siteAssetsDestPath, 'css', 'markbind.min.css')),
         markBindJs: path.relative(path.dirname(resultPath),
