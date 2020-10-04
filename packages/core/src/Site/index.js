@@ -98,8 +98,8 @@ const SUPPORTED_THEMES_PATHS = {
 };
 
 const HIGHLIGHT_ASSETS = {
-  dark: 'vs2015.min.css',
-  light: 'github.min.css',
+  dark: 'codeblock-dark.min.css',
+  light: 'codeblock-light.min.css',
 };
 
 const ABOUT_MARKDOWN_DEFAULT = '# About\n'
