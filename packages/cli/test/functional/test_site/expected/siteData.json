@@ -250,11 +250,17 @@
       "headingKeywords": {}
     },
     {
-      "src": "testVariableContainsInclude.md",
+      "src": "testvariablecontainsinclude.md",
       "title": "Variable should be able to store included content fragments",
       "headings": {
         "content-fragment": "content fragment"
       },
+      "headingKeywords": {}
+    },
+    {
+      "src": "testRelativeLink.md",
+      "title": "Cwf for intra-site link should be correct",
+      "headings": {},
       "headingKeywords": {}
     }
   ]

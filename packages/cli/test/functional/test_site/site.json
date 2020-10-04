@@ -93,9 +93,13 @@
       "title": "Nunjucks date filter tests"
     },
     {
-      "src": "testVariableContainsInclude.md",
+      "src": "testvariablecontainsinclude.md",
       "title": "Variable should be able to store included content fragments"
-    }
+		},
+    {
+      "src": "testRelativeLink.md",
+      "title": "Cwf for intra-site link should be correct"
+		}
   ],
   "ignore": [
     "_markbind/layouts/*",
