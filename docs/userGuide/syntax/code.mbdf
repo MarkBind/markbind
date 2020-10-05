@@ -53,11 +53,26 @@ function add(a, b) {
 
 
 ##### Line highlighting
-To highlight lines, add the attribute `highlight-lines` with the line numbers as value, as shown below. You can specify ranges or individual line numbers.
+To highlight lines, add the attribute `highlight-lines` as shown below.
+
+You can specify highlighting in many different ways, depending on how you want it to be. There are two main variants:
+
+- Text-only highlighting
+
+    To highlight only the text portion of the line, you can just use the line numbers as is.
+
+    For ranges of lines, join the two line numbers with a dash sign (`-`).
+- Whole-line highlighting
+
+    If you wish to highlight a full line (including whitespaces) or ranges of it, you can leverage MarkBind's own _line-slice_ syntax. Line-slices are in the form of `lineNumber[:]`, e.g. `2[:]`.
+    
+    This variant's format is very similar to the previous, but instead use line-slices rather than line numbers.
+
+    For ranges, you only need to use line-slices on either ends.
 
 <include src="codeAndOutputCode.md" boilerplate >
 <variable name="code">
-```java {highlight-lines="2,4,6-8"}
+```java {highlight-lines="1,3[:],6-8,10[:]-12"}
 import java.util.List;
 
 public class Inventory {
@@ -65,6 +80,10 @@ public class Inventory {
 
     public int getItemCount(){
         return items.size();
+    }
+    
+    public bool isEmpty() {
+        return items.isEmpty();
     }
 
     //...
