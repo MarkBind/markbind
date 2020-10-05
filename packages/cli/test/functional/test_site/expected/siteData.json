@@ -256,12 +256,6 @@
         "content-fragment": "content fragment"
       },
       "headingKeywords": {}
-    },
-    {
-      "src": "testRelativeLink.md",
-      "title": "Cwf for intra-site link should be correct",
-      "headings": {},
-      "headingKeywords": {}
     }
   ]
 }
