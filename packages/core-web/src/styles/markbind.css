@@ -21,10 +21,7 @@ pre.hljs > code {
 
 pre > code.hljs {
     -webkit-background-clip: padding-box; /* for Safari */
-    background: ghostwhite;
     background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
-    border: 1px solid rgb(200, 200, 200);
-    border: 1px solid rgba(200, 200, 200, 0.3);
     border-radius: 5px;
     counter-reset: line;
 }
@@ -38,9 +35,7 @@ pre > code.hljs[heading] {
 }
 
 .code-block-heading {
-    background-color: #f2f2ff;
     border-radius: 6px 6px 0 0;
-    color: #8787a5;
     float: right;
     font-size: 85%;
     line-height: 1;
@@ -59,8 +54,16 @@ pre > code.hljs[heading] {
     display: block;
 }
 
-code span.highlighted {
-    background: lavender;
+/* switch to light style on print view */
+@media print {
+    pre > code.hljs {
+        background: ghostwhite;
+        color: #333;
+    }
+
+    code > span.highlighted {
+        background: lavender;
+    }
 }
 
 kbd {
@@ -78,10 +81,8 @@ kbd {
 }
 
 code.hljs.inline {
-    background: #f8f8f8;
-    color: #333;
     display: initial;
-    padding: 0;
+    padding: 0.2em 0.4em;
 }
 
 .markbind-table {
@@ -134,7 +135,7 @@ header[fixed] {
     margin: 0 auto;
     min-width: 0;
     max-width: 1000px;
-    padding: 0 20px;
+    padding: 0.8rem 20px 0 20px;
     transition: 0.4s;
     -webkit-transition: 0.4s;
 }
@@ -360,12 +361,12 @@ li.footnote-item:target {
     width: 3em;
 }
 
-/* hide popover, modal, tooltip content */
-[data-mb-html-for] {
+/* hide popover, tooltip content */
+[data-mb-slot-name] {
     display: none;
 }
 
-/* styles for triggers */
+/* styles for triggers, popovers, tooltips */
 .trigger {
     border-bottom: 1px dotted currentColor;
 }
@@ -373,6 +374,10 @@ li.footnote-item:target {
 .trigger-click {
     cursor: pointer;
     border-bottom: 1px dashed currentColor;
+}
+
+.trigger-click:focus {
+    outline: none;
 }
 
 .modal.mb-zoom {

@@ -24,7 +24,7 @@ The MarkBind project is developed in a monorepo ([MarkBind/markbind](https://git
 
 * The core web library, which contains a generated web bundle from various setup scripts and the UI components library, resides in `packages/core-web/`.
 
-  Stacks used: *Node.js*, *Vue.js*
+  Stack used: *Node.js*, *Vue.js*
 
 ### MarkBind core library
 
@@ -35,9 +35,7 @@ The MarkBind project is developed in a monorepo ([MarkBind/markbind](https://git
 
 3. The `src/Site` model, which uses the `Page` model's interface to generate pages, and performs various other utility-like functions related to site generation such as copying of external assets into the output folder.
 
-4. Static assets of MarkBind, such as stylesheets and JavaScript libraries, which are located in `asset/` folder. They will be copied to the generated site and used in the generated pages.
-
-5. MarkBind's [templates](https://markbind.org/userGuide/templates.html), used in the `markbind init` command.
+4. MarkBind's [templates](https://markbind.org/userGuide/templates.html), used in the `markbind init` command.
 
 **The key external libraries used are:**
 1. [markdown-it](https://github.com/markdown-it/markdown-it), which does the Markdown parsing and rendering. There are also several customized markdown-it plugins used in MarkBind, which are located inside the `src/lib/markdown-it/` directory.
@@ -53,12 +51,6 @@ The CLI application uses and further builds on the interface exposed by the core
 
 The CLI program is built using [commander.js](https://github.com/tj/commander.js/).
 
-### UI components library
-
-This package consists of a mix of [Bootstrap](getbootstrap.com/components/) and proprietary components rewritten in [Vue.js](vuejs.org) based on our needs for educational websites.
-
-We forked it from the original [yuche/vue-strap](https://github.com/yuche/vue-strap) repo into the [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap) repo, and then later merged it into the main [MarkBind/markbind](https://github.com/MarkBind/markbind) repo.
-
 ### MarkBind core-web library
 
 This package houses the various frontend assets used in the core package.
@@ -66,3 +58,9 @@ This package houses the various frontend assets used in the core package.
 Some external assets included are Vue.js, jQuery, bootstrap bundles, and fontawesome bundles.
  
 Internal bundles are also present, generated from setup scripts, custom stylesheets and the UI components library.
+
+### UI components library
+
+This package consists of a mix of [Bootstrap](getbootstrap.com/components/) and proprietary components rewritten in [Vue.js](vuejs.org) based on our needs for educational websites.
+
+We forked it from the original [yuche/vue-strap](https://github.com/yuche/vue-strap) repo into the [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap) repo, and then later merged it into the main [MarkBind/markbind](https://github.com/MarkBind/markbind) repo.

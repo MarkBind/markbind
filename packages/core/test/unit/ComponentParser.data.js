@@ -11,7 +11,7 @@ module.exports.PARSE_PANEL_ATTRIBUTES = `
 `;
 
 module.exports.PARSE_PANEL_ATTRIBUTES_EXPECTED = `
-<panel><template slot="_header"><h1>Lorem ipsum</h1>
+<panel><template slot="header"><h1>Lorem ipsum</h1>
 </template><template slot="_alt"><p><em>emphasized alt</em></p>
 </template>
   Header and alt attributes should be parsed and inserted under panel as internal slots and deleted.
@@ -42,32 +42,15 @@ module.exports.PARSE_PANEL_HEADER_NO_OVERRIDE_EXPECTED = `
 `;
 
 // Post Parse
-module.exports.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_ATTRIBUTE = `
-<panel><template slot="_header"><h1 id="lorem-ipsum">Lorem ipsum</h1>
-</template>
-  Header and alt attributes should be parsed and inserted under panel as internal slots and deleted.
-</panel>
-`;
-
-module.exports.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_ATTRIBUTE_EXPECTED = `
-<panel id="lorem-ipsum"><template slot="_header"><h1 id="lorem-ipsum">Lorem ipsum</h1>
-</template>
-  Header and alt attributes should be parsed and inserted under panel as internal slots and deleted.
-</panel>
-`;
 
 module.exports.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_SLOT = `
-<panel><template slot="_header"><h1 id="attribute-header">Attribute Header</h1>
-</template>
-<template slot="header"><h1 id="slot-header">Slot Header</h1></template>
+<panel><template slot="header"><h1 id="slot-header">Slot Header</h1></template>
   Header and alt attributes should be parsed and inserted under panel as internal slots and deleted.
 </panel>
 `;
 
 module.exports.POST_PARSE_PANEL_ID_ASSIGNED_USING_HEADER_SLOT_EXPECTED = `
-<panel id="slot-header"><template slot="_header"><h1 id="attribute-header">Attribute Header</h1>
-</template>
-<template slot="header"><h1 id="slot-header">Slot Header</h1></template>
+<panel id="slot-header"><template slot="header"><h1 id="slot-header">Slot Header</h1></template>
   Header and alt attributes should be parsed and inserted under panel as internal slots and deleted.
 </panel>
 `;
@@ -163,7 +146,7 @@ module.exports.PARSE_POPOVER_ATTRIBUTES = `
 `;
 
 module.exports.PARSE_POPOVER_ATTRIBUTES_EXPECTED = `
-<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGenerator" class="trigger"><span data-mb-html-for="header"><strong>Lorem ipsum</strong></span><span data-mb-html-for="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.</span>
+<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger"><span data-mb-slot-name="header"><strong>Lorem ipsum</strong></span><span data-mb-slot-name="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.</span>
   Content and header attributes should be parsed and inserted under panel as slots and deleted.
 </span>
 `;
@@ -178,9 +161,9 @@ module.exports.PARSE_POPOVER_ATTRIBUTES_NO_OVERRIDE = `
 `;
 
 module.exports.PARSE_POPOVER_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
-<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGenerator" class="trigger">
-  <div data-mb-html-for="header">Some header slot content that should not be overwritten</div>
-  <div data-mb-html-for="content">Some content slot that should not be overwritten</div>
+<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger">
+  <div data-mb-slot-name="header">Some header slot content that should not be overwritten</div>
+  <div data-mb-slot-name="content">Some content slot that should not be overwritten</div>
   Content and header attributes should not be inserted under panel as slots, but should be deleted.
 </span>
 `;
@@ -194,7 +177,7 @@ module.exports.PARSE_POPOVER_TITLE = `
 `;
 
 module.exports.PARSE_POPOVER_TITLE_EXPECTED = `
-<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGenerator" class="trigger"><span data-mb-html-for="header"><strong>Lorem ipsum</strong></span>
+<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger"><span data-mb-slot-name="header"><strong>Lorem ipsum</strong></span>
   Title attribute should be parsed and inserted under popover as header slot and deleted.
 </span>
 `;
@@ -206,7 +189,7 @@ module.exports.PARSE_POPOVER_TITLE_NO_OVERRIDE = `
 `;
 
 module.exports.PARSE_POPOVER_TITLE_NO_OVERRIDE_EXPECTED = `
-<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGenerator" class="trigger"><span data-mb-html-for="header"><strong>Header header</strong></span>
+<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger"><span data-mb-slot-name="header"><strong>Header header</strong></span>
   Title attribute should not be inserted as slot as header attribute is present, and should be deleted.
 </span>
 `;
@@ -222,7 +205,7 @@ module.exports.PARSE_TOOLTIP_CONTENT = `
 `;
 
 module.exports.PARSE_TOOLTIP_CONTENT_EXPECTED = `
-<span data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger"><span data-mb-html-for="_content">Lorem ipsum dolor sit amet</span>
+<span data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger"><span data-mb-slot-name="_content">Lorem ipsum dolor sit amet</span>
   <button>Content attribute should be inserted as _content internal slot</button>
 </span>
 `;

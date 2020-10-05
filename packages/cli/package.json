@@ -1,6 +1,6 @@
 {
   "name": "markbind-cli",
-  "version": "2.15.2",
+  "version": "2.16.0",
   "description": "Command line interface for MarkBind",
   "keywords": [
     "mark",
@@ -21,12 +21,12 @@
     "url": "https://github.com/MarkBind/markbind.git"
   },
   "scripts": {
-    "test": "jest && cd test/functional && node test.js",
+    "test": "jest --colors && cd test/functional && node test.js",
     "updatetest": "cd test/functional && node updatetest.js"
   },
   "dependencies": {
-    "@markbind/core": "2.15.2",
-    "@markbind/core-web": "2.15.2",
+    "@markbind/core": "^2.16.0",
+    "@markbind/core-web": "^2.16.0",
     "bluebird": "^3.7.2",
     "chalk": "^3.0.0",
     "cheerio": "^0.22.0",
@@ -34,7 +34,7 @@
     "commander": "^3.0.2",
     "figlet": "^1.2.4",
     "find-up": "^4.1.0",
-    "fs-extra-promise": "^1.0.1",
+    "fs-extra": "^9.0.1",
     "live-server": "^1.2.1",
     "lodash": "^4.17.15",
     "winston": "^2.4.4",

@@ -12,9 +12,6 @@ module.exports = {
   // packages/core/src/utils.js
   markdownFileExts: ['md', 'mbd', 'mbdf'],
 
-  // packages/core/src/util/fsUtil.js
-  sourceFileExtNames: ['.html', '.md', '.mbd', '.mbdf'],
-
   // packages/core/src/plugins/algolia.js
   ALGOLIA_CSS_URL: 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css',
   ALGOLIA_JS_URL: 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js',

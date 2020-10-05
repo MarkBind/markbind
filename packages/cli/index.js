@@ -2,7 +2,7 @@
 
 // Entry file for Markbind project
 const chokidar = require('chokidar');
-const fs = require('fs-extra-promise');
+const fs = require('fs-extra');
 const liveServer = require('live-server');
 const path = require('path');
 const program = require('commander');
@@ -129,7 +129,7 @@ program
     const addHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
       Promise.resolve('').then(() => {
-        if (fsUtil.isSourceFile(filePath) || site.isPluginSourceFile(filePath)) {
+        if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
           return site.rebuildSourceFiles(filePath);
         }
         return site.buildAsset(filePath);
@@ -141,7 +141,7 @@ program
     const changeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file change: ${filePath}`);
       Promise.resolve('').then(() => {
-        if (fsUtil.isSourceFile(filePath) || site.isPluginSourceFile(filePath)) {
+        if (site.isDependencyOfPage(filePath)) {
           return site.rebuildAffectedSourceFiles(filePath);
         }
         return site.buildAsset(filePath);
@@ -153,7 +153,7 @@ program
     const removeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file deletion: ${filePath}`);
       Promise.resolve('').then(() => {
-        if (fsUtil.isSourceFile(filePath) || site.isPluginSourceFile(filePath)) {
+        if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
           return site.rebuildSourceFiles(filePath);
         }
         return site.removeAsset(filePath);
@@ -202,7 +202,7 @@ program
             if (hasNoExtension && !hasEndingSlash) {
               // Urls of type 'host/userGuide' - check if 'userGuide' is a raw file or does not exist
               const diskFilePath = path.resolve(rootFolder, req.url);
-              if (!fs.existsSync(diskFilePath) || !fs.isDirectorySync(diskFilePath)) {
+              if (!fs.existsSync(diskFilePath) || !(fs.statSync(diskFilePath).isDirectory())) {
                 // Request for a raw file
                 next();
                 return;
@@ -298,9 +298,7 @@ program
     const rootFolder = path.resolve(process.cwd());
     const outputRoot = path.join(rootFolder, '_site');
     new Site(rootFolder, outputRoot, undefined, undefined, options.siteConfig).deploy(options.travis)
-      .then(() => {
-        logger.info('Deployed!');
-      })
+      .then(depUrl => (depUrl !== null ? logger.info(`Deployed at ${depUrl}!`) : logger.info('Deployed!')))
       .catch(handleError);
     printHeader();
   });

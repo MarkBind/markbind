@@ -61,6 +61,30 @@ An example that uses GFMD synatx for task lists:
   </td>
 </tr>
 </table>
+
+An example that uses KaTeX to generate math equations:
+
+
+<table>
+<tr>
+  <td>
+
+```markdown
+Euler's Identity \(e^{i\pi}+1=0\) is a beautiful formula.
+```
+  </td>
+  <td>&nbsp;→&nbsp;</td>
+  <td><br>
+<tip-box>
+
+Euler's Identity \(e^{i\pi}+1=0\) is a beautiful formula.
+
+</tipbox>
+  </td>
+</tr>
+</table>
+
+
 </panel>
 <p/>
 

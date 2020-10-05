@@ -1,5 +1,5 @@
 const path = require('path');
-const fs = require('fs-extra-promise');
+const fs = require('fs-extra');
 
 const fsUtils = require('../src/utils/fsUtil');
 
@@ -25,7 +25,7 @@ function validateTemplateFromPath(templatePath) {
 
 function generateSiteWithTemplate(rootPath, templatePath) {
   return new Promise((resolve, reject) => {
-    fs.accessAsync(rootPath)
+    fs.access(rootPath)
       .catch(() => fs.mkdirSync(rootPath))
       .then(() => fsUtils.copySyncWithOptions(templatePath, rootPath, { overwrite: false }))
       .then(resolve)

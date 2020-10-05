@@ -16,6 +16,7 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-table-of-contents'))
   .use(require('markdown-it-task-lists'), {enabled: true})
   .use(require('markdown-it-linkify-images'), {imgClass: 'img-fluid'})
+  .use(require('markdown-it-texmath'), {engine: require('katex'), delimiters: 'brackets'})
   .use(require('./patches/markdown-it-attrs-nunjucks'))
   .use(require('./markdown-it-dimmed'))
   .use(require('./markdown-it-radio-button'))
@@ -134,13 +135,15 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
 markdownIt.renderer.rules.code_inline = (tokens, idx, options, env, slf) => {
   const token = tokens[idx];
   const lang = token.attrGet('class');
+  const inlineClass = `hljs inline`;
 
   if (lang && hljs.getLanguage(lang)) {
-    token.attrSet('class', `hljs inline ${lang}`);
+    token.attrSet('class', `${inlineClass} ${lang}`);
     return '<code' + slf.renderAttrs(token) + '>'
       + hljs.highlight(lang, token.content, true).value
       + '</code>';
   } else {
+    token.attrSet('class', `${inlineClass} no-lang`);
     return '<code' + slf.renderAttrs(token) + '>'
       + markdownIt.utils.escapeHtml(token.content)
       + '</code>';

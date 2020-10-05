@@ -1,5 +1,5 @@
 const path = require('path');
-const fs = require('fs-extra-promise');
+const fs = require('fs-extra');
 const { execSync } = require('child_process');
 
 const { compare } = require('./testUtil/compare');
@@ -17,6 +17,8 @@ function printFailedMessage(err, siteName) {
   console.log(err);
   console.log(`Test result: ${siteName} FAILED`);
 }
+
+process.env.FORCE_COLOR = '3';
 
 const execOptions = {
   stdio: ['inherit', 'inherit', 'inherit'],

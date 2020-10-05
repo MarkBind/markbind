@@ -37,7 +37,7 @@ function generateDiagram(imageOutputPath, content) {
   }
 
   // Java command to launch PlantUML jar
-  const cmd = `java -jar "${JAR_PATH}" -pipe > "${imageOutputPath}"`;
+  const cmd = `java -jar "${JAR_PATH}" -nometadata -pipe > "${imageOutputPath}"`;
   const childProcess = exec(cmd);
 
   let errorLog = '';
@@ -68,9 +68,10 @@ function generateDiagram(imageOutputPath, content) {
 }
 
 module.exports = {
-  preRender: (content, pluginContext, frontmatter, config) => {
+  beforeSiteGenerate: () => {
     processedDiagrams.clear();
-
+  },
+  preRender: (content, pluginContext, frontmatter, config) => {
     // Processes all <puml> tags
     const $ = cheerio.load(content);
     $('puml').each((i, tag) => {

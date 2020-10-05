@@ -1,5 +1,5 @@
 const findUp = require('find-up');
-const fs = require('fs-extra-promise');
+const fs = require('fs-extra');
 const path = require('path');
 
 const { SITE_CONFIG_NAME } = require('@markbind/core/src/Site/constants');

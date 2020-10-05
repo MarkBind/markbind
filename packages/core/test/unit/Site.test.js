@@ -1,24 +1,13 @@
 const path = require('path');
-const fs = require('fs-extra-promise');
+const fs = require('fs-extra');
 const ghpages = require('gh-pages');
 const Site = require('../../src/Site');
 
 const {
-  ABOUT_MD_DEFAULT,
-  ASSETS,
-  EXTERNAL_ASSETS,
-  FOOTER_MD_DEFAULT,
-  HEADER_MD_DEFAULT,
   INDEX_MD_DEFAULT,
   PAGE_NJK,
   SITE_JSON_DEFAULT,
-  SITE_NAV_MD_DEFAULT,
-  TOP_NAV_DEFAULT,
-  USER_VARIABLES_DEFAULT,
-  LAYOUT_FILES_DEFAULT,
-  LAYOUT_SCRIPTS_DEFAULT,
   getDefaultTemplateFileFullPath,
-  DEFAULT_TEMPLATE_FILES,
 } = require('./utils/data');
 
 const DEFAULT_TEMPLATE = 'default';
@@ -27,63 +16,16 @@ jest.mock('fs');
 jest.mock('walk-sync');
 jest.mock('gh-pages');
 jest.mock('../../src/Page');
+jest.mock('simple-git', () => () => ({
+  ...jest.requireActual('simple-git')(),
+  // A test file should reduce dependencies on external libraries; use pure js functions instead.
+  // eslint-disable-next-line lodash/prefer-constant
+  catFile: jest.fn(() => 'mock-test-website.com'),
+  // eslint-disable-next-line lodash/prefer-constant
+  remote: jest.fn(() => 'https://github.com/mockName/mockRepo.git'),
+}));
 
 afterEach(() => fs.vol.reset());
-
-test('Site Generate builds the correct amount of assets', async () => {
-  const json = {
-    ...PAGE_NJK,
-    'inner/site.json': SITE_JSON_DEFAULT,
-
-    ...ASSETS,
-
-    [require.resolve('@markbind/core-web/dist/js/markbind.min.js')]: '',
-    [require.resolve('@markbind/core-web/dist/css/markbind.min.css')]: '',
-
-    ...EXTERNAL_ASSETS,
-
-    'inner/_markbind/layouts/default/scripts.js': '',
-    'inner/_markbind/layouts/default/styles.css': '',
-  };
-  fs.vol.fromJSON(json, '');
-  const site = new Site('inner/', 'inner/_site');
-  await site.generate();
-  const paths = Object.keys(fs.vol.toJSON());
-  const originalNumFiles = Object.keys(json).length;
-
-  const expectedNumBuilt = 18;
-  expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
-
-  // site
-  expect(fs.existsSync(path.resolve('inner/_site'))).toEqual(true);
-
-  // siteData
-  expect(fs.existsSync(path.resolve('inner/_site/siteData.json'))).toEqual(true);
-
-  // markbind
-  expect(fs.existsSync(path.resolve('inner/_site/markbind'))).toEqual(true);
-
-  // css
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/bootstrap.min.css'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/bootstrap.min.css.map'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/github.min.css'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/markbind.min.css'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/css/octicons.css'))).toEqual(true);
-
-  // js
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/js/setup.js'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/js/vue.min.js'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/js/markbind.min.js'))).toEqual(true);
-
-  // Font Awesome assets
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/fontawesome/css/all.min.css'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/fontawesome/webfonts/font1.svg'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/fontawesome/webfonts/font2.ttf'))).toEqual(true);
-
-  // layouts
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/layouts/default/scripts.js'))).toEqual(true);
-  expect(fs.existsSync(path.resolve('inner/_site/markbind/layouts/default/styles.css'))).toEqual(true);
-});
 
 test('Site Init with invalid template fails', async () => {
   // Mock default template in MemFS without site config
@@ -116,109 +58,6 @@ test('Site Init does not overwrite existing files', async () => {
 
   // index.md
   expect(fs.readFileSync(path.resolve('index.md'), 'utf8')).toEqual(EXISTING_INDEX_MD);
-});
-
-test('Site Init in existing directory generates correct assets', async () => {
-  // Mock default template in MemFS
-  const json = {
-    ...PAGE_NJK,
-    ...DEFAULT_TEMPLATE_FILES,
-  };
-
-  fs.vol.fromJSON(json, '');
-
-  await Site.initSite('', DEFAULT_TEMPLATE);
-  const paths = Object.keys(fs.vol.toJSON());
-  const originalNumFiles = Object.keys(json).length;
-  const expectedNumBuilt = 15;
-  expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
-
-  // _boilerplates
-  expect(fs.existsSync(path.resolve('_markbind/boilerplates'))).toEqual(true);
-
-  // footer.md
-  expect(fs.readFileSync(path.resolve('_markbind/footers/footer.md'), 'utf8')).toEqual(FOOTER_MD_DEFAULT);
-
-  // head folder
-  expect(fs.existsSync(path.resolve('_markbind/head'), 'utf8')).toEqual(true);
-
-  // header.md
-  expect(fs.readFileSync(path.resolve('_markbind/headers/header.md'), 'utf8')).toEqual(HEADER_MD_DEFAULT);
-
-  // site-nav.md
-  expect(fs.readFileSync(path.resolve('_markbind/navigation/site-nav.md'), 'utf8'))
-    .toEqual(SITE_NAV_MD_DEFAULT);
-
-  // user defined variables
-  expect(fs.readFileSync(path.resolve('_markbind/variables.md'), 'utf8')).toEqual(USER_VARIABLES_DEFAULT);
-
-  // site.json
-  expect(fs.readJsonSync(path.resolve('site.json'))).toEqual(JSON.parse(SITE_JSON_DEFAULT));
-
-  // index.md
-  expect(fs.readFileSync(path.resolve('index.md'), 'utf8')).toEqual(INDEX_MD_DEFAULT);
-
-  // layout defaults
-  LAYOUT_FILES_DEFAULT.forEach(layoutFile =>
-    expect(fs.readFileSync(path.resolve(`_markbind/layouts/default/${layoutFile}`), 'utf8')).toEqual(''));
-  expect(fs.readFileSync(path.resolve('_markbind/layouts/default/scripts.js'), 'utf8'))
-    .toEqual(LAYOUT_SCRIPTS_DEFAULT);
-
-  // plugins folder
-  expect(fs.existsSync(path.resolve('_markbind/plugins'), 'utf8')).toEqual(true);
-});
-
-test('Site Init in directory which does not exist generates correct assets', async () => {
-  // Mock default template in MemFS
-  const json = {
-    ...PAGE_NJK,
-    ...DEFAULT_TEMPLATE_FILES,
-  };
-  fs.vol.fromJSON(json, '');
-
-  await Site.initSite('newDir', DEFAULT_TEMPLATE);
-  const paths = Object.keys(fs.vol.toJSON());
-  const originalNumFiles = Object.keys(json).length;
-  const expectedNumBuilt = 15;
-
-  expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
-
-  expect(fs.existsSync(path.resolve('newDir/_markbind/boilerplates'))).toEqual(true);
-
-  // footer.md
-  expect(fs.readFileSync(path.resolve('newDir/_markbind/footers/footer.md'), 'utf8'))
-    .toEqual(FOOTER_MD_DEFAULT);
-
-  // head folder
-  expect(fs.existsSync(path.resolve('newDir/_markbind/head'), 'utf8')).toEqual(true);
-
-  // header.md
-  expect(fs.readFileSync(path.resolve('newDir/_markbind/headers/header.md'), 'utf8'))
-    .toEqual(HEADER_MD_DEFAULT);
-
-  // site-nav.md
-  expect(fs.readFileSync(path.resolve('newDir/_markbind/navigation/site-nav.md'), 'utf8'))
-    .toEqual(SITE_NAV_MD_DEFAULT);
-
-  // user defined variables
-  expect(fs.readFileSync(path.resolve('newDir/_markbind/variables.md'), 'utf8'))
-    .toEqual(USER_VARIABLES_DEFAULT);
-
-  // site.json
-  expect(fs.readJsonSync(path.resolve('newDir/site.json'))).toEqual(JSON.parse(SITE_JSON_DEFAULT));
-
-  // index.md
-  expect(fs.readFileSync(path.resolve('newDir/index.md'), 'utf8')).toEqual(INDEX_MD_DEFAULT);
-
-  // layout defaults
-  LAYOUT_FILES_DEFAULT.forEach(layoutFile =>
-    expect(fs.readFileSync(path.resolve(`newDir/_markbind/layouts/default/${layoutFile}`), 'utf8'))
-      .toEqual(''));
-  expect(fs.readFileSync(path.resolve('newDir/_markbind/layouts/default/scripts.js'), 'utf8'))
-    .toEqual(LAYOUT_SCRIPTS_DEFAULT);
-
-  // plugins folder
-  expect(fs.existsSync(path.resolve('newDir/_markbind/plugins'), 'utf8')).toEqual(true);
 });
 
 test('Site baseurls are correct for sub nested subsites', async () => {
@@ -377,88 +216,6 @@ test('Site read correct user defined variables', async () => {
   expect(subsub.number).toEqual('9999');
 });
 
-test('Site convert generates correct assets', async () => {
-  // Mock default template in MemFS
-  const json = {
-    ...PAGE_NJK,
-    ...DEFAULT_TEMPLATE_FILES,
-  };
-  fs.vol.fromJSON(json, '');
-  await Site.initSite('inner/', DEFAULT_TEMPLATE);
-  await new Site('inner/', 'inner/_site/').convert();
-
-  // number of files
-  const paths = Object.keys(fs.vol.toJSON());
-  const originalNumFiles = Object.keys(json).length;
-  const expectedNumBuilt = 16;
-  expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
-
-  // footer
-  expect(fs.existsSync(path.resolve('inner/_markbind/layouts/default/footer.md'))).toEqual(true);
-
-  // site navigation
-  expect(fs.existsSync(path.resolve('inner/_markbind/layouts/default/navigation.md'))).toEqual(true);
-
-  // top navigation
-  expect(fs.readFileSync(path.resolve('inner/_markbind/layouts/default/header.md'), 'utf8'))
-    .toEqual(TOP_NAV_DEFAULT);
-
-  // index page
-  expect(fs.existsSync(path.resolve('inner/index.md'))).toEqual(true);
-
-  // about page
-  expect(fs.readFileSync(path.resolve('inner/about.md'), 'utf8')).toEqual(ABOUT_MD_DEFAULT);
-
-  // site.json
-  expect(fs.existsSync(path.resolve('inner/site.json'))).toEqual(true);
-
-  // _markbind directory
-  expect(fs.existsSync(path.resolve('inner/_markbind'))).toEqual(true);
-});
-
-test('Site convert with custom _Footer.md, no _Sidebar.md, README.md generates correct assets', async () => {
-  // Mock default template in MemFS
-  const json = {
-    ...PAGE_NJK,
-    ...DEFAULT_TEMPLATE_FILES,
-    // Custom Footer and README
-    'inner/_Footer.md': 'Custom footer.',
-    'inner/README.md': 'This is the README',
-  };
-  fs.vol.fromJSON(json, '');
-  await Site.initSite('inner/', DEFAULT_TEMPLATE);
-  await new Site('inner/', 'inner/_site/').convert();
-
-  // number of files
-  const paths = Object.keys(fs.vol.toJSON());
-  const originalNumFiles = Object.keys(json).length;
-  const expectedNumBuilt = 16;
-  expect(paths.length).toEqual(originalNumFiles + expectedNumBuilt);
-
-  // footer
-  const EXPECTED_FOOTER = '<footer>\n\tCustom footer.\n</footer>';
-  expect(fs.readFileSync(path.resolve('inner/_markbind/layouts/default/footer.md'), 'utf8'))
-    .toEqual(EXPECTED_FOOTER);
-
-  // site navigation
-  const EXPECTED_SITE_NAV = '<navigation>\n* [Index]({{ baseUrl }}/index.html)\n'
-    + '* [README]({{ baseUrl }}/README.html)\n\n</navigation>';
-  expect(fs.readFileSync(path.resolve('inner/_markbind/layouts/default/navigation.md'), 'utf8'))
-    .toEqual(EXPECTED_SITE_NAV);
-
-  // top navigation
-  expect(fs.readFileSync(path.resolve('inner/_markbind/layouts/default/header.md'), 'utf8'))
-    .toEqual(TOP_NAV_DEFAULT);
-
-  // index page
-  const EXPECTED_INDEX_PAGE = 'This is the README';
-  expect(fs.readFileSync(path.resolve('inner/index.md'), 'utf8'))
-    .toEqual(EXPECTED_INDEX_PAGE);
-
-  // about page
-  expect(fs.readFileSync(path.resolve('inner/about.md'), 'utf8')).toEqual(ABOUT_MD_DEFAULT);
-});
-
 test('Site deploys with default settings', async () => {
   const json = {
     ...PAGE_NJK,
@@ -470,7 +227,12 @@ test('Site deploys with default settings', async () => {
   await site.deploy();
   expect(ghpages.dir).toEqual('_site');
   expect(ghpages.options)
-    .toEqual({ branch: 'gh-pages', message: 'Site Update.', repo: '' });
+    .toEqual({
+      branch: 'gh-pages',
+      message: 'Site Update.',
+      repo: '',
+      remote: 'origin',
+    });
 });
 
 test('Site deploys with custom settings', async () => {
@@ -490,7 +252,12 @@ test('Site deploys with custom settings', async () => {
   await site.deploy();
   expect(ghpages.dir).toEqual('_site');
   expect(ghpages.options)
-    .toEqual({ branch: 'master', message: 'Custom Site Update.', repo: 'https://github.com/USER/REPO.git' });
+    .toEqual({
+      branch: 'master',
+      message: 'Custom Site Update.',
+      repo: 'https://github.com/USER/REPO.git',
+      remote: 'origin',
+    });
 });
 
 test('Site should not deploy without a built site', async () => {

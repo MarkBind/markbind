@@ -1,3 +1,4 @@
+/* eslint-env node */
 const path = require('path');
 
 module.exports = {
@@ -32,6 +33,17 @@ module.exports = {
             options: {
               root: __dirname,
               rootMode: 'upward',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(woff|woff2|ttf|eot)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'fonts/[name].[ext]',
             },
           },
         ],

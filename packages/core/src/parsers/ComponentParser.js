@@ -8,7 +8,7 @@ _.isArray = require('lodash/isArray');
 _.cloneDeep = require('lodash/cloneDeep');
 _.has = require('lodash/has');
 
-const { convertRelativeLinks } = require('./linkProcessor');
+const { convertRelativeLinks, convertMdExtToHtmlExt } = require('./linkProcessor');
 
 const md = require('../lib/markdown-it');
 const utils = require('../utils');
@@ -89,8 +89,8 @@ class ComponentParser {
     node.children.forEach((child) => {
       const slot = child.attribs && child.attribs.slot;
       if (slot) {
-        // Turns <div slot="content">... into <div data-mb-html-for=content>...
-        child.attribs['data-mb-html-for'] = slot;
+        // Turns <div slot="content">... into <div data-mb-slot-name=content>...
+        child.attribs['data-mb-slot-name'] = slot;
         delete child.attribs.slot;
       }
       // similarly, need to transform templates to avoid Vue parsing
@@ -106,18 +106,7 @@ class ComponentParser {
 
   static _parsePanelAttributes(node) {
     ComponentParser._parseAttributeWithoutOverride(node, 'alt', false, '_alt');
-
-    const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
-    const hasAltSlot = slotChildren && slotChildren.some(child => child.attribs.slot === '_alt');
-    const hasHeaderSlot = slotChildren && slotChildren.some(child => child.attribs.slot === 'header');
-
-    // If both are present, the header attribute has no effect, and we can simply remove it.
-    if (hasAltSlot && hasHeaderSlot) {
-      delete node.attribs.header;
-      return;
-    }
-
-    ComponentParser._parseAttributeWithoutOverride(node, 'header', false, '_header');
+    ComponentParser._parseAttributeWithoutOverride(node, 'header', false);
   }
 
   /**
@@ -155,11 +144,9 @@ class ComponentParser {
   static _assignPanelId(node) {
     const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
     const headerSlot = slotChildren.find(child => child.attribs.slot === 'header');
-    const headerAttributeSlot = slotChildren.find(child => child.attribs.slot === '_header');
 
-    const slotElement = headerSlot || headerAttributeSlot;
-    if (slotElement) {
-      const header = ComponentParser._findHeaderElement(slotElement);
+    if (headerSlot) {
+      const header = ComponentParser._findHeaderElement(headerSlot);
       if (!header) {
         return;
       }
@@ -227,45 +214,33 @@ class ComponentParser {
   }
 
   /*
-   * Triggers
+   * Popovers, tooltips, modals, triggers
    *
-   * At "compile time", we can't tell whether a trigger references a modal, popover, or toolip,
-   * since that element might not have been processed yet.
+   * We use bootstrap-vue's popovers, tooltips and modals, but perform various transformations
+   * to conform with our syntax instead, and to support triggers.
    *
-   * So, we make every trigger try all 3. It will attempt to open a tooltip, popover, and modal.
+   * For tooltips and popovers,
+   * The content / title is put into hidden [data-mb-slot-name] slots.
+   * Then, we call the relevant content getters inside core-web/index.js at runtime to get this content.
    *
-   * For tooltips and popovers, we call the relevant content getters inside asset/js/setup.js.
-   * They will check to see if the element id exists, and whether it is a popover/tooltip,
-   * and then return the content as needed.
+   * For modals,
+   * only syntactic transformations are performed.
    *
-   * For modals, we make it attempt to show the modal if it exists.
+   * For triggers,
+   * When building the site, we can't immediately tell whether a trigger references
+   * a modal, popover, or tooltip, as the element may not have been processed yet.
+   *
+   * So, we make every trigger try all 3 at runtime in the browser. (refer to Trigger.vue)
+   * It will attempt to open a modal, then a tooltip or popover.
+   * For modals, we simply attempt to show the modal via bootstrap-vue's programmatic api.
+   * The content of tooltips and popovers is retrieved from the [data-mb-slot-name] slots,
+   * then the <b-popover/tooltip> component is dynamically created appropriately.
    */
 
   static addTriggerClass(node, trigger) {
     const triggerClass = trigger === 'click' ? 'trigger-click' : 'trigger';
     node.attribs.class = node.attribs.class ? `${node.attribs.class} ${triggerClass}` : triggerClass;
   }
-
-  static _parseTrigger(node) {
-    node.name = 'span';
-    const trigger = node.attribs.trigger || 'hover';
-    const placement = node.attribs.placement || 'top';
-    node.attribs[`v-b-popover.${trigger}.${placement}.html`]
-      = 'popoverGenerator';
-    node.attribs[`v-b-tooltip.${trigger}.${placement}.html`]
-      = 'tooltipContentGetter';
-    const convertedTrigger = trigger === 'hover' ? 'mouseover' : trigger;
-    node.attribs[`v-on:${convertedTrigger}`] = `$refs['${node.attribs.for}'].show()`;
-    ComponentParser.addTriggerClass(node, convertedTrigger);
-  }
-
-  /*
-   * Popovers
-   *
-   * We hide the content and header via _transformSlottedComponents, for retrieval by triggers.
-   *
-   * Then, we add in a trigger for this popover.
-   */
 
   static _parsePopover(node) {
     ComponentParser._warnDeprecatedAttributes(node, { title: 'header' });
@@ -278,8 +253,7 @@ class ComponentParser {
     const trigger = node.attribs.trigger || 'hover';
     const placement = node.attribs.placement || 'top';
     node.attribs['data-mb-component-type'] = 'popover';
-    node.attribs[`v-b-popover.${trigger}.${placement}.html`]
-      = 'popoverInnerGenerator';
+    node.attribs[`v-b-popover.${trigger}.${placement}.html`] = 'popoverInnerGetters';
     ComponentParser.addTriggerClass(node, trigger);
     ComponentParser._transformSlottedComponents(node);
   }
@@ -309,12 +283,6 @@ class ComponentParser {
     });
   }
 
-  /*
-   * Tooltips
-   *
-   * Similar to popovers.
-   */
-
   static _parseTooltip(node) {
     ComponentParser._parseAttributeWithoutOverride(node, 'content', true, '_content');
 
@@ -322,8 +290,7 @@ class ComponentParser {
     const trigger = node.attribs.trigger || 'hover';
     const placement = node.attribs.placement || 'top';
     node.attribs['data-mb-component-type'] = 'tooltip';
-    node.attribs[`v-b-tooltip.${trigger}.${placement}.html`]
-      = 'tooltipInnerContentGetter';
+    node.attribs[`v-b-tooltip.${trigger}.${placement}.html`] = 'tooltipInnerContentGetter';
     ComponentParser.addTriggerClass(node, trigger);
     ComponentParser._transformSlottedComponents(node);
   }
@@ -345,13 +312,6 @@ class ComponentParser {
       delete node.attribs[originalAttribute];
     }
   }
-
-  /*
-   * Modals
-   *
-   * We are using bootstrap-vue modals, and some of their attributes/slots differ from ours.
-   * So, we will transform from markbind modal syntax into bootstrap-vue modal syntax.
-   */
 
   static _parseModalAttributes(node) {
     ComponentParser._warnDeprecatedAttributes(node, { title: 'header' });
@@ -486,6 +446,16 @@ class ComponentParser {
     delete node.attribs.text;
   }
 
+  /**
+   * Annotations are added automatically by KaTeX when rendering math formulae.
+   */
+
+  static _parseAnnotationAttributes(node) {
+    if (!_.has(node.attribs, 'v-pre')) {
+      node.attribs['v-pre'] = true;
+    }
+  }
+
   /*
    * API
    */
@@ -508,9 +478,6 @@ class ComponentParser {
       case 'quiz':
         ComponentParser._parseQuiz(node);
         break;
-      case 'trigger':
-        ComponentParser._parseTrigger(node);
-        break;
       case 'popover':
         ComponentParser._parsePopover(node);
         break;
@@ -532,6 +499,9 @@ class ComponentParser {
         break;
       case 'thumbnail':
         ComponentParser._parseThumbnailAttributes(node);
+        break;
+      case 'annotation':
+        ComponentParser._parseAnnotationAttributes(node);
         break;
       default:
         break;
@@ -577,8 +547,8 @@ class ComponentParser {
       context = _.cloneDeep(context);
       context.cwf = node.attribs['data-included-from'];
     }
-
     convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);
+    convertMdExtToHtmlExt(node);
 
     const isHeadingTag = (/^h[1-6]$/).test(node.name);
 
@@ -624,8 +594,8 @@ class ComponentParser {
     ComponentParser.postParseComponents(node);
 
     // If a fixed header is applied to the page, generate dummy spans as anchor points
-    if (this.config.fixedHeader && isHeadingTag && node.attribs.id) {
-      cheerio(node).append(cheerio.parseHTML(`<span id="${node.attribs.id}" class="anchor"></span>`));
+    if (isHeadingTag && node.attribs.id) {
+      cheerio(node).prepend(`<span id="${node.attribs.id}" class="anchor"></span>`);
     }
 
     return node;

@@ -27,6 +27,7 @@ class SiteConfig {
      */
     this.faviconPath = siteConfigJson.faviconPath;
     /**
+     * Default maximum heading level to index for all pages.
      * @type {number}
      */
     this.headingIndexingLevel = siteConfigJson.headingIndexingLevel || HEADING_INDEXING_LEVEL_DEFAULT;
@@ -34,6 +35,11 @@ class SiteConfig {
      * @type {string}
      */
     this.theme = siteConfigJson.theme || false;
+
+    /**
+     * @type {Object<string, any>}
+     */
+    this.style = siteConfigJson.style || {};
 
     /**
      * @type {Array}

@@ -1,8 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import MarkBindVue from '@markbind/vue-components/src';
+import initScrollTopButton from './scrollTopButton';
 import './styles/index.css';
-
-/* global Vue, window, document, jQuery, baseUrl */
 
 Vue.use(MarkBindVue);
 
@@ -24,6 +23,12 @@ function insertCss(cssCode) {
 }
 
 function setupAnchorsForFixedNavbar() {
+  jQuery(':header').each((index, heading) => {
+    if (heading.id) {
+      jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
+    }
+  });
+
   const headerSelector = jQuery('header[fixed]');
   const isFixed = headerSelector.length !== 0;
   if (!isFixed) {
@@ -33,7 +38,7 @@ function setupAnchorsForFixedNavbar() {
   const headerHeight = headerSelector.height();
   const bufferHeight = 1;
   jQuery('.nav-inner').css('padding-top', `calc(${headerHeight}px + 1rem)`);
-  jQuery('#content-wrapper').css('padding-top', `calc(${headerHeight}px)`);
+  jQuery('#content-wrapper').css('padding-top', `calc(${headerHeight}px + 0.8rem)`);
   insertCss(
     `span.anchor {
     position: relative;
@@ -46,11 +51,6 @@ function setupAnchorsForFixedNavbar() {
         margin-top: calc(-${headerHeight}px - ${bufferHeight}rem);
         height: calc(${headerHeight}px + ${bufferHeight}rem);
       }`);
-  jQuery('h1, h2, h3, h4, h5, h6, .header-wrapper').each((index, heading) => {
-    if (heading.id) {
-      jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
-    }
-  });
 }
 
 function updateSearchData(vm) {
@@ -128,35 +128,29 @@ function setupWithSearch() {
   });
 }
 
-function makeInnerGetterFor(attribute) {
+/*
+ These getters are used by popovers and tooltips to get their popover/tooltip content/title.
+
+ For triggers, refer to Trigger.vue.
+ We need to create a completely new popover/tooltip for each trigger due to bootstrap-vue's implementation,
+ so this is how we retrieve our contents.
+*/
+
+function makeMbSlotGetter(slotName) {
   return (element) => {
-    const innerElement = element.querySelector(`[data-mb-html-for="${attribute}"]`);
+    const innerElement = element.querySelector(`[data-mb-slot-name="${slotName}"]`);
     return innerElement === null ? '' : innerElement.innerHTML;
   };
 }
 
-function makeHtmlGetterFor(componentType, attribute) {
-  return (element) => {
-    const contentWrapper = document.getElementById(element.attributes.for.value);
-    return contentWrapper.dataset.mbComponentType === componentType
-      ? makeInnerGetterFor(attribute)(contentWrapper) : '';
-  };
-}
+// Used via vb-popover.html="popoverInnerGetters" for popovers
+window.popoverInnerGetters = {
+  title: makeMbSlotGetter('header'),
+  content: makeMbSlotGetter('content'),
+};
+// Used via vb-tooltip.html="popoverInnerGenerator" for tooltips
+window.tooltipInnerContentGetter = makeMbSlotGetter('_content');
 
-/*
- These getters are used by triggers to get their popover/tooltip content.
- We need to create a completely new popover/tooltip for each trigger due to bootstrap-vue's implementation,
- so this is how we retrieve our contents.
-*/
-const popoverContentGetter = makeHtmlGetterFor('popover', 'content');
-const popoverHeaderGetter = makeHtmlGetterFor('popover', 'header');
-const popoverInnerContentGetter = makeInnerGetterFor('content');
-const popoverInnerHeaderGetter = makeInnerGetterFor('header');
-
-window.popoverGenerator = { title: popoverHeaderGetter, content: popoverContentGetter };
-window.popoverInnerGenerator = { title: popoverInnerHeaderGetter, content: popoverInnerContentGetter };
-
-window.tooltipContentGetter = makeHtmlGetterFor('tooltip', '_content');
-window.tooltipInnerContentGetter = makeInnerGetterFor('_content');
+initScrollTopButton();
 
 export default { setup, setupWithSearch };

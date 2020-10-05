@@ -1,5 +1,5 @@
 const path = require('path');
-const fs = require('fs-extra-promise');
+const fs = require('fs-extra');
 const { execSync } = require('child_process');
 
 const { cleanupConvert } = require('./testUtil/cleanup');
@@ -16,6 +16,8 @@ function printFailedMessage(err, siteName) {
   console.log(err);
   console.log(`Failed to update: ${siteName}`);
 }
+
+process.env.FORCE_COLOR = '3';
 
 const execOptions = {
   stdio: ['inherit', 'inherit', 'inherit'],
