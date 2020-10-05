@@ -5,7 +5,7 @@ const markdownIt = require('markdown-it')({
 });
 const slugify = require('@sindresorhus/slugify');
 
-const LINESLICE_REGEX = new RegExp('(\\d+)\\[(\\d*):(\\d*)]');
+const { HighlightRule } = require('./highlight/HighlightRule.js');
 
 // markdown-it plugins
 markdownIt.use(require('markdown-it-mark'))
@@ -44,19 +44,6 @@ function getAttributeAndDelete(token, attr) {
   const value = token.attrs[index][1];
   token.attrs.splice(index, 1);
   return value;
-}
-
-function isLineSlice(ruleComponent) {
-  return Array.isArray(ruleComponent)
-    && ruleComponent.length === 3
-    && ruleComponent.every(Number.isInteger);
-}
-
-function splitCodeAndIndentation(codeStr) {
-  const codeStartIdx = codeStr.search(/\S|$/);
-  const indents = codeStr.substr(0, codeStartIdx);
-  const content = codeStr.substr(codeStartIdx);
-  return [indents, content];
 }
 
 // syntax highlight code fences and add line numbers
@@ -105,85 +92,20 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const highlightLinesInput = getAttributeAndDelete(token, 'highlight-lines');
   let highlightRules = [];
   if (highlightLinesInput) {
-    // INPUT: a comma-delimited string with each entry be a line number (eg: 1), a range (eg: 4-7),
-    //   a slice of a line (eg: 8[2:5]), a range with line slice (eg: 11[:]-20)
-    // OUTPUT: an array containing arrays of one, two, or three items
-    //   if it's a single number, it will just be parsed as an array of one int
-    //   if it's a range, it will be parsed as as an array of two ints
-    //   if it's a single number with a slice, it will be parsed as an array of three ints, with the
-    //     latter two having a default of -1 if not specified
-    //   if it's a range with slice, it will be parsed as an array of two items whose types correspond
-    //     to the formats above (for single number and number with slice)
-    // EXAMPLE: input "1,4-7,8[2:5],10[2:],11[:]-20"
-    //         output [[1],[4,7],[8,2,5],[10,2,-1],[[11,-1,-1], 20]]
     const highlightLines = highlightLinesInput.split(',');
-    function parseRule(ruleString) {
-      // Note: authors provide line numbers based on the 'start-from' attribute if it exists,
-      //       so we need to shift line numbers back down to start at 0
-
-      let ruleComponents = ruleString.split('-').map(comp => {
-        // tries to match to the line slice pattern
-        const matches = comp.match(LINESLICE_REGEX);
-        if (matches) {
-          // keep the capturing group matches only
-          let numbers = matches.slice(1);
-
-          // only the first number is a line number, the rest are regular numbers
-          numbers = numbers.map(x => x !== '' ? parseInt(x, 10) : -1);
-          numbers[0] -= startFromZeroBased;
-          return numbers;
-        }
-
-        // match fails, so it is just line numbers
-        return parseInt(comp, 10) - startFromZeroBased;
-      });
-
-      // If the only component is a line-slice, then the outer array is unnecessary as the component itself
-      // is already an array
-      const firstComponent = ruleComponents[0];
-      return ruleComponents.length === 1 && isLineSlice(firstComponent) ? firstComponent : ruleComponents;
-    }
-    highlightRules = highlightLines.map(parseRule);
+    highlightRules = highlightLines.map(HighlightRule.parseRule);
+    // Note: authors provide line numbers based on the 'start-from' attribute if it exists,
+    //       so we need to shift line numbers back down to start at 0
+    highlightRules.forEach(rule => rule.offsetLines(-startFromZeroBased));
   }
 
   lines.pop(); // last line is always a single '\n' newline, so we remove it
   // wrap all lines with <span> so we can number them
   str = lines.map((line, index) => {
     const currentLineNumber = index + 1;
-    for (let i = 0; i < highlightRules.length; i++) {
-      const rule = highlightRules[i];
-      const [a, b, c] = rule; // can be up to three items
-
-      // "line slice" type
-      if (isLineSlice(rule)) {
-        if (currentLineNumber === a) {
-          // Currently only highlights whole-line
-          // TODO: Implement highlighting by slice index
-          return `<span class="highlighted">${line}\n</span>`;
-        }
-      }
-
-      // "line range" type
-      if (a && b) {
-        const isTextOnlyHighlight = !isLineSlice(a) && !isLineSlice(b);
-        const lineStart = isLineSlice(a) ? a[0] : a;
-        const lineEnd = isLineSlice(b) ? b[0] : b;
-
-        if (lineStart <= currentLineNumber && currentLineNumber <= lineEnd) {
-          if (isTextOnlyHighlight) {
-            const [indents, content] = splitCodeAndIndentation(line);
-            return `<span>${indents}<span class="highlighted">${content}</span>\n</span>`;
-          }
-
-          return `<span class="highlighted">${line}\n</span>`
-        }
-      }
-
-      // "line number" type: highlight text-only
-      if (currentLineNumber === a) {
-        const [indents, content] = splitCodeAndIndentation(line);
-        return `<span>${indents}<span class="highlighted">${content}</span>\n</span>`;
-      }
+    const rule = highlightRules.find(rule => rule.shouldApplyHighlight(currentLineNumber))
+    if (rule) {
+      return rule.applyHighlight(line);
     }
 
     // not highlighted
