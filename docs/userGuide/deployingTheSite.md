@@ -134,21 +134,35 @@ When Travis CI is set up as explained above, it will use the latest version of M
     - npm i -g markbind-cli@^1.63
   ```
 
-## TODO: Update this 
-
 ##### Configuring Travis CI to only deploy from a specific repository
 
 When Travis CI is set up as explained above, Travis CI will attempt to deploy the site from any repository it is in, including forks. If you want Travis CI to only deploy from a specific repository (eg. only from your main site repository), you can set a [`deploy` phase with an `on` condition](https://docs.travis-ci.com/user/deployment#conditional-releases-with-on).
 
-For example, if you only want Travis CI to deploy the site when it is run from the `se-edu/se-book` repository, the folllowing `deploy` phase with the `on` condition should be added to `.travis.yml`:
+For example, if you only want Travis CI to deploy the site when it is run from the `se-edu/se-book` repository, the `deploy` phase with the `on` condition should be added to `.travis.yml`.
+
+An example `.travis.yml` file that can accomplish this is given below:
 
 ```yaml
+language: node_js
+node_js:
+  - 8
+install:
+  - npm i -g markbind-cli
+branches:
+  only:
+  - master
 deploy:
+  provider: pages
+  skip_cleanup: true
+  keep_history: true
+  branch: master
+  github_token: $GITHUB_TOKEN
+  local_dir: _site
   on:
     repo: se-edu/se-book
 ```
 
-The `repo` value can be changed to your specific repository as desired.
+The `repo` value can be changed to your specific repository as desired. `$GITHUB_TOKEN` refers to the environment variable named `GITHUB_TOKEN` registered with Travis [earlier](#configuring-your-repository-in-travis-ci).
 
 <hr>
 
