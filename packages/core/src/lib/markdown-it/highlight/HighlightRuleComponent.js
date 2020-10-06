@@ -1,54 +1,50 @@
 const LINESLICE_REGEX = new RegExp('(\\d+)\\[(\\d*):(\\d*)]');
 
 class HighlightRuleComponent {
-  constructor(components) {
-    /**
-     * @type Number | Array<Number>
-     */
-    this.components = components;
-  }
-  
-  isNumber() {
-    return Number.isInteger(this.components);
-  }
-  
-  isSlice() {
-    return Array.isArray(this.components)
-      && this.components.length === 3
-      && this.components.every(Number.isInteger);
+  constructor(lineNumber, isSlice, bounds) {
+    this.lineNumber = lineNumber;
+    this.isSlice = isSlice || false;
+    this.bounds = bounds || [];
   }
   
   isUnboundedSlice() {
-    return this.isSlice()
-      && this.components[1] === -1
-      && this.components[2] === -1;
+    return this.isSlice && this.bounds.length === 0;
   }
   
   static parseRuleComponent(compString) {
     // tries to match with the line slice pattern
     const matches = compString.match(LINESLICE_REGEX);
     if (matches) {
-      const numbers = matches.slice(1) // keep the capturing group matches only
-        .map(x => x !== '' ? parseInt(x, 10) : -1);
-      return new HighlightRuleComponent(numbers);
+      const groups = matches.slice(1); // keep the capturing group matches only
+      const lineNumber = parseInt(groups.shift(), 10);
+      
+      const isUnbounded = groups.every(x => x === '');
+      if (isUnbounded) {
+        return new HighlightRuleComponent(lineNumber, true);
+      }
+      
+      const bounds = groups.map(x => x !== '' ? parseInt(x, 10) : -1);
+      return new HighlightRuleComponent(lineNumber, true, bounds);
     }
 
     // match fails, so it is just line numbers
-    const number = parseInt(compString, 10);
-    return new HighlightRuleComponent(number);
+    const lineNumber = parseInt(compString, 10);
+    return new HighlightRuleComponent(lineNumber);
   }
   
-  offsetLines(offset) {
-    if (this.isNumber()) {
-      this.components += offset;
-    } else {
-      this.components[0] += offset;
-    }
+  offsetLineNumber(offset) {
+    this.lineNumber += offset;
   }
-  
+
+  /**
+   * Compares the component's line number to a given line number.
+   * 
+   * @param lineNumber The line number to compare
+   * @returns {number} A negative number, zero, or a positive number when the given line number
+   *  is after, at, or before the component's line number
+   */
   compareLine(lineNumber) {
-    const lineRule = this.isSlice() ? this.components[0] : this.components;
-    return lineRule - lineNumber;
+    return this.lineNumber - lineNumber;
   }
 }
 

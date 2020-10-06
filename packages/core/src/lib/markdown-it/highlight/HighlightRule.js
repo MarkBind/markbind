@@ -7,24 +7,9 @@ class HighlightRule {
      */
     this.rule = rule;
   }
-
-  isLineNumber() {
-    return this.rule.length === 1 && this.rule[0].isNumber()
-  }
-  
-  isLineSlice() {
-    return this.rule.length === 1 && this.rule[0].isSlice();
-  }
   
   isLineRange() {
-    if (this.rule.length !== 2) {
-      return false;
-    }
-
-    const [isFirstNumber, isSecondNumber] = this.rule.map(comp => comp.isNumber());
-    const [isFirstSlice, isSecondSlice] = this.rule.map(comp => comp.isSlice());
-
-    return (isFirstNumber || isFirstSlice) && (isSecondNumber || isSecondSlice);
+    return this.rule.length === 2;
   }
   
   static parseRule(ruleString) {
@@ -33,31 +18,37 @@ class HighlightRule {
   }
   
   offsetLines(offset) {
-    this.rule.map(comp => comp.offsetLines(offset));
+    this.rule.map(comp => comp.offsetLineNumber(offset));
   }
   
   shouldApplyHighlight(lineNumber) {
     const compares = this.rule.map(comp => comp.compareLine(lineNumber));
     if (this.isLineRange()) {
-      return (compares[0] <= 0) && (compares[1] >= 0);
+      const withinRangeStart = compares[0] <= 0;
+      const withinRangeEnd = compares[1] >= 0;
+      return withinRangeStart && withinRangeEnd;
     }
-    return compares[0] === 0;
+    
+    const atLineNumber = compares[0] === 0;
+    return atLineNumber;
   }
   
   applyHighlight(line) {
-    if (this.isLineSlice()) {
+    const isLineSlice = this.rule.length === 1 && this.rule[0].isSlice;
+    
+    if (this.isLineRange()) {
+      const shouldWholeLine = this.rule.some(comp => comp.isUnboundedSlice());
+      return shouldWholeLine
+        ? HighlightRule._highlightWholeLine(line)
+        : HighlightRule._highlightTextOnly(line);
+    }
+    
+    if (isLineSlice) {
       // TODO: Implement slice-index based highlighting
       return HighlightRule._highlightWholeLine(line);
     }
     
-    if (this.isLineNumber()) {
-      return HighlightRule._highlightTextOnly(line);
-    }
-    
-    const shouldWholeLine = this.rule.some(comp => comp.isUnboundedSlice());
-    return shouldWholeLine
-      ? HighlightRule._highlightWholeLine(line)
-      : HighlightRule._highlightTextOnly(line);
+    return HighlightRule._highlightTextOnly(line);
   }
 
   static _splitCodeAndIndentation(codeStr) {
