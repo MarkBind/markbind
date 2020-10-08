@@ -114,7 +114,6 @@ deploy:
   provider: script
   script: markbind deploy --travis
   skip_cleanup: true
-  keep_history: true
   on:
     branch: master
 ```
