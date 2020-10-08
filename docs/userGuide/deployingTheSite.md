@@ -103,18 +103,23 @@ Since May 2018, Travis CI has been [undergoing migration to `travis-ci.com`](htt
 1. [Add an environment variable in Travis CI](https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings) named `GITHUB_TOKEN`, with the value set to the personal access token generated in the previous step. ==Ensure that _Display value in the build log_ is set to _Off_.==
    <include src="screenshot.md" boilerplate var-alt="Add GITHUB_TOKEN" var-file="travisGithubToken.png" inline />
 1. Add a `.travis.yml` file to instruct Travis CI to build and deploy the site when you push to the repository. An example `.travis.yml` file that can accomplish this is given below:
-    ```yaml
-    language: node_js
-    node_js:
-      - '8'
-    install:
-      - npm i -g markbind-cli
-    script: markbind build && markbind deploy --travis
-    branches:
-      only:
-      - master
-    ```
-    More information about `.travis.yml` can be found in the [Travis CI documentation](https://docs.travis-ci.com/).
+```yaml
+language: node_js
+node_js:
+  - 10
+install:
+  - npm i -g markbind-cli
+script: markbind build
+deploy:
+  provider: script
+  script: markbind deploy --travis
+  skip_cleanup: true
+  keep_history: true
+  on:
+    branch: master
+```
+More information about `.travis.yml` can be found in the [Travis CI documentation](https://docs.travis-ci.com/).
+
 1. Commit `.travis.yml` to your MarkBind repository and push the changes. Travis CI should begin to build your site.
 1. Select the MarkBind repository on [Travis CI](https://travis-ci.com/auth) and [check the build status](https://docs.travis-ci.com/user/job-lifecycle/#breaking-the-build) to see if it is successful.
 1. Once the build succeeds, your MarkBind site should be online at `http://<username|org>.github.io/<repo>` e.g., http://se-edu.github.io/se-book. Travis CI will automatically build and deploy changes to your site as you push new changes to the repository after a few seconds.<br>
@@ -136,33 +141,18 @@ When Travis CI is set up as explained above, it will use the latest version of M
 
 ##### Configuring Travis CI to only deploy from a specific repository
 
-When Travis CI is set up as explained above, Travis CI will attempt to deploy the site from any repository it is in, including forks. If you want Travis CI to only deploy from a specific repository (eg. only from your main site repository), you can set a [`deploy` phase with an `on` condition](https://docs.travis-ci.com/user/deployment#conditional-releases-with-on).
+When Travis CI is set up as explained above, Travis CI will attempt to deploy the site from any repository it is in, including forks.
+If you want Travis CI to only deploy from a specific repository (eg. only from your main site repository), you can add to the `deploy` phase a [`repo` condition in the form `owner_name/repo_name`](https://docs.travis-ci.com/user/deployment#conditional-releases-with-on).
 
-For example, if you only want Travis CI to deploy the site when it is run from the `se-edu/se-book` repository, the `deploy` phase with the `on` condition should be added to `.travis.yml`.
-
-An example `.travis.yml` file that can accomplish this is given below:
+For example, if you only want Travis CI to deploy the site when it is run from the `se-edu/se-book` repository, the following `repo` condition should be added to `.travis.yml`.
 
 ```yaml
-language: node_js
-node_js:
-  - 8
-install:
-  - npm i -g markbind-cli
-branches:
-  only:
-  - master
-deploy:
-  provider: pages
-  skip_cleanup: true
-  keep_history: true
-  branch: master
-  github_token: $GITHUB_TOKEN
-  local_dir: _site
   on:
+    branch: master
     repo: se-edu/se-book
 ```
 
-The `repo` value can be changed to your specific repository as desired. `$GITHUB_TOKEN` refers to the environment variable named `GITHUB_TOKEN` registered with Travis [earlier](#configuring-your-repository-in-travis-ci).
+The `repo` value can be changed to your specific repository as desired.
 
 <hr>
 
