@@ -404,20 +404,57 @@ pre {
     position: relative;
 }
 
+/* Override user-agent stylesheets */
+#copy-btn--ua {
+    border: 0.0625rem solid white;
+}
+
 .copy-btn {
-    background-color: #b4b4b9;
-    border-radius: 0.25rem;
-    color: #f8f8ff;
+    background-color: lightgrey;
+    color: white;
     display: inline-block;
-    font-size: 75%;
-    line-height: 1;
-    padding: 0.25em 0.4em;
+    padding: 0.4rem 0.4rem;
     position: absolute;
-    right: 0.5em;
+    right: 0;
+    top: 0;
     text-align: center;
-    top: 0.4em;
     white-space: nowrap;
 }
+
+/* OPTION 1: GREY BACKGROUND
+#copy-btn--ua {
+    border: 0.0625rem solid white;
+}
+
+.copy-btn {
+    background-color: lightgrey;
+    color: lightgrey;
+    display: inline-block;
+    padding: 0.125rem 0.25rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: center;
+    white-space: nowrap;
+}
+*/
+/* OPTION 2: Line button, darkgrey border
+#copy-btn--ua {
+    border: 0.0625rem solid darkgray;
+}
+
+.copy-btn {
+    background-color: transparent;
+    color: darkgray;
+    display: inline-block;
+    padding: 0.125rem 0.25rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: center;
+    white-space: nowrap;
+}
+*/
 
 .copy-btn:hover {
     color: #555;
@@ -430,7 +467,6 @@ pre {
 
 .copy-btn svg {
     fill: currentColor;
-    margin-right: 0.4em;
 }
 
 .copy-btn-label {
