@@ -421,41 +421,6 @@ pre {
     white-space: nowrap;
 }
 
-/* OPTION 1: GREY BACKGROUND
-#copy-btn--ua {
-    border: 0.0625rem solid white;
-}
-
-.copy-btn {
-    background-color: lightgrey;
-    color: lightgrey;
-    display: inline-block;
-    padding: 0.125rem 0.25rem;
-    position: absolute;
-    right: 0;
-    top: 0;
-    text-align: center;
-    white-space: nowrap;
-}
-*/
-/* OPTION 2: Line button, darkgrey border
-#copy-btn--ua {
-    border: 0.0625rem solid darkgray;
-}
-
-.copy-btn {
-    background-color: transparent;
-    color: darkgray;
-    display: inline-block;
-    padding: 0.125rem 0.25rem;
-    position: absolute;
-    right: 0;
-    top: 0;
-    text-align: center;
-    white-space: nowrap;
-}
-*/
-
 .copy-btn:hover {
     transition: all 0.5s ease;
     box-shadow: 0 0 0.25rem rgba(173, 173, 173, 0.8);
