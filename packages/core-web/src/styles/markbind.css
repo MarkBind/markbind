@@ -368,12 +368,12 @@ li.footnote-item:target {
 
 /* styles for triggers, popovers, tooltips */
 .trigger {
-    border-bottom: 1px dotted currentColor;
+    border-bottom: 3px dotted currentColor;
 }
 
 .trigger-click {
     cursor: pointer;
-    border-bottom: 1px dashed currentColor;
+    border-bottom: 3px dashed currentColor;
 }
 
 .trigger-click:focus {
