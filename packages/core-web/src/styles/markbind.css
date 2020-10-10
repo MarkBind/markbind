@@ -409,6 +409,7 @@ button.copy-btn {
     border: none;
     background-color: transparent;
     color: darkgray;
+    cursor: pointer;
     display: inline-block;
     padding: 0.4rem 0.4rem;
     position: absolute;
