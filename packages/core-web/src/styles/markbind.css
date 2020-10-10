@@ -404,7 +404,6 @@ pre {
     position: relative;
 }
 
-/* button AND .copy-btn to override user-agent stylesheets */
 button.copy-btn {
     border: none;
     background-color: transparent;
