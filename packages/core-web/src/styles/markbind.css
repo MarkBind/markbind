@@ -404,12 +404,9 @@ pre {
     position: relative;
 }
 
-/* Override user-agent stylesheets */
-#copy-btn--ua {
+/* button AND .copy-btn to override user-agent stylesheets */
+button.copy-btn {
     border: none;
-}
-
-.copy-btn {
     background-color: transparent;
     color: darkgray;
     display: inline-block;
