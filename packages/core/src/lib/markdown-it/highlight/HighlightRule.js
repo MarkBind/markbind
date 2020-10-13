@@ -1,15 +1,15 @@
 const { HighlightRuleComponent } = require('./HighlightRuleComponent.js');
 
 class HighlightRule {
-  constructor(rule) {
+  constructor(ruleComponents) {
     /**
      * @type Array<HighlightRuleComponent>
      */
-    this.rule = rule;
+    this.ruleComponents = ruleComponents;
   }
   
   isLineRange() {
-    return this.rule.length === 2;
+    return this.ruleComponents.length === 2;
   }
   
   static parseRule(ruleString) {
@@ -18,11 +18,11 @@ class HighlightRule {
   }
   
   offsetLines(offset) {
-    this.rule.map(comp => comp.offsetLineNumber(offset));
+    this.ruleComponents.forEach(comp => comp.offsetLineNumber(offset));
   }
   
   shouldApplyHighlight(lineNumber) {
-    const compares = this.rule.map(comp => comp.compareLine(lineNumber));
+    const compares = this.ruleComponents.map(comp => comp.compareLine(lineNumber));
     if (this.isLineRange()) {
       const withinRangeStart = compares[0] <= 0;
       const withinRangeEnd = compares[1] >= 0;
@@ -34,10 +34,10 @@ class HighlightRule {
   }
   
   applyHighlight(line) {
-    const isLineSlice = this.rule.length === 1 && this.rule[0].isSlice;
+    const isLineSlice = this.ruleComponents.length === 1 && this.ruleComponents[0].isSlice;
     
     if (this.isLineRange()) {
-      const shouldWholeLine = this.rule.some(comp => comp.isUnboundedSlice());
+      const shouldWholeLine = this.ruleComponents.some(comp => comp.isUnboundedSlice());
       return shouldWholeLine
         ? HighlightRule._highlightWholeLine(line)
         : HighlightRule._highlightTextOnly(line);
@@ -50,16 +50,16 @@ class HighlightRule {
     
     return HighlightRule._highlightTextOnly(line);
   }
+  
+  static _highlightWholeLine(codeStr) {
+    return `<span class="highlighted">${codeStr}\n</span>`;
+  }
 
   static _splitCodeAndIndentation(codeStr) {
     const codeStartIdx = codeStr.search(/\S|$/);
     const indents = codeStr.substr(0, codeStartIdx);
     const content = codeStr.substr(codeStartIdx);
     return [indents, content];
-  }
-  
-  static _highlightWholeLine(codeStr) {
-    return `<span class="highlighted">${codeStr}\n</span>`;
   }
   
   static _highlightTextOnly(codeStr) {

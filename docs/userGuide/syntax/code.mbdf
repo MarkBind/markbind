@@ -57,13 +57,13 @@ To highlight lines, add the attribute `highlight-lines` as shown below.
 
 You can specify highlighting in many different ways, depending on how you want it to be. There are two main variants:
 
-##### Text-only highlighting
+**Text-only highlighting**
 
 To highlight only the text portion of the line, you can just use the line numbers as is.
 
 For ranges of lines, join the two line numbers with a dash sign (`-`).
 
-##### Whole-line highlighting
+**Whole-line highlighting**
 
 If you wish to highlight a full line (including whitespaces) or ranges of it, you can leverage MarkBind's own _line-slice_ syntax. Line-slices are in the form of `lineNumber[:]`, e.g. `2[:]`.
     
