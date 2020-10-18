@@ -1,52 +1,52 @@
-**What is the purpose of this pull request? (put "X" next to an item, remove the rest)**
+**What is the purpose of this pull request?**
 
-• [ ] Documentation update
-• [ ] Bug fix
-• [ ] New feature
-• [ ] Enhancement to an existing feature
-• [ ] Other, please explain:
-
-<!--
-    If this pull request is addressing an issue, link to the issue: "Fixes #xxx" or "Resolves #xxx"
--->
-
+- [ ] Documentation update
+- [ ] Bug fix
+- [ ] Feature addition or enhancement
+- [ ] Code maintenance
+- [ ] Others, please explain:
 
 <!--
-    Please ensure your pull request is ready:
-    - Bug fix PR that is non-trivial **should** add a page or unit test for regression testing.
-    - Feature PR **must** add a page to the user guide for demo.
-    - Enhancement PR **should** update the user guide.
+  If this pull request is addressing an issue, link to the issue: "Fixes #xxx" or "Resolves #xxx"
 
-    Otherwise, prefix your PR title with "[WIP]".
+  If the pull request completely addresses the issue, use one of the issue closing keywords. https://docs.github.com/en/enterprise/2.16/user/github/managing-your-work-on-github/closing-issues-using-keywords
+
+  Otherwise, elaborate further on the rationale of this pull request as needed
 -->
 
-**What is the rationale for this request?**
+**Overview of changes:**
 
 
-**What changes did you make? (Give an overview)**
-
-
-**Provide some example code that this change will affect:**
-
-<!-- Paste the example code below: -->
-```js
-
-```
-
-**Is there anything you'd like reviewers to focus on?**
+**Anything you'd like to highlight / discuss:**
 
 
 **Testing instructions:**
 
+<!--
+  Any special testing instructions in not including our automated tests.
+-->
 
 **Proposed commit message: (wrap lines at 72 characters)**
 
 <!--
-    See this link for more info on how to write a good commit message:
-    https://oss-generic.github.io/process/docs/FormatsAndConventions.html#commit-message
+  See this link for more info on how to write a good commit message:
+  https://oss-generic.github.io/process/docs/FormatsAndConventions.html#commit-message
+
+  As best as possible, write a succinct commit title in 50 characters
 -->
 
+---
+
+**Checklist:** :ballot_box_with_check:
+
 <!--
-    Some of the responses that you gave to the previous questions might
-    provide you with the information needed to craft your commit message.
+  Prefix your pull request title with [WIP] if any of these are not complete yet
+
+  Tick non-applicable items as well
 -->
+
+- [ ] Updated the documentation for feature additions and enhancements
+- [ ] Added tests for bug fixes or features
+- [ ] Linked all related issues
+- [ ] No blatantly unrelated changes
+- [ ] Pinged someone for a review!
