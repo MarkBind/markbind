@@ -47,11 +47,20 @@ function convertRelativeLinks(node, cwf, rootPath, baseUrl) {
 
 function convertMdExtToHtmlExt(node) {
   if (node.name === 'a' && node.attribs && node.attribs.href) {
+    const hasNoConvert = lodashHas(node.attribs, 'no-convert');
+    if (hasNoConvert) {
+      return;
+    }
     const { href } = node.attribs;
     const hasMdExtension = href.slice(-3) === '.md';
-    const hasNoConvert = lodashHas(node.attribs, 'no-convert');
-    if (hasMdExtension && !hasNoConvert) {
+    if (hasMdExtension) {
       const newHref = `${href.substring(0, href.length - 3)}.html`;
+      node.attribs.href = newHref;
+      return;
+    }
+    const hasMbdExtension = href.slice(-4) === '.mbd';
+    if (hasMbdExtension) {
+      const newHref = `${href.substring(0, href.length - 4)}.html`;
       node.attribs.href = newHref;
     }
   }
