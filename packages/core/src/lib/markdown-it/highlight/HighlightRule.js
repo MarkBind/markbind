@@ -8,10 +8,6 @@ class HighlightRule {
     this.ruleComponents = ruleComponents;
   }
   
-  isLineRange() {
-    return this.ruleComponents.length === 2;
-  }
-  
   static parseRule(ruleString) {
     const components = ruleString.split('-').map(HighlightRuleComponent.parseRuleComponent);
     return new HighlightRule(components);
@@ -65,6 +61,10 @@ class HighlightRule {
   static _highlightTextOnly(codeStr) {
     const [indents, content] = HighlightRule._splitCodeAndIndentation(codeStr);
     return `<span>${indents}<span class="highlighted">${content}</span>\n</span>`
+  }
+
+  isLineRange() {
+    return this.ruleComponents.length === 2;
   }
 }
 

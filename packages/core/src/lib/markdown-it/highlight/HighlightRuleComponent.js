@@ -7,10 +7,6 @@ class HighlightRuleComponent {
     this.bounds = bounds || [];
   }
   
-  isUnboundedSlice() {
-    return this.isSlice && this.bounds.length === 0;
-  }
-  
   static parseRuleComponent(compString) {
     // tries to match with the line slice pattern
     const matches = compString.match(LINESLICE_REGEX);
@@ -45,6 +41,10 @@ class HighlightRuleComponent {
    */
   compareLine(lineNumber) {
     return this.lineNumber - lineNumber;
+  }
+
+  isUnboundedSlice() {
+    return this.isSlice && this.bounds.length === 0;
   }
 }
 
