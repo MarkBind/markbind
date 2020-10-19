@@ -7,6 +7,13 @@ module.exports = require('markdown-it-regexp')(
         let iconFontName = match[2];
         let iconClass = match[3];
 
+        // ensure octicons exist
+        if (iconFontType === 'octicon' || iconFontType === 'octiconlight') {
+            if (!octicons.hasOwnProperty(iconFontName)) {
+              return `<span aria-hidden="true"></span>`;
+            }
+        }
+
         if (iconFontType === 'glyphicon') {
             return `<span aria-hidden="true" class="glyphicon glyphicon-${iconFontName}"></span>`;
         } else if (iconFontType === 'octicon') {
