@@ -61,7 +61,7 @@ pre > code.hljs[heading] {
         color: #333;
     }
 
-    code > span.highlighted {
+    code span.highlighted {
         background: lavender;
     }
 }

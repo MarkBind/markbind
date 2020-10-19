@@ -56,6 +56,16 @@ Content in a fenced code block
 20
 ```
 
+**`highlight-lines` attr with line-slice syntax of empty indices should highlight leading/trailing spaces
+```xml {highlight-lines="2[:],4[:]-5[:]"}
+<foo>
+  <bar type="name">goo</bar>
+  <baz type="name">goo</baz>
+  <qux type="name">goo</qux>
+  <quux type="name">goo</quux>
+</foo>
+```
+
 **Should render correctly with heading**
 
 ```{heading="A heading"}
