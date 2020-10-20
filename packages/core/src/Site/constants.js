@@ -11,6 +11,7 @@ module.exports = {
   FAVICON_DEFAULT_PATH: 'favicon.ico',
   FOOTER_PATH: '_markbind/footers/footer.md',
   INDEX_MARKDOWN_FILE: 'index.md',
+  INDEX_MARKBIND_FILE: 'index.mbd',
   MARKBIND_DEFAULT_PLUGIN_DIRECTORY: path.join(__dirname, '../plugins/default'),
   MARKBIND_PLUGIN_DIRECTORY: path.join(__dirname, '../plugins'),
   MARKBIND_PLUGIN_PREFIX: 'markbind-plugin-',
