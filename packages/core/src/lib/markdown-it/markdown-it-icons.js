@@ -10,23 +10,21 @@ module.exports = require('markdown-it-regexp')(
         if (iconFontType === 'glyphicon') {
             return `<span aria-hidden="true" class="glyphicon glyphicon-${iconFontName}"></span>`;
         } else if (iconFontType === 'octicon') {
-            let icon = iconClass
+            // ensure octicons are valid
+            if (!octicons.hasOwnProperty(iconFontName)) {
+                return `<span aria-hidden="true"></span>`;
+            }
+            return iconClass
                 ? octicons[iconFontName].toSVG({"class": iconClass})
                 : octicons[iconFontName].toSVG();
+        } else if (iconFontType === 'octiconlight') {
             // ensure octicons are valid
             if (!octicons.hasOwnProperty(iconFontName)) {
-                icon = `<span aria-hidden="true"></span>`;
+               return `<span aria-hidden="true"></span>`;
             }
-            return icon;
-        } else if (iconFontType === 'octiconlight') {
-            let icon = iconClass
+            return iconClass
                 ? octicons[iconFontName].toSVG({"style": "color: #fff;", "class": iconClass})
                 : octicons[iconFontName].toSVG({"style": "color: #fff;"});
-            // ensure octicons are valid
-            if (!octicons.hasOwnProperty(iconFontName)) {
-                icon = `<span aria-hidden="true"></span>`;
-            }
-            return icon;
         } else { // If icon is a Font Awesome icon
             return `<span aria-hidden="true" class="${iconFontType} fa-${iconFontName}"></span>`;
         }
