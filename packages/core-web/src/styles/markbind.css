@@ -441,3 +441,8 @@ button.copy-btn {
     height: 1em;
     width: 1em;
 }
+
+/* Navbar link highlight for current page */
+.navbar .navbar-nav .current {
+    background: rgba(255, 255, 255, 0.2);
+}
