@@ -27,8 +27,7 @@ function addTopNavListener() {
     }
     const currPage = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
     Array.from(navLinks).forEach((node) => {
-      const matched = hasMatchingUrl(node, currPage);
-      if (matched) {
+      if (hasMatchingUrl(node, currPage)) {
         node.classList.add('current');
       }
     });
