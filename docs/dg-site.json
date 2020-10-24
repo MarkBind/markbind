@@ -1,6 +1,9 @@
 {
   "baseUrl": "/devdocs",
   "titlePrefix": "MarkBind",
+  "style": {
+    "codeTheme": "light"
+  },
   "pages": [
     {
       "glob": ["**/*.mbd", "*.md", "devGuide/*.md", "devGuide/*/*.md"]

@@ -1,5 +1,10 @@
 ## Code
 
+#### Themes
+MarkBind can present formatted code blocks, be it fenced or inline, with either **light** or **dark** themes. The default is dark.
+
+Refer [here](../sitejsonfile.html#style) for configuring MarkBind to use a specific theme for the code blocks.
+
 #### Fenced Code
 MarkBind provides several features, some of which are added on top of the existing functionality of Markdown's _fenced code blocks_.
 
