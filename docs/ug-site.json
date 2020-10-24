@@ -1,6 +1,9 @@
 {
   "baseUrl": "",
   "titlePrefix": "MarkBind",
+  "style": {
+    "codeTheme": "light"
+  },
   "pages": [
     {
       "glob": ["**/*.mbd", "*.md", "userGuide/*.md"]
