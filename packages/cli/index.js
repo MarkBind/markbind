@@ -16,6 +16,7 @@ const fsUtil = require('@markbind/core/src/utils/fsUtil');
 const utils = require('@markbind/core/src/utils');
 const {
   INDEX_MARKDOWN_FILE,
+  INDEX_MARKBIND_FILE,
   LAZY_LOADING_SITE_FILE_NAME,
 } = require('@markbind/core/src/Site/constants');
 
@@ -120,7 +121,13 @@ program
     const logsFolder = path.join(rootFolder, '_markbind/logs');
     const outputFolder = path.join(rootFolder, '_site');
 
-    let onePagePath = options.onePage === true ? INDEX_MARKDOWN_FILE : options.onePage;
+    const defaultFiles = [INDEX_MARKDOWN_FILE, INDEX_MARKBIND_FILE];
+    const presentDefaultFile = defaultFiles.find(utils.fileExists);
+    if (options.onePage === true && !presentDefaultFile) {
+      handleError(new Error('Oops! It seems that you didn\'t have the default file index.md|mbd.'));
+      process.exit();
+    }
+    let onePagePath = options.onePage === true ? presentDefaultFile : options.onePage;
     onePagePath = onePagePath ? utils.ensurePosix(onePagePath) : onePagePath;
 
     const site = new Site(rootFolder, outputFolder, onePagePath,
