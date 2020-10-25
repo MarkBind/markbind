@@ -19,7 +19,7 @@ function hasMatchingUrl(elements, currPage) {
   return Array.from(elements.children).some(node => hasMatchingUrl(node, currPage));
 }
 
-function addTopNavListener() {
+function highlightTopNavPage() {
   document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('.navbar .navbar-nav .nav-link');
     if (!navLinks) {
@@ -34,4 +34,4 @@ function addTopNavListener() {
   });
 }
 
-export default addTopNavListener;
+export default highlightTopNavPage;
