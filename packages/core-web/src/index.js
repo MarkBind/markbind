@@ -1,7 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import MarkBindVue from '@markbind/vue-components/src';
-import initScrollTopButton from './scripts/scrollTopButton';
-import highlightTopNavPage from './scripts/topNav';
+import initScrollTopButton from './scrollTopButton';
 import './styles/index.css';
 
 Vue.use(MarkBindVue);
@@ -153,6 +152,5 @@ window.popoverInnerGetters = {
 window.tooltipInnerContentGetter = makeMbSlotGetter('_content');
 
 initScrollTopButton();
-highlightTopNavPage();
 
 export default { setup, setupWithSearch };
