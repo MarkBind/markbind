@@ -78,35 +78,21 @@
         e && e.preventDefault()
         this.collapsed = !this.collapsed
       },
-      highlightCurrentPage() {
-        function hasMatchingUrl(elements, currPage) {
-          if (!elements || !elements.children) {
-            return false;
-          }
-          // Only check <a> leaf nodes
-          if (elements.children.length === 0) {
-            if (elements.href) {
-              if (elements.href === currPage) {
-                return true;
-              }
-            }
-            return false;
-          }
-          // otherwise, check all children recursively
-          return Array.from(elements.children).some(node => hasMatchingUrl(node, currPage));
+      hasMatchingUrl(elements, currPage) {
+        if (!elements || !elements.children) {
+          return false;
         }
-        document.addEventListener('DOMContentLoaded', () => {
-          const navLinks = document.querySelectorAll('.navbar .navbar-nav .nav-link');
-          if (!navLinks) {
-            return;
-          }
-          const currPage = window.location.href;
-          Array.from(navLinks).forEach((node) => {
-            if (hasMatchingUrl(node, currPage)) {
-              node.classList.add('current');
+        // Only check <a> leaf nodes
+        if (elements.children.length === 0) {
+          if (elements.href) {
+            if (elements.href === currPage) {
+              return true;
             }
-          });
-        });
+          }
+          return false;
+        }
+        // otherwise, check all children recursively
+        return Array.from(elements.children).some(node => this.hasMatchingUrl(node, currPage));
       }
     },
     created () {
@@ -135,6 +121,18 @@
         if (!this.$el.contains(e.target)) { this.collapsed = true }
       })
       if (this.slots.collapse) $('[data-toggle="collapse"]',this.$el).on('click', (e) => this.toggleCollapse(e))
+
+      // highlight current nav link
+      const navLinks = this.$el.querySelectorAll('.navbar .navbar-nav .nav-link');
+      if (!navLinks) {
+        return;
+      }
+      const currPage = window.location.href;
+      Array.from(navLinks).forEach((node) => {
+        if (this.hasMatchingUrl(node, currPage)) {
+          node.classList.add('current');
+        }
+      });
     },
     beforeDestroy () {
       $('.dropdown',this.$el).off('click').offBlur()
