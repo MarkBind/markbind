@@ -98,30 +98,36 @@
       hasLinkMatch(url, isStrict) {
         const navLis = Array.from(this.$el.querySelector('.navbar-nav').children);
         for (const li of navLis) {
-          console.log(li);
+          // there are two kinds of navlinks, get all
           const navLinks = Array.from(li.querySelectorAll('a.nav-link'));
           const dropdownLinks = Array.from(li.querySelectorAll('a.dropdown-item'));
           const navnav = navLinks.concat(dropdownLinks).filter(a => a.href);
           for (const a of navnav) {
-            switch (isStrict) {
-              case true:
-                if (a.href === url) {
-                  li.classList.add('current');
-                  return true;
-                }
-                break;
-              case false:
-                const first = new URL(a.href);
-                const second = new URL(url);
-                const fParts = `${first.host}${first.pathname}`.split('/');
-                const sParts = `${second.host}${second.pathname}`.split('/');
-                if (fParts.length > 1 && sParts.length > 1 && fParts[1] === sParts[1]) {
-                  li.classList.add('current');
-                  return true;
-                }
-                break;
+            if (isStrict) {
+              // checks by strict equality of URL
+              if (a.href === url) {
+                li.classList.add('current');
+                return true;
+              }
+            } else {
+              // checks by data-highlight-on
+              const highlight = a.attributes.getNamedItem('data-highlight-on').nodeValue;
+              switch (highlight) {
+                case 'child-or-sibling':
+                  const first = new URL(a.href);
+                  const second = new URL(url);
+                  const fParts = `${first.host}${first.pathname}`.split('/');
+                  const sParts = `${second.host}${second.pathname}`.split('/');
+                  if (fParts.length > 1 && sParts.length > 1 && fParts[1] === sParts[1]) {
+                    li.classList.add('current');
+                    return true;
+                  }
+                  break;
+                default:
+                  console.log('no highlight attribute');
+                  break;
+              }
             }
-
           }
         }
         return false;

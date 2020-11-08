@@ -456,6 +456,26 @@ class ComponentParser {
     }
   }
 
+  /**
+   * Adds <a> tag-specific attributes, like data-highlight-on.
+   */
+
+  static _parseNavbarAttributes(node) {
+    function dfs(curr) {
+      if (curr) {
+        const isNavLink = _.has(curr.attribs, 'class') && curr.attribs.class.includes('nav-link');
+        const isDropdownLink = _.has(curr.attribs, 'class') && curr.attribs.class.includes('dropdown-item');
+        if (curr.name === 'a' && (isNavLink || isDropdownLink) && !_.has(curr.attribs, 'data-highlight-on')) {
+          curr.attribs['data-highlight-on'] = 'child-or-sibling';
+        }
+        if (curr.children) {
+          curr.children.forEach(x => dfs(x));
+        }
+      }
+    }
+    node.children.forEach(x => dfs(x));
+  }
+
   /*
    * API
    */
@@ -502,6 +522,9 @@ class ComponentParser {
         break;
       case 'annotation':
         ComponentParser._parseAnnotationAttributes(node);
+        break;
+      case 'navbar':
+        ComponentParser._parseNavbarAttributes(node);
         break;
       default:
         break;
