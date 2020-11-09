@@ -61,6 +61,6 @@ Internal bundles are also present, generated from setup scripts, custom styleshe
 
 ### UI components library
 
-This package consists of a mix of [Bootstrap](getbootstrap.com/components/) and proprietary components rewritten in [Vue.js](vuejs.org) based on our needs for educational websites.
+This package consists of a mix of [Bootstrap](https://getbootstrap.com/components/) and proprietary components rewritten in [Vue.js](https://vuejs.org) based on our needs for educational websites.
 
 We forked it from the original [yuche/vue-strap](https://github.com/yuche/vue-strap) repo into the [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap) repo, and then later merged it into the main [MarkBind/markbind](https://github.com/MarkBind/markbind) repo.

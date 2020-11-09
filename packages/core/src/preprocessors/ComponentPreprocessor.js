@@ -303,6 +303,7 @@ class ComponentPreprocessor {
     // the file path of dynamic resources ( images, anchors, plugin sources, etc. ) later
     const wrapperType = isInline ? 'span' : 'div';
     const childrenHtml = `<${wrapperType} data-included-from="${filePath}">${actualContent}</${wrapperType}>`;
+
     element.children = cheerio.parseHTML(childrenHtml, true);
 
     if (element.children && element.children.length > 0) {
