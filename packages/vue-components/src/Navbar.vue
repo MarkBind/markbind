@@ -37,13 +37,17 @@
       fixed: {
         type: Boolean,
         default: false
+      },
+      defaultHighlightOn: {
+        type: String,
+        default: 'sibling-or-child'
       }
     },
     data () {
       return {
         id: 'bs-example-navbar-collapse-1',
         collapsed: true,
-        styles: {}
+        styles: {},
       }
     },
     computed: {
@@ -71,7 +75,7 @@
         default:
           return 'navbar-dark bg-primary'
         }
-      }
+      },
     },
     methods: {
       toggleCollapse (e) {
@@ -101,30 +105,53 @@
           // there are two kinds of navlinks, get all
           const navLinks = Array.from(li.querySelectorAll('a.nav-link'));
           const dropdownLinks = Array.from(li.querySelectorAll('a.dropdown-item'));
-          const navnav = navLinks.concat(dropdownLinks).filter(a => a.href);
-          for (const a of navnav) {
+          const allNavLinks = navLinks.concat(dropdownLinks).filter(a => a.href);
+          for (const a of allNavLinks) {
+            const aNorm = this.normalizeUrl(a.href);
+            const urlNorm = this.normalizeUrl(url);
             if (isStrict) {
               // checks by strict equality of URL
-              if (a.href === url) {
+              if (aNorm === urlNorm) {
                 li.classList.add('current');
                 return true;
               }
             } else {
-              // checks by data-highlight-on
-              const highlight = a.attributes.getNamedItem('data-highlight-on').nodeValue;
-              switch (highlight) {
-                case 'child-or-sibling':
-                  const first = new URL(a.href);
-                  const second = new URL(url);
-                  const fParts = `${first.host}${first.pathname}`.split('/');
-                  const sParts = `${second.host}${second.pathname}`.split('/');
-                  if (fParts.length > 1 && sParts.length > 1 && fParts[1] === sParts[1]) {
+              const aTagUrl = new URL(aNorm);
+              const browserUrl = new URL(urlNorm);
+              const aParts = `${aTagUrl.host}${aTagUrl.pathname}`.split('/').slice(1);
+              const bParts = `${browserUrl.host}${browserUrl.pathname}`.split('/').slice(1);
+              switch (this.defaultHighlightOn) {
+                case 'sibling-or-child':
+                  // check for same ancestor
+                  if (aParts[0] === bParts[0]) {
                     li.classList.add('current');
                     return true;
                   }
                   break;
+                case 'sibling':
+                  // check for exact same prefix parts in both URLs
+                  if (aParts.length === bParts.length) {
+                    for (let i = 0; i < aParts.length; i++) {
+                      if (aParts[i] !== bParts[i]) {
+                        return false;
+                      }
+                    }
+                    li.classList.add('current');
+                    return true;
+                  }
+                  break;
+                case 'child':
+                  // check for same ancestor, and <a> tag url has more parts
+                  if (aParts[0] === bParts[0] && aParts.length > bParts.length) {
+                    li.classList.add('current');
+                    return true;
+                  }
+                  break;
+                case 'exact':
+                  return this.hasLinkMatch(url, true);
+                case 'none':
+                  return true;
                 default:
-                  console.log('no highlight attribute');
                   break;
               }
             }
@@ -160,8 +187,7 @@
       if (this.slots.collapse) $('[data-toggle="collapse"]',this.$el).on('click', (e) => this.toggleCollapse(e))
 
       // highlight current nav link
-      const normUrl = this.normalizeUrl(window.location.href);
-      this.highlightLink(normUrl);
+      this.highlightLink(window.location.href);
     },
     beforeDestroy () {
       $('.dropdown',this.$el).off('click').offBlur()
