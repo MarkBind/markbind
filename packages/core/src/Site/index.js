@@ -792,8 +792,10 @@ class Site {
     const filesToRemove = fileRelativePaths.map(
       fileRelativePath => path.join(this.outputPath, fileRelativePath));
     const removeFiles = filesToRemove.map(asset => fs.remove(asset));
-    return Promise.all(removeFiles)
-      .then(() => logger.info('Assets removed'));
+    return removeFiles.length === 0
+      ? Promise.resolve('')
+      : Promise.all(removeFiles)
+        .then(() => logger.debug('Assets removed'));
   }
 
   buildAssets() {
