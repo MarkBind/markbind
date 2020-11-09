@@ -14,6 +14,7 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userguid
 <navbar type="primary">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
+  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbar" class="nav-link">Highlighted Link</a></li>
   <!-- You can use dropdown component -->
   <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
@@ -27,6 +28,7 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userguid
 <navbar type="dark">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
+  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbar" class="nav-link">Highlighted Link</a></li>
   <!-- You can use dropdown component -->
   <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
@@ -40,6 +42,7 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userguid
 <navbar type="light">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
+  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbar" class="nav-link">Highlighted Link</a></li>
   <!-- You can use dropdown component -->
   <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
@@ -57,6 +60,7 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userguid
 Name | Type | Default | Description
 --- | --- | --- | ---
 type | `String` | `primary` | Supports: `primary`, `dark`, `light`, `none`.
+default-highlight-on | `String` | `sibling-or-child` | Supports `sibling-or-child`, `sibling`, `child`, `none`, `exact`. Specifies link highlight rules for navbars. `https://markbind.org/dir/foo.html` and `https://markbind.org/dir/bar.html` are siblings. `https://markbind.org/dir/dir2/foo.html` is a child of `https://markbind.org/dir/index.html`.
 
 <box type="tip">
 
