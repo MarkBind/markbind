@@ -443,6 +443,18 @@ button.copy-btn {
 }
 
 /* Navbar link highlight for current page */
+.navbar.navbar-dark.bg-dark .navbar-nav .current {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.navbar.navbar-light.bg-light .navbar-nav .current {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.navbar.navbar-dark.bg-primary .navbar-nav .current {
+    background: rgba(255, 255, 255, 0.05);
+}
+
 .navbar .navbar-nav .current {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.05);
 }
