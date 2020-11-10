@@ -14,6 +14,10 @@ const consoleTransport = new (winston.transports.Console)({
   showLevel: true,
 });
 
+function useDebugConsole() {
+  consoleTransport.level = 'debug';
+}
+
 const dailyRotateFileTransport = new DailyRotateFile({
   datePattern: 'YYYY-MM-DD',
   dirname: '_markbind/logs',
@@ -43,4 +47,5 @@ module.exports = {
   /* eslint-disable no-console */
   log: console.log,
   logo: () => console.log(chalk.cyan(figlet.textSync('MarkBind', { horizontalLayout: 'full' }))),
+  useDebugConsole,
 };

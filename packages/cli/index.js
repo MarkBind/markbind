@@ -107,6 +107,10 @@ program
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
   .option('-d, --dev', 'development mode, enabling live & hot reload for frontend source files.')
   .action((userSpecifiedRoot, options) => {
+    if (options.dev) {
+      logger.useDebugConsole();
+    }
+
     let rootFolder;
     try {
       rootFolder = cliUtil.findRootFolder(userSpecifiedRoot, options.siteConfig);
