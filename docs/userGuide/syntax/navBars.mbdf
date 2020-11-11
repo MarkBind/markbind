@@ -60,7 +60,7 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userguid
 Name | Type | Default | Description
 --- | --- | --- | ---
 type | `String` | `primary` | Supports: `primary`, `dark`, `light`, `none`.
-default-highlight-on | `String` | `sibling-or-child` | Supports `sibling-or-child`, `sibling`, `child`, `none`, `exact`. Specifies link highlight rules for navbars. `https://markbind.org/dir/foo.html` and `https://markbind.org/dir/bar.html` are siblings. `https://markbind.org/dir/dir2/foo.html` is a child of `https://markbind.org/dir/index.html`.
+default-highlight-on | `String` | `sibling-or-child` | Supports `sibling-or-child`, `sibling`, `child`, `none`. Specifies link highlight rules for navbars. `https://markbind.org/dir/foo.html` and `https://markbind.org/dir/bar.html` are siblings. `https://markbind.org/dir/dir2/foo.html` is a child of `https://markbind.org/dir/index.html`.
 
 <box type="tip">
 

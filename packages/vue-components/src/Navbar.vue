@@ -147,8 +147,6 @@
                     return true;
                   }
                   break;
-                case 'exact':
-                  return this.hasLinkMatch(url, true);
                 case 'none':
                   return true;
                 default:
