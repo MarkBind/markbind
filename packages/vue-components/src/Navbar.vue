@@ -82,7 +82,6 @@
         e && e.preventDefault()
         this.collapsed = !this.collapsed
       },
-      // Adds dir index and lowercases url, e.g http://foo/ or http://foo becomes http://foo/index.html
       normalizeUrl(url) {
         if (url.endsWith('.html')) {
           return url.toLowerCase();
