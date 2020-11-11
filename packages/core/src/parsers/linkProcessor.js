@@ -3,6 +3,7 @@ const lodashHas = require('lodash/has');
 const url = require('url');
 const ignore = require('ignore');
 const utils = require('../utils');
+const fsUtils = require('../utils/fsUtil');
 const logger = require('../utils/logger');
 
 const defaultTagLinkMap = {
@@ -82,10 +83,7 @@ function isValidPageSource(resourcePath, config) {
   const relativeResourcePath = resourcePath.startsWith('/')
     ? resourcePath.substring(1)
     : resourcePath;
-  const parsedPath = path.parse(relativeResourcePath);
-  const relativeResourcePathWithNoExt = parsedPath.dir
-    ? `${parsedPath.dir}/${parsedPath.name}`
-    : parsedPath.name;
+  const relativeResourcePathWithNoExt = fsUtils.removeExtensionPosix(relativeResourcePath);
   const isPageSrc = config.addressablePagesSource.includes(relativeResourcePathWithNoExt);
   return isPageSrc;
 }

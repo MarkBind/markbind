@@ -4,14 +4,13 @@ const linkProcessor = require('../../src/parsers/linkProcessor');
 
 jest.mock('fs');
 
+// Assets
 const json = {
-  './index.html': '1',
-  './userGuide/index.html': '2',
-  './userGuide/raw.html': '3',
-  './images/logo.png': '4',
-  './css/main.css': '5',
-  './devGuide/index.html': '6',
-  './rawFile': '7',
+  './userGuide/raw.html': '1',
+  './images/logo.png': '2',
+  './css/main.css': '3',
+  './devGuide/index.html': '4',
+  './rawFile': '5',
 };
 
 fs.vol.fromJSON(json, './src');
@@ -29,6 +28,7 @@ const mockConfig = {
     '.git/*', '*.pptx',
     'CNAME',
   ],
+  // Pages
   addressablePagesSource: [
     'index',
     'userGuide/index',

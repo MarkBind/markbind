@@ -528,7 +528,7 @@ class Site {
     this.addressablePages = Object.values(filteredPages);
     this.addressablePagesSource.length = 0;
     this.addressablePages.forEach((page) => {
-      this.addressablePagesSource.push(FsUtil.removeExtension(page.src));
+      this.addressablePagesSource.push(FsUtil.removeExtensionPosix(page.src));
     });
 
     return Promise.resolve();

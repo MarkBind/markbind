@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs-extra');
+const ensurePosix = require('ensure-posix-path');
 
 module.exports = {
   isInRoot: (root, fileName) => {
@@ -25,6 +26,11 @@ module.exports = {
     path.dirname(filePathWithExt),
     path.basename(filePathWithExt, path.extname(filePathWithExt)),
   ),
+
+  removeExtensionPosix: filePathWithExt => ensurePosix(path.join(
+    path.dirname(filePathWithExt),
+    path.basename(filePathWithExt, path.extname(filePathWithExt)),
+  )),
 
   copySyncWithOptions: function copySyncWithOptions(src, dest, options) {
     const files = fs.readdirSync(src);
