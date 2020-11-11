@@ -38,7 +38,7 @@
         type: Boolean,
         default: false
       },
-      defaultHighlightOn: {
+      highlightOn: {
         type: String,
         default: 'sibling-or-child'
       }
@@ -82,80 +82,95 @@
         e && e.preventDefault()
         this.collapsed = !this.collapsed
       },
-      // add directory index, e.g http://foo/ or http://foo becomes http://foo/index.html
+      // Adds dir index and lowercases url, e.g http://foo/ or http://foo becomes http://foo/index.html
       normalizeUrl(url) {
         if (url.endsWith('.html')) {
-          return url;
+          return url.toLowerCase();
         } else if (url.endsWith('/')) {
-          return `${url}index.html`;
+          return `${url}index.html`.toLowerCase();
         } else {
-          return `${url}/index.html`;
+          return `${url}/index.html`.toLowerCase();
         }
+      },
+      // Splits a normalised URL into its parts, e.g http://site.org/foo/bar/index.html -> ['foo','bar','index.html']
+      splitUrl(url) {
+        const u = new URL(this.normalizeUrl(url));
+        return `${u.pathname}`.substr(1).split('/');
+      },
+      isSibling(url, href) {
+        const hParts = this.splitUrl(href);
+        const uParts = this.splitUrl(url);
+        if (hParts.length !== uParts.length) {
+          return false;
+        }
+        for (let i = 0; i < hParts.length - 1; i++) {
+          if (hParts[i] !== uParts[i]) {
+            return false;
+          }
+        }
+        return true;
+      },
+      isChild(url, href) {
+        const hParts = this.splitUrl(href);
+        const uParts = this.splitUrl(url);
+        if (hParts.length <= uParts.length) {
+          return false;
+        }
+        for (let i = 0; i < uParts.length - 1; i++) {
+          if (hParts[i] !== uParts[i]) {
+            return false;
+          }
+        }
+        return true;
       },
       highlightLink(url) {
-        // Performs an exact equality match on links
-        if (this.hasLinkMatch(url, true)) {
+        const hlMode = this.highlightOn;
+        if (hlMode === 'none') {
           return;
         }
-        return this.hasLinkMatch(url, false);
-      },
-      hasLinkMatch(url, isStrict) {
         const navLis = Array.from(this.$el.querySelector('.navbar-nav').children);
+        // attempt an exact match first
         for (const li of navLis) {
-          // there are two kinds of navlinks, get all
           const navLinks = Array.from(li.querySelectorAll('a.nav-link'));
           const dropdownLinks = Array.from(li.querySelectorAll('a.dropdown-item'));
           const allNavLinks = navLinks.concat(dropdownLinks).filter(a => a.href);
           for (const a of allNavLinks) {
             const aNorm = this.normalizeUrl(a.href);
             const urlNorm = this.normalizeUrl(url);
-            if (isStrict) {
-              // checks by strict equality of URL
-              if (aNorm === urlNorm) {
-                li.classList.add('current');
-                return true;
-              }
-            } else {
-              const aTagUrl = new URL(aNorm);
-              const browserUrl = new URL(urlNorm);
-              const aParts = `${aTagUrl.host}${aTagUrl.pathname}`.split('/').slice(1);
-              const bParts = `${browserUrl.host}${browserUrl.pathname}`.split('/').slice(1);
-              switch (this.defaultHighlightOn) {
-                case 'sibling-or-child':
-                  // check for same ancestor
-                  if (aParts[0] === bParts[0]) {
-                    li.classList.add('current');
-                    return true;
-                  }
-                  break;
-                case 'sibling':
-                  // check for exact same prefix parts in both URLs
-                  if (aParts.length === bParts.length) {
-                    for (let i = 0; i < aParts.length; i++) {
-                      if (aParts[i] !== bParts[i]) {
-                        return false;
-                      }
-                    }
-                    li.classList.add('current');
-                    return true;
-                  }
-                  break;
-                case 'child':
-                  // check for same ancestor, and <a> tag url has more parts
-                  if (aParts[0] === bParts[0] && aParts.length > bParts.length) {
-                    li.classList.add('current');
-                    return true;
-                  }
-                  break;
-                case 'none':
-                  return true;
-                default:
-                  break;
-              }
+            // terminate early on an exact match
+            if (aNorm === urlNorm) {
+              li.classList.add('current');
+              return;
             }
           }
         }
-        return false;
+        // fallback to user preference, otherwise
+        for (const li of navLis) {
+          const navLinks = Array.from(li.querySelectorAll('a.nav-link'));
+          const dropdownLinks = Array.from(li.querySelectorAll('a.dropdown-item'));
+          const allNavLinks = navLinks.concat(dropdownLinks).filter(a => a.href);
+          for (const a of allNavLinks) {
+            if (hlMode === 'sibling-or-child') {
+              if (this.isSibling(url, a.href) || this.isChild(url, a.href)) {
+                li.classList.add('current');
+                return;
+              }
+            } else if (hlMode === 'sibling') {
+              if (this.isSibling(url, a.href)) {
+                li.classList.add('current');
+                return;
+              }
+            } else if (hlMode === 'child') {
+              if (this.isChild(url, a.href)) {
+                li.classList.add('current');
+                return;
+              }
+            } else {
+              // invalid option, ignore
+              return;
+            }
+          }
+        }
       }
     },
     created () {
