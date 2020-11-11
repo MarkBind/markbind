@@ -88,8 +88,10 @@
           return url.toLowerCase();
         } else if (url.endsWith('/')) {
           return `${url}index.html`.toLowerCase();
+        } else if (!url.endsWith('/')) {
+          return `${url}.html`.toLowerCase();
         } else {
-          return `${url}/index.html`.toLowerCase();
+          return url.toLowerCase();
         }
       },
       // Splits a normalised URL into its parts, e.g http://site.org/foo/bar/index.html -> ['foo','bar','index.html']
