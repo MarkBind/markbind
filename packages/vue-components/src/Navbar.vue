@@ -136,14 +136,12 @@
           const dropdownLinks = Array.from(li.querySelectorAll('a.dropdown-item'));
           const allNavLinks = navLinks.concat(dropdownLinks).filter(a => a.href);
           for (const a of allNavLinks) {
-            const aNorm = this.normalizeUrl(a.href);
-            const urlNorm = this.normalizeUrl(url);
             const hlMode = a.getAttribute('data-highlight') || defHlMode;
             if (hlMode === 'none') {
               continue;
             }
             // terminate early on an exact match
-            if (aNorm === urlNorm) {
+            if (this.isExact(url, a.href)) {
               li.classList.add('current');
               return;
             }
