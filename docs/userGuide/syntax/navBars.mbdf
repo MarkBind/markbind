@@ -14,7 +14,7 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userguid
 <navbar type="primary">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
-  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbar" class="nav-link">Highlighted Link</a></li>
+  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="nav-link">Highlighted Link</a></li>
   <!-- You can use dropdown component -->
   <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
@@ -28,7 +28,7 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userguid
 <navbar type="dark">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
-  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbar" class="nav-link">Highlighted Link</a></li>
+  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="nav-link">Highlighted Link</a></li>
   <!-- You can use dropdown component -->
   <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
@@ -42,7 +42,7 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userguid
 <navbar type="light">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
-  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbar" class="nav-link">Highlighted Link</a></li>
+  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="nav-link">Highlighted Link</a></li>
   <!-- You can use dropdown component -->
   <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
@@ -60,7 +60,7 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userguid
 Name | Type | Default | Description
 --- | --- | --- | ---
 type | `String` | `primary` | Supports: `primary`, `dark`, `light`, `none`.
-highlight-on | `String` | `sibling-or-child` | Supports `sibling-or-child`, `sibling`, `child`, `none`. Specifies link highlight rules for navbars. `https://markbind.org/dir/foo.html` and `https://markbind.org/dir/bar.html` are siblings. `https://markbind.org/dir/dir2/foo.html` is a child of `https://markbind.org/dir/index.html`.
+default-highlight-on | `String` | `sibling-or-child` | Supports: `sibling-or-child`, `sibling`, `child`, `exact`, `none`. Specifies link highlight rules for navbars.
 
 <box type="tip">
 
@@ -73,6 +73,34 @@ If you wish to further customize your navbar beyond the primary, dark, and light
 <md>In `{your-site}/_markbind/headers/header.md`, you can change `<navbar type="dark/primary/light">` to `<navbar type="none" add-class="bg-warning/danger/info/primary/success">` to apply Bootstrap background styles.</md>
 </modal>
 
+**Navbars let you specify rules to customise link highlighting.**
+- Define `default-highlight-on` in `<navbar>` to specify fallback highlight rules.
+- Define `data-highlight` in `<a>` tags with the class `nav-link` or `dropdown-item` to specify individual highlight rules.
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+
+<navbar default-highlight-on="none" type="dark">
+  <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
+  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="nav-link">Highlighted Link</a></li>
+  <dropdown header="Dropdown" class="nav-link">
+    <li><a data-highlight="exact" href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="dropdown-item">Option</a></li>
+  </dropdown>
+</navbar>
+
+</variable>
+</include>
+
+****Options****
+
+Name | Description
+--- | ---
+`child` | Highlights link if URL in address bar is a child of the link. E.g `foo/bar` is a child of `foo`
+`sibling` | Highlights link if URL in address bar is a sibling of the link. E.g `foo/bar` and `foo/bear` are siblings.
+`sibling-or-child` | Highlights link if URL in address bar is a sibling or child of the link
+`exact` | Highlights link if URL in address bar exactly matches link
+`none` | No highlighting
 
 <span id="short" class="d-none">
 
@@ -132,6 +160,18 @@ If you wish to further customize your navbar beyond the primary, dark, and light
   <li slot="right">
     <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">Fork...</a>
   </li>
+</navbar>
+
+</span>
+
+<span id="highlight" class="d-none">
+
+<navbar default-highlight-on="none" type="dark">
+  <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
+  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="nav-link">Highlighted Link</a></li>
+  <dropdown header="Dropdown" class="nav-link">
+    <li><a data-highlight="exact" href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="dropdown-item">Option</a></li>
+  </dropdown>
 </navbar>
 
 </span>
