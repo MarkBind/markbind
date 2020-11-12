@@ -37,13 +37,17 @@
       fixed: {
         type: Boolean,
         default: false
+      },
+      defaultHighlightOn: {
+        type: String,
+        default: 'sibling-or-child'
       }
     },
     data () {
       return {
         id: 'bs-example-navbar-collapse-1',
         collapsed: true,
-        styles: {}
+        styles: {},
       }
     },
     computed: {
@@ -71,12 +75,108 @@
         default:
           return 'navbar-dark bg-primary'
         }
-      }
+      },
     },
     methods: {
       toggleCollapse (e) {
         e && e.preventDefault()
         this.collapsed = !this.collapsed
+      },
+      normalizeUrl(url) {
+        if (url.endsWith('.html')) {
+          return url.toLowerCase();
+        } else if (url.endsWith('/')) {
+          return `${url}index.html`.toLowerCase();
+        } else if (!url.endsWith('/')) {
+          return `${url}.html`.toLowerCase();
+        } else {
+          return url.toLowerCase();
+        }
+      },
+      // Splits a normalised URL into its parts, e.g http://site.org/foo/bar/index.html -> ['foo','bar','index.html']
+      splitUrl(url) {
+        const u = new URL(this.normalizeUrl(url));
+        return `${u.pathname}`.substr(1).split('/');
+      },
+      isSibling(url, href) {
+        const hParts = this.splitUrl(href);
+        const uParts = this.splitUrl(url);
+        if (hParts.length !== uParts.length) {
+          return false;
+        }
+        for (let i = 0; i < hParts.length - 1; i++) {
+          if (hParts[i] !== uParts[i]) {
+            return false;
+          }
+        }
+        return true;
+      },
+      isChild(url, href) {
+        const hParts = this.splitUrl(href);
+        const uParts = this.splitUrl(url);
+        if (uParts.length <= hParts.length) {
+          return false;
+        }
+        for (let i = 0; i < hParts.length; i++) {
+          if (hParts[i] !== uParts[i]) {
+            return false;
+          }
+        }
+        return true;
+      },
+      isExact(url, href) {
+        return this.normalizeUrl(url) === this.normalizeUrl(href);
+      },
+      highlightLink(url) {
+        const defHlMode = this.defaultHighlightOn;
+        const navLis = Array.from(this.$el.querySelector('.navbar-nav').children);
+        // attempt an exact match first
+        for (const li of navLis) {
+          const navLinks = Array.from(li.querySelectorAll('a.nav-link'));
+          const dropdownLinks = Array.from(li.querySelectorAll('a.dropdown-item'));
+          const allNavLinks = navLinks.concat(dropdownLinks).filter(a => a.href);
+          for (const a of allNavLinks) {
+            const hlMode = a.getAttribute('highlight-on') || defHlMode;
+            if (hlMode === 'none') {
+              continue;
+            }
+            // terminate early on an exact match
+            if (this.isExact(url, a.href)) {
+              li.classList.add('current');
+              return;
+            }
+          }
+        }
+        // fallback to user preference, otherwise
+        for (const li of navLis) {
+          const navLinks = Array.from(li.querySelectorAll('a.nav-link'));
+          const dropdownLinks = Array.from(li.querySelectorAll('a.dropdown-item'));
+          const allNavLinks = navLinks.concat(dropdownLinks).filter(a => a.href);
+          for (const a of allNavLinks) {
+            const hlMode = a.getAttribute('highlight-on') || defHlMode;
+            if (hlMode === 'none') {
+              continue;
+            }
+            if (hlMode === 'sibling-or-child') {
+              if (this.isSibling(url, a.href) || this.isChild(url, a.href)) {
+                li.classList.add('current');
+                return;
+              }
+            } else if (hlMode === 'sibling') {
+              if (this.isSibling(url, a.href)) {
+                li.classList.add('current');
+                return;
+              }
+            } else if (hlMode === 'child') {
+              if (this.isChild(url, a.href)) {
+                li.classList.add('current');
+                return;
+              }
+            } else {
+              console.log("Ignoring invalid navbar highlight rule")
+            }
+          }
+        }
       }
     },
     created () {
@@ -104,6 +204,9 @@
         if (!this.$el.contains(e.target)) { this.collapsed = true }
       })
       if (this.slots.collapse) $('[data-toggle="collapse"]',this.$el).on('click', (e) => this.toggleCollapse(e))
+
+      // highlight current nav link
+      this.highlightLink(window.location.href);
     },
     beforeDestroy () {
       $('.dropdown',this.$el).off('click').offBlur()
