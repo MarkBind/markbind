@@ -136,7 +136,7 @@
           const dropdownLinks = Array.from(li.querySelectorAll('a.dropdown-item'));
           const allNavLinks = navLinks.concat(dropdownLinks).filter(a => a.href);
           for (const a of allNavLinks) {
-            const hlMode = a.getAttribute('data-highlight') || defHlMode;
+            const hlMode = a.getAttribute('highlight-on') || defHlMode;
             if (hlMode === 'none') {
               continue;
             }
@@ -153,16 +153,11 @@
           const dropdownLinks = Array.from(li.querySelectorAll('a.dropdown-item'));
           const allNavLinks = navLinks.concat(dropdownLinks).filter(a => a.href);
           for (const a of allNavLinks) {
-            const hlMode = a.getAttribute('data-highlight') || defHlMode;
+            const hlMode = a.getAttribute('highlight-on') || defHlMode;
             if (hlMode === 'none') {
               continue;
             }
-            if (hlMode === 'exact') {
-              if (this.isExact(url, a.href)) {
-                li.classList.add('current');
-                return;
-              }
-            } else if (hlMode === 'sibling-or-child') {
+            if (hlMode === 'sibling-or-child') {
               if (this.isSibling(url, a.href) || this.isChild(url, a.href)) {
                 li.classList.add('current');
                 return;
@@ -178,8 +173,7 @@
                 return;
               }
             } else {
-              // invalid option, ignore
-              return;
+              console.log("Ignoring invalid navbar highlight rule")
             }
           }
         }
