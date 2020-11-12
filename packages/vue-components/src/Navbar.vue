@@ -38,7 +38,7 @@
         type: Boolean,
         default: false
       },
-      highlightOn: {
+      defaultHighlightOn: {
         type: String,
         default: 'sibling-or-child'
       }
@@ -114,21 +114,21 @@
       isChild(url, href) {
         const hParts = this.splitUrl(href);
         const uParts = this.splitUrl(url);
-        if (hParts.length <= uParts.length) {
+        if (uParts.length <= hParts.length) {
           return false;
         }
-        for (let i = 0; i < uParts.length - 1; i++) {
+        for (let i = 0; i < hParts.length; i++) {
           if (hParts[i] !== uParts[i]) {
             return false;
           }
         }
         return true;
       },
+      isExact(url, href) {
+        return this.normalizeUrl(url) === this.normalizeUrl(href);
+      },
       highlightLink(url) {
-        const hlMode = this.highlightOn;
-        if (hlMode === 'none') {
-          return;
-        }
+        const defHlMode = this.defaultHighlightOn;
         const navLis = Array.from(this.$el.querySelector('.navbar-nav').children);
         // attempt an exact match first
         for (const li of navLis) {
@@ -138,6 +138,10 @@
           for (const a of allNavLinks) {
             const aNorm = this.normalizeUrl(a.href);
             const urlNorm = this.normalizeUrl(url);
+            const hlMode = a.getAttribute('data-highlight') || defHlMode;
+            if (hlMode === 'none') {
+              continue;
+            }
             // terminate early on an exact match
             if (aNorm === urlNorm) {
               li.classList.add('current');
@@ -151,7 +155,16 @@
           const dropdownLinks = Array.from(li.querySelectorAll('a.dropdown-item'));
           const allNavLinks = navLinks.concat(dropdownLinks).filter(a => a.href);
           for (const a of allNavLinks) {
-            if (hlMode === 'sibling-or-child') {
+            const hlMode = a.getAttribute('data-highlight') || defHlMode;
+            if (hlMode === 'none') {
+              continue;
+            }
+            if (hlMode === 'exact') {
+              if (this.isExact(url, a.href)) {
+                li.classList.add('current');
+                return;
+              }
+            } else if (hlMode === 'sibling-or-child') {
               if (this.isSibling(url, a.href) || this.isChild(url, a.href)) {
                 li.classList.add('current');
                 return;
