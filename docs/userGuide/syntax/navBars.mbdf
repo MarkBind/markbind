@@ -108,6 +108,7 @@ Name | Description
 <navbar type="primary">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
+  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="nav-link">Highlighted Link</a></li>
   <!-- You can use dropdown component -->
   <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
@@ -126,6 +127,7 @@ Name | Description
 <navbar type="primary">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
+  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="nav-link">Highlighted Link</a></li>
   <!-- You can use dropdown component -->
   <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
@@ -139,6 +141,7 @@ Name | Description
 <navbar type="dark">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
+  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="nav-link">Highlighted Link</a></li>
   <!-- You can use dropdown component -->
   <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
@@ -152,6 +155,7 @@ Name | Description
 <navbar type="light">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
+  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="nav-link">Highlighted Link</a></li>
   <!-- You can use dropdown component -->
   <dropdown header="Dropdown" class="nav-link">
     <li><a href="#navbar" class="dropdown-item">Option</a></li>
@@ -160,18 +164,6 @@ Name | Description
   <li slot="right">
     <a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">Fork...</a>
   </li>
-</navbar>
-
-</span>
-
-<span id="highlight" class="d-none">
-
-<navbar default-highlight-on="none" type="dark">
-  <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
-  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="nav-link">Highlighted Link</a></li>
-  <dropdown header="Dropdown" class="nav-link">
-    <li><a data-highlight="exact" href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="dropdown-item">Option</a></li>
-  </dropdown>
 </navbar>
 
 </span>
