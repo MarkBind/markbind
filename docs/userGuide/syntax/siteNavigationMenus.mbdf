@@ -110,7 +110,7 @@ You may have additional HTML and Markdown content in a <tooltip content="the fil
 
 </div>
 
-You can also include additional content between navigation items, such as [horizontal dividers.]({{ baseUrl }}/userGuide/readerfacingfeatures.html#horizontal-rules)
+You can also include additional content between navigation items, such as [horizontal dividers.]({{ baseUrl }}/userGuide/readerFacingFeatures.html#horizontal-rules)
 Just be sure to include it as a list item as well!
 
 <div class="indented">

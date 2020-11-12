@@ -36,7 +36,7 @@ The sections below has more information about various stages of submitting a PR.
   
   **1. Using the docs as a development environment**, with:
     - the [lazy reload `-o`](https://markbind.org/userGuide/cliCommands.html#serve-command) option to speed up page building
-    - the `-d` developer option. (see [below]((#editing-frontend-features)))
+    - the `-d` developer option. (see [below](#editing-frontend-features))
     
     {.mb-3}  
   
@@ -60,7 +60,7 @@ The sections below has more information about various stages of submitting a PR.
   
   **1. Using the docs as a development environment**, with:
     - the [lazy reload `-o`](https://markbind.org/userGuide/cliCommands.html#serve-command) option to speed up page building
-    - the `-d` developer option. (see [below]((#editing-frontend-features)))
+    - the `-d` developer option. (see [below](#editing-frontend-features))
       
     {.mb-3}  
     
