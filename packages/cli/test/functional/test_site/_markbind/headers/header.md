@@ -1,5 +1,5 @@
 <header>
-  <navbar type="dark" highlight-on="sibling-or-child">
+  <navbar type="dark" default-highlight-on="sibling-or-child">
     <a slot="brand" href="/" title="Home" class="navbar-brand">Markbind Test Site</a>
     <li><a class="nav-link" href="{{baseUrl}}/bugs/index.html">Open Bugs</a></li>
   </navbar>
