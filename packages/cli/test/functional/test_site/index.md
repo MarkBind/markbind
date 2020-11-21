@@ -18,6 +18,18 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 <include src="testFootnotes.md" />
 
+**Nunjucks SetExt**
+
+{% ext externalVar = "_markbind/variable.json" %}
+
+{{ externalVar.front }} {{ externalVar.back }}
+
+{% for val in externalVar.arrayVar %}
+{{ val }}
+{% endfor %}
+
+{{ externalVar.nestedVar.nestedVarKey }}
+
 **Json Variable**
 
 {{ front }} {{ back }}

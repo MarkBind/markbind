@@ -1,0 +1,20 @@
+{
+  "lastUpdated": "21 November, 2020",
+  "students": [
+    {
+      "number": "A1234567X",
+      "score": 87,
+      "rank": 1
+    },
+    {
+      "number": "A1234123U",
+      "score": 60,
+      "rank": 3
+    },
+    {
+      "number": "A9876543L",
+      "score": 76,
+      "rank": 2
+    }
+  ]
+}

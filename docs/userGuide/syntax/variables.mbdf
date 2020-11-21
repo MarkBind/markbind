@@ -159,7 +159,42 @@ In this case, all the variables in `title.md` are not accessible, as they are ov
 
 </box>
 
-### Defining variables with JSON
+### Importing variables from other external file formats
+
+You can also sources variables from external files using MarkBind's {%raw%}`{% ext varName = "filepathToFile/file.json" %}`{%endraw%} nunjucks extension.
+This is useful if you have external datasets you want to display in your site!
+
+Only `.json` files are supported for now.
+
+<include src="codeAndOutputSeparate.md" boilerplate>
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+{% raw %}
+{% ext studentScoreboard = "userGuide/syntax/extra/scoreboard.json" %}
+
+Student Number | Score | Rank
+:----- | :-------: | ----
+{% for student in studentScoreboard.students -%}
+{{ student.number }} | {{ student.score }} | {{ student.rank }}
+{% endfor %}
+
+<small>Last updated at {{ studentScoreboard.lastUpdated }}</small>
+{% endraw %}
+</variable>
+<variable name="output">
+{% ext studentScoreboard = "userGuide/syntax/extra/scoreboard.json" %}
+
+Student Number | Score | Rank
+:----- | :-------: | ----
+{% for student in studentScoreboard.students -%}
+{{ student.number }} | {{ student.score }} / 100 | {{ student.rank }}
+{% endfor %}
+
+<small>Last updated at {{ studentScoreboard.lastUpdated }}</small>
+</variable>
+</include>
+
+<panel type="seamless" header="##### Old syntax (deprecated)">
 
 You could also have your variables defined in a JSON file to define multiple variables in a more concise manner.
 
@@ -188,7 +223,7 @@ locally scoped variables in `index.md`:
 
 In this case, json variables referenced within `index.md` would be a page variable accessible within the page `index.md`.
 
-
+</panel>
 
 ### Tips and Tricks for variables
 
