@@ -19,7 +19,7 @@ const {
 
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
-class ComponentPreprocessor {
+class NodePreprocessor {
   constructor(config, variableProcessor, pageSources) {
     this.config = config;
     this.variableProcessor = variableProcessor;
@@ -133,7 +133,7 @@ class ComponentPreprocessor {
     const hasSrc = _.has(node.attribs, 'src');
     if (!hasSrc) {
       if (node.children && node.children.length > 0) {
-        node.children = node.children.map(e => this.preProcessComponent(e, context));
+        node.children = node.children.map(e => this.preProcessNode(e, context));
       }
 
       return node;
@@ -214,7 +214,7 @@ class ComponentPreprocessor {
    * Replaces it with an error node if the specified src is invalid,
    * or an empty node if the src is invalid but optional.
    */
-  _preprocessInclude(node, context) {
+  _preProcessInclude(node, context) {
     const element = node;
 
     if (_.isEmpty(element.attribs.src)) {
@@ -253,7 +253,7 @@ class ComponentPreprocessor {
       to: actualFilePath,
     });
 
-    const isIncludeSrcMd = ComponentPreprocessor._isHtmlIncludingMarkdown(element, context, filePath);
+    const isIncludeSrcMd = NodePreprocessor._isHtmlIncludingMarkdown(element, context, filePath);
 
     const {
       renderedContent,
@@ -261,7 +261,7 @@ class ComponentPreprocessor {
     } = this.variableProcessor.renderIncludeFile(actualFilePath, this.pageSources, element,
                                                  context, filePath);
 
-    ComponentPreprocessor._deleteIncludeAttributes(element);
+    NodePreprocessor._deleteIncludeAttributes(element);
 
     // Process sources with or without hash, retrieving and appending
     // the appropriate children to a wrapped include element
@@ -316,7 +316,7 @@ class ComponentPreprocessor {
         return utils.createErrorNode(element, error);
       }
 
-      element.children = element.children.map(e => this.preProcessComponent(e, childContext));
+      element.children = element.children.map(e => this.preProcessNode(e, childContext));
     }
 
     return element;
@@ -335,10 +335,10 @@ class ComponentPreprocessor {
    * API
    */
 
-  preProcessComponent(node, context) {
+  preProcessNode(node, context) {
     const element = node;
 
-    ComponentPreprocessor._preProcessAllComponents(element, context);
+    NodePreprocessor._preProcessAllComponents(element, context);
 
     switch (element.name) {
     case 'panel':
@@ -347,14 +347,14 @@ class ComponentPreprocessor {
     case 'import':
       return utils.createEmptyNode();
     case 'include':
-      return this._preprocessInclude(element, context);
+      return this._preProcessInclude(element, context);
     case 'body':
-      ComponentPreprocessor._preprocessBody(element);
+      NodePreprocessor._preprocessBody(element);
       // eslint-disable-next-line no-fallthrough
     default:
       // preprocess children
       if (element.children && element.children.length > 0) {
-        element.children = element.children.map(e => this.preProcessComponent(e, context));
+        element.children = element.children.map(e => this.preProcessNode(e, context));
       }
       return element;
     }
@@ -374,7 +374,7 @@ class ComponentPreprocessor {
         const nodes = dom.map((d) => {
           let processed;
           try {
-            processed = this.preProcessComponent(d, context);
+            processed = this.preProcessNode(d, context);
           } catch (err) {
             err.message += `\nError while preprocessing '${file}'`;
             logger.error(err);
@@ -402,5 +402,5 @@ class ComponentPreprocessor {
 }
 
 module.exports = {
-  ComponentPreprocessor,
+  NodePreprocessor,
 };
