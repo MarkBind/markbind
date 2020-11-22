@@ -13,8 +13,8 @@ _.isArray = require('lodash/isArray');
 
 const { CyclicReferenceError } = require('../errors');
 const { PageSources } = require('./PageSources');
-const { ComponentPreprocessor } = require('../preprocessors/ComponentPreprocessor');
-const { ComponentParser } = require('../parsers/ComponentParser');
+const { NodePreprocessor } = require('../html/NodePreprocessor');
+const { NodeProcessor } = require('../html/NodeProcessor');
 const md = require('../lib/markdown-it');
 
 const FsUtil = require('../utils/fsUtil');
@@ -521,10 +521,10 @@ class Page {
    * Renders expressive layouts by inserting page data into pre-specified layout
    * @param pageData a page with its front matter collected
    * @param {FileConfig} fileConfig
-   * @param {ComponentPreprocessor} componentPreprocessor for running {@link includeFile} on the layout
+   * @param {NodePreprocessor} nodePreprocessor for running {@link includeFile} on the layout
    * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
    */
-  generateExpressiveLayout(pageData, fileConfig, componentPreprocessor, pageSources) {
+  generateExpressiveLayout(pageData, fileConfig, nodePreprocessor, pageSources) {
     const layoutPath = path.join(this.pageConfig.rootPath, LAYOUT_FOLDER_PATH, this.layout);
     const layoutPagePath = path.join(layoutPath, LAYOUT_PAGE);
 
@@ -543,7 +543,7 @@ class Page {
         [LAYOUT_PAGE_BODY_VARIABLE]: `{{${LAYOUT_PAGE_BODY_VARIABLE}}}`,
       }, true))
       // Include file with the cwf set to the layout page path
-      .then(result => componentPreprocessor.includeFile(layoutPagePath, result))
+      .then(result => nodePreprocessor.includeFile(layoutPagePath, result))
       // Note: The {% raw/endraw %}s previously kept are removed here.
       .then(result => this.pageConfig.variableProcessor.renderSiteVariables(
         this.pageConfig.rootPath, result, pageSources, {
@@ -870,20 +870,20 @@ class Page {
       pageSrc: this.pageConfig.src,
     };
     const pageSources = new PageSources();
-    const componentPreprocessor = new ComponentPreprocessor(fileConfig, this.pageConfig.variableProcessor,
-                                                            pageSources);
-    const componentParser = new ComponentParser(fileConfig);
+    const nodePreprocessor = new NodePreprocessor(fileConfig, this.pageConfig.variableProcessor,
+                                                  pageSources);
+    const nodeProcessor = new NodeProcessor(fileConfig);
 
     return fs.readFile(this.pageConfig.sourcePath, 'utf-8')
       .then(result => this.pageConfig.variableProcessor.renderPage(this.pageConfig.sourcePath,
                                                                    result, pageSources))
-      .then(result => componentPreprocessor.includeFile(this.pageConfig.sourcePath, result))
+      .then(result => nodePreprocessor.includeFile(this.pageConfig.sourcePath, result))
       .then((result) => {
         this.collectFrontMatter(result);
         this.processFrontMatter();
         return Page.removeFrontMatter(result);
       })
-      .then(result => this.generateExpressiveLayout(result, fileConfig, componentPreprocessor, pageSources))
+      .then(result => this.generateExpressiveLayout(result, fileConfig, nodePreprocessor, pageSources))
       .then(result => Page.removePageHeaderAndFooter(result))
       .then(result => Page.addScrollToTopButton(result))
       .then(result => Page.addContentWrapper(result))
@@ -893,7 +893,7 @@ class Page {
       .then(result => this.insertHeaderFile(result, pageSources))
       .then(result => this.insertFooterFile(result, pageSources))
       .then(result => Page.insertTemporaryStyles(result))
-      .then(result => componentParser.render(this.pageConfig.sourcePath, result))
+      .then(result => nodeProcessor.process(this.pageConfig.sourcePath, result))
       .then(result => this.postRender(result))
       .then(result => this.collectPluginsAssets(result))
       .then(result => Page.unwrapIncludeSrc(result))
@@ -1183,17 +1183,17 @@ class Page {
         addressablePagesSource: this.pageConfig.addressablePagesSource,
       };
       const pageSources = new PageSources();
-      const componentPreprocessor = new ComponentPreprocessor(fileConfig, this.pageConfig.variableProcessor,
-                                                              pageSources);
-      const componentParser = new ComponentParser(fileConfig);
+      const nodePreprocessor = new NodePreprocessor(fileConfig, this.pageConfig.variableProcessor,
+                                                    pageSources);
+      const nodeProcessor = new NodeProcessor(fileConfig);
 
       return fs.readFile(dependency.to, 'utf-8')
         .then(result => this.pageConfig.variableProcessor.renderPage(dependency.to, result, pageSources))
-        .then(result => componentPreprocessor.includeFile(dependency.to, result, file))
+        .then(result => nodePreprocessor.includeFile(dependency.to, result, file))
         .then(result => Page.removeFrontMatter(result))
         .then(result => this.collectPluginSources(result))
         .then(result => this.preRender(result))
-        .then(result => componentParser.render(dependency.to, result, file))
+        .then(result => nodeProcessor.process(dependency.to, result, file))
         .then(result => this.postRender(result))
         .then(result => this.collectPluginsAssets(result))
         .then(result => Page.unwrapIncludeSrc(result))
@@ -1250,7 +1250,7 @@ class Page {
 
   static unwrapIncludeSrc(html) {
     const $ = cheerio.load(html);
-    // TODO combine {@link ComponentPreprocessor} and {@link ComponentParser} processes so we don't need this
+    // TODO combine {@link NodePreprocessor} and {@link NodeProcessor} processes so we don't need this
     $('div[data-included-from], span[data-included-from]').each(function () {
       $(this).replaceWith($(this).contents());
     });

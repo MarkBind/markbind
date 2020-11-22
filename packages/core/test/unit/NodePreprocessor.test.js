@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const { PageSources } = require('../../src/Page/PageSources');
-const { ComponentPreprocessor } = require('../../src/preprocessors/ComponentPreprocessor');
+const { NodePreprocessor } = require('../../src/html/NodePreprocessor');
 const VariableProcessor = require('../../src/variables/VariableProcessor');
 
 jest.mock('fs');
@@ -36,10 +36,10 @@ test('includeFile replaces <include> with <div>', async () => {
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const componentPreprocessor = new ComponentPreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
-                                                          getNewDefaultVariableProcessor(),
-                                                          new PageSources());
-  const result = await componentPreprocessor.includeFile(indexPath, index);
+  const nodePreprocessor = new NodePreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
+                                                getNewDefaultVariableProcessor(),
+                                                new PageSources());
+  const result = await nodePreprocessor.includeFile(indexPath, index);
 
   const expected = [
     '# Index',
@@ -74,10 +74,10 @@ test('includeFile replaces <include src="exist.md" optional> with <div>', async 
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const componentPreprocessor = new ComponentPreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
-                                                          getNewDefaultVariableProcessor(),
-                                                          new PageSources());
-  const result = await componentPreprocessor.includeFile(indexPath, index);
+  const nodePreprocessor = new NodePreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
+                                                getNewDefaultVariableProcessor(),
+                                                new PageSources());
+  const result = await nodePreprocessor.includeFile(indexPath, index);
 
   const expected = [
     '# Index',
@@ -108,10 +108,10 @@ test('includeFile replaces <include src="doesNotExist.md" optional> with empty <
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const componentPreprocessor = new ComponentPreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
-                                                          getNewDefaultVariableProcessor(),
-                                                          new PageSources());
-  const result = await componentPreprocessor.includeFile(indexPath, index);
+  const nodePreprocessor = new NodePreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
+                                                getNewDefaultVariableProcessor(),
+                                                new PageSources());
+  const result = await nodePreprocessor.includeFile(indexPath, index);
 
   const expected = [
     '# Index',
@@ -145,10 +145,10 @@ test('includeFile replaces <include src="include.md#exists"> with <div>', async 
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const componentPreprocessor = new ComponentPreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
-                                                          getNewDefaultVariableProcessor(),
-                                                          new PageSources());
-  const result = await componentPreprocessor.includeFile(indexPath, index);
+  const nodePreprocessor = new NodePreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
+                                                getNewDefaultVariableProcessor(),
+                                                new PageSources());
+  const result = await nodePreprocessor.includeFile(indexPath, index);
 
   const expected = [
     '# Index',
@@ -186,10 +186,10 @@ test('includeFile replaces <include src="include.md#exists" inline> with inline 
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const componentPreprocessor = new ComponentPreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
-                                                          getNewDefaultVariableProcessor(),
-                                                          new PageSources());
-  const result = await componentPreprocessor.includeFile(indexPath, index);
+  const nodePreprocessor = new NodePreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
+                                                getNewDefaultVariableProcessor(),
+                                                new PageSources());
+  const result = await nodePreprocessor.includeFile(indexPath, index);
 
   const expected = [
     '# Index',
@@ -224,10 +224,10 @@ test('includeFile replaces <include src="include.md#exists" trim> with trimmed c
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const componentPreprocessor = new ComponentPreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
-                                                          getNewDefaultVariableProcessor(),
-                                                          new PageSources());
-  const result = await componentPreprocessor.includeFile(indexPath, index);
+  const nodePreprocessor = new NodePreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
+                                                getNewDefaultVariableProcessor(),
+                                                new PageSources());
+  const result = await nodePreprocessor.includeFile(indexPath, index);
 
   const expected = [
     '# Index',
@@ -265,10 +265,10 @@ test('includeFile replaces <include src="include.md#doesNotExist"> with error <d
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const componentPreprocessor = new ComponentPreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
-                                                          getNewDefaultVariableProcessor(),
-                                                          new PageSources());
-  const result = await componentPreprocessor.includeFile(indexPath, index);
+  const nodePreprocessor = new NodePreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
+                                                getNewDefaultVariableProcessor(),
+                                                new PageSources());
+  const result = await nodePreprocessor.includeFile(indexPath, index);
 
   const expected = [
     '# Index',
@@ -302,10 +302,10 @@ test('includeFile replaces <include src="include.md#exists" optional> with <div>
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const componentPreprocessor = new ComponentPreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
-                                                          getNewDefaultVariableProcessor(),
-                                                          new PageSources());
-  const result = await componentPreprocessor.includeFile(indexPath, index);
+  const nodePreprocessor = new NodePreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
+                                                getNewDefaultVariableProcessor(),
+                                                new PageSources());
+  const result = await nodePreprocessor.includeFile(indexPath, index);
 
   const expected = [
     '# Index',
@@ -340,10 +340,10 @@ test('includeFile replaces <include src="include.md#doesNotExist" optional> with
   fs.vol.fromJSON(json, '');
   const baseUrlMap = new Set([ROOT_PATH]);
 
-  const componentPreprocessor = new ComponentPreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
-                                                          getNewDefaultVariableProcessor(),
-                                                          new PageSources());
-  const result = await componentPreprocessor.includeFile(indexPath, index);
+  const nodePreprocessor = new NodePreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
+                                                getNewDefaultVariableProcessor(),
+                                                new PageSources());
+  const result = await nodePreprocessor.includeFile(indexPath, index);
 
   const expected = [
     '# Index',
@@ -392,10 +392,10 @@ test('includeFile detects cyclic references for static cyclic includes', async (
     `\t${indexPath}`,
   ].join('\n');
 
-  const componentPreprocessor = new ComponentPreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
-                                                          getNewDefaultVariableProcessor(),
-                                                          new PageSources());
-  const result = await componentPreprocessor.includeFile(indexPath, index);
+  const nodePreprocessor = new NodePreprocessor({ baseUrlMap, rootPath: ROOT_PATH },
+                                                getNewDefaultVariableProcessor(),
+                                                new PageSources());
+  const result = await nodePreprocessor.includeFile(indexPath, index);
 
   const expected = `<div style="color: red">${expectedErrorMessage}</div>`;
 

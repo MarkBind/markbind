@@ -36,7 +36,7 @@ function getResourcePathFromRoot(rootPath, fullResourcePath) {
  * TODO allow plugins to tap into this process / extend {@link defaultTagLinkMap}
  *
  * @param {Object<any, any>} node from the dom traversal
- * @param {string} cwf as flagged from {@link ComponentPreprocessor}
+ * @param {string} cwf as flagged from {@link NodePreprocessor}
  * @param {string} rootPath of the root site
  * @param {string} baseUrl
  */
@@ -105,8 +105,8 @@ function isValidFileAsset(resourcePath, config) {
  * If the intra-links are not suspected to not be valid, a warning message will be logged.
  *
  * @param {Object<any, any>} node from the dom traversal
- * @param {string} cwf as flagged from {@link ComponentPreprocessor}
- * @param {Object<any, any>} page config passed for page metadata access
+ * @param {string} cwf as flagged from {@link NodePreprocessor}
+ * @param {Object<any, any>} config passed for page metadata access
  * @returns {string} these string return values are for unit testing purposes only
  */
 function validateIntraLink(node, cwf, config) {

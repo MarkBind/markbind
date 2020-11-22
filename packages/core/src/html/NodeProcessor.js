@@ -20,7 +20,7 @@ const {
 
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
-class ComponentParser {
+class NodeProcessor {
   constructor(config) {
     this.config = config;
   }
@@ -41,7 +41,7 @@ class ComponentParser {
           node.children.splice(n, 1);
           n -= 1;
         } else if (child.type === 'tag') {
-          ComponentParser._trimNodes(child);
+          NodeProcessor._trimNodes(child);
         }
       }
     }
@@ -52,14 +52,14 @@ class ComponentParser {
   }
 
   /**
-   * Parses the markdown attribute of the provided element, inserting the corresponding <slot> child
+   * Processes the markdown attribute of the provided element, inserting the corresponding <slot> child
    * if there is no pre-existing slot child with the name of the attribute present.
-   * @param node Element to parse
-   * @param attribute Attribute name to parse
-   * @param isInline Whether to parse the attribute with only inline markdown-it rules
+   * @param node Element to process
+   * @param attribute Attribute name to process
+   * @param isInline Whether to process the attribute with only inline markdown-it rules
    * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
    */
-  static _parseAttributeWithoutOverride(node, attribute, isInline, slotName = attribute) {
+  static _processAttributeWithoutOverride(node, attribute, isInline, slotName = attribute) {
     const hasAttributeSlot = node.children
       && node.children.some(child => _.has(child.attribs, 'slot') && child.attribs.slot === slotName);
 
@@ -104,9 +104,9 @@ class ComponentParser {
    * Panels
    */
 
-  static _parsePanelAttributes(node) {
-    ComponentParser._parseAttributeWithoutOverride(node, 'alt', false, '_alt');
-    ComponentParser._parseAttributeWithoutOverride(node, 'header', false);
+  static _processPanelAttributes(node) {
+    NodeProcessor._processAttributeWithoutOverride(node, 'alt', false, '_alt');
+    NodeProcessor._processAttributeWithoutOverride(node, 'header', false);
   }
 
   /**
@@ -146,7 +146,7 @@ class ComponentParser {
     const headerSlot = slotChildren.find(child => child.attribs.slot === 'header');
 
     if (headerSlot) {
-      const header = ComponentParser._findHeaderElement(headerSlot);
+      const header = NodeProcessor._findHeaderElement(headerSlot);
       if (!header) {
         return;
       }
@@ -199,18 +199,18 @@ class ComponentParser {
    * Questions, QOption, and Quizzes
    */
 
-  static _parseQuestion(node) {
-    ComponentParser._parseAttributeWithoutOverride(node, 'header', false, 'header');
-    ComponentParser._parseAttributeWithoutOverride(node, 'hint', false, 'hint');
-    ComponentParser._parseAttributeWithoutOverride(node, 'answer', false, 'answer');
+  static _processQuestion(node) {
+    NodeProcessor._processAttributeWithoutOverride(node, 'header', false, 'header');
+    NodeProcessor._processAttributeWithoutOverride(node, 'hint', false, 'hint');
+    NodeProcessor._processAttributeWithoutOverride(node, 'answer', false, 'answer');
   }
 
-  static _parseQOption(node) {
-    ComponentParser._parseAttributeWithoutOverride(node, 'reason', false, 'reason');
+  static _processQOption(node) {
+    NodeProcessor._processAttributeWithoutOverride(node, 'reason', false, 'reason');
   }
 
-  static _parseQuiz(node) {
-    ComponentParser._parseAttributeWithoutOverride(node, 'intro', false, 'intro');
+  static _processQuiz(node) {
+    NodeProcessor._processAttributeWithoutOverride(node, 'intro', false, 'intro');
   }
 
   /*
@@ -242,20 +242,20 @@ class ComponentParser {
     node.attribs.class = node.attribs.class ? `${node.attribs.class} ${triggerClass}` : triggerClass;
   }
 
-  static _parsePopover(node) {
-    ComponentParser._warnDeprecatedAttributes(node, { title: 'header' });
+  static _processPopover(node) {
+    NodeProcessor._warnDeprecatedAttributes(node, { title: 'header' });
 
-    ComponentParser._parseAttributeWithoutOverride(node, 'content', true);
-    ComponentParser._parseAttributeWithoutOverride(node, 'header', true);
-    ComponentParser._parseAttributeWithoutOverride(node, 'title', true, 'header');
+    NodeProcessor._processAttributeWithoutOverride(node, 'content', true);
+    NodeProcessor._processAttributeWithoutOverride(node, 'header', true);
+    NodeProcessor._processAttributeWithoutOverride(node, 'title', true, 'header');
 
     node.name = 'span';
     const trigger = node.attribs.trigger || 'hover';
     const placement = node.attribs.placement || 'top';
     node.attribs['data-mb-component-type'] = 'popover';
     node.attribs[`v-b-popover.${trigger}.${placement}.html`] = 'popoverInnerGetters';
-    ComponentParser.addTriggerClass(node, trigger);
-    ComponentParser._transformSlottedComponents(node);
+    NodeProcessor.addTriggerClass(node, trigger);
+    NodeProcessor._transformSlottedComponents(node);
   }
 
   /**
@@ -283,16 +283,16 @@ class ComponentParser {
     });
   }
 
-  static _parseTooltip(node) {
-    ComponentParser._parseAttributeWithoutOverride(node, 'content', true, '_content');
+  static _processTooltip(node) {
+    NodeProcessor._processAttributeWithoutOverride(node, 'content', true, '_content');
 
     node.name = 'span';
     const trigger = node.attribs.trigger || 'hover';
     const placement = node.attribs.placement || 'top';
     node.attribs['data-mb-component-type'] = 'tooltip';
     node.attribs[`v-b-tooltip.${trigger}.${placement}.html`] = 'tooltipInnerContentGetter';
-    ComponentParser.addTriggerClass(node, trigger);
-    ComponentParser._transformSlottedComponents(node);
+    NodeProcessor.addTriggerClass(node, trigger);
+    NodeProcessor._transformSlottedComponents(node);
   }
 
   static _renameSlot(node, originalName, newName) {
@@ -313,23 +313,23 @@ class ComponentParser {
     }
   }
 
-  static _parseModalAttributes(node) {
-    ComponentParser._warnDeprecatedAttributes(node, { title: 'header' });
-    ComponentParser._warnDeprecatedSlotNames(node, {
+  static _processModalAttributes(node) {
+    NodeProcessor._warnDeprecatedAttributes(node, { title: 'header' });
+    NodeProcessor._warnDeprecatedSlotNames(node, {
       'modal-header': 'header',
       'modal-footer': 'footer',
     });
 
-    ComponentParser._parseAttributeWithoutOverride(node, 'header', true, 'modal-title');
-    ComponentParser._parseAttributeWithoutOverride(node, 'title', true, 'modal-title');
+    NodeProcessor._processAttributeWithoutOverride(node, 'header', true, 'modal-title');
+    NodeProcessor._processAttributeWithoutOverride(node, 'title', true, 'modal-title');
 
-    ComponentParser._renameSlot(node, 'header', 'modal-header');
-    ComponentParser._renameSlot(node, 'footer', 'modal-footer');
+    NodeProcessor._renameSlot(node, 'header', 'modal-header');
+    NodeProcessor._renameSlot(node, 'footer', 'modal-footer');
 
     node.name = 'b-modal';
 
-    ComponentParser._renameAttribute(node, 'ok-text', 'ok-title');
-    ComponentParser._renameAttribute(node, 'center', 'centered');
+    NodeProcessor._renameAttribute(node, 'ok-text', 'ok-title');
+    NodeProcessor._renameAttribute(node, 'center', 'centered');
 
     const hasOkTitle = _.has(node.attribs, 'ok-title');
     const hasFooter = node.children.some(child =>
@@ -372,33 +372,33 @@ class ComponentParser {
    * Tabs
    */
 
-  static _parseTabAttributes(node) {
-    ComponentParser._parseAttributeWithoutOverride(node, 'header', true, '_header');
+  static _processTabAttributes(node) {
+    NodeProcessor._processAttributeWithoutOverride(node, 'header', true, '_header');
   }
 
   /*
    * Tip boxes
    */
 
-  static _parseBoxAttributes(node) {
-    ComponentParser._warnConflictingAttributes(node, 'light', ['seamless']);
-    ComponentParser._warnConflictingAttributes(node, 'no-background', ['background-color', 'seamless']);
-    ComponentParser._warnConflictingAttributes(node, 'no-border',
-                                               ['border-color', 'border-left-color', 'seamless']);
-    ComponentParser._warnConflictingAttributes(node, 'no-icon', ['icon']);
-    ComponentParser._warnDeprecatedAttributes(node, { heading: 'header' });
+  static _processBoxAttributes(node) {
+    NodeProcessor._warnConflictingAttributes(node, 'light', ['seamless']);
+    NodeProcessor._warnConflictingAttributes(node, 'no-background', ['background-color', 'seamless']);
+    NodeProcessor._warnConflictingAttributes(node, 'no-border',
+                                             ['border-color', 'border-left-color', 'seamless']);
+    NodeProcessor._warnConflictingAttributes(node, 'no-icon', ['icon']);
+    NodeProcessor._warnDeprecatedAttributes(node, { heading: 'header' });
 
-    ComponentParser._parseAttributeWithoutOverride(node, 'icon', true, 'icon');
-    ComponentParser._parseAttributeWithoutOverride(node, 'header', false, '_header');
+    NodeProcessor._processAttributeWithoutOverride(node, 'icon', true, 'icon');
+    NodeProcessor._processAttributeWithoutOverride(node, 'header', false, '_header');
 
-    ComponentParser._parseAttributeWithoutOverride(node, 'heading', false, '_header');
+    NodeProcessor._processAttributeWithoutOverride(node, 'heading', false, '_header');
   }
 
   /*
    * Dropdowns
    */
 
-  static _parseDropdownAttributes(node) {
+  static _processDropdownAttributes(node) {
     const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
     const hasHeaderSlot = slotChildren && slotChildren.some(child => child.attribs.slot === 'header');
 
@@ -415,14 +415,14 @@ class ComponentParser {
       return;
     }
 
-    ComponentParser._warnDeprecatedAttributes(node, { text: 'header' });
-    ComponentParser._warnConflictingAttributes(node, 'header', ['text']);
+    NodeProcessor._warnDeprecatedAttributes(node, { text: 'header' });
+    NodeProcessor._warnConflictingAttributes(node, 'header', ['text']);
     // header attribute takes priority over text attribute if both 'text' and 'header' is used
     if (_.has(node.attribs, 'header')) {
-      ComponentParser._parseAttributeWithoutOverride(node, 'header', true, '_header');
+      NodeProcessor._processAttributeWithoutOverride(node, 'header', true, '_header');
       delete node.attribs.text;
     } else {
-      ComponentParser._parseAttributeWithoutOverride(node, 'text', true, '_header');
+      NodeProcessor._processAttributeWithoutOverride(node, 'text', true, '_header');
     }
   }
 
@@ -430,7 +430,7 @@ class ComponentParser {
    * Thumbnails
    */
 
-  static _parseThumbnailAttributes(node) {
+  static _processThumbnailAttributes(node) {
     const isImage = _.has(node.attribs, 'src') && node.attribs.src !== '';
     if (isImage) {
       return;
@@ -450,7 +450,7 @@ class ComponentParser {
    * Annotations are added automatically by KaTeX when rendering math formulae.
    */
 
-  static _parseAnnotationAttributes(node) {
+  static _processAnnotationAttributes(node) {
     if (!_.has(node.attribs, 'v-pre')) {
       node.attribs['v-pre'] = true;
     }
@@ -460,48 +460,48 @@ class ComponentParser {
    * API
    */
 
-  static parseComponents(node) {
+  static processNode(node) {
     try {
       switch (node.name) {
       case 'code':
         node.attribs['v-pre'] = '';
         break;
       case 'panel':
-        ComponentParser._parsePanelAttributes(node);
+        NodeProcessor._processPanelAttributes(node);
         break;
       case 'question':
-        ComponentParser._parseQuestion(node);
+        NodeProcessor._processQuestion(node);
         break;
       case 'q-option':
-        ComponentParser._parseQOption(node);
+        NodeProcessor._processQOption(node);
         break;
       case 'quiz':
-        ComponentParser._parseQuiz(node);
+        NodeProcessor._processQuiz(node);
         break;
       case 'popover':
-        ComponentParser._parsePopover(node);
+        NodeProcessor._processPopover(node);
         break;
       case 'tooltip':
-        ComponentParser._parseTooltip(node);
+        NodeProcessor._processTooltip(node);
         break;
       case 'modal':
-        ComponentParser._parseModalAttributes(node);
+        NodeProcessor._processModalAttributes(node);
         break;
       case 'tab':
       case 'tab-group':
-        ComponentParser._parseTabAttributes(node);
+        NodeProcessor._processTabAttributes(node);
         break;
       case 'box':
-        ComponentParser._parseBoxAttributes(node);
+        NodeProcessor._processBoxAttributes(node);
         break;
       case 'dropdown':
-        ComponentParser._parseDropdownAttributes(node);
+        NodeProcessor._processDropdownAttributes(node);
         break;
       case 'thumbnail':
-        ComponentParser._parseThumbnailAttributes(node);
+        NodeProcessor._processThumbnailAttributes(node);
         break;
       case 'annotation':
-        ComponentParser._parseAnnotationAttributes(node);
+        NodeProcessor._processAnnotationAttributes(node);
         break;
       default:
         break;
@@ -511,11 +511,11 @@ class ComponentParser {
     }
   }
 
-  static postParseComponents(node) {
+  static postProcessNode(node) {
     try {
       switch (node.name) {
       case 'panel':
-        ComponentParser._assignPanelId(node);
+        NodeProcessor._assignPanelId(node);
         break;
       default:
         break;
@@ -529,18 +529,18 @@ class ComponentParser {
     }
   }
 
-  _parse(node, context) {
+  _process(node, context) {
     if (_.isArray(node)) {
-      return node.map(el => this._parse(el, context));
+      return node.map(el => this._process(el, context));
     }
-    if (ComponentParser._isText(node)) {
+    if (NodeProcessor._isText(node)) {
       return node;
     }
     if (node.name) {
       node.name = node.name.toLowerCase();
     }
 
-    // use the flagged cwf from ComponentPreprocessor to clone the context with the new flagged cwf.
+    // use the flagged cwf from NodePreprocessor to clone the context with the new flagged cwf.
     // TODO merge the two processes to avoid dirty data-included-from hacks
     if (node.attribs && node.attribs['data-included-from']) {
       // eslint-disable-next-line no-param-reassign
@@ -587,15 +587,15 @@ class ComponentParser {
       break;
     }
 
-    ComponentParser.parseComponents(node);
+    NodeProcessor.processNode(node);
 
     if (node.children) {
       node.children.forEach((child) => {
-        this._parse(child, context);
+        this._process(child, context);
       });
     }
 
-    ComponentParser.postParseComponents(node);
+    NodeProcessor.postProcessNode(node);
 
     // If a fixed header is applied to the page, generate dummy spans as anchor points
     if (isHeadingTag && node.attribs.id) {
@@ -605,7 +605,7 @@ class ComponentParser {
     return node;
   }
 
-  render(file, content, cwf = file) {
+  process(file, content, cwf = file) {
     const context = {};
     context.cwf = cwf; // current working file
 
@@ -616,17 +616,17 @@ class ComponentParser {
           return;
         }
         const nodes = dom.map((d) => {
-          let parsed;
+          let processed;
           try {
-            parsed = this._parse(d, context);
+            processed = this._process(d, context);
           } catch (err) {
             err.message += `\nError while rendering '${file}'`;
             logger.error(err);
-            parsed = utils.createErrorNode(d, err);
+            processed = utils.createErrorNode(d, err);
           }
-          return parsed;
+          return processed;
         });
-        nodes.forEach(d => ComponentParser._trimNodes(d));
+        nodes.forEach(d => NodeProcessor._trimNodes(d));
 
         resolve(cheerio.html(nodes));
       });
@@ -646,5 +646,5 @@ class ComponentParser {
 }
 
 module.exports = {
-  ComponentParser,
+  NodeProcessor,
 };
