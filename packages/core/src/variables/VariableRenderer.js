@@ -1,8 +1,12 @@
-require('../patches/nunjucks'); // load our patch first
+require('../patches/nunjucks'); // load patch first
 const nunjucks = require('nunjucks');
-const { filter: dateFilter } = require('../lib/nunjucks-extensions/nunjucks-date');
+const {
+  dateFilter,
+  SetExternalExtension,
+} = require('../lib/nunjucks-extensions');
 
-const unescapedEnv = nunjucks.configure({ autoescape: false }).addFilter('date', dateFilter);
+const unescapedEnv = nunjucks.configure({ autoescape: false })
+  .addFilter('date', dateFilter);
 
 const START_ESCAPE_STR = '{% raw %}';
 const END_ESCAPE_STR = '{% endraw %}';
@@ -69,7 +73,9 @@ class VariableRenderer {
      */
     this.pageSources = undefined;
 
-    this.nj = nunjucks.configure(siteRootPath, { autoescape: false }).addFilter('date', dateFilter);
+    this.nj = nunjucks.configure(siteRootPath, { autoescape: false });
+    this.nj.addFilter('date', dateFilter);
+    this.nj.addExtension('SetExternalExtension', new SetExternalExtension(siteRootPath, this.nj));
     this.nj.on('load', (name, source) => {
       this.pageSources.staticIncludeSrc.push({ to: source.path });
     });

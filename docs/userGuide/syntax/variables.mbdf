@@ -159,7 +159,69 @@ In this case, all the variables in `title.md` are not accessible, as they are ov
 
 </box>
 
-### Defining variables with JSON
+#### Importing variables from other external file formats
+
+You can also source variables from external files using MarkBind's {%raw%}`{% ext varName = "filepathToFile" %}`{%endraw%} Nunjucks extension.
+This is useful if you have external datasets you want to display in your site!
+
+To do so, assign a root variable name (`varName`) to the file path from the <tooltip content="similar to how you assign filepaths for other Nunjucks tags">root directory of the site</tooltip>. You may then access the file's variables using dot `varName.xx` or array `varName[i]` syntax, depending on the file's contents.
+
+
+
+{{ icon_example }}
+
+%%CODE:%%
+
+<div class="indented">
+
+{% raw %}
+```html {heading="Displaying a student scoreboard stored as JSON"}
+{% ext studentScoreboard = "userGuide/syntax/extra/scoreboard.json" %}
+
+Student Number | Score | Rank
+:----- | :-------: | ----
+{% for student in studentScoreboard.students -%}
+{{ student.number }} | {{ student.score }} | {{ student.rank }}
+{% endfor %}
+
+<small>Last updated at {{ studentScoreboard.lastUpdated }}</small>
+```
+{% endraw %}
+
+<panel type="minimal" header="Json file used in example">
+
+```json {heading="Json File"}
+{% include "userGuide/syntax/extra/scoreboard.json" %}
+```
+
+</panel>
+<br>
+
+</div>
+
+%%OUTPUT:%%
+<div class="indented">
+
+<box border-left-color="grey" background-color="white">
+
+{% ext studentScoreboard = "userGuide/syntax/extra/scoreboard.json" %}
+
+Student Number | Score | Rank
+:----- | :-------: | ----
+{% for student in studentScoreboard.students -%}
+{{ student.number }} | {{ student.score }} / 100 | {{ student.rank }}
+{% endfor %}
+
+<small>Last updated at {{ studentScoreboard.lastUpdated }}</small>
+</box>
+</div>
+
+<box type="info" seamless>
+
+Only `.json` files are supported for now.
+</box>
+
+<panel type="seamless" header="##### Old syntax (deprecated)">
 
 You could also have your variables defined in a JSON file to define multiple variables in a more concise manner.
 
@@ -188,7 +250,7 @@ locally scoped variables in `index.md`:
 
 In this case, json variables referenced within `index.md` would be a page variable accessible within the page `index.md`.
 
-
+</panel>
 
 ### Tips and Tricks for variables
 
