@@ -1,3 +1,5 @@
+const logger = require('../utils/logger');
+
 const {
   HEADING_INDEXING_LEVEL_DEFAULT,
 } = require('./constants');
@@ -31,15 +33,20 @@ class SiteConfig {
      * @type {number}
      */
     this.headingIndexingLevel = siteConfigJson.headingIndexingLevel || HEADING_INDEXING_LEVEL_DEFAULT;
-    /**
-     * @type {string}
-     */
-    this.theme = siteConfigJson.theme || false;
 
     /**
      * @type {Object<string, any>}
      */
     this.style = siteConfigJson.style || {};
+
+    /**
+     * @type {string}
+     */
+    this.theme = this.style.bootstrapTheme || siteConfigJson.theme || false;
+    if (siteConfigJson.theme) {
+      logger.warn("The 'theme' site configuration key has been consolidated under the 'style.bootstrapTheme'"
+        + ' key.\n The old key will be deprecated in v3.0.');
+    }
 
     /**
      * @type {Array}

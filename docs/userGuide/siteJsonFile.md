@@ -18,8 +18,8 @@ Here is a typical `site.json` file:
   "baseUrl": "/myproduct",
   "faviconPath": "myfavicon.png",
   "titlePrefix": "FooBar Dev Docs",
-  "theme": "bootswatch-cerulean",
   "style": {
+    "bootstrapTheme": "bootswatch-cerulean",
     "codeTheme": "light"
   },
   "pages": [
@@ -95,17 +95,17 @@ Here is a typical `site.json` file:
 **The prefix for all page titles.** The separator <code>-</code> will be inserted by MarkBind.
 
 
-#### **`theme`**
-
-_(Optional)_ **The theme for the generated site.** Uses the default Bootstrap theme if not specified. See [User Guide: Themes](themes.html) for more details.
-
-
 #### **`style`**
 
 _(Optional)_ **The styling options to be applied to the site.** This includes:
  
+* **`theme`**
+ _(Optional)_ **The theme for the generated site.** Uses the default Bootstrap theme if not specified. See [User Guide: Themes](themes.html) for more details.
+ 
 * **`codeTheme`** [Optional. Default: `"dark"`]<br>
   The theme used for fenced code blocks. Accepts either `"light"` or `"dark"`.
+
+
 
 #### **`pages`**
 
