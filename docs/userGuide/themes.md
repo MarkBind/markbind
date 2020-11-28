@@ -13,15 +13,25 @@
 
 <span class="lead" id="overview">
 
-**MarkBind supports the ability to style your website with a variety of themes.**
+**MarkBind supports the ability to style your website with a variety of bootstrap themes.**
 
 </span>
 
 #### Specifying a Theme
 
-You can specify a theme for your site by using the [`theme` property of the `site.json`](siteJsonFile.html#theme). For example, to apply the Cerulean theme, add `"theme": "bootswatch-cerulean"` to your `site.json`.
+You can specify a theme for your site by using the [`style.bootstrapTheme` property](siteJsonFile.html#style) of your `site.json` configuration file.
 
-If no `theme` property is specified, your site will be styled with default Bootstrap theme.
+For example, to apply the Cerulean theme, add the following configuration:
+
+```json {heading="site.json"}
+{
+  "style": {
+    "bootstrapTheme": "bootswatch-cerulean"
+  }
+}
+```
+
+If no such property is specified, your site will be styled with default Bootstrap theme.
 
 #### Supported Themes
 
