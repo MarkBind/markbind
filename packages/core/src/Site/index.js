@@ -75,7 +75,7 @@ const {
 } = require('./constants');
 
 function getBootswatchThemePath(theme) {
-  return path.join(__dirname, '..', 'node_modules', 'bootswatch', 'dist', theme, 'bootstrap.min.css');
+  return require.resolve(`bootswatch/dist/${theme}/bootstrap.min.css`);
 }
 
 const SUPPORTED_THEMES_PATHS = {
