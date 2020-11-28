@@ -99,7 +99,7 @@ Here is a typical `site.json` file:
 
 _(Optional)_ **The styling options to be applied to the site.** This includes:
  
-* **`theme`**
+* **`bootstrapTheme`**
  _(Optional)_ **The theme for the generated site.** Uses the default Bootstrap theme if not specified. See [User Guide: Themes](themes.html) for more details.
  
 * **`codeTheme`** [Optional. Default: `"dark"`]<br>
