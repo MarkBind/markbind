@@ -298,6 +298,10 @@ class VariableProcessor {
 
     // NOTE: Selecting both at once is important to respect variable/import declaration order
     $('variable, import[from]').not('include > variable').each((index, elem) => {
+      logger.warn('<variable> and <import> tags used in pages will be deprecated in v3.0.\n'
+        + 'Use nunjucks\' {% set %} and {% import %} functionalities instead.\n'
+        + `filePath: ${filePath}`);
+
       if (elem.name === 'variable') {
         VariableProcessor.addVariable(pageVariables, elem, $(elem).html(), filePath, renderVariable);
       } else {
