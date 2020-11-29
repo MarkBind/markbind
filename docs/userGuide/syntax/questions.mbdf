@@ -1,4 +1,4 @@
-<import slot_info_trigger slot_type_info_trigger from="../components/advanced.md"></import>
+{% from "userGuide/components/advanced.md" import slot_info_trigger, slot_type_info_trigger %}
 
 ## Questions and Quizzes
 
@@ -150,7 +150,8 @@ Optionally, you can provide the reason for the particular option using the `<q-o
 
 **MCQ Questions**
 
-<variable name="mcqQuestion"><question type="mcq" header="Which of these **contradicts** the heuristics recommended when creating test cases with multiple inputs?">
+{% set mcqQuestion %}
+<question type="mcq" header="Which of these **contradicts** the heuristics recommended when creating test cases with multiple inputs?">
   <!-- Insert the reason for the option using the reason attribute -->
   <q-option reason="This is **correct**. We need to figure out if a positive test case works!">
     Each valid test input should appear at least once in a test case that doesn’t have any invalid inputs.
@@ -174,7 +175,8 @@ Optionally, you can provide the reason for the particular option using the `<q-o
   <div slot="hint">
   How do you figure out which inputs are wrong? (or correct)
   </div>
-</question></variable>
+</question>
+{% endset %}
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
@@ -185,7 +187,8 @@ Optionally, you can provide the reason for the particular option using the `<q-o
 
 **Checkbox Questions**
 
-<variable name="checkboxQuestion"><question type="checkbox" hint="Use your calculator! :fas-calculator:">
+{% set checkboxQuestion %}
+<question type="checkbox" hint="Use your calculator! :fas-calculator:">
 
   ##### Which of the following is true?
 
@@ -199,7 +202,8 @@ Optionally, you can provide the reason for the particular option using the `<q-o
   <q-option correct>
   11 / 11 = 1
   </q-option>
-</question></variable>
+</question>
+{% endset %}
 
 <include src="codeAndOutput.md" boilerplate>
 <variable name="highlightStyle">html</variable>
@@ -237,7 +241,8 @@ and not others.
 
 You can provide your answer in the `answer` attribute, or similarly, the `<div slot="answer">` slot for more expressive formatting.
 
-<variable name="textQuestion"><question type="text" header="Which country did the Hawaiian pizza originate from?"
+{% set textQuestion %}
+<question type="text" header="Which country did the Hawaiian pizza originate from?"
           keywords="hawaii" threshold="0.5" answer="It originated from Hawaii!">
   <div slot="hint">
 
@@ -245,8 +250,8 @@ You can provide your answer in the `answer` attribute, or similarly, the `<div s
 
   :pizza: :pizza: :pizza: :pizza: :pizza: :pizza: :pizza: :pizza: :pizza: :pizza: :pizza: :pizza:
   </div>
-</question></variable>
-
+</question>
+{% endset %}
 
 <include src="codeAndOutput.md" boilerplate>
 <variable name="highlightStyle">html</variable>

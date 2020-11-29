@@ -1,4 +1,6 @@
-<variable name="title">Writing Plugins</variable>
+{% set title = "Writing Plugins" %}
+<span id="title" class="d-none">{{ title }}</span>
+
 <frontmatter>
   title: "{{ title }}"
   layout: devGuide

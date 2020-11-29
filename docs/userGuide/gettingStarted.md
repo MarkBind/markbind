@@ -1,4 +1,6 @@
-<variable name="title" id="title">Getting Started</variable>
+{% set title = "Getting Started" %}
+<span id="title" class="d-none">{{ title }}</span>
+
 <frontmatter>
   title: "User Guide - {{ title }}"
   layout: userGuide

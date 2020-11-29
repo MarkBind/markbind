@@ -1,5 +1,7 @@
-<variable name="title" id="title">Making the Site Searchable</variable>
-<variable name="filename">makingTheSiteSearchable</variable>
+{% set title = "Making the Site Searchable" %}
+{% set filename = "makingTheSiteSearchable" %}
+<span id="title" class="d-none">{{ title }}</span>
+
 {% from "njk/common.njk" import embed with context %}
 
 <frontmatter>

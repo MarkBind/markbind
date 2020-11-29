@@ -1,4 +1,6 @@
-<variable name="title">Workflow</variable>
+{% set title = "Workflow" %}
+<span id="title" class="d-none">{{ title }}</span>
+
 <frontmatter>
   title: "{{ title }}"
   layout: devGuide

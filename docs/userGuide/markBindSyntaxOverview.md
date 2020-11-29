@@ -1,5 +1,6 @@
-<variable name="title" id="title">MarkBind Syntax Overview</variable>
-<variable name="filename">markBindSyntaxOverview</variable>
+{% set title = "MarkBind Syntax Overview" %}
+{% set filename = "markBindSyntaxOverview" %}
+<span id="title" class="d-none">{{ title }}</span>
 
 <frontmatter>
   title: "User Guide: {{ title }} "
