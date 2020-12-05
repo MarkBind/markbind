@@ -56,9 +56,14 @@ pre > code.hljs[heading] {
 
 /* switch to light style on print view */
 @media print {
-    pre > code.hljs {
+    pre > code.hljs,
+    code.hljs.inline {
         background: ghostwhite;
         color: #333;
+    }
+
+    code.hljs.inline {
+        border: 0.5px solid #d4d4d4;
     }
 
     code span.highlighted {
