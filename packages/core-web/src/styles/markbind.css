@@ -56,7 +56,8 @@ pre > code.hljs[heading] {
 
 /* switch to light style on print view */
 @media print {
-    pre > code.hljs, code.hljs.inline {
+    pre > code.hljs, 
+    code.hljs.inline {
         background: ghostwhite;
         color: #333;
     }
