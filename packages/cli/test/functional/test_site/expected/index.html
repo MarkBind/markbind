@@ -180,53 +180,18 @@
           <p>arrayVarItem1</p>
           <p>arrayVarItem2</p>
           <p>nestedVarValue</p>
-          <p><strong>Json Variable</strong></p>
-          <div> front back </div>
-          <p>Json Variable can be referenced Referencing jsonVar1: Json Variable can be referenced</p>
           <p><strong>Variables that reference another variable</strong></p>
           <p>This variable can be referenced.</p>
           <p>References can be several levels deep.</p>
-          <p><strong>Page Variable</strong></p>
-          <div></div>
-          <div></div>
-          <p>Page Variable Json Variable</p>
-          <p><strong>Page Variable with HTML and MD</strong></p>
-          <div></div>
-          <p>Page Variable with <span style="color: blue;">HTML</span> and <strong>Markdown</strong></p>
-          <p><strong>Nested Page Variable</strong></p>
-          <div>
-            <span>
-              <div></div>
-            </span></div>
-          Nested Page Variable
-          <p><strong>Page Variable with Global Variable</strong></p>
-          <div></div>
-          Page Variable with Global Variable
-          <p><strong>Page Variable referencing Page Variable</strong></p>
-          <div></div>
-          Page Variable referencing Page Variable
-          <p><strong>Global Variable overriding Page Variable</strong></p>
-          <div></div>
-          Global Variable Overriding Page Variable
+          <p><strong>Global Variables can be referenced in {% set %}</strong></p>
+          <p>Page Variable with Global Variable</p>
+          <p><strong>Global Variables should override {% set %}</strong></p>
+          <p>Global Variable Overriding Page Variable</p>
           <p><strong>Test Page Variable and Included Variable Integrations</strong></p>
-          <div></div>
           <div>
-            <p><strong>Explicitly Included Page Variable</strong></p>
-            <p>Explicitly Included Page Variable</p>
-            <p><strong>Inner Page Variable Should Not Be Overridden by Outer Page Variable</strong></p>
-            <div></div>
-            Inner Page Variable Should Not Be Overridden by Outer Page Variable
             <p><strong>Outer Page Variable Should Not Leak Into Inner Pages</strong></p>
             <p>Outer Page Variable Should Not Leak Into Inner Pages</p>
-            <p><strong>Included Variable Overriding Page Variable</strong></p>
-            <div></div>
-            Included Variable Overriding Page Variable
-            <p><strong>Page Variable Referencing Included Variable</strong></p>
-            <div></div>
-            Page Variable Referencing Included Variable
           </div>
-          <p>Variables for includes should not be recognised as page variables, hence, there should be no text between <strong>this</strong></p>
-          <p>and <strong>this</strong>.</p>
           <h1 id="heading-with-multiple-keywords"><span id="heading-with-multiple-keywords" class="anchor"></span>Heading with multiple keywords<a class="fa fa-anchor" href="#heading-with-multiple-keywords" onclick="event.stopPropagation()"></a></h1>
           <p><span class="keyword">keyword 1</span>
             <span class="keyword">keyword 2</span></p>
@@ -404,8 +369,6 @@
             <p>This is a page from another Markbind site.
               The purpose of this page is to ensure that reuse works as expected.
               All the following images should display correctly.</p>
-            <p>Some variables:</p>
-            <div></div>
             <p>IMG tags:
               <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png">
               <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png">
@@ -430,7 +393,6 @@
               <pic src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></pic>
             </div>
           </div>
-          <p><strong>Include segment from another Markbind site</strong></p>
           <div>
             <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png">
             <pic src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></pic>
@@ -556,6 +518,8 @@
             <p><strong>Test missing variable with default</strong></p>
             <p>Missing Variable</p>
           </div>
+          <p>Variables for includes should not be recognised as page variables, hence, there should be no text between <strong>this</strong></p>
+          <p>and <strong>this</strong>.</p>
           <p><strong>Included variables should not leak into other files</strong></p>
           <div>
             <p>Should be blank:</p>
@@ -607,7 +571,7 @@
           <panel src="/test_site/sub_site/index._include_.html" expanded id="panel-with-src-from-another-markbind-site-header"><template slot="header">
               <h2 id="panel-with-src-from-another-markbind-site-header"><span id="panel-with-src-from-another-markbind-site-header" class="anchor"></span>Panel with src from another Markbind site header<a class="fa fa-anchor" href="#panel-with-src-from-another-markbind-site-header" onclick="event.stopPropagation()"></a></h2>
             </template></panel>
-          <panel src="/test_site/sub_site/testReuse._include_.html" expanded id="panel-with-src-from-another-markbind-site-header-2"><template slot="header">
+          <panel src="/test_site/sub_site/testReuseSubsite._include_.html" expanded id="panel-with-src-from-another-markbind-site-header-2"><template slot="header">
               <h2 id="panel-with-src-from-another-markbind-site-header-2"><span id="panel-with-src-from-another-markbind-site-header-2" class="anchor"></span>Panel with src from another Markbind site header<a class="fa fa-anchor" href="#panel-with-src-from-another-markbind-site-header-2" onclick="event.stopPropagation()"></a></h2>
             </template></panel>
         </div>

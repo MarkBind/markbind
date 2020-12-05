@@ -29,10 +29,10 @@
 
 
       <div id="content-wrapper">
-        <div></div>
-        <div></div>
-        <p>Variable from layout</p>
-        <p>This is an importedVar</p>
+        <variable name="layoutVar">Variable from layout</variable>
+        <p>
+          <import importedVar from="imported.md" as="imported"></import>
+        </p>
         <panel type="success" minimized><template slot="header">
             <p>Expanded panel</p>
           </template><template slot="_alt">
@@ -40,18 +40,17 @@
           </template>
           Math formulas
         </panel>
-        <div></div>
+        <variable name="mainVar">Variable from page</variable>
         <hr>
         <p><em>Content above the horizontal line belongs to the layout file</em></p>
         <h1 id="welcome-to-markbind"><span id="welcome-to-markbind" class="anchor"></span>Welcome to Markbind<a class="fa fa-anchor" href="#welcome-to-markbind" onclick="event.stopPropagation()"></a></h1>
         <p>This is a minimalistic template. To learn more about authoring contents in Markbind, visit the <a href="https://markbind.org/userGuide/authoringContents.html">User Guide</a>.</p>
-        <p>Variable from page</p>
         <p><strong>Test that {% raw %} and {% endraw %} tags work in the content file inserted into the layout</strong></p>
         <p><em>Content below the horizontal line belongs to the layout file</em></p>
         <hr>
         <p>Bottom Content</p>
         <div>
-          <div></div>
+          <variable name="importedVar">This is an importedVar</variable>
           <p>This content can be imported to the bottom of the page</p>
         </div>
         <p><strong>Test that {% raw %} and {% endraw %} tags work in the layouts file</strong></p>

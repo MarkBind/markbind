@@ -203,21 +203,6 @@
       "headingKeywords": {}
     },
     {
-      "src": "testImportVariables.md",
-      "title": "Imported Variables Test",
-      "headings": {
-        "trying-to-access-a-page-variable": "Trying to access a page variable:",
-        "trying-to-access-an-imported-variable-via-namespace": "Trying to access an imported variable via namespace:"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "testPanelsWithImportedVariables.md",
-      "title": "Panels with Imported Variables Test",
-      "headings": {},
-      "headingKeywords": {}
-    },
-    {
       "src": "testCodeBlocks.md",
       "title": "Test: Code Blocks",
       "headings": {},

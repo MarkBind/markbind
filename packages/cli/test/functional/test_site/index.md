@@ -30,69 +30,29 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 {{ externalVar.nestedVar.nestedVarKey }}
 
-**Json Variable**
-
-{{ front }} {{ back }}
-
-{{ jsonVar1 }} {{ jsonVar2 }}
-
 **Variables that reference another variable**
 
 {{finalized_value}}
 
 {{reference_level_4}}
 
-**Page Variable**
+**Global Variables can be referenced in {% raw %}{% set %}{% endraw %}**
 
-<variable name="page_variable">Page Variable</variable>
-<variable from="jsonPageVariable.json" />
-
-{{ page_variable }} {{ json_page_variable }}
-
-**Page Variable with HTML and MD**
-
-<variable name="page_variable_with_HTML_and_MD">Page Variable with <span style="color: blue;">HTML</span> and **Markdown**</variable>
-
-{{ page_variable_with_HTML_and_MD }}
-
-**Nested Page Variable**
-
-<div>
-  <span>
-    <variable name="nested_page_variable">Nested Page Variable</variable>
-  </span>
-</div>
-{{ nested_page_variable }}
-
-**Page Variable with Global Variable**
-
-<variable name="page_variable_with_global_variable">Page Variable with {{ global_variable }}</variable>
+{% set page_variable_with_global_variable %}
+Page Variable with {{ global_variable }}
+{% endset %}
 {{ page_variable_with_global_variable }}
 
-**Page Variable referencing Page Variable**
+**Global Variables should override {% raw %}{% set %}{% endraw %}**
 
-<variable name="page_variable_referencing_page_variable">Page Variable referencing {{ page_variable }}</variable>
-{{ page_variable_referencing_page_variable }}
-
-**Global Variable overriding Page Variable**
-
-<variable name="page_global_variable_overriding_page_variable">**Should not appear**: Page Variable overridden by Global Variable</variable>
+{% set page_global_variable_overriding_page_variable %}
+**Should not appear**: Page Variable overridden by Global Variable
+{% endset %}
 {{ page_global_variable_overriding_page_variable }}
 
 **Test Page Variable and Included Variable Integrations**
 
-<variable name="explicitly_included_page_variable">Explicitly Included Page Variable</variable>
-<include src="testPageVariablesInInclude.md">
-  <variable name="explicitly_included_page_variable">{{ explicitly_included_page_variable }}</variable>
-  <variable name="included_variable">Included Variable</variable>
-  <variable name="included_variable_overriding_page_variable">Included Variable Overriding Page Variable</variable>
-</include>
-
-Variables for includes should not be recognised as page variables, hence, there should be no text between **this**
-
-{{ included_variable_overriding_page_variable }}
-
-and **this**.
+<include src="testPageVariablesInInclude.md" />
 
 # Heading with multiple keywords
 <span class="keyword">keyword 1</span>
@@ -174,11 +134,8 @@ and **this**.
 **Include from another Markbind site**
 
 <include src="sub_site/index.md" />
-<include src="sub_site/testReuse.md" />
-
-**Include segment from another Markbind site**
-
-<include src="sub_site/testReuse.md#imageTest" />
+<include src="sub_site/testReuseSubsite.md" />
+<include src="sub_site/testReuseSubsite.md#imageTest" />
 
 **Include nested sub-site directly**
 
@@ -233,6 +190,12 @@ and **this**.
   <variable name="included_variable_should_not_leak">**Should not appear**: Included variable should not leak into other files</variable>
   <variable name="included_variable_with_global_variable">Included variable with {{ global_variable }}</variable>
 </include>
+
+Variables for includes should not be recognised as page variables, hence, there should be no text between **this**
+
+{{ included_variable }}
+
+and **this**.
 
 **Included variables should not leak into other files**
 
@@ -294,7 +257,7 @@ and **this**.
 
 <panel header="## Panel with src from another Markbind site header" src="sub_site/index.md" expanded>
 </panel>
-<panel header="## Panel with src from another Markbind site header" src="sub_site/testReuse.md" expanded>
+<panel header="## Panel with src from another Markbind site header" src="sub_site/testReuseSubsite.md" expanded>
 </panel>
 </div>
 

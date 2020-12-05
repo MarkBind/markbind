@@ -1,5 +1,5 @@
 ## Dates
-<variable name="base1">2019-08-12</variable>
+{% set base1 = "2019-08-12" %}
 
 {% set format1 = "DD MM YYYY" %}
 
