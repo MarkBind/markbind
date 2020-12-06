@@ -25,9 +25,6 @@ const {
   PAGE_NAV_ID,
   PAGE_NAV_TITLE_CLASS,
   TITLE_PREFIX_SEPARATOR,
-  TEMP_NAVBAR_CLASS,
-  TEMP_DROPDOWN_CLASS,
-  TEMP_DROPDOWN_PLACEHOLDER_CLASS,
 } = require('./constants');
 
 const {
@@ -445,22 +442,6 @@ class Page {
     return '';
   }
 
-
-  static insertTemporaryStyles(pageData) {
-    const $ = cheerio.load(pageData);
-    // inject temporary navbar styles
-    $('navbar').addClass(TEMP_NAVBAR_CLASS);
-    // inject temporary dropdown styles
-    $('dropdown').each((i, element) => {
-      const attributes = element.attribs;
-      // TODO remove attributes.text once text attribute is fully deprecated
-      const placeholder = `<div>${attributes.header || attributes.text || ''}</div>`;
-      $(element).before(placeholder);
-      $(element).prev().addClass(attributes.class).addClass(TEMP_DROPDOWN_PLACEHOLDER_CLASS);
-      $(element).addClass(TEMP_DROPDOWN_CLASS);
-    });
-    return $.html();
-  }
   /**
    * A file configuration object.
    * @typedef {Object<string, any>} FileConfig

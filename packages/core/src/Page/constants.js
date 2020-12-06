@@ -27,8 +27,4 @@ module.exports = {
     + '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>\n'
     + '</i>',
   TITLE_PREFIX_SEPARATOR: ' - ',
-
-  TEMP_NAVBAR_CLASS: 'temp-navbar',
-  TEMP_DROPDOWN_CLASS: 'temp-dropdown',
-  TEMP_DROPDOWN_PLACEHOLDER_CLASS: 'temp-dropdown-placeholder',
 };
