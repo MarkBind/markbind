@@ -1,6 +1,6 @@
 const cheerio = require('cheerio');
 const fs = require('fs-extra');
-const linkProcessor = require('../../src/html/linkProcessor');
+const linkProcessor = require('../../../src/html/linkProcessor');
 
 jest.mock('fs');
 
