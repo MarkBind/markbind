@@ -2,7 +2,10 @@
 <html>
 
 <head>
+
   <meta name="default-head-top">
+  <script src="/test_site/headFiles/customScriptTop.js"></script>
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="MarkBind 2.17.0">
@@ -21,19 +24,162 @@
   <script src="markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
-  <link rel="stylesheet" href="markbind/layouts/default/styles.css">
+
   <meta name="default-head-bottom">
+  <link rel="stylesheet" href="/test_site/stylesheets/styles.css">
+  <script src="/test_site/headFiles/customScriptBottom.js"></script>
   <link rel="icon" href="/test_site/favicon.png">
 </head>
 
 <body>
   <div id="app">
-    <div id="flex-body">
 
-      <div id="content-wrapper">
+
+    <div>
+      <header>
+        <navbar type="dark" default-highlight-on="sibling-or-child" class=" temp-navbar">
+          <a slot="brand" href="/" title="Home" class="navbar-brand">Markbind Test Site</a>
+          <li><a class="nav-link" href="/test_site/bugs/index.html">Open Bugs</a></li>
+        </navbar>
+        <div class="bg-info display-4 text-center text-white">
+          <br>
+          Test Jumbotron<br>
+          <br></div>
+      </header>
+      <p><strong>Relative Link Test</strong> This is a relative Intra-Site link in a layout (see <a href="/test_site/index.html#heading-with-hidden-keyword">link</a>)</p>
+    </div>
+    <div id="flex-body">
+      <nav id="site-nav" class="fixed-header-padding">
+        <div class="site-nav-top">
+          <div class="font-weight-bold mb-2" style="font-size: 1.25rem;">
+            <div>
+              <h2 id="default-layout"><span id="default-layout" class="anchor"></span>Default Layout<a class="fa fa-anchor" href="#default-layout" onclick="event.stopPropagation()"></a></h2>
+            </div>
+          </div>
+        </div>
+        <div class="nav-component slim-scroll">
+          <div>
+            <site-nav>
+              <ul class="site-nav-list site-nav-list-root">
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/test_site/index.html">Home 🏠</a></div>
+                </li>
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/test_site/bugs/index.html">Open Bugs 🐛</a></div>
+                </li>
+                <li class="site-nav-custom-list-item site-nav-list-item-0">
+                  <h3 id="testing-site-nav"><span id="testing-site-nav" class="anchor"></span>Testing Site-Nav<a class="fa fa-anchor" href="#testing-site-nav" onclick="event.stopPropagation()"></a></h3>
+                </li>
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><strong>Dropdown </strong> <span aria-hidden="true" class="glyphicon glyphicon-search"></span> title ✏️
+
+                    <i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
+                  <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/">Dropdown link one</a></div>
+                    </li>
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)">Nested Dropdown title 📐
+
+                        <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
+                      <ul class="site-nav-dropdown-container site-nav-list">
+                        <li>
+                          <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link one</a></div>
+                        </li>
+                        <li>
+                          <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link two</a></div>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/">Dropdown link two</a></div>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/"><mark>Third Link</mark> 📋</a></div>
+                </li>
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)">Filler text <a href="https://www.youtube.com/"><span aria-hidden="true" class="glyphicon glyphicon-facetime-video"></span> Youtube 📺</a> filler text
+
+                    <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
+                  <ul class="site-nav-dropdown-container site-nav-list">
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">The answer to everything in the universe</a></div>
+                    </li>
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><mark>Dropdown title</mark> <span aria-hidden="true" class="glyphicon glyphicon-comment"></span> ✏️
+
+                        <i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
+                      <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
+                        <li>
+                          <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link one</a></div>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)">Really Long Dropdown Title Really Long Dropdown Title Really Long Dropdown Title Really Long Dropdown
+
+                    <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
+                  <ul class="site-nav-dropdown-container site-nav-list">
+                    <li class="site-nav-custom-list-item site-nav-list-item-1">Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text</li>
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)">Nested Dropdown Title
+
+                        <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
+                      <ul class="site-nav-dropdown-container site-nav-list">
+                        <li class="site-nav-custom-list-item site-nav-list-item-2">Hello Doge Hello Doge 🐶</li>
+                        <li>
+                          <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/test_site/index.html"><strong>NESTED LINK</strong> Home 🏠</a></div>
+                        </li>
+                        <li class="site-nav-custom-list-item site-nav-list-item-2">Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)">Test line break in navigation layout
+
+                    <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
+                  <ul class="site-nav-dropdown-container site-nav-list">
+                    <li class="site-nav-custom-list-item site-nav-list-item-1">Nested line break text ✂️</li>
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/test_site/index.html">Nested line break href</a>
+
+                        <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
+                      <ul class="site-nav-dropdown-container site-nav-list">
+                        <li class="site-nav-custom-list-item site-nav-list-item-2">Nested Nested line break text ✂️</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)">Nested line break dropdown menu
+
+                        <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
+                      <ul class="site-nav-dropdown-container site-nav-list">
+                        <li class="site-nav-custom-list-item site-nav-list-item-2">Line break item 2 📘</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </site-nav>
+          </div>
+        </div>
+      </nav>
+      <div id="content-wrapper" class="fixed-header-padding">
         <p><strong>Multiple inclusions of a modal should be supported</strong></p>
         <div>
-
           <b-modal id="modal:bugRepro" hide-footer size="lg" modal-class="mb-zoom" ref="modal:bugRepro"><template slot="modal-title">Establishing Requirements</template>
             <div>
               <p>Requirements gathering, requirements elicitation, requirements analysis,
@@ -43,7 +189,6 @@
           </b-modal>
         </div>
         <div>
-
           <b-modal id="modal:bugRepro" hide-footer size="lg" modal-class="mb-zoom" ref="modal:bugRepro"><template slot="modal-title">Establishing Requirements</template>
             <div>
               <p>Requirements gathering, requirements elicitation, requirements analysis,
@@ -52,14 +197,22 @@
             </div>
           </b-modal>
         </div>
-        <p><i class="fa fa-arrow-circle-up fa-lg" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i></p>
+        <i class="fa fa-arrow-circle-up fa-lg" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>
+      <nav id="page-nav" class="fixed-header-padding">
+        <div class="nav-component slim-scroll">
+
+        </div>
+      </nav>
     </div>
-    <footer>
-      <div class="text-center">
-        Default footer
-      </div>
-    </footer>
+    <div>
+      <footer>
+        <h1 id="heading-in-footer-should-not-be-indexed"><span id="heading-in-footer-should-not-be-indexed" class="anchor"></span>Heading in footer should not be indexed<a class="fa fa-anchor" href="#heading-in-footer-should-not-be-indexed" onclick="event.stopPropagation()"></a></h1>
+        <div class="text-center">
+          This is a dynamic height footer that supports markdown <span>😄</span>!
+        </div>
+      </footer>
+    </div>
   </div>
 </body>
 <script src="markbind/js/bootstrap-utility.min.js"></script>
@@ -84,7 +237,6 @@
 
   gtag('config', 'TRACKING-ID');
 </script>
-<script src="markbind/layouts/default/scripts.js"></script>
 <script>
   if (MarkBind.AfterSetup) MarkBind.AfterSetup()
 </script>

@@ -12,19 +12,14 @@
       }
     },
     {
-      "src": "testAfterSetup.md",
-      "title": "Hello World",
-      "layout": "testAfterSetup"
-    },
-    {
       "src": ["testEmptyFrontmatter.md", "testLayoutsOverride.md"],
       "title": "Hello World",
-      "layout": "testLayout"
+      "layout": "testLayout.md"
     },
     {
       "src": "testExternalScripts.md",
       "title": "Hello World",
-      "layout": "testLayout",
+      "layout": "testLayout.md",
       "externalScripts": [
         "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
       ]

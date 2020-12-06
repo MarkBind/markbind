@@ -1,0 +1,146 @@
+mark {
+    background-color: #ff0;
+    border-radius: 5px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.indented {
+    padding-left: 20px;
+}
+
+.theme-card img {
+    width: 100%;
+}
+
+/* Scrollbar */
+
+.slim-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+.slim-scroll::-webkit-scrollbar-thumb {
+    background: #808080;
+    border-radius: 20px;
+}
+
+.slim-scroll::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 20px;
+}
+
+.slim-scroll-blue::-webkit-scrollbar {
+    width: 5px;
+}
+
+.slim-scroll-blue::-webkit-scrollbar-thumb {
+    background: #00b0ef;
+    border-radius: 20px;
+}
+
+.slim-scroll-blue::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 20px;
+}
+
+/* Layout containers */
+
+#flex-body {
+    display: flex;
+    flex: 1;
+}
+
+#content-wrapper {
+    flex: 1;
+    margin: 0 auto;
+    min-width: 0;
+    max-width: 1000px;
+    padding: 0.8rem 20px 0 20px;
+    transition: 0.4s;
+    -webkit-transition: 0.4s;
+}
+
+#site-nav,
+#page-nav {
+    position: sticky;
+    top: 0;
+    flex: 0 0 auto;
+    padding-top: 1rem;
+    max-width: 300px;
+    width: 300px;
+}
+
+#site-nav {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid lightgrey;
+    padding-bottom: 20px;
+    z-index: 999;
+    max-height: 100vh;
+}
+
+.site-nav-top {
+    margin-top: 0.8rem;
+    padding: 0 12px 12px 12px;
+}
+
+.nav-component {
+    padding: 0.8rem 12px 0 12px;
+    overflow-y: auto;
+}
+
+#page-nav {
+    display: block;
+    max-height: 90vh;
+}
+
+#page-nav .nav-component {
+    border-left: 1px solid lightgrey;
+    max-height: 90vh;
+}
+
+@media screen and (max-width: 1299.98px) {
+    #page-nav {
+        display: none;
+    }
+}
+
+/* Bootstrap medium(md) responsive breakpoint */
+@media screen and (max-width: 991.98px) {
+    #site-nav {
+        display: none;
+    }
+
+    footer {
+        margin-left: 60px;
+    }
+}
+
+/* Bootstrap small(sm) responsive breakpoint */
+@media (max-width: 767.98px) {
+    #content-wrapper {
+        padding: 0 10px;
+    }
+}
+
+/* Bootstrap extra small(xs) responsive breakpoint */
+@media screen and (max-width: 575.98px) {
+    #site-nav {
+        display: none;
+    }
+
+    footer {
+        margin-left: 0;
+    }
+}
+
+/* Hide site navigation when printing */
+@media print {
+    #site-nav {
+        display: none;
+    }
+
+    #page-nav {
+        display: none;
+    }
+}
