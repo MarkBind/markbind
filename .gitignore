@@ -42,6 +42,7 @@ jspm_packages
 .node_repl_history
 
 docs/_site/*
+packages/core/template/*/_site
 
 # Generated site (MarkBind)
 packages/cli/test/functional/*/_site

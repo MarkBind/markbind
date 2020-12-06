@@ -1,8 +1,7 @@
 <frontmatter>
-  header: header.md
+  layout: default.md
   pageNav: 2
   pageNavTitle: "Chapters of This Page"
-  siteNav: site-nav.md
 </frontmatter>
 
 <br>
