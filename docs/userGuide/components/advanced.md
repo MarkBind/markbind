@@ -1,12 +1,8 @@
 ## Advanced Tips and Tricks
 
-{% set slot_info_trigger %}
-<trigger for="on-slots" trigger="click"><strong>^\[S\]^</strong></trigger>
-{% endset %}
+{% set slot_info_trigger %}<trigger for="on-slots" trigger="click"><strong>^\[S\]^</strong></trigger>{% endset %}
 
-{% set slot_type_info_trigger %}
-<trigger for="on-slots" trigger="click">Slot</trigger>
-{% endset %}
+{% set slot_type_info_trigger %}<trigger for="on-slots" trigger="click">Slot</trigger>{% endset %}
 
 ### Richer formatting of attributes using slots
 
