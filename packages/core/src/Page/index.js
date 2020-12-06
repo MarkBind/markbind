@@ -13,7 +13,6 @@ _.isArray = require('lodash/isArray');
 
 const { CyclicReferenceError } = require('../errors');
 const { PageSources } = require('./PageSources');
-const { NodePreprocessor } = require('../html/NodePreprocessor');
 const { NodeProcessor } = require('../html/NodeProcessor');
 const md = require('../lib/markdown-it');
 
@@ -895,16 +894,6 @@ class Page {
     const button = '<i class="fa fa-arrow-circle-up fa-lg" id="scroll-top-button" '
     + 'onclick="handleScrollTop()" aria-hidden="true"/>';
     return `${pageData}\n${button}`;
-  }
-
-
-  static unwrapIncludeSrc(html) {
-    const $ = cheerio.load(html);
-    // TODO combine {@link NodePreprocessor} and {@link NodeProcessor} processes so we don't need this
-    $('div[data-included-from], span[data-included-from]').each(function () {
-      $(this).replaceWith($(this).contents());
-    });
-    return $.html();
   }
 
   /**
