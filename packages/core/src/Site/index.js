@@ -13,7 +13,9 @@ const Page = require('../Page');
 const { PageConfig } = require('../Page/PageConfig');
 const VariableProcessor = require('../variables/VariableProcessor');
 const VariableRenderer = require('../variables/VariableRenderer');
-const { ignoreTags } = require('../patches');
+const { ExternalManager } = require('../External/ExternalManager');
+const { LayoutManager } = require('../Layout');
+const { PluginManager } = require('../plugins/PluginManager');
 const Template = require('../../template/template');
 
 const FsUtil = require('../utils/fsUtil');
@@ -25,15 +27,12 @@ const gitUtil = require('../utils/git');
 const {
   LAYOUT_DEFAULT_NAME,
   LAYOUT_FOLDER_PATH,
-  PLUGIN_SITE_ASSET_FOLDER_NAME,
 } = require('../constants');
 
 const _ = {};
 _.difference = require('lodash/difference');
 _.flatMap = require('lodash/flatMap');
-_.get = require('lodash/get');
 _.has = require('lodash/has');
-_.includes = require('lodash/includes');
 _.isBoolean = require('lodash/isBoolean');
 _.isUndefined = require('lodash/isUndefined');
 _.noop = require('lodash/noop');
@@ -51,19 +50,14 @@ const {
   ABOUT_MARKDOWN_FILE,
   CONFIG_FOLDER_NAME,
   FAVICON_DEFAULT_PATH,
-  FOOTER_PATH,
   INDEX_MARKDOWN_FILE,
   LAYOUT_SITE_FOLDER_NAME,
   LAZY_LOADING_SITE_FILE_NAME,
   LAZY_LOADING_BUILD_TIME_RECOMMENDATION_LIMIT,
   LAZY_LOADING_REBUILD_TIME_RECOMMENDATION_LIMIT,
-  MARKBIND_DEFAULT_PLUGIN_DIRECTORY,
-  MARKBIND_PLUGIN_DIRECTORY,
-  MARKBIND_PLUGIN_PREFIX,
   MARKBIND_WEBSITE_URL,
   MAX_CONCURRENT_PAGE_GENERATION_PROMISES,
   PAGE_TEMPLATE_NAME,
-  PROJECT_PLUGIN_FOLDER_NAME,
   SITE_CONFIG_NAME,
   SITE_DATA_NAME,
   SITE_FOLDER_NAME,
@@ -142,8 +136,7 @@ class Site {
     this.addressablePagesSource = [];
     this.baseUrlMap = new Set();
     this.forceReload = forceReload;
-    this.plugins = {};
-    this.pluginsBeforeSiteGenerate = [];
+
     /**
      * @type {undefined | SiteConfig}
      */
@@ -152,6 +145,12 @@ class Site {
 
     // Site wide variable processor
     this.variableProcessor = undefined;
+
+    // Site wide layout manager
+    this.layoutManager = undefined;
+
+    // Site wide plugin manager
+    this.pluginManager = undefined;
 
     // Lazy reload properties
     this.onePagePath = onePagePath;
@@ -197,6 +196,12 @@ class Site {
     });
   }
 
+  beforeSiteGenerate() {
+    this.variableProcessor.invalidateCache();
+    this.externalManager.reset();
+    this.pluginManager.beforeSiteGenerate();
+  }
+
   /**
    * Changes the site variable of the current page being viewed, building it if necessary.
    * @param normalizedUrl BaseUrl-less and extension-less url of the page
@@ -206,6 +211,7 @@ class Site {
     this.currentPageViewed = path.join(this.rootPath, normalizedUrl);
 
     if (this.toRebuild.has(this.currentPageViewed)) {
+      this.beforeSiteGenerate();
       this.rebuildPageBeingViewed(this.currentPageViewed);
       return true;
     }
@@ -311,8 +317,7 @@ class Site {
       layout: config.layout,
       layoutsAssetPath: path.relative(path.dirname(resultPath),
                                       path.join(this.siteAssetsDestPath, LAYOUT_SITE_FOLDER_NAME)),
-      plugins: this.plugins || {},
-      pluginsContext: this.siteConfig.pluginsContext,
+      pluginManager: this.pluginManager,
       resultPath,
       rootPath: this.rootPath,
       searchable: this.siteConfig.enableSearch && config.searchable,
@@ -325,6 +330,7 @@ class Site {
       variableProcessor: this.variableProcessor,
       ignore: this.siteConfig.ignore,
       addressablePagesSource: this.addressablePagesSource,
+      layoutManager: this.layoutManager,
     });
     return new Page(pageConfig);
   }
@@ -546,7 +552,23 @@ class Site {
     this.baseUrlMap = new Set(candidates.map(candidate => path.dirname(candidate)));
     this.variableProcessor = new VariableProcessor(this.rootPath, this.baseUrlMap);
 
-    return Promise.resolve();
+    const config = {
+      baseUrlMap: this.baseUrlMap,
+      baseUrl: this.siteConfig.baseUrl,
+      disableHtmlBeautify: this.siteConfig.disableHtmlBeautify,
+      rootPath: this.rootPath,
+      outputPath: this.outputPath,
+      ignore: this.siteConfig.ignore,
+      addressablePagesSource: this.addressablePagesSource,
+      variableProcessor: this.variableProcessor,
+    };
+    this.pluginManager = new PluginManager(config, this.siteConfig.plugins, this.siteConfig.pluginsContext);
+    config.pluginManager = this.pluginManager;
+
+    this.externalManager = new ExternalManager(config);
+    config.externalManager = this.externalManager;
+
+    this.layoutManager = new LayoutManager(config);
   }
 
   /**
@@ -618,16 +640,12 @@ class Site {
       .then(() => this.collectAddressablePages())
       .then(() => this.collectBaseUrl())
       .then(() => this.collectUserDefinedVariablesMap())
-      .then(() => this.collectPlugins())
-      .then(() => this.collectPluginSiteHooks())
-      .then(() => this.collectPluginSpecialTags())
       .then(() => this.buildAssets())
       .then(() => (this.onePagePath ? this.lazyBuildSourceFiles() : this.buildSourceFiles()))
       .then(() => this.copyCoreWebAsset())
       .then(() => this.copyBootswatchTheme())
       .then(() => this.copyFontAwesomeAsset())
       .then(() => this.copyOcticonsAsset())
-      .then(() => this.copyLayouts())
       .then(() => this.writeSiteData())
       .then(() => {
         const endTime = new Date();
@@ -646,8 +664,8 @@ class Site {
   /**
    * Build all pages of the site
    */
-  buildSourceFiles() {
-    this.runBeforeSiteGenerateHooks();
+  async buildSourceFiles() {
+    this.beforeSiteGenerate();
     logger.info('Generating pages...');
 
     return this.generatePages()
@@ -673,8 +691,8 @@ class Site {
   /**
    * Only build landing page of the site, building more as the author goes to different links.
    */
-  lazyBuildSourceFiles() {
-    this.runBeforeSiteGenerateHooks();
+  async lazyBuildSourceFiles() {
+    this.beforeSiteGenerate();
     logger.info('Generating landing page...');
 
     return this.generateLandingPage()
@@ -693,12 +711,11 @@ class Site {
   _rebuildAffectedSourceFiles(filePaths) {
     const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];
     const uniquePaths = _.uniq(filePathArray);
-    this.runBeforeSiteGenerateHooks();
-    this.variableProcessor.invalidateCache(); // invalidate internal nunjucks cache for file changes
+    this.beforeSiteGenerate();
 
-    return this.regenerateAffectedPages(uniquePaths)
+    return this.layoutManager.updateLayouts(filePaths)
+      .then(() => this.regenerateAffectedPages(uniquePaths))
       .then(() => fs.remove(this.tempPath))
-      .then(() => this.copyLayouts())
       .catch(error => Site.rejectHandler(error, [this.tempPath, this.outputPath]));
   }
 
@@ -708,7 +725,6 @@ class Site {
     const uniqueUrls = _.uniq(normalizedUrlArray);
     uniqueUrls.forEach(normalizedUrl => logger.info(
       `Building ${normalizedUrl} as some of its dependencies were changed since the last visit`));
-    this.runBeforeSiteGenerateHooks();
 
     /*
      Lazy loading only builds the page being viewed, but the user may be quick enough
@@ -725,7 +741,7 @@ class Site {
       }
 
       this.toRebuild.delete(normalizedUrl);
-      return pageToRebuild.generate({})
+      return pageToRebuild.generate(this.externalManager)
         .then(() => this.writeSiteData())
         .then(() => {
           const endTime = new Date();
@@ -741,7 +757,9 @@ class Site {
 
   _rebuildSourceFiles() {
     logger.info('Page added or removed, updating list of site\'s pages...');
-    this.variableProcessor.invalidateCache(); // invalidate internal nunjucks cache for file removals
+    this.beforeSiteGenerate();
+
+    this.layoutManager.removeLayouts();
 
     const removedPageFilePaths = this.updateAddressablePages();
     return this.removeAsset(removedPageFilePaths)
@@ -800,46 +818,6 @@ class Site {
   }
 
   /**
-   * Retrieves the correct plugin path for a plugin name, if not in node_modules
-   * @param rootPath root of the project
-   * @param plugin name of the plugin
-   */
-  static getPluginPath(rootPath, plugin) {
-    // Check in project folder
-    const pluginPath = path.join(rootPath, PROJECT_PLUGIN_FOLDER_NAME, `${plugin}.js`);
-    if (fs.existsSync(pluginPath)) {
-      return pluginPath;
-    }
-
-    // Check in src folder
-    const markbindPluginPath = path.join(MARKBIND_PLUGIN_DIRECTORY, `${plugin}.js`);
-    if (fs.existsSync(markbindPluginPath)) {
-      return markbindPluginPath;
-    }
-
-    // Check in default folder
-    const markbindDefaultPluginPath = path.join(MARKBIND_DEFAULT_PLUGIN_DIRECTORY, `${plugin}.js`);
-    if (fs.existsSync(markbindDefaultPluginPath)) {
-      return markbindDefaultPluginPath;
-    }
-
-    return '';
-  }
-
-  /**
-   * Finds plugins in the site's default plugin folder
-   */
-  static findDefaultPlugins() {
-    if (!fs.existsSync(MARKBIND_DEFAULT_PLUGIN_DIRECTORY)) {
-      return [];
-    }
-    return walkSync(MARKBIND_DEFAULT_PLUGIN_DIRECTORY, {
-      directories: false,
-      globs: [`${MARKBIND_PLUGIN_PREFIX}*.js`],
-    }).map(file => path.parse(file).name);
-  }
-
-  /**
    * Checks if a specified file path is a dependency of a page
    * @param {string} filePath file path to check
    * @returns {boolean} whether the file path is a dependency of any of the site's pages
@@ -865,58 +843,6 @@ class Site {
     const filePathsFromGlobs = _.flatMap(pages.filter(page => page.glob),
                                          page => this.getPageGlobPaths(page, pagesExclude));
     return filePathsFromGlobs.some(fp => fp === relativeFilePath);
-  }
-
-  /**
-   * Loads a plugin
-   * @param plugin name of the plugin
-   * @param isDefault whether the plugin is a default plugin
-   */
-  loadPlugin(plugin, isDefault) {
-    try {
-      // Check if already loaded
-      if (this.plugins[plugin]) {
-        return;
-      }
-
-      const pluginPath = Site.getPluginPath(this.rootPath, plugin);
-      if (isDefault && !pluginPath.startsWith(MARKBIND_DEFAULT_PLUGIN_DIRECTORY)) {
-        logger.warn(`Default plugin ${plugin} will be overridden`);
-      }
-
-      // eslint-disable-next-line global-require, import/no-dynamic-require
-      this.plugins[plugin] = require(pluginPath || plugin);
-
-      if (!this.plugins[plugin].getLinks && !this.plugins[plugin].getScripts) {
-        return;
-      }
-
-      // For resolving plugin asset source paths later
-      this.plugins[plugin]._pluginAbsolutePath = path.dirname(require.resolve(pluginPath || plugin));
-      this.plugins[plugin]._pluginAssetOutputPath = path.resolve(this.outputPath,
-                                                                 PLUGIN_SITE_ASSET_FOLDER_NAME, plugin);
-    } catch (e) {
-      logger.warn(`Unable to load plugin ${plugin}, skipping`);
-    }
-  }
-
-  /**
-   * Load all plugins of the site
-   */
-  collectPlugins() {
-    module.paths.push(path.join(this.rootPath, 'node_modules'));
-
-    const defaultPlugins = Site.findDefaultPlugins();
-
-    this.siteConfig.plugins
-      .filter(plugin => !_.includes(defaultPlugins, plugin))
-      .forEach(plugin => this.loadPlugin(plugin, false));
-
-    const markbindPrefixRegex = new RegExp(`^${MARKBIND_PLUGIN_PREFIX}`);
-    defaultPlugins.filter(plugin => !_.get(this.siteConfig,
-                                           ['pluginsContext', plugin.replace(markbindPrefixRegex, ''), 'off'],
-                                           false))
-      .forEach(plugin => this.loadPlugin(plugin, true));
   }
 
   getFavIconUrl() {
@@ -952,58 +878,12 @@ class Site {
   }
 
   /**
-   * Collect the before site generate hooks
-   */
-  collectPluginSiteHooks() {
-    this.pluginsBeforeSiteGenerate = Object.values(this.plugins)
-      .filter(plugin => plugin.beforeSiteGenerate)
-      .map(plugin => plugin.beforeSiteGenerate);
-  }
-
-  /**
-   * Collects the special tags of the site's plugins, and injects them into the parsers.
-   */
-  collectPluginSpecialTags() {
-    const tagsToIgnore = new Set();
-
-    Object.values(this.plugins).forEach((plugin) => {
-      if (!plugin.getSpecialTags) {
-        return;
-      }
-
-      plugin.getSpecialTags(plugin.pluginsContext).forEach((tagName) => {
-        if (!tagName) {
-          return;
-        }
-
-        tagsToIgnore.add(tagName.toLowerCase());
-      });
-    });
-
-    ignoreTags(tagsToIgnore);
-
-    Page.htmlBeautifyOptions = {
-      indent_size: 2,
-      content_unformatted: ['pre', 'textarea', ...tagsToIgnore],
-    };
-  }
-
-  /**
-   * Executes beforeSiteGenerate hooks from plugins
-   */
-  runBeforeSiteGenerateHooks() {
-    this.pluginsBeforeSiteGenerate.forEach(cb => cb());
-  }
-
-  /**
    * Creates the supplied pages' page generation promises at a throttled rate.
    * This is done to avoid pushing too many callbacks into the event loop at once. (#1245)
    * @param {Array<Page>} pages to generate
    * @return {Promise} that resolves once all pages have generated
    */
-  static generatePagesThrottled(pages) {
-    const builtFiles = {};
-
+  generatePagesThrottled(pages) {
     const progressBar = new ProgressBar(`[:bar] :current / ${pages.length} pages built`,
                                         { total: pages.length });
     progressBar.render();
@@ -1012,7 +892,7 @@ class Site {
       let numPagesGenerated = 0;
 
       // Map pages into array of callbacks for delayed execution
-      const pageGenerationQueue = pages.map(page => () => page.generate(builtFiles)
+      const pageGenerationQueue = pages.map(page => () => page.generate(this.externalManager)
         .then(() => {
           progressBar.tick();
           numPagesGenerated += 1;
@@ -1051,7 +931,7 @@ class Site {
     this._setTimestampVariable();
     this.mapAddressablePagesToPages(addressablePages, faviconUrl);
 
-    return Site.generatePagesThrottled(this.pages);
+    return this.generatePagesThrottled(this.pages);
   }
 
   /**
@@ -1069,7 +949,7 @@ class Site {
       return Promise.reject(new Error(`${this.onePagePath} is not specified in the site configuration.`));
     }
 
-    return landingPage.generate({});
+    return landingPage.generate(this.externalManager);
   }
 
   regenerateAffectedPages(filePaths) {
@@ -1106,7 +986,7 @@ class Site {
 
     logger.info(`Rebuilding ${pagesToRegenerate.length} pages`);
 
-    return Site.generatePagesThrottled(pagesToRegenerate)
+    return this.generatePagesThrottled(pagesToRegenerate)
       .then(() => this.writeSiteData())
       .then(() => logger.info('Pages rebuilt'))
       .then(() => {
@@ -1186,29 +1066,6 @@ class Site {
     const themeDestPath = path.join(this.siteAssetsDestPath, 'css', 'bootstrap.min.css');
 
     return fs.copy(themeSrcPath, themeDestPath);
-  }
-
-  /**
-   * Copies layouts to the assets folder
-   */
-  copyLayouts() {
-    const siteLayoutPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH);
-    const layoutsDestPath = path.join(this.siteAssetsDestPath, LAYOUT_SITE_FOLDER_NAME);
-    if (!fs.existsSync(siteLayoutPath)) {
-      return Promise.resolve();
-    }
-    return new Promise((resolve) => {
-      const files = walkSync(siteLayoutPath);
-      resolve(files);
-    }).then((files) => {
-      if (!files) {
-        return Promise.resolve();
-      }
-      const filteredFiles = files.filter(file => _.includes(file, '.') && !_.includes(file, '.md'));
-      const copyAll = Promise.all(filteredFiles.map(file =>
-        fs.copy(path.join(siteLayoutPath, file), path.join(layoutsDestPath, file))));
-      return copyAll.then(() => Promise.resolve());
-    });
   }
 
   /**
