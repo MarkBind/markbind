@@ -59,14 +59,9 @@ class PageConfig {
      */
     this.layoutsAssetPath = args.layoutsAssetPath;
     /**
-     * Array of plugins used in this page.
-     * @type {Array}
+     * @type {PluginManager}
      */
-    this.plugins = args.plugins;
-    /**
-     * @type {Object<string, Object<string, any>>}
-     */
-    this.pluginsContext = args.pluginsContext;
+    this.pluginManager = args.pluginManager;
     /**
      * The output path of this page
      * @type {string}
@@ -119,6 +114,10 @@ class PageConfig {
      * @type {Array}
      */
     this.addressablePagesSource = args.addressablePagesSource;
+    /**
+     * @type {LayoutManager}
+     */
+    this.layoutManager = args.layoutManager;
   }
 }
 

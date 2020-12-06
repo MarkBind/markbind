@@ -12,12 +12,10 @@ class PageSources {
     return _.clone(this.dynamicIncludeSrc);
   }
 
-  getStaticIncludeSrc() {
-    return _.clone(this.staticIncludeSrc);
-  }
-
-  getMissingIncludeSrc() {
-    return _.clone(this.missingIncludeSrc);
+  addAllToSet(set) {
+    this.dynamicIncludeSrc.forEach(dependency => set.add(dependency.to));
+    this.staticIncludeSrc.forEach(dependency => set.add(dependency.to));
+    this.missingIncludeSrc.forEach(dependency => set.add(dependency.to));
   }
 }
 
