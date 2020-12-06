@@ -2,9 +2,6 @@ This is a page from another Markbind site.
 The purpose of this page is to ensure that reuse works as expected.
 All the following images should display correctly.
 
-Some variables:
-<variable name="imgFolder">images</variable>
-
 IMG tags:
 <img src="images/I'm not allowed to use my favorite tool.png">
 <img src="{{imgFolder}}/I'm not allowed to use my favorite tool.png">

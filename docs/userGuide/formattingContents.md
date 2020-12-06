@@ -1,5 +1,6 @@
-<variable name="title" id="title">Formatting Contents</variable>
-<variable name="filename">formattingContents</variable>
+{% set title = "Formatting Contents" %}
+{% set filename = "formattingContents" %}
+<span id="title" class="d-none">{{ title }}</span>
 
 <frontmatter>
   title: "User Guide: {{ title }}"

@@ -65,14 +65,6 @@
       "title": "PlantUML Test"
     },
     {
-      "src": "testImportVariables.md",
-      "title": "Imported Variables Test"
-    },
-    {
-      "src": "testPanelsWithImportedVariables.md",
-      "title": "Panels with Imported Variables Test"
-    },
-    {
       "src": "testCodeBlocks.md",
       "title": "Test: Code Blocks"
     },

@@ -1,5 +1,7 @@
-<variable name="title" id="title">MarkBind in the Project Workflow</variable>
-<variable name="filename" id="filename">markBindInTheProjectWorkflow</variable>
+{% set title = "MarkBind in the Project Workflow" %}
+{% set filename = "markBindInTheProjectWorkflow" %}
+<span id="title" class="d-none">{{ title }}</span>
+
 <frontmatter>
   title: "User Guide: {{ title }}"
   layout: userGuide

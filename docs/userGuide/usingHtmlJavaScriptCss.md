@@ -1,5 +1,6 @@
-<variable name="title" id="title">Using HTML, JavaScript, CSS</variable>
-<variable name="filename">usingHtmlJavaScriptCss</variable>
+{% set title = "Using HTML, JavaScript, CSS" %}
+{% set filename = "usingHtmlJavaScriptCss" %}
+<span id="title" class="d-none">{{ title }}</span>
 
 <frontmatter>
   title: "User Guide: {{ title }}"

@@ -41,9 +41,9 @@ Dates can be supplied using [page variables](../reusingContents.html#variables) 
 
 Inside `variables.md` or referencing page:
 ```
-<variable name="date_pagevar">2020-03-06</variable>
+{% raw %}{% set date_pagevar = "2020-03-06" %}{% endraw %}
 ```
-<variable name="date_pagevar">2020-03-06</variable>
+{% set date_pagevar = "2020-03-06" %}
 
 {{ njcode('date_pagevar | date(format2)') }} :glyphicon-arrow-right: {{ date_pagevar | date(format2) }} <br/>
 

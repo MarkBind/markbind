@@ -1,3 +1,5 @@
-<variable name="test"># <include src="contentFragmentToInclude.md#fragment" inline /></variable>
+{% set test %}
+# <include src="contentFragmentToInclude.md#fragment" inline />
+{% endset %}
 
 {{ test }}

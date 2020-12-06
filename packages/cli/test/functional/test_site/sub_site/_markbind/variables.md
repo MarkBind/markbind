@@ -1,0 +1,1 @@
+<variable name="imgFolder">images</variable>

@@ -1,5 +1,6 @@
-<variable name="title" id="title">Setting Site Properties</variable>
-<variable name="filename" id="filename">settingSiteProperties</variable>
+{% set title = "Setting Site Properties" %}
+{% set filename = "settingSiteProperties" %}
+<span id="title" class="d-none">{{ title }}</span>
 
 <frontmatter>
   title: "User Guide: {{ title }}"

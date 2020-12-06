@@ -1,4 +1,6 @@
-<variable name="title">Appendix: Style guides</variable>
+{% set title = "Appendix: Style guides" %}
+<span id="title" class="d-none">{{ title }}</span>
+
 <frontmatter>
   title: "{{ title }}"
   layout: devGuide

@@ -557,7 +557,6 @@ class Site {
 
     this.baseUrlMap.forEach((base) => {
       const userDefinedVariablesPath = path.resolve(base, USER_VARIABLES_PATH);
-      const userDefinedVariablesDir = path.dirname(userDefinedVariablesPath);
       let content;
       try {
         content = fs.readFileSync(userDefinedVariablesPath, 'utf8');
@@ -580,22 +579,8 @@ class Site {
       const $ = cheerio.load(content, { decodeEntities: false });
       $('variable,span').each((index, element) => {
         const name = $(element).attr('name') || $(element).attr('id');
-        const variableSource = $(element).attr('from');
 
-        if (variableSource !== undefined) {
-          try {
-            const variableFilePath = path.resolve(userDefinedVariablesDir, variableSource);
-            const jsonData = fs.readFileSync(variableFilePath);
-            const varData = JSON.parse(jsonData);
-            Object.entries(varData).forEach(([varName, varValue]) => {
-              this.variableProcessor.renderAndAddUserDefinedVariable(base, varName, varValue);
-            });
-          } catch (err) {
-            logger.warn(`Error ${err.message}`);
-          }
-        } else {
-          this.variableProcessor.renderAndAddUserDefinedVariable(base, name, $(element).html());
-        }
+        this.variableProcessor.renderAndAddUserDefinedVariable(base, name, $(element).html());
       });
     });
   }

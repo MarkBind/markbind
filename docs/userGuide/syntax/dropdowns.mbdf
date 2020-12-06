@@ -1,4 +1,4 @@
-<import slot_info_trigger from="../components/advanced.md"></import>
+{% from "userGuide/components/advanced.md" import slot_info_trigger %}
 
 ## Dropdowns
 

@@ -1,5 +1,7 @@
-<variable name="title" id="title">Deploying the Site</variable>
-<variable name="filename" id="filename">deployingTheSite</variable>
+{% set title = "Deploying the Site" %}
+{% set filename = "deployingTheSite" %}
+<span id="title" class="d-none">{{ title }}</span>
+
 <frontmatter>
   title: "User Guide: {{ title }}"
   layout: userGuide
