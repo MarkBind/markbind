@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    {{ headFileTopContent }}
+    {%- if asset.headTop %}
+    {%- for headContent in asset.headTop %}
+    {{ headContent }}
+    {%- endfor %}
+    {%- endif %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="generator" content="{{ markBindVersion }}">
@@ -23,19 +27,16 @@
         {{ link }}
     {%- endfor -%}
     {%- endif -%}
-    <link rel="stylesheet" href="{{ asset.layoutStyle }}">
-    {{- headFileBottomContent -}}
+    {%- if asset.headBottom %}
+    {%- for headContent in asset.headBottom %}
+    {{ headContent }}
+    {%- endfor %}
+    {%- endif %}
     {%- if faviconUrl -%} <link rel="icon" href="{{ faviconUrl }}"> {%- endif -%}
 </head>
-<body {% if pageNav %} data-spy="scroll" data-target="#page-nav" data-offset="100" {% endif %}>
+<body {% if hasPageNav %} data-spy="scroll" data-target="#mb-page-nav" data-offset="100" {% endif %}>
 <div id="app">
-    {{ headerHtml -}}
-    <div id="flex-body">
-        {{ siteNavHtml -}}
-        {{ content }}
-        {{ pageNavHtml -}}
-    </div>
-    {{ footerHtml -}}
+    {{ content }}
 </div>
 </body>
 <script src="{{ asset.bootstrapUtilityJs }}"></script>
@@ -53,7 +54,11 @@
     {{ script }}
 {%- endfor %}
 {%- endif %}
-<script src="{{ asset.layoutScript }}"></script>
+{%- if asset.scriptBottom %}
+{%- for scripts in asset.scriptBottom %}
+    {{ scripts }}
+{%- endfor %}
+{%- endif %}
 {#- todo deprecate MarkBind.AfterSetup() fully (#1306) -#}
 <script>if (MarkBind.AfterSetup) MarkBind.AfterSetup()</script>
 </html>

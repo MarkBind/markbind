@@ -23,6 +23,10 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 class NodeProcessor {
   constructor(config) {
     this.config = config;
+
+    this.headTop = [];
+    this.headBottom = [];
+    this.scriptBottom = [];
   }
 
   /*
@@ -457,6 +461,16 @@ class NodeProcessor {
   }
 
   /*
+  /*
+   * Layout element collection
+   */
+
+  _collectLayoutEl(node, property) {
+    const $ = cheerio(node);
+    this[property].push($.html());
+    $.remove();
+  }
+  /*
    * API
    */
 
@@ -511,11 +525,20 @@ class NodeProcessor {
     }
   }
 
-  static postProcessNode(node) {
+  postProcessNode(node) {
     try {
       switch (node.name) {
       case 'panel':
         NodeProcessor._assignPanelId(node);
+        break;
+      case 'head-top':
+        this._collectLayoutEl(node, 'headTop');
+        break;
+      case 'head-bottom':
+        this._collectLayoutEl(node, 'headBottom');
+        break;
+      case 'script-bottom':
+        this._collectLayoutEl(node, 'scriptBottom');
         break;
       default:
         break;

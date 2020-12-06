@@ -22,7 +22,7 @@ function insertCss(cssCode) {
   document.getElementsByTagName('head')[0].appendChild(newNode);
 }
 
-function setupAnchorsForFixedNavbar() {
+function detectAndApplyFixedHeaderStyles() {
   jQuery(':header').each((index, heading) => {
     if (heading.id) {
       jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
@@ -37,8 +37,7 @@ function setupAnchorsForFixedNavbar() {
 
   const headerHeight = headerSelector.height();
   const bufferHeight = 1;
-  jQuery('.nav-inner').css('padding-top', `calc(${headerHeight}px + 1rem)`);
-  jQuery('#content-wrapper').css('padding-top', `calc(${headerHeight}px + 0.8rem)`);
+  insertCss(`.fixed-header-padding { padding-top: ${headerHeight}px !important }`);
   insertCss(
     `span.anchor {
     position: relative;
@@ -72,7 +71,7 @@ function executeAfterCreatedRoutines() {
 
 function executeAfterMountedRoutines() {
   scrollToUrlAnchorHeading();
-  setupAnchorsForFixedNavbar();
+  detectAndApplyFixedHeaderStyles();
 }
 
 window.handleSiteNavClick = function (elem, useAnchor = true) {

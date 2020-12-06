@@ -24,17 +24,6 @@ const logger = require('../utils/logger');
 const PACKAGE_VERSION = require('../../package.json').version;
 
 const {
-  FOOTERS_FOLDER_PATH,
-  HEAD_FOLDER_PATH,
-  HEADERS_FOLDER_PATH,
-  LAYOUT_FOOTER,
-  LAYOUT_HEAD,
-  LAYOUT_HEADER,
-  LAYOUT_PAGE,
-  LAYOUT_PAGE_BODY_VARIABLE,
-  LAYOUT_NAVIGATION,
-  NAVIGATION_FOLDER_PATH,
-  CONTENT_WRAPPER_ID,
   FRONT_MATTER_FENCE,
   FRONT_MATTER_NONE_ATTR,
   PAGE_NAV_ID,
@@ -57,7 +46,6 @@ const {
 
 const {
   LAYOUT_DEFAULT_NAME,
-  LAYOUT_FOLDER_PATH,
   PLUGIN_SITE_ASSET_FOLDER_NAME,
 } = require('../constants');
 
@@ -88,10 +76,6 @@ class Page {
      */
     this.asset = _.cloneDeep(this.pageConfig.asset);
     /**
-     * @type {string}
-     */
-    this.content = '';
-    /**
      * The pure frontMatter of the page as collected in {@link collectFrontMatter}.
      * https://markbind.org/userGuide/tweakingThePageStructure.html#front-matter
      * @type {Object<string, any>}
@@ -120,10 +104,6 @@ class Page {
      */
     this.keywords = {};
     /**
-     * A map from page section id to HTML content of that section.
-     * @type {Object<string, string>}
-     */
-    this.pageSectionsHtml = {};
     /**
      * Set of included files (dependencies) from plugins used for live reload
      * https://markbind.org/userGuide/usingPlugins.html
@@ -147,33 +127,6 @@ class Page {
      * @type {string}
      */
     this.layout = this.pageConfig.layout;
-    /**
-     * Footer file path for the page, or false if none.
-     * The footer may be from a layout, or from the _markbind/footers directory.
-     * @type {string | boolean}
-     */
-    this.footer = false;
-    /**
-     * Head file from the layout, or false if none.
-     * @type {Array<string> | boolean}
-     */
-    this.head = false;
-    /**
-     * Content as collected from the head file, to be inserted right before the closing </head> tag.
-     * @type {string}
-     */
-    this.headFileBottomContent = '';
-    /**
-     * Content as collected from the head file, to be inserted right after the starting <head> tag.
-     * @type {string}
-     */
-    this.headFileTopContent = '';
-    /**
-     * Header file path for the page, or false if none.
-     * The header may be from a layout, or from the _markbind/headers directory.
-     * @type {string | boolean}
-     */
-    this.header = false;
     /**
      * An object storing the mapping from the navigable headings' id to an
      * object of {text: NAV_TEXT, level: NAV_LEVEL}.
@@ -200,32 +153,7 @@ class Page {
       && this.pluginSourceFiles.has(filePath));
   }
 
-  /**
-   * A template data object.
-   * @typedef {Object<string, any>} TemplateData
-   * @property {Object<string, any>} asset
-   * @property {string} baseUrl
-   * @property {string} content
-   * @property {string} faviconUrl
-   * @property {string} footerHtml
-   * @property {string} headerHtml
-   * @property {string} headFileBottomContent
-   * @property {string} headFileTopContent
-   * @property {string} markBindVersion A string of format `MarkBind {VERSION}`
-   * @property {boolean} pageNav true iff the page navigation is enabled.
-   * @property {string} pageNavHtml
-   * @property {boolean} siteNav true iff the site navigation is enabled.
-   * @property {string} siteNavHtml
-   * @property {string} title if title prefix is specified,
-   * this will be the prefixed title,
-   * otherwise the title itself.
-   * @property {boolean} searchable
-   * /
-
-  /**
-   * @returns {TemplateData} templateData
-   */
-  prepareTemplateData() {
+  prepareTemplateData(content, hasPageNav) {
     const prefixedTitle = this.pageConfig.titlePrefix
       ? this.pageConfig.titlePrefix + (this.title ? TITLE_PREFIX_SEPARATOR + this.title : '')
       : this.title;
@@ -237,18 +165,11 @@ class Page {
     return {
       asset,
       baseUrl: this.pageConfig.baseUrl,
-      content: this.content,
+      content,
+      hasPageNav,
       dev: this.pageConfig.dev,
       faviconUrl: this.pageConfig.faviconUrl,
-      footerHtml: this.pageSectionsHtml.footer || '',
-      headerHtml: this.pageSectionsHtml.header || '',
-      headFileBottomContent: this.headFileBottomContent,
-      headFileTopContent: this.headFileTopContent,
       markBindVersion: `MarkBind ${PACKAGE_VERSION}`,
-      pageNav: this.isPageNavigationSpecifierValid(),
-      pageNavHtml: this.pageSectionsHtml[`#${PAGE_NAV_ID}`] || '',
-      siteNav: this.siteNav,
-      siteNavHtml: this.pageSectionsHtml[`#${SITE_NAV_ID}`] || '',
       title: prefixedTitle,
       enableSearch: this.pageConfig.enableSearch,
     };
@@ -518,181 +439,6 @@ class Page {
   }
 
   /**
-   * Renders expressive layouts by inserting page data into pre-specified layout
-   * @param pageData a page with its front matter collected
-   * @param {FileConfig} fileConfig
-   * @param {NodePreprocessor} nodePreprocessor for running {@link includeFile} on the layout
-   * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
-   */
-  generateExpressiveLayout(pageData, fileConfig, nodePreprocessor, pageSources) {
-    const layoutPath = path.join(this.pageConfig.rootPath, LAYOUT_FOLDER_PATH, this.layout);
-    const layoutPagePath = path.join(layoutPath, LAYOUT_PAGE);
-
-    if (!fs.existsSync(layoutPagePath)) {
-      return pageData;
-    }
-
-    // Set expressive layout file as an includedFile
-    this.includedFiles.add(layoutPagePath);
-    const { variableProcessor } = this.pageConfig;
-
-    return fs.readFile(layoutPagePath, 'utf8')
-      /*
-       Render {{ MAIN_CONTENT_BODY }} and {% raw/endraw %} back to itself first,
-       which is then dealt with in the call below to {@link renderWithSiteVariables}.
-       */
-      .then(result => variableProcessor.renderWithSiteVariables(layoutPagePath, result, pageSources, {}, {
-        [LAYOUT_PAGE_BODY_VARIABLE]: `{{${LAYOUT_PAGE_BODY_VARIABLE}}}`,
-      }, true))
-      // Include file with the cwf set to the layout page path
-      .then(result => nodePreprocessor.includeFile(layoutPagePath, result))
-      // Note: The {% raw/endraw %}s previously kept are removed here.
-      .then(result => this.pageConfig.variableProcessor.renderWithSiteVariables(
-        this.pageConfig.rootPath, result, pageSources, {
-          [LAYOUT_PAGE_BODY_VARIABLE]: pageData,
-        }));
-  }
-
-  /**
-   * Inserts the page layout's header to the start of the page
-   * Determines if a fixed header is present, update the page config accordingly
-   * @param pageData a page with its front matter collected
-   * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
-   */
-  insertHeaderFile(pageData, pageSources) {
-    if (!this.header || !fs.existsSync(this.header)) {
-      return pageData;
-    }
-    // Retrieve Markdown file contents
-    const headerContent = fs.readFileSync(this.header, 'utf8');
-    this.includedFiles.add(this.header);
-
-    const renderedHeader = this.pageConfig.variableProcessor.renderWithSiteVariables(
-      this.pageConfig.sourcePath, headerContent, pageSources);
-    return `<div data-included-from="${this.header}">${renderedHeader}</div>\n${pageData}`;
-  }
-
-  /**
-   * Inserts the footer specified in front matter to the end of the page
-   * @param pageData a page with its front matter collected
-   * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
-   */
-  insertFooterFile(pageData, pageSources) {
-    if (!this.footer || !fs.existsSync(this.footer)) {
-      return pageData;
-    }
-    // Retrieve Markdown file contents
-    const footerContent = fs.readFileSync(this.footer, 'utf8');
-    // Set footer file as an includedFile
-    this.includedFiles.add(this.footer);
-
-    const renderedFooter = this.pageConfig.variableProcessor.renderWithSiteVariables(
-      this.pageConfig.sourcePath, footerContent, pageSources);
-    return `<div data-included-from="${this.footer}">${renderedFooter}</div>\n${pageData}`;
-  }
-
-  /**
-   * Inserts a site navigation bar using the file specified in the front matter
-   * @param pageData, a page with its front matter collected
-   * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
-   * @throws (Error) if there is more than one instance of the <navigation> tag
-   */
-  insertSiteNav(pageData, pageSources) {
-    if (!this.siteNav || !fs.existsSync(this.siteNav)) {
-      this.siteNav = false;
-      return pageData;
-    }
-
-    const siteNavContent = fs.readFileSync(this.siteNav, 'utf8').trim();
-    if (siteNavContent === '') {
-      this.siteNav = false;
-      return pageData;
-    }
-    this.includedFiles.add(this.siteNav);
-
-    const siteNavMappedData = this.pageConfig.variableProcessor.renderWithSiteVariables(
-      this.pageConfig.sourcePath, siteNavContent, pageSources);
-
-    // Check navigation elements
-    const $ = cheerio.load(siteNavMappedData);
-    const navigationElements = $('navigation');
-    if (navigationElements.length > 1) {
-      throw new Error(`More than one <navigation> tag found in ${this.siteNav}`);
-    }
-    const siteNavHtml = md.render(navigationElements.length === 0
-      ? siteNavMappedData.replace(SITE_NAV_EMPTY_LINE_REGEX, '\n')
-      : navigationElements.html().replace(SITE_NAV_EMPTY_LINE_REGEX, '\n'));
-    const $nav = cheerio.load(siteNavHtml);
-
-    // Add anchor classes and highlight current page's anchor, if any.
-    const currentPageHtmlPath = this.pageConfig.src.replace(/\.(md|mbd)$/, '.html');
-    const currentPageRegex = new RegExp(`${this.pageConfig.baseUrl}/${currentPageHtmlPath}`);
-    $nav('a[href]').each((i, elem) => {
-      if (currentPageRegex.test($nav(elem).attr('href'))) {
-        $nav(elem).addClass('current');
-      }
-    });
-
-    $nav('ul').each((i1, ulElem) => {
-      const nestingLevel = $nav(ulElem).parents('ul').length;
-      $nav(ulElem).addClass(SITE_NAV_LIST_CLASS);
-      if (nestingLevel === 0) {
-        $nav(ulElem).addClass(SITE_NAV_LIST_CLASS_ROOT);
-      }
-      const listItemLevelClass = `${SITE_NAV_LIST_ITEM_CLASS}-${nestingLevel}`;
-      const defaultListItemClass = `${SITE_NAV_DEFAULT_LIST_ITEM_CLASS} ${listItemLevelClass}`;
-      const customListItemClasses = `${SITE_NAV_CUSTOM_LIST_ITEM_CLASS} ${listItemLevelClass}`;
-
-      $nav(ulElem).children('li').each((i2, liElem) => {
-        const nestedLists = $nav(liElem).children('ul');
-        const nestedAnchors = $nav(liElem).children('a');
-        if (nestedLists.length === 0 && nestedAnchors.length === 0) {
-          $(liElem).addClass(customListItemClasses);
-          return;
-        }
-
-        const listItemContent = $nav(liElem).contents().not('ul');
-        const listItemContentHtml = $nav.html(listItemContent);
-        listItemContent.remove();
-        $nav(liElem).prepend(`<div class="${defaultListItemClass}" onclick="handleSiteNavClick(this)">`
-          + `${listItemContentHtml}</div>`);
-        if (nestedLists.length === 0) {
-          return;
-        }
-
-        // Found nested list, render dropdown menu
-        const listItemParent = $nav(liElem).children().first();
-
-        const hasExpandedKeyword = SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX.test(listItemContentHtml);
-        const isParentListOfCurrentPage = !!nestedLists.find('a.current').length;
-        const shouldExpandDropdown = hasExpandedKeyword || isParentListOfCurrentPage;
-        if (shouldExpandDropdown) {
-          nestedLists.addClass('site-nav-dropdown-container site-nav-dropdown-container-open');
-          listItemParent.html(listItemContentHtml.replace(SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX, ''));
-          listItemParent.append(SITE_NAV_DROPDOWN_ICON_ROTATED_HTML);
-        } else {
-          nestedLists.addClass('site-nav-dropdown-container');
-          listItemParent.append(SITE_NAV_DROPDOWN_ICON_HTML);
-        }
-      });
-    });
-
-    let formattedHtml;
-    if (navigationElements.length === 0) {
-      formattedHtml = $nav.html();
-    } else {
-      $('navigation').replaceWith($nav.root());
-      formattedHtml = $.html();
-    }
-
-    // Wrap sections and append page content
-    const wrappedSiteNav = `${`<nav id="${SITE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
-      + '<div class="border-right-grey nav-inner position-sticky slim-scroll">\n'}${formattedHtml}\n</div>\n`
-      + '</nav>\n';
-    return `<div data-included-from="${this.siteNav}">${wrappedSiteNav}</div>\n${pageData}`;
-  }
-
-  /**
    *  Generates page navigation's heading list HTML
    *
    *  A stack is used to maintain proper indentation levels for the headings at different heading levels.
@@ -777,41 +523,9 @@ class Page {
     }
   }
 
-  /**
-   * Collect head files into {@link headFileTopContent} and {@link headFileBottomContent}
-   * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
-   */
-  collectHeadFiles(pageSources) {
-    if (!this.head) {
-      this.headFileTopContent = '';
-      this.headFileBottomContent = '';
-      return;
-    }
-
-    const collectedTopContent = [];
-    const collectedBottomContent = [];
-    this.head.forEach((headFilePath) => {
-      if (!fs.existsSync(headFilePath)) {
-        return;
-      }
-      const headFileContent = fs.readFileSync(headFilePath, 'utf8');
-      // Set head file as an includedFile
-      this.includedFiles.add(headFilePath);
-
-      const headFileMappedData = this.pageConfig.variableProcessor.renderWithSiteVariables(
-        this.pageConfig.sourcePath, headFileContent, pageSources).trim();
-      // Split top and bottom contents
-      const $ = cheerio.load(headFileMappedData);
-      if ($('head-top').length) {
-        collectedTopContent.push($('head-top').html().trim().replace(/\n\s*\n/g, '\n')
-          .replace(/\n/g, '\n    '));
-        $('head-top').remove();
-      }
-      collectedBottomContent.push($.html().trim().replace(/\n\s*\n/g, '\n').replace(/\n/g, '\n    '));
-    });
-    this.headFileTopContent = collectedTopContent.join('\n    ');
-    this.headFileBottomContent = collectedBottomContent.join('\n    ');
+    return '';
   }
+
 
   static insertTemporaryStyles(pageData) {
     const $ = cheerio.load(pageData);
@@ -828,25 +542,7 @@ class Page {
     });
     return $.html();
   }
-
-  collectPageSection(section) {
-    const $ = cheerio.load(this.content);
-    const pageSection = $(section);
-    if (pageSection.length === 0) {
-      return;
-    }
-    this.pageSectionsHtml[section] = $.html(section);
-    pageSection.remove();
-    this.content = $.html();
-  }
-
-  collectAllPageSections() {
-    this.pageSectionsHtml = {}; // This resets the pageSectionsHTML whenever we collect.
-    this.collectPageSection('header');
     this.collectPageSection(`#${SITE_NAV_ID}`);
-    this.collectPageSection('footer');
-  }
-
   /**
    * A file configuration object.
    * @typedef {Object<string, any>} FileConfig
@@ -885,27 +581,20 @@ class Page {
         this.processFrontMatter();
         return Page.removeFrontMatter(result);
       })
-      .then(result => this.generateExpressiveLayout(result, fileConfig, nodePreprocessor, pageSources))
-      .then(result => Page.removePageHeaderAndFooter(result))
       .then(result => Page.addScrollToTopButton(result))
       .then(result => Page.addContentWrapper(result))
       .then(result => this.collectPluginSources(result))
       .then(result => this.preRender(result))
-      .then(result => this.insertSiteNav(result, pageSources))
-      .then(result => this.insertHeaderFile(result, pageSources))
-      .then(result => this.insertFooterFile(result, pageSources))
       .then(result => Page.insertTemporaryStyles(result))
       .then(result => nodeProcessor.process(this.pageConfig.sourcePath, result))
       .then(result => this.postRender(result))
       .then(result => this.collectPluginsAssets(result))
       .then(result => Page.unwrapIncludeSrc(result))
       .then((result) => {
-        this.addLayoutScriptsAndStyles();
-        this.collectHeadFiles(pageSources);
 
         this.content = result;
 
-        this.collectAllPageSections();
+    await layoutManager.generateLayoutIfNeeded(this.layout);
         this.buildPageNav();
 
         const renderedTemplate = this.pageConfig.template.render(this.prepareTemplateData());
@@ -1147,18 +836,6 @@ class Page {
   }
 
   /**
-   * Adds linked layout files to page assets
-   */
-  addLayoutScriptsAndStyles() {
-    this.asset.layoutScript = path.join(this.pageConfig.layoutsAssetPath, this.layout, 'scripts.js');
-    this.asset.layoutStyle = path.join(this.pageConfig.layoutsAssetPath, this.layout, 'styles.css');
-    this.includedFiles.add(
-      path.join(this.pageConfig.rootPath, LAYOUT_FOLDER_PATH, this.layout, 'scripts.js'));
-    this.includedFiles.add(
-      path.join(this.pageConfig.rootPath, LAYOUT_FOLDER_PATH, this.layout, 'styles.css'));
-  }
-
-  /**
    * Pre-render an external dynamic dependency
    * Does not pre-render if file is already pre-rendered by another page during site generation
    * @param dependency a map of the external dependency and where it is included
@@ -1229,9 +906,6 @@ class Page {
   }
 
   static addContentWrapper(pageData) {
-    const $ = cheerio.load(pageData);
-    $(`#${CONTENT_WRAPPER_ID}`).removeAttr('id');
-    return `<div id="${CONTENT_WRAPPER_ID}">\n\n${$.html()}\n</div>`;
   }
 
   static addScrollToTopButton(pageData) {
@@ -1240,16 +914,6 @@ class Page {
     return `${pageData}\n${button}`;
   }
 
-  static removePageHeaderAndFooter(pageData) {
-    const $ = cheerio.load(pageData);
-    const pageHeaderAndFooter = $('header', 'footer');
-    if (pageHeaderAndFooter.length === 0) {
-      return pageData;
-    }
-    // Remove preceding footers
-    pageHeaderAndFooter.remove();
-    return $.html();
-  }
 
   static unwrapIncludeSrc(html) {
     const $ = cheerio.load(html);

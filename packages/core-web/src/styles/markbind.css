@@ -130,48 +130,11 @@ header[fixed] {
     min-height: 100vh;
 }
 
-#flex-body {
-    display: flex;
-    flex: 1;
-}
-
-#content-wrapper {
-    flex: 1;
-    margin: 0 auto;
-    min-width: 0;
-    max-width: 1000px;
-    padding: 0.8rem 20px 0 20px;
-    transition: 0.4s;
-    -webkit-transition: 0.4s;
-}
-
 /* Footer */
 footer {
     background-color: #f5f5f5;
     color: dimgrey;
     padding: 10px 0;
-}
-
-/* Side Navigation menus */
-
-.border-left-grey {
-    border-left: 1px solid lightgrey;
-}
-
-.border-right-grey {
-    border-right: 1px solid lightgrey;
-}
-
-.nav-inner {
-    /* This class is used in both site and page navigation menus,
-       specifically for the sticky container to ensure adequate
-       spacing between itself and the boundaries of the menus
-     */
-    overflow-y: auto;
-    padding-left: 12px;
-    padding-right: 12px;
-    padding-top: 1rem;
-    top: 0;
 }
 
 /* TODO move this back to markdown-it-attr if bundling is implemented */
@@ -188,40 +151,6 @@ footer {
     .navbar-nav .open .dropdown-menu {
         background-color: #fff;
     }
-
-    #content-wrapper {
-        padding: 0 10px;
-    }
-}
-
-/* Scrollbar */
-
-.slim-scroll::-webkit-scrollbar {
-    width: 5px;
-}
-
-.slim-scroll::-webkit-scrollbar-thumb {
-    background: #808080;
-    border-radius: 20px;
-}
-
-.slim-scroll::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 20px;
-}
-
-.slim-scroll-blue::-webkit-scrollbar {
-    width: 5px;
-}
-
-.slim-scroll-blue::-webkit-scrollbar-thumb {
-    background: #00b0ef;
-    border-radius: 20px;
-}
-
-.slim-scroll-blue::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 20px;
 }
 
 /* Temporary Anti-FOUC Styles */
