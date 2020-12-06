@@ -16,6 +16,7 @@ jest.mock('fs');
 jest.mock('walk-sync');
 jest.mock('gh-pages');
 jest.mock('../../src/Page');
+jest.mock('../../src/plugins/PluginManager');
 jest.mock('simple-git', () => () => ({
   ...jest.requireActual('simple-git')(),
   // A test file should reduce dependencies on external libraries; use pure js functions instead.
@@ -73,6 +74,7 @@ test('Site baseurls are correct for sub nested subsites', async () => {
   const baseUrlMapExpected = new Set(['', 'sub', 'sub/sub', 'otherSub/sub'].map(url => path.resolve(url)));
 
   const site = new Site('./', '_site');
+  await site.readSiteConfig();
   await site.collectBaseUrl();
   expect(site.baseUrlMap).toEqual(baseUrlMapExpected);
 });

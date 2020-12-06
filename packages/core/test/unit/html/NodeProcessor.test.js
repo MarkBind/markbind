@@ -1,7 +1,9 @@
+const path = require('path');
 const cheerio = require('cheerio');
 const htmlparser = require('htmlparser2');
-const { NodeProcessor } = require('../../src/html/NodeProcessor');
+const { getNewDefaultNodeProcessor } = require('../utils/utils');
 const testData = require('./NodeProcessor.data');
+const { Context } = require('../../../src/html/Context');
 
 /**
  * Runs the processNode or postProcessNode method of NodeProcessor on the provided
@@ -15,10 +17,12 @@ const processAndVerifyTemplate = (template, expectedTemplate, postProcess = fals
   const handler = new htmlparser.DomHandler((error, dom) => {
     expect(error).toBeFalsy();
 
+    const nodeProcessor = getNewDefaultNodeProcessor();
+
     if (postProcess) {
-      dom.forEach(node => NodeProcessor.postProcessNode(node));
+      dom.forEach(node => nodeProcessor.postProcessNode(node));
     } else {
-      dom.forEach(node => NodeProcessor.processNode(node));
+      dom.forEach(node => nodeProcessor.processNode(node, new Context(path.resolve(''))));
     }
     const result = cheerio.html(dom);
 
@@ -138,17 +142,12 @@ test('processNode processes dropdown with header slot taking priority over heade
 });
 
 test('renderFile converts markdown headers to <h1> with an id', async () => {
-  const nodeProcessor = new NodeProcessor({ headerIdMap: {} });
+  const nodeProcessor = getNewDefaultNodeProcessor();
   const indexPath = 'index.md';
 
-  const index = ['# Index'].join('\n');
+  const result = await nodeProcessor.process(indexPath, '# Index');
 
-  const result = await nodeProcessor.process(indexPath, index);
-
-  const expected = [
-    '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
-    '',
-  ].join('\n');
+  const expected = ['<h1 id="index"><span id="index" class="anchor"></span>Index</h1>'].join('\n');
 
   expect(result).toEqual(expected);
 });
