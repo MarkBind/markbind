@@ -27,9 +27,12 @@
  Markdown-it-footnotes plugin 3.0.2 source adapted to fit MarkBind's needs, to:
  - show a popover along with the footnote link
  - remove footnote backreferences
+ - change footnote definition opening / closing renderers for easy identification in NodeProcessor
 
  Changes are delimited with a // CHANGE HERE comment
  */
+
+const { MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX } = require('../../html/constants')
 
 // Process footnotes
 //
@@ -72,20 +75,26 @@ function render_footnote_ref(tokens, idx, options, env, slf) {
   // Old code:
   // return '<sup class="footnote-ref"><a href="#fn' + id + '" id="fnref' + refid + '">' + caption + '</a></sup>';
   // Additions: <trigger> for footnote popover and aria-describedby label
-  return '<trigger for="pop:footnote' + id + '"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#fn' + id
-    + '" id="fnref' + refid + '">'
+  return '<trigger for="' + MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX + 'fn' + id + '">'
+    + '<sup class="footnote-ref"><a aria-describedby="footnote-label" href="#fn' + id + '">'
     + caption
     + '</a></sup></trigger>'
 }
 
 function render_footnote_block_open(tokens, idx, options) {
-  return (options.xhtmlOut ? '<hr class="footnotes-sep" />\n' : '<hr class="footnotes-sep">\n') +
+  // CHANGE HERE - change this into something easily recognisable and combinable by {@link NodeProcessor}
+  // Original:
+  /*return (options.xhtmlOut ? '<hr class="footnotes-sep" />\n' : '<hr class="footnotes-sep">\n') +
     '<section class="footnotes">\n' +
-    '<ol class="footnotes-list">\n';
+    '<ol class="footnotes-list">\n';*/
+
+  return '<mb-temp-footnotes>\n';
 }
 
 function render_footnote_block_close() {
-  return '</ol>\n</section>\n';
+  // CHANGE HERE - change this into something easily recognisable and combinable by {@link NodeProcessor}
+  // Original: return '</ol>\n</section>\n';
+  return '</mb-temp-footnotes>\n';
 }
 
 function render_footnote_open(tokens, idx, options, env, slf) {

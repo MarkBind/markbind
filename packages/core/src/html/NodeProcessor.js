@@ -9,11 +9,15 @@ _.cloneDeep = require('lodash/cloneDeep');
 _.has = require('lodash/has');
 
 const { renderSiteNav } = require('./siteNavProcessor');
+const { processInclude, processPanelSrc } = require('./includePanelProcessor');
+const { Context } = require('./Context');
 const linkProcessor = require('./linkProcessor');
 
 const md = require('../lib/markdown-it');
 const utils = require('../utils');
 const logger = require('../utils/logger');
+
+const { MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX } = require('./constants');
 
 const {
   ATTRIB_CWF,
@@ -28,6 +32,27 @@ class NodeProcessor {
     this.headTop = [];
     this.headBottom = [];
     this.scriptBottom = [];
+
+    this.pageSources = pageSources;
+    this.variableProcessor = variableProcessor;
+    // markdown-it-footnotes state
+    this.baseDocId = docId; // encapsulates footnotes in externals (<panel src="...">)
+    this.docId = 0; // encapsulates footnotes in <include>s
+
+    // Store footnotes of <include>s and the main content, then combine them at the end
+    this.renderedFootnotes = [];
+  }
+
+  _renderMd(text) {
+    return md.render(text, this.docId
+      ? { docId: `${this.baseDocId}${this.docId}` }
+      : { docId: this.baseDocId });
+  }
+
+  _renderMdInline(text) {
+    return md.renderInline(text, this.docId
+      ? { docId: `${this.baseDocId}${this.docId}` }
+      : { docId: this.baseDocId });
   }
 
   /*
@@ -64,16 +89,16 @@ class NodeProcessor {
    * @param isInline Whether to process the attribute with only inline markdown-it rules
    * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
    */
-  static _processAttributeWithoutOverride(node, attribute, isInline, slotName = attribute) {
+  _processAttributeWithoutOverride(node, attribute, isInline, slotName = attribute) {
     const hasAttributeSlot = node.children
       && node.children.some(child => _.has(child.attribs, 'slot') && child.attribs.slot === slotName);
 
     if (!hasAttributeSlot && _.has(node.attribs, attribute)) {
       let rendered;
       if (isInline) {
-        rendered = md.renderInline(node.attribs[attribute]);
+        rendered = this._renderMdInline(node.attribs[attribute]);
       } else {
-        rendered = md.render(node.attribs[attribute]);
+        rendered = this._renderMd(node.attribs[attribute]);
       }
 
       const attributeSlotElement = cheerio.parseHTML(
@@ -109,9 +134,9 @@ class NodeProcessor {
    * Panels
    */
 
-  static _processPanelAttributes(node) {
-    NodeProcessor._processAttributeWithoutOverride(node, 'alt', false, '_alt');
-    NodeProcessor._processAttributeWithoutOverride(node, 'header', false);
+  _processPanelAttributes(node) {
+    this._processAttributeWithoutOverride(node, 'alt', false, '_alt');
+    this._processAttributeWithoutOverride(node, 'header', false);
   }
 
   /**
@@ -204,18 +229,18 @@ class NodeProcessor {
    * Questions, QOption, and Quizzes
    */
 
-  static _processQuestion(node) {
-    NodeProcessor._processAttributeWithoutOverride(node, 'header', false, 'header');
-    NodeProcessor._processAttributeWithoutOverride(node, 'hint', false, 'hint');
-    NodeProcessor._processAttributeWithoutOverride(node, 'answer', false, 'answer');
+  _processQuestion(node) {
+    this._processAttributeWithoutOverride(node, 'header', false, 'header');
+    this._processAttributeWithoutOverride(node, 'hint', false, 'hint');
+    this._processAttributeWithoutOverride(node, 'answer', false, 'answer');
   }
 
-  static _processQOption(node) {
-    NodeProcessor._processAttributeWithoutOverride(node, 'reason', false, 'reason');
+  _processQOption(node) {
+    this._processAttributeWithoutOverride(node, 'reason', false, 'reason');
   }
 
-  static _processQuiz(node) {
-    NodeProcessor._processAttributeWithoutOverride(node, 'intro', false, 'intro');
+  _processQuiz(node) {
+    this._processAttributeWithoutOverride(node, 'intro', false, 'intro');
   }
 
   /*
@@ -247,12 +272,12 @@ class NodeProcessor {
     node.attribs.class = node.attribs.class ? `${node.attribs.class} ${triggerClass}` : triggerClass;
   }
 
-  static _processPopover(node) {
+  _processPopover(node) {
     NodeProcessor._warnDeprecatedAttributes(node, { title: 'header' });
 
-    NodeProcessor._processAttributeWithoutOverride(node, 'content', true);
-    NodeProcessor._processAttributeWithoutOverride(node, 'header', true);
-    NodeProcessor._processAttributeWithoutOverride(node, 'title', true, 'header');
+    this._processAttributeWithoutOverride(node, 'content', true);
+    this._processAttributeWithoutOverride(node, 'header', true);
+    this._processAttributeWithoutOverride(node, 'title', true, 'header');
 
     node.name = 'span';
     const trigger = node.attribs.trigger || 'hover';
@@ -288,8 +313,8 @@ class NodeProcessor {
     });
   }
 
-  static _processTooltip(node) {
-    NodeProcessor._processAttributeWithoutOverride(node, 'content', true, '_content');
+  _processTooltip(node) {
+    this._processAttributeWithoutOverride(node, 'content', true, '_content');
 
     node.name = 'span';
     const trigger = node.attribs.trigger || 'hover';
@@ -318,15 +343,15 @@ class NodeProcessor {
     }
   }
 
-  static _processModalAttributes(node) {
+  _processModalAttributes(node) {
     NodeProcessor._warnDeprecatedAttributes(node, { title: 'header' });
     NodeProcessor._warnDeprecatedSlotNames(node, {
       'modal-header': 'header',
       'modal-footer': 'footer',
     });
 
-    NodeProcessor._processAttributeWithoutOverride(node, 'header', true, 'modal-title');
-    NodeProcessor._processAttributeWithoutOverride(node, 'title', true, 'modal-title');
+    this._processAttributeWithoutOverride(node, 'header', true, 'modal-title');
+    this._processAttributeWithoutOverride(node, 'title', true, 'modal-title');
 
     NodeProcessor._renameSlot(node, 'header', 'modal-header');
     NodeProcessor._renameSlot(node, 'footer', 'modal-footer');
@@ -377,15 +402,15 @@ class NodeProcessor {
    * Tabs
    */
 
-  static _processTabAttributes(node) {
-    NodeProcessor._processAttributeWithoutOverride(node, 'header', true, '_header');
+  _processTabAttributes(node) {
+    this._processAttributeWithoutOverride(node, 'header', true, '_header');
   }
 
   /*
    * Tip boxes
    */
 
-  static _processBoxAttributes(node) {
+  _processBoxAttributes(node) {
     NodeProcessor._warnConflictingAttributes(node, 'light', ['seamless']);
     NodeProcessor._warnConflictingAttributes(node, 'no-background', ['background-color', 'seamless']);
     NodeProcessor._warnConflictingAttributes(node, 'no-border',
@@ -393,17 +418,17 @@ class NodeProcessor {
     NodeProcessor._warnConflictingAttributes(node, 'no-icon', ['icon']);
     NodeProcessor._warnDeprecatedAttributes(node, { heading: 'header' });
 
-    NodeProcessor._processAttributeWithoutOverride(node, 'icon', true, 'icon');
-    NodeProcessor._processAttributeWithoutOverride(node, 'header', false, '_header');
+    this._processAttributeWithoutOverride(node, 'icon', true, 'icon');
+    this._processAttributeWithoutOverride(node, 'header', false, '_header');
 
-    NodeProcessor._processAttributeWithoutOverride(node, 'heading', false, '_header');
+    this._processAttributeWithoutOverride(node, 'heading', false, '_header');
   }
 
   /*
    * Dropdowns
    */
 
-  static _processDropdownAttributes(node) {
+  _processDropdownAttributes(node) {
     const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
     const hasHeaderSlot = slotChildren && slotChildren.some(child => child.attribs.slot === 'header');
 
@@ -424,10 +449,10 @@ class NodeProcessor {
     NodeProcessor._warnConflictingAttributes(node, 'header', ['text']);
     // header attribute takes priority over text attribute if both 'text' and 'header' is used
     if (_.has(node.attribs, 'header')) {
-      NodeProcessor._processAttributeWithoutOverride(node, 'header', true, '_header');
+      this._processAttributeWithoutOverride(node, 'header', true, '_header');
       delete node.attribs.text;
     } else {
-      NodeProcessor._processAttributeWithoutOverride(node, 'text', true, '_header');
+      this._processAttributeWithoutOverride(node, 'text', true, '_header');
     }
   }
 
@@ -435,7 +460,7 @@ class NodeProcessor {
    * Thumbnails
    */
 
-  static _processThumbnailAttributes(node) {
+  _processThumbnailAttributes(node) {
     const isImage = _.has(node.attribs, 'src') && node.attribs.src !== '';
     if (isImage) {
       return;
@@ -446,7 +471,7 @@ class NodeProcessor {
       return;
     }
 
-    const renderedText = md.renderInline(text);
+    const renderedText = this._renderMdInline(text);
     node.children = cheerio.parseHTML(renderedText);
     delete node.attribs.text;
   }
@@ -462,6 +487,55 @@ class NodeProcessor {
   }
 
   /*
+   * Footnotes of the main content and <include>s are stored, then combined by NodeProcessor at the end
+   */
+
+  _processMbTempFootnotes(node) {
+    const $ = cheerio(node);
+    this.renderedFootnotes.push($.html());
+    $.remove();
+  }
+
+  _combineFootnotes() {
+    let hasFootnote = false;
+    const prefix = '<hr class="footnotes-sep">\n<section class="footnotes">\n<ol class="footnotes-list">\n';
+
+    const footnotesWithPopovers = this.renderedFootnotes.map((footNoteBlock) => {
+      const $ = cheerio.load(footNoteBlock);
+      let popoversHtml = '';
+
+      $('li.footnote-item').each((index, li) => {
+        hasFootnote = true;
+        const popoverId = `${MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX}${li.attribs.id}`;
+        const popoverNode = cheerio.parseHTML(`<popover id="${popoverId}">
+            <div slot="content">
+              ${$(li).html()}
+            </div>
+          </popover>`)[0];
+        this.processNode(popoverNode);
+
+        popoversHtml += cheerio.html(popoverNode);
+      });
+
+      return `${popoversHtml}\n${footNoteBlock}\n`;
+    }).join('\n');
+
+    const suffix = '</ol>\n</section>\n';
+
+    return hasFootnote
+      ? prefix + footnotesWithPopovers + suffix
+      : '';
+  }
+
+  /*
+   * Body
+   */
+
+  static _preprocessBody(node) {
+    // eslint-disable-next-line no-console
+    console.warn(`<body> tag found in ${node.attribs[ATTRIB_CWF]}. This may cause formatting errors.`);
+  }
+
   /*
    * Layout element collection
    */
@@ -471,49 +545,82 @@ class NodeProcessor {
     this[property].push($.html());
     $.remove();
   }
+
+  /*
+   * h1 - h6
+   */
+  _setHeadingId(node) {
+    const textContent = cheerio(node).text();
+    // remove the '&lt;' and '&gt;' symbols that markdown-it uses to escape '<' and '>'
+    const cleanedContent = textContent.replace(/&lt;|&gt;/g, '');
+    const slugifiedHeading = slugify(cleanedContent, { decamelize: false });
+
+    let headerId = slugifiedHeading;
+    const { headerIdMap } = this.config;
+    if (headerIdMap[slugifiedHeading]) {
+      headerId = `${slugifiedHeading}-${headerIdMap[slugifiedHeading]}`;
+      headerIdMap[slugifiedHeading] += 1;
+    } else {
+      headerIdMap[slugifiedHeading] = 2;
+    }
+
+    node.attribs.id = headerId;
+  }
+
   /*
    * API
    */
 
-  static processNode(node) {
+  processNode(node, context) {
     try {
       switch (node.name) {
+      case 'frontmatter':
+        this._processFrontMatter(node);
+        break;
+      case 'body':
+        NodeProcessor._preprocessBody(node);
+        break;
       case 'code':
         node.attribs['v-pre'] = '';
         break;
+      case 'include':
+        this.docId += 1; // used in markdown-it-footnotes
+        return processInclude(node, context, this.pageSources, this.variableProcessor,
+                              text => this._renderMd(text), text => this._renderMdInline(text),
+                              this.config);
       case 'panel':
-        NodeProcessor._processPanelAttributes(node);
-        break;
+        this._processPanelAttributes(node);
+        return processPanelSrc(node, context, this.pageSources, this.config);
       case 'question':
-        NodeProcessor._processQuestion(node);
+        this._processQuestion(node);
         break;
       case 'q-option':
-        NodeProcessor._processQOption(node);
+        this._processQOption(node);
         break;
       case 'quiz':
-        NodeProcessor._processQuiz(node);
+        this._processQuiz(node);
         break;
       case 'popover':
-        NodeProcessor._processPopover(node);
+        this._processPopover(node);
         break;
       case 'tooltip':
-        NodeProcessor._processTooltip(node);
+        this._processTooltip(node);
         break;
       case 'modal':
-        NodeProcessor._processModalAttributes(node);
+        this._processModalAttributes(node);
         break;
       case 'tab':
       case 'tab-group':
-        NodeProcessor._processTabAttributes(node);
+        this._processTabAttributes(node);
         break;
       case 'box':
-        NodeProcessor._processBoxAttributes(node);
+        this._processBoxAttributes(node);
         break;
       case 'dropdown':
-        NodeProcessor._processDropdownAttributes(node);
+        this._processDropdownAttributes(node);
         break;
       case 'thumbnail':
-        NodeProcessor._processThumbnailAttributes(node);
+        this._processThumbnailAttributes(node);
         break;
       case 'annotation':
         NodeProcessor._processAnnotationAttributes(node);
@@ -521,12 +628,17 @@ class NodeProcessor {
       case 'site-nav':
         renderSiteNav(node);
         break;
+      case 'mb-temp-footnotes':
+        this._processMbTempFootnotes(node);
+        break;
       default:
         break;
       }
     } catch (error) {
       logger.error(error);
     }
+
+    return context;
   }
 
   postProcessNode(node) {
@@ -567,14 +679,6 @@ class NodeProcessor {
       node.name = node.name.toLowerCase();
     }
 
-    // use the flagged cwf from NodePreprocessor to clone the context with the new flagged cwf.
-    // TODO merge the two processes to avoid dirty data-included-from hacks
-    if (node.attribs && node.attribs['data-included-from']) {
-      // eslint-disable-next-line no-param-reassign
-      context = _.cloneDeep(context);
-      context.cwf = node.attribs['data-included-from'];
-    }
-
     if (linkProcessor.hasTagLink(node)) {
       linkProcessor.convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);
       linkProcessor.convertMdAndMbdExtToHtmlExt(node);
@@ -584,37 +688,24 @@ class NodeProcessor {
     const isHeadingTag = (/^h[1-6]$/).test(node.name);
 
     if (isHeadingTag && !node.attribs.id) {
-      const textContent = utils.getTextContent(node);
-      // remove the '&lt;' and '&gt;' symbols that markdown-it uses to escape '<' and '>'
-      const cleanedContent = textContent.replace(/&lt;|&gt;/g, '');
-      const slugifiedHeading = slugify(cleanedContent, { decamelize: false });
-
-      let headerId = slugifiedHeading;
-      const { headerIdMap } = this.config;
-      if (headerIdMap[slugifiedHeading]) {
-        headerId = `${slugifiedHeading}-${headerIdMap[slugifiedHeading]}`;
-        headerIdMap[slugifiedHeading] += 1;
-      } else {
-        headerIdMap[slugifiedHeading] = 2;
-      }
-
-      node.attribs.id = headerId;
+      this._setHeadingId(node);
     }
 
     switch (node.name) {
     case 'md':
       node.name = 'span';
-      node.children = cheerio.parseHTML(md.renderInline(cheerio.html(node.children)), true);
+      node.children = cheerio.parseHTML(this._renderMdInline(cheerio.html(node.children)), true);
       break;
     case 'markdown':
       node.name = 'div';
-      node.children = cheerio.parseHTML(md.render(cheerio.html(node.children)), true);
+      node.children = cheerio.parseHTML(this._renderMd(cheerio.html(node.children)), true);
       break;
     default:
       break;
     }
 
-    NodeProcessor.processNode(node);
+    // eslint-disable-next-line no-param-reassign
+    context = this.processNode(node, context);
 
     if (node.children) {
       node.children.forEach((child) => {
@@ -622,7 +713,10 @@ class NodeProcessor {
       });
     }
 
-    NodeProcessor.postProcessNode(node);
+    this.postProcessNode(node);
+    if (isHeadingTag && !node.attribs.id) {
+      this._setHeadingId(node); // do this one more time, in case the first one assigned a blank id
+    }
 
     // If a fixed header is applied to the page, generate dummy spans as anchor points
     if (isHeadingTag && node.attribs.id) {
@@ -632,9 +726,8 @@ class NodeProcessor {
     return node;
   }
 
-  process(file, content, cwf = file) {
-    const context = {};
-    context.cwf = cwf; // current working file
+  process(file, content, cwf = file, extraVariables = {}) {
+    const context = new Context(cwf, [], extraVariables);
 
     return new Promise((resolve, reject) => {
       const handler = new htmlparser.DomHandler((error, dom) => {
@@ -655,15 +748,16 @@ class NodeProcessor {
         });
         nodes.forEach(d => NodeProcessor._trimNodes(d));
 
-        resolve(cheerio.html(nodes));
+        resolve(cheerio(nodes).html() + this._combineFootnotes());
       });
       const parser = new htmlparser.Parser(handler);
       const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
-        const renderedContent = md.render(content);
-        parser.parseComplete(renderedContent);
+        const renderedContent = this._renderMd(content);
+        // Wrap with <root> as $.remove() does not work on top level nodes
+        parser.parseComplete(`<root>${renderedContent}</root>`);
       } else if (fileExt === 'html') {
-        parser.parseComplete(content);
+        parser.parseComplete(`<root>${content}</root>`);
       } else {
         const error = new Error(`Unsupported File Extension: '${fileExt}'`);
         reject(error);
