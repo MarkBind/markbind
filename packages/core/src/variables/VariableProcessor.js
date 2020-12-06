@@ -1,6 +1,5 @@
 const cheerio = require('cheerio');
 const fs = require('fs');
-const path = require('path');
 
 const _ = {};
 _.clone = require('lodash/clone');
@@ -154,8 +153,8 @@ class VariableProcessor {
    *        Currently only used for layouts.
    @param keepPercentRaw whether to reoutput {% raw/endraw %} tags, also used only for layouts.
    */
-  renderSiteVariables(contentFilePath, content, pageSources, lowerPriorityVariables = {},
-                      higherPriorityVariables = {}, keepPercentRaw = false) {
+  renderWithSiteVariables(contentFilePath, content, pageSources, lowerPriorityVariables = {},
+                          higherPriorityVariables = {}, keepPercentRaw = false) {
     const userDefinedVariables = this.getParentSiteVariables(contentFilePath);
     const parentSitePath = urlUtils.getParentSiteAbsolutePath(contentFilePath, this.rootPath,
                                                               this.baseUrlMap);
@@ -171,151 +170,6 @@ class VariableProcessor {
    * --------------------------------------------------
    * Page level variable storage methods
    */
-
-  /**
-   * Subroutine for {@link extractPageVariables}.
-   * Renders a variable declared via either a <variable name="..."> tag or <variable from="..."> json file
-   * and then adds it to {@link pageVariables}.
-   *
-   * @param pageVariables object to add the extracted page variables to
-   * @param elem "dom node" as parsed by htmlparser2
-   * @param elemHtml as outputted by $(elem).html()
-   * @param filePath that the <variable> tag is from
-   * @param renderVariable callback to render the extracted variable with before storing
-   */
-  static addVariable(pageVariables, elem, elemHtml, filePath, renderVariable) {
-    const variableSource = elem.attribs.from;
-    if (variableSource) {
-      const variableFilePath = path.resolve(path.dirname(filePath), variableSource);
-      if (!fs.existsSync(variableFilePath)) {
-        logger.error(`The file ${variableSource} specified in 'from' attribute for json variable in ${
-          filePath} does not exist!\n`);
-        return;
-      }
-      const rawData = fs.readFileSync(variableFilePath);
-
-      try {
-        const jsonData = JSON.parse(rawData);
-        Object.entries(jsonData).forEach(([name, value]) => {
-          pageVariables[name] = renderVariable(filePath, value);
-        });
-      } catch (err) {
-        logger.warn(`Error in parsing json from ${variableFilePath}:\n${err.message}\n`);
-      }
-    } else {
-      const variableName = elem.attribs.name;
-      if (!variableName) {
-        logger.warn(`Missing 'name' for variable in ${filePath}\n`);
-        return;
-      }
-
-      pageVariables[variableName] = renderVariable(filePath, elemHtml);
-    }
-  }
-
-  /**
-   * Subroutine for {@link extractPageVariables}.
-   * Processes an <import> element with a 'from' attribute.
-   * {@link extractPageVariables} is recursively called to extract the other page's variables in doing so.
-   * Then, all locally declared variables of the imported file are assigned under the alias (if any),
-   * and any inline variables specified in the <import> element are also set in {@link pageImportedVariables}.
-   *
-   * @param pageImportedVariables object to add the extracted imported variables to
-   * @param elem "dom node" of the <import> element as parsed by htmlparser2
-   * @param {PageSources} pageSources instance to add sources from rendering imported variables
-   * @param filePath that the <variable> tag is from
-   * @param renderFrom callback to render the 'from' attribute with
-   */
-  addImportVariables(pageImportedVariables, elem, pageSources, filePath, renderFrom) {
-    // render the 'from' file path for the edge case that a variable is used inside it
-    const importedFilePath = renderFrom(filePath, elem.attribs.from);
-    const resolvedFilePath = path.resolve(path.dirname(filePath), importedFilePath);
-    if (!fs.existsSync(resolvedFilePath)) {
-      logger.error(`The file ${importedFilePath} specified in 'from' attribute for import in ${
-        filePath} does not exist!\n`);
-      return;
-    }
-
-    // recursively extract the imported page's variables first
-    const importedFileContent = fs.readFileSync(resolvedFilePath);
-    pageSources.staticIncludeSrc.push({ to: resolvedFilePath });
-    const {
-      pageVariables: importedFilePageVariables,
-    } = this.extractPageVariables(resolvedFilePath, importedFileContent, pageSources);
-
-    const alias = elem.attribs.as;
-    if (alias) {
-      // import everything under the alias if there is one
-      pageImportedVariables[alias] = importedFilePageVariables;
-    }
-
-    // additionally, import the inline variables without an alias
-    Object.keys(elem.attribs).filter((attr) => {
-      const isReservedAttribute = attr === 'from' || attr === 'as';
-      if (isReservedAttribute) {
-        return false;
-      }
-
-      const isExistingAttribute = !!importedFilePageVariables[attr];
-      if (!isExistingAttribute) {
-        logger.warn(`Invalid inline attribute ${attr} imported in ${filePath} from ${resolvedFilePath}\n`);
-        return false;
-      }
-
-      return true;
-    }).forEach((name) => {
-      pageImportedVariables[name] = importedFilePageVariables[name];
-    });
-  }
-
-  /**
-   * Extract page variables from a page.
-   * These include all locally declared <variable>s and variables <import>ed from other pages.
-   * @param filePath for error printing
-   * @param data to extract variables from
-   * @param {PageSources} pageSources to add sources found when rendering extracted variables to
-   * @param includeVariables from the parent include, if any, used during {@link renderIncludeFile}
-   */
-  extractPageVariables(filePath, data, pageSources, includeVariables = {}) {
-    const pageVariables = {};
-    const pageImportedVariables = {};
-
-    const $ = cheerio.load(data);
-
-    /*
-     This is used to render extracted variables before storing.
-     Hence, variables can be used within other variables, subject to declaration order.
-     */
-    const renderVariable = (contentFilePath, content) => {
-      const previousVariables = {
-        ...pageImportedVariables,
-        ...pageVariables,
-        ...includeVariables,
-      };
-
-      return this.renderSiteVariables(contentFilePath, content, pageSources, previousVariables);
-    };
-
-    // NOTE: Selecting both at once is important to respect variable/import declaration order
-    $('variable, import[from]').not('include > variable').each((index, elem) => {
-      logger.warn('<variable> and <import> tags used in pages will be deprecated in v3.0.\n'
-        + 'Use nunjucks\' {% set %} and {% import %} functionalities instead.\n'
-        + `filePath: ${filePath}`);
-
-      if (elem.name === 'variable') {
-        VariableProcessor.addVariable(pageVariables, elem, $(elem).html(), filePath, renderVariable);
-      } else {
-        /*
-         NOTE: we pass renderVariable here as well but not for rendering <import>ed variables again!
-         This is only for the edge case that variables are used in the 'from' attribute of
-         the <import> which we must resolve first.
-         */
-        this.addImportVariables(pageImportedVariables, elem, pageSources, filePath, renderVariable);
-      }
-    });
-
-    return { pageImportedVariables, pageVariables };
-  }
 
   /**
    * Extracts variables specified as <include var-xx="..."> in include elements.
@@ -399,18 +253,8 @@ class VariableProcessor {
 
     // Extract included variables from the include element, merging with the parent context variables
     const includeVariables = VariableProcessor.extractIncludeVariables(node);
-
-    // We pass in includeVariables as well to render <include> variables used in page <variable>s
-    // see "Test Page Variable and Included Variable Integrations" under test_site/index.md for an example
-    const {
-      pageImportedVariables,
-      pageVariables,
-    } = this.extractPageVariables(asIfAt, fileContent, pageSources, includeVariables);
-
     // Render the included content with all the variables
-    const renderedContent = this.renderSiteVariables(asIfAt, fileContent, pageSources, {
-      ...pageImportedVariables,
-      ...pageVariables,
+    const renderedContent = this.renderWithSiteVariables(asIfAt, fileContent, pageSources, {
       ...includeVariables,
       ...context.variables,
     });
@@ -423,32 +267,6 @@ class VariableProcessor {
       renderedContent,
       childContext,
     };
-  }
-
-  /**
-   * Renders content belonging to a page with the appropriate variables.
-   * In increasing order of priority (overriding),
-   * 1. <import>ed variables as extracted during {@link extractPageVariables}
-   * 2. locally declared <variable>s as extracted during {@link extractPageVariables}
-   *    (see https://markbind.org/userGuide/reusingContents.html#specifying-variables-in-an-include)
-   * 3. site variables as defined in variables.md
-   * @param contentFilePath of the content to render
-   * @param content to render
-   * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
-   * @param highestPriorityVariables to render with the highest priority if any.
-   *        This is currently only used for the MAIN_CONTENT_BODY in layouts.
-   * @param keepPercentRaw whether to reoutput {% raw/endraw %} tags, also used only for layouts.
-   */
-  renderPage(contentFilePath, content, pageSources, highestPriorityVariables = {}, keepPercentRaw = false) {
-    const {
-      pageImportedVariables,
-      pageVariables,
-    } = this.extractPageVariables(contentFilePath, content, pageSources);
-
-    return this.renderSiteVariables(contentFilePath, content, pageSources, {
-      ...pageImportedVariables,
-      ...pageVariables,
-    }, highestPriorityVariables, keepPercentRaw);
   }
 }
 

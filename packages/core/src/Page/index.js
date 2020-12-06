@@ -534,18 +534,20 @@ class Page {
 
     // Set expressive layout file as an includedFile
     this.includedFiles.add(layoutPagePath);
+    const { variableProcessor } = this.pageConfig;
+
     return fs.readFile(layoutPagePath, 'utf8')
       /*
        Render {{ MAIN_CONTENT_BODY }} and {% raw/endraw %} back to itself first,
-       which is then dealt with in the call below to {@link renderSiteVariables}.
+       which is then dealt with in the call below to {@link renderWithSiteVariables}.
        */
-      .then(result => this.pageConfig.variableProcessor.renderPage(layoutPagePath, result, pageSources, {
+      .then(result => variableProcessor.renderWithSiteVariables(layoutPagePath, result, pageSources, {}, {
         [LAYOUT_PAGE_BODY_VARIABLE]: `{{${LAYOUT_PAGE_BODY_VARIABLE}}}`,
       }, true))
       // Include file with the cwf set to the layout page path
       .then(result => nodePreprocessor.includeFile(layoutPagePath, result))
       // Note: The {% raw/endraw %}s previously kept are removed here.
-      .then(result => this.pageConfig.variableProcessor.renderSiteVariables(
+      .then(result => this.pageConfig.variableProcessor.renderWithSiteVariables(
         this.pageConfig.rootPath, result, pageSources, {
           [LAYOUT_PAGE_BODY_VARIABLE]: pageData,
         }));
@@ -565,8 +567,8 @@ class Page {
     const headerContent = fs.readFileSync(this.header, 'utf8');
     this.includedFiles.add(this.header);
 
-    const renderedHeader = this.pageConfig.variableProcessor.renderSiteVariables(this.pageConfig.sourcePath,
-                                                                                 headerContent, pageSources);
+    const renderedHeader = this.pageConfig.variableProcessor.renderWithSiteVariables(
+      this.pageConfig.sourcePath, headerContent, pageSources);
     return `<div data-included-from="${this.header}">${renderedHeader}</div>\n${pageData}`;
   }
 
@@ -584,8 +586,8 @@ class Page {
     // Set footer file as an includedFile
     this.includedFiles.add(this.footer);
 
-    const renderedFooter = this.pageConfig.variableProcessor.renderSiteVariables(this.pageConfig.sourcePath,
-                                                                                 footerContent, pageSources);
+    const renderedFooter = this.pageConfig.variableProcessor.renderWithSiteVariables(
+      this.pageConfig.sourcePath, footerContent, pageSources);
     return `<div data-included-from="${this.footer}">${renderedFooter}</div>\n${pageData}`;
   }
 
@@ -608,7 +610,7 @@ class Page {
     }
     this.includedFiles.add(this.siteNav);
 
-    const siteNavMappedData = this.pageConfig.variableProcessor.renderSiteVariables(
+    const siteNavMappedData = this.pageConfig.variableProcessor.renderWithSiteVariables(
       this.pageConfig.sourcePath, siteNavContent, pageSources);
 
     // Check navigation elements
@@ -796,7 +798,7 @@ class Page {
       // Set head file as an includedFile
       this.includedFiles.add(headFilePath);
 
-      const headFileMappedData = this.pageConfig.variableProcessor.renderSiteVariables(
+      const headFileMappedData = this.pageConfig.variableProcessor.renderWithSiteVariables(
         this.pageConfig.sourcePath, headFileContent, pageSources).trim();
       // Split top and bottom contents
       const $ = cheerio.load(headFileMappedData);
@@ -875,8 +877,8 @@ class Page {
     const nodeProcessor = new NodeProcessor(fileConfig);
 
     return fs.readFile(this.pageConfig.sourcePath, 'utf-8')
-      .then(result => this.pageConfig.variableProcessor.renderPage(this.pageConfig.sourcePath,
-                                                                   result, pageSources))
+      .then(result => this.pageConfig.variableProcessor.renderWithSiteVariables(this.pageConfig.sourcePath,
+                                                                                result, pageSources))
       .then(result => nodePreprocessor.includeFile(this.pageConfig.sourcePath, result))
       .then((result) => {
         this.collectFrontMatter(result);
@@ -1188,7 +1190,8 @@ class Page {
       const nodeProcessor = new NodeProcessor(fileConfig);
 
       return fs.readFile(dependency.to, 'utf-8')
-        .then(result => this.pageConfig.variableProcessor.renderPage(dependency.to, result, pageSources))
+        .then(result => this.pageConfig.variableProcessor.renderWithSiteVariables(dependency.to, result,
+                                                                                  pageSources))
         .then(result => nodePreprocessor.includeFile(dependency.to, result, file))
         .then(result => Page.removeFrontMatter(result))
         .then(result => this.collectPluginSources(result))

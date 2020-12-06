@@ -343,9 +343,6 @@ class NodePreprocessor {
     switch (element.name) {
     case 'panel':
       return this._preProcessPanel(element, context);
-    case 'variable':
-    case 'import':
-      return utils.createEmptyNode();
     case 'include':
       return this._preProcessInclude(element, context);
     case 'body':
