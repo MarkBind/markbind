@@ -24,6 +24,8 @@
 <script>
   import $ from './utils/NodeList.js'
   import { toBoolean } from './utils/utils';
+  import normalizeUrl from './utils/urls';
+
   export default {
     props: {
       type: {
@@ -82,20 +84,9 @@
         e && e.preventDefault()
         this.collapsed = !this.collapsed
       },
-      normalizeUrl(url) {
-        if (url.endsWith('.html')) {
-          return url.toLowerCase();
-        } else if (url.endsWith('/')) {
-          return `${url}index.html`.toLowerCase();
-        } else if (!url.endsWith('/')) {
-          return `${url}.html`.toLowerCase();
-        } else {
-          return url.toLowerCase();
-        }
-      },
       // Splits a normalised URL into its parts, e.g http://site.org/foo/bar/index.html -> ['foo','bar','index.html']
       splitUrl(url) {
-        const u = new URL(this.normalizeUrl(url));
+        const u = new URL(normalizeUrl(url));
         return `${u.pathname}`.substr(1).split('/');
       },
       isSibling(url, href) {
@@ -125,7 +116,7 @@
         return true;
       },
       isExact(url, href) {
-        return this.normalizeUrl(url) === this.normalizeUrl(href);
+        return normalizeUrl(url) === normalizeUrl(href);
       },
       addClassIfDropdown(dropdownLinks, a) {
         if (dropdownLinks.includes(a)) {

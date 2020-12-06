@@ -24,6 +24,7 @@ import tabset from './Tabset.vue';
 import thumbnail from './Thumbnail.vue';
 import tipBox from './TipBox.vue';
 import trigger from './Trigger.vue';
+import siteNav from './SiteNav.vue';
 
 const components = {
   box: tipBox,
@@ -42,6 +43,7 @@ const components = {
   thumbnail,
   tipBox,
   trigger,
+  siteNav,
 };
 
 const directives = {
