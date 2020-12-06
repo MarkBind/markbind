@@ -1,5 +1,4 @@
 const cheerio = require('cheerio');
-const fs = require('fs');
 
 const _ = {};
 _.clone = require('lodash/clone');
@@ -106,8 +105,8 @@ class VariableProcessor {
    * This is to allow using previously declared site variables in site variables declared later on.
    */
   renderAndAddUserDefinedVariable(site, name, value) {
-    const renderedVal = this.variableRendererMap[site].render(value, this.userDefinedVariablesMap[site],
-                                                              new PageSources());
+    const renderedVal = this.variableRendererMap[site].renderString(value, this.userDefinedVariablesMap[site],
+                                                                    new PageSources());
     this.addUserDefinedVariable(site, name, renderedVal);
   }
 
@@ -146,7 +145,6 @@ class VariableProcessor {
    * Renders content belonging to a specified file path with the appropriate site's variables,
    * with an optional set of lower and higher priority variables than the site variables to be rendered.
    * @param contentFilePath of the specified content to render
-   * @param content string to render
    * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
    * @param lowerPriorityVariables than the site variables, if any
    */
@@ -155,7 +153,7 @@ class VariableProcessor {
     const parentSitePath = urlUtils.getParentSiteAbsolutePath(contentFilePath, this.rootPath,
                                                               this.baseUrlMap);
 
-    return this.variableRendererMap[parentSitePath].render(content, {
+    return this.variableRendererMap[parentSitePath].renderFile(contentFilePath, {
       ...lowerPriorityVariables,
       ...userDefinedVariables,
     }, pageSources);
@@ -239,27 +237,29 @@ class VariableProcessor {
    * @param filePath of the included file source
    * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
    * @param node of the include element
-   * @param context object containing the parent <include> (if any) variables for the current context,
-   *        which have greater priority than the extracted include variables of the current context.
+   * @param {Context} context object containing the parent <include> (if any) variables for the current
+   *        context, which has greater priority than the extracted include variables of the current context.
    * @param asIfAt where the included file should be rendered from
+   * @return {Object} object containing the nunjucks-processed content, and a new {@link Context} object
    */
   renderIncludeFile(filePath, pageSources, node, context, asIfAt) {
-    const fileContent = fs.readFileSync(filePath, 'utf8');
-
     // Extract included variables from the include element, merging with the parent context variables
     const includeVariables = VariableProcessor.extractIncludeVariables(node);
-    // Render the included content with all the variables
-    const renderedContent = this.renderWithSiteVariables(asIfAt, fileContent, pageSources, {
+
+    const variables = {
       ...includeVariables,
       ...context.variables,
-    });
+    };
 
-    const childContext = _.cloneDeep(context);
+    // Render the included content with the current <include>'s <variable>s and any parent <include>'s
+    const renderedContent = this.renderWithSiteVariables(filePath, pageSources, variables);
+
+    const childContext = context.clone();
     childContext.cwf = asIfAt;
-    childContext.variables = includeVariables;
+    childContext.variables = variables;
 
     return {
-      renderedContent,
+      nunjucksProcessed: renderedContent,
       childContext,
     };
   }
