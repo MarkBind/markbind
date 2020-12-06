@@ -149,12 +149,8 @@ class VariableProcessor {
    * @param content string to render
    * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
    * @param lowerPriorityVariables than the site variables, if any
-   * @param higherPriorityVariables than the site variables, if any.
-   *        Currently only used for layouts.
-   @param keepPercentRaw whether to reoutput {% raw/endraw %} tags, also used only for layouts.
    */
-  renderWithSiteVariables(contentFilePath, content, pageSources, lowerPriorityVariables = {},
-                          higherPriorityVariables = {}, keepPercentRaw = false) {
+  renderWithSiteVariables(contentFilePath, pageSources, lowerPriorityVariables = {}) {
     const userDefinedVariables = this.getParentSiteVariables(contentFilePath);
     const parentSitePath = urlUtils.getParentSiteAbsolutePath(contentFilePath, this.rootPath,
                                                               this.baseUrlMap);
@@ -162,8 +158,7 @@ class VariableProcessor {
     return this.variableRendererMap[parentSitePath].render(content, {
       ...lowerPriorityVariables,
       ...userDefinedVariables,
-      ...higherPriorityVariables,
-    }, pageSources, keepPercentRaw);
+    }, pageSources);
   }
 
   /*

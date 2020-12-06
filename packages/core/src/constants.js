@@ -1,6 +1,6 @@
 module.exports = {
   // Page.js and Site.js
-  LAYOUT_DEFAULT_NAME: 'default',
+  LAYOUT_DEFAULT_NAME: 'default.md',
   LAYOUT_FOLDER_PATH: '_markbind/layouts',
   PLUGIN_SITE_ASSET_FOLDER_NAME: 'plugins',
 
