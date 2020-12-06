@@ -1,5 +1,6 @@
 const cheerio = require('cheerio');
 const htmlparser = require('htmlparser2'); require('../patches/htmlparser2');
+const fm = require('fastmatter');
 const Promise = require('bluebird');
 const slugify = require('@sindresorhus/slugify');
 
@@ -17,6 +18,7 @@ const md = require('../lib/markdown-it');
 const utils = require('../utils');
 const logger = require('../utils/logger');
 
+const { FRONT_MATTER_FENCE } = require('../Page/constants');
 const { MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX } = require('./constants');
 
 const {
@@ -28,6 +30,8 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 class NodeProcessor {
   constructor(config) {
     this.config = config;
+
+    this.frontMatter = {};
 
     this.headTop = [];
     this.headBottom = [];
@@ -128,6 +132,31 @@ class NodeProcessor {
         child.name = 'span';
       }
     });
+  }
+
+  /*
+   * FrontMatter collection
+   */
+  _processFrontMatter(node) {
+    let currentFrontMatter = {};
+    const frontMatter = cheerio(node);
+    if (frontMatter.text().trim()) {
+      // Retrieves the front matter from either the first frontmatter element
+      // or from a frontmatter element that includes from another file
+      // The latter case will result in the data being wrapped in a div
+      const frontMatterData = frontMatter.find('div').length
+        ? frontMatter.find('div')[0].children[0].data
+        : frontMatter[0].children[0].data;
+      const frontMatterWrapped = `${FRONT_MATTER_FENCE}\n${frontMatterData}\n${FRONT_MATTER_FENCE}`;
+
+      currentFrontMatter = fm(frontMatterWrapped).attributes;
+    }
+
+    this.frontMatter = {
+      ...this.frontMatter,
+      ...currentFrontMatter,
+    };
+    cheerio(node).remove();
   }
 
   /*

@@ -1,5 +1,4 @@
 const cheerio = require('cheerio'); require('../patches/htmlparser2');
-const fm = require('fastmatter');
 const fs = require('fs-extra');
 const htmlBeautify = require('js-beautify').html;
 const path = require('path');
@@ -23,8 +22,6 @@ const logger = require('../utils/logger');
 const PACKAGE_VERSION = require('../../package.json').version;
 
 const {
-  FRONT_MATTER_FENCE,
-  FRONT_MATTER_NONE_ATTR,
   PAGE_NAV_ID,
   PAGE_NAV_TITLE_CLASS,
   TITLE_PREFIX_SEPARATOR,
@@ -343,82 +340,21 @@ class Page {
   }
 
   /**
-   * Records the dynamic or static included files into this.includedFiles
-   * @param dependencies array of maps of the external dependency and where it is included
-   */
-  collectIncludedFiles(dependencies) {
-    dependencies.forEach(dependency => this.includedFiles.add(dependency.to));
-  }
-
-  /**
-   * Records the front matter into this.frontMatter
-   * @param includedPage a page with its dependencies included
-   */
-  collectFrontMatter(includedPage) {
-    const $ = cheerio.load(includedPage);
-    const frontMatter = $('frontmatter');
-    let pageFrontMatter = {};
-    if (frontMatter.text().trim()) {
-      // Retrieves the front matter from either the first frontmatter element
-      // or from a frontmatter element that includes from another file
-      // The latter case will result in the data being wrapped in a div
-      const frontMatterData = frontMatter.find('div').length
-        ? frontMatter.find('div')[0].children[0].data
-        : frontMatter[0].children[0].data;
-      const frontMatterWrapped = `${FRONT_MATTER_FENCE}\n${frontMatterData}\n${FRONT_MATTER_FENCE}`;
-
-      pageFrontMatter = fm(frontMatterWrapped).attributes;
-    }
-
-    this.frontMatter = {
-      ...pageFrontMatter,
-      ...this.pageConfig.globalOverride,
-      ...this.pageConfig.frontmatterOverride,
-    };
-  }
-
-  /**
    * Uses the collected frontmatter from {@link collectFrontMatter} to extract the {@link Page}'s
    * instance configurations.
    * FrontMatter properties always have lower priority than site configuration properties.
    */
-  processFrontMatter() {
+  processFrontMatter(frontMatter) {
+    dependencies.forEach(dependency => this.includedFiles.add(dependency.to));
+  }
+    this.frontMatter = {
+      ...frontMatter,
+      ...this.pageConfig.globalOverride,
+      ...this.pageConfig.frontmatterOverride,
+    };
+
     this.title = this.title || this.frontMatter.title || '';
     this.layout = this.layout || this.frontMatter.layout || LAYOUT_DEFAULT_NAME;
-
-    /*
-     Set to false if the frontMatter attribute is 'none',
-     set it to the filePath of the layout file specified by the frontMatter (if present),
-     otherwise set it to the filePath of the layout file of {@code this.layout}.
-     */
-    this.header = this.frontMatter.header !== FRONT_MATTER_NONE_ATTR
-      && (this.frontMatter.header
-        ? path.join(this.pageConfig.rootPath, HEADERS_FOLDER_PATH, this.frontMatter.header)
-        : path.join(this.pageConfig.rootPath, LAYOUT_FOLDER_PATH, this.layout, LAYOUT_HEADER));
-    this.footer = this.frontMatter.footer !== FRONT_MATTER_NONE_ATTR
-      && (this.frontMatter.footer
-        ? path.join(this.pageConfig.rootPath, FOOTERS_FOLDER_PATH, this.frontMatter.footer)
-        : path.join(this.pageConfig.rootPath, LAYOUT_FOLDER_PATH, this.layout, LAYOUT_FOOTER));
-    this.siteNav = this.frontMatter.siteNav !== FRONT_MATTER_NONE_ATTR
-      && (this.frontMatter.siteNav
-        ? path.join(this.pageConfig.rootPath, NAVIGATION_FOLDER_PATH, this.frontMatter.siteNav)
-        : path.join(this.pageConfig.rootPath, LAYOUT_FOLDER_PATH, this.layout, LAYOUT_NAVIGATION));
-    this.head = this.frontMatter.head !== FRONT_MATTER_NONE_ATTR
-      && (this.frontMatter.head
-        ? this.frontMatter.head.split(/ *, */).map(file => path.join(this.pageConfig.rootPath,
-                                                                     HEAD_FOLDER_PATH, file))
-        : [path.join(this.pageConfig.rootPath, LAYOUT_FOLDER_PATH, this.layout, LAYOUT_HEAD)]);
-  }
-
-  /**
-   * Removes the front matter from an included page
-   * @param includedPage a page with its dependencies included
-   */
-  static removeFrontMatter(includedPage) {
-    const $ = cheerio.load(includedPage);
-    const frontMatter = $('frontmatter');
-    frontMatter.remove();
-    return $.html();
   }
 
   /**
