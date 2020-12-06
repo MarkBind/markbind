@@ -42,13 +42,11 @@ const copyCodeBlockScript = `<script>
 
 module.exports = {
   getScripts: () => [copyCodeBlockScript],
-  postRender: (content) => {
-    const $ = cheerio.load(content);
-    const codeBlockSelector = 'pre';
-    const buttonHTML = getButtonHTML();
-    $(codeBlockSelector).each((i, codeBlock) => {
-      $(codeBlock).append(buttonHTML);
-    });
-    return $.html();
+  processNode: (pluginContext, node) => {
+    if (node.name !== 'pre') {
+      return;
+    }
+
+    cheerio(node).append(getButtonHTML());
   },
 };

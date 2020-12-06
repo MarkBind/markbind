@@ -62,6 +62,12 @@ module.exports = {
     return r.test(filePath);
   },
 
+  stripBaseUrl(src, baseUrl) {
+    return src.startsWith(baseUrl)
+      ? src.substring(baseUrl.length)
+      : src;
+  },
+
   createErrorNode(element, error) {
     const errorElement = cheerio.parseHTML(
       `<div style="color: red">${error.message}</div>`, true)[0];

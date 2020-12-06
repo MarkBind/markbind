@@ -1,22 +1,18 @@
-const cheerio = module.parent.require('cheerio');
-
-// Convert panel headings: <span heading>
-function convertPanelHeadings($) {
-  $('panel>span[heading]').each((i, element) => {
-    $(element).attr('slot', 'header');
-    $(element).addClass('card-title');
-    $(element).removeAttr('heading');
-  });
-}
-
 /**
  * Converts shorthand syntax to proper Markbind syntax
  * @param content of the page
  */
 module.exports = {
-  postRender: (content) => {
-    const $ = cheerio.load(content);
-    convertPanelHeadings($);
-    return $.html();
+  processNode: (pluginContext, node) => {
+    // panel>span[heading]
+    if (node.name === 'span'
+      && node.attribs
+      && node.attribs.heading !== undefined
+      && node.parent
+      && node.parent.name === 'panel') {
+      node.attribs.slot = 'header';
+      node.attribs.class = node.attribs.class ? `${node.attribs.class} card-title` : 'card-title';
+      delete node.attribs.heading;
+    }
   },
 };

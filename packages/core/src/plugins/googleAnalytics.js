@@ -13,5 +13,5 @@ function getGoogleAnalyticsTrackingCode(pluginContext) {
 
 module.exports = {
   // eslint-disable-next-line no-unused-vars
-  getScripts: (content, pluginContext, frontMatter, utils) => [getGoogleAnalyticsTrackingCode(pluginContext)],
+  getScripts: pluginContext => [getGoogleAnalyticsTrackingCode(pluginContext)],
 };
