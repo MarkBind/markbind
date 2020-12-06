@@ -2,7 +2,6 @@ const cheerio = require('cheerio'); require('../patches/htmlparser2');
 const fs = require('fs-extra');
 const htmlBeautify = require('js-beautify').html;
 const path = require('path');
-const Promise = require('bluebird');
 
 const _ = {};
 _.cloneDeep = require('lodash/cloneDeep');
@@ -13,9 +12,7 @@ _.isArray = require('lodash/isArray');
 const { CyclicReferenceError } = require('../errors');
 const { PageSources } = require('./PageSources');
 const { NodeProcessor } = require('../html/NodeProcessor');
-const md = require('../lib/markdown-it');
 
-const FsUtil = require('../utils/fsUtil');
 const utils = require('../utils');
 const logger = require('../utils/logger');
 
@@ -53,7 +50,7 @@ class Page {
   resetState() {
     /**
      * Object containing asset names as keys and their corresponding file paths,
-     * or an array of <link/script> elements extracted from plugins during {@link collectPluginsAssets}.
+     * or an array of <link/script> elements extracted from plugins during {@link collectPluginPageNjkAssets}.
      * @type {Object<string, string | Array<string>>}
      */
     this.asset = _.cloneDeep(this.pageConfig.asset);
@@ -86,13 +83,6 @@ class Page {
      */
     this.keywords = {};
     /**
-    /**
-     * Set of included files (dependencies) from plugins used for live reload
-     * https://markbind.org/userGuide/usingPlugins.html
-     * @type {Set<string>}
-     */
-    this.pluginSourceFiles = new Set();
-    /**
      * The title of the page.
      * This is initially set to the title specified in the site configuration,
      * if there is none, we look for one in the frontMatter(s) as well.
@@ -123,10 +113,7 @@ class Page {
    * @param {string} filePath to check
    */
   isDependency(filePath) {
-    return (this.includedFiles
-      && this.includedFiles.has(filePath))
-      || (this.pluginSourceFiles
-      && this.pluginSourceFiles.has(filePath));
+    return this.includedFiles && this.includedFiles.has(filePath);
   }
 
   prepareTemplateData(content, hasPageNav) {
@@ -232,9 +219,8 @@ class Page {
   /**
    * Records headings and keywords inside rendered page into this.headings and this.keywords respectively
    */
-  collectHeadingsAndKeywords() {
-    const $ = cheerio.load(fs.readFileSync(this.pageConfig.resultPath));
-    this.collectHeadingsAndKeywordsInContent($(`#${CONTENT_WRAPPER_ID}`).html(), null, false, []);
+  collectHeadingsAndKeywords(pageContent) {
+    this.collectHeadingsAndKeywordsInContent(pageContent, null, false, []);
   }
 
   /**
@@ -341,8 +327,6 @@ class Page {
    * FrontMatter properties always have lower priority than site configuration properties.
    */
   processFrontMatter(frontMatter) {
-    dependencies.forEach(dependency => this.includedFiles.add(dependency.to));
-  }
     this.frontMatter = {
       ...frontMatter,
       ...this.pageConfig.globalOverride,
@@ -419,24 +403,20 @@ class Page {
   /**
    *  Builds page navigation bar with headings up to headingIndexingLevel
    */
-  buildPageNav() {
-    if (this.isPageNavigationSpecifierValid()) {
-      const $ = cheerio.load(this.content);
+  buildPageNav(content) {
+    const isFmPageNavSpecifierValid = this.isPageNavigationSpecifierValid();
+    const doesLayoutHavePageNav = this.pageConfig.layoutManager.layoutHasPageNav(this.layout);
+
+    if (isFmPageNavSpecifierValid && doesLayoutHavePageNav) {
       this.navigableHeadings = {};
-      this.collectNavigableHeadings($(`#${CONTENT_WRAPPER_ID}`).html());
+      this.collectNavigableHeadings(content);
       const pageNavTitleHtml = this.generatePageNavTitleHtml();
       const pageNavHeadingHTML = this.generatePageNavHeadingHtml();
-      this.pageSectionsHtml[`#${PAGE_NAV_ID}`]
-        = `<nav id="${PAGE_NAV_ID}" class="navbar navbar-light bg-transparent">\n`
-          + '<div class="border-left-grey nav-inner position-sticky slim-scroll">\n'
-          + `${pageNavTitleHtml}\n`
-          + '<nav class="nav nav-pills flex-column my-0 small no-flex-wrap">\n'
+      return `${pageNavTitleHtml}\n`
+          + `<nav id="${PAGE_NAV_ID}" class="nav nav-pills flex-column my-0 small no-flex-wrap">\n`
           + `${pageNavHeadingHTML}\n`
-          + '</nav>\n'
-          + '</div>\n'
           + '</nav>\n';
     }
-  }
 
     return '';
   }
@@ -450,7 +430,7 @@ class Page {
    * @property {Object<string, number>} headerIdMap
    */
 
-  generate(builtFiles) {
+  async generate(externalManager) {
     this.resetState(); // Reset for live reload
 
     /**
@@ -463,142 +443,47 @@ class Page {
       headerIdMap: this.headerIdMap,
       ignore: this.pageConfig.ignore,
       addressablePagesSource: this.pageConfig.addressablePagesSource,
-      pageSrc: this.pageConfig.src,
     };
+
+    const { variableProcessor, layoutManager, pluginManager } = this.pageConfig;
+
     const pageSources = new PageSources();
-    const nodePreprocessor = new NodePreprocessor(fileConfig, this.pageConfig.variableProcessor,
-                                                  pageSources);
-    const nodeProcessor = new NodeProcessor(fileConfig);
+    const nodeProcessor = new NodeProcessor(fileConfig, pageSources, variableProcessor, pluginManager);
 
-    return fs.readFile(this.pageConfig.sourcePath, 'utf-8')
-      .then(result => this.pageConfig.variableProcessor.renderWithSiteVariables(this.pageConfig.sourcePath,
-                                                                                result, pageSources))
-      .then(result => nodePreprocessor.includeFile(this.pageConfig.sourcePath, result))
-      .then((result) => {
-        this.collectFrontMatter(result);
-        this.processFrontMatter();
-        return Page.removeFrontMatter(result);
-      })
-      .then(result => Page.addScrollToTopButton(result))
-      .then(result => Page.addContentWrapper(result))
-      .then(result => this.collectPluginSources(result))
-      .then(result => this.preRender(result))
-      .then(result => Page.insertTemporaryStyles(result))
-      .then(result => nodeProcessor.process(this.pageConfig.sourcePath, result))
-      .then(result => this.postRender(result))
-      .then(result => this.collectPluginsAssets(result))
-      .then(result => Page.unwrapIncludeSrc(result))
-      .then((result) => {
+    let content = variableProcessor.renderWithSiteVariables(this.pageConfig.sourcePath, pageSources);
+    content = await nodeProcessor.process(this.pageConfig.sourcePath, content);
+    this.processFrontMatter(nodeProcessor.frontMatter);
+    content = Page.addScrollToTopButton(content);
+    content = pluginManager.postRender(this.frontMatter, content);
+    const pageContent = content;
 
-        this.content = result;
+    pluginManager.collectPluginPageNjkAssets(this.frontMatter, content, this.asset);
 
     await layoutManager.generateLayoutIfNeeded(this.layout);
-        this.buildPageNav();
+    const pageNav = this.buildPageNav(content);
+    content = layoutManager.combineLayoutWithPage(this.layout, content, pageNav, this.includedFiles);
+    this.asset = {
+      ...this.asset,
+      ...layoutManager.getLayoutPageNjkAssets(this.layout),
+    };
 
-        const renderedTemplate = this.pageConfig.template.render(this.prepareTemplateData());
-        const outputTemplateHTML = this.pageConfig.disableHtmlBeautify
-          ? renderedTemplate
-          : htmlBeautify(renderedTemplate, Page.htmlBeautifyOptions);
+    const renderedTemplate = this.pageConfig.template.render(
+      this.prepareTemplateData(content, !!pageNav)); // page.njk
+    const outputTemplateHTML = this.pageConfig.disableHtmlBeautify
+      ? renderedTemplate
+      : htmlBeautify(renderedTemplate, pluginManager.htmlBeautifyOptions);
 
-        return fs.outputFile(this.pageConfig.resultPath, outputTemplateHTML);
-      })
-      .then(() => {
-        const resolvingFiles = [];
-        Page.unique(pageSources.getDynamicIncludeSrc()).forEach((source) => {
-          if (!FsUtil.isUrl(source.to)) {
-            resolvingFiles.push(this.resolveDependency(source, builtFiles));
-          }
-        });
-        return Promise.all(resolvingFiles);
-      })
-      .then(() => {
-        this.collectIncludedFiles(pageSources.getDynamicIncludeSrc());
-        this.collectIncludedFiles(pageSources.getStaticIncludeSrc());
-        this.collectIncludedFiles(pageSources.getMissingIncludeSrc());
-        this.collectHeadingsAndKeywords();
-      });
-  }
+    await fs.outputFile(this.pageConfig.resultPath, outputTemplateHTML);
 
+    pageSources.addAllToSet(this.includedFiles);
+    await externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(), this.includedFiles);
 
-  /**
-  }
-
-  /**
-   * Pre-render an external dynamic dependency
-   * Does not pre-render if file is already pre-rendered by another page during site generation
-   * @param dependency a map of the external dependency and where it is included
-   * @param {Object<string, Promise>} builtFiles map of dynamic dependencies' filepaths
-   *                                  to its generation promises
-   */
-  resolveDependency(dependency, builtFiles) {
-    const file = dependency.asIfTo;
-    const resultDir = path.dirname(path.resolve(this.pageConfig.resultPath,
-                                                path.relative(this.pageConfig.sourcePath, file)));
-    const resultPath = path.join(resultDir, FsUtil.setExtension(path.basename(file), '._include_.html'));
-
-    // Return existing generation promise if any, otherwise create a new one
-    builtFiles[resultPath] = builtFiles[resultPath] || new Promise((resolve, reject) => {
-      /**
-       * @type {FileConfig}
-       */
-      const fileConfig = {
-        baseUrlMap: this.pageConfig.baseUrlMap,
-        baseUrl: this.pageConfig.baseUrl,
-        rootPath: this.pageConfig.rootPath,
-        headerIdMap: {},
-        ignore: this.pageConfig.ignore,
-        addressablePagesSource: this.pageConfig.addressablePagesSource,
-      };
-      const pageSources = new PageSources();
-      const nodePreprocessor = new NodePreprocessor(fileConfig, this.pageConfig.variableProcessor,
-                                                    pageSources);
-      const nodeProcessor = new NodeProcessor(fileConfig);
-
-      return fs.readFile(dependency.to, 'utf-8')
-        .then(result => this.pageConfig.variableProcessor.renderWithSiteVariables(dependency.to, result,
-                                                                                  pageSources))
-        .then(result => nodePreprocessor.includeFile(dependency.to, result, file))
-        .then(result => Page.removeFrontMatter(result))
-        .then(result => this.collectPluginSources(result))
-        .then(result => this.preRender(result))
-        .then(result => nodeProcessor.process(dependency.to, result, file))
-        .then(result => this.postRender(result))
-        .then(result => this.collectPluginsAssets(result))
-        .then(result => Page.unwrapIncludeSrc(result))
-        .then((result) => {
-          const outputContentHTML = this.pageConfig.disableHtmlBeautify
-            ? result
-            : htmlBeautify(result, Page.htmlBeautifyOptions);
-          return fs.outputFile(resultPath, outputContentHTML);
-        })
-        .then(() => {
-          // Recursion call to resolve nested dependency
-          const resolvingFiles = [];
-          Page.unique(pageSources.getDynamicIncludeSrc()).forEach((src) => {
-            if (!FsUtil.isUrl(src.to)) {
-              resolvingFiles.push(this.resolveDependency(src, builtFiles));
-            }
-          });
-          return Promise.all(resolvingFiles);
-        })
-        .then(() => {
-          this.collectIncludedFiles(pageSources.getDynamicIncludeSrc());
-          this.collectIncludedFiles(pageSources.getStaticIncludeSrc());
-          this.collectIncludedFiles(pageSources.getMissingIncludeSrc());
-        })
-        .then(resolve)
-        .catch(reject);
-    });
-
-    return builtFiles[resultPath];
-  }
-
-  static addContentWrapper(pageData) {
+    this.collectHeadingsAndKeywords(pageContent);
   }
 
   static addScrollToTopButton(pageData) {
     const button = '<i class="fa fa-arrow-circle-up fa-lg" id="scroll-top-button" '
-    + 'onclick="handleScrollTop()" aria-hidden="true"/>';
+    + 'onclick="handleScrollTop()" aria-hidden="true"></i>';
     return `${pageData}\n${button}`;
   }
 
@@ -614,10 +499,6 @@ class Page {
     }
     headingsSelectors = headingsSelectors.map(selector => `${selector}:not(.no-index)`);
     return headingsSelectors.join(',');
-  }
-
-  static unique(array) {
-    return [...new Set(array)];
   }
 
   /**
