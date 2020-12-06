@@ -6,19 +6,26 @@ const utils = require('../utils');
 const fsUtils = require('../utils/fsUtil');
 const logger = require('../utils/logger');
 
+const { PluginManager } = require('../plugins/PluginManager');
+
+const pluginTagConfig = PluginManager.tagConfig;
+
 const defaultTagLinkMap = {
   img: 'src',
   pic: 'src',
   thumbnail: 'src',
   a: 'href',
   link: 'href',
+  include: 'src',
+  panel: 'src',
+  script: 'src',
 };
 
 function hasTagLink(node) {
-  return node.name in defaultTagLinkMap;
+  return node.name in defaultTagLinkMap || node.name in pluginTagConfig;
 }
 
-function getResourcePath(node) {
+function getDefaultTagsResourcePath(node) {
   const linkAttribName = defaultTagLinkMap[node.name];
   const resourcePath = node.attribs && node.attribs[linkAttribName];
   return resourcePath;
@@ -26,6 +33,23 @@ function getResourcePath(node) {
 
 function getResourcePathFromRoot(rootPath, fullResourcePath) {
   return utils.ensurePosix(path.relative(rootPath, fullResourcePath));
+}
+
+function _convertRelativeLink(node, cwf, rootPath, baseUrl, resourcePath, linkAttribName) {
+  if (!resourcePath) {
+    return;
+  }
+
+  if (path.isAbsolute(resourcePath) || utils.isUrl(resourcePath) || resourcePath.startsWith('#')) {
+    // Do not rewrite.
+    return;
+  }
+
+  const cwd = path.dirname(cwf);
+  const fullResourcePath = path.join(cwd, resourcePath);
+  const resourcePathFromRoot = getResourcePathFromRoot(rootPath, fullResourcePath);
+
+  node.attribs[linkAttribName] = path.posix.join(baseUrl || '/', resourcePathFromRoot);
 }
 
 /**
@@ -36,26 +60,25 @@ function getResourcePathFromRoot(rootPath, fullResourcePath) {
  * TODO allow plugins to tap into this process / extend {@link defaultTagLinkMap}
  *
  * @param {Object<any, any>} node from the dom traversal
- * @param {string} cwf as flagged from {@link NodePreprocessor}
+ * @param {string} cwf as flagged from {@link NodeProcessor}
  * @param {string} rootPath of the root site
  * @param {string} baseUrl
  */
 function convertRelativeLinks(node, cwf, rootPath, baseUrl) {
-  const resourcePath = getResourcePath(node);
-  if (!resourcePath) {
-    return;
-  }
-  if (path.isAbsolute(resourcePath) || utils.isUrl(resourcePath) || resourcePath.startsWith('#')) {
-    // Do not rewrite.
-    return;
+  if (node.name in defaultTagLinkMap) {
+    const resourcePath = getDefaultTagsResourcePath(node);
+    const linkAttribName = defaultTagLinkMap[node.name];
+    _convertRelativeLink(node, cwf, rootPath, baseUrl, resourcePath, linkAttribName);
   }
 
-  const cwd = path.dirname(cwf);
-  const fullResourcePath = path.join(cwd, resourcePath);
-  const resourcePathFromRoot = getResourcePathFromRoot(rootPath, fullResourcePath);
-
-  const linkAttribName = defaultTagLinkMap[node.name];
-  node.attribs[linkAttribName] = path.posix.join(baseUrl || '/', resourcePathFromRoot);
+  if (node.name in pluginTagConfig && pluginTagConfig[node.name].attributes && node.attribs) {
+    pluginTagConfig[node.name].attributes.forEach((attrConfig) => {
+      if (attrConfig.isRelative) {
+        const resourcePath = node.attribs[attrConfig.name];
+        _convertRelativeLink(node, cwf, rootPath, baseUrl, resourcePath, attrConfig.name);
+      }
+    });
+  }
 }
 
 function convertMdAndMbdExtToHtmlExt(node) {
@@ -110,7 +133,7 @@ function isValidFileAsset(resourcePath, config) {
  * @returns {string} these string return values are for unit testing purposes only
  */
 function validateIntraLink(node, cwf, config) {
-  let resourcePath = getResourcePath(node);
+  let resourcePath = getDefaultTagsResourcePath(node);
   if (!resourcePath || utils.isUrl(resourcePath) || resourcePath.startsWith('#')) {
     return 'Not Intralink';
   }
@@ -118,10 +141,7 @@ function validateIntraLink(node, cwf, config) {
   const err = `You might have an invalid intra-link! Ignore this warning if it was intended.
 '${resourcePath}' found in file '${cwf}'`;
 
-  if (resourcePath.startsWith(config.baseUrl)) {
-    // strip baseUrl from resourcePath
-    resourcePath = resourcePath.substring(config.baseUrl.length);
-  }
+  resourcePath = utils.stripBaseUrl(resourcePath, config.baseUrl);
 
   const resourcePathUrl = url.parse(resourcePath);
   if (resourcePathUrl.hash) {
@@ -169,9 +189,46 @@ function validateIntraLink(node, cwf, config) {
   return 'Intralink is a valid File Asset';
 }
 
+/**
+ * Resolves and collects source file paths pointed to by attributes in nodes for live reload.
+ * Only necessary for plugins for now.
+ *
+ * @param {Object<any, any>} node from the dom traversal
+ * @param {string} rootPath site root path to resolve the link from
+ * @param {string} baseUrl base url to strip off the link (if any)
+ * @param {PageSources} pageSources {@link PageSources} object to add the resolved file path to
+ * @returns {string} these string return values are for unit testing purposes only
+ */
+function collectSource(node, rootPath, baseUrl, pageSources) {
+  const tagConfig = pluginTagConfig[node.name];
+  if (!tagConfig || !tagConfig.attributes) {
+    return;
+  }
+
+  tagConfig.attributes.forEach((attrConfig) => {
+    if (!attrConfig.isSourceFile) {
+      return;
+    }
+
+    const sourceFileLink = node.attribs[attrConfig.name];
+    if (!sourceFileLink || utils.isUrl(sourceFileLink)) {
+      return;
+    }
+
+    const linkWithoutBaseUrl = utils.stripBaseUrl(sourceFileLink, baseUrl);
+    const linkWithoutLeadingSlash = linkWithoutBaseUrl.startsWith('/')
+      ? linkWithoutBaseUrl.substring(1)
+      : linkWithoutBaseUrl;
+
+    const fullResourcePath = path.join(rootPath, linkWithoutLeadingSlash);
+    pageSources.staticIncludeSrc.push({ to: fullResourcePath });
+  });
+}
+
 module.exports = {
   hasTagLink,
   convertRelativeLinks,
   convertMdAndMbdExtToHtmlExt,
   validateIntraLink,
+  collectSource,
 };

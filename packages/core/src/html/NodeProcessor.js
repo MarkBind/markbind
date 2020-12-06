@@ -29,7 +29,7 @@ const {
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 class NodeProcessor {
-  constructor(config) {
+  constructor(config, pageSources, variableProcessor, pluginManager, docId = '') {
     this.config = config;
 
     this.frontMatter = {};
@@ -40,6 +40,8 @@ class NodeProcessor {
 
     this.pageSources = pageSources;
     this.variableProcessor = variableProcessor;
+    this.pluginManager = pluginManager;
+
     // markdown-it-footnotes state
     this.baseDocId = docId; // encapsulates footnotes in externals (<panel src="...">)
     this.docId = 0; // encapsulates footnotes in <include>s
@@ -713,6 +715,7 @@ class NodeProcessor {
       linkProcessor.convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);
       linkProcessor.convertMdAndMbdExtToHtmlExt(node);
       linkProcessor.validateIntraLink(node, context.cwf, this.config);
+      linkProcessor.collectSource(node, this.config.rootPath, this.config.baseUrl, this.pageSources);
     }
 
     const isHeadingTag = (/^h[1-6]$/).test(node.name);
@@ -736,6 +739,7 @@ class NodeProcessor {
 
     // eslint-disable-next-line no-param-reassign
     context = this.processNode(node, context);
+    this.pluginManager.processNode(node, this.config);
 
     if (node.children) {
       node.children.forEach((child) => {

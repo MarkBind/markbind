@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = {
   CONFIG_FOLDER_NAME: '_markbind',
   HEADING_INDEXING_LEVEL_DEFAULT: 3,
@@ -11,12 +9,8 @@ module.exports = {
   FAVICON_DEFAULT_PATH: 'favicon.ico',
   INDEX_MARKDOWN_FILE: 'index.md',
   INDEX_MARKBIND_FILE: 'index.mbd',
-  MARKBIND_DEFAULT_PLUGIN_DIRECTORY: path.join(__dirname, '../plugins/default'),
-  MARKBIND_PLUGIN_DIRECTORY: path.join(__dirname, '../plugins'),
-  MARKBIND_PLUGIN_PREFIX: 'markbind-plugin-',
   MAX_CONCURRENT_PAGE_GENERATION_PROMISES: 4,
   PAGE_TEMPLATE_NAME: 'page.njk',
-  PROJECT_PLUGIN_FOLDER_NAME: '_markbind/plugins',
   SITE_CONFIG_NAME: 'site.json',
   SITE_DATA_NAME: 'siteData.json',
   LAYOUT_SITE_FOLDER_NAME: 'layouts',
