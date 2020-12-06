@@ -28,16 +28,6 @@ const {
   FRONT_MATTER_NONE_ATTR,
   PAGE_NAV_ID,
   PAGE_NAV_TITLE_CLASS,
-  SITE_NAV_ID,
-  SITE_NAV_EMPTY_LINE_REGEX,
-  SITE_NAV_LIST_ITEM_CLASS,
-  SITE_NAV_DEFAULT_LIST_ITEM_CLASS,
-  SITE_NAV_LIST_CLASS,
-  SITE_NAV_LIST_CLASS_ROOT,
-  SITE_NAV_CUSTOM_LIST_ITEM_CLASS,
-  SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX,
-  SITE_NAV_DROPDOWN_ICON_HTML,
-  SITE_NAV_DROPDOWN_ICON_ROTATED_HTML,
   TITLE_PREFIX_SEPARATOR,
   TEMP_NAVBAR_CLASS,
   TEMP_DROPDOWN_CLASS,
@@ -134,12 +124,6 @@ class Page {
      * @type {Object<string, Object>}
      */
     this.navigableHeadings = {};
-    /**
-     * Site navigation file path for the page, or false if none.
-     * The site nav may be from a layout, or from the _markbind/navigation directory.
-     * @type {string | boolean}
-     */
-    this.siteNav = false;
   }
 
   /**
@@ -542,7 +526,6 @@ class Page {
     });
     return $.html();
   }
-    this.collectPageSection(`#${SITE_NAV_ID}`);
   /**
    * A file configuration object.
    * @typedef {Object<string, any>} FileConfig

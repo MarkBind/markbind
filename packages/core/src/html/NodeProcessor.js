@@ -8,6 +8,7 @@ _.isArray = require('lodash/isArray');
 _.cloneDeep = require('lodash/cloneDeep');
 _.has = require('lodash/has');
 
+const { renderSiteNav } = require('./siteNavProcessor');
 const linkProcessor = require('./linkProcessor');
 
 const md = require('../lib/markdown-it');
@@ -516,6 +517,9 @@ class NodeProcessor {
         break;
       case 'annotation':
         NodeProcessor._processAnnotationAttributes(node);
+        break;
+      case 'site-nav':
+        renderSiteNav(node);
         break;
       default:
         break;
