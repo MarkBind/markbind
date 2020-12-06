@@ -38,8 +38,10 @@ function addNoIndexClasses(content) {
 }
 
 module.exports = {
-  getLinks: (content, pluginContext, frontMatter, utils) => [utils.buildStylesheet(ALGOLIA_CSS_URL)],
-  getScripts: (content, pluginContext, frontMatter, utils) =>
-    [utils.buildScript(ALGOLIA_JS_URL), buildAlgoliaInitScript(pluginContext)],
-  postRender: content => addNoIndexClasses(content),
+  getLinks: () => [`<link rel="stylesheet" href="${ALGOLIA_CSS_URL}">`],
+  getScripts: pluginContext => [
+    `<script src="${ALGOLIA_JS_URL}"></script>`,
+    buildAlgoliaInitScript(pluginContext),
+  ],
+  postRender: (pluginContext, frontMatter, content) => addNoIndexClasses(content),
 };
