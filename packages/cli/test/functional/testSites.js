@@ -1,7 +1,6 @@
 const testSites = [
   'test_site',
   'test_site_algolia_plugin',
-  'test_site_expressive_layout',
   'test_site_special_tags',
 ];
 

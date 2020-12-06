@@ -1,14 +1,10 @@
 <frontmatter>
 title: Hello World
-header: header.md
-footer: footer.md
-siteNav: site-nav.md
 pageNav: "default"
 pageNavTitle: "Testing Page Navigation"
 globalOverrideProperty: "To be overridden by global override"
 frontMatterOverrideProperty: "To be overridden by frontmatter override"
 globalAndFrontMatterOverrideProperty: "To be overridden by frontmatter and global override"
-head: myCustomHead.md, myCustomHead2.md
 tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidden", "-tag-site-override-shown", "-tag-site-override-specific*"]
 </frontmatter>
 
@@ -285,12 +281,6 @@ and **this**.
 
   </panel>
 </panel>
-
-**Test plugin in markbind/plugins**
-
-<div id="test-markbind-plugin">
-  Markbind Plugin Pre-render Placeholder
-</div>
 
 **Test search indexing**
 

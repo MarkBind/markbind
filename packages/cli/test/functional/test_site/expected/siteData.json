@@ -45,7 +45,6 @@
         "user-surveys": "User surveys",
         "focus-groups": "Focus groups",
         "path-within-the-boilerplate-folder-is-separately-specified": "Path within the boilerplate folder is separately specified",
-        "markbind-plugin-pre-render": "Markbind Plugin Pre-render",
         "level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed": "Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed"
       },
       "headingKeywords": {
@@ -99,12 +98,6 @@
       "headings": {
         "some-heading": "Some heading"
       },
-      "headingKeywords": {}
-    },
-    {
-      "src": "testAfterSetup.md",
-      "title": "Hello World",
-      "headings": {},
       "headingKeywords": {}
     },
     {

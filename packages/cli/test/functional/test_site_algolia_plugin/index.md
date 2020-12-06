@@ -1,7 +1,5 @@
 <frontmatter>
   title: "Hello World"
-  footer: footer.md
-  siteNav: site-nav.md
 </frontmatter>
 
 **Test Algolia plugin adds algolia-no-index classes**

@@ -2,7 +2,6 @@
 <html>
 
 <head>
-
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="MarkBind 2.17.0">
@@ -20,14 +19,17 @@
   <script src="markbind/js/markbind.min.js"></script>
   <script src="markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
-  <link rel="stylesheet" href="markbind/layouts/default/styles.css">
+
+  <link rel="stylesheet" href="/stylesheets/main.css">
 </head>
 
 <body>
   <div id="app">
-    <header>
-      <navbar placement="top" type="inverse" class="temp-navbar">
-        <a slot="brand" href="/index.html" title="Home" class="navbar-brand"><i class="far fa-file-image"></i></a>
+
+    <header fixed>
+      <navbar placement="top" type="inverse" class=" temp-navbar">
+        <a slot="brand" href="/index.html" title="Home" class="navbar-brand">
+          <i class="far fa-file-image"></i></a>
         <li><a href="/index.html" class="nav-link">HOME</a></li>
         <li><a href="/about.html" class="nav-link">ABOUT</a></li>
         <li slot="right">
@@ -38,23 +40,31 @@
       </navbar>
     </header>
     <div id="flex-body">
-      <nav id="site-nav" class="navbar navbar-light bg-transparent">
-        <div class="border-right-grey nav-inner position-sticky slim-scroll">
-          <ul class="site-nav-list site-nav-list-root">
-            <li class="site-nav-custom-list-item site-nav-list-item-0">[[Home]]</li>
-            <li class="site-nav-custom-list-item site-nav-list-item-0">[[Page-1]]</li>
-          </ul>
+      <nav id="site-nav" class="fixed-header-padding">
+        <div class="site-nav-top">
+          <div class="font-weight-bold mb-2" style="font-size: 1.25rem;">Template</div>
+        </div>
+        <div class="nav-component slim-scroll">
+          <site-nav>
+            <ul class="site-nav-list site-nav-list-root">
+              <li class="site-nav-custom-list-item site-nav-list-item-0">[[Home]]</li>
+              <li class="site-nav-custom-list-item site-nav-list-item-0">[[Page-1]]</li>
+            </ul>
+          </site-nav>
         </div>
       </nav>
-
-
-      <div id="content-wrapper">
+      <div id="content-wrapper" class="fixed-header-padding">
         <ul>
           <li>[[Home]]</li>
-          <li>[[Page-1]]
-            <i class="fa fa-arrow-circle-up fa-lg" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i></li>
+          <li>[[Page-1]]</li>
         </ul>
+        <i class="fa fa-arrow-circle-up fa-lg" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>
+      <nav id="page-nav" class="fixed-header-padding">
+        <div class="nav-component slim-scroll">
+
+        </div>
+      </nav>
     </div>
     <footer>
       Custom footer.
@@ -66,7 +76,6 @@
   const baseUrl = ''
   MarkBind.setupWithSearch()
 </script>
-<script src="markbind/layouts/default/scripts.js"></script>
 <script>
   if (MarkBind.AfterSetup) MarkBind.AfterSetup()
 </script>
