@@ -99,19 +99,6 @@ const HIGHLIGHT_ASSETS = {
 const ABOUT_MARKDOWN_DEFAULT = '# About\n'
   + 'Welcome to your **About Us** page.\n';
 
-const TOP_NAV_DEFAULT = '<header><navbar placement="top" type="inverse">\n'
-  + '  <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand">'
-  + '<i class="far fa-file-image"></i></a>\n'
-  + '  <li><a href="{{baseUrl}}/index.html" class="nav-link">HOME</a></li>\n'
-  + '  <li><a href="{{baseUrl}}/about.html" class="nav-link">ABOUT</a></li>\n'
-  + '  <li slot="right">\n'
-  + '    <form class="navbar-form">\n'
-  + '      <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"'
-  + ' menu-align-right></searchbar>\n'
-  + '    </form>\n'
-  + '  </li>\n'
-  + '</navbar></header>';
-
 const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${MARKBIND_VERSION}</a>`;
 
 class Site {
@@ -343,9 +330,7 @@ class Site {
       .then(() => this.collectAddressablePages())
       .then(() => this.addIndexPage())
       .then(() => this.addAboutPage())
-      .then(() => this.addTopNavToDefaultLayout())
-      .then(() => this.addFooterToDefaultLayout())
-      .then(() => this.addSiteNavToDefaultLayout())
+      .then(() => this.addDefaultLayoutFiles())
       .then(() => this.addDefaultLayoutToSiteConfig())
       .then(() => Site.printBaseUrlMessage());
   }
@@ -378,64 +363,42 @@ class Site {
   }
 
   /**
-   * Adds top navigation menu to default layout of site.
-   */
-  addTopNavToDefaultLayout() {
-    const siteLayoutPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH);
-    const siteLayoutHeaderDefaultPath = path.join(siteLayoutPath, LAYOUT_DEFAULT_NAME, 'header.md');
-
-    return fs.outputFile(siteLayoutHeaderDefaultPath, TOP_NAV_DEFAULT);
-  }
-
-  /**
    * Adds a footer to default layout of site.
    */
-  addFooterToDefaultLayout() {
-    const footerPath = path.join(this.rootPath, FOOTER_PATH);
-    const siteLayoutPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH);
-    const siteLayoutFooterDefaultPath = path.join(siteLayoutPath, LAYOUT_DEFAULT_NAME, 'footer.md');
+  addDefaultLayoutFiles() {
     const wikiFooterPath = path.join(this.rootPath, WIKI_FOOTER_PATH);
+    let footer;
+    if (fs.existsSync(wikiFooterPath)) {
+      logger.info(`Copied over the existing ${WIKI_FOOTER_PATH} file to the converted layout`);
+      footer = fs.readFileSync(wikiFooterPath, 'utf8');
+    }
 
-    return fs.access(wikiFooterPath)
-      .then(() => {
-        const footerContent = fs.readFileSync(wikiFooterPath, 'utf8');
-        const wrappedFooterContent = `<footer>\n\t${footerContent}\n</footer>`;
-        return fs.outputFile(siteLayoutFooterDefaultPath, wrappedFooterContent);
-      })
-      .catch(() => {
-        if (fs.existsSync(footerPath)) {
-          return fs.copy(footerPath, siteLayoutFooterDefaultPath);
-        }
-        return Promise.resolve();
-      });
-  }
-
-  /**
-   * Adds a site navigation bar to the default layout of the site.
-   */
-  addSiteNavToDefaultLayout() {
-    const siteLayoutPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH);
-    const siteLayoutSiteNavDefaultPath = path.join(siteLayoutPath, LAYOUT_DEFAULT_NAME, 'navigation.md');
     const wikiSiteNavPath = path.join(this.rootPath, WIKI_SITE_NAV_PATH);
+    let siteNav;
+    if (fs.existsSync(wikiSiteNavPath)) {
+      logger.info(`Copied over the existing ${WIKI_SITE_NAV_PATH} file to the converted layout\n`
+        + 'Check https://markbind.org/userGuide/tweakingThePageStructure.html#site-navigation-menus\n'
+        + 'for information on site navigation menus.');
+      siteNav = fs.readFileSync(wikiSiteNavPath, 'utf8');
+    } else {
+      siteNav = this.buildSiteNav();
+    }
 
-    return fs.access(wikiSiteNavPath)
-      .then(() => {
-        const siteNavContent = fs.readFileSync(wikiSiteNavPath, 'utf8');
-        const wrappedSiteNavContent = `<navigation>\n${siteNavContent}\n</navigation>`;
-        logger.info(`Copied over the existing _Sidebar.md file to ${path.relative(
-          this.rootPath, siteLayoutSiteNavDefaultPath)}`
-          + 'Check https://markbind.org/userGuide/tweakingThePageStructure.html#site-navigation-menus\n'
-          + 'for information on site navigation menus.');
-        return fs.outputFileSync(siteLayoutSiteNavDefaultPath, wrappedSiteNavContent);
-      })
-      .catch(() => this.buildSiteNav(siteLayoutSiteNavDefaultPath));
+    const convertedLayoutTemplate = VariableRenderer.compile(
+      fs.readFileSync(path.join(__dirname, 'siteConvertLayout.njk'), 'utf8'));
+    const renderedLayout = convertedLayoutTemplate.render({
+      footer,
+      siteNav,
+    });
+    const layoutOutputPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH, LAYOUT_DEFAULT_NAME);
+
+    fs.writeFileSync(layoutOutputPath, renderedLayout, 'utf-8');
   }
 
   /**
    * Builds a site navigation file from the directory structure of the site.
-   * @param siteLayoutSiteNavDefaultPath
    */
-  buildSiteNav(siteLayoutSiteNavDefaultPath) {
+  buildSiteNav() {
     let siteNavContent = '';
     this.addressablePages
       .filter(addressablePage => !addressablePage.src.startsWith('_'))
@@ -447,8 +410,8 @@ class Site {
         const pageUrl = `{{ baseUrl }}/${relativePagePathWithoutExt}.html`;
         siteNavContent += `* [${pageName}](${pageUrl})\n`;
       });
-    const wrappedSiteNavContent = `<navigation>\n${siteNavContent}\n</navigation>`;
-    return fs.outputFile(siteLayoutSiteNavDefaultPath, wrappedSiteNavContent);
+
+    return siteNavContent;
   }
 
   /**
