@@ -173,7 +173,8 @@ Here are the steps to set up Netlify:
 1. Update the build settings as follows and hit `Deploy site`:
    - `Build Command`: `npm i markbind-cli -g && markbind build --baseUrl`
    - `Publish directory`: `_site`
-   <include src="screenshot.md" boilerplate var-alt="Update build settings" var-file="netlifyPreview3.png" inline />
+   - Click on `Show advanced` to reveal `Advanced build settings`: Add a new variable with key as `NODE_VERSION` and value as `10`
+   <include src="screenshot.md" boilerplate var-alt="Update build settings" var-file="netlifyPreview3-update.png" inline />
 
 Now your site will be deployed on Netlify at the given address specified after deployment. It will be updated automatically when the default branch of your repo is updated.
 
