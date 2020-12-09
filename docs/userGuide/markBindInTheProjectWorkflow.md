@@ -38,7 +38,7 @@ Suppose the main development of the project is done in the `master` branch while
 
 You can keep the user docs in a separate directory (say `user-docs`) and set up a MarkBind project in that folder. When there is a new release, you can deploy the user-docs site to GitHub Pages for users to read.
 
-Similarly, you can keep the dev docs in a separate directory (sey `dev-docs`) and set up Netlify to deploy the site when there is an update to the `master` branch; that way, developers can see the latest version of dev-docs via the Netlify site.
+Similarly, you can keep the dev docs in a separate directory (say `dev-docs`) and set up Netlify to deploy the site when there is an update to the `master` branch; that way, developers can see the latest version of dev-docs via the Netlify site.
 </div>
 
 #### Converting existing project documentation/wiki

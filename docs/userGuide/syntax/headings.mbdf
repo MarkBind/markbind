@@ -14,7 +14,7 @@ You can prepend the heading text with 1-6 `#` characters to indicate headings of
 </span>
 
 {{ icon_info }} **MarkBind auto-generates anchors for all headings.**<br>
-If the heading text is `Foo Bar (Goo)`, the ID of the generated anchor will be `foo-bar-goo` (all lower case, special characters ommitted, joined by `-`).
+If the heading text is `Foo Bar (Goo)`, the ID of the generated anchor will be `foo-bar-goo` (all lower case, special characters omitted, joined by `-`).
 
 <small>Alternative syntax, more info: https://www.markdownguide.org/basic-syntax#headings
 
