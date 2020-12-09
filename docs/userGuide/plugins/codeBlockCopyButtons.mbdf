@@ -4,8 +4,7 @@ This plugin adds a 'copy' button to fenced code blocks so that readers can copy 
 
 To enable it, simply add `codeBlockCopyButtons` to your site's plugins.
 
-```js
-site.json
+```js {heading="site.json"}
 {
   ...
   "plugins": [

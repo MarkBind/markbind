@@ -31,7 +31,6 @@ You can fix the header to be always on the top by add `fixed` attribute to the `
 <header fixed>
     <!--Normal header stuff goes here-->
 </header>
-
 ```
 
 Notes:

@@ -194,11 +194,11 @@ Here are the steps to set up Netlify to use a specific version of MarkBind.
 1. run `npm init` which will create `package.json` and `package.lock.json`
 1. run `npm install markbind-cli@1.6.3 --save` to install markbind as a dependency (using v1.6.3 as an example)
 1. create/update `.gitignore` file in the root directory and add:
-   ```
+   ```{.no-line-numbers}
    node_modules
    ```
 1. update `ignore` in site.json to include
-   ```
+   ```{.no-line-numbers}
    node_modules/*
    .gitignore
    ```

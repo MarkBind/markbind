@@ -8,8 +8,7 @@ Name | Type | Default | Description
 ---- | ---- | ------- | ------
 trackingID | `String` || Tracking ID provided by Google. Follow this [guide](https://support.google.com/analytics/answer/1008080) to get your Tracking ID.
 
-```js
-site.json
+```js {heading="site.json"}
 {
   ...
   "plugins": [

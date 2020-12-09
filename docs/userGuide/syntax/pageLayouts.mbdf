@@ -19,7 +19,7 @@ To apply the layout, specify it as an attribute named `layout` in the `<frontmat
 <div class="indented">
 
 {{ icon_example }} Suppose you have a layout named `chapterLayout`.
-```
+```{.no-line-numbers}
 <root>/_markbind/layouts/
                   └── chapterLayout/
                         ├── header.md
@@ -97,10 +97,10 @@ which injects the actual page content in every page. This allows you to build la
   ```
 
   ```html {heading="page.md"}
-    {%raw%}{{ MAIN_CONTENT_BODY }}{%endraw%}
-    <panel header="Statistics Formula for the class" type="primary">
-      <img src="path_to_your_formula.png" />
-    </panel>
+  {%raw%}{{ MAIN_CONTENT_BODY }}{%endraw%}
+  <panel header="Statistics Formula for the class" type="primary">
+    <img src="path_to_your_formula.png" />
+  </panel>
   ```
 
 Here's how the above content would appear:
