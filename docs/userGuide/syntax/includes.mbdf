@@ -83,7 +83,7 @@ The `<include>` mechanism can be used inside any MarkBind source file (even insi
 <div class="indented">
 
 {{ icon_example }} Suppose you have a MarkBind project with the following file structure.
-```
+```{.no-line-numbers}
 c:/mySite/
   ├── bookFiles/
   |      ├── book.md
@@ -159,7 +159,7 @@ If the same variable is defined in a chain of `<include>`s (e.g. `a.md` includes
 <div class="indented">
 
 {{ icon_example }} Suppose you have a MarkBind project with the following file structure.
-```
+```{.no-line-numbers}
 c:/mySite/
   ├── chapter1/
   |      ├── chapter.md
@@ -204,7 +204,7 @@ To use a code fragment as a boilerplate file,
 <div class="indented">
 
 {{ icon_example }} Here's how you can use a boilerplate file to avoid duplicating the `chapter.md`:
-```
+```{.no-line-numbers}
 c:/mySite/
   ├── _markbind/boilerplates/
   |      └── chapter.md
@@ -241,7 +241,7 @@ If you have many boilerplate files, you can organize them into directories insid
 <div class="indented">
 
 {{ icon_example }} Suppose the `chapter.md` is places in a `book` directory:
-```
+```{.no-line-numbers}
 c:/mySite/
   └── _markbind/boilerplates/
          └── book/
