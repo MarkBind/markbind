@@ -132,9 +132,10 @@
         const navLis = Array.from(this.$el.querySelector('.navbar-nav').children);
         // attempt an exact match first
         for (const li of navLis) {
+          const standardLinks = [li];
           const navLinks = Array.from(li.querySelectorAll('a.nav-link'));
           const dropdownLinks = Array.from(li.querySelectorAll('a.dropdown-item'));
-          const allNavLinks = navLinks.concat(dropdownLinks).filter(a => a.href);
+          const allNavLinks = standardLinks.concat(navLinks).concat(dropdownLinks).filter(a => a.href);
           for (const a of allNavLinks) {
             const hlMode = a.getAttribute('highlight-on') || defHlMode;
             if (hlMode === 'none') {
@@ -143,15 +144,19 @@
             // terminate early on an exact match
             if (this.isExact(url, a.href)) {
               li.classList.add('current');
+              if (dropdownLinks.includes(a)) {
+                a.classList.add('dropdown-current');
+              }
               return;
             }
           }
         }
         // fallback to user preference, otherwise
         for (const li of navLis) {
+          const standardLinks = [li];
           const navLinks = Array.from(li.querySelectorAll('a.nav-link'));
           const dropdownLinks = Array.from(li.querySelectorAll('a.dropdown-item'));
-          const allNavLinks = navLinks.concat(dropdownLinks).filter(a => a.href);
+          const allNavLinks = standardLinks.concat(navLinks).concat(dropdownLinks).filter(a => a.href);
           for (const a of allNavLinks) {
             const hlMode = a.getAttribute('highlight-on') || defHlMode;
             if (hlMode === 'none') {
@@ -160,16 +165,25 @@
             if (hlMode === 'sibling-or-child') {
               if (this.isSibling(url, a.href) || this.isChild(url, a.href)) {
                 li.classList.add('current');
+                if (dropdownLinks.includes(a)) {
+                  a.classList.add('dropdown-current');
+                }
                 return;
               }
             } else if (hlMode === 'sibling') {
               if (this.isSibling(url, a.href)) {
                 li.classList.add('current');
+                if (dropdownLinks.includes(a)) {
+                  a.classList.add('dropdown-current');
+                }
                 return;
               }
             } else if (hlMode === 'child') {
               if (this.isChild(url, a.href)) {
                 li.classList.add('current');
+                if (dropdownLinks.includes(a)) {
+                  a.classList.add('dropdown-current');
+                }
                 return;
               }
             } else {
