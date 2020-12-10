@@ -465,6 +465,6 @@ button.copy-btn {
 }
 
 .dropdown-current {
-    color: #ffffff;
-    background:#007bff;
+    color: #fff;
+    background: #007bff;
 }
