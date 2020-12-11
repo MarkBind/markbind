@@ -3,30 +3,39 @@
     :class="['alert box-container', containerStyle(), addClass]"
     :style="customStyle()"
   >
-    <div style="display: flex; flex-direction: row;">
-      <!-- icon on the left of the header -->
-      <div
-        v-if="iconBool() && headerBool()"
-        :class="['icon-wrapper', iconStyle()]"
-        :style="customIconColorStyle()"
-      >
-        <slot name="icon">
-          <i :class="['fas', getFontAwesomeIconStyle()]"></i>
-        </slot>
+    <div :class="[{ 'flex-row-layout': horizontalDividerBool() }]">
+      <div v-if="iconBool() && horizontalDividerBool()" class="flex-row-layout">
+        <div
+          :class="['icon-wrapper', iconStyle()]"
+          :style="customIconColorStyle()"
+        >
+          <slot name="icon">
+            <i :class="['fas', getFontAwesomeIconStyle()]"></i>
+          </slot>
+        </div>
+        <div
+          class="vertical-divider"
+          :class="getBootstrapAlertStyle()"
+          aria-hidden="true"
+        ></div>
       </div>
-      <!-- Icon -- content divider for seamless boxes without the header attribute -->
-      <div
-        v-if="verticalDividerBoolForHeader()"
-        class="vertical-divider"
-        :class="getBootstrapAlertStyle()"
-        aria-hidden="true"
-      ></div>
-      <!-- Header wrapper, not rendered if there is no header attribute -->
       <div>
+        <!-- Header wrapper, not rendered if there is no header attribute -->
         <div
           v-if="headerBool()"
           :class="['box-header-wrapper', { 'alert-dismissible': dismissible }]"
         >
+          <!-- icon on the left of the header -->
+          <div
+            v-if="iconBool() && !horizontalDividerBool()"
+            :class="['icon-wrapper', iconStyle()]"
+            :style="customIconColorStyle()"
+          >
+            <slot name="icon">
+              <i :class="['fas', getFontAwesomeIconStyle()]"></i>
+            </slot>
+          </div>
+
           <!-- header -->
           <div class="box-header">
             <slot name="_header"></slot>
@@ -43,14 +52,6 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-
-        <!-- Header wrapper -- body wrapper divider for seamless boxes with the header attribute -->
-        <div
-          v-if="verticalDividerBoolForHeader()"
-          class="vertical-divider"
-          :class="getBootstrapAlertStyle()"
-          aria-hidden="true"
-        ></div>
 
         <!-- Body wrapper -->
         <div
@@ -173,7 +174,7 @@ export default {
     verticalDividerBool() {
       return this.isSeamless() && !this.headerBool();
     },
-    verticalDividerBoolForHeader() {
+    horizontalDividerBool() {
       return this.isSeamless() && this.headerBool();
     },
     headerBool() {
@@ -327,6 +328,10 @@ export default {
   padding: 0;
   border-radius: 6px;
 }
+.flex-row-layout {
+  display: flex;
+  flex-direction: row;
+}
 
 .box-header-wrapper {
   display: flex;
@@ -416,6 +421,12 @@ export default {
 
 .vertical-divider {
   width: 4px;
+}
+
+.horizontal-divider {
+  margin: 0 auto;
+  width: calc(100% - 2.5rem);
+  height: 3px;
 }
 
 .no-background {

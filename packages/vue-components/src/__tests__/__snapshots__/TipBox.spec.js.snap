@@ -6,15 +6,11 @@ exports[`TipBox having custom background color renders correctly 1`] = `
   style="background-color: white; border-color: white;"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -41,15 +37,11 @@ exports[`TipBox having custom border color renders correctly 1`] = `
   style="border: 1px solid grey;"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -76,15 +68,11 @@ exports[`TipBox having custom border left color renders correctly 1`] = `
   style="border-left: 5px solid blue;"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -110,15 +98,11 @@ exports[`TipBox of default type with content renders correctly  1`] = `
   class="alert box-container alert-default"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -146,15 +130,11 @@ exports[`TipBox of definition type light style renders correctly 1`] = `
   class="alert box-container border-primary alert-border-left"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -186,15 +166,11 @@ exports[`TipBox of definition type renders correctly 1`] = `
   class="alert box-container alert-primary"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -226,15 +202,11 @@ exports[`TipBox of important type light style renders correctly 1`] = `
   class="alert box-container border-danger alert-border-left"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -266,15 +238,11 @@ exports[`TipBox of important type renders correctly 1`] = `
   class="alert box-container alert-danger"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -306,15 +274,11 @@ exports[`TipBox of info type light style renders correctly 1`] = `
   class="alert box-container border-info alert-border-left"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -346,15 +310,11 @@ exports[`TipBox of info type renders correctly 1`] = `
   class="alert box-container alert-info"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -386,15 +346,11 @@ exports[`TipBox of seamless style renders correctly 1`] = `
   class="alert box-container seamless"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -423,15 +379,11 @@ exports[`TipBox of success type light style renders correctly 1`] = `
   class="alert box-container border-success alert-border-left"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -463,15 +415,11 @@ exports[`TipBox of success type renders correctly 1`] = `
   class="alert box-container alert-success"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -503,15 +451,11 @@ exports[`TipBox of tip type light style renders correctly 1`] = `
   class="alert box-container border-success alert-border-left"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -543,15 +487,11 @@ exports[`TipBox of tip type renders correctly 1`] = `
   class="alert box-container alert-success"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -583,15 +523,11 @@ exports[`TipBox of warning type light style renders correctly 1`] = `
   class="alert box-container border-warning alert-border-left"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -623,15 +559,11 @@ exports[`TipBox of warning type renders correctly 1`] = `
   class="alert box-container alert-warning"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -663,15 +595,11 @@ exports[`TipBox of wrong type light style renders correctly 1`] = `
   class="alert box-container border-danger alert-border-left"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -703,15 +631,11 @@ exports[`TipBox of wrong type renders correctly 1`] = `
   class="alert box-container alert-danger"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -743,15 +667,11 @@ exports[`TipBox with custom color renders correctly 1`] = `
   class="alert box-container alert-default"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -778,21 +698,21 @@ exports[`TipBox with custom icon color and header renders correctly 1`] = `
   class="alert box-container alert-default"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
-    <div
-      class="icon-wrapper"
-      style="color: red;"
-    >
-      :fas-plus:
-    </div>
-     
     <!---->
      
     <div>
       <div
         class="box-header-wrapper"
       >
+        <div
+          class="icon-wrapper"
+          style="color: red;"
+        >
+          :fas-plus:
+        </div>
+         
         <div
           class="box-header"
         >
@@ -801,8 +721,6 @@ exports[`TipBox with custom icon color and header renders correctly 1`] = `
          
         <!---->
       </div>
-       
-      <!---->
        
       <div
         class="box-body-wrapper box-body-wrapper-with-heading"
@@ -827,15 +745,11 @@ exports[`TipBox with custom icon color and no header renders correctly 1`] = `
   class="alert box-container alert-default"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -866,15 +780,11 @@ exports[`TipBox with dismissible option renders correctly 1`] = `
   class="alert box-container alert-default"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -911,16 +821,16 @@ exports[`TipBox with header renders correctly 1`] = `
   class="alert box-container alert-default"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
-    <!---->
-     
     <!---->
      
     <div>
       <div
         class="box-header-wrapper"
       >
+        <!---->
+         
         <div
           class="box-header"
         >
@@ -929,8 +839,6 @@ exports[`TipBox with header renders correctly 1`] = `
          
         <!---->
       </div>
-       
-      <!---->
        
       <div
         class="box-body-wrapper box-body-wrapper-with-heading"
@@ -955,15 +863,11 @@ exports[`TipBox with icon and icon-size renders correctly 1`] = `
   class="alert box-container alert-info"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -993,15 +897,11 @@ exports[`TipBox with icon renders correctly 1`] = `
   class="alert box-container alert-info"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -1031,15 +931,11 @@ exports[`TipBox with no-background option renders correctly 1`] = `
   class="alert box-container alert-default no-background"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -1065,15 +961,11 @@ exports[`TipBox with no-border option renders correctly 1`] = `
   class="alert box-container alert-default no-border"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
@@ -1099,15 +991,11 @@ exports[`TipBox with no-icon option renders correctly 1`] = `
   class="alert box-container alert-success"
 >
   <div
-    style="display: flex; flex-direction: row;"
+    class=""
   >
     <!---->
      
-    <!---->
-     
     <div>
-      <!---->
-       
       <!---->
        
       <div
