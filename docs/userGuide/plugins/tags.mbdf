@@ -1,4 +1,4 @@
-### Plugin: Tags
+{{ topHeadingLevel or "###" }} Plugin: Tags
 
 With this plugin you can use tags to selectively filter content when building a site.
 

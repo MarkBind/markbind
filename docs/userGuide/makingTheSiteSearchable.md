@@ -6,7 +6,7 @@
 
 <frontmatter>
   title: "User Guide: {{ title }}"
-  layout: userGuide
+  layout: userGuide.md
   pageNav: 2
 </frontmatter>
 

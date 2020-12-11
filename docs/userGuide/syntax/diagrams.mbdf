@@ -13,7 +13,7 @@ must be installed to use this feature**
 
 </box>
 
-<span id="main-example">
+<div id="main-example">
 <include src="outputBox.md" boilerplate>
 <span id="code">
 ```
@@ -34,7 +34,7 @@ return success
 
 <span id="output">
 <pic src="../diagrams/sequence.png" width="300" />
-</span>
+</div>
 
 </include>
 </span>

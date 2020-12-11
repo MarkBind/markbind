@@ -1,6 +1,6 @@
 <frontmatter>
   title: "User Guide: Command Line Interface (CLI)"
-  layout: userGuide
+  layout: userGuide.md
   pageNav: default
 </frontmatter>
 

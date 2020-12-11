@@ -2,14 +2,14 @@
 
 Basic style:
 
-<span id="main-example">
+<div id="main-example">
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 MarkBind home is at [here](https://markbind.org).
 </variable>
 </include>
-</span>
+</div>
 
 _Reference style_ links (i.e., specify the URL in a separate place):
 

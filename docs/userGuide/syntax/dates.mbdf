@@ -7,12 +7,12 @@
 
 **Syntax:** {{ njcode('baseDate | date(format, daysToAdd)') }}
 
-<span id="main-example">
+<div id="main-example">
 
 20 days after 1st Jan 2020:
 
 {{ njcode('"2020-01-01" | date("ddd, Do MMM, YYYY", 20) ') }} :glyphicon-arrow-right: {{ "2020-01-01" | date("ddd, Do MMM, YYYY", 20) }}
-</span>
+</div>
 
 <box type="info">
 

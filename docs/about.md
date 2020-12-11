@@ -1,7 +1,5 @@
 <frontmatter>
   title: "About Us"
-  header: header.md
-  footer: footer.md
 </frontmatter>
 
 # About Us

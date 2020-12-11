@@ -4,7 +4,7 @@
 
 <frontmatter>
   title: "User Guide: {{ title }}"
-  layout: userGuide
+  layout: userGuide.md
   pageNav: default
 </frontmatter>
 

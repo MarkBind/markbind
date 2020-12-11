@@ -1,6 +1,6 @@
 <frontmatter>
   title: "Glossary"
-  layout: userGuide
+  layout: userGuide.md
 </frontmatter>
 
 #### Live Preview <span style="font-size: 0.8em;">:fas-sync:</span>

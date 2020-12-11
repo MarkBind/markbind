@@ -1,7 +1,5 @@
 <frontmatter>
   title: "Generate More Dynamic Websites from Markdown Text"
-  header: header.md
-  footer: footer.md
 </frontmatter>
 
 <div tags="environment--ug">

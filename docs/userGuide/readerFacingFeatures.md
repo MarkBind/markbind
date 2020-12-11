@@ -1,6 +1,6 @@
 <frontmatter>
   title: "User Guide: Reader-Facing Features"
-  layout: userGuide
+  layout: userGuide.md
 </frontmatter>
 
 # Reader-Facing Features

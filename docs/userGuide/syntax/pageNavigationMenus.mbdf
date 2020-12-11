@@ -1,15 +1,27 @@
 ## Page Navigation Menus
 
-**A _Page Navigation Menu_ (==_pageNav_ for short==) is a fixed menu on the ==right edge== of your page contents**. You can use a pageNav to show a list of the current page's headings.
+<div id="content">
 
-Steps to add a pageNav:
-1. Specify your pageNav within the `<frontmatter>` of a page with <tooltip content="The value `default` will use `headingIndexingLevel` within `site.json`.">`"default"`</tooltip> or a <tooltip content="HTML defines six levels of headings, numbered from <br>`1 to 6`.">`heading level`</tooltip>.
-2. (Optional) You may also specify a page navigation title within `<frontmatter>` that will be placed at the top of the page navigation menu.
+**A _Page Navigation Menu_ (==_pageNav_ for short==)  a list of the current page's headings.** Page navigation menus are only available for use in [layouts]({{baseUrl}}/userGuide/tweakingThePageStructure.html#layouts).
 
-<div class="indented">
+****Adding a pageNav****
+
+1. **Specify the smallest heading level you want to be included** within the `<frontmatter>` of a page with <tooltip content="The value `default` will use `headingIndexingLevel` within `site.json`.">`"default"`</tooltip> or a <tooltip content="HTML defines six levels of headings, numbered from <br>`1 to 6`.">`heading level`</tooltip>.
+
+   <box type="info" seamless>
+
+   The `default` level uses the [`headingIndexingLevel` property]({{baseUrl}}/userGuide/siteJsonFile.html#headingindexinglevel) of your site configuration file.
+   </box>
+
+2. **(Optional) You may also specify a page navigation title** within `<frontmatter>` that will be placed at the top of the page navigation menu.
+
+3. **Position the page navigation menu** within your layout using the `{% raw %}{{ pageNav }}{% endraw %}` variable.
+
+<div id="short" class="indented">
 
 {{ icon_example }}
-In the page that you want to have page navigation:
+In the page that you want to have page navigation, you may show only `<h1>` and `<h2>` headings in the pageNav, and set a custom pageNav title like so:
+
 ```html
 <frontmatter>
   pageNav: 2
@@ -17,20 +29,21 @@ In the page that you want to have page navigation:
 </frontmatter>
 ```
 
-The example above will create a page navigation containing only heading levels of `1 and 2`.
+Then, in your [layout file]({{baseUrl}}/userGuide/tweakingThePageStructure.html#layouts), use the `{% raw %}{{ pageNav }}{% endraw %}` variable to position the pageNav.
+
+{% if not doNotShowPageNav %}
+{{ icon_example }} <trigger for="modal:page-nav-example">Example usage of the `{% raw %}{{ pageNav }}{% endraw %}` variable</trigger>
+
+<modal header="Using the `pageNav` variable in a layout" id="modal:page-nav-example" large>
+<include src="../tweakingThePageStructure.md#layout-code-snippet">
+<variable name="highlightLines">54</variable>
+</include>
+</modal>
+{% endif %}
+
 </div>
 
-A pageNav has a fixed width of 300 pixels for its contents. It is [_responsive_](https://www.w3schools.com/html/html_responsive.asp) by design and will be completely hidden when the screen size is smaller than 1300 pixels.
-
-<span id="short" class="d-none">
-
-```html
-<frontmatter>
-  pageNav: 2
-  pageNavTitle: "Chapters of This Page"
-</frontmatter>
-```
-</span>
+</div>
 
 <span id="examples" class="d-none">
 
