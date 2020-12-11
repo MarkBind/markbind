@@ -1,10 +1,12 @@
 <template>
-  <div :class="['alert box-container', containerStyle(), addClass]" :style="customStyle()">
-    <!-- Header wrapper, not rendered if there is no header attribute -->
-    <div v-if="headerBool()" :class="['box-header-wrapper', { 'alert-dismissible': dismissible }]">
+  <div
+    :class="['alert box-container', containerStyle(), addClass]"
+    :style="customStyle()"
+  >
+    <div style="display: flex; flex-direction: row;">
       <!-- icon on the left of the header -->
       <div
-        v-if="iconBool()"
+        v-if="iconBool() && headerBool()"
         :class="['icon-wrapper', iconStyle()]"
         :style="customIconColorStyle()"
       >
@@ -12,81 +14,95 @@
           <i :class="['fas', getFontAwesomeIconStyle()]"></i>
         </slot>
       </div>
-
-      <!-- header -->
-      <div class="box-header">
-        <slot name="_header"></slot>
-      </div>
-
-      <!-- dismiss button to the right of the header -->
-      <button
-        v-if="dismissible"
-        type="button"
-        class="close close-with-heading"
-        data-dismiss="alert"
-        aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-
-    <!-- Header wrapper -- body wrapper divider for seamless boxes with the header attribute -->
-    <div
-      v-if="horizontalDividerBool()"
-      class="horizontal-divider"
-      :class="getBootstrapAlertStyle()"
-      aria-hidden="true"
-    ></div>
-
-    <!-- Body wrapper -->
-    <div
-      :class="[
-        'box-body-wrapper',
-        {
-          'alert-dismissible': dismissible && !headerBool(),
-          'box-body-wrapper-with-heading': headerBool()
-        }]"
-    >
-      <!-- icon on the left, not shown if there is a header -->
-      <div
-        v-if="iconBool() && !headerBool()"
-        :class="['icon-wrapper', iconStyle()]"
-        :style="customIconColorStyle()"
-      >
-        <slot name="icon">
-          <i :class="['fas', getFontAwesomeIconStyle()]"></i>
-        </slot>
-      </div>
-
       <!-- Icon -- content divider for seamless boxes without the header attribute -->
       <div
-        v-if="verticalDividerBool()"
+        v-if="verticalDividerBoolForHeader()"
         class="vertical-divider"
         :class="getBootstrapAlertStyle()"
         aria-hidden="true"
       ></div>
+      <!-- Header wrapper, not rendered if there is no header attribute -->
+      <div>
+        <div
+          v-if="headerBool()"
+          :class="['box-header-wrapper', { 'alert-dismissible': dismissible }]"
+        >
+          <!-- header -->
+          <div class="box-header">
+            <slot name="_header"></slot>
+          </div>
 
-      <!-- Content wrapper -->
-      <div class="contents" :style="customColorStyle()">
-        <slot></slot>
+          <!-- dismiss button to the right of the header -->
+          <button
+            v-if="dismissible"
+            type="button"
+            class="close close-with-heading"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Header wrapper -- body wrapper divider for seamless boxes with the header attribute -->
+        <div
+          v-if="verticalDividerBoolForHeader()"
+          class="vertical-divider"
+          :class="getBootstrapAlertStyle()"
+          aria-hidden="true"
+        ></div>
+
+        <!-- Body wrapper -->
+        <div
+          :class="[
+            'box-body-wrapper',
+            {
+              'alert-dismissible': dismissible && !headerBool(),
+              'box-body-wrapper-with-heading': headerBool(),
+            },
+          ]"
+        >
+          <!-- icon on the left, not shown if there is a header -->
+          <div
+            v-if="iconBool() && !headerBool()"
+            :class="['icon-wrapper', iconStyle()]"
+            :style="customIconColorStyle()"
+          >
+            <slot name="icon">
+              <i :class="['fas', getFontAwesomeIconStyle()]"></i>
+            </slot>
+          </div>
+
+          <!-- Icon -- content divider for seamless boxes without the header attribute -->
+          <div
+            v-if="verticalDividerBool()"
+            class="vertical-divider"
+            :class="getBootstrapAlertStyle()"
+            aria-hidden="true"
+          ></div>
+
+          <!-- Content wrapper -->
+          <div class="contents" :style="customColorStyle()">
+            <slot></slot>
+          </div>
+
+          <!-- dismiss button on the right, not shown if there is a header -->
+          <button
+            v-if="dismissible && !headerBool()"
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       </div>
-
-      <!-- dismiss button on the right, not shown if there is a header -->
-      <button
-        v-if="dismissible && !headerBool()"
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
   props: {
     dismissible: {
@@ -123,11 +139,11 @@ export default {
     },
     type: {
       type: String,
-      default: '',
+      default: "",
     },
     addClass: {
       type: String,
-      default: '',
+      default: "",
     },
     light: {
       type: Boolean,
@@ -157,7 +173,7 @@ export default {
     verticalDividerBool() {
       return this.isSeamless() && !this.headerBool();
     },
-    horizontalDividerBool() {
+    verticalDividerBoolForHeader() {
       return this.isSeamless() && this.headerBool();
     },
     headerBool() {
@@ -174,17 +190,17 @@ export default {
       if (this.light) {
         containerStyle = `${this.getBootstrapBorderStyle()} alert-border-left`;
       } else if (this.seamless) {
-        containerStyle = 'seamless';
+        containerStyle = "seamless";
       } else {
         containerStyle = this.getBootstrapAlertStyle();
       }
 
       if (this.noBackground) {
-        containerStyle += ' no-background';
+        containerStyle += " no-background";
       }
 
       if (this.noBorder) {
-        containerStyle += ' no-border';
+        containerStyle += " no-border";
       }
 
       return containerStyle;
@@ -210,7 +226,7 @@ export default {
       return {};
     },
     iconStyle() {
-      let iconStyle = '';
+      let iconStyle = "";
       if (this.iconSize) {
         iconStyle += `fa-${this.iconSize}`;
       }
@@ -229,76 +245,76 @@ export default {
     },
     getBootstrapAlertStyle() {
       switch (this.type) {
-      case 'warning':
-        return 'alert-warning';
-      case 'info':
-        return 'alert-info';
-      case 'definition':
-        return 'alert-primary';
-      case 'success':
-      case 'tip':
-        return 'alert-success';
-      case 'important':
-      case 'wrong':
-        return 'alert-danger';
-      default:
-        return 'alert-default';
+        case "warning":
+          return "alert-warning";
+        case "info":
+          return "alert-info";
+        case "definition":
+          return "alert-primary";
+        case "success":
+        case "tip":
+          return "alert-success";
+        case "important":
+        case "wrong":
+          return "alert-danger";
+        default:
+          return "alert-default";
       }
     },
     getBootstrapTextStyle() {
       switch (this.type) {
-      case 'warning':
-        return 'text-warning';
-      case 'info':
-        return 'text-info';
-      case 'definition':
-        return 'text-primary';
-      case 'success':
-      case 'tip':
-        return 'text-success';
-      case 'important':
-      case 'wrong':
-        return 'text-danger';
-      default:
-        return '';
+        case "warning":
+          return "text-warning";
+        case "info":
+          return "text-info";
+        case "definition":
+          return "text-primary";
+        case "success":
+        case "tip":
+          return "text-success";
+        case "important":
+        case "wrong":
+          return "text-danger";
+        default:
+          return "";
       }
     },
     getBootstrapBorderStyle() {
       switch (this.type) {
-      case 'warning':
-        return 'border-warning';
-      case 'info':
-        return 'border-info';
-      case 'definition':
-        return 'border-primary';
-      case 'success':
-      case 'tip':
-        return 'border-success';
-      case 'important':
-      case 'wrong':
-        return 'border-danger';
-      default:
-        return '';
+        case "warning":
+          return "border-warning";
+        case "info":
+          return "border-info";
+        case "definition":
+          return "border-primary";
+        case "success":
+        case "tip":
+          return "border-success";
+        case "important":
+        case "wrong":
+          return "border-danger";
+        default:
+          return "";
       }
     },
     getFontAwesomeIconStyle() {
       switch (this.type) {
-      case 'wrong':
-        return 'fa-times';
-      case 'warning':
-        return 'fa-exclamation';
-      case 'info':
-        return 'fa-info';
-      case 'success':
-        return 'fa-check';
-      case 'important':
-        return 'fa-flag';
-      case 'tip':
-        return 'fa-lightbulb';
-      case 'definition':
-        return 'fa-atlas';
-      default:
-        return '';
+        case "wrong":
+          return "fa-times";
+        case "warning":
+          return "fa-exclamation";
+        case "info":
+          return "fa-info";
+        case "success":
+          return "fa-check";
+        case "important":
+          return "fa-flag";
+        case "tip":
+          return "fa-lightbulb";
+        case "definition":
+          return "fa-atlas";
+        default:
+          return "";
       }
     },
   },
@@ -306,120 +322,114 @@ export default {
 </script>
 
 <style scoped>
-    .box-container {
-        width: 100%;
-        padding: 0;
-        border-radius: 6px;
-    }
+.box-container {
+  width: 100%;
+  padding: 0;
+  border-radius: 6px;
+}
 
-    .box-header-wrapper {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        width: 100%;
-        padding: 0.4rem 1.25rem 0.28rem 1.25rem;
-        border-radius: 6px 6px 0 0;
-    }
+.box-header-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  padding: 0.4rem 1.25rem 0.28rem 1.25rem;
+  border-radius: 6px 6px 0 0;
+}
 
-    .box-body-wrapper {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        padding: 0.75rem 1.25rem;
-    }
+.box-body-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+}
 
-    .box-container.seamless > .box-body-wrapper {
-        padding: 0.75rem 0.5rem;
-    }
+.box-container.seamless > .box-body-wrapper {
+  padding: 0.75rem 0.5rem;
+}
 
-    .box-container.seamless > div.box-body-wrapper > .contents {
-        padding-left: 12px;
-    }
+.box-container.seamless > div.box-body-wrapper > .contents {
+  padding-left: 12px;
+}
 
-    .heading {
-        display: inline;
-        float: right;
-        font-weight: normal;
-        color: inherit;
-        background-color: rgba(240, 240, 240, 0.6);
-        width: auto;
-        padding: 3px 5px 4px 5px;
-        border-width: 0;
-        border-radius: 0 6px 0 6px;
-        margin: -13px -27px 0 15px;
-    }
+.heading {
+  display: inline;
+  float: right;
+  font-weight: normal;
+  color: inherit;
+  background-color: rgba(240, 240, 240, 0.6);
+  width: auto;
+  padding: 3px 5px 4px 5px;
+  border-width: 0;
+  border-radius: 0 6px 0 6px;
+  margin: -13px -27px 0 15px;
+}
 
-    .box-body-wrapper-with-heading {
-        padding-top: 0.5rem;
-    }
+.box-body-wrapper-with-heading {
+  padding-top: 0.5rem;
+}
 
-    .alert-dismissible {
-        padding-right: 4rem;
-    }
+.alert-dismissible {
+  padding-right: 4rem;
+}
 
-    .box-header {
-        font-weight: 500;
-    }
+.box-header {
+  font-weight: 500;
+}
 
-    .icon-wrapper {
-        display: inline;
-        text-align: center;
-        margin-right: 0.5em;
-        min-width: 1em;
-    }
+.icon-wrapper {
+  display: inline;
+  text-align: center;
+  margin-right: 0.5em;
+  min-width: 1em;
+}
 
-    .close-with-heading {
-        top: auto;
-        padding: 0 1.25rem;
-    }
+.close-with-heading {
+  top: auto;
+  padding: 0 1.25rem;
+}
 
-    .close-with-heading > span {
-        vertical-align: text-top;
-    }
+.close-with-heading > span {
+  vertical-align: text-top;
+}
 
-    .contents {
-        padding: 0 6px;
-        width: 100%;
-    }
+.contents {
+  padding: 0 6px;
+  width: 100%;
+}
 
-    .contents > :last-child {
-        margin-bottom: 0;
-    }
+.contents > :last-child {
+  margin-bottom: 0;
+}
 
-    .alert-default {
-        color: #24292e;
-        background-color: #f6f8fa;
-        border-color: #e8ebef;
-    }
+.alert-default {
+  color: #24292e;
+  background-color: #f6f8fa;
+  border-color: #e8ebef;
+}
 
-    .alert-border-left {
-        background-color: #f9f8f8;
-        border-left: solid;
-        border-width: 0px 0px 0px 5px;
-    }
+.alert-border-left {
+  background-color: #f9f8f8;
+  border-left: solid;
+  border-width: 0px 0px 0px 5px;
+}
 
-    .vertical-divider {
-        width: 4px;
-    }
+.vertical-divider {
+  width: 4px;
+}
 
-    .horizontal-divider {
-        margin: 0 auto;
-        width: calc(100% - 2.5rem);
-        height: 3px;
-    }
+.no-background {
+  background: none;
+}
 
-    .no-background {
-      background: none;
-    }
-
-    .no-border {
-      border: none;
-    }
+.no-border {
+  border: none;
+}
 </style>
 
 <!-- TODO move this once we upgrade vue-loader version for scoped deep selectors -->
 <style>
-    div.box-header > * {
-        margin-bottom: 0;
-    }
+div.box-header > * {
+  margin-bottom: 0;
+}
 </style>

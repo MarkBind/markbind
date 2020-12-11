@@ -5,22 +5,32 @@ exports[`TipBox having custom background color renders correctly 1`] = `
   class="alert box-container alert-default"
   style="background-color: white; border-color: white;"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
     <!---->
      
     <!---->
      
-    <div
-      class="contents"
-    />
-     
-    <!---->
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <!---->
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
+    </div>
   </div>
 </div>
 `;
@@ -30,22 +40,32 @@ exports[`TipBox having custom border color renders correctly 1`] = `
   class="alert box-container alert-default"
   style="border: 1px solid grey;"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
     <!---->
      
     <!---->
      
-    <div
-      class="contents"
-    />
-     
-    <!---->
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <!---->
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
+    </div>
   </div>
 </div>
 `;
@@ -55,22 +75,32 @@ exports[`TipBox having custom border left color renders correctly 1`] = `
   class="alert box-container alert-default"
   style="border-left: 5px solid blue;"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
     <!---->
      
     <!---->
      
-    <div
-      class="contents"
-    />
-     
-    <!---->
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <!---->
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
+    </div>
   </div>
 </div>
 `;
@@ -79,24 +109,34 @@ exports[`TipBox of default type with content renders correctly  1`] = `
 <div
   class="alert box-container alert-default"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
     <!---->
      
     <!---->
      
-    <div
-      class="contents"
-    >
-      This is the default box
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <!---->
+         
+        <!---->
+         
+        <div
+          class="contents"
+        >
+          This is the default box
+        </div>
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
   </div>
 </div>
 `;
@@ -105,28 +145,38 @@ exports[`TipBox of definition type light style renders correctly 1`] = `
 <div
   class="alert box-container border-primary alert-border-left"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
-    <div
-      class="icon-wrapper  text-primary"
-    >
-      <i
-        class="fas fa-atlas"
-      />
+    <!---->
+     
+    <!---->
+     
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <div
+          class="icon-wrapper  text-primary"
+        >
+          <i
+            class="fas fa-atlas"
+          />
+        </div>
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -135,28 +185,38 @@ exports[`TipBox of definition type renders correctly 1`] = `
 <div
   class="alert box-container alert-primary"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
-    <div
-      class="icon-wrapper"
-    >
-      <i
-        class="fas fa-atlas"
-      />
+    <!---->
+     
+    <!---->
+     
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <div
+          class="icon-wrapper"
+        >
+          <i
+            class="fas fa-atlas"
+          />
+        </div>
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -165,28 +225,38 @@ exports[`TipBox of important type light style renders correctly 1`] = `
 <div
   class="alert box-container border-danger alert-border-left"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
-    <div
-      class="icon-wrapper  text-danger"
-    >
-      <i
-        class="fas fa-flag"
-      />
+    <!---->
+     
+    <!---->
+     
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <div
+          class="icon-wrapper  text-danger"
+        >
+          <i
+            class="fas fa-flag"
+          />
+        </div>
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -195,28 +265,38 @@ exports[`TipBox of important type renders correctly 1`] = `
 <div
   class="alert box-container alert-danger"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
-    <div
-      class="icon-wrapper"
-    >
-      <i
-        class="fas fa-flag"
-      />
+    <!---->
+     
+    <!---->
+     
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <div
+          class="icon-wrapper"
+        >
+          <i
+            class="fas fa-flag"
+          />
+        </div>
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -225,28 +305,38 @@ exports[`TipBox of info type light style renders correctly 1`] = `
 <div
   class="alert box-container border-info alert-border-left"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
-    <div
-      class="icon-wrapper  text-info"
-    >
-      <i
-        class="fas fa-info"
-      />
+    <!---->
+     
+    <!---->
+     
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <div
+          class="icon-wrapper  text-info"
+        >
+          <i
+            class="fas fa-info"
+          />
+        </div>
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -255,28 +345,38 @@ exports[`TipBox of info type renders correctly 1`] = `
 <div
   class="alert box-container alert-info"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
-    <div
-      class="icon-wrapper"
-    >
-      <i
-        class="fas fa-info"
-      />
+    <!---->
+     
+    <!---->
+     
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <div
+          class="icon-wrapper"
+        >
+          <i
+            class="fas fa-info"
+          />
+        </div>
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -285,25 +385,35 @@ exports[`TipBox of seamless style renders correctly 1`] = `
 <div
   class="alert box-container seamless"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
     <!---->
      
-    <div
-      aria-hidden="true"
-      class="vertical-divider alert-default"
-    />
-     
-    <div
-      class="contents"
-    />
-     
     <!---->
+     
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <!---->
+         
+        <div
+          aria-hidden="true"
+          class="vertical-divider alert-default"
+        />
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
+    </div>
   </div>
 </div>
 `;
@@ -312,28 +422,38 @@ exports[`TipBox of success type light style renders correctly 1`] = `
 <div
   class="alert box-container border-success alert-border-left"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
-    <div
-      class="icon-wrapper  text-success"
-    >
-      <i
-        class="fas fa-check"
-      />
+    <!---->
+     
+    <!---->
+     
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <div
+          class="icon-wrapper  text-success"
+        >
+          <i
+            class="fas fa-check"
+          />
+        </div>
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -342,28 +462,38 @@ exports[`TipBox of success type renders correctly 1`] = `
 <div
   class="alert box-container alert-success"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
-    <div
-      class="icon-wrapper"
-    >
-      <i
-        class="fas fa-check"
-      />
+    <!---->
+     
+    <!---->
+     
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <div
+          class="icon-wrapper"
+        >
+          <i
+            class="fas fa-check"
+          />
+        </div>
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -372,28 +502,38 @@ exports[`TipBox of tip type light style renders correctly 1`] = `
 <div
   class="alert box-container border-success alert-border-left"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
-    <div
-      class="icon-wrapper  text-success"
-    >
-      <i
-        class="fas fa-lightbulb"
-      />
+    <!---->
+     
+    <!---->
+     
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <div
+          class="icon-wrapper  text-success"
+        >
+          <i
+            class="fas fa-lightbulb"
+          />
+        </div>
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -402,28 +542,38 @@ exports[`TipBox of tip type renders correctly 1`] = `
 <div
   class="alert box-container alert-success"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
-    <div
-      class="icon-wrapper"
-    >
-      <i
-        class="fas fa-lightbulb"
-      />
+    <!---->
+     
+    <!---->
+     
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <div
+          class="icon-wrapper"
+        >
+          <i
+            class="fas fa-lightbulb"
+          />
+        </div>
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -432,28 +582,38 @@ exports[`TipBox of warning type light style renders correctly 1`] = `
 <div
   class="alert box-container border-warning alert-border-left"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
-    <div
-      class="icon-wrapper  text-warning"
-    >
-      <i
-        class="fas fa-exclamation"
-      />
+    <!---->
+     
+    <!---->
+     
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <div
+          class="icon-wrapper  text-warning"
+        >
+          <i
+            class="fas fa-exclamation"
+          />
+        </div>
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -462,28 +622,38 @@ exports[`TipBox of warning type renders correctly 1`] = `
 <div
   class="alert box-container alert-warning"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
-    <div
-      class="icon-wrapper"
-    >
-      <i
-        class="fas fa-exclamation"
-      />
+    <!---->
+     
+    <!---->
+     
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <div
+          class="icon-wrapper"
+        >
+          <i
+            class="fas fa-exclamation"
+          />
+        </div>
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -492,28 +662,38 @@ exports[`TipBox of wrong type light style renders correctly 1`] = `
 <div
   class="alert box-container border-danger alert-border-left"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
-    <div
-      class="icon-wrapper  text-danger"
-    >
-      <i
-        class="fas fa-times"
-      />
+    <!---->
+     
+    <!---->
+     
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <div
+          class="icon-wrapper  text-danger"
+        >
+          <i
+            class="fas fa-times"
+          />
+        </div>
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -522,28 +702,38 @@ exports[`TipBox of wrong type renders correctly 1`] = `
 <div
   class="alert box-container alert-danger"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
-    <div
-      class="icon-wrapper"
-    >
-      <i
-        class="fas fa-times"
-      />
+    <!---->
+     
+    <!---->
+     
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <div
+          class="icon-wrapper"
+        >
+          <i
+            class="fas fa-times"
+          />
+        </div>
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -552,32 +742,43 @@ exports[`TipBox with custom color renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
     <!---->
      
     <!---->
      
-    <div
-      class="contents"
-      style="color: pink;"
-    />
-     
-    <!---->
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <!---->
+         
+        <!---->
+         
+        <div
+          class="contents"
+          style="color: pink;"
+        />
+         
+        <!---->
+      </div>
+    </div>
   </div>
 </div>
 `;
+
 exports[`TipBox with custom icon color and header renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
 >
   <div
-    class="box-header-wrapper"
+    style="display: flex; flex-direction: row;"
   >
     <div
       class="icon-wrapper"
@@ -586,29 +787,37 @@ exports[`TipBox with custom icon color and header renders correctly 1`] = `
       :fas-plus:
     </div>
      
-    <div
-      class="box-header"
-    >
-      A header
+    <!---->
+     
+    <div>
+      <div
+        class="box-header-wrapper"
+      >
+        <div
+          class="box-header"
+        >
+          A header
+        </div>
+         
+        <!---->
+      </div>
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper box-body-wrapper-with-heading"
+      >
+        <!---->
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
-  </div>
-   
-  <!---->
-   
-  <div
-    class="box-body-wrapper box-body-wrapper-with-heading"
-  >
-    <!---->
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -617,63 +826,82 @@ exports[`TipBox with custom icon color and no header renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
-    <div
-      class="icon-wrapper"
-      style="color: red;"
-    >
-      :fas-plus:
+    <!---->
+     
+    <!---->
+     
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <div
+          class="icon-wrapper"
+          style="color: red;"
+        >
+          :fas-plus:
+        </div>
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
-
 
 exports[`TipBox with dismissible option renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper alert-dismissible"
+    style="display: flex; flex-direction: row;"
   >
     <!---->
      
     <!---->
      
-    <div
-      class="contents"
-    />
-     
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      type="button"
-    >
-      <span
-        aria-hidden="true"
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper alert-dismissible"
       >
-        ×
-      </span>
-    </button>
+        <!---->
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <button
+          aria-label="Close"
+          class="close"
+          data-dismiss="alert"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+          >
+            ×
+          </span>
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 `;
@@ -683,33 +911,41 @@ exports[`TipBox with header renders correctly 1`] = `
   class="alert box-container alert-default"
 >
   <div
-    class="box-header-wrapper"
+    style="display: flex; flex-direction: row;"
   >
     <!---->
      
-    <div
-      class="box-header"
-    >
-      A header
+    <!---->
+     
+    <div>
+      <div
+        class="box-header-wrapper"
+      >
+        <div
+          class="box-header"
+        >
+          A header
+        </div>
+         
+        <!---->
+      </div>
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper box-body-wrapper-with-heading"
+      >
+        <!---->
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
-  </div>
-   
-  <!---->
-   
-  <div
-    class="box-body-wrapper box-body-wrapper-with-heading"
-  >
-    <!---->
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -718,26 +954,36 @@ exports[`TipBox with icon and icon-size renders correctly 1`] = `
 <div
   class="alert box-container alert-info"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
-    <div
-      class="icon-wrapper fa-2x"
-    >
-      :rocket:
+    <!---->
+     
+    <!---->
+     
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <div
+          class="icon-wrapper fa-2x"
+        >
+          :rocket:
+        </div>
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -746,26 +992,36 @@ exports[`TipBox with icon renders correctly 1`] = `
 <div
   class="alert box-container alert-info"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
-    <div
-      class="icon-wrapper"
-    >
-      :rocket:
+    <!---->
+     
+    <!---->
+     
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <div
+          class="icon-wrapper"
+        >
+          :rocket:
+        </div>
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -774,22 +1030,32 @@ exports[`TipBox with no-background option renders correctly 1`] = `
 <div
   class="alert box-container alert-default no-background"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
     <!---->
      
     <!---->
      
-    <div
-      class="contents"
-    />
-     
-    <!---->
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <!---->
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
+    </div>
   </div>
 </div>
 `;
@@ -798,22 +1064,32 @@ exports[`TipBox with no-border option renders correctly 1`] = `
 <div
   class="alert box-container alert-default no-border"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
     <!---->
      
     <!---->
      
-    <div
-      class="contents"
-    />
-     
-    <!---->
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <!---->
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
+    </div>
   </div>
 </div>
 `;
@@ -822,22 +1098,32 @@ exports[`TipBox with no-icon option renders correctly 1`] = `
 <div
   class="alert box-container alert-success"
 >
-  <!---->
-   
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    style="display: flex; flex-direction: row;"
   >
     <!---->
      
     <!---->
      
-    <div
-      class="contents"
-    />
-     
-    <!---->
+    <div>
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="box-body-wrapper"
+      >
+        <!---->
+         
+        <!---->
+         
+        <div
+          class="contents"
+        />
+         
+        <!---->
+      </div>
+    </div>
   </div>
 </div>
 `;
