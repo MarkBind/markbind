@@ -26,7 +26,7 @@ Should you need more expressive formatting, or encounter any issues when formatt
 **Page properties:**
 
 * **`title`**: The title of the page. Will be used as the `<title>` attribute of the HTML page generated.
-* Other properties such as `keywords`, `layout`, `head` etc. will be explained in other places of this user guide.
+* Other properties such as `keywords`, `layout`, etc. will be explained in other places of this user guide.
 
 <include src="../siteJsonFile.md#page-property-overriding" />
 

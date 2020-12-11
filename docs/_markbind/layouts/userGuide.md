@@ -1,7 +1,12 @@
-<navigation>
+<include src="headers/header.mbdf" />
 
-<span style="font-weight: bolder; font-size: 1.25em;">User Guide</span>
-
+<div id="flex-body">
+  <nav id="site-nav" class="fixed-header-padding">
+    <div class="site-nav-top">
+      <div class="font-weight-bold mb-2" style="font-size: 1.25rem;">User Guide</div>
+    </div>
+    <div class="nav-component slim-scroll">
+      <site-nav>
 * [**Getting Started**]({{baseUrl}}/userGuide/gettingStarted.html)
 * **Authoring Contents** :expanded:
   * [Overview]({{baseUrl}}/userGuide/authoringContents.html)
@@ -28,4 +33,17 @@
   * [`site.json` File]({{baseUrl}}/userGuide/siteJsonFile.html)
   * [Tips & Tricks]({{baseUrl}}/userGuide/tipsAndTricks.html)
   * [Glossary]({{baseUrl}}/userGuide/glossary.html)
-</navigation>
+      </site-nav>
+    </div>
+  </nav>
+  <div id="content-wrapper" class="fixed-header-padding">
+    {{ content }}
+  </div>
+  <nav id="page-nav" class="fixed-header-padding">
+    <div class="nav-component slim-scroll">
+      {{ pageNav }}
+    </div>
+  </nav>
+</div>
+
+<include src="footers/footer.mbdf" />

@@ -1,7 +1,5 @@
 <frontmatter>
   title: "Showcase"
-  header: header.md
-  footer: footer.md
 </frontmatter>
 
 # Examples of MarkBind Websites

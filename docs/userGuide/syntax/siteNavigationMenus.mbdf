@@ -1,154 +1,40 @@
 ## Site Navigation Menus
 
-**A _Site Navigation Menu_ (==_siteNav_ for short==) is a fixed menu on the ==left edge== of a page**, that can be used to show a road map of the main pages of your site.
+<div id="content">
+
+**A _Site Navigation Menu_ (==_siteNav_ for short==) can be used to show a road map of the main pages of your site.**
 
 Steps to add a siteNav:
-1. Format your siteNav as an unordered Markdown list and save it inside the `_markbind/navigation` directory.
-2. Specify the file as the value of the `siteNav` attribute in the `<frontmatter>` of the page.
+1. Format your siteNav as an unordered Markdown list
+2. Include it under a `<site-nav>` element.
 
-<div class="indented">
+<div id="short">
 
-{{ icon_example }} Here is an example siteNav code saved in **`_markbind/navigation/`**`mySiteNav.md` file:
-
-```{.no-line-numbers}
-* [:house: Home]({{ baseUrl }}/index.html)
-* ---
-* Docs
-  * [User Guide]({{ baseUrl }}/ug.html)
-  * [Dev Guide]({{ baseUrl }}/dg.html)
-* [Search]({{ baseUrl }}/search.html)
-  * [Google Search](https://www.google.com/)
-  * [YouTube Search](https://www.youtube.com/)
-* [Contact]({{ baseUrl }}/contact.html)
-```
-
-Here's how another page can make use of the above siteNav:
-
-```html
-<frontmatter>
-  siteNav: mySiteNav.md
-</frontmatter>
-...
-```
-
-And here's how the above siteNav would appear:
-
-<div style="width:300px;" class="mb-3">
-<ul class="site-nav-list site-nav-list-root">
-   <li>
-      <div onclick="handleSiteNavClick(this)" class="site-nav-list-item-content site-nav-list-item-content-0"><a href="/index.html">🏠 Home</a></div>
-   </li>
-   <li>
-      <hr>
-   </li>
-   <li>
-      <div onclick="handleSiteNavClick(this)" class="site-nav-list-item-content site-nav-list-item-content-0">Docs
-         <i onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();" class="site-nav-dropdown-btn-icon"><span aria-hidden="true" class="glyphicon glyphicon-menu-down"></span></i>
-      </div>
-      <ul class="site-nav-dropdown-container site-nav-list">
-         <li>
-            <div onclick="handleSiteNavClick(this)" class="site-nav-list-item-content site-nav-list-item-content-1"><a href="/ug.html">User Guide</a></div>
-         </li>
-         <li>
-            <div onclick="handleSiteNavClick(this)" class="site-nav-list-item-content site-nav-list-item-content-1"><a href="/dg.html">Dev Guide</a></div>
-         </li>
-      </ul>
-   </li>
-   <li>
-      <div onclick="handleSiteNavClick(this)" class="site-nav-list-item-content site-nav-list-item-content-0"><a href="/search.html">Search</a> <i onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();" class="site-nav-dropdown-btn-icon"><span aria-hidden="true" class="glyphicon glyphicon-menu-down"></span></i></div>
-      <ul class="site-nav-dropdown-container site-nav-list">
-         <li>
-            <div onclick="handleSiteNavClick(this)" class="site-nav-list-item-content site-nav-list-item-content-1"><a href="https://www.google.com/">Google Search</a></div>
-         </li>
-         <li>
-            <div onclick="handleSiteNavClick(this)" class="site-nav-list-item-content site-nav-list-item-content-1"><a href="https://www.youtube.com/">YouTube Search</a></div>
-         </li>
-      </ul>
-   </li>
-   <li>
-      <div onclick="handleSiteNavClick(this)" class="site-nav-list-item-content site-nav-list-item-content-0"><a href="/contact.html">Contact</a></div>
-   </li>
-</ul>
+<include src="codeAndOutput.md" boilerplate >
+<variable name="code">
+<site-nav>
+* [**Getting Started**]({{baseUrl}}/userGuide/gettingStarted.html)
+* **Authoring Contents** :expanded:
+  * [Overview]({{baseUrl}}/userGuide/authoringContents.html)
+  * [Adding Pages]({{baseUrl}}/userGuide/addingPages.html)
+  * [MarkBind Syntax Overview]({{baseUrl}}/userGuide/markBindSyntaxOverview.html)
+  * [Formatting Contents]({{baseUrl}}/userGuide/formattingContents.html)
+  * [Using Components]({{baseUrl}}/userGuide/usingComponents.html)
+</site-nav>
+</variable>
+</include>
 
 </div>
 
-
 MarkBind has styles nested lists with additional padding and smaller text sizes up to **4** nesting levels.
-Beyond that, you'd have to include your own styles!
+Beyond that, you'd have to include your own styles.
 
-More than one siteNav file can be in `_markbind/navigation/` directory but a page may not have more than one siteNav.
-
-A siteNav has a fixed width of `300` pixels for its contents. A siteNav is [_responsive_](https://www.w3schools.com/html/html_responsive.asp) in that it will collapse to a menu button when the screen width is smaller than `992` pixels. It will then be completely hidden when the screen size is smaller than `576` pixels.
-
-If you wish to use a Layout but exclude its navigation file, specify `siteNav: none` in the `<frontmatter>` of the page.
-
-
-#### Expanding menu items by default
+****Expanding menu items by default****
 
 You can **append the `:expanded:` to a <tooltip content="a menu item with sub menu-items">parent menu item</tooltip> to make it expand by default.** In the example above, `* Docs :expanded:` will make the menu item `Docs` expand by default.
 
 A parent menu item that is also linked will not be collapsible %%e.g., the `Search` menu item in the above example%%.
 
-#### Additional content in site navs
-
-You may have additional HTML and Markdown content in a <tooltip content="the file containing the code for a site navigation menu, e.g., `mySiteNav.md` in the example above">siteNav file</tooltip>, in which case the code for the siteNav should be enclosed in a `<navigation>` tag. There should only be one `<navigation>` tag in the file.
-
-<div class="indented">
-
-{{ icon_example }} To include a heading for the site nav,
-
-```{.no-line-numbers}
-# Site Map
-
-<navigation>
-* [:house: Home]({{ baseUrl }}/index.html)
-* ---
-* Docs
-...
-</navigation>
-```
-
 </div>
 
-You can also include additional content between navigation items, such as [horizontal dividers.]({{ baseUrl }}/userGuide/readerFacingFeatures.html#horizontal-rules)
-Just be sure to include it as a list item as well!
-
-<div class="indented">
-
-{{ icon_example }} Inserting a horizontal divider:
-
-```
-* [:house: Home]({{ baseUrl }}/index.html)
-* ---
-* Docs
-...
-```
-
-</div>
-
-<span id="short" class="d-none">
-
-```{.no-line-numbers}
-# Site Map
-<navigation>
-* [:house: Home]({{ baseUrl }}/index.html)
-* Docs :expanded:
-  * [User Guide]({{ baseUrl }}/ug.html)
-  * [Dev Guide]({{ baseUrl }}/dg.html)
-* [Search]({{ baseUrl }}/search.html)
-</navigation>
-```
-
-```html
-<frontmatter>
-  siteNav: mySiteNav.md
-</frontmatter>
-...
-```
-</span>
-
-<span id="examples" class="d-none">
-
-You can see an example of a Page Navigation Bar ==on the left side== of <a target="_blank" href="{{ baseUrl }}/userGuide/formattingContents.html">this page</a>.
-
-</span>
+<div id="examples"></div>

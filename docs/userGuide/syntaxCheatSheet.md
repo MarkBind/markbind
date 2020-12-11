@@ -1,6 +1,6 @@
 <frontmatter>
   title: "User Guide: Syntax Cheat Sheet"
-  layout: userGuide
+  layout: userGuide.md
 </frontmatter>
 
 # Syntax Cheat Sheet

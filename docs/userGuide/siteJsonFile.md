@@ -1,6 +1,6 @@
 <frontmatter>
   title: "site.json File"
-  layout: userGuide
+  layout: userGuide.md
   keywords: site.json
 </frontmatter>
 

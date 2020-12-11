@@ -2,7 +2,7 @@
 
 You can prepend the heading text with 1-6 `#` characters to indicate headings of levels 1-6.
 
-<span id="main-example">
+<div id="main-example">
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
@@ -11,7 +11,7 @@ You can prepend the heading text with 1-6 `#` characters to indicate headings of
 ###### Heading level 6
 </variable>
 </include>
-</span>
+</div>
 
 {{ icon_info }} **MarkBind auto-generates anchors for all headings.**<br>
 If the heading text is `Foo Bar (Goo)`, the ID of the generated anchor will be `foo-bar-goo` (all lower case, special characters omitted, joined by `-`).

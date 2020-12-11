@@ -3,7 +3,7 @@
 
 <frontmatter>
   title: "{{ title }}"
-  layout: devGuide
+  layout: devGuide.md
 </frontmatter>
 
 <h1 class="display-3">Developer guide</h1>

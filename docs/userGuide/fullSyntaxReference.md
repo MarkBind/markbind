@@ -1,6 +1,6 @@
 <frontmatter>
   title: "User Guide: Full Syntax Reference"
-  layout: userGuide
+  layout: userGuide.md
 </frontmatter>
 
 # Full Syntax Reference
@@ -28,8 +28,6 @@
   frontmatter : ['Front Matter', ['other']],
   includes : ['Includes', ['other']],
   keywords : ['Keywords', ['other']],
-  pageHead : ['Page Head', ['other']],
-  pageLayouts : ['Page Layouts', ['other']],
   tags : ['Tags', ['other']],
   variables : ['Variables', ['other']],
 
@@ -37,20 +35,18 @@
   boxes : ['Boxes', ['component', 'reader-facing']],
   diagrams : ['Diagrams', ['component', 'reader-facing']],
   dropdowns : ['Dropdowns', ['component', 'reader-facing']],
-  footers : ['Footers', ['other', 'reader-facing']],
-  headers: ['Headers', ['other', 'reader-facing']],
   modals : ['Modals', ['component', 'reader-facing']],
   navBars : ['Nav Bars', ['component', 'reader-facing']],
-  pageNavigationMenus : ['Page Navigation Menus', ['component', 'reader-facing']],
   panels : ['Panels', ['component', 'reader-facing']],
   pictures : ['Pictures', ['component', 'reader-facing']],
   popovers : ['Popovers', ['component', 'reader-facing']],
   questions : ['Questions and Quizzes', ['component', 'reader-facing']],
   searchBars : ['Search Bars', ['component', 'reader-facing']],
-  siteNavigationMenus : ['Site Navigation Menus', ['component', 'reader-facing']],
   tabs : ['Tabs', ['component', 'reader-facing']],
   thumbnails : ['Thumbnails', ['component', 'reader-facing']],
-  tooltips : ['Tooltips', ['component', 'reader-facing']]
+  tooltips : ['Tooltips', ['component', 'reader-facing']],
+  siteNavigationMenus : ['Site Navigation Menus', ['component', 'reader-facing']],
+  pageNavigationMenus : ['Page Navigation Menus', ['component', 'reader-facing']]
 } %}
 
 {% for topic in syntax_topics | dictsort %}

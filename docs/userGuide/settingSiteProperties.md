@@ -4,7 +4,7 @@
 
 <frontmatter>
   title: "User Guide: {{ title }}"
-  layout: userGuide
+  layout: userGuide.md
 </frontmatter>
 {% from "njk/common.njk" import embed, previous_next %}
 

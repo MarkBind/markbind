@@ -3,7 +3,7 @@
 
 <frontmatter>
   title: "User Guide: {{ title | safe }}"
-  layout: userGuide
+  layout: userGuide.md
 </frontmatter>
 
 # {{ title | safe }}
