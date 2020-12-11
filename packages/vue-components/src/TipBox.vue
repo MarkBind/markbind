@@ -139,11 +139,11 @@ export default {
     },
     type: {
       type: String,
-      default: "",
+      default: '',
     },
     addClass: {
       type: String,
-      default: "",
+      default: '',
     },
     light: {
       type: Boolean,
@@ -190,17 +190,17 @@ export default {
       if (this.light) {
         containerStyle = `${this.getBootstrapBorderStyle()} alert-border-left`;
       } else if (this.seamless) {
-        containerStyle = "seamless";
+        containerStyle = 'seamless';
       } else {
         containerStyle = this.getBootstrapAlertStyle();
       }
 
       if (this.noBackground) {
-        containerStyle += " no-background";
+        containerStyle += ' no-background';
       }
 
       if (this.noBorder) {
-        containerStyle += " no-border";
+        containerStyle += ' no-border';
       }
 
       return containerStyle;
@@ -226,7 +226,7 @@ export default {
       return {};
     },
     iconStyle() {
-      let iconStyle = "";
+      let iconStyle = '';
       if (this.iconSize) {
         iconStyle += `fa-${this.iconSize}`;
       }
@@ -245,76 +245,76 @@ export default {
     },
     getBootstrapAlertStyle() {
       switch (this.type) {
-        case "warning":
-          return "alert-warning";
-        case "info":
-          return "alert-info";
-        case "definition":
-          return "alert-primary";
-        case "success":
-        case "tip":
-          return "alert-success";
-        case "important":
-        case "wrong":
-          return "alert-danger";
-        default:
-          return "alert-default";
+      case 'warning':
+        return 'alert-warning';
+      case 'info':
+        return 'alert-info';
+      case 'definition':
+        return 'alert-primary';
+      case 'success':
+      case 'tip':
+        return 'alert-success';
+      case 'important':
+      case 'wrong':
+        return 'alert-danger';
+      default:
+        return 'alert-default';
       }
     },
     getBootstrapTextStyle() {
       switch (this.type) {
-        case "warning":
-          return "text-warning";
-        case "info":
-          return "text-info";
-        case "definition":
-          return "text-primary";
-        case "success":
-        case "tip":
-          return "text-success";
-        case "important":
-        case "wrong":
-          return "text-danger";
-        default:
-          return "";
+      case 'warning':
+        return 'text-warning';
+      case 'info':
+        return 'text-info';
+      case 'definition':
+        return 'text-primary';
+      case 'success':
+      case 'tip':
+        return 'text-success';
+      case 'important':
+      case 'wrong':
+        return 'text-danger';
+      default:
+        return '';
       }
     },
     getBootstrapBorderStyle() {
       switch (this.type) {
-        case "warning":
-          return "border-warning";
-        case "info":
-          return "border-info";
-        case "definition":
-          return "border-primary";
-        case "success":
-        case "tip":
-          return "border-success";
-        case "important":
-        case "wrong":
-          return "border-danger";
-        default:
-          return "";
+      case 'warning':
+        return 'border-warning';
+      case 'info':
+        return 'border-info';
+      case 'definition':
+        return 'border-primary';
+      case 'success':
+      case 'tip':
+        return 'border-success';
+      case 'important':
+      case 'wrong':
+        return 'border-danger';
+      default:
+        return '';
       }
     },
     getFontAwesomeIconStyle() {
       switch (this.type) {
-        case "wrong":
-          return "fa-times";
-        case "warning":
-          return "fa-exclamation";
-        case "info":
-          return "fa-info";
-        case "success":
-          return "fa-check";
-        case "important":
-          return "fa-flag";
-        case "tip":
-          return "fa-lightbulb";
-        case "definition":
-          return "fa-atlas";
-        default:
-          return "";
+      case 'wrong':
+        return 'fa-times';
+      case 'warning':
+        return 'fa-exclamation';
+      case 'info':
+        return 'fa-info';
+      case 'success':
+        return 'fa-check';
+      case 'important':
+        return 'fa-flag';
+      case 'tip':
+        return 'fa-lightbulb';
+      case 'definition':
+        return 'fa-atlas';
+      default:
+        return '';
       }
     },
   },
