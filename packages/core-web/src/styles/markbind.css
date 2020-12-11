@@ -463,8 +463,3 @@ button.copy-btn {
 .navbar.navbar-dark.bg-primary .navbar-nav .current {
     background: rgba(255, 255, 255, 0.05);
 }
-
-.dropdown-current {
-    color: #fff;
-    background: #007bff;
-}

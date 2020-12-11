@@ -127,6 +127,11 @@
       isExact(url, href) {
         return this.normalizeUrl(url) === this.normalizeUrl(href);
       },
+      addClassIfDropdown(dropdownLinks, a) {
+        if (dropdownLinks.includes(a)) {
+          a.classList.add('dropdown-current');
+        }
+      },
       highlightLink(url) {
         const defHlMode = this.defaultHighlightOn;
         const navLis = Array.from(this.$el.querySelector('.navbar-nav').children);
@@ -144,9 +149,7 @@
             // terminate early on an exact match
             if (this.isExact(url, a.href)) {
               li.classList.add('current');
-              if (dropdownLinks.includes(a)) {
-                a.classList.add('dropdown-current');
-              }
+              this.addClassIfDropdown(dropdownLinks, a);
               return;
             }
           }
@@ -165,25 +168,19 @@
             if (hlMode === 'sibling-or-child') {
               if (this.isSibling(url, a.href) || this.isChild(url, a.href)) {
                 li.classList.add('current');
-                if (dropdownLinks.includes(a)) {
-                  a.classList.add('dropdown-current');
-                }
+                this.addClassIfDropdown(dropdownLinks, a);
                 return;
               }
             } else if (hlMode === 'sibling') {
               if (this.isSibling(url, a.href)) {
                 li.classList.add('current');
-                if (dropdownLinks.includes(a)) {
-                  a.classList.add('dropdown-current');
-                }
+                this.addClassIfDropdown(dropdownLinks, a);
                 return;
               }
             } else if (hlMode === 'child') {
               if (this.isChild(url, a.href)) {
                 li.classList.add('current');
-                if (dropdownLinks.includes(a)) {
-                  a.classList.add('dropdown-current');
-                }
+                this.addClassIfDropdown(dropdownLinks, a);
                 return;
               }
             } else {
@@ -242,5 +239,10 @@
     position: fixed;
     width: 100%;
     z-index: 1000;
+  }
+
+  >>> .dropdown-current {
+    color: #fff;
+    background: #007bff;
   }
 </style>
