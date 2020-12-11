@@ -17,18 +17,37 @@ This page details the available interfaces you may use to write plugins.
 
 ![MarkBind Rendering]({{baseUrl}}/images/rendering.png)
 
-MarkBind provides two entry points for modifying the page, pre-render and post-render. These are controlled by implementing the `preRender()` and `postRender()` functions in the plugin:
+MarkBind provides two entry points for modifying the page generated - `processNode` and `postRender`.
 
-- `preRender(content, pluginContext, frontMatter)`: Called before MarkBind renders the source from Markdown to HTML.
-  - `content`: The raw Markdown of any Markdown file (`.md`, `.mbd`, etc.).
+`processNode` operates during the html processing stage of MarkBind, where each node (html element) processed is passed
+to the entry point.
+
+In most cases, this is sufficient, and more performant since this ties directly into MarkBind's html processing.
+
+However, if you need to operate on the page as a whole, or you need access to the front matter of the page, you may use the `postRender` interface instead, which operates on the html content after it is processed by MarkBind.
+
+- `processNode(pluginContext, node)`: Called before MarkBind renders the source from Markdown to HTML.
+  - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
+  - `node`: A [domhandler](https://github.com/fb55/domhandler) node object, which represents a html element.
+    This object may be directly manipulated for simple operations, or operated on using [cheerio](https://cheerio.js.org/).
+- `postRender(pluginContext, frontMatter, content)`: Called after the HTML is rendered
   - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
   - `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
-- `postRender(content, pluginContext, frontMatter)`: Called after the HTML is rendered, before writing it to a file.
   - `content`: The rendered HTML.
-  - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
-  - `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
+  - **Returns:** the post-processed html string
 
-MarkBind will call these functions with the respective content, and retrieve a string data that is used for the next step of the page generation process.
+<box type="info">
+
+Note that both of these interfaces are executed independently on a page, a layout or an
+<popover>
+<template slot="content">
+Something referenced by a panel with a `src` attribute (`<panel src="...">`).
+</template>
+external
+</popover>.
+
+That is, the dom tree being processed during `processNode` and the content passed into `postRender` will belong to either one of these types of files.
+</box>
 
 An example of a plugin is shown below. The plugin shows two ways of appending a paragraph of text to a specific `div` in the Markdown files:
 
@@ -38,11 +57,15 @@ An example of a plugin is shown below. The plugin shows two ways of appending a 
 const cheerio = module.parent.require('cheerio');
 
 module.exports = {
-  preRender: (content, pluginContext, frontMatter) => content.replace('[Pre-render Placeholder]', `${pluginContext.pre}`),
-  postRender: (content, pluginContext, frontMatter) => {
+  processNode: (pluginContext, node) => {
+    if (node.attribs.id === 'my-div') {
+      cheerio(node).append(pluginContext.content);
+    }
+  },
+  postRender: (pluginContext, frontMatter, content) => {
     const $ = cheerio.load(content, { xmlMode: false });
     // Modify the page...
-    $('#my-div').append(pluginContext.post);
+    $('#my-div').append(pluginContext.content);
     return $.html();
   },
 };
@@ -58,8 +81,7 @@ module.exports = {
   ],
   "pluginsContext": {
     "myPlugin": {
-      "pre": "<p>Hello</p>",
-      "post": "<p>Goodbye</p>"
+      "content": "<p>Hello World</p>",
     }
   }
 }
@@ -70,28 +92,23 @@ module.exports = {
 
 ...
 <div id="my-div">
-[Pre-render Placeholder]
 </div>
 ```
 
 ## Assets
 
-Plugins can implement the methods `getLinks` and `getScripts` to add additional assets to the page.
+Plugins can implement the methods `getLinks` and `getScripts` to add additional assets to any page.
 
-- `getLinks(content, pluginContext, frontMatter, utils)`: Called to get link elements to be added to the head of the page.
-  - `content`: The rendered HTML.
+- `getLinks(pluginContext, frontMatter, content)`: Called to get link elements to be added to the head of the page.
   - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
   - `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
-  - `utils`: Object containing the following utility functions
-    - `buildStylesheet(href)`: Builds a stylesheet link element with the specified `href`.
-  - Should return an array of strings containing link elements to be added.
-- `getScripts(content, pluginContext, frontMatter, utils)`: Called to get script elements to be added after the body of the page.
   - `content`: The rendered HTML.
+  - **Returns:** an array of strings containing link elements to be added.
+- `getScripts(pluginContext, frontMatter, content)`: Called to get script elements to be added after the body of the page.
   - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
   - `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
-  - `utils`: Object containing the following utility functions
-    - `buildScript(src)`: Builds a script element with the specified `src`.
-  - Should return an array of strings containing script elements to be added.
+  - `content`: The rendered HTML.
+  - **Returns:** an array of strings containing script elements to be added.
 
 <box type="success" header="Local assets">
 <md>
@@ -106,9 +123,11 @@ An example of a plugin which adds links and scripts to the page:
 // myPlugin.js
 
 module.exports = {
-  getLinks: (content, pluginContext, frontMatter, utils) => [utils.buildStylesheet('STYLESHEET_LINK')],
-  getScripts: (content, pluginContext, frontMatter, utils) =>
-    [utils.buildScript('SCRIPT_LINK'), '<script>alert("hello")</script>'],
+  getLinks: (pluginContext, frontMatter, content) => ['<link rel="STYLESHEET_LINK">'],
+  getScripts: (pluginContext, frontMatter, content) => [
+    '<script src="SCRIPT_LINK"></script>',
+    '<script>alert("hello")</script>'
+  ],
 };
 
 ```
@@ -118,59 +137,47 @@ This will add the following link and script elements to the page:
 - `<script src="SCRIPT_LINK"></script>`
 - `<script>alert("hello")</script>`
 
-## Live reload
+## Tag Behaviour
 
-By default, MarkBind treats `.html`, `.md`, `.mbd`, and `.mbdf` as source files, and will rebuild any
-pages changed when serving the page.
+MarkBind also provides several convenient interfaces that can be used alone, or in conjunction with the [rendering](#rendering) interfaces to modify how tags are processed.
 
-During the `preRender` and `postRender` stages however, plugins may do custom processing using some other
-source file types, as parsed from the raw Markdown, typically requiring rebuilding the site.
-
-Hence, to add custom source files to watch, you can implement the `getSources()` method.
-
-`getSources(content, pluginContext, frontMatter)`: Called _before_ a Markdown file's `preRender` function is called.
-- `content`: The raw Markdown of the current Markdown file (`.md`, `.mbd`, etc.).
-- `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
-- `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
-
-It should return an object, consisting of _at least one of the following fields_:
-- `tagMap`: An array consisting of `['tag name', 'source attribute name']` key value pairs.
-  - MarkBind will automatically search for matching tags with the source attributes, and watch them.
-  - For relative file paths, _if the tag is part of some included content_ ( eg. `<include />` tags ), it will be resolved against the included page. Otherwise, it is resolved against the page being processed.
-- `sources`: An array of source file paths to watch, where relative file paths are resolved only against the page being processed.
-- You can also directly return an array of source file paths to watch. ( ie. the `sources` field ) ___(deprecated)___
-
-Example usage of `getSources` from the PlantUML plugin, which allows insertion of PlantUML diagrams using `<puml src="..." >` tags.
-This allows files specified by the `src` attributes of `<puml>` tags to be watched:
+To use these interfaces, add the `tagConfig` property to your plugin export:
 
 ```js
-{
-  ...
-  getSources: () => ({
-    tagMap: [['puml', 'src']],
-  })
+module.exports = {
+  tagConfig: {
+    puml: {
+      isSpecial: true,
+      attributes: [
+        {
+          name: 'src',
+          isRelative: true,
+          isSourceFile: true,
+        },
+      ],
+    },
+  },
 }
 ```
 
-## Special tags
+**Tag Properties**
 
-By default, content in html tags are parsed as html and markdown.
+Tag properties are top-level properties of the tag configuration object. The following table lists what these properties are used for:
 
-However, you might want to create a plugin that has certain special tags containing conflicting syntax
-you do not wish to be parsed as html or markdown.
+Property | Values | Default | Remarks
+:----- | ------- | ---- | ----
+`isSpecial` | `true` or `false` | `false` | Allows configuring whether any tag is to be parsed "specially" like a `<script>` or `<style>` tag. This allows configuring custom tags that may contain conflicting syntax, such as the `<puml>` tag used for UML diagram generation.
+`attributes` | Array of attribute configurations | `[]` | Contains the attribute configurations of the tags.
 
-You can implement the `getSpecialTags` method to blacklist the content in these special tags from parsing,
-removing such potential conflicts.
+**Attribute Properties**
 
-- `getSpecialTags(pluginContext)`: Called during initial site generation to blacklist special tags.
-  - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
-  - Should return an array of string tag names to be blacklisted, with each tag name being at least 2 characters long.
+The following table lists what the possible properties for configuring the attributes of a tag, and what they are used for:
 
-<box type="important">
-
-Note however, that variable interpolation syntax {% raw %}`{{ variable_name }}`{% endraw %} will act as per normal.
-Meaning, the user would still be able to use variables in your special tags!
-</box>
+Property | Values | Default | Remarks
+:----- | ------- | ---- | ----
+`name` | attribute name | none | The string name of the attribute.
+`isRelative` | `true` or `false` | `false` | Should be `true` if this attribute may contain a relative link. This tells MarkBind to properly resolve such relative links when used in `<include>`s, by converting the link into a `baseUrl` preceded absolute link.
+`isSourceFile` | `true` or `false` | `false` | Should be `true` if the attribute points to a source file. This allows flagging other source files to trigger page regeneration during live reload.
 
 ## Lifecycle hooks
 
