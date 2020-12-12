@@ -35,6 +35,17 @@
 </variable>
 </include>
 
+**With `expand-headerless` attribute, you can set the Panel to not display the header when it is expanded.**
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+<panel header="This header will only show when the Panel is minimized" expand-headerless>
+  Lorem ipsum ...
+</panel>
+</variable>
+</include>
+
 **Panel provides many types that change its appearance.**
 
 <include src="codeAndOutput.md" boilerplate >
@@ -164,6 +175,7 @@ alt | `String` | Panel header | The clickable text on the minimised Panel. Suppo
 expandable | `Boolean`| `true` | Whether Panel is expandable.
 expanded | `Boolean` | `false` | Whether Panel is expanded or collapsed when loaded in.
 minimized | `Boolean` | `false` | Whether Panel is minimized.
+expand-headerless | `Boolean` | `false` | Whether to not display the header text when the Panel is expanded.
 no-close | `Boolean` | `false` | Whether to show the close button.
 no-switch | `Boolean` | `false` | Whether to show the expand switch.
 bottom-switch | `Boolean` | `true` | Whether to show an expand switch at the bottom of the panel. Independent of no-switch.
