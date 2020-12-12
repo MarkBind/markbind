@@ -3,7 +3,7 @@
     <div v-show="localMinimized" class="morph">
       <button :class="['morph-display-wrapper', 'btn', btnType, 'card-title']" @click="open()">
         <slot name="_alt">
-          <slot name="header"></slot>
+          <slot v-if="shouldShowHeader" name="header"></slot>
         </slot>
       </button>
     </div>
@@ -19,7 +19,7 @@
           ></span>
         </div>
         <div ref="headerWrapper" :class="['header-wrapper card-title', cardType, {'text-white':!isLightBg}]">
-          <slot name="header"></slot>
+          <slot v-if="shouldShowHeader" name="header"></slot>
         </div>
         <div class="button-wrapper">
           <slot name="button">

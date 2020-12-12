@@ -49,6 +49,10 @@ export default {
       type: String,
       default: '',
     },
+    expandHeaderless: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     // Vue 2.0 coerce migration
@@ -80,11 +84,17 @@ export default {
     hasHeaderBool() {
       return this.$slots.header;
     },
+    expandHeaderlessBool() {
+      return toBoolean(this.expandHeaderless);
+    },
     isExpandableCard() {
       return this.expandableBool;
     },
     hasSrc() {
       return this.src && this.src.length > 0;
+    },
+    shouldShowHeader() {
+      return (!this.localExpanded) || (!this.expandHeaderlessBool);
     },
   },
   data() {
