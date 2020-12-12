@@ -173,3 +173,12 @@ test('Test invalid link for non-existent file asset (css)', () => {
 
   expect(linkProcessor.validateIntraLink(mockNode, mockCwf, mockConfig)).toEqual(EXPECTED_RESULT);
 });
+
+test('Test link for disabled intralink validation', () => {
+  const mockLink = '<a href="https://markbind.org" no-intralink-validation>Test</a>';
+  const mockNode = cheerio.parseHTML(mockLink)[0];
+
+  const EXPECTED_RESULT = 'Intralink validation disabled';
+
+  expect(linkProcessor.validateIntraLink(mockNode, mockCwf, mockConfig)).toEqual(EXPECTED_RESULT);
+});
