@@ -125,7 +125,8 @@ function isValidFileAsset(resourcePath, config) {
 
 /**
  * Serves as an internal intra-link validator. Checks if the intra-links are valid.
- * If the intra-links are not suspected to not be valid, a warning message will be logged.
+ * If the intra-links are suspected to not be valid and they do not have the no-intralink-validation
+ * attribute, a warning message will be logged.
  *
  * @param {Object<any, any>} node from the dom traversal
  * @param {string} cwf as flagged from {@link NodePreprocessor}
@@ -133,6 +134,13 @@ function isValidFileAsset(resourcePath, config) {
  * @returns {string} these string return values are for unit testing purposes only
  */
 function validateIntraLink(node, cwf, config) {
+  if (node.attribs) {
+    const hasIntralinkValidationDisabled = lodashHas(node.attribs, 'no-intralink-validation');
+    if (hasIntralinkValidationDisabled) {
+      return 'Intralink validation disabled';
+    }
+  }
+
   let resourcePath = getDefaultTagsResourcePath(node);
   if (!resourcePath || utils.isUrl(resourcePath) || resourcePath.startsWith('#')) {
     return 'Not Intralink';
