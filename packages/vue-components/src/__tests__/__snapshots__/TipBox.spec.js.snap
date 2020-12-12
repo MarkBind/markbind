@@ -7,7 +7,9 @@ exports[`TipBox having custom background color renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -34,7 +36,9 @@ exports[`TipBox having custom border color renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -61,7 +65,9 @@ exports[`TipBox having custom border left color renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -87,7 +93,9 @@ exports[`TipBox of default type with content renders correctly  1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -115,7 +123,9 @@ exports[`TipBox of definition type light style renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -147,7 +157,9 @@ exports[`TipBox of definition type renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -179,7 +191,9 @@ exports[`TipBox of important type light style renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -211,7 +225,9 @@ exports[`TipBox of important type renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -243,7 +259,9 @@ exports[`TipBox of info type light style renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -275,7 +293,9 @@ exports[`TipBox of info type renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -307,7 +327,9 @@ exports[`TipBox of seamless style renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -336,7 +358,9 @@ exports[`TipBox of success type light style renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -368,7 +392,9 @@ exports[`TipBox of success type renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -400,7 +426,9 @@ exports[`TipBox of tip type light style renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -432,7 +460,9 @@ exports[`TipBox of tip type renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -464,7 +494,9 @@ exports[`TipBox of warning type light style renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -496,7 +528,9 @@ exports[`TipBox of warning type renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -528,7 +562,9 @@ exports[`TipBox of wrong type light style renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -560,7 +596,9 @@ exports[`TipBox of wrong type renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -592,7 +630,9 @@ exports[`TipBox with custom color renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -619,7 +659,9 @@ exports[`TipBox with custom icon color and header renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <div
       class="box-header-wrapper"
     >
@@ -662,7 +704,9 @@ exports[`TipBox with custom icon color and no header renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -693,7 +737,9 @@ exports[`TipBox with dismissible option renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -730,7 +776,9 @@ exports[`TipBox with header renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <div
       class="box-header-wrapper"
     >
@@ -768,7 +816,9 @@ exports[`TipBox with icon and icon-size renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -798,7 +848,9 @@ exports[`TipBox with icon renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -828,7 +880,9 @@ exports[`TipBox with no-background option renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -854,7 +908,9 @@ exports[`TipBox with no-border option renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div
@@ -880,7 +936,9 @@ exports[`TipBox with no-icon option renders correctly 1`] = `
 >
   <!---->
    
-  <div>
+  <div
+    class="header-and-body"
+  >
     <!---->
      
     <div

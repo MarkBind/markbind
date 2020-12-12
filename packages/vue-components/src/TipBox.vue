@@ -24,7 +24,8 @@
         aria-hidden="true"
       ></div>
     </div>
-    <div>
+
+    <div class="header-and-body">
       <!-- Header wrapper, not rendered if there is no header attribute -->
       <div
         v-if="headerBool()"
@@ -349,12 +350,12 @@ export default {
   padding: 0.75rem 1.25rem;
 }
 
-.box-container.seamless > .box-body-wrapper {
-  padding: 0.75rem 0.25rem;
+.box-container.seamless > .header-and-body > .box-body-wrapper {
+  padding: 0.75rem 0.5rem;
 }
 
-.box-container.seamless > div.box-body-wrapper > .contents {
-  padding-left: 10px;
+.box-container.seamless > .header-and-body > div.box-body-wrapper > .contents {
+  padding-left: 12px;
 }
 
 .heading {
