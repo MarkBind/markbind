@@ -329,120 +329,120 @@ export default {
 </script>
 
 <style scoped>
-.box-container {
-  width: 100%;
-  padding: 0;
-  border-radius: 6px;
-}
+    .box-container {
+      width: 100%;
+      padding: 0;
+      border-radius: 6px;
+    }
 
-.box-header-wrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-  padding: 0.4rem 1.25rem 0.28rem 1.25rem;
-  border-radius: 6px 6px 0 0;
-}
+    .box-header-wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      width: 100%;
+      padding: 0.4rem 1.25rem 0.28rem 1.25rem;
+      border-radius: 6px 6px 0 0;
+    }
 
-.box-body-wrapper {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  padding: 0.75rem 1.25rem;
-}
+    .box-body-wrapper {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      padding: 0.75rem 1.25rem;
+    }
 
-.box-container.seamless > .header-and-body > .box-body-wrapper {
-  padding: 0.75rem 0.5rem;
-}
+    .box-container.seamless > .header-and-body > .box-body-wrapper {
+      padding: 0.75rem 0.5rem;
+    }
 
-.box-container.seamless > .header-and-body > div.box-body-wrapper > .contents {
-  padding-left: 12px;
-}
+    .box-container.seamless > .header-and-body > div.box-body-wrapper > .contents {
+      padding-left: 12px;
+    }
 
-.heading {
-  display: inline;
-  float: right;
-  font-weight: normal;
-  color: inherit;
-  background-color: rgba(240, 240, 240, 0.6);
-  width: auto;
-  padding: 3px 5px 4px 5px;
-  border-width: 0;
-  border-radius: 0 6px 0 6px;
-  margin: -13px -27px 0 15px;
-}
+    .heading {
+      display: inline;
+      float: right;
+      font-weight: normal;
+      color: inherit;
+      background-color: rgba(240, 240, 240, 0.6);
+      width: auto;
+      padding: 3px 5px 4px 5px;
+      border-width: 0;
+      border-radius: 0 6px 0 6px;
+      margin: -13px -27px 0 15px;
+    }
 
-.box-body-wrapper-with-heading {
-  padding-top: 0.5rem;
-}
+    .box-body-wrapper-with-heading {
+      padding-top: 0.5rem;
+    }
 
-.alert-dismissible {
-  padding-right: 4rem;
-}
+    .alert-dismissible {
+      padding-right: 4rem;
+    }
 
-.box-header {
-  font-weight: 500;
-}
+    .box-header {
+      font-weight: 500;
+    }
 
-.icon-wrapper {
-  display: inline;
-  text-align: center;
-  margin-right: 0.5em;
-  min-width: 1em;
-}
+    .icon-wrapper {
+      display: inline;
+      text-align: center;
+      margin-right: 0.5em;
+      min-width: 1em;
+    }
 
-.close-with-heading {
-  top: auto;
-  padding: 0 1.25rem;
-}
+    .close-with-heading {
+      top: auto;
+      padding: 0 1.25rem;
+    }
 
-.close-with-heading > span {
-  vertical-align: text-top;
-}
+    .close-with-heading > span {
+      vertical-align: text-top;
+    }
 
-.contents {
-  padding: 0 6px;
-  width: 100%;
-}
+    .contents {
+      padding: 0 6px;
+      width: 100%;
+    }
 
-.contents > :last-child {
-  margin-bottom: 0;
-}
+    .contents > :last-child {
+      margin-bottom: 0;
+    }
 
-.alert-default {
-  color: #24292e;
-  background-color: #f6f8fa;
-  border-color: #e8ebef;
-}
+    .alert-default {
+      color: #24292e;
+      background-color: #f6f8fa;
+      border-color: #e8ebef;
+    }
 
-.alert-border-left {
-  background-color: #f9f8f8;
-  border-left: solid;
-  border-width: 0px 0px 0px 5px;
-}
+    .alert-border-left {
+      background-color: #f9f8f8;
+      border-left: solid;
+      border-width: 0px 0px 0px 5px;
+    }
 
-.vertical-divider {
-  width: 4px;
-}
+    .vertical-divider {
+      width: 4px;
+    }
 
-.horizontal-divider {
-  margin: 0 auto;
-  width: calc(100% - 2.5rem);
-  height: 3px;
-}
+    .horizontal-divider {
+      margin: 0 auto;
+      width: calc(100% - 2.5rem);
+      height: 3px;
+    }
 
-.no-background {
-  background: none;
-}
+    .no-background {
+      background: none;
+    }
 
-.no-border {
-  border: none;
-}
+    .no-border {
+      border: none;
+    }
 </style>
 
 <!-- TODO move this once we upgrade vue-loader version for scoped deep selectors -->
 <style>
-div.box-header > * {
-  margin-bottom: 0;
-}
+    div.box-header > * {
+      margin-bottom: 0;
+    }
 </style>
