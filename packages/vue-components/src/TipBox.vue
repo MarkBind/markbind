@@ -9,8 +9,9 @@
     :style="customStyle()"
   >
     <!--Icon and vertical divider for seamless header box-->
-    <div v-if="iconBool() && seamlessHeaderBool()" class="d-flex">
+    <div v-if="seamlessHeaderBool()" class="d-flex">
       <div
+        v-if="iconBool()"
         :class="['icon-wrapper', iconStyle()]"
         :style="customIconColorStyle()"
       >
