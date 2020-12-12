@@ -1,11 +1,9 @@
 .idea
-.gitignore
 # Logs
 logs
 *.log
 lerna-debug.log
 npm-debug.log*
-package-lock.json
 
 # Runtime data
 pids
@@ -47,7 +45,6 @@ docs/_site/*
 
 # Generated site (MarkBind)
 packages/cli/test/functional/*/_site
-packages/cli/test/functional/test_site/expected/*
 
 # vscode configuration
 .vscode/
