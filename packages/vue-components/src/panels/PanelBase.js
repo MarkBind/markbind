@@ -85,7 +85,7 @@ export default {
       return this.$slots.header;
     },
     expandHeaderlessBool() {
-      return toBoolean(this.expandHeaderless);
+      return this.expandHeaderless;
     },
     isExpandableCard() {
       return this.expandableBool;

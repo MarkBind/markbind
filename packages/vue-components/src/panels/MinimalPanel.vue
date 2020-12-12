@@ -3,7 +3,7 @@
     <div v-show="localMinimized" class="morph">
       <button class="morph-display-wrapper btn card-title morph-title" @click="open()">
         <slot name="_alt">
-          <slot v-if="shouldShowHeader" name="header"></slot>
+          <slot name="header"></slot>
         </slot>
       </button>
     </div>

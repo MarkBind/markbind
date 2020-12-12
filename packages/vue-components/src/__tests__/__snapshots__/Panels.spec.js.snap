@@ -11,7 +11,7 @@ exports[`MinimalPanel should not show header after expand with expandHeaderless 
     <button
       class="morph-display-wrapper btn card-title morph-title"
     >
-      <!---->
+      test header
     </button>
   </div>
    
@@ -363,7 +363,7 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
     <button
       class="morph-display-wrapper btn btn-outline-secondary card-title"
     >
-      <!---->
+      test header
     </button>
   </div>
    
