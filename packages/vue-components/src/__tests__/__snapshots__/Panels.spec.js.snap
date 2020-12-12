@@ -1,0 +1,701 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MinimalPanel should not show header after expand with expandHeaderless as true 1`] = `
+<span
+  class="card-container"
+>
+  <div
+    class="morph"
+    style="display: none;"
+  >
+    <button
+      class="morph-display-wrapper btn card-title morph-title"
+    >
+      <!---->
+    </button>
+  </div>
+   
+  <div
+    class="card card-flex"
+  >
+    <div
+      class="header-wrapper header-toggle"
+    >
+      <transition-stub
+        name="header-fade"
+      >
+        <span
+          class="card-title card-title-transparent"
+        >
+          <span
+            class="card-title-inline"
+          >
+            <!---->
+          </span>
+           
+          <span
+            aria-hidden="true"
+            class="minimal-button glyphicon glyphicon-menu-down minimal-menu-down"
+          />
+        </span>
+      </transition-stub>
+       
+      <div
+        class="button-wrapper"
+      >
+        <button
+          class="minimal-button"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-remove minimal-close-button"
+          />
+        </button>
+         
+        <button
+          class="minimal-button"
+          style="display: none;"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-new-window minimal-popup-button"
+          />
+        </button>
+         
+        <button
+          class="minimal-button"
+          style="display: none;"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-menu-up minimal-menu-up"
+          />
+        </button>
+      </div>
+    </div>
+     
+    <transition-stub>
+      <div
+        class="card-collapse"
+        style=""
+      >
+        <div
+          class="card-body"
+        >
+           
+          <!---->
+        </div>
+      </div>
+    </transition-stub>
+  </div>
+</span>
+`;
+
+exports[`MinimalPanel should show header after expand with expandHeaderless as false 1`] = `
+<span
+  class="card-container"
+>
+  <div
+    class="morph"
+    style="display: none;"
+  >
+    <button
+      class="morph-display-wrapper btn card-title morph-title"
+    >
+      test header
+    </button>
+  </div>
+   
+  <div
+    class="card card-flex"
+  >
+    <div
+      class="header-wrapper header-toggle"
+    >
+      <transition-stub
+        name="header-fade"
+      >
+        <span
+          class="card-title card-title-transparent"
+        >
+          <span
+            class="card-title-inline"
+          >
+            test header
+          </span>
+           
+          <span
+            aria-hidden="true"
+            class="minimal-button glyphicon glyphicon-menu-down minimal-menu-down"
+          />
+        </span>
+      </transition-stub>
+       
+      <div
+        class="button-wrapper"
+      >
+        <button
+          class="minimal-button"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-remove minimal-close-button"
+          />
+        </button>
+         
+        <button
+          class="minimal-button"
+          style="display: none;"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-new-window minimal-popup-button"
+          />
+        </button>
+         
+        <button
+          class="minimal-button"
+          style="display: none;"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-menu-up minimal-menu-up"
+          />
+        </button>
+      </div>
+    </div>
+     
+    <transition-stub>
+      <div
+        class="card-collapse"
+        style=""
+      >
+        <div
+          class="card-body"
+        >
+           
+          <!---->
+        </div>
+      </div>
+    </transition-stub>
+  </div>
+</span>
+`;
+
+exports[`MinimalPanel should show header when minimized with expandHeaderless as false 1`] = `
+<span
+  class="card-container"
+>
+  <div
+    class="morph"
+    style="display: none;"
+  >
+    <button
+      class="morph-display-wrapper btn card-title morph-title"
+    >
+      test header
+    </button>
+  </div>
+   
+  <div
+    class="card card-flex"
+  >
+    <div
+      class="header-wrapper header-toggle"
+    >
+      <transition-stub
+        name="header-fade"
+      >
+        <span
+          class="card-title card-title-transparent"
+        >
+          <span
+            class="card-title-inline"
+          >
+            test header
+          </span>
+           
+          <span
+            aria-hidden="true"
+            class="minimal-button glyphicon glyphicon-menu-down minimal-menu-down"
+          />
+        </span>
+      </transition-stub>
+       
+      <div
+        class="button-wrapper"
+      >
+        <button
+          class="minimal-button"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-remove minimal-close-button"
+          />
+        </button>
+         
+        <button
+          class="minimal-button"
+          style="display: none;"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-new-window minimal-popup-button"
+          />
+        </button>
+         
+        <button
+          class="minimal-button"
+          style="display: none;"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-menu-up minimal-menu-up"
+          />
+        </button>
+      </div>
+    </div>
+     
+    <!---->
+  </div>
+</span>
+`;
+
+exports[`MinimalPanel should show header when minimized with expandHeaderless as true 1`] = `
+<span
+  class="card-container"
+>
+  <div
+    class="morph"
+    style="display: none;"
+  >
+    <button
+      class="morph-display-wrapper btn card-title morph-title"
+    >
+      test header
+    </button>
+  </div>
+   
+  <div
+    class="card card-flex"
+  >
+    <div
+      class="header-wrapper header-toggle"
+    >
+      <transition-stub
+        name="header-fade"
+      >
+        <span
+          class="card-title card-title-transparent"
+        >
+          <span
+            class="card-title-inline"
+          >
+            test header
+          </span>
+           
+          <span
+            aria-hidden="true"
+            class="minimal-button glyphicon glyphicon-menu-down minimal-menu-down"
+          />
+        </span>
+      </transition-stub>
+       
+      <div
+        class="button-wrapper"
+      >
+        <button
+          class="minimal-button"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-remove minimal-close-button"
+          />
+        </button>
+         
+        <button
+          class="minimal-button"
+          style="display: none;"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-new-window minimal-popup-button"
+          />
+        </button>
+         
+        <button
+          class="minimal-button"
+          style="display: none;"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-menu-up minimal-menu-up"
+          />
+        </button>
+      </div>
+    </div>
+     
+    <!---->
+  </div>
+</span>
+`;
+
+exports[`NestedPanels should not show header after expand with expandHeaderless as true 1`] = `
+<span
+  class="card-container"
+>
+  <div
+    class="morph"
+    style="display: none;"
+  >
+    <button
+      class="morph-display-wrapper btn btn-outline-secondary card-title"
+    >
+      <!---->
+    </button>
+  </div>
+   
+  <div
+    class="card expandable-card"
+  >
+    <div
+      class="card-header header-toggle bg-light"
+    >
+      <div
+        class="caret-wrapper"
+      >
+        <!---->
+      </div>
+       
+      <div
+        class="header-wrapper card-title bg-light"
+      >
+        <!---->
+      </div>
+       
+      <div
+        class="button-wrapper"
+      >
+        <button
+          class="collapse-button btn btn-outline-secondary"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-menu-up"
+          />
+        </button>
+         
+        <button
+          class="close-button btn btn-outline-secondary"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-remove"
+          />
+        </button>
+         
+        <button
+          class="popup-button btn btn-outline-secondary"
+          style="display: none;"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-new-window"
+          />
+        </button>
+      </div>
+    </div>
+     
+    <transition-stub>
+      <div
+        class="card-collapse"
+        style=""
+      >
+        <div
+          class="card-body"
+        >
+           
+          <!---->
+           
+          <button
+            class="collapse-button btn btn-outline-secondary"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="glyphicon glyphicon-menu-up"
+            />
+          </button>
+        </div>
+         
+        <hr
+          style="display: none;"
+        />
+      </div>
+    </transition-stub>
+  </div>
+</span>
+`;
+
+exports[`NestedPanels should show header after expand with expandHeaderless as false 1`] = `
+<span
+  class="card-container"
+>
+  <div
+    class="morph"
+    style="display: none;"
+  >
+    <button
+      class="morph-display-wrapper btn btn-outline-secondary card-title"
+    >
+      test header
+    </button>
+  </div>
+   
+  <div
+    class="card expandable-card"
+  >
+    <div
+      class="card-header header-toggle bg-light"
+    >
+      <div
+        class="caret-wrapper"
+      >
+        <!---->
+      </div>
+       
+      <div
+        class="header-wrapper card-title bg-light"
+      >
+        test header
+      </div>
+       
+      <div
+        class="button-wrapper"
+      >
+        <button
+          class="collapse-button btn btn-outline-secondary"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-menu-up"
+          />
+        </button>
+         
+        <button
+          class="close-button btn btn-outline-secondary"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-remove"
+          />
+        </button>
+         
+        <button
+          class="popup-button btn btn-outline-secondary"
+          style="display: none;"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-new-window"
+          />
+        </button>
+      </div>
+    </div>
+     
+    <transition-stub>
+      <div
+        class="card-collapse"
+        style=""
+      >
+        <div
+          class="card-body"
+        >
+           
+          <!---->
+           
+          <button
+            class="collapse-button btn btn-outline-secondary"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="glyphicon glyphicon-menu-up"
+            />
+          </button>
+        </div>
+         
+        <hr
+          style="display: none;"
+        />
+      </div>
+    </transition-stub>
+  </div>
+</span>
+`;
+
+exports[`NestedPanels should show header when minimized with expandHeaderless as false 1`] = `
+<span
+  class="card-container"
+>
+  <div
+    class="morph"
+    style="display: none;"
+  >
+    <button
+      class="morph-display-wrapper btn btn-outline-secondary card-title"
+    >
+      test header
+    </button>
+  </div>
+   
+  <div
+    class="card expandable-card"
+  >
+    <div
+      class="card-header header-toggle bg-light"
+    >
+      <div
+        class="caret-wrapper"
+      >
+        <!---->
+      </div>
+       
+      <div
+        class="header-wrapper card-title bg-light"
+      >
+        test header
+      </div>
+       
+      <div
+        class="button-wrapper"
+      >
+        <button
+          class="collapse-button btn btn-outline-secondary"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-menu-down"
+          />
+        </button>
+         
+        <button
+          class="close-button btn btn-outline-secondary"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-remove"
+          />
+        </button>
+         
+        <button
+          class="popup-button btn btn-outline-secondary"
+          style="display: none;"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-new-window"
+          />
+        </button>
+      </div>
+    </div>
+     
+    <!---->
+  </div>
+</span>
+`;
+
+exports[`NestedPanels should show header when minimized with expandHeaderless as true 1`] = `
+<span
+  class="card-container"
+>
+  <div
+    class="morph"
+    style="display: none;"
+  >
+    <button
+      class="morph-display-wrapper btn btn-outline-secondary card-title"
+    >
+      test header
+    </button>
+  </div>
+   
+  <div
+    class="card expandable-card"
+  >
+    <div
+      class="card-header header-toggle bg-light"
+    >
+      <div
+        class="caret-wrapper"
+      >
+        <!---->
+      </div>
+       
+      <div
+        class="header-wrapper card-title bg-light"
+      >
+        test header
+      </div>
+       
+      <div
+        class="button-wrapper"
+      >
+        <button
+          class="collapse-button btn btn-outline-secondary"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-menu-down"
+          />
+        </button>
+         
+        <button
+          class="close-button btn btn-outline-secondary"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-remove"
+          />
+        </button>
+         
+        <button
+          class="popup-button btn btn-outline-secondary"
+          style="display: none;"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-new-window"
+          />
+        </button>
+      </div>
+    </div>
+     
+    <!---->
+  </div>
+</span>
+`;
