@@ -432,11 +432,11 @@ export default {
     }
 
     .no-background {
-        background: none;
+      background: none;
     }
 
     .no-border {
-        border: none;
+      border: none;
     }
 </style>
 
