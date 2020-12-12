@@ -110,6 +110,10 @@ function isValidFileAsset(resourcePath, config) {
  * @returns {string} these string return values are for unit testing purposes only
  */
 function validateIntraLink(node, cwf, config) {
+  if (node.name === 'pic') {
+    return 'Disabled as hotfix for false positives from puml plugin';
+  }
+
   let resourcePath = getResourcePath(node);
   if (!resourcePath || utils.isUrl(resourcePath) || resourcePath.startsWith('#')) {
     return 'Not Intralink';
