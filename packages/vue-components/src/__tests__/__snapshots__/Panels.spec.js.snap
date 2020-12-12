@@ -28,9 +28,9 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
       </div>
        
       <div
-        class="header-wrapper card-title bg-light"
+        class="header-wrapper card-title bg-light header-transparent"
       >
-        <!---->
+        test header
       </div>
        
       <div

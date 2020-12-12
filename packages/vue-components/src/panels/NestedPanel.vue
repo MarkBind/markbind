@@ -18,8 +18,12 @@
             :class="['glyphicon', localExpanded ? 'glyphicon-chevron-down' : 'glyphicon-chevron-right']"
           ></span>
         </div>
-        <div ref="headerWrapper" :class="['header-wrapper card-title', cardType, {'text-white':!isLightBg}]">
-          <slot v-if="shouldShowHeader" name="header"></slot>
+        <div
+          ref="headerWrapper"
+          :class="['header-wrapper card-title', cardType,
+                   {'text-white':!isLightBg, 'header-transparent':!shouldShowHeader}]"
+        >
+          <slot name="header"></slot>
         </div>
         <div class="button-wrapper">
           <slot name="button">
@@ -175,6 +179,11 @@ export default {
     .header-wrapper {
         display: inline-block;
         width: calc(100% - 32px - 96px);
+        transition: 0.5s opacity;
+    }
+
+    .header-transparent {
+      opacity: 0;
     }
 
     .button-wrapper {
