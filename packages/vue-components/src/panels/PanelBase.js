@@ -84,9 +84,6 @@ export default {
     hasHeaderBool() {
       return this.$slots.header;
     },
-    expandHeaderlessBool() {
-      return this.expandHeaderless;
-    },
     isExpandableCard() {
       return this.expandableBool;
     },
@@ -94,7 +91,7 @@ export default {
       return this.src && this.src.length > 0;
     },
     shouldShowHeader() {
-      return (!this.localExpanded) || (!this.expandHeaderlessBool);
+      return (!this.localExpanded) || (!this.expandHeaderless);
     },
   },
   data() {

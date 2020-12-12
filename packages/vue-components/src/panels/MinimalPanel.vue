@@ -19,7 +19,7 @@
             ref="headerWrapper"
             :class="['card-title', 'card-title-transparent', { 'ellipses': !hasHeaderBool }]"
           >
-            <span class="card-title-inline"><slot v-if="shouldShowHeader" name="header"></slot></span>
+            <span class="card-title-inline"><slot name="header"></slot></span>
             <span
               v-show="showDownSwitch"
               aria-hidden="true"
