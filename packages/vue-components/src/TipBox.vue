@@ -1,11 +1,38 @@
 <template>
   <div
-    :class="['alert box-container', containerStyle(), addClass]"
+    :class="[
+      'alert box-container',
+      containerStyle(),
+      addClass,
+      { 'd-flex': seamlessHeaderBool() },
+    ]"
     :style="customStyle()"
   >
-    <div :class="[{ 'flex-row-layout': horizontalDividerBool() }]">
-      <div v-if="iconBool() && horizontalDividerBool()" class="flex-row-layout">
+    <!--Icon and vertical divider for seamless header box-->
+    <div v-if="iconBool() && seamlessHeaderBool()" class="d-flex">
+      <div
+        :class="['icon-wrapper', iconStyle()]"
+        :style="customIconColorStyle()"
+      >
+        <slot name="icon">
+          <i :class="['fas', getFontAwesomeIconStyle()]"></i>
+        </slot>
+      </div>
+      <div
+        class="vertical-divider"
+        :class="getBootstrapAlertStyle()"
+        aria-hidden="true"
+      ></div>
+    </div>
+    <div>
+      <!-- Header wrapper, not rendered if there is no header attribute -->
+      <div
+        v-if="headerBool()"
+        :class="['box-header-wrapper', { 'alert-dismissible': dismissible }]"
+      >
+        <!-- icon on the left of the header -->
         <div
+          v-if="iconBool() && !seamlessHeaderBool()"
           :class="['icon-wrapper', iconStyle()]"
           :style="customIconColorStyle()"
         >
@@ -13,91 +40,68 @@
             <i :class="['fas', getFontAwesomeIconStyle()]"></i>
           </slot>
         </div>
+
+        <!-- header -->
+        <div class="box-header">
+          <slot name="_header"></slot>
+        </div>
+
+        <!-- dismiss button to the right of the header -->
+        <button
+          v-if="dismissible"
+          type="button"
+          class="close close-with-heading"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <!-- Body wrapper -->
+      <div
+        :class="[
+          'box-body-wrapper',
+          {
+            'alert-dismissible': dismissible && !headerBool(),
+            'box-body-wrapper-with-heading': headerBool(),
+          },
+        ]"
+      >
+        <!-- icon on the left, not shown if there is a header -->
         <div
+          v-if="iconBool() && !headerBool()"
+          :class="['icon-wrapper', iconStyle()]"
+          :style="customIconColorStyle()"
+        >
+          <slot name="icon">
+            <i :class="['fas', getFontAwesomeIconStyle()]"></i>
+          </slot>
+        </div>
+
+        <!-- Icon -- content divider for seamless boxes without the header attribute -->
+        <div
+          v-if="seamlessNoHeaderBool()"
           class="vertical-divider"
           :class="getBootstrapAlertStyle()"
           aria-hidden="true"
         ></div>
-      </div>
-      <div>
-        <!-- Header wrapper, not rendered if there is no header attribute -->
-        <div
-          v-if="headerBool()"
-          :class="['box-header-wrapper', { 'alert-dismissible': dismissible }]"
-        >
-          <!-- icon on the left of the header -->
-          <div
-            v-if="iconBool() && !horizontalDividerBool()"
-            :class="['icon-wrapper', iconStyle()]"
-            :style="customIconColorStyle()"
-          >
-            <slot name="icon">
-              <i :class="['fas', getFontAwesomeIconStyle()]"></i>
-            </slot>
-          </div>
 
-          <!-- header -->
-          <div class="box-header">
-            <slot name="_header"></slot>
-          </div>
-
-          <!-- dismiss button to the right of the header -->
-          <button
-            v-if="dismissible"
-            type="button"
-            class="close close-with-heading"
-            data-dismiss="alert"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <!-- Content wrapper -->
+        <div class="contents" :style="customColorStyle()">
+          <slot></slot>
         </div>
 
-        <!-- Body wrapper -->
-        <div
-          :class="[
-            'box-body-wrapper',
-            {
-              'alert-dismissible': dismissible && !headerBool(),
-              'box-body-wrapper-with-heading': headerBool(),
-            },
-          ]"
+        <!-- dismiss button on the right, not shown if there is a header -->
+        <button
+          v-if="dismissible && !headerBool()"
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
         >
-          <!-- icon on the left, not shown if there is a header -->
-          <div
-            v-if="iconBool() && !headerBool()"
-            :class="['icon-wrapper', iconStyle()]"
-            :style="customIconColorStyle()"
-          >
-            <slot name="icon">
-              <i :class="['fas', getFontAwesomeIconStyle()]"></i>
-            </slot>
-          </div>
-
-          <!-- Icon -- content divider for seamless boxes without the header attribute -->
-          <div
-            v-if="verticalDividerBool()"
-            class="vertical-divider"
-            :class="getBootstrapAlertStyle()"
-            aria-hidden="true"
-          ></div>
-
-          <!-- Content wrapper -->
-          <div class="contents" :style="customColorStyle()">
-            <slot></slot>
-          </div>
-
-          <!-- dismiss button on the right, not shown if there is a header -->
-          <button
-            v-if="dismissible && !headerBool()"
-            type="button"
-            class="close"
-            data-dismiss="alert"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
     </div>
   </div>
@@ -171,10 +175,10 @@ export default {
     isSeamless() {
       return !this.light && this.seamless;
     },
-    verticalDividerBool() {
+    seamlessNoHeaderBool() {
       return this.isSeamless() && !this.headerBool();
     },
-    horizontalDividerBool() {
+    seamlessHeaderBool() {
       return this.isSeamless() && this.headerBool();
     },
     headerBool() {
@@ -328,10 +332,6 @@ export default {
   padding: 0;
   border-radius: 6px;
 }
-.flex-row-layout {
-  display: flex;
-  flex-direction: row;
-}
 
 .box-header-wrapper {
   display: flex;
@@ -350,11 +350,11 @@ export default {
 }
 
 .box-container.seamless > .box-body-wrapper {
-  padding: 0.75rem 0.5rem;
+  padding: 0.75rem 0.25rem;
 }
 
 .box-container.seamless > div.box-body-wrapper > .contents {
-  padding-left: 12px;
+  padding-left: 10px;
 }
 
 .heading {
