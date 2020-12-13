@@ -125,7 +125,7 @@ function isValidFileAsset(resourcePath, config) {
 
 /**
  * Serves as an internal intra-link validator. Checks if the intra-links are valid.
- * If the intra-links are suspected to not be valid and they do not have the no-validation
+ * If the intra-links are suspected to be invalid and they do not have the no-validation
  * attribute, a warning message will be logged.
  *
  * @param {Object<any, any>} node from the dom traversal
