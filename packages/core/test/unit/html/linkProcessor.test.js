@@ -175,7 +175,7 @@ test('Test invalid link for non-existent file asset (css)', () => {
 });
 
 test('Test link for disabled intralink validation', () => {
-  const mockLink = '<a href="https://markbind.org" no-intralink-validation>Test</a>';
+  const mockLink = '<a href="https://markbind.org" no-validation>Test</a>';
   const mockNode = cheerio.parseHTML(mockLink)[0];
 
   const EXPECTED_RESULT = 'Intralink validation disabled';
