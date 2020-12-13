@@ -7,20 +7,24 @@ exports[`TipBox having custom background color renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
     <!---->
      
-    <!---->
-     
     <div
-      class="contents"
-    />
-     
-    <!---->
+      class="box-body-wrapper"
+    >
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="contents"
+      />
+       
+      <!---->
+    </div>
   </div>
 </div>
 `;
@@ -32,20 +36,24 @@ exports[`TipBox having custom border color renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
     <!---->
      
-    <!---->
-     
     <div
-      class="contents"
-    />
-     
-    <!---->
+      class="box-body-wrapper"
+    >
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="contents"
+      />
+       
+      <!---->
+    </div>
   </div>
 </div>
 `;
@@ -57,20 +65,24 @@ exports[`TipBox having custom border left color renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
     <!---->
      
-    <!---->
-     
     <div
-      class="contents"
-    />
-     
-    <!---->
+      class="box-body-wrapper"
+    >
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="contents"
+      />
+       
+      <!---->
+    </div>
   </div>
 </div>
 `;
@@ -81,22 +93,26 @@ exports[`TipBox of default type with content renders correctly  1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
     <!---->
      
-    <!---->
-     
     <div
-      class="contents"
+      class="box-body-wrapper"
     >
-      This is the default box
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="contents"
+      >
+        This is the default box
+      </div>
+       
+      <!---->
     </div>
-     
-    <!---->
   </div>
 </div>
 `;
@@ -107,26 +123,30 @@ exports[`TipBox of definition type light style renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
+    <!---->
+     
     <div
-      class="icon-wrapper  text-primary"
+      class="box-body-wrapper"
     >
-      <i
-        class="fas fa-atlas"
+      <div
+        class="icon-wrapper  text-primary"
+      >
+        <i
+          class="fas fa-atlas"
+        />
+      </div>
+       
+      <!---->
+       
+      <div
+        class="contents"
       />
+       
+      <!---->
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -137,26 +157,30 @@ exports[`TipBox of definition type renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
+    <!---->
+     
     <div
-      class="icon-wrapper"
+      class="box-body-wrapper"
     >
-      <i
-        class="fas fa-atlas"
+      <div
+        class="icon-wrapper"
+      >
+        <i
+          class="fas fa-atlas"
+        />
+      </div>
+       
+      <!---->
+       
+      <div
+        class="contents"
       />
+       
+      <!---->
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -167,26 +191,30 @@ exports[`TipBox of important type light style renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
+    <!---->
+     
     <div
-      class="icon-wrapper  text-danger"
+      class="box-body-wrapper"
     >
-      <i
-        class="fas fa-flag"
+      <div
+        class="icon-wrapper  text-danger"
+      >
+        <i
+          class="fas fa-flag"
+        />
+      </div>
+       
+      <!---->
+       
+      <div
+        class="contents"
       />
+       
+      <!---->
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -197,26 +225,30 @@ exports[`TipBox of important type renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
+    <!---->
+     
     <div
-      class="icon-wrapper"
+      class="box-body-wrapper"
     >
-      <i
-        class="fas fa-flag"
+      <div
+        class="icon-wrapper"
+      >
+        <i
+          class="fas fa-flag"
+        />
+      </div>
+       
+      <!---->
+       
+      <div
+        class="contents"
       />
+       
+      <!---->
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -227,26 +259,30 @@ exports[`TipBox of info type light style renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
+    <!---->
+     
     <div
-      class="icon-wrapper  text-info"
+      class="box-body-wrapper"
     >
-      <i
-        class="fas fa-info"
+      <div
+        class="icon-wrapper  text-info"
+      >
+        <i
+          class="fas fa-info"
+        />
+      </div>
+       
+      <!---->
+       
+      <div
+        class="contents"
       />
+       
+      <!---->
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -257,26 +293,30 @@ exports[`TipBox of info type renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
+    <!---->
+     
     <div
-      class="icon-wrapper"
+      class="box-body-wrapper"
     >
-      <i
-        class="fas fa-info"
+      <div
+        class="icon-wrapper"
+      >
+        <i
+          class="fas fa-info"
+        />
+      </div>
+       
+      <!---->
+       
+      <div
+        class="contents"
       />
+       
+      <!---->
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -287,23 +327,27 @@ exports[`TipBox of seamless style renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
     <!---->
      
     <div
-      aria-hidden="true"
-      class="vertical-divider alert-default"
-    />
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
+      class="box-body-wrapper"
+    >
+      <!---->
+       
+      <div
+        aria-hidden="true"
+        class="vertical-divider alert-default"
+      />
+       
+      <div
+        class="contents"
+      />
+       
+      <!---->
+    </div>
   </div>
 </div>
 `;
@@ -314,26 +358,30 @@ exports[`TipBox of success type light style renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
+    <!---->
+     
     <div
-      class="icon-wrapper  text-success"
+      class="box-body-wrapper"
     >
-      <i
-        class="fas fa-check"
+      <div
+        class="icon-wrapper  text-success"
+      >
+        <i
+          class="fas fa-check"
+        />
+      </div>
+       
+      <!---->
+       
+      <div
+        class="contents"
       />
+       
+      <!---->
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -344,26 +392,30 @@ exports[`TipBox of success type renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
+    <!---->
+     
     <div
-      class="icon-wrapper"
+      class="box-body-wrapper"
     >
-      <i
-        class="fas fa-check"
+      <div
+        class="icon-wrapper"
+      >
+        <i
+          class="fas fa-check"
+        />
+      </div>
+       
+      <!---->
+       
+      <div
+        class="contents"
       />
+       
+      <!---->
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -374,26 +426,30 @@ exports[`TipBox of tip type light style renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
+    <!---->
+     
     <div
-      class="icon-wrapper  text-success"
+      class="box-body-wrapper"
     >
-      <i
-        class="fas fa-lightbulb"
+      <div
+        class="icon-wrapper  text-success"
+      >
+        <i
+          class="fas fa-lightbulb"
+        />
+      </div>
+       
+      <!---->
+       
+      <div
+        class="contents"
       />
+       
+      <!---->
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -404,26 +460,30 @@ exports[`TipBox of tip type renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
+    <!---->
+     
     <div
-      class="icon-wrapper"
+      class="box-body-wrapper"
     >
-      <i
-        class="fas fa-lightbulb"
+      <div
+        class="icon-wrapper"
+      >
+        <i
+          class="fas fa-lightbulb"
+        />
+      </div>
+       
+      <!---->
+       
+      <div
+        class="contents"
       />
+       
+      <!---->
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -434,26 +494,30 @@ exports[`TipBox of warning type light style renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
+    <!---->
+     
     <div
-      class="icon-wrapper  text-warning"
+      class="box-body-wrapper"
     >
-      <i
-        class="fas fa-exclamation"
+      <div
+        class="icon-wrapper  text-warning"
+      >
+        <i
+          class="fas fa-exclamation"
+        />
+      </div>
+       
+      <!---->
+       
+      <div
+        class="contents"
       />
+       
+      <!---->
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -464,26 +528,30 @@ exports[`TipBox of warning type renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
+    <!---->
+     
     <div
-      class="icon-wrapper"
+      class="box-body-wrapper"
     >
-      <i
-        class="fas fa-exclamation"
+      <div
+        class="icon-wrapper"
+      >
+        <i
+          class="fas fa-exclamation"
+        />
+      </div>
+       
+      <!---->
+       
+      <div
+        class="contents"
       />
+       
+      <!---->
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -494,26 +562,30 @@ exports[`TipBox of wrong type light style renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
+    <!---->
+     
     <div
-      class="icon-wrapper  text-danger"
+      class="box-body-wrapper"
     >
-      <i
-        class="fas fa-times"
+      <div
+        class="icon-wrapper  text-danger"
+      >
+        <i
+          class="fas fa-times"
+        />
+      </div>
+       
+      <!---->
+       
+      <div
+        class="contents"
       />
+       
+      <!---->
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -524,26 +596,30 @@ exports[`TipBox of wrong type renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
+    <!---->
+     
     <div
-      class="icon-wrapper"
+      class="box-body-wrapper"
     >
-      <i
-        class="fas fa-times"
+      <div
+        class="icon-wrapper"
+      >
+        <i
+          class="fas fa-times"
+        />
+      </div>
+       
+      <!---->
+       
+      <div
+        class="contents"
       />
+       
+      <!---->
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -554,61 +630,70 @@ exports[`TipBox with custom color renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
     <!---->
      
-    <!---->
-     
     <div
-      class="contents"
-      style="color: pink;"
-    />
-     
-    <!---->
+      class="box-body-wrapper"
+    >
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="contents"
+        style="color: pink;"
+      />
+       
+      <!---->
+    </div>
   </div>
 </div>
 `;
+
 exports[`TipBox with custom icon color and header renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
 >
-  <div
-    class="box-header-wrapper"
-  >
-    <div
-      class="icon-wrapper"
-      style="color: red;"
-    >
-      :fas-plus:
-    </div>
-     
-    <div
-      class="box-header"
-    >
-      A header
-    </div>
-     
-    <!---->
-  </div>
-   
   <!---->
    
   <div
-    class="box-body-wrapper box-body-wrapper-with-heading"
+    class="header-and-body"
   >
-    <!---->
-     
-    <!---->
+    <div
+      class="box-header-wrapper"
+    >
+      <div
+        class="icon-wrapper"
+        style="color: red;"
+      >
+        :fas-plus:
+      </div>
+       
+      <div
+        class="box-header"
+      >
+        A header
+      </div>
+       
+      <!---->
+    </div>
      
     <div
-      class="contents"
-    />
-     
-    <!---->
+      class="box-body-wrapper box-body-wrapper-with-heading"
+    >
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="contents"
+      />
+       
+      <!---->
+    </div>
   </div>
 </div>
 `;
@@ -619,29 +704,32 @@ exports[`TipBox with custom icon color and no header renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
+    <!---->
+     
     <div
-      class="icon-wrapper"
-      style="color: red;"
+      class="box-body-wrapper"
     >
-      :fas-plus:
+      <div
+        class="icon-wrapper"
+        style="color: red;"
+      >
+        :fas-plus:
+      </div>
+       
+      <!---->
+       
+      <div
+        class="contents"
+      />
+       
+      <!---->
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
-
 
 exports[`TipBox with dismissible option renders correctly 1`] = `
 <div
@@ -649,31 +737,35 @@ exports[`TipBox with dismissible option renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper alert-dismissible"
+    class="header-and-body"
   >
     <!---->
      
-    <!---->
-     
     <div
-      class="contents"
-    />
-     
-    <button
-      aria-label="Close"
-      class="close"
-      data-dismiss="alert"
-      type="button"
+      class="box-body-wrapper alert-dismissible"
     >
-      <span
-        aria-hidden="true"
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="contents"
+      />
+       
+      <button
+        aria-label="Close"
+        class="close"
+        data-dismiss="alert"
+        type="button"
       >
-        ×
-      </span>
-    </button>
+        <span
+          aria-hidden="true"
+        >
+          ×
+        </span>
+      </button>
+    </div>
   </div>
 </div>
 `;
@@ -682,34 +774,38 @@ exports[`TipBox with header renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
 >
-  <div
-    class="box-header-wrapper"
-  >
-    <!---->
-     
-    <div
-      class="box-header"
-    >
-      A header
-    </div>
-     
-    <!---->
-  </div>
-   
   <!---->
    
   <div
-    class="box-body-wrapper box-body-wrapper-with-heading"
+    class="header-and-body"
   >
-    <!---->
-     
-    <!---->
+    <div
+      class="box-header-wrapper"
+    >
+      <!---->
+       
+      <div
+        class="box-header"
+      >
+        A header
+      </div>
+       
+      <!---->
+    </div>
      
     <div
-      class="contents"
-    />
-     
-    <!---->
+      class="box-body-wrapper box-body-wrapper-with-heading"
+    >
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="contents"
+      />
+       
+      <!---->
+    </div>
   </div>
 </div>
 `;
@@ -720,24 +816,28 @@ exports[`TipBox with icon and icon-size renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
+    <!---->
+     
     <div
-      class="icon-wrapper fa-2x"
+      class="box-body-wrapper"
     >
-      :rocket:
+      <div
+        class="icon-wrapper fa-2x"
+      >
+        :rocket:
+      </div>
+       
+      <!---->
+       
+      <div
+        class="contents"
+      />
+       
+      <!---->
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -748,24 +848,28 @@ exports[`TipBox with icon renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
+    <!---->
+     
     <div
-      class="icon-wrapper"
+      class="box-body-wrapper"
     >
-      :rocket:
+      <div
+        class="icon-wrapper"
+      >
+        :rocket:
+      </div>
+       
+      <!---->
+       
+      <div
+        class="contents"
+      />
+       
+      <!---->
     </div>
-     
-    <!---->
-     
-    <div
-      class="contents"
-    />
-     
-    <!---->
   </div>
 </div>
 `;
@@ -776,20 +880,24 @@ exports[`TipBox with no-background option renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
     <!---->
      
-    <!---->
-     
     <div
-      class="contents"
-    />
-     
-    <!---->
+      class="box-body-wrapper"
+    >
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="contents"
+      />
+       
+      <!---->
+    </div>
   </div>
 </div>
 `;
@@ -800,20 +908,24 @@ exports[`TipBox with no-border option renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
     <!---->
      
-    <!---->
-     
     <div
-      class="contents"
-    />
-     
-    <!---->
+      class="box-body-wrapper"
+    >
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="contents"
+      />
+       
+      <!---->
+    </div>
   </div>
 </div>
 `;
@@ -824,20 +936,24 @@ exports[`TipBox with no-icon option renders correctly 1`] = `
 >
   <!---->
    
-  <!---->
-   
   <div
-    class="box-body-wrapper"
+    class="header-and-body"
   >
     <!---->
      
-    <!---->
-     
     <div
-      class="contents"
-    />
-     
-    <!---->
+      class="box-body-wrapper"
+    >
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="contents"
+      />
+       
+      <!---->
+    </div>
   </div>
 </div>
 `;
