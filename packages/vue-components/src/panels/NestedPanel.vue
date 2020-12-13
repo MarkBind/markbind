@@ -1,12 +1,18 @@
 <template>
   <span ref="cardContainer" :class="['card-container', addClass]">
     <div v-show="localMinimized" class="morph">
-      <button :class="['morph-display-wrapper', 'btn', btnType, 'card-title']" @click="open()"
-        id="minimised-panel">
+      <button
+        :class="['morph-display-wrapper', 'btn', btnType, 'card-title']"
+        @click="open()"
+        id="minimised-panel"
+      >
         <slot name="_alt">
           <slot name="header"></slot>
-          <span data-v-5681bde8="" aria-hidden="true"
-          class="glyphicon glyphicon-log-in"></span>
+          <span
+            data-v-5681bde8=""
+            aria-hidden="true"
+            class="glyphicon glyphicon-log-in"
+          ></span>
         </slot>
       </button>
     </div>
