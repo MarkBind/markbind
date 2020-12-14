@@ -17,7 +17,7 @@ function buildAlgoliaInitScript(pluginContext) {
         debug: ${pluginContext.debug || false},
       });
     }
-    MarkBind.afterSetup(initAlgolia);
+    initAlgolia();
   </script>`;
 }
 
