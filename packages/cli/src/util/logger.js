@@ -3,7 +3,7 @@ const figlet = require('figlet');
 const DailyRotateFile = require('winston-daily-rotate-file');
 const winston = require('winston');
 
-const coreLogger = require('@markbind/core/src/utils/logger');
+const coreLogger = require('@markbind/core/built/src/utils/logger');
 
 // @markbind/core's consoleTransport but with level: info
 const consoleTransport = new (winston.transports.Console)({

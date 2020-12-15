@@ -11,7 +11,7 @@
   ],
   "homepage": "https://markbind.org",
   "license": "MIT",
-  "main": "src/index.js",
+  "main": "built/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/MarkBind/markbind.git",
@@ -67,6 +67,7 @@
   },
   "devDependencies": {
     "jest": "^26.1.0",
-    "memfs": "^3.0.1"
+    "memfs": "^3.0.1",
+    "typescript": "^4.1.3"
   }
 }

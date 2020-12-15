@@ -2,7 +2,7 @@ const findUp = require('find-up');
 const fs = require('fs-extra');
 const path = require('path');
 
-const { SITE_CONFIG_NAME } = require('@markbind/core/src/Site/constants');
+const { SITE_CONFIG_NAME } = require('@markbind/core/built/src/Site/constants');
 
 module.exports = {
   findRootFolder: (userSpecifiedRoot, siteConfigPath = SITE_CONFIG_NAME) => {

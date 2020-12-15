@@ -12,8 +12,8 @@ const _ = {};
 _.isBoolean = require('lodash/isBoolean');
 
 const { Site } = require('@markbind/core');
-const fsUtil = require('@markbind/core/src/utils/fsUtil');
-const utils = require('@markbind/core/src/utils');
+const fsUtil = require('@markbind/core/built/src/utils/fsUtil');
+const utils = require('@markbind/core/built/src/utils');
 const {
   INDEX_MARKDOWN_FILE,
   INDEX_MARKBIND_FILE,
