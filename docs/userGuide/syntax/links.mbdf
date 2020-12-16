@@ -109,7 +109,9 @@ Within `index.md`, we can also display the image using
 
 <div class="indented">
 
-Links will be validated when generating a site and a warning will be displayed in the console for every link that is invalid.
+Links will be validated when generating a site and a warning will be displayed in the console for every link that is invalid. 
+
+This feature is enabled by default. If you wish to disable this feature entirely, you may indicate in your `site.json` a field `validateIntralink` with the value set to **false**.
 
 <box type="warning">
 
