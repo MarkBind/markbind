@@ -68,7 +68,10 @@ Here is a typical `site.json` file:
       "tags": ["tag1", "tag2"]
     }
   },
-  "headingIndexingLevel": 4
+  "headingIndexingLevel": 4,
+  "intrasiteLinkValidation": {
+    "enabled": false
+  }
 }
 ```
 
@@ -253,3 +256,16 @@ The date format is thus - <br>
   <include src="pages/locales.md" />
 </panel>
 <br>
+
+#### **`intrasiteLinkValidation`**
+
+**Toggle whether to validate intrasite links.** By default, Markbind will validate all intrasite links and alert you of any potentially invalid ones. 
+You can choose to turn this option off to not receive warnings during the `build` process. 
+To turn off the option, add the following to `site.json` - 
+```js
+...
+"intrasiteLinkValidation": {
+  "enabled": false
+},
+...
+```

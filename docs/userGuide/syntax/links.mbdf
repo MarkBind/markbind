@@ -118,9 +118,18 @@ Links will be validated when generating a site and a warning will be displayed i
 
 Link validation is enabled by default. 
 
-If you wish to disable this feature entirely, you may indicate in your `site.json` the field `validateIntralink` with the value set to **false**.
+If you wish to disable this feature **entirely**, you may simply modify your `site.json` as follows. 
 
-However, if you wish to only disable validation for a specific link, you may use the `no-validation` attribute.
+{{ icon_example }}
+```js
+...
+"intrasiteLinkValidation": {
+	"enabled": false
+},
+...
+```
+
+However, if you wish to only disable validation for a **specific link**, you may use the `no-validation` attribute.
 
 {{ icon_example }}
 `Click [here](index.md){no-validation}`
