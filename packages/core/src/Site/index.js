@@ -318,7 +318,7 @@ class Site {
       ignore: this.siteConfig.ignore,
       addressablePagesSource: this.addressablePagesSource,
       layoutManager: this.layoutManager,
-      validateIntralink: this.siteConfig.validateIntralink,
+      intrasiteLinkValidation: this.siteConfig.intrasiteLinkValidation,
     });
     return new Page(pageConfig);
   }

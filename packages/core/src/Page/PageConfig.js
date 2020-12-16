@@ -121,7 +121,7 @@ class PageConfig {
     /**
      * @type {boolean}
      */
-    this.validateIntralink = args.validateIntralink;
+    this.intrasiteLinkValidation = args.intrasiteLinkValidation;
   }
 }
 

@@ -104,9 +104,12 @@ class SiteConfig {
     /**
      * @type {boolean}
      */
-    this.validateIntralink = siteConfigJson.validateIntralink === undefined
-      ? true
-      : siteConfigJson.validateIntralink;
+    this.intrasiteLinkValidation = {
+      enabled: (siteConfigJson.intrasiteLinkValidation === undefined
+        || siteConfigJson.intrasiteLinkValidation.enabled === undefined
+        ? true
+        : siteConfigJson.intrasiteLinkValidation.enabled),
+    };
   }
 }
 
