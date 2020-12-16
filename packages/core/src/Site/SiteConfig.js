@@ -101,6 +101,12 @@ class SiteConfig {
      * @type {Object<string, Object<string, any>>}
      */
     this.deploy = siteConfigJson.deploy || {};
+    /**
+     * @type {boolean}
+     */
+    this.validateIntralink = siteConfigJson.validateIntralink === undefined
+      ? true
+      : siteConfigJson.validateIntralink;
   }
 }
 

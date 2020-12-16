@@ -714,7 +714,9 @@ class NodeProcessor {
     if (linkProcessor.hasTagLink(node)) {
       linkProcessor.convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);
       linkProcessor.convertMdAndMbdExtToHtmlExt(node);
-      linkProcessor.validateIntraLink(node, context.cwf, this.config);
+      if (this.config.validateIntralink) {
+        linkProcessor.validateIntraLink(node, context.cwf, this.config);
+      }
       linkProcessor.collectSource(node, this.config.rootPath, this.config.baseUrl, this.pageSources);
     }
 
