@@ -105,7 +105,7 @@ class SiteConfig {
      * @type {boolean}
      */
     this.intrasiteLinkValidation = siteConfigJson.intrasiteLinkValidation || {};
-    this.intrasiteLinkValidation.enabled = siteConfigJson.intrasiteLinkValidation.enabled !== false;
+    this.intrasiteLinkValidation.enabled = this.intrasiteLinkValidation.enabled !== false;
   }
 }
 
