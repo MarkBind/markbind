@@ -19,14 +19,14 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 <markdown class="mt-2">
 ```
 <markdown> elements allow block-level markdown without needing a leading newline.
-Hence, this html should be parsed and output as is, without any parsing errors.
+Hence, the contained markdown should be parsed and output as is, without any parsing errors.
 </invalidhtml>
 ```
 </markdown>
 
 <md>
-`<md>` elements allow block-level markdown without needing a leading newline.
-Hence, this html should be parsed and output as is, without any parsing errors.
+`<md>` elements allow inline-level markdown even in a non-markdown token.
+Hence, the contained markdown should be parsed and output as is, without any parsing errors.
 `</invalid>`.
 </md>
 
