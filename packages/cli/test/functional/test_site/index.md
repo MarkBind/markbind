@@ -10,6 +10,27 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 <div class="website-content">
 
+**Test `<markdown>` and `<md>` elements**
+
+<markdown>This should be wrapped in a `<p>` tag as it uses the block-level markdown renderer</markdown>
+
+<md>This should not be wrapped in a `<p>` tag as it uses the inline markdown renderer</md>
+
+<markdown class="mt-2">
+```
+<markdown> elements allow block-level markdown without needing a leading newline.
+Hence, this html should be parsed and output as is, without any parsing errors.
+</invalidhtml>
+```
+</markdown>
+
+<md>
+`<md>` elements allow block-level markdown without needing a leading newline.
+Hence, this html should be parsed and output as is, without any parsing errors.
+`</invalid>`.
+</md>
+
+
 **Test footnotes**
 
 <include src="testFootnotes.md" />
