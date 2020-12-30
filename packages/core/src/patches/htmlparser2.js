@@ -142,6 +142,8 @@ const DEFAULT_SPECIAL_TAGS = [
 	'script',
 	'style',
 	'variable',
+	'markdown',
+	'md',
 ];
 
 function whitespace(c) {
