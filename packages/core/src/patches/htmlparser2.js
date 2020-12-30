@@ -1,10 +1,9 @@
 /*
- * Four behaviours of htmlparser2 are patched here, the first 2 being 'convenience' patches
+ * Three behaviours of htmlparser2 are patched here, the first 2 being 'convenience' patches
  * to avoid repeated passing of lowerCaseAttributeNames and recognizeSelfClosing options.
  * 1. Defaulting to self closing tag recognition
  * 2. Disabling automatic attribute name conversion to lower case
- * 3. Recognising text in markdown inline code / code blocks as raw text
- * 4. Ability to inject/whitelist certain tags to be parsed like script/style tags do. (special tags)
+ * 3. Ability to inject/whitelist certain tags to be parsed like script/style tags do. ('special' tags)
  */
 
 const { Tokenizer, Parser } = require('htmlparser2');
@@ -27,8 +26,6 @@ Parser.prototype.onselfclosingtag = function () {
 Parser.prototype.onattribname = function (name) {
   this._attribname = name;
 };
-
-const MARKDOWN = Symbol('MARKDOWN');
 
 /* eslint-disable
     brace-style,
@@ -149,40 +146,6 @@ const DEFAULT_SPECIAL_TAGS = [
 function whitespace(c) {
 	return c === " " || c === "\n" || c === "\t" || c === "\f" || c === "\r";
 }
-
-Tokenizer.prototype._stateMarkdown = function(c){
- 	if(c === '`') {
- 		this._state = TEXT;
- 	}
-};
-
-/**
- * Patched state text token handler to treat content in markdown code blocks
- * and fences as markdown text.
- * In conjunction with _stateMarkdown, the parser enter the MARKDOWN state after
- * an odd number of consecutive backticks.
- */
-Tokenizer.prototype._stateText = function(c) {
-	if (this._special === SPECIAL_NONE && c === '`') {
-		this._state = MARKDOWN;
-	} else if(c === "<"){
-		var isInequality = (this._index + 1 < this._buffer.length) && (this._buffer.charAt(this._index + 1) === '=');
-		if(!isInequality){
-			if(this._index > this._sectionStart){
-				this._cbs.ontext(this._getSection());
-			}
-			this._state = BEFORE_TAG_NAME;
-			this._sectionStart = this._index;
-		}
-	} else if(this._decodeEntities && this._special === SPECIAL_NONE && c === "&"){
-		if(this._index > this._sectionStart){
-			this._cbs.ontext(this._getSection());
-		}
-		this._baseState = TEXT;
-		this._state = BEFORE_ENTITY;
-		this._sectionStart = this._index;
-	}
-};
 
 Tokenizer.prototype.specialTagNames = [...DEFAULT_SPECIAL_TAGS];
 
@@ -390,9 +353,7 @@ Tokenizer.prototype._parse = function(){
 	while(this._index < this._buffer.length && this._running){
 		var c = this._buffer.charAt(this._index);
 
-		if(this._state === MARKDOWN){
-			this._stateMarkdown(c);
-		} else if(this._state === TEXT){
+		if(this._state === TEXT){
 			this._stateText(c);
 		} else if(this._state === BEFORE_TAG_NAME){
 			this._stateBeforeTagName(c);
