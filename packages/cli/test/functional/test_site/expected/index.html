@@ -187,13 +187,13 @@
           <span>This should not be wrapped in a <code class="hljs inline no-lang" v-pre>&lt;p&gt;</code> tag as it uses the inline markdown renderer</span>
           <div class="mt-2">
             <pre><code class="hljs" v-pre><span>&lt;markdown&gt; elements allow block-level markdown without needing a leading newline.
-</span><span>Hence, this html should be parsed and output as is, without any parsing errors.
+</span><span>Hence, the contained markdown should be parsed and output as is, without any parsing errors.
 </span><span>&lt;/invalidhtml&gt;
 </span></code></pre>
           </div>
           <span>
-            <code class="hljs inline no-lang" v-pre>&lt;md&gt;</code> elements allow block-level markdown without needing a leading newline.
-            Hence, this html should be parsed and output as is, without any parsing errors.
+            <code class="hljs inline no-lang" v-pre>&lt;md&gt;</code> elements allow inline-level markdown even in a non-markdown token.
+            Hence, the contained markdown should be parsed and output as is, without any parsing errors.
             <code class="hljs inline no-lang" v-pre>&lt;/invalid&gt;</code>.
           </span>
           <p><strong>Test footnotes</strong></p>
