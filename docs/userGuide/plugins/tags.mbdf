@@ -144,6 +144,7 @@ Using `-` at the start of a tag hides all tags matching the expression. This is 
 This only works because tags are processed left to right, so all `language--*` tags are hidden before `language--C#`. Tags in `site.json` are processed after tags in `<frontmatter>`.
 
 <span id="short" class="d-none">
+
 ```html
 # Print 'Hello world'
 

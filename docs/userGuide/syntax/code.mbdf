@@ -22,6 +22,7 @@ To enable syntax coloring, specify a language next to the backticks before the f
 <div id="main-example">
 <include src="codeAndOutputCode.md" boilerplate >
 <variable name="code">
+
 ```xml
 <foo>
   <bar type="name">goo</bar>
@@ -36,6 +37,7 @@ Line numbers are provided by default. To hide line numbers, add the class `no-li
 
 <include src="codeAndOutputCode.md" boilerplate >
 <variable name="code">
+
 ```xml {.no-line-numbers}
 <foo>
   <bar type="name">goo</bar>
@@ -48,6 +50,7 @@ You can have your line numbers start with a value other than `1` with the `start
 
 <include src="codeAndOutputCode.md" boilerplate >
 <variable name="code">
+
 ```js {start-from=6}
 function add(a, b) {
     return a + b;
@@ -79,6 +82,7 @@ For ranges, you only need to use line-slices on either ends.
 <include src="codeAndOutputCode.md" boilerplate >
 
 <variable name="code">
+
 ```java {highlight-lines="1,3[:],6-8,10[:]-12"}
 import java.util.List;
 
@@ -104,6 +108,7 @@ To add a heading, add the attribute `heading` with the heading text as the value
 
 <include src="codeAndOutputCode.md" boilerplate >
 <variable name="code">
+
 ```xml {heading="Heading title"}
 <foo>
   <bar type="name">goo</bar>
@@ -116,6 +121,7 @@ Headings support inline Markdown, except for `Inline Code` and %%Dim%% text styl
 
 <include src="codeAndOutputCode.md" boilerplate >
 <variable name="code">
+
 ```{heading="**Bold**, _Italic_, ___Bold and Italic___, ~~Strike through~~, ****Super Bold****, ++Underline++, ==Highlight==, :+1: :exclamation: :x: :construction:<br>We support page breaks"}
 <foo></foo>
 ```
@@ -127,6 +133,7 @@ You can also use multiple features together, as shown below.
 
 <include src="codeAndOutputCode.md" boilerplate >
 <variable name="code">
+
 ```xml {highlight-lines="2" heading="Heading title"}
 <foo>
   <bar type="name">goo</bar>
@@ -150,6 +157,7 @@ or the java code `public static void main(String[] args)`{.java}.
 </include>
 
 <span id="short" class="d-none">
+
 ````
 ```xml
 <foo>
