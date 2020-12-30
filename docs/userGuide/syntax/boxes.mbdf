@@ -198,6 +198,7 @@ no-icon | `Boolean` | `false` | Removes icon, except if icon is displayed via `i
 
 
 <span id="short" class="d-none">
+
 ```html
 <box type="warning">
   warning

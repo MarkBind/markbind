@@ -16,6 +16,7 @@ must be installed to use this feature**
 <div id="main-example">
 <include src="outputBox.md" boilerplate>
 <span id="code">
+
 ```
 <puml width=300>
 @startuml

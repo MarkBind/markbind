@@ -34,6 +34,7 @@ Syntax added by MarkBind:
 <small>Alternative syntax: https://www.markdownguide.org/basic-syntax#emphasis</small>
 
 <span id="short" class="d-none">
+
 ```markdown
 **Bold**, _Italic_, ___Bold and Italic___, `Inline Code`
 ~~Strike through~~, ****Super Bold****, ++Underline++, ==Highlight==, %%Dim%%, Super^script^, Sub~script~

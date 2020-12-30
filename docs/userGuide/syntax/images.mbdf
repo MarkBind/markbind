@@ -13,6 +13,7 @@
 
 
 <span id="short" class="d-none">
+
 ```markdown
 ![alt text here](https://markbind.org/images/logo-lightbackground.png "title here")
 ```
