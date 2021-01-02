@@ -139,7 +139,6 @@ export default {
         });
       } else {
         // EXPAND
-        console.log(this.$refs.panel.style.maxHeight);
         this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
       }
       this.localExpanded = !this.localExpanded;
