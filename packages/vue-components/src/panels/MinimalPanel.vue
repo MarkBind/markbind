@@ -56,6 +56,7 @@
         </div>
       </div>
       <div
+        v-if="wasRetrieverLoaded || preloadBool"
         ref="panel"
         class="card-collapse"
       >
@@ -66,6 +67,7 @@
             ref="retriever"
             :src="src"
             :fragment="fragment"
+            @src-loaded="setMaxHeight"
           />
         </div>
       </div>

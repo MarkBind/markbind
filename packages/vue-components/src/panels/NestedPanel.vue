@@ -59,13 +59,17 @@
         ref="panel"
         class="card-collapse"
       >
-        <div class="card-body">
+        <div
+          v-if="wasRetrieverLoaded || preloadBool"
+          class="card-body"
+        >
           <slot></slot>
           <retriever
             v-if="hasSrc"
             ref="retriever"
             :src="src"
             :fragment="fragment"
+            @src-loaded="setMaxHeight"
           />
           <panel-switch
             v-show="isExpandableCard && bottomSwitchBool"
