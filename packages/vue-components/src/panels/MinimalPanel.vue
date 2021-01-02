@@ -56,11 +56,13 @@
         </div>
       </div>
       <div
-        v-if="wasRetrieverLoaded || preloadBool"
         ref="panel"
+        v-if="wasRetrieverLoaded || preloadBool"
         class="card-collapse"
       >
-        <div class="card-body">
+        <div
+          class="card-body"
+        >
           <slot></slot>
           <retriever
             v-if="hasSrc"
@@ -101,6 +103,19 @@ export default {
   },
   methods: {
     minimalToggle() {
+      // if (!this.wasRetrieverLoaded) {
+      //   console.log(this.$refs.panel.style.maxHeight);
+      //   this.wasRetrieverLoaded = true;
+      //   this.localExpanded = !this.localExpanded;
+      //   this.isHeaderAtBottom = !this.isHeaderAtBottom;
+      //   this.$nextTick(() => {
+      //     this.$refs.panel.style.maxHeight = `${0}px`;
+      //     this.$nextTick(() => {
+      //       this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+      //     });
+      //   });
+      //   return;
+      // }
       if (this.localExpanded) {
         // this is a collapse, set isHeaderAtBottom to true only at the end of transition
         // to achieve the correct collapse transition effect of minimal panel
@@ -116,6 +131,20 @@ export default {
       this.toggle();
     },
     minimalOpen() {
+      // if (!this.wasRetrieverLoaded) {
+      //   console.log(this.$refs.panel.style.maxHeight);
+      //   this.wasRetrieverLoaded = true;
+      //   this.localExpanded = true;
+      //   this.localMinimized = false;
+      //   this.isHeaderAtBottom = true;
+      //   this.$nextTick(() => {
+      //     this.$refs.panel.style.maxHeight = `${0}px`;
+      //     this.$nextTick(() => {
+      //       this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+      //     });
+      //   });
+      //   return;
+      // }
       this.open();
       this.isHeaderAtBottom = true;
     },

@@ -120,21 +120,26 @@ export default {
 
         // need to wait for DOM update, after resetting panel maxHeight
 
-        // console.log(this.$refs.panel.scrollHeight);
-        // setTimeout(() => {
+        // some weird behaviours / observations here
+        // -- this.$nextTick would work if I either:
+        // 1. put a "console.log(this.$refs.panel.scrollHeight)" before it
+        // 2. OR place "if (this.$el.getBoundingClientRect().top < 0) { ... }" within the callback of nextTick
+        // (like how it is currently done below)
+        // However, it would also work if i just use setTimeout instead of nextTick
+
         this.$nextTick(() => {
-          // transition to collapsed panel
+          // to enable behaviour of auto window scrolling during panel collapse
           if (this.$el.getBoundingClientRect().top < 0) {
             jQuery('html').animate({
               scrollTop: window.scrollY + this.$el.getBoundingClientRect().top - 3,
             }, 500, 'swing');
           }
+          // transition to collapsed panel
           this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
         });
-        // }, 0); // nextTick doesn't work, not sure why :O
-        // but nextTick works when i console log this.$refs.panel.scrollHeight right before
       } else {
         // EXPAND
+        console.log(this.$refs.panel.style.maxHeight);
         this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
       }
       this.localExpanded = !this.localExpanded;
@@ -149,7 +154,9 @@ export default {
       this.localMinimized = false;
       this.localExpanded = true;
       this.wasRetrieverLoaded = true;
-      // need to wait for DOM update, after setting minimized to false
+      // need to wait for DOM update, after setting either
+      // 1. minimized to false
+      // 2. OR wasRetrieverLoaded to true
       this.$nextTick(() => {
         this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
       });
@@ -187,13 +194,13 @@ export default {
         this.localExpanded = false;
       }
 
-      this.wasRetrieverLoaded = this.localExpanded;
-
       if (this.localExpanded) {
         this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
       } else {
         this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
       }
+
+      this.wasRetrieverLoaded = this.localExpanded;
 
       if (this.minimizedBool) {
         if (this.localExpanded) {
