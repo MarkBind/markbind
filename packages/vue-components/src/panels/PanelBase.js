@@ -210,16 +210,21 @@ export default {
 
       this.wasRetrieverLoaded = this.localExpanded;
 
-      if (this.minimizedBool) {
-        // if panel is minimized, simply close the panel
-        this.close();
-        return;
-      }
-
       if (this.localExpanded) {
         this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
       } else {
         this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
+      }
+
+      if (this.minimizedBool) {
+        if (this.localExpanded) {
+          // both expanded and minimized
+          // leave panel expanded
+          this.localMinimized = true;
+          return;
+        }
+        // if panel is minimized, simply close the panel
+        this.close();
       }
     },
   },
