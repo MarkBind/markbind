@@ -95,11 +95,15 @@ export default {
     },
   },
   data() {
+    /*
+      Initialize data to expand and show all the panel content at the beginning.
+      The data will be reassigned to what the user indicated after panel setup (in created / mounted).
+    */
     return {
-      localExpanded: false,
+      localExpanded: true,
       localMinimized: false,
-      wasRetrieverLoaded: false,
-      collapsedPanelHeight: 0, // will be >0 if show-preview mode
+      wasRetrieverLoaded: true,
+      collapsedPanelHeight: 0, // Will be >0 if show-preview mode
     };
   },
   methods: {
@@ -110,49 +114,46 @@ export default {
       }
 
       if (this.localExpanded) {
-        // COLLAPSE
-        // panel maxHeight is 'none' at this moment (as event listener set it to 'none' after expansion)
-        // thus, we need to reset the maxHeight to its current height (for collapse transition to work)
+        /*
+          Collapse panel.
+          Panel's maxHeight is 'none' at the moment, as event listener set it to 'none' after expansion.
+          Thus, we need to reset the maxHeight to its current height (for collapse transition to work.
+        */
         this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
 
-        // need to wait for DOM update, after resetting panel maxHeight
-
-        // some weird behaviours / observations here
-        // -- this.$nextTick would work if I either:
-        // 1. put a "console.log(this.$refs.panel.scrollHeight)" before it
-        // 2. OR place "if (this.$el.getBoundingClientRect().top < 0) { ... }" within the callback of nextTick
-        // (like how it is currently done below)
-        // However, it would also work if i just use setTimeout instead of nextTick
-
         requestAnimationFrame(() => {
-          // to enable behaviour of auto window scrolling during panel collapse
+          // To enable behaviour of auto window scrolling during panel collapse
           if (this.$el.getBoundingClientRect().top < 0) {
             jQuery('html').animate({
               scrollTop: window.scrollY + this.$el.getBoundingClientRect().top - 3,
             }, 500, 'swing');
           }
-          // transition to collapsed panel
           this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
         });
       } else {
-        // EXPAND
+        // Expand panel
         this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
       }
+
       this.localExpanded = !this.localExpanded;
     },
     close() {
       this.localMinimized = true;
       this.localExpanded = false;
+      /*
+        We do not need transition for closing panels (changing to minimized).
+        Thus, we do not use nextTick here.
+      */
       this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
-      // we don't need transition for closing (change to minimized panel)
     },
     open() {
       this.localMinimized = false;
       this.localExpanded = true;
       this.wasRetrieverLoaded = true;
-      // need to wait for DOM update, after setting either
-      // 1. minimized to false
-      // 2. OR wasRetrieverLoaded to true
+      /*
+        After setting minimized to false / wasRetrieverLoaded to true,
+        we have to wait for DOM update (nextTick) before setting maxHeight for transition.
+      */
       this.$nextTick(() => {
         this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
       });
@@ -162,52 +163,47 @@ export default {
     },
     setMaxHeight() {
       if (this.preloadBool && !this.wasRetrieverLoaded) {
-        // only preload, do not expand the panel
+        // Only preload, do not expand the panel.
         return;
       }
-      // Don't play the transition for this case as the loading should feel 'instant'
+      // Don't play the transition for this case as the loading should feel 'instant'.
       if (this.expandedBool) {
         this.$refs.panel.style.maxHeight = 'none';
         return;
       }
 
-      // for expansion transition to 'continue' after src is loaded
+      // For expansion transition to 'continue' after src is loaded.
       this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
     },
-    setCollapsedPanelHeight() {
-      // to be used for setting preview's default collapsed panel height
+    initCollapsedPanelHeight() {
+      // To set panel's default collapsed panel height.
       this.collapsedPanelHeight = 0;
     },
-    setInitialPanelHeight() {
-      // Edge case where user might want non-expandable card that isn't expanded by default
-      const notExpandableNoExpand = !this.expandableBool && this.expanded !== 'false';
+    initPanel() {
+      this.$refs.panel.addEventListener('transitionend', () => {
+        /*
+          If the panel's content grows, its height should accomodate it accordingly (e.g. nested panels).
+          We will always set the panel's maxHeight to 'none' after expansion.
+          This is to prevent maxHeight (which is used for transition) from restricting panel's growth.
+        */
+        if (this.localExpanded) {
+          this.$refs.panel.style.maxHeight = 'none';
+        }
+      });
 
-      // Set local data to computed prop value
+      this.wasRetrieverLoaded = this.localExpanded;
 
-      // Ensure this expr ordering is maintained
-      this.localExpanded = notExpandableNoExpand || this.expandedBool;
-      if (this.localExpanded === null) {
-        this.localExpanded = false;
+      if (this.minimizedBool && !this.localExpanded) {
+        // If panel is minimized, simply close the panel.
+        this.close();
+        return;
       }
 
+      // Set the initial height of panel.
       if (this.localExpanded) {
         this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
       } else {
         this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
-      }
-
-      this.wasRetrieverLoaded = this.localExpanded;
-
-      if (this.minimizedBool) {
-        if (this.localExpanded) {
-          // user indicated both minimized and expanded option
-          // resolution: leave panel expanded and minimize it
-          // so when user opens the minimized panel, it is automatically in expanded state (no transition)
-          this.localMinimized = true;
-          return;
-        }
-        // if panel is minimized, simply close the panel
-        this.close();
       }
     },
   },
@@ -220,26 +216,30 @@ export default {
         this.src = this.src.split('#')[0];
       }
     }
-    // at the beginning
-    // expand everything to retrieve the appropriate heights
-    // ensure everything is rendered
-    // the variables will be reassigned to what the user indicated afterwards
-    this.localMinimized = false;
-    this.localExpanded = true;
-    this.wasRetrieverLoaded = true;
+
+    // Edge case where user might want non-expandable card that isn't expanded by default
+    const notExpandableNoExpand = !this.expandableBool && this.expanded !== 'false';
+
+    // Set local data to computed prop value
+
+    // Ensure this expr ordering is maintained
+    this.localExpanded = notExpandableNoExpand || this.expandedBool;
+    if (this.localExpanded === null) {
+      this.localExpanded = false;
+    }
+
+    if (this.minimizedBool && this.localExpanded) {
+      /*
+        User has indicated both minimized and expanded option.
+        We will leave the panel expanded and minimize it.
+        When user opens the minimized panel, it is automatically in expanded state (no transition).
+      */
+      this.localMinimized = true;
+    }
+
+    this.initCollapsedPanelHeight();
   },
   mounted() {
-    this.$refs.panel.addEventListener('transitionend', () => {
-      // for nested panel, parent panel must not have a limited max-height, as it has to grow
-      // if there are child panels that are expanded
-      // we will always set maxHeight to 'none' after expansion
-      // this is to accomodate the expansion of nested panels (parent panel needs to grow)
-      // event listener will set maxHeight to none after transition ends for expansion
-      if (this.localExpanded) {
-        this.$refs.panel.style.maxHeight = 'none';
-      }
-    });
-    this.setCollapsedPanelHeight();
-    this.setInitialPanelHeight();
+    this.initPanel();
   },
 };
