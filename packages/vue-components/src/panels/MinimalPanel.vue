@@ -89,9 +89,9 @@ export default {
   data() {
     return {
       /*
-      'Copy' of localExpanded that is updated on certain animation events.
-      It is minimal-panel specific due to its design (the header can shift to the bottom).
-      Its purpose is to show the header text only once the collapse animation has finished.
+        'Copy' of localExpanded that is updated on certain animation events.
+        It is minimal-panel specific due to its design (the header can shift to the bottom).
+        Its purpose is to show the header text only once the collapse animation has finished.
        */
       isHeaderAtBottom: false,
     };
@@ -104,15 +104,18 @@ export default {
   methods: {
     minimalToggle() {
       if (this.localExpanded) {
-        // this is a collapse, set isHeaderAtBottom to true only at the end of transition
-        // to achieve the correct collapse transition effect of minimal panel
+        /*
+          This is a collapse.
+          Set isHeaderAtBottom to true only at the end of transition.
+          So that we can achieve the correct collapse transition effect of minimal panel.
+        */
         const onCollapseDone = () => {
           this.isHeaderAtBottom = false;
           this.$refs.panel.removeEventListener('transitionend', onCollapseDone);
         };
         this.$refs.panel.addEventListener('transitionend', onCollapseDone);
       } else {
-        // this is an expansion, immediately set isHeaderAtBottom to true
+        // This is an expansion. Set isHeaderAtBottom to true *immediately*.
         this.isHeaderAtBottom = true;
       }
       this.toggle();
@@ -126,7 +129,7 @@ export default {
       this.isHeaderAtBottom = false;
     },
   },
-  mounted() {
+  created() {
     this.isHeaderAtBottom = this.localExpanded;
   },
 };
