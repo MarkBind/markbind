@@ -105,13 +105,10 @@ export default {
   methods: {
     toggle() {
       if (!this.wasRetrieverLoaded) {
-        this.wasRetrieverLoaded = true;
-        this.$nextTick(() => {
-          this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
-        });
-        this.localExpanded = !this.localExpanded;
+        this.open();
         return;
       }
+
       if (this.localExpanded) {
         // COLLAPSE
         // panel maxHeight is 'none' at this moment (as event listener set it to 'none' after expansion)
@@ -127,7 +124,7 @@ export default {
         // (like how it is currently done below)
         // However, it would also work if i just use setTimeout instead of nextTick
 
-        this.$nextTick(() => {
+        requestAnimationFrame(() => {
           // to enable behaviour of auto window scrolling during panel collapse
           if (this.$el.getBoundingClientRect().top < 0) {
             jQuery('html').animate({

@@ -107,13 +107,13 @@ export default {
         // this is a collapse, set isHeaderAtBottom to true only at the end of transition
         // to achieve the correct collapse transition effect of minimal panel
         const onCollapseDone = () => {
-          this.isHeaderAtBottom = !this.isHeaderAtBottom;
+          this.isHeaderAtBottom = false;
           this.$refs.panel.removeEventListener('transitionend', onCollapseDone);
         };
         this.$refs.panel.addEventListener('transitionend', onCollapseDone);
       } else {
         // this is an expansion, immediately set isHeaderAtBottom to true
-        this.isHeaderAtBottom = !this.isHeaderAtBottom;
+        this.isHeaderAtBottom = true;
       }
       this.toggle();
     },
