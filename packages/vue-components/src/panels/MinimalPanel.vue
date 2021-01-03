@@ -69,7 +69,7 @@
             ref="retriever"
             :src="src"
             :fragment="fragment"
-            @src-loaded="setMaxHeight"
+            @src-loaded="retrieverUpdateMaxHeight"
           />
         </div>
       </div>

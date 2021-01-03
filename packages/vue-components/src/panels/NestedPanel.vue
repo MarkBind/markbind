@@ -69,7 +69,7 @@
             ref="retriever"
             :src="src"
             :fragment="fragment"
-            @src-loaded="setMaxHeight"
+            @src-loaded="retrieverUpdateMaxHeight"
           />
           <panel-switch
             v-show="isExpandableCard && bottomSwitchBool"

@@ -103,6 +103,7 @@ export default {
       localExpanded: true,
       localMinimized: false,
       wasRetrieverLoaded: true,
+      isRetrieverLoadDone: !this.src, // Load is done by default there is no src
       collapsedPanelHeight: 0, // Will be >0 if show-preview mode
     };
   },
@@ -161,7 +162,10 @@ export default {
     openPopup() {
       window.open(this.popupUrl);
     },
-    setMaxHeight() {
+    retrieverUpdateMaxHeight() {
+      // src has finished loaded -- we set this flag to true so our event listener can set maxHeight to none
+      this.isRetrieverLoadDone = true;
+
       if (this.preloadBool && !this.wasRetrieverLoaded) {
         // Only preload, do not expand the panel.
         return;
@@ -185,8 +189,21 @@ export default {
           If the panel's content grows, its height should accomodate it accordingly (e.g. nested panels).
           We will always set the panel's maxHeight to 'none' after expansion.
           This is to prevent maxHeight (which is used for transition) from restricting panel's growth.
+
+          At the end of first expansion transition, if src has not finished loading, then we should not
+          set panel's maxHeight to none.
+
+          This is because once src finishes loading, retriever component will emit an event to
+          set the flag isRetrieverLoadDone to true and update the maxHeight again.
+
+          This will trigger a second expansion transition. And when this happens, we need the original
+          maxHeight (from first expansion transition) to ensure the transition can 'continue' smoothly.
+
+          Once that 'second' transition is finished, the flag isRetrieverLoadDone would have already
+          been set to true and the end of the 'second' transition will trigger this event listener
+          again to set maxHeight to none.
         */
-        if (this.localExpanded) {
+        if (this.localExpanded && this.isRetrieverLoadDone) {
           this.$refs.panel.style.maxHeight = 'none';
         }
       });
