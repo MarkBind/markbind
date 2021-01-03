@@ -4,9 +4,10 @@ node_js:
 branches:
   only:
     - master
-install:
+install: echo "default npm ci disabled"
+script: echo "default npm test disabled"
+before_deploy:
   - npm run setup
-script:
   - npm run test
 deploy:
   # deploy on release, to markbind.org
