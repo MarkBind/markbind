@@ -95,14 +95,10 @@ export default {
     },
   },
   data() {
-    /*
-      Initialize data to expand and show all the panel content at the beginning.
-      The data will be reassigned to what the user indicated after panel setup (in created / mounted).
-    */
     return {
-      localExpanded: true,
+      localExpanded: false,
       localMinimized: false,
-      wasRetrieverLoaded: true,
+      wasRetrieverLoaded: false,
       isRetrieverLoadDone: !this.src, // Load is done by default if there is no src
       collapsedPanelHeight: 0,
     };
