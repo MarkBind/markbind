@@ -103,8 +103,8 @@ export default {
       localExpanded: true,
       localMinimized: false,
       wasRetrieverLoaded: true,
-      isRetrieverLoadDone: !this.src, // Load is done by default there is no src
-      collapsedPanelHeight: 0, // Will be >0 if show-preview mode
+      isRetrieverLoadDone: !this.src, // Load is done by default if there is no src
+      collapsedPanelHeight: 0,
     };
   },
   methods: {
@@ -148,6 +148,15 @@ export default {
       this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
     },
     open() {
+      if (this.localExpanded) {
+        /*
+          In the case where panel is minimized but expanded (where retriever is already loaded),
+          it's maxHeight is already none and we should not set it scrollHeight again.
+        */
+        this.localMinimized = false;
+        return;
+      }
+
       this.localMinimized = false;
       this.localExpanded = true;
       this.wasRetrieverLoaded = true;
@@ -179,46 +188,28 @@ export default {
       // For expansion transition to 'continue' after src is loaded.
       this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
     },
-    initCollapsedPanelHeight() {
-      // To set panel's default collapsed panel height.
-      this.collapsedPanelHeight = 0;
-    },
     initPanel() {
-      this.$refs.panel.addEventListener('transitionend', () => {
+      this.$refs.panel.addEventListener('transitionend', (event) => {
         /*
-          If the panel's content grows, its height should accomodate it accordingly (e.g. nested panels).
-          We will always set the panel's maxHeight to 'none' after expansion.
-          This is to prevent maxHeight (which is used for transition) from restricting panel's growth.
+          If the panel's content grows, its maxHeight should accomodate it accordingly (e.g. nested panels).
 
-          At the end of first expansion transition, if src has not finished loading, then we should not
-          set panel's maxHeight to none.
-
-          This is because once src finishes loading, retriever component will emit an event to
-          set the flag isRetrieverLoadDone to true and update the maxHeight again.
-
-          This will trigger a second expansion transition. And when this happens, we need the original
-          maxHeight (from first expansion transition) to ensure the transition can 'continue' smoothly.
-
-          Once that 'second' transition is finished, the flag isRetrieverLoadDone would have already
-          been set to true and the end of the 'second' transition will trigger this event listener
-          again to set maxHeight to none.
+          However, if the panel has a 'src' attribute and it has not finished loading,
+          then this is delegated later to the retriever src-loaded event handler,
+          allowing a second maxHeight transition once it is loaded.
         */
-        if (this.localExpanded && this.isRetrieverLoadDone) {
+        if (this.localExpanded && this.isRetrieverLoadDone && event.target === this.$refs.panel) {
           this.$refs.panel.style.maxHeight = 'none';
         }
       });
 
-      this.wasRetrieverLoaded = this.localExpanded;
-
-      if (this.minimizedBool && !this.localExpanded) {
-        // If panel is minimized, simply close the panel.
-        this.close();
-        return;
-      }
-
       // Set the initial height of panel.
       if (this.localExpanded) {
-        this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+        /*
+          User has indicated expanded option for the panel.
+          We have to set the maxHeight to none immediately since there won't be any transitions
+          to trigger the event listener to set maxHeight to none.
+        */
+        this.$refs.panel.style.maxHeight = 'none';
       } else {
         this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
       }
@@ -245,16 +236,8 @@ export default {
       this.localExpanded = false;
     }
 
-    if (this.minimizedBool && this.localExpanded) {
-      /*
-        User has indicated both minimized and expanded option.
-        We will leave the panel expanded and minimize it.
-        When user opens the minimized panel, it is automatically in expanded state (no transition).
-      */
-      this.localMinimized = true;
-    }
-
-    this.initCollapsedPanelHeight();
+    this.wasRetrieverLoaded = this.localExpanded;
+    this.localMinimized = this.minimizedBool;
   },
   mounted() {
     this.initPanel();
