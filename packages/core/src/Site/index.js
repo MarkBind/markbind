@@ -786,7 +786,8 @@ class Site {
    * @returns {boolean} whether the file path is a dependency of any of the site's pages
    */
   isDependencyOfPage(filePath) {
-    return this.pages.some(page => page.isDependency(filePath));
+    return this.pages.some(page => page.isDependency(filePath))
+      || utils.ensurePosix(filePath).endsWith(USER_VARIABLES_PATH);
   }
 
   /**
