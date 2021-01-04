@@ -109,9 +109,11 @@ export default {
           Set isHeaderAtBottom to true only at the end of transition.
           So that we can achieve the correct collapse transition effect of minimal panel.
         */
-        const onCollapseDone = () => {
-          this.isHeaderAtBottom = false;
-          this.$refs.panel.removeEventListener('transitionend', onCollapseDone);
+        const onCollapseDone = (event) => {
+          if (event.target === this.$refs.panel) {
+            this.isHeaderAtBottom = false;
+            this.$refs.panel.removeEventListener('transitionend', onCollapseDone);
+          }
         };
         this.$refs.panel.addEventListener('transitionend', onCollapseDone);
       } else {
