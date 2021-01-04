@@ -104,6 +104,23 @@ Within `index.md`, we can also display the image using
 </box>
 
 </div>
+
+****Link validation****
+
+<div class="indented">
+
+Links will be validated when generating a site and a warning will be displayed in the console for every link that is invalid.
+
+<box type="warning">
+
+If you wish to disable validation for a specific link, you may use the `no-validation` attribute.
+
+{{ icon_example }}
+`Click [here](index.md){no-validation}`
+
+</box>
+
+</div>
 </div>
 
 <span id="short" class="d-none">
