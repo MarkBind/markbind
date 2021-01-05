@@ -184,17 +184,17 @@
 </span></code></pre>
         <p><strong>With syntax coloring should render correctly</strong></p>
         <pre><code class="hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span>
-</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
 </span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
 </span></code></pre>
         <p><strong><code class="hljs inline no-lang" v-pre>no-line-numbers</code> attr should hide corresponding line numbers</strong></p>
         <pre><code class="no-line-numbers hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span>
-</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
 </span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
 </span></code></pre>
         <p><strong><code class="hljs inline no-lang" v-pre>start-from</code> attr should set inline css in <code class="hljs inline no-lang" v-pre>&lt;code&gt;</code> tag, enabling lines to start from a specific line number</strong></p>
-        <pre><code style="counter-reset: line 29;" class="hljs markdown" v-pre><span><span class="hljs-strong">****</span><span class="hljs-emphasis">*</span>
-</span><span><span class="hljs-emphasis">-----</span>
+        <pre><code style="counter-reset: line 29;" class="hljs markdown" v-pre><span><span class="hljs-strong">*****</span>
+</span><span>-----
 </span></code></pre>
         <p><strong><code class="hljs inline no-lang" v-pre>highlight-lines</code> attr causes corresponding lines to have 'highlighted' class</strong></p>
         <pre><code class="hljs markdown" v-pre><span><span class="highlighted">1  highlighted</span>
@@ -222,10 +222,10 @@
 </span></code></pre>
         <p>**<code class="hljs inline no-lang" v-pre>highlight-lines</code> attr with line-slice syntax of empty indices should highlight leading/trailing spaces</p>
         <pre><code class="hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span>
-</span><span class="highlighted">  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
-</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">baz</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">baz</span>&gt;</span>
-</span><span class="highlighted">  <span class="hljs-tag">&lt;<span class="hljs-name">qux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">qux</span>&gt;</span>
-</span><span class="highlighted">  <span class="hljs-tag">&lt;<span class="hljs-name">quux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">quux</span>&gt;</span>
+</span><span class="highlighted">  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">baz</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">baz</span>&gt;</span>
+</span><span class="highlighted">  <span class="hljs-tag">&lt;<span class="hljs-name">qux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">qux</span>&gt;</span>
+</span><span class="highlighted">  <span class="hljs-tag">&lt;<span class="hljs-name">quux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"name"</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">quux</span>&gt;</span>
 </span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
 </span></code></pre>
         <p><strong>Should render correctly with heading</strong></p>
@@ -279,8 +279,8 @@
 </span><span>
 </span></code></pre>
         <p><strong>span with <code class="hljs inline no-lang" v-pre>hljs</code> class should span multiple lines <a href="https://github.com/MarkBind/markbind/pull/991#issuecomment-586547275">(Link for context)</a></strong></p>
-        <pre><code class="hljs markdown" v-pre><span><span class="hljs-strong">****</span><span class="hljs-emphasis">*</span>
-</span><span><span class="hljs-emphasis">-----</span>
+        <pre><code class="hljs markdown" v-pre><span><span class="hljs-strong">*****</span>
+</span><span>-----
 </span></code></pre>
         <i class="fa fa-arrow-circle-up fa-lg" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>

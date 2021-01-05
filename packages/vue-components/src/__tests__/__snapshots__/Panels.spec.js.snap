@@ -69,33 +69,31 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
       </div>
     </div>
      
-    <transition-stub>
+    <div
+      class="card-collapse"
+      style="max-height: 0px;"
+    >
       <div
-        class="card-collapse"
-        style=""
+        class="card-body"
       >
-        <div
-          class="card-body"
-        >
-           
-          <!---->
-           
-          <button
-            class="collapse-button btn btn-outline-secondary"
-            type="button"
-          >
-            <span
-              aria-hidden="true"
-              class="glyphicon glyphicon-menu-up"
-            />
-          </button>
-        </div>
          
-        <hr
-          style="display: none;"
-        />
+        <!---->
+         
+        <button
+          class="collapse-button btn btn-outline-secondary"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-menu-up"
+          />
+        </button>
       </div>
-    </transition-stub>
+       
+      <hr
+        style="display: none;"
+      />
+    </div>
   </div>
 </span>
 `;
@@ -169,33 +167,31 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
       </div>
     </div>
      
-    <transition-stub>
+    <div
+      class="card-collapse"
+      style="max-height: 0px;"
+    >
       <div
-        class="card-collapse"
-        style=""
+        class="card-body"
       >
-        <div
-          class="card-body"
-        >
-           
-          <!---->
-           
-          <button
-            class="collapse-button btn btn-outline-secondary"
-            type="button"
-          >
-            <span
-              aria-hidden="true"
-              class="glyphicon glyphicon-menu-up"
-            />
-          </button>
-        </div>
          
-        <hr
-          style="display: none;"
-        />
+        <!---->
+         
+        <button
+          class="collapse-button btn btn-outline-secondary"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-menu-up"
+          />
+        </button>
       </div>
-    </transition-stub>
+       
+      <hr
+        style="display: none;"
+      />
+    </div>
   </div>
 </span>
 `;
@@ -269,7 +265,16 @@ exports[`NestedPanels should show header when minimized with expandHeaderless as
       </div>
     </div>
      
-    <!---->
+    <div
+      class="card-collapse"
+      style="max-height: 0px;"
+    >
+      <!---->
+       
+      <hr
+        style="display: none;"
+      />
+    </div>
   </div>
 </span>
 `;
@@ -343,7 +348,16 @@ exports[`NestedPanels should show header when minimized with expandHeaderless as
       </div>
     </div>
      
-    <!---->
+    <div
+      class="card-collapse"
+      style="max-height: 0px;"
+    >
+      <!---->
+       
+      <hr
+        style="display: none;"
+      />
+    </div>
   </div>
 </span>
 `;
