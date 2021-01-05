@@ -482,7 +482,7 @@ class Page {
   }
 
   static addScrollToTopButton(pageData) {
-    const button = '<i class="fa fa-arrow-circle-up fa-lg" id="scroll-top-button" '
+    const button = '<i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" '
     + 'onclick="handleScrollTop()" aria-hidden="true"></i>';
     return `${pageData}\n${button}`;
   }
