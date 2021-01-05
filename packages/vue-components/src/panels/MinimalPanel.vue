@@ -1,7 +1,7 @@
 <template>
   <span ref="cardContainer" :class="['card-container', addClass]">
     <div v-show="localMinimized" class="morph">
-      <button class="morph-display-wrapper btn card-title morph-title" @click="open()">
+      <button class="morph-display-wrapper btn card-title morph-title" @click="minimalOpen()">
         <slot name="_alt">
           <slot name="header"></slot>
         </slot>
@@ -11,7 +11,7 @@
       <div
         :class="['header-wrapper',
                  { 'header-wrapper-bottom': isHeaderAtBottom, 'header-toggle': isExpandableCard }]"
-        @click.prevent.stop="isExpandableCard && toggle()"
+        @click.prevent.stop="isExpandableCard && minimalToggle()"
       >
         <transition name="header-fade">
           <span
@@ -33,7 +33,7 @@
               v-show="!noCloseBool"
               class="minimal-button"
               type="button"
-              @click.stop="close()"
+              @click.stop="minimalClose()"
             >
               <span class="glyphicon glyphicon-remove minimal-close-button" aria-hidden="true"></span>
             </button>
@@ -55,32 +55,24 @@
           </slot>
         </div>
       </div>
-      <transition
-        v-if="preloadBool || wasRetrieverLoaded"
-        @before-enter="beforeExpandMinimal"
-        @enter="duringExpand"
-        @after-enter="afterExpand"
-        @before-leave="beforeCollapse"
-        @leave="duringCollapse"
-        @after-leave="afterCollapseMinimal"
+      <div
+        ref="panel"
+        class="card-collapse"
       >
         <div
-          v-show="localExpanded"
-          ref="panel"
-          class="card-collapse"
+          v-if="wasRetrieverLoaded || preloadBool"
+          class="card-body"
         >
-          <div class="card-body">
-            <slot></slot>
-            <retriever
-              v-if="hasSrc"
-              ref="retriever"
-              :src="src"
-              :fragment="fragment"
-              @src-loaded="setMaxHeight"
-            />
-          </div>
+          <slot></slot>
+          <retriever
+            v-if="hasSrc"
+            ref="retriever"
+            :src="src"
+            :fragment="fragment"
+            @src-loaded="retrieverUpdateMaxHeight"
+          />
         </div>
-      </transition>
+      </div>
     </div>
   </span>
 </template>
@@ -97,9 +89,9 @@ export default {
   data() {
     return {
       /*
-      'Copy' of localExpanded that is updated on certain animation events.
-      It is minimal-panel specific due to its design (the header can shift to the bottom).
-      Its purpose is to show the header text only once the collapse animation has finished.
+        'Copy' of localExpanded that is updated on certain animation events.
+        It is minimal-panel specific due to its design (the header can shift to the bottom).
+        Its purpose is to show the header text only once the collapse animation has finished.
        */
       isHeaderAtBottom: false,
     };
@@ -110,11 +102,32 @@ export default {
     },
   },
   methods: {
-    beforeExpandMinimal(el) {
-      this.isHeaderAtBottom = true;
-      this.beforeExpand(el);
+    minimalToggle() {
+      if (this.localExpanded) {
+        /*
+          This is a collapse.
+          Set isHeaderAtBottom to true only at the end of transition.
+          So that we can achieve the correct collapse transition effect of minimal panel.
+        */
+        const onCollapseDone = (event) => {
+          if (event.target === this.$refs.panel) {
+            this.isHeaderAtBottom = false;
+            this.$refs.panel.removeEventListener('transitionend', onCollapseDone);
+          }
+        };
+        this.$refs.panel.addEventListener('transitionend', onCollapseDone);
+      } else {
+        // This is an expansion. Set isHeaderAtBottom to true *immediately*.
+        this.isHeaderAtBottom = true;
+      }
+      this.toggle();
     },
-    afterCollapseMinimal() {
+    minimalOpen() {
+      this.open();
+      this.isHeaderAtBottom = true;
+    },
+    minimalClose() {
+      this.close();
       this.isHeaderAtBottom = false;
     },
   },

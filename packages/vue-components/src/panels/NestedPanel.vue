@@ -55,37 +55,30 @@
           </slot>
         </div>
       </div>
-      <transition
-        v-if="preloadBool || wasRetrieverLoaded"
-        @before-enter="beforeExpand"
-        @enter="duringExpand"
-        @after-enter="afterExpand"
-        @before-leave="beforeCollapse"
-        @leave="duringCollapse"
+      <div
+        ref="panel"
+        class="card-collapse"
       >
         <div
-          v-show="localExpanded"
-          ref="panel"
-          class="card-collapse"
+          v-if="wasRetrieverLoaded || preloadBool"
+          class="card-body"
         >
-          <div class="card-body">
-            <slot></slot>
-            <retriever
-              v-if="hasSrc"
-              ref="retriever"
-              :src="src"
-              :fragment="fragment"
-              @src-loaded="setMaxHeight"
-            />
-            <panel-switch
-              v-show="isExpandableCard && bottomSwitchBool"
-              :is-open="localExpanded"
-              @click.native.stop.prevent="toggle()"
-            />
-          </div>
-          <hr v-show="isSeamless" />
+          <slot></slot>
+          <retriever
+            v-if="hasSrc"
+            ref="retriever"
+            :src="src"
+            :fragment="fragment"
+            @src-loaded="retrieverUpdateMaxHeight"
+          />
+          <panel-switch
+            v-show="isExpandableCard && bottomSwitchBool"
+            :is-open="localExpanded"
+            @click.native.stop.prevent="toggle()"
+          />
         </div>
-      </transition>
+        <hr v-show="isSeamless" />
+      </div>
     </div>
   </span>
 </template>

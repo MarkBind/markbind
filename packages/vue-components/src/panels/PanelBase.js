@@ -99,76 +99,116 @@ export default {
       localExpanded: false,
       localMinimized: false,
       wasRetrieverLoaded: false,
+      isRetrieverLoadDone: !this.src, // Load is done by default if there is no src
+      collapsedPanelHeight: 0,
     };
   },
   methods: {
     toggle() {
-      if (!this.wasRetrieverLoaded && !this.localExpanded) {
+      if (!this.wasRetrieverLoaded) {
+        this.open();
+        return;
+      }
+
+      if (this.localExpanded) {
         /*
-        Let the retriever load before toggling localExpanded which triggers the animation,
-        as we need to know the scrollHeight of the content for the animation to work.
+          Collapse panel.
+          Panel's maxHeight is 'none' at the moment, as event listener set it to 'none' after expansion.
+          Thus, we need to reset the maxHeight to its current height for collapse transition to work.
         */
-        this.wasRetrieverLoaded = true;
-        this.$nextTick(() => {
-          this.localExpanded = true;
+        this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+
+        requestAnimationFrame(() => {
+          // To enable behaviour of auto window scrolling during panel collapse
+          if (this.$el.getBoundingClientRect().top < 0) {
+            jQuery('html').animate({
+              scrollTop: window.scrollY + this.$el.getBoundingClientRect().top - 3,
+            }, 500, 'swing');
+          }
+          this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
         });
       } else {
-        this.localExpanded = !this.localExpanded;
+        // Expand panel
+        this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
       }
+
+      this.localExpanded = !this.localExpanded;
     },
     close() {
-      this.localExpanded = false;
       this.localMinimized = true;
+      this.localExpanded = false;
+      /*
+        We do not need transition for closing panels (changing to minimized).
+        Thus, we do not use nextTick here.
+      */
+      this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
     },
     open() {
-      this.wasRetrieverLoaded = true;
-      this.$nextTick(() => {
-        this.localExpanded = true;
-      });
+      if (this.localExpanded) {
+        /*
+          In the case where panel is minimized but expanded (where retriever is already loaded),
+          it's maxHeight is already none and we should not set it scrollHeight again.
+        */
+        this.localMinimized = false;
+        return;
+      }
+
       this.localMinimized = false;
+      this.localExpanded = true;
+      this.wasRetrieverLoaded = true;
+      /*
+        After setting minimized to false / wasRetrieverLoaded to true,
+        we have to wait for DOM update (nextTick) before setting maxHeight for transition.
+      */
+      this.$nextTick(() => {
+        this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+      });
     },
     openPopup() {
       window.open(this.popupUrl);
     },
-    setMaxHeight() {
-      // Don't play the transition for this case as the loading should feel 'instant'
+    retrieverUpdateMaxHeight() {
+      // src has finished loaded -- we set this flag to true so our event listener can set maxHeight to none
+      this.isRetrieverLoadDone = true;
+
+      if (this.preloadBool && !this.wasRetrieverLoaded) {
+        // Only preload, do not expand the panel.
+        return;
+      }
+      // Don't play the transition for this case as the loading should feel 'instant'.
       if (this.expandedBool) {
         this.$refs.panel.style.maxHeight = 'none';
         return;
       }
 
-      /*
-      Otherwise, since the vue transition is dependent on localExpanded, we have to manually
-      set our own transition end handlers here for the initial loading of the content.
-      */
-      const onExpandDone = () => {
-        this.$refs.panel.style.maxHeight = 'none';
-        this.$refs.panel.removeEventListener('transitionend', onExpandDone);
-      };
-
-      this.$refs.panel.addEventListener('transitionend', onExpandDone);
+      // For expansion transition to 'continue' after src is loaded.
       this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
     },
-    beforeExpand(el) {
-      el.style.maxHeight = '0';
-    },
-    duringExpand(el) {
-      jQuery('html').stop();
-      el.style.maxHeight = `${el.scrollHeight}px`;
-    },
-    afterExpand(el) {
-      el.style.maxHeight = 'none';
-    },
-    beforeCollapse(el) {
-      el.style.maxHeight = `${el.scrollHeight}px`;
-    },
-    duringCollapse(el) {
-      if (this.$el.getBoundingClientRect().top < 0) {
-        jQuery('html').animate({
-          scrollTop: window.scrollY + this.$el.getBoundingClientRect().top - 3,
-        }, 500, 'swing');
+    initPanel() {
+      this.$refs.panel.addEventListener('transitionend', (event) => {
+        /*
+          If the panel's content grows, its maxHeight should accomodate it accordingly (e.g. nested panels).
+
+          However, if the panel has a 'src' attribute and it has not finished loading,
+          then this is delegated later to the retriever src-loaded event handler,
+          allowing a second maxHeight transition once it is loaded.
+        */
+        if (this.localExpanded && this.isRetrieverLoadDone && event.target === this.$refs.panel) {
+          this.$refs.panel.style.maxHeight = 'none';
+        }
+      });
+
+      // Set the initial height of panel.
+      if (this.localExpanded) {
+        /*
+          User has indicated expanded option for the panel.
+          We have to set the maxHeight to none immediately since there won't be any transitions
+          to trigger the event listener to set maxHeight to none.
+        */
+        this.$refs.panel.style.maxHeight = 'none';
+      } else {
+        this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
       }
-      el.style.maxHeight = '0';
     },
   },
   created() {
@@ -180,6 +220,7 @@ export default {
         this.src = this.src.split('#')[0];
       }
     }
+
     // Edge case where user might want non-expandable card that isn't expanded by default
     const notExpandableNoExpand = !this.expandableBool && this.expanded !== 'false';
 
@@ -187,8 +228,14 @@ export default {
 
     // Ensure this expr ordering is maintained
     this.localExpanded = notExpandableNoExpand || this.expandedBool;
-    // If it is expanded, load the retriever immediately.
+    if (this.localExpanded === null) {
+      this.localExpanded = false;
+    }
+
     this.wasRetrieverLoaded = this.localExpanded;
     this.localMinimized = this.minimizedBool;
+  },
+  mounted() {
+    this.initPanel();
   },
 };
