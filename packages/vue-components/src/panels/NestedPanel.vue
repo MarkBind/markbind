@@ -7,7 +7,13 @@
         </slot>
       </button>
     </div>
-    <div v-show="!localMinimized" :class="['card', { 'expandable-card': isExpandableCard }, borderType]">
+    <div
+      v-show="!localMinimized"
+      :class="['card',
+               { 'expandable-card': isExpandableCard,
+                 'card-preview-collapsed': shouldShowPreview,
+               }, borderType]"
+    >
       <div
         :class="['card-header',{'header-toggle':isExpandableCard}, cardType, borderType]"
         @click.prevent.stop="isExpandableCard && toggle()"
@@ -79,6 +85,12 @@
         </div>
         <hr v-show="isSeamless" />
       </div>
+      <div
+        v-if="shouldShowPreview"
+        class="preview-read-more glyphicon glyphicon-chevron-down"
+        @click="toggle()"
+      >
+      </div>
     </div>
   </span>
 </template>
@@ -145,6 +157,38 @@ export default {
     .card-header:hover .seamless-button {
         opacity: 1;
     }
+
+    /*
+     * Gives the faded content effect for preview.
+     * Ensure that height has the same value as collapsedPanelHeight in PanelBase.js.
+     */
+    .card-preview-collapsed::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        height: 125px;
+        background-image: linear-gradient(180deg, transparent, white 90%);
+    }
+
+    .preview-read-more {
+        z-index: 1;
+        opacity: 0.2;
+    }
+
+    /* Targets the before pseudoelement of glyphicon-chevron-down. */
+    .preview-read-more::before {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        bottom: 10px;
+    }
+
+    .preview-read-more:hover {
+        cursor: pointer;
+        opacity: 0.4;
+    }
+
 </style>
 
 <style>

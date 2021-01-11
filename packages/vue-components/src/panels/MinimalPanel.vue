@@ -7,7 +7,11 @@
         </slot>
       </button>
     </div>
-    <div v-show="!localMinimized" class="card card-flex">
+    <div
+      v-show="!localMinimized"
+      class="card card-flex"
+      :class="{'card-preview-collapsed': shouldShowPreview}"
+    >
       <div
         :class="['header-wrapper',
                  { 'header-wrapper-bottom': isHeaderAtBottom, 'header-toggle': isExpandableCard }]"
@@ -138,6 +142,20 @@ export default {
 </script>
 
 <style scoped>
+
+  /*
+   * Gives the faded content effect for preview.
+   * Ensure that height has the same value as collapsedPanelHeight in PanelBase.js.
+   */
+  .card-preview-collapsed::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 125px;
+    background-image: linear-gradient(180deg, transparent, white 90%);
+  }
+
   .morph-title {
     padding: 0 0.3em;
     color: rgba(0, 0, 0, 0.5);

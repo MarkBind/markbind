@@ -53,6 +53,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    showPreview: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     // Vue 2.0 coerce migration
@@ -92,6 +96,9 @@ export default {
     },
     shouldShowHeader() {
       return (!this.localExpanded) || (!this.expandHeaderless);
+    },
+    shouldShowPreview() {
+      return this.showPreview && !this.localExpanded;
     },
   },
   data() {
@@ -210,6 +217,9 @@ export default {
         this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
       }
     },
+    initPanelCollapsedHeight() {
+      this.collapsedPanelHeight = this.showPreview ? 125 : 0;
+    },
   },
   created() {
     if (this.src) {
@@ -232,8 +242,10 @@ export default {
       this.localExpanded = false;
     }
 
-    this.wasRetrieverLoaded = this.localExpanded;
+    this.wasRetrieverLoaded = this.localExpanded || this.showPreview;
     this.localMinimized = this.minimizedBool;
+
+    this.initPanelCollapsedHeight();
   },
   mounted() {
     this.initPanel();
