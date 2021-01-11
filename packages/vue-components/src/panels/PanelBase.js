@@ -182,6 +182,10 @@ export default {
         // Only preload, do not expand the panel.
         return;
       }
+      if (this.showPreview && !this.localExpanded) {
+        // Only showPreview but not expanded, do not expand the panel.
+        return;
+      }
       // Don't play the transition for this case as the loading should feel 'instant'.
       if (this.expandedBool) {
         this.$refs.panel.style.maxHeight = 'none';
