@@ -85,12 +85,14 @@
         </div>
         <hr v-show="isSeamless" />
       </div>
-      <div
-        v-if="shouldShowPreview"
-        class="preview-read-more glyphicon glyphicon-chevron-down"
-        @click="toggle()"
-      >
-      </div>
+      <transition name="preview-read-more-fade">
+        <div
+          v-if="shouldShowPreview"
+          class="preview-read-more glyphicon glyphicon-chevron-down"
+          @click="toggle()"
+        >
+        </div>
+      </transition>
     </div>
   </span>
 </template>
@@ -187,6 +189,14 @@ export default {
     .preview-read-more:hover {
         cursor: pointer;
         opacity: 0.4;
+    }
+
+    .preview-read-more-fade-enter-active, .preview-read-more-fade-leave-active {
+        transition: opacity 0.5s;
+    }
+
+    .preview-read-more-fade-enter, .preview-read-more-fade-leave-to {
+        opacity: 0;
     }
 
 </style>
