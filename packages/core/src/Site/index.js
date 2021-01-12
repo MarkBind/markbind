@@ -565,9 +565,17 @@ class Site {
 
       const $ = cheerio.load(content, { decodeEntities: false });
       $('variable,span').each((index, element) => {
-        const name = $(element).attr('name') || $(element).attr('id');
+        const type = $(element).attr('type');
+        if (type === 'json') {
+          const parsedJson = JSON.parse($(element).html());
+          Object.entries(parsedJson).forEach(([key, val]) => {
+            this.variableProcessor.renderAndAddUserDefinedVariable(base, key, val);
+          });
+        } else {
+          const name = $(element).attr('name') || $(element).attr('id');
 
-        this.variableProcessor.renderAndAddUserDefinedVariable(base, name, $(element).html());
+          this.variableProcessor.renderAndAddUserDefinedVariable(base, name, $(element).html());
+        }
       });
     });
   }
