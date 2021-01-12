@@ -10,7 +10,9 @@
 * [Contributing]({{baseUrl}}/devGuide/devGuide.html)
 * [Setting up]({{baseUrl}}/devGuide/settingUp.html)
 * [Workflow]({{baseUrl}}/devGuide/workflow.html)
-* [Design]({{baseUrl}}/devGuide/design.html)
+* Design :expanded:
+  * [Project Structure]({{baseUrl}}/devGuide/design/projectStructure.html)
+  * [Architecture]({{baseUrl}}/devGuide/design/architecture.html)
 * [Writing Plugins]({{baseUrl}}/devGuide/writingPlugins.html)
 * [Project management]({{baseUrl}}/devGuide/projectManagement.html)
 * Appendices :expanded:

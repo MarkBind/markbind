@@ -1,4 +1,4 @@
-{% set title = "Design" %}
+{% set title = "Project Structure" %}
 <span id="title" class="d-none">{{ title }}</span>
 
 <frontmatter>
@@ -11,10 +11,10 @@
 
 <div class="lead">
 
-This page gives you an overview of the MarkBind's internal design.
+This page gives you an overview of the MarkBind's internal project structure.
 </div>
 
-## Project structure
+## Packages
 
 The MarkBind project is developed in a monorepo ([MarkBind/markbind](https://github.com/MarkBind/markbind)) of 4 packages:
 
