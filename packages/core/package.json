@@ -32,6 +32,7 @@
     "bootswatch": "^4.4.1",
     "cheerio": "^0.22.0",
     "crypto-js": "^4.0.0",
+    "csv-parse": "^4.14.2",
     "ensure-posix-path": "^1.1.1",
     "fastmatter": "^2.1.1",
     "fs-extra": "^9.0.1",

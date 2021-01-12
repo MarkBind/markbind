@@ -4,6 +4,8 @@ const path = require('path');
 const { Parser } = require('nunjucks/src/parser');
 const { lex } = require('nunjucks/src/lexer');
 
+const csvParse = require('csv-parse/lib/sync');
+
 const _ = {};
 _.isArray = require('lodash/isArray');
 _.isObject = require('lodash/isObject');
@@ -18,6 +20,7 @@ const logger = require('../../utils/logger');
 class SetExternalExtension {
   constructor(rootPath, env) {
     this.tags = ['ext'];
+    this.acceptedFileTypes = ['json', 'csv'];
     this.rootPath = rootPath;
     this.env = env;
   }
@@ -43,13 +46,41 @@ class SetExternalExtension {
         const variableName = pair.key.value;
         const resourcePath = pair.value.value;
 
-        if (resourcePath.endsWith('.json')) {
-          const fullResourcePath = path.resolve(this.rootPath, resourcePath);
-          const resourceRaw = fs.readFileSync(fullResourcePath);
-          buffer.push(`{% set ${variableName} = ${resourceRaw} %}`);
-          this.emitLoad(fullResourcePath);
+        this.acceptedFileTypes.forEach((fileType) => {
+          if (resourcePath.endsWith(fileType)) {
+            const fullResourcePath = path.resolve(this.rootPath, resourcePath);
+            if (fileType === 'json') {
+              const resourceRaw = fs.readFileSync(fullResourcePath);
+              buffer.push(`{% set ${variableName} = ${resourceRaw} %}`);
+            } else if (fileType === 'csv') {
+              const csvResourceRaw = csvParse(
+                fs.readFileSync(fullResourcePath), { bom: true, columns: header => header.map(col => col) });
+              const resourceRaw = JSON.stringify(csvResourceRaw);
+              buffer.push(`{% set ${variableName} = {"data": ${resourceRaw}} %}`);
+            }
+            this.emitLoad(fullResourcePath);
+          }
+        });
+      });
+
+      /*
+        if (resourcePath.endsWith()) {
+          if (resourcePath.endsWith('.json')) {
+            const fullResourcePath = path.resolve(this.rootPath, resourcePath);
+            const resourceRaw = fs.readFileSync(fullResourcePath);
+            buffer.push(`{% set ${variableName} = ${resourceRaw} %}`);
+            this.emitLoad(fullResourcePath);
+          } else if (resourcePath.endsWith('.csv')) {
+            const fullResourcePath = path.resolve(this.rootPath, resourcePath);
+            const csvResourceRaw = csvParse(
+              fs.readFileSync(fullResourcePath), { bom: true, columns: header => header.map(col => col) });
+            const resourceRaw = JSON.stringify(csvResourceRaw);
+            buffer.push(`{% set ${variableName} = {"data": ${resourceRaw}} %}`);
+            this.emitLoad(fullResourcePath);
+          }
         }
       });
+    */
     } else {
       logger.error(`Invalid {% ext %} tag at line ${setExtTagToken.lineno}.`);
       return new nodes.NodeList(setExtTagToken.lineno, setExtTagToken.colno, []);
