@@ -118,6 +118,10 @@ class PageConfig {
      * @type {LayoutManager}
      */
     this.layoutManager = args.layoutManager;
+    /**
+     * @type {boolean}
+     */
+    this.intrasiteLinkValidation = args.intrasiteLinkValidation;
   }
 }
 

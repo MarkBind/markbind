@@ -101,6 +101,11 @@ class SiteConfig {
      * @type {Object<string, Object<string, any>>}
      */
     this.deploy = siteConfigJson.deploy || {};
+    /**
+     * @type {boolean}
+     */
+    this.intrasiteLinkValidation = siteConfigJson.intrasiteLinkValidation || {};
+    this.intrasiteLinkValidation.enabled = this.intrasiteLinkValidation.enabled !== false;
   }
 }
 

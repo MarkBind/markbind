@@ -109,14 +109,25 @@ Within `index.md`, we can also display the image using
 
 <div class="indented">
 
-Links will be validated when generating a site and a warning will be displayed in the console for every link that is invalid.
+Links will be validated when generating a site and a warning will be displayed in the console for every link that is invalid. 
+
 
 <box type="warning">
 
-If you wish to disable validation for a specific link, you may use the `no-validation` attribute.
+**Disabling link validation**
+
+Link validation is enabled by default. 
+
+If you wish to only disable validation for a **specific link**, you may use the `no-validation` attribute.
 
 {{ icon_example }}
 `Click [here](index.md){no-validation}`
+
+However, if you wish to disable this feature **entirely**, you may simply modify your `site.json` like <trigger for="pop:global-intralink-disable" placement="bottom" trigger="click"> this </trigger>. 
+
+<modal header="Disabling global intra-site link validation in `site.json`" id="pop:global-intralink-disable" backdrop> 
+  <include src="{{ baseUrl }}/userGuide/siteJsonFile.md#disable-global-intrasite-link-validation"/>
+</modal>	
 
 </box>
 

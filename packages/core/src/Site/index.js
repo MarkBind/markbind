@@ -318,6 +318,7 @@ class Site {
       ignore: this.siteConfig.ignore,
       addressablePagesSource: this.addressablePagesSource,
       layoutManager: this.layoutManager,
+      intrasiteLinkValidation: this.siteConfig.intrasiteLinkValidation,
     });
     return new Page(pageConfig);
   }
@@ -524,6 +525,7 @@ class Site {
       ignore: this.siteConfig.ignore,
       addressablePagesSource: this.addressablePagesSource,
       variableProcessor: this.variableProcessor,
+      intrasiteLinkValidation: this.siteConfig.intrasiteLinkValidation,
     };
     this.pluginManager = new PluginManager(config, this.siteConfig.plugins, this.siteConfig.pluginsContext);
     config.pluginManager = this.pluginManager;

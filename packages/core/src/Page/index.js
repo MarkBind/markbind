@@ -443,6 +443,7 @@ class Page {
       headerIdMap: this.headerIdMap,
       ignore: this.pageConfig.ignore,
       addressablePagesSource: this.pageConfig.addressablePagesSource,
+      intrasiteLinkValidation: this.pageConfig.intrasiteLinkValidation,
     };
 
     const { variableProcessor, layoutManager, pluginManager } = this.pageConfig;
