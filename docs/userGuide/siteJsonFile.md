@@ -261,10 +261,12 @@ The date format is thus - <br>
 
 **Toggle whether to validate intra-site links.** By default, MarkBind will validate all intra-site links and alert you of any potentially invalid ones. 
 To disable this validation **entirely**, you may add the following to `site.json`:
-```js
-...
-"intrasiteLinkValidation": {
-  "enabled": false
-},
-...
-```
+<div id="disable-global-intrasite-link-validation">
+  ```js
+  ...
+  "intrasiteLinkValidation": {
+    "enabled": false
+  },
+  ...
+  ```
+</div>
