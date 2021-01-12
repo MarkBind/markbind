@@ -118,9 +118,15 @@ Links will be validated when generating a site and a warning will be displayed i
 
 Link validation is enabled by default. 
 
-If you wish to disable this feature **entirely**, you may simply modify your `site.json` as follows. 
+If you wish to only disable validation for a **specific link**, you may use the `no-validation` attribute.
 
 {{ icon_example }}
+`Click [here](index.md){no-validation}`
+
+However, if you wish to disable this feature **entirely**, you may simply modify your `site.json` like <trigger for="pop:global-intralink-disable" placement="bottom" trigger="click"> this </trigger>. 
+
+<modal header="Disabling global intralink validation in `site.json`" id="pop:global-intralink-disable" backdrop> 
+
 ```js
 ...
 "intrasiteLinkValidation": {
@@ -128,11 +134,8 @@ If you wish to disable this feature **entirely**, you may simply modify your `si
 },
 ...
 ```
+</modal>	
 
-However, if you wish to only disable validation for a **specific link**, you may use the `no-validation` attribute.
-
-{{ icon_example }}
-`Click [here](index.md){no-validation}`
 
 </box>
 
