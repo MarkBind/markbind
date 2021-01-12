@@ -126,7 +126,7 @@ If you wish to only disable validation for a **specific link**, you may use the 
 However, if you wish to disable this feature **entirely**, you may simply modify your `site.json` like <trigger for="pop:global-intralink-disable" placement="bottom" trigger="click"> this </trigger>. 
 
 <modal header="Disabling global intra-site link validation in `site.json`" id="pop:global-intralink-disable" backdrop> 
-<include src="{{ baseUrl }}/userGuide/siteJsonFile.md#disable-global-intrasite-link-validation"/>
+  <include src="{{ baseUrl }}/userGuide/siteJsonFile.md#disable-global-intrasite-link-validation"/>
 </modal>	
 
 </box>
