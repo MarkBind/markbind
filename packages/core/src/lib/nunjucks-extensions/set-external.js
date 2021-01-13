@@ -62,25 +62,6 @@ class SetExternalExtension {
           }
         });
       });
-
-      /*
-        if (resourcePath.endsWith()) {
-          if (resourcePath.endsWith('.json')) {
-            const fullResourcePath = path.resolve(this.rootPath, resourcePath);
-            const resourceRaw = fs.readFileSync(fullResourcePath);
-            buffer.push(`{% set ${variableName} = ${resourceRaw} %}`);
-            this.emitLoad(fullResourcePath);
-          } else if (resourcePath.endsWith('.csv')) {
-            const fullResourcePath = path.resolve(this.rootPath, resourcePath);
-            const csvResourceRaw = csvParse(
-              fs.readFileSync(fullResourcePath), { bom: true, columns: header => header.map(col => col) });
-            const resourceRaw = JSON.stringify(csvResourceRaw);
-            buffer.push(`{% set ${variableName} = {"data": ${resourceRaw}} %}`);
-            this.emitLoad(fullResourcePath);
-          }
-        }
-      });
-    */
     } else {
       logger.error(`Invalid {% ext %} tag at line ${setExtTagToken.lineno}.`);
       return new nodes.NodeList(setExtTagToken.lineno, setExtTagToken.colno, []);
