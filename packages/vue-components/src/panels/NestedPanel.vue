@@ -176,6 +176,7 @@ export default {
     .preview-read-more {
         z-index: 1;
         opacity: 0.2;
+        transition: opacity 0.5s;
     }
 
     /* Targets the before pseudoelement of glyphicon-chevron-down. */
@@ -191,11 +192,8 @@ export default {
         opacity: 0.4;
     }
 
-    .preview-read-more-fade-enter-active, .preview-read-more-fade-leave-active {
-        transition: opacity 0.5s;
-    }
-
-    .preview-read-more-fade-enter, .preview-read-more-fade-leave-to {
+    .preview-read-more-fade-enter,
+    .preview-read-more-fade-leave-to {
         opacity: 0;
     }
 

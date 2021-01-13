@@ -53,7 +53,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    showPreview: {
+    preview: {
       type: Boolean,
       default: false,
     },
@@ -98,7 +98,10 @@ export default {
       return (!this.localExpanded) || (!this.expandHeaderless);
     },
     shouldShowPreview() {
-      return this.showPreview && !this.localExpanded;
+      return this.preview && !this.localExpanded;
+    },
+    getCollapsedPanelHeight() {
+      return this.preview ? 125 : 0;
     },
   },
   data() {
@@ -107,7 +110,6 @@ export default {
       localMinimized: false,
       wasRetrieverLoaded: false,
       isRetrieverLoadDone: !this.src, // Load is done by default if there is no src
-      collapsedPanelHeight: 0,
     };
   },
   methods: {
@@ -132,7 +134,7 @@ export default {
               scrollTop: window.scrollY + this.$el.getBoundingClientRect().top - 3,
             }, 500, 'swing');
           }
-          this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
+          this.$refs.panel.style.maxHeight = `${this.getCollapsedPanelHeight}px`;
         });
       } else {
         // Expand panel
@@ -148,7 +150,7 @@ export default {
         We do not need transition for closing panels (changing to minimized).
         Thus, we do not use nextTick here.
       */
-      this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
+      this.$refs.panel.style.maxHeight = `${this.getCollapsedPanelHeight}px`;
     },
     open() {
       if (this.localExpanded) {
@@ -178,14 +180,10 @@ export default {
       // src has finished loaded -- we set this flag to true so our event listener can set maxHeight to none
       this.isRetrieverLoadDone = true;
 
-      if (this.preloadBool && !this.wasRetrieverLoaded) {
-        // Only preload, do not expand the panel.
+      if (!this.localExpanded) {
         return;
       }
-      if (this.showPreview && !this.localExpanded) {
-        // Only showPreview but not expanded, do not expand the panel.
-        return;
-      }
+
       // Don't play the transition for this case as the loading should feel 'instant'.
       if (this.expandedBool) {
         this.$refs.panel.style.maxHeight = 'none';
@@ -218,11 +216,8 @@ export default {
         */
         this.$refs.panel.style.maxHeight = 'none';
       } else {
-        this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
+        this.$refs.panel.style.maxHeight = `${this.getCollapsedPanelHeight}px`;
       }
-    },
-    initPanelCollapsedHeight() {
-      this.collapsedPanelHeight = this.showPreview ? 125 : 0;
     },
   },
   created() {
@@ -246,10 +241,8 @@ export default {
       this.localExpanded = false;
     }
 
-    this.wasRetrieverLoaded = this.localExpanded || this.showPreview;
+    this.wasRetrieverLoaded = this.localExpanded || this.preview;
     this.localMinimized = this.minimizedBool;
-
-    this.initPanelCollapsedHeight();
   },
   mounted() {
     this.initPanel();
