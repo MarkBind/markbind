@@ -7,8 +7,10 @@
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<panel header="This is your header for a Panel, click me to expand!">
-  Lorem ipsum ...
+<panel header="This is your header for a Panel, click me to expand!" expanded preview >
+  <p>Lorem ipsum ..</p>
+ <p>Lorem ipsum ..</p> 
+ <p>Lorem ipsum ..</p>
 </panel>
 </variable>
 </include>

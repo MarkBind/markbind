@@ -98,16 +98,17 @@ export default {
       return (!this.localExpanded) || (!this.expandHeaderless);
     },
     shouldShowPreview() {
-      return this.preview && !this.localExpanded;
+      return this.localPreview && !this.localExpanded;
     },
     getCollapsedPanelHeight() {
-      return this.preview ? 125 : 0;
+      return this.localPreview ? 125 : 0;
     },
   },
   data() {
     return {
       localExpanded: false,
       localMinimized: false,
+      localPreview: false,
       wasRetrieverLoaded: false,
       isRetrieverLoadDone: !this.src, // Load is done by default if there is no src
     };
@@ -176,11 +177,20 @@ export default {
     openPopup() {
       window.open(this.popupUrl);
     },
+    hasEnoughContentForPreview() {
+      return this.$refs.panel.scrollHeight > 125;
+    },
     retrieverUpdateMaxHeight() {
       // src has finished loaded -- we set this flag to true so our event listener can set maxHeight to none
       this.isRetrieverLoadDone = true;
 
+      if (this.preview) {
+        // Disable preview if there is not enough content
+        this.localPreview = this.hasEnoughContentForPreview();
+      }
+
       if (!this.localExpanded) {
+        this.$refs.panel.style.maxHeight = `${this.getCollapsedPanelHeight}px`;
         return;
       }
 
@@ -207,6 +217,11 @@ export default {
         }
       });
 
+      if (this.preview) {
+        // Disable preview if there is not enough content
+        this.localPreview = this.hasEnoughContentForPreview();
+      }
+
       // Set the initial height of panel.
       if (this.localExpanded) {
         /*
@@ -215,6 +230,15 @@ export default {
           to trigger the event listener to set maxHeight to none.
         */
         this.$refs.panel.style.maxHeight = 'none';
+      } else if (this.preview) {
+        /*
+          If we do not have enough content height for preview but we have a src (to be loaded),
+          we leave it to retriever to set the panel's collapsed maxHeight.
+        */
+        const shouldSetCollapsedPanelMaxHeightNow = this.hasEnoughContentForPreview() || !this.src;
+        if (shouldSetCollapsedPanelMaxHeightNow) {
+          this.$refs.panel.style.maxHeight = `${this.getCollapsedPanelHeight}px`;
+        }
       } else {
         this.$refs.panel.style.maxHeight = `${this.getCollapsedPanelHeight}px`;
       }
