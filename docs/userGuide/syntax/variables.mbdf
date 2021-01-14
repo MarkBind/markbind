@@ -131,7 +131,7 @@ Student Number | Score | Rank
 
 Student Number | Score | Rank
 :----- | :-------: | ----
-{% for student in studentScoreboard.data -%}
+{% for student in studentScoreboard -%}
 {{ student.number }} | {{ student.score }} | {{ student.rank }}
 {% endfor %}
 ```
@@ -146,6 +146,11 @@ Student Number | Score | Rank
 </panel>
 <br>
 
+<box border-left-color="{{ markbind_blue}}">
+
+{{ icon_bulb_blue }} If you do not want to have a header row, you can specify it by appending a `noHeader` option at the end of the variable declaration. In this example, it should be {% raw %} `{% ext studentScoreboard = "userGuide/syntax/extra/scoreboard.csv", noHeader %}` {% endraw %}. Elements have to be accessed using the `[]` operator (i.e. using `student[0]` to access student number instead of `student.number`).
+</box>
+
 </div>
 
 %%OUTPUT:%%
@@ -157,13 +162,12 @@ Student Number | Score | Rank
 
 Student Number | Score | Rank
 :----- | :-------: | ----
-{% for student in studentScoreboard.data -%}
+{% for student in studentScoreboard -%}
 {{ student.number }} | {{ student.score }} / 100 | {{ student.rank }}
 {% endfor %}
 
 </box>
 </div>
-
 
 </tab>
 </tabs>
