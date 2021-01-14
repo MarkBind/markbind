@@ -38,11 +38,19 @@ class SetExternalExtension {
     // as the second arg is required if there are no parentheses
     const args = parser.parseSignature(null, true);
     parser.advanceAfterBlockEnd(setExtTagToken.value);
-    const firstChild = args.children[0];
+
+    // process optional props first
+    const props = [];
+    args.children
+      .filter(child => !(child instanceof nodes.KeywordArgs))
+      .forEach(child => props.push(child.value));
+
+    // last child contains the kvp containing the path to the external variable source
+    const lastChild = args.children[args.children.length - 1];
 
     const buffer = [];
-    if (firstChild instanceof nodes.KeywordArgs) {
-      firstChild.children.forEach((pair) => {
+    if (lastChild instanceof nodes.KeywordArgs) {
+      lastChild.children.forEach((pair) => {
         const variableName = pair.key.value;
         const resourcePath = pair.value.value;
 
@@ -53,10 +61,19 @@ class SetExternalExtension {
               const resourceRaw = fs.readFileSync(fullResourcePath);
               buffer.push(`{% set ${variableName} = ${resourceRaw} %}`);
             } else if (fileType === 'csv') {
+              const hasNoHeader = props.includes('noHeader');
+
               const csvResourceRaw = csvParse(
-                fs.readFileSync(fullResourcePath), { bom: true, columns: header => header.map(col => col) });
+                fs.readFileSync(fullResourcePath), {
+                  bom: true, // strip the byte order mark (BOM) from the input string or buffer.
+                  columns: (
+                    hasNoHeader
+                      ? false // if noHeader is present, first row is not header row
+                      : header => header.map(col => col)
+                  ),
+                });
               const resourceRaw = JSON.stringify(csvResourceRaw);
-              buffer.push(`{% set ${variableName} = {"data": ${resourceRaw}} %}`);
+              buffer.push(`{% set ${variableName} = ${resourceRaw} %}`);
             }
             this.emitLoad(fullResourcePath);
           }
