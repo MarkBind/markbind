@@ -7,10 +7,7 @@
         </slot>
       </button>
     </div>
-    <div
-      v-show="!localMinimized"
-      class="card card-flex"
-    >
+    <div v-show="!localMinimized" class="card card-flex">
       <div
         :class="['header-wrapper',
                  { 'header-wrapper-bottom': isHeaderAtBottom, 'header-toggle': isExpandableCard }]"

@@ -7,10 +7,7 @@
         </slot>
       </button>
     </div>
-    <div
-      v-show="!localMinimized"
-      :class="['card', { 'expandable-card': isExpandableCard }, borderType]"
-    >
+    <div v-show="!localMinimized" :class="['card', { 'expandable-card': isExpandableCard }, borderType]">
       <div
         :class="['card-header',{'header-toggle':isExpandableCard}, cardType, borderType]"
         @click.prevent.stop="isExpandableCard && toggle()"
