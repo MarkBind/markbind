@@ -40,7 +40,7 @@
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<panel header="This header will only show when the Panel is minimized" expand-headerless>
+<panel header="This header will only show when the Panel is collapsed" expand-headerless>
   Lorem ipsum ...
 </panel>
 </variable>
