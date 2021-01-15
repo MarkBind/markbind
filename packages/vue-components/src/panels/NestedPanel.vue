@@ -9,10 +9,7 @@
     </div>
     <div
       v-show="!localMinimized"
-      :class="['card',
-               { 'expandable-card': isExpandableCard,
-                 'card-preview-collapsed': shouldShowPreview,
-               }, borderType]"
+      :class="['card', { 'expandable-card': isExpandableCard }, borderType]"
     >
       <div
         :class="['card-header',{'header-toggle':isExpandableCard}, cardType, borderType]"
@@ -64,6 +61,7 @@
       <div
         ref="panel"
         class="card-collapse"
+        :class="{'card-preview-collapsed': shouldShowPreview}"
       >
         <div
           v-if="wasRetrieverLoaded || preloadBool"
@@ -160,6 +158,10 @@ export default {
         opacity: 1;
     }
 
+    .card-preview-collapsed {
+        position: relative;
+    }
+
     /*
      * Gives the faded content effect for preview.
      * Ensure that height has the same value as collapsedPanelHeight in PanelBase.js.
@@ -228,7 +230,7 @@ export default {
     }
 
     .header-transparent {
-      opacity: 0;
+        opacity: 0;
     }
 
     .button-wrapper {
