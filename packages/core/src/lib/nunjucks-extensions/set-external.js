@@ -39,11 +39,9 @@ class SetExternalExtension {
     const args = parser.parseSignature(null, true);
     parser.advanceAfterBlockEnd(setExtTagToken.value);
 
-    // process optional props first
-    const props = [];
-    args.children
+    const options = args.children
       .filter(child => !(child instanceof nodes.KeywordArgs))
-      .forEach(child => props.push(child.value));
+      .map(child => child.value);
 
     // last child contains the kvp containing the path to the external variable source
     const lastChild = args.children[args.children.length - 1];
@@ -61,7 +59,7 @@ class SetExternalExtension {
               const resourceRaw = fs.readFileSync(fullResourcePath);
               buffer.push(`{% set ${variableName} = ${resourceRaw} %}`);
             } else if (fileType === 'csv') {
-              const hasNoHeader = props.includes('noHeader');
+              const hasNoHeader = options.includes('noHeader');
 
               const csvResourceRaw = csvParse(
                 fs.readFileSync(fullResourcePath), {
