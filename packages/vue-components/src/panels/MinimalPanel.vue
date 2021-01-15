@@ -10,7 +10,6 @@
     <div
       v-show="!localMinimized"
       class="card card-flex"
-      :class="{'card-preview-collapsed': shouldShowPreview}"
     >
       <div
         :class="['header-wrapper',
@@ -62,6 +61,7 @@
       <div
         ref="panel"
         class="card-collapse"
+        :class="{'card-peek-collapsed': shouldShowPeek}"
       >
         <div
           v-if="wasRetrieverLoaded || preloadBool"
@@ -143,11 +143,15 @@ export default {
 
 <style scoped>
 
+  .card-peek-collapsed {
+    position: relative;
+  }
+
   /*
-   * Gives the faded content effect for preview.
+   * Gives the faded content effect for peek.
    * Ensure that height has the same value as collapsedPanelHeight in PanelBase.js.
    */
-  .card-preview-collapsed::after {
+  .card-peek-collapsed::after {
     content: "";
     position: absolute;
     width: 100%;

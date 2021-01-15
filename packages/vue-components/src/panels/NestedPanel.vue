@@ -61,7 +61,7 @@
       <div
         ref="panel"
         class="card-collapse"
-        :class="{'card-preview-collapsed': shouldShowPreview}"
+        :class="{'card-peek-collapsed': shouldShowPeek}"
       >
         <div
           v-if="wasRetrieverLoaded || preloadBool"
@@ -83,10 +83,10 @@
         </div>
         <hr v-show="isSeamless" />
       </div>
-      <transition name="preview-read-more-fade">
+      <transition name="peek-read-more-fade">
         <div
-          v-if="shouldShowPreview"
-          class="preview-read-more glyphicon glyphicon-chevron-down"
+          v-if="shouldShowPeek"
+          class="peek-read-more glyphicon glyphicon-chevron-down"
           @click="toggle()"
         >
         </div>
@@ -158,15 +158,15 @@ export default {
         opacity: 1;
     }
 
-    .card-preview-collapsed {
+    .card-peek-collapsed {
         position: relative;
     }
 
     /*
-     * Gives the faded content effect for preview.
+     * Gives the faded content effect for peek.
      * Ensure that height has the same value as collapsedPanelHeight in PanelBase.js.
      */
-    .card-preview-collapsed::after {
+    .card-peek-collapsed::after {
         content: "";
         position: absolute;
         width: 100%;
@@ -175,27 +175,27 @@ export default {
         background-image: linear-gradient(180deg, transparent, white 90%);
     }
 
-    .preview-read-more {
+    .peek-read-more {
         z-index: 1;
         opacity: 0.2;
         transition: opacity 0.5s;
     }
 
     /* Targets the before pseudoelement of glyphicon-chevron-down. */
-    .preview-read-more::before {
+    .peek-read-more::before {
         position: absolute;
         width: 100%;
         text-align: center;
         bottom: 10px;
     }
 
-    .preview-read-more:hover {
+    .peek-read-more:hover {
         cursor: pointer;
         opacity: 0.4;
     }
 
-    .preview-read-more-fade-enter,
-    .preview-read-more-fade-leave-to {
+    .peek-read-more-fade-enter,
+    .peek-read-more-fade-leave-to {
         opacity: 0;
     }
 

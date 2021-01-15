@@ -53,7 +53,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    preview: {
+    peek: {
       type: Boolean,
       default: false,
     },
@@ -97,11 +97,11 @@ export default {
     shouldShowHeader() {
       return (!this.localExpanded) || (!this.expandHeaderless);
     },
-    shouldShowPreview() {
-      return this.preview && !this.localExpanded;
+    shouldShowPeek() {
+      return this.peek && !this.localExpanded;
     },
     getCollapsedPanelHeight() {
-      return this.preview ? 125 : 0;
+      return this.peek ? 125 : 0;
     },
   },
   data() {
@@ -241,7 +241,7 @@ export default {
       this.localExpanded = false;
     }
 
-    this.wasRetrieverLoaded = this.localExpanded || this.preview;
+    this.wasRetrieverLoaded = this.localExpanded || this.peek;
     this.localMinimized = this.minimizedBool;
   },
   mounted() {
