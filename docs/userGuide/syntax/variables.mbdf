@@ -64,13 +64,12 @@ This is useful if you have external datasets you want to display in your site!
 To do so, assign a root variable name (`varName`) to the file path from the <tooltip content="similar to how you assign filepaths for other Nunjucks tags">root directory of the site</tooltip>. You may then access the file's variables using dot `varName.xx` or array `varName[i]` syntax, depending on the file's contents.
 
 
-{{icon_example}}
-
-<box seamless> 
 
 <tabs>
 
 <tab header="Importing from JSON files">
+
+{{icon_example}}
 
 %%CODE:%%
 
@@ -120,6 +119,8 @@ Student Number | Score | Rank
 
 </tab>
 <tab header="Importing from CSV files">
+
+{{icon_example}}
 
 %%CODE:%%
 
@@ -171,8 +172,6 @@ Student Number | Score | Rank
 
 </tab>
 </tabs>
-
-</box>
 
 <box type="info" seamless>
 
