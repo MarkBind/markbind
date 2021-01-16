@@ -1130,7 +1130,7 @@ class Site {
       try {
         const publish = Promise.promisify(ghpages.publish);
         await this.readSiteConfig();
-        const depOptions = this.getDepOptions(travisTokenVar, defaultDeployConfig, publish);
+        const depOptions = await this.getDepOptions(travisTokenVar, defaultDeployConfig, publish);
         return await Site.getDepUrl(depOptions, defaultDeployConfig);
       } catch (error) {
         return Promise.reject(error);
@@ -1141,7 +1141,7 @@ class Site {
   /**
    * Helper function for deploy().
    */
-  getDepOptions(travisTokenVar, defaultDeployConfig, publish) {
+  async getDepOptions(travisTokenVar, defaultDeployConfig, publish) {
     const basePath = this.siteConfig.deploy.baseDir || this.outputPath;
     if (!fs.existsSync(basePath)) {
       throw new Error(
@@ -1169,9 +1169,8 @@ class Site {
         const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-.]+)\.git$/;
         const repoSlugMatch = repoSlugRegex.exec(options.repo);
         if (!repoSlugMatch) {
-          Promise.reject(new Error('-t/--travis expects a GitHub repository.\n'
-            + `The specified repository ${options.repo} is not valid.`));
-          return undefined;
+          throw new Error('-t/--travis expects a GitHub repository.\n'
+            + `The specified repository ${options.repo} is not valid.`);
         }
         [, repoSlug] = repoSlugMatch;
       }
@@ -1189,10 +1188,10 @@ class Site {
   /**
    * Helper function for deploy().
    */
-  static getDepUrl(options, defaultDeployConfig) {
+  static async getDepUrl(options, defaultDeployConfig) {
     const git = simpleGit({ baseDir: process.cwd() });
     options.remote = defaultDeployConfig.remote;
-    return Site.getDeploymentUrl(git, options);
+    return await Site.getDeploymentUrl(git, options);
   }
 
   /**
