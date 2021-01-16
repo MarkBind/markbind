@@ -1118,7 +1118,7 @@ class Site {
     }
   }
 
-  async deploy(travisTokenVar) {
+  deploy(travisTokenVar) {
     const defaultDeployConfig = {
       branch: 'gh-pages',
       message: 'Site Update.',
@@ -1126,7 +1126,7 @@ class Site {
       remote: 'origin',
     };
     process.env.NODE_DEBUG = 'gh-pages';
-    return await this.generateDepUrl(travisTokenVar, defaultDeployConfig);
+    return this.generateDepUrl(travisTokenVar, defaultDeployConfig);
   }
 
   /**
