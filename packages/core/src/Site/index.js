@@ -174,12 +174,13 @@ class Site {
    * @param templatePath
    */
   static initSite(rootPath, templatePath) {
-    return new Promise((resolve, reject) => {
-      new Template(rootPath, templatePath).init()
-        .then(resolve)
-        .catch((err) => {
-          reject(new Error(`Failed to initialize site with given template with error: ${err.message}`));
-        });
+    return new Promise(async (resolve, reject) => {
+      try {
+        const template = await new Template(rootPath, templatePath).init();
+        return resolve(template);
+      } catch(err) {
+          return reject(new Error(`Failed to initialize site with given template with error: ${err.message}`));
+      }
     });
   }
 
@@ -326,14 +327,14 @@ class Site {
   /**
    * Converts an existing GitHub wiki or docs folder to a MarkBind website.
    */
-  convert() {
-    return this.readSiteConfig()
-      .then(() => this.collectAddressablePages())
-      .then(() => this.addIndexPage())
-      .then(() => this.addAboutPage())
-      .then(() => this.addDefaultLayoutFiles())
-      .then(() => this.addDefaultLayoutToSiteConfig())
-      .then(() => Site.printBaseUrlMessage());
+  async convert() {
+    await this.readSiteConfig();
+    await this.collectAddressablePages();
+    await this.addIndexPage();
+    await this.addAboutPage();
+    await this.addDefaultLayoutFiles();
+    await this.addDefaultLayoutToSiteConfig();
+    return await Site.printBaseUrlMessage();
   }
 
   /**
@@ -418,14 +419,14 @@ class Site {
   /**
    * Applies the default layout to all addressable pages by modifying the site config file.
    */
-  addDefaultLayoutToSiteConfig() {
+  async addDefaultLayoutToSiteConfig() {
     const configPath = path.join(this.rootPath, SITE_CONFIG_NAME);
-    return fs.readJson(configPath)
-      .then((config) => {
-        const layoutObj = { glob: '**/*.+(md|mbd)', layout: LAYOUT_DEFAULT_NAME };
-        config.pages.push(layoutObj);
-        return fs.outputJson(configPath, config);
-      });
+    const config = await fs.readJson(configPath);
+    return await (async (config) => {
+      const layoutObj = { glob: '**/*.+(md|mbd)', layout: LAYOUT_DEFAULT_NAME };
+      config.pages.push(layoutObj);
+      return fs.outputJson(configPath, config);
+    })(config);
   }
 
   static printBaseUrlMessage() {
@@ -591,7 +592,7 @@ class Site {
    * @param baseUrl user defined base URL (if exists)
    * @returns {Promise}
    */
-  generate(baseUrl) {
+  async generate(baseUrl) {
     const startTime = new Date();
     // Create the .tmp folder for storing intermediate results.
     fs.emptydirSync(this.tempPath);
@@ -601,18 +602,19 @@ class Site {
     logger.info(`Website generation ${lazyWebsiteGenerationString}started at ${
       startTime.toLocaleTimeString()}`);
 
-    return this.readSiteConfig(baseUrl)
-      .then(() => this.collectAddressablePages())
-      .then(() => this.collectBaseUrl())
-      .then(() => this.collectUserDefinedVariablesMap())
-      .then(() => this.buildAssets())
-      .then(() => (this.onePagePath ? this.lazyBuildSourceFiles() : this.buildSourceFiles()))
-      .then(() => this.copyCoreWebAsset())
-      .then(() => this.copyBootswatchTheme())
-      .then(() => this.copyFontAwesomeAsset())
-      .then(() => this.copyOcticonsAsset())
-      .then(() => this.writeSiteData())
-      .then(() => {
+    try {  
+      await this.readSiteConfig(baseUrl);
+      await this.collectAddressablePages();
+      await this.collectBaseUrl();
+      this.collectUserDefinedVariablesMap();
+      await this.buildAssets();
+      await (this.onePagePath ? this.lazyBuildSourceFiles() : this.buildSourceFiles());
+      await this.copyCoreWebAsset();
+      await this.copyBootswatchTheme();
+      await this.copyFontAwesomeAsset();
+      await this.copyOcticonsAsset();
+      await this.writeSiteData();
+      return await (async () => {
         const endTime = new Date();
         const totalBuildTime = (endTime - startTime) / 1000;
         logger.info(`Website generation ${lazyWebsiteGenerationString}complete! Total build time: ${
@@ -622,8 +624,10 @@ class Site {
           logger.info('Your site took quite a while to build...'
               + 'Have you considered using markbind serve -o when writing content to speed things up?');
         }
-      })
-      .catch(error => Site.rejectHandler(error, [this.tempPath, this.outputPath]));
+      })();
+    } catch(error) {
+      return Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+    }
   }
 
   /**
@@ -633,10 +637,13 @@ class Site {
     this.beforeSiteGenerate();
     logger.info('Generating pages...');
 
-    return this.generatePages()
-      .then(() => fs.remove(this.tempPath))
-      .then(() => logger.info('Pages built'))
-      .catch(error => Site.rejectHandler(error, [this.tempPath, this.outputPath]));
+    try {
+      await this.generatePages();
+      await fs.remove(this.tempPath);
+      return logger.info('Pages built');
+    } catch(error) {
+      return Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+    }
   }
 
   /**
@@ -660,31 +667,37 @@ class Site {
     this.beforeSiteGenerate();
     logger.info('Generating landing page...');
 
-    return this.generateLandingPage()
-      .then(() => {
+    try {
+      await this.generateLandingPage()
+      await (async () => {
         const lazyLoadingSpinnerHtmlFilePath = path.join(__dirname, LAZY_LOADING_SITE_FILE_NAME);
         const outputSpinnerHtmlFilePath = path.join(this.outputPath, LAZY_LOADING_SITE_FILE_NAME);
 
         return fs.copy(lazyLoadingSpinnerHtmlFilePath, outputSpinnerHtmlFilePath);
-      })
-      .then(() => fs.remove(this.tempPath))
-      .then(() => this.lazyBuildAllPagesNotViewed())
-      .then(() => logger.info('Landing page built, other pages will be built as you navigate to them!'))
-      .catch(error => Site.rejectHandler(error, [this.tempPath, this.outputPath]));
+      })();
+      await fs.remove(this.tempPath);
+      await this.lazyBuildAllPagesNotViewed();
+      return logger.info('Landing page built, other pages will be built as you navigate to them!');
+    } catch(error) {
+      return Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+    }
   }
 
-  _rebuildAffectedSourceFiles(filePaths) {
+  async _rebuildAffectedSourceFiles(filePaths) {
     const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];
     const uniquePaths = _.uniq(filePathArray);
     this.beforeSiteGenerate();
 
-    return this.layoutManager.updateLayouts(filePaths)
-      .then(() => this.regenerateAffectedPages(uniquePaths))
-      .then(() => fs.remove(this.tempPath))
-      .catch(error => Site.rejectHandler(error, [this.tempPath, this.outputPath]));
+    try {
+      await this.layoutManager.updateLayouts(filePaths)
+      await this.regenerateAffectedPages(uniquePaths);
+      return await fs.remove(this.tempPath);
+    } catch(error) {
+      return Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+    }
   }
 
-  _rebuildPageBeingViewed(normalizedUrls) {
+  async _rebuildPageBeingViewed(normalizedUrls) {
     const startTime = new Date();
     const normalizedUrlArray = Array.isArray(normalizedUrls) ? normalizedUrls : [normalizedUrls];
     const uniqueUrls = _.uniq(normalizedUrlArray);
@@ -696,7 +709,7 @@ class Site {
      to trigger multiple page builds before the first one has finished building,
      hence we need to take this into account.
      */
-    const regeneratePagesBeingViewed = uniqueUrls.map((normalizedUrl) => {
+    const regeneratePagesBeingViewed = uniqueUrls.map(async (normalizedUrl) => {
       this._setTimestampVariable();
       const pageToRebuild = this.pages.find(page =>
         FsUtil.removeExtension(page.pageConfig.sourcePath) === normalizedUrl);
@@ -706,80 +719,90 @@ class Site {
       }
 
       this.toRebuild.delete(normalizedUrl);
-      return pageToRebuild.generate(this.externalManager)
-        .then(() => this.writeSiteData())
-        .then(() => {
+      try {
+        await pageToRebuild.generate(this.externalManager);
+        await this.writeSiteData();
+        return await (async () => {
           const endTime = new Date();
           const totalBuildTime = (endTime - startTime) / 1000;
-          logger.info(`Lazy website regeneration complete! Total build time: ${totalBuildTime}s`);
-        })
-        .catch(error => Site.rejectHandler(error, [this.tempPath, this.outputPath]));
+          return logger.info(`Lazy website regeneration complete! Total build time: ${totalBuildTime}s`);
+        })();
+      } catch(error) {
+        return Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+      }
     });
 
-    return Promise.all(regeneratePagesBeingViewed)
-      .then(() => fs.remove(this.tempPath));
+    await Promise.all(regeneratePagesBeingViewed)
+    return await fs.remove(this.tempPath);
   }
 
-  _rebuildSourceFiles() {
+  async _rebuildSourceFiles() {
     logger.info('Page added or removed, updating list of site\'s pages...');
     this.beforeSiteGenerate();
 
     this.layoutManager.removeLayouts();
 
     const removedPageFilePaths = this.updateAddressablePages();
-    return this.removeAsset(removedPageFilePaths)
-      .then(() => {
-        if (this.onePagePath) {
-          this.mapAddressablePagesToPages(this.addressablePages || [], this.getFavIconUrl());
+    try {
+      await this.removeAsset(removedPageFilePaths)
+      return await (async () => {
+          if (this.onePagePath) {
+            this.mapAddressablePagesToPages(this.addressablePages || [], this.getFavIconUrl());
 
-          return this.rebuildPageBeingViewed(this.currentPageViewed)
-            .then(() => this.lazyBuildAllPagesNotViewed());
-        }
+            await this.rebuildPageBeingViewed(this.currentPageViewed);
+            return await this.lazyBuildAllPagesNotViewed();
+          }
 
-        logger.warn('Rebuilding all pages...');
-        return this.buildSourceFiles();
-      })
-      .catch(error => Site.rejectHandler(error, [this.tempPath, this.outputPath]));
+          logger.warn('Rebuilding all pages...');
+          return this.buildSourceFiles();
+      })();
+    } catch(error) {
+      return Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+    }
   }
 
-  _buildMultipleAssets(filePaths) {
+  async _buildMultipleAssets(filePaths) {
     const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];
     const uniquePaths = _.uniq(filePathArray);
     const fileIgnore = ignore().add(this.siteConfig.ignore);
     const fileRelativePaths = uniquePaths.map(filePath => path.relative(this.rootPath, filePath));
     const copyAssets = fileIgnore.filter(fileRelativePaths)
       .map(asset => fs.copy(path.join(this.rootPath, asset), path.join(this.outputPath, asset)));
-    return Promise.all(copyAssets)
-      .then(() => logger.info('Assets built'));
+    await Promise.all(copyAssets);
+    return logger.info('Assets built');
   }
 
-  _removeMultipleAssets(filePaths) {
+  async _removeMultipleAssets(filePaths) {
     const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];
     const uniquePaths = _.uniq(filePathArray);
     const fileRelativePaths = uniquePaths.map(filePath => path.relative(this.rootPath, filePath));
     const filesToRemove = fileRelativePaths.map(
       fileRelativePath => path.join(this.outputPath, fileRelativePath));
     const removeFiles = filesToRemove.map(asset => fs.remove(asset));
-    return removeFiles.length === 0
-      ? Promise.resolve('')
-      : Promise.all(removeFiles)
-        .then(() => logger.debug('Assets removed'));
+    if (removeFiles.length === 0) {
+      Promise.resolve('');
+    } else {
+      await Promise.all(removeFiles);
+      return logger.debug('Assets removed');
+    }
   }
 
-  buildAssets() {
+  async buildAssets() {
     logger.info('Building assets...');
     const outputFolder = path.relative(this.rootPath, this.outputPath);
     const fileIgnore = ignore().add([...this.siteConfig.ignore, outputFolder]);
 
     // Scan and copy assets (excluding ignore files).
-    return this.listAssets(fileIgnore)
-      .then(assets =>
+    try {
+      const listOfAssets = await this.listAssets(fileIgnore);
+      const assetsToCopy = (assets =>
         assets.map(asset =>
-          fs.copy(path.join(this.rootPath, asset), path.join(this.outputPath, asset))),
-      )
-      .then(copyAssets => Promise.all(copyAssets))
-      .then(() => logger.info('Assets built'))
-      .catch(error => Site.rejectHandler(error, [])); // assets won't affect deletion
+          fs.copy(path.join(this.rootPath, asset), path.join(this.outputPath, asset))))(listOfAssets);
+      await (copyAssets => Promise.all(copyAssets))(assetsToCopy);
+      return logger.info('Assets built');
+    } catch(error) {
+      return Site.rejectHandler(error, []); // assets won't affect deletion
+    }
   }
 
   /**
@@ -858,21 +881,24 @@ class Site {
       let numPagesGenerated = 0;
 
       // Map pages into array of callbacks for delayed execution
-      const pageGenerationQueue = pages.map(page => () => page.generate(this.externalManager)
-        .then(() => {
-          progressBar.tick();
-          numPagesGenerated += 1;
+      const pageGenerationQueue = pages.map(page => async () => {
+        try {
+          await page.generate(this.externalManager);
+          return (() => {
+            progressBar.tick();
+            numPagesGenerated += 1;
 
-          if (pageGenerationQueue.length) {
-            pageGenerationQueue.pop()();
-          } else if (numPagesGenerated === pages.length) {
-            resolve();
-          }
-        })
-        .catch((err) => {
+            if (pageGenerationQueue.length) {
+              pageGenerationQueue.pop()();
+            } else if (numPagesGenerated === pages.length) {
+              resolve();
+            }
+          })();
+        } catch(err) {
           logger.error(err);
-          reject(new Error(`Error while generating ${page.sourcePath}`));
-        }));
+          return reject(new Error(`Error while generating ${page.sourcePath}`));
+        }
+      });
 
       /*
        Take the first MAX_CONCURRENT_PAGE_GENERATION_PROMISES callbacks and execute them.
@@ -918,7 +944,7 @@ class Site {
     return landingPage.generate(this.externalManager);
   }
 
-  regenerateAffectedPages(filePaths) {
+  async regenerateAffectedPages(filePaths) {
     const startTime = new Date();
 
     const shouldRebuildAllPages = this.collectUserDefinedVariablesMapIfNeeded(filePaths) || this.forceReload;
@@ -952,32 +978,36 @@ class Site {
 
     logger.info(`Rebuilding ${pagesToRegenerate.length} pages`);
 
-    return this.generatePagesThrottled(pagesToRegenerate)
-      .then(() => this.writeSiteData())
-      .then(() => logger.info('Pages rebuilt'))
-      .then(() => {
-        const endTime = new Date();
-        const totalBuildTime = (endTime - startTime) / 1000;
-        logger.info(`Website regeneration complete! Total build time: ${totalBuildTime}s`);
-        if (!this.onePagePath && totalBuildTime > LAZY_LOADING_REBUILD_TIME_RECOMMENDATION_LIMIT) {
-          logger.info('Your pages took quite a while to rebuild...'
-              + 'Have you considered using markbind serve -o when writing content to speed things up?');
-        }
-      })
-      .catch(error => Site.rejectHandler(error, []));
+    try {
+      await this.generatePagesThrottled(pagesToRegenerate)
+      await this.writeSiteData();
+      logger.info('Pages rebuilt');
+      return await (async () => {
+          const endTime = new Date();
+          const totalBuildTime = (endTime - startTime) / 1000;
+          logger.info(`Website regeneration complete! Total build time: ${totalBuildTime}s`);
+          if (!this.onePagePath && totalBuildTime > LAZY_LOADING_REBUILD_TIME_RECOMMENDATION_LIMIT) {
+            logger.info('Your pages took quite a while to rebuild...'
+                + 'Have you considered using markbind serve -o when writing content to speed things up?');
+          }
+      })();
+    } catch(error) {
+      return Site.rejectHandler(error, []);
+    }
   }
 
   /**
    * Copies Font Awesome assets to the assets folder
    */
-  copyFontAwesomeAsset() {
+  async copyFontAwesomeAsset() {
     const faRootSrcPath = path.dirname(require.resolve('@fortawesome/fontawesome-free/package.json'));
     const faCssSrcPath = path.join(faRootSrcPath, 'css', 'all.min.css');
     const faCssDestPath = path.join(this.siteAssetsDestPath, 'fontawesome', 'css', 'all.min.css');
     const faFontsSrcPath = path.join(faRootSrcPath, 'webfonts');
     const faFontsDestPath = path.join(this.siteAssetsDestPath, 'fontawesome', 'webfonts');
 
-    return fs.copy(faCssSrcPath, faCssDestPath).then(() => fs.copy(faFontsSrcPath, faFontsDestPath));
+    await fs.copy(faCssSrcPath, faCssDestPath)
+    return await fs.copy(faFontsSrcPath, faFontsDestPath);
   }
 
   /**
@@ -1037,7 +1067,7 @@ class Site {
   /**
    * Writes the site data to siteData.json
    */
-  writeSiteData() {
+  async writeSiteData() {
     const siteDataPath = path.join(this.outputPath, SITE_DATA_NAME);
     const siteData = {
       enableSearch: this.siteConfig.enableSearch,
@@ -1050,9 +1080,12 @@ class Site {
         })),
     };
 
-    return fs.outputJson(siteDataPath, siteData, { spaces: 2 })
-      .then(() => logger.info('Site data built'))
-      .catch(error => Site.rejectHandler(error, [this.tempPath, this.outputPath]));
+    try {
+      await fs.outputJson(siteDataPath, siteData, { spaces: 2 });
+      return logger.info('Site data built');
+    } catch(error) {
+      return Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+    }
   }
 
   deploy(travisTokenVar) {
@@ -1063,70 +1096,73 @@ class Site {
       remote: 'origin',
     };
     process.env.NODE_DEBUG = 'gh-pages';
-    return new Promise((resolve, reject) => {
-      const publish = Promise.promisify(ghpages.publish);
-      this.readSiteConfig()
-        .then(() => {
-          const basePath = this.siteConfig.deploy.baseDir || this.outputPath;
-          if (!fs.existsSync(basePath)) {
-            reject(new Error(
-              'The site directory does not exist. Please build the site first before deploy.'));
-            return undefined;
-          }
-          const options = {};
-          options.branch = this.siteConfig.deploy.branch || defaultDeployConfig.branch;
-          options.message = this.siteConfig.deploy.message || defaultDeployConfig.message;
-          options.repo = this.siteConfig.deploy.repo || defaultDeployConfig.repo;
-
-          if (travisTokenVar) {
-            if (!process.env.TRAVIS) {
-              reject(new Error('-t/--travis should only be run in Travis CI.'));
+    return new Promise(async (resolve, reject) => {
+      try {
+        const publish = Promise.promisify(ghpages.publish);
+        await this.readSiteConfig();
+        const depOptions = await (async () => {
+            const basePath = this.siteConfig.deploy.baseDir || this.outputPath;
+            if (!fs.existsSync(basePath)) {
+              reject(new Error(
+                'The site directory does not exist. Please build the site first before deploy.'));
               return undefined;
             }
-            // eslint-disable-next-line no-param-reassign
-            travisTokenVar = _.isBoolean(travisTokenVar) ? 'GITHUB_TOKEN' : travisTokenVar;
-            if (!process.env[travisTokenVar]) {
-              reject(new Error(`The environment variable ${travisTokenVar} does not exist.`));
-              return undefined;
-            }
+            const options = {};
+            options.branch = this.siteConfig.deploy.branch || defaultDeployConfig.branch;
+            options.message = this.siteConfig.deploy.message || defaultDeployConfig.message;
+            options.repo = this.siteConfig.deploy.repo || defaultDeployConfig.repo;
 
-            const githubToken = process.env[travisTokenVar];
-            let repoSlug = process.env.TRAVIS_REPO_SLUG;
-            if (options.repo) {
-              // Extract repo slug from user-specified repo URL so that we can include the access token
-              const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-.]+)\.git$/;
-              const repoSlugMatch = repoSlugRegex.exec(options.repo);
-              if (!repoSlugMatch) {
-                reject(new Error('-t/--travis expects a GitHub repository.\n'
-                  + `The specified repository ${options.repo} is not valid.`));
+            if (travisTokenVar) {
+              if (!process.env.TRAVIS) {
+                reject(new Error('-t/--travis should only be run in Travis CI.'));
                 return undefined;
               }
-              [, repoSlug] = repoSlugMatch;
-            }
-            options.repo = `https://${githubToken}@github.com/${repoSlug}.git`;
-            options.user = {
-              name: 'Deployment Bot',
-              email: 'deploy@travis-ci.org',
-            };
-          }
+              // eslint-disable-next-line no-param-reassign
+              travisTokenVar = _.isBoolean(travisTokenVar) ? 'GITHUB_TOKEN' : travisTokenVar;
+              if (!process.env[travisTokenVar]) {
+                reject(new Error(`The environment variable ${travisTokenVar} does not exist.`));
+                return undefined;
+              }
 
-          publish(basePath, options);
-          return options;
-        })
-        .then((options) => {
-          const git = simpleGit({ baseDir: process.cwd() });
-          options.remote = defaultDeployConfig.remote;
-          return Site.getDeploymentUrl(git, options);
-        })
-        .then(depUrl => resolve(depUrl))
-        .catch(reject);
+              const githubToken = process.env[travisTokenVar];
+              let repoSlug = process.env.TRAVIS_REPO_SLUG;
+              if (options.repo) {
+                // Extract repo slug from user-specified repo URL so that we can include the access token
+                const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-.]+)\.git$/;
+                const repoSlugMatch = repoSlugRegex.exec(options.repo);
+                if (!repoSlugMatch) {
+                  reject(new Error('-t/--travis expects a GitHub repository.\n'
+                    + `The specified repository ${options.repo} is not valid.`));
+                  return undefined;
+                }
+                [, repoSlug] = repoSlugMatch;
+              }
+              options.repo = `https://${githubToken}@github.com/${repoSlug}.git`;
+              options.user = {
+                name: 'Deployment Bot',
+                email: 'deploy@travis-ci.org',
+              };
+            }
+
+            publish(basePath, options);
+            return options;
+          })();
+          const depUrl = await (async (options) => {
+            const git = simpleGit({ baseDir: process.cwd() });
+            options.remote = defaultDeployConfig.remote;
+            return Site.getDeploymentUrl(git, options);
+          })(depOptions);
+          return await (async (depUrl) => resolve(depUrl))(depUrl);
+        } catch(error) {
+          return reject(error);
+        }
     });
   }
 
   /**
    * Gets the deployed website's url, returning null if there was an error retrieving it.
    */
-  static getDeploymentUrl(git, options) {
+  static async getDeploymentUrl(git, options) {
     const HTTPS_PREAMBLE = 'https://';
     const SSH_PREAMBLE = 'git@github.com:';
     const GITHUB_IO_PART = 'github.io';
@@ -1158,21 +1194,22 @@ class Site {
     const remoteUrlPromise = gitUtil.getRemoteUrl(git, remote);
     const promises = [cnamePromise, remoteUrlPromise];
 
-    return Promise.all(promises)
-      .then((results) => {
-        const cname = results[0];
-        const remoteUrl = results[1];
-        if (cname) {
-          return cname.trim();
-        } else if (repo) {
-          return constructGhPagesUrl(repo);
-        }
-        return constructGhPagesUrl(remoteUrl.trim());
-      })
-      .catch((err) => {
-        logger.error(err);
-        return null;
-      });
+    try {
+      const results = await Promise.all(promises);
+      return await (async (results) => {
+          const cname = results[0];
+          const remoteUrl = results[1];
+          if (cname) {
+            return cname.trim();
+          } else if (repo) {
+            return constructGhPagesUrl(repo);
+          }
+          return constructGhPagesUrl(remoteUrl.trim());
+      })(results);
+    } catch(err) {
+      logger.error(err);
+      return null;
+    }
   }
 
   _setTimestampVariable() {
