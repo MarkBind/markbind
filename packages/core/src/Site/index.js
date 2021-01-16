@@ -419,13 +419,13 @@ class Site {
   async addDefaultLayoutToSiteConfig() {
     const configPath = path.join(this.rootPath, SITE_CONFIG_NAME);
     const config = await fs.readJson(configPath);
-    return this.writeToSiteConfig(config, configPath);
+    return Site.writeToSiteConfig(config, configPath);
   }
 
   /**
    * Helper function for addDefaultLayoutToSiteConfig().
    */
-  writeToSiteConfig(config, configPath) {
+  static writeToSiteConfig(config, configPath) {
     const layoutObj = { glob: '**/*.+(md|mbd)', layout: LAYOUT_DEFAULT_NAME };
     config.pages.push(layoutObj);
     return fs.outputJson(configPath, config);
@@ -647,7 +647,7 @@ class Site {
     try {
       await this.generatePages();
       await fs.remove(this.tempPath);
-      logger.info('Pages built');
+      return logger.info('Pages built');
     } catch (error) {
       return Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
@@ -679,7 +679,7 @@ class Site {
       await this.copyLazySourceFiles();
       await fs.remove(this.tempPath);
       await this.lazyBuildAllPagesNotViewed();
-      logger.info('Landing page built, other pages will be built as you navigate to them!');
+      return logger.info('Landing page built, other pages will be built as you navigate to them!');
     } catch (error) {
       return Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
@@ -734,7 +734,7 @@ class Site {
       try {
         await pageToRebuild.generate(this.externalManager);
         await this.writeSiteData();
-        return this.calculateBuildTimeForRebuildPageBeingViewed(startTime);
+        return Site.calculateBuildTimeForRebuildPageBeingViewed(startTime);
       } catch (error) {
         return Site.rejectHandler(error, [this.tempPath, this.outputPath]);
       }
@@ -747,7 +747,7 @@ class Site {
   /**
    * Helper function for _rebuildPageBeingViewed().
    */
-  calculateBuildTimeForRebuildPageBeingViewed(startTime) {
+  static calculateBuildTimeForRebuildPageBeingViewed(startTime) {
     const endTime = new Date();
     const totalBuildTime = (endTime - startTime) / 1000;
     return logger.info(`Lazy website regeneration complete! Total build time: ${totalBuildTime}s`);
@@ -818,18 +818,11 @@ class Site {
       const assetsToCopy = (assets =>
         assets.map(asset =>
           fs.copy(path.join(this.rootPath, asset), path.join(this.outputPath, asset))))(listOfAssets);
-      await this.copyAllAssets(assetsToCopy);
-      logger.info('Assets built');
+      await Promise.all(assetsToCopy);
+      return logger.info('Assets built');
     } catch (error) {
       return Site.rejectHandler(error, []); // assets won't affect deletion
     }
-  }
-
-  /**
-   * Helper function for buildAssets().
-   */
-  copyAllAssets(copyAssets) {
-    return Promise.all(copyAssets);
   }
 
   /**
@@ -905,13 +898,13 @@ class Site {
     progressBar.render();
 
     return new Promise((resolve, reject) => {
-      let counter = {numPagesGenerated: 0};
+      const counter = { numPagesGenerated: 0 };
 
       // Map pages into array of callbacks for delayed execution
       const pageGenerationQueue = pages.map(page => async () => {
         try {
           await page.generate(this.externalManager);
-          this.generateProgressBarStatus(progressBar, counter, pageGenerationQueue, pages, resolve);
+          return Site.generateProgressBarStatus(progressBar, counter, pageGenerationQueue, pages, resolve);
         } catch (err) {
           logger.error(err);
           return reject(new Error(`Error while generating ${page.sourcePath}`));
@@ -931,7 +924,7 @@ class Site {
   /**
    * Helper function for generatePagesThrottled().
    */
-  generateProgressBarStatus(progressBar, counter, pageGenerationQueue, pages, resolve) {
+  static generateProgressBarStatus(progressBar, counter, pageGenerationQueue, pages, resolve) {
     progressBar.tick();
     counter.numPagesGenerated += 1;
 
@@ -1119,7 +1112,7 @@ class Site {
 
     try {
       await fs.outputJson(siteDataPath, siteData, { spaces: 2 });
-      logger.info('Site data built');
+      return logger.info('Site data built');
     } catch (error) {
       return Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
@@ -1137,8 +1130,8 @@ class Site {
       try {
         const publish = Promise.promisify(ghpages.publish);
         await this.readSiteConfig();
-        const depOptions = await this.getDepOptions(travisTokenVar, defaultDeployConfig, publish);
-        return await getDepUrl(depOptions, defaultDeployConfig);
+        const depOptions = this.getDepOptions(travisTokenVar, defaultDeployConfig, publish);
+        return await Site.getDepUrl(depOptions, defaultDeployConfig);
       } catch (error) {
         return Promise.reject(error);
       }
@@ -1193,13 +1186,13 @@ class Site {
     }
 
     publish(basePath, options);
-    return options;  
+    return options;
   }
 
   /**
    * Helper function for deploy().
    */
-  getDepUrl(options, defaultDeployConfig) {
+  static getDepUrl(options, defaultDeployConfig) {
     const git = simpleGit({ baseDir: process.cwd() });
     options.remote = defaultDeployConfig.remote;
     return Site.getDeploymentUrl(git, options);
@@ -1240,27 +1233,25 @@ class Site {
     const remoteUrlPromise = gitUtil.getRemoteUrl(git, remote);
     const promises = [cnamePromise, remoteUrlPromise];
 
+    // Helper function.
+    function generateGhPagesUrl(results) {
+      const cname = results[0];
+      const remoteUrl = results[1];
+      if (cname) {
+        return cname.trim();
+      } else if (repo) {
+        return constructGhPagesUrl(repo);
+      }
+      return constructGhPagesUrl(remoteUrl.trim());
+    }
+
     try {
       const results = await Promise.all(promises);
-      return this.generateGhPagesUrl(results, repo);
+      return generateGhPagesUrl(results);
     } catch (err) {
       logger.error(err);
       return null;
     }
-  }
-
-  /**
-   * Helper function for getDeploymentUrl().
-   */
-  generateGhPagesUrl(results, repo) {
-    const cname = results[0];
-    const remoteUrl = results[1];
-    if (cname) {
-      return cname.trim();
-    } else if (repo) {
-      return constructGhPagesUrl(repo);
-    }
-    return constructGhPagesUrl(remoteUrl.trim());
   }
 
   _setTimestampVariable() {
