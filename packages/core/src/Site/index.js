@@ -1118,7 +1118,7 @@ class Site {
     }
   }
 
-  deploy(travisTokenVar) {
+  async deploy(travisTokenVar) {
     const defaultDeployConfig = {
       branch: 'gh-pages',
       message: 'Site Update.',
@@ -1126,16 +1126,21 @@ class Site {
       remote: 'origin',
     };
     process.env.NODE_DEBUG = 'gh-pages';
-    return async () => {
-      try {
-        const publish = Promise.promisify(ghpages.publish);
-        await this.readSiteConfig();
-        const depOptions = await this.getDepOptions(travisTokenVar, defaultDeployConfig, publish);
-        return await Site.getDepUrl(depOptions, defaultDeployConfig);
-      } catch (error) {
-        return Promise.reject(error);
-      }
-    };
+    return await this.generateDepUrl(travisTokenVar, defaultDeployConfig);
+  }
+
+  /**
+   * Helper function for deploy().
+   */
+  async generateDepUrl(travisTokenVar, defaultDeployConfig) {
+    try {
+      const publish = Promise.promisify(ghpages.publish);
+      await this.readSiteConfig();
+      const depOptions = await this.getDepOptions(travisTokenVar, defaultDeployConfig, publish);
+      return await Site.getDepUrl(depOptions, defaultDeployConfig);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   /**
