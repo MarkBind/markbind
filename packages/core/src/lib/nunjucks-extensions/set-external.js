@@ -4,6 +4,8 @@ const path = require('path');
 const { Parser } = require('nunjucks/src/parser');
 const { lex } = require('nunjucks/src/lexer');
 
+const csvParse = require('csv-parse/lib/sync');
+
 const _ = {};
 _.isArray = require('lodash/isArray');
 _.isObject = require('lodash/isObject');
@@ -11,9 +13,11 @@ _.isString = require('lodash/isString');
 
 const logger = require('../../utils/logger');
 
+const acceptedFileTypes = ['json', 'csv'];
+
 /**
  * Nunjucks extension for sourcing in variables from external sources.
- * Supports only .json sources for now.
+ * Supports only .json and .csv sources for now.
  */
 class SetExternalExtension {
   constructor(rootPath, env) {
@@ -35,20 +39,45 @@ class SetExternalExtension {
     // as the second arg is required if there are no parentheses
     const args = parser.parseSignature(null, true);
     parser.advanceAfterBlockEnd(setExtTagToken.value);
-    const firstChild = args.children[0];
+
+    const options = args.children
+      .filter(child => !(child instanceof nodes.KeywordArgs))
+      .map(child => child.value);
+
+    // last child contains the kvp containing the path to the external variable source
+    const lastChild = args.children[args.children.length - 1];
 
     const buffer = [];
-    if (firstChild instanceof nodes.KeywordArgs) {
-      firstChild.children.forEach((pair) => {
+    if (lastChild instanceof nodes.KeywordArgs) {
+      lastChild.children.forEach((pair) => {
         const variableName = pair.key.value;
         const resourcePath = pair.value.value;
+        acceptedFileTypes.forEach((fileType) => {
+          if (!resourcePath.endsWith(fileType)) {
+            return;
+          }
 
-        if (resourcePath.endsWith('.json')) {
           const fullResourcePath = path.resolve(this.rootPath, resourcePath);
-          const resourceRaw = fs.readFileSync(fullResourcePath);
-          buffer.push(`{% set ${variableName} = ${resourceRaw} %}`);
+          if (fileType === 'json') {
+            const resourceRaw = fs.readFileSync(fullResourcePath);
+            buffer.push(`{% set ${variableName} = ${resourceRaw} %}`);
+          } else if (fileType === 'csv') {
+            const hasNoHeader = options.includes('noHeader');
+
+            const csvResourceRaw = csvParse(
+              fs.readFileSync(fullResourcePath), {
+                bom: true, // strip the byte order mark (BOM) from the input string or buffer.
+                columns: (
+                  hasNoHeader
+                    ? false // if noHeader is present, first row is not header row
+                    : header => header.map(col => col)
+                ),
+              });
+            const resourceRaw = JSON.stringify(csvResourceRaw);
+            buffer.push(`{% set ${variableName} = ${resourceRaw} %}`);
+          }
           this.emitLoad(fullResourcePath);
-        }
+        });
       });
     } else {
       logger.error(`Invalid {% ext %} tag at line ${setExtTagToken.lineno}.`);
