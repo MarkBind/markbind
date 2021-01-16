@@ -13,14 +13,15 @@ _.isString = require('lodash/isString');
 
 const logger = require('../../utils/logger');
 
+const acceptedFileTypes = ['json', 'csv'];
+
 /**
  * Nunjucks extension for sourcing in variables from external sources.
- * Supports only .json sources for now.
+ * Supports only .json and .csv sources for now.
  */
 class SetExternalExtension {
   constructor(rootPath, env) {
     this.tags = ['ext'];
-    this.acceptedFileTypes = ['json', 'csv'];
     this.rootPath = rootPath;
     this.env = env;
   }
@@ -51,30 +52,31 @@ class SetExternalExtension {
       lastChild.children.forEach((pair) => {
         const variableName = pair.key.value;
         const resourcePath = pair.value.value;
-
-        this.acceptedFileTypes.forEach((fileType) => {
-          if (resourcePath.endsWith(fileType)) {
-            const fullResourcePath = path.resolve(this.rootPath, resourcePath);
-            if (fileType === 'json') {
-              const resourceRaw = fs.readFileSync(fullResourcePath);
-              buffer.push(`{% set ${variableName} = ${resourceRaw} %}`);
-            } else if (fileType === 'csv') {
-              const hasNoHeader = options.includes('noHeader');
-
-              const csvResourceRaw = csvParse(
-                fs.readFileSync(fullResourcePath), {
-                  bom: true, // strip the byte order mark (BOM) from the input string or buffer.
-                  columns: (
-                    hasNoHeader
-                      ? false // if noHeader is present, first row is not header row
-                      : header => header.map(col => col)
-                  ),
-                });
-              const resourceRaw = JSON.stringify(csvResourceRaw);
-              buffer.push(`{% set ${variableName} = ${resourceRaw} %}`);
-            }
-            this.emitLoad(fullResourcePath);
+        acceptedFileTypes.forEach((fileType) => {
+          if (!resourcePath.endsWith(fileType)) {
+            return;
           }
+
+          const fullResourcePath = path.resolve(this.rootPath, resourcePath);
+          if (fileType === 'json') {
+            const resourceRaw = fs.readFileSync(fullResourcePath);
+            buffer.push(`{% set ${variableName} = ${resourceRaw} %}`);
+          } else if (fileType === 'csv') {
+            const hasNoHeader = options.includes('noHeader');
+
+            const csvResourceRaw = csvParse(
+              fs.readFileSync(fullResourcePath), {
+                bom: true, // strip the byte order mark (BOM) from the input string or buffer.
+                columns: (
+                  hasNoHeader
+                    ? false // if noHeader is present, first row is not header row
+                    : header => header.map(col => col)
+                ),
+              });
+            const resourceRaw = JSON.stringify(csvResourceRaw);
+            buffer.push(`{% set ${variableName} = ${resourceRaw} %}`);
+          }
+          this.emitLoad(fullResourcePath);
         });
       });
     } else {
