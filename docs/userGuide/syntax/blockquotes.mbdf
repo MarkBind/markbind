@@ -1,7 +1,6 @@
 ## Blockquotes
 
 <include src="codeAndOutput.md" boilerplate >
-<variable name="highlightStyle">markdown</variable>
 <variable name="code">
 Normal text
 > Blockquote, first paragraph
@@ -32,7 +31,7 @@ Nested blockquote
 
 <span id="short" class="d-none">
 
-```markdown
+```
 > Blockquote, first paragraph
 >
 > Second paragraph
