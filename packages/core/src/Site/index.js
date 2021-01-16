@@ -1191,7 +1191,7 @@ class Site {
   static async getDepUrl(options, defaultDeployConfig) {
     const git = simpleGit({ baseDir: process.cwd() });
     options.remote = defaultDeployConfig.remote;
-    return await Site.getDeploymentUrl(git, options);
+    return Site.getDeploymentUrl(git, options);
   }
 
   /**
