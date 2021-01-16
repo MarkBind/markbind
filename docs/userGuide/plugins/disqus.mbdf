@@ -33,3 +33,9 @@ shortname| `String` || Shortname is provided by Disqus. Follow this [guide](http
   }
 }
 ```
+
+To add a Disqus comment section on a page, all you need to do is to add a disqus HTML tag as follows. 
+
+```html
+<disqus/>
+```
