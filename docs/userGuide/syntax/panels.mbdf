@@ -195,6 +195,7 @@ expandable | `Boolean`| `true` | Whether Panel is expandable.
 expanded | `Boolean` | `false` | Whether Panel is expanded or collapsed when loaded in.
 minimized | `Boolean` | `false` | Whether Panel is minimized.
 expand-headerless | `Boolean` | `false` | Whether to hide the header text when the Panel is expanded.
+peek | `Boolean` | `false` | Whether to show part of the content when the Panel is collapsed.
 no-close | `Boolean` | `false` | Whether to show the close button.
 no-switch | `Boolean` | `false` | Whether to show the expand switch.
 bottom-switch | `Boolean` | `true` | Whether to show an expand switch at the bottom of the panel. Independent of no-switch.
