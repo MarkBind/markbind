@@ -1144,9 +1144,8 @@ class Site {
   getDepOptions(travisTokenVar, defaultDeployConfig, publish) {
     const basePath = this.siteConfig.deploy.baseDir || this.outputPath;
     if (!fs.existsSync(basePath)) {
-      Promise.reject(new Error(
-        'The site directory does not exist. Please build the site first before deploy.'));
-      return undefined;
+      throw new Error(
+        'The site directory does not exist. Please build the site first before deploy.');
     }
     const options = {};
     options.branch = this.siteConfig.deploy.branch || defaultDeployConfig.branch;
@@ -1155,14 +1154,12 @@ class Site {
 
     if (travisTokenVar) {
       if (!process.env.TRAVIS) {
-        Promise.reject(new Error('-t/--travis should only be run in Travis CI.'));
-        return undefined;
+        throw new Error('-t/--travis should only be run in Travis CI.');
       }
       // eslint-disable-next-line no-param-reassign
       travisTokenVar = _.isBoolean(travisTokenVar) ? 'GITHUB_TOKEN' : travisTokenVar;
       if (!process.env[travisTokenVar]) {
-        Promise.reject(new Error(`The environment variable ${travisTokenVar} does not exist.`));
-        return undefined;
+        throw new Error(`The environment variable ${travisTokenVar} does not exist.`);
       }
 
       const githubToken = process.env[travisTokenVar];
