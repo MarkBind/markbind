@@ -154,6 +154,7 @@ function _deleteIncludeAttributes(node) {
   delete node.attribs.inline;
   delete node.attribs.trim;
   delete node.attribs.optional;
+  delete node.attribs.omitFrontmatter;
 }
 
 /**
@@ -183,6 +184,7 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
 
   const isInline = _.has(node.attribs, 'inline');
   const isTrim = _.has(node.attribs, 'trim');
+  const shouldOmitFrontmatter = _.has(node.attribs, 'omitFrontmatter');
 
   node.name = isInline ? 'span' : 'div';
 
@@ -226,6 +228,12 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
         actualContent = cheerio.html(utils.createErrorNode(node, error));
       }
     }
+  }
+
+  if (shouldOmitFrontmatter) {
+    const $ = cheerio.load(actualContent);
+    $('frontmatter').remove();
+    actualContent = $.html();
   }
 
   if (isTrim) {
