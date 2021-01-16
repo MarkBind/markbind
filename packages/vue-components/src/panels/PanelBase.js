@@ -100,7 +100,7 @@ export default {
     shouldShowPeek() {
       return this.peek && !this.localExpanded;
     },
-    getCollapsedPanelHeight() {
+    collapsedPanelHeight() {
       return this.peek ? 125 : 0;
     },
   },
@@ -134,7 +134,7 @@ export default {
               scrollTop: window.scrollY + this.$el.getBoundingClientRect().top - 3,
             }, 500, 'swing');
           }
-          this.$refs.panel.style.maxHeight = `${this.getCollapsedPanelHeight}px`;
+          this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
         });
       } else {
         // Expand panel
@@ -150,7 +150,7 @@ export default {
         We do not need transition for closing panels (changing to minimized).
         Thus, we do not use nextTick here.
       */
-      this.$refs.panel.style.maxHeight = `${this.getCollapsedPanelHeight}px`;
+      this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
     },
     open() {
       if (this.localExpanded) {
@@ -216,7 +216,7 @@ export default {
         */
         this.$refs.panel.style.maxHeight = 'none';
       } else {
-        this.$refs.panel.style.maxHeight = `${this.getCollapsedPanelHeight}px`;
+        this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
       }
     },
   },
