@@ -32,7 +32,7 @@ Nested blockquote
 
 <span id="short" class="d-none">
 
-```markdown
+```
 > Blockquote, first paragraph
 >
 > Second paragraph
