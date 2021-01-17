@@ -230,12 +230,6 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
     }
   }
 
-  if (shouldOmitFrontmatter) {
-    const $ = cheerio.load(actualContent);
-    $('frontmatter').remove();
-    actualContent = $.html();
-  }
-
   if (isTrim) {
     actualContent = actualContent.trim();
   }
@@ -246,6 +240,7 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
 
   if (node.children && node.children.length > 0) {
     childContext.addCwfToCallstack(context.cwf);
+    childContext.variables.omitFrontmatter = shouldOmitFrontmatter;
 
     if (childContext.hasExceededMaxCallstackSize()) {
       const error = new CyclicReferenceError(childContext.callStack);
