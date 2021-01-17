@@ -1,7 +1,7 @@
 const CyclicReferenceError = require('../errors/CyclicReferenceError');
 
 class Context {
-  constructor(cwf, callStack, variables) {
+  constructor(cwf, callStack, variables, processingOptions) {
     /**
      * @type {string}
      */
@@ -15,6 +15,10 @@ class Context {
      * @type {Object}
      */
     this.variables = variables;
+    /**
+     * @type {Object}
+     */
+    this.processingOptions = processingOptions || {};
   }
 
   addCwfToCallstack(cwf) {
@@ -26,7 +30,7 @@ class Context {
   }
 
   clone() {
-    return new Context(this.cwf, this.callStack.map(cwf => cwf), this.variables);
+    return new Context(this.cwf, this.callStack.map(cwf => cwf), this.variables, this.processingOptions);
   }
 }
 
