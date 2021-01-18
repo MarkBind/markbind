@@ -24,9 +24,6 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('./markdown-it-icons'))
   .use(require('./markdown-it-footnotes'));
 
-// fix link
-markdownIt.normalizeLink = require('./normalizeLink');
-
 // fix table style
 markdownIt.renderer.rules.table_open = (tokens, idx) => {
   return '<div class="table-responsive"><table class="markbind-table table table-bordered table-striped">';
