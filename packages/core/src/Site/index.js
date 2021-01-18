@@ -224,7 +224,7 @@ class Site {
     }
   }
 
-  async listAssets(fileIgnore) {
+  listAssets(fileIgnore) {
     const files = walkSync(this.rootPath, { directories: false });
     return fileIgnore.filter(files);
   }
@@ -320,7 +320,7 @@ class Site {
    */
   async convert() {
     await this.readSiteConfig();
-    await this.collectAddressablePages();
+    this.collectAddressablePages();
     await this.addIndexPage();
     await this.addAboutPage();
     this.addDefaultLayoutFiles();
@@ -462,7 +462,7 @@ class Site {
   /**
    * Collects the paths to be traversed as addressable pages
    */
-  async collectAddressablePages() {
+  collectAddressablePages() {
     const { pages, pagesExclude } = this.siteConfig;
     const pagesFromSrc = _.flatMap(pages.filter(page => page.src), page => (Array.isArray(page.src)
       ? page.src.map(pageSrc => ({ ...page, src: pageSrc }))
@@ -600,7 +600,7 @@ class Site {
 
     try {
       await this.readSiteConfig(baseUrl);
-      await this.collectAddressablePages();
+      this.collectAddressablePages();
       await this.collectBaseUrl();
       this.collectUserDefinedVariablesMap();
       await this.buildAssets();
@@ -806,7 +806,7 @@ class Site {
 
     // Scan and copy assets (excluding ignore files).
     try {
-      const listOfAssets = await this.listAssets(fileIgnore);
+      const listOfAssets = this.listAssets(fileIgnore);
       const assetsToCopy = listOfAssets.map(asset =>
         fs.copy(path.join(this.rootPath, asset), path.join(this.outputPath, asset)));
       await Promise.all(assetsToCopy);
@@ -1241,7 +1241,7 @@ class Site {
     }
   }
 
-  async _setTimestampVariable() {
+  _setTimestampVariable() {
     const options = {
       weekday: 'short',
       year: 'numeric',
