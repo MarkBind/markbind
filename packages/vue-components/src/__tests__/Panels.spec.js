@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import NestedPanel from '../panels/NestedPanel.vue';
 
 describe('NestedPanels', () => {
-  test('should show header when minimized with expandHeaderless as false', async () => {
+  test('should show header when collapsed with expandHeaderless as false', async () => {
     const wrapper = mount(NestedPanel, {
       propsData: {
         expandHeaderless: false,
@@ -31,7 +31,7 @@ describe('NestedPanels', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  test('should show header when minimized with expandHeaderless as true', async () => {
+  test('should show header when collapsed with expandHeaderless as true', async () => {
     const wrapper = mount(NestedPanel, {
       propsData: {
         expandHeaderless: true,

@@ -58,6 +58,7 @@
       <div
         ref="panel"
         class="card-collapse"
+        :class="{'card-peek-collapsed': shouldShowPeek}"
       >
         <div
           v-if="wasRetrieverLoaded || preloadBool"
@@ -79,6 +80,14 @@
         </div>
         <hr v-show="isSeamless" />
       </div>
+      <transition name="peek-read-more-fade">
+        <div
+          v-if="shouldShowPeek"
+          class="peek-read-more glyphicon glyphicon-chevron-down"
+          @click="toggle()"
+        >
+        </div>
+      </transition>
     </div>
   </span>
 </template>
@@ -145,6 +154,48 @@ export default {
     .card-header:hover .seamless-button {
         opacity: 1;
     }
+
+    .card-peek-collapsed {
+        position: relative;
+    }
+
+    /*
+     * Gives the faded content effect for peek.
+     * Ensure that height has the same value as collapsedPanelHeight in PanelBase.js.
+     */
+    .card-peek-collapsed::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        height: 125px;
+        background-image: linear-gradient(180deg, transparent, white 90%);
+    }
+
+    .peek-read-more {
+        z-index: 1;
+        opacity: 0.2;
+        transition: opacity 0.5s;
+    }
+
+    /* Targets the before pseudoelement of glyphicon-chevron-down. */
+    .peek-read-more::before {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        bottom: 10px;
+    }
+
+    .peek-read-more:hover {
+        cursor: pointer;
+        opacity: 0.4;
+    }
+
+    .peek-read-more-fade-enter,
+    .peek-read-more-fade-leave-to {
+        opacity: 0;
+    }
+
 </style>
 
 <style>
@@ -176,7 +227,7 @@ export default {
     }
 
     .header-transparent {
-      opacity: 0;
+        opacity: 0;
     }
 
     .button-wrapper {

@@ -53,6 +53,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    peek: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     // Vue 2.0 coerce migration
@@ -93,6 +97,12 @@ export default {
     shouldShowHeader() {
       return (!this.localExpanded) || (!this.expandHeaderless);
     },
+    shouldShowPeek() {
+      return this.peek && !this.localExpanded;
+    },
+    collapsedPanelHeight() {
+      return this.peek ? 125 : 0;
+    },
   },
   data() {
     return {
@@ -100,7 +110,6 @@ export default {
       localMinimized: false,
       wasRetrieverLoaded: false,
       isRetrieverLoadDone: !this.src, // Load is done by default if there is no src
-      collapsedPanelHeight: 0,
     };
   },
   methods: {
@@ -171,10 +180,10 @@ export default {
       // src has finished loaded -- we set this flag to true so our event listener can set maxHeight to none
       this.isRetrieverLoadDone = true;
 
-      if (this.preloadBool && !this.wasRetrieverLoaded) {
-        // Only preload, do not expand the panel.
+      if (!this.localExpanded) {
         return;
       }
+
       // Don't play the transition for this case as the loading should feel 'instant'.
       if (this.expandedBool) {
         this.$refs.panel.style.maxHeight = 'none';
@@ -232,7 +241,7 @@ export default {
       this.localExpanded = false;
     }
 
-    this.wasRetrieverLoaded = this.localExpanded;
+    this.wasRetrieverLoaded = this.localExpanded || this.peek;
     this.localMinimized = this.minimizedBool;
   },
   mounted() {
