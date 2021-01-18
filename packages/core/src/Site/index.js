@@ -151,12 +151,13 @@ class Site {
    * Util Methods
    */
 
-  static rejectHandler(error, removeFolders) {
+  static async rejectHandler(error, removeFolders) {
     logger.warn(error);
-    return Promise.all(removeFolders.map(folder => fs.remove(folder)))
-      .catch((err) => {
-        logger.error(`Failed to remove generated files after error!\n${err.message}`);
-      });
+    try {
+      await Promise.all(removeFolders.map(folder => fs.remove(folder)));
+    } catch (err) {
+      logger.error(`Failed to remove generated files after error!\n${err.message}`);
+    }
   }
 
   static setExtension(filename, ext) {
@@ -223,16 +224,9 @@ class Site {
     }
   }
 
-  listAssets(fileIgnore) {
-    return new Promise((resolve, reject) => {
-      let files;
-      try {
-        files = walkSync(this.rootPath, { directories: false });
-        resolve(fileIgnore.filter(files));
-      } catch (error) {
-        reject(error);
-      }
-    });
+  async listAssets(fileIgnore) {
+    const files = walkSync(this.rootPath, { directories: false });
+    return fileIgnore.filter(files);
   }
 
   /**
@@ -331,34 +325,38 @@ class Site {
     await this.addAboutPage();
     this.addDefaultLayoutFiles();
     await this.addDefaultLayoutToSiteConfig();
-    return Site.printBaseUrlMessage();
+    Site.printBaseUrlMessage();
   }
 
   /**
    * Copies over README.md or Home.md to default index.md if present.
    */
-  addIndexPage() {
+  async addIndexPage() {
     const indexPagePath = path.join(this.rootPath, INDEX_MARKDOWN_FILE);
     const fileNames = ['README.md', 'Home.md'];
     const filePath = fileNames.find(fileName => fs.existsSync(path.join(this.rootPath, fileName)));
     // if none of the files exist, do nothing
-    if (_.isUndefined(filePath)) return Promise.resolve();
-    return fs.copy(path.join(this.rootPath, filePath), indexPagePath)
-      .catch(() => Promise.reject(new Error(`Failed to copy over ${filePath}`)));
+    if (_.isUndefined(filePath)) return;
+    try {
+      await fs.copy(path.join(this.rootPath, filePath), indexPagePath);
+    } catch (error) {
+      throw new Error(`Failed to copy over ${filePath}`);
+    }
   }
 
   /**
    * Adds an about page to site if not present.
    */
-  addAboutPage() {
+  async addAboutPage() {
     const aboutPath = path.join(this.rootPath, ABOUT_MARKDOWN_FILE);
-    return fs.access(aboutPath)
-      .catch(() => {
-        if (fs.existsSync(aboutPath)) {
-          return Promise.resolve();
-        }
-        return fs.outputFile(aboutPath, ABOUT_MARKDOWN_DEFAULT);
-      });
+    try {
+      await fs.access(aboutPath);
+    } catch (error) {
+      if (fs.existsSync(aboutPath)) {
+        return;
+      }
+      await fs.outputFile(aboutPath, ABOUT_MARKDOWN_DEFAULT);
+    }
   }
 
   /**
@@ -419,23 +417,22 @@ class Site {
   async addDefaultLayoutToSiteConfig() {
     const configPath = path.join(this.rootPath, SITE_CONFIG_NAME);
     const config = await fs.readJson(configPath);
-    return Site.writeToSiteConfig(config, configPath);
+    await Site.writeToSiteConfig(config, configPath);
   }
 
   /**
    * Helper function for addDefaultLayoutToSiteConfig().
    */
-  static writeToSiteConfig(config, configPath) {
+  static async writeToSiteConfig(config, configPath) {
     const layoutObj = { glob: '**/*.+(md|mbd)', layout: LAYOUT_DEFAULT_NAME };
     config.pages.push(layoutObj);
-    return fs.outputJson(configPath, config);
+    await fs.outputJson(configPath, config);
   }
 
   static printBaseUrlMessage() {
     logger.info('The default base URL of your site is set to /\n'
       + 'You can change the base URL of your site by editing site.json\n'
       + 'Check https://markbind.org/userGuide/siteConfiguration.html for more information.');
-    return Promise.resolve();
   }
 
   /**
@@ -465,7 +462,7 @@ class Site {
   /**
    * Collects the paths to be traversed as addressable pages
    */
-  collectAddressablePages() {
+  async collectAddressablePages() {
     const { pages, pagesExclude } = this.siteConfig;
     const pagesFromSrc = _.flatMap(pages.filter(page => page.src), page => (Array.isArray(page.src)
       ? page.src.map(pageSrc => ({ ...page, src: pageSrc }))
@@ -475,8 +472,7 @@ class Site {
       .filter(page => set.size === set.add(page.src).size)
       .map(page => page.src);
     if (duplicatePages.length > 0) {
-      return Promise.reject(
-        new Error(`Duplicate page entries found in site config: ${_.uniq(duplicatePages).join(', ')}`));
+      throw new Error(`Duplicate page entries found in site config: ${_.uniq(duplicatePages).join(', ')}`);
     }
     const pagesFromGlobs = _.flatMap(pages.filter(page => page.glob),
                                      page => this.getPageGlobPaths(page, pagesExclude)
@@ -503,8 +499,6 @@ class Site {
     this.addressablePages.forEach((page) => {
       this.addressablePagesSource.push(FsUtil.removeExtensionPosix(page.src));
     });
-
-    return Promise.resolve();
   }
 
   /**
@@ -616,9 +610,9 @@ class Site {
       await this.copyFontAwesomeAsset();
       await this.copyOcticonsAsset();
       await this.writeSiteData();
-      return this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
+      this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
     } catch (error) {
-      return Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+      await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
   }
 
@@ -647,24 +641,22 @@ class Site {
     try {
       await this.generatePages();
       await fs.remove(this.tempPath);
-      return logger.info('Pages built');
+      logger.info('Pages built');
     } catch (error) {
-      return Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+      await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
   }
 
   /**
    * Adds all pages except the current page being viewed to toRebuild, flagging them for lazy building later.
    */
-  lazyBuildAllPagesNotViewed() {
+  async lazyBuildAllPagesNotViewed() {
     this.pages.forEach((page) => {
       const normalizedUrl = FsUtil.removeExtension(page.pageConfig.sourcePath);
       if (normalizedUrl !== this.currentPageViewed) {
         this.toRebuild.add(normalizedUrl);
       }
     });
-
-    return Promise.resolve();
   }
 
   /**
@@ -679,9 +671,9 @@ class Site {
       await this.copyLazySourceFiles();
       await fs.remove(this.tempPath);
       await this.lazyBuildAllPagesNotViewed();
-      return logger.info('Landing page built, other pages will be built as you navigate to them!');
+      logger.info('Landing page built, other pages will be built as you navigate to them!');
     } catch (error) {
-      return Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+      await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
   }
 
@@ -703,9 +695,9 @@ class Site {
     try {
       await this.layoutManager.updateLayouts(filePaths);
       await this.regenerateAffectedPages(uniquePaths);
-      return await fs.remove(this.tempPath);
+      await fs.remove(this.tempPath);
     } catch (error) {
-      return Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+      await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
   }
 
@@ -727,21 +719,21 @@ class Site {
         FsUtil.removeExtension(page.pageConfig.sourcePath) === normalizedUrl);
 
       if (!pageToRebuild) {
-        return Promise.resolve();
+        return;
       }
 
       this.toRebuild.delete(normalizedUrl);
       try {
         await pageToRebuild.generate(this.externalManager);
         await this.writeSiteData();
-        return Site.calculateBuildTimeForRebuildPageBeingViewed(startTime);
+        Site.calculateBuildTimeForRebuildPageBeingViewed(startTime);
       } catch (error) {
-        return Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+        await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
       }
     });
 
     await Promise.all(regeneratePagesBeingViewed);
-    return fs.remove(this.tempPath);
+    await fs.remove(this.tempPath);
   }
 
   /**
@@ -762,9 +754,9 @@ class Site {
     const removedPageFilePaths = this.updateAddressablePages();
     try {
       await this.removeAsset(removedPageFilePaths);
-      return await this.rebuildRequiredPages();
+      await this.rebuildRequiredPages();
     } catch (error) {
-      return Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+      await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
   }
 
@@ -776,11 +768,11 @@ class Site {
       this.mapAddressablePagesToPages(this.addressablePages || [], this.getFavIconUrl());
 
       await this.rebuildPageBeingViewed(this.currentPageViewed);
-      return this.lazyBuildAllPagesNotViewed();
+      await this.lazyBuildAllPagesNotViewed();
     }
 
     logger.warn('Rebuilding all pages...');
-    return this.buildSourceFiles();
+    await this.buildSourceFiles();
   }
 
   async _buildMultipleAssets(filePaths) {
@@ -815,13 +807,12 @@ class Site {
     // Scan and copy assets (excluding ignore files).
     try {
       const listOfAssets = await this.listAssets(fileIgnore);
-      const assetsToCopy = (assets =>
-        assets.map(asset =>
-          fs.copy(path.join(this.rootPath, asset), path.join(this.outputPath, asset))))(listOfAssets);
+      const assetsToCopy = listOfAssets.map(asset =>
+        fs.copy(path.join(this.rootPath, asset), path.join(this.outputPath, asset)));
       await Promise.all(assetsToCopy);
-      return logger.info('Assets built');
+      logger.info('Assets built');
     } catch (error) {
-      return Site.rejectHandler(error, []); // assets won't affect deletion
+      await Site.rejectHandler(error, []); // assets won't affect deletion
     }
   }
 
@@ -904,10 +895,10 @@ class Site {
       const pageGenerationQueue = pages.map(page => async () => {
         try {
           await page.generate(this.externalManager);
-          return Site.generateProgressBarStatus(progressBar, counter, pageGenerationQueue, pages, resolve);
+          Site.generateProgressBarStatus(progressBar, counter, pageGenerationQueue, pages, resolve);
         } catch (err) {
           logger.error(err);
-          return reject(new Error(`Error while generating ${page.sourcePath}`));
+          reject(new Error(`Error while generating ${page.sourcePath}`));
         }
       });
 
@@ -954,7 +945,7 @@ class Site {
   /**
    * Renders only the starting page for lazy loading to the output folder.
    */
-  generateLandingPage() {
+  async generateLandingPage() {
     const addressablePages = this.addressablePages || [];
     const faviconUrl = this.getFavIconUrl();
 
@@ -963,10 +954,10 @@ class Site {
 
     const landingPage = this.pages.find(page => page.pageConfig.src === this.onePagePath);
     if (!landingPage) {
-      return Promise.reject(new Error(`${this.onePagePath} is not specified in the site configuration.`));
+      throw new Error(`${this.onePagePath} is not specified in the site configuration.`);
     }
 
-    return landingPage.generate(this.externalManager);
+    await landingPage.generate(this.externalManager);
   }
 
   async regenerateAffectedPages(filePaths) {
@@ -998,7 +989,7 @@ class Site {
     });
     if (!pagesToRegenerate.length) {
       logger.info('No pages needed to be rebuilt');
-      return Promise.resolve();
+      return;
     }
 
     logger.info(`Rebuilding ${pagesToRegenerate.length} pages`);
@@ -1007,9 +998,9 @@ class Site {
       await this.generatePagesThrottled(pagesToRegenerate);
       await this.writeSiteData();
       logger.info('Pages rebuilt');
-      return this.calculateBuildTimeForRegenerateAffectedPages(startTime);
+      this.calculateBuildTimeForRegenerateAffectedPages(startTime);
     } catch (error) {
-      return Site.rejectHandler(error, []);
+      await Site.rejectHandler(error, []);
     }
   }
 
@@ -1037,7 +1028,7 @@ class Site {
     const faFontsDestPath = path.join(this.siteAssetsDestPath, 'fontawesome', 'webfonts');
 
     await fs.copy(faCssSrcPath, faCssDestPath);
-    return fs.copy(faFontsSrcPath, faFontsDestPath);
+    await fs.copy(faFontsSrcPath, faFontsDestPath);
   }
 
   /**
@@ -1112,9 +1103,9 @@ class Site {
 
     try {
       await fs.outputJson(siteDataPath, siteData, { spaces: 2 });
-      return logger.info('Site data built');
+      logger.info('Site data built');
     } catch (error) {
-      return Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+      await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
   }
 
@@ -1133,14 +1124,10 @@ class Site {
    * Helper function for deploy().
    */
   async generateDepUrl(travisTokenVar, defaultDeployConfig) {
-    try {
-      const publish = Promise.promisify(ghpages.publish);
-      await this.readSiteConfig();
-      const depOptions = await this.getDepOptions(travisTokenVar, defaultDeployConfig, publish);
-      return await Site.getDepUrl(depOptions, defaultDeployConfig);
-    } catch (error) {
-      return Promise.reject(error);
-    }
+    const publish = Promise.promisify(ghpages.publish);
+    await this.readSiteConfig();
+    const depOptions = await this.getDepOptions(travisTokenVar, defaultDeployConfig, publish);
+    return Site.getDepUrl(depOptions, defaultDeployConfig);
   }
 
   /**
@@ -1193,7 +1180,7 @@ class Site {
   /**
    * Helper function for deploy().
    */
-  static async getDepUrl(options, defaultDeployConfig) {
+  static getDepUrl(options, defaultDeployConfig) {
     const git = simpleGit({ baseDir: process.cwd() });
     options.remote = defaultDeployConfig.remote;
     return Site.getDeploymentUrl(git, options);
@@ -1234,28 +1221,27 @@ class Site {
     const remoteUrlPromise = gitUtil.getRemoteUrl(git, remote);
     const promises = [cnamePromise, remoteUrlPromise];
 
-    // Helper function.
-    function generateGhPagesUrl(results) {
-      const cname = results[0];
-      const remoteUrl = results[1];
-      if (cname) {
-        return cname.trim();
-      } else if (repo) {
-        return constructGhPagesUrl(repo);
-      }
-      return constructGhPagesUrl(remoteUrl.trim());
-    }
-
     try {
-      const results = await Promise.all(promises);
-      return generateGhPagesUrl(results);
+      const promiseResults = await Promise.all(promises);
+      const generateGhPagesUrl = (results) => {
+        const cname = results[0];
+        const remoteUrl = results[1];
+        if (cname) {
+          return cname.trim();
+        } else if (repo) {
+          return constructGhPagesUrl(repo);
+        }
+        return constructGhPagesUrl(remoteUrl.trim());
+      };
+
+      return generateGhPagesUrl(promiseResults);
     } catch (err) {
       logger.error(err);
       return null;
     }
   }
 
-  _setTimestampVariable() {
+  async _setTimestampVariable() {
     const options = {
       weekday: 'short',
       year: 'numeric',
@@ -1266,7 +1252,6 @@ class Site {
     };
     const time = new Date().toLocaleTimeString(this.siteConfig.locale, options);
     this.variableProcessor.addUserDefinedVariableForAllSites('timestamp', time);
-    return Promise.resolve();
   }
 }
 
