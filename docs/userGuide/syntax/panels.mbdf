@@ -40,8 +40,27 @@
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<panel header="This header will only show when the Panel is minimized" expand-headerless>
+<panel header="This header will only show when the Panel is collapsed" expand-headerless>
   Lorem ipsum ...
+</panel>
+</variable>
+</include>
+
+**With the `peek` attribute, you may showcase part of your content without expanding the panel.**
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+<panel header="Give your readers a peek of the content without expanding Panel" peek>
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+  magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  Curabitur ornare ipsum eu ex congue egestas. Maecenas pretium nibh sed enim ornare finibus. Mauris quis metus 
+  facilisis, mattis tellus nec, pulvinar mi. Quisque at vehicula lectus. Ut ac lacus mi. Donec mattis nec velit 
+  eget tincidunt. Maecenas vel mauris mattis nisl tempor sollicitudin. Orci varius natoque penatibus et magnis 
+  dis parturient montes, nascetur ridiculus mus. Duis tincidunt diam eu dolor pellentesque, eget dignissim tortor 
+  pellentesque. 
 </panel>
 </variable>
 </include>
@@ -176,6 +195,7 @@ expandable | `Boolean`| `true` | Whether Panel is expandable.
 expanded | `Boolean` | `false` | Whether Panel is expanded or collapsed when loaded in.
 minimized | `Boolean` | `false` | Whether Panel is minimized.
 expand-headerless | `Boolean` | `false` | Whether to hide the header text when the Panel is expanded.
+peek | `Boolean` | `false` | Whether to show part of the content when the Panel is collapsed.
 no-close | `Boolean` | `false` | Whether to show the close button.
 no-switch | `Boolean` | `false` | Whether to show the expand switch.
 bottom-switch | `Boolean` | `true` | Whether to show an expand switch at the bottom of the panel. Independent of no-switch.

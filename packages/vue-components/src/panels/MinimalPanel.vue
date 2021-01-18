@@ -58,6 +58,7 @@
       <div
         ref="panel"
         class="card-collapse"
+        :class="{'card-peek-collapsed': shouldShowPeek}"
       >
         <div
           v-if="wasRetrieverLoaded || preloadBool"
@@ -138,6 +139,24 @@ export default {
 </script>
 
 <style scoped>
+
+  .card-peek-collapsed {
+    position: relative;
+  }
+
+  /*
+   * Gives the faded content effect for peek.
+   * Ensure that height has the same value as collapsedPanelHeight in PanelBase.js.
+   */
+  .card-peek-collapsed::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 125px;
+    background-image: linear-gradient(180deg, transparent, white 90%);
+  }
+
   .morph-title {
     padding: 0 0.3em;
     color: rgba(0, 0, 0, 0.5);

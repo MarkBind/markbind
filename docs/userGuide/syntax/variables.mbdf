@@ -65,7 +65,11 @@ To do so, assign a root variable name (`varName`) to the file path from the <too
 
 
 
-{{ icon_example }}
+<tabs>
+
+<tab header="Importing from JSON files">
+
+{{icon_example}}
 
 %%CODE:%%
 
@@ -113,9 +117,65 @@ Student Number | Score | Rank
 </box>
 </div>
 
+</tab>
+<tab header="Importing from CSV files">
+
+{{icon_example}}
+
+%%CODE:%%
+
+<div class="indented">
+
+{% raw %}
+```html {heading="Displaying a student scoreboard stored as CSV"}
+{% ext studentScoreboard = "userGuide/syntax/extra/scoreboard.csv" %}
+
+Student Number | Score | Rank
+:----- | :-------: | ----
+{% for student in studentScoreboard -%}
+{{ student.number }} | {{ student.score }} | {{ student.rank }}
+{% endfor %}
+```
+{% endraw %}
+
+<panel type="minimal" header="CSV file used in example">
+
+```csv {heading="CSV File"}
+{% include "userGuide/syntax/extra/scoreboard.csv" %}
+```
+
+</panel>
+<br>
+
+<box border-left-color="{{ markbind_blue}}">
+
+{{ icon_bulb_blue }} If you do not want to have a header row, you can specify it by appending a `noHeader` option at the end of the variable declaration. In this example, it should be {% raw %} `{% ext studentScoreboard = "userGuide/syntax/extra/scoreboard.csv", noHeader %}` {% endraw %}. Elements have to be accessed using the `[]` operator (i.e. using `student[0]` to access student number instead of `student.number`).
+</box>
+
+</div>
+
+%%OUTPUT:%%
+<div class="indented">
+
+<box border-left-color="grey" background-color="white">
+
+{% ext studentScoreboard = "userGuide/syntax/extra/scoreboard.csv" %}
+
+Student Number | Score | Rank
+:----- | :-------: | ----
+{% for student in studentScoreboard -%}
+{{ student.number }} | {{ student.score }} / 100 | {{ student.rank }}
+{% endfor %}
+
+</box>
+</div>
+
+</tab>
+</tabs>
+
 <box type="info" seamless>
 
-Only `.json` files are supported for now.
+Only `.json` and `.csv` files are supported for now.
 </box>
 
 
@@ -129,6 +189,5 @@ Global variables:
 ```
 
 `The year was {% raw %}{{ year }}{% endraw %}.`
-
 
 </span>

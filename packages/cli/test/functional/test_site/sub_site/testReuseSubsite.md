@@ -18,7 +18,12 @@ PIC tags:
 
 Anchor:
 <a href="https://dummyimage.com/600x400/000/fff">External Image</a>
-<a href="{{baseUrl}}/images/I'm not allowed to use my favorite tool.png">Link to picture</a>
+<!--
+  Markdown used to be rendered before Nunjucks in links, which caused curly braces in markdown style links to be encoded.
+  This was patched in https://github.com/MarkBind/markbind/commit/188db1e,
+  which has been reverted as it is no longer the case. This is also a small regression test hence.
+-->
+[Link to picture](<{{baseUrl}}/images/I'm not allowed to use my favorite tool.png>)
 <a id="namedAnchor">Named Anchor</a>
 <a>Anchor with no attributes</a>
 
