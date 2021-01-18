@@ -507,7 +507,7 @@ siteJsonResolvePropertiesTestCases.forEach((testCase) => {
 
     const site = new Site('./', '_site');
     site.siteConfig = customSiteConfig;
-    await site.collectAddressablePages();
+    site.collectAddressablePages();
     expect(site.addressablePages)
       .toEqual(testCase.expected);
   });
@@ -543,8 +543,7 @@ test('Site config throws error on duplicate page src', async () => {
 
   const site = new Site('./', '_site');
   site.siteConfig = customSiteConfig;
-  expect(site.collectAddressablePages())
-    .rejects
+  expect(() => site.collectAddressablePages())
     .toThrow(new Error('Duplicate page entries found in site config: index.md'));
 });
 
@@ -614,7 +613,7 @@ siteJsonPageExclusionTestCases.forEach((testCase) => {
 
     const site = new Site('./', '_site');
     site.siteConfig = customSiteConfig;
-    await site.collectAddressablePages();
+    site.collectAddressablePages();
     expect(site.addressablePages)
       .toEqual(testCase.expected);
   });
