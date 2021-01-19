@@ -39,6 +39,7 @@ function getNewNodeProcessor(pluginManager) {
     headerIdMap: {},
     ignore: [],
     addressablePagesSource: [],
+    intrasiteLinkValidation: { enabled: false },
   };
 
   return new NodeProcessor(fileConfig, new PageSources(),
