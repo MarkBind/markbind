@@ -161,4 +161,14 @@ export default {
 .dropdown-toggle {
   cursor: pointer;
 }
+
+/* Fix for Navbar dropdown menu not showing in Bootswatch v4.5.1 */
+a:not([href]) {
+    color: inherit;
+    text-decoration: none;
+}
+a:not([href]):hover {
+    color: inherit;
+    text-decoration: none;
+}
 </style>
