@@ -1169,20 +1169,20 @@ class Site {
           name: 'Deployment Bot',
           email: 'deploy@travis-ci.org',
         };
-      } else if (process.env.GITHUB_ACTIONS) {
-        ciTokenVar = _.isBoolean(ciTokenVar) ? 'ACCESS_TOKEN' : ciTokenVar;
+      } else if (process.env.APPVEYOR) {
+        ciTokenVar = _.isBoolean(ciTokenVar) ? 'GITHUB_TOKEN' : ciTokenVar;
         if (!process.env[ciTokenVar]) {
           throw new Error(`The environment variable ${ciTokenVar} does not exist.`);
         }
 
         const githubToken = process.env[ciTokenVar];
-        let repoSlug = process.env.GITHUB_REPOSITORY;
+        let repoSlug = process.env.APPVEYOR_REPO_NAME;
         if (options.repo) {
         // Extract repo slug from user-specified repo URL so that we can include the access token
           const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-.]+)\.git$/;
           const repoSlugMatch = repoSlugRegex.exec(options.repo);
           if (!repoSlugMatch) {
-            throw new Error('-t/--travis expects a GitHub repository.\n'
+            throw new Error('-c/--ci expects a GitHub repository.\n'
             + `The specified repository ${options.repo} is not valid.`);
           }
           [, repoSlug] = repoSlugMatch;
