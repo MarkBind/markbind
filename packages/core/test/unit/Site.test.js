@@ -276,7 +276,7 @@ test('Site should not deploy without a built site', async () => {
         + 'Please build the site first before deploy.'));
 });
 
-describe('Site deploy with Travis', () => {
+fdescribe('Site deploy with Travis', () => {
   // Keep a copy of the original environment as we need to modify it for deploy Travis tests
   const OLD_ENV = { ...process.env };
 
@@ -292,7 +292,7 @@ describe('Site deploy with Travis', () => {
     process.env = { ...OLD_ENV };
   });
 
-  test('Site deploy -t/--travis deploys with default settings', async () => {
+  test('Site deploy -c/--ci deploys with default settings', async () => {
     process.env.TRAVIS = true;
     process.env.GITHUB_TOKEN = 'githubToken';
     process.env.TRAVIS_REPO_SLUG = 'TRAVIS_USER/TRAVIS_REPO';
@@ -310,7 +310,7 @@ describe('Site deploy with Travis', () => {
     expect(ghpages.options.user).toEqual({ name: 'Deployment Bot', email: 'deploy@travis-ci.org' });
   });
 
-  test('Site deploy -t/--travis deploys with custom GitHub repo', async () => {
+  test('Site deploy -c/--ci deploys with custom GitHub repo', async () => {
     process.env.TRAVIS = true;
     process.env.GITHUB_TOKEN = 'githubToken';
     process.env.TRAVIS_REPO_SLUG = 'TRAVIS_USER/TRAVIS_REPO.git';
@@ -329,7 +329,7 @@ describe('Site deploy with Travis', () => {
       .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/USER/REPO.git`);
   });
 
-  test('Site deploy -t/--travis deploys to correct repo when .git is in repo name', async () => {
+  test('Site deploy -c/--ci deploys to correct repo when .git is in repo name', async () => {
     process.env.TRAVIS = true;
     process.env.GITHUB_TOKEN = 'githubToken';
     process.env.TRAVIS_REPO_SLUG = 'TRAVIS_USER/TRAVIS_REPO.github.io';
@@ -346,7 +346,7 @@ describe('Site deploy with Travis', () => {
       .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/TRAVIS_USER/TRAVIS_REPO.github.io.git`);
   });
 
-  test('Site deploy -t/--travis should not deploy if not in Travis', async () => {
+  test('Site deploy -c/--ci should not deploy if not in Travis', async () => {
     const json = {
       ...PAGE_NJK,
       'site.json': SITE_JSON_DEFAULT,
@@ -356,10 +356,10 @@ describe('Site deploy with Travis', () => {
     const site = new Site('./', '_site');
     await expect(site.deploy(true))
       .rejects
-      .toThrow(new Error('-t/--travis should only be run in Travis CI.'));
+      .toThrow(new Error('-c/--ci should only be run in CI environments.'));
   });
 
-  test('Site deploy -t/--travis should not deploy without authentication token', async () => {
+  test('Site deploy -c/--ci should not deploy without authentication token', async () => {
     process.env.TRAVIS = true;
 
     const json = {
@@ -374,7 +374,7 @@ describe('Site deploy with Travis', () => {
       .toThrow(new Error('The environment variable GITHUB_TOKEN does not exist.'));
   });
 
-  test('Site deploy -t/--travis should not deploy if custom repository is not on GitHub', async () => {
+  test('Site deploy -c/--ci should not deploy if custom repository is not on GitHub', async () => {
     process.env.TRAVIS = true;
     process.env.GITHUB_TOKEN = 'githubToken';
 
