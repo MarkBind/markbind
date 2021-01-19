@@ -20,6 +20,8 @@
 
 <hr><!-- ======================================================================================================= -->
 
+<div id="layout">
+
 ## Layouts
 
 MarkBind layouts can be used to provide structure and content around pages easily.
@@ -113,6 +115,8 @@ Next, edit the layout file to your liking, and add the `{% raw %}{{ content }}{%
   </script>
 </script-bottom>
 ```
+
+</div>
 
 </div>
 

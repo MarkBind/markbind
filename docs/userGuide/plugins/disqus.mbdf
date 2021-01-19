@@ -39,3 +39,12 @@ To add a Disqus comment section on a page, all you need to do is to add a disqus
 ```html
 <disqus/>
 ```
+
+<box type="tip">
+
+It may be a good idea to create a <trigger for="pop:disqus-layout" placement="bottom" trigger="click"> layout </trigger> with `<disqus/>`{.xml} in it, so that you won't have to repeat it on every page.
+</box>
+
+<modal id="pop:disqus-layout" backdrop large> 
+  <include src="{{ baseUrl }}/userGuide/tweakingThePageStructure.md#layout"/>
+</modal>	
