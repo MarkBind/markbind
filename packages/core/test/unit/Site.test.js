@@ -276,6 +276,7 @@ test('Site should not deploy without a built site', async () => {
         + 'Please build the site first before deploy.'));
 });
 
+// TODO: remove "f"
 fdescribe('Site deploy with Travis', () => {
   // Keep a copy of the original environment as we need to modify it for deploy Travis tests
   const OLD_ENV = { ...process.env };
