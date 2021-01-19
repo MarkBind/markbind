@@ -1189,8 +1189,8 @@ class Site {
         }
         options.repo = `https://${githubToken}@github.com/${repoSlug}.git`;
         options.user = {
-          name: 'AppVeyorBot',
-          email: 'deploy@appveyor.com',
+          name: 'Deployment Bot',
+          email: 'deploy@travis-ci.org',
         };
       } else {
         throw new Error('-c/--ci should only be run in CI environments.');
