@@ -1145,49 +1145,31 @@ class Site {
     options.repo = this.siteConfig.deploy.repo || defaultDeployConfig.repo;
 
     if (ciTokenVar) {
+      const ciToken = _.isBoolean(ciTokenVar) ? 'GITHUB_TOKEN' : ciTokenVar;
+      if (!process.env[ciToken]) {
+        throw new Error(`The environment variable ${ciToken} does not exist.`);
+      }
+      const githubToken = process.env[ciToken];
+      let repoSlug;
+
       if (process.env.TRAVIS) {
-        // eslint-disable-next-line no-param-reassign
-        ciTokenVar = _.isBoolean(ciTokenVar) ? 'GITHUB_TOKEN' : ciTokenVar;
-        if (!process.env[ciTokenVar]) {
-          throw new Error(`The environment variable ${ciTokenVar} does not exist.`);
+        if (options.repo) {
+          repoSlug = Site.extractRepoSlug(options.repo);
+        } else {
+          repoSlug = process.env.TRAVIS_REPO_SLUG;
         }
 
-        const githubToken = process.env[ciTokenVar];
-        let repoSlug = process.env.TRAVIS_REPO_SLUG;
-        if (options.repo) {
-        // Extract repo slug from user-specified repo URL so that we can include the access token
-          const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-.]+)\.git$/;
-          const repoSlugMatch = repoSlugRegex.exec(options.repo);
-          if (!repoSlugMatch) {
-            throw new Error('-t/--travis expects a GitHub repository.\n'
-            + `The specified repository ${options.repo} is not valid.`);
-          }
-          [, repoSlug] = repoSlugMatch;
-        }
-        options.repo = `https://${githubToken}@github.com/${repoSlug}.git`;
         options.user = {
           name: 'Deployment Bot',
           email: 'deploy@travis-ci.org',
         };
       } else if (process.env.APPVEYOR) {
-        ciTokenVar = _.isBoolean(ciTokenVar) ? 'GITHUB_TOKEN' : ciTokenVar;
-        if (!process.env[ciTokenVar]) {
-          throw new Error(`The environment variable ${ciTokenVar} does not exist.`);
+        if (options.repo) {
+          repoSlug = Site.extractRepoSlug(options.repo);
+        } else {
+          repoSlug = process.env.APPVEYOR_REPO_NAME;
         }
 
-        const githubToken = process.env[ciTokenVar];
-        let repoSlug = process.env.APPVEYOR_REPO_NAME;
-        if (options.repo) {
-        // Extract repo slug from user-specified repo URL so that we can include the access token
-          const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-.]+)\.git$/;
-          const repoSlugMatch = repoSlugRegex.exec(options.repo);
-          if (!repoSlugMatch) {
-            throw new Error('-c/--ci expects a GitHub repository.\n'
-            + `The specified repository ${options.repo} is not valid.`);
-          }
-          [, repoSlug] = repoSlugMatch;
-        }
-        options.repo = `https://${githubToken}@github.com/${repoSlug}.git`;
         options.user = {
           name: 'AppVeyorBot',
           email: 'deploy@appveyor.com',
@@ -1195,10 +1177,26 @@ class Site {
       } else {
         throw new Error('-c/--ci should only be run in CI environments.');
       }
+
+      options.repo = `https://${githubToken}@github.com/${repoSlug}.git`;
     }
 
     publish(basePath, options);
     return options;
+  }
+
+  /**
+   * Extract repo slug from user-specified repo URL so that we can include the access token
+   */
+  static extractRepoSlug(repo) {
+    const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-.]+)\.git$/;
+    const repoSlugMatch = repoSlugRegex.exec(repo);
+    if (!repoSlugMatch) {
+      throw new Error('-c/--ci expects a GitHub repository.\n'
+            + `The specified repository ${repo} is not valid.`);
+    }
+    const [, repoSlug] = repoSlugMatch;
+    return repoSlug;
   }
 
   /**
