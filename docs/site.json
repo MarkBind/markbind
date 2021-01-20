@@ -20,11 +20,15 @@
     }
   ],
   "plugins" : [
-    "filterTags"
+    "filterTags",
+    "disqus"
   ],
   "pluginsContext" : {
     "filterTags" : {
       "tags": ["environment--ug", "environment--dg"]
+    },
+    "disqus": {
+      "shortname": "https-markbind-org"
     }
   },
   "headingIndexingLevel": 6,

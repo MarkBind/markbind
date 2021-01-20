@@ -33,7 +33,9 @@ function loadDisqus(pluginContext) {
 
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
+        console.log('obs');
         if (entry.isIntersecting) {
+          console.log('intersect');
           ${load}
           observer.unobserve(entry.target);
         }
@@ -41,23 +43,42 @@ function loadDisqus(pluginContext) {
     }, options);
 
     const elem = document.querySelector('#disqus_thread');
-    observer.observe(elem);
+    if (elem) {
+      console.log(observer);
+      observer.observe(elem);
+      console.log('registered obs');
+    }
   `;
 
   return `
-    <script>
-      ${config}
-      ${lazyLoad}
-    </script>
+    ${config}
+    ${lazyLoad}
   `;
 }
 
 module.exports = {
-  getScripts: pluginContext => [loadDisqus(pluginContext)],
+  // getScripts: (pluginContext, frontMatter, content) => {
+  //   const contentHasDisqusThread = content.includes('disqus_thread');
+  //   if (!contentHasDisqusThread) {
+  //     return [];
+  //   }
+  //   return [loadDisqus(pluginContext)];
+  // },
   processNode: (pluginContext, node) => {
     if (node.name !== 'disqus') {
       return;
     }
-    cheerio(node).append('<div id="disqus_thread"></div>');
+    const $ = cheerio(node);
+    $.append('<div id="disqus_thread"></div>');
+    const script = `
+      <script>
+        const script = window.document.createElement('script');
+        script.innerHTML = \`${loadDisqus(pluginContext)}\`;
+        setTimeout(() => {
+          document.body.appendChild(script);
+        }, 0);
+      </script>
+    `;
+    $.append(script);
   },
 };
