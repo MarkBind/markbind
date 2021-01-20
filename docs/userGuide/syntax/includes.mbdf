@@ -68,6 +68,7 @@ When setting the `id` of a fragment, be careful not to clash with heading anchor
 * **`trim`** (optional): remove leading and trailing whitespace and newlines from the document before including.
   ```html
   <include src="UserStories.md#epic" trim />
+* **`omitFrontmatter`** (optional): omit the front matter of the file/fragment from being included (if any).
   ```
 
 <include src="tip.md" boilerplate >

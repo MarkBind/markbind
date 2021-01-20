@@ -319,3 +319,83 @@ test('includeFile detects cyclic references for static cyclic includes', async (
 
   expect(result).toContain(expected);
 });
+
+test('process include should preserve included frontmatter data', async () => {
+  const indexPath = path.resolve('index.md');
+
+  const index = [
+    '# Index',
+    '<include src="exist.md" />',
+    '',
+  ].join('\n');
+
+  const exist = [
+    '<frontmatter>',
+    '  title: This should be present',
+    '</frontmatter>',
+    '',
+    '# Exist',
+  ].join('\n');
+
+  const json = {
+    'index.md': index,
+    'exist.md': exist,
+  };
+
+  fs.vol.fromJSON(json, '');
+
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const result = await nodeProcessor.process(indexPath, index);
+
+  const expectedHtml = [
+    '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
+    '<div>',
+    '<h1 id="exist"><span id="exist" class="anchor"></span>Exist</h1></div>',
+  ].join('\n');
+
+  const expectedFrontmatter = {
+    title: 'This should be present',
+  };
+
+  expect(result).toEqual(expectedHtml);
+  expect(nodeProcessor.frontMatter).toEqual(expectedFrontmatter);
+});
+
+test('process include with omitFrontmatter should discard included frontmatter data', async () => {
+  const indexPath = path.resolve('index.md');
+
+  const index = [
+    '# Index',
+    '<include src="exist.md" omitFrontmatter/>',
+    '',
+  ].join('\n');
+
+  const exist = [
+    '<frontmatter>',
+    '  title: This should not be present',
+    '</frontmatter>',
+    '',
+    '# Exist',
+  ].join('\n');
+
+  const json = {
+    'index.md': index,
+    'exist.md': exist,
+  };
+
+  fs.vol.fromJSON(json, '');
+
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const result = await nodeProcessor.process(indexPath, index);
+
+  const expectedHtml = [
+    '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
+    '<div>',
+    '<h1 id="exist"><span id="exist" class="anchor"></span>Exist</h1></div>',
+  ].join('\n');
+
+  const expectedFrontMatter = {};
+
+  expect(result).toEqual(expectedHtml);
+  expect(nodeProcessor.frontMatter).toEqual(expectedFrontMatter);
+});

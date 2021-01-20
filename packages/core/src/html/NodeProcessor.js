@@ -140,10 +140,10 @@ class NodeProcessor {
   /*
    * FrontMatter collection
    */
-  _processFrontMatter(node) {
+  _processFrontMatter(node, context) {
     let currentFrontMatter = {};
     const frontMatter = cheerio(node);
-    if (frontMatter.text().trim()) {
+    if (!context.processingOptions.omitFrontmatter && frontMatter.text().trim()) {
       // Retrieves the front matter from either the first frontmatter element
       // or from a frontmatter element that includes from another file
       // The latter case will result in the data being wrapped in a div
@@ -607,7 +607,7 @@ class NodeProcessor {
     try {
       switch (node.name) {
       case 'frontmatter':
-        this._processFrontMatter(node);
+        this._processFrontMatter(node, context);
         break;
       case 'body':
         NodeProcessor._preprocessBody(node);
@@ -765,7 +765,7 @@ class NodeProcessor {
   }
 
   process(file, content, cwf = file, extraVariables = {}) {
-    const context = new Context(cwf, [], extraVariables);
+    const context = new Context(cwf, [], extraVariables, {});
 
     return new Promise((resolve, reject) => {
       const handler = new htmlparser.DomHandler((error, dom) => {
