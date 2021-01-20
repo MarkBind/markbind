@@ -267,6 +267,7 @@ class NodeList {
     if (!blurEvent) {
       blurEvent = e => {
         blurList.forEach(item => {
+          if (!item.el) return
           let target = item.el.contains(e.target) || item.el === e.target
           if (!target) item.callback.call(item.el, e, item.el)
         })
