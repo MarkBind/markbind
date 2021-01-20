@@ -25,6 +25,7 @@ import thumbnail from './Thumbnail.vue';
 import tipBox from './TipBox.vue';
 import trigger from './Trigger.vue';
 import siteNav from './SiteNav.vue';
+import submenu from './Submenu.vue';
 
 const components = {
   box: tipBox,
@@ -44,6 +45,7 @@ const components = {
   tipBox,
   trigger,
   siteNav,
+  submenu,
 };
 
 const directives = {

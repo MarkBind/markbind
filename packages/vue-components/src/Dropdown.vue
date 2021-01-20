@@ -13,6 +13,20 @@
       </ul>
     </slot>
   </li>
+  <submenu v-else-if="isSubmenu" ref="submenu">
+    <slot slot="button" name=button>
+      <a class="submenu-toggle" role="button" :class="{disabled: disabled}">
+        <slot name="_header">
+          <slot name="header"></slot>
+        </slot>
+      </a>
+    </slot>
+    <slot slot="dropdown-submenu" name="dropdown-menu" :class="menuClasses">
+      <ul class="dropdown-menu" :class="menuClasses">
+        <slot></slot>
+      </ul>
+    </slot>
+  </submenu>
   <div v-else ref="dropdown" :class="classes">
     <slot name="before"></slot>
     <slot name="button">
@@ -72,6 +86,7 @@ export default {
       return toBoolean(this.disabled);
     },
     isLi () { return this.$parent._navbar || this.$parent.menu || this.$parent._tabset },
+    isSubmenu() { return this.$parent._dropdown || this.$parent._submenu },
     menu () {
       return !this.$parent || this.$parent.navbar
     },
@@ -106,6 +121,7 @@ export default {
       }
     },
     hideDropdownMenu() {
+      this.hideSubmenu();
       this.show = false;
       $(this.$refs.dropdown).findChildren('ul').each(ul => ul.classList.toggle('show', false));
     },
@@ -113,6 +129,16 @@ export default {
       this.show = true;
       $(this.$refs.dropdown).findChildren('ul').each(ul => ul.classList.toggle('show', true));
     },
+    hideSubmenu() {
+      $(this.$refs.dropdown).findChildren('ul').each(ul => {
+        $(ul).findChildren('li.dropdown-submenu').each(sm => {
+          $(sm).findChildren('ul').each(ul => ul.classList.toggle('show', false));
+        })
+      });
+    }
+  },
+  created() {
+    this._dropdown = true;
   },
   mounted () {
     const $el = $(this.$refs.dropdown)
@@ -130,7 +156,7 @@ export default {
       }
       return false
     })
-    $el.findChildren('ul').on('click', 'li>a', e => { this.hideDropdownMenu() })
+    $el.findChildren('ul').on('click', 'li>.dropdown-item', e => { this.hideDropdownMenu() })
   },
   beforeDestroy () {
     const $el = $(this.$refs.dropdown)
@@ -160,5 +186,25 @@ export default {
 
 .dropdown-toggle {
   cursor: pointer;
+}
+
+.submenu-toggle {
+  display: inline-block;
+  width: 100%;
+  padding: .25rem .75rem .25rem 1.5rem;
+}
+
+.submenu-toggle:after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: .255em;
+  content: "";
+  border-top: .3em solid transparent;
+  border-right: 0;
+  border-bottom: .3em solid transparent;
+  border-left: .3em solid;
+  float: right;
+  margin-top: .5em;
 }
 </style>

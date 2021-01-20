@@ -208,7 +208,7 @@ export default {
         if (!content.contains(e.target)) content.classList.remove('open');
       });
     });
-    $(this.$el).on('click', 'li:not(.dropdown)>a', (e) => {
+    $(this.$el).on('click', 'li:not(.dropdown)>.dropdown-item', (e) => {
       setTimeout(() => { this.collapsed = true; }, 200);
     }).onBlur((e) => {
       if (!this.$el.contains(e.target)) { this.collapsed = true; }
