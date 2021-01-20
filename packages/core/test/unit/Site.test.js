@@ -396,8 +396,7 @@ describe('Site deploy with Travis', () => {
   });
 });
 
-// TODO: remove "f"
-fdescribe('Site deploy with AppVeyor', () => {
+describe('Site deploy with AppVeyor', () => {
   // Keep a copy of the original environment as we need to modify it for deploy AppVeyor tests
   const OLD_ENV = { ...process.env };
 
