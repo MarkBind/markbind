@@ -160,5 +160,7 @@ export default {
 
 .dropdown-toggle {
   cursor: pointer;
+  color: inherit;
+  text-decoration: none;
 }
 </style>
