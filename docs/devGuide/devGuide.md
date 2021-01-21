@@ -15,8 +15,6 @@
 **Thank you for your interest in contributing!** We're glad you want to help. We welcome PRs, especially from students.
 </div>
 
-<disqus/>
-
 **First, do take note of** [**our _code of conduct_** (from SE-EDU)](https://se-education.org/guides/guidelines/codeOfConduct.html). Reporting bugs or submitting feature suggestions in [our issue tracker](https://github.com/markbind/markbind) can help too.
 
 **Second, ensure you have a basic knowledge** of the following:

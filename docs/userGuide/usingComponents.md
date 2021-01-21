@@ -12,8 +12,6 @@
 <md>[_User Guide → {{ title }}_]({{ filename }}.html)</md>
 </span>
 
-<disqus/>
-
 # Using Components
 
 <span id="overview" class="lead">
