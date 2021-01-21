@@ -1,19 +1,25 @@
 const cheerio = module.parent.require('cheerio');
 
+// const IDENTIFIER = '/s';
+// const IDENTIFIER2 = 'http://127.0.0.1:8080/index.html';
+
 function loadDisqus(pluginContext) {
   const config = `
-    const path = window.location.pathname;
-    const hostname = window.location.hostname;
-    const strippedPath = path.replace(window.baseUrl, '');
-
-    const getDisqusConfig = () => {
-      return function() {
-        this.page.url = hostname; // Replace with your page's canonical URL variable
-        this.page.identifier = strippedPath; // Replace with your page's unique identifier variable 
-      }
+    let path = window.location.pathname;
+    console.log("path: " + path);
+    console.log(window.location.hash);
+    console.log("baseUrl: " + baseUrl);
+    if (path.startsWith(baseUrl)) {
+      path = path.substring(baseUrl.length); // strip baseUrl
     }
+    if (path.endsWith('/')) {
+      path += 'index.html'; // implicit path
+    }
+    console.log("path (no baseUrl): " + path);
 
-    const disqus_config = getDisqusConfig();   
+    var disqus_config = function() {
+      this.page.identifier = path;
+    };   
   `;
 
   const load = `
@@ -49,6 +55,21 @@ function loadDisqus(pluginContext) {
     ${lazyLoad}
   `;
 }
+
+/*
+  var disqus_config = function () {
+      this.page.url = '${IDENTIFIER2}';  
+      this.page.identifier = '${IDENTIFIER2}'; 
+  };
+  (function() {  // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      
+      s.src = 'https://https-markbind-org.disqus.com/embed.js';
+      
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+  })();
+*/
 
 module.exports = {
   processNode: (pluginContext, node) => {
