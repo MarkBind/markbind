@@ -3,11 +3,17 @@ const cheerio = module.parent.require('cheerio');
 function loadDisqus(pluginContext) {
   const config = `
     let path = window.location.pathname;
+
     if (path.startsWith(baseUrl)) {
       path = path.substring(baseUrl.length); // strip baseUrl
     }
+
+    const hasNoFileExtension = path.substr((path.lastIndexOf('.') + 1)) === '';
+    // implicit path to index.html
     if (path.endsWith('/')) {
-      path += 'index.html'; // implicit path
+      path += 'index.html'; // e.g. .../path/
+    } else if (hasNoFileExtension) {
+      path += '/index.html'; // e.g. .../path
     }
 
     // need to use var and ES5 function syntax to work

@@ -6,7 +6,7 @@ To enable it, add `googleAnalytics` to your site's plugins, and add the `trackin
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------
-trackingID | `String` || Tracking ID is provided by Google. Follow this [guide](https://support.google.com/analytics/answer/1008080) to get your Tracking ID.
+trackingID | `String` || Tracking ID provided by Google. Follow this [guide](https://support.google.com/analytics/answer/1008080) to get your Tracking ID.
 
 ```js {heading="site.json"}
 {
