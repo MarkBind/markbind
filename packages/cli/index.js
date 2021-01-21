@@ -303,7 +303,7 @@ program
   .command('deploy')
   .alias('d')
   .description('deploy the site to the repo\'s Github pages')
-  .option('-c, --ci [tokenVar]', 'deploy the site in CI Environment [GITHUB_TOKEN]')
+  .option('-c, --ci [githubTokenName]', 'deploy the site in CI Environment [GITHUB_TOKEN]')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
   .action((options) => {
     const rootFolder = path.resolve(process.cwd());
