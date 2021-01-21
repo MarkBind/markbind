@@ -17,11 +17,9 @@ function loadDisqus(pluginContext) {
   `;
 
   const load = `
-    (function() {
-      const script = window.document.createElement('script');
-      script.src = 'https://${pluginContext.shortname}.disqus.com/embed.js';
-      document.body.appendChild(script);
-    })();    
+    const script = window.document.createElement('script');
+    script.src = 'https://${pluginContext.shortname}.disqus.com/embed.js';
+    document.body.appendChild(script);
   `;
 
   const lazyLoad = `
@@ -33,9 +31,7 @@ function loadDisqus(pluginContext) {
 
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
-        console.log('obs');
         if (entry.isIntersecting) {
-          console.log('intersect');
           ${load}
           observer.unobserve(entry.target);
         }
@@ -44,9 +40,7 @@ function loadDisqus(pluginContext) {
 
     const elem = document.querySelector('#disqus_thread');
     if (elem) {
-      console.log(observer);
       observer.observe(elem);
-      console.log('registered obs');
     }
   `;
 
@@ -57,13 +51,6 @@ function loadDisqus(pluginContext) {
 }
 
 module.exports = {
-  // getScripts: (pluginContext, frontMatter, content) => {
-  //   const contentHasDisqusThread = content.includes('disqus_thread');
-  //   if (!contentHasDisqusThread) {
-  //     return [];
-  //   }
-  //   return [loadDisqus(pluginContext)];
-  // },
   processNode: (pluginContext, node) => {
     if (node.name !== 'disqus') {
       return;
@@ -74,9 +61,9 @@ module.exports = {
       <script>
         const script = window.document.createElement('script');
         script.innerHTML = \`${loadDisqus(pluginContext)}\`;
-        setTimeout(() => {
+        document.addEventListener("DOMContentLoaded", () => {
           document.body.appendChild(script);
-        }, 0);
+        });
       </script>
     `;
     $.append(script);
