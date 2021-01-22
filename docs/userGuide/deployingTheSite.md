@@ -62,6 +62,12 @@ You can override the default deployment settings %%(e.g., repo/branch to deploy)
 `markbind deploy` does not generate the static site from your source; it simply deploys the files that are already in the `_site` directory. You need to run `markbind build` first if you want to generate the site before deploying.
 </box>
 
+### Deploying to GitHub Pages via GitHub Actions
+
+**You can setup a GitHub Action that automatically builds and deploys your site upon every push to the `master` branch.**
+
+Follow the instruction [here](https://github.com/MarkBind/markbind-action)
+
 ### Deploying to GitHub Pages via Travis CI
 **You can setup [<tooltip content="a platform for Continuous Integration and Delivery (among other things)">Travis CI</tooltip>](https://www.travis-ci.org/) to automatically build and deploy your site on GitHub Pages every time your GitHub repo is updated.**
 
