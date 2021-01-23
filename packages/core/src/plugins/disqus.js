@@ -9,9 +9,9 @@ function loadDisqus(pluginContext) {
       path = path.substring(baseUrl.length); 
     }
 
-    const pathParams = path.split("/");
+    const pathParams = path.split('/');
     const lastPathParam = pathParams[pathParams.length - 1];
-    const hasNoFileExtension = !lastPathParam.includes(".");
+    const hasNoFileExtension = !lastPathParam.includes('.');
 
     // implicit path to index.html
     if (path.endsWith('/')) {
