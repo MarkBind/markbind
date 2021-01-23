@@ -276,250 +276,237 @@ test('Site should not deploy without a built site', async () => {
         + 'Please build the site first before deploy.'));
 });
 
-describe('Site deploy with Travis', () => {
-  // Keep a copy of the original environment as we need to modify it for deploy Travis tests
-  const OLD_ENV = { ...process.env };
+const DEFAULT_GITHUB_TOKEN = 'githubToken';
+const DEFAULT_TRAVIS_REPO_SLUG = 'TRAVIS_USER/TRAVIS_REPO';
+const DEFAULT_APPVEYOR_REPO_SLUG = 'APPVEYOR_USER/APPVEYOR_REPO';
+const DEFAULT_TRAVIS_USER = {
+  name: 'Deployment Bot',
+  email: 'deploy@travis-ci.org',
+};
+const DEFAULT_APPVEYOR_USER = {
+  name: 'AppVeyorBot',
+  email: 'deploy@appveyor.com',
+};
 
-  beforeEach(() => {
-    // Delete all environment variables that affect tests
-    delete process.env.TRAVIS;
-    delete process.env.GITHUB_TOKEN;
-    delete process.env.TRAVIS_REPO_SLUG;
-    delete process.env.APPVEYOR;
-    delete process.env.APPVEYOR_REPO_NAME;
-  });
+test.each(
+  [
+    // default settings
+    [
+      true,
+      DEFAULT_TRAVIS_REPO_SLUG,
+      false,
+      DEFAULT_APPVEYOR_REPO_SLUG,
+      DEFAULT_GITHUB_TOKEN,
+      false,
+      false,
+      true,
+      'https://githubToken@github.com/TRAVIS_USER/TRAVIS_REPO.git',
+      DEFAULT_TRAVIS_USER,
+    ],
+    // custom Github repo
+    [
+      true,
+      DEFAULT_TRAVIS_REPO_SLUG,
+      false,
+      DEFAULT_APPVEYOR_REPO_SLUG,
+      DEFAULT_GITHUB_TOKEN,
+      true,
+      false,
+      true,
+      'https://githubToken@github.com/USER/REPO.git',
+      DEFAULT_TRAVIS_USER,
+    ],
+    // .git in repo name
+    [
+      true,
+      'TRAVIS_USER/TRAVIS_REPO.github.io',
+      false,
+      DEFAULT_APPVEYOR_REPO_SLUG,
+      DEFAULT_GITHUB_TOKEN,
+      false,
+      false,
+      true,
+      'https://githubToken@github.com/TRAVIS_USER/TRAVIS_REPO.github.io.git',
+      DEFAULT_TRAVIS_USER,
+    ],
+    // should not deploy if not in Travis
+    [
+      false,
+      DEFAULT_TRAVIS_REPO_SLUG,
+      false,
+      DEFAULT_APPVEYOR_REPO_SLUG,
+      DEFAULT_GITHUB_TOKEN,
+      false,
+      false,
+      false,
+      '-c/--ci should only be run in CI environments.',
+      DEFAULT_TRAVIS_USER,
+    ],
+    // should not deploy without auth token
+    [
+      true,
+      DEFAULT_TRAVIS_REPO_SLUG,
+      false,
+      DEFAULT_APPVEYOR_REPO_SLUG,
+      null,
+      false,
+      false,
+      false,
+      'The environment variable GITHUB_TOKEN does not exist.',
+      DEFAULT_TRAVIS_USER,
+    ],
+    [
+      true,
+      DEFAULT_TRAVIS_REPO_SLUG,
+      false,
+      DEFAULT_APPVEYOR_REPO_SLUG,
+      DEFAULT_GITHUB_TOKEN,
+      false,
+      true,
+      false,
+      '-c/--ci expects a GitHub repository.\nThe specified repository INVALID_GITHUB_REPO is not valid.',
+      DEFAULT_TRAVIS_USER,
+    ],
+    // default settings
+    [
+      false,
+      DEFAULT_TRAVIS_REPO_SLUG,
+      true,
+      DEFAULT_APPVEYOR_REPO_SLUG,
+      DEFAULT_GITHUB_TOKEN,
+      false,
+      false,
+      true,
+      'https://githubToken@github.com/APPVEYOR_USER/APPVEYOR_REPO.git',
+      DEFAULT_APPVEYOR_USER,
+    ],
+    // custom Github repo
+    [
+      false,
+      DEFAULT_TRAVIS_REPO_SLUG,
+      true,
+      DEFAULT_APPVEYOR_REPO_SLUG,
+      DEFAULT_GITHUB_TOKEN,
+      true,
+      false,
+      true,
+      'https://githubToken@github.com/USER/REPO.git',
+      DEFAULT_APPVEYOR_USER,
+    ],
+    // .git in repo name
+    [
+      false,
+      DEFAULT_TRAVIS_REPO_SLUG,
+      true,
+      'APPVEYOR_USER/APPVEYOR_REPO.github.io',
+      DEFAULT_GITHUB_TOKEN,
+      false,
+      false,
+      true,
+      'https://githubToken@github.com/APPVEYOR_USER/APPVEYOR_REPO.github.io.git',
+      DEFAULT_APPVEYOR_USER,
+    ],
+    // not in appveyor
+    [
+      false,
+      DEFAULT_TRAVIS_REPO_SLUG,
+      false,
+      DEFAULT_APPVEYOR_REPO_SLUG,
+      DEFAULT_GITHUB_TOKEN,
+      false,
+      false,
+      false,
+      '-c/--ci should only be run in CI environments.',
+      DEFAULT_APPVEYOR_USER,
+    ],
+    // no github token
+    [
+      false,
+      DEFAULT_TRAVIS_REPO_SLUG,
+      false,
+      DEFAULT_APPVEYOR_REPO_SLUG,
+      null,
+      false,
+      false,
+      false,
+      'The environment variable GITHUB_TOKEN does not exist.',
+      DEFAULT_APPVEYOR_USER,
+    ],
+    // custom repo not on Github
+    [
+      false,
+      DEFAULT_TRAVIS_REPO_SLUG,
+      true,
+      DEFAULT_APPVEYOR_REPO_SLUG,
+      DEFAULT_GITHUB_TOKEN,
+      false,
+      true,
+      false,
+      '-c/--ci expects a GitHub repository.\nThe specified repository INVALID_GITHUB_REPO is not valid.',
+      DEFAULT_APPVEYOR_USER,
+    ],
+  ],
+)(`
+  TRAVIS: %s, 
+  TRAVIS_REPO_SLUG: %s, 
+  APPVEYOR: %s, 
+  APPVEYOR_REPO_NAME: %s,
+  GITHUB_TOKEN: %s, 
+  IS_CUSTOM_REPO: %s, 
+  IS_INVALID_REPO: %s, 
+  SHOULD_PASS: %s,
+  EXPECTED_MSG: %s, 
+  USER: %j
+  `,
+  async (
+    TRAVIS,
+    TRAVIS_REPO_SLUG,
+    APPVEYOR,
+    APPVEYOR_REPO_NAME,
+    GITHUB_TOKEN,
+    IS_CUSTOM_REPO,
+    IS_INVALID_REPO,
+    SHOULD_PASS,
+    EXPECTED_MSG,
+    USER,
+  ) => {
+    const OLD_ENV = { ...process.env };
+    process.env.TRAVIS = TRAVIS;
+    process.env.APPVEYOR = APPVEYOR;
+    process.env.TRAVIS_REPO_SLUG = TRAVIS_REPO_SLUG;
+    process.env.APPVEYOR_REPO_NAME = APPVEYOR_REPO_NAME;
+    process.env.GITHUB_TOKEN = GITHUB_TOKEN;
 
-  afterEach(() => {
-    // Restore the original environment at the end of deploy Travis tests
+    const siteConfig = JSON.parse(SITE_JSON_DEFAULT);
+    if (IS_CUSTOM_REPO) {
+      siteConfig.deploy.repo = 'https://github.com/USER/REPO.git';
+    }
+
+    if (IS_INVALID_REPO) {
+      siteConfig.deploy.repo = 'INVALID_GITHUB_REPO';
+    }
+
+    const json = {
+      ...PAGE_NJK,
+      // eslint-disable-next-line no-nested-ternary
+      'site.json': (IS_CUSTOM_REPO || IS_INVALID_REPO) ? JSON.stringify(siteConfig) : SITE_JSON_DEFAULT,
+      _site: {},
+    };
+    fs.vol.fromJSON(json, '');
+    const site = new Site('./', '_site');
+
+    if (SHOULD_PASS) {
+      await site.deploy(true);
+      expect(ghpages.options.repo).toEqual(EXPECTED_MSG);
+      expect(ghpages.options.user).toEqual(USER);
+    } else {
+      await expect(site.deploy(true))
+        .rejects
+        .toThrow(new Error(EXPECTED_MSG));
+    }
+
     process.env = { ...OLD_ENV };
   });
-
-  test('Site deploy -c/--ci deploys with default settings', async () => {
-    process.env.TRAVIS = true;
-    process.env.GITHUB_TOKEN = 'githubToken';
-    process.env.TRAVIS_REPO_SLUG = 'TRAVIS_USER/TRAVIS_REPO';
-
-    const json = {
-      ...PAGE_NJK,
-      'site.json': SITE_JSON_DEFAULT,
-      _site: {},
-    };
-    fs.vol.fromJSON(json, '');
-    const site = new Site('./', '_site');
-    await site.deploy(true);
-    expect(ghpages.options.repo)
-      .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/${process.env.TRAVIS_REPO_SLUG}.git`);
-    expect(ghpages.options.user).toEqual({ name: 'Deployment Bot', email: 'deploy@travis-ci.org' });
-  });
-
-  test('Site deploy -c/--ci deploys with custom GitHub repo', async () => {
-    process.env.TRAVIS = true;
-    process.env.GITHUB_TOKEN = 'githubToken';
-    process.env.TRAVIS_REPO_SLUG = 'TRAVIS_USER/TRAVIS_REPO.git';
-
-    const customRepoConfig = JSON.parse(SITE_JSON_DEFAULT);
-    customRepoConfig.deploy.repo = 'https://github.com/USER/REPO.git';
-    const json = {
-      ...PAGE_NJK,
-      'site.json': JSON.stringify(customRepoConfig),
-      _site: {},
-    };
-    fs.vol.fromJSON(json, '');
-    const site = new Site('./', '_site');
-    await site.deploy(true);
-    expect(ghpages.options.repo)
-      .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/USER/REPO.git`);
-  });
-
-  test('Site deploy -c/--ci deploys to correct repo when .git is in repo name', async () => {
-    process.env.TRAVIS = true;
-    process.env.GITHUB_TOKEN = 'githubToken';
-    process.env.TRAVIS_REPO_SLUG = 'TRAVIS_USER/TRAVIS_REPO.github.io';
-
-    const json = {
-      ...PAGE_NJK,
-      'site.json': SITE_JSON_DEFAULT,
-      _site: {},
-    };
-    fs.vol.fromJSON(json, '');
-    const site = new Site('./', '_site');
-    await site.deploy(true);
-    expect(ghpages.options.repo)
-      .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/TRAVIS_USER/TRAVIS_REPO.github.io.git`);
-  });
-
-  test('Site deploy -c/--ci should not deploy if not in Travis', async () => {
-    process.env.GITHUB_TOKEN = 'githubToken';
-
-    const json = {
-      ...PAGE_NJK,
-      'site.json': SITE_JSON_DEFAULT,
-      _site: {},
-    };
-    fs.vol.fromJSON(json, '');
-    const site = new Site('./', '_site');
-    await expect(site.deploy(true))
-      .rejects
-      .toThrow(new Error('-c/--ci should only be run in CI environments.'));
-  });
-
-  test('Site deploy -c/--ci should not deploy without authentication token', async () => {
-    process.env.TRAVIS = true;
-
-    const json = {
-      ...PAGE_NJK,
-      'site.json': SITE_JSON_DEFAULT,
-      _site: {},
-    };
-    fs.vol.fromJSON(json, '');
-    const site = new Site('./', '_site');
-    await expect(site.deploy(true))
-      .rejects
-      .toThrow(new Error('The environment variable GITHUB_TOKEN does not exist.'));
-  });
-
-  test('Site deploy -c/--ci should not deploy if custom repository is not on GitHub', async () => {
-    process.env.TRAVIS = true;
-    process.env.GITHUB_TOKEN = 'githubToken';
-
-    const invalidRepoConfig = JSON.parse(SITE_JSON_DEFAULT);
-    invalidRepoConfig.deploy.repo = 'INVALID_GITHUB_REPO';
-    const json = {
-      ...PAGE_NJK,
-      'site.json': JSON.stringify(invalidRepoConfig),
-      _site: {},
-    };
-    fs.vol.fromJSON(json, '');
-    const site = new Site('./', '_site');
-    await expect(site.deploy(true))
-      .rejects
-      .toThrow(new Error('-c/--ci expects a GitHub repository.\n'
-        + `The specified repository ${invalidRepoConfig.deploy.repo} is not valid.`));
-  });
-});
-
-describe('Site deploy with AppVeyor', () => {
-  // Keep a copy of the original environment as we need to modify it for deploy AppVeyor tests
-  const OLD_ENV = { ...process.env };
-
-  beforeEach(() => {
-    // Delete all environment variables that affect tests
-    delete process.env.TRAVIS;
-    delete process.env.GITHUB_TOKEN;
-    delete process.env.TRAVIS_REPO_SLUG;
-    delete process.env.APPVEYOR;
-    delete process.env.APPVEYOR_REPO_NAME;
-  });
-
-  afterEach(() => {
-    // Restore the original environment at the end of deploy AppVeyor tests
-    process.env = { ...OLD_ENV };
-  });
-
-  test('Site deploy -c/--ci deploys with default settings', async () => {
-    process.env.APPVEYOR = true;
-    process.env.GITHUB_TOKEN = 'githubToken';
-    process.env.APPVEYOR_REPO_NAME = 'APPVEYOR_USER/APPVEYOR_REPO';
-
-    const json = {
-      ...PAGE_NJK,
-      'site.json': SITE_JSON_DEFAULT,
-      _site: {},
-    };
-    fs.vol.fromJSON(json, '');
-    const site = new Site('./', '_site');
-    await site.deploy(true);
-    expect(ghpages.options.repo)
-      .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/${process.env.APPVEYOR_REPO_NAME}.git`);
-    expect(ghpages.options.user).toEqual({ name: 'AppVeyorBot', email: 'deploy@appveyor.com' });
-  });
-
-  test('Site deploy -c/--ci deploys with custom GitHub repo', async () => {
-    process.env.APPVEYOR = true;
-    process.env.GITHUB_TOKEN = 'githubToken';
-    process.env.APPVEYOR_REPO_NAME = 'APPVEYOR_USER/APPVEYOR_REPO';
-
-    const customRepoConfig = JSON.parse(SITE_JSON_DEFAULT);
-    customRepoConfig.deploy.repo = 'https://github.com/USER/REPO.git';
-    const json = {
-      ...PAGE_NJK,
-      'site.json': JSON.stringify(customRepoConfig),
-      _site: {},
-    };
-    fs.vol.fromJSON(json, '');
-    const site = new Site('./', '_site');
-    await site.deploy(true);
-    expect(ghpages.options.repo)
-      .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/USER/REPO.git`);
-  });
-
-  test('Site deploy -c/--ci deploys to correct repo when .git is in repo name', async () => {
-    process.env.APPVEYOR = true;
-    process.env.GITHUB_TOKEN = 'githubToken';
-    process.env.APPVEYOR_REPO_NAME = 'APPVEYOR_USER/APPVEYOR_REPO.github.io';
-
-    const json = {
-      ...PAGE_NJK,
-      'site.json': SITE_JSON_DEFAULT,
-      _site: {},
-    };
-    fs.vol.fromJSON(json, '');
-    const site = new Site('./', '_site');
-    await site.deploy(true);
-    expect(ghpages.options.repo)
-      .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/${process.env.APPVEYOR_REPO_NAME}.git`);
-  });
-
-  test('Site deploy -c/--ci should not deploy if not in AppVeyor', async () => {
-    process.env.APPVEYOR = false;
-    process.env.GITHUB_TOKEN = 'githubToken';
-
-    const json = {
-      ...PAGE_NJK,
-      'site.json': SITE_JSON_DEFAULT,
-      _site: {},
-    };
-    fs.vol.fromJSON(json, '');
-    const site = new Site('./', '_site');
-    await expect(site.deploy(true))
-      .rejects
-      .toThrow(new Error('-c/--ci should only be run in CI environments.'));
-  });
-
-  test('Site deploy -c/--ci should not deploy without authentication token', async () => {
-    process.env.APPVEYOR = true;
-
-    const json = {
-      ...PAGE_NJK,
-      'site.json': SITE_JSON_DEFAULT,
-      _site: {},
-    };
-    fs.vol.fromJSON(json, '');
-    const site = new Site('./', '_site');
-    await expect(site.deploy(true))
-      .rejects
-      .toThrow(new Error('The environment variable GITHUB_TOKEN does not exist.'));
-  });
-
-  test('Site deploy -c/--ci should not deploy if custom repository is not on GitHub', async () => {
-    process.env.APPVEYOR = true;
-    process.env.GITHUB_TOKEN = 'githubToken';
-
-    const invalidRepoConfig = JSON.parse(SITE_JSON_DEFAULT);
-    invalidRepoConfig.deploy.repo = 'INVALID_GITHUB_REPO';
-    const json = {
-      ...PAGE_NJK,
-      'site.json': JSON.stringify(invalidRepoConfig),
-      _site: {},
-    };
-    fs.vol.fromJSON(json, '');
-    const site = new Site('./', '_site');
-    await expect(site.deploy(true))
-      .rejects
-      .toThrow(new Error('-c/--ci expects a GitHub repository.\n'
-        + `The specified repository ${invalidRepoConfig.deploy.repo} is not valid.`));
-  });
-});
 
 const siteJsonResolvePropertiesTestCases = [
   {
