@@ -206,5 +206,3 @@ This is the latest Developer Guide for MarkBind.
 For contributors: please access the Developer Guide [here](devGuide/index.html)
 
 </div>
-
-<disqus/>

@@ -4,11 +4,15 @@ function loadDisqus(pluginContext) {
   const config = `
     let path = window.location.pathname;
 
+    // strip baseUrl
     if (path.startsWith(baseUrl)) {
-      path = path.substring(baseUrl.length); // strip baseUrl
+      path = path.substring(baseUrl.length); 
     }
 
-    const hasNoFileExtension = path.substr((path.lastIndexOf('.') + 1)) === '';
+    const pathParams = path.split("/");
+    const lastPathParam = pathParams[pathParams.length - 1];
+    const hasNoFileExtension = !lastPathParam.includes(".");
+
     // implicit path to index.html
     if (path.endsWith('/')) {
       path += 'index.html'; // e.g. .../path/
