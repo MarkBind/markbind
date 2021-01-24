@@ -8,16 +8,13 @@ const {
 
 function buildAlgoliaInitScript(pluginContext) {
   return `<script>
-    function initAlgolia() {
-      docsearch({
-        apiKey: "${pluginContext.apiKey}",
-        indexName: "${pluginContext.indexName}",
-        inputSelector: "${ALGOLIA_INPUT_SELECTOR}",
-        algoliaOptions: ${JSON.stringify(pluginContext.algoliaOptions || {})},
-        debug: ${pluginContext.debug || false},
-      });
-    }
-    MarkBind.afterSetup(initAlgolia);
+    docsearch({
+      apiKey: "${pluginContext.apiKey}",
+      indexName: "${pluginContext.indexName}",
+      inputSelector: "${ALGOLIA_INPUT_SELECTOR}",
+      algoliaOptions: ${JSON.stringify(pluginContext.algoliaOptions || {})},
+      debug: ${pluginContext.debug || false},
+    });
   </script>`;
 }
 
