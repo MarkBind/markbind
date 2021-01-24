@@ -121,7 +121,7 @@ install:
 script: markbind build
 deploy:
   provider: script
-  script: markbind deploy --travis
+  script: markbind deploy --ci
   skip_cleanup: true
   on:
     branch: master
