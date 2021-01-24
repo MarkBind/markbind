@@ -1,13 +1,24 @@
 <template>
   <li ref="submenu" :class="classes">
-    <slot name="button"></slot>
-    <slot name="dropdown-submenu" :class="menuClasses"></slot>
+    <slot name=button>
+      <a class="submenu-toggle" role="button" :class="{disabled: disabled}">
+        <slot name="_header">
+          <slot name="header"></slot>
+        </slot>
+      </a>
+    </slot>
+    <slot name="dropdown-menu" :class="menuClasses">
+      <ul class="dropdown-menu" :class="menuClasses">
+        <slot></slot>
+      </ul>
+    </slot>
   </li>
 </template>
 
 <script>
 import { toBoolean } from './utils/utils';
 import $ from './utils/NodeList';
+import positionSubmenu from './utils/submenu';
 
 export default {
   props: {
@@ -25,12 +36,16 @@ export default {
       default: false,
     },
   },
+  data() {
+    return {
+      dropright: true,
+      dropleft: false,
+    }
+  },
   computed: {
     classes() {
-      return [this.class, this.addClass, 'dropdown-submenu'];
-    },
-    menuClasses() {
-      return [{ show: this.showBool }, { 'dropdown-menu-right': this.menuAlignRight }];
+      return [this.class, this.addClass, 'dropdown-submenu', 
+        { 'dropright': this.dropright, 'dropleft': this.dropleft }];
     },
     disabledBool() {
       return toBoolean(this.disabled);
@@ -44,21 +59,30 @@ export default {
   },
   methods: {
     hideSubmenu() {
-      this.hideNestedSubmenus();
       this.show = false;
       $(this.$refs.submenu).findChildren('ul').each(ul => ul.classList.toggle('show', false));
+      this.alignMenuRight();
     },
     showSubmenu() {
       this.show = true;
-      $(this.$refs.submenu).findChildren('ul').each(ul => ul.classList.toggle('show', true));
-    },
-    hideNestedSubmenus() {
-      $(this.$refs.submenu).findChildren('ul').each((ul) => {
-        $(ul).findChildren('li.dropdown-submenu').each((sm) => {
-          $(sm).findChildren('ul').each(submenu => submenu.classList.toggle('show', false));
-        });
+      $(this.$refs.submenu).findChildren('ul').each(ul => {
+        ul.classList.toggle('show', true);
+        if (positionSubmenu.isRightAlign(ul)) {
+          this.alignMenuRight();
+        } else {
+          this.alignMenuLeft();
+        }
+        positionSubmenu.preventOverflow(ul);
       });
     },
+    alignMenuRight() {
+      this.dropright = true;
+      this.dropleft = false;
+    },
+    alignMenuLeft() {
+      this.dropright = false;
+      this.dropleft = true;
+    }
   },
   created() {
     this._submenu = true;
@@ -96,18 +120,50 @@ export default {
   position: relative;
 }
 
-@media (min-width: 768px) {
-  .dropdown-submenu > ul {
-    top: 0;
-    left: 100%;
-  }
-}
-
 @media (max-width: 767px) {
   .dropdown-submenu > ul {
     padding-bottom: 0;
     border-radius: 0;
     margin: -.05rem;
+  }
+}
+
+.submenu-toggle {
+  display: inline-block;
+  width: 100%;
+  padding: .25rem .75rem .25rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .submenu-toggle:after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    vertical-align: .255em;
+    content: "";
+    border-top: .3em solid transparent;
+    border-right: 0;
+    border-bottom: .3em solid transparent;
+    border-left: .3em solid;
+    float: right;
+    margin-top: .5em;
+  }
+}
+
+@media (max-width: 767px) {
+  .submenu-toggle:after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: .255em;
+    vertical-align: .255em;
+    content: "";
+    border-top: .3em solid;
+    border-right: .3em solid transparent;
+    border-bottom: 0;
+    border-left: .3em solid transparent;
+    float: right;
+    margin-top: .5em;
   }
 }
 </style>

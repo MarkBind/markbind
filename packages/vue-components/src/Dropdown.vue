@@ -14,18 +14,11 @@
     </slot>
   </li>
   <submenu v-else-if="isSubmenu" ref="submenu">
-    <slot slot="button" name=button>
-      <a class="submenu-toggle" role="button" :class="{disabled: disabled}">
-        <slot name="_header">
-          <slot name="header"></slot>
-        </slot>
-      </a>
-    </slot>
-    <slot slot="dropdown-submenu" name="dropdown-menu" :class="menuClasses">
-      <ul class="dropdown-menu" :class="menuClasses">
-        <slot></slot>
-      </ul>
-    </slot>
+    <slot slot="button" name=button></slot>
+    <slot slot="_header" name="_header"></slot>
+    <slot slot="header" name="header"></slot>
+    <slot slot="dropdown-submenu" name="dropdown-menu" :class="menuClasses"></slot>
+    <slot></slot>
   </submenu>
   <div v-else ref="dropdown" :class="classes">
     <slot name="before"></slot>
@@ -121,20 +114,12 @@ export default {
       }
     },
     hideDropdownMenu() {
-      this.hideSubmenu();
       this.show = false;
       $(this.$refs.dropdown).findChildren('ul').each(ul => ul.classList.toggle('show', false));
     },
     showDropdownMenu() {
       this.show = true;
       $(this.$refs.dropdown).findChildren('ul').each(ul => ul.classList.toggle('show', true));
-    },
-    hideSubmenu() {
-      $(this.$refs.dropdown).findChildren('ul').each(ul => {
-        $(ul).findChildren('li.dropdown-submenu').each(sm => {
-          $(sm).findChildren('ul').each(ul => ul.classList.toggle('show', false));
-        })
-      });
     }
   },
   created() {
@@ -189,44 +174,5 @@ export default {
 
 .dropdown-toggle {
   cursor: pointer;
-}
-
-.submenu-toggle {
-  display: inline-block;
-  width: 100%;
-  padding: .25rem .75rem .25rem 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .submenu-toggle:after {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    vertical-align: .255em;
-    content: "";
-    border-top: .3em solid transparent;
-    border-right: 0;
-    border-bottom: .3em solid transparent;
-    border-left: .3em solid;
-    float: right;
-    margin-top: .5em;
-  }
-}
-
-@media (max-width: 767px) {
-  .submenu-toggle:after {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    margin-left: .255em;
-    vertical-align: .255em;
-    content: "";
-    border-top: .3em solid;
-    border-right: .3em solid transparent;
-    border-bottom: 0;
-    border-left: .3em solid transparent;
-    float: right;
-    margin-top: .5em;
-  }
 }
 </style>
