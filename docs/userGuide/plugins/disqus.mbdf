@@ -1,0 +1,43 @@
+### Plugin: Disqus 
+
+This plugin allows you to use [Disqus](https://disqus.com/) for your site.
+
+<box type="info">
+
+Before you can use this plugin, you need to **(1) setup a Disqus account** and **(2) register your site**. 
+
+You may sign up for a Disqus account and register your site [here](https://disqus.com/admin/create/). 
+
+Note that you **++do not have to install Disqus on your site++**, this plugin does it for you. 
+
+All you have to do is provide the `shortname` of your Disqus site, which is explained below. 
+
+</box>
+
+To enable this plugin, add `disqus` to your site's plugins, and supply the required options via the `pluginsContext`.  
+
+Name | Type | Default | Description
+---- | ---- | ------- | ------
+shortname| `String` || Shortname is provided by Disqus. Follow this [guide](https://help.disqus.com/en/articles/1717111-what-s-a-shortname) to get shortname for your Disqus site.
+
+```js {heading="site.json"}
+{
+  ...
+  "plugins": [
+    "disqus"
+  ],
+  "pluginsContext": {
+    "disqus": {
+      "shortname": "YOUR_DISQUS_SITE_SHORTNAME", // replace with your Disqus site's shortname 
+    }
+  }
+}
+```
+
+Then, to add a Disqus comment section on a page, all you need to do is to add a `<disqus/>` HTML tag to any MarkBind source file. 
+
+<box type="tip">
+
+It may be a good idea to create a [layout]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#layouts) with `<disqus/>` in it, so that you won't have to repeat it on every page.
+
+</box>

@@ -34,6 +34,9 @@
     {%- endif %}
     {%- if faviconUrl -%} <link rel="icon" href="{{ faviconUrl }}"> {%- endif -%}
 </head>
+<script>
+  const baseUrl = '{{ baseUrl }}'
+</script>
 <body {% if hasPageNav %} data-spy="scroll" data-target="#mb-page-nav" data-offset="100" {% endif %}>
 <div id="app">
     {{ content }}
@@ -41,7 +44,6 @@
 </body>
 <script src="{{ asset.bootstrapUtilityJs }}"></script>
 <script>
-  const baseUrl = '{{ baseUrl }}'
   {% if enableSearch %}MarkBind.setupWithSearch(){% else %}MarkBind.setup(){% endif %}
 </script>
 {%- if asset.externalScripts %}
