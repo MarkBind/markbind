@@ -277,6 +277,23 @@ test('Site should not deploy without a built site', async () => {
 });
 
 describe('Site deploy with various CI environments', () => {
+  // Keep a copy of the original environment as we need to modify it for deploy Travis tests
+  const OLD_ENV = { ...process.env };
+
+  beforeEach(() => {
+    // Delete all environment variables that affect tests
+    delete process.env.TRAVIS;
+    delete process.env.GITHUB_TOKEN;
+    delete process.env.TRAVIS_REPO_SLUG;
+    delete process.env.APPVEYOR;
+    delete process.env.APPVEYOR_REPO_NAME;
+  });
+
+  afterAll(() => {
+    // Restore the original environment at the end of deploy Travis tests
+    process.env = { ...OLD_ENV };
+  });
+
   test.each([
     ['TRAVIS', 'TRAVIS_REPO_SLUG', { name: 'Deployment Bot', email: 'deploy@travis-ci.org' }],
     ['APPVEYOR', 'APPVEYOR_REPO_NAME', { name: 'AppVeyorBot', email: 'deploy@appveyor.com' }],
@@ -297,9 +314,6 @@ describe('Site deploy with various CI environments', () => {
        expect(ghpages.options.repo)
          .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/${process.env[repoSlugIdentifier]}.git`);
        expect(ghpages.options.user).toEqual(deployBotUser);
-
-       delete process.env[ciIdentifier];
-       delete process.env[repoSlugIdentifier];
      });
 
   test.each([
@@ -323,9 +337,6 @@ describe('Site deploy with various CI environments', () => {
        await site.deploy(true);
        expect(ghpages.options.repo)
          .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/USER/REPO.git`);
-
-       delete process.env[ciIdentifier];
-       delete process.env[repoSlugIdentifier];
      });
 
   test.each([
@@ -347,9 +358,6 @@ describe('Site deploy with various CI environments', () => {
        await site.deploy(true);
        expect(ghpages.options.repo)
          .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/${process.env[repoSlugIdentifier]}.git`);
-
-       delete process.env[ciIdentifier];
-       delete process.env[repoSlugIdentifier];
      });
 
   test('Site deploy -c/--ci should not deploy if not in CI environment', async () => {
@@ -372,7 +380,6 @@ describe('Site deploy with various CI environments', () => {
     ['APPVEYOR'],
   ])('Site deploy -c/--ci should not deploy without authentication token', async (ciIdentifier) => {
     process.env[ciIdentifier] = true;
-    delete process.env.GITHUB_TOKEN;
 
     const json = {
       ...PAGE_NJK,
@@ -384,8 +391,6 @@ describe('Site deploy with various CI environments', () => {
     await expect(site.deploy(true))
       .rejects
       .toThrow(new Error('The environment variable GITHUB_TOKEN does not exist.'));
-
-    delete process.env[ciIdentifier];
   });
 
   test.each([
@@ -408,8 +413,6 @@ describe('Site deploy with various CI environments', () => {
       .rejects
       .toThrow(new Error('-c/--ci expects a GitHub repository.\n'
         + `The specified repository ${invalidRepoConfig.deploy.repo} is not valid.`));
-
-    delete process.env[ciIdentifier];
   });
 });
 
