@@ -1109,7 +1109,7 @@ class Site {
     }
   }
 
-  deploy(travisTokenVar) {
+  deploy(ciTokenVar) {
     const defaultDeployConfig = {
       branch: 'gh-pages',
       message: 'Site Update.',
@@ -1117,23 +1117,23 @@ class Site {
       remote: 'origin',
     };
     process.env.NODE_DEBUG = 'gh-pages';
-    return this.generateDepUrl(travisTokenVar, defaultDeployConfig);
+    return this.generateDepUrl(ciTokenVar, defaultDeployConfig);
   }
 
   /**
    * Helper function for deploy().
    */
-  async generateDepUrl(travisTokenVar, defaultDeployConfig) {
+  async generateDepUrl(ciTokenVar, defaultDeployConfig) {
     const publish = Promise.promisify(ghpages.publish);
     await this.readSiteConfig();
-    const depOptions = await this.getDepOptions(travisTokenVar, defaultDeployConfig, publish);
+    const depOptions = await this.getDepOptions(ciTokenVar, defaultDeployConfig, publish);
     return Site.getDepUrl(depOptions, defaultDeployConfig);
   }
 
   /**
    * Helper function for deploy().
    */
-  async getDepOptions(travisTokenVar, defaultDeployConfig, publish) {
+  async getDepOptions(ciTokenVar, defaultDeployConfig, publish) {
     const basePath = this.siteConfig.deploy.baseDir || this.outputPath;
     if (!fs.existsSync(basePath)) {
       throw new Error(
@@ -1144,37 +1144,59 @@ class Site {
     options.message = this.siteConfig.deploy.message || defaultDeployConfig.message;
     options.repo = this.siteConfig.deploy.repo || defaultDeployConfig.repo;
 
-    if (travisTokenVar) {
-      if (!process.env.TRAVIS) {
-        throw new Error('-t/--travis should only be run in Travis CI.');
+    if (ciTokenVar) {
+      const ciToken = _.isBoolean(ciTokenVar) ? 'GITHUB_TOKEN' : ciTokenVar;
+      if (!process.env[ciToken]) {
+        throw new Error(`The environment variable ${ciToken} does not exist.`);
       }
-      // eslint-disable-next-line no-param-reassign
-      travisTokenVar = _.isBoolean(travisTokenVar) ? 'GITHUB_TOKEN' : travisTokenVar;
-      if (!process.env[travisTokenVar]) {
-        throw new Error(`The environment variable ${travisTokenVar} does not exist.`);
+      const githubToken = process.env[ciToken];
+      let repoSlug;
+
+      if (process.env.TRAVIS) {
+        if (options.repo) {
+          repoSlug = Site.extractRepoSlug(options.repo);
+        } else {
+          repoSlug = process.env.TRAVIS_REPO_SLUG;
+        }
+
+        options.user = {
+          name: 'Deployment Bot',
+          email: 'deploy@travis-ci.org',
+        };
+      } else if (process.env.APPVEYOR) {
+        if (options.repo) {
+          repoSlug = Site.extractRepoSlug(options.repo);
+        } else {
+          repoSlug = process.env.APPVEYOR_REPO_NAME;
+        }
+
+        options.user = {
+          name: 'AppVeyorBot',
+          email: 'deploy@appveyor.com',
+        };
+      } else {
+        throw new Error('-c/--ci should only be run in CI environments.');
       }
 
-      const githubToken = process.env[travisTokenVar];
-      let repoSlug = process.env.TRAVIS_REPO_SLUG;
-      if (options.repo) {
-        // Extract repo slug from user-specified repo URL so that we can include the access token
-        const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-.]+)\.git$/;
-        const repoSlugMatch = repoSlugRegex.exec(options.repo);
-        if (!repoSlugMatch) {
-          throw new Error('-t/--travis expects a GitHub repository.\n'
-            + `The specified repository ${options.repo} is not valid.`);
-        }
-        [, repoSlug] = repoSlugMatch;
-      }
       options.repo = `https://${githubToken}@github.com/${repoSlug}.git`;
-      options.user = {
-        name: 'Deployment Bot',
-        email: 'deploy@travis-ci.org',
-      };
     }
 
     publish(basePath, options);
     return options;
+  }
+
+  /**
+   * Extract repo slug from user-specified repo URL so that we can include the access token
+   */
+  static extractRepoSlug(repo) {
+    const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-.]+)\.git$/;
+    const repoSlugMatch = repoSlugRegex.exec(repo);
+    if (!repoSlugMatch) {
+      throw new Error('-c/--ci expects a GitHub repository.\n'
+            + `The specified repository ${repo} is not valid.`);
+    }
+    const [, repoSlug] = repoSlugMatch;
+    return repoSlug;
   }
 
   /**

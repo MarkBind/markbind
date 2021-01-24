@@ -303,12 +303,12 @@ program
   .command('deploy')
   .alias('d')
   .description('deploy the site to the repo\'s Github pages')
-  .option('-t, --travis [tokenVar]', 'deploy the site in Travis [GITHUB_TOKEN]')
+  .option('-c, --ci [githubTokenName]', 'deploy the site in CI Environment [GITHUB_TOKEN]')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
   .action((options) => {
     const rootFolder = path.resolve(process.cwd());
     const outputRoot = path.join(rootFolder, '_site');
-    new Site(rootFolder, outputRoot, undefined, undefined, options.siteConfig).deploy(options.travis)
+    new Site(rootFolder, outputRoot, undefined, undefined, options.siteConfig).deploy(options.ci)
       .then(depUrl => (depUrl !== null ? logger.info(`Deployed at ${depUrl}!`) : logger.info('Deployed!')))
       .catch(handleError);
     printHeader();

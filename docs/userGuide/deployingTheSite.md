@@ -62,11 +62,18 @@ You can override the default deployment settings %%(e.g., repo/branch to deploy)
 `markbind deploy` does not generate the static site from your source; it simply deploys the files that are already in the `_site` directory. You need to run `markbind build` first if you want to generate the site before deploying.
 </box>
 
-### Deploying to GitHub Pages via Travis CI
-**You can setup [<tooltip content="a platform for Continuous Integration and Delivery (among other things)">Travis CI</tooltip>](https://www.travis-ci.org/) to automatically build and deploy your site on GitHub Pages every time your GitHub repo is updated.**
+### Deploying to GitHub Pages via CI Tools
+**You can setup CI Tools to automatically build and deploy your site on GitHub Pages every time your GitHub repo is updated.**
+
+<box type="important" light>
+
+Markbind currently supports deploying to Github Pages via [Travis CI](https://www.travis-ci.com/) or [AppVeyor CI](https://www.appveyor.com/).
+</box>
 
 
-#### Adding your repository to Travis CI
+<panel header="#### Deploying via Travis CI" type="seamless" expanded>
+
+##### Adding your repository to Travis CI
 
 <panel header="{{icon_info}} Travis CI Migration" type="info" expanded>
 
@@ -98,7 +105,7 @@ Since May 2018, Travis CI has been [undergoing migration to `travis-ci.com`](htt
   </tab>
 </tabs>
 
-#### Configuring your repository in Travis CI
+##### Configuring your repository in Travis CI
 
 1. [Generate a GitHub personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/#creating-a-token) with **repo** permissions. Take note of the generated token - you will not be able to see it again once you navigate away from the page.
 <include src="screenshot.md" boilerplate var-alt="GitHub Token Repo Permissions" var-file="githubTokenRepoPermissions.png" inline />
@@ -126,7 +133,7 @@ More information about `.travis.yml` can be found in the [Travis CI documentatio
 1. Once the build succeeds, your MarkBind site should be online at `http://<username|org>.github.io/<repo>` e.g., http://se-edu.github.io/se-book. Travis CI will automatically build and deploy changes to your site as you push new changes to the repository after a few seconds.<br>
   %%{{ icon_info }} You might have to go to the `Settings` of your repo and configure it to publish GitHub Pages from the `gh-pages` branch as MarkBind deploys to that branch by default.%%
 
-##### Configuring Travis CI to use a specific MarkBind version
+###### Configuring Travis CI to use a specific MarkBind version
 
 When Travis CI is set up as explained above, it will use the latest version of MarkBind which may be a later version than the one you use locally.
 * If you want Travis CI to use a specific version of MarkBind (eg. `v1.6.3`), change the `install` step in the `.travis.yml` given above to:
@@ -140,7 +147,7 @@ When Travis CI is set up as explained above, it will use the latest version of M
     - npm i -g markbind-cli@^1.63
   ```
 
-##### Configuring Travis CI to only deploy from a specific repository
+###### Configuring Travis CI to only deploy from a specific repository
 
 When Travis CI is set up as explained above, Travis CI will attempt to deploy the site from any repository it is in, including forks.
 If you want Travis CI to only deploy from a specific repository (eg. only from your main site repository), you can add to the `deploy` phase a [`repo` condition in the form `owner_name/repo_name`](https://docs.travis-ci.com/user/deployment#conditional-releases-with-on).
@@ -155,6 +162,51 @@ For example, if you only want Travis CI to deploy the site when it is run from t
 
 The `repo` value can be changed to your specific repository as desired.
 
+</panel>
+
+<panel header="#### Deploying via AppVeyor CI" type="seamless" expanded>
+
+##### Adding your repository to AppVeyor CI
+
+1. [Sign in to AppVeyor CI](https://ci.appveyor.com/login) using your Github Account.
+1. Authorize AppVeyor App as Github App in the [account settings](https://ci.appveyor.com/authorizations) by clicking on the _Install AppVeyor App_ button.
+  <include src="screenshot.md" boilerplate var-alt="Install AppVeyor Github App" var-file="appveyorInstallGithubApp.png" inline />
+1. In the [projects directory](https://ci.appveyor.com/projects), click on the _New Project_ button.
+  <include src="screenshot.md" boilerplate var-alt="Add a new Project on AppVeyor" var-file="appveyorAddNewProject.png" inline />
+1. Finally, select the repository containing your Markbind site.
+
+##### Configuring your repository in AppVeyor CI
+
+1. [Generate a Github personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/#creating-a-token) with **repo permissions**. 
+  <include src="screenshot.md" boilerplate var-alt="GitHub Token Repo Permissions" var-file="githubTokenRepoPermissions.png" inline />
+1. Navigate to the project settings page of your repository in AppVeyor CI.
+1. On the left menu, click on __Environment__.
+1. Under the heading __Environment variables__, add a custom environment variable named `GITHUB_TOKEN`, with the value set to the personal access token that was generated in the first step. ==Ensure that you toggle variable encryption by clicking on the padlock.== 
+  <include src="screenshot.md" boilerplate var-alt="Add GitHub Token on AppVeyor" var-file="appveyorGithubToken.png" inline />
+1. Remember to click __Save__ at the bottom of the page.
+1. Add a `appveyor.yml`file at the root of your Markbind site's repository to instruct AppVeyor CI to build and deploy the site to Github Pages when you to push to your repository. More information on customizing `appveyor.yml` can be found in [AppVeyor documentation](https://www.appveyor.com/docs/appveyor-yml/). An example `appveyor.yml` file is given below:
+```
+environment:
+  nodejs_version: '10'
+
+branches:
+  only:
+    - master
+
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - npm i -g markbind-cli
+  - markbind build
+  - markbind deploy --ci
+
+test: off
+
+build: off
+```
+
+Commit and push `appveyor.yml` to your github repository. Thereafter, AppVeyor CI should begin to run the build script. You are able to view the current build status by clicking on your repository in the [AppVeyor projects page](https://ci.appveyor.com/projects). Once the build succeeds, you should be able to view your Markbind site, after a few seconds, at `http://<username|org>.github.io/<repo>` e.g., http://se-edu.github.io/se-book. 
+
+</panel>
 <hr>
 
 ## Deploying to Netlify
