@@ -15,7 +15,7 @@ deploy:
     script: >-
       cd docs &&
       ../packages/cli/index.js build -s ug-site.json &&
-      ../packages/cli/index.js deploy -s ug-site.json --travis
+      ../packages/cli/index.js deploy -s ug-site.json --ci
     skip_cleanup: true
     on:
       repo: MarkBind/markbind
@@ -27,7 +27,7 @@ deploy:
       npm run build:web &&
       cd docs &&
       ../packages/cli/index.js build -s dg-site.json &&
-      ../packages/cli/index.js deploy -s dg-site.json --travis
+      ../packages/cli/index.js deploy -s dg-site.json --ci
     skip_cleanup: true
     on:
       repo: MarkBind/markbind
