@@ -1,5 +1,9 @@
 <template>
-  <li ref="submenu" :class="classes">
+  <li
+    ref="submenu"
+    :class="[addClass, 'dropdown-submenu',
+             { 'dropright': dropright, 'dropleft': dropleft }]"
+  >
     <slot name="button">
       <a
         class="submenu-toggle"
@@ -26,32 +30,23 @@ import positionSubmenu from './utils/submenu';
 
 export default {
   props: {
-    show: {
-      type: Boolean,
-      default: false,
-    },
-    'class': null,
     addClass: {
       type: String,
       default: '',
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
+      show: false,
       dropright: true,
       dropleft: false,
     };
   },
   computed: {
-    classes() {
-      return [
-        this.class, this.addClass, 'dropdown-submenu',
-        { 'dropright': this.dropright, 'dropleft': this.dropleft },
-      ];
-    },
-    disabledBool() {
-      return toBoolean(this.disabled);
-    },
     showBool() {
       return toBoolean(this.show);
     },
@@ -86,9 +81,6 @@ export default {
       this.dropleft = true;
     },
   },
-  created() {
-    this._submenu = true;
-  },
   mounted() {
     const $el = $(this.$refs.submenu);
     if (this.show) {
@@ -97,19 +89,25 @@ export default {
     $el.onBlur(() => { this.hideSubmenu(); }, false);
     $el.findChildren('a,button').on('click', (e) => {
       e.preventDefault();
-      if (this.disabledBool) { return false; }
-      if (this.showBool) {
-        this.hideSubmenu();
-      } else {
-        this.showSubmenu();
+      if (e.target !== e.currentTarget) { e.stopPropagation(); }
+      if (window.innerWidth < 768) {
+        if (this.disabledBool) { return false; }
+        if (this.showBool) {
+          this.hideSubmenu();
+        } else {
+          this.showSubmenu();
+        }
       }
       return false;
     });
     $el.findChildren('a,button').on('mouseover', (e) => {
       e.preventDefault();
-      if (window.innerWidth > 768) {
-        e.target.click();
+      if (window.innerWidth > 767) {
+        if (this.disabledBool) { return false; }
+        e.currentTarget.click();
+        this.showSubmenu();
       }
+      return false;
     });
   },
   beforeDestroy() {
@@ -128,18 +126,15 @@ export default {
   position: relative;
 }
 
-@media (max-width: 767px) {
-  .dropdown-submenu > ul {
-    padding-bottom: 0;
-    border-radius: 0;
-    margin: -.05rem;
-  }
-}
-
 .submenu-toggle {
   display: inline-block;
   width: 100%;
   padding: .25rem .75rem .25rem 1.5rem;
+}
+
+.dropdown > ul > .dropdown-submenu:last-child > ul,
+.btn-group > ul > .dropdown-submenu:last-child > ul {
+  margin-bottom: -.5rem;
 }
 
 @media (min-width: 768px) {
@@ -159,6 +154,14 @@ export default {
 }
 
 @media (max-width: 767px) {
+  .dropdown-submenu > ul {
+    padding-bottom: 0;
+    border-radius: 0;
+    margin: -.05rem;
+    position: static;
+    float: none;
+  }
+
   .submenu-toggle:after {
     display: inline-block;
     width: 0;

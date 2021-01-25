@@ -134,7 +134,7 @@ export default {
     },
     addClassIfSubmenu(a, li) {
       let el = a.parentElement;
-      while (el != li) {
+      while (el !== li) {
         if (el.classList.contains('dropdown-submenu')) {
           $(el).findChildren('a').each(a => a.classList.add('dropdown-current'));
         }

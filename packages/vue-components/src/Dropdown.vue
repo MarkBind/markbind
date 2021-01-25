@@ -14,11 +14,9 @@
     </slot>
   </li>
   <submenu v-else-if="isSubmenu" ref="submenu">
-    <slot slot="button" name=button></slot>
-    <slot slot="_header" name="_header"></slot>
-    <slot slot="header" name="header"></slot>
-    <slot slot="dropdown-submenu" name="dropdown-menu"></slot>
-    <slot></slot>
+    <template v-for="(node, name) in $slots" :slot="name">
+      <slot :name="name"></slot>
+    </template>
   </submenu>
   <div v-else ref="dropdown" :class="classes">
     <slot name="before"></slot>
@@ -65,6 +63,8 @@ export default {
       default: ''
     }
   },
+  provide: { hasParentDropdown: true },
+  inject: ['hasParentDropdown'],
   computed: {
     btnType () {
       return `btn-${this.type}`;
@@ -79,7 +79,7 @@ export default {
       return toBoolean(this.disabled);
     },
     isLi () { return this.$parent._navbar || this.$parent.menu || this.$parent._tabset },
-    isSubmenu() { return this.$parent._dropdown || this.$parent._submenu },
+    isSubmenu() { return this.hasParentDropdown },
     menu () {
       return !this.$parent || this.$parent.navbar
     },
@@ -122,9 +122,6 @@ export default {
       $(this.$refs.dropdown).findChildren('ul').each(ul => ul.classList.toggle('show', true));
     }
   },
-  created() {
-    this._dropdown = true;
-  },
   mounted () {
     const $el = $(this.$refs.dropdown)
     if (this.show) {
@@ -133,13 +130,13 @@ export default {
     $el.onBlur((e) => { this.hideDropdownMenu() }, false)
     $el.findChildren('a,button.dropdown-toggle').on('click', e => {
       e.preventDefault()
-      if (this.disabledBool) { return false }
+      if (this.disabledBool) { return false; }
       if (this.showBool) {
         this.hideDropdownMenu();
       } else {
         this.showDropdownMenu();
       }
-      return false
+      return false;
     })
     $el.findChildren('ul').on('click', 'li>a', e => { 
       if (e.target.classList.contains('submenu-toggle')) { return }

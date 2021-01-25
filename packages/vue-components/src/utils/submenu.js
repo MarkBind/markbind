@@ -16,16 +16,16 @@ function isRightAlign(el) {
 
   const position = el.getBoundingClientRect();
 
+  if (position === undefined) {
+    return true;
+  }
+
   const bounds = {
     top: position.y,
     left: position.x,
     right: position.x + el.offsetWidth,
     bottom: position.y + el.offsetHeight,
   };
-
-  if (bounds.top === undefined || bounds.left === undefined) {
-    return true;
-  }
 
   if (bounds.left < 0) {
     return false;
@@ -52,16 +52,16 @@ function preventOverflow(el) {
 
   const position = el.getBoundingClientRect();
 
+  if (position === undefined) {
+    return;
+  }
+
   const bounds = {
     top: position.y,
     left: position.x,
     right: position.x + el.offsetWidth,
     bottom: position.y + el.offsetHeight,
   };
-
-  if (bounds.top === undefined || bounds.left === undefined) {
-    return;
-  }
 
   if (bounds.bottom > viewport.bottom) {
     el.setAttribute('style', `bottom: auto; top: ${-(bounds.bottom - viewport.bottom)}px;`);
