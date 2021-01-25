@@ -1,7 +1,11 @@
 <template>
   <li ref="submenu" :class="classes">
-    <slot name=button>
-      <a class="submenu-toggle" role="button" :class="{disabled: disabled}">
+    <slot name="button">
+      <a
+        class="submenu-toggle"
+        role="button"
+        :class="{disabled: disabled}"
+      >
         <slot name="_header">
           <slot name="header"></slot>
         </slot>
@@ -36,12 +40,14 @@ export default {
     return {
       dropright: true,
       dropleft: false,
-    }
+    };
   },
   computed: {
     classes() {
-      return [this.class, this.addClass, 'dropdown-submenu', 
-        { 'dropright': this.dropright, 'dropleft': this.dropleft }];
+      return [
+        this.class, this.addClass, 'dropdown-submenu',
+        { 'dropright': this.dropright, 'dropleft': this.dropleft },
+      ];
     },
     disabledBool() {
       return toBoolean(this.disabled);
@@ -61,7 +67,7 @@ export default {
     },
     showSubmenu() {
       this.show = true;
-      $(this.$refs.submenu).findChildren('ul').each(ul => {
+      $(this.$refs.submenu).findChildren('ul').each((ul) => {
         ul.classList.toggle('show', true);
         if (positionSubmenu.isRightAlign(ul)) {
           this.alignMenuRight();
@@ -78,7 +84,7 @@ export default {
     alignMenuLeft() {
       this.dropright = false;
       this.dropleft = true;
-    }
+    },
   },
   created() {
     this._submenu = true;

@@ -7,23 +7,23 @@
  * ======================================================================== */
 
 function isRightAlign(el) {
-  let viewport = {
-    top: window.scrollY,
-    left: window.scrollX,
-    right: window.scrollY + window.innerWidth,
-    bottom: window.scrollX + window.innerHeight
+  const viewport = {
+    top: 0,
+    left: 0,
+    right: window.innerWidth,
+    bottom: window.innerHeight,
   };
 
-  let position = el.getBoundingClientRect();
+  const position = el.getBoundingClientRect();
 
-  let bounds = {
+  const bounds = {
     top: position.y,
     left: position.x,
     right: position.x + el.offsetWidth,
-    bottom: position.y + el.offsetHeight
+    bottom: position.y + el.offsetHeight,
   };
 
-  if (bounds.top == undefined || bounds.left == undefined) {
+  if (bounds.top === undefined || bounds.left === undefined) {
     return true;
   }
 
@@ -41,28 +41,32 @@ function isRightAlign(el) {
 }
 
 function preventOverflow(el) {
-  el.removeAttribute("style");
-  
-  let viewport = {
-    top: window.scrollY,
-    left: window.scrollX,
-    right: window.scrollY + window.innerWidth,
-    bottom: window.scrollX + window.innerHeight
+  el.removeAttribute('style');
+
+  const viewport = {
+    top: 0,
+    left: 0,
+    right: window.innerWidth,
+    bottom: window.innerHeight,
   };
 
-  let position = el.getBoundingClientRect();
+  const position = el.getBoundingClientRect();
 
-  let bounds = {
+  const bounds = {
     top: position.y,
     left: position.x,
     right: position.x + el.offsetWidth,
-    bottom: position.y + el.offsetHeight
+    bottom: position.y + el.offsetHeight,
   };
 
+  if (bounds.top === undefined || bounds.left === undefined) {
+    return;
+  }
+
   if (bounds.bottom > viewport.bottom) {
-    el.setAttribute("style", "bottom: auto; top: " + (-(bounds.bottom - viewport.bottom)) + "px;");
+    el.setAttribute('style', `bottom: auto; top: ${-(bounds.bottom - viewport.bottom)}px;`);
   } else if (bounds.top < viewport.top) {
-    el.setAttribute("style", "top: auto; bottom: " + (-(viewport.top - bounds.top)) + "px;");
+    el.setAttribute('style', `top: auto; bottom: ${-(viewport.top - bounds.top)}px;`);
   }
 }
 
