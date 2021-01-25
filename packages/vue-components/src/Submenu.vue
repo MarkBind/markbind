@@ -7,8 +7,8 @@
         </slot>
       </a>
     </slot>
-    <slot name="dropdown-menu" :class="menuClasses">
-      <ul class="dropdown-menu" :class="menuClasses">
+    <slot name="dropdown-menu">
+      <ul class="dropdown-menu">
         <slot></slot>
       </ul>
     </slot>
@@ -30,10 +30,6 @@ export default {
     addClass: {
       type: String,
       default: '',
-    },
-    menuAlignRight: {
-      type: Boolean,
-      default: false,
     },
   },
   data() {
@@ -102,6 +98,12 @@ export default {
         this.showSubmenu();
       }
       return false;
+    });
+    $el.findChildren('a,button').on('mouseover', (e) => {
+      e.preventDefault();
+      if (window.innerWidth > 768) {
+        e.target.click();
+      }
     });
   },
   beforeDestroy() {

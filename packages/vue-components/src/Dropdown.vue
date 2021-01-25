@@ -17,7 +17,7 @@
     <slot slot="button" name=button></slot>
     <slot slot="_header" name="_header"></slot>
     <slot slot="header" name="header"></slot>
-    <slot slot="dropdown-submenu" name="dropdown-menu" :class="menuClasses"></slot>
+    <slot slot="dropdown-submenu" name="dropdown-menu"></slot>
     <slot></slot>
   </submenu>
   <div v-else ref="dropdown" :class="classes">
