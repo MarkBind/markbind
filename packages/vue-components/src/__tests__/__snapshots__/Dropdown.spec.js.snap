@@ -99,7 +99,6 @@ exports[`Dropdown with submenu dropdown with one level of submenu 1`] = `
       <ul
         class="dropdown-menu"
       >
-            
         <li>
           <a
             class="dropdown-item"
@@ -150,7 +149,6 @@ exports[`Dropdown with submenu dropdown with two levels of submenu 1`] = `
       <ul
         class="dropdown-menu"
       >
-            
         <li>
           <a
             class="dropdown-item"
@@ -181,7 +179,6 @@ exports[`Dropdown with submenu dropdown with two levels of submenu 1`] = `
           <ul
             class="dropdown-menu"
           >
-                
             <li>
               <a
                 class="dropdown-item"
