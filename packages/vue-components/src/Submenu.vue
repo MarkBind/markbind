@@ -47,6 +47,9 @@ export default {
     };
   },
   computed: {
+    disabledBool() {
+      return toBoolean(this.disabled);
+    },
     showBool() {
       return toBoolean(this.show);
     },
