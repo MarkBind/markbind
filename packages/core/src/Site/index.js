@@ -1182,8 +1182,8 @@ class Site {
         }
 
         options.user = {
-          name: 'Github',
-          email: 'noreply@github.com',
+          name: 'github-actions',
+          email: 'github-actions@github.com',
         };
       } else {
         throw new Error('-c/--ci should only be run in CI environments.');
