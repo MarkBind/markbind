@@ -56,6 +56,23 @@
 </variable>
 </include>
 
+**You can also use create multi-level submenu by nesting Dropdowns.**
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+<!-- Nest the dropdown syntax to create dropdown submenus -->
+<dropdown header="*Multi-Level Dropdown*" type="primary">
+  <li><a href="#dropdown" class="dropdown-item">Item</a></li>
+  <li><a href="#dropdown" class="dropdown-item">Another item</a></li>
+  <dropdown header="*Submenu*">
+    <li><a href="#dropdown" class="dropdown-item">Item</a></li>
+    <li><a href="#dropdown" class="dropdown-item">Another item</a></li>
+  </dropdown>
+</dropdown>
+</variable>
+</include>
+
 ****Options****
 
 Name | Type | Default | Description

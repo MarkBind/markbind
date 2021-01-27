@@ -1,0 +1,196 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dropdown with submenu dropdown 1`] = `
+<div
+  class="btn-group"
+>
+   
+  <button
+    class="btn dropdown-toggle btn-light"
+    type="button"
+  >
+    Test Dropdown
+  </button>
+   
+  <ul
+    class="dropdown-menu"
+  >
+    <li>
+      <a
+        class="dropdown-item"
+        href="#"
+      >
+        Dropdown Item 1
+      </a>
+    </li>
+     
+    <li>
+      <a
+        class="dropdown-item"
+        href="#"
+      >
+        Dropdown Item 2
+      </a>
+    </li>
+     
+    <li>
+      <a
+        class="dropdown-item"
+        href="#"
+      >
+        Dropdown Item 3
+      </a>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Dropdown with submenu dropdown with one level of submenu 1`] = `
+<div
+  class="btn-group"
+>
+   
+  <button
+    class="btn dropdown-toggle btn-light"
+    type="button"
+  >
+    Test Dropdown
+  </button>
+   
+  <ul
+    class="dropdown-menu"
+  >
+    <li>
+      <a
+        class="dropdown-item"
+        href="#"
+      >
+        Dropdown Item 1
+      </a>
+    </li>
+     
+    <li>
+      <a
+        class="dropdown-item"
+        href="#"
+      >
+        Dropdown Item 2
+      </a>
+    </li>
+     
+    <li>
+      <a
+        class="dropdown-item"
+        href="#"
+      >
+        Dropdown Item 3
+      </a>
+    </li>
+     
+    <li
+      class="dropdown-submenu dropright"
+      haeder="Submenu Level 1"
+    >
+      <a
+        class="submenu-toggle"
+        role="button"
+      />
+       
+      <ul
+        class="dropdown-menu"
+      >
+        <li>
+          <a
+            class="dropdown-item"
+            href="#"
+          >
+            Nested Dropdown Item 1
+          </a>
+        </li>
+         
+        <li>
+          <a
+            class="dropdown-item"
+            href="#"
+          >
+            Nested Dropdown Item 2
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Dropdown with submenu dropdown with two levels of submenu 1`] = `
+<div
+  class="btn-group"
+>
+   
+  <button
+    class="btn dropdown-toggle btn-light"
+    type="button"
+  >
+    Test Dropdown
+  </button>
+   
+  <ul
+    class="dropdown-menu"
+  >
+    <li
+      class="dropdown-submenu dropright"
+      haeder="Submenu Level 1"
+    >
+      <a
+        class="submenu-toggle"
+        role="button"
+      />
+       
+      <ul
+        class="dropdown-menu"
+      >
+        <li>
+          <a
+            class="dropdown-item"
+            href="#"
+          >
+            Nested Dropdown Item 1
+          </a>
+        </li>
+         
+        <li>
+          <a
+            class="dropdown-item"
+            href="#"
+          >
+            Nested Dropdown Item 2
+          </a>
+        </li>
+         
+        <li
+          class="dropdown-submenu dropright"
+          haeder="Submenu Level 2"
+        >
+          <a
+            class="submenu-toggle"
+            role="button"
+          />
+           
+          <ul
+            class="dropdown-menu"
+          >
+            <li>
+              <a
+                class="dropdown-item"
+                href="#"
+              >
+                Nested Submenu Item
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+`;

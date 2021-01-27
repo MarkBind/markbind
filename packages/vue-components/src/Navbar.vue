@@ -126,9 +126,19 @@ export default {
     isExact(url, href) {
       return normalizeUrl(url) === normalizeUrl(href);
     },
-    addClassIfDropdown(dropdownLinks, a) {
+    addClassIfDropdown(dropdownLinks, a, li) {
       if (dropdownLinks.includes(a)) {
         a.classList.add('dropdown-current');
+        this.addClassIfSubmenu(a, li);
+      }
+    },
+    addClassIfSubmenu(a, li) {
+      let el = a.parentElement;
+      while (el !== li) {
+        if (el.classList.contains('dropdown-submenu')) {
+          $(el).findChildren('a').each(a => a.classList.add('dropdown-current'));
+        }
+        el = el.parentElement;
       }
     },
     highlightLink(url) {
@@ -148,7 +158,7 @@ export default {
           // terminate early on an exact match
           if (this.isExact(url, a.href)) {
             li.classList.add('current');
-            this.addClassIfDropdown(dropdownLinks, a);
+            this.addClassIfDropdown(dropdownLinks, a, li);
             return;
           }
         }
@@ -167,19 +177,19 @@ export default {
           if (hlMode === 'sibling-or-child') {
             if (this.isSibling(url, a.href) || this.isChild(url, a.href)) {
               li.classList.add('current');
-              this.addClassIfDropdown(dropdownLinks, a);
+              this.addClassIfDropdown(dropdownLinks, a, li);
               return;
             }
           } else if (hlMode === 'sibling') {
             if (this.isSibling(url, a.href)) {
               li.classList.add('current');
-              this.addClassIfDropdown(dropdownLinks, a);
+              this.addClassIfDropdown(dropdownLinks, a, li);
               return;
             }
           } else if (hlMode === 'child') {
             if (this.isChild(url, a.href)) {
               li.classList.add('current');
-              this.addClassIfDropdown(dropdownLinks, a);
+              this.addClassIfDropdown(dropdownLinks, a, li);
               return;
             }
           } else {
@@ -209,6 +219,7 @@ export default {
       });
     });
     $(this.$el).on('click', 'li:not(.dropdown)>a', (e) => {
+      if (e.target.classList.contains('submenu-toggle')) { return }
       setTimeout(() => { this.collapsed = true; }, 200);
     }).onBlur((e) => {
       if (!this.$el.contains(e.target)) { this.collapsed = true; }
@@ -241,7 +252,7 @@ export default {
   }
 
   >>> .dropdown-current {
-    color: #fff;
+    color: #fff !important;
     background: #007bff;
   }
 </style>
