@@ -14,7 +14,6 @@ packages/vue-components/src/utils/NodeList.js
 packages/vue-components/src/utils/utils.js
 
 # yuche/vue-strap
-packages/vue-components/src/Dropdown.vue
 packages/vue-components/src/main.js
 packages/vue-components/src/Navbar.vue
 packages/vue-components/src/Tab.vue
