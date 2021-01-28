@@ -9,7 +9,7 @@
       <a
         class="dropdown-toggle"
         role="button"
-        :class="{disabled: disabled}"
+        :class="{'disabled': disabledBool}"
         @keyup.esc="hideDropdownMenu()"
       >
         <slot name="_header">
@@ -40,7 +40,7 @@
         type="button"
         class="btn dropdown-toggle"
         :class="[btnType, btnWithBefore]"
-        :disabled="disabled"
+        :disabled="disabledBool"
         @keyup.esc="hideDropdownMenu()"
       >
         <slot name="_header">
