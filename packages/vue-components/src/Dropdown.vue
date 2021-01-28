@@ -17,8 +17,8 @@
         </slot>
       </a>
     </slot>
-    <slot name="dropdown-menu" :class="[{ 'show': showBool }, { 'dropdown-menu-right': menuAlignRight }]">
-      <ul class="dropdown-menu" :class="[{ 'show': showBool }, { 'dropdown-menu-right': menuAlignRight }]">
+    <slot name="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-right': menuAlignRight }]">
+      <ul class="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-right': menuAlignRight }]">
         <slot></slot>
       </ul>
     </slot>
@@ -48,8 +48,8 @@
         </slot>
       </button>
     </slot>
-    <slot name="dropdown-menu" :class="[{ 'show': showBool }, { 'dropdown-menu-right': menuAlignRight }]">
-      <ul class="dropdown-menu" :class="[{ 'show': showBool }, { 'dropdown-menu-right': menuAlignRight }]">
+    <slot name="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-right': menuAlignRight }]">
+      <ul class="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-right': menuAlignRight }]">
         <slot></slot>
       </ul>
     </slot>
@@ -143,7 +143,7 @@ export default {
     $el.findChildren('a,button.dropdown-toggle').on('click', (e) => {
       e.preventDefault();
       if (this.disabledBool) { return false; }
-      if (this.showBool) {
+      if (this.show) {
         this.hideDropdownMenu();
       } else {
         this.showDropdownMenu();
