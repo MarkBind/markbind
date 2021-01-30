@@ -1,14 +1,24 @@
 <template>
-  <li v-if="isLi" ref="dropdown" :class="classes">
+  <li
+    v-if="isLi"
+    ref="dropdown"
+    :class="[{ 'disabled': disabledBool },
+             isLi ? 'dropdown' : 'btn-group', addClass]"
+  >
     <slot name="button">
-      <a class="dropdown-toggle" role="button" :class="{disabled: disabled}" @keyup.esc="hideDropdownMenu()">
+      <a
+        class="dropdown-toggle"
+        role="button"
+        :class="{'disabled': disabledBool}"
+        @keyup.esc="hideDropdownMenu()"
+      >
         <slot name="_header">
           <slot name="header"></slot>
         </slot>
       </a>
     </slot>
-    <slot name="dropdown-menu" :class="menuClasses">
-      <ul class="dropdown-menu" :class="menuClasses">
+    <slot name="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-right': menuAlignRight }]">
+      <ul class="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-right': menuAlignRight }]">
         <slot></slot>
       </ul>
     </slot>
@@ -18,17 +28,28 @@
       <slot :name="name"></slot>
     </template>
   </submenu>
-  <div v-else ref="dropdown" :class="classes">
+  <div
+    v-else
+    ref="dropdown"
+    :class="[{ 'disabled': disabledBool },
+             isLi ? 'dropdown' : 'btn-group', addClass]"
+  >
     <slot name="before"></slot>
     <slot name="button">
-      <button type="button" class="btn dropdown-toggle" :class="[btnType, btnWithBefore]" @keyup.esc="hideDropdownMenu()" :disabled="disabled">
+      <button
+        type="button"
+        class="btn dropdown-toggle"
+        :class="[btnType, btnWithBefore]"
+        :disabled="disabledBool"
+        @keyup.esc="hideDropdownMenu()"
+      >
         <slot name="_header">
           <slot name="header"></slot>
         </slot>
       </button>
     </slot>
-    <slot name="dropdown-menu" :class="menuClasses">
-      <ul class="dropdown-menu" :class="menuClasses">
+    <slot name="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-right': menuAlignRight }]">
+      <ul class="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-right': menuAlignRight }]">
         <slot></slot>
       </ul>
     </slot>
@@ -36,63 +57,54 @@
 </template>
 
 <script>
-import {toBoolean} from './utils/utils.js'
-import $ from './utils/NodeList.js'
+import { toBoolean } from './utils/utils';
+import $ from './utils/NodeList';
 
 export default {
   props: {
-    show: {
-      type: Boolean,
-      default: false
-    },
-    'class': null,
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     type: {
       type: String,
-      default: 'light'
+      default: 'light',
     },
     menuAlignRight: {
       type: Boolean,
-      default: false
+      default: false,
     },
     addClass: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   provide: { hasParentDropdown: true },
   inject: ['hasParentDropdown'],
+  data() {
+    return {
+      show: false,
+    };
+  },
   computed: {
-    btnType () {
+    btnType() {
       return `btn-${this.type}`;
-    },
-    classes () {
-      return [{disabled: this.disabledBool}, this.class, this.isLi ? 'dropdown' : 'btn-group', this.addClass]
-    },
-    menuClasses() {
-      return [{show: this.showBool}, {'dropdown-menu-right': this.menuAlignRight}];
     },
     disabledBool() {
       return toBoolean(this.disabled);
     },
-    isLi () { return this.$parent._navbar || this.$parent.menu || this.$parent._tabset },
-    isSubmenu() { return this.hasParentDropdown },
-    menu () {
-      return !this.$parent || this.$parent.navbar
+    isLi() { return this.$parent._navbar || this.$parent.menu || this.$parent._tabset; },
+    isSubmenu() { return this.hasParentDropdown; },
+    menu() {
+      return !this.$parent || this.$parent.navbar;
     },
-    showBool() {
-      return toBoolean(this.show);
+    submenu() {
+      return this.$parent && (this.$parent.menu || this.$parent.submenu);
     },
-    submenu () {
-      return this.$parent && (this.$parent.menu || this.$parent.submenu)
+    slots() {
+      return this.$slots.default;
     },
-    slots () {
-      return this.$slots.default
-    },
-    btnWithBefore () {
+    btnWithBefore() {
       if (this.$slots.before) {
         return 'btn-with-before';
       }
@@ -100,17 +112,17 @@ export default {
     },
   },
   methods: {
-    blur () {
-      this.unblur()
+    blur() {
+      this.unblur();
       this._hide = setTimeout(() => {
-        this._hide = null
+        this._hide = null;
         this.hideDropdownMenu();
-      }, 100)
+      }, 100);
     },
-    unblur () {
+    unblur() {
       if (this._hide) {
-        clearTimeout(this._hide)
-        this._hide = null
+        clearTimeout(this._hide);
+        this._hide = null;
       }
     },
     hideDropdownMenu() {
@@ -120,58 +132,58 @@ export default {
     showDropdownMenu() {
       this.show = true;
       $(this.$refs.dropdown).findChildren('ul').each(ul => ul.classList.toggle('show', true));
-    }
+    },
   },
-  mounted () {
-    const $el = $(this.$refs.dropdown)
+  mounted() {
+    const $el = $(this.$refs.dropdown);
     if (this.show) {
       this.showDropdownMenu();
     }
-    $el.onBlur((e) => { this.hideDropdownMenu() }, false)
-    $el.findChildren('a,button.dropdown-toggle').on('click', e => {
-      e.preventDefault()
+    $el.onBlur(() => { this.hideDropdownMenu(); }, false);
+    $el.findChildren('a,button.dropdown-toggle').on('click', (e) => {
+      e.preventDefault();
       if (this.disabledBool) { return false; }
-      if (this.showBool) {
+      if (this.show) {
         this.hideDropdownMenu();
       } else {
         this.showDropdownMenu();
       }
       return false;
-    })
-    $el.findChildren('ul').on('click', 'li>a', e => { 
-      if (e.target.classList.contains('submenu-toggle')) { return }
+    });
+    $el.findChildren('ul').on('click', 'li>a', (e) => {
+      if (e.target.classList.contains('submenu-toggle')) { return; }
       this.hideDropdownMenu();
-    })
+    });
   },
-  beforeDestroy () {
-    const $el = $(this.$refs.dropdown)
-    $el.offBlur()
-    $el.findChildren('a,button').off()
-    $el.findChildren('ul').off()
-  }
-}
+  beforeDestroy() {
+    const $el = $(this.$refs.dropdown);
+    $el.offBlur();
+    $el.findChildren('a,button').off();
+    $el.findChildren('ul').off();
+  },
+};
 </script>
 
 <style scoped>
-.secret {
-  position: absolute;
-  clip: rect(0 0 0 0);
-  overflow: hidden;
-  margin: -1px;
-  height: 1px;
-  width: 1px;
-  padding: 0;
-  border: 0;
-}
+    .secret {
+        position: absolute;
+        clip: rect(0 0 0 0);
+        overflow: hidden;
+        margin: -1px;
+        height: 1px;
+        width: 1px;
+        padding: 0;
+        border: 0;
+    }
 
-.btn-with-before {
-  padding-left: 0.2rem;
-  padding-right: 0.4rem;
-}
+    .btn-with-before {
+        padding-left: 0.2rem;
+        padding-right: 0.4rem;
+    }
 
-.dropdown-toggle {
-  cursor: pointer;
-  color: inherit;
-  text-decoration: none;
-}
+    .dropdown-toggle {
+        cursor: pointer;
+        color: inherit;
+        text-decoration: none;
+    }
 </style>

@@ -2,3 +2,28 @@
 **/_site/**/*.css
 packages/cli/test/functional/**/expected/**/*.css
 packages/vue-components/**/*.css
+
+# --- packages/vue-components .vue files ---
+
+packages/vue-components/src/Navbar.vue
+packages/vue-components/src/Panel.vue
+packages/vue-components/src/Pic.vue
+packages/vue-components/src/Retriever.vue
+packages/vue-components/src/Searchbar.vue
+packages/vue-components/src/SearchbarPageItem.vue
+packages/vue-components/src/SiteNav.vue
+packages/vue-components/src/Submenu.vue
+packages/vue-components/src/Tab.vue
+packages/vue-components/src/TabGroup.vue
+packages/vue-components/src/Tabset.vue
+packages/vue-components/src/Thumbnail.vue
+packages/vue-components/src/TipBox.vue
+packages/vue-components/src/Trigger.vue
+packages/vue-components/src/panels/MinimalPanel.vue
+packages/vue-components/src/panels/NestedPanel.vue
+packages/vue-components/src/panels/PanelSwitch.vue
+packages/vue-components/src/questions/QOption.vue
+packages/vue-components/src/questions/Question.vue
+packages/vue-components/src/questions/Quiz.vue
+
+# --- packages/vue-components end ---
