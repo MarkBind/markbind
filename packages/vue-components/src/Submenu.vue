@@ -100,7 +100,7 @@ export default {
     $el.findChildren('a,button').on('mouseover', (e) => {
       e.preventDefault();
       if (window.innerWidth > 767) {
-        if (this.show || this.disabledBool) { return false; }
+        if (this.disabledBool) { return false; }
         e.currentTarget.click();
         this.showSubmenu();
       }

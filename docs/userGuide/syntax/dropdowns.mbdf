@@ -56,7 +56,7 @@
 </variable>
 </include>
 
-**You can also create multi-level submenu by nesting Dropdowns.**
+**You can also create multi-level submenus by nesting Dropdowns.**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
