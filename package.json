@@ -3,8 +3,8 @@
   "private": true,
   "scripts": {
     "build:web": "cd packages/core-web && npm run build",
-    "csslint": "stylelint **/*.css",
-    "csslintfix": "stylelint **/*.css --fix",
+    "csslint": "stylelint **/*.css **/*.vue",
+    "csslintfix": "stylelint **/*.css **/*.vue --fix",
     "lint": "eslint . --ext .js,.vue && npm run csslint",
     "lintfix": "eslint . --ext .js,.vue --fix && npm run csslintfix",
     "setup": "npm ci && lerna clean --yes && lerna bootstrap --hoist",
