@@ -282,11 +282,13 @@ describe('Site deploy with various CI environments', () => {
 
   beforeEach(() => {
     // Delete all environment variables that affect tests
-    delete process.env.TRAVIS;
     delete process.env.GITHUB_TOKEN;
+    delete process.env.TRAVIS;
     delete process.env.TRAVIS_REPO_SLUG;
     delete process.env.APPVEYOR;
     delete process.env.APPVEYOR_REPO_NAME;
+    delete process.env.GITHUB_ACTIONS;
+    delete process.env.GITHUB_REPOSITORY;
   });
 
   afterAll(() => {
@@ -297,6 +299,7 @@ describe('Site deploy with various CI environments', () => {
   test.each([
     ['TRAVIS', 'TRAVIS_REPO_SLUG', { name: 'Deployment Bot', email: 'deploy@travis-ci.org' }],
     ['APPVEYOR', 'APPVEYOR_REPO_NAME', { name: 'AppVeyorBot', email: 'deploy@appveyor.com' }],
+    ['GITHUB_ACTIONS', 'GITHUB_REPOSITORY', { name: 'github-actions', email: 'github-actions@github.com' }],
   ])('Site deploy -c/--ci deploys with default settings',
      async (ciIdentifier, repoSlugIdentifier, deployBotUser) => {
        process.env[ciIdentifier] = true;
@@ -319,6 +322,7 @@ describe('Site deploy with various CI environments', () => {
   test.each([
     ['TRAVIS', 'TRAVIS_REPO_SLUG'],
     ['APPVEYOR', 'APPVEYOR_REPO_NAME'],
+    ['GITHUB_ACTIONS', 'GITHUB_REPOSITORY'],
   ])('Site deploy -c/--ci deploys with custom GitHub repo',
      async (ciIdentifier, repoSlugIdentifier) => {
        process.env[ciIdentifier] = true;
@@ -342,6 +346,7 @@ describe('Site deploy with various CI environments', () => {
   test.each([
     ['TRAVIS', 'TRAVIS_REPO_SLUG'],
     ['APPVEYOR', 'APPVEYOR_REPO_NAME'],
+    ['GITHUB_ACTIONS', 'GITHUB_REPOSITORY'],
   ])('Site deploy -c/--ci deploys to correct repo when .git is in repo name',
      async (ciIdentifier, repoSlugIdentifier) => {
        process.env[ciIdentifier] = true;
@@ -378,6 +383,7 @@ describe('Site deploy with various CI environments', () => {
   test.each([
     ['TRAVIS'],
     ['APPVEYOR'],
+    ['GITHUB_ACTIONS'],
   ])('Site deploy -c/--ci should not deploy without authentication token', async (ciIdentifier) => {
     process.env[ciIdentifier] = true;
 
@@ -396,6 +402,7 @@ describe('Site deploy with various CI environments', () => {
   test.each([
     ['TRAVIS'],
     ['APPVEYOR'],
+    ['GITHUB_ACTIONS'],
   ])('Site deploy -c/--ci should not deploy if custom repository is not on GitHub', async (ciIdentifier) => {
     process.env[ciIdentifier] = true;
     process.env.GITHUB_TOKEN = 'githubToken';
