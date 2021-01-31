@@ -20,6 +20,8 @@ const processAndVerifyTemplate = (template, expectedTemplate, postProcess = fals
     const nodeProcessor = getNewDefaultNodeProcessor();
 
     if (postProcess) {
+      // need to process node first (convert slot to v-slot) before doing post-processing
+      dom.forEach(node => nodeProcessor.processNode(node, new Context(path.resolve(''))));
       dom.forEach(node => nodeProcessor.postProcessNode(node));
     } else {
       dom.forEach(node => nodeProcessor.processNode(node, new Context(path.resolve(''))));

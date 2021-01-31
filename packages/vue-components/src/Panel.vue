@@ -1,6 +1,6 @@
 <template>
   <minimal-panel v-if="isMinimal" v-bind="$attrs">
-    <template v-for="(node, name) in $slots" :slot="name">
+    <template v-for="(node, name) in $slots" v-slot:[name]>
       <slot :name="name"></slot>
     </template>
   </minimal-panel>
@@ -9,7 +9,7 @@
     :type="type"
     v-bind="$attrs"
   >
-    <template v-for="(node, name) in $slots" :slot="name">
+    <template v-for="(node, name) in $slots" v-slot:[name]>
       <slot :name="name"></slot>
     </template>
   </nested-panel>

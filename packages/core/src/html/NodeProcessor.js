@@ -8,6 +8,7 @@ const _ = {};
 _.isArray = require('lodash/isArray');
 _.cloneDeep = require('lodash/cloneDeep');
 _.has = require('lodash/has');
+_.find = require('lodash/find');
 
 const { renderSiteNav } = require('./siteNavProcessor');
 const { processInclude, processPanelSrc } = require('./includePanelProcessor');
@@ -88,6 +89,14 @@ class NodeProcessor {
     return node.type === 'text' || node.type === 'comment';
   }
 
+  static getVslot(node) {
+    if (!node.attribs) {
+      return undefined;
+    }
+    const keys = Object.keys(node.attribs);
+    return _.find(keys, key => key.startsWith('v-slot:'));
+  }
+
   /**
    * Processes the markdown attribute of the provided element, inserting the corresponding <slot> child
    * if there is no pre-existing slot child with the name of the attribute present.
@@ -97,8 +106,40 @@ class NodeProcessor {
    * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
    */
   _processAttributeWithoutOverride(node, attribute, isInline, slotName = attribute) {
-    const hasAttributeSlot = node.children
+    /*
+      Currently popover processes header before processing title.
+      If there is a header, title should be ignored. We have to account for this situation.
+      Since header is processed first, it would already have been converted to v-slot so we need
+      to check if a corresponding v-slot exists. If a header v-slot doesn't exist, then we will
+      process title.
+    */
+
+    const hasUnconvertedSlot = node.children
       && node.children.some(child => _.has(child.attribs, 'slot') && child.attribs.slot === slotName);
+
+    // attribute slot that has been converted to v-slot
+    const hasConvertedSlot = node.children
+      && node.children.some((child) => {
+        const vslot = NodeProcessor.getVslot(child);
+        if (!vslot) {
+          return false;
+        }
+        const name = vslot.split(':')[1];
+        return name === slotName;
+      });
+
+    // Allow user to use "slot=..." but we patch the syntax to v-slot:...
+    if (hasUnconvertedSlot) {
+      node.children.forEach((child) => {
+        if (_.has(child.attribs, 'slot') && child.attribs.slot === slotName) {
+          const newVslotAttr = `v-slot:${child.attribs.slot}`;
+          child.attribs[newVslotAttr] = '';
+          delete child.attribs.slot;
+        }
+      });
+    }
+
+    const hasAttributeSlot = hasUnconvertedSlot || hasConvertedSlot;
 
     if (!hasAttributeSlot && _.has(node.attribs, attribute)) {
       let rendered;
@@ -109,7 +150,7 @@ class NodeProcessor {
       }
 
       const attributeSlotElement = cheerio.parseHTML(
-        `<template slot="${slotName}">${rendered}</template>`, true);
+        `<template v-slot:${slotName}>${rendered}</template>`, true);
       node.children
         = node.children ? attributeSlotElement.concat(node.children) : attributeSlotElement;
     }
@@ -124,15 +165,17 @@ class NodeProcessor {
    */
   static _transformSlottedComponents(node) {
     node.children.forEach((child) => {
-      const slot = child.attribs && child.attribs.slot;
-      if (slot) {
-        // Turns <div slot="content">... into <div data-mb-slot-name=content>...
-        child.attribs['data-mb-slot-name'] = slot;
-        delete child.attribs.slot;
-      }
       // similarly, need to transform templates to avoid Vue parsing
       if (child.name === 'template') {
         child.name = 'span';
+      }
+
+      // Turns <div v-slot:content>... into <div data-mb-slot-name=content>...
+      const vslot = NodeProcessor.getVslot(child);
+      if (vslot) {
+        const slotName = vslot.split(':')[1];
+        child.attribs['data-mb-slot-name'] = slotName;
+        delete child.attribs[vslot];
       }
     });
   }
@@ -204,8 +247,15 @@ class NodeProcessor {
    * @param node The root panel element
    */
   static _assignPanelId(node) {
-    const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
-    const headerSlot = slotChildren.find(child => child.attribs.slot === 'header');
+    const slotChildren = node.children
+      && node.children.filter(child => NodeProcessor.getVslot(child) !== undefined);
+
+    const headerSlot = slotChildren.find((child) => {
+      const vslot = NodeProcessor.getVslot(child);
+      // vslot is guaranteed to exist since we have filtered
+      const slotName = vslot.split(':')[1];
+      return slotName === 'header';
+    });
 
     if (headerSlot) {
       const header = NodeProcessor._findHeaderElement(headerSlot);
@@ -359,10 +409,15 @@ class NodeProcessor {
 
   static _renameSlot(node, originalName, newName) {
     if (node.children) {
-      node.children.forEach((c) => {
-        const child = c;
-        if (_.has(child.attribs, 'slot') && child.attribs.slot === originalName) {
-          child.attribs.slot = newName;
+      node.children.forEach((child) => {
+        const vslot = NodeProcessor.getVslot(child);
+        if (vslot) {
+          const slotName = vslot.split(':')[1];
+          if (slotName === originalName) {
+            const newVslot = `v-slot:${newName}`;
+            child.attribs[newVslot] = '';
+            delete child.attribs[vslot];
+          }
         }
       });
     }
@@ -394,8 +449,14 @@ class NodeProcessor {
     NodeProcessor._renameAttribute(node, 'center', 'centered');
 
     const hasOkTitle = _.has(node.attribs, 'ok-title');
-    const hasFooter = node.children.some(child =>
-      _.has(child.attribs, 'slot') && child.attribs.slot === 'modal-footer');
+    const hasFooter = node.children.some((child) => {
+      const vslot = NodeProcessor.getVslot(child);
+      if (!vslot) {
+        return false;
+      }
+      const slotName = vslot.split(':')[1];
+      return slotName === 'modal-footer';
+    });
 
     if (!hasFooter && !hasOkTitle) {
       // markbind doesn't show the footer by default
@@ -461,6 +522,7 @@ class NodeProcessor {
    */
 
   _processDropdownAttributes(node) {
+    // We do not search for v-slot here because as the slots have not been converted to v-slot yet.
     const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
     const hasHeaderSlot = slotChildren && slotChildren.some(child => child.attribs.slot === 'header');
 
@@ -540,7 +602,7 @@ class NodeProcessor {
         hasFootnote = true;
         const popoverId = `${MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX}${li.attribs.id}`;
         const popoverNode = cheerio.parseHTML(`<popover id="${popoverId}">
-            <div slot="content">
+            <div v-slot:content>
               ${$(li).html()}
             </div>
           </popover>`)[0];
