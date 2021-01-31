@@ -86,7 +86,7 @@ jobs:
         with:
           node-version: '10'
       - run: npm i -g markbind-cli
-      - run: markbuild build
+      - run: markbind build
       - run: markbind deploy --ci
 ```
 
