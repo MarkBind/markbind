@@ -65,11 +65,36 @@ You can override the default deployment settings %%(e.g., repo/branch to deploy)
 ### Deploying to GitHub Pages via CI Tools
 **You can setup CI Tools to automatically build and deploy your site on GitHub Pages every time your GitHub repo is updated.**
 
-<box type="important" light>
+<panel header="#### Deploying via Github Actions" type="seamless" expanded>
 
-Markbind currently supports deploying to Github Pages via [Travis CI](https://www.travis-ci.com/) or [AppVeyor CI](https://www.appveyor.com/).
-</box>
+To instruct [Github Actions](https://docs.github.com/en/actions) to build and deploy the site when you push to the repository, add a Github Actions workflow file in your project repo at the location `<PROJECT_ROOT>/.github/workflows/deploy.yml`  A sample workflow file is provided below:
+```
+name: Deploy Markbind Site
+on:
+  push:
+    branches: master
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: test
+    env:
+      GITHUB_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '10'
+      - run: npm i -g markbind-cli
+      - run: markbuild build
+      - run: markbind deploy --ci
+```
+
+Once you have created the file, commit and push the file to your repo. Github Actions should start to build and deploy your markbind site. You can verify this by visiting `www.github.com/<org|username>/<repo>/actions`. 
+
+For more information on customizing your workflow file to fit your specific needs, you may refer to the [Github Action Docs](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions).
+
+</panel>
 
 <panel header="#### Deploying via Travis CI" type="seamless" expanded>
 
