@@ -56,6 +56,6 @@ export default {
     }
 
     .collapse-icon.opened {
-        transform: rotate(180deg);
+        transform: rotate(-180deg);
     }
 </style>
