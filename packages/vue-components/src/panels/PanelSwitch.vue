@@ -4,7 +4,7 @@
     :class="['collapse-button', 'btn', isLightBg ? 'btn-outline-secondary' : 'btn-outline-light']"
   >
     <span
-      :class="['collapse-icon', 'glyphicon', 'glyphicon-menu-down', {'opened': isOpenBool }]"
+      :class="['collapse-icon', 'glyphicon', 'glyphicon-menu-down', {'opened': isOpenBool}]"
       aria-hidden="true"
     ></span>
   </button>
