@@ -315,7 +315,8 @@ describe('Site deploy with various CI environments', () => {
        const site = new Site('./', '_site');
        await site.deploy(true);
        expect(ghpages.options.repo)
-         .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/${process.env[repoSlugIdentifier]}.git`);
+         // eslint-disable-next-line max-len
+         .toEqual(`https://x-access-token:${process.env.GITHUB_TOKEN}@github.com/${process.env[repoSlugIdentifier]}.git`);
        expect(ghpages.options.user).toEqual(deployBotUser);
      });
 
@@ -340,7 +341,7 @@ describe('Site deploy with various CI environments', () => {
        const site = new Site('./', '_site');
        await site.deploy(true);
        expect(ghpages.options.repo)
-         .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/USER/REPO.git`);
+         .toEqual(`https://x-access-token:${process.env.GITHUB_TOKEN}@github.com/USER/REPO.git`);
      });
 
   test.each([
@@ -362,7 +363,8 @@ describe('Site deploy with various CI environments', () => {
        const site = new Site('./', '_site');
        await site.deploy(true);
        expect(ghpages.options.repo)
-         .toEqual(`https://${process.env.GITHUB_TOKEN}@github.com/${process.env[repoSlugIdentifier]}.git`);
+         // eslint-disable-next-line max-len
+         .toEqual(`https://x-access-token:${process.env.GITHUB_TOKEN}@github.com/${process.env[repoSlugIdentifier]}.git`);
      });
 
   test('Site deploy -c/--ci should not deploy if not in CI environment', async () => {
