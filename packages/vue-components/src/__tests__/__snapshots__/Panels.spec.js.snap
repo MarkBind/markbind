@@ -42,7 +42,7 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
         >
           <span
             aria-hidden="true"
-            class="glyphicon glyphicon-menu-up"
+            class="collapse-icon glyphicon glyphicon-menu-down opened"
           />
         </button>
          
@@ -85,7 +85,7 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
         >
           <span
             aria-hidden="true"
-            class="glyphicon glyphicon-menu-up"
+            class="collapse-icon glyphicon glyphicon-menu-down opened"
           />
         </button>
       </div>
@@ -146,7 +146,7 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
         >
           <span
             aria-hidden="true"
-            class="glyphicon glyphicon-menu-up"
+            class="collapse-icon glyphicon glyphicon-menu-down opened"
           />
         </button>
          
@@ -189,7 +189,7 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
         >
           <span
             aria-hidden="true"
-            class="glyphicon glyphicon-menu-up"
+            class="collapse-icon glyphicon glyphicon-menu-down opened"
           />
         </button>
       </div>
@@ -250,7 +250,7 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
         >
           <span
             aria-hidden="true"
-            class="glyphicon glyphicon-menu-down"
+            class="collapse-icon glyphicon glyphicon-menu-down"
           />
         </button>
          
@@ -339,7 +339,7 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
         >
           <span
             aria-hidden="true"
-            class="glyphicon glyphicon-menu-down"
+            class="collapse-icon glyphicon glyphicon-menu-down"
           />
         </button>
          

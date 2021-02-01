@@ -4,7 +4,7 @@
     :class="['collapse-button', 'btn', isLightBg ? 'btn-outline-secondary' : 'btn-outline-light']"
   >
     <span
-      :class="['glyphicon', {'glyphicon-menu-down': !isOpenBool, 'glyphicon-menu-up': isOpenBool}]"
+      :class="['collapse-icon', 'glyphicon', 'glyphicon-menu-down', {'opened': isOpenBool}]"
       aria-hidden="true"
     ></span>
   </button>
@@ -49,5 +49,13 @@ export default {
         padding: 3px 8px !important;
         margin-left: 3px;
         margin-top: 2px;
+    }
+
+    .collapse-icon {
+        transition: transform 0.4s ease-in-out;
+    }
+
+    .collapse-icon.opened {
+        transform: rotate(-180deg);
     }
 </style>
