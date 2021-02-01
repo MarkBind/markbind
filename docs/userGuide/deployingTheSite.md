@@ -90,6 +90,11 @@ jobs:
       - run: markbind deploy --ci
 ```
 
+<box type="info">
+
+The sample `deploy.yml` workflow above uses the [default Github Token secret](https://docs.github.com/en/actions/reference/authentication-in-a-workflow) that is generated automatically for each Github Actions workflow. You may also use a Github Personal Access Token in place of the default Github Token. For steps on setting up your Github Personal Access Token, you may refer to the [setup instructions for Travis CI](#configuring-your-repository-in-travis-ci). 
+</box>
+
 Once you have created the file, commit and push the file to your repo. Github Actions should start to build and deploy your markbind site. You can verify this by visiting `www.github.com/<org|username>/<repo>/actions`. 
 
 For more information on customizing your workflow file to fit your specific needs, you may refer to the [Github Action Docs](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions).
