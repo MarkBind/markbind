@@ -1174,11 +1174,22 @@ class Site {
           name: 'AppVeyorBot',
           email: 'deploy@appveyor.com',
         };
+      } else if (process.env.GITHUB_ACTIONS) {
+        if (options.repo) {
+          repoSlug = Site.extractRepoSlug(options.repo);
+        } else {
+          repoSlug = process.env.GITHUB_REPOSITORY;
+        }
+
+        options.user = {
+          name: 'github-actions',
+          email: 'github-actions@github.com',
+        };
       } else {
         throw new Error('-c/--ci should only be run in CI environments.');
       }
 
-      options.repo = `https://${githubToken}@github.com/${repoSlug}.git`;
+      options.repo = `https://x-access-token:${githubToken}@github.com/${repoSlug}.git`;
     }
 
     publish(basePath, options);
