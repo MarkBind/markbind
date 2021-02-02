@@ -99,7 +99,8 @@ class NodeProcessor {
 
   /**
    * Processes the markdown attribute of the provided element, inserting the corresponding <slot> child
-   * if there is no pre-existing slot child with the name of the attribute present.
+   * if there is no pre-existing slot child with the name of the attribute present. For existing <slot>
+   * children, the HTML node tag name will be converted to "template".
    * @param node Element to process
    * @param attribute Attribute name to process
    * @param isInline Whether to process the attribute with only inline markdown-it rules
@@ -108,12 +109,49 @@ class NodeProcessor {
   _processAttributeWithoutOverride(node, attribute, isInline, slotName = attribute) {
     const hasAttributeSlot = node.children
       && node.children.some((child) => {
-        const vslot = NodeProcessor.getVslotShorthand(child);
-        if (!vslot) {
-          return false;
+        /*
+          User can use latest Vue slot shorthand syntax (#test) or deprecated Vue slot syntax (slot="test").
+          If user has both, we will prioritize processing the shorthand syntax.
+        */
+        const vslotShorthand = NodeProcessor.getVslotShorthand(child);
+        const hasSlot = _.has(child.attribs, 'slot');
+
+        if (vslotShorthand) {
+          const vslotShorthandName = vslotShorthand.substring(1, vslotShorthand.length); // remove #
+          const isTargetVslotShorthand = vslotShorthandName === slotName;
+          if (hasSlot) {
+            // User has both kinds of syntax
+            const isTargetSlot = child.attribs.slot === slotName;
+            if (isTargetSlot && isTargetVslotShorthand) {
+              /*
+                Both syntax's slot names match what we are looking for.
+                We will use the the shorthand syntax and delete the deprecated syntax.
+              */
+              delete child.attribs.slot;
+            }
+          }
+          if (isTargetVslotShorthand) {
+            /*
+              User may use tag names like "div" or "p" but we have to change it to "template"
+              for vslot shorthand syntax to work, according to Vue2.6 syntax documenatation.
+            */
+            child.name = 'template';
+            return true;
+          }
         }
-        const name = vslot.substring(1, vslot.length); // remove # vslot shorthand
-        return name === slotName;
+        if (hasSlot) {
+          const isTargetSlot = child.attribs.slot === slotName;
+          if (isTargetSlot) {
+            // We will convert the deprecated syntax to the shorthand syntax.
+            const newVslotShorthand = `#${child.attribs.slot}`;
+            child.attribs[newVslotShorthand] = '';
+            delete child.attribs.slot;
+
+            child.name = 'template';
+            return true;
+          }
+        }
+        return false;
       });
 
     if (!hasAttributeSlot && _.has(node.attribs, attribute)) {
@@ -139,13 +177,17 @@ class NodeProcessor {
    * @param node Element to transform
    */
   static _transformSlottedComponents(node) {
+    /*
+      This function is called after deprecated vue slot syntax has been converted to shorthand.
+      We only have to handle vue shorthand slot syntax.
+    */
     node.children.forEach((child) => {
       // Turns <div #content>... into <div data-mb-slot-name=content>...
-      const vslot = NodeProcessor.getVslotShorthand(child);
-      if (vslot) {
-        const slotName = vslot.substring(1, vslot.length); // remove # vslot shorthand
+      const vslotShorthand = NodeProcessor.getVslotShorthand(child);
+      if (vslotShorthand) {
+        const slotName = vslotShorthand.substring(1, vslotShorthand.length); // remove # from vslot shorthand
         child.attribs['data-mb-slot-name'] = slotName;
-        delete child.attribs[vslot];
+        delete child.attribs[vslotShorthand];
       }
       // similarly, need to transform templates to avoid Vue parsing
       if (child.name === 'template') {
@@ -221,14 +263,17 @@ class NodeProcessor {
    * @param node The root panel element
    */
   static _assignPanelId(node) {
-    // can remove
+    /*
+      This function is called after deprecated vue slot syntax has been converted to shorthand.
+      We only have to handle vue shorthand slot syntax.
+    */
     const slotChildren = node.children
       && node.children.filter(child => NodeProcessor.getVslotShorthand(child) !== undefined);
 
     const headerSlot = slotChildren.find((child) => {
-      const vslot = NodeProcessor.getVslotShorthand(child);
+      const vslotShorthand = NodeProcessor.getVslotShorthand(child);
       // vslot is guaranteed to exist since we have filtered
-      const slotName = vslot.substring(1, vslot.length); // remove # vslot shorthand
+      const slotName = vslotShorthand.substring(1, vslotShorthand.length); // remove # from vslot shorthand
       return slotName === 'header';
     });
 
@@ -356,19 +401,31 @@ class NodeProcessor {
       return;
     }
     element.children.forEach((child) => {
-      const vslot = NodeProcessor.getVslotShorthand(child);
-      if (!vslot) {
-        return;
+      const vslotShorthand = NodeProcessor.getVslotShorthand(child);
+      if (vslotShorthand) {
+        const slotName = vslotShorthand.substring(1, vslotShorthand.length); // remove #
+        Object.entries(namePairs)
+          .forEach(([deprecatedName, correctName]) => {
+            if (slotName !== deprecatedName) {
+              return;
+            }
+            logger.warn(`${element.name} shorthand slot name '${deprecatedName}' `
+              + `is deprecated and may be removed in the future. Please use '${correctName}'`);
+          });
       }
-      const slotName = vslot.substring(1, vslot.length); // remove # vslot shorthand
-      Object.entries(namePairs)
-        .forEach(([deprecatedName, correctName]) => {
-          if (slotName !== deprecatedName) {
-            return;
-          }
-          logger.warn(`${element.name} slot name '${deprecatedName}' `
-            + `is deprecated and may be removed in the future. Please use '${correctName}'`);
-        });
+
+      const hasSlot = _.has(child.attribs, 'slot');
+      if (hasSlot) {
+        const slotName = child.attribs.slot;
+        Object.entries(namePairs)
+          .forEach(([deprecatedName, correctName]) => {
+            if (slotName !== deprecatedName) {
+              return;
+            }
+            logger.warn(`${element.name} slot name '${deprecatedName}' `
+              + `is deprecated and may be removed in the future. Please use '${correctName}'`);
+          });
+      }
     });
   }
 
@@ -385,15 +442,19 @@ class NodeProcessor {
   }
 
   static _renameSlot(node, originalName, newName) {
+    /*
+      This function is called after deprecated vue slot syntax has been converted to shorthand.
+      We only have to handle vue shorthand slot syntax.
+    */
     if (node.children) {
       node.children.forEach((child) => {
-        const vslot = NodeProcessor.getVslotShorthand(child);
-        if (vslot) {
-          const slotName = vslot.substring(1, vslot.length); // remove # vslot shorthand
-          if (slotName === originalName) {
+        const vslotShorthand = NodeProcessor.getVslotShorthand(child);
+        if (vslotShorthand) {
+          const vslotShorthandName = vslotShorthand.substring(1, vslotShorthand.length); // remove #
+          if (vslotShorthandName === originalName) {
             const newVslot = `#${newName}`;
             child.attribs[newVslot] = '';
-            delete child.attribs[vslot];
+            delete child.attribs[vslotShorthand];
           }
         }
       });
@@ -427,11 +488,15 @@ class NodeProcessor {
 
     const hasOkTitle = _.has(node.attribs, 'ok-title');
     const hasFooter = node.children.some((child) => {
-      const vslot = NodeProcessor.getVslotShorthand(child);
-      if (!vslot) {
+      /*
+        Deprecated vue slot syntax has already been converted to shorthand.
+        We only have to handle vue shorthand slot syntax.
+      */
+      const vslotShorthand = NodeProcessor.getVslotShorthand(child);
+      if (!vslotShorthand) {
         return false;
       }
-      const slotName = vslot.substring(1, vslot.length); // remove # vslot shorthand
+      const slotName = vslotShorthand.substring(1, vslotShorthand.length); // remove # from vslot shorthand
       return slotName === 'modal-footer';
     });
 
@@ -499,20 +564,26 @@ class NodeProcessor {
    */
 
   _processDropdownAttributes(node) {
-    // can remove
-    const slotChildren = node.children
-      && node.children.filter(child => NodeProcessor.getVslotShorthand(child) !== undefined);
+    // Have not converted deprecated Vue slot syntax to shorthand, so we must handle both.
+    const hasHeaderSlot = node.children && node.children.some((child) => {
+      const vslotShorthand = NodeProcessor.getVslotShorthand(child);
+      if (vslotShorthand) {
+        const vslotShorthandName = vslotShorthand.substring(1, vslotShorthand.length); // remove #
+        if (vslotShorthandName === 'header') {
+          return true;
+        }
+      }
 
-    const hasHeaderSlot = slotChildren.find((child) => {
-      const vslot = NodeProcessor.getVslotShorthand(child);
-      // vslot is guaranteed to exist since we have filtered
-      const slotName = vslot.substring(1, vslot.length); // remove # vslot shorthand
-      return slotName === 'header';
+      const hasSlot = _.has(child.attribs, 'slot');
+      if (hasSlot) {
+        const slotName = child.attribs.slot;
+        if (slotName === 'header') {
+          return true;
+        }
+      }
+
+      return false;
     });
-
-    // We do not search for v-slot here because as the slots have not been converted to v-slot yet.
-    // const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
-    // const hasHeaderSlot = slotChildren && slotChildren.some(child => child.attribs.slot === 'header');
 
     // If header slot is present, the header attribute has no effect, and we can simply remove it.
     if (hasHeaderSlot) {
