@@ -20,6 +20,11 @@ const processAndVerifyTemplate = (template, expectedTemplate, postProcess = fals
     const nodeProcessor = getNewDefaultNodeProcessor();
 
     if (postProcess) {
+      /*
+        Need to process node first (convert deprecated vue slot to updated shorthand syntax)
+        before doing post-processing.
+      */
+      dom.forEach(node => nodeProcessor.processNode(node, new Context(path.resolve(''))));
       dom.forEach(node => nodeProcessor.postProcessNode(node));
     } else {
       dom.forEach(node => nodeProcessor.processNode(node, new Context(path.resolve(''))));
