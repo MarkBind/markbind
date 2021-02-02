@@ -89,12 +89,12 @@ class NodeProcessor {
     return node.type === 'text' || node.type === 'comment';
   }
 
-  static getVslot(node) {
+  static getVslotShorthand(node) {
     if (!node.attribs) {
       return undefined;
     }
     const keys = Object.keys(node.attribs);
-    return _.find(keys, key => key.startsWith('v-slot:'));
+    return _.find(keys, key => key.startsWith('#'));
   }
 
   /**
@@ -106,40 +106,15 @@ class NodeProcessor {
    * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
    */
   _processAttributeWithoutOverride(node, attribute, isInline, slotName = attribute) {
-    /*
-      Currently popover processes header before processing title.
-      If there is a header, title should be ignored. We have to account for this situation.
-      Since header is processed first, it would already have been converted to v-slot so we need
-      to check if a corresponding v-slot exists. If a header v-slot doesn't exist, then we will
-      process title.
-    */
-
-    const hasUnconvertedSlot = node.children
-      && node.children.some(child => _.has(child.attribs, 'slot') && child.attribs.slot === slotName);
-
-    // attribute slot that has been converted to v-slot
-    const hasConvertedSlot = node.children
+    const hasAttributeSlot = node.children
       && node.children.some((child) => {
-        const vslot = NodeProcessor.getVslot(child);
+        const vslot = NodeProcessor.getVslotShorthand(child);
         if (!vslot) {
           return false;
         }
-        const name = vslot.split(':')[1];
+        const name = vslot.substring(1, vslot.length); // remove # vslot shorthand
         return name === slotName;
       });
-
-    // Allow user to use "slot=..." but we patch the syntax to v-slot:...
-    if (hasUnconvertedSlot) {
-      node.children.forEach((child) => {
-        if (_.has(child.attribs, 'slot') && child.attribs.slot === slotName) {
-          const newVslotAttr = `v-slot:${child.attribs.slot}`;
-          child.attribs[newVslotAttr] = '';
-          delete child.attribs.slot;
-        }
-      });
-    }
-
-    const hasAttributeSlot = hasUnconvertedSlot || hasConvertedSlot;
 
     if (!hasAttributeSlot && _.has(node.attribs, attribute)) {
       let rendered;
@@ -150,7 +125,7 @@ class NodeProcessor {
       }
 
       const attributeSlotElement = cheerio.parseHTML(
-        `<template v-slot:${slotName}>${rendered}</template>`, true);
+        `<template #${slotName}>${rendered}</template>`, true);
       node.children
         = node.children ? attributeSlotElement.concat(node.children) : attributeSlotElement;
     }
@@ -165,17 +140,16 @@ class NodeProcessor {
    */
   static _transformSlottedComponents(node) {
     node.children.forEach((child) => {
+      // Turns <div #content>... into <div data-mb-slot-name=content>...
+      const vslot = NodeProcessor.getVslotShorthand(child);
+      if (vslot) {
+        const slotName = vslot.substring(1, vslot.length); // remove # vslot shorthand
+        child.attribs['data-mb-slot-name'] = slotName;
+        delete child.attribs[vslot];
+      }
       // similarly, need to transform templates to avoid Vue parsing
       if (child.name === 'template') {
         child.name = 'span';
-      }
-
-      // Turns <div v-slot:content>... into <div data-mb-slot-name=content>...
-      const vslot = NodeProcessor.getVslot(child);
-      if (vslot) {
-        const slotName = vslot.split(':')[1];
-        child.attribs['data-mb-slot-name'] = slotName;
-        delete child.attribs[vslot];
       }
     });
   }
@@ -247,13 +221,14 @@ class NodeProcessor {
    * @param node The root panel element
    */
   static _assignPanelId(node) {
+    // can remove
     const slotChildren = node.children
-      && node.children.filter(child => NodeProcessor.getVslot(child) !== undefined);
+      && node.children.filter(child => NodeProcessor.getVslotShorthand(child) !== undefined);
 
     const headerSlot = slotChildren.find((child) => {
-      const vslot = NodeProcessor.getVslot(child);
+      const vslot = NodeProcessor.getVslotShorthand(child);
       // vslot is guaranteed to exist since we have filtered
-      const slotName = vslot.split(':')[1];
+      const slotName = vslot.substring(1, vslot.length); // remove # vslot shorthand
       return slotName === 'header';
     });
 
@@ -381,12 +356,14 @@ class NodeProcessor {
       return;
     }
     element.children.forEach((child) => {
-      if (!(_.has(child.attribs, 'slot'))) {
+      const vslot = NodeProcessor.getVslotShorthand(child);
+      if (!vslot) {
         return;
       }
+      const slotName = vslot.substring(1, vslot.length); // remove # vslot shorthand
       Object.entries(namePairs)
         .forEach(([deprecatedName, correctName]) => {
-          if (child.attribs.slot !== deprecatedName) {
+          if (slotName !== deprecatedName) {
             return;
           }
           logger.warn(`${element.name} slot name '${deprecatedName}' `
@@ -410,11 +387,11 @@ class NodeProcessor {
   static _renameSlot(node, originalName, newName) {
     if (node.children) {
       node.children.forEach((child) => {
-        const vslot = NodeProcessor.getVslot(child);
+        const vslot = NodeProcessor.getVslotShorthand(child);
         if (vslot) {
-          const slotName = vslot.split(':')[1];
+          const slotName = vslot.substring(1, vslot.length); // remove # vslot shorthand
           if (slotName === originalName) {
-            const newVslot = `v-slot:${newName}`;
+            const newVslot = `#${newName}`;
             child.attribs[newVslot] = '';
             delete child.attribs[vslot];
           }
@@ -450,11 +427,11 @@ class NodeProcessor {
 
     const hasOkTitle = _.has(node.attribs, 'ok-title');
     const hasFooter = node.children.some((child) => {
-      const vslot = NodeProcessor.getVslot(child);
+      const vslot = NodeProcessor.getVslotShorthand(child);
       if (!vslot) {
         return false;
       }
-      const slotName = vslot.split(':')[1];
+      const slotName = vslot.substring(1, vslot.length); // remove # vslot shorthand
       return slotName === 'modal-footer';
     });
 
@@ -522,9 +499,20 @@ class NodeProcessor {
    */
 
   _processDropdownAttributes(node) {
+    // can remove
+    const slotChildren = node.children
+      && node.children.filter(child => NodeProcessor.getVslotShorthand(child) !== undefined);
+
+    const hasHeaderSlot = slotChildren.find((child) => {
+      const vslot = NodeProcessor.getVslotShorthand(child);
+      // vslot is guaranteed to exist since we have filtered
+      const slotName = vslot.substring(1, vslot.length); // remove # vslot shorthand
+      return slotName === 'header';
+    });
+
     // We do not search for v-slot here because as the slots have not been converted to v-slot yet.
-    const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
-    const hasHeaderSlot = slotChildren && slotChildren.some(child => child.attribs.slot === 'header');
+    // const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
+    // const hasHeaderSlot = slotChildren && slotChildren.some(child => child.attribs.slot === 'header');
 
     // If header slot is present, the header attribute has no effect, and we can simply remove it.
     if (hasHeaderSlot) {
@@ -602,7 +590,7 @@ class NodeProcessor {
         hasFootnote = true;
         const popoverId = `${MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX}${li.attribs.id}`;
         const popoverNode = cheerio.parseHTML(`<popover id="${popoverId}">
-            <div v-slot:content>
+            <div #content>
               ${$(li).html()}
             </div>
           </popover>`)[0];

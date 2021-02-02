@@ -194,7 +194,7 @@ class Page {
       }
 
       // Check if heading / panel is under a panel's header slots, which is handled specially below.
-      const slotParents = $(elem).parentsUntil(context).filter('[v-slot\\:header]').not(elem);
+      const slotParents = $(elem).parentsUntil(context).filter('[\\#header]').not(elem);
       const panelSlotParents = slotParents.parent('panel');
       if (panelSlotParents.length) {
         return;
@@ -202,7 +202,7 @@ class Page {
 
       if (elem.name === 'panel') {
         // Recurse only on the slot which has priority
-        const headings = $(elem).children('[v-slot\\:header]');
+        const headings = $(elem).children('[\\#header]');
         if (!headings.length) return;
 
         this._collectNavigableHeadings($, headings.first(), pageNavSelector);
@@ -236,7 +236,7 @@ class Page {
     $('b-modal').remove();
     $('panel').not('panel panel')
       .each((index, panel) => {
-        const slotHeader = $(panel).children('[v-slot\\:header]');
+        const slotHeader = $(panel).children('[\\#header]');
         if (slotHeader.length) {
           this.collectHeadingsAndKeywordsInContent(slotHeader.html(),
                                                    lastHeading, excludeHeadings, sourceTraversalStack);
@@ -248,7 +248,7 @@ class Page {
         if (!closestHeading) {
           closestHeading = lastHeading;
         }
-        const slotHeadings = $(panel).children('[v-slot\\:header]').find(':header');
+        const slotHeadings = $(panel).children('[\\#header]').find(':header');
         if (slotHeadings.length) {
           closestHeading = slotHeadings.first();
         }
