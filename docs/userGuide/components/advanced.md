@@ -11,7 +11,7 @@
 Most component attributes allow a richer form of formatting using slots, denoted by an attribute<strong>^\[S\]^</strong> superscript in the respective components' tables.
 In other cases, when the option is of type "Slot", only the slot option is available.
 
-You can define such a slot within the component by adding a `slot="attribute name"` attribute to any element within the slot.
+You can define such a slot within the component by adding a `slot="attribute_name"` attribute to any element within the slot.
 
 {{ icon_example }}
 
@@ -36,6 +36,21 @@ You can define such a slot within the component by adding a `slot="attribute nam
 <variable name="highlightStyle">html</variable>
 </include>
 </div>
+
+<box type="tip">
+
+You may define a slot by using the shorthand notation `#attribute_name` as well! 
+
+```html
+  <panel>
+    <div #header>
+      Look at the slot shorthand notation directly above. 
+    </div>
+    Now you know how to use the shorthand notation!
+  </panel>
+```
+</box>
+
   
 <modal header="Richer formatting of attributes using slots" id="on-slots" large>
 <include src="advanced.md#slots" />
