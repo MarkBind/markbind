@@ -4,6 +4,7 @@ const htmlparser = require('htmlparser2');
 const { getNewDefaultNodeProcessor } = require('../utils/utils');
 const testData = require('./NodeProcessor.data');
 const { Context } = require('../../../src/html/Context');
+const { NodeProcessor } = require('../../../src/html/NodeProcessor');
 
 /**
  * Runs the processNode or postProcessNode method of NodeProcessor on the provided
@@ -155,4 +156,29 @@ test('renderFile converts markdown headers to <h1> with an id', async () => {
   const expected = ['<h1 id="index"><span id="index" class="anchor"></span>Index</h1>'].join('\n');
 
   expect(result).toEqual(expected);
+});
+
+test('deprecated vue slot syntax should be converted to updated Vue slot shorthand syntax', async () => {
+  // slot="test" converted to #test
+  const test = '<panel><div slot="header">test</div><p slot="test">test2</p></panel>';
+
+  const testNode = cheerio.parseHTML(test)[0];
+
+  NodeProcessor.transformSlotNode(testNode);
+
+  const expected = '<panel><div #header>test</div><p #test>test2</p></panel>';
+
+  expect(cheerio.html(testNode)).toEqual(expected);
+});
+
+test('slot nodes which have tag names other than "template" are shifted one level deeper ', async () => {
+  const test = '<panel><div #header>test</div></panel>';
+
+  const testNode = cheerio.parseHTML(test)[0];
+
+  NodeProcessor.shiftSlotNodeDeeper(testNode);
+
+  const expected = '<panel><template #header><div>test</div></template></panel>';
+
+  expect(cheerio.html(testNode)).toEqual(expected);
 });
