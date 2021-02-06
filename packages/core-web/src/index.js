@@ -50,6 +50,40 @@ function detectAndApplyFixedHeaderStyles() {
         margin-top: calc(-${headerHeight}px - ${bufferHeight}rem);
         height: calc(${headerHeight}px + ${bufferHeight}rem);
       }`);
+  insertCss(`.nav-menu-open { max-height: calc(100% - ${headerHeight}px); }`);
+
+  const addResizeHeaderListener = () => {
+    const resizeObserver = new ResizeObserver(() => {
+      const newHeaderHeight = headerSelector.height();
+      const sheets = document.styleSheets;
+      for (let i = 0; i < sheets.length; i += 1) {
+        const rules = sheets[i].cssRules;
+        // eslint-disable-next-line lodash/prefer-get
+        if (rules && rules[0] && rules[0].selectorText) {
+          switch (rules[0].selectorText) {
+          case '.fixed-header-padding':
+            sheets[i].deleteRule(0);
+            sheets[i].insertRule(`.fixed-header-padding { padding-top: ${newHeaderHeight}px !important }`);
+            break;
+          case 'span.anchor':
+            rules[0].style.top = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
+            break;
+          case 'span.card-container::before':
+            rules[0].style.marginTop = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
+            rules[0].style.height = `calc(${newHeaderHeight}px + ${bufferHeight}rem)`;
+            break;
+          case '.nav-menu-open':
+            rules[0].style.maxHeight = `calc(100% - ${newHeaderHeight}px + 50px)`;
+            break;
+          default:
+            break;
+          }
+        }
+      }
+    });
+    resizeObserver.observe(headerSelector[0]);
+  };
+  addResizeHeaderListener();
 }
 
 function updateSearchData(vm) {
