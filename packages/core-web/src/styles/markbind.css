@@ -120,7 +120,7 @@ code.hljs.inline {
 header[fixed] {
     position: fixed;
     width: 100%;
-    z-index: 1000;
+    z-index: 1001;
 }
 
 /* #app is treated as the main container */

@@ -17,6 +17,8 @@
 
 3. **Position the page navigation menu** within your layout using the `{% raw %}{{ pageNav }}{% endraw %}` variable.
 
+4. **(Optional) To make pageNav accessible on smaller screens, you can use the `<page-nav-button />` component in the [navbar]({{baseUrl}}/userGuide/usingComponents.html#navbars).**
+
 <div id="short" class="indented">
 
 {{ icon_example }}

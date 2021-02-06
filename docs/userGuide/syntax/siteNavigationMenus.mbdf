@@ -7,6 +7,7 @@
 Steps to add a siteNav:
 1. Format your siteNav as an unordered Markdown list
 2. Include it under a `<site-nav>` element.
+3. (Optional) To make siteNav accessible on smaller screens, you can use the `<site-nav-button />` component in the [navbar]({{baseUrl}}/userGuide/usingComponents.html#navbars).
 
 <div id="short">
 
