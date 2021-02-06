@@ -11,7 +11,7 @@
 Most component attributes allow a richer form of formatting using slots, denoted by an attribute<strong>^\[S\]^</strong> superscript in the respective components' tables.
 In other cases, when the option is of type "Slot", only the slot option is available.
 
-You can define such a slot within the component by adding a `#attribute_name` attribute to any element within the slot.
+You can define such a slot within the component by adding a `#slot_name` attribute to any element within the slot.
 
 {{ icon_example }}
 
