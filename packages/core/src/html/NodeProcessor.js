@@ -666,7 +666,7 @@ class NodeProcessor {
   /*
    * Transforms deprecated vue slot syntax (slot="test") into the updated Vue slot shorthand syntax (#test).
    */
-  static transformSlotNode(node) {
+  static transformOldSlotSyntax(node) {
     if (!node.children) {
       return;
     }
@@ -686,7 +686,7 @@ class NodeProcessor {
 
   processNode(node, context) {
     try {
-      NodeProcessor.transformSlotNode(node);
+      NodeProcessor.transformOldSlotSyntax(node);
       NodeProcessor.shiftSlotNodeDeeper(node);
 
       switch (node.name) {

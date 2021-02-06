@@ -164,7 +164,7 @@ test('deprecated vue slot syntax should be converted to updated Vue slot shortha
 
   const testNode = cheerio.parseHTML(test)[0];
 
-  NodeProcessor.transformSlotNode(testNode);
+  NodeProcessor.transformOldSlotSyntax(testNode);
 
   const expected = '<panel><div #header>test</div><p #test>test2</p></panel>';
 
