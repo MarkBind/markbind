@@ -93,11 +93,13 @@ class NodeProcessor {
     if (!node.attribs) {
       return '';
     }
+
     const keys = Object.keys(node.attribs);
     const vslotShorthand = _.find(keys, key => key.startsWith('#'));
     if (!vslotShorthand) {
       return '';
     }
+
     return vslotShorthand.substring(1, vslotShorthand.length); // remove #
   }
 
@@ -114,10 +116,7 @@ class NodeProcessor {
     const hasAttributeSlot = node.children
       && node.children.some((child) => {
         const vslotShorthandName = NodeProcessor.getVslotShorthandName(child);
-        if (!vslotShorthandName) {
-          return false;
-        }
-        return vslotShorthandName === slotName;
+        return vslotShorthandName && vslotShorthandName === slotName;
       });
 
     if (!hasAttributeSlot && _.has(node.attribs, attribute)) {
