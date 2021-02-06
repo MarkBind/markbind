@@ -490,7 +490,6 @@ class NodeProcessor {
    */
 
   _processDropdownAttributes(node) {
-    // Have not converted deprecated Vue slot syntax to shorthand, so we must handle both.
     const hasHeaderSlot = node.children && node.children.some((child) => {
       const vslotShorthandName = NodeProcessor.getVslotShorthandName(child);
       return vslotShorthandName && vslotShorthandName === 'header';
