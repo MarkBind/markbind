@@ -228,7 +228,6 @@ class NodeProcessor {
 
     const headerSlot = slotChildren.find((child) => {
       const vslotShorthandName = NodeProcessor.getVslotShorthandName(child);
-      // vslot is guaranteed to exist since we have filtered
       return vslotShorthandName === 'header';
     });
 
