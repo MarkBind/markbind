@@ -1,31 +1,39 @@
 <template>
-  <nav ref="navbar" :class="['navbar', 'navbar-expand-md', themeOptions, addClass, fixedOptions]">
-    <div class="container-fluid">
-      <div class="navbar-brand">
-        <slot name="brand"></slot>
-      </div>
-      <button
-        v-if="!slots.collapse"
-        class="navbar-toggler"
-        type="button"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-        @click="toggleCollapse"
-      >
-        <span class="navbar-toggler-icon"></span>
-        <slot name="collapse"></slot>
-      </button>
+  <div>
+    <nav ref="navbar" :class="['navbar', 'navbar-expand-md', themeOptions, addClass, fixedOptions]">
+      <div class="container-fluid">
+        <div class="navbar-brand">
+          <slot name="brand"></slot>
+        </div>
+        <button
+          v-if="!slots.collapse"
+          class="navbar-toggler"
+          type="button"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          @click="toggleCollapse"
+        >
+          <span class="navbar-toggler-icon"></span>
+          <slot name="collapse"></slot>
+        </button>
 
-      <div :class="['navbar-collapse',{collapse:collapsed}]">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <slot></slot>
-        </ul>
-        <ul v-if="slots.right" class="navbar-nav navbar-right">
-          <slot name="right"></slot>
-        </ul>
+        <div :class="['navbar-collapse',{collapse:collapsed}]">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <slot></slot>
+          </ul>
+          <ul v-if="slots.right" class="navbar-nav navbar-right">
+            <slot name="right"></slot>
+          </ul>
+        </div>
       </div>
+    </nav>
+    <div ref="lowerNavbar" v-show="isLowerNavbarShowing" class="lower-navbar-container">
+      <slot name="lower-navbar">
+          <site-nav-button />
+          <page-nav-button />
+      </slot>
     </div>
-  </nav>
+  </div>
 </template>
 
 <script>
@@ -52,11 +60,17 @@ export default {
       default: 'sibling-or-child',
     },
   },
+  provide() {
+    return {
+      toggleLowerNavbar: this.toggleLowerNavbar,
+    };
+  },
   data() {
     return {
       id: 'bs-example-navbar-collapse-1',
       collapsed: true,
       styles: {},
+      isLowerNavbarShowing: false,
     };
   },
   computed: {
@@ -198,6 +212,13 @@ export default {
         }
       }
     },
+    toggleLowerNavbar() {
+      if (this.$refs.lowerNavbar.childElementCount > 0) {
+        this.isLowerNavbarShowing = true;
+      } else {
+        this.isLowerNavbarShowing = false;
+      }
+    },
   },
   created() {
     this._navbar = true;
@@ -228,10 +249,14 @@ export default {
 
     // highlight current nav link
     this.highlightLink(window.location.href);
+
+    this.toggleLowerNavbar();
+    $(window).on('resize', this.toggleLowerNavbar);
   },
   beforeDestroy() {
     $('.dropdown', this.$el).off('click').offBlur();
     if (this.slots.collapse) $('[data-toggle="collapse"]', this.$el).off('click');
+    $(window).off('resize', this.toggleLowerNavbar);
   },
 };
 </script>
@@ -254,5 +279,13 @@ export default {
   >>> .dropdown-current {
     color: #fff !important;
     background: #007bff;
+  }
+
+  .lower-navbar-container {
+    background-color: #fff;
+    border-bottom: 1px solid #c1c1c1;
+    height: 50px;
+    width: 100%;
+    position: relative;
   }
 </style>
