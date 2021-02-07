@@ -15,8 +15,8 @@ function insertTemporaryStyles(node) {
     // TODO remove attributes.text once text attribute is fully deprecated
     const placeholder = `<div>${attributes.header || attributes.text || ''}</div>`;
     const $dropdown = cheerio(node);
-    $dropdown.before(placeholder);
-    $dropdown.prev().addClass(attributes.class).addClass(TEMP_DROPDOWN_PLACEHOLDER_CLASS);
+    $dropdown.after(placeholder);
+    $dropdown.next().addClass(attributes.class).addClass(TEMP_DROPDOWN_PLACEHOLDER_CLASS);
     $dropdown.addClass(TEMP_DROPDOWN_CLASS);
   }
 }
