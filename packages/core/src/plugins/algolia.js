@@ -28,7 +28,7 @@ function addNoIndexClasses(content) {
     'question div[slot=hint]',
     'question div[slot=answer]',
     'tab:nth-of-type(n+2)',
-    'tab-group:not(:first-child)',
+    'tab-group:nth-of-type(n+2)',
   ].join(', ');
   $(noIndexSelectors).addClass('algolia-no-index');
   return $.html();
