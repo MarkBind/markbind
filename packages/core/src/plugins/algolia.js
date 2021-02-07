@@ -24,7 +24,8 @@ function addNoIndexClasses(content) {
     'dropdown',
     'b-modal',
     'panel:not([expanded])',
-    '[data-mb-component-type] :not(span)[data-mb-slot-name]',
+    // to target both popover and tooltip
+    '[data-mb-component-type] [data-mb-slot-name]',
     'question div[slot=hint]',
     'question div[slot=answer]',
     'tab:nth-of-type(n+2)',
