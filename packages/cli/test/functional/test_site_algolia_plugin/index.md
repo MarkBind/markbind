@@ -35,9 +35,15 @@
   <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
 </popover>
 
-<popover effect="fade" header="Title" content="Content as attribute does not require `algolia-no-index` class" placement="top">
+<popover effect="fade" header="Title" content="Content should have `algolia-no-index` class" placement="top">
   <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
 </popover>
+
+**Tooltip content should have algolia-no-index class**
+
+<tooltip content="Content should have `algolia-no-index` class" placement="top">
+  <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
+</tooltip>
 
 **Question hint and answer should have algolia-no-index class**
 

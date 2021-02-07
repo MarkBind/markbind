@@ -24,11 +24,12 @@ function addNoIndexClasses(content) {
     'dropdown',
     'b-modal',
     'panel:not([expanded])',
-    'popover div[slot=content]',
+    // to target both popover and tooltip
+    '[data-mb-component-type] [data-mb-slot-name]',
     'question div[slot=hint]',
     'question div[slot=answer]',
-    'tab:not(:first-child)',
-    'tab-group:not(:first-child)',
+    'tab:nth-of-type(n+2)',
+    'tab-group:nth-of-type(n+2)',
   ].join(', ');
   $(noIndexSelectors).addClass('algolia-no-index');
   return $.html();
