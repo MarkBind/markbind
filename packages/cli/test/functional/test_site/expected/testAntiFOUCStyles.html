@@ -185,7 +185,7 @@
         <navbar type="dark" class=" temp-navbar">
           <li><a href="/" class="nav-link">One</a></li>
           <li><a href="/" class="nav-link">Two</a></li>
-          <dropdown class="nav-link temp-dropdown"><template slot="_header">Dropdown</template>
+          <dropdown class="nav-link temp-dropdown"><template #_header>Dropdown</template>
             <li><a class="dropdown-item" href="/">Dropdown One</a></li>
             <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
           </dropdown>
@@ -193,7 +193,7 @@
         </navbar>
 
         <p><strong>Test dropdown in body with text and class attributes</strong></p>
-        <dropdown class="test-class temp-dropdown"><template slot="_header">Test One</template>
+        <dropdown class="test-class temp-dropdown"><template #_header>Test One</template>
           <li><a class="dropdown-item" href="/">Dropdown One</a></li>
           <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
         </dropdown>
@@ -201,9 +201,9 @@
 
         <p><strong>Test dropdown in body without text and class attributes</strong></p>
         <dropdown class="temp-dropdown">
-          <button slot="button" type="button" class="btn dropdown-toggle">
-            Test Two
-            <span class="caret"></span></button>
+          <template #button><button type="button" class="btn dropdown-toggle">
+              Test Two
+              <span class="caret"></span></button></template>
           <li><a class="dropdown-item" href="/">Dropdown One</a></li>
           <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
         </dropdown>
