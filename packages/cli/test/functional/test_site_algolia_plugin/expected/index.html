@@ -53,7 +53,7 @@
     </panel>
     <p><strong>Popover content should have algolia-no-index class</strong></p>
     <span effect="fade" placement="top" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger"><span data-mb-slot-name="header">Title</span>
-      <div data-mb-slot-name="content" class="algolia-no-index">Content should have `algolia-no-index` class</div>
+      <div data-mb-slot-name="content">Content should have `algolia-no-index` class</div>
       <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
     </span>
     <span effect="fade" placement="top" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger"><span data-mb-slot-name="header">Title</span><span data-mb-slot-name="content">Content as attribute does not require <code class="hljs inline no-lang" v-pre>algolia-no-index</code> class</span>
@@ -75,7 +75,7 @@
     </tabs>
     <tabs>
       <tab-group><template slot="_header">First Group</template>
-        <tab><template slot="_header">First Tab</template>
+        <tab class="algolia-no-index"><template slot="_header">First Tab</template>
           Content<br>Content<br>Content<br>Content
         </tab>
         <tab class="algolia-no-index"><template slot="_header">Second Tab</template>
@@ -83,7 +83,7 @@
         </tab>
       </tab-group>
       <tab-group class="algolia-no-index"><template slot="_header">Second Group</template>
-        <tab><template slot="_header">First Tab</template>
+        <tab class="algolia-no-index"><template slot="_header">First Tab</template>
           Content<br>Content<br>Content<br>Content
         </tab>
         <tab class="algolia-no-index"><template slot="_header">Second Tab</template>
@@ -93,14 +93,14 @@
     </tabs>
     <tabs>
       <tab-group><template slot="_header">Outer One</template>
-        <tab><template slot="_header">First Tab</template>
+        <tab class="algolia-no-index"><template slot="_header">First Tab</template>
           Content<br>Content<br>Content<br>Content
         </tab>
         <tab class="algolia-no-index"><template slot="_header">Second Tab</template>
           Content<br>Content<br>Content<br>Content
         </tab>
       </tab-group>
-      <tab><template slot="_header">Outer Two</template>
+      <tab class="algolia-no-index"><template slot="_header">Outer Two</template>
         Content<br>Content<br>Content<br>Content
       </tab>
     </tabs>
