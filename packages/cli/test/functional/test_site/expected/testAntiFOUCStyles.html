@@ -185,44 +185,29 @@
         <navbar type="dark" class=" temp-navbar">
           <li><a href="/" class="nav-link">One</a></li>
           <li><a href="/" class="nav-link">Two</a></li>
-          <div class="nav-link temp-dropdown-placeholder"></div>
-          <div class="nav-link temp-dropdown temp-dropdown-placeholder"></div>
           <dropdown class="nav-link temp-dropdown"><template slot="_header">Dropdown</template>
             <li><a class="dropdown-item" href="/">Dropdown One</a></li>
             <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
           </dropdown>
+          <div class="nav-link temp-dropdown-placeholder"></div>
         </navbar>
 
         <p><strong>Test dropdown in body with text and class attributes</strong></p>
-        <div class="test-class temp-dropdown-placeholder"></div>
-        <div class="test-class temp-dropdown temp-dropdown-placeholder"></div>
-        <div class="test-class temp-dropdown temp-dropdown-placeholder"></div>
-        <div class="test-class temp-dropdown temp-dropdown-placeholder"></div>
-        <div class="test-class temp-dropdown temp-dropdown-placeholder"></div>
-        <div class="test-class temp-dropdown temp-dropdown-placeholder"></div>
-        <div class="test-class temp-dropdown temp-dropdown-placeholder"></div>
-        <div class="test-class temp-dropdown temp-dropdown-placeholder"></div>
-        <div class="test-class temp-dropdown temp-dropdown-placeholder"></div>
-        <div class="test-class temp-dropdown temp-dropdown-placeholder"></div>
-        <div class="test-class temp-dropdown temp-dropdown-placeholder"></div>
-        <div class="test-class temp-dropdown temp-dropdown-placeholder"></div>
-        <div class="test-class temp-dropdown temp-dropdown-placeholder"></div>
-        <div class="test-class temp-dropdown temp-dropdown-placeholder"></div>
-        <div class="test-class temp-dropdown temp-dropdown-placeholder"></div>
-        <div class="test-class temp-dropdown temp-dropdown-placeholder"></div>
         <dropdown class="test-class temp-dropdown"><template slot="_header">Test One</template>
           <li><a class="dropdown-item" href="/">Dropdown One</a></li>
           <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
         </dropdown>
+        <div class="test-class temp-dropdown-placeholder"></div>
 
         <p><strong>Test dropdown in body without text and class attributes</strong></p>
-        <dropdown>
+        <dropdown class="temp-dropdown">
           <button slot="button" type="button" class="btn dropdown-toggle">
             Test Two
             <span class="caret"></span></button>
           <li><a class="dropdown-item" href="/">Dropdown One</a></li>
           <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
         </dropdown>
+        <div class="temp-dropdown-placeholder"></div>
 
         <p><strong>Filler text</strong></p>
         <p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
