@@ -140,7 +140,7 @@ class NodeProcessor {
    */
   static _transformSlottedComponents(node) {
     node.children.forEach((child) => {
-      // Turns <div #content>... into <div data-mb-slot-name=content>...
+      // Turns <template #content>... into <span data-mb-slot-name=content>...
       const vslotShorthandName = NodeProcessor.getVslotShorthandName(child);
       if (vslotShorthandName) {
         child.attribs['data-mb-slot-name'] = vslotShorthandName;
