@@ -114,10 +114,7 @@ class NodeProcessor {
    */
   _processAttributeWithoutOverride(node, attribute, isInline, slotName = attribute) {
     const hasAttributeSlot = node.children
-      && node.children.some((child) => {
-        const vslotShorthandName = NodeProcessor.getVslotShorthandName(child);
-        return vslotShorthandName && vslotShorthandName === slotName;
-      });
+      && node.children.some(child => NodeProcessor.getVslotShorthandName(child) === slotName);
 
     if (!hasAttributeSlot && _.has(node.attribs, attribute)) {
       let rendered;
@@ -148,9 +145,7 @@ class NodeProcessor {
       if (vslotShorthandName) {
         child.attribs['data-mb-slot-name'] = vslotShorthandName;
         delete child.attribs[`#${vslotShorthandName}`];
-      }
-      // similarly, need to transform templates to avoid Vue parsing
-      if (child.name === 'template') {
+        // similarly, need to transform templates to avoid Vue parsing
         child.name = 'span';
       }
     });
@@ -226,10 +221,7 @@ class NodeProcessor {
     const slotChildren = node.children
       && node.children.filter(child => NodeProcessor.getVslotShorthandName(child) !== '');
 
-    const headerSlot = slotChildren.find((child) => {
-      const vslotShorthandName = NodeProcessor.getVslotShorthandName(child);
-      return vslotShorthandName === 'header';
-    });
+    const headerSlot = slotChildren.find(child => NodeProcessor.getVslotShorthandName(child) === 'header');
 
     if (headerSlot) {
       const header = NodeProcessor._findHeaderElement(headerSlot);
@@ -420,10 +412,8 @@ class NodeProcessor {
     NodeProcessor._renameAttribute(node, 'center', 'centered');
 
     const hasOkTitle = _.has(node.attribs, 'ok-title');
-    const hasFooter = node.children.some((child) => {
-      const vslotShorthandName = NodeProcessor.getVslotShorthandName(child);
-      return vslotShorthandName && vslotShorthandName === 'modal-footer';
-    });
+    const hasFooter = node.children
+      .some(child => NodeProcessor.getVslotShorthandName(child) === 'modal-footer');
 
     if (!hasFooter && !hasOkTitle) {
       // markbind doesn't show the footer by default
@@ -489,10 +479,8 @@ class NodeProcessor {
    */
 
   _processDropdownAttributes(node) {
-    const hasHeaderSlot = node.children && node.children.some((child) => {
-      const vslotShorthandName = NodeProcessor.getVslotShorthandName(child);
-      return vslotShorthandName && vslotShorthandName === 'header';
-    });
+    const hasHeaderSlot = node.children
+      && node.children.some(child => NodeProcessor.getVslotShorthandName(child) === 'header');
 
     // If header slot is present, the header attribute has no effect, and we can simply remove it.
     if (hasHeaderSlot) {
