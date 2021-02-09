@@ -231,7 +231,7 @@ test('Site deploys with default settings', async () => {
   expect(ghpages.options)
     .toEqual({
       branch: 'gh-pages',
-      message: 'Site Update.',
+      message: 'Site Update. [skip ci]',
       repo: '',
       remote: 'origin',
     });
@@ -256,7 +256,7 @@ test('Site deploys with custom settings', async () => {
   expect(ghpages.options)
     .toEqual({
       branch: 'master',
-      message: 'Custom Site Update.',
+      message: 'Custom Site Update. [skip ci]',
       repo: 'https://github.com/USER/REPO.git',
       remote: 'origin',
     });
