@@ -289,6 +289,9 @@ describe('Site deploy with various CI environments', () => {
     delete process.env.APPVEYOR_REPO_NAME;
     delete process.env.GITHUB_ACTIONS;
     delete process.env.GITHUB_REPOSITORY;
+    delete process.env.CIRCLECI;
+    delete process.env.CIRCLE_PROJECT_USERNAME;
+    delete process.env.CIRCLE_PROJECT_REPONAME;
   });
 
   afterAll(() => {
@@ -296,15 +299,24 @@ describe('Site deploy with various CI environments', () => {
     process.env = { ...OLD_ENV };
   });
 
+  /* eslint-disable max-len */
   test.each([
-    ['TRAVIS', 'TRAVIS_REPO_SLUG', { name: 'Deployment Bot', email: 'deploy@travis-ci.org' }],
-    ['APPVEYOR', 'APPVEYOR_REPO_NAME', { name: 'AppVeyorBot', email: 'deploy@appveyor.com' }],
-    ['GITHUB_ACTIONS', 'GITHUB_REPOSITORY', { name: 'github-actions', email: 'github-actions@github.com' }],
+    ['TRAVIS', { reposlug: 'TRAVIS_REPO_SLUG' }, { name: 'Deployment Bot', email: 'deploy@travis-ci.org' }],
+    ['APPVEYOR', { reposlug: 'APPVEYOR_REPO_NAME' }, { name: 'AppVeyorBot', email: 'deploy@appveyor.com' }],
+    ['GITHUB_ACTIONS', { reposlug: 'GITHUB_REPOSITORY' }, { name: 'github-actions', email: 'github-actions@github.com' }],
+    ['CIRCLECI', { username: 'CIRCLE_PROJECT_USERNAME', reponame: 'CIRCLE_PROJECT_REPONAME' }, { name: 'circleci-bot', email: 'deploy@circleci.com' }],
   ])('Site deploy -c/--ci deploys with default settings',
+  /* eslint-enable max-len */
      async (ciIdentifier, repoSlugIdentifier, deployBotUser) => {
        process.env[ciIdentifier] = true;
-       process.env[repoSlugIdentifier] = 'GENERIC_USER/GENERIC_REPO';
        process.env.GITHUB_TOKEN = 'githubToken';
+       const genericRepoSlug = 'GENERIC_USER/GENERIC_REPO';
+       if (repoSlugIdentifier.reposlug) {
+         process.env[repoSlugIdentifier.reposlug] = genericRepoSlug;
+       } else {
+         process.env[repoSlugIdentifier.username] = 'GENERIC_USER';
+         process.env[repoSlugIdentifier.reponame] = 'GENERIC_REPO';
+       }
 
        const json = {
          ...PAGE_NJK,
@@ -315,20 +327,25 @@ describe('Site deploy with various CI environments', () => {
        const site = new Site('./', '_site');
        await site.deploy(true);
        expect(ghpages.options.repo)
-         // eslint-disable-next-line max-len
-         .toEqual(`https://x-access-token:${process.env.GITHUB_TOKEN}@github.com/${process.env[repoSlugIdentifier]}.git`);
+         .toEqual(`https://x-access-token:${process.env.GITHUB_TOKEN}@github.com/${genericRepoSlug}.git`);
        expect(ghpages.options.user).toEqual(deployBotUser);
      });
 
   test.each([
-    ['TRAVIS', 'TRAVIS_REPO_SLUG'],
-    ['APPVEYOR', 'APPVEYOR_REPO_NAME'],
-    ['GITHUB_ACTIONS', 'GITHUB_REPOSITORY'],
+    ['TRAVIS', { reposlug: 'TRAVIS_REPO_SLUG' }],
+    ['APPVEYOR', { reposlug: 'APPVEYOR_REPO_NAME' }],
+    ['GITHUB_ACTIONS', { reposlug: 'GITHUB_REPOSITORY' }],
+    ['CIRCLECI', { username: 'CIRCLE_PROJECT_USERNAME', reponame: 'CIRCLE_PROJECT_REPONAME' }],
   ])('Site deploy -c/--ci deploys with custom GitHub repo',
      async (ciIdentifier, repoSlugIdentifier) => {
        process.env[ciIdentifier] = true;
-       process.env[repoSlugIdentifier] = 'GENERIC_USER/GENERIC_REPO';
        process.env.GITHUB_TOKEN = 'githubToken';
+       if (repoSlugIdentifier.reposlug) {
+         process.env[repoSlugIdentifier.reposlug] = 'GENERIC_USER/GENERIC_REPO';
+       } else {
+         process.env[repoSlugIdentifier.username] = 'GENERIC_USER';
+         process.env[repoSlugIdentifier.reponame] = 'GENERIC_REPO';
+       }
 
        const customRepoConfig = JSON.parse(SITE_JSON_DEFAULT);
        customRepoConfig.deploy.repo = 'https://github.com/USER/REPO.git';
@@ -345,14 +362,21 @@ describe('Site deploy with various CI environments', () => {
      });
 
   test.each([
-    ['TRAVIS', 'TRAVIS_REPO_SLUG'],
-    ['APPVEYOR', 'APPVEYOR_REPO_NAME'],
-    ['GITHUB_ACTIONS', 'GITHUB_REPOSITORY'],
+    ['TRAVIS', { reposlug: 'TRAVIS_REPO_SLUG' }],
+    ['APPVEYOR', { reposlug: 'APPVEYOR_REPO_NAME' }],
+    ['GITHUB_ACTIONS', { reposlug: 'GITHUB_REPOSITORY' }],
+    ['CIRCLECI', { username: 'CIRCLE_PROJECT_USERNAME', reponame: 'CIRCLE_PROJECT_REPONAME' }],
   ])('Site deploy -c/--ci deploys to correct repo when .git is in repo name',
      async (ciIdentifier, repoSlugIdentifier) => {
        process.env[ciIdentifier] = true;
-       process.env[repoSlugIdentifier] = 'GENERIC_USER/GENERIC_REPO.github.io';
        process.env.GITHUB_TOKEN = 'githubToken';
+       const genericRepoSlug = 'GENERIC_USER/GENERIC_REPO.github.io';
+       if (repoSlugIdentifier.reposlug) {
+         process.env[repoSlugIdentifier.reposlug] = 'GENERIC_USER/GENERIC_REPO.github.io';
+       } else {
+         process.env[repoSlugIdentifier.username] = 'GENERIC_USER';
+         process.env[repoSlugIdentifier.reponame] = 'GENERIC_REPO.github.io';
+       }
 
        const json = {
          ...PAGE_NJK,
@@ -364,7 +388,7 @@ describe('Site deploy with various CI environments', () => {
        await site.deploy(true);
        expect(ghpages.options.repo)
          // eslint-disable-next-line max-len
-         .toEqual(`https://x-access-token:${process.env.GITHUB_TOKEN}@github.com/${process.env[repoSlugIdentifier]}.git`);
+         .toEqual(`https://x-access-token:${process.env.GITHUB_TOKEN}@github.com/${genericRepoSlug}.git`);
      });
 
   test('Site deploy -c/--ci should not deploy if not in CI environment', async () => {
@@ -386,6 +410,7 @@ describe('Site deploy with various CI environments', () => {
     ['TRAVIS'],
     ['APPVEYOR'],
     ['GITHUB_ACTIONS'],
+    ['CIRCLECI'],
   ])('Site deploy -c/--ci should not deploy without authentication token', async (ciIdentifier) => {
     process.env[ciIdentifier] = true;
 
@@ -405,6 +430,7 @@ describe('Site deploy with various CI environments', () => {
     ['TRAVIS'],
     ['APPVEYOR'],
     ['GITHUB_ACTIONS'],
+    ['CIRCLECI'],
   ])('Site deploy -c/--ci should not deploy if custom repository is not on GitHub', async (ciIdentifier) => {
     process.env[ciIdentifier] = true;
     process.env.GITHUB_TOKEN = 'githubToken';
