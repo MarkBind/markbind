@@ -1112,7 +1112,7 @@ class Site {
   deploy(ciTokenVar) {
     const defaultDeployConfig = {
       branch: 'gh-pages',
-      message: 'Site Update.',
+      message: 'Site Update. [ci skip]',
       repo: '',
       remote: 'origin',
     };
