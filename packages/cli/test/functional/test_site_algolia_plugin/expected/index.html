@@ -30,32 +30,33 @@
     <p>
     <p><strong>Test Algolia plugin adds algolia-no-index classes</strong></p>
     <p><strong>Dropdowns should have algolia-no-index class</strong></p>
-    <dropdown class="temp-dropdown algolia-no-index"><template slot="_header">Dropdown</template>
+    <dropdown class="temp-dropdown algolia-no-index"><template #_header>Dropdown</template>
       <li><a class="dropdown-item" href="/">One</a></li>
       <li><a class="dropdown-item" href="/">Two</a></li>
     </dropdown>
     <div class="temp-dropdown-placeholder"></div>
     <p><strong>Modal content should have algolia-no-index class</strong></p>
-    <b-modal id="modal:trigger_id" hide-footer size modal-class="mb-zoom" ref="modal:trigger_id" class="algolia-no-index"><template slot="modal-title">Modal</template>
+    <b-modal id="modal:trigger_id" hide-footer size modal-class="mb-zoom" ref="modal:trigger_id" class="algolia-no-index"><template #modal-title>Modal</template>
       Content should have `algolia-no-index` class
     </b-modal>
     <trigger for="modal:trigger_id">Trigger should not have `algolia-no-index` class</trigger>
     <p><strong>Panels that are not expanded should have algolia-no-index class</strong></p>
-    <panel class="algolia-no-index"><template slot="header">
+    <panel class="algolia-no-index"><template #header>
         <p>Panel</p>
       </template>
       Content
     </panel>
-    <panel expanded><template slot="header">
+    <panel expanded><template #header>
         <p>Panel</p>
       </template>
       Content
     </panel>
     <p><strong>Popover content should have algolia-no-index class</strong></p>
     <span effect="fade" placement="top" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger"><span data-mb-slot-name="header" class="algolia-no-index">Title</span>
-      <div data-mb-slot-name="content" class="algolia-no-index">Content should have `algolia-no-index` class</div>
-      <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
-    </span>
+      <span data-mb-slot-name="content" class="algolia-no-index">
+        <div>Content should have `algolia-no-index` class</div>
+      </span>
+      <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button></span>
     <span effect="fade" placement="top" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger"><span data-mb-slot-name="header" class="algolia-no-index">Title</span><span data-mb-slot-name="content" class="algolia-no-index">Content should have <code class="hljs inline no-lang" v-pre>algolia-no-index</code> class</span>
       <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button></span>
     <p><strong>Tooltip content should have algolia-no-index class</strong></p>
@@ -64,46 +65,49 @@
     <p><strong>Question hint and answer should have algolia-no-index class</strong></p>
     <question>
       Question should not have `algolia-no-index` class
-      <div slot="hint" class="algolia-no-index">Hint should have `algolia-no-index` class</div>
-      <div slot="answer" class="algolia-no-index">Answer should have `algolia-no-index` class</div>
-    </question>
+      <template #hint>
+        <div class="algolia-no-index">Hint should have `algolia-no-index` class</div>
+      </template>
+      <template #answer>
+        <div class="algolia-no-index">Answer should have `algolia-no-index` class</div>
+      </template></question>
     <p><strong>Tabs except first tab should have algolia-no-index class</strong></p>
     <tabs>
-      <tab><template slot="_header">First Tab</template>
+      <tab><template #_header>First Tab</template>
         Content<br>Content<br>Content<br>Content
       </tab>
-      <tab class="algolia-no-index"><template slot="_header">Second Tab</template>
+      <tab class="algolia-no-index"><template #_header>Second Tab</template>
         Content<br>Content<br>Content<br>Content
       </tab>
     </tabs>
     <tabs>
-      <tab-group><template slot="_header">First Group</template>
-        <tab><template slot="_header">First Tab</template>
+      <tab-group><template #_header>First Group</template>
+        <tab><template #_header>First Tab</template>
           Content<br>Content<br>Content<br>Content
         </tab>
-        <tab class="algolia-no-index"><template slot="_header">Second Tab</template>
+        <tab class="algolia-no-index"><template #_header>Second Tab</template>
           Content<br>Content<br>Content<br>Content
         </tab>
       </tab-group>
-      <tab-group class="algolia-no-index"><template slot="_header">Second Group</template>
-        <tab><template slot="_header">First Tab</template>
+      <tab-group class="algolia-no-index"><template #_header>Second Group</template>
+        <tab><template #_header>First Tab</template>
           Content<br>Content<br>Content<br>Content
         </tab>
-        <tab class="algolia-no-index"><template slot="_header">Second Tab</template>
+        <tab class="algolia-no-index"><template #_header>Second Tab</template>
           Content<br>Content<br>Content<br>Content
         </tab>
       </tab-group>
     </tabs>
     <tabs>
-      <tab-group><template slot="_header">Outer One</template>
-        <tab><template slot="_header">First Tab</template>
+      <tab-group><template #_header>Outer One</template>
+        <tab><template #_header>First Tab</template>
           Content<br>Content<br>Content<br>Content
         </tab>
-        <tab class="algolia-no-index"><template slot="_header">Second Tab</template>
+        <tab class="algolia-no-index"><template #_header>Second Tab</template>
           Content<br>Content<br>Content<br>Content
         </tab>
       </tab-group>
-      <tab><template slot="_header">Outer Two</template>
+      <tab><template #_header>Outer Two</template>
         Content<br>Content<br>Content<br>Content
       </tab>
     </tabs>

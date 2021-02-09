@@ -26,8 +26,8 @@ function addNoIndexClasses(content) {
     'panel:not([expanded])',
     // to target both popover and tooltip
     '[data-mb-component-type] [data-mb-slot-name]',
-    'question div[slot=hint]',
-    'question div[slot=answer]',
+    'question template[\\#hint] div',
+    'question template[\\#answer] div',
     'tab:nth-of-type(n+2)',
     'tab-group:nth-of-type(n+2)',
   ].join(', ');

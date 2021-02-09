@@ -8,6 +8,7 @@ const _ = {};
 _.isArray = require('lodash/isArray');
 _.cloneDeep = require('lodash/cloneDeep');
 _.has = require('lodash/has');
+_.find = require('lodash/find');
 
 const { renderSiteNav } = require('./siteNavProcessor');
 const { processInclude, processPanelSrc } = require('./includePanelProcessor');
@@ -88,9 +89,24 @@ class NodeProcessor {
     return node.type === 'text' || node.type === 'comment';
   }
 
+  static getVslotShorthandName(node) {
+    if (!node.attribs) {
+      return '';
+    }
+
+    const keys = Object.keys(node.attribs);
+    const vslotShorthand = _.find(keys, key => key.startsWith('#'));
+    if (!vslotShorthand) {
+      return '';
+    }
+
+    return vslotShorthand.substring(1, vslotShorthand.length); // remove #
+  }
+
   /**
    * Processes the markdown attribute of the provided element, inserting the corresponding <slot> child
-   * if there is no pre-existing slot child with the name of the attribute present.
+   * if there is no pre-existing slot child with the name of the attribute present. For existing <slot>
+   * children, the HTML node tag name will be converted to "template".
    * @param node Element to process
    * @param attribute Attribute name to process
    * @param isInline Whether to process the attribute with only inline markdown-it rules
@@ -98,7 +114,7 @@ class NodeProcessor {
    */
   _processAttributeWithoutOverride(node, attribute, isInline, slotName = attribute) {
     const hasAttributeSlot = node.children
-      && node.children.some(child => _.has(child.attribs, 'slot') && child.attribs.slot === slotName);
+      && node.children.some(child => NodeProcessor.getVslotShorthandName(child) === slotName);
 
     if (!hasAttributeSlot && _.has(node.attribs, attribute)) {
       let rendered;
@@ -109,7 +125,7 @@ class NodeProcessor {
       }
 
       const attributeSlotElement = cheerio.parseHTML(
-        `<template slot="${slotName}">${rendered}</template>`, true);
+        `<template #${slotName}>${rendered}</template>`, true);
       node.children
         = node.children ? attributeSlotElement.concat(node.children) : attributeSlotElement;
     }
@@ -124,14 +140,12 @@ class NodeProcessor {
    */
   static _transformSlottedComponents(node) {
     node.children.forEach((child) => {
-      const slot = child.attribs && child.attribs.slot;
-      if (slot) {
-        // Turns <div slot="content">... into <div data-mb-slot-name=content>...
-        child.attribs['data-mb-slot-name'] = slot;
-        delete child.attribs.slot;
-      }
-      // similarly, need to transform templates to avoid Vue parsing
-      if (child.name === 'template') {
+      // Turns <template #content>... into <span data-mb-slot-name=content>...
+      const vslotShorthandName = NodeProcessor.getVslotShorthandName(child);
+      if (vslotShorthandName) {
+        child.attribs['data-mb-slot-name'] = vslotShorthandName;
+        delete child.attribs[`#${vslotShorthandName}`];
+        // similarly, need to transform templates to avoid Vue parsing
         child.name = 'span';
       }
     });
@@ -204,8 +218,10 @@ class NodeProcessor {
    * @param node The root panel element
    */
   static _assignPanelId(node) {
-    const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
-    const headerSlot = slotChildren.find(child => child.attribs.slot === 'header');
+    const slotChildren = node.children
+      && node.children.filter(child => NodeProcessor.getVslotShorthandName(child) !== '');
+
+    const headerSlot = slotChildren.find(child => NodeProcessor.getVslotShorthandName(child) === 'header');
 
     if (headerSlot) {
       const header = NodeProcessor._findHeaderElement(headerSlot);
@@ -331,17 +347,17 @@ class NodeProcessor {
       return;
     }
     element.children.forEach((child) => {
-      if (!(_.has(child.attribs, 'slot'))) {
-        return;
+      const vslotShorthandName = NodeProcessor.getVslotShorthandName(child);
+      if (vslotShorthandName) {
+        Object.entries(namePairs)
+          .forEach(([deprecatedName, correctName]) => {
+            if (vslotShorthandName !== deprecatedName) {
+              return;
+            }
+            logger.warn(`${element.name} shorthand slot name '${deprecatedName}' `
+              + `is deprecated and may be removed in the future. Please use '${correctName}'`);
+          });
       }
-      Object.entries(namePairs)
-        .forEach(([deprecatedName, correctName]) => {
-          if (child.attribs.slot !== deprecatedName) {
-            return;
-          }
-          logger.warn(`${element.name} slot name '${deprecatedName}' `
-            + `is deprecated and may be removed in the future. Please use '${correctName}'`);
-        });
     });
   }
 
@@ -359,10 +375,12 @@ class NodeProcessor {
 
   static _renameSlot(node, originalName, newName) {
     if (node.children) {
-      node.children.forEach((c) => {
-        const child = c;
-        if (_.has(child.attribs, 'slot') && child.attribs.slot === originalName) {
-          child.attribs.slot = newName;
+      node.children.forEach((child) => {
+        const vslotShorthandName = NodeProcessor.getVslotShorthandName(child);
+        if (vslotShorthandName && vslotShorthandName === originalName) {
+          const newVslot = `#${newName}`;
+          child.attribs[newVslot] = '';
+          delete child.attribs[`#${vslotShorthandName}`];
         }
       });
     }
@@ -394,8 +412,8 @@ class NodeProcessor {
     NodeProcessor._renameAttribute(node, 'center', 'centered');
 
     const hasOkTitle = _.has(node.attribs, 'ok-title');
-    const hasFooter = node.children.some(child =>
-      _.has(child.attribs, 'slot') && child.attribs.slot === 'modal-footer');
+    const hasFooter = node.children
+      .some(child => NodeProcessor.getVslotShorthandName(child) === 'modal-footer');
 
     if (!hasFooter && !hasOkTitle) {
       // markbind doesn't show the footer by default
@@ -461,8 +479,8 @@ class NodeProcessor {
    */
 
   _processDropdownAttributes(node) {
-    const slotChildren = node.children && node.children.filter(child => _.has(child.attribs, 'slot'));
-    const hasHeaderSlot = slotChildren && slotChildren.some(child => child.attribs.slot === 'header');
+    const hasHeaderSlot = node.children
+      && node.children.some(child => NodeProcessor.getVslotShorthandName(child) === 'header');
 
     // If header slot is present, the header attribute has no effect, and we can simply remove it.
     if (hasHeaderSlot) {
@@ -540,7 +558,7 @@ class NodeProcessor {
         hasFootnote = true;
         const popoverId = `${MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX}${li.attribs.id}`;
         const popoverNode = cheerio.parseHTML(`<popover id="${popoverId}">
-            <div slot="content">
+            <div #content>
               ${$(li).html()}
             </div>
           </popover>`)[0];
@@ -600,11 +618,63 @@ class NodeProcessor {
   }
 
   /*
+   * Shifts the slot node deeper by one level by creating a new intermediary node with template tag name.
+   */
+  static shiftSlotNodeDeeper(node) {
+    if (!node.children) {
+      return;
+    }
+
+    node.children.forEach((child) => {
+      const vslotShorthandName = NodeProcessor.getVslotShorthandName(child);
+      if (vslotShorthandName && child.name !== 'template') {
+        const newSlotNode = cheerio.parseHTML('<template></template>')[0];
+
+        const vslotShorthand = `#${vslotShorthandName}`;
+        newSlotNode.attribs[vslotShorthand] = '';
+        delete child.attribs[vslotShorthand];
+
+        newSlotNode.parent = node;
+        child.parent = newSlotNode;
+
+        newSlotNode.children.push(child);
+
+        // replace the shifted old child node with the new slot node
+        node.children.forEach((childNode, idx) => {
+          if (childNode === child) {
+            node.children[idx] = newSlotNode;
+          }
+        });
+      }
+    });
+  }
+
+  /*
+   * Transforms deprecated vue slot syntax (slot="test") into the updated Vue slot shorthand syntax (#test).
+   */
+  static transformOldSlotSyntax(node) {
+    if (!node.children) {
+      return;
+    }
+
+    node.children.forEach((child) => {
+      if (_.has(child.attribs, 'slot')) {
+        const vslotShorthandName = `#${child.attribs.slot}`;
+        child.attribs[vslotShorthandName] = '';
+        delete child.attribs.slot;
+      }
+    });
+  }
+
+  /*
    * API
    */
 
   processNode(node, context) {
     try {
+      NodeProcessor.transformOldSlotSyntax(node);
+      NodeProcessor.shiftSlotNodeDeeper(node);
+
       switch (node.name) {
       case 'frontmatter':
         this._processFrontMatter(node, context);

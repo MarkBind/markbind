@@ -31,15 +31,17 @@
 
     <header fixed>
       <navbar placement="top" type="inverse" class=" temp-navbar">
-        <a slot="brand" href="/index.html" title="Home" class="navbar-brand">
-          <i class="far fa-file-image"></i></a>
+        <template #brand><a href="/index.html" title="Home" class="navbar-brand">
+            <i class="far fa-file-image"></i></a></template>
         <li><a href="/index.html" class="nav-link">HOME</a></li>
         <li><a href="/about.html" class="nav-link">ABOUT</a></li>
-        <li slot="right">
-          <form class="navbar-form">
-            <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right></searchbar>
-          </form>
-        </li>
+        <template #right>
+          <li>
+            <form class="navbar-form">
+              <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right></searchbar>
+            </form>
+          </li>
+        </template>
       </navbar>
     </header>
     <div id="flex-body">
