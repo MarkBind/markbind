@@ -7,7 +7,15 @@ const slugify = require('@sindresorhus/slugify');
 
 const { HighlightRule } = require('./highlight/HighlightRule.js');
 
+const createDoubleDelimiterInlineRule = require('./markdown-it-double-delimiter');
+
 // markdown-it plugins
+
+markdownIt.use(createDoubleDelimiterInlineRule('%%', 'dimmed', 'emphasis'))
+  .use(createDoubleDelimiterInlineRule('$$', 'underline', 'dimmed'))
+  .use(createDoubleDelimiterInlineRule('++', 'large', 'underline'))
+  .use(createDoubleDelimiterInlineRule('--', 'small', 'large'));
+
 markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-ins'))
   .use(require('markdown-it-sub'))
@@ -21,11 +29,7 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('./markdown-it-radio-button'))
   .use(require('./markdown-it-block-embed'))
   .use(require('./markdown-it-icons'))
-  .use(require('./markdown-it-footnotes'))
-  .use(require('./markdown-it-double-delimiter')('%%', 'dimmed', 'emphasis'))
-  .use(require('./markdown-it-double-delimiter')('$$', 'underline', 'dimmed'))
-  .use(require('./markdown-it-double-delimiter')('++', 'large', 'underline'))
-  .use(require('./markdown-it-double-delimiter')('--', 'small', 'large'));
+  .use(require('./markdown-it-footnotes'));
 
 // fix table style
 markdownIt.renderer.rules.table_open = (tokens, idx) => {
