@@ -243,9 +243,9 @@
         </div>
         <p><strong>Inline markdown contained in heading should also be rendered correctly</strong></p>
         <div class="code-block">
-          <div class="code-block-heading inline-markdown-heading"><span><strong>Bold</strong>, <em>Italic</em>, <em><strong>Bold and Italic</strong></em>, <s>Strike through</s>, <strong><strong>Super Bold</strong></strong>, <ins>Underline</ins>, <mark>Highlight</mark>, 👍 ❗️ ❌ 🚧<br>We support page breaks</span></div>
+          <div class="code-block-heading inline-markdown-heading"><span><strong>Bold</strong>, <em>Italic</em>, <em><strong>Bold and Italic</strong></em>, <s>Strike through</s>, <strong><strong>Super Bold</strong></strong>, <span class="underline">Underline</span>, <mark>Highlight</mark>, <span class="large">Large</span>, <span class="small">Small</span>, 👍 ❗️ ❌ 🚧<br>We support page breaks</span></div>
           <div class="code-block-content">
-            <pre><code heading="**Bold**, _Italic_, ___Bold and Italic___, ~~Strike through~~, ****Super Bold****, ++Underline++, ==Highlight==, :+1: :exclamation: :x: :construction:&lt;br&gt;We support page breaks" class="hljs" v-pre><span>&lt;foo&gt;
+            <pre><code heading="**Bold**, _Italic_, ___Bold and Italic___, ~~Strike through~~, ****Super Bold****, $$Underline$$, ==Highlight==, ++Large++, --Small--, :+1: :exclamation: :x: :construction:&lt;br&gt;We support page breaks" class="hljs" v-pre><span>&lt;foo&gt;
 </span><span>    &lt;bar&gt;
 </span><span>&lt;/foo&gt;
 </span></code></pre>
