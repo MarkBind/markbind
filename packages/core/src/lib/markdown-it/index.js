@@ -18,11 +18,14 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-linkify-images'), {imgClass: 'img-fluid'})
   .use(require('markdown-it-texmath'), {engine: require('katex'), delimiters: 'brackets'})
   .use(require('./patches/markdown-it-attrs-nunjucks'))
-  .use(require('./markdown-it-dimmed'))
   .use(require('./markdown-it-radio-button'))
   .use(require('./markdown-it-block-embed'))
   .use(require('./markdown-it-icons'))
-  .use(require('./markdown-it-footnotes'));
+  .use(require('./markdown-it-footnotes'))
+  .use(require('./markdown-it-double-delimiter')('%%', 'dimmed', 'emphasis'))
+  .use(require('./markdown-it-double-delimiter')('$$', 'underline', 'dimmed'))
+  .use(require('./markdown-it-double-delimiter')('++', 'large', 'underline'))
+  .use(require('./markdown-it-double-delimiter')('--', 'small', 'large'));
 
 // fix table style
 markdownIt.renderer.rules.table_open = (tokens, idx) => {
