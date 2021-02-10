@@ -40,7 +40,7 @@ You can define such a slot within the component by adding a `#slot_name` attribu
 <box type="info">
 
 You may define a slot by using `slot="slot_name"` as well. 
-However, we **++do not recommend++** using this syntax as it is deprecated and will be removed in the future. 
+However, we **$$do not recommend$$** using this syntax as it is deprecated and will be removed in the future. 
 
 ```html
   <panel>

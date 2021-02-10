@@ -26,7 +26,7 @@ Syntax scheme | Code | Output
 --------------|------|-------
 Markdown | `**bold text** _italic text_` | **bold text** _italic text_
 GFMD | `~~striked out text~~` | ~~striked out text~~
-MarkBind extensions to Markdown | `==highlighted text==`<br>`%%grey text%%`<br>`++underlined text++` | ==highlighted text==<br>%%grey text%%<br>++underlined text++
+MarkBind extensions to Markdown | `==highlighted text==`<br>`%%grey text%%`<br>`$$underlined text$$` | ==highlighted text==<br>%%grey text%%<br>$$underlined text$$
 
 <panel type="seamless" header="%%More examples of generating static content%%" >
 
