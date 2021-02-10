@@ -122,7 +122,7 @@ Headings support inline Markdown, except for `Inline Code` and %%Dim%% text styl
 <include src="codeAndOutputCode.md" boilerplate >
 <variable name="code">
 
-```{heading="**Bold**, _Italic_, ___Bold and Italic___, ~~Strike through~~, ****Super Bold****, ++Underline++, ==Highlight==, :+1: :exclamation: :x: :construction:<br>We support page breaks"}
+```{heading="**Bold**, _Italic_, ___Bold and Italic___, ~~Strike through~~, ****Super Bold****, $$Underline$$, ==Highlight==, :+1: :exclamation: :x: :construction:<br>We support page breaks"}
 <foo></foo>
 ```
 </variable>
