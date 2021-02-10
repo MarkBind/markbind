@@ -83,7 +83,20 @@ function detectAndApplyFixedHeaderStyles() {
     });
     resizeObserver.observe(headerSelector[0]);
   };
+
+  let lastOffset = 0;
+  const toggleHeaderOnScroll = () => {
+    const currentOffset = window.pageYOffset;
+    if (currentOffset > lastOffset) {
+      headerSelector.addClass('hide-header');
+    } else {
+      headerSelector.removeClass('hide-header');
+    }
+    lastOffset = currentOffset;
+  };
+
   addResizeHeaderListener();
+  setTimeout(() => window.addEventListener('scroll', toggleHeaderOnScroll), 500);
 }
 
 function updateSearchData(vm) {

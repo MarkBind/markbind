@@ -57,7 +57,12 @@ export default {
   },
   methods: {
     toggleNavMenu() {
-      if (!this.show) { publish('closeOverlay'); }
+      if (!this.show) {
+        publish('closeOverlay');
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.removeProperty('overflow');
+      }
       this.show = !this.show;
     },
     navMenuLoaded() {
