@@ -7,7 +7,13 @@ const slugify = require('@sindresorhus/slugify');
 
 const { HighlightRule } = require('./highlight/HighlightRule.js');
 
+const createDoubleDelimiterInlineRule = require('./markdown-it-double-delimiter');
+
 // markdown-it plugins
+
+markdownIt.use(createDoubleDelimiterInlineRule('%%', 'dimmed', 'emphasis'))
+  .use(createDoubleDelimiterInlineRule('$$', 'underline', 'dimmed'))
+
 markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-ins'))
   .use(require('markdown-it-sub'))
@@ -18,7 +24,6 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-linkify-images'), {imgClass: 'img-fluid'})
   .use(require('markdown-it-texmath'), {engine: require('katex'), delimiters: 'brackets'})
   .use(require('./patches/markdown-it-attrs-nunjucks'))
-  .use(require('./markdown-it-dimmed'))
   .use(require('./markdown-it-radio-button'))
   .use(require('./markdown-it-block-embed'))
   .use(require('./markdown-it-icons'))
