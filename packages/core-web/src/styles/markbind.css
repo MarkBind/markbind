@@ -179,6 +179,10 @@ footer {
     color: #777;
 }
 
+.underline {
+    text-decoration: underline;
+}
+
 /* Bootstrap small(sm) responsive breakpoint */
 @media (max-width: 767.98px) {
     .dropdown-menu > li > a {
