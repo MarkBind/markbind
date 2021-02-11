@@ -160,14 +160,15 @@ export default {
   .morph-title {
     padding: 0 0.3em;
     color: black;
-    border-color: rgba(0, 0, 0, 0.5);
+    border-color: black;
     background-color: transparent;
     vertical-align: top;
   }
 
   .morph-title:hover, .morph-title:active, .morph-title:focus {
-    border-color: black;
-    background-color: rgba(244, 244, 244, 0.3);
+    color: white;
+    border-color: #343a40;
+    background-color: #343a40;
   }
 
   .card-collapse {
