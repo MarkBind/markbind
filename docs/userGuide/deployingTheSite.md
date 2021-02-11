@@ -145,7 +145,7 @@ Since May 2018, Travis CI has been [undergoing migration to `travis-ci.com`](htt
 
 ##### Configuring your repository in Travis CI
 
-1. [Add an environment variable in Travis CI](https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings) named `GITHUB_TOKEN`, which contains the value of your  [generated Github Personal Access Token](#generating-a-github-personal-access-token). ==Ensure that _Display value in the build log_ is set to _Off_.==
+1. [Add an environment variable in Travis CI](https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings) named `GITHUB_TOKEN`, with the value set to your [generated Github Personal Access Token](#generating-a-github-personal-access-token). ==Ensure that _Display value in the build log_ is set to _Off_.==
    <include src="screenshot.md" boilerplate var-alt="Add GITHUB_TOKEN" var-file="travisGithubToken.png" inline />
 1. Add a `.travis.yml` file to instruct Travis CI to build and deploy the site when you push to the repository. An example `.travis.yml` file that can accomplish this is given below:
 ```yaml
