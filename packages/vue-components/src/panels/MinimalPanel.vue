@@ -17,7 +17,7 @@
           <span
             v-show="!isHeaderAtBottom"
             ref="headerWrapper"
-            :class="['card-title', 'card-title-transparent', { 'ellipses': !hasHeaderBool }]"
+            :class="['card-title', { 'ellipses': !hasHeaderBool }]"
           >
             <span class="card-title-inline"><slot name="header"></slot></span>
             <span
@@ -159,16 +159,15 @@ export default {
 
   .morph-title {
     padding: 0 0.3em;
-    color: rgba(0, 0, 0, 0.5);
-    border-color: rgba(0, 0, 0, 0.5);
+    border-color: black;
     background-color: transparent;
     vertical-align: top;
   }
 
   .morph-title:hover, .morph-title:active, .morph-title:focus {
-    color: black;
-    border-color: black;
-    background-color: rgba(244, 244, 244, 0.3);
+    color: white;
+    border-color: #343a40;
+    background-color: #343a40;
   }
 
   .card-collapse {
@@ -181,15 +180,6 @@ export default {
     flex-direction: column;
     border: 0;
     margin: 0;
-  }
-
-  .card-title-transparent {
-    opacity: 0.5;
-    transition: opacity 0.5s;
-  }
-
-  .card:hover .card-title-transparent {
-    opacity: 1;
   }
 
   .header-fade-enter {
