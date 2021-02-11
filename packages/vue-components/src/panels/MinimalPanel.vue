@@ -159,7 +159,6 @@ export default {
 
   .morph-title {
     padding: 0 0.3em;
-    color: black;
     border-color: black;
     background-color: transparent;
     vertical-align: top;
@@ -181,10 +180,6 @@ export default {
     flex-direction: column;
     border: 0;
     margin: 0;
-  }
-
-  .card-title {
-    color: black;
   }
 
   .header-fade-enter {
