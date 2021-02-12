@@ -107,7 +107,7 @@ text-only range highlight.
 
 <variable name="code">
 
-```java {highlight-lines="1,3[:],6-8,10[:]-12"}
+```java {highlight-lines="1[:],3,4[8:18],6[:]-8,10-12,14[12:],18[12:]-20"}
 import java.util.List;
 
 public class Inventory {
@@ -121,7 +121,13 @@ public class Inventory {
         return items.isEmpty();
     }
 
-    //...
+    public Item getItem(idx: int) {
+        return items.get(idx);
+    }
+
+    public void addItem(item: Item) {
+        return items.add(item);
+    }
 }
 ```
 </variable>
