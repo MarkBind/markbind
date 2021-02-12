@@ -61,23 +61,47 @@ function add(a, b) {
 
 
 ##### Line highlighting
-To highlight lines, add the attribute `highlight-lines` as shown below.
+You can add the `highlight-lines` attribute to add highlighting to your code block. Refer to the example below for
+a typical usage of the attribute.
 
-You can specify highlighting in many different ways, depending on how you want it to be. There are two main variants:
+The value of `highlight-lines` is composed of *highlight rules*, separated by commas.
+These rules dictate where and how MarkBind should highlight your code block. 
 
-**Text-only highlighting**
+You can specify the rules in many different ways, depending on how you want it to be. There are three main variants:
+full text, partial text, or full line highlighting.
 
-To highlight only the text portion of the line, you can just use the line numbers as is.
+**Full text highlighting**
 
-For ranges of lines, join the two line numbers with a dash sign (`-`).
+To highlight the entirety of the text portion of the line, you can just use the line numbers as is, such as `3`.
+Note that the numbers should correspond with the line numbers that will be displayed, so if you have changed the
+numbering via the `start-from` attribute, you will have to follow that numbering as well.
 
-**Whole-line highlighting**
+For text-only range highlighting, join the two line numbers with a dash sign (`-`).
 
-If you wish to highlight a full line (including whitespaces) or ranges of it, you can leverage MarkBind's own _line-slice_ syntax. Line-slices are in the form of `lineNumber[:]`, e.g. `2[:]`.
-    
-This variant's format is very similar to the previous, but instead use line-slices rather than line numbers.
+**Partial text highlighting**
 
-For ranges, you only need to use line-slices on either ends.
+You can also highlight just a part of the text portion of the line. MarkBind has a _line-slice_ syntax to help you
+with that.
+
+The line-slice syntax is of the form `lineNumber[start:end]`, where `lineNumber` is the line number (subject to the
+numbering conditions as explained above), `start` and `end` denote the range of character positions
+that will be highlighted.
+
+Character positions start from `0`, which denotes the first non-whitespace character in the line, upwards.
+Note that the highlight includes character at `start` but does not include character at `end`.
+
+You can omit either `start` or `end` to tell MarkBind either to highlight from the start or until the end, respectively.
+
+Also, you can start or end a text-only range highlight with a line-slice syntax to indicate partial text
+highlight at the beginning or end of the range, respectively.
+
+**Full line highlighting**
+
+If you wish to highlight a full line (which includes indentations), you can use the line-slice syntax as well,
+but with `start` *and* `end` omitted. We call this the empty line-slices.
+
+To do a full-line range highlighting, you only need to use empty line-slices on either ends of the usual
+text-only range highlight.
 
 <include src="codeAndOutputCode.md" boilerplate >
 
