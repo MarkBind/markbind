@@ -56,8 +56,28 @@ Content in a fenced code block
 20
 ```
 
-**`highlight-lines` attr with line-slice syntax of empty indices should highlight leading/trailing spaces
+**`highlight-lines` attr with empty line-slice syntax should highlight leading/trailing spaces**
 ```xml {highlight-lines="2[:],4[:]-5[:]"}
+<foo>
+  <bar type="name">goo</bar>
+  <baz type="name">goo</baz>
+  <qux type="name">goo</qux>
+  <quux type="name">goo</quux>
+</foo>
+```
+
+**`highlight-lines` attr with full line-slice syntax should highlight only at specified range**
+```xml {highlight-lines="1[1:4],2[5:13],3[2:10]-4,5-6[1:4]"}
+<foo>
+  <bar type="name">goo</bar>
+  <baz type="name">goo</baz>
+  <qux type="name">goo</qux>
+  <quux type="name">goo</quux>
+</foo>
+```
+
+**`highlight-lines` attr with partially filled line-slice syntax should defaults highlight to start/end of line**
+```xml {highlight-lines="1[1:],2[:13],3[2:]-4,5-6[:2]"}
 <foo>
   <bar type="name">goo</bar>
   <baz type="name">goo</baz>
