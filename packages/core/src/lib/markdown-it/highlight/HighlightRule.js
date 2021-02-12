@@ -29,12 +29,30 @@ class HighlightRule {
     return atLineNumber;
   }
   
-  applyHighlight(line) {
+  applyHighlight(line, lineNumber) {
     if (this.isLineRange()) {
+      const [startCompare, endCompare] = this.ruleComponents.map(comp => comp.compareLine(lineNumber));
+
+      // For cases like 2[:]-3 (or 2-3[:]), the highlight would be line highlight
+      // across all the ranges
       const shouldWholeLine = this.ruleComponents.some(comp => comp.isUnboundedSlice());
-      return shouldWholeLine
-        ? HighlightRule._highlightWholeLine(line)
-        : HighlightRule._highlightWholeText(line);
+      if (shouldWholeLine) {
+        return HighlightRule._highlightWholeLine(line);
+      }
+
+      if (startCompare < 0 && endCompare > 0) {
+        // In-between range
+        return HighlightRule._highlightWholeText(line);
+      }
+
+      // At the range boundaries
+      const [start, end] = this.ruleComponents;
+      const appliedRule = startCompare === 0 ? start : end;
+
+      // Instead of redefining how to highlight according to the rule (which is already laid
+      // out on the next few cases), we create a new HighlightRule consisting of only the applied
+      // rule and call apply again
+      return new HighlightRule([appliedRule]).applyHighlight(line, lineNumber);
     }
 
     const isLineSlice = this.ruleComponents.length === 1 && this.ruleComponents[0].isSlice;

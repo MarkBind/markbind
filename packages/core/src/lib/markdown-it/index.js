@@ -109,7 +109,7 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
     const currentLineNumber = index + 1;
     const rule = highlightRules.find(rule => rule.shouldApplyHighlight(currentLineNumber));
     if (rule) {
-      return rule.applyHighlight(line);
+      return rule.applyHighlight(line, currentLineNumber);
     }
 
     // not highlighted
