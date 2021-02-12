@@ -9,6 +9,13 @@ const {
   markdownFileExts,
 } = require('../constants');
 
+const htmlUnescapedMapping = {
+  '&amp;': '&',
+  '&lt;': '<',
+  '&gt;': '>',
+  '&quot;': '"',
+};
+
 module.exports = {
   getCurrentDirectoryBase() {
     return path.basename(process.cwd());
@@ -104,5 +111,12 @@ module.exports = {
     }
 
     return text.join('').trim();
+  },
+  unescapeHtml(str) {
+    let unescaped = str;
+    Object.entries(htmlUnescapedMapping).forEach(([key, value]) => {
+      unescaped = unescaped.split(key).join(value);
+    });
+    return unescaped;
   },
 };

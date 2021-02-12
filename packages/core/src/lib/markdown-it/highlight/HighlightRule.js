@@ -30,21 +30,23 @@ class HighlightRule {
   }
   
   applyHighlight(line) {
-    const isLineSlice = this.ruleComponents.length === 1 && this.ruleComponents[0].isSlice;
-    
     if (this.isLineRange()) {
       const shouldWholeLine = this.ruleComponents.some(comp => comp.isUnboundedSlice());
       return shouldWholeLine
         ? HighlightRule._highlightWholeLine(line)
-        : HighlightRule._highlightTextOnly(line);
+        : HighlightRule._highlightWholeText(line);
     }
-    
+
+    const isLineSlice = this.ruleComponents.length === 1 && this.ruleComponents[0].isSlice;
     if (isLineSlice) {
-      // TODO: Implement slice-index based highlighting
-      return HighlightRule._highlightWholeLine(line);
+      const [slice] = this.ruleComponents;
+      return slice.isUnboundedSlice()
+        ? HighlightRule._highlightWholeLine(line)
+        : HighlightRule._highlightPartOfText(line, slice.computeLineBounds(line));
     }
-    
-    return HighlightRule._highlightTextOnly(line);
+
+    // Line number only
+    return HighlightRule._highlightWholeText(line);
   }
   
   static _highlightWholeLine(codeStr) {
@@ -57,10 +59,19 @@ class HighlightRule {
     const content = codeStr.substr(codeStartIdx);
     return [indents, content];
   }
-  
-  static _highlightTextOnly(codeStr) {
+
+  static _highlightWholeText(codeStr) {
     const [indents, content] = HighlightRule._splitCodeAndIndentation(codeStr);
-    return `<span>${indents}<span class="highlighted">${content}</span>\n</span>`
+    return `<span>${indents}<span class="highlighted">${content}</span>\n</span>`;
+  }
+
+  static _highlightPartOfText(codeStr, bounds) {
+    const [indents,] = HighlightRule._splitCodeAndIndentation(codeStr);
+    const [start, end] = bounds;
+    // Note: As part-of-text highlighting requires walking over the node of the generated
+    // html by highlight.js, highlighting will be applied in NodeProcessor instead.
+    // hl-start and hl-end is used to pass over the bounds.
+    return `<span hl-start=${start + indents.length} hl-end=${end + indents.length}>${codeStr}\n</span>`;
   }
 
   isLineRange() {

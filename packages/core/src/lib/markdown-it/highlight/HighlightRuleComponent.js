@@ -46,6 +46,28 @@ class HighlightRuleComponent {
   isUnboundedSlice() {
     return this.isSlice && this.bounds.length === 0;
   }
+
+  /**
+   * Computes the actual bounds of the highlight rule given a line,
+   * comparing the rule's bounds and the line's range.
+   * 
+   * If the rule does not specify a start/end bound, the computed bound will default
+   * to the start/end of the line.
+   * 
+   * @param line The line to be checked
+   * @returns {[number, number]} The actual bounds computed
+   */
+  computeLineBounds(line) {
+    const [lineStart, lineEnd] = [0, line.length - 1];
+    if (!this.isSlice || this.isUnboundedSlice()) {
+      return [lineStart, lineEnd];
+    }
+
+    const [boundStart, boundEnd] = this.bounds;
+    const start = lineStart <= boundStart && boundStart <= lineEnd ? boundStart : lineStart;
+    const end = lineStart <= boundEnd && boundEnd <= lineEnd ? boundEnd : lineEnd;
+    return [start, end];
+  }
 }
 
 module.exports = {

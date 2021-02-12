@@ -107,7 +107,7 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   // wrap all lines with <span> so we can number them
   str = lines.map((line, index) => {
     const currentLineNumber = index + 1;
-    const rule = highlightRules.find(rule => rule.shouldApplyHighlight(currentLineNumber))
+    const rule = highlightRules.find(rule => rule.shouldApplyHighlight(currentLineNumber));
     if (rule) {
       return rule.applyHighlight(line);
     }
