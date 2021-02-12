@@ -118,14 +118,17 @@ code.hljs.inline {
 /* Header */
 
 header[fixed] {
+    max-height: 100%;
+    overflow: hidden;
     position: fixed;
+    transition: max-height 0.6s ease-in;
     width: 100%;
     z-index: 1001;
 }
 
 header[fixed].hide-header {
-    height: 0;
-    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.6s ease-out;
 }
 
 /* #app is treated as the main container */

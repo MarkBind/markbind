@@ -86,7 +86,9 @@ function detectAndApplyFixedHeaderStyles() {
 
   let lastOffset = 0;
   const toggleHeaderOnScroll = () => {
+    if (window.innerWidth > 767) { return; }
     const currentOffset = window.pageYOffset;
+    if ((window.innerHeight + currentOffset) >= document.body.offsetHeight) { return; }
     if (currentOffset > lastOffset) {
       headerSelector.addClass('hide-header');
     } else {
@@ -96,7 +98,7 @@ function detectAndApplyFixedHeaderStyles() {
   };
 
   addResizeHeaderListener();
-  setTimeout(() => window.addEventListener('scroll', toggleHeaderOnScroll), 500);
+  window.addEventListener('scroll', toggleHeaderOnScroll);
 }
 
 function updateSearchData(vm) {
