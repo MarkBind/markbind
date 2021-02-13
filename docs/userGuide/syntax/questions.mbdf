@@ -229,11 +229,11 @@ If no keywords are provided, the answer will always be marked as correct when pl
 Keywords are validated by simply looking for the keyword as a pattern in the user's answer!
 This works well for some
 <popover header="When does validation work?">cases
-  <div slot="content">
+  <span slot="content">
   When the keywords specified are rather long (eg. `requirements`), it reduces the chance that this keyword can be mistakenly validated.
   <br><br>
   In contrast, something short and common like `take` which can easily be part of another word (eg. `mis-take-nly`) would be mistakenly validated.
-  </div>
+  </span>
 </popover>
 and not others.
 

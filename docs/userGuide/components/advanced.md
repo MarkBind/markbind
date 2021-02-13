@@ -65,13 +65,13 @@ However, we **$$do not recommend$$** using this syntax as it is deprecated and w
 <trigger for="modal:tip-example" trigger="click">Click here to show Modal.</trigger>
 
 <modal id="modal:tip-example">
-  <div slot="header" class="modal-title text-center">
+  <span slot="header" class="modal-title text-center">
     <span style="font-size:20pt"><span style="color:red;">BIG</span> header</span>
-  </div>
+  </span>
     Modal allows you to style both header and footer individually, with style classes and inline styles.
-  <div slot="footer" class="text-center">
+  <span slot="footer" class="text-center">
     <span style="font-size:10pt">Tiny <span style="color:green;">footer</span></span>
-  </div>
+  </span>
 </modal>
 </variable>
 <variable name="highlightStyle">html</variable>
