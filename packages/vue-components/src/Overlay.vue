@@ -59,6 +59,7 @@ export default {
     toggleNavMenu() {
       if (!this.show) {
         publish('closeOverlay');
+        // to prevent scrolling of the body when overlay is overscrolled
         document.body.style.overflow = 'hidden';
       } else {
         document.body.style.removeProperty('overflow');

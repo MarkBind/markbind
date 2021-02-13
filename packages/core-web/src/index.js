@@ -86,9 +86,12 @@ function detectAndApplyFixedHeaderStyles() {
 
   let lastOffset = 0;
   const toggleHeaderOnScroll = () => {
+    // prevent toggling of header on desktop site
     if (window.innerWidth > 767) { return; }
     const currentOffset = window.pageYOffset;
-    if ((window.innerHeight + currentOffset) >= document.body.offsetHeight) { return; }
+    const isEndOfPage = (window.innerHeight + currentOffset) >= document.body.offsetHeight;
+    // to prevent page from auto scrolling when header is toggled at the end of page
+    if (isEndOfPage) { return; }
     if (currentOffset > lastOffset) {
       headerSelector.addClass('hide-header');
     } else {
