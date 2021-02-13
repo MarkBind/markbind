@@ -52,34 +52,54 @@ function detectAndApplyFixedHeaderStyles() {
       }`);
   insertCss(`.nav-menu-open { max-height: calc(100% - ${headerHeight}px); }`);
 
-  const addResizeHeaderListener = () => {
-    const resizeObserver = new ResizeObserver(() => {
-      const newHeaderHeight = headerSelector.height();
-      const sheets = document.styleSheets;
-      for (let i = 0; i < sheets.length; i += 1) {
-        const rules = sheets[i].cssRules;
-        // eslint-disable-next-line lodash/prefer-get
-        if (rules && rules[0] && rules[0].selectorText) {
-          switch (rules[0].selectorText) {
-          case '.fixed-header-padding':
-            sheets[i].deleteRule(0);
-            sheets[i].insertRule(`.fixed-header-padding { padding-top: ${newHeaderHeight}px !important }`);
-            break;
-          case 'span.anchor':
-            rules[0].style.top = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
-            break;
-          case 'span.card-container::before':
-            rules[0].style.marginTop = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
-            rules[0].style.height = `calc(${newHeaderHeight}px + ${bufferHeight}rem)`;
-            break;
-          case '.nav-menu-open':
-            rules[0].style.maxHeight = `calc(100% - ${newHeaderHeight}px + 50px)`;
-            break;
-          default:
-            break;
-          }
+  const resizeHeader = () => {
+    const newHeaderHeight = headerSelector.height();
+    const sheets = document.styleSheets;
+    for (let i = 0; i < sheets.length; i += 1) {
+      const rules = sheets[i].cssRules;
+      // eslint-disable-next-line lodash/prefer-get
+      if (rules && rules[0] && rules[0].selectorText) {
+        switch (rules[0].selectorText) {
+        case '.fixed-header-padding':
+          sheets[i].deleteRule(0);
+          sheets[i].insertRule(`.fixed-header-padding { padding-top: ${newHeaderHeight}px !important }`);
+          break;
+        case 'span.anchor':
+          rules[0].style.top = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
+          break;
+        case 'span.card-container::before':
+          rules[0].style.marginTop = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
+          rules[0].style.height = `calc(${newHeaderHeight}px + ${bufferHeight}rem)`;
+          break;
+        case '.nav-menu-open':
+          rules[0].style.maxHeight = `calc(100% - ${newHeaderHeight}px + 50px)`;
+          break;
+        default:
+          break;
         }
       }
+    }
+  };
+
+  const toggleHeaderOverflow = () => {
+    const headerMaxHeight = headerSelector.css('max-height');
+    if (headerMaxHeight === '100%') {
+      headerSelector.css('overflow', '');
+      resizeHeader();
+    }
+  };
+
+  const addResizeHeaderListener = () => {
+    const resizeObserver = new ResizeObserver(() => {
+      const headerMaxHeight = headerSelector.css('max-height');
+      // set overflow to hidden if max-height is not 100%
+      if (headerMaxHeight !== '100%') {
+        headerSelector.css('overflow', 'hidden');
+        // re-check after 0.6s to account for transition time
+        setTimeout(toggleHeaderOverflow, 600);
+        return;
+      }
+      resizeHeader();
     });
     resizeObserver.observe(headerSelector[0]);
   };
