@@ -372,7 +372,7 @@ describe('Site deploy with various CI environments', () => {
        process.env.GITHUB_TOKEN = 'githubToken';
        const genericRepoSlug = 'GENERIC_USER/GENERIC_REPO.github.io';
        if (repoSlugIdentifier.reposlug) {
-         process.env[repoSlugIdentifier.reposlug] = 'GENERIC_USER/GENERIC_REPO.github.io';
+         process.env[repoSlugIdentifier.reposlug] = genericRepoSlug;
        } else {
          process.env[repoSlugIdentifier.username] = 'GENERIC_USER';
          process.env[repoSlugIdentifier.reponame] = 'GENERIC_REPO.github.io';
