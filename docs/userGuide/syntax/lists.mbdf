@@ -74,7 +74,7 @@ first number
 
 
 ****Radio-button lists:****
-<span id="main-example-markbind">
+<div id="main-example-markbind">
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
@@ -83,7 +83,7 @@ first number
 - (x) Item 3
 </variable>
 </include>
-</span>
+</div>
 
 <span id="short" class="d-none">
 
