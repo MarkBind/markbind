@@ -1142,6 +1142,7 @@ class Site {
     const options = {};
     options.branch = this.siteConfig.deploy.branch || defaultDeployConfig.branch;
     options.message = this.siteConfig.deploy.message || defaultDeployConfig.message;
+    options.message = options.message.concat(' [skip ci]');
     options.repo = this.siteConfig.deploy.repo || defaultDeployConfig.repo;
 
     if (ciTokenVar) {
@@ -1153,37 +1154,35 @@ class Site {
       let repoSlug;
 
       if (process.env.TRAVIS) {
-        if (options.repo) {
-          repoSlug = Site.extractRepoSlug(options.repo);
-        } else {
-          repoSlug = process.env.TRAVIS_REPO_SLUG;
-        }
+        repoSlug = Site.extractRepoSlug(options.repo, process.env.TRAVIS_REPO_SLUG);
 
         options.user = {
           name: 'Deployment Bot',
           email: 'deploy@travis-ci.org',
         };
       } else if (process.env.APPVEYOR) {
-        if (options.repo) {
-          repoSlug = Site.extractRepoSlug(options.repo);
-        } else {
-          repoSlug = process.env.APPVEYOR_REPO_NAME;
-        }
+        repoSlug = Site.extractRepoSlug(options.repo, process.env.APPVEYOR_REPO_NAME);
 
         options.user = {
           name: 'AppVeyorBot',
           email: 'deploy@appveyor.com',
         };
       } else if (process.env.GITHUB_ACTIONS) {
-        if (options.repo) {
-          repoSlug = Site.extractRepoSlug(options.repo);
-        } else {
-          repoSlug = process.env.GITHUB_REPOSITORY;
-        }
+        repoSlug = Site.extractRepoSlug(options.repo, process.env.GITHUB_REPOSITORY);
 
         options.user = {
           name: 'github-actions',
           email: 'github-actions@github.com',
+        };
+      } else if (process.env.CIRCLECI) {
+        repoSlug = Site.extractRepoSlug(
+          options.repo,
+          `${process.env.CIRCLE_PROJECT_USERNAME}/${process.env.CIRCLE_PROJECT_REPONAME}`,
+        );
+
+        options.user = {
+          name: 'circleci-bot',
+          email: 'deploy@circleci.com',
         };
       } else {
         throw new Error('-c/--ci should only be run in CI environments.');
@@ -1199,7 +1198,10 @@ class Site {
   /**
    * Extract repo slug from user-specified repo URL so that we can include the access token
    */
-  static extractRepoSlug(repo) {
+  static extractRepoSlug(repo, ciRepoSlug) {
+    if (!repo) {
+      return ciRepoSlug;
+    }
     const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-.]+)\.git$/;
     const repoSlugMatch = repoSlugRegex.exec(repo);
     if (!repoSlugMatch) {
