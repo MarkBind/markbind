@@ -64,8 +64,8 @@ class HighlightRuleComponent {
     }
 
     const [boundStart, boundEnd] = this.bounds;
-    const start = lineStart <= boundStart && boundStart <= lineEnd ? boundStart : lineStart;
-    const end = lineStart <= boundEnd && boundEnd <= lineEnd ? boundEnd : lineEnd;
+    const start = (lineStart <= boundStart) && (boundStart <= lineEnd) ? boundStart : lineStart;
+    const end = (lineStart <= boundEnd) && (boundEnd <= lineEnd) ? boundEnd : lineEnd;
     return [start, end];
   }
 }

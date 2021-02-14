@@ -253,7 +253,7 @@ class NodeProcessor {
     // It has at least one child (to contain the text content).
     // It may have more children, such as inner tag nodes.
     let curr = 0;
-    const shouldHighlight = node.children.map((child) => {
+    const highlightData = node.children.map((child) => {
       const [traversed, data] = this._traverseLinePart(
         child, hlStart - curr, hlEnd - curr,
       );
@@ -262,7 +262,7 @@ class NodeProcessor {
       return data;
     });
 
-    if (shouldHighlight.every(v => v === true)) {
+    if (highlightData.every(v => v === true)) {
       // Every child wants highlight to be applied at node level
       // For conciseness, ask for the node's parent to highlight, if possible
       return [true, curr];
@@ -274,7 +274,7 @@ class NodeProcessor {
     // Essentially, we have to change the text node to become a tag node
 
     node.children.forEach((child, idx) => {
-      if (shouldHighlight[idx] === false) {
+      if (!highlightData[idx]) {
         return;
       }
 
@@ -286,10 +286,10 @@ class NodeProcessor {
       const text = child.data;
       let newElement;
 
-      if (shouldHighlight[idx] === true) {
+      if (highlightData[idx] === true) {
         [newElement] = cheerio.parseHTML(`<span class="highlighted">${text}</span>`);
       } else {
-        const [start, end] = shouldHighlight[idx];
+        const [start, end] = highlightData[idx];
         const cleaned = utils.unescapeHtml(text);
         const split = [cleaned.substring(0, start), cleaned.substring(start, end), cleaned.substring(end)];
         const [pre, highlighted, post] = split.map(md.utils.escapeHtml);
