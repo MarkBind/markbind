@@ -95,8 +95,6 @@ function detectAndApplyFixedHeaderStyles() {
       // set overflow to hidden if max-height is not 100%
       if (headerMaxHeight !== '100%') {
         headerSelector.css('overflow', 'hidden');
-        // re-check after 0.6s to account for transition time
-        setTimeout(toggleHeaderOverflow, 600);
         return;
       }
       resizeHeader();
@@ -121,6 +119,7 @@ function detectAndApplyFixedHeaderStyles() {
   };
 
   addResizeHeaderListener();
+  headerSelector[0].addEventListener('transitionend', toggleHeaderOverflow);
   window.addEventListener('scroll', toggleHeaderOnScroll);
 }
 
