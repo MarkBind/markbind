@@ -78,8 +78,8 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
     rule.offsetLines(-startFromZeroBased);
 
     // Convert line-part rules to line-slice
-    if (rule.isLinePart()) {
-      rule.convertLinePartToLineSlice(lines);
+    if (rule.hasLinePart()) {
+      rule.convertPartsToSlices(lines);
     }
   });
 
