@@ -52,7 +52,7 @@ function detectAndApplyFixedHeaderStyles() {
       }`);
   insertCss(`.nav-menu-open { max-height: calc(100% - ${headerHeight}px); }`);
 
-  const resizeHeader = () => {
+  const adjustHeaderClasses = () => {
     const newHeaderHeight = headerSelector.height();
     const sheets = document.styleSheets;
     for (let i = 0; i < sheets.length; i += 1) {
@@ -83,23 +83,12 @@ function detectAndApplyFixedHeaderStyles() {
 
   const toggleHeaderOverflow = () => {
     const headerMaxHeight = headerSelector.css('max-height');
+    // reset overflow when header shows again to allow content
+    // in the header such as search dropdown etc. to overflow
     if (headerMaxHeight === '100%') {
       headerSelector.css('overflow', '');
-      resizeHeader();
+      adjustHeaderClasses();
     }
-  };
-
-  const addResizeHeaderListener = () => {
-    const resizeObserver = new ResizeObserver(() => {
-      const headerMaxHeight = headerSelector.css('max-height');
-      // set overflow to hidden if max-height is not 100%
-      if (headerMaxHeight !== '100%') {
-        headerSelector.css('overflow', 'hidden');
-        return;
-      }
-      resizeHeader();
-    });
-    resizeObserver.observe(headerSelector[0]);
   };
 
   let lastOffset = 0;
@@ -118,7 +107,16 @@ function detectAndApplyFixedHeaderStyles() {
     lastOffset = currentOffset;
   };
 
-  addResizeHeaderListener();
+  const resizeObserver = new ResizeObserver(() => {
+    const headerMaxHeight = headerSelector.css('max-height');
+    // hide header overflow when user scrolls to support transition effect
+    if (headerMaxHeight !== '100%') {
+      headerSelector.css('overflow', 'hidden');
+      return;
+    }
+    adjustHeaderClasses();
+  });
+  resizeObserver.observe(headerSelector[0]);
   headerSelector[0].addEventListener('transitionend', toggleHeaderOverflow);
   window.addEventListener('scroll', toggleHeaderOnScroll);
 }
