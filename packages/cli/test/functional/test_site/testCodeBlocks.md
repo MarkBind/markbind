@@ -86,6 +86,16 @@ Content in a fenced code block
 </foo>
 ```
 
+**`highlight-lines` attr with line-part syntax should highlight only at specified text**
+```xml {highlight-lines="2['type'],3['</baz>'],4['goo</qux>'],5['go\'o']"}
+<foo>
+  <bar type="name">goo</bar>
+  <baz type="name">goo</baz>
+  <qux type="name">goo</qux>
+  <quux type="name">go'o</quux>
+</foo>
+```
+
 **Should render correctly with heading**
 
 ```{heading="A heading"}
