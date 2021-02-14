@@ -265,7 +265,7 @@ class NodeProcessor {
     if (highlightData.every(v => v === true)) {
       // Every child wants highlight to be applied at node level
       // For conciseness, ask for the node's parent to highlight, if possible
-      return [true, curr];
+      return [curr, true];
     }
 
     // If node level highlighting is not possible, highlight the individual children as needed

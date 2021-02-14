@@ -111,7 +111,6 @@ class HighlightRule {
     // Note: As part-of-text highlighting requires walking over the node of the generated
     // html by highlight.js, highlighting will be applied in NodeProcessor instead.
     // hl-start and hl-end is used to pass over the bounds.
-    console.log([start, end]);
     return `<span hl-start=${start} hl-end=${end}>${codeStr}\n</span>`;
   }
 
