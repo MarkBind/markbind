@@ -10,13 +10,30 @@ class HighlightRule {
   
   static parseRule(ruleString) {
     const components = ruleString.split('-').map(HighlightRuleComponent.parseRuleComponent);
+    if (components.some(c => !c)) {
+      // Not all components are properly parsed, which means
+      // the rule itself is not proper
+      return null;
+    }
+
     return new HighlightRule(components);
   }
   
   offsetLines(offset) {
     this.ruleComponents.forEach(comp => comp.offsetLineNumber(offset));
   }
-  
+
+  convertLinePartToLineSlice(lines) {
+    if (!this.isLinePart()) {
+      return;
+    }
+
+    const [part] = this.ruleComponents;
+    const line = lines[part.lineNumber - 1]; // line numbers are 1-based
+    const {1: content} = HighlightRule._splitCodeAndIndentation(line);
+    part.convertPartToSlice(content);
+  }
+
   shouldApplyHighlight(lineNumber) {
     const compares = this.ruleComponents.map(comp => comp.compareLine(lineNumber));
     if (this.isLineRange()) {
@@ -84,12 +101,16 @@ class HighlightRule {
   }
 
   static _highlightPartOfText(codeStr, bounds) {
-    const [indents,] = HighlightRule._splitCodeAndIndentation(codeStr);
+    const {0: indents} = HighlightRule._splitCodeAndIndentation(codeStr);
     const [start, end] = bounds;
     // Note: As part-of-text highlighting requires walking over the node of the generated
     // html by highlight.js, highlighting will be applied in NodeProcessor instead.
     // hl-start and hl-end is used to pass over the bounds.
     return `<span hl-start=${start + indents.length} hl-end=${end + indents.length}>${codeStr}\n</span>`;
+  }
+
+  isLinePart() {
+    return (this.ruleComponents.length === 1) && (this.ruleComponents[0].linePart !== "");
   }
 
   isLineRange() {

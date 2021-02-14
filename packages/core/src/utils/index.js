@@ -14,6 +14,7 @@ const htmlUnescapedMapping = {
   '&lt;': '<',
   '&gt;': '>',
   '&quot;': '"',
+  '&#x27;': '\'',
 };
 
 module.exports = {

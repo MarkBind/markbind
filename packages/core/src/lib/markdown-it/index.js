@@ -56,7 +56,33 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const lang = token.info || '';
   let str = token.content;
   let highlighted = false;
-  let lines;
+  let lines = str.split('\n');
+
+  const startFromOneBased = Math.max(1, parseInt(getAttributeAndDelete(token, 'start-from'), 10) || 1);
+  const startFromZeroBased = startFromOneBased - 1;
+
+  if (startFromOneBased > 1) {
+    // counter is incremented on each span, so we need to subtract 1
+    token.attrJoin('style', `counter-reset: line ${startFromZeroBased};`);
+  }
+
+  const highlightLinesInput = getAttributeAndDelete(token, 'highlight-lines');
+  let highlightRules = [];
+  if (highlightLinesInput) {
+    const highlightLines = highlightLinesInput.split(',');
+    highlightRules = highlightLines.map(HighlightRule.parseRule).filter(rule => rule);
+  }
+  highlightRules.forEach(rule => {
+    // Note: authors provide line numbers based on the 'start-from' attribute if it exists,
+    //       so we need to shift line numbers back down to start at 0
+    rule.offsetLines(-startFromZeroBased);
+
+    // Convert line-part rules to line-slice
+    if (rule.isLinePart()) {
+      rule.convertLinePartToLineSlice(lines);
+    }
+  });
+
   if (lang && hljs.getLanguage(lang)) {
     try {
       /* We cannot syntax highlight THEN split by lines. For eg:
@@ -73,7 +99,7 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
       So we have to split by lines THEN syntax highlight.
        */
       let state = null; // state stores the current parse state of hljs, so that we can pass it on line by line
-      lines = str.split('\n').map((line) => {
+      lines = lines.map((line) => {
         const highlightedLine = hljs.highlight(lang, line, true, state);
         state = highlightedLine.top;
         return highlightedLine.value;
@@ -83,24 +109,6 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   }
   if (!highlighted) {
     lines = markdownIt.utils.escapeHtml(str).split('\n');
-  }
-
-  const startFromOneBased = Math.max(1, parseInt(getAttributeAndDelete(token, 'start-from'), 10) || 1);
-  const startFromZeroBased = startFromOneBased - 1;
-
-  if (startFromOneBased > 1) {
-    // counter is incremented on each span, so we need to subtract 1
-    token.attrJoin('style', `counter-reset: line ${startFromZeroBased};`);
-  }
-
-  const highlightLinesInput = getAttributeAndDelete(token, 'highlight-lines');
-  let highlightRules = [];
-  if (highlightLinesInput) {
-    const highlightLines = highlightLinesInput.split(',');
-    highlightRules = highlightLines.map(HighlightRule.parseRule);
-    // Note: authors provide line numbers based on the 'start-from' attribute if it exists,
-    //       so we need to shift line numbers back down to start at 0
-    highlightRules.forEach(rule => rule.offsetLines(-startFromZeroBased));
   }
 
   lines.pop(); // last line is always a single '\n' newline, so we remove it
