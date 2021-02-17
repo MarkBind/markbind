@@ -32,7 +32,7 @@
  Changes are delimited with a // CHANGE HERE comment
  */
 
-const { MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX } = require('../../html/constants')
+const { MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX } = require('../../../html/constants')
 
 // Process footnotes
 //
