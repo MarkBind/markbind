@@ -5,12 +5,12 @@ export const coerce = {
   // Attempt to convert a string value to a Number. Otherwise, return 0.
   number: (val, alt = null) => (typeof val === 'number' ? val : val === undefined || val === null || isNaN(Number(val)) ? alt : Number(val)),
   // Attempt to convert to string any value, except for null or undefined.
-  string: val => (val === undefined || val === null ? '' : val + ''),
+  string: val => (val === undefined || val === null ? '' : `${val}`),
   // Pattern accept RegExp, function, or string (converted to RegExp). Otherwise return null.
-  pattern: val => (val instanceof Function || val instanceof RegExp ? val : typeof val === 'string' ? new RegExp(val) : null)
-}
+  pattern: val => (val instanceof Function || val instanceof RegExp ? val : typeof val === 'string' ? new RegExp(val) : null),
+};
 
-export function toBoolean (val) {
+export function toBoolean(val) {
   return (typeof val === 'string')
     ? ((val === '' || val === 'true')
       ? true
@@ -20,7 +20,7 @@ export function toBoolean (val) {
     : val;
 }
 
-export function toNumber (val) {
+export function toNumber(val) {
   return (typeof val === 'number')
     ? val
     : ((val === undefined || val === null || isNaN(Number(val)))
@@ -28,134 +28,134 @@ export function toNumber (val) {
       : Number(val));
 }
 
-export function getJSON (url) {
-  var request = new window.XMLHttpRequest()
-  var data = {}
+export function getJSON(url) {
+  const request = new window.XMLHttpRequest();
+  const data = {};
   // p (-simulated- promise)
   var p = {
-    then (fn1, fn2) { return p.done(fn1).fail(fn2) },
-    catch (fn) { return p.fail(fn) },
-    always (fn) { return p.done(fn).fail(fn) }
+    then(fn1, fn2) { return p.done(fn1).fail(fn2); },
+    catch(fn) { return p.fail(fn); },
+    always(fn) { return p.done(fn).fail(fn); },
   };
-  ['done', 'fail'].forEach(name => {
-    data[name] = []
+  ['done', 'fail'].forEach((name) => {
+    data[name] = [];
     p[name] = (fn) => {
-      if (fn instanceof Function) data[name].push(fn)
-      return p
-    }
-  })
-  p.done(JSON.parse)
+      if (fn instanceof Function) data[name].push(fn);
+      return p;
+    };
+  });
+  p.done(JSON.parse);
   request.onreadystatechange = () => {
     if (request.readyState === 4) {
-      let e = {status: request.status}
+      const e = { status: request.status };
       if (request.status === 200) {
         try {
-          var response = request.responseText
-          for (var i in data.done) {
-            var value = data.done[i](response)
-            if (value !== undefined) { response = value }
+          let response = request.responseText;
+          for (const i in data.done) {
+            const value = data.done[i](response);
+            if (value !== undefined) { response = value; }
           }
         } catch (err) {
-          data.fail.forEach(fail => fail(err))
+          data.fail.forEach(fail => fail(err));
         }
       } else {
-        data.fail.forEach(fail => fail(e))
+        data.fail.forEach(fail => fail(e));
       }
     }
-  }
-  request.open('GET', url)
-  request.setRequestHeader('Accept', 'application/json')
-  request.send()
-  return p
+  };
+  request.open('GET', url);
+  request.setRequestHeader('Accept', 'application/json');
+  request.send();
+  return p;
 }
 
-export function getScrollBarWidth () {
+export function getScrollBarWidth() {
   if (document.documentElement.scrollHeight <= document.documentElement.clientHeight) {
-    return 0
+    return 0;
   }
-  let inner = document.createElement('p')
-  inner.style.width = '100%'
-  inner.style.height = '200px'
+  const inner = document.createElement('p');
+  inner.style.width = '100%';
+  inner.style.height = '200px';
 
-  let outer = document.createElement('div')
-  outer.style.position = 'absolute'
-  outer.style.top = '0px'
-  outer.style.left = '0px'
-  outer.style.visibility = 'hidden'
-  outer.style.width = '200px'
-  outer.style.height = '150px'
-  outer.style.overflow = 'hidden'
-  outer.appendChild(inner)
+  const outer = document.createElement('div');
+  outer.style.position = 'absolute';
+  outer.style.top = '0px';
+  outer.style.left = '0px';
+  outer.style.visibility = 'hidden';
+  outer.style.width = '200px';
+  outer.style.height = '150px';
+  outer.style.overflow = 'hidden';
+  outer.appendChild(inner);
 
-  document.body.appendChild(outer)
-  let w1 = inner.offsetWidth
-  outer.style.overflow = 'scroll'
-  let w2 = inner.offsetWidth
-  if (w1 === w2) w2 = outer.clientWidth
+  document.body.appendChild(outer);
+  const w1 = inner.offsetWidth;
+  outer.style.overflow = 'scroll';
+  let w2 = inner.offsetWidth;
+  if (w1 === w2) w2 = outer.clientWidth;
 
-  document.body.removeChild(outer)
+  document.body.removeChild(outer);
 
-  return (w1 - w2)
+  return (w1 - w2);
 }
 
 // delayer: set a function that execute after a delay
 // @params (function, delay_prop or value, default_value)
-export function delayer (fn, varTimer, ifNaN = 100) {
-  function toInt (el) { return /^[0-9]+$/.test(el) ? Number(el) || 1 : null }
-  var timerId
+export function delayer(fn, varTimer, ifNaN = 100) {
+  function toInt(el) { return /^[0-9]+$/.test(el) ? Number(el) || 1 : null; }
+  let timerId;
   return function (...args) {
-    if (timerId) clearTimeout(timerId)
+    if (timerId) clearTimeout(timerId);
     timerId = setTimeout(() => {
-      fn.apply(this, args)
-    }, toInt(varTimer) || toInt(this[varTimer]) || ifNaN)
-  }
+      fn.apply(this, args);
+    }, toInt(varTimer) || toInt(this[varTimer]) || ifNaN);
+  };
 }
 
 export function getFragmentByHash(url) {
-  var type = url.split('#');
-  var hash = '';
-  if(type.length > 1) {
+  const type = url.split('#');
+  let hash = '';
+  if (type.length > 1) {
     hash = type[1];
   }
   return hash;
 }
 
 // Fix a vue instance Lifecycle to vue 1/2 (just the basic elements, is not a real parser, so this work only if your code is compatible with both)
-export function VueFixer (vue) {
-  var vue2 = !window.Vue || !window.Vue.partial
-  var mixin = {
+export function VueFixer(vue) {
+  const vue2 = !window.Vue || !window.Vue.partial;
+  const mixin = {
     computed: {
-      vue2 () { return !this.$dispatch }
-    }
-  }
+      vue2() { return !this.$dispatch; },
+    },
+  };
   if (!vue2) {
     if (vue.beforeCreate) {
-      mixin.create = vue.beforeCreate
-      delete vue.beforeCreate
+      mixin.create = vue.beforeCreate;
+      delete vue.beforeCreate;
     }
     if (vue.beforeMount) {
-      vue.beforeCompile = vue.beforeMount
-      delete vue.beforeMount
+      vue.beforeCompile = vue.beforeMount;
+      delete vue.beforeMount;
     }
     if (vue.mounted) {
-      vue.ready = vue.mounted
-      delete vue.mounted
+      vue.ready = vue.mounted;
+      delete vue.mounted;
     }
   } else {
     if (vue.beforeCompile) {
-      vue.beforeMount = vue.beforeCompile
-      delete vue.beforeCompile
+      vue.beforeMount = vue.beforeCompile;
+      delete vue.beforeCompile;
     }
     if (vue.compiled) {
-      mixin.compiled = vue.compiled
-      delete vue.compiled
+      mixin.compiled = vue.compiled;
+      delete vue.compiled;
     }
     if (vue.ready) {
-      vue.mounted = vue.ready
-      delete vue.ready
+      vue.mounted = vue.ready;
+      delete vue.ready;
     }
   }
-  if (!vue.mixins) { vue.mixins = [] }
-  vue.mixins.unshift(mixin)
-  return vue
+  if (!vue.mixins) { vue.mixins = []; }
+  vue.mixins.unshift(mixin);
+  return vue;
 }

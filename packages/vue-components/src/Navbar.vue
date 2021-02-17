@@ -27,17 +27,21 @@
         </div>
       </div>
     </nav>
-    <div ref="lowerNavbar" v-show="isLowerNavbarShowing" class="lower-navbar-container">
+    <div
+      v-show="isLowerNavbarShowing"
+      ref="lowerNavbar"
+      class="lower-navbar-container"
+    >
       <slot name="lower-navbar">
-          <site-nav-button />
-          <page-nav-button />
+        <site-nav-button />
+        <page-nav-button />
       </slot>
     </div>
   </div>
 </template>
 
 <script>
-import $ from './utils/NodeList.js';
+import $ from './utils/NodeList';
 import { toBoolean } from './utils/utils';
 import normalizeUrl from './utils/urls';
 
@@ -102,10 +106,11 @@ export default {
   },
   methods: {
     toggleCollapse(e) {
-      e && e.preventDefault();
+      if (e) { e.preventDefault(); }
       this.collapsed = !this.collapsed;
     },
-    // Splits a normalised URL into its parts, e.g http://site.org/foo/bar/index.html -> ['foo','bar','index.html']
+    // Splits a normalised URL into its parts,
+    // e.g http://site.org/foo/bar/index.html -> ['foo','bar','index.html']
     splitUrl(url) {
       const u = new URL(normalizeUrl(url));
       return `${u.pathname}`.substr(1).split('/');
@@ -116,7 +121,7 @@ export default {
       if (hParts.length !== uParts.length) {
         return false;
       }
-      for (let i = 0; i < hParts.length - 1; i++) {
+      for (let i = 0; i < hParts.length - 1; i += 1) {
         if (hParts[i] !== uParts[i]) {
           return false;
         }
@@ -129,7 +134,7 @@ export default {
       if (uParts.length <= hParts.length) {
         return false;
       }
-      for (let i = 0; i < hParts.length; i++) {
+      for (let i = 0; i < hParts.length; i += 1) {
         if (hParts[i] !== uParts[i]) {
           console.log(`${hParts[i]} ${uParts[i]}`);
           return false;
@@ -150,7 +155,7 @@ export default {
       let el = a.parentElement;
       while (el !== li) {
         if (el.classList.contains('dropdown-submenu')) {
-          $(el).findChildren('a').each(a => a.classList.add('dropdown-current'));
+          $(el).findChildren('a').each(aChild => aChild.classList.add('dropdown-current'));
         }
         el = el.parentElement;
       }
@@ -159,14 +164,17 @@ export default {
       const defHlMode = this.defaultHighlightOn;
       const navLis = Array.from(this.$el.querySelector('.navbar-nav').children);
       // attempt an exact match first
-      for (const li of navLis) {
+      for (let i = 0; i < navLis.length; i += 1) {
+        const li = navLis[i];
         const standardLinks = [li];
         const navLinks = Array.from(li.querySelectorAll('a.nav-link'));
         const dropdownLinks = Array.from(li.querySelectorAll('a.dropdown-item'));
         const allNavLinks = standardLinks.concat(navLinks).concat(dropdownLinks).filter(a => a.href);
-        for (const a of allNavLinks) {
+        for (let j = 0; j < allNavLinks.length; j += 1) {
+          const a = allNavLinks[j];
           const hlMode = a.getAttribute('highlight-on') || defHlMode;
           if (hlMode === 'none') {
+            // eslint-disable-next-line no-continue
             continue;
           }
           // terminate early on an exact match
@@ -178,14 +186,17 @@ export default {
         }
       }
       // fallback to user preference, otherwise
-      for (const li of navLis) {
+      for (let i = 0; i < navLis.length; i += 1) {
+        const li = navLis[i];
         const standardLinks = [li];
         const navLinks = Array.from(li.querySelectorAll('a.nav-link'));
         const dropdownLinks = Array.from(li.querySelectorAll('a.dropdown-item'));
         const allNavLinks = standardLinks.concat(navLinks).concat(dropdownLinks).filter(a => a.href);
-        for (const a of allNavLinks) {
+        for (let j = 0; j < allNavLinks.length; j += 1) {
+          const a = allNavLinks[j];
           const hlMode = a.getAttribute('highlight-on') || defHlMode;
           if (hlMode === 'none') {
+            // eslint-disable-next-line no-continue
             continue;
           }
           if (hlMode === 'sibling-or-child') {
@@ -240,7 +251,7 @@ export default {
       });
     });
     $(this.$el).on('click', 'li:not(.dropdown)>a', (e) => {
-      if (e.target.classList.contains('submenu-toggle')) { return }
+      if (e.target.classList.contains('submenu-toggle')) { return; }
       setTimeout(() => { this.collapsed = true; }, 200);
     }).onBlur((e) => {
       if (!this.$el.contains(e.target)) { this.collapsed = true; }

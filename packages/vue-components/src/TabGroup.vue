@@ -8,61 +8,63 @@
 </template>
 
 <script>
-import {coerce} from './utils/utils.js'
+import { coerce } from './utils/utils';
 
 export default {
   props: {
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     header: {
-      type: String
-    }
+      type: String,
+      default: '',
+    },
   },
-  data () {
+  data() {
     return {
       tabs: [],
-      show: false
-    }
+      show: false,
+    };
   },
   computed: {
-    active () {
-      return ~this.tabs.indexOf(this._tabset.show)
+    active() {
+      // eslint-disable-next-line no-bitwise
+      return ~this.tabs.indexOf(this._tabset.show);
     },
-    headerRendered () {
-      return this.$refs.header.innerHTML
+    headerRendered() {
+      return this.$refs.header.innerHTML;
     },
-    disabledBool () {
-      return coerce.boolean(this.disabled)
-    }
+    disabledBool() {
+      return coerce.boolean(this.disabled);
+    },
   },
-  created () {
-    this._tabgroup = true
-    let tabset = (this.$parent && this.$parent._tabset === true) ? this.$parent : {}
+  created() {
+    this._tabgroup = true;
+    let tabset = (this.$parent && this.$parent._tabset === true) ? this.$parent : {};
     if (this.$parent && this.$parent._tabgroup) {
-      console.error('Can\'t nest tabgroups.')
+      console.error('Can\'t nest tabgroups.');
     }
     while (tabset && !tabset._tabset && tabset.$parent) {
-      tabset = tabset.$parent
+      tabset = tabset.$parent;
     }
     if (!tabset._tabset) {
-      this._tabset = {}
-      this.show = true
-      console.warn('Warning: tabgroup depend on tabset to work properly.')
+      this._tabset = {};
+      this.show = true;
+      console.warn('Warning: tabgroup depend on tabset to work properly.');
     } else {
-      this._tabset = tabset
+      this._tabset = tabset;
     }
   },
   methods: {
-    blur () {
-      this.show = false
+    blur() {
+      this.show = false;
     },
-    toggle () {
-      this.show = !this.show
-    }
-  }
-}
+    toggle() {
+      this.show = !this.show;
+    },
+  },
+};
 </script>
 
 <style scoped>

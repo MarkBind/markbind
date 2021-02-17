@@ -1,11 +1,10 @@
 module.exports = {
-  bind () {
-    jQuery(this.el).wrap(function () {
-      return `<div></div>`;
-    });
+  bind() {
+    // eslint-disable-next-line lodash/prefer-constant
+    jQuery(this.el).wrap(() => '<div></div>');
   },
   update(direction) {
     this.el.style.float = direction;
     console.log(direction);
-  }
+  },
 };
