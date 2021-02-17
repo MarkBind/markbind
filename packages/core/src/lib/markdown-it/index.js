@@ -7,7 +7,7 @@ const slugify = require('@sindresorhus/slugify');
 
 const { HighlightRule } = require('./highlight/HighlightRule.js');
 
-const createDoubleDelimiterInlineRule = require('./markdown-it-double-delimiter');
+const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
 // markdown-it plugins
 
@@ -25,10 +25,10 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-linkify-images'), {imgClass: 'img-fluid'})
   .use(require('markdown-it-texmath'), {engine: require('katex'), delimiters: 'brackets'})
   .use(require('./patches/markdown-it-attrs-nunjucks'))
-  .use(require('./markdown-it-radio-button'))
-  .use(require('./markdown-it-block-embed'))
-  .use(require('./markdown-it-icons'))
-  .use(require('./markdown-it-footnotes'));
+  .use(require('./plugins/markdown-it-radio-button'))
+  .use(require('./plugins/markdown-it-block-embed'))
+  .use(require('./plugins/markdown-it-icons'))
+  .use(require('./plugins/markdown-it-footnotes'));
 
 // fix table style
 markdownIt.renderer.rules.table_open = (tokens, idx) => {
@@ -153,7 +153,7 @@ markdownIt.renderer.rules.code_inline = (tokens, idx, options, env, slf) => {
   }
 };
 
-const fixedNumberEmojiDefs = require('./markdown-it-emoji-fixed');
+const fixedNumberEmojiDefs = require('./patches/markdown-it-emoji-fixed');
 markdownIt.use(require('markdown-it-emoji'), {
   defs: fixedNumberEmojiDefs
 });
