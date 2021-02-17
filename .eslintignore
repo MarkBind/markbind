@@ -1,7 +1,8 @@
 *.min.*
 node_modules
-packages/core/src/lib/markdown-it/*
-packages/core/src/lib/markdown-it-shared/*
+packages/core/src/lib/markdown-it/patches/*
+packages/core/src/lib/markdown-it/plugins/*
+!packages/core/src/lib/markdown-it/plugins/markdown-it-icons.js
 
 !.eslintrc.js
 
