@@ -104,7 +104,7 @@ export default {
 </script>
 
 <style scoped>
-.nav-tabs {
-  margin-bottom: 15px;
-}
+    .nav-tabs {
+        margin-bottom: 15px;
+    }
 </style>

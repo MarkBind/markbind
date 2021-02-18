@@ -255,21 +255,21 @@ export default {
 </script>
 
 <style>
-.search-dropdown-menu {
-  min-width: 30em;
-  max-height: 30em;
-  overflow-y: scroll;
-}
+    .search-dropdown-menu {
+        min-width: 30em;
+        max-height: 30em;
+        overflow-y: scroll;
+    }
 
-.dropdown-menu > li > a {
-  cursor: pointer;
-}
+    .dropdown-menu > li > a {
+        cursor: pointer;
+    }
 
-@media screen and (max-width: 768px) {
-  .search-dropdown-menu {
-    min-width: auto;
-    max-height: 30em;
-    overflow-y: scroll;
-  }
-}
+    @media screen and (max-width: 768px) {
+        .search-dropdown-menu {
+            min-width: auto;
+            max-height: 30em;
+            overflow-y: scroll;
+        }
+    }
 </style>

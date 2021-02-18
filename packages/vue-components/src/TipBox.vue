@@ -355,6 +355,11 @@ export default {
         padding: 0.75rem 0.5rem;
     }
 
+    .contents {
+        padding: 0 6px;
+        width: 100%;
+    }
+
     .box-container.seamless > .header-and-body > div.box-body-wrapper > .contents {
         padding-left: 12px;
     }
@@ -400,11 +405,6 @@ export default {
         vertical-align: text-top;
     }
 
-    .contents {
-        padding: 0 6px;
-        width: 100%;
-    }
-
     .contents > :last-child {
         margin-bottom: 0;
     }
@@ -418,7 +418,7 @@ export default {
     .alert-border-left {
         background-color: #f9f8f8;
         border-left: solid;
-        border-width: 0px 0px 0px 5px;
+        border-width: 0 0 0 5px;
     }
 
     .vertical-divider {
@@ -432,11 +432,11 @@ export default {
     }
 
     .no-background {
-      background: none;
+        background: none;
     }
 
     .no-border {
-      border: none;
+        border: none;
     }
 </style>
 

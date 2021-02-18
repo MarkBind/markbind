@@ -5,3 +5,12 @@ packages/core/src/lib/markdown-it/plugins/*
 !packages/core/src/lib/markdown-it/plugins/markdown-it-icons.js
 
 !.eslintrc.js
+
+# --- packages/vue-components ---
+
+packages/vue-components/src/directives/Closeable.js
+packages/vue-components/src/directives/Float.js
+packages/vue-components/src/utils/NodeList.js
+packages/vue-components/src/utils/utils.js
+
+# --- packages/vue-components end ---

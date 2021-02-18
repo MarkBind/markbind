@@ -149,60 +149,60 @@ export default {
 </script>
 
 <style scoped>
-.fa-check,
-.fa-times {
-    font-size: 1.2em;
-}
+    .fa-check,
+    .fa-times {
+        font-size: 1.2em;
+    }
 
-/* For accomodating block markdown nicely */
-.reason :last-child,
-.content :last-child {
-    margin-bottom: 0;
-}
+    /* For accomodating block markdown nicely */
+    .reason :last-child,
+    .content :last-child {
+        margin-bottom: 0;
+    }
 
-.reason {
-    padding: 0 0.5rem;
-}
+    .reason {
+        padding: 0 0.5rem;
+    }
 
-.checkbox-label {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    margin-bottom: 0;
-    vertical-align: text-bottom;
-}
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        margin-bottom: 0;
+        vertical-align: text-bottom;
+    }
 
-.form-control {
-    height: auto;
-    margin-bottom: 10px;
-    cursor: pointer;
-}
+    .form-control {
+        height: auto;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
 
-.form-control.success,
-.form-control.success > .checkbox-label,
-.form-control.danger,
-.form-control.danger > .checkbox-label {
-    cursor: default;
-}
+    .form-control.success,
+    .form-control.success > .checkbox-label,
+    .form-control.danger,
+    .form-control.danger > .checkbox-label {
+        cursor: default;
+    }
 
-.disabled {
-    opacity: 0.9;
-}
+    .disabled {
+        opacity: 0.9;
+    }
 
-.radio-svg {
-    width: 1em;
-    height: 1em;
-}
+    .radio-svg {
+        width: 1em;
+        height: 1em;
+    }
 
-.checkbox {
-    width: 1em;
-    height: 1em;
-    margin-right: 5px;
-    vertical-align: middle;
-}
+    .checkbox {
+        width: 1em;
+        height: 1em;
+        margin-right: 5px;
+        vertical-align: middle;
+    }
 
-.row {
-    margin: 0.2rem 0 0 0;
-    align-items: center;
-}
+    .row {
+        margin: 0.2rem 0 0 0;
+        align-items: center;
+    }
 </style>

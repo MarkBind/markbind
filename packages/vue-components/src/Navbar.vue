@@ -273,30 +273,30 @@ export default {
 </script>
 
 <style scoped>
-  @media (max-width: 767px) {
-    .navbar-collapse {
-      max-height: 80vh !important;
-      overflow-x: hidden !important;
-      overflow-y: scroll !important;
+    @media (max-width: 767px) {
+        .navbar-collapse {
+            max-height: 80vh !important;
+            overflow-x: hidden !important;
+            overflow-y: scroll !important;
+        }
     }
-  }
 
-  .navbar-fixed {
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
-  }
+    .navbar-fixed {
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+    }
 
-  >>> .dropdown-current {
-    color: #fff !important;
-    background: #007bff;
-  }
+    >>> .dropdown-current {
+        color: #fff !important;
+        background: #007bff;
+    }
 
-  .lower-navbar-container {
-    background-color: #fff;
-    border-bottom: 1px solid #c1c1c1;
-    height: 50px;
-    width: 100%;
-    position: relative;
-  }
+    .lower-navbar-container {
+        background-color: #fff;
+        border-bottom: 1px solid #c1c1c1;
+        height: 50px;
+        width: 100%;
+        position: relative;
+    }
 </style>

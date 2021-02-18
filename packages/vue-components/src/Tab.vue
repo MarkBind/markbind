@@ -86,10 +86,12 @@ export default {
     .tab-pane > hr {
         margin: 0;
     }
+
     .fade-enter-active {
-      transition: opacity .5s;
+        transition: opacity 0.5s;
     }
+
     .fade-leave-active {
-      transition: opacity 0s;
+        transition: opacity 0s;
     }
 </style>

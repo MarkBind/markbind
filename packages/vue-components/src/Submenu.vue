@@ -126,27 +126,27 @@ export default {
     .submenu-toggle {
         display: inline-block;
         width: 100%;
-        padding: .25rem .75rem .25rem 1.5rem;
+        padding: 0.25rem 0.75rem 0.25rem 1.5rem;
     }
 
     .dropdown > ul > .dropdown-submenu:last-child > ul,
     .btn-group > ul > .dropdown-submenu:last-child > ul {
-        margin-bottom: -.5rem;
+        margin-bottom: -0.5rem;
     }
 
     @media (min-width: 768px) {
-        .submenu-toggle:after {
+        .submenu-toggle::after {
             display: inline-block;
             width: 0;
             height: 0;
-            vertical-align: .255em;
+            vertical-align: 0.255em;
             content: "";
-            border-top: .3em solid transparent;
+            border-top: 0.3em solid transparent;
             border-right: 0;
-            border-bottom: .3em solid transparent;
-            border-left: .3em solid;
+            border-bottom: 0.3em solid transparent;
+            border-left: 0.3em solid;
             float: right;
-            margin-top: .5em;
+            margin-top: 0.5em;
         }
     }
 
@@ -154,24 +154,24 @@ export default {
         .dropdown-submenu > ul {
             padding-bottom: 0;
             border-radius: 0;
-            margin: -.05rem;
+            margin: -0.05rem;
             position: static;
             float: none;
         }
 
-        .submenu-toggle:after {
+        .submenu-toggle::after {
             display: inline-block;
             width: 0;
             height: 0;
-            margin-left: .255em;
-            vertical-align: .255em;
+            margin-left: 0.255em;
+            vertical-align: 0.255em;
             content: "";
-            border-top: .3em solid;
-            border-right: .3em solid transparent;
+            border-top: 0.3em solid;
+            border-right: 0.3em solid transparent;
             border-bottom: 0;
-            border-left: .3em solid transparent;
+            border-left: 0.3em solid transparent;
             float: right;
-            margin-top: .5em;
+            margin-top: 0.5em;
         }
     }
 </style>

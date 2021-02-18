@@ -119,26 +119,26 @@ export default {
 </script>
 
 <style>
-  .thumb-wrapper {
-    display: inline-block;
-    overflow: hidden;
-    position: relative;
-    text-align: center;
-    vertical-align: middle;
-  }
+    .thumb-wrapper {
+        display: inline-block;
+        overflow: hidden;
+        position: relative;
+        text-align: center;
+        vertical-align: middle;
+    }
 
-  .thumb-circle {
-    border-radius: 50%;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-  }
+    .thumb-circle {
+        border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+    }
 
-  .thumb-image {
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
-    -webkit-transform: translate(-50%,-50%);
-  }
+    .thumb-image {
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+    }
 </style>
