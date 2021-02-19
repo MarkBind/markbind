@@ -1,5 +1,7 @@
 'use strict';
 
+const logger = require('../../utils/logger');
+
 /*
  Copyright (c) 2014-2015 Vitaly Puzrin, Alex Kocharin
  Permission is hereby granted, free of charge, to any person
@@ -66,6 +68,15 @@ module.exports = function createDoubleDelimiterInlineRule(delimiter, ruleName, n
         token = state.push('text', '', 0);
         token.content = ch;
         len--;
+      }
+
+      /*
+        Interim warning logs to alert user of '++' underline syntax deprecation.
+        To be removed once '++' underline syntax is deprecated.
+       */
+      if (marker == 43) {
+        console.log(state);
+        logger.warn(`"++" syntax for underlining will be deprecated in v3.0. Please use "$$".`);
       }
 
       for (i = 0; i < len; i += 2) {
