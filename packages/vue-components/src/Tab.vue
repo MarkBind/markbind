@@ -75,8 +75,8 @@ export default {
   beforeDestroy() {
     if (this._tabset.active === this.index) { this._tabset.active = 0; }
     if (this._ingroup) {
-      const tabIndex = window.parent.tabs.indexOf(this);
-      window.parent.tabs.splice(tabIndex, 1);
+      const tabIndex = this.$parent.tabs.indexOf(this);
+      this.$parent.tabs.splice(tabIndex, 1);
     }
     this._tabset.tabs.splice(this.index, 1);
   },
