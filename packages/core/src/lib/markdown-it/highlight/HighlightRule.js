@@ -7,7 +7,7 @@ class HighlightRule {
      */
     this.ruleComponents = ruleComponents;
   }
-  
+
   static parseRule(ruleString) {
     const components = ruleString.split('-').map(HighlightRuleComponent.parseRuleComponent);
     if (components.some(c => !c)) {
@@ -18,7 +18,7 @@ class HighlightRule {
 
     return new HighlightRule(components);
   }
-  
+
   offsetLines(offset) {
     this.ruleComponents.forEach(comp => comp.offsetLineNumber(offset));
   }
@@ -28,13 +28,13 @@ class HighlightRule {
       return;
     }
 
-    this.ruleComponents.forEach(comp => {
+    this.ruleComponents.forEach((comp) => {
       if (!comp.linePart) {
         return;
       }
 
       const line = lines[comp.lineNumber - 1]; // line numbers are 1-based
-      const {1 : content} = HighlightRule._splitCodeAndIndentation(line);
+      const { 1: content } = HighlightRule._splitCodeAndIndentation(line);
       comp.convertPartToSlice(content);
     });
   }
@@ -46,11 +46,11 @@ class HighlightRule {
       const withinRangeEnd = compares[1] >= 0;
       return withinRangeStart && withinRangeEnd;
     }
-    
+
     const atLineNumber = compares[0] === 0;
     return atLineNumber;
   }
-  
+
   applyHighlight(line, lineNumber) {
     if (this.isLineRange()) {
       const [startCompare, endCompare] = this.ruleComponents.map(comp => comp.compareLine(lineNumber));
@@ -88,7 +88,7 @@ class HighlightRule {
     // Line number only
     return HighlightRule._highlightWholeText(line);
   }
-  
+
   static _highlightWholeLine(codeStr) {
     return `<span class="highlighted">${codeStr}\n</span>`;
   }
@@ -106,8 +106,8 @@ class HighlightRule {
   }
 
   static _highlightPartOfText(codeStr, bounds) {
-    const {0: indents} = HighlightRule._splitCodeAndIndentation(codeStr);
-    const [start, end] = bounds.map(x => x + indents.length)
+    const { 0: indents } = HighlightRule._splitCodeAndIndentation(codeStr);
+    const [start, end] = bounds.map(x => x + indents.length);
     // Note: As part-of-text highlighting requires walking over the node of the generated
     // html by highlight.js, highlighting will be applied in NodeProcessor instead.
     // hl-start and hl-end is used to pass over the bounds.
@@ -124,5 +124,5 @@ class HighlightRule {
 }
 
 module.exports = {
-  HighlightRule
+  HighlightRule,
 };

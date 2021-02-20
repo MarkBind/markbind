@@ -52,38 +52,73 @@ function detectAndApplyFixedHeaderStyles() {
       }`);
   insertCss(`.nav-menu-open { max-height: calc(100% - ${headerHeight}px); }`);
 
-  const addResizeHeaderListener = () => {
-    const resizeObserver = new ResizeObserver(() => {
-      const newHeaderHeight = headerSelector.height();
-      const sheets = document.styleSheets;
-      for (let i = 0; i < sheets.length; i += 1) {
-        const rules = sheets[i].cssRules;
-        // eslint-disable-next-line lodash/prefer-get
-        if (rules && rules[0] && rules[0].selectorText) {
-          switch (rules[0].selectorText) {
-          case '.fixed-header-padding':
-            sheets[i].deleteRule(0);
-            sheets[i].insertRule(`.fixed-header-padding { padding-top: ${newHeaderHeight}px !important }`);
-            break;
-          case 'span.anchor':
-            rules[0].style.top = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
-            break;
-          case 'span.card-container::before':
-            rules[0].style.marginTop = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
-            rules[0].style.height = `calc(${newHeaderHeight}px + ${bufferHeight}rem)`;
-            break;
-          case '.nav-menu-open':
-            rules[0].style.maxHeight = `calc(100% - ${newHeaderHeight}px + 50px)`;
-            break;
-          default:
-            break;
-          }
+  const adjustHeaderClasses = () => {
+    const newHeaderHeight = headerSelector.height();
+    const sheets = document.styleSheets;
+    for (let i = 0; i < sheets.length; i += 1) {
+      const rules = sheets[i].cssRules;
+      // eslint-disable-next-line lodash/prefer-get
+      if (rules && rules[0] && rules[0].selectorText) {
+        switch (rules[0].selectorText) {
+        case '.fixed-header-padding':
+          sheets[i].deleteRule(0);
+          sheets[i].insertRule(`.fixed-header-padding { padding-top: ${newHeaderHeight}px !important }`);
+          break;
+        case 'span.anchor':
+          rules[0].style.top = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
+          break;
+        case 'span.card-container::before':
+          rules[0].style.marginTop = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
+          rules[0].style.height = `calc(${newHeaderHeight}px + ${bufferHeight}rem)`;
+          break;
+        case '.nav-menu-open':
+          rules[0].style.maxHeight = `calc(100% - ${newHeaderHeight}px + 50px)`;
+          break;
+        default:
+          break;
         }
       }
-    });
-    resizeObserver.observe(headerSelector[0]);
+    }
   };
-  addResizeHeaderListener();
+
+  const toggleHeaderOverflow = () => {
+    const headerMaxHeight = headerSelector.css('max-height');
+    // reset overflow when header shows again to allow content
+    // in the header such as search dropdown etc. to overflow
+    if (headerMaxHeight === '100%') {
+      headerSelector.css('overflow', '');
+      adjustHeaderClasses();
+    }
+  };
+
+  let lastOffset = 0;
+  const toggleHeaderOnScroll = () => {
+    // prevent toggling of header on desktop site
+    if (window.innerWidth > 767) { return; }
+    const currentOffset = window.pageYOffset;
+    const isEndOfPage = (window.innerHeight + currentOffset) >= document.body.offsetHeight;
+    // to prevent page from auto scrolling when header is toggled at the end of page
+    if (isEndOfPage) { return; }
+    if (currentOffset > lastOffset) {
+      headerSelector.addClass('hide-header');
+    } else {
+      headerSelector.removeClass('hide-header');
+    }
+    lastOffset = currentOffset;
+  };
+
+  const resizeObserver = new ResizeObserver(() => {
+    const headerMaxHeight = headerSelector.css('max-height');
+    // hide header overflow when user scrolls to support transition effect
+    if (headerMaxHeight !== '100%') {
+      headerSelector.css('overflow', 'hidden');
+      return;
+    }
+    adjustHeaderClasses();
+  });
+  resizeObserver.observe(headerSelector[0]);
+  headerSelector[0].addEventListener('transitionend', toggleHeaderOverflow);
+  window.addEventListener('scroll', toggleHeaderOnScroll);
 }
 
 function updateSearchData(vm) {

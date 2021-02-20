@@ -2,26 +2,26 @@ const LINESLICE_REGEX = new RegExp('(\\d+)\\[(\\d*):(\\d*)]');
 const LINEPART_REGEX = new RegExp('(\\d+)\\[(["\'])((?:\\\\.|[^\\\\])*?)\\2]');
 
 class HighlightRuleComponent {
-  constructor(lineNumber, isSlice = false, bounds = [], linePart = "") {
+  constructor(lineNumber, isSlice = false, bounds = [], linePart = '') {
     this.lineNumber = lineNumber;
     this.isSlice = isSlice;
     this.bounds = bounds;
     this.linePart = linePart;
   }
-  
+
   static parseRuleComponent(compString) {
     // tries to match with the line slice pattern
     const linesliceMatch = compString.match(LINESLICE_REGEX);
     if (linesliceMatch) {
       const groups = linesliceMatch.slice(1); // discard full match
       const lineNumber = parseInt(groups.shift(), 10);
-      
+
       const isUnbounded = groups.every(x => x === '');
       if (isUnbounded) {
         return new HighlightRuleComponent(lineNumber, true);
       }
-      
-      const bounds = groups.map(x => x !== '' ? parseInt(x, 10) : -1);
+
+      const bounds = groups.map(x => (x !== '' ? parseInt(x, 10) : -1));
       return new HighlightRuleComponent(lineNumber, true, bounds);
     }
 
@@ -35,7 +35,7 @@ class HighlightRuleComponent {
       return new HighlightRuleComponent(lineNumber, false, [], part);
     }
 
-    if (!isNaN(compString)) { // ensure the whole string can be converted to number
+    if (!Number.isNaN(compString)) { // ensure the whole string can be converted to number
       const lineNumber = parseInt(compString, 10);
       return new HighlightRuleComponent(lineNumber);
     }
@@ -43,14 +43,14 @@ class HighlightRuleComponent {
     // the string is an improperly written rule
     return null;
   }
-  
+
   offsetLineNumber(offset) {
     this.lineNumber += offset;
   }
 
   /**
    * Compares the component's line number to a given line number.
-   * 
+   *
    * @param lineNumber The line number to compare
    * @returns {number} A negative number, zero, or a positive number when the given line number
    *  is after, at, or before the component's line number
@@ -66,10 +66,10 @@ class HighlightRuleComponent {
   /**
    * Computes the actual bounds of the highlight rule given a line,
    * comparing the rule's bounds and the line's range.
-   * 
+   *
    * If the rule does not specify a start/end bound, the computed bound will default
    * to the start/end of the line.
-   * 
+   *
    * @param line The line to be checked
    * @returns {[number, number]} The actual bounds computed
    */
@@ -91,7 +91,7 @@ class HighlightRuleComponent {
 
   convertPartToSlice(content) {
     if (!this.linePart) {
-      return [0, 0];
+      return;
     }
 
     const start = content.indexOf(this.linePart);
@@ -99,10 +99,10 @@ class HighlightRuleComponent {
 
     this.isSlice = true;
     this.bounds = bounds;
-    this.linePart = "";
+    this.linePart = '';
   }
 }
 
 module.exports = {
-  HighlightRuleComponent
+  HighlightRuleComponent,
 };
