@@ -575,20 +575,24 @@ class NodeProcessor {
       node.attribs.id = headerId;
     }
 
+    const cloneContext = _.cloneDeep(context);
+    cloneContext.markbindcwf = cloneContext.cwf;
+    delete cloneContext.cwf;
+
     switch (node.name) {
     case 'md':
       node.name = 'span';
-      node.children = cheerio.parseHTML(md.renderInline(cheerio.html(node.children), context), true);
+      node.children = cheerio.parseHTML(md.renderInline(cheerio.html(node.children), cloneContext), true);
       break;
     case 'markdown':
       node.name = 'div';
-      node.children = cheerio.parseHTML(md.render(cheerio.html(node.children), context), true);
+      node.children = cheerio.parseHTML(md.render(cheerio.html(node.children), cloneContext), true);
       break;
     default:
       break;
     }
 
-    NodeProcessor.processNode(node, context);
+    NodeProcessor.processNode(node, cloneContext);
 
     if (node.children) {
       node.children.forEach((child) => {

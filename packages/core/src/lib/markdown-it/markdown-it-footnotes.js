@@ -170,10 +170,6 @@ module.exports = function footnote_plugin(md) {
     token.meta  = { label: label };
     token.level = state.level++;
 
-    if (token == undefined) {
-      console.log('hi');
-    }
-
     state.tokens.push(token);
 
     oldBMark = state.bMarks[startLine];
@@ -221,10 +217,6 @@ module.exports = function footnote_plugin(md) {
 
     token       = new state.Token('footnote_reference_close', '', -1);
     token.level = --state.level;
-
-    if (token == undefined) {
-      console.log('hi');
-    }
 
     state.tokens.push(token);
 
@@ -365,19 +357,11 @@ module.exports = function footnote_plugin(md) {
 
     token = new state.Token('footnote_block_open', '', 1);
 
-    if (token == undefined) {
-      console.log('hi');
-    }
-
     state.tokens.push(token);
 
     for (i = 0, l = list.length; i < l; i++) {
       token      = new state.Token('footnote_open', '', 1);
       token.meta = { id: i, label: list[i].label };
-
-      if (token == undefined) {
-        console.log('hi');
-      }
 
       state.tokens.push(token);
 
@@ -403,11 +387,13 @@ module.exports = function footnote_plugin(md) {
 
       state.tokens = state.tokens.concat(tokens);
 
-      if (state.tokens[state.tokens.length - 1] == undefined) {
-        console.log('hi');
-        console.log('ho');
-      }
-
+      // problem: state.tokens have an undefined value in the last index
+      // the problem comes from the state.tokens.concat above, the "tokens" array is undefined
+      // and it is getting concatenated to state.tokens
+      // i have checked that tokens should not be undefined in the master branch
+      // the chain effect of tokens being undefined comes from refTokens being empty, which should
+      // not be the case. under the "else if (list[i].label)" above, tokens should have received the
+      // value from refTokens, but refTokens is empty. I have not traced beyond this point.
       if (state.tokens[state.tokens.length - 1].type === 'paragraph_close') {
         lastParagraph = state.tokens.pop();
       } else {
@@ -418,32 +404,18 @@ module.exports = function footnote_plugin(md) {
       for (j = 0; j < t; j++) {
         token      = new state.Token('footnote_anchor', '', 0);
         token.meta = { id: i, subId: j, label: list[i].label };
-        if (token == undefined) {
-          console.log('hi');
-          console.log('ho');
-        }
         state.tokens.push(token);
       }
 
       if (lastParagraph) {
-        if (lastParagraph == undefined) {
-          console.log('hi');
-          console.log('hi');
-        }
         state.tokens.push(lastParagraph);
       }
 
       token = new state.Token('footnote_close', '', -1);
-      if (token == undefined) {
-        console.log('hi');
-      }
       state.tokens.push(token);
     }
 
     token = new state.Token('footnote_block_close', '', -1);
-    if (token == undefined) {
-      console.log('hi');
-    }
     state.tokens.push(token);
   }
 
