@@ -164,9 +164,16 @@ module.exports = function footnote_plugin(md) {
     label = state.src.slice(start + 2, pos - 2);
     state.env.footnotes.refs[':' + label] = -1;
 
+    // console.log(state.env);
+
     token       = new state.Token('footnote_reference_open', '', 1);
     token.meta  = { label: label };
     token.level = state.level++;
+
+    if (token == undefined) {
+      console.log('hi');
+    }
+
     state.tokens.push(token);
 
     oldBMark = state.bMarks[startLine];
@@ -214,6 +221,11 @@ module.exports = function footnote_plugin(md) {
 
     token       = new state.Token('footnote_reference_close', '', -1);
     token.level = --state.level;
+
+    if (token == undefined) {
+      console.log('hi');
+    }
+
     state.tokens.push(token);
 
     return true;
@@ -352,11 +364,21 @@ module.exports = function footnote_plugin(md) {
     list = state.env.footnotes.list;
 
     token = new state.Token('footnote_block_open', '', 1);
+
+    if (token == undefined) {
+      console.log('hi');
+    }
+
     state.tokens.push(token);
 
     for (i = 0, l = list.length; i < l; i++) {
       token      = new state.Token('footnote_open', '', 1);
       token.meta = { id: i, label: list[i].label };
+
+      if (token == undefined) {
+        console.log('hi');
+      }
+
       state.tokens.push(token);
 
       if (list[i].tokens) {
@@ -380,7 +402,12 @@ module.exports = function footnote_plugin(md) {
       }
 
       state.tokens = state.tokens.concat(tokens);
-      console.log(state.tokens);
+
+      if (state.tokens[state.tokens.length - 1] == undefined) {
+        console.log('hi');
+        console.log('ho');
+      }
+
       if (state.tokens[state.tokens.length - 1].type === 'paragraph_close') {
         lastParagraph = state.tokens.pop();
       } else {
@@ -391,18 +418,32 @@ module.exports = function footnote_plugin(md) {
       for (j = 0; j < t; j++) {
         token      = new state.Token('footnote_anchor', '', 0);
         token.meta = { id: i, subId: j, label: list[i].label };
+        if (token == undefined) {
+          console.log('hi');
+          console.log('ho');
+        }
         state.tokens.push(token);
       }
 
       if (lastParagraph) {
+        if (lastParagraph == undefined) {
+          console.log('hi');
+          console.log('hi');
+        }
         state.tokens.push(lastParagraph);
       }
 
       token = new state.Token('footnote_close', '', -1);
+      if (token == undefined) {
+        console.log('hi');
+      }
       state.tokens.push(token);
     }
 
     token = new state.Token('footnote_block_close', '', -1);
+    if (token == undefined) {
+      console.log('hi');
+    }
     state.tokens.push(token);
   }
 
