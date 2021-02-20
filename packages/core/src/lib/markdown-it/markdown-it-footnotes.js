@@ -164,12 +164,9 @@ module.exports = function footnote_plugin(md) {
     label = state.src.slice(start + 2, pos - 2);
     state.env.footnotes.refs[':' + label] = -1;
 
-    // console.log(state.env);
-
     token       = new state.Token('footnote_reference_open', '', 1);
     token.meta  = { label: label };
     token.level = state.level++;
-
     state.tokens.push(token);
 
     oldBMark = state.bMarks[startLine];
@@ -217,7 +214,6 @@ module.exports = function footnote_plugin(md) {
 
     token       = new state.Token('footnote_reference_close', '', -1);
     token.level = --state.level;
-
     state.tokens.push(token);
 
     return true;
@@ -356,13 +352,11 @@ module.exports = function footnote_plugin(md) {
     list = state.env.footnotes.list;
 
     token = new state.Token('footnote_block_open', '', 1);
-
     state.tokens.push(token);
 
     for (i = 0, l = list.length; i < l; i++) {
       token      = new state.Token('footnote_open', '', 1);
       token.meta = { id: i, label: list[i].label };
-
       state.tokens.push(token);
 
       if (list[i].tokens) {
@@ -387,13 +381,6 @@ module.exports = function footnote_plugin(md) {
 
       state.tokens = state.tokens.concat(tokens);
 
-      // problem: state.tokens have an undefined value in the last index
-      // the problem comes from the state.tokens.concat above, the "tokens" array is undefined
-      // and it is getting concatenated to state.tokens
-      // i have checked that tokens should not be undefined in the master branch
-      // the chain effect of tokens being undefined comes from refTokens being empty, which should
-      // not be the case. under the "else if (list[i].label)" above, tokens should have received the
-      // value from refTokens, but refTokens is empty. I have not traced beyond this point.
       if (state.tokens[state.tokens.length - 1].type === 'paragraph_close') {
         lastParagraph = state.tokens.pop();
       } else {
