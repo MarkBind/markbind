@@ -9,13 +9,61 @@ const { HighlightRule } = require('./highlight/HighlightRule.js');
 
 const createDoubleDelimiterInlineRule = require('./markdown-it-double-delimiter');
 
+const _ = {};
+_.cloneDeep = require('lodash/cloneDeep');
+
+/* 
+ * Modified markdown-it parsing/rendering methods to ensure proper passing of env parameter
+ * for logging of deprecated "++" warning message. Deep-cloned env object for each parse instance.
+ */
+
+markdownIt.parse = function (src, env) {
+  if (typeof src !== 'string') {
+    throw new Error('Input data should be a String');
+  }
+
+  const deepClonedEnv = _.cloneDeep(env);
+  
+  var state = new this.core.State(src, this, deepClonedEnv);
+
+  this.core.process(state);
+
+  return state.tokens;
+};
+
+markdownIt.render = function (src, env) {
+  env = env || {};
+
+  const deepClonedEnv = _.cloneDeep(env);
+
+  return this.renderer.render(this.parse(src, env), this.options, deepClonedEnv);
+};
+
+markdownIt.parseInline = function (src, env) {
+  const deepClonedEnv = _.cloneDeep(env);
+
+  var state = new this.core.State(src, this, deepClonedEnv);
+
+  state.inlineMode = true;
+  this.core.process(state);
+
+  return state.tokens;
+};
+
+markdownIt.renderInline = function (src, env) {
+  env = env || {};
+
+  const deepClonedEnv = _.cloneDeep(env);
+
+  return this.renderer.render(this.parseInline(src, deepClonedEnv), this.options, deepClonedEnv);
+};
+
 // markdown-it plugins
 
 markdownIt.use(createDoubleDelimiterInlineRule('%%', 'dimmed', 'emphasis'))
   .use(createDoubleDelimiterInlineRule('$$', 'underline', 'dimmed'))
   .use(createDoubleDelimiterInlineRule('++', 'underline', 'dimmed'))
-  
-
+ 
 markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-sub'))
   .use(require('markdown-it-sup'))
