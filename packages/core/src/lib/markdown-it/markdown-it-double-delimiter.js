@@ -140,8 +140,8 @@ module.exports = function createDoubleDelimiterInlineRule(delimiter, ruleName, n
           To be removed once '++' underline syntax is deprecated.
         */
         if (startDelim.marker == 43) {
-          // logger.warn(`"++" syntax for underlining will be deprecated in v3.0. Please use "$$".`);
-          // console.log(state.env.cwf);
+          logger.warn('"++" syntax for underlining will be deprecated in v3.0. Please use "$$".\n'
+             + `filePath: ${state.env.cwf}`);
         }
       }
 
