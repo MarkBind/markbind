@@ -380,7 +380,6 @@ module.exports = function footnote_plugin(md) {
       }
 
       state.tokens = state.tokens.concat(tokens);
-      console.log(state.tokens);
       if (state.tokens[state.tokens.length - 1].type === 'paragraph_close') {
         lastParagraph = state.tokens.pop();
       } else {

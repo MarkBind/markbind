@@ -70,6 +70,15 @@ module.exports = function createDoubleDelimiterInlineRule(delimiter, ruleName, n
         len--;
       }
 
+      /*
+        Interim warning logs to alert user of '++' underline syntax deprecation.
+        To be removed once '++' underline syntax is deprecated.
+       */
+      if (marker == 43) {
+        console.log(state);
+        logger.warn(`"++" syntax for underlining will be deprecated in v3.0. Please use "$$".`);
+      }
+
       for (i = 0; i < len; i += 2) {
         token = state.push('text', '', 0);
         token.content = ch + ch;
@@ -133,15 +142,6 @@ module.exports = function createDoubleDelimiterInlineRule(delimiter, ruleName, n
           state.tokens[endDelim.token - 1].content === delimiter.charAt(0)) {
 
           loneMarkers.push(endDelim.token - 1);
-        }
-
-        /*
-          Interim warning logs to alert user of '++' underline syntax deprecation.
-          To be removed once '++' underline syntax is deprecated.
-        */
-        if (startDelim.marker == 43) {
-          // logger.warn(`"++" syntax for underlining will be deprecated in v3.0. Please use "$$".`);
-          // console.log(state.env.cwf);
         }
       }
 
