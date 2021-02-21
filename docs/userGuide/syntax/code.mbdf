@@ -65,7 +65,7 @@ The value of `highlight-lines` is composed of *highlight rules*, separated by co
 These rules dictate where and how MarkBind should highlight your code block. 
 
 You can specify the rules in many different ways, depending on how you want it to be. There are three main variants:
-full text, partial text, or full line highlighting.
+full text, substring, bounded, or full line highlighting.
 
 ###### Full text highlighting
 
@@ -75,22 +75,29 @@ numbering via the `start-from` attribute, you will have to follow that numbering
 
 For **text-only range highlighting**, join the two line numbers with a dash sign (`-`).
 
-###### Partial text highlighting
+###### Substring highlighting
 
-You can also highlight just a part of the text portion of the line. MarkBind has two syntax that can help you, an
-easy and convenient **_line-part_** syntax and more concise and powerful **_line-slice_** syntax.
+You can also highlight occurrences of a substring in the line with MarkBind's **line-part** syntax. Note that this rule
+will highlight **all** occurrences of the substring, and substring is case-sensitive.
 
-The **line-part** syntax is of the form `lineNumber[part]`, where `lineNumber` is the line number (subject to the
-numbering settings as stated above), and the `part` is the exact part of line wrapped in quotes. The exact quote to
-be used **must** be different than the one used to specify the `highlight-lines` attribute value.
+The line-part syntax is of the form `lineNumber[part]`, where `lineNumber` is the line number (subject to the numbering
+settings as stated above), and `part` is the substring wrapped in quotes. The exact quote to be used **must** be
+different than the one used to specify the `highlight-lines` attribute value. As an example, one can write
+`highlight-lines="2['void main']"`.
 
-However, there are limitations to the line-part syntax. One of which is that if you have quotes inside `part`, you
-have to manually escape it with backslashes (`\`). Secondly, the line-part syntax **will not work** if the quote
-inside `part` is the same as the one used to specify the `highlight-lines` attribute value, even with escaping.
+However, there are limitations to the line-part syntax. One of which is that if you have quotes inside the substring
+in `part`, you have to manually escape it with backslashes (`\`). Secondly, the line-part syntax **will not work**
+if the quote inside `part` is the same as the one used to specify the `highlight-lines` attribute value,
+even with escaping.
 
-The more powerful **line-slice** syntax that can overcome these limitations is of the form `lineNumber[start:end]`,
-where `lineNumber` is the line number, `start` and `end` denote the range of character positions that will be
-highlighted. This is similar to Python's slice syntax, if you are familiar.
+###### Bounded highlighting
+
+Bounded highlighting is available if you want to highlight text on a specific boundary.
+This highlighting overcomes the limitations of substring highlighting.
+
+You can use MarkBind's _line-slice_ syntax format `lineNumber[start:end]` to write the bounded rule, where `lineNumber`
+is the line number, `start` and `end` denote the range of character positions that will be highlighted, such as
+`5[2:10]`.
 
 Character positions start from `0`, which denotes the first non-whitespace character in the line, upwards.
 Note that the highlight includes character at `start` but does not include character at `end`. You can omit either

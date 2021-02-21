@@ -107,11 +107,12 @@ class HighlightRule {
 
   static _highlightPartOfText(codeStr, bounds) {
     const { 0: indents } = HighlightRule._splitCodeAndIndentation(codeStr);
-    const [start, end] = bounds.map(x => x + indents.length);
+    const correctedBounds = bounds.map(bound => bound.map(x => x + indents.length));
     // Note: As part-of-text highlighting requires walking over the node of the generated
     // html by highlight.js, highlighting will be applied in NodeProcessor instead.
-    // hl-start and hl-end is used to pass over the bounds.
-    return `<span hl-start=${start} hl-end=${end}>${codeStr}\n</span>`;
+    // hl-data is used to pass over the bounds.
+    const dataStr = correctedBounds.map(bound => bound.join('-')).join(',');
+    return `<span hl-data=${dataStr}>${codeStr}\n</span>`;
   }
 
   isLineRange() {

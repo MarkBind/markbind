@@ -193,17 +193,21 @@ class NodeProcessor {
     }
 
     codeNode.children.forEach((line) => {
-      if (!_.has(line.attribs, 'hl-start') || !_.has(line.attribs, 'hl-end')) {
+      if (!_.has(line.attribs, 'hl-data')) {
         return;
       }
 
-      const start = parseInt(line.attribs['hl-start'], 10);
-      const end = parseInt(line.attribs['hl-end'], 10);
+      const data = line.attribs['hl-data'].split(',').map(boundStr => boundStr.split('-'));
+      const bounds = [];
+      data.forEach((boundStr) => {
+        const [start, end] = boundStr.map(str => parseInt(str, 10));
+        if (!Number.isNaN(start) && !Number.isNaN(end)) {
+          bounds.push([start, end]);
+        }
+      });
+      bounds.forEach(([start, end]) => this._traverseLinePart(line, start, end));
 
-      this._traverseLinePart(line, start, end);
-
-      delete line.attribs['hl-start'];
-      delete line.attribs['hl-end'];
+      delete line.attribs['hl-data'];
     });
   }
 

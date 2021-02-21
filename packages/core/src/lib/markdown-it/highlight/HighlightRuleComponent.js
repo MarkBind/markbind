@@ -3,9 +3,21 @@ const LINEPART_REGEX = new RegExp('(\\d+)\\[(["\'])((?:\\\\.|[^\\\\])*?)\\2]');
 
 class HighlightRuleComponent {
   constructor(lineNumber, isSlice = false, bounds = [], linePart = '') {
+    /**
+     * @type {number}
+     */
     this.lineNumber = lineNumber;
+    /**
+     * @type {boolean}
+     */
     this.isSlice = isSlice;
+    /**
+     * @type {Array<[number, number]>}
+     */
     this.bounds = bounds;
+    /**
+     * @type {string}
+     */
     this.linePart = linePart;
   }
 
@@ -21,8 +33,8 @@ class HighlightRuleComponent {
         return new HighlightRuleComponent(lineNumber, true);
       }
 
-      const bounds = groups.map(x => (x !== '' ? parseInt(x, 10) : -1));
-      return new HighlightRuleComponent(lineNumber, true, bounds);
+      const bound = groups.map(x => (x !== '' ? parseInt(x, 10) : -1));
+      return new HighlightRuleComponent(lineNumber, true, [bound]);
     }
 
     const linepartMatch = compString.match(LINEPART_REGEX);
@@ -71,22 +83,24 @@ class HighlightRuleComponent {
    * to the start/end of the line.
    *
    * @param line The line to be checked
-   * @returns {[number, number]} The actual bounds computed
+   * @returns {Array<[number, number]>} The actual bounds computed
    */
   computeLineBounds(line) {
     if (!this.isSlice) {
-      return [0, 0];
+      return [[0, 0]];
     }
 
     const [lineStart, lineEnd] = [0, line.length - 1];
     if (this.isUnboundedSlice()) {
-      return [lineStart, lineEnd];
+      return [[lineStart, lineEnd]];
     }
 
-    const [boundStart, boundEnd] = this.bounds;
-    const start = (lineStart <= boundStart) && (boundStart <= lineEnd) ? boundStart : lineStart;
-    const end = (lineStart <= boundEnd) && (boundEnd <= lineEnd) ? boundEnd : lineEnd;
-    return [start, end];
+    const lineBounds = this.bounds.map(([boundStart, boundEnd]) => {
+      const start = (lineStart <= boundStart) && (boundStart <= lineEnd) ? boundStart : lineStart;
+      const end = (lineStart <= boundEnd) && (boundEnd <= lineEnd) ? boundEnd : lineEnd;
+      return [start, end];
+    });
+    return lineBounds;
   }
 
   convertPartToSlice(content) {
@@ -94,8 +108,22 @@ class HighlightRuleComponent {
       return;
     }
 
-    const start = content.indexOf(this.linePart);
-    const bounds = start === -1 ? [0, 0] : [start, start + this.linePart.length];
+    let contentRemaining = content;
+    let start = contentRemaining.indexOf(this.linePart);
+    const bounds = [];
+
+    if (start === -1) {
+      bounds.push([0, 0]);
+    }
+
+    let curr = 0;
+    while (start !== -1) {
+      const end = start + this.linePart.length;
+      bounds.push([curr + start, curr + end]);
+      curr += end;
+      contentRemaining = contentRemaining.substring(end);
+      start = contentRemaining.indexOf(this.linePart);
+    }
 
     this.isSlice = true;
     this.bounds = bounds;
