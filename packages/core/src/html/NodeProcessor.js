@@ -64,12 +64,12 @@ class NodeProcessor {
       && node.children.some(child => _.has(child.attribs, 'slot') && child.attribs.slot === slotName);
 
     if (!hasAttributeSlot && _.has(node.attribs, attribute)) {
-      // console.log(context);
       let rendered;
+      const clonedContext = { cwf: context.cwf };
       if (isInline) {
-        rendered = md.renderInline(node.attribs[attribute], context);
+        rendered = md.renderInline(node.attribs[attribute], clonedContext);
       } else {
-        rendered = md.render(node.attribs[attribute], context);
+        rendered = md.render(node.attribs[attribute], clonedContext);
       }
 
       const attributeSlotElement = cheerio.parseHTML(
@@ -441,8 +441,8 @@ class NodeProcessor {
     if (text === '') {
       return;
     }
-
-    const renderedText = md.renderInline(text, context);
+    const clonedContext = { cwf: context.cwf };
+    const renderedText = md.renderInline(text, clonedContext);
     node.children = cheerio.parseHTML(renderedText);
     delete node.attribs.text;
   }
@@ -575,14 +575,17 @@ class NodeProcessor {
       node.attribs.id = headerId;
     }
 
+    const clonedContext = { cwf: context.cwf };
+
     switch (node.name) {
     case 'md':
       node.name = 'span';
-      node.children = cheerio.parseHTML(md.renderInline(cheerio.html(node.children), context, true));
+      node.children = cheerio.parseHTML(
+        md.renderInline(cheerio.html(node.children), clonedContext, true));
       break;
     case 'markdown':
       node.name = 'div';
-      node.children = cheerio.parseHTML(md.render(cheerio.html(node.children), context, true));
+      node.children = cheerio.parseHTML(md.render(cheerio.html(node.children), clonedContext, true));
       break;
     default:
       break;
@@ -634,7 +637,8 @@ class NodeProcessor {
       const parser = new htmlparser.Parser(handler);
       const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
-        const renderedContent = md.render(content, context);
+        const clonedContext = { cwf: context.cwf };
+        const renderedContent = md.render(content, clonedContext);
         parser.parseComplete(renderedContent);
       } else if (fileExt === 'html') {
         parser.parseComplete(content);

@@ -9,55 +9,6 @@ const { HighlightRule } = require('./highlight/HighlightRule.js');
 
 const createDoubleDelimiterInlineRule = require('./markdown-it-double-delimiter');
 
-const _ = {};
-_.cloneDeep = require('lodash/cloneDeep');
-
-/* 
- * Modified markdown-it parsing/rendering methods to ensure proper passing of env parameter
- * for logging of deprecated "++" warning message. Deep-cloned env object for each parse instance.
- */
-
-markdownIt.parse = function (src, env) {
-  if (typeof src !== 'string') {
-    throw new Error('Input data should be a String');
-  }
-
-  const deepClonedEnv = _.cloneDeep(env);
-  
-  var state = new this.core.State(src, this, deepClonedEnv);
-
-  this.core.process(state);
-
-  return state.tokens;
-};
-
-markdownIt.render = function (src, env) {
-  env = env || {};
-
-  const deepClonedEnv = _.cloneDeep(env);
-
-  return this.renderer.render(this.parse(src, env), this.options, deepClonedEnv);
-};
-
-markdownIt.parseInline = function (src, env) {
-  const deepClonedEnv = _.cloneDeep(env);
-
-  var state = new this.core.State(src, this, deepClonedEnv);
-
-  state.inlineMode = true;
-  this.core.process(state);
-
-  return state.tokens;
-};
-
-markdownIt.renderInline = function (src, env) {
-  env = env || {};
-
-  const deepClonedEnv = _.cloneDeep(env);
-
-  return this.renderer.render(this.parseInline(src, deepClonedEnv), this.options, deepClonedEnv);
-};
-
 // markdown-it plugins
 
 markdownIt.use(createDoubleDelimiterInlineRule('%%', 'dimmed', 'emphasis'))
@@ -175,7 +126,8 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const heading = token.attrGet('heading');
   const codeBlockContent = `<pre><code ${slf.renderAttrs(token)}>${str}</code></pre>`;
   if (heading) {
-    const renderedHeading = markdownIt.renderInline(heading, env);
+    const clonedContext = { cwf: context.cwf };
+    const renderedHeading = markdownIt.renderInline(heading, clonedContext);
     const headingStyle = (renderedHeading === heading) ? 'code-block-heading' : 'code-block-heading inline-markdown-heading';
     return '<div class="code-block">'
       + `<div class="${headingStyle}"><span>${renderedHeading}</span></div>`
