@@ -15,10 +15,12 @@ const processAndVerifyTemplate = (template, expectedTemplate, postProcess = fals
   const handler = new htmlparser.DomHandler((error, dom) => {
     expect(error).toBeFalsy();
 
+    const mockContext = {};
+
     if (postProcess) {
       dom.forEach(node => NodeProcessor.postProcessNode(node));
     } else {
-      dom.forEach(node => NodeProcessor.processNode(node));
+      dom.forEach(node => NodeProcessor.processNode(node, mockContext));
     }
     const result = cheerio.html(dom);
 
