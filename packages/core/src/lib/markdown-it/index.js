@@ -7,9 +7,15 @@ const slugify = require('@sindresorhus/slugify');
 
 const { HighlightRule } = require('./highlight/HighlightRule.js');
 
+const createDoubleDelimiterInlineRule = require('./markdown-it-double-delimiter');
+
 // markdown-it plugins
+
+markdownIt.use(createDoubleDelimiterInlineRule('%%', 'dimmed', 'emphasis'))
+  .use(createDoubleDelimiterInlineRule('$$', 'underline', 'dimmed'))
+  .use(createDoubleDelimiterInlineRule('++', 'underline', 'dimmed'))
+ 
 markdownIt.use(require('markdown-it-mark'))
-  .use(require('markdown-it-ins'))
   .use(require('markdown-it-sub'))
   .use(require('markdown-it-sup'))
   .use(require('markdown-it-imsize'), {autofill: false})
@@ -18,7 +24,6 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-linkify-images'), {imgClass: 'img-fluid'})
   .use(require('markdown-it-texmath'), {engine: require('katex'), delimiters: 'brackets'})
   .use(require('./patches/markdown-it-attrs-nunjucks'))
-  .use(require('./markdown-it-dimmed'))
   .use(require('./markdown-it-radio-button'))
   .use(require('./markdown-it-block-embed'))
   .use(require('./markdown-it-icons'))
@@ -121,7 +126,8 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const heading = token.attrGet('heading');
   const codeBlockContent = `<pre><code ${slf.renderAttrs(token)}>${str}</code></pre>`;
   if (heading) {
-    const renderedHeading = markdownIt.renderInline(heading);
+    const clonedContext = { cwf: env.cwf };
+    const renderedHeading = markdownIt.renderInline(heading, clonedContext);
     const headingStyle = (renderedHeading === heading) ? 'code-block-heading' : 'code-block-heading inline-markdown-heading';
     return '<div class="code-block">'
       + `<div class="${headingStyle}"><span>${renderedHeading}</span></div>`

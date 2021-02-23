@@ -595,7 +595,7 @@ class Page {
    * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
    * @throws (Error) if there is more than one instance of the <navigation> tag
    */
-  insertSiteNav(pageData, pageSources) {
+  insertSiteNav(pageData, pageSources, sourcePath) {
     if (!this.siteNav || !fs.existsSync(this.siteNav)) {
       this.siteNav = false;
       return pageData;
@@ -617,9 +617,10 @@ class Page {
     if (navigationElements.length > 1) {
       throw new Error(`More than one <navigation> tag found in ${this.siteNav}`);
     }
+    const context = { cwf: sourcePath };
     const siteNavHtml = md.render(navigationElements.length === 0
       ? siteNavMappedData.replace(SITE_NAV_EMPTY_LINE_REGEX, '\n')
-      : navigationElements.html().replace(SITE_NAV_EMPTY_LINE_REGEX, '\n'));
+      : navigationElements.html().replace(SITE_NAV_EMPTY_LINE_REGEX, '\n'), context);
     const $nav = cheerio.load(siteNavHtml);
 
     // Add anchor classes and highlight current page's anchor, if any.
@@ -889,7 +890,7 @@ class Page {
       .then(result => Page.addContentWrapper(result))
       .then(result => this.collectPluginSources(result))
       .then(result => this.preRender(result))
-      .then(result => this.insertSiteNav(result, pageSources))
+      .then(result => this.insertSiteNav(result, pageSources, this.pageConfig.sourcePath))
       .then(result => this.insertHeaderFile(result, pageSources))
       .then(result => this.insertFooterFile(result, pageSources))
       .then(result => Page.insertTemporaryStyles(result))
