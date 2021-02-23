@@ -303,80 +303,80 @@ export default {
 </script>
 
 <style scoped>
-.result-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 2em;
-    width: 2em;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 2em;
-}
+    .result-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 2em;
+        width: 2em;
+        border-width: 2px;
+        border-style: solid;
+        border-radius: 2em;
+    }
 
-.question {
-    margin-bottom: 1rem;
-    transition: transform 0.5s ease-out, opacity 0.5s linear;
-    box-shadow: 0 2px 7px 5px rgba(210, 210, 210, 0.2);
-}
+    .question {
+        margin-bottom: 1rem;
+        transition: transform 0.5s ease-out, opacity 0.5s linear;
+        box-shadow: 0 2px 7px 5px rgba(210, 210, 210, 0.2);
+    }
 
-.question-enter-active {
-    opacity: 0;
-    transform: translateX(-100%);
-}
+    .question-enter-active {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
 
-.question-leave-to {
-    opacity: 0;
-    transform: translateX(100%);
-}
+    .question-leave-to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
 
-.q-btn {
-    border-radius: 2.5em;
-    transition: opacity 0.5s, transform 0.7s;
-}
+    .q-btn {
+        border-radius: 2.5em;
+        transition: opacity 0.5s, transform 0.7s;
+    }
 
-.q-btn-enter {
-    opacity: 0;
-    transform: translateY(30px);
-}
+    .q-btn-enter {
+        opacity: 0;
+        transform: translateY(30px);
+    }
 
-.q-btn-leave-to {
-    opacity: 0;
-    transform: translateX(calc(-100% - 0.25rem));
-}
+    .q-btn-leave-to {
+        opacity: 0;
+        transform: translateX(calc(-100% - 0.25rem));
+    }
 
-.q-btn-leave-active {
-    position: absolute;
-}
+    .q-btn-leave-active {
+        position: absolute;
+    }
 
-.card-header {
-    font-size: 1.05em;
-    font-weight: 500;
-}
+    .card-header {
+        font-size: 1.05em;
+        font-weight: 500;
+    }
 
-/* For accomodating block markdown nicely */
-.card-header > :last-child,
-.answer > :last-child {
-    margin-bottom: 0;
-}
+    /* For accomodating block markdown nicely */
+    .card-header > :last-child,
+    .answer > :last-child {
+        margin-bottom: 0;
+    }
 
-@keyframes shake {
-    20% { transform: translate(-1px, -1px); }
-    40% { transform: translate(1px, 1px); }
-    60% { transform: translate(0, 0); }
-    80% { transform: translate(-1px, 1px); }
-    100% { transform: translate(1px, -1px); }
-}
+    @keyframes shake {
+        20% { transform: translate(-1px, -1px); }
+        40% { transform: translate(1px, 1px); }
+        60% { transform: translate(0, 0); }
+        80% { transform: translate(-1px, 1px); }
+        100% { transform: translate(1px, -1px); }
+    }
 
-.shake {
-    animation: shake 0.25s;
-    animation-iteration-count: 2;
-}
+    .shake {
+        animation: shake 0.25s;
+        animation-iteration-count: 2;
+    }
 
-/* text question text area */
-textarea.form-control {
-    height: auto;
-    min-height: 75px;
-    margin-bottom: 10px;
-}
+    /* text question text area */
+    textarea.form-control {
+        height: auto;
+        min-height: 75px;
+        margin-bottom: 10px;
+    }
 </style>

@@ -162,48 +162,48 @@ export default {
 </script>
 
 <style scoped>
-.quiz-container {
-    overflow: hidden;
-}
+    .quiz-container {
+        overflow: hidden;
+    }
 
-.intro-outro-card {
-    transition: opacity 0.5s;
-    box-shadow: 0 2px 7px 5px rgba(210, 210, 210, 0.2);
-}
+    .intro-outro-card {
+        transition: opacity 0.5s;
+        box-shadow: 0 2px 7px 5px rgba(210, 210, 210, 0.2);
+    }
 
-.intro-outro-card-enter-active,
-.intro-outro-card-leave-to {
-    opacity: 0;
-}
+    .intro-outro-card-enter-active,
+    .intro-outro-card-leave-to {
+        opacity: 0;
+    }
 
-.intro-outro-card > .card-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+    .intro-outro-card > .card-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 
-.score {
-    font-size: 1.4rem;
-    font-weight: bold;
-}
+    .score {
+        font-size: 1.4rem;
+        font-weight: bold;
+    }
 
-.score-circle {
-    stroke-dasharray: 264;
-    fill: none;
-    stroke: rgba(132, 215, 255, 0.8);
-    stroke-width: 8;
-    transition: stroke-dashoffset 1.5s ease-out, stroke 1.5s linear;
-}
+    .score-circle {
+        stroke-dasharray: 264;
+        fill: none;
+        stroke: rgba(132, 215, 255, 0.8);
+        stroke-width: 8;
+        transition: stroke-dashoffset 1.5s ease-out, stroke 1.5s linear;
+    }
 
-.score-background-circle {
-    fill: none;
-    stroke: rgba(227, 226, 226, 0.5);
-    stroke-width: 8;
-}
+    .score-background-circle {
+        fill: none;
+        stroke: rgba(227, 226, 226, 0.5);
+        stroke-width: 8;
+    }
 
-.btn {
-    border-radius: 2em;
-}
+    .btn {
+        border-radius: 2em;
+    }
 
 </style>

@@ -140,156 +140,160 @@ export default {
 
 <style scoped>
 
-  .card-peek-collapsed {
-    position: relative;
-  }
+    .card-peek-collapsed {
+        position: relative;
+    }
 
-  /*
+    /*
    * Gives the faded content effect for peek.
    * Ensure that height has the same value as collapsedPanelHeight in PanelBase.js.
    */
-  .card-peek-collapsed::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    height: 125px;
-    background-image: linear-gradient(180deg, transparent, white 90%);
-  }
+    .card-peek-collapsed::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        height: 125px;
+        background-image: linear-gradient(180deg, transparent, white 90%);
+    }
 
-  .morph-title {
-    padding: 0 0.3em;
-    border-color: black;
-    background-color: transparent;
-    vertical-align: top;
-  }
+    .morph-title {
+        padding: 0 0.3em;
+        border-color: black;
+        background-color: transparent;
+        vertical-align: top;
+    }
 
-  .morph-title:hover, .morph-title:active, .morph-title:focus {
-    color: white;
-    border-color: #343a40;
-    background-color: #343a40;
-  }
+    .morph-title:hover,
+    .morph-title:active,
+    .morph-title:focus {
+        color: white;
+        border-color: #343a40;
+        background-color: #343a40;
+    }
 
-  .card-collapse {
-    overflow: hidden;
-    transition: max-height 0.5s ease-in-out;
-  }
+    .card-collapse {
+        overflow: hidden;
+        transition: max-height 0.5s ease-in-out;
+    }
 
-  .card-flex {
-    display: flex;
-    flex-direction: column;
-    border: 0;
-    margin: 0;
-  }
+    .card-flex {
+        display: flex;
+        flex-direction: column;
+        border: 0;
+        margin: 0;
+    }
 
-  .header-fade-enter {
-    opacity: 0;
-  }
+    .header-fade-enter {
+        opacity: 0;
+    }
 
-  .header-fade-leave-active {
-    position: absolute;
-  }
+    .header-fade-leave-active {
+        position: absolute;
+    }
 
-  .header-fade-leave-to {
-    opacity: 0 !important;
-  }
+    .header-fade-leave-to {
+        opacity: 0 !important;
+    }
 
-  .card-title-inline {
-    display: inline-block;
-  }
+    .card-title-inline {
+        display: inline-block;
+    }
 
-  .card-body {
-    padding: 0;
-  }
+    .card-body {
+        padding: 0;
+    }
 
-  .header-wrapper {
-    width: 100%;
-    display: inline-block;
-    background-color: white;
-  }
+    .header-wrapper {
+        width: 100%;
+        display: inline-block;
+        background-color: white;
+    }
 
-  .header-wrapper-bottom {
-    order: 1;
-  }
+    .header-wrapper-bottom {
+        order: 1;
+    }
 
-  .ellipses::before {
-    position: relative;
-    bottom: 3px;
-    content: '...';
-    font-weight: 900;
-    margin-right: 4px;
-  }
+    .ellipses::before {
+        position: relative;
+        bottom: 3px;
+        content: '...';
+        font-weight: 900;
+        margin-right: 4px;
+    }
 
-  .button-wrapper {
-    padding-left: 2px;
-    border-width: 0 0 0 1px;
-    border-color: rgba(150, 150, 150, 0.2);
-    border-style: solid;
-    margin-left: 2px;
-    width: auto;
-    float: none;
-    opacity: 0;
-    transition: opacity 0.5s;
-    vertical-align: text-top;
-  }
+    .button-wrapper {
+        padding-left: 2px;
+        border-width: 0 0 0 1px;
+        border-color: rgba(150, 150, 150, 0.2);
+        border-style: solid;
+        margin-left: 2px;
+        width: auto;
+        float: none;
+        opacity: 0;
+        transition: opacity 0.5s;
+        vertical-align: text-top;
+    }
 
-  .button-wrapper-expanded {
-    padding-left: 0;
-    border: 0;
-    margin-left: 0;
-  }
-
-  .card:hover .button-wrapper {
-    opacity: 1;
-  }
-
-  .header-toggle {
-    cursor: pointer;
-  }
-
-  .minimal-button {
-    padding: 0 3px;
-    border: 0;
-    color: rgb(150, 150, 150);
-    background-color: transparent;
-    cursor: pointer;
-  }
-
-  .minimal-button:hover, .minimal-button:active, .minimal-button:focus {
-    color: rgb(30, 30, 30);
-  }
-
-  .minimal-popup-button {
-    top: 1px;
-    font-size: 9px;
-  }
-
-  .minimal-menu-up {
-    top: 3px;
-    font-size: 13px;
-  }
-
-  .minimal-menu-down {
-    top: 1px;
-    font-size: 13px;
-  }
-
-  .minimal-close-button {
-    top: 2px;
-    font-size: 11px;
-  }
-
-  /* Bootstrap extra small(xs) responsive breakpoint */
-  @media (max-width: 575.98px) {
     .button-wrapper-expanded {
-      padding-left: 0;
-      border: 0;
-      margin-left: 0;
-      opacity: 0.15;
+        padding-left: 0;
+        border: 0;
+        margin-left: 0;
     }
 
-    .button-wrapper-visible {
-      opacity: 1;
+    .card:hover .button-wrapper {
+        opacity: 1;
     }
-  }
+
+    .header-toggle {
+        cursor: pointer;
+    }
+
+    .minimal-button {
+        padding: 0 3px;
+        border: 0;
+        color: rgb(150, 150, 150);
+        background-color: transparent;
+        cursor: pointer;
+    }
+
+    .minimal-button:hover,
+    .minimal-button:active,
+    .minimal-button:focus {
+        color: rgb(30, 30, 30);
+    }
+
+    .minimal-popup-button {
+        top: 1px;
+        font-size: 9px;
+    }
+
+    .minimal-menu-up {
+        top: 3px;
+        font-size: 13px;
+    }
+
+    .minimal-menu-down {
+        top: 1px;
+        font-size: 13px;
+    }
+
+    .minimal-close-button {
+        top: 2px;
+        font-size: 11px;
+    }
+
+    /* Bootstrap extra small(xs) responsive breakpoint */
+    @media (max-width: 575.98px) {
+        .button-wrapper-expanded {
+            padding-left: 0;
+            border: 0;
+            margin-left: 0;
+            opacity: 0.15;
+        }
+
+        .button-wrapper-visible {
+            opacity: 1;
+        }
+    }
 </style>

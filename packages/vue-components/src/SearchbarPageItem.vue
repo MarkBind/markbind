@@ -84,35 +84,35 @@ export default {
 </script>
 
 <style scoped>
-  .mark {
-    padding: 0 !important;
-  }
+    .mark {
+        padding: 0 !important;
+    }
 
-  .heading {
-    padding: 0 0 0.1rem 0.2rem;
-  }
+    .heading {
+        padding: 0 0 0.1rem 0.2rem;
+    }
 
-  .heading-text {
-    display: inline-block;
-    width: 40%;
-    white-space: normal;
-    vertical-align: top;
-  }
+    .heading-text {
+        display: inline-block;
+        width: 40%;
+        white-space: normal;
+        vertical-align: top;
+    }
 
-  .heading-text-items {
-    display: inline-block;
-    width: calc(60% - 0.7rem);
-    white-space: normal;
-    border-left: 1px solid #ddd;
-    padding-left: 0.5rem;
-  }
+    .heading-text-items {
+        display: inline-block;
+        width: calc(60% - 0.7rem);
+        white-space: normal;
+        border-left: 1px solid #ddd;
+        padding-left: 0.5rem;
+    }
 
-  .page-title {
-    font-size: 1.05rem;
-    font-weight: bold;
-  }
+    .page-title {
+        font-size: 1.05rem;
+        font-weight: bold;
+    }
 
-  .page-headings-separator {
-    margin: 0.2rem 0;
-  }
+    .page-headings-separator {
+        margin: 0.2rem 0;
+    }
 </style>

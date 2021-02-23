@@ -211,7 +211,7 @@ export default {
     }
 
     .card-title * {
-        margin: 0px !important;
+        margin: 0 !important;
     }
 
     .caret-wrapper {
@@ -246,7 +246,7 @@ export default {
     }
 
     .card-group > .card-container > .expandable-card {
-        margin-top: 0!important;
+        margin-top: 0 !important;
     }
 
     .card-seamless {
@@ -271,11 +271,6 @@ export default {
         padding: 10px 0;
     }
 
-    .card-seamless > .card-collapse > .card-body > .collapse-button {
-        position: relative;
-        top: 22px;
-    }
-
     .card-body > .collapse-button {
         margin-bottom: 13px;
         margin-top: 5px;
@@ -284,6 +279,11 @@ export default {
 
     .card-body > .collapse-button:hover {
         opacity: 1;
+    }
+
+    .card-seamless > .card-collapse > .card-body > .collapse-button {
+        position: relative;
+        top: 22px;
     }
 
     .close-button {
@@ -311,7 +311,6 @@ export default {
 
     /* Bootstrap extra small(xs) responsive breakpoint */
     @media (max-width: 575.98px) {
-
         .caret-wrapper {
             float: left;
             display: inline-block;

@@ -8,18 +8,9 @@ packages/core/src/lib/markdown-it/plugins/*
 
 # --- packages/vue-components ---
 
-packages/vue-components/dist
 packages/vue-components/src/directives/Closeable.js
 packages/vue-components/src/directives/Float.js
 packages/vue-components/src/utils/NodeList.js
 packages/vue-components/src/utils/utils.js
-
-# yuche/vue-strap
-packages/vue-components/src/main.js
-packages/vue-components/src/Navbar.vue
-packages/vue-components/src/Tab.vue
-packages/vue-components/src/TabGroup.vue
-packages/vue-components/src/Tabset.vue
-packages/vue-components/src/Typeahead.vue
 
 # --- packages/vue-components end ---
