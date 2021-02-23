@@ -57,7 +57,7 @@ export default {
     }
     if (!tabset._tabset) {
       this._tabset = {};
-      console.warn('Warning: "tab" depend on "tabset" to work properly.');
+      // Warning: "tab" depend on "tabset" to work properly.
     } else {
       tabset.tabs.push(this);
       if (!this._ingroup) {

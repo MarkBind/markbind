@@ -42,16 +42,16 @@ export default {
   created() {
     this._tabgroup = true;
     let tabset = (this.$parent && this.$parent._tabset === true) ? this.$parent : {};
-    if (this.$parent && this.$parent._tabgroup) {
-      console.error('Can\'t nest tabgroups.');
-    }
+
+    // Tabgroups cannot be nested
+
     while (tabset && !tabset._tabset && tabset.$parent) {
       tabset = tabset.$parent;
     }
     if (!tabset._tabset) {
       this._tabset = {};
       this.show = true;
-      console.warn('Warning: tabgroup depend on tabset to work properly.');
+      // Warning: tabgroup depend on tabset to work properly.
     } else {
       this._tabset = tabset;
     }

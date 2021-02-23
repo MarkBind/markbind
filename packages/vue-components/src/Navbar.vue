@@ -136,7 +136,6 @@ export default {
       }
       for (let i = 0; i < hParts.length; i += 1) {
         if (hParts[i] !== uParts[i]) {
-          console.log(`${hParts[i]} ${uParts[i]}`);
           return false;
         }
       }
@@ -199,6 +198,7 @@ export default {
             // eslint-disable-next-line no-continue
             continue;
           }
+          // Ignores invalid navbar highlight rule
           if (hlMode === 'sibling-or-child') {
             if (this.isSibling(url, a.href) || this.isChild(url, a.href)) {
               li.classList.add('current');
@@ -217,8 +217,6 @@ export default {
               this.addClassIfDropdown(dropdownLinks, a, li);
               return;
             }
-          } else {
-            console.log('Ignoring invalid navbar highlight rule');
           }
         }
       }
