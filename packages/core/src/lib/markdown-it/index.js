@@ -126,7 +126,7 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const heading = token.attrGet('heading');
   const codeBlockContent = `<pre><code ${slf.renderAttrs(token)}>${str}</code></pre>`;
   if (heading) {
-    const clonedContext = { cwf: context.cwf };
+    const clonedContext = { cwf: env.cwf };
     const renderedHeading = markdownIt.renderInline(heading, clonedContext);
     const headingStyle = (renderedHeading === heading) ? 'code-block-heading' : 'code-block-heading inline-markdown-heading';
     return '<div class="code-block">'

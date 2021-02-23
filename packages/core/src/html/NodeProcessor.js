@@ -581,11 +581,11 @@ class NodeProcessor {
     case 'md':
       node.name = 'span';
       node.children = cheerio.parseHTML(
-        md.renderInline(cheerio.html(node.children), clonedContext, true));
+        md.renderInline(cheerio.html(node.children), clonedContext), true);
       break;
     case 'markdown':
       node.name = 'div';
-      node.children = cheerio.parseHTML(md.render(cheerio.html(node.children), clonedContext, true));
+      node.children = cheerio.parseHTML(md.render(cheerio.html(node.children), clonedContext), true);
       break;
     default:
       break;
