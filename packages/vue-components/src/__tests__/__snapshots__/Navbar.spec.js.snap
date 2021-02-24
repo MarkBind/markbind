@@ -10,15 +10,7 @@ exports[`Navbar and secondary navbar navbar with page nav button 1`] = `
     >
       <div
         class="navbar-brand"
-      >
-        <a
-          class="navbar-brand"
-          href="#"
-          title="Home"
-        >
-          Your Logo
-        </a>
-      </div>
+      />
        
       <button
         aria-expanded="false"
@@ -38,9 +30,16 @@ exports[`Navbar and secondary navbar navbar with page nav button 1`] = `
         <ul
           class="navbar-nav mr-auto mt-2 mt-lg-0"
         >
-          <li
-            class="current"
+          <a
+            class="navbar-brand current"
+            href="#"
+            slot="brand"
+            title="Home"
           >
+            Your Logo
+          </a>
+           
+          <li>
             <a
               class="nav-link"
               href="#"
@@ -87,15 +86,7 @@ exports[`Navbar and secondary navbar navbar with site and page nav buttons 1`] =
     >
       <div
         class="navbar-brand"
-      >
-        <a
-          class="navbar-brand"
-          href="#"
-          title="Home"
-        >
-          Your Logo
-        </a>
-      </div>
+      />
        
       <button
         aria-expanded="false"
@@ -115,9 +106,16 @@ exports[`Navbar and secondary navbar navbar with site and page nav buttons 1`] =
         <ul
           class="navbar-nav mr-auto mt-2 mt-lg-0"
         >
-          <li
-            class="current"
+          <a
+            class="navbar-brand current"
+            href="#"
+            slot="brand"
+            title="Home"
           >
+            Your Logo
+          </a>
+           
+          <li>
             <a
               class="nav-link"
               href="#"
@@ -166,15 +164,7 @@ exports[`Navbar and secondary navbar navbar with site nav button 1`] = `
     >
       <div
         class="navbar-brand"
-      >
-        <a
-          class="navbar-brand"
-          href="#"
-          title="Home"
-        >
-          Your Logo
-        </a>
-      </div>
+      />
        
       <button
         aria-expanded="false"
@@ -194,9 +184,16 @@ exports[`Navbar and secondary navbar navbar with site nav button 1`] = `
         <ul
           class="navbar-nav mr-auto mt-2 mt-lg-0"
         >
-          <li
-            class="current"
+          <a
+            class="navbar-brand current"
+            href="#"
+            slot="brand"
+            title="Home"
           >
+            Your Logo
+          </a>
+           
+          <li>
             <a
               class="nav-link"
               href="#"
@@ -243,15 +240,7 @@ exports[`Navbar and secondary navbar navbar without site and page nav buttons 1`
     >
       <div
         class="navbar-brand"
-      >
-        <a
-          class="navbar-brand"
-          href="#"
-          title="Home"
-        >
-          Your Logo
-        </a>
-      </div>
+      />
        
       <button
         aria-expanded="false"
@@ -271,9 +260,16 @@ exports[`Navbar and secondary navbar navbar without site and page nav buttons 1`
         <ul
           class="navbar-nav mr-auto mt-2 mt-lg-0"
         >
-          <li
-            class="current"
+          <a
+            class="navbar-brand current"
+            href="#"
+            slot="brand"
+            title="Home"
           >
+            Your Logo
+          </a>
+           
+          <li>
             <a
               class="nav-link"
               href="#"

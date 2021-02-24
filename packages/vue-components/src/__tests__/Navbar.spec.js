@@ -8,20 +8,13 @@ const DEFAULT_STUBS = {
   'site-nav-button': SiteNavButton,
 };
 
-// const NAVBAR_CONTENT = `
-//   <a slot="brand" href="#" title="Home" class="navbar-brand">Your Logo</a>
-//     <li><a href="#" class="nav-link">Topic 1</a></li>
-//     <li><a href="#" class="nav-link">Topic 2</a></li>
-//   </a>
-// `;
-
-const NAVBAR_BRAND = `
-  <a href="#" title="Home" class="navbar-brand">Your Logo</a> 
-`;
-
 const NAVBAR_CONTENT = `
-  <li><a href="#" class="nav-link">Topic 1</a></li>
-  <li><a href="#" class="nav-link">Topic 2</a></li>
+<template #brand>
+  <a href="#" title="Home" class="navbar-brand">Your Logo</a>
+    <li><a href="#" class="nav-link">Topic 1</a></li>
+    <li><a href="#" class="nav-link">Topic 2</a></li>
+  </a>
+</template>
 `;
 
 const OMIT_PAGE_AND_SITE_NAV_BUTTONS = '<div></div>';
@@ -49,7 +42,6 @@ describe('Navbar and secondary navbar', () => {
   test('navbar without site and page nav buttons', async () => {
     const wrapper = mount(Navbar, {
       slots: {
-        brand: NAVBAR_BRAND,
         default: NAVBAR_CONTENT,
         'lower-navbar': OMIT_PAGE_AND_SITE_NAV_BUTTONS,
       },
@@ -62,7 +54,6 @@ describe('Navbar and secondary navbar', () => {
   test('navbar with site nav button', async () => {
     const wrapper = mount(Navbar, {
       slots: {
-        brand: NAVBAR_BRAND,
         default: NAVBAR_CONTENT,
         'lower-navbar': SITE_NAV_BUTTON,
       },
@@ -75,7 +66,6 @@ describe('Navbar and secondary navbar', () => {
   test('navbar with page nav button', async () => {
     const wrapper = mount(Navbar, {
       slots: {
-        brand: NAVBAR_BRAND,
         default: NAVBAR_CONTENT,
         'lower-navbar': PAGE_NAV_BUTTON,
       },
@@ -88,7 +78,6 @@ describe('Navbar and secondary navbar', () => {
   test('navbar with site and page nav buttons', async () => {
     const wrapper = mount(Navbar, {
       slots: {
-        brand: NAVBAR_BRAND,
         default: NAVBAR_CONTENT,
         'lower-navbar': SITE_AND_PAGE_NAV_BUTTONS,
       },
