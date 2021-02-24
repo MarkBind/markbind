@@ -56,8 +56,8 @@ Content in a fenced code block
 20
 ```
 
-**`highlight-lines` attr with empty line-slice syntax should highlight leading/trailing spaces**
-```xml {highlight-lines="2[:],4[:]-5[:]"}
+**`highlight-lines` attr with empty (any variant) line-slice syntax should highlight leading/trailing spaces**
+```xml {highlight-lines="2[:],3[::],4[:]-5[:]"}
 <foo>
   <bar type="name">goo</bar>
   <baz type="name">goo</baz>
@@ -66,7 +66,7 @@ Content in a fenced code block
 </foo>
 ```
 
-**`highlight-lines` attr with full line-slice syntax should highlight only at specified range**
+**`highlight-lines` attr with full character-variant line-slice syntax should highlight only at specified range**
 ```xml {highlight-lines="1[1:4],2[5:13],3[2:10]-4,5-6[1:4]"}
 <foo>
   <bar type="name">goo</bar>
@@ -76,7 +76,7 @@ Content in a fenced code block
 </foo>
 ```
 
-**`highlight-lines` attr with partially filled line-slice syntax should defaults highlight to start/end of line**
+**`highlight-lines` attr with partial character-variant line-slice syntax should defaults highlight to start/end of line**
 ```xml {highlight-lines="1[1:],2[:13],3[2:]-4,5-6[:2]"}
 <foo>
   <bar type="name">goo</bar>
@@ -93,6 +93,26 @@ Content in a fenced code block
   <baz type="name">goo</baz>
   <qux type="name">goo</qux>
   <quux type="name">go'o</quux>
+</foo>
+```
+
+**`highlight-lines` attr with full word-variant line-slice syntax should highlight only at specified word ranges**
+```xml {highlight-lines="1[0::1],2[3::4],3[0::2],4[2::4],5[1::3]"}
+<foo>
+  <bar type="name"> goo </bar>
+  <baz type="name"> goo </baz>
+  <qux type="name"> goo </qux>
+  <quux type="name"> goo </quux>
+</foo>
+```
+
+**`highlight-lines` attr with partial word-variant line-slice syntax should defaults highlight to start/end of line**
+```xml {highlight-lines="1[0::],2[3::],3[::2],4[2::],5[::3]"}
+<foo>
+  <bar type="name"> goo </bar>
+  <baz type="name"> goo </baz>
+  <qux type="name"> goo </qux>
+  <quux type="name"> goo </quux>
 </foo>
 ```
 

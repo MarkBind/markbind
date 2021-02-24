@@ -1,8 +1,10 @@
 const LINESLICE_REGEX = new RegExp('(\\d+)\\[(\\d*):(\\d*)]');
 const LINEPART_REGEX = new RegExp('(\\d+)\\[(["\'])((?:\\\\.|[^\\\\])*?)\\2]');
+const LINESLICE_WORD_REGEX = new RegExp('(\\d+)\\[(\\d*)::(\\d*)]');
+const BOUND_UNSET = -1;
 
 class HighlightRuleComponent {
-  constructor(lineNumber, isSlice = false, bounds = [], linePart = '') {
+  constructor(lineNumber, isSlice = false, isWordSlice = false, bounds = [], linePart = '') {
     /**
      * @type {number}
      */
@@ -11,6 +13,10 @@ class HighlightRuleComponent {
      * @type {boolean}
      */
     this.isSlice = isSlice;
+    /**
+     * @type {boolean}
+     */
+    this.isWordSlice = isWordSlice;
     /**
      * @type {Array<[number, number]>}
      */
@@ -22,10 +28,14 @@ class HighlightRuleComponent {
   }
 
   static parseRuleComponent(compString) {
-    // tries to match with the line slice pattern
+    // Match line-slice (character and word variant) syntax
     const linesliceMatch = compString.match(LINESLICE_REGEX);
-    if (linesliceMatch) {
-      const groups = linesliceMatch.slice(1); // discard full match
+    const linesliceWordMatch = compString.match(LINESLICE_WORD_REGEX);
+    const sliceMatch = linesliceMatch || linesliceWordMatch;
+    if (sliceMatch) {
+      const isWordSlice = sliceMatch === linesliceWordMatch;
+
+      const groups = sliceMatch.slice(1);
       const lineNumber = parseInt(groups.shift(), 10);
 
       const isUnbounded = groups.every(x => x === '');
@@ -33,10 +43,11 @@ class HighlightRuleComponent {
         return new HighlightRuleComponent(lineNumber, true);
       }
 
-      const bound = groups.map(x => (x !== '' ? parseInt(x, 10) : -1));
-      return new HighlightRuleComponent(lineNumber, true, [bound]);
+      const bound = groups.map(x => (x !== '' ? parseInt(x, 10) : BOUND_UNSET));
+      return new HighlightRuleComponent(lineNumber, true, isWordSlice, [bound]);
     }
 
+    // Match line-part syntax
     const linepartMatch = compString.match(LINEPART_REGEX);
     if (linepartMatch) {
       const groups = linepartMatch.slice(1); // discard full match
@@ -44,9 +55,10 @@ class HighlightRuleComponent {
       groups.shift(); // discard quote group match
       const part = groups.shift().replace(/\\'/g, '\'').replace(/\\"/g, '"'); // unescape quotes
 
-      return new HighlightRuleComponent(lineNumber, false, [], part);
+      return new HighlightRuleComponent(lineNumber, false, false, [], part);
     }
 
+    // Match line-number syntax
     if (!Number.isNaN(compString)) { // ensure the whole string can be converted to number
       const lineNumber = parseInt(compString, 10);
       return new HighlightRuleComponent(lineNumber);
@@ -128,6 +140,33 @@ class HighlightRuleComponent {
     this.isSlice = true;
     this.bounds = bounds;
     this.linePart = '';
+  }
+
+  convertWordSliceToCharSlice(content) {
+    if (!this.isSlice || !this.isWordSlice) {
+      return;
+    }
+
+    const [contentStart, contentEnd] = [0, content.length];
+    const words = content.split(' ');
+    let curr = 0;
+    const startPositions = words.map((word) => {
+      const pos = curr;
+      curr += word.length + 1; // include space
+      return pos;
+    });
+
+    const bounds = this.bounds.map((wordBound) => {
+      const [wordStart, wordEnd] = wordBound;
+      const [isStartUnset, isEndUnset] = wordBound.map(x => x === BOUND_UNSET);
+      const [isStartInRange, isEndInRange] = wordBound.map(x => x >= 0 && x < words.length);
+      const charStart = (isStartUnset || !isStartInRange) ? contentStart : startPositions[wordStart];
+      const charEnd = (isEndUnset || !isEndInRange) ? contentEnd : startPositions[wordEnd] - 1;
+      return [charStart, charEnd];
+    });
+
+    this.isWordSlice = false;
+    this.bounds = bounds;
   }
 }
 

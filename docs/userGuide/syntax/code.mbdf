@@ -58,14 +58,15 @@ function add(a, b) {
 
 
 ##### Line highlighting
+
 You can add the `highlight-lines` attribute to add highlighting to your code block. Refer to the example below for
-a typical usage of the attribute.
+all possible ways of highlighting a code block.
 
 The value of `highlight-lines` is composed of *highlight rules*, separated by commas.
-These rules dictate where and how MarkBind should highlight your code block. 
+These rules dictate where and how MarkBind should highlight your code block.
 
 You can specify the rules in many different ways, depending on how you want it to be. There are three main variants:
-full text, substring, bounded, or full line highlighting.
+full text, substring, bounded (character-wise or word-wise), or full line highlighting.
 
 ###### Full text highlighting
 
@@ -93,18 +94,25 @@ even with escaping.
 ###### Bounded highlighting
 
 Bounded highlighting is available if you want to highlight text on a specific boundary.
-This highlighting overcomes the limitations of substring highlighting.
+This highlighting overcomes the limitations of substring highlighting. You can highlight either by characters
+or by words.
 
-You can use MarkBind's _line-slice_ syntax format `lineNumber[start:end]` to write the bounded rule, where `lineNumber`
+**Character-wise**: You can use MarkBind's _line-slice_ syntax format `lineNumber[start:end]`, where `lineNumber`
 is the line number, `start` and `end` denote the range of character positions that will be highlighted, such as
-`5[2:10]`.
+`5[2:10]`. Note that the highlight includes character at `start` but does not include character at `end`.
 
 Character positions start from `0`, which denotes the first non-whitespace character in the line, upwards.
-Note that the highlight includes character at `start` but does not include character at `end`. You can omit either
-`start` or `end` to tell MarkBind either to highlight from the start or until the end, respectively.
+You can omit either `start` or `end` to tell MarkBind either to highlight from the start or until the end, respectively.
 
-Also, you can start or end a **partial text-only range highlight** with a line-slice syntax to indicate partial text
-highlight at the beginning or end of the range, respectively.
+**Word-wise**: The syntax for this is very similar to a normal line-slice syntax, but instead of having a single colon
+between `start` and `end`, you write two colons. That is, you can write it as `lineNumber[start::end]`. Now `start` and
+`end` denote the range of word positions that will be highlighted.
+ 
+Similar to the character-wise variant, `0` denotes the first word in the line, upwards. However, we
+define a word here as a _sequence of non-whitespace characters_.
+
+Also, you can start or end a **partial text-only range highlight** with a line-slice syntax (any variant) to indicate
+partial text highlight at the beginning or end of the range, respectively.
 
 ###### Full line highlighting
 
@@ -117,7 +125,7 @@ text-only range highlight.
 <include src="codeAndOutputCode.md" boilerplate >
 
 <variable name="code">
-```java {highlight-lines="1[:],3['Inventory'],4['It\'s designed'],5,6[8:18],8[:]-10,12-14,16[12:],20[12:]-22"}
+```java {highlight-lines="1[:],3['Inventory'],4['It\'s designed'],5,6[8:18],8[0::2],12[:]-14,16-18,20[12:]-22,24[1::]-26"}
 import java.util.List;
 
 // Inventory is a class that stores inventory items in a list.
@@ -128,7 +136,7 @@ public class Inventory {
     public int getItemCount(){
         return items.size();
     }
-    
+
     public bool isEmpty() {
         return items.isEmpty();
     }
@@ -139,6 +147,10 @@ public class Inventory {
 
     public void addItem(item: Item) {
         return items.add(item);
+    }
+
+    public void removeItem(item: Item) {
+        return items.remove(item);
     }
 }
 ```

@@ -39,6 +39,22 @@ class HighlightRule {
     });
   }
 
+  convertWordSliceToCharSlice(lines) {
+    if (!this.hasWordSlice()) {
+      return;
+    }
+
+    this.ruleComponents.forEach((comp) => {
+      if (!comp.isSlice || !comp.isWordSlice) {
+        return;
+      }
+
+      const line = lines[comp.lineNumber - 1]; // line numbers are 1-based
+      const { 1: content } = HighlightRule._splitCodeAndIndentation(line);
+      comp.convertWordSliceToCharSlice(content);
+    });
+  }
+
   shouldApplyHighlight(lineNumber) {
     const compares = this.ruleComponents.map(comp => comp.compareLine(lineNumber));
     if (this.isLineRange()) {
@@ -121,6 +137,10 @@ class HighlightRule {
 
   hasLinePart() {
     return this.ruleComponents.some(rule => rule.linePart);
+  }
+
+  hasWordSlice() {
+    return this.ruleComponents.some(rule => rule.isSlice && rule.isWordSlice);
   }
 }
 

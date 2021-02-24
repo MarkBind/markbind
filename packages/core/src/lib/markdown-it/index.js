@@ -83,6 +83,11 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
     if (rule.hasLinePart()) {
       rule.convertPartsToSlices(lines);
     }
+
+    // Convert word variant of line-slice to char
+    if (rule.hasWordSlice()) {
+      rule.convertWordSliceToCharSlice(lines);
+    }
   });
 
   if (lang && hljs.getLanguage(lang)) {
