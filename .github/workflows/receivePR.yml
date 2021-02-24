@@ -1,0 +1,35 @@
+name: Receive Markbind PR
+
+# read-only
+# no access to secrets
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:        
+      - uses: actions/checkout@v2
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 10
+      - name: Build Markbind website
+        if: ${{ success() && github.event_name == 'pull_request' }}
+        run: |
+          cd docs && ../packages/cli/index.js build
+      - name: Save PR number and HEAD commit
+        if: ${{ success() && github.event_name == 'pull_request' }}
+        run: |
+          mkdir -p ./pr
+          echo ${{ github.event.number }} > ./pr/NUMBER
+          echo ${{ github.event.pull_request.head.sha }} > ./pr/SHA
+      - name: Upload artifacts 
+        if: ${{ success() && github.event_name == 'pull_request' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: markbind-deployment
+          path: |
+            ./docs/_site
+            ./pr
+
