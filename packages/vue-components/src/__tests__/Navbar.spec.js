@@ -9,12 +9,10 @@ const DEFAULT_STUBS = {
 };
 
 const NAVBAR_CONTENT = `
-<template #brand>
-  <a href="#" title="Home" class="navbar-brand">Your Logo</a>
-    <li><a href="#" class="nav-link">Topic 1</a></li>
-    <li><a href="#" class="nav-link">Topic 2</a></li>
-  </a>
-</template>
+<a slot="brand" href="#" title="Home" class="navbar-brand">Your Logo</a>
+  <li><a href="#" class="nav-link">Topic 1</a></li>
+  <li><a href="#" class="nav-link">Topic 2</a></li>
+</a>
 `;
 
 const OMIT_PAGE_AND_SITE_NAV_BUTTONS = '<div></div>';
