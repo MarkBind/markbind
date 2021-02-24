@@ -1,7 +1,7 @@
 const cheerio = require('cheerio');
 const lodashHas = require('lodash/has');
 const md = require('../lib/markdown-it');
-const utils = require('../utils');
+const utils = require('../lib/markdown-it/utils');
 
 /**
  * Traverses a line part and applies highlighting if necessary.
