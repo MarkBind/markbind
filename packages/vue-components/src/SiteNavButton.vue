@@ -7,7 +7,9 @@
     :has-identifier="hasIdentifier"
     :get-nav-menu-content="getSiteNavContent"
   >
-    <span slot="navMenuIcon" :class="['glyphicon', 'toggle-site-nav-button']"></span>
+    <template #navMenuIcon>
+      <span :class="['glyphicon', 'toggle-site-nav-button']"></span>
+    </template>
   </overlay>
 </template>
 

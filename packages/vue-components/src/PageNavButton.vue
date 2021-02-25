@@ -7,7 +7,9 @@
     :has-identifier="hasIdentifier"
     :get-nav-menu-content="getPageNavContent"
   >
-    <span slot="navMenuIcon" :class="['glyphicon', 'toggle-page-nav-button']"></span>
+    <template #navMenuIcon>
+      <span :class="['glyphicon', 'toggle-page-nav-button']"></span>
+    </template>
   </overlay>
 </template>
 
