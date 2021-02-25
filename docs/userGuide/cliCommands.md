@@ -169,9 +169,9 @@ The caveat is that not building all pages during the initial process, or not reb
 
 **Options** :fas-cogs:
 
-* `-t <githubTokenName>`, `--ci <githubTokenName>`<br>
+* `-c <githubTokenName>`, `--ci <githubTokenName>`<br>
   Deploy the site in CI Environments using the GitHub personal access token stored in `<githubTokenName>`. (default: `GITHUB_TOKEN`)<br>
-  {{ icon_example }} `-t PA_TOKEN`
+  {{ icon_example }} `-c PA_TOKEN`
 
 %%{{ icon_info }} Related: [User Guide: Deploying the Website](deployingTheSite.html).%%
 
