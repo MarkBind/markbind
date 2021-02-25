@@ -69,3 +69,48 @@ When you use links or triggers, you may encounter a situation where an unwanted 
   The
   <md>[[link](https://example.com)]</md>.
   ```
+
+<span id="useSpecificMarkbind">
+
+##### :fas-info: Configuring Online Deployment platforms to use specific MarkBind version
+
+**Configuring CI platforms to use specific MarkBind version**
+
+When the [default CI configuration for deployment](deployingTheSite.html#using-ci-platforms) is used, the latest version of MarkBind will be used in the CI workflows. This may be a later version of MarkBind than the one you use locally.
+
+* If you want to specify a version of MarkBind (eg. `v1.6.3`), you have to modify the step where `markbind-cli` is being installed to `npm i -g markbind-cli@v1.6.3`. For example, for Travis-CI, you can modifiy the `install` step in `.travis.yml` to as follows:
+
+  ```yaml
+  install:
+    - npm i -g markbind-cli@1.6.3
+  ```
+* If you want to use the latest minor version automatically until the next major version (as major versions usually contain breaking changes), you can add a `^` in front of the version number. In the example below, Travis will use the latest version of MarkBind but will stop before `2.*`
+
+  ```yaml
+  install:
+    - npm i -g markbind-cli@^1.6.3
+  ```
+
+**Setting up Netlify to use a specific version of MarkBind**
+
+Here are the steps to set up Netlify to use a specific version of MarkBind.
+
+1. Navigate to the root directory of your site.
+1. run `npm init` which will create `package.json` and `package.lock.json`
+1. run `npm install markbind-cli@1.6.3 --save` to install markbind as a dependency (using v1.6.3 as an example)
+1. create/update `.gitignore` file in the root directory and add:
+   ```{.no-line-numbers}
+   node_modules
+   ```
+1. update `ignore` in site.json to include
+   ```{.no-line-numbers}
+   node_modules/*
+   .gitignore
+   ```
+
+1. Now, follow the [previous instructions for setting up Netlify](deployingTheSite.html#deploying-to-netlify) but with the following difference:<br>
+   In step 5, Set the ==Build Command== to `markbind build --baseUrl`
+
+</box>
+
+</span>
