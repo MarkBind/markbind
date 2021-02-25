@@ -305,8 +305,154 @@ Here are the steps to set up Netlify:
 
 Now your site will be deployed on Netlify at the given address specified after deployment. It will be updated automatically when the default branch of your repo is updated.
 
-Additionally, **when contributors make a pull request to your GitHub repo, you can _preview_ the updated site** at the bottom of the pull request by clicking on `details` link in the PR:
+
+## Previewing Pull Requests for MarkBind sites
+
+There may be more than one user making changes to your MarkBind site. In such cases, it may be prudent to have a workflow that is centered around pull requests (PRs) such as a [feature branch workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow) or a [forking workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow). 
+
+You can setup PR previews in order to automatically build and deploy the modified Markbind site based on the changes in the PR, which would lead to greater convenience and time-savings for the PR reviewers. 
+
+### Previewing PRs using Netlify
+
+By following the [steps to deploy to Netlify](#deploying-to-netlify) in the previous section, you would automatically be able to preview PRs.
+
+You can _preview_ the updated site at the bottom of the pull request by clicking on `details` link in the PR:
 <include src="screenshot.md" boilerplate var-alt="Preview deploy" var-file="netlifyPreview4.png" inline />
+
+For more information on previewing PRs with Netlify, you may refer to [Netlify's docs](https://www.netlify.com/tags/deploy-previews/).
+
+### Previewing PRs using Surge
+
+You may also preview PRs using [Surge](https://surge.sh/), which is an NPM package that does static web publishing. Here are the steps to do so:
+
+1. First install Surge using by typing `npm install --global surge` on your terminal. 
+1. Next, type `surge` in the terminal. You should see the following prompt:
+<include src="screenshot.md" boilerplate var-alt="Create Surge account" var-file="surgeCreateAccount.png" inline />
+1. Proceed to create a Surge account.
+1. Next, type `surge token` to generate your surge token.
+<include src="screenshot.md" boilerplate var-alt="Get Surge token" var-file="surgeToken.png" inline />
+1. In the repo of your markbind site, create a new secret by going to "Settings"->"Secrets" and naming it as `SURGE_TOKEN` and setting its value to the value of the generated surge token.
+<include src="screenshot.md" boilerplate var-alt="Add Surge token" var-file="surgeAddToken.png" inline />
+1. Commit and push the following 2 files into your markbind site repo, in the directory `./github/workflows/`.
+
+<panel header="`receivePR.yml` File" type="seamless">
+
+{% raw %}
+```yml
+name: Receive Markbind PR
+
+# read-only
+# no access to secrets
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:        
+      - uses: actions/checkout@v2
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 10
+      - name: Build Markbind website
+        if: ${{ success() && github.event_name == 'pull_request' }}
+        run: |
+          npm install -g markbind-cli
+          markbind build
+      - name: Save PR number and HEAD commit
+        if: ${{ success() && github.event_name == 'pull_request' }}
+        run: |
+          mkdir -p ./pr
+          echo ${{ github.event.number }} > ./pr/NUMBER
+          echo ${{ github.event.pull_request.head.sha }} > ./pr/SHA
+      - name: Upload artifacts 
+        if: ${{ success() && github.event_name == 'pull_request' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: markbind-deployment
+          path: |
+            ./_site
+            ./pr
+```
+{% endraw %}
+
+</panel>
+
+<panel header="`previewPR.yml` File" type="seamless">
+
+{% raw %}
+
+```yml
+name: Deploy PR Preview
+
+# Runs after PR is received and build by markbind-cli
+# Has access to repo secrets
+on:
+  workflow_run:
+    workflows: ["Receive Markbind PR"]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Deploying to surge
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: receivePR.yml
+          run_id: ${{ github.event.workflow_run.id }}
+          name: markbind-deployment
+          path: .
+      - name: Display structure of downloaded files
+        run: ls -R
+      - name: Extract PR number
+        id: pr-number
+        run: echo '::set-output name=ACTIONS_PR_NUMBER::'$(cat ./pr/NUMBER)
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 10
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v3.x
+      - name: Build PR preview url
+        id: pr-url
+        run: echo '::set-output name=ACTIONS_PREVIEW_URL::'https://pr-${{ steps.pr-number.outputs.ACTIONS_PR_NUMBER }}-${{ env.GITHUB_REPOSITORY_SLUG_URL }}.surge.sh/
+      - name: Install surge and deploy PR to surge
+        run: |
+          npm i -g surge
+          surge --project ./_site --domain ${{ steps.pr-url.outputs.ACTIONS_PREVIEW_URL }}
+        env:
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+      - name: Find PR preview link comment
+        uses: peter-evans/find-comment@v1
+        id: fc
+        with:
+          issue-number: ${{ steps.pr-number.outputs.ACTIONS_PR_NUMBER }}
+          body-includes: Your PR can be previewed
+      - name: Comment PR preview link in PR
+        if: ${{ steps.fc.outputs.comment-id == 0 }}
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ steps.pr-number.outputs.ACTIONS_PR_NUMBER }}
+          body: |
+            Thank you for submitting the Pull Request! :thumbsup: 
+
+            Your PR can be previewed [here](${{ steps.pr-url.outputs.ACTIONS_PREVIEW_URL }})
+```
+
+{% endraw %}
+
+</panel>
+
+Finally, you may open a PR to the repo of your Markbind site. If everything is configured correctly, after a few minutes, you should be able to see a `github-actions bot` automatically commenting on the PR with a link to _preview_ the updated Markbind site. The link is configured as such: `https://pr-[PR_NUMBER]-[REPO_OWNER_NAME]-[REPO_NAME].surge.sh`.
+
+<include src="screenshot.md" boilerplate var-alt="Surge PR bot" var-file="surgeGithubActionsBot.png" inline />
+
+For more information on Surge, you may refer to [Surge's docs](https://surge.sh/help/).
 
 ## Relevant Tips & Tricks
 
