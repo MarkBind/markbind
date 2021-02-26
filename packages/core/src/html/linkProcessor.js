@@ -87,16 +87,41 @@ function convertMdAndMbdExtToHtmlExt(node) {
     if (hasNoConvert) {
       return;
     }
+
     const { href } = node.attribs;
-    const hasMdExtension = href.slice(-3) === '.md';
+
+    const hasMdExtension = href.includes('.md');
     if (hasMdExtension) {
-      const newHref = `${href.substring(0, href.length - 3)}.html`;
+      const mdIdx = href.indexOf('.md');
+      const pathWithoutExtension = href.substring(0, mdIdx);
+
+      const hasURIFragment = href.includes('.md#');
+      if (hasURIFragment) {
+        const URIFragment = href.substring(mdIdx + 3, href.length);
+        const newHref = `${pathWithoutExtension}.html${URIFragment}`;
+        node.attribs.href = newHref;
+        return;
+      }
+
+      const newHref = `${pathWithoutExtension}.html`;
       node.attribs.href = newHref;
       return;
     }
-    const hasMbdExtension = href.slice(-4) === '.mbd';
+
+    const hasMbdExtension = href.includes('.mbd');
     if (hasMbdExtension) {
-      const newHref = `${href.substring(0, href.length - 4)}.html`;
+      const mbdIdx = href.indexOf('.mbd');
+      const pathWithoutExtension = href.substring(0, mbdIdx);
+
+      const hasURIFragment = href.includes('.mbd#');
+      if (hasURIFragment) {
+        const URIFragment = href.substring(mbdIdx + 4, href.length);
+        const newHref = `${pathWithoutExtension}.html${URIFragment}`;
+        node.attribs.href = newHref;
+        return;
+      }
+
+      const newHref = `${pathWithoutExtension}.html`;
       node.attribs.href = newHref;
     }
   }
