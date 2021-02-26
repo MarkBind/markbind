@@ -87,11 +87,11 @@ Content in a fenced code block
 ```
 
 **`highlight-lines` attr with line-part syntax should highlight only at specified substring**
-```xml {highlight-lines="2['type'],3['baz'],4['goo</qux>'],5['go\'o']"}
+```xml {highlight-lines="1[''],2['type'],3['baz'],4['go,o</qux>'],5['go\'o']"}
 <foo>
   <bar type="name">goo</bar>
   <baz type="name">goo</baz>
-  <qux type="name">goo</qux>
+  <qux type="name">go,o</qux>
   <quux type="name">go'o</quux>
 </foo>
 ```

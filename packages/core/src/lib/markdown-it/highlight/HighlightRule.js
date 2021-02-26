@@ -1,4 +1,5 @@
 const { HighlightRuleComponent } = require('./HighlightRuleComponent.js');
+const { splitCodeAndIndentation } = require('./helper');
 
 class HighlightRule {
   constructor(ruleComponents) {
@@ -8,8 +9,10 @@ class HighlightRule {
     this.ruleComponents = ruleComponents;
   }
 
-  static parseRule(ruleString) {
-    const components = ruleString.split('-').map(HighlightRuleComponent.parseRuleComponent);
+  static parseRule(ruleString, lineOffset, lines) {
+    const components = ruleString.split('-')
+      .map(compString => HighlightRuleComponent.parseRuleComponent(compString, lineOffset, lines));
+
     if (components.some(c => !c)) {
       // Not all components are properly parsed, which means
       // the rule itself is not proper
@@ -17,42 +20,6 @@ class HighlightRule {
     }
 
     return new HighlightRule(components);
-  }
-
-  offsetLines(offset) {
-    this.ruleComponents.forEach(comp => comp.offsetLineNumber(offset));
-  }
-
-  convertPartsToSlices(lines) {
-    if (!this.hasLinePart()) {
-      return;
-    }
-
-    this.ruleComponents.forEach((comp) => {
-      if (!comp.linePart) {
-        return;
-      }
-
-      const line = lines[comp.lineNumber - 1]; // line numbers are 1-based
-      const { 1: content } = HighlightRule._splitCodeAndIndentation(line);
-      comp.convertPartToSlice(content);
-    });
-  }
-
-  convertWordSliceToCharSlice(lines) {
-    if (!this.hasWordSlice()) {
-      return;
-    }
-
-    this.ruleComponents.forEach((comp) => {
-      if (!comp.isSlice || !comp.isWordSlice) {
-        return;
-      }
-
-      const line = lines[comp.lineNumber - 1]; // line numbers are 1-based
-      const { 1: content } = HighlightRule._splitCodeAndIndentation(line);
-      comp.convertWordSliceToCharSlice(content);
-    });
   }
 
   shouldApplyHighlight(lineNumber) {
@@ -68,9 +35,10 @@ class HighlightRule {
   }
 
   applyHighlight(line, lineNumber) {
-    if (this.isLineRange()) {
-      const [startCompare, endCompare] = this.ruleComponents.map(comp => comp.compareLine(lineNumber));
+    // Applied rule is the first component until deduced otherwise
+    let [appliedRule] = this.ruleComponents;
 
+    if (this.isLineRange()) {
       // For cases like 2[:]-3 (or 2-3[:]), the highlight would be line highlight
       // across all the ranges
       const shouldWholeLine = this.ruleComponents.some(comp => comp.isUnboundedSlice());
@@ -78,27 +46,21 @@ class HighlightRule {
         return HighlightRule._highlightWholeLine(line);
       }
 
+      const [startCompare, endCompare] = this.ruleComponents.map(comp => comp.compareLine(lineNumber));
       if (startCompare < 0 && endCompare > 0) {
         // In-between range
         return HighlightRule._highlightWholeText(line);
       }
 
       // At the range boundaries
-      const [start, end] = this.ruleComponents;
-      const appliedRule = startCompare === 0 ? start : end;
-
-      // Instead of redefining how to highlight according to the rule (which is already laid
-      // out on the next few cases), we create a new HighlightRule consisting of only the applied
-      // rule and call apply again
-      return new HighlightRule([appliedRule]).applyHighlight(line, lineNumber);
+      const [startRule, endRule] = this.ruleComponents;
+      appliedRule = startCompare === 0 ? startRule : endRule;
     }
 
-    const isLineSlice = this.ruleComponents.length === 1 && this.ruleComponents[0].isSlice;
-    if (isLineSlice) {
-      const [slice] = this.ruleComponents;
-      return slice.isUnboundedSlice()
+    if (appliedRule.isSlice) {
+      return appliedRule.isUnboundedSlice()
         ? HighlightRule._highlightWholeLine(line)
-        : HighlightRule._highlightPartOfText(line, slice.computeLineBounds(line));
+        : HighlightRule._highlightPartOfText(line, appliedRule.bounds);
     }
 
     // Line number only
@@ -109,38 +71,21 @@ class HighlightRule {
     return `<span class="highlighted">${codeStr}\n</span>`;
   }
 
-  static _splitCodeAndIndentation(codeStr) {
-    const codeStartIdx = codeStr.search(/\S|$/);
-    const indents = codeStr.substr(0, codeStartIdx);
-    const content = codeStr.substr(codeStartIdx);
-    return [indents, content];
-  }
-
   static _highlightWholeText(codeStr) {
-    const [indents, content] = HighlightRule._splitCodeAndIndentation(codeStr);
+    const [indents, content] = splitCodeAndIndentation(codeStr);
     return `<span>${indents}<span class="highlighted">${content}</span>\n</span>`;
   }
 
   static _highlightPartOfText(codeStr, bounds) {
-    const { 0: indents } = HighlightRule._splitCodeAndIndentation(codeStr);
-    const correctedBounds = bounds.map(bound => bound.map(x => x + indents.length));
     // Note: As part-of-text highlighting requires walking over the node of the generated
     // html by highlight.js, highlighting will be applied in NodeProcessor instead.
     // hl-data is used to pass over the bounds.
-    const dataStr = correctedBounds.map(bound => bound.join('-')).join(',');
+    const dataStr = bounds.map(bound => bound.join('-')).join(',');
     return `<span hl-data=${dataStr}>${codeStr}\n</span>`;
   }
 
   isLineRange() {
     return this.ruleComponents.length === 2;
-  }
-
-  hasLinePart() {
-    return this.ruleComponents.some(rule => rule.linePart);
-  }
-
-  hasWordSlice() {
-    return this.ruleComponents.some(rule => rule.isSlice && rule.isWordSlice);
   }
 }
 

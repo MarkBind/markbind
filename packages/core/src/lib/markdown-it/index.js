@@ -12,6 +12,8 @@ const logger = require('../../utils/logger');
 
 const { HighlightRule } = require('./highlight/HighlightRule.js');
 
+const HIGHLIGHT_LINES_DELIMITER_REGEX = new RegExp(',(?![^\\[\\]]*])');
+
 const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
 // markdown-it plugins
@@ -71,24 +73,11 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const highlightLinesInput = getAttributeAndDelete(token, 'highlight-lines');
   let highlightRules = [];
   if (highlightLinesInput) {
-    const highlightLines = highlightLinesInput.split(',');
-    highlightRules = highlightLines.map(HighlightRule.parseRule).filter(rule => rule);
+    const highlightLines = highlightLinesInput.split(HIGHLIGHT_LINES_DELIMITER_REGEX);
+    highlightRules = highlightLines
+      .map(ruleStr => HighlightRule.parseRule(ruleStr, -startFromZeroBased, lines))
+      .filter(rule => rule); // discards invalid rules
   }
-  highlightRules.forEach((rule) => {
-    // Note: authors provide line numbers based on the 'start-from' attribute if it exists,
-    //       so we need to shift line numbers back down to start at 0
-    rule.offsetLines(-startFromZeroBased);
-
-    // Convert line-part rules to line-slice
-    if (rule.hasLinePart()) {
-      rule.convertPartsToSlices(lines);
-    }
-
-    // Convert word variant of line-slice to char
-    if (rule.hasWordSlice()) {
-      rule.convertWordSliceToCharSlice(lines);
-    }
-  });
 
   if (lang && hljs.getLanguage(lang)) {
     try {

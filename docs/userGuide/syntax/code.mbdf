@@ -65,7 +65,7 @@ all possible ways of highlighting a code block.
 The value of `highlight-lines` is composed of *highlight rules*, separated by commas.
 These rules dictate where and how MarkBind should highlight your code block.
 
-You can specify the rules in many different ways, depending on how you want it to be. There are three main variants:
+You can specify the rules in many different ways, depending on how you want it to be. There are three main types:
 full text, substring, bounded (character-wise or word-wise), or full line highlighting.
 
 ###### Full text highlighting
