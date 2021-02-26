@@ -35,6 +35,61 @@ const mockConfig = {
   ],
 };
 
+test('Test converting .md to .html', () => {
+  const mockLink = '<a href="/index.md">Test</a>';
+  const mockNode = cheerio.parseHTML(mockLink)[0];
+
+  const EXPECTED_RESULT = '<a href="/index.html">Test</a>';
+
+  linkProcessor.convertMdAndMbdExtToHtmlExt(mockNode);
+
+  expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
+});
+
+test('Test converting .mbd to .html', () => {
+  const mockLink = '<a href="/index.mbd">Test</a>';
+  const mockNode = cheerio.parseHTML(mockLink)[0];
+
+  const EXPECTED_RESULT = '<a href="/index.html">Test</a>';
+
+  linkProcessor.convertMdAndMbdExtToHtmlExt(mockNode);
+
+  expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
+});
+
+test('Test converting .md to .html with URI fragment', () => {
+  const mockLink = '<a href="/index.md#test-1">Test</a>';
+  const mockNode = cheerio.parseHTML(mockLink)[0];
+
+  const EXPECTED_RESULT = '<a href="/index.html#test-1">Test</a>';
+
+  linkProcessor.convertMdAndMbdExtToHtmlExt(mockNode);
+
+  expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
+});
+
+test('Test converting .mbd to .html with URI fragment', () => {
+  const mockLink = '<a href="/index.mbd#test-1">Test</a>';
+  const mockNode = cheerio.parseHTML(mockLink)[0];
+
+  const EXPECTED_RESULT = '<a href="/index.html#test-1">Test</a>';
+
+  linkProcessor.convertMdAndMbdExtToHtmlExt(mockNode);
+
+  expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
+});
+
+test('Test no conversion when no-convert attribute is present', () => {
+  const mockLink = '<a href="/index.md#test-1" no-convert>Test</a>';
+  const mockNode = cheerio.parseHTML(mockLink)[0];
+
+  const EXPECTED_RESULT = '<a href="/index.md#test-1" no-convert>Test</a>';
+
+  linkProcessor.convertMdAndMbdExtToHtmlExt(mockNode);
+
+  expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
+});
+
 test('Test invalid URL link ', () => {
   const mockLink = '<a href="https://markbind.org">Test</a>';
   const mockNode = cheerio.parseHTML(mockLink)[0];
