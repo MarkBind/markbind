@@ -95,10 +95,10 @@ function convertMdAndMbdExtToHtmlExt(node) {
       const mdIdx = href.indexOf('.md');
       const pathWithoutExtension = href.substring(0, mdIdx);
 
-      const hasURIFragment = href.includes('.md#');
-      if (hasURIFragment) {
-        const URIFragment = href.substring(mdIdx + 3, href.length);
-        const newHref = `${pathWithoutExtension}.html${URIFragment}`;
+      const hasURLFragment = href.includes('.md#');
+      if (hasURLFragment) {
+        const fragment = href.substring(mdIdx + 3, href.length);
+        const newHref = `${pathWithoutExtension}.html${fragment}`;
         node.attribs.href = newHref;
         return;
       }
@@ -113,10 +113,10 @@ function convertMdAndMbdExtToHtmlExt(node) {
       const mbdIdx = href.indexOf('.mbd');
       const pathWithoutExtension = href.substring(0, mbdIdx);
 
-      const hasURIFragment = href.includes('.mbd#');
-      if (hasURIFragment) {
-        const URIFragment = href.substring(mbdIdx + 4, href.length);
-        const newHref = `${pathWithoutExtension}.html${URIFragment}`;
+      const hasURLFragment = href.includes('.mbd#');
+      if (hasURLFragment) {
+        const fragment = href.substring(mbdIdx + 4, href.length);
+        const newHref = `${pathWithoutExtension}.html${fragment}`;
         node.attribs.href = newHref;
         return;
       }

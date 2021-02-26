@@ -57,7 +57,7 @@ test('Test converting .mbd to .html', () => {
   expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
 });
 
-test('Test converting .md to .html with URI fragment', () => {
+test('Test converting .md to .html with URL fragment', () => {
   const mockLink = '<a href="/index.md#test-1">Test</a>';
   const mockNode = cheerio.parseHTML(mockLink)[0];
 
@@ -68,7 +68,7 @@ test('Test converting .md to .html with URI fragment', () => {
   expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
 });
 
-test('Test converting .mbd to .html with URI fragment', () => {
+test('Test converting .mbd to .html with URL fragment', () => {
   const mockLink = '<a href="/index.mbd#test-1">Test</a>';
   const mockNode = cheerio.parseHTML(mockLink)[0];
 
