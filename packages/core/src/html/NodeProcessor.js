@@ -15,6 +15,7 @@ const { processInclude, processPanelSrc } = require('./includePanelProcessor');
 const { Context } = require('./Context');
 const linkProcessor = require('./linkProcessor');
 const { insertTemporaryStyles } = require('./tempStyleProcessor');
+const { highlightCodeBlock } = require('./codeblockProcessor');
 
 const md = require('../lib/markdown-it');
 const utils = require('../utils');
@@ -746,6 +747,9 @@ class NodeProcessor {
   postProcessNode(node) {
     try {
       switch (node.name) {
+      case 'pre':
+        highlightCodeBlock(node);
+        break;
       case 'panel':
         NodeProcessor._assignPanelId(node);
         break;
