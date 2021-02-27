@@ -8,7 +8,7 @@ const utils = require('../lib/markdown-it/utils');
  * @param node The node of the line part to be traversed
  * @param hlStart The highlight start position, relative to the start of the line part
  * @param hlEnd The highlight end position, relative to the start of the line part
- * @returns {object} An array of two items.
+ * @returns {object} An object that contains data to be used by the node's parent.
  */
 function traverseLinePart(node, hlStart, hlEnd) {
   const resData = {
@@ -56,13 +56,12 @@ function traverseLinePart(node, hlStart, hlEnd) {
    * It may have more children, such as inner tag nodes.
    */
 
-  let curr = 0;
   const highlightData = node.children.map((child) => {
-    const data = traverseLinePart(child, hlStart - curr, hlEnd - curr);
-    curr += data.numCharsTraversed;
+    const [relativeHlStart, relativeHlEnd] = [hlStart, hlEnd].map(x => x - resData.numCharsTraversed);
+    const data = traverseLinePart(child, relativeHlStart, relativeHlEnd);
+    resData.numCharsTraversed += data.numCharsTraversed;
     return data;
   });
-  resData.numCharsTraversed = curr;
 
   if (highlightData.every(data => data.shouldParentHighlight && !data.highlightRange)) {
     /*
@@ -111,7 +110,6 @@ function traverseLinePart(node, hlStart, hlEnd) {
  * This looks into each line for highlighting data, and if found,
  * traverses over the line and applies the highlight.
  * @param node Root of the code block element, which is the 'pre' node
- * @return
  */
 function highlightCodeBlock(node) {
   const codeNode = node.children.find(c => c.name === 'code');

@@ -77,9 +77,11 @@ class HighlightRule {
   }
 
   static _highlightPartOfText(codeStr, bounds) {
-    // Note: As part-of-text highlighting requires walking over the node of the generated
-    // html by highlight.js, highlighting will be applied in NodeProcessor instead.
-    // hl-data is used to pass over the bounds.
+    /*
+     * Note: As part-of-text highlighting requires walking over the node of the generated
+     * html by highlight.js, highlighting will be applied in NodeProcessor instead.
+     * hl-data is used to pass over the bounds.
+     */
     const dataStr = bounds.map(bound => bound.join('-')).join(',');
     return `<span hl-data=${dataStr}>${codeStr}\n</span>`;
   }

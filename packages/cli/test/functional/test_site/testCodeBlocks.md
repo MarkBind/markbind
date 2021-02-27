@@ -76,7 +76,7 @@ Content in a fenced code block
 </foo>
 ```
 
-**`highlight-lines` attr with partial character-variant line-slice syntax should defaults highlight to start/end of line**
+**`highlight-lines` attr with partial character-variant line-slice syntax should default highlight to start/end of line**
 ```xml {highlight-lines="1[1:],2[:13],3[2:]-4,5-6[:2]"}
 <foo>
   <bar type="name">goo</bar>
@@ -106,7 +106,7 @@ Content in a fenced code block
 </foo>
 ```
 
-**`highlight-lines` attr with partial word-variant line-slice syntax should defaults highlight to start/end of line**
+**`highlight-lines` attr with partial word-variant line-slice syntax should default highlight to start/end of line**
 ```xml {highlight-lines="1[0::],2[3::],3[::2],4[2::],5[::3]"}
 <foo>
   <bar type="name"> goo </bar>
