@@ -59,68 +59,31 @@ function add(a, b) {
 
 ##### Line highlighting
 
-You can add the `highlight-lines` attribute to add highlighting to your code block. Refer to the example below for
-all possible ways of highlighting a code block.
+You can add the `highlight-lines` attribute to add highlighting to your code block. Refer to the example code block
+below for a visual demonstration of all the possible ways of highlighting a code block.
 
 The value of `highlight-lines` is composed of *highlight rules*, separated by commas.
 These rules dictate where and how MarkBind should highlight your code block.
 
-You can specify the rules in many different ways, depending on how you want it to be. There are three main types:
-full text, substring, bounded (character-wise or word-wise), or full line highlighting.
+You can specify the rules in many different ways, each is detailed as follows:
 
-###### Full text highlighting
+Type | Format | Example
+-----|--------|--------
+**Full text highlight**<br>Highlights the entirety of the text portion of the line | The line numbers as-is (subject to the starting line number set in `start-from`). | `3`, `5`
+**Substring highlight**<br>Highlights _all_ occurrences of a substring in the line | `lineNumber[part]`<br><br>_Limitations_: `part` must be wrapped in quotes. If `part` contains a quote, escape it with a backslash (`\`). | `3['Inventory']`,`4['It\'s designed']`
+**Character-bounded highlight**<br>Highlights a specific range of characters in the line | `lineNumber[start:end]`, highlights from character position `start` up to (but not including) `end`.<br><br>Character positions start from `0` as the first non-whitespace character, upwards.<br><br>Omit either `start`/`end` to highlight from the start / up to the end, respectively. | `19[1:5]`,`30[10:]`,`35[:20]`
+**Word-bounded highlight**<br>Highlights a specific range of words in the line | `lineNumber[start::end]`, highlights from word position `start` up to (but not including) `end`.<br><br>Word positions start from `0` as the first word (sequence of non-whitespace characters), upwards<br><br>Omit either `start`/`end` to highlight from the start / up to the end, respectively. | `5[2::4]`,`9[1::]`,`11[::5]`
+**Full line highlight**<br>Highlights the entirety of the line | `lineNumber[:]` | `7[:]`
 
-To highlight the entirety of the text portion of the line, you can just use the line numbers as is.
-Note that the numbers should correspond with the line numbers that will be displayed, so if you have changed the
-numbering via the `start-from` attribute, you will have to follow that numbering as well.
+Not only a single line, MarkBind is also capable of highlighting ranges of lines in various ways. In general, the syntax
+for range highlighting consists of two single line highlight rules as listed above joined by a dash (`-`).
 
-For **text-only range highlighting**, join the two line numbers with a dash sign (`-`).
-
-###### Substring highlighting
-
-You can also highlight occurrences of a substring in the line with MarkBind's **line-part** syntax. Note that this rule
-will highlight **all** occurrences of the substring, and substring is case-sensitive.
-
-The line-part syntax is of the form `lineNumber[part]`, where `lineNumber` is the line number (subject to the numbering
-settings as stated above), and `part` is the substring wrapped in quotes. The exact quote to be used **must** be
-different than the one used to specify the `highlight-lines` attribute value. As an example, one can write
-`highlight-lines="2['void main']"`.
-
-However, there are limitations to the line-part syntax. One of which is that if you have quotes inside the substring
-in `part`, you have to manually escape it with backslashes (`\`). Secondly, the line-part syntax **will not work**
-if the quote inside `part` is the same as the one used to specify the `highlight-lines` attribute value,
-even with escaping.
-
-###### Bounded highlighting
-
-Bounded highlighting is available if you want to highlight text on a specific boundary.
-This highlighting overcomes the limitations of substring highlighting. You can highlight either by characters
-or by words.
-
-**Character-wise**: You can use MarkBind's _line-slice_ syntax format `lineNumber[start:end]`, where `lineNumber`
-is the line number, `start` and `end` denote the range of character positions that will be highlighted, such as
-`5[2:10]`. Note that the highlight includes character at `start` but does not include character at `end`.
-
-Character positions start from `0`, which denotes the first non-whitespace character in the line, upwards.
-You can omit either `start` or `end` to tell MarkBind either to highlight from the start or until the end, respectively.
-
-**Word-wise**: The syntax for this is very similar to a normal line-slice syntax, but instead of having a single colon
-between `start` and `end`, you write two colons. That is, you can write it as `lineNumber[start::end]`. Now `start` and
-`end` denote the range of word positions that will be highlighted.
- 
-Similar to the character-wise variant, `0` denotes the first word in the line, upwards. However, we
-define a word here as a _sequence of non-whitespace characters_.
-
-Also, you can start or end a **partial text-only range highlight** with a line-slice syntax (any variant) to indicate
-partial text highlight at the beginning or end of the range, respectively.
-
-###### Full line highlighting
-
-If you wish to highlight a full line (which includes indentations), you can use the line-slice syntax as well,
-but with `start` **_and_** `end` omitted. We call this the **empty line-slices**.
-
-To do a **full-line range highlighting**, you only need to use empty line-slices on either ends of the usual
-text-only range highlight.
+Type | Format | Example
+-----|--------|--------
+**Ranged full text highlight**<br>Highlights only the text portion of the lines within the range | `lineStart-lineEnd` | `2-4`
+**Ranged full line highlight**<br>Highlights the entirety of the lines within the range | `lineStart[:]-lineEnd` or `lineStart-lineEnd[:]` | `1[:]-5`,`10-12[:]`
+**Ranged character-bounded highlight**<br>Highlights the text portion of the lines within the range, but starts/ends at an arbitrary character | `lineStart[start:]-lineEnd` or `lineStart-lineEnd[:end]` | `3[2:]-7`, `4-9[:17]`
+**Ranged word-bounded highlight**<br>Highlights the text portion of the lines within the range, but starts/ends at an arbitrary word | `lineStart[start::]-lineEnd` or `lineStart-lineEnd[::end]` | `16[1::]-20`,`22-24[::3]`
 
 <include src="codeAndOutputCode.md" boilerplate >
 
