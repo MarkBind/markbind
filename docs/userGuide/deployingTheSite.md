@@ -21,7 +21,7 @@
 
 ## Generic steps for deploying a MarkBind site
 
-1. Set the [`baseUrl` property of the `site.json` file](siteJsonFile.html#baseurl){.no-convert} to match the deploy location.
+1. Set the [`baseUrl` property of the `site.json` file](siteJsonFile.html#baseurl) to match the deploy location.
 1. (Optional) Use the [`markbind serve` command](cliCommands.html#serve-command) to stage the site locally and confirm the contents are as expected.
 1. Use the [`markbind build` command](cliCommands.html#build-command) to generate the site from source files. That command puts the generated site files in a directory named `_site` (you can change the output directory using parameters supplied to the command).
 1. Upload the site files to the Web server. The sections below explain how to automate this step if you are deploying to some online platforms.
