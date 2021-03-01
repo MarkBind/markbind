@@ -223,12 +223,52 @@
 </span><span>19
 </span><span>20
 </span></code></pre>
-        <p>**<code class="hljs inline no-lang" v-pre>highlight-lines</code> attr with line-slice syntax of empty indices should highlight leading/trailing spaces</p>
+        <p><strong><code class="hljs inline no-lang" v-pre>highlight-lines</code> attr with empty (any variant) line-slice syntax should highlight leading/trailing spaces</strong></p>
         <pre><code class="hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span>
 </span><span class="highlighted">  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
-</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">baz</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">baz</span>&gt;</span>
+</span><span class="highlighted">  <span class="hljs-tag">&lt;<span class="hljs-name">baz</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">baz</span>&gt;</span>
 </span><span class="highlighted">  <span class="hljs-tag">&lt;<span class="hljs-name">qux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">qux</span>&gt;</span>
 </span><span class="highlighted">  <span class="hljs-tag">&lt;<span class="hljs-name">quux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">quux</span>&gt;</span>
+</span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
+</span></code></pre>
+        <p><strong><code class="hljs inline no-lang" v-pre>highlight-lines</code> attr with full character-variant line-slice syntax should highlight only at specified range</strong></p>
+        <pre><code class="hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name highlighted">foo</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr highlighted">type</span><span class="highlighted">=</span><span class="hljs-string"><span><span class="highlighted">&quot;na</span>me&quot;</span></span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name"><span>b<span class="highlighted">az</span></span></span><span class="highlighted"> </span><span class="hljs-attr highlighted">type</span><span class="highlighted">=</span><span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">baz</span>&gt;</span>
+</span><span>  <span class="highlighted"><span class="hljs-tag">&lt;<span class="hljs-name">qux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">qux</span>&gt;</span></span>
+</span><span>  <span class="highlighted"><span class="hljs-tag">&lt;<span class="hljs-name">quux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">quux</span>&gt;</span></span>
+</span><span><span class="hljs-tag"><span>&lt;<span class="highlighted">/</span></span><span class="hljs-name"><span><span class="highlighted">fo</span>o</span></span>&gt;</span>
+</span></code></pre>
+        <p><strong><code class="hljs inline no-lang" v-pre>highlight-lines</code> attr with partial character-variant line-slice syntax should default highlight to start/end of line</strong></p>
+        <pre><code class="hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name highlighted">foo</span><span class="highlighted">&gt;</span></span>
+</span><span>  <span class="hljs-tag"><span class="highlighted">&lt;</span><span class="hljs-name highlighted">bar</span><span class="highlighted"> </span><span class="hljs-attr highlighted">type</span><span class="highlighted">=</span><span class="hljs-string"><span><span class="highlighted">&quot;na</span>me&quot;</span></span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name"><span>b<span class="highlighted">az</span></span></span><span class="highlighted"> </span><span class="hljs-attr highlighted">type</span><span class="highlighted">=</span><span class="hljs-string highlighted">&quot;name&quot;</span><span class="highlighted">&gt;</span></span><span class="highlighted">goo</span><span class="hljs-tag highlighted">&lt;/<span class="hljs-name">baz</span>&gt;</span>
+</span><span>  <span class="highlighted"><span class="hljs-tag">&lt;<span class="hljs-name">qux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">qux</span>&gt;</span></span>
+</span><span>  <span class="highlighted"><span class="hljs-tag">&lt;<span class="hljs-name">quux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">quux</span>&gt;</span></span>
+</span><span><span class="hljs-tag"><span class="highlighted">&lt;/</span><span class="hljs-name">foo</span>&gt;</span>
+</span></code></pre>
+        <p><strong><code class="hljs inline no-lang" v-pre>highlight-lines</code> attr with line-part syntax should highlight only at specified substring</strong></p>
+        <pre><code class="hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr highlighted">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name highlighted">baz</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name highlighted">baz</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">qux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span><span class="highlighted">go,o</span><span class="hljs-tag highlighted">&lt;/<span class="hljs-name">qux</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">quux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span><span class="highlighted">go&#x27;o</span><span class="hljs-tag">&lt;/<span class="hljs-name">quux</span>&gt;</span>
+</span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
+</span></code></pre>
+        <p><strong><code class="hljs inline no-lang" v-pre>highlight-lines</code> attr with full word-variant line-slice syntax should highlight only at specified word ranges</strong></p>
+        <pre><code class="hljs xml" v-pre><span><span class="hljs-tag highlighted">&lt;<span class="hljs-name">foo</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span> goo <span class="hljs-tag highlighted">&lt;/<span class="hljs-name">bar</span>&gt;</span>
+</span><span>  <span class="hljs-tag highlighted">&lt;<span class="hljs-name">baz</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span> goo <span class="hljs-tag">&lt;/<span class="hljs-name">baz</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">qux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span><span> <span class="highlighted">goo </span></span><span class="hljs-tag highlighted">&lt;/<span class="hljs-name">qux</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">quux</span> <span class="hljs-attr highlighted">type</span><span class="highlighted">=</span><span class="hljs-string highlighted">&quot;name&quot;</span><span class="highlighted">&gt;</span></span><span><span class="highlighted"> goo</span> </span><span class="hljs-tag">&lt;/<span class="hljs-name">quux</span>&gt;</span>
+</span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
+</span></code></pre>
+        <p><strong><code class="hljs inline no-lang" v-pre>highlight-lines</code> attr with partial word-variant line-slice syntax should default highlight to start/end of line</strong></p>
+        <pre><code class="hljs xml" v-pre><span><span class="hljs-tag highlighted">&lt;<span class="hljs-name">foo</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span> goo <span class="hljs-tag highlighted">&lt;/<span class="hljs-name">bar</span>&gt;</span>
+</span><span>  <span class="hljs-tag highlighted">&lt;<span class="hljs-name">baz</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span> goo <span class="hljs-tag">&lt;/<span class="hljs-name">baz</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">qux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span><span> <span class="highlighted">goo </span></span><span class="hljs-tag highlighted">&lt;/<span class="hljs-name">qux</span>&gt;</span>
+</span><span>  <span class="hljs-tag highlighted">&lt;<span class="hljs-name">quux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span><span><span class="highlighted"> goo</span> </span><span class="hljs-tag">&lt;/<span class="hljs-name">quux</span>&gt;</span>
 </span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
 </span></code></pre>
         <p><strong>Should render correctly with heading</strong></p>

@@ -57,7 +57,9 @@ If you are deploying to the site to GitHub pages, the `baseUrl` setting in the `
 You can override the default deployment settings %%(e.g., repo/branch to deploy)%% in the `site.json`'s `deploy` section:
 
 <panel type="seamless" header="**User Guide: Configuring the Site → `deploy`**" popup-url="siteJsonFile.html#deploy">
+
   <include src="siteJsonFile.md#site-json-deploy" />
+
 </panel>
 
 <br>
@@ -83,7 +85,7 @@ You may refer to Github's documentation on [how to generate a Github Personal Ac
 <panel header="#### Deploying via Github Actions" type="seamless" expanded>
 
 To instruct [Github Actions](https://docs.github.com/en/actions) to build and deploy the site when you push to the repository, add a Github Actions workflow file in your project repo at the location `<PROJECT_ROOT>/.github/workflows/deploy.yml`  A sample workflow file is provided below:
-```
+```yml {.no-line-numbers}
 name: Deploy Markbind Site
 on:
   push:
@@ -146,29 +148,34 @@ Since May 2018, Travis CI has been [undergoing migration to `travis-ci.com`](htt
 1. Find the repository with the MarkBind site.<br>
   %%{{ icon_info }} If the organization/repository is not shown in the list, click on `Review and add` link at the bottom of the list of organization and follow the steps to give Travis access to the organization containing your repo. After that, come back to the [Repositories page](https://travis-ci.org/account/repositories) and use the `Sync Account` button to sync your Travis account with GitHub.%%
 1. Activate the repo using the slider switch in front of it.
+
   <include src="screenshot.md" boilerplate var-alt="Activate Repo" var-file="travisActivateRepo.png" inline />
+
   </tab>
 </tabs>
 
 **Configuring your repository in Travis CI**
 
 1. [Add an environment variable in Travis CI](https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings) named `GITHUB_TOKEN`, with the value set to your [generated Github Personal Access Token](#generating-a-github-personal-access-token). ==Ensure that _Display value in the build log_ is set to _Off_.==
-   <include src="screenshot.md" boilerplate var-alt="Add GITHUB_TOKEN" var-file="travisGithubToken.png" inline />
+
+    <include src="screenshot.md" boilerplate var-alt="Add GITHUB_TOKEN" var-file="travisGithubToken.png" inline />
+
 1. Add a `.travis.yml` file to instruct Travis CI to build and deploy the site when you push to the repository. An example `.travis.yml` file that can accomplish this is given below:
-```yaml
-language: node_js
-node_js:
-  - 10
-install:
-  - npm i -g markbind-cli
-script: markbind build
-deploy:
-  provider: script
-  script: markbind deploy --ci
-  skip_cleanup: true
-  on:
-    branch: master
-```
+
+    ```yml {.no-line-numbers}
+    language: node_js
+    node_js:
+      - 10
+    install:
+      - npm i -g markbind-cli
+    script: markbind build
+    deploy:
+      provider: script
+      script: markbind deploy --ci
+      skip_cleanup: true
+      on:
+        branch: master
+    ```
 More information about `.travis.yml` can be found in the [Travis CI documentation](https://docs.travis-ci.com/).
 
 1. Commit `.travis.yml` to your MarkBind repository and push the changes. Travis CI should begin to build your site.
@@ -185,7 +192,7 @@ If you want Travis CI to only deploy from a specific repository (eg. only from y
 
 For example, if you only want Travis CI to deploy the site when it is run from the `se-edu/se-book` repository, the following `repo` condition should be added to `.travis.yml`.
 
-```yaml
+```yml {.no-line-numbers}
   on:
     branch: master
     repo: se-edu/se-book
@@ -202,9 +209,13 @@ The `repo` value can be changed to your specific repository as desired.
 
 1. [Sign in to AppVeyor CI](https://ci.appveyor.com/login) using your Github Account.
 1. Authorize AppVeyor App as Github App in the [account settings](https://ci.appveyor.com/authorizations) by clicking on the _Install AppVeyor App_ button.
-  <include src="screenshot.md" boilerplate var-alt="Install AppVeyor Github App" var-file="appveyorInstallGithubApp.png" inline />
+
+    <include src="screenshot.md" boilerplate var-alt="Install AppVeyor Github App" var-file="appveyorInstallGithubApp.png" inline />
+
 1. In the [projects directory](https://ci.appveyor.com/projects), click on the _New Project_ button.
-  <include src="screenshot.md" boilerplate var-alt="Add a new Project on AppVeyor" var-file="appveyorAddNewProject.png" inline />
+
+    <include src="screenshot.md" boilerplate var-alt="Add a new Project on AppVeyor" var-file="appveyorAddNewProject.png" inline />
+
 1. Finally, select the repository containing your Markbind site.
 
 **Configuring your repository in AppVeyor CI**
@@ -213,27 +224,30 @@ The `repo` value can be changed to your specific repository as desired.
 1. Navigate to the project settings page of your repository in AppVeyor CI.
 1. On the left menu, click on __Environment__.
 1. Under the heading __Environment variables__, add a custom environment variable named `GITHUB_TOKEN`, with the value set to the personal access token that was generated in the first step. ==Ensure that you toggle variable encryption by clicking on the padlock.== 
-  <include src="screenshot.md" boilerplate var-alt="Add GitHub Token on AppVeyor" var-file="appveyorGithubToken.png" inline />
+
+    <include src="screenshot.md" boilerplate var-alt="Add GitHub Token on AppVeyor" var-file="appveyorGithubToken.png" inline />
+
 1. Remember to click __Save__ at the bottom of the page.
 1. Add a `appveyor.yml`file at the root of your Markbind site's repository to instruct AppVeyor CI to build and deploy the site to Github Pages when you to push to your repository. More information on customizing `appveyor.yml` can be found in [AppVeyor documentation](https://www.appveyor.com/docs/appveyor-yml/). An example `appveyor.yml` file is given below:
-```
-environment:
-  nodejs_version: '10'
 
-branches:
-  only:
-    - master
-
-install:
-  - ps: Install-Product node $env:nodejs_version
-  - npm i -g markbind-cli
-  - markbind build
-  - markbind deploy --ci
-
-test: off
-
-build: off
-```
+    ```yml {.no-line-numbers}
+    environment:
+      nodejs_version: '10'
+    
+    branches:
+      only:
+        - master
+    
+    install:
+      - ps: Install-Product node $env:nodejs_version
+      - npm i -g markbind-cli
+      - markbind build
+      - markbind deploy --ci
+    
+    test: off
+    
+    build: off
+    ```
 
 Commit and push `appveyor.yml` to your github repository. Thereafter, AppVeyor CI should begin to run the build script. You are able to view the current build status by clicking on your repository in the [AppVeyor projects page](https://ci.appveyor.com/projects). Once the build succeeds, you should be able to view your Markbind site, after a few seconds, at `http://<username|org>.github.io/<repo>` e.g., http://se-edu.github.io/se-book. 
 
@@ -246,37 +260,42 @@ Commit and push `appveyor.yml` to your github repository. Thereafter, AppVeyor C
 1. Ensure that you have generated a [Github Personal Access Token with **repo** permissions](#generating-a-github-personal-access-token).
 1. Sign in to [Circle CI](https://circleci.com/) using your Github account.
 1. In the projects dashboard, click on the `Set Up Project` button beside the repo containing your Markbind site.
-  <include src="screenshot.md" boilerplate var-alt="Set Up Project in Circle CI" var-file="circleCiSetUpProject.png" inline />
+
+    <include src="screenshot.md" boilerplate var-alt="Set Up Project in Circle CI" var-file="circleCiSetUpProject.png" inline />
 
 **Configuring your repository in Circle CI**
 
 1. Once you have set up your project, click on the `Project Settings` button.
 2. On the left, click on the `Environment Variables` tab and add a custom Environment Variable, `GITHUB_TOKEN`, which contains the value of your Github Personal Access Token.
-  <include src="screenshot.md" boilerplate var-alt="Add Github Token in Circle CI" var-file="circleCiGithubToken.png" inline />
+
+    <include src="screenshot.md" boilerplate var-alt="Add Github Token in Circle CI" var-file="circleCiGithubToken.png" inline />
+
 3. Commit and push a `config.yml` file to the repo containg your Markbind Site that instructs Circle CI to build and deploy your Markbind site to Github Pages whenever you push to your repository. Ensure that the `config.yml` file is located in the `<PROJECT_ROOT>/.circleci/` directory. A sample `config.yml` file is shown below:
-```
-jobs:
-  Build-And-Deploy:
-    docker:
-      - image: 'cimg/base:stable'
-    steps:
-      - checkout
-      - node/install:
-          node-version: "10"
-          npm-version: "6"
-          install-yarn: false
-      - run: node --version
-      - run: npm i -g markbind-cli
-      - run: markbind build
-      - run: markbind deploy --ci
-version: 2.1
-orbs:
-  node: circleci/node@4.1.0
-workflows:
-  Deploy-Markbind-Site:
+
+    ```yml {.no-line-numbers}
     jobs:
-      - Build-And-Deploy
-```
+      Build-And-Deploy:
+        docker:
+          - image: 'cimg/base:stable'
+        steps:
+          - checkout
+          - node/install:
+              node-version: "10"
+              npm-version: "6"
+              install-yarn: false
+          - run: node --version
+          - run: npm i -g markbind-cli
+          - run: markbind build
+          - run: markbind deploy --ci
+    version: 2.1
+    orbs:
+      node: circleci/node@4.1.0
+    workflows:
+      Deploy-Markbind-Site:
+        jobs:
+          - Build-And-Deploy
+    ```
+
 After you have pushed the `config.yml` file to your remote repo, you should see Circle CI starting to run the Deploy job in your projects dashboard. Once it is successful, you should be able to view your Markbind site at `http://<username|org>.github.io/<repo>`. 
 
 For more information on customizing your build script, you may refer to [Circle CI Config Reference Document](https://circleci.com/docs/2.0/configuration-reference/#section=configuration).
@@ -293,18 +312,22 @@ Here are the steps to set up Netlify:
 1. Go to https://app.netlify.com/ and sign up
 1. Next go to https://app.netlify.com/account/sites and select `New site from Git`
 1. Select your git provider
-   <include src="screenshot.md" boilerplate var-alt="Create a new site" var-file="netlifyPreview1.png" inline />
+
+    <include src="screenshot.md" boilerplate var-alt="Create a new site" var-file="netlifyPreview1.png" inline />
+
 1. Select your markbind site repository
-   <include src="screenshot.md" boilerplate var-alt="Select repository" var-file="netlifyPreview2.png" inline />
+
+    <include src="screenshot.md" boilerplate var-alt="Select repository" var-file="netlifyPreview2.png" inline />
+
 1. Update the build settings as follows and hit `Deploy site`:
    - `Build Command`: `npm i markbind-cli -g && markbind build --baseUrl`
    - `Publish directory`: `_site`
    - `Show advanced`: Add a new variable with the key as `NODE_VERSION` and the value as **`10` or higher**
-   <include src="screenshot.md" boilerplate var-alt="Update build settings" var-file="netlifyPreview3.png" inline />
-   <include src="screenshot.md" boilerplate var-alt="Advanced build settings" var-file="netlifyPreview3-advanced.png" inline />
+
+    </br>
+    <include src="screenshot.md" boilerplate var-alt="Update build settings" var-file="netlifyPreview3.png" inline />
 
 Now your site will be deployed on Netlify at the given address specified after deployment. It will be updated automatically when the default branch of your repo is updated.
-
 
 ## Previewing Pull Requests for MarkBind sites
 
@@ -454,9 +477,10 @@ Finally, you may open a PR to the repo of your Markbind site. If everything is c
 
 For more information on Surge, you may refer to [Surge's docs](https://surge.sh/help/).
 
+
 ## Relevant Tips & Tricks
 
-<panel header="Configuring Online Deployment platforms to use specific MarkBind version" expand-headerless>
+<panel header="Configuring Online Deployment platforms to use specific MarkBind version" type="seamless" expand-headerless>
 
 <include src="tipsAndTricks.md#useSpecificMarkbind" />
 

@@ -12,6 +12,8 @@ const logger = require('../../utils/logger');
 
 const { HighlightRule } = require('./highlight/HighlightRule.js');
 
+const HIGHLIGHT_LINES_DELIMITER_REGEX = new RegExp(',(?![^\\[\\]]*])');
+
 const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
 // markdown-it plugins
@@ -58,7 +60,25 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const lang = token.info || '';
   let str = token.content;
   let highlighted = false;
-  let lines;
+  let lines = str.split('\n');
+
+  const startFromOneBased = Math.max(1, parseInt(getAttributeAndDelete(token, 'start-from'), 10) || 1);
+  const startFromZeroBased = startFromOneBased - 1;
+
+  if (startFromOneBased > 1) {
+    // counter is incremented on each span, so we need to subtract 1
+    token.attrJoin('style', `counter-reset: line ${startFromZeroBased};`);
+  }
+
+  const highlightLinesInput = getAttributeAndDelete(token, 'highlight-lines');
+  let highlightRules = [];
+  if (highlightLinesInput) {
+    const highlightLines = highlightLinesInput.split(HIGHLIGHT_LINES_DELIMITER_REGEX);
+    highlightRules = highlightLines
+      .map(ruleStr => HighlightRule.parseRule(ruleStr, -startFromZeroBased, lines))
+      .filter(rule => rule); // discards invalid rules
+  }
+
   if (lang && hljs.getLanguage(lang)) {
     try {
       /* We cannot syntax highlight THEN split by lines. For eg:
@@ -74,10 +94,9 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
       Note the line break contained inside a <span> element.
       So we have to split by lines THEN syntax highlight.
        */
-
       // state stores the current parse state of hljs, so that we can pass it on line by line
       let state = null;
-      lines = str.split('\n').map((line) => {
+      lines = lines.map((line) => {
         const highlightedLine = hljs.highlight(lang, line, true, state);
         state = highlightedLine.top;
         return highlightedLine.value;
@@ -91,31 +110,13 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
     lines = markdownIt.utils.escapeHtml(str).split('\n');
   }
 
-  const startFromOneBased = Math.max(1, parseInt(getAttributeAndDelete(token, 'start-from'), 10) || 1);
-  const startFromZeroBased = startFromOneBased - 1;
-
-  if (startFromOneBased > 1) {
-    // counter is incremented on each span, so we need to subtract 1
-    token.attrJoin('style', `counter-reset: line ${startFromZeroBased};`);
-  }
-
-  const highlightLinesInput = getAttributeAndDelete(token, 'highlight-lines');
-  let highlightRules = [];
-  if (highlightLinesInput) {
-    const highlightLines = highlightLinesInput.split(',');
-    highlightRules = highlightLines.map(HighlightRule.parseRule);
-    // Note: authors provide line numbers based on the 'start-from' attribute if it exists,
-    //       so we need to shift line numbers back down to start at 0
-    highlightRules.forEach(rule => rule.offsetLines(-startFromZeroBased));
-  }
-
   lines.pop(); // last line is always a single '\n' newline, so we remove it
   // wrap all lines with <span> so we can number them
   str = lines.map((line, index) => {
     const currentLineNumber = index + 1;
     const rule = highlightRules.find(highlightRule => highlightRule.shouldApplyHighlight(currentLineNumber));
     if (rule) {
-      return rule.applyHighlight(line);
+      return rule.applyHighlight(line, currentLineNumber);
     }
 
     // not highlighted
