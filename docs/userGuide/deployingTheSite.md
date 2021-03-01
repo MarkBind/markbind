@@ -340,6 +340,7 @@ You can setup PR previews in order to automatically build and deploy the modifie
 By following the [steps to deploy to Netlify](#deploying-to-netlify) in the previous section, you would automatically be able to preview PRs.
 
 You can _preview_ the updated site at the bottom of the pull request by clicking on `details` link in the PR:
+
 <include src="screenshot.md" boilerplate var-alt="Preview deploy" var-file="netlifyPreview4.png" inline />
 
 For more information on previewing PRs with Netlify, you may refer to [Netlify's docs](https://www.netlify.com/tags/deploy-previews/).
@@ -350,12 +351,18 @@ You may also preview PRs using [Surge](https://surge.sh/), which is an NPM packa
 
 1. First install Surge using by typing `npm install --global surge` on your terminal. 
 1. Next, type `surge` in the terminal. You should see the following prompt:
-<include src="screenshot.md" boilerplate var-alt="Create Surge account" var-file="surgeCreateAccount.png" inline />
+
+    <include src="screenshot.md" boilerplate var-alt="Create Surge account" var-file="surgeCreateAccount.png" inline />
+
 1. Proceed to create a Surge account.
 1. Next, type `surge token` to generate your surge token.
-<include src="screenshot.md" boilerplate var-alt="Get Surge token" var-file="surgeToken.png" inline />
+
+    <include src="screenshot.md" boilerplate var-alt="Get Surge token" var-file="surgeToken.png" inline />
+
 1. In the repo of your markbind site, create a new secret by going to "Settings"->"Secrets" and naming it as `SURGE_TOKEN` and setting its value to the value of the generated surge token.
-<include src="screenshot.md" boilerplate var-alt="Add Surge token" var-file="surgeAddToken.png" inline />
+
+    <include src="screenshot.md" boilerplate var-alt="Add Surge token" var-file="surgeAddToken.png" inline />
+
 1. Commit and push the following 2 files into your markbind site repo, in the directory `./github/workflows/`.
 
 <panel header="`receivePR.yml` File" type="seamless">
