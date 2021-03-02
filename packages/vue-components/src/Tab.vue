@@ -100,11 +100,12 @@ export default {
             display: block !important;
             margin: 10px 0;
             font-weight: 600;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
         }
 
         .printable-tab-pane {
             display: block !important;
+            padding: 10px;
         }
     }
 </style>
