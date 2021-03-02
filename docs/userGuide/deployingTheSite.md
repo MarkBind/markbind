@@ -354,7 +354,17 @@ You may also preview PRs using [Surge](https://surge.sh/), which is an NPM packa
 
     <include src="screenshot.md" boilerplate var-alt="Create Surge account" var-file="surgeCreateAccount.png" inline />
 
-1. Proceed to create a Surge account.
+1. Proceed to create a Surge account. After you have set up your account, you should see the following screen:
+
+    <include src="screenshot.md" boilerplate var-alt="" var-file="surgeCreateAccount2.png" inline />
+
+1. Hit `CTRL-C` on your keyboard to quit the current running Surge process.
+
+    <box type="info">
+  
+    The rest of the setup is **unnecessary** for the purposes of setting up PR previews. You may still proceed with the rest of the setup such as setting the _project directory_ and the _domain name_, if you wish to.
+    </box>
+
 1. Next, type `surge token` to generate your surge token.
 
     <include src="screenshot.md" boilerplate var-alt="Get Surge token" var-file="surgeToken.png" inline />
@@ -363,7 +373,7 @@ You may also preview PRs using [Surge](https://surge.sh/), which is an NPM packa
 
     <include src="screenshot.md" boilerplate var-alt="Add Surge token" var-file="surgeAddToken.png" inline />
 
-1. Commit and push the following 2 files into your markbind site repo, in the directory `./github/workflows/`.
+1. Commit and push the following 2 files into your markbind site repo, in the directory `<PROJECT_ROOT>/.github/workflows/`.
 
 <panel header="`receivePR.yml` File" type="seamless">
 
