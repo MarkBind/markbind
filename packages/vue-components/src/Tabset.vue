@@ -2,7 +2,7 @@
   <div :class="[addClass]">
     <!-- Nav tabs -->
     <ul
-      class="nav nav-tabs"
+      class="nav nav-tabs no-print"
       :class="getNavStyleClass"
       role="tablist"
     >
@@ -106,5 +106,11 @@ export default {
 <style scoped>
     .nav-tabs {
         margin-bottom: 15px;
+    }
+
+    @media print {
+        .no-print {
+            display: none;
+        }
     }
 </style>

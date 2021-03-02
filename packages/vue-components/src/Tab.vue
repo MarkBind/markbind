@@ -3,13 +3,13 @@
     <div
       v-show="show"
       role="tabpanel"
-      class="tab-pane active"
+      class="tab-pane active printable-tab-pane"
       :class="{hide:!show}"
     >
-      <slot></slot>
-      <div ref="header" class="d-none">
+      <div ref="header" class="d-none printable-tab-header">
         <slot name="_header"></slot>
       </div>
+      <slot></slot>
       <hr />
     </div>
   </transition>
@@ -93,5 +93,18 @@ export default {
 
     .fade-leave-active {
         transition: opacity 0s;
+    }
+
+    @media print {
+        .printable-tab-header {
+            display: block !important;
+            margin: 10px 0;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .printable-tab-pane {
+            display: block !important;
+        }
     }
 </style>
