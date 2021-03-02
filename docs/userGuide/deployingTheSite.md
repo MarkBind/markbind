@@ -362,7 +362,7 @@ You may also preview PRs using [Surge](https://surge.sh/), which is an NPM packa
 
     <box type="info">
   
-    The rest of the setup is **unnecessary** for the purposes of setting up PR previews. You may still proceed with the rest of the setup such as setting the _project directory_ and the _domain name_, if you wish to.
+    The rest of the **Surge setup** is unnecessary for the purposes of setting up PR previews. You may still proceed with the rest of the setup such as setting the _project directory_ and the _domain name_, if you wish to.
     </box>
 
 1. Next, type `surge token` to generate your surge token.
@@ -378,7 +378,7 @@ You may also preview PRs using [Surge](https://surge.sh/), which is an NPM packa
 <panel header="`receivePR.yml` File" type="seamless">
 
 {% raw %}
-```yml
+```yml {.no-line-numbers}
 name: Receive Markbind PR
 
 # read-only
@@ -422,8 +422,7 @@ jobs:
 <panel header="`previewPR.yml` File" type="seamless">
 
 {% raw %}
-
-```yml
+```yml {.no-line-numbers}
 name: Deploy PR Preview
 
 # Runs after PR is received and build by markbind-cli
@@ -482,9 +481,10 @@ jobs:
             Thank you for submitting the Pull Request! :thumbsup: 
 
             Your PR can be previewed [here](${{ steps.pr-url.outputs.ACTIONS_PREVIEW_URL }})
-```
 
+```
 {% endraw %}
+
 
 </panel>
 
