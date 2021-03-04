@@ -291,7 +291,7 @@ module.exports.PROCESS_TAB_HEADER = `
 `;
 
 module.exports.PROCESS_TAB_HEADER_EXPECTED = `
-<tab><template #_header><strong>Lorem ipsum dolor sit amet</strong></template>
+<tab><template #header><strong>Lorem ipsum dolor sit amet</strong></template>
   Header attribute should be inserted as internal _header slot and deleted.
 </tab>
 `;
@@ -303,7 +303,7 @@ module.exports.PROCESS_TAB_GROUP_HEADER = `
 `;
 
 module.exports.PROCESS_TAB_GROUP_HEADER_EXPECTED = `
-<tab-group><template #_header><strong>Lorem ipsum dolor sit amet</strong></template>
+<tab-group><template #header><strong>Lorem ipsum dolor sit amet</strong></template>
   Header attribute should be inserted as internal _header slot and deleted.
 </tab-group>
 `;
@@ -331,7 +331,7 @@ module.exports.PROCESS_BOX_HEADER = `
 `;
 
 module.exports.PROCESS_BOX_HEADER_EXPECTED = `
-<box><template #_header><h4>Lorem ipsum dolor sit amet 🚀</h4>
+<box><template #header><h4>Lorem ipsum dolor sit amet 🚀</h4>
 </template>
   Header attribute should be inserted as internal _header slot and deleted.
 </box>
@@ -346,7 +346,7 @@ module.exports.PROCESS_BOX_HEADING = `
 `;
 
 module.exports.PROCESS_BOX_HEADING_EXPECTED = `
-<box><template #_header><h4>Lorem ipsum dolor sit amet 🚀</h4>
+<box><template #header><h4>Lorem ipsum dolor sit amet 🚀</h4>
 </template>
   Heading attribute should be inserted as internal _header slot and deleted.
 </box>
@@ -363,7 +363,7 @@ module.exports.PROCESS_DROPDOWN_HEADER = `
 `;
 
 module.exports.PROCESS_DROPDOWN_HEADER_EXPECTED = `
-<dropdown><template #_header><strong>Lorem ipsum dolor sit amet</strong></template>
+<dropdown><template #header><strong>Lorem ipsum dolor sit amet</strong></template>
   Header attribute should be inserted as internal _header slot and deleted.
 </dropdown>
 `;
@@ -377,7 +377,7 @@ module.exports.PROCESS_DROPDOWN_TEXT_ATTR = `
 
 // TODO deprecate text attribute of dropdown
 module.exports.PROCESS_DROPDOWN_TEXT_ATTR_EXPECTED = `
-<dropdown><template #_header><strong>Lorem ipsum dolor sit amet</strong></template>
+<dropdown><template #header><strong>Lorem ipsum dolor sit amet</strong></template>
   Text attribute should be inserted as internal _header slot and deleted.
 </dropdown>
 `;
@@ -391,7 +391,7 @@ module.exports.PROCESS_DROPDOWN_HEADER_SHADOWS_TEXT = `
 
 // TODO deprecate text attribute of dropdown
 module.exports.PROCESS_DROPDOWN_HEADER_SHADOWS_TEXT_EXPECTED = `
-<dropdown><template #_header><strong>Lorem ipsum dolor sit amet</strong></template>
+<dropdown><template #header><strong>Lorem ipsum dolor sit amet</strong></template>
   Header attribute should be inserted as internal _header slot and deleted. Text attribute should be ignored.
 </dropdown>
 `;
