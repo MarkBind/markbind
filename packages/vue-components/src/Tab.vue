@@ -3,13 +3,18 @@
     <div
       v-show="show"
       role="tabpanel"
-      class="tab-pane active printable-tab-pane"
+      class="tab-pane active printable-tab-pane d-print-block"
       :class="{hide:!show}"
     >
-      <div ref="header" class="d-none printable-tab-header">
-        <slot name="_header"></slot>
+      <div class="nav-tabs printable-tab-header d-none d-print-flex">
+        <div class="nav-link active">
+          <span><slot name="_header"></slot></span>
+        </div>
       </div>
       <slot></slot>
+      <div ref="header" class="d-none">
+        <slot name="_header"></slot>
+      </div>
       <hr />
     </div>
   </transition>
@@ -97,14 +102,15 @@ export default {
 
     @media print {
         .printable-tab-header {
-            display: block !important;
-            margin: 10px 0;
-            font-weight: 600;
-            font-size: 1.3rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .printable-tab-header > div {
+            margin-bottom: -2px;
         }
 
         .printable-tab-pane {
-            display: block !important;
             padding: 10px;
         }
     }

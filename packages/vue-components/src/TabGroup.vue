@@ -1,6 +1,6 @@
 <template>
   <div class="printable-tab-group">
-    <div ref="header" class="d-none printable-tab-group-header">
+    <div ref="header" class="printable-tab-group-header d-none d-print-block">
       <slot name="_header"></slot>
     </div>
     <slot></slot>
@@ -81,8 +81,7 @@ export default {
         }
 
         .printable-tab-group-header {
-            display: block !important;
-            font-size: 1.3rem;
+            margin-bottom: 10px;
             text-decoration: underline;
         }
     }
