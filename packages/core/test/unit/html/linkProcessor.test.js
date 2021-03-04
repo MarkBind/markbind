@@ -90,6 +90,28 @@ test('Test no conversion when no-convert attribute is present', () => {
   expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
 });
 
+test('Test no conversion when neither .md nor .mbd extensions are present', () => {
+  const mockLink = '<a href="/index">Test</a>';
+  const mockNode = cheerio.parseHTML(mockLink)[0];
+
+  const EXPECTED_RESULT = '<a href="/index">Test</a>';
+
+  linkProcessor.convertMdAndMbdExtToHtmlExt(mockNode);
+
+  expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
+});
+
+test('Test no conversion when both .md and .mbd extensions are present', () => {
+  const mockLink = '<a href="/index.md.mbd">Test</a>';
+  const mockNode = cheerio.parseHTML(mockLink)[0];
+
+  const EXPECTED_RESULT = '<a href="/index.md.mbd">Test</a>';
+
+  linkProcessor.convertMdAndMbdExtToHtmlExt(mockNode);
+
+  expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
+});
+
 test('Test invalid URL link ', () => {
   const mockLink = '<a href="https://markbind.org">Test</a>';
   const mockNode = cheerio.parseHTML(mockLink)[0];
