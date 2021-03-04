@@ -91,39 +91,30 @@ function convertMdAndMbdExtToHtmlExt(node) {
     const { href } = node.attribs;
 
     const hasMdExtension = href.includes('.md');
-    if (hasMdExtension) {
-      const mdIdx = href.indexOf('.md');
-      const pathWithoutExtension = href.substring(0, mdIdx);
+    const hasMbdExtension = href.includes('.mbd');
 
-      const hasURLFragment = href.includes('.md#');
-      if (hasURLFragment) {
-        const fragment = href.substring(mdIdx + 3, href.length);
-        const newHref = `${pathWithoutExtension}.html${fragment}`;
-        node.attribs.href = newHref;
-        return;
-      }
+    const isExclusiveOr = (!hasMdExtension && hasMbdExtension) || (hasMdExtension && !hasMbdExtension);
+    if (!isExclusiveOr) {
+      // 1) has both '.md' and '.mbd' extension OR 2) has neither of the extensions
+      return;
+    }
 
-      const newHref = `${pathWithoutExtension}.html`;
+    const ext = hasMdExtension ? '.md' : '.mbd';
+
+    const extIdx = href.indexOf(ext);
+    const pathWithoutExtension = href.substring(0, extIdx);
+
+    const hasUrlFragment = href.includes(`${ext}#`);
+    if (hasUrlFragment) {
+      const fragmentIdx = extIdx + ext.length;
+      const fragment = href.substring(fragmentIdx, href.length);
+      const newHref = `${pathWithoutExtension}.html${fragment}`;
       node.attribs.href = newHref;
       return;
     }
 
-    const hasMbdExtension = href.includes('.mbd');
-    if (hasMbdExtension) {
-      const mbdIdx = href.indexOf('.mbd');
-      const pathWithoutExtension = href.substring(0, mbdIdx);
-
-      const hasURLFragment = href.includes('.mbd#');
-      if (hasURLFragment) {
-        const fragment = href.substring(mbdIdx + 4, href.length);
-        const newHref = `${pathWithoutExtension}.html${fragment}`;
-        node.attribs.href = newHref;
-        return;
-      }
-
-      const newHref = `${pathWithoutExtension}.html`;
-      node.attribs.href = newHref;
-    }
+    const newHref = `${pathWithoutExtension}.html`;
+    node.attribs.href = newHref;
   }
 }
 
