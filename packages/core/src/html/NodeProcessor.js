@@ -106,8 +106,7 @@ class NodeProcessor {
 
   /**
    * Processes the markdown attribute of the provided element, inserting the corresponding <slot> child
-   * if there is no pre-existing slot child with the name of the attribute present. For existing <slot>
-   * children, the HTML node tag name will be converted to "template".
+   * if there is no pre-existing slot child with the name of the attribute present.
    * @param node Element to process
    * @param attribute Attribute name to process
    * @param isInline Whether to process the attribute with only inline markdown-it rules
@@ -454,7 +453,7 @@ class NodeProcessor {
    */
 
   _processTabAttributes(node) {
-    this._processAttributeWithoutOverride(node, 'header', true, '_header');
+    this._processAttributeWithoutOverride(node, 'header', true, 'header');
   }
 
   /*
@@ -470,9 +469,9 @@ class NodeProcessor {
     NodeProcessor._warnDeprecatedAttributes(node, { heading: 'header' });
 
     this._processAttributeWithoutOverride(node, 'icon', true, 'icon');
-    this._processAttributeWithoutOverride(node, 'header', false, '_header');
+    this._processAttributeWithoutOverride(node, 'header', false, 'header');
 
-    this._processAttributeWithoutOverride(node, 'heading', false, '_header');
+    this._processAttributeWithoutOverride(node, 'heading', false, 'header');
   }
 
   /*
@@ -496,14 +495,16 @@ class NodeProcessor {
       return;
     }
 
+    /* Should we remove anything that is related to text? Seems like a fully-deprecated feature */
+
     NodeProcessor._warnDeprecatedAttributes(node, { text: 'header' });
     NodeProcessor._warnConflictingAttributes(node, 'header', ['text']);
     // header attribute takes priority over text attribute if both 'text' and 'header' is used
     if (_.has(node.attribs, 'header')) {
-      this._processAttributeWithoutOverride(node, 'header', true, '_header');
+      this._processAttributeWithoutOverride(node, 'header', true, 'header');
       delete node.attribs.text;
     } else {
-      this._processAttributeWithoutOverride(node, 'text', true, '_header');
+      this._processAttributeWithoutOverride(node, 'text', true, 'header');
     }
   }
 

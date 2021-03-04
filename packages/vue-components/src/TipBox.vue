@@ -45,7 +45,7 @@
 
         <!-- header -->
         <div class="box-header">
-          <slot name="_header"></slot>
+          <slot name="header"></slot>
         </div>
 
         <!-- dismiss button to the right of the header -->
@@ -184,7 +184,7 @@ export default {
       return this.isSeamless() && this.headerBool();
     },
     headerBool() {
-      return !!this.$slots._header;
+      return !!this.$slots.header;
     },
     iconBool() {
       // this.$slots.icon is either undefined or an object

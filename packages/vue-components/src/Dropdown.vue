@@ -12,9 +12,7 @@
         :class="{'disabled': disabledBool}"
         @keyup.esc="hideDropdownMenu()"
       >
-        <slot name="_header">
-          <slot name="header"></slot>
-        </slot>
+        <slot name="header"></slot>
       </a>
     </slot>
     <slot name="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-right': menuAlignRight }]">
@@ -43,9 +41,7 @@
         :disabled="disabledBool"
         @keyup.esc="hideDropdownMenu()"
       >
-        <slot name="_header">
-          <slot name="header"></slot>
-        </slot>
+        <slot name="header"></slot>
       </button>
     </slot>
     <slot name="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-right': menuAlignRight }]">
@@ -183,7 +179,7 @@ export default {
 
     .dropdown-toggle {
         cursor: pointer;
-        color: inherit;
+        color: inherit; /* Check why this is needed, it's overriding default color from button.scss */
         text-decoration: none;
     }
 </style>
