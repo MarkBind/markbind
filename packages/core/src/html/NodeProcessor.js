@@ -495,8 +495,6 @@ class NodeProcessor {
       return;
     }
 
-    /* Should we remove anything that is related to text? Seems like a fully-deprecated feature */
-
     NodeProcessor._warnDeprecatedAttributes(node, { text: 'header' });
     NodeProcessor._warnConflictingAttributes(node, 'header', ['text']);
     // header attribute takes priority over text attribute if both 'text' and 'header' is used

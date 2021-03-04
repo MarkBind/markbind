@@ -179,7 +179,7 @@ export default {
 
     .dropdown-toggle {
         cursor: pointer;
-        color: inherit; /* Check why this is needed, it's overriding default color from button.scss */
+        color: inherit;
         text-decoration: none;
     }
 </style>
