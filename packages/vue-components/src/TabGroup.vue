@@ -1,7 +1,7 @@
 <template>
   <div class="printable-tab-group">
     <div ref="header" class="printable-tab-group-header d-none d-print-block">
-      <slot name="_header"></slot>
+      <slot name="header"></slot>
     </div>
     <slot></slot>
   </div>
