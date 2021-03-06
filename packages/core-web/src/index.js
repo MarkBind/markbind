@@ -168,6 +168,7 @@ function setup() {
       executeAfterMountedRoutines();
     },
   });
+  // vm.$mount('#app');
 }
 
 function setupWithSearch() {
@@ -194,6 +195,7 @@ function setupWithSearch() {
       updateSearchData(this);
     },
   });
+  // vm.$mount('#app');
 }
 
 /*

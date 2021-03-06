@@ -21,7 +21,7 @@
     "directory": "packages/core-web"
   },
   "scripts": {
-    "build": "webpack --progress --hide-modules --config  webpack.build.js"
+    "build": "webpack --progress --config  webpack.build.js"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",

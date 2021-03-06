@@ -70,6 +70,6 @@ function install(Vue) {
   Vue.use(TooltipPlugin);
 }
 
-const MarkBindVue = { install };
+const MarkBindVue = { 'install': install };
 
 export default MarkBindVue;

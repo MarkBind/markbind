@@ -5,6 +5,7 @@ module.exports = {
   context: __dirname,
   entry: {
     markbind: path.join(__dirname, 'src', 'index.js'),
+    markbindvue: path.join(__dirname, 'src', 'markbindVue.js'),
   },
   output: {
     filename: 'js/[name].min.js',

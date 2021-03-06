@@ -1,3 +1,17 @@
+const Vue = require('vue');
+const { renderToString } = require('vue-server-renderer').createRenderer();
+
+const domino = require('domino');
+
+global.window = domino.createWindow('<h1>Hello world</h1>');
+global.document = global.window.document;
+
+const { MarkBindVue } = require('@markbind/core-web/dist/js/markbindvue.min');
+
+const MarkBindVueInstall = MarkBindVue.install;
+MarkBindVueInstall(Vue);
+// Vue.use(MarkBindVue);
+
 const cheerio = require('cheerio'); require('../patches/htmlparser2');
 const fs = require('fs-extra');
 const htmlBeautify = require('js-beautify').html;
@@ -453,6 +467,7 @@ class Page {
 
     let content = variableProcessor.renderWithSiteVariables(this.pageConfig.sourcePath, pageSources);
     content = await nodeProcessor.process(this.pageConfig.sourcePath, content);
+
     this.processFrontMatter(nodeProcessor.frontMatter);
     content = Page.addScrollToTopButton(content);
     content = pluginManager.postRender(this.frontMatter, content);
@@ -467,6 +482,17 @@ class Page {
       ...this.asset,
       ...layoutManager.getLayoutPageNjkAssets(this.layout),
     };
+
+    const VueAppPage = new Vue({
+      template: `<div id="app">${content}</div>`,
+      // template: '<script>  window.location.href = "gettingStarted.html"</script>',
+    });
+
+    content = await renderToString(VueAppPage);
+    content = content.replaceAll('&quot;', '"');
+    // content = content.replaceAll('&quot;', /"/g);
+    // content.replace('&amp;', /&/g).replace('&gt;', />/g).replace('&lt;', /</g).replace('&quot;', /"/g);
+    // content.replace(/&/g, '&amp;').replace(/>/g, '&gt;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 
     const renderedTemplate = this.pageConfig.template.render(
       this.prepareTemplateData(content, !!pageNav)); // page.njk
