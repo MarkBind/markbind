@@ -1,7 +1,7 @@
 <template>
   <div v-if="item.heading" class="heading">
     <div class="heading-text">
-      {{ item.heading.text }}
+      <span v-html="item.heading.text"></span>
     </div>
     <div class="heading-text-items">
       <small v-html="highlight(item.heading.text, value)"></small>
