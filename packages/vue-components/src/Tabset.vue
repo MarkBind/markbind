@@ -1,8 +1,8 @@
 <template>
-  <div :class="[addClass]">
+  <div :class="[addClass, 'printable-tabs']">
     <!-- Nav tabs -->
     <ul
-      class="nav nav-tabs"
+      class="nav nav-tabs d-print-none"
       :class="getNavStyleClass"
       role="tablist"
     >
@@ -106,5 +106,13 @@ export default {
 <style scoped>
     .nav-tabs {
         margin-bottom: 15px;
+    }
+
+    @media print {
+        .printable-tabs {
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+        }
     }
 </style>

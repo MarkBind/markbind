@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <slot></slot>
-    <div ref="header" class="d-none">
+  <div class="printable-tab-group">
+    <div ref="header" class="printable-tab-group-header d-none d-print-block">
       <slot name="_header"></slot>
     </div>
+    <slot></slot>
   </div>
 </template>
 
@@ -70,5 +70,19 @@ export default {
 <style scoped>
     .nav-tabs {
         margin-bottom: 15px;
+    }
+
+    @media print {
+        .printable-tab-group {
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .printable-tab-group-header {
+            margin-bottom: 10px;
+            text-decoration: underline;
+        }
     }
 </style>
