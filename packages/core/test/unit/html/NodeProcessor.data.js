@@ -6,7 +6,7 @@
 
 module.exports.PROCESS_PANEL_ATTRIBUTES = `
 <panel header="# Lorem ipsum" alt="_emphasized alt_">
-  Header and alt attributes should be processed and inserted under panel as internal slots and deleted.
+  Header and alt attributes should be processed and inserted under panel as slots and internal slots respectively and deleted.
 </panel>
 `;
 
@@ -14,7 +14,7 @@ module.exports.PROCESS_PANEL_ATTRIBUTES_EXPECTED = `
 <panel><template #header><h1>Lorem ipsum</h1>
 </template><template #_alt><p><em>emphasized alt</em></p>
 </template>
-  Header and alt attributes should be processed and inserted under panel as internal slots and deleted.
+  Header and alt attributes should be processed and inserted under panel as slots and internal slots respectively and deleted.
 </panel>
 `;
 
@@ -45,13 +45,13 @@ module.exports.PROCESS_PANEL_HEADER_NO_OVERRIDE_EXPECTED = `
 
 module.exports.POST_PROCESS_PANEL_ID_ASSIGNED_USING_HEADER_SLOT = `
 <panel><template slot="header"><h1 id="slot-header">Slot Header</h1></template>
-  Header and alt attributes should be processed and inserted under panel as internal slots and deleted.
+  Header and alt attributes should be processed and inserted under panel as slots and internal slots respectively and deleted.
 </panel>
 `;
 
 module.exports.POST_PROCESS_PANEL_ID_ASSIGNED_USING_HEADER_SLOT_EXPECTED = `
 <panel id="slot-header"><template #header><h1 id="slot-header">Slot Header</h1></template>
-  Header and alt attributes should be processed and inserted under panel as internal slots and deleted.
+  Header and alt attributes should be processed and inserted under panel as slots and internal slots respectively and deleted.
 </panel>
 `;
 
@@ -230,13 +230,13 @@ module.exports.PROCESS_MODAL_HEADER_EXPECTED = `
 
 module.exports.PROCESS_MODAL_TITLE = `
 <modal title="**Lorem ipsum dolor sit amet**">
-  Title attribute should be inserted as internal header slot.
+  Title attribute should be inserted as header slot.
 </modal>
 `;
 
 module.exports.PROCESS_MODAL_TITLE_EXPECTED = `
 <b-modal hide-footer size modal-class="mb-zoom"><template #modal-title><strong>Lorem ipsum dolor sit amet</strong></template>
-  Title attribute should be inserted as internal header slot.
+  Title attribute should be inserted as header slot.
 </b-modal>
 `;
 
@@ -286,25 +286,25 @@ module.exports.PROCESS_MODAL_SLOTS_RENAMING_EXPECTED = `
 
 module.exports.PROCESS_TAB_HEADER = `
 <tab header="**Lorem ipsum dolor sit amet**">
-  Header attribute should be inserted as internal header slot and deleted.
+  Header attribute should be inserted as header slot and deleted.
 </tab>
 `;
 
 module.exports.PROCESS_TAB_HEADER_EXPECTED = `
 <tab><template #header><strong>Lorem ipsum dolor sit amet</strong></template>
-  Header attribute should be inserted as internal header slot and deleted.
+  Header attribute should be inserted as header slot and deleted.
 </tab>
 `;
 
 module.exports.PROCESS_TAB_GROUP_HEADER = `
 <tab-group header="**Lorem ipsum dolor sit amet**">
-  Header attribute should be inserted as internal header slot and deleted.
+  Header attribute should be inserted as header slot and deleted.
 </tab-group>
 `;
 
 module.exports.PROCESS_TAB_GROUP_HEADER_EXPECTED = `
 <tab-group><template #header><strong>Lorem ipsum dolor sit amet</strong></template>
-  Header attribute should be inserted as internal header slot and deleted.
+  Header attribute should be inserted as header slot and deleted.
 </tab-group>
 `;
 
@@ -314,26 +314,26 @@ module.exports.PROCESS_TAB_GROUP_HEADER_EXPECTED = `
 
 module.exports.PROCESS_BOX_ICON = `
 <box icon=":rocket:">
-  Icon attribute should be inserted as internal icon slot and deleted.
+  Icon attribute should be inserted as icon slot and deleted.
 </box>
 `;
 
 module.exports.PROCESS_BOX_ICON_EXPECTED = `
 <box><template #icon>🚀</template>
-  Icon attribute should be inserted as internal icon slot and deleted.
+  Icon attribute should be inserted as icon slot and deleted.
 </box>
 `;
 
 module.exports.PROCESS_BOX_HEADER = `
 <box header="#### Lorem ipsum dolor sit amet :rocket:">
-  Header attribute should be inserted as internal header slot and deleted.
+  Header attribute should be inserted as header slot and deleted.
 </box>
 `;
 
 module.exports.PROCESS_BOX_HEADER_EXPECTED = `
 <box><template #header><h4>Lorem ipsum dolor sit amet 🚀</h4>
 </template>
-  Header attribute should be inserted as internal header slot and deleted.
+  Header attribute should be inserted as header slot and deleted.
 </box>
 `;
 
@@ -341,14 +341,14 @@ module.exports.PROCESS_BOX_HEADER_EXPECTED = `
 
 module.exports.PROCESS_BOX_HEADING = `
 <box heading="#### Lorem ipsum dolor sit amet :rocket:">
-  Heading attribute should be inserted as internal header slot and deleted.
+  Heading attribute should be inserted as header slot and deleted.
 </box>
 `;
 
 module.exports.PROCESS_BOX_HEADING_EXPECTED = `
 <box><template #header><h4>Lorem ipsum dolor sit amet 🚀</h4>
 </template>
-  Heading attribute should be inserted as internal header slot and deleted.
+  Heading attribute should be inserted as header slot and deleted.
 </box>
 `;
 
@@ -358,41 +358,41 @@ module.exports.PROCESS_BOX_HEADING_EXPECTED = `
 
 module.exports.PROCESS_DROPDOWN_HEADER = `
 <dropdown header="**Lorem ipsum dolor sit amet**">
-  Header attribute should be inserted as internal header slot and deleted.
+  Header attribute should be inserted as header slot and deleted.
 </dropdown>
 `;
 
 module.exports.PROCESS_DROPDOWN_HEADER_EXPECTED = `
 <dropdown><template #header><strong>Lorem ipsum dolor sit amet</strong></template>
-  Header attribute should be inserted as internal header slot and deleted.
+  Header attribute should be inserted as header slot and deleted.
 </dropdown>
 `;
 
 // TODO deprecate text attribute of dropdown
 module.exports.PROCESS_DROPDOWN_TEXT_ATTR = `
 <dropdown text="**Lorem ipsum dolor sit amet**">
-  Text attribute should be inserted as internal header slot and deleted.
+  Text attribute should be inserted as header slot and deleted.
 </dropdown>
 `;
 
 // TODO deprecate text attribute of dropdown
 module.exports.PROCESS_DROPDOWN_TEXT_ATTR_EXPECTED = `
 <dropdown><template #header><strong>Lorem ipsum dolor sit amet</strong></template>
-  Text attribute should be inserted as internal header slot and deleted.
+  Text attribute should be inserted as header slot and deleted.
 </dropdown>
 `;
 
 // TODO deprecate text attribute of dropdown
 module.exports.PROCESS_DROPDOWN_HEADER_SHADOWS_TEXT = `
 <dropdown text="Not expected text" header="**Lorem ipsum dolor sit amet**">
-  Header attribute should be inserted as internal header slot and deleted. Text attribute should be ignored.
+  Header attribute should be inserted as header slot and deleted. Text attribute should be ignored.
 </dropdown>
 `;
 
 // TODO deprecate text attribute of dropdown
 module.exports.PROCESS_DROPDOWN_HEADER_SHADOWS_TEXT_EXPECTED = `
 <dropdown><template #header><strong>Lorem ipsum dolor sit amet</strong></template>
-  Header attribute should be inserted as internal header slot and deleted. Text attribute should be ignored.
+  Header attribute should be inserted as header slot and deleted. Text attribute should be ignored.
 </dropdown>
 `;
 
