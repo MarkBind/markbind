@@ -161,12 +161,12 @@ function setup() {
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
     el: '#app',
-    created() {
-      executeAfterCreatedRoutines();
-    },
-    mounted() {
-      executeAfterMountedRoutines();
-    },
+    // created() {
+    //   executeAfterCreatedRoutines();
+    // },
+    // mounted() {
+    //   executeAfterMountedRoutines();
+    // },
   });
   // vm.$mount('#app');
 }
@@ -187,13 +187,13 @@ function setupWithSearch() {
         window.location = `${page}${anchor}`;
       },
     },
-    created() {
-      executeAfterCreatedRoutines();
-    },
-    mounted() {
-      executeAfterMountedRoutines();
-      updateSearchData(this);
-    },
+    // created() {
+    //   executeAfterCreatedRoutines();
+    // },
+    // mounted() {
+    //   executeAfterMountedRoutines();
+    //   updateSearchData(this);
+    // },
   });
   // vm.$mount('#app');
 }

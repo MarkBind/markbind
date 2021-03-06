@@ -243,7 +243,7 @@ You can provide your answer in the `answer` attribute, or similarly, the `<div s
 
 {% set textQuestion %}
 <question type="text" header="Which country did the Hawaiian pizza originate from?"
-          keywords="hawaii" threshold="0.5" answer="It originated from Hawaii!">
+          keywords="hawaii" answer="It originated from Hawaii!">
   <div slot="hint">
 
   Watch some pizza commercials! :tv:

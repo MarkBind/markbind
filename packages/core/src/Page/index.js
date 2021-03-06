@@ -435,6 +435,13 @@ class Page {
     return '';
   }
 
+  static makeMbSlotGetter(slotName) {
+    return (element) => {
+      const innerElement = element.querySelector(`[data-mb-slot-name="${slotName}"]`);
+      return innerElement === null ? '' : innerElement.innerHTML;
+    };
+  }
+
   /**
    * A file configuration object.
    * @typedef {Object<string, any>} FileConfig
@@ -485,6 +492,29 @@ class Page {
 
     const VueAppPage = new Vue({
       template: `<div id="app">${content}</div>`,
+      data() {
+        return {
+          searchData: [],
+          tooltipInnerContentGetter: Page.makeMbSlotGetter('_content'),
+          popoverInnerGetters: {
+            title: Page.makeMbSlotGetter('header'),
+            content: Page.makeMbSlotGetter('content'),
+          },
+        };
+      },
+      provide: {
+        hasParentDropdown: true,
+        questions: undefined,
+        gotoNextQuestion: undefined,
+      },
+      methods: {
+        searchCallback(match) {
+          const page = `test/${match.src.replace(/.(md|mbd)$/, '.html')}`;
+          const anchor = match.heading ? `#${match.heading.id}` : '';
+          global.window.location = `${page}${anchor}`;
+        },
+
+      },
       // template: '<script>  window.location.href = "gettingStarted.html"</script>',
     });
 
