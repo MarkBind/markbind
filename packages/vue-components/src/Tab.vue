@@ -7,14 +7,11 @@
       :class="{hide:!show}"
     >
       <div class="nav-tabs printable-tab-header d-none d-print-flex">
-        <div class="nav-link active">
-          <span><slot name="_header"></slot></span>
+        <div ref="header" class="nav-link active">
+          <slot name="_header"></slot>
         </div>
       </div>
       <slot></slot>
-      <div ref="header" class="d-none">
-        <slot name="_header"></slot>
-      </div>
       <hr />
     </div>
   </transition>
