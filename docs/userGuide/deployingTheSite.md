@@ -425,8 +425,19 @@ jobs:
 
 <panel header="`previewPR.yml` File" type="seamless">
 
+<box type="important">
+
+**Setting up the PR URL**
+
+In **line 34** of the workflow code below, you are required to update the `PR_URL` according to your needs. We recommend just changing the section `<YOUR_BASE_URL>` to something that can easily identify your Markbind project repository. 
+
+For example, if the name of your repository is `MyRepo`, and it is managed under an organization `MyOrganization`, you could replace `<YOUR_BASE_URL>` to `myorganization-myrepo` and your PR Preview will be deployed at the following url: `https://pr-<PR_NUMBER>-myorganization-myrepo.surge.sh`.
+
+Advanced users may completely replace the default `PR_URL`. ==**It is recommended to test your workflow code on a test repo before using it for your Markbind project repo.**==
+</box>
+
 {% raw %}
-```yml {.no-line-numbers}
+```yml {highlight-lines="34"}
 name: Deploy PR Preview
 
 # Runs after PR is received and build by markbind-cli
@@ -457,11 +468,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 10
-      - name: Inject slug/short variables
-        uses: rlespinasse/github-slug-action@v3.x
       - name: Build PR preview url
         id: pr-url
-        run: echo '::set-output name=ACTIONS_PREVIEW_URL::'https://pr-${{ steps.pr-number.outputs.ACTIONS_PR_NUMBER }}-${{ env.GITHUB_REPOSITORY_SLUG_URL }}.surge.sh/
+        run: |
+          PR_URL="https://pr-${{ steps.pr-number.outputs.ACTIONS_PR_NUMBER }}-<YOUR_BASE_URL>.surge.sh/"
+          echo '::set-output name=ACTIONS_PREVIEW_URL::'$PR_URL
       - name: Install surge and deploy PR to surge
         run: |
           npm i -g surge
@@ -490,7 +501,7 @@ jobs:
 
 </panel>
 
-Finally, you may open a PR to the repo of your Markbind site. If everything is configured correctly, after a few minutes, you should be able to see a `github-actions bot` automatically commenting on the PR with a link to _preview_ the updated Markbind site. The link is configured as such: `https://pr-[PR_NUMBER]-[REPO_OWNER_NAME]-[REPO_NAME].surge.sh`.
+Finally, you may open a PR to the repo of your Markbind site. If everything is configured correctly, after a few minutes, you should be able to see a `github-actions bot` automatically commenting on the PR with a link to _preview_ the updated Markbind site.
 
 <include src="screenshot.md" boilerplate var-alt="Surge PR bot" var-file="surgeGithubActionsBot.png" inline />
 
