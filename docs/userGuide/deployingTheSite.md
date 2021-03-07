@@ -439,7 +439,7 @@ jobs:
     name: Deploying to surge
     steps:
       - uses: actions/checkout@v2
-      - name: Download artifact
+      - name: Download built MarkBind site artifacts
         uses: dawidd6/action-download-artifact@v2
         with:
           workflow: receivePR.yml
