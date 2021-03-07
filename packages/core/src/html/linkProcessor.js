@@ -90,30 +90,24 @@ function convertMdAndMbdExtToHtmlExt(node) {
 
     const { href } = node.attribs;
 
-    const hasMdExtension = href.includes('.md');
-    const hasMbdExtension = href.includes('.mbd');
+    const hrefUrl = url.parse(href);
 
-    const isExclusiveOr = (!hasMdExtension && hasMbdExtension) || (hasMdExtension && !hasMbdExtension);
-    if (!isExclusiveOr) {
-      // 1) has both '.md' and '.mbd' extension OR 2) has neither of the extensions
+    // get the first instance of URL fragment (first encounter of hash)
+    const urlFragment = hrefUrl.hash === null ? '' : hrefUrl.hash;
+    const urlFragmentIdx = urlFragment === '' ? href.length : href.indexOf(urlFragment);
+
+    let ext = '';
+    ext = href.substring(urlFragmentIdx - 3, urlFragmentIdx) === '.md' ? '.md' : ext;
+    ext = href.substring(urlFragmentIdx - 4, urlFragmentIdx) === '.mbd' ? '.mbd' : ext;
+    if (!ext) {
+      // extension is neither .md nor .mbd, we do not need to process the link
       return;
     }
 
-    const ext = hasMdExtension ? '.md' : '.mbd';
+    const pathWithoutExtAndFragmentLen = href.length - ext.length - urlFragment.length;
+    const pathWithoutExtAndFragment = href.substring(0, pathWithoutExtAndFragmentLen);
 
-    const extIdx = href.indexOf(ext);
-    const pathWithoutExtension = href.substring(0, extIdx);
-
-    const hasUrlFragment = href.includes(`${ext}#`);
-    if (hasUrlFragment) {
-      const fragmentIdx = extIdx + ext.length;
-      const fragment = href.substring(fragmentIdx, href.length);
-      const newHref = `${pathWithoutExtension}.html${fragment}`;
-      node.attribs.href = newHref;
-      return;
-    }
-
-    const newHref = `${pathWithoutExtension}.html`;
+    const newHref = `${pathWithoutExtAndFragment}.html${urlFragment}`;
     node.attribs.href = newHref;
   }
 }
