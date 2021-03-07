@@ -98,9 +98,9 @@ function convertMdAndMbdExtToHtmlExt(node) {
     const hrefUrl = url.parse(href);
 
     // get the first instance of URL fragment (first encounter of hash)
-    const urlFragment = hrefUrl.hash === null ? '' : hrefUrl.hash;
-    const urlPathName = hrefUrl.pathname === null ? '' : hrefUrl.pathname;
-    const ext = path.posix.extname(urlPathName);
+    const fragment = hrefUrl.hash === null ? '' : hrefUrl.hash;
+    const pathName = hrefUrl.pathname === null ? '' : hrefUrl.pathname;
+    const ext = path.posix.extname(pathName);
 
     const isExtMdOrMbd = ext === '.md' || ext === '.mbd';
     if (!isExtMdOrMbd) {
@@ -108,9 +108,9 @@ function convertMdAndMbdExtToHtmlExt(node) {
       return;
     }
 
-    const urlPathNameWithoutExt = urlPathName.substring(0, urlPathName.length - ext.length);
+    const pathNameWithoutExt = pathName.substring(0, pathName.length - ext.length);
 
-    const newHref = `${urlPathNameWithoutExt}.html${urlFragment}`;
+    const newHref = `${pathNameWithoutExt}.html${fragment}`;
     node.attribs.href = newHref;
   }
 }
