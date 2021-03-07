@@ -466,7 +466,7 @@ jobs:
           surge --project ./_site --domain ${{ steps.pr-url.outputs.ACTIONS_PREVIEW_URL }}
         env:
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
-      - name: Find PR preview link comment
+      - name: Find existing PR preview link comment
         uses: peter-evans/find-comment@v1
         id: fc
         with:
