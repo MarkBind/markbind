@@ -37,28 +37,27 @@ const mockConfig = {
 
 test.each([
   // Test converting .md to .html
-  ['.md', '', '', '', '<a href="/index.html">Test</a>'],
+  ['<a href="/index.md">Test</a>', '<a href="/index.html">Test</a>'],
   // Test converting .mbd to .html
-  ['.mbd', '', '', '', '<a href="/index.html">Test</a>'],
+  ['<a href="/index.mbd">Test</a>', '<a href="/index.html">Test</a>'],
   // Test conversion when both .md and .mbd are present, and .mbd is extension
-  ['.md', '.mbd', '', '', '<a href="/index.md.html">Test</a>'],
+  ['<a href="/index.md.mbd">Test</a>', '<a href="/index.md.html">Test</a>'],
   // Test conversion when both .md and .mbd are present, and .md is extension
-  ['.mbd', '.md', '', '', '<a href="/index.mbd.html">Test</a>'],
+  ['<a href="/index.mbd.md">Test</a>', '<a href="/index.mbd.html">Test</a>'],
   // Test converting .md to .html with URL fragment
-  ['.md', '', '#test-1', '', '<a href="/index.html#test-1">Test</a>'],
+  ['<a href="/index.md#test-1">Test</a>', '<a href="/index.html#test-1">Test</a>'],
   // Test converting .mbd to .html with URL fragment
-  ['.mbd', '', '#test-1', '', '<a href="/index.html#test-1">Test</a>'],
+  ['<a href="/index.mbd#test-1">Test</a>', '<a href="/index.html#test-1">Test</a>'],
   // Test conversion when both .md and .mbd are present, and .mbd is extension, with URL fragment
-  ['.md', '.mbd', '#test-1', '', '<a href="/index.md.html#test-1">Test</a>'],
+  ['<a href="/index.md.mbd#test-1">Test</a>', '<a href="/index.md.html#test-1">Test</a>'],
   // Test conversion when both .md and .mbd are present, and .md is extension, with URL fragment
-  ['.mbd', '.md', '#test-1', '', '<a href="/index.mbd.html#test-1">Test</a>'],
+  ['<a href="/index.mbd.md#test-1">Test</a>', '<a href="/index.mbd.html#test-1">Test</a>'],
   // Test no conversion when no-convert attribute is present
-  ['.md', '', '#test-1', 'no-convert', '<a href="/index.md#test-1" no-convert>Test</a>'],
+  ['<a href="/index.md#test-1" no-convert>Test</a>', '<a href="/index.md#test-1" no-convert>Test</a>'],
   // Test no conversion when neither .md nor .mbd extensions are present
-  ['', '', '', '', '<a href="/index">Test</a>'],
-])('Test link auto-conversion for (%s, %s, %s, %s)', (ext1, ext2, fragment, attr, expected) => {
-  const mockLink = `<a href="/index${ext1}${ext2}${fragment}" ${attr}>Test</a>`;
-  const mockNode = cheerio.parseHTML(mockLink)[0];
+  ['<a href="/index">Test</a>', '<a href="/index">Test</a>'],
+])('Test link auto-conversion for %s', (input, expected) => {
+  const mockNode = cheerio.parseHTML(input)[0];
 
   linkProcessor.convertMdAndMbdExtToHtmlExt(mockNode);
 
