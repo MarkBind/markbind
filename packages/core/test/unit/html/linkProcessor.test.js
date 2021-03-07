@@ -35,114 +35,34 @@ const mockConfig = {
   ],
 };
 
-test('Test converting .md to .html', () => {
-  const mockLink = '<a href="/index.md">Test</a>';
+test.each([
+  // Test converting .md to .html
+  ['.md', '', '', '', '<a href="/index.html">Test</a>'],
+  // Test converting .mbd to .html
+  ['.mbd', '', '', '', '<a href="/index.html">Test</a>'],
+  // Test conversion when both .md and .mbd are present, and .mbd is extension
+  ['.md', '.mbd', '', '', '<a href="/index.md.html">Test</a>'],
+  // Test conversion when both .md and .mbd are present, and .md is extension
+  ['.mbd', '.md', '', '', '<a href="/index.mbd.html">Test</a>'],
+  // Test converting .md to .html with URL fragment
+  ['.md', '', '#test-1', '', '<a href="/index.html#test-1">Test</a>'],
+  // Test converting .mbd to .html with URL fragment
+  ['.mbd', '', '#test-1', '', '<a href="/index.html#test-1">Test</a>'],
+  // Test conversion when both .md and .mbd are present, and .mbd is extension, with URL fragment
+  ['.md', '.mbd', '#test-1', '', '<a href="/index.md.html#test-1">Test</a>'],
+  // Test conversion when both .md and .mbd are present, and .md is extension, with URL fragment
+  ['.mbd', '.md', '#test-1', '', '<a href="/index.mbd.html#test-1">Test</a>'],
+  // Test no conversion when no-convert attribute is present
+  ['.md', '', '#test-1', 'no-convert', '<a href="/index.md#test-1" no-convert>Test</a>'],
+  // Test no conversion when neither .md nor .mbd extensions are present
+  ['', '', '', '', '<a href="/index">Test</a>'],
+])('Test link auto-conversion for (%s, %s, %s, %s)', (ext1, ext2, fragment, attr, expected) => {
+  const mockLink = `<a href="/index${ext1}${ext2}${fragment}" ${attr}>Test</a>`;
   const mockNode = cheerio.parseHTML(mockLink)[0];
-
-  const EXPECTED_RESULT = '<a href="/index.html">Test</a>';
 
   linkProcessor.convertMdAndMbdExtToHtmlExt(mockNode);
 
-  expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
-});
-
-test('Test converting .mbd to .html', () => {
-  const mockLink = '<a href="/index.mbd">Test</a>';
-  const mockNode = cheerio.parseHTML(mockLink)[0];
-
-  const EXPECTED_RESULT = '<a href="/index.html">Test</a>';
-
-  linkProcessor.convertMdAndMbdExtToHtmlExt(mockNode);
-
-  expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
-});
-
-test('Test conversion when both .md and .mbd are present, and .mbd is extension', () => {
-  const mockLink = '<a href="/index.md.mbd">Test</a>';
-  const mockNode = cheerio.parseHTML(mockLink)[0];
-
-  const EXPECTED_RESULT = '<a href="/index.md.html">Test</a>';
-
-  linkProcessor.convertMdAndMbdExtToHtmlExt(mockNode);
-
-  expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
-});
-
-test('Test conversion when both .md and .mbd are present, and .md is extension', () => {
-  const mockLink = '<a href="/index.mbd.md">Test</a>';
-  const mockNode = cheerio.parseHTML(mockLink)[0];
-
-  const EXPECTED_RESULT = '<a href="/index.mbd.html">Test</a>';
-
-  linkProcessor.convertMdAndMbdExtToHtmlExt(mockNode);
-
-  expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
-});
-
-test('Test converting .md to .html with URL fragment', () => {
-  const mockLink = '<a href="/index.md#test-1">Test</a>';
-  const mockNode = cheerio.parseHTML(mockLink)[0];
-
-  const EXPECTED_RESULT = '<a href="/index.html#test-1">Test</a>';
-
-  linkProcessor.convertMdAndMbdExtToHtmlExt(mockNode);
-
-  expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
-});
-
-test('Test converting .mbd to .html with URL fragment', () => {
-  const mockLink = '<a href="/index.mbd#test-1">Test</a>';
-  const mockNode = cheerio.parseHTML(mockLink)[0];
-
-  const EXPECTED_RESULT = '<a href="/index.html#test-1">Test</a>';
-
-  linkProcessor.convertMdAndMbdExtToHtmlExt(mockNode);
-
-  expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
-});
-
-test('Test conversion when both .md and .mbd are present, and .mbd is extension, with URL fragment', () => {
-  const mockLink = '<a href="/index.md.mbd#test-1">Test</a>';
-  const mockNode = cheerio.parseHTML(mockLink)[0];
-
-  const EXPECTED_RESULT = '<a href="/index.md.html#test-1">Test</a>';
-
-  linkProcessor.convertMdAndMbdExtToHtmlExt(mockNode);
-
-  expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
-});
-
-test('Test conversion when both .md and .mbd are present, and .md is extension, with URL fragment', () => {
-  const mockLink = '<a href="/index.mbd.md#test-1">Test</a>';
-  const mockNode = cheerio.parseHTML(mockLink)[0];
-
-  const EXPECTED_RESULT = '<a href="/index.mbd.html#test-1">Test</a>';
-
-  linkProcessor.convertMdAndMbdExtToHtmlExt(mockNode);
-
-  expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
-});
-
-test('Test no conversion when no-convert attribute is present', () => {
-  const mockLink = '<a href="/index.md#test-1" no-convert>Test</a>';
-  const mockNode = cheerio.parseHTML(mockLink)[0];
-
-  const EXPECTED_RESULT = '<a href="/index.md#test-1" no-convert>Test</a>';
-
-  linkProcessor.convertMdAndMbdExtToHtmlExt(mockNode);
-
-  expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
-});
-
-test('Test no conversion when neither .md nor .mbd extensions are present', () => {
-  const mockLink = '<a href="/index">Test</a>';
-  const mockNode = cheerio.parseHTML(mockLink)[0];
-
-  const EXPECTED_RESULT = '<a href="/index">Test</a>';
-
-  linkProcessor.convertMdAndMbdExtToHtmlExt(mockNode);
-
-  expect(cheerio.html(mockNode)).toEqual(EXPECTED_RESULT);
+  expect(cheerio.html(mockNode)).toBe(expected);
 });
 
 test('Test invalid URL link ', () => {
