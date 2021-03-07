@@ -396,7 +396,6 @@ jobs:
         with:
           node-version: 10
       - name: Build Markbind website
-        if: ${{ success() && github.event_name == 'pull_request' }}
         run: |
           npm install -g markbind-cli
           markbind build
@@ -446,8 +445,6 @@ jobs:
           run_id: ${{ github.event.workflow_run.id }}
           name: markbind-deployment
           path: .
-      - name: Display structure of downloaded files
-        run: ls -R
       - name: Extract PR number
         id: pr-number
         run: echo '::set-output name=ACTIONS_PR_NUMBER::'$(cat ./pr/NUMBER)
