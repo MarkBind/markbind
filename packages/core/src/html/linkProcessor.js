@@ -90,24 +90,27 @@ function convertMdAndMbdExtToHtmlExt(node) {
 
     const { href } = node.attribs;
 
+    if (utils.isUrl(href)) {
+      // Not intralink
+      return;
+    }
+
     const hrefUrl = url.parse(href);
 
     // get the first instance of URL fragment (first encounter of hash)
     const urlFragment = hrefUrl.hash === null ? '' : hrefUrl.hash;
-    const urlFragmentIdx = urlFragment === '' ? href.length : href.indexOf(urlFragment);
+    const urlPathName = hrefUrl.pathname === null ? '' : hrefUrl.pathname;
+    const ext = path.posix.extname(urlPathName);
 
-    let ext = '';
-    ext = href.substring(urlFragmentIdx - 3, urlFragmentIdx) === '.md' ? '.md' : ext;
-    ext = href.substring(urlFragmentIdx - 4, urlFragmentIdx) === '.mbd' ? '.mbd' : ext;
-    if (!ext) {
+    const isExtMdOrMbd = ext === '.md' || ext === '.mbd';
+    if (!isExtMdOrMbd) {
       // extension is neither .md nor .mbd, we do not need to process the link
       return;
     }
 
-    const pathWithoutExtAndFragmentLen = href.length - ext.length - urlFragment.length;
-    const pathWithoutExtAndFragment = href.substring(0, pathWithoutExtAndFragmentLen);
+    const urlPathNameWithoutExt = urlPathName.substring(0, urlPathName.length - ext.length);
 
-    const newHref = `${pathWithoutExtAndFragment}.html${urlFragment}`;
+    const newHref = `${urlPathNameWithoutExt}.html${urlFragment}`;
     node.attribs.href = newHref;
   }
 }
