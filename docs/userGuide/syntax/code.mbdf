@@ -166,6 +166,7 @@ A _copy_ button can be added to code blocks using the `codeBlockCopyButtons` plu
   <include src="../plugins/codeBlockCopyButtons.mbdf" />
 
 </panel>
+<br>
 
 #### Inline Code
 ##### Syntax coloring
