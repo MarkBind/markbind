@@ -331,14 +331,7 @@ Now your site will be deployed on Netlify at the given address specified after d
 
 ## Previewing Pull Requests for MarkBind sites
 
-<box type="info">
-
-This section is meant for users who are $$hosting their Markbind project on **Github**$$.
-</box>
-
-There may be more than one user making changes to your MarkBind site. In such cases, it might be prudent to have a workflow that is centered around pull requests (PRs) such as a [feature branch workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow) or a [forking workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow). 
-
-You can setup PR previews in order to automatically build and deploy the modified Markbind site based on the changes in the PR, which would lead to greater convenience and time-savings for the PR reviewers. 
+**If you are hosting your Markbind project on Github, you can setup <tooltip content="Pull Request previews">PR previews</tooltip> in order to automatically build and deploy the modified Markbind site based on the changes in the PR.**
 
 ### Previewing PRs using Netlify
 
