@@ -8,7 +8,7 @@
     >
       <div class="nav-tabs printable-tab-header d-none d-print-flex">
         <div ref="header" class="nav-link active">
-          <slot name="_header"></slot>
+          <slot name="header"></slot>
         </div>
       </div>
       <slot></slot>

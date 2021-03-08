@@ -10,9 +10,7 @@
         role="button"
         :class="{disabled: disabled}"
       >
-        <slot name="_header">
-          <slot name="header"></slot>
-        </slot>
+        <slot name="header"></slot>
       </a>
     </slot>
     <slot name="dropdown-menu">

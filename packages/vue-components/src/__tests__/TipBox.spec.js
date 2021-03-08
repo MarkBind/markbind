@@ -88,7 +88,7 @@ describe('TipBox', () => {
   test('with header renders correctly', () => {
     const wrapper = mount(TipBox, {
       slots: {
-        _header: 'A header',
+        header: 'A header',
       },
     });
     expect(wrapper.element).toMatchSnapshot();
@@ -347,7 +347,7 @@ describe('TipBox', () => {
     const wrapper = mount(TipBox, {
       slots: {
         icon: ':fas-plus:',
-        _header: 'A header',
+        header: 'A header',
       },
       propsData: {
         iconColor: 'red',
