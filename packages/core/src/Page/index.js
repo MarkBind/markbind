@@ -3,6 +3,8 @@ const fs = require('fs-extra');
 const htmlBeautify = require('js-beautify').html;
 const path = require('path');
 
+const VueCompiler = require('vue-template-compiler');
+
 const _ = {};
 _.cloneDeep = require('lodash/cloneDeep');
 _.isString = require('lodash/isString');
@@ -468,8 +470,11 @@ class Page {
       ...layoutManager.getLayoutPageNjkAssets(this.layout),
     };
 
+    const compiled = VueCompiler.compile(`<div>${content}</div>`);
+
     const renderedTemplate = this.pageConfig.template.render(
       this.prepareTemplateData(content, !!pageNav)); // page.njk
+
     const outputTemplateHTML = this.pageConfig.disableHtmlBeautify
       ? renderedTemplate
       : htmlBeautify(renderedTemplate, pluginManager.htmlBeautifyOptions);
