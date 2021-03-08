@@ -87,18 +87,31 @@ function convertMdAndMbdExtToHtmlExt(node) {
     if (hasNoConvert) {
       return;
     }
+
     const { href } = node.attribs;
-    const hasMdExtension = href.slice(-3) === '.md';
-    if (hasMdExtension) {
-      const newHref = `${href.substring(0, href.length - 3)}.html`;
-      node.attribs.href = newHref;
+
+    if (utils.isUrl(href)) {
+      // Not intralink
       return;
     }
-    const hasMbdExtension = href.slice(-4) === '.mbd';
-    if (hasMbdExtension) {
-      const newHref = `${href.substring(0, href.length - 4)}.html`;
-      node.attribs.href = newHref;
+
+    const hrefUrl = url.parse(href);
+
+    // get the first instance of URL fragment (first encounter of hash)
+    const fragment = hrefUrl.hash === null ? '' : hrefUrl.hash;
+    const pathName = hrefUrl.pathname === null ? '' : hrefUrl.pathname;
+    const ext = path.posix.extname(pathName);
+
+    const isExtMdOrMbd = ext === '.md' || ext === '.mbd';
+    if (!isExtMdOrMbd) {
+      // extension is neither .md nor .mbd, we do not need to process the link
+      return;
     }
+
+    const pathNameWithoutExt = pathName.substring(0, pathName.length - ext.length);
+
+    const newHref = `${pathNameWithoutExt}.html${fragment}`;
+    node.attribs.href = newHref;
   }
 }
 
