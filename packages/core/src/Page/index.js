@@ -488,6 +488,14 @@ class Page {
       staticRenderFns: compiled.staticRenderFns,
     };
 
+    if (pagePathWithHtmlExt === '/index.html') {
+      // '/' path implicitly points to '/index.html', so they should share the same render function
+      this.pageConfig.pageVueRenderFns['/'] = {
+        render: compiled.render,
+        staticRenderFns: compiled.staticRenderFns,
+      };
+    }
+
     const renderedTemplate = this.pageConfig.template.render(this.prepareTemplateData(!!pageNav)); // page.njk
 
     const outputTemplateHTML = this.pageConfig.disableHtmlBeautify

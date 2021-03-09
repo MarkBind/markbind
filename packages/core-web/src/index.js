@@ -158,16 +158,21 @@ window.handleSiteNavClick = function (elem, useAnchor = true) {
 };
 
 function setup() {
-  let pathName = window.location.pathname;
-  pathName = pathName === '/' ? '/index.html' : pathName;
+  const pageRoute = window.location.pathname;
+
   // eslint-disable-next-line
-  let { render, staticRenderFns } = pageVueRenderFns[pathName];
-  staticRenderFns = staticRenderFns.map(fn => new Function(fn));
+  const renderString = pageVueRenderFns[pageRoute].render;
+  const renderFn = new Function(renderString); // convert render function (in string) to function
+
+  // eslint-disable-next-line
+  const staticRenderFnsStrings = pageVueRenderFns[pageRoute].staticRenderFns;
+  // convert every static render function (in string) to functions
+  const staticRenderFns = staticRenderFnsStrings.map(fn => new Function(fn));
+
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
     el: '#app',
     render(createElement) {
-      const renderFn = new Function(render);
       return renderFn.call(this, createElement);
     },
     staticRenderFns,
@@ -181,16 +186,22 @@ function setup() {
 }
 
 function setupWithSearch() {
-  let pathName = window.location.pathname;
-  pathName = pathName === '/' ? '/index.html' : pathName;
+  const pageRoute = window.location.pathname;
+
   // eslint-disable-next-line
-  let { render, staticRenderFns } = pageVueRenderFns[pathName];
-  staticRenderFns = staticRenderFns.map(fn => new Function(fn));
+  const renderString = pageVueRenderFns[pageRoute].render;
+  // convert render function (in string) to function
+  const renderFn = new Function(renderString);
+
+  // eslint-disable-next-line
+  const staticRenderFnsStrings = pageVueRenderFns[pageRoute].staticRenderFns;
+  // convert every static render function (in string) to functions
+  const staticRenderFns = staticRenderFnsStrings.map(fn => new Function(fn));
+
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
     el: '#app',
     render(createElement) {
-      const renderFn = new Function(render);
       return renderFn.call(this, createElement);
     },
     staticRenderFns,
