@@ -431,7 +431,6 @@ class Page {
    * @property {VariableProcessor} variableProcessor
    * @property {Object<string, number>} headerIdMap
    */
-
   async generate(externalManager) {
     this.resetState(); // Reset for live reload
 
@@ -487,18 +486,18 @@ class Page {
   }
 
   /**
-    * Compiles page into Vue Application to retrieve the render function.
-    *
-    * This is to avoid the overhead of compiling the page into Vue application
-    * on the client's browser (resolves FOUC).
-    *
-    * By pre-compiling the page, we can get the Vue render function for the page
-    * and map it to the page route. Thus, during Vue mounting in client's browser,
-    * we can just pass in the appropriate render function according to the page route.
-    * As a result, we avoid compiling the page on the client's browser.
-    *
-    * @param content Page content to be compiled into Vue app
-    */
+   * Compiles page into Vue Application to retrieve the render function.
+   *
+   * This is to avoid the overhead of compiling the page into Vue application
+   * on the client's browser (resolves FOUC).
+   *
+   * By pre-compiling the page, we can get the Vue render function for the page
+   * and map it to the page route. Thus, during Vue mounting in client's browser,
+   * we can just pass in the appropriate render function according to the page route.
+   * As a result, we avoid compiling the page on the client's browser.
+   *
+   * @param content Page content to be compiled into Vue app
+   */
   compileVuePage(content) {
     const compiled = VueCompiler.compile(`<div>${content}</div>`);
     const pagePath = path.relative(this.pageConfig.rootPath, this.pageConfig.sourcePath);
