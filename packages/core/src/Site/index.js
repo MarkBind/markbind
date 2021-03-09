@@ -270,6 +270,8 @@ class Site {
                                    path.join(this.siteAssetsDestPath, 'css', 'markbind.min.css')),
         markBindJs: path.relative(path.dirname(resultPath),
                                   path.join(this.siteAssetsDestPath, 'js', 'markbind.min.js')),
+        vuePageRenderJs: path.relative(path.dirname(resultPath),
+                                       path.join(this.siteAssetsDestPath, 'VuePageRender.js')),
         pageNavCss: path.relative(path.dirname(resultPath),
                                   path.join(this.siteAssetsDestPath, 'css', 'page-nav.css')),
         siteNavCss: path.relative(path.dirname(resultPath),
@@ -610,6 +612,7 @@ class Site {
       await this.copyFontAwesomeAsset();
       await this.copyOcticonsAsset();
       await this.writeSiteData();
+      await this.copyVuePageRenderAsset();
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
@@ -640,6 +643,9 @@ class Site {
 
     try {
       await this.generatePages();
+
+      Page.copyVuePageRender();
+
       await fs.remove(this.tempPath);
       logger.info('Pages built');
     } catch (error) {
@@ -1068,6 +1074,22 @@ class Site {
     });
 
     return Promise.all([...copyAllFiles, ...copyFontsDir]);
+  }
+
+  copyVuePageRenderAsset() {
+    const vuePageRenderAssetRootPath =
+      '/Users/jamesongwx/Documents/GitHub/markbind/packages/core/src/Page';
+    fs.copySync(vuePageRenderAssetRootPath, this.siteAssetsDestPath);
+
+    const filesToCopy = ['VuePageRender.js'];
+
+    const copyAllFiles = filesToCopy.map((file) => {
+      const srcPath = path.join(vuePageRenderAssetRootPath, file);
+      const destPath = path.join(this.siteAssetsDestPath, file);
+      return fs.copy(srcPath, destPath);
+    });
+
+    return Promise.all([...copyAllFiles]);
   }
 
   /**

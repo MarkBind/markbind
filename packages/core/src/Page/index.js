@@ -4,6 +4,7 @@ const htmlBeautify = require('js-beautify').html;
 const path = require('path');
 
 const VueCompiler = require('vue-template-compiler');
+const VuePageRender = require('./VuePageRender');
 
 const _ = {};
 _.cloneDeep = require('lodash/cloneDeep');
@@ -118,7 +119,7 @@ class Page {
     return this.includedFiles && this.includedFiles.has(filePath);
   }
 
-  prepareTemplateData(content, hasPageNav) {
+  prepareTemplateData(hasPageNav) {
     const prefixedTitle = this.pageConfig.titlePrefix
       ? this.pageConfig.titlePrefix + (this.title ? TITLE_PREFIX_SEPARATOR + this.title : '')
       : this.title;
@@ -130,7 +131,6 @@ class Page {
     return {
       asset,
       baseUrl: this.pageConfig.baseUrl,
-      content,
       hasPageNav,
       dev: this.pageConfig.dev,
       faviconUrl: this.pageConfig.faviconUrl,
@@ -471,9 +471,10 @@ class Page {
     };
 
     const compiled = VueCompiler.compile(`<div>${content}</div>`);
+    const pagePath = this.pageConfig.resultPath.split('/_site')[1];
+    VuePageRender.renderFunctions[pagePath] = compiled;
 
-    const renderedTemplate = this.pageConfig.template.render(
-      this.prepareTemplateData(content, !!pageNav)); // page.njk
+    const renderedTemplate = this.pageConfig.template.render(this.prepareTemplateData(!!pageNav)); // page.njk
 
     const outputTemplateHTML = this.pageConfig.disableHtmlBeautify
       ? renderedTemplate
@@ -485,6 +486,13 @@ class Page {
     await externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(), this.includedFiles);
 
     this.collectHeadingsAndKeywords(pageContent);
+  }
+
+  static async copyVuePageRender() {
+    // console.log(VuePageRender);
+    await fs.outputFile('/Users/jamesongwx/Documents/GitHub/markbind/packages/core/src/Page', 
+                        JSON.stringify(VuePageRender));
+    console.log(await fs.readFile('/Users/jamesongwx/Documents/GitHub/markbind/packages/core/src/Page'));
   }
 
   static addScrollToTopButton(pageData) {

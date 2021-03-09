@@ -21,6 +21,7 @@
     <script src="{{ asset.polyfillJs }}"></script>
     <script src="{{ asset.vue }}"></script>
     <script src="{{ asset.markBindJs }}"></script>
+    <script type="module" src="{{ asset.vuePageRenderJs }}"></script> 
     <script src="{{ asset.jQuery }}"></script>
     {%- if asset.pluginLinks -%}
     {%- for link in asset.pluginLinks -%}
@@ -38,9 +39,7 @@
   const baseUrl = '{{ baseUrl }}'
 </script>
 <body {% if hasPageNav %} data-spy="scroll" data-target="#mb-page-nav" data-offset="100" {% endif %}>
-<div id="app">
-    {{ content }}
-</div>
+<div id="app"></div>
 </body>
 <script src="{{ asset.bootstrapUtilityJs }}"></script>
 <script>
