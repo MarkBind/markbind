@@ -32,7 +32,7 @@ const logger = require('../../utils/logger');
 
 /**
  * Creates a new inline rule for markdown-it, specifically for rules that uses a 'double' delimiter.
- * Some examples are ++, --, $$, %%. 
+ * Some examples are ++, --, !!, %%. 
  * @param delimiter Represents the double delimiter to be used to create tokens when parsing.
  * @param ruleName The name that represents the rule you are creating.
  * @param nextRule There is a precedence ordering for the rules in markdown-it. This parameter
@@ -140,8 +140,16 @@ module.exports = function createDoubleDelimiterInlineRule(delimiter, ruleName, n
           To be removed once '++' underline syntax is deprecated.
         */
         if (startDelim.marker == 43) {
-          logger.warn('"++" syntax for underlining will be deprecated in v3.0. Please use "$$".\n'
+          logger.warn('"++" syntax for underlining will be deprecated in v3.0. Please use "!!".\n'
              + `filePath: ${state.env.cwf}`);
+        }
+        /*
+          Interim warning logs to alert user of '$$' underline syntax deprecation.
+          To be removed once '$$' underline syntax is deprecated.
+        */
+       if (startDelim.marker == 36) {
+        logger.warn('"$$" syntax for underlining will be deprecated in v3.0. Please use "!!".\n'
+           + `filePath: ${state.env.cwf}`);
         }
       }
 
