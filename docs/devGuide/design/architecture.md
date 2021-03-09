@@ -37,7 +37,7 @@ _Nunjucks :fas-arrow-right: Markdown :fas-arrow-right: Html_
 
 <box type="info" seamless>
 
-Note that generation of `External`s (e.g. `<panel src="...">`) **do not fall within** the content processing flow $$where they are **referenced**$$.
+Note that generation of `External`s (e.g. `<panel src="...">`) **do not fall within** the content processing flow !!where they are **referenced**!!.
 These are only flagged for generation, and then processed by `ExternalManager` **after**, in **another** similar content processing flow within an `External` instance.
 </box>
 

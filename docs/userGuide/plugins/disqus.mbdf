@@ -8,7 +8,7 @@ Before you can use this plugin, you need to **(1) setup a Disqus account** and *
 
 You may sign up for a Disqus account and register your site [here](https://disqus.com/admin/create/). 
 
-Note that you **$$do not have to install Disqus on your site$$**, this plugin does it for you. 
+Note that you **!!do not have to install Disqus on your site!!**, this plugin does it for you. 
 
 All you have to do is provide the `shortname` of your Disqus site, which is explained below. 
 
