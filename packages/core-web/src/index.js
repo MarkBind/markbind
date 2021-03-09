@@ -128,16 +128,6 @@ function updateSearchData(vm) {
     });
 }
 
-function removeTemporaryStyles() {
-  jQuery('.temp-navbar').removeClass('temp-navbar');
-  jQuery('.temp-dropdown').removeClass('temp-dropdown');
-  jQuery('.temp-dropdown-placeholder').remove();
-}
-
-function executeAfterCreatedRoutines() {
-  removeTemporaryStyles();
-}
-
 function executeAfterMountedRoutines() {
   scrollToUrlAnchorHeading();
   detectAndApplyFixedHeaderStyles();
@@ -176,9 +166,6 @@ function setup() {
       return renderFn.call(this, createElement);
     },
     staticRenderFns,
-    created() {
-      executeAfterCreatedRoutines();
-    },
     mounted() {
       executeAfterMountedRoutines();
     },
@@ -216,9 +203,6 @@ function setupWithSearch() {
         const anchor = match.heading ? `#${match.heading.id}` : '';
         window.location = `${page}${anchor}`;
       },
-    },
-    created() {
-      executeAfterCreatedRoutines();
     },
     mounted() {
       executeAfterMountedRoutines();

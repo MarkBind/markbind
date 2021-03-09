@@ -14,7 +14,6 @@ const { renderSiteNav } = require('./siteNavProcessor');
 const { processInclude, processPanelSrc } = require('./includePanelProcessor');
 const { Context } = require('./Context');
 const linkProcessor = require('./linkProcessor');
-const { insertTemporaryStyles } = require('./tempStyleProcessor');
 const { highlightCodeBlock } = require('./codeblockProcessor');
 
 const md = require('../lib/markdown-it');
@@ -838,8 +837,6 @@ class NodeProcessor {
     }
 
     this.postProcessNode(node);
-
-    insertTemporaryStyles(node);
 
     if (isHeadingTag && !node.attribs.id) {
       this._setHeadingId(node); // do this one more time, in case the first one assigned a blank id
