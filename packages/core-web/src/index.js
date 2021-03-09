@@ -150,13 +150,16 @@ window.handleSiteNavClick = function (elem, useAnchor = true) {
 function setup() {
   const pageRoute = window.location.pathname;
 
-  // eslint-disable-next-line
+  // eslint-disable-next-line no-undef
   const renderString = pageVueRenderFns[pageRoute].render;
-  const renderFn = new Function(renderString); // convert render function (in string) to function
+  // convert render function (in string) to function
+  // eslint-disable-next-line no-new-func
+  const renderFn = new Function(renderString);
 
-  // eslint-disable-next-line
+  // eslint-disable-next-line no-undef
   const staticRenderFnsStrings = pageVueRenderFns[pageRoute].staticRenderFns;
   // convert every static render function (in string) to functions
+  // eslint-disable-next-line no-new-func
   const staticRenderFns = staticRenderFnsStrings.map(fn => new Function(fn));
 
   // eslint-disable-next-line no-unused-vars
@@ -175,14 +178,16 @@ function setup() {
 function setupWithSearch() {
   const pageRoute = window.location.pathname;
 
-  // eslint-disable-next-line
+  // eslint-disable-next-line no-undef
   const renderString = pageVueRenderFns[pageRoute].render;
   // convert render function (in string) to function
+  // eslint-disable-next-line no-new-func
   const renderFn = new Function(renderString);
 
-  // eslint-disable-next-line
+  // eslint-disable-next-line no-undef
   const staticRenderFnsStrings = pageVueRenderFns[pageRoute].staticRenderFns;
   // convert every static render function (in string) to functions
+  // eslint-disable-next-line no-new-func
   const staticRenderFns = staticRenderFnsStrings.map(fn => new Function(fn));
 
   // eslint-disable-next-line no-unused-vars
