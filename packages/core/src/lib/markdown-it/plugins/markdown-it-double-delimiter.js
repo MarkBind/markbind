@@ -33,7 +33,7 @@
 
 /**
  * Creates a new inline rule for markdown-it, specifically for rules that uses a 'double' delimiter.
- * Some examples are ++, --, $$, %%. 
+ * Some examples are ++, --, !!, %%. 
  * @param delimiter Represents the double delimiter to be used to create tokens when parsing.
  * @param ruleName The name that represents the rule you are creating.
  * @param nextRule There is a precedence ordering for the rules in markdown-it. This parameter
