@@ -122,6 +122,10 @@ class PageConfig {
      * @type {boolean}
      */
     this.intrasiteLinkValidation = args.intrasiteLinkValidation;
+    /**
+     * @type {Object<string, string>|{}}
+     */
+    this.pageVueRenderFns = args.pageVueRenderFns || {};
   }
 }
 

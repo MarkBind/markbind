@@ -471,11 +471,9 @@ class Page {
       ...layoutManager.getLayoutPageNjkAssets(this.layout),
     };
 
-    // 'Templates should only be responsible for mapping the state to the UI.
-    // Avoid placing tags with side-effects in your templates, such as <script>, as they will not be parsed.'
     const compiled = VueCompiler.compile(`<div>${content}</div>`);
     const pagePath = this.pageConfig.resultPath.split('/_site')[1];
-    VueRenderFunctions[pagePath] = {
+    this.pageConfig.pageVueRenderFns[pagePath] = {
       render: compiled.render,
       staticRenderFns: compiled.staticRenderFns,
     };
@@ -493,13 +491,6 @@ class Page {
     await externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(), this.includedFiles);
 
     this.collectHeadingsAndKeywords(pageContent);
-  }
-
-  static async outputVueRendererFunctions() {
-    const output = `var VueRenderFunctions = ${JSON.stringify(VueRenderFunctions)}`;
-    await fs.outputFile(
-      '/Users/jamesongwx/Documents/GitHub/markbind/packages/core/src/Page/VuePageRender.js',
-      output);
   }
 
   static addScrollToTopButton(pageData) {
