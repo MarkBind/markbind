@@ -161,6 +161,14 @@ function setup() {
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
     el: '#app',
+    render(createElement) {
+      let pathName = window.location.pathname;
+      pathName = pathName === '/' ? '/index.html' : pathName;
+      // eslint-disable-next-line
+      // eslint-disable-next-line
+      const render = new Function(VueRenderFunctions[pathName]);
+      return render.call(this, createElement);
+    },
     created() {
       executeAfterCreatedRoutines();
     },
@@ -171,9 +179,27 @@ function setup() {
 }
 
 function setupWithSearch() {
+  let pathName = window.location.pathname;
+  pathName = pathName === '/' ? '/index.html' : pathName;
+  // eslint-disable-next-line
+  console.log(VueRenderFunctions);
+  let { render, staticRenderFns } = VueRenderFunctions[pathName];
+  staticRenderFns = staticRenderFns.map(fn => new Function(fn));
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
     el: '#app',
+    render(createElement) {
+      // let pathName = window.location.pathname;
+      // pathName = pathName === '/' ? '/index.html' : pathName;
+      // eslint-disable-next-line
+      // eslint-disable-next-line
+      const renderFn = new Function(render);
+      return renderFn.call(this, createElement);
+    },
+    // eslint-disable-next-line
+    // render: VueRenderFunctions[pathName],
+    // eslint-disable-next-line
+    staticRenderFns: staticRenderFns, 
     data() {
       return {
         searchData: [],

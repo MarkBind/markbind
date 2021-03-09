@@ -5,6 +5,8 @@ const path = require('path');
 
 const VueCompiler = require('vue-template-compiler');
 
+const VueRenderFunctions = {};
+
 const _ = {};
 _.cloneDeep = require('lodash/cloneDeep');
 _.isString = require('lodash/isString');
@@ -118,7 +120,7 @@ class Page {
     return this.includedFiles && this.includedFiles.has(filePath);
   }
 
-  prepareTemplateData(content, hasPageNav) {
+  prepareTemplateData(hasPageNav) {
     const prefixedTitle = this.pageConfig.titlePrefix
       ? this.pageConfig.titlePrefix + (this.title ? TITLE_PREFIX_SEPARATOR + this.title : '')
       : this.title;
@@ -130,7 +132,6 @@ class Page {
     return {
       asset,
       baseUrl: this.pageConfig.baseUrl,
-      content,
       hasPageNav,
       dev: this.pageConfig.dev,
       faviconUrl: this.pageConfig.faviconUrl,
@@ -470,10 +471,17 @@ class Page {
       ...layoutManager.getLayoutPageNjkAssets(this.layout),
     };
 
+    // 'Templates should only be responsible for mapping the state to the UI.
+    // Avoid placing tags with side-effects in your templates, such as <script>, as they will not be parsed.'
     const compiled = VueCompiler.compile(`<div>${content}</div>`);
+    const pagePath = this.pageConfig.resultPath.split('/_site')[1];
+    VueRenderFunctions[pagePath] = {
+      render: compiled.render,
+      staticRenderFns: compiled.staticRenderFns,
+    };
 
     const renderedTemplate = this.pageConfig.template.render(
-      this.prepareTemplateData(content, !!pageNav)); // page.njk
+      this.prepareTemplateData(!!pageNav)); // page.njk
 
     const outputTemplateHTML = this.pageConfig.disableHtmlBeautify
       ? renderedTemplate
@@ -485,6 +493,13 @@ class Page {
     await externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(), this.includedFiles);
 
     this.collectHeadingsAndKeywords(pageContent);
+  }
+
+  static async outputVueRendererFunctions() {
+    const output = `var VueRenderFunctions = ${JSON.stringify(VueRenderFunctions)}`;
+    await fs.outputFile(
+      '/Users/jamesongwx/Documents/GitHub/markbind/packages/core/src/Page/VuePageRender.js',
+      output);
   }
 
   static addScrollToTopButton(pageData) {
