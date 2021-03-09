@@ -1,3 +1,3 @@
-<script type="application/javascript">
+<script>
   window.location.href = "gettingStarted.html"
 </script>

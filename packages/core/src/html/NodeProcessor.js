@@ -668,6 +668,18 @@ class NodeProcessor {
   }
 
   /*
+   * Adds attribute "type=application/javascript" to script tag.
+   *
+   * This is necessary because we are pre-compiling each page as a Vue application,
+   * where the Vue compilation ignores and discards the script tag.
+   *
+   * By having this attribute, the compilation will ignore the script tag but not discard it.
+   */
+  static processScriptNode(node) {
+    node.attribs.type = 'application/javascript';
+  }
+
+  /*
    * API
    */
 
@@ -733,6 +745,9 @@ class NodeProcessor {
         break;
       case 'mb-temp-footnotes':
         this._processMbTempFootnotes(node);
+        break;
+      case 'script':
+        NodeProcessor.processScriptNode(node);
         break;
       default:
         break;
