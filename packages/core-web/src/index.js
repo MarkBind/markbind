@@ -158,17 +158,19 @@ window.handleSiteNavClick = function (elem, useAnchor = true) {
 };
 
 function setup() {
+  let pathName = window.location.pathname;
+  pathName = pathName === '/' ? '/index.html' : pathName;
+  // eslint-disable-next-line
+  let { render, staticRenderFns } = pageVueRenderFns[pathName];
+  staticRenderFns = staticRenderFns.map(fn => new Function(fn));
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
     el: '#app',
     render(createElement) {
-      let pathName = window.location.pathname;
-      pathName = pathName === '/' ? '/index.html' : pathName;
-      // eslint-disable-next-line
-      // eslint-disable-next-line
-      const render = new Function(VueRenderFunctions[pathName]);
-      return render.call(this, createElement);
+      const renderFn = new Function(render);
+      return renderFn.call(this, createElement);
     },
+    staticRenderFns,
     created() {
       executeAfterCreatedRoutines();
     },
