@@ -482,7 +482,8 @@ class Page {
      */
     const compiled = VueCompiler.compile(`<div>${content}</div>`);
     const pagePath = path.relative(this.pageConfig.rootPath, this.pageConfig.sourcePath);
-    const pagePathWithHtmlExt = `/${fsUtil.removeExtension(pagePath)}.html`;
+    const pagePathWithoutExt = fsUtil.removeExtension(pagePath);
+    const pagePathWithHtmlExt = `/${pagePathWithoutExt}.html`;
     this.pageConfig.pageVueRenderFns[pagePathWithHtmlExt] = {
       render: compiled.render,
       staticRenderFns: compiled.staticRenderFns,

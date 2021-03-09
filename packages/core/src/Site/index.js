@@ -625,7 +625,7 @@ class Site {
 
   async writePageVueRenderFnsAsset() {
     const output = `var pageVueRenderFns = ${JSON.stringify(this.pageVueRenderFns)}`;
-    const filePath = path.join(this.siteAssetsDestPath, 'js/pageVueRenderFns.js');
+    const filePath = path.join(this.siteAssetsDestPath, 'js', 'pageVueRenderFns.js');
     await fs.outputFile(filePath, output);
   }
 

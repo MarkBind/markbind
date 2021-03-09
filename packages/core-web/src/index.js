@@ -179,7 +179,7 @@ function setupWithSearch() {
   const pageRoute = window.location.pathname;
 
   // eslint-disable-next-line no-undef
-  const renderString = pageVueRenderFns[pageRoute].render;
+  const renderString = pageVueRenderFns[pageRoute].render; // pageVueRenderFns exists in another script
   // convert render function (in string) to function
   // eslint-disable-next-line no-new-func
   const renderFn = new Function(renderString);
