@@ -470,16 +470,36 @@ class Page {
       ...layoutManager.getLayoutPageNjkAssets(this.layout),
     };
 
-    /*
-     * Compile page into Vue Application, so that we can get the
-     * Vue render function for the page and map it to the page route.
-     *
-     * During Vue mounting in browser, we can just pass in the render function
-     * according to the page route.
-     *
-     * This is so that we won't have to incur overhead compiling the page into
-     * Vue application in the browser (resolves FOUC).
-     */
+    this.compileVuePage(content); // Compiles the page into Vue application
+
+    const renderedTemplate = this.pageConfig.template.render(this.prepareTemplateData(!!pageNav)); // page.njk
+
+    const outputTemplateHTML = this.pageConfig.disableHtmlBeautify
+      ? renderedTemplate
+      : htmlBeautify(renderedTemplate, pluginManager.htmlBeautifyOptions);
+
+    await fs.outputFile(this.pageConfig.resultPath, outputTemplateHTML);
+
+    pageSources.addAllToSet(this.includedFiles);
+    await externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(), this.includedFiles);
+
+    this.collectHeadingsAndKeywords(pageContent);
+  }
+
+  /**
+    * Compiles page into Vue Application to retrieve the render function.
+    *
+    * This is to avoid the overhead of compiling the page into Vue application
+    * on the client's browser (resolves FOUC).
+    *
+    * By pre-compiling the page, we can get the Vue render function for the page
+    * and map it to the page route. Thus, during Vue mounting in client's browser,
+    * we can just pass in the appropriate render function according to the page route.
+    * As a result, we avoid compiling the page on the client's browser.
+    *
+    * @param content Page content to be compiled into Vue app
+    */
+  compileVuePage(content) {
     const compiled = VueCompiler.compile(`<div>${content}</div>`);
     const pagePath = path.relative(this.pageConfig.rootPath, this.pageConfig.sourcePath);
     const pagePathWithoutExt = fsUtil.removeExtension(pagePath);
@@ -496,19 +516,6 @@ class Page {
         staticRenderFns: compiled.staticRenderFns,
       };
     }
-
-    const renderedTemplate = this.pageConfig.template.render(this.prepareTemplateData(!!pageNav)); // page.njk
-
-    const outputTemplateHTML = this.pageConfig.disableHtmlBeautify
-      ? renderedTemplate
-      : htmlBeautify(renderedTemplate, pluginManager.htmlBeautifyOptions);
-
-    await fs.outputFile(this.pageConfig.resultPath, outputTemplateHTML);
-
-    pageSources.addAllToSet(this.includedFiles);
-    await externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(), this.includedFiles);
-
-    this.collectHeadingsAndKeywords(pageContent);
   }
 
   static addScrollToTopButton(pageData) {
