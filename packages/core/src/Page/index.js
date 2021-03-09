@@ -2,16 +2,15 @@ const cheerio = require('cheerio'); require('../patches/htmlparser2');
 const fs = require('fs-extra');
 const htmlBeautify = require('js-beautify').html;
 const path = require('path');
-
 const VueCompiler = require('vue-template-compiler');
-
-const VueRenderFunctions = {};
 
 const _ = {};
 _.cloneDeep = require('lodash/cloneDeep');
 _.isString = require('lodash/isString');
 _.isObject = require('lodash/isObject');
 _.isArray = require('lodash/isArray');
+
+const fsUtil = require('../utils/fsUtil');
 
 const { CyclicReferenceError } = require('../errors');
 const { PageSources } = require('./PageSources');
@@ -471,15 +470,25 @@ class Page {
       ...layoutManager.getLayoutPageNjkAssets(this.layout),
     };
 
+    /*
+     * Compile page into Vue Application, so that we can get the
+     * Vue render function for the page and map it to the page route.
+     *
+     * During Vue mounting in browser, we can just pass in the render function
+     * according to the page route.
+     *
+     * This is so that we won't have to incur overhead compiling the page into
+     * Vue application in the browser (resolves FOUC).
+     */
     const compiled = VueCompiler.compile(`<div>${content}</div>`);
-    const pagePath = this.pageConfig.resultPath.split('/_site')[1];
-    this.pageConfig.pageVueRenderFns[pagePath] = {
+    const pagePath = path.relative(this.pageConfig.rootPath, this.pageConfig.sourcePath);
+    const pagePathWithHtmlExt = `/${fsUtil.removeExtension(pagePath)}.html`;
+    this.pageConfig.pageVueRenderFns[pagePathWithHtmlExt] = {
       render: compiled.render,
       staticRenderFns: compiled.staticRenderFns,
     };
 
-    const renderedTemplate = this.pageConfig.template.render(
-      this.prepareTemplateData(!!pageNav)); // page.njk
+    const renderedTemplate = this.pageConfig.template.render(this.prepareTemplateData(!!pageNav)); // page.njk
 
     const outputTemplateHTML = this.pageConfig.disableHtmlBeautify
       ? renderedTemplate
