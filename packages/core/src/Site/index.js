@@ -7,6 +7,7 @@ const Promise = require('bluebird');
 const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
 const simpleGit = require('simple-git');
+const UglifyJs = require('uglify-js');
 
 const SiteConfig = require('./SiteConfig');
 const Page = require('../Page');
@@ -274,7 +275,8 @@ class Site {
         markBindJs: path.relative(path.dirname(resultPath),
                                   path.join(this.siteAssetsDestPath, 'js', 'markbind.min.js')),
         pageVueRenderFnsJs: path.relative(path.dirname(resultPath),
-                                          path.join(this.siteAssetsDestPath, 'js', 'pageVueRenderFns.js')),
+                                          path.join(this.siteAssetsDestPath, 'js',
+                                                    'pageVueRenderFns.min.js')),
         pageNavCss: path.relative(path.dirname(resultPath),
                                   path.join(this.siteAssetsDestPath, 'css', 'page-nav.css')),
         siteNavCss: path.relative(path.dirname(resultPath),
@@ -615,8 +617,8 @@ class Site {
       await this.copyBootswatchTheme();
       await this.copyFontAwesomeAsset();
       await this.copyOcticonsAsset();
-      await this.writeSiteData();
       await this.writePageVueRenderFnsAsset();
+      await this.writeSiteData();
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
@@ -625,8 +627,9 @@ class Site {
 
   async writePageVueRenderFnsAsset() {
     const output = `var pageVueRenderFns = ${JSON.stringify(this.pageVueRenderFns)}`;
-    const filePath = path.join(this.siteAssetsDestPath, 'js', 'pageVueRenderFns.js');
-    await fs.outputFile(filePath, output);
+    const minifiedOutput = UglifyJs.minify(output);
+    const filePath = path.join(this.siteAssetsDestPath, 'js', 'pageVueRenderFns.min.js');
+    await fs.outputFile(filePath, minifiedOutput.code);
   }
 
   /**
