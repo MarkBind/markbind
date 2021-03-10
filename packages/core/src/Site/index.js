@@ -620,7 +620,7 @@ class Site {
       await this.copyBootswatchTheme();
       await this.copyFontAwesomeAsset();
       await this.copyOcticonsAsset();
-      await this.writePageVueRenderFnsAsset();
+      await this.createPageVueRenderFnsScript();
       await this.createInitAppNodeForPageVueRenderScript();
       await this.writeSiteData();
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
@@ -629,7 +629,10 @@ class Site {
     }
   }
 
-  async writePageVueRenderFnsAsset() {
+  /*
+   * Creates the script that holds the Vue render functions for each page route.
+   */
+  async createPageVueRenderFnsScript() {
     const output = `var pageVueRenderFns = ${JSON.stringify(this.pageVueRenderFns)}`;
     const minifiedOutput = UglifyJs.minify(output);
     const filePath = path.join(this.siteAssetsDestPath, 'js', 'pageVueRenderFns.min.js');
