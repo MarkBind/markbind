@@ -55,6 +55,7 @@ const {
   LAZY_LOADING_SITE_FILE_NAME,
   LAZY_LOADING_BUILD_TIME_RECOMMENDATION_LIMIT,
   LAZY_LOADING_REBUILD_TIME_RECOMMENDATION_LIMIT,
+  LAZY_LOADING_RECENTLY_VIEWED_PAGES_LIMIT,
   MARKBIND_WEBSITE_URL,
   MAX_CONCURRENT_PAGE_GENERATION_PROMISES,
   PAGE_TEMPLATE_NAME,
@@ -144,6 +145,7 @@ class Site {
     this.currentPageViewed = onePagePath
       ? path.resolve(this.rootPath, FsUtil.removeExtension(onePagePath))
       : '';
+    this.recentlyViewedPages = [];
     this.toRebuild = new Set();
   }
 
@@ -195,6 +197,7 @@ class Site {
    */
   changeCurrentPage(normalizedUrl) {
     this.currentPageViewed = path.join(this.rootPath, normalizedUrl);
+    this.addToRecentlyViewedPages(this.currentPageViewed);
 
     if (this.toRebuild.has(this.currentPageViewed)) {
       this.beforeSiteGenerate();
@@ -203,6 +206,25 @@ class Site {
     }
 
     return false;
+  }
+
+  /**
+   * Adds the viewed page path to the front of the recently viewed pages array, while
+   * also maintaining the array to keep below its specified limit.
+   * If the viewed page is already in the array, moves it to the front.
+   * @param viewedPagePath The absolute path to the page, extension-less
+   */
+  addToRecentlyViewedPages(viewedPagePath) {
+    const idx = this.recentlyViewedPages.indexOf(viewedPagePath);
+    if (idx !== -1) {
+      this.recentlyViewedPages.splice(idx, 1);
+    }
+    this.recentlyViewedPages.unshift(viewedPagePath);
+
+    const sizeDiff = this.recentlyViewedPages.length - LAZY_LOADING_RECENTLY_VIEWED_PAGES_LIMIT;
+    if (sizeDiff > 0) {
+      this.recentlyViewedPages.splice(LAZY_LOADING_RECENTLY_VIEWED_PAGES_LIMIT, sizeDiff);
+    }
   }
 
   /**
@@ -968,20 +990,26 @@ class Site {
       logger.warn('Rebuilding all pages as variables file was changed, or the --force-reload flag was set');
     }
     this._setTimestampVariable();
+
+    let filteredIdxCounter = 0;
+    const recentlyViewedPagesIndexMapping = {};
     const pagesToRegenerate = this.pages.filter((page) => {
       const doFilePathsHaveSourceFiles = filePaths.some(filePath => page.isDependency(filePath));
 
       if (shouldRebuildAllPages || doFilePathsHaveSourceFiles) {
         if (this.onePagePath) {
           const normalizedSource = FsUtil.removeExtension(page.pageConfig.sourcePath);
-          const isPageBeingViewed = normalizedSource === this.currentPageViewed;
+          const isRecentlyViewed = this.recentlyViewedPages.some(pagePath => pagePath === normalizedSource);
 
-          if (!isPageBeingViewed) {
+          if (!isRecentlyViewed) {
             this.toRebuild.add(normalizedSource);
             return false;
           }
+
+          recentlyViewedPagesIndexMapping[normalizedSource] = filteredIdxCounter;
         }
 
+        filteredIdxCounter += 1;
         return true;
       }
 
@@ -990,6 +1018,22 @@ class Site {
     if (!pagesToRegenerate.length) {
       logger.info('No pages needed to be rebuilt');
       return;
+    }
+
+    if (this.onePagePath) {
+      /*
+       * Reorder the regenerate queue such that recently viewed pages are prioritized
+       * before other pages, those of which are ordered from most-to-least recent
+       */
+      const prioritizedPagesOrdered = [];
+      this.recentlyViewedPages.forEach((pagePath) => {
+        if (!recentlyViewedPagesIndexMapping[pagePath]) {
+          return;
+        }
+        const [page] = pagesToRegenerate.splice(recentlyViewedPagesIndexMapping[pagePath], 1);
+        prioritizedPagesOrdered.push(page);
+      });
+      pagesToRegenerate.unshift(...prioritizedPagesOrdered);
     }
 
     logger.info(`Rebuilding ${pagesToRegenerate.length} pages`);
