@@ -1,20 +1,18 @@
 <template>
-  <transition name="fade">
-    <div
-      v-show="show"
-      role="tabpanel"
-      class="tab-pane active printable-tab-pane d-print-block"
-      :class="{hide:!show}"
-    >
-      <div class="nav-tabs printable-tab-header d-none d-print-flex">
-        <div ref="header" class="nav-link active">
-          <slot name="header"></slot>
-        </div>
+  <div
+    v-show="show"
+    role="tabpanel"
+    class="tab-pane active printable-tab-pane d-print-block"
+    :class="{hide:!show}"
+  >
+    <div class="nav-tabs printable-tab-header d-none d-print-flex">
+      <div ref="header" class="nav-link active">
+        <slot name="header"></slot>
       </div>
-      <slot></slot>
-      <hr />
     </div>
-  </transition>
+    <slot></slot>
+    <hr />
+  </div>
 </template>
 
 <script>
@@ -43,9 +41,6 @@ export default {
     },
     show() {
       return this._tabset && this._tabset.show === this;
-    },
-    transition() {
-      return this._tabset ? this._tabset.effect : null;
     },
     disabledBool() {
       return toBoolean(this.disabled);
@@ -87,14 +82,6 @@ export default {
 <style>
     .tab-pane > hr {
         margin: 0;
-    }
-
-    .fade-enter-active {
-        transition: opacity 0.5s;
-    }
-
-    .fade-leave-active {
-        transition: opacity 0s;
     }
 
     @media print {
