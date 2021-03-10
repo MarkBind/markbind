@@ -501,7 +501,7 @@ class Page {
    * @param content Page content to be compiled into Vue app
    */
   compileVuePage(content) {
-    const compiled = VueCompiler.compile(`<div>${content}</div>`);
+    const compiled = VueCompiler.compile(`<div id="app">${content}</div>`);
 
     const pagePath = path.relative(this.pageConfig.rootPath, this.pageConfig.sourcePath);
     const pagePathWithoutExt = fsUtil.removeExtension(pagePath);
