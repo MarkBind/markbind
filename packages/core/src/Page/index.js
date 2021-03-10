@@ -119,7 +119,7 @@ class Page {
     return this.includedFiles && this.includedFiles.has(filePath);
   }
 
-  prepareTemplateData(hasPageNav) {
+  prepareTemplateData(content, hasPageNav) {
     const prefixedTitle = this.pageConfig.titlePrefix
       ? this.pageConfig.titlePrefix + (this.title ? TITLE_PREFIX_SEPARATOR + this.title : '')
       : this.title;
@@ -131,6 +131,7 @@ class Page {
     return {
       asset,
       baseUrl: this.pageConfig.baseUrl,
+      content,
       hasPageNav,
       dev: this.pageConfig.dev,
       faviconUrl: this.pageConfig.faviconUrl,
@@ -471,7 +472,8 @@ class Page {
 
     this.compileVuePage(content); // Compiles the page into Vue application
 
-    const renderedTemplate = this.pageConfig.template.render(this.prepareTemplateData(!!pageNav)); // page.njk
+    const renderedTemplate = this.pageConfig.template.render(
+      this.prepareTemplateData(content, !!pageNav)); // page.njk
 
     const outputTemplateHTML = this.pageConfig.disableHtmlBeautify
       ? renderedTemplate
