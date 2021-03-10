@@ -7,7 +7,7 @@ const Promise = require('bluebird');
 const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
 const simpleGit = require('simple-git');
-const UglifyJs = require('uglify-js');
+// const UglifyJs = require('uglify-js');
 
 const SiteConfig = require('./SiteConfig');
 const Page = require('../Page');
@@ -634,9 +634,10 @@ class Site {
    */
   async createPageVueRenderFnsScript() {
     const output = `var pageVueRenderFns = ${JSON.stringify(this.pageVueRenderFns)}`;
-    const minifiedOutput = UglifyJs.minify(output);
+    // const minifiedOutput = UglifyJs.minify(output);
     const filePath = path.join(this.siteAssetsDestPath, 'js', 'pageVueRenderFns.min.js');
-    await fs.outputFile(filePath, minifiedOutput.code);
+    // await fs.outputFile(filePath, minifiedOutput.code);
+    await fs.outputFile(filePath, output);
   }
 
   /*
@@ -656,9 +657,10 @@ class Site {
       newApp.setAttribute('id', 'app');
       body.appendChild(newApp); 
     `;
-    const minifiedOutput = UglifyJs.minify(output);
+    // const minifiedOutput = UglifyJs.minify(output);
     const filePath = path.join(this.siteAssetsDestPath, 'js', 'initAppNodeForPageVueRender.min.js');
-    await fs.outputFile(filePath, minifiedOutput.code);
+    // await fs.outputFile(filePath, minifiedOutput.code);
+    await fs.outputFile(filePath, output);
   }
 
   /**
