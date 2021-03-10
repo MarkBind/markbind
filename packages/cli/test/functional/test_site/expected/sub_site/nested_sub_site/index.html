@@ -4,7 +4,7 @@
 <head>
 
   <meta name="default-head-top">
-  <script src="/test_site/headFiles/customScriptTop.js"></script>
+  <script src="/test_site/headFiles/customScriptTop.js" type="application/javascript"></script>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,13 +21,14 @@
   <script src="../../markbind/js/polyfill.min.js"></script>
   <script src="../../markbind/js/vue.min.js"></script>
   <script src="../../markbind/js/markbind.min.js"></script>
+  <script src="../../markbind/js/pageVueRenderFns.min.js"></script>
   <script src="../../markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
 
   <meta name="default-head-bottom">
   <link rel="stylesheet" href="/test_site/stylesheets/styles.css">
-  <script src="/test_site/headFiles/customScriptBottom.js"></script>
+  <script src="/test_site/headFiles/customScriptBottom.js" type="application/javascript"></script>
   <link rel="icon" href="/test_site/favicon.png">
 </head>
 <script>
@@ -36,11 +37,12 @@
 
 <body>
   <div id="app">
+    <script src="../../markbind/js/initAppNodeForPageVueRender.min.js"></script>
 
 
     <div>
       <header>
-        <navbar type="dark" default-highlight-on="sibling-or-child" class=" temp-navbar">
+        <navbar type="dark" default-highlight-on="sibling-or-child">
           <template #brand><a href="/" title="Home" class="navbar-brand">Markbind Test Site</a></template>
           <li><a class="nav-link" href="/test_site/bugs/index.html">Open Bugs</a></li>
         </navbar>
