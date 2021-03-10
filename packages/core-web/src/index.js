@@ -151,16 +151,14 @@ function setup() {
   const pageRoute = window.location.pathname;
 
   // eslint-disable-next-line no-undef
-  const renderString = pageVueRenderFns[pageRoute].render;
-  // convert render function (in string) to function
+  const renderString = pageVueRenderFns[pageRoute].render; // pageVueRenderFns exists in another script
   // eslint-disable-next-line no-new-func
   const renderFn = new Function(renderString);
 
   // eslint-disable-next-line no-undef
   const staticRenderFnsStrings = pageVueRenderFns[pageRoute].staticRenderFns;
-  // convert every static render function (in string) to functions
   // eslint-disable-next-line no-new-func
-  const staticRenderFns = staticRenderFnsStrings.map(fn => new Function(fn));
+  const staticRenderFns = staticRenderFnsStrings.map(fnString => new Function(fnString));
 
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
@@ -180,15 +178,13 @@ function setupWithSearch() {
 
   // eslint-disable-next-line no-undef
   const renderString = pageVueRenderFns[pageRoute].render; // pageVueRenderFns exists in another script
-  // convert render function (in string) to function
   // eslint-disable-next-line no-new-func
   const renderFn = new Function(renderString);
 
   // eslint-disable-next-line no-undef
   const staticRenderFnsStrings = pageVueRenderFns[pageRoute].staticRenderFns;
-  // convert every static render function (in string) to functions
   // eslint-disable-next-line no-new-func
-  const staticRenderFns = staticRenderFnsStrings.map(fn => new Function(fn));
+  const staticRenderFns = staticRenderFnsStrings.map(fnString => new Function(fnString));
 
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
