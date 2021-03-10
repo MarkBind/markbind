@@ -656,6 +656,7 @@ class Site {
       var newApp = document.createElement('div');
       newApp.setAttribute('id', 'app');
       body.appendChild(newApp); 
+
     `;
     // const minifiedOutput = UglifyJs.minify(output);
     const filePath = path.join(this.siteAssetsDestPath, 'js', 'initAppNodeForPageVueRender.min.js');

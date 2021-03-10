@@ -470,7 +470,8 @@ class Page {
       ...layoutManager.getLayoutPageNjkAssets(this.layout),
     };
 
-    this.compileVuePage(content); // Compiles the page into Vue application
+    // Compile the page into Vue application and map render function
+    this.compileVuePageAndMapRenderFn(content);
 
     const renderedTemplate = this.pageConfig.template.render(
       this.prepareTemplateData(content, !!pageNav)); // page.njk
@@ -500,7 +501,7 @@ class Page {
    *
    * @param content Page content to be compiled into Vue app
    */
-  compileVuePage(content) {
+  compileVuePageAndMapRenderFn(content) {
     const compiled = VueCompiler.compile(`<div id="app">${content}</div>`);
 
     const pagePath = path.relative(this.pageConfig.rootPath, this.pageConfig.sourcePath);
