@@ -32,7 +32,7 @@
     <p>
     <p><strong>Test Algolia plugin adds algolia-no-index classes</strong></p>
     <p><strong>Dropdowns should have algolia-no-index class</strong></p>
-    <dropdown class="algolia-no-index"><template #_header>Dropdown</template>
+    <dropdown class="algolia-no-index"><template #header>Dropdown</template>
       <li><a class="dropdown-item" href="/">One</a></li>
       <li><a class="dropdown-item" href="/">Two</a></li>
     </dropdown>
@@ -74,41 +74,41 @@
       </template></question>
     <p><strong>Tabs except first tab should have algolia-no-index class</strong></p>
     <tabs>
-      <tab><template #_header>First Tab</template>
+      <tab><template #header>First Tab</template>
         Content<br>Content<br>Content<br>Content
       </tab>
-      <tab class="algolia-no-index"><template #_header>Second Tab</template>
+      <tab class="algolia-no-index"><template #header>Second Tab</template>
         Content<br>Content<br>Content<br>Content
       </tab>
     </tabs>
     <tabs>
-      <tab-group><template #_header>First Group</template>
-        <tab><template #_header>First Tab</template>
+      <tab-group><template #header>First Group</template>
+        <tab><template #header>First Tab</template>
           Content<br>Content<br>Content<br>Content
         </tab>
-        <tab class="algolia-no-index"><template #_header>Second Tab</template>
+        <tab class="algolia-no-index"><template #header>Second Tab</template>
           Content<br>Content<br>Content<br>Content
         </tab>
       </tab-group>
-      <tab-group class="algolia-no-index"><template #_header>Second Group</template>
-        <tab><template #_header>First Tab</template>
+      <tab-group class="algolia-no-index"><template #header>Second Group</template>
+        <tab><template #header>First Tab</template>
           Content<br>Content<br>Content<br>Content
         </tab>
-        <tab class="algolia-no-index"><template #_header>Second Tab</template>
+        <tab class="algolia-no-index"><template #header>Second Tab</template>
           Content<br>Content<br>Content<br>Content
         </tab>
       </tab-group>
     </tabs>
     <tabs>
-      <tab-group><template #_header>Outer One</template>
-        <tab><template #_header>First Tab</template>
+      <tab-group><template #header>Outer One</template>
+        <tab><template #header>First Tab</template>
           Content<br>Content<br>Content<br>Content
         </tab>
-        <tab class="algolia-no-index"><template #_header>Second Tab</template>
+        <tab class="algolia-no-index"><template #header>Second Tab</template>
           Content<br>Content<br>Content<br>Content
         </tab>
       </tab-group>
-      <tab><template #_header>Outer Two</template>
+      <tab><template #header>Outer Two</template>
         Content<br>Content<br>Content<br>Content
       </tab>
     </tabs>

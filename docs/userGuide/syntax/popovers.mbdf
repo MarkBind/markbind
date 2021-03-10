@@ -40,7 +40,7 @@
 </p>
 <h4 class="no-index">Markdown</h4>
 <p>
-  <popover effect="scale" header="**Emoji header** :rocket:" content="$$emoji$$ content :cat:">
+  <popover effect="scale" header="**Emoji header** :rocket:" content="!!emoji!! content :cat:">
     <button class="btn btn-secondary">Hover</button>
   </popover>
 </p>

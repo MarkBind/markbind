@@ -127,12 +127,12 @@ test('postProcessNode assigns the correct header id to panels', () => {
                            true);
 });
 
-test('processNode processes dropdown header attribute and inserts into DOM as _header slot correctly', () => {
+test('processNode processes dropdown header attribute and inserts into DOM as header slot correctly', () => {
   processAndVerifyTemplate(testData.PROCESS_DROPDOWN_HEADER,
                            testData.PROCESS_DROPDOWN_HEADER_EXPECTED);
 });
 
-test('processNode processes dropdown text attribute and inserts into DOM as _header slot correctly', () => {
+test('processNode processes dropdown text attribute and inserts into DOM as header slot correctly', () => {
   processAndVerifyTemplate(testData.PROCESS_DROPDOWN_TEXT_ATTR,
                            testData.PROCESS_DROPDOWN_TEXT_ATTR_EXPECTED);
 });
