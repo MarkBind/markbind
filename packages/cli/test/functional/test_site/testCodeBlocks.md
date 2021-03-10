@@ -76,7 +76,7 @@ Content in a fenced code block
 
 **Inline markdown contained in heading should also be rendered correctly**
 
-```{heading="**Bold**, _Italic_, ___Bold and Italic___, ~~Strike through~~, ****Super Bold****, ++Underline++, $$Underline$$, !!Underline!!, ==Highlight==, :+1: :exclamation: :x: :construction:<br>We support page breaks"}
+```{heading="**Bold**, _Italic_, ___Bold and Italic___, ~~Strike through~~, ****Super Bold****, !!Underline!!, ==Highlight==, :+1: :exclamation: :x: :construction:<br>We support page breaks"}
 <foo>
     <bar>
 </foo>

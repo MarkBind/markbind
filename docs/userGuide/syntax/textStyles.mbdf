@@ -26,7 +26,7 @@ Syntax added by MarkBind:
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
-****Super Bold****, !!Underline!!, $$Underline$$, ++Underline++, ==Highlight==, %%Dim%%, Super^script^, Sub~script~
+****Super Bold****, !!Underline!!, ==Highlight==, %%Dim%%, Super^script^, Sub~script~
 </variable>
 </include>
 </span>
@@ -36,11 +36,11 @@ Syntax added by MarkBind:
 <span id="short" class="d-none">
 ```markdown
 **Bold**, _Italic_, ___Bold and Italic___, `Inline Code`
-~~Strike through~~, ****Super Bold****, !!Underline!!, $$Underline$$, ++Underline++, ==Highlight==, %%Dim%%, Super^script^, Sub~script~
+~~Strike through~~, ****Super Bold****, !!Underline!!, ==Highlight==, %%Dim%%, Super^script^, Sub~script~
 ```
 </span>
 <span id="examples" class="d-none">
 
 **Bold**, _Italic_, ___Bold and Italic___, `Inline Code`
-~~Strike through~~, ****Super Bold****, !!Underline!!, $$Underline$$, ++Underline++, ==Highlight==, %%Dim%%, Super^script^, Sub~script~
+~~Strike through~~, ****Super Bold****, !!Underline!!, ==Highlight==, %%Dim%%, Super^script^, Sub~script~
 </span>
