@@ -12,8 +12,9 @@ const createDoubleDelimiterInlineRule = require('./markdown-it-double-delimiter'
 // markdown-it plugins
 
 markdownIt.use(createDoubleDelimiterInlineRule('%%', 'dimmed', 'emphasis'))
+  .use(createDoubleDelimiterInlineRule('!!', 'underline', 'dimmed'))
   .use(createDoubleDelimiterInlineRule('$$', 'underline', 'dimmed'))
-  .use(createDoubleDelimiterInlineRule('++', 'underline', 'dimmed'))
+  .use(createDoubleDelimiterInlineRule('++', 'underline', 'dimmed'));
  
 markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-sub'))
