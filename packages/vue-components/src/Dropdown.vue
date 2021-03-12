@@ -179,6 +179,9 @@ export default {
 
     .dropdown-toggle {
         cursor: pointer;
+    }
+
+    .navbar .dropdown-toggle {
         color: inherit;
         text-decoration: none;
     }
