@@ -205,6 +205,11 @@ class Site {
       return true;
     }
 
+    logger.info('Recently viewed pages, from most-to-least recent:');
+    this.recentlyViewedPages.forEach((pagePath, idx) => {
+      logger.info(`${idx + 1}. ${utils.ensurePosix(path.relative(this.rootPath, pagePath))}`);
+    });
+
     return false;
   }
 
