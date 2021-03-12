@@ -991,49 +991,44 @@ class Site {
     }
     this._setTimestampVariable();
 
-    let filteredIdxCounter = 0;
-    const recentlyViewedPagesIndexMapping = {};
+    /*
+     * Note (lazy serve specific):
+     * The pages to regenerate are split into two arrays at first, the recently viewed pages and
+     * everything else. This is so that we can order the recently viewed pages first before
+     * being combined to everything else.
+     */
+    const recentPagesToRegenerate = [];
     const pagesToRegenerate = this.pages.filter((page) => {
       const doFilePathsHaveSourceFiles = filePaths.some(filePath => page.isDependency(filePath));
 
       if (shouldRebuildAllPages || doFilePathsHaveSourceFiles) {
         if (this.onePagePath) {
           const normalizedSource = FsUtil.removeExtension(page.pageConfig.sourcePath);
-          const isRecentlyViewed = this.recentlyViewedPages.some(pagePath => pagePath === normalizedSource);
+          const recentIdx = this.recentlyViewedPages.findIndex(pagePath => pagePath === normalizedSource);
+          const isRecentlyViewed = recentIdx !== -1;
 
           if (!isRecentlyViewed) {
             this.toRebuild.add(normalizedSource);
-            return false;
+          } else {
+            recentPagesToRegenerate[recentIdx] = page;
           }
 
-          recentlyViewedPagesIndexMapping[normalizedSource] = filteredIdxCounter;
+          return false;
         }
 
-        filteredIdxCounter += 1;
         return true;
       }
 
       return false;
     });
+
+    if (recentPagesToRegenerate.length) {
+      pagesToRegenerate.unshift(...recentPagesToRegenerate.filter(page => page));
+    }
+
     if (!pagesToRegenerate.length) {
       logger.info('No pages needed to be rebuilt');
       return;
-    }
-
-    if (this.onePagePath) {
-      /*
-       * Reorder the regenerate queue such that recently viewed pages are prioritized
-       * before other pages, those of which are ordered from most-to-least recent
-       */
-      const prioritizedPagesOrdered = [];
-      this.recentlyViewedPages.forEach((pagePath) => {
-        if (!recentlyViewedPagesIndexMapping[pagePath]) {
-          return;
-        }
-        const [page] = pagesToRegenerate.splice(recentlyViewedPagesIndexMapping[pagePath], 1);
-        prioritizedPagesOrdered.push(page);
-      });
-      pagesToRegenerate.unshift(...prioritizedPagesOrdered);
     }
 
     logger.info(`Rebuilding ${pagesToRegenerate.length} pages`);
