@@ -1,6 +1,6 @@
 {
   "name": "@markbind/core",
-  "version": "2.18.0",
+  "version": "2.18.1",
   "description": "MarkBind core module",
   "keywords": [
     "mark",
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
-    "@markbind/core-web": "^2.18.0",
+    "@markbind/core-web": "^2.18.1",
     "@primer/octicons": "^9.3.1",
     "@sindresorhus/slugify": "^0.9.1",
     "bluebird": "^3.7.2",
