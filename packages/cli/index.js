@@ -153,7 +153,7 @@ program
     const changeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file change: ${filePath}`);
       Promise.resolve('').then(() => {
-        if (filePath.replace(/^.*[\\\/]/, '') === SITE_CONFIG_NAME) {
+        if (filePath.replace(/^.*[\\/]/, '') === SITE_CONFIG_NAME) {
           return site.reloadSiteConfig(filePath);
         }
         if (site.isDependencyOfPage(filePath)) {
