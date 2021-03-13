@@ -18,6 +18,7 @@ const {
   INDEX_MARKDOWN_FILE,
   INDEX_MARKBIND_FILE,
   LAZY_LOADING_SITE_FILE_NAME,
+  LAZY_LOADING_TIME_SINCE_LAST_REQUEST_THRESHOLD,
 } = require('@markbind/core/src/Site/constants');
 
 const cliUtil = require('./src/util/cliUtil');
@@ -198,6 +199,7 @@ program
         }
 
         if (onePagePath) {
+          let prevRequestTime;
           const lazyReloadMiddleware = function (req, res, next) {
             const urlExtension = path.posix.extname(req.url);
 
@@ -208,6 +210,23 @@ program
             if (!isHtmlFileRequest || req.url.endsWith('._include_.html')) {
               next();
               return;
+            }
+
+            /*
+             * Due to the specifics of live-server, whenever pages are ,
+             * the server will reload all opened tabs, which causes a surge of page GET requests
+             * that can mess up the recently viewed pages list. This is a countermeasure of identifying
+             * whether a request is visited by user intent instead of live-server's reload spam or redirects.
+             */
+            let shouldAddToRecentlyViewed;
+            if (!prevRequestTime) {
+              shouldAddToRecentlyViewed = true;
+              prevRequestTime = new Date();
+            } else {
+              const requestTime = new Date();
+              const timeSinceLastReq = requestTime - prevRequestTime;
+              shouldAddToRecentlyViewed = timeSinceLastReq >= LAZY_LOADING_TIME_SINCE_LAST_REQUEST_THRESHOLD;
+              prevRequestTime = requestTime;
             }
 
             if (hasNoExtension && !hasEndingSlash) {
@@ -227,7 +246,7 @@ program
               : urlWithoutBaseUrl;
             const urlWithoutExtension = fsUtil.removeExtension(urlWithIndex);
 
-            const didInitiateRebuild = site.changeCurrentPage(urlWithoutExtension);
+            const didInitiateRebuild = site.changeCurrentPage(urlWithoutExtension, shouldAddToRecentlyViewed);
             if (didInitiateRebuild) {
               req.url = utils.ensurePosix(path.join(config.baseUrl || '/', LAZY_LOADING_SITE_FILE_NAME));
             }

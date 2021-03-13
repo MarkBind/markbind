@@ -145,7 +145,7 @@ class Site {
     this.currentPageViewed = onePagePath
       ? path.resolve(this.rootPath, FsUtil.removeExtension(onePagePath))
       : '';
-    this.recentlyViewedPages = [];
+    this.recentlyViewedPages = onePagePath ? [this.currentPageViewed] : [];
     this.toRebuild = new Set();
   }
 
@@ -193,22 +193,24 @@ class Site {
   /**
    * Changes the site variable of the current page being viewed, building it if necessary.
    * @param normalizedUrl BaseUrl-less and extension-less url of the page
+   * @param shouldAddToRecentlyViewed Flag on whether the page should be added to recently viewed pages list
    * @return Boolean of whether the page needed to be rebuilt
    */
-  changeCurrentPage(normalizedUrl) {
+  changeCurrentPage(normalizedUrl, shouldAddToRecentlyViewed) {
     this.currentPageViewed = path.join(this.rootPath, normalizedUrl);
-    this.addToRecentlyViewedPages(this.currentPageViewed);
+    if (shouldAddToRecentlyViewed) {
+      this.addToRecentlyViewedPages(this.currentPageViewed);
+      logger.info('Recently viewed pages, from most-to-least recent:');
+      this.recentlyViewedPages.forEach((pagePath, idx) => {
+        logger.info(`${idx + 1}. ${utils.ensurePosix(path.relative(this.rootPath, pagePath))}`);
+      });
+    }
 
     if (this.toRebuild.has(this.currentPageViewed)) {
       this.beforeSiteGenerate();
       this.rebuildPageBeingViewed(this.currentPageViewed);
       return true;
     }
-
-    logger.info('Recently viewed pages, from most-to-least recent:');
-    this.recentlyViewedPages.forEach((pagePath, idx) => {
-      logger.info(`${idx + 1}. ${utils.ensurePosix(path.relative(this.rootPath, pagePath))}`);
-    });
 
     return false;
   }
