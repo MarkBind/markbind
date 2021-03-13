@@ -123,9 +123,9 @@ class PageConfig {
      */
     this.intrasiteLinkValidation = args.intrasiteLinkValidation;
     /**
-     * @type {Object<string, string>|{}}
+     * @type {string}
      */
-    this.pageVueRenderFns = args.pageVueRenderFns || {};
+    this.siteAssetsDestPath = args.siteAssetsDestPath;
   }
 }
 

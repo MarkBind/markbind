@@ -114,9 +114,6 @@ class Site {
     // MarkBind assets to be copied
     this.siteAssetsDestPath = path.join(outputPath, TEMPLATE_SITE_ASSET_FOLDER_NAME);
 
-    // Vue Render functions for each page
-    this.pageVueRenderFns = {};
-
     // Page template path
     this.pageTemplatePath = path.join(__dirname, '../Page', PAGE_TEMPLATE_NAME);
     this.pageTemplate = VariableRenderer.compile(fs.readFileSync(this.pageTemplatePath, 'utf8'));
@@ -274,9 +271,6 @@ class Site {
                                    path.join(this.siteAssetsDestPath, 'css', 'markbind.min.css')),
         markBindJs: path.relative(path.dirname(resultPath),
                                   path.join(this.siteAssetsDestPath, 'js', 'markbind.min.js')),
-        pageVueRenderFnsJs: path.relative(path.dirname(resultPath),
-                                          path.join(this.siteAssetsDestPath, 'js',
-                                                    'pageVueRenderFns.min.js')),
         initAppNodeForPageVueRenderJs: path.relative(path.dirname(resultPath),
                                                      path.join(this.siteAssetsDestPath, 'js',
                                                                'initAppNodeForPageVueRender.min.js')),
@@ -321,7 +315,7 @@ class Site {
       addressablePagesSource: this.addressablePagesSource,
       layoutManager: this.layoutManager,
       intrasiteLinkValidation: this.siteConfig.intrasiteLinkValidation,
-      pageVueRenderFns: this.pageVueRenderFns,
+      siteAssetsDestPath: this.siteAssetsDestPath,
     });
     return new Page(pageConfig);
   }
@@ -620,24 +614,12 @@ class Site {
       await this.copyBootswatchTheme();
       await this.copyFontAwesomeAsset();
       await this.copyOcticonsAsset();
-      await this.createPageVueRenderFnsScript();
       await this.createInitAppNodeForPageVueRenderScript();
       await this.writeSiteData();
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
-  }
-
-  /*
-   * Creates the script that holds the Vue render functions for each page route.
-   */
-  async createPageVueRenderFnsScript() {
-    const output = `var pageVueRenderFns = ${JSON.stringify(this.pageVueRenderFns)}`;
-    // const minifiedOutput = UglifyJs.minify(output);
-    const filePath = path.join(this.siteAssetsDestPath, 'js', 'pageVueRenderFns.min.js');
-    // await fs.outputFile(filePath, minifiedOutput.code);
-    await fs.outputFile(filePath, output);
   }
 
   /*
@@ -772,11 +754,6 @@ class Site {
       this.toRebuild.delete(normalizedUrl);
       try {
         await pageToRebuild.generate(this.externalManager);
-        /*
-          Have to re-create the pageVueRenderFnsScript in lazy loading, since a new page is built
-          and new render function for that page is generated.
-        */
-        await this.createPageVueRenderFnsScript();
         await this.writeSiteData();
         Site.calculateBuildTimeForRebuildPageBeingViewed(startTime);
       } catch (error) {

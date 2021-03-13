@@ -148,15 +148,13 @@ window.handleSiteNavClick = function (elem, useAnchor = true) {
 };
 
 function setup() {
-  const pageRoute = window.location.pathname;
-
   // eslint-disable-next-line no-undef
-  const renderString = pageVueRenderFns[pageRoute].render; // pageVueRenderFns exists in another script
+  const renderString = pageVueRenderFns.render; // pageVueRenderFns exists in another script
   // eslint-disable-next-line no-new-func
   const renderFn = new Function(renderString);
 
   // eslint-disable-next-line no-undef
-  const staticRenderFnsStrings = pageVueRenderFns[pageRoute].staticRenderFns;
+  const staticRenderFnsStrings = pageVueRenderFns.staticRenderFns;
   // eslint-disable-next-line no-new-func
   const staticRenderFns = staticRenderFnsStrings.map(fnString => new Function(fnString));
 
@@ -174,15 +172,13 @@ function setup() {
 }
 
 function setupWithSearch() {
-  const pageRoute = window.location.pathname;
-
   // eslint-disable-next-line no-undef
-  const renderString = pageVueRenderFns[pageRoute].render; // pageVueRenderFns exists in another script
+  const renderString = pageVueRenderFns.render; // pageVueRenderFns exists in another script
   // eslint-disable-next-line no-new-func
   const renderFn = new Function(renderString);
 
   // eslint-disable-next-line no-undef
-  const staticRenderFnsStrings = pageVueRenderFns[pageRoute].staticRenderFns;
+  const staticRenderFnsStrings = pageVueRenderFns.staticRenderFns;
   // eslint-disable-next-line no-new-func
   const staticRenderFns = staticRenderFnsStrings.map(fnString => new Function(fnString));
 
