@@ -18,6 +18,7 @@ const {
   INDEX_MARKDOWN_FILE,
   INDEX_MARKBIND_FILE,
   LAZY_LOADING_SITE_FILE_NAME,
+  SITE_CONFIG_NAME,
 } = require('@markbind/core/src/Site/constants');
 
 const cliUtil = require('./src/util/cliUtil');
@@ -152,8 +153,8 @@ program
     const changeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file change: ${filePath}`);
       Promise.resolve('').then(() => {
-        if (filePath.replace(/^.*[\\\/]/, '') === "site.json") {
-          return site.reloadSiteConfig();
+        if (filePath.replace(/^.*[\\\/]/, '') === SITE_CONFIG_NAME) {
+          return site.reloadSiteConfig(filePath);
         }
         if (site.isDependencyOfPage(filePath)) {
           return site.rebuildAffectedSourceFiles(filePath);

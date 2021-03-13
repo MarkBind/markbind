@@ -34,6 +34,7 @@ _.difference = require('lodash/difference');
 _.flatMap = require('lodash/flatMap');
 _.has = require('lodash/has');
 _.isBoolean = require('lodash/isBoolean');
+_.isEqual = require('lodash/isEqual');
 _.isUndefined = require('lodash/isUndefined');
 _.noop = require('lodash/noop');
 _.omitBy = require('lodash/omitBy');
@@ -817,8 +818,12 @@ class Site {
   }
 
   async reloadSiteConfig() {
+    const oldSiteConfig = this.siteConfig;
     await this.readSiteConfig();
-    await this._rebuildSourceFiles();
+    if (!_.isEqual(oldSiteConfig.pages, this.siteConfig.pages)) {
+      await this.rebuildSourceFiles();
+      await this.writeSiteData();
+    }
   }
 
   /**
