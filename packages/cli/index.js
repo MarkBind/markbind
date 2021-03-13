@@ -152,6 +152,9 @@ program
     const changeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file change: ${filePath}`);
       Promise.resolve('').then(() => {
+        if (filePath.replace(/^.*[\\\/]/, '') === "site.json") {
+          return site.reloadSiteConfig();
+        }
         if (site.isDependencyOfPage(filePath)) {
           return site.rebuildAffectedSourceFiles(filePath);
         }

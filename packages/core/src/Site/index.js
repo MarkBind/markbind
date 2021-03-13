@@ -816,6 +816,11 @@ class Site {
     }
   }
 
+  async reloadSiteConfig() {
+    await this.readSiteConfig();
+    await this._rebuildSourceFiles();
+  }
+
   /**
    * Checks if a specified file path is a dependency of a page
    * @param {string} filePath file path to check
