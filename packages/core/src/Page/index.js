@@ -496,8 +496,8 @@ class Page {
     const pagePathWithoutExt = fsUtil.removeExtension(pagePath);
     // convert path to fileName by replacing the slash separators
     const fileNameWithoutExt = pagePathWithoutExt.split(path.sep).join('-');
-    const fileNameWithMinJsExt = `${fileNameWithoutExt}-pageVueRenderFns.min.js`;
-    return fileNameWithMinJsExt;
+    const fileNameWithExt = `${fileNameWithoutExt}.page-vue-render.js`;
+    return fileNameWithExt;
   }
 
   getPageVueRenderFnsScriptFilePath(pageVueRenderFnsScriptFileName) {

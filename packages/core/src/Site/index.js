@@ -272,7 +272,7 @@ class Site {
                                   path.join(this.siteAssetsDestPath, 'js', 'markbind.min.js')),
         initAppNodeForPageVueRenderJs: path.relative(path.dirname(resultPath),
                                                      path.join(this.siteAssetsDestPath, 'js',
-                                                               'initAppNodeForPageVueRender.min.js')),
+                                                               'initAppNode.page-vue-render.js')),
         pageNavCss: path.relative(path.dirname(resultPath),
                                   path.join(this.siteAssetsDestPath, 'css', 'page-nav.css')),
         siteNavCss: path.relative(path.dirname(resultPath),
@@ -638,7 +638,7 @@ class Site {
       newApp.setAttribute('id', 'app');
       body.appendChild(newApp); 
     `;
-    const filePath = path.join(this.siteAssetsDestPath, 'js', 'initAppNodeForPageVueRender.min.js');
+    const filePath = path.join(this.siteAssetsDestPath, 'js', 'initAppNode.page-vue-render.js');
     await fs.outputFile(filePath, output);
   }
 
