@@ -772,6 +772,11 @@ class Site {
       this.toRebuild.delete(normalizedUrl);
       try {
         await pageToRebuild.generate(this.externalManager);
+        /*
+          Have to re-create the pageVueRenderFnsScript in lazy loading, since a new page is built
+          and new render function for that page is generated.
+        */
+        await this.createPageVueRenderFnsScript();
         await this.writeSiteData();
         Site.calculateBuildTimeForRebuildPageBeingViewed(startTime);
       } catch (error) {
