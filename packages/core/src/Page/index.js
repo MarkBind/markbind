@@ -506,6 +506,11 @@ class Page {
 
     const pagePath = path.relative(this.pageConfig.rootPath, this.pageConfig.sourcePath);
     const pagePathWithoutExt = fsUtil.removeExtension(pagePath);
+    /*
+      Windows path uses backward slashes. But "window.location.pathname" on the browser uses
+      forward slashes like POSIX paths. We identify a page route on the browser by the POSIX
+      path, thus we have to ensure that the path we assign here is abides to POSIX.
+    */
     const posixPagePathWithoutExt = pagePathWithoutExt.split(path.sep).join(path.posix.sep);
     const posixPagePathWithHtmlExt = `/${posixPagePathWithoutExt}.html`;
 
