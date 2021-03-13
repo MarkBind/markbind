@@ -496,7 +496,7 @@ class Page {
     const pagePathWithoutExt = fsUtil.removeExtension(pagePath);
     // convert path to fileName by replacing the slash separators
     const fileNameWithoutExt = pagePathWithoutExt.split(path.sep).join('-');
-    const fileNameWithMinJsExt = `${fileNameWithoutExt}.min.js`;
+    const fileNameWithMinJsExt = `${fileNameWithoutExt}-pageVueRenderFns.min.js`;
     return fileNameWithMinJsExt;
   }
 
