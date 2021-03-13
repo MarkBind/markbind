@@ -506,14 +506,15 @@ class Page {
 
     const pagePath = path.relative(this.pageConfig.rootPath, this.pageConfig.sourcePath);
     const pagePathWithoutExt = fsUtil.removeExtension(pagePath);
-    const pagePathWithHtmlExt = `/${pagePathWithoutExt}.html`;
+    const posixPagePathWithoutExt = pagePathWithoutExt.split(path.sep).join(path.posix.sep);
+    const posixPagePathWithHtmlExt = `/${posixPagePathWithoutExt}.html`;
 
-    this.pageConfig.pageVueRenderFns[pagePathWithHtmlExt] = {
+    this.pageConfig.pageVueRenderFns[posixPagePathWithHtmlExt] = {
       render: compiled.render,
       staticRenderFns: compiled.staticRenderFns,
     };
 
-    if (pagePathWithHtmlExt === '/index.html') {
+    if (posixPagePathWithHtmlExt === '/index.html') {
       // '/' path implicitly points to '/index.html', so they should share the same render function
       this.pageConfig.pageVueRenderFns['/'] = {
         render: compiled.render,
