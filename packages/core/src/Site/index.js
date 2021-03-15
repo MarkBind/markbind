@@ -270,9 +270,6 @@ class Site {
                                    path.join(this.siteAssetsDestPath, 'css', 'markbind.min.css')),
         markBindJs: path.relative(path.dirname(resultPath),
                                   path.join(this.siteAssetsDestPath, 'js', 'markbind.min.js')),
-        initAppNodeForPageVueRenderJs: path.relative(path.dirname(resultPath),
-                                                     path.join(this.siteAssetsDestPath, 'js',
-                                                               'initAppNode.page-vue-render.js')),
         pageNavCss: path.relative(path.dirname(resultPath),
                                   path.join(this.siteAssetsDestPath, 'css', 'page-nav.css')),
         siteNavCss: path.relative(path.dirname(resultPath),
@@ -613,33 +610,11 @@ class Site {
       await this.copyBootswatchTheme();
       await this.copyFontAwesomeAsset();
       await this.copyOcticonsAsset();
-      await this.createInitAppNodeForPageVueRenderScript();
       await this.writeSiteData();
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
-  }
-
-  /*
-   * Creates the script that will clear the existing page content by deleting the #app node
-   * which holds all the page content, and then creating a fresh #app node (without any content)
-   * to allow Vue to mount and invoke the appropriate render function (which was created when we
-   * pre-compiled the page into Vue application) for the page route and generate the view.
-   *
-   * The reason why we are retaining the page content even though we have pre-compiled it into
-   * render function is because we need to retain the DOM structure for snapshot testing purposes.
-   */
-  async createInitAppNodeForPageVueRenderScript() {
-    const output = `
-      var body = document.querySelector('body');
-      body.innerHTML = '';
-      var newApp = document.createElement('div');
-      newApp.setAttribute('id', 'app');
-      body.appendChild(newApp); 
-    `;
-    const filePath = path.join(this.siteAssetsDestPath, 'js', 'initAppNode.page-vue-render.js');
-    await fs.outputFile(filePath, output);
   }
 
   /**
