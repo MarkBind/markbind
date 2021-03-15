@@ -827,9 +827,6 @@ class Site {
     // Get pages with edited attributes but with the same src
     const editedPages = _.differenceWith(this.addressablePages, oldAddressablePages, (newPage, oldPage) => {
       if (!_.isEqual(newPage, oldPage)) {
-        if (newPage.glob) {
-          return !oldPagesSrc.includes(newPage.glob);
-        }
         return !oldPagesSrc.includes(newPage.src);
       }
       return true;
