@@ -681,7 +681,6 @@ class NodeProcessor {
   /*
    * API
    */
-
   processNode(node, context) {
     try {
       NodeProcessor.transformOldSlotSyntax(node);
