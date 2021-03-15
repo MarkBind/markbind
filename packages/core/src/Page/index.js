@@ -470,11 +470,8 @@ class Page {
       ...layoutManager.getLayoutPageNjkAssets(this.layout),
     };
 
-    const pageVueRenderFnsScriptFileName = this.getPageVueRenderFnsScriptFileName();
-    // Add the script file path for this page's render function to the page's assets (to populate page.njk)
-    this.asset.pageVueRenderFnsJs = this.getPageVueRenderFnsScriptFilePath(pageVueRenderFnsScriptFileName);
     // Compile the page into Vue application and outputs the render function into script for browser
-    await this.compileVuePageAndCreateScript(content, pageVueRenderFnsScriptFileName);
+    await this.compileVuePageAndCreateScript(content);
 
     const renderedTemplate = this.pageConfig.template.render(
       this.prepareTemplateData(content, !!pageNav)); // page.njk
@@ -491,28 +488,13 @@ class Page {
     this.collectHeadingsAndKeywords(pageContent);
   }
 
-  getPageVueRenderFnsScriptFileName() {
-    const pagePath = path.relative(this.pageConfig.rootPath, this.pageConfig.sourcePath);
-    const pagePathWithoutExt = fsUtil.removeExtension(pagePath);
-    // convert path to fileName by replacing the slash separators
-    const fileNameWithoutExt = pagePathWithoutExt.split(path.sep).join('-');
-    const fileNameWithExt = `${fileNameWithoutExt}.page-vue-render.js`;
-    return fileNameWithExt;
-  }
-
-  getPageVueRenderFnsScriptFilePath(pageVueRenderFnsScriptFileName) {
-    return path.relative(path.dirname(this.pageConfig.resultPath),
-                         path.join(this.pageConfig.siteAssetsDestPath, 'js',
-                                   pageVueRenderFnsScriptFileName));
-  }
-
   /**
    * Compiles page into Vue Application to get the page render function and places
    * it into a script so that the browser can retrieve the page render function to
    * render the page.
    *
    * This is to avoid the overhead of compiling the page into Vue application
-   * on the client's browser (resolves FOUC).
+   * on the client's browser (alleviates FOUC).
    *
    * By pre-compiling the page, we can get the Vue render function for the page
    * and add it to a script. Thus, during Vue mounting in client's browser,
@@ -521,16 +503,30 @@ class Page {
    *
    * @param content Page content to be compiled into Vue app
    */
-  async compileVuePageAndCreateScript(content, pageVueRenderFnsScriptFileName) {
+  async compileVuePageAndCreateScript(content) {
+    // Compile Vue Page
     const compiled = VueCompiler.compile(`<div id="app">${content}</div>`);
     const pageVueRenderFns = {
       render: compiled.render,
       staticRenderFns: compiled.staticRenderFns,
     };
+    const outputContent = `var pageVueRenderFns = ${JSON.stringify(pageVueRenderFns)};`;
 
-    const output = `var pageVueRenderFns = ${JSON.stringify(pageVueRenderFns)};`;
-    const filePath = path.join(this.pageConfig.siteAssetsDestPath, 'js', pageVueRenderFnsScriptFileName);
-    await fs.outputFile(filePath, output);
+    // Get script file name
+    const pageHtmlFileName = path.posix.basename(this.pageConfig.resultPath, '.html');
+    const scriptFileName = `${pageHtmlFileName}-vue-render.js`;
+
+    /*
+     * Add the script file path for this page's render function to the page's assets (to populate page.njk).
+     * The script file path is the same as the page's file path.
+     */
+    this.asset.pageVueRenderFnsJs = scriptFileName;
+
+    // Get script's absolute file path to output script file
+    const dirName = path.dirname(this.pageConfig.resultPath);
+    const filePath = path.join(dirName, scriptFileName);
+
+    await fs.outputFile(filePath, outputContent);
   }
 
   static addScrollToTopButton(pageData) {
