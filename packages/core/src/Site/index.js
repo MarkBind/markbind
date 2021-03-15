@@ -839,8 +839,10 @@ class Site {
     const isNewPage = (newPage, oldPage) => _.isEqual(newPage, oldPage) || newPage.src === oldPage.src;
 
     const addedPages = _.differenceWith(this.addressablePages, oldAddressablePages, isNewPage);
-    const removedPages = _.differenceWith(oldAddressablePages, this.addressablePages, isNewPage);
+    const removedPages = _.differenceWith(oldAddressablePages, this.addressablePages, isNewPage)
+      .map(filePath => Site.setExtension(filePath.src, '.html'));
     if (!_.isEmpty(addedPages) || !_.isEmpty(removedPages)) {
+      await this.removeAsset(removedPages);
       await this.rebuildSourceFiles();
       await this.writeSiteData();
     } else {
