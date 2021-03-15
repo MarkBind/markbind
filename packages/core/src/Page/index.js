@@ -511,13 +511,13 @@ class Page {
 
     // Get script file name
     const pageHtmlFileName = path.posix.basename(this.pageConfig.resultPath, '.html');
-    const scriptFileName = `${pageHtmlFileName}-vue-render.js`;
+    const scriptFileName = `${pageHtmlFileName}.page-vue-render.js`;
 
     /*
      * Add the script file path for this page's render function to the page's assets (to populate page.njk).
      * The script file path is the same as the page's file path.
      */
-    this.asset.pageVueRenderFnsJs = scriptFileName;
+    this.asset.pageVueRenderJs = scriptFileName;
 
     // Get script's absolute file path to output script file
     const dirName = path.dirname(this.pageConfig.resultPath);

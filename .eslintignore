@@ -1,5 +1,5 @@
 *.min.*
-*-vue-render.js
+*.page-vue-render.js
 node_modules
 packages/core/src/lib/markdown-it/patches/*
 packages/core/src/lib/markdown-it/plugins/*
