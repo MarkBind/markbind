@@ -172,12 +172,6 @@ footer {
     }
 }
 
-/* Before 'style-bypass-vue' is changed back into 'style' tag, we have to prevent it from rendering */
-/* stylelint-disable selector-type-no-unknown */
-style-bypass-vue-compilation {
-    display: none;
-}
-
 /* Temporary Anti-FOUC Styles */
 
 /* By default, some of MarkBind's Vue components break the layout of the page before Vue is mounted,
@@ -192,6 +186,12 @@ so we apply temporary styles to fix the layout until Vue correctly updates the D
 }
 
 .temp-dropdown {
+    display: none;
+}
+
+/* Before 'style-bypass-vue' is changed back into 'style' tag, we have to prevent it from rendering */
+/* stylelint-disable-next-line selector-type-no-unknown */
+style-bypass-vue-compilation {
     display: none;
 }
 
