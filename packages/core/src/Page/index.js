@@ -510,7 +510,7 @@ class Page {
     `;
 
     // Get script file name
-    const pageHtmlFileName = path.posix.basename(this.pageConfig.resultPath, '.html');
+    const pageHtmlFileName = path.basename(this.pageConfig.resultPath, '.html');
     const scriptFileName = `${pageHtmlFileName}.page-vue-render.js`;
 
     /*
