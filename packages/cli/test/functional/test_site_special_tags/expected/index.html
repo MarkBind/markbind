@@ -17,7 +17,7 @@
   <script src="markbind/js/polyfill.min.js"></script>
   <script src="markbind/js/vue.min.js"></script>
   <script src="markbind/js/markbind.min.js"></script>
-  <script src="markbind/js/index.page-vue-render.js"></script>
+  <script src="index-vue-render.js"></script>
   <script src="markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
 </head>
@@ -27,7 +27,6 @@
 
 <body>
   <div id="app">
-    <script src="markbind/js/initAppNode.page-vue-render.js"></script>
     <p>
     <h1 id="functional-test-for-htmlparser2-and-markdown-it-patches-for-special-tags"><span id="functional-test-for-htmlparser2-and-markdown-it-patches-for-special-tags" class="anchor"></span>Functional test for htmlparser2 and markdown-it patches for special tags<a class="fa fa-anchor" href="#functional-test-for-htmlparser2-and-markdown-it-patches-for-special-tags" onclick="event.stopPropagation()"></a></h1>
     <h2 id="so-far-as-to-comply-with-the-commonmark-spec"><span id="so-far-as-to-comply-with-the-commonmark-spec" class="anchor"></span>So far as to comply with the commonmark spec<a class="fa fa-anchor" href="#so-far-as-to-comply-with-the-commonmark-spec" onclick="event.stopPropagation()"></a></h2>
@@ -41,7 +40,7 @@
     </script>
     <hr>
     <p>There should be no text between this and the next <code class="hljs inline no-lang" v-pre>&lt;hr&gt;</code> tag in the browser, since it is a <code class="hljs inline no-lang" v-pre>&lt;style&gt;</code> tag.</p>
-    <style>
+    <style type="text/css">
       .bigger-text {
         font-size: 10em;
       }
