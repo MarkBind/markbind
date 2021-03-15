@@ -851,7 +851,7 @@ class Site {
   }
 
   /**
-   * Updates the pageConfig of the pages that have been edited
+   * Creates new pages and replaces the original pages with the updated version
    */
   updatePages(pagesToUpdate) {
     pagesToUpdate.forEach((pageToUpdate) => {
