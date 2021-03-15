@@ -505,12 +505,11 @@ class Page {
    */
   async compileVuePageAndCreateScript(content) {
     // Compile Vue Page
-    const compiled = VueCompiler.compile(`<div id="app">${content}</div>`);
-    const pageVueRenderFns = {
-      render: compiled.render,
-      staticRenderFns: compiled.staticRenderFns,
-    };
-    const outputContent = `var pageVueRenderFns = ${JSON.stringify(pageVueRenderFns)};`;
+    const compiled = VueCompiler.compileToFunctions(`<div id="app">${content}</div>`);
+    const outputContent = `
+      var pageVueRenderFn = ${compiled.render};
+      var pageVueStaticRenderFns = [${compiled.staticRenderFns}];
+    `;
 
     // Get script file name
     const pageHtmlFileName = path.posix.basename(this.pageConfig.resultPath, '.html');

@@ -155,23 +155,15 @@ window.handleSiteNavClick = function (elem, useAnchor = true) {
 };
 
 function setup() {
-  // eslint-disable-next-line no-undef
-  const renderString = pageVueRenderFns.render; // pageVueRenderFns exists in another script
-  // eslint-disable-next-line no-new-func
-  const renderFn = new Function(renderString);
-
-  // eslint-disable-next-line no-undef
-  const staticRenderFnsStrings = pageVueRenderFns.staticRenderFns;
-  // eslint-disable-next-line no-new-func
-  const staticRenderFns = staticRenderFnsStrings.map(fnString => new Function(fnString));
-
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
     el: '#app',
     render(createElement) {
-      return renderFn.call(this, createElement);
+      // eslint-disable-next-line no-undef
+      return pageVueRenderFn.call(this, createElement); // pageVueRenderFn exists in another script
     },
-    staticRenderFns,
+    // eslint-disable-next-line no-undef
+    staticRenderFns: pageVueStaticRenderFns, // pageVueStaticRenderFns exists in another script
     mounted() {
       executeAfterMountedRoutines();
     },
@@ -179,23 +171,15 @@ function setup() {
 }
 
 function setupWithSearch() {
-  // eslint-disable-next-line no-undef
-  const renderString = pageVueRenderFns.render; // pageVueRenderFns exists in another script
-  // eslint-disable-next-line no-new-func
-  const renderFn = new Function(renderString);
-
-  // eslint-disable-next-line no-undef
-  const staticRenderFnsStrings = pageVueRenderFns.staticRenderFns;
-  // eslint-disable-next-line no-new-func
-  const staticRenderFns = staticRenderFnsStrings.map(fnString => new Function(fnString));
-
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
     el: '#app',
     render(createElement) {
-      return renderFn.call(this, createElement);
+      // eslint-disable-next-line no-undef
+      return pageVueRenderFn.call(this, createElement); // pageVueRenderFn exists in another script
     },
-    staticRenderFns,
+    // eslint-disable-next-line no-undef
+    staticRenderFns: pageVueStaticRenderFns, // pageVueStaticRenderFns exists in another script
     data() {
       return {
         searchData: [],
