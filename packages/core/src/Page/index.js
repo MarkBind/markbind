@@ -10,8 +10,6 @@ _.isString = require('lodash/isString');
 _.isObject = require('lodash/isObject');
 _.isArray = require('lodash/isArray');
 
-const fsUtil = require('../utils/fsUtil');
-
 const { CyclicReferenceError } = require('../errors');
 const { PageSources } = require('./PageSources');
 const { NodeProcessor } = require('../html/NodeProcessor');
