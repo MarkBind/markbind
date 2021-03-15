@@ -311,7 +311,6 @@ class Site {
       addressablePagesSource: this.addressablePagesSource,
       layoutManager: this.layoutManager,
       intrasiteLinkValidation: this.siteConfig.intrasiteLinkValidation,
-      siteAssetsDestPath: this.siteAssetsDestPath,
     });
     return new Page(pageConfig);
   }

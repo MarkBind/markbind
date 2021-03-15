@@ -122,10 +122,6 @@ class PageConfig {
      * @type {boolean}
      */
     this.intrasiteLinkValidation = args.intrasiteLinkValidation;
-    /**
-     * @type {string}
-     */
-    this.siteAssetsDestPath = args.siteAssetsDestPath;
   }
 }
 
