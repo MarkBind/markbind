@@ -670,12 +670,27 @@ class NodeProcessor {
    * Adds attribute "type=application/javascript" to script tag.
    *
    * This is necessary because we are pre-compiling each page as a Vue application,
-   * where the Vue compilation ignores and discards the script tag.
+   * where the Vue compilation ignores and discards the <script> tag.
    *
    * By having this attribute, the compilation will ignore the script tag but not discard it.
    */
-  static processScriptNode(node) {
+  static processScriptTag(node) {
     node.attribs.type = 'application/javascript';
+  }
+
+  /*
+   * Changes <style> tags to <style-bypass-vue-compilation> tags.
+   *
+   * This is necessary because we are pre-compiling each page as a Vue application,
+   * where the Vue compilation ignores and discards the <style> tag.
+   *
+   * We work around it by changing the 'style' tag name to the placeholder name
+   * 'style-bypass-vue-compilation' for Vue compilation (so that the element is not
+   * discarded). We will change it back to 'style' tag name after Vue compilation and
+   * after the element is created by Vue.
+   */
+  static processStyleTag(node) {
+    node.name = 'style-bypass-vue-compilation';
   }
 
   /*
@@ -745,7 +760,10 @@ class NodeProcessor {
         this._processMbTempFootnotes(node);
         break;
       case 'script':
-        NodeProcessor.processScriptNode(node);
+        NodeProcessor.processScriptTag(node);
+        break;
+      case 'style':
+        NodeProcessor.processStyleTag(node);
         break;
       default:
         break;

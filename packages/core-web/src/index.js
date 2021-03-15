@@ -134,8 +134,15 @@ function removeTemporaryStyles() {
   jQuery('.temp-dropdown-placeholder').remove();
 }
 
+// Changes 'style-bypass-vue-compilation' tags back into 'style' tags
+function restoreStyleTags() {
+  jQuery('style-bypass-vue-compilation')
+    .replaceWith(`<style>${jQuery('style-bypass-vue-compilation').html()}</style>`);
+}
+
 function executeAfterMountedRoutines() {
   removeTemporaryStyles(); // Vue render function is called after before-mount hook
+  restoreStyleTags();
   scrollToUrlAnchorHeading();
   detectAndApplyFixedHeaderStyles();
 }
