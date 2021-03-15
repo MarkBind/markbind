@@ -820,76 +820,57 @@ class Site {
   }
 
   async reloadSiteConfig() {
-    const oldSiteConfig = this.siteConfig;
-    const oldPagesSrc = oldSiteConfig.pages.slice().map(page => page.src);
+    const oldAddressablePages = this.addressablePages.slice();
+    const oldPagesSrc = oldAddressablePages.map(page => page.src);
     await this.readSiteConfig();
-    // Get pages with edited attributes but with the same src 
-    const editedPages = _.differenceWith(this.siteConfig.pages, oldSiteConfig.pages, function (newPage, oldPage) {
+    this.updateAddressablePages();
+    // Get pages with edited attributes but with the same src
+    const editedPages = _.differenceWith(this.addressablePages, oldAddressablePages, (newPage, oldPage) => {
       if (!_.isEqual(newPage, oldPage)) {
-        return !oldPagesSrc.includes(newPage.src); 
-      } else {
-        return true;
+        if (newPage.glob) {
+          return !oldPagesSrc.includes(newPage.glob);
+        }
+        return !oldPagesSrc.includes(newPage.src);
       }
+      return true;
     });
-    const addedPages = _.differenceWith(this.siteConfig.pages, oldSiteConfig.pages, this.isNewPage);
-    const removedPages = _.differenceWith(oldSiteConfig.pages, this.siteConfig.pages, this.isNewPage);
+
+    // Comparator for the _differenceWith comparison below
+    const isNewPage = (newPage, oldPage) => _.isEqual(newPage, oldPage) || newPage.src === oldPage.src;
+
+    const addedPages = _.differenceWith(this.addressablePages, oldAddressablePages, isNewPage);
+    const removedPages = _.differenceWith(oldAddressablePages, this.addressablePages, isNewPage);
     if (!_.isEmpty(addedPages) || !_.isEmpty(removedPages)) {
       await this.rebuildSourceFiles();
+      await this.writeSiteData();
     } else {
-      this.updateAddressablePages();
-      const editedGlob = editedPages.filter(page => page.glob);
-      if (editedGlob) {
-        this.updateGlobPages(editedGlob);
-      }
       this.updatePages(editedPages);
       const siteConfigDirectory = path.dirname(path.join(this.rootPath, this.siteConfigPath));
       this.rebuildAffectedSourceFiles(editedPages.map(page => path.join(siteConfigDirectory, page.src)));
     }
-    await this.writeSiteData();
   }
 
   /**
-   * Updates the pageConfig attributes of the pages that have been edited
+   * Updates the pageConfig of the pages that have been edited
    */
   updatePages(pagesToUpdate) {
-    pagesToUpdate.forEach(pageToUpdate => {
-      const pageAttributes = Object.keys(pageToUpdate);
-      this.pages.forEach(page => {
+    pagesToUpdate.forEach((pageToUpdate) => {
+      this.pages.forEach((page, index) => {
         if (page.pageConfig.src === pageToUpdate.src) {
-          pageAttributes.forEach(pageAttribute => {
-            if (!pageToUpdate.pageConfig[globAttribute]) {
-              return;
-            }
-            page.pageConfig[pageAttribute] = pageToUpdate[pageAttribute];
+          const newPage = this.createPage({
+            faviconUrl: this.getFavIconUrl(),
+            pageSrc: pageToUpdate.src,
+            title: pageToUpdate.title,
+            layout: pageToUpdate.layout,
+            frontmatter: pageToUpdate.frontmatter,
+            searchable: pageToUpdate.searchable !== 'no',
+            externalScripts: pageToUpdate.externalScripts,
           });
+          newPage.resetState();
+          this.pages[index] = newPage;
         }
       });
     });
-  }
-
-  /**
-   * Updates the pageConfig attributes of the pages with the new glob attributes
-   */
-  updateGlobPages(globToUpdate) {
-    const pagesToUpdate = this.pages.filter(page => {
-      return !this.addressablePages.some(addressablePage => addressablePage.src === page.pageConfig.src);
-    });
-    const globAttributes = Object.keys(globToUpdate)
-    pagesToUpdate.forEach(pageToUpdate => {
-      globAttributes.forEach(globAttribute => {
-        if (!pageToUpdate.pageConfig[globAttribute]) {
-          return;
-        }
-        pageToUpdate.pageConfig[globAttribute] = globToUpdate[globAttribute];
-      });
-    });
-  }
-
-  /**
-   * Helper function for reloadSiteConfig()
-   */
-  isNewPage(newPage, oldPage) {
-    return _.isEqual(newPage, oldPage) || newPage.src === oldPage.src;
   }
 
   /**
