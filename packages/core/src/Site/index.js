@@ -31,9 +31,11 @@ const {
 
 const _ = {};
 _.difference = require('lodash/difference');
+_.differenceWith = require('lodash/differenceWith');
 _.flatMap = require('lodash/flatMap');
 _.has = require('lodash/has');
 _.isBoolean = require('lodash/isBoolean');
+_.isEmpty = require('lodash/isEmpty');
 _.isEqual = require('lodash/isEqual');
 _.isUndefined = require('lodash/isUndefined');
 _.noop = require('lodash/noop');
@@ -819,11 +821,75 @@ class Site {
 
   async reloadSiteConfig() {
     const oldSiteConfig = this.siteConfig;
+    const oldPagesSrc = oldSiteConfig.pages.slice().map(page => page.src);
     await this.readSiteConfig();
-    if (!_.isEqual(oldSiteConfig.pages, this.siteConfig.pages)) {
+    // Get pages with edited attributes but with the same src 
+    const editedPages = _.differenceWith(this.siteConfig.pages, oldSiteConfig.pages, function (newPage, oldPage) {
+      if (!_.isEqual(newPage, oldPage)) {
+        return !oldPagesSrc.includes(newPage.src); 
+      } else {
+        return true;
+      }
+    });
+    const addedPages = _.differenceWith(this.siteConfig.pages, oldSiteConfig.pages, this.isNewPage);
+    const removedPages = _.differenceWith(oldSiteConfig.pages, this.siteConfig.pages, this.isNewPage);
+    if (!_.isEmpty(addedPages) || !_.isEmpty(removedPages)) {
       await this.rebuildSourceFiles();
-      await this.writeSiteData();
+    } else {
+      this.updateAddressablePages();
+      const editedGlob = editedPages.filter(page => page.glob);
+      if (editedGlob) {
+        this.updateGlobPages(editedGlob);
+      }
+      this.updatePages(editedPages);
+      const siteConfigDirectory = path.dirname(path.join(this.rootPath, this.siteConfigPath));
+      this.rebuildAffectedSourceFiles(editedPages.map(page => path.join(siteConfigDirectory, page.src)));
     }
+    await this.writeSiteData();
+  }
+
+  /**
+   * Updates the pageConfig attributes of the pages that have been edited
+   */
+  updatePages(pagesToUpdate) {
+    pagesToUpdate.forEach(pageToUpdate => {
+      const pageAttributes = Object.keys(pageToUpdate);
+      this.pages.forEach(page => {
+        if (page.pageConfig.src === pageToUpdate.src) {
+          pageAttributes.forEach(pageAttribute => {
+            if (!pageToUpdate.pageConfig[globAttribute]) {
+              return;
+            }
+            page.pageConfig[pageAttribute] = pageToUpdate[pageAttribute];
+          });
+        }
+      });
+    });
+  }
+
+  /**
+   * Updates the pageConfig attributes of the pages with the new glob attributes
+   */
+  updateGlobPages(globToUpdate) {
+    const pagesToUpdate = this.pages.filter(page => {
+      return !this.addressablePages.some(addressablePage => addressablePage.src === page.pageConfig.src);
+    });
+    const globAttributes = Object.keys(globToUpdate)
+    pagesToUpdate.forEach(pageToUpdate => {
+      globAttributes.forEach(globAttribute => {
+        if (!pageToUpdate.pageConfig[globAttribute]) {
+          return;
+        }
+        pageToUpdate.pageConfig[globAttribute] = globToUpdate[globAttribute];
+      });
+    });
+  }
+
+  /**
+   * Helper function for reloadSiteConfig()
+   */
+  isNewPage(newPage, oldPage) {
+    return _.isEqual(newPage, oldPage) || newPage.src === oldPage.src;
   }
 
   /**
@@ -948,7 +1014,6 @@ class Site {
 
     this._setTimestampVariable();
     this.mapAddressablePagesToPages(addressablePages, faviconUrl);
-
     return this.generatePagesThrottled(this.pages);
   }
 

@@ -154,7 +154,7 @@ program
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file change: ${filePath}`);
       Promise.resolve('').then(() => {
         if (filePath.replace(/^.*[\\/]/, '') === SITE_CONFIG_NAME) {
-          return site.reloadSiteConfig(filePath);
+          return site.reloadSiteConfig();
         }
         if (site.isDependencyOfPage(filePath)) {
           return site.rebuildAffectedSourceFiles(filePath);
