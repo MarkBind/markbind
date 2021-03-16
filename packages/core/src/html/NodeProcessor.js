@@ -51,7 +51,19 @@ class NodeProcessor {
 
     // Store footnotes of <include>s and the main content, then combine them at the end
     this.renderedFootnotes = [];
-    this.componentProcessor = new ComponentProcessor(NodeProcessor);
+    this.componentProcessor = new ComponentProcessor(this);
+  }
+
+  _renderMd(text) {
+    return md.render(text, this.docId
+      ? { docId: `${this.baseDocId}${this.docId}` }
+      : { docId: this.baseDocId });
+  }
+
+  _renderMdInline(text) {
+    return md.renderInline(text, this.docId
+      ? { docId: `${this.baseDocId}${this.docId}` }
+      : { docId: this.baseDocId });
   }
 
   static renderMd(text) {
@@ -515,8 +527,7 @@ class NodeProcessor {
       case 'include':
         this.docId += 1; // used in markdown-it-footnotes
         return processInclude(node, context, this.pageSources, this.variableProcessor,
-                              text => NodeProcessor.renderMd(text),
-                              text => NodeProcessor.renderMdInline(text),
+                              text => this._renderMd(text), text => this._renderMdInline(text),
                               this.config);
       case 'panel':
         this.componentProcessor.processPanelAttributes(node);
