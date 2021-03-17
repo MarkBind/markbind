@@ -1,3 +1,6 @@
+/* global pageVueRenderFn, pageVueStaticRenderFns */
+// pageVueRenderFn and pageVueStaticRenderFns exist in dynamically generated script by Page/index.js
+
 // eslint-disable-next-line import/no-extraneous-dependencies
 import MarkBindVue from '@markbind/vue-components/src';
 import initScrollTopButton from './scrollTopButton';
@@ -166,11 +169,9 @@ function setup() {
   const vm = new Vue({
     el: '#app',
     render(createElement) {
-      // eslint-disable-next-line no-undef
-      return pageVueRenderFn.call(this, createElement); // pageVueRenderFn exists in another script
+      return pageVueRenderFn.call(this, createElement);
     },
-    // eslint-disable-next-line no-undef
-    staticRenderFns: pageVueStaticRenderFns, // pageVueStaticRenderFns exists in another script
+    staticRenderFns: pageVueStaticRenderFns,
     mounted() {
       executeAfterMountedRoutines();
     },
@@ -182,11 +183,9 @@ function setupWithSearch() {
   const vm = new Vue({
     el: '#app',
     render(createElement) {
-      // eslint-disable-next-line no-undef
-      return pageVueRenderFn.call(this, createElement); // pageVueRenderFn exists in another script
+      return pageVueRenderFn.call(this, createElement);
     },
-    // eslint-disable-next-line no-undef
-    staticRenderFns: pageVueStaticRenderFns, // pageVueStaticRenderFns exists in another script
+    staticRenderFns: pageVueStaticRenderFns,
     data() {
       return {
         searchData: [],
