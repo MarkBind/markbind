@@ -55,7 +55,6 @@ const {
   LAZY_LOADING_SITE_FILE_NAME,
   LAZY_LOADING_BUILD_TIME_RECOMMENDATION_LIMIT,
   LAZY_LOADING_REBUILD_TIME_RECOMMENDATION_LIMIT,
-  LAZY_LOADING_RECENTLY_VIEWED_PAGES_LIMIT,
   MARKBIND_WEBSITE_URL,
   MAX_CONCURRENT_PAGE_GENERATION_PROMISES,
   PAGE_TEMPLATE_NAME,
@@ -145,7 +144,7 @@ class Site {
     this.currentPageViewed = onePagePath
       ? path.resolve(this.rootPath, FsUtil.removeExtension(onePagePath))
       : '';
-    this.recentlyViewedPages = onePagePath ? [this.currentPageViewed] : [];
+    this.currentOpenedPages = [];
     this.toRebuild = new Set();
   }
 
@@ -193,18 +192,10 @@ class Site {
   /**
    * Changes the site variable of the current page being viewed, building it if necessary.
    * @param normalizedUrl BaseUrl-less and extension-less url of the page
-   * @param shouldAddToRecentlyViewed Flag on whether the page should be added to recently viewed pages list
    * @return Boolean of whether the page needed to be rebuilt
    */
-  changeCurrentPage(normalizedUrl, shouldAddToRecentlyViewed) {
+  changeCurrentPage(normalizedUrl) {
     this.currentPageViewed = path.join(this.rootPath, normalizedUrl);
-    if (shouldAddToRecentlyViewed) {
-      this.addToRecentlyViewedPages(this.currentPageViewed);
-      logger.info('Recently viewed pages, from most-to-least recent:');
-      this.recentlyViewedPages.forEach((pagePath, idx) => {
-        logger.info(`${idx + 1}. ${utils.ensurePosix(path.relative(this.rootPath, pagePath))}`);
-      });
-    }
 
     if (this.toRebuild.has(this.currentPageViewed)) {
       this.beforeSiteGenerate();
@@ -216,21 +207,21 @@ class Site {
   }
 
   /**
-   * Adds the viewed page path to the front of the recently viewed pages array, while
-   * also maintaining the array to keep below its specified limit.
-   * If the viewed page is already in the array, moves it to the front.
-   * @param viewedPagePath The absolute path to the page, extension-less
+   * Changes the list of current opened pages
+   * @param {Array<string>} normalizedUrls Collection of normalized url of pages taken from the clients
+   * ordered from most-to-least recently opened
    */
-  addToRecentlyViewedPages(viewedPagePath) {
-    const idx = this.recentlyViewedPages.indexOf(viewedPagePath);
-    if (idx !== -1) {
-      this.recentlyViewedPages.splice(idx, 1);
-    }
-    this.recentlyViewedPages.unshift(viewedPagePath);
+  changeCurrentOpenedPages(normalizedUrls) {
+    const openedPages = normalizedUrls.map(normalizedUrl => path.join(this.rootPath, normalizedUrl));
+    this.currentOpenedPages = _.uniq(openedPages);
 
-    const sizeDiff = this.recentlyViewedPages.length - LAZY_LOADING_RECENTLY_VIEWED_PAGES_LIMIT;
-    if (sizeDiff > 0) {
-      this.recentlyViewedPages.splice(LAZY_LOADING_RECENTLY_VIEWED_PAGES_LIMIT, sizeDiff);
+    if (this.currentOpenedPages.length > 0) {
+      logger.info('Current opened pages, from most-to-least recent:');
+      this.currentOpenedPages.forEach((pagePath, idx) => {
+        logger.info(`${idx + 1}. ${utils.ensurePosix(path.relative(this.rootPath, pagePath))}`);
+      });
+    } else {
+      logger.info('No pages are currently opened');
     }
   }
 
@@ -1038,20 +1029,20 @@ class Site {
     }
     this._setTimestampVariable();
 
-    let recentPagesToRegenerate = [];
+    let openedPagesToRegenerate = [];
     const asyncPagesToRegenerate = this.pages.filter((page) => {
       const doFilePathsHaveSourceFiles = filePaths.some(filePath => page.isDependency(filePath));
 
       if (shouldRebuildAllPages || doFilePathsHaveSourceFiles) {
         if (this.onePagePath) {
           const normalizedSource = FsUtil.removeExtension(page.pageConfig.sourcePath);
-          const recentIdx = this.recentlyViewedPages.findIndex(pagePath => pagePath === normalizedSource);
-          const isRecentlyViewed = recentIdx !== -1;
+          const openIdx = this.currentOpenedPages.findIndex(pagePath => pagePath === normalizedSource);
+          const isRecentlyViewed = openIdx !== -1;
 
           if (!isRecentlyViewed) {
             this.toRebuild.add(normalizedSource);
           } else {
-            recentPagesToRegenerate[recentIdx] = page;
+            openedPagesToRegenerate[openIdx] = page;
           }
 
           return false;
@@ -1067,9 +1058,9 @@ class Site {
      * As a side effect of doing assignment to an empty array, some elements might be
      * undefined if it has not been assigned to anything. We filter those out here.
      */
-    recentPagesToRegenerate = recentPagesToRegenerate.filter(page => page);
+    openedPagesToRegenerate = openedPagesToRegenerate.filter(page => page);
 
-    const totalPagesToRegenerate = recentPagesToRegenerate.length + asyncPagesToRegenerate.length;
+    const totalPagesToRegenerate = openedPagesToRegenerate.length + asyncPagesToRegenerate.length;
     if (totalPagesToRegenerate === 0) {
       logger.info('No pages needed to be rebuilt');
       return;
@@ -1077,10 +1068,10 @@ class Site {
     logger.info(`Rebuilding ${totalPagesToRegenerate} pages`);
 
     const pageGenerationTasks = [];
-    if (recentPagesToRegenerate.length > 0) {
+    if (openedPagesToRegenerate.length > 0) {
       const recentPagesGenerationTask = {
         mode: 'sequential',
-        pages: recentPagesToRegenerate,
+        pages: openedPagesToRegenerate,
       };
       pageGenerationTasks.push(recentPagesGenerationTask);
     }

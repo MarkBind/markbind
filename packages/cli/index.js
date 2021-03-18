@@ -3,7 +3,6 @@
 // Entry file for Markbind project
 const chokidar = require('chokidar');
 const fs = require('fs-extra');
-const liveServer = require('live-server');
 const path = require('path');
 const program = require('commander');
 const Promise = require('bluebird');
@@ -18,9 +17,9 @@ const {
   INDEX_MARKDOWN_FILE,
   INDEX_MARKBIND_FILE,
   LAZY_LOADING_SITE_FILE_NAME,
-  LAZY_LOADING_TIME_SINCE_LAST_REQUEST_THRESHOLD,
 } = require('@markbind/core/src/Site/constants');
 
+const liveServer = require('./src/lib/live-server');
 const cliUtil = require('./src/util/cliUtil');
 const logger = require('./src/util/logger');
 
@@ -140,6 +139,9 @@ program
 
     const addHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
+      logger.info('Synchronizing opened pages list before reload');
+      const normalizedActiveUrls = liveServer.getActiveUrls().map(url => fsUtil.removeExtension(url));
+      site.changeCurrentOpenedPages(normalizedActiveUrls);
       Promise.resolve('').then(() => {
         if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
           return site.rebuildSourceFiles(filePath);
@@ -152,6 +154,9 @@ program
 
     const changeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file change: ${filePath}`);
+      logger.info('Synchronizing opened pages list before reload');
+      const normalizedActiveUrls = liveServer.getActiveUrls().map(url => fsUtil.removeExtension(url));
+      site.changeCurrentOpenedPages(normalizedActiveUrls);
       Promise.resolve('').then(() => {
         if (site.isDependencyOfPage(filePath)) {
           return site.rebuildAffectedSourceFiles(filePath);
@@ -164,6 +169,9 @@ program
 
     const removeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file deletion: ${filePath}`);
+      logger.info('Synchronizing opened pages list before reload');
+      const normalizedActiveUrls = liveServer.getActiveUrls().map(url => fsUtil.removeExtension(url));
+      site.changeCurrentOpenedPages(normalizedActiveUrls);
       Promise.resolve('').then(() => {
         if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
           return site.rebuildSourceFiles(filePath);
@@ -199,7 +207,6 @@ program
         }
 
         if (onePagePath) {
-          let prevRequestTime;
           const lazyReloadMiddleware = function (req, res, next) {
             const urlExtension = path.posix.extname(req.url);
 
@@ -210,23 +217,6 @@ program
             if (!isHtmlFileRequest || req.url.endsWith('._include_.html')) {
               next();
               return;
-            }
-
-            /*
-             * Due to the specifics of live-server, whenever pages are ,
-             * the server will reload all opened tabs, which causes a surge of page GET requests
-             * that can mess up the recently viewed pages list. This is a countermeasure of identifying
-             * whether a request is visited by user intent instead of live-server's reload spam or redirects.
-             */
-            let shouldAddToRecentlyViewed;
-            if (!prevRequestTime) {
-              shouldAddToRecentlyViewed = true;
-              prevRequestTime = new Date();
-            } else {
-              const requestTime = new Date();
-              const timeSinceLastReq = requestTime - prevRequestTime;
-              shouldAddToRecentlyViewed = timeSinceLastReq >= LAZY_LOADING_TIME_SINCE_LAST_REQUEST_THRESHOLD;
-              prevRequestTime = requestTime;
             }
 
             if (hasNoExtension && !hasEndingSlash) {
@@ -246,7 +236,16 @@ program
               : urlWithoutBaseUrl;
             const urlWithoutExtension = fsUtil.removeExtension(urlWithIndex);
 
-            const didInitiateRebuild = site.changeCurrentPage(urlWithoutExtension, shouldAddToRecentlyViewed);
+            res.on('close', () => {
+              if (!liveServer.isLiveReloadRequest(req.originalUrl)) {
+                logger.info(`Opening ${fsUtil.removeExtensionPosix(req.originalUrl)}`);
+                const normalizedActiveUrls = liveServer.getActiveUrls()
+                  .map(url => fsUtil.removeExtension(url));
+                site.changeCurrentOpenedPages(normalizedActiveUrls);
+              }
+            });
+
+            const didInitiateRebuild = site.changeCurrentPage(urlWithoutExtension);
             if (didInitiateRebuild) {
               req.url = utils.ensurePosix(path.join(config.baseUrl || '/', LAZY_LOADING_SITE_FILE_NAME));
             }

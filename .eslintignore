@@ -1,5 +1,8 @@
 *.min.*
 node_modules
+
+packages/cli/src/lib/live-server/*
+
 packages/core/src/lib/markdown-it/patches/*
 packages/core/src/lib/markdown-it/plugins/*
 !packages/core/src/lib/markdown-it/plugins/markdown-it-icons.js
