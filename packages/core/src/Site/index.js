@@ -918,9 +918,9 @@ class Site {
   }
 
   /**
-   * Creates and returns a new page with the given page config details and favicon url
-   * @param {*} page config
-   * @param {*} faviconUrl of the page
+   * Creates and returns a new Page with the given page config details and favicon url
+   * @param {Page} page config
+   * @param {String} faviconUrl of the page
    */
   createNewPage(page, faviconUrl) {
     return this.createPage({
