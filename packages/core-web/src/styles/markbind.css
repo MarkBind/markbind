@@ -189,12 +189,6 @@ so we apply temporary styles to fix the layout until Vue correctly updates the D
     display: none;
 }
 
-/* Before 'style-bypass-vue' is changed back into 'style' tag, we have to prevent it from rendering */
-/* stylelint-disable-next-line selector-type-no-unknown */
-style-bypass-vue-compilation {
-    display: none;
-}
-
 /* Hide the contents of unexpanded panels */
 /* stylelint-disable selector-type-no-unknown */
 panel:not([expanded]):not([minimized]) {
