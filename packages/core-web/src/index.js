@@ -137,10 +137,17 @@ function removeTemporaryStyles() {
   jQuery('.temp-dropdown-placeholder').remove();
 }
 
-// Changes 'style-bypass-vue-compilation' tags back into 'style' tags
+/*
+ * Changes every <script src defer type="application/javascript" style-bypass-vue-compilation>
+ * placeholder tags that was used to bypass Vue compilation back into original intended <style> tags.
+ */
 function restoreStyleTags() {
-  jQuery('style-bypass-vue-compilation')
-    .replaceWith(`<style>${jQuery('style-bypass-vue-compilation').html()}</style>`);
+  const tagsToRestore = document.querySelectorAll('script[style-bypass-vue-compilation]');
+  tagsToRestore.forEach((oldScriptTag) => {
+    const restoredStyleTag = document.createElement('style');
+    restoredStyleTag.innerHTML = oldScriptTag.innerHTML;
+    oldScriptTag.parentNode.replaceChild(restoredStyleTag, oldScriptTag);
+  });
 }
 
 function executeAfterMountedRoutines() {
