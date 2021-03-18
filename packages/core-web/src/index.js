@@ -1,4 +1,4 @@
-/* global pageVueRenderFn, pageVueStaticRenderFns */
+/* global pageVueRenderFn:readonly, pageVueStaticRenderFns:readonly */
 // pageVueRenderFn and pageVueStaticRenderFns exist in dynamically generated script by Page/index.js
 
 // eslint-disable-next-line import/no-extraneous-dependencies
