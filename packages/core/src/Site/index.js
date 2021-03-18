@@ -823,7 +823,7 @@ class Site {
     const oldAddressablePages = this.addressablePages.slice();
     const oldPagesSrc = oldAddressablePages.map(page => page.src);
     await this.readSiteConfig();
-    this.updateAddressablePages();
+    this.collectAddressablePages();
     // Get pages with edited attributes but with the same src
     const editedPages = _.differenceWith(this.addressablePages, oldAddressablePages, (newPage, oldPage) => {
       if (!_.isEqual(newPage, oldPage)) {
@@ -840,12 +840,12 @@ class Site {
       .map(filePath => Site.setExtension(filePath.src, '.html'));
     if (!_.isEmpty(addedPages) || !_.isEmpty(removedPages)) {
       await this.removeAsset(removedPages);
-      await this.rebuildSourceFiles();
+      await this._rebuildSourceFiles();
       await this.writeSiteData();
     } else {
       this.updatePages(editedPages);
       const siteConfigDirectory = path.dirname(path.join(this.rootPath, this.siteConfigPath));
-      this.rebuildAffectedSourceFiles(editedPages.map(page => path.join(siteConfigDirectory, page.src)));
+      this.regenerateAffectedPages(editedPages.map(page => path.join(siteConfigDirectory, page.src)));
     }
   }
 
@@ -856,15 +856,7 @@ class Site {
     pagesToUpdate.forEach((pageToUpdate) => {
       this.pages.forEach((page, index) => {
         if (page.pageConfig.src === pageToUpdate.src) {
-          const newPage = this.createPage({
-            faviconUrl: this.getFavIconUrl(),
-            pageSrc: pageToUpdate.src,
-            title: pageToUpdate.title,
-            layout: pageToUpdate.layout,
-            frontmatter: pageToUpdate.frontmatter,
-            searchable: pageToUpdate.searchable !== 'no',
-            externalScripts: pageToUpdate.externalScripts,
-          });
+          const newPage = this.createNewPage(pageToUpdate, this.getFavIconUrl());
           newPage.resetState();
           this.pages[index] = newPage;
         }
@@ -922,7 +914,16 @@ class Site {
    * @param {String} faviconUrl
    */
   mapAddressablePagesToPages(addressablePages, faviconUrl) {
-    this.pages = addressablePages.map(page => this.createPage({
+    this.pages = addressablePages.map(page => this.createNewPage(page, faviconUrl));
+  }
+
+  /**
+   * Creates and returns a new page with the given page config details and favicon url
+   * @param {*} page config
+   * @param {*} faviconUrl of the page
+   */
+  createNewPage(page, faviconUrl) {
+    return this.createPage({
       faviconUrl,
       pageSrc: page.src,
       title: page.title,
@@ -930,7 +931,7 @@ class Site {
       frontmatter: page.frontmatter,
       searchable: page.searchable !== 'no',
       externalScripts: page.externalScripts,
-    }));
+    });
   }
 
   /**
