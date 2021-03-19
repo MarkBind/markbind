@@ -33,18 +33,20 @@
     <p>There should be no text between this and the next <code class="hljs inline no-lang" v-pre>&lt;hr&gt;</code> tag in the browser, since it is a <code class="hljs inline no-lang" v-pre>&lt;script&gt;</code> tag.<br>
       There should be an alert with the value of 2 as well.</p>
     <script type="application/javascript">
-      let x = 1;
+let x = 1;
 
-      x += 1;
-      alert(x);
-    </script>
+x += 1;
+alert(x);
+</script>
     <hr>
     <p>There should be no text between this and the next <code class="hljs inline no-lang" v-pre>&lt;hr&gt;</code> tag in the browser, since it is a <code class="hljs inline no-lang" v-pre>&lt;style&gt;</code> tag.</p>
     <script src defer type="application/javascript" style-bypass-vue-compilation>
-      .bigger - text {
-        font - size: 10 em;
-      }
-    </script>
+
+.bigger-text {
+  font-size: 10em;
+}
+
+</script>
     <hr>
     <p>There should be text between this and the next <code class="hljs inline no-lang" v-pre>&lt;hr&gt;</code> tag, since it is a special tag.
       All text should appear in the browser window as a single line,
