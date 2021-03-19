@@ -144,8 +144,16 @@ function removeTemporaryStyles() {
 function restoreStyleTags() {
   const tagsToRestore = document.querySelectorAll('script[style-bypass-vue-compilation]');
   tagsToRestore.forEach((oldScriptTag) => {
+    // Remove jsBeautify ignore directive that we added to prevent the content from being beautified as js
+    let content = oldScriptTag.innerHTML;
+    const beautifyIgnoreStart = '/* beautify ignore:start */';
+    const beautifyIgnoreEnd = '/* beautify ignore:end */';
+    const beautifyIgnoreStartIdx = content.indexOf(beautifyIgnoreStart);
+    const beautifyIgnoreEndIdx = content.lastIndexOf(beautifyIgnoreEnd);
+    content = content.substring(beautifyIgnoreStartIdx + beautifyIgnoreStart.length, beautifyIgnoreEndIdx);
+
     const restoredStyleTag = document.createElement('style');
-    restoredStyleTag.innerHTML = oldScriptTag.innerHTML;
+    restoredStyleTag.innerHTML = content;
     oldScriptTag.parentNode.replaceChild(restoredStyleTag, oldScriptTag);
   });
 }
