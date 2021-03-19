@@ -2,7 +2,6 @@ const cheerio = require('cheerio');
 const htmlparser = require('htmlparser2'); require('../patches/htmlparser2');
 const fm = require('fastmatter');
 const Promise = require('bluebird');
-const slugify = require('@sindresorhus/slugify');
 
 const _ = {};
 _.isArray = require('lodash/isArray');
@@ -16,13 +15,16 @@ const { Context } = require('./Context');
 const linkProcessor = require('./linkProcessor');
 const { insertTemporaryStyles } = require('./tempStyleProcessor');
 const { highlightCodeBlock } = require('./codeblockProcessor');
+const { setHeadingId } = require('./headerProcessor');
+const { MarkdownRenderer } = require('./MarkdownRenderer');
+const { FootnoteProcessor } = require('./FootnoteProcessor');
+const { BootstrapVueProcessor } = require('./BootstrapVueProcessor');
+const { ComponentProcessor } = require('./ComponentProcessor');
 
-const md = require('../lib/markdown-it');
 const utils = require('../utils');
 const logger = require('../utils/logger');
 
 const { FRONT_MATTER_FENCE } = require('../Page/constants');
-const { MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX } = require('./constants');
 
 const {
   ATTRIB_CWF,
@@ -33,7 +35,6 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 class NodeProcessor {
   constructor(config, pageSources, variableProcessor, pluginManager, docId = '') {
     this.config = config;
-
     this.frontMatter = {};
 
     this.headTop = [];
@@ -44,24 +45,10 @@ class NodeProcessor {
     this.variableProcessor = variableProcessor;
     this.pluginManager = pluginManager;
 
-    // markdown-it-footnotes state
-    this.baseDocId = docId; // encapsulates footnotes in externals (<panel src="...">)
-    this.docId = 0; // encapsulates footnotes in <include>s
-
-    // Store footnotes of <include>s and the main content, then combine them at the end
-    this.renderedFootnotes = [];
-  }
-
-  _renderMd(text) {
-    return md.render(text, this.docId
-      ? { docId: `${this.baseDocId}${this.docId}` }
-      : { docId: this.baseDocId });
-  }
-
-  _renderMdInline(text) {
-    return md.renderInline(text, this.docId
-      ? { docId: `${this.baseDocId}${this.docId}` }
-      : { docId: this.baseDocId });
+    this.markdownRenderer = new MarkdownRenderer(docId);
+    this.footnoteProcessor = new FootnoteProcessor();
+    this.bootstrapVueProcessor = new BootstrapVueProcessor(this);
+    this.componentProcessor = new ComponentProcessor(this);
   }
 
   /*
@@ -119,9 +106,9 @@ class NodeProcessor {
     if (!hasAttributeSlot && _.has(node.attribs, attribute)) {
       let rendered;
       if (isInline) {
-        rendered = this._renderMdInline(node.attribs[attribute]);
+        rendered = this.markdownRenderer.renderMdInline(node.attribs[attribute]);
       } else {
-        rendered = this._renderMd(node.attribs[attribute]);
+        rendered = this.markdownRenderer.renderMd(node.attribs[attribute]);
       }
 
       const attributeSlotElement = cheerio.parseHTML(
@@ -176,68 +163,6 @@ class NodeProcessor {
     cheerio(node).remove();
   }
 
-  /*
-   * Panels
-   */
-
-  _processPanelAttributes(node) {
-    this._processAttributeWithoutOverride(node, 'alt', false, '_alt');
-    this._processAttributeWithoutOverride(node, 'header', false);
-  }
-
-  /**
-   * Traverses the dom breadth-first from the specified element to find a html heading child.
-   * @param node Root element to search from
-   * @returns {undefined|*} The header element, or undefined if none is found.
-   */
-  static _findHeaderElement(node) {
-    const elements = node.children;
-    if (!elements || !elements.length) {
-      return undefined;
-    }
-
-    const elementQueue = elements.slice(0);
-    while (elementQueue.length) {
-      const nextEl = elementQueue.shift();
-      if ((/^h[1-6]$/).test(nextEl.name)) {
-        return nextEl;
-      }
-
-      if (nextEl.children) {
-        nextEl.children.forEach(child => elementQueue.push(child));
-      }
-    }
-
-    return undefined;
-  }
-
-  /**
-   * Assigns an id to the root element of a panel component using the heading specified in the
-   * panel's header slot or attribute (if any), with the header slot having priority if present.
-   * This is to ensure anchors still work when panels are in their minimized form.
-   * @param node The root panel element
-   */
-  static _assignPanelId(node) {
-    const slotChildren = node.children
-      && node.children.filter(child => NodeProcessor.getVslotShorthandName(child) !== '');
-
-    const headerSlot = slotChildren.find(child => NodeProcessor.getVslotShorthandName(child) === 'header');
-
-    if (headerSlot) {
-      const header = NodeProcessor._findHeaderElement(headerSlot);
-      if (!header) {
-        return;
-      }
-
-      if (!header.attribs || !_.has(header.attribs, 'id')) {
-        throw new Error('Found a panel heading without an assigned id.\n'
-          + 'Please report this to the MarkBind developers. Thank you!');
-      }
-
-      node.attribs.id = header.attribs.id;
-    }
-  }
-
   /**
    * Check and warns if element has conflicting attributes.
    * Note that attirbutes in `attrsConflictingWith` are not in conflict with each other,
@@ -273,69 +198,6 @@ class NodeProcessor {
       });
   }
 
-  /*
-   * Questions, QOption, and Quizzes
-   */
-
-  _processQuestion(node) {
-    this._processAttributeWithoutOverride(node, 'header', false, 'header');
-    this._processAttributeWithoutOverride(node, 'hint', false, 'hint');
-    this._processAttributeWithoutOverride(node, 'answer', false, 'answer');
-  }
-
-  _processQOption(node) {
-    this._processAttributeWithoutOverride(node, 'reason', false, 'reason');
-  }
-
-  _processQuiz(node) {
-    this._processAttributeWithoutOverride(node, 'intro', false, 'intro');
-  }
-
-  /*
-   * Popovers, tooltips, modals, triggers
-   *
-   * We use bootstrap-vue's popovers, tooltips and modals, but perform various transformations
-   * to conform with our syntax instead, and to support triggers.
-   *
-   * For tooltips and popovers,
-   * The content / title is put into hidden [data-mb-slot-name] slots.
-   * Then, we call the relevant content getters inside core-web/index.js at runtime to get this content.
-   *
-   * For modals,
-   * only syntactic transformations are performed.
-   *
-   * For triggers,
-   * When building the site, we can't immediately tell whether a trigger references
-   * a modal, popover, or tooltip, as the element may not have been processed yet.
-   *
-   * So, we make every trigger try all 3 at runtime in the browser. (refer to Trigger.vue)
-   * It will attempt to open a modal, then a tooltip or popover.
-   * For modals, we simply attempt to show the modal via bootstrap-vue's programmatic api.
-   * The content of tooltips and popovers is retrieved from the [data-mb-slot-name] slots,
-   * then the <b-popover/tooltip> component is dynamically created appropriately.
-   */
-
-  static addTriggerClass(node, trigger) {
-    const triggerClass = trigger === 'click' ? 'trigger-click' : 'trigger';
-    node.attribs.class = node.attribs.class ? `${node.attribs.class} ${triggerClass}` : triggerClass;
-  }
-
-  _processPopover(node) {
-    NodeProcessor._warnDeprecatedAttributes(node, { title: 'header' });
-
-    this._processAttributeWithoutOverride(node, 'content', true);
-    this._processAttributeWithoutOverride(node, 'header', true);
-    this._processAttributeWithoutOverride(node, 'title', true, 'header');
-
-    node.name = 'span';
-    const trigger = node.attribs.trigger || 'hover';
-    const placement = node.attribs.placement || 'top';
-    node.attribs['data-mb-component-type'] = 'popover';
-    node.attribs[`v-b-popover.${trigger}.${placement}.html`] = 'popoverInnerGetters';
-    NodeProcessor.addTriggerClass(node, trigger);
-    NodeProcessor._transformSlottedComponents(node);
-  }
-
   /**
    * Check and warns if element has a deprecated slot name
    * @param element Root element to check
@@ -361,222 +223,6 @@ class NodeProcessor {
     });
   }
 
-  _processTooltip(node) {
-    this._processAttributeWithoutOverride(node, 'content', true, '_content');
-
-    node.name = 'span';
-    const trigger = node.attribs.trigger || 'hover';
-    const placement = node.attribs.placement || 'top';
-    node.attribs['data-mb-component-type'] = 'tooltip';
-    node.attribs[`v-b-tooltip.${trigger}.${placement}.html`] = 'tooltipInnerContentGetter';
-    NodeProcessor.addTriggerClass(node, trigger);
-    NodeProcessor._transformSlottedComponents(node);
-  }
-
-  static _renameSlot(node, originalName, newName) {
-    if (node.children) {
-      node.children.forEach((child) => {
-        const vslotShorthandName = NodeProcessor.getVslotShorthandName(child);
-        if (vslotShorthandName && vslotShorthandName === originalName) {
-          const newVslot = `#${newName}`;
-          child.attribs[newVslot] = '';
-          delete child.attribs[`#${vslotShorthandName}`];
-        }
-      });
-    }
-  }
-
-  static _renameAttribute(node, originalAttribute, newAttribute) {
-    if (_.has(node.attribs, originalAttribute)) {
-      node.attribs[newAttribute] = node.attribs[originalAttribute];
-      delete node.attribs[originalAttribute];
-    }
-  }
-
-  _processModalAttributes(node) {
-    NodeProcessor._warnDeprecatedAttributes(node, { title: 'header' });
-    NodeProcessor._warnDeprecatedSlotNames(node, {
-      'modal-header': 'header',
-      'modal-footer': 'footer',
-    });
-
-    this._processAttributeWithoutOverride(node, 'header', true, 'modal-title');
-    this._processAttributeWithoutOverride(node, 'title', true, 'modal-title');
-
-    NodeProcessor._renameSlot(node, 'header', 'modal-header');
-    NodeProcessor._renameSlot(node, 'footer', 'modal-footer');
-
-    node.name = 'b-modal';
-
-    NodeProcessor._renameAttribute(node, 'ok-text', 'ok-title');
-    NodeProcessor._renameAttribute(node, 'center', 'centered');
-
-    const hasOkTitle = _.has(node.attribs, 'ok-title');
-    const hasFooter = node.children
-      .some(child => NodeProcessor.getVslotShorthandName(child) === 'modal-footer');
-
-    if (!hasFooter && !hasOkTitle) {
-      // markbind doesn't show the footer by default
-      node.attribs['hide-footer'] = '';
-    } else if (hasOkTitle) {
-      // bootstrap-vue default is to show ok and cancel
-      // if there's an ok-title, markbind only shows the OK button.
-      node.attribs['ok-only'] = '';
-    }
-
-    if (node.attribs.backdrop === 'false') {
-      node.attribs['no-close-on-backdrop'] = '';
-    }
-    delete node.attribs.backdrop;
-
-    let size = '';
-    if (_.has(node.attribs, 'large')) {
-      size = 'lg';
-      delete node.attribs.large;
-    } else if (_.has(node.attribs, 'small')) {
-      size = 'sm';
-      delete node.attribs.small;
-    }
-    node.attribs.size = size;
-
-    // default for markbind is zoom, default for bootstrap-vue is fade
-    const effect = node.attribs.effect === 'fade' ? '' : 'mb-zoom';
-    node.attribs['modal-class'] = effect;
-
-    if (_.has(node.attribs, 'id')) {
-      node.attribs.ref = node.attribs.id;
-    }
-  }
-
-  /*
-   * Tabs
-   */
-
-  _processTabAttributes(node) {
-    this._processAttributeWithoutOverride(node, 'header', true, 'header');
-  }
-
-  /*
-   * Tip boxes
-   */
-
-  _processBoxAttributes(node) {
-    NodeProcessor._warnConflictingAttributes(node, 'light', ['seamless']);
-    NodeProcessor._warnConflictingAttributes(node, 'no-background', ['background-color', 'seamless']);
-    NodeProcessor._warnConflictingAttributes(node, 'no-border',
-                                             ['border-color', 'border-left-color', 'seamless']);
-    NodeProcessor._warnConflictingAttributes(node, 'no-icon', ['icon']);
-    NodeProcessor._warnDeprecatedAttributes(node, { heading: 'header' });
-
-    this._processAttributeWithoutOverride(node, 'icon', true, 'icon');
-    this._processAttributeWithoutOverride(node, 'header', false, 'header');
-
-    this._processAttributeWithoutOverride(node, 'heading', false, 'header');
-  }
-
-  /*
-   * Dropdowns
-   */
-
-  _processDropdownAttributes(node) {
-    const hasHeaderSlot = node.children
-      && node.children.some(child => NodeProcessor.getVslotShorthandName(child) === 'header');
-
-    // If header slot is present, the header attribute has no effect, and we can simply remove it.
-    if (hasHeaderSlot) {
-      if (_.has(node.attribs, 'header')) {
-        logger.warn(`${node.name} has a header slot, 'header' attribute has no effect.`);
-      }
-      if (_.has(node.attribs, 'text')) {
-        logger.warn(`${node.name} has a header slot, 'text' attribute has no effect.`);
-      }
-      delete node.attribs.header;
-      delete node.attribs.text;
-      return;
-    }
-
-    NodeProcessor._warnDeprecatedAttributes(node, { text: 'header' });
-    NodeProcessor._warnConflictingAttributes(node, 'header', ['text']);
-    // header attribute takes priority over text attribute if both 'text' and 'header' is used
-    if (_.has(node.attribs, 'header')) {
-      this._processAttributeWithoutOverride(node, 'header', true, 'header');
-      delete node.attribs.text;
-    } else {
-      this._processAttributeWithoutOverride(node, 'text', true, 'header');
-    }
-  }
-
-  /**
-   * Thumbnails
-   */
-
-  _processThumbnailAttributes(node) {
-    const isImage = _.has(node.attribs, 'src') && node.attribs.src !== '';
-    if (isImage) {
-      return;
-    }
-
-    const text = _.has(node.attribs, 'text') ? node.attribs.text : '';
-    if (text === '') {
-      return;
-    }
-
-    const renderedText = this._renderMdInline(text);
-    node.children = cheerio.parseHTML(renderedText);
-    delete node.attribs.text;
-  }
-
-  /**
-   * Annotations are added automatically by KaTeX when rendering math formulae.
-   */
-
-  static _processAnnotationAttributes(node) {
-    if (!_.has(node.attribs, 'v-pre')) {
-      node.attribs['v-pre'] = true;
-    }
-  }
-
-  /*
-   * Footnotes of the main content and <include>s are stored, then combined by NodeProcessor at the end
-   */
-
-  _processMbTempFootnotes(node) {
-    const $ = cheerio(node);
-    this.renderedFootnotes.push($.html());
-    $.remove();
-  }
-
-  _combineFootnotes() {
-    let hasFootnote = false;
-    const prefix = '<hr class="footnotes-sep">\n<section class="footnotes">\n<ol class="footnotes-list">\n';
-
-    const footnotesWithPopovers = this.renderedFootnotes.map((footNoteBlock) => {
-      const $ = cheerio.load(footNoteBlock);
-      let popoversHtml = '';
-
-      $('li.footnote-item').each((index, li) => {
-        hasFootnote = true;
-        const popoverId = `${MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX}${li.attribs.id}`;
-        const popoverNode = cheerio.parseHTML(`<popover id="${popoverId}">
-            <div #content>
-              ${$(li).html()}
-            </div>
-          </popover>`)[0];
-        this.processNode(popoverNode);
-
-        popoversHtml += cheerio.html(popoverNode);
-      });
-
-      return `${popoversHtml}\n${footNoteBlock}\n`;
-    }).join('\n');
-
-    const suffix = '</ol>\n</section>\n';
-
-    return hasFootnote
-      ? prefix + footnotesWithPopovers + suffix
-      : '';
-  }
-
   /*
    * Body
    */
@@ -594,27 +240,6 @@ class NodeProcessor {
     const $ = cheerio(node);
     this[property].push($.html());
     $.remove();
-  }
-
-  /*
-   * h1 - h6
-   */
-  _setHeadingId(node) {
-    const textContent = cheerio(node).text();
-    // remove the '&lt;' and '&gt;' symbols that markdown-it uses to escape '<' and '>'
-    const cleanedContent = textContent.replace(/&lt;|&gt;/g, '');
-    const slugifiedHeading = slugify(cleanedContent, { decamelize: false });
-
-    let headerId = slugifiedHeading;
-    const { headerIdMap } = this.config;
-    if (headerIdMap[slugifiedHeading]) {
-      headerId = `${slugifiedHeading}-${headerIdMap[slugifiedHeading]}`;
-      headerIdMap[slugifiedHeading] += 1;
-    } else {
-      headerIdMap[slugifiedHeading] = 2;
-    }
-
-    node.attribs.id = headerId;
   }
 
   /*
@@ -686,52 +311,53 @@ class NodeProcessor {
         node.attribs['v-pre'] = '';
         break;
       case 'include':
-        this.docId += 1; // used in markdown-it-footnotes
+        this.markdownRenderer.docId += 1;
         return processInclude(node, context, this.pageSources, this.variableProcessor,
-                              text => this._renderMd(text), text => this._renderMdInline(text),
+                              text => this.markdownRenderer.renderMd(text),
+                              text => this.markdownRenderer.renderMdInline(text),
                               this.config);
       case 'panel':
-        this._processPanelAttributes(node);
+        this.componentProcessor.processPanelAttributes(node);
         return processPanelSrc(node, context, this.pageSources, this.config);
       case 'question':
-        this._processQuestion(node);
+        this.componentProcessor.processQuestion(node);
         break;
       case 'q-option':
-        this._processQOption(node);
+        this.componentProcessor.processQOption(node);
         break;
       case 'quiz':
-        this._processQuiz(node);
+        this.componentProcessor.processQuiz(node);
         break;
       case 'popover':
-        this._processPopover(node);
+        this.bootstrapVueProcessor.processPopover(node);
         break;
       case 'tooltip':
-        this._processTooltip(node);
+        this.bootstrapVueProcessor.processTooltip(node);
         break;
       case 'modal':
-        this._processModalAttributes(node);
+        this.bootstrapVueProcessor.processModalAttributes(node);
         break;
       case 'tab':
       case 'tab-group':
-        this._processTabAttributes(node);
+        this.componentProcessor.processTabAttributes(node);
         break;
       case 'box':
-        this._processBoxAttributes(node);
+        this.componentProcessor.processBoxAttributes(node);
         break;
       case 'dropdown':
-        this._processDropdownAttributes(node);
+        this.componentProcessor.processDropdownAttributes(node);
         break;
       case 'thumbnail':
-        this._processThumbnailAttributes(node);
+        this.componentProcessor.processThumbnailAttributes(node);
         break;
       case 'annotation':
-        NodeProcessor._processAnnotationAttributes(node);
+        this.componentProcessor.processAnnotationAttributes(node);
         break;
       case 'site-nav':
         renderSiteNav(node);
         break;
       case 'mb-temp-footnotes':
-        this._processMbTempFootnotes(node);
+        this.footnoteProcessor.processMbTempFootnotes(node);
         break;
       default:
         break;
@@ -750,7 +376,7 @@ class NodeProcessor {
         highlightCodeBlock(node);
         break;
       case 'panel':
-        NodeProcessor._assignPanelId(node);
+        this.componentProcessor.assignPanelId(node);
         break;
       case 'head-top':
         this._collectLayoutEl(node, 'headTop');
@@ -795,17 +421,18 @@ class NodeProcessor {
     const isHeadingTag = (/^h[1-6]$/).test(node.name);
 
     if (isHeadingTag && !node.attribs.id) {
-      this._setHeadingId(node);
+      setHeadingId(node, this.config);
     }
 
     switch (node.name) {
     case 'md':
       node.name = 'span';
-      node.children = cheerio.parseHTML(this._renderMdInline(cheerio.html(node.children)), true);
+      node.children = cheerio.parseHTML(
+        this.markdownRenderer.renderMdInline(cheerio.html(node.children)), true);
       break;
     case 'markdown':
       node.name = 'div';
-      node.children = cheerio.parseHTML(this._renderMd(cheerio.html(node.children)), true);
+      node.children = cheerio.parseHTML(this.markdownRenderer.renderMd(cheerio.html(node.children)), true);
       break;
     default:
       break;
@@ -826,7 +453,8 @@ class NodeProcessor {
     insertTemporaryStyles(node);
 
     if (isHeadingTag && !node.attribs.id) {
-      this._setHeadingId(node); // do this one more time, in case the first one assigned a blank id
+      // do this one more time, in case the first one assigned a blank id
+      setHeadingId(node, this.config);
     }
 
     // If a fixed header is applied to the page, generate dummy spans as anchor points
@@ -859,12 +487,12 @@ class NodeProcessor {
         });
         nodes.forEach(d => NodeProcessor._trimNodes(d));
 
-        resolve(cheerio(nodes).html() + this._combineFootnotes());
+        resolve(cheerio(nodes).html() + this.footnoteProcessor.combineFootnotes(this));
       });
       const parser = new htmlparser.Parser(handler);
       const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
-        const renderedContent = this._renderMd(content);
+        const renderedContent = this.markdownRenderer.renderMd(content);
         // Wrap with <root> as $.remove() does not work on top level nodes
         parser.parseComplete(`<root>${renderedContent}</root>`);
       } else if (fileExt === 'html') {
