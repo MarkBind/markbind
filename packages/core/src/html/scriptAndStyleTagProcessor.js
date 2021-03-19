@@ -36,13 +36,6 @@ function processStyleTag(node) {
   node.attribs.defer = '';
   node.attribs.type = 'application/javascript'; // to bypass Vue compilation as a script tag
   node.attribs['style-bypass-vue-compilation'] = ''; // to allow specific query selection of this element
-  /*
-    In case the user enables htmlBeautify, we want to prevent the content here to be beautified,
-    since the content is not actually javascript. So we add the ignore direction of jsBeautify.
-   */
-  if (node.children[0].data) {
-    node.children[0].data = `/* beautify ignore:start */${node.children[0].data}/* beautify ignore:end */`;
-  }
 }
 
 module.exports = {
