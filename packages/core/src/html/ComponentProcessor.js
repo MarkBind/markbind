@@ -9,13 +9,13 @@ _.find = require('lodash/find');
 const logger = require('../utils/logger');
 
 class ComponentProcessor {
-  constructor(nodeProcessor) {
-    this.nodeProcessor = nodeProcessor;
+  constructor(NodeProcessor) {
+    this.NodeProcessor = NodeProcessor;
   }
 
   processPanelAttributes(node) {
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'alt', false, '_alt');
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'header', false);
+    this.NodeProcessor.processAttributeWithoutOverride(node, 'alt', false, '_alt');
+    this.NodeProcessor.processAttributeWithoutOverride(node, 'header', false);
   }
 
   /*
@@ -23,17 +23,17 @@ class ComponentProcessor {
    */
 
   _processQuestion(node) {
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'header', false, 'header');
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'hint', false, 'hint');
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'answer', false, 'answer');
+    this.NodeProcessor.processAttributeWithoutOverride(node, 'header', false, 'header');
+    this.NodeProcessor.processAttributeWithoutOverride(node, 'hint', false, 'hint');
+    this.NodeProcessor.processAttributeWithoutOverride(node, 'answer', false, 'answer');
   }
 
   _processQOption(node) {
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'reason', false, 'reason');
+    this.NodeProcessor.processAttributeWithoutOverride(node, 'reason', false, 'reason');
   }
 
   _processQuiz(node) {
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'intro', false, 'intro');
+    this.NodeProcessor.processAttributeWithoutOverride(node, 'intro', false, 'intro');
   }
 
   /*
@@ -61,54 +61,54 @@ class ComponentProcessor {
    */
 
   _processPopover(node) {
-    this.nodeProcessor.constructor._warnDeprecatedAttributes(node, { title: 'header' });
+    this.NodeProcessor._warnDeprecatedAttributes(node, { title: 'header' });
 
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'content', true);
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'header', true);
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'title', true, 'header');
+    this.NodeProcessor.processAttributeWithoutOverride(node, 'content', true);
+    this.NodeProcessor.processAttributeWithoutOverride(node, 'header', true);
+    this.NodeProcessor.processAttributeWithoutOverride(node, 'title', true, 'header');
 
     node.name = 'span';
     const trigger = node.attribs.trigger || 'hover';
     const placement = node.attribs.placement || 'top';
     node.attribs['data-mb-component-type'] = 'popover';
     node.attribs[`v-b-popover.${trigger}.${placement}.html`] = 'popoverInnerGetters';
-    this.nodeProcessor.constructor.addTriggerClass(node, trigger);
-    this.nodeProcessor.constructor._transformSlottedComponents(node);
+    this.NodeProcessor.addTriggerClass(node, trigger);
+    this.NodeProcessor._transformSlottedComponents(node);
   }
 
   _processTooltip(node) {
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'content', true, '_content');
+    this.NodeProcessor.processAttributeWithoutOverride(node, 'content', true, '_content');
 
     node.name = 'span';
     const trigger = node.attribs.trigger || 'hover';
     const placement = node.attribs.placement || 'top';
     node.attribs['data-mb-component-type'] = 'tooltip';
     node.attribs[`v-b-tooltip.${trigger}.${placement}.html`] = 'tooltipInnerContentGetter';
-    this.nodeProcessor.constructor.addTriggerClass(node, trigger);
-    this.nodeProcessor.constructor._transformSlottedComponents(node);
+    this.NodeProcessor.addTriggerClass(node, trigger);
+    this.NodeProcessor._transformSlottedComponents(node);
   }
 
   _processModalAttributes(node) {
-    this.nodeProcessor.constructor._warnDeprecatedAttributes(node, { title: 'header' });
-    this.nodeProcessor.constructor._warnDeprecatedSlotNames(node, {
+    this.NodeProcessor._warnDeprecatedAttributes(node, { title: 'header' });
+    this.NodeProcessor._warnDeprecatedSlotNames(node, {
       'modal-header': 'header',
       'modal-footer': 'footer',
     });
 
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'header', true, 'modal-title');
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'title', true, 'modal-title');
+    this.NodeProcessor.processAttributeWithoutOverride(node, 'header', true, 'modal-title');
+    this.NodeProcessor.processAttributeWithoutOverride(node, 'title', true, 'modal-title');
 
-    this.nodeProcessor.constructor._renameSlot(node, 'header', 'modal-header');
-    this.nodeProcessor.constructor._renameSlot(node, 'footer', 'modal-footer');
+    this.NodeProcessor._renameSlot(node, 'header', 'modal-header');
+    this.NodeProcessor._renameSlot(node, 'footer', 'modal-footer');
 
     node.name = 'b-modal';
 
-    this.nodeProcessor.constructor._renameAttribute(node, 'ok-text', 'ok-title');
-    this.nodeProcessor.constructor._renameAttribute(node, 'center', 'centered');
+    this.NodeProcessor._renameAttribute(node, 'ok-text', 'ok-title');
+    this.NodeProcessor._renameAttribute(node, 'center', 'centered');
 
     const hasOkTitle = _.has(node.attribs, 'ok-title');
     const hasFooter = node.children
-      .some(child => this.nodeProcessor.constructor.getVslotShorthandName(child) === 'modal-footer');
+      .some(child => this.NodeProcessor.getVslotShorthandName(child) === 'modal-footer');
 
     if (!hasFooter && !hasOkTitle) {
       // markbind doesn't show the footer by default
@@ -148,7 +148,7 @@ class ComponentProcessor {
    */
 
   _processTabAttributes(node) {
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'header', true, 'header');
+    this.NodeProcessor.processAttributeWithoutOverride(node, 'header', true, 'header');
   }
 
   /*
@@ -156,21 +156,17 @@ class ComponentProcessor {
    */
 
   _processBoxAttributes(node) {
-    this.nodeProcessor.constructor._warnConflictingAttributes(node, 'light', ['seamless']);
-    this.nodeProcessor.constructor._warnConflictingAttributes(node, 'no-background',
-                                                              ['background-color', 'seamless']);
-    this.nodeProcessor.constructor._warnConflictingAttributes(node, 'no-border',
-                                                              [
-                                                                'border-color',
-                                                                'border-left-color', 'seamless',
-                                                              ]);
-    this.nodeProcessor.constructor._warnConflictingAttributes(node, 'no-icon', ['icon']);
-    this.nodeProcessor.constructor._warnDeprecatedAttributes(node, { heading: 'header' });
+    this.NodeProcessor._warnConflictingAttributes(node, 'light', ['seamless']);
+    this.NodeProcessor._warnConflictingAttributes(node, 'no-background', ['background-color', 'seamless']);
+    this.NodeProcessor._warnConflictingAttributes(node, 'no-border',
+                                                  ['border-color', 'border-left-color', 'seamless']);
+    this.NodeProcessor._warnConflictingAttributes(node, 'no-icon', ['icon']);
+    this.NodeProcessor._warnDeprecatedAttributes(node, { heading: 'header' });
 
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'icon', true, 'icon');
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'header', false, 'header');
+    this.NodeProcessor.processAttributeWithoutOverride(node, 'icon', true, 'icon');
+    this.NodeProcessor.processAttributeWithoutOverride(node, 'header', false, 'header');
 
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'heading', false, 'header');
+    this.NodeProcessor.processAttributeWithoutOverride(node, 'heading', false, 'header');
   }
 
   /*
@@ -179,8 +175,7 @@ class ComponentProcessor {
 
   _processDropdownAttributes(node) {
     const hasHeaderSlot = node.children
-      && node.children.some(
-        child => this.nodeProcessor.constructor.getVslotShorthandName(child) === 'header');
+      && node.children.some(child => this.NodeProcessor.getVslotShorthandName(child) === 'header');
 
     // If header slot is present, the header attribute has no effect, and we can simply remove it.
     if (hasHeaderSlot) {
@@ -195,14 +190,14 @@ class ComponentProcessor {
       return;
     }
 
-    this.nodeProcessor.constructor._warnDeprecatedAttributes(node, { text: 'header' });
-    this.nodeProcessor.constructor._warnConflictingAttributes(node, 'header', ['text']);
+    this.NodeProcessor._warnDeprecatedAttributes(node, { text: 'header' });
+    this.NodeProcessor._warnConflictingAttributes(node, 'header', ['text']);
     // header attribute takes priority over text attribute if both 'text' and 'header' is used
     if (_.has(node.attribs, 'header')) {
-      this.nodeProcessor._processAttributeWithoutOverride(node, 'header', true, 'header');
+      this.NodeProcessor.processAttributeWithoutOverride(node, 'header', true, 'header');
       delete node.attribs.text;
     } else {
-      this.nodeProcessor._processAttributeWithoutOverride(node, 'text', true, 'header');
+      this.NodeProcessor.processAttributeWithoutOverride(node, 'text', true, 'header');
     }
   }
 
@@ -221,7 +216,7 @@ class ComponentProcessor {
       return;
     }
 
-    const renderedText = this.nodeProcessor._renderMdInline(text);
+    const renderedText = this.NodeProcessor.renderMdInline(text);
     node.children = cheerio.parseHTML(renderedText);
     delete node.attribs.text;
   }
