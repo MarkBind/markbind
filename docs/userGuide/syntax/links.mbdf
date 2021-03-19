@@ -44,7 +44,7 @@ You may link to markdown files using its original extension (**.md**) as it will
 If you wish to disable the auto-conversion, you may use the `no-convert` attribute in your link. 
 
 {{ icon_example }}
-`Click [here](index.md) {.no-convert}`
+`Click [here](index.md){no-convert}`
 
 </box>
 
