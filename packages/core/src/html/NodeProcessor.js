@@ -16,6 +16,7 @@ const { Context } = require('./Context');
 const linkProcessor = require('./linkProcessor');
 const { insertTemporaryStyles } = require('./tempStyleProcessor');
 const { highlightCodeBlock } = require('./codeblockProcessor');
+const { processScriptTag, processStyleTag } = require('./scriptAndStyleTagProcessor');
 
 const md = require('../lib/markdown-it');
 const utils = require('../utils');
@@ -667,42 +668,6 @@ class NodeProcessor {
   }
 
   /*
-   * Adds attribute "type=application/javascript" to <script> tag.
-   *
-   * This is necessary because we are pre-compiling each page as a Vue application,
-   * where the Vue compilation ignores and discards the <script> tag.
-   *
-   * By having this attribute, the compilation will ignore the <script> tag but not discard it.
-   */
-  static processScriptTag(node) {
-    node.attribs.type = 'application/javascript';
-  }
-
-  /*
-   * Changes <style> tag into placeholder tag:
-   * <script src defer type="application/javascript" style-bypass-vue-compilation>.
-   *
-   * This is necessary because we are pre-compiling each page as a Vue application,
-   * where the Vue compilation ignores and discards the <style> tag.
-   *
-   * We work around this problem by piggybacking on the approach we used for <script> tags to be ignored
-   * and not discarded; by changing <style> tags to the placeholder tag as shown above.
-   * We will change it back to <style> tag after Vue compilation and after the element is created by Vue.
-   */
-  static processStyleTag(node) {
-    node.name = 'script';
-    /*
-      This node is not intended to be ran as a script. Thus, we have to defer the execution of the script
-      until the node is restored as a style node (which is handled by MarkBind's script).
-      The defer attribute requires the src attribute to work. Thus, the src attribute is used as a dummy.
-    */
-    node.attribs.src = '';
-    node.attribs.defer = '';
-    node.attribs.type = 'application/javascript'; // to bypass Vue compilation as a script tag
-    node.attribs['style-bypass-vue-compilation'] = ''; // to allow specific query selection of this element
-  }
-
-  /*
    * API
    */
   processNode(node, context) {
@@ -769,10 +734,10 @@ class NodeProcessor {
         this._processMbTempFootnotes(node);
         break;
       case 'script':
-        NodeProcessor.processScriptTag(node);
+        processScriptTag(node);
         break;
       case 'style':
-        NodeProcessor.processStyleTag(node);
+        processStyleTag(node);
         break;
       default:
         break;
