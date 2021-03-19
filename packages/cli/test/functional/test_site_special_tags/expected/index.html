@@ -17,6 +17,7 @@
   <script src="markbind/js/polyfill.min.js"></script>
   <script src="markbind/js/vue.min.js"></script>
   <script src="markbind/js/markbind.min.js"></script>
+  <script src="index.page-vue-render.js"></script>
   <script src="markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
 </head>
@@ -31,19 +32,21 @@
     <h2 id="so-far-as-to-comply-with-the-commonmark-spec"><span id="so-far-as-to-comply-with-the-commonmark-spec" class="anchor"></span>So far as to comply with the commonmark spec<a class="fa fa-anchor" href="#so-far-as-to-comply-with-the-commonmark-spec" onclick="event.stopPropagation()"></a></h2>
     <p>There should be no text between this and the next <code class="hljs inline no-lang" v-pre>&lt;hr&gt;</code> tag in the browser, since it is a <code class="hljs inline no-lang" v-pre>&lt;script&gt;</code> tag.<br>
       There should be an alert with the value of 2 as well.</p>
-    <script>
-      let x = 1;
+    <script type="application/javascript">
+let x = 1;
 
-      x += 1;
-      alert(x);
-    </script>
+x += 1;
+alert(x);
+</script>
     <hr>
     <p>There should be no text between this and the next <code class="hljs inline no-lang" v-pre>&lt;hr&gt;</code> tag in the browser, since it is a <code class="hljs inline no-lang" v-pre>&lt;style&gt;</code> tag.</p>
-    <style>
-      .bigger-text {
-        font-size: 10em;
-      }
-    </style>
+    <script src defer type="application/javascript" style-bypass-vue-compilation>
+
+.bigger-text {
+  font-size: 10em;
+}
+
+</script>
     <hr>
     <p>There should be text between this and the next <code class="hljs inline no-lang" v-pre>&lt;hr&gt;</code> tag, since it is a special tag.
       All text should appear in the browser window as a single line,

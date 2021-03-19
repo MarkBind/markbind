@@ -16,6 +16,7 @@ const { Context } = require('./Context');
 const linkProcessor = require('./linkProcessor');
 const { insertTemporaryStyles } = require('./tempStyleProcessor');
 const { highlightCodeBlock } = require('./codeblockProcessor');
+const { processScriptTag, processStyleTag } = require('./scriptAndStyleTagProcessor');
 
 const md = require('../lib/markdown-it');
 const utils = require('../utils');
@@ -669,7 +670,6 @@ class NodeProcessor {
   /*
    * API
    */
-
   processNode(node, context) {
     try {
       NodeProcessor.transformOldSlotSyntax(node);
@@ -732,6 +732,12 @@ class NodeProcessor {
         break;
       case 'mb-temp-footnotes':
         this._processMbTempFootnotes(node);
+        break;
+      case 'script':
+        processScriptTag(node);
+        break;
+      case 'style':
+        processStyleTag(node);
         break;
       default:
         break;

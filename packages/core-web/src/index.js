@@ -1,3 +1,6 @@
+/* global pageVueRenderFn:readonly, pageVueStaticRenderFns:readonly */
+// pageVueRenderFn and pageVueStaticRenderFns exist in dynamically generated script by Page/index.js
+
 // eslint-disable-next-line import/no-extraneous-dependencies
 import MarkBindVue from '@markbind/vue-components/src';
 import initScrollTopButton from './scrollTopButton';
@@ -134,11 +137,22 @@ function removeTemporaryStyles() {
   jQuery('.temp-dropdown-placeholder').remove();
 }
 
-function executeAfterCreatedRoutines() {
-  removeTemporaryStyles();
+/*
+ * Changes every <script src defer type="application/javascript" style-bypass-vue-compilation>
+ * placeholder tags that was used to bypass Vue compilation back into original intended <style> tags.
+ */
+function restoreStyleTags() {
+  const tagsToRestore = document.querySelectorAll('script[style-bypass-vue-compilation]');
+  tagsToRestore.forEach((oldScriptTag) => {
+    const restoredStyleTag = document.createElement('style');
+    restoredStyleTag.innerHTML = oldScriptTag.innerHTML;
+    oldScriptTag.parentNode.replaceChild(restoredStyleTag, oldScriptTag);
+  });
 }
 
 function executeAfterMountedRoutines() {
+  removeTemporaryStyles(); // Vue render function is called after before-mount hook
+  restoreStyleTags();
   scrollToUrlAnchorHeading();
   detectAndApplyFixedHeaderStyles();
 }
@@ -161,9 +175,10 @@ function setup() {
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
     el: '#app',
-    created() {
-      executeAfterCreatedRoutines();
+    render(createElement) {
+      return pageVueRenderFn.call(this, createElement);
     },
+    staticRenderFns: pageVueStaticRenderFns,
     mounted() {
       executeAfterMountedRoutines();
     },
@@ -174,6 +189,10 @@ function setupWithSearch() {
   // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
     el: '#app',
+    render(createElement) {
+      return pageVueRenderFn.call(this, createElement);
+    },
+    staticRenderFns: pageVueStaticRenderFns,
     data() {
       return {
         searchData: [],
@@ -185,9 +204,6 @@ function setupWithSearch() {
         const anchor = match.heading ? `#${match.heading.id}` : '';
         window.location = `${page}${anchor}`;
       },
-    },
-    created() {
-      executeAfterCreatedRoutines();
     },
     mounted() {
       executeAfterMountedRoutines();
