@@ -693,7 +693,7 @@ class NodeProcessor {
     node.name = 'script';
     /*
       This node is not intended to be ran as a script. Thus, we have to defer the execution of the script
-      until the node is restored as a style node (which is handled by MarkBind's script plugin).
+      until the node is restored as a style node (which is handled by MarkBind's script).
       The defer attribute requires the src attribute to work. Thus, the src attribute is used as a dummy.
     */
     node.attribs.src = '';

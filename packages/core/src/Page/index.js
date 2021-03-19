@@ -489,15 +489,10 @@ class Page {
   /**
    * Compiles page into Vue Application to get the page render function and places
    * it into a script so that the browser can retrieve the page render function to
-   * render the page.
+   * render the page during Vue mounting.
    *
    * This is to avoid the overhead of compiling the page into Vue application
    * on the client's browser (alleviates FOUC).
-   *
-   * By pre-compiling the page, we can get the Vue render function for the page
-   * and add it to a script. Thus, during Vue mounting in client's browser,
-   * we can just pass in the appropriate render function that is retrieved from the script.
-   * As a result, we avoid compiling the page on the client's browser.
    *
    * @param content Page content to be compiled into Vue app
    */
