@@ -23,6 +23,7 @@ const { ComponentProcessor } = require('./ComponentProcessor');
 const { shiftSlotNodeDeeper, transformOldSlotSyntax } = require('./vueSlotSyntaxProcessor');
 const { DocIdManager } = require('./DocIdManager');
 const { preprocessBody } = require('./warnings');
+const { processScriptTag, processStyleTag } = require('./scriptAndStyleTagProcessor');
 
 const utils = require('../utils');
 const logger = require('../utils/logger');
@@ -119,7 +120,6 @@ class NodeProcessor {
   /*
    * API
    */
-
   processNode(node, context) {
     try {
       transformOldSlotSyntax(node);
@@ -183,6 +183,12 @@ class NodeProcessor {
         break;
       case 'mb-temp-footnotes':
         this.footnoteProcessor.processMbTempFootnotes(node);
+        break;
+      case 'script':
+        processScriptTag(node);
+        break;
+      case 'style':
+        processStyleTag(node);
         break;
       default:
         break;

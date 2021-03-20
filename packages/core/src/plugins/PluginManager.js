@@ -154,7 +154,7 @@ class PluginManager {
 
     this.htmlBeautifyOptions = {
       indent_size: 2,
-      content_unformatted: ['pre', 'textarea', ...specialTags],
+      content_unformatted: ['pre', 'textarea', 'script', ...specialTags],
     };
   }
 

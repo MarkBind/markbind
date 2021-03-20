@@ -2,6 +2,7 @@ const cheerio = require('cheerio'); require('../patches/htmlparser2');
 const fs = require('fs-extra');
 const htmlBeautify = require('js-beautify').html;
 const path = require('path');
+const VueCompiler = require('vue-template-compiler');
 
 const _ = {};
 _.cloneDeep = require('lodash/cloneDeep');
@@ -429,7 +430,6 @@ class Page {
    * @property {VariableProcessor} variableProcessor
    * @property {Object<string, number>} headerIdMap
    */
-
   async generate(externalManager) {
     this.resetState(); // Reset for live reload
 
@@ -468,8 +468,12 @@ class Page {
       ...layoutManager.getLayoutPageNjkAssets(this.layout),
     };
 
+    // Compile the page into Vue application and outputs the render function into script for browser
+    await this.compileVuePageAndCreateScript(content);
+
     const renderedTemplate = this.pageConfig.template.render(
       this.prepareTemplateData(content, !!pageNav)); // page.njk
+
     const outputTemplateHTML = this.pageConfig.disableHtmlBeautify
       ? renderedTemplate
       : htmlBeautify(renderedTemplate, pluginManager.htmlBeautifyOptions);
@@ -480,6 +484,41 @@ class Page {
     await externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(), this.includedFiles);
 
     this.collectHeadingsAndKeywords(pageContent);
+  }
+
+  /**
+   * Compiles page into Vue Application to get the page render function and places
+   * it into a script so that the browser can retrieve the page render function to
+   * render the page during Vue mounting.
+   *
+   * This is to avoid the overhead of compiling the page into Vue application
+   * on the client's browser (alleviates FOUC).
+   *
+   * @param content Page content to be compiled into Vue app
+   */
+  async compileVuePageAndCreateScript(content) {
+    // Compile Vue Page
+    const compiled = VueCompiler.compileToFunctions(`<div id="app">${content}</div>`);
+    const outputContent = `
+      var pageVueRenderFn = ${compiled.render};
+      var pageVueStaticRenderFns = [${compiled.staticRenderFns}];
+    `;
+
+    // Get script file name
+    const pageHtmlFileName = path.basename(this.pageConfig.resultPath, '.html');
+    const scriptFileName = `${pageHtmlFileName}.page-vue-render.js`;
+
+    /*
+     * Add the script file path for this page's render function to the page's assets (to populate page.njk).
+     * The script file path is the same as the page's file path.
+     */
+    this.asset.pageVueRenderJs = scriptFileName;
+
+    // Get script's absolute file path to output script file
+    const dirName = path.dirname(this.pageConfig.resultPath);
+    const filePath = path.join(dirName, scriptFileName);
+
+    await fs.outputFile(filePath, outputContent);
   }
 
   static addScrollToTopButton(pageData) {
