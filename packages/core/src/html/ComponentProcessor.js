@@ -1,6 +1,9 @@
 const cheerio = require('cheerio');
 
 const { findHeaderElement } = require('./headerProcessor');
+const { getVslotShorthandName } = require('./vueSlotSyntaxProcessor');
+const { renderMdInline, processAttributeWithoutOverride } = require('./markdownProcessor');
+const { warnConflictingAttributes, warnDeprecatedAttributes } = require('./warnings');
 
 const _ = {};
 _.has = require('lodash/has');
@@ -8,8 +11,8 @@ _.has = require('lodash/has');
 const logger = require('../utils/logger');
 
 class ComponentProcessor {
-  constructor(nodeProcessor) {
-    this.nodeProcessor = nodeProcessor;
+  constructor(docIdManager) {
+    this.docIdManager = docIdManager;
   }
 
   /*
@@ -17,8 +20,8 @@ class ComponentProcessor {
    */
 
   processPanelAttributes(node) {
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'alt', false, '_alt');
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'header', false);
+    processAttributeWithoutOverride(node, this.docIdManager, 'alt', false, '_alt');
+    processAttributeWithoutOverride(node, this.docIdManager, 'header', false);
   }
 
   /**
@@ -27,12 +30,11 @@ class ComponentProcessor {
    * This is to ensure anchors still work when panels are in their minimized form.
    * @param node The root panel element
    */
-  assignPanelId(node) {
+  static assignPanelId(node) {
     const slotChildren = node.children
-      && node.children.filter(child => this.nodeProcessor.constructor.getVslotShorthandName(child) !== '');
+      && node.children.filter(child => getVslotShorthandName(child) !== '');
 
-    const headerSlot = slotChildren.find(child =>
-      this.nodeProcessor.constructor.getVslotShorthandName(child) === 'header');
+    const headerSlot = slotChildren.find(child => getVslotShorthandName(child) === 'header');
 
     if (headerSlot) {
       const header = findHeaderElement(headerSlot);
@@ -54,17 +56,17 @@ class ComponentProcessor {
    */
 
   processQuestion(node) {
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'header', false, 'header');
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'hint', false, 'hint');
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'answer', false, 'answer');
+    processAttributeWithoutOverride(node, this.docIdManager, 'header', false, 'header');
+    processAttributeWithoutOverride(node, this.docIdManager, 'hint', false, 'hint');
+    processAttributeWithoutOverride(node, this.docIdManager, 'answer', false, 'answer');
   }
 
   processQOption(node) {
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'reason', false, 'reason');
+    processAttributeWithoutOverride(node, this.docIdManager, 'reason', false, 'reason');
   }
 
   processQuiz(node) {
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'intro', false, 'intro');
+    processAttributeWithoutOverride(node, this.docIdManager, 'intro', false, 'intro');
   }
 
   /*
@@ -72,7 +74,7 @@ class ComponentProcessor {
    */
 
   processTabAttributes(node) {
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'header', true, 'header');
+    processAttributeWithoutOverride(node, this.docIdManager, 'header', true, 'header');
   }
 
   /*
@@ -80,19 +82,17 @@ class ComponentProcessor {
    */
 
   processBoxAttributes(node) {
-    this.nodeProcessor.constructor._warnConflictingAttributes(node, 'light', ['seamless']);
-    this.nodeProcessor.constructor
-      ._warnConflictingAttributes(node, 'no-background', ['background-color', 'seamless']);
-    this.nodeProcessor.constructor
-      ._warnConflictingAttributes(node, 'no-border',
-                                  ['border-color', 'border-left-color', 'seamless']);
-    this.nodeProcessor.constructor._warnConflictingAttributes(node, 'no-icon', ['icon']);
-    this.nodeProcessor.constructor._warnDeprecatedAttributes(node, { heading: 'header' });
+    warnConflictingAttributes(node, 'light', ['seamless']);
+    warnConflictingAttributes(node, 'no-background', ['background-color', 'seamless']);
+    warnConflictingAttributes(node, 'no-border',
+                              ['border-color', 'border-left-color', 'seamless']);
+    warnConflictingAttributes(node, 'no-icon', ['icon']);
+    warnDeprecatedAttributes(node, { heading: 'header' });
 
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'icon', true, 'icon');
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'header', false, 'header');
+    processAttributeWithoutOverride(node, this.docIdManager, 'icon', true, 'icon');
+    processAttributeWithoutOverride(node, this.docIdManager, 'header', false, 'header');
 
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'heading', false, 'header');
+    processAttributeWithoutOverride(node, this.docIdManager, 'heading', false, 'header');
   }
 
   /*
@@ -101,8 +101,7 @@ class ComponentProcessor {
 
   processDropdownAttributes(node) {
     const hasHeaderSlot = node.children
-      && node.children.some(
-        child => this.nodeProcessor.constructor.getVslotShorthandName(child) === 'header');
+      && node.children.some(child => getVslotShorthandName(child) === 'header');
 
     // If header slot is present, the header attribute has no effect, and we can simply remove it.
     if (hasHeaderSlot) {
@@ -117,14 +116,14 @@ class ComponentProcessor {
       return;
     }
 
-    this.nodeProcessor.constructor._warnDeprecatedAttributes(node, { text: 'header' });
-    this.nodeProcessor.constructor._warnConflictingAttributes(node, 'header', ['text']);
+    warnDeprecatedAttributes(node, { text: 'header' });
+    warnConflictingAttributes(node, 'header', ['text']);
     // header attribute takes priority over text attribute if both 'text' and 'header' is used
     if (_.has(node.attribs, 'header')) {
-      this.nodeProcessor._processAttributeWithoutOverride(node, 'header', true, 'header');
+      processAttributeWithoutOverride(node, this.docIdManager, 'header', true, 'header');
       delete node.attribs.text;
     } else {
-      this.nodeProcessor._processAttributeWithoutOverride(node, 'text', true, 'header');
+      processAttributeWithoutOverride(node, this.docIdManager, 'text', true, 'header');
     }
   }
 
@@ -143,7 +142,7 @@ class ComponentProcessor {
       return;
     }
 
-    const renderedText = this.nodeProcessor.markdownRenderer.renderMdInline(text);
+    const renderedText = renderMdInline(text, this.docIdManager);
     node.children = cheerio.parseHTML(renderedText);
     delete node.attribs.text;
   }
