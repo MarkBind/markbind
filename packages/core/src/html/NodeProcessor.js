@@ -120,24 +120,6 @@ class NodeProcessor {
     delete node.attribs[attribute];
   }
 
-  /**
-   * Takes an element, looks for direct elements with slots and transforms to avoid Vue parsing.
-   * This is so that we can use bootstrap-vue popovers, tooltips, and modals.
-   * @param node Element to transform
-   */
-  static _transformSlottedComponents(node) {
-    node.children.forEach((child) => {
-      // Turns <template #content>... into <span data-mb-slot-name=content>...
-      const vslotShorthandName = NodeProcessor.getVslotShorthandName(child);
-      if (vslotShorthandName) {
-        child.attribs['data-mb-slot-name'] = vslotShorthandName;
-        delete child.attribs[`#${vslotShorthandName}`];
-        // similarly, need to transform templates to avoid Vue parsing
-        child.name = 'span';
-      }
-    });
-  }
-
   /*
    * FrontMatter collection
    */
