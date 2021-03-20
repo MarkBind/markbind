@@ -236,15 +236,6 @@ program
               : urlWithoutBaseUrl;
             const urlWithoutExtension = fsUtil.removeExtension(urlWithIndex);
 
-            res.on('close', () => {
-              if (!liveServer.isLiveReloadRequest(req.originalUrl)) {
-                logger.info(`Opening ${fsUtil.removeExtensionPosix(req.originalUrl)}`);
-                const normalizedActiveUrls = liveServer.getActiveUrls()
-                  .map(url => fsUtil.removeExtension(url));
-                site.changeCurrentOpenedPages(normalizedActiveUrls);
-              }
-            });
-
             const didInitiateRebuild = site.changeCurrentPage(urlWithoutExtension);
             if (didInitiateRebuild) {
               req.url = utils.ensurePosix(path.join(config.baseUrl || '/', LAZY_LOADING_SITE_FILE_NAME));
