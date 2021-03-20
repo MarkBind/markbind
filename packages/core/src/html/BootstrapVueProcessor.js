@@ -1,12 +1,16 @@
 const _ = {};
 _.has = require('lodash/has');
 
+const { processAttributeWithoutOverride } = require('./markdownProcessor');
+const { getVslotShorthandName } = require('./vueSlotSyntaxProcessor');
+const { warnDeprecatedAttributes, warnDeprecatedSlotNames } = require('./warnings');
+
 /**
  * Class responsible for bootstrap vue transformations for modals, popovers, tooltips
  */
 class BootstrapVueProcessor {
-  constructor(nodeProcessor) {
-    this.nodeProcessor = nodeProcessor;
+  constructor(docIdManager) {
+    this.docIdManager = docIdManager;
   }
 
   /**
@@ -14,10 +18,10 @@ class BootstrapVueProcessor {
    * This is so that we can use bootstrap-vue popovers, tooltips, and modals.
    * @param node Element to transform
    */
-  transformSlottedComponents(node) {
+  static transformSlottedComponents(node) {
     node.children.forEach((child) => {
     // Turns <template #content>... into <span data-mb-slot-name=content>...
-      const vslotShorthandName = this.nodeProcessor.constructor.getVslotShorthandName(child);
+      const vslotShorthandName = getVslotShorthandName(child);
       if (vslotShorthandName) {
         child.attribs['data-mb-slot-name'] = vslotShorthandName;
         delete child.attribs[`#${vslotShorthandName}`];
@@ -56,10 +60,10 @@ class BootstrapVueProcessor {
     node.attribs.class = node.attribs.class ? `${node.attribs.class} ${triggerClass}` : triggerClass;
   }
 
-  _renameSlot(node, originalName, newName) {
+  static _renameSlot(node, originalName, newName) {
     if (node.children) {
       node.children.forEach((child) => {
-        const vslotShorthandName = this.nodeProcessor.constructor.getVslotShorthandName(child);
+        const vslotShorthandName = getVslotShorthandName(child);
         if (vslotShorthandName && vslotShorthandName === originalName) {
           const newVslot = `#${newName}`;
           child.attribs[newVslot] = '';
@@ -77,11 +81,11 @@ class BootstrapVueProcessor {
   }
 
   processPopover(node) {
-    this.nodeProcessor.constructor._warnDeprecatedAttributes(node, { title: 'header' });
+    warnDeprecatedAttributes(node, { title: 'header' });
 
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'content', true);
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'header', true);
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'title', true, 'header');
+    processAttributeWithoutOverride(node, this.docIdManager, 'content', true);
+    processAttributeWithoutOverride(node, this.docIdManager, 'header', true);
+    processAttributeWithoutOverride(node, this.docIdManager, 'title', true, 'header');
 
     node.name = 'span';
     const trigger = node.attribs.trigger || 'hover';
@@ -89,11 +93,11 @@ class BootstrapVueProcessor {
     node.attribs['data-mb-component-type'] = 'popover';
     node.attribs[`v-b-popover.${trigger}.${placement}.html`] = 'popoverInnerGetters';
     BootstrapVueProcessor.addTriggerClass(node, trigger);
-    this.transformSlottedComponents(node);
+    BootstrapVueProcessor.transformSlottedComponents(node);
   }
 
   processTooltip(node) {
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'content', true, '_content');
+    processAttributeWithoutOverride(node, this.docIdManager, 'content', true, '_content');
 
     node.name = 'span';
     const trigger = node.attribs.trigger || 'hover';
@@ -101,21 +105,21 @@ class BootstrapVueProcessor {
     node.attribs['data-mb-component-type'] = 'tooltip';
     node.attribs[`v-b-tooltip.${trigger}.${placement}.html`] = 'tooltipInnerContentGetter';
     BootstrapVueProcessor.addTriggerClass(node, trigger);
-    this.transformSlottedComponents(node);
+    BootstrapVueProcessor.transformSlottedComponents(node);
   }
 
   processModalAttributes(node) {
-    this.nodeProcessor.constructor._warnDeprecatedAttributes(node, { title: 'header' });
-    this.nodeProcessor.constructor._warnDeprecatedSlotNames(node, {
+    warnDeprecatedAttributes(node, { title: 'header' });
+    warnDeprecatedSlotNames(node, {
       'modal-header': 'header',
       'modal-footer': 'footer',
     });
 
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'header', true, 'modal-title');
-    this.nodeProcessor._processAttributeWithoutOverride(node, 'title', true, 'modal-title');
+    processAttributeWithoutOverride(node, this.docIdManager, 'header', true, 'modal-title');
+    processAttributeWithoutOverride(node, this.docIdManager, 'title', true, 'modal-title');
 
-    this._renameSlot(node, 'header', 'modal-header');
-    this._renameSlot(node, 'footer', 'modal-footer');
+    BootstrapVueProcessor._renameSlot(node, 'header', 'modal-header');
+    BootstrapVueProcessor._renameSlot(node, 'footer', 'modal-footer');
 
     node.name = 'b-modal';
 
@@ -123,8 +127,7 @@ class BootstrapVueProcessor {
     BootstrapVueProcessor._renameAttribute(node, 'center', 'centered');
 
     const hasOkTitle = _.has(node.attribs, 'ok-title');
-    const hasFooter = node.children
-      .some(child => this.nodeProcessor.constructor.getVslotShorthandName(child) === 'modal-footer');
+    const hasFooter = node.children.some(child => getVslotShorthandName(child) === 'modal-footer');
 
     if (!hasFooter && !hasOkTitle) {
     // markbind doesn't show the footer by default
