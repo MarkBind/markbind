@@ -16,10 +16,13 @@ const linkProcessor = require('./linkProcessor');
 const { insertTemporaryStyles } = require('./tempStyleProcessor');
 const { highlightCodeBlock } = require('./codeblockProcessor');
 const { setHeadingId } = require('./headerProcessor');
-const { MarkdownRenderer } = require('./MarkdownRenderer');
+const { renderMd, renderMdInline } = require('./markdownProcessor');
 const { FootnoteProcessor } = require('./FootnoteProcessor');
 const { BootstrapVueProcessor } = require('./BootstrapVueProcessor');
 const { ComponentProcessor } = require('./ComponentProcessor');
+const { shiftSlotNodeDeeper, transformOldSlotSyntax } = require('./vueSlotSyntaxProcessor');
+const { DocIdManager } = require('./DocIdManager');
+const { preprocessBody } = require('./warnings');
 
 const utils = require('../utils');
 const logger = require('../utils/logger');
@@ -45,7 +48,8 @@ class NodeProcessor {
     this.variableProcessor = variableProcessor;
     this.pluginManager = pluginManager;
 
-    this.markdownRenderer = new MarkdownRenderer(docId);
+    this.docIdManager = new DocIdManager(docId);
+
     this.footnoteProcessor = new FootnoteProcessor();
     this.bootstrapVueProcessor = new BootstrapVueProcessor(this);
     this.componentProcessor = new ComponentProcessor(this);
@@ -77,49 +81,6 @@ class NodeProcessor {
     return node.type === 'text' || node.type === 'comment';
   }
 
-  static getVslotShorthandName(node) {
-    if (!node.attribs) {
-      return '';
-    }
-
-    const keys = Object.keys(node.attribs);
-    const vslotShorthand = _.find(keys, key => key.startsWith('#'));
-    if (!vslotShorthand) {
-      return '';
-    }
-
-    return vslotShorthand.substring(1, vslotShorthand.length); // remove #
-  }
-
-  /**
-   * Processes the markdown attribute of the provided element, inserting the corresponding <slot> child
-   * if there is no pre-existing slot child with the name of the attribute present.
-   * @param node Element to process
-   * @param attribute Attribute name to process
-   * @param isInline Whether to process the attribute with only inline markdown-it rules
-   * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
-   */
-  _processAttributeWithoutOverride(node, attribute, isInline, slotName = attribute) {
-    const hasAttributeSlot = node.children
-      && node.children.some(child => NodeProcessor.getVslotShorthandName(child) === slotName);
-
-    if (!hasAttributeSlot && _.has(node.attribs, attribute)) {
-      let rendered;
-      if (isInline) {
-        rendered = this.markdownRenderer.renderMdInline(node.attribs[attribute]);
-      } else {
-        rendered = this.markdownRenderer.renderMd(node.attribs[attribute]);
-      }
-
-      const attributeSlotElement = cheerio.parseHTML(
-        `<template #${slotName}>${rendered}</template>`, true);
-      node.children
-        = node.children ? attributeSlotElement.concat(node.children) : attributeSlotElement;
-    }
-
-    delete node.attribs[attribute];
-  }
-
   /*
    * FrontMatter collection
    */
@@ -145,75 +106,6 @@ class NodeProcessor {
     cheerio(node).remove();
   }
 
-  /**
-   * Check and warns if element has conflicting attributes.
-   * Note that attirbutes in `attrsConflictingWith` are not in conflict with each other,
-   * but only towards `attribute`
-   * @param node Root element to check
-   * @param attribute An attribute that is conflicting with other attributes
-   * @param attrsConflictingWith The attributes conflicting with `attribute`
-   */
-  static _warnConflictingAttributes(node, attribute, attrsConflictingWith) {
-    if (!(attribute in node.attribs)) {
-      return;
-    }
-    attrsConflictingWith.forEach((conflictingAttr) => {
-      if (conflictingAttr in node.attribs) {
-        logger.warn(`Usage of conflicting ${node.name} attributes: `
-          + `'${attribute}' with '${conflictingAttr}'`);
-      }
-    });
-  }
-
-  /**
-   * Check and warns if element has a deprecated attribute.
-   * @param node Root element to check
-   * @param attributeNamePairs Object of attribute name pairs with each pair in the form deprecated : correct
-   */
-  static _warnDeprecatedAttributes(node, attributeNamePairs) {
-    Object.entries(attributeNamePairs)
-      .forEach(([deprecatedAttrib, correctAttrib]) => {
-        if (deprecatedAttrib in node.attribs) {
-          logger.warn(`${node.name} attribute '${deprecatedAttrib}' `
-            + `is deprecated and may be removed in the future. Please use '${correctAttrib}'`);
-        }
-      });
-  }
-
-  /**
-   * Check and warns if element has a deprecated slot name
-   * @param element Root element to check
-   * @param namePairs Object of slot name pairs with each pair in the form deprecated : correct
-   */
-
-  static _warnDeprecatedSlotNames(element, namePairs) {
-    if (!(element.children)) {
-      return;
-    }
-    element.children.forEach((child) => {
-      const vslotShorthandName = NodeProcessor.getVslotShorthandName(child);
-      if (vslotShorthandName) {
-        Object.entries(namePairs)
-          .forEach(([deprecatedName, correctName]) => {
-            if (vslotShorthandName !== deprecatedName) {
-              return;
-            }
-            logger.warn(`${element.name} shorthand slot name '${deprecatedName}' `
-              + `is deprecated and may be removed in the future. Please use '${correctName}'`);
-          });
-      }
-    });
-  }
-
-  /*
-   * Body
-   */
-
-  static _preprocessBody(node) {
-    // eslint-disable-next-line no-console
-    console.warn(`<body> tag found in ${node.attribs[ATTRIB_CWF]}. This may cause formatting errors.`);
-  }
-
   /*
    * Layout element collection
    */
@@ -225,78 +117,29 @@ class NodeProcessor {
   }
 
   /*
-   * Shifts the slot node deeper by one level by creating a new intermediary node with template tag name.
-   */
-  static shiftSlotNodeDeeper(node) {
-    if (!node.children) {
-      return;
-    }
-
-    node.children.forEach((child) => {
-      const vslotShorthandName = NodeProcessor.getVslotShorthandName(child);
-      if (vslotShorthandName && child.name !== 'template') {
-        const newSlotNode = cheerio.parseHTML('<template></template>')[0];
-
-        const vslotShorthand = `#${vslotShorthandName}`;
-        newSlotNode.attribs[vslotShorthand] = '';
-        delete child.attribs[vslotShorthand];
-
-        newSlotNode.parent = node;
-        child.parent = newSlotNode;
-
-        newSlotNode.children.push(child);
-
-        // replace the shifted old child node with the new slot node
-        node.children.forEach((childNode, idx) => {
-          if (childNode === child) {
-            node.children[idx] = newSlotNode;
-          }
-        });
-      }
-    });
-  }
-
-  /*
-   * Transforms deprecated vue slot syntax (slot="test") into the updated Vue slot shorthand syntax (#test).
-   */
-  static transformOldSlotSyntax(node) {
-    if (!node.children) {
-      return;
-    }
-
-    node.children.forEach((child) => {
-      if (_.has(child.attribs, 'slot')) {
-        const vslotShorthandName = `#${child.attribs.slot}`;
-        child.attribs[vslotShorthandName] = '';
-        delete child.attribs.slot;
-      }
-    });
-  }
-
-  /*
    * API
    */
 
   processNode(node, context) {
     try {
-      NodeProcessor.transformOldSlotSyntax(node);
-      NodeProcessor.shiftSlotNodeDeeper(node);
+      transformOldSlotSyntax(node);
+      shiftSlotNodeDeeper(node);
 
       switch (node.name) {
       case 'frontmatter':
         this._processFrontMatter(node, context);
         break;
       case 'body':
-        NodeProcessor._preprocessBody(node);
+        preprocessBody(node);
         break;
       case 'code':
         node.attribs['v-pre'] = '';
         break;
       case 'include':
-        this.markdownRenderer.docId += 1;
+        this.docIdManager.docId += 1;
         return processInclude(node, context, this.pageSources, this.variableProcessor,
-                              text => this.markdownRenderer.renderMd(text),
-                              text => this.markdownRenderer.renderMdInline(text),
+                              text => renderMd(text, this.docIdManager),
+                              text => renderMdInline(text, this.docIdManager),
                               this.config);
       case 'panel':
         this.componentProcessor.processPanelAttributes(node);
@@ -358,7 +201,7 @@ class NodeProcessor {
         highlightCodeBlock(node);
         break;
       case 'panel':
-        this.componentProcessor.assignPanelId(node);
+        ComponentProcessor.assignPanelId(node);
         break;
       case 'head-top':
         this._collectLayoutEl(node, 'headTop');
@@ -410,11 +253,12 @@ class NodeProcessor {
     case 'md':
       node.name = 'span';
       node.children = cheerio.parseHTML(
-        this.markdownRenderer.renderMdInline(cheerio.html(node.children)), true);
+        renderMdInline(cheerio.html(node.children), this.docIdManager), true);
       break;
     case 'markdown':
       node.name = 'div';
-      node.children = cheerio.parseHTML(this.markdownRenderer.renderMd(cheerio.html(node.children)), true);
+      node.children = cheerio.parseHTML(
+        renderMd(cheerio.html(node.children), this.docIdManager), true);
       break;
     default:
       break;
@@ -474,7 +318,7 @@ class NodeProcessor {
       const parser = new htmlparser.Parser(handler);
       const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
-        const renderedContent = this.markdownRenderer.renderMd(content);
+        const renderedContent = renderMd(content, this.docIdManager);
         // Wrap with <root> as $.remove() does not work on top level nodes
         parser.parseComplete(`<root>${renderedContent}</root>`);
       } else if (fileExt === 'html') {
