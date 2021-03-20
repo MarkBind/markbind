@@ -176,7 +176,7 @@ class NodeProcessor {
         this.componentProcessor.processThumbnailAttributes(node);
         break;
       case 'annotation':
-        this.componentProcessor.constructor.processAnnotationAttributes(node);
+        ComponentProcessor.processAnnotationAttributes(node);
         break;
       case 'site-nav':
         renderSiteNav(node);
