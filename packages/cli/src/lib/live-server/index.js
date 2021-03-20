@@ -88,9 +88,9 @@ function staticServer(root) {
           }
         }
 
-        // CHANGED: Added line to create new entry on non-live-reload requests
+        // CHANGED: Added line to create new entry on non-include and non-live-reload requests
         const reqUrl = req.originalUrl;
-        if (!LiveServer.isLiveReloadRequest(reqUrl)) {
+        if (!reqUrl.endsWith('._include_.html') && !LiveServer.isLiveReloadRequest(reqUrl)) {
           /*
            * TODO: Find a way to handle the edge case of a tab that is immediately closed before socket
            *  establishment happens. Current behaviour is that the tab will remain forever in the list.

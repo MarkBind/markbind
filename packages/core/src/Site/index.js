@@ -212,6 +212,10 @@ class Site {
    * ordered from most-to-least recently opened
    */
   changeCurrentOpenedPages(normalizedUrls) {
+    if (!this.onePagePath) {
+      return;
+    }
+
     const openedPages = normalizedUrls.map(normalizedUrl => path.join(this.rootPath, normalizedUrl));
     this.currentOpenedPages = _.uniq(openedPages);
 
