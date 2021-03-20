@@ -3,7 +3,6 @@
 // Entry file for Markbind project
 const chokidar = require('chokidar');
 const fs = require('fs-extra');
-const liveServer = require('live-server');
 const path = require('path');
 const program = require('commander');
 const Promise = require('bluebird');
@@ -20,6 +19,7 @@ const {
   LAZY_LOADING_SITE_FILE_NAME,
 } = require('@markbind/core/src/Site/constants');
 
+const liveServer = require('./src/lib/live-server');
 const cliUtil = require('./src/util/cliUtil');
 const logger = require('./src/util/logger');
 
@@ -139,6 +139,9 @@ program
 
     const addHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
+      logger.info('Synchronizing opened pages list before reload');
+      const normalizedActiveUrls = liveServer.getActiveUrls().map(url => fsUtil.removeExtension(url));
+      site.changeCurrentOpenedPages(normalizedActiveUrls);
       Promise.resolve('').then(() => {
         if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
           return site.rebuildSourceFiles(filePath);
@@ -151,6 +154,9 @@ program
 
     const changeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file change: ${filePath}`);
+      logger.info('Synchronizing opened pages list before reload');
+      const normalizedActiveUrls = liveServer.getActiveUrls().map(url => fsUtil.removeExtension(url));
+      site.changeCurrentOpenedPages(normalizedActiveUrls);
       Promise.resolve('').then(() => {
         if (site.isDependencyOfPage(filePath)) {
           return site.rebuildAffectedSourceFiles(filePath);
@@ -163,6 +169,9 @@ program
 
     const removeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file deletion: ${filePath}`);
+      logger.info('Synchronizing opened pages list before reload');
+      const normalizedActiveUrls = liveServer.getActiveUrls().map(url => fsUtil.removeExtension(url));
+      site.changeCurrentOpenedPages(normalizedActiveUrls);
       Promise.resolve('').then(() => {
         if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
           return site.rebuildSourceFiles(filePath);

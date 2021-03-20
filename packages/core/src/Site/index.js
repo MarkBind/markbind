@@ -144,6 +144,7 @@ class Site {
     this.currentPageViewed = onePagePath
       ? path.resolve(this.rootPath, FsUtil.removeExtension(onePagePath))
       : '';
+    this.currentOpenedPages = [];
     this.toRebuild = new Set();
   }
 
@@ -203,6 +204,29 @@ class Site {
     }
 
     return false;
+  }
+
+  /**
+   * Changes the list of current opened pages
+   * @param {Array<string>} normalizedUrls Collection of normalized url of pages taken from the clients
+   * ordered from most-to-least recently opened
+   */
+  changeCurrentOpenedPages(normalizedUrls) {
+    if (!this.onePagePath) {
+      return;
+    }
+
+    const openedPages = normalizedUrls.map(normalizedUrl => path.join(this.rootPath, normalizedUrl));
+    this.currentOpenedPages = _.uniq(openedPages);
+
+    if (this.currentOpenedPages.length > 0) {
+      logger.info('Current opened pages, from most-to-least recent:');
+      this.currentOpenedPages.forEach((pagePath, idx) => {
+        logger.info(`${idx + 1}. ${utils.ensurePosix(path.relative(this.rootPath, pagePath))}`);
+      });
+    } else {
+      logger.info('No pages are currently opened');
+    }
   }
 
   /**
@@ -878,16 +902,52 @@ class Site {
   }
 
   /**
-   * Creates the supplied pages' page generation promises at a throttled rate.
-   * This is done to avoid pushing too many callbacks into the event loop at once. (#1245)
-   * @param {Array<Page>} pages to generate
-   * @return {Promise} that resolves once all pages have generated
+   * Runs the supplied page generation tasks according to the specified mode of each task.
+   * A page generation task can be a sequential generation or an asynchronous generation.
+   * @param {Array<object>} pageGenerationTasks Array of page generation tasks
+   * @return {Promise<void>} A Promise that resolves once all pages have generated
    */
-  generatePagesThrottled(pages) {
-    const progressBar = new ProgressBar(`[:bar] :current / ${pages.length} pages built`,
-                                        { total: pages.length });
+  async runPageGenerationTasks(pageGenerationTasks) {
+    const pagesCount = pageGenerationTasks.reduce((acc, task) => acc + task.pages.length, 0);
+    const progressBar = new ProgressBar(`[:bar] :current / ${pagesCount} pages built`, { total: pagesCount });
     progressBar.render();
 
+    await utils.sequentialAsyncForEach(pageGenerationTasks, async (task) => {
+      if (task.mode === 'sequential') {
+        await this.generatePagesSequential(task.pages, progressBar);
+      } else {
+        await this.generatePagesAsyncThrottled(task.pages, progressBar);
+      }
+    });
+  }
+
+  /**
+   * Generate pages sequentially. That is, the pages are generated
+   * one-by-one in order.
+   * @param {Array<Page>} pages Pages to be generated
+   * @param {ProgressBar} progressBar Progress bar of the overall generation process
+   * @returns {Promise<void>} A Promise that resolves once all pages have been generated
+   */
+  async generatePagesSequential(pages, progressBar) {
+    await utils.sequentialAsyncForEach(pages, async (page) => {
+      try {
+        await page.generate(this.externalManager);
+        progressBar.tick();
+      } catch (err) {
+        logger.error(err);
+        throw new Error(`Error while generating ${page.sourcePath}`);
+      }
+    });
+  }
+
+  /**
+   * Creates the supplied pages' page generation promises at a throttled rate.
+   * This is done to avoid pushing too many callbacks into the event loop at once. (#1245)
+   * @param {Array<Page>} pages Pages to be generated
+   * @param {ProgressBar} progressBar Progress bar of the overall generation process
+   * @return {Promise<void>} A Promise that resolves once all pages have been generated
+   */
+  generatePagesAsyncThrottled(pages, progressBar) {
     return new Promise((resolve, reject) => {
       const counter = { numPagesGenerated: 0 };
 
@@ -913,7 +973,7 @@ class Site {
   }
 
   /**
-   * Helper function for generatePagesThrottled().
+   * Helper function for generatePagesAsyncThrottled().
    */
   static generateProgressBarStatus(progressBar, counter, pageGenerationQueue, pages, resolve) {
     progressBar.tick();
@@ -939,7 +999,11 @@ class Site {
     this._setTimestampVariable();
     this.mapAddressablePagesToPages(addressablePages, faviconUrl);
 
-    return this.generatePagesThrottled(this.pages);
+    const pageGenerationTask = {
+      mode: 'async',
+      pages: this.pages,
+    };
+    return this.runPageGenerationTasks([pageGenerationTask]);
   }
 
   /**
@@ -968,18 +1032,24 @@ class Site {
       logger.warn('Rebuilding all pages as variables file was changed, or the --force-reload flag was set');
     }
     this._setTimestampVariable();
-    const pagesToRegenerate = this.pages.filter((page) => {
+
+    let openedPagesToRegenerate = [];
+    const asyncPagesToRegenerate = this.pages.filter((page) => {
       const doFilePathsHaveSourceFiles = filePaths.some(filePath => page.isDependency(filePath));
 
       if (shouldRebuildAllPages || doFilePathsHaveSourceFiles) {
         if (this.onePagePath) {
           const normalizedSource = FsUtil.removeExtension(page.pageConfig.sourcePath);
-          const isPageBeingViewed = normalizedSource === this.currentPageViewed;
+          const openIdx = this.currentOpenedPages.findIndex(pagePath => pagePath === normalizedSource);
+          const isRecentlyViewed = openIdx !== -1;
 
-          if (!isPageBeingViewed) {
+          if (!isRecentlyViewed) {
             this.toRebuild.add(normalizedSource);
-            return false;
+          } else {
+            openedPagesToRegenerate[openIdx] = page;
           }
+
+          return false;
         }
 
         return true;
@@ -987,15 +1057,39 @@ class Site {
 
       return false;
     });
-    if (!pagesToRegenerate.length) {
+
+    /*
+     * As a side effect of doing assignment to an empty array, some elements might be
+     * undefined if it has not been assigned to anything. We filter those out here.
+     */
+    openedPagesToRegenerate = openedPagesToRegenerate.filter(page => page);
+
+    const totalPagesToRegenerate = openedPagesToRegenerate.length + asyncPagesToRegenerate.length;
+    if (totalPagesToRegenerate === 0) {
       logger.info('No pages needed to be rebuilt');
       return;
     }
+    logger.info(`Rebuilding ${totalPagesToRegenerate} pages`);
 
-    logger.info(`Rebuilding ${pagesToRegenerate.length} pages`);
+    const pageGenerationTasks = [];
+    if (openedPagesToRegenerate.length > 0) {
+      const recentPagesGenerationTask = {
+        mode: 'sequential',
+        pages: openedPagesToRegenerate,
+      };
+      pageGenerationTasks.push(recentPagesGenerationTask);
+    }
+
+    if (asyncPagesToRegenerate.length > 0) {
+      const asyncPagesGenerationTask = {
+        mode: 'async',
+        pages: asyncPagesToRegenerate,
+      };
+      pageGenerationTasks.push(asyncPagesGenerationTask);
+    }
 
     try {
-      await this.generatePagesThrottled(pagesToRegenerate);
+      await this.runPageGenerationTasks(pageGenerationTasks);
       await this.writeSiteData();
       logger.info('Pages rebuilt');
       this.calculateBuildTimeForRegenerateAffectedPages(startTime);
