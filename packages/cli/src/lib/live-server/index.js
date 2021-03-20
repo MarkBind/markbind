@@ -91,6 +91,11 @@ function staticServer(root) {
         // CHANGED: Added line to create new entry on non-live-reload requests
         const reqUrl = req.originalUrl;
         if (!LiveServer.isLiveReloadRequest(reqUrl)) {
+          /*
+           * TODO: Find a way to handle the edge case of a tab that is immediately closed before socket
+           *  establishment happens. Current behaviour is that the tab will remain forever in the list.
+           * Context: https://github.com/MarkBind/markbind/pull/1513#issuecomment-803025676
+           */
           const tabEntry = {
             url: reqUrl,
             client: undefined,
