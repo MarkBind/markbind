@@ -52,8 +52,8 @@ class NodeProcessor {
     this.docIdManager = new DocIdManager(docId);
 
     this.footnoteProcessor = new FootnoteProcessor();
-    this.bootstrapVueProcessor = new BootstrapVueProcessor(this);
-    this.componentProcessor = new ComponentProcessor(this);
+    this.bootstrapVueProcessor = new BootstrapVueProcessor(this.docIdManager);
+    this.componentProcessor = new ComponentProcessor(this.docIdManager);
   }
 
   /*
