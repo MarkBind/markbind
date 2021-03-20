@@ -824,13 +824,6 @@ class Site {
     const oldPagesSrc = oldAddressablePages.map(page => page.src);
     await this.readSiteConfig();
     this.collectAddressablePages();
-    // Get pages with edited attributes but with the same src
-    const editedPages = _.differenceWith(this.addressablePages, oldAddressablePages, (newPage, oldPage) => {
-      if (!_.isEqual(newPage, oldPage)) {
-        return !oldPagesSrc.includes(newPage.src);
-      }
-      return true;
-    });
 
     // Comparator for the _differenceWith comparison below
     const isNewPage = (newPage, oldPage) => _.isEqual(newPage, oldPage) || newPage.src === oldPage.src;
@@ -838,11 +831,19 @@ class Site {
     const addedPages = _.differenceWith(this.addressablePages, oldAddressablePages, isNewPage);
     const removedPages = _.differenceWith(oldAddressablePages, this.addressablePages, isNewPage)
       .map(filePath => Site.setExtension(filePath.src, '.html'));
+
     if (!_.isEmpty(addedPages) || !_.isEmpty(removedPages)) {
       await this.removeAsset(removedPages);
       await this._rebuildSourceFiles();
       await this.writeSiteData();
     } else {
+      // Get pages with edited attributes but with the same src
+      const editedPages = _.differenceWith(this.addressablePages, oldAddressablePages, (newPage, oldPage) => {
+        if (!_.isEqual(newPage, oldPage)) {
+          return !oldPagesSrc.includes(newPage.src);
+        }
+        return true;
+      });
       this.updatePages(editedPages);
       const siteConfigDirectory = path.dirname(path.join(this.rootPath, this.siteConfigPath));
       this.regenerateAffectedPages(editedPages.map(page => path.join(siteConfigDirectory, page.src)));
@@ -995,6 +996,7 @@ class Site {
 
     this._setTimestampVariable();
     this.mapAddressablePagesToPages(addressablePages, faviconUrl);
+
     return this.generatePagesThrottled(this.pages);
   }
 
