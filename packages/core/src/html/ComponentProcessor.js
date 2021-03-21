@@ -2,7 +2,6 @@ const cheerio = require('cheerio');
 
 const { findHeaderElement } = require('./headerProcessor');
 const { getVslotShorthandName } = require('./vueSlotSyntaxProcessor');
-const { renderMdInline, processAttributeWithoutOverride } = require('./markdownProcessor');
 const { warnConflictingAttributes, warnDeprecatedAttributes } = require('./warnings');
 
 const _ = {};
@@ -11,8 +10,8 @@ _.has = require('lodash/has');
 const logger = require('../utils/logger');
 
 class ComponentProcessor {
-  constructor(docIdManager) {
-    this.docIdManager = docIdManager;
+  constructor(markdownProcessor) {
+    this.markdownProcessor = markdownProcessor;
   }
 
   /*
@@ -20,8 +19,8 @@ class ComponentProcessor {
    */
 
   processPanelAttributes(node) {
-    processAttributeWithoutOverride(node, this.docIdManager, 'alt', false, '_alt');
-    processAttributeWithoutOverride(node, this.docIdManager, 'header', false);
+    this.markdownProcessor.processAttributeWithoutOverride(node, 'alt', false, '_alt');
+    this.markdownProcessor.processAttributeWithoutOverride(node, 'header', false);
   }
 
   /**
@@ -56,17 +55,17 @@ class ComponentProcessor {
    */
 
   processQuestion(node) {
-    processAttributeWithoutOverride(node, this.docIdManager, 'header', false, 'header');
-    processAttributeWithoutOverride(node, this.docIdManager, 'hint', false, 'hint');
-    processAttributeWithoutOverride(node, this.docIdManager, 'answer', false, 'answer');
+    this.markdownProcessor.processAttributeWithoutOverride(node, 'header', false, 'header');
+    this.markdownProcessor.processAttributeWithoutOverride(node, 'hint', false, 'hint');
+    this.markdownProcessor.processAttributeWithoutOverride(node, 'answer', false, 'answer');
   }
 
   processQOption(node) {
-    processAttributeWithoutOverride(node, this.docIdManager, 'reason', false, 'reason');
+    this.markdownProcessor.processAttributeWithoutOverride(node, 'reason', false, 'reason');
   }
 
   processQuiz(node) {
-    processAttributeWithoutOverride(node, this.docIdManager, 'intro', false, 'intro');
+    this.markdownProcessor.processAttributeWithoutOverride(node, 'intro', false, 'intro');
   }
 
   /*
@@ -74,7 +73,7 @@ class ComponentProcessor {
    */
 
   processTabAttributes(node) {
-    processAttributeWithoutOverride(node, this.docIdManager, 'header', true, 'header');
+    this.markdownProcessor.processAttributeWithoutOverride(node, 'header', true, 'header');
   }
 
   /*
@@ -89,10 +88,10 @@ class ComponentProcessor {
     warnConflictingAttributes(node, 'no-icon', ['icon']);
     warnDeprecatedAttributes(node, { heading: 'header' });
 
-    processAttributeWithoutOverride(node, this.docIdManager, 'icon', true, 'icon');
-    processAttributeWithoutOverride(node, this.docIdManager, 'header', false, 'header');
+    this.markdownProcessor.processAttributeWithoutOverride(node, 'icon', true, 'icon');
+    this.markdownProcessor.processAttributeWithoutOverride(node, 'header', false, 'header');
 
-    processAttributeWithoutOverride(node, this.docIdManager, 'heading', false, 'header');
+    this.markdownProcessor.processAttributeWithoutOverride(node, 'heading', false, 'header');
   }
 
   /*
@@ -120,10 +119,10 @@ class ComponentProcessor {
     warnConflictingAttributes(node, 'header', ['text']);
     // header attribute takes priority over text attribute if both 'text' and 'header' is used
     if (_.has(node.attribs, 'header')) {
-      processAttributeWithoutOverride(node, this.docIdManager, 'header', true, 'header');
+      this.markdownProcessor.processAttributeWithoutOverride(node, 'header', true, 'header');
       delete node.attribs.text;
     } else {
-      processAttributeWithoutOverride(node, this.docIdManager, 'text', true, 'header');
+      this.markdownProcessor.processAttributeWithoutOverride(node, 'text', true, 'header');
     }
   }
 
@@ -142,7 +141,7 @@ class ComponentProcessor {
       return;
     }
 
-    const renderedText = renderMdInline(text, this.docIdManager);
+    const renderedText = this.markdownProcessor.renderMdInline(text);
     node.children = cheerio.parseHTML(renderedText);
     delete node.attribs.text;
   }

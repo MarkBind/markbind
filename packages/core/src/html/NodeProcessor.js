@@ -16,12 +16,11 @@ const linkProcessor = require('./linkProcessor');
 const { insertTemporaryStyles } = require('./tempStyleProcessor');
 const { highlightCodeBlock } = require('./codeblockProcessor');
 const { setHeadingId } = require('./headerProcessor');
-const { renderMd, renderMdInline } = require('./markdownProcessor');
+const { MarkdownProcessor } = require('./MarkdownProcessor');
 const { FootnoteProcessor } = require('./FootnoteProcessor');
 const { BootstrapVueProcessor } = require('./BootstrapVueProcessor');
 const { ComponentProcessor } = require('./ComponentProcessor');
 const { shiftSlotNodeDeeper, transformOldSlotSyntax } = require('./vueSlotSyntaxProcessor');
-const { DocIdManager } = require('./DocIdManager');
 const { preprocessBody } = require('./warnings');
 const { processScriptTag, processStyleTag } = require('./scriptAndStyleTagProcessor');
 
@@ -49,11 +48,11 @@ class NodeProcessor {
     this.variableProcessor = variableProcessor;
     this.pluginManager = pluginManager;
 
-    this.docIdManager = new DocIdManager(docId);
+    this.markdownProcessor = new MarkdownProcessor(docId);
 
     this.footnoteProcessor = new FootnoteProcessor();
-    this.bootstrapVueProcessor = new BootstrapVueProcessor(this.docIdManager);
-    this.componentProcessor = new ComponentProcessor(this.docIdManager);
+    this.bootstrapVueProcessor = new BootstrapVueProcessor(this.markdownProcessor);
+    this.componentProcessor = new ComponentProcessor(this.markdownProcessor);
   }
 
   /*
@@ -136,10 +135,10 @@ class NodeProcessor {
         node.attribs['v-pre'] = '';
         break;
       case 'include':
-        this.docIdManager.docId += 1;
+        this.markdownProcessor.docId += 1;
         return processInclude(node, context, this.pageSources, this.variableProcessor,
-                              text => renderMd(text, this.docIdManager),
-                              text => renderMdInline(text, this.docIdManager),
+                              text => this.markdownProcessor.renderMd(text),
+                              text => this.markdownProcessor.renderMdInline(text),
                               this.config);
       case 'panel':
         this.componentProcessor.processPanelAttributes(node);
@@ -259,12 +258,12 @@ class NodeProcessor {
     case 'md':
       node.name = 'span';
       node.children = cheerio.parseHTML(
-        renderMdInline(cheerio.html(node.children), this.docIdManager), true);
+        this.markdownProcessor.renderMdInline(cheerio.html(node.children)), true);
       break;
     case 'markdown':
       node.name = 'div';
       node.children = cheerio.parseHTML(
-        renderMd(cheerio.html(node.children), this.docIdManager), true);
+        this.markdownProcessor.renderMd(cheerio.html(node.children)), true);
       break;
     default:
       break;
@@ -324,7 +323,7 @@ class NodeProcessor {
       const parser = new htmlparser.Parser(handler);
       const fileExt = utils.getExt(file);
       if (utils.isMarkdownFileExt(fileExt)) {
-        const renderedContent = renderMd(content, this.docIdManager);
+        const renderedContent = this.markdownProcessor.renderMd(content);
         // Wrap with <root> as $.remove() does not work on top level nodes
         parser.parseComplete(`<root>${renderedContent}</root>`);
       } else if (fileExt === 'html') {

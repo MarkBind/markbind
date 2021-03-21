@@ -1,7 +1,6 @@
 const _ = {};
 _.has = require('lodash/has');
 
-const { processAttributeWithoutOverride } = require('./markdownProcessor');
 const { getVslotShorthandName } = require('./vueSlotSyntaxProcessor');
 const { warnDeprecatedAttributes, warnDeprecatedSlotNames } = require('./warnings');
 
@@ -9,8 +8,8 @@ const { warnDeprecatedAttributes, warnDeprecatedSlotNames } = require('./warning
  * Class responsible for bootstrap vue transformations for modals, popovers, tooltips
  */
 class BootstrapVueProcessor {
-  constructor(docIdManager) {
-    this.docIdManager = docIdManager;
+  constructor(markdownProcessor) {
+    this.markdownProcessor = markdownProcessor;
   }
 
   /**
@@ -83,9 +82,9 @@ class BootstrapVueProcessor {
   processPopover(node) {
     warnDeprecatedAttributes(node, { title: 'header' });
 
-    processAttributeWithoutOverride(node, this.docIdManager, 'content', true);
-    processAttributeWithoutOverride(node, this.docIdManager, 'header', true);
-    processAttributeWithoutOverride(node, this.docIdManager, 'title', true, 'header');
+    this.markdownProcessor.processAttributeWithoutOverride(node, 'content', true);
+    this.markdownProcessor.processAttributeWithoutOverride(node, 'header', true);
+    this.markdownProcessor.processAttributeWithoutOverride(node, 'title', true, 'header');
 
     node.name = 'span';
     const trigger = node.attribs.trigger || 'hover';
@@ -97,7 +96,7 @@ class BootstrapVueProcessor {
   }
 
   processTooltip(node) {
-    processAttributeWithoutOverride(node, this.docIdManager, 'content', true, '_content');
+    this.markdownProcessor.processAttributeWithoutOverride(node, 'content', true, '_content');
 
     node.name = 'span';
     const trigger = node.attribs.trigger || 'hover';
@@ -115,8 +114,8 @@ class BootstrapVueProcessor {
       'modal-footer': 'footer',
     });
 
-    processAttributeWithoutOverride(node, this.docIdManager, 'header', true, 'modal-title');
-    processAttributeWithoutOverride(node, this.docIdManager, 'title', true, 'modal-title');
+    this.markdownProcessor.processAttributeWithoutOverride(node, 'header', true, 'modal-title');
+    this.markdownProcessor.processAttributeWithoutOverride(node, 'title', true, 'modal-title');
 
     BootstrapVueProcessor._renameSlot(node, 'header', 'modal-header');
     BootstrapVueProcessor._renameSlot(node, 'footer', 'modal-footer');
