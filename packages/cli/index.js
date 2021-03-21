@@ -17,6 +17,7 @@ const {
   INDEX_MARKDOWN_FILE,
   INDEX_MARKBIND_FILE,
   LAZY_LOADING_SITE_FILE_NAME,
+  SITE_CONFIG_NAME,
 } = require('@markbind/core/src/Site/constants');
 
 const liveServer = require('./src/lib/live-server');
@@ -158,6 +159,9 @@ program
       const normalizedActiveUrls = liveServer.getActiveUrls().map(url => fsUtil.removeExtension(url));
       site.changeCurrentOpenedPages(normalizedActiveUrls);
       Promise.resolve('').then(() => {
+        if (path.basename(filePath) === SITE_CONFIG_NAME) {
+          return site.reloadSiteConfig();
+        }
         if (site.isDependencyOfPage(filePath)) {
           return site.rebuildAffectedSourceFiles(filePath);
         }

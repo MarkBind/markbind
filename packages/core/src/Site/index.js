@@ -31,9 +31,12 @@ const {
 
 const _ = {};
 _.difference = require('lodash/difference');
+_.differenceWith = require('lodash/differenceWith');
 _.flatMap = require('lodash/flatMap');
 _.has = require('lodash/has');
 _.isBoolean = require('lodash/isBoolean');
+_.isEmpty = require('lodash/isEmpty');
+_.isEqual = require('lodash/isEqual');
 _.isUndefined = require('lodash/isUndefined');
 _.noop = require('lodash/noop');
 _.omitBy = require('lodash/omitBy');
@@ -840,6 +843,52 @@ class Site {
     }
   }
 
+  async reloadSiteConfig() {
+    const oldAddressablePages = this.addressablePages.slice();
+    const oldPagesSrc = oldAddressablePages.map(page => page.src);
+    await this.readSiteConfig();
+    this.collectAddressablePages();
+
+    // Comparator for the _differenceWith comparison below
+    const isNewPage = (newPage, oldPage) => _.isEqual(newPage, oldPage) || newPage.src === oldPage.src;
+
+    const addedPages = _.differenceWith(this.addressablePages, oldAddressablePages, isNewPage);
+    const removedPages = _.differenceWith(oldAddressablePages, this.addressablePages, isNewPage)
+      .map(filePath => Site.setExtension(filePath.src, '.html'));
+
+    if (!_.isEmpty(addedPages) || !_.isEmpty(removedPages)) {
+      await this.removeAsset(removedPages);
+      await this._rebuildSourceFiles();
+      await this.writeSiteData();
+    } else {
+      // Get pages with edited attributes but with the same src
+      const editedPages = _.differenceWith(this.addressablePages, oldAddressablePages, (newPage, oldPage) => {
+        if (!_.isEqual(newPage, oldPage)) {
+          return !oldPagesSrc.includes(newPage.src);
+        }
+        return true;
+      });
+      this.updatePages(editedPages);
+      const siteConfigDirectory = path.dirname(path.join(this.rootPath, this.siteConfigPath));
+      this.regenerateAffectedPages(editedPages.map(page => path.join(siteConfigDirectory, page.src)));
+    }
+  }
+
+  /**
+   * Creates new pages and replaces the original pages with the updated version
+   */
+  updatePages(pagesToUpdate) {
+    pagesToUpdate.forEach((pageToUpdate) => {
+      this.pages.forEach((page, index) => {
+        if (page.pageConfig.src === pageToUpdate.src) {
+          const newPage = this.createNewPage(pageToUpdate, this.getFavIconUrl());
+          newPage.resetState();
+          this.pages[index] = newPage;
+        }
+      });
+    });
+  }
+
   /**
    * Checks if a specified file path is a dependency of a page
    * @param {string} filePath file path to check
@@ -890,7 +939,16 @@ class Site {
    * @param {String} faviconUrl
    */
   mapAddressablePagesToPages(addressablePages, faviconUrl) {
-    this.pages = addressablePages.map(page => this.createPage({
+    this.pages = addressablePages.map(page => this.createNewPage(page, faviconUrl));
+  }
+
+  /**
+   * Creates and returns a new Page with the given page config details and favicon url
+   * @param {Page} page config
+   * @param {String} faviconUrl of the page
+   */
+  createNewPage(page, faviconUrl) {
+    return this.createPage({
       faviconUrl,
       pageSrc: page.src,
       title: page.title,
@@ -898,7 +956,7 @@ class Site {
       frontmatter: page.frontmatter,
       searchable: page.searchable !== 'no',
       externalScripts: page.externalScripts,
-    }));
+    });
   }
 
   /**
