@@ -21,7 +21,7 @@ const { FootnoteProcessor } = require('./FootnoteProcessor');
 const { BootstrapVueProcessor } = require('./BootstrapVueProcessor');
 const { ComponentProcessor } = require('./ComponentProcessor');
 const { shiftSlotNodeDeeper, transformOldSlotSyntax } = require('./vueSlotSyntaxProcessor');
-const { preprocessBody } = require('./warnings');
+const { warnBodyTag } = require('./warnings');
 const { processScriptTag, processStyleTag } = require('./scriptAndStyleTagProcessor');
 
 const utils = require('../utils');
@@ -129,7 +129,7 @@ class NodeProcessor {
         this._processFrontMatter(node, context);
         break;
       case 'body':
-        preprocessBody(node);
+        warnBodyTag(node);
         break;
       case 'code':
         node.attribs['v-pre'] = '';

@@ -66,7 +66,7 @@ function warnDeprecatedSlotNames(element, namePairs) {
  * Body
  */
 
-function preprocessBody(node) {
+function warnBodyTag(node) {
   // eslint-disable-next-line no-console
   console.warn(`<body> tag found in ${node.attribs[ATTRIB_CWF]}. This may cause formatting errors.`);
 }
@@ -75,5 +75,5 @@ module.exports = {
   warnConflictingAttributes,
   warnDeprecatedAttributes,
   warnDeprecatedSlotNames,
-  preprocessBody,
+  warnBodyTag,
 };
