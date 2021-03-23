@@ -153,13 +153,16 @@ class NodeProcessor {
         this.componentProcessor.processQuiz(node);
         break;
       case 'popover':
-        this.bootstrapVueProcessor.processPopover(node);
+        this.componentProcessor.processPopover(node);
+        BootstrapVueProcessor.processPopover(node);
         break;
       case 'tooltip':
-        this.bootstrapVueProcessor.processTooltip(node);
+        this.componentProcessor.processTooltip(node);
+        BootstrapVueProcessor.processTooltip(node);
         break;
       case 'modal':
-        this.bootstrapVueProcessor.processModalAttributes(node);
+        this.componentProcessor.processModalAttributes(node);
+        BootstrapVueProcessor.processModalAttributes(node);
         break;
       case 'tab':
       case 'tab-group':

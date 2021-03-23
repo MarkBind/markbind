@@ -2,7 +2,6 @@ const _ = {};
 _.has = require('lodash/has');
 
 const { getVslotShorthandName } = require('./vueSlotSyntaxProcessor');
-const { warnDeprecatedAttributes, warnDeprecatedSlotNames } = require('./warnings');
 
 /**
  * Class responsible for bootstrap vue transformations for modals, popovers, tooltips
@@ -79,13 +78,7 @@ class BootstrapVueProcessor {
     }
   }
 
-  processPopover(node) {
-    warnDeprecatedAttributes(node, { title: 'header' });
-
-    this.markdownProcessor.processAttributeWithoutOverride(node, 'content', true);
-    this.markdownProcessor.processAttributeWithoutOverride(node, 'header', true);
-    this.markdownProcessor.processAttributeWithoutOverride(node, 'title', true, 'header');
-
+  static processPopover(node) {
     node.name = 'span';
     const trigger = node.attribs.trigger || 'hover';
     const placement = node.attribs.placement || 'top';
@@ -95,9 +88,7 @@ class BootstrapVueProcessor {
     BootstrapVueProcessor.transformSlottedComponents(node);
   }
 
-  processTooltip(node) {
-    this.markdownProcessor.processAttributeWithoutOverride(node, 'content', true, '_content');
-
+  static processTooltip(node) {
     node.name = 'span';
     const trigger = node.attribs.trigger || 'hover';
     const placement = node.attribs.placement || 'top';
@@ -107,16 +98,7 @@ class BootstrapVueProcessor {
     BootstrapVueProcessor.transformSlottedComponents(node);
   }
 
-  processModalAttributes(node) {
-    warnDeprecatedAttributes(node, { title: 'header' });
-    warnDeprecatedSlotNames(node, {
-      'modal-header': 'header',
-      'modal-footer': 'footer',
-    });
-
-    this.markdownProcessor.processAttributeWithoutOverride(node, 'header', true, 'modal-title');
-    this.markdownProcessor.processAttributeWithoutOverride(node, 'title', true, 'modal-title');
-
+  static processModalAttributes(node) {
     BootstrapVueProcessor._renameSlot(node, 'header', 'modal-header');
     BootstrapVueProcessor._renameSlot(node, 'footer', 'modal-footer');
 

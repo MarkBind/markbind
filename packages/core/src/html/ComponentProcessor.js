@@ -1,7 +1,11 @@
 const cheerio = require('cheerio');
 
 const { getVslotShorthandName } = require('./vueSlotSyntaxProcessor');
-const { warnConflictingAttributes, warnDeprecatedAttributes } = require('./warnings');
+const {
+  warnConflictingAttributes,
+  warnDeprecatedAttributes,
+  warnDeprecatedSlotNames,
+} = require('./warnings');
 
 const _ = {};
 _.has = require('lodash/has');
@@ -13,13 +17,65 @@ class ComponentProcessor {
     this.markdownProcessor = markdownProcessor;
   }
 
+  /**
+   * Processes the markdown attribute of the provided element, inserting the corresponding <slot> child
+   * if there is no pre-existing slot child with the name of the attribute present.
+   * @param node Element to process
+   * @param attribute Attribute name to process
+   * @param isInline Whether to process the attribute with only inline markdown-it rules
+   * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
+   */
+  processAttributeWithoutOverride(node, attribute, isInline, slotName = attribute) {
+    const hasAttributeSlot = node.children
+        && node.children.some(child => getVslotShorthandName(child) === slotName);
+
+    if (!hasAttributeSlot && _.has(node.attribs, attribute)) {
+      let rendered;
+      if (isInline) {
+        rendered = this.markdownProcessor.renderMdInline(node.attribs[attribute]);
+      } else {
+        rendered = this.markdownProcessor.renderMd(node.attribs[attribute]);
+      }
+
+      const attributeSlotElement = cheerio.parseHTML(
+        `<template #${slotName}>${rendered}</template>`, true);
+      node.children
+          = node.children ? attributeSlotElement.concat(node.children) : attributeSlotElement;
+    }
+
+    delete node.attribs[attribute];
+  }
+
+  processPopover(node) {
+    warnDeprecatedAttributes(node, { title: 'header' });
+
+    this.processAttributeWithoutOverride(node, 'content', true);
+    this.processAttributeWithoutOverride(node, 'header', true);
+    this.processAttributeWithoutOverride(node, 'title', true, 'header');
+  }
+
+  processTooltip(node) {
+    this.processAttributeWithoutOverride(node, 'content', true, '_content');
+  }
+
+  processModalAttributes(node) {
+    warnDeprecatedAttributes(node, { title: 'header' });
+    warnDeprecatedSlotNames(node, {
+      'modal-header': 'header',
+      'modal-footer': 'footer',
+    });
+
+    this.processAttributeWithoutOverride(node, 'header', true, 'modal-title');
+    this.processAttributeWithoutOverride(node, 'title', true, 'modal-title');
+  }
+
   /*
    * Panels
    */
 
   processPanelAttributes(node) {
-    this.markdownProcessor.processAttributeWithoutOverride(node, 'alt', false, '_alt');
-    this.markdownProcessor.processAttributeWithoutOverride(node, 'header', false);
+    this.processAttributeWithoutOverride(node, 'alt', false, '_alt');
+    this.processAttributeWithoutOverride(node, 'header', false);
   }
 
   /*
@@ -27,17 +83,17 @@ class ComponentProcessor {
    */
 
   processQuestion(node) {
-    this.markdownProcessor.processAttributeWithoutOverride(node, 'header', false, 'header');
-    this.markdownProcessor.processAttributeWithoutOverride(node, 'hint', false, 'hint');
-    this.markdownProcessor.processAttributeWithoutOverride(node, 'answer', false, 'answer');
+    this.processAttributeWithoutOverride(node, 'header', false, 'header');
+    this.processAttributeWithoutOverride(node, 'hint', false, 'hint');
+    this.processAttributeWithoutOverride(node, 'answer', false, 'answer');
   }
 
   processQOption(node) {
-    this.markdownProcessor.processAttributeWithoutOverride(node, 'reason', false, 'reason');
+    this.processAttributeWithoutOverride(node, 'reason', false, 'reason');
   }
 
   processQuiz(node) {
-    this.markdownProcessor.processAttributeWithoutOverride(node, 'intro', false, 'intro');
+    this.processAttributeWithoutOverride(node, 'intro', false, 'intro');
   }
 
   /*
@@ -45,7 +101,7 @@ class ComponentProcessor {
    */
 
   processTabAttributes(node) {
-    this.markdownProcessor.processAttributeWithoutOverride(node, 'header', true, 'header');
+    this.processAttributeWithoutOverride(node, 'header', true, 'header');
   }
 
   /*
@@ -60,10 +116,10 @@ class ComponentProcessor {
     warnConflictingAttributes(node, 'no-icon', ['icon']);
     warnDeprecatedAttributes(node, { heading: 'header' });
 
-    this.markdownProcessor.processAttributeWithoutOverride(node, 'icon', true, 'icon');
-    this.markdownProcessor.processAttributeWithoutOverride(node, 'header', false, 'header');
+    this.processAttributeWithoutOverride(node, 'icon', true, 'icon');
+    this.processAttributeWithoutOverride(node, 'header', false, 'header');
 
-    this.markdownProcessor.processAttributeWithoutOverride(node, 'heading', false, 'header');
+    this.processAttributeWithoutOverride(node, 'heading', false, 'header');
   }
 
   /*
@@ -91,10 +147,10 @@ class ComponentProcessor {
     warnConflictingAttributes(node, 'header', ['text']);
     // header attribute takes priority over text attribute if both 'text' and 'header' is used
     if (_.has(node.attribs, 'header')) {
-      this.markdownProcessor.processAttributeWithoutOverride(node, 'header', true, 'header');
+      this.processAttributeWithoutOverride(node, 'header', true, 'header');
       delete node.attribs.text;
     } else {
-      this.markdownProcessor.processAttributeWithoutOverride(node, 'text', true, 'header');
+      this.processAttributeWithoutOverride(node, 'text', true, 'header');
     }
   }
 
