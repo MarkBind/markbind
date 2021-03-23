@@ -151,16 +151,6 @@ class ComponentProcessor {
     node.children = cheerio.parseHTML(renderedText);
     delete node.attribs.text;
   }
-
-  /**
-   * Annotations are added automatically by KaTeX when rendering math formulae.
-   */
-
-  static processAnnotationAttributes(node) {
-    if (!_.has(node.attribs, 'v-pre')) {
-      node.attribs['v-pre'] = true;
-    }
-  }
 }
 
 module.exports = {

@@ -182,7 +182,8 @@ class NodeProcessor {
         this.componentProcessor.processThumbnailAttributes(node);
         break;
       case 'annotation':
-        ComponentProcessor.processAnnotationAttributes(node);
+        // Annotations are added automatically by KaTeX when rendering math formulae.
+        if (!_.has(node.attribs, 'v-pre')) { node.attribs['v-pre'] = true; }
         break;
       case 'site-nav':
         renderSiteNav(node);
