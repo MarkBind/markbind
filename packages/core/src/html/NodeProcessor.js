@@ -18,7 +18,11 @@ const { highlightCodeBlock } = require('./codeblockProcessor');
 const { setHeadingId, assignPanelId } = require('./headerProcessor');
 const { MarkdownProcessor } = require('./MarkdownProcessor');
 const { FootnoteProcessor } = require('./FootnoteProcessor');
-const { BootstrapVueProcessor } = require('./BootstrapVueProcessor');
+const {
+  transformBootstrapVuePopover,
+  transformBootstrapVueTooltip,
+  transformBootstrapVueModalAttributes,
+} = require('./bootstrapVueProcessor');
 const { ComponentProcessor } = require('./ComponentProcessor');
 const { shiftSlotNodeDeeper, transformOldSlotSyntax } = require('./vueSlotSyntaxProcessor');
 const { warnBodyTag, warnConflictingAtributesMap, warnDeprecatedAtributesMap } = require('./warnings');
@@ -52,7 +56,6 @@ class NodeProcessor {
     this.markdownProcessor = new MarkdownProcessor(docId);
 
     this.footnoteProcessor = new FootnoteProcessor();
-    this.bootstrapVueProcessor = new BootstrapVueProcessor(this.markdownProcessor);
     this.componentProcessor = new ComponentProcessor(this.markdownProcessor);
   }
 
@@ -179,20 +182,20 @@ class NodeProcessor {
         break;
       case 'popover':
         this.componentProcessor.processPopover(node);
-        BootstrapVueProcessor.processPopover(node);
+        transformBootstrapVuePopover(node);
         break;
       case 'tooltip':
         this.componentProcessor.processTooltip(node);
-        BootstrapVueProcessor.processTooltip(node);
+        transformBootstrapVueTooltip(node);
         break;
       case 'modal':
         this.componentProcessor.processModalAttributes(node);
-        BootstrapVueProcessor.processModalAttributes(node,
-                                                     (originalName, newName) =>
-                                                       NodeProcessor._renameSlot(node, originalName, newName),
-                                                     (originalAttribute, newAttribute) =>
-                                                       // eslint-disable-next-line max-len
-                                                       NodeProcessor._renameAttribute(node, originalAttribute, newAttribute));
+        transformBootstrapVueModalAttributes(node,
+                                             (originalName, newName) =>
+                                               NodeProcessor._renameSlot(node, originalName, newName),
+                                             (originalAttribute, newAttribute) =>
+                                             // eslint-disable-next-line max-len
+                                               NodeProcessor._renameAttribute(node, originalAttribute, newAttribute));
         break;
       case 'tab':
       case 'tab-group':
