@@ -15,7 +15,7 @@ const { Context } = require('./Context');
 const linkProcessor = require('./linkProcessor');
 const { insertTemporaryStyles } = require('./tempStyleProcessor');
 const { highlightCodeBlock } = require('./codeblockProcessor');
-const { setHeadingId } = require('./headerProcessor');
+const { setHeadingId, assignPanelId } = require('./headerProcessor');
 const { MarkdownProcessor } = require('./MarkdownProcessor');
 const { FootnoteProcessor } = require('./FootnoteProcessor');
 const { BootstrapVueProcessor } = require('./BootstrapVueProcessor');
@@ -206,7 +206,7 @@ class NodeProcessor {
         highlightCodeBlock(node);
         break;
       case 'panel':
-        ComponentProcessor.assignPanelId(node);
+        assignPanelId(node);
         break;
       case 'head-top':
         this._collectLayoutEl(node, 'headTop');

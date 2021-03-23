@@ -1,6 +1,11 @@
 const cheerio = require('cheerio');
 const slugify = require('@sindresorhus/slugify');
 
+const { getVslotShorthandName } = require('./vueSlotSyntaxProcessor');
+
+const _ = {};
+_.has = require('lodash/has');
+
 /*
  * h1 - h6
  */
@@ -48,7 +53,35 @@ function findHeaderElement(node) {
   return undefined;
 }
 
+/**
+ * Assigns an id to the root element of a panel component using the heading specified in the
+ * panel's header slot or attribute (if any), with the header slot having priority if present.
+ * This is to ensure anchors still work when panels are in their minimized form.
+ * @param node The root panel element
+ */
+function assignPanelId(node) {
+  const slotChildren = node.children
+      && node.children.filter(child => getVslotShorthandName(child) !== '');
+
+  const headerSlot = slotChildren.find(child => getVslotShorthandName(child) === 'header');
+
+  if (headerSlot) {
+    const header = findHeaderElement(headerSlot);
+    if (!header) {
+      return;
+    }
+
+    if (!header.attribs || !_.has(header.attribs, 'id')) {
+      throw new Error('Found a panel heading without an assigned id.\n'
+          + 'Please report this to the MarkBind developers. Thank you!');
+    }
+
+    node.attribs.id = header.attribs.id;
+  }
+}
+
 module.exports = {
   setHeadingId,
   findHeaderElement,
+  assignPanelId,
 };
