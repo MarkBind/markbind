@@ -1,8 +1,6 @@
 const logger = require('../utils/logger');
 const { getVslotShorthandName } = require('./vueSlotSyntaxProcessor');
 
-const { ATTRIB_CWF } = require('../constants');
-
 /**
  * Check and warns if element has conflicting attributes.
  * Note that attirbutes in `attrsConflictingWith` are not in conflict with each other,
@@ -62,15 +60,6 @@ function _warnDeprecatedSlotNames(element, namePairs) {
   });
 }
 
-/*
- * Body
- */
-
-function warnBodyTag(node) {
-  // eslint-disable-next-line no-console
-  console.warn(`<body> tag found in ${node.attribs[ATTRIB_CWF]}. This may cause formatting errors.`);
-}
-
 const warnConflictingAtributesMap = {
   box: (node) => {
     _warnConflictingAttributes(node, 'light', ['seamless']);
@@ -106,5 +95,4 @@ const warnDeprecatedAtributesMap = {
 module.exports = {
   warnConflictingAtributesMap,
   warnDeprecatedAtributesMap,
-  warnBodyTag,
 };

@@ -25,7 +25,7 @@ const {
 } = require('./bootstrapVueProcessor');
 const { ComponentProcessor } = require('./ComponentProcessor');
 const { shiftSlotNodeDeeper, transformOldSlotSyntax } = require('./vueSlotSyntaxProcessor');
-const { warnBodyTag, warnConflictingAtributesMap, warnDeprecatedAtributesMap } = require('./warnings');
+const { warnConflictingAtributesMap, warnDeprecatedAtributesMap } = require('./warnings');
 const { processScriptTag, processStyleTag } = require('./scriptAndStyleTagProcessor');
 const { getVslotShorthandName } = require('./vueSlotSyntaxProcessor');
 
@@ -157,7 +157,7 @@ class NodeProcessor {
         this._processFrontMatter(node, context);
         break;
       case 'body':
-        warnBodyTag(node);
+        console.warn(`<body> tag found in ${node.attribs[ATTRIB_CWF]}. This may cause formatting errors.`);
         break;
       case 'code':
         node.attribs['v-pre'] = '';
