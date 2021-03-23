@@ -16,7 +16,7 @@ class FootnoteProcessor {
     $.remove();
   }
 
-  combineFootnotes(nodeProcessor) {
+  combineFootnotes(processNode) {
     let hasFootnote = false;
     const prefix = '<hr class="footnotes-sep">\n<section class="footnotes">\n<ol class="footnotes-list">\n';
 
@@ -32,7 +32,7 @@ class FootnoteProcessor {
               ${$(li).html()}
             </div>
           </popover>`)[0];
-        nodeProcessor.processNode(popoverNode);
+        processNode(popoverNode);
 
         popoversHtml += cheerio.html(popoverNode);
       });

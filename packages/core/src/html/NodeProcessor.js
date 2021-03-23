@@ -163,7 +163,7 @@ class NodeProcessor {
         node.attribs['v-pre'] = '';
         break;
       case 'include':
-        this.markdownProcessor.docId += 1;
+        this.markdownProcessor.docId += 1; // used in markdown-it-footnotes
         return processInclude(node, context, this.pageSources, this.variableProcessor,
                               text => this.markdownProcessor.renderMd(text),
                               text => this.markdownProcessor.renderMdInline(text),
@@ -355,7 +355,8 @@ class NodeProcessor {
         });
         nodes.forEach(d => NodeProcessor._trimNodes(d));
 
-        resolve(cheerio(nodes).html() + this.footnoteProcessor.combineFootnotes(this));
+        resolve(cheerio(nodes).html()
+        + this.footnoteProcessor.combineFootnotes(node => this.processNode(node)));
       });
       const parser = new htmlparser.Parser(handler);
       const fileExt = utils.getExt(file);
