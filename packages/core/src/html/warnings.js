@@ -11,7 +11,7 @@ const { ATTRIB_CWF } = require('../constants');
  * @param attribute An attribute that is conflicting with other attributes
  * @param attrsConflictingWith The attributes conflicting with `attribute`
  */
-function warnConflictingAttributes(node, attribute, attrsConflictingWith) {
+function _warnConflictingAttributes(node, attribute, attrsConflictingWith) {
   if (!(attribute in node.attribs)) {
     return;
   }
@@ -28,7 +28,7 @@ function warnConflictingAttributes(node, attribute, attrsConflictingWith) {
  * @param node Root element to check
  * @param attributeNamePairs Object of attribute name pairs with each pair in the form deprecated : correct
  */
-function warnDeprecatedAttributes(node, attributeNamePairs) {
+function _warnDeprecatedAttributes(node, attributeNamePairs) {
   Object.entries(attributeNamePairs)
     .forEach(([deprecatedAttrib, correctAttrib]) => {
       if (deprecatedAttrib in node.attribs) {
@@ -43,7 +43,7 @@ function warnDeprecatedAttributes(node, attributeNamePairs) {
  * @param element Root element to check
  * @param namePairs Object of slot name pairs with each pair in the form deprecated : correct
  */
-function warnDeprecatedSlotNames(element, namePairs) {
+function _warnDeprecatedSlotNames(element, namePairs) {
   if (!(element.children)) {
     return;
   }
@@ -71,9 +71,40 @@ function warnBodyTag(node) {
   console.warn(`<body> tag found in ${node.attribs[ATTRIB_CWF]}. This may cause formatting errors.`);
 }
 
+const warnConflictingAtributesMap = {
+  box: (node) => {
+    _warnConflictingAttributes(node, 'light', ['seamless']);
+    _warnConflictingAttributes(node, 'no-background', ['background-color', 'seamless']);
+    _warnConflictingAttributes(node, 'no-border',
+                               ['border-color', 'border-left-color', 'seamless']);
+    _warnConflictingAttributes(node, 'no-icon', ['icon']);
+  },
+  dropdown: (node) => {
+    _warnConflictingAttributes(node, 'header', ['text']);
+  },
+};
+
+const warnDeprecatedAtributesMap = {
+  box: (node) => {
+    _warnDeprecatedAttributes(node, { heading: 'header' });
+  },
+  dropdown: (node) => {
+    _warnDeprecatedAttributes(node, { text: 'header' });
+  },
+  popover: (node) => {
+    _warnDeprecatedAttributes(node, { title: 'header' });
+  },
+  modal: (node) => {
+    _warnDeprecatedAttributes(node, { title: 'header' });
+    _warnDeprecatedSlotNames(node, {
+      'modal-header': 'header',
+      'modal-footer': 'footer',
+    });
+  },
+};
+
 module.exports = {
-  warnConflictingAttributes,
-  warnDeprecatedAttributes,
-  warnDeprecatedSlotNames,
+  warnConflictingAtributesMap,
+  warnDeprecatedAtributesMap,
   warnBodyTag,
 };

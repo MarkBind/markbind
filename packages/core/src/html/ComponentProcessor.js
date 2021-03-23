@@ -1,11 +1,6 @@
 const cheerio = require('cheerio');
 
 const { getVslotShorthandName } = require('./vueSlotSyntaxProcessor');
-const {
-  warnConflictingAttributes,
-  warnDeprecatedAttributes,
-  warnDeprecatedSlotNames,
-} = require('./warnings');
 
 const _ = {};
 _.has = require('lodash/has');
@@ -47,8 +42,6 @@ class ComponentProcessor {
   }
 
   processPopover(node) {
-    warnDeprecatedAttributes(node, { title: 'header' });
-
     this.processAttributeWithoutOverride(node, 'content', true);
     this.processAttributeWithoutOverride(node, 'header', true);
     this.processAttributeWithoutOverride(node, 'title', true, 'header');
@@ -59,12 +52,6 @@ class ComponentProcessor {
   }
 
   processModalAttributes(node) {
-    warnDeprecatedAttributes(node, { title: 'header' });
-    warnDeprecatedSlotNames(node, {
-      'modal-header': 'header',
-      'modal-footer': 'footer',
-    });
-
     this.processAttributeWithoutOverride(node, 'header', true, 'modal-title');
     this.processAttributeWithoutOverride(node, 'title', true, 'modal-title');
   }
@@ -109,13 +96,6 @@ class ComponentProcessor {
    */
 
   processBoxAttributes(node) {
-    warnConflictingAttributes(node, 'light', ['seamless']);
-    warnConflictingAttributes(node, 'no-background', ['background-color', 'seamless']);
-    warnConflictingAttributes(node, 'no-border',
-                              ['border-color', 'border-left-color', 'seamless']);
-    warnConflictingAttributes(node, 'no-icon', ['icon']);
-    warnDeprecatedAttributes(node, { heading: 'header' });
-
     this.processAttributeWithoutOverride(node, 'icon', true, 'icon');
     this.processAttributeWithoutOverride(node, 'header', false, 'header');
 
@@ -143,8 +123,6 @@ class ComponentProcessor {
       return;
     }
 
-    warnDeprecatedAttributes(node, { text: 'header' });
-    warnConflictingAttributes(node, 'header', ['text']);
     // header attribute takes priority over text attribute if both 'text' and 'header' is used
     if (_.has(node.attribs, 'header')) {
       this.processAttributeWithoutOverride(node, 'header', true, 'header');

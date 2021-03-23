@@ -21,7 +21,7 @@ const { FootnoteProcessor } = require('./FootnoteProcessor');
 const { BootstrapVueProcessor } = require('./BootstrapVueProcessor');
 const { ComponentProcessor } = require('./ComponentProcessor');
 const { shiftSlotNodeDeeper, transformOldSlotSyntax } = require('./vueSlotSyntaxProcessor');
-const { warnBodyTag } = require('./warnings');
+const { warnBodyTag, warnConflictingAtributesMap, warnDeprecatedAtributesMap } = require('./warnings');
 const { processScriptTag, processStyleTag } = require('./scriptAndStyleTagProcessor');
 
 const utils = require('../utils');
@@ -123,6 +123,10 @@ class NodeProcessor {
     try {
       transformOldSlotSyntax(node);
       shiftSlotNodeDeeper(node);
+
+      // log warnings for deprecated and conflicting attributes
+      if (_.has(warnDeprecatedAtributesMap, node.name)) { warnDeprecatedAtributesMap[node.name](node); }
+      if (_.has(warnConflictingAtributesMap, node.name)) { warnConflictingAtributesMap[node.name](node); }
 
       switch (node.name) {
       case 'frontmatter':
