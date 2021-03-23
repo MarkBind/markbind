@@ -58,26 +58,6 @@ class BootstrapVueProcessor {
     node.attribs.class = node.attribs.class ? `${node.attribs.class} ${triggerClass}` : triggerClass;
   }
 
-  static _renameSlot(node, originalName, newName) {
-    if (node.children) {
-      node.children.forEach((child) => {
-        const vslotShorthandName = getVslotShorthandName(child);
-        if (vslotShorthandName && vslotShorthandName === originalName) {
-          const newVslot = `#${newName}`;
-          child.attribs[newVslot] = '';
-          delete child.attribs[`#${vslotShorthandName}`];
-        }
-      });
-    }
-  }
-
-  static _renameAttribute(node, originalAttribute, newAttribute) {
-    if (_.has(node.attribs, originalAttribute)) {
-      node.attribs[newAttribute] = node.attribs[originalAttribute];
-      delete node.attribs[originalAttribute];
-    }
-  }
-
   static processPopover(node) {
     node.name = 'span';
     const trigger = node.attribs.trigger || 'hover';
@@ -98,14 +78,14 @@ class BootstrapVueProcessor {
     BootstrapVueProcessor.transformSlottedComponents(node);
   }
 
-  static processModalAttributes(node) {
-    BootstrapVueProcessor._renameSlot(node, 'header', 'modal-header');
-    BootstrapVueProcessor._renameSlot(node, 'footer', 'modal-footer');
+  static processModalAttributes(node, renameSlot, renameAttribute) {
+    renameSlot('header', 'modal-header');
+    renameSlot('footer', 'modal-footer');
 
     node.name = 'b-modal';
 
-    BootstrapVueProcessor._renameAttribute(node, 'ok-text', 'ok-title');
-    BootstrapVueProcessor._renameAttribute(node, 'center', 'centered');
+    renameAttribute('ok-text', 'ok-title');
+    renameAttribute('center', 'centered');
 
     const hasOkTitle = _.has(node.attribs, 'ok-title');
     const hasFooter = node.children.some(child => getVslotShorthandName(child) === 'modal-footer');
