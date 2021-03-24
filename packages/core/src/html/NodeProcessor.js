@@ -160,7 +160,9 @@ class NodeProcessor {
         console.warn(`<body> tag found in ${node.attribs[ATTRIB_CWF]}. This may cause formatting errors.`);
         break;
       case 'code':
-        node.attribs['v-pre'] = '';
+      case 'annotation':
+        // Annotations are added automatically by KaTeX when rendering math formulae.
+        if (!_.has(node.attribs, 'v-pre')) { node.attribs['v-pre'] = ''; }
         break;
       case 'include':
         this.markdownProcessor.docId += 1; // used in markdown-it-footnotes
@@ -209,10 +211,6 @@ class NodeProcessor {
         break;
       case 'thumbnail':
         this.componentProcessor.processThumbnailAttributes(node);
-        break;
-      case 'annotation':
-        // Annotations are added automatically by KaTeX when rendering math formulae.
-        if (!_.has(node.attribs, 'v-pre')) { node.attribs['v-pre'] = true; }
         break;
       case 'site-nav':
         renderSiteNav(node);
