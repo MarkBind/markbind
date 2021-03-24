@@ -32,7 +32,7 @@ function setHeadingId(node, config) {
  * @param node Root element to search from
  * @returns {undefined|*} The header element, or undefined if none is found.
  */
-function findHeaderElement(node) {
+function _findHeaderElement(node) {
   const elements = node.children;
   if (!elements || !elements.length) {
     return undefined;
@@ -66,7 +66,7 @@ function assignPanelId(node) {
   const headerSlot = slotChildren.find(child => getVslotShorthandName(child) === 'header');
 
   if (headerSlot) {
-    const header = findHeaderElement(headerSlot);
+    const header = _findHeaderElement(headerSlot);
     if (!header) {
       return;
     }
@@ -82,6 +82,5 @@ function assignPanelId(node) {
 
 module.exports = {
   setHeadingId,
-  findHeaderElement,
   assignPanelId,
 };
