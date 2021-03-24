@@ -23,7 +23,7 @@ const {
   transformBootstrapVueTooltip,
   transformBootstrapVueModalAttributes,
 } = require('./bootstrapVueProcessor');
-const { ComponentProcessor } = require('./ComponentProcessor');
+const { MdAttributeRenderer } = require('./MdAttributeRenderer');
 const { shiftSlotNodeDeeper, transformOldSlotSyntax } = require('./vueSlotSyntaxProcessor');
 const { warnConflictingAtributesMap, warnDeprecatedAtributesMap } = require('./warnings');
 const { processScriptTag, processStyleTag } = require('./scriptAndStyleTagProcessor');
@@ -55,7 +55,7 @@ class NodeProcessor {
     this.markdownProcessor = new MarkdownProcessor(docId);
 
     this.footnoteProcessor = new FootnoteProcessor();
-    this.componentProcessor = new ComponentProcessor(this.markdownProcessor);
+    this.mdAttributeRenderer = new MdAttributeRenderer(this.markdownProcessor);
   }
 
   /*
@@ -150,41 +150,41 @@ class NodeProcessor {
                               text => this.markdownProcessor.renderMdInline(text),
                               this.config);
       case 'panel':
-        this.componentProcessor.processPanelAttributes(node);
+        this.mdAttributeRenderer.processPanelAttributes(node);
         return processPanelSrc(node, context, this.pageSources, this.config);
       case 'question':
-        this.componentProcessor.processQuestion(node);
+        this.mdAttributeRenderer.processQuestion(node);
         break;
       case 'q-option':
-        this.componentProcessor.processQOption(node);
+        this.mdAttributeRenderer.processQOption(node);
         break;
       case 'quiz':
-        this.componentProcessor.processQuiz(node);
+        this.mdAttributeRenderer.processQuiz(node);
         break;
       case 'popover':
-        this.componentProcessor.processPopover(node);
+        this.mdAttributeRenderer.processPopover(node);
         transformBootstrapVuePopover(node);
         break;
       case 'tooltip':
-        this.componentProcessor.processTooltip(node);
+        this.mdAttributeRenderer.processTooltip(node);
         transformBootstrapVueTooltip(node);
         break;
       case 'modal':
-        this.componentProcessor.processModalAttributes(node);
+        this.mdAttributeRenderer.processModalAttributes(node);
         transformBootstrapVueModalAttributes(node);
         break;
       case 'tab':
       case 'tab-group':
-        this.componentProcessor.processTabAttributes(node);
+        this.mdAttributeRenderer.processTabAttributes(node);
         break;
       case 'box':
-        this.componentProcessor.processBoxAttributes(node);
+        this.mdAttributeRenderer.processBoxAttributes(node);
         break;
       case 'dropdown':
-        this.componentProcessor.processDropdownAttributes(node);
+        this.mdAttributeRenderer.processDropdownAttributes(node);
         break;
       case 'thumbnail':
-        this.componentProcessor.processThumbnailAttributes(node);
+        this.mdAttributeRenderer.processThumbnailAttributes(node);
         break;
       case 'site-nav':
         renderSiteNav(node);

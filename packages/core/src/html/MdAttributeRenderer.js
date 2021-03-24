@@ -7,7 +7,10 @@ _.has = require('lodash/has');
 
 const logger = require('../utils/logger');
 
-class ComponentProcessor {
+/**
+ * Class that is responsible for rendering markdown-in-attributes
+ */
+class MdAttributeRenderer {
   constructor(markdownProcessor) {
     this.markdownProcessor = markdownProcessor;
   }
@@ -154,5 +157,5 @@ class ComponentProcessor {
 }
 
 module.exports = {
-  ComponentProcessor,
+  MdAttributeRenderer,
 };
