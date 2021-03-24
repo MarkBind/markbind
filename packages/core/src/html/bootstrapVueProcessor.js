@@ -1,7 +1,27 @@
+const { getVslotShorthandName } = require('./vueSlotSyntaxProcessor');
+
 const _ = {};
 _.has = require('lodash/has');
 
-const { getVslotShorthandName } = require('./vueSlotSyntaxProcessor');
+function _renameSlot(node, originalName, newName) {
+  if (node.children) {
+    node.children.forEach((child) => {
+      const vslotShorthandName = getVslotShorthandName(child);
+      if (vslotShorthandName && vslotShorthandName === originalName) {
+        const newVslot = `#${newName}`;
+        child.attribs[newVslot] = '';
+        delete child.attribs[`#${vslotShorthandName}`];
+      }
+    });
+  }
+}
+
+function _renameAttribute(node, originalAttribute, newAttribute) {
+  if (_.has(node.attribs, originalAttribute)) {
+    node.attribs[newAttribute] = node.attribs[originalAttribute];
+    delete node.attribs[originalAttribute];
+  }
+}
 
 /**
  * Takes an element, looks for direct elements with slots and transforms to avoid Vue parsing.
@@ -72,14 +92,14 @@ function transformBootstrapVueTooltip(node) {
   _transformSlottedComponents(node);
 }
 
-function transformBootstrapVueModalAttributes(node, renameSlot, renameAttribute) {
-  renameSlot('header', 'modal-header');
-  renameSlot('footer', 'modal-footer');
+function transformBootstrapVueModalAttributes(node) {
+  _renameSlot(node, 'header', 'modal-header');
+  _renameSlot(node, 'footer', 'modal-footer');
 
   node.name = 'b-modal';
 
-  renameAttribute('ok-text', 'ok-title');
-  renameAttribute('center', 'centered');
+  _renameAttribute(node, 'ok-text', 'ok-title');
+  _renameAttribute(node, 'center', 'centered');
 
   const hasOkTitle = _.has(node.attribs, 'ok-title');
   const hasFooter = node.children.some(child => getVslotShorthandName(child) === 'modal-footer');

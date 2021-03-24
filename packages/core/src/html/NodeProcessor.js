@@ -27,7 +27,6 @@ const { ComponentProcessor } = require('./ComponentProcessor');
 const { shiftSlotNodeDeeper, transformOldSlotSyntax } = require('./vueSlotSyntaxProcessor');
 const { warnConflictingAtributesMap, warnDeprecatedAtributesMap } = require('./warnings');
 const { processScriptTag, processStyleTag } = require('./scriptAndStyleTagProcessor');
-const { getVslotShorthandName } = require('./vueSlotSyntaxProcessor');
 
 const utils = require('../utils');
 const logger = require('../utils/logger');
@@ -83,26 +82,6 @@ class NodeProcessor {
 
   static _isText(node) {
     return node.type === 'text' || node.type === 'comment';
-  }
-
-  static _renameSlot(node, originalName, newName) {
-    if (node.children) {
-      node.children.forEach((child) => {
-        const vslotShorthandName = getVslotShorthandName(child);
-        if (vslotShorthandName && vslotShorthandName === originalName) {
-          const newVslot = `#${newName}`;
-          child.attribs[newVslot] = '';
-          delete child.attribs[`#${vslotShorthandName}`];
-        }
-      });
-    }
-  }
-
-  static _renameAttribute(node, originalAttribute, newAttribute) {
-    if (_.has(node.attribs, originalAttribute)) {
-      node.attribs[newAttribute] = node.attribs[originalAttribute];
-      delete node.attribs[originalAttribute];
-    }
   }
 
   /*
@@ -192,12 +171,7 @@ class NodeProcessor {
         break;
       case 'modal':
         this.componentProcessor.processModalAttributes(node);
-        transformBootstrapVueModalAttributes(node,
-                                             (originalName, newName) =>
-                                               NodeProcessor._renameSlot(node, originalName, newName),
-                                             (originalAttribute, newAttribute) =>
-                                             // eslint-disable-next-line max-len
-                                               NodeProcessor._renameAttribute(node, originalAttribute, newAttribute));
+        transformBootstrapVueModalAttributes(node);
         break;
       case 'tab':
       case 'tab-group':
