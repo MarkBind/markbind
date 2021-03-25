@@ -4,7 +4,7 @@ const htmlparser = require('htmlparser2');
 const { getNewDefaultNodeProcessor } = require('../utils/utils');
 const testData = require('./NodeProcessor.data');
 const { Context } = require('../../../src/html/Context');
-const { NodeProcessor } = require('../../../src/html/NodeProcessor');
+const { shiftSlotNodeDeeper, transformOldSlotSyntax } = require('../../../src/html/vueSlotSyntaxProcessor');
 
 /**
  * Runs the processNode or postProcessNode method of NodeProcessor on the provided
@@ -164,7 +164,7 @@ test('deprecated vue slot syntax should be converted to updated Vue slot shortha
 
   const testNode = cheerio.parseHTML(test)[0];
 
-  NodeProcessor.transformOldSlotSyntax(testNode);
+  transformOldSlotSyntax(testNode);
 
   const expected = '<panel><div #header>test</div><p #test>test2</p></panel>';
 
@@ -176,7 +176,7 @@ test('slot nodes which have tag names other than "template" are shifted one leve
 
   const testNode = cheerio.parseHTML(test)[0];
 
-  NodeProcessor.shiftSlotNodeDeeper(testNode);
+  shiftSlotNodeDeeper(testNode);
 
   const expected = '<panel><template #header><div>test</div></template></panel>';
 
