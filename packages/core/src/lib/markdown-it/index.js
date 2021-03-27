@@ -60,7 +60,7 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const lang = token.info || '';
   let str = token.content;
   let highlighted = false;
-  let lines = str.split('\n');
+  let lines;
 
   const startFromOneBased = Math.max(1, parseInt(getAttributeAndDelete(token, 'start-from'), 10) || 1);
   const startFromZeroBased = startFromOneBased - 1;
@@ -75,7 +75,7 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   if (highlightLinesInput) {
     const highlightLines = highlightLinesInput.split(HIGHLIGHT_LINES_DELIMITER_REGEX);
     highlightRules = highlightLines
-      .map(ruleStr => HighlightRule.parseRule(ruleStr, -startFromZeroBased, lines))
+      .map(ruleStr => HighlightRule.parseRule(ruleStr, -startFromZeroBased, str.split('\n')))
       .filter(rule => rule); // discards invalid rules
   }
 
@@ -95,11 +95,27 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
       So we have to split by lines THEN syntax highlight.
        */
       // state stores the current parse state of hljs, so that we can pass it on line by line
-      let state = null;
+      lines = hljs.highlight(str, { language: lang, ignoreIllegals: true }).value;
+      const tokenStack = [];
+
+      if (lines.includes('hljs-section')) { // remove <span class="hljs-sectin"> ... </span>
+        lines = lines.slice(27);
+        lines = lines.slice(0, lines.length - 7);
+      }
+      lines = lines.split('\n');
+
       lines = lines.map((line) => {
-        const highlightedLine = hljs.highlight(lang, line, true, state);
-        state = highlightedLine.top;
-        return highlightedLine.value;
+        const prepend = tokenStack.map(tok => `<span class="${tok}">`).join('');
+        const matches = [...line.matchAll(/(<span class="(.*?)">|<\/span>)/g)];
+        matches.forEach((match) => {
+          if (match[0] === '</span>') {
+            tokenStack.shift();
+          } else {
+            tokenStack.unshift(match[2]);
+          }
+        });
+        const append = '</span>'.repeat(tokenStack.length);
+        return prepend + line + append;
       });
       highlighted = true;
     } catch (ex) {
