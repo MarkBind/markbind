@@ -39,7 +39,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
 ### Merging
 
-1. **Re-run the Travis build** for the current PR's `continuous-integration/travis-ci/pr`.
+1. **Re-run the Github Actions `ci.yml` build** for the current PR.
 
    <box type="info" seamless>
 
