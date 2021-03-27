@@ -106,14 +106,16 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
 
       lines = lines.map((line) => {
         const prepend = tokenStack.map(tok => `<span class="${tok}">`).join('');
-        const matches = [...line.matchAll(/(<span class="(.*?)">|<\/span>)/g)];
-        matches.forEach((match) => {
+        const re = /(<span class="(.*?)">|<\/span>)/g;
+        let match = re.exec(line);
+        while (match !== null) {
           if (match[0] === '</span>') {
             tokenStack.shift();
           } else {
             tokenStack.unshift(match[2]);
           }
-        });
+          match = re.exec(line);
+        }
         const append = '</span>'.repeat(tokenStack.length);
         return prepend + line + append;
       });
