@@ -9,7 +9,7 @@
  * clients list is stored internally.
  *
  * This patch allows us to gain access to the information that can be gathered with the client
- * websockets, which in turn can enables the support for multiple-tab development.
+ * websockets, which in turn enables the support for multiple-tab development.
  *
  * Patch is written against live-server v1.2.1
  * The **only** changes are prefaced with a CHANGED comment
@@ -86,23 +86,6 @@ function staticServer(root) {
             injectTag = match[0];
             break;
           }
-        }
-
-        // CHANGED: Added line to create new entry on non-include and non-live-reload requests
-        const reqUrl = req.originalUrl;
-        if (!reqUrl.endsWith('._include_.html') && !LiveServer.isLiveReloadRequest(reqUrl)) {
-          /*
-           * TODO: Find a way to handle the edge case of a tab that is immediately closed before socket
-           *  establishment happens. Current behaviour is that the tab will remain forever in the list.
-           * Context: https://github.com/MarkBind/markbind/pull/1513#issuecomment-803025676
-           */
-          const tabEntry = {
-            url: reqUrl,
-            client: undefined,
-            prevClient: undefined,
-            isReloading: false,
-          }
-          LiveServer.activeTabs.unshift(tabEntry);
         }
 
         if (injectTag === null && LiveServer.logLevel >= 3) {
@@ -382,11 +365,22 @@ LiveServer.start = function(options) {
       LiveServer.activeTabs = LiveServer.activeTabs.filter(tab => tab.client !== ws);
     };
 
-    // CHANGED: Added line to record tab client socket on creation
+    // CHANGED: Enhanced client websocket addition process to record the client as an active tab entry
     const reqUrl = path.dirname(request.url);
-    const tab = LiveServer.activeTabs.find(tab => tab.url === reqUrl && !tab.client);
-    tab.client = ws;
-    tab.isReloading = false;
+    // Guard clause for MarkBind's _include_ files, no need to recognize as an active tab
+    if (reqUrl.endsWith('._include_.html')) {
+      return;
+    }
+
+    // If present an entry with empty client, reuse existing entry to maintain order from pre-reload 
+    const existingTab = LiveServer.activeTabs.find(tab => tab.url === reqUrl && !tab.client);
+    if (existingTab) {
+      existingTab.client = ws;
+      return;
+    }
+
+    // Insert new entry to the active tabs list
+    LiveServer.activeTabs.unshift({ url: reqUrl, client: ws});
   });
 
   var ignored = [
@@ -416,10 +410,9 @@ LiveServer.start = function(options) {
     // CHANGED: Prepare tab entry data before issuing reload
     LiveServer.activeTabs.forEach(tab => {
       if (tab.client) {
+        // Clear the client from the entry to be refilled in the socket establishment phase after reload
         const client = tab.client;
         tab.client = undefined;
-        tab.prevClient = client;
-        tab.isReloading = true;
         client.send(cssChange ? 'refreshcss' : 'reload');
       }
     });
@@ -452,10 +445,6 @@ LiveServer.shutdown = function() {
 };
 
 // CHANGED: Added method to retrieve current active urls
-LiveServer.getActiveUrls = () => LiveServer.activeTabs.filter(tab => !tab.isReloading).map(tab => tab.url);
-
-// CHANGED: Added method to check whether a request is a product of the live reload mechanism
-LiveServer.isLiveReloadRequest = (reqUrl) =>
-  LiveServer.activeTabs.some(tab => tab.url === reqUrl && tab.isReloading);
+LiveServer.getActiveUrls = () => LiveServer.activeTabs.filter(tab => tab.client).map(tab => tab.url);
 
 module.exports = LiveServer;
