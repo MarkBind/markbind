@@ -140,9 +140,11 @@ program
 
     const addHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
-      logger.info('Synchronizing opened pages list before reload');
-      const normalizedActiveUrls = liveServer.getActiveUrls().map(url => fsUtil.removeExtension(url));
-      site.changeCurrentOpenedPages(normalizedActiveUrls);
+      if (onePagePath) {
+        logger.info('Synchronizing opened pages list before reload');
+        const normalizedActiveUrls = liveServer.getActiveUrls().map(url => fsUtil.removeExtension(url));
+        site.changeCurrentOpenedPages(normalizedActiveUrls);
+      }
       Promise.resolve('').then(() => {
         if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
           return site.rebuildSourceFiles(filePath);
@@ -155,9 +157,11 @@ program
 
     const changeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file change: ${filePath}`);
-      logger.info('Synchronizing opened pages list before reload');
-      const normalizedActiveUrls = liveServer.getActiveUrls().map(url => fsUtil.removeExtension(url));
-      site.changeCurrentOpenedPages(normalizedActiveUrls);
+      if (onePagePath) {
+        logger.info('Synchronizing opened pages list before reload');
+        const normalizedActiveUrls = liveServer.getActiveUrls().map(url => fsUtil.removeExtension(url));
+        site.changeCurrentOpenedPages(normalizedActiveUrls);
+      }
       Promise.resolve('').then(() => {
         if (path.basename(filePath) === SITE_CONFIG_NAME) {
           return site.reloadSiteConfig();
@@ -173,9 +177,11 @@ program
 
     const removeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file deletion: ${filePath}`);
-      logger.info('Synchronizing opened pages list before reload');
-      const normalizedActiveUrls = liveServer.getActiveUrls().map(url => fsUtil.removeExtension(url));
-      site.changeCurrentOpenedPages(normalizedActiveUrls);
+      if (onePagePath) {
+        logger.info('Synchronizing opened pages list before reload');
+        const normalizedActiveUrls = liveServer.getActiveUrls().map(url => fsUtil.removeExtension(url));
+        site.changeCurrentOpenedPages(normalizedActiveUrls);
+      }
       Promise.resolve('').then(() => {
         if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
           return site.rebuildSourceFiles(filePath);
