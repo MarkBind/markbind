@@ -81,7 +81,13 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
 
   if (lang && hljs.getLanguage(lang)) {
     try {
-      /* We cannot syntax highlight THEN split by lines. For eg:
+      /* With highlightjs version >= v10.7.0, usage of continuation is deprecated
+
+      For the purposes of line-by-line highlighting, we have to first highlight the
+      whole block, then split the resulting html string according to '\n', and add
+      the corresponding opening and closing tags for the html string to be well-formed and
+      maintain the correct state per line.
+      eg:
       ```markdown
       *****
       -----
@@ -89,16 +95,36 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
 
       becomes
 
-      <span class="hljs-section">*****
-      -----</span>
-      Note the line break contained inside a <span> element.
-      So we have to split by lines THEN syntax highlight.
+      "<span class="hljs-section"><span class="hljs-strong">****</span>
+      <span class="hljs-emphasis">*\n-----\n</span></span>"
+
+      after splitting on '\n':
+
+      ["<span class="hljs-strong">****</span><span class="hljs-emphasis">*",
+       "-----",
+       "</span>",
+      ]
+
+      tokenStack maintains the visited tokens. For eg, for <span class="xyz">, the token would be "xyz".
+      If it encounters a </span>, it pops from the stack.
+      Else, it pushes the token to the stack.
+
+      At the end of each line, it will be prepended by the necessary
+      opening tags and appended by the neccessary closing tags.
+
+      After processing, the lines array should be
+
+      ["<span class="hljs-strong">****</span><span class="hljs-emphasis">*</span>",
+       "<span class="hljs-emphasis">-----</span>",
+       "<span class="hljs-emphasis"></span>",
+      ]
        */
-      // state stores the current parse state of hljs, so that we can pass it on line by line
       lines = hljs.highlight(str, { language: lang, ignoreIllegals: true }).value;
       const tokenStack = [];
 
-      if (lines.includes('hljs-section')) { // remove <span class="hljs-sectin"> ... </span>
+      // remove <span class="hljs-section"> ... </span>
+      // as the whole section would be wrapped by html tags at the end
+      if (lines.includes('hljs-section')) {
         lines = lines.slice(27);
         lines = lines.slice(0, lines.length - 7);
       }
@@ -106,12 +132,14 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
 
       lines = lines.map((line) => {
         const prepend = tokenStack.map(tok => `<span class="${tok}">`).join('');
-        const re = /(<span class="(.*?)">|<\/span>)/g;
+        const re = /(<span class="(.*?)">|<\/span>)/g; // match all (<span class="xyz"> and </span>)
         let match = re.exec(line);
         while (match !== null) {
           if (match[0] === '</span>') {
+            // pop from stack
             tokenStack.shift();
           } else {
+            // push to stack
             tokenStack.unshift(match[2]);
           }
           match = re.exec(line);
