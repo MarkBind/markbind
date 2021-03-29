@@ -846,7 +846,13 @@ class Site {
   async reloadSiteConfig() {
     const oldAddressablePages = this.addressablePages.slice();
     const oldPagesSrc = oldAddressablePages.map(page => page.src);
+    const oldIgnore = this.siteConfig.ignore;
     await this.readSiteConfig();
+    await this.handlePageReload(oldAddressablePages, oldPagesSrc);
+    await this.handleIgnoreReload(oldIgnore);
+  }
+
+  async handlePageReload(oldAddressablePages, oldPagesSrc) {
     this.collectAddressablePages();
 
     // Comparator for the _differenceWith comparison below
@@ -887,6 +893,19 @@ class Site {
         }
       });
     });
+  }
+
+  async handleIgnoreReload(oldIgnore) {
+    const assetsToRemove = _.difference(this.siteConfig.ignore, oldIgnore);
+    const assetsToAdd = _.difference(oldIgnore, this.siteConfig.ignore);
+    
+    if (!_.isEmpty(assetsToRemove)) {
+      await this._removeMultipleAssets(assetsToRemove);
+    }
+
+    if (!_.isEmpty(assetsToAdd)) {
+      await this._buildMultipleAssets(assetsToAdd);
+    }
   }
 
   /**
