@@ -200,12 +200,16 @@ program
 
     site
       .readSiteConfig()
-      .then((config) => {
+      .then(async (config) => {
         serverConfig.mount.push([config.baseUrl || '/', outputFolder]);
 
         if (options.dev) {
           // eslint-disable-next-line global-require
-          const getMiddlewares = require('@markbind/core-web/webpack.dev');
+          await require('@markbind/core-web/webpack.dev').serverEntry(() => {});
+          //await require('@markbind/core-web/webpack.dev').server(pageVueServerRenderer.updateBundleRenderer)
+
+          // eslint-disable-next-line global-require
+          const getMiddlewares = require('@markbind/core-web/webpack.dev').clientEntry;
           getMiddlewares(`${config.baseUrl}/markbind`)
             .forEach(middleware => serverConfig.middleware.push(middleware));
         }

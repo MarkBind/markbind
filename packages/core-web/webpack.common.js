@@ -1,16 +1,14 @@
 /* eslint-env node */
 const path = require('path');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
   context: __dirname,
-  entry: {
-    markbind: path.join(__dirname, 'src', 'index.js'),
-  },
   output: {
-    filename: 'js/[name].min.js',
     library: 'MarkBind',
     libraryExport: 'default',
     libraryTarget: 'umd',
+    filename: 'js/[name].min.js',
   },
   externals: {
     vue: 'Vue',
@@ -50,4 +48,5 @@ module.exports = {
       },
     ],
   },
+  plugins: [new VueLoaderPlugin()],
 };

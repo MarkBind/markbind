@@ -21,7 +21,9 @@
     "directory": "packages/core-web"
   },
   "scripts": {
-    "build": "webpack --progress --hide-modules --config  webpack.build.js"
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "ENTRY_POINT=client webpack --progress --hide-modules --config webpack.build.js",
+    "build:server": "ENTRY_POINT=server webpack --progress --hide-modules --config webpack.build.js"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",
@@ -42,7 +44,8 @@
     "webpack-cli": "^3.3.12",
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0",
-    "webpack-merge": "^5.0.9"
+    "webpack-merge": "^5.0.9",
+    "memory-fs": "^0.5.0"
   },
   "publishConfig": {
     "access": "public"
