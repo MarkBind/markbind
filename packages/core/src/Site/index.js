@@ -316,8 +316,10 @@ class Site {
                                                     'bootstrap-utility.min.js')),
         polyfillJs: path.relative(path.dirname(resultPath),
                                   path.join(this.siteAssetsDestPath, 'js', 'polyfill.min.js')),
-        vue: path.relative(path.dirname(resultPath),
-                           path.join(this.siteAssetsDestPath, 'js', 'vue.min.js')),
+        // We use development Vue when MarkBind is served in 'dev' mode so that hydration issues are reported
+        vue: this.dev
+          ? 'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js'
+          : path.relative(path.dirname(resultPath), path.join(this.siteAssetsDestPath, 'js', 'vue.min.js')),
         jQuery: path.relative(path.dirname(resultPath),
                               path.join(this.siteAssetsDestPath, 'js', 'jquery.min.js')),
       },

@@ -29,17 +29,15 @@
 
 <body>
   <div id="app">
-
     <header fixed>
-      <navbar type="dark" class=" temp-navbar">
+      <navbar type="dark">
         <template #brand><a href="/index.html" title="Home" class="navbar-brand">Your Logo</a></template>
         <li><a href="/contents/topic1.html" class="nav-link">Topic 1</a></li>
         <li><a href="/contents/topic2.html" class="nav-link">Topic 2</a></li>
-        <dropdown class="nav-link temp-dropdown"><template #header>Topic 3</template>
+        <dropdown class="nav-link"><template #header>Topic 3</template>
           <li><a href="/contents/topic3a.html" class="dropdown-item">Topic 3a</a></li>
           <li><a href="/contents/topic3b.html" class="dropdown-item">Topic 3b</a></li>
         </dropdown>
-        <div class="nav-link temp-dropdown-placeholder"></div>
         <template #right>
           <li>
             <form class="navbar-form">

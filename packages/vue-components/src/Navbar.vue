@@ -44,8 +44,14 @@
 import $ from './utils/NodeList';
 import { toBoolean } from './utils/utils';
 import normalizeUrl from './utils/urls';
+import SiteNavButton from './SiteNavButton.vue';
+import PageNavButton from './PageNavButton.vue';
 
 export default {
+  components: {
+    SiteNavButton,
+    PageNavButton,
+  },
   props: {
     type: {
       type: String,

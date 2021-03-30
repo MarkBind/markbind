@@ -315,10 +315,10 @@ Object.getOwnPropertyNames(ArrayProto).forEach(key => {
     NL[key] = ArrayProto[key]
   }
 })
-if (window.Symbol && Symbol.iterator) {
+if (window && window.Symbol && Symbol.iterator) {
   NL[Symbol.iterator] = NL.values = ArrayProto[Symbol.iterator]
 }
-const div = document.createElement('div')
+const div = document && document.createElement('div')
 function setterGetter (prop) {
   if (NL[prop]) return
   if (div[prop] instanceof Function) {
@@ -360,6 +360,9 @@ function setterGetter (prop) {
 for (let prop in div) setterGetter(prop)
 
 function NodeListJS (...args) { return new NodeList(args) }
-window.NL = NodeListJS
+
+if (window) {
+  window.NL = NodeListJS
+}
 
 export default NodeListJS

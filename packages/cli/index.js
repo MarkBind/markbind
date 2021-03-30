@@ -11,6 +11,8 @@ const _ = {};
 _.isBoolean = require('lodash/isBoolean');
 
 const { Site } = require('@markbind/core');
+const { pageVueServerRenderer } = require('@markbind/core/src/Page/PageVueServerRenderer');
+
 const fsUtil = require('@markbind/core/src/utils/fsUtil');
 const utils = require('@markbind/core/src/utils');
 const {
@@ -217,12 +219,16 @@ program
 
     site
       .readSiteConfig()
-      .then((config) => {
+      .then(async (config) => {
         serverConfig.mount.push([config.baseUrl || '/', outputFolder]);
 
         if (options.dev) {
           // eslint-disable-next-line global-require
-          const getMiddlewares = require('@markbind/core-web/webpack.dev');
+          const webpackDevConfig = require('@markbind/core-web/webpack.dev');
+
+          await webpackDevConfig.serverEntry(pageVueServerRenderer.updateMarkBindVueBundle, rootFolder);
+
+          const getMiddlewares = webpackDevConfig.clientEntry;
           getMiddlewares(`${config.baseUrl}/markbind`)
             .forEach(middleware => serverConfig.middleware.push(middleware));
         }

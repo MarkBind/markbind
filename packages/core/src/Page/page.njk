@@ -39,9 +39,7 @@
   const baseUrl = '{{ baseUrl }}'
 </script>
 <body {% if hasPageNav %} data-spy="scroll" data-target="#mb-page-nav" data-offset="100" {% endif %}>
-<div id="app">
-    {{ content }}
-</div>
+{{ content }}
 </body>
 <script src="{{ asset.bootstrapUtilityJs }}"></script>
 <script>

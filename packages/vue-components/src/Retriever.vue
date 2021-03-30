@@ -66,9 +66,20 @@ export default {
             return;
           }
 
+          const rootData = {
+            /*
+             * Vue wraps $data as an observer object, we have to "unwrap" it and assign to a
+             * variable first before we pass the $data object into the new Vue instance below.
+             */
+            ...this.$root.$data,
+          };
+
           // Mount result in retriever
           const TempComponent = Vue.extend({
             template: `<div>\n${result}\n</div>`,
+            data() {
+              return rootData;
+            },
           });
           new TempComponent().$mount(this.$el);
           this.$emit('src-loaded');

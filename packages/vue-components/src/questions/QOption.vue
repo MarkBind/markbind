@@ -97,7 +97,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'McqOption',
   props: {
