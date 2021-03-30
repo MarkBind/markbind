@@ -83,9 +83,9 @@ module.exports = {
       // console.log('Server Bundle Update (MarkBindVue)');
 
       if (err) throw err;
-      stats = stats.toJson();
-      if (stats.errors.length) {
-        console.log(stats.errors);
+      const statsJson = stats.toJson();
+      if (statsJson.errors.length) {
+        console.log(statsJson.errors);
         return;
       }
 
