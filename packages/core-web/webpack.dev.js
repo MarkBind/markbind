@@ -45,26 +45,6 @@ module.exports = {
     ];
   },
   serverEntry: (cb) => {
-    const readFile = (fs, file) => {
-      try {
-        const test = `/Users/jamesongwx/Documents/GitHub/markbind/docs/dist/js/${file}`;
-        // const test = `/Users/jamesongwx/Desktop/markbind/test2/dist/js/${file}`;
-        return fs.readFileSync(test, 'utf-8');
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-    let bundle;
-    let ready;
-    const readyPromise = new Promise((r) => { ready = r; });
-    const updateBundle = () => {
-      if (bundle) {
-        ready();
-        cb(bundle);
-      }
-    };
-
     const webpackServerDevConfig = merge(serverConfig, {
       mode: 'development',
       // output: publicPath,
@@ -81,13 +61,26 @@ module.exports = {
       },
     });
 
-    // watch and update server renderer
     const serverCompiler = webpack(webpackServerDevConfig);
     const mfs = new MFS();
     serverCompiler.outputFileSystem = mfs;
 
+    let bundle;
+    const bundleFilePath = `${process.cwd()}/dist/js/markbindvue.min.js`;
+
+    let ready;
+    const readyPromise = new Promise((r) => { ready = r; });
+
+    const updateBundle = () => {
+      if (bundle) {
+        ready();
+        cb(bundle);
+      }
+    };
+
+    // watch and update server renderer
     serverCompiler.watch({}, (err, stats) => {
-      console.log('Server Bundle Update (MarkBindVue)');
+      // console.log('Server Bundle Update (MarkBindVue)');
 
       if (err) throw err;
       stats = stats.toJson();
@@ -96,7 +89,7 @@ module.exports = {
         return;
       }
 
-      bundle = readFile(mfs, 'markbindvue.min.js');
+      bundle = mfs.readFileSync(bundleFilePath, 'utf-8');
       updateBundle();
     });
 
