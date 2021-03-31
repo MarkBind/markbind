@@ -4,8 +4,15 @@ let blurEvent
 let blurList = []
 let Events = []
 
-function isNode (val) { return val instanceof window.Node }
-function isNodeList (val) { return val instanceof window.NodeList || val instanceof NodeList || val instanceof window.HTMLCollection || val instanceof Array }
+let windowStub = {};
+// during Vue page server rendering, the webpack bundler will statically check whether methods exist on the object
+// so we need to put the createElement stub method into the document stub object as well
+// if this file is modified, remember to add the stub methods where necessary
+let documentStub = { createElement: () => {} }; 
+
+
+function isNode (val) { return val instanceof windowStub.Node }
+function isNodeList (val) { return val instanceof windowStub.NodeList || val instanceof NodeList || val instanceof windowStub.HTMLCollection || val instanceof Array }
 
 function splitWords (val) { val = val.trim(); return val.length ? val.replace(/\s+/, ' ').split(' ') : [] }
 function joinWords (val) { return val.length ? val.join(' ') : '' }
@@ -13,10 +20,10 @@ function joinWords (val) { return val.length ? val.join(' ') : '' }
 class NodeList {
   constructor (args) {
     var nodes = args
-    if (args[0] === window) {
-      nodes = [window]
+    if (args[0] === windowStub) {
+      nodes = [windowStub]
     } else if (typeof args[0] === 'string') {
-      nodes = (args[1] || document).querySelectorAll(args[0])
+      nodes = (args[1] || documentStub).querySelectorAll(args[0])
       if (args[1]) { this.owner = args[1] }
     } else if (0 in args && !isNode(args[0]) && args[0] && 'length' in args[0]) {
       nodes = args[0]
@@ -61,7 +68,7 @@ class NodeList {
       } else if (el.parentNode) {
         el.parentNode.removeChild(el)
       }
-      return document.body.contains(el)
+      return documentStub.body.contains(el)
     })
     if (notRemoved.length) console.warn('NodeList: Some nodes could not be deleted.')
     return notRemoved
@@ -231,7 +238,7 @@ class NodeList {
     }
     this.each(el => {
       events.forEach(event => {
-        if (el === window || isNode(el)) {
+        if (el === windowStub || isNode(el)) {
           el.addEventListener(event, callback, false)
           Events.push({
             el: el,
@@ -272,8 +279,8 @@ class NodeList {
           if (!target) item.callback.call(item.el, e, item.el)
         })
       }
-      document.addEventListener('click', blurEvent, false)
-      if (enableTriggerByTouchStart) document.addEventListener('touchstart', blurEvent, false)
+      documentStub.addEventListener('click', blurEvent, false)
+      if (enableTriggerByTouchStart) documentStub.addEventListener('touchstart', blurEvent, false)
     }
     return this
   }
@@ -315,10 +322,10 @@ Object.getOwnPropertyNames(ArrayProto).forEach(key => {
     NL[key] = ArrayProto[key]
   }
 })
-if (window.Symbol && Symbol.iterator) {
+if (windowStub.Symbol && Symbol.iterator) {
   NL[Symbol.iterator] = NL.values = ArrayProto[Symbol.iterator]
 }
-const div = document.createElement('div')
+const div = documentStub.createElement('div')
 function setterGetter (prop) {
   if (NL[prop]) return
   if (div[prop] instanceof Function) {
@@ -360,6 +367,10 @@ function setterGetter (prop) {
 for (let prop in div) setterGetter(prop)
 
 function NodeListJS (...args) { return new NodeList(args) }
-window.NL = NodeListJS
+windowStub.NL = NodeListJS
 
-export default NodeListJS
+export default (window, document) => {
+  windowStub = window;
+  documentStub = document;
+  return NodeListJS;
+}

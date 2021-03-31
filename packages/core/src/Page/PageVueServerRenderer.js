@@ -2,14 +2,10 @@ const path = require('path');
 const fs = require('fs-extra');
 
 const Vue = require('vue');
-// Vue.config.silent = true;
 const VueCompiler = require('vue-template-compiler');
 const { renderToString } = require('vue-server-renderer').createRenderer();
 
-const domino = require('domino');
-
-global.window = domino.createWindow('<h1>Hello world</h1>');
-global.document = global.window.document;
+// Vue.config.silent = true;
 
 let bundle;
 
@@ -36,10 +32,10 @@ async function compileVuePageAndCreateScript(content, pageConfig, pageAsset) {
   const pageHtmlFileName = path.basename(pageConfig.resultPath, '.html');
   const scriptFileName = `${pageHtmlFileName}.page-vue-render.js`;
 
-  /*
-    * Add the script file path for this page's render function to the page's assets (to populate page.njk).
-    * The script file path is the same as the page's file path.
-    */
+  /**
+   * Add the script file path for this page's render function to the page's assets (to populate page.njk).
+   * The script file path is the same as the page's file path.
+   */
   pageAsset.pageVueRenderJs = scriptFileName;
 
   // Get script's absolute file path to output script file

@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import $ from './utils/NodeList';
+import initNodeList from './utils/NodeList';
 import { toBoolean } from './utils/utils';
 import normalizeUrl from './utils/urls';
 
@@ -233,6 +233,11 @@ export default {
     this._navbar = true;
   },
   mounted() {
+    // during bundling, NodeList requires window object and document object but they don't exist on the server
+    // since we can't use undefined variable during the bundling process, we have to create the variable
+    // and only pass it in when it is available on the browser 
+    $ = initNodeList(window, document);
+
     const $dropdown = $('.dropdown>[data-toggle="dropdown"]', this.$el).parent();
     $dropdown.on('click', '.dropdown-toggle', (e) => {
       e.preventDefault();

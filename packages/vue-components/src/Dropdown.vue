@@ -54,7 +54,7 @@
 
 <script>
 import { toBoolean } from './utils/utils';
-import $ from './utils/NodeList';
+import initNodeList from './utils/NodeList';
 
 export default {
   props: {
@@ -131,6 +131,11 @@ export default {
     },
   },
   mounted() {
+    // during bundling, NodeList requires window object and document object but they don't exist on the server
+    // since we can't use undefined variable during the bundling process, we have to create the variable
+    // and only pass it in when it is available on the browser 
+    $ = initNodeList(window, document);
+
     const $el = $(this.$refs.dropdown);
     if (this.show) {
       this.showDropdownMenu();

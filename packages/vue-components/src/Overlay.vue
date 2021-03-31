@@ -20,7 +20,7 @@
 
 <script>
 import retriever from './Retriever.vue';
-import $ from './utils/NodeList';
+import initNodeList from './utils/NodeList';
 import { publish, subscribe } from './utils/pubsub';
 
 export default {
@@ -74,6 +74,11 @@ export default {
     },
   },
   mounted() {
+    // during bundling, NodeList requires window object and document object but they don't exist on the server
+    // since we can't use undefined variable during the bundling process, we have to create the variable
+    // and only pass it in when it is available on the browser 
+    $ = initNodeList(window, document);
+
     const navMenu = this.$refs.navigationMenu;
     const buildNav = (navMenuItems) => {
       if (!navMenuItems) { return; }

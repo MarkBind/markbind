@@ -66,8 +66,7 @@
     "vue-server-renderer": "2.6.11",
     "vue-template-compiler": "2.6.11",
     "walk-sync": "^2.0.2",
-    "winston": "^2.4.4",
-    "domino": "^2.1.6"
+    "winston": "^2.4.4"
   },
   "devDependencies": {
     "jest": "^26.1.0",
