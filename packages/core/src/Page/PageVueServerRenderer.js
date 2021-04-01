@@ -12,8 +12,14 @@ const logger = require('../utils/logger');
 /*
  * Suppress irrelevant Vue warnings that comes up during SSR.
  * These warnings are expected false-positives that do not affect the outcome of SSR.
+ *
+ * Following are some of the warnings in general form.
  * E.g. "Property or method is not defined on the instanced but referenced during render."
  * E.g. "'key' is a reserved attribute and cannot be used as component prop."
+ * E.g. "Injection not found"
+ * E.g. "Avoid mutating a prop directly since the value will be overwritten whenever the parent
+ * component re-renders. Instead, use a data or computed property based on the prop's value."
+ * E.g. "Invalid prop: type check failed for prop. Expected Number, got String."
  */
 Vue.config.silent = true;
 
