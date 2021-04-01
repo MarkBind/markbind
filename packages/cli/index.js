@@ -141,7 +141,10 @@ program
     const addHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
       logger.info('Synchronizing opened pages list before reload');
-      const normalizedActiveUrls = liveServer.getActiveUrls().map(url => fsUtil.removeExtension(url));
+      const normalizedActiveUrls = liveServer.getActiveUrls().map((url) => {
+        const completeUrl = path.extname(url) === '' ? path.join(url, 'index') : url;
+        return fsUtil.removeExtension(completeUrl);
+      });
       site.changeCurrentOpenedPages(normalizedActiveUrls);
       Promise.resolve('').then(() => {
         if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
@@ -156,7 +159,10 @@ program
     const changeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file change: ${filePath}`);
       logger.info('Synchronizing opened pages list before reload');
-      const normalizedActiveUrls = liveServer.getActiveUrls().map(url => fsUtil.removeExtension(url));
+      const normalizedActiveUrls = liveServer.getActiveUrls().map((url) => {
+        const completeUrl = path.extname(url) === '' ? path.join(url, 'index') : url;
+        return fsUtil.removeExtension(completeUrl);
+      });
       site.changeCurrentOpenedPages(normalizedActiveUrls);
       Promise.resolve('').then(() => {
         if (path.basename(filePath) === SITE_CONFIG_NAME) {
@@ -174,7 +180,10 @@ program
     const removeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file deletion: ${filePath}`);
       logger.info('Synchronizing opened pages list before reload');
-      const normalizedActiveUrls = liveServer.getActiveUrls().map(url => fsUtil.removeExtension(url));
+      const normalizedActiveUrls = liveServer.getActiveUrls().map((url) => {
+        const completeUrl = path.extname(url) === '' ? path.join(url, 'index') : url;
+        return fsUtil.removeExtension(completeUrl);
+      });
       site.changeCurrentOpenedPages(normalizedActiveUrls);
       Promise.resolve('').then(() => {
         if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
