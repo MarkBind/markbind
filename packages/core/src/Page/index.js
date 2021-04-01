@@ -469,6 +469,11 @@ class Page {
       ...layoutManager.getLayoutPageNjkAssets(this.layout),
     };
 
+    pageSources.addAllToSet(this.includedFiles);
+    await externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(), this.includedFiles);
+
+    this.collectHeadingsAndKeywords(pageContent);
+
     // Record built pages for fast re-render when MarkBindVue bundle hot-reloads
     const builtPage = {
       page: this,
@@ -485,11 +490,6 @@ class Page {
     content = await pageVueServerRenderer.renderVuePage(content);
 
     await this.outputPageHtml(content, pageNav);
-
-    pageSources.addAllToSet(this.includedFiles);
-    await externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(), this.includedFiles);
-
-    this.collectHeadingsAndKeywords(pageContent);
   }
 
   async outputPageHtml(content, pageNav) {
