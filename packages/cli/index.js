@@ -209,7 +209,7 @@ program
           // eslint-disable-next-line global-require
           const webpackDevConfig = require('@markbind/core-web/webpack.dev');
 
-          await webpackDevConfig.serverEntry(pageVueServerRenderer.updateBundleRenderer);
+          await webpackDevConfig.serverEntry(pageVueServerRenderer.updateMarkBindVueBundle);
 
           const getMiddlewares = webpackDevConfig.clientEntry;
           getMiddlewares(`${config.baseUrl}/markbind`)

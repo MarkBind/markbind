@@ -5,9 +5,21 @@ const Vue = require('vue');
 const VueCompiler = require('vue-template-compiler');
 const { renderToString } = require('vue-server-renderer').createRenderer();
 
-// Vue.config.silent = true;
+let MarkBindVue = require('@markbind/core-web/dist/js/markbindvue.min');
 
-let bundle;
+const logger = require('../utils/logger');
+
+/*
+ * Suppress irrelevant Vue warnings that comes up during SSR.
+ * These warnings are expected false-positives that do not affect the outcome of SSR.
+ * E.g. "Property or method is not defined on the instanced but referenced during render."
+ * E.g. "'key' is a reserved attribute and cannot be used as component prop."
+ */
+Vue.config.silent = true;
+
+const pageEntries = {}; // hold the mapping of sourcePath to latest built pages (for hot-reload dev purposes)
+
+let updateCount = 0;
 
 /**
  * Compiles page into Vue Application to get the page render function and places
@@ -15,7 +27,7 @@ let bundle;
  * render the page during Vue mounting.
  *
  * This is to avoid the overhead of compiling the page into Vue application
- * on the client's browser (alleviates FOUC).
+ * on the client's browser (alleviates FOUC). It is also the pre-requisite to enable SSR.
  *
  * @param content Page content to be compiled into Vue app
  */
@@ -23,6 +35,7 @@ async function compileVuePageAndCreateScript(content, pageConfig, pageAsset) {
   // Compile Vue Page
   const compiled = VueCompiler.compileToFunctions(`<div id="app">${content}</div>`);
 
+  // Set up script content
   const outputContent = `
     var pageVueRenderFn = ${compiled.render};
     var pageVueStaticRenderFns = [${compiled.staticRenderFns}];
@@ -32,7 +45,7 @@ async function compileVuePageAndCreateScript(content, pageConfig, pageAsset) {
   const pageHtmlFileName = path.basename(pageConfig.resultPath, '.html');
   const scriptFileName = `${pageHtmlFileName}.page-vue-render.js`;
 
-  /**
+  /*
    * Add the script file path for this page's render function to the page's assets (to populate page.njk).
    * The script file path is the same as the page's file path.
    */
@@ -45,41 +58,21 @@ async function compileVuePageAndCreateScript(content, pageConfig, pageAsset) {
   await fs.outputFile(filePath, outputContent);
 }
 
-// got from stackOverflow
-function requireFromString(src, filename) {
-  const m = new module.constructor();
-  m.paths = module.paths; // without this, won't be able to require vue in the string module
-  m._compile(src, filename);
-  return m.exports;
-}
-
+/**
+ * Renders Vue page app into html string (Vue SSR).
+ * This function will install the MarkBindVue plugin and render the built Vue page content into html string.
+ */
 async function renderVuePage(content) {
-  // const FreshVue = Vue.extend();
+  /*
+   * Each installation of plugin pollutes the global scope of Vue.
+   * Thus, we use a fresh copy of Vue each time we install MarkBindVue to prevent the global pollution.
+   * This prevents the old plugin from affecting the new plugin installation (in development mode).
+   */
+  const FreshVue = Vue.extend();
+  FreshVue.use(MarkBindVue);
 
-  const { MarkBindVue } = requireFromString(bundle, '');
-  Vue.use(MarkBindVue);
-
-  const VueAppPage = new Vue({
-    // template: content,
+  const VueAppPage = new FreshVue({
     template: `<div id="app">${content}</div>`,
-    // data: {
-    //   searchData: [],
-    //   popoverInnerGetters: {},
-    //   tooltipInnerContentGetter: {},
-    //   fragment: '',
-    //   questions: [],
-    // },
-    // props: {
-    //   threshold: Number(0.5),
-    // },
-    // methods: {
-    //   searchCallback: () => {},
-    // },
-    // provide: {
-    //   hasParentDropdown: true,
-    //   questions: [],
-    //   gotoNextQuestion: true,
-    // },
   });
 
   const renderedContent = await renderToString(VueAppPage);
@@ -87,30 +80,45 @@ async function renderVuePage(content) {
   return renderedContent;
 }
 
-async function updateBundleRenderer(newBundle) {
-  bundle = newBundle;
+/**
+ * Referenced from stackOverflow:
+ * https://stackoverflow.com/questions/17581830/load-node-js-module-from-string-in-memory
+ *
+ * Credits to Dominic
+ */
+function requireFromString(src, filename) {
+  const m = new module.constructor();
+  m.paths = module.paths; // without this, we won't be able to require Vue in the string module
+  m._compile(src, filename);
+  return m.exports;
+}
 
-  // pages.forEach(async (pageContentCopy) => {
-  //   const { content, pageConfig, asset, pageNav, pluginManager, page } = pageContentCopy;
-  //   await compileVuePageAndCreateScript(content, pageConfig, asset);
-  //   const renderedContent = await renderVuePage(content);
-  //   const renderedTemplate = pageConfig.template.render(
-  //     page.prepareTemplateData(renderedContent, !!pageNav)); // page.njk
+/**
+ * Retrieves the latest updated MarkBindVue bundle from webpack compiler watcher,
+ * re-render all the built pages, and output the page html files.
+ * This function will only be used in development mode (for MarkBindVue bundle hot-reloading purposes).
+ */
+async function updateMarkBindVueBundle(newBundle) {
+  logger.info(`CHANGES DETECTED IN MarkBindVue COMPONENTS:
+Bundle is regenerated by webpack and built pages are re-rendered with the latest bundle. [${updateCount}]\n`);
 
-  //   const outputTemplateHTML = pageConfig.disableHtmlBeautify
-  //     ? htmlBeautify(renderedTemplate, pluginManager.htmlBeautifyOptions)
-  //     : renderedTemplate;
+  updateCount += 1;
 
-  //   await fs.outputFile(pageConfig.resultPath, outputTemplateHTML);
-  // });
+  // reassign the latest updated MarkBindVue bundle
+  MarkBindVue = requireFromString(newBundle, '').MarkBindVue;
 
-  console.log('UPDATED BUNDLE!');
+  Object.values(pageEntries).forEach(async (pageEntry) => {
+    const { page, builtPageContent, pageNav } = pageEntry;
+    const renderedVuePageContent = await renderVuePage(builtPageContent);
+    page.outputPageHtml(renderedVuePageContent, pageNav);
+  });
 }
 
 const pageVueServerRenderer = {
   compileVuePageAndCreateScript,
   renderVuePage,
-  updateBundleRenderer,
+  updateMarkBindVueBundle,
+  pageEntries,
 };
 
 module.exports = {

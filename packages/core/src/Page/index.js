@@ -469,24 +469,38 @@ class Page {
       ...layoutManager.getLayoutPageNjkAssets(this.layout),
     };
 
+    // Record built pages for fast re-render when MarkBindVue bundle hot-reloads
+    const builtPage = {
+      page: this,
+      builtPageContent: content,
+      pageNav,
+    };
+    // Each source path will only contain 1 copy of build/re-build page (the latest one)
+    pageVueServerRenderer.pageEntries[this.pageConfig.soucePath] = builtPage;
+
     // Compile the page into Vue application and outputs the render function into script for browser
     await pageVueServerRenderer.compileVuePageAndCreateScript(content, this.pageConfig, this.asset);
 
+    // Render Vue page app into actual html
     content = await pageVueServerRenderer.renderVuePage(content);
 
-    const renderedTemplate = this.pageConfig.template.render(
-      this.prepareTemplateData(content, !!pageNav)); // page.njk
-
-    const outputTemplateHTML = this.pageConfig.disableHtmlBeautify
-      ? renderedTemplate
-      : htmlBeautify(renderedTemplate, pluginManager.htmlBeautifyOptions);
-
-    await fs.outputFile(this.pageConfig.resultPath, outputTemplateHTML);
+    await this.outputPageHtml(content, pageNav);
 
     pageSources.addAllToSet(this.includedFiles);
     await externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(), this.includedFiles);
 
     this.collectHeadingsAndKeywords(pageContent);
+  }
+
+  async outputPageHtml(content, pageNav) {
+    const renderedTemplate = this.pageConfig.template.render(
+      this.prepareTemplateData(content, !!pageNav)); // page.njk
+
+    const outputTemplateHTML = this.pageConfig.disableHtmlBeautify
+      ? renderedTemplate
+      : htmlBeautify(renderedTemplate, this.pageConfig.pluginManager.htmlBeautifyOptions);
+
+    await fs.outputFile(this.pageConfig.resultPath, outputTemplateHTML);
   }
 
   static addScrollToTopButton(pageData) {

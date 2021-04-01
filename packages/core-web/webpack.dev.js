@@ -80,14 +80,12 @@ module.exports = {
 
     // watch and update server renderer
     serverCompiler.watch({}, (err, stats) => {
-      // console.log('Server Bundle Update (MarkBindVue)');
-
       if (err) throw err;
-      const statsJson = stats.toJson();
-      if (statsJson.errors.length) {
-        console.log(statsJson.errors);
-        return;
-      }
+      // const statsJson = stats.toJson();
+      // if (statsJson.errors.length) {
+      //   console.log(statsJson.errors);
+      //   return;
+      // }
 
       bundle = mfs.readFileSync(bundleFilePath, 'utf-8');
       updateBundle();
