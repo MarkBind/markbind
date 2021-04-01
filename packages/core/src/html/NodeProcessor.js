@@ -198,10 +198,14 @@ class NodeProcessor {
       case 'style':
         processStyleTag(node);
         break;
-      case 'eq':
+      case 'eq': // markdown-it-texmath html tag
+      case 'eqn': // markdown-it-texmath html tag
+      case 'thumb': // image
         /*
-         * This is a markdown-it-texmath html tag and not a component from MarkBind Vue components.
+         * These are not components from MarkBind Vue components.
          * We have to add 'v-pre' to let Vue know to ignore this tag and not compile it.
+         *
+         * Although there won't be warnings if we use production Vue, it is still good to add this.
          */
         node.attribs['v-pre'] = '';
         break;
