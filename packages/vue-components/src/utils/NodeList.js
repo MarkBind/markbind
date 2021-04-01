@@ -4,10 +4,15 @@ let blurEvent
 let blurList = []
 let Events = []
 
+/*
+ * During the import of this component during Vue page SSR, the module compilation in requireFromString does not
+ * allow undefined variables. Thus, we need to create a stub of the variables that are undefined here (as they) are
+ * only meant and guaranted to be available on the browser (e.g. window, document).
+ * 
+ * Some of the methods used for these undefined variables (on the server) must have stub methods as well.
+ * Thus, it is important to remember to add the stub variables / methods wherever necessary when you modify this file.
+ */
 let windowStub = {};
-// during Vue page server rendering, the webpack bundler will statically check whether methods exist on the object
-// so we need to put the createElement stub method into the document stub object as well
-// if this file is modified, remember to add the stub methods where necessary
 let documentStub = { createElement: () => {} }; 
 
 
