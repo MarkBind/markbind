@@ -80,7 +80,7 @@ export default {
      * Since webpack bundling does not allow undefined variables, we have to define the variables in NodeList
      * by passing them in arguments, and only actually passing the window and document object when they are
      * available on browser.
-     */ 
+     */
     this.nodeList = initNodeList(window, document);
 
     const navMenu = this.$refs.navigationMenu;
