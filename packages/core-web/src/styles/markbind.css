@@ -395,6 +395,11 @@ button.copy-btn {
     width: 1em;
 }
 
+/* Fixes cases where the navbar does not fill up the entire width of viewport when changing pages */
+.navbar {
+    width: 100vw;
+}
+
 /* Navbar link highlight for current page */
 .navbar .navbar-nav .current {
     background: rgba(0, 0, 0, 0.05);
