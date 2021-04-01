@@ -5,10 +5,10 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 module.exports = {
   context: __dirname,
   output: {
+    filename: 'js/[name].min.js',
     library: 'MarkBind',
     libraryExport: 'default',
     libraryTarget: 'umd',
-    filename: 'js/[name].min.js',
   },
   externals: {
     vue: 'Vue',

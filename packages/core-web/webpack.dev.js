@@ -47,7 +47,6 @@ module.exports = {
   serverEntry: (cb) => {
     const webpackServerDevConfig = merge(serverConfig, {
       mode: 'development',
-      // output: publicPath,
       module: {
         rules: [
           {
