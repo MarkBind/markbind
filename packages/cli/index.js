@@ -142,10 +142,7 @@ program
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
       if (onePagePath) {
         logger.info('Synchronizing opened pages list before reload');
-        const normalizedActiveUrls = liveServer.getActiveUrls().map((url) => {
-          const completeUrl = path.extname(url) === '' ? path.join(url, 'index') : url;
-          return fsUtil.removeExtension(completeUrl);
-        });
+        const normalizedActiveUrls = liveServer.getActiveUrls().map(url => fsUtil.removeExtension(url));
         site.changeCurrentOpenedPages(normalizedActiveUrls);
       }
       Promise.resolve('').then(() => {
@@ -162,10 +159,7 @@ program
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file change: ${filePath}`);
       if (onePagePath) {
         logger.info('Synchronizing opened pages list before reload');
-        const normalizedActiveUrls = liveServer.getActiveUrls().map((url) => {
-          const completeUrl = path.extname(url) === '' ? path.join(url, 'index') : url;
-          return fsUtil.removeExtension(completeUrl);
-        });
+        const normalizedActiveUrls = liveServer.getActiveUrls().map(url => fsUtil.removeExtension(url));
         site.changeCurrentOpenedPages(normalizedActiveUrls);
       }
       Promise.resolve('').then(() => {
@@ -185,10 +179,7 @@ program
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file deletion: ${filePath}`);
       if (onePagePath) {
         logger.info('Synchronizing opened pages list before reload');
-        const normalizedActiveUrls = liveServer.getActiveUrls().map((url) => {
-          const completeUrl = path.extname(url) === '' ? path.join(url, 'index') : url;
-          return fsUtil.removeExtension(completeUrl);
-        });
+        const normalizedActiveUrls = liveServer.getActiveUrls().map(url => fsUtil.removeExtension(url));
         site.changeCurrentOpenedPages(normalizedActiveUrls);
       }
       Promise.resolve('').then(() => {
