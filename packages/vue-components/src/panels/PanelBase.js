@@ -94,6 +94,9 @@ export default {
     hasSrc() {
       return this.src && this.src.length > 0;
     },
+    srcWithoutFragment() {
+      return this.src.split('#')[0];
+    },
     shouldShowHeader() {
       return (!this.localExpanded) || (!this.expandHeaderless);
     },
@@ -110,6 +113,7 @@ export default {
       localMinimized: false,
       wasRetrieverLoaded: false,
       isRetrieverLoadDone: !this.src, // Load is done by default if there is no src
+      fragment: '',
     };
   },
   methods: {
@@ -225,8 +229,6 @@ export default {
       const hash = getFragmentByHash(this.src);
       if (hash) {
         this.fragment = hash;
-        // eslint-disable-next-line prefer-destructuring
-        this.src = this.src.split('#')[0];
       }
     }
 

@@ -26,6 +26,15 @@ export default {
       default: false,
     },
   },
+  data() {
+    return {
+      /*
+       * hasFetched is passed down as a prop. In order to not mutate props (causes Vue warning),
+       * we create a copy of hasFetched in the local data to update the value.
+       */
+      hasFetchedCopy: this.hasFetched,
+    };
+  },
   computed: {
     // Vue 2.0 coerce migration
     delayBool() {
@@ -38,7 +47,7 @@ export default {
       if (!this.src) {
         return;
       }
-      if (this.hasFetched) {
+      if (this.hasFetchedCopy) {
         return;
       }
       jQuery.get(this.src)
@@ -49,7 +58,7 @@ export default {
             const appContainer = jQuery(`#${this.fragment}`, tempDom);
             result = appContainer.html();
           }
-          this.hasFetched = true;
+          this.hasFetchedCopy = true;
           // result is empty / undefined
           if (result === undefined && this.fragment) {
             this.$el.innerHTML

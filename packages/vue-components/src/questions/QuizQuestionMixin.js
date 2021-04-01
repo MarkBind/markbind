@@ -6,7 +6,14 @@ export default {
       active: true,
     };
   },
-  inject: ['questions', 'gotoNextQuestion'],
+  inject: {
+    questions: {
+      default: undefined,
+    },
+    gotoNextQuestion: {
+      default: undefined,
+    },
+  },
   methods: {
     show() {
       this.active = true;

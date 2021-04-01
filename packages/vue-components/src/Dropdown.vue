@@ -76,7 +76,11 @@ export default {
     },
   },
   provide: { hasParentDropdown: true },
-  inject: ['hasParentDropdown'],
+  inject: {
+    hasParentDropdown: {
+      default: undefined,
+    },
+  },
   data() {
     return {
       show: false,

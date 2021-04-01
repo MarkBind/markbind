@@ -43,10 +43,6 @@ export default {
     this.items = this.primitiveData;
   },
   props: {
-    value: {
-      type: String,
-      default: '',
-    },
     data: {
       type: Array,
       default: () => [],
@@ -59,7 +55,7 @@ export default {
       type: String,
       default: '',
     },
-    key: {
+    keyProp: {
       type: String,
       default: null,
     },
@@ -89,6 +85,7 @@ export default {
   },
   data() {
     return {
+      value: '',
       showDropdown: false,
       noResults: true,
       current: 0,
@@ -203,7 +200,7 @@ export default {
     },
     query: delayer(function () {
       getJSON(this.async + this.value).then((data) => {
-        this.items = (this.key ? data[this.key] : data).slice(0, this.limit);
+        this.items = (this.keyProp ? data[this.keyProp] : data).slice(0, this.limit);
         this.showDropdown = this.items.length;
       });
     }, 'delay', _DELAY_),

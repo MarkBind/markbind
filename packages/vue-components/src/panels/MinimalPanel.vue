@@ -68,7 +68,7 @@
           <retriever
             v-if="hasSrc"
             ref="retriever"
-            :src="src"
+            :src="srcWithoutFragment"
             :fragment="fragment"
             @src-loaded="retrieverUpdateMaxHeight"
           />
