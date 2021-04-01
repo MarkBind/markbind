@@ -19,6 +19,7 @@ import initNodeList from './utils/NodeList';
 export default {
   data() {
     return {
+      nodeList: {},
       hasIdentifier: false,
       hasSiteNav: false,
       show: false,
@@ -43,19 +44,22 @@ export default {
     },
   },
   mounted() {
-    // during bundling, NodeList requires window object and document object but they don't exist on the server
-    // since we can't use undefined variable during the bundling process, we have to create the variable
-    // and only pass it in when it is available on the browser 
-    $ = initNodeList(window, document);
+    /*
+     * NodeList requires window and document object but they only exists on browser and not server.
+     * Since webpack bundling does not allow undefined variables, we have to define the variables in NodeList
+     * by passing them in arguments, and only actually passing the window and document object when they are
+     * available on browser.
+     */
+    this.nodeList = initNodeList(window, document);
 
     this.src = window.location.pathname;
     this.hasIdentifier = document.getElementById('site-nav') !== null;
     this.hasSiteNav = document.getElementsByClassName('site-nav-root').length !== 0;
     this.toggleSiteNavButton();
-    $(window).on('resize', this.toggleSiteNavButton);
+    this.nodeList(window).on('resize', this.toggleSiteNavButton);
   },
   beforeDestroy() {
-    $(window).off('resize', this.toggleSiteNavButton);
+    this.nodeList(window).off('resize', this.toggleSiteNavButton);
   },
 };
 </script>

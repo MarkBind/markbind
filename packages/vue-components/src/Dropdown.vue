@@ -79,6 +79,7 @@ export default {
   inject: ['hasParentDropdown'],
   data() {
     return {
+      nodeList: {},
       show: false,
     };
   },
@@ -123,20 +124,23 @@ export default {
     },
     hideDropdownMenu() {
       this.show = false;
-      $(this.$refs.dropdown).findChildren('ul').each(ul => ul.classList.toggle('show', false));
+      this.nodeList(this.$refs.dropdown).findChildren('ul').each(ul => ul.classList.toggle('show', false));
     },
     showDropdownMenu() {
       this.show = true;
-      $(this.$refs.dropdown).findChildren('ul').each(ul => ul.classList.toggle('show', true));
+      this.nodeList(this.$refs.dropdown).findChildren('ul').each(ul => ul.classList.toggle('show', true));
     },
   },
   mounted() {
-    // during bundling, NodeList requires window object and document object but they don't exist on the server
-    // since we can't use undefined variable during the bundling process, we have to create the variable
-    // and only pass it in when it is available on the browser 
-    $ = initNodeList(window, document);
+    /*
+     * NodeList requires window and document object but they only exists on browser and not server.
+     * Since webpack bundling does not allow undefined variables, we have to define the variables in NodeList
+     * by passing them in arguments, and only actually passing the window and document object when they are
+     * available on browser.
+     */
+    this.nodeList = initNodeList(window, document);
 
-    const $el = $(this.$refs.dropdown);
+    const $el = this.nodeList(this.$refs.dropdown);
     if (this.show) {
       this.showDropdownMenu();
     }
@@ -157,7 +161,7 @@ export default {
     });
   },
   beforeDestroy() {
-    const $el = $(this.$refs.dropdown);
+    const $el = this.nodeList(this.$refs.dropdown);
     $el.offBlur();
     $el.findChildren('a,button').off();
     $el.findChildren('ul').off();

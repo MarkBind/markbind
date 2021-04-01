@@ -71,6 +71,7 @@ export default {
   },
   data() {
     return {
+      nodeList: {},
       id: 'bs-example-navbar-collapse-1',
       collapsed: true,
       styles: {},
@@ -154,7 +155,7 @@ export default {
       let el = a.parentElement;
       while (el !== li) {
         if (el.classList.contains('dropdown-submenu')) {
-          $(el).findChildren('a').each(aChild => aChild.classList.add('dropdown-current'));
+          this.nodeList(el).findChildren('a').each(aChild => aChild.classList.add('dropdown-current'));
         }
         el = el.parentElement;
       }
@@ -233,12 +234,15 @@ export default {
     this._navbar = true;
   },
   mounted() {
-    // during bundling, NodeList requires window object and document object but they don't exist on the server
-    // since we can't use undefined variable during the bundling process, we have to create the variable
-    // and only pass it in when it is available on the browser 
-    $ = initNodeList(window, document);
+    /*
+     * NodeList requires window and document object but they only exists on browser and not server.
+     * Since webpack bundling does not allow undefined variables, we have to define the variables in NodeList
+     * by passing them in arguments, and only actually passing the window and document object when they are
+     * available on browser.
+     */
+    this.nodeList = initNodeList(window, document);
 
-    const $dropdown = $('.dropdown>[data-toggle="dropdown"]', this.$el).parent();
+    const $dropdown = this.nodeList('.dropdown>[data-toggle="dropdown"]', this.$el).parent();
     $dropdown.on('click', '.dropdown-toggle', (e) => {
       e.preventDefault();
       $dropdown.each((content) => {
@@ -253,24 +257,30 @@ export default {
         if (!content.contains(e.target)) content.classList.remove('open');
       });
     });
-    $(this.$el).on('click', 'li:not(.dropdown)>a', (e) => {
+
+    this.nodeList(this.$el).on('click', 'li:not(.dropdown)>a', (e) => {
       if (e.target.classList.contains('submenu-toggle')) { return; }
       setTimeout(() => { this.collapsed = true; }, 200);
     }).onBlur((e) => {
       if (!this.$el.contains(e.target)) { this.collapsed = true; }
     });
-    if (this.slots.collapse) $('[data-toggle="collapse"]', this.$el).on('click', e => this.toggleCollapse(e));
+
+    if (this.slots.collapse) {
+      this.nodeList('[data-toggle="collapse"]', this.$el).on('click', e => this.toggleCollapse(e));
+    }
 
     // highlight current nav link
     this.highlightLink(window.location.href);
 
     this.toggleLowerNavbar();
-    $(window).on('resize', this.toggleLowerNavbar);
+    this.nodeList(window).on('resize', this.toggleLowerNavbar);
   },
   beforeDestroy() {
-    $('.dropdown', this.$el).off('click').offBlur();
-    if (this.slots.collapse) $('[data-toggle="collapse"]', this.$el).off('click');
-    $(window).off('resize', this.toggleLowerNavbar);
+    this.nodeList('.dropdown', this.$el).off('click').offBlur();
+    if (this.slots.collapse) {
+      this.nodeList('[data-toggle="collapse"]', this.$el).off('click');
+    }
+    this.nodeList(window).off('resize', this.toggleLowerNavbar);
   },
 };
 </script>
