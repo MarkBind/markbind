@@ -367,12 +367,8 @@ LiveServer.start = function(options) {
 
     // CHANGED: Enhanced client websocket addition process to record the client as an active tab entry
     const reqUrl = path.dirname(request.url);
-    // Guard clause for MarkBind's _include_ files, no need to recognize as an active tab
-    if (reqUrl.endsWith('._include_.html')) {
-      return;
-    }
 
-    // If present an entry with empty client, reuse existing entry to maintain order from pre-reload 
+    // If an entry with empty client is present, reuse existing entry to maintain order from pre-reload 
     const existingTab = LiveServer.activeTabs.find(tab => tab.url === reqUrl && !tab.client);
     if (existingTab) {
       existingTab.client = ws;
@@ -380,7 +376,7 @@ LiveServer.start = function(options) {
     }
 
     // Insert new entry to the active tabs list
-    LiveServer.activeTabs.unshift({ url: reqUrl, client: ws});
+    LiveServer.activeTabs.unshift({ url: reqUrl, client: ws });
   });
 
   var ignored = [
