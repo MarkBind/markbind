@@ -9,9 +9,4 @@ module.exports = merge(config, {
     markbindvue: path.join(__dirname, 'src', 'MarkBindVue.js'),
   },
   target: 'node',
-  // resolve: {
-  //   alias: {
-  //     'vue$': 'vue/dist/vue.js',
-  //   },
-  // },
 });
