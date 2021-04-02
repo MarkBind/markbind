@@ -83,7 +83,7 @@ module.exports = {
 
       const statsJson = stats.toJson();
       if (statsJson.errors.length) {
-        console.log(statsJson.errors);
+        console.error(statsJson.errors);
         return;
       }
 
