@@ -131,12 +131,6 @@ function updateSearchData(vm) {
     });
 }
 
-function removeTemporaryStyles() {
-  jQuery('.temp-navbar').removeClass('temp-navbar');
-  jQuery('.temp-dropdown').removeClass('temp-dropdown');
-  jQuery('.temp-dropdown-placeholder').remove();
-}
-
 /*
  * Changes every <script src defer type="application/javascript" style-bypass-vue-compilation>
  * placeholder tags that was used to bypass Vue compilation back into original intended <style> tags.
@@ -151,7 +145,6 @@ function restoreStyleTags() {
 }
 
 function executeAfterMountedRoutines() {
-  removeTemporaryStyles(); // Vue render function is called after before-mount hook
   restoreStyleTags();
   scrollToUrlAnchorHeading();
   detectAndApplyFixedHeaderStyles();
