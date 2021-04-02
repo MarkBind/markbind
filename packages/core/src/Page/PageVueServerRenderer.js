@@ -23,13 +23,6 @@ const logger = require('../utils/logger');
  */
 Vue.config.silent = true;
 
-const vueRenderEscapeChars = {
-  '&lt;': '<',
-  '&gt;': '>',
-  '&quot;': '"',
-  '&amp;': '&',
-};
-
 const pageEntries = {}; // hold the mapping of sourcePath to latest built pages (for hot-reload dev purposes)
 
 let updateCount = 0;
@@ -88,15 +81,7 @@ async function renderVuePage(content) {
     template: `<div id="app">${content}</div>`,
   });
 
-  let renderedContent = await renderToString(VueAppPage);
-
-  /*
-   * https://github.com/vuejs/vue/blob/dev/packages/vue-server-renderer/basic.js
-   *
-   * vue-server-renderer automatically escapes various characters during rendering for security reasons.
-   * We un-escape these characters as there shouldn't be any security concerns in our use-case.
-   */
-  renderedContent = renderedContent.replace(/&(lt|gt|quot|amp);/g, match => vueRenderEscapeChars[match]);
+  const renderedContent = await renderToString(VueAppPage);
 
   return renderedContent;
 }
