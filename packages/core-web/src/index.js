@@ -8,8 +8,6 @@ import './styles/index.css';
 
 Vue.use(MarkBindVue);
 
-Vue.config.devtools = true;
-
 function scrollToUrlAnchorHeading() {
   if (window.location.hash) {
     // remove leading hash to get element ID
