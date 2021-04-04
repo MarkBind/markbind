@@ -402,16 +402,19 @@ LiveServer.start = function(options) {
         console.log("CSS change detected".magenta, changePath);
       else console.log("Change detected".cyan, changePath);
     }
-    
-    // CHANGED: Prepare tab entry data before issuing reload
-    LiveServer.activeTabs.forEach(tab => {
-      if (tab.client) {
-        // Clear the client from the entry to be refilled in the socket establishment phase after reload
-        const client = tab.client;
-        tab.client = undefined;
-        client.send(cssChange ? 'refreshcss' : 'reload');
-      }
-    });
+
+    // CHANGED: Modified the send message to clients routine
+
+    if (cssChange) {
+      LiveServer.sendMessageToActiveTabs('refreshcss');
+      return;
+    }
+
+    // Only reload active tabs if the changed file is opened in one of them
+    const normalizedPath = `/${path.relative(root, changePath)}`;
+    if (LiveServer.activeTabs.some(tab => tab.client && tab.url === normalizedPath)) {
+      LiveServer.sendMessageToActiveTabs('reload');
+    }
   }
   LiveServer.watcher
     .on("change", handleChange)
@@ -442,5 +445,22 @@ LiveServer.shutdown = function() {
 
 // CHANGED: Added method to retrieve current active urls
 LiveServer.getActiveUrls = () => LiveServer.activeTabs.filter(tab => tab.client).map(tab => tab.url);
+
+// CHANGED: Added method to send message to active tabs
+LiveServer.sendMessageToActiveTabs = (msg) => {
+  LiveServer.activeTabs.forEach((tab) => {
+    if (tab.client) {
+      const client = tab.client;
+      if (msg === 'reload') {
+        // Clear the client from the entry to be refilled in the socket establishment phase after reload
+        tab.client = undefined;
+      }
+      client.send(msg);
+    }
+  });
+}
+
+// CHANGED: Added convenience method to reload all active tabs
+LiveServer.reloadActiveTabs = () => LiveServer.sendMessageToActiveTabs('reload');
 
 module.exports = LiveServer;
