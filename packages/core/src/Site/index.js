@@ -142,6 +142,11 @@ class Site {
     // Site wide plugin manager
     this.pluginManager = undefined;
 
+    // Page generation context
+    this.pageGenerationContext = {
+      stopGenerationTimeThreshold: new Date(),
+    };
+
     // Lazy reload properties
     this.onePagePath = onePagePath;
     this.currentPageViewed = onePagePath
@@ -778,14 +783,12 @@ class Site {
     }
 
     logger.info('Building files that are not viewed in the background...');
-    await this.generatePagesMarkedToRebuild();
-    logger.info('Background building complete! All opened pages will be reloaded.');
-    return true;
+    return this.generatePagesMarkedToRebuild();
   }
 
   /**
-   * Generates pages that are marked as "to rebuild".
-   * @returns {Promise<void>} A Promise that resolves once all pages are generated.
+   * Generates pages that are marked to be built/rebuilt.
+   * @returns {Promise<boolean>} A Promise that resolves once all pages are generated.
    */
   async generatePagesMarkedToRebuild() {
     const pagesToRebuild = this.pages.filter((page) => {
@@ -987,24 +990,38 @@ class Site {
     });
   }
 
+  stopOngoingBuilds() {
+    this.pageGenerationContext.stopGenerationTimeThreshold = new Date();
+  }
+
   /**
    * Runs the supplied page generation tasks according to the specified mode of each task.
    * A page generation task can be a sequential generation or an asynchronous generation.
    * @param {Array<object>} pageGenerationTasks Array of page generation tasks
-   * @return {Promise<void>} A Promise that resolves once all pages have generated
+   * @returns {Promise<boolean>} A Promise that resolves to a boolean which indicates whether the generation
+   * ran to completion
    */
   async runPageGenerationTasks(pageGenerationTasks) {
     const pagesCount = pageGenerationTasks.reduce((acc, task) => acc + task.pages.length, 0);
     const progressBar = new ProgressBar(`[:bar] :current / ${pagesCount} pages built`, { total: pagesCount });
     progressBar.render();
 
+    const startTime = new Date();
+    let isCompleted = true;
     await utils.sequentialAsyncForEach(pageGenerationTasks, async (task) => {
+      if (startTime < this.pageGenerationContext.stopGenerationTimeThreshold) {
+        logger.info('Generation task queue stopped');
+        isCompleted = false;
+        return;
+      }
+
       if (task.mode === 'sequential') {
-        await this.generatePagesSequential(task.pages, progressBar);
+        isCompleted = await this.generatePagesSequential(task.pages, progressBar);
       } else {
-        await this.generatePagesAsyncThrottled(task.pages, progressBar);
+        isCompleted = await this.generatePagesAsyncThrottled(task.pages, progressBar);
       }
     });
+    return isCompleted;
   }
 
   /**
@@ -1012,10 +1029,19 @@ class Site {
    * one-by-one in order.
    * @param {Array<Page>} pages Pages to be generated
    * @param {ProgressBar} progressBar Progress bar of the overall generation process
-   * @returns {Promise<void>} A Promise that resolves once all pages have been generated
+   * @returns {Promise<boolean>} A Promise that resolves to a boolean which indicates whether the generation
+   * ran to completion
    */
   async generatePagesSequential(pages, progressBar) {
+    const startTime = new Date();
+    let isCompleted = true;
     await utils.sequentialAsyncForEach(pages, async (page) => {
+      if (startTime < this.pageGenerationContext.stopGenerationTimeThreshold) {
+        logger.info('Sequential generation stopped');
+        isCompleted = false;
+        return;
+      }
+
       try {
         await page.generate(this.externalManager);
         this.toRebuild.delete(FsUtil.removeExtension(page.pageConfig.sourcePath));
@@ -1026,6 +1052,7 @@ class Site {
         throw new Error(`Error while generating ${page.sourcePath}`);
       }
     });
+    return isCompleted;
   }
 
   /**
@@ -1033,19 +1060,35 @@ class Site {
    * This is done to avoid pushing too many callbacks into the event loop at once. (#1245)
    * @param {Array<Page>} pages Pages to be generated
    * @param {ProgressBar} progressBar Progress bar of the overall generation process
-   * @return {Promise<void>} A Promise that resolves once all pages have been generated
+   * @returns {Promise<boolean>} A Promise that resolves to a boolean which indicates whether the generation
+   * ran to completion
    */
   generatePagesAsyncThrottled(pages, progressBar) {
     return new Promise((resolve, reject) => {
-      const counter = { numPagesGenerated: 0 };
+      const context = {
+        startTime: new Date(),
+        numPagesGenerated: 0,
+        numPagesToGenerate: pages.length,
+        isCompleted: true,
+      };
 
       // Map pages into array of callbacks for delayed execution
       const pageGenerationQueue = pages.map(page => async () => {
+        // Pre-generate guard to ensure no newly executed callbacks start on stop
+        if (context.startTime < this.pageGenerationContext.stopGenerationTimeThreshold) {
+          if (context.isCompleted) {
+            logger.info('Asynchronous generation stopped');
+            context.isCompleted = false;
+            resolve(false);
+          }
+          return;
+        }
+
         try {
           await page.generate(this.externalManager);
           this.toRebuild.delete(FsUtil.removeExtension(page.pageConfig.sourcePath));
           await this.writeSiteData(false);
-          Site.generateProgressBarStatus(progressBar, counter, pageGenerationQueue, pages, resolve);
+          this.generateProgressBarStatus(progressBar, context, pageGenerationQueue, resolve);
         } catch (err) {
           logger.error(err);
           reject(new Error(`Error while generating ${page.sourcePath}`));
@@ -1065,14 +1108,23 @@ class Site {
   /**
    * Helper function for generatePagesAsyncThrottled().
    */
-  static generateProgressBarStatus(progressBar, counter, pageGenerationQueue, pages, resolve) {
+  generateProgressBarStatus(progressBar, context, pageGenerationQueue, resolve) {
+    // Post-generate guard to ensure no new callbacks are executed on stop
+    if (context.startTime < this.pageGenerationContext.stopGenerationTimeThreshold) {
+      if (context.isCompleted) {
+        logger.info('Async generation stopped');
+        context.isCompleted = false;
+        resolve(false);
+      }
+      return;
+    }
     progressBar.tick();
-    counter.numPagesGenerated += 1;
+    context.numPagesGenerated += 1;
 
     if (pageGenerationQueue.length) {
       pageGenerationQueue.pop()();
-    } else if (counter.numPagesGenerated === pages.length) {
-      resolve();
+    } else if (context.numPagesGenerated === context.numPagesToGenerate) {
+      resolve(true);
     }
   }
 
