@@ -772,6 +772,34 @@ class Site {
     return logger.info(`Lazy website regeneration complete! Total build time: ${totalBuildTime}s`);
   }
 
+  async _backgroundBuildNotViewedFiles() {
+    if (this.toRebuild.size === 0) {
+      return false;
+    }
+
+    logger.info('Building files that are not viewed in the background...');
+    await this.generatePagesMarkedToRebuild();
+    logger.info('Background building complete! All opened pages will be reloaded.');
+    return true;
+  }
+
+  /**
+   * Generates pages that are marked as "to rebuild".
+   * @returns {Promise<void>} A Promise that resolves once all pages are generated.
+   */
+  async generatePagesMarkedToRebuild() {
+    const pagesToRebuild = this.pages.filter((page) => {
+      const normalizedUrl = FsUtil.removeExtension(page.pageConfig.sourcePath);
+      return this.toRebuild.has(normalizedUrl);
+    });
+
+    const pageRebuildTask = {
+      mode: 'async',
+      pages: pagesToRebuild,
+    };
+    return this.runPageGenerationTasks([pageRebuildTask]);
+  }
+
   async _rebuildSourceFiles() {
     logger.info('Page added or removed, updating list of site\'s pages...');
     this.beforeSiteGenerate();
@@ -990,6 +1018,8 @@ class Site {
     await utils.sequentialAsyncForEach(pages, async (page) => {
       try {
         await page.generate(this.externalManager);
+        this.toRebuild.delete(FsUtil.removeExtension(page.pageConfig.sourcePath));
+        await this.writeSiteData(false);
         progressBar.tick();
       } catch (err) {
         logger.error(err);
@@ -1013,6 +1043,8 @@ class Site {
       const pageGenerationQueue = pages.map(page => async () => {
         try {
           await page.generate(this.externalManager);
+          this.toRebuild.delete(FsUtil.removeExtension(page.pageConfig.sourcePath));
+          await this.writeSiteData(false);
           Site.generateProgressBarStatus(progressBar, counter, pageGenerationQueue, pages, resolve);
         } catch (err) {
           logger.error(err);
@@ -1239,8 +1271,9 @@ class Site {
 
   /**
    * Writes the site data to siteData.json
+   * @param {boolean} verbose Flag to emit logs of the operation
    */
-  async writeSiteData() {
+  async writeSiteData(verbose = true) {
     const siteDataPath = path.join(this.outputPath, SITE_DATA_NAME);
     const siteData = {
       enableSearch: this.siteConfig.enableSearch,
@@ -1255,7 +1288,9 @@ class Site {
 
     try {
       await fs.outputJson(siteDataPath, siteData, { spaces: 2 });
-      logger.info('Site data built');
+      if (verbose) {
+        logger.info('Site data built');
+      }
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
@@ -1471,5 +1506,10 @@ Site.prototype.rebuildSourceFiles = delay(Site.prototype._rebuildSourceFiles, 10
  * @param filePaths a single path or an array of paths corresponding to the assets to remove
  */
 Site.prototype.removeAsset = delay(Site.prototype._removeMultipleAssets, 1000);
+
+/**
+ * Builds pages that are yet to build/rebuild in the background
+ */
+Site.prototype.backgroundBuildNotViewedFiles = delay(Site.prototype._backgroundBuildNotViewedFiles, 1000);
 
 module.exports = Site;

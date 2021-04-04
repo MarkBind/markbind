@@ -138,6 +138,14 @@ program
     const site = new Site(rootFolder, outputFolder, onePagePath,
                           options.forceReload, options.siteConfig, options.dev);
 
+    const backgroundBuildAndReload = async () => {
+      const isBuildInitiated = await site.backgroundBuildNotViewedFiles();
+      if (isBuildInitiated) {
+        logger.info('Reloading opened pages...');
+        liveServer.reloadActiveTabs();
+      }
+    };
+
     const addHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
       logger.info('Synchronizing opened pages list before reload');
@@ -151,9 +159,11 @@ program
           return site.rebuildSourceFiles(filePath);
         }
         return site.buildAsset(filePath);
-      }).catch((err) => {
-        logger.error(err.message);
-      });
+      })
+        .then(() => onePagePath && backgroundBuildAndReload())
+        .catch((err) => {
+          logger.error(err.message);
+        });
     };
 
     const changeHandler = (filePath) => {
@@ -172,9 +182,11 @@ program
           return site.rebuildAffectedSourceFiles(filePath);
         }
         return site.buildAsset(filePath);
-      }).catch((err) => {
-        logger.error(err.message);
-      });
+      })
+        .then(() => onePagePath && backgroundBuildAndReload())
+        .catch((err) => {
+          logger.error(err.message);
+        });
     };
 
     const removeHandler = (filePath) => {
@@ -190,9 +202,11 @@ program
           return site.rebuildSourceFiles(filePath);
         }
         return site.removeAsset(filePath);
-      }).catch((err) => {
-        logger.error(err.message);
-      });
+      })
+        .then(() => onePagePath && backgroundBuildAndReload())
+        .catch((err) => {
+          logger.error(err.message);
+        });
     };
 
     // server config
@@ -291,6 +305,7 @@ program
           logger.info('Press CTRL+C to stop ...');
         });
       })
+      .then(() => onePagePath && backgroundBuildAndReload())
       .catch(handleError);
   });
 
