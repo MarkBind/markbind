@@ -184,11 +184,11 @@ export default {
       return this.isSeamless() && this.headerBool();
     },
     headerBool() {
-      return !!this.$slots.header;
+      return !!this.$scopedSlots.header;
     },
     iconBool() {
-      // this.$slots.icon is either undefined or an object
-      const isIconSlotFilled = !!this.$slots.icon;
+      // this.$scopedSlots.icon is either undefined or an object
+      const isIconSlotFilled = !!this.$scopedSlots.icon;
       return (!this.noIcon && this.type) || isIconSlotFilled;
     },
     containerStyle() {

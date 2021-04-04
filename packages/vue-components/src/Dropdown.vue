@@ -22,7 +22,7 @@
     </slot>
   </li>
   <submenu v-else-if="isSubmenu" ref="submenu">
-    <template v-for="(node, name) in $slots" v-slot:[name]>
+    <template v-for="(node, name) in $scopedSlots" v-slot:[name]>
       <slot :name="name"></slot>
     </template>
   </submenu>
@@ -98,10 +98,10 @@ export default {
       return this.$parent && (this.$parent.menu || this.$parent.submenu);
     },
     slots() {
-      return this.$slots.default;
+      return this.$scopedSlots.default;
     },
     btnWithBefore() {
-      if (this.$slots.before) {
+      if (this.$scopedSlots.before) {
         return 'btn-with-before';
       }
       return '';
