@@ -82,6 +82,10 @@
     {
       "src": "testVariableContainsInclude.md",
       "title": "Variable should be able to store included content fragments"
+    },
+    {
+      "src": "testIncludeBoilerplate.md",
+      "title": "Content inside <include> should not be processed by markdown"
     }
   ],
   "ignore": [
