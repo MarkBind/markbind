@@ -633,7 +633,7 @@ class Site {
       await this.buildAssets();
       await (this.onePagePath ? this.lazyBuildSourceFiles() : this.buildSourceFiles());
       await this.copyCoreWebAsset();
-      await this.copyBootswatchTheme();
+      await this.copyBootstrapTheme(false);
       await this.copyFontAwesomeAsset();
       await this.copyOcticonsAsset();
       await this.writeSiteData();
@@ -923,10 +923,10 @@ class Site {
    * Handles the reloading of ignore attributes
    */
   async handleIgnoreReload(oldIgnore) {
-    const assetsToRemoved = _.difference(this.siteConfig.ignore, oldIgnore);
+    const assetsToRemove = _.difference(this.siteConfig.ignore, oldIgnore);
 
     if (!_.isEqual(oldIgnore, this.siteConfig.ignore)) {
-      await this._removeMultipleAssets(assetsToRemoved);
+      await this._removeMultipleAssets(assetsToRemove);
       await this.buildAssets();
     }
   }
@@ -936,14 +936,7 @@ class Site {
    */
   async handleStyleReload(oldStyle) {
     if (!_.isEqual(oldStyle.bootstrapTheme, this.siteConfig.style.bootstrapTheme)) {
-      if (this.siteConfig.style.bootstrapTheme) {
-        await this.copyBootswatchTheme();
-      } else {
-        const defaultBootstrapTheme = require.resolve('@markbind/core-web/asset/css/bootstrap.min.css');
-        const themeDestPath = path.join(this.siteAssetsDestPath, 'css', 'bootstrap.min.css');
-
-        await fs.copy(defaultBootstrapTheme, themeDestPath);
-      }
+      await this.copyBootstrapTheme(true);
       logger.info('Updated bootstrap theme');
     }
   }
@@ -1282,15 +1275,18 @@ class Site {
   }
 
   /**
-   * Copies bootswatch theme to the assets folder if a valid theme is specified
+   * Copies bootstrap theme to the assets folder if a valid theme is specified
+   * @param {Boolean} toCopyDefault bootstrap theme to the assets folder
    */
-  copyBootswatchTheme() {
+  copyBootstrapTheme(toCopyDefault) {
     const { theme } = this.siteConfig;
-    if (!theme || !_.has(SUPPORTED_THEMES_PATHS, theme)) {
+    if (!toCopyDefault && (!theme || !_.has(SUPPORTED_THEMES_PATHS, theme))) {
       return _.noop;
     }
 
-    const themeSrcPath = SUPPORTED_THEMES_PATHS[theme];
+    const themeSrcPath = toCopyDefault && !theme
+      ? require.resolve('@markbind/core-web/asset/css/bootstrap.min.css')
+      : SUPPORTED_THEMES_PATHS[theme];
     const themeDestPath = path.join(this.siteAssetsDestPath, 'css', 'bootstrap.min.css');
 
     return fs.copy(themeSrcPath, themeDestPath);
