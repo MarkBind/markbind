@@ -2,7 +2,7 @@
   <!-- TODO deprecate all isValidQuestionType checks -->
   <transition :name="questions ? 'question' : null">
     <div v-if="active" :class="['card', 'question', shakeClass, addClass]">
-      <div v-if="$slots.header" class="card-header alert-light border-bottom border-light text-dark">
+      <div v-if="$scopedSlots.header" class="card-header alert-light border-bottom border-light text-dark">
         <slot name="header"></slot>
       </div>
       <div class="card-body">
@@ -77,7 +77,7 @@
           class="float-right"
         >
           <button
-            v-if="$slots.hint && !showHint"
+            v-if="$scopedSlots.hint && !showHint"
             key="hint"
             type="button"
             class="btn btn-success q-btn ml-1"
@@ -87,7 +87,7 @@
           </button>
           <!-- Gracefully deprecate invalid question types without answers -->
           <button
-            v-if="qState.state === 0 && !(!isValidTypeAndNotTextWithoutKeywords() && !$slots.answer)"
+            v-if="qState.state === 0 && !(!isValidTypeAndNotTextWithoutKeywords() && !$scopedSlots.answer)"
             key="check"
             type="button"
             class="btn btn-primary q-btn ml-1"
@@ -168,7 +168,7 @@ export default {
       // Hide the card footer when 'there are no more buttons to click',
       // and the tick / cross circle is not shown
       const isInvalidTypeOrTextWithoutKeyword = !this.isValidTypeAndNotTextWithoutKeywords();
-      const isHintNotProvidedOrIsShown = !this.$slots.hint || this.showHint;
+      const isHintNotProvidedOrIsShown = !this.$scopedSlots.hint || this.showHint;
       return !(isInvalidTypeOrTextWithoutKeyword
         && isHintNotProvidedOrIsShown
         && this.qState.answered
