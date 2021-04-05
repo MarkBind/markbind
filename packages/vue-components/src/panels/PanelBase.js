@@ -86,7 +86,7 @@ export default {
     },
     // Vue 2.0 coerce migration end
     hasHeaderBool() {
-      return this.$slots.header;
+      return this.$scopedSlots.header;
     },
     isExpandableCard() {
       return this.expandableBool;
