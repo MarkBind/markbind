@@ -1281,7 +1281,7 @@ class Site {
   copyBootstrapTheme(isRebuild) {
     const { theme } = this.siteConfig;
 
-    // If is it the initial build using the default theme or if the theme specified
+    // If it is the initial build using the default theme or if the theme specified
     // is not valid, then do nothing.
     if ((!isRebuild && !theme) || (theme && !_.has(SUPPORTED_THEMES_PATHS, theme))) {
       return _.noop;
