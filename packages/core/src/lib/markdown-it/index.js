@@ -59,6 +59,7 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const token = tokens[idx];
   const lang = token.info || '';
   let str = token.content;
+  const strArray = str.split('\n');
   let highlighted = false;
   let lines;
 
@@ -75,7 +76,7 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   if (highlightLinesInput) {
     const highlightLines = highlightLinesInput.split(HIGHLIGHT_LINES_DELIMITER_REGEX);
     highlightRules = highlightLines
-      .map(ruleStr => HighlightRule.parseRule(ruleStr, -startFromZeroBased, str.split('\n')))
+      .map(ruleStr => HighlightRule.parseRule(ruleStr, -startFromZeroBased, strArray))
       .filter(rule => rule); // discards invalid rules
   }
 
@@ -87,62 +88,36 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
       whole block, then split the resulting html string according to '\n', and add
       the corresponding opening and closing tags for the html string to be well-formed and
       maintain the correct state per line.
-      eg:
-      ```markdown
-      *****
-      -----
-      ```
 
-      becomes
-
-      "<span class="hljs-section"><span class="hljs-strong">****</span>
-      <span class="hljs-emphasis">*\n-----\n</span></span>"
-
-      after splitting on '\n':
-
-      ["<span class="hljs-strong">****</span><span class="hljs-emphasis">*",
-       "-----",
-       "</span>",
-      ]
-
-      tokenStack maintains the visited tokens. For eg, for <span class="xyz">, the token would be "xyz".
-      If it encounters a </span>, it pops from the stack.
-      Else, it pushes the token to the stack.
-
-      At the end of each line, it will be prepended by the necessary
-      opening tags and appended by the neccessary closing tags.
-
-      After processing, the lines array should be
-
-      ["<span class="hljs-strong">****</span><span class="hljs-emphasis">*</span>",
-       "<span class="hljs-emphasis">-----</span>",
-       "<span class="hljs-emphasis"></span>",
-      ]
-       */
+      Ref: https://github.com/MarkBind/markbind/pull/1521
+      */
       lines = hljs.highlight(str, { language: lang, ignoreIllegals: true }).value;
       const tokenStack = [];
 
       // remove <span class="hljs-section"> ... </span>
       // as the whole section would be wrapped by html tags at the end
       if (lines.includes('hljs-section')) {
-        lines = lines.slice(27);
-        lines = lines.slice(0, lines.length - 7);
+        const HLJS_SECTION_OPEN_TAG = '<span class="hljs-section">';
+        const HLJS_SECTION_CLOSE_TAG = '</span>';
+        lines = lines.slice(HLJS_SECTION_OPEN_TAG.length);
+        lines = lines.slice(0, lines.length - HLJS_SECTION_CLOSE_TAG.length);
       }
       lines = lines.split('\n');
 
       lines = lines.map((line) => {
         const prepend = tokenStack.map(tok => `<span class="${tok}">`).join('');
-        const re = /(<span class="(.*?)">|<\/span>)/g; // match all (<span class="xyz"> and </span>)
-        let match = re.exec(line);
-        while (match !== null) {
-          if (match[0] === '</span>') {
+        const re = /<span class="(.*?)">|<\/span>/g; // match all (<span class="xyz"> and </span>)
+        let matchArr = re.exec(line);
+        while (matchArr !== null) {
+          const [match, captureGrp] = matchArr;
+          if (match === '</span>') {
             // pop from stack
             tokenStack.shift();
           } else {
             // push to stack
-            tokenStack.unshift(match[2]);
+            tokenStack.unshift(captureGrp);
           }
-          match = re.exec(line);
+          matchArr = re.exec(line);
         }
         const append = '</span>'.repeat(tokenStack.length);
         return prepend + line + append;
