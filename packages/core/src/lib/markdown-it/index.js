@@ -91,18 +91,8 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
 
       Ref: https://github.com/MarkBind/markbind/pull/1521
       */
-      lines = hljs.highlight(str, { language: lang, ignoreIllegals: true }).value;
+      lines = hljs.highlight(str, { language: lang, ignoreIllegals: true }).value.split('\n');
       const tokenStack = [];
-
-      // remove <span class="hljs-section"> ... </span>
-      // as the whole section would be wrapped by html tags at the end
-      if (lines.includes('hljs-section')) {
-        const HLJS_SECTION_OPEN_TAG = '<span class="hljs-section">';
-        const HLJS_SECTION_CLOSE_TAG = '</span>';
-        lines = lines.slice(HLJS_SECTION_OPEN_TAG.length);
-        lines = lines.slice(0, lines.length - HLJS_SECTION_CLOSE_TAG.length);
-      }
-      lines = lines.split('\n');
 
       lines = lines.map((line) => {
         const prepend = tokenStack.map(tok => `<span class="${tok}">`).join('');
