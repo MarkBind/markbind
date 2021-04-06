@@ -795,7 +795,8 @@ class Site {
       this.mapAddressablePagesToPages(this.addressablePages || [], this.getFavIconUrl());
 
       await this.rebuildPageBeingViewed(this.currentPageViewed);
-      return await this.lazyBuildAllPagesNotViewed();
+      await this.lazyBuildAllPagesNotViewed();
+      return;
     }
 
     logger.warn('Rebuilding all pages...');
