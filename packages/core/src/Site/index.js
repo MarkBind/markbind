@@ -855,7 +855,7 @@ class Site {
     const oldAddressablePages = this.addressablePages.slice();
     const oldPagesSrc = oldAddressablePages.map(page => page.src);
     await this.readSiteConfig();
-    await this.handleIgnoreReload(oldSiteConfig);
+    await this.handleIgnoreReload(oldSiteConfig.ignore);
     await this.handlePageReload(oldAddressablePages, oldPagesSrc, oldSiteConfig);
     await this.handleStyleReload(oldSiteConfig.style);
   }
