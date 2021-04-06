@@ -540,6 +540,13 @@ class Site {
     this.baseUrlMap = new Set(candidates.map(candidate => path.dirname(candidate)));
     this.variableProcessor = new VariableProcessor(this.rootPath, this.baseUrlMap);
 
+    this.buildManagers();
+  }
+
+  /**
+   * Set up the managers used with the configurations.
+   */
+  buildManagers() {
     const config = {
       baseUrlMap: this.baseUrlMap,
       baseUrl: this.siteConfig.baseUrl,
@@ -848,8 +855,9 @@ class Site {
     const oldAddressablePages = this.addressablePages.slice();
     const oldPagesSrc = oldAddressablePages.map(page => page.src);
     await this.readSiteConfig();
-    await this.handleIgnoreReload(oldSiteConfig.ignore);
-    await this.handlePageReload(oldAddressablePages, oldPagesSrc, this.isGlobalConfigModified(oldSiteConfig));
+    await this.handleIgnoreReload(oldSiteConfig);
+    await this.handlePageReload(oldAddressablePages, oldPagesSrc,
+                                oldSiteConfig, this.isGlobalConfigModified(oldSiteConfig));
     await this.handleStyleReload(oldSiteConfig.style);
   }
 
@@ -862,7 +870,6 @@ class Site {
         || !_.isEqual(oldSiteConfig.style, this.siteConfig.style)
         || !_.isEqual(oldSiteConfig.externalScripts, this.siteConfig.externalScripts)
         || !_.isEqual(oldSiteConfig.globalOverride, this.siteConfig.globalOverride)
-        || !_.isEqual(oldSiteConfig.ignore, this.siteConfig.ignore)
         || !_.isEqual(oldSiteConfig.plugins, this.siteConfig.plugins)
         || !_.isEqual(oldSiteConfig.pluginsContext, this.siteConfig.pluginsContext)
         || !_.isEqual(oldSiteConfig.headingIndexingLevel, this.siteConfig.headingIndexingLevel)
@@ -876,7 +883,7 @@ class Site {
   /**
    * Handles the rebuilding of modified pages
    */
-  async handlePageReload(oldAddressablePages, oldPagesSrc, shouldRebuildAllPages) {
+  async handlePageReload(oldAddressablePages, oldPagesSrc, oldSiteConfig, shouldRebuildAllPages) {
     this.collectAddressablePages();
 
     // Comparator for the _differenceWith comparison below
@@ -888,6 +895,7 @@ class Site {
 
     if (shouldRebuildAllPages || !_.isEmpty(addedPages) || !_.isEmpty(removedPages)) {
       await this.removeAsset(removedPages);
+      this.rebuildManagers(oldSiteConfig);
       await this._rebuildSourceFiles();
       await this.writeSiteData();
     } else {
@@ -922,12 +930,26 @@ class Site {
   /**
    * Handles the reloading of ignore attributes
    */
-  async handleIgnoreReload(oldIgnore) {
-    const assetsToRemove = _.difference(this.siteConfig.ignore, oldIgnore);
+  async handleIgnoreReload(oldSiteConfig) {
+    const assetsToRemove = _.difference(this.siteConfig.ignore, oldSiteConfig.ignore);
 
-    if (!_.isEqual(oldIgnore, this.siteConfig.ignore)) {
+    if (!_.isEqual(oldSiteConfig.ignore, this.siteConfig.ignore)) {
       await this._removeMultipleAssets(assetsToRemove);
+      this.rebuildManagers(oldSiteConfig);
       await this.buildAssets();
+    }
+  }
+
+  /**
+   * Chceks the relevant site configurations for changes and rebuild managers if necessary
+   */
+  rebuildManagers(oldSiteConfig) {
+    if (!_.isEqual(oldSiteConfig.ignore, this.siteConfig.ignore)
+      || !_.isEqual(oldSiteConfig.plugins, this.siteConfig.plugins)
+      || !_.isEqual(oldSiteConfig.pluginsContext, this.siteConfig.pluginsContext)
+      || !_.isEqual(oldSiteConfig.disableHtmlBeautify, this.siteConfig.disableHtmlBeautify)
+      || !_.isEqual(oldSiteConfig.intrasiteLinkValidation, this.siteConfig.intrasiteLinkValidation)) {
+      this.buildManagers();
     }
   }
 
