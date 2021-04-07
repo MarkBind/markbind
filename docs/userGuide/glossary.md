@@ -14,7 +14,6 @@
 
 Use [the `serve` command](cliCommands.html#serve-command) to launch a live preview.
 
-
 </span>
 
 <br>
