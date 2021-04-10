@@ -24,7 +24,7 @@ module.exports = function delay(func, wait) {
 
     if (waitingPromise === null) {
       waitingPromise = Promise.all([Promise.delay(wait), runningPromise])
-        .finally(() => {
+        .then(() => {
           runningPromise = waitingPromise || Promise.resolve();
           waitingPromise = null;
           const funcPromise = func.apply(context, [pendingArgs]);
