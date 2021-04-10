@@ -93,6 +93,13 @@ Essentially, this optional feature is very useful when writing content, more so 
 The caveat is that not building all pages during the initial process, or not rebuilding all affected pages when a file changes, will cause your search results for these pages to be empty or outdated, until you navigate to them to trigger a rebuild.
 </box>
 
+* `-b`, `--background-build` **[BETA]**<br>
+   If `--one-page` is specified, enhances the single-page serve by building the pages that are not yet built or marked
+   to be rebuilt in the background.
+   
+   You can still play around with the pages during the background build. When MarkBind detects changes to the source
+   files, the background build will stop, rebuild the files affected, then resumes the background build with the
+   remaining pages.
 
 * `-s <file>`, `--site-config <file>`<br>
    Specify the site config file (default: `site.json`)<br>
