@@ -1011,7 +1011,8 @@ class Site {
     let isCompleted = true;
     await utils.sequentialAsyncForEach(pageGenerationTasks, async (task) => {
       if (startTime < this.pageGenerationContext.stopGenerationTimeThreshold) {
-        logger.info('Generation task queue stopped');
+        logger.info('Page generation stopped');
+        logger.debug('Page generation stopped at generation task queue');
         isCompleted = false;
         return;
       }
@@ -1038,7 +1039,8 @@ class Site {
     let isCompleted = true;
     await utils.sequentialAsyncForEach(pages, async (page) => {
       if (startTime < this.pageGenerationContext.stopGenerationTimeThreshold) {
-        logger.info('Sequential generation stopped');
+        logger.info('Page generation stopped');
+        logger.debug('Page generation stopped at sequential generation');
         isCompleted = false;
         return;
       }
@@ -1078,7 +1080,8 @@ class Site {
         // Pre-generate guard to ensure no newly executed callbacks start on stop
         if (context.startTime < this.pageGenerationContext.stopGenerationTimeThreshold) {
           if (context.isCompleted) {
-            logger.info('Asynchronous generation stopped');
+            logger.info('Page generation stopped');
+            logger.debug('Page generation stopped at asynchronous generation');
             context.isCompleted = false;
             resolve(false);
           }
@@ -1113,7 +1116,8 @@ class Site {
     // Post-generate guard to ensure no new callbacks are executed on stop
     if (context.startTime < this.pageGenerationContext.stopGenerationTimeThreshold) {
       if (context.isCompleted) {
-        logger.info('Async generation stopped');
+        logger.info('Page generation stopped');
+        logger.debug('Page generation stopped at asynchronous generation');
         context.isCompleted = false;
         resolve(false);
       }
