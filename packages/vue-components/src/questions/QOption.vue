@@ -33,18 +33,18 @@
           <i
             v-if="correct"
             class="fa fa-check text-success"
-            :class="{ 'align-bottom': $slots.reason }"
+            :class="{ 'align-bottom': $scopedSlots.reason }"
           ></i>
           <i
             v-else
             class="fa fa-times text-danger"
-            :class="{ 'align-bottom': $slots.reason }"
+            :class="{ 'align-bottom': $scopedSlots.reason }"
           ></i>
         </div>
       </div>
     </div>
 
-    <div v-if="qState.answered && $slots.reason">
+    <div v-if="qState.answered && $scopedSlots.reason">
       <hr />
       <div class="reason">
         <slot name="reason"></slot>
@@ -76,18 +76,18 @@
           <i
             v-if="correct"
             class="fa fa-check text-success"
-            :class="{ 'align-bottom': $slots.reason }"
+            :class="{ 'align-bottom': $scopedSlots.reason }"
           ></i>
           <i
             v-else
             class="fa fa-times text-danger"
-            :class="{ 'align-bottom': $slots.reason }"
+            :class="{ 'align-bottom': $scopedSlots.reason }"
           ></i>
         </div>
       </div>
     </label>
 
-    <div v-if="qState.answered && $slots.reason">
+    <div v-if="qState.answered && $scopedSlots.reason">
       <hr />
       <div class="reason">
         <slot name="reason"></slot>

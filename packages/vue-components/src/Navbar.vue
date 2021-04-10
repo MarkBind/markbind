@@ -88,7 +88,7 @@ export default {
       return '';
     },
     slots() {
-      return this.$slots;
+      return this.$scopedSlots;
     },
     themeOptions() {
       switch (this.type) {

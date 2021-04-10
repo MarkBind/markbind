@@ -827,6 +827,7 @@ class Site {
 
       await this.rebuildPageBeingViewed(this.currentPageViewed);
       await this.lazyBuildAllPagesNotViewed();
+      return;
     }
 
     logger.warn('Rebuilding all pages...');
