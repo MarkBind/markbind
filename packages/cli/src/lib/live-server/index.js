@@ -411,7 +411,11 @@ LiveServer.start = function(options) {
     }
 
     // Only reload active tabs if the changed file is opened in one of them
-    const normalizedPath = `/${path.relative(root, changePath)}`;
+    let normalizedPath = path.relative(root, changePath);
+    if (path.sep !== '/') {
+      normalizedPath = normalizedPath.split(path.sep).join('/');
+    }
+    normalizedPath = path.posix.join('/', normalizedPath);
     if (LiveServer.activeTabs.some(tab => tab.client && tab.url === normalizedPath)) {
       LiveServer.sendMessageToActiveTabs('reload');
     }
