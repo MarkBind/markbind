@@ -104,6 +104,8 @@ program
   .option('-o, --one-page [file]', 'build and serve only a single page in the site initially,'
     + 'building more pages when they are navigated to. Also lazily rebuilds only the page being viewed when'
     + 'there are changes to the source files (if needed), building others when navigated to')
+  .option('-b, --background-build', 'when --one-page is specified, enhances one-page serve by building'
+    + 'remaining pages in the background')
   .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
   .option('-d, --dev', 'development mode, enabling live & hot reload for frontend source files.')
@@ -158,7 +160,9 @@ program
     const addHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
       if (onePagePath) {
-        site.stopOngoingBuilds();
+        if (options.backgroundBuild) {
+          site.stopOngoingBuilds();
+        }
         syncOpenedPages();
       }
       Promise.resolve('').then(() => {
@@ -167,7 +171,7 @@ program
         }
         return site.buildAsset(filePath);
       })
-        .then(() => onePagePath && backgroundBuildAndReload())
+        .then(() => onePagePath && options.backgroundBuild && backgroundBuildAndReload())
         .catch((err) => {
           logger.error(err.message);
         });
@@ -176,7 +180,9 @@ program
     const changeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file change: ${filePath}`);
       if (onePagePath) {
-        site.stopOngoingBuilds();
+        if (options.backgroundBuild) {
+          site.stopOngoingBuilds();
+        }
         syncOpenedPages();
       }
       Promise.resolve('').then(() => {
@@ -188,7 +194,7 @@ program
         }
         return site.buildAsset(filePath);
       })
-        .then(() => onePagePath && backgroundBuildAndReload())
+        .then(() => onePagePath && options.backgroundBuild && backgroundBuildAndReload())
         .catch((err) => {
           logger.error(err.message);
         });
@@ -197,7 +203,9 @@ program
     const removeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file deletion: ${filePath}`);
       if (onePagePath) {
-        site.stopOngoingBuilds();
+        if (options.backgroundBuild) {
+          site.stopOngoingBuilds();
+        }
         syncOpenedPages();
       }
       Promise.resolve('').then(() => {
@@ -206,7 +214,7 @@ program
         }
         return site.removeAsset(filePath);
       })
-        .then(() => onePagePath && backgroundBuildAndReload())
+        .then(() => onePagePath && options.backgroundBuild && backgroundBuildAndReload())
         .catch((err) => {
           logger.error(err.message);
         });
@@ -308,7 +316,7 @@ program
           logger.info('Press CTRL+C to stop ...');
         });
       })
-      .then(() => onePagePath && backgroundBuildAndReload())
+      .then(() => onePagePath && options.backgroundBuild && backgroundBuildAndReload())
       .catch(handleError);
   });
 
