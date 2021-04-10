@@ -136,6 +136,7 @@ program
     }
     let onePagePath = options.onePage === true ? presentDefaultFile : options.onePage;
     onePagePath = onePagePath ? utils.ensurePosix(onePagePath) : onePagePath;
+    const onePageWithBackgroundBuild = onePagePath && options.backgroundBuild;
 
     const site = new Site(rootFolder, outputFolder, onePagePath,
                           options.forceReload, options.siteConfig, options.dev);
@@ -171,7 +172,7 @@ program
         }
         return site.buildAsset(filePath);
       })
-        .then(() => onePagePath && options.backgroundBuild && backgroundBuildAndReload())
+        .then(() => onePageWithBackgroundBuild && backgroundBuildAndReload())
         .catch((err) => {
           logger.error(err.message);
         });
@@ -214,7 +215,7 @@ program
         }
         return site.removeAsset(filePath);
       })
-        .then(() => onePagePath && options.backgroundBuild && backgroundBuildAndReload())
+        .then(() => onePageWithBackgroundBuild && backgroundBuildAndReload())
         .catch((err) => {
           logger.error(err.message);
         });
@@ -316,7 +317,7 @@ program
           logger.info('Press CTRL+C to stop ...');
         });
       })
-      .then(() => onePagePath && options.backgroundBuild && backgroundBuildAndReload())
+      .then(() => onePageWithBackgroundBuild && backgroundBuildAndReload())
       .catch(handleError);
   });
 
