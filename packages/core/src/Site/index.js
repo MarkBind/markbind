@@ -540,6 +540,13 @@ class Site {
     this.baseUrlMap = new Set(candidates.map(candidate => path.dirname(candidate)));
     this.variableProcessor = new VariableProcessor(this.rootPath, this.baseUrlMap);
 
+    this.buildManagers();
+  }
+
+  /**
+   * Set up the managers used with the configurations.
+   */
+  buildManagers() {
     const config = {
       baseUrlMap: this.baseUrlMap,
       baseUrl: this.siteConfig.baseUrl,
@@ -633,7 +640,7 @@ class Site {
       await this.buildAssets();
       await (this.onePagePath ? this.lazyBuildSourceFiles() : this.buildSourceFiles());
       await this.copyCoreWebAsset();
-      await this.copyBootswatchTheme();
+      await this.copyBootstrapTheme(false);
       await this.copyFontAwesomeAsset();
       await this.copyOcticonsAsset();
       await this.writeSiteData();
@@ -773,7 +780,7 @@ class Site {
   }
 
   async _rebuildSourceFiles() {
-    logger.info('Page added or removed, updating list of site\'s pages...');
+    logger.info('Pages or site config modified, updating pages...');
     this.beforeSiteGenerate();
 
     this.layoutManager.removeLayouts();
@@ -845,9 +852,19 @@ class Site {
   }
 
   async reloadSiteConfig() {
+    const oldSiteConfig = this.siteConfig;
     const oldAddressablePages = this.addressablePages.slice();
     const oldPagesSrc = oldAddressablePages.map(page => page.src);
     await this.readSiteConfig();
+    await this.handleIgnoreReload(oldSiteConfig.ignore);
+    await this.handlePageReload(oldAddressablePages, oldPagesSrc, oldSiteConfig);
+    await this.handleStyleReload(oldSiteConfig.style);
+  }
+
+  /**
+   * Handles the rebuilding of modified pages
+   */
+  async handlePageReload(oldAddressablePages, oldPagesSrc, oldSiteConfig) {
     this.collectAddressablePages();
 
     // Comparator for the _differenceWith comparison below
@@ -857,8 +874,24 @@ class Site {
     const removedPages = _.differenceWith(oldAddressablePages, this.addressablePages, isNewPage)
       .map(filePath => Site.setExtension(filePath.src, '.html'));
 
-    if (!_.isEmpty(addedPages) || !_.isEmpty(removedPages)) {
+    // Checks if any attributes of site.json requiring a global rebuild are modified
+    const isGlobalConfigModified = () => !_.isEqual(oldSiteConfig.faviconPath, this.siteConfig.faviconPath)
+        || !_.isEqual(oldSiteConfig.titlePrefix, this.siteConfig.titlePrefix)
+        || !_.isEqual(oldSiteConfig.style, this.siteConfig.style)
+        || !_.isEqual(oldSiteConfig.externalScripts, this.siteConfig.externalScripts)
+        || !_.isEqual(oldSiteConfig.globalOverride, this.siteConfig.globalOverride)
+        || !_.isEqual(oldSiteConfig.plugins, this.siteConfig.plugins)
+        || !_.isEqual(oldSiteConfig.pluginsContext, this.siteConfig.pluginsContext)
+        || !_.isEqual(oldSiteConfig.headingIndexingLevel, this.siteConfig.headingIndexingLevel)
+        || !_.isEqual(oldSiteConfig.enableSearch, this.siteConfig.enableSearch)
+        || !_.isEqual(oldSiteConfig.disableHtmlBeautify, this.siteConfig.disableHtmlBeautify)
+        || !_.isEqual(oldSiteConfig.timeZone, this.siteConfig.timeZone)
+        || !_.isEqual(oldSiteConfig.locale, this.siteConfig.locale)
+        || !_.isEqual(oldSiteConfig.intrasiteLinkValidation, this.siteConfig.intrasiteLinkValidation);
+
+    if (isGlobalConfigModified() || !_.isEmpty(addedPages) || !_.isEmpty(removedPages)) {
       await this.removeAsset(removedPages);
+      this.buildManagers();
       await this._rebuildSourceFiles();
       await this.writeSiteData();
     } else {
@@ -888,6 +921,29 @@ class Site {
         }
       });
     });
+  }
+
+  /**
+   * Handles the reloading of ignore attributes
+   */
+  async handleIgnoreReload(oldIgnore) {
+    const assetsToRemove = _.difference(this.siteConfig.ignore, oldIgnore);
+
+    if (!_.isEqual(oldIgnore, this.siteConfig.ignore)) {
+      await this._removeMultipleAssets(assetsToRemove);
+      this.buildManagers();
+      await this.buildAssets();
+    }
+  }
+
+  /**
+   * Handles the reloading of the style attribute if it has been modified
+   */
+  async handleStyleReload(oldStyle) {
+    if (!_.isEqual(oldStyle.bootstrapTheme, this.siteConfig.style.bootstrapTheme)) {
+      await this.copyBootstrapTheme(true);
+      logger.info('Updated bootstrap theme');
+    }
   }
 
   /**
@@ -1224,15 +1280,23 @@ class Site {
   }
 
   /**
-   * Copies bootswatch theme to the assets folder if a valid theme is specified
+   * Copies bootstrap theme to the assets folder if a valid theme is specified
+   * @param {Boolean} isRebuild only true if it is a rebuild
    */
-  copyBootswatchTheme() {
+  copyBootstrapTheme(isRebuild) {
     const { theme } = this.siteConfig;
-    if (!theme || !_.has(SUPPORTED_THEMES_PATHS, theme)) {
+
+    /**
+     * If it is the initial build using the default theme or if the theme specified
+     * is not valid, then do nothing.
+     */
+    if ((!isRebuild && !theme) || (theme && !_.has(SUPPORTED_THEMES_PATHS, theme))) {
       return _.noop;
     }
 
-    const themeSrcPath = SUPPORTED_THEMES_PATHS[theme];
+    const themeSrcPath = !theme
+      ? require.resolve('@markbind/core-web/asset/css/bootstrap.min.css')
+      : SUPPORTED_THEMES_PATHS[theme];
     const themeDestPath = path.join(this.siteAssetsDestPath, 'css', 'bootstrap.min.css');
 
     return fs.copy(themeSrcPath, themeDestPath);

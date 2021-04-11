@@ -81,6 +81,10 @@ Here is a typical `site.json` file:
 
 <include src="deployingTheSite.md#warning-about-baseUrl" />
 
+<box type="warning">
+
+Note: `baseUrl` does not support [live preview](glossary.md#live-preview) as there is no use case for changing it in during `markbind serve`.
+</box>
 
 #### **`faviconPath`**
 
