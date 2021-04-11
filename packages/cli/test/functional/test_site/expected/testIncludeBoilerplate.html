@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta name="default-head-top">
+  <script src="/test_site/headFiles/customScriptTop.js" type="application/javascript"></script>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="MarkBind 2.17.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Content inside <include> should not be processed by markdown</title>
+  <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
+  <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
+  <link rel="stylesheet" href="markbind/css/octicons.css">
+  <link rel="stylesheet" href="markbind/css/codeblock-dark.min.css">
+  <link rel="stylesheet" href="markbind/css/markbind.min.css">
+  <script src="markbind/js/polyfill.min.js"></script>
+  <script src="markbind/js/vue.min.js"></script>
+  <script src="markbind/js/markbind.min.js"></script>
+  <script src="testIncludeBoilerplate.page-vue-render.js"></script>
+  <script src="markbind/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
+  <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
+
+  <meta name="default-head-bottom">
+  <link rel="stylesheet" href="/test_site/stylesheets/styles.css">
+  <script src="/test_site/headFiles/customScriptBottom.js" type="application/javascript"></script>
+  <link rel="icon" href="/test_site/favicon.png">
+</head>
+<script>
+  const baseUrl = '/test_site'
+</script>
+
+<body>
+  <div id="app">
+
+
+    <div>
+      <header>
+        <navbar type="dark" default-highlight-on="sibling-or-child" class=" temp-navbar">
+          <template #brand><a href="/" title="Home" class="navbar-brand">Markbind Test Site</a></template>
+          <li><a class="nav-link" href="/test_site/bugs/index.html">Open Bugs</a></li>
+        </navbar>
+        <div class="bg-info display-4 text-center text-white">
+          <br>
+          Test Jumbotron<br>
+          <br></div>
+      </header>
+      <p><strong>Relative Link Test</strong> This is a relative Intra-Site link in a layout (see <a href="/test_site/index.html#heading-with-hidden-keyword">link</a>)</p>
+    </div>
+    <div id="flex-body">
+      <nav id="site-nav" class="fixed-header-padding">
+        <div class="site-nav-top">
+          <div class="font-weight-bold mb-2" style="font-size: 1.25rem;">
+            <div>
+              <h2 id="default-layout"><span id="default-layout" class="anchor"></span>Default Layout<a class="fa fa-anchor" href="#default-layout" onclick="event.stopPropagation()"></a></h2>
+            </div>
+          </div>
+        </div>
+        <div class="nav-component slim-scroll">
+          <div>
+            <site-nav>
+              <ul class="site-nav-list site-nav-list-root">
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/test_site/index.html">Home 🏠</a></div>
+                </li>
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/test_site/bugs/index.html">Open Bugs 🐛</a></div>
+                </li>
+                <li class="site-nav-custom-list-item site-nav-list-item-0">
+                  <h3 id="testing-site-nav"><span id="testing-site-nav" class="anchor"></span>Testing Site-Nav<a class="fa fa-anchor" href="#testing-site-nav" onclick="event.stopPropagation()"></a></h3>
+                </li>
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><strong>Dropdown </strong> <span aria-hidden="true" class="glyphicon glyphicon-search"></span> title ✏️
+
+                    <i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
+                  <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/">Dropdown link one</a></div>
+                    </li>
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)">Nested Dropdown title 📐
+
+                        <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
+                      <ul class="site-nav-dropdown-container site-nav-list">
+                        <li>
+                          <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link one</a></div>
+                        </li>
+                        <li>
+                          <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link two</a></div>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/">Dropdown link two</a></div>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/"><mark>Third Link</mark> 📋</a></div>
+                </li>
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)">Filler text <a href="https://www.youtube.com/"><span aria-hidden="true" class="glyphicon glyphicon-facetime-video"></span> Youtube 📺</a> filler text
+
+                    <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
+                  <ul class="site-nav-dropdown-container site-nav-list">
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">The answer to everything in the universe</a></div>
+                    </li>
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><mark>Dropdown title</mark> <span aria-hidden="true" class="glyphicon glyphicon-comment"></span> ✏️
+
+                        <i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
+                      <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
+                        <li>
+                          <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link one</a></div>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)">Really Long Dropdown Title Really Long Dropdown Title Really Long Dropdown Title Really Long Dropdown
+
+                    <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
+                  <ul class="site-nav-dropdown-container site-nav-list">
+                    <li class="site-nav-custom-list-item site-nav-list-item-1">Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text</li>
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)">Nested Dropdown Title
+
+                        <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
+                      <ul class="site-nav-dropdown-container site-nav-list">
+                        <li class="site-nav-custom-list-item site-nav-list-item-2">Hello Doge Hello Doge 🐶</li>
+                        <li>
+                          <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/test_site/index.html"><strong>NESTED LINK</strong> Home 🏠</a></div>
+                        </li>
+                        <li class="site-nav-custom-list-item site-nav-list-item-2">Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)">Test line break in navigation layout
+
+                    <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
+                  <ul class="site-nav-dropdown-container site-nav-list">
+                    <li class="site-nav-custom-list-item site-nav-list-item-1">Nested line break text ✂️</li>
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/test_site/index.html">Nested line break href</a>
+
+                        <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
+                      <ul class="site-nav-dropdown-container site-nav-list">
+                        <li class="site-nav-custom-list-item site-nav-list-item-2">Nested Nested line break text ✂️</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)">Nested line break dropdown menu
+
+                        <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></i></div>
+                      <ul class="site-nav-dropdown-container site-nav-list">
+                        <li class="site-nav-custom-list-item site-nav-list-item-2">Line break item 2 📘</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </site-nav>
+          </div>
+        </div>
+      </nav>
+      <div id="content-wrapper" class="fixed-header-padding">
+        <p>In the CODE section, it should render exactly the content of the variable &quot;code&quot;. In the OUTPUT section, it should render
+          the footnotes correctly.</p>
+        <div>
+
+
+
+
+
+          <p><span class="dimmed">CODE:</span></p>
+          <div class="indented">
+            <pre><code class="no-line-numbers hljs markdown" v-pre><span><span class="hljs-strong">**Normal footnotes:**</span>
+</span><span>Here is a footnote reference,[^1] and another.[^longnote]
+</span><span>
+</span><span>[<span class="hljs-symbol">^1</span>]: <span class="hljs-link">Here is the footnote. Footnotes will appear at the bottom of the page.</span>
+</span><span>
+</span><span>[<span class="hljs-symbol">^longnote</span>]: <span class="hljs-link">Here&#x27;s one with multiple blocks.</span>
+</span></code></pre>
+          </div>
+          <p><span class="dimmed">OUTPUT:</span></p>
+          <div class="indented">
+            <box border-left-color="grey" background-color="white">
+              <p><strong>Normal footnotes:</strong>
+                Here is a footnote reference,<trigger for="pop:footnotefn-1-1"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#fn-1-1">[1]</a></sup></trigger> and another.<trigger for="pop:footnotefn-1-2"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#fn-1-2">[2]</a></sup></trigger>
+              </p>
+            </box>
+          </div>
+        </div>
+        <div>
+
+
+
+
+
+          <p><span class="dimmed">CODE:</span></p>
+          <div class="indented">
+            <pre><code class="no-line-numbers hljs html" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+</span><span><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>This my paragraph
+</span><span>
+</span><span>some newlines 
+</span><span>
+</span><span>
+</span><span>some more newlines
+</span><span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</span><span>
+</span><span><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>hello<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+</span><span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</span><span>
+</span><span><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Must have newline before this<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</span></code></pre>
+          </div>
+          <p><span class="dimmed">OUTPUT:</span></p>
+          <div class="indented">
+            <box border-left-color="grey" background-color="white">
+              <div>
+                <p>This my paragraph
+                </p>
+                <p>some newlines</p>
+                <p>some more newlines</p>
+                <p></p>
+                <h1 id="hello"><span id="hello" class="anchor"></span>hello<a class="fa fa-anchor" href="#hello" onclick="event.stopPropagation()"></a></h1>
+              </div>
+              <p>Must have newline before this</p>
+            </box>
+          </div>
+        </div>
+        <hr class="footnotes-sep">
+        <section class="footnotes">
+          <ol class="footnotes-list">
+            <span id="pop:footnotefn-1-1" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger">
+              <span data-mb-slot-name="content">
+                <div>
+                  <p>Here is the footnote. Footnotes will appear at the bottom of the page.</p>
+
+                </div>
+              </span>
+            </span><span id="pop:footnotefn-1-2" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger">
+              <span data-mb-slot-name="content">
+                <div>
+                  <p>Here's one with multiple blocks.</p>
+
+                </div>
+              </span>
+            </span>
+
+            <li id="fn-1-1" class="footnote-item">
+              <p>Here is the footnote. Footnotes will appear at the bottom of the page.</p>
+            </li>
+            <li id="fn-1-2" class="footnote-item">
+              <p>Here's one with multiple blocks.</p>
+            </li>
+
+          </ol>
+        </section>
+
+        <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
+      </div>
+      <nav id="page-nav" class="fixed-header-padding">
+        <div class="nav-component slim-scroll">
+
+        </div>
+      </nav>
+    </div>
+    <div>
+      <footer>
+        <h1 id="heading-in-footer-should-not-be-indexed"><span id="heading-in-footer-should-not-be-indexed" class="anchor"></span>Heading in footer should not be indexed<a class="fa fa-anchor" href="#heading-in-footer-should-not-be-indexed" onclick="event.stopPropagation()"></a></h1>
+        <div class="text-center">
+          This is a dynamic height footer that supports markdown <span>😄</span>!
+        </div>
+      </footer>
+    </div>
+  </div>
+</body>
+<script src="markbind/js/bootstrap-utility.min.js"></script>
+<script>
+  MarkBind.setupWithSearch()
+</script>
+<script src="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginScript.js"></script>
+<script>alert("Inline plugin script loaded!")</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
+<script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'TRACKING-ID');
+    </script>
+
+</html>

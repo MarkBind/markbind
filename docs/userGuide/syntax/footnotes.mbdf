@@ -1,6 +1,7 @@
 ## Footnotes
 
 <span id="main-example-markbind">
+
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
