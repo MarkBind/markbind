@@ -42,7 +42,7 @@ Usage: markbind <command>
 <panel header="**Options** :fas-cogs:" type="minimal" expanded>
 
 **Options** :fas-cogs:
-
+be
 * `-c`, `--convert`<br>
   Convert an existing GitHub wiki or `docs` folder into a MarkBind website. See [Converting an existing Github project]({{ baseUrl }}/userGuide/markBindInTheProjectWorkflow.html#converting-existing-project-documentation-wiki) for more information.
 
@@ -94,10 +94,10 @@ The caveat is that not building all pages during the initial process, or not reb
 </box>
 
 * `-b`, `--background-build` **[BETA]**<br>
-   If `--one-page` is specified, enhances the single-page serve by building the pages that are not yet built or marked
-   to be rebuilt in the background.
+   If `--one-page` is specified, this mode enhances the single-page serve by building the pages that are not yet built
+   or marked to be rebuilt in the background.
    
-   You can still play around with the pages during the background build. When MarkBind detects changes to the source
+   You can still edit the pages during the background build. When MarkBind detects changes to the source
    files, the background build will stop, rebuild the files affected, then resumes the background build with the
    remaining pages.
 
