@@ -106,7 +106,7 @@ const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${MARKBIN
 
 class Site {
   constructor(rootPath, outputPath, onePagePath, forceReload = false,
-              siteConfigPath = SITE_CONFIG_NAME, dev) {
+              siteConfigPath = SITE_CONFIG_NAME, dev, backgroundBuildMode) {
     this.dev = !!dev;
 
     this.rootPath = rootPath;
@@ -143,9 +143,8 @@ class Site {
     this.pluginManager = undefined;
 
     // Page generation context
-    this.pageGenerationContext = {
-      stopGenerationTimeThreshold: new Date(),
-    };
+    this.backgroundBuildMode = backgroundBuildMode;
+    this.stopGenerationTimeThreshold = new Date();
 
     // Lazy reload properties
     this.onePagePath = onePagePath;
@@ -992,7 +991,7 @@ class Site {
   }
 
   stopOngoingBuilds() {
-    this.pageGenerationContext.stopGenerationTimeThreshold = new Date();
+    this.stopGenerationTimeThreshold = new Date();
   }
 
   /**
@@ -1010,7 +1009,7 @@ class Site {
     const startTime = new Date();
     let isCompleted = true;
     await utils.sequentialAsyncForEach(pageGenerationTasks, async (task) => {
-      if (startTime < this.pageGenerationContext.stopGenerationTimeThreshold) {
+      if (this.backgroundBuildMode && startTime < this.stopGenerationTimeThreshold) {
         logger.info('Page generation stopped');
         logger.debug('Page generation stopped at generation task queue');
         isCompleted = false;
@@ -1038,7 +1037,7 @@ class Site {
     const startTime = new Date();
     let isCompleted = true;
     await utils.sequentialAsyncForEach(pages, async (page) => {
-      if (startTime < this.pageGenerationContext.stopGenerationTimeThreshold) {
+      if (this.backgroundBuildMode && startTime < this.stopGenerationTimeThreshold) {
         logger.info('Page generation stopped');
         logger.debug('Page generation stopped at sequential generation');
         isCompleted = false;
@@ -1078,7 +1077,7 @@ class Site {
       // Map pages into array of callbacks for delayed execution
       const pageGenerationQueue = pages.map(page => async () => {
         // Pre-generate guard to ensure no newly executed callbacks start on stop
-        if (context.startTime < this.pageGenerationContext.stopGenerationTimeThreshold) {
+        if (this.backgroundBuildMode && context.startTime < this.stopGenerationTimeThreshold) {
           if (context.isCompleted) {
             logger.info('Page generation stopped');
             logger.debug('Page generation stopped at asynchronous generation');
@@ -1114,7 +1113,7 @@ class Site {
    */
   generateProgressBarStatus(progressBar, context, pageGenerationQueue, resolve) {
     // Post-generate guard to ensure no new callbacks are executed on stop
-    if (context.startTime < this.pageGenerationContext.stopGenerationTimeThreshold) {
+    if (this.backgroundBuildMode && context.startTime < this.stopGenerationTimeThreshold) {
       if (context.isCompleted) {
         logger.info('Page generation stopped');
         logger.debug('Page generation stopped at asynchronous generation');

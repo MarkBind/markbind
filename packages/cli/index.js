@@ -139,7 +139,7 @@ program
     const onePageWithBackgroundBuild = onePagePath && options.backgroundBuild;
 
     const site = new Site(rootFolder, outputFolder, onePagePath,
-                          options.forceReload, options.siteConfig, options.dev);
+                          options.forceReload, options.siteConfig, options.dev, options.backgroundBuild);
 
     const syncOpenedPages = () => {
       logger.info('Synchronizing opened pages list before reload');
