@@ -406,9 +406,11 @@ LiveServer.start = function(options) {
     // CHANGED: Prepare tab entry data before issuing reload
     LiveServer.activeTabs.forEach(tab => {
       if (tab.client) {
-        // Clear the client from the entry to be refilled in the socket establishment phase after reload
         const client = tab.client;
-        tab.client = undefined;
+        // Clear the client from the entry to be refilled in the socket establishment phase after reload
+        if (!cssChange) {
+          tab.client = undefined;
+        }
         client.send(cssChange ? 'refreshcss' : 'reload');
       }
     });
