@@ -197,8 +197,8 @@
 </span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
 </span></code></pre>
         <p><strong><code class="hljs inline no-lang" v-pre>start-from</code> attr should set inline css in <code class="hljs inline no-lang" v-pre>&lt;code&gt;</code> tag, enabling lines to start from a specific line number</strong></p>
-        <pre><code style="counter-reset: line 29;" class="hljs markdown" v-pre><span><span class="hljs-strong">****</span><span class="hljs-emphasis">*</span>
-</span><span><span class="hljs-emphasis">-----</span>
+        <pre><code style="counter-reset: line 29;" class="hljs markdown" v-pre><span><span class="hljs-section"><span class="hljs-strong">****</span><span class="hljs-emphasis">*</span></span>
+</span><span><span class="hljs-emphasis"><span class="hljs-section">-----</span></span>
 </span></code></pre>
         <p><strong><code class="hljs inline no-lang" v-pre>highlight-lines</code> attr causes corresponding lines to have 'highlighted' class</strong></p>
         <pre><code class="hljs markdown" v-pre><span><span class="highlighted">1  highlighted</span>
@@ -323,8 +323,50 @@
 </span><span>
 </span></code></pre>
         <p><strong>span with <code class="hljs inline no-lang" v-pre>hljs</code> class should span multiple lines <a href="https://github.com/MarkBind/markbind/pull/991#issuecomment-586547275">(Link for context)</a></strong></p>
-        <pre><code class="hljs markdown" v-pre><span><span class="hljs-strong">****</span><span class="hljs-emphasis">*</span>
-</span><span><span class="hljs-emphasis">-----</span>
+        <pre><code class="hljs markdown" v-pre><span><span class="hljs-section"><span class="hljs-strong">****</span><span class="hljs-emphasis">*</span></span>
+</span><span><span class="hljs-emphasis"><span class="hljs-section">-----</span></span>
+</span></code></pre>
+        <p><strong>Span containing multi-line strings should have each line wrapped in a <code class="hljs inline no-lang" v-pre>hljs</code> span</strong></p>
+        <pre><code class="hljs javascript" v-pre><span><span class="hljs-keyword">var</span> x = <span class="hljs-string">`&lt;span class=&quot;string&quot;&gt;This is a</span>
+</span><span><span class="hljs-string">really long string</span>
+</span><span><span class="hljs-string">that spans multiple lines</span>
+</span><span><span class="hljs-string">super annoying&quot;&lt;/span&gt;`</span>
+</span></code></pre>
+        <pre><code class="hljs markdown" v-pre><span><span class="hljs-section">## My header</span>
+</span><span>
+</span><span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span>Some paragraphs
+</span><span>
+</span><span>123                           5
+</span><span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span>
+</span><span>
+</span><span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span></span>
+</span><span>another paragraph<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span>some span
+</span><span>abc
+</span><span>a
+</span><span>
+</span><span>b<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
+</span><span>
+</span><span><span class="hljs-section">### Header 2</span>
+</span></code></pre>
+        <p><strong>Having <span> in code blocks should not interfere with hljs</span></strong></p>
+        <pre><code class="hljs javascript" v-pre><span><span class="hljs-keyword">const</span> a = <span class="hljs-string">`another</span>
+</span><span><span class="hljs-string"></span>
+</span><span><span class="hljs-string">really</span>
+</span><span><span class="hljs-string"></span>
+</span><span><span class="hljs-string">reallly</span>
+</span><span><span class="hljs-string"></span>
+</span><span><span class="hljs-string"></span>
+</span><span><span class="hljs-string">reallly                   really</span>
+</span><span><span class="hljs-string">long string`</span>
+</span><span>
+</span><span><span class="hljs-keyword">const</span> b = <span class="hljs-string">`long string</span>
+</span><span><span class="hljs-string">with multiple</span>
+</span><span><span class="hljs-string"></span>
+</span><span><span class="hljs-string">embeded &lt;span&gt;</span>
+</span><span><span class="hljs-string"></span>
+</span><span><span class="hljs-string">&lt;/span&gt;</span>
+</span><span><span class="hljs-string"></span>
+</span><span><span class="hljs-string">&lt;span&gt;`</span>
 </span></code></pre>
         <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>
