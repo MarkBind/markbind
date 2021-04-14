@@ -1,20 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NestedPanels should not show header after expand with expandHeaderless as true 1`] = `
-<span
+<div
   class="card-container"
 >
-  <div
-    class="morph"
-    style="display: none;"
-  >
-    <button
-      class="morph-display-wrapper btn btn-outline-secondary card-title"
-    >
-      test header
-    </button>
-  </div>
-   
   <div
     class="card expandable-card"
   >
@@ -101,24 +90,13 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
       <!---->
     </transition-stub>
   </div>
-</span>
+</div>
 `;
 
 exports[`NestedPanels should show header after expand with expandHeaderless as false 1`] = `
-<span
+<div
   class="card-container"
 >
-  <div
-    class="morph"
-    style="display: none;"
-  >
-    <button
-      class="morph-display-wrapper btn btn-outline-secondary card-title"
-    >
-      test header
-    </button>
-  </div>
-   
   <div
     class="card expandable-card"
   >
@@ -205,24 +183,13 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
       <!---->
     </transition-stub>
   </div>
-</span>
+</div>
 `;
 
 exports[`NestedPanels should show header when collapsed with expandHeaderless as false 1`] = `
-<span
+<div
   class="card-container"
 >
-  <div
-    class="morph"
-    style="display: none;"
-  >
-    <button
-      class="morph-display-wrapper btn btn-outline-secondary card-title"
-    >
-      test header
-    </button>
-  </div>
-   
   <div
     class="card expandable-card"
   >
@@ -294,24 +261,13 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
       <!---->
     </transition-stub>
   </div>
-</span>
+</div>
 `;
 
 exports[`NestedPanels should show header when collapsed with expandHeaderless as true 1`] = `
-<span
+<div
   class="card-container"
 >
-  <div
-    class="morph"
-    style="display: none;"
-  >
-    <button
-      class="morph-display-wrapper btn btn-outline-secondary card-title"
-    >
-      test header
-    </button>
-  </div>
-   
   <div
     class="card expandable-card"
   >
@@ -383,5 +339,5 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
       <!---->
     </transition-stub>
   </div>
-</span>
+</div>
 `;

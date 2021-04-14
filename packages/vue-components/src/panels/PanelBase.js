@@ -150,31 +150,24 @@ export default {
     close() {
       this.localMinimized = true;
       this.localExpanded = false;
-      /*
-        We do not need transition for closing panels (changing to minimized).
-        Thus, we do not use nextTick here.
-      */
-      this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
     },
     open() {
-      if (this.localExpanded) {
-        /*
-          In the case where panel is minimized but expanded (where retriever is already loaded),
-          it's maxHeight is already none and we should not set it scrollHeight again.
-        */
-        this.localMinimized = false;
-        return;
-      }
-
       this.localMinimized = false;
-      this.localExpanded = true;
-      this.wasRetrieverLoaded = true;
       /*
-        After setting minimized to false / wasRetrieverLoaded to true,
-        we have to wait for DOM update (nextTick) before setting maxHeight for transition.
+        After setting minimized to false, we have to wait for panel to be rendered in the
+        DOM update (nextTick) before we can initialize the panel with event listeners.
       */
       this.$nextTick(() => {
-        this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+        this.initPanel();
+        this.localExpanded = true;
+        this.wasRetrieverLoaded = true;
+        /*
+          After setting wasRetrieverLoaded to true, we have to wait for
+          DOM update (nextTick) before setting maxHeight for transition.
+        */
+        this.$nextTick(() => {
+          this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+        });
       });
     },
     openPopup() {
@@ -247,6 +240,8 @@ export default {
     this.localMinimized = this.minimizedBool;
   },
   mounted() {
-    this.initPanel();
+    if (!this.localMinimized) {
+      this.initPanel();
+    }
   },
 };

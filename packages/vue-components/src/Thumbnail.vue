@@ -1,5 +1,5 @@
 <template>
-  <div
+  <span
     :class="['thumb-wrapper', {'thumb-circle': circle}, addClass]"
     :style="[getBorder, getFontSize, getFontColor, getBgColor]"
   >
@@ -14,7 +14,7 @@
       @load.once="computeImgSize"
     />
     <slot></slot>
-  </div>
+  </span>
 </template>
 
 <script>
