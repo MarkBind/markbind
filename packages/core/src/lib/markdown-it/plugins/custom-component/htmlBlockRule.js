@@ -4,7 +4,7 @@ const inlineTags = require('./inlineTags');
 const vueReservedTags = require('./vueReservedTags');
 
 /*
- * In MarkBind, We consider panel components of that are minimized be inline element.
+ * In MarkBind, we consider minimized panel components to be inline elements.
  * Thus, we have to ensure that markdown-it parses minimized panel as inline element
  * by using the regex below. 
  */
