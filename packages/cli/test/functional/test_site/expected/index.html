@@ -248,14 +248,13 @@
             <h1 id="keyword-should-be-tagged-to-this-heading-not-the-panel-heading"><span id="keyword-should-be-tagged-to-this-heading-not-the-panel-heading" class="anchor"></span>Keyword should be tagged to this heading, not the panel heading<a class="fa fa-anchor" href="#keyword-should-be-tagged-to-this-heading-not-the-panel-heading" onclick="event.stopPropagation()"></a></h1>
             <p><span class="keyword">panel keyword</span></p>
           </panel>
-          <p></p>
-          <p><strong>Unexpanded panel with heading with keyword</strong>
-            <panel id="panel-with-heading-with-keyword"><template #header>
-                <h1 id="panel-with-heading-with-keyword"><span id="panel-with-heading-with-keyword" class="anchor"></span>Panel with heading with keyword<a class="fa fa-anchor" href="#panel-with-heading-with-keyword" onclick="event.stopPropagation()"></a></h1>
-              </template></panel>
-          </p>
-          <h1 id="keyword-should-be-tagged-to-the-panel-heading-not-this-heading"><span id="keyword-should-be-tagged-to-the-panel-heading-not-this-heading" class="anchor"></span>Keyword should be tagged to the panel heading, not this heading<a class="fa fa-anchor" href="#keyword-should-be-tagged-to-the-panel-heading-not-this-heading" onclick="event.stopPropagation()"></a></h1>
-          <p><span class="keyword">panel keyword</span></p>
+          <p><strong>Unexpanded panel with heading with keyword</strong></p>
+          <panel id="panel-with-heading-with-keyword"><template #header>
+              <h1 id="panel-with-heading-with-keyword"><span id="panel-with-heading-with-keyword" class="anchor"></span>Panel with heading with keyword<a class="fa fa-anchor" href="#panel-with-heading-with-keyword" onclick="event.stopPropagation()"></a></h1>
+            </template>
+            <h1 id="keyword-should-be-tagged-to-the-panel-heading-not-this-heading"><span id="keyword-should-be-tagged-to-the-panel-heading-not-this-heading" class="anchor"></span>Keyword should be tagged to the panel heading, not this heading<a class="fa fa-anchor" href="#keyword-should-be-tagged-to-the-panel-heading-not-this-heading" onclick="event.stopPropagation()"></a></h1>
+            <p><span class="keyword">panel keyword</span></p>
+          </panel>
           <h1 id="heading-with-included-keyword"><span id="heading-with-included-keyword" class="anchor"></span>Heading with included keyword<a class="fa fa-anchor" href="#heading-with-included-keyword" onclick="event.stopPropagation()"></a></h1>
           <div>
             <p><span class="keyword">included keyword</span></p>
@@ -314,11 +313,9 @@
           <p><strong>Normal include</strong></p>
           <div>
             <h3 id="establishing-requirements"><span id="establishing-requirements" class="anchor"></span>Establishing Requirements<a class="fa fa-anchor" href="#establishing-requirements" onclick="event.stopPropagation()"></a></h3>
-            <p>
-              <seg id="preview">Requirements gathering, requirements elicitation, requirements analysis,
-                requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity
-                of understanding what a software product should do.</seg>
-            </p>
+            <seg id="preview">Requirements gathering, requirements elicitation, requirements analysis,
+              requirements capture are some of the terms commonly **and** interchangeably used to represent the activity
+              of understanding what a software product should do.</seg>
             <p>There are many techniques used during a requirements gathering. The following are some of the techniques.</p>
             <h4 id="brainstorming"><span id="brainstorming" class="anchor"></span>Brainstorming<a class="fa fa-anchor" href="#brainstorming" onclick="event.stopPropagation()"></a></h4>
             <p>Brainstorming is a group activity designed to generate a large number of diverse and creative ideas for the solution
@@ -337,7 +334,7 @@
           </div>
           <p><strong>Include segment</strong></p>
           <div>Requirements gathering, requirements elicitation, requirements analysis,
-            requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity
+            requirements capture are some of the terms commonly **and** interchangeably used to represent the activity
             of understanding what a software product should do.</div>
           <p><strong>Boilerplate include</strong></p>
           <div name="Boilerplate Referencing">
@@ -406,13 +403,12 @@
               <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png">
               <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png">
               <img src="https://dummyimage.com/600x400/000/fff"></p>
-            <p>PIC tags:
-              <pic src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></pic>
-              <pic src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></pic>
-              <pic src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></pic>
-              <pic src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></pic>
-              <pic src="https://dummyimage.com/600x400/000/fff"></pic>
-            </p>
+            <p>PIC tags:</p>
+            <pic src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></pic>
+            <pic src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></pic>
+            <pic src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></pic>
+            <pic src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></pic>
+            <pic src="https://dummyimage.com/600x400/000/fff"></pic>
             <p>Anchor:
               <a href="https://dummyimage.com/600x400/000/fff">External Image</a></p>
 
@@ -458,7 +454,7 @@
               </box>
             </div>
           </box>
-          <p><strong>Include a file using baseUrl</strong>
+          <p><strong>Include a file using baseUrl</strong></p>
           <div>As we establish requirements, they should be recorded in some way for future reference,
             usually called a requirement specification. Furthermore, it is advisable to show these requirements to stakeholders,
             and refine requirements based on their feedback. The next phase is to convert requirements into a product
@@ -466,28 +462,25 @@
           <panel src="/test_site/requirements/SpecifyingRequirements._include_.html#preview" type="minimal" fragment="preview"><template #header>
               <p><strong>same test with panels</strong></p>
             </template></panel>
-          </p>
-          <p><strong>Include a file in a sub-folder that uses baseUrl</strong>
+          <p><strong>Include a file in a sub-folder that uses baseUrl</strong></p>
           <div>
             <div>Requirements gathering, requirements elicitation, requirements analysis,
-              requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity
+              requirements capture are some of the terms commonly **and** interchangeably used to represent the activity
               of understanding what a software product should do.</div>
           </div>
           <panel src="/test_site/requirements/testBaseUrlInIncludeSrc._include_.html" type="minimal"><template #header>
               <p><strong>same test with panels</strong></p>
             </template></panel>
-          </p>
-          <p><strong>Include a file in a sub-folder that uses baseUrl using baseUrl</strong>
+          <p><strong>Include a file in a sub-folder that uses baseUrl using baseUrl</strong></p>
           <div>
             <div>Requirements gathering, requirements elicitation, requirements analysis,
-              requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity
+              requirements capture are some of the terms commonly **and** interchangeably used to represent the activity
               of understanding what a software product should do.</div>
           </div>
           <panel src="/test_site/requirements/testBaseUrlInIncludeSrc._include_.html" type="minimal"><template #header>
               <p><strong>same test with panels</strong></p>
             </template></panel>
-          </p>
-          <p><strong>Include a file in a sub-site that uses baseUrl</strong>
+          <p><strong>Include a file in a sub-site that uses baseUrl</strong></p>
           <div>
             <div>
               <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></div>
@@ -495,8 +488,7 @@
           <panel src="/test_site/sub_site/testBaseUrlInIncludeSrcSubSite._include_.html" type="minimal"><template #header>
               <p><strong>same test with panels</strong></p>
             </template></panel>
-          </p>
-          <p><strong>Include a file in a sub-site that uses baseUrl using baseUrl</strong>
+          <p><strong>Include a file in a sub-site that uses baseUrl using baseUrl</strong></p>
           <div>
             <div>
               <img src="/test_site/sub_site/images/I'm not allowed to use my favorite tool.png"></div>
@@ -504,7 +496,6 @@
           <panel src="/test_site/sub_site/testBaseUrlInIncludeSrcSubSite._include_.html" type="minimal"><template #header>
               <p><strong>same test with panels</strong></p>
             </template></panel>
-          </p>
           <p><strong>Trimmed include</strong></p>
           <p><strong><span><br>
                 Fragment with leading spaces and newline</span></strong></p>
@@ -608,9 +599,7 @@
             </template></panel>
         </div>
         <p><strong>Modal with panel inside</strong></p>
-        <p>
-          <trigger for="modal-with-panel">trigger</trigger>
-        </p>
+        <trigger for="modal-with-panel">trigger</trigger>
         <b-modal id="modal-with-panel" hide-footer size modal-class="mb-zoom" ref="modal-with-panel"><template #modal-title>modal title with panel inside</template>
           <panel expanded id="panel-inside-modal"><template #header>
               <h2 id="panel-inside-modal"><span id="panel-inside-modal" class="anchor"></span>Panel inside modal<a class="fa fa-anchor" href="#panel-inside-modal" onclick="event.stopPropagation()"></a></h2>
@@ -630,42 +619,32 @@
           </panel>
         </panel>
         <p><strong>Test search indexing</strong></p>
-        <p><strong>Test PlantUML live reload without include</strong>
-          <pic src="/test_site/diagrams/activity.png" alt="activity diagram"></pic>
-        </p>
-        <p><strong>Test PlantUML live reload with include</strong>
+        <p><strong>Test PlantUML live reload without include</strong></p>
+        <pic src="/test_site/diagrams/activity.png" alt="activity diagram"></pic>
+        <p><strong>Test PlantUML live reload with include</strong></p>
         <div>
           <p><strong>PlantUML Test</strong></p>
           <pic src="/test_site/inline-output.png"></pic>
           <pic src="/test_site/9c9e77fc0a983cb6b592e65733787bec.png"></pic>
-          <p><strong>Sequence Diagram</strong>
-            <pic src="/test_site/diagrams/sequence.png"></pic>
-          </p>
-          <p><strong>Use Case Diagram</strong>
-            <pic src="/test_site/diagrams/usecase.png"></pic>
-          </p>
-          <p><strong>Class Diagram</strong>
-            <pic src="/test_site/diagrams/class.png"></pic>
-          </p>
+          <p><strong>Sequence Diagram</strong></p>
+          <pic src="/test_site/diagrams/sequence.png"></pic>
+          <p><strong>Use Case Diagram</strong></p>
+          <pic src="/test_site/diagrams/usecase.png"></pic>
+          <p><strong>Class Diagram</strong></p>
+          <pic src="/test_site/diagrams/class.png"></pic>
         </div>
-        </p>
-        <p><strong>Test PlantUML in sub folder</strong>
+        <p><strong>Test PlantUML in sub folder</strong></p>
         <div>
           <pic src="/test_site/sub_site/inline-output/inline-puml-image.png"></pic>
-          <p><strong>Activity Diagram</strong>
-            <pic src="/test_site/diagrams/activity.png"></pic>
-          </p>
-          <p><strong>Component Diagram</strong>
-            <pic src="/test_site/diagrams/component.png"></pic>
-          </p>
-          <p><strong>State Diagram</strong>
-            <pic src="/test_site/diagrams/state.png"></pic>
-          </p>
-          <p><strong>Object Diagram</strong>
-            <pic src="/test_site/diagrams/object.png"></pic>
-          </p>
+          <p><strong>Activity Diagram</strong></p>
+          <pic src="/test_site/diagrams/activity.png"></pic>
+          <p><strong>Component Diagram</strong></p>
+          <pic src="/test_site/diagrams/component.png"></pic>
+          <p><strong>State Diagram</strong></p>
+          <pic src="/test_site/diagrams/state.png"></pic>
+          <p><strong>Object Diagram</strong></p>
+          <pic src="/test_site/diagrams/object.png"></pic>
         </div>
-        </p>
         <h2 class="no-index" id="level-2-header-inside-headingsearchindex-with-no-index-attribute-should-not-be-indexed"><span id="level-2-header-inside-headingsearchindex-with-no-index-attribute-should-not-be-indexed" class="anchor"></span>Level 2 header (inside headingSearchIndex) with no-index attribute should not be indexed<a class="fa fa-anchor" href="#level-2-header-inside-headingsearchindex-with-no-index-attribute-should-not-be-indexed" onclick="event.stopPropagation()"></a></h2>
         <h6 class="always-index" id="level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed"><span id="level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed" class="anchor"></span>Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed<a class="fa fa-anchor" href="#level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed" onclick="event.stopPropagation()"></a></h6>
         <p><strong>Test nunjucks raw tags</strong></p>
@@ -731,7 +710,6 @@
             <a class="nav-link py-1" href="#panel-without-heading-with-keyword">Panel without heading with keyword&#x200E;</a>
             <a class="nav-link py-1" href="#keyword-should-be-tagged-to-this-heading-not-the-panel-heading">Keyword should be tagged to this heading, not the panel heading&#x200E;</a>
             <a class="nav-link py-1" href="#panel-with-heading-with-keyword">Panel with heading with keyword&#x200E;</a>
-            <a class="nav-link py-1" href="#keyword-should-be-tagged-to-the-panel-heading-not-this-heading">Keyword should be tagged to the panel heading, not this heading&#x200E;</a>
             <a class="nav-link py-1" href="#heading-with-included-keyword">Heading with included keyword&#x200E;</a>
             <a class="nav-link py-1" href="#included-heading">Included Heading&#x200E;</a>
             <a class="nav-link py-1" href="#heading-with-nested-keyword">Heading with nested keyword&#x200E;</a>
