@@ -30,12 +30,6 @@ function escape_plugin(md, tagsToIgnore) {
 
   const HTML_SEQUENCES = [
     [ startingSpecialTagRegex, endingSpecialTagRegex, true ],
-    [ /^<!--/,        /-->/,   true ],
-    [ /^<\?/,         /\?>/,   true ],
-    [ /^<![A-Z]/,     />/,     true ],
-    [ /^<!\[CDATA\[/, /\]\]>/, true ],
-    [ new RegExp('^</?(' + block_names.join('|') + ')(?=(\\s|/?>|$))', 'i'), /^$/, true ],
-    [ new RegExp(HTML_OPEN_CLOSE_TAG_RE.source + '\\s*$'),  /^$/, false ]
   ];
 
 
