@@ -9,9 +9,6 @@ const isLetter = (ch) => {
 
 const htmlInlineRule = (state, silent) => {
   const pos = state.pos
-	if (state.src.includes('panel')) {
-		console.log('hi');
-	}
   if (!state.md.options.html) {
     return false
   }
