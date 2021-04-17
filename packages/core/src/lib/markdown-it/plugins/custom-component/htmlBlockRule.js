@@ -48,7 +48,6 @@ function customComponentHtmlBlockRule(state, startLine, endLine, silent) {
   let i;
   let nextLine;
   let lineText;
-	// let lineTextCopy;
   let pos = state.bMarks[startLine] + state.tShift[startLine];
   let max = state.eMarks[startLine];
 
@@ -66,7 +65,6 @@ function customComponentHtmlBlockRule(state, startLine, endLine, silent) {
   }
 
   lineText = state.src.slice(pos, max)
-	lineTextCopy = lineText;
 
   for (i = 0; i < HTML_SEQUENCES.length; i++) {
     if (HTML_SEQUENCES[i][0].test(lineText)) {
@@ -77,10 +75,6 @@ function customComponentHtmlBlockRule(state, startLine, endLine, silent) {
   if (i === HTML_SEQUENCES.length) {
     return false
   }
-
-	if (lineText.includes('panel')) {
-		console.log('hi');
-	}
 
   if (silent) {
     // true if this sequence can be a terminator, false otherwise
@@ -112,17 +106,9 @@ function customComponentHtmlBlockRule(state, startLine, endLine, silent) {
 
   state.line = nextLine
 
-	// const isMinimalPanel = lineTextCopy.includes('panel') && lineTextCopy.includes('minimal'); 
-
-	// const type = isMinimalPanel ? 'inline' : 'html_block'; 
-
   const token = state.push('html_block', '', 0)
   token.map = [startLine, nextLine]
   token.content = state.getLines(startLine, nextLine, state.blkIndent, true)
-
-	// if (isMinimalPanel) {
-	// 	token.children = [];
-	// }
 
   return true
 }
