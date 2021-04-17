@@ -6,12 +6,12 @@ const htmlInlineRule = require('./htmlInlineRule');
  */
 const customComponentPlugin = (md) => {
   /*
-	 * Note that html_block is to be replaced by markdown-it-escape-special-tags.
-	 * Thus, we have to push a new rule after the original html_block rule instead.
-	 */
-	md.block.ruler.after('html_block', 'custom_component_html_block', customComponentHtmlBlockRule, {
-		alt: ['paragraph', 'reference', 'blockquote'],
-	})
+   * Note that html_block is to be replaced by markdown-it-escape-special-tags.
+   * Thus, we have to push a new rule after the original html_block rule instead.
+   */
+  md.block.ruler.after('html_block', 'custom_component_html_block', customComponentHtmlBlockRule, {
+    alt: ['paragraph', 'reference', 'blockquote'],
+  })
   // override default html inline ruler
   md.inline.ruler.at('html_inline', htmlInlineRule)
 };
