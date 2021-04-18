@@ -42,7 +42,7 @@ Usage: markbind <command>
 <panel header="**Options** :fas-cogs:" type="minimal" expanded>
 
 **Options** :fas-cogs:
-be
+
 * `-c`, `--convert`<br>
   Convert an existing GitHub wiki or `docs` folder into a MarkBind website. See [Converting an existing Github project]({{ baseUrl }}/userGuide/markBindInTheProjectWorkflow.html#converting-existing-project-documentation-wiki) for more information.
 

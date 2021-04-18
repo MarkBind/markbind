@@ -142,7 +142,7 @@ class Site {
     // Site wide plugin manager
     this.pluginManager = undefined;
 
-    // Page generation context
+    // Background build properties
     this.backgroundBuildMode = backgroundBuildMode;
     this.stopGenerationTimeThreshold = new Date();
 
@@ -1047,7 +1047,9 @@ class Site {
       try {
         await page.generate(this.externalManager);
         this.toRebuild.delete(FsUtil.removeExtension(page.pageConfig.sourcePath));
-        await this.writeSiteData(false);
+        if (this.backgroundBuildMode) {
+          await this.writeSiteData(false);
+        }
         progressBar.tick();
       } catch (err) {
         logger.error(err);
@@ -1090,7 +1092,9 @@ class Site {
         try {
           await page.generate(this.externalManager);
           this.toRebuild.delete(FsUtil.removeExtension(page.pageConfig.sourcePath));
-          await this.writeSiteData(false);
+          if (this.backgroundBuildMode) {
+            await this.writeSiteData(false);
+          }
           this.generateProgressBarStatus(progressBar, context, pageGenerationQueue, resolve);
         } catch (err) {
           logger.error(err);
