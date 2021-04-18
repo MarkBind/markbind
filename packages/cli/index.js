@@ -150,12 +150,9 @@ program
       site.changeCurrentOpenedPages(normalizedActiveUrls);
     };
 
-    const backgroundBuildAndReload = async () => {
-      const isCompleted = await site.backgroundBuildNotViewedFiles();
-      if (isCompleted) {
-        logger.info('Background building completed! All opened pages will be reloaded.');
-        liveServer.reloadActiveTabs();
-      }
+    const reloadAfterBackgroundBuild = () => {
+      logger.info('Background building completed! All opened pages will be reloaded.');
+      liveServer.reloadActiveTabs();
     };
 
     const addHandler = (filePath) => {
@@ -166,16 +163,15 @@ program
         }
         syncOpenedPages();
       }
-      Promise.resolve('').then(() => {
+      Promise.resolve('').then(async () => {
         if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
-          return site.rebuildSourceFiles(filePath);
+          const isBackgroundBuildCompleted = await site.rebuildSourceFiles(filePath);
+          return onePageWithBackgroundBuild && isBackgroundBuildCompleted && reloadAfterBackgroundBuild();
         }
         return site.buildAsset(filePath);
-      })
-        .then(() => onePageWithBackgroundBuild && backgroundBuildAndReload())
-        .catch((err) => {
-          logger.error(err.message);
-        });
+      }).catch((err) => {
+        logger.error(err.message);
+      });
     };
 
     const changeHandler = (filePath) => {
@@ -186,19 +182,18 @@ program
         }
         syncOpenedPages();
       }
-      Promise.resolve('').then(() => {
+      Promise.resolve('').then(async () => {
         if (path.basename(filePath) === SITE_CONFIG_NAME) {
           return site.reloadSiteConfig();
         }
         if (site.isDependencyOfPage(filePath)) {
-          return site.rebuildAffectedSourceFiles(filePath);
+          const isBackgroundBuildCompleted = await site.rebuildAffectedSourceFiles(filePath);
+          return onePageWithBackgroundBuild && isBackgroundBuildCompleted && reloadAfterBackgroundBuild();
         }
         return site.buildAsset(filePath);
-      })
-        .then(() => onePagePath && options.backgroundBuild && backgroundBuildAndReload())
-        .catch((err) => {
-          logger.error(err.message);
-        });
+      }).catch((err) => {
+        logger.error(err.message);
+      });
     };
 
     const removeHandler = (filePath) => {
@@ -209,16 +204,15 @@ program
         }
         syncOpenedPages();
       }
-      Promise.resolve('').then(() => {
+      Promise.resolve('').then(async () => {
         if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
-          return site.rebuildSourceFiles(filePath);
+          const isBackgroundBuildCompleted = await site.rebuildSourceFiles(filePath);
+          return onePageWithBackgroundBuild && isBackgroundBuildCompleted && reloadAfterBackgroundBuild();
         }
         return site.removeAsset(filePath);
-      })
-        .then(() => onePageWithBackgroundBuild && backgroundBuildAndReload())
-        .catch((err) => {
-          logger.error(err.message);
-        });
+      }).catch((err) => {
+        logger.error(err.message);
+      });
     };
 
     // server config
@@ -317,7 +311,14 @@ program
           logger.info('Press CTRL+C to stop ...');
         });
       })
-      .then(() => onePageWithBackgroundBuild && backgroundBuildAndReload())
+      .then(async () => {
+        if (onePageWithBackgroundBuild) {
+          const isCompleted = await site.backgroundBuildNotViewedFiles();
+          if (isCompleted) {
+            reloadAfterBackgroundBuild();
+          }
+        }
+      })
       .catch(handleError);
   });
 

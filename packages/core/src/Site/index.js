@@ -143,7 +143,7 @@ class Site {
     this.pluginManager = undefined;
 
     // Background build properties
-    this.backgroundBuildMode = backgroundBuildMode;
+    this.backgroundBuildMode = onePagePath;
     this.stopGenerationTimeThreshold = new Date();
 
     // Lazy reload properties
@@ -727,8 +727,10 @@ class Site {
       await this.layoutManager.updateLayouts(filePaths);
       await this.regenerateAffectedPages(uniquePaths);
       await fs.remove(this.tempPath);
+      return this.backgroundBuildMode && this.backgroundBuildNotViewedFiles();
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+      return false;
     }
   }
 
@@ -812,8 +814,10 @@ class Site {
     try {
       await this.removeAsset(removedPageFilePaths);
       await this.rebuildRequiredPages();
+      return this.backgroundBuildMode && this.backgroundBuildNotViewedFiles();
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+      return false;
     }
   }
 
