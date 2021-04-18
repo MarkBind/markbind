@@ -143,7 +143,7 @@ class Site {
     this.pluginManager = undefined;
 
     // Background build properties
-    this.backgroundBuildMode = onePagePath;
+    this.backgroundBuildMode = onePagePath && backgroundBuildMode;
     this.stopGenerationTimeThreshold = new Date();
 
     // Lazy reload properties
