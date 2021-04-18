@@ -234,6 +234,14 @@
         "content-fragment": "content fragment"
       },
       "headingKeywords": {}
+    },
+    {
+      "src": "testIncludeBoilerplate.md",
+      "title": "Content inside <include> should not be processed by markdown",
+      "headings": {
+        "hello": "hello"
+      },
+      "headingKeywords": {}
     }
   ]
 }

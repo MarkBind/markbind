@@ -59,8 +59,9 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const token = tokens[idx];
   const lang = token.info || '';
   let str = token.content;
+  const strArray = str.split('\n');
   let highlighted = false;
-  let lines = str.split('\n');
+  let lines;
 
   const startFromOneBased = Math.max(1, parseInt(getAttributeAndDelete(token, 'start-from'), 10) || 1);
   const startFromZeroBased = startFromOneBased - 1;
@@ -75,31 +76,41 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   if (highlightLinesInput) {
     const highlightLines = highlightLinesInput.split(HIGHLIGHT_LINES_DELIMITER_REGEX);
     highlightRules = highlightLines
-      .map(ruleStr => HighlightRule.parseRule(ruleStr, -startFromZeroBased, lines))
+      .map(ruleStr => HighlightRule.parseRule(ruleStr, -startFromZeroBased, strArray))
       .filter(rule => rule); // discards invalid rules
   }
 
   if (lang && hljs.getLanguage(lang)) {
     try {
-      /* We cannot syntax highlight THEN split by lines. For eg:
-      ```markdown
-      *****
-      -----
-      ```
+      /* With highlightjs version >= v10.7.0, usage of continuation is deprecated
 
-      becomes
+      For the purposes of line-by-line highlighting, we have to first highlight the
+      whole block, then split the resulting html string according to '\n', and add
+      the corresponding opening and closing tags for the html string to be well-formed and
+      maintain the correct state per line.
 
-      <span class="hljs-section">*****
-      -----</span>
-      Note the line break contained inside a <span> element.
-      So we have to split by lines THEN syntax highlight.
-       */
-      // state stores the current parse state of hljs, so that we can pass it on line by line
-      let state = null;
+      Ref: https://github.com/MarkBind/markbind/pull/1521
+      */
+      lines = hljs.highlight(str, { language: lang, ignoreIllegals: true }).value.split('\n');
+      const tokenStack = [];
+
       lines = lines.map((line) => {
-        const highlightedLine = hljs.highlight(lang, line, true, state);
-        state = highlightedLine.top;
-        return highlightedLine.value;
+        const prepend = tokenStack.map(tok => `<span class="${tok}">`).join('');
+        const re = /<span class="(.*?)">|<\/span>/g; // match all (<span class="xyz"> and </span>)
+        let matchArr = re.exec(line);
+        while (matchArr !== null) {
+          const [match, captureGrp] = matchArr;
+          if (match === '</span>') {
+            // pop from stack
+            tokenStack.shift();
+          } else {
+            // push to stack
+            tokenStack.unshift(captureGrp);
+          }
+          matchArr = re.exec(line);
+        }
+        const append = '</span>'.repeat(tokenStack.length);
+        return prepend + line + append;
       });
       highlighted = true;
     } catch (ex) {

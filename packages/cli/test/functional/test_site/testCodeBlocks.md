@@ -177,3 +177,53 @@ function fourEmptyLinesBelowOneAbove() {
 *****
 -----
 ```
+
+**Span containing multi-line strings should have each line wrapped in a `hljs` span**
+
+```javascript
+var x = `<span class="string">This is a
+really long string
+that spans multiple lines
+super annoying"</span>`
+```
+
+```markdown
+## My header
+
+<p>Some paragraphs
+
+123                           5
+</p>
+
+<br>
+another paragraph<span>some span
+abc
+a
+
+b</span>
+
+### Header 2
+```
+
+**Having <span> in code blocks should not interfere with hljs**
+
+```javascript
+const a = `another
+
+really
+
+reallly
+
+
+reallly                   really
+long string`
+
+const b = `long string
+with multiple
+
+embeded <span>
+
+</span>
+
+<span>`
+```
