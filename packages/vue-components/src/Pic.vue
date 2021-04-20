@@ -1,17 +1,19 @@
 <template>
-  <div :class="['image-wrapper', addClass]">
-    <img
-      ref="pic"
-      :src="src"
-      :alt="alt"
-      :width="computedWidth"
-      class="img-fluid rounded"
-      @load.once="computeWidth"
-    />
-    <div class="image-caption">
-      <slot></slot>
+  <span>
+    <div :class="['image-wrapper', addClass]">
+      <img
+        ref="pic"
+        :src="src"
+        :alt="alt"
+        :width="computedWidth"
+        class="img-fluid rounded"
+        @load.once="computeWidth"
+      />
+      <div class="image-caption">
+        <slot></slot>
+      </div>
     </div>
-  </div>
+  </span>
 </template>
 
 <script>
@@ -75,7 +77,6 @@ export default {
 
 <style>
     .image-wrapper {
-        display: inline-block;
         text-align: center;
         padding: 4px;
     }
