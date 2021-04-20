@@ -1,19 +1,31 @@
-const customComponentHtmlBlockRule = require('./htmlBlockRule');
+const markdownIt = require('../../index');
+
+const initCustomComponentHtmlBlockRule = require('./htmlBlockRule');
 const htmlInlineRule = require('./htmlInlineRule');
 
 /**
  * Replacing the default htmlBlock rule to allow using custom components in markdown
  */
-const customComponentPlugin = (md) => {
-  /*
-   * Note that html_block is to be replaced by markdown-it-escape-special-tags.
-   * Thus, we have to push a new rule after the original html_block rule instead.
-   */
-  md.block.ruler.after('html_block', 'custom_component_html_block', customComponentHtmlBlockRule, {
+function customComponentPlugin(md, tagsToIgnore) {
+  const customComponentHtmlBlockRule = initCustomComponentHtmlBlockRule(tagsToIgnore);
+
+  // override default html block ruler
+  md.block.ruler.at('html_block', customComponentHtmlBlockRule, {
     alt: ['paragraph', 'reference', 'blockquote'],
-  })
+  });
+
   // override default html inline ruler
-  md.inline.ruler.at('html_inline', htmlInlineRule)
+  md.inline.ruler.at('html_inline', htmlInlineRule);
 };
 
-module.exports = customComponentPlugin;
+/**
+ * Sets up the plugin with the provided tag names to ignore.
+ * Replaces any previously injected tags.
+ */
+function injectTags(tagsToIgnore) {
+  markdownIt.use(customComponentPlugin, tagsToIgnore);
+}
+
+module.exports = {
+  injectTags,
+};
