@@ -34,7 +34,7 @@ function initCustomComponentHtmlBlockRule(tagsToIgnore) {
   * Thus, we have to ensure that markdown-it parses minimized panel as inline element
   * by using the regex below. 
   */
-  const minimimizedPanelStringRegex = '(panel.*minimized.*)';
+  const minimizedPanelStringRegex = '(panel.*minimized.*)';
 
   // Forked and modified from 'markdown-it/lib/rules_block/html_block.js'
 
