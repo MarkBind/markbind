@@ -14,7 +14,7 @@ const { HighlightRule } = require('./highlight/HighlightRule.js');
 
 const HIGHLIGHT_LINES_DELIMITER_REGEX = new RegExp(',(?![^\\[\\]]*])');
 
-const customComponentPlugin = require('./plugins/custom-component');
+const customComponentPlugin = require('./patches/custom-component');
 const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
 // markdown-it plugins
