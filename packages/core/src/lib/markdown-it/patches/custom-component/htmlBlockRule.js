@@ -4,6 +4,8 @@ const inlineTags = require('./inlineTags');
 const vueReservedTags = require('./vueReservedTags');
 
 function initCustomComponentHtmlBlockRule(tagsToIgnore) {
+  // MODIFIED (MarkBind): Added 'special tags' and 'minimal panel' related rules
+
   /* 
    * Set up special tags that we need to ignore for markdown parsing.
    * Custom patch for the api to escape content in certain special tags.
@@ -32,13 +34,14 @@ function initCustomComponentHtmlBlockRule(tagsToIgnore) {
   * Thus, we have to ensure that markdown-it parses minimized panel as inline element
   * by using the regex below. 
   */
-  const minimalPanelStringRegex = '(panel.*minimized.*)';
+  const minimimizedPanelStringRegex = '(panel.*minimized.*)';
 
   // Forked and modified from 'markdown-it/lib/rules_block/html_block.js'
 
   // An array of opening and corresponding closing sequences for html tags,
   // last argument defines whether it can terminate a paragraph or not
   const HTML_SEQUENCES = [
+    // MODIFIED (MarkBind): ignore special tags
     [ startingSpecialTagRegex, endingSpecialTagRegex, true ],
     [/^<(script|pre|style)(?=(\s|>|$))/i, /<\/(script|pre|style)>/i, true],
     [/^<!--/, /-->/, true],
@@ -52,9 +55,10 @@ function initCustomComponentHtmlBlockRule(tagsToIgnore) {
       true,
     ],
     // MODIFIED HERE: Treat unknown tags as block tags (custom components), excluding known inline tags
+    // MODIFIED (MarkBind): ignore panel tags with minimized attribute
     [
       new RegExp(
-        '^</?(?!(' + inlineTags.join('|') + `|${minimalPanelStringRegex}` + ')(?![\\w-]))\\w[\\w-]*[\\s/>]'
+        '^</?(?!(' + inlineTags.join('|') + `|${minimizedPanelStringRegex}` + ')(?![\\w-]))\\w[\\w-]*[\\s/>]'
       ),
       /^$/,
       true,

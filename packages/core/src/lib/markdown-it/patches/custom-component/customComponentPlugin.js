@@ -3,6 +3,11 @@ const markdownIt = require('../../index');
 const initCustomComponentHtmlBlockRule = require('./htmlBlockRule');
 const htmlInlineRule = require('./htmlInlineRule');
 
+/* 
+ * MODIFIED (MarkBind): tweaked customComponentPlugin function and added injectTags function 
+ * to accomodate ignoring special tags capability
+ */
+
 /**
  * Replacing the default htmlBlock rule to allow using custom components in markdown
  */
