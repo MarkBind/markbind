@@ -682,12 +682,13 @@ class Site {
   }
 
   /**
-   * Adds all pages except the current page being viewed to toRebuild, flagging them for lazy building later.
+   * Adds all pages except the viewed pages to toRebuild, flagging them for lazy building later.
    */
-  async lazyBuildAllPagesNotViewed() {
+  async lazyBuildAllPagesNotViewed(viewedPages) {
+    const viewedPagesArray = Array.isArray(viewedPages) ? viewedPages : [viewedPages];
     this.pages.forEach((page) => {
       const normalizedUrl = FsUtil.removeExtension(page.pageConfig.sourcePath);
-      if (normalizedUrl !== this.currentPageViewed) {
+      if (!viewedPagesArray.some(viewedPage => normalizedUrl === viewedPage)) {
         this.toRebuild.add(normalizedUrl);
       }
     });
@@ -704,7 +705,7 @@ class Site {
       await this.generateLandingPage();
       await this.copyLazySourceFiles();
       await fs.remove(this.tempPath);
-      await this.lazyBuildAllPagesNotViewed();
+      await this.lazyBuildAllPagesNotViewed(this.currentPageViewed);
       logger.info('Landing page built, other pages will be built as you navigate to them!');
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
@@ -799,7 +800,7 @@ class Site {
       this.mapAddressablePagesToPages(this.addressablePages || [], this.getFavIconUrl());
 
       await this.rebuildPageBeingViewed(this.currentOpenedPages);
-      await this.lazyBuildAllPagesNotViewed();
+      await this.lazyBuildAllPagesNotViewed(this.currentOpenedPages);
       return;
     }
 
