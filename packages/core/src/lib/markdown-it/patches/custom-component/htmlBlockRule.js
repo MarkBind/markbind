@@ -11,7 +11,7 @@ function initCustomComponentHtmlBlockRule(tagsToIgnore) {
    * Custom patch for the api to escape content in certain special tags.
    */
   const specialTagsRegex = Array.from(tagsToIgnore)
-  .concat(['include|script|pre|style|variable|site-nav|markdown|md'])
+  .concat(['include|variable|site-nav|markdown|md'])
   .join('|');
 
   // attr_name, unquoted ... attribute patterns adapted from markdown-it/lib/common/html_re
