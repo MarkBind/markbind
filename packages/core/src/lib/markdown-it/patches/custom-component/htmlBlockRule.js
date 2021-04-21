@@ -9,9 +9,11 @@ function initCustomComponentHtmlBlockRule(tagsToIgnore) {
   /* 
    * Set up special tags that we need to ignore for markdown parsing.
    * Custom patch for the api to escape content in certain special tags.
+   * 
+   * script, pre, style are for Vue
    */
   const specialTagsRegex = Array.from(tagsToIgnore)
-  .concat(['include|variable|site-nav|markdown|md'])
+  .concat(['include|variable|site-nav|markdown|md|script|pre|style'])
   .join('|');
 
   // attr_name, unquoted ... attribute patterns adapted from markdown-it/lib/common/html_re
@@ -43,7 +45,6 @@ function initCustomComponentHtmlBlockRule(tagsToIgnore) {
   const HTML_SEQUENCES = [
     // MODIFIED (MarkBind): ignore special tags
     [ startingSpecialTagRegex, endingSpecialTagRegex, true ],
-    [/^<(script|pre|style)(?=(\s|>|$))/i, /<\/(script|pre|style)>/i, true],
     [/^<!--/, /-->/, true],
     [/^<\?/, /\?>/, true],
     [/^<![A-Z]/, />/, true],
@@ -55,9 +56,9 @@ function initCustomComponentHtmlBlockRule(tagsToIgnore) {
       true,
     ],
     // MODIFIED HERE: Treat unknown tags as block tags (custom components), excluding known inline tags
-    // MODIFIED (MarkBind): ignore panel tags with minimized attribute
     [
       new RegExp(
+        // MODIFIED (MarkBind): ignore panel tags with minimized attribute
         '^</?(?!(' + inlineTags.join('|') + `|${minimizedPanelStringRegex}` + ')(?![\\w-]))\\w[\\w-]*[\\s/>]'
       ),
       /^$/,
