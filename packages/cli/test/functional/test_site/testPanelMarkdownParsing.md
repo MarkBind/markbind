@@ -22,7 +22,7 @@ markdown pre text **immediately** prepending a component, without an empty line 
 <panel minimized>
 line 1 which behaves as per normal ( empty line still counts )
 
-lines 3 onward are 'placed' outside of the component as it is a minimized normal panel (inline element)
+lines 3 onward are 'placed' outside of the component as it is a minimized panel (inline element)
 ...
 ...
 </panel>
@@ -31,7 +31,7 @@ markdown pre text **immediately** prepending a component, without an empty line 
 <panel alt="test" header="test minimized placed extreme left" minimized>
 line 1 which behaves as per normal ( empty line still counts )
 
-lines 3 onward are 'placed' outside of the component as it is a minimized normal panel (inline element)
+lines 3 onward are 'placed' outside of the component as it is a minimized panel (inline element)
 ...
 ...
 </panel>
@@ -40,7 +40,7 @@ markdown pre text **immediately** prepending a component, without an empty line 
 <panel alt="test" minimized header="test minimized placed between attributes">
 line 1 which behaves as per normal ( empty line still counts )
 
-lines 3 onward are 'placed' outside of the component as it is a minimized normal panel (inline element)
+lines 3 onward are 'placed' outside of the component as it is a minimized panel (inline element)
 ...
 ...
 </panel>
@@ -49,7 +49,7 @@ markdown pre text **immediately** prepending a component, without an empty line 
 <panel minimized alt="hi" header="test minimized placed extreme right">
 line 1 which behaves as per normal ( empty line still counts )
 
-lines 3 onward are 'placed' outside of the component as it is a minimized normal panel (inline element)
+lines 3 onward are 'placed' outside of the component as it is a minimized panel (inline element)
 ...
 ...
 </panel>
