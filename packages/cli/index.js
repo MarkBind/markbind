@@ -138,8 +138,14 @@ program
     onePagePath = onePagePath ? utils.ensurePosix(onePagePath) : onePagePath;
     const onePageWithBackgroundBuild = onePagePath && options.backgroundBuild;
 
+    const reloadAfterBackgroundBuild = () => {
+      logger.info('All opened pages will be reloaded.');
+      liveServer.reloadActiveTabs();
+    };
+
     const site = new Site(rootFolder, outputFolder, onePagePath,
-                          options.forceReload, options.siteConfig, options.dev, options.backgroundBuild);
+                          options.forceReload, options.siteConfig, options.dev,
+                          options.backgroundBuild, reloadAfterBackgroundBuild);
 
     const syncOpenedPages = () => {
       logger.info('Synchronizing opened pages list before reload');
@@ -148,11 +154,6 @@ program
         return fsUtil.removeExtension(completeUrl);
       });
       site.changeCurrentOpenedPages(normalizedActiveUrls);
-    };
-
-    const reloadAfterBackgroundBuild = () => {
-      logger.info('Background building completed! All opened pages will be reloaded.');
-      liveServer.reloadActiveTabs();
     };
 
     const addHandler = (filePath) => {
@@ -165,8 +166,7 @@ program
       }
       Promise.resolve('').then(async () => {
         if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
-          const isBackgroundBuildCompleted = await site.rebuildSourceFiles(filePath);
-          return onePageWithBackgroundBuild && isBackgroundBuildCompleted && reloadAfterBackgroundBuild();
+          return site.rebuildSourceFiles(filePath);
         }
         return site.buildAsset(filePath);
       }).catch((err) => {
@@ -187,8 +187,7 @@ program
           return site.reloadSiteConfig();
         }
         if (site.isDependencyOfPage(filePath)) {
-          const isBackgroundBuildCompleted = await site.rebuildAffectedSourceFiles(filePath);
-          return onePageWithBackgroundBuild && isBackgroundBuildCompleted && reloadAfterBackgroundBuild();
+          return site.rebuildAffectedSourceFiles(filePath);
         }
         return site.buildAsset(filePath);
       }).catch((err) => {
@@ -206,8 +205,7 @@ program
       }
       Promise.resolve('').then(async () => {
         if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
-          const isBackgroundBuildCompleted = await site.rebuildSourceFiles(filePath);
-          return onePageWithBackgroundBuild && isBackgroundBuildCompleted && reloadAfterBackgroundBuild();
+          return site.rebuildSourceFiles(filePath);
         }
         return site.removeAsset(filePath);
       }).catch((err) => {
@@ -310,14 +308,6 @@ program
           logger.info(`Serving "${outputFolder}" at ${serveURL}`);
           logger.info('Press CTRL+C to stop ...');
         });
-      })
-      .then(async () => {
-        if (onePageWithBackgroundBuild) {
-          const isCompleted = await site.backgroundBuildNotViewedFiles();
-          if (isCompleted) {
-            reloadAfterBackgroundBuild();
-          }
-        }
       })
       .catch(handleError);
   });

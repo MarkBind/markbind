@@ -106,7 +106,7 @@ const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${MARKBIN
 
 class Site {
   constructor(rootPath, outputPath, onePagePath, forceReload = false,
-              siteConfigPath = SITE_CONFIG_NAME, dev, backgroundBuildMode) {
+              siteConfigPath = SITE_CONFIG_NAME, dev, backgroundBuildMode, postBackgroundBuildFunc) {
     this.dev = !!dev;
 
     this.rootPath = rootPath;
@@ -145,6 +145,7 @@ class Site {
     // Background build properties
     this.backgroundBuildMode = onePagePath && backgroundBuildMode;
     this.stopGenerationTimeThreshold = new Date();
+    this.postBackgroundBuildFunc = postBackgroundBuildFunc || (() => {});
 
     // Lazy reload properties
     this.onePagePath = onePagePath;
@@ -649,6 +650,9 @@ class Site {
       await this.copyOcticonsAsset();
       await this.writeSiteData();
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
+      if (this.backgroundBuildMode) {
+        this.backgroundBuildNotViewedFiles();
+      }
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
@@ -734,10 +738,11 @@ class Site {
       await this.layoutManager.updateLayouts(filePaths);
       await this.regenerateAffectedPages(uniquePaths);
       await fs.remove(this.tempPath);
-      return this.backgroundBuildMode && this.backgroundBuildNotViewedFiles();
+      if (this.backgroundBuildMode) {
+        this.backgroundBuildNotViewedFiles();
+      }
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
-      return false;
     }
   }
 
@@ -787,11 +792,15 @@ class Site {
 
   async _backgroundBuildNotViewedFiles() {
     if (this.toRebuild.size === 0) {
-      return false;
+      return;
     }
 
     logger.info('Building files that are not viewed in the background...');
-    return this.generatePagesMarkedToRebuild();
+    const isCompleted = await this.generatePagesMarkedToRebuild();
+    if (isCompleted) {
+      logger.info('Background building completed!');
+      this.postBackgroundBuildFunc();
+    }
   }
 
   /**
@@ -821,10 +830,11 @@ class Site {
     try {
       await this.removeAsset(removedPageFilePaths);
       await this.rebuildRequiredPages();
-      return this.backgroundBuildMode && this.backgroundBuildNotViewedFiles();
+      if (this.backgroundBuildMode) {
+        this.backgroundBuildNotViewedFiles();
+      }
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
-      return false;
     }
   }
 
@@ -893,6 +903,9 @@ class Site {
     await this.handleIgnoreReload(oldSiteConfig.ignore);
     await this.handlePageReload(oldAddressablePages, oldPagesSrc, oldSiteConfig);
     await this.handleStyleReload(oldSiteConfig.style);
+    if (this.backgroundBuildMode) {
+      this.backgroundBuildNotViewedFiles();
+    }
   }
 
   /**
