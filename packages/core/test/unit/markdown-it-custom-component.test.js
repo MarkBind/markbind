@@ -1,7 +1,7 @@
 const markdownIt = require('../../src/lib/markdown-it');
 const { injectTags } = require('../../src/lib/markdown-it/patches/custom-component/customComponentPlugin');
 
-test('minimized panel rendered as inline/block element', () => {
+test('markdown-it parsing minimized panel as inline/block element', () => {
   injectTags([]); // init custom component plugin
 
   const initSource = (tag) => {
