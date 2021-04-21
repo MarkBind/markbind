@@ -18,11 +18,11 @@ test('minimized panel rendered as inline/block element', () => {
     return source.join('\n');
   };
 
-  const tag1 = '<panel minimized>'; // should be rendered as inline
-  const tag2 = '<panel alt="hi" header="hi" minimized>'; // should be rendered as inline
-  const tag3 = '<panel alt="hi" minimized header="hi">'; // should be rendered as inline
-  const tag4 = '<panel minimized alt="hi" header="hi">'; // should be rendered as inline
-  const tag5 = '<panel alt="hi" header="hi">'; // should be rendered asblock
+  const tag1 = '<panel minimized>'; // should be rendered as inline element
+  const tag2 = '<panel alt="hi" header="hi" minimized>'; // should be rendered as inline element
+  const tag3 = '<panel alt="hi" minimized header="hi">'; // should be rendered as inline element
+  const tag4 = '<panel minimized alt="hi" header="hi">'; // should be rendered as inline element
+  const tag5 = '<panel alt="hi" header="hi">'; // should be rendered as block element
 
   const test1 = initSource(tag1);
   const result1 = markdownIt.render(test1);
