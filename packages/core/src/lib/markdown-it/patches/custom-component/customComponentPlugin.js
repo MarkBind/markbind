@@ -1,9 +1,11 @@
 /*
- * https://github.com/vuepress/vuepress-next/tree/main/packages/%40vuepress/markdown/src/plugins/customComponentPlugins
+ * https://github.com/vuepress/vuepress-next/tree/main/packages/%40vuepress/markdown/src/plugins/customComponentPlugin
  *
  * The files in this folder, custom-component, are adapted from the above link to fit MarkBind's needs. 
  *
- * It helps us to define Vue custom components (or unknown components) as block-level elements during markdown-it parsing.
+ * It helps us to define Vue custom components (or unknown components) as block or inline elements
+ * elements during markdown-it parsing. It also helps us to define special tags to ignore such as
+ * <include>, <script>, <style>. 
  */
 
 const markdownIt = require('../../index');
