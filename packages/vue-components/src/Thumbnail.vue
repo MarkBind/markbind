@@ -1,22 +1,20 @@
 <template>
-  <span>
-    <div
-      :class="['thumb-wrapper', {'thumb-circle': circle}, addClass]"
-      :style="[getBorder, getFontSize, getFontColor, getBgColor]"
-    >
-      <img
-        v-if="hasSrc"
-        ref="pic"
-        :src="src"
-        class="thumb-image"
-        :width="computedWidth"
-        :height="computedHeight"
-        :alt="alt"
-        @load.once="computeImgSize"
-      />
-      <slot></slot>
-    </div>
-  </span>
+  <div
+    :class="['thumb-wrapper', {'thumb-circle': circle}, addClass]"
+    :style="[getBorder, getFontSize, getFontColor, getBgColor]"
+  >
+    <img
+      v-if="hasSrc"
+      ref="pic"
+      :src="src"
+      class="thumb-image"
+      :width="computedWidth"
+      :height="computedHeight"
+      :alt="alt"
+      @load.once="computeImgSize"
+    />
+    <slot></slot>
+  </div>
 </template>
 
 <script>
@@ -122,6 +120,7 @@ export default {
 
 <style>
     .thumb-wrapper {
+        display: inline-block;
         overflow: hidden;
         position: relative;
         text-align: center;

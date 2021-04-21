@@ -17,9 +17,6 @@
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements
  */
 const inlineTags = [
-  // MODIFIED (MarkBind): added 'pic' and 'thumbnail' below
-  'pic',
-  'thumbnail',
   'a',
   'abbr',
   'acronym',
