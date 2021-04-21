@@ -22,7 +22,9 @@ test('markdown-it should parse minimized panel as inline element and normal pane
   const tag2 = '<panel alt="hi" header="hi" minimized>'; // should be rendered as inline element
   const tag3 = '<panel alt="hi" minimized header="hi">'; // should be rendered as inline element
   const tag4 = '<panel minimized alt="hi" header="hi">'; // should be rendered as inline element
-  const tag5 = '<panel alt="hi" header="hi">'; // should be rendered as block element
+  // should be rendered as block element
+  const tag5 = '<panel header="test for minimized as part of attribute value">';
+  const tag6 = '<panel alt="hi" header="hi">'; // should be rendered as block element
 
   const test1 = initSource(tag1);
   const result1 = markdownIt.render(test1);
@@ -93,4 +95,18 @@ test('markdown-it should parse minimized panel as inline element and normal pane
   ].join('\n');
 
   expect(result5).toEqual(expected5);
+
+  const test6 = initSource(tag6);
+  const result6 = markdownIt.render(test6);
+  const expected6 = [
+    '<p>markdown pre text <strong>immediately</strong> prepend a component, without an empty line after</p>',
+    tag6,
+    'line 1 which behaves as per normal ( empty line still counts )',
+    '<p>lines 3 onward are placed outside of the component',
+    '...',
+    '...</p>',
+    '</panel>',
+  ].join('\n');
+
+  expect(result6).toEqual(expected6);
 });
