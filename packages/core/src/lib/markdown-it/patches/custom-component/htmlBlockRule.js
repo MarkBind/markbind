@@ -1,7 +1,6 @@
 const blockNames = require('markdown-it/lib/common/html_blocks');
 const { HTML_OPEN_CLOSE_TAG_RE } = require('./htmlRe');
 const inlineTags = require('./inlineTags');
-const vueReservedTags = require('./vueReservedTags');
 
 function initCustomComponentHtmlBlockRule(tagsToIgnore) {
   // MODIFIED (MarkBind): Added 'special tags' and 'minimal panel' related rules
