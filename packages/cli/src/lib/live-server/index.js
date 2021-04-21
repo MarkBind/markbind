@@ -27,7 +27,9 @@ var fs = require('fs'),
   open = require('opn'),
   es = require("event-stream"),
   os = require('os'),
-  chokidar = require('chokidar');
+  chokidar = require('chokidar'),
+  // CHANGED: added MarkBind's core utils package
+  utils = require('@markbind/core/src/utils');
 require('colors');
 
 // CHANGED: added absolute path that directs to the live-server directory
@@ -411,10 +413,7 @@ LiveServer.start = function(options) {
     }
 
     // Only reload active tabs if the changed file is opened in one of them
-    let normalizedPath = path.relative(root, changePath);
-    if (path.sep !== '/') {
-      normalizedPath = normalizedPath.split(path.sep).join('/');
-    }
+    let normalizedPath = utils.ensurePosix(path.relative(root, changePath));
     normalizedPath = path.posix.join('/', normalizedPath);
     if (LiveServer.activeTabs.some(tab => tab.client && tab.url === normalizedPath)) {
       LiveServer.sendMessageToActiveTabs('reload');
