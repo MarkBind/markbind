@@ -730,6 +730,10 @@ class Site {
   }
 
   async _rebuildAffectedSourceFiles(filePaths) {
+    if (this.backgroundBuildMode) {
+      this.stopOngoingBuilds();
+    }
+
     const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];
     const uniquePaths = _.uniq(filePathArray);
     this.beforeSiteGenerate();
@@ -821,6 +825,10 @@ class Site {
   }
 
   async _rebuildSourceFiles() {
+    if (this.backgroundBuildMode) {
+      this.stopOngoingBuilds();
+    }
+
     logger.info('Pages or site config modified, updating pages...');
     this.beforeSiteGenerate();
 
@@ -896,6 +904,10 @@ class Site {
   }
 
   async reloadSiteConfig() {
+    if (this.backgroundBuildMode) {
+      this.stopOngoingBuilds();
+    }
+
     const oldSiteConfig = this.siteConfig;
     const oldAddressablePages = this.addressablePages.slice();
     const oldPagesSrc = oldAddressablePages.map(page => page.src);

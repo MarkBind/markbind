@@ -158,9 +158,6 @@ program
     const addHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
       if (onePagePath) {
-        if (options.backgroundBuild) {
-          site.stopOngoingBuilds();
-        }
         syncOpenedPages();
       }
       Promise.resolve('').then(async () => {
@@ -176,9 +173,6 @@ program
     const changeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file change: ${filePath}`);
       if (onePagePath) {
-        if (options.backgroundBuild) {
-          site.stopOngoingBuilds();
-        }
         syncOpenedPages();
       }
       Promise.resolve('').then(async () => {
@@ -197,9 +191,6 @@ program
     const removeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file deletion: ${filePath}`);
       if (onePagePath) {
-        if (options.backgroundBuild) {
-          site.stopOngoingBuilds();
-        }
         syncOpenedPages();
       }
       Promise.resolve('').then(async () => {
