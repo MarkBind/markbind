@@ -5,7 +5,7 @@ __Non-Functional Requirements__ specify the constraints under which system is de
 </markdown
 </seg>
 
-<seg id=preview>Requirements gathering, requirements elicitation, requirements analysis,
+<span id=preview>Requirements gathering, requirements elicitation, requirements analysis,
 requirements capture are some of the terms commonly **and** interchangeably used to represent the activity
-of understanding what a software product should do.</seg>
+of understanding what a software product should do.</span>
 
