@@ -1,9 +1,9 @@
-<span id="def-nfr" title="Non Functional Requirements">
+<div id="def-nfr" title="Non Functional Requirements">
 <markdown>
 In contrast to __Functional Requirements__ which specify what the system should do,
 __Non-Functional Requirements__ specify the constraints under which system is developed and operated.
 </markdown>
-</span>
+</div>
 
 <span id=preview>Requirements gathering, requirements elicitation, requirements analysis,
 requirements capture are some of the terms commonly **and** interchangeably used to represent the activity
