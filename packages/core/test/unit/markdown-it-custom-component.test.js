@@ -28,7 +28,7 @@ test('markdown-it parsing minimized panel as inline/block element', () => {
   const result1 = markdownIt.render(test1);
   const expected1 = [
     '<p>markdown pre text <strong>immediately</strong> prepend a component, without an empty line after',
-    '<panel minimized>',
+    tag1,
     'line 1 which behaves as per normal ( empty line still counts )</p>',
     '<p>lines 3 onward are placed outside of the component',
     '...',
@@ -42,7 +42,7 @@ test('markdown-it parsing minimized panel as inline/block element', () => {
   const result2 = markdownIt.render(test2);
   const expected2 = [
     '<p>markdown pre text <strong>immediately</strong> prepend a component, without an empty line after',
-    '<panel alt="hi" header="hi" minimized>',
+    tag2,
     'line 1 which behaves as per normal ( empty line still counts )</p>',
     '<p>lines 3 onward are placed outside of the component',
     '...',
@@ -56,7 +56,7 @@ test('markdown-it parsing minimized panel as inline/block element', () => {
   const result3 = markdownIt.render(test3);
   const expected3 = [
     '<p>markdown pre text <strong>immediately</strong> prepend a component, without an empty line after',
-    '<panel alt="hi" minimized header="hi">',
+    tag3,
     'line 1 which behaves as per normal ( empty line still counts )</p>',
     '<p>lines 3 onward are placed outside of the component',
     '...',
@@ -70,7 +70,7 @@ test('markdown-it parsing minimized panel as inline/block element', () => {
   const result4 = markdownIt.render(test4);
   const expected4 = [
     '<p>markdown pre text <strong>immediately</strong> prepend a component, without an empty line after',
-    '<panel minimized alt="hi" header="hi">',
+    tag4,
     'line 1 which behaves as per normal ( empty line still counts )</p>',
     '<p>lines 3 onward are placed outside of the component',
     '...',
@@ -84,7 +84,7 @@ test('markdown-it parsing minimized panel as inline/block element', () => {
   const result5 = markdownIt.render(test5);
   const expected5 = [
     '<p>markdown pre text <strong>immediately</strong> prepend a component, without an empty line after</p>',
-    '<panel alt="hi" header="hi">',
+    tag5,
     'line 1 which behaves as per normal ( empty line still counts )',
     '<p>lines 3 onward are placed outside of the component',
     '...',
