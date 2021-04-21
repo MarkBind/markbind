@@ -50,14 +50,6 @@ test('markdown-it parsing minimized panel as inline/block element', () => {
     '</panel>',
   ].join('\n');
 
-  // "<p>markdown pre text <strong>immediately</strong> prepending a component, without an empty line after\n
-  // <panel alt=\"hi\" header=\"hi\" minimized>\n
-  // line 1 which behaves as per normal ( empty line still counts )</p>\n
-  // <p>lines 3 onward are 'placed' outside of the component\n
-  // ...\n
-  // ...</p>\n
-  // </panel>"
-
   expect(result2).toEqual(expected2);
 
   const test3 = initSource(tag3);
