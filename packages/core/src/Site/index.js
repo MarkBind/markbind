@@ -747,26 +747,23 @@ class Site {
      to trigger multiple page builds before the first one has finished building,
      hence we need to take this into account.
      */
-    const regeneratePagesBeingViewed = uniqueUrls.map(async (normalizedUrl) => {
+
+    const pagesToRebuild = this.pages.filter(page =>
+      uniqueUrls.some(pageUrl => FsUtil.removeExtension(page.pageConfig.sourcePath) === pageUrl));
+    const pageGenerationTask = {
+      mode: 'async',
+      pages: pagesToRebuild,
+    };
+
+    try {
       this._setTimestampVariable();
-      const pageToRebuild = this.pages.find(page =>
-        FsUtil.removeExtension(page.pageConfig.sourcePath) === normalizedUrl);
+      await this.runPageGenerationTasks([pageGenerationTask]);
+      await this.writeSiteData();
+      Site.calculateBuildTimeForRebuildPageBeingViewed(startTime);
+    } catch (err) {
+      await Site.rejectHandler(err, [this.tempPath, this.outputPath]);
+    }
 
-      if (!pageToRebuild) {
-        return;
-      }
-
-      this.toRebuild.delete(normalizedUrl);
-      try {
-        await pageToRebuild.generate(this.externalManager);
-        await this.writeSiteData();
-        Site.calculateBuildTimeForRebuildPageBeingViewed(startTime);
-      } catch (error) {
-        await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
-      }
-    });
-
-    await Promise.all(regeneratePagesBeingViewed);
     await fs.remove(this.tempPath);
   }
 
@@ -1047,6 +1044,7 @@ class Site {
     await utils.sequentialAsyncForEach(pages, async (page) => {
       try {
         await page.generate(this.externalManager);
+        this.toRebuild.delete(FsUtil.removeExtension(page.pageConfig.sourcePath));
         progressBar.tick();
       } catch (err) {
         logger.error(err);
@@ -1070,6 +1068,7 @@ class Site {
       const pageGenerationQueue = pages.map(page => async () => {
         try {
           await page.generate(this.externalManager);
+          this.toRebuild.delete(FsUtil.removeExtension(page.pageConfig.sourcePath));
           Site.generateProgressBarStatus(progressBar, counter, pageGenerationQueue, pages, resolve);
         } catch (err) {
           logger.error(err);
