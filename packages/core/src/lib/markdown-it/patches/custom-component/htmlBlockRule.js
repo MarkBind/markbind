@@ -49,12 +49,6 @@ function initCustomComponentHtmlBlockRule(tagsToIgnore) {
     [/^<\?/, /\?>/, true],
     [/^<![A-Z]/, />/, true],
     [/^<!\[CDATA\[/, /\]\]>/, true],
-    // MODIFIED HERE: Treat vue reserved tags as block tags
-    [
-      new RegExp('^</?(' + vueReservedTags.join('|') + ')(?=(\\s|/?>|$))', 'i'),
-      /^$/,
-      true,
-    ],
     // MODIFIED HERE: Treat unknown tags as block tags (custom components), excluding known inline tags
     [
       new RegExp(
