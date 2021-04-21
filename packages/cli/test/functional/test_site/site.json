@@ -86,6 +86,10 @@
     {
       "src": "testIncludeBoilerplate.md",
       "title": "Content inside <include> should not be processed by markdown"
+    },
+    {
+      "src": "testPanelMarkdownParsing.md",
+      "title": "markdown-it should parse minimized panel as inline element and normal panel as block element"
     }
   ],
   "ignore": [

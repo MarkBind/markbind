@@ -10,7 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="MarkBind 2.17.0">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PlantUML Test</title>
+  <title>markdown-it should parse minimized panel as inline element and normal panel as block element</title>
   <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
   <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
   <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
@@ -21,7 +21,7 @@
   <script src="markbind/js/polyfill.min.js"></script>
   <script src="markbind/js/vue.min.js"></script>
   <script src="markbind/js/markbind.min.js"></script>
-  <script src="testPlantUML.page-vue-render.js"></script>
+  <script src="testPanelMarkdownParsing.page-vue-render.js"></script>
   <script src="markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
@@ -182,15 +182,67 @@
         </div>
       </nav>
       <div id="content-wrapper" class="fixed-header-padding">
-        <p><strong>PlantUML Test</strong></p>
-        <pic src="/test_site/inline-output.png"></pic>
-        <pic src="/test_site/9c9e77fc0a983cb6b592e65733787bec.png"></pic>
-        <p><strong>Sequence Diagram</strong></p>
-        <pic src="/test_site/diagrams/sequence.png"></pic>
-        <p><strong>Use Case Diagram</strong></p>
-        <pic src="/test_site/diagrams/usecase.png"></pic>
-        <p><strong>Class Diagram</strong></p>
-        <pic src="/test_site/diagrams/class.png"></pic>
+        <p>markdown pre text <strong>immediately</strong> prepending a component, without an empty line after</p>
+        <panel>
+          line 1 which behaves as per normal ( empty line still counts )
+          <p>lines 3 onward are 'placed' inside of the component as it is a normal panel (block element)
+            ...
+            ...</p>
+        </panel>
+        <p>markdown pre text <strong>immediately</strong> prepending a component, without an empty line after</p>
+        <panel><template #header>
+            <p>test for minimized as part of attribute value</p>
+          </template><template #_alt>
+            <p>test</p>
+          </template>
+          line 1 which behaves as per normal ( empty line still counts )
+          <p>lines 3 onward are 'placed' inside of the component as it is a normal panel (block element)
+            ...
+            ...</p>
+        </panel>
+        <p>markdown pre text <strong>immediately</strong> prepending a component, without an empty line after
+          <panel minimized>
+            line 1 which behaves as per normal ( empty line still counts )</panel>
+        </p>
+        <p>lines 3 onward are 'placed' outside of the component as it is a minimized panel (inline element)
+          ...
+          ...</p>
+
+        <p>markdown pre text <strong>immediately</strong> prepending a component, without an empty line after
+          <panel minimized><template #header>
+              <p>test minimized placed extreme right</p>
+            </template><template #_alt>
+              <p>test</p>
+            </template>
+            line 1 which behaves as per normal ( empty line still counts )</panel>
+        </p>
+        <p>lines 3 onward are 'placed' outside of the component as it is a minimized panel (inline element)
+          ...
+          ...</p>
+
+        <p>markdown pre text <strong>immediately</strong> prepending a component, without an empty line after
+          <panel minimized><template #header>
+              <p>test minimized placed between attributes</p>
+            </template><template #_alt>
+              <p>test</p>
+            </template>
+            line 1 which behaves as per normal ( empty line still counts )</panel>
+        </p>
+        <p>lines 3 onward are 'placed' outside of the component as it is a minimized panel (inline element)
+          ...
+          ...</p>
+
+        <p>markdown pre text <strong>immediately</strong> prepending a component, without an empty line after
+          <panel minimized><template #header>
+              <p>test minimized placed extreme left</p>
+            </template><template #_alt>
+              <p>hi</p>
+            </template>
+            line 1 which behaves as per normal ( empty line still counts )</panel>
+        </p>
+        <p>lines 3 onward are 'placed' outside of the component as it is a minimized panel (inline element)
+          ...
+          ...</p>
         <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>
       <nav id="page-nav" class="fixed-header-padding">

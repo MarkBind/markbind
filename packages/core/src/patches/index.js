@@ -1,9 +1,10 @@
 const htmlparser2patch = require('./htmlparser2');
-const markdownItEscapeSpecialTags = require('../lib/markdown-it/patches/markdown-it-escape-special-tags');
+const markdownItCustomComponent
+  = require('../lib/markdown-it/patches/custom-component/customComponentPlugin');
 
 function ignoreTags(tagsToIgnore) {
   htmlparser2patch.injectIgnoreTags(tagsToIgnore);
-  markdownItEscapeSpecialTags.injectTags(tagsToIgnore);
+  markdownItCustomComponent.injectTags(tagsToIgnore);
 }
 
 module.exports = {

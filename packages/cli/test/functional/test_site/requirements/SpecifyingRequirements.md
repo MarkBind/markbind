@@ -1,9 +1,9 @@
 # Specifying requirements 
 
-<seg id=preview>As we establish requirements, they should be recorded in some way for future reference,
+<span id=preview>As we establish requirements, they should be recorded in some way for future reference,
 usually called a requirement specification. Furthermore, it is advisable to show these requirements to stakeholders, 
 and refine requirements based on their feedback. The next phase is to convert requirements into a product 
-specification that specifies how the product will address the requirements. </seg>
+specification that specifies how the product will address the requirements. </span>
 
 Given next are some tools and techniques that can be used to specify requirements. 
 Note that they can also be used for establishing requirements too.

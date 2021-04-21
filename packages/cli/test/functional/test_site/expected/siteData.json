@@ -35,7 +35,6 @@
         "feature-list": "Feature list",
         "heading-with-multiple-keywords": "Heading with multiple keywords",
         "heading-with-keyword-in-panel": "Heading with keyword in panel",
-        "keyword-should-be-tagged-to-the-panel-heading-not-this-heading": "Keyword should be tagged to the panel heading, not this heading",
         "heading-with-included-keyword": "Heading with included keyword",
         "included-heading": "Included Heading",
         "heading-with-nested-keyword": "Heading with nested keyword",
@@ -57,12 +56,12 @@
         "keyword-should-be-tagged-to-this-heading-not-the-panel-heading": [
           "panel keyword"
         ],
+        "panel-with-heading-with-keyword": [
+          "panel keyword"
+        ],
         "heading-with-multiple-keywords": [
           "keyword 1",
           "keyword 2"
-        ],
-        "keyword-should-be-tagged-to-the-panel-heading-not-this-heading": [
-          "panel keyword"
         ],
         "heading-with-included-keyword": [
           "included keyword"
@@ -241,6 +240,12 @@
       "headings": {
         "hello": "hello"
       },
+      "headingKeywords": {}
+    },
+    {
+      "src": "testPanelMarkdownParsing.md",
+      "title": "markdown-it should parse minimized panel as inline element and normal panel as block element",
+      "headings": {},
       "headingKeywords": {}
     }
   ]

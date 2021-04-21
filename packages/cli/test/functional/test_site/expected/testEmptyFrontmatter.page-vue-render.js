@@ -14,7 +14,7 @@ with(this){return _c('p',[_c('strong',[_v("Relative Link Test")]),_v(" This is a
 with(this){return _c('div',{staticClass:"site-nav-top"},[_c('div',{staticClass:"font-weight-bold mb-2",staticStyle:{"font-size":"1.25rem"}},[_c('div',[_c('h2',{attrs:{"id":"test-layout"}},[_c('span',{staticClass:"anchor",attrs:{"id":"test-layout"}}),_v("Test Layout"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#test-layout","onclick":"event.stopPropagation()"}})])])])])}
 },function anonymous(
 ) {
-with(this){return _c('div',{staticClass:"fixed-header-padding",attrs:{"id":"content-wrapper"}},[_c('p'),_v(" "),_c('p',[_v("A page with an empty frontmatter should still build.")]),_v(" "),_c('i',{staticClass:"fa fa-arrow-circle-up fa-lg d-print-none",attrs:{"id":"scroll-top-button","onclick":"handleScrollTop()","aria-hidden":"true"}})])}
+with(this){return _c('div',{staticClass:"fixed-header-padding",attrs:{"id":"content-wrapper"}},[_c('p',[_v("A page with an empty frontmatter should still build.")]),_v(" "),_c('i',{staticClass:"fa fa-arrow-circle-up fa-lg d-print-none",attrs:{"id":"scroll-top-button","onclick":"handleScrollTop()","aria-hidden":"true"}})])}
 },function anonymous(
 ) {
 with(this){return _c('nav',{staticClass:"fixed-header-padding",attrs:{"id":"page-nav"}},[_c('div',{staticClass:"nav-component slim-scroll"})])}

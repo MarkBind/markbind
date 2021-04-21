@@ -59,10 +59,8 @@ alert(x);
       <p>//</p>
       <p>/*
         ...
-        */
-      </p>
+        */</p>
     </testtag>
-    <p></p>
     <hr>
     <p>This has the same content has the previous test, but it is <strong>not</strong> a special tag.
       The html comment <code class="hljs inline no-lang" v-pre>&lt;!-- --&gt;</code> should disappear in the expected output.
@@ -77,10 +75,8 @@ alert(x);
       <p>//</p>
       <p>/*
         ...
-        */
-      </p>
+        */</p>
     </abc>
-    <p></p>
     <hr>
     <p>There are two self closing special tags below, which should display nothing, but are present in the output.
       There is then one special tag with both and opening and closing tag with some text in it (<code class="hljs inline no-lang" v-pre>lorem ipsum...</code>).
@@ -88,10 +84,8 @@ alert(x);
     <testselfclosingtag></testselfclosingtag>
     <testselfclosingtag></testselfclosingtag>
     <testselfclosingtag>
-      <p>Lorem ipsum lorem ipsum
-      </p>
+      <p>Lorem ipsum lorem ipsum</p>
     </testselfclosingtag>
-    <p></p>
     <hr>
     <p>This should pass the htmlparser2 patch but not the markdown-it patch as it violates commonmark.<br>
       All lines after the first <code class="hljs inline no-lang" v-pre>!success</code> wrapping text will be wrapped in a <code class="hljs inline no-lang" v-pre>&lt;p&gt;...&lt;/p&gt;</code> tag as it is
@@ -101,10 +95,8 @@ alert(x);
         let x = 2;
         <p>if (x &lt;= 5) {
           alert(x);
-          }
-        </p>
+          }</p>
       </testtag>
-      <p></p>
     </div>
     <hr>
     <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i></p>

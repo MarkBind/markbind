@@ -1,7 +1,7 @@
 ### Establishing Requirements
-<seg id=preview>Requirements gathering, requirements elicitation, requirements analysis,
+<span id=preview>Requirements gathering, requirements elicitation, requirements analysis,
 requirements capture are some of the terms commonly **and** interchangeably used to represent the activity
-of understanding what a software product should do.</seg>
+of understanding what a software product should do.</span>
 
 There are many techniques used during a requirements gathering. The following are some of the techniques.
 
