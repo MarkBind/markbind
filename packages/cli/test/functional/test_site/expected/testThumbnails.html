@@ -184,18 +184,23 @@
       <div id="content-wrapper" class="fixed-header-padding">
         <p><strong>Thumbnail test</strong></p>
         <p><strong>Images</strong></p>
-        <p><strong>Square thumb, size = 100 (default)</strong></p>
-        <thumbnail src="http://placehold.it/800x600"></thumbnail>
-        <p><strong>Square thumb with alt=&quot;Test&quot;</strong></p>
-        <thumbnail alt="Test" src="/test_site/asdf"></thumbnail>
-        <p><strong>Square thumb, size = 200</strong></p>
-        <thumbnail src="http://placehold.it/800x600" size="200"></thumbnail>
-        <p><strong>Circle thumbs, size = 100</strong></p>
-        <thumbnail src="http://placehold.it/800x600" circle></thumbnail>
-        <thumbnail src="http://placehold.it/100x300" circle></thumbnail>
-        <p><strong>An actual image</strong></p>
-        <thumbnail circle size="300" src="/test_site/images/deer.jpg"></thumbnail>
-        <pic src="/test_site/images/deer.jpg" height="300"></pic>
+        <p><strong>Square thumb, size = 100 (default)</strong>
+          <thumbnail src="http://placehold.it/800x600"></thumbnail>
+        </p>
+        <p><strong>Square thumb with alt=&quot;Test&quot;</strong>
+          <thumbnail alt="Test" src="/test_site/asdf"></thumbnail>
+        </p>
+        <p><strong>Square thumb, size = 200</strong>
+          <thumbnail src="http://placehold.it/800x600" size="200"></thumbnail>
+        </p>
+        <p><strong>Circle thumbs, size = 100</strong>
+          <thumbnail src="http://placehold.it/800x600" circle></thumbnail>
+          <thumbnail src="http://placehold.it/100x300" circle></thumbnail>
+        </p>
+        <p><strong>An actual image</strong>
+          <thumbnail circle size="300" src="/test_site/images/deer.jpg"></thumbnail>
+          <pic src="/test_site/images/deer.jpg" height="300"></pic>
+        </p>
         <hr>
         <p><strong>Broken link, still takes up the space it's supposed to</strong></p>
         <thumbnail src="/broken_link" border></thumbnail>
@@ -238,36 +243,46 @@
         </div>
         <hr>
         <p><strong>Background</strong></p>
-        <p><strong>Valid CSS properties</strong></p>
-        <thumbnail background="lightblue" circle></thumbnail>
-        <thumbnail background="#aaf" circle></thumbnail>
-        <thumbnail background="rgba(120, 120, 200, 0.4)" circle></thumbnail>
-        <p><strong>Invalid CSS properties</strong></p>
-        <thumbnail background="asdf" border="1px solid black" circle></thumbnail>
-        <p><strong>Empty</strong></p>
-        <thumbnail background border="1px solid black" circle></thumbnail>
+        <p><strong>Valid CSS properties</strong>
+          <thumbnail background="lightblue" circle></thumbnail>
+          <thumbnail background="#aaf" circle></thumbnail>
+          <thumbnail background="rgba(120, 120, 200, 0.4)" circle></thumbnail>
+        </p>
+        <p><strong>Invalid CSS properties</strong>
+          <thumbnail background="asdf" border="1px solid black" circle></thumbnail>
+        </p>
+        <p><strong>Empty</strong>
+          <thumbnail background border="1px solid black" circle></thumbnail>
+        </p>
         <hr>
         <p><strong>Text/Emojis/Icons</strong></p>
-        <p><strong>Text</strong></p>
-        <thumbnail border="1px solid black" circle>test</thumbnail>
-        <p><strong>Markdown</strong></p>
-        <thumbnail border="1px solid black" circle><em>test</em></thumbnail>
-        <thumbnail border="1px solid black" circle><strong>test</strong></thumbnail>
-        <p><strong>Emojis</strong></p>
-        <thumbnail border="1px solid black" circle>❌</thumbnail>
-        <thumbnail border="1px solid black" circle>🍆</thumbnail>
-        <p><strong>Icons</strong></p>
-        <thumbnail border="1px solid black" circle><span aria-hidden="true" class="fab fa-github"></span></thumbnail>
-        <thumbnail background="#666" font-color="#eee" circle><span aria-hidden="true" class="glyphicon glyphicon-book"></span></thumbnail>
+        <p><strong>Text</strong>
+          <thumbnail border="1px solid black" circle>test</thumbnail>
+        </p>
+        <p><strong>Markdown</strong>
+          <thumbnail border="1px solid black" circle><em>test</em></thumbnail>
+          <thumbnail border="1px solid black" circle><strong>test</strong></thumbnail>
+        </p>
+        <p><strong>Emojis</strong>
+          <thumbnail border="1px solid black" circle>❌</thumbnail>
+          <thumbnail border="1px solid black" circle>🍆</thumbnail>
+        </p>
+        <p><strong>Icons</strong>
+          <thumbnail border="1px solid black" circle><span aria-hidden="true" class="fab fa-github"></span></thumbnail>
+          <thumbnail background="#666" font-color="#eee" circle><span aria-hidden="true" class="glyphicon glyphicon-book"></span></thumbnail>
+        </p>
         <hr>
         <p><strong>font-size/font-color</strong></p>
-        <p><strong>20px font-size</strong></p>
-        <thumbnail border="1px solid black" font-size="20" circle>test</thumbnail>
-        <p><strong>40px font-size</strong></p>
-        <thumbnail border="1px solid black" font-size="40" circle>test</thumbnail>
-        <p><strong>font-color</strong></p>
-        <thumbnail border="1px solid black" font-color="#669" circle>blue</thumbnail>
-        <thumbnail border="1px solid black" font-color="maroon" font-size="25" circle>maroon</thumbnail>
+        <p><strong>20px font-size</strong>
+          <thumbnail border="1px solid black" font-size="20" circle>test</thumbnail>
+        </p>
+        <p><strong>40px font-size</strong>
+          <thumbnail border="1px solid black" font-size="40" circle>test</thumbnail>
+        </p>
+        <p><strong>font-color</strong>
+          <thumbnail border="1px solid black" font-color="#669" circle>blue</thumbnail>
+          <thumbnail border="1px solid black" font-color="maroon" font-size="25" circle>maroon</thumbnail>
+        </p>
         <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>
       <nav id="page-nav" class="fixed-header-padding">
