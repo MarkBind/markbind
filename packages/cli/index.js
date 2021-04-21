@@ -136,7 +136,6 @@ program
     }
     let onePagePath = options.onePage === true ? presentDefaultFile : options.onePage;
     onePagePath = onePagePath ? utils.ensurePosix(onePagePath) : onePagePath;
-    const onePageWithBackgroundBuild = onePagePath && options.backgroundBuild;
 
     const reloadAfterBackgroundBuild = () => {
       logger.info('All opened pages will be reloaded.');
