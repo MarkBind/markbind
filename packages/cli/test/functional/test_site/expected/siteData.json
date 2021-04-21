@@ -241,6 +241,12 @@
         "hello": "hello"
       },
       "headingKeywords": {}
+    },
+    {
+      "src": "testPanelMarkdownParsing.md",
+      "title": "markdown-it should parse minimized panel as inline element and normal panel as block element",
+      "headings": {},
+      "headingKeywords": {}
     }
   ]
 }
