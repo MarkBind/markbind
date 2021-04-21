@@ -798,7 +798,7 @@ class Site {
     if (this.onePagePath) {
       this.mapAddressablePagesToPages(this.addressablePages || [], this.getFavIconUrl());
 
-      await this.rebuildPageBeingViewed(this.currentPageViewed);
+      await this.rebuildPageBeingViewed(this.currentOpenedPages);
       await this.lazyBuildAllPagesNotViewed();
       return;
     }
