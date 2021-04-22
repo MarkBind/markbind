@@ -104,6 +104,8 @@ program
   .option('-o, --one-page [file]', 'build and serve only a single page in the site initially,'
     + 'building more pages when they are navigated to. Also lazily rebuilds only the page being viewed when'
     + 'there are changes to the source files (if needed), building others when navigated to')
+  .option('-b, --background-build', 'when --one-page is specified, enhances one-page serve by building'
+    + 'remaining pages in the background')
   .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
   .option('-d, --dev', 'development mode, enabling live & hot reload for frontend source files.')
@@ -135,18 +137,30 @@ program
     let onePagePath = options.onePage === true ? presentDefaultFile : options.onePage;
     onePagePath = onePagePath ? utils.ensurePosix(onePagePath) : onePagePath;
 
-    const site = new Site(rootFolder, outputFolder, onePagePath,
-                          options.forceReload, options.siteConfig, options.dev);
+    const reloadAfterBackgroundBuild = () => {
+      logger.info('All opened pages will be reloaded.');
+      liveServer.reloadActiveTabs();
+    };
 
-    const addHandler = (filePath) => {
-      logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
+    const site = new Site(rootFolder, outputFolder, onePagePath,
+                          options.forceReload, options.siteConfig, options.dev,
+                          options.backgroundBuild, reloadAfterBackgroundBuild);
+
+    const syncOpenedPages = () => {
       logger.info('Synchronizing opened pages list before reload');
       const normalizedActiveUrls = liveServer.getActiveUrls().map((url) => {
         const completeUrl = path.extname(url) === '' ? path.join(url, 'index') : url;
         return fsUtil.removeExtension(completeUrl);
       });
       site.changeCurrentOpenedPages(normalizedActiveUrls);
-      Promise.resolve('').then(() => {
+    };
+
+    const addHandler = (filePath) => {
+      logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
+      if (onePagePath) {
+        syncOpenedPages();
+      }
+      Promise.resolve('').then(async () => {
         if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
           return site.rebuildSourceFiles(filePath);
         }
@@ -158,13 +172,10 @@ program
 
     const changeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file change: ${filePath}`);
-      logger.info('Synchronizing opened pages list before reload');
-      const normalizedActiveUrls = liveServer.getActiveUrls().map((url) => {
-        const completeUrl = path.extname(url) === '' ? path.join(url, 'index') : url;
-        return fsUtil.removeExtension(completeUrl);
-      });
-      site.changeCurrentOpenedPages(normalizedActiveUrls);
-      Promise.resolve('').then(() => {
+      if (onePagePath) {
+        syncOpenedPages();
+      }
+      Promise.resolve('').then(async () => {
         if (path.basename(filePath) === SITE_CONFIG_NAME) {
           return site.reloadSiteConfig();
         }
@@ -179,13 +190,10 @@ program
 
     const removeHandler = (filePath) => {
       logger.info(`[${new Date().toLocaleTimeString()}] Reload for file deletion: ${filePath}`);
-      logger.info('Synchronizing opened pages list before reload');
-      const normalizedActiveUrls = liveServer.getActiveUrls().map((url) => {
-        const completeUrl = path.extname(url) === '' ? path.join(url, 'index') : url;
-        return fsUtil.removeExtension(completeUrl);
-      });
-      site.changeCurrentOpenedPages(normalizedActiveUrls);
-      Promise.resolve('').then(() => {
+      if (onePagePath) {
+        syncOpenedPages();
+      }
+      Promise.resolve('').then(async () => {
         if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
           return site.rebuildSourceFiles(filePath);
         }
