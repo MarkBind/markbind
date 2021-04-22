@@ -207,7 +207,12 @@ class Site {
 
     if (this.toRebuild.has(this.currentPageViewed)) {
       this.beforeSiteGenerate();
-      this.rebuildPageBeingViewed(this.currentPageViewed);
+      /*
+       Lazy loading only builds the page being viewed, but the user may be quick enough
+       to trigger multiple page builds before the first one has finished building,
+       hence we need to take this into account by using the delayed variant of the method.
+       */
+      this.rebuildPagesBeingViewed(this.currentPageViewed);
       return true;
     }
 
@@ -690,12 +695,13 @@ class Site {
   }
 
   /**
-   * Adds all pages except the current page being viewed to toRebuild, flagging them for lazy building later.
+   * Adds all pages except the viewed pages to toRebuild, flagging them for lazy building later.
    */
-  async lazyBuildAllPagesNotViewed() {
+  async lazyBuildAllPagesNotViewed(viewedPages) {
+    const viewedPagesArray = Array.isArray(viewedPages) ? viewedPages : [viewedPages];
     this.pages.forEach((page) => {
       const normalizedUrl = FsUtil.removeExtension(page.pageConfig.sourcePath);
-      if (normalizedUrl !== this.currentPageViewed) {
+      if (!viewedPagesArray.some(viewedPage => normalizedUrl === viewedPage)) {
         this.toRebuild.add(normalizedUrl);
       }
     });
@@ -712,7 +718,7 @@ class Site {
       await this.generateLandingPage();
       await this.copyLazySourceFiles();
       await fs.remove(this.tempPath);
-      await this.lazyBuildAllPagesNotViewed();
+      await this.lazyBuildAllPagesNotViewed(this.currentPageViewed);
       logger.info('Landing page built, other pages will be built as you navigate to them!');
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
@@ -750,45 +756,36 @@ class Site {
     }
   }
 
-  async _rebuildPageBeingViewed(normalizedUrls) {
+  async _rebuildPagesBeingViewed(normalizedUrls) {
     const startTime = new Date();
     const normalizedUrlArray = Array.isArray(normalizedUrls) ? normalizedUrls : [normalizedUrls];
     const uniqueUrls = _.uniq(normalizedUrlArray);
     uniqueUrls.forEach(normalizedUrl => logger.info(
       `Building ${normalizedUrl} as some of its dependencies were changed since the last visit`));
 
-    /*
-     Lazy loading only builds the page being viewed, but the user may be quick enough
-     to trigger multiple page builds before the first one has finished building,
-     hence we need to take this into account.
-     */
-    const regeneratePagesBeingViewed = uniqueUrls.map(async (normalizedUrl) => {
+    const pagesToRebuild = this.pages.filter(page =>
+      uniqueUrls.some(pageUrl => FsUtil.removeExtension(page.pageConfig.sourcePath) === pageUrl));
+    const pageGenerationTask = {
+      mode: 'async',
+      pages: pagesToRebuild,
+    };
+
+    try {
       this._setTimestampVariable();
-      const pageToRebuild = this.pages.find(page =>
-        FsUtil.removeExtension(page.pageConfig.sourcePath) === normalizedUrl);
+      await this.runPageGenerationTasks([pageGenerationTask]);
+      await this.writeSiteData();
+      Site.calculateBuildTimeForRebuildPagesBeingViewed(startTime);
+    } catch (err) {
+      await Site.rejectHandler(err, [this.tempPath, this.outputPath]);
+    }
 
-      if (!pageToRebuild) {
-        return;
-      }
-
-      this.toRebuild.delete(normalizedUrl);
-      try {
-        await pageToRebuild.generate(this.externalManager);
-        await this.writeSiteData();
-        Site.calculateBuildTimeForRebuildPageBeingViewed(startTime);
-      } catch (error) {
-        await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
-      }
-    });
-
-    await Promise.all(regeneratePagesBeingViewed);
     await fs.remove(this.tempPath);
   }
 
   /**
-   * Helper function for _rebuildPageBeingViewed().
+   * Helper function for _rebuildPagesBeingViewed().
    */
-  static calculateBuildTimeForRebuildPageBeingViewed(startTime) {
+  static calculateBuildTimeForRebuildPagesBeingViewed(startTime) {
     const endTime = new Date();
     const totalBuildTime = (endTime - startTime) / 1000;
     return logger.info(`Lazy website regeneration complete! Total build time: ${totalBuildTime}s`);
@@ -853,8 +850,8 @@ class Site {
     if (this.onePagePath) {
       this.mapAddressablePagesToPages(this.addressablePages || [], this.getFavIconUrl());
 
-      await this.rebuildPageBeingViewed(this.currentPageViewed);
-      await this.lazyBuildAllPagesNotViewed();
+      await this._rebuildPagesBeingViewed(this.currentOpenedPages);
+      await this.lazyBuildAllPagesNotViewed(this.currentOpenedPages);
       return;
     }
 
@@ -1640,7 +1637,7 @@ class Site {
  */
 Site.prototype.buildAsset = delay(Site.prototype._buildMultipleAssets, 1000);
 
-Site.prototype.rebuildPageBeingViewed = delay(Site.prototype._rebuildPageBeingViewed, 1000);
+Site.prototype.rebuildPagesBeingViewed = delay(Site.prototype._rebuildPagesBeingViewed, 1000);
 
 /**
  * Rebuild pages that are affected by changes in filePaths
