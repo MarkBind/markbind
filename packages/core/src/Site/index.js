@@ -207,7 +207,7 @@ class Site {
 
     if (this.toRebuild.has(this.currentPageViewed)) {
       this.beforeSiteGenerate();
-      this.rebuildPageBeingViewed(this.currentPageViewed);
+      this.rebuildPagesBeingViewed(this.currentPageViewed);
       return true;
     }
 
@@ -751,7 +751,7 @@ class Site {
     }
   }
 
-  async _rebuildPageBeingViewed(normalizedUrls) {
+  async _rebuildPagesBeingViewed(normalizedUrls) {
     const startTime = new Date();
     const normalizedUrlArray = Array.isArray(normalizedUrls) ? normalizedUrls : [normalizedUrls];
     const uniqueUrls = _.uniq(normalizedUrlArray);
@@ -775,7 +775,7 @@ class Site {
       this._setTimestampVariable();
       await this.runPageGenerationTasks([pageGenerationTask]);
       await this.writeSiteData();
-      Site.calculateBuildTimeForRebuildPageBeingViewed(startTime);
+      Site.calculateBuildTimeForRebuildPagesBeingViewed(startTime);
     } catch (err) {
       await Site.rejectHandler(err, [this.tempPath, this.outputPath]);
     }
@@ -784,9 +784,9 @@ class Site {
   }
 
   /**
-   * Helper function for _rebuildPageBeingViewed().
+   * Helper function for _rebuildPagesBeingViewed().
    */
-  static calculateBuildTimeForRebuildPageBeingViewed(startTime) {
+  static calculateBuildTimeForRebuildPagesBeingViewed(startTime) {
     const endTime = new Date();
     const totalBuildTime = (endTime - startTime) / 1000;
     return logger.info(`Lazy website regeneration complete! Total build time: ${totalBuildTime}s`);
@@ -851,7 +851,7 @@ class Site {
     if (this.onePagePath) {
       this.mapAddressablePagesToPages(this.addressablePages || [], this.getFavIconUrl());
 
-      await this.rebuildPageBeingViewed(this.currentOpenedPages);
+      await this._rebuildPagesBeingViewed(this.currentOpenedPages);
       await this.lazyBuildAllPagesNotViewed(this.currentOpenedPages);
       return;
     }
@@ -1638,7 +1638,7 @@ class Site {
  */
 Site.prototype.buildAsset = delay(Site.prototype._buildMultipleAssets, 1000);
 
-Site.prototype.rebuildPageBeingViewed = delay(Site.prototype._rebuildPageBeingViewed, 1000);
+Site.prototype.rebuildPagesBeingViewed = delay(Site.prototype._rebuildPagesBeingViewed, 1000);
 
 /**
  * Rebuild pages that are affected by changes in filePaths
