@@ -326,7 +326,6 @@ class Site {
       baseUrl: this.siteConfig.baseUrl,
       baseUrlMap: this.baseUrlMap,
       dev: this.dev,
-      disableHtmlBeautify: this.siteConfig.disableHtmlBeautify,
       enableSearch: this.siteConfig.enableSearch,
       faviconUrl: config.faviconUrl,
       frontmatterOverride: config.frontmatter,
@@ -562,7 +561,6 @@ class Site {
     const config = {
       baseUrlMap: this.baseUrlMap,
       baseUrl: this.siteConfig.baseUrl,
-      disableHtmlBeautify: this.siteConfig.disableHtmlBeautify,
       rootPath: this.rootPath,
       outputPath: this.outputPath,
       ignore: this.siteConfig.ignore,
@@ -942,7 +940,6 @@ class Site {
         || !_.isEqual(oldSiteConfig.pluginsContext, this.siteConfig.pluginsContext)
         || !_.isEqual(oldSiteConfig.headingIndexingLevel, this.siteConfig.headingIndexingLevel)
         || !_.isEqual(oldSiteConfig.enableSearch, this.siteConfig.enableSearch)
-        || !_.isEqual(oldSiteConfig.disableHtmlBeautify, this.siteConfig.disableHtmlBeautify)
         || !_.isEqual(oldSiteConfig.timeZone, this.siteConfig.timeZone)
         || !_.isEqual(oldSiteConfig.locale, this.siteConfig.locale)
         || !_.isEqual(oldSiteConfig.intrasiteLinkValidation, this.siteConfig.intrasiteLinkValidation);

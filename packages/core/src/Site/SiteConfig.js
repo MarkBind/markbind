@@ -71,10 +71,6 @@ class SiteConfig {
      */
     this.titlePrefix = siteConfigJson.titlePrefix || '';
     /**
-     * @type {boolean}
-     */
-    this.disableHtmlBeautify = siteConfigJson.disableHtmlBeautify || false;
-    /**
      * @type {Object<string, any>}
      */
     this.globalOverride = siteConfigJson.globalOverride || {};

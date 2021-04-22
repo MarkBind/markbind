@@ -24,10 +24,6 @@ class PageConfig {
     /**
      * @type {boolean}
      */
-    this.disableHtmlBeautify = args.disableHtmlBeautify;
-    /**
-     * @type {boolean}
-     */
     this.dev = args.dev;
     /**
      * @type {boolean}
