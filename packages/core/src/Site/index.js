@@ -106,7 +106,7 @@ const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${MARKBIN
 
 class Site {
   constructor(rootPath, outputPath, onePagePath, forceReload = false,
-              siteConfigPath = SITE_CONFIG_NAME, dev) {
+              siteConfigPath = SITE_CONFIG_NAME, dev, backgroundBuildMode, postBackgroundBuildFunc) {
     this.dev = !!dev;
 
     this.rootPath = rootPath;
@@ -141,6 +141,11 @@ class Site {
 
     // Site wide plugin manager
     this.pluginManager = undefined;
+
+    // Background build properties
+    this.backgroundBuildMode = onePagePath && backgroundBuildMode;
+    this.stopGenerationTimeThreshold = new Date();
+    this.postBackgroundBuildFunc = postBackgroundBuildFunc || (() => {});
 
     // Lazy reload properties
     this.onePagePath = onePagePath;
@@ -645,6 +650,9 @@ class Site {
       await this.copyOcticonsAsset();
       await this.writeSiteData();
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
+      if (this.backgroundBuildMode) {
+        this.backgroundBuildNotViewedFiles();
+      }
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
@@ -722,6 +730,10 @@ class Site {
   }
 
   async _rebuildAffectedSourceFiles(filePaths) {
+    if (this.backgroundBuildMode) {
+      this.stopOngoingBuilds();
+    }
+
     const filePathArray = Array.isArray(filePaths) ? filePaths : [filePaths];
     const uniquePaths = _.uniq(filePathArray);
     this.beforeSiteGenerate();
@@ -730,6 +742,9 @@ class Site {
       await this.layoutManager.updateLayouts(filePaths);
       await this.regenerateAffectedPages(uniquePaths);
       await fs.remove(this.tempPath);
+      if (this.backgroundBuildMode) {
+        this.backgroundBuildNotViewedFiles();
+      }
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
@@ -779,7 +794,41 @@ class Site {
     return logger.info(`Lazy website regeneration complete! Total build time: ${totalBuildTime}s`);
   }
 
+  async _backgroundBuildNotViewedFiles() {
+    if (this.toRebuild.size === 0) {
+      return;
+    }
+
+    logger.info('Building files that are not viewed in the background...');
+    const isCompleted = await this.generatePagesMarkedToRebuild();
+    if (isCompleted) {
+      logger.info('Background building completed!');
+      this.postBackgroundBuildFunc();
+    }
+  }
+
+  /**
+   * Generates pages that are marked to be built/rebuilt.
+   * @returns {Promise<boolean>} A Promise that resolves once all pages are generated.
+   */
+  async generatePagesMarkedToRebuild() {
+    const pagesToRebuild = this.pages.filter((page) => {
+      const normalizedUrl = FsUtil.removeExtension(page.pageConfig.sourcePath);
+      return this.toRebuild.has(normalizedUrl);
+    });
+
+    const pageRebuildTask = {
+      mode: 'async',
+      pages: pagesToRebuild,
+    };
+    return this.runPageGenerationTasks([pageRebuildTask]);
+  }
+
   async _rebuildSourceFiles() {
+    if (this.backgroundBuildMode) {
+      this.stopOngoingBuilds();
+    }
+
     logger.info('Pages or site config modified, updating pages...');
     this.beforeSiteGenerate();
 
@@ -789,6 +838,9 @@ class Site {
     try {
       await this.removeAsset(removedPageFilePaths);
       await this.rebuildRequiredPages();
+      if (this.backgroundBuildMode) {
+        this.backgroundBuildNotViewedFiles();
+      }
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
@@ -852,6 +904,10 @@ class Site {
   }
 
   async reloadSiteConfig() {
+    if (this.backgroundBuildMode) {
+      this.stopOngoingBuilds();
+    }
+
     const oldSiteConfig = this.siteConfig;
     const oldAddressablePages = this.addressablePages.slice();
     const oldPagesSrc = oldAddressablePages.map(page => page.src);
@@ -859,6 +915,9 @@ class Site {
     await this.handleIgnoreReload(oldSiteConfig.ignore);
     await this.handlePageReload(oldAddressablePages, oldPagesSrc, oldSiteConfig);
     await this.handleStyleReload(oldSiteConfig.style);
+    if (this.backgroundBuildMode) {
+      this.backgroundBuildNotViewedFiles();
+    }
   }
 
   /**
@@ -1016,24 +1075,39 @@ class Site {
     });
   }
 
+  stopOngoingBuilds() {
+    this.stopGenerationTimeThreshold = new Date();
+  }
+
   /**
    * Runs the supplied page generation tasks according to the specified mode of each task.
    * A page generation task can be a sequential generation or an asynchronous generation.
    * @param {Array<object>} pageGenerationTasks Array of page generation tasks
-   * @return {Promise<void>} A Promise that resolves once all pages have generated
+   * @returns {Promise<boolean>} A Promise that resolves to a boolean which indicates whether the generation
+   * ran to completion
    */
   async runPageGenerationTasks(pageGenerationTasks) {
     const pagesCount = pageGenerationTasks.reduce((acc, task) => acc + task.pages.length, 0);
     const progressBar = new ProgressBar(`[:bar] :current / ${pagesCount} pages built`, { total: pagesCount });
     progressBar.render();
 
+    const startTime = new Date();
+    let isCompleted = true;
     await utils.sequentialAsyncForEach(pageGenerationTasks, async (task) => {
+      if (this.backgroundBuildMode && startTime < this.stopGenerationTimeThreshold) {
+        logger.info('Page generation stopped');
+        logger.debug('Page generation stopped at generation task queue');
+        isCompleted = false;
+        return;
+      }
+
       if (task.mode === 'sequential') {
-        await this.generatePagesSequential(task.pages, progressBar);
+        isCompleted = await this.generatePagesSequential(task.pages, progressBar);
       } else {
-        await this.generatePagesAsyncThrottled(task.pages, progressBar);
+        isCompleted = await this.generatePagesAsyncThrottled(task.pages, progressBar);
       }
     });
+    return isCompleted;
   }
 
   /**
@@ -1041,18 +1115,33 @@ class Site {
    * one-by-one in order.
    * @param {Array<Page>} pages Pages to be generated
    * @param {ProgressBar} progressBar Progress bar of the overall generation process
-   * @returns {Promise<void>} A Promise that resolves once all pages have been generated
+   * @returns {Promise<boolean>} A Promise that resolves to a boolean which indicates whether the generation
+   * ran to completion
    */
   async generatePagesSequential(pages, progressBar) {
+    const startTime = new Date();
+    let isCompleted = true;
     await utils.sequentialAsyncForEach(pages, async (page) => {
+      if (this.backgroundBuildMode && startTime < this.stopGenerationTimeThreshold) {
+        logger.info('Page generation stopped');
+        logger.debug('Page generation stopped at sequential generation');
+        isCompleted = false;
+        return;
+      }
+
       try {
         await page.generate(this.externalManager);
+        this.toRebuild.delete(FsUtil.removeExtension(page.pageConfig.sourcePath));
+        if (this.backgroundBuildMode) {
+          await this.writeSiteData(false);
+        }
         progressBar.tick();
       } catch (err) {
         logger.error(err);
         throw new Error(`Error while generating ${page.sourcePath}`);
       }
     });
+    return isCompleted;
   }
 
   /**
@@ -1060,17 +1149,38 @@ class Site {
    * This is done to avoid pushing too many callbacks into the event loop at once. (#1245)
    * @param {Array<Page>} pages Pages to be generated
    * @param {ProgressBar} progressBar Progress bar of the overall generation process
-   * @return {Promise<void>} A Promise that resolves once all pages have been generated
+   * @returns {Promise<boolean>} A Promise that resolves to a boolean which indicates whether the generation
+   * ran to completion
    */
   generatePagesAsyncThrottled(pages, progressBar) {
     return new Promise((resolve, reject) => {
-      const counter = { numPagesGenerated: 0 };
+      const context = {
+        startTime: new Date(),
+        numPagesGenerated: 0,
+        numPagesToGenerate: pages.length,
+        isCompleted: true,
+      };
 
       // Map pages into array of callbacks for delayed execution
       const pageGenerationQueue = pages.map(page => async () => {
+        // Pre-generate guard to ensure no newly executed callbacks start on stop
+        if (this.backgroundBuildMode && context.startTime < this.stopGenerationTimeThreshold) {
+          if (context.isCompleted) {
+            logger.info('Page generation stopped');
+            logger.debug('Page generation stopped at asynchronous generation');
+            context.isCompleted = false;
+            resolve(false);
+          }
+          return;
+        }
+
         try {
           await page.generate(this.externalManager);
-          Site.generateProgressBarStatus(progressBar, counter, pageGenerationQueue, pages, resolve);
+          this.toRebuild.delete(FsUtil.removeExtension(page.pageConfig.sourcePath));
+          if (this.backgroundBuildMode) {
+            await this.writeSiteData(false);
+          }
+          this.generateProgressBarStatus(progressBar, context, pageGenerationQueue, resolve);
         } catch (err) {
           logger.error(err);
           reject(new Error(`Error while generating ${page.sourcePath}`));
@@ -1090,14 +1200,24 @@ class Site {
   /**
    * Helper function for generatePagesAsyncThrottled().
    */
-  static generateProgressBarStatus(progressBar, counter, pageGenerationQueue, pages, resolve) {
+  generateProgressBarStatus(progressBar, context, pageGenerationQueue, resolve) {
+    // Post-generate guard to ensure no new callbacks are executed on stop
+    if (this.backgroundBuildMode && context.startTime < this.stopGenerationTimeThreshold) {
+      if (context.isCompleted) {
+        logger.info('Page generation stopped');
+        logger.debug('Page generation stopped at asynchronous generation');
+        context.isCompleted = false;
+        resolve(false);
+      }
+      return;
+    }
     progressBar.tick();
-    counter.numPagesGenerated += 1;
+    context.numPagesGenerated += 1;
 
     if (pageGenerationQueue.length) {
       pageGenerationQueue.pop()();
-    } else if (counter.numPagesGenerated === pages.length) {
-      resolve();
+    } else if (context.numPagesGenerated === context.numPagesToGenerate) {
+      resolve(true);
     }
   }
 
@@ -1304,8 +1424,9 @@ class Site {
 
   /**
    * Writes the site data to siteData.json
+   * @param {boolean} verbose Flag to emit logs of the operation
    */
-  async writeSiteData() {
+  async writeSiteData(verbose = true) {
     const siteDataPath = path.join(this.outputPath, SITE_DATA_NAME);
     const siteData = {
       enableSearch: this.siteConfig.enableSearch,
@@ -1320,7 +1441,9 @@ class Site {
 
     try {
       await fs.outputJson(siteDataPath, siteData, { spaces: 2 });
-      logger.info('Site data built');
+      if (verbose) {
+        logger.info('Site data built');
+      }
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
@@ -1536,5 +1659,10 @@ Site.prototype.rebuildSourceFiles = delay(Site.prototype._rebuildSourceFiles, 10
  * @param filePaths a single path or an array of paths corresponding to the assets to remove
  */
 Site.prototype.removeAsset = delay(Site.prototype._removeMultipleAssets, 1000);
+
+/**
+ * Builds pages that are yet to build/rebuild in the background
+ */
+Site.prototype.backgroundBuildNotViewedFiles = delay(Site.prototype._backgroundBuildNotViewedFiles, 1000);
 
 module.exports = Site;
