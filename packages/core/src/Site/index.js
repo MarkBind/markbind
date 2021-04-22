@@ -207,6 +207,11 @@ class Site {
 
     if (this.toRebuild.has(this.currentPageViewed)) {
       this.beforeSiteGenerate();
+      /*
+       Lazy loading only builds the page being viewed, but the user may be quick enough
+       to trigger multiple page builds before the first one has finished building,
+       hence we need to take this into account by using the delayed variant of the method.
+       */
       this.rebuildPagesBeingViewed(this.currentPageViewed);
       return true;
     }
@@ -757,12 +762,6 @@ class Site {
     const uniqueUrls = _.uniq(normalizedUrlArray);
     uniqueUrls.forEach(normalizedUrl => logger.info(
       `Building ${normalizedUrl} as some of its dependencies were changed since the last visit`));
-
-    /*
-     Lazy loading only builds the page being viewed, but the user may be quick enough
-     to trigger multiple page builds before the first one has finished building,
-     hence we need to take this into account.
-     */
 
     const pagesToRebuild = this.pages.filter(page =>
       uniqueUrls.some(pageUrl => FsUtil.removeExtension(page.pageConfig.sourcePath) === pageUrl));
