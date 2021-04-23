@@ -1,9 +1,16 @@
 <template>
   <span ref="cardContainer" :class="['card-container', addClass]">
     <div v-show="localMinimized" class="morph">
-      <button :class="['morph-display-wrapper', 'btn', btnType, 'card-title']" @click="open()">
+      <button
+        :class="['morph-display-wrapper', 'btn', btnType, 'card-title']"
+        @click="open()"
+      >
         <slot name="_alt">
           <slot name="header"></slot>
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-log-in"
+          ></span>
         </slot>
       </button>
     </div>
@@ -307,6 +314,7 @@ export default {
 
     .morph-display-wrapper {
         white-space: normal;
+        margin: 5px;
     }
 
     /* Bootstrap extra small(xs) responsive breakpoint */
