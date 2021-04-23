@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "outDir": "./built",
+    "allowJs": true,
+    "target": "es5"
+  },
+  "include": ["./index.js","./src/**/*", "./template/**/*", "./__mocks__/**/*", "./test/**/*"]
+}
