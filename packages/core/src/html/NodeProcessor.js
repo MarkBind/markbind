@@ -13,7 +13,6 @@ const { renderSiteNav } = require('./siteNavProcessor');
 const { processInclude, processPanelSrc } = require('./includePanelProcessor');
 const { Context } = require('./Context');
 const linkProcessor = require('./linkProcessor');
-const { insertTemporaryStyles } = require('./tempStyleProcessor');
 const { highlightCodeBlock } = require('./codeblockProcessor');
 const { setHeadingId, assignPanelId } = require('./headerProcessor');
 const { MarkdownProcessor } = require('./MarkdownProcessor');
@@ -138,11 +137,6 @@ class NodeProcessor {
       case 'body':
         console.warn(`<body> tag found in ${node.attribs[ATTRIB_CWF]}. This may cause formatting errors.`);
         break;
-      case 'code':
-      case 'annotation':
-        // Annotations are added automatically by KaTeX when rendering math formulae.
-        if (!_.has(node.attribs, 'v-pre')) { node.attribs['v-pre'] = ''; }
-        break;
       case 'include':
         this.markdownProcessor.docId += 1; // used in markdown-it-footnotes
         return processInclude(node, context, this.pageSources, this.variableProcessor,
@@ -197,6 +191,19 @@ class NodeProcessor {
         break;
       case 'style':
         processStyleTag(node);
+        break;
+      case 'code':
+      case 'annotation': // Annotations are added automatically by KaTeX when rendering math formulae.
+      case 'eq': // markdown-it-texmath html tag
+      case 'eqn': // markdown-it-texmath html tag
+      case 'thumb': // image
+        /*
+         * These are not components from MarkBind Vue components.
+         * We have to add 'v-pre' to let Vue know to ignore this tag and not compile it.
+         *
+         * Although there won't be warnings if we use production Vue, it is still good to add this.
+         */
+        if (!_.has(node.attribs, 'v-pre')) { node.attribs['v-pre'] = ''; }
         break;
       default:
         break;
@@ -289,8 +296,6 @@ class NodeProcessor {
     }
 
     this.postProcessNode(node);
-
-    insertTemporaryStyles(node);
 
     if (isHeadingTag && !node.attribs.id) {
       // do this one more time, in case the first one assigned a blank id

@@ -1,5 +1,5 @@
 <template>
-  <div :class="['image-wrapper', addClass]">
+  <span :class="['image-wrapper', addClass]">
     <img
       ref="pic"
       :src="src"
@@ -8,10 +8,10 @@
       class="img-fluid rounded"
       @load.once="computeWidth"
     />
-    <div class="image-caption">
+    <span class="image-caption">
       <slot></slot>
-    </div>
-  </div>
+    </span>
+  </span>
 </template>
 
 <script>
@@ -78,5 +78,9 @@ export default {
         display: inline-block;
         text-align: center;
         padding: 4px;
+    }
+
+    .image-caption {
+        display: block;
     }
 </style>

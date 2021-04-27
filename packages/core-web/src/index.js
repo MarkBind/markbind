@@ -2,9 +2,11 @@
 // pageVueRenderFn and pageVueStaticRenderFns exist in dynamically generated script by Page/index.js
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import MarkBindVue from '@markbind/vue-components/src';
+import vueCommonAppFactory from './VueCommonAppFactory';
 import initScrollTopButton from './scrollTopButton';
 import './styles/index.css';
+
+const { MarkBindVue, appFactory } = vueCommonAppFactory;
 
 Vue.use(MarkBindVue);
 
@@ -131,12 +133,6 @@ function updateSearchData(vm) {
     });
 }
 
-function removeTemporaryStyles() {
-  jQuery('.temp-navbar').removeClass('temp-navbar');
-  jQuery('.temp-dropdown').removeClass('temp-dropdown');
-  jQuery('.temp-dropdown-placeholder').remove();
-}
-
 /*
  * Changes every <script src defer type="application/javascript" style-bypass-vue-compilation>
  * placeholder tags that was used to bypass Vue compilation back into original intended <style> tags.
@@ -151,7 +147,6 @@ function restoreStyleTags() {
 }
 
 function executeAfterMountedRoutines() {
-  removeTemporaryStyles(); // Vue render function is called after before-mount hook
   restoreStyleTags();
   scrollToUrlAnchorHeading();
   detectAndApplyFixedHeaderStyles();
@@ -172,9 +167,7 @@ window.handleSiteNavClick = function (elem, useAnchor = true) {
 };
 
 function setup() {
-  // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
-    el: '#app',
     render(createElement) {
       return pageVueRenderFn.call(this, createElement);
     },
@@ -183,57 +176,35 @@ function setup() {
       executeAfterMountedRoutines();
     },
   });
+  /*
+   * For SSR, if we mount onto the wrong element (without data-server-rendered attribute) in our SSR setup,
+   * hydration will fail silently and turn into client-side rendering, which is not what we want.
+   * Thus, we will always force hydration so that we always know when hydration has failed, so that we can
+   * address the hydration issue accordingly.
+   */
+  vm.$mount('#app', true); // second parameter, 'true', enables force hydration
 }
 
 function setupWithSearch() {
-  // eslint-disable-next-line no-unused-vars
   const vm = new Vue({
-    el: '#app',
     render(createElement) {
       return pageVueRenderFn.call(this, createElement);
     },
     staticRenderFns: pageVueStaticRenderFns,
-    data() {
-      return {
-        searchData: [],
-      };
-    },
-    methods: {
-      searchCallback(match) {
-        const page = `${baseUrl}/${match.src.replace(/.(md|mbd)$/, '.html')}`;
-        const anchor = match.heading ? `#${match.heading.id}` : '';
-        window.location = `${page}${anchor}`;
-      },
-    },
+    ...appFactory(),
     mounted() {
       executeAfterMountedRoutines();
       updateSearchData(this);
     },
   });
+  /*
+   * For SSR, if we mount onto the wrong element (without data-server-rendered attribute) in our SSR setup,
+   * hydration will fail silently and turn into client-side rendering, which is not what we want.
+   * Thus, we will always force hydration so that we always know when hydration has failed, so that we can
+   * address the hydration issue accordingly.
+   */
+  vm.$mount('#app', true); // second parameter, 'true', enables force hydration
 }
-
-/*
- These getters are used by popovers and tooltips to get their popover/tooltip content/title.
-
- For triggers, refer to Trigger.vue.
- We need to create a completely new popover/tooltip for each trigger due to bootstrap-vue's implementation,
- so this is how we retrieve our contents.
-*/
-
-function makeMbSlotGetter(slotName) {
-  return (element) => {
-    const innerElement = element.querySelector(`[data-mb-slot-name="${slotName}"]`);
-    return innerElement === null ? '' : innerElement.innerHTML;
-  };
-}
-
-// Used via vb-popover.html="popoverInnerGetters" for popovers
-window.popoverInnerGetters = {
-  title: makeMbSlotGetter('header'),
-  content: makeMbSlotGetter('content'),
-};
-// Used via vb-tooltip.html="popoverInnerGenerator" for tooltips
-window.tooltipInnerContentGetter = makeMbSlotGetter('_content');
 
 initScrollTopButton();
 

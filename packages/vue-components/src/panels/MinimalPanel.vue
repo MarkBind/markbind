@@ -1,13 +1,23 @@
 <template>
-  <span ref="cardContainer" :class="['card-container', addClass]">
-    <div v-show="localMinimized" class="morph">
+  <span
+    v-if="localMinimized"
+    ref="cardContainer"
+    :class="['card-container', addClass]"
+  >
+    <span class="morph">
       <button class="morph-display-wrapper btn card-title morph-title" @click="minimalOpen()">
         <slot name="_alt">
           <slot name="header"></slot>
         </slot>
       </button>
-    </div>
-    <div v-show="!localMinimized" class="card card-flex">
+    </span>
+  </span>
+  <div
+    v-else
+    ref="cardContainer"
+    :class="['card-container', addClass]"
+  >
+    <div class="card card-flex">
       <div
         :class="['header-wrapper',
                  { 'header-wrapper-bottom': isHeaderAtBottom, 'header-toggle': isExpandableCard }]"
@@ -68,14 +78,14 @@
           <retriever
             v-if="hasSrc"
             ref="retriever"
-            :src="src"
+            :src="srcWithoutFragment"
             :fragment="fragment"
             @src-loaded="retrieverUpdateMaxHeight"
           />
         </div>
       </div>
     </div>
-  </span>
+  </div>
 </template>
 
 <script>

@@ -53,9 +53,9 @@ class External {
                                                         asIfAtFilePath);
     const pluginPostRendered = pluginManager.postRender(nodeProcessor.frontMatter, mdHtmlProcessed);
 
-    const outputContentHTML = config.disableHtmlBeautify
-      ? pluginPostRendered
-      : htmlBeautify(pluginPostRendered, pluginManager.htmlBeautifyOptions);
+    const outputContentHTML = process.env.TEST_MODE
+      ? htmlBeautify(pluginPostRendered, pluginManager.htmlBeautifyOptions)
+      : pluginPostRendered;
 
     await fs.outputFile(resultPath, outputContentHTML);
 

@@ -83,11 +83,15 @@ export default {
     },
     setupComponent(targetEl) {
       const componentType = targetEl.dataset.mbComponentType;
+      /*
+       * popoverInnerGetters / tooltipInnerContentGetter are passed down during the Vue App instantiation on
+       * client-side (core-web). Thus, we have to access these methods via "this.$root".
+       */
       if (componentType === 'popover') {
-        this.contentHtml = window.popoverInnerGetters.content(targetEl);
-        this.titleHtml = window.popoverInnerGetters.title(targetEl);
+        this.contentHtml = this.$root.popoverInnerGetters.content(targetEl);
+        this.titleHtml = this.$root.popoverInnerGetters.title(targetEl);
       } else if (componentType === 'tooltip') {
-        this.contentHtml = window.tooltipInnerContentGetter(targetEl);
+        this.contentHtml = this.$root.tooltipInnerContentGetter(targetEl);
       }
       this.popoverOrTooltipType = componentType;
     },

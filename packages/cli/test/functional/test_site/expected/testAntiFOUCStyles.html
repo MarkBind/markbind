@@ -38,10 +38,9 @@
 <body>
   <div id="app">
 
-
     <div>
       <header>
-        <navbar type="dark" default-highlight-on="sibling-or-child" class=" temp-navbar">
+        <navbar type="dark" default-highlight-on="sibling-or-child">
           <template #brand><a href="/" title="Home" class="navbar-brand">Markbind Test Site</a></template>
           <li><a class="nav-link" href="/test_site/bugs/index.html">Open Bugs</a></li>
         </navbar>
@@ -183,32 +182,29 @@
       </nav>
       <div id="content-wrapper" class="fixed-header-padding">
 
-        <navbar type="dark" class=" temp-navbar">
+        <navbar type="dark">
           <li><a href="/" class="nav-link">One</a></li>
           <li><a href="/" class="nav-link">Two</a></li>
-          <dropdown class="nav-link temp-dropdown"><template #header>Dropdown</template>
+          <dropdown class="nav-link"><template #header>Dropdown</template>
             <li><a class="dropdown-item" href="/">Dropdown One</a></li>
             <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
           </dropdown>
-          <div class="nav-link temp-dropdown-placeholder"></div>
         </navbar>
 
         <p><strong>Test dropdown in body with text and class attributes</strong></p>
-        <dropdown class="test-class temp-dropdown"><template #header>Test One</template>
+        <dropdown class="test-class"><template #header>Test One</template>
           <li><a class="dropdown-item" href="/">Dropdown One</a></li>
           <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
         </dropdown>
-        <div class="test-class temp-dropdown-placeholder"></div>
 
         <p><strong>Test dropdown in body without text and class attributes</strong></p>
-        <dropdown class="temp-dropdown">
+        <dropdown>
           <template #button><button type="button" class="btn dropdown-toggle">
               Test Two
               <span class="caret"></span></button></template>
           <li><a class="dropdown-item" href="/">Dropdown One</a></li>
           <li><a class="dropdown-item" href="/">Dropdown Two</a></li>
         </dropdown>
-        <div class="temp-dropdown-placeholder"></div>
 
         <p><strong>Filler text</strong></p>
         <p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>

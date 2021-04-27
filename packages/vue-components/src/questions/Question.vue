@@ -155,7 +155,10 @@ export default {
       default: '',
     },
     threshold: { // The proportion of keywords needed to get the answer correct. Ranges from 0.0 to 1.0.
-      type: Number,
+      type: [
+        String, // to accomodate threshold prop being passed down as a string during SSR
+        Number,
+      ],
       default: 1.0,
     },
   },

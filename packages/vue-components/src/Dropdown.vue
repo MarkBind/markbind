@@ -53,10 +53,14 @@
 </template>
 
 <script>
+import Submenu from './Submenu.vue';
 import { toBoolean } from './utils/utils';
 import $ from './utils/NodeList';
 
 export default {
+  components: {
+    Submenu,
+  },
   props: {
     disabled: {
       type: Boolean,
@@ -76,7 +80,11 @@ export default {
     },
   },
   provide: { hasParentDropdown: true },
-  inject: ['hasParentDropdown'],
+  inject: {
+    hasParentDropdown: {
+      default: undefined,
+    },
+  },
   data() {
     return {
       show: false,

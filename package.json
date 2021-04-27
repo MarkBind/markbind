@@ -8,8 +8,8 @@
     "lint": "eslint . --ext .js,.vue && npm run csslint",
     "lintfix": "eslint . --ext .js,.vue --fix && npm run csslintfix",
     "setup": "npm ci && lerna clean --yes && lerna bootstrap --hoist",
-    "test": "npm run lint && lerna run test --stream",
-    "updatetest": "lerna run updatetest --stream"
+    "test": "npm run lint && cross-env TEST_MODE=true lerna run test --stream",
+    "updatetest": "cross-env TEST_MODE=true lerna run updatetest --stream"
   },
   "devDependencies": {
     "eslint": "^7.4.0",

@@ -49,7 +49,11 @@ export default {
       default: () => {},
     },
   },
-  inject: ['toggleLowerNavbar'],
+  inject: {
+    toggleLowerNavbar: {
+      default: undefined,
+    },
+  },
   data() {
     return {
       show: false,

@@ -40,10 +40,8 @@
     "eslint-plugin-vue": "^6.2.2",
     "jest": "^26.1.0",
     "jest-serializer-vue": "^2.0.2",
-    "vue": "^2.6.11",
     "vue-jest": "^3.0.6",
-    "vue-loader": "^15.9.3",
-    "vue-template-compiler": "^2.6.11"
+    "vue-loader": "^15.9.3"
   },
   "private": true
 }

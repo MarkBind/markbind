@@ -1,9 +1,9 @@
 
-      var pageVueRenderFn = function anonymous(
+    var pageVueRenderFn = function anonymous(
 ) {
 with(this){return _c('div',{attrs:{"id":"app"}},[_c('p'),_m(0),_v(" "),_m(1),_v(" "),_m(2),_v(" "),_c('script',{attrs:{"type":"application/javascript"}},[_v("\nlet x = 1;\n\nx += 1;\nalert(x);\n")]),_v(" "),_c('hr'),_v(" "),_m(3),_v(" "),_c('script',{attrs:{"src":"","defer":"","type":"application/javascript","style-bypass-vue-compilation":""}},[_v("\n\n.bigger-text {\n  font-size: 10em;\n}\n\n")]),_v(" "),_c('hr'),_v(" "),_m(4),_v(" "),_c('testtag',[_c('these',[_v("\nsome text\n")]),_v(" "),_c('p',[_v("//")]),_v(" "),_c('p',[_v("/*\n...\n*/")])],1),_v(" "),_c('hr'),_v(" "),_m(5),_v(" "),_c('abc',[_c('these',[_v("\nsome text\n")]),_v(" "),_c('p',[_v("//")]),_v(" "),_c('p',[_v("/*\n...\n*/")])],1),_v(" "),_c('hr'),_v(" "),_m(6),_v(" "),_c('testselfclosingtag'),_v(" "),_c('testselfclosingtag'),_v(" "),_c('testselfclosingtag',[_c('p',[_v("Lorem ipsum lorem ipsum")])]),_v(" "),_c('hr'),_v(" "),_m(7),_v(" "),_c('div',[_c('testtag',[_v("\nlet x = 2;\n"),_c('p',[_v("if (x <= 5) {\nalert(x);\n}")])])],1),_v(" "),_c('hr'),_v(" "),_c('i',{staticClass:"fa fa-arrow-circle-up fa-lg d-print-none",attrs:{"id":"scroll-top-button","onclick":"handleScrollTop()","aria-hidden":"true"}}),_c('p')],1)}
 };
-      var pageVueStaticRenderFns = [function anonymous(
+    var pageVueStaticRenderFns = [function anonymous(
 ) {
 with(this){return _c('h1',{attrs:{"id":"functional-test-for-htmlparser2-and-markdown-it-patches-for-special-tags"}},[_c('span',{staticClass:"anchor",attrs:{"id":"functional-test-for-htmlparser2-and-markdown-it-patches-for-special-tags"}}),_v("Functional test for htmlparser2 and markdown-it patches for special tags"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#functional-test-for-htmlparser2-and-markdown-it-patches-for-special-tags","onclick":"event.stopPropagation()"}})])}
 },function anonymous(
@@ -28,4 +28,4 @@ with(this){return _c('p',[_v("There are two self closing special tags below, whi
 ) {
 with(this){return _c('p',[_v("This should pass the htmlparser2 patch but not the markdown-it patch as it violates commonmark."),_c('br'),_v("\nAll lines after the first "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("!success")]),_v(" wrapping text will be wrapped in a "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("<p>...</p>")]),_v(" tag as it is\nparsed as a markdown paragraph.")])}
 }];
-    
+  

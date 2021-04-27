@@ -2,7 +2,8 @@ const cheerio = require('cheerio'); require('../patches/htmlparser2');
 const fs = require('fs-extra');
 const htmlBeautify = require('js-beautify').html;
 const path = require('path');
-const VueCompiler = require('vue-template-compiler');
+
+const { pageVueServerRenderer } = require('./PageVueServerRenderer');
 
 const _ = {};
 _.cloneDeep = require('lodash/cloneDeep');
@@ -468,57 +469,52 @@ class Page {
       ...layoutManager.getLayoutPageNjkAssets(this.layout),
     };
 
-    // Compile the page into Vue application and outputs the render function into script for browser
-    await this.compileVuePageAndCreateScript(content);
-
-    const renderedTemplate = this.pageConfig.template.render(
-      this.prepareTemplateData(content, !!pageNav)); // page.njk
-
-    const outputTemplateHTML = this.pageConfig.disableHtmlBeautify
-      ? renderedTemplate
-      : htmlBeautify(renderedTemplate, pluginManager.htmlBeautifyOptions);
-
-    await fs.outputFile(this.pageConfig.resultPath, outputTemplateHTML);
-
     pageSources.addAllToSet(this.includedFiles);
     await externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(), this.includedFiles);
 
     this.collectHeadingsAndKeywords(pageContent);
-  }
 
-  /**
-   * Compiles page into Vue Application to get the page render function and places
-   * it into a script so that the browser can retrieve the page render function to
-   * render the page during Vue mounting.
-   *
-   * This is to avoid the overhead of compiling the page into Vue application
-   * on the client's browser (alleviates FOUC).
-   *
-   * @param content Page content to be compiled into Vue app
-   */
-  async compileVuePageAndCreateScript(content) {
-    // Compile Vue Page
-    const compiled = VueCompiler.compileToFunctions(`<div id="app">${content}</div>`);
-    const outputContent = `
-      var pageVueRenderFn = ${compiled.render};
-      var pageVueStaticRenderFns = [${compiled.staticRenderFns}];
-    `;
+    content = `<div id="app">${content}</div>`;
 
-    // Get script file name
-    const pageHtmlFileName = path.basename(this.pageConfig.resultPath, '.html');
-    const scriptFileName = `${pageHtmlFileName}.page-vue-render.js`;
+    // Compile the page into Vue application and outputs the render function into script for browser
+    const compiledVuePage = await pageVueServerRenderer.compileVuePageAndCreateScript(
+      content, this.pageConfig, this.asset);
 
     /*
-     * Add the script file path for this page's render function to the page's assets (to populate page.njk).
-     * The script file path is the same as the page's file path.
+     * Record render functions of built pages that were compiled
+     * for fast re-render when MarkBindVue bundle hot-reloads
      */
-    this.asset.pageVueRenderJs = scriptFileName;
+    const builtPage = {
+      page: this,
+      compiledVuePage,
+      pageNav,
+    };
+    // Each source path will only contain 1 copy of build/re-build page (the latest one)
+    pageVueServerRenderer.pageEntries[this.pageConfig.soucePath] = builtPage;
 
-    // Get script's absolute file path to output script file
-    const dirName = path.dirname(this.pageConfig.resultPath);
-    const filePath = path.join(dirName, scriptFileName);
+    /*
+     * Server-side render Vue page app into actual html.
+     *
+     * However, for automated testings (e.g. snapshots), we will not do SSR as we want to retain the
+     * unrendered DOM for easier reference and checking.
+     */
+    if (process.env.TEST_MODE) {
+      await this.outputPageHtml(content, pageNav);
+    } else {
+      const vueSsrHtml = await pageVueServerRenderer.renderVuePage(compiledVuePage);
+      await this.outputPageHtml(vueSsrHtml, pageNav);
+    }
+  }
 
-    await fs.outputFile(filePath, outputContent);
+  async outputPageHtml(content, pageNav) {
+    const renderedTemplate = this.pageConfig.template.render(
+      this.prepareTemplateData(content, !!pageNav)); // page.njk
+
+    const outputTemplateHTML = process.env.TEST_MODE
+      ? htmlBeautify(renderedTemplate, this.pageConfig.pluginManager.htmlBeautifyOptions)
+      : renderedTemplate;
+
+    await fs.outputFile(this.pageConfig.resultPath, outputTemplateHTML);
   }
 
   static addScrollToTopButton(pageData) {

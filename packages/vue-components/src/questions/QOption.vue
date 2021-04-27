@@ -111,7 +111,17 @@ export default {
       hover: false,
     };
   },
-  inject: ['answers', 'qOptionType', 'qState'],
+  inject: {
+    answers: {
+      default: undefined,
+    },
+    qOptionType: {
+      default: undefined,
+    },
+    qState: {
+      default: undefined,
+    },
+  },
   computed: {
     hintClass() {
       if (this.qState.answered) {
