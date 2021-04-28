@@ -22,7 +22,7 @@
     </slot>
   </li>
   <submenu v-else-if="isSubmenu" ref="submenu">
-    <template v-for="(node, name) in $scopedSlots" v-slot:[name]>
+    <template v-for="(node, name) in $scopedSlots" #[name]>
       <slot :name="name"></slot>
     </template>
   </submenu>
