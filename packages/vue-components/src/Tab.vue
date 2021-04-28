@@ -70,7 +70,7 @@ export default {
     }
   },
   beforeDestroy() {
-    if (this._tabset.active === this.index) { this._tabset.active = 0; }
+    if (this._tabset.activeNumber === this.index) { this._tabset.activeNumber = 0; }
     if (this._ingroup) {
       const tabIndex = this.$parent.tabs.indexOf(this);
       this.$parent.tabs.splice(tabIndex, 1);

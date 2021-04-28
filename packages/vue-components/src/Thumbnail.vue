@@ -69,7 +69,7 @@ export default {
       return this.border === '' ? {} : { border: this.border };
     },
     getFontSize() {
-      const defaultSize = this.size / 2;
+      const defaultSize = this.imageSize / 2;
       const definedSize = this.fontSize;
 
       return {
@@ -88,6 +88,9 @@ export default {
       // Returns true if src is defined and is not an empty string
       return this.src !== undefined && this.src !== '';
     },
+    imageSize() {
+      return this.size || DEFAULT_SIZE;
+    },
   },
   data() {
     return {
@@ -96,11 +99,10 @@ export default {
     };
   },
   mounted() {
-    this.size = this.size || DEFAULT_SIZE;
     const wrapperElement = this.$el;
-    wrapperElement.style.width = `${this.size}px`;
-    wrapperElement.style.height = `${this.size}px`;
-    wrapperElement.style.lineHeight = `${this.size}px`;
+    wrapperElement.style.width = `${this.imageSize}px`;
+    wrapperElement.style.height = `${this.imageSize}px`;
+    wrapperElement.style.lineHeight = `${this.imageSize}px`;
   },
   methods: {
     computeImgSize() {
@@ -109,7 +111,7 @@ export default {
       const imgHeight = renderedImg.naturalHeight;
       const imgWidth = renderedImg.naturalWidth;
       const imgSize = Math.min(imgHeight, imgWidth);
-      const expansionFactor = this.size / imgSize;
+      const expansionFactor = this.imageSize / imgSize;
 
       this.computedWidth = imgWidth * expansionFactor;
       this.computedHeight = imgHeight * expansionFactor;

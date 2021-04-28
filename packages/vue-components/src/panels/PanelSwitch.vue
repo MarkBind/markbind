@@ -17,7 +17,7 @@ export default {
   props: {
     isOpen: {
       type: Boolean,
-      default: null,
+      default: false,
     },
     isLightBg: {
       type: Boolean,
@@ -28,16 +28,6 @@ export default {
     isOpenBool() {
       return toBoolean(this.isOpen);
     },
-  },
-  methods: {
-    toggle() {
-      this.isOpen = !this.isOpenBool;
-    },
-  },
-  created() {
-    if (this.isOpen === null) {
-      this.isOpen = false;
-    }
   },
 };
 </script>

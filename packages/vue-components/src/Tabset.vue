@@ -71,6 +71,7 @@ export default {
     return {
       show: null,
       headers: [],
+      activeNumber: toNumber(this.active),
       tabs: [],
     };
   },
@@ -80,9 +81,6 @@ export default {
   computed: {
     getNavStyleClass() {
       return `nav-${this.navStyle}`;
-    },
-    activeNumber() {
-      return toNumber(this.active);
     },
   },
   watch: {
@@ -96,7 +94,7 @@ export default {
   methods: {
     select(tab) {
       if (!tab.disabled) {
-        this.active = tab.index;
+        this.activeNumber = tab.index;
       }
     },
   },
