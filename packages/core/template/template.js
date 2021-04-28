@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs-extra');
 
-const fsUtils = require('../src/utils/fsUtil');
+const fsUtil = require('../src/utils/fsUtil');
 
 const requiredFiles = ['index.md', 'site.json', '_markbind/'];
 
@@ -27,7 +27,7 @@ function generateSiteWithTemplate(rootPath, templatePath) {
   return new Promise((resolve, reject) => {
     fs.access(rootPath)
       .catch(() => fs.mkdirSync(rootPath))
-      .then(() => fsUtils.copySyncWithOptions(templatePath, rootPath, { overwrite: false }))
+      .then(() => fsUtil.copySyncWithOptions(templatePath, rootPath, { overwrite: false }))
       .then(resolve)
       .catch(reject);
   });

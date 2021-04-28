@@ -3,7 +3,7 @@ const lodashHas = require('lodash/has');
 const url = require('url');
 const ignore = require('ignore');
 const utils = require('../utils');
-const fsUtils = require('../utils/fsUtil');
+const fsUtil = require('../utils/fsUtil');
 const logger = require('../utils/logger');
 
 const { PluginManager } = require('../plugins/PluginManager');
@@ -119,7 +119,7 @@ function isValidPageSource(resourcePath, config) {
   const relativeResourcePath = resourcePath.startsWith('/')
     ? resourcePath.substring(1)
     : resourcePath;
-  const relativeResourcePathWithNoExt = fsUtils.removeExtensionPosix(relativeResourcePath);
+  const relativeResourcePathWithNoExt = fsUtil.removeExtensionPosix(relativeResourcePath);
   const isPageSrc = config.addressablePagesSource.includes(relativeResourcePathWithNoExt);
   return isPageSrc;
 }
