@@ -17,7 +17,7 @@ export default {
   props: {
     isOpen: {
       type: Boolean,
-      default: null,
+      default: false,
     },
     isLightBg: {
       type: Boolean,
