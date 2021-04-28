@@ -18,7 +18,7 @@ const { LayoutManager } = require('../Layout');
 const { PluginManager } = require('../plugins/PluginManager');
 const Template = require('../../template/template');
 
-const FsUtil = require('../utils/fsUtil');
+const fsUtil = require('../utils/fsUtil');
 const delay = require('../utils/delay');
 const logger = require('../utils/logger');
 const utils = require('../utils');
@@ -150,7 +150,7 @@ class Site {
     // Lazy reload properties
     this.onePagePath = onePagePath;
     this.currentPageViewed = onePagePath
-      ? path.resolve(this.rootPath, FsUtil.removeExtension(onePagePath))
+      ? path.resolve(this.rootPath, fsUtil.removeExtension(onePagePath))
       : '';
     this.currentOpenedPages = [];
     this.toRebuild = new Set();
@@ -439,9 +439,9 @@ class Site {
       .filter(addressablePage => !addressablePage.src.startsWith('_'))
       .forEach((page) => {
         const addressablePagePath = path.join(this.rootPath, page.src);
-        const relativePagePathWithoutExt = FsUtil.removeExtension(
+        const relativePagePathWithoutExt = fsUtil.removeExtension(
           path.relative(this.rootPath, addressablePagePath));
-        const pageName = _.startCase(FsUtil.removeExtension(path.basename(addressablePagePath)));
+        const pageName = _.startCase(fsUtil.removeExtension(path.basename(addressablePagePath)));
         const pageUrl = `{{ baseUrl }}/${relativePagePathWithoutExt}.html`;
         siteNavContent += `* [${pageName}](${pageUrl})\n`;
       });
@@ -535,7 +535,7 @@ class Site {
     this.addressablePages = Object.values(filteredPages);
     this.addressablePagesSource.length = 0;
     this.addressablePages.forEach((page) => {
-      this.addressablePagesSource.push(FsUtil.removeExtensionPosix(page.src));
+      this.addressablePagesSource.push(fsUtil.removeExtensionPosix(page.src));
     });
   }
 
@@ -700,7 +700,7 @@ class Site {
   async lazyBuildAllPagesNotViewed(viewedPages) {
     const viewedPagesArray = Array.isArray(viewedPages) ? viewedPages : [viewedPages];
     this.pages.forEach((page) => {
-      const normalizedUrl = FsUtil.removeExtension(page.pageConfig.sourcePath);
+      const normalizedUrl = fsUtil.removeExtension(page.pageConfig.sourcePath);
       if (!viewedPagesArray.some(viewedPage => normalizedUrl === viewedPage)) {
         this.toRebuild.add(normalizedUrl);
       }
@@ -764,7 +764,7 @@ class Site {
       `Building ${normalizedUrl} as some of its dependencies were changed since the last visit`));
 
     const pagesToRebuild = this.pages.filter(page =>
-      uniqueUrls.some(pageUrl => FsUtil.removeExtension(page.pageConfig.sourcePath) === pageUrl));
+      uniqueUrls.some(pageUrl => fsUtil.removeExtension(page.pageConfig.sourcePath) === pageUrl));
     const pageGenerationTask = {
       mode: 'async',
       pages: pagesToRebuild,
@@ -810,7 +810,7 @@ class Site {
    */
   async generatePagesMarkedToRebuild() {
     const pagesToRebuild = this.pages.filter((page) => {
-      const normalizedUrl = FsUtil.removeExtension(page.pageConfig.sourcePath);
+      const normalizedUrl = fsUtil.removeExtension(page.pageConfig.sourcePath);
       return this.toRebuild.has(normalizedUrl);
     });
 
@@ -1127,7 +1127,7 @@ class Site {
 
       try {
         await page.generate(this.externalManager);
-        this.toRebuild.delete(FsUtil.removeExtension(page.pageConfig.sourcePath));
+        this.toRebuild.delete(fsUtil.removeExtension(page.pageConfig.sourcePath));
         if (this.backgroundBuildMode) {
           await this.writeSiteData(false);
         }
@@ -1172,7 +1172,7 @@ class Site {
 
         try {
           await page.generate(this.externalManager);
-          this.toRebuild.delete(FsUtil.removeExtension(page.pageConfig.sourcePath));
+          this.toRebuild.delete(fsUtil.removeExtension(page.pageConfig.sourcePath));
           if (this.backgroundBuildMode) {
             await this.writeSiteData(false);
           }
@@ -1270,7 +1270,7 @@ class Site {
 
       if (shouldRebuildAllPages || doFilePathsHaveSourceFiles) {
         if (this.onePagePath) {
-          const normalizedSource = FsUtil.removeExtension(page.pageConfig.sourcePath);
+          const normalizedSource = fsUtil.removeExtension(page.pageConfig.sourcePath);
           const openIdx = this.currentOpenedPages.findIndex(pagePath => pagePath === normalizedSource);
           const isRecentlyViewed = openIdx !== -1;
 
