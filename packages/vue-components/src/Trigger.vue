@@ -8,7 +8,7 @@
     <b-popover
       v-if="popoverOrTooltipType === 'popover'"
       :show="show"
-      :target="this.$el"
+      :target="$el"
       triggers="manual"
       :placement="placement"
     >
@@ -20,7 +20,7 @@
     <b-tooltip
       v-else-if="popoverOrTooltipType === 'tooltip'"
       :show="show"
-      :target="this.$el"
+      :target="$el"
       triggers="manual"
       :placement="placement"
     >

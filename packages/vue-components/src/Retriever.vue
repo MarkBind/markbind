@@ -5,6 +5,8 @@
 </template>
 
 <script>
+/* eslint-disable vue/one-component-per-file */
+
 import { getFragmentByHash, toBoolean } from './utils/utils';
 
 export default {
