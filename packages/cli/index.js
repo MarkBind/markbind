@@ -14,7 +14,6 @@ const { Site } = require('@markbind/core');
 const { pageVueServerRenderer } = require('@markbind/core/src/Page/PageVueServerRenderer');
 
 const fsUtil = require('@markbind/core/src/utils/fsUtil');
-const utils = require('@markbind/core/src/utils');
 const {
   INDEX_MARKDOWN_FILE,
   INDEX_MARKBIND_FILE,
@@ -131,13 +130,13 @@ program
     const outputFolder = path.join(rootFolder, '_site');
 
     const defaultFiles = [INDEX_MARKDOWN_FILE, INDEX_MARKBIND_FILE];
-    const presentDefaultFile = defaultFiles.find(utils.fileExists);
+    const presentDefaultFile = defaultFiles.find(fsUtil.fileExists);
     if (options.onePage === true && !presentDefaultFile) {
       handleError(new Error('Oops! It seems that you didn\'t have the default file index.md|mbd.'));
       process.exit();
     }
     let onePagePath = options.onePage === true ? presentDefaultFile : options.onePage;
-    onePagePath = onePagePath ? utils.ensurePosix(onePagePath) : onePagePath;
+    onePagePath = onePagePath ? fsUtil.ensurePosix(onePagePath) : onePagePath;
 
     const reloadAfterBackgroundBuild = () => {
       logger.info('All opened pages will be reloaded.');
@@ -265,7 +264,7 @@ program
 
             const didInitiateRebuild = site.changeCurrentPage(urlWithoutExtension);
             if (didInitiateRebuild) {
-              req.url = utils.ensurePosix(path.join(config.baseUrl || '/', LAZY_LOADING_SITE_FILE_NAME));
+              req.url = fsUtil.ensurePosix(path.join(config.baseUrl || '/', LAZY_LOADING_SITE_FILE_NAME));
             }
             next();
           };

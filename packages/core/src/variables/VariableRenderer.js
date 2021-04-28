@@ -1,5 +1,4 @@
 const path = require('path');
-const ensurePosix = require('ensure-posix-path');
 
 require('../patches/nunjucks'); // load patch first
 const nunjucks = require('nunjucks');
@@ -7,6 +6,8 @@ const {
   dateFilter,
   SetExternalExtension,
 } = require('../lib/nunjucks-extensions');
+
+const fsUtil = require('../utils/fsUtil');
 
 const unescapedEnv = nunjucks.configure({ autoescape: false })
   .addFilter('date', dateFilter);
@@ -54,7 +55,7 @@ class VariableRenderer {
    */
   renderFile(contentFilePath, variables, pageSources) {
     this.pageSources = pageSources;
-    const templateName = ensurePosix(path.relative(this.siteRootPath, contentFilePath));
+    const templateName = fsUtil.ensurePosix(path.relative(this.siteRootPath, contentFilePath));
     return this.nj.render(templateName, variables);
   }
 

@@ -8,7 +8,7 @@ const Promise = require('bluebird');
 * @param wait the number of milliseconds to delay
 * @returns delayedFunc that takes in a single argument (either an array or a single value)
 */
-module.exports = function delay(func, wait) {
+function delay(func, wait) {
   let context;
   let pendingArgs = [];
   let runningPromise = Promise.resolve();
@@ -35,4 +35,8 @@ module.exports = function delay(func, wait) {
 
     return waitingPromise;
   };
+}
+
+module.exports = {
+  delay,
 };

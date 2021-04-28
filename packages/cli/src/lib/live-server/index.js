@@ -28,8 +28,8 @@ var fs = require('fs'),
   es = require("event-stream"),
   os = require('os'),
   chokidar = require('chokidar'),
-  // CHANGED: added MarkBind's core utils package
-  utils = require('@markbind/core/src/utils');
+  // CHANGED: added MarkBind's core fsUtil package
+  fsUtil = require('@markbind/core/src/utils/fsUtil');
 require('colors');
 
 // CHANGED: added absolute path that directs to the live-server directory
@@ -413,7 +413,7 @@ LiveServer.start = function(options) {
     }
 
     // Only reload active tabs if the changed file is opened in one of them
-    let normalizedPath = utils.ensurePosix(path.relative(root, changePath));
+    let normalizedPath = fsUtil.ensurePosix(path.relative(root, changePath));
     normalizedPath = path.posix.join('/', normalizedPath);
     if (LiveServer.activeTabs.some(tab => tab.client && tab.url === normalizedPath)) {
       LiveServer.sendMessageToActiveTabs('reload');

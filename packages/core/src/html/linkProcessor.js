@@ -2,9 +2,10 @@ const path = require('path');
 const lodashHas = require('lodash/has');
 const url = require('url');
 const ignore = require('ignore');
-const utils = require('../utils');
+
 const fsUtil = require('../utils/fsUtil');
 const logger = require('../utils/logger');
+const urlUtil = require('../utils/urlUtil');
 
 const { PluginManager } = require('../plugins/PluginManager');
 
@@ -32,7 +33,7 @@ function getDefaultTagsResourcePath(node) {
 }
 
 function getResourcePathFromRoot(rootPath, fullResourcePath) {
-  return utils.ensurePosix(path.relative(rootPath, fullResourcePath));
+  return fsUtil.ensurePosix(path.relative(rootPath, fullResourcePath));
 }
 
 function _convertRelativeLink(node, cwf, rootPath, baseUrl, resourcePath, linkAttribName) {
@@ -40,7 +41,7 @@ function _convertRelativeLink(node, cwf, rootPath, baseUrl, resourcePath, linkAt
     return;
   }
 
-  if (path.isAbsolute(resourcePath) || utils.isUrl(resourcePath) || resourcePath.startsWith('#')) {
+  if (path.isAbsolute(resourcePath) || urlUtil.isUrl(resourcePath) || resourcePath.startsWith('#')) {
     // Do not rewrite.
     return;
   }
@@ -90,7 +91,7 @@ function convertMdAndMbdExtToHtmlExt(node) {
 
     const { href } = node.attribs;
 
-    if (utils.isUrl(href)) {
+    if (urlUtil.isUrl(href)) {
       // Not intralink
       return;
     }
@@ -133,7 +134,7 @@ function isValidFileAsset(resourcePath, config) {
     return true;
   }
   const fullResourcePath = path.join(config.rootPath, relativeResourcePath);
-  return utils.fileExists(fullResourcePath);
+  return fsUtil.fileExists(fullResourcePath);
 }
 
 /**
@@ -155,14 +156,14 @@ function validateIntraLink(node, cwf, config) {
   }
 
   let resourcePath = getDefaultTagsResourcePath(node);
-  if (!resourcePath || utils.isUrl(resourcePath) || resourcePath.startsWith('#')) {
+  if (!resourcePath || urlUtil.isUrl(resourcePath) || resourcePath.startsWith('#')) {
     return 'Not Intralink';
   }
 
   const err = `You might have an invalid intra-link! Ignore this warning if it was intended.
 '${resourcePath}' found in file '${cwf}'`;
 
-  resourcePath = utils.stripBaseUrl(resourcePath, config.baseUrl);
+  resourcePath = urlUtil.stripBaseUrl(resourcePath, config.baseUrl);
 
   const resourcePathUrl = url.parse(resourcePath);
   if (resourcePathUrl.hash) {
@@ -232,11 +233,11 @@ function collectSource(node, rootPath, baseUrl, pageSources) {
     }
 
     const sourceFileLink = node.attribs[attrConfig.name];
-    if (!sourceFileLink || utils.isUrl(sourceFileLink)) {
+    if (!sourceFileLink || urlUtil.isUrl(sourceFileLink)) {
       return;
     }
 
-    const linkWithoutBaseUrl = utils.stripBaseUrl(sourceFileLink, baseUrl);
+    const linkWithoutBaseUrl = urlUtil.stripBaseUrl(sourceFileLink, baseUrl);
     const linkWithoutLeadingSlash = linkWithoutBaseUrl.startsWith('/')
       ? linkWithoutBaseUrl.substring(1)
       : linkWithoutBaseUrl;

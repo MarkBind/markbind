@@ -4,8 +4,8 @@ const cheerio = require('cheerio'); require('../patches/htmlparser2');
 
 const PLUGIN_OUTPUT_SITE_ASSET_FOLDER_NAME = 'plugins';
 
-const utils = require('../utils');
 const logger = require('../utils/logger');
+const urlUtil = require('../utils/urlUtil');
 
 /**
  * Wrapper class around a loaded plugin module
@@ -54,7 +54,7 @@ class Plugin {
     const el = $(`${tagName}[${attrName}]`);
 
     el.attr(attrName, (i, assetPath) => {
-      if (!assetPath || utils.isUrl(assetPath)) {
+      if (!assetPath || urlUtil.isUrl(assetPath)) {
         return assetPath;
       }
 
