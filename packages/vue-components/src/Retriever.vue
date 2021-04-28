@@ -41,28 +41,34 @@ export default {
       return toBoolean(this.delay);
     },
     // Vue 2.0 coerce migration end
+    hash() {
+      return getFragmentByHash(this.src) || this.fragment;
+    },
+    srcWithoutHash() {
+      return this.src.split('#')[0];
+    },
   },
   methods: {
     fetch() {
-      if (!this.src) {
+      if (!this.srcWithoutHash) {
         return;
       }
       if (this.hasFetchedCopy) {
         return;
       }
-      jQuery.get(this.src)
+      jQuery.get(this.srcWithoutHash)
         .done((response) => {
           let result = response;
-          if (this.fragment) {
+          if (this.hash) {
             const tempDom = jQuery('<temp>').append(jQuery.parseHTML(result));
-            const appContainer = jQuery(`#${this.fragment}`, tempDom);
+            const appContainer = jQuery(`#${this.hash}`, tempDom);
             result = appContainer.html();
           }
           this.hasFetchedCopy = true;
           // result is empty / undefined
-          if (result === undefined && this.fragment) {
-            this.$el.innerHTML
-                = `<strong>Error</strong>: Failed to retrieve page fragment: ${this.src}#${this.fragment}`;
+          if (result === undefined && this.hash) {
+            this.$el.innerHTML = '<strong>Error</strong>: Failed to retrieve page fragment:'
+                + ` ${this.srcWithoutHash}#${this.hash}`;
             return;
           }
 
@@ -87,23 +93,16 @@ export default {
         .fail((error) => {
           // eslint-disable-next-line no-console
           console.error(error.responseText);
-          this.$el.innerHTML
-              = `<strong>Error</strong>: Failed to retrieve content from source: <em>${this.src}</em>`;
+          this.$el.innerHTML = '<strong>Error</strong>: Failed to retrieve content from source: '
+              + `<em>${this.srcWithoutHash}</em>`;
           this.$emit('src-loaded');
         });
     },
   },
   mounted() {
     this.$nextTick(function () {
-      if (!this.src) {
+      if (!this.srcWithoutHash) {
         this.$el.innerHTML = '';
-      } else {
-        const hash = getFragmentByHash(this.src);
-        if (hash) {
-          this.fragment = hash;
-          // eslint-disable-next-line prefer-destructuring
-          this.src = this.src.split('#')[0];
-        }
       }
 
       if (!this.delayBool) {

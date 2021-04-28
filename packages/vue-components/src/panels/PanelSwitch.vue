@@ -29,16 +29,6 @@ export default {
       return toBoolean(this.isOpen);
     },
   },
-  methods: {
-    toggle() {
-      this.isOpen = !this.isOpenBool;
-    },
-  },
-  created() {
-    if (this.isOpen === null) {
-      this.isOpen = false;
-    }
-  },
 };
 </script>
 
