@@ -35,9 +35,10 @@ export default {
     },
   },
   mounted() {
-    if (document.getElementById('site-nav') !== null) {
+    const hasSiteNavComponent = document.getElementsByClassName('site-nav-root').length !== 0;
+    if (document.getElementById('site-nav') !== null && hasSiteNavComponent) {
       this.portalName = 'site-nav';
-    } else if (document.getElementsByClassName('site-nav-root').length !== 0) {
+    } else if (hasSiteNavComponent) {
       this.portalName = 'mb-site-nav';
     }
 
