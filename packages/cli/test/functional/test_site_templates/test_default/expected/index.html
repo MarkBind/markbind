@@ -48,13 +48,13 @@
       </navbar>
     </header>
     <div id="flex-body">
-      <nav id="site-nav" class="fixed-header-padding">
+      <overlay-source id="site-nav" class="fixed-header-padding" tag-name="nav" to="site-nav">
         <div class="site-nav-top">
           <div class="font-weight-bold mb-2" style="font-size: 1.25rem;">Template</div>
         </div>
         <div class="nav-component slim-scroll">
           <site-nav>
-            <ul class="site-nav-list site-nav-list-root">
+            <overlay-source class="site-nav-list site-nav-list-root" tag-name="ul" to="mb-site-nav">
               <li>
                 <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/index.html">Home 🏠</a></div>
               </li>
@@ -79,10 +79,10 @@
                   </li>
                 </ul>
               </li>
-            </ul>
+            </overlay-source>
           </site-nav>
         </div>
-      </nav>
+      </overlay-source>
       <div id="content-wrapper" class="fixed-header-padding">
 
         <br>
@@ -228,7 +228,7 @@
         <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>
-      <nav id="page-nav" class="fixed-header-padding">
+      <overlay-source id="page-nav" class="fixed-header-padding" tag-name="nav" to="page-nav">
         <div class="nav-component slim-scroll">
           <a class="navbar-brand page-nav-title" href="#">Chapters of This Page</a>
           <nav id="mb-page-nav" class="nav nav-pills flex-column my-0 small no-flex-wrap">
@@ -243,7 +243,7 @@
           </nav>
 
         </div>
-      </nav>
+      </overlay-source>
     </div>
     <footer>
 
