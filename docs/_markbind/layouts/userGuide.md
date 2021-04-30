@@ -2,6 +2,7 @@
 
 <div id="flex-body">
   <nav id="site-nav" class="fixed-header-padding">
+<panel header="To test interactivity">Expanding and closing should work</panel>
     <div class="site-nav-top">
       <div class="font-weight-bold mb-2" style="font-size: 1.25rem;">User Guide</div>
     </div>
