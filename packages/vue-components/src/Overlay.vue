@@ -33,6 +33,11 @@ export default {
       default: null,
     },
   },
+  inject: {
+    toggleLowerNavbar: {
+      default: undefined,
+    },
+  },
   data() {
     return {
       show: false,
@@ -56,6 +61,10 @@ export default {
     },
   },
   mounted() {
+    if (this.toggleLowerNavbar) {
+      this.toggleLowerNavbar();
+    }
+
     subscribe('closeOverlay', () => { this.show = false; });
   },
 };

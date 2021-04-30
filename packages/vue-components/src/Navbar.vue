@@ -70,6 +70,11 @@ export default {
       default: 'sibling-or-child',
     },
   },
+  provide() {
+    return {
+      toggleLowerNavbar: this.toggleLowerNavbar,
+    };
+  },
   data() {
     return {
       id: 'bs-example-navbar-collapse-1',
