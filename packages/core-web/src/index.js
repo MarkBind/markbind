@@ -49,7 +49,7 @@ function detectAndApplyFixedHeaderStyles() {
     top: calc(-${headerHeight}px - ${bufferHeight}rem)
     }`,
   );
-  insertCss(`span.card-container::before {
+  insertCss(`.card-container::before {
         display: block;
         content: '';
         margin-top: calc(-${headerHeight}px - ${bufferHeight}rem);
@@ -72,7 +72,7 @@ function detectAndApplyFixedHeaderStyles() {
         case 'span.anchor':
           rules[0].style.top = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
           break;
-        case 'span.card-container::before':
+        case '.card-container::before':
           rules[0].style.marginTop = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
           rules[0].style.height = `calc(${newHeaderHeight}px + ${bufferHeight}rem)`;
           break;
