@@ -7,51 +7,30 @@
       <slot name="navMenuIcon"></slot>
     </span>
     <div ref="navMenuContainer" :class="['nav-menu', { 'nav-menu-open': show }]">
-      <retriever
-        v-if="hasIdentifier"
-        :src="src"
-        :fragment="fragment"
-        @src-loaded="navMenuLoaded"
-      />
-      <div v-else ref="navigationMenu"></div>
+      <portal-target :name="portalName" multiple />
     </div>
   </div>
 </template>
 
 <script>
-import retriever from './Retriever.vue';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { PortalTarget } from 'portal-vue';
+
 import $ from './utils/NodeList';
 import { publish, subscribe } from './utils/pubsub';
 
 export default {
   components: {
-    retriever,
+    PortalTarget,
   },
   props: {
     type: {
       type: String,
       default: null,
     },
-    src: {
+    portalName: {
       type: String,
       default: null,
-    },
-    fragment: {
-      type: String,
-      default: null,
-    },
-    hasIdentifier: {
-      type: Boolean,
-      default: false,
-    },
-    getNavMenuContent: {
-      type: Function,
-      default: () => {},
-    },
-  },
-  inject: {
-    toggleLowerNavbar: {
-      default: undefined,
     },
   },
   data() {
@@ -65,32 +44,18 @@ export default {
         publish('closeOverlay');
         // to prevent scrolling of the body when overlay is overscrolled
         document.body.style.overflow = 'hidden';
+        this.show = true;
+
+        this.$nextTick(() => {
+          $(this.$refs.navMenuContainer).find('a').on('click', this.toggleNavMenu);
+        });
       } else {
         document.body.style.removeProperty('overflow');
+        this.show = false;
       }
-      this.show = !this.show;
-    },
-    navMenuLoaded() {
-      this.toggleLowerNavbar();
-      $(this.$refs.navMenuContainer).find('a').on('click', () => {
-        this.toggleNavMenu();
-      });
     },
   },
   mounted() {
-    const navMenu = this.$refs.navigationMenu;
-    const buildNav = (navMenuItems) => {
-      if (!navMenuItems) { return; }
-      for (let i = 0; i < navMenuItems.childNodes.length; i += 1) {
-        navMenu.appendChild(navMenuItems.childNodes[i].cloneNode(true));
-      }
-      this.navMenuLoaded();
-    };
-
-    if (!this.hasIdentifier) {
-      buildNav(this.getNavMenuContent());
-    }
-
     subscribe('closeOverlay', () => { this.show = false; });
   },
 };

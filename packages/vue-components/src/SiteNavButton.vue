@@ -2,10 +2,7 @@
   <overlay
     v-if="showSiteNav"
     type="siteNav"
-    fragment="site-nav"
-    :src="src"
-    :has-identifier="hasIdentifier"
-    :get-nav-menu-content="getSiteNavContent"
+    :portal-name="portalName"
   >
     <template #navMenuIcon>
       <span :class="['glyphicon', 'toggle-site-nav-button']"></span>
@@ -19,21 +16,16 @@ import $ from './utils/NodeList';
 export default {
   data() {
     return {
-      hasIdentifier: false,
-      hasSiteNav: false,
+      portalName: undefined,
       show: false,
-      src: '',
     };
   },
   computed: {
     showSiteNav() {
-      return this.show && this.hasSiteNav;
+      return this.show && this.portalName;
     },
   },
   methods: {
-    getSiteNavContent() {
-      return document.getElementsByClassName('site-nav-root')[0];
-    },
     toggleSiteNavButton() {
       if (window.innerWidth < 992) {
         this.show = true;
@@ -43,9 +35,12 @@ export default {
     },
   },
   mounted() {
-    this.src = window.location.pathname;
-    this.hasIdentifier = document.getElementById('site-nav') !== null;
-    this.hasSiteNav = document.getElementsByClassName('site-nav-root').length !== 0;
+    if (document.getElementById('site-nav') !== null) {
+      this.portalName = 'site-nav';
+    } else if (document.getElementsByClassName('site-nav-root').length !== 0) {
+      this.portalName = 'mb-site-nav';
+    }
+
     this.toggleSiteNavButton();
     $(window).on('resize', this.toggleSiteNavButton);
   },
