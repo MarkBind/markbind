@@ -7,10 +7,11 @@ _.has = require('lodash/has');
 _.isArray = require('lodash/isArray');
 _.isEmpty = require('lodash/isEmpty');
 
-const urlUtils = require('../utils/urls');
-const logger = require('../utils/logger');
 const VariableRenderer = require('./VariableRenderer');
 const { PageSources } = require('../Page/PageSources');
+
+const logger = require('../utils/logger');
+const urlUtil = require('../utils/urlUtil');
 
 const {
   ATTRIB_CWF,
@@ -131,8 +132,8 @@ class VariableProcessor {
    * @return {*} The appropriate (closest upwards) site variables map
    */
   getParentSiteVariables(contentFilePath) {
-    const parentSitePath = urlUtils.getParentSiteAbsolutePath(contentFilePath, this.rootPath,
-                                                              this.baseUrlMap);
+    const parentSitePath = urlUtil.getParentSiteAbsolutePath(contentFilePath, this.rootPath,
+                                                             this.baseUrlMap);
     return this.userDefinedVariablesMap[parentSitePath];
   }
 
@@ -150,8 +151,8 @@ class VariableProcessor {
    */
   renderWithSiteVariables(contentFilePath, pageSources, lowerPriorityVariables = {}) {
     const userDefinedVariables = this.getParentSiteVariables(contentFilePath);
-    const parentSitePath = urlUtils.getParentSiteAbsolutePath(contentFilePath, this.rootPath,
-                                                              this.baseUrlMap);
+    const parentSitePath = urlUtil.getParentSiteAbsolutePath(contentFilePath, this.rootPath,
+                                                             this.baseUrlMap);
 
     return this.variableRendererMap[parentSitePath].renderFile(contentFilePath, {
       ...lowerPriorityVariables,

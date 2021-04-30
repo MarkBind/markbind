@@ -1,12 +1,13 @@
 const cheerio = require('cheerio'); require('../patches/htmlparser2');
 const path = require('path');
 const url = require('url');
-const logger = require('../utils/logger');
 
+const { createErrorNode, createEmptyNode } = require('./elements');
 const { CyclicReferenceError } = require('../errors');
 
-const utils = require('../utils');
-const urlUtils = require('../utils/urls');
+const fsUtil = require('../utils/fsUtil');
+const logger = require('../utils/logger');
+const urlUtil = require('../utils/urlUtil');
 
 const _ = {};
 _.has = require('lodash/has');
@@ -21,9 +22,9 @@ _.isEmpty = require('lodash/isEmpty');
  * and whether this file is optional if not.
  */
 function _getFileExistsNode(element, context, actualFilePath, pageSources, isOptional = false) {
-  if (!utils.fileExists(actualFilePath)) {
+  if (!fsUtil.fileExists(actualFilePath)) {
     if (isOptional) {
-      return utils.createEmptyNode();
+      return createEmptyNode();
     }
 
     pageSources.missingIncludeSrc.push({
@@ -34,7 +35,7 @@ function _getFileExistsNode(element, context, actualFilePath, pageSources, isOpt
       `No such file: ${actualFilePath}\nMissing reference in ${context.cwf}`);
     logger.error(error);
 
-    return utils.createErrorNode(element, error);
+    return createErrorNode(element, error);
   }
 
   return false;
@@ -47,7 +48,7 @@ function _getBoilerplateFilePath(node, filePath, config) {
   if (isBoilerplate) {
     element.attribs.boilerplate = element.attribs.boilerplate || path.basename(filePath);
 
-    return urlUtils.calculateBoilerplateFilePath(element.attribs.boilerplate, filePath, config);
+    return urlUtil.calculateBoilerplateFilePath(element.attribs.boilerplate, filePath, config);
   }
 
   return undefined;
@@ -57,7 +58,7 @@ function _getBoilerplateFilePath(node, filePath, config) {
  * Retrieves several flags and file paths from the src attribute specified in the element.
  */
 function _getSrcFlagsAndFilePaths(element, config) {
-  const isUrl = utils.isUrl(element.attribs.src);
+  const isUrl = urlUtil.isUrl(element.attribs.src);
 
   // We do this even if the src is not a url to get the hash, if any
   const includeSrc = url.parse(element.attribs.src);
@@ -121,8 +122,8 @@ function processPanelSrc(node, context, pageSources, config) {
   }
 
   const { fragment } = node.attribs;
-  const relativePath = utils.setExtension(path.relative(config.rootPath, filePath), '._include_.html');
-  const fullResourcePath = path.posix.join(`${config.baseUrl}/`, utils.ensurePosix(relativePath));
+  const relativePath = fsUtil.setExtension(path.relative(config.rootPath, filePath), '._include_.html');
+  const fullResourcePath = path.posix.join(`${config.baseUrl}/`, fsUtil.ensurePosix(relativePath));
   node.attribs.src = fragment ? `${fullResourcePath}#${fragment}` : fullResourcePath;
 
   delete node.attribs.boilerplate;
@@ -166,7 +167,7 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
   if (_.isEmpty(node.attribs.src)) {
     const error = new Error(`Empty src attribute in include in: ${context.cwf}`);
     logger.error(error);
-    cheerio(node).replaceWith(utils.createErrorNode(node, error));
+    cheerio(node).replaceWith(createErrorNode(node, error));
   }
 
   const {
@@ -205,7 +206,7 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
   } = variableProcessor.renderIncludeFile(actualFilePath, pageSources, node, context, filePath);
 
   let actualContent = nunjucksProcessed;
-  if (utils.isMarkdownFileExt(utils.getExt(actualFilePath))) {
+  if (fsUtil.isMarkdownFileExt(path.extname(actualFilePath))) {
     actualContent = isInline
       ? renderMdInline(actualContent)
       : renderMd(actualContent);
@@ -225,7 +226,7 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
           + `Missing reference in ${context.cwf}`);
         logger.error(error);
 
-        actualContent = cheerio.html(utils.createErrorNode(node, error));
+        actualContent = cheerio.html(createErrorNode(node, error));
       }
     }
   }
@@ -245,7 +246,7 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
     if (childContext.hasExceededMaxCallstackSize()) {
       const error = new CyclicReferenceError(childContext.callStack);
       logger.error(error);
-      cheerio(node).replaceWith(utils.createErrorNode(node, error));
+      cheerio(node).replaceWith(createErrorNode(node, error));
     }
   }
 

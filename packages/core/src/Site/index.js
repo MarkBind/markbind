@@ -18,11 +18,11 @@ const { LayoutManager } = require('../Layout');
 const { PluginManager } = require('../plugins/PluginManager');
 const Template = require('../../template/template');
 
+const { sequentialAsyncForEach } = require('../utils/async');
+const { delay } = require('../utils/delay');
 const fsUtil = require('../utils/fsUtil');
-const delay = require('../utils/delay');
-const logger = require('../utils/logger');
-const utils = require('../utils');
 const gitUtil = require('../utils/git');
+const logger = require('../utils/logger');
 
 const {
   LAYOUT_DEFAULT_NAME,
@@ -169,13 +169,6 @@ class Site {
     }
   }
 
-  static setExtension(filename, ext) {
-    return path.join(
-      path.dirname(filename),
-      path.basename(filename, path.extname(filename)) + ext,
-    );
-  }
-
   /**
    * Static method for initializing a markbind site.
    * Generate the site.json and an index.md file.
@@ -235,7 +228,7 @@ class Site {
     if (this.currentOpenedPages.length > 0) {
       logger.info('Current opened pages, from most-to-least recent:');
       this.currentOpenedPages.forEach((pagePath, idx) => {
-        logger.info(`${idx + 1}. ${utils.ensurePosix(path.relative(this.rootPath, pagePath))}`);
+        logger.info(`${idx + 1}. ${fsUtil.ensurePosix(path.relative(this.rootPath, pagePath))}`);
       });
     } else {
       logger.info('No pages are currently opened');
@@ -285,7 +278,7 @@ class Site {
    */
   createPage(config) {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
-    const resultPath = path.join(this.outputPath, Site.setExtension(config.pageSrc, '.html'));
+    const resultPath = path.join(this.outputPath, fsUtil.setExtension(config.pageSrc, '.html'));
     const codeTheme = this.siteConfig.style.codeTheme || 'dark';
     const pageConfig = new PageConfig({
       asset: {
@@ -482,7 +475,7 @@ class Site {
     const newAddressablePagesSources = this.addressablePages.map(page => page.src);
 
     return _.difference(oldAddressablePagesSources, newAddressablePagesSources)
-      .map(filePath => Site.setExtension(filePath, '.html'));
+      .map(filePath => fsUtil.setExtension(filePath, '.html'));
   }
 
   getPageGlobPaths(page, pagesExclude) {
@@ -597,7 +590,7 @@ class Site {
        We retrieve the baseUrl of the (sub)site by appending the relative to the configured base url
        i.e. We ignore the configured baseUrl of the sub sites.
        */
-      const siteRelativePathFromRoot = utils.ensurePosix(path.relative(this.rootPath, base));
+      const siteRelativePathFromRoot = fsUtil.ensurePosix(path.relative(this.rootPath, base));
       const siteBaseUrl = siteRelativePathFromRoot === ''
         ? this.siteConfig.baseUrl
         : path.posix.join(this.siteConfig.baseUrl || '/', siteRelativePathFromRoot);
@@ -928,7 +921,7 @@ class Site {
 
     const addedPages = _.differenceWith(this.addressablePages, oldAddressablePages, isNewPage);
     const removedPages = _.differenceWith(oldAddressablePages, this.addressablePages, isNewPage)
-      .map(filePath => Site.setExtension(filePath.src, '.html'));
+      .map(filePath => fsUtil.setExtension(filePath.src, '.html'));
 
     // Checks if any attributes of site.json requiring a global rebuild are modified
     const isGlobalConfigModified = () => !_.isEqual(oldSiteConfig.faviconPath, this.siteConfig.faviconPath)
@@ -1008,7 +1001,7 @@ class Site {
    */
   isDependencyOfPage(filePath) {
     return this.pages.some(page => page.isDependency(filePath))
-      || utils.ensurePosix(filePath).endsWith(USER_VARIABLES_PATH);
+      || fsUtil.ensurePosix(filePath).endsWith(USER_VARIABLES_PATH);
   }
 
   /**
@@ -1018,7 +1011,7 @@ class Site {
    */
   isFilepathAPage(filePath) {
     const { pages, pagesExclude } = this.siteConfig;
-    const relativeFilePath = utils.ensurePosix(path.relative(this.rootPath, filePath));
+    const relativeFilePath = fsUtil.ensurePosix(path.relative(this.rootPath, filePath));
     const srcesFromPages = _.flatMap(pages.filter(page => page.src),
                                      page => (Array.isArray(page.src) ? page.src : [page.src]));
     if (srcesFromPages.includes(relativeFilePath)) {
@@ -1089,7 +1082,7 @@ class Site {
 
     const startTime = new Date();
     let isCompleted = true;
-    await utils.sequentialAsyncForEach(pageGenerationTasks, async (task) => {
+    await sequentialAsyncForEach(pageGenerationTasks, async (task) => {
       if (this.backgroundBuildMode && startTime < this.stopGenerationTimeThreshold) {
         logger.info('Page generation stopped');
         logger.debug('Page generation stopped at generation task queue');
@@ -1117,7 +1110,7 @@ class Site {
   async generatePagesSequential(pages, progressBar) {
     const startTime = new Date();
     let isCompleted = true;
-    await utils.sequentialAsyncForEach(pages, async (page) => {
+    await sequentialAsyncForEach(pages, async (page) => {
       if (this.backgroundBuildMode && startTime < this.stopGenerationTimeThreshold) {
         logger.info('Page generation stopped');
         logger.debug('Page generation stopped at sequential generation');

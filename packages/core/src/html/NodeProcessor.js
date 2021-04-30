@@ -1,3 +1,5 @@
+const path = require('path');
+
 const cheerio = require('cheerio');
 const htmlparser = require('htmlparser2'); require('../patches/htmlparser2');
 const fm = require('fastmatter');
@@ -26,8 +28,9 @@ const { MdAttributeRenderer } = require('./MdAttributeRenderer');
 const { shiftSlotNodeDeeper, transformOldSlotSyntax } = require('./vueSlotSyntaxProcessor');
 const { warnConflictingAtributesMap, warnDeprecatedAtributesMap } = require('./warnings');
 const { processScriptTag, processStyleTag } = require('./scriptAndStyleTagProcessor');
+const { createErrorNode } = require('./elements');
 
-const utils = require('../utils');
+const fsUtil = require('../utils/fsUtil');
 const logger = require('../utils/logger');
 
 const { FRONT_MATTER_FENCE } = require('../Page/constants');
@@ -326,7 +329,7 @@ class NodeProcessor {
           } catch (err) {
             err.message += `\nError while rendering '${file}'`;
             logger.error(err);
-            processed = utils.createErrorNode(d, err);
+            processed = createErrorNode(d, err);
           }
           return processed;
         });
@@ -336,12 +339,12 @@ class NodeProcessor {
         + this.footnoteProcessor.combineFootnotes(node => this.processNode(node)));
       });
       const parser = new htmlparser.Parser(handler);
-      const fileExt = utils.getExt(file);
-      if (utils.isMarkdownFileExt(fileExt)) {
+      const fileExt = path.extname(file);
+      if (fsUtil.isMarkdownFileExt(fileExt)) {
         const renderedContent = this.markdownProcessor.renderMd(content);
         // Wrap with <root> as $.remove() does not work on top level nodes
         parser.parseComplete(`<root>${renderedContent}</root>`);
-      } else if (fileExt === 'html') {
+      } else if (fileExt === '.html') {
         parser.parseComplete(`<root>${content}</root>`);
       } else {
         const error = new Error(`Unsupported File Extension: '${fileExt}'`);

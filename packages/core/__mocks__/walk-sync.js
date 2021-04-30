@@ -5,8 +5,9 @@
 const fs = require('fs-extra');
 
 var MatcherCollection = require('matcher-collection');
-var ensurePosix = require('ensure-posix-path');
 var path = require('path');
+
+const fsUtil = require('../src/utils/fsUtil');
 
 function handleOptions(_options) {
   var options = {};
@@ -50,7 +51,7 @@ function walkSync(baseDir, _options) {
 module.exports.entries = function entries(baseDir, _options) {
   var options = handleOptions(_options);
 
-  return _walkSync(ensurePosix(baseDir), options);
+  return _walkSync(fsUtil.ensurePosix(baseDir), options);
 };
 
 function _walkSync(baseDir, options, _relativePath) {

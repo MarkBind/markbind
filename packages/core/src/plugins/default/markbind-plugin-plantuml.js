@@ -6,13 +6,12 @@
 const cheerio = module.parent.require('cheerio');
 const fs = require('fs');
 const path = require('path');
-const ensurePosix = require('ensure-posix-path');
 const { exec } = require('child_process');
 const cryptoJS = require('crypto-js');
 
-const logger = require('../../utils/logger');
 const fsUtil = require('../../utils/fsUtil');
-const utils = require('../../utils');
+const logger = require('../../utils/logger');
+const urlUtil = require('../../utils/urlUtil');
 
 const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 
@@ -96,7 +95,7 @@ module.exports = {
     let pumlContent;
     let pathFromRootToImage;
     if (node.attribs.src) {
-      const srcWithoutBaseUrl = utils.stripBaseUrl(node.attribs.src, config.baseUrl);
+      const srcWithoutBaseUrl = urlUtil.stripBaseUrl(node.attribs.src, config.baseUrl);
       const srcWithoutLeadingSlash = srcWithoutBaseUrl.startsWith('/')
         ? srcWithoutBaseUrl.substring(1)
         : srcWithoutBaseUrl;
@@ -111,16 +110,16 @@ module.exports = {
       }
 
       pathFromRootToImage = fsUtil.setExtension(srcWithoutLeadingSlash, '.png');
-      node.attribs.src = ensurePosix(fsUtil.setExtension(node.attribs.src, '.png'));
+      node.attribs.src = fsUtil.ensurePosix(fsUtil.setExtension(node.attribs.src, '.png'));
     } else {
       pumlContent = cheerio(node).text();
 
       if (node.attribs.name) {
-        const nameWithoutBaseUrl = utils.stripBaseUrl(node.attribs.name, config.baseUrl);
+        const nameWithoutBaseUrl = urlUtil.stripBaseUrl(node.attribs.name, config.baseUrl);
         const nameWithoutLeadingSlash = nameWithoutBaseUrl.startsWith('/')
           ? nameWithoutBaseUrl.substring(1)
           : nameWithoutBaseUrl;
-        pathFromRootToImage = ensurePosix(fsUtil.setExtension(nameWithoutLeadingSlash, '.png'));
+        pathFromRootToImage = fsUtil.ensurePosix(fsUtil.setExtension(nameWithoutLeadingSlash, '.png'));
 
         delete node.attribs.name;
       } else {

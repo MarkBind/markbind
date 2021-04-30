@@ -15,7 +15,7 @@ const { CyclicReferenceError } = require('../errors');
 const { PageSources } = require('./PageSources');
 const { NodeProcessor } = require('../html/NodeProcessor');
 
-const utils = require('../utils');
+const fsUtil = require('../utils/fsUtil');
 const logger = require('../utils/logger');
 
 const PACKAGE_VERSION = require('../../package.json').version;
@@ -125,7 +125,7 @@ class Page {
     // construct temporary asset object with only POSIX-style paths
     const asset = {};
     Object.entries(this.asset).forEach(([key, value]) => {
-      asset[key] = _.isString(value) ? utils.ensurePosix(value) : value;
+      asset[key] = _.isString(value) ? fsUtil.ensurePosix(value) : value;
     });
     return {
       asset,

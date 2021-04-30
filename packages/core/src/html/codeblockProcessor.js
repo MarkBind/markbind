@@ -1,7 +1,7 @@
 const cheerio = require('cheerio');
 const lodashHas = require('lodash/has');
 const md = require('../lib/markdown-it');
-const utils = require('../lib/markdown-it/utils');
+const util = require('../lib/markdown-it/utils');
 
 /**
  * Traverses a line part and applies highlighting if necessary.
@@ -28,7 +28,7 @@ function traverseLinePart(node, hlStart, hlEnd) {
      * so to actually highlight this text, we have to ask to apply at its parent.
      */
 
-    const cleanedText = utils.unescapeHtml(node.data);
+    const cleanedText = util.unescapeHtml(node.data);
     const textLength = cleanedText.length;
     resData.numCharsTraversed = textLength;
 
@@ -93,7 +93,7 @@ function traverseLinePart(node, hlStart, hlEnd) {
       cheerio(child).wrap('<span class="highlighted"></span>');
     } else {
       const [start, end] = data.highlightRange;
-      const cleaned = utils.unescapeHtml(child.data);
+      const cleaned = util.unescapeHtml(child.data);
       const split = [cleaned.substring(0, start), cleaned.substring(start, end), cleaned.substring(end)];
       const [pre, highlighted, post] = split.map(md.utils.escapeHtml);
       const newElement = cheerio(`<span>${pre}<span class="highlighted">${highlighted}</span>${post}</span>`);

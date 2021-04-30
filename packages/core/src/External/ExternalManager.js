@@ -2,8 +2,8 @@ const path = require('path');
 
 const { External } = require('./External');
 
-const utils = require('../utils');
 const fsUtil = require('../utils/fsUtil');
+const urlUtil = require('../utils/urlUtil');
 
 const _ = {};
 _.uniqBy = require('lodash/uniqBy');
@@ -36,7 +36,7 @@ class ExternalManager {
     const resolvingExternals = [];
 
     _.uniqBy(dependencies, d => d.to).forEach((src) => {
-      if (utils.isUrl(src.to)) {
+      if (urlUtil.isUrl(src.to)) {
         return;
       }
 

@@ -58,8 +58,21 @@ function calculateBoilerplateFilePath(pathInBoilerplates, asIfAt, config) {
                       BOILERPLATE_FOLDER_NAME, pathInBoilerplates);
 }
 
+const isUrlRegex = new RegExp('^(?:[a-z]+:)?//', 'i');
+function isUrl(unknownPath) {
+  return isUrlRegex.test(unknownPath);
+}
+
+function stripBaseUrl(src, baseUrl) {
+  return src.startsWith(baseUrl)
+    ? src.substring(baseUrl.length)
+    : src;
+}
+
 module.exports = {
   getParentSiteAbsolutePath,
   getParentSiteAbsoluteAndRelativePaths,
   calculateBoilerplateFilePath,
+  isUrl,
+  stripBaseUrl,
 };
