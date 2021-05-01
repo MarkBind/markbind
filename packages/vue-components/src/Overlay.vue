@@ -2,7 +2,7 @@
   <div>
     <span
       :class="[{ 'nav-menu-close-icon': show }]"
-      @click="toggleNavMenu"
+      @click="toggleNavMenu(undefined)"
     >
       <slot name="navMenuIcon"></slot>
     </span>
@@ -47,8 +47,9 @@ export default {
     };
   },
   methods: {
-    toggleNavMenu(ev) {
-      if (ev.target.tagName.toLowerCase() === 'a' || this.show) {
+    toggleNavMenu(contentClickEvent) {
+      if ((contentClickEvent && contentClickEvent.target.tagName.toLowerCase() === 'a')
+          || (!contentClickEvent && this.show)) {
         document.body.style.removeProperty('overflow');
         this.show = false;
       } else {
