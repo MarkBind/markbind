@@ -78,11 +78,11 @@ function addOverlayPortalSource(node, to) {
 }
 
 /**
- * Wrap id="site/page-nav" with a <nav-portal> vue component.
+ * Wrap id="site/page-nav", and the <site-nav> component with a <nav-portal> vue component.
  * This component portals said element into the mobile navbar menus as needed.
  */
 function addSitePageNavPortal(node) {
-  if (node.attribs.id === 'site-nav' || node.attribs.id === 'page-nav' || node.attribs.id === 'mb-page-nav') {
+  if (node.attribs.id === 'site-nav' || node.attribs.id === 'page-nav') {
     addOverlayPortalSource(node, node.attribs.id);
   } else if (node.attribs['mb-site-nav']) {
     addOverlayPortalSource(node, 'mb-site-nav');
