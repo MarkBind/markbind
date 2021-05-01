@@ -195,4 +195,38 @@ By default, if the `lower-navbar` slot is not specified, the site and page navig
 Component | Description
 --- | ---
 `page-nav-button` | Pulls any element with an identifier, `id=page-nav` into the menu. If no such element exists, it pulls any [page navigation menu]({{ baseUrl }}/userGuide/usingComponents.html#page-navigation-menus) used in the layout.
-`site-nav-button` | Pulls any element with an identifier, `id=site-nav` into the menu. If no such element exists, it pulls all [site navigation menu components]({{ baseUrl }}/userGuide/usingComponents.html#site-navigation-menus) used in the layout.
+site-nav-button` | Pulls any element with an identifier, `id=site-nav` into the menu. If no such element exists, it pulls all [site navigation menu components]({{ baseUrl }}/userGuide/usingComponents.html#site-navigation-menus) used in the layout.
+
+****Styling the mobile page and site navigation menus****
+
+You may also wish to style your navigation content differently on mobile view.
+By default, MarkBind already provides some reasonable overrides for smaller screens, applied over any styles you might have for the mobile navigation content identified above.
+
+```css {.no-line-numbers heading="Css class attached to the root navigation element"}
+.mb-mobile-nav {
+    display: block !important;
+    margin: 0 !important;
+    border: none !important;
+    padding: 10px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+```
+
+If you require greater customisation, you may simply compose the respective selectors with the `.mb-mobile-nav` element.
+
+{{ icon_example }}
+
+```css {.no-line-numbers heading=""}
+#site-nav.mb-mobile-nav {
+  /* Be sure to add the !important css rule when overriding .mb-mobile-nav's properties! */
+  border: 1px solid black !important;
+  /* For other properties, there is no need. */
+  color: red;
+}
+```
+
+<box type="tip" seamless>
+
+Refer to the [layouts](../tweakingThePageStructure.md) section to find out how to add custom css files to a page!
+</box>
