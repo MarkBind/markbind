@@ -414,10 +414,16 @@ class Page {
       this.collectNavigableHeadings(content);
       const pageNavTitleHtml = this.generatePageNavTitleHtml();
       const pageNavHeadingHTML = this.generatePageNavHeadingHtml();
+      /*
+       Similar to siteAndPageNavProcessor#addSitePageNavPortal,
+       wrap the auto generated page nav with an overlay-source vue component for
+       portal-ing it into the mobile page nav.
+       */
       return `${pageNavTitleHtml}\n`
-          + `<nav id="${PAGE_NAV_ID}" class="nav nav-pills flex-column my-0 small no-flex-wrap">\n`
+          + `<overlay-source id="${PAGE_NAV_ID}" tag-name="nav" to="mb-page-nav"`
+            + ' class="nav nav-pills flex-column my-0 small no-flex-wrap">\n'
           + `${pageNavHeadingHTML}\n`
-          + '</nav>\n';
+          + '</overlay-source>\n';
     }
 
     return '';

@@ -28,6 +28,7 @@ function renderSiteNav(node) {
     const nestingLevel = $(ulElem).parents('ul').length;
     $(ulElem).addClass(SITE_NAV_LIST_CLASS);
     if (nestingLevel === 0) {
+      $(ulElem).attr('mb-site-nav', true);
       $(ulElem).addClass(SITE_NAV_LIST_CLASS_ROOT);
     }
     const listItemLevelClass = `${SITE_NAV_LIST_ITEM_CLASS}-${nestingLevel}`;
@@ -70,6 +71,26 @@ function renderSiteNav(node) {
   $original.append($('site-nav').children());
 }
 
+function addOverlayPortalSource(node, to) {
+  node.attribs['tag-name'] = node.name;
+  node.attribs.to = to;
+  node.name = 'overlay-source';
+}
+
+/**
+ * Wrap id="site/page-nav", and the <site-nav> component with a <nav-portal> vue component.
+ * This component portals said element into the mobile navbar menus as needed.
+ */
+function addSitePageNavPortal(node) {
+  if (node.attribs.id === 'site-nav' || node.attribs.id === 'page-nav') {
+    addOverlayPortalSource(node, node.attribs.id);
+  } else if (node.attribs['mb-site-nav']) {
+    addOverlayPortalSource(node, 'mb-site-nav');
+    delete node.attribs['mb-site-nav'];
+  }
+}
+
 module.exports = {
   renderSiteNav,
+  addSitePageNavPortal,
 };

@@ -11,7 +11,7 @@ _.cloneDeep = require('lodash/cloneDeep');
 _.has = require('lodash/has');
 _.find = require('lodash/find');
 
-const { renderSiteNav } = require('./siteNavProcessor');
+const { renderSiteNav, addSitePageNavPortal } = require('./siteAndPageNavProcessor');
 const { processInclude, processPanelSrc } = require('./includePanelProcessor');
 const { Context } = require('./Context');
 const linkProcessor = require('./linkProcessor');
@@ -299,6 +299,8 @@ class NodeProcessor {
     }
 
     this.postProcessNode(node);
+
+    addSitePageNavPortal(node);
 
     if (isHeadingTag && !node.attribs.id) {
       // do this one more time, in case the first one assigned a blank id
