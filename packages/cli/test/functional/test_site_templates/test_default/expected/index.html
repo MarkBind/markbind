@@ -231,7 +231,7 @@
       <overlay-source id="page-nav" class="fixed-header-padding" tag-name="nav" to="page-nav">
         <div class="nav-component slim-scroll">
           <a class="navbar-brand page-nav-title" href="#">Chapters of This Page</a>
-          <nav id="mb-page-nav" class="nav nav-pills flex-column my-0 small no-flex-wrap">
+          <overlay-source id="mb-page-nav" tag-name="nav" to="mb-page-nav" class="nav nav-pills flex-column my-0 small no-flex-wrap">
             <a class="nav-link py-1" href="#heading-1">Heading 1&#x200E;</a>
             <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
               <a class="nav-link py-1" href="#sub-heading-1-1">Sub Heading 1.1&#x200E;</a>
@@ -240,7 +240,7 @@
             <a class="nav-link py-1" href="#heading-2">Heading 2&#x200E;</a>
             <a class="nav-link py-1" href="#heading-3">Heading 3&#x200E;</a>
 
-          </nav>
+          </overlay-source>
 
         </div>
       </overlay-source>
