@@ -2,13 +2,7 @@
   <component :is="tagName" v-bind="$attrs">
     <slot></slot>
     <portal v-if="enablePortal" :to="to">
-      <component
-        :is="tagName"
-        v-bind="$attrs"
-        :class="[$vnode.data.staticClass || '', 'mobile-override']"
-      >
-        <slot></slot>
-      </component>
+      <slot></slot>
     </portal>
   </component>
 </template>
@@ -42,13 +36,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-    .mobile-override {
-        display: block !important;
-        margin: 0 !important;
-        padding: 10px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-</style>
