@@ -6,7 +6,11 @@
     >
       <slot name="navMenuIcon"></slot>
     </span>
-    <div ref="navMenuContainer" :class="['nav-menu', { 'nav-menu-open': show }]">
+    <div
+      ref="navMenuContainer"
+      :class="['nav-menu', { 'nav-menu-open': show }]"
+      @click="toggleNavMenu"
+    >
       <portal-target :name="portalName" multiple />
     </div>
   </div>
@@ -16,7 +20,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { PortalTarget } from 'portal-vue';
 
-import $ from './utils/NodeList';
 import { publish, subscribe } from './utils/pubsub';
 
 export default {
@@ -44,19 +47,15 @@ export default {
     };
   },
   methods: {
-    toggleNavMenu() {
-      if (!this.show) {
+    toggleNavMenu(ev) {
+      if (ev.target.tagName.toLowerCase() === 'a' || this.show) {
+        document.body.style.removeProperty('overflow');
+        this.show = false;
+      } else {
         publish('closeOverlay');
         // to prevent scrolling of the body when overlay is overscrolled
         document.body.style.overflow = 'hidden';
         this.show = true;
-
-        this.$nextTick(() => {
-          $(this.$refs.navMenuContainer).find('a').on('click', this.toggleNavMenu);
-        });
-      } else {
-        document.body.style.removeProperty('overflow');
-        this.show = false;
       }
     },
   },
