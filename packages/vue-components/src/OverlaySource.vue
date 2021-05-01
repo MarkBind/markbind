@@ -2,7 +2,13 @@
   <component :is="tagName" v-bind="$attrs">
     <slot></slot>
     <portal v-if="enablePortal" :to="to">
-      <slot></slot>
+      <component
+        :is="tagName"
+        v-bind="$attrs"
+        :class="$vnode.data.staticClass || ''"
+      >
+        <slot></slot>
+      </component>
     </portal>
   </component>
 </template>
