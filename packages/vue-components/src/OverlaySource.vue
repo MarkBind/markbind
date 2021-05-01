@@ -5,7 +5,7 @@
       <component
         :is="tagName"
         v-bind="$attrs"
-        :class="$vnode.data.staticClass || ''"
+        :class="[$vnode.data.staticClass || '', 'override']"
       >
         <slot></slot>
       </component>
@@ -42,3 +42,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+    .override {
+        display: block !important;
+        margin: 0 !important;
+        padding: 10px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+</style>
