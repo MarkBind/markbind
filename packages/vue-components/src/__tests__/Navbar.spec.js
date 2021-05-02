@@ -89,3 +89,59 @@ describe('Navbar and secondary navbar', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 });
+
+describe('Mobile nav buttons test:', () => {
+  beforeEach(() => {
+    const rootDiv = document.createElement('div');
+    const navbarDiv = document.createElement('div');
+    const navContentDiv = document.createElement('div');
+
+    rootDiv.id = 'root';
+    navbarDiv.id = 'navbarTarget';
+    navContentDiv.id = 'navContentTarget';
+
+    rootDiv.appendChild(navbarDiv);
+    rootDiv.appendChild(navContentDiv);
+    document.body.appendChild(rootDiv);
+  });
+
+  afterEach(() => {
+    document.body.removeChild(document.getElementById('root'));
+  });
+
+  test.each([
+    // Should not show up
+    ['<div id="site-nav">no link here</div>', SITE_NAV_BUTTON, SiteNavButton, undefined],
+    ['<div class="site-nav-root">no link here</div>', SITE_NAV_BUTTON, SiteNavButton, undefined],
+    ['<div id="page-nav">no link here</div>', PAGE_NAV_BUTTON, PageNavButton, undefined],
+    ['<div id="mb-site-nav">no link here</div>', PAGE_NAV_BUTTON, PageNavButton, undefined],
+    // Should show up
+    ['<div id="site-nav"><a href="x">dummy</a></div>', SITE_NAV_BUTTON, SiteNavButton, 'site-nav'],
+    ['<div class="site-nav-root"><a href="x">dummy</a></div>', SITE_NAV_BUTTON, SiteNavButton, 'mb-site-nav'],
+    ['<div id="page-nav"><a href="x">dummy</a></div>', PAGE_NAV_BUTTON, PageNavButton, 'page-nav'],
+    ['<div id="mb-page-nav"><a href="x">dummy</a></div>', PAGE_NAV_BUTTON, PageNavButton, 'mb-page-nav'],
+  ])('Nav buttons set the portal name accordingly if the respective selectors are not found.',
+     async (navContent, lowerNavbarSlot, NavComponent, portalName) => {
+       document.getElementById('navContentTarget').innerHTML = navContent;
+
+       const wrapper = mount(Navbar, {
+         attachTo: '#navbarTarget',
+         slots: {
+           brand: NAVBAR_BRAND,
+           default: NAVBAR_CONTENT,
+           'lower-navbar': lowerNavbarSlot,
+         },
+         stubs: {
+           ...DEFAULT_STUBS,
+           'overlay': true,
+         },
+       });
+
+       const navComponent = wrapper.findComponent(NavComponent);
+       expect(navComponent.exists()).toBe(true);
+
+       expect(navComponent.vm.portalName).toBe(portalName);
+
+       wrapper.destroy();
+     });
+});

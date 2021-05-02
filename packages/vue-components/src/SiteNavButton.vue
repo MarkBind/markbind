@@ -35,10 +35,9 @@ export default {
     },
   },
   mounted() {
-    const hasSiteNavComponent = document.getElementsByClassName('site-nav-root').length !== 0;
-    if (document.getElementById('site-nav') !== null && hasSiteNavComponent) {
+    if (document.querySelector('#site-nav a') !== null) {
       this.portalName = 'site-nav';
-    } else if (hasSiteNavComponent) {
+    } else if (document.querySelector('.site-nav-root a') !== null) {
       this.portalName = 'mb-site-nav';
     }
 
