@@ -195,7 +195,7 @@ By default, if the `lower-navbar` slot is not specified, the site and page navig
 Component | Description
 --- | ---
 `page-nav-button` | Pulls any element with an identifier, `id=page-nav` into the menu. If no such element exists, it pulls any [page navigation menu]({{ baseUrl }}/userGuide/usingComponents.html#page-navigation-menus) used in the layout.
-site-nav-button` | Pulls any element with an identifier, `id=site-nav` into the menu. If no such element exists, it pulls all [site navigation menu components]({{ baseUrl }}/userGuide/usingComponents.html#site-navigation-menus) used in the layout.
+`site-nav-button` | Pulls any element with an identifier, `id=site-nav` into the menu. If no such element exists, it pulls all [site navigation menu components]({{ baseUrl }}/userGuide/usingComponents.html#site-navigation-menus) used in the layout.
 
 ****Styling the mobile page and site navigation menus****
 
