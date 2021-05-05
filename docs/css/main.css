@@ -48,6 +48,7 @@ mark {
 #flex-body {
     display: flex;
     flex: 1;
+    align-items: start;
 }
 
 #content-wrapper {
@@ -91,11 +92,11 @@ mark {
 
 #page-nav {
     display: block;
+    border-left: 1px solid lightgrey;
     max-height: 90vh;
 }
 
 #page-nav .nav-component {
-    border-left: 1px solid lightgrey;
     max-height: 90vh;
 }
 

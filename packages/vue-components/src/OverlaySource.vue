@@ -2,7 +2,14 @@
   <component :is="tagName" v-bind="$attrs">
     <slot></slot>
     <portal v-if="enablePortal" :to="to">
-      <slot></slot>
+      <component
+        :is="tagName"
+        v-bind="$attrs"
+        :class="[$vnode.data.staticClass || '', 'mb-mobile-nav']"
+        :style="$vnode.data.staticStyle"
+      >
+        <slot></slot>
+      </component>
     </portal>
   </component>
 </template>
@@ -36,3 +43,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+    .mb-mobile-nav {
+        display: block !important;
+        margin: 0 !important;
+        border: none !important;
+        padding: 10px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+</style>
