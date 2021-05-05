@@ -8,7 +8,7 @@ import './styles/index.css';
 
 const { MarkBindVue, appFactory } = vueCommonAppFactory;
 
-Vue.use(MarkBindVue);
+Vue.use(MarkBindVue.plugin);
 
 function scrollToUrlAnchorHeading() {
   if (window.location.hash) {

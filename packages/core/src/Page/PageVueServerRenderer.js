@@ -1,3 +1,4 @@
+const Vue = require('vue');
 const path = require('path');
 const fs = require('fs-extra');
 
@@ -6,7 +7,6 @@ const { renderToString } = require('vue-server-renderer').createRenderer();
 
 let bundle = require('@markbind/core-web/dist/js/vueCommonAppFactory.min');
 
-const createLocalVue = require('./createLocalVue');
 const logger = require('../utils/logger');
 
 const vueRenderEscapeChars = {
@@ -64,19 +64,15 @@ async function compileVuePageAndCreateScript(content, pageConfig, pageAsset) {
 async function renderVuePage(compiledVuePage) {
   const { MarkBindVue, appFactory } = bundle;
 
-  /*
-   * Each installation of plugin pollutes the global scope of Vue.
-   * Thus, we use a fresh copy of Vue each time we install MarkBindVue to prevent the global pollution.
-   * This prevents the old plugin from affecting the new plugin installation (in development mode).
-   */
-  const LocalVue = createLocalVue();
-  LocalVue.use(MarkBindVue);
+  const { components, directives } = MarkBindVue;
 
-  const VueAppPage = new LocalVue({
+  const VueAppPage = new Vue({
     render(createElement) {
       return compiledVuePage.render.call(this, createElement);
     },
     staticRenderFns: compiledVuePage.staticRenderFns,
+    components,
+    directives,
     ...appFactory(),
   });
 
