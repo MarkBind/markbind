@@ -48,6 +48,7 @@ mark {
 #flex-body {
     display: flex;
     flex: 1;
+    align-items: start;
 }
 
 #content-wrapper {
