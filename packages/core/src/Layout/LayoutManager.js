@@ -57,7 +57,7 @@ class LayoutManager {
       return false;
     }
 
-    return this.layouts[name] && this.layouts[name].hasPageNav;
+    return this.layouts[name] && this.layouts[name].layoutPageNavUuid;
   }
 
   combineLayoutWithPage(name, pageContent, pageNav, pageIncludedFiles) {
