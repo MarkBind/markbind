@@ -1,9 +1,12 @@
 // Components and directives from bootstrap-vue
 /* eslint-disable import/no-extraneous-dependencies */
 import {
-  ModalPlugin,
-  PopoverPlugin,
-  TooltipPlugin,
+  BModal,
+  BPopover,
+  BTooltip,
+  VBModal,
+  VBPopover,
+  VBTooltip,
 } from 'bootstrap-vue';
 /* eslint-enable import/no-extraneous-dependencies */
 
@@ -54,10 +57,16 @@ const components = {
   pageNavButton,
   overlay,
   overlaySource,
+  BModal,
+  BPopover,
+  BTooltip,
 };
 
 const directives = {
   closeable,
+  'b-modal': VBModal,
+  'b-popover': VBPopover,
+  'b-tooltip': VBTooltip,
 };
 
 function install(Vue) {
@@ -67,11 +76,12 @@ function install(Vue) {
   Object.keys(components).forEach((key) => {
     Vue.component(key, components[key]);
   });
-  Vue.use(ModalPlugin);
-  Vue.use(PopoverPlugin);
-  Vue.use(TooltipPlugin);
 }
 
-const MarkBindVue = { install };
+const plugin = { install };
 
-export default MarkBindVue;
+export default {
+  plugin,
+  components,
+  directives,
+};
