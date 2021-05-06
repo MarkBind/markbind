@@ -1,5 +1,9 @@
 /* Page navigation */
 
+#mb-page-nav {
+    padding: 0.8rem 12px 0 12px;
+}
+
 #mb-page-nav a:link,
 #mb-page-nav a:visited {
     color: #9b9b9b;
