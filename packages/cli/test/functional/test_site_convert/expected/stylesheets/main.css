@@ -81,12 +81,11 @@ mark {
 }
 
 .site-nav-top {
-    margin-top: 0.8rem;
+    margin: 0.8rem 0;
     padding: 0 12px 12px 12px;
 }
 
 .nav-component {
-    padding: 0.8rem 12px 0 12px;
     overflow-y: auto;
 }
 

@@ -46,10 +46,6 @@ export default {
         padding-left: 0;
     }
 
-    .site-nav-list-root {
-        margin: 0 -12px;
-    }
-
     .site-nav-default-list-item {
         display: flex;
         padding: 0.5rem 0 0 2.8rem;
