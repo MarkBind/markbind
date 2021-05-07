@@ -21,7 +21,7 @@ class Layout {
     this.headTop = [];
     this.headBottom = [];
     this.scriptBottom = [];
-    this.layoutUserScripts = [];
+    this.layoutUserScriptsAndStyles = [];
 
     this.generatePromise = undefined;
   }
@@ -41,7 +41,7 @@ class Layout {
       const fileConfig = {
         ...this.config,
         headerIdMap: {},
-        layoutUserScripts: this.layoutUserScripts,
+        layoutUserScriptsAndStyles: this.layoutUserScriptsAndStyles,
       };
       pageSources = new PageSources();
       this.layoutPageBodyVariable = `{{${uuidv4()}-${uuidv4()}}}`;
@@ -102,7 +102,7 @@ class Layout {
       headTop: this.headTop,
       headBottom: this.headBottom,
       scriptBottom: this.scriptBottom,
-      layoutUserScripts: this.layoutUserScripts,
+      layoutUserScriptsAndStyles: this.layoutUserScriptsAndStyles,
     };
   }
 }

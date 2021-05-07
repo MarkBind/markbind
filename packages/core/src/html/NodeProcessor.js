@@ -27,7 +27,7 @@ const {
 const { MdAttributeRenderer } = require('./MdAttributeRenderer');
 const { shiftSlotNodeDeeper, transformOldSlotSyntax } = require('./vueSlotSyntaxProcessor');
 const { warnConflictingAtributesMap, warnDeprecatedAtributesMap } = require('./warnings');
-const { processScriptTag, processStyleTag } = require('./scriptAndStyleTagProcessor');
+const { processScriptAndStyleTag } = require('./scriptAndStyleTagProcessor');
 const { createErrorNode } = require('./elements');
 
 const fsUtil = require('../utils/fsUtil');
@@ -191,11 +191,9 @@ class NodeProcessor {
         this.footnoteProcessor.processMbTempFootnotes(node);
         break;
       case 'script':
-        processScriptTag(node, this.docId === 'layout'
-          ? this.config.layoutUserScripts : this.config.userScripts);
-        break;
       case 'style':
-        processStyleTag(node);
+        processScriptAndStyleTag(node, this.docId === 'layout'
+          ? this.config.layoutUserScriptsAndStyles : this.config.userScriptsAndStyles);
         break;
       case 'code':
       case 'annotation': // Annotations are added automatically by KaTeX when rendering math formulae.
