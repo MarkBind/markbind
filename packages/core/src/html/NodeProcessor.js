@@ -193,7 +193,7 @@ class NodeProcessor {
       case 'script':
       case 'style':
         processScriptAndStyleTag(node, this.docId === 'layout'
-          ? this.config.layoutUserScriptsAndStyles : this.config.userScriptsAndStyles);
+          ? this.config.layoutUserScriptsAndStyles : this.config.pageUserScriptsAndStyles);
         break;
       case 'code':
       case 'annotation': // Annotations are added automatically by KaTeX when rendering math formulae.
