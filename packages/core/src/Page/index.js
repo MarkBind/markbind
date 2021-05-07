@@ -57,7 +57,7 @@ class Page {
      */
     this.asset = _.cloneDeep(this.pageConfig.asset);
     /**
-     * To collect all the user provided scripts
+     * To collect all the user provided scripts and/or style content.
      * @type {Array}
      */
     this.userScriptsAndStyles = [];
