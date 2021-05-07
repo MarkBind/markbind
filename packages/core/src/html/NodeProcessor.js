@@ -44,6 +44,7 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 class NodeProcessor {
   constructor(config, pageSources, variableProcessor, pluginManager, docId = '') {
     this.config = config;
+    this.docId = docId;
     this.frontMatter = {};
 
     this.headTop = [];
@@ -190,7 +191,8 @@ class NodeProcessor {
         this.footnoteProcessor.processMbTempFootnotes(node);
         break;
       case 'script':
-        processScriptTag(node);
+        processScriptTag(node, this.docId === 'layout'
+          ? this.config.layoutUserScripts : this.config.userScripts);
         break;
       case 'style':
         processStyleTag(node);

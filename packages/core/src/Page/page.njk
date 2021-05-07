@@ -41,6 +41,8 @@
 <body {% if hasPageNav %} data-spy="scroll" data-target="#mb-page-nav" data-offset="100" {% endif %}>
 {{ content }}
 </body>
+{{ userScripts }}
+{{ layoutUserScripts }}
 <script src="{{ asset.bootstrapUtilityJs }}"></script>
 <script>
   {% if enableSearch %}MarkBind.setupWithSearch(){% else %}MarkBind.setup(){% endif %}

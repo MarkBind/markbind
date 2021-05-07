@@ -57,6 +57,11 @@ class Page {
      */
     this.asset = _.cloneDeep(this.pageConfig.asset);
     /**
+     * To collect all the user provided scripts
+     * @type {Array}
+     */
+    this.userScripts = [];
+    /**
      * The pure frontMatter of the page as collected in {@link collectFrontMatter}.
      * https://markbind.org/userGuide/tweakingThePageStructure.html#front-matter
      * @type {Object<string, any>}
@@ -131,6 +136,8 @@ class Page {
       asset,
       baseUrl: this.pageConfig.baseUrl,
       content,
+      userScripts: this.userScripts.join('\n'),
+      layoutUserScripts: this.asset.layoutUserScripts.join('\n'),
       hasPageNav,
       dev: this.pageConfig.dev,
       faviconUrl: this.pageConfig.faviconUrl,
@@ -451,6 +458,7 @@ class Page {
       ignore: this.pageConfig.ignore,
       addressablePagesSource: this.pageConfig.addressablePagesSource,
       intrasiteLinkValidation: this.pageConfig.intrasiteLinkValidation,
+      userScripts: this.userScripts,
     };
 
     const { variableProcessor, layoutManager, pluginManager } = this.pageConfig;

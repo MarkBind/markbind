@@ -1,15 +1,19 @@
+const cheerio = require('cheerio');
+
 /**
- * Adds attribute "type=application/javascript" to <script> tag.
- *
- * This is necessary because we are pre-compiling each page as a Vue application,
- * where the Vue compilation ignores and discards the <script> tag.
- *
- * By having this attribute, the compilation will ignore the <script> tag but not discard it.
+ * Removes every script node (written by the user) encountered in the main app,
+ * and records all these script nodes in an array so that they can be hoisted
+ * to after <body> tag at a later stage.
  *
  * @param {Object<any, any>} node from the dom traversal
  */
-function processScriptTag(node) {
-  node.attribs.type = 'application/javascript';
+function processScriptTag(node, userScripts) {
+  const idx = node.parent.children.indexOf(node);
+  if (idx !== -1) {
+    node.parent.children.splice(idx, 1);
+  }
+  node.parent = null;
+  userScripts.push(cheerio.html(node));
 }
 
 /**
