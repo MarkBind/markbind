@@ -44,7 +44,6 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 class NodeProcessor {
   constructor(config, pageSources, variableProcessor, pluginManager, userScriptsAndStyles, docId = '') {
     this.config = config;
-    this.docId = docId;
     this.frontMatter = {};
 
     this.headTop = [];
