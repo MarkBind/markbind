@@ -42,7 +42,7 @@ const {
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 class NodeProcessor {
-  constructor(config, pageSources, variableProcessor, pluginManager, docId = '') {
+  constructor(config, pageSources, variableProcessor, pluginManager, userScriptsAndStyles, docId = '') {
     this.config = config;
     this.docId = docId;
     this.frontMatter = {};
@@ -50,6 +50,7 @@ class NodeProcessor {
     this.headTop = [];
     this.headBottom = [];
     this.scriptBottom = [];
+    this.userScriptsAndStyles = userScriptsAndStyles;
 
     this.pageSources = pageSources;
     this.variableProcessor = variableProcessor;
@@ -192,8 +193,7 @@ class NodeProcessor {
         break;
       case 'script':
       case 'style':
-        processScriptAndStyleTag(node, this.docId === 'layout'
-          ? this.config.layoutUserScriptsAndStyles : this.config.pageUserScriptsAndStyles);
+        processScriptAndStyleTag(node, this.userScriptsAndStyles);
         break;
       case 'code':
       case 'annotation': // Annotations are added automatically by KaTeX when rendering math formulae.
