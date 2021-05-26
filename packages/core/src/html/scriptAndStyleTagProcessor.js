@@ -10,6 +10,11 @@ const cheerio = require('cheerio');
  * @param {Object<any, any>} node from the dom traversal
  */
 function processScriptAndStyleTag(node, userScriptsAndStyles) {
+  if (node.parent.name === 'head-top'
+  || node.parent.name === 'head-bottom' || node.parent.name === 'script-bottom') {
+    return;
+  }
+
   const idx = node.parent.children.indexOf(node);
   if (idx !== -1) {
     node.parent.children.splice(idx, 1);
