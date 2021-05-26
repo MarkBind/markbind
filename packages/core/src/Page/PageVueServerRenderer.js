@@ -69,9 +69,7 @@ async function renderVuePage(compiledVuePage) {
     ...appFactory(),
   });
 
-  const renderedContent = await renderToString(VueAppPage);
-
-  return renderedContent;
+  return renderToString(VueAppPage);
 }
 
 /**
