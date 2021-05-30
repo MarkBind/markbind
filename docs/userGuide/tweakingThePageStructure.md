@@ -187,4 +187,4 @@ If you are not sure where to put the `fixed-header-padding` attribute, you may a
 </include>
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('usingPlugins', 'reusingContents') }}
+{{ previous_next('usingHtmlJavaScriptCss', 'reusingContents') }}
