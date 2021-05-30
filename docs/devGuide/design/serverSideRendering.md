@@ -11,10 +11,35 @@
 
 <div class="lead">
 
-MarkBind makes use of server-side rendering (SSR) for its pages. To ensure SSR works properly, there are certain rules that developers should adhere to. 
+MarkBind makes use of server-side rendering (SSR) for its pages. 
+
+To ensure SSR works properly, there are certain rules that developers should adhere to. 
 
 This page will describe SSR in general and elaborate on the things that developers should take note of when developing. 
 </div>
+
+## Pre-requisite Knowledge
+
+To deal with SSR, it is important to first have a good understanding of two things: 1) Vue, 2) MarkBind's Packages. 
+
+### Understanding Vue
+
+Here are some things that you should have some knowledge of:
+- What is a Vue instance?
+- What does it mean to compile Vue?
+- What are render functions?
+- Are there any differences between compiling Vue on client-side versus server-side?
+- What is the difference between compiling and rendering?
+
+### MarkBind's Packages
+
+There are four packages in MarkBind's codebase:
+1. cli
+2. core
+3. core-web
+4. vue-components
+
+You may refer to MarkBind's [project structure](projectStructure.md) to get a better understanding of how the packages work together.
 
 ## What is Server-side Rendering and Why?
 
@@ -30,6 +55,14 @@ During the hydration process, Vue essentially `diff`s your SSR HTML markup again
 
 This is known as "Hydration Issue" and it is one of the main challenges you will face with SSR in MarkBind. 
 
+## Penalties of Hydration Issue
+
+When hydration fails, on top of the wasted time and effort in executing SSR, we will also incur the additional time penalty of executing Client-side Hydration (where CSR will follow afterwards).
+
+Fortunately, even if we face hydration issues and execute full CSR, the FOUC problem will still be resolved nonetheless. The reason for this is because the SSR HTML markup should resemble the CSR HTML markup to a large extent.
+
+Supposedly, hydration issues typically occurs due to minor differences between client-side rendered virtual DOM tree and the server-rendered content. Of course, this is assuming that we are adhering to the universal application concept as much as possible.
+
 ## Avoiding Hydration Issue 
 
 Conceptually, to prevent hydration issue, what we should always strive to achieve is a "universal application". 
@@ -42,7 +75,3 @@ However, beyond achieving a "universal application", there are also some more sp
 - Having unknown HTML elements within our Vue application during compilation/rendering (though this can be easily resolved by adding `v-pre` to the unknown element, so that Vue will ignore that element during compilation). 
 
 Note that the list only included the common causes of hydration issue that MarkBind developers have ran into. There may be other causes of hydration issue that are not listed here (although unlikely).
-
-## Learning more about SSR in MarkBind and Debugging Hydration Issue
-
-
