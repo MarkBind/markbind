@@ -7,14 +7,16 @@ const cheerio = require('cheerio');
  *
  * This is to prevent Vue compilation of script/style tags (as they are not meant to be compiled).
  *
- * @param {Object<any, any>} node from the dom traversal
+ * @param node {Object<any, any>} node from the dom traversal
+ * @param userScriptsAndStyles {array} to store scripts and style tags for hoisting
  */
 function processScriptAndStyleTag(node, userScriptsAndStyles) {
-  // Do not process script tags that are meant to be inserted in head/bottom of HTML
-  const isHeadOrBottomScript = node.parent.name === 'head-top'
+  // Do not process script/style tags that are meant to be inserted in head/bottom of HTML
+  const isHeadOrBottom = node.parent.name === 'head-top'
     || node.parent.name === 'head-bottom' || node.parent.name === 'script-bottom';
+  // Do not process script/style tags that are from External
   const isExternal = userScriptsAndStyles === undefined;
-  if (isHeadOrBottomScript || isExternal) {
+  if (isHeadOrBottom || isExternal) {
     return;
   }
 
