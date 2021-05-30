@@ -57,6 +57,11 @@ class Page {
      */
     this.asset = _.cloneDeep(this.pageConfig.asset);
     /**
+     * To collect all the user provided scripts and/or style content.
+     * @type {Array}
+     */
+    this.pageUserScriptsAndStyles = [];
+    /**
      * The pure frontMatter of the page as collected in {@link collectFrontMatter}.
      * https://markbind.org/userGuide/tweakingThePageStructure.html#front-matter
      * @type {Object<string, any>}
@@ -131,6 +136,8 @@ class Page {
       asset,
       baseUrl: this.pageConfig.baseUrl,
       content,
+      pageUserScriptsAndStyles: this.pageUserScriptsAndStyles.join('\n'),
+      layoutUserScriptsAndStyles: this.asset.layoutUserScriptsAndStyles.join('\n'),
       hasPageNav,
       dev: this.pageConfig.dev,
       faviconUrl: this.pageConfig.faviconUrl,
@@ -456,7 +463,8 @@ class Page {
     const { variableProcessor, layoutManager, pluginManager } = this.pageConfig;
 
     const pageSources = new PageSources();
-    const nodeProcessor = new NodeProcessor(fileConfig, pageSources, variableProcessor, pluginManager);
+    const nodeProcessor = new NodeProcessor(fileConfig, pageSources, variableProcessor,
+                                            pluginManager, this.pageUserScriptsAndStyles);
 
     let content = variableProcessor.renderWithSiteVariables(this.pageConfig.sourcePath, pageSources);
     content = await nodeProcessor.process(this.pageConfig.sourcePath, content);

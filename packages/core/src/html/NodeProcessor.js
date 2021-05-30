@@ -27,7 +27,7 @@ const {
 const { MdAttributeRenderer } = require('./MdAttributeRenderer');
 const { shiftSlotNodeDeeper, transformOldSlotSyntax } = require('./vueSlotSyntaxProcessor');
 const { warnConflictingAtributesMap, warnDeprecatedAtributesMap } = require('./warnings');
-const { processScriptTag, processStyleTag } = require('./scriptAndStyleTagProcessor');
+const { processScriptAndStyleTag } = require('./scriptAndStyleTagProcessor');
 const { createErrorNode } = require('./elements');
 
 const fsUtil = require('../utils/fsUtil');
@@ -42,13 +42,14 @@ const {
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 class NodeProcessor {
-  constructor(config, pageSources, variableProcessor, pluginManager, docId = '') {
+  constructor(config, pageSources, variableProcessor, pluginManager, userScriptsAndStyles, docId = '') {
     this.config = config;
     this.frontMatter = {};
 
     this.headTop = [];
     this.headBottom = [];
     this.scriptBottom = [];
+    this.userScriptsAndStyles = userScriptsAndStyles;
 
     this.pageSources = pageSources;
     this.variableProcessor = variableProcessor;
@@ -190,10 +191,8 @@ class NodeProcessor {
         this.footnoteProcessor.processMbTempFootnotes(node);
         break;
       case 'script':
-        processScriptTag(node);
-        break;
       case 'style':
-        processStyleTag(node);
+        processScriptAndStyleTag(node, this.userScriptsAndStyles);
         break;
       case 'code':
       case 'annotation': // Annotations are added automatically by KaTeX when rendering math formulae.

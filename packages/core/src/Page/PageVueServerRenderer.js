@@ -9,13 +9,6 @@ let bundle = require('@markbind/core-web/dist/js/vueCommonAppFactory.min');
 
 const logger = require('../utils/logger');
 
-const vueRenderEscapeChars = {
-  '&lt;': '<',
-  '&gt;': '>',
-  '&quot;': '"',
-  '&amp;': '&',
-};
-
 const pageEntries = {}; // hold the mapping of sourcePath to latest built pages (for hot-reload dev purposes)
 
 /**
@@ -76,20 +69,7 @@ async function renderVuePage(compiledVuePage) {
     ...appFactory(),
   });
 
-  let renderedContent = await renderToString(VueAppPage);
-
-  /*
-   * https://github.com/vuejs/vue/blob/dev/packages/vue-server-renderer/basic.js
-   *
-   * vue-server-renderer automatically escapes various characters during rendering for security reasons.
-   * We un-escape these characters as there shouldn't be any security concerns in our use-case.
-   *
-   * We only un-escape & and " for now so that the script redirect for userGuide/devGuide will work.
-   * Un-escaping < and/or > will lead to hydration issues so we do not do it for now.
-   */
-  renderedContent = renderedContent.replace(/&(quot|amp);/g, match => vueRenderEscapeChars[match]);
-
-  return renderedContent;
+  return renderToString(VueAppPage);
 }
 
 /**

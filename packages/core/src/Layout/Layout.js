@@ -21,6 +21,7 @@ class Layout {
     this.headTop = [];
     this.headBottom = [];
     this.scriptBottom = [];
+    this.layoutUserScriptsAndStyles = [];
 
     this.generatePromise = undefined;
   }
@@ -53,7 +54,8 @@ class Layout {
 
       const nunjucksProcessed = variableProcessor.renderWithSiteVariables(
         this.sourceFilePath, pageSources, layoutVariables);
-      nodeProcessor = new NodeProcessor(fileConfig, pageSources, variableProcessor, pluginManager, 'layout');
+      nodeProcessor = new NodeProcessor(fileConfig, pageSources, variableProcessor,
+                                        pluginManager, this.layoutUserScriptsAndStyles, 'layout');
       // eslint-disable-next-line no-await-in-loop
       this.layoutProcessed = await nodeProcessor.process(this.sourceFilePath, nunjucksProcessed,
                                                          this.sourceFilePath, layoutVariables);
@@ -100,6 +102,7 @@ class Layout {
       headTop: this.headTop,
       headBottom: this.headBottom,
       scriptBottom: this.scriptBottom,
+      layoutUserScriptsAndStyles: this.layoutUserScriptsAndStyles,
     };
   }
 }
