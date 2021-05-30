@@ -9,11 +9,12 @@ const cheerio = require('cheerio');
  *
  * @param {Object<any, any>} node from the dom traversal
  */
-function processScriptAndStyleTag(node, userScriptsAndStyles) {
+function processScriptAndStyleTag(node, userScriptsAndStyles, docId) {
   // Do not process script tags that are meant to be inserted in head/bottom of HTML
   const isHeadOrBottomScript = node.parent.name === 'head-top'
     || node.parent.name === 'head-bottom' || node.parent.name === 'script-bottom';
-  if (isHeadOrBottomScript) {
+  const isExternal = docId.length >= 3 && docId.substring(0, 3) === 'ext';
+  if (isHeadOrBottomScript || isExternal) {
     return;
   }
 

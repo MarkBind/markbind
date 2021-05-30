@@ -51,6 +51,8 @@ class NodeProcessor {
     this.scriptBottom = [];
     this.userScriptsAndStyles = userScriptsAndStyles;
 
+    this.docId = docId;
+
     this.pageSources = pageSources;
     this.variableProcessor = variableProcessor;
     this.pluginManager = pluginManager;
@@ -192,7 +194,7 @@ class NodeProcessor {
         break;
       case 'script':
       case 'style':
-        processScriptAndStyleTag(node, this.userScriptsAndStyles);
+        processScriptAndStyleTag(node, this.userScriptsAndStyles, this.docId);
         break;
       case 'code':
       case 'annotation': // Annotations are added automatically by KaTeX when rendering math formulae.
