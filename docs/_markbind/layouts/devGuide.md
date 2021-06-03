@@ -13,6 +13,7 @@
 * Design :expanded:
   * [Project Structure]({{baseUrl}}/devGuide/design/projectStructure.html)
   * [Architecture]({{baseUrl}}/devGuide/design/architecture.html)
+  * [Server Side Rendering]({{baseUrl}}/devGuide/design/serverSideRendering.html)
 * [Writing Plugins]({{baseUrl}}/devGuide/writingPlugins.html)
 * [Project management]({{baseUrl}}/devGuide/projectManagement.html)
 * Appendices :expanded:
