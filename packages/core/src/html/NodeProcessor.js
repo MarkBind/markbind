@@ -198,7 +198,6 @@ class NodeProcessor {
       case 'style':
         processScriptAndStyleTag(node, this.userScriptsAndStyles);
         break;
-      case 'disqus':
       case 'code':
       case 'annotation': // Annotations are added automatically by KaTeX when rendering math formulae.
       case 'eq': // markdown-it-texmath html tag
