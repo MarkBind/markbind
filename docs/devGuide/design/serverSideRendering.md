@@ -102,6 +102,6 @@ Some common mistakes are as such:
 - Having block-level elements within `<p>` tag
 - Having unknown HTML elements within our Vue application during compilation/rendering (though this can be easily resolved by adding `v-pre` to the unknown element, so that Vue will ignore that element during compilation). 
 
-If you are unsure what elements are allowed within other elements, or what constitutes invalid HTML in general, a good resource to reference would be the [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span)
+If you are unsure what elements are allowed within other elements, or what constitutes invalid HTML in general, a good resource to reference would be the [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span).
 
 Note that the list only included the common causes of hydration issue that MarkBind developers have ran into. There may be other causes of hydration issue that are not listed here (although unlikely).
