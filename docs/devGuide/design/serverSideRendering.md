@@ -33,7 +33,7 @@ Here is a short list of questions to check your understanding of Vue:
 - Are there any differences between compiling Vue on client-side versus server-side?
 - What is the difference between compiling and rendering?
 
-<box type="info" header="##### Useful Resources to understand Vue better">
+<box type="info" header="##### Useful Resources to understand Vue better" seamless>
 
 If there are any doubts regarding the above, here are some good resources to refer to:
 
@@ -65,9 +65,7 @@ During the hydration process, Vue essentially compares your SSR HTML markup agai
 
 This is known as "Hydration Issue" and it is one of the main challenges you will face with SSR in MarkBind. 
 
-<box type="warning" header="##### Development vs. Production Build">
-
-There are some significant differences in how Vue **reports and handles hydration issues** between development and production builds.
+<box type="warning" header="##### Development vs. Production Build" seamless>
 
 !!**Development Build**!!
 
@@ -93,7 +91,7 @@ Supposedly, hydration issues typically occurs due to minor differences between c
 Conceptually, to prevent hydration issue, what we should always strive to achieve is a "universal application". 
 
 It is not difficult to achieve a "universal application" per-se because we merely have to ensure two things:
-1) the initial states are the same between client-side and server-side.
+1) the initial state is the same between client-side and server-side.
 2) after compiling and rendering the Vue page application, the SSR HTML mark-up is not modified.
 
 Beyond achieving a "universal application", note that the HTML specifications should also be adhered to. 
@@ -102,6 +100,9 @@ Some common mistakes are as such:
 - Having block-level elements within `<p>` tag
 - Having unknown HTML elements within our Vue application during compilation/rendering (though this can be easily resolved by adding `v-pre` to the unknown element, so that Vue will ignore that element during compilation). 
 
+<box type="success" seamless>
+
 If you are unsure what elements are allowed within other elements, or what constitutes invalid HTML in general, a good resource to reference would be the [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span).
+</box>
 
 Note that the list only included the common causes of hydration issue that MarkBind developers have ran into. There may be other causes of hydration issue that are not listed here (although unlikely).
