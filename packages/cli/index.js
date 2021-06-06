@@ -18,7 +18,6 @@ const {
   INDEX_MARKDOWN_FILE,
   INDEX_MARKBIND_FILE,
   LAZY_LOADING_SITE_FILE_NAME,
-  SITE_CONFIG_NAME,
 } = require('@markbind/core/src/Site/constants');
 
 const liveServer = require('./src/lib/live-server');
@@ -177,7 +176,7 @@ program
         syncOpenedPages();
       }
       Promise.resolve('').then(async () => {
-        if (path.basename(filePath) === SITE_CONFIG_NAME) {
+        if (path.basename(filePath) === site.siteConfigPath) {
           return site.reloadSiteConfig();
         }
         if (site.isDependencyOfPage(filePath)) {
