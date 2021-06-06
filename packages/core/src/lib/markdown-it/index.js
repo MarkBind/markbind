@@ -10,7 +10,7 @@ _.constant = require('lodash/constant');
 
 const logger = require('../../utils/logger');
 
-const { HighlightRule } = require('./highlight/HighlightRule.js');
+const { HighlightRule } = require('./highlight/HighlightRule');
 
 const HIGHLIGHT_LINES_DELIMITER_REGEX = new RegExp(',(?![^\\[\\]]*])');
 

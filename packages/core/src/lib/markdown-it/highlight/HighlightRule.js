@@ -1,4 +1,4 @@
-const { HighlightRuleComponent } = require('./HighlightRuleComponent.js');
+const { HighlightRuleComponent } = require('./HighlightRuleComponent');
 const { splitCodeAndIndentation } = require('./helper');
 
 class HighlightRule {
