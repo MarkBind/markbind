@@ -176,7 +176,7 @@ program
         syncOpenedPages();
       }
       Promise.resolve('').then(async () => {
-        if (path.basename(filePath) === site.siteConfigPath) {
+        if (path.basename(filePath) === path.basename(site.siteConfigPath)) {
           return site.reloadSiteConfig();
         }
         if (site.isDependencyOfPage(filePath)) {
