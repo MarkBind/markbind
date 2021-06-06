@@ -66,6 +66,8 @@ module.exports = {
       return;
     }
 
+    node.attribs['v-pre'] = '';
+
     const $ = cheerio(node);
     $.append('<div id="disqus_thread"></div>');
     const script = `
