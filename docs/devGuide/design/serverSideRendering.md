@@ -69,7 +69,7 @@ This is known as "Hydration Issue" and it is one of the main challenges you will
 
 !!**Development Build**!!
 
-In development build, when Vue reports hydration issue, it will also provide information about the **exact mismatching node(s)** that is/are causing the hydration issue and inform the user that full CSR will be executed. Typically, it is very difficult to resolve hydration issues without the detailed error logs provided by the development build. 
+In development build, when Vue reports hydration issue, it will also provide information about the **exact mismatching node(s)** that is/are causing the hydration issue and inform the user that full CSR will be executed.  
 
 !!**Production Build**!!
 
