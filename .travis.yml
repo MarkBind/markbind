@@ -7,6 +7,7 @@ branches:
 install: echo "default npm ci disabled"
 script: echo "default npm test disabled"
 before_deploy:
+  - npm i -g npm
   - npm run setup
   - npm run test
 deploy:
