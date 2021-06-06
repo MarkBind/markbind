@@ -35,7 +35,7 @@ Here is a short list of questions to check your understanding of Vue:
 
 <box type="info" header="##### Useful Resources to understand Vue better" seamless>
 
-If there are any doubts regarding the above, here are some good resources to refer to:
+If there are any doubts regarding the questions above, here are some good resources to refer to:
 
 - [Vue Official Documentation](https://vuejs.org/v2/guide)
 - [Evan You - Inside Vue Components - Laracon EU 2017](https://www.youtube.com/watch?v=wZN_FtZRYC8&ab_channel=LaraconEU)
