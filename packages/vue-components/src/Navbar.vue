@@ -305,11 +305,13 @@ export default {
     }
 
     /* Navbar link highlight for current page */
-    .navbar.navbar-dark .navbar-nav >>> .current a {
+    .navbar.navbar-dark .navbar-nav >>> .current:not(.dropdown) a,
+    .navbar.navbar-dark .navbar-nav >>> .dropdown.current > a {
         color: #fff;
     }
 
-    .navbar.navbar-light .navbar-nav >>> .current a {
+    .navbar.navbar-light .navbar-nav >>> .current:not(.dropdown) a,
+    .navbar.navbar-light .navbar-nav >>> .dropdown.current > a {
         color: #000;
     }
 </style>
