@@ -303,4 +303,13 @@ export default {
         width: 100%;
         position: relative;
     }
+
+    /* Navbar link highlight for current page */
+    .navbar.navbar-dark .navbar-nav >>> .current a {
+        color: #fff;
+    }
+
+    .navbar.navbar-light .navbar-nav >>> .current a {
+        color: #000;
+    }
 </style>
