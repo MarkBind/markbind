@@ -11,7 +11,7 @@ _.cloneDeep = require('lodash/cloneDeep');
 _.has = require('lodash/has');
 _.find = require('lodash/find');
 
-const { renderSiteNav, addSitePageNavPortal } = require('./siteAndPageNavProcessor');
+const { PageNavProcessor, renderSiteNav, addSitePageNavPortal } = require('./siteAndPageNavProcessor');
 const { processInclude, processPanelSrc } = require('./includePanelProcessor');
 const { Context } = require('./Context');
 const linkProcessor = require('./linkProcessor');
@@ -59,6 +59,7 @@ class NodeProcessor {
 
     this.footnoteProcessor = new FootnoteProcessor();
     this.mdAttributeRenderer = new MdAttributeRenderer(this.markdownProcessor);
+    this.pageNavProcessor = new PageNavProcessor();
   }
 
   /*
@@ -183,6 +184,9 @@ class NodeProcessor {
         break;
       case 'thumbnail':
         this.mdAttributeRenderer.processThumbnailAttributes(node);
+        break;
+      case 'page-nav':
+        this.pageNavProcessor.renderPageNav(node);
         break;
       case 'site-nav':
         renderSiteNav(node);
@@ -323,7 +327,7 @@ class NodeProcessor {
           reject(error);
           return;
         }
-        const nodes = dom.map((d) => {
+        const mainHtmlNodes = dom.map((d) => {
           let processed;
           try {
             processed = this._process(d, context);
@@ -334,10 +338,14 @@ class NodeProcessor {
           }
           return processed;
         });
-        nodes.forEach(d => NodeProcessor._trimNodes(d));
+        mainHtmlNodes.forEach(d => NodeProcessor._trimNodes(d));
 
-        resolve(cheerio(nodes).html()
-        + this.footnoteProcessor.combineFootnotes(node => this.processNode(node)));
+        const footnotesHtml = this.footnoteProcessor.combineFootnotes(node => this.processNode(node));
+        const mainHtml = cheerio(mainHtmlNodes).html();
+        const mainHtmlWithUniqPageNavUuid = this.pageNavProcessor.finalizePageNavUuid(
+          mainHtml, mainHtmlNodes, footnotesHtml);
+
+        resolve(mainHtmlWithUniqPageNavUuid + footnotesHtml);
       });
       const parser = new htmlparser.Parser(handler);
       const fileExt = path.extname(file);

@@ -15,7 +15,7 @@
 
 2. **(Optional) You may also specify a page navigation title** within `<frontmatter>` that will be placed at the top of the page navigation menu.
 
-3. **Position the page navigation menu** within your layout using the `{% raw %}{{ pageNav }}{% endraw %}` variable.
+3. **Position the page navigation menu** within your layout using the `<page-nav />` component.
 
 4. **(Optional) To make pageNav accessible on smaller screens, you can use the `<page-nav-button />` component in the [navbar]({{baseUrl}}/userGuide/usingComponents.html#navbars).**
 
@@ -31,10 +31,10 @@ In the page that you want to have page navigation, you may show only `<h1>` and 
 </frontmatter>
 ```
 
-Then, in your [layout file]({{baseUrl}}/userGuide/tweakingThePageStructure.html#layouts), use the `{% raw %}{{ pageNav }}{% endraw %}` variable to position the pageNav.
+Then, in your [layout file]({{baseUrl}}/userGuide/tweakingThePageStructure.html#layouts), use the `<page-nav />` component to position the pageNav.
 
 {% if not doNotShowPageNav %}
-{{ icon_example }} <trigger for="modal:page-nav-example">Example usage of the `{% raw %}{{ pageNav }}{% endraw %}` variable</trigger>
+{{ icon_example }} <trigger for="modal:page-nav-example">Example usage of the `<page-nav />` component</trigger>
 
 <modal header="Using the `pageNav` variable in a layout" id="modal:page-nav-example" large>
 <include src="../tweakingThePageStructure.md#layout-code-snippet">

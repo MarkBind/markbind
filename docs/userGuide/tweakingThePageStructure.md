@@ -93,8 +93,8 @@ Next, edit the layout file to your liking, and add the `{% raw %}{{ content }}{%
   </div>
   <nav id="page-nav" class="fixed-header-padding">
     <div class="nav-component slim-scroll">
-      <!-- Insert a page navigation menu using the {{ pageNav }} variable -->
-      {{ pageNav }}
+      <!-- Insert a page navigation menu using the <page-nav /> component -->
+      <page-nav />
     </div>
   </nav>
 </div>

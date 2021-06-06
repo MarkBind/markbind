@@ -6,7 +6,6 @@ const { NodeProcessor } = require('../html/NodeProcessor');
 const logger = require('../utils/logger');
 
 const LAYOUT_PAGE_BODY_VARIABLE = 'content';
-const LAYOUT_PAGE_NAV_VARIABLE = 'pageNav';
 
 class Layout {
   constructor(sourceFilePath, config) {
@@ -16,8 +15,7 @@ class Layout {
     this.includedFiles = new Set([this.sourceFilePath]);
     this.layoutProcessed = '';
     this.layoutPageBodyVariable = '';
-    this.layoutPageNavVariable = '';
-    this.hasPageNav = false;
+    this.layoutPageNavUuid = '';
     this.headTop = [];
     this.headBottom = [];
     this.scriptBottom = [];
@@ -33,7 +31,6 @@ class Layout {
   async generate() {
     let triesLeft = 10;
     let numBodyVars;
-    let numPageNavVars;
     let pageSources;
     let nodeProcessor;
 
@@ -44,11 +41,7 @@ class Layout {
       };
       pageSources = new PageSources();
       this.layoutPageBodyVariable = `{{${uuidv4()}-${uuidv4()}}}`;
-      this.layoutPageNavVariable = `{{${uuidv4()}-${uuidv4()}}}`;
-      const layoutVariables = {
-        [LAYOUT_PAGE_BODY_VARIABLE]: this.layoutPageBodyVariable,
-        [LAYOUT_PAGE_NAV_VARIABLE]: this.layoutPageNavVariable,
-      };
+      const layoutVariables = { [LAYOUT_PAGE_BODY_VARIABLE]: this.layoutPageBodyVariable };
 
       const { variableProcessor, pluginManager } = this.config;
 
@@ -59,25 +52,22 @@ class Layout {
       // eslint-disable-next-line no-await-in-loop
       this.layoutProcessed = await nodeProcessor.process(this.sourceFilePath, nunjucksProcessed,
                                                          this.sourceFilePath, layoutVariables);
+      this.layoutPageNavUuid = nodeProcessor.pageNavProcessor.getUuid();
+
       this.layoutProcessed = pluginManager.postRender(nodeProcessor.frontMatter, this.layoutProcessed);
 
       const pageBodyVarRegex = new RegExp(this.layoutPageBodyVariable, 'g');
-      const pageNavVarRegex = new RegExp(this.layoutPageNavVariable, 'g');
       const bodyVarMatch = this.layoutProcessed.match(pageBodyVarRegex);
-      const pageNavVarMatch = this.layoutProcessed.match(pageNavVarRegex);
       numBodyVars = bodyVarMatch ? bodyVarMatch.length : 0;
-      numPageNavVars = pageNavVarMatch ? pageNavVarMatch.length : 0;
 
       triesLeft -= 1;
-    } while (triesLeft > 0 && (numBodyVars > 1 || numPageNavVars > 1));
+    } while (triesLeft > 0 && numBodyVars > 1);
 
     if (triesLeft === 0) {
-      logger.error(`Layout ${this.sourceFilePath} uses more than one {{ ${LAYOUT_PAGE_BODY_VARIABLE
-      } }} or {{ ${LAYOUT_PAGE_NAV_VARIABLE} }} variable.`);
+      logger.error(
+        `Layout ${this.sourceFilePath} uses more than one {{ ${LAYOUT_PAGE_BODY_VARIABLE} }} variable.`);
       return;
     }
-
-    this.hasPageNav = numPageNavVars === 1;
 
     this.headTop = nodeProcessor.headTop;
     this.headBottom = nodeProcessor.headBottom;
@@ -94,7 +84,7 @@ class Layout {
     // Use function for .replace, in case string contains special patterns (e.g. $$, $&, $1, ...)
     return this.layoutProcessed
       .replace(this.layoutPageBodyVariable, () => pageContent)
-      .replace(this.layoutPageNavVariable, () => pageNav);
+      .replace(this.layoutPageNavUuid, () => pageNav);
   }
 
   getPageNjkAssets() {

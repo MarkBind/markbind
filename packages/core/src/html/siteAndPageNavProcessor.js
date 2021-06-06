@@ -1,3 +1,4 @@
+const { v4: uuidv4 } = require('uuid');
 const cheerio = require('cheerio'); require('../patches/htmlparser2');
 const md = require('../lib/markdown-it');
 
@@ -12,6 +13,53 @@ const {
   SITE_NAV_DROPDOWN_ICON_ROTATED_HTML,
   SITE_NAV_DROPDOWN_ICON_HTML,
 } = require('../Page/constants');
+
+/**
+ * Replaces and stores a uuid identifier to the only page-nav element, if there is one.
+ *
+ * The page-nav can only be used inside a layout,
+ * but can be constructed only after the page has been built.
+ * Hence, this requires post insertion of the page nav.
+ *
+ * This uuid identifier is asserted to be unique in the html file once html processing is done,
+ * otherwise it is replaced with one until it is unique.
+ */
+class PageNavProcessor {
+  constructor() {
+    this.uuidTextNode = undefined;
+  }
+
+  getUuid() {
+    return (this.uuidTextNode && this.uuidTextNode.data) || '';
+  }
+
+  renderPageNav(node) {
+    [this.uuidTextNode] = cheerio.parseHTML(uuidv4());
+    cheerio(node).replaceWith(this.uuidTextNode);
+  }
+
+  finalizePageNavUuid(mainHtml, mainHtmlNodes, footnotesHtml) {
+    if (!this.uuidTextNode) {
+      return mainHtml;
+    }
+
+    let mainHtmlString = mainHtml;
+    let numMatches;
+    do {
+      const pageNavUuidRegex = new RegExp(this.uuidTextNode.data, 'g');
+      const mainHtmlMatch = mainHtmlString.match(pageNavUuidRegex);
+      const footnotesMatch = footnotesHtml.match(pageNavUuidRegex);
+      numMatches = (mainHtmlMatch ? mainHtmlMatch.length : 0) + (footnotesMatch ? footnotesMatch.length : 0);
+
+      if (numMatches > 1) {
+        this.uuidTextNode.data = uuidv4();
+        mainHtmlString = cheerio(mainHtmlNodes).html();
+      }
+    } while (numMatches > 1);
+
+    return mainHtmlString;
+  }
+}
 
 function renderSiteNav(node) {
   const $original = cheerio(node);
@@ -91,6 +139,7 @@ function addSitePageNavPortal(node) {
 }
 
 module.exports = {
+  PageNavProcessor,
   renderSiteNav,
   addSitePageNavPortal,
 };
