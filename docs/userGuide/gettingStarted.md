@@ -15,7 +15,7 @@
   %%{{ icon_ticked }}%% a basic knowledge of [Markdown](https://www.markdownguide.org/basic-syntax/) and [HTML](https://www.w3schools.com/html/) syntax<br>
   %%{{ icon_ticked }}%% a basic knowledge of running CLI commands<br>
   %%{{ icon_ticked }}%% a recent version of [npm](https://www.npmjs.com/get-npm) installed<br>
-  %%{{ icon_ticked }}%% [Node.js](https://nodejs.org) <tooltip content="MarkBind aims to support up to the last maintenance lts release as outlined [here](https://nodejs.org/en/about/releases/)">v12</tooltip> or higher installed
+  %%{{ icon_ticked }}%% [Node.js](https://nodejs.org) {{ node_version }} or higher installed
 </div>
 
 <big>**1. Install MarkBind**</big>

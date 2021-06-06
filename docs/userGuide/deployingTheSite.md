@@ -322,7 +322,7 @@ Here are the steps to set up Netlify:
 1. Update the build settings as follows and hit `Deploy site`:
    - `Build Command`: `npm i markbind-cli -g && markbind build --baseUrl`
    - `Publish directory`: `_site`
-   - `Show advanced`: Add a new variable with the key as `NODE_VERSION` and the value as **`10` or higher**
+   - `Show advanced`: Add a new variable with the key as `NODE_VERSION` and the value as **`{{ node_version_number }}` or higher**
 
     </br>
     <include src="screenshot.md" boilerplate var-alt="Update build settings" var-file="netlifyPreview3.png" inline />

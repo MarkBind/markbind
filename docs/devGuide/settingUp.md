@@ -15,8 +15,8 @@ This page explains how to set up your development environment to start contribut
 
 ## Prerequisites
 
-1. **Node.js** (LTS or higher) with<br>
-   **npm** v6.12.1 or higher
+1. **Node.js** ({{ node_version }} or higher) with<br>
+   **npm** v7 or higher
 1. **Java** 8 or later, and<br>
    **Graphviz** v2.38 or later<br>
    %%(The above two are required for one of the third-party library used by MarkBind)%%
