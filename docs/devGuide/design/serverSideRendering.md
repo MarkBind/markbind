@@ -65,17 +65,9 @@ During the hydration process, Vue essentially compares your SSR HTML markup agai
 
 This is known as "Hydration Issue" and it is one of the main challenges you will face with SSR in MarkBind. 
 
-<box type="warning" header="##### Development vs. Production Build" seamless>
+<box type="warning" header="#### Using production build" seamless>
 
-!!**Development Build**!!
-
-In development build, when Vue reports hydration issue, it will also provide information about the **exact mismatching node(s)** that is/are causing the hydration issue and inform the user that full CSR will be executed.  
-
-!!**Production Build**!!
-
-In production build, when Vue reports hydration issue, it will only log a generic `"Failed to execute 'appendChild' on 'Node': This node type does not support this method"` error message and execute full CSR **silently**. We have even observed cases where the production build does not warn about existing hydration issues (silent failures).
-
-The above reasons are why MarkBind **uses the development build by default** when you serve it in development mode (`-d` option).
+In production build, Vue does not perform hydration check. Any errors resulting from hydration will trigger full CSR without warning. MarkBind **uses the development build by default** when you serve it in development mode (`-d` option).
 </box>
 
 ## Penalties of Hydration Issue
