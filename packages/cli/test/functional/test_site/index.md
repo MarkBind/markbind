@@ -249,6 +249,9 @@ and **this**.
 <panel header="## Boilerplate referencing" src="testPanels/boilerTestPanel.md"  boilerplate expanded>
 </panel>
 
+<panel header="## Boilerplate referencing 2" src="testPanelsDuplicate/boilerTestPanel.md"  boilerplate expanded>
+</panel>
+
 <panel header="## Referencing specified path in boilerplate" src="testPanels/notInside.md" boilerplate="folder/panelBoilerplate.md" expanded>
 </panel>
 
