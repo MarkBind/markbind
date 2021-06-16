@@ -35,7 +35,7 @@ class ExternalManager {
   async generateDependencies(dependencies, includedFiles) {
     const resolvingExternals = [];
 
-    _.uniqBy(dependencies, d => d.to).forEach((src) => {
+    _.uniqBy(dependencies, d => d.asIfTo).forEach((src) => {
       if (urlUtil.isUrl(src.to)) {
         return;
       }
