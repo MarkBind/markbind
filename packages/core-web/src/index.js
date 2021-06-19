@@ -172,6 +172,7 @@ function setup() {
       return pageVueRenderFn.call(this, createElement);
     },
     staticRenderFns: pageVueStaticRenderFns,
+    ...appFactory(),
     mounted() {
       executeAfterMountedRoutines();
     },
