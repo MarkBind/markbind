@@ -38,12 +38,14 @@ const pathToLiveServerDir = path.dirname(require.resolve('live-server'));
 // CHANGED: correctly resolve to the live-server directory
 var INJECTED_CODE = fs.readFileSync(path.join(pathToLiveServerDir, "injected.html"), "utf8");
 
-// CHANGED: added active tabs property
 var LiveServer = {
   server: null,
   watcher: null,
   logLevel: 2,
-  activeTabs: []
+
+  // CHANGED: added properties relevant to MarkBind live-preview
+  activeTabs: [],
+  baseUrl: '',
 };
 
 function escape(html){
@@ -240,6 +242,11 @@ LiveServer.start = function(options) {
     app.use(mountRule[0], staticServer(mountPath));
     if (LiveServer.logLevel >= 1)
       console.log('Mapping %s to "%s"', mountRule[0], mountPath);
+
+    // CHANGED: added baseUrl initialization based on the first mount rule
+    if (LiveServer.baseUrl === '') {
+      LiveServer.baseUrl = mountRule[0] || '/';
+    }
   });
   proxy.forEach(function(proxyRule) {
     var proxyOpts = url.parse(proxyRule[1]);
@@ -369,16 +376,17 @@ LiveServer.start = function(options) {
 
     // CHANGED: Enhanced client websocket addition process to record the client as an active tab entry
     const reqUrl = path.dirname(request.url);
+    const normalizedUrl = fsUtil.ensurePosix(path.relative(LiveServer.baseUrl, reqUrl));
 
     // If an entry with empty client is present, reuse existing entry to maintain order from pre-reload 
-    const existingTab = LiveServer.activeTabs.find(tab => tab.url === reqUrl && !tab.client);
+    const existingTab = LiveServer.activeTabs.find(tab => tab.url === normalizedUrl && !tab.client);
     if (existingTab) {
       existingTab.client = ws;
       return;
     }
 
     // Insert new entry to the active tabs list
-    LiveServer.activeTabs.unshift({ url: reqUrl, client: ws });
+    LiveServer.activeTabs.unshift({ url: normalizedUrl, client: ws });
   });
 
   var ignored = [
@@ -414,7 +422,6 @@ LiveServer.start = function(options) {
 
     // Only reload active tabs if the changed file is opened in one of them
     let normalizedPath = fsUtil.ensurePosix(path.relative(root, changePath));
-    normalizedPath = path.posix.join('/', normalizedPath);
     if (LiveServer.activeTabs.some(tab => tab.client && tab.url === normalizedPath)) {
       LiveServer.sendMessageToActiveTabs('reload');
     }
