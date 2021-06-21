@@ -61,27 +61,31 @@ function detectAndApplyFixedHeaderStyles() {
     const newHeaderHeight = headerSelector.height();
     const sheets = document.styleSheets;
     for (let i = 0; i < sheets.length; i += 1) {
-      const rules = sheets[i].cssRules;
-      // eslint-disable-next-line lodash/prefer-get
-      if (rules && rules[0] && rules[0].selectorText) {
-        switch (rules[0].selectorText) {
-        case '.fixed-header-padding':
-          sheets[i].deleteRule(0);
-          sheets[i].insertRule(`.fixed-header-padding { padding-top: ${newHeaderHeight}px !important }`);
-          break;
-        case 'span.anchor':
-          rules[0].style.top = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
-          break;
-        case '.card-container::before':
-          rules[0].style.marginTop = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
-          rules[0].style.height = `calc(${newHeaderHeight}px + ${bufferHeight}rem)`;
-          break;
-        case '.nav-menu-open':
-          rules[0].style.maxHeight = `calc(100% - ${newHeaderHeight}px + 50px)`;
-          break;
-        default:
-          break;
+      try {
+        const rules = sheets[i].cssRules;
+        // eslint-disable-next-line lodash/prefer-get
+        if (rules && rules[0] && rules[0].selectorText) {
+          switch (rules[0].selectorText) {
+          case '.fixed-header-padding':
+            sheets[i].deleteRule(0);
+            sheets[i].insertRule(`.fixed-header-padding { padding-top: ${newHeaderHeight}px !important }`);
+            break;
+          case 'span.anchor':
+            rules[0].style.top = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
+            break;
+          case '.card-container::before':
+            rules[0].style.marginTop = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
+            rules[0].style.height = `calc(${newHeaderHeight}px + ${bufferHeight}rem)`;
+            break;
+          case '.nav-menu-open':
+            rules[0].style.maxHeight = `calc(100% - ${newHeaderHeight}px + 50px)`;
+            break;
+          default:
+            break;
+          }
         }
+      } catch (e) {
+        // cssRules is not accessible for this stylesheet due to CORS, continue to the next stylesheet
       }
     }
   };
