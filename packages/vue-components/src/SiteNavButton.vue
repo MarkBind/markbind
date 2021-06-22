@@ -59,13 +59,13 @@ export default {
 <style scoped>
 
     .toggle-page-site-button {
-        cursor:pointer;
+        cursor: pointer;
         height: 53px;
-        left: 0px;
+        left: 0;
         padding: 15px;
         position: relative;
         transform: all rotate(0deg);
-        transition: all .25s ease-in-out;
+        transition: all 0.25s ease-in-out;
         width: 52px;
     }
 
@@ -77,9 +77,8 @@ export default {
         position: absolute;
         top: 50%;
         transform: all rotate(0deg);
-        transition: all .25s ease-in-out;
+        transition: all 0.25s ease-in-out;
         width: 21px;
-
     }
 
     .toggle-page-site-button > span:nth-child(1) {
@@ -94,18 +93,14 @@ export default {
         transform: translateY(6px);
     }
 
-    .toggle-page-site-button.active toggle-page-site-button {
-        transform: rotate(-180deg);
-    }
-
-    .toggle-page-site-button.active > span:nth-child(1)  {
+    .toggle-page-site-button.active > span:nth-child(1) {
         -o-transform: rotate(135deg);
         -moz-transform: rotate(135deg);
         transform: all rotate(135deg);
         -webkit-transform: rotate(135deg);
     }
 
-    .toggle-page-site-button.active > span:nth-child(2)  {
+    .toggle-page-site-button.active > span:nth-child(2) {
         left: -60px;
         opacity: 0;
     }

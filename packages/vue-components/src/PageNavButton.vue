@@ -63,7 +63,7 @@ export default {
         right: 0;
     }
 
-   .toggle-page-nav-button span {
+    .toggle-page-nav-button span {
         background-color: #000;
         border-radius: 50%;
         display: block;
@@ -72,12 +72,11 @@ export default {
         position: absolute;
         right: 15px;
         transform: rotate(0deg);
-        transition: all .25s ease-in-out;
+        transition: all 0.25s ease-in-out;
         width: 5px;
-
     }
 
-   .toggle-page-nav-button > span:nth-child(1) {
+    .toggle-page-nav-button > span:nth-child(1) {
         transform: translateY(-6px);
     }
 
@@ -89,8 +88,8 @@ export default {
         transform: translateY(6px);
     }
 
-    .toggle-page-nav-button.active > span:nth-child(1)  {
-        border-radius: 0px;
+    .toggle-page-nav-button.active > span:nth-child(1) {
+        border-radius: 0;
         height: 3px;
         -o-transform: rotate(135deg);
         -moz-transform: rotate(135deg);
@@ -99,13 +98,13 @@ export default {
         width: 21px;
     }
 
-    .toggle-page-nav-button.active > span:nth-child(2)  {
+    .toggle-page-nav-button.active > span:nth-child(2) {
         opacity: 0;
         right: -60px;
     }
 
     .toggle-page-nav-button.active > span:nth-child(3) {
-        border-radius: 0px;
+        border-radius: 0;
         height: 3px;
         -o-transform: rotate(-135deg);
         -moz-transform: rotate(-135deg);
