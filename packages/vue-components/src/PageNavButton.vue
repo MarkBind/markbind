@@ -58,9 +58,9 @@ export default {
     .toggle-page-nav-button {
         cursor: pointer;
         top: 6px;
-        right: 0;
         padding: 15px;
         position: absolute;
+        right: 0;
     }
 
    .toggle-page-nav-button span {
@@ -68,9 +68,9 @@ export default {
         border-radius: 50%;
         display: block;
         height: 5px;
-        right: 15px;
         margin-top: 2px;
         position: absolute;
+        right: 15px;
         transform: rotate(0deg);
         transition: all .25s ease-in-out;
         width: 5px;
