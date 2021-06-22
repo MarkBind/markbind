@@ -5,7 +5,14 @@
     :portal-name="portalName"
   >
     <template #navMenuIcon>
-      <span :class="['glyphicon', 'toggle-site-nav-button']"></span>
+      <div
+        :class="[{ 'active' : isActive }, 'toggle-page-site-button']"
+        @click="toggleActive"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </template>
   </overlay>
 </template>
@@ -18,6 +25,7 @@ export default {
     return {
       portalName: undefined,
       show: false,
+      isActive: false,
     };
   },
   computed: {
@@ -32,6 +40,9 @@ export default {
       } else {
         this.show = false;
       }
+    },
+    toggleActive() {
+      this.isActive = !this.isActive;
     },
   },
   mounted() {
@@ -51,15 +62,64 @@ export default {
 </script>
 
 <style scoped>
-    .toggle-site-nav-button {
-        cursor: pointer;
-        left: 0;
+
+    .toggle-page-site-button {
+        cursor:pointer;
+        height: 53px;
+        left: 0px;
         padding: 15px;
-        position: absolute;
+        position: relative;
+        transform: all rotate(0deg);
+        transition: all .25s ease-in-out;
+        width: 52px;
     }
 
-    .toggle-site-nav-button::before {
-        content: "\e236";
-        font-size: 20px;
+    .toggle-page-site-button span {
+        background-color: #000;
+        display: block;
+        height: 3px;
+        left: 15px;
+        position: absolute;
+        top: 50%;
+        transform: all rotate(0deg);
+        transition: all .25s ease-in-out;
+        width: 21px;
+
     }
+
+    .toggle-page-site-button > span:nth-child(1) {
+        transform: translateY(-6px);
+    }
+
+    .toggle-page-site-button > span:nth-child(2) {
+        transform-origin: 100% 50%;
+    }
+
+    .toggle-page-site-button > span:nth-child(3) {
+        transform: translateY(6px);
+    }
+
+    .toggle-page-site-button.active toggle-page-site-button {
+        transform: rotate(-180deg);
+    }
+
+    .toggle-page-site-button.active > span:nth-child(1)  {
+        -o-transform: rotate(135deg);
+        -moz-transform: rotate(135deg);
+        transform: all rotate(135deg);
+        -webkit-transform: rotate(135deg);
+    }
+
+    .toggle-page-site-button.active > span:nth-child(2)  {
+        left: -60px;
+        opacity: 0;
+    }
+
+    .toggle-page-site-button.active > span:nth-child(3) {
+        -o-transform: rotate(-135deg);
+        -moz-transform: rotate(-135deg);
+        transform: rotate(-135deg);
+        -webkit-transform: rotate(-135deg);
+    }
+
 </style>
