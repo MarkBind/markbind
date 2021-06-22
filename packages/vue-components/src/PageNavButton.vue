@@ -5,7 +5,11 @@
     :portal-name="portalName"
   >
     <template #navMenuIcon>
-      <span :class="['glyphicon', 'toggle-page-nav-button']"></span>
+      <div :class="['toggle-page-nav-button']">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </template>
   </overlay>
 </template>
@@ -53,13 +57,61 @@ export default {
 <style scoped>
     .toggle-page-nav-button {
         cursor: pointer;
+        top: 6px;
         right: 0;
         padding: 15px;
         position: absolute;
     }
 
-    .toggle-page-nav-button::before {
-        content: "\e235";
-        font-size: 20px;
+   .toggle-page-nav-button span {
+        background-color: #000;
+        border-radius: 50%;
+        display: block;
+        height: 5px;
+        right: 15px;
+        margin-top: 2px;
+        position: absolute;
+        transform: rotate(0deg);
+        transition: all .25s ease-in-out;
+        width: 5px;
+
     }
+
+   .toggle-page-nav-button > span:nth-child(1) {
+        transform: translateY(-6px);
+    }
+
+    .toggle-page-nav-button > span:nth-child(2) {
+        transform-origin: 100% 50%;
+    }
+
+    .toggle-page-nav-button > span:nth-child(3) {
+        transform: translateY(6px);
+    }
+
+    .toggle-page-nav-button.active > span:nth-child(1)  {
+        border-radius: 0px;
+        height: 3px;
+        -o-transform: rotate(135deg);
+        -moz-transform: rotate(135deg);
+        transform: all rotate(135deg);
+        -webkit-transform: rotate(135deg);
+        width: 21px;
+    }
+
+    .toggle-page-nav-button.active > span:nth-child(2)  {
+        opacity: 0;
+        right: -60px;
+    }
+
+    .toggle-page-nav-button.active > span:nth-child(3) {
+        border-radius: 0px;
+        height: 3px;
+        -o-transform: rotate(-135deg);
+        -moz-transform: rotate(-135deg);
+        transform: rotate(-135deg);
+        -webkit-transform: rotate(-135deg);
+        width: 21px;
+    }
+
 </style>
