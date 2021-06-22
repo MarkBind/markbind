@@ -1,7 +1,6 @@
 <template>
   <div>
     <span
-      :class="[{ 'nav-menu-close-icon': show }]"
       @click="toggleNavMenu(undefined)"
     >
       <slot name="navMenuIcon"></slot>
@@ -48,15 +47,29 @@ export default {
   },
   methods: {
     toggleNavMenu(contentClickEvent) {
+      const siteNavButton = document.querySelector('.toggle-page-site-button');
+      const pageNavButton = document.querySelector('.toggle-page-nav-button');
+
       if ((contentClickEvent && contentClickEvent.target.tagName.toLowerCase() === 'a')
           || (!contentClickEvent && this.show)) {
         document.body.style.removeProperty('overflow');
         this.show = false;
+
+        siteNavButton.classList.remove('active');
+        pageNavButton.classList.remove('active');
       } else {
         publish('closeOverlay');
         // to prevent scrolling of the body when overlay is overscrolled
         document.body.style.overflow = 'hidden';
         this.show = true;
+
+        if (this.portalName === 'page-nav') {
+          siteNavButton.classList.remove('active');
+          pageNavButton.classList.add('active');
+        } else if (this.portalName === 'site-nav') {
+          siteNavButton.classList.add('active');
+          pageNavButton.classList.remove('active');
+        }
       }
     },
   },
@@ -77,10 +90,6 @@ export default {
         position: fixed;
         overflow-y: auto;
         z-index: -1;
-    }
-
-    .nav-menu-close-icon > span::before {
-        content: "\e014" !important;
     }
 
     .nav-menu-open {

@@ -6,8 +6,7 @@
   >
     <template #navMenuIcon>
       <div
-        :class="[{ 'active' : isActive }, 'toggle-page-site-button']"
-        @click="toggleActive"
+        :class="['toggle-page-site-button']"
       >
         <span></span>
         <span></span>
@@ -25,7 +24,6 @@ export default {
     return {
       portalName: undefined,
       show: false,
-      isActive: false,
     };
   },
   computed: {
@@ -40,9 +38,6 @@ export default {
       } else {
         this.show = false;
       }
-    },
-    toggleActive() {
-      this.isActive = !this.isActive;
     },
   },
   mounted() {
