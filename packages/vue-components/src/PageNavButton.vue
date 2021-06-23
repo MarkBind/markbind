@@ -88,7 +88,7 @@ export default {
         transform: translateY(6px);
     }
 
-    .toggle-page-nav-button.active > span:nth-child(1) {
+    .nav-menu-close-icon .toggle-page-nav-button > span:nth-child(1) {
         border-radius: 0;
         height: 3px;
         -o-transform: rotate(135deg);
@@ -98,12 +98,12 @@ export default {
         width: 21px;
     }
 
-    .toggle-page-nav-button.active > span:nth-child(2) {
+    .nav-menu-close-icon .toggle-page-nav-button > span:nth-child(2) {
         opacity: 0;
         right: -60px;
     }
 
-    .toggle-page-nav-button.active > span:nth-child(3) {
+    .nav-menu-close-icon .toggle-page-nav-button > span:nth-child(3) {
         border-radius: 0;
         height: 3px;
         -o-transform: rotate(-135deg);
