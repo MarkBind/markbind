@@ -6,7 +6,7 @@
   >
     <template #navMenuIcon>
       <div
-        :class="['toggle-page-site-button']"
+        :class="['toggle-site-nav-button']"
       >
         <span></span>
         <span></span>
@@ -58,7 +58,7 @@ export default {
 
 <style scoped>
 
-    .toggle-page-site-button {
+    .toggle-site-nav-button {
         cursor: pointer;
         height: 53px;
         left: 0;
@@ -69,7 +69,7 @@ export default {
         width: 52px;
     }
 
-    .toggle-page-site-button span {
+    .toggle-site-nav-button span {
         background-color: #000;
         display: block;
         height: 3px;
@@ -81,31 +81,31 @@ export default {
         width: 21px;
     }
 
-    .toggle-page-site-button > span:nth-child(1) {
+    .toggle-site-nav-button > span:nth-child(1) {
         transform: translateY(-6px);
     }
 
-    .toggle-page-site-button > span:nth-child(2) {
+    .toggle-site-nav-button > span:nth-child(2) {
         transform-origin: 100% 50%;
     }
 
-    .toggle-page-site-button > span:nth-child(3) {
+    .toggle-site-nav-button > span:nth-child(3) {
         transform: translateY(6px);
     }
 
-    .toggle-page-site-button.active > span:nth-child(1) {
+    .toggle-site-nav-button.active > span:nth-child(1) {
         -o-transform: rotate(135deg);
         -moz-transform: rotate(135deg);
         transform: all rotate(135deg);
         -webkit-transform: rotate(135deg);
     }
 
-    .toggle-page-site-button.active > span:nth-child(2) {
+    .toggle-site-nav-button.active > span:nth-child(2) {
         left: -60px;
         opacity: 0;
     }
 
-    .toggle-page-site-button.active > span:nth-child(3) {
+    .toggle-site-nav-button.active > span:nth-child(3) {
         -o-transform: rotate(-135deg);
         -moz-transform: rotate(-135deg);
         transform: rotate(-135deg);
