@@ -63,7 +63,7 @@ export default {
         height: 53px;
         left: 0;
         padding: 15px;
-        position: relative;
+        position: absolute;
         transform: all rotate(0deg);
         transition: all 0.25s ease-in-out;
         width: 52px;
