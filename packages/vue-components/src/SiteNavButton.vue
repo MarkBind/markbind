@@ -93,19 +93,19 @@ export default {
         transform: translateY(6px);
     }
 
-    .toggle-site-nav-button.active > span:nth-child(1) {
+    .nav-menu-close-icon .toggle-site-nav-button > span:nth-child(1) {
         -o-transform: rotate(135deg);
         -moz-transform: rotate(135deg);
         transform: all rotate(135deg);
         -webkit-transform: rotate(135deg);
     }
 
-    .toggle-site-nav-button.active > span:nth-child(2) {
+    .nav-menu-close-icon .toggle-site-nav-button > span:nth-child(2) {
         left: -60px;
         opacity: 0;
     }
 
-    .toggle-site-nav-button.active > span:nth-child(3) {
+    .nav-menu-close-icon .toggle-site-nav-button > span:nth-child(3) {
         -o-transform: rotate(-135deg);
         -moz-transform: rotate(-135deg);
         transform: rotate(-135deg);
