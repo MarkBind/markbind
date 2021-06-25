@@ -77,7 +77,7 @@ export default {
     }
 
     .toggle-page-nav-button > span:nth-child(1) {
-        transform: translateY(-6px);
+        transform: translateY(-8px);
     }
 
     .toggle-page-nav-button > span:nth-child(2) {
@@ -85,31 +85,24 @@ export default {
     }
 
     .toggle-page-nav-button > span:nth-child(3) {
-        transform: translateY(6px);
+        transform: translateY(8px);
     }
 
     .nav-menu-close-icon .toggle-page-nav-button > span:nth-child(1) {
         border-radius: 0;
         height: 3px;
-        -o-transform: rotate(135deg);
-        -moz-transform: rotate(135deg);
-        transform: all rotate(135deg);
-        -webkit-transform: rotate(135deg);
+        transform: rotate(135deg);
         width: 21px;
     }
 
     .nav-menu-close-icon .toggle-page-nav-button > span:nth-child(2) {
-        opacity: 0;
-        right: -60px;
+        transform: scale(0);
     }
 
     .nav-menu-close-icon .toggle-page-nav-button > span:nth-child(3) {
         border-radius: 0;
         height: 3px;
-        -o-transform: rotate(-135deg);
-        -moz-transform: rotate(-135deg);
         transform: rotate(-135deg);
-        -webkit-transform: rotate(-135deg);
         width: 21px;
     }
 

@@ -64,7 +64,7 @@ export default {
         left: 0;
         padding: 15px;
         position: absolute;
-        transform: all rotate(0deg);
+        transform: rotate(0deg);
         transition: all 0.25s ease-in-out;
         width: 52px;
     }
@@ -76,13 +76,12 @@ export default {
         left: 15px;
         position: absolute;
         top: 50%;
-        transform: all rotate(0deg);
         transition: all 0.25s ease-in-out;
         width: 21px;
     }
 
     .toggle-site-nav-button > span:nth-child(1) {
-        transform: translateY(-6px);
+        transform: translateY(-8px);
     }
 
     .toggle-site-nav-button > span:nth-child(2) {
@@ -90,14 +89,11 @@ export default {
     }
 
     .toggle-site-nav-button > span:nth-child(3) {
-        transform: translateY(6px);
+        transform: translateY(8px);
     }
 
     .nav-menu-close-icon .toggle-site-nav-button > span:nth-child(1) {
-        -o-transform: rotate(135deg);
-        -moz-transform: rotate(135deg);
-        transform: all rotate(135deg);
-        -webkit-transform: rotate(135deg);
+        transform: rotate(135deg);
     }
 
     .nav-menu-close-icon .toggle-site-nav-button > span:nth-child(2) {
@@ -106,10 +102,7 @@ export default {
     }
 
     .nav-menu-close-icon .toggle-site-nav-button > span:nth-child(3) {
-        -o-transform: rotate(-135deg);
-        -moz-transform: rotate(-135deg);
         transform: rotate(-135deg);
-        -webkit-transform: rotate(-135deg);
     }
 
 </style>
