@@ -79,10 +79,6 @@ export default {
         z-index: -1;
     }
 
-    .nav-menu-close-icon > span::before {
-        content: "\e014" !important;
-    }
-
     .nav-menu-open {
         display: block !important;
         width: 100% !important;

@@ -5,7 +5,13 @@
     :portal-name="portalName"
   >
     <template #navMenuIcon>
-      <span :class="['glyphicon', 'toggle-site-nav-button']"></span>
+      <div
+        :class="['toggle-site-nav-button']"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </template>
   </overlay>
 </template>
@@ -51,15 +57,52 @@ export default {
 </script>
 
 <style scoped>
+
     .toggle-site-nav-button {
         cursor: pointer;
+        height: 53px;
         left: 0;
         padding: 15px;
         position: absolute;
+        transform: rotate(0deg);
+        transition: all 0.25s ease-in-out;
+        width: 52px;
     }
 
-    .toggle-site-nav-button::before {
-        content: "\e236";
-        font-size: 20px;
+    .toggle-site-nav-button span {
+        background-color: #000;
+        display: block;
+        height: 3px;
+        left: 15px;
+        position: absolute;
+        top: 50%;
+        transition: all 0.25s ease-in-out;
+        width: 21px;
     }
+
+    .toggle-site-nav-button > span:nth-child(1) {
+        transform: translateY(-8px);
+    }
+
+    .toggle-site-nav-button > span:nth-child(2) {
+        transform-origin: 100% 50%;
+    }
+
+    .toggle-site-nav-button > span:nth-child(3) {
+        transform: translateY(8px);
+    }
+
+    .nav-menu-close-icon .toggle-site-nav-button > span:nth-child(1) {
+        transform: rotate(135deg);
+    }
+
+    .nav-menu-close-icon .toggle-site-nav-button > span:nth-child(2) {
+        left: -60px;
+        opacity: 0;
+    }
+
+    .nav-menu-close-icon .toggle-site-nav-button > span:nth-child(3) {
+        transform: rotate(-135deg);
+    }
+
 </style>
