@@ -22,14 +22,14 @@ const defaultTagLinkMap = {
   script: 'src',
 };
 
-const tagsToValidate = [
+const tagsToValidate = new Set([
   'img',
   'pic',
   'thumbnail',
   'a',
   'link',
   'script',
-];
+]);
 
 function hasTagLink(node) {
   return node.name in defaultTagLinkMap || node.name in pluginTagConfig;
@@ -157,7 +157,7 @@ function isValidFileAsset(resourcePath, config) {
  * @returns {string} these string return values are for unit testing purposes only
  */
 function validateIntraLink(node, cwf, config) {
-  if (!tagsToValidate.includes(node.name)) {
+  if (!tagsToValidate.has(node.name)) {
     return 'Should not validate';
   }
 
