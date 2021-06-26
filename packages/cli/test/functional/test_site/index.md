@@ -14,7 +14,9 @@ tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidd
 
 <markdown>This should be wrapped in a `<p>` tag as it uses the block-level markdown renderer</markdown>
 
-<md>This should not be wrapped in a `<p>` tag as it uses the inline markdown renderer</md>
+<md>
+This should not be wrapped in a `<p>` tag as it uses the inline markdown renderer
+</md>
 
 <markdown class="mt-2">
 ```
