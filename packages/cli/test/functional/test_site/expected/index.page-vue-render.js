@@ -17,7 +17,7 @@ with(this){return _c('p',[_c('strong',[_v("Test "),_c('code',{pre:true,attrs:{"c
 with(this){return _c('div',[_c('p',[_v("This should be wrapped in a "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("<p>")]),_v(" tag as it uses the block-level markdown renderer")])])}
 },function anonymous(
 ) {
-with(this){return _c('span',[_v("This should not be wrapped in a "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("<p>")]),_v(" tag as it uses the inline markdown renderer")])}
+with(this){return _c('span',[_v("\nThis should not be wrapped in a "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("<p>")]),_v(" tag as it uses the inline markdown renderer\n")])}
 },function anonymous(
 ) {
 with(this){return _c('div',{staticClass:"mt-2"},[_c('pre',[_c('code',{pre:true,attrs:{"class":"hljs"}},[_c('span',[_v("<markdown> elements allow block-level markdown without needing a leading newline.\n")]),_c('span',[_v("Hence, the contained markdown should be parsed and output as is, without any parsing errors.\n")]),_c('span',[_v("</invalidhtml>\n")])])])])}

@@ -197,7 +197,9 @@
           <div>
             <p>This should be wrapped in a <code class="hljs inline no-lang" v-pre>&lt;p&gt;</code> tag as it uses the block-level markdown renderer</p>
           </div>
-          <span>This should not be wrapped in a <code class="hljs inline no-lang" v-pre>&lt;p&gt;</code> tag as it uses the inline markdown renderer</span>
+          <span>
+            This should not be wrapped in a <code class="hljs inline no-lang" v-pre>&lt;p&gt;</code> tag as it uses the inline markdown renderer
+          </span>
           <div class="mt-2">
             <pre><code class="hljs" v-pre><span>&lt;markdown&gt; elements allow block-level markdown without needing a leading newline.
 </span><span>Hence, the contained markdown should be parsed and output as is, without any parsing errors.

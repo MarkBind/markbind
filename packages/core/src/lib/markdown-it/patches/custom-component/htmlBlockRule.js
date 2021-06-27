@@ -12,7 +12,7 @@ function initCustomComponentHtmlBlockRule(tagsToIgnore) {
    * script, pre, style are for Vue
    */
   const specialTagsRegex = Array.from(tagsToIgnore)
-  .concat(['include|variable|site-nav|markdown|md|script|pre|style'])
+  .concat(['include|variable|site-nav|markdown|script|pre|style'])
   .join('|');
 
   // attr_name, unquoted ... attribute patterns adapted from markdown-it/lib/common/html_re
