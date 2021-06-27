@@ -49,12 +49,7 @@ function detectAndApplyFixedHeaderStyles() {
     top: calc(-${headerHeight}px - ${bufferHeight}rem)
     }`,
   );
-  insertCss(`.card-container::before {
-        display: block;
-        content: '';
-        margin-top: calc(-${headerHeight}px - ${bufferHeight}rem);
-        height: calc(${headerHeight}px + ${bufferHeight}rem);
-      }`);
+  insertCss(`.card-container { scroll-margin-top: calc(${headerHeight}px + ${bufferHeight}rem); }`);
   insertCss(`.nav-menu-open { max-height: calc(100% - ${headerHeight}px); }`);
 
   const adjustHeaderClasses = () => {
@@ -73,9 +68,8 @@ function detectAndApplyFixedHeaderStyles() {
           case 'span.anchor':
             rules[0].style.top = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
             break;
-          case '.card-container::before':
-            rules[0].style.marginTop = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
-            rules[0].style.height = `calc(${newHeaderHeight}px + ${bufferHeight}rem)`;
+          case '.card-container':
+            rules[0].style.scrollMarginTop = `calc(${newHeaderHeight}px + ${bufferHeight}rem)`;
             break;
           case '.nav-menu-open':
             rules[0].style.maxHeight = `calc(100% - ${newHeaderHeight}px + 50px)`;
