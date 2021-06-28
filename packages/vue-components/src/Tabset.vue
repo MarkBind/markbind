@@ -1,5 +1,5 @@
 <template>
-  <div :class="[addClass, 'printable-tabs']">
+  <div :class="[addClass, 'printable-tabs', {'d-print-none': noPrint}]">
     <!-- Nav tabs -->
     <ul
       class="nav nav-tabs d-print-none"
@@ -65,6 +65,10 @@ export default {
     addClass: {
       type: String,
       default: '',
+    },
+    noPrint: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

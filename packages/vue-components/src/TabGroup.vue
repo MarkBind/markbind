@@ -1,5 +1,5 @@
 <template>
-  <div class="printable-tab-group">
+  <div :class="['printable-tab-group', {'d-print-none': noPrint}]">
     <div ref="header" class="printable-tab-group-header d-none d-print-block">
       <slot name="header"></slot>
     </div>
@@ -19,6 +19,10 @@ export default {
     header: {
       type: String,
       default: '',
+    },
+    noPrint: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

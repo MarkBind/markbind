@@ -2,8 +2,8 @@
   <div
     v-show="show"
     role="tabpanel"
-    class="tab-pane active printable-tab-pane d-print-block"
-    :class="{hide:!show}"
+    class="tab-pane active printable-tab-pane"
+    :class="[{hide:!show}, printableClass]"
   >
     <div class="nav-tabs printable-tab-header d-none d-print-flex">
       <div ref="header" class="nav-link active">
@@ -28,6 +28,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    noPrint: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     headerRendered() {
@@ -44,6 +48,9 @@ export default {
     },
     disabledBool() {
       return toBoolean(this.disabled);
+    },
+    printableClass() {
+      return this.noPrint ? 'd-print-none' : 'd-print-block';
     },
   },
   created() {
