@@ -20,6 +20,7 @@ import nestedPanel from './panels/NestedPanel.vue';
 import minimalPanel from './panels/MinimalPanel.vue';
 
 export default {
+  inheritAttrs: false,
   components: {
     nestedPanel,
     minimalPanel,

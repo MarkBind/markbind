@@ -88,6 +88,9 @@ export default {
     hasHeaderBool() {
       return this.$scopedSlots.header;
     },
+    hasId() {
+      return this.$attrs.id;
+    },
     isExpandableCard() {
       return this.expandableBool;
     },

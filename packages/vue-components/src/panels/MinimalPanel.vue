@@ -4,6 +4,11 @@
     ref="cardContainer"
     :class="['card-container', addClass]"
   >
+    <span
+      v-if="hasId"
+      :id="$attrs.id"
+      class="anchor"
+    ></span>
     <span class="morph">
       <button class="morph-display-wrapper btn card-title morph-title" @click="minimalOpen()">
         <slot name="_alt">
@@ -17,6 +22,11 @@
     ref="cardContainer"
     :class="['card-container', addClass]"
   >
+    <span
+      v-if="hasId"
+      :id="$attrs.id"
+      class="anchor"
+    ></span>
     <div class="card card-flex">
       <div
         :class="['header-wrapper',
@@ -93,6 +103,7 @@ import retriever from '../Retriever.vue';
 import panelBase from './PanelBase';
 
 export default {
+  inheritAttrs: false,
   mixins: [panelBase],
   components: {
     retriever,
