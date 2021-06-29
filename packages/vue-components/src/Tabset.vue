@@ -59,8 +59,8 @@ export default {
       default: 'tabs',
     },
     active: {
-      type: Number,
-      default: 0,
+      type: String,
+      default: '0',
     },
     addClass: {
       type: String,
