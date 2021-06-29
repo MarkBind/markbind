@@ -137,6 +137,7 @@ var i = 0,
 
 const DEFAULT_SPECIAL_TAGS = [
 	'script',
+	'site-nav',
 	'style',
 	'variable',
 	'markdown',

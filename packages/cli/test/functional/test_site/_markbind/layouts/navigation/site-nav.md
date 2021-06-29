@@ -4,6 +4,7 @@
 * ### Testing Site-Nav
 * **Dropdown :expanded:** :glyphicon-search: title :pencil2: <!-- Nested list items will be placed inside a Dropdown menu -->
   * [Dropdown link one](https://www.google.com/)
+  * [Html within site-nav <span style="color: red;">should</span> be displayed properly](https://www.google.com/)
   * Nested Dropdown title :triangular_ruler:
     * [**Nested** Dropdown link one](https://www.google.com/)
     * [**Nested** Dropdown link two](https://www.google.com/)
