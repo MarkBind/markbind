@@ -57,6 +57,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    panelId: {
+      type: String,
+      default: null,
+    },
   },
   computed: {
     // Vue 2.0 coerce migration
@@ -88,11 +92,11 @@ export default {
     hasHeaderBool() {
       return this.$scopedSlots.header;
     },
-    hasId() {
-      return this.$attrs.id;
-    },
     isExpandableCard() {
       return this.expandableBool;
+    },
+    hasId() {
+      return this.panelId;
     },
     hasSrc() {
       return this.src && this.src.length > 0;

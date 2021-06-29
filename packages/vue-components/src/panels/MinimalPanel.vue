@@ -6,7 +6,7 @@
   >
     <span
       v-if="hasId"
-      :id="$attrs.id"
+      :id="panelId"
       class="anchor"
     ></span>
     <span class="morph">
@@ -24,7 +24,7 @@
   >
     <span
       v-if="hasId"
-      :id="$attrs.id"
+      :id="panelId"
       class="anchor"
     ></span>
     <div class="card card-flex">
@@ -103,7 +103,6 @@ import retriever from '../Retriever.vue';
 import panelBase from './PanelBase';
 
 export default {
-  inheritAttrs: false,
   mixins: [panelBase],
   components: {
     retriever,

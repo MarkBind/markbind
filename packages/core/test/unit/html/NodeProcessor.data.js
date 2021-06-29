@@ -50,7 +50,7 @@ module.exports.POST_PROCESS_PANEL_ID_ASSIGNED_USING_HEADER_SLOT = `
 `;
 
 module.exports.POST_PROCESS_PANEL_ID_ASSIGNED_USING_HEADER_SLOT_EXPECTED = `
-<panel id="slot-header"><template #header><h1 id="slot-header">Slot Header</h1></template>
+<panel panelId="slot-header"><template #header><h1 id="slot-header">Slot Header</h1></template>
   Header and alt attributes should be processed and inserted under panel as slots and internal slots respectively and deleted.
 </panel>
 `;

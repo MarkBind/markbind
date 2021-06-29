@@ -6,7 +6,7 @@
   >
     <span
       v-if="hasId"
-      :id="$attrs.id"
+      :id="panelId"
       class="anchor"
     ></span>
     <span class="morph">
@@ -24,7 +24,7 @@
   >
     <span
       v-if="hasId"
-      :id="$attrs.id"
+      :id="panelId"
       class="anchor"
     ></span>
     <div :class="['card', { 'expandable-card': isExpandableCard }, borderType]">
@@ -118,7 +118,6 @@ import panelSwitch from './PanelSwitch.vue';
 import retriever from '../Retriever.vue';
 
 export default {
-  inheritAttrs: false,
   mixins: [panelBase],
   components: {
     panelSwitch,

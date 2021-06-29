@@ -121,7 +121,7 @@ test('processNode processes box attributes and inserts into dom as slots correct
                            testData.PROCESS_BOX_HEADING_EXPECTED);
 });
 
-test('postProcessNode assigns the correct header id to panels', () => {
+test('postProcessNode assigns the correct panel id to panels', () => {
   processAndVerifyTemplate(testData.POST_PROCESS_PANEL_ID_ASSIGNED_USING_HEADER_SLOT,
                            testData.POST_PROCESS_PANEL_ID_ASSIGNED_USING_HEADER_SLOT_EXPECTED,
                            true);

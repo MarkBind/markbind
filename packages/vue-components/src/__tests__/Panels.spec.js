@@ -62,8 +62,8 @@ describe('NestedPanels', () => {
 
   test('should have span.anchor when id is present', async () => {
     const wrapper = mount(NestedPanel, {
-      attrs: {
-        id: 'test-id',
+      propsData: {
+        panelId: 'test-id',
       },
       slots: {
         header: 'test header',
