@@ -265,20 +265,20 @@
             <span class="keyword">panel keyword</span>
           </panel>
           <p><strong>Panel with heading with keyword</strong></p>
-          <panel expanded id="panel-with-heading"><template #header>
+          <panel expanded panelId="panel-with-heading"><template #header>
               <h1 id="panel-with-heading"><span id="panel-with-heading" class="anchor"></span>Panel with heading<a class="fa fa-anchor" href="#panel-with-heading" onclick="event.stopPropagation()"></a></h1>
             </template>
             <span class="keyword">panel keyword</span>
           </panel>
           <p><strong>Expanded panel without heading with keyword</strong></p>
-          <panel expanded id="panel-without-heading-with-keyword"><template #header>
+          <panel expanded panelId="panel-without-heading-with-keyword"><template #header>
               <h1 id="panel-without-heading-with-keyword"><span id="panel-without-heading-with-keyword" class="anchor"></span>Panel without heading with keyword<a class="fa fa-anchor" href="#panel-without-heading-with-keyword" onclick="event.stopPropagation()"></a></h1>
             </template>
             <h1 id="keyword-should-be-tagged-to-this-heading-not-the-panel-heading"><span id="keyword-should-be-tagged-to-this-heading-not-the-panel-heading" class="anchor"></span>Keyword should be tagged to this heading, not the panel heading<a class="fa fa-anchor" href="#keyword-should-be-tagged-to-this-heading-not-the-panel-heading" onclick="event.stopPropagation()"></a></h1>
             <p><span class="keyword">panel keyword</span></p>
           </panel>
           <p><strong>Unexpanded panel with heading with keyword</strong></p>
-          <panel id="panel-with-heading-with-keyword"><template #header>
+          <panel panelId="panel-with-heading-with-keyword"><template #header>
               <h1 id="panel-with-heading-with-keyword"><span id="panel-with-heading-with-keyword" class="anchor"></span>Panel with heading with keyword<a class="fa fa-anchor" href="#panel-with-heading-with-keyword" onclick="event.stopPropagation()"></a></h1>
             </template>
             <h1 id="keyword-should-be-tagged-to-the-panel-heading-not-this-heading"><span id="keyword-should-be-tagged-to-the-panel-heading-not-this-heading" class="anchor"></span>Keyword should be tagged to the panel heading, not this heading<a class="fa fa-anchor" href="#keyword-should-be-tagged-to-the-panel-heading-not-this-heading" onclick="event.stopPropagation()"></a></h1>
@@ -591,7 +591,7 @@
             </span>
           </panel>
           <p><strong>Panel without src</strong></p>
-          <panel expanded id="panel-without-src-header"><template #header>
+          <panel expanded panelId="panel-without-src-header"><template #header>
               <h2 id="panel-without-src-header"><span id="panel-without-src-header" class="anchor"></span>Panel without src header<a class="fa fa-anchor" href="#panel-without-src-header" onclick="event.stopPropagation()"></a></h2>
             </template>
             <div>
@@ -599,43 +599,43 @@
             </div>
           </panel>
           <p><strong>Panel with normal src</strong></p>
-          <panel src="/test_site/testPanels/PanelNormalSource._include_.html" expanded id="panel-with-normal-src-header"><template #header>
+          <panel src="/test_site/testPanels/PanelNormalSource._include_.html" expanded panelId="panel-with-normal-src-header"><template #header>
               <h2 id="panel-with-normal-src-header"><span id="panel-with-normal-src-header" class="anchor"></span>Panel with normal src header<a class="fa fa-anchor" href="#panel-with-normal-src-header" onclick="event.stopPropagation()"></a></h2>
             </template></panel>
           <p><strong>Panel with src from a page segment</strong></p>
-          <panel src="/test_site/testPanels/PanelSourceContainsSegment._include_.html#segment" expanded fragment="segment" id="panel-with-src-from-a-page-segment-header"><template #header>
+          <panel src="/test_site/testPanels/PanelSourceContainsSegment._include_.html#segment" expanded fragment="segment" panelId="panel-with-src-from-a-page-segment-header"><template #header>
               <h2 id="panel-with-src-from-a-page-segment-header"><span id="panel-with-src-from-a-page-segment-header" class="anchor"></span>Panel with src from a page segment header<a class="fa fa-anchor" href="#panel-with-src-from-a-page-segment-header" onclick="event.stopPropagation()"></a></h2>
             </template></panel>
           <p><strong>Panel with boilerplate</strong></p>
-          <panel src="/test_site/testPanels/boilerTestPanel._include_.html" expanded id="boilerplate-referencing"><template #header>
+          <panel src="/test_site/testPanels/boilerTestPanel._include_.html" expanded panelId="boilerplate-referencing"><template #header>
               <h2 id="boilerplate-referencing"><span id="boilerplate-referencing" class="anchor"></span>Boilerplate referencing<a class="fa fa-anchor" href="#boilerplate-referencing" onclick="event.stopPropagation()"></a></h2>
             </template></panel>
-          <panel src="/test_site/testPanelsDuplicate/boilerTestPanel._include_.html" expanded id="boilerplate-referencing-2"><template #header>
+          <panel src="/test_site/testPanelsDuplicate/boilerTestPanel._include_.html" expanded panelId="boilerplate-referencing-2"><template #header>
               <h2 id="boilerplate-referencing-2"><span id="boilerplate-referencing-2" class="anchor"></span>Boilerplate referencing 2<a class="fa fa-anchor" href="#boilerplate-referencing-2" onclick="event.stopPropagation()"></a></h2>
             </template></panel>
-          <panel src="/test_site/testPanels/notInside._include_.html" expanded id="referencing-specified-path-in-boilerplate"><template #header>
+          <panel src="/test_site/testPanels/notInside._include_.html" expanded panelId="referencing-specified-path-in-boilerplate"><template #header>
               <h2 id="referencing-specified-path-in-boilerplate"><span id="referencing-specified-path-in-boilerplate" class="anchor"></span>Referencing specified path in boilerplate<a class="fa fa-anchor" href="#referencing-specified-path-in-boilerplate" onclick="event.stopPropagation()"></a></h2>
             </template></panel>
           <p><strong>Nested panel</strong></p>
-          <panel src="/test_site/testPanels/NestedPanel._include_.html" expanded id="outer-nested-panel"><template #header>
+          <panel src="/test_site/testPanels/NestedPanel._include_.html" expanded panelId="outer-nested-panel"><template #header>
               <h2 id="outer-nested-panel"><span id="outer-nested-panel" class="anchor"></span>Outer nested panel<a class="fa fa-anchor" href="#outer-nested-panel" onclick="event.stopPropagation()"></a></h2>
             </template></panel>
           <p><strong>Nested panel without src</strong></p>
-          <panel expanded id="outer-nested-panel-without-src"><template #header>
+          <panel expanded panelId="outer-nested-panel-without-src"><template #header>
               <h2 id="outer-nested-panel-without-src"><span id="outer-nested-panel-without-src" class="anchor"></span>Outer nested panel without src<a class="fa fa-anchor" href="#outer-nested-panel-without-src" onclick="event.stopPropagation()"></a></h2>
             </template>
             <p><strong>Panel content of outer nested panel</strong></p>
-            <panel expanded id="inner-panel-header-without-src"><template #header>
+            <panel expanded panelId="inner-panel-header-without-src"><template #header>
                 <h2 id="inner-panel-header-without-src"><span id="inner-panel-header-without-src" class="anchor"></span>Inner panel header without src<a class="fa fa-anchor" href="#inner-panel-header-without-src" onclick="event.stopPropagation()"></a></h2>
               </template>
               <p><strong>Panel content of inner nested panel</strong></p>
             </panel>
           </panel>
           <p><strong>Panel with src from another Markbind site</strong></p>
-          <panel src="/test_site/sub_site/index._include_.html" expanded id="panel-with-src-from-another-markbind-site-header"><template #header>
+          <panel src="/test_site/sub_site/index._include_.html" expanded panelId="panel-with-src-from-another-markbind-site-header"><template #header>
               <h2 id="panel-with-src-from-another-markbind-site-header"><span id="panel-with-src-from-another-markbind-site-header" class="anchor"></span>Panel with src from another Markbind site header<a class="fa fa-anchor" href="#panel-with-src-from-another-markbind-site-header" onclick="event.stopPropagation()"></a></h2>
             </template></panel>
-          <panel src="/test_site/sub_site/testReuseSubsite._include_.html" expanded id="panel-with-src-from-another-markbind-site-header-2"><template #header>
+          <panel src="/test_site/sub_site/testReuseSubsite._include_.html" expanded panelId="panel-with-src-from-another-markbind-site-header-2"><template #header>
               <h2 id="panel-with-src-from-another-markbind-site-header-2"><span id="panel-with-src-from-another-markbind-site-header-2" class="anchor"></span>Panel with src from another Markbind site header<a class="fa fa-anchor" href="#panel-with-src-from-another-markbind-site-header-2" onclick="event.stopPropagation()"></a></h2>
             </template></panel>
         </div>
@@ -644,18 +644,18 @@
           <trigger for="modal-with-panel">trigger</trigger>
         </p>
         <b-modal id="modal-with-panel" hide-footer size modal-class="mb-zoom" ref="modal-with-panel"><template #modal-title>modal title with panel inside</template>
-          <panel expanded id="panel-inside-modal"><template #header>
+          <panel expanded panelId="panel-inside-modal"><template #header>
               <h2 id="panel-inside-modal"><span id="panel-inside-modal" class="anchor"></span>Panel inside modal<a class="fa fa-anchor" href="#panel-inside-modal" onclick="event.stopPropagation()"></a></h2>
             </template>
             <p><strong>Panel content inside modal</strong></p>
           </panel>
         </b-modal>
         <p><strong>Unexpanded panel</strong></p>
-        <panel id="unexpanded-panel-header"><template #header>
+        <panel panelId="unexpanded-panel-header"><template #header>
             <h2 id="unexpanded-panel-header"><span id="unexpanded-panel-header" class="anchor"></span>Unexpanded panel header<a class="fa fa-anchor" href="#unexpanded-panel-header" onclick="event.stopPropagation()"></a></h2>
           </template>
           <p><strong>Panel content of unexpanded panel should not appear in search data</strong></p>
-          <panel expanded id="panel-header-inside-unexpanded-panel-should-not-appear-in-search-data"><template #header>
+          <panel expanded panelId="panel-header-inside-unexpanded-panel-should-not-appear-in-search-data"><template #header>
               <h2 id="panel-header-inside-unexpanded-panel-should-not-appear-in-search-data"><span id="panel-header-inside-unexpanded-panel-should-not-appear-in-search-data" class="anchor"></span>Panel header inside unexpanded panel should not appear in search data<a class="fa fa-anchor" href="#panel-header-inside-unexpanded-panel-should-not-appear-in-search-data" onclick="event.stopPropagation()"></a></h2>
             </template>
             <p><strong>Panel content inside unexpanded panel should not appear in search data</strong></p>
