@@ -61,7 +61,7 @@ return success
 
 in another file:
 ```html
-<puml src="diagrams/sequence.puml" width="300" />
+<puml src="diagrams/sequence.puml" width=300 />
 ```
 </span>
 
@@ -129,7 +129,7 @@ width | `string` | The width of the diagram in pixels.<br>If both width and heig
 <span id="short" class="d-none">
 
 ```
-<puml width="300">
+<puml width=300>
 @startuml
 alice -> bob ++ : hello
 bob -> bob ++ : self call
