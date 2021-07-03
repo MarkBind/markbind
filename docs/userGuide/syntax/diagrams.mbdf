@@ -18,7 +18,7 @@ must be installed to use this feature**
 <span id="code">
 
 ```
-<puml width=300>
+<puml width="300">
 @startuml
 alice -> bob ++ : hello
 bob -> bob ++ : self call

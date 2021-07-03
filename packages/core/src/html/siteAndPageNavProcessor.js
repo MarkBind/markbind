@@ -70,7 +70,7 @@ function renderSiteNav(node) {
 
   // collapse into tight list
   const siteNavHtml = md.render(siteNavText.replace(SITE_NAV_EMPTY_LINE_REGEX, '\n'));
-  const $ = cheerio.load(`<site-nav>${siteNavHtml}</site-nav>`);
+  const $ = cheerio.load(siteNavHtml);
 
   $('ul').each((i1, ulElem) => {
     const nestingLevel = $(ulElem).parents('ul').length;
@@ -116,7 +116,7 @@ function renderSiteNav(node) {
   });
 
   $original.empty();
-  $original.append($('site-nav').children());
+  $original.append($.root());
 }
 
 function addOverlayPortalSource(node, to) {
