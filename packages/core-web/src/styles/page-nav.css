@@ -24,7 +24,7 @@
     white-space: inherit;
 }
 
-#page-nav .nav-component .navbar-brand.page-nav-title {
+#page-nav > .nav-component > .navbar-brand.page-nav-title {
     padding-left: 0.5rem;
 }
 
