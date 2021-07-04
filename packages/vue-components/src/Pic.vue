@@ -6,6 +6,7 @@
       :alt="alt"
       :width="computedWidth"
       class="img-fluid rounded"
+      loading="lazy"
       @load.once="computeWidth"
     />
     <span class="image-caption">
