@@ -105,10 +105,6 @@ mark {
     }
 }
 
-#page-nav .nav-component .navbar-brand.page-nav-title {
-    padding-left: 0.3125rem;
-}
- 
 /* Bootstrap medium(md) responsive breakpoint */
 @media screen and (max-width: 991.98px) {
     #site-nav {
