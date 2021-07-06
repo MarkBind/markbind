@@ -7,7 +7,7 @@ export default {
       default: null,
     },
     expandable: {
-      type: Boolean,
+      type: [Boolean, String],
       default: true,
     },
     isOpen: {
@@ -38,7 +38,7 @@ export default {
       type: String,
     },
     bottomSwitch: {
-      type: Boolean,
+      type: [Boolean, String],
       default: true,
     },
     preload: {
