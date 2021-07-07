@@ -161,6 +161,7 @@ class Site {
    */
 
   static async rejectHandler(error, removeFolders) {
+    logger.warn(`rejectHandler called`);
     logger.warn(error);
     try {
       await Promise.all(removeFolders.map(folder => fs.remove(folder)));
@@ -1091,9 +1092,17 @@ class Site {
       }
 
       if (task.mode === 'sequential') {
-        isCompleted = await this.generatePagesSequential(task.pages, progressBar);
+        try {
+          isCompleted = await this.generatePagesSequential(task.pages, progressBar);
+        } catch (err) {
+          logger.error(err);
+        }
       } else {
-        isCompleted = await this.generatePagesAsyncThrottled(task.pages, progressBar);
+        try {
+          isCompleted = await this.generatePagesAsyncThrottled(task.pages, progressBar);
+        } catch (err) {
+          logger.error(err);
+        }
       }
     });
     return isCompleted;
@@ -1122,12 +1131,12 @@ class Site {
         await page.generate(this.externalManager);
         this.toRebuild.delete(fsUtil.removeExtension(page.pageConfig.sourcePath));
         if (this.backgroundBuildMode) {
-          await this.writeSiteData(false);
+          // await this.writeSiteData(false);
         }
         progressBar.tick();
       } catch (err) {
         logger.error(err);
-        throw new Error(`Error while generating ${page.sourcePath}`);
+        throw new Error(`Error while generating ${page.pageConfig.sourcePath}`);
       }
     });
     return isCompleted;
@@ -1167,12 +1176,12 @@ class Site {
           await page.generate(this.externalManager);
           this.toRebuild.delete(fsUtil.removeExtension(page.pageConfig.sourcePath));
           if (this.backgroundBuildMode) {
-            await this.writeSiteData(false);
+            // await this.writeSiteData(false);
           }
           this.generateProgressBarStatus(progressBar, context, pageGenerationQueue, resolve);
         } catch (err) {
           logger.error(err);
-          reject(new Error(`Error while generating ${page.sourcePath}`));
+          reject(new Error(`Error while generating ${page.pageConfig.sourcePath}`));
         }
       });
 
