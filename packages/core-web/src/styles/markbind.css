@@ -283,3 +283,10 @@ button.copy-btn {
     height: 1em;
     width: 1em;
 }
+
+/* Hide component during print */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+}

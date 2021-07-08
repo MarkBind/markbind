@@ -1,11 +1,10 @@
 <template>
   <div
-    v-show="show"
     role="tabpanel"
-    class="tab-pane active printable-tab-pane d-print-block"
+    class="tab-pane active printable-tab-pane tab-print-block"
     :class="{hide:!show}"
   >
-    <div class="nav-tabs printable-tab-header d-none d-print-flex">
+    <div class="nav-tabs printable-tab-header tab-print-flex">
       <div ref="header" class="nav-link active">
         <slot name="header"></slot>
       </div>
@@ -84,6 +83,14 @@ export default {
         margin: 0;
     }
 
+    .tab-pane.hide {
+        display: none;
+    }
+
+    .printable-tab-header {
+        display: none;
+    }
+
     @media print {
         .printable-tab-header {
             margin-bottom: 15px;
@@ -96,6 +103,14 @@ export default {
 
         .printable-tab-pane {
             padding: 10px;
+        }
+
+        .tab-pane.printable-tab-pane.tab-print-block {
+            display: block;
+        }
+
+        .printable-tab-header.tab-print-flex {
+            display: flex;
         }
     }
 </style>
