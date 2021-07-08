@@ -59,4 +59,17 @@ describe('NestedPanels', () => {
 
     expect(wrapper.element).toMatchSnapshot();
   });
+
+  test('should have span.anchor when id is present', async () => {
+    const wrapper = mount(NestedPanel, {
+      propsData: {
+        panelId: 'test-id',
+      },
+      slots: {
+        header: 'test header',
+      },
+    });
+
+    expect(wrapper.element).toMatchSnapshot();
+  });
 });

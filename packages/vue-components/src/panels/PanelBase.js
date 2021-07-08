@@ -57,6 +57,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    panelId: {
+      type: String,
+      default: null,
+    },
   },
   computed: {
     // Vue 2.0 coerce migration
@@ -90,6 +94,9 @@ export default {
     },
     isExpandableCard() {
       return this.expandableBool;
+    },
+    hasId() {
+      return this.panelId;
     },
     hasSrc() {
       return this.src && this.src.length > 0;
@@ -134,8 +141,9 @@ export default {
         requestAnimationFrame(() => {
           // To enable behaviour of auto window scrolling during panel collapse
           if (this.$el.getBoundingClientRect().top < 0) {
+            const headerHeight = jQuery('header[fixed]').height() || 0;
             jQuery('html').animate({
-              scrollTop: window.scrollY + this.$el.getBoundingClientRect().top - 3,
+              scrollTop: window.scrollY + this.$el.getBoundingClientRect().top - headerHeight - 3,
             }, 500, 'swing');
           }
           this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;

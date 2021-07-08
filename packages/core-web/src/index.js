@@ -49,7 +49,6 @@ function detectAndApplyFixedHeaderStyles() {
     top: calc(-${headerHeight}px - ${bufferHeight}rem)
     }`,
   );
-  insertCss(`.card-container { scroll-margin-top: calc(${headerHeight}px + ${bufferHeight}rem); }`);
   insertCss(`.nav-menu-open { max-height: calc(100% - ${headerHeight}px); }`);
 
   const adjustHeaderClasses = () => {
@@ -67,9 +66,6 @@ function detectAndApplyFixedHeaderStyles() {
             break;
           case 'span.anchor':
             rules[0].style.top = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
-            break;
-          case '.card-container':
-            rules[0].style.scrollMarginTop = `calc(${newHeaderHeight}px + ${bufferHeight}rem)`;
             break;
           case '.nav-menu-open':
             rules[0].style.maxHeight = `calc(100% - ${newHeaderHeight}px + 50px)`;

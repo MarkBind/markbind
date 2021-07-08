@@ -4,6 +4,11 @@
     ref="cardContainer"
     :class="['card-container', addClass]"
   >
+    <span
+      v-if="hasId"
+      :id="panelId"
+      class="anchor"
+    ></span>
     <span class="morph">
       <button class="morph-display-wrapper btn card-title morph-title" @click="minimalOpen()">
         <slot name="_alt">
@@ -17,6 +22,11 @@
     ref="cardContainer"
     :class="['card-container', addClass]"
   >
+    <span
+      v-if="hasId"
+      :id="panelId"
+      class="anchor"
+    ></span>
     <div class="card card-flex">
       <div
         :class="['header-wrapper',
