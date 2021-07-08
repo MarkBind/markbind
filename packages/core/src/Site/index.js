@@ -161,9 +161,10 @@ class Site {
    */
 
   static async rejectHandler(error, removeFolders) {
-    logger.warn(`rejectHandler called`);
+    logger.warn('rejectHandler called');
     logger.warn(error);
     try {
+      logger.info(`Removing ${removeFolders}`);
       await Promise.all(removeFolders.map(folder => fs.remove(folder)));
     } catch (err) {
       logger.error(`Failed to remove generated files after error!\n${err.message}`);
@@ -1095,12 +1096,14 @@ class Site {
         try {
           isCompleted = await this.generatePagesSequential(task.pages, progressBar);
         } catch (err) {
+          logger.error('Sequential generation failed');
           logger.error(err);
         }
       } else {
         try {
           isCompleted = await this.generatePagesAsyncThrottled(task.pages, progressBar);
         } catch (err) {
+          logger.error('Asynchronous generation failed');
           logger.error(err);
         }
       }
@@ -1157,6 +1160,7 @@ class Site {
         numPagesGenerated: 0,
         numPagesToGenerate: pages.length,
         isCompleted: true,
+        stop: false,
       };
 
       // Map pages into array of callbacks for delayed execution
@@ -1180,6 +1184,8 @@ class Site {
           }
           this.generateProgressBarStatus(progressBar, context, pageGenerationQueue, resolve);
         } catch (err) {
+          context.stop = true;
+          logger.error('Asynchronous page callback error');
           logger.error(err);
           reject(new Error(`Error while generating ${page.pageConfig.sourcePath}`));
         }
@@ -1199,6 +1205,10 @@ class Site {
    * Helper function for generatePagesAsyncThrottled().
    */
   generateProgressBarStatus(progressBar, context, pageGenerationQueue, resolve) {
+    if (this.backgroundBuildMode && context.stop) {
+      return;
+    }
+
     // Post-generate guard to ensure no new callbacks are executed on stop
     if (this.backgroundBuildMode && context.startTime < this.stopGenerationTimeThreshold) {
       if (context.isCompleted) {

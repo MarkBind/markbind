@@ -37,7 +37,7 @@ process.stdout.write(
 
 function printHeader() {
   logger.logo();
-  logger.log(` v${CLI_VERSION}`);
+  logger.log(` v${CLI_VERSION}-trial`);
 }
 
 function handleError(error) {
