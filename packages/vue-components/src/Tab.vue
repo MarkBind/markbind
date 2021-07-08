@@ -1,11 +1,10 @@
 <template>
   <div
-    v-show="show"
     role="tabpanel"
-    class="tab-pane active printable-tab-pane"
-    :class="[{hide:!show}, printableClass]"
+    class="tab-pane active printable-tab-pane tab-print-block"
+    :class="{hide:!show}"
   >
-    <div class="nav-tabs printable-tab-header d-none d-print-flex">
+    <div class="nav-tabs printable-tab-header tab-print-flex">
       <div ref="header" class="nav-link active">
         <slot name="header"></slot>
       </div>
@@ -28,10 +27,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    noPrint: {
-      type: Boolean,
-      default: false,
-    },
   },
   computed: {
     headerRendered() {
@@ -48,9 +43,6 @@ export default {
     },
     disabledBool() {
       return toBoolean(this.disabled);
-    },
-    printableClass() {
-      return this.noPrint ? 'd-print-none' : 'd-print-block';
     },
   },
   created() {
@@ -91,6 +83,14 @@ export default {
         margin: 0;
     }
 
+    .tab-pane.hide {
+        display: none;
+    }
+
+    .printable-tab-header {
+        display: none;
+    }
+
     @media print {
         .printable-tab-header {
             margin-bottom: 15px;
@@ -103,6 +103,14 @@ export default {
 
         .printable-tab-pane {
             padding: 10px;
+        }
+
+        .tab-pane.printable-tab-pane.tab-print-block {
+            display: block;
+        }
+
+        .printable-tab-header.tab-print-flex {
+            display: flex;
         }
     }
 </style>

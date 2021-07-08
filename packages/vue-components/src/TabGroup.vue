@@ -1,6 +1,6 @@
 <template>
-  <div :class="['printable-tab-group', {'d-print-none': noPrint}]">
-    <div ref="header" class="printable-tab-group-header d-none d-print-block">
+  <div class="printable-tab-group">
+    <div ref="header" class="printable-tab-group-header tab-group-print-block">
       <slot name="header"></slot>
     </div>
     <slot></slot>
@@ -19,10 +19,6 @@ export default {
     header: {
       type: String,
       default: '',
-    },
-    noPrint: {
-      type: Boolean,
-      default: false,
     },
   },
   data() {
@@ -76,6 +72,10 @@ export default {
         margin-bottom: 15px;
     }
 
+    .printable-tab-group-header {
+        display: none;
+    }
+
     @media print {
         .printable-tab-group {
             border: 1px solid #dee2e6;
@@ -87,6 +87,10 @@ export default {
         .printable-tab-group-header {
             margin-bottom: 10px;
             text-decoration: underline;
+        }
+
+        .printable-tab-group-header.tab-group-print-block {
+            display: block;
         }
     }
 </style>

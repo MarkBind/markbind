@@ -9,7 +9,7 @@
   </tab>
   <tab header="Disabled second tab :x:" disabled>
   </tab>
-  <tab header="Tab not printed" no-print>
+  <tab header="Tab not printed" class="no-print">
     This single tab will not be printed.
   </tab>
   <tab-group header="Third tab group :milky_way:">
@@ -34,21 +34,23 @@
 Name | Type | Default | Description
 --- | --- | --- | ---
 active | `Number` | `0` | Active Tab index (0-based)
-no-print | `Boolean` | `false` | Whether to include the entire tab when printing pages.
 
 `tab`:
 Name | Type | Default | Description
 --- | --- | --- | ---
 header | `String` | `null` | Tab title.
 disabled | `Boolean` | `false` | Whether Tab is clickable and can be activated.
-no-print | `Boolean` | `false` | Whether to include the specific tab when printing pages.
 
 `tab-group`:
 Name | Type | Default | Description
 --- | --- | --- | ---
 header | `String` | `null` | Tab Group title.
 disabled | `Boolean` | `false` | Whether Tab Group is clickable and can be activated.
-no-print | `Boolean` | `false` | Whether to include the tab group when printing pages.
+
+<box type="info">
+
+  Tabs, tab group and individual tab can be omitted during printing by adding `class="no-print"` to the respective components.
+</box>
 
 <span id="short" class="d-none">
 
