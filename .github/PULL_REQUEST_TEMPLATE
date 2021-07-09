@@ -23,7 +23,7 @@
 **Testing instructions:**
 
 <!--
-  Any special testing instructions in not including our automated tests.
+  Any special testing instructions **not including** our automated tests.
 -->
 
 **Proposed commit message: (wrap lines at 72 characters)**
@@ -39,14 +39,14 @@
 
 **Checklist:** :ballot_box_with_check:
 
-<!--
-  Prefix your pull request title with [WIP] if any of these are not complete yet
-
-  Tick non-applicable items as well
--->
+<!-- Leave non-applicable items unchecked -->
 
 - [ ] Updated the documentation for feature additions and enhancements
 - [ ] Added tests for bug fixes or features
 - [ ] Linked all related issues
-- [ ] No blatantly unrelated changes
-- [ ] Pinged someone for a review!
+- [ ] No unrelated changes <!-- Its tempting, but increases the reviewer's work, and really pollutes the commit history =( -->
+
+<!--
+  We'll try our best to get to your PR within a week.
+  If we haven't gotten to it then, or if your pull request resolves an urgent item, feel free to give us a ping!
+-->
