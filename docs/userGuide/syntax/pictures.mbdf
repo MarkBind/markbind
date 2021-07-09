@@ -8,6 +8,10 @@
 <pic src="https://markbind.org/images/logo-lightbackground.png" width="300" alt="Logo">
   MarkBind Logo
 </pic>
+
+<pic src="https://markbind.org/images/logo-lightbackground.png" width="300" alt="Logo" eager>
+  MarkBind Logo
+</pic>
 </variable>
 </include>
 
@@ -18,6 +22,7 @@ alt | `string` | | **This must be specified.**<br>The alternative text of the im
 height | `string` | | The height of the image in pixels.
 src | `string` | | **This must be specified.**<br>The URL of the image.<br>The URL can be specified as absolute or relative references. More info in: _[Intra-Site Links]({{baseUrl}}/userGuide/formattingContents.html#intraSiteLinks)_
 width | `string` | | The width of the image in pixels.<br>If both width and height are specified, width takes priority over height. It is to maintain the image's aspect ratio.
+eager | `boolean` | false | Whether the image is lazy loaded.
 
 <span id="short" class="d-none">
 
