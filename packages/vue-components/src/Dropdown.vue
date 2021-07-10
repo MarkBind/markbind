@@ -63,7 +63,7 @@ export default {
   },
   props: {
     disabled: {
-      type: Boolean,
+      type: [Boolean, String],
       default: false,
     },
     type: {

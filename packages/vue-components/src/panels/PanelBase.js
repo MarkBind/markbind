@@ -11,23 +11,23 @@ export default {
       default: true,
     },
     isOpen: {
-      type: Boolean,
+      type: [Boolean, String],
       default: null,
     },
     expanded: {
-      type: Boolean,
+      type: [Boolean, String],
       default: null,
     },
     minimized: {
-      type: Boolean,
+      type: [Boolean, String],
       default: false,
     },
     noSwitch: {
-      type: Boolean,
+      type: [Boolean, String],
       default: false,
     },
     noClose: {
-      type: Boolean,
+      type: [Boolean, String],
       default: false,
     },
     popupUrl: {
@@ -42,7 +42,7 @@ export default {
       default: true,
     },
     preload: {
-      type: Boolean,
+      type: [Boolean, String],
       default: false,
     },
     addClass: {
