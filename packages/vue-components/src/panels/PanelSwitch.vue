@@ -16,7 +16,7 @@ import { toBoolean } from '../utils/utils';
 export default {
   props: {
     isOpen: {
-      type: Boolean,
+      type: [Boolean, String],
       default: false,
     },
     isLightBg: {

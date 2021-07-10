@@ -62,7 +62,7 @@ export default {
       default: '',
     },
     fixed: {
-      type: Boolean,
+      type: [Boolean, String],
       default: false,
     },
     defaultHighlightOn: {

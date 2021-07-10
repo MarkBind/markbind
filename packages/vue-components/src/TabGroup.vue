@@ -13,7 +13,7 @@ import { coerce } from './utils/utils';
 export default {
   props: {
     disabled: {
-      type: Boolean,
+      type: [Boolean, String],
       default: false,
     },
     header: {
