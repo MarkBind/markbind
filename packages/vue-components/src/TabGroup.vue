@@ -1,6 +1,6 @@
 <template>
   <div class="printable-tab-group">
-    <div ref="header" class="printable-tab-group-header tab-group-print-block">
+    <div ref="header" class="printable-tab-group-header">
       <slot name="header"></slot>
     </div>
     <slot></slot>
@@ -85,12 +85,9 @@ export default {
         }
 
         .printable-tab-group-header {
+            display: block;
             margin-bottom: 10px;
             text-decoration: underline;
-        }
-
-        .printable-tab-group-header.tab-group-print-block {
-            display: block;
         }
     }
 </style>
