@@ -78,12 +78,12 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
     .tab-pane > hr {
         margin: 0;
     }
 
-    .tab-content .tab-pane-hide {
+    .tab-pane-hide {
         display: none;
     }
 
@@ -102,7 +102,7 @@ export default {
             margin-bottom: -2px;
         }
 
-        .tab-content .printable-tab-pane {
+        .printable-tab-pane {
             display: block;
             padding: 10px;
         }
