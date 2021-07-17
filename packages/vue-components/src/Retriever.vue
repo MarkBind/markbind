@@ -20,7 +20,7 @@ export default {
       default: null,
     },
     delay: {
-      type: Boolean,
+      type: [Boolean, String],
       default: false,
     },
     hasFetched: {
