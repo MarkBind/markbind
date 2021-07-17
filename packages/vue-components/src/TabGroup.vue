@@ -1,6 +1,6 @@
 <template>
   <div class="printable-tab-group">
-    <div ref="header" class="printable-tab-group-header d-none d-print-block">
+    <div ref="header" class="printable-tab-group-header">
       <slot name="header"></slot>
     </div>
     <slot></slot>
@@ -72,6 +72,10 @@ export default {
         margin-bottom: 15px;
     }
 
+    .printable-tab-group-header {
+        display: none;
+    }
+
     @media print {
         .printable-tab-group {
             border: 1px solid #dee2e6;
@@ -81,6 +85,7 @@ export default {
         }
 
         .printable-tab-group-header {
+            display: block;
             margin-bottom: 10px;
             text-decoration: underline;
         }

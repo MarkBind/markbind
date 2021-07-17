@@ -9,6 +9,9 @@
   </tab>
   <tab header="Disabled second tab :x:" disabled>
   </tab>
+  <tab header="Tab not printed" class="d-print-none">
+    This tab will not be printed.
+  </tab>
   <tab-group header="Third tab group :milky_way:">
     <tab header="Stars :star:">
       Some stuff about stars ...
@@ -43,6 +46,11 @@ Name | Type | Default | Description
 --- | --- | --- | ---
 header | `String` | `null` | Tab Group title.
 disabled | `Boolean` | `false` | Whether Tab Group is clickable and can be activated.
+
+<box type="info">
+
+Tabs, tab group and individual tab can be omitted during printing by adding bootstrap's display property `class="d-print-none"` to the respective components.
+</box>
 
 <span id="short" class="d-none">
 
