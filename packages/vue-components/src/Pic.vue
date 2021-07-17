@@ -6,6 +6,7 @@
       :alt="alt"
       :width="computedWidth"
       class="img-fluid rounded"
+      :loading="computedLoadType"
       @load.once="computeWidth"
     />
     <span class="image-caption">
@@ -35,6 +36,10 @@ export default {
       type: String,
       default: '',
     },
+    eager: {
+      type: Boolean,
+      default: false,
+    },
     addClass: {
       type: String,
       default: '',
@@ -52,6 +57,9 @@ export default {
         return this.width;
       }
       return this.widthFromHeight;
+    },
+    computedLoadType() {
+      return this.eager ? 'eager' : 'lazy';
     },
   },
   data() {
