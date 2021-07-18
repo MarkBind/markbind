@@ -284,6 +284,12 @@
             <h1 id="keyword-should-be-tagged-to-the-panel-heading-not-this-heading"><span id="keyword-should-be-tagged-to-the-panel-heading-not-this-heading" class="anchor"></span>Keyword should be tagged to the panel heading, not this heading<a class="fa fa-anchor" href="#keyword-should-be-tagged-to-the-panel-heading-not-this-heading" onclick="event.stopPropagation()"></a></h1>
             <p><span class="keyword">panel keyword</span></p>
           </panel>
+          <h1 id="heading-fragment-with-leading-spaces-and-newline"><span id="heading-fragment-with-leading-spaces-and-newline" class="anchor"></span>Heading <div>
+              <pre><code v-pre>Fragment with leading spaces and newline
+</code></pre>
+            </div><a class="fa fa-anchor" href="#heading-fragment-with-leading-spaces-and-newline" onclick="event.stopPropagation()"></a></h1>
+          <p>The <code class="hljs inline no-lang" v-pre>id</code> for the above heading should be <code class="hljs inline no-lang" v-pre>heading-fragment-with-leading-spaces-and-newline</code> in total.
+            This test ensures heading ids are assigned last (e.g. after <code class="hljs inline no-lang" v-pre>&lt;include /&gt;</code>s are processed).</p>
           <h1 id="heading-with-included-keyword"><span id="heading-with-included-keyword" class="anchor"></span>Heading with included keyword<a class="fa fa-anchor" href="#heading-with-included-keyword" onclick="event.stopPropagation()"></a></h1>
           <div>
             <p><span class="keyword">included keyword</span></p>
@@ -753,6 +759,9 @@
             <a class="nav-link py-1" href="#panel-without-heading-with-keyword">Panel without heading with keyword&#x200E;</a>
             <a class="nav-link py-1" href="#keyword-should-be-tagged-to-this-heading-not-the-panel-heading">Keyword should be tagged to this heading, not the panel heading&#x200E;</a>
             <a class="nav-link py-1" href="#panel-with-heading-with-keyword">Panel with heading with keyword&#x200E;</a>
+            <a class="nav-link py-1" href="#heading-fragment-with-leading-spaces-and-newline">Heading
+              Fragment with leading spaces and newline
+              &#x200E;</a>
             <a class="nav-link py-1" href="#heading-with-included-keyword">Heading with included keyword&#x200E;</a>
             <a class="nav-link py-1" href="#included-heading">Included Heading&#x200E;</a>
             <a class="nav-link py-1" href="#heading-with-nested-keyword">Heading with nested keyword&#x200E;</a>

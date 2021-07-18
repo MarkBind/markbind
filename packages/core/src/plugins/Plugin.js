@@ -115,6 +115,14 @@ class Plugin {
     this.plugin.processNode(this.pluginOptions, node, config);
   }
 
+  postProcessNode(node, config) {
+    if (!this.plugin.postProcessNode) {
+      return;
+    }
+
+    this.plugin.postProcessNode(this.pluginOptions, node, config);
+  }
+
   getTagConfig() {
     return this.plugin.tagConfig;
   }

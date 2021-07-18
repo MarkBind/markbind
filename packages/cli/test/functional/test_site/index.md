@@ -103,6 +103,11 @@ Page Variable with {{ global_variable }}
   <span class="keyword">panel keyword</span>
 </panel>
 
+# Heading <include src="testTrimIncludeFragment.mbdf#fragment" />
+
+The `id` for the above heading should be `heading-fragment-with-leading-spaces-and-newline` in total.
+This test ensures heading ids are assigned last (e.g. after `<include />`s are processed).
+
 # Heading with included keyword
 <include src="testKeyword.md" />
 

@@ -270,12 +270,6 @@ class NodeProcessor {
       linkProcessor.collectSource(node, this.config.rootPath, this.config.baseUrl, this.pageSources);
     }
 
-    const isHeadingTag = (/^h[1-6]$/).test(node.name);
-
-    if (isHeadingTag && !node.attribs.id) {
-      setHeadingId(node, this.config);
-    }
-
     switch (node.name) {
     case 'md':
       node.name = 'span';
@@ -305,8 +299,8 @@ class NodeProcessor {
 
     addSitePageNavPortal(node);
 
+    const isHeadingTag = (/^h[1-6]$/).test(node.name);
     if (isHeadingTag && !node.attribs.id) {
-      // do this one more time, in case the first one assigned a blank id
       setHeadingId(node, this.config);
     }
 
@@ -314,6 +308,8 @@ class NodeProcessor {
     if (isHeadingTag && node.attribs.id) {
       cheerio(node).prepend(`<span id="${node.attribs.id}" class="anchor"></span>`);
     }
+
+    this.pluginManager.postProcessNode(node, this.config);
 
     return node;
   }
