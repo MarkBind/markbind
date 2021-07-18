@@ -186,6 +186,12 @@ class PluginManager {
       plugin.processNode(node, this.config);
     });
   }
+
+  postProcessNode(node) {
+    Object.values(this.plugins).forEach((plugin) => {
+      plugin.postProcessNode(node, this.config);
+    });
+  }
 }
 
 // Static property for easy access in linkProcessor

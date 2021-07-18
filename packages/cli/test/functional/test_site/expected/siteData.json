@@ -36,6 +36,7 @@
         "feature-list": "Feature list",
         "heading-with-multiple-keywords": "Heading with multiple keywords",
         "heading-with-keyword-in-panel": "Heading with keyword in panel",
+        "heading-fragment-with-leading-spaces-and-newline": "Heading \nFragment with leading spaces and newline\n",
         "heading-with-included-keyword": "Heading with included keyword",
         "included-heading": "Included Heading",
         "heading-with-nested-keyword": "Heading with nested keyword",

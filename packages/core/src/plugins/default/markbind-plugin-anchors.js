@@ -9,7 +9,7 @@ const HEADER_REGEX = new RegExp('^h[1-6]$');
  */
 module.exports = {
   getLinks: () => [`<link rel="stylesheet" href="${CSS_FILE_NAME}">`],
-  processNode: (pluginContext, node) => {
+  postProcessNode: (pluginContext, node) => {
     if (HEADER_REGEX.test(node.name) && node.attribs.id) {
       cheerio(node).append(
         `<a class="fa fa-anchor" href="#${node.attribs.id}" onclick="event.stopPropagation()"></a>`);
