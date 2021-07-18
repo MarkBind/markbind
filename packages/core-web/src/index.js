@@ -91,9 +91,18 @@ function detectAndApplyFixedHeaderStyles() {
   };
 
   let lastOffset = 0;
+  let lastHash = window.location.hash;
   const toggleHeaderOnScroll = () => {
     // prevent toggling of header on desktop site
     if (window.innerWidth > 767) { return; }
+
+    if (lastHash !== window.location.hash) {
+      lastHash = window.location.hash;
+      headerSelector.removeClass('hide-header');
+      return;
+    }
+    lastHash = window.location.hash;
+
     const currentOffset = window.pageYOffset;
     const isEndOfPage = (window.innerHeight + currentOffset) >= document.body.offsetHeight;
     // to prevent page from auto scrolling when header is toggled at the end of page
