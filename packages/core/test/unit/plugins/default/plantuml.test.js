@@ -13,10 +13,11 @@ const mockExec = jest.spyOn(childProcess, 'exec').mockImplementation(() => ({
 
 const plantumlPlugin = require('../../../../src/plugins/default/markbind-plugin-plantuml');
 
+const mockFolderPath = path.join(__dirname, '_plantuml');
 const mockConfig = {
-  outputPath: path.resolve('_plantuml'),
+  outputPath: mockFolderPath,
   baseUrl: '',
-  rootPath: path.join(__dirname, '_plantuml'),
+  rootPath: mockFolderPath,
 };
 
 test('processNode should modify inline puml node correctly', () => {
