@@ -110,6 +110,8 @@
 </template>
 
 <script>
+import { classifyBootstrapStyle } from './utils/utils.js';
+
 export default {
   props: {
     dismissible: {
@@ -251,61 +253,47 @@ export default {
       return {};
     },
     getBootstrapAlertStyle() {
-      switch (this.type) {
-      case 'warning':
-        return 'alert-warning';
-      case 'info':
-        return 'alert-info';
-      case 'definition':
-        return 'alert-primary';
-      case 'success':
-      case 'tip':
-        return 'alert-success';
-      case 'important':
-      case 'wrong':
-        return 'alert-danger';
-      default:
-        return 'alert-default';
+      const [baseStyle, colorStyle] = classifyBootstrapStyle(this.type)
+      if (colorStyle) {
+        switch (colorStyle) {
+        case 'blue':
+          return 'alert-primary';
+        case 'grey':
+          return 'alert-secondary';
+        case 'green':
+          return 'alert-success';
+        case 'red':
+          return 'alert-danger';
+        case 'yellow':
+          return 'alert-warning';
+        case 'light-blue':
+          return 'alert-info';
+        case 'white':
+          return 'alert-light';
+        case 'dark':
+          return ' alert-dark';
+        default:
+          return 'alert-default';
+        }
+      } else {
+        return `alert-${baseStyle}`;
       }
     },
     getBootstrapTextStyle() {
-      switch (this.type) {
-      case 'warning':
-        return 'text-warning';
-      case 'info':
-        return 'text-info';
-      case 'definition':
-        return 'text-primary';
-      case 'success':
-      case 'tip':
-        return 'text-success';
-      case 'important':
-      case 'wrong':
-        return 'text-danger';
-      default:
-        return '';
-      }
+      const [baseStyle, colorStyle] = classifyBootstrapStyle(this.type)
+      return `text-${baseStyle}`;
     },
     getBootstrapBorderStyle() {
-      switch (this.type) {
-      case 'warning':
-        return 'border-warning';
-      case 'info':
-        return 'border-info';
-      case 'definition':
-        return 'border-primary';
-      case 'success':
-      case 'tip':
-        return 'border-success';
-      case 'important':
-      case 'wrong':
-        return 'border-danger';
-      default:
-        return '';
-      }
+       const [baseStyle, colorStyle] = classifyBootstrapStyle(this.type)
+      return `border-${baseStyle}`;
     },
     getFontAwesomeIconStyle() {
-      switch (this.type) {
+      const userInput = this.type.split(' ');
+      const defaultStyles
+        = ['warning', 'info', 'definition', 'success', 'danger', 'tip', 'important', 'wrong'];
+      const baseStyle = userInput.filter(input => defaultStyles.includes(input))[0]
+
+      switch (baseStyle) {
       case 'wrong':
         return 'fa-times';
       case 'warning':

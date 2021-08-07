@@ -159,3 +159,28 @@ export function VueFixer (vue) {
   vue.mixins.unshift(mixin)
   return vue
 }
+
+export function classifyBootstrapStyle(type) {
+  const userInput = type.split(' ');
+  const defaultStyles
+    = ['warning', 'info', 'definition', 'success', 'danger', 'tip', 'important', 'wrong'];
+  const baseStyle = userInput.filter(input => defaultStyles.includes(input))[0]
+  const colorStyle = userInput.filter(input => !defaultStyles.includes(input))[0]
+
+  switch (baseStyle) {
+  case 'warning':
+    return ['warning', colorStyle];
+  case 'info':
+    return ['info', colorStyle];
+  case 'definition':
+    return ['primary', colorStyle];
+  case 'success':
+  case 'tip':
+    return ['success', colorStyle];
+  case 'important':
+  case 'wrong':
+    return ['danger', colorStyle];
+  default:
+    return ['default', colorStyle];
+  }
+}
