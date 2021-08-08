@@ -222,7 +222,7 @@ export function classifyBootstrapStyle(type) {
       secondaryStyle = 'dark'
       break;
     default:
-      secondaryStyle = 'default'
+      secondaryStyle = ''
       break;
     }
   

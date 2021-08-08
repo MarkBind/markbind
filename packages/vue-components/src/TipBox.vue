@@ -261,6 +261,7 @@ export default {
     },
     getBootstrapTextStyle() {
       const { baseStyle, colorStyle } = classifyBootstrapStyle(this.type);
+      console.log(baseStyle, colorStyle);
       if (colorStyle) {
         return `text-${colorStyle}`;
       }
