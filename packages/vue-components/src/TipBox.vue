@@ -253,47 +253,29 @@ export default {
       return {};
     },
     getBootstrapAlertStyle() {
-      const [baseStyle, colorStyle] = classifyBootstrapStyle(this.type);
+      const { baseStyle, colorStyle } = classifyBootstrapStyle(this.type);
       if (colorStyle) {
-        switch (colorStyle) {
-        case 'blue':
-          return 'alert-primary';
-        case 'grey':
-          return 'alert-secondary';
-        case 'green':
-          return 'alert-success';
-        case 'red':
-          return 'alert-danger';
-        case 'yellow':
-          return 'alert-warning';
-        case 'light-blue':
-          return 'alert-info';
-        case 'white':
-          return 'alert-light';
-        case 'dark':
-          return ' alert-dark';
-        default:
-          return 'alert-default';
-        }
-      } else {
-        return `alert-${baseStyle}`;
+        return `alert-${colorStyle}`;
       }
+      return `alert-${baseStyle}`;
     },
     getBootstrapTextStyle() {
-      const [baseStyle] = classifyBootstrapStyle(this.type);
+      const { baseStyle, colorStyle } = classifyBootstrapStyle(this.type);
+      if (colorStyle) {
+        return `text-${colorStyle}`;
+      }
       return `text-${baseStyle}`;
     },
     getBootstrapBorderStyle() {
-      const [baseStyle] = classifyBootstrapStyle(this.type);
+      const { baseStyle, colorStyle } = classifyBootstrapStyle(this.type);
+      if (colorStyle) {
+        return `border-${colorStyle}`;
+      }
       return `border-${baseStyle}`;
     },
     getFontAwesomeIconStyle() {
-      const userInput = this.type.split(' ');
-      const defaultStyles
-        = ['warning', 'info', 'definition', 'success', 'danger', 'tip', 'important', 'wrong'];
-      const baseStyle = userInput.filter(input => defaultStyles.includes(input))[0];
-
-      switch (baseStyle) {
+      const { iconStyle } = classifyBootstrapStyle(this.type);
+      switch (iconStyle) {
       case 'wrong':
         return 'fa-times';
       case 'warning':

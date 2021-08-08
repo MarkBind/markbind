@@ -160,29 +160,72 @@ export function VueFixer (vue) {
   return vue
 }
 
+// Used in the TipBox component to classify the different styles used by bootstrap from the user input.
 export function classifyBootstrapStyle(type) {
   const userInput = type.split(' ');
   const defaultStyles
     = ['warning', 'info', 'definition', 'success', 'danger', 'tip', 'important', 'wrong'];
   const colorStyles
     = ['blue', 'grey', 'green', 'red', 'yellow', 'light-blue', 'white', 'dark'];
-  const baseStyle = userInput.filter(input => defaultStyles.includes(input))[0];
+  const defaultStyle = userInput.filter(input => defaultStyles.includes(input))[0];
   const colorStyle = userInput.filter(input => colorStyles.includes(input))[0];
 
-  switch (baseStyle) {
+  let primaryStyle;
+  let secondaryStyle;
+
+  switch (defaultStyle) {
   case 'warning':
-    return ['warning', colorStyle];
+    primaryStyle = 'warning';
+    break;
   case 'info':
-    return ['info', colorStyle];
+    primaryStyle = 'info';
+    break;
   case 'definition':
-    return ['primary', colorStyle];
+    primaryStyle = 'primary';
+    break;
   case 'success':
   case 'tip':
-    return ['success', colorStyle];
+    primaryStyle = 'success';
+    break;
   case 'important':
   case 'wrong':
-    return ['danger', colorStyle];
+    primaryStyle = 'danger';
+    break;
   default:
-    return ['default', colorStyle];
+    primaryStyle = 'default';
+    break;
   }
+
+  switch (colorStyle) {
+    case 'blue':
+      secondaryStyle = 'primary'
+      break;
+    case 'grey':
+      secondaryStyle = 'secondary'
+      break;
+    case 'green':
+      secondaryStyle = 'success'
+      break;
+    case 'red':
+      secondaryStyle = 'danger'
+      break;
+    case 'yellow':
+      secondaryStyle = 'warning'
+      break;
+    case 'light-blue':
+      secondaryStyle = 'info'
+      break;
+    case 'white':
+      secondaryStyle = 'light'
+      break;
+    case 'dark':
+      secondaryStyle = 'dark'
+      break;
+    default:
+      secondaryStyle = 'default'
+      break;
+    }
+  
+
+  return {baseStyle: primaryStyle, colorStyle: secondaryStyle, iconStyle: defaultStyle};
 }
