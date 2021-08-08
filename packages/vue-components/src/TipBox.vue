@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import { classifyBootstrapStyle } from './utils/utils.js';
+import { classifyBootstrapStyle } from './utils/utils';
 
 export default {
   props: {
@@ -253,7 +253,7 @@ export default {
       return {};
     },
     getBootstrapAlertStyle() {
-      const [baseStyle, colorStyle] = classifyBootstrapStyle(this.type)
+      const [baseStyle, colorStyle] = classifyBootstrapStyle(this.type);
       if (colorStyle) {
         switch (colorStyle) {
         case 'blue':
@@ -280,18 +280,18 @@ export default {
       }
     },
     getBootstrapTextStyle() {
-      const [baseStyle, colorStyle] = classifyBootstrapStyle(this.type)
+      const [baseStyle] = classifyBootstrapStyle(this.type);
       return `text-${baseStyle}`;
     },
     getBootstrapBorderStyle() {
-       const [baseStyle, colorStyle] = classifyBootstrapStyle(this.type)
+      const [baseStyle] = classifyBootstrapStyle(this.type);
       return `border-${baseStyle}`;
     },
     getFontAwesomeIconStyle() {
       const userInput = this.type.split(' ');
       const defaultStyles
         = ['warning', 'info', 'definition', 'success', 'danger', 'tip', 'important', 'wrong'];
-      const baseStyle = userInput.filter(input => defaultStyles.includes(input))[0]
+      const baseStyle = userInput.filter(input => defaultStyles.includes(input))[0];
 
       switch (baseStyle) {
       case 'wrong':

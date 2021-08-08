@@ -164,8 +164,10 @@ export function classifyBootstrapStyle(type) {
   const userInput = type.split(' ');
   const defaultStyles
     = ['warning', 'info', 'definition', 'success', 'danger', 'tip', 'important', 'wrong'];
-  const baseStyle = userInput.filter(input => defaultStyles.includes(input))[0]
-  const colorStyle = userInput.filter(input => !defaultStyles.includes(input))[0]
+  const colorStyles
+    = ['blue', 'grey', 'green', 'red', 'yellow', 'light-blue', 'white', 'dark'];
+  const baseStyle = userInput.filter(input => defaultStyles.includes(input))[0];
+  const colorStyle = userInput.filter(input => colorStyles.includes(input))[0];
 
   switch (baseStyle) {
   case 'warning':
