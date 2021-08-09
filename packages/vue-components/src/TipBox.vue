@@ -304,7 +304,7 @@ export default {
 
 <style scoped>
     .box-container {
-        width: 100%;
+        /* width: 100%; */
         padding: 0;
         border-radius: 6px;
     }
