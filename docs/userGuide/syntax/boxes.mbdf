@@ -53,29 +53,35 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 <box>
     default
 </box>
-<box type="info blue">
-    blue
+<box type="info" theme="primary">
+    primary
 </box>
-<box type="info green">
-    green
+<box type="info" theme="secondary">
+    secondary
 </box>
-<box type="info red">
-    red
+<box type="info" theme="success">
+    success
 </box>
-<box type="info yellow">
-    yellow
+<box type="info" theme="danger">
+    danger
 </box>
-<box type="info light-blue">
-    light-blue
+<box type="info" theme="warning">
+    warning
 </box>
-<box type="info white">
-    white
+<box type="info" theme="info">
+    info
 </box>
-<box type="info dark">
+<box type="info" theme="light">
+    light
+</box>
+<box type="info" theme="dark">
     dark
 </box>
-<box type="warning green">
-    green warning
+<box type="info" theme="muted">
+    muted
+</box>
+<box type="info" theme="white">
+    white
 </box>
 </variable>
 </include>

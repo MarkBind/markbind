@@ -162,17 +162,15 @@ export function VueFixer (vue) {
 
 // Used in the TipBox component to classify the different styles used by bootstrap from the user input.
 // @params (the user input type of the box)
-export function classifyBootstrapStyle(type) {
-  const userInput = type.split(' ');
+export function classifyBootstrapStyle(type, theme) {
   const defaultStyles
     = ['warning', 'info', 'definition', 'success', 'danger', 'tip', 'important', 'wrong'];
   const colorStyles
-    = ['blue', 'grey', 'green', 'red', 'yellow', 'light-blue', 'white', 'dark'];
-  const defaultStyle = userInput.filter(input => defaultStyles.includes(input))[0];
-  const colorStyle = userInput.filter(input => colorStyles.includes(input))[0];
+    = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'muted', 'white'];
+  const defaultStyle = defaultStyles.includes(type) ? type : '';
+  const colorStyle = colorStyles.includes(theme) ? theme : '';
 
   let primaryStyle;
-  let secondaryStyle;
 
   switch (defaultStyle) {
   case 'warning':
@@ -197,36 +195,5 @@ export function classifyBootstrapStyle(type) {
     break;
   }
 
-  switch (colorStyle) {
-    case 'blue':
-      secondaryStyle = 'primary'
-      break;
-    case 'grey':
-      secondaryStyle = 'secondary'
-      break;
-    case 'green':
-      secondaryStyle = 'success'
-      break;
-    case 'red':
-      secondaryStyle = 'danger'
-      break;
-    case 'yellow':
-      secondaryStyle = 'warning'
-      break;
-    case 'light-blue':
-      secondaryStyle = 'info'
-      break;
-    case 'white':
-      secondaryStyle = 'light'
-      break;
-    case 'dark':
-      secondaryStyle = 'dark'
-      break;
-    default:
-      secondaryStyle = ''
-      break;
-    }
-  
-
-  return {baseStyle: primaryStyle, colorStyle: secondaryStyle, iconStyle: defaultStyle};
+  return {baseStyle: primaryStyle, colorStyle: colorStyle, iconStyle: defaultStyle};
 }

@@ -174,6 +174,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    theme: {
+      type: String,
+      default: '',
+    },
   },
   methods: {
     isSeamless() {
@@ -253,29 +257,28 @@ export default {
       return {};
     },
     getBootstrapAlertStyle() {
-      const { baseStyle, colorStyle } = classifyBootstrapStyle(this.type);
+      const { baseStyle, colorStyle } = classifyBootstrapStyle(this.type, this.theme);
       if (colorStyle) {
         return `alert-${colorStyle}`;
       }
       return `alert-${baseStyle}`;
     },
     getBootstrapTextStyle() {
-      const { baseStyle, colorStyle } = classifyBootstrapStyle(this.type);
-      console.log(baseStyle, colorStyle);
+      const { baseStyle, colorStyle } = classifyBootstrapStyle(this.type, this.theme);
       if (colorStyle) {
         return `text-${colorStyle}`;
       }
       return `text-${baseStyle}`;
     },
     getBootstrapBorderStyle() {
-      const { baseStyle, colorStyle } = classifyBootstrapStyle(this.type);
+      const { baseStyle, colorStyle } = classifyBootstrapStyle(this.type, this.theme);
       if (colorStyle) {
         return `border-${colorStyle}`;
       }
       return `border-${baseStyle}`;
     },
     getFontAwesomeIconStyle() {
-      const { iconStyle } = classifyBootstrapStyle(this.type);
+      const { iconStyle } = classifyBootstrapStyle(this.type, this.theme);
       switch (iconStyle) {
       case 'wrong':
         return 'fa-times';
