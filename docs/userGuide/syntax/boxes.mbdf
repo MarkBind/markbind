@@ -45,6 +45,41 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 </variable>
 </include>
 
+**The built in types can be colored.**
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+<box>
+    default
+</box>
+<box type="info blue">
+    blue
+</box>
+<box type="info green">
+    green
+</box>
+<box type="info red">
+    red
+</box>
+<box type="info yellow">
+    yellow
+</box>
+<box type="info light-blue">
+    light-blue
+</box>
+<box type="info white">
+    white
+</box>
+<box type="info dark">
+    dark
+</box>
+<box type="warning green">
+    green warning
+</box>
+</variable>
+</include>
+
 **Markbind also supports a light color scheme for boxes**
 
 <include src="codeAndOutput.md" boilerplate >

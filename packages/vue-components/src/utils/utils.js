@@ -161,6 +161,7 @@ export function VueFixer (vue) {
 }
 
 // Used in the TipBox component to classify the different styles used by bootstrap from the user input.
+// @params (the user input type of the box)
 export function classifyBootstrapStyle(type) {
   const userInput = type.split(' ');
   const defaultStyles
