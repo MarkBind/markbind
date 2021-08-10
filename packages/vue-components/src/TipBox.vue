@@ -179,6 +179,11 @@ export default {
       default: '',
     },
   },
+  computed: {
+    bootStrapStyle() {
+      return classifyBootstrapStyle(this.type, this.theme);
+    },
+  },
   methods: {
     isSeamless() {
       return !this.light && this.seamless;
@@ -257,46 +262,17 @@ export default {
       return {};
     },
     getBootstrapAlertStyle() {
-      const { baseStyle, colorStyle } = classifyBootstrapStyle(this.type, this.theme);
-      if (colorStyle) {
-        return `alert-${colorStyle}`;
-      }
-      return `alert-${baseStyle}`;
+      console.log(this.bootStrapStyle);
+      return `alert-${this.bootStrapStyle.style}`;
     },
     getBootstrapTextStyle() {
-      const { baseStyle, colorStyle } = classifyBootstrapStyle(this.type, this.theme);
-      if (colorStyle) {
-        return `text-${colorStyle}`;
-      }
-      return `text-${baseStyle}`;
+      return `text-${this.bootStrapStyle.style}`;
     },
     getBootstrapBorderStyle() {
-      const { baseStyle, colorStyle } = classifyBootstrapStyle(this.type, this.theme);
-      if (colorStyle) {
-        return `border-${colorStyle}`;
-      }
-      return `border-${baseStyle}`;
+      return `border-${this.bootStrapStyle.style}`;
     },
     getFontAwesomeIconStyle() {
-      const { iconStyle } = classifyBootstrapStyle(this.type, this.theme);
-      switch (iconStyle) {
-      case 'wrong':
-        return 'fa-times';
-      case 'warning':
-        return 'fa-exclamation';
-      case 'info':
-        return 'fa-info';
-      case 'success':
-        return 'fa-check';
-      case 'important':
-        return 'fa-flag';
-      case 'tip':
-        return 'fa-lightbulb';
-      case 'definition':
-        return 'fa-atlas';
-      default:
-        return '';
-      }
+      return this.bootStrapStyle.icon;
     },
   },
 };
@@ -304,7 +280,6 @@ export default {
 
 <style scoped>
     .box-container {
-        /* width: 100%; */
         padding: 0;
         border-radius: 6px;
     }

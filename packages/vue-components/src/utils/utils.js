@@ -167,33 +167,66 @@ export function classifyBootstrapStyle(type, theme) {
     = ['warning', 'info', 'definition', 'success', 'danger', 'tip', 'important', 'wrong'];
   const colorStyles
     = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'muted', 'white'];
-  const defaultStyle = defaultStyles.includes(type) ? type : '';
-  const colorStyle = colorStyles.includes(theme) ? theme : '';
+  
+  const typeStyle = defaultStyles.includes(type) ? type : '';
+  const themeStyle = colorStyles.includes(theme) ? theme : '';
 
-  let primaryStyle;
+  let mainStyle;
+  let iconStyle;
 
-  switch (defaultStyle) {
-  case 'warning':
-    primaryStyle = 'warning';
-    break;
-  case 'info':
-    primaryStyle = 'info';
-    break;
-  case 'definition':
-    primaryStyle = 'primary';
-    break;
-  case 'success':
-  case 'tip':
-    primaryStyle = 'success';
-    break;
-  case 'important':
-  case 'wrong':
-    primaryStyle = 'danger';
-    break;
-  default:
-    primaryStyle = 'default';
-    break;
+  if (themeStyle) {
+    mainStyle = themeStyle
+  } else {
+    switch (typeStyle) {
+    case 'warning':
+      mainStyle = 'warning';
+      break;
+    case 'info':
+      mainStyle = 'info';
+      break;
+    case 'definition':
+      mainStyle = 'primary';
+      break;
+    case 'success':
+    case 'tip':
+      mainStyle = 'success';
+      break;
+    case 'important':
+    case 'wrong':
+      mainStyle = 'danger';
+      break;
+    default:
+      mainStyle = 'default';
+      break;
+    }
   }
 
-  return {baseStyle: primaryStyle, colorStyle: colorStyle, iconStyle: defaultStyle};
+  switch (typeStyle) {
+    case 'wrong':
+      iconStyle = 'fa-times';
+      break;
+    case 'warning':
+      iconStyle = 'fa-exclamation';
+      break;
+    case 'info':
+      iconStyle = 'fa-info';
+      break;
+    case 'success':
+      iconStyle = 'fa-check';
+      break;
+    case 'important':
+      iconStyle = 'fa-flag';
+      break;
+    case 'tip':
+      iconStyle = 'fa-lightbulb';
+      break;
+    case 'definition':
+      iconStyle = 'fa-atlas';
+      break;
+    default:
+      iconStyle = '';
+      break;
+    }
+
+  return {style: mainStyle, icon: iconStyle};
 }
