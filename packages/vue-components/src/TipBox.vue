@@ -262,7 +262,6 @@ export default {
       return {};
     },
     getBootstrapAlertStyle() {
-      console.log(this.bootStrapStyle);
       return `alert-${this.bootStrapStyle.style}`;
     },
     getBootstrapTextStyle() {

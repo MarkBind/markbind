@@ -175,7 +175,7 @@ export function classifyBootstrapStyle(type, theme) {
   let iconStyle;
 
   if (themeStyle) {
-    mainStyle = themeStyle
+    mainStyle = themeStyle;
   } else {
     switch (typeStyle) {
     case 'warning':
