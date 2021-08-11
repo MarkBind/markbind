@@ -17,6 +17,7 @@ function printFailedMessage(err, siteName) {
   console.log(`Failed to update: ${siteName}`);
 }
 
+process.env.TEST_MODE = true;
 process.env.FORCE_COLOR = '3';
 
 const execOptions = {
