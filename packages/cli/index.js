@@ -24,10 +24,6 @@ const liveServer = require('./src/lib/live-server');
 const cliUtil = require('./src/util/cliUtil');
 const logger = require('./src/util/logger');
 
-const {
-  ACCEPTED_COMMANDS,
-  ACCEPTED_COMMANDS_ALIAS,
-} = require('./src/constants');
 const CLI_VERSION = require('./package.json').version;
 
 process.title = 'MarkBind';
@@ -45,14 +41,14 @@ function handleError(error) {
   process.exitCode = 1;
 }
 
-// We want to customize the help message to print MarkBind's header,
-// but commander.js does not provide an API directly for doing so.
-// Hence we override commander's outputHelp() completely.
-program.defaultOutputHelp = program.outputHelp;
-program.outputHelp = function (cb) {
-  printHeader();
-  this.defaultOutputHelp(cb);
-};
+program.addHelpText('before', printHeader());
+
+program.showHelpAfterError('(run "markbind --help" to list commands)');
+
+program
+  .hook('preAction', () => {
+    printHeader();
+  });
 
 program
   .allowUnknownOption()
@@ -70,8 +66,6 @@ program
   .description('init a markbind website project')
   .action((root, options) => {
     const rootFolder = path.resolve(root || process.cwd());
-    const outputRoot = path.join(rootFolder, '_site');
-    printHeader();
     if (options.convert) {
       if (fs.existsSync(path.resolve(rootFolder, 'site.json'))) {
         logger.error('Cannot convert an existing MarkBind website!');
@@ -85,6 +79,7 @@ program
       .then(() => {
         if (options.convert) {
           logger.info('Converting to MarkBind website.');
+          const outputRoot = path.join(rootFolder, '_site');
           new Site(rootFolder, outputRoot).convert()
             .then(() => {
               logger.info('Conversion success.');
@@ -213,8 +208,6 @@ program
       mount: [],
     };
 
-    printHeader();
-
     site
       .readSiteConfig()
       .then(async (config) => {
@@ -324,7 +317,6 @@ program
     }
     const defaultOutputRoot = path.join(rootFolder, '_site');
     const outputFolder = output ? path.resolve(process.cwd(), output) : defaultOutputRoot;
-    printHeader();
     new Site(rootFolder, outputFolder, undefined, undefined, options.siteConfig)
       .generate(baseUrl)
       .then(() => {
@@ -345,16 +337,6 @@ program
     new Site(rootFolder, outputRoot, undefined, undefined, options.siteConfig).deploy(options.ci)
       .then(depUrl => (depUrl !== null ? logger.info(`Deployed at ${depUrl}!`) : logger.info('Deployed!')))
       .catch(handleError);
-    printHeader();
   });
 
 program.parse(process.argv);
-
-if (!program.args.length
-  || !(ACCEPTED_COMMANDS.concat(ACCEPTED_COMMANDS_ALIAS)).includes(process.argv[2])) {
-  if (program.args.length) {
-    logger.warn(`Command '${program.args[0]}' doesn't exist, run "markbind --help" to list commands.`);
-  } else {
-    program.help();
-  }
-}
