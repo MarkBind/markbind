@@ -41,14 +41,9 @@ function handleError(error) {
   process.exitCode = 1;
 }
 
-program.addHelpText('before', printHeader());
-
-program.showHelpAfterError('(run "markbind --help" to list commands)');
-
 program
-  .hook('preAction', () => {
-    printHeader();
-  });
+  .addHelpText('beforeAll', printHeader())
+  .showHelpAfterError('(run "markbind --help" to list commands)');
 
 program
   .allowUnknownOption()
