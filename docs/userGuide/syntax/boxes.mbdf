@@ -77,12 +77,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 <box type="info" theme="dark">
     dark
 </box>
-<box type="info" theme="muted">
-    muted
-</box>
-<box type="info" theme="white">
-    white
-</box>
 </variable>
 </include>
 
