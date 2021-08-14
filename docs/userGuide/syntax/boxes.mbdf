@@ -231,6 +231,7 @@ icon-size | `String` | `null` | Resizes the icon. Supports integer-scaling of th
 icon-color | `String` | `null` | Color of the icon.
 header{{slot_info_trigger}} <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>heading <br> (deprecated)</small> | `String` | `null` | Markdown text of the box header.
 type | `String` | `''` | Supports: `info`, `warning`, `success`, `important`, `wrong`, `tip`, `definition`, or empty for default.
+theme | `String` | `''` | Supports: `primary`, `secondary`, `success`, `danger`, `warning`, `tip`, `light`, `dark` or empty for default.
 light | `Boolean` | `false` | Uses a light color scheme for the box.
 seamless | `Boolean` | `false` | Uses a seamless style for the box. If `light` is specified, this style will not be activated.
 no-border | `Boolean` | `false` | Removes border, except if styled by `border-color` or `border-left-color`. 

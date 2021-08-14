@@ -166,7 +166,7 @@ export function classifyBootstrapStyle(type, theme) {
   const defaultStyles
     = ['warning', 'info', 'definition', 'success', 'danger', 'tip', 'important', 'wrong'];
   const colorStyles
-    = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'muted', 'white'];
+    = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'];
   
   const typeStyle = defaultStyles.includes(type) ? type : '';
   const themeStyle = colorStyles.includes(theme) ? theme : '';
