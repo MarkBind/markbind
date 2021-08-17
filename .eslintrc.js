@@ -44,5 +44,7 @@ module.exports = {
         "optionalDependencies": false,
       },
     ],
+    // override linebreak checks to only be done when running `npm run test`
+    "linebreak-style": 0,
   },
 };
