@@ -5,12 +5,10 @@
     "build:web": "cd packages/core-web && npm run build",
     "csslint": "stylelint **/*.css **/*.vue",
     "csslintfix": "stylelint **/*.css **/*.vue --fix",
-    "lint": "eslint . --ext .js,.vue && npm run csslint",
-    "lintlinebreakstyle": "eslint . --ext .js,.vue -c .eslintrc.test.js",
-    "lintlinebreakstylefix": "eslint . --ext .js,.vue -c .eslintrc.test.js --fix",
-    "lintfix": "eslint . --ext .js,.vue --fix && npm run lintlinebreakstylefix && npm run csslintfix",
+    "lint": "eslint . --ext .js,.vue && eslint . --ext .js,.vue -c .eslintrc.test.js && npm run csslint",
+    "lintfix": "eslint . --ext .js,.vue --fix && eslint . --ext .js,.vue -c .eslintrc.test.js --fix && npm run csslintfix",
     "setup": "npm ci && lerna clean --yes && lerna bootstrap --hoist",
-    "test": "npm run lint && npm run lintlinebreakstyle && lerna run test --stream",
+    "test": "npm run lint && lerna run test --stream",
     "updatetest": "lerna run updatetest --stream"
   },
   "devDependencies": {
