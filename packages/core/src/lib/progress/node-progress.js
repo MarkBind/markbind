@@ -2,8 +2,10 @@
 /*
  * Patch for node-progress to fix display issue in certain terminals.
  * Issue related: https://github.com/MarkBind/markbind/issues/416
- * The **only** changes are based on PR
+ * The **only** changes are based on the following PR and its comments:
  * https://github.com/visionmedia/node-progress/pull/168
+ * As the above PR is not merged since 2017, this is a temporary patch
+ * to fix the issue for markbind's usecase.
  */
 
 /*!
@@ -55,12 +57,14 @@ exports = module.exports = ProgressBar;
 function ProgressBar(fmt, options) {
   this.stream = options.stream || process.stderr;
 
-  if (options.forceTTY === true) { // only works for stderr
+  // patch
+  // options.forceTTY is undefined in git-bash on mintty Windows
+  if (!process.stderr.isTTY) {
     var tty = require('tty').WriteStream.prototype;
     Object.getOwnPropertyNames(tty).forEach(function (key) {
       process.stderr[key] = tty[key];
     });
-    process.stderr.columns = 80; // columns
+    process.stderr.columns = 80;
   }
 
   if (typeof (options) == 'number') {
