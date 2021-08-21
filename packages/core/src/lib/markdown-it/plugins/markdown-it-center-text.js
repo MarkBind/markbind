@@ -85,7 +85,7 @@ module.exports = function centertext_plugin(md) {
           token.nesting = 1;
           token.markup  = '->';
           token.content = '';
-          token.attrs = [ [ 'class', 'text-align-center' ] ];
+          token.attrs = [ [ 'class', 'text-center' ] ];
         } else if (delim.marker === '<-') {
           if (foundStart) {
             token         = state.tokens[delim.token];
