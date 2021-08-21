@@ -35,7 +35,8 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('./plugins/markdown-it-radio-button'))
   .use(require('./plugins/markdown-it-block-embed'))
   .use(require('./plugins/markdown-it-icons'))
-  .use(require('./plugins/markdown-it-footnotes'));
+  .use(require('./plugins/markdown-it-footnotes'))
+  .use(require('./plugins/markdown-it-center-text'));
 
 // fix table style
 markdownIt.renderer.rules.table_open = _.constant(
