@@ -26,7 +26,8 @@ module.exports = require('markdown-it-regexp')(
         ? octicons[iconFontName].toSVG({ style: 'color: #fff;', class: iconClass })
         : octicons[iconFontName].toSVG({ style: 'color: #fff;' });
     } else if (iconFontType === 'google') {
-      return `<span aria-hidden="true" class="material-icons">${iconFontName}</span>`;
+      // Use .align-middle by default to vertically-align the icon with its surrounding text (if any) 
+      return `<span aria-hidden="true" class="material-icons align-middle">${iconFontName}</span>`;
     } // If icon is a Font Awesome icon
     return `<span aria-hidden="true" class="${iconFontType} fa-${iconFontName}"></span>`;
   },
