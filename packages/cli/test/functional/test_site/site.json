@@ -90,6 +90,10 @@
     {
       "src": "testPanelMarkdownParsing.md",
       "title": "markdown-it should parse minimized panel as inline element and normal panel as block element"
+    },
+    {
+      "src": "testCenterText.md",
+      "title": "Center-aligned text test"
     }
   ],
   "ignore": [
