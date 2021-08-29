@@ -67,7 +67,6 @@ function compare(root, expectedSiteRelativePath = 'expected', siteRelativePath =
   /* eslint-enable no-continue */
 
   if (error) {
-    console.log(error);
     throw new Error('Diffs found in files');
   }
 }
