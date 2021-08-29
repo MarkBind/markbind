@@ -14,8 +14,6 @@ const diffCharsAndPrint = (expected, actual, filePathName) => {
   const isDiff = part => part.added || part.removed;
   const hasDiff = diffParts.some(isDiff);
   if (hasDiff) {
-    console.log(actual);
-
     DiffPrinter.printDiffFoundMessage(filePathName);
     DiffPrinter.printDiff(diffParts);
   }
