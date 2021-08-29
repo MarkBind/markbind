@@ -14,12 +14,10 @@ const diffCharsAndPrint = (expected, actual, filePathName) => {
   const isDiff = part => part.added || part.removed;
   const hasDiff = diffParts.some(isDiff);
   if (hasDiff) {
-    console.log(hasDiff);
-    console.log(expected);
     console.log(actual);
 
-    DiffPrinter.printDiffFoundMessage(filePathName);
-    DiffPrinter.printDiff(diffParts);
+    // DiffPrinter.printDiffFoundMessage(filePathName);
+    // DiffPrinter.printDiff(diffParts);
   }
   return hasDiff;
 };
