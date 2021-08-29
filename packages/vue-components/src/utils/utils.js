@@ -159,3 +159,74 @@ export function VueFixer (vue) {
   vue.mixins.unshift(mixin)
   return vue
 }
+
+// Used in the TipBox component to classify the different styles used by bootstrap from the user input.
+// @params (the user input type of the box)
+export function classifyBootstrapStyle(type, theme) {
+  const defaultStyles
+    = ['warning', 'info', 'definition', 'success', 'danger', 'tip', 'important', 'wrong'];
+  const colorStyles
+    = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'];
+  
+  const typeStyle = defaultStyles.includes(type) ? type : '';
+  const themeStyle = colorStyles.includes(theme) ? theme : '';
+
+  let mainStyle;
+  let iconStyle;
+
+  if (themeStyle) {
+    mainStyle = themeStyle;
+  } else {
+    switch (typeStyle) {
+    case 'warning':
+      mainStyle = 'warning';
+      break;
+    case 'info':
+      mainStyle = 'info';
+      break;
+    case 'definition':
+      mainStyle = 'primary';
+      break;
+    case 'success':
+    case 'tip':
+      mainStyle = 'success';
+      break;
+    case 'important':
+    case 'wrong':
+      mainStyle = 'danger';
+      break;
+    default:
+      mainStyle = 'default';
+      break;
+    }
+  }
+
+  switch (typeStyle) {
+    case 'wrong':
+      iconStyle = 'fa-times';
+      break;
+    case 'warning':
+      iconStyle = 'fa-exclamation';
+      break;
+    case 'info':
+      iconStyle = 'fa-info';
+      break;
+    case 'success':
+      iconStyle = 'fa-check';
+      break;
+    case 'important':
+      iconStyle = 'fa-flag';
+      break;
+    case 'tip':
+      iconStyle = 'fa-lightbulb';
+      break;
+    case 'definition':
+      iconStyle = 'fa-atlas';
+      break;
+    default:
+      iconStyle = '';
+      break;
+    }
+
+  return {style: mainStyle, icon: iconStyle};
+}
