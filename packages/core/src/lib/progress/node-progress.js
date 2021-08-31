@@ -65,7 +65,7 @@ function ProgressBar(fmt, options) {
       process.stderr[key] = tty[key];
     });
     process.stderr.columns = 80;
-  }
+  } // end patch
 
   if (typeof (options) == 'number') {
     var total = options;
