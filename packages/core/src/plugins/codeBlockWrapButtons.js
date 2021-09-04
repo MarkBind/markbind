@@ -1,0 +1,58 @@
+// NOTE: this code is a modified copy of codeBlockCopyButtons.js
+
+const cheerio = module.parent.require('cheerio');
+const {
+  CONTAINER_HTML,
+  isFunctionBtnContainer,
+  doesFunctionBtnContainerExistInNode
+} = require('./codeBlockButtonsContainer');
+
+const WRAP_ICON = `
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18" viewBox="0 0 18 18" version="1.1">
+    <g id="surface1">
+      <path d="M 11.273438 0 L 2.546875 0 C 1.746094 0 1.089844 0.613281 1.089844
+      1.363281 L 1.089844 10.910156 L 2.546875 10.910156 L 2.546875 1.363281 L 11.273438
+      1.363281 Z M 13.453125 2.726562 L 5.453125 2.726562 C 4.65625 2.726562 4 3.339844 4
+      4.089844 L 4 13.636719 C 4 14.386719 4.65625 15 5.453125 15 L 13.453125 15 C 14.253906
+      15 14.910156 14.386719 14.910156 13.636719 L 14.910156 4.089844 C 14.910156 3.339844
+      14.253906 2.726562 13.453125 2.726562 Z M 13.453125 13.636719 L 5.453125 13.636719 L
+      5.453125 4.089844 L 13.453125 4.089844 Z M 13.453125 13.636719 "/>
+    </g>
+</svg>
+`;
+
+function getButtonHTML() {
+  const html = `<button onclick="toggleCodeBlockWrap(this)" class="function-btn">
+    <div class="function-btn-body fas fa-align-justify">
+    </div>
+    </button>`;
+  return html;
+}
+
+const wrapCodeBlockScript = `<script>
+    function toggleCodeBlockWrap(element) {
+      console.log(element);
+      const pre = element.parentElement.parentElement;
+      const codeElement = $(pre.querySelector('code'));
+
+      if (codeElement.css('white-space') === 'pre-wrap') {
+        codeElement.css('white-space', 'normal');
+      } else {
+        codeElement.css('white-space', 'pre-wrap');
+      }
+    }
+    </script>`;
+
+module.exports = {
+  getScripts: () => [wrapCodeBlockScript],
+  processNode: (pluginContext, node) => {
+    if (node.name === 'pre' && !doesFunctionBtnContainerExistInNode(node)) {
+      cheerio(node).append(CONTAINER_HTML);
+    } else if (isFunctionBtnContainer(node)) {
+      cheerio(node).append(getButtonHTML());
+    } else {
+      return; // Do nothing.
+    }
+  },
+};
