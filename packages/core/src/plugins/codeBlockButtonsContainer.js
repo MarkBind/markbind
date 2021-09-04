@@ -1,5 +1,5 @@
 module.exports = {
   getContainerHtml: function () {
-    return `<div class="function-buttons-container"></div>`;
+    return `<div class="function-btn-container"></div>`;
   }
 }
