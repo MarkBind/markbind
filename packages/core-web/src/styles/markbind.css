@@ -260,9 +260,6 @@ button.function-btn {
     cursor: pointer;
     display: inline-block;
     padding: 0.35rem;
-    position: absolute;
-    right: 0.1rem;
-    top: 0.1rem;
     text-align: center;
     white-space: nowrap;
 }
