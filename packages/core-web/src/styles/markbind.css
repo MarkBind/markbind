@@ -248,7 +248,7 @@ pre {
 
 .function-btn-container {
   display: flex;
-  position: relative;
+  position: absolute;
   right: 0.1rem;
   top: 0.1rem;
 }
