@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "tlylt",
+      "name": "Liu YongLiang",
+      "avatar_url": "https://avatars.githubusercontent.com/u/41845017?v=4",
+      "profile": "https://tlylt.github.io/",
+      "contributions": [
+        "test",
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "markbind",
+  "projectOwner": "MarkBind",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
