@@ -241,12 +241,12 @@ li.footnote-item:target {
     opacity: 1;
 }
 
-/* "Copy" code block button */
+/* "Copy" and "Wrap Text" code block buttons */
 pre {
     position: relative;
 }
 
-button.copy-btn {
+button.function-btn {
     border: none;
     background-color: transparent;
     color: darkgray;
@@ -260,21 +260,21 @@ button.copy-btn {
     white-space: nowrap;
 }
 
-.copy-btn:hover {
+.function-btn:hover {
     transition: all 0.5s ease;
     box-shadow: 0 0 0.25rem rgba(173, 173, 173, 0.8);
 }
 
-.copy-btn-body {
+.function-btn-body {
     align-items: center;
     display: flex;
 }
 
-.copy-btn svg {
+.function-btn svg {
     fill: currentColor;
 }
 
-.copy-btn:focus {
+.function-btn:focus {
     box-shadow: 0 0 0.125rem rgba(173, 173, 173, 0.8);
 }
 
