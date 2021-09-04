@@ -246,6 +246,13 @@ pre {
     position: relative;
 }
 
+.function-btn-container {
+  display: flex;
+  position: relative;
+  right: 0.1rem;
+  top: 0.1rem;
+}
+
 button.function-btn {
     border: none;
     background-color: transparent;
