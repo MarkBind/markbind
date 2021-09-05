@@ -241,7 +241,7 @@ li.footnote-item:target {
     opacity: 1;
 }
 
-/* "Copy" and "Wrap Text" code block buttons */
+/* "Copy" and "wrap text" code block buttons */
 pre {
     position: relative;
 }
@@ -280,6 +280,11 @@ button.function-btn {
 
 .function-btn:focus {
     box-shadow: 0 0 0.125rem rgba(173, 173, 173, 0.8);
+}
+
+/* Wrap class used for "wrap text" button. */
+code.wrap {
+  white-space: pre-wrap;
 }
 
 /* Octicon sizing */
