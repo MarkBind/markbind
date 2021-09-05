@@ -36,11 +36,7 @@ const wrapCodeBlockScript = `<script>
       const pre = element.parentElement.parentElement;
       const codeElement = $(pre.querySelector('code'));
 
-      if (codeElement.css('white-space') === 'pre-wrap') {
-        codeElement.css('white-space', 'normal');
-      } else {
-        codeElement.css('white-space', 'pre-wrap');
-      }
+      codeElement.toggleClass('wrap');
     }
     </script>`;
 
