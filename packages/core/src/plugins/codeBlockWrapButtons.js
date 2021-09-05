@@ -5,7 +5,7 @@ const {
   CONTAINER_HTML,
   isFunctionBtnContainer,
   doesFunctionBtnContainerExistInNode
-} = require('./codeBlockButtonsContainer');
+} = require('./codeBlockButtonsAssets/codeBlockButtonsContainer');
 
 
 const WRAP_ICON = `
@@ -37,7 +37,6 @@ function getButtonHTML() {
 
 const wrapCodeBlockScript = `<script>
     function toggleCodeBlockWrap(element) {
-      console.log(element);
       const pre = element.parentElement.parentElement;
       const codeElement = $(pre.querySelector('code'));
 
@@ -52,8 +51,6 @@ module.exports = {
       cheerio(node).append(CONTAINER_HTML);
     } else if (isFunctionBtnContainer(node)) {
       cheerio(node).append(getButtonHTML());
-    } else {
-      return; // Do nothing.
     }
   },
 };

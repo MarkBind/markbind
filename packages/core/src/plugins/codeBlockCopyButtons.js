@@ -3,7 +3,7 @@ const {
   CONTAINER_HTML,
   doesFunctionBtnContainerExistInNode,
   isFunctionBtnContainer
-} = require('./codeBlockButtonsContainer');
+} = require('./codeBlockButtonsAssets/codeBlockButtonsContainer');
 
 const COPY_ICON = `
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -45,19 +45,6 @@ const copyCodeBlockScript = `<script>
     }
     </script>`;
 
-/*
-module.exports = {
-  getScripts: () => [copyCodeBlockScript],
-  processNode: (pluginContext, node) => {
-    if (node.name !== 'pre') {
-      return;
-    }
-
-    cheerio(node).append(getButtonHTML());
-  },
-};
-*/
-
 module.exports = {
   getScripts: () => [copyCodeBlockScript],
   processNode: (pluginContext, node) => {
@@ -65,8 +52,6 @@ module.exports = {
       cheerio(node).append(CONTAINER_HTML);
     } else if (isFunctionBtnContainer(node)) {
       cheerio(node).append(getButtonHTML());
-    } else {
-      return; // Do nothing.
     }
   },
 };
