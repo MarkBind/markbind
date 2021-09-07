@@ -69,6 +69,7 @@
     "winston": "^2.4.4"
   },
   "devDependencies": {
+    "eslint": "^7.32.0",
     "jest": "^26.1.0",
     "memfs": "^3.0.1"
   }

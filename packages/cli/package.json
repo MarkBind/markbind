@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "diff": "^4.0.1",
+    "eslint": "^7.32.0",
     "ignore": "^5.1.4",
     "istextorbinary": "^3.3.0",
     "jest": "^26.1.0",

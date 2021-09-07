@@ -37,6 +37,7 @@
     "babel-loader": "^8.1.0",
     "bootstrap-vue": "^2.16.0",
     "css-loader": "^3.6.0",
+    "eslint": "^7.32.0",
     "eslint-plugin-vue": "^7.9.0",
     "jest": "^26.1.0",
     "jest-serializer-vue": "^2.0.2",
