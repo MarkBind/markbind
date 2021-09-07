@@ -2,7 +2,7 @@ const cheerio = module.parent.require('cheerio');
 const {
   CONTAINER_HTML,
   doesFunctionBtnContainerExistInNode,
-  isFunctionBtnContainer
+  isFunctionBtnContainer,
 } = require('./codeBlockButtonsAssets/codeBlockButtonsContainer');
 
 const COPY_ICON = `
