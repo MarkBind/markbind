@@ -45,4 +45,8 @@ module.exports = {
       },
     ],
   },
+  "parserOptions": {
+    // Fixes false flagging of optional operator (?.)
+    "ecmaVersion": 2020,
+  },
 };
