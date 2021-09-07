@@ -45,7 +45,7 @@ function convertRelativeLinks(node, cwf, rootPath, baseUrl) {
   if (!resourcePath) {
     return;
   }
-  if (path.isAbsolute(resourcePath) || utils.isUrl(resourcePath) || resourcePath.startsWith('#')) {
+  if (path.isAbsolute(resourcePath) || utils.isUrl(resourcePath) || resourcePath.startsWith('#') || resourcePath.startsWith('mailto:')) {
     // Do not rewrite.
     return;
   }
