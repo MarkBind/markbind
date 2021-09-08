@@ -299,7 +299,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 This project follows the [all-contributors](https://allcontributors.org/) specification.
 
 ### View all contributors
-Besides the contributors list provided by Github, the list of all the contributors to Markbind is available in `README.md`.
+Besides the contributors list provided by Github, the list of all Markbind contributors is available in `README.md`.
 The table shown in `README.md` is based on the entries from `.all-contributorsrc`.
 
 ### Add new contributors
@@ -318,9 +318,9 @@ Note that:
   - E.g. code, doc, mentoring, question, test, bug
 - Multiple contribution types can be included at once or updated later on.
   - E.g. "@all-contributors please add tlylt for code, doc"
-- Contribution type can be updated later on.
+- Contribution types can be updated later on.
   - E.g "@all-contributors please add tlylt for code"
-  - (Some time later): "@all-contributors please add tlylt for doc"
+  - Some time later: "@all-contributors please add tlylt for doc"
   - Result: 'tlylt' will be updated to have both icons(code and doc)
 
 
