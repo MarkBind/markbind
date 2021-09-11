@@ -1,17 +1,14 @@
+const cheerio = module.parent.require('cheerio');
 const CONTAINER_HTML = `<div class="function-btn-container"></div>`;
 
 function isFunctionBtnContainer(node) {
-  return node
-    .attribs
-    ?.class
-    ?.split(' ')
-    .includes('function-btn-container');
+  return cheerio(node).hasClass('function-btn-container');
 }
 
 function doesFunctionBtnContainerExistInNode(node) {
-  return node
-    .children
-    ?.some(child => isFunctionBtnContainer(child));
+  return cheerio(node)
+    .children()
+    .is((index, element) => isFunctionBtnContainer(element));
 }
 
 module.exports = {
