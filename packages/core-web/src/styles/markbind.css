@@ -201,6 +201,7 @@ li.footnote-item:target {
     text-align: right;
     top: 0;
     width: 3em;
+    height: 100%;
 }
 
 /* hide popover, tooltip content */
