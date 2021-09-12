@@ -4,9 +4,9 @@ const ghpages = require('gh-pages');
 const ignore = require('ignore');
 const path = require('path');
 const Promise = require('bluebird');
-const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
 const simpleGit = require('simple-git');
+const ProgressBar = require('../lib/progress');
 
 const SiteConfig = require('./SiteConfig');
 const Page = require('../Page');
