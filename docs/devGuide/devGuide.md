@@ -32,5 +32,6 @@
 1. **Set up the project** in your computer (see [the _Setting up_ page](settingUp.html))
 1. **Learn our workflow** (see [the _Workflow_ page](workflow.html))
 1. **Submit PRs** as per the workflow. If you encounter any problems, post in [our issue tracker](https://github.com/markbind/markbind/issues).
+1. **(Optional) Add yourself to the contributors list!** (Bug reported? PR merged? If you haven't done so already, [add](https://github.com/allcontributors.org/docs/en/bot/usage) yourself to our list of contributors!)
 
 **We look forward to your PR. Happy coding!**
