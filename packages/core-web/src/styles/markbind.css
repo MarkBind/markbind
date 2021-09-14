@@ -248,10 +248,10 @@ pre {
 }
 
 .function-btn-container {
-  display: flex;
-  position: absolute;
-  right: 0.1rem;
-  top: 0.1rem;
+    display: flex;
+    position: absolute;
+    right: 0.1rem;
+    top: 0.1rem;
 }
 
 button.function-btn {
@@ -285,7 +285,7 @@ button.function-btn {
 
 /* Wrap class used for "wrap text" button. */
 code.wrap {
-  white-space: pre-wrap;
+    white-space: pre-wrap;
 }
 
 /* Octicon sizing */
