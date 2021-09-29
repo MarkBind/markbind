@@ -5,11 +5,63 @@ title: Open Bugs
 <div class="website-content">
 
 **Bug Description**
+Unable to include two class names for hr
 
-<a href=LINK_TO_MARKBIND_ISSUE>Issue #XX</a>
+Instruction from user guide
+```markdown
+Apply classes, attributes, identifiers to block level markdown (eg. paragraphs, headings)
+by leaving a space before '{' {.text-success #attribute-example}
+#### heading {.text-info}
 
-Repro:
+--- {.border-danger}
 
-Steps to Reproduce
+```
+
+Example
+Code 
+```markdown
+
+### heading {.border-danger .bg-light}
+```
+Expected
+### heading {.border-danger .bg-light}
+
+---
+
+However,
+
+Code:
+
+```markdown
+HR with classname `.border-danger`
+
+--- {.border-danger}
+
+HR with classname `.border-danger` and `.bg-light`
+
+--- {.border-danger .bg-light}
+
+HR with classname `.border-danger` and `.bg-light` (separated)
+
+--- {.border-danger} {.bg-light}
+
+
+```
+
+Result: 
+
+HR with classname `.border-danger`
+
+--- {.border-danger}
+
+HR with classname `.border-danger` and `.bg-light`
+
+--- {.border-danger .bg-light}
+
+HR with classname `.border-danger` and `.bg-light`
+
+--- {.border-danger} {.bg-light}
+
+
 
 </div>
