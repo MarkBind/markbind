@@ -25,6 +25,7 @@ pre > code.hljs {
     border-radius: 5px;
     counter-reset: line;
     width: 100%;
+    word-wrap: break-word;
 }
 
 pre > code.hljs[heading] {
