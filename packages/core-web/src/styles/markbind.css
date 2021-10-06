@@ -24,6 +24,7 @@ pre > code.hljs {
     background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
     border-radius: 5px;
     counter-reset: line;
+    width: 100%;
 }
 
 pre > code.hljs[heading] {
@@ -245,13 +246,12 @@ li.footnote-item:target {
 /* "Copy" and "wrap text" code block buttons */
 pre {
     position: relative;
+    display: flex;
 }
 
 .function-btn-container {
-    display: flex;
-    position: absolute;
-    right: 0.1rem;
-    top: 0.1rem;
+    display: grid;
+    height: max-content;
 }
 
 button.function-btn {
@@ -267,7 +267,7 @@ button.function-btn {
 
 .function-btn:hover {
     transition: all 0.5s ease;
-    box-shadow: 0 0 0.25rem rgba(173, 173, 173, 0.8);
+    color: gray;
 }
 
 .function-btn-body {
@@ -277,10 +277,6 @@ button.function-btn {
 
 .function-btn svg {
     fill: currentColor;
-}
-
-.function-btn:focus {
-    box-shadow: 0 0 0.125rem rgba(173, 173, 173, 0.8);
 }
 
 /* Wrap class used for "wrap text" button. */
