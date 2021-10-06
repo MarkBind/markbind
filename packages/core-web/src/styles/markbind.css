@@ -25,7 +25,6 @@ pre > code.hljs {
     border-radius: 5px;
     counter-reset: line;
     width: 100%;
-    word-wrap: break-word;
 }
 
 pre > code.hljs[heading] {
@@ -283,6 +282,7 @@ button.function-btn {
 /* Wrap class used for "wrap text" button. */
 code.wrap {
     white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 /* Octicon sizing */
