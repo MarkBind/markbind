@@ -330,7 +330,9 @@ program
     const rootFolder = path.resolve(process.cwd());
     const outputRoot = path.join(rootFolder, '_site');
     new Site(rootFolder, outputRoot, undefined, undefined, options.siteConfig).deploy(options.ci)
-      .then(depUrl => (depUrl !== null ? logger.info(`Deployed at ${depUrl}!`) : logger.info('Deployed!')))
+      .then(depUrl => (depUrl !== null ? logger.info(
+        `The website will be available for viewing in a few moments time at: ${depUrl}`)
+        : logger.info('Deployed!')))
       .catch(handleError);
   });
 
