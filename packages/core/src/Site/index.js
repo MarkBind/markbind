@@ -1366,7 +1366,7 @@ class Site {
    * Copies Google Material Icons assets to the assets folder
    */
    copyMaterialIconsAsset() {
-    const materialIconsRootSrcPath = path.dirname(require.resolve('material-design-icons/package.json'));
+    const materialIconsRootSrcPath = path.dirname(require.resolve('material-icons/package.json'));
     const materialIconsCssAndFontsSrcPath = path.join(materialIconsRootSrcPath, 'iconfont');
     const materialIconsCssAndFontsDestPath = path.join(this.siteAssetsDestPath, 'material-icons');
 
