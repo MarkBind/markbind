@@ -26,23 +26,23 @@ module.exports = require('markdown-it-regexp')(
         ? octicons[iconFontName].toSVG({ style: 'color: #fff;', class: iconClass })
         : octicons[iconFontName].toSVG({ style: 'color: #fff;' });
     } else if (iconFontType.startsWith('mi')) {
-      // The default 'material-icons' class generates 'Filled' style icons.
       let materialIconsClass = 'material-icons';
-
       switch (iconFontType) {
-        case 'mio':
-          materialIconsClass += '-outlined';
-          break;
-        case 'mir':
-          materialIconsClass += '-round';
-          break;
-        case 'mis':
-          materialIconsClass += '-sharp';
-          break;
-        case 'mit':
-          materialIconsClass += '-two-tone';
+      case 'mio':
+        materialIconsClass += '-outlined';
+        break;
+      case 'mir':
+        materialIconsClass += '-round';
+        break;
+      case 'mis':
+        materialIconsClass += '-sharp';
+        break;
+      case 'mit':
+        materialIconsClass += '-two-tone';
+        break;
+      default:
+        // .material-icons generates 'Filled' style icons; hence, no suffix is needed for 'mif'.
       }
-
       // Use .align-middle by default to vertically-align the icon with its surrounding text (if any).
       // Also, replace dashes (-) with underscores (_) to format the icon name properly.
       return `<span aria-hidden="true" class="${materialIconsClass} align-middle">`

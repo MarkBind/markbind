@@ -295,7 +295,9 @@ class Site {
         octicons: path.relative(path.dirname(resultPath),
                                 path.join(this.siteAssetsDestPath, 'css', 'octicons.css')),
         materialIcons: path.relative(path.dirname(resultPath),
-                                     path.join(this.siteAssetsDestPath, 'material-icons', 'material-icons.css')),
+                                     path.join(this.siteAssetsDestPath,
+                                               'material-icons',
+                                               'material-icons.css')),
         highlight: path.relative(path.dirname(resultPath),
                                  path.join(this.siteAssetsDestPath, 'css', HIGHLIGHT_ASSETS[codeTheme])),
         markBindCss: path.relative(path.dirname(resultPath),
@@ -1365,7 +1367,7 @@ class Site {
   /**
    * Copies Google Material Icons assets to the assets folder
    */
-   copyMaterialIconsAsset() {
+  copyMaterialIconsAsset() {
     const materialIconsRootSrcPath = path.dirname(require.resolve('material-icons/package.json'));
     const materialIconsCssAndFontsSrcPath = path.join(materialIconsRootSrcPath, 'iconfont');
     const materialIconsCssAndFontsDestPath = path.join(this.siteAssetsDestPath, 'material-icons');
