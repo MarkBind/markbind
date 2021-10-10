@@ -46,7 +46,7 @@ module.exports = require('markdown-it-regexp')(
       // Use .align-middle by default to vertically-align the icon with its surrounding text (if any).
       // Also, replace dashes (-) with underscores (_) to format the icon name properly.
       return `<span aria-hidden="true" class="${materialIconsClass} align-middle">`
-      + `${iconFontName.replace('-', '_')}</span>`;
+      + `${iconFontName.split('-').join('_')}</span>`;
     } // If icon is a Font Awesome icon
     return `<span aria-hidden="true" class="${iconFontType} fa-${iconFontName}"></span>`;
   },
