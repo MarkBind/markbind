@@ -56,7 +56,7 @@
     "markdown-it-task-lists": "^2.1.1",
     "markdown-it-texmath": "^0.8.0",
     "markdown-it-video": "^0.6.3",
-    "material-design-icons": "^3.0.1",
+    "material-icons": "^1.9.1",
     "moment": "^2.24.0",
     "nunjucks": "3.2.2",
     "path-is-inside": "^1.0.2",

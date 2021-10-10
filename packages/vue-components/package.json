@@ -44,5 +44,8 @@
     "vue-jest": "^3.0.6",
     "vue-loader": "^15.9.3"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "material-icons": "^1.9.1"
+  }
 }
