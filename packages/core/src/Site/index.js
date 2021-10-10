@@ -4,9 +4,9 @@ const ghpages = require('gh-pages');
 const ignore = require('ignore');
 const path = require('path');
 const Promise = require('bluebird');
-const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
 const simpleGit = require('simple-git');
+const ProgressBar = require('../lib/progress');
 
 const SiteConfig = require('./SiteConfig');
 const Page = require('../Page');
@@ -1464,7 +1464,7 @@ class Site {
   }
 
   /**
-   * Helper function for deploy().
+   * Helper function for deploy(). Returns the ghpages link where the repo will be hosted.
    */
   async generateDepUrl(ciTokenVar, defaultDeployConfig) {
     const publish = Promise.promisify(ghpages.publish);
@@ -1474,7 +1474,7 @@ class Site {
   }
 
   /**
-   * Helper function for deploy().
+   * Helper function for deploy(). Set the options needed to be used by ghpages.publish.
    */
   async getDepOptions(ciTokenVar, defaultDeployConfig, publish) {
     const basePath = this.siteConfig.deploy.baseDir || this.outputPath;
@@ -1534,7 +1534,8 @@ class Site {
       options.repo = `https://x-access-token:${githubToken}@github.com/${repoSlug}.git`;
     }
 
-    publish(basePath, options);
+    // Waits for the repo to be updated.
+    await publish(basePath, options);
     return options;
   }
 

@@ -249,6 +249,14 @@
       "title": "markdown-it should parse minimized panel as inline element and normal panel as block element",
       "headings": {},
       "headingKeywords": {}
+    },
+    {
+      "src": "testCenterText.md",
+      "title": "Center-aligned text test",
+      "headings": {
+        "center-text": "Center Text"
+      },
+      "headingKeywords": {}
     }
   ]
 }
