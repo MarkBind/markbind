@@ -50,8 +50,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "material-icons": "^1.9.1"
   }
 }
