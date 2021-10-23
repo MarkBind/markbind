@@ -294,6 +294,10 @@ class Site {
                                             'bootstrap-glyphicons.min.css')),
         octicons: path.relative(path.dirname(resultPath),
                                 path.join(this.siteAssetsDestPath, 'css', 'octicons.css')),
+        materialIcons: path.relative(path.dirname(resultPath),
+                                     path.join(this.siteAssetsDestPath,
+                                               'material-icons',
+                                               'material-icons.css')),
         highlight: path.relative(path.dirname(resultPath),
                                  path.join(this.siteAssetsDestPath, 'css', HIGHLIGHT_ASSETS[codeTheme])),
         markBindCss: path.relative(path.dirname(resultPath),
@@ -646,6 +650,7 @@ class Site {
       await this.copyBootstrapTheme(false);
       await this.copyFontAwesomeAsset();
       await this.copyOcticonsAsset();
+      await this.copyMaterialIconsAsset();
       await this.writeSiteData();
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
       if (this.backgroundBuildMode) {
@@ -1357,6 +1362,17 @@ class Site {
     const octiconsCssDestPath = path.join(this.siteAssetsDestPath, 'css', 'octicons.css');
 
     return fs.copy(octiconsCssSrcPath, octiconsCssDestPath);
+  }
+
+  /**
+   * Copies Google Material Icons assets to the assets folder
+   */
+  copyMaterialIconsAsset() {
+    const materialIconsRootSrcPath = path.dirname(require.resolve('material-icons/package.json'));
+    const materialIconsCssAndFontsSrcPath = path.join(materialIconsRootSrcPath, 'iconfont');
+    const materialIconsCssAndFontsDestPath = path.join(this.siteAssetsDestPath, 'material-icons');
+
+    return fs.copy(materialIconsCssAndFontsSrcPath, materialIconsCssAndFontsDestPath);
   }
 
   /**
