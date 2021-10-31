@@ -168,6 +168,17 @@ A _copy_ button can be added to code blocks using the `codeBlockCopyButtons` plu
 </panel>
 <br>
 
+##### Wrap text button
+
+A _wrap text_ button can be added to code blocks using the `codeBlockWrapButtons` plugin:
+
+<panel type="seamless" header="**User Guide: Using Plugins → Plugin: `codeBlockWrapButtons`**" popup-url="usingPlugins.html#plugin-codeblockwrapbuttons">
+
+  <include src="../plugins/codeBlockWrapButtons.mbdf" />
+
+</panel>
+<br>
+
 #### Inline Code
 ##### Syntax coloring
 

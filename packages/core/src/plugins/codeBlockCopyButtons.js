@@ -1,4 +1,9 @@
 const cheerio = module.parent.require('cheerio');
+const {
+  CONTAINER_HTML,
+  doesFunctionBtnContainerExistInNode,
+  isFunctionBtnContainer,
+} = require('./codeBlockButtonsAssets/codeBlockButtonsContainer');
 
 const COPY_ICON = `
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -16,8 +21,8 @@ const COPY_ICON = `
 `;
 
 function getButtonHTML() {
-  const html = `<button onclick="copyCodeBlock(this)" class="copy-btn">
-    <div class="copy-btn-body">
+  const html = `<button onclick="copyCodeBlock(this)" class="function-btn">
+    <div class="function-btn-body">
     ${COPY_ICON}
     </div>
     </button>`;
@@ -26,7 +31,7 @@ function getButtonHTML() {
 
 const copyCodeBlockScript = `<script>
     function copyCodeBlock(element) {
-        const pre = element.parentElement;
+        const pre = element.parentElement.parentElement;
         const codeElement = pre.querySelector('code');
 
         // create dummy text element to select() the text field
@@ -43,10 +48,10 @@ const copyCodeBlockScript = `<script>
 module.exports = {
   getScripts: () => [copyCodeBlockScript],
   processNode: (pluginContext, node) => {
-    if (node.name !== 'pre') {
-      return;
+    if (node.name === 'pre' && !doesFunctionBtnContainerExistInNode(node)) {
+      cheerio(node).append(CONTAINER_HTML);
+    } else if (isFunctionBtnContainer(node)) {
+      cheerio(node).append(getButtonHTML());
     }
-
-    cheerio(node).append(getButtonHTML());
   },
 };

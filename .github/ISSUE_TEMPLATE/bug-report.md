@@ -25,4 +25,4 @@ labels: "c.Bug :bug:"
 **What actually happened? Please include the actual, raw output.**
 
 
-<!-- You are encouraged to submit a PR that reproduces this in `test/test_site/bugs/`. -->
+<!-- You are encouraged to submit a PR that reproduces this in `packages/cli/test/functional/test_site/bugs/index.md`. -->
