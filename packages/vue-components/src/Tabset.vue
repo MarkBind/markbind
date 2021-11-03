@@ -106,6 +106,10 @@ export default {
         margin-bottom: 15px;
     }
 
+    .tab-content {
+        margin-bottom: 1.5rem;
+    }
+
     @media print {
         .printable-tabs {
             border: 1px solid #dee2e6;
