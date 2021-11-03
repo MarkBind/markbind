@@ -1,6 +1,20 @@
 const cheerio = require('cheerio');
 const shorthandSyntaxPlugin = require('../../../../src/plugins/default/markbind-plugin-shorthandSyntax');
 
+/*
+The plugin converts the following shorthand syntax:
+<panel>
+    <span heading>
+        Heading
+    </span>
+</panel>
+to
+<panel>
+    <span slot="header" class="card-title">
+        Heading
+    </span>
+</panel>
+*/
 test('processNode should convert shorthand syntax to proper Markbind syntax', () => {
   const [spanNode] = cheerio.parseHTML('<panel>'
     + '<span heading>Heading</span></panel>', true)[0].children;
@@ -23,13 +37,16 @@ test('processNode should not convert span node without heading attribute', () =>
 },
 );
 
-test('processNode should not convert improper syntax nodes', () => {
+test('processNode should not convert div>span[heading] syntax nodes', () => {
   const [divSpanNode] = cheerio
     .parseHTML('<div><span heading>Heading</span></div>', true)[0].children;
   const divSpanNodeCopy = { ...divSpanNode };
   shorthandSyntaxPlugin.processNode({}, divSpanNode);
   expect(divSpanNode).toEqual(divSpanNodeCopy);
+},
+);
 
+test('processNode should not convert panel>h1[heading] syntax nodes', () => {
   const [panelH1Node] = cheerio
     .parseHTML('<panel><h1 heading>Heading</h1></panel>', true)[0].children;
   const panelH1NodeCopy = { ...panelH1Node };
