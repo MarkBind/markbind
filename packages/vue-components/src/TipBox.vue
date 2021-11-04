@@ -388,6 +388,10 @@ export default {
     }
 
     @media screen and (max-width: 768px) {
+        .box-header-wrapper {
+            padding: 0.75rem 0.75rem 0.1rem;
+        }
+
         .box-body-wrapper {
             padding: 0.75rem;
         }
