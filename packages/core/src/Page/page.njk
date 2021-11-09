@@ -20,10 +20,6 @@
     <link rel="stylesheet" href="{{ asset.highlight }}">
     {%- if not dev -%}<link rel="stylesheet" href="{{ asset.markBindCss }}">{%- endif -%}
     <script src="{{ asset.polyfillJs }}"></script>
-    <script src="{{ asset.vue }}"></script>
-    <script src="{{ asset.markBindJs }}"></script>
-    <script src="{{ asset.pageVueRenderJs }}"></script>
-    <script src="{{ asset.jQuery }}"></script>
     {%- if asset.pluginLinks -%}
     {%- for link in asset.pluginLinks -%}
         {{ link }}
@@ -41,6 +37,10 @@
 </script>
 <body {% if hasPageNav %} data-spy="scroll" data-target="#mb-page-nav" data-offset="100" {% endif %}>
 {{ content }}
+<script src="{{ asset.vue }}"></script>
+<script src="{{ asset.markBindJs }}"></script>
+<script src="{{ asset.pageVueRenderJs }}"></script>
+<script src="{{ asset.jQuery }}"></script>
 </body>
 {{- pageUserScriptsAndStyles -}}
 {{- layoutUserScriptsAndStyles -}}
