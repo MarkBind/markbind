@@ -50,7 +50,7 @@ Next, edit the layout file to your liking, and add the `{% raw %}{{ content }}{%
 <header fixed>
   <navbar type="dark">
     <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand">
-      <img src="{{baseUrl}}/images/logo-darkbackground.png" height="20">
+      <img src="{{baseUrl}}/images/logo-darkbackground.svg" height="20">
     </a>
     <li>
       <a highlight-on="exact" href="{{baseUrl}}/index.html" class="nav-link">HOME</a>
