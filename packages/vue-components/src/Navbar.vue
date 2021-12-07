@@ -277,10 +277,13 @@ export default {
             margin-top: 0.3125rem;
             width: 100%;
             overflow-x: scroll;
+
+            /* Hide overflow scroll bar */
             -ms-overflow-style: none;  /* IE and Edge */
             scrollbar-width: none;  /* Firefox */
         }
 
+        /* Hide overflow scroll bar for Chrome */
         .navbar-top::-webkit-scrollbar {
             display: none;
         }
