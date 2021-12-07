@@ -291,7 +291,8 @@ export default {
             width: 100%;
         }
 
-        .navbar-top > ul > li, .navbar-top > ul > div {
+        .navbar-top > ul > li,
+        .navbar-top > ul > div {
             padding: 0.3125rem 0.625rem;
             flex: 1;
             background: rgba(0, 0, 0, 0.3);
