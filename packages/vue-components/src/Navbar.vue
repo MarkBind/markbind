@@ -5,26 +5,15 @@
         <div class="navbar-brand">
           <slot name="brand"></slot>
         </div>
-        <button
-          v-if="!slots.collapse"
-          class="navbar-toggler"
-          type="button"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-          @click="toggleCollapse"
-        >
-          <span class="navbar-toggler-icon"></span>
-          <slot name="collapse"></slot>
-        </button>
-
-        <div :class="['navbar-collapse',{collapse:collapsed}]">
+        <div class="navbar-top">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <slot></slot>
           </ul>
-          <ul v-if="slots.right" class="navbar-nav navbar-right">
-            <slot name="right"></slot>
-          </ul>
         </div>
+
+        <ul v-if="slots.right" class="navbar-nav navbar-right">
+          <slot name="right"></slot>
+        </ul>
       </div>
     </nav>
     <div
@@ -78,7 +67,6 @@ export default {
   data() {
     return {
       id: 'bs-example-navbar-collapse-1',
-      collapsed: true,
       styles: {},
       isLowerNavbarShowing: false,
     };
@@ -111,10 +99,6 @@ export default {
     },
   },
   methods: {
-    toggleCollapse(e) {
-      if (e) { e.preventDefault(); }
-      this.collapsed = !this.collapsed;
-    },
     // Splits a normalised URL into its parts,
     // e.g http://site.org/foo/bar/index.html -> ['foo','bar','index.html']
     splitUrl(url) {
@@ -167,7 +151,8 @@ export default {
     },
     highlightLink(url) {
       const defHlMode = this.defaultHighlightOn;
-      const navLis = Array.from(this.$el.querySelector('.navbar-nav').children);
+      const navLis = [];
+      this.$el.querySelectorAll('.navbar-nav').forEach(nav => navLis.push(...Array.from(nav.children)));
       // attempt an exact match first
       for (let i = 0; i < navLis.length; i += 1) {
         const li = navLis[i];
@@ -254,13 +239,6 @@ export default {
         if (!content.contains(e.target)) content.classList.remove('open');
       });
     });
-    $(this.$el).on('click', 'li:not(.dropdown)>a', (e) => {
-      if (e.target.classList.contains('submenu-toggle')) { return; }
-      setTimeout(() => { this.collapsed = true; }, 200);
-    }).onBlur((e) => {
-      if (!this.$el.contains(e.target)) { this.collapsed = true; }
-    });
-    if (this.slots.collapse) $('[data-toggle="collapse"]', this.$el).on('click', e => this.toggleCollapse(e));
 
     // highlight current nav link
     this.highlightLink(window.location.href);
@@ -270,7 +248,6 @@ export default {
   },
   beforeDestroy() {
     $('.dropdown', this.$el).off('click').offBlur();
-    if (this.slots.collapse) $('[data-toggle="collapse"]', this.$el).off('click');
     $(window).off('resize', this.toggleLowerNavbar);
   },
 };
@@ -278,10 +255,58 @@ export default {
 
 <style scoped>
     @media (max-width: 767px) {
-        .navbar-collapse {
-            max-height: 80vh !important;
-            overflow-x: hidden !important;
-            overflow-y: scroll !important;
+        .navbar {
+            padding-left: 0;
+            padding-right: 0;
+            padding-bottom: 0;
+        }
+
+        div.navbar-brand {
+            padding-left: 1rem;
+        }
+
+        .navbar-right {
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            max-width: 40vw;
+        }
+
+        .navbar-top {
+            display: block;
+            margin-top: 0.3125rem;
+            width: 100%;
+            overflow-x: scroll;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        .navbar-top::-webkit-scrollbar {
+            display: none;
+        }
+
+        .navbar-top ul {
+            flex-direction: row;
+            margin-top: 0 !important;
+            width: 100%;
+        }
+
+        .navbar-top > ul > li, .navbar-top > ul > div {
+            padding: 0.3125rem 0.625rem;
+            flex: 1;
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .navbar-top a,
+        >>> .dropdown-toggle {
+            margin: 0 auto;
+            width: max-content;
+        }
+
+        >>> .dropdown-toggle {
+            display: block;
+            padding: 0.5rem 0;
         }
     }
 
@@ -289,6 +314,13 @@ export default {
         position: fixed;
         width: 100%;
         z-index: 1000;
+    }
+
+    .navbar-top {
+        display: flex;
+        flex-basis: auto;
+        flex-grow: 1;
+        align-items: center;
     }
 
     >>> .dropdown-current {
@@ -305,6 +337,11 @@ export default {
     }
 
     /* Navbar link highlight for current page */
+    .navbar .navbar-nav >>> .current:not(.dropdown),
+    .navbar .navbar-nav >>> .dropdown.current {
+        background: none;
+    }
+
     .navbar.navbar-dark .navbar-nav >>> .current:not(.dropdown) a,
     .navbar.navbar-dark .navbar-nav >>> .dropdown.current > a {
         color: #fff;
