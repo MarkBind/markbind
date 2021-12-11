@@ -1,10 +1,12 @@
 export default function preventOverflowOnMobile(el) {
   // get highest-level dropdown menu
   let rootDropdownMenu = el;
-  while (el = el.parentNode) {
-    if (el.classList && el.classList.contains('dropdown-menu')) {
-      rootDropdownMenu = el;
+  let currentEl = el;
+  while (currentEl) {
+    if (currentEl.classList && currentEl.classList.contains('dropdown-menu')) {
+      rootDropdownMenu = currentEl;
     }
+    currentEl = currentEl.parentNode;
   }
 
   // shift dropdown relative to its parent and prevent overflow if necessary
@@ -13,7 +15,9 @@ export default function preventOverflowOnMobile(el) {
   } else {
     const dropdownPosition = rootDropdownMenu.parentNode.getBoundingClientRect();
     const overflowedWidth = dropdownPosition.left + rootDropdownMenu.offsetWidth - window.innerWidth;
-    const leftPosition = overflowedWidth < 0 ? dropdownPosition.left : dropdownPosition.left - overflowedWidth;
+    const leftPosition = overflowedWidth < 0
+      ? dropdownPosition.left
+      : dropdownPosition.left - overflowedWidth;
     rootDropdownMenu.setAttribute('style', `left: ${leftPosition}px;`);
   }
 }

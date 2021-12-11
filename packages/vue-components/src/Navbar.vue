@@ -249,21 +249,21 @@ export default {
     // scroll default navbar horizontally when mousewheel is scrolled
     const navbarDefault = this.$el.querySelector('.navbar-default');
     $(navbarDefault).on('wheel', (e) => {
-      const isDropdown = nodes => {
+      const isDropdown = (nodes) => {
         for (let i = 0; i < nodes.length; i += 1) {
           if (nodes[i].classList && nodes[i].classList.contains('dropdown-menu')) {
             return true;
           }
         }
         return false;
-      }
+      };
 
       // prevent horizontal scrolling if the scroll is on dropdown menu
       if (window.innerWidth < 768 && !isDropdown(e.path)) {
         e.preventDefault();
         navbarDefault.scrollLeft += e.deltaY;
       }
-    })
+    });
   },
   beforeDestroy() {
     $('.dropdown', this.$el).off('click').offBlur();

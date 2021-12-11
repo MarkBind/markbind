@@ -132,7 +132,7 @@ export default {
     },
     hideDropdownMenu() {
       this.show = false;
-      $(this.$refs.dropdown).findChildren('ul').each(ul => {
+      $(this.$refs.dropdown).findChildren('ul').each((ul) => {
         ul.classList.toggle('show', false);
 
         if (window.innerWidth < 768 && this.$refs.dropdown.closest('div.navbar-default') !== null) {
@@ -142,7 +142,7 @@ export default {
     },
     showDropdownMenu() {
       this.show = true;
-      $(this.$refs.dropdown).findChildren('ul').each(ul => {
+      $(this.$refs.dropdown).findChildren('ul').each((ul) => {
         ul.classList.toggle('show', true);
 
         // check if the dropdown is part of the sliding menu on mobile
@@ -195,7 +195,7 @@ export default {
             overflow-y: auto;
             overscroll-behavior: contain;
         }
-        
+
         .navbar-default .dropdown-menu-right {
             right: auto;
         }
