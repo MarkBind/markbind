@@ -5,7 +5,7 @@
         <div class="navbar-brand">
           <slot name="brand"></slot>
         </div>
-        <div class="navbar-top">
+        <div ref="navbarDefault" class="navbar-default">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <slot></slot>
           </ul>
@@ -245,10 +245,30 @@ export default {
 
     this.toggleLowerNavbar();
     $(window).on('resize', this.toggleLowerNavbar);
+
+    // scroll default navbar horizontally when mousewheel is scrolled
+    const navbarDefault = this.$el.querySelector('.navbar-default');
+    $(navbarDefault).on('wheel', (e) => {
+      const isDropdown = nodes => {
+        for (let i = 0; i < nodes.length; i += 1) {
+          if (nodes[i].classList && nodes[i].classList.contains('dropdown-menu')) {
+            return true;
+          }
+        }
+        return false;
+      }
+
+      // prevent horizontal scrolling if the scroll is on dropdown menu
+      if (window.innerWidth < 768 && !isDropdown(e.path)) {
+        e.preventDefault();
+        navbarDefault.scrollLeft += e.deltaY;
+      }
+    })
   },
   beforeDestroy() {
     $('.dropdown', this.$el).off('click').offBlur();
     $(window).off('resize', this.toggleLowerNavbar);
+    $(this.$el.querySelector('.navbar-default')).off('wheel');
   },
 };
 </script>
@@ -272,7 +292,7 @@ export default {
             max-width: 40vw;
         }
 
-        .navbar-top {
+        .navbar-default {
             display: block;
             margin-top: 0.3125rem;
             width: 100%;
@@ -283,26 +303,26 @@ export default {
             scrollbar-width: none;  /* Firefox */
         }
 
-        /* Hide overflow scroll bar for Chrome */
-        .navbar-top::-webkit-scrollbar {
+        /* Hide overflow scroll bar for Chrome and Safari */
+        .navbar-default::-webkit-scrollbar {
             display: none;
         }
 
-        .navbar-top ul {
+        .navbar-default ul {
             flex-direction: row;
             margin-top: 0 !important;
             width: 100%;
         }
 
-        .navbar-top > ul > li,
-        .navbar-top > ul > div {
+        .navbar-default > ul > li,
+        .navbar-default > ul > div {
             padding: 0.3125rem 0.625rem;
             flex: 1;
             background: rgba(0, 0, 0, 0.3);
             text-align: center;
         }
 
-        .navbar-top a,
+        .navbar-default a,
         >>> .dropdown-toggle {
             margin: 0 auto;
             width: max-content;
@@ -320,7 +340,7 @@ export default {
         z-index: 1000;
     }
 
-    .navbar-top {
+    .navbar-default {
         display: flex;
         flex-basis: auto;
         flex-grow: 1;

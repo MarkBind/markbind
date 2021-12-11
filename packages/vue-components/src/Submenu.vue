@@ -25,6 +25,7 @@
 import { toBoolean } from './utils/utils';
 import $ from './utils/NodeList';
 import positionSubmenu from './utils/submenu';
+import preventOverflowOnMobile from './utils/dropdown';
 
 export default {
   props: {
@@ -64,7 +65,13 @@ export default {
         } else {
           this.alignMenuLeft();
         }
-        positionSubmenu.preventOverflow(ul);
+
+        // check if submenu is part of the navbar sliding menu on mobile
+        if (window.innerWidth < 768 && this.$refs.submenu.closest('div.navbar-default') !== null) {
+          preventOverflowOnMobile(ul);
+        } else {
+          positionSubmenu.preventOverflow(ul);
+        }
       });
     },
     alignMenuRight() {
