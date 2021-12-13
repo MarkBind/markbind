@@ -62,6 +62,7 @@ export default {
   provide() {
     return {
       toggleLowerNavbar: this.toggleLowerNavbar,
+      isParentNavbar: true,
     };
   },
   data() {
@@ -247,8 +248,7 @@ export default {
     $(window).on('resize', this.toggleLowerNavbar);
 
     // scroll default navbar horizontally when mousewheel is scrolled
-    const navbarDefault = this.$el.querySelector('.navbar-default');
-    $(navbarDefault).on('wheel', (e) => {
+    $(this.$refs.navbarDefault).on('wheel', (e) => {
       const isDropdown = (nodes) => {
         for (let i = 0; i < nodes.length; i += 1) {
           if (nodes[i].classList && nodes[i].classList.contains('dropdown-menu')) {
@@ -261,14 +261,14 @@ export default {
       // prevent horizontal scrolling if the scroll is on dropdown menu
       if (window.innerWidth < 768 && !isDropdown(e.path)) {
         e.preventDefault();
-        navbarDefault.scrollLeft += e.deltaY;
+        this.$refs.navbarDefault.scrollLeft += e.deltaY;
       }
     });
   },
   beforeDestroy() {
     $('.dropdown', this.$el).off('click').offBlur();
     $(window).off('resize', this.toggleLowerNavbar);
-    $(this.$el.querySelector('.navbar-default')).off('wheel');
+    $(this.$refs.navbarDefault).off('wheel');
   },
 };
 </script>
@@ -283,19 +283,21 @@ export default {
 
         div.navbar-brand {
             padding-left: 1rem;
+            max-width: 50%;
+            order: 1;
         }
 
         .navbar-right {
-            position: absolute;
-            top: 14px;
-            right: 16px;
-            max-width: 40vw;
+            order: 1;
+            max-width: 50%;
+            padding: 0 16px;
         }
 
         .navbar-default {
             display: block;
             margin-top: 0.3125rem;
             width: 100%;
+            order: 2;
             overflow-x: scroll;
 
             /* Hide overflow scroll bar */
@@ -314,12 +316,10 @@ export default {
             width: 100%;
         }
 
-        .navbar-default > ul > li,
-        .navbar-default > ul > div {
+        .navbar-default > ul > * {
             padding: 0.3125rem 0.625rem;
             flex: 1;
             background: rgba(0, 0, 0, 0.3);
-            text-align: center;
         }
 
         .navbar-default a,
@@ -328,9 +328,9 @@ export default {
             width: max-content;
         }
 
-        >>> .dropdown-toggle {
-            display: block;
-            padding: 0.5rem 0;
+        >>> .dropdown {
+            display: flex;
+            align-items: center;
         }
     }
 

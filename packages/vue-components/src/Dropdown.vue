@@ -85,6 +85,9 @@ export default {
     hasParentDropdown: {
       default: undefined,
     },
+    isParentNavbar: {
+      default: false,
+    },
   },
   data() {
     return {
@@ -135,7 +138,7 @@ export default {
       $(this.$refs.dropdown).findChildren('ul').each((ul) => {
         ul.classList.toggle('show', false);
 
-        if (window.innerWidth < 768 && this.$refs.dropdown.closest('div.navbar-default') !== null) {
+        if (window.innerWidth < 768 && this.isParentNavbar) {
           ul.style.removeProperty('left');
         }
       });
@@ -146,7 +149,7 @@ export default {
         ul.classList.toggle('show', true);
 
         // check if the dropdown is part of the sliding menu on mobile
-        if (window.innerWidth < 768 && this.$refs.dropdown.closest('div.navbar-default') !== null) {
+        if (window.innerWidth < 768 && this.isParentNavbar) {
           preventOverflowOnMobile(ul);
         }
       });
@@ -219,6 +222,8 @@ export default {
 
     .dropdown-toggle {
         cursor: pointer;
+        display: block;
+        width: max-content;
     }
 
     .navbar .dropdown-toggle {

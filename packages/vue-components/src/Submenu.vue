@@ -45,6 +45,11 @@ export default {
       dropleft: false,
     };
   },
+  inject: {
+    isParentNavbar: {
+      default: false,
+    },
+  },
   computed: {
     disabledBool() {
       return toBoolean(this.disabled);
@@ -60,18 +65,19 @@ export default {
       this.show = true;
       $(this.$refs.submenu).findChildren('ul').each((ul) => {
         ul.classList.toggle('show', true);
+
+        // check if submenu is part of the navbar sliding menu on mobile
+        if (window.innerWidth < 768 && this.isParentNavbar) {
+          preventOverflowOnMobile(ul);
+          return;
+        }
+
         if (positionSubmenu.isRightAlign(ul)) {
           this.alignMenuRight();
         } else {
           this.alignMenuLeft();
         }
-
-        // check if submenu is part of the navbar sliding menu on mobile
-        if (window.innerWidth < 768 && this.$refs.submenu.closest('div.navbar-default') !== null) {
-          preventOverflowOnMobile(ul);
-        } else {
-          positionSubmenu.preventOverflow(ul);
-        }
+        positionSubmenu.preventOverflow(ul);
       });
     },
     alignMenuRight() {
