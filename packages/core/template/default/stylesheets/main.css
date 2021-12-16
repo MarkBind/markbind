@@ -110,10 +110,6 @@ mark {
     #site-nav {
         display: none;
     }
-
-    footer {
-        margin-left: 60px;
-    }
 }
 
 /* Bootstrap small(sm) responsive breakpoint */
