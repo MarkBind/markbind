@@ -128,10 +128,6 @@ mark {
     #site-nav {
         display: none;
     }
-
-    footer {
-        margin-left: 0;
-    }
 }
 
 /* Hide site navigation when printing */
