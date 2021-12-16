@@ -164,7 +164,7 @@ markdownIt.renderer.rules.code_inline = (tokens, idx, options, env, slf) => {
   if (lang && hljs.getLanguage(lang)) {
     token.attrSet('class', `${inlineClass} ${lang}`);
     return `<code${slf.renderAttrs(token)}>${
-      hljs.highlight(lang, token.content, true).value
+      hljs.highlight(token.content, { language: lang, ignoreIllegals: true }).value
     }</code>`;
   }
   token.attrSet('class', `${inlineClass} no-lang`);
