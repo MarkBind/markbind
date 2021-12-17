@@ -110,6 +110,10 @@ mark {
     #site-nav {
         display: none;
     }
+
+    footer {
+        margin-left: 60px;
+    }
 }
 
 /* Bootstrap small(sm) responsive breakpoint */
@@ -127,6 +131,10 @@ mark {
 @media screen and (max-width: 575.98px) {
     #site-nav {
         display: none;
+    }
+
+    footer {
+        margin-left: 0;
     }
 }
 
