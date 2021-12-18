@@ -243,6 +243,10 @@ li.footnote-item:target {
     opacity: 1;
 }
 
+.modal-open {
+    overflow: auto;
+}
+
 /* "Copy" and "wrap text" code block buttons */
 pre {
     position: relative;
