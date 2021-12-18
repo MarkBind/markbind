@@ -244,6 +244,11 @@ export default {
     // highlight current nav link
     this.highlightLink(window.location.href);
 
+    // forward navbar background color to css variable for .current to use for link highlighting
+    const navbarBackgroundColor = window.getComputedStyle(this.$refs.navbar).backgroundColor
+        || 'rgba(255, 255, 255, 0.1)';
+    this.$refs.navbarDefault.style.setProperty('--mobile-link-highlight-color', navbarBackgroundColor);
+
     this.toggleLowerNavbar();
     $(window).on('resize', this.toggleLowerNavbar);
 
@@ -283,8 +288,12 @@ export default {
 
         div.navbar-brand {
             padding-left: 1rem;
-            max-width: 50%;
+            max-width: calc(50% - 1rem);
             order: 1;
+        }
+
+        .navbar-brand * {
+            white-space: normal;
         }
 
         .navbar-right {
@@ -294,6 +303,7 @@ export default {
         }
 
         .navbar-default {
+            background: rgba(0, 0, 0, 0.2);
             display: block;
             margin-top: 0.3125rem;
             width: 100%;
@@ -310,6 +320,10 @@ export default {
             display: none;
         }
 
+        .navbar-light .navbar-default {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
         .navbar-default ul {
             flex-direction: row;
             margin-top: 0 !important;
@@ -318,8 +332,10 @@ export default {
 
         .navbar-default > ul > * {
             padding: 0.3125rem 0.625rem;
-            flex: 1;
-            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-default > ul > .current {
+            background: var(--mobile-link-highlight-color);
         }
 
         .navbar-default a,
@@ -361,11 +377,6 @@ export default {
     }
 
     /* Navbar link highlight for current page */
-    .navbar .navbar-nav >>> .current:not(.dropdown),
-    .navbar .navbar-nav >>> .dropdown.current {
-        background: none;
-    }
-
     .navbar.navbar-dark .navbar-nav >>> .current:not(.dropdown) a,
     .navbar.navbar-dark .navbar-nav >>> .dropdown.current > a {
         color: #fff;
