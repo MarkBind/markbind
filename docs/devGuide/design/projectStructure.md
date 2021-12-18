@@ -44,6 +44,7 @@ The MarkBind project is developed in a monorepo ([MarkBind/markbind](https://git
 1. Unit Tests (though there are more unit tests and functional tests in the cli library).
 
 **The key external libraries used are:**
+
 1. [markdown-it](https://github.com/markdown-it/markdown-it), which does the Markdown parsing and rendering. There are also several customized markdown-it plugins used in MarkBind, which are located inside the `src/lib/markdown-it/` directory.
 
 1. [htmlparser2](https://github.com/fb55/htmlparser2), a speedy and forgiving html parser which exposes a dom-like object structure to work on. To comply with the markdown spec, and our custom requirements, `src/patches/htmlparser2.js` patches various behaviours of this library.
