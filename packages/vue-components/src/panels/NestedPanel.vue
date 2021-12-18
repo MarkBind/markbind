@@ -11,9 +11,16 @@
     ></span>
     <span class="morph">
       <button :class="['morph-display-wrapper', 'btn', btnType, 'card-title']" @click="open()">
-        <slot name="_alt">
-          <slot name="header"></slot>
-        </slot>
+        <div class="minimal-caret-wrapper">
+          <span
+            :class="['glyphicon', 'glyphicon-chevron-right']"
+          ></span>
+        </div>
+        <span :class="['card-title']">
+          <slot name="_alt">
+            <slot name="header"></slot>
+          </slot>
+        </span>
       </button>
     </span>
   </span>
@@ -240,6 +247,12 @@ export default {
         width: 32px;
     }
 
+    .minimal-caret-wrapper {
+        display: inline-block;
+        width: 14px;
+        font-size: 13px;
+    }
+
     .header-wrapper {
         display: inline-block;
         width: calc(100% - 32px - 96px);
@@ -327,6 +340,7 @@ export default {
 
     .morph-display-wrapper {
         white-space: normal;
+        margin-top: 5px;
     }
 
     /* Bootstrap extra small(xs) responsive breakpoint */

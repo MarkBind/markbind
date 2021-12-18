@@ -11,8 +11,13 @@
     ></span>
     <span class="morph">
       <button class="morph-display-wrapper btn card-title morph-title" @click="minimalOpen()">
+        <div
+          :class="['glyphicon', 'glyphicon-chevron-right']"
+        ></div>
         <slot name="_alt">
-          <slot name="header"></slot>
+          <span :class="['card-title']">
+            <slot name="header"></slot>
+          </span>
         </slot>
       </button>
     </span>
@@ -267,6 +272,10 @@ export default {
 
     .header-toggle {
         cursor: pointer;
+    }
+
+    .glyphicon {
+        font-size: 12px;
     }
 
     .minimal-button {
