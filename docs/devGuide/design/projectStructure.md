@@ -32,7 +32,7 @@ The MarkBind project is developed in a monorepo ([MarkBind/markbind](https://git
 
 **The core library mainly houses:**
 
-1. Functions and libraries used to parse and process MarkBind into usable output are stored in `src` The architecture described in [Architecture](../design/architecture).html) is contained here. A brief rundown of what it includes:
+1. Functions and libraries used to parse and process MarkBind into usable output are stored in `src` The architecture described in [Architecture](../design/architecture) is contained here. A brief rundown of what it includes:
     * Various key functionalities in processing MarkBind syntax into valid html output, stored in `html`. The other part of the content processing flow is found in `variables`, which manages site variables and facillitates the Nunjucks calls.
     * `Page` files generate a single page of the site, and are managed by the `Site` instance. `Site` uses the Page model's interface to generate pages, and performs various other utility-like functions related to site generation such as copying of external assets into the output folder.
     * `Layout` holds the files relating to the layout of the site and are managed by `LayoutManager`. Similarly, `External` files, which are separate output files to be loaded dynamically and on-demand, are managed by a `ExternalManager` instance
