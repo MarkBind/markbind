@@ -9,7 +9,7 @@ exports[`Navbar and secondary navbar navbar with page nav button 1`] = `
       class="container-fluid"
     >
       <div
-        class="navbar-brand"
+        class="navbar-left"
       >
         <a
           class="navbar-brand"
@@ -22,7 +22,6 @@ exports[`Navbar and secondary navbar navbar with page nav button 1`] = `
        
       <div
         class="navbar-default"
-        style="--mobile-link-highlight-color: rgba(255, 255, 255, 0.1);"
       >
         <ul
           class="navbar-nav mr-auto mt-2 mt-lg-0"
@@ -75,7 +74,7 @@ exports[`Navbar and secondary navbar navbar with site and page nav buttons 1`] =
       class="container-fluid"
     >
       <div
-        class="navbar-brand"
+        class="navbar-left"
       >
         <a
           class="navbar-brand"
@@ -88,7 +87,6 @@ exports[`Navbar and secondary navbar navbar with site and page nav buttons 1`] =
        
       <div
         class="navbar-default"
-        style="--mobile-link-highlight-color: rgba(255, 255, 255, 0.1);"
       >
         <ul
           class="navbar-nav mr-auto mt-2 mt-lg-0"
@@ -143,7 +141,7 @@ exports[`Navbar and secondary navbar navbar with site nav button 1`] = `
       class="container-fluid"
     >
       <div
-        class="navbar-brand"
+        class="navbar-left"
       >
         <a
           class="navbar-brand"
@@ -156,7 +154,6 @@ exports[`Navbar and secondary navbar navbar with site nav button 1`] = `
        
       <div
         class="navbar-default"
-        style="--mobile-link-highlight-color: rgba(255, 255, 255, 0.1);"
       >
         <ul
           class="navbar-nav mr-auto mt-2 mt-lg-0"
@@ -209,7 +206,7 @@ exports[`Navbar and secondary navbar navbar without site and page nav buttons 1`
       class="container-fluid"
     >
       <div
-        class="navbar-brand"
+        class="navbar-left"
       >
         <a
           class="navbar-brand"
@@ -222,7 +219,6 @@ exports[`Navbar and secondary navbar navbar without site and page nav buttons 1`
        
       <div
         class="navbar-default"
-        style="--mobile-link-highlight-color: rgba(255, 255, 255, 0.1);"
       >
         <ul
           class="navbar-nav mr-auto mt-2 mt-lg-0"

@@ -264,9 +264,13 @@ export default {
 
     @media screen and (max-width: 768px) {
         .search-dropdown-menu {
-            min-width: auto;
+            min-width: 90vw;
             max-height: 30em;
             overflow-y: scroll;
+        }
+
+        .dropdown-menu.search-dropdown-menu {
+            position: absolute;
         }
     }
 </style>
