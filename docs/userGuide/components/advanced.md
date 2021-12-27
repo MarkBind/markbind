@@ -1,10 +1,24 @@
-## Advanced Tips and Tricks
+{% set title = "Advanced Component Usage" %}
+{% set filename = "advanced" %}
+<span id="title" class="d-none">{{ title }}</span>
+
+<frontmatter>
+  title: "User Guide: {{ title }}"
+  layout: userGuide.md
+  pageNav: 3
+</frontmatter>
+
+<span id="link" class="d-none">
+<md>[_User Guide → {{ title }}_]({{ filename }}.html)</md>
+</span>
+
+# Advanced Tips and Tricks
 
 {% set slot_info_trigger %}<trigger for="on-slots" trigger="click"><strong>^\[S\]^</strong></trigger>{% endset %}
 
 {% set slot_type_info_trigger %}<trigger for="on-slots" trigger="click">Slot</trigger>{% endset %}
 
-### Richer formatting of attributes using slots
+## Richer formatting of attributes using slots
 
 <div id="slots">
 
@@ -36,10 +50,20 @@ You can define such a slot within the component by adding a `slot="slot_name"` a
 <variable name="highlightStyle">html</variable>
 </include>
 </div>
-  
+
+
+<!--
+    Include #slots-info wherever slot_info_trigger or slot_type_info_trigger is used.
+    This loads in the required modal for the corresponding triggers to function.
+-->
+
+<div id="slots-info">
+
 <modal header="Richer formatting of attributes using slots" id="on-slots" large>
 <include src="advanced.md#slots" />
 </modal>
+
+</div>
 
 **Other examples of slots in use**
 
@@ -91,7 +115,7 @@ You can define such a slot within the component by adding a `slot="slot_name"` a
     some very useful info
 </box>
 
-{{ icon_example }} Use [thumbnail]({{ baseUrl }}/userGuide/usingComponents.html#thumbnails) as the icon. 
+{{ icon_example }} Use [thumbnail]({{ baseUrl }}/userGuide/components/diagrams.html#thumbnails) as the icon. 
 
 
 ```html
@@ -106,7 +130,7 @@ You can define such a slot within the component by adding a `slot="slot_name"` a
     use thumbnail as the icon
 </box>
 
-### Inserting custom classes into components {.mt-4 .mb-3}
+## Inserting custom classes into components {.mt-4 .mb-3}
 
 Every component documented in our user guide allows you to insert your own defined CSS classes.
 This is done by adding the `add-class` attribute to a component along with the desired class names.
@@ -128,3 +152,6 @@ This is done by adding the `add-class` attribute to a component along with the d
 ```
 </tip-box>
 <br>
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('others', '../usingHtmlJavaScriptCss') }}
