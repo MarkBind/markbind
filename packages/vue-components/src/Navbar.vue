@@ -125,7 +125,7 @@ export default {
       if (uParts.length <= hParts.length) {
         return false;
       }
-      for (let i = 0; i < hParts.length; i += 1) {
+      for (let i = 0; i < hParts.length - 1; i += 1) {
         if (hParts[i] !== uParts[i]) {
           return false;
         }
