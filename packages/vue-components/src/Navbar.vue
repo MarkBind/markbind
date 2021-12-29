@@ -106,12 +106,7 @@ export default {
       const u = new URL(normalizeUrl(url));
       return `${u.pathname}`.substr(1).split('/');
     },
-    isSibling(url, href) {
-      const hParts = this.splitUrl(href);
-      const uParts = this.splitUrl(url);
-      if (hParts.length !== uParts.length) {
-        return false;
-      }
+    isEqualExceptLast(hParts, uParts) {
       for (let i = 0; i < hParts.length - 1; i += 1) {
         if (hParts[i] !== uParts[i]) {
           return false;
@@ -119,18 +114,21 @@ export default {
       }
       return true;
     },
+    isSibling(url, href) {
+      const hParts = this.splitUrl(href);
+      const uParts = this.splitUrl(url);
+      if (hParts.length !== uParts.length) {
+        return false;
+      }
+      return this.isEqualExceptLast(hParts, uParts);
+    },
     isChild(url, href) {
       const hParts = this.splitUrl(href);
       const uParts = this.splitUrl(url);
       if (uParts.length <= hParts.length) {
         return false;
       }
-      for (let i = 0; i < hParts.length; i += 1) {
-        if (hParts[i] !== uParts[i]) {
-          return false;
-        }
-      }
-      return true;
+      return this.isEqualExceptLast(hParts, uParts);
     },
     isExact(url, href) {
       return normalizeUrl(url) === normalizeUrl(href);
