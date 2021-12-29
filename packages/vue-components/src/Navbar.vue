@@ -36,15 +36,6 @@ import normalizeUrl from './utils/urls';
 import SiteNavButton from './SiteNavButton.vue';
 import PageNavButton from './PageNavButton.vue';
 
-function isEqualExceptLast(hParts, uParts) {
-  for (let i = 0; i < hParts.length - 1; i += 1) {
-    if (hParts[i] !== uParts[i]) {
-      return false;
-    }
-  }
-  return true;
-}
-
 export default {
   components: {
     SiteNavButton,
@@ -115,13 +106,21 @@ export default {
       const u = new URL(normalizeUrl(url));
       return `${u.pathname}`.substr(1).split('/');
     },
+    isEqualExceptLast(hParts, uParts) {
+      for (let i = 0; i < hParts.length - 1; i += 1) {
+        if (hParts[i] !== uParts[i]) {
+          return false;
+        }
+      }
+      return true;
+    },
     isSibling(url, href) {
       const hParts = this.splitUrl(href);
       const uParts = this.splitUrl(url);
       if (hParts.length !== uParts.length) {
         return false;
       }
-      return isEqualExceptLast(hParts, uParts);
+      return this.isEqualExceptLast(hParts, uParts);
     },
     isChild(url, href) {
       const hParts = this.splitUrl(href);
@@ -129,7 +128,7 @@ export default {
       if (uParts.length <= hParts.length) {
         return false;
       }
-      return isEqualExceptLast(hParts, uParts);
+      return this.isEqualExceptLast(hParts, uParts);
     },
     isExact(url, href) {
       return normalizeUrl(url) === normalizeUrl(href);
