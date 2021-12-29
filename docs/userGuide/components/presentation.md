@@ -37,4 +37,4 @@ The components in this page are the core **presentational** components you may w
 <br>
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('../usingComponents', 'diagrams') }}
+{{ previous_next('../usingComponents', 'imagesAndDiagrams') }}

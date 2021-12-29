@@ -1,5 +1,5 @@
-{% set title = "Diagram Components" %}
-{% set filename = "diagrams" %}
+{% set title = "Image & Diagram Components" %}
+{% set filename = "imagesAndDiagrams" %}
 <span id="title" class="d-none">{{ title }}</span>
 
 <frontmatter>

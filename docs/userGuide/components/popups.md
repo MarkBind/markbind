@@ -37,4 +37,4 @@ The components in this page can be used to easily create **various forms of pop-
 <br>
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('diagrams', 'navigation') }}
+{{ previous_next('imagesAndDiagrams', 'navigation') }}
