@@ -15,7 +15,7 @@
   * [Formatting Contents]({{baseUrl}}/userGuide/formattingContents.html)
   * [Using Components]({{baseUrl}}/userGuide/usingComponents.html) :expanded:
     * [Presentation]({{baseUrl}}/userGuide/components/presentation.html)
-    * [Images & Diagrams]({{baseUrl}}/userGuide/components/diagrams.html)
+    * [Images & Diagrams]({{baseUrl}}/userGuide/components/imagesAndDiagrams.html)
     * [Pop-Ups]({{baseUrl}}/userGuide/components/popups.html)
     * [Navigation]({{baseUrl}}/userGuide/components/navigation.html)
     * [Others]({{baseUrl}}/userGuide/components/others.html)

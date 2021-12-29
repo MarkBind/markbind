@@ -115,7 +115,7 @@ You can define such a slot within the component by adding a `slot="slot_name"` a
     some very useful info
 </box>
 
-{{ icon_example }} Use [thumbnail]({{ baseUrl }}/userGuide/components/diagrams.html#thumbnails) as the icon. 
+{{ icon_example }} Use [thumbnail]({{ baseUrl }}/userGuide/components/imagesAndDiagrams.html#thumbnails) as the icon. 
 
 
 ```html
