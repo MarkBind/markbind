@@ -27,6 +27,7 @@
   "dependencies": {
     "@markbind/core": "^3.0.6",
     "@markbind/core-web": "^3.0.6",
+    "colors": "1.4.0",
     "bluebird": "^3.7.2",
     "chalk": "^3.0.0",
     "cheerio": "^0.22.0",
