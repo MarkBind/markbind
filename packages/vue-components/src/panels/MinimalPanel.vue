@@ -15,7 +15,7 @@
           :class="['glyphicon', 'glyphicon-chevron-right']"
         ></div>
         <slot name="_alt">
-          <span :class="['card-title']">
+          <span class="card-title">
             <slot name="header"></slot>
           </span>
         </slot>
