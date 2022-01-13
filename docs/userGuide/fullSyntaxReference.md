@@ -31,22 +31,22 @@
   tags : ['Tags', ['other']],
   variables : ['Variables', ['other']],
 
-  badges : ['Badges', ['component', 'reader-facing']],
-  boxes : ['Boxes', ['component', 'reader-facing']],
-  diagrams : ['Diagrams', ['component', 'reader-facing']],
-  dropdowns : ['Dropdowns', ['component', 'reader-facing']],
-  modals : ['Modals', ['component', 'reader-facing']],
-  navBars : ['Nav Bars', ['component', 'reader-facing']],
-  panels : ['Panels', ['component', 'reader-facing']],
-  pictures : ['Pictures', ['component', 'reader-facing']],
-  popovers : ['Popovers', ['component', 'reader-facing']],
-  questions : ['Questions and Quizzes', ['component', 'reader-facing']],
-  searchBars : ['Search Bars', ['component', 'reader-facing']],
-  tabs : ['Tabs', ['component', 'reader-facing']],
-  thumbnails : ['Thumbnails', ['component', 'reader-facing']],
-  tooltips : ['Tooltips', ['component', 'reader-facing']],
-  siteNavigationMenus : ['Site Navigation Menus', ['component', 'reader-facing']],
-  pageNavigationMenus : ['Page Navigation Menus', ['component', 'reader-facing']]
+  badges : ['Badges', ['presentation', 'reader-facing']],
+  boxes : ['Boxes', ['presentation', 'reader-facing']],
+  panels : ['Panels', ['presentation', 'reader-facing']],
+  tabs : ['Tabs', ['presentation', 'reader-facing']],
+  pictures : ['Pictures', ['images-diagrams', 'reader-facing']],
+  thumbnails : ['Thumbnails', ['images-diagrams', 'reader-facing']],
+  diagrams : ['Diagrams', ['images-diagrams', 'reader-facing']],
+  tooltips : ['Tooltips', ['popups', 'reader-facing']],
+  popovers : ['Popovers', ['popups', 'reader-facing']],
+  modals : ['Modals', ['popups', 'reader-facing']],
+  dropdowns : ['Dropdowns', ['navigation', 'reader-facing']],
+  searchBars : ['Search Bars', ['navigation', 'reader-facing']],
+  navBars : ['Nav Bars', ['navigation', 'reader-facing']],
+  siteNavigationMenus : ['Site Navigation Menus', ['navigation', 'reader-facing']],
+  pageNavigationMenus : ['Page Navigation Menus', ['navigation', 'reader-facing']],
+  questions : ['Questions and Quizzes', ['others', 'reader-facing']]
 } %}
 
 {% for topic in syntax_topics | dictsort %}

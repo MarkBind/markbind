@@ -118,6 +118,10 @@ mark {
 
 /* Bootstrap small(sm) responsive breakpoint */
 @media (max-width: 767.98px) {
+    .indented {
+        padding-left: 10px;
+    }
+
     #content-wrapper {
         padding: 0 10px;
     }

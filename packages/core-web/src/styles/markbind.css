@@ -40,6 +40,7 @@ pre > code.hljs[heading] {
     float: right;
     font-size: 85%;
     line-height: 1;
+    margin-top: 5px;
     max-width: 85%;
     overflow-wrap: break-word;
     padding: 0.25em 0.4em;
@@ -289,4 +290,18 @@ code.wrap {
 .octicon {
     height: 1em;
     width: 1em;
+}
+
+ol,
+ul {
+    padding-left: 1.5rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-bottom: 1rem;
 }
