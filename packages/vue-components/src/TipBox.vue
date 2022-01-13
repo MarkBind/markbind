@@ -386,6 +386,20 @@ export default {
     .no-border {
         border: none;
     }
+
+    @media screen and (max-width: 768px) {
+        .box-header-wrapper {
+            padding: 0.75rem 0.75rem 0.1rem;
+        }
+
+        .box-body-wrapper {
+            padding: 0.75rem;
+        }
+
+        .contents {
+            padding: 0;
+        }
+    }
 </style>
 
 <!-- TODO move this once we upgrade vue-loader version for scoped deep selectors -->

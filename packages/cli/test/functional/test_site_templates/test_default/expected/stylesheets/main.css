@@ -110,14 +110,14 @@ mark {
     #site-nav {
         display: none;
     }
-
-    footer {
-        margin-left: 60px;
-    }
 }
 
 /* Bootstrap small(sm) responsive breakpoint */
 @media (max-width: 767.98px) {
+    .indented {
+        padding-left: 10px;
+    }
+
     #content-wrapper {
         padding: 0 10px;
     }
@@ -127,10 +127,6 @@ mark {
 @media screen and (max-width: 575.98px) {
     #site-nav {
         display: none;
-    }
-
-    footer {
-        margin-left: 0;
     }
 }
 
