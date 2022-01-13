@@ -24,6 +24,7 @@ pre > code.hljs {
     background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
     border-radius: 5px;
     counter-reset: line;
+    width: 100%;
 }
 
 pre > code.hljs[heading] {
@@ -39,6 +40,7 @@ pre > code.hljs[heading] {
     float: right;
     font-size: 85%;
     line-height: 1;
+    margin-top: 5px;
     max-width: 85%;
     overflow-wrap: break-word;
     padding: 0.25em 0.4em;
@@ -201,6 +203,7 @@ li.footnote-item:target {
     text-align: right;
     top: 0;
     width: 3em;
+    height: 100%;
 }
 
 /* hide popover, tooltip content */
@@ -241,45 +244,64 @@ li.footnote-item:target {
     opacity: 1;
 }
 
-/* "Copy" code block button */
+/* "Copy" and "wrap text" code block buttons */
 pre {
     position: relative;
+    display: flex;
 }
 
-button.copy-btn {
+.function-btn-container {
+    display: grid;
+    height: max-content;
+}
+
+button.function-btn {
     border: none;
     background-color: transparent;
     color: darkgray;
     cursor: pointer;
     display: inline-block;
     padding: 0.35rem;
-    position: absolute;
-    right: 0.1rem;
-    top: 0.1rem;
     text-align: center;
     white-space: nowrap;
 }
 
-.copy-btn:hover {
+.function-btn:hover {
     transition: all 0.5s ease;
-    box-shadow: 0 0 0.25rem rgba(173, 173, 173, 0.8);
+    color: gray;
 }
 
-.copy-btn-body {
+.function-btn-body {
     align-items: center;
     display: flex;
 }
 
-.copy-btn svg {
+.function-btn svg {
     fill: currentColor;
 }
 
-.copy-btn:focus {
-    box-shadow: 0 0 0.125rem rgba(173, 173, 173, 0.8);
+/* Wrap class used for "wrap text" button. */
+code.wrap {
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 /* Octicon sizing */
 .octicon {
     height: 1em;
     width: 1em;
+}
+
+ol,
+ul {
+    padding-left: 1.5rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-bottom: 1rem;
 }

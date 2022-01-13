@@ -56,6 +56,7 @@
 import Submenu from './Submenu.vue';
 import { toBoolean } from './utils/utils';
 import $ from './utils/NodeList';
+import preventOverflowOnMobile from './utils/dropdown';
 
 export default {
   components: {
@@ -83,6 +84,9 @@ export default {
   inject: {
     hasParentDropdown: {
       default: undefined,
+    },
+    isParentNavbar: {
+      default: false,
     },
   },
   data() {
@@ -131,11 +135,24 @@ export default {
     },
     hideDropdownMenu() {
       this.show = false;
-      $(this.$refs.dropdown).findChildren('ul').each(ul => ul.classList.toggle('show', false));
+      $(this.$refs.dropdown).findChildren('ul').each((ul) => {
+        ul.classList.toggle('show', false);
+
+        if (window.innerWidth < 768 && this.isParentNavbar) {
+          ul.style.removeProperty('left');
+        }
+      });
     },
     showDropdownMenu() {
       this.show = true;
-      $(this.$refs.dropdown).findChildren('ul').each(ul => ul.classList.toggle('show', true));
+      $(this.$refs.dropdown).findChildren('ul').each((ul) => {
+        ul.classList.toggle('show', true);
+
+        // check if the dropdown is part of the sliding menu on mobile
+        if (window.innerWidth < 768 && this.isParentNavbar) {
+          preventOverflowOnMobile(ul);
+        }
+      });
     },
   },
   mounted() {
@@ -169,6 +186,24 @@ export default {
 </script>
 
 <style scoped>
+    @media (max-width: 767px) {
+        .navbar-default .dropdown {
+            position: static;
+        }
+
+        .navbar-default .dropdown-menu {
+            position: absolute;
+            max-width: 100%;
+            max-height: 75vh;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+
+        .navbar-default .dropdown-menu-right {
+            right: auto;
+        }
+    }
+
     .secret {
         position: absolute;
         clip: rect(0 0 0 0);
@@ -187,6 +222,8 @@ export default {
 
     .dropdown-toggle {
         cursor: pointer;
+        display: block;
+        width: max-content;
     }
 
     .navbar .dropdown-toggle {
