@@ -44,7 +44,7 @@
     "katex": "^0.12.0",
     "lodash": "^4.17.15",
     "markdown-it": "^11.0.0",
-    "markdown-it-attrs": "^3.0.3",
+    "markdown-it-attrs": "^4.1.3",
     "markdown-it-emoji": "^1.4.0",
     "markdown-it-imsize": "^2.0.1",
     "markdown-it-linkify-images": "^1.1.1",

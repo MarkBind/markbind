@@ -7,7 +7,7 @@ const mdAttrsUtils = require('markdown-it-attrs/utils');
 mdAttrsUtils.hasDelimiters = function (where, options) {
 
   if (!where) {
-    throw new Error('Parameter `where` not passed. Should be "start", "middle", "end" or "only".');
+    throw new Error('Parameter `where` not passed. Should be "start", "end" or "only".');
   }
 
   /**
@@ -16,21 +16,21 @@ mdAttrsUtils.hasDelimiters = function (where, options) {
    */
   return function (str) {
     // we need minimum three chars, for example {b}
-    let minCurlyLength = options.leftDelimiter.length + 1 + options.rightDelimiter.length;
+    const minCurlyLength = options.leftDelimiter.length + 1 + options.rightDelimiter.length;
     if (!str || typeof str !== 'string' || str.length < minCurlyLength) {
       return false;
     }
 
     function validCurlyLength (curly) {
-      let isClass = curly.charAt(options.leftDelimiter.length) === '.';
-      let isId = curly.charAt(options.leftDelimiter.length) === '#';
+      const isClass = curly.charAt(options.leftDelimiter.length) === '.';
+      const isId = curly.charAt(options.leftDelimiter.length) === '#';
       return (isClass || isId)
         ? curly.length >= (minCurlyLength + 1)
         : curly.length >= minCurlyLength;
     }
 
     let start, end, slice, nextChar;
-    let rightDelimiterMinimumShift = minCurlyLength - options.rightDelimiter.length;
+    const rightDelimiterMinimumShift = minCurlyLength - options.rightDelimiter.length;
     switch (where) {
     case 'start':
       // first char should be {, } found in char 2 or more
@@ -58,6 +58,9 @@ mdAttrsUtils.hasDelimiters = function (where, options) {
       slice = str.slice(str.length - options.rightDelimiter.length);
       end = slice === options.rightDelimiter ? str.length - options.rightDelimiter.length : -1;
       break;
+    
+      default:
+        throw new Error(`Unexpected case ${where}, expected 'start', 'end' or 'only'`);
     }
 
     /*

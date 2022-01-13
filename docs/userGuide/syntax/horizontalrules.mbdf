@@ -13,9 +13,9 @@ ______________
 
 ### Different Types Of Horizontal Rules
 
-Add additional attributes and classes to modify the style, thickness, and color of a horizontal line. 
+Add additional classes to modify the style, thickness, and color of a horizontal line. 
 
-Available style attributes:
+Available style classes:
 - dotted
 - dashed
 - double
@@ -24,16 +24,16 @@ Available style attributes:
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 
---- {dotted}
+--- {.dotted}
 
---- {dashed}
+--- {.dashed}
 
---- {double}
+--- {.double}
 
 </variable>
 </include>
 
-Available size attributes:
+Available size classes:
 - thick
 - thick-1
 - thick-2
@@ -43,13 +43,13 @@ Available size attributes:
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 
---- {thick}
+--- {.thick}
 
---- {thick-1}
+--- {.thick-1}
 
---- {thick-2}
+--- {.thick-2}
 
---- {thick-3}
+--- {.thick-3}
 
 </variable>
 </include>
@@ -76,17 +76,17 @@ Available color classes (use any of the available BootStrap border color classes
 </variable>
 </include>
 
-Add a comibnation of the above attributes and classes to further customize the style of a horizontal line. 
+Add a comibnation of the above classes to further customize the style of a horizontal line. 
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 
---- {dashed thick-3}
+--- {.dashed .thick-3}
 
---- {double .border-secondary}
+--- {.double .border-secondary}
 
---- {dotted thick-1 .border-primary}
+--- {.dotted .thick-1 .border-primary}
 
 </variable>
 </include>

@@ -2,24 +2,24 @@
 
 ---
 
---- {dotted}
+--- {.dotted}
 
---- {dashed}
+--- {.dashed}
 
---- {double}
+--- {.double}
 
---- {thick}
+--- {.thick}
 
---- {thick-1}
+--- {.thick-1}
 
---- {thick-2}
+--- {.thick-2}
 
---- {thick-3}
+--- {.thick-3}
 
 --- {.border-danger}
 
---- {dashed thick-3}
+--- {.dashed .thick-3}
 
---- {double .border-secondary}
+--- {.double .border-secondary}
 
---- {dotted thick-1 .border-primary}
+--- {.dotted .thick-1 .border-primary}
