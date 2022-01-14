@@ -54,6 +54,7 @@ const inlineTags = [
   'label',
   'map',
   'mark',
+  'meta', // https://github.com/markdown-it/markdown-it/commit/ddbb195546d500649230a815828c67ecd1106099
   'meter',
   'noscript',
   'object',
