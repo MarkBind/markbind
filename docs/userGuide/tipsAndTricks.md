@@ -4,6 +4,7 @@
 <frontmatter>
   title: "User Guide: {{ title | safe }}"
   layout: userGuide.md
+  pageNav: 5
 </frontmatter>
 
 # {{ title | safe }}
