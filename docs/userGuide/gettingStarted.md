@@ -41,7 +41,7 @@ Usage: ...
 <big>**2. Initialize a new Project (or Start with an existing Project)**</big>
 
 <tabs>
-  <tab header="Initializing a new project">
+ <tab header="Initializing a new project">
 
 Navigate into an empty directory and run the following command to initialize a skeletal MarkBind site in that directory. It will create several new files in the directory e.g., `index.md`, `site.json`.
 
@@ -61,15 +61,17 @@ The `init` command populates the project with the [default project template](htt
 </span>
 </include>
 
-
-  </tab>
-  <tab header="Starting with an existing project">
+</tab>
+ <tab header="Starting with an existing project">
 
 Navigate to the project {{ tooltip_root_directory }}.
 
 </tab>
-</tabs>
 
+<!--  <tab header="Converting Existing Documentation">
+
+</tab> -->
+</tabs>
 
 <big>**3. Preview the site**</big>
 

@@ -8,6 +8,7 @@
     <div class="nav-component slim-scroll">
       <site-nav>
 * [**Getting Started**]({{baseUrl}}/userGuide/gettingStarted.html)
+  * [More Resources]({{baseUrl}}/userGuide/recipes.html)
 * **Authoring Contents** :expanded:
   * [Overview]({{baseUrl}}/userGuide/authoringContents.html)
   * [Adding Pages]({{baseUrl}}/userGuide/addingPages.html)
