@@ -40,8 +40,7 @@ To use a component, just use the corresponding markup in your file. For example,
   {% endif %}
 {% endfor %}
 
-<include src="./components/advanced.md" />
 <br>
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('formattingContents', 'usingHtmlJavaScriptCss') }}
+{{ previous_next('formattingContents', 'components/presentation') }}
