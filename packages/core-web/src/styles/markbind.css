@@ -292,6 +292,39 @@ code.wrap {
     width: 1em;
 }
 
+/* styles for <hr> */
+
+hr.dotted {
+    border-top-width: 0.1rem;
+    border-top-style: dotted;
+}
+
+hr.double {
+    border-top-width: 0.2rem;
+    border-top-style: double;
+}
+
+hr.dashed {
+    border-top-width: 0.1rem;
+    border-top-style: dashed;
+}
+
+hr.thick {
+    border-top-width: 0.15rem;
+}
+
+hr.thick-1 {
+    border-top-width: 0.25rem;
+}
+
+hr.thick-2 {
+    border-top-width: 0.5rem;
+}
+
+hr.thick-3 {
+    border-top-width: 0.75rem;
+}
+
 ol,
 ul {
     padding-left: 1.5rem;

@@ -257,6 +257,14 @@
         "center-text": "Center Text"
       },
       "headingKeywords": {}
+    },
+    {
+      "src": "testHr.md",
+      "title": "create different types of horizontal rules",
+      "headings": {
+        "different-types-of-horizontal-rules": "Different types of horizontal rules"
+      },
+      "headingKeywords": {}
     }
   ]
 }
