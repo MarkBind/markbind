@@ -249,8 +249,18 @@ export default {
 
     .minimal-caret-wrapper {
         display: inline-block;
-        width: 14px;
+        border-width: 2;
+        border-style:double;
+        border-color: red;
         font-size: 13px;
+        vertical-align: middle;
+    }
+
+    .glyphicon {
+        border-width: 2;
+        border-style:double;
+        border-color: green;
+        display: inline-block;
     }
 
     .header-wrapper {
@@ -340,7 +350,6 @@ export default {
 
     .morph-display-wrapper {
         margin-top: 5px;
-        vertical-align: middle;
     }
 
     /* Bootstrap extra small(xs) responsive breakpoint */
