@@ -24,5 +24,3 @@ Clicking the *wrap text* button will result in the following:
 In case a single long word is encountered, it will be split across multiple lines similar to the following:
 
 <pic src="{{baseUrl}}/images/wrapCodeOnWordBreak.png" width="750" alt="wrapCodeOnWordBreak"/>
-
---Note: the default `foo` code was replaced with [_Lorem ipsum_](https://en.wikipedia.org/wiki/Lorem_ipsum) text for demonstration purposes.--
