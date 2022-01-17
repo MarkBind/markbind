@@ -68,23 +68,10 @@ const warnConflictingAtributesMap = {
                                ['border-color', 'border-left-color', 'seamless']);
     _warnConflictingAttributes(node, 'no-icon', ['icon']);
   },
-  dropdown: (node) => {
-    _warnConflictingAttributes(node, 'header', ['text']);
-  },
 };
 
 const warnDeprecatedAtributesMap = {
-  box: (node) => {
-    _warnDeprecatedAttributes(node, { heading: 'header' });
-  },
-  dropdown: (node) => {
-    _warnDeprecatedAttributes(node, { text: 'header' });
-  },
-  popover: (node) => {
-    _warnDeprecatedAttributes(node, { title: 'header' });
-  },
   modal: (node) => {
-    _warnDeprecatedAttributes(node, { title: 'header' });
     _warnDeprecatedSlotNames(node, {
       'modal-header': 'header',
       'modal-footer': 'footer',

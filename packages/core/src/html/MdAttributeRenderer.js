@@ -47,7 +47,6 @@ class MdAttributeRenderer {
   processPopover(node) {
     this.processAttributeWithoutOverride(node, 'content', true);
     this.processAttributeWithoutOverride(node, 'header', true);
-    this.processAttributeWithoutOverride(node, 'title', true, 'header');
   }
 
   processTooltip(node) {
@@ -56,7 +55,6 @@ class MdAttributeRenderer {
 
   processModalAttributes(node) {
     this.processAttributeWithoutOverride(node, 'header', true, 'modal-title');
-    this.processAttributeWithoutOverride(node, 'title', true, 'modal-title');
   }
 
   /*
@@ -101,8 +99,6 @@ class MdAttributeRenderer {
   processBoxAttributes(node) {
     this.processAttributeWithoutOverride(node, 'icon', true, 'icon');
     this.processAttributeWithoutOverride(node, 'header', false, 'header');
-
-    this.processAttributeWithoutOverride(node, 'heading', false, 'header');
   }
 
   /*
@@ -118,21 +114,11 @@ class MdAttributeRenderer {
       if (_.has(node.attribs, 'header')) {
         logger.warn(`${node.name} has a header slot, 'header' attribute has no effect.`);
       }
-      if (_.has(node.attribs, 'text')) {
-        logger.warn(`${node.name} has a header slot, 'text' attribute has no effect.`);
-      }
       delete node.attribs.header;
-      delete node.attribs.text;
       return;
     }
 
-    // header attribute takes priority over text attribute if both 'text' and 'header' is used
-    if (_.has(node.attribs, 'header')) {
-      this.processAttributeWithoutOverride(node, 'header', true, 'header');
-      delete node.attribs.text;
-    } else {
-      this.processAttributeWithoutOverride(node, 'text', true, 'header');
-    }
+    this.processAttributeWithoutOverride(node, 'header', true, 'header');
   }
 
   /**
