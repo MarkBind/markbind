@@ -73,12 +73,6 @@ test('processNode processes popover attributes and inserts into dom as slots cor
                            testData.PROCESS_POPOVER_ATTRIBUTES_EXPECTED);
   processAndVerifyTemplate(testData.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE,
                            testData.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_EXPECTED);
-
-  // todo remove these once 'title' for popover is fully deprecated
-  processAndVerifyTemplate(testData.PROCESS_POPOVER_TITLE,
-                           testData.PROCESS_POPOVER_TITLE_EXPECTED);
-  processAndVerifyTemplate(testData.PROCESS_POPOVER_TITLE_NO_OVERRIDE,
-                           testData.PROCESS_POPOVER_TITLE_NO_OVERRIDE_EXPECTED);
 });
 
 test('processNode processes tooltip attributes and inserts into dom as slots correctly', () => {
@@ -89,12 +83,6 @@ test('processNode processes tooltip attributes and inserts into dom as slots cor
 test('processNode processes modal attributes and inserts into dom as slots correctly', () => {
   processAndVerifyTemplate(testData.PROCESS_MODAL_HEADER,
                            testData.PROCESS_MODAL_HEADER_EXPECTED);
-
-  // todo remove these once 'title' for modals is fully deprecated
-  processAndVerifyTemplate(testData.PROCESS_MODAL_TITLE,
-                           testData.PROCESS_MODAL_TITLE_EXPECTED);
-  processAndVerifyTemplate(testData.PROCESS_MODAL_TITLE_NO_OVERRIDE,
-                           testData.PROCESS_MODAL_TITLE_NO_OVERRIDE_EXPECTED);
 
   // todo remove these once 'modal-header' / 'modal-footer' for modal is fully deprecated
   processAndVerifyTemplate(testData.PROCESS_MODAL_SLOTS_RENAMING,
@@ -117,8 +105,6 @@ test('processNode processes box attributes and inserts into dom as slots correct
                            testData.PROCESS_BOX_ICON_EXPECTED);
   processAndVerifyTemplate(testData.PROCESS_BOX_HEADER,
                            testData.PROCESS_BOX_HEADER_EXPECTED);
-  processAndVerifyTemplate(testData.PROCESS_BOX_HEADING,
-                           testData.PROCESS_BOX_HEADING_EXPECTED);
 });
 
 test('postProcessNode assigns the correct panel id to panels', () => {
@@ -130,16 +116,6 @@ test('postProcessNode assigns the correct panel id to panels', () => {
 test('processNode processes dropdown header attribute and inserts into DOM as header slot correctly', () => {
   processAndVerifyTemplate(testData.PROCESS_DROPDOWN_HEADER,
                            testData.PROCESS_DROPDOWN_HEADER_EXPECTED);
-});
-
-test('processNode processes dropdown text attribute and inserts into DOM as header slot correctly', () => {
-  processAndVerifyTemplate(testData.PROCESS_DROPDOWN_TEXT_ATTR,
-                           testData.PROCESS_DROPDOWN_TEXT_ATTR_EXPECTED);
-});
-
-test('processNode processes dropdown with header taking priority over text attribute', () => {
-  processAndVerifyTemplate(testData.PROCESS_DROPDOWN_HEADER_SHADOWS_TEXT,
-                           testData.PROCESS_DROPDOWN_HEADER_SHADOWS_TEXT_EXPECTED);
 });
 
 test('processNode processes dropdown with header slot taking priority over header attribute', () => {
