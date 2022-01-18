@@ -41,7 +41,7 @@ This is the same <trigger for="modal:loremipsum">trigger</trigger> as last one.
 ****Options****
 Name | type | Default | Description
 --- | --- | --- | ---
-header{{slot_info_trigger}} <hr style="margin-top:0.2rem; margin-bottom:0" /> | `String` | `''` | Header of the Modal component. Supports inline markdown text.
+header{{slot_info_trigger}} | `String` | `''` | Header of the Modal component. Supports inline markdown text.
 footer <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>modal-footer <br> (deprecated)</small> | {{slot_type_info_trigger}} | empty | Specifying this will override the `ok-text` attribute, and the OK button will not render.
 ok-text | `String` | `''` | Text for the OK button.
 effect | `String` | `zoom` | Supports: `zoom`, `fade`.

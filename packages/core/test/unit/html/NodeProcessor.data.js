@@ -301,24 +301,6 @@ module.exports.PROCESS_DROPDOWN_HEADER_EXPECTED = `
 </dropdown>
 `;
 
-module.exports.PROCESS_DROPDOWN_TEXT_ATTR_EXPECTED = `
-<dropdown><template #header><strong>Lorem ipsum dolor sit amet</strong></template>
-  Text attribute should be inserted as header slot and deleted.
-</dropdown>
-`;
-
-module.exports.PROCESS_DROPDOWN_HEADER_SHADOWS_TEXT = `
-<dropdown header="Not expected text" header="**Lorem ipsum dolor sit amet**">
-  Header attribute should be inserted as header slot and deleted. Text attribute should be ignored.
-</dropdown>
-`;
-
-module.exports.PROCESS_DROPDOWN_HEADER_SHADOWS_TEXT_EXPECTED = `
-<dropdown><template #header><strong>Lorem ipsum dolor sit amet</strong></template>
-  Header attribute should be inserted as header slot and deleted. Text attribute should be ignored.
-</dropdown>
-`;
-
 module.exports.PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY = `
 <dropdown header="**Lorem ipsum dolor sit amet**">
   <strong slot="header">slot text</strong>
