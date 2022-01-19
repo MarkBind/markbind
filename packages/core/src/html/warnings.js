@@ -22,21 +22,6 @@ function _warnConflictingAttributes(node, attribute, attrsConflictingWith) {
 }
 
 /**
- * Check and warns if element has a deprecated attribute.
- * @param node Root element to check
- * @param attributeNamePairs Object of attribute name pairs with each pair in the form deprecated : correct
- */
-function _warnDeprecatedAttributes(node, attributeNamePairs) {
-  Object.entries(attributeNamePairs)
-    .forEach(([deprecatedAttrib, correctAttrib]) => {
-      if (deprecatedAttrib in node.attribs) {
-        logger.warn(`${node.name} attribute '${deprecatedAttrib}' `
-            + `is deprecated and may be removed in the future. Please use '${correctAttrib}'`);
-      }
-    });
-}
-
-/**
  * Check and warns if element has a deprecated slot name
  * @param element Root element to check
  * @param namePairs Object of slot name pairs with each pair in the form deprecated : correct
@@ -68,23 +53,10 @@ const warnConflictingAtributesMap = {
                                ['border-color', 'border-left-color', 'seamless']);
     _warnConflictingAttributes(node, 'no-icon', ['icon']);
   },
-  dropdown: (node) => {
-    _warnConflictingAttributes(node, 'header', ['text']);
-  },
 };
 
 const warnDeprecatedAtributesMap = {
-  box: (node) => {
-    _warnDeprecatedAttributes(node, { heading: 'header' });
-  },
-  dropdown: (node) => {
-    _warnDeprecatedAttributes(node, { text: 'header' });
-  },
-  popover: (node) => {
-    _warnDeprecatedAttributes(node, { title: 'header' });
-  },
   modal: (node) => {
-    _warnDeprecatedAttributes(node, { title: 'header' });
     _warnDeprecatedSlotNames(node, {
       'modal-header': 'header',
       'modal-footer': 'footer',

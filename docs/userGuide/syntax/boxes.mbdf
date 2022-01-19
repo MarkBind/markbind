@@ -223,7 +223,7 @@ dismissible | `Boolean` | `false` | Adds a button to close the box to the top ri
 icon{{slot_info_trigger}} | `String` | `null` | Inline MarkDown text of the icon displayed on the left.
 icon-size | `String` | `null` | Resizes the icon. Supports integer-scaling of the icon dimensions e.g. `2x`, `3x`, `4x`, etc.
 icon-color | `String` | `null` | Color of the icon.
-header{{slot_info_trigger}} <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>heading <br> (deprecated)</small> | `String` | `null` | Markdown text of the box header.
+header{{slot_info_trigger}} | `String` | `null` | Markdown text of the box header.
 type | `String` | `''` | Supports: `info`, `warning`, `success`, `important`, `wrong`, `tip`, `definition`, or empty for default.
 theme | `String` | `''` | Supports: `primary`, `secondary`, `success`, `danger`, `warning`, `tip`, `light`, `dark` or empty for default.
 light | `Boolean` | `false` | Uses a light color scheme for the box.

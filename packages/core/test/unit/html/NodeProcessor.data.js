@@ -168,32 +168,6 @@ module.exports.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
 </span>
 `;
 
-// todo remove tests for these once 'title' attribute is fully deprecated for popovers
-
-module.exports.PROCESS_POPOVER_TITLE = `
-<popover title="**Lorem ipsum**">
-  Title attribute should be processed and inserted under popover as header slot and deleted.
-</popover>
-`;
-
-module.exports.PROCESS_POPOVER_TITLE_EXPECTED = `
-<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger"><span data-mb-slot-name="header"><strong>Lorem ipsum</strong></span>
-  Title attribute should be processed and inserted under popover as header slot and deleted.
-</span>
-`;
-
-module.exports.PROCESS_POPOVER_TITLE_NO_OVERRIDE = `
-<popover title="**Title header**" header="**Header header**">
-  Title attribute should not be inserted as slot as header attribute is present, and should be deleted.
-</popover>
-`;
-
-module.exports.PROCESS_POPOVER_TITLE_NO_OVERRIDE_EXPECTED = `
-<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger"><span data-mb-slot-name="header"><strong>Header header</strong></span>
-  Title attribute should not be inserted as slot as header attribute is present, and should be deleted.
-</span>
-`;
-
 /*
  * Tooltips
  */
@@ -226,34 +200,8 @@ module.exports.PROCESS_MODAL_HEADER_EXPECTED = `
 </b-modal>
 `;
 
-// todo remove tests for these once 'title' attribute is fully deprecated for modals
-
-module.exports.PROCESS_MODAL_TITLE = `
-<modal title="**Lorem ipsum dolor sit amet**">
-  Title attribute should be inserted as header slot.
-</modal>
-`;
-
-module.exports.PROCESS_MODAL_TITLE_EXPECTED = `
-<b-modal hide-footer size modal-class="mb-zoom"><template #modal-title><strong>Lorem ipsum dolor sit amet</strong></template>
-  Title attribute should be inserted as header slot.
-</b-modal>
-`;
-
-module.exports.PROCESS_MODAL_TITLE_NO_OVERRIDE = `
-<modal title="**Title header**" header="**Header header**">
-  Title attribute should not have priority over newer header attribute, and should be deleted.
-</modal>
-`;
-
-module.exports.PROCESS_MODAL_TITLE_NO_OVERRIDE_EXPECTED = `
-<b-modal hide-footer size modal-class="mb-zoom"><template #modal-title><strong>Header header</strong></template>
-  Title attribute should not have priority over newer header attribute, and should be deleted.
-</b-modal>
-`;
-
 module.exports.PROCESS_MODAL_OK_TEXT = `
-<modal ok-text="Custom OK" title="**Title header**" header="**Header header**">
+<modal ok-text="Custom OK" header="**Header header**">
   ok-only attr should be set, hide-footer should not be set.
 </modal>
 `;
@@ -337,21 +285,6 @@ module.exports.PROCESS_BOX_HEADER_EXPECTED = `
 </box>
 `;
 
-// todo remove this test once 'heading' attribute is fully deprecated for boxes
-
-module.exports.PROCESS_BOX_HEADING = `
-<box heading="#### Lorem ipsum dolor sit amet :rocket:">
-  Heading attribute should be inserted as header slot and deleted.
-</box>
-`;
-
-module.exports.PROCESS_BOX_HEADING_EXPECTED = `
-<box><template #header><h4>Lorem ipsum dolor sit amet 🚀</h4>
-</template>
-  Heading attribute should be inserted as header slot and deleted.
-</box>
-`;
-
 /**
  * Dropdowns
  */
@@ -368,36 +301,8 @@ module.exports.PROCESS_DROPDOWN_HEADER_EXPECTED = `
 </dropdown>
 `;
 
-// TODO deprecate text attribute of dropdown
-module.exports.PROCESS_DROPDOWN_TEXT_ATTR = `
-<dropdown text="**Lorem ipsum dolor sit amet**">
-  Text attribute should be inserted as header slot and deleted.
-</dropdown>
-`;
-
-// TODO deprecate text attribute of dropdown
-module.exports.PROCESS_DROPDOWN_TEXT_ATTR_EXPECTED = `
-<dropdown><template #header><strong>Lorem ipsum dolor sit amet</strong></template>
-  Text attribute should be inserted as header slot and deleted.
-</dropdown>
-`;
-
-// TODO deprecate text attribute of dropdown
-module.exports.PROCESS_DROPDOWN_HEADER_SHADOWS_TEXT = `
-<dropdown text="Not expected text" header="**Lorem ipsum dolor sit amet**">
-  Header attribute should be inserted as header slot and deleted. Text attribute should be ignored.
-</dropdown>
-`;
-
-// TODO deprecate text attribute of dropdown
-module.exports.PROCESS_DROPDOWN_HEADER_SHADOWS_TEXT_EXPECTED = `
-<dropdown><template #header><strong>Lorem ipsum dolor sit amet</strong></template>
-  Header attribute should be inserted as header slot and deleted. Text attribute should be ignored.
-</dropdown>
-`;
-
 module.exports.PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY = `
-<dropdown header="**Lorem ipsum dolor sit amet**" text="shouldn't appear in result">
+<dropdown header="**Lorem ipsum dolor sit amet**">
   <strong slot="header">slot text</strong>
   Header attribute should be ignored and deleted while header slot is reserved.
 </dropdown>
