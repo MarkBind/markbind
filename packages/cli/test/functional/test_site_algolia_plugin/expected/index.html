@@ -122,9 +122,13 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3.0.0-alpha.42/dist/umd/index.js"></script>
 <script>
-    docsearch(
-      {"container":"#algolia-search-input","apiKey":"25626fae796133dc1e734c6bcaaeac3c","indexName":"docsearch"}
-    );
+    docsearch({
+      container: "#algolia-search-input",
+      appId: "undefined",
+      apiKey: "25626fae796133dc1e734c6bcaaeac3c",
+      indexName: "docsearch",
+      searchParameters: {}
+    });
   </script>
 
 </html>
