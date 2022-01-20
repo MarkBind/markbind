@@ -8,14 +8,9 @@ const {
 
 function buildAlgoliaInitScript(pluginContext) {
   return `<script>
-    docsearch({
-      apiKey: "${pluginContext.apiKey}",
-      appId: "${pluginContext.appId}",
-      indexName: "${pluginContext.indexName}",
-      inputSelector: "${ALGOLIA_INPUT_SELECTOR}",
-      algoliaOptions: ${JSON.stringify(pluginContext.algoliaOptions || {})},
-      debug: ${pluginContext.debug || false},
-    });
+    docsearch(
+      ${JSON.stringify({ container: ALGOLIA_INPUT_SELECTOR, ...pluginContext })}
+    );
   </script>`;
 }
 

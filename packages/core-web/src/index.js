@@ -50,6 +50,7 @@ function detectAndApplyFixedHeaderStyles() {
     }`,
   );
   insertCss(`.nav-menu-open { max-height: calc(100% - ${headerHeight}px); }`);
+  insertCss(`.DocSearch-Modal {margin-top: ${headerHeight}px }`);
 
   const adjustHeaderClasses = () => {
     const newHeaderHeight = headerSelector.height();
@@ -69,6 +70,9 @@ function detectAndApplyFixedHeaderStyles() {
             break;
           case '.nav-menu-open':
             rules[0].style.maxHeight = `calc(100% - ${newHeaderHeight}px + 50px)`;
+            break;
+          case '.DocSearch-Modal':
+            rules[0].style.marginTop = `${newHeaderHeight}px`;
             break;
           default:
             break;
