@@ -20,7 +20,7 @@
   <script src="markbind/js/markbind.min.js"></script>
   <script src="index.page-vue-render.js"></script>
   <script src="markbind/js/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.0.0-alpha.42/dist/style.css">
   <link rel="stylesheet" href="/test_site_algolia_plugin/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
 </head>
 <script>
@@ -120,16 +120,11 @@
 <script>
   MarkBind.setupWithSearch()
 </script>
-<script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3.0.0-alpha.42/dist/umd/index.js"></script>
 <script>
-    docsearch({
-      apiKey: "25626fae796133dc1e734c6bcaaeac3c",
-      appId: "R2IYF7ETH7",
-      indexName: "docsearch",
-      inputSelector: "#algolia-search-input",
-      algoliaOptions: {},
-      debug: false,
-    });
+    docsearch(
+      {"container":"#algolia-search-input","apiKey":"25626fae796133dc1e734c6bcaaeac3c","indexName":"docsearch"}
+    );
   </script>
 
 </html>
