@@ -42,15 +42,15 @@ function detectAndApplyFixedHeaderStyles() {
 
   const headerHeight = headerSelector.height();
   const bufferHeight = 1;
-  insertCss(`.fixed-header-padding { padding-top: ${headerHeight}px !important }`);
+  insertCss(`.fixed-header-padding { padding-top: ${headerHeight}px !important; }`);
   insertCss(
     `span.anchor {
     position: relative;
-    top: calc(-${headerHeight}px - ${bufferHeight}rem)
+    top: calc(-${headerHeight}px - ${bufferHeight}rem);
     }`,
   );
   insertCss(`.nav-menu-open { max-height: calc(100% - ${headerHeight}px); }`);
-  insertCss(`.DocSearch-Modal {margin-top: ${headerHeight}px }`);
+  insertCss(`.DocSearch-Modal { margin-top: ${headerHeight}px; }`);
 
   const adjustHeaderClasses = () => {
     const newHeaderHeight = headerSelector.height();
@@ -63,7 +63,7 @@ function detectAndApplyFixedHeaderStyles() {
           switch (rules[0].selectorText) {
           case '.fixed-header-padding':
             sheets[i].deleteRule(0);
-            sheets[i].insertRule(`.fixed-header-padding { padding-top: ${newHeaderHeight}px !important }`);
+            sheets[i].insertRule(`.fixed-header-padding { padding-top: ${newHeaderHeight}px !important; }`);
             break;
           case 'span.anchor':
             rules[0].style.top = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
