@@ -354,15 +354,12 @@ class Page {
   generatePageNavHeadingHtml() {
     let headingHTML = '';
     const headingStack = [];
-    const interpolationRegex = /{{.*}}/;
     Object.keys(this.navigableHeadings).forEach((key) => {
       const currentHeadingLevel = this.navigableHeadings[key].level;
-      // Add v-pre to prevent text interpolation for {{ }} wrapped in {% (end)raw %}
       const headingText = this.navigableHeadings[key].text;
-      const hasInterpolation = interpolationRegex.test(headingText);
-      let currentHeadingHTML = `<a class="nav-link py-1" href="#${key}"`;
-      currentHeadingHTML += `${hasInterpolation ? ' v-pre' : ''}>`;
-      currentHeadingHTML += `${headingText}&#x200E;</a>\n`;
+      // Add v-pre to prevent text interpolation for {{ }} wrapped in {% (end)raw %}
+      const currentHeadingHTML = `<a class="nav-link py-1" href="#${key}" v-pre>`
+        + `${headingText}&#x200E;</a>\n`;
       const nestedHeadingHTML = '<nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">\n'
         + `${currentHeadingHTML}`;
       if (headingStack.length === 0 || headingStack[headingStack.length - 1] === currentHeadingLevel) {
