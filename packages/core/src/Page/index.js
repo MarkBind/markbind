@@ -406,8 +406,9 @@ class Page {
    */
   generatePageNavTitleHtml() {
     const { pageNavTitle } = this.frontMatter;
+    // Add v-pre to prevent text interpolation for {{ }} wrapped in {% (end)raw %}
     return pageNavTitle
-      ? `<a class="navbar-brand ${PAGE_NAV_TITLE_CLASS}" href="#">${pageNavTitle.toString()}</a>`
+      ? `<a class="navbar-brand ${PAGE_NAV_TITLE_CLASS}" href="#" v-pre>${pageNavTitle.toString()}</a>`
       : '';
   }
 

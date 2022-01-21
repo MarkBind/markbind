@@ -1,7 +1,21 @@
 <frontmatter>
   title: "PageNav Test"
+  pageNavTitle: {% raw %} "Title interpolation {{ test }}" {% endraw %}
   pageNav: 5
 </frontmatter>
+
+{% raw %}
+
+##### The pageNavTitle should correctly show the raw variable syntax
+
+The pageNavTitle should be rendered as:
+
+```html
+<a class="navbar-brand page-nav-title" href="#" data-v-e8c82f88="">
+  Title interpolation {{ test }}
+</a>
+```
+{% endraw %}
 
 {% raw %}
 
