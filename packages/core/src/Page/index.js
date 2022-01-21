@@ -465,11 +465,12 @@ class Page {
       intrasiteLinkValidation: this.pageConfig.intrasiteLinkValidation,
     };
 
-    const { variableProcessor, layoutManager, pluginManager } = this.pageConfig;
-
+    const {
+      variableProcessor, layoutManager, pluginManager, codeLineNumbers,
+    } = this.pageConfig;
     const pageSources = new PageSources();
     const nodeProcessor = new NodeProcessor(fileConfig, pageSources, variableProcessor,
-                                            pluginManager, this.pageUserScriptsAndStyles);
+                                            pluginManager, this.pageUserScriptsAndStyles, codeLineNumbers);
 
     let content = variableProcessor.renderWithSiteVariables(this.pageConfig.sourcePath, pageSources);
     content = await nodeProcessor.process(this.pageConfig.sourcePath, content);

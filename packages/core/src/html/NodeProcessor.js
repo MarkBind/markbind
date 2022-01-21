@@ -42,7 +42,8 @@ const {
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 class NodeProcessor {
-  constructor(config, pageSources, variableProcessor, pluginManager, userScriptsAndStyles, docId = '') {
+  constructor(config, pageSources, variableProcessor, pluginManager,
+              userScriptsAndStyles, codeLineNumbers, docId = '') {
     this.config = config;
     this.frontMatter = {};
 
@@ -60,6 +61,8 @@ class NodeProcessor {
     this.footnoteProcessor = new FootnoteProcessor();
     this.mdAttributeRenderer = new MdAttributeRenderer(this.markdownProcessor);
     this.pageNavProcessor = new PageNavProcessor();
+
+    this.codeLineNumbers = codeLineNumbers;
   }
 
   /*
@@ -199,6 +202,12 @@ class NodeProcessor {
         processScriptAndStyleTag(node, this.userScriptsAndStyles);
         break;
       case 'code':
+        if (!this.codeLineNumbers) { // Override code line numbers setting if specified to disable site-wide
+          if (node.attribs.class && !node.attribs.class.includes('no-line-numbers')) {
+            node.attribs.class += ' no-line-numbers';
+          }
+        }
+        // falls through
       case 'annotation': // Annotations are added automatically by KaTeX when rendering math formulae.
       case 'eq': // markdown-it-texmath html tag
       case 'eqn': // markdown-it-texmath html tag
