@@ -130,5 +130,26 @@
       searchParameters: {}
     });
   </script>
+<script>
+    const fixedHeader = document.querySelector("header[fixed]");
+    
+    // insert custom css if header is fixed
+    if (fixedHeader) {
+      const css = `
+        .DocSearch-Modal { 
+          margin-top: ${fixedHeader.offsetHeight}px;
+        }   
+        @media (max-width: 750px) {
+          .DocSearch-Dropdown {
+            height: calc(100% - ${fixedHeader.offsetHeight}px - 66px);
+          }
+        }
+      `;
+
+      const style = document.createElement('style');
+      style.innerHTML = css;
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
+  </script>
 
 </html>

@@ -50,36 +50,26 @@ function detectAndApplyFixedHeaderStyles() {
     }`,
   );
   insertCss(`.nav-menu-open { max-height: calc(100% - ${headerHeight}px); }`);
-  insertCss(`.DocSearch-Modal { margin-top: ${headerHeight}px; }`);
-  insertCss(
-    `@media (max-width: 750px) {
-      .DocSearch-Dropdown {
-        height: calc(100% - ${headerHeight}px - 66px);
-      }
-    }`,
-  );
 
   const adjustHeaderClasses = () => {
     const newHeaderHeight = headerSelector.height();
     const sheets = document.styleSheets;
+
+    const handleAlgoliaPluginCss = (sheet) => {
+      sheet.cssRules[0].style.marginTop = `${newHeaderHeight}px`;
+      sheet.deleteRule(1);
+      sheet.insertRule(`
+        @media (max-width: 750px) {
+          .DocSearch-Dropdown {
+            height: calc(100% - ${newHeaderHeight}px - 66px);
+          }
+        }`, 1,
+      );
+    };
+
     for (let i = 0; i < sheets.length; i += 1) {
       try {
         const rules = sheets[i].cssRules;
-
-        // Search for .DocSearch-Dropdown rule as it is nested in a media rule
-        if (rules && rules[0] instanceof CSSMediaRule
-          && rules[0].cssRules[0].selectorText === '.DocSearch-Dropdown') {
-          sheets[i].deleteRule(0);
-          sheets[i].insertRule(`
-            @media (max-width: 750px) {
-              .DocSearch-Dropdown {
-                height: calc(100% - ${newHeaderHeight}px - 66px);
-              }
-            }`,
-          );
-          // eslint-disable-next-line no-continue
-          continue;
-        }
 
         // eslint-disable-next-line lodash/prefer-get
         if (rules && rules[0] && rules[0].selectorText) {
@@ -95,7 +85,7 @@ function detectAndApplyFixedHeaderStyles() {
             rules[0].style.maxHeight = `calc(100% - ${newHeaderHeight}px + 50px)`;
             break;
           case '.DocSearch-Modal':
-            rules[0].style.marginTop = `${newHeaderHeight}px`;
+            handleAlgoliaPluginCss(sheets[i]);
             break;
           default:
             break;
