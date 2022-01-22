@@ -55,22 +55,9 @@ function detectAndApplyFixedHeaderStyles() {
     const newHeaderHeight = headerSelector.height();
     const sheets = document.styleSheets;
 
-    const handleAlgoliaPluginCss = (sheet) => {
-      sheet.cssRules[0].style.marginTop = `${newHeaderHeight}px`;
-      sheet.deleteRule(1);
-      sheet.insertRule(`
-        @media (max-width: 750px) {
-          .DocSearch-Dropdown {
-            height: calc(100% - ${newHeaderHeight}px - 66px);
-          }
-        }`, 1,
-      );
-    };
-
     for (let i = 0; i < sheets.length; i += 1) {
       try {
         const rules = sheets[i].cssRules;
-
         // eslint-disable-next-line lodash/prefer-get
         if (rules && rules[0] && rules[0].selectorText) {
           switch (rules[0].selectorText) {
@@ -83,9 +70,6 @@ function detectAndApplyFixedHeaderStyles() {
             break;
           case '.nav-menu-open':
             rules[0].style.maxHeight = `calc(100% - ${newHeaderHeight}px + 50px)`;
-            break;
-          case '.DocSearch-Modal':
-            handleAlgoliaPluginCss(sheets[i]);
             break;
           default:
             break;
