@@ -12,7 +12,7 @@
     <span class="morph">
       <button :class="['morph-display-wrapper', 'btn', btnType]" @click="open()">
         <div
-          v-if="!noMinimizedCaret"
+          v-if="!noMinimizedSwitch"
           class="minimal-caret-wrapper"
         >
           <span
@@ -361,7 +361,6 @@ export default {
 
         .button-wrapper {
             float: right;
-            display: inline-block;
             width: 32px;
         }
 

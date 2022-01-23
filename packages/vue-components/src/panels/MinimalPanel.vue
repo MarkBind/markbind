@@ -12,7 +12,7 @@
     <span class="morph">
       <button class="morph-display-wrapper btn card-title morph-title" @click="minimalOpen()">
         <div
-          v-if="!noMinimizedCaret"
+          v-if="!noMinimizedSwitch"
           :class="['glyphicon', 'glyphicon-chevron-right']"
         ></div>
         <slot name="_alt">
