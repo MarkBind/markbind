@@ -11,7 +11,10 @@
     ></span>
     <span class="morph">
       <button :class="['morph-display-wrapper', 'btn', btnType]" @click="open()">
-        <div class="minimal-caret-wrapper">
+        <div
+          v-if="!noMinimizedCaret"
+          class="minimal-caret-wrapper"
+        >
           <span
             :class="['glyphicon', 'glyphicon-chevron-right']"
           ></span>
@@ -233,6 +236,7 @@ export default {
     .card-title {
         display: inline-block;
         font-size: 1em;
+        line-height: 1.2em;
         margin: 0;
         white-space: normal;
         text-align: left;
@@ -249,17 +253,11 @@ export default {
 
     .minimal-caret-wrapper {
         display: inline-block;
-        border-width: 2;
-        border-style:double;
-        border-color: red;
         font-size: 13px;
-        vertical-align: middle;
+        margin-right: 2px;
     }
 
     .glyphicon {
-        border-width: 2;
-        border-style:double;
-        border-color: green;
         display: inline-block;
     }
 
@@ -275,7 +273,6 @@ export default {
 
     .button-wrapper {
         float: right;
-        display: inline-block;
         width: 96px;
     }
 
@@ -350,15 +347,12 @@ export default {
 
     .morph-display-wrapper {
         margin-top: 5px;
+        display: flex;
+        align-items: center;
     }
 
     /* Bootstrap extra small(xs) responsive breakpoint */
     @media (max-width: 575.98px) {
-        .caret-wrapper {
-            float: left;
-            display: inline-block;
-            width: 32px;
-        }
 
         .header-wrapper {
             display: inline-block;

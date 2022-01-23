@@ -22,6 +22,10 @@ export default {
       type: [Boolean, String],
       default: false,
     },
+    noMinimizedCaret: {
+      type: [Boolean, String],
+      default: false,
+    },
     noSwitch: {
       type: [Boolean, String],
       default: false,
