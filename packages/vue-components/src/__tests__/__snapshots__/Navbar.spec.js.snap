@@ -9,7 +9,7 @@ exports[`Navbar and secondary navbar navbar with page nav button 1`] = `
       class="container-fluid"
     >
       <div
-        class="navbar-brand"
+        class="navbar-left"
       >
         <a
           class="navbar-brand"
@@ -20,20 +20,8 @@ exports[`Navbar and secondary navbar navbar with page nav button 1`] = `
         </a>
       </div>
        
-      <button
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-        class="navbar-toggler"
-        type="button"
-      >
-        <span
-          class="navbar-toggler-icon"
-        />
-         
-      </button>
-       
       <div
-        class="navbar-collapse collapse"
+        class="navbar-default"
       >
         <ul
           class="navbar-nav mr-auto mt-2 mt-lg-0"
@@ -58,9 +46,9 @@ exports[`Navbar and secondary navbar navbar with page nav button 1`] = `
             </a>
           </li>
         </ul>
-         
-        <!---->
       </div>
+       
+      <!---->
     </div>
   </nav>
    
@@ -86,7 +74,7 @@ exports[`Navbar and secondary navbar navbar with site and page nav buttons 1`] =
       class="container-fluid"
     >
       <div
-        class="navbar-brand"
+        class="navbar-left"
       >
         <a
           class="navbar-brand"
@@ -97,20 +85,8 @@ exports[`Navbar and secondary navbar navbar with site and page nav buttons 1`] =
         </a>
       </div>
        
-      <button
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-        class="navbar-toggler"
-        type="button"
-      >
-        <span
-          class="navbar-toggler-icon"
-        />
-         
-      </button>
-       
       <div
-        class="navbar-collapse collapse"
+        class="navbar-default"
       >
         <ul
           class="navbar-nav mr-auto mt-2 mt-lg-0"
@@ -135,9 +111,9 @@ exports[`Navbar and secondary navbar navbar with site and page nav buttons 1`] =
             </a>
           </li>
         </ul>
-         
-        <!---->
       </div>
+       
+      <!---->
     </div>
   </nav>
    
@@ -165,7 +141,7 @@ exports[`Navbar and secondary navbar navbar with site nav button 1`] = `
       class="container-fluid"
     >
       <div
-        class="navbar-brand"
+        class="navbar-left"
       >
         <a
           class="navbar-brand"
@@ -176,20 +152,8 @@ exports[`Navbar and secondary navbar navbar with site nav button 1`] = `
         </a>
       </div>
        
-      <button
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-        class="navbar-toggler"
-        type="button"
-      >
-        <span
-          class="navbar-toggler-icon"
-        />
-         
-      </button>
-       
       <div
-        class="navbar-collapse collapse"
+        class="navbar-default"
       >
         <ul
           class="navbar-nav mr-auto mt-2 mt-lg-0"
@@ -214,9 +178,9 @@ exports[`Navbar and secondary navbar navbar with site nav button 1`] = `
             </a>
           </li>
         </ul>
-         
-        <!---->
       </div>
+       
+      <!---->
     </div>
   </nav>
    
@@ -242,7 +206,7 @@ exports[`Navbar and secondary navbar navbar without site and page nav buttons 1`
       class="container-fluid"
     >
       <div
-        class="navbar-brand"
+        class="navbar-left"
       >
         <a
           class="navbar-brand"
@@ -253,20 +217,8 @@ exports[`Navbar and secondary navbar navbar without site and page nav buttons 1`
         </a>
       </div>
        
-      <button
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-        class="navbar-toggler"
-        type="button"
-      >
-        <span
-          class="navbar-toggler-icon"
-        />
-         
-      </button>
-       
       <div
-        class="navbar-collapse collapse"
+        class="navbar-default"
       >
         <ul
           class="navbar-nav mr-auto mt-2 mt-lg-0"
@@ -291,9 +243,9 @@ exports[`Navbar and secondary navbar navbar without site and page nav buttons 1`
             </a>
           </li>
         </ul>
-         
-        <!---->
       </div>
+       
+      <!---->
     </div>
   </nav>
    

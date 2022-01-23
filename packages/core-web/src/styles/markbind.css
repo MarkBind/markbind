@@ -40,6 +40,7 @@ pre > code.hljs[heading] {
     float: right;
     font-size: 85%;
     line-height: 1;
+    margin-top: 5px;
     max-width: 85%;
     overflow-wrap: break-word;
     padding: 0.25em 0.4em;
@@ -289,6 +290,39 @@ code.wrap {
 .octicon {
     height: 1em;
     width: 1em;
+}
+
+/* styles for <hr> */
+
+hr.dotted {
+    border-top-width: 0.1rem;
+    border-top-style: dotted;
+}
+
+hr.double {
+    border-top-width: 0.2rem;
+    border-top-style: double;
+}
+
+hr.dashed {
+    border-top-width: 0.1rem;
+    border-top-style: dashed;
+}
+
+hr.thick {
+    border-top-width: 0.15rem;
+}
+
+hr.thick-1 {
+    border-top-width: 0.25rem;
+}
+
+hr.thick-2 {
+    border-top-width: 0.5rem;
+}
+
+hr.thick-3 {
+    border-top-width: 0.75rem;
 }
 
 ol,

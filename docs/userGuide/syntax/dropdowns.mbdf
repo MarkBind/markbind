@@ -2,7 +2,7 @@
 
 ## Dropdowns
 
-**You can use Dropdowns as a top level component.**
+**While the main use case for dropdowns is under navbars, they can also be used as top-level components.**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
@@ -26,16 +26,9 @@
 <dropdown header="Right aligned list" type="primary" menu-align-right>
   <li><a href="#dropdown" class="dropdown-item">Something else here</a></li>
 </dropdown>
-</variable>
-</include>
 
-**You can also use Dropdowns as a nested component (e.g. part of a button group).**
-
-<include src="codeAndOutput.md" boilerplate >
-<variable name="highlightStyle">html</variable>
-<variable name="code">
-<!-- In a button group -->
-<div class="btn-group d-flex" role="group">
+<!-- Inside a bootstrap button group -->
+<div class="btn-group d-flex mt-3" role="group">
   <a href="#dropdown" class="btn btn-danger w-100" role="button">Left</a>
   <!-- With slots you can handle some elements as native bootstrap -->
   <dropdown class="w-100">
@@ -56,7 +49,7 @@
 </variable>
 </include>
 
-**You can also create multi-level submenus by nesting Dropdowns.**
+**Dropdowns can also be nested within each other to create multi-level submenus.**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
@@ -79,7 +72,7 @@ Name | Type | Default | Description
 --- | --- | --- | ---
 disabled | `Boolean` | `false` | Whether Dropdown can be opened.
 menu-align-right | `Boolean` | `false` | Whether the dropdown list will be right-aligned.
-header{{slot_info_trigger}} <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>text <br> (deprecated)</small> | `String` | `''` | Dropdown button header text. (Supports inline MarkDown syntax)
+header{{slot_info_trigger}} | `String` | `''` | Dropdown button header text. (Supports inline MarkDown syntax)
 type | `String` | `default` | Supports: `default`, `primary`, `danger`, `info`, `warning`, `success`.
 
 <div class="indented">
