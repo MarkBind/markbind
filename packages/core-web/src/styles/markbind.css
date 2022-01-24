@@ -184,13 +184,13 @@ li.footnote-item:target {
     display: block;
 }
 
-.hljs:not(.inline):not(.no-line-numbers) > span {
+.hljs:not(.inline).line-numbers:not(.no-line-numbers) > span {
     padding: 0 0.5em 0 3.5em;
     position: relative;
 }
 
 /* display line numbers beside each span */
-.hljs:not(.inline):not(.no-line-numbers) > span::before {
+.hljs:not(.inline).line-numbers:not(.no-line-numbers) > span::before {
     border-right: 1px solid #ddd;
     display: inline-block;
     color: #888;
