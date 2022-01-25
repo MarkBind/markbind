@@ -33,7 +33,7 @@
   {% endif %}
 {% endfor %}
 
-****Relevant Tips & Tricks****
+# Relevant Tips & Tricks
 
 <panel header="Escaping Characters">
 

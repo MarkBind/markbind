@@ -4,6 +4,7 @@
 <frontmatter>
   title: "User Guide: {{ title | safe }}"
   layout: userGuide.md
+  pageNav: 5
 </frontmatter>
 
 # {{ title | safe }}
@@ -27,6 +28,8 @@ For Markdown syntax: To display a literal character that are normally used for M
 
 </span>
 
+---
+
 {% raw %}
 
 ##### :fas-lightbulb: Using {% raw %}{% endraw %} to display `{{ content }}`
@@ -45,6 +48,8 @@ However, this does not change the need for `{% raw %}{% endraw %}`. Meaning, you
 
 
 {% endraw %}
+
+---
 
 ##### :fas-info: Unwanted starting space in links and triggers
 
@@ -69,6 +74,8 @@ When you use links or triggers, you may encounter a situation where an unwanted 
   The
   <md>[[link](https://example.com)]</md>.
   ```
+
+---
 
 <span id="useSpecificMarkbind">
 
@@ -114,3 +121,68 @@ Here are the steps to set up Netlify to use a specific version of MarkBind.
 </box>
 
 </span>
+
+---
+
+<span id="indentComponents">
+
+##### :fas-lightbulb: Indent components
+
+In some cases, you may want to indent components such as panels and boxes to match the surrounding content.
+This is easily achieved by adding some margin and padding utility classes from [Bootstrap](https://getbootstrap.com/docs/4.4/utilities/spacing/) 
+to the component. The following examples show how to do this.
+
+**Indent Box component**
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+
+<box>Some text at level 1</box>
+
+<box class="ml-4">Some text at level 2</box>
+
+<box>Some text at level 1</box>
+
+</variable>
+</include>
+
+**Indent Panel component**
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+
+<panel header="This panel is at level 1">
+  ...
+</panel>
+<panel header="This panel is at level 2" class="ml-3">
+  The "ml-3" is arbitarily chosen i.e "ml-0" to "ml-5" are all possible values.
+</panel>
+<panel header="This panel is at level 1">
+  ...
+</panel>
+</variable>
+</include>
+
+**Indent Included component**
+
+The following box component will be included via `<include>`.
+
+<span id="forIndentDemo">
+<box>Some text from include</box>
+</span>
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+
+<box>Some text at level 1 (before included content)</box>
+<include src="tipsAndTricks.md#forIndentDemo" class="ml-5"></include>
+<box>Some text at level 1 (after included content)</box>
+
+</variable>
+</include>
+
+</span>
+
