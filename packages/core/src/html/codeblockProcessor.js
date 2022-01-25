@@ -129,6 +129,28 @@ function highlightCodeBlock(node) {
   });
 }
 
+/**
+ * Adjust the class attribute of code blocks according o the global line numbers setting.
+ * This looks into the class of each code block and if no `line-numbers` or `no-line-numbers` found,
+ * append the respective class.
+ * @param node the code block element, which is the 'code' node
+ * @param showCodeLineNumbers true if line numbers should be shown, false otherwise
+ */
+function setCodeLineNumbers(node, showCodeLineNumbers) {
+  const existingClass = node.attribs.class;
+  if (existingClass
+    && (existingClass.includes('line-numbers') || existingClass.includes('no-line-numbers'))) {
+    return;
+  }
+
+  if (showCodeLineNumbers) {
+    node.attribs.class = `line-numbers ${existingClass}`;
+  } else {
+    node.attribs.class = `no-line-numbers ${existingClass}`;
+  }
+}
+
 module.exports = {
   highlightCodeBlock,
+  setCodeLineNumbers,
 };

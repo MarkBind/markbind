@@ -280,9 +280,9 @@ class Site {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
     const resultPath = path.join(this.outputPath, fsUtil.setExtension(config.pageSrc, '.html'));
     const codeTheme = this.siteConfig.style.codeTheme || 'dark';
-    // show line numbers by default
+    // hide line numbers by default
     const codeLineNumbers = this.siteConfig.style.codeLineNumbers !== undefined
-      ? this.siteConfig.style.codeLineNumbers : true;
+      ? this.siteConfig.style.codeLineNumbers : false;
     const pageConfig = new PageConfig({
       asset: {
         bootstrap: path.relative(path.dirname(resultPath),

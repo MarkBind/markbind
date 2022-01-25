@@ -15,7 +15,7 @@ const { PageNavProcessor, renderSiteNav, addSitePageNavPortal } = require('./sit
 const { processInclude, processPanelSrc } = require('./includePanelProcessor');
 const { Context } = require('./Context');
 const linkProcessor = require('./linkProcessor');
-const { highlightCodeBlock } = require('./codeblockProcessor');
+const { highlightCodeBlock, setCodeLineNumbers } = require('./codeblockProcessor');
 const { setHeadingId, assignPanelId } = require('./headerProcessor');
 const { MarkdownProcessor } = require('./MarkdownProcessor');
 const { FootnoteProcessor } = require('./FootnoteProcessor');
@@ -202,12 +202,8 @@ class NodeProcessor {
         processScriptAndStyleTag(node, this.userScriptsAndStyles);
         break;
       case 'code':
-        if (!this.codeLineNumbers) { // Override code line numbers setting if specified to disable site-wide
-          if (node.attribs.class && !node.attribs.class.includes('no-line-numbers')) {
-            node.attribs.class += ' no-line-numbers';
-          }
-        }
-        // falls through
+        setCodeLineNumbers(node, this.codeLineNumbers);
+        // fall through
       case 'annotation': // Annotations are added automatically by KaTeX when rendering math formulae.
       case 'eq': // markdown-it-texmath html tag
       case 'eqn': // markdown-it-texmath html tag

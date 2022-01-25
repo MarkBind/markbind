@@ -3,8 +3,7 @@
   "timeZone": "Asia/Singapore",
   "titlePrefix": "MarkBind",
   "style": {
-    "codeTheme": "light",
-    "codeLineNumbers": false
+    "codeTheme": "light"
   },
   "pages": [
     {
