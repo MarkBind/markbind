@@ -1,6 +1,7 @@
 const path = require('path');
 
 const cheerio = require('cheerio');
+const lodashHas = require('lodash/has');
 const htmlparser = require('htmlparser2'); require('../patches/htmlparser2');
 const fm = require('fastmatter');
 const Promise = require('bluebird');
@@ -251,9 +252,9 @@ class NodeProcessor {
     }
   }
 
-  _process(node, context) {
+  _process(node, context, shouldValidateIntraLinks = this.config.intrasiteLinkValidation.enabled) {
     if (_.isArray(node)) {
-      return node.map(el => this._process(el, context));
+      return node.map(el => this._process(el, context, shouldValidateIntraLinks));
     }
     if (NodeProcessor._isText(node)) {
       return node;
@@ -264,7 +265,9 @@ class NodeProcessor {
     if (linkProcessor.hasTagLink(node)) {
       linkProcessor.convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);
       linkProcessor.convertMdAndMbdExtToHtmlExt(node);
-      if (this.config.intrasiteLinkValidation.enabled) {
+      const isSourceFile = context.callStack.length === 0
+        && (!lodashHas(node.attribs, 'src') || context.cwf.includes(node.attribs.src));
+      if (shouldValidateIntraLinks && isSourceFile) {
         linkProcessor.validateIntraLink(node, context.cwf, this.config);
       }
       linkProcessor.collectSource(node, this.config.rootPath, this.config.baseUrl, this.pageSources);
@@ -291,7 +294,7 @@ class NodeProcessor {
 
     if (node.children) {
       node.children.forEach((child) => {
-        this._process(child, context);
+        this._process(child, context, shouldValidateIntraLinks);
       });
     }
 
@@ -314,7 +317,8 @@ class NodeProcessor {
     return node;
   }
 
-  process(file, content, cwf = file, extraVariables = {}) {
+  process(file, content, cwf = file, extraVariables = {},
+          shouldValidateIntraLinks = this.config.intrasiteLinkValidation) {
     const context = new Context(cwf, [], extraVariables, {});
 
     return new Promise((resolve, reject) => {
@@ -326,7 +330,7 @@ class NodeProcessor {
         const mainHtmlNodes = dom.map((d) => {
           let processed;
           try {
-            processed = this._process(d, context);
+            processed = this._process(d, context, shouldValidateIntraLinks);
           } catch (err) {
             err.message += `\nError while rendering '${file}'`;
             logger.error(err);

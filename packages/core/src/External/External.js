@@ -51,7 +51,7 @@ class External {
 
     const nunjucksProcessed = variableProcessor.renderWithSiteVariables(this.sourceFilePath, pageSources);
     const mdHtmlProcessed = await nodeProcessor.process(this.sourceFilePath, nunjucksProcessed,
-                                                        asIfAtFilePath);
+                                                        asIfAtFilePath, {}, false);
     const pluginPostRendered = pluginManager.postRender(nodeProcessor.frontMatter, mdHtmlProcessed);
 
     const outputContentHTML = process.env.TEST_MODE
