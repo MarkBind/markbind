@@ -23,13 +23,13 @@ with(this){return _c('p',[_c('strong',[_v("Popover content should have algolia-n
 with(this){return _c('span',{staticClass:"algolia-no-index",attrs:{"data-mb-slot-name":"content"}},[_c('div',[_v("Content should have `algolia-no-index` class")])])}
 },function anonymous(
 ) {
-with(this){return _c('span',{staticClass:"algolia-no-index",attrs:{"data-mb-slot-name":"content"}},[_v("Content should have "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("algolia-no-index")]),_v(" class")])}
+with(this){return _c('span',{staticClass:"algolia-no-index",attrs:{"data-mb-slot-name":"content"}},[_v("Content should have "),_c('code',{pre:true,attrs:{"class":"no-line-numbers hljs inline no-lang"}},[_v("algolia-no-index")]),_v(" class")])}
 },function anonymous(
 ) {
 with(this){return _c('p',[_c('strong',[_v("Tooltip content should have algolia-no-index class")])])}
 },function anonymous(
 ) {
-with(this){return _c('span',{staticClass:"algolia-no-index",attrs:{"data-mb-slot-name":"_content"}},[_v("Content should have "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("algolia-no-index")]),_v(" class")])}
+with(this){return _c('span',{staticClass:"algolia-no-index",attrs:{"data-mb-slot-name":"_content"}},[_v("Content should have "),_c('code',{pre:true,attrs:{"class":"no-line-numbers hljs inline no-lang"}},[_v("algolia-no-index")]),_v(" class")])}
 },function anonymous(
 ) {
 with(this){return _c('p',[_c('strong',[_v("Question hint and answer should have algolia-no-index class")])])}
