@@ -32,7 +32,38 @@ To enable syntax coloring, specify a language next to the backticks before the f
 </div>
 
 ##### Line numbering
-Line numbers are provided by default. To hide line numbers, add the class `no-line-numbers` to the code block as below
+Line numbers are <tooltip content="Line numbers were provided by default in version v3.1.1 and below. To preserve the exact line numbers behavior of sites generated in old versions, simply set the codeLineNumbers option in site.json to false">hidden by default</tooltip>. To configure the line numbers setting for the entire site (for example, set it to show by default),
+add `"codeLineNumbers": true` to the `site.json` file:
+```json {highlight-lines="8[:]"}
+{
+  "baseUrl": "/myproduct",
+  "faviconPath": "myfavicon.png",
+  "titlePrefix": "FooBar Dev Docs",
+  "style": {
+    "bootstrapTheme": "bootswatch-cerulean",
+    "codeTheme": "light",
+    "codeLineNumbers": true // optional, false if omitted
+  }
+  // code below omitted for brevity
+}
+```
+refer to the [siteJsonFile](../siteJsonFile.html) for more details.
+
+For each code block, the following can be done to override the site wide line numbers behavior:
+- To show line numbers, add the class `line-numbers` to the code block.
+- To hide line numbers, add the class `no-line-numbers` to the code block.
+
+The following shows you how to show/hide line numbers irrespective of the site wide setting:
+
+<include src="codeAndOutputCode.md" boilerplate >
+<variable name="code">
+```xml {.line-numbers}
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+</variable>
+</include>
 
 <include src="codeAndOutputCode.md" boilerplate >
 <variable name="code">

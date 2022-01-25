@@ -112,7 +112,8 @@ _(Optional)_ **The styling options to be applied to the site.** This includes:
 * **`codeTheme`** [Optional. Default: `"dark"`]<br>
   The theme used for fenced code blocks. Accepts either `"light"` or `"dark"`.
 
-
+* **`codeLineNumbers`** [Optional. Default: `false`]<br>
+  The global setting to display or hide line numbers for code blocks. Accepts either `true` or `false`.
 
 #### **`pages`**
 
