@@ -252,7 +252,7 @@ class NodeProcessor {
     }
   }
 
-  _process(node, context, shouldValidateIntraLinks = this.config.intrasiteLinkValidation.enabled) {
+  _process(node, context, shouldValidateIntraLinks) {
     if (_.isArray(node)) {
       return node.map(el => this._process(el, context, shouldValidateIntraLinks));
     }
@@ -318,7 +318,7 @@ class NodeProcessor {
   }
 
   process(file, content, cwf = file, extraVariables = {},
-          shouldValidateIntraLinks = this.config.intrasiteLinkValidation) {
+          shouldValidateIntraLinks = this.config.intrasiteLinkValidation.enabled) {
     const context = new Context(cwf, [], extraVariables, {});
 
     return new Promise((resolve, reject) => {
