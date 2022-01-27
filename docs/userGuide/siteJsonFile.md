@@ -20,7 +20,8 @@ Here is a typical `site.json` file:
   "titlePrefix": "FooBar Dev Docs",
   "style": {
     "bootstrapTheme": "bootswatch-cerulean",
-    "codeTheme": "light"
+    "codeTheme": "light",
+    "codeLineNumbers": true
   },
   "pages": [
     {

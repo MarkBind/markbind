@@ -130,7 +130,7 @@ function highlightCodeBlock(node) {
 }
 
 /**
- * Adjust the class attribute of code blocks according o the global line numbers setting.
+ * Adjust the class attribute of code blocks according to the global line numbers setting.
  * This looks into the class of each code block and if no `line-numbers` or `no-line-numbers` found,
  * append the respective class.
  * @param node the code block element, which is the 'code' node
