@@ -9,13 +9,22 @@ const {
 function buildAlgoliaInitScript(pluginContext) {
   return `<script>
     docsearch({
+      container: "${ALGOLIA_INPUT_SELECTOR}",
+      appId: "${pluginContext.appId}",
       apiKey: "${pluginContext.apiKey}",
       indexName: "${pluginContext.indexName}",
-      inputSelector: "${ALGOLIA_INPUT_SELECTOR}",
-      algoliaOptions: ${JSON.stringify(pluginContext.algoliaOptions || {})},
-      debug: ${pluginContext.debug || false},
+      searchParameters: ${JSON.stringify(pluginContext.searchParameters || {})}
     });
   </script>`;
+}
+
+function insertAlgoliaCustomCss() {
+  return `<script>
+    const style = document.createElement('style');
+    style.innerHTML = ".DocSearch-Container { z-index: 1002; }";
+    document.getElementsByTagName('head')[0].appendChild(style);
+  </script>
+  `;
 }
 
 function addNoIndexClasses(content) {
@@ -40,6 +49,7 @@ module.exports = {
   getScripts: pluginContext => [
     `<script src="${ALGOLIA_JS_URL}"></script>`,
     buildAlgoliaInitScript(pluginContext),
+    insertAlgoliaCustomCss(),
   ],
   postRender: (pluginContext, frontMatter, content) => addNoIndexClasses(content),
 };

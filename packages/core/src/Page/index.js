@@ -356,8 +356,10 @@ class Page {
     const headingStack = [];
     Object.keys(this.navigableHeadings).forEach((key) => {
       const currentHeadingLevel = this.navigableHeadings[key].level;
-      const currentHeadingHTML = `<a class="nav-link py-1" href="#${key}">`
-        + `${this.navigableHeadings[key].text}&#x200E;</a>\n`;
+      const headingText = this.navigableHeadings[key].text;
+      // Add v-pre to prevent text interpolation for {{ }} wrapped in {% (end)raw %}
+      const currentHeadingHTML = `<a class="nav-link py-1" href="#${key}" v-pre>`
+        + `${headingText}&#x200E;</a>\n`;
       const nestedHeadingHTML = '<nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">\n'
         + `${currentHeadingHTML}`;
       if (headingStack.length === 0 || headingStack[headingStack.length - 1] === currentHeadingLevel) {
@@ -404,8 +406,9 @@ class Page {
    */
   generatePageNavTitleHtml() {
     const { pageNavTitle } = this.frontMatter;
+    // Add v-pre to prevent text interpolation for {{ }} wrapped in {% (end)raw %}
     return pageNavTitle
-      ? `<a class="navbar-brand ${PAGE_NAV_TITLE_CLASS}" href="#">${pageNavTitle.toString()}</a>`
+      ? `<a class="navbar-brand ${PAGE_NAV_TITLE_CLASS}" href="#" v-pre>${pageNavTitle.toString()}</a>`
       : '';
   }
 

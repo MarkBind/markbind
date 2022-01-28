@@ -98,6 +98,10 @@
     {
       "src": "testHr.md",
       "title": "create different types of horizontal rules"
+    },
+    {
+      "src": "testPageNav.md",
+      "title": "text interpolation should be skipped appropriately"
     }
   ],
   "ignore": [

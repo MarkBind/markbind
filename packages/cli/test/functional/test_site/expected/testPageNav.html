@@ -10,7 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="MarkBind 3.1.1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Variable should be able to store included content fragments</title>
+  <title>text interpolation should be skipped appropriately</title>
   <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
   <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
   <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
@@ -22,7 +22,7 @@
   <script src="markbind/js/polyfill.min.js"></script>
   <script src="markbind/js/vue.min.js"></script>
   <script src="markbind/js/markbind.min.js"></script>
-  <script src="testVariableContainsInclude.page-vue-render.js"></script>
+  <script src="testPageNav.page-vue-render.js"></script>
   <script src="markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
@@ -36,7 +36,7 @@
   const baseUrl = '/test_site'
 </script>
 
-<body>
+<body data-spy="scroll" data-target="#mb-page-nav" data-offset="100">
   <div id="app">
 
     <div>
@@ -207,11 +207,29 @@
         </div>
       </overlay-source>
       <div id="content-wrapper" class="fixed-header-padding">
-        <h1 id="content-fragment"><span id="content-fragment" class="anchor"></span><span>content fragment</span><a class="fa fa-anchor" href="#content-fragment" onclick="event.stopPropagation()"></a></h1>
+
+        <h5 id="the-pagenavtitle-should-correctly-show-the-raw-variable-syntax"><span id="the-pagenavtitle-should-correctly-show-the-raw-variable-syntax" class="anchor"></span>The pageNavTitle should correctly show the raw variable syntax<a class="fa fa-anchor" href="#the-pagenavtitle-should-correctly-show-the-raw-variable-syntax" onclick="event.stopPropagation()"></a></h5>
+        <p>The pageNavTitle should be rendered as:</p>
+        <pre><code class="hljs html" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;navbar-brand page-nav-title&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">data-v-e8c82f88</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span>
+</span><span>  Title interpolation {{ test }}
+</span><span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+</span></code></pre>
+        <h5 id="using-raw-endraw-to-display-content"><span id="using-raw-endraw-to-display-content" class="anchor"></span><span aria-hidden="true" class="fas fa-lightbulb"></span> Using {% raw %}{% endraw %} to display <code class="hljs inline no-lang" v-pre>{{ content }}</code><a class="fa fa-anchor" href="#using-raw-endraw-to-display-content" onclick="event.stopPropagation()"></a></h5>
+        <p>The above heading should be rendered as:</p>
+        <pre><code class="hljs html" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;nav-link py-1 active&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#using-raw-endraw-to-display-content&quot;</span> <span class="hljs-attr">data-v-e8c82f88</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span>
+</span><span>    Using {% raw %}{% endraw %} to display {{ content }}<span class="hljs-symbol">&amp;lrm;</span>
+</span><span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+</span></code></pre>
         <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>
       <overlay-source id="page-nav" class="fixed-header-padding" tag-name="nav" to="page-nav">
         <div class="nav-component slim-scroll">
+          <a class="navbar-brand page-nav-title" href="#" v-pre>Title interpolation {{ test }}</a>
+          <overlay-source id="mb-page-nav" tag-name="nav" to="mb-page-nav" class="nav nav-pills flex-column my-0 small no-flex-wrap">
+            <a class="nav-link py-1" href="#the-pagenavtitle-should-correctly-show-the-raw-variable-syntax" v-pre>The pageNavTitle should correctly show the raw variable syntax&#x200E;</a>
+            <a class="nav-link py-1" href="#using-raw-endraw-to-display-content" v-pre> Using {% raw %}{% endraw %} to display {{ content }}&#x200E;</a>
+
+          </overlay-source>
         </div>
       </overlay-source>
     </div>

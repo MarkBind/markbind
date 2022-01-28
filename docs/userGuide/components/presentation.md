@@ -36,5 +36,13 @@ The components in this page are the core **presentational** components you may w
 
 <br>
 
+# Relevant Tips & Tricks
+
+<panel header="Indent components">
+
+<include src="../tipsAndTricks.md#indentComponents" />
+
+</panel>
+
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('../usingComponents', 'imagesAndDiagrams') }}
