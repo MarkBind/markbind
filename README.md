@@ -1,6 +1,7 @@
 <img src="docs/images/logo-lightbackground.png" width="600" />
 
-[![Build Status](https://travis-ci.org/MarkBind/markbind.svg?branch=master)](https://travis-ci.org/MarkBind/markbind)
+[![Build Status](https://app.travis-ci.com/MarkBind/markbind.svg?branch=master)](https://app.travis-ci.com/MarkBind/markbind)
+![CI](https://github.com/MarkBind/markbind/actions/workflows/ci.yml/badge.svg)
 
 **A tool for generating static websites from Markdown-like syntax**. Optimized for content-heavy instructional websites, e.g. course websites, tutorials, project/product documentation, textbooks.
 
