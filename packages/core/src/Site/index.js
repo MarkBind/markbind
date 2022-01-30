@@ -437,7 +437,7 @@ class Site {
       .forEach((page) => {
         const addressablePagePath = path.join(this.rootPath, page.src);
         const relativePagePathWithoutExt = fsUtil.removeExtension(
-          path.relative(this.rootPath, addressablePagePath));
+          path.relative(this.rootPath, addressablePagePath)).replace(/\\/g, '/');
         const pageName = _.startCase(fsUtil.removeExtension(path.basename(addressablePagePath)));
         const pageUrl = `{{ baseUrl }}/${relativePagePathWithoutExt}.html`;
         siteNavContent += `* [${pageName}](${pageUrl})\n`;
