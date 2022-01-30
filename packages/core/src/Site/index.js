@@ -436,7 +436,7 @@ class Site {
       .filter(addressablePage => !addressablePage.src.startsWith('_'))
       .forEach((page) => {
         const addressablePagePath = path.join(this.rootPath, page.src);
-        const relativePagePathWithoutExt = fsUtil.removeExtension(
+        const relativePagePathWithoutExt = fsUtil.removeExtensionPosix(
           path.relative(this.rootPath, addressablePagePath));
         const pageName = _.startCase(fsUtil.removeExtension(path.basename(addressablePagePath)));
         const pageUrl = `{{ baseUrl }}/${relativePagePathWithoutExt}.html`;
