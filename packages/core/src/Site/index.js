@@ -443,7 +443,7 @@ class Site {
         siteNavContent += `* [${pageName}](${pageUrl})\n`;
       });
 
-    return siteNavContent;
+    return siteNavContent.trimEnd();
   }
 
   /**
