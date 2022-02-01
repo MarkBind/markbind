@@ -48,8 +48,8 @@ class External {
     const docId = `ext-${fsUtil.removeExtension(path.basename(asIfAtFilePath))}`;
     const nodeProcessor = new NodeProcessor(fileConfig, pageSources, variableProcessor,
                                             pluginManager, undefined, docId);
-
     const nunjucksProcessed = variableProcessor.renderWithSiteVariables(this.sourceFilePath, pageSources);
+    // Turn off intralink validation on external files to avoid duplicate warnings
     const mdHtmlProcessed = await nodeProcessor.process(this.sourceFilePath, nunjucksProcessed,
                                                         asIfAtFilePath, {}, false);
     const pluginPostRendered = pluginManager.postRender(nodeProcessor.frontMatter, mdHtmlProcessed);
