@@ -4,7 +4,6 @@
     tabindex="0"
     @[triggerEventType].stop="toggle()"
   >
-
     <b-popover
       v-if="popoverOrTooltipType === 'popover'"
       :show="show"
@@ -32,8 +31,14 @@
 </template>
 
 <script>
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { BPopover } from 'bootstrap-vue';
+
 export default {
   name: 'Trigger',
+  components: {
+    BPopover,
+  },
   props: {
     for: {
       type: String,

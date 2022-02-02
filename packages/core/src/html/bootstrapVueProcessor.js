@@ -47,9 +47,12 @@ function _transformSlottedComponents(node) {
  * We use bootstrap-vue's popovers, tooltips and modals, but perform various transformations
  * to conform with our syntax instead, and to support triggers.
  *
- * For tooltips and popovers,
+ * For tooltips,
  * The content / title is put into hidden [data-mb-slot-name] slots.
  * Then, we call the relevant content getters inside core-web/index.js at runtime to get this content.
+ *
+ * For popovers,
+ * The content / title are put into named slots which are inserted into the Bootstrap Vue components.
  *
  * For modals,
  * only syntactic transformations are performed.
@@ -68,17 +71,6 @@ function _transformSlottedComponents(node) {
 function _addTriggerClass(node, trigger) {
   const triggerClass = trigger === 'click' ? 'trigger-click' : 'trigger';
   node.attribs.class = node.attribs.class ? `${node.attribs.class} ${triggerClass}` : triggerClass;
-}
-
-function transformBootstrapVuePopover(node) {
-  node.name = 'span';
-  const trigger = node.attribs.trigger || 'hover';
-  const placement = node.attribs.placement || 'top';
-  node.attribs['data-mb-component-type'] = 'popover';
-  node.attribs[`v-b-popover.${trigger}.${placement}.html`] = 'popoverInnerGetters';
-
-  _addTriggerClass(node, trigger);
-  _transformSlottedComponents(node);
 }
 
 function transformBootstrapVueTooltip(node) {
@@ -138,7 +130,6 @@ function transformBootstrapVueModalAttributes(node) {
 }
 
 module.exports = {
-  transformBootstrapVuePopover,
   transformBootstrapVueTooltip,
   transformBootstrapVueModalAttributes,
 };

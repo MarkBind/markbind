@@ -2,7 +2,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import {
   BModal,
-  BPopover,
   BTooltip,
   VBModal,
   VBPopover,
@@ -33,6 +32,7 @@ import siteNavButton from './SiteNavButton.vue';
 import pageNavButton from './PageNavButton.vue';
 import overlay from './Overlay.vue';
 import overlaySource from './OverlaySource.vue';
+import popover from './Popover.vue';
 
 const components = {
   box: tipBox,
@@ -57,8 +57,8 @@ const components = {
   pageNavButton,
   overlay,
   overlaySource,
+  popover,
   BModal,
-  BPopover,
   BTooltip,
 };
 
