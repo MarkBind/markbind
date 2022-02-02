@@ -4,6 +4,7 @@
     tabindex="0"
     @[triggerEventType].stop="toggle()"
   >
+
     <b-popover
       v-if="popoverOrTooltipType === 'popover'"
       :show="show"
