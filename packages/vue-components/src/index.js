@@ -5,7 +5,6 @@ import {
   BPopover,
   BTooltip,
   VBModal,
-  VBTooltip,
 } from 'bootstrap-vue';
 /* eslint-enable import/no-extraneous-dependencies */
 
@@ -33,6 +32,7 @@ import pageNavButton from './PageNavButton.vue';
 import overlay from './Overlay.vue';
 import overlaySource from './OverlaySource.vue';
 import popover from './Popover.vue';
+import tooltip from './Tooltip.vue';
 
 const components = {
   box: tipBox,
@@ -58,6 +58,7 @@ const components = {
   overlay,
   overlaySource,
   popover,
+  tooltip,
   BModal,
   BPopover,
   BTooltip,
@@ -66,7 +67,6 @@ const components = {
 const directives = {
   closeable,
   'b-modal': VBModal,
-  'b-tooltip': VBTooltip,
 };
 
 function install(Vue) {

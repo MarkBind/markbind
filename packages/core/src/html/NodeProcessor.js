@@ -20,7 +20,6 @@ const { setHeadingId, assignPanelId } = require('./headerProcessor');
 const { MarkdownProcessor } = require('./MarkdownProcessor');
 const { FootnoteProcessor } = require('./FootnoteProcessor');
 const {
-  transformBootstrapVueTooltip,
   transformBootstrapVueModalAttributes,
 } = require('./bootstrapVueProcessor');
 const { MdAttributeRenderer } = require('./MdAttributeRenderer');
@@ -165,7 +164,6 @@ class NodeProcessor {
         break;
       case 'tooltip':
         this.mdAttributeRenderer.processTooltip(node);
-        transformBootstrapVueTooltip(node);
         break;
       case 'modal':
         this.mdAttributeRenderer.processModalAttributes(node);

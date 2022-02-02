@@ -21,7 +21,7 @@
       triggers="manual"
       :placement="placement"
     >
-      <div v-html="contentHtml"></div>
+      <portal-target :name="this.for" />
     </b-tooltip>
 
     <slot></slot>
@@ -53,8 +53,6 @@ export default {
   },
   data() {
     return {
-      contentHtml: '',
-      titleHtml: '',
       show: false,
       popoverOrTooltipType: undefined,
     };
@@ -79,21 +77,10 @@ export default {
         }
 
         this.show = true;
-        this.setupComponent(targetEl);
+        this.popoverOrTooltipType = targetEl.dataset.mbComponentType;
       } else {
         this.show = !this.show;
       }
-    },
-    setupComponent(targetEl) {
-      const componentType = targetEl.dataset.mbComponentType;
-      /*
-       * popoverInnerGetters / tooltipInnerContentGetter are passed down during the Vue App instantiation on
-       * client-side (core-web). Thus, we have to access these methods via "this.$root".
-       */
-      if (componentType === 'tooltip') {
-        this.contentHtml = this.$root.tooltipInnerContentGetter(targetEl);
-      }
-      this.popoverOrTooltipType = componentType;
     },
   },
   computed: {
