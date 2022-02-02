@@ -4,7 +4,6 @@ import {
   BModal,
   BTooltip,
   VBModal,
-  VBPopover,
   VBTooltip,
 } from 'bootstrap-vue';
 /* eslint-enable import/no-extraneous-dependencies */
@@ -65,7 +64,6 @@ const components = {
 const directives = {
   closeable,
   'b-modal': VBModal,
-  'b-popover': VBPopover,
   'b-tooltip': VBTooltip,
 };
 
