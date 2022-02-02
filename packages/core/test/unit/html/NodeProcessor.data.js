@@ -179,9 +179,9 @@ module.exports.PROCESS_TOOLTIP_CONTENT = `
 `;
 
 module.exports.PROCESS_TOOLTIP_CONTENT_EXPECTED = `
-<span data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger"><span data-mb-slot-name="_content">Lorem ipsum dolor sit amet</span>
+<tooltip><template #content>Lorem ipsum dolor sit amet</template>
   <button>Content attribute should be inserted as _content internal slot</button>
-</span>
+</tooltip>
 `;
 
 /*
