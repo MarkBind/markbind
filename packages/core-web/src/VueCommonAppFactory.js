@@ -20,12 +20,6 @@ function makeMbSlotGetter(slotName) {
   };
 }
 
-// Used via vb-popover.html="popoverInnerGetters" for popovers
-const popoverInnerGetters = {
-  title: makeMbSlotGetter('header'),
-  content: makeMbSlotGetter('content'),
-};
-
 // Used via vb-tooltip.html="popoverInnerGenerator" for tooltips
 const tooltipInnerContentGetter = makeMbSlotGetter('_content');
 
@@ -38,7 +32,6 @@ const appFactory = () => ({
   data() {
     return {
       searchData: [],
-      popoverInnerGetters,
       tooltipInnerContentGetter,
     };
   },

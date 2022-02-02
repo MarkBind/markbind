@@ -12,10 +12,7 @@
       triggers="manual"
       :placement="placement"
     >
-      <div v-html="contentHtml"></div>
-      <template v-if="titleHtml" #title>
-        <div v-html="titleHtml"></div>
-      </template>
+      <portal-target :name="this.for" />
     </b-popover>
     <b-tooltip
       v-else-if="popoverOrTooltipType === 'tooltip'"
@@ -32,8 +29,14 @@
 </template>
 
 <script>
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { PortalTarget } from 'portal-vue';
+
 export default {
   name: 'Trigger',
+  components: {
+    PortalTarget,
+  },
   props: {
     for: {
       type: String,
@@ -87,10 +90,7 @@ export default {
        * popoverInnerGetters / tooltipInnerContentGetter are passed down during the Vue App instantiation on
        * client-side (core-web). Thus, we have to access these methods via "this.$root".
        */
-      if (componentType === 'popover') {
-        this.contentHtml = this.$root.popoverInnerGetters.content(targetEl);
-        this.titleHtml = this.$root.popoverInnerGetters.title(targetEl);
-      } else if (componentType === 'tooltip') {
+      if (componentType === 'tooltip') {
         this.contentHtml = this.$root.tooltipInnerContentGetter(targetEl);
       }
       this.popoverOrTooltipType = componentType;
