@@ -26,10 +26,10 @@ with(this){return _c('p',[_c('strong',[_v("A list:")])])}
 with(this){return _c('ul',[_c('li',[_v("item A")]),_v(" "),_c('li',[_v("item B\n"),_c('ol',[_c('li',[_v("item b1")]),_v(" "),_c('li',[_v("item b2")]),_v(" "),_c('li',[_v("item b3")])])])])}
 },function anonymous(
 ) {
-with(this){return _c('p',[_c('strong',[_v("A "),_c('code',{pre:true,attrs:{"class":"no-line-numbers hljs inline no-lang"}},[_v("code")]),_v(" example:")])])}
+with(this){return _c('p',[_c('strong',[_v("A "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("code")]),_v(" example:")])])}
 },function anonymous(
 ) {
-with(this){return _c('pre',[_c('code',{pre:true,attrs:{"class":"no-line-numbers hljs html"}},[_c('span',[_c('span',{pre:true,attrs:{"class":"hljs-tag"}},[_v("<"),_c('span',{pre:true,attrs:{"class":"hljs-name"}},[_v("foo")]),_v(">")]),_v("\n")]),_c('span',[_v("  "),_c('span',{pre:true,attrs:{"class":"hljs-tag"}},[_v("<"),_c('span',{pre:true,attrs:{"class":"hljs-name"}},[_v("bar")]),_v(" "),_c('span',{pre:true,attrs:{"class":"hljs-attr"}},[_v("type")]),_v("="),_c('span',{pre:true,attrs:{"class":"hljs-string"}},[_v("\"name\"")]),_v(">")]),_v("goo"),_c('span',{pre:true,attrs:{"class":"hljs-tag"}},[_v("</"),_c('span',{pre:true,attrs:{"class":"hljs-name"}},[_v("bar")]),_v(">")]),_v("\n")]),_c('span',[_c('span',{pre:true,attrs:{"class":"hljs-tag"}},[_v("</"),_c('span',{pre:true,attrs:{"class":"hljs-name"}},[_v("foo")]),_v(">")]),_v("\n")])])])}
+with(this){return _c('pre',[_c('code',{pre:true,attrs:{"class":"hljs html"}},[_c('span',[_c('span',{pre:true,attrs:{"class":"hljs-tag"}},[_v("<"),_c('span',{pre:true,attrs:{"class":"hljs-name"}},[_v("foo")]),_v(">")]),_v("\n")]),_c('span',[_v("  "),_c('span',{pre:true,attrs:{"class":"hljs-tag"}},[_v("<"),_c('span',{pre:true,attrs:{"class":"hljs-name"}},[_v("bar")]),_v(" "),_c('span',{pre:true,attrs:{"class":"hljs-attr"}},[_v("type")]),_v("="),_c('span',{pre:true,attrs:{"class":"hljs-string"}},[_v("\"name\"")]),_v(">")]),_v("goo"),_c('span',{pre:true,attrs:{"class":"hljs-tag"}},[_v("</"),_c('span',{pre:true,attrs:{"class":"hljs-name"}},[_v("bar")]),_v(">")]),_v("\n")]),_c('span',[_c('span',{pre:true,attrs:{"class":"hljs-tag"}},[_v("</"),_c('span',{pre:true,attrs:{"class":"hljs-name"}},[_v("foo")]),_v(">")]),_v("\n")])])])}
 },function anonymous(
 ) {
 with(this){return _c('h2',{attrs:{"id":"sub-heading-1-1"}},[_c('span',{staticClass:"anchor",attrs:{"id":"sub-heading-1-1"}}),_v("Sub Heading 1.1"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#sub-heading-1-1","onclick":"event.stopPropagation()"}})])}

@@ -72,23 +72,19 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
 
   if (startFromRawValue) {
     const existingClass = getAttribute(token, 'class') || '';
-    // only match 'no-line-numbers', ignore 'foo-no-line-numbers'
-    const noLineNumbersRegex = /^no-line-numbers\b|\sno-line-numbers\b/;
+
+    const noLineNumbersRegex = /^no-line-numbers\s|\sno-line-numbers\s|\sno-line-numbers$|^no-line-numbers$/;
     const hasNoLineNumbers = existingClass.match(noLineNumbersRegex);
-
-    if (hasNoLineNumbers) {
-      token.attrSet('class', existingClass.replace(noLineNumbersRegex, ''));
-    } else {
-      // only match 'line-numbers', ignore 'foo-line-numbers'
-      const lineNumbersRegex = /^line-numbers\b|\sline-numbers\b/;
-      const hasLineNumbers = existingClass.match(lineNumbersRegex);
-      if (!hasLineNumbers) {
-        token.attrJoin('class', 'line-numbers');
-      }
-
+    if (!hasNoLineNumbers) {
       if (startFromOneBased > 1) {
         // counter is incremented on each span, so we need to subtract 1
         token.attrJoin('style', `counter-reset: line ${startFromZeroBased};`);
+      }
+
+      const lineNumbersRegex = /^line-numbers\s|\sline-numbers\s|\sline-numbers$|^line-numbers$/;
+      const hasLineNumbers = existingClass.match(lineNumbersRegex);
+      if (!hasLineNumbers) {
+        token.attrJoin('class', 'line-numbers');
       }
     }
   }
