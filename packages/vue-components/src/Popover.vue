@@ -26,14 +26,8 @@
 </template>
 
 <script>
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { BPopover } from 'bootstrap-vue';
-
 export default {
   name: 'Popover',
-  components: {
-    BPopover,
-  },
   props: {
     trigger: {
       type: String,

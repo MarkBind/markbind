@@ -2,6 +2,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import {
   BModal,
+  BPopover,
   BTooltip,
   VBModal,
   VBTooltip,
@@ -58,6 +59,7 @@ const components = {
   overlaySource,
   popover,
   BModal,
+  BPopover,
   BTooltip,
 };
 
