@@ -131,21 +131,22 @@ function highlightCodeBlock(node) {
 
 /**
  * Adjust the class attribute of code blocks according to the global line numbers setting.
- * This looks into the class of each code block and if no `line-numbers` or `no-line-numbers` found,
- * append the respective class.
+ * Append the 'line-numbers' class if the global setting is true.
  * @param node the code block element, which is the 'code' node
  * @param showCodeLineNumbers true if line numbers should be shown, false otherwise
  */
 function setCodeLineNumbers(node, showCodeLineNumbers) {
   const existingClass = node.attribs.class || '';
-  // only match 'line-numbers' or 'no-line-numbers', ignore 'foo-line-numbers' or 'foo-no-line-numbers'
-  const regex = /^line-numbers\b|\sline-numbers\b|^no-line-numbers\b|\sno-line-numbers\b/;
-  const hasStyleClass = existingClass.match(regex);
-  if (hasStyleClass) {
+  // only match 'line-numbers', ignore 'foo-line-numbers'
+  const lineNumbersRegex = /^line-numbers\b|\sline-numbers\b/;
+  const hasLineNumbers = existingClass.match(lineNumbersRegex);
+  if (hasLineNumbers) {
     return;
   }
-  const styleClass = showCodeLineNumbers ? 'line-numbers' : 'no-line-numbers';
-  node.attribs.class = `${styleClass}${existingClass === '' ? '' : ` ${existingClass}`}`;
+
+  if (showCodeLineNumbers) {
+    node.attribs.class = `line-numbers${existingClass === '' ? '' : ` ${existingClass}`}`;
+  }
 }
 
 module.exports = {

@@ -44,6 +44,14 @@ Content in a fenced code block
 -----
 ```
 
+**`no-line-numbers` class should hide corresponding line numbers even if `start-from` is specified**
+
+```xml {.no-line-numbers start-from=2}
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+
 **`highlight-lines` attr causes corresponding lines to have 'highlighted' class**
 ```markdown {highlight-lines="1,3,5-8"}
 1  highlighted

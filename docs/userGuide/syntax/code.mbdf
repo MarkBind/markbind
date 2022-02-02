@@ -32,7 +32,7 @@ To enable syntax coloring, specify a language next to the backticks before the f
 </div>
 
 ##### Line numbering
-Line numbers are <tooltip content="Line numbers were provided by default in version v3.1.1 and below. To preserve the exact line numbers behavior of sites generated in old versions, simply set the codeLineNumbers option in site.json to false">hidden by default</tooltip>. To configure the line numbers setting for the entire site (for example, set it to show by default),
+Line numbers are <tooltip content="Line numbers were provided by default in version v3.1.1 and below. To preserve the exact line numbers behavior of sites generated in previous versions, simply set the codeLineNumbers option in site.json to true">hidden by default</tooltip>. To configure the line numbers setting for the entire site (for example, set it to show by default),
 add `"codeLineNumbers": true` to the `site.json` file:
 ```json {highlight-lines="8[:]"}
 {
@@ -79,7 +79,7 @@ You can have your line numbers start with a value other than `1` with the `start
 
 <include src="codeAndOutputCode.md" boilerplate >
 <variable name="code">
-```js {.line-numbers start-from=6}
+```js {start-from=6}
 function add(a, b) {
     return a + b;
 }

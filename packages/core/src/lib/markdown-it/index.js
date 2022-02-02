@@ -43,7 +43,7 @@ markdownIt.renderer.rules.table_open = _.constant(
   '<div class="table-responsive"><table class="markbind-table table table-bordered table-striped">');
 markdownIt.renderer.rules.table_close = _.constant('</table></div>');
 
-function getAttributeAndDelete(token, attr) {
+function getAttribute(token, attr, deleteAttribute = false) {
   const index = token.attrIndex(attr);
   if (index === -1) {
     return undefined;
@@ -51,7 +51,9 @@ function getAttributeAndDelete(token, attr) {
   // tokens are stored as an array of two-element-arrays:
   // e.g. [ ['highlight-lines', '1,2,3'], ['start-from', '1'] ]
   const value = token.attrs[index][1];
-  token.attrs.splice(index, 1);
+  if (deleteAttribute) {
+    token.attrs.splice(index, 1);
+  }
   return value;
 }
 
@@ -64,15 +66,34 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   let highlighted = false;
   let lines;
 
-  const startFromOneBased = Math.max(1, parseInt(getAttributeAndDelete(token, 'start-from'), 10) || 1);
+  const startFromRawValue = getAttribute(token, 'start-from', true);
+  const startFromOneBased = Math.max(1, parseInt(startFromRawValue, 10) || 1);
   const startFromZeroBased = startFromOneBased - 1;
 
-  if (startFromOneBased > 1) {
-    // counter is incremented on each span, so we need to subtract 1
-    token.attrJoin('style', `counter-reset: line ${startFromZeroBased};`);
+  if (startFromRawValue) {
+    const existingClass = getAttribute(token, 'class') || '';
+    // only match 'no-line-numbers', ignore 'foo-no-line-numbers'
+    const noLineNumbersRegex = /^no-line-numbers\b|\sno-line-numbers\b/;
+    const hasNoLineNumbers = existingClass.match(noLineNumbersRegex);
+
+    if (hasNoLineNumbers) {
+      token.attrSet('class', existingClass.replace(noLineNumbersRegex, ''));
+    } else {
+      // only match 'line-numbers', ignore 'foo-line-numbers'
+      const lineNumbersRegex = /^line-numbers\b|\sline-numbers\b/;
+      const hasLineNumbers = existingClass.match(lineNumbersRegex);
+      if (!hasLineNumbers) {
+        token.attrJoin('class', 'line-numbers');
+      }
+
+      if (startFromOneBased > 1) {
+        // counter is incremented on each span, so we need to subtract 1
+        token.attrJoin('style', `counter-reset: line ${startFromZeroBased};`);
+      }
+    }
   }
 
-  const highlightLinesInput = getAttributeAndDelete(token, 'highlight-lines');
+  const highlightLinesInput = getAttribute(token, 'highlight-lines', true);
   let highlightRules = [];
   if (highlightLinesInput) {
     const highlightLines = highlightLinesInput.split(HIGHLIGHT_LINES_DELIMITER_REGEX);
