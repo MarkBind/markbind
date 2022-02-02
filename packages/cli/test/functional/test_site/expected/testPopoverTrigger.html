@@ -208,13 +208,14 @@
       </overlay-source>
       <div id="content-wrapper" class="fixed-header-padding">
         <p><strong>Popover initiated by trigger should honor trigger attribute</strong></p>
-        <span id="pop:xp-user-stories" trigger="click" data-mb-component-type="popover" v-b-popover.click.top.html="popoverInnerGetters" class="trigger-click">
+        <popover id="pop:xp-user-stories" trigger="click">
           popover
-          <span data-mb-slot-name="content">
+          <template #content>
             <div>
               User stories
             </div>
-          </span></span>
+          </template>
+        </popover>
         <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>
       <overlay-source id="page-nav" class="fixed-header-padding" tag-name="nav" to="page-nav">

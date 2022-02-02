@@ -704,32 +704,34 @@
         <hr class="footnotes-sep">
         <section class="footnotes">
           <ol class="footnotes-list">
-            <span id="pop:footnotefn-1-1" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger">
-              <span data-mb-slot-name="content">
+            <popover id="pop:footnotefn-1-1">
+              <template #content>
                 <div>
                   <p>Here is the footnote. Footnotes will appear at the bottom of the page.</p>
 
                 </div>
-              </span>
-            </span><span id="pop:footnotefn-1-2" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger">
-              <span data-mb-slot-name="content">
+              </template>
+            </popover>
+            <popover id="pop:footnotefn-1-2">
+              <template #content>
                 <div>
                   <p>Here's one with multiple blocks.</p>
                   <p>Subsequent paragraphs are indented to show that they
                     belong to the previous footnote.</p>
 
                 </div>
-              </span>
-            </span><span id="pop:footnotefn-1-3" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger">
-              <span data-mb-slot-name="content">
+              </template>
+            </popover>
+            <popover id="pop:footnotefn-1-3">
+              <template #content>
                 <div>
                   <p>Inlines notes are easier to write, since
                     you don't have to pick an identifier and move down to type the
                     note.</p>
 
                 </div>
-              </span>
-            </span>
+              </template>
+            </popover>
 
             <li id="fn-1-1" class="footnote-item">
               <p>Here is the footnote. Footnotes will appear at the bottom of the page.</p>

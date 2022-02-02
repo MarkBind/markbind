@@ -146,9 +146,9 @@ module.exports.PROCESS_POPOVER_ATTRIBUTES = `
 `;
 
 module.exports.PROCESS_POPOVER_ATTRIBUTES_EXPECTED = `
-<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger"><span data-mb-slot-name="header"><strong>Lorem ipsum</strong></span><span data-mb-slot-name="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.</span>
+<popover><template #header><strong>Lorem ipsum</strong></template><template #content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.</template>
   Content and header attributes should be processed and inserted under panel as slots and deleted.
-</span>
+</popover>
 `;
 
 module.exports.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE = `
@@ -161,11 +161,11 @@ module.exports.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE = `
 `;
 
 module.exports.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
-<span data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger">
-  <span data-mb-slot-name="header"><div>Some header slot content that should not be overwritten</div></span>
-  <span data-mb-slot-name="content"><div>Some content slot that should not be overwritten</div></span>
+<popover>
+  <template #header><div>Some header slot content that should not be overwritten</div></template>
+  <template #content><div>Some content slot that should not be overwritten</div></template>
   Content and header attributes should not be inserted under panel as slots, but should be deleted.
-</span>
+</popover>
 `;
 
 /*
