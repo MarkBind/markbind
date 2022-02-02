@@ -137,17 +137,15 @@ function highlightCodeBlock(node) {
  * @param showCodeLineNumbers true if line numbers should be shown, false otherwise
  */
 function setCodeLineNumbers(node, showCodeLineNumbers) {
-  const existingClass = node.attribs.class;
-  if (existingClass
-    && (existingClass.includes('line-numbers') || existingClass.includes('no-line-numbers'))) {
+  const existingClass = node.attribs.class || '';
+  // only match 'line-numbers' or 'no-line-numbers', ignore 'foo-line-numbers' or 'foo-no-line-numbers'
+  const regex = /^line-numbers\b|\sline-numbers\b|^no-line-numbers\b|\sno-line-numbers\b/;
+  const hasStyleClass = existingClass.match(regex);
+  if (hasStyleClass) {
     return;
   }
-
-  if (showCodeLineNumbers) {
-    node.attribs.class = `line-numbers ${existingClass}`;
-  } else {
-    node.attribs.class = `no-line-numbers ${existingClass}`;
-  }
+  const styleClass = showCodeLineNumbers ? 'line-numbers' : 'no-line-numbers';
+  node.attribs.class = `${styleClass}${existingClass === '' ? '' : ` ${existingClass}`}`;
 }
 
 module.exports = {

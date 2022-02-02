@@ -43,7 +43,7 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 class NodeProcessor {
   constructor(config, pageSources, variableProcessor, pluginManager,
-              userScriptsAndStyles, codeLineNumbers, docId = '') {
+              userScriptsAndStyles, docId = '') {
     this.config = config;
     this.frontMatter = {};
 
@@ -61,8 +61,6 @@ class NodeProcessor {
     this.footnoteProcessor = new FootnoteProcessor();
     this.mdAttributeRenderer = new MdAttributeRenderer(this.markdownProcessor);
     this.pageNavProcessor = new PageNavProcessor();
-
-    this.codeLineNumbers = codeLineNumbers;
   }
 
   /*
@@ -202,7 +200,7 @@ class NodeProcessor {
         processScriptAndStyleTag(node, this.userScriptsAndStyles);
         break;
       case 'code':
-        setCodeLineNumbers(node, this.codeLineNumbers);
+        setCodeLineNumbers(node, this.config.codeLineNumbers);
         // fall through
       case 'annotation': // Annotations are added automatically by KaTeX when rendering math formulae.
       case 'eq': // markdown-it-texmath html tag
