@@ -32,7 +32,7 @@ To enable syntax coloring, specify a language next to the backticks before the f
 </div>
 
 ##### Line numbering
-Line numbers are <tooltip content="Line numbers were provided by default in version v3.1.1 and below. To preserve the exact line numbers behavior of sites generated in previous versions, simply set the codeLineNumbers option in site.json to true">hidden by default</tooltip>. To enable line numbers for the entire set by default,
+Line numbers are <tooltip content="Line numbers were provided by default in version v3.1.1 and below. To preserve the exact line numbers behavior of sites generated in previous versions, simply set the codeLineNumbers option in site.json to true">hidden by default</tooltip>. To enable line numbers for the entire site by default,
 add `"codeLineNumbers": true` to the [`site.json`]({{baseUrl}}/userGuide/siteJsonFile.html#style) file:
 ```json {highlight-lines="8[:]"}
 {
