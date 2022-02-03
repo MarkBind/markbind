@@ -137,15 +137,9 @@ function highlightCodeBlock(node) {
  */
 function setCodeLineNumbers(node, showCodeLineNumbers) {
   const existingClass = node.attribs.class || '';
-  const lineNumbersRegex = /^line-numbers\s|\sline-numbers\s|\sline-numbers$|^line-numbers$/;
-  const hasLineNumbers = existingClass.match(lineNumbersRegex);
-  if (hasLineNumbers) {
-    return;
-  }
-
-  const noLineNumbersRegex = /^no-line-numbers\s|\sno-line-numbers\s|\sno-line-numbers$|^no-line-numbers$/;
-  const hasNoLineNumbers = existingClass.match(noLineNumbersRegex);
-  if (hasNoLineNumbers) {
+  const styleClassRegex = /(^|\s)(no-)?line-numbers($|\s)/;
+  const hasStyleClass = existingClass.match(styleClassRegex);
+  if (hasStyleClass) {
     return;
   }
 

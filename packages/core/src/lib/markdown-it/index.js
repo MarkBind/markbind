@@ -71,21 +71,15 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const startFromZeroBased = startFromOneBased - 1;
 
   if (startFromRawValue) {
+    if (startFromOneBased > 1) {
+      // counter is incremented on each span, so we need to subtract 1
+      token.attrJoin('style', `counter-reset: line ${startFromZeroBased};`);
+    }
     const existingClass = getAttribute(token, 'class') || '';
-
-    const noLineNumbersRegex = /^no-line-numbers\s|\sno-line-numbers\s|\sno-line-numbers$|^no-line-numbers$/;
-    const hasNoLineNumbers = existingClass.match(noLineNumbersRegex);
-    if (!hasNoLineNumbers) {
-      if (startFromOneBased > 1) {
-        // counter is incremented on each span, so we need to subtract 1
-        token.attrJoin('style', `counter-reset: line ${startFromZeroBased};`);
-      }
-
-      const lineNumbersRegex = /^line-numbers\s|\sline-numbers\s|\sline-numbers$|^line-numbers$/;
-      const hasLineNumbers = existingClass.match(lineNumbersRegex);
-      if (!hasLineNumbers) {
-        token.attrJoin('class', 'line-numbers');
-      }
+    const lineNumbersRegex = /(^|\s)line-numbers($|\s)/;
+    const hasLineNumbers = existingClass.match(lineNumbersRegex);
+    if (!hasLineNumbers) {
+      token.attrJoin('class', 'line-numbers');
     }
   }
 
