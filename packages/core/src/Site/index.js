@@ -279,7 +279,8 @@ class Site {
   createPage(config) {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
     const resultPath = path.join(this.outputPath, fsUtil.setExtension(config.pageSrc, '.html'));
-    const codeTheme = this.siteConfig.style.codeTheme || 'dark';
+    const { codeTheme, codeLineNumbers } = this.siteConfig.style;
+
     const pageConfig = new PageConfig({
       asset: {
         bootstrap: path.relative(path.dirname(resultPath),
@@ -346,6 +347,7 @@ class Site {
       addressablePagesSource: this.addressablePagesSource,
       layoutManager: this.layoutManager,
       intrasiteLinkValidation: this.siteConfig.intrasiteLinkValidation,
+      codeLineNumbers,
     });
     return new Page(pageConfig);
   }
@@ -564,6 +566,7 @@ class Site {
       addressablePagesSource: this.addressablePagesSource,
       variableProcessor: this.variableProcessor,
       intrasiteLinkValidation: this.siteConfig.intrasiteLinkValidation,
+      codeLineNumbers: this.siteConfig.style.codeLineNumbers,
     };
     this.pluginManager = new PluginManager(config, this.siteConfig.plugins, this.siteConfig.pluginsContext);
     config.pluginManager = this.pluginManager;

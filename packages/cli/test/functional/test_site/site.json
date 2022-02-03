@@ -2,6 +2,9 @@
   "baseUrl": "/test_site",
   "faviconPath": "favicon.png",
   "titlePrefix": "",
+  "style": {
+    "codeLineNumbers": true
+  },
   "pages": [
     {
       "src": "index.md",

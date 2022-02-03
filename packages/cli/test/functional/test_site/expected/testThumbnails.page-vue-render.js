@@ -26,10 +26,10 @@ with(this){return _c('p',[_c('strong',[_v("Borders")])])}
 with(this){return _c('thead',[_c('tr',[_c('th',[_v("Thumbnail")]),_v(" "),_c('th',[_v("Attribute")]),_v(" "),_c('th',[_v("Description")])])])}
 },function anonymous(
 ) {
-with(this){return _c('td',[_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("border='3px solid red'")])])}
+with(this){return _c('td',[_c('code',{pre:true,attrs:{"class":"line-numbers hljs inline no-lang"}},[_v("border='3px solid red'")])])}
 },function anonymous(
 ) {
-with(this){return _c('td',[_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("4px dotted blue")])])}
+with(this){return _c('td',[_c('code',{pre:true,attrs:{"class":"line-numbers hljs inline no-lang"}},[_v("4px dotted blue")])])}
 },function anonymous(
 ) {
 with(this){return _c('p',[_c('strong',[_v("Background")])])}

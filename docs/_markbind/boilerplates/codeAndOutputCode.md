@@ -8,7 +8,7 @@
 %%CODE:%%
 <div class="indented">
 
-````markdown{.no-line-numbers}
+````markdown
 {{ code | safe | trim }}
 ````
 </div>

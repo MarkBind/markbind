@@ -40,7 +40,7 @@ Next, edit the layout file to your liking, and add the `{% raw %}{{ content }}{%
 <div id="layout-code-snippet">
 
 
-```html {.no-line-numbers highlight-lines="{{ highlightLines or "1-4,7,31,36-44[:],49,54,67-71" }}"}
+```html {highlight-lines="{{ highlightLines or "1-4,7,31,36-44[:],49,54,67-71" }}"}
 {% raw %}<head-bottom>
   <!-- Use head-top and head-bottom tags to insert content into the html <head> tag -->
   <link rel="stylesheet" href="{{baseUrl}}/css/main.css">

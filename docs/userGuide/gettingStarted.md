@@ -21,13 +21,13 @@
 <big>**1. Install MarkBind**</big>
 
 Run the following command to install MarkBind.
-``` {.no-line-numbers}
+```
 $ npm install -g markbind-cli
 ```
 
 Next, run the command `markbind`. If MarkBind has been installed correctly, you should see the MarkBind ascii logo followed by a summary of MarkBind commands as the output.
 
-``` {.no-line-numbers}
+```
 $ markbind
   __  __                  _      ____    _               _
  |  \/  |   __ _   _ __  | | __ | __ )  (_)  _ __     __| |
@@ -45,7 +45,7 @@ Usage: ...
 
 Navigate into an empty directory and run the following command to initialize a skeletal MarkBind site in that directory. It will create several new files in the directory e.g., `index.md`, `site.json`.
 
-``` {.no-line-numbers}
+```
 $ markbind init
 ```
 
@@ -79,7 +79,7 @@ Run the following command in the same directory. It will generate a website from
 <include src="glossary.md#live-preview" inline/>
 </modal>
 
-``` {.no-line-numbers}
+```
 $ markbind serve
 ```
 
