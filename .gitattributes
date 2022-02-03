@@ -9,7 +9,6 @@
 *.eot binary
 *.png binary
 *.jpg binary
-*.svg binary
 *.jpeg binary
 *.gif binary
 *.ico binary
