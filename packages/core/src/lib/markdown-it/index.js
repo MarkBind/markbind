@@ -77,7 +77,7 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
     }
     const existingClass = getAttribute(token, 'class') || '';
     const lineNumbersRegex = /(^|\s)line-numbers($|\s)/;
-    const hasLineNumbers = existingClass.match(lineNumbersRegex);
+    const hasLineNumbers = lineNumbersRegex.test(existingClass);
     if (!hasLineNumbers) {
       token.attrJoin('class', 'line-numbers');
     }

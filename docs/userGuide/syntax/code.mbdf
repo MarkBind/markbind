@@ -36,8 +36,6 @@ Line numbers are <tooltip content="Line numbers were provided by default in vers
 add `"codeLineNumbers": true` to the [`site.json`]({{baseUrl}}/userGuide/siteJsonFile.html#style) file:
 ```json {highlight-lines="8[:]"}
 {
-  "baseUrl": "/myproduct",
-  "faviconPath": "myfavicon.png",
   // ...
   "style": {
     "bootstrapTheme": "bootswatch-cerulean",
@@ -47,10 +45,6 @@ add `"codeLineNumbers": true` to the [`site.json`]({{baseUrl}}/userGuide/siteJso
   // code below omitted for brevity
 }
 ```
-
-For each code block, the following can be done to override the site-wide line numbers behavior:
-- To show line numbers, add the class `line-numbers` to the code block.
-- To hide line numbers, add the class `no-line-numbers` to the code block.
 
 For each code block, you may also use the `line-numbers` or `no-line-numbers` classes to override the site-wide setting as such:
 
