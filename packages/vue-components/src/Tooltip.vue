@@ -47,7 +47,6 @@ export default {
   },
   mounted() {
     this.targetEl = this.$el;
-    console.log(this.targetEl);
   },
 };
 </script>

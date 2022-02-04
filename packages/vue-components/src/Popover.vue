@@ -5,12 +5,10 @@
     tabindex="0"
   >
     <portal v-if="targetEl.id" :to="targetEl.id">
-    this is from portal
       <template #title>
         <slot name="header"></slot>
       </template>
       <template #default>
-        in default portal slot
         <slot name="content"></slot>
       </template>
     </portal>
@@ -20,12 +18,10 @@
       :triggers="trigger"
       :placement="placement"
     >
-      this is from popover
       <template #title>
         <slot name="header"></slot>
       </template>
       <template #default>
-        in default popover slot
         <slot name="content"></slot>
       </template>
     </b-popover>
