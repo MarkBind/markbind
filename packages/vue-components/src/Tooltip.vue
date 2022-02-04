@@ -22,11 +22,13 @@
 <script>
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Portal } from 'portal-vue';
+import { BTooltip } from 'bootstrap-vue';
 
 export default {
   name: 'Tooltip',
   components: {
     Portal,
+    BTooltip,
   },
   props: {
     trigger: {
@@ -45,6 +47,7 @@ export default {
   },
   mounted() {
     this.targetEl = this.$el;
+    console.log(this.targetEl);
   },
 };
 </script>
