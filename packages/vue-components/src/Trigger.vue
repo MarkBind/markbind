@@ -7,19 +7,17 @@
 
     <b-popover
       v-if="popoverOrTooltipType === 'popover'"
-      :show="show"
       :target="$el"
-      triggers="manual"
+      :triggers="trigger"
       :placement="placement"
     >
       <portal-target :name="this.for" />
     </b-popover>
     <b-tooltip
       v-else-if="popoverOrTooltipType === 'tooltip'"
-      :show="show"
       :target="$el"
-      triggers="manual"
       :placement="placement"
+      :triggers="trigger"
     >
       <portal-target :name="this.for" />
     </b-tooltip>
@@ -53,7 +51,6 @@ export default {
   },
   data() {
     return {
-      show: false,
       popoverOrTooltipType: undefined,
     };
   },
@@ -67,31 +64,30 @@ export default {
       const modal = this.$root.$refs[this.for];
       if (modal) {
         modal.show();
-        return;
-      }
-
-      if (this.popoverOrTooltipType === undefined) {
-        const targetEl = document.getElementById(this.for);
-        if (!targetEl) {
-          return;
-        }
-
-        this.show = true;
-        this.popoverOrTooltipType = targetEl.dataset.mbComponentType;
-      } else {
-        this.show = !this.show;
       }
     },
   },
   computed: {
     triggerEventType() {
-      if (this.trigger === 'click') {
-        return this.show ? 'blur' : 'click';
-      } else if (this.trigger === 'focus') {
-        return this.show ? 'blur' : 'focus';
+      if (this.trigger === 'click' || this.trigger === 'focus') {
+        return this.trigger;
       }
-      return this.show ? 'mouseleave' : 'mouseenter';
+      return 'mouseenter';
     },
+  },
+  mounted() {
+    if (!this.for) {
+      return;
+    }
+
+    if (this.popoverOrTooltipType === undefined) {
+      const targetEl = document.getElementById(this.for);
+      if (!targetEl) {
+        return;
+      }
+
+      this.popoverOrTooltipType = targetEl.dataset.mbComponentType;
+    }
   },
 };
 </script>
