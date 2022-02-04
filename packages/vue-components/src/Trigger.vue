@@ -8,7 +8,7 @@
     <b-popover
       v-if="popoverOrTooltipType === 'popover'"
       :target="$el"
-      :triggers="trigger"
+      :triggers="trigger === 'click' ? 'click blur' : trigger"
       :placement="placement"
     >
       <portal-target :name="this.for" />
