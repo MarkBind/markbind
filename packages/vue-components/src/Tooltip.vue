@@ -5,7 +5,9 @@
     tabindex="0"
   >
     <portal v-if="targetEl.id" :to="targetEl.id">
-      <slot name="content"></slot>
+      <template #default>
+        <slot name="content"></slot>
+      </template>
     </portal>
 
     <b-tooltip
@@ -13,7 +15,9 @@
       :triggers="trigger"
       :placement="placement"
     >
-      <slot name="content"></slot>
+      <template #default>
+        <slot name="content"></slot>
+      </template>
     </b-tooltip>
     <slot></slot>
   </span>
@@ -22,13 +26,11 @@
 <script>
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Portal } from 'portal-vue';
-import { BTooltip } from 'bootstrap-vue';
 
 export default {
   name: 'Tooltip',
   components: {
     Portal,
-    BTooltip,
   },
   props: {
     trigger: {
