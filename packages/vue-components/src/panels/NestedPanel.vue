@@ -254,11 +254,7 @@ export default {
     .minimal-caret-wrapper {
         display: inline-block;
         font-size: 13px;
-        margin-right: 2px;
-    }
-
-    .glyphicon {
-        display: inline-block;
+        margin-right: 5px;
     }
 
     .header-wrapper {

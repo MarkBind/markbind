@@ -104,7 +104,7 @@
 </include>
 
 
-**Show/Hide buttons using `no-switch`, `no-close`, or `no-mimized-switch`.**
+**Show/Hide buttons using `no-switch`, `no-close`, or `no-minimized-switch`.**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
