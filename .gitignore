@@ -46,6 +46,7 @@ packages/core/template/*/_site
 
 # Generated site (MarkBind)
 packages/cli/test/functional/*/_site
+packages/cli/test/e2e/*/_site
 
 # vscode configuration
 .vscode/
