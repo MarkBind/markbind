@@ -11,15 +11,19 @@
       :triggers="trigger === 'click' ? 'click blur' : trigger"
       :placement="placement"
     >
-      <portal-target :name="this.for" />
+      <template #title>
+        <portal-target :name="'header:' + target" />
+      </template>
+      <portal-target :name="'content:' + target" />
     </b-popover>
+
     <b-tooltip
       v-else-if="popoverOrTooltipType === 'tooltip'"
       :target="$el"
       :placement="placement"
       :triggers="trigger"
     >
-      <portal-target :name="this.for" />
+      <portal-target :name="target" />
     </b-tooltip>
 
     <slot></slot>
@@ -73,6 +77,9 @@ export default {
         return this.trigger;
       }
       return 'mouseenter';
+    },
+    target() {
+      return this.for;
     },
   },
   mounted() {

@@ -4,15 +4,13 @@
     data-mb-component-type="popover"
     tabindex="0"
   >
-    <portal v-if="targetEl.id" :to="targetEl.id">
-      <template #title>
-        <slot name="header"></slot>
-      </template>
-      <template #default>
-        <div class="popover-content">
-          <slot name="content"></slot>
-        </div>
-      </template>
+    <portal v-if="targetEl.id" :to="'header:' + targetEl.id">
+      <slot name="header"></slot>
+    </portal>
+    <portal v-if="targetEl.id" :to="'content:' + targetEl.id">
+      <div class="popover-content">
+        <slot name="content"></slot>
+      </div>
     </portal>
 
     <b-popover
@@ -23,24 +21,25 @@
       <template #title>
         <slot name="header"></slot>
       </template>
-      <template #default>
-        <div class="popover-content">
-          <slot name="content"></slot>
-        </div>
-      </template>
+      <div class="popover-content">
+        <slot name="content"></slot>
+      </div>
     </b-popover>
     <slot></slot>
   </span>
 </template>
 
 <script>
-// eslint-disable-next-line import/no-extraneous-dependencies
+/* eslint-disable import/no-extraneous-dependencies */
 import { Portal } from 'portal-vue';
+import { BPopover } from 'bootstrap-vue';
+/* eslint-enable import/no-extraneous-dependencies */
 
 export default {
   name: 'Popover',
   components: {
     Portal,
+    BPopover,
   },
   props: {
     trigger: {
