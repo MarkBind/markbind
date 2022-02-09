@@ -8,7 +8,7 @@ on:
       - master
 jobs:
   ci-test:
-    strategry:
+    strategy:
       matrix:
         platform: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
