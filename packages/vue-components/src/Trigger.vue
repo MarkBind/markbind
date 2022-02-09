@@ -11,7 +11,7 @@
       :triggers="trigger === 'click' ? 'click blur' : trigger"
       :placement="placement"
     >
-      <template #title>
+      <template v-if="hasHeader" #title>
         <portal-target :name="'header:' + target" />
       </template>
       <portal-target :name="'content:' + target" />
@@ -32,7 +32,7 @@
 
 <script>
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { PortalTarget } from 'portal-vue';
+import { PortalTarget, Wormhole } from 'portal-vue';
 
 export default {
   name: 'Trigger',
@@ -80,6 +80,9 @@ export default {
     },
     target() {
       return this.for;
+    },
+    hasHeader() {
+      return Wormhole.hasContentFor(`header:${this.target}`);
     },
   },
   mounted() {
