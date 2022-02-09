@@ -9,6 +9,7 @@
     </portal>
 
     <b-tooltip
+      v-if="isMounted"
       :target="targetEl"
       :triggers="trigger"
       :placement="placement"
@@ -44,10 +45,12 @@ export default {
   data() {
     return {
       targetEl: {},
+      isMounted: false,
     };
   },
   mounted() {
     this.targetEl = this.$el;
+    this.isMounted = true;
   },
 };
 </script>
