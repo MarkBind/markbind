@@ -9,7 +9,9 @@
         <slot name="header"></slot>
       </template>
       <template #default>
-        <slot name="content"></slot>
+        <div class="popover-content">
+          <slot name="content"></slot>
+        </div>
       </template>
     </portal>
 
@@ -22,7 +24,9 @@
         <slot name="header"></slot>
       </template>
       <template #default>
-        <slot name="content"></slot>
+        <div class="popover-content">
+          <slot name="content"></slot>
+        </div>
       </template>
     </b-popover>
     <slot></slot>
