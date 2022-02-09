@@ -8,12 +8,17 @@ on:
       - master
 jobs:
   ci-test:
-    runs-on: ubuntu-latest
+    strategry:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
           node-version: '12'
+          cache: npm
       - run: npm i -g npm
       - run: npm run setup
       - run: npm run test
