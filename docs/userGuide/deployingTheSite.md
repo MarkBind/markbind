@@ -85,7 +85,7 @@ You may refer to Github's documentation on [how to generate a Github Personal Ac
 <panel header="#### Deploying via Github Actions" type="seamless" expanded>
 
 To instruct [Github Actions](https://docs.github.com/en/actions) to build and deploy the site when you push to the repository, add a Github Actions workflow file in your project repo at the location `<PROJECT_ROOT>/.github/workflows/deploy.yml`  A sample workflow file is provided below:
-```yml {.no-line-numbers}
+```yml
 name: Deploy Markbind Site
 on:
   push:
@@ -162,7 +162,7 @@ Since May 2018, Travis CI has been [undergoing migration to `travis-ci.com`](htt
 
 1. Add a `.travis.yml` file to instruct Travis CI to build and deploy the site when you push to the repository. An example `.travis.yml` file that can accomplish this is given below:
 
-    ```yml {.no-line-numbers}
+    ```yml
     language: node_js
     node_js:
       - 10
@@ -192,7 +192,7 @@ If you want Travis CI to only deploy from a specific repository (eg. only from y
 
 For example, if you only want Travis CI to deploy the site when it is run from the `se-edu/se-book` repository, the following `repo` condition should be added to `.travis.yml`.
 
-```yml {.no-line-numbers}
+```yml
   on:
     branch: master
     repo: se-edu/se-book
@@ -230,7 +230,7 @@ The `repo` value can be changed to your specific repository as desired.
 1. Remember to click __Save__ at the bottom of the page.
 1. Add a `appveyor.yml`file at the root of your Markbind site's repository to instruct AppVeyor CI to build and deploy the site to Github Pages when you to push to your repository. More information on customizing `appveyor.yml` can be found in [AppVeyor documentation](https://www.appveyor.com/docs/appveyor-yml/). An example `appveyor.yml` file is given below:
 
-    ```yml {.no-line-numbers}
+    ```yml
     environment:
       nodejs_version: '10'
     
@@ -272,7 +272,7 @@ Commit and push `appveyor.yml` to your github repository. Thereafter, AppVeyor C
 
 3. Commit and push a `config.yml` file to the repo containg your Markbind Site that instructs Circle CI to build and deploy your Markbind site to Github Pages whenever you push to your repository. Ensure that the `config.yml` file is located in the `<PROJECT_ROOT>/.circleci/` directory. A sample `config.yml` file is shown below:
 
-    ```yml {.no-line-numbers}
+    ```yml
     jobs:
       Build-And-Deploy:
         docker:
@@ -376,7 +376,7 @@ You may also preview PRs using [Surge](https://surge.sh/), which is an NPM packa
 <panel header="`receivePR.yml` File" type="seamless">
 
 {% raw %}
-```yml {.no-line-numbers}
+```yml
 name: Receive Markbind PR
 
 # read-only

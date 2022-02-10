@@ -8,7 +8,7 @@
 %%CODE:%%
 <div class="indented">
 
-```{{ highlightStyle | safe }}{.no-line-numbers {% if heading %}heading="{{heading}}"{% endif %}}
+```{{ highlightStyle | safe }}{ {% if heading %}heading="{{heading}}"{% endif %}}
 {{ code | safe | trim }}
 ```
 </div>

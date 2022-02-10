@@ -87,13 +87,13 @@ When the [default CI configuration for deployment](deployingTheSite.html#using-c
 
 * If you want to specify a version of MarkBind (eg. `v1.6.3`), you have to modify the step where `markbind-cli` is being installed to `npm i -g markbind-cli@v1.6.3`. For example, for Travis-CI, you can modifiy the `install` step in `.travis.yml` as follows:
 
-  ```yaml {.no-line-numbers}
+  ```yaml
   install:
     - npm i -g markbind-cli@1.6.3
   ```
 * If you want to use the latest minor version automatically until the next major version (as major versions usually contain breaking changes), you can add a `^` in front of the version number. In the example below, Travis will use the latest version of MarkBind but will stop before `2.*`
 
-  ```yaml {.no-line-numbers}
+  ```yaml
   install:
     - npm i -g markbind-cli@^1.6.3
   ```
@@ -106,11 +106,11 @@ Here are the steps to set up Netlify to use a specific version of MarkBind.
 1. Run `npm init` which will create `package.json` and `package.lock.json`
 1. Run `npm install markbind-cli@1.6.3 --save` to install markbind as a dependency (using v1.6.3 as an example)
 1. Create / Update `.gitignore` file in the root directory and add:
-   ```{.no-line-numbers}
+   ```
    node_modules
    ```
 1. Update `ignore` in site.json to include
-   ```{.no-line-numbers}
+   ```
    node_modules/*
    .gitignore
    ```

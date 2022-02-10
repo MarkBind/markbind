@@ -118,6 +118,11 @@ class PageConfig {
      * @type {boolean}
      */
     this.intrasiteLinkValidation = args.intrasiteLinkValidation;
+    /**
+     * Default setting to display line numbers for code blocks
+     * @type {boolean}
+     */
+    this.codeLineNumbers = args.codeLineNumbers;
   }
 }
 

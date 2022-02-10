@@ -35,7 +35,7 @@
 <div class="indented">
 
 {{ icon_example }} Suppose you have a site `textbook` and you want to include some pages from it in another site `course`. Given below is how you can locate the sub-site `textbook` inside the root directory of the main-site `course` so that files from `textbook` can be reused in the `course` site.
-```{.no-line-numbers}
+```
 C:/course/
   ├── textbook/
   |      ├── index.md
