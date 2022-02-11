@@ -40,7 +40,7 @@ jobs:
           npm run build:web &&
           npm run build:dg &&
           npm run deploy:dg
-      - name: Deploy UG on tag push(release), to markbind.org
+      - name: Deploy UG on release, to markbind.org
         if: github.ref_type == 'tag'
         run: >-
           npm run build:ug &&
