@@ -4,7 +4,7 @@ on:
     branches:
       - master
     tags:
-      - ^v[0-9]+\.[0-9]+\.[0-9]+
+      - 'v[0-9].[0-9]+.[0-9]+'
   pull_request:
     branches:
       - master
@@ -35,12 +35,12 @@ jobs:
           node-version: '12'
       - run: npm i -g npm@8.3.1
       - run: npm run setup
-      - name: deploy DG on any commit to master, to markbind.org/devdocs
+      - name: Deploy DG on any commit to master, to markbind.org/devdocs
         run: >-
           npm run build:web &&
           npm run build:dg &&
           npm run deploy:dg
-      - name: deploy UG on release, to markbind.org
+      - name: Deploy UG on tag push(release), to markbind.org
         if: github.ref_type == 'tag'
         run: >-
           npm run build:ug &&
