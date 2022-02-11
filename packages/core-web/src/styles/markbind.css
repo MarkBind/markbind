@@ -206,7 +206,7 @@ li.footnote-item:target {
     height: 100%;
 }
 
-/* styles for triggers, popovers, tooltips */
+/* styles for triggers and tooltips */
 .trigger {
     border-bottom: 1px dotted currentColor;
 }
@@ -218,11 +218,6 @@ li.footnote-item:target {
 
 .trigger-click:focus {
     outline: none;
-}
-
-.popover-content {
-    overflow: auto;
-    max-height: 50vh;
 }
 
 .modal.mb-zoom {
