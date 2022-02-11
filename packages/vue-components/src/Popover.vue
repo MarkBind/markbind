@@ -66,8 +66,8 @@ export default {
 </script>
 
 <style scoped>
-.popover-content {
-    overflow: auto;
-    max-height: 50vh;
-}
+    .popover-content {
+        overflow: auto;
+        max-height: 50vh;
+    }
 </style>
