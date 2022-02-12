@@ -7,8 +7,6 @@
     "_site/*",
     "site.json",
     "*.md",
-    "*.mbd",
-    "*.mbdf",
     "*.njk",
     ".git/*",
     "expected/*"
