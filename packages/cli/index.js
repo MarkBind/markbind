@@ -16,7 +16,6 @@ const { pageVueServerRenderer } = require('@markbind/core/src/Page/PageVueServer
 const fsUtil = require('@markbind/core/src/utils/fsUtil');
 const {
   INDEX_MARKDOWN_FILE,
-  INDEX_MARKBIND_FILE,
   LAZY_LOADING_SITE_FILE_NAME,
 } = require('@markbind/core/src/Site/constants');
 
@@ -118,7 +117,7 @@ program
     const logsFolder = path.join(rootFolder, '_markbind/logs');
     const outputFolder = path.join(rootFolder, '_site');
 
-    const defaultFiles = [INDEX_MARKDOWN_FILE, INDEX_MARKBIND_FILE];
+    const defaultFiles = [INDEX_MARKDOWN_FILE];
     const presentDefaultFile = defaultFiles.find(fsUtil.fileExists);
     if (options.onePage === true && !presentDefaultFile) {
       handleError(new Error('Oops! It seems that you didn\'t have the default file index.md|mbd.'));
