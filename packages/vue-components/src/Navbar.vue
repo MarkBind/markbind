@@ -330,7 +330,8 @@ export default {
             background: transparent;
         }
 
-        .navbar-default a >>> .dropdown-toggle {
+        .navbar-default a,
+        >>> .dropdown-toggle {
             margin: 0 auto;
             width: max-content;
         }
