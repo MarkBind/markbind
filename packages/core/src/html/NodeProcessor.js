@@ -15,7 +15,7 @@ const { PageNavProcessor, renderSiteNav, addSitePageNavPortal } = require('./sit
 const { processInclude, processPanelSrc } = require('./includePanelProcessor');
 const { Context } = require('./Context');
 const linkProcessor = require('./linkProcessor');
-const { highlightCodeBlock } = require('./codeblockProcessor');
+const { highlightCodeBlock, setCodeLineNumbers } = require('./codeblockProcessor');
 const { setHeadingId, assignPanelId } = require('./headerProcessor');
 const { MarkdownProcessor } = require('./MarkdownProcessor');
 const { FootnoteProcessor } = require('./FootnoteProcessor');
@@ -42,7 +42,8 @@ const {
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 class NodeProcessor {
-  constructor(config, pageSources, variableProcessor, pluginManager, userScriptsAndStyles, docId = '') {
+  constructor(config, pageSources, variableProcessor, pluginManager,
+              userScriptsAndStyles, docId = '') {
     this.config = config;
     this.frontMatter = {};
 
@@ -199,6 +200,8 @@ class NodeProcessor {
         processScriptAndStyleTag(node, this.userScriptsAndStyles);
         break;
       case 'code':
+        setCodeLineNumbers(node, this.config.codeLineNumbers);
+        // fall through
       case 'annotation': // Annotations are added automatically by KaTeX when rendering math formulae.
       case 'eq': // markdown-it-texmath html tag
       case 'eqn': // markdown-it-texmath html tag

@@ -4,9 +4,9 @@ const ghpages = require('gh-pages');
 const ignore = require('ignore');
 const path = require('path');
 const Promise = require('bluebird');
-const ProgressBar = require('progress');
 const walkSync = require('walk-sync');
 const simpleGit = require('simple-git');
+const ProgressBar = require('../lib/progress');
 
 const SiteConfig = require('./SiteConfig');
 const Page = require('../Page');
@@ -279,7 +279,8 @@ class Site {
   createPage(config) {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
     const resultPath = path.join(this.outputPath, fsUtil.setExtension(config.pageSrc, '.html'));
-    const codeTheme = this.siteConfig.style.codeTheme || 'dark';
+    const { codeTheme, codeLineNumbers } = this.siteConfig.style;
+
     const pageConfig = new PageConfig({
       asset: {
         bootstrap: path.relative(path.dirname(resultPath),
@@ -294,6 +295,10 @@ class Site {
                                             'bootstrap-glyphicons.min.css')),
         octicons: path.relative(path.dirname(resultPath),
                                 path.join(this.siteAssetsDestPath, 'css', 'octicons.css')),
+        materialIcons: path.relative(path.dirname(resultPath),
+                                     path.join(this.siteAssetsDestPath,
+                                               'material-icons',
+                                               'material-icons.css')),
         highlight: path.relative(path.dirname(resultPath),
                                  path.join(this.siteAssetsDestPath, 'css', HIGHLIGHT_ASSETS[codeTheme])),
         markBindCss: path.relative(path.dirname(resultPath),
@@ -342,6 +347,7 @@ class Site {
       addressablePagesSource: this.addressablePagesSource,
       layoutManager: this.layoutManager,
       intrasiteLinkValidation: this.siteConfig.intrasiteLinkValidation,
+      codeLineNumbers,
     });
     return new Page(pageConfig);
   }
@@ -432,14 +438,14 @@ class Site {
       .filter(addressablePage => !addressablePage.src.startsWith('_'))
       .forEach((page) => {
         const addressablePagePath = path.join(this.rootPath, page.src);
-        const relativePagePathWithoutExt = fsUtil.removeExtension(
+        const relativePagePathWithoutExt = fsUtil.removeExtensionPosix(
           path.relative(this.rootPath, addressablePagePath));
         const pageName = _.startCase(fsUtil.removeExtension(path.basename(addressablePagePath)));
         const pageUrl = `{{ baseUrl }}/${relativePagePathWithoutExt}.html`;
         siteNavContent += `* [${pageName}](${pageUrl})\n`;
       });
 
-    return siteNavContent;
+    return siteNavContent.trimEnd();
   }
 
   /**
@@ -560,6 +566,7 @@ class Site {
       addressablePagesSource: this.addressablePagesSource,
       variableProcessor: this.variableProcessor,
       intrasiteLinkValidation: this.siteConfig.intrasiteLinkValidation,
+      codeLineNumbers: this.siteConfig.style.codeLineNumbers,
     };
     this.pluginManager = new PluginManager(config, this.siteConfig.plugins, this.siteConfig.pluginsContext);
     config.pluginManager = this.pluginManager;
@@ -646,6 +653,7 @@ class Site {
       await this.copyBootstrapTheme(false);
       await this.copyFontAwesomeAsset();
       await this.copyOcticonsAsset();
+      await this.copyMaterialIconsAsset();
       await this.writeSiteData();
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
       if (this.backgroundBuildMode) {
@@ -1360,6 +1368,17 @@ class Site {
   }
 
   /**
+   * Copies Google Material Icons assets to the assets folder
+   */
+  copyMaterialIconsAsset() {
+    const materialIconsRootSrcPath = path.dirname(require.resolve('material-icons/package.json'));
+    const materialIconsCssAndFontsSrcPath = path.join(materialIconsRootSrcPath, 'iconfont');
+    const materialIconsCssAndFontsDestPath = path.join(this.siteAssetsDestPath, 'material-icons');
+
+    return fs.copy(materialIconsCssAndFontsSrcPath, materialIconsCssAndFontsDestPath);
+  }
+
+  /**
    * Copies core-web bundles and external assets to the assets output folder
    */
   copyCoreWebAsset() {
@@ -1450,7 +1469,7 @@ class Site {
   }
 
   /**
-   * Helper function for deploy().
+   * Helper function for deploy(). Returns the ghpages link where the repo will be hosted.
    */
   async generateDepUrl(ciTokenVar, defaultDeployConfig) {
     const publish = Promise.promisify(ghpages.publish);
@@ -1460,7 +1479,7 @@ class Site {
   }
 
   /**
-   * Helper function for deploy().
+   * Helper function for deploy(). Set the options needed to be used by ghpages.publish.
    */
   async getDepOptions(ciTokenVar, defaultDeployConfig, publish) {
     const basePath = this.siteConfig.deploy.baseDir || this.outputPath;
@@ -1520,7 +1539,8 @@ class Site {
       options.repo = `https://x-access-token:${githubToken}@github.com/${repoSlug}.git`;
     }
 
-    publish(basePath, options);
+    // Waits for the repo to be updated.
+    await publish(basePath, options);
     return options;
   }
 

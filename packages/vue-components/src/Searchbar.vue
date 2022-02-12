@@ -1,7 +1,8 @@
 <template>
   <div style="position: relative;">
+    <div v-if="algolia" id="algolia-search-input"></div>
     <input
-      :id="inputId"
+      v-else
       v-model="value"
       type="text"
       class="form-control"
@@ -173,9 +174,6 @@ export default {
           return page;
         });
     },
-    inputId() {
-      return this.algolia ? 'algolia-search-input' : null;
-    },
     dropdownMenuClasses() {
       return [
         'dropdown-menu',
@@ -264,9 +262,13 @@ export default {
 
     @media screen and (max-width: 768px) {
         .search-dropdown-menu {
-            min-width: auto;
+            min-width: 90vw;
             max-height: 30em;
             overflow-y: scroll;
+        }
+
+        .dropdown-menu.search-dropdown-menu {
+            position: absolute;
         }
     }
 </style>

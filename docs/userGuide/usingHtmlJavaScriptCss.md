@@ -74,4 +74,4 @@ Outcome:<br>
 </div>
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('usingComponents', 'tweakingThePageStructure') }}
+{{ previous_next('components/advanced', 'tweakingThePageStructure') }}

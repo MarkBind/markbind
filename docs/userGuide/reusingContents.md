@@ -35,7 +35,7 @@
 <div class="indented">
 
 {{ icon_example }} Suppose you have a site `textbook` and you want to include some pages from it in another site `course`. Given below is how you can locate the sub-site `textbook` inside the root directory of the main-site `course` so that files from `textbook` can be reused in the `course` site.
-```{.no-line-numbers}
+```
 C:/course/
   ├── textbook/
   |      ├── index.md
@@ -98,13 +98,13 @@ Optional video:
 
 #### Giving alternative contents
 
-You can use a [_Tabs_ component](usingComponents.html#tabs) to give alternative versions of content, for example, giving a code snippet in different programming languages.
+You can use a [_Tabs_ component](components/presentation.html#tabs) to give alternative versions of content, for example, giving a code snippet in different programming languages.
 
 #### Giving access to additional contents
 
 You can use following components to give readers an option to access additional content at their discretion.
-* [Tooltips](usingComponents.html#tooltip), [Popovers](usingComponents.html#popover), [Modals](usingComponents.html#modal)
-* [Expandable Panels](usingComponents.html#panel)
+* [Tooltips](components/popups.html#tooltip), [Popovers](components/popups.html#popover), [Modals](components/popups.html#modal)
+* [Expandable Panels](components/presentation.html#panels)
 
 #### Organizing contents in alternative ways
 

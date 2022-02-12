@@ -40,7 +40,7 @@ Next, edit the layout file to your liking, and add the `{% raw %}{{ content }}{%
 <div id="layout-code-snippet">
 
 
-```html {.no-line-numbers highlight-lines="{{ highlightLines or "1-4,7,31,36-44[:],49,54,67-71" }}"}
+```html {highlight-lines="{{ highlightLines or "1-4,7,31,36-44[:],49,54,67-71" }}"}
 {% raw %}<head-bottom>
   <!-- Use head-top and head-bottom tags to insert content into the html <head> tag -->
   <link rel="stylesheet" href="{{baseUrl}}/css/main.css">
@@ -50,7 +50,7 @@ Next, edit the layout file to your liking, and add the `{% raw %}{{ content }}{%
 <header fixed>
   <navbar type="dark">
     <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand">
-      <img src="{{baseUrl}}/images/logo-darkbackground.png" height="20">
+      <img src="{{baseUrl}}/images/logo-darkbackground.svg" height="20">
     </a>
     <li>
       <a highlight-on="exact" href="{{baseUrl}}/index.html" class="nav-link">HOME</a>

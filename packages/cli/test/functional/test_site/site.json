@@ -2,13 +2,16 @@
   "baseUrl": "/test_site",
   "faviconPath": "favicon.png",
   "titlePrefix": "",
+  "style": {
+    "codeLineNumbers": true
+  },
   "pages": [
     {
       "src": "index.md",
       "title": "Hello World",
       "frontmatter": {
         "frontMatterOverrideProperty": "Overridden by front matter override",
-        "globalAndFrontMatterOverrideProperty":  "Overridden by front matter override"
+        "globalAndFrontMatterOverrideProperty": "Overridden by front matter override"
       }
     },
     {
@@ -94,6 +97,14 @@
     {
       "src": "testCenterText.md",
       "title": "Center-aligned text test"
+    },
+    {
+      "src": "testHr.md",
+      "title": "create different types of horizontal rules"
+    },
+    {
+      "src": "testPageNav.md",
+      "title": "text interpolation should be skipped appropriately"
     }
   ],
   "ignore": [

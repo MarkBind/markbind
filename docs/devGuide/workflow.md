@@ -66,7 +66,7 @@ The sections below has more information about various stages of submitting a PR.
       
     {.mb-3}  
     
-    ```json {.ml-4 .no-line-numbers heading="launch.json"}
+    ```json {.ml-4 heading="launch.json"}
     {
         "configurations": [
             {
@@ -86,7 +86,7 @@ The sections below has more information about various stages of submitting a PR.
   
   **2. Debugging all tests** in the `npm run test` script:
   
-    ```json {.ml-4 .no-line-numbers heading="launch.json"}
+    ```json {.ml-4 heading="launch.json"}
     {
         "configurations": [
             {
@@ -106,7 +106,7 @@ The sections below has more information about various stages of submitting a PR.
   
   **3. Debugging only the cli package's tests**:
     
-    ```json {.ml-4 .no-line-numbers heading="launch.json"}
+    ```json {.ml-4 heading="launch.json"}
     {
         "configurations": [
             {
