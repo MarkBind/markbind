@@ -335,7 +335,7 @@ export default {
             width: max-content;
         }
 
-        .navbar-default a >>> .dropdown {
+        >>> .dropdown {
             display: flex;
             align-items: center;
         }

@@ -251,7 +251,7 @@ export default {
 
 <style scoped>
     .form-control {
-        min-width: 15vw;
+        min-width: 8em;
     }
 </style>
 
