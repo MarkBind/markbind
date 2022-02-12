@@ -306,18 +306,8 @@ export default {
         .navbar-default {
             display: block;
             margin-top: 0.3125rem;
-            width: 100%;
             order: 2;
             overflow-x: scroll;
-
-            /* Hide overflow scroll bar */
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
-        }
-
-        /* Hide overflow scroll bar for Chrome and Safari */
-        .navbar-default::-webkit-scrollbar {
-            display: none;
         }
 
         .navbar-default ul {
@@ -340,13 +330,12 @@ export default {
             background: transparent;
         }
 
-        .navbar-default a,
-        >>> .dropdown-toggle {
+        .navbar-default a >>> .dropdown-toggle {
             margin: 0 auto;
             width: max-content;
         }
 
-        >>> .dropdown {
+        .navbar-default a >>> .dropdown {
             display: flex;
             align-items: center;
         }
@@ -373,11 +362,21 @@ export default {
         flex-basis: auto;
         flex-grow: 1;
         align-items: center;
+        overflow-x: scroll;
+
+        /* Hide overflow scroll bar */
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
     }
 
     >>> .dropdown-current {
         color: #fff !important;
         background: #007bff;
+    }
+
+    /* Hide overflow scroll bar for Chrome and Safari */
+    .navbar-default::-webkit-scrollbar {
+        display: none;
     }
 
     .lower-navbar-container {

@@ -249,6 +249,12 @@ export default {
 };
 </script>
 
+<style scoped>
+    .form-control {
+        min-width: 15vw;
+    }
+</style>
+
 <style>
     .search-dropdown-menu {
         min-width: 30em;
