@@ -1,4 +1,4 @@
-<include src="headers/header.mbdf" />
+<include src="headers/header.md" />
 
 <div id="flex-body">
   <div id="content-wrapper" class="fixed-header-padding">
@@ -6,4 +6,4 @@
   </div>
 </div>
 
-<include src="footers/footer.mbdf" />
+<include src="footers/footer.md" />
