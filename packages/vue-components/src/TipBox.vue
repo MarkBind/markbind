@@ -110,6 +110,8 @@
 </template>
 
 <script>
+import { classifyBootstrapStyle } from './utils/utils';
+
 export default {
   props: {
     dismissible: {
@@ -171,6 +173,15 @@ export default {
     noBorder: {
       type: Boolean,
       default: false,
+    },
+    theme: {
+      type: String,
+      default: '',
+    },
+  },
+  computed: {
+    bootStrapStyle() {
+      return classifyBootstrapStyle(this.type, this.theme);
     },
   },
   methods: {
@@ -251,78 +262,16 @@ export default {
       return {};
     },
     getBootstrapAlertStyle() {
-      switch (this.type) {
-      case 'warning':
-        return 'alert-warning';
-      case 'info':
-        return 'alert-info';
-      case 'definition':
-        return 'alert-primary';
-      case 'success':
-      case 'tip':
-        return 'alert-success';
-      case 'important':
-      case 'wrong':
-        return 'alert-danger';
-      default:
-        return 'alert-default';
-      }
+      return `alert-${this.bootStrapStyle.style}`;
     },
     getBootstrapTextStyle() {
-      switch (this.type) {
-      case 'warning':
-        return 'text-warning';
-      case 'info':
-        return 'text-info';
-      case 'definition':
-        return 'text-primary';
-      case 'success':
-      case 'tip':
-        return 'text-success';
-      case 'important':
-      case 'wrong':
-        return 'text-danger';
-      default:
-        return '';
-      }
+      return `text-${this.bootStrapStyle.style}`;
     },
     getBootstrapBorderStyle() {
-      switch (this.type) {
-      case 'warning':
-        return 'border-warning';
-      case 'info':
-        return 'border-info';
-      case 'definition':
-        return 'border-primary';
-      case 'success':
-      case 'tip':
-        return 'border-success';
-      case 'important':
-      case 'wrong':
-        return 'border-danger';
-      default:
-        return '';
-      }
+      return `border-${this.bootStrapStyle.style}`;
     },
     getFontAwesomeIconStyle() {
-      switch (this.type) {
-      case 'wrong':
-        return 'fa-times';
-      case 'warning':
-        return 'fa-exclamation';
-      case 'info':
-        return 'fa-info';
-      case 'success':
-        return 'fa-check';
-      case 'important':
-        return 'fa-flag';
-      case 'tip':
-        return 'fa-lightbulb';
-      case 'definition':
-        return 'fa-atlas';
-      default:
-        return '';
-      }
+      return this.bootStrapStyle.icon;
     },
   },
 };
@@ -330,7 +279,6 @@ export default {
 
 <style scoped>
     .box-container {
-        width: 100%;
         padding: 0;
         border-radius: 6px;
     }
@@ -437,6 +385,20 @@ export default {
 
     .no-border {
         border: none;
+    }
+
+    @media screen and (max-width: 768px) {
+        .box-header-wrapper {
+            padding: 0.75rem 0.75rem 0.1rem;
+        }
+
+        .box-body-wrapper {
+            padding: 0.75rem;
+        }
+
+        .contents {
+            padding: 0;
+        }
     }
 </style>
 

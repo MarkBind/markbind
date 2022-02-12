@@ -68,7 +68,7 @@ Usage: markbind <command>
 1. Opens a <trigger trigger="click" for="modal:cliCommands-livePreview">live preview</trigger> of the website.
 
 <modal large header="Live Preview" id="modal:cliCommands-livePreview">
-<include src="glossary.md#live-preview" inline/>
+<include src="glossary.md#live-preview"/>
 </modal>
 
 **Arguments:**

@@ -2,29 +2,18 @@
   <div>
     <nav ref="navbar" :class="['navbar', 'navbar-expand-md', themeOptions, addClass, fixedOptions]">
       <div class="container-fluid">
-        <div class="navbar-brand">
+        <div class="navbar-left">
           <slot name="brand"></slot>
         </div>
-        <button
-          v-if="!slots.collapse"
-          class="navbar-toggler"
-          type="button"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-          @click="toggleCollapse"
-        >
-          <span class="navbar-toggler-icon"></span>
-          <slot name="collapse"></slot>
-        </button>
-
-        <div :class="['navbar-collapse',{collapse:collapsed}]">
+        <div ref="navbarDefault" class="navbar-default">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <slot></slot>
           </ul>
-          <ul v-if="slots.right" class="navbar-nav navbar-right">
-            <slot name="right"></slot>
-          </ul>
         </div>
+
+        <ul v-if="slots.right" class="navbar-nav navbar-right">
+          <slot name="right"></slot>
+        </ul>
       </div>
     </nav>
     <div
@@ -73,12 +62,12 @@ export default {
   provide() {
     return {
       toggleLowerNavbar: this.toggleLowerNavbar,
+      isParentNavbar: true,
     };
   },
   data() {
     return {
       id: 'bs-example-navbar-collapse-1',
-      collapsed: true,
       styles: {},
       isLowerNavbarShowing: false,
     };
@@ -111,22 +100,13 @@ export default {
     },
   },
   methods: {
-    toggleCollapse(e) {
-      if (e) { e.preventDefault(); }
-      this.collapsed = !this.collapsed;
-    },
     // Splits a normalised URL into its parts,
     // e.g http://site.org/foo/bar/index.html -> ['foo','bar','index.html']
     splitUrl(url) {
       const u = new URL(normalizeUrl(url));
       return `${u.pathname}`.substr(1).split('/');
     },
-    isSibling(url, href) {
-      const hParts = this.splitUrl(href);
-      const uParts = this.splitUrl(url);
-      if (hParts.length !== uParts.length) {
-        return false;
-      }
+    isEqualExceptLast(hParts, uParts) {
       for (let i = 0; i < hParts.length - 1; i += 1) {
         if (hParts[i] !== uParts[i]) {
           return false;
@@ -134,18 +114,21 @@ export default {
       }
       return true;
     },
+    isSibling(url, href) {
+      const hParts = this.splitUrl(href);
+      const uParts = this.splitUrl(url);
+      if (hParts.length !== uParts.length) {
+        return false;
+      }
+      return this.isEqualExceptLast(hParts, uParts);
+    },
     isChild(url, href) {
       const hParts = this.splitUrl(href);
       const uParts = this.splitUrl(url);
       if (uParts.length <= hParts.length) {
         return false;
       }
-      for (let i = 0; i < hParts.length; i += 1) {
-        if (hParts[i] !== uParts[i]) {
-          return false;
-        }
-      }
-      return true;
+      return this.isEqualExceptLast(hParts, uParts);
     },
     isExact(url, href) {
       return normalizeUrl(url) === normalizeUrl(href);
@@ -167,7 +150,8 @@ export default {
     },
     highlightLink(url) {
       const defHlMode = this.defaultHighlightOn;
-      const navLis = Array.from(this.$el.querySelector('.navbar-nav').children);
+      const navLis = [];
+      this.$el.querySelectorAll('.navbar-nav').forEach(nav => navLis.push(...Array.from(nav.children)));
       // attempt an exact match first
       for (let i = 0; i < navLis.length; i += 1) {
         const li = navLis[i];
@@ -254,41 +238,141 @@ export default {
         if (!content.contains(e.target)) content.classList.remove('open');
       });
     });
-    $(this.$el).on('click', 'li:not(.dropdown)>a', (e) => {
-      if (e.target.classList.contains('submenu-toggle')) { return; }
-      setTimeout(() => { this.collapsed = true; }, 200);
-    }).onBlur((e) => {
-      if (!this.$el.contains(e.target)) { this.collapsed = true; }
-    });
-    if (this.slots.collapse) $('[data-toggle="collapse"]', this.$el).on('click', e => this.toggleCollapse(e));
 
     // highlight current nav link
     this.highlightLink(window.location.href);
 
+    // scroll default navbar horizontally to current link if it is beyond the current scroll
+    const currentNavlink = $(this.$refs.navbarDefault).find('.current')[0];
+    if (currentNavlink && window.innerWidth < 768
+        && currentNavlink.offsetLeft + currentNavlink.offsetWidth > window.innerWidth) {
+      this.$refs.navbarDefault.scrollLeft = currentNavlink.offsetLeft + currentNavlink.offsetWidth
+        - window.innerWidth;
+    }
+
     this.toggleLowerNavbar();
     $(window).on('resize', this.toggleLowerNavbar);
+
+    // scroll default navbar horizontally when mousewheel is scrolled
+    $(this.$refs.navbarDefault).on('wheel', (e) => {
+      const isDropdown = (nodes) => {
+        for (let i = 0; i < nodes.length; i += 1) {
+          if (nodes[i].classList && nodes[i].classList.contains('dropdown-menu')) {
+            return true;
+          }
+        }
+        return false;
+      };
+
+      // prevent horizontal scrolling if the scroll is on dropdown menu
+      if (window.innerWidth < 768 && !isDropdown(e.path)) {
+        e.preventDefault();
+        this.$refs.navbarDefault.scrollLeft += e.deltaY;
+      }
+    });
   },
   beforeDestroy() {
     $('.dropdown', this.$el).off('click').offBlur();
-    if (this.slots.collapse) $('[data-toggle="collapse"]', this.$el).off('click');
     $(window).off('resize', this.toggleLowerNavbar);
+    $(this.$refs.navbarDefault).off('wheel');
   },
 };
 </script>
 
 <style scoped>
     @media (max-width: 767px) {
-        .navbar-collapse {
-            max-height: 80vh !important;
-            overflow-x: hidden !important;
-            overflow-y: scroll !important;
+        .navbar {
+            padding-left: 0;
+            padding-right: 0;
+            padding-bottom: 0;
         }
+
+        .navbar-left {
+            max-width: 50%;
+            order: 1;
+            padding-left: 1rem;
+        }
+
+        .navbar-left * {
+            white-space: normal;
+        }
+
+        .navbar-right {
+            order: 1;
+            max-width: 50%;
+            padding: 0 16px;
+        }
+
+        .navbar-default {
+            display: block;
+            margin-top: 0.3125rem;
+            width: 100%;
+            order: 2;
+            overflow-x: scroll;
+
+            /* Hide overflow scroll bar */
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* Hide overflow scroll bar for Chrome and Safari */
+        .navbar-default::-webkit-scrollbar {
+            display: none;
+        }
+
+        .navbar-default ul {
+            flex-direction: row;
+            margin-top: 0 !important;
+            width: 100%;
+        }
+
+        .navbar-default > ul > * {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.3125rem 0.625rem;
+            flex-grow: 1;
+        }
+
+        .navbar-light .navbar-default > ul > * {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-default > ul > .current {
+            background: transparent;
+        }
+
+        .navbar-default a,
+        >>> .dropdown-toggle {
+            margin: 0 auto;
+            width: max-content;
+        }
+
+        >>> .dropdown {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .navbar-left {
+        display: inline-block;
+        font-size: 1.25rem;
+        line-height: inherit;
+        padding-right: 1rem;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        white-space: nowrap;
     }
 
     .navbar-fixed {
         position: fixed;
         width: 100%;
         z-index: 1000;
+    }
+
+    .navbar-default {
+        display: flex;
+        flex-basis: auto;
+        flex-grow: 1;
+        align-items: center;
     }
 
     >>> .dropdown-current {

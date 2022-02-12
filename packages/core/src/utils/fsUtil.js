@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const ensurePosix = require('ensure-posix-path');
 
-const markdownFileExts = ['.md', '.mbd', '.mbdf'];
+const markdownFileExts = ['.md'];
 
 module.exports = {
   ensurePosix,

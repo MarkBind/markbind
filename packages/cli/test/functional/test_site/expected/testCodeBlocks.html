@@ -8,7 +8,7 @@
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="MarkBind 3.0.5">
+  <meta name="generator" content="MarkBind 3.1.1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Test: Code Blocks</title>
   <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
   <link rel="stylesheet" href="markbind/css/octicons.css">
+  <link rel="stylesheet" href="markbind/material-icons/material-icons.css">
   <link rel="stylesheet" href="markbind/css/codeblock-dark.min.css">
   <link rel="stylesheet" href="markbind/css/markbind.min.css">
   <script src="markbind/js/polyfill.min.js"></script>
@@ -208,24 +209,34 @@
       <div id="content-wrapper" class="fixed-header-padding">
         <p><strong>Test: Code blocks</strong></p>
         <p><strong>Normal fenced code should render correctly</strong></p>
-        <pre><code class="hljs" v-pre><span>Content in a fenced code block
+        <pre><code class="line-numbers hljs" v-pre><span>Content in a fenced code block
 </span></code></pre>
         <p><strong>With syntax coloring should render correctly</strong></p>
-        <pre><code class="hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span>
+        <pre><code class="line-numbers hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
 </span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
 </span></code></pre>
-        <p><strong><code class="hljs inline no-lang" v-pre>no-line-numbers</code> attr should hide corresponding line numbers</strong></p>
+        <p><strong><code class="line-numbers hljs inline no-lang" v-pre>codeLineNumbers</code> option in <code class="line-numbers hljs inline no-lang" v-pre>site.json</code> should set the global code line numbers behavior (should show line numbers)</strong></p>
+        <pre><code class="line-numbers hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
+</span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
+</span></code></pre>
+        <p><strong><code class="line-numbers hljs inline no-lang" v-pre>line-numbers</code> class should show corresponding line numbers</strong></p>
+        <pre><code class="line-numbers hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
+</span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
+</span></code></pre>
+        <p><strong><code class="line-numbers hljs inline no-lang" v-pre>no-line-numbers</code> class should hide corresponding line numbers</strong></p>
         <pre><code class="no-line-numbers hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
 </span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
 </span></code></pre>
-        <p><strong><code class="hljs inline no-lang" v-pre>start-from</code> attr should set inline css in <code class="hljs inline no-lang" v-pre>&lt;code&gt;</code> tag, enabling lines to start from a specific line number</strong></p>
-        <pre><code style="counter-reset: line 29;" class="hljs markdown" v-pre><span><span class="hljs-section"><span class="hljs-strong">****</span><span class="hljs-emphasis">*</span></span>
+        <p><strong><code class="line-numbers hljs inline no-lang" v-pre>start-from</code> attr should set inline css in <code class="line-numbers hljs inline no-lang" v-pre>&lt;code&gt;</code> tag, enabling lines to start from a specific line number</strong></p>
+        <pre><code style="counter-reset: line 29;" class="line-numbers hljs markdown" v-pre><span><span class="hljs-section"><span class="hljs-strong">****</span><span class="hljs-emphasis">*</span></span>
 </span><span><span class="hljs-emphasis"><span class="hljs-section">-----</span></span>
 </span></code></pre>
-        <p><strong><code class="hljs inline no-lang" v-pre>highlight-lines</code> attr causes corresponding lines to have 'highlighted' class</strong></p>
-        <pre><code class="hljs markdown" v-pre><span><span class="highlighted">1  highlighted</span>
+        <p><strong><code class="line-numbers hljs inline no-lang" v-pre>highlight-lines</code> attr causes corresponding lines to have 'highlighted' class</strong></p>
+        <pre><code class="line-numbers hljs markdown" v-pre><span><span class="highlighted">1  highlighted</span>
 </span><span>2
 </span><span><span class="highlighted">3  highlighted</span>
 </span><span>4
@@ -236,8 +247,8 @@
 </span><span>9
 </span><span>10
 </span></code></pre>
-        <p><strong><code class="hljs inline no-lang" v-pre>highlight-lines</code> attr with <code class="hljs inline no-lang" v-pre>start-from</code> attr should cause corresponding lines to have 'highlighted' class based on <code class="hljs inline no-lang" v-pre>start-from</code></strong></p>
-        <pre><code style="counter-reset: line 10;" class="hljs markdown" v-pre><span><span class="highlighted">11  highlighted</span>
+        <p><strong><code class="line-numbers hljs inline no-lang" v-pre>highlight-lines</code> attr with <code class="line-numbers hljs inline no-lang" v-pre>start-from</code> attr should cause corresponding lines to have 'highlighted' class based on <code class="line-numbers hljs inline no-lang" v-pre>start-from</code></strong></p>
+        <pre><code style="counter-reset: line 10;" class="line-numbers hljs markdown" v-pre><span><span class="highlighted">11  highlighted</span>
 </span><span>12
 </span><span><span class="highlighted">13  highlighted</span>
 </span><span>14
@@ -248,48 +259,48 @@
 </span><span>19
 </span><span>20
 </span></code></pre>
-        <p><strong><code class="hljs inline no-lang" v-pre>highlight-lines</code> attr with empty (any variant) line-slice syntax should highlight leading/trailing spaces</strong></p>
-        <pre><code class="hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span>
+        <p><strong><code class="line-numbers hljs inline no-lang" v-pre>highlight-lines</code> attr with empty (any variant) line-slice syntax should highlight leading/trailing spaces</strong></p>
+        <pre><code class="line-numbers hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span>
 </span><span class="highlighted">  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
 </span><span class="highlighted">  <span class="hljs-tag">&lt;<span class="hljs-name">baz</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">baz</span>&gt;</span>
 </span><span class="highlighted">  <span class="hljs-tag">&lt;<span class="hljs-name">qux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">qux</span>&gt;</span>
 </span><span class="highlighted">  <span class="hljs-tag">&lt;<span class="hljs-name">quux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">quux</span>&gt;</span>
 </span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
 </span></code></pre>
-        <p><strong><code class="hljs inline no-lang" v-pre>highlight-lines</code> attr with full character-variant line-slice syntax should highlight only at specified range</strong></p>
-        <pre><code class="hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name highlighted">foo</span>&gt;</span>
+        <p><strong><code class="line-numbers hljs inline no-lang" v-pre>highlight-lines</code> attr with full character-variant line-slice syntax should highlight only at specified range</strong></p>
+        <pre><code class="line-numbers hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name highlighted">foo</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr highlighted">type</span><span class="highlighted">=</span><span class="hljs-string"><span><span class="highlighted">&quot;na</span>me&quot;</span></span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name"><span>b<span class="highlighted">az</span></span></span><span class="highlighted"> </span><span class="hljs-attr highlighted">type</span><span class="highlighted">=</span><span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">baz</span>&gt;</span>
 </span><span>  <span class="highlighted"><span class="hljs-tag">&lt;<span class="hljs-name">qux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">qux</span>&gt;</span></span>
 </span><span>  <span class="highlighted"><span class="hljs-tag">&lt;<span class="hljs-name">quux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">quux</span>&gt;</span></span>
 </span><span><span class="hljs-tag"><span>&lt;<span class="highlighted">/</span></span><span class="hljs-name"><span><span class="highlighted">fo</span>o</span></span>&gt;</span>
 </span></code></pre>
-        <p><strong><code class="hljs inline no-lang" v-pre>highlight-lines</code> attr with partial character-variant line-slice syntax should default highlight to start/end of line</strong></p>
-        <pre><code class="hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name highlighted">foo</span><span class="highlighted">&gt;</span></span>
+        <p><strong><code class="line-numbers hljs inline no-lang" v-pre>highlight-lines</code> attr with partial character-variant line-slice syntax should default highlight to start/end of line</strong></p>
+        <pre><code class="line-numbers hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name highlighted">foo</span><span class="highlighted">&gt;</span></span>
 </span><span>  <span class="hljs-tag"><span class="highlighted">&lt;</span><span class="hljs-name highlighted">bar</span><span class="highlighted"> </span><span class="hljs-attr highlighted">type</span><span class="highlighted">=</span><span class="hljs-string"><span><span class="highlighted">&quot;na</span>me&quot;</span></span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name"><span>b<span class="highlighted">az</span></span></span><span class="highlighted"> </span><span class="hljs-attr highlighted">type</span><span class="highlighted">=</span><span class="hljs-string highlighted">&quot;name&quot;</span><span class="highlighted">&gt;</span></span><span class="highlighted">goo</span><span class="hljs-tag highlighted">&lt;/<span class="hljs-name">baz</span>&gt;</span>
 </span><span>  <span class="highlighted"><span class="hljs-tag">&lt;<span class="hljs-name">qux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">qux</span>&gt;</span></span>
 </span><span>  <span class="highlighted"><span class="hljs-tag">&lt;<span class="hljs-name">quux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">quux</span>&gt;</span></span>
 </span><span><span class="hljs-tag"><span class="highlighted">&lt;/</span><span class="hljs-name">foo</span>&gt;</span>
 </span></code></pre>
-        <p><strong><code class="hljs inline no-lang" v-pre>highlight-lines</code> attr with line-part syntax should highlight only at specified substring</strong></p>
-        <pre><code class="hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span>
+        <p><strong><code class="line-numbers hljs inline no-lang" v-pre>highlight-lines</code> attr with line-part syntax should highlight only at specified substring</strong></p>
+        <pre><code class="line-numbers hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">foo</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr highlighted">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name highlighted">baz</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name highlighted">baz</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">qux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span><span class="highlighted">go,o</span><span class="hljs-tag highlighted">&lt;/<span class="hljs-name">qux</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">quux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span><span class="highlighted">go&#x27;o</span><span class="hljs-tag">&lt;/<span class="hljs-name">quux</span>&gt;</span>
 </span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
 </span></code></pre>
-        <p><strong><code class="hljs inline no-lang" v-pre>highlight-lines</code> attr with full word-variant line-slice syntax should highlight only at specified word ranges</strong></p>
-        <pre><code class="hljs xml" v-pre><span><span class="hljs-tag highlighted">&lt;<span class="hljs-name">foo</span>&gt;</span>
+        <p><strong><code class="line-numbers hljs inline no-lang" v-pre>highlight-lines</code> attr with full word-variant line-slice syntax should highlight only at specified word ranges</strong></p>
+        <pre><code class="line-numbers hljs xml" v-pre><span><span class="hljs-tag highlighted">&lt;<span class="hljs-name">foo</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span> goo <span class="hljs-tag highlighted">&lt;/<span class="hljs-name">bar</span>&gt;</span>
 </span><span>  <span class="hljs-tag highlighted">&lt;<span class="hljs-name">baz</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span> goo <span class="hljs-tag">&lt;/<span class="hljs-name">baz</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">qux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span><span> <span class="highlighted">goo </span></span><span class="hljs-tag highlighted">&lt;/<span class="hljs-name">qux</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">quux</span> <span class="hljs-attr highlighted">type</span><span class="highlighted">=</span><span class="hljs-string highlighted">&quot;name&quot;</span><span class="highlighted">&gt;</span></span><span><span class="highlighted"> goo</span> </span><span class="hljs-tag">&lt;/<span class="hljs-name">quux</span>&gt;</span>
 </span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
 </span></code></pre>
-        <p><strong><code class="hljs inline no-lang" v-pre>highlight-lines</code> attr with partial word-variant line-slice syntax should default highlight to start/end of line</strong></p>
-        <pre><code class="hljs xml" v-pre><span><span class="hljs-tag highlighted">&lt;<span class="hljs-name">foo</span>&gt;</span>
+        <p><strong><code class="line-numbers hljs inline no-lang" v-pre>highlight-lines</code> attr with partial word-variant line-slice syntax should default highlight to start/end of line</strong></p>
+        <pre><code class="line-numbers hljs xml" v-pre><span><span class="hljs-tag highlighted">&lt;<span class="hljs-name">foo</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span> goo <span class="hljs-tag highlighted">&lt;/<span class="hljs-name">bar</span>&gt;</span>
 </span><span>  <span class="hljs-tag highlighted">&lt;<span class="hljs-name">baz</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span> goo <span class="hljs-tag">&lt;/<span class="hljs-name">baz</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">qux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span><span> <span class="highlighted">goo </span></span><span class="hljs-tag highlighted">&lt;/<span class="hljs-name">qux</span>&gt;</span>
@@ -300,7 +311,7 @@
         <div class="code-block">
           <div class="code-block-heading"><span>A heading</span></div>
           <div class="code-block-content">
-            <pre><code heading="A heading" class="hljs" v-pre><span>&lt;foo&gt;
+            <pre><code heading="A heading" class="line-numbers hljs" v-pre><span>&lt;foo&gt;
 </span><span>    &lt;bar&gt;
 </span><span>&lt;/foo&gt;
 </span></code></pre>
@@ -310,14 +321,14 @@
         <div class="code-block">
           <div class="code-block-heading inline-markdown-heading"><span><strong>Bold</strong>, <em>Italic</em>, <em><strong>Bold and Italic</strong></em>, <s>Strike through</s>, <strong><strong>Super Bold</strong></strong>, <span class="underline">Underline</span>, <mark>Highlight</mark>, <span class="large">Large</span>, <span class="small">Small</span>, 👍 ❗️ ❌ 🚧<br>We support page breaks</span></div>
           <div class="code-block-content">
-            <pre><code heading="**Bold**, _Italic_, ___Bold and Italic___, ~~Strike through~~, ****Super Bold****, !!Underline!!, ==Highlight==, ++Large++, --Small--, :+1: :exclamation: :x: :construction:&lt;br&gt;We support page breaks" class="hljs" v-pre><span>&lt;foo&gt;
+            <pre><code heading="**Bold**, _Italic_, ___Bold and Italic___, ~~Strike through~~, ****Super Bold****, !!Underline!!, ==Highlight==, ++Large++, --Small--, :+1: :exclamation: :x: :construction:&lt;br&gt;We support page breaks" class="line-numbers hljs" v-pre><span>&lt;foo&gt;
 </span><span>    &lt;bar&gt;
 </span><span>&lt;/foo&gt;
 </span></code></pre>
           </div>
         </div>
         <p><strong>Code block with multiple linebreaks should not have the empty lines collapsed</strong></p>
-        <pre><code class="hljs" v-pre><span>
+        <pre><code class="line-numbers hljs" v-pre><span>
 </span><span>Four empty lines below, one above
 </span><span>
 </span><span>
@@ -337,7 +348,7 @@
 </span><span>
 </span></code></pre>
         <p><strong>Code block with syntax highlighting and multiple linebreaks should not have the empty lines collapsed</strong></p>
-        <pre><code class="hljs js" v-pre><span>
+        <pre><code class="line-numbers hljs js" v-pre><span>
 </span><span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fourEmptyLinesBelowOneAbove</span>(<span class="hljs-params"></span>) </span>{
 </span><span>
 </span><span>
@@ -346,17 +357,17 @@
 </span><span>} <span class="hljs-comment">// four empty lines above, one below</span>
 </span><span>
 </span></code></pre>
-        <p><strong>span with <code class="hljs inline no-lang" v-pre>hljs</code> class should span multiple lines <a href="https://github.com/MarkBind/markbind/pull/991#issuecomment-586547275">(Link for context)</a></strong></p>
-        <pre><code class="hljs markdown" v-pre><span><span class="hljs-section"><span class="hljs-strong">****</span><span class="hljs-emphasis">*</span></span>
+        <p><strong>span with <code class="line-numbers hljs inline no-lang" v-pre>hljs</code> class should span multiple lines <a href="https://github.com/MarkBind/markbind/pull/991#issuecomment-586547275">(Link for context)</a></strong></p>
+        <pre><code class="line-numbers hljs markdown" v-pre><span><span class="hljs-section"><span class="hljs-strong">****</span><span class="hljs-emphasis">*</span></span>
 </span><span><span class="hljs-emphasis"><span class="hljs-section">-----</span></span>
 </span></code></pre>
-        <p><strong>Span containing multi-line strings should have each line wrapped in a <code class="hljs inline no-lang" v-pre>hljs</code> span</strong></p>
-        <pre><code class="hljs javascript" v-pre><span><span class="hljs-keyword">var</span> x = <span class="hljs-string">`&lt;span class=&quot;string&quot;&gt;This is a</span>
+        <p><strong>Span containing multi-line strings should have each line wrapped in a <code class="line-numbers hljs inline no-lang" v-pre>hljs</code> span</strong></p>
+        <pre><code class="line-numbers hljs javascript" v-pre><span><span class="hljs-keyword">var</span> x = <span class="hljs-string">`&lt;span class=&quot;string&quot;&gt;This is a</span>
 </span><span><span class="hljs-string">really long string</span>
 </span><span><span class="hljs-string">that spans multiple lines</span>
 </span><span><span class="hljs-string">super annoying&quot;&lt;/span&gt;`</span>
 </span></code></pre>
-        <pre><code class="hljs markdown" v-pre><span><span class="hljs-section">## My header</span>
+        <pre><code class="line-numbers hljs markdown" v-pre><span><span class="hljs-section">## My header</span>
 </span><span>
 </span><span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span>Some paragraphs
 </span><span>
@@ -373,7 +384,7 @@
 </span><span><span class="hljs-section">### Header 2</span>
 </span></code></pre>
         <p><strong>Having <span> in code blocks should not interfere with hljs</span></strong></p>
-        <pre><code class="hljs javascript" v-pre><span><span class="hljs-keyword">const</span> a = <span class="hljs-string">`another</span>
+        <pre><code class="line-numbers hljs javascript" v-pre><span><span class="hljs-keyword">const</span> a = <span class="hljs-string">`another</span>
 </span><span><span class="hljs-string"></span>
 </span><span><span class="hljs-string">really</span>
 </span><span><span class="hljs-string"></span>

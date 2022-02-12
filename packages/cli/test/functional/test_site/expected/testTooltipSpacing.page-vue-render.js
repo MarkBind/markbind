@@ -14,7 +14,7 @@ with(this){return _c('p',[_c('strong',[_v("Relative Link Test")]),_v(" This is a
 with(this){return _c('h1',{attrs:{"id":"569-stray-space-after-tooltip"}},[_c('span',{staticClass:"anchor",attrs:{"id":"569-stray-space-after-tooltip"}}),_v("569: Stray space after tooltip"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#569-stray-space-after-tooltip","onclick":"event.stopPropagation()"}})])}
 },function anonymous(
 ) {
-with(this){return _c('pre',[_c('code',{pre:true,attrs:{"class":"hljs"}},[_c('span',[_v("<tooltip>tooltip</tooltip>, test\n")]),_c('span',[_v("\n")]),_c('span',[_v("<trigger>trigger</trigger>, test\n")])])])}
+with(this){return _c('pre',[_c('code',{pre:true,attrs:{"class":"line-numbers hljs"}},[_c('span',[_v("<tooltip>tooltip</tooltip>, test\n")]),_c('span',[_v("\n")]),_c('span',[_v("<trigger>trigger</trigger>, test\n")])])])}
 },function anonymous(
 ) {
 with(this){return _c('div',[_c('footer',[_c('h1',{attrs:{"id":"heading-in-footer-should-not-be-indexed"}},[_c('span',{staticClass:"anchor",attrs:{"id":"heading-in-footer-should-not-be-indexed"}}),_v("Heading in footer should not be indexed"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#heading-in-footer-should-not-be-indexed","onclick":"event.stopPropagation()"}})]),_v(" "),_c('div',{staticClass:"text-center"},[_v("\n    This is a dynamic height footer that supports markdown "),_c('span',[_v("😄")]),_v("!\n  ")])])])}

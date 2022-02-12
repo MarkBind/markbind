@@ -29,7 +29,7 @@ note.]
 
 Normal footnotes won't work when used inside the attributes of markbind components!
 <br>
-For example, it won't work in the `header` attribute of [panels](../usingComponents.html#panels).
+For example, it won't work in the `header` attribute of [panels](../components/presentation.html#panels).
 </box>
 
 <span id="short" class="d-none">

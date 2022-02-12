@@ -18,10 +18,10 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userGuid
 <navbar type="primary">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
-  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="nav-link">Highlighted Link</a></li>
+  <li><a href="{{baseUrl}}/userGuide/components/navigation.html#navbars" class="nav-link">Highlighted Link</a></li>
   <!-- You can use dropdown component -->
   <dropdown header="Dropdown" class="nav-link">
-    <li><a href="#navbar" class="dropdown-item">Option</a></li>
+    <li><a href="#navbars" class="dropdown-item">Option</a></li>
   </dropdown>
   <!-- For right positioning use slot -->
   <li slot="right">
@@ -32,10 +32,10 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userGuid
 <navbar type="dark">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
-  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="nav-link">Highlighted Link</a></li>
+  <li><a href="{{baseUrl}}/userGuide/components/navigation.html#navbars" class="nav-link">Highlighted Link</a></li>
   <!-- You can use dropdown component -->
   <dropdown header="Dropdown" class="nav-link">
-    <li><a href="#navbar" class="dropdown-item">Option</a></li>
+    <li><a href="#navbars" class="dropdown-item">Option</a></li>
   </dropdown>
   <!-- For right positioning use slot -->
   <li slot="right">
@@ -46,10 +46,10 @@ Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userGuid
 <navbar type="light">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
-  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="nav-link">Highlighted Link</a></li>
+  <li><a href="{{baseUrl}}/userGuide/components/navigation.html#navbars" class="nav-link">Highlighted Link</a></li>
   <!-- You can use dropdown component -->
   <dropdown header="Dropdown" class="nav-link">
-    <li><a href="#navbar" class="dropdown-item">Option</a></li>
+    <li><a href="#navbars" class="dropdown-item">Option</a></li>
   </dropdown>
   <!-- For right positioning use slot -->
   <li slot="right">
@@ -99,10 +99,10 @@ Name | Description
 <navbar type="primary">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
-  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="nav-link">Highlighted Link</a></li>
+  <li><a href="{{baseUrl}}/userGuide/components/navigation.html#navbars" class="nav-link">Highlighted Link</a></li>
   <!-- You can use dropdown component -->
   <dropdown header="Dropdown" class="nav-link">
-    <li><a href="#navbar" class="dropdown-item">Option</a></li>
+    <li><a href="#navbars" class="dropdown-item">Option</a></li>
   </dropdown>
   <!-- For right positioning use slot -->
   <li slot="right">
@@ -118,10 +118,10 @@ Name | Description
 <navbar type="primary">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
-  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="nav-link">Highlighted Link</a></li>
+  <li><a href="{{baseUrl}}/userGuide/components/navigation.html#navbars" class="nav-link">Highlighted Link</a></li>
   <!-- You can use dropdown component -->
   <dropdown header="Dropdown" class="nav-link">
-    <li><a href="#navbar" class="dropdown-item">Option</a></li>
+    <li><a href="#navbars" class="dropdown-item">Option</a></li>
   </dropdown>
   <!-- For right positioning use slot -->
   <li slot="right">
@@ -132,10 +132,10 @@ Name | Description
 <navbar type="dark">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
-  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="nav-link">Highlighted Link</a></li>
+  <li><a href="{{baseUrl}}/userGuide/components/navigation.html#navbars" class="nav-link">Highlighted Link</a></li>
   <!-- You can use dropdown component -->
   <dropdown header="Dropdown" class="nav-link">
-    <li><a href="#navbar" class="dropdown-item">Option</a></li>
+    <li><a href="#navbars" class="dropdown-item">Option</a></li>
   </dropdown>
   <!-- For right positioning use slot -->
   <li slot="right">
@@ -146,10 +146,10 @@ Name | Description
 <navbar type="light">
   <!-- Brand as slot -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
-  <li><a href="{{baseUrl}}/userGuide/usingComponents.html#navbars" class="nav-link">Highlighted Link</a></li>
+  <li><a href="{{baseUrl}}/userGuide/components/navigation.html#navbars" class="nav-link">Highlighted Link</a></li>
   <!-- You can use dropdown component -->
   <dropdown header="Dropdown" class="nav-link">
-    <li><a href="#navbar" class="dropdown-item">Option</a></li>
+    <li><a href="#navbars" class="dropdown-item">Option</a></li>
   </dropdown>
   <!-- For right positioning use slot -->
   <li slot="right">
@@ -161,7 +161,7 @@ Name | Description
 
 ****Mobile page and site navigation menus****
 
-The navbar component also provides access to MarkBind's [site navigation]({{ baseUrl }}/userGuide/usingComponents.html#site-navigation-menus) and [page navigation]({{ baseUrl }}/userGuide/usingComponents.html#page-navigation-menus) menu **components** if used in the page's [layout](../tweakingThePageStructure.md#layouts). No additional setup is required!
+The navbar component also provides access to MarkBind's [site navigation]({{ baseUrl }}/userGuide/components/navigation.html#site-navigation-menus) and [page navigation]({{ baseUrl }}/userGuide/components/navigation.html#page-navigation-menus) menu **components** if used in the page's [layout](../tweakingThePageStructure.md#layouts). No additional setup is required!
 
 If you are viewing the documentation on a larger device, resize the window to see what it looks like.
 
@@ -179,11 +179,11 @@ If you wish to alter the button placement on the navbar, you may use the `<site-
 
 By default, if the `lower-navbar` slot is not specified, the site and page navigation buttons are simply placed as such.
 
-```html{.no-line-numbers}
+```html
 <navbar>
   <!-- Any normal navbar items -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
-  <li><a href="/userGuide/usingComponents.html#navbars" class="nav-link">Highlighted Link</a></li>
+  <li><a href="/userGuide/components/navigation.html#navbars" class="nav-link">Highlighted Link</a></li>
   <!-- Use slot to wrap the buttons in the lower navbar -->
   <div slot="lower-navbar" class="nav-menu-container">
     <site-nav-button />
@@ -194,15 +194,15 @@ By default, if the `lower-navbar` slot is not specified, the site and page navig
 
 Component | Description
 --- | ---
-`page-nav-button` | Pulls any element with an identifier, `id=page-nav` into the menu. If no such element exists, it pulls any [page navigation menu]({{ baseUrl }}/userGuide/usingComponents.html#page-navigation-menus) used in the layout.
-`site-nav-button` | Pulls any element with an identifier, `id=site-nav` into the menu. If no such element exists, it pulls all [site navigation menu components]({{ baseUrl }}/userGuide/usingComponents.html#site-navigation-menus) used in the layout.
+`page-nav-button` | Pulls any element with an identifier, `id=page-nav` into the menu. If no such element exists, it pulls any [page navigation menu]({{ baseUrl }}/userGuide/components/navigation.html#page-navigation-menus) used in the layout.
+`site-nav-button` | Pulls any element with an identifier, `id=site-nav` into the menu. If no such element exists, it pulls all [site navigation menu components]({{ baseUrl }}/userGuide/components/navigation.html#site-navigation-menus) used in the layout.
 
 ****Styling the mobile page and site navigation menus****
 
 You may also wish to style your navigation content differently on mobile view.
 By default, MarkBind already provides some reasonable overrides for smaller screens, applied over any styles you might have for the mobile navigation content identified above.
 
-```css {.no-line-numbers heading="Css class attached to the root navigation element"}
+```css {heading="Css class attached to the root navigation element"}
 .mb-mobile-nav {
     display: block !important;
     margin: 0 !important;
@@ -217,7 +217,7 @@ If you require greater customisation, you may simply compose the respective sele
 
 {{ icon_example }}
 
-```css {.no-line-numbers heading=""}
+```css {heading=""}
 #site-nav.mb-mobile-nav {
   /* Be sure to add the !important css rule when overriding .mb-mobile-nav's properties! */
   border: 1px solid black !important;

@@ -10,7 +10,7 @@ Here are three ways of embedding YouTube videos and one example of how it will l
 <include src="outputBox.md" boilerplate >
 <span id="code">
 
-```markdown{.no-line-numbers}
+```markdown
 @[youtube](v40b3ExbM0c)
 @[youtube](http://www.youtube.com/watch?v=v40b3ExbM0c)
 @[youtube](http://youtu.be/v40b3ExbM0c)

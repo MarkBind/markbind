@@ -18,7 +18,7 @@ Our workflow is mostly based on the guidelines given at se-education.org/guides.
 
 * You can start by looking through [these issues](https://github.com/MarkBind/markbind/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22+sort%3Acomments-desc) marked <span href="" class="badge" style="color:white; background-color: #7057FF;">good first issue</span>. Don't do more than one of them though.
 * As we squash the commits when merging a PR, there is ==no need to follow a strict commit organization or write elaborate commit messages for each commit==.
-* You can refer to the [_Design_](design.html) page to learn about the design and implementation of MarkBind.
+* You can refer to the [_Design_](design/projectStructure.html) page to learn about the design and implementation of MarkBind.
 
 The sections below has more information about various stages of submitting a PR.
 
@@ -66,7 +66,7 @@ The sections below has more information about various stages of submitting a PR.
       
     {.mb-3}  
     
-    ```json {.ml-4 .no-line-numbers heading="launch.json"}
+    ```json {.ml-4 heading="launch.json"}
     {
         "configurations": [
             {
@@ -86,7 +86,7 @@ The sections below has more information about various stages of submitting a PR.
   
   **2. Debugging all tests** in the `npm run test` script:
   
-    ```json {.ml-4 .no-line-numbers heading="launch.json"}
+    ```json {.ml-4 heading="launch.json"}
     {
         "configurations": [
             {
@@ -106,7 +106,7 @@ The sections below has more information about various stages of submitting a PR.
   
   **3. Debugging only the cli package's tests**:
     
-    ```json {.ml-4 .no-line-numbers heading="launch.json"}
+    ```json {.ml-4 heading="launch.json"}
     {
         "configurations": [
             {
@@ -229,11 +229,15 @@ ESLint has [integrations with popular editors](https://eslint.org/docs/user-guid
 
 ## Dependency management
 
-As mentioned in the [setting up](settingUp.html#setting-up-the-dev-environment) page, MarkBind uses [lerna](https://github.com/lerna/lerna) to manage the dependencies of its [various packages](design.html).
+As mentioned in the [setting up](settingUp.html#setting-up-the-dev-environment) page, MarkBind uses [lerna](https://github.com/lerna/lerna) to manage the dependencies of its [various packages](design/projectStructure.html).
 
-Hence, instead of manually updating the version numbers in the packages' `package.json` files, you may consider using the `lerna add` [command](https://github.com/lerna/lerna/tree/master/commands/add#readme) to speed things up!
+### To add a dependency
+Instead of manually updating the version numbers in the packages' `package.json` files, you may consider using the `lerna add` [command](https://github.com/lerna/lerna/tree/master/commands/add#readme) to speed things up!
 
-Also, when updating dependencies, ensure that it is updated in _all_ packages using that dependency.
+### To delete a dependency
+The safest way is to first remove the particular dependency entry from the `package.json` file of the respective directory. Then, run `npm run setup` in the root directory to clean up the local dependencies and update the `package-lock.json` file.
+### To update a dependency
+First, follow the instruction to [delete the dependency](#to-delete-a-dependency). Then, follow the instruction to [add the latest dependency](#to-add-a-dependency) back. Also, when updating dependencies, ensure that it is updated in _all_ packages using that dependency.
 
 <box type="warning">
 Dependency updates are not trivial, and can be the source of subtle bugs. You should always check the respective dependency changelogs before doing so!

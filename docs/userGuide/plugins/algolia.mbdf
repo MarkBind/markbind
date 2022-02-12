@@ -7,9 +7,9 @@ To enable it, add `algolia` to your site's plugins, and supply the required opti
 Name | Type | Default | Description
 ---- | ---- | ------- | ------
 apiKey | `String` || The API key for your site's Algolia DocSearch setup
+appId  | `String` || The application id for your site's Algolia DocSearch setup
 indexName | `String` || The index name for your site's Algolia DocSearch setup
-algoliaOptions | `Object` | `{}` | A JSON object specifying [additional options for DocSearch](https://community.algolia.com/docsearch/behavior.html#algoliaoptions)
-debug | `Boolean` | `false` | Whether to turn on debug mode to allow inspection of CSS styles for the dropdown
+searchParameters | `Object` | `{}` | A JSON object specifying the [Algolia Search Parameters](https://www.algolia.com/doc/api-reference/search-api-parameters/)
 
 ```js {heading="site.json"}
 {
@@ -20,9 +20,9 @@ debug | `Boolean` | `false` | Whether to turn on debug mode to allow inspection 
   "pluginsContext": {
     "algolia": {
       "apiKey": "25626fae796133dc1e734c6bcaaeac3c", // replace with your site's api key
+      "appId": "R2IYF7ETH7", // replace with your site's application id
       "indexName": "docsearch", // replace with your site's index name
-      "algoliaOptions": { "hitsPerPage": 10 }, // optional
-      "debug": false // optional
+      "searchParameters": { "facetFilters": ["site:yoursite.com"] } // optional
     }
   }
 }

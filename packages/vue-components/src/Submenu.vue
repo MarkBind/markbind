@@ -25,6 +25,7 @@
 import { toBoolean } from './utils/utils';
 import $ from './utils/NodeList';
 import positionSubmenu from './utils/submenu';
+import preventOverflowOnMobile from './utils/dropdown';
 
 export default {
   props: {
@@ -44,6 +45,11 @@ export default {
       dropleft: false,
     };
   },
+  inject: {
+    isParentNavbar: {
+      default: false,
+    },
+  },
   computed: {
     disabledBool() {
       return toBoolean(this.disabled);
@@ -59,6 +65,13 @@ export default {
       this.show = true;
       $(this.$refs.submenu).findChildren('ul').each((ul) => {
         ul.classList.toggle('show', true);
+
+        // check if submenu is part of the navbar sliding menu on mobile
+        if (window.innerWidth < 768 && this.isParentNavbar) {
+          preventOverflowOnMobile(ul);
+          return;
+        }
+
         if (positionSubmenu.isRightAlign(ul)) {
           this.alignMenuRight();
         } else {

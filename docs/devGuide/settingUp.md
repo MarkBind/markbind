@@ -38,7 +38,7 @@ We recommend the **WebStorm IDE** for working with MarkBind code.
 
    <box type="tip" seamless>
 
-   To go back to the released version of MarkBind, run `npm unlink` in the same directory, followed by `npm i -g markbind-cli`
+   To go back to the released version of MarkBind, run `npm un -g markbind-cli`, followed by `npm i -g markbind-cli`
    </box>
 1. **Install dependencies** by running <popover content="Under the hood, this calls `npm ci` and `lerna bootstrap`">`npm run setup`</popover> in the **root folder** of your cloned repo.
   <box type="info" seamless>

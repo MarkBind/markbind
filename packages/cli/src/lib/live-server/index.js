@@ -421,8 +421,20 @@ LiveServer.start = function(options) {
     }
 
     // Only reload active tabs if the changed file is opened in one of them
+    const normalizeUrl = (url) => {
+      if (!url || url.length === 0) {
+        return "index.html";
+      }
+
+      if (path.extname(url) === '.html') {
+        return url;
+      }
+
+      return path.posix.join(url, 'index.html');
+    };
+
     let normalizedPath = fsUtil.ensurePosix(path.relative(root, changePath));
-    if (LiveServer.activeTabs.some(tab => tab.client && tab.url === normalizedPath)) {
+    if (LiveServer.activeTabs.some(tab => tab.client && normalizeUrl(tab.url) === normalizedPath)) {
       LiveServer.sendMessageToActiveTabs('reload');
     }
   }

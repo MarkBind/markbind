@@ -8,7 +8,7 @@
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="MarkBind 3.0.5">
+  <meta name="generator" content="MarkBind 3.1.1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hello World</title>
   <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
   <link rel="stylesheet" href="markbind/css/octicons.css">
+  <link rel="stylesheet" href="markbind/material-icons/material-icons.css">
   <link rel="stylesheet" href="markbind/css/codeblock-dark.min.css">
   <link rel="stylesheet" href="markbind/css/markbind.min.css">
   <script src="markbind/js/polyfill.min.js"></script>
@@ -208,23 +209,23 @@
       <div id="content-wrapper" class="fixed-header-padding">
 
         <div class="website-content">
-          <p><strong>Test <code class="hljs inline no-lang" v-pre>&lt;markdown&gt;</code> and <code class="hljs inline no-lang" v-pre>&lt;md&gt;</code> elements</strong></p>
+          <p><strong>Test <code class="line-numbers hljs inline no-lang" v-pre>&lt;markdown&gt;</code> and <code class="line-numbers hljs inline no-lang" v-pre>&lt;md&gt;</code> elements</strong></p>
           <div>
-            <p>This should be wrapped in a <code class="hljs inline no-lang" v-pre>&lt;p&gt;</code> tag as it uses the block-level markdown renderer</p>
+            <p>This should be wrapped in a <code class="line-numbers hljs inline no-lang" v-pre>&lt;p&gt;</code> tag as it uses the block-level markdown renderer</p>
           </div>
           <span>
-            This should not be wrapped in a <code class="hljs inline no-lang" v-pre>&lt;p&gt;</code> tag as it uses the inline markdown renderer
+            This should not be wrapped in a <code class="line-numbers hljs inline no-lang" v-pre>&lt;p&gt;</code> tag as it uses the inline markdown renderer
           </span>
           <div class="mt-2">
-            <pre><code class="hljs" v-pre><span>&lt;markdown&gt; elements allow block-level markdown without needing a leading newline.
+            <pre><code class="line-numbers hljs" v-pre><span>&lt;markdown&gt; elements allow block-level markdown without needing a leading newline.
 </span><span>Hence, the contained markdown should be parsed and output as is, without any parsing errors.
 </span><span>&lt;/invalidhtml&gt;
 </span></code></pre>
           </div>
           <span>
-            <code class="hljs inline no-lang" v-pre>&lt;md&gt;</code> elements allow inline-level markdown even in a non-markdown token.
+            <code class="line-numbers hljs inline no-lang" v-pre>&lt;md&gt;</code> elements allow inline-level markdown even in a non-markdown token.
             Hence, the contained markdown should be parsed and output as is, without any parsing errors.
-            <code class="hljs inline no-lang" v-pre>&lt;/invalid&gt;</code>.
+            <code class="line-numbers hljs inline no-lang" v-pre>&lt;/invalid&gt;</code>.
           </span>
           <p><strong>Test footnotes</strong></p>
           <div>
@@ -285,11 +286,11 @@
             <p><span class="keyword">panel keyword</span></p>
           </panel>
           <h1 id="heading-fragment-with-leading-spaces-and-newline"><span id="heading-fragment-with-leading-spaces-and-newline" class="anchor"></span>Heading <div>
-              <pre><code v-pre>Fragment with leading spaces and newline
+              <pre><code class="line-numbers" v-pre>Fragment with leading spaces and newline
 </code></pre>
             </div><a class="fa fa-anchor" href="#heading-fragment-with-leading-spaces-and-newline" onclick="event.stopPropagation()"></a></h1>
-          <p>The <code class="hljs inline no-lang" v-pre>id</code> for the above heading should be <code class="hljs inline no-lang" v-pre>heading-fragment-with-leading-spaces-and-newline</code> in total.
-            This test ensures heading ids are assigned last (e.g. after <code class="hljs inline no-lang" v-pre>&lt;include /&gt;</code>s are processed).</p>
+          <p>The <code class="line-numbers hljs inline no-lang" v-pre>id</code> for the above heading should be <code class="line-numbers hljs inline no-lang" v-pre>heading-fragment-with-leading-spaces-and-newline</code> in total.
+            This test ensures heading ids are assigned last (e.g. after <code class="line-numbers hljs inline no-lang" v-pre>&lt;include /&gt;</code>s are processed).</p>
           <h1 id="heading-with-included-keyword"><span id="heading-with-included-keyword" class="anchor"></span>Heading with included keyword<a class="fa fa-anchor" href="#heading-with-included-keyword" onclick="event.stopPropagation()"></a></h1>
           <div>
             <p><span class="keyword">included keyword</span></p>
@@ -381,8 +382,8 @@
           <div name="Referencing specified path in boilerplate">
             <h1 id="path-within-the-boilerplate-folder-is-separately-specified"><span id="path-within-the-boilerplate-folder-is-separately-specified" class="anchor"></span>Path within the boilerplate folder is separately specified<a class="fa fa-anchor" href="#path-within-the-boilerplate-folder-is-separately-specified" onclick="event.stopPropagation()"></a></h1>
             <p>Like static include, pages within the site should be able to use files located in folders within boilerplate.</p>
-            <p>Also, the boilerplate file name (e.g. <code class="hljs inline no-lang" v-pre>inside.md</code>) and the file that it is supposed to act as (<code class="hljs inline no-lang" v-pre>notInside.md</code>) can be different.</p>
-            <p>This file should behaves as if it is in the <code class="hljs inline no-lang" v-pre>requirements</code> folder:</p>
+            <p>Also, the boilerplate file name (e.g. <code class="line-numbers hljs inline no-lang" v-pre>inside.md</code>) and the file that it is supposed to act as (<code class="line-numbers hljs inline no-lang" v-pre>notInside.md</code>) can be different.</p>
+            <p>This file should behaves as if it is in the <code class="line-numbers hljs inline no-lang" v-pre>requirements</code> folder:</p>
             <panel src="/test_site/requirements/NonFunctionalRequirements._include_.html"><template #header>
                 <p>Tested with the folllowing include</p>
               </template></panel>
@@ -410,7 +411,7 @@
             <p><em>MarkBind supports .mbd files.</em></p>
           </div>
           <div>
-            <p><code class="hljs inline no-lang" v-pre>MarkBind supports .mbdf files.</code></p>
+            <p><code class="line-numbers hljs inline no-lang" v-pre>MarkBind supports .mbdf files.</code></p>
           </div>
           <p><strong>Include from another Markbind site</strong></p>
           <div>
@@ -699,7 +700,7 @@
         <p><strong>Test nunjucks raw tags</strong></p>
         <div v-pre>{{ variable interpolation syntax can be used with v-pre }}</div>
         <div v-pre>{{ nonExistentVariable }}</div>
-        <code v-pre>{{ code elements should automatically be assigned v-pre }}</code>
+        <code class="line-numbers" v-pre>{{ code elements should automatically be assigned v-pre }}</code>
         <hr class="footnotes-sep">
         <section class="footnotes">
           <ol class="footnotes-list">
@@ -751,46 +752,46 @@
       </div>
       <overlay-source id="page-nav" class="fixed-header-padding" tag-name="nav" to="page-nav">
         <div class="nav-component slim-scroll">
-          <a class="navbar-brand page-nav-title" href="#">Testing Page Navigation</a>
+          <a class="navbar-brand page-nav-title" href="#" v-pre>Testing Page Navigation</a>
           <overlay-source id="mb-page-nav" tag-name="nav" to="mb-page-nav" class="nav nav-pills flex-column my-0 small no-flex-wrap">
-            <a class="nav-link py-1" href="#heading-with-multiple-keywords">Heading with multiple keywords&#x200E;</a>
-            <a class="nav-link py-1" href="#heading-with-keyword-in-panel">Heading with keyword in panel&#x200E;</a>
-            <a class="nav-link py-1" href="#panel-with-heading">Panel with heading&#x200E;</a>
-            <a class="nav-link py-1" href="#panel-without-heading-with-keyword">Panel without heading with keyword&#x200E;</a>
-            <a class="nav-link py-1" href="#keyword-should-be-tagged-to-this-heading-not-the-panel-heading">Keyword should be tagged to this heading, not the panel heading&#x200E;</a>
-            <a class="nav-link py-1" href="#panel-with-heading-with-keyword">Panel with heading with keyword&#x200E;</a>
-            <a class="nav-link py-1" href="#heading-fragment-with-leading-spaces-and-newline">Heading
+            <a class="nav-link py-1" href="#heading-with-multiple-keywords" v-pre>Heading with multiple keywords&#x200E;</a>
+            <a class="nav-link py-1" href="#heading-with-keyword-in-panel" v-pre>Heading with keyword in panel&#x200E;</a>
+            <a class="nav-link py-1" href="#panel-with-heading" v-pre>Panel with heading&#x200E;</a>
+            <a class="nav-link py-1" href="#panel-without-heading-with-keyword" v-pre>Panel without heading with keyword&#x200E;</a>
+            <a class="nav-link py-1" href="#keyword-should-be-tagged-to-this-heading-not-the-panel-heading" v-pre>Keyword should be tagged to this heading, not the panel heading&#x200E;</a>
+            <a class="nav-link py-1" href="#panel-with-heading-with-keyword" v-pre>Panel with heading with keyword&#x200E;</a>
+            <a class="nav-link py-1" href="#heading-fragment-with-leading-spaces-and-newline" v-pre>Heading
               Fragment with leading spaces and newline
               &#x200E;</a>
-            <a class="nav-link py-1" href="#heading-with-included-keyword">Heading with included keyword&#x200E;</a>
-            <a class="nav-link py-1" href="#included-heading">Included Heading&#x200E;</a>
-            <a class="nav-link py-1" href="#heading-with-nested-keyword">Heading with nested keyword&#x200E;</a>
-            <a class="nav-link py-1" href="#heading-with-hidden-keyword">Heading with hidden keyword&#x200E;</a>
+            <a class="nav-link py-1" href="#heading-with-included-keyword" v-pre>Heading with included keyword&#x200E;</a>
+            <a class="nav-link py-1" href="#included-heading" v-pre>Included Heading&#x200E;</a>
+            <a class="nav-link py-1" href="#heading-with-nested-keyword" v-pre>Heading with nested keyword&#x200E;</a>
+            <a class="nav-link py-1" href="#heading-with-hidden-keyword" v-pre>Heading with hidden keyword&#x200E;</a>
             <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
-              <a class="nav-link py-1" href="#establishing-requirements">Establishing Requirements&#x200E;</a>
+              <a class="nav-link py-1" href="#establishing-requirements" v-pre>Establishing Requirements&#x200E;</a>
               <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
-                <a class="nav-link py-1" href="#brainstorming">Brainstorming&#x200E;</a>
-                <a class="nav-link py-1" href="#user-surveys">User surveys&#x200E;</a>
-                <a class="nav-link py-1" href="#focus-groups">Focus groups&#x200E;</a>
+                <a class="nav-link py-1" href="#brainstorming" v-pre>Brainstorming&#x200E;</a>
+                <a class="nav-link py-1" href="#user-surveys" v-pre>User surveys&#x200E;</a>
+                <a class="nav-link py-1" href="#focus-groups" v-pre>Focus groups&#x200E;</a>
               </nav>
             </nav>
-            <a class="nav-link py-1" href="#path-within-the-boilerplate-folder-is-separately-specified">Path within the boilerplate folder is separately specified&#x200E;</a>
+            <a class="nav-link py-1" href="#path-within-the-boilerplate-folder-is-separately-specified" v-pre>Path within the boilerplate folder is separately specified&#x200E;</a>
             <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
-              <a class="nav-link py-1" href="#feature-list">Feature list&#x200E;</a>
-              <a class="nav-link py-1" href="#panel-without-src-header">Panel without src header&#x200E;</a>
-              <a class="nav-link py-1" href="#panel-with-normal-src-header">Panel with normal src header&#x200E;</a>
-              <a class="nav-link py-1" href="#panel-with-src-from-a-page-segment-header">Panel with src from a page segment header&#x200E;</a>
-              <a class="nav-link py-1" href="#boilerplate-referencing">Boilerplate referencing&#x200E;</a>
-              <a class="nav-link py-1" href="#boilerplate-referencing-2">Boilerplate referencing 2&#x200E;</a>
-              <a class="nav-link py-1" href="#referencing-specified-path-in-boilerplate">Referencing specified path in boilerplate&#x200E;</a>
-              <a class="nav-link py-1" href="#outer-nested-panel">Outer nested panel&#x200E;</a>
-              <a class="nav-link py-1" href="#outer-nested-panel-without-src">Outer nested panel without src&#x200E;</a>
-              <a class="nav-link py-1" href="#inner-panel-header-without-src">Inner panel header without src&#x200E;</a>
-              <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site-header">Panel with src from another Markbind site header&#x200E;</a>
-              <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site-header-2">Panel with src from another Markbind site header&#x200E;</a>
-              <a class="nav-link py-1" href="#unexpanded-panel-header">Unexpanded panel header&#x200E;</a>
+              <a class="nav-link py-1" href="#feature-list" v-pre>Feature list&#x200E;</a>
+              <a class="nav-link py-1" href="#panel-without-src-header" v-pre>Panel without src header&#x200E;</a>
+              <a class="nav-link py-1" href="#panel-with-normal-src-header" v-pre>Panel with normal src header&#x200E;</a>
+              <a class="nav-link py-1" href="#panel-with-src-from-a-page-segment-header" v-pre>Panel with src from a page segment header&#x200E;</a>
+              <a class="nav-link py-1" href="#boilerplate-referencing" v-pre>Boilerplate referencing&#x200E;</a>
+              <a class="nav-link py-1" href="#boilerplate-referencing-2" v-pre>Boilerplate referencing 2&#x200E;</a>
+              <a class="nav-link py-1" href="#referencing-specified-path-in-boilerplate" v-pre>Referencing specified path in boilerplate&#x200E;</a>
+              <a class="nav-link py-1" href="#outer-nested-panel" v-pre>Outer nested panel&#x200E;</a>
+              <a class="nav-link py-1" href="#outer-nested-panel-without-src" v-pre>Outer nested panel without src&#x200E;</a>
+              <a class="nav-link py-1" href="#inner-panel-header-without-src" v-pre>Inner panel header without src&#x200E;</a>
+              <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site-header" v-pre>Panel with src from another Markbind site header&#x200E;</a>
+              <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site-header-2" v-pre>Panel with src from another Markbind site header&#x200E;</a>
+              <a class="nav-link py-1" href="#unexpanded-panel-header" v-pre>Unexpanded panel header&#x200E;</a>
               <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
-                <a class="nav-link py-1" href="#level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed">Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed&#x200E;</a>
+                <a class="nav-link py-1" href="#level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed" v-pre>Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed&#x200E;</a>
               </nav>
             </nav>
 

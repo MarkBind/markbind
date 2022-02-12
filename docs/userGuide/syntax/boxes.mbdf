@@ -45,6 +45,41 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 </variable>
 </include>
 
+**The built in types can be colored.**
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+<box>
+    default
+</box>
+<box type="info" theme="primary">
+    primary
+</box>
+<box type="info" theme="secondary">
+    secondary
+</box>
+<box type="info" theme="success">
+    success
+</box>
+<box type="info" theme="danger">
+    danger
+</box>
+<box type="info" theme="warning">
+    warning
+</box>
+<box type="info" theme="info">
+    info
+</box>
+<box type="info" theme="light">
+    light
+</box>
+<box type="info" theme="dark">
+    dark
+</box>
+</variable>
+</include>
+
 **Markbind also supports a light color scheme for boxes**
 
 <include src="codeAndOutput.md" boilerplate >
@@ -188,8 +223,9 @@ dismissible | `Boolean` | `false` | Adds a button to close the box to the top ri
 icon{{slot_info_trigger}} | `String` | `null` | Inline MarkDown text of the icon displayed on the left.
 icon-size | `String` | `null` | Resizes the icon. Supports integer-scaling of the icon dimensions e.g. `2x`, `3x`, `4x`, etc.
 icon-color | `String` | `null` | Color of the icon.
-header{{slot_info_trigger}} <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>heading <br> (deprecated)</small> | `String` | `null` | Markdown text of the box header.
+header{{slot_info_trigger}} | `String` | `null` | Markdown text of the box header.
 type | `String` | `''` | Supports: `info`, `warning`, `success`, `important`, `wrong`, `tip`, `definition`, or empty for default.
+theme | `String` | `''` | Supports: `primary`, `secondary`, `success`, `danger`, `warning`, `tip`, `light`, `dark` or empty for default.
 light | `Boolean` | `false` | Uses a light color scheme for the box.
 seamless | `Boolean` | `false` | Uses a seamless style for the box. If `light` is specified, this style will not be activated.
 no-border | `Boolean` | `false` | Removes border, except if styled by `border-color` or `border-left-color`. 

@@ -112,9 +112,9 @@ function convertMdAndMbdExtToHtmlExt(node) {
     const pathName = hrefUrl.pathname === null ? '' : hrefUrl.pathname;
     const ext = path.posix.extname(pathName);
 
-    const isExtMdOrMbd = ext === '.md' || ext === '.mbd';
+    const isExtMdOrMbd = ext === '.md';
     if (!isExtMdOrMbd) {
-      // extension is neither .md nor .mbd, we do not need to process the link
+      // extension is not .md, we do not need to process the link
       return;
     }
 

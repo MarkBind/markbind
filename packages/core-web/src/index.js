@@ -42,11 +42,11 @@ function detectAndApplyFixedHeaderStyles() {
 
   const headerHeight = headerSelector.height();
   const bufferHeight = 1;
-  insertCss(`.fixed-header-padding { padding-top: ${headerHeight}px !important }`);
+  insertCss(`.fixed-header-padding { padding-top: ${headerHeight}px !important; }`);
   insertCss(
     `span.anchor {
     position: relative;
-    top: calc(-${headerHeight}px - ${bufferHeight}rem)
+    top: calc(-${headerHeight}px - ${bufferHeight}rem);
     }`,
   );
   insertCss(`.nav-menu-open { max-height: calc(100% - ${headerHeight}px); }`);
@@ -54,6 +54,7 @@ function detectAndApplyFixedHeaderStyles() {
   const adjustHeaderClasses = () => {
     const newHeaderHeight = headerSelector.height();
     const sheets = document.styleSheets;
+
     for (let i = 0; i < sheets.length; i += 1) {
       try {
         const rules = sheets[i].cssRules;
@@ -62,7 +63,7 @@ function detectAndApplyFixedHeaderStyles() {
           switch (rules[0].selectorText) {
           case '.fixed-header-padding':
             sheets[i].deleteRule(0);
-            sheets[i].insertRule(`.fixed-header-padding { padding-top: ${newHeaderHeight}px !important }`);
+            sheets[i].insertRule(`.fixed-header-padding { padding-top: ${newHeaderHeight}px !important; }`);
             break;
           case 'span.anchor':
             rules[0].style.top = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
@@ -91,14 +92,30 @@ function detectAndApplyFixedHeaderStyles() {
   };
 
   let lastOffset = 0;
+  let lastHash = window.location.hash;
   const toggleHeaderOnScroll = () => {
     // prevent toggling of header on desktop site
     if (window.innerWidth > 767) { return; }
+
+    if (lastHash !== window.location.hash) {
+      lastHash = window.location.hash;
+      headerSelector.removeClass('hide-header');
+      return;
+    }
+    lastHash = window.location.hash;
+
     const currentOffset = window.pageYOffset;
     const isEndOfPage = (window.innerHeight + currentOffset) >= document.body.offsetHeight;
     // to prevent page from auto scrolling when header is toggled at the end of page
     if (isEndOfPage) { return; }
+
     if (currentOffset > lastOffset) {
+      const headerEnd = headerSelector.height() + headerSelector[0].getBoundingClientRect().top;
+      const isBeforeHeader = currentOffset < headerEnd;
+      if (isBeforeHeader) {
+        return;
+      }
+
       headerSelector.addClass('hide-header');
     } else {
       headerSelector.removeClass('hide-header');
@@ -117,7 +134,14 @@ function detectAndApplyFixedHeaderStyles() {
   });
   resizeObserver.observe(headerSelector[0]);
   headerSelector[0].addEventListener('transitionend', toggleHeaderOverflow);
-  window.addEventListener('scroll', toggleHeaderOnScroll);
+
+  let scrollTimeout;
+  window.addEventListener('scroll', () => {
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+    }
+    scrollTimeout = setTimeout(toggleHeaderOnScroll, 20);
+  });
 }
 
 function updateSearchData(vm) {

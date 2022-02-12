@@ -249,6 +249,28 @@
       "title": "markdown-it should parse minimized panel as inline element and normal panel as block element",
       "headings": {},
       "headingKeywords": {}
+    },
+    {
+      "src": "testCenterText.md",
+      "title": "Center-aligned text test",
+      "headings": {
+        "center-text": "Center Text"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "testHr.md",
+      "title": "create different types of horizontal rules",
+      "headings": {
+        "different-types-of-horizontal-rules": "Different types of horizontal rules"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "testPageNav.md",
+      "title": "text interpolation should be skipped appropriately",
+      "headings": {},
+      "headingKeywords": {}
     }
   ]
 }

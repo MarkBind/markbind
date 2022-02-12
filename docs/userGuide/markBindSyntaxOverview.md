@@ -101,7 +101,7 @@ MarkBind has several core Vue.js components built on the popular [BootStrap](htt
 [Nunjucks](https://mozilla.github.io/nunjucks/) is a JavaScript based templating tool. Here is a simple example:
 
 {% raw %}
-```html { .no-line-numbers }
+```html
 <ul>
 {% for item in [1, 2, 3, 4] %}
   <li>Item {{ item }}</li>

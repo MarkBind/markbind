@@ -31,18 +31,19 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-task-lists'), { enabled: true })
   .use(require('markdown-it-linkify-images'), { imgClass: 'img-fluid' })
   .use(require('markdown-it-texmath'), { engine: katex, delimiters: 'brackets' })
-  .use(require('./patches/markdown-it-attrs-nunjucks'))
+  .use(require('markdown-it-attrs'))
   .use(require('./plugins/markdown-it-radio-button'))
   .use(require('./plugins/markdown-it-block-embed'))
   .use(require('./plugins/markdown-it-icons'))
-  .use(require('./plugins/markdown-it-footnotes'));
+  .use(require('./plugins/markdown-it-footnotes'))
+  .use(require('./plugins/markdown-it-center-text'));
 
 // fix table style
 markdownIt.renderer.rules.table_open = _.constant(
   '<div class="table-responsive"><table class="markbind-table table table-bordered table-striped">');
 markdownIt.renderer.rules.table_close = _.constant('</table></div>');
 
-function getAttributeAndDelete(token, attr) {
+function getAttribute(token, attr, deleteAttribute = false) {
   const index = token.attrIndex(attr);
   if (index === -1) {
     return undefined;
@@ -50,7 +51,9 @@ function getAttributeAndDelete(token, attr) {
   // tokens are stored as an array of two-element-arrays:
   // e.g. [ ['highlight-lines', '1,2,3'], ['start-from', '1'] ]
   const value = token.attrs[index][1];
-  token.attrs.splice(index, 1);
+  if (deleteAttribute) {
+    token.attrs.splice(index, 1);
+  }
   return value;
 }
 
@@ -63,15 +66,24 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   let highlighted = false;
   let lines;
 
-  const startFromOneBased = Math.max(1, parseInt(getAttributeAndDelete(token, 'start-from'), 10) || 1);
+  const startFromRawValue = getAttribute(token, 'start-from', true);
+  const startFromOneBased = Math.max(1, parseInt(startFromRawValue, 10) || 1);
   const startFromZeroBased = startFromOneBased - 1;
 
-  if (startFromOneBased > 1) {
-    // counter is incremented on each span, so we need to subtract 1
-    token.attrJoin('style', `counter-reset: line ${startFromZeroBased};`);
+  if (startFromRawValue) {
+    if (startFromOneBased > 1) {
+      // counter is incremented on each span, so we need to subtract 1
+      token.attrJoin('style', `counter-reset: line ${startFromZeroBased};`);
+    }
+    const existingClass = getAttribute(token, 'class') || '';
+    const lineNumbersRegex = /(^|\s)line-numbers($|\s)/;
+    const hasLineNumbers = lineNumbersRegex.test(existingClass);
+    if (!hasLineNumbers) {
+      token.attrJoin('class', 'line-numbers');
+    }
   }
 
-  const highlightLinesInput = getAttributeAndDelete(token, 'highlight-lines');
+  const highlightLinesInput = getAttribute(token, 'highlight-lines', true);
   let highlightRules = [];
   if (highlightLinesInput) {
     const highlightLines = highlightLinesInput.split(HIGHLIGHT_LINES_DELIMITER_REGEX);
@@ -163,7 +175,7 @@ markdownIt.renderer.rules.code_inline = (tokens, idx, options, env, slf) => {
   if (lang && hljs.getLanguage(lang)) {
     token.attrSet('class', `${inlineClass} ${lang}`);
     return `<code${slf.renderAttrs(token)}>${
-      hljs.highlight(lang, token.content, true).value
+      hljs.highlight(token.content, { language: lang, ignoreIllegals: true }).value
     }</code>`;
   }
   token.attrSet('class', `${inlineClass} no-lang`);
