@@ -1,5 +1,6 @@
 {
   "baseUrl": "",
+  "faviconPath": "images/faviconA.ico",
   "titlePrefix": "original-prefix",
   "style": {
     "codeTheme": "light"
@@ -29,5 +30,16 @@
   ],
   "deploy": {
     "message": "Site Update."
+  },
+  "plugins": [
+    "codeBlockCopyButtons"
+  ],
+  "pluginsContext": {
+    "codeBlockCopyButtons": {
+      "input": "test"
+    }
+  },
+  "intrasiteLinkValidation": {
+    "enabled": false
   }
 }

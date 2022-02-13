@@ -1,49 +1,51 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+const { setDefaultOptions } = require('expect-puppeteer');
+
 const fs = require('fs');
 
 const _ = {};
 _.cloneDeep = require('lodash/cloneDeep');
 
-describe('Live Preview reload triggered by site.json', () => {
-  const SITE_JSON_PATH = 'test/e2e/test_site/site.json';
-  const originalJson = JSON.parse(fs.readFileSync(SITE_JSON_PATH, 'utf8'));
+setDefaultOptions({ timeout: 2000 });
+
+describe('Live Preview reload triggered by changes to index.md', () => {
+  const INDEX_PATH = 'test/e2e/test_site/index.md';
+  const originalIndexMd = fs.readFileSync(INDEX_PATH, 'utf8');
   beforeEach(async () => {
     await page.goto('http://localhost:8080/');
   });
 
   afterEach(async () => {
-    fs.writeFileSync(SITE_JSON_PATH, JSON.stringify(originalJson, null, 2), 'utf8');
+    fs.writeFileSync(INDEX_PATH, originalIndexMd, 'utf8');
   });
 
-  test('titlePrefix', async () => {
-    await expect(page.title()).resolves.toMatch('original-prefix - original-title');
-    const updatedJson = _.cloneDeep(originalJson);
-    updatedJson.titlePrefix = 'new-prefix';
-    fs.writeFileSync(SITE_JSON_PATH, JSON.stringify(updatedJson, null, 2), 'utf8');
+  test('add', async () => {
+    const ADD_TEXT = 'Now it appears in the preview.';
+    await expect(page.content()).resolves.not.toMatch(ADD_TEXT);
+    let updatedIndexMd = _.cloneDeep(originalIndexMd);
+    updatedIndexMd += `\n${ADD_TEXT}`;
+    fs.writeFileSync(INDEX_PATH, updatedIndexMd, 'utf8');
     await page.waitForNavigation();
-    await expect(page.title()).resolves.toMatch('new-prefix - original-title');
+    await expect(page.content()).resolves.toMatch(ADD_TEXT);
   });
 
-  test('style.bootstrapTheme', async () => {
-    const updatedJson = _.cloneDeep(originalJson);
-    updatedJson.style.bootstrapTheme = 'bootswatch-cerulean';
-    fs.writeFileSync(SITE_JSON_PATH, JSON.stringify(updatedJson, null, 2), 'utf8');
+  test('delete', async () => {
+    const DELETE_TEXT = 'This is originally in the page.';
+    await expect(page.content()).resolves.toMatch(DELETE_TEXT);
+    const updatedIndexMd = _.cloneDeep(originalIndexMd);
+    fs.writeFileSync(INDEX_PATH, updatedIndexMd.replace(DELETE_TEXT, ''), 'utf8');
     await page.waitForNavigation();
+    await expect(page.content()).resolves.not.toMatch(DELETE_TEXT);
   });
 
-  test('style.codeTheme', async () => {
-    const updatedJson = _.cloneDeep(originalJson);
-    updatedJson.style.codeTheme = 'dark';
-    fs.writeFileSync(SITE_JSON_PATH, JSON.stringify(updatedJson, null, 2), 'utf8');
+  test('edit', async () => {
+    const EDIT_TEXT = 'To Edit';
+    const EDITED_TEXT = 'Now edited';
+    await expect(page.content()).resolves.toMatch(EDIT_TEXT);
+    const updatedIndexMd = _.cloneDeep(originalIndexMd);
+    fs.writeFileSync(INDEX_PATH, updatedIndexMd.replace(EDIT_TEXT, EDITED_TEXT), 'utf8');
     await page.waitForNavigation();
-    await expect(page.content()).resolves.toMatch(
-      '<link rel="stylesheet" href="markbind/css/codeblock-dark.min.css">');
-  });
-
-  test('pages.title', async () => {
-    const updatedJson = _.cloneDeep(originalJson);
-    updatedJson.pages[0].title = 'new-title';
-    fs.writeFileSync(SITE_JSON_PATH, JSON.stringify(updatedJson, null, 2), 'utf8');
-    await page.waitForNavigation();
-    await expect(page.title()).resolves.toMatch('original-prefix - new-title');
+    await expect(page.content()).resolves.not.toMatch(EDIT_TEXT);
+    await expect(page.content()).resolves.toMatch(EDITED_TEXT);
   });
 });
