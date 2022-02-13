@@ -1427,7 +1427,12 @@ class Site {
       : SUPPORTED_THEMES_PATHS[theme];
     const themeDestPath = path.join(this.siteAssetsDestPath, 'css', 'bootstrap.min.css');
 
-    return fs.copy(themeSrcPath, themeDestPath);
+    return fs.copy(themeSrcPath, themeDestPath).catch((err) => {
+      // eslint-disable-next-line no-console
+      console.log('Something is wrong with copyBootstrapTheme!');
+      // eslint-disable-next-line no-console
+      console.log(err);
+    });
   }
 
   /**
