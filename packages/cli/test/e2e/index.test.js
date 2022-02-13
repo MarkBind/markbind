@@ -1,12 +1,7 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-const { setDefaultOptions } = require('expect-puppeteer');
-
 const fs = require('fs');
 
 const _ = {};
 _.cloneDeep = require('lodash/cloneDeep');
-
-setDefaultOptions({ timeout: 2000 });
 
 describe('Live Preview reload triggered by changes to index.md', () => {
   const INDEX_PATH = 'test/e2e/test_site/index.md';
