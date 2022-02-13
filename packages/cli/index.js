@@ -120,7 +120,7 @@ program
     const defaultFiles = [INDEX_MARKDOWN_FILE];
     const presentDefaultFile = defaultFiles.find(fsUtil.fileExists);
     if (options.onePage === true && !presentDefaultFile) {
-      handleError(new Error('Oops! It seems that you didn\'t have the default file index.md|mbd.'));
+      handleError(new Error('Oops! It seems that you didn\'t have the default file index.md.'));
       process.exit();
     }
     let onePagePath = options.onePage === true ? presentDefaultFile : options.onePage;
@@ -255,7 +255,7 @@ program
             next();
           };
 
-          const onePageHtmlUrl = `${config.baseUrl}/${onePagePath.replace(/\.(md|mbd|mbdf)$/, '.html')}`;
+          const onePageHtmlUrl = `${config.baseUrl}/${onePagePath.replace(/\.(md)$/, '.html')}`;
           serverConfig.open = serverConfig.open && onePageHtmlUrl;
 
           serverConfig.middleware.push(lazyReloadMiddleware);

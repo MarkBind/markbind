@@ -44,7 +44,7 @@ test.each([
 ])('Test link auto-conversion for %s', (input, expected) => {
   const mockNode = cheerio.parseHTML(input)[0];
 
-  linkProcessor.convertMdAndMbdExtToHtmlExt(mockNode);
+  linkProcessor.convertMdExtToHtmlExt(mockNode);
 
   expect(cheerio.html(mockNode)).toBe(expected);
 });

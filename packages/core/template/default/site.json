@@ -16,7 +16,7 @@
       "title": "Landing Page"
     },
     {
-      "glob": ["**/index.md", "**/*.+(md|mbd)"]
+      "glob": ["**/index.md", "**/*.+(md)"]
     }
   ],
   "deploy": {

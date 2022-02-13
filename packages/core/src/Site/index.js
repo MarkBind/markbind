@@ -461,7 +461,7 @@ class Site {
    * Helper function for addDefaultLayoutToSiteConfig().
    */
   static async writeToSiteConfig(config, configPath) {
-    const layoutObj = { glob: '**/*.+(md|mbd)', layout: LAYOUT_DEFAULT_NAME };
+    const layoutObj = { glob: '**/*.+(md)', layout: LAYOUT_DEFAULT_NAME };
     config.pages.push(layoutObj);
     await fs.outputJson(configPath, config);
   }
