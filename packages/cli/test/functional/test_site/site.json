@@ -107,6 +107,9 @@
       "title": "text interpolation should be skipped appropriately"
     }
   ],
+  "pagesExclude": [
+    "**/*-fragment.md"
+  ],
   "ignore": [
     "_markbind/layouts/*",
     "_markbind/logs/*",
