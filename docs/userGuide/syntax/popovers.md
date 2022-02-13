@@ -79,8 +79,8 @@ This is the same <trigger for="pop:trigger_id">trigger</trigger> as last one.
 Name | Type | Default | Description
 ---- | ---- | ------- | ------
 trigger | `String` |	`hover`	| How the Popover is triggered.<br>Supports: `click`, `focus`, `hover`.
-header{{slot_icon_trigger}} | `String` | `''` | Popover header, supports inline markdown text.
-content{{slot_icon_trigger}} | `String` | `''` | Popover content, supports inline markdown text.
+header{{slot_info_trigger}} | `String` | `''` | Popover header, supports MarkDown text.
+content{{slot_info_trigger}} | `String` | `''` | Popover content, supports MarkDown text.
 placement | `String` | `top` | How to position the Popover.<br>Supports: `top`, `left`, `right`, `bottom`.
 
 

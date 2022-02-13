@@ -6,29 +6,6 @@ import MarkBindVue from '@markbind/vue-components/src';
   This is to ensure that our Vue App is a universal application.
 */
 
-/*
- These getters are used by popovers and tooltips to get their popover/tooltip content/title.
-
- For triggers, refer to Trigger.vue.
- We need to create a completely new popover/tooltip for each trigger due to bootstrap-vue's implementation,
- so this is how we retrieve our contents.
-*/
-function makeMbSlotGetter(slotName) {
-  return (element) => {
-    const innerElement = element.querySelector(`[data-mb-slot-name="${slotName}"]`);
-    return innerElement === null ? '' : innerElement.innerHTML;
-  };
-}
-
-// Used via vb-popover.html="popoverInnerGetters" for popovers
-const popoverInnerGetters = {
-  title: makeMbSlotGetter('header'),
-  content: makeMbSlotGetter('content'),
-};
-
-// Used via vb-tooltip.html="popoverInnerGenerator" for tooltips
-const tooltipInnerContentGetter = makeMbSlotGetter('_content');
-
 const appFactory = () => ({
   /*
    * On the server-side, Vue will log warnings for any undefined variables and methods during SSR.
@@ -38,8 +15,6 @@ const appFactory = () => ({
   data() {
     return {
       searchData: [],
-      popoverInnerGetters,
-      tooltipInnerContentGetter,
     };
   },
   methods: {
