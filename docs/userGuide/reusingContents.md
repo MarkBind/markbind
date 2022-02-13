@@ -64,7 +64,7 @@ If you are using Git for version control, you can set up the sub-site repository
 
 ## Creating Custom Fragments
 
-**MarkBind supports creating custom fragments**. A fragment is a piece of content that can be reused across multiple pages. This allows you to create reusable content that is not part of the _main-site_'s source files. This is similar to [reusing content](#reusing-contents-across-sites) but instead of reusing content from a _sub-site_, you reuse content from a fragment which can be excluded from page generation.
+**MarkBind supports creating custom fragments**. A fragment is a piece of content that can be reused across multiple pages. This allows you to create reusable content similar to [reusing content](#reusing-contents-across-sites), but rather than reusing content from a _sub-site_, content is reused from fragments which can be excluded from page generation.
 
 <div class="indented">
 
@@ -84,7 +84,7 @@ In `reading.md` (note how it reuses content from the sub-site `content-fragment.
 <include src="-fragment.md" />
 ```
 
-In `site.json` we then excluded the fragment from the page generation:
+In `site.json` we then exclude the fragment from the page generation:
 
 ```json
 ...
