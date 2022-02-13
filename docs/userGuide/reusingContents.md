@@ -30,7 +30,7 @@
 
 ## Reusing Contents Across Sites
 
-**MarkBind supports reusing across sites.** It allows you to include the pages you want from a _sub-site_ in another _main-site_ without having to change anything in the source files of the _sub-site_ as long as the sub-site source files are inside the directory of the _main site_.
+**MarkBind supports reusing across sites.** It allows you to include the pages you want from a _sub-site_ in another _main-site_ without having to change anything in the source files of the _sub-site_ as long as the _sub-site_ source files are inside the directory of the _main-site_.
 
 <div class="indented">
 
@@ -46,7 +46,7 @@ C:/course/
   └── site.json
 ```
 
-`reading.md` (note how it reuses content from the sub-site `textbook`):
+In `reading.md` (note how it reuses content from the sub-site `textbook`):
 ```markdown
 # Week 1 Reading:
 <include src="textbook/overview.md" />
@@ -59,6 +59,49 @@ If you are using Git for version control, you can set up the sub-site repository
 </span>
 </include>
 
+
+<hr><!-- ======================================================================================================= -->
+
+## Creating Custom Fragments
+
+**MarkBind supports creating custom fragments**. A fragment is a piece of content that can be reused across multiple pages. This allows you to create reusable content that is not part of the _main-site_'s source files. This is similar to [reusing content](#reusing-contents-across-sites) but instead of reusing content from a _sub-site_, you reuse content from a fragment which can be excluded from page generation.
+
+<div class="indented">
+
+{{ icon_example }} Suppose you have a fragment file `content-fragment.md` and you want to include some pages from it in another site `course`. But you don't want to show the content of `content-fragment.md` as a page in the course site.
+
+```
+C:/course/
+  ├── content-fragment.md
+  ├── index.md
+  ├── reading.md
+  └── site.json
+```
+
+In `reading.md` (note how it reuses content from the sub-site `content-fragment.md`):
+```markdown
+# Week 1 Reading:
+<include src="-fragment.md" />
+```
+
+In `site.json` we then excluded the fragment from the page generation:
+
+```json
+...
+"pagesExclude": [
+  "**/*-fragment.md"
+],
+...
+```
+</div>
+
+</div>
+
+<include src="tip.md" boilerplate >
+<span id="tip_body">
+You may use any custom name you wish for your fragments but be sure to update the `pagesExclude` list with the appropriate glob pattern.
+</span>
+</include>
 
 <hr><!-- ======================================================================================================= -->
 
