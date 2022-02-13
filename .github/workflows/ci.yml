@@ -25,7 +25,8 @@ jobs:
       - run: npm run test
   deploy-docs:
     needs: test
-    if: github.event_name == 'push'
+    # disabled on forks
+    if: github.event_name == 'push' && github.repository == 'MarkBind/markbind'
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
