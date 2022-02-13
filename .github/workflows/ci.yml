@@ -27,7 +27,9 @@ jobs:
     needs: test
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
-    
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
