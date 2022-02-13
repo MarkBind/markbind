@@ -50,7 +50,7 @@ class MdAttributeRenderer {
   }
 
   processTooltip(node) {
-    this.processAttributeWithoutOverride(node, 'content', true, '_content');
+    this.processAttributeWithoutOverride(node, 'content', true);
   }
 
   processModalAttributes(node) {

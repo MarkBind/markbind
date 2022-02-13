@@ -3,6 +3,10 @@
   "private": true,
   "scripts": {
     "build:web": "cd packages/core-web && npm run build",
+    "build:dg": "cd docs && ../packages/cli/index.js build -s dg-site.json",
+    "build:ug": "cd docs && ../packages/cli/index.js build -s ug-site.json",
+    "deploy:dg": "cd docs && ../packages/cli/index.js deploy -s dg-site.json --ci",
+    "deploy:ug": "cd docs && ../packages/cli/index.js deploy -s ug-site.json --ci",
     "csslint": "stylelint **/*.css **/*.vue",
     "csslintfix": "stylelint **/*.css **/*.vue --fix",
     "lint": "eslint . --ext .js,.vue && npm run csslint",

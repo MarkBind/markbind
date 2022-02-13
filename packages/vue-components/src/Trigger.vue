@@ -7,24 +7,23 @@
 
     <b-popover
       v-if="popoverOrTooltipType === 'popover'"
-      :show="show"
       :target="$el"
-      triggers="manual"
+      :triggers="trigger === 'click' ? 'click blur' : trigger"
       :placement="placement"
     >
-      <div v-html="contentHtml"></div>
-      <template v-if="titleHtml" #title>
-        <div v-html="titleHtml"></div>
+      <template v-if="hasHeader" #title>
+        <portal-target :name="'header:' + target" />
       </template>
+      <portal-target :name="'content:' + target" />
     </b-popover>
+
     <b-tooltip
       v-else-if="popoverOrTooltipType === 'tooltip'"
-      :show="show"
       :target="$el"
-      triggers="manual"
       :placement="placement"
+      :triggers="trigger"
     >
-      <div v-html="contentHtml"></div>
+      <portal-target :name="target" />
     </b-tooltip>
 
     <slot></slot>
@@ -32,8 +31,14 @@
 </template>
 
 <script>
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { PortalTarget, Wormhole } from 'portal-vue';
+
 export default {
   name: 'Trigger',
+  components: {
+    PortalTarget,
+  },
   props: {
     for: {
       type: String,
@@ -50,9 +55,6 @@ export default {
   },
   data() {
     return {
-      contentHtml: '',
-      titleHtml: '',
-      show: false,
       popoverOrTooltipType: undefined,
     };
   },
@@ -66,45 +68,36 @@ export default {
       const modal = this.$root.$refs[this.for];
       if (modal) {
         modal.show();
-        return;
       }
-
-      if (this.popoverOrTooltipType === undefined) {
-        const targetEl = document.getElementById(this.for);
-        if (!targetEl) {
-          return;
-        }
-
-        this.show = true;
-        this.setupComponent(targetEl);
-      } else {
-        this.show = !this.show;
-      }
-    },
-    setupComponent(targetEl) {
-      const componentType = targetEl.dataset.mbComponentType;
-      /*
-       * popoverInnerGetters / tooltipInnerContentGetter are passed down during the Vue App instantiation on
-       * client-side (core-web). Thus, we have to access these methods via "this.$root".
-       */
-      if (componentType === 'popover') {
-        this.contentHtml = this.$root.popoverInnerGetters.content(targetEl);
-        this.titleHtml = this.$root.popoverInnerGetters.title(targetEl);
-      } else if (componentType === 'tooltip') {
-        this.contentHtml = this.$root.tooltipInnerContentGetter(targetEl);
-      }
-      this.popoverOrTooltipType = componentType;
     },
   },
   computed: {
     triggerEventType() {
-      if (this.trigger === 'click') {
-        return this.show ? 'blur' : 'click';
-      } else if (this.trigger === 'focus') {
-        return this.show ? 'blur' : 'focus';
+      if (this.trigger === 'click' || this.trigger === 'focus') {
+        return this.trigger;
       }
-      return this.show ? 'mouseleave' : 'mouseenter';
+      return 'mouseenter';
     },
+    target() {
+      return this.for;
+    },
+    hasHeader() {
+      return Wormhole.hasContentFor(`header:${this.target}`);
+    },
+  },
+  mounted() {
+    if (!this.for) {
+      return;
+    }
+
+    if (this.popoverOrTooltipType === undefined) {
+      const targetEl = document.getElementById(this.for);
+      if (!targetEl) {
+        return;
+      }
+
+      this.popoverOrTooltipType = targetEl.dataset.mbComponentType;
+    }
   },
 };
 </script>
