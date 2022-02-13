@@ -11,7 +11,7 @@ describe('Live Preview reload triggered by changes to site.json', () => {
   const SITE_JSON_PATH = 'test/e2e/test_site/site.json';
   const originalJson = JSON.parse(fs.readFileSync(SITE_JSON_PATH, 'utf8'));
   beforeEach(async () => {
-    await page.goto('http://localhost:8080/');
+    await page.goto('http://localhost:8888/');
   });
 
   afterEach(async () => {

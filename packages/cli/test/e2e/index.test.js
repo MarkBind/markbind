@@ -7,7 +7,7 @@ describe('Live Preview reload triggered by changes to index.md', () => {
   const INDEX_PATH = 'test/e2e/test_site/index.md';
   const originalIndexMd = fs.readFileSync(INDEX_PATH, 'utf8');
   beforeEach(async () => {
-    await page.goto('http://localhost:8080/');
+    await page.goto('http://localhost:8888/');
   });
 
   afterEach(async () => {
