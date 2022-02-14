@@ -68,7 +68,7 @@ If you are using Git for version control, you can set up the sub-site repository
 
 <div class="indented">
 
-{{ icon_example }} Suppose you have a fragment file `content-fragment.md` and you want to include some pages from it in another site `course`. But you don't want to show the content of `content-fragment.md` as a page in the course site.
+{{ icon_example }} Suppose you have a fragment file `content-fragment.md` and you want to include it in some pages of the site `course` without rendering `content-fragment.md` as a page.
 
 ```
 C:/course/
