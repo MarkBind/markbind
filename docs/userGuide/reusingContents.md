@@ -78,7 +78,7 @@ C:/course/
   └── site.json
 ```
 
-In `reading.md` (note how it reuses content from the sub-site `content-fragment.md`):
+In `reading.md` (note how it reuses content from the `content-fragment.md`):
 ```markdown
 # Week 1 Reading:
 <include src="content-fragment.md" />
