@@ -81,7 +81,7 @@ C:/course/
 In `reading.md` (note how it reuses content from the sub-site `content-fragment.md`):
 ```markdown
 # Week 1 Reading:
-<include src="-fragment.md" />
+<include src="content-fragment.md" />
 ```
 
 In `site.json` we then exclude the fragment from the page generation:
