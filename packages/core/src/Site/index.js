@@ -100,7 +100,7 @@ const HIGHLIGHT_ASSETS = {
 };
 
 const ABOUT_MARKDOWN_DEFAULT = '# About\n'
-  + 'Welcome to your **About Us** page.\1n';
+  + 'Welcome to your **About Us** page.\n';
 
 const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${MARKBIND_VERSION}</a>`;
 
