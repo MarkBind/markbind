@@ -118,7 +118,7 @@ program
     const outputFolder = path.join(rootFolder, '_site');
 
     const defaultFiles = [INDEX_MARKDOWN_FILE];
-    const presentDefaultFile = defaultFiles.find(fsUtil.fileExists);
+    const presentDefaultFile = fsUtil.fileExists(INDEX_MARKDOWN_FILE);
     if (options.onePage === true && !presentDefaultFile) {
       handleError(new Error('Oops! It seems that you didn\'t have the default file index.md.'));
       process.exit();
