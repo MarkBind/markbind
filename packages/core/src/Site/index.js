@@ -100,7 +100,7 @@ const HIGHLIGHT_ASSETS = {
 };
 
 const ABOUT_MARKDOWN_DEFAULT = '# About\n'
-  + 'Welcome to your **About Us** page.\n';
+  + 'Welcome to your **About Us** page.\1n';
 
 const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${MARKBIND_VERSION}</a>`;
 
@@ -461,7 +461,7 @@ class Site {
    * Helper function for addDefaultLayoutToSiteConfig().
    */
   static async writeToSiteConfig(config, configPath) {
-    const layoutObj = { glob: '**/*.+(md)', layout: LAYOUT_DEFAULT_NAME };
+    const layoutObj = { glob: '**/*.+md', layout: LAYOUT_DEFAULT_NAME };
     config.pages.push(layoutObj);
     await fs.outputJson(configPath, config);
   }

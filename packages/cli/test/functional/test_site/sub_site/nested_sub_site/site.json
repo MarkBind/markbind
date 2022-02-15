@@ -19,7 +19,7 @@
       "glob": "**/index.md"
     },
     {
-      "glob": "**/*.+(md)"
+      "glob": "**/*.+md"
     }
   ],
   "deploy": {

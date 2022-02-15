@@ -255,7 +255,7 @@ program
             next();
           };
 
-          const onePageHtmlUrl = `${config.baseUrl}/${onePagePath.replace(/\.(md)$/, '.html')}`;
+          const onePageHtmlUrl = `${config.baseUrl}/${onePagePath.replace(/\.md$/, '.html')}`;
           serverConfig.open = serverConfig.open && onePageHtmlUrl;
 
           serverConfig.middleware.push(lazyReloadMiddleware);
