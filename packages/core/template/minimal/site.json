@@ -16,7 +16,7 @@
         "title": "Hello World"
       },
       {
-        "glob": ["**/index.md", "**/*.+md"]
+        "glob": ["**/index.md", "**/*.md"]
       }
     ],
     "deploy": {
