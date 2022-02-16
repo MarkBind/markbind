@@ -16,7 +16,7 @@ This page provides an overview of the MarkBind's architecture.
 
 ![MarkBind Architecture Diagram](<{{baseUrl}}/images/dev diagrams/architecture.png>)
 
-The above diagram shows the key classes and <popover content="The content processing flow acts on a **single** source file (`.md` / `.mbd` / `.html`), generating output files or intermediate processing results depending on the content type.">content processing flow</popover> in MarkBind. You may note the following from these:
+The above diagram shows the key classes and <popover content="The content processing flow acts on a **single** source file (`.md` / `.html`), generating output files or intermediate processing results depending on the content type.">content processing flow</popover> in MarkBind. You may note the following from these:
 
 ### Key classes
 

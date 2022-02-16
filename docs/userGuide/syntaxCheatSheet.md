@@ -11,10 +11,10 @@
 <panel type="seamless">
   <div slot="header">
     <md>**{{ heading }}**</md>
-    <include src="syntax/{{ filename }}.mbdf#short" />
+    <include src="syntax/{{ filename }}.md#short" />
   </div>
   <div class="indented">
-    <include src="syntax/{{ filename }}.mbdf" />
+    <include src="syntax/{{ filename }}.md" />
   </div>
 </panel>
 {% endmacro %}

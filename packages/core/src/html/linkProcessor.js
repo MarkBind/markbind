@@ -91,7 +91,7 @@ function convertRelativeLinks(node, cwf, rootPath, baseUrl) {
   }
 }
 
-function convertMdAndMbdExtToHtmlExt(node) {
+function convertMdExtToHtmlExt(node) {
   if (node.name === 'a' && node.attribs && node.attribs.href) {
     const hasNoConvert = lodashHas(node.attribs, 'no-convert');
     if (hasNoConvert) {
@@ -112,9 +112,9 @@ function convertMdAndMbdExtToHtmlExt(node) {
     const pathName = hrefUrl.pathname === null ? '' : hrefUrl.pathname;
     const ext = path.posix.extname(pathName);
 
-    const isExtMdOrMbd = ext === '.md' || ext === '.mbd';
-    if (!isExtMdOrMbd) {
-      // extension is neither .md nor .mbd, we do not need to process the link
+    const isExtMd = ext === '.md';
+    if (!isExtMd) {
+      // extension is not .md, we do not need to process the link
       return;
     }
 
@@ -263,7 +263,7 @@ function collectSource(node, rootPath, baseUrl, pageSources) {
 module.exports = {
   hasTagLink,
   convertRelativeLinks,
-  convertMdAndMbdExtToHtmlExt,
+  convertMdExtToHtmlExt,
   validateIntraLink,
   collectSource,
 };

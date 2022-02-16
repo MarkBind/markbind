@@ -8,7 +8,7 @@
 <span id="live-preview">
 
 **_Live preview_** is:
-- Regeneration of affected content upon any change to <tooltip content="`.md`, `.mbd`, `.mbdf`, `.njk` files ... anything your content depends on!">source files</tooltip>, then reloading the updated site in the Browser.
+- Regeneration of affected content upon any change to <tooltip content="`.md`, `.njk` files ... anything your content depends on!">source files</tooltip>, then reloading the updated site in the Browser.
 
 - Regeneration will also occur upon any modification to attributes in `site.json` with the exception of [`baseUrl`](siteJsonFile.md#baseurl).
 
@@ -17,14 +17,3 @@
 Use [the `serve` command](cliCommands.html#serve-command) to launch a live preview.
 
 </span>
-
-<br>
-
-#### `.mbd` extension
-
-<span id="mbd-extension">
-<md>**`.mbd` extension indicates a MarkBind source file**.</md>
-
-MarkBind is able to take Markdown files (`.md`) and HTML files (`.html`) as source files too.
-</span>
-
