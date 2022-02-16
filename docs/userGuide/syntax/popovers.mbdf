@@ -45,14 +45,20 @@
   </popover>
 </p>
 <h4 class="no-index">Content using slot</h4>
-<popover effect="scale" header="**Emoji header** :rocket:">
-  <div slot="content">
-    This is a long content...
-  </div>
-  <button class="btn btn-secondary">Hover</button>
-</popover>
-<br />
-<br />
+<p>
+  <popover effect="scale" header="**Emoji header** :rocket:">
+    <div slot="content">
+      This is a long content...
+    </div>
+    <button class="btn btn-secondary">Hover</button>
+  </popover>
+</p>
+<h4 class="no-index">Content using src</h4>
+<p>
+  <popover header="Content is loaded in from 'src'" src="{{ baseUrl }}/userGuide/syntax/extra/loadContent.html#fragment">
+    <button class="btn btn-secondary">Hover</button>
+  </popover>
+</p>
 <h4 class="no-index">Wrap Text</h4>
 <popover header="false" content="Nice!">What do you say</popover>
 </variable>
@@ -81,6 +87,7 @@ Name | Type | Default | Description
 trigger | `String` |	`hover`	| How the Popover is triggered.<br>Supports: `click`, `focus`, `hover`.
 header{{slot_info_trigger}} | `String` | `''` | Popover header, supports MarkDown text.
 content{{slot_info_trigger}} | `String` | `''` | Popover content, supports MarkDown text.
+src | `String` | | The url to the remote page to be loaded as the content of the panel.
 placement | `String` | `top` | How to position the Popover.<br>Supports: `top`, `left`, `right`, `bottom`.
 
 
