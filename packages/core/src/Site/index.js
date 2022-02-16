@@ -1426,7 +1426,13 @@ class Site {
       ? require.resolve('@markbind/core-web/asset/css/bootstrap.min.css')
       : SUPPORTED_THEMES_PATHS[theme];
     const themeDestPath = path.join(this.siteAssetsDestPath, 'css', 'bootstrap.min.css');
-
+    // eslint-disable-next-line no-console
+    console.log('THIS IS THE PROBLEM');
+    // eslint-disable-next-line no-console
+    console.log(themeDestPath);
+    // logs if a file exists
+    // eslint-disable-next-line no-console
+    console.log(fs.existsSync(themeDestPath));
     return fs.copy(themeSrcPath, themeDestPath).catch((err) => {
       // eslint-disable-next-line no-console
       console.log('Something is wrong with copyBootstrapTheme!');
