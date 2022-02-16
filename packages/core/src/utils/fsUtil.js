@@ -16,7 +16,7 @@ module.exports = {
   },
 
   isMarkdownFileExt(ext) {
-    return markdownFileExts.includes(ext);
+    return markdownFileExts === ext;
   },
 
   setExtension: (normalizedFilename, ext) => module.exports.removeExtension(normalizedFilename) + ext,
