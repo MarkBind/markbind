@@ -262,6 +262,10 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
  * Else, sets the content attribute of the popover as parsed from the src.
  */
 function processPopoverSrc(node, context, pageSources, variableProcessor, renderMd, config) {
+  if (!_.has(node.attribs, 'src')) {
+    return context;
+  }
+
   if (_.isEmpty(node.attribs.src)) {
     const error = new Error(`Empty src attribute in include in: ${context.cwf}`);
     logger.error(error);
@@ -322,7 +326,7 @@ function processPopoverSrc(node, context, pageSources, variableProcessor, render
     }
   }
 
-  node.attribs.content = actualContent.trim();
+  node.attribs.src = actualContent.trim();
 
   if (node.children && node.children.length > 0) {
     childContext.addCwfToCallstack(context.cwf);
@@ -333,8 +337,6 @@ function processPopoverSrc(node, context, pageSources, variableProcessor, render
       cheerio(node).replaceWith(createErrorNode(node, error));
     }
   }
-
-  delete node.attribs.src;
 
   return childContext;
 }

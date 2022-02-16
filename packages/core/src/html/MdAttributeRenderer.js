@@ -76,7 +76,17 @@ class MdAttributeRenderer {
       this.processAttributeWithoutOverride(node, 'header', true);
     }
 
-    if (!this.hasSlotOverridingAttribute(node, 'content')) {
+    // Warn if there is a slot overriding an attribute
+    const hasSlotAndContentAttribute = this.hasSlotOverridingAttribute(node, 'content', 'content');
+    const hasSlotAndSrcAttribute = this.hasSlotOverridingAttribute(node, 'src', 'content');
+
+    if (hasSlotAndContentAttribute || hasSlotAndSrcAttribute) {
+      return;
+    }
+
+    if (_.has(node.attribs, 'src')) {
+      this.processAttributeWithoutOverride(node, 'src', true, 'content');
+    } else {
       this.processAttributeWithoutOverride(node, 'content', true);
     }
   }

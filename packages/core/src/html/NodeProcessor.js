@@ -160,12 +160,8 @@ class NodeProcessor {
         this.mdAttributeRenderer.processQuiz(node);
         break;
       case 'popover':
-        if (_.has(node.attribs, 'src')) {
-          const childContext = processPopoverSrc(node, context, this.pageSources, this.variableProcessor,
-                                                 text => this.markdownProcessor.renderMd(text), this.config);
-          this.mdAttributeRenderer.processPopoverAttributes(node);
-          return childContext;
-        }
+        processPopoverSrc(node, context, this.pageSources, this.variableProcessor,
+                          text => this.markdownProcessor.renderMd(text), this.config);
         this.mdAttributeRenderer.processPopoverAttributes(node);
         break;
       case 'tooltip':
