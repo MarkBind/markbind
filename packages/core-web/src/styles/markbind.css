@@ -206,12 +206,7 @@ li.footnote-item:target {
     height: 100%;
 }
 
-/* hide popover, tooltip content */
-[data-mb-slot-name] {
-    display: none;
-}
-
-/* styles for triggers, popovers, tooltips */
+/* styles for triggers and tooltips */
 .trigger {
     border-bottom: 1px dotted currentColor;
 }

@@ -104,11 +104,14 @@
 </include>
 
 
-**Show/Hide buttons using `no-switch` or `no-close`.**
+**Show/Hide buttons using `no-switch`, `no-close`, or `no-minimized-switch`.**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
+<panel header="**This minimized panel does not have a switch button**" minimized no-minimized-switch>
+  ...
+</panel>
 <panel header="This panel does not have a switch button" no-switch>
   ...
 </panel>

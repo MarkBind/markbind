@@ -24,3 +24,28 @@ jobs:
       - run: npm i -g npm@8.3.1
       - run: npm run setup
       - run: npm run test
+  deploy-docs:
+    needs: test
+    # disabled on forks
+    if: github.event_name == 'push' && github.repository == 'MarkBind/markbind'
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+      - run: npm i -g npm@8.3.1
+      - run: npm run setup
+      - name: Deploy DG on any commit to master, to markbind.org/devdocs
+        run: >-
+          npm run build:web &&
+          npm run build:dg &&
+          npm run deploy:dg
+      - name: Deploy UG on release, to markbind.org
+        if: github.ref_type == 'tag'
+        run: >-
+          npm run build:ug &&
+          npm run deploy:ug
