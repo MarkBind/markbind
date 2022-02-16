@@ -1,7 +1,6 @@
 <img src="docs/images/logo-lightbackground.png" width="600" />
 
-[![Build Status](https://app.travis-ci.com/MarkBind/markbind.svg?branch=master)](https://app.travis-ci.com/MarkBind/markbind)
-![CI](https://github.com/MarkBind/markbind/actions/workflows/ci.yml/badge.svg)
+[![CI](https://github.com/MarkBind/markbind/actions/workflows/ci.yml/badge.svg)](https://github.com/MarkBind/markbind/actions/workflows/ci.yml)
 
 **A tool for generating static websites from Markdown-like syntax**. Optimized for content-heavy instructional websites, e.g. course websites, tutorials, project/product documentation, textbooks.
 
@@ -87,6 +86,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/thomastanck"><img src="https://avatars.githubusercontent.com/u/829070?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Thomas Tan</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=thomastanck" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/vig42"><img src="https://avatars.githubusercontent.com/u/42461145?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vighnesh Iyer</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=vig42" title="Code">💻</a></td>
     <td align="center"><a href="https://resumednh.netlify.app/"><img src="https://avatars.githubusercontent.com/u/53283766?v=4?s=100" width="100px;" alt=""/><br /><sub><b>dao ngoc hieu</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=daongochieu2810" title="Code">💻</a></td>
+    <td align="center"><a href="https://bandism.net/"><img src="https://avatars.githubusercontent.com/u/22633385?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ikko Ashimine</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=eltociear" title="Documentation">📖</a></td>
   </tr>
 </table>
 
