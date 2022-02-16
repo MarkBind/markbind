@@ -255,7 +255,86 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
   return childContext;
 }
 
+/**
+ * PreProcesses popovers with the src attribute.
+ * Replaces it with an error node if the specified src is invalid,
+ * or an empty node if the src is invalid but optional.
+ * Else, sets the content attribute of the popover as parsed from the src.
+ */
+function processPopoverSrc(node, context, pageSources, variableProcessor, renderMd, config) {
+  if (_.isEmpty(node.attribs.src)) {
+    const error = new Error(`Empty src attribute in include in: ${context.cwf}`);
+    logger.error(error);
+    cheerio(node).replaceWith(createErrorNode(node, error));
+  }
+
+  if (_.has(node.attribs, 'content')) {
+    logger.warn(`${node.name} has a 'src' attribute, 'content' attribute has no effect.`);
+  }
+
+  const {
+    isUrl,
+    hash,
+    filePath,
+    actualFilePath,
+  } = _getSrcFlagsAndFilePaths(node, config);
+
+  const fileExistsNode = _getFileExistsNode(node, context, actualFilePath, pageSources);
+  if (fileExistsNode) {
+    return fileExistsNode;
+  }
+
+  pageSources.staticIncludeSrc.push({
+    from: context.cwf,
+    to: actualFilePath,
+  });
+
+  const {
+    nunjucksProcessed,
+    childContext,
+  } = variableProcessor.renderIncludeFile(actualFilePath, pageSources, node, context, filePath);
+
+  let actualContent = nunjucksProcessed;
+  if (fsUtil.isMarkdownFileExt(path.extname(actualFilePath))) {
+    actualContent = renderMd(actualContent);
+  }
+
+  // Process sources with or without hash, retrieving and appending
+  // the appropriate children to a wrapped include element
+  if (hash) {
+    const $ = cheerio.load(actualContent);
+    actualContent = $(hash).html();
+
+    if (actualContent === null) {
+      actualContent = '';
+
+      const error = new Error(`No such segment '${hash}' in file: ${actualFilePath}\n`
+        + `Missing reference in ${context.cwf}`);
+      logger.error(error);
+
+      actualContent = cheerio.html(createErrorNode(node, error));
+    }
+  }
+
+  node.attribs.content = actualContent.trim();
+
+  if (node.children && node.children.length > 0) {
+    childContext.addCwfToCallstack(context.cwf);
+
+    if (childContext.hasExceededMaxCallstackSize()) {
+      const error = new CyclicReferenceError(childContext.callStack);
+      logger.error(error);
+      cheerio(node).replaceWith(createErrorNode(node, error));
+    }
+  }
+
+  delete node.attribs.src;
+
+  return childContext;
+}
+
 module.exports = {
   processInclude,
+  processPopoverSrc,
   processPanelSrc,
 };

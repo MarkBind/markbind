@@ -12,7 +12,7 @@ _.has = require('lodash/has');
 _.find = require('lodash/find');
 
 const { PageNavProcessor, renderSiteNav, addSitePageNavPortal } = require('./siteAndPageNavProcessor');
-const { processInclude, processPanelSrc } = require('./includePanelProcessor');
+const { processInclude, processPanelSrc, processPopoverSrc } = require('./includePanelProcessor');
 const { Context } = require('./Context');
 const linkProcessor = require('./linkProcessor');
 const { highlightCodeBlock, setCodeLineNumbers } = require('./codeblockProcessor');
@@ -160,7 +160,13 @@ class NodeProcessor {
         this.mdAttributeRenderer.processQuiz(node);
         break;
       case 'popover':
-        this.mdAttributeRenderer.processPopover(node);
+        if (_.has(node.attribs, 'src')) {
+          const childContext = processPopoverSrc(node, context, this.pageSources, this.variableProcessor,
+                                                 text => this.markdownProcessor.renderMd(text), this.config);
+          this.mdAttributeRenderer.processPopoverAttributes(node);
+          return childContext;
+        }
+        this.mdAttributeRenderer.processPopoverAttributes(node);
         break;
       case 'tooltip':
         this.mdAttributeRenderer.processTooltip(node);

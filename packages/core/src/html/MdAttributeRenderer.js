@@ -44,9 +44,40 @@ class MdAttributeRenderer {
     delete node.attribs[attribute];
   }
 
-  processPopover(node) {
-    this.processAttributeWithoutOverride(node, 'content', true);
-    this.processAttributeWithoutOverride(node, 'header', true);
+  /**
+   * Checks if the node has both the given slot and the given attribute,
+   * deleting the attribute and logging a warning if both the slot and attribute exist.
+   * @param node Element to process
+   * @param attribute Attribute name to process
+   * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
+   * @returns {boolean} whether the node has both the slot and attribute
+   */
+  hasSlotOverridingAttribute(node, attribute, slotName = attribute) {
+    const hasNamedSlot = node.children
+      && node.children.some(child => getVslotShorthandName(child) === slotName);
+    if (!hasNamedSlot) {
+      return false;
+    }
+
+    // If the slot is present, remove the attribute as the attribute has no effect.
+    const hasAttribute = _.has(node.attribs, attribute)
+    if (hasAttribute) {
+      logger.warn(`${node.name} has a ${slotName} slot, '${attribute}' attribute has no effect.`);
+    }
+
+    delete node.attribs[attribute];
+
+    return hasAttribute;
+  }
+
+  processPopoverAttributes(node) {
+    if (!this.hasSlotOverridingAttribute(node, 'header')) {
+      this.processAttributeWithoutOverride(node, 'header', true);
+    }
+
+    if (!this.hasSlotOverridingAttribute(node, 'content')) {
+      this.processAttributeWithoutOverride(node, 'content', true);
+    }
   }
 
   processTooltip(node) {
