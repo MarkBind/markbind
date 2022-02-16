@@ -1,11 +1,7 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-const { setDefaultOptions } = require('expect-puppeteer');
 const fs = require('fs');
 
 const _ = {};
 _.cloneDeep = require('lodash/cloneDeep');
-
-setDefaultOptions({ timeout: 2000 });
 
 describe('Live Preview reload triggered by changes to site.json', () => {
   const SITE_JSON_PATH = 'test/e2e/test_site/site.json';
