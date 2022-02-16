@@ -284,6 +284,12 @@ function processPopoverSrc(node, context, pageSources, variableProcessor, render
     return fileExistsNode;
   }
 
+  // No need to process url contents
+  if (isUrl) {
+    _deleteIncludeAttributes(node);
+    return node;
+  }
+
   pageSources.staticIncludeSrc.push({
     from: context.cwf,
     to: actualFilePath,

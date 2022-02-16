@@ -52,6 +52,7 @@ class MdAttributeRenderer {
    * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
    * @returns {boolean} whether the node has both the slot and attribute
    */
+  // eslint-disable-next-line class-methods-use-this
   hasSlotOverridingAttribute(node, attribute, slotName = attribute) {
     const hasNamedSlot = node.children
       && node.children.some(child => getVslotShorthandName(child) === slotName);
@@ -60,7 +61,7 @@ class MdAttributeRenderer {
     }
 
     // If the slot is present, remove the attribute as the attribute has no effect.
-    const hasAttribute = _.has(node.attribs, attribute)
+    const hasAttribute = _.has(node.attribs, attribute);
     if (hasAttribute) {
       logger.warn(`${node.name} has a ${slotName} slot, '${attribute}' attribute has no effect.`);
     }
