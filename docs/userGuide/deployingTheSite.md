@@ -270,7 +270,7 @@ Commit and push `appveyor.yml` to your github repository. Thereafter, AppVeyor C
 
     <include src="screenshot.md" boilerplate var-alt="Add Github Token in Circle CI" var-file="circleCiGithubToken.png" inline />
 
-3. Commit and push a `config.yml` file to the repo containg your Markbind Site that instructs Circle CI to build and deploy your Markbind site to Github Pages whenever you push to your repository. Ensure that the `config.yml` file is located in the `<PROJECT_ROOT>/.circleci/` directory. A sample `config.yml` file is shown below:
+3. Commit and push a `config.yml` file to the repo containing your Markbind Site that instructs Circle CI to build and deploy your Markbind site to Github Pages whenever you push to your repository. Ensure that the `config.yml` file is located in the `<PROJECT_ROOT>/.circleci/` directory. A sample `config.yml` file is shown below:
 
     ```yml
     jobs:
