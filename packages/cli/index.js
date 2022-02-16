@@ -117,7 +117,7 @@ program
     const logsFolder = path.join(rootFolder, '_markbind/logs');
     const outputFolder = path.join(rootFolder, '_site');
 
-    const presentDefaultFile = fsUtil.fileExists(INDEX_MARKDOWN_FILE);
+    const presentDefaultFile = fsUtil.fileExists(INDEX_MARKDOWN_FILE) ? INDEX_MARKDOWN_FILE : false;
     if (options.onePage === true && !presentDefaultFile) {
       handleError(new Error('Oops! It seems that you didn\'t have the default file index.md.'));
       process.exit();
