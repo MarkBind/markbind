@@ -326,7 +326,7 @@ function processPopoverSrc(node, context, pageSources, variableProcessor, render
     }
   }
 
-  node.attribs.src = actualContent.trim();
+  actualContent = actualContent.trim();
 
   if (node.children && node.children.length > 0) {
     childContext.addCwfToCallstack(context.cwf);
@@ -337,6 +337,11 @@ function processPopoverSrc(node, context, pageSources, variableProcessor, render
       cheerio(node).replaceWith(createErrorNode(node, error));
     }
   }
+
+  const attributeSlotElement = cheerio.parseHTML(`<template #content>${actualContent}</template>`, true);
+  node.children = node.children ? attributeSlotElement.concat(node.children) : attributeSlotElement;
+
+  delete node.attribs.src;
 
   return childContext;
 }
