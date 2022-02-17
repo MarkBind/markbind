@@ -262,7 +262,7 @@ class NodeProcessor {
     }
     if (linkProcessor.hasTagLink(node)) {
       linkProcessor.convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);
-      linkProcessor.convertMdAndMbdExtToHtmlExt(node);
+      linkProcessor.convertMdExtToHtmlExt(node);
       if (this.config.intrasiteLinkValidation.enabled) {
         linkProcessor.validateIntraLink(node, context.cwf, this.config);
       }

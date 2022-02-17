@@ -35,7 +35,7 @@ This is the same <trigger for="modal:loremipsum">trigger</trigger> as last one.
 </include>
 
 <panel header="More about triggers">
-<include src="extra/triggers.mbdf" />
+<include src="extra/triggers.md" />
 </panel><p/>
 
 ****Options****

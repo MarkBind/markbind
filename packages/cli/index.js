@@ -16,7 +16,6 @@ const { pageVueServerRenderer } = require('@markbind/core/src/Page/PageVueServer
 const fsUtil = require('@markbind/core/src/utils/fsUtil');
 const {
   INDEX_MARKDOWN_FILE,
-  INDEX_MARKBIND_FILE,
   LAZY_LOADING_SITE_FILE_NAME,
 } = require('@markbind/core/src/Site/constants');
 
@@ -118,10 +117,9 @@ program
     const logsFolder = path.join(rootFolder, '_markbind/logs');
     const outputFolder = path.join(rootFolder, '_site');
 
-    const defaultFiles = [INDEX_MARKDOWN_FILE, INDEX_MARKBIND_FILE];
-    const presentDefaultFile = defaultFiles.find(fsUtil.fileExists);
+    const presentDefaultFile = fsUtil.fileExists(INDEX_MARKDOWN_FILE) ? INDEX_MARKDOWN_FILE : false;
     if (options.onePage === true && !presentDefaultFile) {
-      handleError(new Error('Oops! It seems that you didn\'t have the default file index.md|mbd.'));
+      handleError(new Error('Oops! It seems that you didn\'t have the default file index.md.'));
       process.exit();
     }
     let onePagePath = options.onePage === true ? presentDefaultFile : options.onePage;
@@ -256,7 +254,7 @@ program
             next();
           };
 
-          const onePageHtmlUrl = `${config.baseUrl}/${onePagePath.replace(/\.(md|mbd|mbdf)$/, '.html')}`;
+          const onePageHtmlUrl = `${config.baseUrl}/${onePagePath.replace(/\.md$/, '.html')}`;
           serverConfig.open = serverConfig.open && onePageHtmlUrl;
 
           serverConfig.middleware.push(lazyReloadMiddleware);

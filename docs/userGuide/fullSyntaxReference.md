@@ -51,6 +51,6 @@
 
 {% for topic in syntax_topics | dictsort %}
 <panel type="seamless" header="###### **{{ topic[1][0] }}**">
-  <include src="syntax/{{ topic[0] }}.mbdf" />
+  <include src="syntax/{{ topic[0] }}.md" />
 </panel>
 {% endfor %}
