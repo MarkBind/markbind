@@ -103,7 +103,7 @@ Page Variable with {{ global_variable }}
   <span class="keyword">panel keyword</span>
 </panel>
 
-# Heading <include src="testTrimIncludeFragment.mbdf#fragment" />
+# Heading <include src="testTrimIncludeFragment.md#fragment" />
 
 The `id` for the above heading should be `heading-fragment-with-leading-spaces-and-newline` in total.
 This test ensures heading ids are assigned last (e.g. after `<include />`s are processed).
@@ -150,11 +150,6 @@ This test ensures heading ids are assigned last (e.g. after `<include />`s are p
 
 <include src="testInclude.html" />
 
-**Mbd, Mbdf include**
-
-<include src="testIncludeMbd.mbd" />
-<include src="testIncludeMbdf.mbdf" />
-
 **Include from another Markbind site**
 
 <include src="sub_site/index.md" />
@@ -199,7 +194,7 @@ This test ensures heading ids are assigned last (e.g. after `<include />`s are p
 
 **Trimmed include fragment**
 
-**Before | <include src="testTrimIncludeFragment.mbdf#fragment" trim inline /> | After**
+**Before | <include src="testTrimIncludeFragment.md#fragment" trim inline /> | After**
 
 **Include with custom variables**
 
@@ -322,7 +317,7 @@ and **this**.
 <include src="testPlantUML.md" />
 
 **Test PlantUML in sub folder**
-<include src="sub_site/testPlantUMLSubFolderInclude.mbdf" />
+<include src="sub_site/testPlantUMLSubFolderInclude.md" />
 
 ## Level 2 header (inside headingSearchIndex) with no-index attribute should not be indexed {.no-index}
 

@@ -7,8 +7,6 @@
     "site.json",
     "testSpecialTag.js",
     "*.md",
-    "*.mbd",
-    "*.mbdf",
     "*.njk",
     ".git/*",
     "expected/*"

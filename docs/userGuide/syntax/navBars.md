@@ -80,7 +80,7 @@ If you wish to further customize your navbar beyond the primary, dark, and light
 ****Navbar Link Highlighting****
 
 ```html
-{% include "_markbind/layouts/headers/header.mbdf" %}
+{% include "_markbind/layouts/headers/header.md" %}
 ```
 
 ****Highlight Options****

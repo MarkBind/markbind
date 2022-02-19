@@ -51,7 +51,7 @@
       "title": "Anchor Generation Test"
     },
     {
-      "src": "testTooltipSpacing.mbd",
+      "src": "testTooltipSpacing.md",
       "title": "Tooltip Spacing Test"
     },
     {
@@ -110,6 +110,9 @@
       "src": "testPageNav.md",
       "title": "text interpolation should be skipped appropriately"
     }
+  ],
+  "pagesExclude": [
+    "**/*-fragment.md"
   ],
   "ignore": [
     "_markbind/layouts/*",

@@ -177,7 +177,7 @@
       "headingKeywords": {}
     },
     {
-      "src": "testTooltipSpacing.mbd",
+      "src": "testTooltipSpacing.md",
       "title": "Tooltip Spacing Test",
       "headings": {
         "569-stray-space-after-tooltip": "569: Stray space after tooltip"

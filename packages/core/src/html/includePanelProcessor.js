@@ -290,7 +290,7 @@ function processPopoverSrc(node, context, pageSources, variableProcessor, render
 
   // No need to process url contents
   if (isUrl) {
-    _deleteIncludeAttributes(node);
+    delete node.attribs.src;
     return node;
   }
 
