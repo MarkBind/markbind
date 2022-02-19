@@ -53,13 +53,13 @@
       Content
     </panel>
     <p><strong>Popover content should have algolia-no-index class</strong></p>
-    <popover effect="fade" placement="top"><template #header>Title</template>
+    <popover placement="top"><template #header>Title</template>
       <template #content>
         <div>Content should have `algolia-no-index` class</div>
       </template>
       <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
     </popover>
-    <popover effect="fade" placement="top"><template #header>Title</template><template #content>Content should have <code class="hljs inline no-lang" v-pre>algolia-no-index</code> class</template>
+    <popover placement="top"><template #header>Title</template><template #content>Content should have <code class="hljs inline no-lang" v-pre>algolia-no-index</code> class</template>
       <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
     </popover>
     <p><strong>Tooltip content should have algolia-no-index class</strong></p>
