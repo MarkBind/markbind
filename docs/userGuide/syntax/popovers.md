@@ -55,8 +55,13 @@
 </p>
 <h4 class="no-index">Content using src</h4>
 <p>
-  <popover header="Content is loaded in from 'src'" src="{{ baseUrl }}/userGuide/syntax/extra/loadContent.html#fragment">
-    <button class="btn btn-secondary">Hover</button>
+  <popover header="From a HTML file" src="{{ baseUrl }}/userGuide/syntax/extra/loadContent.html#fragment">
+    This is loaded from a .html file
+  </popover>
+</p>
+<p>
+  <popover header="From a MarkDown file" src="{{ baseUrl }}/userGuide/formattingContents.md#overview">
+    This is loaded from a .md file
   </popover>
 </p>
 <h4 class="no-index">Wrap Text</h4>
@@ -87,7 +92,7 @@ Name | Type | Default | Description
 trigger | `String` |	`hover`	| How the Popover is triggered.<br>Supports: `click`, `focus`, `hover`.
 header{{slot_info_trigger}} | `String` | `''` | Popover header, supports MarkDown text.
 content{{slot_info_trigger}} | `String` | `''` | Popover content, supports MarkDown text.
-src | `String` | | The url to the remote page to be loaded as the content of the popover.
+src | `String` | | The url to the remote page to be loaded as the content of the popover. Both .md and .html are accepted.
 placement | `String` | `top` | How to position the Popover.<br>Supports: `top`, `left`, `right`, `bottom`.
 
 
