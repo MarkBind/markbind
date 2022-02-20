@@ -24,6 +24,37 @@ MarkBind home is at [here][1].
 
 <small>More info: https://www.markdownguide.org/basic-syntax#links</small>
 
+#### Autolinks
+A <tooltip content="with `http(s)://` head">URL</tooltip> or an email address in plain text will be auto converted into clickable links.
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
+**These will be converted:**
+
+https://www.google.com
+
+https://markbind.org
+
+foobar@gmail.com
+
+**These will not be converted:**
+
+google.com
+
+markbind.org
+
+foo@bar
+
+**Tricks to prevent autolink:**
+
+`https://markbind.org`
+
+https://<span></span>markbind.org
+
+</variable>
+</include>
+
 #### Intra-Site Links
 
 <div id="intraSiteLinks">
