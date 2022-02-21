@@ -30,12 +30,12 @@
 
 **Popover content should have algolia-no-index class**
 
-<popover effect="fade" header="Title" placement="top">
+<popover header="Title" placement="top">
   <div slot="content">Content should have `algolia-no-index` class</div>
   <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
 </popover>
 
-<popover effect="fade" header="Title" content="Content should have `algolia-no-index` class" placement="top">
+<popover header="Title" content="Content should have `algolia-no-index` class" placement="top">
   <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
 </popover>
 
