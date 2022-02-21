@@ -87,6 +87,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/vig42"><img src="https://avatars.githubusercontent.com/u/42461145?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vighnesh Iyer</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=vig42" title="Code">💻</a></td>
     <td align="center"><a href="https://resumednh.netlify.app/"><img src="https://avatars.githubusercontent.com/u/53283766?v=4?s=100" width="100px;" alt=""/><br /><sub><b>dao ngoc hieu</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=daongochieu2810" title="Code">💻</a></td>
     <td align="center"><a href="https://bandism.net/"><img src="https://avatars.githubusercontent.com/u/22633385?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ikko Ashimine</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=eltociear" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://www.jovyntan.com"><img src="https://avatars.githubusercontent.com/u/61113575?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jovyn Tan</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=jovyntls" title="Code">💻</a> <a href="https://github.com/MarkBind/markbind/commits?author=jovyntls" title="Documentation">📖</a></td>
   </tr>
 </table>
 
