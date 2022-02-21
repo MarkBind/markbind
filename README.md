@@ -1,6 +1,7 @@
 <img src="docs/images/logo-lightbackground.png" width="600" />
 
 [![CI](https://github.com/MarkBind/markbind/actions/workflows/ci.yml/badge.svg)](https://github.com/MarkBind/markbind/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/markbind-cli)](https://www.npmjs.com/package/markbind-cli)
 
 **A tool for generating static websites from Markdown-like syntax**. Optimized for content-heavy instructional websites, e.g. course websites, tutorials, project/product documentation, textbooks.
 
