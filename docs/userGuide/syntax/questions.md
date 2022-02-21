@@ -335,5 +335,5 @@ intro | Slot | `Click start to begin` | Quiz intro markup. Overrides the `intro`
 
 <!-- Included in readerFacingFeatures.md -->
 <span id="examples" class="d-none">
-<include src="questions.mbdf#quiz-example" />
+<include src="questions.md#quiz-example" />
 </span>

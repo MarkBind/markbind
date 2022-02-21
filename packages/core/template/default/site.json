@@ -7,8 +7,6 @@
     "_site/*",
     "site.json",
     "*.md",
-    "*.mbd",
-    "*.mbdf",
     "*.njk",
     ".git/*"
   ],
@@ -18,7 +16,7 @@
       "title": "Landing Page"
     },
     {
-      "glob": ["**/index.md", "**/*.+(md|mbd)"]
+      "glob": ["**/index.md", "**/*.md"]
     }
   ],
   "deploy": {

@@ -10,20 +10,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="MarkBind 3.1.1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hello World</title>
-  <link rel="stylesheet" href="../markbind/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../markbind/css/bootstrap-vue.min.css">
-  <link rel="stylesheet" href="../markbind/fontawesome/css/all.min.css">
-  <link rel="stylesheet" href="../markbind/glyphicons/css/bootstrap-glyphicons.min.css">
-  <link rel="stylesheet" href="../markbind/css/octicons.css">
-  <link rel="stylesheet" href="../markbind/material-icons/material-icons.css">
-  <link rel="stylesheet" href="../markbind/css/codeblock-dark.min.css">
-  <link rel="stylesheet" href="../markbind/css/markbind.min.css">
-  <script src="../markbind/js/polyfill.min.js"></script>
-  <script src="../markbind/js/vue.min.js"></script>
-  <script src="../markbind/js/markbind.min.js"></script>
-  <script src="testNunjucksPathResolving.page-vue-render.js"></script>
-  <script src="../markbind/js/jquery.min.js"></script>
+  <title>Autolink tests</title>
+  <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
+  <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
+  <link rel="stylesheet" href="markbind/css/octicons.css">
+  <link rel="stylesheet" href="markbind/material-icons/material-icons.css">
+  <link rel="stylesheet" href="markbind/css/codeblock-dark.min.css">
+  <link rel="stylesheet" href="markbind/css/markbind.min.css">
+  <script src="markbind/js/polyfill.min.js"></script>
+  <script src="markbind/js/vue.min.js"></script>
+  <script src="markbind/js/markbind.min.js"></script>
+  <script src="testLinks.page-vue-render.js"></script>
+  <script src="markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
 
@@ -207,17 +207,20 @@
         </div>
       </overlay-source>
       <div id="content-wrapper" class="fixed-header-padding">
-        <p>Test for nunjucks' various functions that use a path.
-          By design, nunjucks' relative paths resolve from the configured template root directory.</p>
-        <p>Hence, in MarkBind, these paths should also follow this behaviour.
-          The root directory in this case is the respective root directory of the root site or sub sites.</p>
-        <hr>
-        <p><strong>Test {% include %}</strong></p>
-        <p>This is content from <code class="line-numbers hljs inline no-lang" v-pre>testNunjucksPathResolvingInclude.md</code> located at <code class="line-numbers hljs inline no-lang" v-pre>sub_site/nested_sub_site</code></p>
-        <hr>
-        <p><strong>Test {% import %}</strong></p>
-        <p>variable to import</p>
-        <hr>
+        <h1 id="autolinks"><span id="autolinks" class="anchor"></span>Autolinks<a class="fa fa-anchor" href="#autolinks" onclick="event.stopPropagation()"></a></h1>
+        <p>A URL with <code class="line-numbers hljs inline no-lang" v-pre>http(s)://</code> head or an email address in plain text will be auto converted into clickable links.</p>
+        <p>This functionality is inherited from markdown-it, with the setting of <code class="line-numbers hljs inline no-lang" v-pre>fuzzyLink</code> turned off.</p>
+        <p><strong>These will be converted:</strong></p>
+        <p><a href="https://www.google.com">https://www.google.com</a></p>
+        <p><a href="https://markbind.org">https://markbind.org</a></p>
+        <p><a href="/test_site/mailto:foobar@gmail.com">foobar@gmail.com</a></p>
+        <p><strong>These will not be converted:</strong></p>
+        <p>google.com</p>
+        <p>markbind.org</p>
+        <p>foo@bar</p>
+        <p><strong>Tricks to prevent autolink:</strong></p>
+        <p><code class="line-numbers hljs inline no-lang" v-pre>https://markbind.org</code></p>
+        <p>https://<span></span>markbind.org</p>
         <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>
       <overlay-source id="page-nav" class="fixed-header-padding" tag-name="nav" to="page-nav">
@@ -235,7 +238,7 @@
     </div>
   </div>
 </body>
-<script src="../markbind/js/bootstrap-utility.min.js"></script>
+<script src="markbind/js/bootstrap-utility.min.js"></script>
 <script>
   MarkBind.setupWithSearch()
 </script>
