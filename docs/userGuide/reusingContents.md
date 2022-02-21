@@ -168,7 +168,7 @@ You can use following components to give readers an option to access additional 
 
 #### Organizing contents in alternative ways
 
-You can take advantage of [MarkBinds feature for content reuse](reusingContents.html), you can organize content in alternative ways to cater for different readers, without having to duplicate content. For example, you can have different pages that organizes the same information alphabetically, chronologically, by difficulty, group information by topic, etc.
+You can take advantage of [MarkBind's feature for content reuse](reusingContents.html) to organize content in alternative ways to cater for different readers, without having to duplicate content. For example, you can have different pages that organizes the same information alphabetically, chronologically, by difficulty, group information by topic, etc.
 
 #### Optimizing the Print View
 
