@@ -16,7 +16,7 @@ This page gives you an overview of the MarkBind's internal project structure.
 
 ## Packages
 
-The MarkBind project is developed in a <tooltip content="We follows a monorepo approach, similar to Babel and other open source projects. To see a discussion on the pros and cons of this approach, read [here](https://github.com/babel/babel/blob/main/doc/design/monorepo.md).">monorepo</tooltip> ([MarkBind/markbind](https://github.com/MarkBind/markbind)) of 4 packages:
+The MarkBind project is developed in a <tooltip content="We follow a monorepo approach, similar to Babel and other open source projects. To see a discussion on the pros and cons of this approach, read [here](https://github.com/babel/babel/blob/main/doc/design/monorepo.md).">monorepo</tooltip> ([MarkBind/markbind](https://github.com/MarkBind/markbind)) of 4 packages:
 
 * The core library, which parses and processes MarkBind's various syntaxes, resides in the `packages/core/` directory.
 
