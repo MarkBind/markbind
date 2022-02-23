@@ -42,14 +42,18 @@
 
 ### Using the `markbind deploy` command
 
-Running the **`markbind deploy`** command will deploy the most recent build of your site to the `gh-pages` branch of the repo `origin` and will be available
-After the command is completed, your site will be online at `http://<username|org>.github.io/<repo>` e.g., http://se-edu.github.io/se-book.
+Running the **`markbind deploy`** command will deploy the most recent build of your site to the `gh-pages` branch of the repo `origin` and will be available. 
+
+Then, navigate to the page repo settings and set the source to the root of the `gh-pages` branch. You can read [this source](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site) on Github Pages for more details.
+
+Your site will be online at `http://<username|org>.github.io/<repo>` e.g., http://se-edu.github.io/se-book.
 
 <div id="warning-about-baseUrl">
 
 <box type="warning">
 
-If you are deploying the site to GitHub pages, the `baseUrl` setting in the `site.json` should be set to the `"/<repositoryName>"` for the links in the deployed site to work correctly.<br>
+If you are deploying the site to GitHub pages, the `baseUrl` setting in the `site.json` should be set to the `"/<repositoryName>"` for the links in the deployed site to work correctly.
+
 {{ icon_example }} If you are using Github Pages to host your deployed website at repo `myorg/myproduct` (i.e., the website is published at `https://myorg.github.io/myproduct`), then your `baseUrl` should be `"/myproduct"`.
 </box>
 </div>
@@ -63,6 +67,7 @@ You can override the default deployment settings %%(e.g., repo/branch to deploy)
 </panel>
 
 <br>
+
 <box type="warning">
 
 `markbind deploy` does not generate the static site from your source; it simply deploys the files that are already in the `_site` directory. You need to run `markbind build` first if you want to generate the site before deploying.
@@ -85,6 +90,7 @@ You may refer to Github's documentation on [how to generate a Github Personal Ac
 <panel header="#### Deploying via Github Actions" type="seamless" expanded>
 
 To instruct [Github Actions](https://docs.github.com/en/actions) to build and deploy the site when you push to the repository, add a Github Actions workflow file in your project repo at the location `<PROJECT_ROOT>/.github/workflows/deploy.yml`  A sample workflow file is provided below:
+
 ```yml
 name: Deploy Markbind Site
 on:
@@ -112,7 +118,7 @@ jobs:
 The sample `deploy.yml` workflow above uses the [default Github Token secret](https://docs.github.com/en/actions/reference/authentication-in-a-workflow) that is generated automatically for each Github Actions workflow. You may also use a [Github Personal Access Token](#generating-a-github-personal-access-token) in place of the default Github Token.
 </box>
 
-Once you have created the file, commit and push the file to your repo. Github Actions should start to build and deploy your markbind site. You can verify this by visiting `www.github.com/<org|username>/<repo>/actions`. 
+Once you have created the file, commit and push the file to your repo. Github Actions should start to build and deploy your markbind site. You can verify this by visiting `www.github.com/<org|username>/<repo>/actions`.
 
 For more information on customizing your workflow file to fit your specific needs, you may refer to the [Github Action Docs](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions).
 
@@ -300,6 +306,7 @@ After you have pushed the `config.yml` file to your remote repo, you should see 
 
 For more information on customizing your build script, you may refer to [Circle CI Config Reference Document](https://circleci.com/docs/2.0/configuration-reference/#section=configuration).
 </panel>
+
 <hr>
 
 ## Deploying to Netlify
@@ -376,6 +383,7 @@ You may also preview PRs using [Surge](https://surge.sh/), which is an NPM packa
 <panel header="`receivePR.yml` File" type="seamless">
 
 {% raw %}
+
 ```yml
 name: Receive Markbind PR
 
@@ -412,6 +420,7 @@ jobs:
             ./_site
             ./pr
 ```
+
 {% endraw %}
 
 </panel>
@@ -430,6 +439,7 @@ Advanced users may completely replace the default `PR_URL`. ==**It is recommende
 </box>
 
 {% raw %}
+
 ```yml {highlight-lines="34"}
 name: Deploy PR Preview
 
@@ -491,7 +501,6 @@ jobs:
 ```
 {% endraw %}
 
-
 </panel>
 
 Finally, you may open a PR to the repo of your Markbind site. If everything is configured correctly, after a few minutes, you should be able to see a `github-actions bot` automatically commenting on the PR with a link to _preview_ the updated Markbind site.
@@ -500,7 +509,6 @@ Finally, you may open a PR to the repo of your Markbind site. If everything is c
 
 For more information on Surge, you may refer to [Surge's docs](https://surge.sh/help/).
 
-
 ## Relevant Tips & Tricks
 
 <panel header="Configuring Online Deployment platforms to use specific MarkBind version" type="seamless" expand-headerless>
@@ -508,7 +516,6 @@ For more information on Surge, you may refer to [Surge's docs](https://surge.sh/
 <include src="tipsAndTricks.md#useSpecificMarkbind" />
 
 </panel>
-
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('themes', 'markBindInTheProjectWorkflow') }}
