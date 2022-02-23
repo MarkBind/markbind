@@ -5,6 +5,8 @@ const markdownIt = require('markdown-it')({
   linkify: true,
 });
 
+markdownIt.linkify.set({ fuzzyLink: false });
+
 const _ = {};
 _.constant = require('lodash/constant');
 

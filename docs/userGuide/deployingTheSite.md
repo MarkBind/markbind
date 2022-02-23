@@ -49,7 +49,7 @@ After the command is completed, your site will be online at `http://<username|or
 
 <box type="warning">
 
-If you are deploying to the site to GitHub pages, the `baseUrl` setting in the `site.json` should be set to the `"/<repositoryName>"` for the links in the deployed site to work correctly.<br>
+If you are deploying the site to GitHub pages, the `baseUrl` setting in the `site.json` should be set to the `"/<repositoryName>"` for the links in the deployed site to work correctly.<br>
 {{ icon_example }} If you are using Github Pages to host your deployed website at repo `myorg/myproduct` (i.e., the website is published at `https://myorg.github.io/myproduct`), then your `baseUrl` should be `"/myproduct"`.
 </box>
 </div>
@@ -228,7 +228,7 @@ The `repo` value can be changed to your specific repository as desired.
     <include src="screenshot.md" boilerplate var-alt="Add GitHub Token on AppVeyor" var-file="appveyorGithubToken.png" inline />
 
 1. Remember to click __Save__ at the bottom of the page.
-1. Add a `appveyor.yml`file at the root of your Markbind site's repository to instruct AppVeyor CI to build and deploy the site to Github Pages when you to push to your repository. More information on customizing `appveyor.yml` can be found in [AppVeyor documentation](https://www.appveyor.com/docs/appveyor-yml/). An example `appveyor.yml` file is given below:
+1. Add a `appveyor.yml`file at the root of your Markbind site's repository to instruct AppVeyor CI to build and deploy the site to Github Pages when you push to your repository. More information on customizing `appveyor.yml` can be found in [AppVeyor documentation](https://www.appveyor.com/docs/appveyor-yml/). An example `appveyor.yml` file is given below:
 
     ```yml
     environment:
@@ -270,7 +270,7 @@ Commit and push `appveyor.yml` to your github repository. Thereafter, AppVeyor C
 
     <include src="screenshot.md" boilerplate var-alt="Add Github Token in Circle CI" var-file="circleCiGithubToken.png" inline />
 
-3. Commit and push a `config.yml` file to the repo containg your Markbind Site that instructs Circle CI to build and deploy your Markbind site to Github Pages whenever you push to your repository. Ensure that the `config.yml` file is located in the `<PROJECT_ROOT>/.circleci/` directory. A sample `config.yml` file is shown below:
+3. Commit and push a `config.yml` file to the repo containing your Markbind Site that instructs Circle CI to build and deploy your Markbind site to Github Pages whenever you push to your repository. Ensure that the `config.yml` file is located in the `<PROJECT_ROOT>/.circleci/` directory. A sample `config.yml` file is shown below:
 
     ```yml
     jobs:
@@ -315,7 +315,7 @@ Here are the steps to set up Netlify:
 
     <include src="screenshot.md" boilerplate var-alt="Create a new site" var-file="netlifyPreview1.png" inline />
 
-1. Select your markbind site repository
+1. Select your MarkBind site repository
 
     <include src="screenshot.md" boilerplate var-alt="Select repository" var-file="netlifyPreview2.png" inline />
 
@@ -367,7 +367,7 @@ You may also preview PRs using [Surge](https://surge.sh/), which is an NPM packa
 
     <include src="screenshot.md" boilerplate var-alt="Get Surge token" var-file="surgeToken.png" inline />
 
-1. In the repo of your markbind site, create a new secret by going to "Settings"->"Secrets" and naming it as `SURGE_TOKEN` and setting its value to the value of the generated surge token.
+1. In the repo of your MarkBind site, create a new secret by going to "Settings"->"Secrets" and naming it as `SURGE_TOKEN` and setting its value to the value of the generated surge token.
 
     <include src="screenshot.md" boilerplate var-alt="Add Surge token" var-file="surgeAddToken.png" inline />
 

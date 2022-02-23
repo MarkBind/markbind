@@ -7,7 +7,7 @@
   },
   "pages": [
     {
-      "glob": ["**/*.mbd", "*.md", "userGuide/*.md", "userGuide/components/*.md", "devGuide/*.md", "devGuide/*/*.md"]
+      "glob": ["*.md", "userGuide/*.md", "userGuide/components/*.md", "devGuide/*.md", "devGuide/*/*.md"]
     },
     {
       "src": [
@@ -34,8 +34,6 @@
     "lib/*",
     "*.json",
     "*.md",
-    "*.mbd",
-    "*.mbdf",
     "*.njk",
     ".git/*",
     "*.pptx",

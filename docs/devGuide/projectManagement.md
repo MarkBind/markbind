@@ -150,9 +150,8 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    The deployment is automated. However, if it doesn't deploy properly for the release, do the following:
 
    ```sh
-   $ cd docs
-   $ markbind build -s ug-site.json
-   $ markbind deploy -s ug-site.json
+   $ npm run build:ug
+   $ npm run deploy:ug
    ```
 
 1. **Update milestones**. Close the [milestone on GitHub](https://github.com/MarkBind/markbind/milestones) and all issues in that milestone.

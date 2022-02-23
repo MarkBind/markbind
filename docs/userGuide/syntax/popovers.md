@@ -5,47 +5,47 @@
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<popover effect="fade" content="Lorem ipsum dolor sit amet" placement="top">
+<popover content="Lorem ipsum dolor sit amet" placement="top">
   <button class="btn btn-secondary">Popover on top</button>
 </popover>
-<popover effect="fade" content="Lorem ipsum dolor sit amet" placement="left">
+<popover content="Lorem ipsum dolor sit amet" placement="left">
   <button class="btn btn-secondary">Popover on left</button>
 </popover>
-<popover effect="fade" content="Lorem ipsum dolor sit amet" placement="right">
+<popover content="Lorem ipsum dolor sit amet" placement="right">
   <button class="btn btn-secondary">Popover on right</button>
 </popover>
-<popover effect="fade" content="Lorem ipsum dolor sit amet" placement="bottom">
+<popover content="Lorem ipsum dolor sit amet" placement="bottom">
   <button class="btn btn-secondary">Popover on bottom</button>
 </popover>
 <hr>
 <h4 class="no-index">Header</h4>
-<popover effect="fade" header="Header" content="Lorem ipsum dolor sit amet" placement="top">
+<popover header="Header" content="Lorem ipsum dolor sit amet" placement="top">
   <button class="btn btn-secondary">Popover on top</button>
 </popover>
-<popover effect="fade" header="Header" content="Lorem ipsum dolor sit amet" placement="left">
+<popover header="Header" content="Lorem ipsum dolor sit amet" placement="left">
   <button class="btn btn-secondary">Popover on left</button>
 </popover>
-<popover effect="fade" header="Header" content="Lorem ipsum dolor sit amet" placement="right">
+<popover header="Header" content="Lorem ipsum dolor sit amet" placement="right">
   <button class="btn btn-secondary">Popover on right</button>
 </popover>
-<popover effect="fade" header="Header" content="Lorem ipsum dolor sit amet" placement="bottom">
+<popover header="Header" content="Lorem ipsum dolor sit amet" placement="bottom">
   <button class="btn btn-secondary">Popover on bottom</button>
 </popover>
 <hr />
 <h4 class="no-index">Trigger</h4>
 <p>
-  <popover effect="scale" header="Header" content="Lorem ipsum dolor sit amet" placement="top" trigger="hover">
+  <popover header="Header" content="Lorem ipsum dolor sit amet" placement="top" trigger="hover">
     <button class="btn btn-secondary">Mouseenter</button>
   </popover>
 </p>
 <h4 class="no-index">Markdown</h4>
 <p>
-  <popover effect="scale" header="**Emoji header** :rocket:" content="!!emoji!! content :cat:">
+  <popover header="**Emoji header** :rocket:" content="!!emoji!! content :cat:">
     <button class="btn btn-secondary">Hover</button>
   </popover>
 </p>
 <h4 class="no-index">Content using slot</h4>
-<popover effect="scale" header="**Emoji header** :rocket:">
+<popover header="**Emoji header** :rocket:">
   <div slot="content">
     This is a long content...
   </div>
@@ -71,7 +71,7 @@ This is the same <trigger for="pop:trigger_id">trigger</trigger> as last one.
 </include>
 
 <panel header="More about triggers">
-<include src="extra/triggers.mbdf" />
+<include src="extra/triggers.md" />
 </panel><p/>
 
 ****Options****
@@ -79,8 +79,8 @@ This is the same <trigger for="pop:trigger_id">trigger</trigger> as last one.
 Name | Type | Default | Description
 ---- | ---- | ------- | ------
 trigger | `String` |	`hover`	| How the Popover is triggered.<br>Supports: `click`, `focus`, `hover`.
-header{{slot_icon_trigger}} | `String` | `''` | Popover header, supports inline markdown text.
-content{{slot_icon_trigger}} | `String` | `''` | Popover content, supports inline markdown text.
+header{{slot_info_trigger}} | `String` | `''` | Popover header, supports MarkDown text.
+content{{slot_info_trigger}} | `String` | `''` | Popover content, supports MarkDown text.
 placement | `String` | `top` | How to position the Popover.<br>Supports: `top`, `left`, `right`, `bottom`.
 
 
