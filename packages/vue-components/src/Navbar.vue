@@ -308,6 +308,15 @@ export default {
             margin-top: 0.3125rem;
             order: 2;
             overflow-x: scroll;
+
+            /* Hide overflow scroll bar */
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+            /* Hide overflow scroll bar for Chrome and Safari */
+        .navbar-default::-webkit-scrollbar {
+            display: none;
         }
 
         .navbar-default ul {
@@ -363,21 +372,11 @@ export default {
         flex-basis: auto;
         flex-grow: 1;
         align-items: center;
-        overflow-x: scroll;
-
-        /* Hide overflow scroll bar */
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
     }
 
     >>> .dropdown-current {
         color: #fff !important;
         background: #007bff;
-    }
-
-    /* Hide overflow scroll bar for Chrome and Safari */
-    .navbar-default::-webkit-scrollbar {
-        display: none;
     }
 
     .lower-navbar-container {
