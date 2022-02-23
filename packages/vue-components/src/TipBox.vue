@@ -283,6 +283,10 @@ export default {
         border-radius: 6px;
     }
 
+    .box-container >.header-and-body {
+        overflow-x: auto;
+    }
+
     .box-header-wrapper {
         display: flex;
         flex-direction: row;
