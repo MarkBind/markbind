@@ -97,19 +97,18 @@ Note: `baseUrl` does not support [live preview](glossary.md#live-preview) as the
 
 </div>
 
-
 #### **`titlePrefix`**
 
-**The prefix for all page titles.** The separator <code>-</code> will be inserted by MarkBind.
-
+**The prefix for all page titles.** The separator `-` will be inserted by MarkBind.
 
 #### **`style`**
 
 _(Optional)_ **The styling options to be applied to the site.** This includes:
- 
+
 * **`bootstrapTheme`**
- _(Optional)_ **The theme for the generated site.** Uses the default Bootstrap theme if not specified. See [User Guide: Themes](themes.html) for more details.
- 
+ _(Optional)_ The theme for the generated site.<br>
+  Uses the default Bootstrap theme if not specified. See [User Guide: Themes](themes.html) for more details.
+
 * **`codeTheme`** [Optional. Default: `"dark"`]<br>
   The theme used for fenced code blocks. Accepts either `"light"` or `"dark"`.
 
@@ -175,11 +174,13 @@ The following properties will apply to `index.md`:
   "searchable": "no",      // Page takes priority over glob
 }
 ```
+
 </div>
 </box>
 </span>
 
 #### **`pagesExclude`**
+
 **An array of file patterns to be excluded from rendering.** The exclusion pattern follows the glob syntax.
 
 This property is the global variant to the `globExclude` property and is functionally identical to it. If the two are used at once, the file patterns from both properties will be combined when excluding pages.
@@ -214,6 +215,7 @@ The ignore pattern follows the [glob pattern used in .gitignore](https://git-scm
 
 * **`branch`** [Optional. Default: `"gh-pages"`]<br>
   The branch that will be deployed to in the remote repo.
+
 </div>
 
 #### **`plugins`**,  **`pluginsContext`**
@@ -232,7 +234,7 @@ The example above uses tags as an example of configuring plugin settings, refer 
 
 #### **`timeZone`**
 
-**Time zone of the [time stamp](reusingContents.html#built-in-global-variables).** Default: `"UTC"`. 
+**Time zone of the [time stamp](reusingContents.html#built-in-global-variables).** Default: `"UTC"`.
 
 <panel type="seamless" header="Time Zone Options">
   <include src="pages/timeZones.md" />
@@ -244,7 +246,7 @@ The example above uses tags as an example of configuring plugin settings, refer 
 
 **Language by locale used for the [time stamp](reusingContents.html#built-in-global-variables).** Default: `"en-GB"` (`English (United Kingdom)`). <br>
 The date format is thus - <br>
-`<Day>, <Date> <Month> <Year>, <24-hour Time> <Time Zone Code>`. 
+`<Day>, <Date> <Month> <Year>, <24-hour Time> <Time Zone Code>`.
 
 <panel type="seamless" header="Locale Options">
   <include src="pages/locales.md" />
@@ -253,7 +255,7 @@ The date format is thus - <br>
 
 #### **`intrasiteLinkValidation`**
 
-**Toggle whether to validate intra-site links.** By default, MarkBind will validate all intra-site links and alert you of any potentially invalid ones. 
+**Toggle whether to validate intra-site links.** By default, MarkBind will validate all intra-site links and alert you of any potentially invalid ones.
 To disable this validation **entirely**, you may add the following to `site.json`:
 <div id="disable-global-intrasite-link-validation">
 
@@ -264,4 +266,5 @@ To disable this validation **entirely**, you may add the following to `site.json
   },
   ...
   ```
+
 </div>
