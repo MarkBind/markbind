@@ -258,3 +258,8 @@ As the choice is highly dependent on context and details of the implementation, 
 - How big is the package?
 - How invasive are the proposed changes?
 - Are there existing APIs/plugin system from the package (to modify default behaviors)?
+
+<box type="tip" seamless>
+
+Find out more about the key external libraries used in MarkBind from the [project structure](design/projectStructure.md) section. Also, the rationales behind most existing patches are documented in their respective files, read them (and their respective PRs/issues) for more context!
+</box>
