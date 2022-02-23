@@ -2,6 +2,7 @@
   title: "site.json File"
   layout: userGuide.md
   keywords: site.json
+  pageNav: 4
 </frontmatter>
 
 # `site.json` File
@@ -233,7 +234,7 @@ The example above uses tags as an example of configuring plugin settings, refer 
 
 **Time zone of the [time stamp](reusingContents.html#built-in-global-variables).** Default: `"UTC"`. 
 
-<panel type="minimal" header="Time Zone Options">
+<panel type="seamless" header="Time Zone Options">
   <include src="pages/timeZones.md" />
 </panel>
 
@@ -245,7 +246,7 @@ The example above uses tags as an example of configuring plugin settings, refer 
 The date format is thus - <br>
 `<Day>, <Date> <Month> <Year>, <24-hour Time> <Time Zone Code>`. 
 
-<panel type="minimal" header="Locale Options">
+<panel type="seamless" header="Locale Options">
   <include src="pages/locales.md" />
 </panel>
 <br>
