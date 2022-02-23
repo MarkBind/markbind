@@ -446,6 +446,15 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "kaixin-hc",
+      "name": "Hannah",
+      "avatar_url": "https://avatars.githubusercontent.com/u/59471320?v=4",
+      "profile": "https://github.com/kaixin-hc",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
