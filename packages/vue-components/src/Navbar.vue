@@ -364,10 +364,6 @@ export default {
         flex-grow: 1;
         align-items: center;
         overflow-x: scroll;
-
-        /* Hide overflow scroll bar */
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
     }
 
     >>> .dropdown-current {
