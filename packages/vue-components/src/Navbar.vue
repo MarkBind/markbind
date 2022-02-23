@@ -314,7 +314,7 @@ export default {
             scrollbar-width: none;  /* Firefox */
         }
 
-            /* Hide overflow scroll bar for Chrome and Safari */
+        /* Hide overflow scroll bar for Chrome and Safari */
         .navbar-default::-webkit-scrollbar {
             display: none;
         }
