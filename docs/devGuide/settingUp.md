@@ -35,14 +35,24 @@ We recommend the **WebStorm IDE** for working with MarkBind code.
 
 1. **Fork and clone** the MarkBind repo.
 1. **To bind your cloned version of MarkBind to your console** (instead of the released version of MarkBind), run `npm link` in the `packages/cli` folder of the cloned repo first.
-
-   <box type="tip" seamless>
-
-   To go back to the released version of MarkBind, run `npm un -g markbind-cli`, followed by `npm i -g markbind-cli`
-   </box>
 1. **Install dependencies** by running <popover content="Under the hood, this calls `npm ci` and `lerna bootstrap`">`npm run setup`</popover> in the **root folder** of your cloned repo.
-  <box type="info" seamless>
-  MarkBind uses <md>[lerna](https://github.com/lerna/lerna)</md>, a popular multi-package development tool, to manage it's dependencies. It is essentially a high level wrapper over node and npm's functionalities
-  </box>
 
 1. **Congratulations!** Now you ready to start modifying MarkBind code.
+
+### Common setup questions
+
+1. Does Markbind work with all operating systems?
+
+   Yes! We support all operating systems. However, windows 11 users might have to run `npm install` after the `npm run setup` as some packages may have incompatible versions.
+
+1. How does Markbind manage dependencies?
+
+   MarkBind uses <md>[lerna](https://github.com/lerna/lerna)</md>, a popular multi-package development tool, to manage it's dependencies. It is essentially a high level wrapper over node and npm's functionalities
+
+1. How do I move back to the released version of Markbind?
+
+   To go back to the released version of MarkBind, run `npm run -g markbind-cli`, followed by `npm i -g markbind-cli`.
+
+1. Some of my front-end components are not working as expected.
+
+   Try running `npm run build:web` to rebuild the front-end components as these changes are only made when a new version of Markbind is released.
