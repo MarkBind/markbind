@@ -24,8 +24,9 @@
 
 {{ icon_example }} Here is an example of how text within an html tag is parsed as Markdown when preceded by a blank line.
 
-Code:
-```html
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
 <span>
 Without preceding blank line: Apples **Bananas** Cherries
 </span>
@@ -34,17 +35,9 @@ Without preceding blank line: Apples **Bananas** Cherries
 
 With preceding blank line: Apples **Bananas** Cherries
 </span>
-```
-Outcome:<br>
+</variable>
+</include>
 
-<span>
-Without preceding blank line: Apples **Bananas** Cherries
-</span>
-
-<span>
-
-With preceding blank line: Apples **Bananas** Cherries
-</span>
 </div>
 
 Alternatively, you can use `<markdown>` (for _block_ Markdown elements such as headings) or `<md>` (for _inline_ Markdown elements such as bold/italic text) tags to indicate the text should be treated as Markdown.
@@ -53,8 +46,9 @@ Alternatively, you can use `<markdown>` (for _block_ Markdown elements such as h
 
 {{ icon_example }} Here is an example of how text within an HTML tag can be treated as Markdown using `<markdown>`/`<md>` tags.
 
-Code:
-```html
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
 <span>
 <md>Apples **Bananas** Cherries</md>
 </span>
@@ -62,15 +56,9 @@ Code:
 <span>
 <markdown>##### Apples **Bananas** Cherries</markdown>
 </span>
-```
-Outcome:<br>
-<span>
-<md>Apples **Bananas** Cherries</md>
-</span>
+</variable>
+</include>
 
-<span>
-<markdown>##### Apples **Bananas** Cherries</markdown>
-</span>
 </div>
 
 {% from "njk/common.njk" import previous_next %}
