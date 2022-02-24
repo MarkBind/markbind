@@ -42,11 +42,11 @@
 
 ### Using the `markbind deploy` command
 
-Running the **`markbind deploy`** command will deploy the most recent build of your site to the `gh-pages` branch of the repo `origin` and will be available. 
+Running the **`markbind deploy`** command will deploy the most recent build of your site to the `gh-pages` branch of the repo `origin` and will be available.
 
-Then, navigate to the page repo settings and set the source to the root of the `gh-pages` branch. You can read [this source](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site) on Github Pages for more details.
+Then, navigate to the `Settings > Pages` section on GitHub for that repository and set the source to the root of the `gh-pages` branch. You can read [this source](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site) on Github Pages for more details.
 
-Your site will be online at `http://<username|org>.github.io/<repo>` e.g., http://se-edu.github.io/se-book.
+Your site will be online at `http://<username|org>.github.io/<repo>` (e.g., http://se-edu.github.io/se-book).
 
 <div id="warning-about-baseUrl">
 
