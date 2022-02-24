@@ -333,3 +333,14 @@ h5,
 h6 {
     margin-bottom: 1rem;
 }
+
+.block-embed {
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+}
+
+.block-embed iframe {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
