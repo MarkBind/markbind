@@ -49,7 +49,7 @@ We recommend the **WebStorm IDE** for working with MarkBind code.
 
    MarkBind uses <md>[lerna](https://github.com/lerna/lerna)</md>, a popular multi-package development tool, to manage it's dependencies. It is essentially a high level wrapper over node and npm's functionalities
 
-1. How do I move back to the released version of Markbind?
+1. How do I move back to the released version of MarkBind?
 
    To go back to the released version of MarkBind, run `npm run -g markbind-cli`, followed by `npm i -g markbind-cli`.
 
