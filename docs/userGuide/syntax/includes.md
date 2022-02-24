@@ -152,7 +152,7 @@ If the same variable is defined in a chain of `<include>`s (e.g. `a.md` includes
 
 ### Using Boilerplate Files
 
-**If you find duplicating a <tooltip content="code that needs to stay relative to the directory in which it used">_boilerplate code_</tooltip> fragment in multiple places of your code base, you can use a `boilerplate` file to avoid such duplication.** Note that you cannot use a normal `<include>` in this case because the code included using a normal `<include>` stays relative to the original location while boilerplate code needs to be interpreted relative to the location it is being used.
+**If you find yourself duplicating a <tooltip content="code that needs to stay relative to the directory in which it used">_boilerplate code_</tooltip> fragment in multiple places of your code base, you can use a `boilerplate` file to avoid such duplication.** Note that you cannot use a normal `<include>` in this case because the code included using a normal `<include>` stays relative to the original location while boilerplate code needs to be interpreted relative to the location it is being used.
 
 <div class="indented">
 
@@ -229,7 +229,7 @@ The `_markbind/boilerplates/chapter.md`:
 <include src="exercises.md" />
 ```
 
-Consider the line `<include src="chapter1/chapter.md" boilerplate />`. Note how you can use `src="chapter1/chapter.md"` there is no such file. MarkBind will use the `chapter.md` file `/_markbind/boilerplates/` but interpret it as if the file exist in `chapter1` directory (i.e., interpret the `chapter1.md` code relative to the `chapter1` directory.
+Consider the line `<include src="chapter1/chapter.md" boilerplate />`. Note how you can use `src="chapter1/chapter.md"` even though there is no such file. MarkBind will use the `chapter.md` file from `/_markbind/boilerplates/` but interpret it as if the file exists in the `chapter1` directory (i.e., interpret the `chapter.md` code relative to the `chapter1` directory).
 
 Similarly, `<include src="chapter2/chapter.md" boilerplate />` interprets the `chapter.md` relative to the `chapter2` directory.
 </div>

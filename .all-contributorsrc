@@ -436,6 +436,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "jovyntls",
+      "name": "Jovyn Tan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61113575?v=4",
+      "profile": "http://www.jovyntan.com",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

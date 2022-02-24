@@ -1,6 +1,8 @@
 <img src="docs/images/logo-lightbackground.png" width="600" />
 
 [![CI](https://github.com/MarkBind/markbind/actions/workflows/ci.yml/badge.svg)](https://github.com/MarkBind/markbind/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/markbind-cli)](https://www.npmjs.com/package/markbind-cli)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9a8095bf-b582-4dce-9631-98c5754ba199/deploy-status)](https://app.netlify.com/sites/markbind-master/deploys)
 
 **A tool for generating static websites from Markdown-like syntax**. Optimized for content-heavy instructional websites, e.g. course websites, tutorials, project/product documentation, textbooks.
 
@@ -87,6 +89,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/vig42"><img src="https://avatars.githubusercontent.com/u/42461145?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vighnesh Iyer</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=vig42" title="Code">💻</a></td>
     <td align="center"><a href="https://resumednh.netlify.app/"><img src="https://avatars.githubusercontent.com/u/53283766?v=4?s=100" width="100px;" alt=""/><br /><sub><b>dao ngoc hieu</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=daongochieu2810" title="Code">💻</a></td>
     <td align="center"><a href="https://bandism.net/"><img src="https://avatars.githubusercontent.com/u/22633385?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ikko Ashimine</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=eltociear" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://www.jovyntan.com"><img src="https://avatars.githubusercontent.com/u/61113575?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jovyn Tan</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=jovyntls" title="Code">💻</a> <a href="https://github.com/MarkBind/markbind/commits?author=jovyntls" title="Documentation">📖</a></td>
   </tr>
 </table>
 
