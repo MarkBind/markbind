@@ -24,7 +24,7 @@ This page lists some other components that may be useful in creating education w
 {% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
 
 {% macro show_topic(filename) %}
-<include src="../syntax/{{ filename }}.mbdf" />
+<include src="../syntax/{{ filename }}.md" />
 <hr>
 {% endmacro %}
 

@@ -184,13 +184,13 @@ li.footnote-item:target {
     display: block;
 }
 
-.hljs:not(.inline):not(.no-line-numbers) > span {
+.hljs:not(.inline).line-numbers > span {
     padding: 0 0.5em 0 3.5em;
     position: relative;
 }
 
 /* display line numbers beside each span */
-.hljs:not(.inline):not(.no-line-numbers) > span::before {
+.hljs:not(.inline).line-numbers > span::before {
     border-right: 1px solid #ddd;
     display: inline-block;
     color: #888;
@@ -206,12 +206,7 @@ li.footnote-item:target {
     height: 100%;
 }
 
-/* hide popover, tooltip content */
-[data-mb-slot-name] {
-    display: none;
-}
-
-/* styles for triggers, popovers, tooltips */
+/* styles for triggers and tooltips */
 .trigger {
     border-bottom: 1px dotted currentColor;
 }

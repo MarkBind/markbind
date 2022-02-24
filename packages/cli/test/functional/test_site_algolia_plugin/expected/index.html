@@ -53,16 +53,19 @@
       Content
     </panel>
     <p><strong>Popover content should have algolia-no-index class</strong></p>
-    <span effect="fade" placement="top" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger"><span data-mb-slot-name="header" class="algolia-no-index">Title</span>
-      <span data-mb-slot-name="content" class="algolia-no-index">
+    <popover placement="top"><template #header>Title</template>
+      <template #content>
         <div>Content should have `algolia-no-index` class</div>
-      </span>
-      <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button></span>
-    <span effect="fade" placement="top" data-mb-component-type="popover" v-b-popover.hover.top.html="popoverInnerGetters" class="trigger"><span data-mb-slot-name="header" class="algolia-no-index">Title</span><span data-mb-slot-name="content" class="algolia-no-index">Content should have <code class="hljs inline no-lang" v-pre>algolia-no-index</code> class</span>
-      <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button></span>
+      </template>
+      <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
+    </popover>
+    <popover placement="top"><template #header>Title</template><template #content>Content should have <code class="hljs inline no-lang" v-pre>algolia-no-index</code> class</template>
+      <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
+    </popover>
     <p><strong>Tooltip content should have algolia-no-index class</strong></p>
-    <span placement="top" data-mb-component-type="tooltip" v-b-tooltip.hover.top.html="tooltipInnerContentGetter" class="trigger"><span data-mb-slot-name="_content" class="algolia-no-index">Content should have <code class="hljs inline no-lang" v-pre>algolia-no-index</code> class</span>
-      <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button></span>
+    <tooltip placement="top"><template #content>Content should have <code class="hljs inline no-lang" v-pre>algolia-no-index</code> class</template>
+      <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
+    </tooltip>
     <p><strong>Question hint and answer should have algolia-no-index class</strong></p>
     <question>
       Question should not have `algolia-no-index` class

@@ -20,7 +20,8 @@ Here is a typical `site.json` file:
   "titlePrefix": "FooBar Dev Docs",
   "style": {
     "bootstrapTheme": "bootswatch-cerulean",
-    "codeTheme": "light"
+    "codeTheme": "light",
+    "codeLineNumbers": true
   },
   "pages": [
     {
@@ -57,7 +58,6 @@ Here is a typical `site.json` file:
     "_site/*",
     "*.json",
     "*.md",
-    "*.mbd",
     ".git/*"
   ],
   "plugins" : [
@@ -112,7 +112,8 @@ _(Optional)_ **The styling options to be applied to the site.** This includes:
 * **`codeTheme`** [Optional. Default: `"dark"`]<br>
   The theme used for fenced code blocks. Accepts either `"light"` or `"dark"`.
 
-
+* **`codeLineNumbers`** [Optional. Default: `false`]<br>
+  The global setting to display or hide line numbers for code blocks. Accepts either `true` or `false`.
 
 #### **`pages`**
 
@@ -122,7 +123,7 @@ _(Optional)_ **The styling options to be applied to the site.** This includes:
   * `src` can be used to specify a single file, or an array of files.<br>
   {{ icon_examples }} `docs/index.md` or `[ 'docs/index.md', 'docs/userGuide.md' ]` { .my-1 }
   * `glob` can be used alternatively to define a file pattern in the [_glob syntax_](https://en.wikipedia.org/wiki/Glob_(programming)), or an array of such file patterns.<br>
-  {{ icon_examples }} `**/*.md` or `[ '**/*.md', '**/*.mbdf' ]` { .my-2 }
+  {{ icon_examples }} `**/*.md` or `[ '**/*.md', '**/index.md' ]` { .my-2 }
 * **`globExclude`**: An array of file patterns to be excluded from rendering when using `glob`, also defined in the glob syntax.
 * **`title`**: The page `<title>` for the generated web page. Titles specified here take priority over titles specified in the [front matter](addingPages.html#front-matter) of individual pages.
 * **`layout`**: The [layout](tweakingThePageStructure.html#page-layouts) to be used by the page. Default: `default`.

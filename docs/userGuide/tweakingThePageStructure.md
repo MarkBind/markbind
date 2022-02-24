@@ -16,7 +16,7 @@
 
 <span class="lead" id="overview">**MarkBind offers several ways to easily tweak the overall structure of a page**, for example, using headers, footers, scripts, or stylesheets.</span>
 
-<include src="syntax/frontmatter.mbdf" />
+<include src="syntax/frontmatter.md" />
 
 <hr><!-- ======================================================================================================= -->
 
@@ -40,7 +40,7 @@ Next, edit the layout file to your liking, and add the `{% raw %}{{ content }}{%
 <div id="layout-code-snippet">
 
 
-```html {.no-line-numbers highlight-lines="{{ highlightLines or "1-4,7,31,36-44[:],49,54,67-71" }}"}
+```html {highlight-lines="{{ highlightLines or "1-4,7,31,36-44[:],49,54,67-71" }}"}
 {% raw %}<head-bottom>
   <!-- Use head-top and head-bottom tags to insert content into the html <head> tag -->
   <link rel="stylesheet" href="{{baseUrl}}/css/main.css">
@@ -168,7 +168,7 @@ If you are not sure where to put the `fixed-header-padding` attribute, you may a
 
 <br>
 
-<include src="syntax/siteNavigationMenus.mbdf#content" />
+<include src="syntax/siteNavigationMenus.md#content" />
 
 ---
 
@@ -176,13 +176,13 @@ If you are not sure where to put the `fixed-header-padding` attribute, you may a
 
 <br>
 
-<include src="syntax/pageNavigationMenus.mbdf#content">
+<include src="syntax/pageNavigationMenus.md#content">
 <variable name="doNotShowPageNav">true</variable>
 </include>
 
 <hr><!-- ======================================================================================================= -->
 
-<include src="plugins/tags.mbdf">
+<include src="plugins/tags.md">
 <variable name="topHeadingLevel">##</variable>
 </include>
 

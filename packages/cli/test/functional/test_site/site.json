@@ -2,6 +2,9 @@
   "baseUrl": "/test_site",
   "faviconPath": "favicon.png",
   "titlePrefix": "",
+  "style": {
+    "codeLineNumbers": true
+  },
   "pages": [
     {
       "src": "index.md",
@@ -48,7 +51,7 @@
       "title": "Anchor Generation Test"
     },
     {
-      "src": "testTooltipSpacing.mbd",
+      "src": "testTooltipSpacing.md",
       "title": "Tooltip Spacing Test"
     },
     {
@@ -102,7 +105,14 @@
     {
       "src": "testPageNav.md",
       "title": "text interpolation should be skipped appropriately"
+    },
+    {
+      "src": "testLinks.md",
+      "title": "Autolink tests"
     }
+  ],
+  "pagesExclude": [
+    "**/*-fragment.md"
   ],
   "ignore": [
     "_markbind/layouts/*",

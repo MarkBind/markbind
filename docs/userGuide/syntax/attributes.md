@@ -62,5 +62,5 @@ don't add a space for **inline**{.text-danger} markdown
 
 <!-- Reader facing features -->
 <span id="examples" class="d-none">
-<include src="attributes.mbdf#list-example" />
+<include src="attributes.md#list-example" />
 </span>

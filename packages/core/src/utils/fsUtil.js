@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const ensurePosix = require('ensure-posix-path');
 
-const markdownFileExts = ['.md', '.mbd', '.mbdf'];
+const markdownFileExts = '.md';
 
 module.exports = {
   ensurePosix,
@@ -16,7 +16,7 @@ module.exports = {
   },
 
   isMarkdownFileExt(ext) {
-    return markdownFileExts.includes(ext);
+    return markdownFileExts === ext;
   },
 
   setExtension: (normalizedFilename, ext) => module.exports.removeExtension(normalizedFilename) + ext,

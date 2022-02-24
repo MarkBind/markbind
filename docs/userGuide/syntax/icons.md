@@ -7,8 +7,8 @@ MarkBind supports using Font Icons provided by Font Awesome, Glyphicons and GitH
 <include src="tip.md" boilerplate >
 <span id="tip_body">
 The advantage of font icons over emojis is font icons can be _styled_ to fit your needs. e.g.,
-* emoji: <span style="color: purple">Don't judge the :book: by it's cover! :-1:</span>
-* font icons: <span style="color: purple">Don't judge the :fas-book: by it's cover! {{ icon_dislike }}</span>
+* emoji: <span style="color: purple">Don't judge the :book: by its cover! :-1:</span>
+* font icons: <span style="color: purple">Don't judge the :fas-book: by its cover! {{ icon_dislike }}</span>
 </span>
 </include>
 

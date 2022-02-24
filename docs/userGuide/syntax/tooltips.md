@@ -4,16 +4,16 @@
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 <tooltip content="Lorem ipsum dolor sit amet" placement="top">
-  <button class="btn btn-secondary">Popover on top</button>
+  <button class="btn btn-secondary">Tooltip on top</button>
 </tooltip>
 <tooltip content="Lorem ipsum dolor sit amet" placement="left">
-  <button class="btn btn-secondary">Popover on left</button>
+  <button class="btn btn-secondary">Tooltip on left</button>
 </tooltip>
 <tooltip content="Lorem ipsum dolor sit amet" placement="right">
-  <button class="btn btn-secondary">Popover on right</button>
+  <button class="btn btn-secondary">Tooltip on right</button>
 </tooltip>
 <tooltip content="Lorem ipsum dolor sit amet" placement="bottom">
-  <button class="btn btn-secondary">Popover on bottom</button>
+  <button class="btn btn-secondary">Tooltip on bottom</button>
 </tooltip>
 <hr />
 Trigger
@@ -52,7 +52,7 @@ This is the same <trigger for="tt:trigger_id">trigger</trigger> as last one.
 </include>
 
 <panel header="More about triggers">
-<include src="extra/triggers.mbdf" />
+<include src="extra/triggers.md" />
 </panel><p/>
 
 ****Options****

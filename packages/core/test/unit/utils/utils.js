@@ -40,6 +40,7 @@ function getNewNodeProcessor(pluginManager) {
     ignore: [],
     addressablePagesSource: [],
     intrasiteLinkValidation: { enabled: false },
+    codeLineNumbers: false,
   };
 
   return new NodeProcessor(fileConfig, new PageSources(),

@@ -21,7 +21,7 @@ The variables declared here are available from anywhere in the code base.
 
 {{ icon_example }} Here's how you can define two variables `year` and `options`:
 
-```html {.no-line-numbers}
+```html
 <variable name="year">2018</variable>
 
 <variable name="options">

@@ -1,4 +1,4 @@
-<include src="headers/header.mbdf" />
+<include src="headers/header.md" />
 
 <div id="flex-body">
   <nav id="site-nav" class="fixed-header-padding">
@@ -52,4 +52,4 @@
   </nav>
 </div>
 
-<include src="footers/footer.mbdf" />
+<include src="footers/footer.md" />

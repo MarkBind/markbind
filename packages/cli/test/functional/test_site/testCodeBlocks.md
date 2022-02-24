@@ -14,7 +14,23 @@ Content in a fenced code block
 </foo>
 ```
 
-**`no-line-numbers` attr should hide corresponding line numbers**
+**`codeLineNumbers` option in `site.json` should set the global code line numbers behavior (should show line numbers)**
+
+```xml
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+
+**`line-numbers` class should show corresponding line numbers**
+
+```xml {.line-numbers}
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+
+**`no-line-numbers` class should hide corresponding line numbers**
 
 ```xml {.no-line-numbers}
 <foo>

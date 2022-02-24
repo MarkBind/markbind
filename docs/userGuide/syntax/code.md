@@ -32,7 +32,31 @@ To enable syntax coloring, specify a language next to the backticks before the f
 </div>
 
 ##### Line numbering
-Line numbers are provided by default. To hide line numbers, add the class `no-line-numbers` to the code block as below
+Line numbers are <tooltip content="Line numbers were provided by default in version v3.1.1 and below. To preserve the exact line numbers behavior of sites generated in previous versions, simply set the codeLineNumbers option in site.json to true">hidden by default</tooltip>. To enable line numbers for the entire site by default,
+add `"codeLineNumbers": true` to the [`site.json`]({{baseUrl}}/userGuide/siteJsonFile.html#style) file:
+```json {highlight-lines="8[:]"}
+{
+  // ...
+  "style": {
+    "bootstrapTheme": "bootswatch-cerulean",
+    "codeTheme": "light",
+    "codeLineNumbers": true // optional, false if omitted
+  }
+  // code below omitted for brevity
+}
+```
+
+For each code block, you may also use the `line-numbers` or `no-line-numbers` classes to override the site-wide setting as such:
+
+<include src="codeAndOutputCode.md" boilerplate >
+<variable name="code">
+```xml {.line-numbers}
+<foo>
+  <bar type="name">goo</bar>
+</foo>
+```
+</variable>
+</include>
 
 <include src="codeAndOutputCode.md" boilerplate >
 <variable name="code">
@@ -65,7 +89,7 @@ below for a visual demonstration of all the possible ways of highlighting a code
 <include src="codeAndOutputCode.md" boilerplate >
 
 <variable name="code">
-```java {highlight-lines="1[:],3['Inventory'],4['It\'s designed'],5,6[8:18],8[0::2],12[:]-14,16-18,20[12:]-22,24[1::]-26"}
+```java {.line-numbers highlight-lines="1[:],3['Inventory'],4['It\'s designed'],5,6[8:18],8[0::2],12[:]-14,16-18,20[12:]-22,24[1::]-26"}
 import java.util.List;
 
 // Inventory is a class that stores inventory items in a list.
@@ -163,7 +187,7 @@ A _copy_ button can be added to code blocks using the `codeBlockCopyButtons` plu
 
 <panel type="seamless" header="**User Guide: Using Plugins → Plugin: `codeBlockCopyButtons`**" popup-url="usingPlugins.html#plugin-codeblockcopybuttons">
 
-  <include src="../plugins/codeBlockCopyButtons.mbdf" />
+  <include src="../plugins/codeBlockCopyButtons.md" />
 
 </panel>
 <br>
@@ -174,7 +198,7 @@ A _wrap text_ button can be added to code blocks using the `codeBlockWrapButtons
 
 <panel type="seamless" header="**User Guide: Using Plugins → Plugin: `codeBlockWrapButtons`**" popup-url="usingPlugins.html#plugin-codeblockwrapbuttons">
 
-  <include src="../plugins/codeBlockWrapButtons.mbdf" />
+  <include src="../plugins/codeBlockWrapButtons.md" />
 
 </panel>
 <br>

@@ -140,6 +140,6 @@ bob -> bob ++ : self call
 </span>
 <span id="examples" class="d-none">
 
-<include src="diagrams.mbdf#puml-examples" />
+<include src="diagrams.md#puml-examples" />
 
 </span>

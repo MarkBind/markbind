@@ -177,7 +177,7 @@
       "headingKeywords": {}
     },
     {
-      "src": "testTooltipSpacing.mbd",
+      "src": "testTooltipSpacing.md",
       "title": "Tooltip Spacing Test",
       "headings": {
         "569-stray-space-after-tooltip": "569: Stray space after tooltip"
@@ -270,6 +270,14 @@
       "src": "testPageNav.md",
       "title": "text interpolation should be skipped appropriately",
       "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testLinks.md",
+      "title": "Autolink tests",
+      "headings": {
+        "autolinks": "Autolinks"
+      },
       "headingKeywords": {}
     }
   ]

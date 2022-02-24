@@ -80,7 +80,7 @@ If you wish to further customize your navbar beyond the primary, dark, and light
 ****Navbar Link Highlighting****
 
 ```html
-{% include "_markbind/layouts/headers/header.mbdf" %}
+{% include "_markbind/layouts/headers/header.md" %}
 ```
 
 ****Highlight Options****
@@ -179,7 +179,7 @@ If you wish to alter the button placement on the navbar, you may use the `<site-
 
 By default, if the `lower-navbar` slot is not specified, the site and page navigation buttons are simply placed as such.
 
-```html{.no-line-numbers}
+```html
 <navbar>
   <!-- Any normal navbar items -->
   <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind</a>
@@ -202,7 +202,7 @@ Component | Description
 You may also wish to style your navigation content differently on mobile view.
 By default, MarkBind already provides some reasonable overrides for smaller screens, applied over any styles you might have for the mobile navigation content identified above.
 
-```css {.no-line-numbers heading="Css class attached to the root navigation element"}
+```css {heading="Css class attached to the root navigation element"}
 .mb-mobile-nav {
     display: block !important;
     margin: 0 !important;
@@ -217,7 +217,7 @@ If you require greater customisation, you may simply compose the respective sele
 
 {{ icon_example }}
 
-```css {.no-line-numbers heading=""}
+```css {heading=""}
 #site-nav.mb-mobile-nav {
   /* Be sure to add the !important css rule when overriding .mb-mobile-nav's properties! */
   border: 1px solid black !important;
