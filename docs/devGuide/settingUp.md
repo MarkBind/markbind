@@ -55,4 +55,4 @@ We recommend the **WebStorm IDE** for working with MarkBind code.
 
 1. Some of my front-end components are not working as expected.
 
-   Try running `npm run build:web` to rebuild the front-end components as these changes are only made when a new version of Markbind is released.
+   Try running `npm run build:web` to rebuild the front-end components as these changes are only made when a new version of MarkBind is released.
