@@ -134,7 +134,7 @@ Hence, if you need to view the latest frontend changes (relating to `packages/co
 
 1. Run `markbind serve -d` (with any other applicable options). (**recommended**)<br>
    This adds the necessary webpack middlewares to the development server to compile the above bundles,
-   and enables live and hot reloading for frontend source files. 
+   and enables live and hot reloading for frontend source files.
 1. Run `npm run build:web` in the root directory, which builds the above bundles,
    then run your markbind-cli [command](https://markbind.org/userGuide/cliCommands.html) of choice.
 
