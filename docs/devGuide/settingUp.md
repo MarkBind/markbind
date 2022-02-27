@@ -34,9 +34,8 @@ We recommend the **WebStorm IDE** for working with MarkBind code.
 ## Setting up the dev environment
 
 1. **Fork and clone** the MarkBind repo.
-1. **To bind your cloned version of MarkBind to your console** (instead of the released version of MarkBind), run `npm link` in the `packages/cli` folder of the cloned repo first.
+1. **Bind your cloned version of MarkBind to your console** Inside the cloned folder navigate to the `packages/cli` folder and run `npm link`
 1. **Install dependencies** by running <popover content="Under the hood, this calls `npm ci` and `lerna bootstrap`">`npm run setup`</popover> in the **root folder** of your cloned repo.
-
 1. **Congratulations!** Now you ready to start modifying MarkBind code.
 
 ### Common setup questions
@@ -51,8 +50,8 @@ We recommend the **WebStorm IDE** for working with MarkBind code.
 
 1. How do I move back to the released version of MarkBind?
 
-   To go back to the released version of MarkBind, run `npm run -g markbind-cli`, followed by `npm i -g markbind-cli`.
+   To go back to the released version of MarkBind, run `npm un -g markbind-cli`, followed by `npm i -g markbind-cli`.
 
-1. Some of my front-end components are not working as expected.
+1. Some of my front-end components are not working as expected. 
 
-   Try running `npm run build:web` to rebuild the front-end components as these changes are only made when a new version of MarkBind is released.
+   Try running `npm run build:web` to rebuild the front-end components as these changes are only made when a new version of MarkBind is released. Learn more about this [here](workflow.md#editing-frontend-features)
