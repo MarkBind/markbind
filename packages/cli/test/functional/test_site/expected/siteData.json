@@ -281,6 +281,14 @@
       "title": "text interpolation should be skipped appropriately",
       "headings": {},
       "headingKeywords": {}
+    },
+    {
+      "src": "testLinks.md",
+      "title": "Autolink tests",
+      "headings": {
+        "autolinks": "Autolinks"
+      },
+      "headingKeywords": {}
     }
   ]
 }

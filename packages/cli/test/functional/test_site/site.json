@@ -109,6 +109,10 @@
     {
       "src": "testPageNav.md",
       "title": "text interpolation should be skipped appropriately"
+    },
+    {
+      "src": "testLinks.md",
+      "title": "Autolink tests"
     }
   ],
   "pagesExclude": [

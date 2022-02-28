@@ -5,42 +5,42 @@
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<popover effect="fade" content="Lorem ipsum dolor sit amet" placement="top">
+<popover content="Lorem ipsum dolor sit amet" placement="top">
   <button class="btn btn-secondary">Popover on top</button>
 </popover>
-<popover effect="fade" content="Lorem ipsum dolor sit amet" placement="left">
+<popover content="Lorem ipsum dolor sit amet" placement="left">
   <button class="btn btn-secondary">Popover on left</button>
 </popover>
-<popover effect="fade" content="Lorem ipsum dolor sit amet" placement="right">
+<popover content="Lorem ipsum dolor sit amet" placement="right">
   <button class="btn btn-secondary">Popover on right</button>
 </popover>
-<popover effect="fade" content="Lorem ipsum dolor sit amet" placement="bottom">
+<popover content="Lorem ipsum dolor sit amet" placement="bottom">
   <button class="btn btn-secondary">Popover on bottom</button>
 </popover>
 <hr>
 <h4 class="no-index">Header</h4>
-<popover effect="fade" header="Header" content="Lorem ipsum dolor sit amet" placement="top">
+<popover header="Header" content="Lorem ipsum dolor sit amet" placement="top">
   <button class="btn btn-secondary">Popover on top</button>
 </popover>
-<popover effect="fade" header="Header" content="Lorem ipsum dolor sit amet" placement="left">
+<popover header="Header" content="Lorem ipsum dolor sit amet" placement="left">
   <button class="btn btn-secondary">Popover on left</button>
 </popover>
-<popover effect="fade" header="Header" content="Lorem ipsum dolor sit amet" placement="right">
+<popover header="Header" content="Lorem ipsum dolor sit amet" placement="right">
   <button class="btn btn-secondary">Popover on right</button>
 </popover>
-<popover effect="fade" header="Header" content="Lorem ipsum dolor sit amet" placement="bottom">
+<popover header="Header" content="Lorem ipsum dolor sit amet" placement="bottom">
   <button class="btn btn-secondary">Popover on bottom</button>
 </popover>
 <hr />
 <h4 class="no-index">Trigger</h4>
 <p>
-  <popover effect="scale" header="Header" content="Lorem ipsum dolor sit amet" placement="top" trigger="hover">
+  <popover header="Header" content="Lorem ipsum dolor sit amet" placement="top" trigger="hover">
     <button class="btn btn-secondary">Mouseenter</button>
   </popover>
 </p>
 <h4 class="no-index">Markdown</h4>
 <p>
-  <popover effect="scale" header="**Emoji header** :rocket:" content="!!emoji!! content :cat:">
+  <popover header="**Emoji header** :rocket:" content="!!emoji!! content :cat:">
     <button class="btn btn-secondary">Hover</button>
   </popover>
 </p>
@@ -85,30 +85,29 @@ This is the same <trigger for="pop:trigger_id">trigger</trigger> as last one.
 <include src="extra/triggers.md" />
 </panel><p/>
 
-****Options****
+\***\*Options\*\***
 
-Name | Type | Default | Description
----- | ---- | ------- | ------
-trigger | `String` |	`hover`	| How the Popover is triggered.<br>Supports: `click`, `focus`, `hover`.
-header{{slot_info_trigger}} | `String` | `''` | Popover header, supports MarkDown text.
-content{{slot_info_trigger}} | `String` | `''` | Popover content, supports MarkDown text.
-src | `String` | | The url to the remote page to be loaded as the content of the popover. Both .md and .html are accepted.
-placement | `String` | `top` | How to position the Popover.<br>Supports: `top`, `left`, `right`, `bottom`.
-
+| Name                         | Type     | Default | Description                                                                                             |
+| ---------------------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------- |
+| trigger                      | `String` | `hover` | How the Popover is triggered.<br>Supports: `click`, `focus`, `hover`.                                   |
+| header{{slot_info_trigger}}  | `String` | `''`    | Popover header, supports MarkDown text.                                                                 |
+| content{{slot_info_trigger}} | `String` | `''`    | Popover content, supports MarkDown text.                                                                |
+| src                          | `String` |         | The url to the remote page to be loaded as the content of the popover. Both .md and .html are accepted. |
+| placement                    | `String` | `top`   | How to position the Popover.<br>Supports: `top`, `left`, `right`, `bottom`.                             |
 
 <span id="short" class="d-none">
 
 ```html
-Hover over the <trigger for="pop:context-target">keyword</trigger> to see the popover.
+Hover over the <trigger for="pop:context-target">keyword</trigger> to see the
+popover.
 
 <popover id="pop:context-target" header="Popover header" placement="top">
-<div slot="content">
-
-description :+1:
-
-</div>
+	<div slot="content">
+		description :+1:
+	</div>
 </popover>
 ```
+
 </span>
 
 <span id="examples" class="d-none">
