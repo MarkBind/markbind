@@ -283,7 +283,7 @@ function processPopoverSrc(node, context, pageSources, variableProcessor, render
 
   // No need to process url contents
   if (isUrl) {
-    const error = new Error(`URLs are not allowed in the 'src' attribute`);
+    const error = new Error('URLs are not allowed in the \'src\' attribute');
     logger.error(error);
     cheerio(node).replaceWith(createErrorNode(node, error));
     return context;
