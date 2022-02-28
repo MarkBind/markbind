@@ -306,6 +306,7 @@ export default {
         .navbar-default {
             display: block;
             margin-top: 0.3125rem;
+            width: 100%;
             order: 2;
             overflow-x: scroll;
 
