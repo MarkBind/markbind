@@ -82,9 +82,12 @@ class MdAttributeRenderer {
       return;
     }
 
-    if (!_.has(node.attribs, 'src')) {
-      this.processAttributeWithoutOverride(node, 'content', true);
+    if (_.has(node.attribs, 'content') && _.has(node.attribs, 'src')) {
+      logger.warn(`${node.name} has a 'content' attribute, 'src' attribute has no effect.`);
+      delete node.attribs.src;
     }
+
+    this.processAttributeWithoutOverride(node, 'content', true);
   }
 
   processTooltip(node) {

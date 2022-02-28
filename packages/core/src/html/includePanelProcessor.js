@@ -274,10 +274,6 @@ function processPopoverSrc(node, context, pageSources, variableProcessor, render
     return context;
   }
 
-  if (_.has(node.attribs, 'content')) {
-    logger.warn(`${node.name} has a 'src' attribute, 'content' attribute has no effect.`);
-  }
-
   const {
     isUrl,
     hash,
