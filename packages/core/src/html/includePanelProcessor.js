@@ -4,6 +4,7 @@ const url = require('url');
 
 const { createErrorNode, createEmptyNode } = require('./elements');
 const { CyclicReferenceError } = require('../errors');
+const { appendSlotNode } = require('./vueSlotSyntaxProcessor');
 
 const fsUtil = require('../utils/fsUtil');
 const logger = require('../utils/logger');
@@ -270,6 +271,7 @@ function processPopoverSrc(node, context, pageSources, variableProcessor, render
     const error = new Error(`Empty src attribute in include in: ${context.cwf}`);
     logger.error(error);
     cheerio(node).replaceWith(createErrorNode(node, error));
+    return context;
   }
 
   if (_.has(node.attribs, 'content')) {
@@ -283,15 +285,17 @@ function processPopoverSrc(node, context, pageSources, variableProcessor, render
     actualFilePath,
   } = _getSrcFlagsAndFilePaths(node, config);
 
+  // No need to process url contents
+  if (isUrl) {
+    const error = new Error(`URLs are not allowed in the 'src' attribute`);
+    logger.error(error);
+    cheerio(node).replaceWith(createErrorNode(node, error));
+    return context;
+  }
+
   const fileExistsNode = _getFileExistsNode(node, context, actualFilePath, pageSources);
   if (fileExistsNode) {
     return fileExistsNode;
-  }
-
-  // No need to process url contents
-  if (isUrl) {
-    delete node.attribs.src;
-    return node;
   }
 
   pageSources.staticIncludeSrc.push({
@@ -322,7 +326,9 @@ function processPopoverSrc(node, context, pageSources, variableProcessor, render
         + `Missing reference in ${context.cwf}`);
       logger.error(error);
 
-      actualContent = cheerio.html(createErrorNode(node, error));
+      cheerio(node).replaceWith(createErrorNode(node, error));
+
+      return context;
     }
   }
 
@@ -335,11 +341,11 @@ function processPopoverSrc(node, context, pageSources, variableProcessor, render
       const error = new CyclicReferenceError(childContext.callStack);
       logger.error(error);
       cheerio(node).replaceWith(createErrorNode(node, error));
+      return context;
     }
   }
 
-  const attributeSlotElement = cheerio.parseHTML(`<template #content>${actualContent}</template>`, true);
-  node.children = node.children ? attributeSlotElement.concat(node.children) : attributeSlotElement;
+  appendSlotNode(node, actualContent);
 
   delete node.attribs.src;
 

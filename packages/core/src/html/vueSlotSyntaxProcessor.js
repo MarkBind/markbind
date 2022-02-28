@@ -4,6 +4,13 @@ const _ = {};
 _.has = require('lodash/has');
 _.find = require('lodash/find');
 
+const { createSlotTemplateNode } = require('./elements');
+
+function appendSlotNode(node, content) {
+  const attributeSlotElement = createSlotTemplateNode(content);
+  node.children = node.children ? attributeSlotElement.concat(node.children) : attributeSlotElement;
+}
+
 function getVslotShorthandName(node) {
   if (!node.attribs) {
     return '';
@@ -68,6 +75,7 @@ function transformOldSlotSyntax(node) {
 }
 
 module.exports = {
+  appendSlotNode,
   getVslotShorthandName,
   shiftSlotNodeDeeper,
   transformOldSlotSyntax,

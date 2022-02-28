@@ -64,9 +64,8 @@ class MdAttributeRenderer {
     const hasAttribute = _.has(node.attribs, attribute);
     if (hasAttribute) {
       logger.warn(`${node.name} has a ${slotName} slot, '${attribute}' attribute has no effect.`);
+      delete node.attribs[attribute];
     }
-
-    delete node.attribs[attribute];
 
     return hasAttribute;
   }
