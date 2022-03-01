@@ -11,8 +11,6 @@
     "_site/*",
     "site.json",
     "*.md",
-    "*.mbd",
-    "*.mbdf",
     "*.njk",
     ".git/*"
   ],
@@ -24,16 +22,14 @@
     {
       "glob": [
         "**/index.md",
-        "**/*.+(md|mbd)"
+        "**/*.md"
       ]
     }
   ],
   "deploy": {
     "message": "Site Update."
   },
-  "plugins": [
-    "codeBlockCopyButtons"
-  ],
+  "plugins": [],
   "pluginsContext": {
     "codeBlockCopyButtons": {
       "input": "test"

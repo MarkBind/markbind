@@ -22,7 +22,7 @@
   },
   "scripts": {
     "test": "jest --colors && cd test/functional && node test.js && npm run test:e2e",
-    "test:e2e":"jest --colors --runInBand test/e2e/site.json.test.js --config=test/e2e/jest.config.js",
+    "test:e2e":"jest --colors --runInBand test/e2e/ --config=test/e2e/jest.config.js",
     "updatetest": "cd test/functional && node updatetest.js"
   },
   "dependencies": {
