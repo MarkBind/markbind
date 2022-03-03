@@ -46,6 +46,14 @@ class VideoServiceBase {
     let escapedServiceName = this.env.md.utils.escapeHtml(this.name);
     containerClassNames.push(this.env.options.serviceClassPrefix + escapedServiceName);
 
+    let containerStyles = ["position: relative;", "height: 0;"];
+    // To set a specific style, add a style prop to the getDefaultOptions of any Service
+    if (this.options.style) {
+      containerStyles.push(this.options.style);
+    } else {
+      containerStyles.push(`padding-bottom: ${this.options.height / this.options.width * 100}%`);
+    }
+
     let iframeAttributeList = [];
     iframeAttributeList.push([ "type", "text/html" ]);
     iframeAttributeList.push([ "src", this.getFilteredVideoUrl(videoID) ]);
@@ -74,7 +82,7 @@ class VideoServiceBase {
       )
       .join(" ");
 
-    return `<div class="${containerClassNames.join(" ")}">`
+    return `<div class="${containerClassNames.join(" ")}" style="${containerStyles.join(" ")}">`
            + `<iframe ${iframeAttributes}></iframe>`
          + `</div>\n`;
   }

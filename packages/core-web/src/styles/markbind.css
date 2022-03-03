@@ -334,13 +334,6 @@ h6 {
     margin-bottom: 1rem;
 }
 
-.block-embed {
-    position: relative;
-	height: 0;
-	padding-bottom: 56.25%; /* 16:9 */
-    padding-top: 25px;
-}
-
 .block-embed iframe {
     position: absolute;
 	top: 0;
