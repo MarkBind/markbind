@@ -4,8 +4,6 @@ const _ = {};
 _.has = require('lodash/has');
 _.find = require('lodash/find');
 
-const { createSlotTemplateNode } = require('./elements');
-
 function getVslotShorthandName(node) {
   if (!node.attribs) {
     return '';
