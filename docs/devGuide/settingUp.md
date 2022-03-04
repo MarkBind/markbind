@@ -62,8 +62,6 @@ We recommend the **WebStorm IDE** for working with MarkBind code. </box>
    To go back to the released version of MarkBind, run
    `npm run -g markbind-cli`, followed by `npm i -g markbind-cli`.
 
-1. Some of my front-end components are not working as expected even after
-   running `markbind serve -d`.
+1. Some of my front-end components are not working as expected when running `markbind serve`.
 
-   Try running `npm run build:web` to rebuild the front-end components as these
-   changes are only made when a new version of MarkBind is released.
+   Try checking out the [editing frontend features section](workflow.md#editing-frontend-features), you can either try running `markbind serve -d` or `npm run build:web` to view frontend changes. (Especially after pulling a frontend update that someone else may have pushed)
