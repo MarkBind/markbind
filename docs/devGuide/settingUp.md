@@ -48,7 +48,7 @@ We recommend the **WebStorm IDE** for working with MarkBind code. </box>
 1. Does MarkBind work with all operating systems?
 
    Yes! We support all operating systems. However, Windows 11 users might have
-   to run `npm install` after `npm run setup` as some packages may have
+   to run `npm install` after `npm un setup` as some packages may have
    incompatible versions.
 
 1. How does Markbind manage dependencies?

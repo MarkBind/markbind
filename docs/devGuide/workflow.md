@@ -131,12 +131,11 @@ The sections below has more information about various stages of submitting a PR.
 We update the frontend `markbind.min.js` and `markbind.min.css` bundles during release only, and not in pull requests.
 
 Hence, if you need to view the latest frontend changes (relating to `packages/core-web` or `packages/vue-components`), you can either:
-
 1. Run `npm run build:web` in the root directory, which builds the above bundles,
    then run your markbind-cli [command](https://markbind.org/userGuide/cliCommands.html) of choice.
-1. Run `markbind serve -d` (with any other applicable options). (**recommended**)<br>
+2. Run `markbind serve -d` (with any other applicable options). (**recommended**)<br>
    This adds the necessary webpack middlewares to the development server to compile the above bundles,
-   and enables live and hot reloading for frontend source files.
+   and enables live and hot reloading for frontend source files. 
 
 ## Testing
 
