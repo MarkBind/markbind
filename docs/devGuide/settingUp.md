@@ -48,7 +48,7 @@ We recommend the **WebStorm IDE** for working with MarkBind code. </box>
 1. Does MarkBind work with all operating systems?
 
    Yes! We support all operating systems. However, Windows 11 users might have
-   to run `npm install` after `npm un setup` as some packages may have
+   to run `npm install` after `npm run setup` as some packages may have
    incompatible versions.
 
 1. How does Markbind manage dependencies?
@@ -60,8 +60,8 @@ We recommend the **WebStorm IDE** for working with MarkBind code. </box>
 1. How do I move back to the released version of MarkBind?
 
    To go back to the released version of MarkBind, run
-   `npm run -g markbind-cli`, followed by `npm i -g markbind-cli`.
+   `npm un -g markbind-cli`, followed by `npm i -g markbind-cli`.
 
 1. Some of my front-end components are not working as expected when running `markbind serve`.
 
-   Try running either try running `markbind serve -d` or `npm run build:web` to view frontend changes. (Especially after pulling a frontend update that someone else may have pushed). You can more details [here](workflow.md#editing-frontend-features).
+   Try running either try running `markbind serve -d` or `npm run build:web` to view frontend changes (especially after pulling a frontend update that someone else may have pushed). You can more details [here](workflow.md#editing-frontend-features).
