@@ -2,9 +2,8 @@ const cheerio = require('cheerio'); require('../patches/htmlparser2');
 const path = require('path');
 const url = require('url');
 
-const { createErrorNode, createEmptyNode } = require('./elements');
+const { createErrorNode, createEmptyNode, createSlotTemplateNode } = require('./elements');
 const { CyclicReferenceError } = require('../errors');
-const { appendSlotNode } = require('./vueSlotSyntaxProcessor');
 
 const fsUtil = require('../utils/fsUtil');
 const logger = require('../utils/logger');
@@ -341,7 +340,8 @@ function processPopoverSrc(node, context, pageSources, variableProcessor, render
     }
   }
 
-  appendSlotNode(node, actualContent);
+  const attributeSlotElement = createSlotTemplateNode('content', actualContent);
+  node.children = node.children ? attributeSlotElement.concat(node.children) : attributeSlotElement;
 
   delete node.attribs.src;
 

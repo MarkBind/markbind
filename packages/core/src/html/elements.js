@@ -14,7 +14,7 @@ module.exports = {
     return cheerio.parseHTML('<div></div>', true)[0];
   },
 
-  createSlotTemplateNode(content) {
-    return cheerio.parseHTML(`<template #content>${content}</template>`, true);
+  createSlotTemplateNode(slotName, content) {
+    return cheerio.parseHTML(`<template #{slotName}>${content}</template>`, true);
   },
 };
