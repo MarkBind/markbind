@@ -54,6 +54,12 @@
 
 <br>
 
+<popover header="Correct header" src="{{ baseUrl }}/testInclude.html">
+  src from a .html file
+</popover>
+
+<br>
+
 <popover src="{{ baseUrl }}/contentFragmentToInclude.md#fragment">
   src with a fragment
 </popover>
@@ -64,4 +70,28 @@
   <span slot="header">Reactive content</span>
   src containing reactive content
 </popover>
+
+<br>
+
+**Popover contents should use the priority of content slot > content attribute > src attribute**
+
+<popover header="Content slot > content attrib > src attrib" src="{{ baseUrl }}/test_md_fragment.md" content="Correct content">
+  Content attribute overrides src attribute
+</popover>
+
+<br>
+
+<popover header="Content slot > content attrib > src attrib" src="{{ baseUrl }}/test_md_fragment.md" content="This should be overwritten by slot">
+  <span slot="content">Correct content</span>
+  Content slot overrides content attribute overrides src attribute
+</popover>
+
+<br>
+
+<popover header="Content slot > content attrib > src attrib" src="{{ baseUrl }}/test_md_fragment.md">
+  <span slot="content">Correct content</span>
+  Content slot overrides content attribute overrides src attribute
+</popover>
+
+<br>
 

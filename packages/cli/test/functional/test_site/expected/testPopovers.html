@@ -248,6 +248,14 @@
           src from a .md file
         </popover>
         <br>
+        <popover><template #content>
+            <p>This is a HTML document</p>
+
+            <span>It is <strong>possible</strong> to use Markdown in HTML</span>
+          </template><template #header>Correct header</template>
+          src from a .html file
+        </popover>
+        <br>
         <popover><template #content>content fragment</template>
           src with a fragment
         </popover>
@@ -260,6 +268,22 @@
           <template #header><span>Reactive content</span></template>
           src containing reactive content
         </popover>
+        <br>
+        <p><strong>Popover contents should use the priority of content slot &gt; content attribute &gt; src attribute</strong></p>
+        <popover><template #content>Correct content</template><template #header>Content slot &gt; content attrib &gt; src attrib</template>
+          Content attribute overrides src attribute
+        </popover>
+        <br>
+        <popover><template #header>Content slot &gt; content attrib &gt; src attrib</template>
+          <template #content><span>Correct content</span></template>
+          Content slot overrides content attribute overrides src attribute
+        </popover>
+        <br>
+        <popover><template #header>Content slot &gt; content attrib &gt; src attrib</template>
+          <template #content><span>Correct content</span></template>
+          Content slot overrides content attribute overrides src attribute
+        </popover>
+        <br>
         <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>
       <overlay-source id="page-nav" class="fixed-header-padding" tag-name="nav" to="page-nav">
