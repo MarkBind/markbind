@@ -258,7 +258,7 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
 /**
  * PreProcesses popovers with the src attribute.
  * Replaces it with an error node if the specified src is invalid.
- * Else, sets the content attribute of the popover as parsed from the src.
+ * Else, appends the content to the node.
  */
 function processPopoverSrc(node, context, pageSources, variableProcessor, renderMd, config) {
   if (!_.has(node.attribs, 'src')) {
