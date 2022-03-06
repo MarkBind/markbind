@@ -19,7 +19,7 @@
 ] %}
 
 {% for page in pages %}
-<big>**{{ page[0] }}**</big>
+++**{{ page[0] }}**++
 
 <blockquote>
 

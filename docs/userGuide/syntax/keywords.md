@@ -19,7 +19,7 @@ This is good for catching <span class="keyword">regressions</span>.
 
 <box>
 
-<big>**Developer Testing**</big><br>
+++**Developer Testing**++<br>
 
 This is good for catching <span class="keyword">regressions</span>.
 </box>
