@@ -111,11 +111,12 @@ Hover over the <trigger for="pop:context-target">keyword</trigger> to see the po
 
 <popover id="pop:context-target" header="Popover header" placement="top">
 <div slot="content">
+
 description :+1:
+
 </div>
 </popover>
 ```
-
 </span>
 
 <span id="examples" class="d-none">
