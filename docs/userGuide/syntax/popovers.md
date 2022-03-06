@@ -45,14 +45,12 @@
   </popover>
 </p>
 <h4 class="no-index">Content using slot</h4>
-<p>
-  <popover effect="scale" header="**Emoji header** :rocket:">
-    <div slot="content">
-      This is a long content...
-    </div>
-    <button class="btn btn-secondary">Hover</button>
-  </popover>
-</p>
+<popover header="**Emoji header** :rocket:">
+  <div slot="content">
+    This is a long content...
+  </div>
+  <button class="btn btn-secondary">Hover</button>
+</popover>
 <h4 class="no-index">Content using src</h4>
 <p>
   <popover header="From a HTML file" src="{{ baseUrl }}/userGuide/syntax/extra/loadContent.html#fragment">
@@ -85,26 +83,36 @@ This is the same <trigger for="pop:trigger_id">trigger</trigger> as last one.
 <include src="extra/triggers.md" />
 </panel><p/>
 
-\***\*Options\*\***
+****Options****
 
-| Name                         | Type     | Default | Description                                                                                             |
-| ---------------------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------- |
-| trigger                      | `String` | `hover` | How the Popover is triggered.<br>Supports: `click`, `focus`, `hover`.                                   |
-| header{{slot_info_trigger}}  | `String` | `''`    | Popover header, supports MarkDown text.                                                                 |
-| content{{slot_info_trigger}} | `String` | `''`    | Popover content, supports MarkDown text.                                                                |
-| src                          | `String` |         | The url to the remote page to be loaded as the content of the popover. Both .md and .html are accepted. |
-| placement                    | `String` | `top`   | How to position the Popover.<br>Supports: `top`, `left`, `right`, `bottom`.                             |
+| Name                         | Type     | Default | Description                                                                                                    |
+| ---------------------------- | -------- | ------- | ---------------------------------------------------------------------------------------------------------------|
+| trigger                      | `String` | `hover` | How the Popover is triggered.<br>Supports: `click`, `focus`, `hover`.                                          |
+| header{{slot_info_trigger}}  | `String` | `''`    | Popover header, supports MarkDown text.                                                                        |
+| content{{slot_info_trigger}} | `String` | `''`    | Popover content, supports MarkDown text.                                                                       |
+| src                          | `String` |         | The url to the remote page to be loaded as the content of the popover.<br>Both `.md` and `.html` are accepted. |
+| placement                    | `String` | `top`   | How to position the Popover.<br>Supports: `top`, `left`, `right`, `bottom`.                                    |
+
+<box type="info" light>
+
+MarkBind supports the `src` attribute, `content` attribute and `content` slot for popovers. 
+Usually, only one of these would be used at a time.
+
+If multiple of these are used, MarkBind will prioritise in the following order:
+  1. `content` slot
+  1. `content` attribute
+  1. `src` attribute
+</box>
 
 <span id="short" class="d-none">
 
 ```html
-Hover over the <trigger for="pop:context-target">keyword</trigger> to see the
-popover.
+Hover over the <trigger for="pop:context-target">keyword</trigger> to see the popover.
 
 <popover id="pop:context-target" header="Popover header" placement="top">
-	<div slot="content">
-		description :+1:
-	</div>
+<div slot="content">
+description :+1:
+</div>
 </popover>
 ```
 

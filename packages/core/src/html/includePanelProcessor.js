@@ -316,8 +316,6 @@ function processPopoverSrc(node, context, pageSources, variableProcessor, render
     actualContent = $(hash).html();
 
     if (actualContent === null) {
-      actualContent = '';
-
       const error = new Error(`No such segment '${hash}' in file: ${actualFilePath}\n`
         + `Missing reference in ${context.cwf}`);
       logger.error(error);
