@@ -10,38 +10,40 @@
 
 <div class="lead">
 
-This page explains how to set up your development environment to start
-contributing to MarkBind.
-
+This page explains how to set up your development environment to start contributing to MarkBind.
 </div>
 
 ## Prerequisites
 
-1. **Node.js** ({{ node_version }} or higher) with<br> **npm** v7 or higher
-1. **Java** 8 or later, and<br> **Graphviz** v2.38 or later<br> %%(The above two
-   are required for one of the third-party library used by MarkBind)%%
-1. **Verify** that all tools are accessible and the versions are as expected by
-   running these commands in the console.
-   - `node --version`
-   - `npm --version`
-   - `java --version`
-   - `dot -V` (for Graphviz)
+1. **Node.js** ({{ node_version }} or higher) with<br> 
+   **npm** v7 or higher
+
+1. **Java** 8 or later, and<br> 
+   **Graphviz** v2.38 or later<br> 
+   %%(The above two are required for one of the third-party library used by MarkBind)%%
+
+1. **Verify** that all tools are accessible and the versions are as expected by running these commands in the console.
+   * `node --version`
+   * `npm --version`
+   * `java --version`
+   * `dot -V` (for Graphviz)
 
 <box type="tip" seamless>
 
-We recommend the **WebStorm IDE** for working with MarkBind code. </box>
+We recommend the **WebStorm IDE** for working with MarkBind code.
+</box>
 
 ## Setting up the dev environment
 
 1. **Fork and clone** the MarkBind repo.
-1. **To bind your cloned version of MarkBind to your console** (instead of the
-   released version of MarkBind), run `npm link` in the `packages/cli` folder of
-   the cloned repo first.
-1. **Install dependencies** by running
+
+2. **Bind your cloned version of MarkBind to your console** by navigating to the cloned `packages/cli` folder and running `npm link`
+
+3. **Install dependencies** by running
    <popover content="Under the hood, this calls `npm ci` and `lerna bootstrap`">`npm run setup`</popover>
    in the **root folder** of your cloned repo.
 
-1. **Congratulations!** Now you ready to start modifying MarkBind code.
+4. **Congratulations!** Now you ready to start modifying MarkBind code.
 
 ### Common setup questions
 
