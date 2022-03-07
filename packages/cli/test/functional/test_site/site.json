@@ -109,6 +109,10 @@
     {
       "src": "testLinks.md",
       "title": "Autolink tests"
+    },
+    {
+      "src": "testTree.md",
+      "title": "Tree tests"
     }
   ],
   "pagesExclude": [
