@@ -49,13 +49,25 @@
 **Popover with src attribute**
 
 <popover header="Correct header" src="{{ baseUrl }}/test_md_fragment.md">
-  src from a .md file
+  src from a .md file with absolute links
+</popover>
+
+<br>
+
+<popover header="Correct header" src="./test_md_fragment.md">
+  src from a .md file with relative links
 </popover>
 
 <br>
 
 <popover header="Correct header" src="{{ baseUrl }}/testInclude.html">
-  src from a .html file
+  src from a .html file with absolute links
+</popover>
+
+<br>
+
+<popover header="Correct header" src="./testInclude.html">
+  src from a .html file with relative links
 </popover>
 
 <br>

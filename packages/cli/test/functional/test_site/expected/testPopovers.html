@@ -245,7 +245,14 @@
             <h1 id="some-heading"><span id="some-heading" class="anchor"></span>Some heading<a class="fa fa-anchor" href="#some-heading" onclick="event.stopPropagation()"></a></h1>
             <p>The <strong>quick</strong> brown fox jumps <em>over</em> the lazy dog.</p>
           </template><template #header>Correct header</template>
-          src from a .md file
+          src from a .md file with absolute links
+        </popover>
+        <br>
+        <popover><template #content>
+            <h1 id="some-heading-2"><span id="some-heading-2" class="anchor"></span>Some heading<a class="fa fa-anchor" href="#some-heading-2" onclick="event.stopPropagation()"></a></h1>
+            <p>The <strong>quick</strong> brown fox jumps <em>over</em> the lazy dog.</p>
+          </template><template #header>Correct header</template>
+          src from a .md file with relative links
         </popover>
         <br>
         <popover><template #content>
@@ -253,7 +260,15 @@
 
             <span>It is <strong>possible</strong> to use Markdown in HTML</span>
           </template><template #header>Correct header</template>
-          src from a .html file
+          src from a .html file with absolute links
+        </popover>
+        <br>
+        <popover><template #content>
+            <p>This is a HTML document</p>
+
+            <span>It is <strong>possible</strong> to use Markdown in HTML</span>
+          </template><template #header>Correct header</template>
+          src from a .html file with relative links
         </popover>
         <br>
         <popover><template #content>content fragment</template>
