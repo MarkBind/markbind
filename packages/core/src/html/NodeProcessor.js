@@ -202,7 +202,6 @@ class NodeProcessor {
       case 'eq': // markdown-it-texmath html tag
       case 'eqn': // markdown-it-texmath html tag
       case 'thumb': // image
-      case 'tree': // tree-like structure diagram
         /*
          * These are not components from MarkBind Vue components.
          * We have to add 'v-pre' to let Vue know to ignore this tag and not compile it.
