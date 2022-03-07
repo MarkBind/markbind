@@ -57,6 +57,15 @@ class TreeNode {
   }
 
   /**
+   * Returns formatted TreeNode content.
+   * Removes dashes (-), asterisks (*), or plus signs (+) at the beginning of the line
+   * @return {string}
+   */
+  static getContent(raw) {
+    return raw.trim().replace(/^[-+*]\s*/, '');
+  }
+
+  /**
    * Creates TreeNode objects from the raw text.
    * @param {string} raw - The raw text to parse.
    * @return {TreeNode} - The dummy root node of the tree.
@@ -71,7 +80,7 @@ class TreeNode {
     lines
       .forEach((line) => {
         const level = TreeNode.levelize(line);
-        const content = line.trim();
+        const content = TreeNode.getContent(line);
 
         if (level > prevLevel) {
           prevParentStack.push(prevNode);
