@@ -10,20 +10,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="MarkBind 3.1.1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hello World</title>
-  <link rel="stylesheet" href="../../markbind/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../../markbind/css/bootstrap-vue.min.css">
-  <link rel="stylesheet" href="../../markbind/fontawesome/css/all.min.css">
-  <link rel="stylesheet" href="../../markbind/glyphicons/css/bootstrap-glyphicons.min.css">
-  <link rel="stylesheet" href="../../markbind/css/octicons.css">
-  <link rel="stylesheet" href="../../markbind/material-icons/material-icons.css">
-  <link rel="stylesheet" href="../../markbind/css/codeblock-dark.min.css">
-  <link rel="stylesheet" href="../../markbind/css/markbind.min.css">
-  <script src="../../markbind/js/polyfill.min.js"></script>
-  <script src="../../markbind/js/vue.min.js"></script>
-  <script src="../../markbind/js/markbind.min.js"></script>
-  <script src="testNunjucksPathResolving.page-vue-render.js"></script>
-  <script src="../../markbind/js/jquery.min.js"></script>
+  <title>Tree tests</title>
+  <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
+  <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
+  <link rel="stylesheet" href="markbind/css/octicons.css">
+  <link rel="stylesheet" href="markbind/material-icons/material-icons.css">
+  <link rel="stylesheet" href="markbind/css/codeblock-dark.min.css">
+  <link rel="stylesheet" href="markbind/css/markbind.min.css">
+  <script src="markbind/js/polyfill.min.js"></script>
+  <script src="markbind/js/vue.min.js"></script>
+  <script src="markbind/js/markbind.min.js"></script>
+  <script src="testTree.page-vue-render.js"></script>
+  <script src="markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-tree/markbind-plugin-tree.css">
@@ -208,17 +208,82 @@
         </div>
       </overlay-source>
       <div id="content-wrapper" class="fixed-header-padding">
-        <p>Test for nunjucks' various functions that use a path.
-          By design, nunjucks' relative paths resolve from the configured template root directory.</p>
-        <p>Hence, in MarkBind, these paths should also follow this behaviour.
-          The root directory in this case is the respective root directory of the root site or sub sites.</p>
-        <hr>
-        <p><strong>Test {% include %}</strong></p>
-        <p>This is content from <code class="line-numbers hljs inline no-lang" v-pre>testNunjucksPathResolvingInclude.md</code> located at <code class="line-numbers hljs inline no-lang" v-pre>sub_site/nested_sub_site</code></p>
-        <hr>
-        <p><strong>Test {% import %}</strong></p>
-        <p>variable to import</p>
-        <hr>
+        <h1 id="tree"><span id="tree" class="anchor"></span>Tree<a class="fa fa-anchor" href="#tree" onclick="event.stopPropagation()"></a></h1>
+        <p>A new component to display tree-like structures, such as folders and files.</p>
+        <h3 id="single-tree"><span id="single-tree" class="anchor"></span>Single Tree<a class="fa fa-anchor" href="#single-tree" onclick="event.stopPropagation()"></a></h3>
+        <div v-pre class="tree">C:/course/
+          └── textbook/
+          └── index.md
+        </div>
+        <div v-pre class="tree">C:/course/
+          ├── textbook/
+          │ └── index.md
+          ├── index.md
+          ├── reading.md
+          └── site.json
+        </div>
+        <div v-pre class="tree">Edit me to generate
+          ├── a
+          │ ├── nice
+          │ └── tree
+          ├── diagram!
+          └── 😃
+        </div>
+        <p><strong>List style</strong></p>
+        <div v-pre class="tree">Edit me to generate
+          ├── a
+          │ ├── nice
+          │ └── tree
+          ├── diagram!
+          └── 😃
+        </div>
+        <div v-pre class="tree">Edit me to generate
+          ├── a
+          │ ├── nice
+          │ └── tree
+          ├── diagram!
+          └── 😃
+        </div>
+        <div v-pre class="tree">Edit me to generate
+          ├── a
+          │ ├── nice
+          │ └── tree
+          ├── diagram!
+          └── 😃
+        </div>
+        <div v-pre class="tree">Edit me to generate
+          ├── a
+          │ ├── nice
+          │ └── tree
+          ├── diagram!
+          └── 😃
+        </div>
+        <h3 id="multiple-tree"><span id="multiple-tree" class="anchor"></span>Multiple Tree<a class="fa fa-anchor" href="#multiple-tree" onclick="event.stopPropagation()"></a></h3>
+        <div v-pre class="tree">C:/course/
+          └── textbook/
+          └── index.md
+          C:/course/
+          └── textbook/
+          └── index.md
+        </div>
+        <h3 id="inline-markdown"><span id="inline-markdown" class="anchor"></span>Inline Markdown<a class="fa fa-anchor" href="#inline-markdown" onclick="event.stopPropagation()"></a></h3>
+        <div v-pre class="tree">C:/course/
+          ├── textbook/
+          │ └── <code class="hljs inline no-lang">index.md</code>
+          ├── <strong>index.md</strong>
+          │ ├── <s>index.md</s>
+          │ ├── <span class="dimmed">dimmed</span>
+          │ ├── Super<sup>script</sup>
+          │ ├── <strong><strong>Super Bold</strong></strong>
+          │ ├── <span class="underline">Underline</span>
+          │ ├── <span class="underline text-danger">Underline with {text=danger}</span>
+          │ └── <span class="text-danger"><span class="underline">Underline</span></span>
+          ├── <strong>reading.md</strong>
+          ├── <span class="large">site.json</span>
+          ├── <mark>hello</mark>
+          ├── 🚧
+          └── <span aria-hidden="true" class="fas fa-file-code"></span>
+        </div>
         <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>
       <overlay-source id="page-nav" class="fixed-header-padding" tag-name="nav" to="page-nav">
@@ -236,7 +301,7 @@
     </div>
   </div>
 </body>
-<script src="../../markbind/js/bootstrap-utility.min.js"></script>
+<script src="markbind/js/bootstrap-utility.min.js"></script>
 <script>
   MarkBind.setupWithSearch()
 </script>
