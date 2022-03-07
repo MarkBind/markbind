@@ -62,7 +62,7 @@ class TreeNode {
    * @return {string}
    */
   static getContent(raw) {
-    return raw.trim().replace(/^[-+*]\s*/, '');
+    return raw.trim().replace(/^[-+*]\s/, '');
   }
 
   /**
