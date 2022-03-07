@@ -1,19 +1,20 @@
 /**
- * Creates tree-like visualizations
- * Replaces <tree> tags with <p> tags with the appropriate textual representation
- * Typically used for folder structures visualizations
+ * Creates tree-like visualisations.
+ * Transforms the content in <tree> tags into corresponding textual representations
+ * that are easier to visualise the relationships.
+ * A common use case is folder structures visualisations.
  */
-
 const _ = {};
 _.has = require('lodash/has');
+const md = require('../../lib/markdown-it');
 
 const CSS_FILE_NAME = 'markbind-plugin-tree.css';
 
 const TOKEN = {
-  CHILD: '├── ',
-  LAST_CHILD: '└── ',
-  DIRECTORY: '│   ',
-  EMPTY: '    ',
+  child: '├── ',
+  lastChild: '└── ',
+  connector: '│   ',
+  space: '    ',
 };
 
 class TreeNode {
@@ -24,48 +25,65 @@ class TreeNode {
     this.level = level;
   }
 
+  /**
+   * Returns true if this node is the last child of its parent.
+   * A root node is considered to be the last child.
+   * This is used to determine the correct connector to use.
+   * @return {boolean}
+   */
   isLastChild() {
+    if (this.parent === null) {
+      return true;
+    }
     return this.parent.children[this.parent.children.length - 1] === this;
   }
 
-  static getLevel(line) {
-    // every 2 spaces from the start of the line means 1 level
+  /**
+   * Returns the token to append before the content.
+   * @return {string}
+   */
+  getPositionalToken() {
+    return this.isLastChild() ? TOKEN.lastChild : TOKEN.child;
+  }
+
+  /**
+   * Determines the level of a line.
+   * Every 2 spaces from the start of the line means 1 level.
+   * The root node is level 0.
+   * @return {number}
+   */
+  static levelize(line) {
     return Math.floor(line.match(/^\s*/)[0].length / 2);
   }
 
-  static getContent(line) {
-    return line.trim();
-  }
-
-  static parse(text) {
-    const lines = text.split('\n');
-    const rootNode = new TreeNode('root', null, [], -1);
+  /**
+   * Creates TreeNode objects from the raw text.
+   * @param {string} raw - The raw text to parse.
+   * @return {TreeNode} - The dummy root node of the tree.
+   */
+  static parse(raw) {
+    const lines = raw.split('\n').filter(line => line.trim() !== '');
+    const rootNode = new TreeNode('.', null, [], -1); // dummy root node
     const prevParentStack = [rootNode];
+    let prevLevel = rootNode.level;
     let prevParent = rootNode;
-    let prevLevel = -1;
     let prevNode = rootNode;
     lines
-      .filter(line => line.trim() !== '')
       .forEach((line) => {
-        const level = TreeNode.getLevel(line);
-        const content = TreeNode.getContent(line);
-        let newNode;
+        const level = TreeNode.levelize(line);
+        const content = line.trim();
+
         if (level > prevLevel) {
-          // new child
           prevParentStack.push(prevNode);
           prevParent = prevNode;
-          newNode = new TreeNode(content, prevParent, [], level);
-        } else if (level === prevLevel) {
-          // new sibling
-          newNode = new TreeNode(content, prevParent, [], level);
-        } else {
-          // new parent
+        } else if (level < prevLevel) {
           for (let i = 0; i < prevLevel - level; i += 1) {
             prevParentStack.pop();
           }
           prevParent = prevParentStack[prevParentStack.length - 1];
-          newNode = new TreeNode(content, prevParent, [], level);
         }
+
+        const newNode = new TreeNode(content, prevParent, [], level);
         prevParent.children.push(newNode);
         prevLevel = level;
         prevNode = newNode;
@@ -73,47 +91,61 @@ class TreeNode {
     return rootNode;
   }
 
-  static _getPositionalToken(parent, child) {
-    const idx = parent.children.findIndex(node => node === child);
-    if (parent.parent === null) {
-      return '';
-    }
-    if (idx === -1) {
-      throw new Error('child not found');
-    } else if (idx < parent.children.length - 1) {
-      return TOKEN.CHILD;
-    } else {
-      return TOKEN.LAST_CHILD;
-    }
-  }
-
-  static _dfsHelper(currNode, arr) {
-    if (!currNode) {
+  /**
+   * Traverses the tree and appends the tokens to the given array.
+   * @param {TreeNode} node - The node to traverse.
+   * @param {Array} treeTokens - The array to append the tokens to.
+   */
+  static traverse(currNode, result) {
+    if (!currNode.children) {
       return;
     }
-    if (currNode.parent !== null) {
+    if (currNode.parent === null) {
+      result.push(md.renderInline(`${currNode.content}\n`));
+    } else {
       const tokens = [
         '\n',
-        currNode.content,
-        TreeNode._getPositionalToken(currNode.parent, currNode),
+        md.renderInline(currNode.content),
+        currNode.getPositionalToken(),
       ];
+
+      // computes the strings appended to the content of the TreeNode
       let curr = currNode.parent;
       while (_.has(curr, 'parent.parent')) {
-        tokens.push(curr.isLastChild() ? TOKEN.EMPTY : TOKEN.DIRECTORY);
+        tokens.push(curr.isLastChild() ? TOKEN.space : TOKEN.connector);
         curr = curr.parent;
       }
-      arr.push(tokens.reverse().join(''));
+
+      result.push(tokens.reverse().join(''));
     }
     currNode.children.forEach((child) => {
-      TreeNode._dfsHelper(child, arr);
+      TreeNode.traverse(child, result);
     });
   }
 
-  static visualize(text) {
-    const rootNode = TreeNode.parse(text);
+  /**
+   * Returns the TreeNode as a string.
+   * This assumes that the node is a root node.
+   * @return {string}
+   */
+  toString() {
     const treeTokens = [];
-    TreeNode._dfsHelper(rootNode, treeTokens);
+    TreeNode.traverse(this, treeTokens);
     return treeTokens.join('');
+  }
+
+  /**
+   * Returns the rendered tree.
+   * @param {string} raw - The raw text to parse.
+   * @return {string}
+   */
+  static visualize(raw) {
+    const dummyRootNode = TreeNode.parse(raw);
+    return dummyRootNode.children
+      .reduce((prev, curr) => {
+        curr.parent = null;
+        return prev + curr.toString();
+      }, '');
   }
 }
 
@@ -128,7 +160,7 @@ module.exports = {
     if (node.name !== 'tree') {
       return;
     }
-    node.name = 'p';
+    node.name = 'div';
     node.attribs.class = node.attribs.class ? `${node.attribs.class} tree` : 'tree';
     node.children[0].data = TreeNode.visualize(node.children[0].data);
   },
