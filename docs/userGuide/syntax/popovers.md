@@ -51,6 +51,8 @@
   </div>
   <button class="btn btn-secondary">Hover</button>
 </popover>
+<br />
+<br />
 <h4 class="no-index">Content using src</h4>
 <p>
   <popover header="From a HTML file" src="{{ baseUrl }}/userGuide/syntax/extra/loadContent.html#fragment">
