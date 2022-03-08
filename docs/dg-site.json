@@ -9,7 +9,7 @@
       "glob": ["*.md", "devGuide/*.md", "devGuide/*/*.md"]
     },
     {
-      "src": "index.md",
+      "src": ["index.md", "devGuide/index.md"],
       "searchable": "no"
     }
   ],
