@@ -79,7 +79,6 @@ Formatting is supported!
   :fas-file-code:
   :)
 </tree>
-<tooltip id="tt:trigger_id" content="This tooltip triggered by a trigger"></tooltip>
 </variable>
 </include>
 
