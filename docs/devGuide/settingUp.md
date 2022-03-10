@@ -53,7 +53,7 @@ We recommend the **WebStorm IDE** for working with MarkBind code.
    to run `npm install` after `npm run setup` as some packages may have
    incompatible versions.
 
-1. How does Markbind manage dependencies?
+1. How does MarkBind manage dependencies?
 
    MarkBind uses [lerna](https://github.com/lerna/lerna), a popular
    multi-package development tool, to manage it's dependencies. It is
