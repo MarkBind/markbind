@@ -20,7 +20,7 @@ This page explains how to set up your development environment to start contribut
 
 1. **Java** 8 or later, and<br>
    **Graphviz** v2.38 or later<br>
-   %%(The above two are required for one of the third-party library used by MarkBind)%%
+   %%(The above two are required for one of the third-party libraries used by MarkBind)%%
 
 1. **Verify** that all tools are accessible and the versions are as expected by running these commands in the console.
    * `node --version`
