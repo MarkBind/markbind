@@ -43,7 +43,7 @@ We recommend the **WebStorm IDE** for working with MarkBind code.
    <popover content="Under the hood, this calls `npm ci` and `lerna bootstrap`">`npm run setup`</popover>
    in the **root folder** of your cloned repo.
 
-4. **Congratulations!** Now you ready to start modifying MarkBind code.
+4. **Congratulations!** Now you are ready to start modifying MarkBind code.
 
 ### Common setup questions
 
