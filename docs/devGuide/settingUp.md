@@ -56,7 +56,7 @@ We recommend the **WebStorm IDE** for working with MarkBind code.
 1. How does MarkBind manage dependencies?
 
    MarkBind uses [lerna](https://github.com/lerna/lerna), a popular
-   multi-package development tool, to manage it's dependencies. It is
+   multi-package development tool, to manage its dependencies. It is
    essentially a high level wrapper over node and npm's functionalities.
 
 1. How do I move back to the released version of MarkBind?
