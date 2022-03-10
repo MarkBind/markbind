@@ -50,8 +50,8 @@ Some custom components and directives are also added for MarkBind's use.
 ### BootstrapVue components included in the bundle
 
 - Modals
-- Popovers
-- Tooltips
+- Popover.vue 
+- Tooltip.vue 
 
 ## Installation
 

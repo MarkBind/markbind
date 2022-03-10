@@ -12,9 +12,11 @@
     {
       "src": [
         "index.md",
+        "userGuide/index.md",
         "userGuide/fullSyntaxReference.md",
         "userGuide/syntaxCheatSheet.md",
-        "userGuide/readerFacingFeatures.md"
+        "userGuide/readerFacingFeatures.md",
+        "devGuide/index.md"
       ],
       "searchable": "no"
     }
