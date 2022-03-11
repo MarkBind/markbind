@@ -41,7 +41,7 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 class NodeProcessor {
   constructor(config, pageSources, variableProcessor, pluginManager,
-              userScriptsAndStyles, docId = '') {
+              siteLinkManager, userScriptsAndStyles, docId = '') {
     this.config = config;
     this.frontMatter = {};
 
@@ -53,6 +53,7 @@ class NodeProcessor {
     this.pageSources = pageSources;
     this.variableProcessor = variableProcessor;
     this.pluginManager = pluginManager;
+    this.siteLinkManager = siteLinkManager;
 
     this.markdownProcessor = new MarkdownProcessor(docId);
 
@@ -264,9 +265,7 @@ class NodeProcessor {
     if (linkProcessor.hasTagLink(node)) {
       linkProcessor.convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);
       linkProcessor.convertMdExtToHtmlExt(node);
-      if (this.config.intrasiteLinkValidation.enabled) {
-        linkProcessor.validateIntraLink(node, context.cwf, this.config);
-      }
+      this.siteLinkManager.collectIntraLink(node, context.cwf);
       linkProcessor.collectSource(node, this.config.rootPath, this.config.baseUrl, this.pageSources);
     }
 
