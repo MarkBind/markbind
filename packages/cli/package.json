@@ -45,7 +45,7 @@
     "diff": "^4.0.1",
     "ignore": "^5.1.4",
     "istextorbinary": "^3.3.0",
-    "jest": "^26.1.0",
+    "jest": "^27.0.0",
     "memfs": "^3.0.1",
     "walk-sync": "^2.0.2"
   }
