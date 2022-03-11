@@ -1,5 +1,0 @@
-*.min.*
-*.page-vue-render.js
-_site/
-packages/cli/test/functional/test_site/expected/
-
