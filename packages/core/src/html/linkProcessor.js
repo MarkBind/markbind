@@ -149,19 +149,6 @@ function isValidFileAsset(resourcePath, config) {
  * @returns {string} these string return values are for unit testing purposes only
  */
 function validateIntraLink(resourcePath, cwf, config) {
-// function validateIntraLink(node, cwf, config) {
-  // if (!tagsToValidate.has(node.name)) {
-  //   return 'Should not validate';
-  // }
-
-  // if (node.attribs) {
-  //   const hasIntralinkValidationDisabled = lodashHas(node.attribs, 'no-validation');
-  //   if (hasIntralinkValidationDisabled) {
-  //     return 'Intralink validation disabled';
-  //   }
-  // }
-
-  // let resourcePath = getDefaultTagsResourcePath(node);
   if (!resourcePath || urlUtil.isUrl(resourcePath) || resourcePath.startsWith('#')) {
     return 'Not Intralink';
   }
