@@ -279,6 +279,16 @@
         "autolinks": "Autolinks"
       },
       "headingKeywords": {}
+    },
+    {
+      "src": "testMath.md",
+      "title": "Math formulae should be displayed correctly, with additional plugin",
+      "headings": {
+        "math-formulae": "Math Formulae",
+        "markbind-supports-typesetting-tex-math-equations": "Markbind supports typesetting TeX math equations",
+        "additionally-dollars-can-be-used-as-delimiters-if-texwithdollars-plugin-is-enabled": "Additionally, Dollars can be used as delimiters if texWithDollars plugin is enabled"
+      },
+      "headingKeywords": {}
     }
   ]
 }

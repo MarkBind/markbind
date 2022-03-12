@@ -5,7 +5,7 @@ Insert **inline** equations by enclosing them in round brackets `\( ... \)`.
 
 Insert **display** equations by enclosing them in square brackets `\[ ... \]`.
 
-Insert numbered **display** equations by enclosing the equation square brackets and the equation number in curly brackets `\[ ... \] (1)`.
+Insert numbered **display** equations by enclosing the equation in square brackets and the equation number in curly brackets `\[ ... \] (1)`.
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
@@ -22,6 +22,23 @@ Euler's equation \( e^{i\pi}+1=0 \) is a beautiful equation.
 </variable>
 </include>
 
+<box type="info">
+
+If you would like to use <tooltip content="$ ... $ or $$ ... $$">dollars</tooltip> as the delimiter, you will need to enable the [texWithDollars](../usingPlugins.md#plugin-texwithdollars) plugin. 
+
+```markdown
+$2_3$
+
+$$
+\frac{1}{2}
+$$
+```
+The above will be rendered as:
+\(2_3\)
+
+\[ \frac{1}{2} \]
+
+</box>
 
 <box type="important">
 
