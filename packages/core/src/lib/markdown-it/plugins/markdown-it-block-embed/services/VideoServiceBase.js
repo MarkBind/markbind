@@ -46,27 +46,24 @@ class VideoServiceBase {
     let escapedServiceName = this.env.md.utils.escapeHtml(this.name);
     containerClassNames.push(this.env.options.serviceClassPrefix + escapedServiceName);
 
-    let containerStyles = ["position: relative;", "height: 0;"];
-    // To set a specific style, add a style prop to the getDefaultOptions of any Service
-    if (this.options.style) {
-      containerStyles.push(this.options.style);
-    } else {
-      containerStyles.push(`padding-bottom: ${this.options.height / this.options.width * 100}%`);
-    }
+    let containerStyles = [];
+    containerStyles.push(["position: relative;"]);
+    // containerStyles.push(`padding-bottom: ${1/this.options.aspectRatio}%;`);
+    containerStyles.push(`padding-bottom: ${this.options.height / this.options.width * 100}%`);
 
     let iframeAttributeList = [];
     iframeAttributeList.push([ "type", "text/html" ]);
     iframeAttributeList.push([ "src", this.getFilteredVideoUrl(videoID) ]);
     iframeAttributeList.push([ "frameborder", 0 ]);
 
-    if (this.env.options.outputPlayerSize === true) {
-      if (this.options.width !== undefined && this.options.width !== null) {
-        iframeAttributeList.push([ "width", this.options.width ]);
-      }
-      if (this.options.height !== undefined && this.options.height !== null) {
-        iframeAttributeList.push([ "height", this.options.height ]);
-      }
-    }
+    // if (this.env.options.outputPlayerSize === true) {
+    //   if (this.options.width != null) {
+    //     iframeAttributeList.push([ "width", this.options.width ]);
+    //   }
+    //   if (this.options.height != null) {
+    //     iframeAttributeList.push([ "height", this.options.height ]);
+    //   }
+    // }
 
     if (this.env.options.allowFullScreen === true) {
       iframeAttributeList.push([ "webkitallowfullscreen" ]);
