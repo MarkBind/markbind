@@ -37,9 +37,9 @@ The sections below has more information about various stages of submitting a PR.
   Once done, see these screenshots for sample debugging configurations, and tweak them further to suit your needs.
   
   **1. Using the docs as a development environment**, with:
-    - the [lazy reload `-o`](https://markbind.org/userGuide/cliCommands.html#serve-command) option to speed up page building
-    - the `-d` developer option. (see [below](#editing-frontend-features))
-    
+  * the [lazy reload `-o`](https://markbind.org/userGuide/cliCommands.html#serve-command) option to speed up page building
+  * the `-d` developer option. (see [below](#editing-frontend-features))
+
     {.mb-3}  
   
     ![]({{baseUrl}}/images/debugger/WebStorm_1.png) {.ml-4}
@@ -47,9 +47,9 @@ The sections below has more information about various stages of submitting a PR.
   **2. Debugging all tests** in the `npm run test` script:
   
     ![]({{baseUrl}}/images/debugger/WebStorm_2.png) {.ml-4}
-    
+
   **3. Debugging only the cli package's tests**:
-    
+
     ![]({{baseUrl}}/images/debugger/WebStorm_3.png) {.ml-4}
   
   </modal>
@@ -61,11 +61,11 @@ The sections below has more information about various stages of submitting a PR.
   In your `.vscode/launch.json` file, you may use these sample configurations as a baseline, and tweak them as you see fit.
   
   **1. Using the docs as a development environment**, with:
-    - the [lazy reload `-o`](https://markbind.org/userGuide/cliCommands.html#serve-command) option to speed up page building
-    - the `-d` developer option. (see [below](#editing-frontend-features))
-      
+  * the [lazy reload `-o`](https://markbind.org/userGuide/cliCommands.html#serve-command) option to speed up page building
+  * the `-d` developer option. (see [below](#editing-frontend-features))
+
     {.mb-3}  
-    
+
     ```json {.ml-4 heading="launch.json"}
     {
         "configurations": [
@@ -105,7 +105,7 @@ The sections below has more information about various stages of submitting a PR.
     ```
   
   **3. Debugging only the cli package's tests**:
-    
+
     ```json {.ml-4 heading="launch.json"}
     {
         "configurations": [
@@ -123,7 +123,7 @@ The sections below has more information about various stages of submitting a PR.
         ]
     }
     ```
-    
+
   </modal>
 
 #### Editing frontend features
@@ -131,11 +131,12 @@ The sections below has more information about various stages of submitting a PR.
 We update the frontend `markbind.min.js` and `markbind.min.css` bundles during release only, and not in pull requests.
 
 Hence, if you need to view the latest frontend changes (relating to `packages/core-web` or `packages/vue-components`), you can either:
+
 1. Run `npm run build:web` in the root directory, which builds the above bundles,
    then run your markbind-cli [command](https://markbind.org/userGuide/cliCommands.html) of choice.
-2. Run `markbind serve -d` (with any other applicable options). (**recommended**)<br>
+1. Run `markbind serve -d` (with any other applicable options). (**recommended**)<br>
    This adds the necessary webpack middlewares to the development server to compile the above bundles,
-   and enables live and hot reloading for frontend source files. 
+   and enables live and hot reloading for frontend source files.
 
 ## Testing
 
@@ -170,9 +171,7 @@ When adding new features, you should also add new site content into an existing 
 To add a page to an existing test site, for this example, to `test_site`:
 
 1. Add a new test page, e.g., `newTestPage.md`, containing a demonstration of the new feature.
-
 1. Open the `site.json` corresponding to the test site, i.e. `packages/cli/test/functional/test_site/site.json`
-
 1. To include the new page, i.e. `newTestPage.md`, add it to the `pages` array.
 
    ``` {heading="site.json" highlight-lines="16,17"}
@@ -210,7 +209,6 @@ When making changes to the Vue components in `packages/vue-components`, you shou
 
 Once you're done, be sure to run the `updatetest` script mentioned [above](#updating-and-writing-tests)!
 
-
 ## Linting
 
 We follow [our style guides](styleGuides.html). Using a linter will help check and fix some of the code style errors in your code. It will save time for both you and your code reviewer. The linting tool we use is [ESLint](https://eslint.org/) and [StyleLint](https://stylelint.io/). Here is a [gist](https://gist.github.com/nicholaschuayunzhi/bfe53dbb5f1a0f02d545d55956f9ab7e) with an explanation of the ESLint rules chosen in markbind-cli.
@@ -232,11 +230,15 @@ ESLint has [integrations with popular editors](https://eslint.org/docs/user-guid
 As mentioned in the [setting up](settingUp.html#setting-up-the-dev-environment) page, MarkBind uses [lerna](https://github.com/lerna/lerna) to manage the dependencies of its [various packages](design/projectStructure.html).
 
 ### To add a dependency
+
 Instead of manually updating the version numbers in the packages' `package.json` files, you may consider using the `lerna add` [command](https://github.com/lerna/lerna/tree/master/commands/add#readme) to speed things up!
 
 ### To delete a dependency
+
 The safest way is to first remove the particular dependency entry from the `package.json` file of the respective directory. Then, run `npm run setup` in the root directory to clean up the local dependencies and update the `package-lock.json` file.
+
 ### To update a dependency
+
 First, follow the instruction to [delete the dependency](#to-delete-a-dependency). Then, follow the instruction to [add the latest dependency](#to-add-a-dependency) back. Also, when updating dependencies, ensure that it is updated in _all_ packages using that dependency.
 
 <box type="warning">
@@ -244,20 +246,21 @@ Dependency updates are not trivial, and can be the source of subtle bugs. You sh
 </box>
 
 ### Points for consideration
+
 There are a few ways to incorporate external packages into MarkBind, each with its pros and cons. The following table shows some of the common trade-offs:
 
 Approach          | Pros                                                                                                                                                                 | Cons                                                                                                                            |
 :-----------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------|
 Installing | <ul><li>Ease of upgrade</li><li>Traceable in `package.json`</li></ul>                                                                                                | <ul><li>May not satisfy custom behavior</li><li>Become vulnerable if the source repo is no longer actively maintained</li></ul>
-Forking           | <ul><li>Relatively easy to upgrade</li><li>Leverage upstream testing procedures</li><li>Benefit others who share the same use cases</li></ul>                                                           | <ul><li>May become out-of-sync with the latest version</li><li>Difficult to maintain it externally in the long run</li></ul>                   
-Patching          | <ul><li>Quick - no need to maintain / publish more npm packages or setup release procedures etc</li><li>Ensure the changes propagate to other dependencies</li><li>Enjoy the benefits of monorepo</li></ul> | <ul><li>Difficult to upgrade</li></ul>                              
+Forking           | <ul><li>Relatively easy to upgrade</li><li>Leverage upstream testing procedures</li><li>Benefit others who share the same use cases</li></ul>                                                           | <ul><li>May become out-of-sync with the latest version</li><li>Difficult to maintain it externally in the long run</li></ul>
+Patching          | <ul><li>Quick - no need to maintain / publish more npm packages or setup release procedures etc</li><li>Ensure the changes propagate to other dependencies</li><li>Enjoy the benefits of monorepo</li></ul> | <ul><li>Difficult to upgrade</li></ul>
 
 As the choice is highly dependent on context and details of the implementation, below are some additional questions to ask before proceeding:
 
-- Is the package actively maintained?
-- How big is the package?
-- How invasive are the proposed changes?
-- Are there existing APIs/plugin system from the package (to modify default behaviors)?
+* Is the package actively maintained?
+* How big is the package?
+* How invasive are the proposed changes?
+* Are there existing APIs/plugin system from the package (to modify default behaviors)?
 
 <box type="tip" seamless>
 
