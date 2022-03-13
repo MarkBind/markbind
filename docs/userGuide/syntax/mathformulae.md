@@ -5,7 +5,7 @@ Insert **inline** equations by enclosing them in round brackets `\( ... \)`.
 
 Insert **display** equations by enclosing them in square brackets `\[ ... \]`.
 
-Insert numbered **display** equations by enclosing the equation in square brackets and the equation number in curly brackets `\[ ... \] (1)`.
+Insert numbered **display** equations by enclosing the equation in square brackets and the equation number in round brackets `\[ ... \] (1)`.
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
@@ -34,6 +34,7 @@ $$
 $$
 ```
 The above will be rendered as:
+
 \(2_3\)
 
 \[ \frac{1}{2} \]

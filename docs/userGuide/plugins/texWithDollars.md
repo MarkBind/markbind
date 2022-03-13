@@ -35,6 +35,7 @@ $$
 $$
 ```
 The above will be rendered as:
+
 \(2_3\)
 
 \[ \frac{1}{2} \]
