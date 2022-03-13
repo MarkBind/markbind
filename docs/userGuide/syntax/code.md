@@ -17,13 +17,12 @@ MarkBind provides several features, some of which are added on top of the existi
 
 Features:
 
-* Syntax coloring
-* Line numbering
-* Line highlighting
-* Code block headers
+- Syntax coloring
+- Line numbering
+- Line highlighting
+- Code block headers
 
 ##### Syntax coloring
-
 To enable syntax coloring, specify a language next to the backticks before the fenced code block.
 <div id="main-example">
 <include src="codeAndOutputCode.md" boilerplate >
@@ -38,7 +37,6 @@ To enable syntax coloring, specify a language next to the backticks before the f
 </div>
 
 ##### Line numbering
-
 Line numbers are <tooltip content="Line numbers were provided by default in version v3.1.1 and below. To preserve the exact line numbers behavior of sites generated in previous versions, simply set the codeLineNumbers option in site.json to true">hidden by default</tooltip>. To enable line numbers for the entire site by default,
 add `"codeLineNumbers": true` to the [`site.json`]({{baseUrl}}/userGuide/siteJsonFile.html#style) file:
 ```json {highlight-lines="8[:]"}
@@ -175,7 +173,6 @@ Headings support inline Markdown, except for `Inline Code` and %%Dim%% text styl
 </include>
 
 ##### Using multiple features
-
 You can also use multiple features together, as shown below.
 
 <include src="codeAndOutputCode.md" boilerplate >
@@ -213,6 +210,7 @@ A _wrap text_ button can be added to code blocks using the `codeBlockWrapButtons
 
 #### Inline Code
 ##### Syntax coloring
+
 
 MarkBind can apply syntax-coloring on inline code too.
 
