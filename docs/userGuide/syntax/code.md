@@ -2,15 +2,11 @@
 
 #### Themes
 
-<!-- <img src="/images/codeDarkTheme.png" width="750" alt="Theme example"> -->
+MarkBind can present formatted code blocks, be it fenced or inline, with either **light** or **dark** themes. The default is dark <trigger for="modal:code-dark-example" trigger="click">_(click for an example)_</trigger>.
 
-MarkBind can present formatted code blocks, be it fenced or inline, with either **light** or **dark** themes. <trigger for="pop:code-dark-example" trigger="hover">The default is dark.</trigger>
-
-<popover header="Dark Code Theme Example" id="pop:code-dark-example" placement="top">
-  <div slot="content">
-    <img src="/images/codeDarkTheme.png" width="300" alt="Theme example">
-  </div>
-</popover>
+<modal header="Dark Code Theme Example" id="modal:code-dark-example" large>
+    <img src="/images/codeDarkTheme.png" width="750" alt="Theme example">
+</modal>
 
 Refer [here](../siteJsonFile.html#style) for configuring MarkBind to use a specific theme for the code blocks.
 
@@ -19,14 +15,15 @@ MarkBind provides several features, some of which are added on top of the existi
 
 <small>More info: https://www.markdownguide.org/extended-syntax#fenced-code-blocks</small>
 
-
 Features:
-- Syntax coloring
-- Line numbering
-- Line highlighting
-- Code block headers
+
+* Syntax coloring
+* Line numbering
+* Line highlighting
+* Code block headers
 
 ##### Syntax coloring
+
 To enable syntax coloring, specify a language next to the backticks before the fenced code block.
 <div id="main-example">
 <include src="codeAndOutputCode.md" boilerplate >
@@ -41,6 +38,7 @@ To enable syntax coloring, specify a language next to the backticks before the f
 </div>
 
 ##### Line numbering
+
 Line numbers are <tooltip content="Line numbers were provided by default in version v3.1.1 and below. To preserve the exact line numbers behavior of sites generated in previous versions, simply set the codeLineNumbers option in site.json to true">hidden by default</tooltip>. To enable line numbers for the entire site by default,
 add `"codeLineNumbers": true` to the [`site.json`]({{baseUrl}}/userGuide/siteJsonFile.html#style) file:
 ```json {highlight-lines="8[:]"}
@@ -177,6 +175,7 @@ Headings support inline Markdown, except for `Inline Code` and %%Dim%% text styl
 </include>
 
 ##### Using multiple features
+
 You can also use multiple features together, as shown below.
 
 <include src="codeAndOutputCode.md" boilerplate >
@@ -214,7 +213,6 @@ A _wrap text_ button can be added to code blocks using the `codeBlockWrapButtons
 
 #### Inline Code
 ##### Syntax coloring
-
 
 MarkBind can apply syntax-coloring on inline code too.
 
