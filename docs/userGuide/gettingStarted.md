@@ -41,7 +41,7 @@ Usage: ...
 ++**2. Initialize a new Project (or Start with an existing Project)**++
 
 <tabs>
- <tab header="Initializing a new project">
+  <tab header="Initializing a new project">
 
 Navigate into an empty directory and run the following command to initialize a skeletal MarkBind site in that directory. It will create several new files in the directory e.g., `index.md`, `site.json`.
 
@@ -61,16 +61,12 @@ The `init` command populates the project with the [default project template](htt
 </span>
 </include>
 
-</tab>
- <tab header="Starting with an existing project">
+  </tab>
+  <tab header="Starting with an existing project">
 
 Navigate to the project {{ tooltip_root_directory }}.
 
 </tab>
-
-<!--  <tab header="Converting Existing Documentation">
-
-</tab> -->
 </tabs>
 
 ++**3. Preview the site**++
@@ -88,7 +84,6 @@ $ markbind serve
 Do some changes to the `index.md` and save the file. The live preview in the Browser should update automatically to reflect your changes.
 
 To stop the web server, go to the console running the `serve` command and press <kbd>CTRL</kbd> + <kbd>C</kbd> (or the equivalent in your OS).
-
 
 ++**4. Next steps**++
 
