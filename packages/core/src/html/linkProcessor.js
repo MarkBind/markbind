@@ -19,6 +19,7 @@ const defaultTagLinkMap = {
   link: 'href',
   include: 'src',
   panel: 'src',
+  popover: 'src',
   script: 'src',
 };
 
