@@ -26,7 +26,6 @@
 1. Use the [`markbind build` command](cliCommands.html#build-command) to generate the site from source files. That command puts the generated site files in a directory named `_site` (you can change the output directory using parameters supplied to the command).
 1. Upload the site files to the Web server. The sections below explain how to automate this step if you are deploying to some online platforms.
 
-
 **Steps for deploying multiple MarkBind sites:**
 
 1. Create multiple `site.json` files. Ensure that the [`baseUrl` property of each `site.json` file](siteJsonFile.html#baseurl) matches its deploy location.
@@ -34,7 +33,6 @@
 1. For each site:
     1. Use the [`markbind build -s <file>` command](cliCommands.html#build-command) to generate the site from source files.
     1. Upload the site files to the Web server. The sections below explain how to automate this step if you are deploying to some online platforms.
-
 
 ## Deploying to Github Pages
 
@@ -182,6 +180,7 @@ Since May 2018, Travis CI has been [undergoing migration to `travis-ci.com`](htt
       on:
         branch: master
     ```
+
 More information about `.travis.yml` can be found in the [Travis CI documentation](https://docs.travis-ci.com/).
 
 1. Commit `.travis.yml` to your MarkBind repository and push the changes. Travis CI should begin to build your site.
@@ -222,7 +221,7 @@ The `repo` value can be changed to your specific repository as desired.
 
     <include src="screenshot.md" boilerplate var-alt="Add a new Project on AppVeyor" var-file="appveyorAddNewProject.png" inline />
 
-1. Finally, select the repository containing your Markbind site.
+1. Finally, select the repository containing your MarkBind site.
 
 **Configuring your repository in AppVeyor CI**
 
@@ -234,7 +233,7 @@ The `repo` value can be changed to your specific repository as desired.
     <include src="screenshot.md" boilerplate var-alt="Add GitHub Token on AppVeyor" var-file="appveyorGithubToken.png" inline />
 
 1. Remember to click __Save__ at the bottom of the page.
-1. Add a `appveyor.yml`file at the root of your Markbind site's repository to instruct AppVeyor CI to build and deploy the site to Github Pages when you push to your repository. More information on customizing `appveyor.yml` can be found in [AppVeyor documentation](https://www.appveyor.com/docs/appveyor-yml/). An example `appveyor.yml` file is given below:
+1. Add a `appveyor.yml`file at the root of your MarkBind site's repository to instruct AppVeyor CI to build and deploy the site to Github Pages when you push to your repository. More information on customizing `appveyor.yml` can be found in [AppVeyor documentation](https://www.appveyor.com/docs/appveyor-yml/). An example `appveyor.yml` file is given below:
 
     ```yml
     environment:
@@ -255,7 +254,7 @@ The `repo` value can be changed to your specific repository as desired.
     build: off
     ```
 
-Commit and push `appveyor.yml` to your github repository. Thereafter, AppVeyor CI should begin to run the build script. You are able to view the current build status by clicking on your repository in the [AppVeyor projects page](https://ci.appveyor.com/projects). Once the build succeeds, you should be able to view your Markbind site, after a few seconds, at `http://<username|org>.github.io/<repo>` e.g., http://se-edu.github.io/se-book. 
+Commit and push `appveyor.yml` to your github repository. Thereafter, AppVeyor CI should begin to run the build script. You are able to view the current build status by clicking on your repository in the [AppVeyor projects page](https://ci.appveyor.com/projects). Once the build succeeds, you should be able to view your MarkBind site, after a few seconds, at `http://<username|org>.github.io/<repo>` e.g., http://se-edu.github.io/se-book. 
 
 </panel>
 
@@ -265,7 +264,7 @@ Commit and push `appveyor.yml` to your github repository. Thereafter, AppVeyor C
 
 1. Ensure that you have generated a [Github Personal Access Token with **repo** permissions](#generating-a-github-personal-access-token).
 1. Sign in to [Circle CI](https://circleci.com/) using your Github account.
-1. In the projects dashboard, click on the `Set Up Project` button beside the repo containing your Markbind site.
+1. In the projects dashboard, click on the `Set Up Project` button beside the repo containing your MarkBind site.
 
     <include src="screenshot.md" boilerplate var-alt="Set Up Project in Circle CI" var-file="circleCiSetUpProject.png" inline />
 
@@ -276,7 +275,7 @@ Commit and push `appveyor.yml` to your github repository. Thereafter, AppVeyor C
 
     <include src="screenshot.md" boilerplate var-alt="Add Github Token in Circle CI" var-file="circleCiGithubToken.png" inline />
 
-3. Commit and push a `config.yml` file to the repo containing your Markbind Site that instructs Circle CI to build and deploy your Markbind site to Github Pages whenever you push to your repository. Ensure that the `config.yml` file is located in the `<PROJECT_ROOT>/.circleci/` directory. A sample `config.yml` file is shown below:
+3. Commit and push a `config.yml` file to the repo containing your MarkBind Site that instructs Circle CI to build and deploy your MarkBind site to Github Pages whenever you push to your repository. Ensure that the `config.yml` file is located in the `<PROJECT_ROOT>/.circleci/` directory. A sample `config.yml` file is shown below:
 
     ```yml
     jobs:
@@ -302,7 +301,7 @@ Commit and push `appveyor.yml` to your github repository. Thereafter, AppVeyor C
           - Build-And-Deploy
     ```
 
-After you have pushed the `config.yml` file to your remote repo, you should see Circle CI starting to run the Deploy job in your projects dashboard. Once it is successful, you should be able to view your Markbind site at `http://<username|org>.github.io/<repo>`. 
+After you have pushed the `config.yml` file to your remote repo, you should see Circle CI starting to run the Deploy job in your projects dashboard. Once it is successful, you should be able to view your MarkBind site at `http://<username|org>.github.io/<repo>`. 
 
 For more information on customizing your build script, you may refer to [Circle CI Config Reference Document](https://circleci.com/docs/2.0/configuration-reference/#section=configuration).
 </panel>
@@ -338,7 +337,7 @@ Now your site will be deployed on Netlify at the given address specified after d
 
 ## Previewing Pull Requests for MarkBind sites
 
-**If you are hosting your Markbind project on Github, you can setup <tooltip content="Pull Request previews">PR previews</tooltip> in order to automatically build and deploy the modified Markbind site based on the changes in the PR.**
+**If you are hosting your MarkBind project on Github, you can setup <tooltip content="Pull Request previews">PR previews</tooltip> in order to automatically build and deploy the modified MarkBind site based on the changes in the PR.**
 
 ### Previewing PRs using Netlify
 
@@ -431,11 +430,11 @@ jobs:
 
 **Setting up the PR URL**
 
-In **line 34** of the workflow code below, you are required to update the `PR_URL` according to your needs. We recommend just changing the section `<YOUR_BASE_URL>` to something that can easily identify your Markbind project repository. 
+In **line 34** of the workflow code below, you are required to update the `PR_URL` according to your needs. We recommend just changing the section `<YOUR_BASE_URL>` to something that can easily identify your MarkBind project repository. 
 
 For example, if the name of your repository is `MyRepo`, and it is managed under an organization `MyOrganization`, you could replace `<YOUR_BASE_URL>` to `myorganization-myrepo` and your PR Preview will be deployed at the following url: `https://pr-<PR_NUMBER>-myorganization-myrepo.surge.sh`.
 
-Advanced users may completely replace the default `PR_URL`. ==**It is recommended to test your workflow code on a test repo before using it for your Markbind project repo.**==
+Advanced users may completely replace the default `PR_URL`. ==**It is recommended to test your workflow code on a test repo before using it for your MarkBind project repo.**==
 </box>
 
 {% raw %}
@@ -447,7 +446,7 @@ name: Deploy PR Preview
 # Has access to repo secrets
 on:
   workflow_run:
-    workflows: ["Receive Markbind PR"]
+    workflows: ["Receive MarkBind PR"]
     types:
       - completed
 
@@ -503,7 +502,7 @@ jobs:
 
 </panel>
 
-Finally, you may open a PR to the repo of your Markbind site. If everything is configured correctly, after a few minutes, you should be able to see a `github-actions bot` automatically commenting on the PR with a link to _preview_ the updated Markbind site.
+Finally, you may open a PR to the repo of your MarkBind site. If everything is configured correctly, after a few minutes, you should be able to see a `github-actions bot` automatically commenting on the PR with a link to _preview_ the updated MarkBind site.
 
 <include src="screenshot.md" boilerplate var-alt="Surge PR bot" var-file="surgeGithubActionsBot.png" inline />
 
