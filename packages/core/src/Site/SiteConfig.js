@@ -38,6 +38,9 @@ class SiteConfig {
      * @type {Object<string, any>}
      */
     this.style = siteConfigJson.style || {};
+    this.style.codeTheme = this.style.codeTheme || 'dark';
+    this.style.codeLineNumbers = this.style.codeLineNumbers !== undefined
+      ? this.style.codeLineNumbers : false; // hide line numbers by default
 
     /**
      * @type {string}

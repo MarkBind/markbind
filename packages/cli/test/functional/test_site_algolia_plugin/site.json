@@ -7,8 +7,6 @@
     "_site/*",
     "site.json",
     "*.md",
-    "*.mbd",
-    "*.mbdf",
     "*.njk",
     ".git/*",
     "expected/*"
@@ -28,6 +26,7 @@
   "pluginsContext": {
     "algolia": {
       "apiKey": "25626fae796133dc1e734c6bcaaeac3c",
+      "appId": "R2IYF7ETH7",
       "indexName": "docsearch"
     }
   }

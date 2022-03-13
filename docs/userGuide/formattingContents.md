@@ -23,7 +23,7 @@
 {% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
 
 {% macro show_topic(filename) %}
-<include src="./syntax/{{ filename }}.mbdf" />
+<include src="./syntax/{{ filename }}.md" />
 <hr>
 {% endmacro %}
 
@@ -33,7 +33,7 @@
   {% endif %}
 {% endfor %}
 
-****Relevant Tips & Tricks****
+# Relevant Tips & Tricks
 
 <panel header="Escaping Characters">
 

@@ -7,14 +7,16 @@
   },
   "pages": [
     {
-      "glob": ["**/*.mbd", "*.md", "userGuide/*.md", "userGuide/components/*.md", "devGuide/*.md", "devGuide/*/*.md"]
+      "glob": ["*.md", "userGuide/*.md", "userGuide/components/*.md", "devGuide/*.md", "devGuide/*/*.md"]
     },
     {
       "src": [
         "index.md",
+        "userGuide/index.md",
         "userGuide/fullSyntaxReference.md",
         "userGuide/syntaxCheatSheet.md",
-        "userGuide/readerFacingFeatures.md"
+        "userGuide/readerFacingFeatures.md",
+        "devGuide/index.md"
       ],
       "searchable": "no"
     }
@@ -34,8 +36,6 @@
     "lib/*",
     "*.json",
     "*.md",
-    "*.mbd",
-    "*.mbdf",
     "*.njk",
     ".git/*",
     "*.pptx",

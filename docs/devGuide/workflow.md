@@ -66,7 +66,7 @@ The sections below has more information about various stages of submitting a PR.
       
     {.mb-3}  
     
-    ```json {.ml-4 .no-line-numbers heading="launch.json"}
+    ```json {.ml-4 heading="launch.json"}
     {
         "configurations": [
             {
@@ -86,7 +86,7 @@ The sections below has more information about various stages of submitting a PR.
   
   **2. Debugging all tests** in the `npm run test` script:
   
-    ```json {.ml-4 .no-line-numbers heading="launch.json"}
+    ```json {.ml-4 heading="launch.json"}
     {
         "configurations": [
             {
@@ -106,7 +106,7 @@ The sections below has more information about various stages of submitting a PR.
   
   **3. Debugging only the cli package's tests**:
     
-    ```json {.ml-4 .no-line-numbers heading="launch.json"}
+    ```json {.ml-4 heading="launch.json"}
     {
         "configurations": [
             {
@@ -241,4 +241,25 @@ First, follow the instruction to [delete the dependency](#to-delete-a-dependency
 
 <box type="warning">
 Dependency updates are not trivial, and can be the source of subtle bugs. You should always check the respective dependency changelogs before doing so!
+</box>
+
+### Points for consideration
+There are a few ways to incorporate external packages into MarkBind, each with its pros and cons. The following table shows some of the common trade-offs:
+
+Approach          | Pros                                                                                                                                                                 | Cons                                                                                                                            |
+:-----------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------|
+Installing | <ul><li>Ease of upgrade</li><li>Traceable in `package.json`</li></ul>                                                                                                | <ul><li>May not satisfy custom behavior</li><li>Become vulnerable if the source repo is no longer actively maintained</li></ul>
+Forking           | <ul><li>Relatively easy to upgrade</li><li>Leverage upstream testing procedures</li><li>Benefit others who share the same use cases</li></ul>                                                           | <ul><li>May become out-of-sync with the latest version</li><li>Difficult to maintain it externally in the long run</li></ul>                   
+Patching          | <ul><li>Quick - no need to maintain / publish more npm packages or setup release procedures etc</li><li>Ensure the changes propagate to other dependencies</li><li>Enjoy the benefits of monorepo</li></ul> | <ul><li>Difficult to upgrade</li></ul>                              
+
+As the choice is highly dependent on context and details of the implementation, below are some additional questions to ask before proceeding:
+
+- Is the package actively maintained?
+- How big is the package?
+- How invasive are the proposed changes?
+- Are there existing APIs/plugin system from the package (to modify default behaviors)?
+
+<box type="tip" seamless>
+
+Find out more about the key external libraries used in MarkBind from the [project structure](design/projectStructure.md) section. Also, the rationales behind most existing patches are documented in their respective files, read them (and their respective PRs/issues) for more context!
 </box>

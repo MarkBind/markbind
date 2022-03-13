@@ -8,7 +8,6 @@ module.exports = {
   ABOUT_MARKDOWN_FILE: 'about.md',
   FAVICON_DEFAULT_PATH: 'favicon.ico',
   INDEX_MARKDOWN_FILE: 'index.md',
-  INDEX_MARKBIND_FILE: 'index.mbd',
   MAX_CONCURRENT_PAGE_GENERATION_PROMISES: 4,
   PAGE_TEMPLATE_NAME: 'page.njk',
   SITE_CONFIG_NAME: 'site.json',

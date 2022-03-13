@@ -10,10 +10,20 @@
       class="anchor"
     ></span>
     <span class="morph">
-      <button :class="['morph-display-wrapper', 'btn', btnType, 'card-title']" @click="open()">
-        <slot name="_alt">
-          <slot name="header"></slot>
-        </slot>
+      <button :class="['morph-display-wrapper', 'btn', btnType]" @click="open()">
+        <div
+          v-if="!noMinimizedSwitch"
+          class="minimal-caret-wrapper"
+        >
+          <span
+            :class="['glyphicon', 'glyphicon-chevron-right']"
+          ></span>
+        </div>
+        <span class="card-title">
+          <slot name="_alt">
+            <slot name="header"></slot>
+          </slot>
+        </span>
       </button>
     </span>
   </span>
@@ -226,8 +236,10 @@ export default {
     .card-title {
         display: inline-block;
         font-size: 1em;
+        line-height: 1.2em;
         margin: 0;
-        vertical-align: middle;
+        white-space: normal;
+        text-align: left;
     }
 
     .card-title * {
@@ -236,8 +248,13 @@ export default {
 
     .caret-wrapper {
         float: left;
-        display: inline-block;
         width: 32px;
+    }
+
+    .minimal-caret-wrapper {
+        display: inline-block;
+        font-size: 13px;
+        margin-right: 5px;
     }
 
     .header-wrapper {
@@ -252,7 +269,6 @@ export default {
 
     .button-wrapper {
         float: right;
-        display: inline-block;
         width: 96px;
     }
 
@@ -326,17 +342,13 @@ export default {
     }
 
     .morph-display-wrapper {
-        white-space: normal;
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
     }
 
     /* Bootstrap extra small(xs) responsive breakpoint */
     @media (max-width: 575.98px) {
-        .caret-wrapper {
-            float: left;
-            display: inline-block;
-            width: 32px;
-        }
-
         .header-wrapper {
             display: inline-block;
             width: calc(100% - 32px - 32px);
@@ -344,7 +356,6 @@ export default {
 
         .button-wrapper {
             float: right;
-            display: inline-block;
             width: 32px;
         }
 

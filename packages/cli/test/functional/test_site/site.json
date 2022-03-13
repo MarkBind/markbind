@@ -2,13 +2,16 @@
   "baseUrl": "/test_site",
   "faviconPath": "favicon.png",
   "titlePrefix": "",
+  "style": {
+    "codeLineNumbers": true
+  },
   "pages": [
     {
       "src": "index.md",
       "title": "Hello World",
       "frontmatter": {
         "frontMatterOverrideProperty": "Overridden by front matter override",
-        "globalAndFrontMatterOverrideProperty":  "Overridden by front matter override"
+        "globalAndFrontMatterOverrideProperty": "Overridden by front matter override"
       }
     },
     {
@@ -48,7 +51,7 @@
       "title": "Anchor Generation Test"
     },
     {
-      "src": "testTooltipSpacing.mbd",
+      "src": "testTooltipSpacing.md",
       "title": "Tooltip Spacing Test"
     },
     {
@@ -70,6 +73,10 @@
     {
       "src": "testIncludeMultipleModals.md",
       "title": "Multiple inclusions of a modal should be supported"
+    },
+    {
+      "src": "testPopovers.md",
+      "title": "Test: Popovers"
     },
     {
       "src": "testPopoverTrigger.md",
@@ -94,7 +101,22 @@
     {
       "src": "testCenterText.md",
       "title": "Center-aligned text test"
+    },
+    {
+      "src": "testHr.md",
+      "title": "create different types of horizontal rules"
+    },
+    {
+      "src": "testPageNav.md",
+      "title": "text interpolation should be skipped appropriately"
+    },
+    {
+      "src": "testLinks.md",
+      "title": "Autolink tests"
     }
+  ],
+  "pagesExclude": [
+    "**/*-fragment.md"
   ],
   "ignore": [
     "_markbind/layouts/*",

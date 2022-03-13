@@ -177,7 +177,7 @@
       "headingKeywords": {}
     },
     {
-      "src": "testTooltipSpacing.mbd",
+      "src": "testTooltipSpacing.md",
       "title": "Tooltip Spacing Test",
       "headings": {
         "569-stray-space-after-tooltip": "569: Stray space after tooltip"
@@ -212,6 +212,17 @@
       "src": "testIncludeMultipleModals.md",
       "title": "Multiple inclusions of a modal should be supported",
       "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testPopovers.md",
+      "title": "Test: Popovers",
+      "headings": {
+        "nested-panel": "Nested Panel",
+        "normal-panel-content-heading": "Normal panel content heading",
+        "some-heading": "Some heading",
+        "some-heading-2": "Some heading"
+      },
       "headingKeywords": {}
     },
     {
@@ -255,6 +266,28 @@
       "title": "Center-aligned text test",
       "headings": {
         "center-text": "Center Text"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "testHr.md",
+      "title": "create different types of horizontal rules",
+      "headings": {
+        "different-types-of-horizontal-rules": "Different types of horizontal rules"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "testPageNav.md",
+      "title": "text interpolation should be skipped appropriately",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testLinks.md",
+      "title": "Autolink tests",
+      "headings": {
+        "autolinks": "Autolinks"
       },
       "headingKeywords": {}
     }

@@ -13,11 +13,11 @@
 
 ##### {{ heading }}
 <box>
-<include src="syntax/{{ filename }}.mbdf#examples" />
+<include src="syntax/{{ filename }}.md#examples" />
 
 <panel type="seamless" header="%%details...%%" >
 
-<include src="syntax/{{ filename }}.mbdf" />
+<include src="syntax/{{ filename }}.md" />
 </panel>
 </box>
 

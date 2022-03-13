@@ -24,7 +24,7 @@ The components in this page can be used to easily create **various forms of pop-
 {% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
 
 {% macro show_topic(filename) %}
-<include src="../syntax/{{ filename }}.mbdf" />
+<include src="../syntax/{{ filename }}.md" />
 <hr>
 {% endmacro %}
 

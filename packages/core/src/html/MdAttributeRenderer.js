@@ -44,19 +44,58 @@ class MdAttributeRenderer {
     delete node.attribs[attribute];
   }
 
-  processPopover(node) {
+  /**
+   * Checks if the node has both the given slot and the given attribute,
+   * deleting the attribute and logging a warning if both the slot and attribute exist.
+   * @param node Element to process
+   * @param attribute Attribute name to process
+   * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
+   * @returns {boolean} whether the node has both the slot and attribute
+   */
+  // eslint-disable-next-line class-methods-use-this
+  hasSlotOverridingAttribute(node, attribute, slotName = attribute) {
+    const hasNamedSlot = node.children
+      && node.children.some(child => getVslotShorthandName(child) === slotName);
+    if (!hasNamedSlot) {
+      return false;
+    }
+
+    // If the slot is present, remove the attribute as the attribute has no effect.
+    const hasAttribute = _.has(node.attribs, attribute);
+    if (hasAttribute) {
+      logger.warn(`${node.name} has a ${slotName} slot, '${attribute}' attribute has no effect.`);
+      delete node.attribs[attribute];
+    }
+
+    return hasAttribute;
+  }
+
+  processPopoverAttributes(node) {
+    if (!this.hasSlotOverridingAttribute(node, 'header')) {
+      this.processAttributeWithoutOverride(node, 'header', true);
+    }
+
+    // Warn if there is a content slot overriding the attributes 'content' or 'src'
+    const hasSlotAndContentAttribute = this.hasSlotOverridingAttribute(node, 'content', 'content');
+    const hasSlotAndSrcAttribute = this.hasSlotOverridingAttribute(node, 'src', 'content');
+    if (hasSlotAndContentAttribute || hasSlotAndSrcAttribute) {
+      return;
+    }
+
+    if (_.has(node.attribs, 'content') && _.has(node.attribs, 'src')) {
+      logger.warn(`${node.name} has a 'content' attribute, 'src' attribute has no effect.`);
+      delete node.attribs.src;
+    }
+
     this.processAttributeWithoutOverride(node, 'content', true);
-    this.processAttributeWithoutOverride(node, 'header', true);
-    this.processAttributeWithoutOverride(node, 'title', true, 'header');
   }
 
   processTooltip(node) {
-    this.processAttributeWithoutOverride(node, 'content', true, '_content');
+    this.processAttributeWithoutOverride(node, 'content', true);
   }
 
   processModalAttributes(node) {
     this.processAttributeWithoutOverride(node, 'header', true, 'modal-title');
-    this.processAttributeWithoutOverride(node, 'title', true, 'modal-title');
   }
 
   /*
@@ -101,8 +140,6 @@ class MdAttributeRenderer {
   processBoxAttributes(node) {
     this.processAttributeWithoutOverride(node, 'icon', true, 'icon');
     this.processAttributeWithoutOverride(node, 'header', false, 'header');
-
-    this.processAttributeWithoutOverride(node, 'heading', false, 'header');
   }
 
   /*
@@ -118,21 +155,11 @@ class MdAttributeRenderer {
       if (_.has(node.attribs, 'header')) {
         logger.warn(`${node.name} has a header slot, 'header' attribute has no effect.`);
       }
-      if (_.has(node.attribs, 'text')) {
-        logger.warn(`${node.name} has a header slot, 'text' attribute has no effect.`);
-      }
       delete node.attribs.header;
-      delete node.attribs.text;
       return;
     }
 
-    // header attribute takes priority over text attribute if both 'text' and 'header' is used
-    if (_.has(node.attribs, 'header')) {
-      this.processAttributeWithoutOverride(node, 'header', true, 'header');
-      delete node.attribs.text;
-    } else {
-      this.processAttributeWithoutOverride(node, 'text', true, 'header');
-    }
+    this.processAttributeWithoutOverride(node, 'header', true, 'header');
   }
 
   /**

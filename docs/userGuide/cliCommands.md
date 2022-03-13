@@ -72,7 +72,7 @@ Usage: markbind <command>
 1. Opens a <trigger trigger="click" for="modal:cliCommands-livePreview">live preview</trigger> of the website.
 
 <modal large header="Live Preview" id="modal:cliCommands-livePreview">
-<include src="glossary.md#live-preview" inline/>
+<include src="glossary.md#live-preview"/>
 </modal>
 
 **Arguments:**
@@ -85,7 +85,7 @@ Usage: markbind <command>
 **Options** :fas-cogs:
 
 * `-o <file>`, `--one-page <file>`<br>
- Serves only a single page from your website **initially**. If `<file>` is not specified, it defaults to `index.md/mbd`.<br>
+ Serves only a single page from your website **initially**. If `<file>` is not specified, it defaults to `index.md`.<br>
   * Thereafter, when changes to source files have been made, the opened pages will be rebuilt if it was affected.<br>
   * Navigating to a new page will build the new page, if it has not been built before, or there were some changes to source files that affected it before navigating to it.<br>
   * {{ icon_example }} `--one-page guide/index.md`

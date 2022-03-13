@@ -4,6 +4,7 @@
 <frontmatter>
   title: "User Guide: {{ title | safe }}"
   layout: userGuide.md
+  pageNav: 5
 </frontmatter>
 
 # {{ title | safe }}
@@ -27,6 +28,8 @@ For Markdown syntax: To display a literal character that are normally used for M
 
 </span>
 
+---
+
 {% raw %}
 
 ##### :fas-lightbulb: Using {% raw %}{% endraw %} to display `{{ content }}`
@@ -45,6 +48,8 @@ However, this does not change the need for `{% raw %}{% endraw %}`. Meaning, you
 
 
 {% endraw %}
+
+---
 
 ##### :fas-info: Unwanted starting space in links and triggers
 
@@ -70,6 +75,8 @@ When you use links or triggers, you may encounter a situation where an unwanted 
   <md>[[link](https://example.com)]</md>.
   ```
 
+---
+
 <span id="useSpecificMarkbind">
 
 ##### :fas-info: Configuring Online Deployment platforms to use specific MarkBind version
@@ -80,13 +87,13 @@ When the [default CI configuration for deployment](deployingTheSite.html#using-c
 
 * If you want to specify a version of MarkBind (eg. `v1.6.3`), you have to modify the step where `markbind-cli` is being installed to `npm i -g markbind-cli@v1.6.3`. For example, for Travis-CI, you can modifiy the `install` step in `.travis.yml` as follows:
 
-  ```yaml {.no-line-numbers}
+  ```yaml
   install:
     - npm i -g markbind-cli@1.6.3
   ```
 * If you want to use the latest minor version automatically until the next major version (as major versions usually contain breaking changes), you can add a `^` in front of the version number. In the example below, Travis will use the latest version of MarkBind but will stop before `2.*`
 
-  ```yaml {.no-line-numbers}
+  ```yaml
   install:
     - npm i -g markbind-cli@^1.6.3
   ```
@@ -99,11 +106,11 @@ Here are the steps to set up Netlify to use a specific version of MarkBind.
 1. Run `npm init` which will create `package.json` and `package.lock.json`
 1. Run `npm install markbind-cli@1.6.3 --save` to install markbind as a dependency (using v1.6.3 as an example)
 1. Create / Update `.gitignore` file in the root directory and add:
-   ```{.no-line-numbers}
+   ```
    node_modules
    ```
 1. Update `ignore` in site.json to include
-   ```{.no-line-numbers}
+   ```
    node_modules/*
    .gitignore
    ```
@@ -114,3 +121,68 @@ Here are the steps to set up Netlify to use a specific version of MarkBind.
 </box>
 
 </span>
+
+---
+
+<span id="indentComponents">
+
+##### :fas-lightbulb: Indent components
+
+In some cases, you may want to indent components such as panels and boxes to match the surrounding content.
+This is easily achieved by adding some margin and padding utility classes from [Bootstrap](https://getbootstrap.com/docs/4.4/utilities/spacing/) 
+to the component. The following examples show how to do this.
+
+**Indent Box component**
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+
+<box>Some text at level 1</box>
+
+<box class="ml-4">Some text at level 2</box>
+
+<box>Some text at level 1</box>
+
+</variable>
+</include>
+
+**Indent Panel component**
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+
+<panel header="This panel is at level 1">
+  ...
+</panel>
+<panel header="This panel is at level 2" class="ml-3">
+  The "ml-3" is arbitarily chosen i.e "ml-0" to "ml-5" are all possible values.
+</panel>
+<panel header="This panel is at level 1">
+  ...
+</panel>
+</variable>
+</include>
+
+**Indent Included component**
+
+The following box component will be included via `<include>`.
+
+<span id="forIndentDemo">
+<box>Some text from include</box>
+</span>
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+
+<box>Some text at level 1 (before included content)</box>
+<include src="tipsAndTricks.md#forIndentDemo" class="ml-5"></include>
+<box>Some text at level 1 (after included content)</box>
+
+</variable>
+</include>
+
+</span>
+

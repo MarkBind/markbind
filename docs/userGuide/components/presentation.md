@@ -24,7 +24,7 @@ The components in this page are the core **presentational** components you may w
 {% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
 
 {% macro show_topic(filename) %}
-<include src="../syntax/{{ filename }}.mbdf" />
+<include src="../syntax/{{ filename }}.md" />
 <hr>
 {% endmacro %}
 
@@ -35,6 +35,14 @@ The components in this page are the core **presentational** components you may w
 {% endfor %}
 
 <br>
+
+# Relevant Tips & Tricks
+
+<panel header="Indent components">
+
+<include src="../tipsAndTricks.md#indentComponents" />
+
+</panel>
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('../usingComponents', 'imagesAndDiagrams') }}
