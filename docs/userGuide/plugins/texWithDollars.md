@@ -6,7 +6,7 @@ This plugin allows you to use <tooltip content="$ ... $ or $$ ... $$">dollars</t
 
 - Insert **display** equations by enclosing them in double dollars `$$...$$`.
 
-- Insert numbered **display** equations by enclosing the equation in double dollars and the equation number in curly brackets `$$...$$ (1)`.
+- Insert numbered **display** equations by enclosing the equation in double dollars and the equation number in round brackets `$$...$$ (1)`.
 
 <box type="info">
 
