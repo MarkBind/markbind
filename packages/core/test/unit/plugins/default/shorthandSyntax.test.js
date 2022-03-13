@@ -15,7 +15,7 @@ to
     </span>
 </panel>
 */
-test('processNode should convert shorthand syntax to proper MarkBind syntax', () => {
+test('processNode should convert shorthand syntax to proper Markbind syntax', () => {
   const [spanNode] = cheerio.parseHTML('<panel>'
     + '<span heading>Heading</span></panel>', true)[0].children;
   shorthandSyntaxPlugin.processNode({}, spanNode);

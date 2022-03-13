@@ -120,7 +120,7 @@ test('Site read site config for custom site config', async () => {
     pages: [
       {
         src: 'index.md',
-        title: 'My MarkBind Website',
+        title: 'My Markbind Website',
       },
     ],
     ignore: [

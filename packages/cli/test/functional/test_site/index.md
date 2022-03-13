@@ -150,7 +150,7 @@ This test ensures heading ids are assigned last (e.g. after `<include />`s are p
 
 <include src="testInclude.html" />
 
-**Include from another MarkBind site**
+**Include from another Markbind site**
 
 <include src="sub_site/index.md" />
 <include src="sub_site/testReuseSubsite.md" />
@@ -275,11 +275,11 @@ and **this**.
   </panel>
 </panel>
 
-**Panel with src from another MarkBind site**
+**Panel with src from another Markbind site**
 
-<panel header="## Panel with src from another MarkBind site header" src="sub_site/index.md" expanded>
+<panel header="## Panel with src from another Markbind site header" src="sub_site/index.md" expanded>
 </panel>
-<panel header="## Panel with src from another MarkBind site header" src="sub_site/testReuseSubsite.md" expanded>
+<panel header="## Panel with src from another Markbind site header" src="sub_site/testReuseSubsite.md" expanded>
 </panel>
 </div>
 
