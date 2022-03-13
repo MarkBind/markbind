@@ -1,5 +1,5 @@
 ## Math Formulae
-MarkBind supports typesetting TeX math equations. [KaTeX](https://katex.org) is used as a fast math renderer.
+Markbind supports typesetting TeX math equations. [KaTeX](https://katex.org) is used as a fast math renderer.
 
 Insert **inline** equations by enclosing them in round brackets `\( ... \)`.
 

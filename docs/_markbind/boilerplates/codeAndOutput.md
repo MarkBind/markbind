@@ -1,4 +1,4 @@
-<!-- This boilerplate shows MarkBind code and the rendered output of that code -->
+<!-- This boilerplate shows Markbind code and the rendered output of that code -->
 <!-- Supports 3 variables. -->
 <!-- `code` - The MarkBind code content in this variable will appear in a code block containing the code, -->
 <!--          and as rendered output of the code. The code cannot start or end with empty lines due to `trim` -->

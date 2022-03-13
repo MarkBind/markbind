@@ -20,5 +20,5 @@ markbind init --template minimal
 
 Name    | Template key | Description | Quick Deploy
 ----    | -------      | ----------- | ------------
-Default | `default`    | Default template if `--template` is unspecified. Filled with MarkBind features to guide you to author better content. | <a href="https://app.netlify.com/start/deploy?repository=https://github.com/MarkBind/init-typical-netlify"><img src="https://www.netlify.com/img/deploy/button.svg" /></a>
+Default | `default`    | Default template if `--template` is unspecified. Filled with Markbind features to guide you to author better content. | <a href="https://app.netlify.com/start/deploy?repository=https://github.com/MarkBind/init-typical-netlify"><img src="https://www.netlify.com/img/deploy/button.svg" /></a>
 Minimal | `minimal` | Minimalistic template that gets you started quickly | <a href="https://app.netlify.com/start/deploy?repository=https://github.com/MarkBind/init-minimal-netlify"><img src="https://www.netlify.com/img/deploy/button.svg" /></a>

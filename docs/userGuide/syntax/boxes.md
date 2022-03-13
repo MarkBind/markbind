@@ -80,7 +80,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 </variable>
 </include>
 
-**MarkBind also supports a light color scheme for boxes**
+**Markbind also supports a light color scheme for boxes**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
