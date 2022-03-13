@@ -90,7 +90,7 @@ You may refer to Github's documentation on [how to generate a Github Personal Ac
 To instruct [Github Actions](https://docs.github.com/en/actions) to build and deploy the site when you push to the repository, add a Github Actions workflow file in your project repo at the location `<PROJECT_ROOT>/.github/workflows/deploy.yml`  A sample workflow file is provided below:
 
 ```yml
-name: Deploy Markbind Site
+name: Deploy MarkBind Site
 on:
   push:
     branches: master
@@ -296,7 +296,7 @@ Commit and push `appveyor.yml` to your github repository. Thereafter, AppVeyor C
     orbs:
       node: circleci/node@4.1.0
     workflows:
-      Deploy-Markbind-Site:
+      Deploy-MarkBind-Site:
         jobs:
           - Build-And-Deploy
     ```
@@ -384,7 +384,7 @@ You may also preview PRs using [Surge](https://surge.sh/), which is an NPM packa
 {% raw %}
 
 ```yml
-name: Receive Markbind PR
+name: Receive MarkBind PR
 
 # read-only
 # no access to secrets
@@ -400,7 +400,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 10
-      - name: Build Markbind website
+      - name: Build MarkBind website
         run: |
           npm install -g markbind-cli
           markbind build
@@ -430,7 +430,7 @@ jobs:
 
 **Setting up the PR URL**
 
-In **line 34** of the workflow code below, you are required to update the `PR_URL` according to your needs. We recommend just changing the section `<YOUR_BASE_URL>` to something that can easily identify your MarkBind project repository. 
+In **line 34** of the workflow code below, you are required to update the `PR_URL` according to your needs. We recommend just changing the section `<YOUR_BASE_URL>` to something that can easily identify your MarkBind project repository.
 
 For example, if the name of your repository is `MyRepo`, and it is managed under an organization `MyOrganization`, you could replace `<YOUR_BASE_URL>` to `myorganization-myrepo` and your PR Preview will be deployed at the following url: `https://pr-<PR_NUMBER>-myorganization-myrepo.surge.sh`.
 
@@ -512,7 +512,7 @@ For more information on Surge, you may refer to [Surge's docs](https://surge.sh/
 
 <panel header="Configuring Online Deployment platforms to use specific MarkBind version" type="seamless" expand-headerless>
 
-<include src="tipsAndTricks.md#useSpecificMarkbind" />
+<include src="tipsAndTricks.md#useSpecificMarkBind" />
 
 </panel>
 
