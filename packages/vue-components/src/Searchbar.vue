@@ -121,7 +121,7 @@ export default {
           headingKeywords,
         } = entry;
         const keywords = entry.keywords || '';
-        const displayTitle = title || src;
+        const displayTitle = title || src.substring(0, src.indexOf('.'));
 
         const pageSearchTargets = [
           displayTitle,
