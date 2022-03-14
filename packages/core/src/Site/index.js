@@ -1111,8 +1111,10 @@ class Site {
       } else {
         isCompleted = await this.generatePagesAsyncThrottled(task.pages, progressBar);
       }
+
       this.siteLinkManager.validateAllIntralinks();
     });
+
     return isCompleted;
   }
 

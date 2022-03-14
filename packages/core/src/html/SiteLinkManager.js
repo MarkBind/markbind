@@ -23,10 +23,10 @@ class SiteLinkManager {
    * ensuring each pair of (resourcePath, cwf) appears only once
    */
   _addToCollection(resourcePath, cwf) {
-    if (!this.intralinkCollection.has(resourcePath)) {
-      this.intralinkCollection.set(resourcePath, new Set());
+    if (!this.intralinkCollection.has(cwf)) {
+      this.intralinkCollection.set(cwf, new Set());
     }
-    this.intralinkCollection.get(resourcePath).add(cwf);
+    this.intralinkCollection.get(cwf).add(resourcePath);
   }
 
   validateAllIntralinks() {
@@ -34,9 +34,11 @@ class SiteLinkManager {
       return;
     }
 
-    this.intralinkCollection.forEach((cwfSet, resourcePath) => {
-      cwfSet.forEach(cwf => linkProcessor.validateIntraLink(resourcePath, cwf, this.config));
+    this.intralinkCollection.forEach((resourcePaths, cwf) => {
+      resourcePaths.forEach(resourcePath => linkProcessor.validateIntraLink(resourcePath, cwf, this.config));
     });
+
+    this.intralinkCollection = new Map();
   }
 
   /**
