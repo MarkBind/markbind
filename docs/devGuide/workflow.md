@@ -132,11 +132,11 @@ We update the frontend `markbind.min.js` and `markbind.min.css` bundles during r
 
 Hence, if you need to view the latest frontend changes (relating to `packages/core-web` or `packages/vue-components`), you can either:
 
-1. Run `npm run build:web` in the root directory, which builds the above bundles,
-   then run your markbind-cli [command](https://markbind.org/userGuide/cliCommands.html) of choice.
 1. Run `markbind serve -d` (with any other applicable options). (**recommended**)<br>
    This adds the necessary webpack middlewares to the development server to compile the above bundles,
    and enables live and hot reloading for frontend source files.
+1. Run `npm run build:web` in the root directory, which builds the above bundles,
+   then run your markbind-cli [command](https://markbind.org/userGuide/cliCommands.html) of choice.
 
 ## Testing
 
@@ -161,6 +161,7 @@ Whether you are adding a new feature, updating existing features or fixing bugs,
 After which, you can update the **expected** test files with: `npm run updatetest`
 
 <box type="warning" seamless>
+
   You should always check that the generated output is correct before committing any changes to the test sites.
 </box>
 
@@ -242,6 +243,7 @@ The safest way is to first remove the particular dependency entry from the `pack
 First, follow the instruction to [delete the dependency](#to-delete-a-dependency). Then, follow the instruction to [add the latest dependency](#to-add-a-dependency) back. Also, when updating dependencies, ensure that it is updated in _all_ packages using that dependency.
 
 <box type="warning">
+
 Dependency updates are not trivial, and can be the source of subtle bugs. You should always check the respective dependency changelogs before doing so!
 </box>
 
