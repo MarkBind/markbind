@@ -45,18 +45,19 @@ class SiteLinkManager {
    */
   collectIntraLink(node, cwf) {
     if (!tagsToValidate.has(node.name)) {
-      return;
+      return 'Should not validate';
     }
 
     if (node.attribs) {
       const hasIntralinkValidationDisabled = _.has(node.attribs, 'no-validation');
       if (hasIntralinkValidationDisabled) {
-        return;
+        return 'Intralink validation disabled';
       }
     }
 
     const resourcePath = linkProcessor.getDefaultTagsResourcePath(node);
     this._addToCollection(resourcePath, cwf);
+    return 'Intralink collected to be validated later';
   }
 }
 

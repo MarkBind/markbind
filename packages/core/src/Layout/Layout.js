@@ -48,7 +48,8 @@ class Layout {
       const nunjucksProcessed = variableProcessor.renderWithSiteVariables(
         this.sourceFilePath, pageSources, layoutVariables);
       nodeProcessor = new NodeProcessor(fileConfig, pageSources, variableProcessor,
-                                        pluginManager, siteLinkManager, this.layoutUserScriptsAndStyles, 'layout');
+                                        pluginManager, siteLinkManager, this.layoutUserScriptsAndStyles,
+                                        'layout');
       // eslint-disable-next-line no-await-in-loop
       this.layoutProcessed = await nodeProcessor.process(this.sourceFilePath, nunjucksProcessed,
                                                          this.sourceFilePath, layoutVariables);
