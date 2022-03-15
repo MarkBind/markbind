@@ -82,6 +82,11 @@ Formatting is supported!
 </variable>
 </include>
 
+<box type="warning">
+
+Currently, Pop-Ups(tooltip/trigger) are !!not!! supported within a `tree` component.
+</box>
+
 <div class="indented">
 
 %%{{ icon_info }} You can refer to [Formatting Contents](../formattingContents.html) to find more information about text styles and other supported inline syntax.%%
