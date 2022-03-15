@@ -53,6 +53,17 @@
 </popover>
 <br />
 <br />
+<h4 class="no-index">Content using src</h4>
+<p>
+  <popover header="From a HTML file" src="{{ baseUrl }}/userGuide/syntax/extra/loadContent.html#fragment">
+    This is loaded from a .html file
+  </popover>
+</p>
+<p>
+  <popover header="From a MarkDown file" src="{{ baseUrl }}/userGuide/formattingContents.md#overview">
+    This is loaded from a .md file
+  </popover>
+</p>
 <h4 class="no-index">Wrap Text</h4>
 <popover header="false" content="Nice!">What do you say</popover>
 </variable>
@@ -76,13 +87,24 @@ This is the same <trigger for="pop:trigger_id">trigger</trigger> as last one.
 
 ****Options****
 
-Name | Type | Default | Description
----- | ---- | ------- | ------
-trigger | `String` |	`hover`	| How the Popover is triggered.<br>Supports: `click`, `focus`, `hover`.
-header{{slot_info_trigger}} | `String` | `''` | Popover header, supports MarkDown text.
-content{{slot_info_trigger}} | `String` | `''` | Popover content, supports MarkDown text.
-placement | `String` | `top` | How to position the Popover.<br>Supports: `top`, `left`, `right`, `bottom`.
+| Name                         | Type     | Default | Description                                                                                                    |
+| ---------------------------- | -------- | ------- | ---------------------------------------------------------------------------------------------------------------|
+| trigger                      | `String` | `hover` | How the Popover is triggered.<br>Supports: `click`, `focus`, `hover`.                                          |
+| header{{slot_info_trigger}}  | `String` | `''`    | Popover header, supports MarkDown text.                                                                        |
+| content{{slot_info_trigger}} | `String` | `''`    | Popover content, supports MarkDown text.                                                                       |
+| src                          | `String` |         | The url to the remote page to be loaded as the content of the popover.<br>Both `.md` and `.html` are accepted. |
+| placement                    | `String` | `top`   | How to position the Popover.<br>Supports: `top`, `left`, `right`, `bottom`.                                    |
 
+<box type="info" light>
+
+MarkBind supports the `src` attribute, `content` attribute and `content` slot for popovers. 
+Usually, only one of these would be used at a time.
+
+If multiple of these are used, MarkBind will prioritise in the following order:
+  1. `content` slot
+  1. `content` attribute
+  1. `src` attribute
+</box>
 
 <span id="short" class="d-none">
 

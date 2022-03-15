@@ -215,6 +215,17 @@
       "headingKeywords": {}
     },
     {
+      "src": "testPopovers.md",
+      "title": "Test: Popovers",
+      "headings": {
+        "nested-panel": "Nested Panel",
+        "normal-panel-content-heading": "Normal panel content heading",
+        "some-heading": "Some heading",
+        "some-heading-2": "Some heading"
+      },
+      "headingKeywords": {}
+    },
+    {
       "src": "testPopoverTrigger.md",
       "title": "Popover initiated by trigger should honor trigger attribute",
       "headings": {},

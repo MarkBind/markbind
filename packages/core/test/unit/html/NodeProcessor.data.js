@@ -146,7 +146,7 @@ module.exports.PROCESS_POPOVER_ATTRIBUTES = `
 `;
 
 module.exports.PROCESS_POPOVER_ATTRIBUTES_EXPECTED = `
-<popover><template #header><strong>Lorem ipsum</strong></template><template #content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.</template>
+<popover><template #content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.</template><template #header><strong>Lorem ipsum</strong></template>
   Content and header attributes should be processed and inserted under panel as slots and deleted.
 </popover>
 `;

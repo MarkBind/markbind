@@ -10,6 +10,7 @@ module.exports = {
     'json',
     'vue',
   ],
+  'testEnvironment': 'jsdom',
   'transform': {
     '.*\\.(vue)$': 'vue-jest',
     '^.+\\.js$': ['babel-jest', { rootMode: 'upward' }],
