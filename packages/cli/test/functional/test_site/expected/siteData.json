@@ -49,17 +49,34 @@
         "level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed": "Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed"
       },
       "headingKeywords": {
-        "heading-with-keyword-in-panel": ["panel keyword"],
-        "panel-with-heading": ["panel keyword"],
+        "heading-with-keyword-in-panel": [
+          "panel keyword"
+        ],
+        "panel-with-heading": [
+          "panel keyword"
+        ],
         "keyword-should-be-tagged-to-this-heading-not-the-panel-heading": [
           "panel keyword"
         ],
-        "panel-with-heading-with-keyword": ["panel keyword"],
-        "heading-with-multiple-keywords": ["keyword 1", "keyword 2"],
-        "heading-with-included-keyword": ["included keyword"],
-        "included-heading": ["Keyword with included heading"],
-        "heading-with-nested-keyword": ["nested keyword"],
-        "heading-with-hidden-keyword": ["invisible keyword"]
+        "panel-with-heading-with-keyword": [
+          "panel keyword"
+        ],
+        "heading-with-multiple-keywords": [
+          "keyword 1",
+          "keyword 2"
+        ],
+        "heading-with-included-keyword": [
+          "included keyword"
+        ],
+        "included-heading": [
+          "Keyword with included heading"
+        ],
+        "heading-with-nested-keyword": [
+          "nested keyword"
+        ],
+        "heading-with-hidden-keyword": [
+          "invisible keyword"
+        ]
       }
     },
     {
@@ -282,7 +299,8 @@
         "single-tree": "Single Tree",
         "multiple-tree": "Multiple Tree",
         "inline-markdown": "Inline Markdown"
-      }
+      },
+      "headingKeywords": {}
     },
     {
       "src": "testMath.md",
