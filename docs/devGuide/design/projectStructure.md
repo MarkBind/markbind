@@ -40,7 +40,7 @@ The MarkBind project is developed in a <tooltip content="We follow a monorepo ap
 
     * `Layout` holds the files relating to the layout of the site and are managed by `LayoutManager`. Similarly, `External` files, which are separate output files to be loaded dynamically and on-demand, are managed by a `ExternalManager` instance.
 
-    * Various libraries (contained in `lib`) and plugins (in `plugins`) are also stored here. Some external libraries have also been amended to suit Markbind's purpose – see `patches`.
+    * Various libraries (contained in `lib`) and plugins (in `plugins`) are also stored here. Some external libraries have also been amended to suit MarkBind's purpose – see `patches`.
 
 * MarkBind's [templates](https://markbind.org/userGuide/templates.html), used in the `markbind init` command.
 

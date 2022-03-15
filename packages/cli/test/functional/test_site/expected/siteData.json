@@ -22,8 +22,8 @@
         "referencing-specified-path-in-boilerplate": "Referencing specified path in boilerplate",
         "outer-nested-panel": "Outer nested panel",
         "outer-nested-panel-without-src": "Outer nested panel without src",
-        "panel-with-src-from-another-markbind-site-header": "Panel with src from another Markbind site header",
-        "panel-with-src-from-another-markbind-site-header-2": "Panel with src from another Markbind site header",
+        "panel-with-src-from-another-markbind-site-header": "Panel with src from another MarkBind site header",
+        "panel-with-src-from-another-markbind-site-header-2": "Panel with src from another MarkBind site header",
         "unexpanded-panel-header": "Unexpanded panel header",
         "keyword-should-be-tagged-to-this-heading-not-the-panel-heading": "Keyword should be tagged to this heading, not the panel heading",
         "panel-normal-source-content-headings": "Panel normal source content headings",
@@ -49,34 +49,17 @@
         "level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed": "Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed"
       },
       "headingKeywords": {
-        "heading-with-keyword-in-panel": [
-          "panel keyword"
-        ],
-        "panel-with-heading": [
-          "panel keyword"
-        ],
+        "heading-with-keyword-in-panel": ["panel keyword"],
+        "panel-with-heading": ["panel keyword"],
         "keyword-should-be-tagged-to-this-heading-not-the-panel-heading": [
           "panel keyword"
         ],
-        "panel-with-heading-with-keyword": [
-          "panel keyword"
-        ],
-        "heading-with-multiple-keywords": [
-          "keyword 1",
-          "keyword 2"
-        ],
-        "heading-with-included-keyword": [
-          "included keyword"
-        ],
-        "included-heading": [
-          "Keyword with included heading"
-        ],
-        "heading-with-nested-keyword": [
-          "nested keyword"
-        ],
-        "heading-with-hidden-keyword": [
-          "invisible keyword"
-        ]
+        "panel-with-heading-with-keyword": ["panel keyword"],
+        "heading-with-multiple-keywords": ["keyword 1", "keyword 2"],
+        "heading-with-included-keyword": ["included keyword"],
+        "included-heading": ["Keyword with included heading"],
+        "heading-with-nested-keyword": ["nested keyword"],
+        "heading-with-hidden-keyword": ["invisible keyword"]
       }
     },
     {
@@ -299,6 +282,15 @@
         "single-tree": "Single Tree",
         "multiple-tree": "Multiple Tree",
         "inline-markdown": "Inline Markdown"
+      }
+    },
+    {
+      "src": "testMath.md",
+      "title": "Math formulae should be displayed correctly, with additional plugin",
+      "headings": {
+        "math-formulae": "Math Formulae",
+        "markbind-supports-typesetting-tex-math-equations": "Markbind supports typesetting TeX math equations",
+        "additionally-dollars-can-be-used-as-delimiters-if-texwithdollars-plugin-is-enabled": "Additionally, Dollars can be used as delimiters if texWithDollars plugin is enabled"
       },
       "headingKeywords": {}
     }
