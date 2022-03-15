@@ -113,6 +113,10 @@
     {
       "src": "testLinks.md",
       "title": "Autolink tests"
+    },
+    {
+      "src": "testMath.md",
+      "title": "Math formulae should be displayed correctly, with additional plugin"
     }
   ],
   "pagesExclude": [
@@ -140,7 +144,8 @@
   "plugins": [
     "testMarkbindPlugin",
     "filterTags",
-    "googleAnalytics"
+    "googleAnalytics",
+    "texWithDollars"
   ],
   "pluginsContext": {
     "testMarkbindPlugin": {

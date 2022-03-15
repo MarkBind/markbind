@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta name="default-head-top">
+  <script src="/test_site/headFiles/customScriptTop.js"></script>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="MarkBind 3.1.1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Math formulae should be displayed correctly, with additional plugin</title>
+  <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
+  <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
+  <link rel="stylesheet" href="markbind/css/octicons.css">
+  <link rel="stylesheet" href="markbind/material-icons/material-icons.css">
+  <link rel="stylesheet" href="markbind/css/codeblock-dark.min.css">
+  <link rel="stylesheet" href="markbind/css/markbind.min.css">
+  <script src="markbind/js/polyfill.min.js"></script>
+  <script src="markbind/js/vue.min.js"></script>
+  <script src="markbind/js/markbind.min.js"></script>
+  <script src="testMath.page-vue-render.js"></script>
+  <script src="markbind/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
+  <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
+
+  <meta name="default-head-bottom">
+  <link rel="stylesheet" href="/test_site/stylesheets/styles.css">
+  <script src="/test_site/headFiles/customScriptBottom.js"></script>
+  <link rel="icon" href="/test_site/favicon.png">
+</head>
+<script>
+  const baseUrl = '/test_site'
+</script>
+
+<body>
+  <div id="app">
+
+    <div>
+      <header>
+        <navbar type="dark" default-highlight-on="sibling-or-child">
+          <template #brand><a href="/" title="Home" class="navbar-brand">Markbind Test Site</a></template>
+          <li><a class="nav-link" href="/test_site/bugs/index.html">Open Bugs</a></li>
+        </navbar>
+        <div class="bg-info display-4 text-center text-white">
+          <br>
+          Test Jumbotron<br>
+          <br>
+        </div>
+      </header>
+      <p><strong>Relative Link Test</strong> This is a relative Intra-Site link in a layout (see <a href="/test_site/index.html#heading-with-hidden-keyword">link</a>)</p>
+    </div>
+    <div id="flex-body">
+      <overlay-source id="site-nav" class="fixed-header-padding" tag-name="nav" to="site-nav">
+        <div class="site-nav-top">
+          <div class="font-weight-bold mb-2" style="font-size: 1.25rem;">
+            <div>
+              <h2 id="default-layout"><span id="default-layout" class="anchor"></span>Default Layout<a class="fa fa-anchor" href="#default-layout" onclick="event.stopPropagation()"></a></h2>
+            </div>
+          </div>
+        </div>
+        <div class="nav-component slim-scroll">
+          <div>
+            <site-nav>
+              <overlay-source class="site-nav-list site-nav-list-root" tag-name="ul" to="mb-site-nav">
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/test_site/index.html">Home 🏠</a></div>
+                </li>
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/test_site/bugs/index.html">Open Bugs 🐛</a></div>
+                </li>
+                <li class="site-nav-custom-list-item site-nav-list-item-0">
+                  <h3 id="testing-site-nav"><span id="testing-site-nav" class="anchor"></span>Testing Site-Nav<a class="fa fa-anchor" href="#testing-site-nav" onclick="event.stopPropagation()"></a></h3>
+                </li>
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><strong>Dropdown </strong> <span aria-hidden="true" class="glyphicon glyphicon-search"></span> title ✏️
+                    <!-- Nested list items will be placed inside a Dropdown menu -->
+
+                    <i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                    </i>
+                  </div>
+                  <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/">Dropdown link one</a></div>
+                    </li>
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/">Html within site-nav <span style="color: red;">should</span> be displayed properly</a></div>
+                    </li>
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)">Nested Dropdown title 📐
+
+                        <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                        </i>
+                      </div>
+                      <ul class="site-nav-dropdown-container site-nav-list">
+                        <li>
+                          <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link one</a></div>
+                        </li>
+                        <li>
+                          <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link two</a></div>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/">Dropdown link two</a></div>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/"><mark>Third Link</mark> 📋</a></div>
+                </li>
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)">Filler text <a href="https://www.youtube.com/"><span aria-hidden="true" class="glyphicon glyphicon-facetime-video"></span> Youtube 📺</a> filler text
+                    <!-- Using a link as a Dropdown title will not render a Dropdown menu -->
+
+                    <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                    </i>
+                  </div>
+                  <ul class="site-nav-dropdown-container site-nav-list">
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">The answer to everything in the universe</a></div>
+                    </li>
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><mark>Dropdown title</mark> <span aria-hidden="true" class="glyphicon glyphicon-comment"></span> ✏️
+                        <!-- Dropdown menus in are still supported inside, as long as the title is not a link -->
+
+                        <i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                        </i>
+                      </div>
+                      <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
+                        <li>
+                          <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link one</a></div>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)">Really Long Dropdown Title Really Long Dropdown Title Really Long Dropdown Title Really Long Dropdown
+
+                    <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                    </i>
+                  </div>
+                  <ul class="site-nav-dropdown-container site-nav-list">
+                    <li class="site-nav-custom-list-item site-nav-list-item-1">Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text</li>
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)">Nested Dropdown Title
+
+                        <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                        </i>
+                      </div>
+                      <ul class="site-nav-dropdown-container site-nav-list">
+                        <li class="site-nav-custom-list-item site-nav-list-item-2">Hello Doge Hello Doge 🐶</li>
+                        <li>
+                          <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/test_site/index.html"><strong>NESTED LINK</strong> Home 🏠</a></div>
+                        </li>
+                        <li class="site-nav-custom-list-item site-nav-list-item-2">Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)">Test line break in navigation layout
+
+                    <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                    </i>
+                  </div>
+                  <ul class="site-nav-dropdown-container site-nav-list">
+                    <li class="site-nav-custom-list-item site-nav-list-item-1">Nested line break text ✂️</li>
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/test_site/index.html">Nested line break href</a>
+
+                        <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                        </i>
+                      </div>
+                      <ul class="site-nav-dropdown-container site-nav-list">
+                        <li class="site-nav-custom-list-item site-nav-list-item-2">Nested Nested line break text ✂️</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)">Nested line break dropdown menu
+
+                        <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                        </i>
+                      </div>
+                      <ul class="site-nav-dropdown-container site-nav-list">
+                        <li class="site-nav-custom-list-item site-nav-list-item-2">Line break item 2 📘</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </overlay-source>
+            </site-nav>
+          </div>
+        </div>
+      </overlay-source>
+      <div id="content-wrapper" class="fixed-header-padding">
+        <h1 id="math-formulae"><span id="math-formulae" class="anchor"></span>Math Formulae<a class="fa fa-anchor" href="#math-formulae" onclick="event.stopPropagation()"></a></h1>
+        <h2 id="markbind-supports-typesetting-tex-math-equations"><span id="markbind-supports-typesetting-tex-math-equations" class="anchor"></span>Markbind supports typesetting TeX math equations<a class="fa fa-anchor" href="#markbind-supports-typesetting-tex-math-equations" onclick="event.stopPropagation()"></a></h2>
+        <p>Solve the following simultaneous equations:</p>
+        <section class="eqno">
+          <eqn v-pre><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+                    <semantics>
+                      <mrow>
+                        <mn>3</mn>
+                        <mi>x</mi>
+                        <mo>+</mo>
+                        <mi>y</mi>
+                        <mo>=</mo>
+                        <mn>11</mn>
+                      </mrow>
+                      <annotation encoding="application/x-tex" v-pre> 3x + y = 11 </annotation>
+                    </semantics>
+                  </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">1</span></span></span></span></span></eqn><span>(1)</span>
+        </section>
+        <section class="eqno">
+          <eqn v-pre><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+                    <semantics>
+                      <mrow>
+                        <mfrac>
+                          <mrow>
+                            <mn>2</mn>
+                            <mi>x</mi>
+                          </mrow>
+                          <mn>3</mn>
+                        </mfrac>
+                        <mo>+</mo>
+                        <mfrac>
+                          <mrow>
+                            <mn>2</mn>
+                            <mi>y</mi>
+                          </mrow>
+                          <mn>3</mn>
+                        </mfrac>
+                        <mo>=</mo>
+                        <mn>8</mn>
+                      </mrow>
+                      <annotation encoding="application/x-tex" v-pre>\frac{2x}{3} + \frac{2y}{3} = 8</annotation>
+                    </semantics>
+                  </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span><span class="mord mathnormal">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span></span></span></span></span></eqn><span>(2)</span>
+        </section>
+        <p>Euler's equation <eq v-pre><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <semantics>
+                    <mrow>
+                      <msup>
+                        <mi>e</mi>
+                        <mrow>
+                          <mi>i</mi>
+                          <mi>π</mi>
+                        </mrow>
+                      </msup>
+                      <mo>+</mo>
+                      <mn>1</mn>
+                      <mo>=</mo>
+                      <mn>0</mn>
+                    </mrow>
+                    <annotation encoding="application/x-tex" v-pre> e^{i\pi}+1=0 </annotation>
+                  </semantics>
+                </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.907994em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">π</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span></eq> is a beautiful equation.</p>
+        <h2 id="additionally-dollars-can-be-used-as-delimiters-if-texwithdollars-plugin-is-enabled"><span id="additionally-dollars-can-be-used-as-delimiters-if-texwithdollars-plugin-is-enabled" class="anchor"></span>Additionally, Dollars can be used as delimiters if texWithDollars plugin is enabled<a class="fa fa-anchor" href="#additionally-dollars-can-be-used-as-delimiters-if-texwithdollars-plugin-is-enabled" onclick="event.stopPropagation()"></a></h2>
+        <p>
+          <eq v-pre><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <semantics>
+                    <mrow>
+                      <msub>
+                        <mn>2</mn>
+                        <mn>3</mn>
+                      </msub>
+                    </mrow>
+                    <annotation encoding="application/x-tex" v-pre>2_3</annotation>
+                  </semantics>
+                </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></eq>
+        </p>
+        <p>Stirling's approximation:</p>
+        <section>
+          <eqn v-pre><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+                    <semantics>
+                      <mtable rowspacing="0.24999999999999992em" columnalign="right" columnspacing>
+                        <mtr>
+                          <mtd>
+                            <mstyle scriptlevel="0" displaystyle="true">
+                              <mrow>
+                                <mi>n</mi>
+                                <mo stretchy="false">!</mo>
+                                <mo>=</mo>
+                                <msqrt>
+                                  <mrow>
+                                    <mn>2</mn>
+                                    <mi>π</mi>
+                                    <mi>n</mi>
+                                  </mrow>
+                                </msqrt>
+                                <mo stretchy="false">(</mo>
+                                <mfrac>
+                                  <mi>n</mi>
+                                  <mi>e</mi>
+                                </mfrac>
+                                <msup>
+                                  <mo stretchy="false">)</mo>
+                                  <mi>n</mi>
+                                </msup>
+                                <msup>
+                                  <mi>e</mi>
+                                  <msub>
+                                    <mi>α</mi>
+                                    <mi>n</mi>
+                                  </msub>
+                                </msup>
+                              </mrow>
+                            </mstyle>
+                          </mtd>
+                        </mtr>
+                        <mtr>
+                          <mtd>
+                            <mstyle scriptlevel="0" displaystyle="true">
+                              <mrow>
+                                <mi>w</mi>
+                                <mi>h</mi>
+                                <mi>e</mi>
+                                <mi>r</mi>
+                                <mi>e</mi>
+                              </mrow>
+                            </mstyle>
+                          </mtd>
+                        </mtr>
+                        <mtr>
+                          <mtd>
+                            <mstyle scriptlevel="0" displaystyle="true">
+                              <mrow>
+                                <mfrac>
+                                  <mn>1</mn>
+                                  <mrow>
+                                    <mn>12</mn>
+                                    <mi>n</mi>
+                                    <mo>+</mo>
+                                    <mn>1</mn>
+                                  </mrow>
+                                </mfrac>
+                                <mo>&lt;</mo>
+                                <msub>
+                                  <mi>α</mi>
+                                  <mi>n</mi>
+                                </msub>
+                                <mo>&lt;</mo>
+                                <mfrac>
+                                  <mn>1</mn>
+                                  <mrow>
+                                    <mn>12</mn>
+                                    <mi>n</mi>
+                                  </mrow>
+                                </mfrac>
+                              </mrow>
+                            </mstyle>
+                          </mtd>
+                        </mtr>
+                      </mtable>
+                      <annotation encoding="application/x-tex" v-pre>
+                        \begin{aligned}
+                        n! = \sqrt{2 \pi n} (\frac{n}{e})^n e^{\alpha_n} \\
+                        where \\
+                        \frac{1}{12n+1} &lt; \alpha_n &lt; \frac{1}{12n}
+                        \end{aligned}
+                      </annotation>
+                    </semantics>
+                  </math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:5.98433em;vertical-align:-2.742165em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:3.2421649999999995em;"><span style="top:-5.456044999999999em;"><span class="pstrut" style="height:3.32144em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="mclose">!</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.956095em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord mathnormal">n</span></span></span><span style="top:-2.916095em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice">
+                                                  <path d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z" />
+                                                </svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.08390500000000001em;"><span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.10756em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">e</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7143919999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7143919999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0037em;">α</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:-0.0037em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.630045em;"><span class="pstrut" style="height:3.32144em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">e</span></span></span><span style="top:-1.648605em;"><span class="pstrut" style="height:3.32144em;"></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span><span class="mord">2</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.0037em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span><span class="mord">2</span><span class="mord mathnormal">n</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.742165em;"><span></span></span></span></span></span></span></span></span></span></span></span></eqn>
+        </section>
+        <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
+      </div>
+      <overlay-source id="page-nav" class="fixed-header-padding" tag-name="nav" to="page-nav">
+        <div class="nav-component slim-scroll">
+        </div>
+      </overlay-source>
+    </div>
+    <div>
+      <footer>
+        <h1 id="heading-in-footer-should-not-be-indexed"><span id="heading-in-footer-should-not-be-indexed" class="anchor"></span>Heading in footer should not be indexed<a class="fa fa-anchor" href="#heading-in-footer-should-not-be-indexed" onclick="event.stopPropagation()"></a></h1>
+        <div class="text-center">
+          This is a dynamic height footer that supports markdown <span>😄</span>!
+        </div>
+      </footer>
+    </div>
+  </div>
+</body>
+<script src="markbind/js/bootstrap-utility.min.js"></script>
+<script>
+  MarkBind.setupWithSearch()
+</script>
+<script src="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginScript.js"></script>
+<script>alert("Inline plugin script loaded!")</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
+<script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'TRACKING-ID');
+    </script>
+
+</html>
