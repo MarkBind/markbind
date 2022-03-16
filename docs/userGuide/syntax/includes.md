@@ -81,15 +81,15 @@ The `<include>` mechanism can be used inside any MarkBind source file (even insi
 <div class="indented">
 
 {{ icon_example }} Suppose you have a MarkBind project with the following file structure.
-```
+<tree>
 C:/mySite/
-  ├── bookFiles/
-  |      ├── book.md
-  |      ├── chapter1.md
-  |      └── chapter2.md
-  └── reviewFiles/
-         └── review.md
-```
+  bookFiles/
+    book.md
+    chapter1.md
+    chapter2.md
+  reviewFiles/
+    review.md
+</tree>
 The `book.md`:
 ```markdown
 # My Book
@@ -157,18 +157,18 @@ If the same variable is defined in a chain of `<include>`s (e.g. `a.md` includes
 <div class="indented">
 
 {{ icon_example }} Suppose you have a MarkBind project with the following file structure.
-```
+<tree>
 C:/mySite/
-  ├── chapter1/
-  |      ├── chapter.md
-  |      ├── text.md
-  |      └── exercises.md
-  ├── chapter2/
-  |      ├── chapter.md
-  |      ├── text.md
-  |      └── exercises.md
-  └── book.md
-```
+  chapter1/
+    chapter.md
+    text.md
+    exercises.md
+  chapter2/
+    chapter.md
+    text.md
+    exercises.md
+  book.md
+</tree>
 The `book.md`:
 ```markdown
 # My Book
@@ -202,18 +202,18 @@ To use a code fragment as a boilerplate file,
 <div class="indented">
 
 {{ icon_example }} Here's how you can use a boilerplate file to avoid duplicating the `chapter.md`:
-```
+<tree>
 C:/mySite/
-  ├── _markbind/boilerplates/
-  |      └── chapter.md
-  ├── chapter1/
-  |      ├── text.md
-  |      └── exercises.md
-  ├── chapter2/
-  |      ├── text.md
-  |      └── exercises.md
-  └── book.md
-```
+  _markbind/boilerplates/
+    chapter.md
+  chapter1/
+    text.md
+    exercises.md
+  chapter2/
+    text.md
+    exercises.md
+  book.md
+</tree>
 The `book.md`:
 ```markdown
 # My Book
@@ -239,13 +239,12 @@ If you have many boilerplate files, you can organize them into directories insid
 <div class="indented">
 
 {{ icon_example }} Suppose the `chapter.md` is places in a `book` directory:
-```
+<tree>
 C:/mySite/
-  └── _markbind/boilerplates/
-         └── book/
-               └── chapter.md
-
-```
+  _markbind/boilerplates/
+    book/
+      chapter.md
+</tree>
 
 It needs to be used as follows:
 ```markdown
