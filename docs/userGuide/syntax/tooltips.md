@@ -16,17 +16,19 @@
   <button class="btn btn-secondary">Tooltip on bottom</button>
 </tooltip>
 <hr />
+
 Trigger
 <p>
   <tooltip content="Lorem ipsum dolor sit amet" placement="top" trigger="click">
     <button class="btn btn-secondary">Click</button>
   </tooltip>
-  <br />
-  <br />
+</p>
+<p>
   <tooltip content="Lorem ipsum dolor sit amet" placement="top" trigger="focus">
     <input placeholder="Focus"></input>
   </tooltip>
 </p>
+<hr />
 
 **Markdown**:
 <tooltip content="*Hello* **World**">
