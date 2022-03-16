@@ -14,6 +14,6 @@ Additionally, multiple Triggers could share the same overlay by providing them w
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------
-trigger | `String` | `hover` | How the overlay view is triggered.<br>Supports: `click`, `focus`, `hover`.
+trigger | `String` | `hover focus` | How the overlay view is triggered.<br>Supports: `click`, `focus`, `hover`.
 for | `String` | `null` | The id for the overlay view to be shown.
 placement | `String` | `auto` | How to position the Popover or Tooltip.<br>Supports: `auto`, `top`, `left`, `right`, `bottom`.
