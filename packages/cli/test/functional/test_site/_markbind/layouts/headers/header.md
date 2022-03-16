@@ -1,6 +1,6 @@
 <header>
   <navbar type="dark" default-highlight-on="sibling-or-child">
-    <a slot="brand" href="/" title="Home" class="navbar-brand">Markbind Test Site</a>
+    <a slot="brand" href="/" title="Home" class="navbar-brand">MarkBind Test Site</a>
     <li><a class="nav-link" href="{{baseUrl}}/bugs/index.html">Open Bugs</a></li>
   </navbar>
   <div class="bg-info display-4 text-center text-white">

@@ -161,7 +161,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
 1. **Release on GitHub**.
 
-   a. Go to the Markbind release page at <https://github.com/MarkBind/markbind/releases>.
+   a. Go to the MarkBind release page at https://github.com/MarkBind/markbind/releases.
 
    b. Click "Draft a new release".
 
@@ -300,7 +300,7 @@ This project follows the [all-contributors](https://allcontributors.org/) specif
 
 ### View all contributors
 
-Besides the contributors list provided by Github, the list of all Markbind contributors is available in `README.md`.
+Besides the contributors list provided by Github, the list of all MarkBind contributors is available in `README.md`.
 The table shown in `README.md` is based on the entries from `.all-contributorsrc`.
 
 ### Add new contributors
