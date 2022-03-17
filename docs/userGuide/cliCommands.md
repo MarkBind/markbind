@@ -53,7 +53,7 @@ Usage: markbind <command>
 {{ icon_examples }}
 * `markbind init` : Initializes the site in the current working directory.
 * `markbind init ./myWebsite` : Initializes the site in `./myWebsite` directory.
-* `markbind init --convert --template minimal`: Converts the Github wiki or `docs` folder in the current working directory into a minimal markdown website.
+* `markbind init --convert --template minimal`: Converts the Github wiki or `docs` folder in the current working directory into a minimal MarkBind website.
 
 </panel>
 </div>
