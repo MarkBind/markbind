@@ -1776,14 +1776,14 @@ exports[`Text Questions of answered correctly with answer, unshown hint without 
             Keywords: 
             
             <span
-              class="badge badge-pill badge-light font-weight-normal"
+              class="badge badge-pill badge-light fw-normal"
             >
               
               abc
             
             </span>
             <span
-              class="badge badge-pill badge-light font-weight-normal"
+              class="badge badge-pill badge-light fw-normal"
             >
               
               123
@@ -1867,14 +1867,14 @@ exports[`Text Questions of answered wrongly with answer, header without hint ren
             Keywords: 
             
             <span
-              class="badge badge-pill badge-light font-weight-normal"
+              class="badge badge-pill badge-light fw-normal"
             >
               
               abc
             
             </span>
             <span
-              class="badge badge-pill badge-light font-weight-normal"
+              class="badge badge-pill badge-light fw-normal"
             >
               
               123

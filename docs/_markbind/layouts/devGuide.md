@@ -3,7 +3,7 @@
 <div id="flex-body">
   <nav id="site-nav" class="fixed-header-padding">
     <div class="site-nav-top">
-      <div class="font-weight-bold mb-2" style="font-size: 1.25rem;">Developer Guide</div>
+      <div class="fw-bold mb-2" style="font-size: 1.25rem;">Developer Guide</div>
     </div>
     <div class="nav-component slim-scroll">
       <site-nav>

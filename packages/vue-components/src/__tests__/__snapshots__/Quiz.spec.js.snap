@@ -826,7 +826,7 @@ exports[`Quizzes with text question marked correct shows next button after answe
             Keywords: 
             
               <span
-                class="badge badge-pill badge-light font-weight-normal"
+                class="badge badge-pill badge-light fw-normal"
               >
                 
               abc
