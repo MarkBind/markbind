@@ -24,10 +24,12 @@ The 3 key classes representing different types of content are as follows:
 
 1. `Page` — a page, as specified by the user in their various site configuration `glob` or `src` properties. These are directly managed by the `Site` instance.
 1. `Layout` — a single layout file, as contained in the `_markbind/layouts` folder, collectively managed by `LayoutManager`.
-    <box type="tip" seamless>
 
-    Note that `Layout` instances do not generate any output files directly, but rather, they store intermediate processing results to be used in a `Page`.
-    </box>
+<box type="tip" seamless>
+
+Note that `Layout` instances do not generate any output files directly, but rather, they store intermediate processing results to be used in a `Page`.
+</box>
+
 1. `External` — source files referenced in a `Page`, `Layout` or even another `External` that result in a <tooltip content="hence the class naming `External`">**separate**</tooltip> output file. These output files are loaded dynamically and on-demand in the browser. These instances are managed by a single `ExternalManager` instance.
 
 <box type="info" seamless>
