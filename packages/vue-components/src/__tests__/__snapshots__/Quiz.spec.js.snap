@@ -238,7 +238,7 @@ exports[`Quizzes with 2 questions retry goes back to first 1`] = `
           <!---->
            
           <button
-            class="btn btn-primary q-btn ml-1"
+            class="btn btn-primary q-btn ms-1"
             type="button"
           >
             
@@ -526,7 +526,7 @@ exports[`Quizzes with checkbox question marked incorrect shows next button after
           <!---->
            
           <button
-            class="btn btn-primary q-btn ml-1"
+            class="btn btn-primary q-btn ms-1"
             type="button"
           >
             
@@ -752,7 +752,7 @@ exports[`Quizzes with mcq question marked correct shows next button after answer
           <!---->
            
           <button
-            class="btn btn-primary q-btn ml-1"
+            class="btn btn-primary q-btn ms-1"
             type="button"
           >
             
@@ -858,7 +858,7 @@ exports[`Quizzes with text question marked correct shows next button after answe
           tag="div"
         >
           <button
-            class="btn btn-success q-btn ml-1"
+            class="btn btn-success q-btn ms-1"
             type="button"
           >
             
@@ -869,7 +869,7 @@ exports[`Quizzes with text question marked correct shows next button after answe
           <!---->
            
           <button
-            class="btn btn-primary q-btn ml-1"
+            class="btn btn-primary q-btn ms-1"
             type="button"
           >
             

@@ -80,7 +80,7 @@
             v-if="$scopedSlots.hint && !showHint"
             key="hint"
             type="button"
-            class="btn btn-success q-btn ml-1"
+            class="btn btn-success q-btn ms-1"
             @click="showHint = true"
           >
             Hint
@@ -90,7 +90,7 @@
             v-if="qState.state === 0 && !(!isValidTypeAndNotTextWithoutKeywords() && !$scopedSlots.answer)"
             key="check"
             type="button"
-            class="btn btn-primary q-btn ml-1"
+            class="btn btn-primary q-btn ms-1"
             @click="checkAnswer(!!questions)"
           >
             Check
@@ -99,7 +99,7 @@
             v-if="qState.state !== 0 && questions"
             key="active"
             type="button"
-            class="btn btn-primary q-btn ml-1"
+            class="btn btn-primary q-btn ms-1"
             @click="gotoNextQuestion"
           >
             Next
@@ -108,7 +108,7 @@
             v-if="retryState"
             key="show"
             type="button"
-            class="btn btn-info q-btn ml-1"
+            class="btn btn-info q-btn ms-1"
             @click="checkAnswer(true)"
           >
             Show
@@ -117,7 +117,7 @@
             v-if="retryState"
             key="retry"
             type="button"
-            class="btn btn-primary q-btn ml-1"
+            class="btn btn-primary q-btn ms-1"
             @click="checkAnswer(false)"
           >
             Retry

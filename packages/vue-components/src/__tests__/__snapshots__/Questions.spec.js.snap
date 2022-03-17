@@ -176,7 +176,7 @@ exports[`Checkbox Questions and QOptions of answered correctly with unshown hint
         tag="div"
       >
         <button
-          class="btn btn-success q-btn ml-1"
+          class="btn btn-success q-btn ms-1"
           type="button"
         >
           
@@ -542,7 +542,7 @@ exports[`Checkbox Questions and QOptions of checked wrongly with shown hint with
         <!---->
          
         <button
-          class="btn btn-info q-btn ml-1"
+          class="btn btn-info q-btn ms-1"
           type="button"
         >
           
@@ -551,7 +551,7 @@ exports[`Checkbox Questions and QOptions of checked wrongly with shown hint with
         </button>
          
         <button
-          class="btn btn-primary q-btn ml-1"
+          class="btn btn-primary q-btn ms-1"
           type="button"
         >
           
@@ -708,7 +708,7 @@ exports[`Checkbox Questions and QOptions of unanswered with header without hint 
         <!---->
          
         <button
-          class="btn btn-primary q-btn ml-1"
+          class="btn btn-primary q-btn ms-1"
           type="button"
         >
           
@@ -963,7 +963,7 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
         tag="div"
       >
         <button
-          class="btn btn-success q-btn ml-1"
+          class="btn btn-success q-btn ms-1"
           type="button"
         >
           
@@ -1453,7 +1453,7 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
         <!---->
          
         <button
-          class="btn btn-info q-btn ml-1"
+          class="btn btn-info q-btn ms-1"
           type="button"
         >
           
@@ -1462,7 +1462,7 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
         </button>
          
         <button
-          class="btn btn-primary q-btn ml-1"
+          class="btn btn-primary q-btn ms-1"
           type="button"
         >
           
@@ -1688,7 +1688,7 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
         <!---->
          
         <button
-          class="btn btn-primary q-btn ml-1"
+          class="btn btn-primary q-btn ms-1"
           type="button"
         >
           
@@ -1815,7 +1815,7 @@ exports[`Text Questions of answered correctly with answer, unshown hint without 
         tag="div"
       >
         <button
-          class="btn btn-success q-btn ml-1"
+          class="btn btn-success q-btn ms-1"
           type="button"
         >
           
@@ -1970,7 +1970,7 @@ exports[`Text Questions of checked wrongly with answer shown hint without header
         <!---->
          
         <button
-          class="btn btn-info q-btn ml-1"
+          class="btn btn-info q-btn ms-1"
           type="button"
         >
           
@@ -1979,7 +1979,7 @@ exports[`Text Questions of checked wrongly with answer shown hint without header
         </button>
          
         <button
-          class="btn btn-primary q-btn ml-1"
+          class="btn btn-primary q-btn ms-1"
           type="button"
         >
           
