@@ -77,7 +77,7 @@ type | `String` | `default` | Supports: `default`, `primary`, `danger`, `info`, 
 
 <div class="indented">
 
-%%{{ icon_info }} You may refer to [this documentation](https://getbootstrap.com/docs/4.0/components/buttons/) regarding how you can use the **Bootstrap buttons**, and how to style them.%%
+%%{{ icon_info }} You may refer to [this documentation](https://getbootstrap.com/docs/5.1/components/buttons/) regarding how you can use the **Bootstrap buttons**, and how to style them.%%
 </div>
 
 

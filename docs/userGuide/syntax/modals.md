@@ -45,9 +45,9 @@ header{{slot_info_trigger}} | `String` | `''` | Header of the Modal component. S
 footer <hr style="margin-top:0.2rem; margin-bottom:0" /> <small>modal-footer <br> (deprecated)</small> | {{slot_type_info_trigger}} | empty | Specifying this will override the `ok-text` attribute, and the OK button will not render.
 ok-text | `String` | `''` | Text for the OK button.
 effect | `String` | `zoom` | Supports: `zoom`, `fade`.
-id | `String` | | Used by [Trigger](#trigger) to activate the Modal by id.large | `Boolean` | `false` | Creates a [large Modal](https://getbootstrap.com/docs/4.0/components/modal/#optional-sizes).
-small | `Boolean` | `false` | Creates a [small Modal](https://getbootstrap.com/docs/4.0/components/modal/#optional-sizes).
-large | `Boolean` | `false` | Creates a [large Modal](https://getbootstrap.com/docs/4.0/components/modal/#optional-sizes).
+id | `String` | | Used by [Trigger](#trigger) to activate the Modal by id.large | `Boolean` | `false` | Creates a [large Modal](https://getbootstrap.com/docs/5.1/components/modal/#optional-sizes).
+small | `Boolean` | `false` | Creates a [small Modal](https://getbootstrap.com/docs/5.1/components/modal/#optional-sizes).
+large | `Boolean` | `false` | Creates a [large Modal](https://getbootstrap.com/docs/5.1/components/modal/#optional-sizes).
 center | `Boolean` | `false` | Vertically centers the modal (in addition to the horizontal centering by default).
 backdrop | `Boolean` | `true` | Enables closing the Modal by clicking on the backdrop.
 

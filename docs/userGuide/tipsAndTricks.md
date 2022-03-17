@@ -129,7 +129,7 @@ Here are the steps to set up Netlify to use a specific version of MarkBind.
 ##### :fas-lightbulb: Indent components
 
 In some cases, you may want to indent components such as panels and boxes to match the surrounding content.
-This is easily achieved by adding some margin and padding utility classes from [Bootstrap](https://getbootstrap.com/docs/4.4/utilities/spacing/) 
+This is easily achieved by adding some margin and padding utility classes from [Bootstrap](https://getbootstrap.com/docs/5.1/utilities/spacing/) 
 to the component. The following examples show how to do this.
 
 **Indent Box component**
