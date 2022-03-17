@@ -87,13 +87,13 @@ This is the same <trigger for="pop:trigger_id">trigger</trigger> as last one.
 
 ****Options****
 
-| Name                         | Type     | Default | Description                                                                                                        |
-| ---------------------------- | -------- | ------- | -------------------------------------------------------------------------------------------------------------------|
-| trigger                      | `String` | `hover` | How the Popover is triggered.<br>Supports: `click`, `focus`, `hover`, or any space-separated combination of these. |
-| header{{slot_info_trigger}}  | `String` | `''`    | Popover header, supports MarkDown text.                                                                            |
-| content{{slot_info_trigger}} | `String` | `''`    | Popover content, supports MarkDown text.                                                                           |
-| src                          | `String` |         | The url to the remote page to be loaded as the content of the popover.<br>Both `.md` and `.html` are accepted.     |
-| placement                    | `String` | `top`   | How to position the Popover.<br>Supports: `top`, `left`, `right`, `bottom`.                                        |
+| Name                         | Type     | Default       | Description                                                                                                        |
+| ---------------------------- | -------- | ------------- | -------------------------------------------------------------------------------------------------------------------|
+| trigger                      | `String` | `hover focus` | How the Popover is triggered.<br>Supports: `click`, `focus`, `hover`, or any space-separated combination of these. |
+| header{{slot_info_trigger}}  | `String` | `''`          | Popover header, supports MarkDown text.                                                                            |
+| content{{slot_info_trigger}} | `String` | `''`          | Popover content, supports MarkDown text.                                                                           |
+| src                          | `String` |               | The url to the remote page to be loaded as the content of the popover.<br>Both `.md` and `.html` are accepted.     |
+| placement                    | `String` | `top`         | How to position the Popover.<br>Supports: `top`, `left`, `right`, `bottom`.                                        |
 
 <box type="info" light>
 
