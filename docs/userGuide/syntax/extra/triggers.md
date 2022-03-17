@@ -8,12 +8,12 @@ Specify the `id` attribute on the Tooltip, Popover or Modal component, and use t
 Additionally, multiple Triggers could share the same overlay by providing them with the same `id`.
 <br />
 
-**Trigger's `trigger` attribute (which defaults to `hover`) is independent of the target's.**
+**Trigger's `trigger` attribute (which defaults to `hover focus`) is independent of the target's.**
 
 ****Options****
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------
-trigger | `String` | `hover focus` | How the overlay view is triggered.<br>Supports: `click`, `focus`, `hover`.
+trigger | `String` | `hover focus` | How the overlay view is triggered.<br>Supports: `click`, `focus`, `hover`, or any space-separated combination of these.
 for | `String` | `null` | The id for the overlay view to be shown.
 placement | `String` | `auto` | How to position the Popover or Tooltip.<br>Supports: `auto`, `top`, `left`, `right`, `bottom`.
