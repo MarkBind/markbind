@@ -1,4 +1,5 @@
 // Components and directives from bootstrap-vue
+  import { vfmPlugin } from 'vue-final-modal'
 /* eslint-disable import/no-extraneous-dependencies */
 import {
   BPopover,
@@ -74,6 +75,8 @@ function install(Vue) {
   Object.keys(components).forEach((key) => {
     Vue.component(key, components[key]);
   });
+
+  Vue.use(vfmPlugin)
 }
 
 const plugin = { install };

@@ -1,4 +1,5 @@
 <template>
+  <modals-container>
   <span
     :class="trigger === 'click' ? 'trigger-click' : 'trigger'"
     tabindex="0"
@@ -28,6 +29,7 @@
 
     <slot></slot>
   </span>
+  </modals-container>
 </template>
 
 <script>
@@ -40,6 +42,7 @@ export default {
   name: 'Trigger',
   components: {
     PortalTarget,
+    ModalsContainer,
   },
   props: {
     for: {
@@ -65,6 +68,8 @@ export default {
       if (!this.for) {
         return;
       }
+
+      /* $vfm.show(this.for, { userName: 'vue-final-modal' }) */
 
       // show modal, if any
       $vfm.show(this.for);
