@@ -45,14 +45,14 @@
   </popover>
 </p>
 <h4 class="no-index">Content using slot</h4>
-<popover header="**Emoji header** :rocket:">
-  <div slot="content">
-    This is a long content...
-  </div>
-  <button class="btn btn-secondary">Hover</button>
-</popover>
-<br />
-<br />
+<p>
+  <popover header="**Emoji header** :rocket:">
+    <div slot="content">
+      This is a long content...
+    </div>
+    <button class="btn btn-secondary">Hover</button>
+  </popover>
+</p>
 <h4 class="no-index">Content using src</h4>
 <p>
   <popover header="From a HTML file" src="{{ baseUrl }}/userGuide/syntax/extra/loadContent.html#fragment">
@@ -65,7 +65,9 @@
   </popover>
 </p>
 <h4 class="no-index">Wrap Text</h4>
-<popover header="false" content="Nice!">What do you say</popover>
+<p>
+  <popover header="false" content="Nice!">What do you say</popover>
+</p>
 </variable>
 </include>
 
@@ -83,7 +85,9 @@ This is the same <trigger for="pop:trigger_id">trigger</trigger> as last one.
 
 <panel header="More about triggers">
 <include src="extra/triggers.md" />
-</panel><p/>
+</panel>
+
+<br>
 
 ****Options****
 
