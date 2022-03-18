@@ -61,7 +61,7 @@ This is the same <trigger for="tt:trigger_id">trigger</trigger> as last one.
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------
-trigger	| `String` | `hover` | How the tooltip is triggered.<br>Supports: `click`, `focus`, `hover`.
+trigger	| `String` | `hover focus` | How the tooltip is triggered.<br>Supports: `click`, `focus`, `hover`, or any space-separated combination of these.
 content | `String` | `''` | Text content of the tooltip.
 placement | `String` | `top` | How to position the tooltip.<br>Supports: `top`, `left`, `right`, `bottom`.
 
