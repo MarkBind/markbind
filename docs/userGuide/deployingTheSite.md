@@ -118,6 +118,28 @@ The sample `deploy.yml` workflow above uses the [default Github Token secret](ht
 
 Once you have created the file, commit and push the file to your repo. Github Actions should start to build and deploy your markbind site. You can verify this by visiting `www.github.com/<org|username>/<repo>/actions`.
 
+<box type="tip">
+
+MarkBind provides a helper GitHub Action that you can use to simplify your workflow file. A sample workflow file utilizing the action is as follows:
+```yml
+name: Deploy MarkBind Site
+on:
+  push:
+    branches: master
+
+jobs: 
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build & Deploy to GitHub Pages
+        uses: tlylt/markbind-deploy@main
+        with:
+          token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          baseUrl: '/repoName'
+```
+Read the [action documentation](https://github.com/tlylt/markbind-deploy/blob/main/README.md) to understand the various configuration options.
+</box>
+
 For more information on customizing your workflow file to fit your specific needs, you may refer to the [Github Action Docs](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions).
 
 </panel>
