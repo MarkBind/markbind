@@ -1,4 +1,5 @@
 <template>
+  <modals-container>
   <span
     :class="trigger === 'click' ? 'trigger-click' : 'trigger'"
     tabindex="0"
@@ -28,16 +29,19 @@
 
     <slot></slot>
   </span>
+  </modals-container>
 </template>
 
 <script>
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { PortalTarget, Wormhole } from 'portal-vue';
+import { $vfm, ModalsContainer } from 'vue-final-modal'
 
 export default {
   name: 'Trigger',
   components: {
     PortalTarget,
+    ModalsContainer,
   },
   props: {
     for: {
@@ -63,6 +67,8 @@ export default {
       if (!this.for) {
         return;
       }
+
+      /* $vfm.show(this.for, { userName: 'vue-final-modal' }) */
 
       // show modal, if any
       const modal = this.$root.$refs[this.for];

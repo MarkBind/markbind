@@ -168,7 +168,7 @@ class NodeProcessor {
         break;
       case 'modal':
         this.mdAttributeRenderer.processModalAttributes(node);
-        transformBootstrapVueModalAttributes(node);
+        // transformBootstrapVueModalAttributes(node);
         break;
       case 'tab':
       case 'tab-group':

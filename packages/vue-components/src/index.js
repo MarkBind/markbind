@@ -1,4 +1,5 @@
 // Components and directives from bootstrap-vue
+  import { vfmPlugin } from 'vue-final-modal'
 /* eslint-disable import/no-extraneous-dependencies */
 import {
   BModal,
@@ -33,6 +34,7 @@ import overlay from './Overlay.vue';
 import overlaySource from './OverlaySource.vue';
 import popover from './Popover.vue';
 import tooltip from './Tooltip.vue';
+import mbModal from './MbModal.vue';
 
 const components = {
   box: tipBox,
@@ -59,6 +61,7 @@ const components = {
   overlaySource,
   popover,
   tooltip,
+  modal: mbModal,
   BModal,
   BPopover,
   BTooltip,
@@ -66,7 +69,7 @@ const components = {
 
 const directives = {
   closeable,
-  'b-modal': VBModal,
+  // 'b-modal': VBModal,
 };
 
 function install(Vue) {
@@ -76,6 +79,8 @@ function install(Vue) {
   Object.keys(components).forEach((key) => {
     Vue.component(key, components[key]);
   });
+
+  Vue.use(vfmPlugin)
 }
 
 const plugin = { install };
