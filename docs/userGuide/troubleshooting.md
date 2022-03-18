@@ -30,7 +30,7 @@ Cats   |    yes     |   100 |
 </span>
 ```
 
-The table specified by the markdown syntax above will be rendered as a block-level element, which will be included in a inline span element. This makes the HTML output invalid.
+The table specified by the markdown syntax above will be rendered as a block-level element, which will be included in a inline span element. This makes the HTML output invalid. A possible fix for the above situation is to wrap the table in a `<div>` element instead.
 
 <panel header="Example Underlying Error" type="seamless">
 
