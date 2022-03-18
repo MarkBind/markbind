@@ -37,13 +37,13 @@ We recommend the **WebStorm IDE** for working with MarkBind code.
 
 1. **Fork and clone** the MarkBind repo.
 
-2. **Bind your cloned version of MarkBind to your console** by navigating to the cloned `packages/cli` folder and running `npm link`
+1. **Bind your cloned version of MarkBind to your console** by navigating to the cloned `packages/cli` folder and running `npm link`
 
-3. **Install dependencies** by running
+1. **Install dependencies** by running
    <popover content="Under the hood, this calls `npm ci` and `lerna bootstrap`">`npm run setup`</popover>
    in the **root folder** of your cloned repo.
 
-4. **Congratulations!** Now you are ready to start modifying MarkBind code.
+1. **Congratulations!** Now you are ready to start modifying MarkBind code.
 
 ### Common setup questions
 

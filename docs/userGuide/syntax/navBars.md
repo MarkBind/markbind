@@ -68,7 +68,7 @@ default-highlight-on | `String` | `sibling-or-child` | Supports: `sibling-or-chi
 
 <box type="tip">
 
-If you wish to further customize your navbar beyond the primary, dark, and light theme colors, specify the `type="none"` attribute and [insert your own custom styles](#inserting-custom-classes-into-components) or <trigger trigger="click" for="modal:built-in-bg">use built-in background styles</trigger> via the `add-class` attribute.
+If you wish to further customize your navbar beyond the primary, dark, and light theme colors, specify the `type="none"` attribute and insert your own custom styles via the `add-class` attribute. You can <trigger trigger="click" for="modal:built-in-bg">use built-in background styles</trigger> or [insert your own defined CSS classes](/userGuide/components/advanced.md#inserting-custom-classes-into-components).
 
 </box>
 

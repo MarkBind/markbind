@@ -24,6 +24,7 @@ Usage: markbind <command>
    deploy|d [options]                 deploy the site to the repo's Github pages
 ```
 <hr><!-- ========================================================================== -->
+<div id="markbind-init">
 
 ### `init` Command
 <br>
@@ -46,13 +47,16 @@ Usage: markbind <command>
 * `-c`, `--convert`<br>
   Convert an existing GitHub wiki or `docs` folder into a MarkBind website. See [Converting an existing Github project]({{ baseUrl }}/userGuide/markBindInTheProjectWorkflow.html#converting-existing-project-documentation-wiki) for more information.
 
+* `-t`, `--template` <br>
+  When initialising markbind, change the template that you start with. See [templates](templates.html).
+
 {{ icon_examples }}
 * `markbind init` : Initializes the site in the current working directory.
 * `markbind init ./myWebsite` : Initializes the site in `./myWebsite` directory.
-* `markbind init --convert` : Converts the Github wiki or `docs` folder in the current working directory into a MarkBind website.
+* `markbind init --convert --template minimal`: Converts the Github wiki or `docs` folder in the current working directory into a minimal MarkBind website.
 
 </panel>
-
+</div>
 <hr><!-- ========================================================================== -->
 
 ### `serve` Command

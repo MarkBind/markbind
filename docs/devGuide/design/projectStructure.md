@@ -34,13 +34,13 @@ The MarkBind project is developed in a <tooltip content="We follow a monorepo ap
 
 * Functions and libraries used to parse and process MarkBind into usable output are stored in `src`. The architecture described in [Architecture](../design/architecture) is contained here. A brief rundown of what it includes:
 
-    * Various key functionalities in processing MarkBind syntax into valid html output, stored in `html`. The other part of the content processing flow is found in `variables`, which manages site variables and facillitates the Nunjucks calls.
+  * Various key functionalities in processing MarkBind syntax into valid html output, stored in `html`. The other part of the content processing flow is found in `variables`, which manages site variables and facillitates the Nunjucks calls.
 
-    * `Page` files generate a single page of the site, and are managed by the `Site` instance. `Site` uses the Page model's interface to generate pages, and performs various other utility-like functions related to site generation such as copying of external assets into the output folder.
+  * `Page` files generate a single page of the site, and are managed by the `Site` instance. `Site` uses the Page model's interface to generate pages, and performs various other utility-like functions related to site generation such as copying of external assets into the output folder.
 
-    * `Layout` holds the files relating to the layout of the site and are managed by `LayoutManager`. Similarly, `External` files, which are separate output files to be loaded dynamically and on-demand, are managed by a `ExternalManager` instance.
+  * `Layout` holds the files relating to the layout of the site and are managed by `LayoutManager`. Similarly, `External` files, which are separate output files to be loaded dynamically and on-demand, are managed by a `ExternalManager` instance.
 
-    * Various libraries (contained in `lib`) and plugins (in `plugins`) are also stored here. Some external libraries have also been amended to suit MarkBind's purpose – see `patches`.
+  * Various libraries (contained in `lib`) and plugins (in `plugins`) are also stored here. Some external libraries have also been amended to suit MarkBind's purpose – see `patches`.
 
 * MarkBind's [templates](https://markbind.org/userGuide/templates.html), used in the `markbind init` command.
 
@@ -65,6 +65,7 @@ The MarkBind project is developed in a <tooltip content="We follow a monorepo ap
 The CLI application uses and further builds on the interface exposed by the core library's `Site` model to provide functionalities for the author, such as `markbind serve` which initiates a live reload workflow.
 
 **The key external libraries used are:**
+
 * [commander.js](https://github.com/tj/commander.js/), which is a node.js CLI framework.
 
 * [live-server](https://github.com/tapio/live-server), which is a simple web server for local development and preview of a MarkBind site. The package is patched and stored in `src/lib/live-server` with our custom fine tuning.
