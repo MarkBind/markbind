@@ -9,7 +9,7 @@
 <span class="lead">
 
 ++**Generate <tooltip content="as opposed to _one-size-fits-all_ static content">_more dynamic_</tooltip> websites from Markdown text.**++
-Optimized for creating text-heavy websites %%e.g., eLearning websites, online instruction manuals, project documentation etc.%%.
+Optimized for creating text-heavy websites %%e.g., eLearning websites, online instruction manuals, project documentation etc.%%
 </span>
 
 <a class="btn btn-primary" href="userGuide/">Get Started</a>
@@ -81,7 +81,6 @@ Euler's Identity \(e^{i\pi}+1=0\) is a beautiful formula.
   </td>
 </tr>
 </table>
-
 
 </panel>
 <p/>

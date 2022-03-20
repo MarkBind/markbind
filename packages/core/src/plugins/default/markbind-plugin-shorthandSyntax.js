@@ -1,5 +1,5 @@
 /**
- * Converts shorthand syntax to proper Markbind syntax
+ * Converts shorthand syntax to proper MarkBind syntax
  * @param content of the page
  */
 module.exports = {

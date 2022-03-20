@@ -20,9 +20,11 @@ Some custom components and directives are also added for MarkBind's use.
 - Question.vue
 - QOption.vue
 - Quiz.vue
+- Popover.vue (built on bootstrap-vue's popovers)
+- Tooltip.vue (built on bootstrap-vue's tooltips)
 - Trigger.vue (built on bootstrap-vue's popovers, modals, tooltips)
 
-### MarkBind components ported from [Markbind/vue-strap](https://github.com/MarkBind/vue-strap):
+### MarkBind components ported from [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap):
 
 - Pic.vue
 - Retriever.vue
@@ -31,7 +33,7 @@ Some custom components and directives are also added for MarkBind's use.
 - Thumbnail.vue
 - TipBox.vue
 
-### Custom directives ported from [Markbind/vue-strap](https://github.com/MarkBind/vue-strap)
+### Custom directives ported from [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap)
 
 - Closeable.js
 - Float.js
@@ -50,8 +52,6 @@ Some custom components and directives are also added for MarkBind's use.
 ### BootstrapVue components included in the bundle
 
 - Modals
-- Popover.vue 
-- Tooltip.vue 
 
 ## Installation
 

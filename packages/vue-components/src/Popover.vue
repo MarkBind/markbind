@@ -45,7 +45,7 @@ export default {
   props: {
     trigger: {
       type: String,
-      default: 'hover',
+      default: 'hover focus',
     },
     placement: {
       type: String,
