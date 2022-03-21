@@ -292,6 +292,17 @@
       "headingKeywords": {}
     },
     {
+      "src": "testTree.md",
+      "title": "Tree tests",
+      "headings": {
+        "tree": "Tree",
+        "single-tree": "Single Tree",
+        "multiple-tree": "Multiple Tree",
+        "inline-markdown": "Inline Markdown"
+      },
+      "headingKeywords": {}
+    },
+    {
       "src": "testMath.md",
       "title": "Math formulae should be displayed correctly, with additional plugin",
       "headings": {

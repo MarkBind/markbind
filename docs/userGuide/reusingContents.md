@@ -35,16 +35,16 @@
 <div class="indented">
 
 {{ icon_example }} Suppose you have a site `textbook` and you want to include some pages from it in another site `course`. Given below is how you can locate the sub-site `textbook` inside the root directory of the main-site `course` so that files from `textbook` can be reused in the `course` site.
-```
+<tree>
 C:/course/
-  ├── textbook/
-  |      ├── index.md
-  |      ├── overview.md
-  |      └── site.json
-  ├── index.md
-  ├── reading.md
-  └── site.json
-```
+  textbook/
+    index.md
+    overview.md
+    site.json
+  index.md
+  reading.md
+  site.json
+</tree>
 
 In `reading.md` (note how it reuses content from the sub-site `textbook`):
 ```markdown
@@ -87,13 +87,13 @@ Else, if each page is included individually, there is no need to exclude the fra
 
 {{ icon_example }} Suppose you have a fragment file `content-fragment.md` and you want to include it in some pages of the site `course` without rendering `content-fragment.md` as a page.
 
-```
+<tree>
 C:/course/
-  ├── content-fragment.md
-  ├── index.md
-  ├── reading.md
-  └── site.json
-```
+  content-fragment.md
+  index.md
+  reading.md
+  site.json
+</tree>
 
 In `reading.md` (note how it reuses content from the `content-fragment.md`):
 ```markdown

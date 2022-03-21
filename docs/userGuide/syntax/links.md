@@ -104,15 +104,15 @@ To ensure that links in the <code>_markbind/</code> folder work correctly across
 <div class="indented">
 
 {{ icon_example }} Assuming that we have the following folder structure:
-```
+<tree>
 C:\course\
-  ├── textbook\
-  |      ├── subsite.md
-  |      ├── image.png
-  |      └── site.json
-  ├── index.md
-  └── site.json
-```
+  textbook\
+    subsite.md
+    image.png
+    site.json
+  index.md
+  site.json
+</tree>
 
 Within `textbook/subsite.md`, we can refer to the image using:
 ```html

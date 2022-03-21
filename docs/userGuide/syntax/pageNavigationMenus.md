@@ -34,7 +34,7 @@ In the page that you want to have page navigation, you may show only `<h1>` and 
 Then, in your [layout file]({{baseUrl}}/userGuide/tweakingThePageStructure.html#layouts), use the `<page-nav />` component to position the pageNav.
 
 {% if not doNotShowPageNav %}
-{{ icon_example }} <trigger for="modal:page-nav-example">Example usage of the `<page-nav />` component</trigger>
+{{ icon_example }} <trigger for="modal:page-nav-example" trigger="click">Example usage of the `<page-nav />` component</trigger>
 
 <modal header="Using the `pageNav` variable in a layout" id="modal:page-nav-example" large>
 <include src="../tweakingThePageStructure.md#layout-code-snippet">
