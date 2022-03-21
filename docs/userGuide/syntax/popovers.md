@@ -106,7 +106,7 @@ If multiple of these are used, MarkBind will prioritise in the following order:
   1. `src` attribute
 </box>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```html
 Hover over the <trigger for="pop:context-target">keyword</trigger> to see the popover.
@@ -119,9 +119,9 @@ description :+1:
 </div>
 </popover>
 ```
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 Hover over the <trigger for="pop:context-target">keyword</trigger> to see the popover.
 
@@ -132,4 +132,4 @@ description :+1:
 
 </div>
 </popover>
-</span>
+</div>

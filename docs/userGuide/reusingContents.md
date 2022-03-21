@@ -54,9 +54,9 @@ In `reading.md` (note how it reuses content from the sub-site `textbook`):
 </div>
 
 <include src="tip.md" boilerplate >
-<span id="tip_body">
+<div id="tip_body">
 If you are using Git for version control, you can set up the sub-site repository as a [Git sub-module](https://git-scm.com/book/en/v2/Git-Tools-Submodules) of the main site repository.
-</span>
+</div>
 </include>
 
 
@@ -115,9 +115,9 @@ In `site.json` we then exclude the fragment from the page generation:
 </div>
 
 <include src="tip.md" boilerplate >
-<span id="tip_body">
+<div id="tip_body">
 You may use any custom name you wish for your fragments but be sure to update the `pagesExclude` list with the appropriate glob pattern.
-</span>
+</div>
 </include>
 
 <hr><!-- ======================================================================================================= -->

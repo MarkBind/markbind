@@ -5,11 +5,11 @@
 MarkBind supports using Font Icons provided by Font Awesome, Glyphicons and GitHub's Octicons.
 
 <include src="tip.md" boilerplate >
-<span id="tip_body">
+<div id="tip_body">
 The advantage of font icons over emojis is font icons can be _styled_ to fit your needs. e.g.,
 * emoji: <span style="color: purple">Don't judge the :book: by its cover! :-1:</span>
 * font icons: <span style="color: purple">Don't judge the :fas-book: by its cover! {{ icon_dislike }}</span>
-</span>
+</div>
 </include>
 
 <box type="important">
@@ -36,16 +36,16 @@ Please use the new `:prefix-name:` syntax instead.
 1. Insert the name for the icon enclosed within colons to get the icon in your page.<br>
   `Move to the right!`<code>:<span></span>glyphicon-hand-right:</code> → Move to the right! :glyphicon-hand-right:
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 <code>:<span></span>glyphicon-hand-right:</code> <code>:<span></span>fab-github:</code> <code>:<span></span>fas-home:</code>
 
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 :glyphicon-hand-right: :fab-github: :fas-home: %%:glyphicon-hand-right: :fab-github: :fas-home:%% <span style="color: red">:glyphicon-hand-right: :fab-github: :fas-home:</span>
-</span>
+</div>
 
 ###### Using Octicons
 

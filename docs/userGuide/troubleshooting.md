@@ -40,6 +40,7 @@ This is likely caused by incorrect HTML markup, for example nesting block-level 
 or missing `<tbody>`.
 Bailing hydration and performing full client-side render.
 ```
+See [SSR guide for Vue](https://vuejs.org/guide/scaling-up/ssr.html#hydration-mismatch) for more details on hydration mismatch.
 </panel>
 
 A possible fix for the above situation is to wrap the table in a `<div>` element instead:

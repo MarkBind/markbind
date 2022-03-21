@@ -4,10 +4,10 @@
 
 ## Variables
 
-<span id="overview">
+<div id="overview">
 
 **Nunjucks [variables](https://mozilla.github.io/nunjucks/templating.html#set) are ideal for reusing small bits of code** in multiple places; you can define a variable to represent the code bit in question and reuse it anywhere in the site by referring to the variable instead of duplicating the code bit.
-</span>
+</div>
 
 MarkBind does not aim to alter the already robust variable features of nunjucks, but provides several extensions to it.
 
@@ -179,15 +179,15 @@ Only `.json` and `.csv` files are supported for now.
 </box>
 
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 Global variables:
 
 `_markbind/variables.md`:
 ```html
-<variable name="year">2018</span>
+<variable name="year">2018</variable>
 ```
 
 `The year was {% raw %}{{ year }}{% endraw %}.`
 
-</span>
+</div>

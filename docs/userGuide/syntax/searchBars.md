@@ -2,10 +2,10 @@
 
 The `searchbar` component allows users to search all headings within any page on the site.
 
-<span id="body">
+<div id="body">
 
 <include src="outputBox.md" boilerplate >
-<span id="code">
+<div id="code">
 
 ```html
 <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
@@ -21,14 +21,14 @@ To use the searchbar within a navbar, add the following markup to your file. The
   </form>
 </li>
 ```
-</span>
-<span id="output">
+</div>
+<div id="output">
 
 Enter a search term (eg. 'search bar') to see the search result dropdown.
 <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
 <br>
 <searchbar :data="searchData" placeholder="Search (Right-aligned dropdown)" :on-hit="searchCallback" menu-align-right></searchbar>
-</span>
+</div>
 </include>
 
 ****Options****
@@ -53,9 +53,9 @@ See: [User Guide: Site Configuration → enableSearch]({{ baseUrl }}/userGuide/s
 
 %%{{ icon_info }} Related topic: [User Guide: Using Plugins → Algolia: Enabling Algolia DocSearch]({{ baseUrl }}/userGuide/usingPlugins.html#algolia-enabling-algolia-docsearch).%%
 
-</span> <!-- end of body -->
+</div> <!-- end of body -->
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```html
 <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right></searchbar>
@@ -68,9 +68,9 @@ See: [User Guide: Site Configuration → enableSearch]({{ baseUrl }}/userGuide/s
   </form>
 </li>
 ```
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
-</span>
+</div>

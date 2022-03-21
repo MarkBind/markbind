@@ -4,10 +4,10 @@
 
 ## Includes
 
-<span id="overview">
+<div id="overview">
 
 **MarkBind has a powerful `<include>` mechanism** which allows you to create documents by combining other content fragments.
-</span>
+</div>
 
 **You can use `<include>` tag to include another markdown or HTML document into the current document.**
 
@@ -50,7 +50,7 @@ When setting the `id` of a fragment, be careful not to clash with heading anchor
 </box>
 
 <include src="tip.md" boilerplate >
-<span id="tip_body">
+<div id="tip_body">
 The `<include>` mechanism can be used inside any MarkBind source file (even inside the _front matter_ section) but it will not work inside some _special_ files such as the `_markbind/variables.md`.
 </span>
 </include>
@@ -255,11 +255,11 @@ It needs to be used as follows:
 </div>
 
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```markdown
 <include src="foo.md#bar" boilerplate inline trim>
   <variable name="x">5</variable>
 </include>
 ```
-</span>
+</div>

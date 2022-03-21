@@ -14,10 +14,10 @@
 
 # Using Components
 
-<span id="overview" class="lead">
+<div id="overview" class="lead">
 
 **MarkBind provides a number of components** (e.g., expandable panels, tabbed displays, navigation bars, etc.) that you can use to enhance the appearance/behavior of your pages.
-</span>
+</div>
 
 To use a component, just use the corresponding markup in your file. For example, to create a Panel, you just need to use the markup:
 

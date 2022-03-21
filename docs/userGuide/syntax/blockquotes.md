@@ -29,7 +29,7 @@ Nested blockquote
 
 <small>More info: https://www.markdownguide.org/basic-syntax#blockquotes-1</small>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```
 > Blockquote, first paragraph
@@ -37,11 +37,11 @@ Nested blockquote
 > Second paragraph
 >> Nested blockquote
 ```
-</span>
-<span id="examples" class="d-none">
+</div>
+<div id="examples" class="d-none">
 
 > Blockquote, first paragraph
 >
 > Second paragraph
 >> Nested blockquote
-</span>
+</div>

@@ -13,10 +13,10 @@
 
 # {{ title }}
 
-<span id="overview" class="lead">
+<div id="overview" class="lead">
 
 **A MarkBind source file can contain a mixture of HTML, JavaScript, and CSS** as a normal web page would.
-</span>
+</div>
 
 ==Text within HTML tags are considered plain text unless the text is preceded by a blank line,== in which case the text is parsed as Markdown text.
 

@@ -47,7 +47,7 @@ Then, in your [layout file]({{baseUrl}}/userGuide/tweakingThePageStructure.html#
 
 </div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 You can see an example of a Page Navigation Bar ==on the right side== of <a target="_blank" href="{{ baseUrl }}/userGuide/formattingContents.html">this page</a>.
-</span>
+</div>

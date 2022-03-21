@@ -35,13 +35,13 @@ text | `string` | | The text to use in the thumbnail, [icons]({{baseUrl}}/userGu
 If both `text` and `src` are specified, `src` will take higher priority.
 </box>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```html
 <thumb circle src="https://markbind.org/images/logo-lightbackground.png" size="100"/>
 ```
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 <thumb circle src="https://markbind.org/images/logo-lightbackground.png" size="100"/>
-</span>
+</div>
