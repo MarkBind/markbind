@@ -19,9 +19,6 @@ const { highlightCodeBlock, setCodeLineNumbers } = require('./codeblockProcessor
 const { setHeadingId, assignPanelId } = require('./headerProcessor');
 const { MarkdownProcessor } = require('./MarkdownProcessor');
 const { FootnoteProcessor } = require('./FootnoteProcessor');
-const {
-  transformBootstrapVueModalAttributes,
-} = require('./bootstrapVueProcessor');
 const { MdAttributeRenderer } = require('./MdAttributeRenderer');
 const { shiftSlotNodeDeeper, transformOldSlotSyntax } = require('./vueSlotSyntaxProcessor');
 const { warnConflictingAtributesMap, warnDeprecatedAtributesMap } = require('./warnings');
@@ -168,7 +165,6 @@ class NodeProcessor {
         break;
       case 'modal':
         this.mdAttributeRenderer.processModalAttributes(node);
-        // transformBootstrapVueModalAttributes(node);
         break;
       case 'tab':
       case 'tab-group':
