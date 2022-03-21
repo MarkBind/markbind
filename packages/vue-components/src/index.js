@@ -1,10 +1,10 @@
 // Components and directives from bootstrap-vue
-  import { vfmPlugin } from 'vue-final-modal'
 /* eslint-disable import/no-extraneous-dependencies */
 import {
   BPopover,
   BTooltip,
 } from 'bootstrap-vue';
+import { vfmPlugin } from 'vue-final-modal';
 /* eslint-enable import/no-extraneous-dependencies */
 
 // Custom / modified components and components from yuche/vue-strap
@@ -75,8 +75,9 @@ function install(Vue) {
   Object.keys(components).forEach((key) => {
     Vue.component(key, components[key]);
   });
-
-  Vue.use(vfmPlugin)
+  Object.keys(plugins).forEach((key) => {
+    Vue.use(plugins[key]);
+  });
 }
 
 const plugin = { install };
