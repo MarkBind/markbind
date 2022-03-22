@@ -50,15 +50,15 @@ $ markbind init
 ```
 
 <include src="tip.md" boilerplate >
-<div id="tip_body">
+<span id="tip_body">
 You can add the `--help` flag to any command to show the help screen. <br>
   e.g., `markbind init --help`
-</div>
+</span>
 </include>
 <include src="tip.md" boilerplate >
-<div id="tip_body">
+<span id="tip_body">
 The `init` command populates the project with the [default project template](https://markbind-init-typical.netlify.com/). Refer to [templates](templates.html) section to learn how to use a different template.
-</div>
+</span>
 </include>
 
   </tab>

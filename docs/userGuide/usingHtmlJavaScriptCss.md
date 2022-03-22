@@ -27,14 +27,14 @@
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<span>
+<div>
 Without preceding blank line: Apples **Bananas** Cherries
-</span>
+</div>
 
-<span>
+<div>
 
 With preceding blank line: Apples **Bananas** Cherries
-</span>
+</div>
 </variable>
 </include>
 
@@ -49,13 +49,13 @@ Alternatively, you can use `<markdown>` (for _block_ Markdown elements such as h
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<span>
+<div>
 <md>Apples **Bananas** Cherries</md>
-</span>
+</div>
 
-<span>
+<div>
 <markdown>##### Apples **Bananas** Cherries</markdown>
-</span>
+</div>
 </variable>
 </include>
 

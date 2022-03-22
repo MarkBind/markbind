@@ -14,10 +14,10 @@
 
 # {{ title }}
 
-<span class="lead" id="overview">
+<div class="lead" id="overview">
 
 **MarkBind is highly-optimized for content reuse**. It offers several mechanisms to provide readers with many variations of the content while minimizing duplication at source file level. As a result, instead of creating a one-size-fits-all site, MarkBind can create a site in which readers can chart their own path of reading.
-</span>
+</div>
 
 
 <include src="syntax/variables.md" />
@@ -54,9 +54,9 @@ In `reading.md` (note how it reuses content from the sub-site `textbook`):
 </div>
 
 <include src="tip.md" boilerplate >
-<div id="tip_body">
+<span id="tip_body">
 If you are using Git for version control, you can set up the sub-site repository as a [Git sub-module](https://git-scm.com/book/en/v2/Git-Tools-Submodules) of the main site repository.
-</div>
+</span>
 </include>
 
 
@@ -115,9 +115,9 @@ In `site.json` we then exclude the fragment from the page generation:
 </div>
 
 <include src="tip.md" boilerplate >
-<div id="tip_body">
+<span id="tip_body">
 You may use any custom name you wish for your fragments but be sure to update the `pagesExclude` list with the appropriate glob pattern.
-</div>
+</span>
 </include>
 
 <hr><!-- ======================================================================================================= -->

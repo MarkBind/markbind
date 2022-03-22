@@ -23,6 +23,12 @@ Tip 3. ...
 
 **You can `<include>` a fragment of a file** by specifying the `#fragment-id` at the end of the `src` attribute value, provided the fragment is wrapped in a `<div>`/`<span>`/`<seg>` tag with the matching `id`.
 
+<box type="important" seamless>
+
+Choose `<div>` over `<span>` when wrapping block-level elements, to prevent invalid HTML markup which causes [hydration issues](https://vuejs.org/guide/scaling-up/ssr.html#hydration-mismatch).
+
+</box>
+
 <div class="indented">
 
 {{ icon_example }} Including a fragment from a file:
@@ -50,7 +56,7 @@ When setting the `id` of a fragment, be careful not to clash with heading anchor
 </box>
 
 <include src="tip.md" boilerplate >
-<div id="tip_body">
+<span id="tip_body">
 The `<include>` mechanism can be used inside any MarkBind source file (even inside the _front matter_ section) but it will not work inside some _special_ files such as the `_markbind/variables.md`.
 </span>
 </include>

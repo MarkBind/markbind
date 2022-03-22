@@ -7,10 +7,10 @@
 
 # `site.json` File
 
-<span class="lead">
+<div class="lead">
 
 The `site.json` file {{ tooltip_root_directory }} is used to configure various aspects of a MarkBind website.
-</span>
+</div>
 
 Here is a typical `site.json` file:
 
