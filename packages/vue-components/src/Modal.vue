@@ -4,7 +4,7 @@
     v-model="show"
     ssr
     :name="id"
-    classes="modal-container"
+    classes="modal-container allow-overflow"
     :content-class="['modal-dialog', getOptionalModalSize, getOptionalCentering]"
     :click-to-close="backdrop !== 'false'"
   >
@@ -98,5 +98,9 @@ export default {
 <style scoped>
     >>> .modal-dialog-start {
         margin-top: 100px;
+    }
+
+    >>> .allow-overflow {
+      overflow: auto;
     }
 </style>
