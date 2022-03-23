@@ -4,9 +4,12 @@
     v-model="show"
     ssr
     :name="id"
-    classes="modal-container allow-overflow"
+    classes="allow-overflow"
     :content-class="['modal-dialog', getOptionalModalSize, getOptionalCentering]"
+    overlay-transition="none"
+    :transition="effectClass"
     :click-to-close="backdrop !== 'false'"
+    esc-to-close
   >
     <div class="modal-content">
       <div class="modal-header">
@@ -27,7 +30,11 @@
       </div>
       <div v-if="hasFooter || hasOk" class="modal-footer">
         <slot v-if="hasFooter" name="footer"></slot>
-        <button v-else class="btn btn-primary" @click="close()">
+        <button
+          v-else
+          class="btn btn-primary"
+          @click="close()"
+        >
           {{ okText }}
         </button>
       </div>
@@ -41,6 +48,12 @@ export default {
   data: () => ({
     show: false,
     isMounted: false,
+    zoomEffect: {
+      'enter-class': 'modal-zoom',
+      'enter-to-class': 'modal-zoom-show',
+      'leave-to-class': 'modal-zoom',
+      'leave-class': 'modal-zoom-show',
+    },
   }),
   props: {
     okText: {
@@ -65,7 +78,11 @@ export default {
     },
     backdrop: {
       type: String,
-      default: 'true',
+      default: '',
+    },
+    effect: {
+      type: String,
+      default: 'zoom',
     },
   },
   computed: {
@@ -84,6 +101,9 @@ export default {
     getOptionalCentering() {
       return this.center ? 'modal-dialog-centered' : 'modal-dialog-start';
     },
+    effectClass() {
+      return this.effect === 'zoom' ? this.zoomEffect : 'vfm';
+    },
   },
   methods: {
     close() {
@@ -101,6 +121,29 @@ export default {
     }
 
     >>> .allow-overflow {
-      overflow: auto;
+        overflow: auto;
     }
+
+    >>> .modal-zoom {
+        -webkit-transform: scale(0.1);
+        -moz-transform: scale(0.1);
+        -ms-transform: scale(0.1);
+        transform: scale(0.1);
+        opacity: 0;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+
+    >>> .modal-zoom-show {
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+
 </style>
