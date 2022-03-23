@@ -12,11 +12,13 @@ This is the same <trigger for="modal:loremipsum" trigger="click">click trigger</
 
 <trigger for="modal:centered">Trigger for a centered modal with no header</trigger>.
 <modal id="modal:centered" center>
+
   Centered modal contents _(this modal has no header)_
 </modal>
 
 <trigger for="modal:ok-text">Trigger for centered modal with a custom OK button</trigger>.
 <modal header="++OK button visible!++" id="modal:ok-text" ok-text="Custom OK" center>
+
   Content of a modal with ++OK button++
 </modal>
 
