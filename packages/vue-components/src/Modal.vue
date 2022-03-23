@@ -117,7 +117,7 @@ export default {
 </script>
 <style scoped>
     >>> .modal-dialog-start {
-        margin-top: 100px;
+        margin-top: 120px;
     }
 
     >>> .allow-overflow {
