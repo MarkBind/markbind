@@ -1,4 +1,5 @@
 <template>
+  <!-- NavBar has z-index of 1000, hence the z-index here should exceed that -->
   <vue-final-modal
     v-if="isMounted"
     v-model="show"
@@ -10,6 +11,7 @@
     :transition="effectClass"
     :click-to-close="backdrop !== 'false'"
     esc-to-close
+    z-index-base="2000"
   >
     <div class="modal-content">
       <div class="modal-header">
@@ -99,7 +101,7 @@ export default {
       return this.small ? 'modal-sm' : 'modal-lg';
     },
     optionalCentering() {
-      return this.center ? 'modal-dialog-centered' : 'modal-dialog-start';
+      return this.center ? 'modal-dialog-centered' : '';
     },
     effectClass() {
       return this.effect === 'zoom' ? this.zoomEffect : 'vfm';
@@ -116,10 +118,6 @@ export default {
 };
 </script>
 <style scoped>
-    >>> .modal-dialog-start {
-        margin-top: 120px;
-    }
-
     >>> .allow-overflow {
         overflow: auto;
     }
