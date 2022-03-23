@@ -24,7 +24,7 @@ test('Test invalid URL link ', () => {
 
   const EXPECTED_RESULT = 'Should not validate';
 
-  expect(siteLinkManager.collectIntraLink(mockNode, mockCwf)).toEqual(EXPECTED_RESULT);
+  expect(siteLinkManager.collectIntraLinkToValidate(mockNode, mockCwf)).toEqual(EXPECTED_RESULT);
 });
 
 test('Test link for disabled intralink validation', () => {
@@ -34,7 +34,7 @@ test('Test link for disabled intralink validation', () => {
 
   const EXPECTED_RESULT = 'Intralink validation disabled';
 
-  expect(siteLinkManager.collectIntraLink(mockNode, mockCwf)).toEqual(EXPECTED_RESULT);
+  expect(siteLinkManager.collectIntraLinkToValidate(mockNode, mockCwf)).toEqual(EXPECTED_RESULT);
 });
 
 test('Test invalid, non-existent link ending with no extension to be collected', () => {
@@ -44,7 +44,7 @@ test('Test invalid, non-existent link ending with no extension to be collected',
 
   const EXPECTED_RESULT = 'Intralink collected to be validated later';
 
-  expect(siteLinkManager.collectIntraLink(mockNode, mockCwf)).toEqual(EXPECTED_RESULT);
+  expect(siteLinkManager.collectIntraLinkToValidate(mockNode, mockCwf)).toEqual(EXPECTED_RESULT);
 });
 
 test('Test valid ".html" extension link ', () => {
@@ -54,5 +54,5 @@ test('Test valid ".html" extension link ', () => {
 
   const EXPECTED_RESULT = 'Intralink collected to be validated later';
 
-  expect(siteLinkManager.collectIntraLink(mockNode, mockCwf)).toEqual(EXPECTED_RESULT);
+  expect(siteLinkManager.collectIntraLinkToValidate(mockNode, mockCwf)).toEqual(EXPECTED_RESULT);
 });

@@ -42,10 +42,10 @@ class SiteLinkManager {
   }
 
   /**
-   * Add an link to the intralinkCollection to be validated later,
+   * Add a link to the intralinkCollection to be validated later,
    * if the node should be validated and intralink validation is not disabled.
    */
-  collectIntraLink(node, cwf) {
+  collectIntraLinkToValidate(node, cwf) {
     if (!tagsToValidate.has(node.name)) {
       return 'Should not validate';
     }

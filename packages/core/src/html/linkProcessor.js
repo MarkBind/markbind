@@ -140,10 +140,9 @@ function isValidFileAsset(resourcePath, config) {
 
 /**
  * Serves as an internal intra-link validator. Checks if the intra-links are valid.
- * If the intra-links are suspected to be invalid and they do not have the no-validation
- * attribute, a warning message will be logged.
+ * If the intra-links are suspected to be invalid, a warning message will be logged.
  *
- * @param {String} resourcePath parsed from the node's relevant attribute
+ * @param {string} resourcePath parsed from the node's relevant attribute
  * @param {string} cwf as flagged from {@link NodePreprocessor}
  * @param {Object<any, any>} config passed for page metadata access
  * @returns {string} these string return values are for unit testing purposes only

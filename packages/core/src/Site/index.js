@@ -1114,7 +1114,6 @@ class Site {
 
       this.siteLinkManager.validateAllIntralinks();
     });
-
     return isCompleted;
   }
 
