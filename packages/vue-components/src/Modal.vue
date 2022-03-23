@@ -45,9 +45,8 @@
 </template>
 
 <script>
-/* eslint-disable import/no-extraneous-dependencies */
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { VueFinalModal } from 'vue-final-modal';
-/* eslint-enable import/no-extraneous-dependencies */
 
 export default {
   name: 'Modal',
