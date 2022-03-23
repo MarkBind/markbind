@@ -20,7 +20,7 @@ const { setHeadingId, assignPanelId } = require('./headerProcessor');
 const { MarkdownProcessor } = require('./MarkdownProcessor');
 const { FootnoteProcessor } = require('./FootnoteProcessor');
 const { MdAttributeRenderer } = require('./MdAttributeRenderer');
-const { shiftSlotNodeDeeper, transformOldSlotSyntax } = require('./vueSlotSyntaxProcessor');
+const { shiftSlotNodeDeeper, transformOldSlotSyntax, renameSlot } = require('./vueSlotSyntaxProcessor');
 const { warnConflictingAtributesMap, warnDeprecatedAtributesMap } = require('./warnings');
 const { processScriptAndStyleTag } = require('./scriptAndStyleTagProcessor');
 const { createErrorNode } = require('./elements');
@@ -164,6 +164,10 @@ class NodeProcessor {
         this.mdAttributeRenderer.processTooltip(node);
         break;
       case 'modal':
+        // Transform deprecated slot names; remove when deprecating
+        renameSlot(node, 'modal-header', 'header');
+        renameSlot(node, 'modal-footer', 'footer');
+
         this.mdAttributeRenderer.processModalAttributes(node);
         break;
       case 'tab':

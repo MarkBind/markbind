@@ -95,14 +95,6 @@ class MdAttributeRenderer {
   }
 
   processModalAttributes(node) {
-    // Deprecated slot names to be removed in the future
-    if (_.has(node.attribs, 'modal-header') && !_.has(node.attribs, 'header')) {
-      node.attribs.header = node.attribs['modal-header'];
-    }
-    if (_.has(node.attribs, 'modal-footer') && !_.has(node.attribs, 'footer')) {
-      node.attribs.footer = node.attribs['modal-footer'];
-    }
-
     if (!this.hasSlotOverridingAttribute(node, 'header')) {
       this.processAttributeWithoutOverride(node, 'header', true);
     }
