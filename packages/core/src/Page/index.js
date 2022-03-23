@@ -182,7 +182,7 @@ class Page {
       return;
     }
     const $ = cheerio.load(content);
-    $('b-modal').remove();
+    $('modal').remove();
     this._collectNavigableHeadings($, $.root()[0], elementSelector);
   }
 
@@ -242,7 +242,7 @@ class Page {
   collectHeadingsAndKeywordsInContent(content, lastHeading, excludeHeadings, sourceTraversalStack) {
     let $ = cheerio.load(content);
     const headingsSelector = Page.generateHeadingSelector(this.pageConfig.headingIndexingLevel);
-    $('b-modal').remove();
+    $('modal').remove();
     $('panel').not('panel panel')
       .each((index, panel) => {
         const slotHeader = $(panel).children('[\\#header]');
@@ -295,7 +295,7 @@ class Page {
       });
     $ = cheerio.load(content);
     if (this.pageConfig.headingIndexingLevel > 0) {
-      $('b-modal').remove();
+      $('modal').remove();
       $('panel').remove();
       if (!excludeHeadings) {
         $(headingsSelector).each((i, heading) => {
