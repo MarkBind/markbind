@@ -14,7 +14,7 @@
     z-index-base="2000"
   >
     <div class="modal-content">
-      <div class="modal-header">
+      <div v-if="hasHeader" class="modal-header">
         <h5 class="modal-title">
           <slot name="header"></slot>
         </h5>
@@ -88,6 +88,9 @@ export default {
     },
   },
   computed: {
+    hasHeader() {
+      return !!this.$slots.header;
+    },
     hasFooter() {
       return !!this.$slots.footer;
     },
