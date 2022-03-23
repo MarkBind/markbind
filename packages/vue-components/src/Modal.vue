@@ -45,8 +45,15 @@
 </template>
 
 <script>
+/* eslint-disable import/no-extraneous-dependencies */
+import { VueFinalModal } from 'vue-final-modal';
+/* eslint-enable import/no-extraneous-dependencies */
+
 export default {
   name: 'Modal',
+  components: {
+    VueFinalModal,
+  },
   data: () => ({
     show: false,
     isMounted: false,

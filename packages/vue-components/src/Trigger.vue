@@ -31,8 +31,10 @@
 </template>
 
 <script>
-// eslint-disable-next-line import/no-extraneous-dependencies
+/* eslint-disable import/no-extraneous-dependencies */
 import { PortalTarget, Wormhole } from 'portal-vue';
+import { $vfm } from 'vue-final-modal';
+/* eslint-enable import/no-extraneous-dependencies */
 
 export default {
   name: 'Trigger',
@@ -65,7 +67,7 @@ export default {
       }
 
       // show modal, if any
-      this.$vfm.show(this.for);
+      $vfm.show(this.for);
     },
   },
   computed: {
