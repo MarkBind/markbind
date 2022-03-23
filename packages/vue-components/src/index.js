@@ -4,7 +4,6 @@ import {
   BPopover,
   BTooltip,
 } from 'bootstrap-vue';
-import VueFinalModal from 'vue-final-modal';
 /* eslint-enable import/no-extraneous-dependencies */
 
 // Custom / modified components and components from yuche/vue-strap
@@ -74,9 +73,6 @@ function install(Vue) {
   });
   Object.keys(components).forEach((key) => {
     Vue.component(key, components[key]);
-  });
-  Object.keys(plugins).forEach((key) => {
-    Vue.use(plugins[key]);
   });
 }
 
