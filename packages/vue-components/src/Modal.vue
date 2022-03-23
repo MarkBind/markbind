@@ -5,7 +5,7 @@
     ssr
     :name="id"
     classes="allow-overflow"
-    :content-class="['modal-dialog', getOptionalModalSize, getOptionalCentering]"
+    :content-class="['modal-dialog', optionalModalSize, optionalCentering]"
     overlay-transition="none"
     :transition="effectClass"
     :click-to-close="backdrop !== 'false'"
@@ -60,13 +60,13 @@ export default {
       type: String,
       default: '',
     },
+    effect: {
+      type: String,
+      default: 'zoom',
+    },
     id: {
       type: String,
       default: '',
-    },
-    center: {
-      type: Boolean,
-      default: false,
     },
     small: {
       type: Boolean,
@@ -76,13 +76,13 @@ export default {
       type: Boolean,
       default: false,
     },
+    center: {
+      type: Boolean,
+      default: false,
+    },
     backdrop: {
       type: String,
       default: '',
-    },
-    effect: {
-      type: String,
-      default: 'zoom',
     },
   },
   computed: {
@@ -92,13 +92,13 @@ export default {
     hasOk() {
       return this.okText !== '';
     },
-    getOptionalModalSize() {
+    optionalModalSize() {
       if (!this.small && !this.large) {
         return '';
       }
       return this.small ? 'modal-sm' : 'modal-lg';
     },
-    getOptionalCentering() {
+    optionalCentering() {
       return this.center ? 'modal-dialog-centered' : 'modal-dialog-start';
     },
     effectClass() {
@@ -145,5 +145,4 @@ export default {
         -moz-transition: all 0.3s;
         transition: all 0.3s;
     }
-
 </style>
