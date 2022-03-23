@@ -4,7 +4,7 @@ import {
   BPopover,
   BTooltip,
 } from 'bootstrap-vue';
-import { vfmPlugin } from 'vue-final-modal';
+import VueFinalModal from 'vue-final-modal';
 /* eslint-enable import/no-extraneous-dependencies */
 
 // Custom / modified components and components from yuche/vue-strap
