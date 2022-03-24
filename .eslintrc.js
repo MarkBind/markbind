@@ -12,9 +12,11 @@ module.exports = {
   "rules": {
     "array-bracket-newline": ["error", { "multiline": true }],
     "arrow-parens": ["error", "as-needed", { "requireForBlockBody": true }],
+    "default-param-last": "off",
     "func-names": "off",
     "no-else-return": ["error", { "allowElseIf": true }],
     "no-underscore-dangle": "off",
+    "function-call-argument-newline": "off",
     "function-paren-newline": "off",
     "implicit-arrow-linebreak": "off",
     "indent": [
@@ -31,6 +33,7 @@ module.exports = {
     "max-len": ["error", { "code": 110 }],
     "no-param-reassign": ["error", { "props": false }],
     "operator-linebreak": ["error", "before"],
+    "prefer-regex-literals": "off",
     // override airbnb-base dev dependencies, latest version does not white list __mocks__
     "import/no-extraneous-dependencies": [
       "error", {
