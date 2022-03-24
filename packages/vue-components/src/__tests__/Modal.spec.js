@@ -9,12 +9,13 @@ const TRIGGER_STUB = {
   },
   slots: {
     default: 'Trigger for a modal',
-  }
-}
+  },
+};
 
-const DEFAULT_MODAL_HEADER = 'test modal header'
-const DEFAULT_MODAL_FOOTER = 'test modal footer'
-const DEFAULT_MODAL_CONTENT = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+const DEFAULT_MODAL_HEADER = 'test modal header';
+const DEFAULT_MODAL_FOOTER = 'test modal footer';
+const DEFAULT_MODAL_CONTENT = 'Lorem ipsum dolor sit amet, '
++ 'consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
 describe('Modal', () => {
   test('should not show header when no header is given', async () => {
