@@ -9,7 +9,7 @@
         @load.once="computeWidth"
       >
       </canvas>
-      <canvas
+      <!-- <canvas
         ref="annotated-drawing"
         class="image-overlay"
         :src="src"
@@ -17,9 +17,12 @@
         :width="computedWidth"
         @load.once="computeWidth"
       >
-      </canvas>
+      </canvas> -->
       <div class="button">
         <button @click="canvas_arrow(0, 0, 500, 20)">draw line</button>
+      </div>
+      <div class="button">
+        <button @click="canvas_arrow(0, 0, 20, 500)">draw line2</button>
       </div>
       <div class="button">
         <button @click="canvas_text('#A test text \n abs')">draw text</button>
@@ -60,13 +63,17 @@ export default {
       type: String,
       default: '',
     },
-    eager: {
-      type: Boolean,
-      default: false,
-    },
-    addClass: {
+    text: {
       type: String,
       default: '',
+    },
+    x: {
+      type: Number,
+      default: 50,
+    },
+    y: {
+      type: Number,
+      default: 50,
     },
   },
   computed: {
@@ -110,22 +117,93 @@ export default {
       const image = new Image();
 
       image.onload = () => {
-        const w = canvas.width;
+        const canvasWidth = canvas.width;
         const nw = image.naturalWidth;
         const nh = image.naturalHeight;
         const aspect = nw / nh;
-        const h = w / aspect;
-        canvas.height = h;
-        ctx.drawImage(image, 0, 0, w, h);
-        this.initialWidth = w;
-        this.initialHeight = h;
-      };
+        const canvasHeight = canvasWidth / aspect;
+        canvas.height = canvasHeight;
 
+        let fontOffset = 0;
+        let fontHeight = 0;
+        let largestFontWidth = 0;
+
+        const parsedText = this.parse_input_text('#A test text \n abs');
+
+        const items = parsedText.map((txt) => {
+          const item = this.parse_markdown(txt);
+          ctx.font = item.font;
+          item.fontOffset = fontOffset;
+          fontOffset += item.height;
+          fontHeight += item.height;
+          const { actualBoundingBoxLeft, actualBoundingBoxRight } = ctx.measureText(txt);
+          const width = Math.abs(actualBoundingBoxLeft) + Math.abs(actualBoundingBoxRight);
+          item.width = width;
+          largestFontWidth = Math.max(largestFontWidth, width);
+          return item;
+        });
+
+        const imageWidth = canvasWidth - largestFontWidth - 10;
+        const imageHeight = imageWidth / aspect;
+
+        ctx.drawImage(image, 0, 0, imageWidth, imageHeight);
+
+        items.forEach((item) => {
+          ctx.font = item.font;
+          const x = canvasWidth - largestFontWidth;
+          const y = item.fontOffset + item.height;
+          ctx.fillText(item.txt, x, y);
+        });
+
+        const tox = canvasWidth - largestFontWidth;
+        const fromx = canvasWidth * (this.x / 100);
+        const toy = fontHeight / 2;
+        const fromy = canvasHeight * (this.y / 100);
+
+        const headlen = 10; // length of head in pixels
+        const dx = tox - fromx;
+        const dy = toy - fromy;
+        const angle = Math.atan2(dy, dx);
+
+        // Setting up the canvas
+        // find largerst x and y coordinates
+
+        ctx.beginPath();
+
+        // Draw the arrow
+        ctx.moveTo(fromx, fromy);
+        ctx.lineTo(tox, toy);
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6),
+                   toy - headlen * Math.sin(angle - Math.PI / 6));
+        ctx.moveTo(tox, toy);
+        ctx.lineTo(tox - headlen * Math.cos(angle + Math.PI / 6),
+                   toy - headlen * Math.sin(angle + Math.PI / 6));
+        ctx.stroke();
+      };
       image.src = this.src;
-      this.image = image;
-      this.canvas = canvas;
-      this.ctx = ctx;
     },
+    // create_canvas() {
+    //   const canvas = this.$refs['annotated-image'];
+    //   const ctx = canvas.getContext('2d');
+    //   const image = new Image();
+
+    //   image.onload = () => {
+    //     const w = canvas.width;
+    //     const nw = image.naturalWidth;
+    //     const nh = image.naturalHeight;
+    //     const aspect = nw / nh;
+    //     const h = w / aspect;
+    //     canvas.height = h;
+    //     ctx.drawImage(image, 0, 0, w, h);
+    //     this.initialWidth = w;
+    //     this.initialHeight = h;
+    //   };
+
+    //   image.src = this.src;
+    //   this.image = image;
+    //   this.canvas = canvas;
+    //   this.ctx = ctx;
+    // },
     load_image() {
       this.ctx.drawImage(this.image, 0, 0, this.initialWidth, this.initialHeight);
     },
@@ -157,31 +235,31 @@ export default {
     canvas_text(text) {
       // this.ctx.font = this.getFont();
 
-      let offset = 0;
-      let totalHeight = 0;
-      let largestWidth = 0;
+      let fontOffset = 0;
+      let fontHeight = 0;
+      let largestFontWidth = 0;
 
       const parsedText = this.parse_input_text(text);
 
       const items = parsedText.map((txt) => {
         const item = this.parse_markdown(txt);
-        item.offset = offset;
-        offset += item.height;
-        totalHeight += item.height;
+        item.fontOffset = fontOffset;
+        fontOffset += item.height;
+        fontHeight += item.height;
         const { actualBoundingBoxLeft, actualBoundingBoxRight } = this.ctx.measureText(txt);
         const width = Math.abs(actualBoundingBoxLeft) + Math.abs(actualBoundingBoxRight);
         item.width = (width / 100) * this.canvas.width;
-        largestWidth = Math.max(largestWidth, item.width);
+        largestFontWidth = Math.max(largestFontWidth, item.width);
         return item;
       });
 
-      const maxY = Math.max(totalHeight, this.canvas.height);
-      this.resize_canvas(largestWidth + this.canvas.width, maxY);
+      const maxY = Math.max(fontHeight, this.canvas.height);
+      this.resize_canvas(largestFontWidth + this.canvas.width, maxY);
 
       items.forEach((item) => {
         this.ctx.font = item.font;
-        const x = this.canvas.width - largestWidth;
-        const y = item.offset + item.height;
+        const x = this.canvas.width - largestFontWidth;
+        const y = item.fontOffset + item.height;
         this.ctx.fillText(item.txt, x, y);
       });
     },
@@ -198,7 +276,7 @@ export default {
       return `${fontSizePx}px Arial`;
     },
     parse_markdown(txt) {
-      const lineHeight = 1.5;
+      const lineHeight = 1;
       const headingSize = 32;
       const baseSize = 16;
 
