@@ -14,10 +14,10 @@
 # {{ title }}
 
 
-<span class="lead" id="overview">
+<div class="lead" id="overview">
 
 **A MarkBind source file may contain a mix of several popular syntax schemes** used in creating web pages. MarkBind source file can be as simple as basic Markdown, and you can use progressively more complicated syntax to create progressively more sophisticated Web pages while optimizing other aspects such as content reuse.
-</span>
+</div>
 
 Given below is an overview of the syntax schemes supported by MarkBind.
 

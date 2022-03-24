@@ -2,14 +2,14 @@
 
 Markdown text styles:
 
-<span id="main-example-markdown">
+<div id="main-example-markdown">
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 **Bold**, _Italic_, ___Bold and Italic___, `Inline Code`
 </variable>
 </include>
-</span>
+</div>
 
 Additional syntax from GFMD:
 
@@ -22,7 +22,7 @@ Additional syntax from GFMD:
 
 Syntax added by MarkBind:
 
-<span id="main-example-markbind">
+<div id="main-example-markbind">
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
@@ -30,19 +30,19 @@ Syntax added by MarkBind:
 ->Center-align<-
 </variable>
 </include>
-</span>
+</div>
 
 <small>Alternative syntax: https://www.markdownguide.org/basic-syntax#emphasis</small>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```markdown
 **Bold**, _Italic_, ___Bold and Italic___, `Inline Code`
 ~~Strike through~~, ****Super Bold****, !!Underline!!, ==Highlight==, %%Dim%%, ++Large++, --Small--, Super^script^, Sub~script~
 ```
-</span>
-<span id="examples" class="d-none">
+</div>
+<div id="examples" class="d-none">
 
 **Bold**, _Italic_, ___Bold and Italic___, `Inline Code`
 ~~Strike through~~, ****Super Bold****, !!Underline!!, ==Highlight==, %%Dim%%, ++Large++, --Small--, Super^script^, Sub~script~
-</span>
+</div>

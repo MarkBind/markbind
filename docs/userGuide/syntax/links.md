@@ -165,7 +165,7 @@ However, if you wish to disable this feature **entirely**, you may simply modify
 </div>
 </div>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```markdown
 MarkBind home is at [here](https://markbind.org).
@@ -174,9 +174,9 @@ MarkBind home is at [here][1].
 
 [1]: https://markbind.org
 ```
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 MarkBind home is at [here](https://markbind.org).
-</span>
+</div>

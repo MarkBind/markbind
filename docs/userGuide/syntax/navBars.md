@@ -93,7 +93,7 @@ Name | Description
 `exact` | Highlights link if URL in address bar exactly matches link.
 `none` | No highlighting.
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```html
 <navbar type="primary">
@@ -111,9 +111,9 @@ Name | Description
 </navbar>
 ```
 
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 <navbar type="primary">
   <!-- Brand as slot -->
@@ -157,7 +157,7 @@ Name | Description
   </li>
 </navbar>
 
-</span>
+</div>
 
 ****Mobile page and site navigation menus****
 

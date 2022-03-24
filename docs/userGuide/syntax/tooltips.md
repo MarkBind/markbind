@@ -66,14 +66,14 @@ content | `String` | `''` | Text content of the tooltip.
 placement | `String` | `top` | How to position the tooltip.<br>Supports: `top`, `left`, `right`, `bottom`.
 
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```html
 Hover <tooltip content="An explanation, **supports simple Markdown**">here</tooltip> to see a tooltip.
 ```
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 Hover <tooltip content="An explanation, **supports simple Markdown**">here</tooltip> to see a tooltip.
-</span>
+</div>
