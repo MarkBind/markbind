@@ -126,12 +126,12 @@ export default {
   },
 };
 </script>
-<style scoped>
-    >>> .allow-overflow {
+<style>
+    .allow-overflow {
         overflow: auto;
     }
 
-    >>> .modal-zoom {
+    .modal-zoom {
         -webkit-transform: scale(0.1);
         -moz-transform: scale(0.1);
         -ms-transform: scale(0.1);
@@ -142,7 +142,7 @@ export default {
         transition: all 0.3s;
     }
 
-    >>> .modal-zoom-show {
+    .modal-zoom-show {
         -webkit-transform: scale(1);
         -moz-transform: scale(1);
         -ms-transform: scale(1);
