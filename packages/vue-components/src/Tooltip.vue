@@ -11,15 +11,15 @@
     <v-tooltip
       v-if="isMounted"
       :triggers="triggers"
+      :hideTriggers="_ => triggers"
       :placement="placement"
+      :delay="0"
       popper-class="v-popper__popper--skip-transition"
     >
       <template #popper>
         <slot name="content"></slot>
       </template>
-      <span @click.stop>
-        <slot></slot>
-      </span>
+      <slot></slot>
     </v-tooltip>
   </span>
 </template>
@@ -60,3 +60,13 @@ export default {
   },
 };
 </script>
+
+<style>
+    .v-popper--theme-tooltip .v-popper__inner {
+        /* following bootstrap */
+        padding: 4px 8px;
+        font-size: 14px;
+        max-width: 200px;
+        text-align: center;
+    }
+</style>

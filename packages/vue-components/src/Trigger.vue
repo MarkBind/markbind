@@ -9,6 +9,7 @@
       v-if="popoverOrTooltipType === 'popover'"
       :triggers="triggers"
       :placement="placement"
+      :delay="0"
       popper-class="v-popper__popper--skip-transition"
     >
       <span @click.stop>
@@ -25,6 +26,7 @@
       v-else-if="popoverOrTooltipType === 'tooltip'"
       :placement="placement"
       :triggers="triggers"
+      :delay="0"
       popper-class="v-popper__popper--skip-transition"
     >
       <span @click.stop>

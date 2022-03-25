@@ -8,7 +8,7 @@
       <div v-if="hasHeader" class="popover-header">
         <slot name="header"></slot>
       </div>
-      <div class="popover-content">
+      <div class="popover-body">
         <slot name="content"></slot>
       </div>
     </portal>
@@ -17,6 +17,7 @@
       v-if="isMounted"
       :triggers="triggers"
       :placement="placement"
+      :delay="0"
       popper-class="v-popper__popper--skip-transition"
     >
       <!-- floating-vue triggers must be elements that receive mouse events, hence an empty @click -->
@@ -29,7 +30,7 @@
           <div v-if="hasHeader" class="popover-header">
             <slot name="header"></slot>
           </div>
-          <div class="popover-content">
+          <div class="popover-body">
             <slot name="content"></slot>
           </div>
         </div>
@@ -84,10 +85,6 @@ export default {
         overflow: auto;
         max-height: 50vh;
         max-width: 276px;  /* following bootstrap */
-    }
-
-    .popover-content {
-        padding: 12px 8px;  /* following bootstrap */
     }
 
     .v-popper {
