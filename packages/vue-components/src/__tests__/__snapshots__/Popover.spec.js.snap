@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Popover should not be shown until triggered 1`] = `
+<span
+  class="trigger-click"
+  content="Popover content slot: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  data-mb-component-type="popover"
+  tabindex="0"
+>
+  <!---->
+   
+  <!---->
+</span>
+`;
+
+exports[`Popover should not show header when no header is given 1`] = `
+<span
+  class="trigger-click"
+  content="Popover content slot: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  data-mb-component-type="popover"
+  tabindex="0"
+>
+  <!---->
+   
+  <v-popover-stub
+    delay="0"
+    placement="top"
+    popper-class="v-popper__popper--skip-transition"
+    popper-triggers="click"
+    triggers="click"
+  >
+    <span>
+      click to show popover
+    </span>
+  </v-popover-stub>
+</span>
+`;
+
+exports[`Popover should respect the placement attribute 1`] = `
+<span
+  class="trigger-click"
+  content="Popover content slot: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  data-mb-component-type="popover"
+  header="test popover header attribute"
+  tabindex="0"
+>
+  <!---->
+   
+  <v-popover-stub
+    delay="0"
+    placement="right"
+    popper-class="v-popper__popper--skip-transition"
+    popper-triggers="click"
+    triggers="click"
+  >
+    <span>
+      click to show popover
+    </span>
+  </v-popover-stub>
+</span>
+`;
+
+exports[`Popover should show header and content 1`] = `
+<span
+  class="trigger-click"
+  content="Popover content slot: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  data-mb-component-type="popover"
+  header="test popover header attribute"
+  tabindex="0"
+>
+  <!---->
+   
+  <v-popover-stub
+    delay="0"
+    placement="top"
+    popper-class="v-popper__popper--skip-transition"
+    popper-triggers="click"
+    triggers="click"
+  >
+    <span>
+      click to show popover
+    </span>
+  </v-popover-stub>
+</span>
+`;
+
+exports[`Popover should show header and content slots correctly 1`] = `
+<span
+  class="trigger-click"
+  data-mb-component-type="popover"
+  tabindex="0"
+>
+  <!---->
+   
+  <v-popover-stub
+    delay="0"
+    placement="top"
+    popper-class="v-popper__popper--skip-transition"
+    popper-triggers="click"
+    triggers="click"
+  >
+    <span>
+      click to show popover
+    </span>
+  </v-popover-stub>
+</span>
+`;
