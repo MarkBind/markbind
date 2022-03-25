@@ -33,41 +33,41 @@
 </popover>
 <hr />
 <h4 class="no-index">Trigger</h4>
-<p>
+<div>
   <popover header="Header" content="Lorem ipsum dolor sit amet" placement="top" trigger="hover">
     <button class="btn btn-secondary">Mouseenter</button>
   </popover>
-</p>
+</div>
 <h4 class="no-index">Markdown</h4>
-<p>
+<div>
   <popover header="**Emoji header** :rocket:" content="!!emoji!! content :cat:">
     <button class="btn btn-secondary">Hover</button>
   </popover>
-</p>
+</div>
 <h4 class="no-index">Content using slot</h4>
-<p>
+<div>
   <popover header="**Emoji header** :rocket:">
     <div slot="content">
       This is a long content...
     </div>
     <button class="btn btn-secondary">Hover</button>
   </popover>
-</p>
+</div>
 <h4 class="no-index">Content using src</h4>
-<p>
+<div>
   <popover header="From a HTML file" src="{{ baseUrl }}/userGuide/syntax/extra/loadContent.html#fragment">
     This is loaded from a .html file
   </popover>
-</p>
-<p>
+</div>
+<div>
   <popover header="From a MarkDown file" src="{{ baseUrl }}/userGuide/formattingContents.md#overview">
     This is loaded from a .md file
   </popover>
-</p>
+</div>
 <h4 class="no-index">Wrap Text</h4>
-<p>
+<div>
   <popover header="false" content="Nice!">What do you say</popover>
-</p>
+</div>
 </variable>
 </include>
 
@@ -110,7 +110,7 @@ If multiple of these are used, MarkBind will prioritise in the following order:
   1. `src` attribute
 </box>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```html
 Hover over the <trigger for="pop:context-target">keyword</trigger> to see the popover.
@@ -123,9 +123,9 @@ description :+1:
 </div>
 </popover>
 ```
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 Hover over the <trigger for="pop:context-target">keyword</trigger> to see the popover.
 
@@ -136,4 +136,4 @@ description :+1:
 
 </div>
 </popover>
-</span>
+</div>

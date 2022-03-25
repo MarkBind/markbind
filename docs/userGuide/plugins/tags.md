@@ -67,7 +67,7 @@ Alternatively, you can specify tags to render for a page in the front matter.
 ```
 </div>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```html
 <p tags="language--java advanced">System.out.println("Hello world");</p>
@@ -79,7 +79,7 @@ Alternatively, you can specify tags to render for a page in the front matter.
   tags: ["language--java"]
 </frontmatter>
 ```
-</span>
+</div>
 
 Tags in `site.json` will be merged with the ones in the front matter, and are processed after front matter tags. See [Hiding Tags](../tweakingThePageStructure.html#hiding-tags) for more information.
 
@@ -143,7 +143,7 @@ Using `-` at the start of a tag hides all tags matching the expression. This is 
 
 This only works because tags are processed left to right, so all `language--*` tags are hidden before `language--C#`. Tags in `site.json` are processed after tags in `<frontmatter>`.
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```html
 # Print 'Hello world'
@@ -165,4 +165,4 @@ This only works because tags are processed left to right, so all `language--*` t
   }
 }
 ```
-</span>
+</div>

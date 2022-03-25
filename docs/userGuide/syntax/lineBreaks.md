@@ -12,10 +12,10 @@ This will not be in a new line.
 
 <small>Alternate syntax: https://www.markdownguide.org/basic-syntax#line-breaks</small>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```markdown
 This is the second sentence.<br>
 This should be on a new line.
 ```
-</span>
+</div>

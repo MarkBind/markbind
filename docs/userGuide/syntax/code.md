@@ -219,7 +219,7 @@ or the java code `public static void main(String[] args)`{.java}.
 </variable>
 </include>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ````
 ```xml
@@ -231,8 +231,8 @@ or the java code `public static void main(String[] args)`{.java}.
 ```
 `<bar type="name">goo</bar>`{.xml}
 ```
-</span>
-<span id="examples" class="d-none">
+</div>
+<div id="examples" class="d-none">
 
 ```xml
 <foo>
@@ -241,4 +241,4 @@ or the java code `public static void main(String[] args)`{.java}.
 ```
 Syntax coloring for inline code: `<bar type="name">goo</bar>`{.xml} too!
 
-</span>
+</div>

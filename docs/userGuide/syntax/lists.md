@@ -59,7 +59,7 @@ first number
 
 ****Task lists**** (from GFMD):
 
-<span id="main-example-gfmd">
+<div id="main-example-gfmd">
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
@@ -70,7 +70,7 @@ first number
 - [ ] Item 3
 </variable>
 </include>
-</span>
+</div>
 
 
 ****Radio-button lists:****
@@ -85,7 +85,7 @@ first number
 </include>
 </div>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```markdown
 1. Item 1
@@ -97,8 +97,8 @@ first number
 - [x] Item 4
 - ( ) Item 5
 ```
-</span>
-<span id="examples" class="d-none">
+</div>
+<div id="examples" class="d-none">
 
 1. Item 1
    1. Sub item 1.1
@@ -108,4 +108,4 @@ first number
 - [ ] Item 3
 - [x] Item 4
 - ( ) Item 5
-</span>
+</div>

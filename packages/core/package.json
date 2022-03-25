@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
-    "@markbind/core-web": "^3.1.1",
+    "@markbind/core-web": "3.1.1",
     "@primer/octicons": "^15.0.1",
     "@sindresorhus/slugify": "^0.9.1",
     "bluebird": "^3.7.2",
