@@ -13,34 +13,40 @@
       </div>
     </portal>
 
-    <b-popover
+    <v-popover
       v-if="isMounted"
-      :target="targetEl"
-      :triggers="trigger"
+      :triggers="triggers"
       :placement="placement"
     >
-      <template #title>
-        <slot name="header"></slot>
+      <!-- floating-vue triggers work only on elements that receive mouse events, hence an empty @click is added -->
+      <!-- https://github.com/Akryum/floating-vue/issues/461 -->
+      <span @click>
+        <slot />
+      </span>
+      <template #popper>
+        <div class="popover-container">
+          <div v-if="hasHeader" class="popover-header">
+            <slot name="header"></slot>
+          </div>
+          <div class="popover-content">
+            <slot name="content"></slot>
+          </div>
+        </div>
       </template>
-      <div class="popover-content">
-        <slot name="content"></slot>
-      </div>
-    </b-popover>
-    <slot></slot>
+    </v-popover>
   </span>
 </template>
 
 <script>
 /* eslint-disable import/no-extraneous-dependencies */
 import { Portal } from 'portal-vue';
-import { BPopover } from 'bootstrap-vue';
 /* eslint-enable import/no-extraneous-dependencies */
+import 'floating-vue/dist/style.css';
 
 export default {
   name: 'Popover',
   components: {
     Portal,
-    BPopover,
   },
   props: {
     trigger: {
@@ -58,6 +64,14 @@ export default {
       isMounted: false,
     };
   },
+  computed: {
+    triggers() {
+      return this.trigger.split(' ');
+    },
+    hasHeader() {
+      return !!this.$slots.header;
+    },
+  },
   mounted() {
     this.targetEl = this.$el;
     this.isMounted = true;
@@ -65,9 +79,18 @@ export default {
 };
 </script>
 
-<style scoped>
-    .popover-content {
+<style>
+    .popover-container {
         overflow: auto;
         max-height: 50vh;
+        max-width: 276px;  /* following bootstrap */
+    }
+
+    .popover-content {
+      padding: 12px 8px;  /* following bootstrap */
+    }
+
+    .v-popper {
+      display: inline;
     }
 </style>

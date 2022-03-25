@@ -4,6 +4,7 @@ import {
   BPopover,
   BTooltip,
 } from 'bootstrap-vue';
+import { Menu } from 'floating-vue';
 /* eslint-enable import/no-extraneous-dependencies */
 
 // Custom / modified components and components from yuche/vue-strap
@@ -61,6 +62,7 @@ const components = {
   modal,
   BPopover,
   BTooltip,
+  'VPopover': Menu,
 };
 
 const directives = {

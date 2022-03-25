@@ -5,17 +5,23 @@
     @[triggerEventType].stop="toggle()"
   >
 
-    <b-popover
+    <v-popover
       v-if="popoverOrTooltipType === 'popover'"
-      :target="$el"
-      :triggers="trigger === 'click' ? 'click blur' : trigger"
+      :triggers="triggers"
       :placement="placement"
     >
-      <template v-if="hasHeader" #title>
-        <portal-target :name="'header:' + target" />
+      <span @click>
+        <slot />
+      </span>
+      <template #popper>
+        <div class="popover-container">
+          <div v-if="hasHeader">
+            <portal-target :name="'header:' + target" />
+          </div>
+          <portal-target :name="'content:' + target" />
+        </div>
       </template>
-      <portal-target :name="'content:' + target" />
-    </b-popover>
+    </v-popover>
 
     <b-tooltip
       v-else-if="popoverOrTooltipType === 'tooltip'"
@@ -26,7 +32,6 @@
       <portal-target :name="target" />
     </b-tooltip>
 
-    <slot></slot>
   </span>
 </template>
 
@@ -76,6 +81,9 @@ export default {
         return this.trigger;
       }
       return 'mouseenter';
+    },
+    triggers() {
+      return this.trigger.split(' ');
     },
     target() {
       return this.for;
