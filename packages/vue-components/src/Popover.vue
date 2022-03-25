@@ -4,10 +4,10 @@
     data-mb-component-type="popover"
     tabindex="0"
   >
-    <portal v-if="targetEl.id" :to="'header:' + targetEl.id">
-      <slot name="header"></slot>
-    </portal>
-    <portal v-if="targetEl.id" :to="'content:' + targetEl.id">
+    <portal v-if="targetEl.id" :to="'popover:' + targetEl.id">
+      <div v-if="hasHeader" class="popover-header">
+        <slot name="header"></slot>
+      </div>
       <div class="popover-content">
         <slot name="content"></slot>
       </div>
@@ -17,11 +17,12 @@
       v-if="isMounted"
       :triggers="triggers"
       :placement="placement"
+      popper-class="v-popper__popper--skip-transition"
     >
-      <!-- floating-vue triggers work only on elements that receive mouse events, hence an empty @click is added -->
+      <!-- floating-vue triggers must be elements that receive mouse events, hence an empty @click -->
       <!-- https://github.com/Akryum/floating-vue/issues/461 -->
-      <span @click>
-        <slot />
+      <span @click.stop>
+        <slot></slot>
       </span>
       <template #popper>
         <div class="popover-container">
@@ -41,7 +42,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { Portal } from 'portal-vue';
 /* eslint-enable import/no-extraneous-dependencies */
-import 'floating-vue/dist/style.css';
 
 export default {
   name: 'Popover',
@@ -87,10 +87,10 @@ export default {
     }
 
     .popover-content {
-      padding: 12px 8px;  /* following bootstrap */
+        padding: 12px 8px;  /* following bootstrap */
     }
 
     .v-popper {
-      display: inline;
+        display: inline;
     }
 </style>

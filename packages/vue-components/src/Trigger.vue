@@ -9,35 +9,38 @@
       v-if="popoverOrTooltipType === 'popover'"
       :triggers="triggers"
       :placement="placement"
+      popper-class="v-popper__popper--skip-transition"
     >
-      <span @click>
-        <slot />
+      <span @click.stop>
+        <slot></slot>
       </span>
       <template #popper>
         <div class="popover-container">
-          <div v-if="hasHeader">
-            <portal-target :name="'header:' + target" />
-          </div>
-          <portal-target :name="'content:' + target" />
+          <portal-target :name="'popover:' + target" />
         </div>
       </template>
     </v-popover>
 
-    <b-tooltip
+    <v-tooltip
       v-else-if="popoverOrTooltipType === 'tooltip'"
-      :target="$el"
       :placement="placement"
-      :triggers="trigger"
+      :triggers="triggers"
+      popper-class="v-popper__popper--skip-transition"
     >
-      <portal-target :name="target" />
-    </b-tooltip>
+      <span @click.stop>
+        <slot></slot>
+      </span>
+      <template #popper>
+        <portal-target :name="'tooltip:' + target" />
+      </template>
+    </v-tooltip>
 
   </span>
 </template>
 
 <script>
 /* eslint-disable import/no-extraneous-dependencies */
-import { PortalTarget, Wormhole } from 'portal-vue';
+import { PortalTarget } from 'portal-vue';
 import { $vfm } from 'vue-final-modal';
 /* eslint-enable import/no-extraneous-dependencies */
 
@@ -57,7 +60,7 @@ export default {
     },
     placement: {
       type: String,
-      default: 'auto',
+      default: 'top',
     },
   },
   data() {
@@ -87,9 +90,6 @@ export default {
     },
     target() {
       return this.for;
-    },
-    hasHeader() {
-      return Wormhole.hasContentFor(`header:${this.target}`);
     },
   },
   mounted() {

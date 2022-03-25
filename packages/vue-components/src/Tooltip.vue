@@ -4,33 +4,34 @@
     data-mb-component-type="tooltip"
     tabindex="0"
   >
-    <portal v-if="targetEl.id" :to="targetEl.id">
+    <portal v-if="targetEl.id" :to="'tooltip:' + targetEl.id">
       <slot name="content"></slot>
     </portal>
 
-    <b-tooltip
+    <v-tooltip
       v-if="isMounted"
-      :target="targetEl"
-      :triggers="trigger"
+      :triggers="triggers"
       :placement="placement"
+      popper-class="v-popper__popper--skip-transition"
     >
-      <slot name="content"></slot>
-    </b-tooltip>
-    <slot></slot>
+      <template #popper>
+        <slot name="content"></slot>
+      </template>
+      <span @click.stop>
+        <slot></slot>
+      </span>
+    </v-tooltip>
   </span>
 </template>
 
 <script>
-/* eslint-disable import/no-extraneous-dependencies */
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Portal } from 'portal-vue';
-import { BTooltip } from 'bootstrap-vue';
-/* eslint-enable import/no-extraneous-dependencies */
 
 export default {
   name: 'Tooltip',
   components: {
     Portal,
-    BTooltip,
   },
   props: {
     trigger: {
@@ -47,6 +48,11 @@ export default {
       targetEl: {},
       isMounted: false,
     };
+  },
+  computed: {
+    triggers() {
+      return this.trigger.split(' ');
+    },
   },
   mounted() {
     this.targetEl = this.$el;
