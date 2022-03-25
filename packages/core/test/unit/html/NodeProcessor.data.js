@@ -190,13 +190,13 @@ module.exports.PROCESS_TOOLTIP_CONTENT_EXPECTED = `
 
 module.exports.PROCESS_MODAL_HEADER = `
 <modal header="_Lorem ipsum dolor sit amet_">
-  Header attribute should be inserted as bootstrap-vue modal-title slot.
+  Header attribute should be inserted as header slot.
 </modal>
 `;
 
 module.exports.PROCESS_MODAL_HEADER_EXPECTED = `
 <modal><template #header><em>Lorem ipsum dolor sit amet</em></template>
-  Header attribute should be inserted as bootstrap-vue modal-title slot.
+  Header attribute should be inserted as header slot.
 </modal>
 `;
 
