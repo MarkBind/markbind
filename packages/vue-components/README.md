@@ -20,7 +20,8 @@ Some custom components and directives are also added for MarkBind's use.
 - Question.vue
 - QOption.vue
 - Quiz.vue
-- Trigger.vue (built on bootstrap-vue's popovers, modals, tooltips)
+- Modal.vue (built on [Vue Final Modal](https://vue-final-modal.org/))
+- Trigger.vue (built on bootstrap-vue's popovers and tooltips)
 
 ### MarkBind components ported from [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap):
 
@@ -49,7 +50,6 @@ Some custom components and directives are also added for MarkBind's use.
 
 ### BootstrapVue components included in the bundle
 
-- Modals
 - Popover.vue 
 - Tooltip.vue 
 
