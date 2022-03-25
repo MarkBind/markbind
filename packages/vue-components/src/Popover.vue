@@ -16,20 +16,20 @@
     <v-popover
       v-if="isMounted"
       :triggers="triggers"
+      :popper-triggers="triggers"
       :placement="placement"
       :delay="0"
       popper-class="v-popper__popper--skip-transition"
     >
       <!-- floating-vue triggers must be elements that receive mouse events, hence an empty @click -->
-      <!-- https://github.com/Akryum/floating-vue/issues/461 -->
       <span @click.stop>
         <slot></slot>
       </span>
       <template #popper>
         <div class="popover-container">
-          <div v-if="hasHeader" class="popover-header">
+          <h3 v-if="hasHeader" class="popover-header">
             <slot name="header"></slot>
-          </div>
+          </h3>
           <div class="popover-body">
             <slot name="content"></slot>
           </div>
@@ -85,6 +85,10 @@ export default {
         overflow: auto;
         max-height: 50vh;
         max-width: 276px;  /* following bootstrap */
+    }
+
+    .popover-body {
+        font-size: 0.875rem;  /* following bootstrap */
     }
 
     .v-popper {

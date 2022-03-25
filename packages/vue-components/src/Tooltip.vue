@@ -11,7 +11,8 @@
     <v-tooltip
       v-if="isMounted"
       :triggers="triggers"
-      :hideTriggers="_ => triggers"
+      :popper-triggers="triggers"
+      :hide-triggers="_ => triggers"
       :placement="placement"
       :delay="0"
       popper-class="v-popper__popper--skip-transition"
@@ -65,7 +66,7 @@ export default {
     .v-popper--theme-tooltip .v-popper__inner {
         /* following bootstrap */
         padding: 4px 8px;
-        font-size: 14px;
+        font-size: 0.875rem;
         max-width: 200px;
         text-align: center;
     }

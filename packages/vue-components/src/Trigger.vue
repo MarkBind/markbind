@@ -8,6 +8,7 @@
     <v-popover
       v-if="popoverOrTooltipType === 'popover'"
       :triggers="triggers"
+      :popper-triggers="triggers"
       :placement="placement"
       :delay="0"
       popper-class="v-popper__popper--skip-transition"
@@ -26,6 +27,7 @@
       v-else-if="popoverOrTooltipType === 'tooltip'"
       :placement="placement"
       :triggers="triggers"
+      :popper-triggers="triggers"
       :delay="0"
       popper-class="v-popper__popper--skip-transition"
     >
