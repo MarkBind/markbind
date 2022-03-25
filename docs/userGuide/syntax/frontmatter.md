@@ -30,7 +30,7 @@ Should you need more expressive formatting, or encounter any issues when formatt
 
 <include src="../siteJsonFile.md#page-property-overriding" />
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```html
 <frontmatter>
@@ -38,4 +38,4 @@ Should you need more expressive formatting, or encounter any issues when formatt
   pageNav: 2
 </frontmatter>
 ```
-</span>
+</div>

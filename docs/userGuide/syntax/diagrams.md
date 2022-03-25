@@ -15,7 +15,7 @@ must be installed to use this feature**
 
 <div id="main-example">
 <include src="outputBox.md" boilerplate>
-<span id="code">
+<div id="code">
 
 ```
 <puml width="300">
@@ -31,19 +31,19 @@ return success
 @enduml
 </puml>
 ```
-</span>
+</div>
 
-<span id="output">
+<div id="output">
 <pic src="../diagrams/sequence.png" width="300" />
 </div>
 
 </include>
-</span>
+</div>
 
 Alternatively, a PlantUML diagram can be specified in a separate `.puml` file and inserted into a page using a `<puml>` tag.
 
 <include src="outputBox.md" boilerplate>
-<span id="code">
+<div id="code">
 
 `diagrams/sequence.puml`:
 ```
@@ -63,11 +63,11 @@ in another file:
 ```html
 <puml src="diagrams/sequence.puml" width=300 />
 ```
-</span>
+</div>
 
-<span id="output">
+<div id="output">
 <pic src="../diagrams/sequence.png" width="300" />
-</span>
+</div>
 
 </include>
 
@@ -78,7 +78,7 @@ The full PlantUML syntax reference can be found at plantuml.com/guide
 
 <panel header="More examples">
 
-<span id="puml-examples">
+<div id="puml-examples">
 
 **Sequence Diagram**:<br>
 <pic src="../diagrams/sequence.png" />
@@ -113,7 +113,7 @@ The full PlantUML syntax reference can be found at plantuml.com/guide
 **Archimate Diagram**:<br>
 <pic src="../diagrams/archimate.png" />
 
-</span>
+</div>
 </panel>
 <p/>
 
@@ -126,7 +126,7 @@ name | `string` | The name of the output file.
 src | `string` | The URL of the diagram if your diagram is in another `.puml` file.<br>The URL can be specified as absolute or relative references. More info in: _[Intra-Site Links]({{baseUrl}}/userGuide/formattingContents.html#intraSiteLinks)_
 width | `string` | The width of the diagram in pixels.<br>If both width and height are specified, width takes priority over height. It is to maintain the diagram's aspect ratio.
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```
 <puml width=300>
@@ -137,9 +137,9 @@ bob -> bob ++ : self call
 </puml>
 ```
 
-</span>
-<span id="examples" class="d-none">
+</div>
+<div id="examples" class="d-none">
 
 <include src="diagrams.md#puml-examples" />
 
-</span>
+</div>
