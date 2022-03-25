@@ -1,4 +1,3 @@
-// Components and directives from bootstrap-vue
 /* eslint-disable import/no-extraneous-dependencies */
 import { Dropdown, Tooltip } from 'floating-vue';
 import 'floating-vue/dist/style.css';
