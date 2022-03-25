@@ -384,7 +384,7 @@ You may also preview PRs using [Surge](https://surge.sh/), which is an NPM packa
    If you would like to find out more about how it works behind the scene, read on to see the detailed steps that need to be specified in your workflow files to construct it manually.
    </box>
 
-2. Commit and push the following 2 files into your markbind site repo, in the directory `<PROJECT_ROOT>/.github/workflows/`.
+1. Commit and push the following 2 files into your markbind site repo, in the directory `<PROJECT_ROOT>/.github/workflows/`.
 
 <panel header="`receivePR.yml` File" type="seamless">
 
