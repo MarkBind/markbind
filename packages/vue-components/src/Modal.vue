@@ -4,7 +4,7 @@
   <vue-final-modal
     v-if="isMounted"
     v-model="show"
-    :ssr="false"
+    ssr
     :name="id"
     classes="allow-overflow"
     :content-class="['modal-dialog', optionalModalSize, optionalCentering]"
