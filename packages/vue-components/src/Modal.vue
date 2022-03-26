@@ -1,9 +1,10 @@
 <template>
   <!-- NavBar has z-index of 1000, hence the z-index here should exceed that -->
+  <!-- Modals should not be rendered during SSR cycles, hence ssr=false -->
   <vue-final-modal
     v-if="isMounted"
     v-model="show"
-    ssr
+    :ssr="false"
     :name="id"
     classes="allow-overflow"
     :content-class="['modal-dialog', optionalModalSize, optionalCentering]"
