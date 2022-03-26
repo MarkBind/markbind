@@ -1,6 +1,6 @@
 <template>
   <!-- NavBar has z-index of 1000, hence the z-index here should exceed that -->
-  <!-- Modals should not be rendered during SSR cycles, hence ssr=false -->
+  <!-- SSR property is required for the snapshot tests to work -->
   <vue-final-modal
     v-if="isMounted"
     v-model="show"
