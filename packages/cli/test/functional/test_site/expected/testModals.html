@@ -10,7 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="MarkBind 3.1.1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Multiple inclusions of a modal should be supported</title>
+  <title>Test: Modals</title>
   <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
   <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
   <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
@@ -22,7 +22,7 @@
   <script src="markbind/js/polyfill.min.js"></script>
   <script src="markbind/js/vue.min.js"></script>
   <script src="markbind/js/markbind.min.js"></script>
-  <script src="testIncludeMultipleModals.page-vue-render.js"></script>
+  <script src="testModals.page-vue-render.js"></script>
   <script src="markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
@@ -208,21 +208,152 @@
         </div>
       </overlay-source>
       <div id="content-wrapper" class="fixed-header-padding">
-        <p><strong>Multiple inclusions of a modal should be supported</strong></p>
-        <div>
-          <modal large id="modal:bugRepro"><template #header>Establishing Requirements</template>
-            <div>Requirements gathering, requirements elicitation, requirements analysis,
-              requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity
-              of understanding what a software product should do.</div>
-          </modal>
-        </div>
-        <div>
-          <modal large id="modal:bugRepro"><template #header>Establishing Requirements</template>
-            <div>Requirements gathering, requirements elicitation, requirements analysis,
-              requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity
-              of understanding what a software product should do.</div>
-          </modal>
-        </div>
+        <p><strong>Modal with attributes</strong></p>
+        <p>This is a <trigger for="modal:loremipsum" trigger="hover">hover trigger</trigger> for a modal.</p>
+        <modal id="modal:loremipsum"><template #header><strong>Modal header</strong> 🚀</template>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </modal>
+        <br>
+        This is the same <trigger for="modal:loremipsum" trigger="click">click trigger</trigger> as last one.
+        <p>
+          <trigger for="modal:centered">Trigger for a centered modal with no header</trigger>.
+        </p>
+        <modal id="modal:centered" center>
+          <p>Centered modal contents <em>(this modal has no header)</em></p>
+        </modal>
+        <p>
+          <trigger for="modal:ok-text">Trigger for centered modal with a custom OK button</trigger>.
+        </p>
+        <modal id="modal:ok-text" ok-text="Custom OK" center><template #header><span class="large">OK button visible!</span></template>
+          <p>Content of a modal with <span class="large">OK button</span></p>
+        </modal>
+        <p>
+          <trigger for="modal:small">Trigger for a small modal</trigger>.
+        </p>
+        <modal id="modal:small" small><template #header>Small modal title</template>
+          Content of a small modal
+        </modal>
+        <p>
+          <trigger for="modal:large">Trigger for a large modal</trigger>.
+        </p>
+        <modal id="modal:large" large><template #header>Large modal title</template>
+          Content of a large modal
+        </modal>
+        <p>
+          <trigger for="modal:fade">Trigger for a modal with <em>fade</em> effect</trigger>.
+        </p>
+        <modal id="modal:fade" center effect="fade"><template #header><em>Fading modal</em> title</template>
+          Content of a fade modal
+        </modal>
+        <p>
+          <trigger for="modal:backdrop" trigger="click">Click trigger for a backdrop modal</trigger>.
+          <trigger for="modal:backdrop" trigger="hover">Hover trigger for a backdrop modal</trigger>.
+        </p>
+        <modal id="modal:backdrop" backdrop="false"><template #header>backdrop modal title</template>
+          Content of a backdrop modal.
+          It cannot be closed by clicking outside the modal.
+        </modal>
+        <p>
+          <trigger for="modal:longtext">Trigger for modal that should overflow</trigger>.
+        </p>
+        <modal id="modal:longtext" large><template #header><span class="large">this modal has long text</span></template>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+        </modal>
+        <p><strong>Modal with slots</strong></p>
+        <p>
+          <trigger for="modal:with-slots">Trigger for a modal with slots</trigger>.
+        </p>
+        <modal id="modal:with-slots">
+          <template #header><span>Modal header from a slot</span></template>
+          <template #footer>
+            <div>
+              Footer from a slot:
+              <button class="btn btn-primary">Primary btn</button>
+              <button class="btn btn-secondary">secondary btn</button>
+            </div>
+          </template>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </modal>
+        <p><strong>Modal with slots overriding attributes</strong></p>
+        <p>
+          <trigger for="modal:with-slots-and-attribs">Trigger for a modal with slots</trigger>.
+        </p>
+        <modal id="modal:with-slots-and-attribs">
+          <template #header>
+            <div>Modal header from a slot correctly overriding attribute</div>
+          </template>
+          <template #footer>
+            <div>
+              Footer from a slot:
+              <button class="btn btn-primary">Primary btn</button>
+              <button class="btn btn-secondary">secondary btn</button>
+            </div>
+          </template>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </modal>
+        <p><strong>Modal containing headers</strong></p>
+        <p>
+          <trigger for="modal:withpanel">Open modal with panel</trigger>.
+        </p>
+        <modal id="modal:withpanel"><template #header>has a panel</template>
+          <h1 id="heading-inside-modal-should-not-appear-in-pagenav-and-search"><span id="heading-inside-modal-should-not-appear-in-pagenav-and-search" class="anchor"></span>Heading inside modal should not appear in pagenav and search<a class="fa fa-anchor" href="#heading-inside-modal-should-not-appear-in-pagenav-and-search" onclick="event.stopPropagation()"></a></h1>
+          <h2 id="another-heading-inside-modal-should-not-appear-in-pagenav-and-search"><span id="another-heading-inside-modal-should-not-appear-in-pagenav-and-search" class="anchor"></span>Another heading inside modal should not appear in pagenav and search<a class="fa fa-anchor" href="#another-heading-inside-modal-should-not-appear-in-pagenav-and-search" onclick="event.stopPropagation()"></a></h2>
+          <panel expanded panelId="heading-inside-panel-inside-modal-should-not-appear-in-pagenav-and-search"><template #header>
+              <h2 id="heading-inside-panel-inside-modal-should-not-appear-in-pagenav-and-search"><span id="heading-inside-panel-inside-modal-should-not-appear-in-pagenav-and-search" class="anchor"></span>Heading inside panel inside modal should not appear in pagenav and search<a class="fa fa-anchor" href="#heading-inside-panel-inside-modal-should-not-appear-in-pagenav-and-search" onclick="event.stopPropagation()"></a></h2>
+            </template>
+            Panel content
+          </panel>
+        </modal>
         <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>
       <overlay-source id="page-nav" class="fixed-header-padding" tag-name="nav" to="page-nav">

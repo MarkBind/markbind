@@ -316,7 +316,7 @@ class Site {
                                   path.join(this.siteAssetsDestPath, 'js', 'polyfill.min.js')),
         // We use development Vue when MarkBind is served in 'dev' mode so that hydration issues are reported
         vue: this.dev
-          ? 'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js'
+          ? 'https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js'
           : path.relative(path.dirname(resultPath), path.join(this.siteAssetsDestPath, 'js', 'vue.min.js')),
         jQuery: path.relative(path.dirname(resultPath),
                               path.join(this.siteAssetsDestPath, 'js', 'jquery.min.js')),
