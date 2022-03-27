@@ -12,7 +12,7 @@
       v-if="isMounted"
       :triggers="triggers"
       :popper-triggers="triggers"
-      :hide-triggers="_ => triggers"
+      :hide-triggers="triggers"
       :placement="placement"
       :delay="0"
       popper-class="v-popper__popper--skip-transition"
