@@ -86,13 +86,9 @@ export default {
         display: inline-block;
         text-align: center;
         padding: 4px;
-        position: relative;
     }
 
     .image-caption {
         display: block;
-        position: absolute;
-        left: 0;
-        top: 0;
     }
 </style>

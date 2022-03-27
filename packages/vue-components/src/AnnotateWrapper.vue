@@ -2,6 +2,7 @@
   <span :class="['image-wrapper', addClass]">
     <div class="image-container">
       <canvas
+        class="image-canvas"
         ref="annotated-image"
         :src="src"
         :alt="alt"
@@ -105,12 +106,12 @@ export default {
 
         const data = [
           {
-            text: 'test',
+            text: 'A test',
             x: '20',
             y: '20',
           },
           {
-            text: '#test \n oawkdoadwkd',
+            text: '#Test \nThis is a wire',
             x: '50',
             y: '50',
           },
@@ -235,11 +236,16 @@ export default {
 
     .image-container {
         position: relative;
+        width: 100%;
     }
 
     .image-overlay {
         left: 0;
         top: 0;
         position: absolute;
+    }
+
+    .image-canvas{
+        width: 100%;
     }
 </style>

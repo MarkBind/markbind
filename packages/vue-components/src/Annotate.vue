@@ -40,14 +40,4 @@ export default {
 </script>
 
 <style>
-    .image-container {
-        text-align: center;
-        position: relative;
-    }
-
-    .image-overlay {
-        left: 0;
-        top: 0;
-        position: absolute;
-    }
 </style>
