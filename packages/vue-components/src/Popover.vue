@@ -40,9 +40,8 @@
 </template>
 
 <script>
-/* eslint-disable import/no-extraneous-dependencies */
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Portal } from 'portal-vue';
-/* eslint-enable import/no-extraneous-dependencies */
 
 export default {
   name: 'Popover',
