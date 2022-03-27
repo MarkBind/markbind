@@ -1,0 +1,245 @@
+<template>
+  <span :class="['image-wrapper', addClass]">
+    <div class="image-container">
+      <canvas
+        ref="annotated-image"
+        :src="src"
+        :alt="alt"
+        :width="computedWidth"
+        @load.once="computeWidth"
+      >
+      </canvas>
+      <div class="button">
+        <button @click="canvas_arrow(0, 0, 500, 20)">draw line</button>
+      </div>
+      <div class="button">
+        <button @click="canvas_text('#A test text \n abs')">draw text</button>
+      </div>
+    </div>
+    <span class="annotate-data">
+      <slot></slot>
+    </span>
+  </span>
+</template>
+
+<script>
+import { toNumber } from './utils/utils';
+
+export default {
+  props: {
+    src: {
+      type: String,
+      default: null,
+    },
+    alt: {
+      type: String,
+      default: null,
+    },
+    height: {
+      type: String,
+      default: '',
+    },
+    width: {
+      type: String,
+      default: '',
+    },
+    addClass: {
+      type: String,
+      default: '',
+    },
+  },
+  computed: {
+    hasWidth() {
+      return this.width !== '';
+    },
+    hasHeight() {
+      return this.height !== '';
+    },
+    computedWidth() {
+      if (this.hasWidth) {
+        return this.width;
+      }
+      return this.widthFromHeight;
+    },
+    computedLoadType() {
+      return this.eager ? 'eager' : 'lazy';
+    },
+  },
+  data() {
+    return {
+      widthFromHeight: '',
+    };
+  },
+  methods: {
+    computeWidth() {
+      if (!this.hasWidth && this.hasHeight) {
+        const renderedImg = this.$refs.pic;
+        const imgHeight = renderedImg.naturalHeight;
+        const imgWidth = renderedImg.naturalWidth;
+        const aspectRatio = imgWidth / imgHeight;
+        this.widthFromHeight = Math.round(toNumber(this.height) * aspectRatio).toString();
+      }
+    },
+    getData() {
+      const temp = document.querySelector('#annotateData');
+      console.log(temp);
+    },
+    create_canvas() {
+      this.getData();
+      const canvas = this.$refs['annotated-image'];
+      const ctx = canvas.getContext('2d');
+      const image = new Image();
+
+      image.onload = () => {
+        const canvasWidth = canvas.width;
+        const nw = image.naturalWidth;
+        const nh = image.naturalHeight;
+        const aspect = nw / nh;
+        const canvasHeight = canvasWidth / aspect;
+        canvas.height = canvasHeight;
+
+        let fontOffset = 0;
+        let fontHeight = 0;
+        let largestFontWidth = 0;
+        const textData = [];
+
+        const data = [
+          {
+            text: 'test',
+            x: '20',
+            y: '20',
+          },
+          {
+            text: '#test \n oawkdoadwkd',
+            x: '50',
+            y: '50',
+          },
+        ];
+
+        data.forEach((item) => {
+          const parsedText = this.parse_input_text(item.text);
+          textData.push(
+            {
+              textGroup: parsedText.map((txt) => {
+                const temp = this.parse_markdown(txt);
+                ctx.font = temp.font;
+                temp.fontOffset = fontOffset;
+                fontOffset += temp.height;
+                fontHeight += temp.height;
+                const { actualBoundingBoxLeft, actualBoundingBoxRight } = ctx.measureText(txt);
+                const width = Math.abs(actualBoundingBoxLeft) + Math.abs(actualBoundingBoxRight);
+                temp.width = width;
+                largestFontWidth = Math.max(largestFontWidth, width);
+                return temp;
+              }),
+              x: item.x,
+              y: item.y,
+            });
+          fontOffset += 10;
+        });
+
+        textData.forEach((item) => {
+          let tox = 0;
+          let toy = 0;
+
+          // Draw out text
+          item.textGroup.forEach((textItem) => {
+            ctx.font = textItem.font;
+            const x = canvasWidth - largestFontWidth;
+            const y = textItem.fontOffset + textItem.height;
+            ctx.fillText(textItem.txt, x, y);
+            tox = x - 10;
+            toy = textItem.fontOffset + (textItem.height + 5) / 2;
+          });
+
+          // Draw out line
+          const fromx = canvasWidth * (item.x / 100);
+          const fromy = canvasHeight * (item.y / 100);
+
+          const headlen = 8; // length of head in pixels
+          const dx = fromx - tox;
+          const dy = fromy - toy;
+          const angle = Math.atan2(dy, dx);
+
+          // Setting up the canvas
+          // find largerst x and y coordinates
+
+          ctx.beginPath();
+
+          // Draw the arrow
+          ctx.moveTo(tox, toy);
+          ctx.lineTo(fromx, fromy);
+          ctx.lineTo(fromx - headlen * Math.cos(angle - Math.PI / 6),
+                     fromy - headlen * Math.sin(angle - Math.PI / 6));
+          ctx.moveTo(fromx, fromy);
+          ctx.lineTo(fromx - headlen * Math.cos(angle + Math.PI / 6),
+                     fromy - headlen * Math.sin(angle + Math.PI / 6));
+          ctx.stroke();
+        });
+
+        const imageWidth = canvasWidth - largestFontWidth - 10;
+        const imageHeight = imageWidth / aspect;
+
+        ctx.globalCompositeOperation = 'destination-over';
+        ctx.drawImage(image, 0, 0, imageWidth, imageHeight);
+      };
+      image.src = this.src;
+    },
+    parse_markdown(txt) {
+      const lineHeight = 1;
+      const headingSize = 32;
+      const baseSize = 16;
+
+      if (txt.trim().startsWith('#')) {
+        // eslint-disable-next-line no-useless-escape
+        const level = txt.match(/\s*\#/g).length;
+        const size = headingSize - (level * 4);
+        return {
+          font: `bold ${size}px roboto`,
+          height: size * lineHeight,
+          txt,
+        };
+      }
+      return {
+        font: `${baseSize}px roboto`,
+        height: baseSize * lineHeight,
+        txt,
+      };
+    },
+    parse_input_text(text) {
+      const lines = text.split('\n');
+      return lines;
+    },
+  },
+  provide() {
+    return {
+      provider: this.provider,
+    };
+  },
+  mounted() {
+    this.create_canvas();
+  },
+};
+</script>
+
+<style>
+    .image-wrapper {
+        display: inline-block;
+        text-align: center;
+        padding: 4px;
+    }
+
+    .image-caption {
+        display: block;
+    }
+
+    .image-container {
+        position: relative;
+    }
+
+    .image-overlay {
+        left: 0;
+        top: 0;
+        position: absolute;
+    }
+</style>
