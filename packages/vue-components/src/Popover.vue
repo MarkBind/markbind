@@ -5,9 +5,9 @@
     tabindex="0"
   >
     <portal v-if="targetEl.id" :to="'popover:' + targetEl.id">
-      <div v-if="hasHeader" class="popover-header">
+      <h3 v-if="hasHeader" class="popover-header">
         <slot name="header"></slot>
-      </div>
+      </h3>
       <div class="popover-body">
         <slot name="content"></slot>
       </div>
