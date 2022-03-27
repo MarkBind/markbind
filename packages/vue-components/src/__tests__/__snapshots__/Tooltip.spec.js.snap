@@ -26,8 +26,8 @@ exports[`Tooltip should respect the placement attribute 1`] = `
     delay="0"
     hide-triggers="function (_) {
         /* istanbul ignore next */
-        cov_h44be9lc().f[5]++;
-        cov_h44be9lc().s[17]++;
+        cov_1vhu9id1pc().f[5]++;
+        cov_1vhu9id1pc().s[17]++;
         return _vm.triggers;
       }"
     placement="right"
@@ -53,8 +53,8 @@ exports[`Tooltip should show contents correctly when triggered 1`] = `
     delay="0"
     hide-triggers="function (_) {
         /* istanbul ignore next */
-        cov_h44be9lc().f[5]++;
-        cov_h44be9lc().s[17]++;
+        cov_1vhu9id1pc().f[5]++;
+        cov_1vhu9id1pc().s[17]++;
         return _vm.triggers;
       }"
     placement="top"
