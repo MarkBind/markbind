@@ -1,0 +1,64 @@
+name: Bug Report
+description: File a bug report
+labels: ["c.Bug 🐛", "s.ToInvestigate"]
+body:
+- type: checkboxes
+  attributes:
+    label: Is there an existing issue for this?
+    description: Please search to see if an issue already exists for the bug you encountered.
+    options:
+    - label: I have searched the existing issues
+      required: true
+- type: input
+  id: environment
+  attributes:
+    label: Tell us about your environment
+    description: The operating system that the project is running on
+    placeholder: "e.g. Windows 10"
+  validations:
+    required: true
+- type: input
+  id: version
+  attributes:
+    label: MarkBind Version
+    description: Which version of MarkBind?
+    placeholder: "e.g. 3.1.1"
+  validations:
+    required: true
+- type: textarea
+  id: Description
+  attributes:
+    label:  What did you do?
+    description: A clear and concise description of the bug
+  validations:
+    required: true
+- type: textarea
+  id: RepoSteps
+  attributes:
+    label:  Steps to reproduce
+    description: Please include the actual source code causing the issue.
+  validations:
+    required: true
+- type: textarea
+  id: actual
+  attributes:
+    label:  What did you expect to happen?
+    description: A concise description of what you expected to happen.
+  validations:
+    required: false
+- type: textarea
+  id: actual
+  attributes:
+    label:  Actual Behavior
+    description: What actually happened? Please include the actual, raw output. You are encouraged to submit a PR that reproduces this in `packages/cli/test/functional/test_site/bugs/index.md`.
+  validations:
+    required: false
+- type: textarea
+  attributes:
+    label: Anything else?
+    description: |
+      Links? References? Anything that will give us more context about the issue you are encountering!
+
+      Tip: You can attach images or log files by clicking this area to highlight it and then dragging files in.
+  validations:
+    required: false
