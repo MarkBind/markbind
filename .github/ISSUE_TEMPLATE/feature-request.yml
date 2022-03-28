@@ -12,10 +12,10 @@ body:
       required: true
 - type: dropdown
   id: aspect
-  multiple: true
   attributes:
     label: What is the area that this feature belongs to?
     description: Choose all related aspect(s)
+    multiple: true
     options:
       - Author Usability
       - Reader Usability
