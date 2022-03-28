@@ -17,11 +17,11 @@ export default {
     },
     x: {
       type: String,
-      default: '',
+      default: '0',
     },
     y: {
       type: String,
-      default: '',
+      default: '0',
     },
   },
   data() {

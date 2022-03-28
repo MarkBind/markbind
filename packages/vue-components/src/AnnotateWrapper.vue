@@ -77,13 +77,21 @@ export default {
         const renderedImg = this.$refs.pic;
         const imgHeight = renderedImg.naturalHeight;
         const imgWidth = renderedImg.naturalWidth;
-        const aspectRatio = imgWidth / imgHeight;
-        this.widthFromHeight = Math.round(toNumber(this.height) * aspectRatio).toString();
+        const imageAspectRatio = imgWidth / imgHeight;
+        this.widthFromHeight = Math.round(toNumber(this.height) * imageAspectRatio).toString();
       }
     },
     getData() {
-      const temp = document.querySelector('#annotateData');
-      console.log(temp);
+      const data = [];
+      const annotateNodes = document.querySelectorAll('#annotateData');
+      annotateNodes.forEach((node) => {
+        data.push({
+          x: toNumber(node.getAttribute('x')),
+          y: toNumber(node.getAttribute('y')),
+          text: String(node.getAttribute('text')),
+        });
+      });
+      return data;
     },
     create_canvas() {
       this.getData();
@@ -92,30 +100,11 @@ export default {
       const image = new Image();
 
       image.onload = () => {
-        const canvasWidth = canvas.width;
-        const nw = image.naturalWidth;
-        const nh = image.naturalHeight;
-        const aspect = nw / nh;
-        const canvasHeight = canvasWidth / aspect;
-        canvas.height = canvasHeight;
-
         let fontOffset = 0;
-        let fontHeight = 0;
         let largestFontWidth = 0;
         const textData = [];
 
-        const data = [
-          {
-            text: 'A test',
-            x: '20',
-            y: '20',
-          },
-          {
-            text: '#Test \nThis is a wire',
-            x: '50',
-            y: '50',
-          },
-        ];
+        const data = this.getData();
 
         data.forEach((item) => {
           const parsedText = this.parse_input_text(item.text);
@@ -126,7 +115,6 @@ export default {
                 ctx.font = temp.font;
                 temp.fontOffset = fontOffset;
                 fontOffset += temp.height;
-                fontHeight += temp.height;
                 const { actualBoundingBoxLeft, actualBoundingBoxRight } = ctx.measureText(txt);
                 const width = Math.abs(actualBoundingBoxLeft) + Math.abs(actualBoundingBoxRight);
                 temp.width = width;
@@ -138,6 +126,18 @@ export default {
             });
           fontOffset += 10;
         });
+
+        const canvasWidth = canvas.width;
+
+        // Image Height/Width
+        const { naturalWidth, naturalHeight } = image;
+        const imageAspect = naturalWidth / naturalHeight;
+        const imageWidth = canvasWidth - largestFontWidth - 10;
+        const imageHeight = imageWidth / imageAspect;
+
+        // Canvas Height/Width
+        const canvasHeight = Math.max(imageHeight, fontOffset);
+        canvas.height = canvasHeight;
 
         textData.forEach((item) => {
           let tox = 0;
@@ -154,8 +154,8 @@ export default {
           });
 
           // Draw out line
-          const fromx = canvasWidth * (item.x / 100);
-          const fromy = canvasHeight * (item.y / 100);
+          const fromx = imageWidth * (item.x / 100);
+          const fromy = imageHeight * (item.y / 100);
 
           const headlen = 8; // length of head in pixels
           const dx = fromx - tox;
@@ -177,9 +177,6 @@ export default {
                      fromy - headlen * Math.sin(angle + Math.PI / 6));
           ctx.stroke();
         });
-
-        const imageWidth = canvasWidth - largestFontWidth - 10;
-        const imageHeight = imageWidth / aspect;
 
         ctx.globalCompositeOperation = 'destination-over';
         ctx.drawImage(image, 0, 0, imageWidth, imageHeight);
