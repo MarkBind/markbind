@@ -39,6 +39,9 @@
       </template>
     </v-tooltip>
 
+    <span v-else>
+      <slot></slot>
+    </span>
   </span>
 </template>
 
