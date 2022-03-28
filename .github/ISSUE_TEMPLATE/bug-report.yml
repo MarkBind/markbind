@@ -15,7 +15,6 @@ body:
   attributes:
     label: Any related issues?
     description: Are there existing issues that relate to this new issue? (Either covering other aspects/angles of the problem or providing context)
-    placeholder: e.g. #1, #2
   validations:
     required: false
 - type: input
