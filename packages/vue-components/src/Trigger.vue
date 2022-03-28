@@ -12,6 +12,7 @@
       :placement="placement"
       :delay="0"
       popper-class="v-popper__popper--skip-transition"
+      shift-cross-axis
     >
       <span @click.stop>
         <slot></slot>
@@ -30,6 +31,7 @@
       :popper-triggers="triggers"
       :delay="0"
       popper-class="v-popper__popper--skip-transition"
+      shift-cross-axis
     >
       <span @click.stop>
         <slot></slot>

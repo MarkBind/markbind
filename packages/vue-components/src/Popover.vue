@@ -20,6 +20,7 @@
       :placement="placement"
       :delay="0"
       popper-class="v-popper__popper--skip-transition"
+      shift-cross-axis
     >
       <!-- floating-vue triggers must be elements that receive mouse events, hence an empty @click -->
       <span @click.stop>
