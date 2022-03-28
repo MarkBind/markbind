@@ -1,6 +1,5 @@
 name: Feature request
 description:  Suggest a new idea/feature for MarkBind
-title: '[Feature] '
 labels: ["c.Feature 🚀", "s.UnderDiscussion"]
 body:
 - type: checkboxes
