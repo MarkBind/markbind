@@ -13,14 +13,14 @@ body:
   id: environment
   attributes:
     label: Tell us about your environment
-    description: The operating system that the project is running on
+    description: The operating system that the project is running on etc
     placeholder: "e.g. Windows 10"
   validations:
     required: true
 - type: input
   id: version
   attributes:
-    label: MarkBind Version
+    label: MarkBind version
     description: Which version of MarkBind?
     placeholder: "e.g. 3.1.1"
   validations:
@@ -42,14 +42,14 @@ body:
 - type: textarea
   id: expected
   attributes:
-    label:  What did you expect to happen?
+    label:  Expected behavior
     description: A concise description of what you expected to happen.
   validations:
     required: false
 - type: textarea
   id: actual
   attributes:
-    label:  Actual Behavior
+    label:  Actual behavior
     description: What actually happened? Please include the actual, raw output. You are encouraged to submit a PR that reproduces this in `packages/cli/test/functional/test_site/bugs/index.md`.
   validations:
     required: false
