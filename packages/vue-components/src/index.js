@@ -1,10 +1,8 @@
 // Components and directives from bootstrap-vue
 /* eslint-disable import/no-extraneous-dependencies */
 import {
-  BModal,
   BPopover,
   BTooltip,
-  VBModal,
 } from 'bootstrap-vue';
 /* eslint-enable import/no-extraneous-dependencies */
 
@@ -35,6 +33,7 @@ import overlay from './Overlay.vue';
 import overlaySource from './OverlaySource.vue';
 import popover from './Popover.vue';
 import tooltip from './Tooltip.vue';
+import modal from './Modal.vue';
 
 const components = {
   box: tipBox,
@@ -63,14 +62,13 @@ const components = {
   overlaySource,
   popover,
   tooltip,
-  BModal,
+  modal,
   BPopover,
   BTooltip,
 };
 
 const directives = {
   closeable,
-  'b-modal': VBModal,
 };
 
 function install(Vue) {

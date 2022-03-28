@@ -8,18 +8,18 @@ Here are three ways of embedding YouTube videos and one example of how it will l
 
 <!-- We use outputBox.md instead of codeAndOuput.md as boilerplate, because there are 3 ways to code vs 1 example -->
 <include src="outputBox.md" boilerplate >
-<span id="code">
+<div id="code">
 
 ```markdown
 @[youtube](v40b3ExbM0c)
 @[youtube](http://www.youtube.com/watch?v=v40b3ExbM0c)
 @[youtube](http://youtu.be/v40b3ExbM0c)
 ```
-</span>
-<span id="output">
+</div>
+<div id="output">
 
 @[youtube](v40b3ExbM0c)
-</span>
+</div>
 </include>
 
 More media blocks, embedding services and additional options can be found in [Markdown-it documentation](https://github.com/rotorz/markdown-it-block-embed).
@@ -35,7 +35,7 @@ Here is an example of embedding a PowerPoint slide deck:
 </variable>
 </include>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```markdown
 @[youtube](v40b3ExbM0c)
@@ -44,9 +44,9 @@ Here is an example of embedding a PowerPoint slide deck:
 
 @[powerpoint](https://onedrive.live.com/embed?cid=A5AF047C4CAD67AB&resid=A5AF047C4CAD67AB%212070&authkey=&em=2)
 ```
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 Embedded YouTube video:
 
@@ -56,4 +56,4 @@ Embedded slide deck:
 
 @[powerpoint](https://onedrive.live.com/embed?cid=A5AF047C4CAD67AB&resid=A5AF047C4CAD67AB%212070&authkey=&em=2)
 
-</span>
+</div>

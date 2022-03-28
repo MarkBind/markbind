@@ -38,6 +38,7 @@
   * [Syntax Cheat Sheet]({{baseUrl}}/userGuide/syntaxCheatSheet.html)
   * [`site.json` File]({{baseUrl}}/userGuide/siteJsonFile.html)
   * [Tips & Tricks]({{baseUrl}}/userGuide/tipsAndTricks.html)
+  * [Troubleshooting]({{baseUrl}}/userGuide/troubleshooting.html)
   * [Glossary]({{baseUrl}}/userGuide/glossary.html)
       </site-nav>
     </div>

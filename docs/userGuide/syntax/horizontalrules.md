@@ -91,16 +91,16 @@ Add a comibnation of the above classes to further customize the style of a horiz
 </variable>
 </include>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```markdown
 *****
 -----
 ______________
 ```
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 ----
-</span>
+</div>

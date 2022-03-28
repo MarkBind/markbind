@@ -12,17 +12,17 @@
 </box>
 
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```markdown
 ![alt text here](https://markbind.org/images/logo-lightbackground.png "title here")
 ```
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 ![alt text here](https://markbind.org/images/logo-lightbackground.png "title here")
-</span>
+</div>
 
 MarkBind also supports the `=Wx` shorthand for specifying image width:
 

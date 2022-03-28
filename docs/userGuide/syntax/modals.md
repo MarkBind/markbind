@@ -51,7 +51,7 @@ large | `Boolean` | `false` | Creates a [large Modal](https://getbootstrap.com/d
 center | `Boolean` | `false` | Vertically centers the modal (in addition to the horizontal centering by default).
 backdrop | `Boolean` | `true` | Enables closing the Modal by clicking on the backdrop.
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```html
 Click <trigger trigger="click" for="modal:unused">here</trigger> to open a modal.
@@ -59,12 +59,12 @@ Click <trigger trigger="click" for="modal:unused">here</trigger> to open a modal
     Modal content
 </modal>
 ```
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 Hover <trigger large for="modal:unused">here</trigger> to open a modal.
 <modal header="Modal header" ok-text="OK" id="modal:unused">
   Modal content
 </modal>
-</span>
+</div>
