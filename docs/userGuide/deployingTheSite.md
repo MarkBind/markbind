@@ -131,13 +131,12 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Build & Deploy to GitHub Pages
-        uses: tlylt/markbind-deploy@main
+      - name: Build & Deploy MarkBind site
+        uses: MarkBind/markbind-action@v2
         with:
           token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
-          baseUrl: '/repoName'
 ```
-Read the [action documentation](https://github.com/tlylt/markbind-deploy/blob/main/README.md) to understand the various configuration options.
+Read the [action documentation](https://github.com/MarkBind/markbind-action#readme) to understand the various configuration options.
 </box>
 
 For more information on customizing your workflow file to fit your specific needs, you may refer to the [Github Action Docs](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions).
