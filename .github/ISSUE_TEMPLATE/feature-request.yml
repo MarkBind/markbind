@@ -1,6 +1,6 @@
 name: Feature request
 description:  Suggest a new idea/feature for MarkBind
-labels: ["c.Feature 🚀", "s.UnderDiscussion"]
+labels: ["c.Feature 🚀"]
 body:
 - type: checkboxes
   attributes:
@@ -9,6 +9,15 @@ body:
     options:
     - label: I have searched the existing issues
       required: true
+- type: input
+  id: related
+  attributes:
+    label: Any related issues?
+    description: |
+      Are there existing issues that relate to this new issue? (Either covering other aspects/angles of the feature or providing context)
+      e.g. #1, #2
+  validations:
+    required: false
 - type: dropdown
   id: aspect
   attributes:
@@ -28,13 +37,6 @@ body:
       - Syntax
       - Testing
       - Other
-  validations:
-    required: false
-- type: input
-  id: related
-  attributes:
-    label: Any related issues?
-    description: Are there existing issues that relate to this new issue? (Either covering other aspects/angles of the feature or providing context)
   validations:
     required: false
 - type: textarea
