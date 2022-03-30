@@ -44,7 +44,7 @@ These transformations may take place at various stages of node processing: befor
 Many MarkBind components are implemented as Vue components, either by creating a component in the `vue-components` package, or by importing a component from an external library.
 This can be useful when a more complicated set of features is needed, where a Vue component can provide an interface for us to manage these functionalities.
 
-Vue components are registered in `vue-components/src/index.js`, which allows them to be used in any Vue instance without needing to be imported first.
+Vue components are registered in `vue-components/src/index.js`, which allows them to be used in the template section of any Vue instance without needing to be imported first.
 
 <panel header="How do MarkBind attributes/slots get passed to the Vue component?">
 
@@ -67,7 +67,7 @@ Hence, MarkBind slots can be accessed in a Vue component either through the [nam
 ### As a Plugin
 
 MarkBind components can be implemented as a plugin as well. 
-This is suitable for more lightweight components where the implementation is largely in processing the node, making it suitable to use MarkBind Plugins' `processNode` or `postRender` interfaces.
+This is suitable for more lightweight components where the implementation is largely in processing the node, where it is fitting to use MarkBind Plugins' `processNode` or `postRender` interfaces.
 
 {{ icon_examples }} 
 * The `tree` component is implemented as a default plugin
