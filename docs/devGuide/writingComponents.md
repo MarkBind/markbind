@@ -14,14 +14,30 @@
 This page explains various concerns related to MarkBind components, focused on implementation and testing.
 </div>
 
+MarkBind provides a number of components (e.g. expandable panels, tooltips) dynamically express content. 
+In order to serve content on the browser, MarkBind syntax is converted to valid HTML.
+
+<panel header="How are components in MarkBind syntax parsed and converted to HTML?" minimized>
+
+The main logic of the node processing flow can be found in `NodeProcessor`.
+
+A MarkBind source file is first parsed into a series of 
+<popover header=":bulb: What is a _**node**_?" content="A HTML file can be represented as a tree structure called the [DOM](https://www.w3schools.com/js/js_htmldom.asp), comprising HTML elements (or _nodes_).">nodes</popover>.
+In general, each component will be parsed as a node, which may contain other childnodes (components or otherwise).
+
+Each node is then processed to implement MarkBind functionalities, such as checking for invalid intrasite links and rendering markdown.
+Components may undergo further processing (in `processNode`) and/or post-processing (in `postProcessNode`) to further transform the node to the desired HTML.
+MarkBind identifies each component by the node's _name_ (e.g. `panel`, `question`). 
+
+`cheerio` is then used to convert all nodes back into HTML, and this HTML is served to the browser as a MarkBind page.
+</panel>
+
+<br>
+<br>
+
 ## Implementing Components
 
 There are multiple ways to implement MarkBind components.
-
-<box type='warning' light>
-
-If an author has a conflicting slot and attribute, MarkBind should **log a warning** to let them know!
-</box>
 
 ### Transforming the Node Directly
 
@@ -96,7 +112,7 @@ It is important to consider reactivity when implementing a component that may ha
 
 Components should be compatible with SSR. 
 Minimally, there should be no SSR issues (viewable from the browser console), though a lack of warnings does **not** mean that there are no SSR problems. 
-A guide on SSR for MarkBind can be found [here]({{baseUrl}}/devGuide/serverSideRendering.html). 
+A guide on SSR for MarkBind can be found [here]({{baseUrl}}/devGuide/design/serverSideRendering.html). 
 
 Vue-component-specific tips for resolving SSR issues:
 * The `mount` and `beforeMount` lifecycle hooks will only be executed on the client, not the server
@@ -111,5 +127,22 @@ Ideally, this should not increase MarkBind's bundle size too much.
 
 #### Dependencies
 
-When choosing to use an external library, it should ideally be well-maintained and not have too many dependencies, especially high-level dependencies. High-level dependencies may lag behind the most recent releases of other libraries, which may become a blocker for MarkBind to migrate to these recent releases as well.
+When choosing to use a third-party library or package, it should ideally be well-maintained and not have too many dependencies, especially high-level dependencies. 
+While dependencies may be inevitable, a package that depends on <tooltip content="e.g. frameworks like Vue, Bootstrap">higher-level libraries</tooltip> may lag behind the most recent releases of these libraries, which may become a blocker for MarkBind to migrate to these recent releases as well.
+
+<box type="tip" light>
+
+You are welcome to raise any concerns during the initial discussion phase for other devs to weigh in on the tradeoffs!
+</box>
+
+#### Attributes and Slots
+
+MarkBind components may support <popover header="`header` is an **attribute** here:" content="`<panel header='Hello'></panel>`">attributes</popover>, <popover header="`header` is a **slot** here:" content="`<div slot='header'>Hello</div>`">slots</popover> or both. 
+Some components allow users to supply the same content as either a slot or an attribute.
+If an author provides the same content as both a slot and an attribute, in most cases, the slot should override the attribute. 
+
+<box type='warning' light>
+
+MarkBind should also **log a warning** to inform the author of this conflict!
+</box>
 
