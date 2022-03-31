@@ -14,12 +14,12 @@
 This page explains how MarkBind components work, focused on implementation and testing.
 </div>
 
-MarkBind provides a number of components (e.g. expandable panels, tooltips) dynamically express content. 
+MarkBind provides a number of components (e.g. expandable panels, tooltips) to dynamically express content. 
 In order to serve content on the browser, MarkBind syntax is converted to valid HTML.
 
 <panel header="How are components in MarkBind syntax parsed and converted to HTML?">
 
-The main logic of the node processing flow can be found in `NodeProcessor`.
+The main logic of the node processing flow can be found in [`packages/core/src/html/NodeProcessor.js`](https://github.com/MarkBind/markbind/blob/master/packages/core/src/html/NodeProcessor.js).
 
 A MarkBind source file is first parsed into a series of 
 <popover header=":bulb: What is a _**node**_?" content="A HTML file can be represented as a tree structure called the [DOM](https://www.w3schools.com/js/js_htmldom.asp), comprising HTML elements (or _nodes_).">nodes</popover>.
@@ -64,11 +64,11 @@ Vue components are registered in `vue-components/src/index.js`, which allows the
 
 <panel header="How do MarkBind attributes/slots get passed to the Vue component?">
 
-##### Attributes
+##### <trigger for="pop:markbind-attributes">Attributes</trigger>
 
 MarkBind attributes are passed to the Vue component as **props**. The type of the prop will be a `String`.
 
-##### Slots
+##### <trigger for="pop:markbind-slots">Slots</trigger>
 
 MarkBind slots are passed as **named slots** to the Vue component. The name of the MarkBind slot will be the same as the name of the Vue slot.
 Hence, MarkBind slots can be accessed in a Vue component either through the [named slots](https://v2.vuejs.org/v2/guide/components-slots.html#Named-Slots) or through the [`$slots` API](https://v2.vuejs.org/v2/api/#vm-slots).
@@ -77,16 +77,19 @@ Hence, MarkBind slots can be accessed in a Vue component either through the [nam
 <br>
 
 {{ icon_examples }} 
-* As a wrapper for an external library (Modal component)
-* To implement a set of customised behaviours (Quiz component)
+* As a wrapper for an external library ([Modal component](https://github.com/MarkBind/markbind/blob/master/packages/vue-components/src/Modal.vue))
+* To implement a set of customised behaviours ([Quiz component](https://github.com/MarkBind/markbind/blob/master/packages/vue-components/src/questions/Quiz.vue))
 
 ### As a Plugin
 
 MarkBind components can be implemented as a plugin as well. 
-This is suitable for more lightweight components where the implementation is largely in processing the node, where it is fitting to use MarkBind Plugins' `processNode` or `postRender` interfaces.
+This is suitable for more lightweight components where the implementation is largely in processing the node, where it is fitting to use MarkBind plugins' `processNode` or `postRender` interfaces. 
+These interfaces provide additional entry points for modifying the page generated, and do not replace MarkBind's usual node processing.
+
+The [Writing Plugins]({{baseUrl}}/devGuide/writingPlugins.html) guide is a good place to get started on plugins.
 
 {{ icon_examples }} 
-* The `tree` component is implemented as a default plugin
+* The [`tree` component](https://github.com/MarkBind/markbind/blob/master/packages/core/src/plugins/default/markbind-plugin-tree.js) is implemented as a default plugin
 
 ## Testing Components
 
@@ -110,7 +113,7 @@ It is important to consider reactivity when implementing a component that may ha
 
 #### SSR
 
-Components should be compatible with SSR. 
+Components should be compatible with SSR (Server-Side Rendering). 
 Minimally, there should be no SSR issues (viewable from the browser console), though a lack of warnings does **not** mean that there are no SSR problems. 
 A guide on SSR for MarkBind can be found [here]({{baseUrl}}/devGuide/design/serverSideRendering.html). 
 
@@ -124,24 +127,27 @@ Vue-component-specific tips for resolving SSR issues:
 
 When creating a new component, you may need to import a package or library to support some functionality. 
 Ideally, this should not increase MarkBind's bundle size too much.
+[Bundlephobia](https://bundlephobia.com/) may be useful to quickly look up the size of a package!
 
 #### Dependencies
 
-When choosing to use a third-party library or package, it should ideally be well-maintained and not have too many dependencies, especially high-level dependencies. 
-While dependencies may be inevitable, a package that depends on <tooltip content="e.g. frameworks like Vue, Bootstrap">higher-level libraries</tooltip> may lag behind the most recent releases of these libraries, which may become a blocker for MarkBind to migrate to these recent releases as well.
+When choosing to use a third-party library or package, it should ideally be well-maintained and not have too many dependencies.
+While dependencies may be inevitable, a package with dependencies on large libraries may lag behind the most recent releases of these libraries, which may become a blocker for MarkBind to migrate to these recent releases as well.
 
-<box type="tip" light>
+For instance, if `bootstrap-vue` depends on Bootstrap and Vue, MarkBind will need to wait for `bootstrap-vue` to migrate to the newest versions of both Bootstrap and Vue before MarkBind can migrate to these versions of Bootstrap and Vue as well.
 
-You are welcome to raise any concerns during the initial discussion phase for other devs to weigh in on the tradeoffs!
+<box type="tip" seamless>
+
+Feel free to raise any concerns during the initial discussion phase for other devs to weigh in on the tradeoffs!
 </box>
 
 #### Attributes and Slots
 
-MarkBind components may support <popover header="`header` is an **attribute** here:" content="`<panel header='Hello'></panel>`">attributes</popover>, <popover header="`header` is a **slot** here:" content="`<div slot='header'>Hello</div>`">slots</popover> or both. 
+MarkBind components may support <popover id="pop:markbind-attributes" header="`header` is an **attribute** here:" content="`<panel header='Hello'></panel>`">attributes</popover>, <popover id="pop:markbind-slots" header="`header` is a **slot** here:" content="`<div slot='header'>Hello</div>`">slots</popover> or both. 
 Some components allow users to supply the same content as either a slot or an attribute.
 If an author provides the same content as both a slot and an attribute, in most cases, the slot should override the attribute. 
 
-<box type='warning' light>
+<box type='warning' seamless>
 
 MarkBind should also **log a warning** to inform the author of this conflict!
 </box>
