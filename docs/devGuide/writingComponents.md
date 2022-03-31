@@ -11,13 +11,13 @@
 
 <div class="lead">
 
-This page explains various concerns related to MarkBind components, focused on implementation and testing.
+This page explains how MarkBind components work, focused on implementation and testing.
 </div>
 
 MarkBind provides a number of components (e.g. expandable panels, tooltips) dynamically express content. 
 In order to serve content on the browser, MarkBind syntax is converted to valid HTML.
 
-<panel header="How are components in MarkBind syntax parsed and converted to HTML?" minimized>
+<panel header="How are components in MarkBind syntax parsed and converted to HTML?">
 
 The main logic of the node processing flow can be found in `NodeProcessor`.
 
