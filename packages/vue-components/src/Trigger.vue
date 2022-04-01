@@ -5,34 +5,51 @@
     @[triggerEventType].stop="toggle()"
   >
 
-    <b-popover
+    <v-popover
       v-if="popoverOrTooltipType === 'popover'"
-      :target="$el"
-      :triggers="trigger === 'click' ? 'click blur' : trigger"
+      :triggers="triggers"
+      :popper-triggers="triggers"
       :placement="placement"
+      :delay="0"
+      popper-class="v-popper__popper--skip-transition"
+      shift-cross-axis
     >
-      <template v-if="hasHeader" #title>
-        <portal-target :name="'header:' + target" />
+      <span @click.stop>
+        <slot></slot>
+      </span>
+      <template #popper>
+        <div class="popover-container">
+          <portal-target :name="'popover:' + target" />
+        </div>
       </template>
-      <portal-target :name="'content:' + target" />
-    </b-popover>
+    </v-popover>
 
-    <b-tooltip
+    <v-tooltip
       v-else-if="popoverOrTooltipType === 'tooltip'"
-      :target="$el"
       :placement="placement"
-      :triggers="trigger"
+      :triggers="triggers"
+      :popper-triggers="triggers"
+      :delay="0"
+      popper-class="v-popper__popper--skip-transition"
+      shift-cross-axis
     >
-      <portal-target :name="target" />
-    </b-tooltip>
+      <span @click.stop>
+        <slot></slot>
+      </span>
+      <template #popper>
+        <portal-target :name="'tooltip:' + target" />
+      </template>
+    </v-tooltip>
 
-    <slot></slot>
+    <span v-else>
+      <slot></slot>
+    </span>
   </span>
 </template>
 
 <script>
 /* eslint-disable import/no-extraneous-dependencies */
-import { PortalTarget, Wormhole } from 'portal-vue';
+import { PortalTarget } from 'portal-vue';
 import { $vfm } from 'vue-final-modal';
 /* eslint-enable import/no-extraneous-dependencies */
 
@@ -52,7 +69,7 @@ export default {
     },
     placement: {
       type: String,
-      default: 'auto',
+      default: 'top',
     },
   },
   data() {
@@ -77,11 +94,11 @@ export default {
       }
       return 'mouseenter';
     },
+    triggers() {
+      return this.trigger.split(' ');
+    },
     target() {
       return this.for;
-    },
-    hasHeader() {
-      return Wormhole.hasContentFor(`header:${this.target}`);
     },
   },
   mounted() {
