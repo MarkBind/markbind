@@ -23,7 +23,7 @@ The main logic of the node processing flow can be found in [`packages/core/src/h
 
 A MarkBind source file is first parsed into a series of 
 <popover header=":bulb: What is a _**node**_?" content="A HTML file can be represented as a tree structure called the [DOM](https://www.w3schools.com/js/js_htmldom.asp), comprising HTML elements (or _nodes_).">nodes</popover>.
-In general, each component will be parsed as a node, which may contain other childnodes (components or otherwise).
+In general, each component will be parsed as a node, which may contain other child nodes (components or otherwise).
 
 Each node is then processed to implement MarkBind functionalities, such as checking for invalid intrasite links and rendering markdown.
 Components may undergo further processing (in `processNode`) and/or post-processing (in `postProcessNode`) to further transform the node to the desired HTML.
@@ -83,10 +83,10 @@ Hence, MarkBind slots can be accessed in a Vue component either through the [nam
 ### As a Plugin
 
 MarkBind components can be implemented as a plugin as well. 
-This is suitable for more lightweight components where the implementation is largely in processing the node, where it is fitting to use MarkBind plugins' `processNode` or `postRender` interfaces. 
+This is suitable for more lightweight components where the implementation is largely in processing the node, making it fitting to use MarkBind plugins' `processNode` or `postRender` interfaces. 
 These interfaces provide additional entry points for modifying the page generated, and do not replace MarkBind's usual node processing.
 
-The [Writing Plugins]({{baseUrl}}/devGuide/writingPlugins.html) guide is a good place to get started on plugins.
+The [Writing Plugins]({{baseUrl}}/devGuide/writingPlugins.html) page is a good guide to get started on plugins.
 
 {{ icon_examples }} 
 * The [`tree` component](https://github.com/MarkBind/markbind/blob/master/packages/core/src/plugins/default/markbind-plugin-tree.js) is implemented as a default plugin
@@ -117,10 +117,10 @@ Components should be compatible with SSR (Server-Side Rendering).
 Minimally, there should be no SSR issues (viewable from the browser console), though a lack of warnings does **not** mean that there are no SSR problems. 
 A guide on SSR for MarkBind can be found [here]({{baseUrl}}/devGuide/design/serverSideRendering.html). 
 
-Vue-component-specific tips for resolving SSR issues:
+Vue-specific tips for resolving SSR issues:
 * The `mount` and `beforeMount` lifecycle hooks will only be executed on the client, not the server
 * When using `v-if`, ensure that it will evaluate to the same value on both the client and server 
-* Take note of how the Vue component will be compiled, ensure that the HTML is correct and aligns on both client- and server- side
+* Take note of how the Vue component will be compiled, ensuring that the HTML is correct and aligns on both client- and server- side
 * Conditionally render data when it has been fully loaded
 
 #### Bundle size
@@ -134,7 +134,7 @@ Ideally, this should not increase MarkBind's bundle size too much.
 When choosing to use a third-party library or package, it should ideally be well-maintained and not have too many dependencies.
 While dependencies may be inevitable, a package with dependencies on large libraries may lag behind the most recent releases of these libraries, which may become a blocker for MarkBind to migrate to these recent releases as well.
 
-For instance, if `bootstrap-vue` depends on Bootstrap and Vue, MarkBind will need to wait for `bootstrap-vue` to migrate to the newest versions of both Bootstrap and Vue before MarkBind can migrate to these versions of Bootstrap and Vue as well.
+For instance, if `bootstrap-vue` depends on Bootstrap and Vue, we will need to wait for `bootstrap-vue` to migrate to the newest versions of both Bootstrap and Vue before MarkBind can migrate to these versions of Bootstrap and Vue as well.
 
 <box type="tip" seamless>
 
