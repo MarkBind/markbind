@@ -3,7 +3,7 @@
 {% macro njcode(raw) %}<code>{<a/>{ {{ raw }} }}</code>{% endmacro %}
 {% macro njblock(raw) %}<code>{<a/>% {{ raw }} %}</code>{% endmacro %}
 
-**Markbind supports date formatting and simple calculations** as a Nunjucks [filter](https://mozilla.github.io/nunjucks/templating.html#filters).
+**MarkBind supports date formatting and simple calculations** as a Nunjucks [filter](https://mozilla.github.io/nunjucks/templating.html#filters).
 
 **Syntax:** {{ njcode('baseDate | date(format, daysToAdd)') }}
 

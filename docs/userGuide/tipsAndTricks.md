@@ -77,7 +77,7 @@ When you use links or triggers, you may encounter a situation where an unwanted 
 
 ---
 
-<span id="useSpecificMarkbind">
+<span id="useSpecificMarkBind">
 
 ##### :fas-info: Configuring Online Deployment platforms to use specific MarkBind version
 

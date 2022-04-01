@@ -160,7 +160,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
 1. **Release on GitHub**.
 
-   a. Go to the Markbind release page at https://github.com/MarkBind/markbind/releases.
+   a. Go to the MarkBind release page at https://github.com/MarkBind/markbind/releases.
 
    b. Click "Draft a new release".
 
@@ -298,13 +298,16 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 This project follows the [all-contributors](https://allcontributors.org/) specification.
 
 ### View all contributors
-Besides the contributors list provided by Github, the list of all Markbind contributors is available in `README.md`.
+
+Besides the contributors list provided by Github, the list of all MarkBind contributors is available in `README.md`.
 The table shown in `README.md` is based on the entries from `.all-contributorsrc`.
 
 ### Add new contributors
+
 To simplify the process, use the all-contributors bot that has been installed in the repository to trigger a PR that will add a new contributor.
 
 Example workflow:
+
 1. A new contributor 'tlylt'(Github username) has opened a PR to committed code changes to the repository.
 1. A senior dev reviews and approves the PR.
 1. The senior dev comments in that PR with the line "@all-contributors please add tlylt for code" to trigger an automatic PR that will apply relevant changes
@@ -313,6 +316,7 @@ to include 'tlylt' in `.all-contributorsrc` and `README.md`.
 1. The senior dev deletes the automatic PR.
 
 Note that:
+
 - All contribution types specified [here](https://allcontributors.org/docs/en/emoji-key) can be used. 
   - E.g. code, doc, mentoring, question, test, bug
 - Multiple contribution types can be included at once or updated later on.
@@ -321,6 +325,3 @@ Note that:
   - E.g "@all-contributors please add tlylt for code"
   - Some time later: "@all-contributors please add tlylt for doc"
   - Result: 'tlylt' will be updated to have both icons(code and doc)
-
-
-
