@@ -19,7 +19,7 @@ A GitHub Action that builds and deploys your MarkBind site. The source code is a
 1. Fork the action repository and create a PR branch
 2. Learn the workflow syntax in the repository's readme
 3. Make necessary changes to the workflow files & update the readme
-4. Set up a test repository that contains a markbind site
+4. Set up a test repository that contains a MarkBind site
    1. Create a repository
    2. Set up MarkBind and run `markbind init` to populate with default content
    3. Push your repository to GitHub
