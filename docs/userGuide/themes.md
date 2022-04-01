@@ -13,11 +13,11 @@
 
 # {{ title }}
 
-<span class="lead" id="overview">
+<div class="lead" id="overview">
 
 **MarkBind supports the ability to style your website with a variety of bootstrap themes.**
 
-</span>
+</div>
 
 #### Specifying a Theme
 

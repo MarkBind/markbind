@@ -24,18 +24,18 @@ src | `string` | | **This must be specified.**<br>The URL of the image.<br>The U
 width | `string` | | The width of the image in pixels.<br>If both width and height are specified, width takes priority over height. It is to maintain the image's aspect ratio.
 eager | `boolean` | false | The `<pic>` component lazy loads its images by default.<br>If you want to eagerly load the images, simply specify this attribute.
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```html
 <pic src="https://markbind.org/images/logo-lightbackground.png" width="300" alt="Logo">
   MarkBind Logo
 </pic>
 ```
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 <pic src="https://markbind.org/images/logo-lightbackground.png" width="300" alt="Logo">
   MarkBind Logo
 </pic>
-</span>
+</div>

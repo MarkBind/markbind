@@ -5,7 +5,7 @@
 MarkBind can present formatted code blocks, be it fenced or inline, with either **light** or **dark** themes. The default is dark <trigger for="modal:code-dark-example" trigger="click">_(click for an example)_</trigger>.
 
 <modal header="Dark Code Theme" id="modal:code-dark-example" large>
-    <img src="/images/codeDarkTheme.png" width="750" alt="Theme example">
+<img src="/images/codeDarkTheme.png" width="750" alt="Theme example">
 </modal>
 
 Refer [here](../siteJsonFile.html#style) for configuring MarkBind to use a specific theme for the code blocks.
@@ -227,7 +227,7 @@ or the java code `public static void main(String[] args)`{.java}.
 </variable>
 </include>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ````
 ```xml
@@ -241,8 +241,9 @@ or the java code `public static void main(String[] args)`{.java}.
 `<bar type="name">goo</bar>`{.xml}
 ```
 
-</span>
-<span id="examples" class="d-none">
+</div>
+
+<div id="examples" class="d-none">
 
 ```xml
 <foo>
@@ -252,4 +253,4 @@ or the java code `public static void main(String[] args)`{.java}.
 
 Syntax coloring for inline code: `<bar type="name">goo</bar>`{.xml} too!
 
-</span>
+</div>

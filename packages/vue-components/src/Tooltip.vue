@@ -4,38 +4,41 @@
     data-mb-component-type="tooltip"
     tabindex="0"
   >
-    <portal v-if="targetEl.id" :to="targetEl.id">
+    <portal v-if="targetEl.id" :to="'tooltip:' + targetEl.id">
       <slot name="content"></slot>
     </portal>
 
-    <b-tooltip
+    <v-tooltip
       v-if="isMounted"
-      :target="targetEl"
-      :triggers="trigger"
+      :triggers="triggers"
+      :popper-triggers="triggers"
+      :hide-triggers="triggers"
       :placement="placement"
+      :delay="0"
+      popper-class="v-popper__popper--skip-transition"
+      shift-cross-axis
     >
-      <slot name="content"></slot>
-    </b-tooltip>
-    <slot></slot>
+      <template #popper>
+        <slot name="content"></slot>
+      </template>
+      <slot></slot>
+    </v-tooltip>
   </span>
 </template>
 
 <script>
-/* eslint-disable import/no-extraneous-dependencies */
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Portal } from 'portal-vue';
-import { BTooltip } from 'bootstrap-vue';
-/* eslint-enable import/no-extraneous-dependencies */
 
 export default {
   name: 'Tooltip',
   components: {
     Portal,
-    BTooltip,
   },
   props: {
     trigger: {
       type: String,
-      default: 'hover',
+      default: 'hover focus',
     },
     placement: {
       type: String,
@@ -48,9 +51,25 @@ export default {
       isMounted: false,
     };
   },
+  computed: {
+    triggers() {
+      return this.trigger.split(' ');
+    },
+  },
   mounted() {
     this.targetEl = this.$el;
     this.isMounted = true;
   },
 };
 </script>
+
+<style>
+    .v-popper--theme-tooltip .v-popper__inner {
+        /* following bootstrap */
+        background: rgba(0, 0, 0, 0.9);
+        padding: 4px 8px;
+        font-size: 0.875rem;
+        max-width: 200px;
+        text-align: center;
+    }
+</style>

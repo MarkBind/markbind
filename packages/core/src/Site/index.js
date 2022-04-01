@@ -15,6 +15,7 @@ const VariableProcessor = require('../variables/VariableProcessor');
 const VariableRenderer = require('../variables/VariableRenderer');
 const { ExternalManager } = require('../External/ExternalManager');
 const { LayoutManager } = require('../Layout');
+const { SiteLinkManager } = require('../html/SiteLinkManager');
 const { PluginManager } = require('../plugins/PluginManager');
 const Template = require('../../template/template');
 
@@ -141,6 +142,9 @@ class Site {
 
     // Site wide plugin manager
     this.pluginManager = undefined;
+
+    // Site wide link checker
+    this.siteLinkManager = undefined;
 
     // Background build properties
     this.backgroundBuildMode = onePagePath && backgroundBuildMode;
@@ -316,7 +320,7 @@ class Site {
                                   path.join(this.siteAssetsDestPath, 'js', 'polyfill.min.js')),
         // We use development Vue when MarkBind is served in 'dev' mode so that hydration issues are reported
         vue: this.dev
-          ? 'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js'
+          ? 'https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js'
           : path.relative(path.dirname(resultPath), path.join(this.siteAssetsDestPath, 'js', 'vue.min.js')),
         jQuery: path.relative(path.dirname(resultPath),
                               path.join(this.siteAssetsDestPath, 'js', 'jquery.min.js')),
@@ -336,6 +340,7 @@ class Site {
       resultPath,
       rootPath: this.rootPath,
       searchable: this.siteConfig.enableSearch && config.searchable,
+      siteLinkManager: this.siteLinkManager,
       siteOutputPath: this.outputPath,
       sourcePath,
       src: config.pageSrc,
@@ -568,6 +573,9 @@ class Site {
       intrasiteLinkValidation: this.siteConfig.intrasiteLinkValidation,
       codeLineNumbers: this.siteConfig.style.codeLineNumbers,
     };
+    this.siteLinkManager = new SiteLinkManager(config);
+    config.siteLinkManager = this.siteLinkManager;
+
     this.pluginManager = new PluginManager(config, this.siteConfig.plugins, this.siteConfig.pluginsContext);
     config.pluginManager = this.pluginManager;
 
@@ -1103,6 +1111,8 @@ class Site {
       } else {
         isCompleted = await this.generatePagesAsyncThrottled(task.pages, progressBar);
       }
+
+      this.siteLinkManager.validateAllIntralinks();
     });
     return isCompleted;
   }

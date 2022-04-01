@@ -93,7 +93,7 @@ Currently, Pop-Ups(tooltip/trigger) are !!not!! supported within a `tree` compon
 </div>
 
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```html
 <tree>
@@ -105,9 +105,9 @@ C:/course/
   site.json
 </tree>
 ```
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 <tree>
 C:/course/
   textbook/
@@ -116,4 +116,4 @@ C:/course/
   reading.md
   site.json
 </tree>
-</span>
+</div>

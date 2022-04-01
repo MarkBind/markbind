@@ -95,7 +95,9 @@ class MdAttributeRenderer {
   }
 
   processModalAttributes(node) {
-    this.processAttributeWithoutOverride(node, 'header', true, 'modal-title');
+    if (!this.hasSlotOverridingAttribute(node, 'header')) {
+      this.processAttributeWithoutOverride(node, 'header', true);
+    }
   }
 
   /*

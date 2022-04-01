@@ -81,7 +81,7 @@ type | `String` | `default` | Supports: `default`, `primary`, `danger`, `info`, 
 </div>
 
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```markdown
 <dropdown header="Action" type="primary">
@@ -91,9 +91,9 @@ type | `String` | `default` | Supports: `default`, `primary`, `danger`, `info`, 
   <li><a href="#dropdown" class="dropdown-item">Separated link</a></li>
 </dropdown>
 ```
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 <dropdown header="Action" type="primary">
   <li><a href="#dropdown" class="dropdown-item">Action</a></li>
@@ -128,4 +128,4 @@ type | `String` | `default` | Supports: `default`, `primary`, `danger`, `info`, 
   </dropdown>
   <a href="#dropdown" class="btn btn-success w-100" role="button">Right</a>
 </div>
-</span>
+</div>

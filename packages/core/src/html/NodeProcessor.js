@@ -19,11 +19,8 @@ const { highlightCodeBlock, setCodeLineNumbers } = require('./codeblockProcessor
 const { setHeadingId, assignPanelId } = require('./headerProcessor');
 const { MarkdownProcessor } = require('./MarkdownProcessor');
 const { FootnoteProcessor } = require('./FootnoteProcessor');
-const {
-  transformBootstrapVueModalAttributes,
-} = require('./bootstrapVueProcessor');
 const { MdAttributeRenderer } = require('./MdAttributeRenderer');
-const { shiftSlotNodeDeeper, transformOldSlotSyntax } = require('./vueSlotSyntaxProcessor');
+const { shiftSlotNodeDeeper, transformOldSlotSyntax, renameSlot } = require('./vueSlotSyntaxProcessor');
 const { warnConflictingAtributesMap, warnDeprecatedAtributesMap } = require('./warnings');
 const { processScriptAndStyleTag } = require('./scriptAndStyleTagProcessor');
 const { createErrorNode } = require('./elements');
@@ -41,7 +38,7 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 class NodeProcessor {
   constructor(config, pageSources, variableProcessor, pluginManager,
-              userScriptsAndStyles, docId = '') {
+              siteLinkManager, userScriptsAndStyles, docId = '') {
     this.config = config;
     this.frontMatter = {};
 
@@ -53,6 +50,7 @@ class NodeProcessor {
     this.pageSources = pageSources;
     this.variableProcessor = variableProcessor;
     this.pluginManager = pluginManager;
+    this.siteLinkManager = siteLinkManager;
 
     this.markdownProcessor = new MarkdownProcessor(docId);
 
@@ -167,8 +165,11 @@ class NodeProcessor {
         this.mdAttributeRenderer.processTooltip(node);
         break;
       case 'modal':
+        // Transform deprecated slot names; remove when deprecating
+        renameSlot(node, 'modal-header', 'header');
+        renameSlot(node, 'modal-footer', 'footer');
+
         this.mdAttributeRenderer.processModalAttributes(node);
-        transformBootstrapVueModalAttributes(node);
         break;
       case 'tab':
       case 'tab-group':
@@ -265,7 +266,7 @@ class NodeProcessor {
       linkProcessor.convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);
       linkProcessor.convertMdExtToHtmlExt(node);
       if (this.config.intrasiteLinkValidation.enabled) {
-        linkProcessor.validateIntraLink(node, context.cwf, this.config);
+        this.siteLinkManager.collectIntraLinkToValidate(node, context.cwf);
       }
       linkProcessor.collectSource(node, this.config.rootPath, this.config.baseUrl, this.pageSources);
     }

@@ -7,10 +7,10 @@
 
 # `site.json` File
 
-<span class="lead">
+<div class="lead">
 
 The `site.json` file {{ tooltip_root_directory }} is used to configure various aspects of a MarkBind website.
-</span>
+</div>
 
 Here is a typical `site.json` file:
 
@@ -131,14 +131,14 @@ _(Optional)_ **The styling options to be applied to the site.** This includes:
 * **`externalScripts`**: An array of external scripts to be referenced on the page. Scripts referenced will be run before the layout script.
 * **`frontMatter`**: Specifies properties to add to the front matter of a page or glob of pages. Overrides any existing properties if they have the same name, and overrides any front matter properties specified in `globalOverride`.
 
-<span id="page-property-overriding">
+<div id="page-property-overriding">
 <box type="warning">
 
 Note: Page properties that are defined in `site.json` for a particular page will override those defined in the front matter of the page.
 </box>
-</span>
+</div>
 
-<span id="page-glob-overriding">
+<div id="page-glob-overriding">
 <box type="warning">
 
 Note: If multiple **`src`** (pages) or **`glob`** (globs) attributes match a file, MarkBind will merge properties from all entries. If there are conflicting properties, pages are given priority over globs. If there are multiple matching glob entries, the last entry is given priority.
@@ -177,7 +177,7 @@ The following properties will apply to `index.md`:
 
 </div>
 </box>
-</span>
+</div>
 
 #### **`pagesExclude`**
 

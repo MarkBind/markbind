@@ -72,6 +72,10 @@ class PageConfig {
      */
     this.searchable = !!args.searchable;
     /**
+     * @type {SiteLinkManager}
+     */
+    this.siteLinkManager = args.siteLinkManager;
+    /**
      * @type {string}
      */
     this.siteOutputPath = args.siteOutputPath;
