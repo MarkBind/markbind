@@ -18,19 +18,39 @@ A GitHub Action that builds and deploys a MarkBind site. It helps users to strea
 The source code is at [MarkBind/markbind-action](https://github.com/MarkBind/markbind-action).
 </div>
 
-**Follow these steps to get started on development**
-
-1. Fork the action repository and create a PR branch
-1. Learn the workflow syntax in the repository's readme
-1. Make necessary changes to the workflow files & update the readme
-1. Set up a test repository that contains a MarkBind site
+**Follow these steps to get started on modifying the source code**
+## Setting Up
+1. Fork the [action repository](https://github.com/MarkBind/markbind-action)
+1. Learn the existing workflow syntax/options provided in the repository's [readme.md](https://github.com/MarkBind/markbind-action#readme)
+1. Set up a repository that contains a MarkBind site to test the action as a user
    1. Create a repository
    1. Set up MarkBind and run `markbind init` to populate with default content
    1. Push your repository to GitHub
       * [Example](https://github.com/MarkBind/init-typical)
-1. Include a workflow file in the repository that uses your forked version of the action
-   * Instead of using `uses: MarkBind/markbind-action@v2` in the workflow file, use `uses: yourGitHubName/markbind-action@yourBranch`
-      * e.g. `uses: tlylt/markbind-action@master`
+
+## Modifying the action
+1. Create a new branch from master to work on your changes
+1. Make necessary modifications to the workflow files
+1. Update the repository's readme.md to reflect the changes
+
+## Testing the action
+1. Include a workflow file in your <tooltip content="Which includes a sample MarkBind site">test repository</tooltip> to test your modified version of the action
+   * Instead of using `uses: MarkBind/markbind-action@v2` in the workflow file, use `uses: yourGitHubName/markbind-action@yourBranch` to reference the unpublished version of the action that you are currently developing
+      * e.g. `uses: tlylt/markbind-action@main`
    * [Example](https://github.com/tlylt/mb-test/tree/main/.github/workflows)
-1. Trigger the action as required, check and validate the run result in action logs
-1. Submit PRs
+1.  Trigger the action as needed, check and validate the run result in the action logs
+
+You can now submit PRs to improve MarkBind's Github actions! 🎉
+
+## Release Management
+Based on the [Github Actions documentation](https://docs.github.com/en/actions/creating-actions/about-custom-actions#using-release-management-for-actions), we are using tags for release management.
+
+<panel header="Steps" expanded type="seamless">
+
+* Create and validate a release on a release branch (such as `release/v1`) before creating the release tag (for example, `v1.0.2`).
+* Create a release using semantic versioning. For more information, see "[Creating releases](https://docs.github.com/en/articles/creating-releases)."
+* Move the major version tag (such as `v1`, `v2`) to point to the Git ref of the current release. For more information, see "[Git basics - tagging](https://git-scm.com/book/en/v2/Git-Basics-Tagging)."
+* Introduce a new major version tag (`v2`) for changes that will break existing workflows. For example, changing an action's inputs would be a breaking change.
+
+(Taken from GitHub Actions documentation)
+</panel>
