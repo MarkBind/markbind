@@ -11,7 +11,7 @@
 
 <div class="lead">
 
-A GitHub Action that builds and deploys your MarkBind site. It helps users to streamline their workflow by:
+A GitHub Action that builds and deploys a MarkBind site. It helps users to streamline their workflow by:
 * Making it easier to deploy without having to write their own actions from scratch
 * Making the workflows consistent and up to date with any changes specific to MarkBind
 
