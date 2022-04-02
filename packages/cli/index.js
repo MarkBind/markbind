@@ -319,15 +319,44 @@ program
   });
 
 program
+  .command('archive [versionName] [archivePath]')
+  .alias('ar')
+  .description('archive a version of the site, which can continue to be accessed')
+  // .option('--baseUrl [baseUrl]',
+  //         'optional flag which overrides baseUrl in site.json, leave argument empty for empty baseUrl')
+  // .option('-vt, --version-tag <versionTag>',
+  // 'archive the version under the given version tag e.g. latest, current, dev')
+  .action((versionName, userSpecifiedArchivePath, options) => {
+    // const baseUrl = _.isBoolean(options.baseUrl) ? '' : options.baseUrl;
+    if (!versionName) {
+      throw new Error('Please specify a name for the versioned site');
+    }
+    const archivePath = userSpecifiedArchivePath || 'version';
+    const rootFolder = path.resolve(process.cwd());
+    const outputFolder = path.join(rootFolder, archivePath, versionName);
+    new Site(rootFolder, outputFolder, undefined, undefined, options.siteConfig)
+      .generate('')
+      .then(() => {
+        logger.info('Build success!');
+      })
+      .catch(handleError);
+  });
+
+program
   .command('deploy')
   .alias('d')
   .description('deploy the site to the repo\'s Github pages')
   .option('-c, --ci [githubTokenName]', 'deploy the site in CI Environment [GITHUB_TOKEN]')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
+  .option('-v, --versions <versionFolder>', 'specify the path where versions are stored')
   .action((options) => {
     const rootFolder = path.resolve(process.cwd());
     const outputRoot = path.join(rootFolder, '_site');
-    new Site(rootFolder, outputRoot, undefined, undefined, options.siteConfig).deploy(options.ci)
+    const site = new Site(rootFolder, outputRoot, undefined, undefined, options.siteConfig);
+    if (options.versions) {
+      site.addVersions(path.join(rootFolder, options.versions));
+    }
+    site.deploy(options.ci)
       .then(depUrl => (depUrl !== null ? logger.info(
         `The website has been deployed at: ${depUrl}`)
         : logger.info('Deployed!')))

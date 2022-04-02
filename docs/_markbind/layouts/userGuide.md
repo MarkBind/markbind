@@ -30,6 +30,7 @@
   * [Making the Site Searchable]({{baseUrl}}/userGuide/makingTheSiteSearchable.html)
   * [Applying Themes]({{baseUrl}}/userGuide/themes.html)
   * [Deploying the Site]({{baseUrl}}/userGuide/deployingTheSite.html)
+  * [Versioning]({{baseUrl}}/userGuide/versioning.html)
   * [MarkBind in the Project Workflow]({{baseUrl}}/userGuide/markBindInTheProjectWorkflow.html)
 * **References** :expanded:
   * [CLI Commands]({{baseUrl}}/userGuide/cliCommands.html)

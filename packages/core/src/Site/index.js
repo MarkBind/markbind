@@ -1440,6 +1440,30 @@ class Site {
     return fs.copy(themeSrcPath, themeDestPath);
   }
 
+  async addVersions(versionFolder) {
+    try {
+      await fs.copy(versionFolder, '_site');
+      logger.info('Pages copied');
+    } catch (error) {
+      await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+    }
+  }
+
+  /**
+   * Copy over previously built versioned files to the site folder
+   */
+  async copyVersionedFiles(versionFolder) {
+    this.beforeSiteGenerate();
+    logger.info('Copying over previous versions...');
+
+    try {
+      await fs.copy(versionFolder, '_site');
+      logger.info('Pages copied');
+    } catch (error) {
+      await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+    }
+  }
+
   /**
    * Writes the site data to siteData.json
    * @param {boolean} verbose Flag to emit logs of the operation
