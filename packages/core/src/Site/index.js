@@ -1440,9 +1440,13 @@ class Site {
     return fs.copy(themeSrcPath, themeDestPath);
   }
 
+  /**
+   * Copies over all versioned files from a given folder to be deployed.
+   * @param {path} versionFolder is the directory the versions are within
+   */
   async addVersions(versionFolder) {
     try {
-      await fs.copy(versionFolder, '_site');
+      await this.copyVersionedFiles(versionFolder);
       logger.info('Pages copied');
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
@@ -1450,18 +1454,12 @@ class Site {
   }
 
   /**
-   * Copy over previously built versioned files to the site folder
+   * Helper function to copy over previously built versioned files to the site folder
    */
   async copyVersionedFiles(versionFolder) {
     this.beforeSiteGenerate();
     logger.info('Copying over previous versions...');
-
-    try {
-      await fs.copy(versionFolder, '_site');
-      logger.info('Pages copied');
-    } catch (error) {
-      await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
-    }
+    await fs.copy(versionFolder, '_site');
   }
 
   /**

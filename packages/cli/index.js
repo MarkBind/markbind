@@ -329,13 +329,14 @@ program
   .action((versionName, userSpecifiedArchivePath, options) => {
     // const baseUrl = _.isBoolean(options.baseUrl) ? '' : options.baseUrl;
     if (!versionName) {
-      throw new Error('Please specify a name for the versioned site');
+      throw new Error('Please specify a name for the version to be archived.');
     }
     const archivePath = userSpecifiedArchivePath || 'version';
     const rootFolder = path.resolve(process.cwd());
     const outputFolder = path.join(rootFolder, archivePath, versionName);
+    const archivedBaseUrl = `/${archivePath}/${versionName}`;
     new Site(rootFolder, outputFolder, undefined, undefined, options.siteConfig)
-      .generate('')
+      .generate(archivedBaseUrl)
       .then(() => {
         logger.info('Build success!');
       })
@@ -353,9 +354,9 @@ program
     const rootFolder = path.resolve(process.cwd());
     const outputRoot = path.join(rootFolder, '_site');
     const site = new Site(rootFolder, outputRoot, undefined, undefined, options.siteConfig);
-    if (options.versions) {
-      site.addVersions(path.join(rootFolder, options.versions));
-    }
+    // if (options.versions) { // may be redundant; currently copies over files during build
+    //   site.addVersions(path.join(rootFolder, options.versions));
+    // }
     site.deploy(options.ci)
       .then(depUrl => (depUrl !== null ? logger.info(
         `The website has been deployed at: ${depUrl}`)
