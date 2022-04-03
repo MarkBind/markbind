@@ -16,7 +16,6 @@
       :hide-triggers="triggers"
       :placement="placement"
       :delay="0"
-      popper-class="v-popper__popper--skip-transition"
       shift-cross-axis
     >
       <template #popper>

@@ -13,7 +13,6 @@
       :hide-triggers="triggers"
       :placement="placement"
       :delay="0"
-      popper-class="v-popper__popper--skip-transition"
       shift-cross-axis
     >
       <span v-if="!isInput" @click.stop>
@@ -35,7 +34,6 @@
       :popper-triggers="triggers"
       :hide-triggers="triggers"
       :delay="0"
-      popper-class="v-popper__popper--skip-transition"
       shift-cross-axis
     >
       <span v-if="!isInput" @click.stop>
