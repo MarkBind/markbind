@@ -7,16 +7,19 @@
 
     <v-popover
       v-if="popoverOrTooltipType === 'popover'"
+      :auto-hide="!isInput"
       :triggers="triggers"
       :popper-triggers="triggers"
+      :hide-triggers="triggers"
       :placement="placement"
       :delay="0"
       popper-class="v-popper__popper--skip-transition"
       shift-cross-axis
     >
-      <span @click.stop>
+      <span v-if="!isInput" @click.stop>
         <slot></slot>
       </span>
+      <slot v-else></slot>
       <template #popper>
         <div class="popover-container">
           <portal-target :name="'popover:' + target" />
@@ -26,16 +29,20 @@
 
     <v-tooltip
       v-else-if="popoverOrTooltipType === 'tooltip'"
+      :auto-hide="!isInput"
       :placement="placement"
       :triggers="triggers"
       :popper-triggers="triggers"
+      :hide-triggers="triggers"
       :delay="0"
       popper-class="v-popper__popper--skip-transition"
       shift-cross-axis
     >
-      <span @click.stop>
+      <span v-if="!isInput" @click.stop>
         <slot></slot>
       </span>
+      <slot v-else></slot>
+
       <template #popper>
         <portal-target :name="'tooltip:' + target" />
       </template>
@@ -75,6 +82,7 @@ export default {
   data() {
     return {
       popoverOrTooltipType: undefined,
+      isInput: false,
     };
   },
   methods: {
@@ -102,6 +110,9 @@ export default {
     },
   },
   mounted() {
+    // <input> tags need to be handled separately as they need to retain focus on inputs
+    this.isInput = this.$slots.default.some(node => node.tag === 'input');
+
     if (!this.for) {
       return;
     }

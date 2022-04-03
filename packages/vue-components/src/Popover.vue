@@ -15,17 +15,21 @@
 
     <v-popover
       v-if="isMounted"
+      :auto-hide="!isInput"
       :triggers="triggers"
       :popper-triggers="triggers"
+      :hide-triggers="triggers"
       :placement="placement"
       :delay="0"
       popper-class="v-popper__popper--skip-transition"
       shift-cross-axis
     >
       <!-- floating-vue triggers must be elements that receive mouse events, hence an empty @click -->
-      <span @click.stop>
+      <span v-if="!isInput" @click.stop>
         <slot></slot>
       </span>
+      <!-- However, input elements are handled separately as they will lose focus when wrapped in a span -->
+      <slot v-else></slot>
       <template #popper>
         <div class="popover-container">
           <h3 v-if="hasHeader" class="popover-header">
@@ -75,6 +79,8 @@ export default {
   },
   mounted() {
     this.targetEl = this.$el;
+    // <input> tags need to be handled separately as they need to retain focus on inputs
+    this.isInput = this.$slots.default.some(node => node.tag === 'input');
     this.isMounted = true;
   },
 };

@@ -10,6 +10,7 @@
 
     <v-tooltip
       v-if="isMounted"
+      :auto-hide="!isInput"
       :triggers="triggers"
       :popper-triggers="triggers"
       :hide-triggers="triggers"
@@ -21,7 +22,11 @@
       <template #popper>
         <slot name="content"></slot>
       </template>
-      <slot></slot>
+
+      <span v-if="!isInput" @click.stop>
+        <slot></slot>
+      </span>
+      <slot v-else></slot>
     </v-tooltip>
   </span>
 </template>
@@ -48,6 +53,7 @@ export default {
   data() {
     return {
       targetEl: {},
+      isInput: false,
       isMounted: false,
     };
   },
@@ -58,6 +64,8 @@ export default {
   },
   mounted() {
     this.targetEl = this.$el;
+    // <input> tags need to be handled separately as they need to retain focus on inputs
+    this.isInput = this.$slots.default.some(node => node.tag === 'input');
     this.isMounted = true;
   },
 };
