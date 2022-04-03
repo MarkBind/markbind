@@ -23,6 +23,7 @@ exports[`Tooltip should respect the placement attribute 1`] = `
   <!---->
    
   <v-tooltip-stub
+    auto-hide="true"
     delay="0"
     hide-triggers="click"
     placement="right"
@@ -31,7 +32,10 @@ exports[`Tooltip should respect the placement attribute 1`] = `
     shift-cross-axis=""
     triggers="click"
   >
-     click to show tooltip
+     
+    <span>
+      click to show tooltip
+    </span>
   </v-tooltip-stub>
 </span>
 `;
@@ -46,6 +50,7 @@ exports[`Tooltip should show contents correctly when triggered 1`] = `
   <!---->
    
   <v-tooltip-stub
+    auto-hide="true"
     delay="0"
     hide-triggers="click"
     placement="top"
@@ -54,7 +59,10 @@ exports[`Tooltip should show contents correctly when triggered 1`] = `
     shift-cross-axis=""
     triggers="click"
   >
-     click to show tooltip
+     
+    <span>
+      click to show tooltip
+    </span>
   </v-tooltip-stub>
 </span>
 `;
