@@ -64,7 +64,7 @@ export default {
   mounted() {
     this.targetEl = this.$el;
     // <input> tags need to be handled separately as they need to retain focus on inputs
-    this.isInput = this.$slots.default.some(node => node.tag === 'input');
+    this.isInput = this.$slots.default && this.$slots.default.some(node => node.tag === 'input');
     this.isMounted = true;
   },
 };

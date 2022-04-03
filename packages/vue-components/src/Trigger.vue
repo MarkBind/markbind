@@ -109,7 +109,7 @@ export default {
   },
   mounted() {
     // <input> tags need to be handled separately as they need to retain focus on inputs
-    this.isInput = this.$slots.default.some(node => node.tag === 'input');
+    this.isInput = this.$slots.default && this.$slots.default.some(node => node.tag === 'input');
 
     if (!this.for) {
       return;
