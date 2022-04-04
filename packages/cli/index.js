@@ -17,6 +17,7 @@ const fsUtil = require('@markbind/core/src/utils/fsUtil');
 const {
   INDEX_MARKDOWN_FILE,
   LAZY_LOADING_SITE_FILE_NAME,
+  SITE_CONFIG_NAME,
 } = require('@markbind/core/src/Site/constants');
 
 const liveServer = require('./src/lib/live-server');
@@ -334,7 +335,9 @@ program
     const archivePath = userSpecifiedArchivePath || 'version';
     const rootFolder = path.resolve(process.cwd());
     const outputFolder = path.join(rootFolder, archivePath, versionName);
-    const archivedBaseUrl = `/${archivePath}/${versionName}`;
+    // assumes it is site.json at project root
+    const siteConfigJson = fs.readJsonSync(path.join(rootFolder, SITE_CONFIG_NAME));
+    const archivedBaseUrl = `/${siteConfigJson.baseUrl}/${archivePath}/${versionName}`;
     new Site(rootFolder, outputFolder, undefined, undefined, options.siteConfig)
       .generate(archivedBaseUrl)
       .then(() => {
