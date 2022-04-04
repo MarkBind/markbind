@@ -67,7 +67,7 @@ Alternatively, you can use `<markdown>` (for _block_ Markdown elements such as h
 External JavaScript libraries can be included in MarkBind to add additional & wide-ranging features and functionalities. One such use case is to add a charting library for data visualisation.
 
 ### Charts
-Popular chart libraries such as [Chart.js](https://www.chartjs.org/) and [Apache ECharts](https://echarts.apache.org) can be used in MarkBind to create beautiful charts, similar to how they are used in any HTML web page. The details of how to use these libraries are beyond the scope of this section, but you can find more infomration on their websites. In general, you will perform these 3 steps:
+Popular chart libraries such as [Chart.js](https://www.chartjs.org/) and [Apache ECharts](https://echarts.apache.org) can be used in MarkBind to create beautiful charts, similar to how they are used in any HTML web page. The details of how to use these libraries are beyond the scope of this section, but you can find more information on their websites. In general, you will perform these 3 steps:
 1. Import the library via a CDN or locally.
 1. Specify a target HTML element to render the chart.
 1. Initialize the chart with the data and options.
