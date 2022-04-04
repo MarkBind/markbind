@@ -22,6 +22,7 @@
   <script src="markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.0.0-alpha.42/dist/style.css">
   <link rel="stylesheet" href="/test_site_algolia_plugin/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
+  <link rel="stylesheet" href="/test_site_algolia_plugin/plugins/markbind-plugin-tree/markbind-plugin-tree.css">
 </head>
 <script>
   const baseUrl = '/test_site_algolia_plugin'
@@ -37,9 +38,9 @@
       <li><a class="dropdown-item" href="/">Two</a></li>
     </dropdown>
     <p><strong>Modal content should have algolia-no-index class</strong></p>
-    <b-modal id="modal:trigger_id" hide-footer size modal-class="mb-zoom" ref="modal:trigger_id" class="algolia-no-index"><template #modal-title>Modal</template>
+    <modal id="modal:trigger_id" class="algolia-no-index"><template #header>Modal</template>
       Content should have `algolia-no-index` class
-    </b-modal>
+    </modal>
     <trigger for="modal:trigger_id">Trigger should not have `algolia-no-index` class</trigger>
     <p><strong>Panels that are not expanded should have algolia-no-index class</strong></p>
     <panel class="algolia-no-index"><template #header>

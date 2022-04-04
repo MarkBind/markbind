@@ -68,7 +68,7 @@ default-highlight-on | `String` | `sibling-or-child` | Supports: `sibling-or-chi
 
 <box type="tip">
 
-If you wish to further customize your navbar beyond the primary, dark, and light theme colors, specify the `type="none"` attribute and [insert your own custom styles](#inserting-custom-classes-into-components) or <trigger trigger="click" for="modal:built-in-bg">use built-in background styles</trigger> via the `add-class` attribute.
+If you wish to further customize your navbar beyond the primary, dark, and light theme colors, specify the `type="none"` attribute and insert your own custom styles via the `add-class` attribute. You can <trigger trigger="click" for="modal:built-in-bg">use built-in background styles</trigger> or [insert your own defined CSS classes](/userGuide/components/advanced.md#inserting-custom-classes-into-components).
 
 </box>
 
@@ -93,7 +93,7 @@ Name | Description
 `exact` | Highlights link if URL in address bar exactly matches link.
 `none` | No highlighting.
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```html
 <navbar type="primary">
@@ -111,9 +111,9 @@ Name | Description
 </navbar>
 ```
 
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 <navbar type="primary">
   <!-- Brand as slot -->
@@ -157,7 +157,7 @@ Name | Description
   </li>
 </navbar>
 
-</span>
+</div>
 
 ****Mobile page and site navigation menus****
 

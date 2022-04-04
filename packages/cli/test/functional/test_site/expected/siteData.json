@@ -232,6 +232,12 @@
       "headingKeywords": {}
     },
     {
+      "src": "testModals.md",
+      "title": "Test: Modals",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
       "src": "testDates.md",
       "title": "Nunjucks date filter tests",
       "headings": {
@@ -288,6 +294,17 @@
       "title": "Autolink tests",
       "headings": {
         "autolinks": "Autolinks"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "testTree.md",
+      "title": "Tree tests",
+      "headings": {
+        "tree": "Tree",
+        "single-tree": "Single Tree",
+        "multiple-tree": "Multiple Tree",
+        "inline-markdown": "Inline Markdown"
       },
       "headingKeywords": {}
     },

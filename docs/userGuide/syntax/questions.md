@@ -313,7 +313,7 @@ intro | `String` | `''` | Quiz intro markup above the question count.
 intro | Slot | `Click start to begin` | Quiz intro markup. Overrides the `intro` attribute if both are present.
 
 <!-- Included in syntax cheat sheet -->
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```html { heading="MCQ and Checkbox questions" }
 <!-- use type="checkbox" for checkbox questions -->
@@ -331,9 +331,9 @@ intro | Slot | `Click start to begin` | Quiz intro markup. Overrides the `intro`
   <question type="text">...</question>
 </quiz>
 ```
-</span>
+</div>
 
 <!-- Included in readerFacingFeatures.md -->
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 <include src="questions.md#quiz-example" />
-</span>
+</div>

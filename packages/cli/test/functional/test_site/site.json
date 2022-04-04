@@ -83,6 +83,10 @@
       "title": "Popover initiated by trigger should honor trigger attribute"
     },
     {
+      "src": "testModals.md",
+      "title": "Test: Modals"
+    },
+    {
       "src": "testDates.md",
       "title": "Nunjucks date filter tests"
     },
@@ -115,13 +119,15 @@
       "title": "Autolink tests"
     },
     {
+      "src": "testTree.md",
+      "title": "Tree tests"
+    },
+    {
       "src": "testMath.md",
       "title": "Math formulae should be displayed correctly, with additional plugin"
     }
   ],
-  "pagesExclude": [
-    "**/*-fragment.md"
-  ],
+  "pagesExclude": ["**/*-fragment.md"],
   "ignore": [
     "_markbind/layouts/*",
     "_markbind/logs/*",
@@ -153,7 +159,11 @@
       "post": "<p>Node Modules Plugin Post-render</p>"
     },
     "filterTags": {
-      "tags": ["tag-site-shown", "+tag-site-override-shown", "+tag-site-override-specific-shown"]
+      "tags": [
+        "tag-site-shown",
+        "+tag-site-override-shown",
+        "+tag-site-override-specific-shown"
+      ]
     },
     "googleAnalytics": {
       "trackingID": "TRACKING-ID"

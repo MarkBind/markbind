@@ -26,6 +26,7 @@
   <script src="markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
+  <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-tree/markbind-plugin-tree.css">
 
   <meta name="default-head-bottom">
   <link rel="stylesheet" href="/test_site/stylesheets/styles.css">
@@ -209,18 +210,18 @@
       <div id="content-wrapper" class="fixed-header-padding">
         <p><strong>Multiple inclusions of a modal should be supported</strong></p>
         <div>
-          <b-modal id="modal:bugRepro" hide-footer size="lg" modal-class="mb-zoom" ref="modal:bugRepro"><template #modal-title>Establishing Requirements</template>
+          <modal large id="modal:bugRepro"><template #header>Establishing Requirements</template>
             <div>Requirements gathering, requirements elicitation, requirements analysis,
               requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity
               of understanding what a software product should do.</div>
-          </b-modal>
+          </modal>
         </div>
         <div>
-          <b-modal id="modal:bugRepro" hide-footer size="lg" modal-class="mb-zoom" ref="modal:bugRepro"><template #modal-title>Establishing Requirements</template>
+          <modal large id="modal:bugRepro"><template #header>Establishing Requirements</template>
             <div>Requirements gathering, requirements elicitation, requirements analysis,
               requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity
               of understanding what a software product should do.</div>
-          </b-modal>
+          </modal>
         </div>
         <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>

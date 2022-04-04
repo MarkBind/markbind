@@ -54,7 +54,7 @@ If your equation requires special Nunjucks tags like {% raw %}`{{`{% endraw %} o
 
 <small>More info on allowed symbols: https://katex.org/docs/support_table.html</small>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```markdown
 
@@ -67,8 +67,8 @@ Solve the following simultaneous equations:
 Euler's equation \( e^{i\pi}+1=0 \) is a beautiful equation.
 
 ```
-</span>
-<span id="examples" class="d-none">
+</div>
+<div id="examples" class="d-none">
 
 Solve the following simultaneous equations:
 
@@ -78,4 +78,4 @@ Solve the following simultaneous equations:
 
 Euler's equation \( e^{i\pi}+1=0 \) is a beautiful equation.
 
-</span>
+</div>
