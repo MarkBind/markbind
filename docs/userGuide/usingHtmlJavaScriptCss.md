@@ -77,7 +77,7 @@ Popular chart libraries such as [Chart.js](https://www.chartjs.org/) and [Apache
 As mentioned in the [above section](#markdown-in-html), you **should not** leave any blank lines within HTML elements unintentionally, to prevent misinterpreting them as Markdown instead of code/text.
 </box>
 
-{{ icon_example }} Here is an example of how to use Chart.js to create a Pie chart.
+{{ icon_example }} Here is an example of how to use Chart.js to create a pie chart.
 
 <include src="codeAndOutput.md" boilerplate>
 <variable name="highlightStyle">HTML</variable>
@@ -88,7 +88,9 @@ As mentioned in the [above section](#markdown-in-html), you **should not** leave
   <canvas id="myChart"></canvas>
 </div>
 <script>
+// Get the 2d context of the canvas (of where we want to draw the chart)
 const ctx = document.getElementById('myChart').getContext('2d');
+// Instantiate the Chart class with the data for the pie chart
 const myChart = new Chart(ctx, {
     type: 'pie',
     data: {
@@ -108,7 +110,7 @@ const myChart = new Chart(ctx, {
 </variable>
 </include>
 
-{{ icon_example }} Here is an example of how to use Apache ECharts to create a Bar chart.
+{{ icon_example }} Here is an example of how to use Apache ECharts to create a bar chart.
 
 <include src="codeAndOutput.md" boilerplate>
 <variable name="highlightStyle">HTML</variable>
