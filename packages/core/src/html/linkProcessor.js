@@ -42,10 +42,11 @@ function getResourcePathFromRoot(rootPath, fullResourcePath) {
  * @returns {boolean} whether the resourcePath is a valid intra-site link
  */
 function isIntraLink(resourcePath) {
+  const MAILTO_OR_TEL_REGEX = /^(?:mailto:|tel:)/i;
   return resourcePath
     && !urlUtil.isUrl(resourcePath)
     && !resourcePath.startsWith('#')
-    && !/^(?:mailto:|tel:)/i.test(resourcePath); // mailto/tel links are not relative
+    && !MAILTO_OR_TEL_REGEX.test(resourcePath);
 }
 
 function _convertRelativeLink(node, cwf, rootPath, baseUrl, resourcePath, linkAttribName) {
