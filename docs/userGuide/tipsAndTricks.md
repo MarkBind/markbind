@@ -129,7 +129,7 @@ Here are the steps to set up Netlify to use a specific version of MarkBind.
 ##### :fas-lightbulb: Indent components
 
 In some cases, you may want to indent components such as panels and boxes to match the surrounding content.
-This is easily achieved by adding some margin and padding utility classes from [Bootstrap](https://getbootstrap.com/docs/4.4/utilities/spacing/) 
+This is easily achieved by adding some margin and padding utility classes from [Bootstrap](https://getbootstrap.com/docs/5.1/utilities/spacing/) 
 to the component. The following examples show how to do this.
 
 **Indent Box component**
@@ -140,7 +140,7 @@ to the component. The following examples show how to do this.
 
 <box>Some text at level 1</box>
 
-<box class="ml-4">Some text at level 2</box>
+<box class="ms-4">Some text at level 2</box>
 
 <box>Some text at level 1</box>
 
@@ -156,8 +156,8 @@ to the component. The following examples show how to do this.
 <panel header="This panel is at level 1">
   ...
 </panel>
-<panel header="This panel is at level 2" class="ml-3">
-  The "ml-3" is arbitarily chosen i.e "ml-0" to "ml-5" are all possible values.
+<panel header="This panel is at level 2" class="ms-3">
+  The "ms-3" is arbitarily chosen i.e "ms-0" to "ms-5" are all possible values.
 </panel>
 <panel header="This panel is at level 1">
   ...
@@ -178,7 +178,7 @@ The following box component will be included via `<include>`.
 <variable name="code">
 
 <box>Some text at level 1 (before included content)</box>
-<include src="tipsAndTricks.md#forIndentDemo" class="ml-5"></include>
+<include src="tipsAndTricks.md#forIndentDemo" class="ms-5"></include>
 <box>Some text at level 1 (after included content)</box>
 
 </variable>

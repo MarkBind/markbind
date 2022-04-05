@@ -24,7 +24,7 @@ exports[`Navbar and secondary navbar navbar with page nav button 1`] = `
         class="navbar-default"
       >
         <ul
-          class="navbar-nav mr-auto mt-2 mt-lg-0"
+          class="navbar-nav me-auto mt-2 mt-lg-0"
         >
           <li
             class="current"
@@ -89,7 +89,7 @@ exports[`Navbar and secondary navbar navbar with site and page nav buttons 1`] =
         class="navbar-default"
       >
         <ul
-          class="navbar-nav mr-auto mt-2 mt-lg-0"
+          class="navbar-nav me-auto mt-2 mt-lg-0"
         >
           <li
             class="current"
@@ -156,7 +156,7 @@ exports[`Navbar and secondary navbar navbar with site nav button 1`] = `
         class="navbar-default"
       >
         <ul
-          class="navbar-nav mr-auto mt-2 mt-lg-0"
+          class="navbar-nav me-auto mt-2 mt-lg-0"
         >
           <li
             class="current"
@@ -221,7 +221,7 @@ exports[`Navbar and secondary navbar navbar without site and page nav buttons 1`
         class="navbar-default"
       >
         <ul
-          class="navbar-nav mr-auto mt-2 mt-lg-0"
+          class="navbar-nav me-auto mt-2 mt-lg-0"
         >
           <li
             class="current"

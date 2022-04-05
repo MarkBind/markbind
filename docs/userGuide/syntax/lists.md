@@ -48,7 +48,7 @@ first number
    1. Sub item 1.1
    1. Sub item 1.2
 1. Item 2
-{.pl-0 .ml-0}
+{.ps-0 .ms-0}
 </variable>
 </include>
 </template>

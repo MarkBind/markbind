@@ -5,7 +5,7 @@ This folder contains MarkBind's [Vue.js](https://vuejs.org/) UI components.
 Most of the styles are based on Bootstrap's markup and CSS, but no dependency on Bootstrap's JavaScript is required. The only required dependencies are:
 
 * [Vue.js](http://vuejs.org/) (required ^v2.x.x, test with v2.5.16).
-* [Bootstrap CSS](http://getbootstrap.com/) (required 4.x.x, test with 4.1.1). MarkBind's Vue components doesn't depend on a very precise version of Bootstrap.
+* [Bootstrap CSS](http://getbootstrap.com/) (required 5.x.x, test with 5.1.3). MarkBind's Vue components doesn't depend on a very precise version of Bootstrap.
 * [jQuery](https://jquery.com/) (tested with v3.5.1) full build.
 
 ## Components / directives

@@ -6,7 +6,7 @@
           <slot name="brand"></slot>
         </div>
         <div ref="navbarDefault" class="navbar-default">
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <ul class="navbar-nav me-auto mt-2 mt-lg-0">
             <slot></slot>
           </ul>
         </div>
