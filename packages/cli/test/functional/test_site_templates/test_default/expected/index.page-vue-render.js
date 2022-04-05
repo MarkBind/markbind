@@ -5,7 +5,7 @@ with(this){return _c('div',{attrs:{"id":"app"}},[_c('header',{attrs:{"fixed":""}
 };
     var pageVueStaticRenderFns = [function anonymous(
 ) {
-with(this){return _c('div',{staticClass:"jumbotron jumbotron-fluid bg-primary text-white"},[_c('div',{staticClass:"container"},[_c('h1',{staticClass:"display-4 no-index",attrs:{"id":"landing-page-title"}},[_c('span',{staticClass:"anchor",attrs:{"id":"landing-page-title"}}),_v("Landing Page Title"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#landing-page-title","onclick":"event.stopPropagation()"}})]),_v(" "),_c('p',{staticClass:"lead"},[_v("A tagline can go here")])])])}
+with(this){return _c('div',{staticClass:"bg-primary text-white p-5 mb-4"},[_c('div',{staticClass:"container"},[_c('h1',{staticClass:"display-4 no-index",attrs:{"id":"landing-page-title"}},[_c('span',{staticClass:"anchor",attrs:{"id":"landing-page-title"}}),_v("Landing Page Title"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#landing-page-title","onclick":"event.stopPropagation()"}})]),_v(" "),_c('p',{staticClass:"lead"},[_v("A tagline can go here")])])])}
 },function anonymous(
 ) {
 with(this){return _c('h1',{attrs:{"id":"heading-1"}},[_c('span',{staticClass:"anchor",attrs:{"id":"heading-1"}}),_v("Heading 1"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#heading-1","onclick":"event.stopPropagation()"}})])}
