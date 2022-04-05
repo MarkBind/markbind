@@ -74,7 +74,7 @@
         <transition-group
           name="q-btn"
           tag="div"
-          class="float-right"
+          class="float-end"
         >
           <button
             v-if="$scopedSlots.hint && !showHint"

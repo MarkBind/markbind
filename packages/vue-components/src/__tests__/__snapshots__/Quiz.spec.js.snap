@@ -231,7 +231,7 @@ exports[`Quizzes with 2 questions retry goes back to first 1`] = `
         <!---->
          
         <transition-group-stub
-          class="float-right"
+          class="float-end"
           name="q-btn"
           tag="div"
         >
@@ -517,7 +517,7 @@ exports[`Quizzes with checkbox question marked incorrect shows next button after
         />
          
         <transition-group-stub
-          class="float-right"
+          class="float-end"
           name="q-btn"
           tag="div"
         >
@@ -743,7 +743,7 @@ exports[`Quizzes with mcq question marked correct shows next button after answer
         />
          
         <transition-group-stub
-          class="float-right"
+          class="float-end"
           name="q-btn"
           tag="div"
         >
@@ -853,7 +853,7 @@ exports[`Quizzes with text question marked correct shows next button after answe
         />
          
         <transition-group-stub
-          class="float-right"
+          class="float-end"
           name="q-btn"
           tag="div"
         >

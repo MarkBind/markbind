@@ -171,7 +171,7 @@ exports[`Checkbox Questions and QOptions of answered correctly with unshown hint
       />
        
       <transition-group-stub
-        class="float-right"
+        class="float-end"
         name="q-btn"
         tag="div"
       >
@@ -372,7 +372,7 @@ exports[`Checkbox Questions and QOptions of answered wrongly with header without
       />
        
       <transition-group-stub
-        class="float-right"
+        class="float-end"
         name="q-btn"
         tag="div"
       >
@@ -531,7 +531,7 @@ exports[`Checkbox Questions and QOptions of checked wrongly with shown hint with
       />
        
       <transition-group-stub
-        class="float-right"
+        class="float-end"
         name="q-btn"
         tag="div"
       >
@@ -701,7 +701,7 @@ exports[`Checkbox Questions and QOptions of unanswered with header without hint 
       <!---->
        
       <transition-group-stub
-        class="float-right"
+        class="float-end"
         name="q-btn"
         tag="div"
       >
@@ -958,7 +958,7 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
       />
        
       <transition-group-stub
-        class="float-right"
+        class="float-end"
         name="q-btn"
         tag="div"
       >
@@ -1219,7 +1219,7 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
       />
        
       <transition-group-stub
-        class="float-right"
+        class="float-end"
         name="q-btn"
         tag="div"
       >
@@ -1442,7 +1442,7 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
       />
        
       <transition-group-stub
-        class="float-right"
+        class="float-end"
         name="q-btn"
         tag="div"
       >
@@ -1681,7 +1681,7 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
       <!---->
        
       <transition-group-stub
-        class="float-right"
+        class="float-end"
         name="q-btn"
         tag="div"
       >
@@ -1810,7 +1810,7 @@ exports[`Text Questions of answered correctly with answer, unshown hint without 
       />
        
       <transition-group-stub
-        class="float-right"
+        class="float-end"
         name="q-btn"
         tag="div"
       >
@@ -1901,7 +1901,7 @@ exports[`Text Questions of answered wrongly with answer, header without hint ren
       />
        
       <transition-group-stub
-        class="float-right"
+        class="float-end"
         name="q-btn"
         tag="div"
       >
@@ -1959,7 +1959,7 @@ exports[`Text Questions of checked wrongly with answer shown hint without header
       />
        
       <transition-group-stub
-        class="float-right"
+        class="float-end"
         name="q-btn"
         tag="div"
       >
@@ -2033,7 +2033,7 @@ exports[`Text Questions of unanswered with shown hint, header without answer ren
       <!---->
        
       <transition-group-stub
-        class="float-right"
+        class="float-end"
         name="q-btn"
         tag="div"
       >
