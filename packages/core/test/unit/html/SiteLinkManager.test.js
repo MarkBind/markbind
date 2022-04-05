@@ -27,6 +27,26 @@ test('Test invalid URL link ', () => {
   expect(siteLinkManager.collectIntraLinkToValidate(mockNode, mockCwf)).toEqual(EXPECTED_RESULT);
 });
 
+test('Test mailto URL link', () => {
+  const siteLinkManager = getNewSiteLinkManager();
+  const mockLink = '<a href="mailto:test@example.com">Test</a>';
+  const mockNode = cheerio.parseHTML(mockLink)[0];
+
+  const EXPECTED_RESULT = 'Should not validate mailto or tel links';
+
+  expect(siteLinkManager.collectIntraLinkToValidate(mockNode, mockCwf)).toEqual(EXPECTED_RESULT);
+});
+
+test('Test tel URL link', () => {
+  const siteLinkManager = getNewSiteLinkManager();
+  const mockLink = '<a href="tel:999">Test</a>';
+  const mockNode = cheerio.parseHTML(mockLink)[0];
+
+  const EXPECTED_RESULT = 'Should not validate mailto or tel links';
+
+  expect(siteLinkManager.collectIntraLinkToValidate(mockNode, mockCwf)).toEqual(EXPECTED_RESULT);
+});
+
 test('Test link for disabled intralink validation', () => {
   const siteLinkManager = getNewSiteLinkManager();
   const mockLink = '<a href="https://markbind.org" no-validation>Test</a>';

@@ -42,6 +42,12 @@ function _convertRelativeLink(node, cwf, rootPath, baseUrl, resourcePath, linkAt
     return;
   }
 
+  const isMailtoOrTel = /^(?:mailto:|tel:)/i.test(resourcePath);
+  if (isMailtoOrTel) {
+    // mailto/tel links are not relative
+    return;
+  }
+
   if (path.isAbsolute(resourcePath) || urlUtil.isUrl(resourcePath) || resourcePath.startsWith('#')) {
     // Do not rewrite.
     return;
@@ -148,7 +154,10 @@ function isValidFileAsset(resourcePath, config) {
  * @returns {string} these string return values are for unit testing purposes only
  */
 function validateIntraLink(resourcePath, cwf, config) {
-  if (!resourcePath || urlUtil.isUrl(resourcePath) || resourcePath.startsWith('#')) {
+  if (!resourcePath
+    || urlUtil.isUrl(resourcePath)
+    || resourcePath.startsWith('#')
+    || /^(?:mailto:|tel:)/i.test(resourcePath)) {
     return 'Not Intralink';
   }
 

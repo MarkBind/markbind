@@ -50,6 +50,11 @@ class SiteLinkManager {
       return 'Should not validate';
     }
 
+    const mailtoOrTelRegex = /^(?:mailto:|tel:)/i;
+    if (_.has(node.attribs, 'href') && mailtoOrTelRegex.test(node.attribs.href)) {
+      return 'Should not validate mailto or tel links';
+    }
+
     if (node.attribs) {
       const hasIntralinkValidationDisabled = _.has(node.attribs, 'no-validation');
       if (hasIntralinkValidationDisabled) {
