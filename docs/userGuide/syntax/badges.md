@@ -48,7 +48,7 @@ Headings:
 
 <div class="indented">
 
-%%{{ icon_info }} You can refer to [Bootstrap documentation](https://getbootstrap.com/docs/4.2/components/badge/) to find more information about Badges.%%
+%%{{ icon_info }} You can refer to [Bootstrap documentation](https://getbootstrap.com/docs/5.1/components/badge/) to find more information about Badges.%%
 </div>
 
 

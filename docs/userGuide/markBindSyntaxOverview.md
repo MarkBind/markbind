@@ -92,7 +92,7 @@ More info: <include src="{{ filename }}#link" inline trim/>
 
 #### {{ icon_check_blue }} MarkBind Vue components and BootStrap
 
-MarkBind has several core Vue.js components built on the popular [BootStrap](https://getbootstrap.com/docs/4.2/getting-started/introduction/) framework. Much of Bootstrap's features are supported in and out of these components as well.
+MarkBind has several core Vue.js components built on the popular [BootStrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/) framework. Much of Bootstrap's features are supported in and out of these components as well.
 
 <!-- ======================================================================================================= -->
 
