@@ -64,7 +64,7 @@ Alternatively, you can use `<markdown>` (for _block_ Markdown elements such as h
 </div>
 
 ## JavaScript libraries
-External JavaScript libraries can be included in MarkBind to add additional & wide-ranging features and functionalities. One such use case is to add a charting library for data visualisation.
+External JavaScript libraries can be included in MarkBind to add a wide range of features and functionalities. One such use case is to add a charting library for data visualization.
 
 ### Charts
 Popular chart libraries such as [Chart.js](https://www.chartjs.org/) and [Apache ECharts](https://echarts.apache.org) can be used in MarkBind to create beautiful charts, similar to how they are used in any HTML web page. The details of how to use these libraries are beyond the scope of this section, but you can find more information on their websites. In general, you will perform these 3 steps:
@@ -74,7 +74,7 @@ Popular chart libraries such as [Chart.js](https://www.chartjs.org/) and [Apache
 
 <box type="warning">
 
-As mentioned in the [above section](#markdown-in-html), you **should not** leave any blank lines within HTML elements unintentionally, to prevent misinterpreting them as Markdown instead of code/text.
+As mentioned in the [above section](#markdown-in-html), you **should not** leave any blank lines within HTML elements to prevent MarkBind from parsing the contents as Markdown instead of code/text.
 </box>
 
 {{ icon_example }} Here is an example of how to use Chart.js to create a pie chart.
