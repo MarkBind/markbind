@@ -4,23 +4,23 @@
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 Normal:
-<span class="badge badge-primary">Primary</span>
-<span class="badge badge-secondary">Secondary</span>
-<span class="badge badge-success">Success</span>
-<span class="badge badge-danger">Danger</span>
-<span class="badge badge-warning">Warning</span>
-<span class="badge badge-info">Info</span>
-<span class="badge badge-light">Light</span>
-<span class="badge badge-dark">Dark</span>
+<span class="badge bg-primary">Primary</span>
+<span class="badge bg-secondary">Secondary</span>
+<span class="badge bg-success">Success</span>
+<span class="badge bg-danger">Danger</span>
+<span class="badge bg-warning">Warning</span>
+<span class="badge bg-info">Info</span>
+<span class="badge bg-light">Light</span>
+<span class="badge bg-dark">Dark</span>
 <br>Pills:
-<span class="badge rounded-pill badge-primary">Primary</span>
-<span class="badge rounded-pill badge-secondary">Secondary</span>
-<span class="badge rounded-pill badge-success">Success</span>
-<span class="badge rounded-pill badge-danger">Danger</span>
-<span class="badge rounded-pill badge-warning">Warning</span>
-<span class="badge rounded-pill badge-info">Info</span>
-<span class="badge rounded-pill badge-light">Light</span>
-<span class="badge rounded-pill badge-dark">Dark</span>
+<span class="badge rounded-pill bg-primary">Primary</span>
+<span class="badge rounded-pill bg-secondary">Secondary</span>
+<span class="badge rounded-pill bg-success">Success</span>
+<span class="badge rounded-pill bg-danger">Danger</span>
+<span class="badge rounded-pill bg-warning">Warning</span>
+<span class="badge rounded-pill bg-info">Info</span>
+<span class="badge rounded-pill bg-light">Light</span>
+<span class="badge rounded-pill bg-dark">Dark</span>
 </variable>
 </include>
 
@@ -30,18 +30,18 @@ You can use Badges in combination with headings, buttons, links, etc.
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 Links:
-<a href="#" class="badge badge-primary">Primary</a>
-<a href="#" class="badge rounded-pill badge-warning">Warning</a>
+<a href="#" class="badge bg-primary">Primary</a>
+<a href="#" class="badge rounded-pill bg-warning">Warning</a>
 
 Buttons:
 <button type="button" class="btn btn-primary">
-  Difficulty Level <span class="badge badge-light">4</span>
+  Difficulty Level <span class="badge bg-light">4</span>
 </button>
 
 Headings:
 
-### Feature X <span class="badge badge-danger">beta</span> {.no-index}
-##### Feature Y <span class="badge rounded-pill badge-success">stable</span> {.no-index}
+### Feature X <span class="badge bg-danger">beta</span> {.no-index}
+##### Feature Y <span class="badge rounded-pill bg-success">stable</span> {.no-index}
 </variable>
 </include>
 
@@ -55,20 +55,20 @@ Headings:
 <div id="short" class="d-none">
 
 ```markdown
-<span class="badge badge-primary">Primary</span>
-<span class="badge rounded-pill badge-success">Success</span>
+<span class="badge bg-primary">Primary</span>
+<span class="badge rounded-pill bg-success">Success</span>
 <button type="button" class="btn btn-primary">
-  Difficulty Level <span class="badge badge-light">4</span>
+  Difficulty Level <span class="badge bg-light">4</span>
 </button>
 ```
 </div>
 
 <div id="examples" class="d-none">
 
-<span class="badge badge-primary">Primary</span>
-<span class="badge rounded-pill badge-success">Success</span>
+<span class="badge bg-primary">Primary</span>
+<span class="badge rounded-pill bg-success">Success</span>
 <button type="button" class="btn btn-primary">
-  Difficulty Level <span class="badge badge-light">4</span>
-##### Feature Y <span class="badge rounded-pill badge-warning">stable</span> {.no-index}
+  Difficulty Level <span class="badge bg-light">4</span>
+##### Feature Y <span class="badge rounded-pill bg-warning">stable</span> {.no-index}
 </button>
 </div>
