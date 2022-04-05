@@ -32,7 +32,7 @@ test('Test mailto URL link', () => {
   const mockLink = '<a href="mailto:test@example.com">Test</a>';
   const mockNode = cheerio.parseHTML(mockLink)[0];
 
-  const EXPECTED_RESULT = 'Should not validate mailto or tel links';
+  const EXPECTED_RESULT = 'Should not validate';
 
   expect(siteLinkManager.collectIntraLinkToValidate(mockNode, mockCwf)).toEqual(EXPECTED_RESULT);
 });
@@ -42,7 +42,7 @@ test('Test tel URL link', () => {
   const mockLink = '<a href="tel:999">Test</a>';
   const mockNode = cheerio.parseHTML(mockLink)[0];
 
-  const EXPECTED_RESULT = 'Should not validate mailto or tel links';
+  const EXPECTED_RESULT = 'Should not validate';
 
   expect(siteLinkManager.collectIntraLinkToValidate(mockNode, mockCwf)).toEqual(EXPECTED_RESULT);
 });

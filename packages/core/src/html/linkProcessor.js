@@ -37,18 +37,23 @@ function getResourcePathFromRoot(rootPath, fullResourcePath) {
   return fsUtil.ensurePosix(path.relative(rootPath, fullResourcePath));
 }
 
+/**
+ * @param {string} resourcePath parsed from the node's relevant attribute
+ * @returns {boolean} whether the resourcePath is a valid intra-site link
+ */
+function isIntraLink(resourcePath) {
+  return resourcePath
+    && !urlUtil.isUrl(resourcePath)
+    && !resourcePath.startsWith('#')
+    && !/^(?:mailto:|tel:)/i.test(resourcePath); // mailto/tel links are not relative
+}
+
 function _convertRelativeLink(node, cwf, rootPath, baseUrl, resourcePath, linkAttribName) {
-  if (!resourcePath) {
+  if (!isIntraLink(resourcePath)) {
     return;
   }
 
-  const isMailtoOrTel = /^(?:mailto:|tel:)/i.test(resourcePath);
-  if (isMailtoOrTel) {
-    // mailto/tel links are not relative
-    return;
-  }
-
-  if (path.isAbsolute(resourcePath) || urlUtil.isUrl(resourcePath) || resourcePath.startsWith('#')) {
+  if (path.isAbsolute(resourcePath)) {
     // Do not rewrite.
     return;
   }
@@ -154,10 +159,7 @@ function isValidFileAsset(resourcePath, config) {
  * @returns {string} these string return values are for unit testing purposes only
  */
 function validateIntraLink(resourcePath, cwf, config) {
-  if (!resourcePath
-    || urlUtil.isUrl(resourcePath)
-    || resourcePath.startsWith('#')
-    || /^(?:mailto:|tel:)/i.test(resourcePath)) {
+  if (!isIntraLink(resourcePath)) {
     return 'Not Intralink';
   }
 
@@ -255,4 +257,5 @@ module.exports = {
   convertMdExtToHtmlExt,
   validateIntraLink,
   collectSource,
+  isIntraLink,
 };
