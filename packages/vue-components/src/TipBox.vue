@@ -355,7 +355,7 @@ export default {
     }
 
     .alert-dismissible .btn-close {
-        padding: 1rem ;
+        padding: 1rem;
     }
 
     .contents > :last-child {
