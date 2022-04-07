@@ -38,7 +38,7 @@ Some text some text some text some text some text some text some text. **Some te
 
 ## Sub Heading 1.1
 
-A <tooltip content=":exclamation: some **important explanation**" placement="top" trigger="hover">tooltip</tooltip>, a <trigger for="modal:modalinfo" trigger="click">modal</trigger>, a <a href="https://markbind.org/">link</a>, a <span class="badge bg-danger">badge</span>, another <span class="badge bg-warning">badge</span>.
+A <tooltip content=":exclamation: some **important explanation**" placement="top" trigger="hover">tooltip</tooltip>, a <trigger for="modal:modalinfo" trigger="click">modal</trigger>, a <a href="https://markbind.org/">link</a>, a <span class="badge bg-danger">badge</span>, another <span class="badge bg-warning text-dark">badge</span>.
 
 <modal header="Modal Title" id="modal:modalinfo">
 Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
