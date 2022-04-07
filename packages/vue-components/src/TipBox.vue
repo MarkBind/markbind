@@ -52,11 +52,10 @@
         <button
           v-if="dismissible"
           type="button"
-          class="close close-with-heading"
-          data-dismiss="alert"
+          class="btn-close close-with-heading"
+          data-bs-dismiss="alert"
           aria-label="Close"
         >
-          <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
@@ -98,11 +97,10 @@
         <button
           v-if="dismissible && !headerBool()"
           type="button"
-          class="close"
-          data-dismiss="alert"
+          class="btn-close"
+          data-bs-dismiss="alert"
           aria-label="Close"
         >
-          <span aria-hidden="true">&times;</span>
         </button>
       </div>
     </div>
@@ -346,12 +344,18 @@ export default {
     }
 
     .close-with-heading {
-        top: auto;
-        padding: 0 1.25rem;
+        top: 0;
+        right: 0;
+        position: absolute;
+        padding: 1rem;
     }
 
     .close-with-heading > span {
         vertical-align: text-top;
+    }
+
+    .alert-dismissible .btn-close {
+        padding: 1rem ;
     }
 
     .contents > :last-child {
