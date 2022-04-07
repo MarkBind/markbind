@@ -23,7 +23,7 @@
               <span
                 v-for="keyword in keywordsSplitTrimmed()"
                 :key="keyword"
-                class="badge badge-pill badge-light fw-normal"
+                class="badge rounded-pill bg-light text-dark fw-normal"
               >
                 {{ keyword }}
               </span>
