@@ -12,7 +12,7 @@
       @input="update"
       @keyup.up="up"
       @keyup.down="down"
-      @keydown.enter.prevent="hit"
+      @keydown.enter="hit"
       @keydown.esc="reset"
       @blur="showDropdown = false"
     />

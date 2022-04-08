@@ -115,7 +115,7 @@ export default {
       return !!this.$scopedSlots.before;
     },
     btnWithBefore() {
-      return this.hasBefore ? 'btn-with-before' : ''
+      return this.hasBefore ? 'btn-with-before' : '';
     },
   },
   methods: {
