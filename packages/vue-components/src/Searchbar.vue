@@ -4,14 +4,15 @@
     <input
       v-else
       v-model="value"
+      data-bs-toggle="dropdown"
       type="text"
       class="form-control"
       :placeholder="placeholder"
       autocomplete="off"
       @input="update"
-      @keydown.up="up"
-      @keydown.down="down"
-      @keydown.enter="hit"
+      @keyup.up="up"
+      @keyup.down="down"
+      @keydown.enter.prevent="hit"
       @keydown.esc="reset"
       @blur="showDropdown = false"
     />
@@ -179,7 +180,8 @@ export default {
         'dropdown-menu',
         'search-dropdown-menu',
         { show: this.showDropdown },
-        { 'dropdown-menu-right': this.menuAlignRight },
+        { 'd-none': !this.showDropdown },
+        { 'dropdown-menu-end': this.menuAlignRight },
       ];
     },
   },
@@ -252,6 +254,10 @@ export default {
 <style scoped>
     .form-control {
         min-width: 8em;
+    }
+
+    .table-active {
+        background-color: rgba(0, 0, 0, 0.075); /* follows Bootstrap's table-active */
     }
 </style>
 
