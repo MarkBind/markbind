@@ -2,21 +2,20 @@
   <li
     v-if="isLi"
     ref="dropdown"
-    :class="[{ 'disabled': disabledBool },
-             isLi ? 'dropdown' : 'btn-group', addClass]"
+    :class="[{ 'disabled': disabledBool }, 'dropdown', addClass]"
   >
     <slot name="button">
       <a
         class="dropdown-toggle"
         role="button"
         :class="{'disabled': disabledBool}"
-        @keyup.esc="hideDropdownMenu()"
+        data-bs-toggle="dropdown"
       >
         <slot name="header"></slot>
       </a>
     </slot>
-    <slot name="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-right': menuAlignRight }]">
-      <ul class="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-right': menuAlignRight }]">
+    <slot name="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-end': menuAlignRight }]">
+      <ul class="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-end': menuAlignRight }]">
         <slot></slot>
       </ul>
     </slot>
@@ -29,8 +28,7 @@
   <div
     v-else
     ref="dropdown"
-    :class="[{ 'disabled': disabledBool },
-             isLi ? 'dropdown' : 'btn-group', addClass]"
+    :class="[{ 'disabled': disabledBool }, 'btn-group', addClass]"
   >
     <slot name="before"></slot>
     <slot name="button">
@@ -39,13 +37,13 @@
         class="btn dropdown-toggle"
         :class="[btnType, btnWithBefore]"
         :disabled="disabledBool"
-        @keyup.esc="hideDropdownMenu()"
+        data-bs-toggle="dropdown"
       >
         <slot name="header"></slot>
       </button>
     </slot>
-    <slot name="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-right': menuAlignRight }]">
-      <ul class="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-right': menuAlignRight }]">
+    <slot name="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-end': menuAlignRight }]">
+      <ul class="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-end': menuAlignRight }]">
         <slot></slot>
       </ul>
     </slot>
@@ -157,6 +155,10 @@ export default {
   },
   mounted() {
     const $el = $(this.$refs.dropdown);
+    if (this.$slots.button) {
+      // If the button is passed via props, manually add a data-bs-toggle
+      $el.findChildren('.dropdown-toggle').forEach(child => child.setAttribute('data-bs-toggle', 'dropdown'));
+    }
     if (this.show) {
       this.showDropdownMenu();
     }

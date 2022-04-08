@@ -2,13 +2,14 @@
   <li
     ref="submenu"
     :class="[addClass, 'dropdown-submenu',
-             { 'dropright': dropright, 'dropleft': dropleft }]"
+             { 'dropend': dropright, 'dropstart': dropleft }]"
   >
     <slot name="button">
       <a
         class="submenu-toggle"
         role="button"
         :class="{disabled: disabled}"
+        data-bs-toggle="dropdown"
       >
         <slot name="header"></slot>
       </a>
@@ -97,7 +98,7 @@ export default {
     $el.onBlur(() => { this.hideSubmenu(); }, false);
     $el.findChildren('a,button').on('click', (e) => {
       e.preventDefault();
-      if (e.target !== e.currentTarget) { e.stopPropagation(); }
+      e.stopPropagation();
       if (window.innerWidth < 768) {
         if (this.disabledBool) { return false; }
         if (this.show) {
