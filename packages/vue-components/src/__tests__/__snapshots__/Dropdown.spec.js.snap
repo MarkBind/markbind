@@ -7,6 +7,7 @@ exports[`Dropdown with submenu dropdown 1`] = `
    
   <button
     class="btn dropdown-toggle btn-light"
+    data-bs-reference="parent"
     data-bs-toggle="dropdown"
     type="button"
   >
@@ -53,6 +54,7 @@ exports[`Dropdown with submenu dropdown with one level of submenu 1`] = `
    
   <button
     class="btn dropdown-toggle btn-light"
+    data-bs-reference="parent"
     data-bs-toggle="dropdown"
     type="button"
   >
@@ -132,6 +134,7 @@ exports[`Dropdown with submenu dropdown with two levels of submenu 1`] = `
    
   <button
     class="btn dropdown-toggle btn-light"
+    data-bs-reference="parent"
     data-bs-toggle="dropdown"
     type="button"
   >

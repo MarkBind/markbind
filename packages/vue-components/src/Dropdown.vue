@@ -35,8 +35,9 @@
       <button
         type="button"
         class="btn dropdown-toggle"
-        :class="[btnType, btnWithBefore]"
+        :class="[btnType, btnWithBefore, { 'dropdown-toggle-split': hasBefore }]"
         :disabled="disabledBool"
+        data-bs-reference="parent"
         data-bs-toggle="dropdown"
       >
         <slot name="header"></slot>
@@ -110,11 +111,11 @@ export default {
     slots() {
       return this.$scopedSlots.default;
     },
+    hasBefore() {
+      return !!this.$scopedSlots.before;
+    },
     btnWithBefore() {
-      if (this.$scopedSlots.before) {
-        return 'btn-with-before';
-      }
-      return '';
+      return this.hasBefore ? 'btn-with-before' : ''
     },
   },
   methods: {
