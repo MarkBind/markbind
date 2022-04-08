@@ -9,23 +9,23 @@
   >
     <div :class="['row', { 'disabled': qState.answered }]">
       <div class="col-auto p-0">
-      <svg viewBox="0 0 100 100" class="radio-svg">
-        <circle
-          cx="50"
-          cy="50"
-          r="47"
-          fill="none"
-          stroke="black"
-          stroke-width="4"
-        />
-        <circle
-          v-show="selected"
-          cx="50"
-          cy="50"
-          r="25"
-          fill="dodgerblue"
-        />
-      </svg>
+        <svg viewBox="0 0 100 100" class="radio-svg">
+          <circle
+            cx="50"
+            cy="50"
+            r="47"
+            fill="none"
+            stroke="black"
+            stroke-width="4"
+          />
+          <circle
+            v-show="selected"
+            cx="50"
+            cy="50"
+            r="25"
+            fill="dodgerblue"
+          />
+        </svg>
       </div>
       <div class="col content">
         <slot></slot>
@@ -178,7 +178,6 @@ export default {
 
     .checkbox-label {
         cursor: pointer;
-        margin: 0;
     }
 
     .form-control {
