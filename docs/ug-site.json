@@ -6,11 +6,12 @@
   },
   "pages": [
     {
-      "glob": ["**/*.mbd", "*.md", "userGuide/*.md", "userGuide/components/*.md"]
+      "glob": ["*.md", "userGuide/*.md", "userGuide/components/*.md"]
     },
     {
       "src": [
         "index.md",
+        "userGuide/index.md",
         "userGuide/fullSyntaxReference.md",
         "userGuide/syntaxCheatSheet.md",
         "userGuide/readerFacingFeatures.md"
@@ -33,8 +34,6 @@
     "lib/*",
     "*.json",
     "*.md",
-    "*.mbd",
-    "*.mbdf",
     "*.njk",
     ".git/*",
     "*.pptx"

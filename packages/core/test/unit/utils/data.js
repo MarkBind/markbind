@@ -11,7 +11,6 @@ const PAGE_NJK = `
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ title }}</title>
     <link rel="stylesheet" href="{{ asset.bootstrap }}">
-    <link rel="stylesheet" href="{{ asset.bootstrapVue }}">
     <link rel="stylesheet" href="{{ asset.fontAwesome }}">
     <link rel="stylesheet" href="{{ asset.glyphicons }}">
     <link rel="stylesheet" href="{{ asset.highlight }}">
@@ -34,7 +33,6 @@ const PAGE_NJK = `
 <script src="{{ asset.components }}"></script>
 <script src="{{ asset.bootstrapUtilityJs }}"></script>
 <script src="{{ asset.polyfillJs }}"></script>
-<script src="{{ asset.bootstrapVueJs }}"></script>
 <script>
   const baseUrl = '{{ baseUrl }}';
 </script>
@@ -55,8 +53,6 @@ module.exports.SITE_JSON_DEFAULT = '{\n'
   + '    "_site/*",\n'
   + '    "site.json",\n'
   + '    "*.md",\n'
-  + '    "*.mbd",\n'
-  + '    "*.mbdf",\n'
   + '    "*.njk",\n'
   + '    ".git/*"\n'
   + '  ],\n'
@@ -69,7 +65,7 @@ module.exports.SITE_JSON_DEFAULT = '{\n'
   + '      "glob" : "**/index.md"\n'
   + '    },\n'
   + '    {\n'
-  + '      "glob" : "**/*.+(md|mbd)"\n'
+  + '      "glob" : "**/*.md"\n'
   + '    }\n'
   + '  ],\n'
   + '  "deploy": {\n'

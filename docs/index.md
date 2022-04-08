@@ -6,11 +6,11 @@
 
 <h1 class="display-3"><md>**MarkBind**</md></h1>
 
-<span class="lead">
+<div class="lead">
 
-<big>**Generate <tooltip content="as opposed to _one-size-fits-all_ static content">_more dynamic_</tooltip> websites from Markdown text.**</big>
-Optimized for creating text-heavy websites %%e.g., eLearning websites, online instruction manuals, project documentation etc.%%.
-</span>
+++**Generate <tooltip content="as opposed to _one-size-fits-all_ static content">_more dynamic_</tooltip> websites from Markdown text.**++
+Optimized for creating text-heavy websites %%e.g., eLearning websites, online instruction manuals, project documentation etc.%%
+</div>
 
 <a class="btn btn-primary" href="userGuide/">Get Started</a>
 
@@ -81,7 +81,6 @@ Euler's Identity \(e^{i\pi}+1=0\) is a beautiful formula.
   </td>
 </tr>
 </table>
-
 
 </panel>
 <p/>
@@ -154,9 +153,9 @@ MarkBind is **highly optimized for creating text-heavy websites** %%e.g., eLearn
 Here are some examples:
 <div class="indented">
 
-<big>:fas-heart:</big> **Icons** can improve the readability of a text-heavy document. MarkBind comes with a wide selection of [icons](userGuide/formattingContents.html#icons) and [emoji](userGuide/formattingContents.html#emoji).<br>
-<big>:fas-search:</big> With MarkBind's [**search feature**](userGuide/makingTheSiteSearchable.html), you can allow readers to search for keywords in your site.<br>
-<big>:fas-window-maximize:</big> MarkBind allows you to add [**site/page navigation menus, headers, footers**](userGuide/tweakingThePageStructure.html) easily.
+++:fas-heart:++ **Icons** can improve the readability of a text-heavy document. MarkBind comes with a wide selection of [icons](userGuide/formattingContents.html#icons) and [emoji](userGuide/formattingContents.html#emoji).<br>
+++:fas-search:++ With MarkBind's [**search feature**](userGuide/makingTheSiteSearchable.html), you can allow readers to search for keywords in your site.<br>
+++:fas-window-maximize:++ MarkBind allows you to add [**site/page navigation menus, headers, footers**](userGuide/tweakingThePageStructure.html) easily.
 </div>
 
 <hr><!-- ======================================================================================================= -->

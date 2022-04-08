@@ -14,11 +14,11 @@
 
 # {{ title }}
 
-<span class="lead" id="overview">
+<div class="lead" id="overview">
 
 **It is easy to add files to a MarkBind site as any file inside the {{ tooltip_root_directory }} becomes a part of the generated website.**
 
-</span>
+</div>
 
 <div class="indented">
 
@@ -28,7 +28,7 @@
 
 %%You can specify which files to be omitted from the site by using the `ignore` field in the `site.config` file as explained [here](siteJsonFile.html#ignore).%%
 
-**More importantly, `.md` and `.mbd` files can be transformed into html pages with matching names.**
+**More importantly, `.md` files can be transformed into html pages with matching names.**
 
 <div class="indented">
 
@@ -37,9 +37,9 @@
 </div>
 
 Here are the steps to add a new page to your site:
-1. Add a `.md` (or `.mbd`) file anywhere inside the root directory.
-1. Update the [`pages` attribute of the `site.json`](siteJsonFile.html#pages) to cover the new file, if necessary.
-1. Use the <trigger trigger="click" for="modal:addingPages-livePreview">live preview</trigger> to view the generated web page for the new file.
+1. Add a `.md` file anywhere inside the root directory.
+2. Update the [`pages` attribute of the `site.json`](siteJsonFile.html#pages) to cover the new file, if necessary.
+3. Use the <trigger trigger="click" for="modal:addingPages-livePreview">live preview</trigger> to view the generated web page for the new file.
 
 <modal large header="Live Preview" id="modal:addingPages-livePreview">
 <include src="glossary.md#live-preview" inline/>

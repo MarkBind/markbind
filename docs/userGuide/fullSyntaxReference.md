@@ -38,6 +38,7 @@
   pictures : ['Pictures', ['images-diagrams', 'reader-facing']],
   thumbnails : ['Thumbnails', ['images-diagrams', 'reader-facing']],
   diagrams : ['Diagrams', ['images-diagrams', 'reader-facing']],
+  tree : ['Tree', ['images-diagrams', 'reader-facing']],
   tooltips : ['Tooltips', ['popups', 'reader-facing']],
   popovers : ['Popovers', ['popups', 'reader-facing']],
   modals : ['Modals', ['popups', 'reader-facing']],
@@ -51,6 +52,6 @@
 
 {% for topic in syntax_topics | dictsort %}
 <panel type="seamless" header="###### **{{ topic[1][0] }}**">
-  <include src="syntax/{{ topic[0] }}.mbdf" />
+  <include src="syntax/{{ topic[0] }}.md" />
 </panel>
 {% endfor %}

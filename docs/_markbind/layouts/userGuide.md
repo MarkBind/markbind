@@ -1,4 +1,4 @@
-<include src="headers/header.mbdf" />
+<include src="headers/header.md" />
 
 <div id="flex-body">
   <nav id="site-nav" class="fixed-header-padding">
@@ -38,6 +38,7 @@
   * [Syntax Cheat Sheet]({{baseUrl}}/userGuide/syntaxCheatSheet.html)
   * [`site.json` File]({{baseUrl}}/userGuide/siteJsonFile.html)
   * [Tips & Tricks]({{baseUrl}}/userGuide/tipsAndTricks.html)
+  * [Troubleshooting]({{baseUrl}}/userGuide/troubleshooting.html)
   * [Glossary]({{baseUrl}}/userGuide/glossary.html)
       </site-nav>
     </div>
@@ -52,4 +53,4 @@
   </nav>
 </div>
 
-<include src="footers/footer.mbdf" />
+<include src="footers/footer.md" />

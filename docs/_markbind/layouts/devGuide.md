@@ -1,4 +1,4 @@
-<include src="headers/header.mbdf" />
+<include src="headers/header.md" />
 
 <div id="flex-body">
   <nav id="site-nav" class="fixed-header-padding">
@@ -14,7 +14,11 @@
   * [Project Structure]({{baseUrl}}/devGuide/design/projectStructure.html)
   * [Architecture]({{baseUrl}}/devGuide/design/architecture.html)
   * [Server Side Rendering]({{baseUrl}}/devGuide/design/serverSideRendering.html)
+* [Writing Components]({{baseUrl}}/devGuide/writingComponents.html)
 * [Writing Plugins]({{baseUrl}}/devGuide/writingPlugins.html)
+* GitHub Actions :expanded:
+  * [Overview]({{baseUrl}}/devGuide/githubActions/overview.html)
+  * [markbind-action]({{baseUrl}}/devGuide/githubActions/markbindAction.html)
 * [Project management]({{baseUrl}}/devGuide/projectManagement.html)
 * Appendices :expanded:
   * [Style guides]({{baseUrl}}/devGuide/styleGuides.html)
@@ -31,4 +35,4 @@
   </nav>
 </div>
 
-<include src="footers/footer.mbdf" />
+<include src="footers/footer.md" />

@@ -12,7 +12,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hello World</title>
   <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
-  <link rel="stylesheet" href="markbind/css/bootstrap-vue.min.css">
   <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
   <link rel="stylesheet" href="markbind/css/octicons.css">
@@ -26,6 +25,7 @@
   <script src="markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
+  <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-tree/markbind-plugin-tree.css">
 
   <meta name="default-head-bottom">
   <link rel="stylesheet" href="/test_site/stylesheets/styles.css">
@@ -42,7 +42,7 @@
     <div>
       <header>
         <navbar type="dark" default-highlight-on="sibling-or-child">
-          <template #brand><a href="/" title="Home" class="navbar-brand">Markbind Test Site</a></template>
+          <template #brand><a href="/" title="Home" class="navbar-brand">MarkBind Test Site</a></template>
           <li><a class="nav-link" href="/test_site/bugs/index.html">Open Bugs</a></li>
         </navbar>
         <div class="bg-info display-4 text-center text-white">
@@ -406,16 +406,9 @@
 
             <span>It is <strong>possible</strong> to use Markdown in HTML</span>
           </div>
-          <p><strong>Mbd, Mbdf include</strong></p>
+          <p><strong>Include from another MarkBind site</strong></p>
           <div>
-            <p><em>MarkBind supports .mbd files.</em></p>
-          </div>
-          <div>
-            <p><code class="line-numbers hljs inline no-lang" v-pre>MarkBind supports .mbdf files.</code></p>
-          </div>
-          <p><strong>Include from another Markbind site</strong></p>
-          <div>
-            <p>This is a page from another Markbind site.</p>
+            <p>This is a page from another MarkBind site.</p>
             <h2 id="feature-list"><span id="feature-list" class="anchor"></span>Feature list<a class="fa fa-anchor" href="#feature-list" onclick="event.stopPropagation()"></a></h2>
             <p>It is a list of features (or functionalities) grouped according to some criteria such as priority
               (e.g. must-have, nice-to-have, etc. ), order of delivery, object or process related
@@ -432,7 +425,7 @@
             </div>
           </div>
           <div>
-            <p>This is a page from another Markbind site.
+            <p>This is a page from another MarkBind site.
               The purpose of this page is to ensure that reuse works as expected.
               All the following images should display correctly.</p>
             <p>IMG tags:
@@ -557,7 +550,7 @@
             <p style="color: blue">Test</p>
             <p><strong>Test included variable as html element</strong></p>
             <p><span>Included variable within html element</span></p>
-            <p><strong>Test included variable overridden by <a href="http://variables.md">variables.md</a></strong></p>
+            <p><strong>Test included variable overridden by variables.md</strong></p>
             <p>Global Variable Overriding Included Variable</p>
             <p><strong>Test included variables in included file</strong></p>
             <div>
@@ -638,25 +631,25 @@
               <p><strong>Panel content of inner nested panel</strong></p>
             </panel>
           </panel>
-          <p><strong>Panel with src from another Markbind site</strong></p>
+          <p><strong>Panel with src from another MarkBind site</strong></p>
           <panel src="/test_site/sub_site/index._include_.html" expanded panelId="panel-with-src-from-another-markbind-site-header"><template #header>
-              <h2 id="panel-with-src-from-another-markbind-site-header"><span id="panel-with-src-from-another-markbind-site-header" class="anchor"></span>Panel with src from another Markbind site header<a class="fa fa-anchor" href="#panel-with-src-from-another-markbind-site-header" onclick="event.stopPropagation()"></a></h2>
+              <h2 id="panel-with-src-from-another-markbind-site-header"><span id="panel-with-src-from-another-markbind-site-header" class="anchor"></span>Panel with src from another MarkBind site header<a class="fa fa-anchor" href="#panel-with-src-from-another-markbind-site-header" onclick="event.stopPropagation()"></a></h2>
             </template></panel>
           <panel src="/test_site/sub_site/testReuseSubsite._include_.html" expanded panelId="panel-with-src-from-another-markbind-site-header-2"><template #header>
-              <h2 id="panel-with-src-from-another-markbind-site-header-2"><span id="panel-with-src-from-another-markbind-site-header-2" class="anchor"></span>Panel with src from another Markbind site header<a class="fa fa-anchor" href="#panel-with-src-from-another-markbind-site-header-2" onclick="event.stopPropagation()"></a></h2>
+              <h2 id="panel-with-src-from-another-markbind-site-header-2"><span id="panel-with-src-from-another-markbind-site-header-2" class="anchor"></span>Panel with src from another MarkBind site header<a class="fa fa-anchor" href="#panel-with-src-from-another-markbind-site-header-2" onclick="event.stopPropagation()"></a></h2>
             </template></panel>
         </div>
         <p><strong>Modal with panel inside</strong></p>
         <p>
           <trigger for="modal-with-panel">trigger</trigger>
         </p>
-        <b-modal id="modal-with-panel" hide-footer size modal-class="mb-zoom" ref="modal-with-panel"><template #modal-title>modal title with panel inside</template>
+        <modal id="modal-with-panel"><template #header>modal title with panel inside</template>
           <panel expanded panelId="panel-inside-modal"><template #header>
               <h2 id="panel-inside-modal"><span id="panel-inside-modal" class="anchor"></span>Panel inside modal<a class="fa fa-anchor" href="#panel-inside-modal" onclick="event.stopPropagation()"></a></h2>
             </template>
             <p><strong>Panel content inside modal</strong></p>
           </panel>
-        </b-modal>
+        </modal>
         <p><strong>Unexpanded panel</strong></p>
         <panel panelId="unexpanded-panel-header"><template #header>
             <h2 id="unexpanded-panel-header"><span id="unexpanded-panel-header" class="anchor"></span>Unexpanded panel header<a class="fa fa-anchor" href="#unexpanded-panel-header" onclick="event.stopPropagation()"></a></h2>
@@ -789,8 +782,8 @@
               <a class="nav-link py-1" href="#outer-nested-panel" v-pre>Outer nested panel&#x200E;</a>
               <a class="nav-link py-1" href="#outer-nested-panel-without-src" v-pre>Outer nested panel without src&#x200E;</a>
               <a class="nav-link py-1" href="#inner-panel-header-without-src" v-pre>Inner panel header without src&#x200E;</a>
-              <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site-header" v-pre>Panel with src from another Markbind site header&#x200E;</a>
-              <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site-header-2" v-pre>Panel with src from another Markbind site header&#x200E;</a>
+              <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site-header" v-pre>Panel with src from another MarkBind site header&#x200E;</a>
+              <a class="nav-link py-1" href="#panel-with-src-from-another-markbind-site-header-2" v-pre>Panel with src from another MarkBind site header&#x200E;</a>
               <a class="nav-link py-1" href="#unexpanded-panel-header" v-pre>Unexpanded panel header&#x200E;</a>
               <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
                 <a class="nav-link py-1" href="#level-6-header-outside-headingsearchindex-with-always-index-attribute-should-be-indexed" v-pre>Level 6 header (outside headingSearchIndex) with always-index attribute should be indexed&#x200E;</a>

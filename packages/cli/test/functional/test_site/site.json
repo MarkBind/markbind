@@ -51,7 +51,7 @@
       "title": "Anchor Generation Test"
     },
     {
-      "src": "testTooltipSpacing.mbd",
+      "src": "testTooltipSpacing.md",
       "title": "Tooltip Spacing Test"
     },
     {
@@ -75,8 +75,16 @@
       "title": "Multiple inclusions of a modal should be supported"
     },
     {
+      "src": "testPopovers.md",
+      "title": "Test: Popovers"
+    },
+    {
       "src": "testPopoverTrigger.md",
       "title": "Popover initiated by trigger should honor trigger attribute"
+    },
+    {
+      "src": "testModals.md",
+      "title": "Test: Modals"
     },
     {
       "src": "testDates.md",
@@ -105,8 +113,21 @@
     {
       "src": "testPageNav.md",
       "title": "text interpolation should be skipped appropriately"
+    },
+    {
+      "src": "testLinks.md",
+      "title": "Autolink tests"
+    },
+    {
+      "src": "testTree.md",
+      "title": "Tree tests"
+    },
+    {
+      "src": "testMath.md",
+      "title": "Math formulae should be displayed correctly, with additional plugin"
     }
   ],
+  "pagesExclude": ["**/*-fragment.md"],
   "ignore": [
     "_markbind/layouts/*",
     "_markbind/logs/*",
@@ -129,7 +150,8 @@
   "plugins": [
     "testMarkbindPlugin",
     "filterTags",
-    "googleAnalytics"
+    "googleAnalytics",
+    "texWithDollars"
   ],
   "pluginsContext": {
     "testMarkbindPlugin": {
@@ -137,7 +159,11 @@
       "post": "<p>Node Modules Plugin Post-render</p>"
     },
     "filterTags": {
-      "tags": ["tag-site-shown", "+tag-site-override-shown", "+tag-site-override-specific-shown"]
+      "tags": [
+        "tag-site-shown",
+        "+tag-site-override-shown",
+        "+tag-site-override-specific-shown"
+      ]
     },
     "googleAnalytics": {
       "trackingID": "TRACKING-ID"

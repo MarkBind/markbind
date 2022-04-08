@@ -16,15 +16,15 @@
 
 # Other Components
 
-<span id="overview" class="lead">
+<div id="overview" class="lead">
 
 This page lists some other components that may be useful in creating education websites. For now, there are only question and quiz components.
-</span>
+</div>
 
 {% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
 
 {% macro show_topic(filename) %}
-<include src="../syntax/{{ filename }}.mbdf" />
+<include src="../syntax/{{ filename }}.md" />
 <hr>
 {% endmacro %}
 

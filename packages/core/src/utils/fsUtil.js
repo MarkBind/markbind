@@ -2,21 +2,24 @@ const path = require('path');
 const fs = require('fs-extra');
 const ensurePosix = require('ensure-posix-path');
 
-const markdownFileExts = ['.md', '.mbd', '.mbdf'];
+const markdownFileExts = '.md';
 
 module.exports = {
   ensurePosix,
 
   fileExists(filePath) {
     try {
-      return fs.statSync(filePath).isFile();
+      // use decodeURIComponent to deal with space (%20) in file path, e.g
+      // from docs\images\dev%20diagrams\architecture.png
+      // to docs\images\dev diagrams\architecture.png
+      return fs.statSync(decodeURIComponent(filePath)).isFile();
     } catch (err) {
       return false;
     }
   },
 
   isMarkdownFileExt(ext) {
-    return markdownFileExts.includes(ext);
+    return markdownFileExts === ext;
   },
 
   setExtension: (normalizedFilename, ext) => module.exports.removeExtension(normalizedFilename) + ext,

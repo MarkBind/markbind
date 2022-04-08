@@ -121,7 +121,7 @@ export default {
           headingKeywords,
         } = entry;
         const keywords = entry.keywords || '';
-        const displayTitle = title || src;
+        const displayTitle = title || src.substring(0, src.lastIndexOf('.'));
 
         const pageSearchTargets = [
           displayTitle,
@@ -248,6 +248,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+    .form-control {
+        min-width: 8em;
+    }
+</style>
 
 <style>
     .search-dropdown-menu {

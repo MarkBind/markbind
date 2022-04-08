@@ -306,6 +306,7 @@ export default {
     .contents {
         padding: 0 6px;
         width: 100%;
+        min-width: 0;
     }
 
     .box-container.seamless > .header-and-body > div.box-body-wrapper > .contents {

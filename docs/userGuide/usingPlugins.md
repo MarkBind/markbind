@@ -56,12 +56,13 @@ For example:
 
 MarkBind has a set of built-in plugins that can be used immediately without installation.
 
-<include src="plugins/algolia.mbdf" />
-<include src="plugins/codeBlockCopyButtons.mbdf" />
-<include src="plugins/codeBlockWrapButtons.mbdf" />
-<include src="plugins/tags.mbdf" />
-<include src="plugins/googleAnalytics.mbdf" />
-<include src="plugins/disqus.mbdf" />
+<include src="plugins/algolia.md" />
+<include src="plugins/codeBlockCopyButtons.md" />
+<include src="plugins/codeBlockWrapButtons.md" />
+<include src="plugins/tags.md" />
+<include src="plugins/googleAnalytics.md" />
+<include src="plugins/disqus.md" />
+<include src="plugins/texWithDollars.md" />
 
 ## Using External Plugins
 

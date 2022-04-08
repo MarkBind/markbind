@@ -14,10 +14,10 @@
 # {{ title }}
 
 
-<span class="lead" id="overview">
+<div class="lead" id="overview">
 
 **A MarkBind source file may contain a mix of several popular syntax schemes** used in creating web pages. MarkBind source file can be as simple as basic Markdown, and you can use progressively more complicated syntax to create progressively more sophisticated Web pages while optimizing other aspects such as content reuse.
-</span>
+</div>
 
 Given below is an overview of the syntax schemes supported by MarkBind.
 
@@ -31,9 +31,9 @@ Given below is an overview of the syntax schemes supported by MarkBind.
 MarkBind supports all basic Markdown syntax.
 
 <panel type="seamless" header="Some examples ...">
-<include src="syntax/headings.mbdf#main-example" />
-<include src="syntax/textStyles.mbdf#main-example-markdown" />
-<include src="syntax/links.mbdf#main-example" />
+<include src="syntax/headings.md#main-example" />
+<include src="syntax/textStyles.md#main-example-markdown" />
+<include src="syntax/links.md#main-example" />
 </panel>
 
 <!-- ======================================================================================================= -->
@@ -43,9 +43,9 @@ MarkBind supports all basic Markdown syntax.
 MarkBind supports additional Markdown features provided by Github-Flavored Markdown (GFMD).
 
 <panel type="seamless" header="Some examples ...">
-<include src="syntax/code.mbdf#main-example" />
-<include src="syntax/lists.mbdf#main-example-gfmd" />
-<include src="syntax/emoji.mbdf#main-example" />
+<include src="syntax/code.md#main-example" />
+<include src="syntax/lists.md#main-example-gfmd" />
+<include src="syntax/emoji.md#main-example" />
 </panel>
 
 
@@ -56,9 +56,9 @@ MarkBind supports additional Markdown features provided by Github-Flavored Markd
 MarkBind adds several Markdown-like features on top of GFMD.
 
 <panel type="seamless" header="Some examples ...">
-<include src="syntax/textStyles.mbdf#main-example-markbind" />
-<include src="syntax/lists.mbdf#main-example-markbind" />
-<include src="syntax/footnotes.mbdf#main-example-markbind" />
+<include src="syntax/textStyles.md#main-example-markbind" />
+<include src="syntax/lists.md#main-example-markbind" />
+<include src="syntax/footnotes.md#main-example-markbind" />
 </panel>
 
 <!-- ======================================================================================================= -->
@@ -78,7 +78,7 @@ More info: <include src="{{ filename }}#link" inline trim/>
 <br>
 {% endmacro %}
 
-{% for filename in ['syntax/variables.mbdf', 'syntax/includes.mbdf', 'usingComponents.md'] %}
+{% for filename in ['syntax/variables.md', 'syntax/includes.md', 'usingComponents.md'] %}
 {{ quote_topic(filename) }}
 {% endfor %}
 

@@ -16,15 +16,15 @@
 
 # Presentational Components
 
-<span id="overview" class="lead">
+<div id="overview" class="lead">
 
 The components in this page are the core **presentational** components you may want to use. Panels and tabs can be used to **organise content sections**, while badges and boxes can **highlight small, specific pieces of information**.
-</span>
+</div>
 
 {% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
 
 {% macro show_topic(filename) %}
-<include src="../syntax/{{ filename }}.mbdf" />
+<include src="../syntax/{{ filename }}.md" />
 <hr>
 {% endmacro %}
 

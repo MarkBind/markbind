@@ -6,10 +6,10 @@
   },
   "pages": [
     {
-      "glob": ["**/*.mbd", "*.md", "devGuide/*.md", "devGuide/*/*.md"]
+      "glob": ["*.md", "devGuide/*.md", "devGuide/*/*.md"]
     },
     {
-      "src": "index.md",
+      "src": ["index.md", "devGuide/index.md"],
       "searchable": "no"
     }
   ],
@@ -20,8 +20,6 @@
     "lib/*",
     "*.json",
     "*.md",
-    "*.mbd",
-    "*.mbdf",
     "*.njk",
     ".git/*",
     "*.pptx",

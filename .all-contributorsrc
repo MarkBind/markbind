@@ -436,6 +436,34 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "jovyntls",
+      "name": "Jovyn Tan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61113575?v=4",
+      "profile": "http://www.jovyntan.com",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "kaixin-hc",
+      "name": "Hannah",
+      "avatar_url": "https://avatars.githubusercontent.com/u/59471320?v=4",
+      "profile": "https://github.com/kaixin-hc",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "NaincyKumariKnoldus",
+      "name": "NaincyKumariKnoldus",
+      "avatar_url": "https://avatars.githubusercontent.com/u/87004609?v=4",
+      "profile": "https://github.com/NaincyKumariKnoldus",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

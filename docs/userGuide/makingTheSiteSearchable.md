@@ -16,10 +16,10 @@
 
 # {{ title }}
 
-<span class="lead" id="overview">
+<div class="lead" id="overview">
 
-**MarkBind comes with with an in-built _site search_ facility** with the option to use third-party search services as well.
-</span>
+**MarkBind comes with an in-built _site search_ facility** with the option to use third-party search services as well.
+</div>
 
 **All markdown and html headings of levels 1-3 are captured in the search index** by default. You can change this setting using the [`headingIndexLevel` property of the `site.json`](siteJsonFile.html#headingindexinglevel).
 
@@ -32,16 +32,16 @@ If you do not wish to use MarkBind's searchbar (e.g. you have an external servic
 
 You can add a search bar component to your website to allow users to search the site.
 
-{{ embed("Using components → **Search bars**", "syntax/searchBars.mbdf#body") }}
+{{ embed("Using components → **Search bars**", "syntax/searchBars.md#body") }}
 <p/>
-<include src="syntax/keywords.mbdf" />
-<include src="syntax/indexing.mbdf" />
+<include src="syntax/keywords.md" />
+<include src="syntax/indexing.md" />
 
 ## Using External Search Services
 
 MarkBind sites can use Algolia Doc Search services easily via the Algolia plugin. Unlike the built-in search, Algolia provides full-text search. See the panel below for more info.
 
-{{ embed("Using plugins → **Algolia**", "plugins/algolia.mbdf") }}
+{{ embed("Using plugins → **Algolia**", "plugins/algolia.md") }}
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('usingPlugins', 'themes') }}

@@ -14,39 +14,39 @@
 
 # {{ title }}
 
-<span class="lead" id="overview">
+<div class="lead" id="overview">
 
 **MarkBind is highly-optimized for content reuse**. It offers several mechanisms to provide readers with many variations of the content while minimizing duplication at source file level. As a result, instead of creating a one-size-fits-all site, MarkBind can create a site in which readers can chart their own path of reading.
-</span>
+</div>
 
 
-<include src="syntax/variables.mbdf" />
+<include src="syntax/variables.md" />
 
 <hr><!-- ======================================================================================================= -->
 
-<include src="syntax/includes.mbdf" />
+<include src="syntax/includes.md" />
 
 <hr><!-- ======================================================================================================= -->
 
 ## Reusing Contents Across Sites
 
-**MarkBind supports reusing across sites.** It allows you to include the pages you want from a _sub-site_ in another _main-site_ without having to change anything in the source files of the _sub-site_ as long as the sub-site source files are inside the directory of the _main site_.
+**MarkBind supports reusing across sites.** It allows you to include the pages you want from a _sub-site_ in another _main-site_ without having to change anything in the source files of the _sub-site_ as long as the _sub-site_ source files are inside the directory of the _main-site_.
 
 <div class="indented">
 
 {{ icon_example }} Suppose you have a site `textbook` and you want to include some pages from it in another site `course`. Given below is how you can locate the sub-site `textbook` inside the root directory of the main-site `course` so that files from `textbook` can be reused in the `course` site.
-```
+<tree>
 C:/course/
-  ├── textbook/
-  |      ├── index.md
-  |      ├── overview.md
-  |      └── site.json
-  ├── index.md
-  ├── reading.md
-  └── site.json
-```
+  textbook/
+    index.md
+    overview.md
+    site.json
+  index.md
+  reading.md
+  site.json
+</tree>
 
-`reading.md` (note how it reuses content from the sub-site `textbook`):
+In `reading.md` (note how it reuses content from the sub-site `textbook`):
 ```markdown
 # Week 1 Reading:
 <include src="textbook/overview.md" />
@@ -59,6 +59,66 @@ If you are using Git for version control, you can set up the sub-site repository
 </span>
 </include>
 
+
+<hr><!-- ======================================================================================================= -->
+
+## Creating Custom Fragments
+
+**MarkBind supports creating custom fragments**. A fragment is a piece of content that can be reused across multiple pages. This allows you to create reusable content similar to [reusing content](#reusing-contents-across-sites), but rather than reusing content from a _sub-site_, content is reused from fragments which can be excluded from page generation.
+
+<box type="warning">
+Note: This example below is assuming that you have included the following glob pattern in the `site.json` file:
+
+```js
+{
+  "pages": [
+    {
+      "glob": "*.md",
+      "layout": "normal",
+      "searchable": "yes"
+    }
+  ],
+}
+```
+
+Else, if each page is included individually, there is no need to exclude the fragments as they will not be included in the page generation.
+</box>
+
+
+{{ icon_example }} Suppose you have a fragment file `content-fragment.md` and you want to include it in some pages of the site `course` without rendering `content-fragment.md` as a page.
+
+<tree>
+C:/course/
+  content-fragment.md
+  index.md
+  reading.md
+  site.json
+</tree>
+
+In `reading.md` (note how it reuses content from the `content-fragment.md`):
+```markdown
+# Week 1 Reading:
+<include src="content-fragment.md" />
+```
+
+In `site.json` we then exclude the fragment from the page generation:
+
+```json
+...
+"pagesExclude": [
+  "**/*-fragment.md"
+],
+...
+```
+</div>
+
+</div>
+
+<include src="tip.md" boilerplate >
+<span id="tip_body">
+You may use any custom name you wish for your fragments but be sure to update the `pagesExclude` list with the appropriate glob pattern.
+</span>
+</include>
 
 <hr><!-- ======================================================================================================= -->
 
@@ -108,7 +168,7 @@ You can use following components to give readers an option to access additional 
 
 #### Organizing contents in alternative ways
 
-You can take advantage of [MarkBinds feature for content reuse](reusingContents.html), you can organize content in alternative ways to cater for different readers, without having to duplicate content. For example, you can have different pages that organizes the same information alphabetically, chronologically, by difficulty, group information by topic, etc.
+You can take advantage of [MarkBind's feature for content reuse](reusingContents.html) to organize content in alternative ways to cater for different readers, without having to duplicate content. For example, you can have different pages that organizes the same information alphabetically, chronologically, by difficulty, group information by topic, etc.
 
 #### Optimizing the Print View
 

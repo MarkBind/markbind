@@ -13,10 +13,10 @@
 
 # {{ title }}
 
-<span class="lead" id="overview">
+<div class="lead" id="overview">
 
-As **MarkBind is especially optimized as a project documentation tool**, it integrates well with the workflow of software project.
-</span>
+As **MarkBind is especially optimized as a project documentation tool**, it integrates well with the workflow of software projects.
+</div>
 
 #### Authoring Workflow
 
@@ -30,7 +30,7 @@ If you are using GitHub Pull Requests as part of your workflow, you can [set up 
 
 #### Using MarkBind for Project Documentation
 
-Here is a example workflow for using MarkBind for both developer documentation and user documentation in a GitHub project:
+Here is an example workflow for using MarkBind for both developer documentation and user documentation in a GitHub project:
 
 <div class="indented">
 
