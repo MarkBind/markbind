@@ -38,10 +38,6 @@ You can also insert markdown into the **header** or **hint box**, by using the `
 
   <q-option correct reason="Multiply the numbers on the left together and add the leftmost number!">
     96
-    Lorem ipsum dolor 
-If you require more expressive formatting for your header or hint markup, you can use the 
-If you require more expressive formatting for your header or hint markup, you can use the
-If you require more expressive formatting for your header or hint markup, you can use th
   </q-option>
   <q-option reason="Under normal circumstances, this would be correct.">
     19
