@@ -12,6 +12,7 @@ module.exports = {
   PAGE_TEMPLATE_NAME: 'page.njk',
   SITE_CONFIG_NAME: 'site.json',
   SITE_DATA_NAME: 'siteData.json',
+  VERSIONS_DATA_NAME: 'versions.json',
   LAYOUT_SITE_FOLDER_NAME: 'layouts',
   LAZY_LOADING_SITE_FILE_NAME: 'LazyLiveReloadLoadingSite.html',
   LAZY_LOADING_BUILD_TIME_RECOMMENDATION_LIMIT: 30000,

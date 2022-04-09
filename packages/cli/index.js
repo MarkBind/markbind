@@ -17,10 +17,8 @@ const fsUtil = require('@markbind/core/src/utils/fsUtil');
 const {
   INDEX_MARKDOWN_FILE,
   LAZY_LOADING_SITE_FILE_NAME,
-  SITE_CONFIG_NAME,
 } = require('@markbind/core/src/Site/constants');
 
-const { getSystemErrorMap } = require('util');
 const liveServer = require('./src/lib/live-server');
 const cliUtil = require('./src/util/cliUtil');
 const logger = require('./src/util/logger');
@@ -323,6 +321,7 @@ program
 program
   .command('archive [versionName] [archivePath]')
   .alias('ar')
+  .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
   .description('archive a version of the site, which can continue to be accessed')
   .action((versionName, userSpecifiedArchivePath, options) => {
     if (!versionName) {
@@ -331,17 +330,10 @@ program
     const archivePath = userSpecifiedArchivePath || 'version';
     const rootFolder = path.resolve(process.cwd());
     const outputFolder = path.join(rootFolder, archivePath, versionName);
-    // We assume the site config file is site.json at project root
-    const siteConfigJson = fs.readJsonSync(path.join(rootFolder, SITE_CONFIG_NAME));
-    const siteConfigBaseUrl = siteConfigJson.baseUrl;
-    // const siteConfigArchiveFolders = siteConfigJson.archiveFolder;
-    const archivedBaseUrl = siteConfigBaseUrl === ''
-      ? `/${archivePath}/${versionName}`
-      : `/${siteConfigBaseUrl}/${archivePath}/${versionName}`;
     new Site(rootFolder, outputFolder, undefined, undefined, options.siteConfig)
-      .generate(archivedBaseUrl)
+      .archive(versionName, archivePath)
       .then(() => {
-        logger.info('Archive success!');
+        logger.info(`Successfully archived ${versionName} at ${archivePath}/${versionName}`);
       })
       .catch(handleError);
   });
