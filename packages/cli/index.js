@@ -20,6 +20,7 @@ const {
   SITE_CONFIG_NAME,
 } = require('@markbind/core/src/Site/constants');
 
+const { getSystemErrorMap } = require('util');
 const liveServer = require('./src/lib/live-server');
 const cliUtil = require('./src/util/cliUtil');
 const logger = require('./src/util/logger');
@@ -323,25 +324,24 @@ program
   .command('archive [versionName] [archivePath]')
   .alias('ar')
   .description('archive a version of the site, which can continue to be accessed')
-  // .option('--baseUrl [baseUrl]',
-  //         'optional flag which overrides baseUrl in site.json, leave argument empty for empty baseUrl')
-  // .option('-vt, --version-tag <versionTag>',
-  // 'archive the version under the given version tag e.g. latest, current, dev')
   .action((versionName, userSpecifiedArchivePath, options) => {
-    // const baseUrl = _.isBoolean(options.baseUrl) ? '' : options.baseUrl;
     if (!versionName) {
       throw new Error('Please specify a name for the version to be archived.');
     }
     const archivePath = userSpecifiedArchivePath || 'version';
     const rootFolder = path.resolve(process.cwd());
     const outputFolder = path.join(rootFolder, archivePath, versionName);
-    // assumes it is site.json at project root
+    // We assume the site config file is site.json at project root
     const siteConfigJson = fs.readJsonSync(path.join(rootFolder, SITE_CONFIG_NAME));
-    const archivedBaseUrl = `/${siteConfigJson.baseUrl}/${archivePath}/${versionName}`;
+    const siteConfigBaseUrl = siteConfigJson.baseUrl;
+    // const siteConfigArchiveFolders = siteConfigJson.archiveFolder;
+    const archivedBaseUrl = siteConfigBaseUrl === ''
+      ? `/${archivePath}/${versionName}`
+      : `/${siteConfigBaseUrl}/${archivePath}/${versionName}`;
     new Site(rootFolder, outputFolder, undefined, undefined, options.siteConfig)
       .generate(archivedBaseUrl)
       .then(() => {
-        logger.info('Build success!');
+        logger.info('Archive success!');
       })
       .catch(handleError);
   });
@@ -357,9 +357,6 @@ program
     const rootFolder = path.resolve(process.cwd());
     const outputRoot = path.join(rootFolder, '_site');
     const site = new Site(rootFolder, outputRoot, undefined, undefined, options.siteConfig);
-    // if (options.versions) { // may be redundant; currently copies over files during build
-    //   site.addVersions(path.join(rootFolder, options.versions));
-    // }
     site.deploy(options.ci)
       .then(depUrl => (depUrl !== null ? logger.info(
         `The website has been deployed at: ${depUrl}`)
