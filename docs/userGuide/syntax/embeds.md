@@ -8,18 +8,18 @@ Here are three ways of embedding YouTube videos and one example of how it will l
 
 <!-- We use outputBox.md instead of codeAndOuput.md as boilerplate, because there are 3 ways to code vs 1 example -->
 <include src="outputBox.md" boilerplate >
-<div id="code">
+<variable name="code">
 
 ```markdown
 @[youtube](v40b3ExbM0c)
 @[youtube](http://www.youtube.com/watch?v=v40b3ExbM0c)
 @[youtube](http://youtu.be/v40b3ExbM0c)
 ```
-</div>
-<div id="output">
+</variable>
+<variable name="output">
 
 @[youtube](v40b3ExbM0c)
-</div>
+</variable>
 </include>
 
 More media blocks, embedding services and additional options can be found in [Markdown-it documentation](https://github.com/rotorz/markdown-it-block-embed).
