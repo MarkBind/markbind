@@ -42,12 +42,12 @@ class External {
       headerIdMap: {},
     };
 
-    const { variableProcessor, pluginManager } = config;
+    const { variableProcessor, pluginManager, siteLinkManager } = config;
 
     const pageSources = new PageSources();
     const docId = `ext-${fsUtil.removeExtension(path.basename(asIfAtFilePath))}`;
     const nodeProcessor = new NodeProcessor(fileConfig, pageSources, variableProcessor,
-                                            pluginManager, undefined, docId);
+                                            pluginManager, siteLinkManager, undefined, docId);
 
     const nunjucksProcessed = variableProcessor.renderWithSiteVariables(this.sourceFilePath, pageSources);
     const mdHtmlProcessed = await nodeProcessor.process(this.sourceFilePath, nunjucksProcessed,

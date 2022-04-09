@@ -4,7 +4,6 @@
   "description": "Bootstrap components built with Vue.js",
   "keywords": [
     "bootstrap",
-    "vue-bootstrap",
     "vue-component",
     "vue",
     "markbind"
@@ -33,11 +32,11 @@
     "@babel/runtime": "^7.10.5",
     "@vue/test-utils": "^1.0.3",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^26.1.0",
+    "babel-jest": "^27.5.1",
     "babel-loader": "^8.1.0",
-    "bootstrap-vue": "^2.16.0",
     "css-loader": "^3.6.0",
     "eslint-plugin-vue": "^7.9.0",
+    "floating-vue": "^1.0.0-beta.14",
     "jest": "^27.5.1",
     "jest-serializer-vue": "^2.0.2",
     "portal-vue": "^2.1.7",

@@ -12,8 +12,6 @@ Most of the styles are based on Bootstrap's markup and CSS, but no dependency on
 
 Many of the components under this folder were originally from [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap), forked from [yuche/vue-strap](https://github.com/yuche/vue-strap), and modified to suit MarkBind's needs for educational and documentation websites.
 
-The generated bundle also includes some of [BootstrapVue's](https://bootstrap-vue.org/) components.
-
 Some custom components and directives are also added for MarkBind's use.
 
 ### MarkBind components newly created or revamped since moving here
@@ -21,9 +19,9 @@ Some custom components and directives are also added for MarkBind's use.
 - Question.vue
 - QOption.vue
 - Quiz.vue
-- Popover.vue (built on bootstrap-vue's popovers)
-- Tooltip.vue (built on bootstrap-vue's tooltips)
-- Trigger.vue (built on bootstrap-vue's popovers and tooltips)
+- Popover.vue (built on floating-vue's [Menu](https://floating-vue.starpad.dev/guide/component.html#hover-menu) component)
+- Tooltip.vue (built on floating-vue's [Tooltip](https://floating-vue.starpad.dev/guide/component.html#tooltip) component)
+- Trigger.vue (built on vue-final-modal's [$vfm API](https://vue-final-modal.org/api#api) and Floating Vue's Menus and Tooltips)
 
 ### MarkBind components ported from [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap):
 
@@ -49,11 +47,6 @@ Some custom components and directives are also added for MarkBind's use.
 - TabGroup.vue
 - Tabset.vue
 - Typeahead.vue
-
-### BootstrapVue components included in the bundle
-
-- Popover.vue 
-- Tooltip.vue 
 
 ## Installation
 
