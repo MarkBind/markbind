@@ -322,7 +322,7 @@ program
   .command('archive [versionName] [archivePath]')
   .alias('ar')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
-  .description('archive a version of the site, which can continue to be accessed')
+  .description('archive a version of the site, which is not affected by later changes to the site')
   .action((versionName, userSpecifiedArchivePath, options) => {
     if (!versionName) {
       throw new Error('Please specify a name for the version to be archived.');

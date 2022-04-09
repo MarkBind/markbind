@@ -167,6 +167,40 @@ The caveat is that not building all pages during the initial process, or not reb
 
 <hr><!-- ========================================================================== -->
 
+### `archive` Command
+<br>
+
+**Format:** `markbind archive [options] [versionName] [archivePath]`
+
+**Alias:** `markbind ar`
+
+**Description:** Archives a version of the site, which is not affected by changing the current site.
+
+**Arguments:**
+* `[versionName]`<br>
+  The name of the version, and the folder which the generated HTML files and assets will be stored in.<br>
+  {{ icon_example }} `version_1`
+
+* `[archivePath]`<br>
+  All archived versions are stored in the folder archivePath/[versionName]. The default archivePath is `version` <br>
+  {{ icon_example }} `custom_archive_path`
+
+<panel header="**Options** :fas-cogs:" type="minimal" expanded>
+
+**Options** :fas-cogs:
+
+* `-s <file>`, `--site-config <file>`<br>
+  Specify the site config file (default: `site.json`)<br>
+  {{ icon_example }} `-s otherSite.json`
+
+**{{ icon_examples }}**
+* `markbind archive v1` - Stores the site in the directory `version/v1` (from the root)
+* `markbind archive version_1 custom_archive_path` - Stores the site in the directory `custom_archive_path/version_1` (from the root)
+
+</panel>
+
+<hr><!-- ========================================================================== -->
+
 ### `deploy` Command
 <br>
 
