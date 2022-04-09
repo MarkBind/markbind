@@ -47,10 +47,8 @@ class VideoServiceBase {
     containerClassNames.push(this.env.options.serviceClassPrefix + escapedServiceName);
 
     let containerStyles = [];
-
     containerStyles.push(["position: relative;"]);
-    // Configures the aspectRatio of a given iframe
-    if (this.env.options.height !== undefined && this.env.options.width !== undefined) {
+    if (this.options.height !== undefined && this.options.width !== undefined) {
       containerStyles.push(`padding-bottom: ${this.options.height / this.options.width * 100}%`);
     }
 

@@ -5,7 +5,7 @@ const VideoServiceBase = require("./VideoServiceBase");
 class PowerPointOnlineService extends VideoServiceBase {
 
   getDefaultOptions() {
-    return {customStyle: true};
+    return {};
   }
 
   extractVideoID(reference) {
