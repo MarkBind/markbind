@@ -1,21 +1,24 @@
 <template>
   <span :class="['image-wrapper', addClass]">
     <div class="image-container">
+      <img
+        ref="pic"
+        :src="src"
+        :alt="alt"
+        :width="computedWidth"
+        class="img-overlay"
+        @load.once="computeWidth"
+      />
       <canvas
         class="image-canvas"
         ref="annotated-image"
         :src="src"
         :alt="alt"
         :width="computedWidth"
+        :style="computedWidth"
         @load.once="computeWidth"
       >
       </canvas>
-      <div class="button">
-        <button @click="canvas_arrow(0, 0, 500, 20)">draw line</button>
-      </div>
-      <div class="button">
-        <button @click="canvas_text('#A test text \n abs')">draw text</button>
-      </div>
     </div>
     <span class="annotate-data">
       <slot></slot>
@@ -93,50 +96,29 @@ export default {
       });
       return data;
     },
-    create_canvas() {
-      this.getData();
+    createCanvas() {
       const canvas = this.$refs['annotated-image'];
       const ctx = canvas.getContext('2d');
       const image = new Image();
+      image.src = this.src;
+      this.canvas = canvas;
+      this.ctx = ctx;
+      this.image = image;
+
+      let [largestFontWidth, fontOffset, textData, imageWidth, imageHeight, canvasWidth, canvasHeight]
+      = this.computeTextData(this.getData());
 
       image.onload = () => {
-        let fontOffset = 0;
-        let largestFontWidth = 0;
-        const textData = [];
-
-        const data = this.getData();
-
-        data.forEach((item) => {
-          const parsedText = this.parse_input_text(item.text);
-          textData.push(
-            {
-              textGroup: parsedText.map((txt) => {
-                const temp = this.parse_markdown(txt);
-                ctx.font = temp.font;
-                temp.fontOffset = fontOffset;
-                fontOffset += temp.height;
-                const { actualBoundingBoxLeft, actualBoundingBoxRight } = ctx.measureText(txt);
-                const width = Math.abs(actualBoundingBoxLeft) + Math.abs(actualBoundingBoxRight);
-                temp.width = width;
-                largestFontWidth = Math.max(largestFontWidth, width);
-                return temp;
-              }),
-              x: item.x,
-              y: item.y,
-            });
-          fontOffset += 10;
-        });
-
-        const canvasWidth = canvas.width;
+        canvasWidth = canvas.width;
 
         // Image Height/Width
         const { naturalWidth, naturalHeight } = image;
         const imageAspect = naturalWidth / naturalHeight;
-        const imageWidth = canvasWidth - largestFontWidth - 10;
-        const imageHeight = imageWidth / imageAspect;
+        imageWidth = canvasWidth - largestFontWidth - 10;
+        imageHeight = imageWidth / imageAspect;
 
         // Canvas Height/Width
-        const canvasHeight = Math.max(imageHeight, fontOffset);
+        canvasHeight = Math.max(imageHeight, fontOffset);
         canvas.height = canvasHeight;
 
         textData.forEach((item) => {
@@ -181,9 +163,56 @@ export default {
         ctx.globalCompositeOperation = 'destination-over';
         ctx.drawImage(image, 0, 0, imageWidth, imageHeight);
       };
-      image.src = this.src;
     },
-    parse_markdown(txt) {
+    computeTextData(data) {
+      let fontOffset = 0;
+      let largestFontWidth = 0;
+      const textData = [];
+
+      data.forEach((item) => {
+        const parsedText = this.parseInputText(item.text);
+        textData.push(
+          {
+            textGroup: parsedText.map((txt) => {
+              const temp = this.parseMarkdown(txt);
+              this.ctx.font = temp.font;
+              temp.fontOffset = fontOffset;
+              fontOffset += temp.height;
+              const { actualBoundingBoxLeft, actualBoundingBoxRight } = this.ctx.measureText(txt);
+              const width = Math.abs(actualBoundingBoxLeft) + Math.abs(actualBoundingBoxRight);
+              temp.width = width;
+              largestFontWidth = Math.max(largestFontWidth, width);
+              return temp;
+            }),
+            x: item.x,
+            y: item.y,
+          });
+        fontOffset += 10;
+      });
+
+      let imageWidth = 0;
+      let imageHeight = 0;
+      let canvasWidth = 0;
+      let canvasHeight = 0;
+
+      this.image.onload = () => {
+        canvasWidth = this.canvas.width;
+
+        // Image Height/Width
+        const { naturalWidth, naturalHeight } = this.image;
+        const imageAspect = naturalWidth / naturalHeight;
+        imageWidth = canvasWidth - largestFontWidth - 10;
+        imageHeight = imageWidth / imageAspect;
+
+        // Canvas Height/Width
+        canvasHeight = Math.max(imageHeight, fontOffset);
+      };
+
+      return {
+        fontOffset, largestFontWidth, textData, imageWidth, imageHeight, canvasWidth, canvasHeight,
+      };
+    },
+    parseMarkdown(txt) {
       const lineHeight = 1;
       const headingSize = 32;
       const baseSize = 16;
@@ -204,7 +233,7 @@ export default {
         txt,
       };
     },
-    parse_input_text(text) {
+    parseInputText(text) {
       const lines = text.split('\n');
       return lines;
     },
@@ -215,7 +244,7 @@ export default {
     };
   },
   mounted() {
-    this.create_canvas();
+    this.createCanvas();
   },
 };
 </script>
@@ -225,6 +254,11 @@ export default {
         display: inline-block;
         text-align: center;
         padding: 4px;
+    }
+
+    .image-overlay {
+        max-width: 100%;
+        display: inline-block;
     }
 
     .image-caption {
@@ -243,6 +277,7 @@ export default {
     }
 
     .image-canvas{
-        width: 100%;
+        max-width: 100%;
+        height: auto;
     }
 </style>
