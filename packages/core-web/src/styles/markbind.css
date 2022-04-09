@@ -341,3 +341,14 @@ h6 {
     width: 100%;
     height: 100%;
 }
+
+.block-embed-service-powerpoint {
+    position: relative;
+    padding-bottom: 78%;
+}
+
+@media screen and (max-width: 350px) {
+    .block-embed-service-powerpoint {
+        padding-bottom: 95%;
+    }
+}

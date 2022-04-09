@@ -47,23 +47,15 @@ class VideoServiceBase {
     containerClassNames.push(this.env.options.serviceClassPrefix + escapedServiceName);
 
     let containerStyles = [];
-    containerStyles.push(["position: relative;"]);
-    // containerStyles.push(`padding-bottom: ${1/this.options.aspectRatio}%;`);
-    containerStyles.push(`padding-bottom: ${this.options.height / this.options.width * 100}%`);
-
+    if (!this.env.options.customStyle) {
+      containerStyles.push(["position: relative;"]);
+      // Configures the aspectRatio of a given iframe
+      containerStyles.push(`padding-bottom: ${this.options.height / this.options.width * 100}%`);
+    }
     let iframeAttributeList = [];
     iframeAttributeList.push([ "type", "text/html" ]);
     iframeAttributeList.push([ "src", this.getFilteredVideoUrl(videoID) ]);
     iframeAttributeList.push([ "frameborder", 0 ]);
-
-    // if (this.env.options.outputPlayerSize === true) {
-    //   if (this.options.width != null) {
-    //     iframeAttributeList.push([ "width", this.options.width ]);
-    //   }
-    //   if (this.options.height != null) {
-    //     iframeAttributeList.push([ "height", this.options.height ]);
-    //   }
-    // }
 
     if (this.env.options.allowFullScreen === true) {
       iframeAttributeList.push([ "webkitallowfullscreen" ]);
