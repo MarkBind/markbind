@@ -174,15 +174,23 @@ The caveat is that not building all pages during the initial process, or not reb
 
 **Alias:** `markbind ar`
 
-**Description:** Archives a version of the site, which is not affected by changing the current site.
+**Description:** Archives a version of the current site, which will not be affected by future changes to the site
 
 **Arguments:**
+
+<div id="archiveWarning">
+<box type="warning">
+
+Warning: If the folder at `<archivePath>/<versionName>` already exists, the contents will be overwritten and your previous files may be lost. Only do so if you need to replace all the archived files with the current site files.
+</box>
+</div>
+
 * `[versionName]`<br>
   The name of the version, and the folder which the generated HTML files and assets will be stored in.<br>
   {{ icon_example }} `version_1`
 
 * `[archivePath]`<br>
-  All archived versions are stored in the folder archivePath/[versionName]. The default archivePath is `version` <br>
+  All archived versions are stored in the folder `<archivePath>/<versionName>`. The default archivePath is `version` <br>
   {{ icon_example }} `custom_archive_path`
 
 <panel header="**Options** :fas-cogs:" type="minimal" expanded>
