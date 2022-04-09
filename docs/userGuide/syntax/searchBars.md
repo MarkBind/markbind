@@ -5,7 +5,7 @@ The `searchbar` component allows users to search all headings within any page on
 <div id="body">
 
 <include src="outputBox.md" boilerplate >
-<div id="code">
+<variable name="code">
 
 ```html
 <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
@@ -21,14 +21,14 @@ To use the searchbar within a navbar, add the following markup to your file. The
   </form>
 </li>
 ```
-</div>
-<div id="output">
+</variable>
+<variable id="output">
 
 Enter a search term (eg. 'search bar') to see the search result dropdown.
 <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback"></searchbar>
 <br>
 <searchbar :data="searchData" placeholder="Search (Right-aligned dropdown)" :on-hit="searchCallback" menu-align-right></searchbar>
-</div>
+</variable>
 </include>
 
 ****Options****
