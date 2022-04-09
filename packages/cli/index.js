@@ -325,7 +325,7 @@ program
   .description('archive a version of the site, which is not affected by later changes to the site')
   .action((versionName, userSpecifiedArchivePath, options) => {
     if (!versionName) {
-      throw new Error('Please specify a name for the version to be archived.');
+      logger.error('Please specify a name for the archived version.');
     }
     const archivePath = userSpecifiedArchivePath || 'version';
     const rootFolder = path.resolve(process.cwd());
