@@ -47,11 +47,13 @@ class VideoServiceBase {
     containerClassNames.push(this.env.options.serviceClassPrefix + escapedServiceName);
 
     let containerStyles = [];
-    if (!this.env.options.customStyle) {
-      containerStyles.push(["position: relative;"]);
-      // Configures the aspectRatio of a given iframe
+
+    containerStyles.push(["position: relative;"]);
+    // Configures the aspectRatio of a given iframe
+    if (this.env.options.height !== undefined && this.env.options.width !== undefined) {
       containerStyles.push(`padding-bottom: ${this.options.height / this.options.width * 100}%`);
     }
+
     let iframeAttributeList = [];
     iframeAttributeList.push([ "type", "text/html" ]);
     iframeAttributeList.push([ "src", this.getFilteredVideoUrl(videoID) ]);
