@@ -16,17 +16,19 @@
   <button class="btn btn-secondary">Tooltip on bottom</button>
 </tooltip>
 <hr />
+
 Trigger
 <p>
   <tooltip content="Lorem ipsum dolor sit amet" placement="top" trigger="click">
     <button class="btn btn-secondary">Click</button>
   </tooltip>
-  <br />
-  <br />
+</p>
+<p>
   <tooltip content="Lorem ipsum dolor sit amet" placement="top" trigger="focus">
     <input placeholder="Focus"></input>
   </tooltip>
 </p>
+<hr />
 
 **Markdown**:
 <tooltip content="*Hello* **World**">
@@ -59,19 +61,19 @@ This is the same <trigger for="tt:trigger_id">trigger</trigger> as last one.
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------
-trigger	| `String` | `hover` | How the tooltip is triggered.<br>Supports: `click`, `focus`, `hover`.
+trigger	| `String` | `hover focus` | How the tooltip is triggered.<br>Supports: `click`, `focus`, `hover`, or any space-separated combination of these.
 content | `String` | `''` | Text content of the tooltip.
 placement | `String` | `top` | How to position the tooltip.<br>Supports: `top`, `left`, `right`, `bottom`.
 
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```html
 Hover <tooltip content="An explanation, **supports simple Markdown**">here</tooltip> to see a tooltip.
 ```
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 Hover <tooltip content="An explanation, **supports simple Markdown**">here</tooltip> to see a tooltip.
-</span>
+</div>

@@ -1,0 +1,10 @@
+contact_links:
+  - name: Discussions
+    url: https://github.com/MarkBind/markbind/discussions
+    about: Ask casual questions or share your usage of MarkBind!
+  - name: MarkBind User Guide
+    url: https://markbind.org/userGuide/gettingStarted.html
+    about: Checkout our official documentation for the latest released version of MarkBind!
+  - name: MarkBind Developer Guide
+    url: https://markbind.org/devdocs/devGuide/devGuide.html
+    about: If you're interested in contributing to MarkBind, we'd love to have you onboard!

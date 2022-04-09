@@ -80,7 +80,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 </variable>
 </include>
 
-**Markbind also supports a light color scheme for boxes**
+**MarkBind also supports a light color scheme for boxes**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
@@ -233,15 +233,15 @@ no-backgound | `Boolean` | `false` | Removes background, except if styled by `ba
 no-icon | `Boolean` | `false` | Removes icon, except if icon is displayed via `icon` option.
 
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```html
 <box type="warning">
   warning
 </box>
 ```
-</span>
-<span id="examples" class="d-none">
+</div>
+<div id="examples" class="d-none">
 
 <box>
     default
@@ -267,4 +267,4 @@ no-icon | `Boolean` | `false` | Removes icon, except if icon is displayed via `i
 <box type="definition">
     definition
 </box>
-</span>
+</div>

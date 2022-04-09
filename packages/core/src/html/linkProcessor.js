@@ -19,17 +19,9 @@ const defaultTagLinkMap = {
   link: 'href',
   include: 'src',
   panel: 'src',
+  popover: 'src',
   script: 'src',
 };
-
-const tagsToValidate = new Set([
-  'img',
-  'pic',
-  'thumbnail',
-  'a',
-  'link',
-  'script',
-]);
 
 function hasTagLink(node) {
   return node.name in defaultTagLinkMap || node.name in pluginTagConfig;
@@ -45,12 +37,24 @@ function getResourcePathFromRoot(rootPath, fullResourcePath) {
   return fsUtil.ensurePosix(path.relative(rootPath, fullResourcePath));
 }
 
+/**
+ * @param {string} resourcePath parsed from the node's relevant attribute
+ * @returns {boolean} whether the resourcePath is a valid intra-site link
+ */
+function isIntraLink(resourcePath) {
+  const MAILTO_OR_TEL_REGEX = /^(?:mailto:|tel:)/i;
+  return resourcePath
+    && !urlUtil.isUrl(resourcePath)
+    && !resourcePath.startsWith('#')
+    && !MAILTO_OR_TEL_REGEX.test(resourcePath);
+}
+
 function _convertRelativeLink(node, cwf, rootPath, baseUrl, resourcePath, linkAttribName) {
-  if (!resourcePath) {
+  if (!isIntraLink(resourcePath)) {
     return;
   }
 
-  if (path.isAbsolute(resourcePath) || urlUtil.isUrl(resourcePath) || resourcePath.startsWith('#')) {
+  if (path.isAbsolute(resourcePath)) {
     // Do not rewrite.
     return;
   }
@@ -148,40 +152,27 @@ function isValidFileAsset(resourcePath, config) {
 
 /**
  * Serves as an internal intra-link validator. Checks if the intra-links are valid.
- * If the intra-links are suspected to be invalid and they do not have the no-validation
- * attribute, a warning message will be logged.
+ * If the intra-links are suspected to be invalid, a warning message will be logged.
  *
- * @param {Object<any, any>} node from the dom traversal
+ * @param {string} resourcePath parsed from the node's relevant attribute
  * @param {string} cwf as flagged from {@link NodePreprocessor}
  * @param {Object<any, any>} config passed for page metadata access
  * @returns {string} these string return values are for unit testing purposes only
  */
-function validateIntraLink(node, cwf, config) {
-  if (!tagsToValidate.has(node.name)) {
-    return 'Should not validate';
-  }
-
-  if (node.attribs) {
-    const hasIntralinkValidationDisabled = lodashHas(node.attribs, 'no-validation');
-    if (hasIntralinkValidationDisabled) {
-      return 'Intralink validation disabled';
-    }
-  }
-
-  let resourcePath = getDefaultTagsResourcePath(node);
-  if (!resourcePath || urlUtil.isUrl(resourcePath) || resourcePath.startsWith('#')) {
+function validateIntraLink(resourcePath, cwf, config) {
+  if (!isIntraLink(resourcePath)) {
     return 'Not Intralink';
   }
 
   const err = `You might have an invalid intra-link! Ignore this warning if it was intended.
 '${resourcePath}' found in file '${cwf}'`;
 
-  resourcePath = urlUtil.stripBaseUrl(resourcePath, config.baseUrl);
+  resourcePath = urlUtil.stripBaseUrl(resourcePath, config.baseUrl); // eslint-disable-line no-param-reassign
 
   const resourcePathUrl = url.parse(resourcePath);
   if (resourcePathUrl.hash) {
     // remove hash portion (if any) in the resourcePath
-    resourcePath = resourcePathUrl.path;
+    resourcePath = resourcePathUrl.path; // eslint-disable-line no-param-reassign
   }
 
   if (resourcePath.endsWith('/')) {
@@ -261,9 +252,11 @@ function collectSource(node, rootPath, baseUrl, pageSources) {
 }
 
 module.exports = {
+  getDefaultTagsResourcePath,
   hasTagLink,
   convertRelativeLinks,
   convertMdExtToHtmlExt,
   validateIntraLink,
   collectSource,
+  isIntraLink,
 };

@@ -11,11 +11,11 @@ This is another paragraph. This is the second sentence.
 </variable>
 </include>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```markdown
 This is the first paragraph.
 
 This is another paragraph. This is the second sentence.
 ```
-</span>
+</div>

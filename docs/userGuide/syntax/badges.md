@@ -52,7 +52,7 @@ Headings:
 </div>
 
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```markdown
 <span class="badge badge-primary">Primary</span>
@@ -61,9 +61,9 @@ Headings:
   Difficulty Level <span class="badge badge-light">4</span>
 </button>
 ```
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 <span class="badge badge-primary">Primary</span>
 <span class="badge badge-pill badge-success">Success</span>
@@ -71,4 +71,4 @@ Headings:
   Difficulty Level <span class="badge badge-light">4</span>
 ##### Feature Y <span class="badge badge-pill badge-warning">stable</span> {.no-index}
 </button>
-</span>
+</div>

@@ -22,8 +22,8 @@
         "referencing-specified-path-in-boilerplate": "Referencing specified path in boilerplate",
         "outer-nested-panel": "Outer nested panel",
         "outer-nested-panel-without-src": "Outer nested panel without src",
-        "panel-with-src-from-another-markbind-site-header": "Panel with src from another Markbind site header",
-        "panel-with-src-from-another-markbind-site-header-2": "Panel with src from another Markbind site header",
+        "panel-with-src-from-another-markbind-site-header": "Panel with src from another MarkBind site header",
+        "panel-with-src-from-another-markbind-site-header-2": "Panel with src from another MarkBind site header",
         "unexpanded-panel-header": "Unexpanded panel header",
         "keyword-should-be-tagged-to-this-heading-not-the-panel-heading": "Keyword should be tagged to this heading, not the panel heading",
         "panel-normal-source-content-headings": "Panel normal source content headings",
@@ -215,8 +215,25 @@
       "headingKeywords": {}
     },
     {
+      "src": "testPopovers.md",
+      "title": "Test: Popovers",
+      "headings": {
+        "nested-panel": "Nested Panel",
+        "normal-panel-content-heading": "Normal panel content heading",
+        "some-heading": "Some heading",
+        "some-heading-2": "Some heading"
+      },
+      "headingKeywords": {}
+    },
+    {
       "src": "testPopoverTrigger.md",
       "title": "Popover initiated by trigger should honor trigger attribute",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testModals.md",
+      "title": "Test: Modals",
       "headings": {},
       "headingKeywords": {}
     },
@@ -277,6 +294,27 @@
       "title": "Autolink tests",
       "headings": {
         "autolinks": "Autolinks"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "testTree.md",
+      "title": "Tree tests",
+      "headings": {
+        "tree": "Tree",
+        "single-tree": "Single Tree",
+        "multiple-tree": "Multiple Tree",
+        "inline-markdown": "Inline Markdown"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "testMath.md",
+      "title": "Math formulae should be displayed correctly, with additional plugin",
+      "headings": {
+        "math-formulae": "Math Formulae",
+        "markbind-supports-typesetting-tex-math-equations": "Markbind supports typesetting TeX math equations",
+        "additionally-dollars-can-be-used-as-delimiters-if-texwithdollars-plugin-is-enabled": "Additionally, Dollars can be used as delimiters if texWithDollars plugin is enabled"
       },
       "headingKeywords": {}
     }

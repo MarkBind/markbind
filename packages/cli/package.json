@@ -25,8 +25,8 @@
     "updatetest": "cd test/functional && node updatetest.js"
   },
   "dependencies": {
-    "@markbind/core": "^3.1.1",
-    "@markbind/core-web": "^3.1.1",
+    "@markbind/core": "3.1.1",
+    "@markbind/core-web": "3.1.1",
     "bluebird": "^3.7.2",
     "chalk": "^3.0.0",
     "cheerio": "^0.22.0",
@@ -45,7 +45,7 @@
     "diff": "^4.0.1",
     "ignore": "^5.1.4",
     "istextorbinary": "^3.3.0",
-    "jest": "^26.1.0",
+    "jest": "^27.5.1",
     "memfs": "^3.0.1",
     "walk-sync": "^2.0.2"
   }

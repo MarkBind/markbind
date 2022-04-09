@@ -4,10 +4,10 @@
 
 ## Includes
 
-<span id="overview">
+<div id="overview">
 
 **MarkBind has a powerful `<include>` mechanism** which allows you to create documents by combining other content fragments.
-</span>
+</div>
 
 **You can use `<include>` tag to include another markdown or HTML document into the current document.**
 
@@ -22,6 +22,12 @@ Tip 3. ...
 </div>
 
 **You can `<include>` a fragment of a file** by specifying the `#fragment-id` at the end of the `src` attribute value, provided the fragment is wrapped in a `<div>`/`<span>`/`<seg>` tag with the matching `id`.
+
+<box type="important" seamless>
+
+Choose `<div>` over `<span>` when wrapping block-level elements, to prevent invalid HTML markup which causes [hydration issues](https://vuejs.org/guide/scaling-up/ssr.html#hydration-mismatch).
+
+</box>
 
 <div class="indented">
 
@@ -81,15 +87,15 @@ The `<include>` mechanism can be used inside any MarkBind source file (even insi
 <div class="indented">
 
 {{ icon_example }} Suppose you have a MarkBind project with the following file structure.
-```
+<tree>
 C:/mySite/
-  ├── bookFiles/
-  |      ├── book.md
-  |      ├── chapter1.md
-  |      └── chapter2.md
-  └── reviewFiles/
-         └── review.md
-```
+  bookFiles/
+    book.md
+    chapter1.md
+    chapter2.md
+  reviewFiles/
+    review.md
+</tree>
 The `book.md`:
 ```markdown
 # My Book
@@ -157,18 +163,18 @@ If the same variable is defined in a chain of `<include>`s (e.g. `a.md` includes
 <div class="indented">
 
 {{ icon_example }} Suppose you have a MarkBind project with the following file structure.
-```
+<tree>
 C:/mySite/
-  ├── chapter1/
-  |      ├── chapter.md
-  |      ├── text.md
-  |      └── exercises.md
-  ├── chapter2/
-  |      ├── chapter.md
-  |      ├── text.md
-  |      └── exercises.md
-  └── book.md
-```
+  chapter1/
+    chapter.md
+    text.md
+    exercises.md
+  chapter2/
+    chapter.md
+    text.md
+    exercises.md
+  book.md
+</tree>
 The `book.md`:
 ```markdown
 # My Book
@@ -202,18 +208,18 @@ To use a code fragment as a boilerplate file,
 <div class="indented">
 
 {{ icon_example }} Here's how you can use a boilerplate file to avoid duplicating the `chapter.md`:
-```
+<tree>
 C:/mySite/
-  ├── _markbind/boilerplates/
-  |      └── chapter.md
-  ├── chapter1/
-  |      ├── text.md
-  |      └── exercises.md
-  ├── chapter2/
-  |      ├── text.md
-  |      └── exercises.md
-  └── book.md
-```
+  _markbind/boilerplates/
+    chapter.md
+  chapter1/
+    text.md
+    exercises.md
+  chapter2/
+    text.md
+    exercises.md
+  book.md
+</tree>
 The `book.md`:
 ```markdown
 # My Book
@@ -239,13 +245,12 @@ If you have many boilerplate files, you can organize them into directories insid
 <div class="indented">
 
 {{ icon_example }} Suppose the `chapter.md` is places in a `book` directory:
-```
+<tree>
 C:/mySite/
-  └── _markbind/boilerplates/
-         └── book/
-               └── chapter.md
-
-```
+  _markbind/boilerplates/
+    book/
+      chapter.md
+</tree>
 
 It needs to be used as follows:
 ```markdown
@@ -255,11 +260,11 @@ It needs to be used as follows:
 </div>
 
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```markdown
 <include src="foo.md#bar" boilerplate inline trim>
   <variable name="x">5</variable>
 </include>
 ```
-</span>
+</div>

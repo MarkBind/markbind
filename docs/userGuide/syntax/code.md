@@ -1,23 +1,26 @@
 ## Code
 
 #### Themes
+
 MarkBind can present formatted code blocks, be it fenced or inline, with either **light** or **dark** themes. The default is dark.
 
 Refer [here](../siteJsonFile.html#style) for configuring MarkBind to use a specific theme for the code blocks.
 
 #### Fenced Code
+
 MarkBind provides several features, some of which are added on top of the existing functionality of Markdown's _fenced code blocks_.
 
 <small>More info: https://www.markdownguide.org/extended-syntax#fenced-code-blocks</small>
 
-
 Features:
-- Syntax coloring
-- Line numbering
-- Line highlighting
-- Code block headers
+
+* Syntax coloring
+* Line numbering
+* Line highlighting
+* Code block headers
 
 ##### Syntax coloring
+
 To enable syntax coloring, specify a language next to the backticks before the fenced code block.
 <div id="main-example">
 <include src="codeAndOutputCode.md" boilerplate >
@@ -32,6 +35,7 @@ To enable syntax coloring, specify a language next to the backticks before the f
 </div>
 
 ##### Line numbering
+
 Line numbers are <tooltip content="Line numbers were provided by default in version v3.1.1 and below. To preserve the exact line numbers behavior of sites generated in previous versions, simply set the codeLineNumbers option in site.json to true">hidden by default</tooltip>. To enable line numbers for the entire site by default,
 add `"codeLineNumbers": true` to the [`site.json`]({{baseUrl}}/userGuide/siteJsonFile.html#style) file:
 ```json {highlight-lines="8[:]"}
@@ -79,7 +83,6 @@ function add(a, b) {
 ```
 </variable>
 </include>
-
 
 ##### Line highlighting
 
@@ -168,6 +171,7 @@ Headings support inline Markdown, except for `Inline Code` and %%Dim%% text styl
 </include>
 
 ##### Using multiple features
+
 You can also use multiple features together, as shown below.
 
 <include src="codeAndOutputCode.md" boilerplate >
@@ -206,7 +210,6 @@ A _wrap text_ button can be added to code blocks using the `codeBlockWrapButtons
 #### Inline Code
 ##### Syntax coloring
 
-
 MarkBind can apply syntax-coloring on inline code too.
 
 <include src="codeAndOutput.md" boilerplate >
@@ -216,7 +219,7 @@ or the java code `public static void main(String[] args)`{.java}.
 </variable>
 </include>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ````
 ```xml
@@ -228,8 +231,8 @@ or the java code `public static void main(String[] args)`{.java}.
 ```
 `<bar type="name">goo</bar>`{.xml}
 ```
-</span>
-<span id="examples" class="d-none">
+</div>
+<div id="examples" class="d-none">
 
 ```xml
 <foo>
@@ -238,4 +241,4 @@ or the java code `public static void main(String[] args)`{.java}.
 ```
 Syntax coloring for inline code: `<bar type="name">goo</bar>`{.xml} too!
 
-</span>
+</div>

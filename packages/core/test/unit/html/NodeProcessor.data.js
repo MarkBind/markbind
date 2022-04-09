@@ -146,7 +146,7 @@ module.exports.PROCESS_POPOVER_ATTRIBUTES = `
 `;
 
 module.exports.PROCESS_POPOVER_ATTRIBUTES_EXPECTED = `
-<popover><template #header><strong>Lorem ipsum</strong></template><template #content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.</template>
+<popover><template #content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.</template><template #header><strong>Lorem ipsum</strong></template>
   Content and header attributes should be processed and inserted under panel as slots and deleted.
 </popover>
 `;
@@ -190,14 +190,14 @@ module.exports.PROCESS_TOOLTIP_CONTENT_EXPECTED = `
 
 module.exports.PROCESS_MODAL_HEADER = `
 <modal header="_Lorem ipsum dolor sit amet_">
-  Header attribute should be inserted as bootstrap-vue modal-title slot.
+  Header attribute should be inserted as header slot.
 </modal>
 `;
 
 module.exports.PROCESS_MODAL_HEADER_EXPECTED = `
-<b-modal hide-footer size modal-class="mb-zoom"><template #modal-title><em>Lorem ipsum dolor sit amet</em></template>
-  Header attribute should be inserted as bootstrap-vue modal-title slot.
-</b-modal>
+<modal><template #header><em>Lorem ipsum dolor sit amet</em></template>
+  Header attribute should be inserted as header slot.
+</modal>
 `;
 
 module.exports.PROCESS_MODAL_OK_TEXT = `
@@ -207,9 +207,9 @@ module.exports.PROCESS_MODAL_OK_TEXT = `
 `;
 
 module.exports.PROCESS_MODAL_OK_TEXT_EXPECTED = `
-<b-modal ok-title="Custom OK" ok-only size modal-class="mb-zoom"><template #modal-title><strong>Header header</strong></template>
+<modal ok-text="Custom OK"><template #header><strong>Header header</strong></template>
   ok-only attr should be set, hide-footer should not be set.
-</b-modal>
+</modal>
 `;
 
 // todo remove these once modal-header modal-footer slot names are deprecated fully.
@@ -222,10 +222,10 @@ module.exports.PROCESS_MODAL_SLOTS_RENAMING = `
 `;
 
 module.exports.PROCESS_MODAL_SLOTS_RENAMING_EXPECTED = `
-<b-modal size modal-class="mb-zoom">
-  <template #modal-header><div>Should be renamed to header</div></template>
-  <template #modal-footer><div>Should be renamed to footer</div></template>
-</b-modal>
+<modal>
+  <template #header><div>Should be renamed to header</div></template>
+  <template #footer><div>Should be renamed to footer</div></template>
+</modal>
 `;
 
 /*
