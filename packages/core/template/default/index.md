@@ -6,7 +6,7 @@
 
 <br>
 
-<div class="bg-primary text-white p-5 mb-4">
+<div class="bg-primary text-white py-5 mb-4">
   <div class="container">
     <h1 class="display-4 no-index">Landing Page Title</h1>
     <p class="lead">A tagline can go here</p>
