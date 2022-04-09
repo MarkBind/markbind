@@ -6,7 +6,7 @@
   >
     <slot name="button">
       <a
-        class="submenu-toggle"
+        class="dropdown-item submenu-toggle"
         role="button"
         :class="{disabled: disabled}"
         data-bs-toggle="dropdown"
@@ -133,12 +133,6 @@ export default {
         color: #212529 !important;
         padding: 0 !important;
         position: relative;
-    }
-
-    .submenu-toggle {
-        display: inline-block;
-        width: 100%;
-        padding: 0.25rem 0.75rem 0.25rem 1.5rem;
     }
 
     .dropdown > ul > .dropdown-submenu:last-child > ul,

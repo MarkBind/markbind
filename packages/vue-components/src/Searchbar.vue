@@ -1,5 +1,5 @@
 <template>
-  <div style="position: relative;">
+  <div style="position: relative;" class="dropdown">
     <div v-if="algolia" id="algolia-search-input"></div>
     <input
       v-else
@@ -258,6 +258,10 @@ export default {
 
     .table-active {
         background-color: rgba(0, 0, 0, 0.075); /* follows Bootstrap's table-active */
+    }
+
+    .dropdown-menu-end {
+        right: 0;
     }
 </style>
 
