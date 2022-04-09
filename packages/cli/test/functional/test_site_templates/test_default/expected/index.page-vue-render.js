@@ -47,7 +47,7 @@ with(this){return _c('h2',{attrs:{"id":"sub-heading-1-2"}},[_c('span',{staticCla
 with(this){return _c('p',[_c('strong',[_v("Media embeds:")])])}
 },function anonymous(
 ) {
-with(this){return _c('div',{staticClass:"block-embed block-embed-service-youtube",staticStyle:{"position":"relative","height":"0","padding-bottom":"60.9375%"}},[_c('iframe',{attrs:{"type":"text/html","src":"//www.youtube.com/embed/v40b3ExbM0c","frameborder":"0","width":"640","height":"390","webkitallowfullscreen":"","mozallowfullscreen":"","allowfullscreen":""}})])}
+with(this){return _c('div',{staticClass:"block-embed block-embed-service-youtube",staticStyle:{"position":"relative"}},[_c('iframe',{attrs:{"type":"text/html","src":"//www.youtube.com/embed/v40b3ExbM0c","frameborder":"0","webkitallowfullscreen":"","mozallowfullscreen":"","allowfullscreen":""}})])}
 },function anonymous(
 ) {
 with(this){return _c('p',[_c('strong',[_v("Tabs:")])])}
