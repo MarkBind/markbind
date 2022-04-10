@@ -324,12 +324,12 @@ h6 {
 }
 
 .block-embed-service-powerpoint {
-    position: relative;
-    padding-bottom: 78%;
+    padding-bottom: 75%;
 }
 
 @media screen and (max-width: 350px) {
     .block-embed-service-powerpoint {
-        padding-bottom: 95%;
+        padding-bottom: 100%;
+        min-width: 350px;
     }
 }
