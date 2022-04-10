@@ -1,14 +1,18 @@
 <template>
   <span
-    id="annotateData"
+    class="popover-annotation"
     :x="x"
     :y="y"
     :text="text"
+    :style="pointStyle"
   >
+  asdasdasd
   </span>
 </template>
 
 <script>
+import { toNumber } from './utils/utils';
+
 export default {
   props: {
     text: {
@@ -22,6 +26,14 @@ export default {
     y: {
       type: String,
       default: '0',
+    },
+  },
+  computed: {
+    pointStyle() {
+      return {
+        left: `${toNumber(this.x)}px`,
+        top: `${toNumber(this.y)}px`,
+      };
     },
   },
   data() {
@@ -40,4 +52,11 @@ export default {
 </script>
 
 <style>
+    .popover-annotation {
+      position: absolute;
+      /* top: 50px;
+      left: 100px; */
+      width: 100%;
+      height: 100%;
+    }
 </style>

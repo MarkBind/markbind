@@ -1,29 +1,38 @@
 <template>
-  <span :class="['image-wrapper', addClass]">
-    <div class="image-container">
-      <img
-        ref="pic"
-        :src="src"
-        :alt="alt"
-        :width="computedWidth"
-        class="img-overlay"
-        @load.once="computeWidth"
-      />
-      <canvas
-        class="image-canvas"
-        ref="annotated-image"
-        :src="src"
-        :alt="alt"
-        :width="computedWidth"
-        :style="computedWidth"
-        @load.once="computeWidth"
-      >
-      </canvas>
-    </div>
-    <span class="annotate-data">
-      <slot></slot>
+  <div :class="['image-wrapper', addClass]">
+    <span v-if="isPointType()" :class="['image-wrapper', addClass]">
+      <div class="point-container">
+        <img
+          ref="pic"
+          :src="src"
+          :alt="alt"
+          :width="computedWidth"
+          class="point-image"
+          @load.once="computeWidth"
+        />
+        <span class="point-wrapper">
+          <slot></slot>
+        </span>
+      </div>
     </span>
-  </span>
+    <span v-if="isArrowType()" :class="['image-wrapper', addClass]">
+      <div class="image-container">
+        <canvas
+          class="image-canvas"
+          ref="annotated-image"
+          :src="src"
+          :alt="alt"
+          :width="computedWidth"
+          :style="computedWidth"
+          @load.once="computeWidth"
+        >
+        </canvas>
+      </div>
+      <span id="data" class="annotate-data">
+        <slot></slot>
+      </span>
+    </span>
+  </div>
 </template>
 
 <script>
@@ -51,6 +60,10 @@ export default {
       type: String,
       default: '',
     },
+    type: {
+      type: String,
+      default: '',
+    },
   },
   computed: {
     hasWidth() {
@@ -75,6 +88,12 @@ export default {
     };
   },
   methods: {
+    isPointType() {
+      return this.type === 'point';
+    },
+    isArrowType() {
+      return this.type === 'arrow';
+    },
     computeWidth() {
       if (!this.hasWidth && this.hasHeight) {
         const renderedImg = this.$refs.pic;
@@ -86,7 +105,8 @@ export default {
     },
     getData() {
       const data = [];
-      const annotateNodes = document.querySelectorAll('#annotateData');
+      console.log(document.getElementById('data'));
+      const annotateNodes = document.getElementById('data').querySelectorAll('#annotateData');
       annotateNodes.forEach((node) => {
         data.push({
           x: toNumber(node.getAttribute('x')),
@@ -97,28 +117,49 @@ export default {
       return data;
     },
     createCanvas() {
+      this.getData();
       const canvas = this.$refs['annotated-image'];
       const ctx = canvas.getContext('2d');
       const image = new Image();
-      image.src = this.src;
-      this.canvas = canvas;
-      this.ctx = ctx;
-      this.image = image;
-
-      let [largestFontWidth, fontOffset, textData, imageWidth, imageHeight, canvasWidth, canvasHeight]
-      = this.computeTextData(this.getData());
 
       image.onload = () => {
-        canvasWidth = canvas.width;
+        let fontOffset = 0;
+        let largestFontWidth = 0;
+        const textData = [];
+
+        const data = this.getData();
+
+        data.forEach((item) => {
+          const parsedText = this.parseInputText(item.text);
+          textData.push(
+            {
+              textGroup: parsedText.map((txt) => {
+                const temp = this.parseMarkdown(txt);
+                ctx.font = temp.font;
+                temp.fontOffset = fontOffset;
+                fontOffset += temp.height;
+                const { actualBoundingBoxLeft, actualBoundingBoxRight } = ctx.measureText(txt);
+                const width = Math.abs(actualBoundingBoxLeft) + Math.abs(actualBoundingBoxRight);
+                temp.width = width;
+                largestFontWidth = Math.max(largestFontWidth, width);
+                return temp;
+              }),
+              x: item.x,
+              y: item.y,
+            });
+          fontOffset += 10;
+        });
+
+        const canvasWidth = canvas.width;
 
         // Image Height/Width
         const { naturalWidth, naturalHeight } = image;
         const imageAspect = naturalWidth / naturalHeight;
-        imageWidth = canvasWidth - largestFontWidth - 10;
-        imageHeight = imageWidth / imageAspect;
+        const imageWidth = canvasWidth - largestFontWidth - 10;
+        const imageHeight = imageWidth / imageAspect;
 
         // Canvas Height/Width
-        canvasHeight = Math.max(imageHeight, fontOffset);
+        const canvasHeight = Math.max(imageHeight, fontOffset);
         canvas.height = canvasHeight;
 
         textData.forEach((item) => {
@@ -163,6 +204,7 @@ export default {
         ctx.globalCompositeOperation = 'destination-over';
         ctx.drawImage(image, 0, 0, imageWidth, imageHeight);
       };
+      image.src = this.src;
     },
     computeTextData(data) {
       let fontOffset = 0;
@@ -244,12 +286,26 @@ export default {
     };
   },
   mounted() {
-    this.createCanvas();
+    // this.createCanvas();
   },
 };
 </script>
 
 <style>
+    .point-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .point-image {
+        position: absolute;
+    }
+
+    .point-wrapper {
+        position: absolute;
+    }
+
     .image-wrapper {
         display: inline-block;
         text-align: center;
