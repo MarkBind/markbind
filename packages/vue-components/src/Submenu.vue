@@ -59,7 +59,7 @@ export default {
   methods: {
     hideSubmenu() {
       this.show = false;
-      $(this.$refs.submenu).find('ul').each(ul => ul.classList.toggle('show', false));
+      $(this.$refs.submenu).find('ul.dropdown-menu').each(ul => ul.classList.toggle('show', false));
       this.alignMenuRight();
     },
     showSubmenu() {
@@ -99,13 +99,11 @@ export default {
     $el.findChildren('a,button').on('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      if (window.innerWidth < 768) {
-        if (this.disabledBool) { return false; }
-        if (this.show) {
-          this.hideSubmenu();
-        } else {
-          this.showSubmenu();
-        }
+      if (this.disabledBool) { return false; }
+      if (this.show) {
+        this.hideSubmenu();
+      } else {
+        this.showSubmenu();
       }
       return false;
     });
