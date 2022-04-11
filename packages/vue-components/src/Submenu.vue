@@ -110,7 +110,7 @@ export default {
     $el.findChildren('a,button').on('mouseover', (e) => {
       e.preventDefault();
       if (window.innerWidth > 767) {
-        const isShowing = $(this.$refs.submenu).findChildren('ul.show').length > 0;
+        const isShowing = $el.findChildren('ul.show').length > 0;
         if (isShowing || this.disabledBool) { return false; }
         e.currentTarget.click();
         const fullMenu = this.$parent.$parent;
