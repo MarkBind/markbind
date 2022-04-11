@@ -8,9 +8,8 @@ import closeable from './directives/Closeable';
 import dropdown from './Dropdown.vue';
 import navbar from './Navbar.vue';
 import panel from './Panel.vue';
-import annotatewrapper from './AnnotateWrapper.vue';
-import annotate from './Annotate.vue';
-import annotatepoint from './AnnotatePoint.vue';
+import annotate from './annotations/AnnotateWrapper.vue';
+import aPoint from './annotations/AnnotatePoint.vue';
 import pic from './Pic.vue';
 import quiz from './questions/Quiz.vue';
 import question from './questions/Question.vue';
@@ -39,8 +38,7 @@ const components = {
   navbar,
   panel,
   annotate,
-  annotatewrapper,
-  annotatepoint,
+  aPoint,
   pic,
   quiz,
   question,

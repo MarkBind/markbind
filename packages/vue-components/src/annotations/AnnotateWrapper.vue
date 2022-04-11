@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { toNumber } from './utils/utils';
+import { toNumber } from '../utils/utils';
 
 export default {
   props: {
