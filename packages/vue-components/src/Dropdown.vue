@@ -202,7 +202,7 @@ export default {
             overscroll-behavior: contain;
         }
 
-        .navbar-default .dropdown-menu-right {
+        .navbar-default .dropdown-menu-end {
             right: auto;
         }
     }

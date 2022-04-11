@@ -141,6 +141,10 @@ export default {
         position: relative;
     }
 
+    .dropdown-submenu ul.dropdown-menu {
+        margin-left: 0;
+    }
+
     .dropdown > ul > .dropdown-submenu:last-child > ul,
     .btn-group > ul > .dropdown-submenu:last-child > ul {
         margin-bottom: -0.5rem;
