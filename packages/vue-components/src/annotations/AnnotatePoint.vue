@@ -168,30 +168,30 @@ export default {
 </script>
 
 <style>
-.popover-annotation {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
+    .popover-annotation {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
 
-.hover-point {
-    border-radius: 50%;
-    border-style: solid;
-    border-width: 1px;
-    z-index: 2;
-}
+    .hover-point {
+        border-radius: 50%;
+        border-style: solid;
+        border-width: 1px;
+        z-index: 2;
+    }
 
-.hover-annotation {
-    position: absolute;
-    pointer-events: none;
-    z-index: 1;
-}
+    .hover-annotation {
+        position: absolute;
+        pointer-events: none;
+        z-index: 1;
+    }
 
-.hover-wrapper {
-    z-index: 0;
-    background: transparent;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
+    .hover-wrapper {
+        z-index: 0;
+        background: transparent;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
 </style>
