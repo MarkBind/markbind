@@ -95,7 +95,18 @@ export default {
     if (this.show) {
       this.showSubmenu();
     }
-    $el.onBlur(() => { this.hideSubmenu(); }, false);
+    $el.on('mouseenter', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const fullMenu = this.$parent.$parent;
+      fullMenu.$children.forEach((menuItem) => {
+        if (menuItem.$el === this.$el) {
+          this.showSubmenu();
+        } else {
+          menuItem.$refs.submenu.hideSubmenu();
+        }
+      });
+    });
     $el.findChildren('a,button').on('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
