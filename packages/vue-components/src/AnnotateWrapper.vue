@@ -1,29 +1,26 @@
 <template>
   <div :class="['image-wrapper', addClass]">
-    <span v-if="isPointType()" :class="['image-wrapper', addClass]">
-      <div class="point-container">
-        <img
-          ref="pic"
-          :src="src"
-          :alt="alt"
-          :width="computedWidth"
-          class="point-image"
-          @load.once="computeWidth"
-        />
-        <span class="point-wrapper">
-          <slot></slot>
-        </span>
-      </div>
-    </span>
+    <div v-if="isPointType()" class="point-container">
+      <img
+        ref="pic"
+        :src="src"
+        :alt="alt"
+        :width="computedWidth"
+        class="point-image"
+        @load.once="computeWidth"
+      />
+      <span class="point-wrapper">
+        <slot></slot>
+      </span>
+    </div>
     <span v-if="isArrowType()" :class="['image-wrapper', addClass]">
       <div class="image-container">
         <canvas
-          class="image-canvas"
           ref="annotated-image"
+          class="image-canvas"
           :src="src"
           :alt="alt"
           :width="computedWidth"
-          :style="computedWidth"
           @load.once="computeWidth"
         >
         </canvas>
@@ -105,7 +102,6 @@ export default {
     },
     getData() {
       const data = [];
-      console.log(document.getElementById('data'));
       const annotateNodes = document.getElementById('data').querySelectorAll('#annotateData');
       annotateNodes.forEach((node) => {
         data.push({
@@ -282,7 +278,9 @@ export default {
   },
   provide() {
     return {
-      provider: this.provider,
+      width: this.width,
+      height: this.height,
+      src: this.src,
     };
   },
   mounted() {
