@@ -112,12 +112,13 @@ export default {
     $el.findChildren('a,button').on('mouseover', (e) => {
       e.preventDefault();
       if (window.innerWidth > 767) {
-        if (this.show || this.disabledBool) { return false; }
+        const isShowing = $(this.$refs.submenu).findChildren('ul.show').length > 0;
+        if (isShowing || this.disabledBool) { return false; }
         e.currentTarget.click();
         const fullMenu = this.$parent.$parent;
         fullMenu.$children.forEach((menuItem) => {
           if (menuItem.$el === this.$el) {
-            this.showSubmenu();
+            menuItem.$refs.submenu.showSubmenu();
           } else {
             menuItem.$refs.submenu.hideSubmenu();
           }
