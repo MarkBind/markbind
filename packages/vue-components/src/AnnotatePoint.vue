@@ -4,7 +4,7 @@
     class="popover-annotation"
     :x="x"
     :y="y"
-    :style="pointStyle"
+    :style="pointPosition"
   >
     <portal v-if="targetEl.id" :to="'popover:' + targetEl.id">
       <h3 v-if="hasHeader" class="popover-header">
@@ -17,19 +17,23 @@
 
     <v-dropdown
       v-if="isMounted"
-      :triggers="triggers"
-      :popper-triggers="triggers"
-      :hide-triggers="triggers"
       :placement="placement"
       :delay="0"
-      :distance="10"
+      :distance="24"
       shift-cross-axis
     >
-      <button
+      <span
         v-if="!isInput"
-        class="hover-point"
+        class="hover-wrapper"
         @click.stop
-      ></button>
+      >
+        <button
+          class="hover-point"
+          :style="pointStyle"
+        >
+        </button>
+        <span class="hover-annotation">{{ annotation }}</span>
+      </span>
 
       <template #popper>
         <div class="popover-container">
@@ -48,7 +52,6 @@
 <script>
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Portal } from 'portal-vue';
-import { toNumber } from './utils/utils';
 
 export default {
   components: {
@@ -58,10 +61,6 @@ export default {
     header: {
       type: String,
       default: '',
-    },
-    trigger: {
-      type: String,
-      default: 'hover focus',
     },
     placement: {
       type: String,
@@ -79,10 +78,35 @@ export default {
       type: String,
       default: '0',
     },
+    color: {
+      type: String,
+      default: 'green',
+    },
+    opacity: {
+      type: String,
+      default: '0.3',
+    },
+    size: {
+      type: String,
+      default: '40',
+    },
+    annotation: {
+      type: String,
+      default: '',
+    },
+  },
+  data() {
+    return {
+      targetEl: {},
+      isMounted: false,
+      width: this.width,
+      height: this.height,
+      src: this.src,
+    };
   },
   inject: ['width', 'height', 'src'],
   computed: {
-    pointStyle() {
+    pointPosition() {
       this.computeImage((width, height, ar) => {
         if (!this.hasWidth && this.hasHeight) {
           this.width = Math.round(this.height * ar);
@@ -96,15 +120,20 @@ export default {
         }
       });
       return {
-        left: `${this.width * this.toDecimal(this.x)}px`,
-        top: `${this.height * this.toDecimal(this.y)}px`,
+        left: `${this.width * this.toDecimal(this.x) - this.size}px`,
+        top: `${this.height * this.toDecimal(this.y) - this.size}px`,
+      };
+    },
+    pointStyle() {
+      return {
+        backgroundColor: this.color,
+        opacity: this.opacity,
+        width: `${this.size}px`,
+        height: `${this.size}px`,
       };
     },
     hasHeader() {
       return this.header !== '';
-    },
-    triggers() {
-      return this.trigger.split(' ');
     },
     hasWidth() {
       return this.width !== '';
@@ -112,15 +141,6 @@ export default {
     hasHeight() {
       return this.height !== '';
     },
-  },
-  data() {
-    return {
-      targetEl: {},
-      isMounted: false,
-      width: this.width,
-      height: this.height,
-      src: this.src,
-    };
   },
   methods: {
     computeImage(callback) {
@@ -149,18 +169,29 @@ export default {
 
 <style>
 .popover-annotation {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
 .hover-point {
-    width: 20px;
-    height: 20px;
-    background: rgba(144, 144, 144, 0.25);
     border-radius: 50%;
     border-style: solid;
     border-width: 1px;
+    z-index: 2;
 }
 
+.hover-annotation {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hover-wrapper {
+    z-index: 0;
+    background: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
 </style>
