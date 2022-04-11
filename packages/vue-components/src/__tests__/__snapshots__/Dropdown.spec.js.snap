@@ -96,7 +96,7 @@ exports[`Dropdown with submenu dropdown with one level of submenu 1`] = `
       haeder="Submenu Level 1"
     >
       <a
-        class="submenu-toggle"
+        class="dropdown-item submenu-toggle"
         data-bs-toggle="dropdown"
         role="button"
       />
@@ -149,7 +149,7 @@ exports[`Dropdown with submenu dropdown with two levels of submenu 1`] = `
       haeder="Submenu Level 1"
     >
       <a
-        class="submenu-toggle"
+        class="dropdown-item submenu-toggle"
         data-bs-toggle="dropdown"
         role="button"
       />
@@ -180,7 +180,7 @@ exports[`Dropdown with submenu dropdown with two levels of submenu 1`] = `
           haeder="Submenu Level 2"
         >
           <a
-            class="submenu-toggle"
+            class="dropdown-item submenu-toggle"
             data-bs-toggle="dropdown"
             role="button"
           />
