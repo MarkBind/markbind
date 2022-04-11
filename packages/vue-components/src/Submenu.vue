@@ -59,7 +59,7 @@ export default {
   methods: {
     hideSubmenu() {
       this.show = false;
-      $(this.$refs.submenu).findChildren('ul').each(ul => ul.classList.toggle('show', false));
+      $(this.$refs.submenu).find('ul').each(ul => ul.classList.toggle('show', false));
       this.alignMenuRight();
     },
     showSubmenu() {
@@ -95,18 +95,7 @@ export default {
     if (this.show) {
       this.showSubmenu();
     }
-    $el.on('mouseenter', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const fullMenu = this.$parent.$parent;
-      fullMenu.$children.forEach((menuItem) => {
-        if (menuItem.$el === this.$el) {
-          this.showSubmenu();
-        } else {
-          menuItem.$refs.submenu.hideSubmenu();
-        }
-      });
-    });
+    $el.onBlur(() => { this.hideSubmenu(); }, false);
     $el.findChildren('a,button').on('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -125,7 +114,14 @@ export default {
       if (window.innerWidth > 767) {
         if (this.show || this.disabledBool) { return false; }
         e.currentTarget.click();
-        this.showSubmenu();
+        const fullMenu = this.$parent.$parent;
+        fullMenu.$children.forEach((menuItem) => {
+          if (menuItem.$el === this.$el) {
+            this.showSubmenu();
+          } else {
+            menuItem.$refs.submenu.hideSubmenu();
+          }
+        });
       }
       return false;
     });
