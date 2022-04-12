@@ -262,6 +262,7 @@ export default {
 
     .dropdown-menu-end {
         right: 0;
+        left: auto;
     }
 </style>
 
