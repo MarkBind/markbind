@@ -92,27 +92,31 @@ exports[`Quizzes with 2 questions retry goes back to first 1`] = `
           <div
             class="row"
           >
-            <svg
-              class="radio-svg"
-              viewBox="0 0 100 100"
+            <div
+              class="col-auto p-0"
             >
-              <circle
-                cx="50"
-                cy="50"
-                fill="none"
-                r="47"
-                stroke="black"
-                stroke-width="4"
-              />
-               
-              <circle
-                cx="50"
-                cy="50"
-                fill="dodgerblue"
-                r="25"
-                style="display: none;"
-              />
-            </svg>
+              <svg
+                class="radio-svg"
+                viewBox="0 0 100 100"
+              >
+                <circle
+                  cx="50"
+                  cy="50"
+                  fill="none"
+                  r="47"
+                  stroke="black"
+                  stroke-width="4"
+                />
+                 
+                <circle
+                  cx="50"
+                  cy="50"
+                  fill="dodgerblue"
+                  r="25"
+                  style="display: none;"
+                />
+              </svg>
+            </div>
              
             <div
               class="col content"
@@ -136,27 +140,31 @@ exports[`Quizzes with 2 questions retry goes back to first 1`] = `
           <div
             class="row"
           >
-            <svg
-              class="radio-svg"
-              viewBox="0 0 100 100"
+            <div
+              class="col-auto p-0"
             >
-              <circle
-                cx="50"
-                cy="50"
-                fill="none"
-                r="47"
-                stroke="black"
-                stroke-width="4"
-              />
-               
-              <circle
-                cx="50"
-                cy="50"
-                fill="dodgerblue"
-                r="25"
-                style="display: none;"
-              />
-            </svg>
+              <svg
+                class="radio-svg"
+                viewBox="0 0 100 100"
+              >
+                <circle
+                  cx="50"
+                  cy="50"
+                  fill="none"
+                  r="47"
+                  stroke="black"
+                  stroke-width="4"
+                />
+                 
+                <circle
+                  cx="50"
+                  cy="50"
+                  fill="dodgerblue"
+                  r="25"
+                  style="display: none;"
+                />
+              </svg>
+            </div>
              
             <div
               class="col content"
@@ -180,27 +188,31 @@ exports[`Quizzes with 2 questions retry goes back to first 1`] = `
           <div
             class="row"
           >
-            <svg
-              class="radio-svg"
-              viewBox="0 0 100 100"
+            <div
+              class="col-auto p-0"
             >
-              <circle
-                cx="50"
-                cy="50"
-                fill="none"
-                r="47"
-                stroke="black"
-                stroke-width="4"
-              />
-               
-              <circle
-                cx="50"
-                cy="50"
-                fill="dodgerblue"
-                r="25"
-                style="display: none;"
-              />
-            </svg>
+              <svg
+                class="radio-svg"
+                viewBox="0 0 100 100"
+              >
+                <circle
+                  cx="50"
+                  cy="50"
+                  fill="none"
+                  r="47"
+                  stroke="black"
+                  stroke-width="4"
+                />
+                 
+                <circle
+                  cx="50"
+                  cy="50"
+                  fill="dodgerblue"
+                  r="25"
+                  style="display: none;"
+                />
+              </svg>
+            </div>
              
             <div
               class="col content"
@@ -407,7 +419,7 @@ exports[`Quizzes with checkbox question marked incorrect shows next button after
           class="form-control success"
         >
           <label
-            class="checkbox-label disabled"
+            class="row checkbox-label m-0 disabled"
           >
             <input
               class="checkbox"
@@ -423,7 +435,7 @@ exports[`Quizzes with checkbox question marked incorrect shows next button after
             </div>
              
             <div
-              class="col-1"
+              class="col-auto"
             >
               <div>
                 <i
@@ -440,7 +452,7 @@ exports[`Quizzes with checkbox question marked incorrect shows next button after
           class="form-control danger"
         >
           <label
-            class="checkbox-label disabled"
+            class="row checkbox-label m-0 disabled"
           >
             <input
               class="checkbox"
@@ -456,7 +468,7 @@ exports[`Quizzes with checkbox question marked incorrect shows next button after
             </div>
              
             <div
-              class="col-1"
+              class="col-auto"
             >
               <div>
                 <i
@@ -473,7 +485,7 @@ exports[`Quizzes with checkbox question marked incorrect shows next button after
           class="form-control success"
         >
           <label
-            class="checkbox-label disabled"
+            class="row checkbox-label m-0 disabled"
           >
             <input
               class="checkbox"
@@ -489,7 +501,7 @@ exports[`Quizzes with checkbox question marked incorrect shows next button after
             </div>
              
             <div
-              class="col-1"
+              class="col-auto"
             >
               <div>
                 <i
@@ -590,27 +602,31 @@ exports[`Quizzes with mcq question marked correct shows next button after answer
           <div
             class="row disabled"
           >
-            <svg
-              class="radio-svg"
-              viewBox="0 0 100 100"
+            <div
+              class="col-auto p-0"
             >
-              <circle
-                cx="50"
-                cy="50"
-                fill="none"
-                r="47"
-                stroke="black"
-                stroke-width="4"
-              />
-               
-              <circle
-                cx="50"
-                cy="50"
-                fill="dodgerblue"
-                r="25"
-                style=""
-              />
-            </svg>
+              <svg
+                class="radio-svg"
+                viewBox="0 0 100 100"
+              >
+                <circle
+                  cx="50"
+                  cy="50"
+                  fill="none"
+                  r="47"
+                  stroke="black"
+                  stroke-width="4"
+                />
+                 
+                <circle
+                  cx="50"
+                  cy="50"
+                  fill="dodgerblue"
+                  r="25"
+                  style=""
+                />
+              </svg>
+            </div>
              
             <div
               class="col content"
@@ -638,27 +654,31 @@ exports[`Quizzes with mcq question marked correct shows next button after answer
           <div
             class="row disabled"
           >
-            <svg
-              class="radio-svg"
-              viewBox="0 0 100 100"
+            <div
+              class="col-auto p-0"
             >
-              <circle
-                cx="50"
-                cy="50"
-                fill="none"
-                r="47"
-                stroke="black"
-                stroke-width="4"
-              />
-               
-              <circle
-                cx="50"
-                cy="50"
-                fill="dodgerblue"
-                r="25"
-                style="display: none;"
-              />
-            </svg>
+              <svg
+                class="radio-svg"
+                viewBox="0 0 100 100"
+              >
+                <circle
+                  cx="50"
+                  cy="50"
+                  fill="none"
+                  r="47"
+                  stroke="black"
+                  stroke-width="4"
+                />
+                 
+                <circle
+                  cx="50"
+                  cy="50"
+                  fill="dodgerblue"
+                  r="25"
+                  style="display: none;"
+                />
+              </svg>
+            </div>
              
             <div
               class="col content"
@@ -686,27 +706,31 @@ exports[`Quizzes with mcq question marked correct shows next button after answer
           <div
             class="row disabled"
           >
-            <svg
-              class="radio-svg"
-              viewBox="0 0 100 100"
+            <div
+              class="col-auto p-0"
             >
-              <circle
-                cx="50"
-                cy="50"
-                fill="none"
-                r="47"
-                stroke="black"
-                stroke-width="4"
-              />
-               
-              <circle
-                cx="50"
-                cy="50"
-                fill="dodgerblue"
-                r="25"
-                style="display: none;"
-              />
-            </svg>
+              <svg
+                class="radio-svg"
+                viewBox="0 0 100 100"
+              >
+                <circle
+                  cx="50"
+                  cy="50"
+                  fill="none"
+                  r="47"
+                  stroke="black"
+                  stroke-width="4"
+                />
+                 
+                <circle
+                  cx="50"
+                  cy="50"
+                  fill="dodgerblue"
+                  r="25"
+                  style="display: none;"
+                />
+              </svg>
+            </div>
              
             <div
               class="col content"

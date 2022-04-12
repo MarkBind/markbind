@@ -8,23 +8,25 @@
     @mouseleave="hover = false"
   >
     <div :class="['row', { 'disabled': qState.answered }]">
-      <svg viewBox="0 0 100 100" class="radio-svg">
-        <circle
-          cx="50"
-          cy="50"
-          r="47"
-          fill="none"
-          stroke="black"
-          stroke-width="4"
-        />
-        <circle
-          v-show="selected"
-          cx="50"
-          cy="50"
-          r="25"
-          fill="dodgerblue"
-        />
-      </svg>
+      <div class="col-auto p-0">
+        <svg viewBox="0 0 100 100" class="radio-svg">
+          <circle
+            cx="50"
+            cy="50"
+            r="47"
+            fill="none"
+            stroke="black"
+            stroke-width="4"
+          />
+          <circle
+            v-show="selected"
+            cx="50"
+            cy="50"
+            r="25"
+            fill="dodgerblue"
+          />
+        </svg>
+      </div>
       <div class="col content">
         <slot></slot>
       </div>
@@ -60,7 +62,7 @@
     @mouseover="hover = true"
     @mouseleave="hover = false"
   >
-    <label :class="['checkbox-label', { 'disabled': qState.answered }]" @click.stop>
+    <label :class="['row', 'checkbox-label', 'm-0', { 'disabled': qState.answered }]" @click.stop>
       <input
         v-model="selected"
         class="checkbox"
@@ -71,7 +73,7 @@
       <div class="col content">
         <slot></slot>
       </div>
-      <div class="col-1">
+      <div class="col-auto">
         <div v-if="qState.answered">
           <i
             v-if="correct"
@@ -175,11 +177,7 @@ export default {
     }
 
     .checkbox-label {
-        display: flex;
-        align-items: center;
         cursor: pointer;
-        margin-bottom: 0;
-        vertical-align: text-bottom;
     }
 
     .form-control {
@@ -202,6 +200,7 @@ export default {
     .radio-svg {
         width: 1em;
         height: 1em;
+        vertical-align: text-top;
     }
 
     .checkbox {
