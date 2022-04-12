@@ -223,7 +223,7 @@ export default {
     this._navbar = true;
   },
   mounted() {
-    const $dropdown = $('.dropdown>[data-toggle="dropdown"]', this.$el).parent();
+    const $dropdown = $('.dropdown>[data-bs-toggle="dropdown"]', this.$el).parent();
     $dropdown.on('click', '.dropdown-toggle', (e) => {
       e.preventDefault();
       $dropdown.each((content) => {
