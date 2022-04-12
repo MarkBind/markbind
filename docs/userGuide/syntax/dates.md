@@ -72,28 +72,27 @@ YYYY | 2019
 
 Full formatting reference available [here](https://momentjs.com/docs/#/displaying/format/).
 
-{{ icon_example }}
 <div id="examples" class="d-none">
 <include boilerplate src="outputBox.md">
-<div id="code">
+<variable name="code">
 
 <box><span>
 {{ njblock('set base1 = "2019-08-12"') }}<br/>
 {{ njblock('set format1 = "DD MM YYYY"') }}<br/>
 {{ njblock('set format2 = "ddd Do MM"') }}<br/>
-{{ njcode('base1 | date') }} `<!-- Mon 12 Aug -->`<br/>
-{{ njcode('base1 | date(format1)') }} `<!-- 12 08 2019 -->`<br/>
-{{ njcode('base1 | date(format1, 10)') }} `<!-- 22 08 2019 -->`<br/>
-{{ njcode('base1 | date(format2, 10)') }} `<!-- Thu 22/08 -->`<br/>
+{{ njcode('base1 | date') }} <!-- Mon 12 Aug --><br/>
+{{ njcode('base1 | date(format1)') }} <!-- 12 08 2019 --><br/>
+{{ njcode('base1 | date(format1, 10)') }} <!-- 22 08 2019 --><br/>
+{{ njcode('base1 | date(format2, 10)') }} <!-- Thu 22/08 --><br/>
 </span></box>
+</variable>
 
-</div>
-<div id="output">
+<variable name="output">
 Mon 12 Aug<br/>
 12 08 2019<br/>
 22 08 2019<br/>
 Thu 22/08
-</div>
+</variable>
 </include>
 </div>
 
