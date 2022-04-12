@@ -1,16 +1,17 @@
 <template>
-  <div style="position: relative;">
+  <div style="position: relative;" class="dropdown">
     <div v-if="algolia" id="algolia-search-input"></div>
     <input
       v-else
       v-model="value"
+      data-bs-toggle="dropdown"
       type="text"
       class="form-control"
       :placeholder="placeholder"
       autocomplete="off"
       @input="update"
-      @keydown.up="up"
-      @keydown.down="down"
+      @keyup.up="up"
+      @keyup.down="down"
       @keydown.enter="hit"
       @keydown.esc="reset"
       @blur="showDropdown = false"
@@ -179,7 +180,8 @@ export default {
         'dropdown-menu',
         'search-dropdown-menu',
         { show: this.showDropdown },
-        { 'dropdown-menu-right': this.menuAlignRight },
+        { 'd-none': !this.showDropdown },
+        { 'dropdown-menu-end': this.menuAlignRight },
       ];
     },
   },
@@ -252,6 +254,14 @@ export default {
 <style scoped>
     .form-control {
         min-width: 8em;
+    }
+
+    .table-active {
+        background-color: rgba(0, 0, 0, 0.075); /* follows Bootstrap's table-active */
+    }
+
+    .dropdown-menu-end {
+        right: 0;
     }
 </style>
 
