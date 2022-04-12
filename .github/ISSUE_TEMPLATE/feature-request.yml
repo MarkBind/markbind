@@ -6,7 +6,7 @@ body:
   id: existing
   attributes:
     label: Please confirm that you have searched existing issues in the repo
-    description: Please search to see if an issue already exists for the bug you encountered.
+    description: Please search to see if an issue already exists for the request.
     options:
       - 'Yes, I have searched the existing issues'
       - 'No'
