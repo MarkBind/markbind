@@ -17,7 +17,7 @@ belong to the previous footnote.
 
 
 **Inline footnotes:**
-Here is an inline note.^[Inlines notes are easier to write, since
+Here is an inline note.^[Inline notes are easier to write, since
 you don't have to pick an identifier and move down to type the
 note.]
 
@@ -27,7 +27,7 @@ note.]
 
 <box type="warning">
 
-Normal footnotes won't work when used inside the attributes of markbind components!
+Normal footnotes won't work when used inside the attributes of MarkBind components!
 <br>
 For example, it won't work in the `header` attribute of [panels](../components/presentation.html#panels).
 </box>

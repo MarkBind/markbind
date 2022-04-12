@@ -20,7 +20,7 @@
 
 <box type="warning" seamless>
 
-Should you need more expressive formatting, or encounter any issues when formatting the frontmatter, note that the frontmatter follows the [yaml](https://yaml.org/refcard.html) spec.
+Should you need more expressive formatting, or encounter any issues when formatting the frontmatter, note that the frontmatter follows the [YAML](https://yaml.org/refcard.html) spec.
 </box>
 
 **Page properties:**

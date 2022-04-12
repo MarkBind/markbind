@@ -78,7 +78,7 @@ Here is a typical `site.json` file:
 
 #### **`baseUrl`**
 
-**The base url relative to your domain.** Default: `""`(empty).
+**The base URL relative to your domain.** Default: `""`(empty).
 
 <include src="deployingTheSite.md#warning-about-baseUrl" />
 

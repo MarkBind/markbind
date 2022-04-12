@@ -2,7 +2,7 @@
 
 **There are easy ways to embed media content such as YouTube videos and PowerPoint slides**.
 
-###### Embedding Youtube Videos
+###### Embedding YouTube Videos
 
 Here are three ways of embedding YouTube videos and one example of how it will look in the page.
 
@@ -24,7 +24,7 @@ Here are three ways of embedding YouTube videos and one example of how it will l
 
 More media blocks, embedding services and additional options can be found in [Markdown-it documentation](https://github.com/rotorz/markdown-it-block-embed).
 
-###### Embedding Powerpoint Slides (using the embed url from Powerpoint online)
+###### Embedding PowerPoint Slides (using the embed URL from PowerPoint online)
 
 Here is an example of embedding a PowerPoint slide deck:
 

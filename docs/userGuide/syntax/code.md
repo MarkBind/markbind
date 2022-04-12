@@ -214,7 +214,7 @@ MarkBind can apply syntax-coloring on inline code too.
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="code">
-Consider the xml code `<bar type="name">goo</bar>`{.xml},<br>
+Consider the XML code `<bar type="name">goo</bar>`{.xml},<br>
 or the java code `public static void main(String[] args)`{.java}.
 </variable>
 </include>

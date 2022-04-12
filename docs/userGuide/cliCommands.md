@@ -48,7 +48,7 @@ Usage: markbind <command>
   Convert an existing GitHub wiki or `docs` folder into a MarkBind website. See [Converting an existing Github project]({{ baseUrl }}/userGuide/markBindInTheProjectWorkflow.html#converting-existing-project-documentation-wiki) for more information.
 
 * `-t`, `--template` <br>
-  When initialising markbind, change the template that you start with. See [templates](templates.html).
+  When initialising MarkBind, change the template that you start with. See [templates](templates.html).
 
 {{ icon_examples }}
 * `markbind init` : Initializes the site in the current working directory.

@@ -46,7 +46,7 @@ Something referenced by a panel with a `src` attribute (`<panel src="...">`).
 external
 </popover>.
 
-That is, the dom tree being processed during `processNode` and the content passed into `postRender` will belong to either one of these types of files.
+That is, the DOM tree being processed during `processNode` and the content passed into `postRender` will belong to either one of these types of files.
 </box>
 
 An example of a plugin is shown below. The plugin shows two ways of appending a paragraph of text to a specific `div` in the Markdown files:

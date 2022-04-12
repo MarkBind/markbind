@@ -116,7 +116,7 @@ jobs:
 The sample `deploy.yml` workflow above uses the [default Github Token secret](https://docs.github.com/en/actions/reference/authentication-in-a-workflow) that is generated automatically for each Github Actions workflow. You may also use a [Github Personal Access Token](#generating-a-github-personal-access-token) in place of the default Github Token.
 </box>
 
-Once you have created the file, commit and push the file to your repo. Github Actions should start to build and deploy your markbind site. You can verify this by visiting `www.github.com/<org|username>/<repo>/actions`.
+Once you have created the file, commit and push the file to your repo. Github Actions should start to build and deploy your MarkBind site. You can verify this by visiting `www.github.com/<org|username>/<repo>/actions`.
 
 <box type="tip">
 
@@ -275,7 +275,7 @@ The `repo` value can be changed to your specific repository as desired.
     build: off
     ```
 
-Commit and push `appveyor.yml` to your github repository. Thereafter, AppVeyor CI should begin to run the build script. You are able to view the current build status by clicking on your repository in the [AppVeyor projects page](https://ci.appveyor.com/projects). Once the build succeeds, you should be able to view your MarkBind site, after a few seconds, at `http://<username|org>.github.io/<repo>` e.g., http://se-edu.github.io/se-book. 
+Commit and push `appveyor.yml` to your Github repository. Thereafter, AppVeyor CI should begin to run the build script. You are able to view the current build status by clicking on your repository in the [AppVeyor projects page](https://ci.appveyor.com/projects). Once the build succeeds, you should be able to view your MarkBind site, after a few seconds, at `http://<username|org>.github.io/<repo>` e.g., http://se-edu.github.io/se-book. 
 
 </panel>
 
@@ -398,7 +398,7 @@ You may also preview PRs using [Surge](https://surge.sh/), which is an NPM packa
 
     <include src="screenshot.md" boilerplate var-alt="Add Surge token" var-file="surgeAddToken.png" inline />
 
-1. Commit and push the following 2 files into your markbind site repo, in the directory `<PROJECT_ROOT>/.github/workflows/`.
+1. Commit and push the following 2 files into your MarkBind site repo, in the directory `<PROJECT_ROOT>/.github/workflows/`.
 
 <panel header="`receivePR.yml` File" type="seamless">
 
@@ -453,7 +453,7 @@ jobs:
 
 In **line 34** of the workflow code below, you are required to update the `PR_URL` according to your needs. We recommend just changing the section `<YOUR_BASE_URL>` to something that can easily identify your MarkBind project repository.
 
-For example, if the name of your repository is `MyRepo`, and it is managed under an organization `MyOrganization`, you could replace `<YOUR_BASE_URL>` to `myorganization-myrepo` and your PR Preview will be deployed at the following url: `https://pr-<PR_NUMBER>-myorganization-myrepo.surge.sh`.
+For example, if the name of your repository is `MyRepo`, and it is managed under an organization `MyOrganization`, you could replace `<YOUR_BASE_URL>` to `myorganization-myrepo` and your PR Preview will be deployed at the following URL: `https://pr-<PR_NUMBER>-myorganization-myrepo.surge.sh`.
 
 Advanced users may completely replace the default `PR_URL`. ==**It is recommended to test your workflow code on a test repo before using it for your MarkBind project repo.**==
 </box>

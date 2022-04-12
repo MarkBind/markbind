@@ -9,7 +9,7 @@
 **Nunjucks [variables](https://mozilla.github.io/nunjucks/templating.html#set) are ideal for reusing small bits of code** in multiple places; you can define a variable to represent the code bit in question and reuse it anywhere in the site by referring to the variable instead of duplicating the code bit.
 </div>
 
-MarkBind does not aim to alter the already robust variable features of nunjucks, but provides several extensions to it.
+MarkBind does not aim to alter the already robust variable features of Nunjucks, but provides several extensions to it.
 
 ### Global Variables
 
@@ -89,9 +89,9 @@ Student Number | Score | Rank
 ```
 {% endraw %}
 
-<panel type="minimal" header="Json file used in example">
+<panel type="minimal" header="JSON file used in example">
 
-```json {heading="Json File"}
+```json {heading="JSON File"}
 {% include "userGuide/syntax/extra/scoreboard.json" %}
 ```
 

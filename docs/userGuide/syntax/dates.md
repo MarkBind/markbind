@@ -58,7 +58,7 @@ Default format: `"ddd D MMM"` e.g. Fri 6 Mar
 <panel header="**Brief reference**">
 
 Token | Output
-- | -
+--- | ---
 D | 1
 Do | 1st
 DD | 01
