@@ -349,7 +349,19 @@ export default {
         >>> .dropdown {
             display: flex;
             align-items: center;
+    }
+
+        .container-fluid {
+            padding: 0;
         }
+    }
+    
+    .navbar-brand {
+      display: inline-block;
+    }
+
+    .navbar-right {
+      padding-right: 1rem;
     }
 
     .navbar-left {
