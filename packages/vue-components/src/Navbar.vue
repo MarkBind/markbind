@@ -350,15 +350,25 @@ export default {
             display: flex;
             align-items: center;
         }
+
+        .container-fluid {
+            padding: 0;
+        }
+    }
+
+    .navbar-brand {
+        display: inline-block;
+    }
+
+    .navbar-right {
+        padding-right: 1rem;
     }
 
     .navbar-left {
         display: inline-block;
         font-size: 1.25rem;
         line-height: inherit;
-        padding-right: 1rem;
-        padding-top: 0.3125rem;
-        padding-bottom: 0.3125rem;
+        padding: 0.3125rem 1rem;
         white-space: nowrap;
     }
 
