@@ -49,7 +49,7 @@ disabled | `Boolean` | `false` | Whether Tab Group is clickable and can be activ
 
 <box type="info">
 
-Tabs, tab group and individual tab can be omitted during printing by adding bootstrap's display property `class="d-print-none"` to the respective components.
+Tabs, tab group and individual tab can be omitted during printing by adding Bootstrap's display property `class="d-print-none"` to the respective components.
 </box>
 
 <div id="short" class="d-none">
