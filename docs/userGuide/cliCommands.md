@@ -21,7 +21,7 @@ Usage: markbind <command>
    init|i [options] [root]            init a markbind website project
    serve|s [options] [root]           build then serve a website from a directory
    build|b [options] [root] [output]  build a website
-   deploy|d [options]                 deploy the site to the repo's Github pages
+   deploy|d [options]                 deploy the site to the repo's GitHub pages
 ```
 <hr><!-- ========================================================================== -->
 <div id="markbind-init">
@@ -45,7 +45,7 @@ Usage: markbind <command>
 **Options** :fas-cogs:
 
 * `-c`, `--convert`<br>
-  Convert an existing GitHub wiki or `docs` folder into a MarkBind website. See [Converting an existing Github project]({{ baseUrl }}/userGuide/markBindInTheProjectWorkflow.html#converting-existing-project-documentation-wiki) for more information.
+  Convert an existing GitHub wiki or `docs` folder into a MarkBind website. See [Converting an existing GitHub project]({{ baseUrl }}/userGuide/markBindInTheProjectWorkflow.html#converting-existing-project-documentation-wiki) for more information.
 
 * `-t`, `--template` <br>
   When initialising MarkBind, change the template that you start with. See [templates](templates.html).
@@ -53,7 +53,7 @@ Usage: markbind <command>
 {{ icon_examples }}
 * `markbind init` : Initializes the site in the current working directory.
 * `markbind init ./myWebsite` : Initializes the site in `./myWebsite` directory.
-* `markbind init --convert --template minimal`: Converts the Github wiki or `docs` folder in the current working directory into a minimal MarkBind website.
+* `markbind init --convert --template minimal`: Converts the GitHub wiki or `docs` folder in the current working directory into a minimal MarkBind website.
 
 </panel>
 </div>
@@ -174,7 +174,7 @@ The caveat is that not building all pages during the initial process, or not reb
 
 **Alias:** `markbind d`
 
-**Description:** Deploys the site to the repo's Github pages by pushing everything in the generated site (default dir: `_site`) to the `gh-pages` branch of the current git working directory's remote repo.
+**Description:** Deploys the site to the repo's GitHub pages by pushing everything in the generated site (default dir: `_site`) to the `gh-pages` branch of the current git working directory's remote repo.
 
 <panel header="**Options** :fas-cogs:" type="minimal" expanded>
 

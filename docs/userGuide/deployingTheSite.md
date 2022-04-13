@@ -34,15 +34,15 @@
     1. Use the [`markbind build -s <file>` command](cliCommands.html#build-command) to generate the site from source files.
     1. Upload the site files to the Web server. The sections below explain how to automate this step if you are deploying to some online platforms.
 
-## Deploying to Github Pages
+## Deploying to GitHub Pages
 
-**MarkBind can easily deploy a site to [Github pages](https://help.github.com/categories/github-pages-basics/)** if the project root directory is also a GitHub repo.
+**MarkBind can easily deploy a site to [GitHub pages](https://help.github.com/categories/github-pages-basics/)** if the project root directory is also a GitHub repo.
 
 ### Using the `markbind deploy` command
 
 Running the **`markbind deploy`** command will deploy the most recent build of your site to the `gh-pages` branch of the repo `origin` and will be available.
 
-Then, navigate to the `Settings > Pages` section on GitHub for that repository and set the source to the root of the `gh-pages` branch. You can read [this source](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site) on Github Pages for more details.
+Then, navigate to the `Settings > Pages` section on GitHub for that repository and set the source to the root of the `gh-pages` branch. You can read [this source](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site) on GitHub Pages for more details.
 
 Your site will be online at `http://<username|org>.github.io/<repo>` (e.g., http://se-edu.github.io/se-book).
 
@@ -52,7 +52,7 @@ Your site will be online at `http://<username|org>.github.io/<repo>` (e.g., http
 
 If you are deploying the site to GitHub pages, the `baseUrl` setting in the `site.json` should be set to the `"/<repositoryName>"` for the links in the deployed site to work correctly.
 
-{{ icon_example }} If you are using Github Pages to host your deployed website at repo `myorg/myproduct` (i.e., the website is published at `https://myorg.github.io/myproduct`), then your `baseUrl` should be `"/myproduct"`.
+{{ icon_example }} If you are using GitHub Pages to host your deployed website at repo `myorg/myproduct` (i.e., the website is published at `https://myorg.github.io/myproduct`), then your `baseUrl` should be `"/myproduct"`.
 </box>
 </div>
 
@@ -74,20 +74,20 @@ You can override the default deployment settings %%(e.g., repo/branch to deploy)
 ### Using CI Platforms
 **You can setup CI Platforms to automatically build and deploy your site on GitHub Pages every time your GitHub repo is updated.**
 
-<panel header="#### Generating a Github Personal Access Token" type="seamless" expanded>
+<panel header="#### Generating a GitHub Personal Access Token" type="seamless" expanded>
 
-With the exception of Github Actions, a Github Personal Access Token with **repo** permissions is required for deploying your MarkBind site to Github Pages via CI tools.
+With the exception of GitHub Actions, a GitHub Personal Access Token with **repo** permissions is required for deploying your MarkBind site to GitHub Pages via CI tools.
 
-You may refer to Github's documentation on [how to generate a Github Personal Access Token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/#creating-a-token). Ensure that you have enabled **repo** permissions as shown from the screenshot below. 
+You may refer to GitHub's documentation on [how to generate a GitHub Personal Access Token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/#creating-a-token). Ensure that you have enabled **repo** permissions as shown from the screenshot below. 
 
 <include src="screenshot.md" boilerplate var-alt="GitHub Token Repo Permissions" var-file="githubTokenRepoPermissions.png" inline />
 
 <box type="warning">Take note of the generated token - you will not be able to see it again once you navigate away from the page.</box>
 </panel>
 
-<panel header="#### Deploying via Github Actions" type="seamless" expanded>
+<panel header="#### Deploying via GitHub Actions" type="seamless" expanded>
 
-To instruct [Github Actions](https://docs.github.com/en/actions) to build and deploy the site when you push to the repository, add a Github Actions workflow file in your project repo at the location `<PROJECT_ROOT>/.github/workflows/deploy.yml`  A sample workflow file is provided below:
+To instruct [GitHub Actions](https://docs.github.com/en/actions) to build and deploy the site when you push to the repository, add a GitHub Actions workflow file in your project repo at the location `<PROJECT_ROOT>/.github/workflows/deploy.yml`  A sample workflow file is provided below:
 
 ```yml
 name: Deploy MarkBind Site
@@ -113,10 +113,10 @@ jobs:
 
 <box type="info">
 
-The sample `deploy.yml` workflow above uses the [default Github Token secret](https://docs.github.com/en/actions/reference/authentication-in-a-workflow) that is generated automatically for each Github Actions workflow. You may also use a [Github Personal Access Token](#generating-a-github-personal-access-token) in place of the default Github Token.
+The sample `deploy.yml` workflow above uses the [default GitHub Token secret](https://docs.github.com/en/actions/reference/authentication-in-a-workflow) that is generated automatically for each GitHub Actions workflow. You may also use a [GitHub Personal Access Token](#generating-a-github-personal-access-token) in place of the default GitHub Token.
 </box>
 
-Once you have created the file, commit and push the file to your repo. Github Actions should start to build and deploy your MarkBind site. You can verify this by visiting `www.github.com/<org|username>/<repo>/actions`.
+Once you have created the file, commit and push the file to your repo. GitHub Actions should start to build and deploy your MarkBind site. You can verify this by visiting `www.github.com/<org|username>/<repo>/actions`.
 
 <box type="tip">
 
@@ -139,7 +139,7 @@ jobs:
 Read the [action documentation](https://github.com/MarkBind/markbind-action#readme) to understand the various configuration options.
 </box>
 
-For more information on customizing your workflow file to fit your specific needs, you may refer to the [Github Action Docs](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions).
+For more information on customizing your workflow file to fit your specific needs, you may refer to the [GitHub Action Docs](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions).
 
 </panel>
 
@@ -181,9 +181,9 @@ Since May 2018, Travis CI has been [undergoing migration to `travis-ci.com`](htt
 
 **Configuring your repository in Travis CI**
 
-1. [Add an environment variable in Travis CI](https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings) named `GITHUB_TOKEN`, with the value set to your [generated Github Personal Access Token](#generating-a-github-personal-access-token). ==Ensure that _Display value in the build log_ is set to _Off_.==
+1. [Add an environment variable in Travis CI](https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings) named `GITHUB_TOKEN`, with the value set to your [generated GitHub Personal Access Token](#generating-a-github-personal-access-token). ==Ensure that _Display value in the build log_ is set to _Off_.==
 
-    <include src="screenshot.md" boilerplate var-alt="Add GITHUB_TOKEN" var-file="travisGithubToken.png" inline />
+    <include src="screenshot.md" boilerplate var-alt="Add GITHUB_TOKEN" var-file="travisGitHubToken.png" inline />
 
 1. Add a `.travis.yml` file to instruct Travis CI to build and deploy the site when you push to the repository. An example `.travis.yml` file that can accomplish this is given below:
 
@@ -233,10 +233,10 @@ The `repo` value can be changed to your specific repository as desired.
 
 **Adding your repository to AppVeyor CI**
 
-1. [Sign in to AppVeyor CI](https://ci.appveyor.com/login) using your Github Account.
-1. Authorize AppVeyor App as Github App in the [account settings](https://ci.appveyor.com/authorizations) by clicking on the _Install AppVeyor App_ button.
+1. [Sign in to AppVeyor CI](https://ci.appveyor.com/login) using your GitHub Account.
+1. Authorize AppVeyor App as GitHub App in the [account settings](https://ci.appveyor.com/authorizations) by clicking on the _Install AppVeyor App_ button.
 
-    <include src="screenshot.md" boilerplate var-alt="Install AppVeyor Github App" var-file="appveyorInstallGithubApp.png" inline />
+    <include src="screenshot.md" boilerplate var-alt="Install AppVeyor GitHub App" var-file="appveyorInstallGitHubApp.png" inline />
 
 1. In the [projects directory](https://ci.appveyor.com/projects), click on the _New Project_ button.
 
@@ -246,15 +246,15 @@ The `repo` value can be changed to your specific repository as desired.
 
 **Configuring your repository in AppVeyor CI**
 
-1. Ensure that you have generated a [Github Personal Access token with **repo** permissions](#generating-a-github-personal-access-token).
+1. Ensure that you have generated a [GitHub Personal Access token with **repo** permissions](#generating-a-github-personal-access-token).
 1. Navigate to the project settings page of your repository in AppVeyor CI.
 1. On the left menu, click on __Environment__.
 1. Under the heading __Environment variables__, add a custom environment variable named `GITHUB_TOKEN`, with the value set to the personal access token that was generated in the first step. ==Ensure that you toggle variable encryption by clicking on the padlock.== 
 
-    <include src="screenshot.md" boilerplate var-alt="Add GitHub Token on AppVeyor" var-file="appveyorGithubToken.png" inline />
+    <include src="screenshot.md" boilerplate var-alt="Add GitHub Token on AppVeyor" var-file="appveyorGitHubToken.png" inline />
 
 1. Remember to click __Save__ at the bottom of the page.
-1. Add a `appveyor.yml`file at the root of your MarkBind site's repository to instruct AppVeyor CI to build and deploy the site to Github Pages when you push to your repository. More information on customizing `appveyor.yml` can be found in [AppVeyor documentation](https://www.appveyor.com/docs/appveyor-yml/). An example `appveyor.yml` file is given below:
+1. Add a `appveyor.yml`file at the root of your MarkBind site's repository to instruct AppVeyor CI to build and deploy the site to GitHub Pages when you push to your repository. More information on customizing `appveyor.yml` can be found in [AppVeyor documentation](https://www.appveyor.com/docs/appveyor-yml/). An example `appveyor.yml` file is given below:
 
     ```yml
     environment:
@@ -275,7 +275,7 @@ The `repo` value can be changed to your specific repository as desired.
     build: off
     ```
 
-Commit and push `appveyor.yml` to your Github repository. Thereafter, AppVeyor CI should begin to run the build script. You are able to view the current build status by clicking on your repository in the [AppVeyor projects page](https://ci.appveyor.com/projects). Once the build succeeds, you should be able to view your MarkBind site, after a few seconds, at `http://<username|org>.github.io/<repo>` e.g., http://se-edu.github.io/se-book. 
+Commit and push `appveyor.yml` to your GitHub repository. Thereafter, AppVeyor CI should begin to run the build script. You are able to view the current build status by clicking on your repository in the [AppVeyor projects page](https://ci.appveyor.com/projects). Once the build succeeds, you should be able to view your MarkBind site, after a few seconds, at `http://<username|org>.github.io/<repo>` e.g., http://se-edu.github.io/se-book. 
 
 </panel>
 
@@ -283,8 +283,8 @@ Commit and push `appveyor.yml` to your Github repository. Thereafter, AppVeyor C
 
 **Adding your repository to Circle CI**
 
-1. Ensure that you have generated a [Github Personal Access Token with **repo** permissions](#generating-a-github-personal-access-token).
-1. Sign in to [Circle CI](https://circleci.com/) using your Github account.
+1. Ensure that you have generated a [GitHub Personal Access Token with **repo** permissions](#generating-a-github-personal-access-token).
+1. Sign in to [Circle CI](https://circleci.com/) using your GitHub account.
 1. In the projects dashboard, click on the `Set Up Project` button beside the repo containing your MarkBind site.
 
     <include src="screenshot.md" boilerplate var-alt="Set Up Project in Circle CI" var-file="circleCiSetUpProject.png" inline />
@@ -292,11 +292,11 @@ Commit and push `appveyor.yml` to your Github repository. Thereafter, AppVeyor C
 **Configuring your repository in Circle CI**
 
 1. Once you have set up your project, click on the `Project Settings` button.
-2. On the left, click on the `Environment Variables` tab and add a custom Environment Variable, `GITHUB_TOKEN`, which contains the value of your Github Personal Access Token.
+2. On the left, click on the `Environment Variables` tab and add a custom Environment Variable, `GITHUB_TOKEN`, which contains the value of your GitHub Personal Access Token.
 
-    <include src="screenshot.md" boilerplate var-alt="Add Github Token in Circle CI" var-file="circleCiGithubToken.png" inline />
+    <include src="screenshot.md" boilerplate var-alt="Add GitHub Token in Circle CI" var-file="circleCiGitHubToken.png" inline />
 
-3. Commit and push a `config.yml` file to the repo containing your MarkBind Site that instructs Circle CI to build and deploy your MarkBind site to Github Pages whenever you push to your repository. Ensure that the `config.yml` file is located in the `<PROJECT_ROOT>/.circleci/` directory. A sample `config.yml` file is shown below:
+3. Commit and push a `config.yml` file to the repo containing your MarkBind Site that instructs Circle CI to build and deploy your MarkBind site to GitHub Pages whenever you push to your repository. Ensure that the `config.yml` file is located in the `<PROJECT_ROOT>/.circleci/` directory. A sample `config.yml` file is shown below:
 
     ```yml
     jobs:
@@ -358,7 +358,7 @@ Now your site will be deployed on Netlify at the given address specified after d
 
 ## Previewing Pull Requests for MarkBind sites
 
-**If you are hosting your MarkBind project on Github, you can setup <tooltip content="Pull Request previews">PR previews</tooltip> in order to automatically build and deploy the modified MarkBind site based on the changes in the PR.**
+**If you are hosting your MarkBind project on GitHub, you can setup <tooltip content="Pull Request previews">PR previews</tooltip> in order to automatically build and deploy the modified MarkBind site based on the changes in the PR.**
 
 ### Previewing PRs using Netlify
 
@@ -525,7 +525,7 @@ jobs:
 
 Finally, you may open a PR to the repo of your MarkBind site. If everything is configured correctly, after a few minutes, you should be able to see a `github-actions bot` automatically commenting on the PR with a link to _preview_ the updated MarkBind site.
 
-<include src="screenshot.md" boilerplate var-alt="Surge PR bot" var-file="surgeGithubActionsBot.png" inline />
+<include src="screenshot.md" boilerplate var-alt="Surge PR bot" var-file="surgeGitHubActionsBot.png" inline />
 
 For more information on Surge, you may refer to [Surge's docs](https://surge.sh/help/).
 

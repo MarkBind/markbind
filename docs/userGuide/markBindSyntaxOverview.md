@@ -40,7 +40,7 @@ MarkBind supports all basic Markdown syntax.
 
 #### {{ icon_check_blue }} Support for GFMD
 
-MarkBind supports additional Markdown features provided by Github-Flavored Markdown (GFMD).
+MarkBind supports additional Markdown features provided by GitHub-Flavored Markdown (GFMD).
 
 <panel type="seamless" header="Some examples ...">
 <include src="syntax/code.md#main-example" />
