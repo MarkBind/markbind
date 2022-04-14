@@ -134,7 +134,7 @@ function processPanelSrc(node, context, pageSources, config) {
     asIfTo: filePath,
   });
 
-  return node;
+  return context;
 }
 
 /*
@@ -168,6 +168,7 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
     const error = new Error(`Empty src attribute in include in: ${context.cwf}`);
     logger.error(error);
     cheerio(node).replaceWith(createErrorNode(node, error));
+    return context;
   }
 
   const {
@@ -176,6 +177,12 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
     filePath,
     actualFilePath,
   } = _getSrcFlagsAndFilePaths(node, config);
+
+  // No need to process url contents
+  if (isUrl) {
+    _deleteIncludeAttributes(node);
+    return context;
+  }
 
   const isOptional = _.has(node.attribs, 'optional');
   const fileExistsNode = _getFileExistsNode(node, context, actualFilePath, pageSources, isOptional);
@@ -188,12 +195,6 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
   const shouldOmitFrontmatter = _.has(node.attribs, 'omitFrontmatter');
 
   node.name = isInline ? 'span' : 'div';
-
-  // No need to process url contents
-  if (isUrl) {
-    _deleteIncludeAttributes(node);
-    return node;
-  }
 
   pageSources.staticIncludeSrc.push({
     from: context.cwf,
@@ -247,6 +248,7 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
       const error = new CyclicReferenceError(childContext.callStack);
       logger.error(error);
       cheerio(node).replaceWith(createErrorNode(node, error));
+      return context;
     }
   }
 
