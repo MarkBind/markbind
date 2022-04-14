@@ -1,5 +1,5 @@
 <template>
-  <div class="temp">
+  <div>
     <span
       v-if="isMounted"
       class="popover-annotation"
@@ -39,7 +39,7 @@
 
         <template #popper>
           <div class="popover-container">
-            <h3 v-if="hasHeader" class="popover-header">
+            <h3 v-if="hasHeader">
               {{ header }}
             </h3>
             <div class="popover-body">
@@ -49,7 +49,14 @@
         </template>
       </v-dropdown>
     </span>
-    <span v-if="hasBottomText">{{ label }}. {{ body }}</span>
+    <span v-if="hasBottomText && hasLabel">
+      <h5 class="text-header">
+        {{ computeBottomText() }}
+      </h5>
+      <div>
+        {{ body }}
+      </div>
+    </span>
   </div>
 </template>
 
@@ -156,6 +163,9 @@ export default {
     hasHeight() {
       return this.height !== '';
     },
+    hasLabel() {
+      return this.label !== '';
+    },
     hasBottomText() {
       return this.isBottomText();
     },
@@ -184,6 +194,15 @@ export default {
     toDecimal(percent) {
       return parseFloat(percent) / 100;
     },
+    computeBottomText() {
+      if (this.label !== '' && this.header === '') {
+        return this.label;
+      }
+      if (this.label === '' && this.header !== '') {
+        return this.header;
+      }
+      return `${this.label}: ${this.header}`;
+    },
   },
   mounted() {
     this.targetEl = this.$el;
@@ -195,10 +214,6 @@ export default {
 </script>
 
 <style>
-    .temp {
-
-    }
-
     .popover-annotation {
         position: absolute;
     }
