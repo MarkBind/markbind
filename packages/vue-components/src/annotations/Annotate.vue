@@ -6,29 +6,13 @@
         :src="src"
         :alt="alt"
         :width="computedWidth"
-        class="point-image"
+        class="point-image "
         @load.once="computeWidth"
       />
       <span class="point-wrapper">
         <slot></slot>
       </span>
     </div>
-    <span v-if="isArrowType()" :class="['image-wrapper', addClass]">
-      <div class="image-container">
-        <canvas
-          ref="annotated-image"
-          class="image-canvas"
-          :src="src"
-          :alt="alt"
-          :width="computedWidth"
-          @load.once="computeWidth"
-        >
-        </canvas>
-      </div>
-      <span id="data" class="annotate-data">
-        <slot></slot>
-      </span>
-    </span>
   </div>
 </template>
 
