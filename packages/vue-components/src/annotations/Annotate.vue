@@ -5,7 +5,7 @@
       :src="src"
       :alt="alt"
       :width="computedWidth"
-      class="image-fluid rounded"
+      class="annotate-image"
       @load.once="computeWidth"
     />
     <span class="temp">
@@ -127,6 +127,11 @@ export default {
         display: flex;
         flex-direction: column;
         text-align: left;
+    }
+
+    .annotate-image {
+        width: 100%;
+        height: 100%;
     }
 
     .point-wrapper {

@@ -2,74 +2,38 @@
 
 ## Annotations
 
+Annotation components allows you to easily add annotations over any image.
+### Introduction
+
+Annotation wrappers (`<annotate>`) are used in conjunction with annotation points (`<a-point>`).
+
+Annotation wrappers are used to hold the image and set the width and height of said image.
+
+Annotation points are used to define the position, text and style of each point within the image. In use, the annotation points are directly inserted between the annotate wrappers (`<annotate>...</annotate>`).
+
+
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<popover content="Lorem ipsum dolor sit amet" placement="top">
-  <button class="btn btn-secondary">Popover on top</button>
-</popover>
-<popover content="Lorem ipsum dolor sit amet" placement="left">
-  <button class="btn btn-secondary">Popover on left</button>
-</popover>
-<popover content="Lorem ipsum dolor sit amet" placement="right">
-  <button class="btn btn-secondary">Popover on right</button>
-</popover>
-<popover content="Lorem ipsum dolor sit amet" placement="bottom">
-  <button class="btn btn-secondary">Popover on bottom</button>
-</popover>
-<hr>
-<h4 class="no-index">Header</h4>
-<popover header="Header" content="Lorem ipsum dolor sit amet" placement="top">
-  <button class="btn btn-secondary">Popover on top</button>
-</popover>
-<popover header="Header" content="Lorem ipsum dolor sit amet" placement="left">
-  <button class="btn btn-secondary">Popover on left</button>
-</popover>
-<popover header="Header" content="Lorem ipsum dolor sit amet" placement="right">
-  <button class="btn btn-secondary">Popover on right</button>
-</popover>
-<popover header="Header" content="Lorem ipsum dolor sit amet" placement="bottom">
-  <button class="btn btn-secondary">Popover on bottom</button>
-</popover>
-<hr />
-<h4 class="no-index">Trigger</h4>
-<div>
-  <popover header="Header" content="Lorem ipsum dolor sit amet" placement="top" trigger="hover">
-    <button class="btn btn-secondary">Mouseenter</button>
-  </popover>
-</div>
-<h4 class="no-index">Markdown</h4>
-<div>
-  <popover header="**Emoji header** :rocket:" content="!!emoji!! content :cat:">
-    <button class="btn btn-secondary">Hover</button>
-  </popover>
-</div>
-<h4 class="no-index">Content using slot</h4>
-<div>
-  <popover header="**Emoji header** :rocket:">
-    <div slot="content">
-      This is a long content...
-    </div>
-    <button class="btn btn-secondary">Hover</button>
-  </popover>
-</div>
-<h4 class="no-index">Content using src</h4>
-<div>
-  <popover header="From a HTML file" src="{{ baseUrl }}/userGuide/syntax/extra/loadContent.html#fragment">
-    This is loaded from a .html file
-  </popover>
-</div>
-<div>
-  <popover header="From a MarkDown file" src="{{ baseUrl }}/userGuide/formattingContents.md#overview">
-    This is loaded from a .md file
-  </popover>
-</div>
-<h4 class="no-index">Wrap Text</h4>
-<div>
-  <popover header="false" content="Nice!">What do you say</popover>
-</div>
+
+<annotate src="https://www.researchgate.net/profile/Chaiwat-Sakul/publication/228949121/figure/fig2/AS:300654661783574@1448693065750/The-previous-square-root-circuit-1.png" >
+  <!-- Minimal Point -->
+  <a-point x="25%" y="25%" body="Lorem ipsum dolor sit amet" />
+  <!-- Customize Point Label (default is empty) -->
+  <a-point x="50%" y="25%" body="Lorem ipsum dolor sit amet" label="1a"/>
+  <!-- Customize Point Header (default is nothing) -->
+  <a-point x="75%" y="25%" body="Lorem ipsum dolor sit amet"  header="Lorem ipsum"/>
+  <!-- Customize Point Size (default size is 40px) -->
+  <a-point x="25%" y="50%" body="Lorem ipsum dolor sit amet"  size="60"/>
+  <!-- Customize Point Color (default color is green) -->
+  <a-point x="50%" y="50%" body="Lorem ipsum dolor sit amet"  color="red"/>
+  <!-- Customize Point Opacity (default opacity is 0.3) -->
+  <a-point x="75%" y="50%" body="Lorem ipsum dolor sit amet"  opacity="0.7"/>
+</annotate>
 </variable>
 </include>
+
+
 
 **Using trigger for Popover:**<br>
 
@@ -106,8 +70,8 @@ Usually, only one of these would be used at a time.
 
 If multiple of these are used, MarkBind will prioritise in the following order:
   1. `content` slot
-  1. `content` attribute
-  1. `src` attribute
+  2. `content` attribute
+  3. `src` attribute
 </box>
 
 <div id="short" class="d-none">

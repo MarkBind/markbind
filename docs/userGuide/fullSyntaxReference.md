@@ -42,6 +42,7 @@
   tooltips : ['Tooltips', ['popups', 'reader-facing']],
   popovers : ['Popovers', ['popups', 'reader-facing']],
   modals : ['Modals', ['popups', 'reader-facing']],
+  annotations : ['Annotations', ['popups', 'reader-facing']],
   dropdowns : ['Dropdowns', ['navigation', 'reader-facing']],
   searchBars : ['Search Bars', ['navigation', 'reader-facing']],
   navBars : ['Nav Bars', ['navigation', 'reader-facing']],

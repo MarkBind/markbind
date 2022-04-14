@@ -39,7 +39,7 @@
 
         <template #popper>
           <div class="popover-container">
-            <h3 v-if="hasHeader">
+            <h3 v-if="hasHeader" class="popover-header">
               {{ header }}
             </h3>
             <div class="popover-body">
@@ -111,7 +111,7 @@ export default {
     },
     legend: {
       type: String,
-      default: 'both',
+      default: 'popover',
     },
   },
   data() {
@@ -139,8 +139,8 @@ export default {
         }
       });
       return {
-        left: `${this.width * this.toDecimal(this.x) - this.size}px`,
-        top: `${this.height * this.toDecimal(this.y) - this.size}px`,
+        left: `${this.width * this.toDecimal(this.x) - this.size / 2}px`,
+        top: `${this.height * this.toDecimal(this.y) - this.size / 2}px`,
       };
     },
     pointStyle() {
