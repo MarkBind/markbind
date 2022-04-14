@@ -50,3 +50,15 @@ packages/cli/test/functional/*/_site
 # vscode configuration
 .vscode/
 *.iml
+
+# Compiled files from TypeScript
+*.js.map
+*.d.ts
+*.d.ts.map
+*.tsbuildinfo
+
+# --- packages/core ---
+
+# Ignore JS files that are compiled from TS
+
+# --- packages/core end ---

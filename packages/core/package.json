@@ -12,6 +12,7 @@
   "homepage": "https://markbind.org",
   "license": "MIT",
   "main": "index.js",
+  "types": "index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/MarkBind/markbind.git",
@@ -21,6 +22,8 @@
     "access": "public"
   },
   "scripts": {
+    "build": "tsc --build --verbose",
+    "prepare": "npm run build",
     "test": "jest --colors"
   },
   "dependencies": {
@@ -69,7 +72,9 @@
     "winston": "^2.4.4"
   },
   "devDependencies": {
+    "@types/jest": "^27.4.1",
     "jest": "^27.5.1",
-    "memfs": "^3.0.1"
+    "memfs": "^3.0.1",
+    "ts-jest": "^27.1.4"
   }
 }
