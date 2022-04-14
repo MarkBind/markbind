@@ -42,13 +42,13 @@ function generateDiagram(imageOutputPath, content) {
       logger.error(`exec error: ${error}`);
     }
   });
-  const testJavaVersion = exec('java --version');
-  testJavaVersion.stdout.on('data', (msg) => {
-    logger.info(msg);
-  });
-
-  testJavaVersion.stderr.on('data', (errorMsg) => {
-    logger.info(errorMsg);
+  exec('java --version', (error, stdout, stderr) => {
+    if (error) {
+      logger.error(`exec error: ${error}`);
+      return;
+    }
+    logger.info(`stdout: ${stdout}`);
+    logger.error(`stderr: ${stderr}`);
   });
   let errorLog = '';
   childProcess.stdin.write(
