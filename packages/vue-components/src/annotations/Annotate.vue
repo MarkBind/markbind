@@ -1,18 +1,16 @@
 <template>
-  <div :class="['image-wrapper', addClass]">
-    <div v-if="isPointType()" class="point-container">
-      <img
-        ref="pic"
-        :src="src"
-        :alt="alt"
-        :width="computedWidth"
-        class="point-image "
-        @load.once="computeWidth"
-      />
-      <span class="point-wrapper">
-        <slot></slot>
-      </span>
-    </div>
+  <div :class="['annotate-image-wrapper', addClass]">
+    <img
+      ref="pic"
+      :src="src"
+      :alt="alt"
+      :width="computedWidth"
+      class="image-fluid rounded"
+      @load.once="computeWidth"
+    />
+    <span class="temp">
+      <slot></slot>
+    </span>
   </div>
 </template>
 
@@ -62,6 +60,27 @@ export default {
     computedLoadType() {
       return this.eager ? 'eager' : 'lazy';
     },
+    imageSize() {
+      let tempWidth = 0;
+      let tempHeight = 0;
+
+      this.computeImage((width, height, ar) => {
+        if (!this.hasWidth && this.hasHeight) {
+          tempWidth = Math.round(this.height * ar);
+        }
+        if (this.hasWidth && !this.hasHeight) {
+          tempHeight = Math.round(this.width / ar);
+        }
+        if (!this.hasWidth && !this.hasHeight) {
+          tempWidth = width;
+          tempHeight = height;
+        }
+      });
+      return {
+        width: `${tempWidth}px`,
+        height: `${tempHeight}px`,
+      };
+    },
   },
   data() {
     return {
@@ -69,6 +88,13 @@ export default {
     };
   },
   methods: {
+    computeImage(callback) {
+      const image = new Image();
+      image.onload = function () {
+        callback(this.width, this.height);
+      };
+      image.src = this.src;
+    },
     isPointType() {
       return this.type === 'point';
     },
@@ -96,37 +122,17 @@ export default {
 </script>
 
 <style>
-    .point-container {
+    .annotate-image-wrapper {
         position: relative;
-        width: 100%;
-        height: 100%;
-    }
-
-    .point-image {
-        position: absolute;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
     }
 
     .point-wrapper {
         position: absolute;
+        top: 0;
+        left: 0;
     }
 
-    .image-wrapper {
-        display: inline-block;
-        text-align: center;
-        padding: 4px;
-    }
-
-    .image-caption {
-        display: block;
-    }
-
-    .image-container {
-        position: relative;
-        width: 100%;
-    }
-
-    .image-canvas {
-        max-width: 100%;
-        height: auto;
-    }
 </style>

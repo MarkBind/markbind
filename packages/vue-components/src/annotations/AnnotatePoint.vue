@@ -1,52 +1,56 @@
 <template>
-  <span
-    v-if="isMounted"
-    class="popover-annotation"
-    :x="x"
-    :y="y"
-    :style="pointPosition"
-  >
-    <portal v-if="targetEl.id" :to="'popover:' + targetEl.id">
-      <h3 v-if="hasHeader" class="popover-header">
-        <slot name="header"></slot>
-      </h3>
-      <div class="popover-body">
-        <slot name="content"></slot>
-      </div>
-    </portal>
-
-    <v-dropdown
+  <div class="temp">
+    <span
       v-if="isMounted"
-      :placement="placement"
-      :delay="0"
-      :distance="24"
-      shift-cross-axis
+      class="popover-annotation"
+      :x="x"
+      :y="y"
+      :style="pointPosition"
     >
-      <span
-        v-if="!isInput"
-        class="hover-wrapper"
-        @click.stop
-      >
-        <button
-          class="hover-point"
-          :style="pointStyle"
-        >
-        </button>
-        <span class="hover-annotation">{{ annotation }}</span>
-      </span>
-
-      <template #popper>
-        <div class="popover-container">
-          <h3 v-if="hasHeader" class="popover-header">
-            {{ header }}
-          </h3>
-          <div class="popover-body">
-            <slot></slot>
-          </div>
+      <portal v-if="targetEl.id" :to="'popover:' + targetEl.id">
+        <h3 v-if="hasHeader" class="popover-header">
+          <slot name="header"></slot>
+        </h3>
+        <div class="popover-body">
+          <slot name="content"></slot>
         </div>
-      </template>
-    </v-dropdown>
-  </span>
+      </portal>
+
+      <v-dropdown
+        v-if="isMounted"
+        :placement="placement"
+        :delay="0"
+        :distance="computeDistance"
+        :disabled="!hasPopover"
+        shift-cross-axis
+      >
+        <span
+          v-if="!isInput"
+          class="hover-wrapper"
+          @click.stop
+        >
+          <button
+            class="hover-point"
+            :style="pointStyle"
+          >
+          </button>
+          <span class="hover-label">{{ label }}</span>
+        </span>
+
+        <template #popper>
+          <div class="popover-container">
+            <h3 v-if="hasHeader" class="popover-header">
+              {{ header }}
+            </h3>
+            <div class="popover-body">
+              {{ body }}
+            </div>
+          </div>
+        </template>
+      </v-dropdown>
+    </span>
+    <span v-if="hasBottomText">{{ label }}. {{ body }}</span>
+  </div>
 </template>
 
 <script>
@@ -58,6 +62,10 @@ export default {
     Portal,
   },
   props: {
+    body: {
+      type: String,
+      default: '',
+    },
     header: {
       type: String,
       default: '',
@@ -90,9 +98,13 @@ export default {
       type: String,
       default: '40',
     },
-    annotation: {
+    label: {
       type: String,
       default: '',
+    },
+    legend: {
+      type: String,
+      default: 'both',
     },
   },
   data() {
@@ -132,6 +144,9 @@ export default {
         height: `${this.size}px`,
       };
     },
+    computeDistance() {
+      return this.size * (2 / 3);
+    },
     hasHeader() {
       return this.header !== '';
     },
@@ -141,8 +156,20 @@ export default {
     hasHeight() {
       return this.height !== '';
     },
+    hasBottomText() {
+      return this.isBottomText();
+    },
+    hasPopover() {
+      return this.isPopover();
+    },
   },
   methods: {
+    isBottomText() {
+      return this.legend === 'bottom' || this.legend === 'both';
+    },
+    isPopover() {
+      return this.legend === 'popover' || this.legend === 'both';
+    },
     computeImage(callback) {
       const image = new Image();
       image.onload = function () {
@@ -168,10 +195,12 @@ export default {
 </script>
 
 <style>
+    .temp {
+
+    }
+
     .popover-annotation {
         position: absolute;
-        width: 100%;
-        height: 100%;
     }
 
     .hover-point {
@@ -181,7 +210,7 @@ export default {
         z-index: 2;
     }
 
-    .hover-annotation {
+    .hover-label {
         position: absolute;
         pointer-events: none;
         z-index: 1;
