@@ -41,6 +41,8 @@ function generateDiagram(imageOutputPath, content) {
       logger.error('PUML ERROR!');
       logger.error(`exec error: ${error}`);
     }
+    logger.info(`stdout: ${stdout}`);
+    logger.error(`stderr: ${stderr}`);
   });
   exec('java --version', (error, stdout, stderr) => {
     if (error) {
