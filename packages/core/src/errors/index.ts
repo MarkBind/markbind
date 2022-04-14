@@ -1,5 +1,5 @@
-const CyclicReferenceError = require('./CyclicReferenceError');
+import CyclicReferenceError = require('./CyclicReferenceError');
 
-module.exports = {
+export = {
   CyclicReferenceError,
 };
