@@ -35,8 +35,21 @@ function generateDiagram(imageOutputPath, content) {
 
   // Java command to launch PlantUML jar
   const cmd = `java -jar "${JAR_PATH}" -nometadata -pipe > "${imageOutputPath}"`;
-  const childProcess = exec(cmd);
+  // eslint-disable-next-line no-unused-vars
+  const childProcess = exec(cmd, (error, stdout, stderr) => {
+    if (error) {
+      logger.error('PUML ERROR!');
+      logger.error(`exec error: ${error}`);
+    }
+  });
+  const testJavaVersion = exec('java --version');
+  testJavaVersion.stdout.on('data', (msg) => {
+    logger.info(msg);
+  });
 
+  testJavaVersion.stderr.on('data', (errorMsg) => {
+    logger.info(errorMsg);
+  });
   let errorLog = '';
   childProcess.stdin.write(
     content,
