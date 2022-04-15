@@ -1,12 +1,15 @@
 <template>
   <div>
-    <nav ref="navbar" :class="['navbar', 'navbar-expand-md', themeOptions, addClass, fixedOptions]">
+    <nav
+      ref="navbar"
+      :class="['navbar', 'navbar-expand-md', 'd-print-none', themeOptions, addClass, fixedOptions]"
+    >
       <div class="container-fluid">
         <div class="navbar-left">
           <slot name="brand"></slot>
         </div>
         <div ref="navbarDefault" class="navbar-default">
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <ul class="navbar-nav me-auto mt-2 mt-lg-0">
             <slot></slot>
           </ul>
         </div>
@@ -223,7 +226,7 @@ export default {
     this._navbar = true;
   },
   mounted() {
-    const $dropdown = $('.dropdown>[data-toggle="dropdown"]', this.$el).parent();
+    const $dropdown = $('.dropdown>[data-bs-toggle="dropdown"]', this.$el).parent();
     $dropdown.on('click', '.dropdown-toggle', (e) => {
       e.preventDefault();
       $dropdown.each((content) => {
@@ -350,15 +353,25 @@ export default {
             display: flex;
             align-items: center;
         }
+
+        .container-fluid {
+            padding: 0;
+        }
+    }
+
+    .navbar-brand {
+        display: inline-block;
+    }
+
+    .navbar-right {
+        padding-right: 1rem;
     }
 
     .navbar-left {
         display: inline-block;
         font-size: 1.25rem;
         line-height: inherit;
-        padding-right: 1rem;
-        padding-top: 0.3125rem;
-        padding-bottom: 0.3125rem;
+        padding: 0.3125rem 1rem;
         white-space: nowrap;
     }
 

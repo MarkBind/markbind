@@ -6,7 +6,7 @@
 
 <br>
 
-<div class="jumbotron jumbotron-fluid bg-primary text-white">
+<div class="bg-primary text-white py-5 mb-4">
   <div class="container">
     <h1 class="display-4 no-index">Landing Page Title</h1>
     <p class="lead">A tagline can go here</p>
@@ -38,7 +38,7 @@ Some text some text some text some text some text some text some text. **Some te
 
 ## Sub Heading 1.1
 
-A <tooltip content=":exclamation: some **important explanation**" placement="top" trigger="hover">tooltip</tooltip>, a <trigger for="modal:modalinfo" trigger="click">modal</trigger>, a <a href="https://markbind.org/">link</a>, a <span class="badge badge-danger">badge</span>, another <span class="badge badge-warning">badge</span>.
+A <tooltip content=":exclamation: some **important explanation**" placement="top" trigger="hover">tooltip</tooltip>, a <trigger for="modal:modalinfo" trigger="click">modal</trigger>, a <a href="https://markbind.org/">link</a>, a <span class="badge bg-danger">badge</span>, another <span class="badge bg-warning text-dark">badge</span>.
 
 <modal header="Modal Title" id="modal:modalinfo">
 Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.

@@ -28,7 +28,7 @@
   const baseUrl = ''
 </script>
 
-<body data-spy="scroll" data-target="#mb-page-nav" data-offset="100">
+<body data-bs-spy="scroll" data-bs-target="#mb-page-nav" data-bs-offset="100">
   <div id="app">
     <header fixed>
       <navbar type="dark">
@@ -51,7 +51,7 @@
     <div id="flex-body">
       <overlay-source id="site-nav" class="fixed-header-padding" tag-name="nav" to="site-nav">
         <div class="site-nav-top">
-          <div class="font-weight-bold mb-2" style="font-size: 1.25rem;">Template</div>
+          <div class="fw-bold mb-2" style="font-size: 1.25rem;">Template</div>
         </div>
         <div class="nav-component slim-scroll">
           <site-nav>
@@ -88,7 +88,7 @@
       <div id="content-wrapper" class="fixed-header-padding">
 
         <br>
-        <div class="jumbotron jumbotron-fluid bg-primary text-white">
+        <div class="bg-primary text-white py-5 mb-4">
           <div class="container">
             <h1 class="display-4 no-index" id="landing-page-title"><span id="landing-page-title" class="anchor"></span>Landing Page Title<a class="fa fa-anchor" href="#landing-page-title" onclick="event.stopPropagation()"></a></h1>
             <p class="lead">A tagline can go here</p>
@@ -117,7 +117,7 @@
 </span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
 </span></code></pre>
         <h2 id="sub-heading-1-1"><span id="sub-heading-1-1" class="anchor"></span>Sub Heading 1.1<a class="fa fa-anchor" href="#sub-heading-1-1" onclick="event.stopPropagation()"></a></h2>
-        <p>A <tooltip placement="top" trigger="hover"><template #content>❗️ some <strong>important explanation</strong></template>tooltip</tooltip>, a <trigger for="modal:modalinfo" trigger="click">modal</trigger>, a <a href="https://markbind.org/">link</a>, a <span class="badge badge-danger">badge</span>, another <span class="badge badge-warning">badge</span>.</p>
+        <p>A <tooltip placement="top" trigger="hover"><template #content>❗️ some <strong>important explanation</strong></template>tooltip</tooltip>, a <trigger for="modal:modalinfo" trigger="click">modal</trigger>, a <a href="https://markbind.org/">link</a>, a <span class="badge bg-danger">badge</span>, another <span class="badge bg-warning text-dark">badge</span>.</p>
         <modal id="modal:modalinfo"><template #header>Modal Title</template>
           Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
         </modal>

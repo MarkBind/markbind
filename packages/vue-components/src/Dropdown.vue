@@ -2,21 +2,20 @@
   <li
     v-if="isLi"
     ref="dropdown"
-    :class="[{ 'disabled': disabledBool },
-             isLi ? 'dropdown' : 'btn-group', addClass]"
+    :class="[{ 'disabled': disabledBool }, 'dropdown', addClass]"
   >
     <slot name="button">
       <a
         class="dropdown-toggle"
         role="button"
         :class="{'disabled': disabledBool}"
-        @keyup.esc="hideDropdownMenu()"
+        data-bs-toggle="dropdown"
       >
         <slot name="header"></slot>
       </a>
     </slot>
-    <slot name="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-right': menuAlignRight }]">
-      <ul class="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-right': menuAlignRight }]">
+    <slot name="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-end': menuAlignRight }]">
+      <ul class="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-end': menuAlignRight }]">
         <slot></slot>
       </ul>
     </slot>
@@ -29,23 +28,23 @@
   <div
     v-else
     ref="dropdown"
-    :class="[{ 'disabled': disabledBool },
-             isLi ? 'dropdown' : 'btn-group', addClass]"
+    :class="[{ 'disabled': disabledBool }, 'btn-group', addClass]"
   >
     <slot name="before"></slot>
     <slot name="button">
       <button
         type="button"
         class="btn dropdown-toggle"
-        :class="[btnType, btnWithBefore]"
+        :class="[btnType, btnWithBefore, { 'dropdown-toggle-split': hasBefore }]"
         :disabled="disabledBool"
-        @keyup.esc="hideDropdownMenu()"
+        data-bs-reference="parent"
+        data-bs-toggle="dropdown"
       >
         <slot name="header"></slot>
       </button>
     </slot>
-    <slot name="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-right': menuAlignRight }]">
-      <ul class="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-right': menuAlignRight }]">
+    <slot name="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-end': menuAlignRight }]">
+      <ul class="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-end': menuAlignRight }]">
         <slot></slot>
       </ul>
     </slot>
@@ -112,11 +111,11 @@ export default {
     slots() {
       return this.$scopedSlots.default;
     },
+    hasBefore() {
+      return !!this.$scopedSlots.before;
+    },
     btnWithBefore() {
-      if (this.$scopedSlots.before) {
-        return 'btn-with-before';
-      }
-      return '';
+      return this.hasBefore ? 'btn-with-before' : '';
     },
   },
   methods: {
@@ -157,6 +156,10 @@ export default {
   },
   mounted() {
     const $el = $(this.$refs.dropdown);
+    if (this.$slots.button) {
+      // If the button is passed via props, manually add a data-bs-toggle
+      $el.findChildren('.dropdown-toggle').forEach(child => child.setAttribute('data-bs-toggle', 'dropdown'));
+    }
     if (this.show) {
       this.showDropdownMenu();
     }
@@ -199,7 +202,7 @@ export default {
             overscroll-behavior: contain;
         }
 
-        .navbar-default .dropdown-menu-right {
+        .navbar-default .dropdown-menu-end {
             right: auto;
         }
     }
