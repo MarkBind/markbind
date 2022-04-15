@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav ref="navbar" :class="['navbar', 'navbar-expand-md', themeOptions, addClass, fixedOptions]">
+    <nav ref="navbar" :class="['navbar', 'navbar-expand-md', 'd-print-none', themeOptions, addClass, fixedOptions]">
       <div class="container-fluid">
         <div class="navbar-left">
           <slot name="brand"></slot>
