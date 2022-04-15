@@ -93,6 +93,7 @@ const SUPPORTED_THEMES_PATHS = {
   'bootswatch-spacelab': getBootswatchThemePath('spacelab'),
   'bootswatch-united': getBootswatchThemePath('united'),
   'bootswatch-yeti': getBootswatchThemePath('yeti'),
+  'bootswatch-zephyr': getBootswatchThemePath('zephyr'),
 };
 
 const HIGHLIGHT_ASSETS = {
