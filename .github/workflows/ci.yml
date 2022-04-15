@@ -23,6 +23,13 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '12'
+      - name: Install Graphviz
+        uses: tlylt/install-graphviz@v1
+      - name: Install Java
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin' 
       - run: npm i -g npm@8.3.1
       - run: npm run setup
       - run: npm run test
