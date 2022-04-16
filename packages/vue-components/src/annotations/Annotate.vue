@@ -8,7 +8,7 @@
       class="annotate-image"
       @load.once="computeWidth"
     />
-    <span class="temp">
+    <span class="point-wrapper">
       <slot></slot>
     </span>
   </div>
@@ -60,27 +60,6 @@ export default {
     computedLoadType() {
       return this.eager ? 'eager' : 'lazy';
     },
-    imageSize() {
-      let tempWidth = 0;
-      let tempHeight = 0;
-
-      this.computeImage((width, height, ar) => {
-        if (!this.hasWidth && this.hasHeight) {
-          tempWidth = Math.round(this.height * ar);
-        }
-        if (this.hasWidth && !this.hasHeight) {
-          tempHeight = Math.round(this.width / ar);
-        }
-        if (!this.hasWidth && !this.hasHeight) {
-          tempWidth = width;
-          tempHeight = height;
-        }
-      });
-      return {
-        width: `${tempWidth}px`,
-        height: `${tempHeight}px`,
-      };
-    },
   },
   data() {
     return {
@@ -88,13 +67,6 @@ export default {
     };
   },
   methods: {
-    computeImage(callback) {
-      const image = new Image();
-      image.onload = function () {
-        callback(this.width, this.height);
-      };
-      image.src = this.src;
-    },
     isPointType() {
       return this.type === 'point';
     },
@@ -124,20 +96,12 @@ export default {
 <style>
     .annotate-image-wrapper {
         position: relative;
-        display: flex;
-        flex-direction: column;
         text-align: left;
+        display: inline-block;
     }
 
     .annotate-image {
-        width: 100%;
-        height: 100%;
+        max-width: 100%;
+        height: auto;
     }
-
-    .point-wrapper {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-
 </style>

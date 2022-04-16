@@ -1,10 +1,8 @@
 <template>
-  <div>
+  <div class="annotate-point">
     <span
       v-if="isMounted"
       class="popover-annotation"
-      :x="x"
-      :y="y"
       :style="pointPosition"
     >
       <portal v-if="targetEl.id" :to="'popover:' + targetEl.id">
@@ -20,6 +18,9 @@
         v-if="isMounted"
         :placement="placement"
         :delay="0"
+        :triggers="triggers"
+        :popper-triggers="triggers"
+        :hide-triggers="triggers"
         :distance="computeDistance"
         :disabled="!hasPopover"
         shift-cross-axis
@@ -49,7 +50,7 @@
         </template>
       </v-dropdown>
     </span>
-    <span v-if="hasBottomText && hasLabel">
+    <span v-if="hasBottomText && hasLabel" class="legend-wrapper">
       <h5 class="text-header">
         {{ computeBottomText() }}
       </h5>
@@ -113,6 +114,10 @@ export default {
       type: String,
       default: 'popover',
     },
+    trigger: {
+      type: String,
+      default: 'click',
+    },
   },
   data() {
     return {
@@ -126,6 +131,8 @@ export default {
   inject: ['width', 'height', 'src'],
   computed: {
     pointPosition() {
+      // eslint-disable-next-line no-restricted-globals
+      const screenWidth = screen.width;
       this.computeImage((width, height, ar) => {
         if (!this.hasWidth && this.hasHeight) {
           this.width = Math.round(this.height * ar);
@@ -137,7 +144,12 @@ export default {
           this.width = width;
           this.height = height;
         }
+        if (this.width > screenWidth) {
+          this.width = screenWidth;
+          this.height = Math.round(this.width / ar);
+        }
       });
+
       return {
         left: `${this.width * this.toDecimal(this.x) - this.size / 2}px`,
         top: `${this.height * this.toDecimal(this.y) - this.size / 2}px`,
@@ -150,6 +162,9 @@ export default {
         width: `${this.size}px`,
         height: `${this.size}px`,
       };
+    },
+    triggers() {
+      return this.trigger.split(' ');
     },
     computeDistance() {
       return this.size * (2 / 3);
@@ -214,6 +229,10 @@ export default {
 </script>
 
 <style>
+    .annotate-point {
+        margin-top: 1rem;
+    }
+
     .popover-annotation {
         position: absolute;
     }

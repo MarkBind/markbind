@@ -66,14 +66,11 @@ Annotate point also allows users to display its content as a legend below the di
 
 <annotate src="https://www.researchgate.net/profile/Chaiwat-Sakul/publication/228949121/figure/fig2/AS:300654661783574@1448693065750/The-previous-square-root-circuit-1.png" width="500">
   <!-- Default Legend (popover only)-->
-  <a-point x="25%" y="50%" body="Lorem ipsum dolor sit amet" label="1"/>
+  <a-point x="25%" y="50%" body="There is only text here" label="1"/>
   <!-- Set Legend to bottom only -->
-  <a-point x="50%" y="50%" body="Lorem ipsum dolor sit amet" label="2" legend="bottom"/>
+  <a-point x="50%" y="50%" body="Hovering over this does nothing" label="2" legend="bottom"/>
   <!-- Set Legend to both -->
-  <a-point x="75%" y="50%" body="Lorem ipsum dolor sit amet" label="3" legend="both"/>
-  <a-point x="75%" y="50%" body="Lorem ipsum dolor sit amet" label="3" legend="both"/>
-  <a-point x="75%" y="50%" body="Lorem ipsum dolor sit amet" label="3" legend="both"/>
-
+  <a-point x="75%" y="50%" body="There is text here and when you hover over it" label="3" legend="both"/>
 </annotate>
 </variable>
 </include>
@@ -95,29 +92,6 @@ Annotate point also allows users to display its content as a legend below the di
 | color     | `String` | `'green'` | The color of the point.<br>Supports any color in the CSS color format. E.g. `red`, `#ffffff`, `rgb(66, 135, 245)`, etc... |
 | opacity   | `String` | `'0.3'`   | The opacity of the point.<br>Supports range of values from `0` to `1`.                                                    |
 | legend     | `String` | `'popover'`      | The presence of a legend to be displayed.<br>Supports: `popover`, `bottom`, `both`.                          |
-
-
-<box type="info" light>
-
-MarkBind supports the `src` attribute, `content` attribute and `content` slot
-for popovers. Usually, only one of these would be used at a time.
-
-If multiple of these are used, MarkBind will prioritise in the following order:
-
-1. `content` slot
-2. `content` attribute
-3. `src` attribute </box>
-
-<div id="short" class="d-none">
-
-```html
-Hover over the <trigger for="pop:context-target">keyword</trigger> to see the
-popover.
-
-<popover id="pop:context-target" header="Popover header" placement="top">
-	<div slot="content">description :+1:</div>
-</popover>
-```
 
 </div>
 
