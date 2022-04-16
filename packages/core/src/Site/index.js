@@ -1492,19 +1492,19 @@ class Site {
     await this.readSiteConfig();
 
     // Save version data
-    const versionPath = `${archivePath}/${versionName}`;
-    this.versionData = await this.writeVersionsFile(versionName, versionPath);
+    this.versionData = await this.writeVersionsFile(versionName, archivePath);
     // Exclude versioned files from archiving.
     const archiveFolders = this.versionData.versions;
     archiveFolders.forEach((folder) => {
-      const filePath = `/${folder.output}/**`;
+      const filePath = `/${folder.archivePath}/${folder.versionName}**`;
       this.siteConfig.ignore.push(filePath);
     });
 
     // Used to get accurate intralinks within the archived site:
+    const versionPath = `/${archivePath}/${versionName}`;
     const archivedBaseUrl = this.siteConfig.baseUrl === ''
-      ? `/${versionPath}`
-      : `${this.siteConfig.baseUrl}/${versionPath}`;
+      ? versionPath
+      : `${this.siteConfig.baseUrl}${versionPath}`;
     this.siteConfig.baseUrl = archivedBaseUrl;
 
     // Create the .tmp folder for storing intermediate results.
@@ -1526,12 +1526,12 @@ class Site {
    * @param {boolean} verbose Flag to emit logs of the operation
    * @returns Returns the json object of the current versions data.
    */
-  async writeVersionsFile(versionName, versionPath, verbose = true) {
+  async writeVersionsFile(versionName, archivePath, verbose = true) {
     const versionsPath = path.join(this.rootPath, VERSIONS_DATA_NAME);
     const newVersionData = {
-      version_name: versionName,
-      build_ver: MARKBIND_VERSION,
-      output: versionPath,
+      versionName,
+      buildVer: MARKBIND_VERSION,
+      archivePath,
     };
 
     try {
@@ -1542,7 +1542,8 @@ class Site {
       const versionsJson = fs.readJSONSync(versionsPath);
 
       // Add in or update this new version in the versions file.
-      const idx = versionsJson.versions.findIndex(vers => vers.output === newVersionData.output);
+      const idx = versionsJson.versions.findIndex(vers => vers.archivePath === newVersionData.archivePath
+                                                       && vers.versionName === newVersionData.versionName);
       if (idx === -1) {
         versionsJson.versions.push(newVersionData);
       } else {

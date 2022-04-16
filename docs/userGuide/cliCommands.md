@@ -14,14 +14,15 @@ $ markbind --help
 Usage: markbind <command>
  
  Options:
-   -V, --version                      output the version number
-   -h, --help                         output usage information
+   -V, --version                                      output the version number
+   -h, --help                                         output usage information
  
  Commands:
-   init|i [options] [root]            init a markbind website project
-   serve|s [options] [root]           build then serve a website from a directory
-   build|b [options] [root] [output]  build a website
-   deploy|d [options]                 deploy the site to the repo's Github pages
+   init|i [options] [root]                            init a markbind website project
+   serve|s [options] [root]                           build then serve a website from a directory
+   build|b [options] [root] [output]                  build a website
+   archive|ar [options] [versionName] [archivePath]   archive the current version of the site
+   deploy|d [options]                                 deploy the site to the repo's Github pages
 ```
 <hr><!-- ========================================================================== -->
 <div id="markbind-init">
@@ -174,7 +175,11 @@ The caveat is that not building all pages during the initial process, or not reb
 
 **Alias:** `markbind ar`
 
-**Description:** Archives a version of the current site, which will not be affected by future changes to the site
+**Description:** Does the following steps:
+
+1. Builds the current site, ignoring previously archived versions.
+1. Updates or creates a `versions.json` file to track the newly archived version.
+1. Puts the generated files in a folder of the specified name in the specified place.
 
 **Arguments:**
 
@@ -187,7 +192,7 @@ Warning: If the folder at `<archivePath>/<versionName>` already exists, the cont
 
 * `[versionName]`<br>
   The name of the version, and the folder which the generated HTML files and assets will be stored in.<br>
-  {{ icon_example }} `version_1`
+  {{ icon_example }} `v1`, `v1.1.1`, `sem1-2022`
 
 * `[archivePath]`<br>
   All archived versions are stored in the folder `<archivePath>/<versionName>`. The default archivePath is `version` <br>
@@ -202,8 +207,11 @@ Warning: If the folder at `<archivePath>/<versionName>` already exists, the cont
   {{ icon_example }} `-s otherSite.json`
 
 **{{ icon_examples }}**
-* `markbind archive v1` - Stores the site in the directory `version/v1` (from the root)
-* `markbind archive version_1 custom_archive_path` - Stores the site in the directory `custom_archive_path/version_1` (from the root)
+
+* `markbind archive v1`: Stores the site in the directory `version/v1` (from the root)
+* `markbind archive version_1 custom_archive_path`: Stores the site in the directory `./custom_archive_path/version_1`
+
+%%{{ icon_info }} Related: [User Guide: Site Versioning](versioning.md).%%
 
 </panel>
 
