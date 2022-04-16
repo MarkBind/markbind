@@ -55,7 +55,8 @@ Currently, MarkBind supports all light themes from [Bootswatch](https://bootswat
   'sketchy',
   'spacelab',
   'united',
-  'yeti'
+  'yeti',
+  'zephyr'
 ] %}
 
 <div class="container-fluid">

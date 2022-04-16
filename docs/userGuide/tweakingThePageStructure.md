@@ -73,7 +73,7 @@ Next, edit the layout file to your liking, and add the `{% raw %}{{ content }}{%
   <!-- Push content downward when using a fixed header with the fixed-header-padding class -->
   <nav id="site-nav" class="fixed-header-padding">
     <div class="site-nav-top">
-      <div class="font-weight-bold mb-2" style="font-size: 1.25rem;">User Guide</div>
+      <div class="fw-bold mb-2" style="font-size: 1.25rem;">User Guide</div>
     </div>
     <div class="nav-component slim-scroll">
       <site-nav>
