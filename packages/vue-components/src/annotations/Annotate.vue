@@ -65,6 +65,7 @@ export default {
   data() {
     return {
       widthFromHeight: '',
+      offsetWidth: '',
     };
   },
   methods: {
@@ -76,13 +77,21 @@ export default {
         const imageAspectRatio = imgWidth / imgHeight;
         this.widthFromHeight = Math.round(toNumber(this.height) * imageAspectRatio).toString();
       }
+      this.offsetWidth = this.getOffsetWidth();
     },
+    getOffsetWidth() {
+      return this.imageEl.offsetWidth;
+    },
+  },
+  mounted() {
+    this.imageEl = this.$el.querySelector('.annotate-image');
   },
   provide() {
     return {
       width: this.width,
       height: this.height,
       src: this.src,
+      imageEl: this.offsetWidth,
     };
   },
 };

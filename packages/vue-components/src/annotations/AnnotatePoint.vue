@@ -14,7 +14,7 @@
         </div>
       </portal>
 
-      <v-dropdown
+      <v-popover
         v-if="isMounted"
         :placement="placement"
         :delay="0"
@@ -47,7 +47,7 @@
             </div>
           </div>
         </template>
-      </v-dropdown>
+      </v-popover>
     </span>
     <span v-if="hasBottomText && hasLabel" class="legend-wrapper">
       <h5 class="text-header">
@@ -126,23 +126,9 @@ export default {
   inject: ['width', 'height', 'src'],
   computed: {
     pointPosition() {
-      // eslint-disable-next-line no-restricted-globals
-      const screenWidth = screen.width;
-      this.computeImage((width, height, aspectRatio) => {
-        if (!this.hasWidth && this.hasHeight) {
-          this.width = Math.round(this.height * aspectRatio);
-        }
-        if (this.hasWidth && !this.hasHeight) {
-          this.height = Math.round(this.width / aspectRatio);
-        }
-        if (!this.hasWidth && !this.hasHeight) {
-          this.width = width;
-          this.height = height;
-        }
-        if (this.width > screenWidth) {
-          this.width = screenWidth;
-          this.height = Math.round(this.width / aspectRatio);
-        }
+      this.computeImage(() => {
+        this.width = this.parentEl.offsetWidth;
+        this.height = this.parentEl.offsetHeight;
       });
 
       return {
@@ -196,8 +182,7 @@ export default {
     computeImage(callback) {
       const image = new Image();
       image.onload = function () {
-        const aspectRatio = this.width / this.height;
-        callback(this.width, this.height, aspectRatio);
+        callback();
       };
       image.src = this.src;
     },
@@ -207,6 +192,7 @@ export default {
   },
   mounted() {
     this.targetEl = this.$el;
+    this.parentEl = this.$el.parentElement.parentElement.querySelector('.annotate-image');
     this.isMounted = true;
   },
 };
