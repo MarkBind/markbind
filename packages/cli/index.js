@@ -344,12 +344,11 @@ program
   .description('deploy the site to the repo\'s Github pages')
   .option('-c, --ci [githubTokenName]', 'deploy the site in CI Environment [GITHUB_TOKEN]')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
-  .option('-v, --versions <versionFolder>', 'specify the path where versions are stored')
   .action((options) => {
     const rootFolder = path.resolve(process.cwd());
     const outputRoot = path.join(rootFolder, '_site');
-    const site = new Site(rootFolder, outputRoot, undefined, undefined, options.siteConfig);
-    site.deploy(options.ci)
+    new Site(rootFolder, outputRoot, undefined, undefined, options.siteConfig)
+      .deploy(options.ci)
       .then(depUrl => (depUrl !== null ? logger.info(
         `The website has been deployed at: ${depUrl}`)
         : logger.info('Deployed!')))
