@@ -6,7 +6,8 @@
       :alt="alt"
       :width="computedWidth"
       class="annotate-image"
-      @load.once="computeWidth"
+      :loading="computedLoadType"
+      @load.once="getWidth"
     />
     <span class="point-wrapper">
       <slot></slot>
@@ -67,13 +68,7 @@ export default {
     };
   },
   methods: {
-    isPointType() {
-      return this.type === 'point';
-    },
-    isArrowType() {
-      return this.type === 'arrow';
-    },
-    computeWidth() {
+    getWidth() {
       if (!this.hasWidth && this.hasHeight) {
         const renderedImg = this.$refs.pic;
         const imgHeight = renderedImg.naturalHeight;

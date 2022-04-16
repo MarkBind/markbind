@@ -10,7 +10,7 @@
           <slot name="header"></slot>
         </h3>
         <div class="popover-body">
-          <slot name="content"></slot>
+          <slot name="body"></slot>
         </div>
       </portal>
 
@@ -26,7 +26,6 @@
         shift-cross-axis
       >
         <span
-          v-if="!isInput"
           class="hover-wrapper"
           @click.stop
         >
@@ -44,7 +43,7 @@
               {{ header }}
             </h3>
             <div class="popover-body">
-              {{ body }}
+              {{ content }}
             </div>
           </div>
         </template>
@@ -52,10 +51,10 @@
     </span>
     <span v-if="hasBottomText && hasLabel" class="legend-wrapper">
       <h5 class="text-header">
-        {{ computeBottomText() }}
+        {{ computedBottomHeader }}
       </h5>
       <div>
-        {{ body }}
+        {{ content }}
       </div>
     </span>
   </div>
@@ -70,7 +69,7 @@ export default {
     Portal,
   },
   props: {
-    body: {
+    content: {
       type: String,
       default: '',
     },
@@ -81,10 +80,6 @@ export default {
     placement: {
       type: String,
       default: 'top',
-    },
-    effect: {
-      type: String,
-      default: 'float',
     },
     x: {
       type: String,
@@ -133,12 +128,12 @@ export default {
     pointPosition() {
       // eslint-disable-next-line no-restricted-globals
       const screenWidth = screen.width;
-      this.computeImage((width, height, ar) => {
+      this.computeImage((width, height, aspectRatio) => {
         if (!this.hasWidth && this.hasHeight) {
-          this.width = Math.round(this.height * ar);
+          this.width = Math.round(this.height * aspectRatio);
         }
         if (this.hasWidth && !this.hasHeight) {
-          this.height = Math.round(this.width / ar);
+          this.height = Math.round(this.width / aspectRatio);
         }
         if (!this.hasWidth && !this.hasHeight) {
           this.width = width;
@@ -146,7 +141,7 @@ export default {
         }
         if (this.width > screenWidth) {
           this.width = screenWidth;
-          this.height = Math.round(this.width / ar);
+          this.height = Math.round(this.width / aspectRatio);
         }
       });
 
@@ -182,34 +177,12 @@ export default {
       return this.label !== '';
     },
     hasBottomText() {
-      return this.isBottomText();
-    },
-    hasPopover() {
-      return this.isPopover();
-    },
-  },
-  methods: {
-    isBottomText() {
       return this.legend === 'bottom' || this.legend === 'both';
     },
-    isPopover() {
+    hasPopover() {
       return this.legend === 'popover' || this.legend === 'both';
     },
-    computeImage(callback) {
-      const image = new Image();
-      image.onload = function () {
-        const ar = this.width / this.height;
-        callback(this.width, this.height, ar);
-      };
-      image.src = this.src;
-    },
-    sendDataToCanvas() {
-      this.$emit('data', { x: this.x, y: this.y, text: this.text });
-    },
-    toDecimal(percent) {
-      return parseFloat(percent) / 100;
-    },
-    computeBottomText() {
+    computedBottomHeader() {
       if (this.label !== '' && this.header === '') {
         return this.label;
       }
@@ -219,11 +192,22 @@ export default {
       return `${this.label}: ${this.header}`;
     },
   },
+  methods: {
+    computeImage(callback) {
+      const image = new Image();
+      image.onload = function () {
+        const aspectRatio = this.width / this.height;
+        callback(this.width, this.height, aspectRatio);
+      };
+      image.src = this.src;
+    },
+    toDecimal(percent) {
+      return parseFloat(percent) / 100;
+    },
+  },
   mounted() {
     this.targetEl = this.$el;
-    this.sendDataToCanvas();
     this.isMounted = true;
-    this.isInput = this.$slots.default && this.$slots.default.some(node => node.tag === 'input');
   },
 };
 </script>
