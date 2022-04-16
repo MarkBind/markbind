@@ -1,11 +1,6 @@
-// Components and directives from bootstrap-vue
 /* eslint-disable import/no-extraneous-dependencies */
-import {
-  BModal,
-  BPopover,
-  BTooltip,
-  VBModal,
-} from 'bootstrap-vue';
+import { Dropdown, Tooltip } from 'floating-vue';
+import 'floating-vue/dist/style.css';
 /* eslint-enable import/no-extraneous-dependencies */
 
 // Custom / modified components and components from yuche/vue-strap
@@ -33,6 +28,7 @@ import overlay from './Overlay.vue';
 import overlaySource from './OverlaySource.vue';
 import popover from './Popover.vue';
 import tooltip from './Tooltip.vue';
+import modal from './Modal.vue';
 
 const components = {
   box: tipBox,
@@ -59,14 +55,13 @@ const components = {
   overlaySource,
   popover,
   tooltip,
-  BModal,
-  BPopover,
-  BTooltip,
+  modal,
+  'VPopover': Dropdown,
+  'VTooltip': Tooltip,
 };
 
 const directives = {
   closeable,
-  'b-modal': VBModal,
 };
 
 function install(Vue) {

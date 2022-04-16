@@ -36,16 +36,16 @@ Please use the new `:prefix-name:` syntax instead.
 1. Insert the name for the icon enclosed within colons to get the icon in your page.<br>
   `Move to the right!`<code>:<span></span>glyphicon-hand-right:</code> → Move to the right! :glyphicon-hand-right:
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 <code>:<span></span>glyphicon-hand-right:</code> <code>:<span></span>fab-github:</code> <code>:<span></span>fas-home:</code>
 
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 :glyphicon-hand-right: :fab-github: :fas-home: %%:glyphicon-hand-right: :fab-github: :fas-home:%% <span style="color: red">:glyphicon-hand-right: :fab-github: :fas-home:</span>
-</span>
+</div>
 
 ###### Using Octicons
 

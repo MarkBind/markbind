@@ -5,7 +5,7 @@
 
 #### Live Preview <span style="font-size: 0.8em;">:fas-sync:</span>
 
-<span id="live-preview">
+<div id="live-preview">
 
 **_Live preview_** is:
 - Regeneration of affected content upon any change to <tooltip content="`.md`, `.njk` files ... anything your content depends on!">source files</tooltip>, then reloading the updated site in the Browser.
@@ -16,4 +16,4 @@
 
 Use [the `serve` command](cliCommands.html#serve-command) to launch a live preview.
 
-</span>
+</div>

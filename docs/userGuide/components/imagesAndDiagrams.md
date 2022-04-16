@@ -16,11 +16,11 @@
 
 # Image & Diagram Components
 
-<span id="overview" class="lead">
+<div id="overview" class="lead">
 
 The image components here provide **convenient syntax & styling abstractions** on top of raw HTML and Markdown images.
 Diagrams, in the form of **inline PlantUML components** are also supported.
-</span>
+</div>
 
 {% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
 

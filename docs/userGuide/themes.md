@@ -13,11 +13,11 @@
 
 # {{ title }}
 
-<span class="lead" id="overview">
+<div class="lead" id="overview">
 
 **MarkBind supports the ability to style your website with a variety of bootstrap themes.**
 
-</span>
+</div>
 
 #### Specifying a Theme
 
@@ -55,7 +55,8 @@ Currently, MarkBind supports all light themes from [Bootswatch](https://bootswat
   'sketchy',
   'spacelab',
   'united',
-  'yeti'
+  'yeti',
+  'zephyr'
 ] %}
 
 <div class="container-fluid">

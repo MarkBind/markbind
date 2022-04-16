@@ -1,4 +1,4 @@
-<!-- This boilerplate shows Markbind code and the rendered output of that code -->
+<!-- This boilerplate shows MarkBind code and the rendered output of that code -->
 <!-- Supports 4 variables. -->
 <!-- `code` - The MarkBind code content in this variable will appear in a code block containing the code, -->
 <!-- `output` - rendered output in the output box. -->

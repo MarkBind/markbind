@@ -207,16 +207,16 @@ preload | `Boolean` | `false` | Whether the content is loaded immediately from `
 src | `String` | | The url to the remote page to be loaded as the content of the panel.
 type | `String` | `light` | The type or color scheme of the panel (single).<br>Supports: `light`, `dark`, `primary`, `secondary`, `info`, `success`, `warning`, `danger`, `seamless`, `minimal`.
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```html
 <panel header="primary type panel" type="primary" >
   ...
 </panel>
 ```
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 <panel header="minimal type panel" type="minimal" >
   ...
 </panel>
@@ -250,4 +250,4 @@ type | `String` | `light` | The type or color scheme of the panel (single).<br>S
 </panel>
 
 
-</span>
+</div>

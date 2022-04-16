@@ -14,14 +14,14 @@
 %%{{ icon_info }} [the list of supported emoji](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md).%%
 </div>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```markdown
 :+1: :exclamation: :x: :construction:
 ```
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 :+1: :exclamation: :x: :construction:
-</span>
+</div>

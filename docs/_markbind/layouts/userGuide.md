@@ -3,7 +3,7 @@
 <div id="flex-body">
   <nav id="site-nav" class="fixed-header-padding">
     <div class="site-nav-top">
-      <div class="font-weight-bold mb-2" style="font-size: 1.25rem;">User Guide</div>
+      <div class="fw-bold mb-2" style="font-size: 1.25rem;">User Guide</div>
     </div>
     <div class="nav-component slim-scroll">
       <site-nav>
@@ -38,6 +38,7 @@
   * [Syntax Cheat Sheet]({{baseUrl}}/userGuide/syntaxCheatSheet.html)
   * [`site.json` File]({{baseUrl}}/userGuide/siteJsonFile.html)
   * [Tips & Tricks]({{baseUrl}}/userGuide/tipsAndTricks.html)
+  * [Troubleshooting]({{baseUrl}}/userGuide/troubleshooting.html)
   * [Glossary]({{baseUrl}}/userGuide/glossary.html)
       </site-nav>
     </div>

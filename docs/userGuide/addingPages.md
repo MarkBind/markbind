@@ -14,11 +14,11 @@
 
 # {{ title }}
 
-<span class="lead" id="overview">
+<div class="lead" id="overview">
 
 **It is easy to add files to a MarkBind site as any file inside the {{ tooltip_root_directory }} becomes a part of the generated website.**
 
-</span>
+</div>
 
 <div class="indented">
 

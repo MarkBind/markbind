@@ -1,6 +1,6 @@
 ## Footnotes
 
-<span id="main-example-markbind">
+<div id="main-example-markbind">
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
@@ -23,7 +23,7 @@ note.]
 
 </variable>
 </include>
-</span>
+</div>
 
 <box type="warning">
 
@@ -32,7 +32,7 @@ Normal footnotes won't work when used inside the attributes of markbind componen
 For example, it won't work in the `header` attribute of [panels](../components/presentation.html#panels).
 </box>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```html
 **Normal footnotes:**
@@ -44,7 +44,7 @@ Here is a footnote reference,[^1] and another.[^longnote]
     Subsequent paragraphs are indented to show that they
 belong to the previous footnote.
 ```
-</span>
-<span id="examples" class="d-none">
+</div>
+<div id="examples" class="d-none">
 1 + 1 = 2 ^[Math]
-</span>
+</div>

@@ -50,7 +50,7 @@ Those below this section do not.
 </box>
 
 <!-- Full syntax reference -->
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```
 add a space before '{' for block level markdown {.class-name attribute="value" attribute=value #id}
@@ -58,9 +58,9 @@ add a space before '{' for block level markdown {.class-name attribute="value" a
 don't add a space for **inline**{.text-danger} markdown
 ```
 <small>For a more detailed guide, see: https://www.npmjs.com/package/markdown-it-attrs</small>
-</span>
+</div>
 
 <!-- Reader facing features -->
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 <include src="attributes.md#list-example" />
-</span>
+</div>

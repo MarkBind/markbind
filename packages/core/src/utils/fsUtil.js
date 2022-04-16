@@ -9,7 +9,10 @@ module.exports = {
 
   fileExists(filePath) {
     try {
-      return fs.statSync(filePath).isFile();
+      // use decodeURIComponent to deal with space (%20) in file path, e.g
+      // from docs\images\dev%20diagrams\architecture.png
+      // to docs\images\dev diagrams\architecture.png
+      return fs.statSync(decodeURIComponent(filePath)).isFile();
     } catch (err) {
       return false;
     }

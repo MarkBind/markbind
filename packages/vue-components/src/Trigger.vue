@@ -5,34 +5,58 @@
     @[triggerEventType].stop="toggle()"
   >
 
-    <b-popover
+    <v-popover
       v-if="popoverOrTooltipType === 'popover'"
-      :target="$el"
-      :triggers="trigger === 'click' ? 'click blur' : trigger"
+      :auto-hide="!isInput"
+      :triggers="triggers"
+      :popper-triggers="triggers"
+      :hide-triggers="triggers"
       :placement="placement"
+      :delay="0"
+      shift-cross-axis
     >
-      <template v-if="hasHeader" #title>
-        <portal-target :name="'header:' + target" />
+      <span v-if="!isInput" @click.stop>
+        <slot></slot>
+      </span>
+      <slot v-else></slot>
+      <template #popper>
+        <div class="popover-container">
+          <portal-target :name="'popover:' + target" />
+        </div>
       </template>
-      <portal-target :name="'content:' + target" />
-    </b-popover>
+    </v-popover>
 
-    <b-tooltip
+    <v-tooltip
       v-else-if="popoverOrTooltipType === 'tooltip'"
-      :target="$el"
+      :auto-hide="!isInput"
       :placement="placement"
-      :triggers="trigger"
+      :triggers="triggers"
+      :popper-triggers="triggers"
+      :hide-triggers="triggers"
+      :delay="0"
+      shift-cross-axis
     >
-      <portal-target :name="target" />
-    </b-tooltip>
+      <span v-if="!isInput" @click.stop>
+        <slot></slot>
+      </span>
+      <slot v-else></slot>
 
-    <slot></slot>
+      <template #popper>
+        <portal-target :name="'tooltip:' + target" />
+      </template>
+    </v-tooltip>
+
+    <span v-else>
+      <slot></slot>
+    </span>
   </span>
 </template>
 
 <script>
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { PortalTarget, Wormhole } from 'portal-vue';
+/* eslint-disable import/no-extraneous-dependencies */
+import { PortalTarget } from 'portal-vue';
+import { $vfm } from 'vue-final-modal';
+/* eslint-enable import/no-extraneous-dependencies */
 
 export default {
   name: 'Trigger',
@@ -46,16 +70,17 @@ export default {
     },
     trigger: {
       type: String,
-      default: 'hover',
+      default: 'hover focus',
     },
     placement: {
       type: String,
-      default: 'auto',
+      default: 'top',
     },
   },
   data() {
     return {
       popoverOrTooltipType: undefined,
+      isInput: false,
     };
   },
   methods: {
@@ -65,10 +90,7 @@ export default {
       }
 
       // show modal, if any
-      const modal = this.$root.$refs[this.for];
-      if (modal) {
-        modal.show();
-      }
+      $vfm.show(this.for);
     },
   },
   computed: {
@@ -78,14 +100,17 @@ export default {
       }
       return 'mouseenter';
     },
+    triggers() {
+      return this.trigger.split(' ');
+    },
     target() {
       return this.for;
     },
-    hasHeader() {
-      return Wormhole.hasContentFor(`header:${this.target}`);
-    },
   },
   mounted() {
+    // <input> tags need to be handled separately as they need to retain focus on inputs
+    this.isInput = this.$slots.default && this.$slots.default.some(node => node.tag === 'input');
+
     if (!this.for) {
       return;
     }

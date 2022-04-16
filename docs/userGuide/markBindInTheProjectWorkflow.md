@@ -13,10 +13,10 @@
 
 # {{ title }}
 
-<span class="lead" id="overview">
+<div class="lead" id="overview">
 
 As **MarkBind is especially optimized as a project documentation tool**, it integrates well with the workflow of software projects.
-</span>
+</div>
 
 #### Authoring Workflow
 

@@ -1,11 +1,11 @@
 ## Math Formulae
-Markbind supports typesetting TeX math equations. [KaTeX](https://katex.org) is used as a fast math renderer.
+MarkBind supports typesetting TeX math equations. [KaTeX](https://katex.org) is used as a fast math renderer.
 
 Insert **inline** equations by enclosing them in round brackets `\( ... \)`.
 
 Insert **display** equations by enclosing them in square brackets `\[ ... \]`.
 
-Insert numbered **display** equations by enclosing the equation square brackets and the equation number in curly brackets `\[ ... \] (1)`.
+Insert numbered **display** equations by enclosing the equation in square brackets and the equation number in round brackets `\[ ... \] (1)`.
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
@@ -22,6 +22,24 @@ Euler's equation \( e^{i\pi}+1=0 \) is a beautiful equation.
 </variable>
 </include>
 
+<box type="info">
+
+If you would like to use <tooltip content="$ ... $ or $$ ... $$">dollars</tooltip> as the delimiter, you will need to enable the [texWithDollars](../usingPlugins.md#plugin-texwithdollars) plugin. 
+
+```markdown
+$2_3$
+
+$$
+\frac{1}{2}
+$$
+```
+The above will be rendered as:
+
+\(2_3\)
+
+\[ \frac{1}{2} \]
+
+</box>
 
 <box type="important">
 
@@ -36,7 +54,7 @@ If your equation requires special Nunjucks tags like {% raw %}`{{`{% endraw %} o
 
 <small>More info on allowed symbols: https://katex.org/docs/support_table.html</small>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```markdown
 
@@ -49,8 +67,8 @@ Solve the following simultaneous equations:
 Euler's equation \( e^{i\pi}+1=0 \) is a beautiful equation.
 
 ```
-</span>
-<span id="examples" class="d-none">
+</div>
+<div id="examples" class="d-none">
 
 Solve the following simultaneous equations:
 
@@ -60,4 +78,4 @@ Solve the following simultaneous equations:
 
 Euler's equation \( e^{i\pi}+1=0 \) is a beautiful equation.
 
-</span>
+</div>

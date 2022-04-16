@@ -2,13 +2,14 @@
   <li
     ref="submenu"
     :class="[addClass, 'dropdown-submenu',
-             { 'dropright': dropright, 'dropleft': dropleft }]"
+             { 'dropend': dropright, 'dropstart': dropleft }]"
   >
     <slot name="button">
       <a
-        class="submenu-toggle"
+        class="dropdown-item submenu-toggle"
         role="button"
         :class="{disabled: disabled}"
+        data-bs-toggle="dropdown"
       >
         <slot name="header"></slot>
       </a>
@@ -58,7 +59,7 @@ export default {
   methods: {
     hideSubmenu() {
       this.show = false;
-      $(this.$refs.submenu).findChildren('ul').each(ul => ul.classList.toggle('show', false));
+      $(this.$refs.submenu).find('ul.dropdown-menu').each(ul => ul.classList.toggle('show', false));
       this.alignMenuRight();
     },
     showSubmenu() {
@@ -97,23 +98,29 @@ export default {
     $el.onBlur(() => { this.hideSubmenu(); }, false);
     $el.findChildren('a,button').on('click', (e) => {
       e.preventDefault();
-      if (e.target !== e.currentTarget) { e.stopPropagation(); }
-      if (window.innerWidth < 768) {
-        if (this.disabledBool) { return false; }
-        if (this.show) {
-          this.hideSubmenu();
-        } else {
-          this.showSubmenu();
-        }
+      e.stopPropagation();
+      if (this.disabledBool) { return false; }
+      if (this.show) {
+        this.hideSubmenu();
+      } else {
+        this.showSubmenu();
       }
       return false;
     });
     $el.findChildren('a,button').on('mouseover', (e) => {
       e.preventDefault();
       if (window.innerWidth > 767) {
-        if (this.show || this.disabledBool) { return false; }
+        const isShowing = $el.findChildren('ul.show').length > 0;
+        if (isShowing || this.disabledBool) { return false; }
         e.currentTarget.click();
-        this.showSubmenu();
+        const fullMenu = this.$parent.$parent;
+        fullMenu.$children.forEach((menuItem) => {
+          if (menuItem.$el === this.$el) {
+            menuItem.$refs.submenu.showSubmenu();
+          } else {
+            menuItem.$refs.submenu.hideSubmenu();
+          }
+        });
       }
       return false;
     });
@@ -134,10 +141,8 @@ export default {
         position: relative;
     }
 
-    .submenu-toggle {
-        display: inline-block;
-        width: 100%;
-        padding: 0.25rem 0.75rem 0.25rem 1.5rem;
+    .dropdown-submenu ul.dropdown-menu {
+        margin-left: 0;
     }
 
     .dropdown > ul > .dropdown-submenu:last-child > ul,

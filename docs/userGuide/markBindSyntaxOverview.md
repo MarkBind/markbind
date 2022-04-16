@@ -14,10 +14,10 @@
 # {{ title }}
 
 
-<span class="lead" id="overview">
+<div class="lead" id="overview">
 
 **A MarkBind source file may contain a mix of several popular syntax schemes** used in creating web pages. MarkBind source file can be as simple as basic Markdown, and you can use progressively more complicated syntax to create progressively more sophisticated Web pages while optimizing other aspects such as content reuse.
-</span>
+</div>
 
 Given below is an overview of the syntax schemes supported by MarkBind.
 
@@ -92,7 +92,7 @@ More info: <include src="{{ filename }}#link" inline trim/>
 
 #### {{ icon_check_blue }} MarkBind Vue components and BootStrap
 
-MarkBind has several core Vue.js components built on the popular [BootStrap](https://getbootstrap.com/docs/4.2/getting-started/introduction/) framework. Much of Bootstrap's features are supported in and out of these components as well.
+MarkBind has several core Vue.js components built on the popular [BootStrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/) framework. Much of Bootstrap's features are supported in and out of these components as well.
 
 <!-- ======================================================================================================= -->
 

@@ -18,17 +18,17 @@ If the heading text is `Foo Bar (Goo)`, the ID of the generated anchor will be `
 
 <small>Alternative syntax, more info: https://www.markdownguide.org/basic-syntax#headings
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```markdown
 ### Heading level 3
 ...
 ###### Heading level 6
 ```
-</span>
-<span id="examples" class="d-none">
+</div>
+<div id="examples" class="d-none">
 
 ### Heading level 3
 ...
 ###### Heading level 6
-</span>
+</div>

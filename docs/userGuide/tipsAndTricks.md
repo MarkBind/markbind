@@ -9,7 +9,7 @@
 
 # {{ title | safe }}
 
-<span id="escapingCharacters">
+<div id="escapingCharacters">
 
 ##### :fas-lightbulb: Escaping Characters
 
@@ -22,11 +22,11 @@ For Markdown syntax: To display a literal character that are normally used for M
 
 * item 1 
 </variable>
-</span>
+</include>
 
 <small>More info: [https://www.markdownguide.org/basic-syntax#escaping-characters](https://www.markdownguide.org/basic-syntax#escaping-characters)</small>
 
-</span>
+</div>
 
 ---
 
@@ -77,7 +77,7 @@ When you use links or triggers, you may encounter a situation where an unwanted 
 
 ---
 
-<span id="useSpecificMarkbind">
+<div id="useSpecificMarkBind">
 
 ##### :fas-info: Configuring Online Deployment platforms to use specific MarkBind version
 
@@ -120,16 +120,16 @@ Here are the steps to set up Netlify to use a specific version of MarkBind.
 
 </box>
 
-</span>
+</div>
 
 ---
 
-<span id="indentComponents">
+<div id="indentComponents">
 
 ##### :fas-lightbulb: Indent components
 
 In some cases, you may want to indent components such as panels and boxes to match the surrounding content.
-This is easily achieved by adding some margin and padding utility classes from [Bootstrap](https://getbootstrap.com/docs/4.4/utilities/spacing/) 
+This is easily achieved by adding some margin and padding utility classes from [Bootstrap](https://getbootstrap.com/docs/5.1/utilities/spacing/) 
 to the component. The following examples show how to do this.
 
 **Indent Box component**
@@ -140,7 +140,7 @@ to the component. The following examples show how to do this.
 
 <box>Some text at level 1</box>
 
-<box class="ml-4">Some text at level 2</box>
+<box class="ms-4">Some text at level 2</box>
 
 <box>Some text at level 1</box>
 
@@ -156,8 +156,8 @@ to the component. The following examples show how to do this.
 <panel header="This panel is at level 1">
   ...
 </panel>
-<panel header="This panel is at level 2" class="ml-3">
-  The "ml-3" is arbitarily chosen i.e "ml-0" to "ml-5" are all possible values.
+<panel header="This panel is at level 2" class="ms-3">
+  The "ms-3" is arbitarily chosen i.e "ms-0" to "ms-5" are all possible values.
 </panel>
 <panel header="This panel is at level 1">
   ...
@@ -169,20 +169,20 @@ to the component. The following examples show how to do this.
 
 The following box component will be included via `<include>`.
 
-<span id="forIndentDemo">
+<div id="forIndentDemo">
 <box>Some text from include</box>
-</span>
+</div>
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 
 <box>Some text at level 1 (before included content)</box>
-<include src="tipsAndTricks.md#forIndentDemo" class="ml-5"></include>
+<include src="tipsAndTricks.md#forIndentDemo" class="ms-5"></include>
 <box>Some text at level 1 (after included content)</box>
 
 </variable>
 </include>
 
-</span>
+</div>
 

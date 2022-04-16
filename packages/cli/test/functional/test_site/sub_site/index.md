@@ -1,4 +1,4 @@
-This is a page from another Markbind site.
+This is a page from another MarkBind site.
 
 ## Feature list
 It is a list of features (or functionalities) grouped according to some criteria such as priority 

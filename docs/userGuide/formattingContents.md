@@ -14,11 +14,11 @@
 
 # {{ title }}
 
-<span class="lead" id="overview">
+<div class="lead" id="overview">
 
 **MarkBind supports a wide collection of Markdown-like basic content formatting syntax** such as text styling, tables, lists, images, links, etc.
 
-</span>
+</div>
 
 {% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
 

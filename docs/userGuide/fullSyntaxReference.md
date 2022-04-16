@@ -38,6 +38,7 @@
   pictures : ['Pictures', ['images-diagrams', 'reader-facing']],
   thumbnails : ['Thumbnails', ['images-diagrams', 'reader-facing']],
   diagrams : ['Diagrams', ['images-diagrams', 'reader-facing']],
+  tree : ['Tree', ['images-diagrams', 'reader-facing']],
   tooltips : ['Tooltips', ['popups', 'reader-facing']],
   popovers : ['Popovers', ['popups', 'reader-facing']],
   modals : ['Modals', ['popups', 'reader-facing']],

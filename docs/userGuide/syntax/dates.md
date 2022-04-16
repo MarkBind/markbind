@@ -3,7 +3,7 @@
 {% macro njcode(raw) %}<code>{<a/>{ {{ raw }} }}</code>{% endmacro %}
 {% macro njblock(raw) %}<code>{<a/>% {{ raw }} %}</code>{% endmacro %}
 
-**Markbind supports date formatting and simple calculations** as a Nunjucks [filter](https://mozilla.github.io/nunjucks/templating.html#filters).
+**MarkBind supports date formatting and simple calculations** as a Nunjucks [filter](https://mozilla.github.io/nunjucks/templating.html#filters).
 
 **Syntax:** {{ njcode('baseDate | date(format, daysToAdd)') }}
 
@@ -72,36 +72,35 @@ YYYY | 2019
 
 Full formatting reference available [here](https://momentjs.com/docs/#/displaying/format/).
 
-{{ icon_example }}
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 <include boilerplate src="outputBox.md">
-<span id="code">
+<variable name="code">
 
 <box><span>
 {{ njblock('set base1 = "2019-08-12"') }}<br/>
 {{ njblock('set format1 = "DD MM YYYY"') }}<br/>
 {{ njblock('set format2 = "ddd Do MM"') }}<br/>
-{{ njcode('base1 | date') }} `<!-- Mon 12 Aug -->`<br/>
-{{ njcode('base1 | date(format1)') }} `<!-- 12 08 2019 -->`<br/>
-{{ njcode('base1 | date(format1, 10)') }} `<!-- 22 08 2019 -->`<br/>
-{{ njcode('base1 | date(format2, 10)') }} `<!-- Thu 22/08 -->`<br/>
+{{ njcode('base1 | date') }} <!-- Mon 12 Aug --><br/>
+{{ njcode('base1 | date(format1)') }} <!-- 12 08 2019 --><br/>
+{{ njcode('base1 | date(format1, 10)') }} <!-- 22 08 2019 --><br/>
+{{ njcode('base1 | date(format2, 10)') }} <!-- Thu 22/08 --><br/>
 </span></box>
+</variable>
 
-</span>
-<span id="output">
+<variable name="output">
 Mon 12 Aug<br/>
 12 08 2019<br/>
 22 08 2019<br/>
 Thu 22/08
-</span>
+</variable>
 </include>
+</div>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 <box><span>
-{{ njcode('"2019-08-12" | date("DD.MM.YYYY", 10)') }} `<!-- 22.08.2019 -->`<br/>
+{{ njcode('"2019-08-12" | date("DD.MM.YYYY", 10)') }} <!-- 22.08.2019 --><br/>
 </span></box>
 
 {{ "2019-08-12" | date("DD.MM.YYYY", 10) }}
-</span>
-</span>
+</div>

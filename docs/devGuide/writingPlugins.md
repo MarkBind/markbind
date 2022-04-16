@@ -26,15 +26,15 @@ In most cases, this is sufficient, and more performant since this ties directly 
 
 However, if you need to operate on the page as a whole, or you need access to the front matter of the page, you may use the `postRender` interface instead, which operates on the html content after it is processed by MarkBind.
 
-- `processNode(pluginContext, node)`: Called before MarkBind renders the source from Markdown to HTML.
-  - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
-  - `node`: A [domhandler](https://github.com/fb55/domhandler) node object, which represents a html element.
+* `processNode(pluginContext, node)`: Called before MarkBind renders the source from Markdown to HTML.
+  * `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
+  * `node`: A [domhandler](https://github.com/fb55/domhandler) node object, which represents a html element.
     This object may be directly manipulated for simple operations, or operated on using [cheerio](https://cheerio.js.org/).
-- `postRender(pluginContext, frontMatter, content)`: Called after the HTML is rendered
-  - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
-  - `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
-  - `content`: The rendered HTML.
-  - **Returns:** the post-processed html string
+* `postRender(pluginContext, frontMatter, content)`: Called after the HTML is rendered
+  * `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
+  * `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
+  * `content`: The rendered HTML.
+  * **Returns:** the post-processed html string
 
 <box type="info">
 
@@ -99,22 +99,21 @@ module.exports = {
 
 Plugins can implement the methods `getLinks` and `getScripts` to add additional assets to any page.
 
-- `getLinks(pluginContext, frontMatter, content)`: Called to get link elements to be added to the head of the page.
-  - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
-  - `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
-  - `content`: The rendered HTML.
-  - **Returns:** an array of strings containing link elements to be added.
-- `getScripts(pluginContext, frontMatter, content)`: Called to get script elements to be added after the body of the page.
-  - `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
-  - `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
-  - `content`: The rendered HTML.
-  - **Returns:** an array of strings containing script elements to be added.
+* `getLinks(pluginContext, frontMatter, content)`: Called to get link elements to be added to the head of the page.
+  * `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
+  * `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
+  * `content`: The rendered HTML.
+  * **Returns:** an array of strings containing link elements to be added.
+* `getScripts(pluginContext, frontMatter, content)`: Called to get script elements to be added after the body of the page.
+  * `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
+  * `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
+  * `content`: The rendered HTML.
+  * **Returns:** an array of strings containing script elements to be added.
 
 <box type="success" header="Local assets">
-<md>
+
 You can set an absolute or relative file path as the `src` or `href` attribute in your `<script>` or `<link>` tags.
 MarkBind will copy these assets into the output directory and change the `src` or `href` attributes automatically!
-</md>
 </box>
 
 An example of a plugin which adds links and scripts to the page:
@@ -133,9 +132,10 @@ module.exports = {
 ```
 
 This will add the following link and script elements to the page:
-- `<link rel="stylesheet" href="STYLESHEET_LINK">`
-- `<script src="SCRIPT_LINK"></script>`
-- `<script>alert("hello")</script>`
+
+* `<link rel="stylesheet" href="STYLESHEET_LINK">`
+* `<script src="SCRIPT_LINK"></script>`
+* `<script>alert("hello")</script>`
 
 ## Tag Behaviour
 
@@ -185,5 +185,5 @@ You may also need to maintain some plugin state during site generation, then res
 
 To do this, you may implement the `beforeSiteGenerate` method.
 
-- `beforeSiteGenerate()`: Called during initial site generation and subsequent regenerations during live preview.
-  - No return value is required.
+* `beforeSiteGenerate()`: Called during initial site generation and subsequent regenerations during live preview.
+  * No return value is required.

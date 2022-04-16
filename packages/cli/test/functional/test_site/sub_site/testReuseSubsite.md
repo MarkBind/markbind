@@ -1,4 +1,4 @@
-This is a page from another Markbind site.
+This is a page from another MarkBind site.
 The purpose of this page is to ensure that reuse works as expected.
 All the following images should display correctly.
 

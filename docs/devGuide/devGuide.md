@@ -18,6 +18,7 @@
 **First, do take note of** [**our _code of conduct_** (from SE-EDU)](https://se-education.org/guides/guidelines/codeOfConduct.html). Reporting bugs or submitting feature suggestions in [our issue tracker](https://github.com/markbind/markbind) can help too.
 
 **Second, ensure you have a basic knowledge** of the following:
+
 * JavaScript (ES6)
 * Node.js
 * HTML & CSS
@@ -25,7 +26,6 @@
 * Command-line environment
 
 **Third, ensure you have spent time with MarkBind and familiar with the content of the [user guide](https://markbind.org/).** It's important to know the product well before you start contributing code.
-
 
 **Now, follow these steps to get started on contributing:**
 

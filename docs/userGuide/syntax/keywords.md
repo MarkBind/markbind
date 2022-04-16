@@ -39,9 +39,9 @@ This is good for catching <span class="keyword">regressions</span>.
 ```
 </div>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```html
 <span class="keyword d-none">regress</span>
 ```
-</span>
+</div>

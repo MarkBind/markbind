@@ -16,7 +16,7 @@ Cats|yes|100|
 
 <small>More info: https://www.markdownguide.org/extended-syntax#tables</small>
 
-<span id="short" class="d-none">
+<div id="short" class="d-none">
 
 ```markdown
 Animal | Trainable?| Price | Remarks
@@ -25,13 +25,13 @@ Ants   | no        | 5     |
 Bees   | no        | 20    |
 Cats|yes|100|
 ```
-</span>
+</div>
 
-<span id="examples" class="d-none">
+<div id="examples" class="d-none">
 
 Animal | Trainable?| Price | Remarks
 :----- | :-------: | ----: | ----
 Ants   | no        | 5     |
 Bees   | no        | 20    |
 Cats|yes|100|
-</span>
+</div>
