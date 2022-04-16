@@ -1,5 +1,6 @@
 const cheerio = require('cheerio');
 
+const { createSlotTemplateNode } = require('./elements');
 const { getVslotShorthandName } = require('./vueSlotSyntaxProcessor');
 
 const _ = {};
@@ -35,8 +36,7 @@ class MdAttributeRenderer {
         rendered = this.markdownProcessor.renderMd(node.attribs[attribute]);
       }
 
-      const attributeSlotElement = cheerio.parseHTML(
-        `<template #${slotName}>${rendered}</template>`, true);
+      const attributeSlotElement = createSlotTemplateNode(slotName, rendered);
       node.children
           = node.children ? attributeSlotElement.concat(node.children) : attributeSlotElement;
     }
@@ -114,17 +114,17 @@ class MdAttributeRenderer {
    */
 
   processQuestion(node) {
-    this.processAttributeWithoutOverride(node, 'header', false, 'header');
-    this.processAttributeWithoutOverride(node, 'hint', false, 'hint');
-    this.processAttributeWithoutOverride(node, 'answer', false, 'answer');
+    this.processAttributeWithoutOverride(node, 'header', false);
+    this.processAttributeWithoutOverride(node, 'hint', false);
+    this.processAttributeWithoutOverride(node, 'answer', false);
   }
 
   processQOption(node) {
-    this.processAttributeWithoutOverride(node, 'reason', false, 'reason');
+    this.processAttributeWithoutOverride(node, 'reason', false);
   }
 
   processQuiz(node) {
-    this.processAttributeWithoutOverride(node, 'intro', false, 'intro');
+    this.processAttributeWithoutOverride(node, 'intro', false);
   }
 
   /*
@@ -132,7 +132,7 @@ class MdAttributeRenderer {
    */
 
   processTabAttributes(node) {
-    this.processAttributeWithoutOverride(node, 'header', true, 'header');
+    this.processAttributeWithoutOverride(node, 'header', true);
   }
 
   /*
@@ -140,8 +140,8 @@ class MdAttributeRenderer {
    */
 
   processBoxAttributes(node) {
-    this.processAttributeWithoutOverride(node, 'icon', true, 'icon');
-    this.processAttributeWithoutOverride(node, 'header', false, 'header');
+    this.processAttributeWithoutOverride(node, 'icon', true);
+    this.processAttributeWithoutOverride(node, 'header', false);
   }
 
   /*
@@ -149,19 +149,9 @@ class MdAttributeRenderer {
    */
 
   processDropdownAttributes(node) {
-    const hasHeaderSlot = node.children
-      && node.children.some(child => getVslotShorthandName(child) === 'header');
-
-    // If header slot is present, the header attribute has no effect, and we can simply remove it.
-    if (hasHeaderSlot) {
-      if (_.has(node.attribs, 'header')) {
-        logger.warn(`${node.name} has a header slot, 'header' attribute has no effect.`);
-      }
-      delete node.attribs.header;
-      return;
+    if (!this.hasSlotOverridingAttribute(node, 'header')) {
+      this.processAttributeWithoutOverride(node, 'header', true);
     }
-
-    this.processAttributeWithoutOverride(node, 'header', true, 'header');
   }
 
   /**

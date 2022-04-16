@@ -94,6 +94,7 @@ const SUPPORTED_THEMES_PATHS = {
   'bootswatch-spacelab': getBootswatchThemePath('spacelab'),
   'bootswatch-united': getBootswatchThemePath('united'),
   'bootswatch-yeti': getBootswatchThemePath('yeti'),
+  'bootswatch-zephyr': getBootswatchThemePath('zephyr'),
 };
 
 const HIGHLIGHT_ASSETS = {
@@ -296,8 +297,6 @@ class Site {
       asset: {
         bootstrap: path.relative(path.dirname(resultPath),
                                  path.join(this.siteAssetsDestPath, 'css', 'bootstrap.min.css')),
-        bootstrapVueCss: path.relative(path.dirname(resultPath),
-                                       path.join(this.siteAssetsDestPath, 'css', 'bootstrap-vue.min.css')),
         externalScripts: _.union(this.siteConfig.externalScripts, config.externalScripts),
         fontAwesome: path.relative(path.dirname(resultPath),
                                    path.join(this.siteAssetsDestPath, 'fontawesome', 'css', 'all.min.css')),

@@ -11,6 +11,7 @@ const json = {
   './css/main.css': '3',
   './devGuide/index.html': '4',
   './rawFile': '5',
+  './spaced folder/img.png': '6',
 };
 
 fs.vol.fromJSON(json, './src');
@@ -180,6 +181,24 @@ test('Test valid file asset links (png)', () => {
   expect(linkProcessor.validateIntraLink(mockResourcePath, mockCwf, mockConfig)).toEqual(EXPECTED_RESULT);
 });
 
+test('Test valid file asset links (with %20 in the file path)', () => {
+  const mockLink = '<a href="/spaced%20folder/img.png">Test</a>';
+  const mockNode = cheerio.parseHTML(mockLink)[0];
+  const mockResourcePath = linkProcessor.getDefaultTagsResourcePath(mockNode);
+  const EXPECTED_RESULT = 'Intralink is a valid File Asset';
+
+  expect(linkProcessor.validateIntraLink(mockResourcePath, mockCwf, mockConfig)).toEqual(EXPECTED_RESULT);
+});
+
+test('Test valid file asset links (with space in the file path)', () => {
+  const mockLink = '<a href="/spaced folder/img.png">Test</a>';
+  const mockNode = cheerio.parseHTML(mockLink)[0];
+  const mockResourcePath = linkProcessor.getDefaultTagsResourcePath(mockNode);
+  const EXPECTED_RESULT = 'Intralink is a valid File Asset';
+
+  expect(linkProcessor.validateIntraLink(mockResourcePath, mockCwf, mockConfig)).toEqual(EXPECTED_RESULT);
+});
+
 test('Test valid file asset links (css)', () => {
   // should be checked as file asset
   const mockLink = '<link rel="stylesheet" href="/css/main.css">Test</a>';
@@ -198,6 +217,24 @@ test('Test invalid link for non-existent file asset (css)', () => {
   const mockResourcePath = linkProcessor.getDefaultTagsResourcePath(mockNode);
 
   const EXPECTED_RESULT = 'Intralink is not a File Asset';
+
+  expect(linkProcessor.validateIntraLink(mockResourcePath, mockCwf, mockConfig)).toEqual(EXPECTED_RESULT);
+});
+
+test('Test non intralinks (mailto)', () => {
+  const mockLink = '<a href="mailto:foo@bar.com">Test Email</a>';
+  const mockNode = cheerio.parseHTML(mockLink)[0];
+  const mockResourcePath = linkProcessor.getDefaultTagsResourcePath(mockNode);
+  const EXPECTED_RESULT = 'Not Intralink';
+
+  expect(linkProcessor.validateIntraLink(mockResourcePath, mockCwf, mockConfig)).toEqual(EXPECTED_RESULT);
+});
+
+test('Test non intralinks (tel)', () => {
+  const mockLink = '<a href="tel:999">Test Phone</a>';
+  const mockNode = cheerio.parseHTML(mockLink)[0];
+  const mockResourcePath = linkProcessor.getDefaultTagsResourcePath(mockNode);
+  const EXPECTED_RESULT = 'Not Intralink';
 
   expect(linkProcessor.validateIntraLink(mockResourcePath, mockCwf, mockConfig)).toEqual(EXPECTED_RESULT);
 });

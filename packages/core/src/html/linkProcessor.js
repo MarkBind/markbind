@@ -37,12 +37,24 @@ function getResourcePathFromRoot(rootPath, fullResourcePath) {
   return fsUtil.ensurePosix(path.relative(rootPath, fullResourcePath));
 }
 
+/**
+ * @param {string} resourcePath parsed from the node's relevant attribute
+ * @returns {boolean} whether the resourcePath is a valid intra-site link
+ */
+function isIntraLink(resourcePath) {
+  const MAILTO_OR_TEL_REGEX = /^(?:mailto:|tel:)/i;
+  return resourcePath
+    && !urlUtil.isUrl(resourcePath)
+    && !resourcePath.startsWith('#')
+    && !MAILTO_OR_TEL_REGEX.test(resourcePath);
+}
+
 function _convertRelativeLink(node, cwf, rootPath, baseUrl, resourcePath, linkAttribName) {
-  if (!resourcePath) {
+  if (!isIntraLink(resourcePath)) {
     return;
   }
 
-  if (path.isAbsolute(resourcePath) || urlUtil.isUrl(resourcePath) || resourcePath.startsWith('#')) {
+  if (path.isAbsolute(resourcePath)) {
     // Do not rewrite.
     return;
   }
@@ -148,7 +160,7 @@ function isValidFileAsset(resourcePath, config) {
  * @returns {string} these string return values are for unit testing purposes only
  */
 function validateIntraLink(resourcePath, cwf, config) {
-  if (!resourcePath || urlUtil.isUrl(resourcePath) || resourcePath.startsWith('#')) {
+  if (!isIntraLink(resourcePath)) {
     return 'Not Intralink';
   }
 
@@ -246,4 +258,5 @@ module.exports = {
   convertMdExtToHtmlExt,
   validateIntraLink,
   collectSource,
+  isIntraLink,
 };

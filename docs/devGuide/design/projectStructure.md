@@ -32,7 +32,7 @@ The MarkBind project is developed in a <tooltip content="We follow a monorepo ap
 
 **The core library mainly houses:**
 
-* Functions and libraries used to parse and process MarkBind into usable output are stored in `src`. The architecture described in [Architecture](../design/architecture) is contained here. A brief rundown of what it includes:
+* Functions and libraries used to parse and process MarkBind into usable output are stored in `src`. The architecture described in [Architecture](architecture.md) is contained here. A brief rundown of what it includes:
 
   * Various key functionalities in processing MarkBind syntax into valid html output, stored in `html`. The other part of the content processing flow is found in `variables`, which manages site variables and facillitates the Nunjucks calls.
 

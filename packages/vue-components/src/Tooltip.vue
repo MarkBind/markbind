@@ -4,33 +4,40 @@
     data-mb-component-type="tooltip"
     tabindex="0"
   >
-    <portal v-if="targetEl.id" :to="targetEl.id">
+    <portal v-if="targetEl.id" :to="'tooltip:' + targetEl.id">
       <slot name="content"></slot>
     </portal>
 
-    <b-tooltip
+    <v-tooltip
       v-if="isMounted"
-      :target="targetEl"
-      :triggers="trigger"
+      :auto-hide="!isInput"
+      :triggers="triggers"
+      :popper-triggers="triggers"
+      :hide-triggers="triggers"
       :placement="placement"
+      :delay="0"
+      shift-cross-axis
     >
-      <slot name="content"></slot>
-    </b-tooltip>
-    <slot></slot>
+      <template #popper>
+        <slot name="content"></slot>
+      </template>
+
+      <span v-if="!isInput" @click.stop>
+        <slot></slot>
+      </span>
+      <slot v-else></slot>
+    </v-tooltip>
   </span>
 </template>
 
 <script>
-/* eslint-disable import/no-extraneous-dependencies */
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Portal } from 'portal-vue';
-import { BTooltip } from 'bootstrap-vue';
-/* eslint-enable import/no-extraneous-dependencies */
 
 export default {
   name: 'Tooltip',
   components: {
     Portal,
-    BTooltip,
   },
   props: {
     trigger: {
@@ -45,12 +52,31 @@ export default {
   data() {
     return {
       targetEl: {},
+      isInput: false,
       isMounted: false,
     };
   },
+  computed: {
+    triggers() {
+      return this.trigger.split(' ');
+    },
+  },
   mounted() {
     this.targetEl = this.$el;
+    // <input> tags need to be handled separately as they need to retain focus on inputs
+    this.isInput = this.$slots.default && this.$slots.default.some(node => node.tag === 'input');
     this.isMounted = true;
   },
 };
 </script>
+
+<style>
+    .v-popper--theme-tooltip .v-popper__inner {
+        /* following bootstrap */
+        background: rgba(0, 0, 0, 0.9);
+        padding: 4px 8px;
+        font-size: 0.875rem;
+        max-width: 200px;
+        text-align: center;
+    }
+</style>
