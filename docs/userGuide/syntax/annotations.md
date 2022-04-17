@@ -9,8 +9,7 @@ Annotation components allow you to easily add annotations over any image.
 Annotation wrappers (`<annotate>`) are used in conjunction with annotation
 points (`<a-point>`).
 
-Annotation wrappers are used to hold the image and set the width and height of
-said image.
+Annotation wrappers hold the image and set its width and height.
 
 Annotation points are used to define the position, text and style of each point
 within the image. Insert them between
