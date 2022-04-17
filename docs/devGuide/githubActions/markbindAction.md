@@ -35,14 +35,14 @@ The source code is at [MarkBind/markbind-action](https://github.com/MarkBind/mar
 
 ## Testing the action
 1. Include a workflow file in your <tooltip content="Which includes a sample MarkBind site">test repository</tooltip> to test your modified version of the action.
-   * Instead of using `uses: MarkBind/markbind-action@v2` in the workflow file, use `uses: yourGitHubName/markbind-action@yourBranch` to reference the unpublished version of the action that you are currently developing.
+   * Instead of using `uses: MarkBind/markbind-action@v2` in the workflow file, use `uses: yourGithubName/markbind-action@yourBranch` to reference the unpublished version of the action that you are currently developing.
       * e.g. `uses: tlylt/markbind-action@main`
 1.  Trigger the action as needed, check and validate the results in the action logs.
 
-You can now submit PRs to improve MarkBind's Github actions! 🎉
+You can now submit PRs to improve MarkBind's GitHub actions! 🎉
 
 ## Release Management
-Based on the [Github Actions documentation](https://docs.github.com/en/actions/creating-actions/about-custom-actions#using-release-management-for-actions), we are using tags for release management.
+Based on the [GitHub Actions documentation](https://docs.github.com/en/actions/creating-actions/about-custom-actions#using-release-management-for-actions), we are using tags for release management.
 
 > * Create and validate a release on a release branch (such as `release/v1`) before creating the release tag (for example, `v1.0.2`).
 > * Create a release using semantic versioning. For more information, see "[Creating releases](https://docs.github.com/en/articles/creating-releases)."
