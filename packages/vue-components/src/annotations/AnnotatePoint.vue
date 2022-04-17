@@ -27,10 +27,10 @@
           >
             <div class="hover-wrapper" @click.stop>
               <button class="hover-point" :style="pointStyle">
-                <div class="hover-label" :style="labelStyle">
-                  {{ label }}
-                </div>
               </button>
+              <div class="hover-label" :style="labelStyle">
+                {{ label }}
+              </div>
             </div>
 
             <template #popper>
