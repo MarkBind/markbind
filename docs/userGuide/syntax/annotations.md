@@ -13,7 +13,7 @@ Annotation wrappers are used to hold the image and set the width and height of
 said image.
 
 Annotation points are used to define the position, text and style of each point
-within the image. In use, the annotation points are directly inserted between
+within the image. Insert them between
 the annotate wrappers (`<annotate>...</annotate>`).
 
 <include src="codeAndOutput.md" boilerplate >
