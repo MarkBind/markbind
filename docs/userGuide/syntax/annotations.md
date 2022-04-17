@@ -11,7 +11,7 @@ points (`<a-point>`).
 
 Annotation wrappers hold the image and set its width and height.
 
-Annotation points are used to define the position, text and style of each point
+Annotation points define the position, text and style of each point
 within the image. Insert them between
 the annotation wrappers (`<annotate>...</annotate>`).
 
