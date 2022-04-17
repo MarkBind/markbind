@@ -1,20 +1,19 @@
 {% from "userGuide/components/advanced.md" import slot_info_trigger %}
 
-## Annotations
+## Annotate
 
-Annotation components allows you to easily add annotations over any image.
+Annotation components allow you to easily add Annotate over any image.
 
 ### Introduction
 
-Annotation wrappers (`<annotate>`) are used in conjunction with annotation
+Annotate wrappers (`<annotate>`) are used in conjunction with annotation
 points (`<a-point>`).
 
-Annotation wrappers are used to hold the image and set the width and height of
-said image.
+Annotate wrappers hold the image and set its width and height.
 
-Annotation points are used to define the position, text and style of each point
-within the image. In use, the annotation points are directly inserted between
-the annotate wrappers (`<annotate>...</annotate>`).
+Annotate points define the position, text and style of each point
+within the image. Insert them between
+the Annotate wrappers (`<annotate>...</annotate>`).
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
@@ -41,11 +40,9 @@ the annotate wrappers (`<annotate>...</annotate>`).
 </variable>
 </include>
 
-<br>
+**Using triggers for Annotate Point** <br>
 
-**Using trigger for Annotate Point** <br>
-
-Similar to **[popovers](popups.md)**, annotation points also support different types of triggers
+Similar to **[popovers](popups.md)**, Annotate Points also support different types of triggers
 for users with different needs.
 
 <include src="codeAndOutput.md" boilerplate >
@@ -67,9 +64,9 @@ for users with different needs.
 
 <br>
 
-**Displaying content as legends in Annotate Point** <br>
+**Displaying content as legends in Annotate Point**
 
-Annotate point also allows users to display its content inside the popover or as
+Annotate Point allows users to display its content inside the popover or as
 a legend below the diagram or both. However, this only works when if a label is
 also provided for the point.
 
@@ -92,7 +89,7 @@ also provided for the point.
 
 **Sample use cases for Annotate** <br>
 
-Here we showcase some use cases of annotate.
+Here we showcase some use cases of the Annotate feature.
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
@@ -126,7 +123,7 @@ Here we showcase some use cases of annotate.
 | color     | `String` | `'green'`   | The color of the point.<br>Supports any color in the CSS color format. E.g. `red`, `#ffffff`, `rgb(66, 135, 245)`, etc...                |
 | opacity   | `String` | `'0.3'`     | The opacity of the point.<br>Supports range of values from `0` to `1`.                                                                   |
 | fontSize  | `String` | `'14'`      | The font size of the label.<br>Supports any pixel size smaller than size of the point.                                                   |
-| textColor | `String` | `'black'`   | The color of the label.<br>Supports any color in the CSS color format. E.g. `red`, `#ffffff`, `rgb(66, 135, 245)`, etc..                 |
+| textColor | `String` | `'black'`   | The color of the label.<br>Supports any color in the CSS color format. E.g. `red`, `#ffffff`, `rgb(66, 135, 245)`, etc.                  |
 | legend    | `String` | `'popover'` | The presence of a legend to be displayed.<br>Supports: `popover`, `bottom`, `both`.                                                      |
 
 ****`<annotate>` Options****
@@ -146,7 +143,7 @@ This is effectively the same as the options used for the [picture](#pictures) co
 <div id="short" class="d-none">
 
 ```
-<annotate src="../../images/annotateSampleImage.png" width="500" alt="sampleImage">
+<annotate src="../../images/annotateSampleImage.png" width="500" alt="Sample Image">
   <a-point x="25%" y="25%" content="Lorem ipsum dolor sit amet" />
   <a-point x="50%" y="25%" content="Lorem ipsum dolor sit amet" label="1a"/>
   <a-point x="50%" y="25%" content="Lorem ipsum dolor sit amet" label="1b" legend="both"/>
