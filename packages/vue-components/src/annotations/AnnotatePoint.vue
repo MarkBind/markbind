@@ -27,7 +27,6 @@
           >
             <div class="hover-wrapper" @click.stop>
               <button class="hover-point" :style="pointStyle">
-                {{ label }}
               </button>
               <div class="hover-label" :style="labelStyle">
                 {{ label }}
@@ -47,14 +46,6 @@
           </v-popover>
         </div>
 
-        <portal v-if="targetEl.id" :to="'popover:' + targetEl.id">
-          <h3 v-if="hasHeader" class="popover-header">
-            <slot name="header"></slot>
-          </h3>
-          <div class="popover-body">
-            <slot name="body"></slot>
-          </div>
-        </portal>
       </div>
     </div>
   </div>
@@ -261,6 +252,7 @@ export default {
         position: absolute;
         pointer-events: none;
         z-index: 2;
+        text-align: center;
     }
 
     .hover-wrapper {
