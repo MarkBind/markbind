@@ -2,16 +2,16 @@
 
 ## Annotate
 
-Annotation components allow you to easily add Annotate over any image.
+Annotate components allow you to easily annotate over any image.
 
 ### Introduction
 
-Annotate wrappers (`<annotate>`) are used in conjunction with annotation
-points (`<a-point>`).
+Annotate wrappers (`<annotate>`) are used in conjunction with Annotate
+Points (`<a-point>`).
 
 Annotate wrappers hold the image and set its width and height.
 
-Annotate points define the position, text and style of each point
+Annotate Points define the position, text and style of each point
 within the image. Insert them between
 the Annotate wrappers (`<annotate>...</annotate>`).
 
@@ -19,7 +19,7 @@ the Annotate wrappers (`<annotate>...</annotate>`).
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 
-<annotate src="../../images/annotateSampleImage.png" width="500" alt="sampleImage">
+<annotate src="../../images/annotateSampleImage.png" width="500" alt="Sample Image">
   <!-- Minimal Point -->
   <a-point x="25%" y="25%" content="Lorem ipsum dolor sit amet" />
   <!-- Customize Point Size (default size is 40px) -->
@@ -49,7 +49,7 @@ for users with different needs.
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 
-<annotate src="../../images/annotateSampleImage.png" width="500" alt="sampleImage">
+<annotate src="../../images/annotateSampleImage.png" width="500" alt="Sample Image">
   <!-- Default Trigger (click)-->
   <a-point x="33%" y="33%" content="Lorem ipsum dolor sit amet" />
   <!-- Set Trigger to hover focus -->
@@ -74,7 +74,7 @@ also provided for the point.
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 
-<annotate src="../../images/annotateSampleImage.png" width="500" alt="sampleImage">
+<annotate src="../../images/annotateSampleImage.png" width="500" alt="Sample Image">
   <!-- Default Legend (popover only)-->
   <a-point x="25%" y="50%" content="There is only text when you click me" label="1"/>
   <!-- Set Legend to bottom only (popover is not clickable) -->
@@ -95,7 +95,7 @@ Here we showcase some use cases of the Annotate feature.
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 
-<annotate src="../diagrams/activity.png" width="500" alt="sampleImage">
+<annotate src="../diagrams/activity.png" width="500" alt="Sample Image">
   <!-- Default Legend (popover only)-->
   <a-point x="25%" y="50%" content="There is only text when you click me" label="1"/>
   <!-- Set Legend to bottom only (popover is not clickable) -->
@@ -154,7 +154,7 @@ This is effectively the same as the options used for the [picture](#pictures) co
 
 <div id="examples" class="d-none">
 
-<annotate src="../../images/annotateSampleImage.png" width="500" alt="sampleImage">
+<annotate src="../../images/annotateSampleImage.png" width="500" alt="Sample Image">
   <a-point x="25%" y="25%" content="Lorem ipsum dolor sit amet" />
   <a-point x="50%" y="25%" content="Lorem ipsum dolor sit amet" label="1a"/>
   <a-point x="50%" y="25%" content="Lorem ipsum dolor sit amet" label="1b" legend="both"/>
