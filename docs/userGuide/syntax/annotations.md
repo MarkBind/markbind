@@ -14,7 +14,7 @@ said image.
 
 Annotation points are used to define the position, text and style of each point
 within the image. Insert them between
-the annotate wrappers (`<annotate>...</annotate>`).
+the annotation wrappers (`<annotate>...</annotate>`).
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
