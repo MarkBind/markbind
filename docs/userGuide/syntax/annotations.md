@@ -40,7 +40,7 @@ the annotation wrappers (`<annotate>...</annotate>`).
 </variable>
 </include>
 
-**Using trigger for Annotate Point** <br>
+**Using triggers for Annotate Point** <br>
 
 Similar to **[popovers](popups.md)**, annotation points also support different types of triggers
 for users with different needs.
