@@ -160,7 +160,7 @@ export default {
     },
     labelStyle() {
       return {
-        fontSize: `${this.fontSize < this.size ? this.fontSize : this.size}px`,
+        fontSize: `${Math.min(this.fontSize, this.size)}px`,
         color: this.textColor,
       };
     },
