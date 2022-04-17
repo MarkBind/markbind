@@ -27,10 +27,10 @@
           >
             <div class="hover-wrapper" @click.stop>
               <button class="hover-point" :style="pointStyle">
+                <div class="hover-label" :style="labelStyle">
+                  {{ label }}
+                </div>
               </button>
-              <div class="hover-label" :style="labelStyle">
-                {{ label }}
-              </div>
             </div>
 
             <template #popper>
@@ -45,21 +45,16 @@
             </template>
           </v-popover>
         </div>
-
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { Portal } from 'portal-vue';
+
 import { toNumber } from '../utils/utils';
 
 export default {
-  components: {
-    Portal,
-  },
   props: {
     content: {
       type: String,
