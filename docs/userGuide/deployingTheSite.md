@@ -183,7 +183,7 @@ Since May 2018, Travis CI has been [undergoing migration to `travis-ci.com`](htt
 
 1. [Add an environment variable in Travis CI](https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings) named `GITHUB_TOKEN`, with the value set to your [generated GitHub Personal Access Token](#generating-a-github-personal-access-token). ==Ensure that _Display value in the build log_ is set to _Off_.==
 
-    <include src="screenshot.md" boilerplate var-alt="Add GITHUB_TOKEN" var-file="travisGitHubToken.png" inline />
+    <include src="screenshot.md" boilerplate var-alt="Add GITHUB_TOKEN" var-file="travisGithubToken.png" inline />
 
 1. Add a `.travis.yml` file to instruct Travis CI to build and deploy the site when you push to the repository. An example `.travis.yml` file that can accomplish this is given below:
 
@@ -236,7 +236,7 @@ The `repo` value can be changed to your specific repository as desired.
 1. [Sign in to AppVeyor CI](https://ci.appveyor.com/login) using your GitHub Account.
 1. Authorize AppVeyor App as GitHub App in the [account settings](https://ci.appveyor.com/authorizations) by clicking on the _Install AppVeyor App_ button.
 
-    <include src="screenshot.md" boilerplate var-alt="Install AppVeyor GitHub App" var-file="appveyorInstallGitHubApp.png" inline />
+    <include src="screenshot.md" boilerplate var-alt="Install AppVeyor GitHub App" var-file="appveyorInstallGithubApp.png" inline />
 
 1. In the [projects directory](https://ci.appveyor.com/projects), click on the _New Project_ button.
 
@@ -251,7 +251,7 @@ The `repo` value can be changed to your specific repository as desired.
 1. On the left menu, click on __Environment__.
 1. Under the heading __Environment variables__, add a custom environment variable named `GITHUB_TOKEN`, with the value set to the personal access token that was generated in the first step. ==Ensure that you toggle variable encryption by clicking on the padlock.== 
 
-    <include src="screenshot.md" boilerplate var-alt="Add GitHub Token on AppVeyor" var-file="appveyorGitHubToken.png" inline />
+    <include src="screenshot.md" boilerplate var-alt="Add GitHub Token on AppVeyor" var-file="appveyorGithubToken.png" inline />
 
 1. Remember to click __Save__ at the bottom of the page.
 1. Add a `appveyor.yml`file at the root of your MarkBind site's repository to instruct AppVeyor CI to build and deploy the site to GitHub Pages when you push to your repository. More information on customizing `appveyor.yml` can be found in [AppVeyor documentation](https://www.appveyor.com/docs/appveyor-yml/). An example `appveyor.yml` file is given below:
@@ -294,7 +294,7 @@ Commit and push `appveyor.yml` to your GitHub repository. Thereafter, AppVeyor C
 1. Once you have set up your project, click on the `Project Settings` button.
 2. On the left, click on the `Environment Variables` tab and add a custom Environment Variable, `GITHUB_TOKEN`, which contains the value of your GitHub Personal Access Token.
 
-    <include src="screenshot.md" boilerplate var-alt="Add GitHub Token in Circle CI" var-file="circleCiGitHubToken.png" inline />
+    <include src="screenshot.md" boilerplate var-alt="Add GitHub Token in Circle CI" var-file="circleCiGithubToken.png" inline />
 
 3. Commit and push a `config.yml` file to the repo containing your MarkBind Site that instructs Circle CI to build and deploy your MarkBind site to GitHub Pages whenever you push to your repository. Ensure that the `config.yml` file is located in the `<PROJECT_ROOT>/.circleci/` directory. A sample `config.yml` file is shown below:
 
@@ -525,7 +525,7 @@ jobs:
 
 Finally, you may open a PR to the repo of your MarkBind site. If everything is configured correctly, after a few minutes, you should be able to see a `github-actions bot` automatically commenting on the PR with a link to _preview_ the updated MarkBind site.
 
-<include src="screenshot.md" boilerplate var-alt="Surge PR bot" var-file="surgeGitHubActionsBot.png" inline />
+<include src="screenshot.md" boilerplate var-alt="Surge PR bot" var-file="surgeGithubActionsBot.png" inline />
 
 For more information on Surge, you may refer to [Surge's docs](https://surge.sh/help/).
 

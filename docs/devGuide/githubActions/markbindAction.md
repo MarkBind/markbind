@@ -35,7 +35,7 @@ The source code is at [MarkBind/markbind-action](https://github.com/MarkBind/mar
 
 ## Testing the action
 1. Include a workflow file in your <tooltip content="Which includes a sample MarkBind site">test repository</tooltip> to test your modified version of the action.
-   * Instead of using `uses: MarkBind/markbind-action@v2` in the workflow file, use `uses: yourGitHubName/markbind-action@yourBranch` to reference the unpublished version of the action that you are currently developing.
+   * Instead of using `uses: MarkBind/markbind-action@v2` in the workflow file, use `uses: yourGithubName/markbind-action@yourBranch` to reference the unpublished version of the action that you are currently developing.
       * e.g. `uses: tlylt/markbind-action@main`
 1.  Trigger the action as needed, check and validate the results in the action logs.
 
