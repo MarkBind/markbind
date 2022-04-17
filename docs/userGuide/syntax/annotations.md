@@ -2,7 +2,7 @@
 
 ## Annotations
 
-Annotation components allows you to easily add annotations over any image.
+Annotation components allow you to easily add annotations over any image.
 
 ### Introduction
 
