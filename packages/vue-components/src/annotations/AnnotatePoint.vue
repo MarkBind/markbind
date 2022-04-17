@@ -200,6 +200,8 @@ export default {
     },
   },
   methods: {
+    // This methods takes in a callback and only runs it when the image is loaded.
+    // Which allows for computation of image size.
     computeImage(callback) {
       const image = new Image();
       image.onload = function () {
