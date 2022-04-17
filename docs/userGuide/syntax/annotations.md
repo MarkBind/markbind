@@ -42,7 +42,7 @@ the Annotate wrappers (`<annotate>...</annotate>`).
 
 **Using triggers for Annotate Point** <br>
 
-Similar to **[popovers](popups.md)**, Annotate Points also support different types of triggers
+Similar to **[popovers](../components/popups.md)**, Annotate Points also support different types of triggers
 for users with different needs.
 
 <include src="codeAndOutput.md" boilerplate >
