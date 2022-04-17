@@ -102,7 +102,7 @@ also provided for the point.
 | color     | `String` | `'green'`   | The color of the point.<br>Supports any color in the CSS color format. E.g. `red`, `#ffffff`, `rgb(66, 135, 245)`, etc...                |
 | opacity   | `String` | `'0.3'`     | The opacity of the point.<br>Supports range of values from `0` to `1`.                                                                   |
 | fontSize  | `String` | `'14'`      | The font size of the label.<br>Supports any pixel size smaller than size of the point.                                                   |
-| textColor | `String` | `'black'`   | The color of the label.<br>Supports any color in the CSS color format. E.g. `red`, `#ffffff`, `rgb(66, 135, 245)`, etc..                 |
+| textColor | `String` | `'black'`   | The color of the label.<br>Supports any color in the CSS color format. E.g. `red`, `#ffffff`, `rgb(66, 135, 245)`, etc.                  |
 | legend    | `String` | `'popover'` | The presence of a legend to be displayed.<br>Supports: `popover`, `bottom`, `both`.                                                      |
 
 ****`<annotate>` Options****
