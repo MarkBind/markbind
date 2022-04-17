@@ -122,7 +122,7 @@ This is effectively the same as the options used for the [picture](#pictures) co
 <div id="short" class="d-none">
 
 ```
-<annotate src="../../images/annotateSampleImage.png" width="500" alt="sampleImage">
+<annotate src="../../images/annotateSampleImage.png" width="500" alt="Sample Image">
   <a-point x="25%" y="25%" content="Lorem ipsum dolor sit amet" />
   <a-point x="50%" y="25%" content="Lorem ipsum dolor sit amet" label="1a"/>
   <a-point x="50%" y="25%" content="Lorem ipsum dolor sit amet" label="1b" legend="both"/>
