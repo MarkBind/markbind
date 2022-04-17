@@ -1,68 +1,69 @@
 <template>
-  <div class="annotate-point">
-    <span
-      v-if="isMounted"
-      class="popover-annotation"
-      :style="pointPosition"
-    >
-      <portal v-if="targetEl.id" :to="'popover:' + targetEl.id">
-        <h3 v-if="hasHeader" class="popover-header">
-          <slot name="header"></slot>
-        </h3>
-        <div class="popover-body">
-          <slot name="body"></slot>
-        </div>
-      </portal>
-
-      <v-popover
-        v-if="isMounted"
-        :placement="placement"
-        :delay="0"
-        :triggers="triggers"
-        :popper-triggers="triggers"
-        :hide-triggers="triggers"
-        :distance="computeDistance"
-        :disabled="!hasPopover"
-        shift-cross-axis
-      >
-        <span
-          class="hover-wrapper"
-          @click.stop
-        >
-          <button
-            class="hover-point"
-            :style="pointStyle"
-          >
-          </button>
-          <span class="hover-label">{{ label }}</span>
-        </span>
-
-        <template #popper>
-          <div class="popover-container">
-            <h3 v-if="hasHeader" class="popover-header">
-              {{ header }}
-            </h3>
-            <div class="popover-body">
-              {{ content }}
-            </div>
-          </div>
-        </template>
-      </v-popover>
-    </span>
-    <span v-if="hasBottomText && hasLabel" class="legend-wrapper">
-      <h5 class="text-header">
+  <div>
+    <div v-if="hasBottomText && hasLabel" class="legend-wrapper">
+      <div class="text-header">
         {{ computedBottomHeader }}
-      </h5>
+      </div>
       <div>
         {{ content }}
       </div>
-    </span>
+    </div>
+
+    <div class="annotate-point">
+      <div v-if="isMounted" class="popover-annotation">
+        <div :style="pointPosition">
+          <v-popover
+            v-if="isMounted"
+            :placement="placement"
+            :delay="0"
+            :triggers="triggers"
+            :popper-triggers="triggers"
+            :hide-triggers="triggers"
+            :distance="computeDistance"
+            :disabled="!hasPopover"
+            :skidding="computeSkidding"
+            :arrow-padding="computeArrowPadding"
+            shift-cross-axis
+          >
+            <div class="hover-wrapper" @click.stop>
+              <button class="hover-point" :style="pointStyle">
+                {{ label }}
+              </button>
+              <div class="hover-label" :style="labelStyle">
+                {{ label }}
+              </div>
+            </div>
+
+            <template #popper>
+              <div class="popover-container">
+                <h3 v-if="hasHeader" class="popover-header">
+                  {{ header }}
+                </h3>
+                <div class="popover-body">
+                  {{ content }}
+                </div>
+              </div>
+            </template>
+          </v-popover>
+        </div>
+
+        <portal v-if="targetEl.id" :to="'popover:' + targetEl.id">
+          <h3 v-if="hasHeader" class="popover-header">
+            <slot name="header"></slot>
+          </h3>
+          <div class="popover-body">
+            <slot name="body"></slot>
+          </div>
+        </portal>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Portal } from 'portal-vue';
+import { toNumber } from '../utils/utils';
 
 export default {
   components: {
@@ -92,6 +93,14 @@ export default {
     color: {
       type: String,
       default: 'green',
+    },
+    textColor: {
+      type: String,
+      default: 'black',
+    },
+    fontSize: {
+      type: String,
+      default: '14',
     },
     opacity: {
       type: String,
@@ -131,9 +140,14 @@ export default {
         this.height = this.parentEl.offsetHeight;
       });
 
+      const relativeX = (this.toDecimal(this.x) - (this.size / 2 / this.width)) * 100;
+      const relativeY = (this.toDecimal(this.y) - (this.size / 2 / this.height)) * 100;
+
       return {
-        left: `${this.width * this.toDecimal(this.x) - this.size / 2}px`,
-        top: `${this.height * this.toDecimal(this.y) - this.size / 2}px`,
+        left: `${relativeX}%`,
+        top: `${relativeY}%`,
+        position: 'absolute',
+        pointerEvents: 'all',
       };
     },
     pointStyle() {
@@ -144,11 +158,32 @@ export default {
         height: `${this.size}px`,
       };
     },
+    labelStyle() {
+      return {
+        fontSize: `${this.fontSize < this.size ? this.fontSize : this.size}px`,
+        color: this.textColor,
+      };
+    },
     triggers() {
       return this.trigger.split(' ');
     },
     computeDistance() {
-      return this.size * (2 / 3);
+      if (this.placement === 'top') {
+        return toNumber(this.size * (2 / 3));
+      }
+      return toNumber(this.size / 10);
+    },
+    computeSkidding() {
+      if (this.placement === 'left' || this.placement === 'right') {
+        return -toNumber(this.size / 4);
+      }
+      return 0;
+    },
+    computeArrowPadding() {
+      if (this.placement === 'left' || this.placement === 'right') {
+        return toNumber(this.size / 2);
+      }
+      return 0;
     },
     hasHeader() {
       return this.header !== '';
@@ -192,32 +227,40 @@ export default {
   },
   mounted() {
     this.targetEl = this.$el;
-    this.parentEl = this.$el.parentElement.parentElement.querySelector('.annotate-image');
     this.isMounted = true;
+    this.parentEl = this.$el.parentElement.parentElement.querySelector('.annotate-image');
   },
 };
 </script>
 
 <style>
     .annotate-point {
-        margin-top: 1rem;
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
     }
 
     .popover-annotation {
         position: absolute;
+        width: 100%;
+        height: 100%;
     }
 
     .hover-point {
         border-radius: 50%;
         border-style: solid;
         border-width: 1px;
-        z-index: 2;
+        z-index: 1;
     }
 
     .hover-label {
         position: absolute;
         pointer-events: none;
-        z-index: 1;
+        z-index: 2;
     }
 
     .hover-wrapper {
@@ -226,5 +269,16 @@ export default {
         display: inline-flex;
         align-items: center;
         justify-content: center;
+    }
+
+    .legend-wrapper {
+        height: 100%;
+        position: relative;
+    }
+
+    .text-header {
+        font-size: 1.1em;
+        font-weight: 500;
+        margin-top: 1em;
     }
 </style>

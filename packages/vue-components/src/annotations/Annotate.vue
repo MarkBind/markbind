@@ -9,9 +9,9 @@
       :loading="computedLoadType"
       @load.once="getWidth"
     />
-    <span class="point-wrapper">
+    <div style="top: 0; left: 0; height: 0;">
       <slot></slot>
-    </span>
+    </div>
   </div>
 </template>
 
@@ -36,11 +36,11 @@ export default {
       type: String,
       default: '',
     },
-    addClass: {
-      type: String,
-      default: '',
+    eager: {
+      type: Boolean,
+      default: false,
     },
-    type: {
+    addClass: {
       type: String,
       default: '',
     },
@@ -65,7 +65,6 @@ export default {
   data() {
     return {
       widthFromHeight: '',
-      offsetWidth: '',
     };
   },
   methods: {
@@ -77,21 +76,13 @@ export default {
         const imageAspectRatio = imgWidth / imgHeight;
         this.widthFromHeight = Math.round(toNumber(this.height) * imageAspectRatio).toString();
       }
-      this.offsetWidth = this.getOffsetWidth();
     },
-    getOffsetWidth() {
-      return this.imageEl.offsetWidth;
-    },
-  },
-  mounted() {
-    this.imageEl = this.$el.querySelector('.annotate-image');
   },
   provide() {
     return {
       width: this.width,
       height: this.height,
       src: this.src,
-      imageEl: this.offsetWidth,
     };
   },
 };
@@ -108,4 +99,5 @@ export default {
         max-width: 100%;
         height: auto;
     }
+
 </style>
