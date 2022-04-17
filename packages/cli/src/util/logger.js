@@ -29,7 +29,7 @@ const dailyRotateFileTransport = new DailyRotateFile({
   maxFiles: 5,
   showLevel: true,
   format: winston.format.combine(
-    winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+    winston.format.timestamp(),
     winston.format.printf(info => `${info.timestamp} ${info.level} ${info.message}`),
   ),
 });
