@@ -6,9 +6,11 @@ const consoleTransport = new (winston.transports.Console)({
   humanReadableUnhandledException: true,
   level: 'debug',
   showLevel: true,
+  format: winston.format.cli(),
 });
 
 winston.configure({
+  format: winston.format.errors(),
   exitOnError: false,
   transports: [consoleTransport],
 });

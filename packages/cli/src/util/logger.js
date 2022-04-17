@@ -12,6 +12,7 @@ const consoleTransport = new (winston.transports.Console)({
   humanReadableUnhandledException: true,
   level: 'info',
   showLevel: true,
+  format: winston.format.cli(),
 });
 
 function useDebugConsole() {
@@ -27,10 +28,15 @@ const dailyRotateFileTransport = new DailyRotateFile({
   level: 'debug',
   maxFiles: 5,
   showLevel: true,
+  format: winston.format.combine(
+    winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+    winston.format.printf(info => `${info.timestamp} ${info.level} ${info.message}`),
+  ),
 });
 
 // Reconfigure the default instance logger winston provides with DailyRotateFile for markbind-cli
 winston.configure({
+  format: winston.format.errors(),
   exitOnError: false,
   transports: [
     consoleTransport,
