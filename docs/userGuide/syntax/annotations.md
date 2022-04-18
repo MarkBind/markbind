@@ -1,6 +1,6 @@
 {% from "userGuide/components/advanced.md" import slot_info_trigger %}
 
-## Annotate
+## Annotations
 
 Annotate components allow you to easily annotate over any image.
 
