@@ -88,6 +88,26 @@ also provided for the point.
 
 Here we showcase some use cases of the Annotate feature.
 
+**Example 1: Describing elements in an image** <br>
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+
+<annotate src="../diagrams/object.png" height="500" alt="Sample Image">
+  <!-- Default Legend (popover only)-->
+  <a-point x="6%" y="50%" content="You can use a triangle and a solid line (not to be confused with an arrow) to indicate class inheritance." label="1" header="
+Class inheritance"/>
+  <!-- Set Legend to bottom only (popover is not clickable) -->
+  <a-point x="25.5%" y="50%" content="UML uses a solid diamond symbol to denote composition." label="2" header="Composition" color="red"/>
+  <!-- Set Legend to both -->
+  <a-point x="45%" y="50%" content="UML uses a hollow diamond to indicate an aggregation."  label="3" header="
+Aggregation" color="blue"/>
+  <a-point x="64.5%" y="50%" content="Association labels describe the meaning of the association."  label="4" header="Association labels" color="yellow"/>
+</annotate>
+</variable>
+</include>
+
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
@@ -154,7 +174,7 @@ This is effectively the same as the options used for the [picture](#pictures) co
 
 <div id="examples" class="d-none">
 
-<annotate src="../diagrams/object.png" height="500" alt="Sample Image">
+<annotate src="./diagrams/object.png" height="500" alt="Sample Image">
   <!-- Default Legend (popover only)-->
   <a-point x="6%" y="50%" content="You can use a triangle and a solid line (not to be confused with an arrow) to indicate class inheritance." label="1" header="
 Class inheritance"/>
