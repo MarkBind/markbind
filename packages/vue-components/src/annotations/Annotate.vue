@@ -74,7 +74,7 @@ export default {
         const imgHeight = renderedImg.naturalHeight;
         const imgWidth = renderedImg.naturalWidth;
         const imageAspectRatio = imgWidth / imgHeight;
-        this.widthFromHeight = Math.round(toNumber(this.height) * imageAspectRatio).toString();
+        this.widthFromHeight = Math.round(toNumber(this.height) * imageAspectRatio);
       }
     },
   },
