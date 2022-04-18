@@ -40,7 +40,7 @@ MarkBind supports all basic Markdown syntax.
 
 #### {{ icon_check_blue }} Support for GFMD
 
-MarkBind supports additional Markdown features provided by Github-Flavored Markdown (GFMD).
+MarkBind supports additional Markdown features provided by GitHub-Flavored Markdown (GFMD).
 
 <panel type="seamless" header="Some examples ...">
 <include src="syntax/code.md#main-example" />
@@ -90,7 +90,7 @@ More info: <include src="{{ filename }}#link" inline trim/>
 
 <!-- ======================================================================================================= -->
 
-#### {{ icon_check_blue }} MarkBind Vue components and BootStrap
+#### {{ icon_check_blue }} MarkBind Vue components and Bootstrap
 
 MarkBind has several core Vue.js components built on the popular [BootStrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/) framework. Much of Bootstrap's features are supported in and out of these components as well.
 

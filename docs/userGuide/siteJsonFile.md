@@ -78,7 +78,7 @@ Here is a typical `site.json` file:
 
 #### **`baseUrl`**
 
-**The base url relative to your domain.** Default: `""`(empty).
+**The base URL relative to your domain.** Default: `""`(empty).
 
 <include src="deployingTheSite.md#warning-about-baseUrl" />
 
@@ -203,7 +203,7 @@ The ignore pattern follows the [glob pattern used in .gitignore](https://git-scm
 
 #### **`deploy`**
 
-**The settings for [auto-deployment to Github pages](deployingTheSite.html).**
+**The settings for [auto-deployment to GitHub pages](deployingTheSite.html).**
 
 * **`message`** [Optional. Default: `"Site Update."`]<br>
   The commit message used for the deployment commit.

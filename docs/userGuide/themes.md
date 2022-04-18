@@ -15,7 +15,7 @@
 
 <div class="lead" id="overview">
 
-**MarkBind supports the ability to style your website with a variety of bootstrap themes.**
+**MarkBind supports the ability to style your website with a variety of Bootstrap themes.**
 
 </div>
 

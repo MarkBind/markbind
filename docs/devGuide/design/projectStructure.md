@@ -34,7 +34,7 @@ The MarkBind project is developed in a <tooltip content="We follow a monorepo ap
 
 * Functions and libraries used to parse and process MarkBind into usable output are stored in `src`. The architecture described in [Architecture](architecture.md) is contained here. A brief rundown of what it includes:
 
-  * Various key functionalities in processing MarkBind syntax into valid html output, stored in `html`. The other part of the content processing flow is found in `variables`, which manages site variables and facillitates the Nunjucks calls.
+  * Various key functionalities in processing MarkBind syntax into valid html output, stored in `html`. The other part of the content processing flow is found in `variables`, which manages site variables and facilitates the Nunjucks calls.
 
   * `Page` files generate a single page of the site, and are managed by the `Site` instance. `Site` uses the Page model's interface to generate pages, and performs various other utility-like functions related to site generation such as copying of external assets into the output folder.
 
@@ -50,11 +50,11 @@ The MarkBind project is developed in a <tooltip content="We follow a monorepo ap
 
 * [markdown-it](https://github.com/markdown-it/markdown-it), which does the Markdown parsing and rendering. There are also several customized markdown-it plugins used in MarkBind, which are located inside the `src/lib/markdown-it/` directory.
 
-  * Serveral markdown-it plugins are installed to enhance the existing Markdown syntax. They can be found in `src/package.json`. Some of them are patched in the `src/lib/markdown-it/patches/` directory to fit MarkBind's needs. 
+  * Several markdown-it plugins are installed to enhance the existing Markdown syntax. They can be found in `src/package.json`. Some of them are patched in the `src/lib/markdown-it/patches/` directory to fit MarkBind's needs. 
 
   * Additionally, there are some markdown-it plugins in the `src/lib/markdown-it/plugins/` directory (either forked, modified or written to enhance existing functionalities).
 
-* [htmlparser2](https://github.com/fb55/htmlparser2), a speedy and forgiving html parser which exposes a dom-like object structure to work on. To comply with the markdown spec, and our custom requirements, `src/patches/htmlparser2.js` patches various behaviours of this library.
+* [htmlparser2](https://github.com/fb55/htmlparser2), a speedy and forgiving html parser which exposes a DOM-like object structure to work on. To comply with the markdown spec, and our custom requirements, `src/patches/htmlparser2.js` patches various behaviours of this library.
 
 * [cheerio](https://cheerio.js.org/), which is a node.js equivalent of [jQuery](https://jquery.com/). Cheerio uses [htmlparser2](https://github.com/fb55/htmlparser2) to parse the html as well, hence our patches propagate here.
 
@@ -74,7 +74,7 @@ The CLI application uses and further builds on the interface exposed by the core
 
 This package houses the various frontend assets used in the core package.
 
-Some external assets included are Vue.js, jQuery, bootstrap bundles, and fontawesome bundles.
+Some external assets included are Vue.js, jQuery, Bootstrap bundles, and FontAwesome bundles.
 
 Internal bundles are also present, generated from setup scripts, custom stylesheets and the UI components library.
 

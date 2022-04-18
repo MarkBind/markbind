@@ -54,7 +54,7 @@ Available size classes:
 </variable>
 </include>
 
-Available color classes (use any of the available BootStrap border color classes):
+Available color classes (use any of the available Bootstrap border color classes):
 - border-info
 - border-primary
 - etc
@@ -76,7 +76,7 @@ Available color classes (use any of the available BootStrap border color classes
 </variable>
 </include>
 
-Add a comibnation of the above classes to further customize the style of a horizontal line. 
+Add a combination of the above classes to further customize the style of a horizontal line. 
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>

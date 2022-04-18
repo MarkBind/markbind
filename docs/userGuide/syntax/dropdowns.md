@@ -27,10 +27,10 @@
   <li><a href="#dropdown" class="dropdown-item">Something else here</a></li>
 </dropdown>
 
-<!-- Inside a bootstrap button group -->
+<!-- Inside a Bootstrap button group -->
 <div class="btn-group d-flex mt-3" role="group">
   <a href="#dropdown" class="btn btn-danger w-100" role="button">Left</a>
-  <!-- With slots you can handle some elements as native bootstrap -->
+  <!-- With slots you can handle some elements as native Bootstrap -->
   <dropdown class="w-100">
     <button slot="button" type="button" class="btn btn-warning dropdown-toggle w-100">
       Action
@@ -112,7 +112,7 @@ type | `String` | `default` | Supports: `default`, `primary`, `danger`, `info`, 
 <!-- In a button group -->
 <div class="btn-group d-flex" role="group">
   <a href="#dropdown" class="btn btn-danger w-100" role="button">Left</a>
-  <!-- With slots you can handle some elements as native bootstrap -->
+  <!-- With slots you can handle some elements as native Bootstrap -->
   <dropdown class="w-100">
     <button slot="button" type="button" class="btn btn-warning dropdown-toggle w-100">
       Action
