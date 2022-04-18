@@ -51,15 +51,9 @@ exports[`Modal can be centered 1`] = `
              
             <button
               aria-label="Close"
-              class="close"
+              class="btn-close"
               type="button"
-            >
-              <span
-                aria-hidden="true"
-              >
-                ×
-              </span>
-            </button>
+            />
           </div>
            
           <div
@@ -129,15 +123,9 @@ exports[`Modal can be large 1`] = `
              
             <button
               aria-label="Close"
-              class="close"
+              class="btn-close"
               type="button"
-            >
-              <span
-                aria-hidden="true"
-              >
-                ×
-              </span>
-            </button>
+            />
           </div>
            
           <div
@@ -207,15 +195,9 @@ exports[`Modal can be small 1`] = `
              
             <button
               aria-label="Close"
-              class="close"
+              class="btn-close"
               type="button"
-            >
-              <span
-                aria-hidden="true"
-              >
-                ×
-              </span>
-            </button>
+            />
           </div>
            
           <div
@@ -285,15 +267,9 @@ exports[`Modal should be closable by clicking the backdrop by default 1`] = `
              
             <button
               aria-label="Close"
-              class="close"
+              class="btn-close"
               type="button"
-            >
-              <span
-                aria-hidden="true"
-              >
-                ×
-              </span>
-            </button>
+            />
           </div>
            
           <div
@@ -431,15 +407,9 @@ exports[`Modal should not be closable by clicking the backdrop if backdrop is se
              
             <button
               aria-label="Close"
-              class="close"
+              class="btn-close"
               type="button"
-            >
-              <span
-                aria-hidden="true"
-              >
-                ×
-              </span>
-            </button>
+            />
           </div>
            
           <div
@@ -509,15 +479,9 @@ exports[`Modal should not show footer when no footer is given 1`] = `
              
             <button
               aria-label="Close"
-              class="close"
+              class="btn-close"
               type="button"
-            >
-              <span
-                aria-hidden="true"
-              >
-                ×
-              </span>
-            </button>
+            />
           </div>
            
           <div

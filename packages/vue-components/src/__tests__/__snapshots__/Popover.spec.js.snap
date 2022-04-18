@@ -23,9 +23,10 @@ exports[`Popover should not show header when no header is given 1`] = `
   <!---->
    
   <v-popover-stub
+    auto-hide="true"
     delay="0"
+    hide-triggers="click"
     placement="top"
-    popper-class="v-popper__popper--skip-transition"
     popper-triggers="click"
     shift-cross-axis=""
     triggers="click"
@@ -48,9 +49,10 @@ exports[`Popover should respect the placement attribute 1`] = `
   <!---->
    
   <v-popover-stub
+    auto-hide="true"
     delay="0"
+    hide-triggers="click"
     placement="right"
-    popper-class="v-popper__popper--skip-transition"
     popper-triggers="click"
     shift-cross-axis=""
     triggers="click"
@@ -73,9 +75,10 @@ exports[`Popover should show header and content 1`] = `
   <!---->
    
   <v-popover-stub
+    auto-hide="true"
     delay="0"
+    hide-triggers="click"
     placement="top"
-    popper-class="v-popper__popper--skip-transition"
     popper-triggers="click"
     shift-cross-axis=""
     triggers="click"
@@ -96,9 +99,10 @@ exports[`Popover should show header and content slots correctly 1`] = `
   <!---->
    
   <v-popover-stub
+    auto-hide="true"
     delay="0"
+    hide-triggers="click"
     placement="top"
-    popper-class="v-popper__popper--skip-transition"
     popper-triggers="click"
     shift-cross-axis=""
     triggers="click"
