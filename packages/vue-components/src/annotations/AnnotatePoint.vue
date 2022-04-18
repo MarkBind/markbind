@@ -25,7 +25,7 @@
             :arrow-padding="computeArrowPadding"
             shift-cross-axis
           >
-            <div class="hover-wrapper" @click.stop>
+            <div class="hover-wrapper">
               <button class="hover-point" :style="pointStyle">
               </button>
               <div class="hover-label" :style="labelStyle">
