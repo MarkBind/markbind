@@ -6,9 +6,7 @@ MarkBind can present formatted code blocks, be it fenced or inline, with either 
 
 <modal header="Dark Code Theme" id="modal:code-dark-example" large >
 
-<div style="overflow: hidden;">
-  <img src="/images/codeDarkTheme.png" width="750" alt="Theme example" />
-</div>
+<pic src="/images/codeDarkTheme.png" alt="Theme example" ></pic>
 </modal>
 
 Refer [here](../siteJsonFile.html#style) for configuring MarkBind to use a specific theme for the code blocks.
