@@ -9,7 +9,8 @@
 ### Overview
 
 An overview of MarkBind's Command Line Interface (CLI) can be referenced with `markbind --help`:
-```
+
+```bash
 $ markbind --help
 Usage: markbind <command>
  
@@ -24,6 +25,7 @@ Usage: markbind <command>
    archive|ar [options] [versionName] [archivePath]   archive the current version of the site
    deploy|d [options]                                 deploy the site to the repo's GitHub pages
 ```
+
 <hr><!-- ========================================================================== -->
 <div id="markbind-init">
 
