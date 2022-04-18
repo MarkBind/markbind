@@ -118,7 +118,7 @@ Aggregation" color="blue"/>
 | header    | `String` | `''`        | Annotate Point header.<br>The header will be omitted if this is not provided.                            |
 | trigger   | `String` | `click`     | Popover trigger type.<br>Supports: `click`, `focus`, `hover`, or any space-separated combination of these.                       |
 | placement | `String` | `top`       | Position of the Popover.<br>Supports: `top`, `left`, `right`, `bottom`.                                                              |
-| label     | `String` | `''`        | The content to be shown over the point.<br>The label will be omitted if this is not provided.<br>Note that labels should not be too long as they might overflow out of the point.                                       |
+| label     | `String` | `''`        | The label shown on the point itself.<br>The label will be omitted if this is not provided.<br>Note that labels should not be too long as they might overflow out of the point.                                       |
 | size      | `String` | `'40'`      | The size of the point in pixels.                                                                                                         |
 | color     | `String` | `'green'`   | The color of the point.<br>Supports any color in the CSS color format. E.g. `red`, `#ffffff`, `rgb(66, 135, 245)`, etc.                |
 | opacity   | `String` | `'0.3'`     | The opacity of the point.<br>Supports range of values from `0` to `1`.                                                                   |
