@@ -6,8 +6,8 @@
 <variable name="icon_bulb_blue"><span style="color: {{ markbind_blue }}">:fas-lightbulb:</span></variable>
 <variable name="icon_dislike">:fas-thumbs-down:</variable>
 <variable id="icon_embedding"><md>:glyphicon-log-in:</md></variable>
-<variable name="icon_example">++<span class='badge badge-pill badge-secondary' style="padding-bottom: 4px; margin-right: 5px;">Example</span>++</variable>
-<variable name="icon_examples">++<span class='badge badge-pill badge-secondary' style="padding-bottom: 4px;">Examples</span>++</variable>
+<variable name="icon_example">++<span class='badge rounded-pill bg-secondary' style="padding-bottom: 4px; margin-right: 5px;">Example</span>++</variable>
+<variable name="icon_examples">++<span class='badge rounded-pill bg-secondary' style="padding-bottom: 4px;">Examples</span>++</variable>
 <variable name="icon_info">:fas-info-circle:</variable>
 <variable name="icon_ticked">:far-check-square:</variable>
 

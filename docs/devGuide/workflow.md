@@ -42,15 +42,15 @@ The sections below has more information about various stages of submitting a PR.
 
     {.mb-3}  
   
-    ![]({{baseUrl}}/images/debugger/WebStorm_1.png) {.ml-4}
+    ![]({{baseUrl}}/images/debugger/WebStorm_1.png) {.ms-4}
   
   **2. Debugging all tests** in the `npm run test` script:
   
-    ![]({{baseUrl}}/images/debugger/WebStorm_2.png) {.ml-4}
-
+    ![]({{baseUrl}}/images/debugger/WebStorm_2.png) {.ms-4}
+    
   **3. Debugging only the cli package's tests**:
-
-    ![]({{baseUrl}}/images/debugger/WebStorm_3.png) {.ml-4}
+    
+    ![]({{baseUrl}}/images/debugger/WebStorm_3.png) {.ms-4}
   
   </modal>
 
@@ -65,8 +65,8 @@ The sections below has more information about various stages of submitting a PR.
   * the `-d` developer option. (see [below](#editing-frontend-features))
 
     {.mb-3}  
-
-    ```json {.ml-4 heading="launch.json"}
+    
+    ```json {.ms-4 heading="launch.json"}
     {
         "configurations": [
             {
@@ -86,7 +86,7 @@ The sections below has more information about various stages of submitting a PR.
   
   **2. Debugging all tests** in the `npm run test` script:
   
-    ```json {.ml-4 heading="launch.json"}
+    ```json {.ms-4 heading="launch.json"}
     {
         "configurations": [
             {
@@ -105,8 +105,8 @@ The sections below has more information about various stages of submitting a PR.
     ```
   
   **3. Debugging only the cli package's tests**:
-
-    ```json {.ml-4 heading="launch.json"}
+    
+    ```json {.ms-4 heading="launch.json"}
     {
         "configurations": [
             {

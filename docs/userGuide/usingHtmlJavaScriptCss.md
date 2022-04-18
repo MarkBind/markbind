@@ -122,7 +122,7 @@ const myChart = new Chart(ctx, {
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.js"></script>
 <div id="echart" style="width:400px;height:400px;"></div>
 <script type="text/javascript">
-  // Initialize the echarts instance based on the prepared dom
+  // Initialize the echarts instance based on the prepared DOM
   var eChart = echarts.init(document.getElementById('echart'));
   // Specify the configuration items and data for the chart
   var option = {
