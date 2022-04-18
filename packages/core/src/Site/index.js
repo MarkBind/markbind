@@ -1493,11 +1493,7 @@ class Site {
     // Save version data
     this.versionData = await this.writeVersionsFile(versionName, archivePath);
     // Exclude versioned files from archiving.
-    const archiveFolders = this.versionData.versions;
-    archiveFolders.forEach((folder) => {
-      const filePath = `/${folder.archivePath}/${folder.versionName}**`;
-      this.siteConfig.ignore.push(filePath);
-    });
+    this.ignoreVersionFiles('');
 
     // Used to get accurate intralinks within the archived site:
     const versionPath = `/${archivePath}/${versionName}`;
@@ -1519,6 +1515,41 @@ class Site {
   }
 
   /**
+   * Helper function for archive.
+   * Checks the version files of site + subsites and sets them to be ignored in the site config.
+   *
+   * @returns {*}
+   */
+  ignoreVersionFiles(pathToVersionFromRootDir) {
+    const rootVersionPath = path.join(this.rootPath, pathToVersionFromRootDir, VERSIONS_DATA_NAME);
+
+    // find the version file and ignore all archives of the current site
+    if (fs.pathExistsSync(rootVersionPath)) {
+      const rootVersionsJson = fs.readJSONSync(rootVersionPath);
+
+      rootVersionsJson.versions.forEach((vers) => {
+        const filePath = pathToVersionFromRootDir !== ''
+          ? `${pathToVersionFromRootDir}/${vers.archivePath}/${vers.versionName}/**`
+          : `${vers.archivePath}/${vers.versionName}/**`;
+        this.siteConfig.ignore.push(filePath);
+      });
+    }
+
+    // find versioned subsites, recursively ignore all version directories inside that
+    const pathToDirWithVersion = path.join(this.rootPath, pathToVersionFromRootDir);
+    // do not transfer the versions file into the archived site
+    this.siteConfig.ignore.push(path.join(pathToVersionFromRootDir, VERSIONS_DATA_NAME));
+
+    const pathsToVersionFiles
+     = walkSync(pathToDirWithVersion, { directories: false, ignore: this.siteConfig.ignore })
+       .filter(x => x.endsWith(VERSIONS_DATA_NAME))
+       .map(x => path.relative(pathToDirWithVersion, x))
+       .map(x => path.dirname(x));
+
+    pathsToVersionFiles.forEach(p => this.ignoreVersionFiles(p));
+  }
+
+  /**
    * If the versions.json file exists, update it with a new version.
    * Otherwise, create a new versions file to store information about archived versions
    *
@@ -1531,6 +1562,7 @@ class Site {
       versionName,
       buildVer: MARKBIND_VERSION,
       archivePath,
+      baseUrl: this.baseUrl,
     };
 
     try {
@@ -1541,6 +1573,7 @@ class Site {
       const versionsJson = fs.readJSONSync(versionsPath);
 
       // Add in or update this new version in the versions file.
+
       const idx = versionsJson.versions.findIndex(vers => vers.archivePath === newVersionData.archivePath
                                                        && vers.versionName === newVersionData.versionName);
       if (idx === -1) {
