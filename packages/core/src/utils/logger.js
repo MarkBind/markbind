@@ -25,7 +25,8 @@ winston.configure({
   transports: [consoleTransport],
 });
 
-// patch inability to print stacktrace https://github.com/winstonjs/winston/issues/1498#issuecomment-433680788
+// patch inability to print stack trace
+// https://github.com/winstonjs/winston/issues/1498#issuecomment-433680788
 winston.error = (err) => {
   if (isError(err)) {
     winston.log({ level: 'error', message: `${err.stack || err}` });
