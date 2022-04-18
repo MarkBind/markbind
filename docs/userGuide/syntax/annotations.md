@@ -2,7 +2,7 @@
 
 ## Annotations
 
-**An `Annotate` component allows you to easily annotate over any images.**
+**An `annotate` component allows you to easily annotate over any images.**
 
 Annotate wrappers (`<annotate>`) are used in conjunction with Annotate
 Points (`<a-point>`).
