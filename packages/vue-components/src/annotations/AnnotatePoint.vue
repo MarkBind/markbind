@@ -4,7 +4,7 @@
       <div class="text-header">
         {{ computedBottomHeader }}
       </div>
-      <div>
+      <div v-if="hasContent">
         {{ content }}
       </div>
     </div>
@@ -34,11 +34,11 @@
             </div>
 
             <template #popper>
-              <div class="popover-container">
+              <div v-if="hasContent || hasHeader" class="popover-container">
                 <h3 v-if="hasHeader" class="popover-header">
                   {{ header }}
                 </h3>
-                <div class="popover-body">
+                <div v-if="hasContent" class="popover-body">
                   {{ content }}
                 </div>
               </div>
@@ -70,11 +70,11 @@ export default {
     },
     x: {
       type: String,
-      default: '0',
+      default: null,
     },
     y: {
       type: String,
-      default: '0',
+      default: null,
     },
     color: {
       type: String,
@@ -137,11 +137,14 @@ export default {
       };
     },
     pointStyle() {
+      const cursorStyle = !this.hasPopover ? 'default' : 'pointer';
+
       return {
         backgroundColor: this.color,
         opacity: this.opacity,
         width: `${this.size}px`,
         height: `${this.size}px`,
+        cursor: cursorStyle,
       };
     },
     labelStyle() {
@@ -173,6 +176,9 @@ export default {
     },
     hasHeader() {
       return this.header !== '';
+    },
+    hasContent() {
+      return this.content !== '';
     },
     hasWidth() {
       return this.width !== '';
