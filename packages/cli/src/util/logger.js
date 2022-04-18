@@ -36,7 +36,6 @@ const dailyRotateFileTransport = new DailyRotateFile({
 
 // Reconfigure the default instance logger winston provides with DailyRotateFile for markbind-cli
 winston.configure({
-  format: winston.format.errors(),
   exitOnError: false,
   transports: [
     consoleTransport,

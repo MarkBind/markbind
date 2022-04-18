@@ -1,4 +1,15 @@
+const isError = require('lodash/isError');
 const winston = require('winston');
+
+let progressBar;
+
+const setProgressBar = (bar) => {
+  progressBar = bar;
+};
+
+const removeProgressBar = () => {
+  progressBar = null;
+};
 
 const consoleTransport = new (winston.transports.Console)({
   colorize: true,
@@ -10,15 +21,47 @@ const consoleTransport = new (winston.transports.Console)({
 });
 
 winston.configure({
-  format: winston.format.errors(),
   exitOnError: false,
   transports: [consoleTransport],
 });
 
+// patch inability to print stacktrace https://github.com/winstonjs/winston/issues/1498#issuecomment-433680788
+winston.error = (err) => {
+  if (isError(err)) {
+    winston.log({ level: 'error', message: `${err.stack || err}` });
+  } else {
+    winston.log({ level: 'error', message: err });
+  }
+};
+
+// create a wrapper for error messages
+const errorWrap = (input) => {
+  if (progressBar) {
+    progressBar.interruptBegin();
+    winston.error(input);
+    progressBar.interruptEnd();
+  } else {
+    winston.error(input);
+  }
+};
+
+// create a wrapper for warning messages
+const warnWarp = (input) => {
+  if (progressBar) {
+    progressBar.interruptBegin();
+    winston.warn(input);
+    progressBar.interruptEnd();
+  } else {
+    winston.warn(input);
+  }
+};
+
 module.exports = {
-  error: winston.error,
-  warn: winston.warn,
+  error: errorWrap,
+  warn: warnWarp,
   info: winston.info,
   verbose: winston.verbose,
   debug: winston.debug,
+  setProgressBar,
+  removeProgressBar,
 };
