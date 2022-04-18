@@ -19,18 +19,11 @@ Usage: markbind <command>
    -h, --help                                         output usage information
  
  Commands:
-<<<<<<< HEAD
    init|i [options] [root]                            init a markbind website project
    serve|s [options] [root]                           build then serve a website from a directory
    build|b [options] [root] [output]                  build a website
    archive|ar [options] [versionName] [archivePath]   archive the current version of the site
    deploy|d [options]                                 deploy the site to the repo's GitHub pages
-=======
-   init|i [options] [root]            init a markbind website project
-   serve|s [options] [root]           build then serve a website from a directory
-   build|b [options] [root] [output]  build a website
-   deploy|d [options]                 deploy the site to the repo's GitHub pages
->>>>>>> master
 ```
 
 <hr><!-- ========================================================================== -->
