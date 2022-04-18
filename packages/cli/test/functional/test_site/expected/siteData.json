@@ -177,6 +177,12 @@
       "headingKeywords": {}
     },
     {
+      "src": "testAnnotate.md",
+      "title": "Annotate Feature Test",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
       "src": "testTooltipSpacing.md",
       "title": "Tooltip Spacing Test",
       "headings": {

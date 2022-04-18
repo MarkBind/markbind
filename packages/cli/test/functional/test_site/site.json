@@ -51,6 +51,10 @@
       "title": "Anchor Generation Test"
     },
     {
+      "src": "testAnnotate.md",
+      "title": "Annotate Feature Test"
+    },
+    {
       "src": "testTooltipSpacing.md",
       "title": "Tooltip Spacing Test"
     },
