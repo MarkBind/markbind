@@ -5,7 +5,8 @@
 MarkBind can present formatted code blocks, be it fenced or inline, with either **light** or **dark** themes. The default is dark <trigger for="modal:code-dark-example" trigger="click">_(click for an example)_</trigger>.
 
 <modal header="Dark Code Theme" id="modal:code-dark-example" large>
-<img src="/images/codeDarkTheme.png" width="750" alt="Theme example">
+
+![Theme Example](/images/codeDarkTheme.png)
 </modal>
 
 Refer [here](../siteJsonFile.html#style) for configuring MarkBind to use a specific theme for the code blocks.
