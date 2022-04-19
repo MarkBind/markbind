@@ -65,7 +65,7 @@ for users with different needs.
 
 `<a-point>` allows users to display its content inside a popover or as
 a legend below the diagram or both. However, this only works when if a label is
-also provided for the point.
+provided for the point.
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
