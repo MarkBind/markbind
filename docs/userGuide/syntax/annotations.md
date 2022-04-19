@@ -94,7 +94,7 @@ Here we showcase some use cases of the Annotate feature.
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 
-<annotate src="../diagrams/object.png" height="500" alt="Sample Image">
+<annotate src="https://markbind.org/userGuide/diagrams/object.png" height="500" alt="Sample Image">
   <a-point x="6%" y="50%" content="You can use a triangle and a solid line (not to be confused with an arrow) to indicate class inheritance." label="1" header="Class inheritance" legend="both"/>
   <a-point x="25.5%" y="50%" content="UML uses a solid diamond symbol to denote composition." label="2" header="Composition" color="red"  legend="both"/>
   <a-point x="45%" y="50%" content="UML uses a hollow diamond to indicate an aggregation."  label="3" header="Aggregation" color="blue" legend="both"/>
@@ -109,7 +109,7 @@ Here we showcase some use cases of the Annotate feature.
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 
-<annotate src="../diagrams/sequence.png" height="500" alt="Sample Image">
+<annotate src="https://markbind.org/userGuide/diagrams/sequence.png" height="500" alt="Sample Image">
   <a-point x="35%" y="18.5%" content="Operation is invoked" header="Operation"  opacity="0.2" size="30"/>
   <a-point x="65%" y="50%" content="This is the period during which the method is being executed" header="Activation Bar" opacity="0.3" size="50" color="yellow"/>
   <a-point x="14%" y="85%" content="Return control and possibly some return value" header="Return Value" opacity="0.2" size="30" color="blue"/>
@@ -165,7 +165,7 @@ This is effectively the same as the options used for the [picture](#pictures) co
 
 <div id="examples" class="d-none">
 
-<annotate src="./diagrams/object.png" height="500" alt="Sample Image">
+<annotate src="https://markbind.org/userGuide/diagrams/object.png" height="500" alt="Sample Image">
   <!-- Default Legend (popover only)-->
   <a-point x="6%" y="50%" content="You can use a triangle and a solid line (not to be confused with an arrow) to indicate class inheritance." label="1" header="
 Class inheritance"/>
