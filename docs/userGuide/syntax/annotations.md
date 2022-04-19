@@ -37,7 +37,7 @@ The x and y coordinates of each Annotate Point are relative to the image and are
 </variable>
 </include>
 
-**Using triggers for Annotate Point** <br>
+**Using triggers and positions for Annotate Point** <br>
 
 Similar to **[popovers](../components/popups.md#popovers)**, Annotate Points also support different types of triggers and positions
 for users with different needs.
