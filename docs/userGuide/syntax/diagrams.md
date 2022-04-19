@@ -6,8 +6,25 @@ You can use the [PlantUML](http://plantuml.com/) syntax to add diagrams.
 
 **[Java](https://www.java.com/en/download/) and
 [Graphviz](https://www.graphviz.org/download/)
-must be installed to use this feature**
-*(**locally** and in your <tooltip content="E.g. if you are building the site using GitHub Actions.">**CI/CD environment**</tooltip>)*
+must be installed to use this feature** *(**locally** and in your <trigger for="pop:githubActionTip">**CI/CD environment**</trigger>)*
+
+<popover id="pop:githubActionTip" header="E.g: Building & deploying the site via GitHub Actions">
+<div slot="content">
+You can add the following steps in your workflow file to install Graphviz and Java in Ubuntu:
+
+```yaml
+steps:
+  - name: Install Graphviz
+    run: sudo apt-get install graphviz
+  - name: Install Java
+    uses: actions/setup-java@v3
+    with:
+      java-version: '11'
+      distribution: 'temurin'
+```
+
+</div>
+</popover>
 
 * Java 8 or later (required to run the PlantUML JAR executable)
 * Graphviz v2.38 or later (required to generate _all_ diagrams)
