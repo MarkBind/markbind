@@ -17,6 +17,8 @@ const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 
 const processedDiagrams = new Set();
 
+let graphvizCheck = false;
+
 /**
  * Generates diagram and returns the file name of the diagram
  * @param imageOutputPath output path of the diagram to be generated
@@ -84,12 +86,24 @@ module.exports = {
 
   beforeSiteGenerate: () => {
     processedDiagrams.clear();
+    graphvizCheck = false;
   },
 
   processNode: (pluginContext, node, config) => {
     if (node.name !== 'puml') {
       return;
     }
+
+    if (!graphvizCheck) {
+      exec('dot -V', (error, stdout, stderr) => {
+        if (!stderr.includes('dot - graphviz version')) {
+          logger.debug(stderr);
+          logger.warn('You are using PlantUML diagrams but Graphviz is not installed!');
+        }
+      });
+      graphvizCheck = true;
+    }
+
     node.name = 'pic';
 
     let pumlContent;
