@@ -9,39 +9,21 @@ You can use the [PlantUML](http://plantuml.com/) syntax to add diagrams.
 * Java 8 or later (required - to run the PlantUML JAR executable)
 * [Graphviz](https://www.graphviz.org/download/) v2.38 or later (optional - you don't need this if you only need [sequence diagrams](https://plantuml.com/sequence-diagram) and [activity (beta) diagrams](https://plantuml.com/activity-diagram-beta))
 
-<panel header=":fas-lightbulb: Tip: Install the above dependencies in GitHub Actions" minimized>
-<tooltip content="See line 17-23">Additional steps</tooltip> can be added in your workflow file to install Graphviz and Java in Ubuntu.
+<panel header="Example: Installing the above dependencies in GitHub Actions" minimized>
+The following steps can be <tooltip content="Before the build step">added</tooltip> in your workflow file to install Graphviz and Java in Ubuntu.
 
-See [Deploying via Github Actions](../deployingTheSite.html#deploying-via-github-actions) for more information about CI workflows.
-
-```yaml {.line-numbers heading="action.yml" highlight-lines="17-23"}
-name: Deploy Markbind Site
-on:
-  push:
-    branches: master
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    name: test
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '10'
-      - name: Install Graphviz
-        run: sudo apt-get install graphviz
-      - name: Install Java
-        uses: actions/setup-java@v3
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-      - run: npm i -g markbind-cli
-      - run: markbind build
-      - run: markbind deploy --ci
+```yaml {heading="action.yml"}
+steps:
+  - name: Install Graphviz
+    run: sudo apt-get install graphviz
+  - name: Install Java
+    uses: actions/setup-java@v3
+    with:
+      java-version: '11'
+      distribution: 'temurin'
 ```
+
+See [Deploying via Github Actions](../deployingTheSite.html#deploying-via-github-actions) for more information.
 
 </panel>
 
