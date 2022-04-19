@@ -64,7 +64,7 @@ for users with different needs.
 **Displaying content as legends in Annotate Point**
 
 `<a-point>` allows users to display its content inside a popover or as
-a legend below the diagram or both. However, this only works when if a label is
+a legend below the diagram or both. However, this only works if a label is
 provided for the point.
 
 <include src="codeAndOutput.md" boilerplate >
