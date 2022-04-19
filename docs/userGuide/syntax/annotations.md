@@ -37,7 +37,7 @@ The x and y coordinates of each Annotate Point are relative to the image and are
 </variable>
 </include>
 
-**Using triggers for Annotate Point** <br>
+**Using triggers and positions for Annotate Point** <br>
 
 Similar to **[popovers](../components/popups.md#popovers)**, Annotate Points also support different types of triggers and positions
 for users with different needs.
@@ -65,9 +65,7 @@ for users with different needs.
 
 **Displaying content as legends in Annotate Point**
 
-`<a-point>` allows users to display its content inside a popover or as
-a legend below the diagram or both. However, this only works if a label is
-provided for the point.
+`<a-point>` allows users to display its content !!inside a popover!! or !!as a legend below the diagram!! or !!both!!. However, a label must be provided for the point in order to display the content in both areas.
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
@@ -76,7 +74,7 @@ provided for the point.
 <annotate src="../../images/annotateSampleImage.png" width="500" alt="Sample Image">
   <!-- Default Legend (popover only)-->
   <a-point x="25%" y="50%" content="There is only text when you click me" label="1"/>
-  <!-- Set Legend to bottom only (popover is not clickable) -->
+  <!-- Set Legend to bottom only (no popover) -->
   <a-point x="50%" y="50%" content="Clicking on this does nothing" label="2" legend="bottom" header="Headers are displayed as well"/>
   <!-- Set Legend to both -->
   <a-point x="75%" y="50%" content="There is text at both locations"  label="3" legend="both" header="Headers are displayed at both positions"/>
