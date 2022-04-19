@@ -74,7 +74,7 @@ provided for the point.
 <annotate src="../../images/annotateSampleImage.png" width="500" alt="Sample Image">
   <!-- Default Legend (popover only)-->
   <a-point x="25%" y="50%" content="There is only text when you click me" label="1"/>
-  <!-- Set Legend to bottom only (popover is not clickable) -->
+  <!-- Set Legend to bottom only (no popover) -->
   <a-point x="50%" y="50%" content="Clicking on this does nothing" label="2" legend="bottom" header="Headers are displayed as well"/>
   <!-- Set Legend to both -->
   <a-point x="75%" y="50%" content="There is text at both locations"  label="3" legend="both" header="Headers are displayed at both positions"/>
