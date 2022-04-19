@@ -7,6 +7,7 @@ You can use the [PlantUML](http://plantuml.com/) syntax to add diagrams.
 **[Java](https://www.java.com/en/download/) and
 [Graphviz](https://www.graphviz.org/download/)
 must be installed to use this feature**
+*(**locally** and in your <tooltip content="E.g. if you are building the site using GitHub Actions.">**CI/CD environment**</tooltip>)*
 
 * Java 8 or later (required to run the PlantUML JAR executable)
 * Graphviz v2.38 or later (required to generate _all_ diagrams)
