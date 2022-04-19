@@ -55,6 +55,8 @@ for users with different needs.
   <a-point x="25%" y="66%" content="Popover on the left" placement="left"/>
   <a-point x="50%" y="66%" content="Popover on the bottom" placement="bottom"/>
   <a-point x="75%" y="66%" content="Popover on the right" placement="right"/>
+  <!-- Both trigger and popover placement hover focus -->
+  <a-point x="50%" y="66%" content="Popover on the bottom" placement="bottom" trigger="hover focus"/>
 </annotate>
 </variable>
 </include>
