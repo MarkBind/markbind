@@ -11,12 +11,12 @@
 
 <div class="lead">
 
-A list of reusable workflows that help improve CI/CD pipelines with a MarkBind site. It helps users to streamline their workflow by:
+A list of reusable workflows that help to improve the CI/CD pipelines of MarkBind sites. It helps users to streamline their workflow by:
 
 * Making it easier to setup PR preview for a MarkBind site, including PRs from forks.
 * Making it easier to unpublish a PR preview site after merge/close.
 
-The source code hosted alongside [MarkBind/markbind-action](https://github.com/MarkBind/markbind-action/tree/master/.github/workflows).
+The source code is hosted alongside [MarkBind/markbind-action](https://github.com/MarkBind/markbind-action/tree/master/.github/workflows).
 </div>
 
 **Development guide**
