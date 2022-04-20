@@ -20,6 +20,7 @@
 * GitHub Actions :expanded:
   * [Overview]({{baseUrl}}/devGuide/githubActions/overview.html)
   * [markbind-action]({{baseUrl}}/devGuide/githubActions/markbindAction.html)
+  * [markbind-reusable-workflows]({{baseUrl}}/devGuide/githubActions/markbindReusableWorkflows.html)
 * [Project management]({{baseUrl}}/devGuide/projectManagement.html)
 * Appendices :expanded:
   * [Style guides]({{baseUrl}}/devGuide/styleGuides.html)
