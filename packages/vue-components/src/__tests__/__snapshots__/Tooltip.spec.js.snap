@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tooltip should not be shown until triggered 1`] = `
+<span
+  class="trigger-click"
+  content="Lorem ipsum dolor sit amet"
+  data-mb-component-type="tooltip"
+  tabindex="0"
+>
+  <!---->
+   
+  <!---->
+</span>
+`;
+
+exports[`Tooltip should respect the placement attribute 1`] = `
+<span
+  class="trigger-click"
+  content="Lorem ipsum dolor sit amet"
+  data-mb-component-type="tooltip"
+  tabindex="0"
+>
+  <!---->
+   
+  <v-tooltip-stub
+    auto-hide="true"
+    delay="0"
+    hide-triggers="click"
+    placement="right"
+    popper-triggers="click"
+    shift-cross-axis=""
+    triggers="click"
+  >
+     
+    <span>
+      click to show tooltip
+    </span>
+  </v-tooltip-stub>
+</span>
+`;
+
+exports[`Tooltip should show contents correctly when triggered 1`] = `
+<span
+  class="trigger-click"
+  content="Lorem ipsum dolor sit amet"
+  data-mb-component-type="tooltip"
+  tabindex="0"
+>
+  <!---->
+   
+  <v-tooltip-stub
+    auto-hide="true"
+    delay="0"
+    hide-triggers="click"
+    placement="top"
+    popper-triggers="click"
+    shift-cross-axis=""
+    triggers="click"
+  >
+     
+    <span>
+      click to show tooltip
+    </span>
+  </v-tooltip-stub>
+</span>
+`;

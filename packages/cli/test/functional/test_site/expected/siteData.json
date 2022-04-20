@@ -177,6 +177,12 @@
       "headingKeywords": {}
     },
     {
+      "src": "testAnnotate.md",
+      "title": "Annotate Feature Test",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
       "src": "testTooltipSpacing.md",
       "title": "Tooltip Spacing Test",
       "headings": {
@@ -228,6 +234,12 @@
     {
       "src": "testPopoverTrigger.md",
       "title": "Popover initiated by trigger should honor trigger attribute",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testModals.md",
+      "title": "Test: Modals",
       "headings": {},
       "headingKeywords": {}
     },

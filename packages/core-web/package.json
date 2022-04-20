@@ -32,7 +32,6 @@
     "@babel/runtime": "^7.10.5",
     "@markbind/vue-components": "3.1.1",
     "babel-loader": "^8.1.0",
-    "bootstrap-vue": "^2.16.0",
     "cross-env": "^7.0.3",
     "css-loader": "^3.6.0",
     "expose-loader": "^1.0.0",

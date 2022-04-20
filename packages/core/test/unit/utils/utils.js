@@ -3,6 +3,7 @@ const path = require('path');
 const { PageSources } = require('../../../src/Page/PageSources');
 const { NodeProcessor } = require('../../../src/html/NodeProcessor');
 const { PluginManager } = require('../../../src/plugins/PluginManager');
+const { SiteLinkManager } = require('../../../src/html/SiteLinkManager');
 const VariableProcessor = require('../../../src/variables/VariableProcessor');
 
 jest.mock('fs');
@@ -31,6 +32,20 @@ function getNewPluginManager(plugins, pluginsContext) {
   return new PluginManager(fileConfig, plugins, pluginsContext);
 }
 
+function getNewSiteLinkManager() {
+  const fileConfig = {
+    baseUrlMap: new Set([ROOT_PATH]),
+    baseUrl: '',
+    rootPath: ROOT_PATH,
+    outputPath: OUTPUT_PATH,
+    headerIdMap: {},
+    ignore: [],
+    addressablePagesSource: [],
+  };
+
+  return new SiteLinkManager(fileConfig);
+}
+
 function getNewNodeProcessor(pluginManager) {
   const fileConfig = {
     baseUrlMap: new Set([ROOT_PATH]),
@@ -43,8 +58,8 @@ function getNewNodeProcessor(pluginManager) {
     codeLineNumbers: false,
   };
 
-  return new NodeProcessor(fileConfig, new PageSources(),
-                           getNewDefaultVariableProcessor(), pluginManager);
+  return new NodeProcessor(fileConfig, new PageSources(), getNewDefaultVariableProcessor(),
+                           pluginManager, getNewSiteLinkManager());
 }
 
 function getNewDefaultNodeProcessor() {
@@ -54,5 +69,6 @@ function getNewDefaultNodeProcessor() {
 module.exports = {
   getNewNodeProcessor,
   getNewDefaultNodeProcessor,
+  getNewSiteLinkManager,
   getNewPluginManager,
 };

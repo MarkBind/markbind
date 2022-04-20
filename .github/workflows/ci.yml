@@ -6,8 +6,6 @@ on:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
   pull_request:
-    branches:
-      - master
 
 concurrency: 
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -25,6 +23,13 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '12'
+      - name: Install Graphviz
+        uses: tlylt/install-graphviz@v1
+      - name: Install Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
       - run: npm i -g npm@8.3.1
       - run: npm run setup
       - run: npm run test
@@ -41,6 +46,13 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '12'
+      - name: Install Graphviz
+        uses: tlylt/install-graphviz@v1
+      - name: Install Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
       - run: npm i -g npm@8.3.1
       - run: npm run setup
       - name: Deploy DG on any commit to master, to markbind.org/devdocs

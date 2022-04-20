@@ -1,11 +1,6 @@
-// Components and directives from bootstrap-vue
 /* eslint-disable import/no-extraneous-dependencies */
-import {
-  BModal,
-  BPopover,
-  BTooltip,
-  VBModal,
-} from 'bootstrap-vue';
+import { Dropdown, Tooltip } from 'floating-vue';
+import 'floating-vue/dist/style.css';
 /* eslint-enable import/no-extraneous-dependencies */
 
 // Custom / modified components and components from yuche/vue-strap
@@ -13,6 +8,8 @@ import closeable from './directives/Closeable';
 import dropdown from './Dropdown.vue';
 import navbar from './Navbar.vue';
 import panel from './Panel.vue';
+import annotate from './annotations/Annotate.vue';
+import aPoint from './annotations/AnnotatePoint.vue';
 import pic from './Pic.vue';
 import quiz from './questions/Quiz.vue';
 import question from './questions/Question.vue';
@@ -33,12 +30,15 @@ import overlay from './Overlay.vue';
 import overlaySource from './OverlaySource.vue';
 import popover from './Popover.vue';
 import tooltip from './Tooltip.vue';
+import modal from './Modal.vue';
 
 const components = {
   box: tipBox,
   dropdown,
   navbar,
   panel,
+  annotate,
+  aPoint,
   pic,
   quiz,
   question,
@@ -59,14 +59,13 @@ const components = {
   overlaySource,
   popover,
   tooltip,
-  BModal,
-  BPopover,
-  BTooltip,
+  modal,
+  'VPopover': Dropdown,
+  'VTooltip': Tooltip,
 };
 
 const directives = {
   closeable,
-  'b-modal': VBModal,
 };
 
 function install(Vue) {

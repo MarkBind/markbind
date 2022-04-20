@@ -15,7 +15,7 @@ must be installed to use this feature**
 
 <div id="main-example">
 <include src="outputBox.md" boilerplate>
-<div id="code">
+<variable name="code">
 
 ```
 <puml width="300">
@@ -31,11 +31,11 @@ return success
 @enduml
 </puml>
 ```
-</div>
+</variable>
 
-<div id="output">
+<variable name="output">
 <pic src="../diagrams/sequence.png" width="300" />
-</div>
+</variable>
 
 </include>
 </div>
@@ -43,7 +43,7 @@ return success
 Alternatively, a PlantUML diagram can be specified in a separate `.puml` file and inserted into a page using a `<puml>` tag.
 
 <include src="outputBox.md" boilerplate>
-<div id="code">
+<variable name="code">
 
 `diagrams/sequence.puml`:
 ```
@@ -63,11 +63,11 @@ in another file:
 ```html
 <puml src="diagrams/sequence.puml" width=300 />
 ```
-</div>
+</variable>
 
-<div id="output">
+<variable id="output">
 <pic src="../diagrams/sequence.png" width="300" />
-</div>
+</variable>
 
 </include>
 

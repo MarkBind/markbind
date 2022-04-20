@@ -229,7 +229,7 @@ theme | `String` | `''` | Supports: `primary`, `secondary`, `success`, `danger`,
 light | `Boolean` | `false` | Uses a light color scheme for the box.
 seamless | `Boolean` | `false` | Uses a seamless style for the box. If `light` is specified, this style will not be activated.
 no-border | `Boolean` | `false` | Removes border, except if styled by `border-color` or `border-left-color`. 
-no-backgound | `Boolean` | `false` | Removes background, except if styled by `backgound-color` option.
+no-background | `Boolean` | `false` | Removes background, except if styled by `background-color` option.
 no-icon | `Boolean` | `false` | Removes icon, except if icon is displayed via `icon` option.
 
 

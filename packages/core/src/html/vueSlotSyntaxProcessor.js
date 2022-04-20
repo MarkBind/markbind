@@ -67,8 +67,22 @@ function transformOldSlotSyntax(node) {
   });
 }
 
+function renameSlot(node, originalName, newName) {
+  if (node.children) {
+    node.children.forEach((child) => {
+      const vslotShorthandName = getVslotShorthandName(child);
+      if (vslotShorthandName && vslotShorthandName === originalName) {
+        const newVslot = `#${newName}`;
+        child.attribs[newVslot] = '';
+        delete child.attribs[`#${vslotShorthandName}`];
+      }
+    });
+  }
+}
+
 module.exports = {
   getVslotShorthandName,
   shiftSlotNodeDeeper,
   transformOldSlotSyntax,
+  renameSlot,
 };
