@@ -400,9 +400,9 @@ You may also preview PRs using [Surge](https://surge.sh/), which is an NPM packa
 
    <box type="tip">
 
-   After aquiring the surge token, you may want to utilize the provided [MarkBind reusable workflows](https://github.com/tlylt/markbind-reusable-workflows) to conveniently set up your PR preview via Surge.sh.
+   After aquiring the surge token, you may want to utilize the provided [MarkBind reusable workflows](https://github.com/MarkBind/markbind-action/blob/master/.github/workflows/README.md) to conveniently set up your PR preview via Surge.sh.
    
-   If you would like to find out more about how it works behind the scene, read on to see the detailed steps that need to be specified in your workflow files to construct it manually.
+   If you would like to find out more about how it works behind the scene and how to do it yourself, read on to see the detailed steps that need to be specified in your workflow files.
    </box>
 
 1. Commit and push the following 2 files into your MarkBind site repo, in the directory `<PROJECT_ROOT>/.github/workflows/`.
