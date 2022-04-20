@@ -48,4 +48,48 @@ module.exports = {
       },
     ],
   },
+  "overrides": [
+    {
+      "files": "**/*.ts",
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "project": [
+          "./tsconfig.json",
+          "./packages/core/tsconfig.json",
+        ],
+      },
+      "plugins": ["@typescript-eslint", "lodash"],
+      "extends": ["airbnb-typescript/base", "plugin:lodash/recommended"],
+      "rules": {
+        "import/prefer-default-export": "off",
+        "import/no-default-export": "error",
+        "lodash/prefer-lodash-method": [0],
+        "lodash/prefer-noop": [0],
+        "@typescript-eslint/default-param-last": "off",
+        "@typescript-eslint/indent": [
+          "error",
+          2,
+          {
+            "CallExpression": { "arguments": "first" },
+            "FunctionDeclaration": { "parameters": "first" },
+            "FunctionExpression": { "parameters": "first" },
+          },
+        ],
+        "@typescript-eslint/lines-between-class-members": [
+          "error",
+          "always",
+          { "exceptAfterSingleLine": true },
+        ],
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "default",
+            "format": null,
+            "leadingUnderscore": "allow",
+          },
+        ],
+        "@typescript-eslint/return-await": "off",
+      },
+    },
+  ],
 };

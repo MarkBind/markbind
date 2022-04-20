@@ -2,11 +2,22 @@
 *.page-vue-render.js
 node_modules
 
+*.d.ts
+
 packages/cli/src/lib/live-server/*
 
+# --- packages/core ---
+
+# Ignore JS files that are compiled from TS
+packages/core/src/errors/**/*.js
+packages/core/src/utils/**/*.js
+
+# Rules for pure JS files
 packages/core/src/lib/markdown-it/patches/*
 packages/core/src/lib/markdown-it/plugins/*
 !packages/core/src/lib/markdown-it/plugins/markdown-it-icons.js
+
+# --- packages/core end ---
 
 !.eslintrc.js
 

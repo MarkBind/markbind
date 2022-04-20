@@ -16,6 +16,7 @@
   * [Server Side Rendering]({{baseUrl}}/devGuide/design/serverSideRendering.html)
 * [Writing Components]({{baseUrl}}/devGuide/writingComponents.html)
 * [Writing Plugins]({{baseUrl}}/devGuide/writingPlugins.html)
+* [Migrating to TypeScript]({{baseUrl}}/devGuide/migratingToTypeScript.html)
 * GitHub Actions :expanded:
   * [Overview]({{baseUrl}}/devGuide/githubActions/overview.html)
   * [markbind-action]({{baseUrl}}/devGuide/githubActions/markbindAction.html)
