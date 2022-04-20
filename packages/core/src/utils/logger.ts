@@ -1,4 +1,4 @@
-const winston = require('winston');
+import winston from 'winston';
 
 const consoleTransport = new (winston.transports.Console)({
   colorize: true,
@@ -13,7 +13,7 @@ winston.configure({
   transports: [consoleTransport],
 });
 
-module.exports = {
+export = {
   error: winston.error,
   warn: winston.warn,
   info: winston.info,
