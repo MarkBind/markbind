@@ -660,7 +660,6 @@ class Site {
       await this.readSiteConfig(baseUrl);
       await this.buildSiteHelper();
       this.versionData = await this.readVersionData();
-      console.log('got to this.versionData');
       await this.addVersions(this.versionData.versions);
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
       if (this.backgroundBuildMode) {
@@ -1498,10 +1497,9 @@ class Site {
     this.ignoreVersionFiles('');
 
     // Used to get accurate intralinks within the archived site:
-    const versionPath = `/${archivePath}/${versionName}`;
     const archivedBaseUrl = this.siteConfig.baseUrl === ''
-      ? versionPath
-      : `${this.siteConfig.baseUrl}${versionPath}`;
+      ? `/${archivePath}`
+      : `${this.siteConfig.baseUrl}/${archivePath}`;
     this.siteConfig.baseUrl = archivedBaseUrl;
 
     // Create the .tmp folder for storing intermediate results.
@@ -1531,8 +1529,8 @@ class Site {
 
       rootVersionsJson.versions.forEach((vers) => {
         const filePath = pathToVersionFromRootDir !== ''
-          ? `${pathToVersionFromRootDir}/${vers.archivePath}/${vers.versionName}/**`
-          : `${vers.archivePath}/${vers.versionName}/**`;
+          ? `${pathToVersionFromRootDir}/${vers.archivePath}/**`
+          : `${vers.archivePath}/**`;
         this.siteConfig.ignore.push(filePath);
       });
     }
@@ -1591,8 +1589,7 @@ class Site {
       const versionsJson = await this.readVersionData(VERSIONS_DATA_NAME);
 
       // Add in or update this new version data in the versions file.
-      const idx = versionsJson.versions.findIndex(vers => vers.archivePath === newVersionData.archivePath
-                                                       && vers.versionName === newVersionData.versionName);
+      const idx = versionsJson.versions.findIndex(vers => vers.versionName === newVersionData.versionName);
       if (idx === -1) {
         versionsJson.versions.push(newVersionData);
       } else {
@@ -1615,7 +1612,6 @@ class Site {
    * @param {Array} versionFolders is the directory the versions are within
    */
   async addVersions(versionFolders) {
-    console.log(versionFolders);
     const versionFoldersArray = versionFolders.map(f => f.archivePath);
     try {
       versionFoldersArray.map(async (versionFolder) => {

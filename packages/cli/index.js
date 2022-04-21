@@ -327,13 +327,13 @@ program
     if (!versionName) {
       logger.error('Please specify a name for the archived version.');
     }
-    const archivePath = userSpecifiedArchivePath || 'version';
+    const archivePath = userSpecifiedArchivePath || `version/${versionName}`;
     const rootFolder = path.resolve(process.cwd());
-    const outputFolder = path.join(rootFolder, archivePath, versionName);
+    const outputFolder = path.join(rootFolder, archivePath);
     new Site(rootFolder, outputFolder, undefined, undefined, options.siteConfig)
       .archive(versionName, archivePath)
       .then(() => {
-        logger.info(`Successfully archived ${versionName} at ${archivePath}/${versionName}`);
+        logger.info(`Successfully archived ${versionName} at ${archivePath}`);
       })
       .catch(handleError);
   });
