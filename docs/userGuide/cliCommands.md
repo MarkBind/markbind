@@ -119,13 +119,16 @@ The caveat is that not building all pages during the initial process, or not reb
    Force live reload to process all files in the site, instead of just the relevant files. This option is useful when you are modifying a file that is not a file type monitored by the <trigger trigger="click" for="modal:cliCommands-livePreview">live preview</trigger> feature.
 
 * `-p <port>`, `--port <port>`<br>
-    Serve the website in the specified port.
+  Serve the website in the specified port.
 
+* `-v [versionNames...]`, `--versions [versionNames...]` <br>
+  Specify version names to be deployed, separated by spaces. If the flag is used without specification, deploy all versions saved.
 
 {{ icon_examples }}
 * `markbind serve`
 * `markbind serve ./myWebsite`
 * `markbind serve -p 8888 -s otherSite.json`
+* `markbind serve -n -v` : Serve the site without opening a live preview in the browser, with all saved versions deployed
 
 </panel>
 
@@ -161,10 +164,14 @@ The caveat is that not building all pages during the initial process, or not reb
   Specify the site config file (default: `site.json`)<br>
   {{ icon_example }} `-s otherSite.json`
 
+* `-v [versionNames...]`, `--versions [versionNames...]` <br>
+  Specify version names to be deployed, separated by spaces. If the flag is used without specification, deploy all versions saved.
+
 **{{ icon_examples }}**
 * `markbind build`
 * `markbind build ./myWebsite ./myOutDir`
 * `markbind build ./stagingDir --baseUrl staging`
+* `markbind build -v v2.1.1` : Build the site and also deploy the version named 'v2.1.1'
 
 </panel>
 
@@ -210,8 +217,8 @@ Warning: If the folder at `<archivePath>/<versionName>` already exists, the cont
 
 **{{ icon_examples }}**
 
-* `markbind archive v1`: Stores the site in the directory `version/v1` (from the root)
-* `markbind archive version_1 custom_archive_path`: Stores the site in the directory `./custom_archive_path/version_1`
+* `markbind archive v1`: Stores the site in the directory `./version/v1`
+* `markbind archive version_1 custom_archive_path`: Stores the site in the directory `./custom_archive_path`
 
 %%{{ icon_info }} Related: [User Guide: Site Versioning](versioning.md).%%
 
@@ -252,5 +259,6 @@ Warning: If the folder at `<archivePath>/<versionName>` already exists, the cont
 **Description:** Prints a summary of MarkBind commands or a detailed usage guide for the given `command`.
 
 {{ icon_examples }}
+
 * `markbind --help` : Prints a summary of MarkBind commands.
 * `markbind serve --help` : Prints a detailed usage guide for the `serve` command.

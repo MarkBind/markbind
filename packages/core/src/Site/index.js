@@ -663,7 +663,6 @@ class Site {
 
       // Also build requested versions
       this.versionData = await this.readVersionData();
-      console.log(versionsToGenerate);
       if (versionsToGenerate === true) {
         await this.addVersions(this.versionData.versions);
       } else if (versionsToGenerate === false) {

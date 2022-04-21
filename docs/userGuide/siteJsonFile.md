@@ -72,7 +72,8 @@ Here is a typical `site.json` file:
   "headingIndexingLevel": 4,
   "intrasiteLinkValidation": {
     "enabled": false
-  }
+  },
+  "versions" : ["v1"]
 }
 ```
 
@@ -268,3 +269,9 @@ To disable this validation **entirely**, you may add the following to `site.json
   ```
 
 </div>
+
+#### **`versions`**
+
+**A list of version names to deploy by default when building and serving the site**. If this list is not present, by default no versions will be deployed. (You can override these settings by passing the `--versions` flag to build and serve -- see the [MarkBind CLI page](cliCommands.md) for more.)
+
+The version names to specify should be the same ones as in `versions.json`. Refer to the [Site Versioning](versioning.md) for more details.
