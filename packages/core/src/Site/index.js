@@ -659,7 +659,9 @@ class Site {
     try {
       await this.readSiteConfig(baseUrl);
       await this.buildSiteHelper();
-
+      this.versionData = await this.readVersionData();
+      console.log('got to this.versionData');
+      await this.addVersions(this.versionData.versions);
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
       if (this.backgroundBuildMode) {
         this.backgroundBuildNotViewedFiles();
@@ -1537,16 +1539,37 @@ class Site {
 
     // find versioned subsites, recursively ignore all version directories inside that
     const pathToDirWithVersion = path.join(this.rootPath, pathToVersionFromRootDir);
+
     // do not transfer the versions file into the archived site
     this.siteConfig.ignore.push(path.join(pathToVersionFromRootDir, VERSIONS_DATA_NAME));
 
     const pathsToVersionFiles
      = walkSync(pathToDirWithVersion, { directories: false, ignore: this.siteConfig.ignore })
        .filter(x => x.endsWith(VERSIONS_DATA_NAME))
-       .map(x => path.relative(pathToDirWithVersion, x))
+       .map(x => path.relative(pathToDirWithVersion, x)) // assumes versions files are in the 'root' of site
        .map(x => path.dirname(x));
 
     pathsToVersionFiles.forEach(p => this.ignoreVersionFiles(p));
+  }
+
+  /**
+   * Reads version data from the version file.
+   *
+   * @param {string} versionDataFile, default is VERSIONS_DATA_NAME at the root
+   * @returns a json object
+   */
+  async readVersionData(versionDataFile = VERSIONS_DATA_NAME) {
+    const versionsPath = path.join(this.rootPath, versionDataFile);
+    try {
+      if (!fs.pathExistsSync(versionsPath)) {
+        // Initialize the versions.json file.
+        fs.outputJSONSync(versionsPath, { versions: [] }, { spaces: 2 });
+      }
+      return fs.readJSON(versionsPath);
+    } catch (error) {
+      await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+      return null;
+    }
   }
 
   /**
@@ -1557,7 +1580,6 @@ class Site {
    * @returns Returns the json object of the current versions data.
    */
   async writeVersionsFile(versionName, archivePath, verbose = true) {
-    const versionsPath = path.join(this.rootPath, VERSIONS_DATA_NAME);
     const newVersionData = {
       versionName,
       buildVer: MARKBIND_VERSION,
@@ -1566,14 +1588,9 @@ class Site {
     };
 
     try {
-      if (!fs.pathExistsSync(versionsPath)) {
-        // Initialize the versions.json file.
-        fs.outputJSONSync(versionsPath, { versions: [] }, { spaces: 2 });
-      }
-      const versionsJson = fs.readJSONSync(versionsPath);
+      const versionsJson = await this.readVersionData(VERSIONS_DATA_NAME);
 
-      // Add in or update this new version in the versions file.
-
+      // Add in or update this new version data in the versions file.
       const idx = versionsJson.versions.findIndex(vers => vers.archivePath === newVersionData.archivePath
                                                        && vers.versionName === newVersionData.versionName);
       if (idx === -1) {
@@ -1581,7 +1598,7 @@ class Site {
       } else {
         versionsJson.versions[idx] = newVersionData;
       }
-      fs.writeJsonSync(versionsPath, versionsJson, { spaces: 2 });
+      fs.writeJsonSync(VERSIONS_DATA_NAME, versionsJson, { spaces: 2 });
       if (verbose) {
         logger.info('versions.json file updated');
       }
@@ -1590,6 +1607,24 @@ class Site {
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
       return null;
+    }
+  }
+
+  /**
+   * Copies over all versioned files from a given folder to be deployed.
+   * @param {Array} versionFolders is the directory the versions are within
+   */
+  async addVersions(versionFolders) {
+    console.log(versionFolders);
+    const versionFoldersArray = versionFolders.map(f => f.archivePath);
+    try {
+      versionFoldersArray.map(async (versionFolder) => {
+        fs.copy(versionFolder, path.join(SITE_FOLDER_NAME, versionFolder));
+      });
+      await Promise.all(versionFoldersArray);
+      logger.info('Pages copied');
+    } catch (error) {
+      await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
   }
 
