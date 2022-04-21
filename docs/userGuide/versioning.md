@@ -32,6 +32,8 @@ Modify versions.json with caution as it may result in unnecessary files being in
 
 * You may safely change the `versionName` of a version, **provided that it is unique** in versions.json. If you have specified versions to deploy in `site.json`, make sure you update the [versions property](siteJsonFile.md#versions) there as well.
 
+* The baseUrl is used when setting the intra-site links; if you later change the baseUrl, previously saved versions with the past baseUrl will not be built/deployed even if specified because it would be a broken implementation.
+
 </box>
 
 ```json {heading="Example of a versions.json file"}
@@ -40,15 +42,24 @@ Modify versions.json with caution as it may result in unnecessary files being in
     {
       "versionName": "v1",
       "buildVer": "3.1.1",
-      "archivePath": "version/v1"
+      "archivePath": "version/v1",
+      "baseUrl": "/previousUrl"
     },
     {
       "versionName": "v2",
       "buildVer": "3.1.1",
-      "archivePath": "version/v2"
+      "archivePath": "version/v2",
+      "baseUrl": "/markbind"
+    },
+    {
+      "versionName": "v3",
+      "buildVer": "3.1.1",
+      "archivePath": "version/v3",
+      "baseUrl": "/markbind"
     }
   ]
 }
+
 ```
 
 <include src="cliCommands.md#archiveWarning" />
