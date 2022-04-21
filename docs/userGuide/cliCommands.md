@@ -204,7 +204,7 @@ Warning: If the folder at `<archivePath>/<versionName>` already exists, the cont
   {{ icon_example }} `v1`, `v1.1.1`, `sem1-2022`
 
 * `[archivePath]`<br>
-  All archived versions are stored in the folder `<archivePath>/<versionName>`. The default archivePath is `version` <br>
+  All archived versions are stored in the folder `<archivePath>`. The default archivePath is `version/${versionName}` <br>
   {{ icon_example }} `custom_archive_path`
 
 <panel header="**Options** :fas-cogs:" type="minimal" expanded>
