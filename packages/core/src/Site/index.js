@@ -663,13 +663,15 @@ class Site {
 
       // Also build requested versions
       this.versionData = await this.readVersionData();
+      const desiredVersions = this.versionData.versions
+        .filter(vers => vers.baseUrl === this.siteConfig.baseUrl);
       if (versionsToGenerate === true) {
-        await this.addVersions(this.versionData.versions);
+        await this.addVersions(desiredVersions);
       } else if (versionsToGenerate === false) {
-        await this.addVersions(this.versionData.versions
+        await this.addVersions(desiredVersions
           .filter(vers => this.siteConfig.versions.includes(vers.versionName)));
       } else {
-        await this.addVersions(this.versionData.versions
+        await this.addVersions(desiredVersions
           .filter(vers => versionsToGenerate.includes(vers.versionName)));
       }
 
@@ -1593,7 +1595,7 @@ class Site {
       versionName,
       buildVer: MARKBIND_VERSION,
       archivePath,
-      baseUrl: this.baseUrl,
+      baseUrl: this.siteConfig.baseUrl,
     };
 
     try {

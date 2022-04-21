@@ -264,9 +264,7 @@ program
           serverConfig.open = serverConfig.open && `${config.baseUrl}/`;
         }
 
-        console.log(options.dev);
-        console.log(options.versions);
-        return site.generate('', options.versions);
+        return site.generate(undefined, options.versions);
       })
       .then(() => {
         const watcher = chokidar.watch(rootFolder, {
