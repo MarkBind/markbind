@@ -646,7 +646,7 @@ class Site {
    * @param baseUrl user defined base URL (if exists)
    * @returns {Promise}
    */
-  async generate(baseUrl) {
+  async generate(baseUrl, versionsToGenerate = false) {
     const startTime = new Date();
     // Create the .tmp folder for storing intermediate results.
     fs.emptydirSync(this.tempPath);
@@ -658,9 +658,22 @@ class Site {
 
     try {
       await this.readSiteConfig(baseUrl);
+      this.ignoreVersionFiles('');
       await this.buildSiteHelper();
+
+      // Also build requested versions
       this.versionData = await this.readVersionData();
-      await this.addVersions(this.versionData.versions);
+      console.log(versionsToGenerate);
+      if (versionsToGenerate === true) {
+        await this.addVersions(this.versionData.versions);
+      } else if (versionsToGenerate === false) {
+        await this.addVersions(this.versionData.versions
+          .filter(vers => this.siteConfig.versions.includes(vers.versionName)));
+      } else {
+        await this.addVersions(this.versionData.versions
+          .filter(vers => versionsToGenerate.includes(vers.versionName)));
+      }
+
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
       if (this.backgroundBuildMode) {
         this.backgroundBuildNotViewedFiles();
@@ -1515,7 +1528,6 @@ class Site {
   }
 
   /**
-   * Helper function for archive.
    * Checks the version files of site + subsites and sets them to be ignored in the site config.
    *
    * @returns {*}
@@ -1535,10 +1547,10 @@ class Site {
       });
     }
 
-    // find versioned subsites, recursively ignore all version directories inside that
+    // Find versioned subsites, recursively ignore all version directories inside that
     const pathToDirWithVersion = path.join(this.rootPath, pathToVersionFromRootDir);
 
-    // do not transfer the versions file into the archived site
+    // Do not transfer the versions file into the archived site
     this.siteConfig.ignore.push(path.join(pathToVersionFromRootDir, VERSIONS_DATA_NAME));
 
     const pathsToVersionFiles

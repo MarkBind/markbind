@@ -98,6 +98,8 @@ program
   .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
   .option('-d, --dev', 'development mode, enabling live & hot reload for frontend source files.')
+  .option('-v, --versions [versionNames...]',
+          'specify versions to be deployed. if flag is used without specification, deploy all versions')
   .action((userSpecifiedRoot, options) => {
     if (options.dev) {
       logger.useDebugConsole();
@@ -262,7 +264,9 @@ program
           serverConfig.open = serverConfig.open && `${config.baseUrl}/`;
         }
 
-        return site.generate();
+        console.log(options.dev);
+        console.log(options.versions);
+        return site.generate('', options.versions);
       })
       .then(() => {
         const watcher = chokidar.watch(rootFolder, {
@@ -298,6 +302,8 @@ program
   .option('--baseUrl [baseUrl]',
           'optional flag which overrides baseUrl in site.json, leave argument empty for empty baseUrl')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
+  .option('-v, --versions [versionNames...]',
+          'specify versions to be deployed. if flag is used without specification, deploy all versions')
   .description('build a website')
   .action((userSpecifiedRoot, output, options) => {
     // if --baseUrl contains no arguments (options.baseUrl === true) then set baseUrl to empty string
@@ -311,7 +317,7 @@ program
     const defaultOutputRoot = path.join(rootFolder, '_site');
     const outputFolder = output ? path.resolve(process.cwd(), output) : defaultOutputRoot;
     new Site(rootFolder, outputFolder, undefined, undefined, options.siteConfig)
-      .generate(baseUrl)
+      .generate(baseUrl, options.versions)
       .then(() => {
         logger.info('Build success!');
       })
