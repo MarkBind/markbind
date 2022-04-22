@@ -1,5 +1,5 @@
-const isError = require('lodash/isError');
-const winston = require('winston');
+const isError = require("lodash/isError");
+import winston from "winston";
 
 let progressBar;
 
@@ -11,11 +11,11 @@ const removeProgressBar = () => {
   progressBar = null;
 };
 
-const consoleTransport = new (winston.transports.Console)({
+const consoleTransport = new winston.transports.Console({
   colorize: true,
   handleExceptions: true,
   humanReadableUnhandledException: true,
-  level: 'debug',
+  level: "debug",
   showLevel: true,
   format: winston.format.cli(),
 });
@@ -29,9 +29,9 @@ winston.configure({
 // https://github.com/winstonjs/winston/issues/1498#issuecomment-433680788
 winston.error = (err) => {
   if (isError(err)) {
-    winston.log({ level: 'error', message: `${err.stack || err}` });
+    winston.log({ level: "error", message: `${err.stack || err}` });
   } else {
-    winston.log({ level: 'error', message: err });
+    winston.log({ level: "error", message: err });
   }
 };
 
