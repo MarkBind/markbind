@@ -1144,7 +1144,7 @@ class Site {
         progressBar.tick();
       } catch (err) {
         logger.error(err);
-        throw new Error(`Error while generating ${page.sourcePath}`);
+        throw new Error(`Error while generating ${page.pageConfig.sourcePath}`);
       }
     });
     return isCompleted;
@@ -1189,7 +1189,7 @@ class Site {
           this.generateProgressBarStatus(progressBar, context, pageGenerationQueue, resolve);
         } catch (err) {
           logger.error(err);
-          reject(new Error(`Error while generating ${page.sourcePath}`));
+          reject(new Error(`Error while generating ${page.pageConfig.sourcePath}`));
         }
       });
 
