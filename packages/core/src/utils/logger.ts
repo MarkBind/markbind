@@ -1,12 +1,10 @@
-const isError = require("lodash/isError");
-import winston from "winston";
+import winston from 'winston';
 
-let progressBar;
+let progressBar: any;
 
-const setProgressBar = (bar) => {
+const setProgressBar = (bar: any) => {
   progressBar = bar;
 };
-
 const removeProgressBar = () => {
   progressBar = null;
 };
@@ -15,9 +13,8 @@ const consoleTransport = new winston.transports.Console({
   colorize: true,
   handleExceptions: true,
   humanReadableUnhandledException: true,
-  level: "debug",
+  level: 'debug',
   showLevel: true,
-  format: winston.format.cli(),
 });
 
 winston.configure({
@@ -25,18 +22,8 @@ winston.configure({
   transports: [consoleTransport],
 });
 
-// patch inability to print stack trace
-// https://github.com/winstonjs/winston/issues/1498#issuecomment-433680788
-winston.error = (err) => {
-  if (isError(err)) {
-    winston.log({ level: "error", message: `${err.stack || err}` });
-  } else {
-    winston.log({ level: "error", message: err });
-  }
-};
-
 // create a wrapper for error messages
-const errorWrap = (input) => {
+const errorWrap = (input: any) => {
   if (progressBar) {
     progressBar.interruptBegin();
     winston.error(input);
@@ -47,7 +34,7 @@ const errorWrap = (input) => {
 };
 
 // create a wrapper for warning messages
-const warnWarp = (input) => {
+const warnWarp = (input: any) => {
   if (progressBar) {
     progressBar.interruptBegin();
     winston.warn(input);
@@ -57,12 +44,26 @@ const warnWarp = (input) => {
   }
 };
 
-module.exports = {
-  error: errorWrap,
-  warn: warnWarp,
-  info: winston.info,
-  verbose: winston.verbose,
-  debug: winston.debug,
+// create a wrapper for info messages
+const infoWarp = (input: any) => {
+  if (progressBar) {
+    progressBar.interruptBegin();
+    winston.info(input);
+    progressBar.interruptEnd();
+  } else {
+    winston.info(input);
+  }
+};
+
+const { debug } = winston;
+const { verbose } = winston;
+
+export {
+  errorWrap as error,
+  warnWarp as warn,
+  infoWarp as info,
+  verbose,
+  debug,
   setProgressBar,
   removeProgressBar,
 };
