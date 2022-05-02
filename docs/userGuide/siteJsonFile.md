@@ -272,6 +272,12 @@ To disable this validation **entirely**, you may add the following to `site.json
 
 #### **`versions`**
 
-**A list of version names to deploy by default when building and serving the site**. If this list is not present, by default no versions will be deployed. (You can override these settings by passing the `--versions` flag to build and serve -- see the [MarkBind CLI page](cliCommands.md) for more.)
+**A list of version names to deploy by default when building and serving the site**. If this list is not present, by default no versions will be deployed. (You can override these settings by passing the `--versions` flag to build and serve – see the [MarkBind CLI page](cliCommands.md) for more.)
 
 The version names to specify should be the same ones as in `versions.json`. Refer to the [Site Versioning](versioning.md) for more details.
+
+  ```js
+  ...
+  "versions": ["v1.1.2"] // build/deploy just v1.1.2 by default
+  ...
+  ```

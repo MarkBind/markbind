@@ -122,7 +122,7 @@ The caveat is that not building all pages during the initial process, or not reb
   Serve the website in the specified port.
 
 * `-v [versionNames...]`, `--versions [versionNames...]` <br>
-  Specify version names to be deployed, separated by spaces. If the flag is used without specification, deploy all versions saved.
+  Specify version names to be deployed, separated by spaces. If the flag is used without specification, deploy all versions saved. Using this flag overrides the setttings in [site.json](siteJsonFile.md).
 
 {{ icon_examples }}
 * `markbind serve`
@@ -165,7 +165,7 @@ The caveat is that not building all pages during the initial process, or not reb
   {{ icon_example }} `-s otherSite.json`
 
 * `-v [versionNames...]`, `--versions [versionNames...]` <br>
-  Specify version names to be deployed, separated by spaces. If the flag is used without specification, deploy all versions saved.
+  Specify version names to be deployed, separated by spaces. If the flag is used without specification, deploy all versions saved. Using this flag overrides the setttings in [site.json](siteJsonFile.md).
 
 **{{ icon_examples }}**
 * `markbind build`

@@ -659,7 +659,6 @@ class Site {
     try {
       await this.readSiteConfig(baseUrl);
       this.ignoreVersionFiles('');
-      await this.buildSiteHelper();
 
       // Also build requested versions
       this.versionData = await this.readVersionData();
@@ -674,6 +673,8 @@ class Site {
         await this.addVersions(desiredVersions
           .filter(vers => versionsToGenerate.includes(vers.versionName)));
       }
+
+      await this.buildSiteHelper();
 
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
       if (this.backgroundBuildMode) {
@@ -1631,7 +1632,7 @@ class Site {
         fs.copy(versionFolder, path.join(SITE_FOLDER_NAME, versionFolder));
       });
       await Promise.all(versionFoldersArray);
-      logger.info('Pages copied');
+      logger.info('Versioned site(s) copied');
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
