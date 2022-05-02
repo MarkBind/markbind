@@ -243,7 +243,7 @@ export default {
     }
 
     .card-title * {
-        margin: 0 !important;
+        margin-bottom: 0 !important;
     }
 
     .caret-wrapper {
