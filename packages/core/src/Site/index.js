@@ -571,6 +571,7 @@ class Site {
       variableProcessor: this.variableProcessor,
       intrasiteLinkValidation: this.siteConfig.intrasiteLinkValidation,
       codeLineNumbers: this.siteConfig.style.codeLineNumbers,
+      plantumlCheck: this.siteConfig.plantumlCheck,
     };
     this.siteLinkManager = new SiteLinkManager(config);
     config.siteLinkManager = this.siteLinkManager;
@@ -950,7 +951,8 @@ class Site {
         || !_.isEqual(oldSiteConfig.enableSearch, this.siteConfig.enableSearch)
         || !_.isEqual(oldSiteConfig.timeZone, this.siteConfig.timeZone)
         || !_.isEqual(oldSiteConfig.locale, this.siteConfig.locale)
-        || !_.isEqual(oldSiteConfig.intrasiteLinkValidation, this.siteConfig.intrasiteLinkValidation);
+      || !_.isEqual(oldSiteConfig.intrasiteLinkValidation, this.siteConfig.intrasiteLinkValidation)
+      || !_.isEqual(oldSiteConfig.plantumlCheck, this.siteConfig.plantumlCheck);
 
     if (isGlobalConfigModified() || !_.isEmpty(addedPages) || !_.isEmpty(removedPages)) {
       await this.removeAsset(removedPages);

@@ -8,6 +8,11 @@ You can use the [PlantUML](http://plantuml.com/) syntax to add diagrams.
 
 * Java 8 or later (required - to run the PlantUML JAR executable)
 * [Graphviz](https://www.graphviz.org/download/) v2.38 or later (optional - you don't need this if you only need [sequence diagrams](https://plantuml.com/sequence-diagram) and [activity (beta) diagrams](https://plantuml.com/activity-diagram-beta))
+  * A warning will be displayed if you don't have Graphviz installed. To disable this warning, you may modify your `site.json` like <trigger for="pop:prerequisite-disable" placement="bottom" trigger="click">this</trigger>.
+
+<modal header="Disabling PlantUML's prerequisite check in `site.json`" id="pop:prerequisite-disable" backdrop>
+  <include src="{{ baseUrl }}/userGuide/siteJsonFile.md#plantuml-check"/>
+</modal>
 
 <panel header="Example: Installing the above dependencies in GitHub Actions" minimized>
 The following steps can be <tooltip content="Before the build step">added</tooltip> in your workflow file to install Graphviz and Java in Ubuntu.
