@@ -43,7 +43,7 @@ Here is a typical `site.json` file:
       "layout": "subtopic"
     }
   ],
-  "pagesExclude": ["subsite/**/*.md"],
+  "pagesExclude": ["subsite/**/*.md", "node_modules/*"],
   "externalScripts": [
     "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
   ],
@@ -59,7 +59,8 @@ Here is a typical `site.json` file:
     "_site/*",
     "*.json",
     "*.md",
-    ".git/*"
+    ".git/*",
+    "node_modules/*"
   ],
   "plugins" : [
     "filterTags"
