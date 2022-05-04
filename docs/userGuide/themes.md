@@ -15,7 +15,7 @@
 
 <div class="lead" id="overview">
 
-**MarkBind supports the ability to style your website with a variety of bootstrap themes.**
+**MarkBind supports the ability to style your website with a variety of Bootstrap themes.**
 
 </div>
 
@@ -55,7 +55,8 @@ Currently, MarkBind supports all light themes from [Bootswatch](https://bootswat
   'sketchy',
   'spacelab',
   'united',
-  'yeti'
+  'yeti',
+  'zephyr'
 ] %}
 
 <div class="container-fluid">

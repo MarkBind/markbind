@@ -1,4 +1,4 @@
-const Promise = require('bluebird');
+import Promise from 'bluebird';
 
 /**
 * Creates a function that delays invoking `func` until after `wait` milliseconds have elapsed
@@ -8,13 +8,13 @@ const Promise = require('bluebird');
 * @param wait the number of milliseconds to delay
 * @returns delayedFunc that takes in a single argument (either an array or a single value)
 */
-function delay(func, wait) {
-  let context;
-  let pendingArgs = [];
-  let runningPromise = Promise.resolve();
-  let waitingPromise = null;
+export function delay<T>(func: (arg: T[]) => Promise<unknown>, wait: number) {
+  let context: any;
+  let pendingArgs: T[] = [];
+  let runningPromise: Promise<unknown> = Promise.resolve();
+  let waitingPromise: Promise<unknown> | null = null;
 
-  return function (arg) {
+  return function (this: any, arg: T | T[]) {
     context = this;
     if (Array.isArray(arg)) {
       pendingArgs = pendingArgs.concat(arg);
@@ -36,7 +36,3 @@ function delay(func, wait) {
     return waitingPromise;
   };
 }
-
-module.exports = {
-  delay,
-};

@@ -12,6 +12,7 @@
   "homepage": "https://markbind.org",
   "license": "MIT",
   "main": "index.js",
+  "types": "index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/MarkBind/markbind.git",
@@ -21,6 +22,8 @@
     "access": "public"
   },
   "scripts": {
+    "build": "tsc --build --verbose",
+    "prepare": "npm run build",
     "test": "jest --colors"
   },
   "dependencies": {
@@ -29,7 +32,7 @@
     "@primer/octicons": "^15.0.1",
     "@sindresorhus/slugify": "^0.9.1",
     "bluebird": "^3.7.2",
-    "bootswatch": "^4.4.1",
+    "bootswatch": "^5.1.3",
     "cheerio": "^0.22.0",
     "crypto-js": "^4.0.0",
     "csv-parse": "^4.14.2",
@@ -69,7 +72,13 @@
     "winston": "^2.4.4"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.36",
+    "@types/fs-extra": "^9.0.13",
+    "@types/jest": "^27.4.1",
+    "@types/lodash": "^4.14.181",
+    "@types/path-is-inside": "^1.0.0",
     "jest": "^27.5.1",
-    "memfs": "^3.0.1"
+    "memfs": "^3.0.1",
+    "ts-jest": "^27.1.4"
   }
 }

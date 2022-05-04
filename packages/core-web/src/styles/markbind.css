@@ -1,3 +1,7 @@
+a {
+    text-decoration: none;
+}
+
 blockquote {
     border-left: 0.25em solid #dfe2e5;
     color: #6a737d;
@@ -269,6 +273,11 @@ code.wrap {
 }
 
 /* styles for <hr> */
+hr {
+    border-top: solid 1px rgb(0, 0, 0, 0.1);
+    background-color: transparent;
+    opacity: 1;
+}
 
 hr.dotted {
     border-top-width: 0.1rem;

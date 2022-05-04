@@ -1,8 +1,5 @@
-const path = require('path');
-const pathIsInside = require('path-is-inside');
-
-const _ = {};
-_.pick = require('lodash/pick');
+import path from 'path';
+import pathIsInside from 'path-is-inside';
 
 const {
   BOILERPLATE_FOLDER_NAME,
@@ -16,7 +13,7 @@ const {
  * @return String The immediate parent site's absolute path.
  * @throws If a non-absolute path or path outside the root is given
  */
-function getParentSiteAbsolutePath(filePath, root, lookUp) {
+function getParentSiteAbsolutePath(filePath: string, root: string, lookUp: Set<string>) {
   if (!path.isAbsolute(filePath)) {
     throw new Error(`Non-absolute path given to getParentSiteAbsolutePath: '${filePath}'`);
   }
@@ -24,7 +21,7 @@ function getParentSiteAbsolutePath(filePath, root, lookUp) {
     throw new Error(`Path given '${filePath}' is not in root '${root}'`);
   }
 
-  function calculate(file) {
+  function calculate(file: string): string {
     if (file === root) {
       return file;
     }
@@ -41,7 +38,7 @@ function getParentSiteAbsolutePath(filePath, root, lookUp) {
 /**
  * Calculates the absolute and relative path of of the immediate parent site of the specified filePath.
  */
-function getParentSiteAbsoluteAndRelativePaths(filePath, root, lookUp) {
+function getParentSiteAbsoluteAndRelativePaths(filePath: string, root: string, lookUp: Set<string>) {
   const absolute = getParentSiteAbsolutePath(filePath, root, lookUp);
   return {
     absolute,
@@ -53,23 +50,25 @@ function getParentSiteAbsoluteAndRelativePaths(filePath, root, lookUp) {
  * Calculates a boilerplate's source file path at the immediate parent site of
  * the supplied file path.
  */
-function calculateBoilerplateFilePath(pathInBoilerplates, asIfAt, config) {
+function calculateBoilerplateFilePath(
+  pathInBoilerplates: string, asIfAt: string, config: Record<string, any>,
+) {
   return path.resolve(getParentSiteAbsolutePath(asIfAt, config.rootPath, config.baseUrlMap),
                       BOILERPLATE_FOLDER_NAME, pathInBoilerplates);
 }
 
 const isUrlRegex = new RegExp('^(?:[a-z]+:)?//', 'i');
-function isUrl(unknownPath) {
+function isUrl(unknownPath: string) {
   return isUrlRegex.test(unknownPath);
 }
 
-function stripBaseUrl(src, baseUrl) {
+function stripBaseUrl(src: string, baseUrl: string) {
   return src.startsWith(baseUrl)
     ? src.substring(baseUrl.length)
     : src;
 }
 
-module.exports = {
+export {
   getParentSiteAbsolutePath,
   getParentSiteAbsoluteAndRelativePaths,
   calculateBoilerplateFilePath,
