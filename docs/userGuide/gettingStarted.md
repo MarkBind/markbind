@@ -74,7 +74,7 @@ Navigate to the project {{ tooltip_root_directory }}.
 Run the following command in the same directory. It will generate a website from your source files, start a web server, and open a <trigger trigger="click" for="modal:quickStart-livePreview">live preview</trigger> of your site in your default Browser.
 
 <modal large header="Live Preview" id="modal:quickStart-livePreview">
-<include src="glossary.md#live-preview" inline/>
+<include src="glossary.md#live-preview"/>
 </modal>
 
 ```
