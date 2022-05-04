@@ -951,8 +951,8 @@ class Site {
         || !_.isEqual(oldSiteConfig.enableSearch, this.siteConfig.enableSearch)
         || !_.isEqual(oldSiteConfig.timeZone, this.siteConfig.timeZone)
         || !_.isEqual(oldSiteConfig.locale, this.siteConfig.locale)
-      || !_.isEqual(oldSiteConfig.intrasiteLinkValidation, this.siteConfig.intrasiteLinkValidation)
-      || !_.isEqual(oldSiteConfig.plantumlCheck, this.siteConfig.plantumlCheck);
+        || !_.isEqual(oldSiteConfig.intrasiteLinkValidation, this.siteConfig.intrasiteLinkValidation)
+        || !_.isEqual(oldSiteConfig.plantumlCheck, this.siteConfig.plantumlCheck);
 
     if (isGlobalConfigModified() || !_.isEmpty(addedPages) || !_.isEmpty(removedPages)) {
       await this.removeAsset(removedPages);

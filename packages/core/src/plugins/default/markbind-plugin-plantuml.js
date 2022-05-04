@@ -94,9 +94,8 @@ module.exports = {
       return;
     }
     if (config.plantumlCheck && !graphvizCheckCompleted) {
-      exec('dot -V', (error, stdout, stderr) => {
-        if (!stderr.includes('dot - graphviz version')) {
-          logger.debug(stderr);
+      exec(`java -jar "${JAR_PATH}" -testdot`, (error, stdout, stderr) => {
+        if (stderr.includes('Error: No dot executable found')) {
           logger.warn('You are using PlantUML diagrams but Graphviz is not installed!');
         }
       });
