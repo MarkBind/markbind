@@ -1,25 +1,27 @@
 {
-    "baseUrl": "",
-    "titlePrefix": "",
-    "ignore": [
-      "_markbind/layouts/*",
-      "_markbind/logs/*",
-      "_site/*",
-      "site.json",
-      "*.md",
-      "*.njk",
-      ".git/*"
-    ],
-    "pages": [
-      {
-        "src": "index.md",
-        "title": "Hello World"
-      },
-      {
-        "glob": ["**/index.md", "**/*.md"]
-      }
-    ],
-    "deploy": {
-      "message": "Site Update."
+  "baseUrl": "",
+  "titlePrefix": "",
+  "ignore": [
+    "_markbind/layouts/*",
+    "_markbind/logs/*",
+    "_site/*",
+    "site.json",
+    "*.md",
+    "*.njk",
+    ".git/*",
+    "node_modules/*"
+  ],
+  "pagesExclude": ["node_modules/*"],
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "Hello World"
+    },
+    {
+      "glob": ["**/index.md", "**/*.md"]
     }
+  ],
+  "deploy": {
+    "message": "Site Update."
+  }
 }
