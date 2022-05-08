@@ -18,6 +18,29 @@
   %%{{ icon_ticked }}%% [Node.js](https://nodejs.org) {{ node_version }} or higher installed
 </div>
 
+<box type="tip" header="##### Quick Start :rocket:" >
+
+Initialize a MarkBind site:
+
+```{.line-numbers}
+npx markbind-cli init mySite
+```
+
+Preview the site:
+
+```{.line-numbers}
+cd mySite
+npx markbind-cli serve
+```
+
+See usage information:
+
+```{.line-numbers}
+npx markbind-cli --help
+```
+
+</box>
+
 ++**1. Install MarkBind**++
 
 Run the following command to install MarkBind.
@@ -35,9 +58,67 @@ $ markbind
  | |  | | | (_| | | |    |   <  | |_) | | | | | | | | (_| |
  |_|  |_|  \__,_| |_|    |_|\_\ |____/  |_| |_| |_|  \__,_|
 
- v2.x.y
+ v3.x.y
 Usage: ...
 ```
+
+<panel header="Alternative installation: as a local dev-dependency with `package.json`">
+
+++**1. Initialize a `package.json` file**++
+
+:glyphicon-hand-right: _If you already have a `package.json` file, skip to the next step._
+
+To initialize a npm project in your current working directory, run the following command.
+
+```
+$ npm init
+```
+You will need to answer the prompts to create a `package.json` file.
+
+<box type="tip" light>
+
+To get a default `package.json` file, run the following command.
+
+```
+$ npm init -y
+```
+
+You can always adjust the content of your `package.json` later.
+
+</box>
+
+++**2. Install markbind-cli locally as a dev-dependency**++
+
+```
+$ npm install markbind-cli --save-dev
+```
+
+++**3. Add scripts in the `package.json` file**++
+
+To make the commands available via `npm run`, add the following scripts to your `package.json`.
+
+```json
+"scripts": {
+  "init": "markbind init",
+  "build": "markbind build",
+  "serve": "markbind serve",
+  "deploy": "markbind deploy"
+}
+```
+
+You are now ready to run MarkBind commands with `npm run xxx` (e.g. `npm run init` for `markbind init`).
+
+* Alternatively, you can use `npx` to run the commands with `npx markbind-cli xxx` (e.g. `npx markbind-cli init` for `markbind init`).
+
+<box type="info" seamless>
+
+If you are using Git to version control your source files, view the [_User Guide: .gitignore File_](gitignoreFile.html) section for more info.
+</box>
+
+</panel>
+
+<br>
+
 ++**2. Initialize a new Project (or Start with an existing Project)**++
 
 <tabs>
