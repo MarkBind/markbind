@@ -12,7 +12,9 @@
 <variable name="icon_ticked">:far-check-square:</variable>
 
 <variable name="node_version_number">14</variable>
+<variable name="node_dev_version_number">14.17.0</variable>
 <variable name="node_version"><tooltip content="MarkBind aims to support up to the last maintenance lts release as outlined [here](https://nodejs.org/en/about/releases/)">v{{ node_version_number }}</tooltip></variable>
+<variable name="node_dev_version"><tooltip content="MarkBind aims to support up to the last maintenance lts release as outlined [here](https://nodejs.org/en/about/releases/)">v{{ node_dev_version_number }}</tooltip></variable>
 <variable name="link_live_preview">[live preview](glossary.html#live-preview)</variable>
 
 <variable name="tooltip_root_directory"><tooltip content="The directory that contains all the project files. It is also the directory in which the `site.json` configuration file is located.">root directory</tooltip></variable>
