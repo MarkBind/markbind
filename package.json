@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "build:backend": "tsc --build --verbose",
+    "build:backend": "npm run clean && tsc --build --verbose",
     "build:web": "cd packages/core-web && npm run build",
     "build:dg": "cd docs && ../packages/cli/index.js build -s dg-site.json",
     "build:ug": "cd docs && ../packages/cli/index.js build -s ug-site.json",
@@ -14,7 +14,7 @@
     "dev": "tsc -p tsconfig_dev.json --watch",
     "lint": "eslint . --ext .js,.ts,.vue && npm run csslint",
     "lintfix": "eslint . --ext .js,.ts,.vue --fix && npm run csslintfix",
-    "setup": "npm ci && lerna clean --yes && lerna bootstrap --hoist",
+    "setup": "npm run clean && npm ci && lerna clean --yes && lerna bootstrap --hoist",
     "test": "npm run lint && lerna run test --stream",
     "updatetest": "lerna run updatetest --stream"
   },
