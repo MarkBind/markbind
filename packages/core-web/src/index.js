@@ -21,12 +21,6 @@ function scrollToUrlAnchorHeading() {
   }
 }
 
-function insertCss(cssCode) {
-  const newNode = document.createElement('style');
-  newNode.innerHTML = cssCode;
-  document.getElementsByTagName('head')[0].appendChild(newNode);
-}
-
 function detectAndApplyFixedHeaderStyles() {
   jQuery(':header').each((index, heading) => {
     if (heading.id) {
@@ -40,45 +34,9 @@ function detectAndApplyFixedHeaderStyles() {
     return;
   }
 
-  const headerHeight = headerSelector.height();
-  const bufferHeight = 1;
-  insertCss(`.fixed-header-padding { padding-top: ${headerHeight}px !important; }`);
-  insertCss(
-    `span.anchor {
-    position: relative;
-    top: calc(-${headerHeight}px - ${bufferHeight}rem);
-    }`,
-  );
-  insertCss(`.nav-menu-open { max-height: calc(100% - ${headerHeight}px); }`);
-
-  const adjustHeaderClasses = () => {
+  const updateHeaderHeight = () => {
     const newHeaderHeight = headerSelector.height();
-    const sheets = document.styleSheets;
-
-    for (let i = 0; i < sheets.length; i += 1) {
-      try {
-        const rules = sheets[i].cssRules;
-        // eslint-disable-next-line lodash/prefer-get
-        if (rules && rules[0] && rules[0].selectorText) {
-          switch (rules[0].selectorText) {
-          case '.fixed-header-padding':
-            sheets[i].deleteRule(0);
-            sheets[i].insertRule(`.fixed-header-padding { padding-top: ${newHeaderHeight}px !important; }`);
-            break;
-          case 'span.anchor':
-            rules[0].style.top = `calc(-${newHeaderHeight}px - ${bufferHeight}rem)`;
-            break;
-          case '.nav-menu-open':
-            rules[0].style.maxHeight = `calc(100% - ${newHeaderHeight}px + 50px)`;
-            break;
-          default:
-            break;
-          }
-        }
-      } catch (e) {
-        // cssRules is not accessible for this stylesheet due to CORS, continue to the next stylesheet
-      }
-    }
+    document.documentElement.style.setProperty('--header-height', `${newHeaderHeight}px`);
   };
 
   const toggleHeaderOverflow = () => {
@@ -87,7 +45,7 @@ function detectAndApplyFixedHeaderStyles() {
     // in the header such as search dropdown etc. to overflow
     if (headerMaxHeight === '100%') {
       headerSelector.css('overflow', '');
-      adjustHeaderClasses();
+      updateHeaderHeight();
     }
   };
 
@@ -130,7 +88,7 @@ function detectAndApplyFixedHeaderStyles() {
       headerSelector.css('overflow', 'hidden');
       return;
     }
-    adjustHeaderClasses();
+    updateHeaderHeight();
   });
   resizeObserver.observe(headerSelector[0]);
   headerSelector[0].addEventListener('transitionend', toggleHeaderOverflow);
