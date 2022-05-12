@@ -1,5 +1,7 @@
 :root {
     --header-height: 0;
+    --header-padding: 0;
+    --header-position: 'static';
 }
 
 a {
@@ -127,15 +129,16 @@ code.hljs.inline {
 
 /* Header */
 
-header[fixed] {
+header[sticky] {
+    position: var(--header-position);
+    top: 0;
     max-height: 100%;
-    position: fixed;
     transition: max-height 0.6s ease-in;
     width: 100%;
     z-index: 1001;
 }
 
-header[fixed].hide-header {
+header[sticky].hide-header {
     max-height: 0;
     transition: max-height 0.6s ease-out;
 }
@@ -145,12 +148,18 @@ span.anchor {
     top: calc(-1 * var(--header-height) - 1rem);
 }
 
-header[fixed] .nav-menu-open {
+header[sticky] .nav-menu-open {
     max-height: calc(-1 * var(--header-height) + 100% + 50px);
 }
 
-.fixed-header-padding {
-    padding-top: var(--header-height) !important;
+/*
+  Prevent sudden quick movement of page content with the dynamically sticky header.
+  The padding-top property is set dynamically according to the header height in index.js.
+  (see https://www.w3schools.com/howto/howto_js_sticky_header.asp)
+*/
+.sticky-header-padding {
+    padding-top: var(--header-padding) !important;
+    transition: padding-top 0s linear !important;
 }
 
 /* #app is treated as the main container */

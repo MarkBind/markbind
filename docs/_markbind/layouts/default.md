@@ -1,7 +1,7 @@
 <include src="headers/header.md" />
 
 <div id="flex-body">
-  <div id="content-wrapper" class="fixed-header-padding">
+  <div id="content-wrapper" class="sticky-header-padding">
     {{ content }}
   </div>
 </div>

@@ -1,7 +1,7 @@
 <include src="headers/header.md" />
 
 <div id="flex-body">
-  <nav id="site-nav" class="fixed-header-padding">
+  <nav id="site-nav" class="sticky-header-padding">
     <div class="site-nav-top">
       <div class="fw-bold mb-2" style="font-size: 1.25rem;">Developer Guide</div>
     </div>
@@ -27,10 +27,10 @@
       </site-nav>
     </div>
   </nav>
-  <div id="content-wrapper" class="fixed-header-padding">
+  <div id="content-wrapper" class="sticky-header-padding">
     {{ content }}
   </div>
-  <nav id="page-nav" class="fixed-header-padding">
+  <nav id="page-nav" class="sticky-header-padding">
     <div class="nav-component slim-scroll">
       <page-nav />
     </div>

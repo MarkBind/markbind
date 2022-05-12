@@ -21,16 +21,16 @@ function scrollToUrlAnchorHeading() {
   }
 }
 
-function detectAndApplyFixedHeaderStyles() {
+function detectAndApplyStickyHeaderStyles() {
   jQuery(':header').each((index, heading) => {
     if (heading.id) {
       jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
     }
   });
 
-  const headerSelector = jQuery('header[fixed]');
-  const isFixed = headerSelector.length !== 0;
-  if (!isFixed) {
+  const headerSelector = jQuery('header[sticky]');
+  const isSticky = headerSelector.length !== 0;
+  if (!isSticky) {
     return;
   }
 
@@ -48,6 +48,31 @@ function detectAndApplyFixedHeaderStyles() {
       updateHeaderHeight();
     }
   };
+
+  /*
+   Handle dynamic sticky header listener to
+   prevent FOUC from sudden quick movement of padding-top application.
+   see https://www.w3schools.com/howto/howto_js_sticky_header.asp
+   */
+  let headerOffsetTop = headerSelector[0].offsetTop;
+  let isFixed = false;
+  const dynamicStickyHeaderListener = () => {
+    if (window.scrollY > headerSelector[0].offsetTop
+      && !isFixed
+    ) {
+      // Keep track of the offset "at the time it becomes sticky"
+      // still a wip
+      headerOffsetTop = headerSelector[0].offsetTop;
+      isFixed = true;
+      document.documentElement.style.setProperty('--header-padding', 'var(--header-height)');
+      document.documentElement.style.setProperty('--header-position', 'fixed');
+    } else if (window.scrollY <= headerOffsetTop) {
+      isFixed = false;
+      document.documentElement.style.setProperty('--header-padding', '0');
+      document.documentElement.style.setProperty('--header-position', 'static');
+    }
+  };
+  window.addEventListener('scroll', dynamicStickyHeaderListener);
 
   let lastOffset = 0;
   let lastHash = window.location.hash;
@@ -125,7 +150,7 @@ function restoreStyleTags() {
 function executeAfterMountedRoutines() {
   restoreStyleTags();
   scrollToUrlAnchorHeading();
-  detectAndApplyFixedHeaderStyles();
+  detectAndApplyStickyHeaderStyles();
 }
 
 window.handleSiteNavClick = function (elem, useAnchor = true) {
