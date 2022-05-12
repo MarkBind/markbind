@@ -1,3 +1,7 @@
+:root {
+    --header-height: 0;
+}
+
 a {
     text-decoration: none;
 }
@@ -124,6 +128,7 @@ code.hljs.inline {
 /* Header */
 
 header[fixed] {
+    top: 0;
     max-height: 100%;
     position: fixed;
     transition: max-height 0.6s ease-in;
@@ -134,6 +139,19 @@ header[fixed] {
 header[fixed].hide-header {
     max-height: 0;
     transition: max-height 0.6s ease-out;
+}
+
+span.anchor {
+    position: relative;
+    top: calc(-1 * var(--header-height) - 1rem);
+}
+
+.nav-menu-open {
+    max-height: calc(-1 * var(--header-height) + 100% + 50px);
+}
+
+.fixed-header-padding {
+    padding-top: var(--header-height) !important;
 }
 
 /* #app is treated as the main container */
