@@ -21,21 +21,25 @@ function scrollToUrlAnchorHeading() {
   }
 }
 
-function detectAndApplyFixedHeaderStyles() {
+function detectAndApplyHeaderStyles() {
   jQuery(':header').each((index, heading) => {
     if (heading.id) {
       jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
     }
   });
 
-  const headerSelector = jQuery('header[fixed]');
-  const isFixed = headerSelector.length !== 0;
-  if (!isFixed) {
+  const fixedSelector = jQuery('header[fixed]');
+  const isFixed = fixedSelector.length !== 0;
+  const stickySelector = jQuery('header[sticky]');
+  const isSticky = stickySelector.length !== 0;
+  const headerSelector = isSticky ? stickySelector : fixedSelector;
+  if (!(isSticky || isFixed)) {
     return;
   }
 
+  let isHidden = false;
   window.addEventListener('resize', () => {
-    if (window.innerWidth > 767 && headerSelector.hasClass('hide-header')) {
+    if (window.innerWidth > 767 && isHidden) {
       headerSelector.removeClass('hide-header');
       headerSelector.css('overflow', '');
     }
@@ -47,23 +51,38 @@ function detectAndApplyFixedHeaderStyles() {
   };
 
   const toggleHeaderOverflow = () => {
-    const headerMaxHeight = headerSelector.css('max-height');
     // reset overflow when header shows again to allow content
     // in the header such as search dropdown etc. to overflow
-    if (headerMaxHeight === '100%') {
+    if (!isHidden) {
       headerSelector.css('overflow', '');
       updateHeaderHeight();
     }
   };
 
+  if (isFixed) {
+    /*
+     Dynamically fixed to avoid FOUC from the --fixed-header-padding style detection.
+     See https://www.w3schools.com/howto/howto_js_sticky_header.asp.
+     */
+    const dynamicFixedHeaderListener = () => {
+      if (window.scrollY > headerSelector[0].offsetTop) {
+        document.documentElement.style.setProperty('--fixed-header-padding', 'var(--header-height)');
+        document.documentElement.style.setProperty('--fixed-header-position', 'fixed');
+        window.removeEventListener('scroll', dynamicFixedHeaderListener);
+      }
+    };
+    window.addEventListener('scroll', dynamicFixedHeaderListener);
+  }
+
   let lastOffset = 0;
   let lastHash = window.location.hash;
   const toggleHeaderOnScroll = () => {
-    // prevent toggling of header on desktop site
-    if (window.innerWidth > 767) { return; }
+    // prevent toggling of header on desktop site with a fixed header
+    if (isFixed && window.innerWidth > 767) { return; }
 
     if (lastHash !== window.location.hash) {
       lastHash = window.location.hash;
+      isHidden = true;
       headerSelector.removeClass('hide-header');
       return;
     }
@@ -81,17 +100,18 @@ function detectAndApplyFixedHeaderStyles() {
         return;
       }
 
+      isHidden = true;
       headerSelector.addClass('hide-header');
     } else {
+      isHidden = false;
       headerSelector.removeClass('hide-header');
     }
     lastOffset = currentOffset;
   };
 
   const resizeObserver = new ResizeObserver(() => {
-    const headerMaxHeight = headerSelector.css('max-height');
     // hide header overflow when user scrolls to support transition effect
-    if (headerMaxHeight !== '100%') {
+    if (isHidden) {
       headerSelector.css('overflow', 'hidden');
       return;
     }
@@ -132,7 +152,7 @@ function restoreStyleTags() {
 function executeAfterMountedRoutines() {
   restoreStyleTags();
   scrollToUrlAnchorHeading();
-  detectAndApplyFixedHeaderStyles();
+  detectAndApplyHeaderStyles();
 }
 
 window.handleSiteNavClick = function (elem, useAnchor = true) {

@@ -1,4 +1,11 @@
-<include src="headers/header.md" />
+{% if isSticky %}
+<div class="w-100 p-1 bg-warning text-center">
+
+**This is a "non-sticky" announcement that does not follow the header as you scroll down!.**
+</div>
+{% endif %}
+
+{% include "_markbind/layouts/headers/header.md" %}
 
 <div id="flex-body">
   <nav id="site-nav" class="fixed-header-padding">

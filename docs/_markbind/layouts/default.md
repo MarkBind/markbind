@@ -1,4 +1,4 @@
-<include src="headers/header.md" />
+{% include "_markbind/layouts/headers/header.md" %}
 
 <div id="flex-body">
   <div id="content-wrapper" class="fixed-header-padding">

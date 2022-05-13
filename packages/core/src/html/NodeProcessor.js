@@ -305,7 +305,7 @@ class NodeProcessor {
       setHeadingId(node, this.config);
     }
 
-    // If a fixed header is applied to the page, generate dummy spans as anchor points
+    // If a header[fixed] or header[sticky] is applied to the page, generate dummy spans as anchor points
     if (isHeadingTag && node.attribs.id) {
       cheerio(node).prepend(`<span id="${node.attribs.id}" class="anchor"></span>`);
     }

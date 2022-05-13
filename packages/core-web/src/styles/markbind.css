@@ -1,5 +1,7 @@
 :root {
     --header-height: 0;
+    --fixed-header-padding: 0;
+    --fixed-header-position: 'static';
 }
 
 a {
@@ -127,17 +129,30 @@ code.hljs.inline {
 
 /* Header */
 
-header[fixed] {
-    max-height: 100%;
-    position: fixed;
-    transition: max-height 0.6s ease-in;
+header[fixed],
+header[sticky] {
+    top: 0;
+    transition: transform 0.3s ease-in-out;
     width: 100%;
     z-index: 1001;
 }
 
-header[fixed].hide-header {
-    max-height: 0;
-    transition: max-height 0.6s ease-out;
+header[fixed].hide-header,
+header[sticky].hide-header {
+    transform: translateY(calc(-1 * var(--header-height)));
+}
+
+header[fixed] {
+    position: var(--fixed-header-position);
+}
+
+.fixed-header-padding {
+    padding-top: var(--fixed-header-padding) !important;
+    transition: padding-top 0s linear !important;
+}
+
+header[sticky] {
+    position: sticky;
 }
 
 span.anchor {
@@ -145,12 +160,8 @@ span.anchor {
     top: calc(-1 * var(--header-height) - 1rem);
 }
 
-header[fixed] .nav-menu-open {
+header[sticky] .nav-menu-open {
     max-height: calc(-1 * var(--header-height) + 100% + 50px);
-}
-
-.fixed-header-padding {
-    padding-top: var(--header-height) !important;
 }
 
 /* #app is treated as the main container */

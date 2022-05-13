@@ -1,4 +1,4 @@
-<include src="headers/header.md" />
+{% include "_markbind/layouts/headers/header.md" %}
 
 <div id="flex-body">
   <nav id="site-nav" class="fixed-header-padding">
