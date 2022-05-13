@@ -49,6 +49,20 @@ function detectAndApplyFixedHeaderStyles() {
     }
   };
 
+  /*
+   Handle dynamically fixed header listener to
+   prevent FOUC from sudden quick movement of padding-top application.
+   see https://www.w3schools.com/howto/howto_js_sticky_header.asp
+   */
+  const dynamicFixedHeaderListener = () => {
+    if (window.scrollY > headerSelector[0].offsetTop) {
+      document.documentElement.style.setProperty('--header-padding', 'var(--header-height)');
+      document.documentElement.style.setProperty('--header-position', 'fixed');
+      window.removeEventListener('scroll', dynamicFixedHeaderListener);
+    }
+  };
+  window.addEventListener('scroll', dynamicFixedHeaderListener);
+
   let lastOffset = 0;
   let lastHash = window.location.hash;
   const toggleHeaderOnScroll = () => {

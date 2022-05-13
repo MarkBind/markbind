@@ -155,11 +155,16 @@ Headers are commonly included inside the html `<header>` tag. In encouraging thi
 ****To fix the `<header>`****
 1. Add the `fixed` attribute to your `<header>` element in the layout per the above example.
 
-2. Then, to add the necessary top padding for the main content, add the `fixed-header-padding` class to **elements that should be shifted down** in accordance with the fixed header.
+2. Then, to add the necessary top padding for the main content, add the `fixed-header-padding` class to **elements that should be shifted down** in accordance with the height of the fixed header.
 
 <box type="tip" seamless>
 
 If you are not sure where to put the `fixed-header-padding` attribute, you may also refer to the default template for `markbind init`, which already has this setup.
+</box>
+
+<box type="warning" header="When `fixed` positioning is applied" seamless>
+
+To detect the height of the fixed header for use in the `fixed-header-padding` class, runtime style detection is required. This results in improperly formatted content on page load for a brief period. To avoid this, the implementation here switches the `<header>` element to use `fixed` positioning, and adjusts the `fixed-header-padding` class's attribute only once the user has scrolled past the top of the header.
 </box>
 
 ---
