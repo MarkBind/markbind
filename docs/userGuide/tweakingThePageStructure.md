@@ -46,8 +46,8 @@ Next, edit the layout file to your liking, and add the `{% raw %}{{ content }}{%
   <link rel="stylesheet" href="{{baseUrl}}/css/main.css">
 </head-bottom>
 
-<!-- Fix the header to the top while scrolling using the fixed attribute in a <header> tag -->
-<header fixed>
+<!-- Create a sticky header using the sticky attribute in a <header> tag -->
+<header sticky>
   <navbar type="dark">
     <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand">
       <img src="{{baseUrl}}/images/logo-darkbackground.svg" height="20">
@@ -70,8 +70,7 @@ Next, edit the layout file to your liking, and add the `{% raw %}{{ content }}{%
 </header>
 
 <div id="flex-body">
-  <!-- Push content downward when using a fixed header with the fixed-header-padding class -->
-  <nav id="site-nav" class="fixed-header-padding">
+  <nav id="site-nav">
     <div class="site-nav-top">
       <div class="fw-bold mb-2" style="font-size: 1.25rem;">User Guide</div>
     </div>
@@ -87,11 +86,11 @@ Next, edit the layout file to your liking, and add the `{% raw %}{{ content }}{%
       </site-nav>
     </div>
   </nav>
-  <div id="content-wrapper" class="fixed-header-padding">
+  <div id="content-wrapper">
     <!-- Insert the page's content into the layout using the {{ content }} variable -->
     {{ content }}
   </div>
-  <nav id="page-nav" class="fixed-header-padding">
+  <nav id="page-nav">
     <div class="nav-component slim-scroll">
       <!-- Insert a page navigation menu using the <page-nav /> component -->
       <page-nav />
@@ -148,19 +147,11 @@ If you wish insert scripts at the bottom, before MarkBind's scripts, simply inse
 
 ---
 
-### Fixing the header to the top
+### Sticking the header to the top
 
-Headers are commonly included inside the html `<header>` tag. In encouraging this, a convenient interface to implement <tooltip content="Headers that stick to the top of the page while scrolling the content">fixed headers</tooltip> surrounding the `<header>` tag is provided that ensures page anchors work correctly.
+Headers are commonly included inside the html `<header>` tag. In encouraging this, a convenient interface to implement sticky headers using the `<header>` tag is provided that **ensures page anchors are positioned** correctly.
 
-****To fix the `<header>`****
-1. Add the `fixed` attribute to your `<header>` element in the layout per the above example.
-
-2. Then, to add the necessary top padding for the main content, add the `fixed-header-padding` class to **elements that should be shifted down** in accordance with the fixed header.
-
-<box type="tip" seamless>
-
-If you are not sure where to put the `fixed-header-padding` attribute, you may also refer to the default template for `markbind init`, which already has this setup.
-</box>
+Simply add the `sticky` attribute to your `<header>` element in the layout per the above example.
 
 ---
 

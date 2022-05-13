@@ -21,16 +21,16 @@ function scrollToUrlAnchorHeading() {
   }
 }
 
-function detectAndApplyFixedHeaderStyles() {
+function detectAndApplyStickyHeaderStyles() {
   jQuery(':header').each((index, heading) => {
     if (heading.id) {
       jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
     }
   });
 
-  const headerSelector = jQuery('header[fixed]');
-  const isFixed = headerSelector.length !== 0;
-  if (!isFixed) {
+  const headerSelector = jQuery('header[sticky]');
+  const isSticky = headerSelector.length !== 0;
+  if (!isSticky) {
     return;
   }
 
@@ -39,11 +39,11 @@ function detectAndApplyFixedHeaderStyles() {
     document.documentElement.style.setProperty('--header-height', `${newHeaderHeight}px`);
   };
 
+  let isHidden = false;
   const toggleHeaderOverflow = () => {
-    const headerMaxHeight = headerSelector.css('max-height');
     // reset overflow when header shows again to allow content
     // in the header such as search dropdown etc. to overflow
-    if (headerMaxHeight === '100%') {
+    if (!isHidden) {
       headerSelector.css('overflow', '');
       updateHeaderHeight();
     }
@@ -57,6 +57,7 @@ function detectAndApplyFixedHeaderStyles() {
 
     if (lastHash !== window.location.hash) {
       lastHash = window.location.hash;
+      isHidden = true;
       headerSelector.removeClass('hide-header');
       return;
     }
@@ -74,17 +75,18 @@ function detectAndApplyFixedHeaderStyles() {
         return;
       }
 
+      isHidden = true;
       headerSelector.addClass('hide-header');
     } else {
+      isHidden = false;
       headerSelector.removeClass('hide-header');
     }
     lastOffset = currentOffset;
   };
 
   const resizeObserver = new ResizeObserver(() => {
-    const headerMaxHeight = headerSelector.css('max-height');
     // hide header overflow when user scrolls to support transition effect
-    if (headerMaxHeight !== '100%') {
+    if (isHidden) {
       headerSelector.css('overflow', 'hidden');
       return;
     }
@@ -125,7 +127,7 @@ function restoreStyleTags() {
 function executeAfterMountedRoutines() {
   restoreStyleTags();
   scrollToUrlAnchorHeading();
-  detectAndApplyFixedHeaderStyles();
+  detectAndApplyStickyHeaderStyles();
 }
 
 window.handleSiteNavClick = function (elem, useAnchor = true) {
