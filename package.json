@@ -8,7 +8,7 @@
     "build:ug": "cd docs && ../packages/cli/index.js build -s ug-site.json",
     "deploy:dg": "cd docs && ../packages/cli/index.js deploy -s dg-site.json --ci",
     "deploy:ug": "cd docs && ../packages/cli/index.js deploy -s ug-site.json --ci",
-    "clean": "tsc --build --clean",
+    "clean": "node ./scripts/clean.js",
     "csslint": "stylelint **/*.css **/*.vue",
     "csslintfix": "stylelint **/*.css **/*.vue --fix",
     "dev": "tsc -p tsconfig_dev.json --watch",

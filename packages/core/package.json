@@ -22,8 +22,7 @@
     "access": "public"
   },
   "scripts": {
-    "clean": "tsc --build --clean",
-    "build": "npm run clean && tsc --build --verbose",
+    "build": "tsc --build --verbose",
     "prepare": "npm run build",
     "test": "jest --colors"
   },
