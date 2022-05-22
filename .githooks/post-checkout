@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+BLUE="\033[34m"
+NOCOLOR="\033[0m"
+
+echo -e "${BLUE}(post-checkout) Cleaning compiled files...${NOCOLOR}"
+npm run clean
