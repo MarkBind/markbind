@@ -1,7 +1,4 @@
 {
   "extends": "./tsconfig_base.json",
-  "references": [
-    { "path": "packages/core" }
-  ],
-  "files": []
+  "exclude": ["**/node_modules"]
 }

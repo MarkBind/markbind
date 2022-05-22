@@ -2,7 +2,8 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "build:backend": "npm run clean && tsc --build --verbose",
+    "prebuild:backend": "npm run clean",
+    "build:backend": "tsc --noEmitOnError",
     "build:web": "cd packages/core-web && npm run build",
     "build:dg": "cd docs && ../packages/cli/index.js build -s dg-site.json",
     "build:ug": "cd docs && ../packages/cli/index.js build -s ug-site.json",
@@ -11,7 +12,7 @@
     "clean": "node ./scripts/clean.js",
     "csslint": "stylelint **/*.css **/*.vue",
     "csslintfix": "stylelint **/*.css **/*.vue --fix",
-    "dev": "tsc -p tsconfig_dev.json --watch",
+    "dev": "tsc --watch",
     "install": "npm run install:hooks",
     "install:hooks": "git config core.hooksPath .githooks",
     "lint": "eslint . --ext .js,.ts,.vue && npm run csslint",
