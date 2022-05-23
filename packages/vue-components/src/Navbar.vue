@@ -364,7 +364,7 @@ export default {
     }
 
     .navbar-brand > img,
-    svg {
+    .navbar-brand > svg {
         display: block;
     }
 
