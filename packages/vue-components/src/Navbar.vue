@@ -362,16 +362,20 @@ export default {
     .navbar-brand {
         display: inline-block;
     }
+    .navbar-brand > img, svg {
+        display: block;
+    }
 
     .navbar-right {
         padding-right: 1rem;
     }
 
     .navbar-left {
-        display: inline-block;
+        align-items: center;
+        display: flex;
         font-size: 1.25rem;
         line-height: inherit;
-        padding: 0 1rem 0.3125rem 0;
+        padding: 0.3125rem 1rem;
         white-space: nowrap;
     }
 
