@@ -36,7 +36,7 @@ This includes any static assets such as images and other media files.
 
 %%You can specify which files to be omitted from the site by using the `ignore` field in the `site.config` file as explained [here](siteJsonFile.html#ignore).%%
 
-**More importantly, `.md` files can be transformed into html pages with matching names.**
+**More importantly, `.md` files can be transformed into HTML pages with matching names.**
 
 <div class="indented">
 

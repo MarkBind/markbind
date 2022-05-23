@@ -36,7 +36,7 @@ For Markdown syntax: To display a literal character that are normally used for M
 
 
 To display the raw variable interpolation syntax using `{% raw %}{% endraw %}`, you would also need to add
-the `v-pre` attribute using markdown-it-attrs or as a html attribute.
+the `v-pre` attribute using markdown-it-attrs or as a HTML attribute.
 
 <box type="info">
 
