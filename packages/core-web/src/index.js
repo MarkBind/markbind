@@ -34,6 +34,13 @@ function detectAndApplyFixedHeaderStyles() {
     return;
   }
 
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 767 && headerSelector.hasClass('hide-header')) {
+      headerSelector.removeClass('hide-header');
+      headerSelector.css('overflow', '');
+    }
+  });
+
   const updateHeaderHeight = () => {
     const newHeaderHeight = headerSelector.height();
     document.documentElement.style.setProperty('--header-height', `${newHeaderHeight}px`);
@@ -108,15 +115,6 @@ function updateSearchData(vm) {
       vm.searchData = siteData.pages;
     });
 }
-function restoreHeaderOnExpand() {
-  const headerSelector = jQuery('header[fixed]');
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 767 && headerSelector.hasClass('hide-header')) {
-      headerSelector.removeClass('hide-header');
-      headerSelector.css('overflow', '');
-    }
-  });
-}
 
 /*
  * Changes every <script src defer type="application/javascript" style-bypass-vue-compilation>
@@ -133,7 +131,6 @@ function restoreStyleTags() {
 
 function executeAfterMountedRoutines() {
   restoreStyleTags();
-  restoreHeaderOnExpand();
   scrollToUrlAnchorHeading();
   detectAndApplyFixedHeaderStyles();
 }
