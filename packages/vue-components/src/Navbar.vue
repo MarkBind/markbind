@@ -371,7 +371,7 @@ export default {
         display: inline-block;
         font-size: 1.25rem;
         line-height: inherit;
-        padding: 0.3125rem 1rem;
+        padding: 0 1rem 0.3125rem 0;
         white-space: nowrap;
     }
 
