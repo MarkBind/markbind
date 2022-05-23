@@ -362,7 +362,9 @@ export default {
     .navbar-brand {
         display: inline-block;
     }
-    .navbar-brand > img, svg {
+
+    .navbar-brand > img,
+    svg {
         display: block;
     }
 
