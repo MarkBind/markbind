@@ -34,6 +34,13 @@ function detectAndApplyFixedHeaderStyles() {
     return;
   }
 
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 767 && headerSelector.hasClass('hide-header')) {
+      headerSelector.removeClass('hide-header');
+      headerSelector.css('overflow', '');
+    }
+  });
+
   const updateHeaderHeight = () => {
     const newHeaderHeight = headerSelector.height();
     document.documentElement.style.setProperty('--header-height', `${newHeaderHeight}px`);
