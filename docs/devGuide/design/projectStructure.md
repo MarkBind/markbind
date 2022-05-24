@@ -34,7 +34,7 @@ The MarkBind project is developed in a <tooltip content="We follow a monorepo ap
 
 * Functions and libraries used to parse and process MarkBind into usable output are stored in `src`. The architecture described in [Architecture](architecture.md) is contained here. A brief rundown of what it includes:
 
-  * Various key functionalities in processing MarkBind syntax into valid html output, stored in `html`. The other part of the content processing flow is found in `variables`, which manages site variables and facilitates the Nunjucks calls.
+  * Various key functionalities in processing MarkBind syntax into valid HTML output, stored in `html`. The other part of the content processing flow is found in `variables`, which manages site variables and facilitates the Nunjucks calls.
 
   * `Page` files generate a single page of the site, and are managed by the `Site` instance. `Site` uses the Page model's interface to generate pages, and performs various other utility-like functions related to site generation such as copying of external assets into the output folder.
 
@@ -54,9 +54,9 @@ The MarkBind project is developed in a <tooltip content="We follow a monorepo ap
 
   * Additionally, there are some markdown-it plugins in the `src/lib/markdown-it/plugins/` directory (either forked, modified or written to enhance existing functionalities).
 
-* [htmlparser2](https://github.com/fb55/htmlparser2), a speedy and forgiving html parser which exposes a DOM-like object structure to work on. To comply with the markdown spec, and our custom requirements, `src/patches/htmlparser2.js` patches various behaviours of this library.
+* [htmlparser2](https://github.com/fb55/htmlparser2), a speedy and forgiving HTML parser which exposes a DOM-like object structure to work on. To comply with the markdown spec, and our custom requirements, `src/patches/htmlparser2.js` patches various behaviours of this library.
 
-* [cheerio](https://cheerio.js.org/), which is a node.js equivalent of [jQuery](https://jquery.com/). Cheerio uses [htmlparser2](https://github.com/fb55/htmlparser2) to parse the html as well, hence our patches propagate here.
+* [cheerio](https://cheerio.js.org/), which is a node.js equivalent of [jQuery](https://jquery.com/). Cheerio uses [htmlparser2](https://github.com/fb55/htmlparser2) to parse the HTML as well, hence our patches propagate here.
 
 * [Nunjucks](https://mozilla.github.io/nunjucks/), which is a JavaScript templating engine. Nunjucks is used to support our variable system to help with reusing small bits of code in multiple places. The package is patched and stored in `src/patches/nunjucks` to make it compatible with other MarkBind syntax processing steps.
 
