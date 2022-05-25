@@ -9,6 +9,7 @@
     <div
       ref="navMenuContainer"
       :class="['nav-menu', { 'nav-menu-open': show }]"
+      :style="navbarHeight"
       @click="toggleNavMenu"
     >
       <portal-target :name="portalName" multiple />
@@ -44,6 +45,7 @@ export default {
   data() {
     return {
       show: false,
+      navbarHeight: '',
     };
   },
   methods: {
@@ -57,6 +59,11 @@ export default {
         // to prevent scrolling of the body when overlay is overscrolled
         document.body.style.overflow = 'hidden';
         this.show = true;
+        this.$nextTick(() => {
+          const contentEl = this.$refs.navMenuContainer;
+          const height = window.innerHeight - contentEl.getBoundingClientRect().top;
+          this.navbarHeight = `height: ${height}px`;
+        });
       }
     },
   },
@@ -73,17 +80,16 @@ export default {
 <style scoped>
     .nav-menu {
         display: none;
-        padding: 50px 10px 20px;
-        position: fixed;
+        padding: 0 10px 20px;
+        position: absolute;
+        top: 100%;
         overflow-y: auto;
-        z-index: -1;
     }
 
     .nav-menu-open {
         display: block !important;
         width: 100% !important;
         background: #fff;
-        height: 100%;
         clear: both;
     }
 </style>

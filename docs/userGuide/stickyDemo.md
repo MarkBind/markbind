@@ -6,7 +6,7 @@
 
 <box>
 
-This page is the same as [*Tweaking the Page Structure*](./tweakingThePageStructure.md), except, it uses a sticky header for demoing the tradeoffs mentioned [below](#option-2-sticky-header).
+This page is the same as [*Tweaking the Page Structure*](./tweakingThePageStructure.md), except, it uses a sticky header for demoing the tradeoffs mentioned [below](#option-2-sticky-header-dynamically-hidden).
 </box>
 
 <include src="tweakingThePageStructure.md" omitFrontmatter>

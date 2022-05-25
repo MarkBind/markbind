@@ -160,10 +160,6 @@ span.anchor {
     top: calc(-1 * var(--header-height) - 1rem);
 }
 
-header[sticky] .nav-menu-open {
-    max-height: calc(-1 * var(--header-height) + 100% + 50px);
-}
-
 /* #app is treated as the main container */
 #app {
     display: flex;
