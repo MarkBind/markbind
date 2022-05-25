@@ -175,7 +175,7 @@ To preserve screen real estate, the header is hidden on devices with a width of 
 #### Option 2: Sticky header (dynamically hidden)
 
 ****Steps****
-1. Simply add the `sticky` attribute to your `<header>` element in the layout per the above example.
+1. Simply add the `sticky` attribute to your `<header>` element.
 
 A common issue with sticky headers is positioning the "left and right" layout page elements (e.g. your site nav and page nav) correctly when the user scrolls past the header. (i.e. they appear behind the header) To avoid this, the implementation hides your header on all devices when you scroll down, and automatically re-shows it when the page is scrolled up.
 
