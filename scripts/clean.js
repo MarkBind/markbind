@@ -13,6 +13,7 @@
 
 const fs = require('fs');
 const path = require('path');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const walkSync = require('walk-sync');
 
 const JS_MAP_RE = /\.js\.map$/;
