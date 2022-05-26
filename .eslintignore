@@ -11,6 +11,10 @@ packages/cli/src/lib/live-server/*
 # Ignore JS files that are compiled from TS
 packages/core/src/errors/**/*.js
 packages/core/src/utils/**/*.js
+packages/core/src/constants.js
+packages/core/src/html/constants.js
+packages/core/src/Page/constants.js
+packages/core/src/Site/constants.js
 
 # Rules for pure JS files
 packages/core/src/lib/markdown-it/patches/*

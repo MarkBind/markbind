@@ -62,5 +62,9 @@ packages/cli/test/functional/*/_site
 # Ignore JS files that are compiled from TS
 packages/core/src/errors/**/*.js
 packages/core/src/utils/**/*.js
+packages/core/src/constants.js
+packages/core/src/html/constants.js
+packages/core/src/Page/constants.js
+packages/core/src/Site/constants.js
 
 # --- packages/core end ---
