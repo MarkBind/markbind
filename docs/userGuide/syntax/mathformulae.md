@@ -35,24 +35,7 @@ Finally, the Pythagoras theorem: $c^2 = a^2 + b^2$.
 
 <box type="info">
 
-Additional delimiters are possible with the [mathDelimiters](../usingPlugins.md#plugin-mathdelimiters) plugin.
-
-<include src="codeAndOutput.md" boilerplate >
-<variable name="highlightStyle">markdown</variable>
-<variable name="code">
-\begin{equation}
-  a^2+b^2=c^2
-\end{equation}
-
-\begin{equation}
-  \begin{pmatrix}
-    A & B \\ B & C
-  \end{pmatrix}
-\end{equation}
-
-</variable>
-</include>
-
+Additional delimiters are possible by enabling the [mathDelimiters](../usingPlugins.md#plugin-mathdelimiters) plugin.
 </box>
 
 <box type="important">
