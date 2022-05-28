@@ -4,6 +4,8 @@
 - [ ] Bug fix
 - [ ] Feature addition or enhancement
 - [ ] Code maintenance
+- [ ] DevOps
+- [ ] Improve developer experience
 - [ ] Others, please explain:
 
 <!--
@@ -17,7 +19,7 @@
 **Overview of changes:**
 
 
-**Anything you'd like to highlight / discuss:**
+**Anything you'd like to highlight/discuss:**
 
 
 **Testing instructions:**
@@ -33,6 +35,9 @@
   https://oss-generic.github.io/process/docs/FormatsAndConventions.html#commit-message
 
   As best as possible, write a succinct commit title in 50 characters
+
+|---------This is the width of 50 chars----------|
+|-----------This is the width of 72 chars for your reference-----------|
 -->
 
 ---
