@@ -1,8 +1,8 @@
 ### Plugin: MathDelimiters 
 
-This plugin allows you to use additional delimiters for your math formulae. Availble delimiters are listed in [the markdown-it-texmath package](https://github.com/goessner/markdown-it-texmath#features).
+This plugin allows you to use additional delimiters for your math formulae. Available delimiters are listed in [the markdown-it-texmath package](https://github.com/goessner/markdown-it-texmath#features).
 
-These delimiters are supported without guarentee that they will be rendered correctly, especially when they happen to conflict with
+These delimiters are supported without guarantee that they will be rendered correctly, especially when they happen to conflict with
 other MarkBind syntax.
 
 <box type="info">
