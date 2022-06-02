@@ -22,8 +22,8 @@
     "access": "public"
   },
   "scripts": {
-    "clean": "tsc --build --clean",
-    "build": "npm run clean && tsc --build --verbose",
+    "compile": "tsc",
+    "build": "tsc --noEmitOnError",
     "prepare": "npm run build",
     "test": "jest --colors"
   },
