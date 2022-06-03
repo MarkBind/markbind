@@ -25,7 +25,7 @@
 
 <div class="indented">
 
-{{ icon_example }} Here is an example of how text within an html tag is parsed as Markdown when preceded by a blank line.
+{{ icon_example }} Here is an example of how text within an HTML tag is parsed as Markdown when preceded by a blank line.
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
