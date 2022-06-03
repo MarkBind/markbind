@@ -6,7 +6,11 @@
 
 <span class="lead">MarkBind is a project **based in [National University of Singapore, School of Computing](http://www.comp.nus.edu.sg/)**, and is funded by an education grant from [NUS Center for Development of Teaching and Learning](https://nus.edu.sg/cdtl).</span>
 
-<panel header="Past Record" type="seamless">
+:glyphicon-send: You can **email us** at `markbind` at `comp.nus.edu.sg`
+
+:glyphicon-console: Interested in **contributing to MarkBind**? Visit the [MarkBind project on GitHub](https://github.com/MarkBind/markbind).
+
+## Contributors ✨
 
 **Mentors**:
 * [**Damith C. Rajapakse**](https://www.comp.nus.edu.sg/~damithch/): _Project Mentor_ since Aug 2016
@@ -17,40 +21,6 @@
 * [**Koh Rayson**](https://www.github.com/raysonkoh): _Senior Dev_ since Apr 2020, _Member_ since Jan 2020
 * [**Ong Wei Xiang**](https://www.github.com/wxwxwxwx9): _Senior Dev_ since Apr 2020, _Member_ since Jan 2020
 * [**Ryo Chandra Putra Aramanda**](https://www.github.com/ryoarmanda): _Senior Dev_ since Apr 2020, _Member_ since Jan 2020
-
-**Contributors:**
-* [**Kimberly Ong Ong Hui Qin**](https://www.github.com/kimberlyohq): _Contributor_ since Jun 2021
-
-**%%Past Members:%%**
-* [**Aaron Chong Jun Hao**](https://github.com/acjh): _Project Mentor_ for Jul 2018 - Dec 2020, _Team Lead_ for Aug 2017 - Jun 2018
-* [**Ahmed Bahajjaj**](https://www.github.com/madanalogy): _Contributor_ for Jan-April 2020
-* [**Chng Zhi Xuan**](https://github.com/Chng-Zhi-Xuan): _Member_ for May 2018 - Jul 2019
-* [**Chua Yun Zhi Nicholas**](https://github.com/nicholaschuayunzhi): _Member_ for Jan 2018 - May 2019
-* [**Daniel Berzin Chua Yuan Siang**](https://github.com/danielbrzn): _Member_ for Jan 2018 - Aug 2018
-* [**Daryl Chan**](https://www.github.com/dvrylc): _Contributor_ for Jan-April 2020
-* [**Daryl Tan**](https://www.github.com/openorclose): _Member_ for May 2019 - May 2020
-* [**Jamos Tay**](https://github.com/jamos-tay): _Member_ for Aug 2018 - Apr 2019
-* [**Jeremy Tan Jie Rui**](https://www.github.com/Parcly-Taxel): _Contributor_ for Jan-April 2020
-* [**Jia Zhixin**](https://github.com/nusjzx): _Member_ for May 2018 - Aug 2018
-* [**Jiang Sheng**](https://github.com/Gisonrg): _Founding Member_ and _Team Lead_ for Aug 2016 - Jul 2017
-* [**Joshua Wong**](https://www.github.com/hcwong): _Contributor_ for Jan-April 2020
-* [**Labayna Neil Brian Narido**](https://www.github.com/nbriannl): _Member_ for Jan - Apr 2020
-* [**Marvin Chin Kun Song**](https://www.github.com/marvinchin): _Project Lead_ for Jan - Aug 2020, _Member_ for Jan 2019 - Aug 2019
-* [**Lin Si Jie**](https://www.github.com/sijie123): _Member_ for Jan - Aug 2019
-* [**Lu Yang Kenneth**](https://github.com/luyangkenneth): _Member_ for Jan - Aug 2019
-* [**Maddi Aadyaa**](https://www.github.com/amad-person): _Member_ for Jan - Aug 2019
-* [**Phang Chun Rong**](https://www.github.com/crphang): _Member_ for Aug 2019 - Jun 2020
-* [**Rachael Sim Hwee Ling**](https://github.com/rachx): _Member_ for Jan - Dec 2018
-* [**Tan Zhen Yong**](https://www.github.com/Xenonym): _Member_ for Jan - Aug 2019
-* [**Tan Wang Leng**](https://github.com/yamgent): _Team Lead_ for Jul 2018 - Apr 2019, _Member_ for May 2018 - Jun 2018
-* [**Tejas Bhuwania**](https://www.github.com/Tejas2805): _Contributor_ for Jan - April 2020
-* [**Tan Yuanhong**](https://www.github.com/le0tan): _Member_: Jan 2020 - Apr 2021
-* [**Yash Chowdhary**](https://www.github.com/yash-chowdhary): _Member_ Jan - Apr 2020
-* [**Yip Seng Yeun**](https://www.github.com/alyip98): _Member_ May 2019 - Apr 2020
-
-</panel>
-
-## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
@@ -76,12 +46,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/danielbrzn"><img src="https://avatars.githubusercontent.com/u/251231?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Daniel Berzin Chua</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=danielbrzn" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/openorclose"><img src="https://avatars.githubusercontent.com/u/3646725?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Daryl Tan</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=openorclose" title="Code">💻</a></td>
     <td align="center"><a href="http://www.comp.nus.edu.sg/~damithch"><img src="https://avatars.githubusercontent.com/u/1673303?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Damith C. Rajapakse</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=damithc" title="Code">💻</a> <a href="#mentoring-damithc" title="Mentoring">🧑‍🏫</a></td>
-    <td align="center"><a href="https://github.com/jonahtanjz"><img src="https://avatars.githubusercontent.com/u/47470981?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jonah Tan</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=jonahtanjz" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/jonahtanjz"><img src="https://avatars.githubusercontent.com/u/47470981?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jonah Tan</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=jonahtanjz" title="Code">💻</a> <a href="https://github.com/MarkBind/markbind/pulls?q=is%3Apr+reviewed-by%3Ajonahtanjz" title="Reviewed Pull Requests">👀</a></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/nusjzx"><img src="https://avatars.githubusercontent.com/u/24241939?v=4?s=100" width="100px;" alt=""/><br /><sub><b>nusjzx</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=nusjzx" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/alyip98"><img src="https://avatars.githubusercontent.com/u/2277141?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Alfred Yip</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=alyip98" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/ryoarmanda"><img src="https://avatars.githubusercontent.com/u/24468110?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ryo Armanda</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=ryoarmanda" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/ryoarmanda"><img src="https://avatars.githubusercontent.com/u/24468110?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ryo Armanda</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=ryoarmanda" title="Code">💻</a> <a href="https://github.com/MarkBind/markbind/pulls?q=is%3Apr+reviewed-by%3Aryoarmanda" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://github.com/le0tan"><img src="https://avatars.githubusercontent.com/u/28982486?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tan Yuanhong</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=le0tan" title="Code">💻</a></td>
     <td align="center"><a href="https://sijie123.com/"><img src="https://avatars.githubusercontent.com/u/631938?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Si Jie</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=sijie123" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/yash-chowdhary"><img src="https://avatars.githubusercontent.com/u/21968718?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yash Chowdhary</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=yash-chowdhary" title="Code">💻</a></td>
@@ -98,7 +68,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/dvrylc"><img src="https://avatars.githubusercontent.com/u/6095637?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Daryl Chan</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=dvrylc" title="Code">💻</a></td>
-    <td align="center"><a href="https://tlylt.github.io/"><img src="https://avatars.githubusercontent.com/u/41845017?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Liu YongLiang</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=tlylt" title="Code">💻</a></td>
+    <td align="center"><a href="https://tlylt.github.io/"><img src="https://avatars.githubusercontent.com/u/41845017?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Liu YongLiang</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=tlylt" title="Code">💻</a> <a href="https://github.com/MarkBind/markbind/commits?author=tlylt" title="Documentation">📖</a></td>
     <td align="center"><a href="https://madanalogy.dev/"><img src="https://avatars.githubusercontent.com/u/42177597?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ahmed Bahajjaj</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=madanalogy" title="Code">💻</a></td>
     <td align="center"><a href="https://www.zhongjun.me/"><img src="https://avatars.githubusercontent.com/u/27919917?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hsu Zhong Jun</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=dcshzj" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/kimberlyohq"><img src="https://avatars.githubusercontent.com/u/60393696?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kimberly</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=kimberlyohq" title="Code">💻</a></td>
@@ -109,7 +79,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/anubh-v"><img src="https://avatars.githubusercontent.com/u/35621759?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Anubhav</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=anubh-v" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/bchenghi"><img src="https://avatars.githubusercontent.com/u/57175876?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Boh Cheng Hin</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=bchenghi" title="Code">💻</a></td>
     <td align="center"><a href="https://www.tawatawashi.com/"><img src="https://avatars.githubusercontent.com/u/7100187?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hiroki Nishino</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=tawAsh1" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/ong6"><img src="https://avatars.githubusercontent.com/u/19247856?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Junx</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=ong6" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/ong6"><img src="https://avatars.githubusercontent.com/u/19247856?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Junx</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=ong6" title="Code">💻</a> <a href="https://github.com/MarkBind/markbind/commits?author=ong6" title="Documentation">📖</a></td>
     <td align="center"><a href="https://jyl123.github.io/"><img src="https://avatars.githubusercontent.com/u/24690889?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Li JiaYao</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=JYL123" title="Code">💻</a></td>
     <td align="center"><a href="https://morninglit.github.io/Portfolio2/"><img src="https://avatars.githubusercontent.com/u/57279935?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ambrose Liew</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=MorningLit" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/pr4aveen"><img src="https://avatars.githubusercontent.com/u/2839596?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Praveen</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=pr4aveen" title="Code">💻</a></td>
@@ -124,7 +94,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://www.jovyntan.com"><img src="https://avatars.githubusercontent.com/u/61113575?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jovyn Tan</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=jovyntls" title="Code">💻</a> <a href="https://github.com/MarkBind/markbind/commits?author=jovyntls" title="Documentation">📖</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/kaixin-hc"><img src="https://avatars.githubusercontent.com/u/59471320?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hannah</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=kaixin-hc" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/kaixin-hc"><img src="https://avatars.githubusercontent.com/u/59471320?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hannah</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=kaixin-hc" title="Code">💻</a> <a href="https://github.com/MarkBind/markbind/commits?author=kaixin-hc" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/NaincyKumariKnoldus"><img src="https://avatars.githubusercontent.com/u/87004609?v=4?s=100" width="100px;" alt=""/><br /><sub><b>NaincyKumariKnoldus</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=NaincyKumariKnoldus" title="Documentation">📖</a></td>
   </tr>
 </table>
@@ -135,6 +105,32 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 </div>
 
-:glyphicon-send: You can **email us** at `markbind` at `comp.nus.edu.sg`
+---
 
-:glyphicon-console: Interested in **contributing to MarkBind**? Visit the [MarkBind project on GitHub](https://github.com/MarkBind/markbind).
+**%%Past Members:%%**
+* [**Aaron Chong Jun Hao**](https://github.com/acjh): _Project Mentor_ for Jul 2018 - Dec 2020, _Team Lead_ for Aug 2017 - Jun 2018
+* [**Ahmed Bahajjaj**](https://www.github.com/madanalogy): _Contributor_ for Jan-April 2020
+* [**Chng Zhi Xuan**](https://github.com/Chng-Zhi-Xuan): _Member_ for May 2018 - Jul 2019
+* [**Chua Yun Zhi Nicholas**](https://github.com/nicholaschuayunzhi): _Member_ for Jan 2018 - May 2019
+* [**Daniel Berzin Chua Yuan Siang**](https://github.com/danielbrzn): _Member_ for Jan 2018 - Aug 2018
+* [**Daryl Chan**](https://www.github.com/dvrylc): _Contributor_ for Jan-April 2020
+* [**Daryl Tan**](https://www.github.com/openorclose): _Member_ for May 2019 - May 2020
+* [**Jamos Tay**](https://github.com/jamos-tay): _Member_ for Aug 2018 - Apr 2019
+* [**Jeremy Tan Jie Rui**](https://www.github.com/Parcly-Taxel): _Contributor_ for Jan-April 2020
+* [**Jia Zhixin**](https://github.com/nusjzx): _Member_ for May 2018 - Aug 2018
+* [**Jiang Sheng**](https://github.com/Gisonrg): _Founding Member_ and _Team Lead_ for Aug 2016 - Jul 2017
+* [**Joshua Wong**](https://www.github.com/hcwong): _Contributor_ for Jan-April 2020
+* [**Kimberly Ong Ong Hui Qin**](https://www.github.com/kimberlyohq): _Contributor_ for Jun-Jul 2021
+* [**Labayna Neil Brian Narido**](https://www.github.com/nbriannl): _Member_ for Jan - Apr 2020
+* [**Marvin Chin Kun Song**](https://www.github.com/marvinchin): _Project Lead_ for Jan - Aug 2020, _Member_ for Jan 2019 - Aug 2019
+* [**Lin Si Jie**](https://www.github.com/sijie123): _Member_ for Jan - Aug 2019
+* [**Lu Yang Kenneth**](https://github.com/luyangkenneth): _Member_ for Jan - Aug 2019
+* [**Maddi Aadyaa**](https://www.github.com/amad-person): _Member_ for Jan - Aug 2019
+* [**Phang Chun Rong**](https://www.github.com/crphang): _Member_ for Aug 2019 - Jun 2020
+* [**Rachael Sim Hwee Ling**](https://github.com/rachx): _Member_ for Jan - Dec 2018
+* [**Tan Zhen Yong**](https://www.github.com/Xenonym): _Member_ for Jan - Aug 2019
+* [**Tan Wang Leng**](https://github.com/yamgent): _Team Lead_ for Jul 2018 - Apr 2019, _Member_ for May 2018 - Jun 2018
+* [**Tejas Bhuwania**](https://www.github.com/Tejas2805): _Contributor_ for Jan - April 2020
+* [**Tan Yuanhong**](https://www.github.com/le0tan): _Member_: Jan 2020 - Apr 2021
+* [**Yash Chowdhary**](https://www.github.com/yash-chowdhary): _Member_ Jan - Apr 2020
+* [**Yip Seng Yeun**](https://www.github.com/alyip98): _Member_ May 2019 - Apr 2020
