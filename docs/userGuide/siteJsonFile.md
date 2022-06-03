@@ -247,7 +247,7 @@ The example above uses tags as an example of configuring plugin settings, refer 
 #### **`locale`**
 
 **Language by locale used for the [time stamp](reusingContents.html#built-in-global-variables).** Default: `"en-GB"` (`English (United Kingdom)`). <br>
-The date format is thus : `<Day>, <Date> <Month> <Year>, <24-hour Time> <Time Zone Code>`.
+The date format is thus: `<Day>, <Date> <Month> <Year>, <24-hour Time> <Time Zone Code>`.
 
 <panel type="seamless" header="Locale Options">
   <include src="pages/locales.md" />
