@@ -19,7 +19,7 @@
 * [**Damith C. Rajapakse**](https://www.comp.nus.edu.sg/~damithch/): _Project Mentor_ since Aug 2016
 
 **Dev Team**:
-* [**Ang Ze Yu**](https://www.github.com/ang-zeyu): **_Project Lead_** since Jan 2021, Member since Jan 2020,
+* [**Ang Ze Yu**](https://www.github.com/ang-zeyu): **_Project Lead_** since Jan 2021, Member since Jan 2020
 * [**Jonah Tan Jun Zi**](https://www.github.com/jonahtanjz): _Senior Dev_ since Apr 2020, _Member_ since Jan 2020
 * [**Koh Rayson**](https://www.github.com/raysonkoh): _Senior Dev_ since Apr 2020, _Member_ since Jan 2020
 * [**Ong Wei Xiang**](https://www.github.com/wxwxwxwx9): _Senior Dev_ since Apr 2020, _Member_ since Jan 2020
