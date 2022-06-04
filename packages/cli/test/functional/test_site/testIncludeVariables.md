@@ -15,7 +15,7 @@
 
 <p style="{{ included_variable_as_attribute }}">Test</p>
 
-**Test included variable as html element**
+**Test included variable as HTML element**
 
 {{ included_variable_as_html_element }}
 

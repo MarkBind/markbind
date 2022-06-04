@@ -37,6 +37,7 @@
   * [Full Syntax Reference]({{baseUrl}}/userGuide/fullSyntaxReference.html)
   * [Syntax Cheat Sheet]({{baseUrl}}/userGuide/syntaxCheatSheet.html)
   * [`site.json` File]({{baseUrl}}/userGuide/siteJsonFile.html)
+  * [`.gitignore` File]({{baseUrl}}/userGuide/gitignoreFile.html)
   * [Tips & Tricks]({{baseUrl}}/userGuide/tipsAndTricks.html)
   * [Troubleshooting]({{baseUrl}}/userGuide/troubleshooting.html)
   * [Glossary]({{baseUrl}}/userGuide/glossary.html)

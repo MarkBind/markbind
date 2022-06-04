@@ -139,8 +139,6 @@ You can run `npm run build:backend` in the root directory to compile the files, 
 1. Configure your IDE to perform automatic compilation on file change/save. (_Recommended for general development_)
 
    Refer to your IDE's guides to set this up. For instance, here are the guides for [WebStorm](https://www.jetbrains.com/help/webstorm/compiling-typescript-to-javascript.html#ts_compiler_compile_code_automatically) and [Visual Studio Code](https://code.visualstudio.com/docs/typescript/typescript-compiling#_step-2-run-the-typescript-build).
-   
-   Note that the TypeScript configuration used for development (`tsconfig_dev.json`) is different than the one for production (`tsconfig.json`), so you might need to modify your IDE's `tsc` command to include the option `-p tsconfig_dev.json`.
 
 #### Editing frontend features
 

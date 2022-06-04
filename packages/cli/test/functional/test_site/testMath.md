@@ -9,7 +9,6 @@ Solve the following simultaneous equations:
 
 Euler's equation \( e^{i\pi}+1=0 \) is a beautiful equation.
 
-## Additionally, Dollars can be used as delimiters if texWithDollars plugin is enabled
 $2_3$
 
 Stirling's approximation:
@@ -21,3 +20,15 @@ where \\
 \frac{1}{12n+1} < \alpha_n < \frac{1}{12n}
 \end{aligned}
 $$
+
+## Additional delimiters can be used if mathDelimiters plugin is enabled
+
+\begin{equation}
+  a^2+b^2=c^2
+\end{equation}
+
+\begin{equation}
+  \begin{pmatrix}
+    A & B \\ B & C
+  \end{pmatrix}
+\end{equation}

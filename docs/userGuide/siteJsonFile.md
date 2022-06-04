@@ -43,7 +43,7 @@ Here is a typical `site.json` file:
       "layout": "subtopic"
     }
   ],
-  "pagesExclude": ["subsite/**/*.md"],
+  "pagesExclude": ["subsite/**/*.md", "node_modules/*"],
   "externalScripts": [
     "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
   ],
@@ -59,7 +59,8 @@ Here is a typical `site.json` file:
     "_site/*",
     "*.json",
     "*.md",
-    ".git/*"
+    ".git/*",
+    "node_modules/*"
   ],
   "plugins" : [
     "filterTags"
@@ -72,7 +73,8 @@ Here is a typical `site.json` file:
   "headingIndexingLevel": 4,
   "intrasiteLinkValidation": {
     "enabled": false
-  }
+  },
+  "plantumlCheck": true
 }
 ```
 
@@ -264,6 +266,20 @@ To disable this validation **entirely**, you may add the following to `site.json
   "intrasiteLinkValidation": {
     "enabled": false
   },
+  ...
+  ```
+
+</div>
+
+#### **`plantumlCheck`**
+
+**Toggle whether to display a warning about PlantUML's prerequisite.** By default, MarkBind will check if you have Graphviz installed when you are using PlantUML diagrams.
+To disable this validation and the display of the warning, you may add the following to `site.json`:
+<div id="plantuml-check">
+
+  ```js
+  ...
+  "plantumlCheck": false,
   ...
   ```
 

@@ -22,11 +22,15 @@
     }
   ],
   "plugins" : [
-    "filterTags"
+    "filterTags",
+    "mathDelimiters"
   ],
   "pluginsContext" : {
     "filterTags" : {
       "tags": ["environment--ug", "environment--dg"]
+    },
+    "mathDelimiters": {
+      "delimiters": ["beg_end"]
     }
   },
   "headingIndexingLevel": 6,

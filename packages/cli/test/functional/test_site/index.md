@@ -202,7 +202,7 @@ This test ensures heading ids are assigned last (e.g. after `<include />`s are p
   <variable name="included_variable">Included variable</variable>
   <variable name="included_variable_with_markdown">__**Included variable with markdown**__</variable>
   <variable name="included_variable_as_attribute">color: blue</variable>
-  <variable name="included_variable_as_html_element"><span>Included variable within html element</span></variable>
+  <variable name="included_variable_as_html_element"><span>Included variable within HTML element</span></variable>
   <variable name="global_variable_overriding_included_variable">**Should not appear**: Included variable overridden by global variable</variable>
   <variable name="included_variable_inner_overridden">Included variable overriding inner variable</variable>
   <variable name="included_variable_in_outer_included_file">Included variable in outer included file</variable>
