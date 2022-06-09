@@ -126,6 +126,20 @@ The sections below has more information about various stages of submitting a PR.
 
   </modal>
 
+#### Editing backend features
+
+Some of our backend code files in `packages/core` are written in TypeScript, and you will need to compile those into JavaScript for local execution with our command-line module `packages/cli`.
+
+You can run `npm run build:backend` in the root directory to compile the files, but in some cases, it might be tedious to manually execute the command many times. We recommend you to either:
+
+1. Run `npm run dev` in the root directory. (_Recommended for TypeScript migration_)
+
+   This command starts the compiler's file watcher which will rebuild the relavant files when file changes are detected.
+
+1. Configure your IDE to perform automatic compilation on file change/save. (_Recommended for general development_)
+
+   Refer to your IDE's guides to set this up. For instance, here are the guides for [WebStorm](https://www.jetbrains.com/help/webstorm/compiling-typescript-to-javascript.html#ts_compiler_compile_code_automatically) and [Visual Studio Code](https://code.visualstudio.com/docs/typescript/typescript-compiling#_step-2-run-the-typescript-build).
+
 #### Editing frontend features
 
 We update the frontend `markbind.min.js` and `markbind.min.css` bundles during release only, and not in pull requests.

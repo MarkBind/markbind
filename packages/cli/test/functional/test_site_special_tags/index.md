@@ -46,9 +46,9 @@ some text
 ---
 
 This has the same content has the previous test, but it is **not** a special tag.
-The html comment `<!-- -->` should disappear in the expected output.
+The HTML comment `<!-- -->` should disappear in the expected output.
 The line `some text` should appear as per normal, and not wrapped by a paragraph since
-a html tag precedes it without a blank line.
+a HTML tag precedes it without a blank line.
 The other lines should be parsed as markdown paragraphs, as per commonmark spec.
 
 <abc>

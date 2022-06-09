@@ -42,7 +42,7 @@ Next, edit the layout file to your liking, and add the `{% raw %}{{ content }}{%
 
 ```html {highlight-lines="{{ highlightLines or "1-4,7,31,36-44[:],49,54,67-71" }}"}
 {% raw %}<head-bottom>
-  <!-- Use head-top and head-bottom tags to insert content into the html <head> tag -->
+  <!-- Use head-top and head-bottom tags to insert content into the HTML <head> tag -->
   <link rel="stylesheet" href="{{baseUrl}}/css/main.css">
 </head-bottom>
 
@@ -106,7 +106,7 @@ Next, edit the layout file to your liking, and add the `{% raw %}{{ content }}{%
   </div>
 </footer>{% endraw %}
 
-<!-- Insert content after the html <body> tag using the <script-bottom> tag -->
+<!-- Insert content after the HTML <body> tag using the <script-bottom> tag -->
 <script-bottom>
   <script>
     alert('Hi!')
@@ -125,7 +125,7 @@ the above code snippet.
 
 **You can insert code into the `<head>` section of the generated HTML page**, for example, to add links to custom JavaScript or CSS files.
 
-You may do so by inserting the html `<head>` content into `<head-top>` and `<head-bottom>` tags in the layout file, which are inserted at the top and bottom (after MarkBind's assets) of the `<head>` tag respectively.
+You may do so by inserting the HTML `<head>` content into `<head-top>` and `<head-bottom>` tags in the layout file, which are inserted at the top and bottom (after MarkBind's assets) of the `<head>` tag respectively.
 
 The above example shows the use of the `<head-bottom>` tag to insert a custom stylesheet (`main.css`).
 
@@ -133,7 +133,7 @@ The above example shows the use of the `<head-bottom>` tag to insert a custom st
 
 ### Inserting scripts after the `<body>` tag
 
-**You may also insert html code after the `<body>` section of the generated HTML page**. This is useful for including custom scripts.
+**You may also insert HTML code after the `<body>` section of the generated HTML page**. This is useful for including custom scripts.
 Simply insert the code / `<script>` tags into a `<script-bottom>` tag.
 
 The above example shows the use of the `<script-bottom>` tag to show a browser alert box with the message **'Hi!'**.
@@ -150,7 +150,7 @@ If you wish insert scripts at the bottom, before MarkBind's scripts, simply inse
 
 ### Fixing the header to the top
 
-Headers are commonly included inside the html `<header>` tag. In encouraging this, a convenient interface to implement <tooltip content="Headers that stick to the top of the page while scrolling the content">fixed headers</tooltip> surrounding the `<header>` tag is provided that ensures page anchors work correctly.
+Headers are commonly included inside the HTML `<header>` tag. In encouraging this, a convenient interface to implement <tooltip content="Headers that stick to the top of the page while scrolling the content">fixed headers</tooltip> surrounding the `<header>` tag is provided that ensures page anchors work correctly.
 
 ****To fix the `<header>`****
 1. Add the `fixed` attribute to your `<header>` element in the layout per the above example.

@@ -1,11 +1,16 @@
 ## Math Formulae
 MarkBind supports typesetting TeX math equations. [KaTeX](https://katex.org) is used as a fast math renderer.
 
-Insert **inline** equations by enclosing them in round brackets `\( ... \)`.
+Two types of delimiters are supported and can be used interchangeably:
 
-Insert **display** equations by enclosing them in square brackets `\[ ... \]`.
-
-Insert numbered **display** equations by enclosing the equation in square brackets and the equation number in round brackets `\[ ... \] (1)`.
+* `'dollars'`
+  * Insert **inline** equations by enclosing them in `$...$` or `$$...$$`
+  * Insert **display** equations by enclosing them in `$$...$$`
+  * Insert **display** + **equation number**: `$$...$$ (1)`
+* `'brackets'`
+  * Insert **inline** equations by enclosing them in `\(...\)`
+  * Insert **display** equations by enclosing them in `\[...\]`
+  * Insert **display** + **equation number**: `\[...\] (1)`
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
@@ -17,28 +22,20 @@ Solve the following simultaneous equations:
 
 \[\frac{2x}{3} + \frac{2y}{3} = 8\] (2)
 
-Euler's equation \( e^{i\pi}+1=0 \) is a beautiful equation.
+Euler's equation \(e^{i\pi}+1=0\) is a beautiful equation.
+
+$$ 4x + 5y = 16 $$ (3)
+
+$$\frac{10x}{3} + \frac{5y}{3} = 8$$ (4)
+
+Finally, the Pythagoras theorem: $c^2 = a^2 + b^2$.
 
 </variable>
 </include>
 
 <box type="info">
 
-If you would like to use <tooltip content="$ ... $ or $$ ... $$">dollars</tooltip> as the delimiter, you will need to enable the [texWithDollars](../usingPlugins.md#plugin-texwithdollars) plugin. 
-
-```markdown
-$2_3$
-
-$$
-\frac{1}{2}
-$$
-```
-The above will be rendered as:
-
-\(2_3\)
-
-\[ \frac{1}{2} \]
-
+Additional delimiters are possible by enabling the [mathDelimiters](../usingPlugins.md#plugin-mathdelimiters) plugin.
 </box>
 
 <box type="important">

@@ -105,11 +105,11 @@ class SiteConfig {
      */
     this.intrasiteLinkValidation = siteConfigJson.intrasiteLinkValidation || {};
     this.intrasiteLinkValidation.enabled = this.intrasiteLinkValidation.enabled !== false;
-
     /**
-     * @type {Array}
+     * @type {boolean}
      */
-    this.versions = siteConfigJson.versions || [];
+    this.plantumlCheck = siteConfigJson.plantumlCheck !== undefined
+      ? siteConfigJson.plantumlCheck : true; // check PlantUML's prerequisite by default
   }
 }
 
