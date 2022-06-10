@@ -95,7 +95,7 @@ class PluginManager {
       this.plugins[plugin] = new Plugin(plugin, pluginPath, this.pluginsContextRaw[plugin],
                                         this.config.outputPath);
     } catch (e) {
-      logger.warn(`Unable to load plugin ${plugin}, skipping`);
+      logger.warn(`Unable to load plugin ${plugin}, skipping...\n${e}`);
     }
   }
 

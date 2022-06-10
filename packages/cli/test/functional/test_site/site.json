@@ -155,7 +155,7 @@
     "testMarkbindPlugin",
     "filterTags",
     "googleAnalytics",
-    "texWithDollars"
+    "mathDelimiters"
   ],
   "pluginsContext": {
     "testMarkbindPlugin": {
@@ -171,6 +171,9 @@
     },
     "googleAnalytics": {
       "trackingID": "TRACKING-ID"
+    },
+    "mathDelimiters": {
+      "delimiters": ["beg_end"]
     }
   }
 }

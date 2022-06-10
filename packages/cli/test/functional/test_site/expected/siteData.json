@@ -320,7 +320,7 @@
       "headings": {
         "math-formulae": "Math Formulae",
         "markbind-supports-typesetting-tex-math-equations": "Markbind supports typesetting TeX math equations",
-        "additionally-dollars-can-be-used-as-delimiters-if-texwithdollars-plugin-is-enabled": "Additionally, Dollars can be used as delimiters if texWithDollars plugin is enabled"
+        "additional-delimiters-can-be-used-if-mathdelimiters-plugin-is-enabled": "Additional delimiters can be used if mathDelimiters plugin is enabled"
       },
       "headingKeywords": {}
     }
