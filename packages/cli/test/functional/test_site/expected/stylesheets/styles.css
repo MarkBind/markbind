@@ -65,7 +65,7 @@ mark {
 #site-nav,
 #page-nav {
     position: sticky;
-    top: 0;
+    top: var(--sticky-header-height);
     flex: 0 0 auto;
     max-width: 300px;
     width: 300px;
