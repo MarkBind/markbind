@@ -86,8 +86,12 @@ function detectAndApplyHeaderStyles() {
     if (isEndOfPage) { return; }
 
     if (currentOffset > lastOffset) {
-      const headerEnd = headerSelector.height() + headerSelector[0].getBoundingClientRect().top;
-      const isBeforeHeader = currentOffset < headerEnd;
+      const nextEl = headerSelector[0].nextElementSibling;
+      if (!nextEl) {
+        return;
+      }
+
+      const isBeforeHeader = nextEl.getBoundingClientRect().top > 0;
       if (isBeforeHeader) {
         return;
       }
