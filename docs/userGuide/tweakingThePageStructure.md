@@ -159,9 +159,9 @@ Using this attribute as opposed to setting `position: sticky` manually in your s
 
 MarkBind also exposes the css variable `--sticky-header-height` which contains the height of your header.
 
-It's primary intended use case is to offset secondary layout elements (e.g. your site navigation menu) so that they are not hidden behind the sticky header as the reader scrolls down your page's main contents.
+It's primary intended use case is to offset secondary layout elements (e.g. your site navigation menu) so that they are not hidden behind the sticky header, as the reader scrolls down your page's main contents.
 
-{{ icon_example }} The following example shows how this variable is used in the default layout's stylesheet to offset the sticky position of the site and page navigation menus.
+{{ icon_example }} Offsetting the sticky position of the default layout's site and page navigation menus
 ```css
 #site-nav,
 #page-nav {
@@ -175,6 +175,14 @@ It's primary intended use case is to offset secondary layout elements (e.g. your
 
 You may also find other use cases for this variable, such as offsetting page anchors (which MarkBind does by default).
 </box>
+
+{{ icon_example }} Shifting MarkBind's auto-generated, invisible page anchors upward to account for the header height.
+```css
+span.anchor {
+    position: relative;
+    top: calc(-1 * var(--sticky-header-height) - 1rem);
+}
+```
 
 ---
 
