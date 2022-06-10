@@ -157,7 +157,7 @@ Using this attribute as opposed to setting `position: sticky` manually in your s
 
 ##### Offsetting elements with the header height
 
-MarkBind also exposes the css variable `--sticky-header-height` which contains the height of your header.
+MarkBind also exposes the [css variable](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) `--sticky-header-height` which contains the height of your header.
 
 It's primary intended use case is to offset secondary layout elements (e.g. your site navigation menu) so that they are not hidden behind the sticky header, as the reader scrolls down your page's main contents.
 
