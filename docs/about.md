@@ -2,10 +2,7 @@
   title: "About Us"
 </frontmatter>
 
-<br>
-<br>
-
-# About Us
+# About Us {.mt-3}
 
 <span class="lead">MarkBind is a project **based in [National University of Singapore, School of Computing](http://www.comp.nus.edu.sg/)**, and is funded by an education grant from [NUS Center for Development of Teaching and Learning](https://nus.edu.sg/cdtl).</span>
 
@@ -20,10 +17,14 @@
 
 **Dev Team**:
 * [**Ang Ze Yu**](https://www.github.com/ang-zeyu): **_Project Lead_** since Jan 2021, Member since Jan 2020
-* [**Jonah Tan Jun Zi**](https://www.github.com/jonahtanjz): _Senior Dev_ since Apr 2020, _Member_ since Jan 2020
-* [**Koh Rayson**](https://www.github.com/raysonkoh): _Senior Dev_ since Apr 2020, _Member_ since Jan 2020
-* [**Ong Wei Xiang**](https://www.github.com/wxwxwxwx9): _Senior Dev_ since Apr 2020, _Member_ since Jan 2020
-* [**Ryo Chandra Putra Aramanda**](https://www.github.com/ryoarmanda): _Senior Dev_ since Apr 2020, _Member_ since Jan 2020
+* [**Jonah Tan Jun Zi**](https://www.github.com/jonahtanjz): _Senior Dev_ since Apr 2021, _Member_ since Jan 2021
+* [**Koh Rayson**](https://www.github.com/raysonkoh): _Senior Dev_ since Apr 2021, _Member_ since Jan 2021
+* [**Ong Wei Xiang**](https://www.github.com/wxwxwxwx9): _Senior Dev_ since Apr 2021, _Member_ since Aug 2020
+* [**Ryo Chandra Putra Aramanda**](https://www.github.com/ryoarmanda): _Senior Dev_ since Apr 2021, _Member_ since Aug 2020
+* [**Hannah Chia Kai Xin**](https://www.github.com/kaixin-hc): _Senior Dev_ since Apr 2022, _Member_ since Jan 2022
+* [**Jovyn Tan Li Shyan**](https://www.github.com/jovyntls): _Senior Dev_ since Apr 2022, _Member_ since Jan 2022
+* [**Liu Yongliang**](https://www.github.com/tlylt): _Senior Dev_ since Apr 2022, _Member_ since Aug 2021
+* [**Ong Jun Xiong**](https://www.github.com/ong6): _Senior Dev_ since Apr 2022, _Member_ since Aug 2021
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
