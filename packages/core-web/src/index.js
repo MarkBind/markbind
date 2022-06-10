@@ -37,27 +37,30 @@ function detectAndApplyHeaderStyles() {
     return;
   }
 
-  let isHidden = false;
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 767 && isHidden) {
-      headerSelector.removeClass('hide-header');
-      headerSelector.css('overflow', '');
-    }
-  });
-
-  const updateHeaderHeight = () => {
+  function updateHeaderHeight() {
     const newHeaderHeight = headerSelector.height();
     document.documentElement.style.setProperty('--header-height', `${newHeaderHeight}px`);
-  };
+  }
 
-  const toggleHeaderOverflow = () => {
+  let isHidden = false;
+  function showHeader() {
+    isHidden = false;
+    headerSelector.removeClass('hide-header');
+  }
+  headerSelector[0].addEventListener('transitionend', () => {
     // reset overflow when header shows again to allow content
     // in the header such as search dropdown etc. to overflow
     if (!isHidden) {
       headerSelector.css('overflow', '');
-      updateHeaderHeight();
     }
-  };
+  });
+
+  function hideHeader() {
+    isHidden = true;
+    // hide header overflow when user scrolls to support transition effect
+    headerSelector.css('overflow', '');
+    headerSelector.addClass('hide-header');
+  }
 
   if (isFixed) {
     /*
@@ -66,13 +69,23 @@ function detectAndApplyHeaderStyles() {
      */
     const dynamicFixedHeaderListener = () => {
       if (window.scrollY > headerSelector[0].offsetTop) {
-        document.documentElement.style.setProperty('--fixed-header-padding', 'var(--header-height)');
-        document.documentElement.style.setProperty('--fixed-header-position', 'fixed');
+        const rootElStyle = document.documentElement.style;
+        rootElStyle.setProperty('--fixed-header-padding', 'var(--header-height)');
+        rootElStyle.setProperty('--fixed-header-position', 'fixed');
         window.removeEventListener('scroll', dynamicFixedHeaderListener);
       }
     };
     window.addEventListener('scroll', dynamicFixedHeaderListener);
   }
+
+  // Handles window resizes + dynamic content (e.g. dismissing a box within)
+  const resizeObserver = new ResizeObserver(() => {
+    updateHeaderHeight();
+    if (window.innerWidth > 767 && isHidden) {
+      showHeader();
+    }
+  });
+  resizeObserver.observe(headerSelector[0]);
 
   let lastOffset = 0;
   let lastHash = window.location.hash;
@@ -82,8 +95,7 @@ function detectAndApplyHeaderStyles() {
 
     if (lastHash !== window.location.hash) {
       lastHash = window.location.hash;
-      isHidden = true;
-      headerSelector.removeClass('hide-header');
+      showHeader();
       return;
     }
     lastHash = window.location.hash;
@@ -100,25 +112,12 @@ function detectAndApplyHeaderStyles() {
         return;
       }
 
-      isHidden = true;
-      headerSelector.addClass('hide-header');
+      hideHeader();
     } else {
-      isHidden = false;
-      headerSelector.removeClass('hide-header');
+      showHeader();
     }
     lastOffset = currentOffset;
   };
-
-  const resizeObserver = new ResizeObserver(() => {
-    // hide header overflow when user scrolls to support transition effect
-    if (isHidden) {
-      headerSelector.css('overflow', 'hidden');
-      return;
-    }
-    updateHeaderHeight();
-  });
-  resizeObserver.observe(headerSelector[0]);
-  headerSelector[0].addEventListener('transitionend', toggleHeaderOverflow);
 
   let scrollTimeout;
   window.addEventListener('scroll', () => {
