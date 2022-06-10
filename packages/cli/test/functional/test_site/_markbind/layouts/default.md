@@ -11,7 +11,7 @@
 <include src="headers/header.md" />
 
 <div id="flex-body">
-  <nav id="site-nav" class="fixed-header-padding">
+  <nav id="site-nav">
     <div class="site-nav-top">
       <div class="fw-bold mb-2" style="font-size: 1.25rem;"><markdown>## {{ layoutName or "Default Layout" }}</markdown></div>
     </div>
@@ -19,10 +19,10 @@
       <include src="navigation/site-nav.md" />
     </div>
   </nav>
-  <div id="content-wrapper" class="fixed-header-padding">
+  <div id="content-wrapper">
     {{ content }}
   </div>
-  <nav id="page-nav" class="fixed-header-padding">
+  <nav id="page-nav">
     <div class="nav-component slim-scroll">
       <page-nav />
     </div>

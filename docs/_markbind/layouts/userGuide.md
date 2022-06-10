@@ -1,14 +1,15 @@
-{% if isSticky %}
 <div class="w-100 p-1 bg-warning text-center">
 
-**This is a "non-sticky" announcement that does not follow the header as you scroll down!**
+**This is a temporary "non-sticky" announcement that does not follow the header as you scroll down!**
+
+Will be removed once PR is reviewed.
+See [devGuide]({{baseUrl}}/devGuide/architecture.md) layout for "normal" usage without this announcement
 </div>
-{% endif %}
 
 {% include "_markbind/layouts/headers/header.md" %}
 
 <div id="flex-body">
-  <nav id="site-nav" class="fixed-header-padding">
+  <nav id="site-nav">
     <div class="site-nav-top">
       <div class="fw-bold mb-2" style="font-size: 1.25rem;">User Guide</div>
     </div>
@@ -51,10 +52,10 @@
       </site-nav>
     </div>
   </nav>
-  <div id="content-wrapper" class="fixed-header-padding">
+  <div id="content-wrapper">
     {{ content }}
   </div>
-  <nav id="page-nav" class="fixed-header-padding">
+  <nav id="page-nav">
     <div class="nav-component slim-scroll">
       <page-nav />
     </div>

@@ -1,7 +1,7 @@
 {% include "_markbind/layouts/headers/header.md" %}
 
 <div id="flex-body">
-  <div id="content-wrapper" class="fixed-header-padding">
+  <div id="content-wrapper">
     {{ content }}
   </div>
 </div>

@@ -28,18 +28,14 @@ function detectAndApplyHeaderStyles() {
     }
   });
 
-  const fixedSelector = jQuery('header[fixed]');
-  const isFixed = fixedSelector.length !== 0;
-  const stickySelector = jQuery('header[sticky]');
-  const isSticky = stickySelector.length !== 0;
-  const headerSelector = isSticky ? stickySelector : fixedSelector;
-  if (!(isSticky || isFixed)) {
+  const headerSelector = jQuery('header[sticky]');
+  if (headerSelector.length === 0) {
     return;
   }
 
   function updateHeaderHeight() {
     const newHeaderHeight = headerSelector.height();
-    document.documentElement.style.setProperty('--header-height', `${newHeaderHeight}px`);
+    document.documentElement.style.setProperty('--sticky-header-height', `${newHeaderHeight}px`);
   }
 
   let isHidden = false;
@@ -62,22 +58,6 @@ function detectAndApplyHeaderStyles() {
     headerSelector.addClass('hide-header');
   }
 
-  if (isFixed) {
-    /*
-     Dynamically fixed to avoid FOUC from the --fixed-header-padding style detection.
-     See https://www.w3schools.com/howto/howto_js_sticky_header.asp.
-     */
-    const dynamicFixedHeaderListener = () => {
-      if (window.scrollY > headerSelector[0].offsetTop) {
-        const rootElStyle = document.documentElement.style;
-        rootElStyle.setProperty('--fixed-header-padding', 'var(--header-height)');
-        rootElStyle.setProperty('--fixed-header-position', 'fixed');
-        window.removeEventListener('scroll', dynamicFixedHeaderListener);
-      }
-    };
-    window.addEventListener('scroll', dynamicFixedHeaderListener);
-  }
-
   // Handles window resizes + dynamic content (e.g. dismissing a box within)
   const resizeObserver = new ResizeObserver(() => {
     updateHeaderHeight();
@@ -90,8 +70,8 @@ function detectAndApplyHeaderStyles() {
   let lastOffset = 0;
   let lastHash = window.location.hash;
   const toggleHeaderOnScroll = () => {
-    // prevent toggling of header on desktop site with a fixed header
-    if (isFixed && window.innerWidth > 767) { return; }
+    // prevent hiding of header on desktop site
+    if (window.innerWidth > 767) { return; }
 
     if (lastHash !== window.location.hash) {
       lastHash = window.location.hash;
