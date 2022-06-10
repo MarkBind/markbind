@@ -1,7 +1,7 @@
 {% if isSticky %}
 <div class="w-100 p-1 bg-warning text-center">
 
-**This is a "non-sticky" announcement that does not follow the header as you scroll down!.**
+**This is a "non-sticky" announcement that does not follow the header as you scroll down!**
 </div>
 {% endif %}
 
