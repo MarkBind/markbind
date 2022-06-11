@@ -32,10 +32,12 @@ function detectAndApplyHeaderStyles() {
   if (headerSelector.length === 0) {
     return;
   }
+  const [headerEl] = headerSelector;
 
+  let headerHeight = headerSelector.height();
   function updateHeaderHeight() {
-    const newHeaderHeight = headerSelector.height();
-    document.documentElement.style.setProperty('--sticky-header-height', `${newHeaderHeight}px`);
+    headerHeight = headerSelector.height();
+    document.documentElement.style.setProperty('--sticky-header-height', `${headerHeight}px`);
   }
 
   let isHidden = false;
@@ -43,7 +45,7 @@ function detectAndApplyHeaderStyles() {
     isHidden = false;
     headerSelector.removeClass('hide-header');
   }
-  headerSelector[0].addEventListener('transitionend', () => {
+  headerEl.addEventListener('transitionend', () => {
     // reset overflow when header shows again to allow content
     // in the header such as search dropdown etc. to overflow
     if (!isHidden) {
@@ -65,7 +67,7 @@ function detectAndApplyHeaderStyles() {
       showHeader();
     }
   });
-  resizeObserver.observe(headerSelector[0]);
+  resizeObserver.observe(headerEl);
 
   let lastOffset = 0;
   let lastHash = window.location.hash;
@@ -86,12 +88,25 @@ function detectAndApplyHeaderStyles() {
     if (isEndOfPage) { return; }
 
     if (currentOffset > lastOffset) {
-      const nextEl = headerSelector[0].nextElementSibling;
-      if (!nextEl) {
-        return;
-      }
+      /*
+       1) Bounding box is calculated as if 'position: fixed' when sticky is "activated".
+       Revert the position to 'static' temporarily to avoid this.
 
-      const isBeforeHeader = nextEl.getBoundingClientRect().top > 0;
+       Seems to be harmless UX wise, even on extremely slow devices.
+
+       2) The + headerHeight addition accounts for css translateY.
+
+       This is slightly inaccurate when:
+       - The header is not hidden.
+         In which case it acts as a "padding" before which to hide the header.
+       - The transition has not finished at the point of this function firing, i.e.,
+         the offset is actually less than headerHeight.
+         Similarly, this errs on the side of caution.
+       */
+      headerEl.style.position = 'static';
+      const top = headerEl.getBoundingClientRect().top + headerHeight;
+      headerEl.style.position = 'sticky';
+      const isBeforeHeader = top > 0;
       if (isBeforeHeader) {
         return;
       }
