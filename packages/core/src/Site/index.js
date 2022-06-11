@@ -1096,6 +1096,7 @@ class Site {
     const pagesCount = pageGenerationTasks.reduce((acc, task) => acc + task.pages.length, 0);
     const progressBar = new ProgressBar(`[:bar] :current / ${pagesCount} pages built`, { total: pagesCount });
     progressBar.render();
+    logger.setProgressBar(progressBar);
 
     const startTime = new Date();
     let isCompleted = true;
@@ -1113,6 +1114,7 @@ class Site {
         isCompleted = await this.generatePagesAsyncThrottled(task.pages, progressBar);
       }
 
+      logger.removeProgressBar();
       this.siteLinkManager.validateAllIntralinks();
     });
     return isCompleted;
