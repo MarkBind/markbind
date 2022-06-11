@@ -59,6 +59,7 @@ mark {
     padding: 0.8rem 20px 0 20px;
     transition: 0.4s;
     -webkit-transition: 0.4s;
+    overflow-x: auto;
 }
 
 #site-nav,
