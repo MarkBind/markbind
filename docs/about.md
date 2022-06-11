@@ -2,7 +2,7 @@
   title: "About Us"
 </frontmatter>
 
-# About Us {.mt-3}
+<h1 class="display-3 mt-5"><md>**About Us**</md></h1>
 
 <span class="lead">MarkBind is a project **based in [National University of Singapore, School of Computing](http://www.comp.nus.edu.sg/)**, and is funded by an education grant from [NUS Center for Development of Teaching and Learning](https://nus.edu.sg/cdtl).</span>
 
