@@ -56,6 +56,7 @@ mark {
     margin: 0 auto;
     min-width: 0;
     max-width: 1000px;
+    overflow-x: auto;
     padding: 0.8rem 20px 0 20px;
     transition: 0.4s;
     -webkit-transition: 0.4s;
