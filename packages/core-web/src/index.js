@@ -56,7 +56,7 @@ function detectAndApplyHeaderStyles() {
   function hideHeader() {
     isHidden = true;
     // hide header overflow when user scrolls to support transition effect
-    headerSelector.css('overflow', '');
+    headerSelector.css('overflow', 'hidden');
     headerSelector.addClass('hide-header');
   }
 
