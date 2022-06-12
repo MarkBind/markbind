@@ -152,7 +152,7 @@ If you wish insert scripts at the bottom, before MarkBind's scripts, simply inse
 A sticky header can be implemented by simply adding the `sticky` attribute to a `<header>` element.
 
 Using this attribute as opposed to setting `position: sticky` manually in your stylesheets comes with several conveniences:
-- MarkBind will take care of **aligning the viewport with page anchors** when scrolled to.
+- When scrolled to, page anchors will line up below the sticky header, and not hidden behind it.
 - To preserve screen real estate, the header is hidden on devices with a width of less than 767px when the user scrolls down, and automatically re-shown when the page is scrolled up.
 
 ##### Offsetting elements with the header height
@@ -161,26 +161,22 @@ MarkBind also exposes the [css variable](https://developer.mozilla.org/en-US/doc
 
 It's primary intended use case is to offset secondary layout elements (e.g. your site navigation menu) so that they are not hidden behind the sticky header, as the reader scrolls down your page's main contents.
 
-{{ icon_example }} Offsetting the sticky position of the default layout's site and page navigation menus
+{{ icon_example }} Here's how it is used in the default layout's site and page navigation menus
 ```css
 #site-nav,
 #page-nav {
     position: sticky;
+    /*
+     Offset the top sticky position,
+     such that the menus are not hidden behind the header.
+     */
     top: var(--sticky-header-height);
+    /*
+     Limit the height of the menus so that the reader is able to scroll
+     through the menus individually, without having to scroll to the bottom of the page.
+     */
+    max-height: calc(100vh - var(--sticky-header-height));
     ...
-}
-```
-
-<box type="tip" seamless>
-
-You may also find other use cases for this variable, such as offsetting page anchors (which MarkBind does by default).
-</box>
-
-{{ icon_example }} Shifting MarkBind's auto-generated, invisible page anchors upward to account for the header height.
-```css
-span.anchor {
-    position: relative;
-    top: calc(-1 * var(--sticky-header-height) - 1rem);
 }
 ```
 
