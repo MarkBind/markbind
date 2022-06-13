@@ -19,7 +19,7 @@ Here is a typical `site.json` file:
   "baseUrl": "/myproduct",
   "faviconPath": "myfavicon.png",
   "titlePrefix": "FooBar Dev Docs",
-  "titleSuffix": "",
+  "titleSuffix": "FooBar",
   "style": {
     "bootstrapTheme": "bootswatch-cerulean",
     "codeTheme": "light",
