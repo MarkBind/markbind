@@ -108,6 +108,7 @@ test('Site read site config for default', async () => {
 
   expect(siteConfig.baseUrl).toEqual(expectedSiteConfig.baseUrl);
   expect(siteConfig.titlePrefix).toEqual(expectedSiteConfig.titlePrefix);
+  expect(siteConfig.titleSuffix).toEqual(expectedSiteConfig.titleSuffix);
   expect(siteConfig.ignore).toEqual(expectedSiteConfig.ignore);
   expect(siteConfig.pages).toEqual(expectedSiteConfig.pages);
   expect(siteConfig.deploy).toEqual(expectedSiteConfig.deploy);

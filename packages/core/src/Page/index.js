@@ -24,6 +24,7 @@ const {
   PAGE_NAV_ID,
   PAGE_NAV_TITLE_CLASS,
   TITLE_PREFIX_SEPARATOR,
+  TITLE_SUFFIX_SEPARATOR,
 } = require('./constants');
 
 const {
@@ -127,6 +128,9 @@ class Page {
     const prefixedTitle = this.pageConfig.titlePrefix
       ? this.pageConfig.titlePrefix + (this.title ? TITLE_PREFIX_SEPARATOR + this.title : '')
       : this.title;
+    const prefixedSuffixedTitle = this.pageConfig.titleSuffix
+      ? (prefixedTitle ? prefixedTitle + TITLE_SUFFIX_SEPARATOR : '') + this.pageConfig.titleSuffix
+      : prefixedTitle;
     // construct temporary asset object with only POSIX-style paths
     const asset = {};
     Object.entries(this.asset).forEach(([key, value]) => {
@@ -142,7 +146,7 @@ class Page {
       dev: this.pageConfig.dev,
       faviconUrl: this.pageConfig.faviconUrl,
       markBindVersion: `MarkBind ${PACKAGE_VERSION}`,
-      title: prefixedTitle,
+      title: prefixedSuffixedTitle,
       enableSearch: this.pageConfig.enableSearch,
     };
   }
