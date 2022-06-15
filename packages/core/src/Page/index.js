@@ -125,12 +125,13 @@ class Page {
   }
 
   prepareTemplateData(content, hasPageNav) {
-    const prefixedTitle = this.pageConfig.titlePrefix
-      ? this.pageConfig.titlePrefix + (this.title ? TITLE_PREFIX_SEPARATOR + this.title : '')
-      : this.title;
-    const prefixedSuffixedTitle = this.pageConfig.titleSuffix
-      ? (prefixedTitle ? prefixedTitle + TITLE_SUFFIX_SEPARATOR : '') + this.pageConfig.titleSuffix
-      : prefixedTitle;
+    let { title } = this;
+    if (this.pageConfig.titlePrefix) {
+      title = this.pageConfig.titlePrefix + (title ? TITLE_PREFIX_SEPARATOR + title : '');
+    }
+    if (this.pageConfig.titleSuffix) {
+      title = (title ? title + TITLE_SUFFIX_SEPARATOR : '') + this.pageConfig.titleSuffix;
+    }
     // construct temporary asset object with only POSIX-style paths
     const asset = {};
     Object.entries(this.asset).forEach(([key, value]) => {
@@ -146,7 +147,7 @@ class Page {
       dev: this.pageConfig.dev,
       faviconUrl: this.pageConfig.faviconUrl,
       markBindVersion: `MarkBind ${PACKAGE_VERSION}`,
-      title: prefixedSuffixedTitle,
+      title,
       enableSearch: this.pageConfig.enableSearch,
     };
   }
