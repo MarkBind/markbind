@@ -247,18 +247,9 @@ pre {
     display: flex;
 }
 
-pre:hover > .function-btn-container > button.function-btn {
-    display: block;
-}
-
-.function-btn-container {
-    display: grid;
-    height: max-content;
-}
-
 button.function-btn {
     background-color: transparent;
-    border: 1px solid #D7DADC;
+    border: 1px solid #d7dadc;
     border-radius: 5px;
     color: darkgray;
     cursor: pointer;
@@ -273,6 +264,15 @@ button.function-btn {
 
 button.function-btn + button.function-btn {
     right: 36px;
+}
+
+pre:hover > .function-btn-container > button.function-btn {
+    display: block;
+}
+
+.function-btn-container {
+    display: grid;
+    height: max-content;
 }
 
 .function-btn:hover {
