@@ -99,7 +99,7 @@ program
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
   .option('-d, --dev', 'development mode, enabling live & hot reload for frontend source files.')
   .option('-v, --versions [versionNames...]',
-          'specify versions to be deployed. if flag is used without specification, deploy all versions')
+          'specify versions to be deployed. if flag is used without specification, deploy no versions')
   .action((userSpecifiedRoot, options) => {
     if (options.dev) {
       logger.useDebugConsole();
@@ -301,7 +301,7 @@ program
           'optional flag which overrides baseUrl in site.json, leave argument empty for empty baseUrl')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
   .option('-v, --versions [versionNames...]',
-          'specify versions to be deployed. if flag is used without specification, deploy all versions')
+          'specify versions to be deployed. if flag is used without specification, deploy no versions')
   .description('build a website')
   .action((userSpecifiedRoot, output, options) => {
     // if --baseUrl contains no arguments (options.baseUrl === true) then set baseUrl to empty string
@@ -323,15 +323,13 @@ program
   });
 
 program
-  .command('archive [versionName] [archivePath]')
+  .command('archive <versionName>')
   .alias('ar')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
+  .option('-ap, --archive-path', 'specify a custom path to archive the site at')
   .description('archive a version of the site, which is not affected by later changes to the site')
-  .action((versionName, userSpecifiedArchivePath, options) => {
-    if (!versionName) {
-      logger.error('Please specify a name for the archived version.');
-    }
-    const archivePath = userSpecifiedArchivePath || `version/${versionName}`;
+  .action((versionName, options) => {
+    const archivePath = options.archivePath || `version/${versionName}`;
     const rootFolder = path.resolve(process.cwd());
     const outputFolder = path.join(rootFolder, archivePath);
     new Site(rootFolder, outputFolder, undefined, undefined, options.siteConfig)

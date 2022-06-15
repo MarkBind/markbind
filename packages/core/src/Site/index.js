@@ -666,12 +666,14 @@ class Site {
       const desiredVersions = this.versionData.versions
         .filter(vers => vers.baseUrl === this.siteConfig.baseUrl);
       if (versionsToGenerate === true) {
-        await this.addVersions(desiredVersions);
+        // copy no versions if the version flag is passed without arguments
       } else if (versionsToGenerate === false) {
-        await this.addVersions(desiredVersions
+        // ensure that code still passes even if there is no version option in site.json
+        this.siteConfig.versions = this.siteConfig.versions === undefined ? [] : this.siteConfig.versions;
+        await this.copyVersions(desiredVersions
           .filter(vers => this.siteConfig.versions.includes(vers.versionName)));
       } else {
-        await this.addVersions(desiredVersions
+        await this.copyVersions(desiredVersions
           .filter(vers => versionsToGenerate.includes(vers.versionName)));
       }
 
@@ -1500,7 +1502,7 @@ class Site {
   }
 
   /**
-   * Archive the current version of the site.
+   * Builds and archives the current version of the site.
    *
    * @param {string} versionName the name of the version
    * @param {string} archivePath the path to the folder to store the archives in
@@ -1514,9 +1516,7 @@ class Site {
     this.ignoreVersionFiles('');
 
     // Used to get accurate intralinks within the archived site:
-    const archivedBaseUrl = this.siteConfig.baseUrl === ''
-      ? `/${archivePath}`
-      : `${this.siteConfig.baseUrl}/${archivePath}`;
+    const archivedBaseUrl = `${this.siteConfig.baseUrl}/${archivePath}`;
     this.siteConfig.baseUrl = archivedBaseUrl;
 
     // Create the .tmp folder for storing intermediate results.
@@ -1627,7 +1627,7 @@ class Site {
    * Copies over all versioned files from a given folder to be deployed.
    * @param {Array} versionFolders is the directory the versions are within
    */
-  async addVersions(versionFolders) {
+  async copyVersions(versionFolders) {
     const versionFoldersArray = versionFolders.map(f => f.archivePath);
     try {
       versionFoldersArray.map(async (versionFolder) => {
