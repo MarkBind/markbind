@@ -247,20 +247,32 @@ pre {
     display: flex;
 }
 
+pre:hover > .function-btn-container > button.function-btn {
+    display: block;
+}
+
 .function-btn-container {
     display: grid;
     height: max-content;
 }
 
 button.function-btn {
-    border: none;
     background-color: transparent;
+    border: 1px solid #D7DADC;
+    border-radius: 5px;
     color: darkgray;
     cursor: pointer;
-    display: inline-block;
+    display: none;
+    margin: 0.35rem;
     padding: 0.35rem;
+    position: absolute;
+    right: 0;
     text-align: center;
     white-space: nowrap;
+}
+
+button.function-btn + button.function-btn {
+    right: 36px;
 }
 
 .function-btn:hover {
