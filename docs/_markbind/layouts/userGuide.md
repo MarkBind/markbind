@@ -1,11 +1,3 @@
-<div class="w-100 p-1 bg-warning text-center">
-
-**This is a temporary "non-sticky" announcement that does not follow the header as you scroll down!**
-
-Will be removed once PR is reviewed.
-See [devGuide]({{baseUrl}}/devGuide/architecture.md) layout for "normal" usage without this announcement
-</div>
-
 {% include "_markbind/layouts/headers/header.md" %}
 
 <div id="flex-body">
