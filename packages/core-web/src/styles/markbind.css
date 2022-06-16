@@ -248,13 +248,13 @@ pre {
 }
 
 button.function-btn {
-    background-color: transparent;
+    background-color: #f8f8ff;
     border: 1px solid #d7dadc;
     border-radius: 5px;
     color: darkgray;
     cursor: pointer;
     display: none;
-    margin: 0.35rem;
+    margin: 0.17rem;
     padding: 0.35rem;
     position: absolute;
     right: 0;
@@ -268,11 +268,6 @@ button.function-btn + button.function-btn {
 
 pre:hover > .function-btn-container > button.function-btn {
     display: block;
-}
-
-.function-btn-container {
-    display: grid;
-    height: max-content;
 }
 
 .function-btn:hover {
