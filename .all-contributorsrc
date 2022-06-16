@@ -1,6 +1,7 @@
 {
   "files": [
-    "README.md"
+    "README.md",
+    "docs/about.md"
   ],
   "imageSize": 100,
   "commit": false,
@@ -20,7 +21,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/3306138?v=4",
       "profile": "https://github.com/ang-zeyu",
       "contributions": [
-        "code"
+        "code",
+        "projectManagement"
       ]
     },
     {
@@ -119,7 +121,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/1673303?v=4",
       "profile": "http://www.comp.nus.edu.sg/~damithch",
       "contributions": [
-        "code"
+        "code",
+        "mentoring"
       ]
     },
     {
@@ -128,7 +131,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/47470981?v=4",
       "profile": "https://github.com/jonahtanjz",
       "contributions": [
-        "code"
+        "code",
+        "review"
       ]
     },
     {
@@ -155,7 +159,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/24468110?v=4",
       "profile": "https://github.com/ryoarmanda",
       "contributions": [
-        "code"
+        "code",
+        "review"
       ]
     },
     {
@@ -272,7 +277,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/41845017?v=4",
       "profile": "https://tlylt.github.io/",
       "contributions": [
-        "code"
+        "code",
+        "doc"
       ]
     },
     {
@@ -353,7 +359,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/19247856?v=4",
       "profile": "https://github.com/ong6",
       "contributions": [
-        "code"
+        "code",
+        "doc"
       ]
     },
     {
@@ -453,7 +460,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/59471320?v=4",
       "profile": "https://github.com/kaixin-hc",
       "contributions": [
-        "code"
+        "code",
+        "doc"
       ]
     },
     {
