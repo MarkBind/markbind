@@ -14,13 +14,13 @@
 
 **Mentors**:
 * [**Damith C. Rajapakse**](https://www.comp.nus.edu.sg/~damithch/): _Project Mentor_ since Aug 2016
+* [**Ang Ze Yu**](https://www.github.com/ang-zeyu): _Project Mentor_ since Jun 2022, _Team Lead_ for Sep 2020 - May 2022
 
 **Dev Team**:
-* [**Ang Ze Yu**](https://www.github.com/ang-zeyu): **_Project Lead_** since Jan 2021, Member since Jan 2020
-* [**Jonah Tan Jun Zi**](https://www.github.com/jonahtanjz): _Senior Dev_ since Apr 2021, _Member_ since Jan 2021
+* [**Jonah Tan Jun Zi**](https://www.github.com/jonahtanjz): **_Team Lead_** since Jun 2022, _Member_ for Jan 2021 - May 2022
+* [**Ryo Chandra Putra Aramanda**](https://www.github.com/ryoarmanda): **_Team Lead_** since Jun 2022, _Member_ for Aug 2020 - May 2022
 * [**Koh Rayson**](https://www.github.com/raysonkoh): _Senior Dev_ since Apr 2021, _Member_ since Jan 2021
 * [**Ong Wei Xiang**](https://www.github.com/wxwxwxwx9): _Senior Dev_ since Apr 2021, _Member_ since Aug 2020
-* [**Ryo Chandra Putra Aramanda**](https://www.github.com/ryoarmanda): _Senior Dev_ since Apr 2021, _Member_ since Aug 2020
 * [**Hannah Chia Kai Xin**](https://www.github.com/kaixin-hc): _Senior Dev_ since Apr 2022, _Member_ since Jan 2022
 * [**Jovyn Tan Li Shyan**](https://www.github.com/jovyntls): _Senior Dev_ since Apr 2022, _Member_ since Jan 2022
 * [**Liu Yongliang**](https://www.github.com/tlylt): _Senior Dev_ since Apr 2022, _Member_ since Aug 2021
