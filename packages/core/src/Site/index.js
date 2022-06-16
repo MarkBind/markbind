@@ -345,6 +345,7 @@ class Site {
       src: config.pageSrc,
       title: config.title || '',
       titlePrefix: this.siteConfig.titlePrefix,
+      titleSuffix: this.siteConfig.titleSuffix,
       template: this.pageTemplate,
       variableProcessor: this.variableProcessor,
       ignore: this.siteConfig.ignore,
@@ -942,6 +943,7 @@ class Site {
     // Checks if any attributes of site.json requiring a global rebuild are modified
     const isGlobalConfigModified = () => !_.isEqual(oldSiteConfig.faviconPath, this.siteConfig.faviconPath)
         || !_.isEqual(oldSiteConfig.titlePrefix, this.siteConfig.titlePrefix)
+        || !_.isEqual(oldSiteConfig.titleSuffix, this.siteConfig.titleSuffix)
         || !_.isEqual(oldSiteConfig.style, this.siteConfig.style)
         || !_.isEqual(oldSiteConfig.externalScripts, this.siteConfig.externalScripts)
         || !_.isEqual(oldSiteConfig.globalOverride, this.siteConfig.globalOverride)

@@ -74,6 +74,10 @@ class SiteConfig {
      */
     this.titlePrefix = siteConfigJson.titlePrefix || '';
     /**
+     * @type {string}
+     */
+    this.titleSuffix = siteConfigJson.titleSuffix || '';
+    /**
      * @type {Object<string, any>}
      */
     this.globalOverride = siteConfigJson.globalOverride || {};

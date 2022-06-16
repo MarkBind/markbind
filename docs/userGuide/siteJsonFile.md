@@ -19,6 +19,7 @@ Here is a typical `site.json` file:
   "baseUrl": "/myproduct",
   "faviconPath": "myfavicon.png",
   "titlePrefix": "FooBar Dev Docs",
+  "titleSuffix": "FooBar",
   "style": {
     "bootstrapTheme": "bootswatch-cerulean",
     "codeTheme": "light",
@@ -102,6 +103,10 @@ Note: `baseUrl` does not support [live preview](glossary.md#live-preview) as the
 #### **`titlePrefix`**
 
 **The prefix for all page titles.** The separator `-` will be inserted by MarkBind.
+
+#### **`titleSuffix`**
+
+**The suffix for all page titles.** The separator `-` will be inserted by MarkBind.
 
 #### **`style`**
 
