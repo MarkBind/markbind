@@ -219,7 +219,7 @@ export default {
       return this.keywords.split(',').filter(keyword => keyword.trim() !== '');
     },
     isMcqOrCheckboxQuestion() {
-      return this.type === 'mcq' || this.type === 'checkbox';
+      return this.type === 'mcq' || this.type === 'checkbox' || this.type === 'multiBlanks';
     },
     isTextQuestion() {
       return this.type === 'text' || this.hasInput;
@@ -267,6 +267,23 @@ export default {
         this.markAsWrong(markAsAnsweredIfWrong);
       }
     },
+    checkMultiBlanksAnswer(markAsAnsweredIfWrong) {
+      let hasWrongAns = false;
+      for (let i = 0; i < this.answers.length; i++) {
+        if (this.answers[i].textareaText.toLowerCase() === this.answers[i]._props.keyword.toLowerCase()) {
+          this.answers[i]._props.correct = true;
+        } else {
+          this.answers[i]._props.correct = false;
+          hasWrongAns = true;
+        }
+      }
+
+      if (hasWrongAns) {
+        this.markAsWrong(markAsAnsweredIfWrong);
+      } else {
+        this.markAsCorrect();
+      }
+    },
     checkTextAnswer(markAsAnsweredIfWrong) {
       // Todo deprecate this guard clause
       if (!this.keywords.length) {
@@ -295,6 +312,8 @@ export default {
         this.checkMcqAnswer(markAsAnsweredIfWrong);
       } else if (this.type === 'checkbox') {
         this.checkCheckboxAnswer(markAsAnsweredIfWrong);
+      } else if (this.type === 'multiBlanks') {
+        this.checkMultiBlanksAnswer(markAsAnsweredIfWrong);
       } else if (this.isTextQuestion()) {
         this.checkTextAnswer(markAsAnsweredIfWrong);
       } else {

@@ -96,6 +96,59 @@
       </div>
     </div>
   </div>
+
+  <!-- multiple blanks option -->
+  <div
+    v-else-if="qOptionType === 'multiBlanks'"
+    :class="['form-control', hintClass]"
+    @mouseover="hover = true"
+    @mouseleave="hover = false"
+  >
+    <label :class="['row', 'multiBlanks-label', 'm-0', { 'disabled': qState.answered }]" @click.stop>
+      <!-- TODO: textareaText throwing warning -->
+      <textarea
+        v-model="textareaText"
+        class="form-control"
+        :disabled="qState.answered"
+      ></textarea>
+      <div v-if="qState.answered">
+        <hr />
+        <strong v-if="keywordsSplitTrimmed().length">
+          Keywords:&nbsp;
+          <span
+            v-for="keyword in keywordsSplitTrimmed()"
+            :key="keyword"
+            class="badge rounded-pill bg-light text-dark fw-normal"
+          >
+            {{ keyword }}
+          </span>
+        </strong>
+        <strong v-else>No answer checking keywords provided</strong>
+      </div>
+      <div class="col-auto">
+        <div v-if="qState.answered">
+          <i
+            v-if="correct"
+            class="fa fa-check text-success"
+            :class="{ 'align-bottom': $scopedSlots.reason }"
+          ></i>
+          <i
+            v-else
+            class="fa fa-times text-danger"
+            :class="{ 'align-bottom': $scopedSlots.reason }"
+          ></i>
+        </div>
+      </div>
+    </label>
+    </select>
+
+    <div v-if="qState.answered && $scopedSlots.reason">
+      <hr />
+      <div class="reason">
+        <slot name="reason"></slot>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -106,8 +159,21 @@ export default {
       type: Boolean,
       default: false,
     },
+    keyword: {
+      type: String,
+      default: '',
+    },
   },
   data() {
+    if (this.isMultiBlanksQuestion()) {
+      // TODO: textareaText throwing warning
+      return {
+        textareaText: '',
+        selected: false,
+        hover: false,
+      };
+    }
+
     return {
       selected: false,
       hover: false,
@@ -137,6 +203,13 @@ export default {
     },
   },
   methods: {
+    isMultiBlanksQuestion() {
+      return this.type === 'multiBlanks'
+    },
+    // NOTE: keeping the function like this so that in the future, more keywords can be added
+    keywordsSplitTrimmed() {
+      return this.keyword.split(',').filter(keyword => keyword.trim() !== '');
+    },
     toggleRadioOn() {
       if (this.qState.answered || this.selected) {
         return;
@@ -213,5 +286,12 @@ export default {
     .row {
         margin: 0.2rem 0 0 0;
         align-items: center;
+    }
+
+    /* text question text area */
+    textarea.form-control {
+        height: auto;
+        min-height: 20px;
+        margin-bottom: 10px;
     }
 </style>
