@@ -36,11 +36,11 @@ For Markdown syntax: To display a literal character that are normally used for M
 
 
 To display the raw variable interpolation syntax using `{% raw %}{% endraw %}`, you would also need to add
-the `v-pre` attribute using markdown-it-attrs or as a html attribute.
+the `v-pre` attribute using markdown-it-attrs or as a HTML attribute.
 
 <box type="info">
 
-This isn't necessary for `<code>` elements, markdown code fences and inline code though, which markbind automatically
+This isn't necessary for `<code>` elements, markdown code fences and inline code though, which MarkBind automatically
 adds `v-pre` for.
 
 However, this does not change the need for `{% raw %}{% endraw %}`. Meaning, you can still use variables within your code!
@@ -85,7 +85,7 @@ When you use links or triggers, you may encounter a situation where an unwanted 
 
 When the [default CI configuration for deployment](deployingTheSite.html#using-ci-platforms) is used, the latest version of MarkBind will be used in the CI workflows. This may be a later version of MarkBind than the one you use locally.
 
-* If you want to specify a version of MarkBind (eg. `v1.6.3`), you have to modify the step where `markbind-cli` is being installed to `npm i -g markbind-cli@v1.6.3`. For example, for Travis-CI, you can modifiy the `install` step in `.travis.yml` as follows:
+* If you want to specify a version of MarkBind (eg. `v1.6.3`), you have to modify the step where `markbind-cli` is being installed to `npm i -g markbind-cli@v1.6.3`. For example, for Travis-CI, you can modify the `install` step in `.travis.yml` as follows:
 
   ```yaml
   install:
@@ -104,7 +104,7 @@ Here are the steps to set up Netlify to use a specific version of MarkBind.
 
 1. Navigate to the root directory of your site.
 1. Run `npm init` which will create `package.json` and `package.lock.json`
-1. Run `npm install markbind-cli@1.6.3 --save` to install markbind as a dependency (using v1.6.3 as an example)
+1. Run `npm install markbind-cli@1.6.3 --save` to install MarkBind as a dependency (using v1.6.3 as an example)
 1. Create / Update `.gitignore` file in the root directory and add:
    ```
    node_modules
@@ -129,7 +129,7 @@ Here are the steps to set up Netlify to use a specific version of MarkBind.
 ##### :fas-lightbulb: Indent components
 
 In some cases, you may want to indent components such as panels and boxes to match the surrounding content.
-This is easily achieved by adding some margin and padding utility classes from [Bootstrap](https://getbootstrap.com/docs/4.4/utilities/spacing/) 
+This is easily achieved by adding some margin and padding utility classes from [Bootstrap](https://getbootstrap.com/docs/5.1/utilities/spacing/) 
 to the component. The following examples show how to do this.
 
 **Indent Box component**
@@ -140,7 +140,7 @@ to the component. The following examples show how to do this.
 
 <box>Some text at level 1</box>
 
-<box class="ml-4">Some text at level 2</box>
+<box class="ms-4">Some text at level 2</box>
 
 <box>Some text at level 1</box>
 
@@ -156,8 +156,8 @@ to the component. The following examples show how to do this.
 <panel header="This panel is at level 1">
   ...
 </panel>
-<panel header="This panel is at level 2" class="ml-3">
-  The "ml-3" is arbitarily chosen i.e "ml-0" to "ml-5" are all possible values.
+<panel header="This panel is at level 2" class="ms-3">
+  The "ms-3" is arbitarily chosen i.e "ms-0" to "ms-5" are all possible values.
 </panel>
 <panel header="This panel is at level 1">
   ...
@@ -178,7 +178,7 @@ The following box component will be included via `<include>`.
 <variable name="code">
 
 <box>Some text at level 1 (before included content)</box>
-<include src="tipsAndTricks.md#forIndentDemo" class="ml-5"></include>
+<include src="tipsAndTricks.md#forIndentDemo" class="ms-5"></include>
 <box>Some text at level 1 (after included content)</box>
 
 </variable>

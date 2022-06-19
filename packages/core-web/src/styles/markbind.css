@@ -1,3 +1,11 @@
+:root {
+    --sticky-header-height: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
 blockquote {
     border-left: 0.25em solid #dfe2e5;
     color: #6a737d;
@@ -119,17 +127,21 @@ code.hljs.inline {
 
 /* Header */
 
-header[fixed] {
-    max-height: 100%;
-    position: fixed;
-    transition: max-height 0.6s ease-in;
+header[sticky] {
+    position: sticky;
+    top: 0;
+    transition: transform 0.3s ease-in-out;
     width: 100%;
     z-index: 1001;
 }
 
-header[fixed].hide-header {
-    max-height: 0;
-    transition: max-height 0.6s ease-out;
+header[sticky].hide-header {
+    transform: translateY(calc(-1 * var(--sticky-header-height)));
+}
+
+span.anchor {
+    position: relative;
+    top: calc(-1 * var(--sticky-header-height) - 1rem);
 }
 
 /* #app is treated as the main container */
@@ -226,20 +238,26 @@ pre {
     display: flex;
 }
 
-.function-btn-container {
-    display: grid;
-    height: max-content;
-}
-
 button.function-btn {
-    border: none;
-    background-color: transparent;
+    border: 1px solid #d7dadc;
+    border-radius: 5px;
     color: darkgray;
     cursor: pointer;
-    display: inline-block;
+    display: none;
+    margin: 0.17rem;
     padding: 0.35rem;
+    position: absolute;
+    right: 0;
     text-align: center;
     white-space: nowrap;
+}
+
+button.function-btn + button.function-btn {
+    right: 36px;
+}
+
+pre:hover > .function-btn-container > button.function-btn {
+    display: block;
 }
 
 .function-btn:hover {
@@ -269,6 +287,11 @@ code.wrap {
 }
 
 /* styles for <hr> */
+hr {
+    border-top: solid 1px rgb(0, 0, 0, 0.1);
+    background-color: transparent;
+    opacity: 1;
+}
 
 hr.dotted {
     border-top-width: 0.1rem;

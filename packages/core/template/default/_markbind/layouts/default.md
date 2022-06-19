@@ -2,7 +2,7 @@
   <link rel="stylesheet" href="{{baseUrl}}/stylesheets/main.css">
 </head-bottom>
 
-<header fixed>
+<header sticky>
   <navbar type="dark">
     <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand">Your Logo</a>
     <li><a href="{{baseUrl}}/contents/topic1.html" class="nav-link">Topic 1</a></li>
@@ -20,9 +20,9 @@
 </header>
 
 <div id="flex-body">
-  <nav id="site-nav" class="fixed-header-padding">
+  <nav id="site-nav">
     <div class="site-nav-top">
-      <div class="font-weight-bold mb-2" style="font-size: 1.25rem;">Template</div>
+      <div class="fw-bold mb-2" style="font-size: 1.25rem;">Template</div>
     </div>
     <div class="nav-component slim-scroll">
       <site-nav>
@@ -35,10 +35,10 @@
       </site-nav>
     </div>
   </nav>
-  <div id="content-wrapper" class="fixed-header-padding">
+  <div id="content-wrapper">
     {{ content }}
   </div>
-  <nav id="page-nav" class="fixed-header-padding">
+  <nav id="page-nav">
     <div class="nav-component slim-scroll">
       <page-nav />
     </div>

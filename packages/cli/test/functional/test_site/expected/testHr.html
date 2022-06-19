@@ -54,9 +54,9 @@
       <p><strong>Relative Link Test</strong> This is a relative Intra-Site link in a layout (see <a href="/test_site/index.html#heading-with-hidden-keyword">link</a>)</p>
     </div>
     <div id="flex-body">
-      <overlay-source id="site-nav" class="fixed-header-padding" tag-name="nav" to="site-nav">
+      <overlay-source id="site-nav" tag-name="nav" to="site-nav">
         <div class="site-nav-top">
-          <div class="font-weight-bold mb-2" style="font-size: 1.25rem;">
+          <div class="fw-bold mb-2" style="font-size: 1.25rem;">
             <div>
               <h2 id="default-layout"><span id="default-layout" class="anchor"></span>Default Layout<a class="fa fa-anchor" href="#default-layout" onclick="event.stopPropagation()"></a></h2>
             </div>
@@ -206,7 +206,7 @@
           </div>
         </div>
       </overlay-source>
-      <div id="content-wrapper" class="fixed-header-padding">
+      <div id="content-wrapper">
         <h1 id="different-types-of-horizontal-rules"><span id="different-types-of-horizontal-rules" class="anchor"></span>Different types of horizontal rules<a class="fa fa-anchor" href="#different-types-of-horizontal-rules" onclick="event.stopPropagation()"></a></h1>
         <hr>
         <hr class="dotted">
@@ -222,7 +222,7 @@
         <hr class="dotted thick-1 border-primary">
         <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>
-      <overlay-source id="page-nav" class="fixed-header-padding" tag-name="nav" to="page-nav">
+      <overlay-source id="page-nav" tag-name="nav" to="page-nav">
         <div class="nav-component slim-scroll">
         </div>
       </overlay-source>

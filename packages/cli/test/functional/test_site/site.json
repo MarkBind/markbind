@@ -2,6 +2,7 @@
   "baseUrl": "/test_site",
   "faviconPath": "favicon.png",
   "titlePrefix": "",
+  "titleSuffix": "",
   "style": {
     "codeLineNumbers": true
   },
@@ -49,6 +50,10 @@
     {
       "src": "testAnchorGeneration.md",
       "title": "Anchor Generation Test"
+    },
+    {
+      "src": "testAnnotate.md",
+      "title": "Annotate Feature Test"
     },
     {
       "src": "testTooltipSpacing.md",
@@ -151,7 +156,7 @@
     "testMarkbindPlugin",
     "filterTags",
     "googleAnalytics",
-    "texWithDollars"
+    "mathDelimiters"
   ],
   "pluginsContext": {
     "testMarkbindPlugin": {
@@ -167,6 +172,9 @@
     },
     "googleAnalytics": {
       "trackingID": "TRACKING-ID"
+    },
+    "mathDelimiters": {
+      "delimiters": ["beg_end"]
     }
   }
 }

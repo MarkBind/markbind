@@ -4,12 +4,15 @@
 - [ ] Bug fix
 - [ ] Feature addition or enhancement
 - [ ] Code maintenance
+- [ ] DevOps
+- [ ] Improve developer experience
 - [ ] Others, please explain:
 
 <!--
   If this pull request is addressing an issue, link to the issue: "Fixes #xxx" or "Resolves #xxx"
 
-  If the pull request completely addresses the issue, use one of the issue closing keywords. https://docs.github.com/en/enterprise/2.16/user/github/managing-your-work-on-github/closing-issues-using-keywords
+  If the pull request completely addresses the issue, use one of the issue closing keywords.
+  https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword
 
   Otherwise, elaborate further on the rationale of this pull request as needed
 -->
@@ -17,7 +20,7 @@
 **Overview of changes:**
 
 
-**Anything you'd like to highlight / discuss:**
+**Anything you'd like to highlight/discuss:**
 
 
 **Testing instructions:**
@@ -33,6 +36,9 @@
   https://oss-generic.github.io/process/docs/FormatsAndConventions.html#commit-message
 
   As best as possible, write a succinct commit title in 50 characters
+
+|---------This is the width of 50 chars----------|
+|-----------This is the width of 72 chars for your reference-----------|
 -->
 
 ---

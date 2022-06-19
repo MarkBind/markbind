@@ -36,6 +36,7 @@
   panels : ['Panels', ['presentation', 'reader-facing']],
   tabs : ['Tabs', ['presentation', 'reader-facing']],
   pictures : ['Pictures', ['images-diagrams', 'reader-facing']],
+  annotations : ['Annotations', ['images-diagrams', 'reader-facing']],
   thumbnails : ['Thumbnails', ['images-diagrams', 'reader-facing']],
   diagrams : ['Diagrams', ['images-diagrams', 'reader-facing']],
   tree : ['Tree', ['images-diagrams', 'reader-facing']],

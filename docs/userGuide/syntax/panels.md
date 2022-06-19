@@ -202,9 +202,9 @@ peek | `Boolean` | `false` | Whether to show part of the content when the Panel 
 no-close | `Boolean` | `false` | Whether to show the close button.
 no-switch | `Boolean` | `false` | Whether to show the expand switch.
 bottom-switch | `Boolean` | `true` | Whether to show an expand switch at the bottom of the panel. Independent of no-switch.
-popup-url | `String` | | The url that the popup window will navigate to. The url can be absolute or relative.
+popup-url | `String` | | The URL that the popup window will navigate to. The URL can be absolute or relative.
 preload | `Boolean` | `false` | Whether the content is loaded immediately from `src`.
-src | `String` | | The url to the remote page to be loaded as the content of the panel.
+src | `String` | | The URL to the remote page to be loaded as the content of the panel.
 type | `String` | `light` | The type or color scheme of the panel (single).<br>Supports: `light`, `dark`, `primary`, `secondary`, `info`, `success`, `warning`, `danger`, `seamless`, `minimal`.
 
 <div id="short" class="d-none">

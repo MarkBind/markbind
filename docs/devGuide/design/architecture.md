@@ -56,6 +56,6 @@ This simple three stage flow provides a simple, predictable content processing f
 1. As the templating language of choice, Nunjucks is always processed first, allowing its templating capabilities to be used to the full extent.
 Its syntax is also the most compatible and independent of the other stages.
 
-2. Secondly, Markdown is **rendered before html**, which produces more html. This also allows core Markdown features (e.g. code blocks) and Markdown plugins with eccentric syntaxes to be used without having to patch the html parser.
+2. Secondly, Markdown is **rendered before HTML**, which produces more HTML. This also allows core Markdown features (e.g. code blocks) and Markdown plugins with eccentric syntaxes to be used without having to patch the HTML parser.
 
-3. Having processed possibly conflicting Nunjucks and Markdown syntax, Html is then processed last.
+3. Having processed possibly conflicting Nunjucks and Markdown syntax, HTML is then processed last.
