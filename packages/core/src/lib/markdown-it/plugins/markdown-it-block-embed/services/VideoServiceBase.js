@@ -55,12 +55,13 @@ class VideoServiceBase {
     let iframeAttributeList = [];
     iframeAttributeList.push([ "type", "text/html" ]);
     iframeAttributeList.push([ "src", this.getFilteredVideoUrl(videoID) ]);
-    iframeAttributeList.push([ "frameborder", 0 ]);
+    iframeAttributeList.push([ "scrolling", "yes" ]);
 
     if (this.env.options.allowFullScreen === true) {
       iframeAttributeList.push([ "webkitallowfullscreen" ]);
       iframeAttributeList.push([ "mozallowfullscreen" ]);
       iframeAttributeList.push([ "allowfullscreen" ]);
+
     }
 
     let iframeAttributes = iframeAttributeList
