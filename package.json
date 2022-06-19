@@ -2,19 +2,22 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "build:backend": "tsc --build --verbose",
+    "prebuild:backend": "npm run clean",
+    "build:backend": "tsc --noEmitOnError",
     "build:web": "cd packages/core-web && npm run build",
     "build:dg": "cd docs && ../packages/cli/index.js build -s dg-site.json",
     "build:ug": "cd docs && ../packages/cli/index.js build -s ug-site.json",
     "deploy:dg": "cd docs && ../packages/cli/index.js deploy -s dg-site.json --ci",
     "deploy:ug": "cd docs && ../packages/cli/index.js deploy -s ug-site.json --ci",
-    "clean": "tsc --build --clean",
+    "clean": "node ./scripts/clean.js",
     "csslint": "stylelint **/*.css **/*.vue",
     "csslintfix": "stylelint **/*.css **/*.vue --fix",
-    "dev": "tsc -p tsconfig_dev.json --watch",
+    "dev": "tsc --watch",
+    "install": "npm run install:hooks",
+    "install:hooks": "git config core.hooksPath .githooks",
     "lint": "eslint . --ext .js,.ts,.vue && npm run csslint",
     "lintfix": "eslint . --ext .js,.ts,.vue --fix && npm run csslintfix",
-    "setup": "npm ci && lerna clean --yes && lerna bootstrap --hoist",
+    "setup": "npm ci && npm run clean && lerna clean --yes && lerna bootstrap --hoist",
     "test": "npm run lint && lerna run test --stream",
     "updatetest": "lerna run updatetest --stream"
   },
@@ -30,6 +33,7 @@
     "lerna": "^3.22.1",
     "stylelint": "^12.0.0",
     "stylelint-config-standard": "^19.0.0",
-    "typescript": "^4.6.2"
+    "typescript": "^4.6.2",
+    "walk-sync": "^2.0.2"
   }
 }

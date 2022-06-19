@@ -19,6 +19,7 @@ Here is a typical `site.json` file:
   "baseUrl": "/myproduct",
   "faviconPath": "myfavicon.png",
   "titlePrefix": "FooBar Dev Docs",
+  "titleSuffix": "FooBar",
   "style": {
     "bootstrapTheme": "bootswatch-cerulean",
     "codeTheme": "light",
@@ -43,7 +44,7 @@ Here is a typical `site.json` file:
       "layout": "subtopic"
     }
   ],
-  "pagesExclude": ["subsite/**/*.md"],
+  "pagesExclude": ["subsite/**/*.md", "node_modules/*"],
   "externalScripts": [
     "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
   ],
@@ -59,7 +60,8 @@ Here is a typical `site.json` file:
     "_site/*",
     "*.json",
     "*.md",
-    ".git/*"
+    ".git/*",
+    "node_modules/*"
   ],
   "plugins" : [
     "filterTags"
@@ -72,7 +74,8 @@ Here is a typical `site.json` file:
   "headingIndexingLevel": 4,
   "intrasiteLinkValidation": {
     "enabled": false
-  }
+  },
+  "plantumlCheck": true
 }
 ```
 
@@ -100,6 +103,10 @@ Note: `baseUrl` does not support [live preview](glossary.md#live-preview) as the
 #### **`titlePrefix`**
 
 **The prefix for all page titles.** The separator `-` will be inserted by MarkBind.
+
+#### **`titleSuffix`**
+
+**The suffix for all page titles.** The separator `-` will be inserted by MarkBind.
 
 #### **`style`**
 
@@ -245,8 +252,7 @@ The example above uses tags as an example of configuring plugin settings, refer 
 #### **`locale`**
 
 **Language by locale used for the [time stamp](reusingContents.html#built-in-global-variables).** Default: `"en-GB"` (`English (United Kingdom)`). <br>
-The date format is thus - <br>
-`<Day>, <Date> <Month> <Year>, <24-hour Time> <Time Zone Code>`.
+The date format is thus: `<Day>, <Date> <Month> <Year>, <24-hour Time> <Time Zone Code>`.
 
 <panel type="seamless" header="Locale Options">
   <include src="pages/locales.md" />
@@ -264,6 +270,20 @@ To disable this validation **entirely**, you may add the following to `site.json
   "intrasiteLinkValidation": {
     "enabled": false
   },
+  ...
+  ```
+
+</div>
+
+#### **`plantumlCheck`**
+
+**Toggle whether to display a warning about PlantUML's prerequisite.** By default, MarkBind will check if you have Graphviz installed when you are using PlantUML diagrams.
+To disable this validation and the display of the warning, you may add the following to `site.json`:
+<div id="plantuml-check">
+
+  ```js
+  ...
+  "plantumlCheck": false,
   ...
   ```
 

@@ -165,7 +165,7 @@ The navbar component also provides access to MarkBind's [site navigation]({{ bas
 
 If you are viewing the documentation on a larger device, resize the window to see what it looks like.
 
-Alternatively, if you want to display <tooltip content="e.g. adding an image to the site nav">additional content</tooltip> in these navigation menus, the navbar is also able to "pull in" any **container element** with a html `id` of `"site-nav"` or `"page-nav"`. You may refer to the [layouts](../tweakingThePageStructure.md#layouts) section for an example.
+Alternatively, if you want to display <tooltip content="e.g. adding an image to the site nav">additional content</tooltip> in these navigation menus, the navbar is also able to "pull in" any **container element** with a HTML `id` of `"site-nav"` or `"page-nav"`. You may refer to the [layouts](../tweakingThePageStructure.md#layouts) section for an example.
 
 <box type="tip" seamless>
 
