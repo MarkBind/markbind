@@ -2,7 +2,7 @@
   <link rel="stylesheet" href="{{baseUrl}}/css/main.css">
 </head-bottom>
 
-<header fixed>
+<header sticky>
   <navbar type="dark">
     <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand"><img src="{{baseUrl}}/images/logo-darkbackground.svg" height="20"></a>
     <li><a highlight-on="exact" href="{{baseUrl}}/index.html" class="nav-link">HOME</a></li>

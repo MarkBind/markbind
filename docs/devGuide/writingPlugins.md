@@ -19,22 +19,22 @@ This page details the available interfaces you may use to write plugins.
 
 MarkBind provides two entry points for modifying the page generated - `processNode` and `postRender`.
 
-`processNode` operates during the html processing stage of MarkBind, where each node (html element) processed is passed
+`processNode` operates during the HTML processing stage of MarkBind, where each node (HTML element) processed is passed
 to the entry point.
 
-In most cases, this is sufficient, and more performant since this ties directly into MarkBind's html processing.
+In most cases, this is sufficient, and more performant since this ties directly into MarkBind's HTML processing.
 
-However, if you need to operate on the page as a whole, or you need access to the front matter of the page, you may use the `postRender` interface instead, which operates on the html content after it is processed by MarkBind.
+However, if you need to operate on the page as a whole, or you need access to the front matter of the page, you may use the `postRender` interface instead, which operates on the HTML content after it is processed by MarkBind.
 
 * `processNode(pluginContext, node)`: Called before MarkBind renders the source from Markdown to HTML.
   * `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
-  * `node`: A [domhandler](https://github.com/fb55/domhandler) node object, which represents a html element.
+  * `node`: A [domhandler](https://github.com/fb55/domhandler) node object, which represents a HTML element.
     This object may be directly manipulated for simple operations, or operated on using [cheerio](https://cheerio.js.org/).
 * `postRender(pluginContext, frontMatter, content)`: Called after the HTML is rendered
   * `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
   * `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
   * `content`: The rendered HTML.
-  * **Returns:** the post-processed html string
+  * **Returns:** the post-processed HTML string
 
 <box type="info">
 
@@ -46,7 +46,7 @@ Something referenced by a panel with a `src` attribute (`<panel src="...">`).
 external
 </popover>.
 
-That is, the dom tree being processed during `processNode` and the content passed into `postRender` will belong to either one of these types of files.
+That is, the DOM tree being processed during `processNode` and the content passed into `postRender` will belong to either one of these types of files.
 </box>
 
 An example of a plugin is shown below. The plugin shows two ways of appending a paragraph of text to a specific `div` in the Markdown files:

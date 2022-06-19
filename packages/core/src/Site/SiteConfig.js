@@ -74,6 +74,10 @@ class SiteConfig {
      */
     this.titlePrefix = siteConfigJson.titlePrefix || '';
     /**
+     * @type {string}
+     */
+    this.titleSuffix = siteConfigJson.titleSuffix || '';
+    /**
      * @type {Object<string, any>}
      */
     this.globalOverride = siteConfigJson.globalOverride || {};
@@ -105,6 +109,11 @@ class SiteConfig {
      */
     this.intrasiteLinkValidation = siteConfigJson.intrasiteLinkValidation || {};
     this.intrasiteLinkValidation.enabled = this.intrasiteLinkValidation.enabled !== false;
+    /**
+     * @type {boolean}
+     */
+    this.plantumlCheck = siteConfigJson.plantumlCheck !== undefined
+      ? siteConfigJson.plantumlCheck : true; // check PlantUML's prerequisite by default
   }
 }
 

@@ -345,6 +345,7 @@ class Site {
       src: config.pageSrc,
       title: config.title || '',
       titlePrefix: this.siteConfig.titlePrefix,
+      titleSuffix: this.siteConfig.titleSuffix,
       template: this.pageTemplate,
       variableProcessor: this.variableProcessor,
       ignore: this.siteConfig.ignore,
@@ -571,6 +572,7 @@ class Site {
       variableProcessor: this.variableProcessor,
       intrasiteLinkValidation: this.siteConfig.intrasiteLinkValidation,
       codeLineNumbers: this.siteConfig.style.codeLineNumbers,
+      plantumlCheck: this.siteConfig.plantumlCheck,
     };
     this.siteLinkManager = new SiteLinkManager(config);
     config.siteLinkManager = this.siteLinkManager;
@@ -941,6 +943,7 @@ class Site {
     // Checks if any attributes of site.json requiring a global rebuild are modified
     const isGlobalConfigModified = () => !_.isEqual(oldSiteConfig.faviconPath, this.siteConfig.faviconPath)
         || !_.isEqual(oldSiteConfig.titlePrefix, this.siteConfig.titlePrefix)
+        || !_.isEqual(oldSiteConfig.titleSuffix, this.siteConfig.titleSuffix)
         || !_.isEqual(oldSiteConfig.style, this.siteConfig.style)
         || !_.isEqual(oldSiteConfig.externalScripts, this.siteConfig.externalScripts)
         || !_.isEqual(oldSiteConfig.globalOverride, this.siteConfig.globalOverride)
@@ -950,7 +953,8 @@ class Site {
         || !_.isEqual(oldSiteConfig.enableSearch, this.siteConfig.enableSearch)
         || !_.isEqual(oldSiteConfig.timeZone, this.siteConfig.timeZone)
         || !_.isEqual(oldSiteConfig.locale, this.siteConfig.locale)
-        || !_.isEqual(oldSiteConfig.intrasiteLinkValidation, this.siteConfig.intrasiteLinkValidation);
+        || !_.isEqual(oldSiteConfig.intrasiteLinkValidation, this.siteConfig.intrasiteLinkValidation)
+        || !_.isEqual(oldSiteConfig.plantumlCheck, this.siteConfig.plantumlCheck);
 
     if (isGlobalConfigModified() || !_.isEmpty(addedPages) || !_.isEmpty(removedPages)) {
       await this.removeAsset(removedPages);
@@ -1094,6 +1098,7 @@ class Site {
     const pagesCount = pageGenerationTasks.reduce((acc, task) => acc + task.pages.length, 0);
     const progressBar = new ProgressBar(`[:bar] :current / ${pagesCount} pages built`, { total: pagesCount });
     progressBar.render();
+    logger.setProgressBar(progressBar);
 
     const startTime = new Date();
     let isCompleted = true;
@@ -1111,6 +1116,7 @@ class Site {
         isCompleted = await this.generatePagesAsyncThrottled(task.pages, progressBar);
       }
 
+      logger.removeProgressBar();
       this.siteLinkManager.validateAllIntralinks();
     });
     return isCompleted;
@@ -1144,7 +1150,7 @@ class Site {
         progressBar.tick();
       } catch (err) {
         logger.error(err);
-        throw new Error(`Error while generating ${page.sourcePath}`);
+        throw new Error(`Error while generating ${page.pageConfig.sourcePath}`);
       }
     });
     return isCompleted;
@@ -1189,7 +1195,7 @@ class Site {
           this.generateProgressBarStatus(progressBar, context, pageGenerationQueue, resolve);
         } catch (err) {
           logger.error(err);
-          reject(new Error(`Error while generating ${page.sourcePath}`));
+          reject(new Error(`Error while generating ${page.pageConfig.sourcePath}`));
         }
       });
 

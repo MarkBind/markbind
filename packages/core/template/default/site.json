@@ -1,6 +1,7 @@
 {
   "baseUrl": "",
   "titlePrefix": "",
+  "titleSuffix": "",
   "ignore": [
     "_markbind/layouts/*",
     "_markbind/logs/*",
@@ -8,8 +9,10 @@
     "site.json",
     "*.md",
     "*.njk",
-    ".git/*"
+    ".git/*",
+    "node_modules/*"
   ],
+  "pagesExclude": ["node_modules/*"],
   "pages": [
     {
       "src": "index.md",

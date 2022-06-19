@@ -1,5 +1,5 @@
 <question has-input>
-  Q1. Name all different types of voliatile memory that exists inside a typical household computer system.
+  Q1. Name all different types of volatile memory that exists inside a typical household computer system.
   <div slot="hint"></div>
   <div slot="answer">CPU cache and RAM</div>
 </question>

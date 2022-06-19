@@ -1,7 +1,7 @@
-<include src="headers/header.md" />
+{% include "_markbind/layouts/headers/header.md" %}
 
 <div id="flex-body">
-  <nav id="site-nav" class="fixed-header-padding">
+  <nav id="site-nav">
     <div class="site-nav-top">
       <div class="fw-bold mb-2" style="font-size: 1.25rem;">User Guide</div>
     </div>
@@ -37,16 +37,17 @@
   * [Full Syntax Reference]({{baseUrl}}/userGuide/fullSyntaxReference.html)
   * [Syntax Cheat Sheet]({{baseUrl}}/userGuide/syntaxCheatSheet.html)
   * [`site.json` File]({{baseUrl}}/userGuide/siteJsonFile.html)
+  * [`.gitignore` File]({{baseUrl}}/userGuide/gitignoreFile.html)
   * [Tips & Tricks]({{baseUrl}}/userGuide/tipsAndTricks.html)
   * [Troubleshooting]({{baseUrl}}/userGuide/troubleshooting.html)
   * [Glossary]({{baseUrl}}/userGuide/glossary.html)
       </site-nav>
     </div>
   </nav>
-  <div id="content-wrapper" class="fixed-header-padding">
+  <div id="content-wrapper">
     {{ content }}
   </div>
-  <nav id="page-nav" class="fixed-header-padding">
+  <nav id="page-nav">
     <div class="nav-component slim-scroll">
       <page-nav />
     </div>

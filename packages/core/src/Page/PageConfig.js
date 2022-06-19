@@ -99,6 +99,10 @@ class PageConfig {
     /**
      * @type {string}
      */
+    this.titleSuffix = args.titleSuffix;
+    /**
+     * @type {string}
+     */
     this.template = args.template;
     /**
      * @type {VariableProcessor}

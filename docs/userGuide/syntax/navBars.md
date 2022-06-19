@@ -165,7 +165,7 @@ The navbar component also provides access to MarkBind's [site navigation]({{ bas
 
 If you are viewing the documentation on a larger device, resize the window to see what it looks like.
 
-Alternatively, if you want to display <tooltip content="e.g. adding an image to the site nav">additional content</tooltip> in these navigation menus, the navbar is also able to "pull in" any **container element** with a html `id` of `"site-nav"` or `"page-nav"`. You may refer to the [layouts](../tweakingThePageStructure.md#layouts) section for an example.
+Alternatively, if you want to display <tooltip content="e.g. adding an image to the site nav">additional content</tooltip> in these navigation menus, the navbar is also able to "pull in" any **container element** with a HTML `id` of `"site-nav"` or `"page-nav"`. You may refer to the [layouts](../tweakingThePageStructure.md#layouts) section for an example.
 
 <box type="tip" seamless>
 
@@ -202,7 +202,7 @@ Component | Description
 You may also wish to style your navigation content differently on mobile view.
 By default, MarkBind already provides some reasonable overrides for smaller screens, applied over any styles you might have for the mobile navigation content identified above.
 
-```css {heading="Css class attached to the root navigation element"}
+```css {heading="CSS class attached to the root navigation element"}
 .mb-mobile-nav {
     display: block !important;
     margin: 0 !important;
@@ -228,5 +228,5 @@ If you require greater customisation, you may simply compose the respective sele
 
 <box type="tip" seamless>
 
-Refer to the [layouts](../tweakingThePageStructure.md) section to find out how to add custom css files to a page!
+Refer to the [layouts](../tweakingThePageStructure.md) section to find out how to add custom CSS files to a page!
 </box>

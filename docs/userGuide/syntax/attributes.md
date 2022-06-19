@@ -1,7 +1,7 @@
 ## Classes, Attributes & Identifiers
 
 Most markdown syntax above this section supports adding classes, attributes and identifiers
-using [pandoc](https://pandoc.org/MANUAL.html) syntax without the need for a wrapper html element.
+using [pandoc](https://pandoc.org/MANUAL.html) syntax without the need for a wrapper HTML element.
 
 The syntax is `{.class-name attribute="value" attribute=value #id}`, which is placed at different locations depending
 on the type of markdown.
