@@ -101,7 +101,7 @@ test('Site read site config for default', async () => {
   };
   fs.vol.fromJSON(json, '');
 
-  const expectedSiteConfigDefaults = { enableSearch: true };
+  const expectedSiteConfigDefaults = { enableSearch: true, versions: [] };
   const expectedSiteConfig = { ...JSON.parse(SITE_JSON_DEFAULT), ...expectedSiteConfigDefaults };
   const site = new Site('./', '_site');
   const siteConfig = await site.readSiteConfig();
@@ -113,6 +113,7 @@ test('Site read site config for default', async () => {
   expect(siteConfig.pages).toEqual(expectedSiteConfig.pages);
   expect(siteConfig.deploy).toEqual(expectedSiteConfig.deploy);
   expect(siteConfig.enableSearch).toEqual(expectedSiteConfig.enableSearch);
+  expect(siteConfig.versions).toEqual(expectedSiteConfig.versions);
 });
 
 test('Site read site config for custom site config', async () => {
@@ -133,6 +134,7 @@ test('Site read site config for custom site config', async () => {
       message: 'Site Update.',
     },
     enableSearch: true,
+    versions: ['v1', 'v2'],
   };
   const json = {
     ...PAGE_NJK,
@@ -148,6 +150,7 @@ test('Site read site config for custom site config', async () => {
   expect(siteConfig.ignore).toEqual(customSiteJson.ignore);
   expect(siteConfig.deploy).toEqual(customSiteJson.deploy);
   expect(siteConfig.enableSearch).toEqual(customSiteJson.enableSearch);
+  expect(siteConfig.versions).toEqual(customSiteJson.versions);
 });
 
 test('Site resolves variables referencing other variables', async () => {
@@ -676,3 +679,94 @@ siteJsonPageExclusionTestCases.forEach((testCase) => {
       .toEqual(testCase.expected);
   });
 });
+
+// test('Correct sites are ignored during versioning', async () => {
+//   const json = {
+//     ...PAGE_NJK,
+//     'site.json': SITE_JSON_DEFAULT,
+//     'sub/site.json': SITE_JSON_DEFAULT,
+//     'sub/sub/site.json': SITE_JSON_DEFAULT,
+//     'otherSub/sub/site.json': SITE_JSON_DEFAULT,
+//   };
+//   fs.vol.fromJSON(json, '');
+
+//   const versionsToIgnore = new Set(['', 'sub', 'sub/sub', 'otherSub/sub'].map(url => path.resolve(url)));
+
+//   const site = new Site('./', '_site');
+//   // await site.readSiteConfig();
+//   // await site.collectBaseUrl();
+//   expect(site.versionData).toEqual(versionsToIgnore);
+// });
+
+// const siteJsonArchivedPageExclusionTestCases = [ // TODO:
+//   {
+//     name: 'Site.json excludes pages by glob exclude',
+//     pages: [
+//       {
+//         glob: '*.md',
+//         globExclude: ['exclude.md'],
+//       },
+//     ],
+//     expected: [
+//       {
+//         src: 'index.md',
+//       },
+//     ],
+//   },
+//   {
+//     name: 'Site.json excludes pages by pages exclude',
+//     pages: [
+//       {
+//         glob: '*.md',
+//       },
+//     ],
+//     pagesExclude: ['exclude.md'],
+//     expected: [
+//       {
+//         src: 'index.md',
+//       },
+//     ],
+//   },
+//   {
+//     name: 'Site.json excludes pages by combination of pages exclude and glob exclude',
+//     pages: [
+//       {
+//         glob: '*.md',
+//         globExclude: ['exclude.md'],
+//       },
+//     ],
+//     pagesExclude: ['index.md'],
+//     expected: [],
+//   },
+// ];
+
+// // TODO:
+// siteJsonArchivedPageExclusionTestCases.forEach((testCase) => {
+//   test(testCase.name, async () => {
+//     const customSiteConfig = {
+//       baseUrl: '',
+//       pages: testCase.pages,
+//       pagesExclude: testCase.pagesExclude || [],
+//       ignore: [
+//         '_site/*',
+//         '*.json',
+//         '*.md',
+//       ],
+//       deploy: {
+//         message: 'Site Update.',
+//       },
+//     };
+//     const json = {
+//       ...PAGE_NJK,
+//       'index.md': '',
+//       'exclude.md': '',
+//     };
+//     fs.vol.fromJSON(json, '');
+
+//     const site = new Site('./', '_site');
+//     site.siteConfig = customSiteConfig;
+//     site.collectAddressablePages();
+//     expect(site.addressablePages)
+//       .toEqual(testCase.expected);
+//   });
+// });

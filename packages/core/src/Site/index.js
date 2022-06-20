@@ -663,20 +663,7 @@ class Site {
       this.ignoreVersionFiles('');
 
       // Also build requested versions
-      this.versionData = await this.readVersionData();
-      const desiredVersions = this.versionData.versions
-        .filter(vers => vers.baseUrl === this.siteConfig.baseUrl);
-      if (versionsToGenerate === true) {
-        // copy no versions if the version flag is passed without arguments
-      } else if (versionsToGenerate === false) {
-        // ensure that code still passes even if there is no version option in site.json
-        this.siteConfig.versions = this.siteConfig.versions === undefined ? [] : this.siteConfig.versions;
-        await this.copyVersions(desiredVersions
-          .filter(vers => this.siteConfig.versions.includes(vers.versionName)));
-      } else {
-        await this.copyVersions(desiredVersions
-          .filter(vers => versionsToGenerate.includes(vers.versionName)));
-      }
+      await this.copySpecifiedVersions(versionsToGenerate);
 
       await this.buildSiteHelper();
 
@@ -690,7 +677,26 @@ class Site {
   }
 
   /**
-   * Holds the work for generating a site.
+   * Filters the versions based on the options passed, and copies the desired versions for later deployment
+   */
+  async copySpecifiedVersions(versionsToGenerate) {
+    this.versionData = await this.readVersionData();
+    const desiredVersions = this.versionData.versions
+      .filter(vers => vers.baseUrl === this.siteConfig.baseUrl);
+
+    if (versionsToGenerate === true) {
+      // copy no versions if the version flag is passed without arguments
+    } else if (versionsToGenerate === false) {
+      await this.copyVersions(desiredVersions
+        .filter(vers => this.siteConfig.versions.includes(vers.versionName)));
+    } else {
+      await this.copyVersions(desiredVersions
+        .filter(vers => versionsToGenerate.includes(vers.versionName)));
+    }
+  }
+
+  /**
+   * Holds the work for generating a site from scratch.
    */
   async buildSiteHelper() {
     this.collectAddressablePages();
@@ -1543,7 +1549,7 @@ class Site {
   ignoreVersionFiles(pathToVersionFromRootDir) {
     const rootVersionPath = path.join(this.rootPath, pathToVersionFromRootDir, VERSIONS_DATA_NAME);
 
-    // find the version file and ignore all archives of the current site
+    // find the versions json file and ignore all archives of the current site
     if (fs.pathExistsSync(rootVersionPath)) {
       const rootVersionsJson = fs.readJSONSync(rootVersionPath);
 
@@ -1555,11 +1561,12 @@ class Site {
       });
     }
 
+    // Do not transfer the versions file into the archived site
+    // TODO: replace the thing in brackets with rootVersionPath and see if it still works
+    this.siteConfig.ignore.push(path.join(pathToVersionFromRootDir, VERSIONS_DATA_NAME));
+
     // Find versioned subsites, recursively ignore all version directories inside that
     const pathToDirWithVersion = path.join(this.rootPath, pathToVersionFromRootDir);
-
-    // Do not transfer the versions file into the archived site
-    this.siteConfig.ignore.push(path.join(pathToVersionFromRootDir, VERSIONS_DATA_NAME));
 
     const pathsToVersionFiles
      = walkSync(pathToDirWithVersion, { directories: false, ignore: this.siteConfig.ignore })
