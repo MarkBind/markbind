@@ -85,6 +85,23 @@ module.exports.INDEX_MD_DEFAULT = '<frontmatter>\n'
   + '# Hello world\n'
   + 'Welcome to your page generated with MarkBind.\n';
 
+module.exports.VERSIONS_DEFAULT = '{\n'
+    + '  "versions": [\n'
+    + '    {\n'
+    + '      "versionName": "v1",\n'
+    + '      "buildVer": "3.1.1",\n'
+    + '      "archivePath": "version/v1",\n'
+    + '      "baseUrl": "/markbind"\n'
+    + '    },\n'
+    + '    {\n'
+    + '      "versionName": "v2",\n'
+    + '      "buildVer": "3.1.1",\n'
+    + '      "archivePath": "version/v2",\n'
+    + '      "baseUrl": "/markbind"\n'
+    + '    }\n'
+    + '  ]\n'
+    + '}\n';
+
 const DEFAULT_TEMPLATE_DIRECTORY = path.join(__dirname, '../../../template/default');
 
 function getDefaultTemplateFileFullPath(relativePath) {

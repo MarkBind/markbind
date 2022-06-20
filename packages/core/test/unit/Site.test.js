@@ -7,6 +7,7 @@ const {
   INDEX_MD_DEFAULT,
   PAGE_NJK,
   SITE_JSON_DEFAULT,
+  VERSIONS_DEFAULT,
   getDefaultTemplateFileFullPath,
 } = require('./utils/data');
 
@@ -678,6 +679,19 @@ siteJsonPageExclusionTestCases.forEach((testCase) => {
     expect(site.addressablePages)
       .toEqual(testCase.expected);
   });
+});
+
+test('Site reads correct versions from versions file', async () => {
+  const json = {
+    ...PAGE_NJK,
+    'site.json': SITE_JSON_DEFAULT,
+    '_markbind/versions.json': VERSIONS_DEFAULT,
+  };
+  fs.vol.fromJSON(json, '');
+
+  const site = new Site('./', '_site');
+  const someVersionsData = await site.readVersionData();
+  expect(someVersionsData).toEqual(JSON.parse(VERSIONS_DEFAULT));
 });
 
 // test('Correct sites are ignored during versioning', async () => {
