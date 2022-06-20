@@ -40,14 +40,14 @@ Next, edit the layout file to your liking, and add the `{% raw %}{{ content }}{%
 <div id="layout-code-snippet">
 
 
-```html {highlight-lines="{{ highlightLines or "1-4,7,31,36-44[:],49,54,67-71" }}"}
+```html {highlight-lines="{{ highlightLines or "1-4,7[8:14],30[19:47],35-43[:],46[26:54],48,50[19:47],53,66-70" }}"}
 {% raw %}<head-bottom>
   <!-- Use head-top and head-bottom tags to insert content into the HTML <head> tag -->
   <link rel="stylesheet" href="{{baseUrl}}/css/main.css">
 </head-bottom>
 
-<!-- Fix the header to the top while scrolling using the fixed attribute in a <header> tag -->
-<header fixed>
+<!-- Create a sticky header using the sticky attribute in a <header> tag -->
+<header sticky>
   <navbar type="dark">
     <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand">
       <img src="{{baseUrl}}/images/logo-darkbackground.svg" height="20">
@@ -70,8 +70,7 @@ Next, edit the layout file to your liking, and add the `{% raw %}{{ content }}{%
 </header>
 
 <div id="flex-body">
-  <!-- Push content downward when using a fixed header with the fixed-header-padding class -->
-  <nav id="site-nav" class="fixed-header-padding">
+  <nav id="site-nav">
     <div class="site-nav-top">
       <div class="fw-bold mb-2" style="font-size: 1.25rem;">User Guide</div>
     </div>
@@ -87,11 +86,11 @@ Next, edit the layout file to your liking, and add the `{% raw %}{{ content }}{%
       </site-nav>
     </div>
   </nav>
-  <div id="content-wrapper" class="fixed-header-padding">
+  <div id="content-wrapper">
     <!-- Insert the page's content into the layout using the {{ content }} variable -->
     {{ content }}
   </div>
-  <nav id="page-nav" class="fixed-header-padding">
+  <nav id="page-nav">
     <div class="nav-component slim-scroll">
       <!-- Insert a page navigation menu using the <page-nav /> component -->
       <page-nav />
@@ -148,19 +147,38 @@ If you wish insert scripts at the bottom, before MarkBind's scripts, simply inse
 
 ---
 
-### Fixing the header to the top
+### Sticking the header to the top
 
-Headers are commonly included inside the HTML `<header>` tag. In encouraging this, a convenient interface to implement <tooltip content="Headers that stick to the top of the page while scrolling the content">fixed headers</tooltip> surrounding the `<header>` tag is provided that ensures page anchors work correctly.
+A sticky header can be implemented by simply adding the `sticky` attribute to a `<header>` element.
 
-****To fix the `<header>`****
-1. Add the `fixed` attribute to your `<header>` element in the layout per the above example.
+Using this attribute as opposed to setting `position: sticky` manually in your stylesheets comes with several conveniences:
+- When scrolled to, page anchors will line up below the sticky header, and not hidden behind it.
+- To preserve screen real estate, the header is hidden on devices with a width of less than 767px when the user scrolls down, and automatically re-shown when the page is scrolled up.
 
-2. Then, to add the necessary top padding for the main content, add the `fixed-header-padding` class to **elements that should be shifted down** in accordance with the fixed header.
+##### Offsetting elements with the header height
 
-<box type="tip" seamless>
+MarkBind also exposes the [css variable](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) `--sticky-header-height` which contains the height of your header.
 
-If you are not sure where to put the `fixed-header-padding` attribute, you may also refer to the default template for `markbind init`, which already has this setup.
-</box>
+It's primary intended use case is to offset secondary layout elements (e.g. your site navigation menu) so that they are not hidden behind the sticky header, as the reader scrolls down your page's main contents.
+
+{{ icon_example }} Here's how it is used in the default layout's site and page navigation menus
+```css
+#site-nav,
+#page-nav {
+    position: sticky;
+    /*
+     Offset the top sticky position,
+     such that the menus are not hidden behind the header.
+     */
+    top: var(--sticky-header-height);
+    /*
+     Limit the height of the menus so that the reader is able to scroll
+     through the menus individually, without having to scroll to the bottom of the page.
+     */
+    max-height: calc(100vh - var(--sticky-header-height));
+    ...
+}
+```
 
 ---
 

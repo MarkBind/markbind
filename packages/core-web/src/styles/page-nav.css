@@ -20,6 +20,7 @@
 }
 
 .page-nav-title {
+    display: block;
     color: black;
     white-space: inherit;
     padding-left: 0.5rem;

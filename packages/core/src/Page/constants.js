@@ -27,4 +27,5 @@ module.exports = {
     + '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>\n'
     + '</i>',
   TITLE_PREFIX_SEPARATOR: ' - ',
+  TITLE_SUFFIX_SEPARATOR: ' - ',
 };

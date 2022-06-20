@@ -1,11 +1,17 @@
 /* eslint-disable */
 /*
- * Patch for node-progress to fix display issue in certain terminals.
+ * Patch #1 for node-progress to fix display issue in certain terminals.
  * Issue related: https://github.com/MarkBind/markbind/issues/416
  * The **only** changes are based on the following PR and its comments:
  * https://github.com/visionmedia/node-progress/pull/168
  * As the above PR is not merged since 2017, this is a temporary patch
  * to fix the issue for markbind's usecase.
+ */
+
+/*
+ * Patch #2 for node-progress to allow logging without disturbing the progress bar.
+ * The changes are based on the following PR:
+ * https://github.com/visionmedia/node-progress/pull/155
  */
 
 /*!
@@ -57,7 +63,7 @@ exports = module.exports = ProgressBar;
 function ProgressBar(fmt, options) {
   this.stream = options.stream || process.stderr;
 
-  // patch
+  // patch #1
   // options.forceTTY is undefined in git-bash on mintty Windows
   if (!process.stderr.isTTY) {
     var tty = require('tty').WriteStream.prototype;
@@ -256,3 +262,25 @@ ProgressBar.prototype.terminate = function () {
     this.stream.write('\n');
   }
 };
+
+// patch #2 Add interruptBegin & interruptEnd
+/**
+ * Begin a interrupt so the user can manually write messages above the bar.
+ *
+ * @api public
+ */
+
+ProgressBar.prototype.interruptBegin = function () {
+  this.stream.clearLine();
+  this.stream.cursorTo(0);
+};
+
+/**
+ * End a interrupt, rendering the last draw again.
+ *
+ * @api public
+ */
+
+ProgressBar.prototype.interruptEnd = function () {
+  this.stream.write(this.lastDraw);
+}; // end patch
