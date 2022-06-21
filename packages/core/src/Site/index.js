@@ -1612,26 +1612,27 @@ class Site {
       baseUrl: this.siteConfig.baseUrl,
     };
 
-    try {
-      const versionsJson = await this.readVersionData(VERSIONS_DATA_NAME);
+    const versionsJson = await this.readVersionData(VERSIONS_DATA_NAME);
 
-      // Add in or update this new version data in the versions file.
-      const idx = versionsJson.versions.findIndex(vers => vers.versionName === newVersionData.versionName);
-      if (idx === -1) {
-        versionsJson.versions.push(newVersionData);
-      } else {
-        versionsJson.versions[idx] = newVersionData;
+    // Add in or update this new version data in the versions file.
+    const idx = versionsJson.versions.findIndex(vers => vers.versionName === newVersionData.versionName);
+    if (idx === -1) {
+      versionsJson.versions.push(newVersionData);
+    } else {
+      if (versionsJson.versions[idx].archivePath !== newVersionData.archivePath) {
+        throw Error('The version name is the same as a previously archived version, but the'
+        + ' archive path is not. This is likely to be an error as the previous version will'
+        + ' no longer be tracked and managed. Please choose a different name or manually'
+        + ' change the clashing name in the versions.json file to a different name');
       }
-      fs.writeJsonSync(VERSIONS_DATA_NAME, versionsJson, { spaces: 2 });
-      if (verbose) {
-        logger.info('versions.json file updated');
-      }
-
-      return versionsJson;
-    } catch (error) {
-      await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
-      return null;
+      versionsJson.versions[idx] = newVersionData;
     }
+    fs.writeJsonSync(VERSIONS_DATA_NAME, versionsJson, { spaces: 2 });
+    if (verbose) {
+      logger.info(`versions.json file updated for version '${versionName}'`);
+    }
+
+    return versionsJson;
   }
 
   /**

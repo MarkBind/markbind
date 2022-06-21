@@ -1,4 +1,5 @@
 const path = require('path');
+const MARKBIND_VERSION = require('../../../package.json').version;
 
 const PAGE_NJK = `
 <!DOCTYPE html>
@@ -89,15 +90,27 @@ module.exports.VERSIONS_DEFAULT = '{\n'
     + '  "versions": [\n'
     + '    {\n'
     + '      "versionName": "v1",\n'
-    + '      "buildVer": "3.1.1",\n'
+    + `      "buildVer": "${MARKBIND_VERSION}",\n`
     + '      "archivePath": "version/v1",\n'
     + '      "baseUrl": "/markbind"\n'
     + '    },\n'
     + '    {\n'
     + '      "versionName": "v2",\n'
-    + '      "buildVer": "3.1.1",\n'
+    + `      "buildVer": "${MARKBIND_VERSION}",\n`
     + '      "archivePath": "version/v2",\n'
     + '      "baseUrl": "/markbind"\n'
+    + '    },\n'
+    + '    {\n'
+    + '      "versionName": "testOverwritingVersion",\n'
+    + '      "buildVer": "outdatedMarkBindShouldChange",\n'
+    + '      "archivePath": "version/testOverwritingVersion",\n'
+    + '      "baseUrl": "/markbind"\n'
+    + '    },\n'
+    + '    {\n'
+    + '      "versionName": "differentBaseUrl",\n'
+    + `      "buildVer": "${MARKBIND_VERSION}",\n`
+    + '      "archivePath": "version/differentBaseUrl",\n'
+    + '      "baseUrl": ""\n'
     + '    }\n'
     + '  ]\n'
     + '}\n';

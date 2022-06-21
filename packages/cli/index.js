@@ -326,7 +326,7 @@ program
   .command('archive <versionName>')
   .alias('ar')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
-  .option('-ap, --archive-path', 'specify a custom path to archive the site at')
+  .option('-ap, --archive-path <path>', 'specify a custom path to archive the site at')
   .description('archive a version of the site, which is not affected by later changes to the site')
   .action((versionName, options) => {
     const archivePath = options.archivePath || `version/${versionName}`;

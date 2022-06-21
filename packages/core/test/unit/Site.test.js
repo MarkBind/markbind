@@ -11,6 +11,8 @@ const {
   getDefaultTemplateFileFullPath,
 } = require('./utils/data');
 
+const MARKBIND_VERSION = require('../../package.json').version;
+
 const DEFAULT_TEMPLATE = 'default';
 
 jest.mock('fs');
@@ -694,7 +696,90 @@ test('Site reads correct versions from versions file', async () => {
   expect(someVersionsData).toEqual(JSON.parse(VERSIONS_DEFAULT));
 });
 
-// test('Correct sites are ignored during versioning', async () => {
+test('Site correctly updates the versions in the versions file for an added version', async () => {
+  const json = {
+    ...PAGE_NJK,
+    'site.json': SITE_JSON_DEFAULT,
+    '_markbind/versions.json': VERSIONS_DEFAULT,
+  };
+  fs.vol.fromJSON(json, '');
+
+  const site = new Site('./', '_site');
+  await site.readSiteConfig();
+  const someVersionsData = await site.writeVersionsFile('newVersionName', 'custom/archive/path');
+  const newVersionData = {
+    versionName: 'newVersionName',
+    buildVer: MARKBIND_VERSION,
+    archivePath: 'custom/archive/path',
+    baseUrl: JSON.parse(SITE_JSON_DEFAULT).baseUrl,
+  };
+  const expectedVersionsFile = JSON.parse(VERSIONS_DEFAULT);
+  expectedVersionsFile.versions.push(newVersionData);
+
+  expect(someVersionsData).toEqual(expectedVersionsFile);
+});
+
+test('Site throws an error when user may be wrongly overwriting versions', async () => {
+  const json = {
+    ...PAGE_NJK,
+    'site.json': SITE_JSON_DEFAULT,
+    '_markbind/versions.json': VERSIONS_DEFAULT,
+  };
+  fs.vol.fromJSON(json, '');
+
+  const site = new Site('./', '_site');
+  await site.readSiteConfig();
+
+  expect.assertions(1);
+  try {
+    await site.writeVersionsFile('v2', 'custom/archive/path');
+  } catch (e) {
+    expect(e).toEqual(new Error('The version name is the same as a previously archived version, but the'
+      + ' archive path is not. This is likely to be an error as the previous version will'
+      + ' no longer be tracked and managed. Please choose a different name or manually'
+      + ' change the clashing name in the versions.json file to a different name'));
+  }
+});
+
+test('Site correctly updates the versions in the versions file for an overwritten version', async () => {
+  const json = {
+    ...PAGE_NJK,
+    'site.json': SITE_JSON_DEFAULT,
+    '_markbind/versions.json': VERSIONS_DEFAULT,
+  };
+  fs.vol.fromJSON(json, '');
+
+  const site = new Site('./', '_site');
+  await site.readSiteConfig();
+  const someVersionsData = await site.writeVersionsFile(
+    'testOverwritingVersion', 'version/testOverwritingVersion');
+  const newVersionData = {
+    versionName: 'testOverwritingVersion',
+    buildVer: MARKBIND_VERSION,
+    archivePath: 'version/testOverwritingVersion',
+    baseUrl: JSON.parse(SITE_JSON_DEFAULT).baseUrl,
+  };
+
+  const expectedVersionsData = JSON.parse(VERSIONS_DEFAULT);
+  expectedVersionsData.versions[2] = newVersionData; // because constant is hardcoded
+
+  expect(someVersionsData).toEqual(expectedVersionsData);
+});
+
+// test('Site correctly archives a versioned site', async () => {
+//   const json = {
+//     ...PAGE_NJK,
+//     'site.json': SITE_JSON_DEFAULT,
+//     '_markbind/versions.json': VERSIONS_DEFAULT,
+//   };
+//   fs.vol.fromJSON(json, '');
+
+//   const site = new Site('./', '_site');
+//   const someVersionsData = await site.archive('v1');
+//   expect(someVersionsData).toEqual(JSON.parse(VERSIONS_DEFAULT));
+// });
+
+// test('Site archives a site while not re-archiving previously archived versions', async () => {
 //   const json = {
 //     ...PAGE_NJK,
 //     'site.json': SITE_JSON_DEFAULT,
