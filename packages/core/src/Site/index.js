@@ -1546,16 +1546,16 @@ class Site {
    *
    * @returns {*}
    */
-  ignoreVersionFiles(pathToVersionFromRootDir) {
-    const rootVersionPath = path.join(this.rootPath, pathToVersionFromRootDir, VERSIONS_DATA_NAME);
+  ignoreVersionFiles(pathToRootDir) {
+    const pathToMainVersionFile = path.join(this.rootPath, pathToRootDir, VERSIONS_DATA_NAME);
 
     // find the versions json file and ignore all archives of the current site
-    if (fs.pathExistsSync(rootVersionPath)) {
-      const rootVersionsJson = fs.readJSONSync(rootVersionPath);
+    if (fs.pathExistsSync(pathToMainVersionFile)) {
+      const mainVersionFileJson = fs.readJSONSync(pathToMainVersionFile);
 
-      rootVersionsJson.versions.forEach((vers) => {
-        const filePath = pathToVersionFromRootDir !== ''
-          ? `${pathToVersionFromRootDir}/${vers.archivePath}/**`
+      mainVersionFileJson.versions.forEach((vers) => {
+        const filePath = pathToRootDir !== ''
+          ? `${pathToRootDir}/${vers.archivePath}/**`
           : `${vers.archivePath}/**`;
         this.siteConfig.ignore.push(filePath);
       });
@@ -1563,15 +1563,16 @@ class Site {
 
     // Do not transfer the versions file into the archived site
     // TODO: replace the thing in brackets with rootVersionPath and see if it still works
-    this.siteConfig.ignore.push(path.join(pathToVersionFromRootDir, VERSIONS_DATA_NAME));
+    this.siteConfig.ignore.push(path.join(pathToRootDir, VERSIONS_DATA_NAME));
 
     // Find versioned subsites, recursively ignore all version directories inside that
-    const pathToDirWithVersion = path.join(this.rootPath, pathToVersionFromRootDir);
+    const pathToDirWithVersion = path.join(this.rootPath, pathToRootDir);
 
     const pathsToVersionFiles
      = walkSync(pathToDirWithVersion, { directories: false, ignore: this.siteConfig.ignore })
        .filter(x => x.endsWith(VERSIONS_DATA_NAME))
-       .map(x => path.relative(pathToDirWithVersion, x)) // assumes versions files are in the 'root' of site
+       // assumes versions files are in _markbind folder
+       .map(x => path.dirname(path.relative(pathToDirWithVersion, x)))
        .map(x => path.dirname(x));
 
     pathsToVersionFiles.forEach(p => this.ignoreVersionFiles(p));

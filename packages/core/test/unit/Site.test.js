@@ -848,21 +848,48 @@ copyingArchivedSiteTestCases.forEach((testCase) => {
     let timesCalled = 0;
 
     if (testCase.expected.v1) {
-      expect(fs.copy).toBeCalledWith('version/v1', '_site/version/v1');
+      expect(fs.copy).toBeCalledWith(path.join('version', 'v1'), path.join('_site', 'version', 'v1'));
       timesCalled += 1;
     }
     if (testCase.expected.v2) {
-      expect(fs.copy).toBeCalledWith('version/v2', '_site/version/v2');
+      expect(fs.copy).toBeCalledWith(path.join('version', 'v2'), path.join('_site', 'version', 'v2'));
       timesCalled += 1;
     }
     if (testCase.expected.differentBaseUrl) {
-      expect(fs.copy).toBeCalledWith('version/differentBaseUrl', '_site/version/differentBaseUrl');
+      expect(fs.copy).toBeCalledWith(path.join('version', 'differentBaseUrl'),
+                                     path.join('_site', 'version', 'differentBaseUrl'));
       timesCalled += 1;
     }
     expect(fs.copy).toBeCalledTimes(timesCalled);
 
     fs.copy = originalCopy;
   });
+});
+
+test('Site ignores previously archived versions when archiving', async () => {
+  const json = {
+    ...PAGE_NJK,
+    '_markbind/versions.json': VERSIONS_DEFAULT,
+    'subsite/_markbind/versions.json': VERSIONS_DEFAULT,
+  };
+  fs.vol.fromJSON(json, '');
+  const expectedIgnoredFiles = [
+    'version/v1/**',
+    'version/v2/**',
+    'version/testOverwritingVersion/**',
+    'version/differentBaseUrl/**',
+    '_markbind/versions.json',
+    'subsite/version/v1/**',
+    'subsite/version/v2/**',
+    'subsite/version/testOverwritingVersion/**',
+    'subsite/version/differentBaseUrl/**',
+    'subsite/_markbind/versions.json',
+  ];
+  const site = new Site('./', '_site');
+  site.siteConfig = { baseUrl: '', versions: ['v1'], ignore: [] };
+
+  await site.ignoreVersionFiles('');
+  expect(site.siteConfig.ignore).toEqual(expectedIgnoredFiles);
 });
 
 // test('Site archives a site while not re-archiving previously archived versions', async () => {
