@@ -865,29 +865,6 @@ copyingArchivedSiteTestCases.forEach((testCase) => {
   });
 });
 
-test('Site correctly copies over correct version files', async () => {
-  const json = {
-    ...PAGE_NJK,
-    '_markbind/versions.json': VERSIONS_DEFAULT,
-    _site: {},
-    'version/v1/toCopy.html': '',
-    'version/v2/dontCopy.html': '',
-  };
-  fs.vol.fromJSON(json, '');
-
-  const site = new Site('./', '_site');
-  site.siteConfig = { baseUrl: '', versions: ['v1'] };
-
-  const originalCopy = fs.copy;
-  fs.copy = jest.fn();
-
-  await site.copySpecifiedVersions(false);
-  expect(fs.copy).toBeCalledWith('version/v1', '_site/version/v1');
-  expect(fs.copy).toBeCalledTimes(1);
-
-  fs.copy = originalCopy;
-});
-
 // test('Site archives a site while not re-archiving previously archived versions', async () => {
 //   const json = {
 //     ...PAGE_NJK,
