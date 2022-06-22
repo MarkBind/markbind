@@ -1563,7 +1563,7 @@ class Site {
 
     // Do not transfer the versions file into the archived site
     // TODO: replace the thing in brackets with rootVersionPath and see if it still works
-    this.siteConfig.ignore.push(path.join(pathToRootDir, VERSIONS_DATA_NAME));
+    this.siteConfig.ignore.push(path.posix.join(pathToRootDir, VERSIONS_DATA_NAME));
 
     // Find versioned subsites, recursively ignore all version directories inside that
     const pathToDirWithVersion = path.join(this.rootPath, pathToRootDir);

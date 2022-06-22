@@ -891,21 +891,3 @@ test('Site ignores previously archived versions when archiving', async () => {
   await site.ignoreVersionFiles('');
   expect(site.siteConfig.ignore).toEqual(expectedIgnoredFiles);
 });
-
-// test('Site archives a site while not re-archiving previously archived versions', async () => {
-//   const json = {
-//     ...PAGE_NJK,
-//     'site.json': SITE_JSON_DEFAULT,
-//     'sub/site.json': SITE_JSON_DEFAULT,
-//     'sub/sub/site.json': SITE_JSON_DEFAULT,
-//     'otherSub/sub/site.json': SITE_JSON_DEFAULT,
-//   };
-//   fs.vol.fromJSON(json, '');
-
-//   const versionsToIgnore = new Set(['', 'sub', 'sub/sub', 'otherSub/sub'].map(url => path.resolve(url)));
-
-//   const site = new Site('./', '_site');
-//   // await site.readSiteConfig();
-//   // await site.ignoreVersions();
-//   expect(site.versionData).toEqual(versionsToIgnore);
-// });
