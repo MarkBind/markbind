@@ -196,6 +196,8 @@ The caveat is that not building all pages during the initial process, or not reb
 <box type="warning">
 
 Warning: If the folder at `<archivePath>/<versionName>` already exists, the contents will be overwritten and your previous files may be lost. Only do so if you need to replace all the archived files with the current site files.
+
+(Note that you cannot save a version with the same name into a different location)
 </box>
 </div>
 

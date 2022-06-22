@@ -1644,7 +1644,7 @@ class Site {
     const versionFoldersArray = versionFolders.map(f => f.archivePath);
     try {
       versionFoldersArray.map(async (versionFolder) => {
-        fs.copy(versionFolder, path.join(SITE_FOLDER_NAME, versionFolder));
+        fs.copy(path.format(path.parse(versionFolder)), path.join(SITE_FOLDER_NAME, versionFolder));
       });
       await Promise.all(versionFoldersArray);
       logger.info('Versioned site(s) copied');
