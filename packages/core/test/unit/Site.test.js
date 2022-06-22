@@ -766,18 +766,127 @@ test('Site correctly updates the versions in the versions file for an overwritte
   expect(someVersionsData).toEqual(expectedVersionsData);
 });
 
-// test('Site correctly archives a versioned site', async () => {
-//   const json = {
-//     ...PAGE_NJK,
-//     'site.json': SITE_JSON_DEFAULT,
-//     '_markbind/versions.json': VERSIONS_DEFAULT,
-//   };
-//   fs.vol.fromJSON(json, '');
+const copyingArchivedSiteTestCases = [
+  {
+    name: 'No versions copied when none are specified in site.json',
+    versionsToGenerate: false,
+    versions: [],
+    expected:
+      {
+        v1: false,
+        v2: false,
+        differentBaseUrl: false,
+      },
+  },
+  {
+    name: 'Versions specified in site.json are copied over',
+    versionsToGenerate: false,
+    versions: ['v2'],
+    expected:
+      {
+        v1: false,
+        v2: true,
+        differentBaseUrl: false,
+      },
+  },
+  {
+    name: 'The different versions specified in flag override those in site.json',
+    versionsToGenerate: ['v1'],
+    versions: ['v2'],
+    expected:
+      {
+        v1: true,
+        v2: false,
+        differentBaseUrl: false,
+      },
+  },
+  {
+    name: 'Versions flag overrides versions specified in site.json',
+    versionsToGenerate: true,
+    versions: ['v2'],
+    expected:
+      {
+        v1: false,
+        v2: false,
+        differentBaseUrl: false,
+      },
+  },
+  {
+    name: 'Even when specified, the version with a differentBaseUrl is not deployed',
+    versionsToGenerate: false,
+    versions: ['differentBaseUrl'],
+    expected:
+      {
+        v1: false,
+        v2: false,
+        differentBaseUrl: false,
+      },
+  },
+];
 
-//   const site = new Site('./', '_site');
-//   const someVersionsData = await site.archive('v1');
-//   expect(someVersionsData).toEqual(JSON.parse(VERSIONS_DEFAULT));
-// });
+// TODO:
+copyingArchivedSiteTestCases.forEach((testCase) => {
+  test(testCase.name, async () => {
+    const originalCopy = fs.copy;
+    fs.copy = jest.fn();
+    const json = {
+      ...PAGE_NJK,
+      '_markbind/versions.json': VERSIONS_DEFAULT,
+      _site: {},
+      'version/v1/index1.html': '',
+      'version/v2/index2.html': '',
+      'version/differentBaseUrl/neverCopied.html': '',
+    };
+    fs.vol.fromJSON(json, '');
+
+    const site = new Site('./', '_site');
+    site.siteConfig = { baseUrl: '' };
+    site.siteConfig.versions = testCase.versions;
+
+    await site.copySpecifiedVersions(testCase.versionsToGenerate);
+
+    let timesCalled = 0;
+
+    if (testCase.expected.v1) {
+      expect(fs.copy).toBeCalledWith('version/v1', '_site/version/v1');
+      timesCalled += 1;
+    }
+    if (testCase.expected.v2) {
+      expect(fs.copy).toBeCalledWith('version/v2', '_site/version/v2');
+      timesCalled += 1;
+    }
+    if (testCase.expected.differentBaseUrl) {
+      expect(fs.copy).toBeCalledWith('version/differentBaseUrl', '_site/version/differentBaseUrl');
+      timesCalled += 1;
+    }
+    expect(fs.copy).toBeCalledTimes(timesCalled);
+
+    fs.copy = originalCopy;
+  });
+});
+
+test('Site correctly copies over correct version files', async () => {
+  const json = {
+    ...PAGE_NJK,
+    '_markbind/versions.json': VERSIONS_DEFAULT,
+    _site: {},
+    'version/v1/toCopy.html': '',
+    'version/v2/dontCopy.html': '',
+  };
+  fs.vol.fromJSON(json, '');
+
+  const site = new Site('./', '_site');
+  site.siteConfig = { baseUrl: '', versions: ['v1'] };
+
+  const originalCopy = fs.copy;
+  fs.copy = jest.fn();
+
+  await site.copySpecifiedVersions(false);
+  expect(fs.copy).toBeCalledWith('version/v1', '_site/version/v1');
+  expect(fs.copy).toBeCalledTimes(1);
+
+  fs.copy = originalCopy;
+});
 
 // test('Site archives a site while not re-archiving previously archived versions', async () => {
 //   const json = {
@@ -793,79 +902,6 @@ test('Site correctly updates the versions in the versions file for an overwritte
 
 //   const site = new Site('./', '_site');
 //   // await site.readSiteConfig();
-//   // await site.collectBaseUrl();
+//   // await site.ignoreVersions();
 //   expect(site.versionData).toEqual(versionsToIgnore);
-// });
-
-// const siteJsonArchivedPageExclusionTestCases = [ // TODO:
-//   {
-//     name: 'Site.json excludes pages by glob exclude',
-//     pages: [
-//       {
-//         glob: '*.md',
-//         globExclude: ['exclude.md'],
-//       },
-//     ],
-//     expected: [
-//       {
-//         src: 'index.md',
-//       },
-//     ],
-//   },
-//   {
-//     name: 'Site.json excludes pages by pages exclude',
-//     pages: [
-//       {
-//         glob: '*.md',
-//       },
-//     ],
-//     pagesExclude: ['exclude.md'],
-//     expected: [
-//       {
-//         src: 'index.md',
-//       },
-//     ],
-//   },
-//   {
-//     name: 'Site.json excludes pages by combination of pages exclude and glob exclude',
-//     pages: [
-//       {
-//         glob: '*.md',
-//         globExclude: ['exclude.md'],
-//       },
-//     ],
-//     pagesExclude: ['index.md'],
-//     expected: [],
-//   },
-// ];
-
-// // TODO:
-// siteJsonArchivedPageExclusionTestCases.forEach((testCase) => {
-//   test(testCase.name, async () => {
-//     const customSiteConfig = {
-//       baseUrl: '',
-//       pages: testCase.pages,
-//       pagesExclude: testCase.pagesExclude || [],
-//       ignore: [
-//         '_site/*',
-//         '*.json',
-//         '*.md',
-//       ],
-//       deploy: {
-//         message: 'Site Update.',
-//       },
-//     };
-//     const json = {
-//       ...PAGE_NJK,
-//       'index.md': '',
-//       'exclude.md': '',
-//     };
-//     fs.vol.fromJSON(json, '');
-
-//     const site = new Site('./', '_site');
-//     site.siteConfig = customSiteConfig;
-//     site.collectAddressablePages();
-//     expect(site.addressablePages)
-//       .toEqual(testCase.expected);
-//   });
 // });
