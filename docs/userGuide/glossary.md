@@ -10,7 +10,7 @@
 **_Live preview_** is:
 - Regeneration of affected content upon any change to <tooltip content="`.md`, `.njk` files ... anything your content depends on!">source files</tooltip>, then reloading the updated site in the Browser.
 
-- Regeneration will also occur upon any modification to attributes in `site.json` with the exception of [`baseUrl`](siteJsonFile.md#baseurl).
+- Regeneration will also occur upon any modification to attributes in `site.json` with the exception of the [`baseUrl`](siteJsonFile.md#baseurl) and [`versions`](siteJsonFile.md#versions) attributes.
 
 - Copying <tooltip content="files that don't affect page generation (eg. images), but are used in the site">assets</tooltip> to the site output folder.
 

@@ -22,7 +22,7 @@ Usage: markbind <command>
    init|i [options] [root]                            init a markbind website project
    serve|s [options] [root]                           build then serve a website from a directory
    build|b [options] [root] [output]                  build a website
-   archive|ar [options] [versionName] [archivePath]   archive the current version of the site
+   archive|ar <versionName> [options]                 archive the current version of the site
    deploy|d [options]                                 deploy the site to the repo's GitHub pages
 ```
 
@@ -39,6 +39,7 @@ Usage: markbind <command>
 **Description:** Initializes a directory into a MarkBind site by creating a skeleton structure for the website which includes a `index.md` and a `site.json`.
 
 **Arguments:**
+
 * `[root]`<br>
   Root directory. Default is the current directory.<br>
   {{ icon_example }} `./myWebsite`
@@ -54,6 +55,7 @@ Usage: markbind <command>
   When initialising MarkBind, change the template that you start with. See [templates](templates.html).
 
 {{ icon_examples }}
+
 * `markbind init` : Initializes the site in the current working directory.
 * `markbind init ./myWebsite` : Initializes the site in `./myWebsite` directory.
 * `markbind init --convert --template minimal`: Converts the GitHub wiki or `docs` folder in the current working directory into a minimal MarkBind website.
@@ -70,6 +72,7 @@ Usage: markbind <command>
 **Alias:** `markbind s`
 
 **Description:** Does the following steps:
+
 1. Builds the site and puts the generated files in a directory named `_site`.
 1. Starts a web server instance locally and makes the site available at `http://127.0.0.1:8080`.
 1. Opens a <trigger trigger="click" for="modal:cliCommands-livePreview">live preview</trigger> of the website.
@@ -79,6 +82,7 @@ Usage: markbind <command>
 </modal>
 
 **Arguments:**
+
 * `[root]`<br>
   Root directory. The default is the directory where this command was executed.<br>
   {{ icon_example }} `./myWebsite`
@@ -103,7 +107,7 @@ The caveat is that not building all pages during the initial process, or not reb
 * `-b`, `--background-build` **[BETA]**<br>
    If `--one-page` is specified, this mode enhances the single-page serve by building the pages that are not yet built
    or marked to be rebuilt in the background.
-   
+
    You can still edit the pages during the background build. When MarkBind detects changes to the source
    files, the background build will stop, rebuild the files affected, then resumes the background build with the
    remaining pages.
@@ -122,13 +126,14 @@ The caveat is that not building all pages during the initial process, or not reb
   Serve the website in the specified port.
 
 * `-v [versionNames...]`, `--versions [versionNames...]` <br>
-  Specify version names to be deployed, separated by spaces. If the flag is used without specification, deploy all versions saved. Using this flag overrides the setttings in [site.json](siteJsonFile.md).
+  Specify versions to be served, separated by spaces. If the flag is used without specification, serve no versions. Using this option overrides the setttings in [site.json](siteJsonFile.md).
 
 {{ icon_examples }}
+
 * `markbind serve`
 * `markbind serve ./myWebsite`
 * `markbind serve -p 8888 -s otherSite.json`
-* `markbind serve -n -v` : Serve the site without opening a live preview in the browser, with all saved versions deployed
+* `markbind serve -n -v LTS 1.0` : Serve the site without opening a live preview in the browser, and also serving the archived version named "LTS" and "1.0".
 
 </panel>
 
@@ -144,6 +149,7 @@ The caveat is that not building all pages during the initial process, or not reb
 **Description:** Generates the site to the directory named `_site` in the current directory.
 
 **Arguments:**
+
 * `[output]`<br>
   Put the generated files in the specified directory<br>
   {{ icon_example }} `../myOutDir`
@@ -165,13 +171,14 @@ The caveat is that not building all pages during the initial process, or not reb
   {{ icon_example }} `-s otherSite.json`
 
 * `-v [versionNames...]`, `--versions [versionNames...]` <br>
-  Specify version names to be deployed, separated by spaces. If the flag is used without specification, deploy all versions saved. Using this flag overrides the setttings in [site.json](siteJsonFile.md).
+  Specify versions to be kept in the generated site, separated by spaces. If the flag is used without specification, keep no versions. Using this option overrides the setttings in [site.json](siteJsonFile.md).
 
 **{{ icon_examples }}**
+
 * `markbind build`
 * `markbind build ./myWebsite ./myOutDir`
 * `markbind build ./stagingDir --baseUrl staging`
-* `markbind build -v v2.1.1` : Build the site and also deploy the version named 'v2.1.1'
+* `markbind build -v v2.1.1` : Build the site with the version named 'v2.1.1' in addition to the current version
 
 </panel>
 
@@ -180,34 +187,21 @@ The caveat is that not building all pages during the initial process, or not reb
 ### `archive` Command
 <br>
 
-**Format:** `markbind archive [options] [versionName] [archivePath]`
+**Format:** `markbind archive <versionName> [options]`
 
-**Alias:** `markbind ar`
+**Alias:** `markbind ar <versionName>`
 
 **Description:** Does the following steps:
 
 1. Builds the current site, ignoring previously archived versions.
 1. Updates or creates a `versions.json` file to track the newly archived version.
-1. Puts the generated files in a folder of the specified name in the specified place.
+1. Puts the generated files in the specified `archivePath` folder (By default, the archive path is "version/<versionName>")
 
 **Arguments:**
 
-<div id="archiveWarning">
-<box type="warning">
-
-Warning: If the folder at `<archivePath>/<versionName>` already exists, the contents will be overwritten and your previous files may be lost. Only do so if you need to replace all the archived files with the current site files.
-
-(Note that you cannot save a version with the same name into a different location)
-</box>
-</div>
-
-* `[versionName]`<br>
-  The name of the version, and the folder which the generated HTML files and assets will be stored in.<br>
+* `<versionName>`<br>
+  The name of the version. This is required, and names must be unique; using the same name and archivePath will result in the previous archived files being overwritten.<br>
   {{ icon_example }} `v1`, `v1.1.1`, `sem1-2022`
-
-* `[archivePath]`<br>
-  All archived versions are stored in the folder `<archivePath>`. The default archivePath is `version/${versionName}` <br>
-  {{ icon_example }} `custom_archive_path`
 
 <panel header="**Options** :fas-cogs:" type="minimal" expanded>
 
@@ -216,11 +210,23 @@ Warning: If the folder at `<archivePath>/<versionName>` already exists, the cont
 * `-s <file>`, `--site-config <file>`<br>
   Specify the site config file (default: `site.json`)<br>
   {{ icon_example }} `-s otherSite.json`
+* `-ap <archivePath>`, `--archive-path <archivePath>`<br>
+  All archived versions are stored in the folder `<archivePath>`. If not specified, the archive path is `version/${versionName}` <br>
+  {{ icon_example }} `-ap custom_archive_path`
+
+<div id="archiveWarning">
+  <box type="warning">
+
+  Warning: If the folder at `<archivePath>` already exists, the contents will be overwritten and your previous files may be lost. Only do so if you need to replace all the archived files with the current site files.
+
+  (Also note that you cannot save a version with the same name into a different archive path.)
+  </box>
+</div>
 
 **{{ icon_examples }}**
 
-* `markbind archive v1`: Stores the site in the directory `./version/v1`
-* `markbind archive version_1 custom_archive_path`: Stores the site in the directory `./custom_archive_path`
+* `markbind archive v1`: Stores the archived site in the directory `./version/v1` as the version named 'v1'
+* `markbind archive version_1 -ap custom_archive_path`: Stores the archived site in the directory `./custom_archive_path`, and the version is named version_1.
 
 %%{{ icon_info }} Related: [User Guide: Site Versioning](versioning.md).%%
 

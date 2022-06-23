@@ -18,11 +18,36 @@
 Site versioning is key for documentation use, and websites may want to keep past versions for archival purposes. MarkBind can help you easily archive your site.
 </div>
 
-## Archiving with a CLI command
+## Quickstart
 
-Markbind allows you to easily save a version of the site you've built to be hosted at the same site with a modified URL with a [single CLI command](cliCommands.md#archive-command). All intralinks within the archived site will point to the respective archived pages. By default, the archived site is stored in a folder `version/<versionName>`, but you may specify your own archivePath.
+If you wanted to archive your site for the first time, you might use the following command.
 
-For example, if your site's base URL relative to your domain is `my_site`, and you archive a version named `v1` in the default archive folder, then by navigating to the URL `<domain>/my_site/version/v1/<someFile>` you can have accessed the archived version of `someFile`.
+  ```bash
+  $ markbind archive v1 // archive the current site with the name v1 into the folder version/v1
+  ```
+
+Make whatever changes you want to your site without affecting this saved version. Then, run:
+
+  ```bash
+  $ markbind serve -v v1 // serve the site as well as the archived version named v1
+  ```
+
+Your served site will open automatically. By adding version/v1 to the url in your browser (for example from http://127.0.0.1:8080 to http://127.0.0.1:8080/version/v1), you will view the archived version of your site. Intralinks in the versioned site will only lead to the versioned site links. 
+
+To deploy your site with your archived site:
+
+  ```bash
+  $ markbind build -v v1 // generate site with the archived version named v1
+  $ markbind deploy
+  ```
+
+You can save which versions to automatically be served/deployed in [site.json](siteJsonFile.md#versions).
+
+## More on archiving
+
+Markbind allows you to easily save a version of the site you've built to be hosted at the same site with a modified URL using a [single CLI command](cliCommands.md#archive-command). All intralinks within the archived site will point to the respective archived pages. By default, the archived site is stored in a folder `version/<versionName>`, but you may specify your own archivePath.
+
+For example, if your site's base URL relative to your domain is `my_site`, and you archive a version named `v1`, then by navigating to the URL `<domain>/my_site/version/v1/<someFile>` you can have accessed the archived version of `someFile`.
 
 A `versions.json` file will be created to track the archived sites you have made, and to exclude the archived sites from being re-archived the next time you make a new version. This file is **automatically updated** every time you archive a version.
 
@@ -69,10 +94,6 @@ Modify versions.json with caution as it may result in unnecessary files being in
 You may not always want to build all your saved versions. To specify the "default versions to build", add a [versions property](siteJsonFile.md#versions) in your `site.json` file.
 
 You may also specify which versions to build when using the build and serve cli commands([more information](cliCommands.md)).
-
-## Note on subsites
-
-At present, when a site is archived and includes a subsite, it archives the subsite as it was at that point in time. Navigating to previous or future versions of the subsite from the parent site is not supported, though you can archive the subsite.
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('deployingTheSite', 'markBindInTheProjectWorkflow') }}
