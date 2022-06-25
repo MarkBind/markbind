@@ -138,7 +138,7 @@ class Site {
 
     /**
      * Archived version information
-     * @type {undefined | SiteConfig}
+     * @type {undefined | Object}
      */
     this.versionData = undefined;
 
@@ -1543,8 +1543,6 @@ class Site {
 
   /**
    * Checks the version files of site + subsites and sets them to be ignored in the site config.
-   *
-   * @returns {*}
    */
   ignoreVersionFiles(pathToRootDir) {
     const pathToMainVersionFile = path.join(this.rootPath, pathToRootDir, VERSIONS_DATA_NAME);

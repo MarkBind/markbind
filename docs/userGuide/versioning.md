@@ -45,9 +45,9 @@ You can save which versions to automatically be served/deployed in [site.json](s
 
 ## More on archiving
 
-Markbind allows you to easily save a version of the site you've built to be hosted at the same site with a modified URL using a [single CLI command](cliCommands.md#archive-command). All intralinks within the archived site will point to the respective archived pages. By default, the archived site is stored in a folder `version/<versionName>`, but you may specify your own archivePath.
+MarkBind allows you to easily save a version of the site you've built to be hosted at the same site with a modified URL using a [single CLI command](cliCommands.md#archive-command). All intralinks within the archived site will point to the respective archived pages. By default, the archived site is stored in a folder `version/<versionName>`, but you may specify your own archivePath.
 
-For example, if your site's base URL relative to your domain is `my_site`, and you archive a version named `v1`, then by navigating to the URL `<domain>/my_site/version/v1/<someFile>` you can have accessed the archived version of `someFile`.
+For example, if your site's base URL relative to your domain is `my_site`, and you archive a version named `v1`, then by navigating to the URL `<domain>/my_site/version/v1/<someFile>` you can access the archived version of `someFile`.
 
 A `versions.json` file will be created to track the archived sites you have made, and to exclude the archived sites from being re-archived the next time you make a new version. This file is **automatically updated** every time you archive a version.
 
@@ -91,7 +91,7 @@ Modify versions.json with caution as it may result in unnecessary files being in
 
 ## Working with sites with multiple versions
 
-You may not always want to build all your saved versions. To specify the "default versions to build", add a [versions property](siteJsonFile.md#versions) in your `site.json` file.
+You may not always want to build all your saved versions. To specify the default versions to build, add a [versions property](siteJsonFile.md#versions) in your `site.json` file.
 
 You may also specify which versions to build when using the build and serve cli commands([more information](cliCommands.md)).
 

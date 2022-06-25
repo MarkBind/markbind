@@ -126,14 +126,14 @@ The caveat is that not building all pages during the initial process, or not reb
   Serve the website in the specified port.
 
 * `-v [versionNames...]`, `--versions [versionNames...]` <br>
-  Specify versions to be served, separated by spaces. If the flag is used without specification, serve no versions. Using this option overrides the setttings in [site.json](siteJsonFile.md).
+  Specify versions to be served, separated by spaces. If the flag is used without specification, serve no versions. Using this option overrides the versions settings in [`site.json`](siteJsonFile.md).
 
 {{ icon_examples }}
 
 * `markbind serve`
 * `markbind serve ./myWebsite`
 * `markbind serve -p 8888 -s otherSite.json`
-* `markbind serve -n -v LTS 1.0` : Serve the site without opening a live preview in the browser, and also serving the archived version named "LTS" and "1.0".
+* `markbind serve -n -v LTS 1.0` : Serve the site without opening a live preview in the browser, and also serve the archived version named "LTS" and "1.0".
 
 </panel>
 
@@ -171,7 +171,7 @@ The caveat is that not building all pages during the initial process, or not reb
   {{ icon_example }} `-s otherSite.json`
 
 * `-v [versionNames...]`, `--versions [versionNames...]` <br>
-  Specify versions to be kept in the generated site, separated by spaces. If the flag is used without specification, keep no versions. Using this option overrides the setttings in [site.json](siteJsonFile.md).
+  Specify versions to be kept in the generated site, separated by spaces. If the flag is used without specification, keep no versions. Using this option overrides the versions settings in [site.json](siteJsonFile.md).
 
 **{{ icon_examples }}**
 
@@ -226,7 +226,7 @@ The caveat is that not building all pages during the initial process, or not reb
 **{{ icon_examples }}**
 
 * `markbind archive v1`: Stores the archived site in the directory `./version/v1` as the version named 'v1'
-* `markbind archive version_1 -ap custom_archive_path`: Stores the archived site in the directory `./custom_archive_path`, and the version is named version_1.
+* `markbind archive version_1 -ap custom_archive_path`: Stores the archived site in the directory `./custom_archive_path`, and the version is named 'version_1'.
 
 %%{{ icon_info }} Related: [User Guide: Site Versioning](versioning.md).%%
 
