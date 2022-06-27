@@ -49,8 +49,8 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    </box>
 1. **Merge the PR**.
 
-   * Refer the guide [_Working with PRs_ @SE-EDU](https://se-education.org/guides/guidelines/PRs.html) on which merge strategy to use
-     * The **default** strategy is to do a **squash-merge**
+   * Refer the guide [_Working with PRs_ @SE-EDU](https://se-education.org/guides/guidelines/PRs.html) on which merge strategy to use.
+     * The **default** strategy is to do a **squash-merge**.
      * Use a **merge commit** if
        * the commits are well-organized, and the branch tackles only one task. This would typically be a PR tackling a substantial issue requiring multiple dependent and successive changes.
      * Use a **rebase-merge** if
@@ -73,10 +73,10 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 1. Tip: how to **undo an accidental merge commit.**
 
    * In the event of a wrong commit strategy chosen, you can undo the merge to master by:
-     1. Switch to the master branch locally
-     1. `git reset --hard HEAD~1`
-     1. `git push --force`
-     1. Create a new PR from the previous PR branch and merge the PR with the correct merge strategy
+     1. Switch to the master branch locally.
+     1. Run `git reset --hard HEAD~1`.
+     1. Run `git push --force`.
+     1. Create a new PR from the previous PR branch and merge the PR with the correct merge strategy.
 
    <box type="info" seamless>
 
