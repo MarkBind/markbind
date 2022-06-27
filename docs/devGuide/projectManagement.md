@@ -52,9 +52,9 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    * Refer the guide [_Working with PRs_ @SE-EDU](https://se-education.org/guides/guidelines/PRs.html) on which merge strategy to use
      * The **default** strategy is to do a **squash-merge**
      * Use a **merge commit** if
-       * the commits are well-organized, and the branch tackles only one task
+       * the commits are well-organized, and the branch tackles only one task. This would typically be a PR tackling a substantial issue requiring multiple dependent and successive changes.
      * Use a **rebase-merge** if
-       * the commits are well-organized and each commit is an independent task
+       * the commits are well-organized and each commit is an independent task. This should be extremely rare as we typically advise that PRs should not have unrelated changes. An example can be found [here](https://github.com/MarkBind/markbind/pull/1238).
 
    * Format for the merge/squashed commit title: `PR_TITLE (#PR_NUMBER)`<br>
     `Add built-in support for light themes from bootswatch (#745)`
