@@ -59,14 +59,12 @@ class VideoServiceBase {
     iframeAttributeList.push([ "src", this.getFilteredVideoUrl(videoID) ]);
     iframeAttributeList.push([ "frameborder", 0 ]);
 
-    if (this.options.ignoreStyle === true) {
-      if (this.env.options.outputPlayerSize === true) {
-        if (this.options.width !== undefined && this.options.width !== null) {
-          iframeAttributeList.push([ "width", this.options.width ]);
-        }
-        if (this.options.height !== undefined && this.options.height !== null) {
-          iframeAttributeList.push([ "height", this.options.height ]);
-        }
+    if (this.env.options.outputPlayerSize === true && this.options.ignoreStyle === true) {
+      if (this.options.width !== undefined && this.options.width !== null) {
+        iframeAttributeList.push([ "width", this.options.width ]);
+      }
+      if (this.options.height !== undefined && this.options.height !== null) {
+        iframeAttributeList.push([ "height", this.options.height ]);
       }
     }
 
