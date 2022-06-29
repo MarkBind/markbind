@@ -7,7 +7,7 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+'
   pull_request:
 
-concurrency: 
+concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
@@ -28,6 +28,7 @@ jobs:
           node-version: '14'
       - run: npm i -g npm@8.3.1
       - run: npm run setup
-      - run: |
+      - name: Run end-to-end tests
+        run: |
           cd packages/cli
           npm run test:e2e

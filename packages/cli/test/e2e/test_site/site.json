@@ -2,6 +2,7 @@
   "baseUrl": "",
   "faviconPath": "images/faviconA.ico",
   "titlePrefix": "original-prefix",
+  "titleSuffix": "",
   "style": {
     "codeTheme": "light"
   },
@@ -12,24 +13,22 @@
     "site.json",
     "*.md",
     "*.njk",
-    ".git/*"
+    ".git/*",
+    "node_modules/*"
   ],
+  "pagesExclude": ["node_modules/*"],
   "pages": [
     {
       "src": "index.md",
       "title": "original-title"
     },
     {
-      "glob": [
-        "**/index.md",
-        "**/*.md"
-      ]
+      "glob": ["**/index.md", "**/*.md"]
     }
   ],
   "deploy": {
     "message": "Site Update."
   },
-  "plugins": [],
   "pluginsContext": {
     "codeBlockCopyButtons": {
       "input": "test"

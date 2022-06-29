@@ -21,9 +21,12 @@
     "url": "https://github.com/MarkBind/markbind.git"
   },
   "scripts": {
-    "test": "jest --colors && npm run test:e2e && npm run test:functional",
+    "test": "jest --colors && npm run test:functional",
     "test:functional": "cd test/functional && node test.js",
-    "test:e2e": "jest --colors --runInBand test/e2e/ --config=test/e2e/jest.config.js",
+    "test:e2e": "npm run test:e2e:d && npm run test:e2e:b && npm run test:e2e:f",
+    "test:e2e:d": "cross-env JEST_PUPPETEER_CONFIG=test/e2e/jest-puppeteer.config.d.js jest --colors -i test/e2e/ --config=test/e2e/jest.config.js",
+    "test:e2e:b": "cross-env JEST_PUPPETEER_CONFIG=test/e2e/jest-puppeteer.config.b.js jest --colors -i test/e2e/ --config=test/e2e/jest.config.js",
+    "test:e2e:f": "cross-env JEST_PUPPETEER_CONFIG=test/e2e/jest-puppeteer.config.f.js jest --colors -i test/e2e/ --config=test/e2e/jest.config.js",
     "updatetest": "cd test/functional && node updatetest.js"
   },
   "dependencies": {
