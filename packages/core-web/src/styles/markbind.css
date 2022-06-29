@@ -1,5 +1,6 @@
 :root {
     --sticky-header-height: 0;
+    --navbar-height: 56px;
 }
 
 a {
@@ -368,6 +369,7 @@ h4,
 h5,
 h6 {
     margin-bottom: 1rem;
+    scroll-margin-top: var(--navbar-height);
 }
 
 .block-embed {

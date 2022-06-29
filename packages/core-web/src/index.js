@@ -22,11 +22,6 @@ function scrollToUrlAnchorHeading() {
 }
 
 function detectAndApplyHeaderStyles() {
-  jQuery(':header').each((index, heading) => {
-    if (heading.id) {
-      jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
-    }
-  });
 
   const headerSelector = jQuery('header[sticky]');
   if (headerSelector.length === 0) {
