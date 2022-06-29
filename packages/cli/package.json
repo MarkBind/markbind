@@ -21,7 +21,8 @@
     "url": "https://github.com/MarkBind/markbind.git"
   },
   "scripts": {
-    "test": "jest --colors && cd test/functional && node test.js",
+    "test": "jest --colors && npm run test:e2e && npm run test:functional",
+    "test:functional": "cd test/functional && node test.js",
     "test:e2e": "jest --colors --runInBand test/e2e/ --config=test/e2e/jest.config.js",
     "updatetest": "cd test/functional && node updatetest.js"
   },

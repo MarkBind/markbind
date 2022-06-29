@@ -12,6 +12,10 @@
   </div>
 </div>
 
+## This is a H2 Heading
+
+Currently, the above heading must be present to prevent the page from erroring due to Bootstrap scroll spy.
+
 ```js
 console.log('Hello World');
 ```
