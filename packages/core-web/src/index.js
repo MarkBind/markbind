@@ -22,7 +22,6 @@ function scrollToUrlAnchorHeading() {
 }
 
 function detectAndApplyHeaderStyles() {
-
   const headerSelector = jQuery('header[sticky]');
   if (headerSelector.length === 0) {
     return;
