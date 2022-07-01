@@ -49,7 +49,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    </box>
 1. **Merge the PR**.
 
-   * Refer the guide [_Working with PRs_ @SE-EDU](https://se-education.org/guides/guidelines/PRs.html) on which merge strategy to use.
+   * Refer to the guide [_Working with PRs_ @SE-EDU](https://se-education.org/guides/guidelines/PRs.html) on which merge strategy to use.
      * The **default** strategy is to do a **squash-merge**.
      * Use a **merge commit** if
        * the commits are well-organized, and the branch tackles only one task. This would typically be a PR tackling a substantial issue requiring multiple dependent and successive changes.
