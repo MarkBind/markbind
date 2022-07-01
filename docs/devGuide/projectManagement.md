@@ -80,7 +80,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
    <box type="info" seamless>
 
-   **Note:** The above should be performed with caution as force pushing rewrites the git history, which might cause conflicts with any on-going work. You would also need write/push access to master.
+   **Note:** The above should be performed with caution as force pushing rewrites the Git history, which might cause conflicts with any on-going work. You would also need write/push access to master.
    </box>
 
 ## Doing a Release
