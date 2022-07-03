@@ -12,7 +12,7 @@ module.exports = {
   "rules": {
     "array-bracket-newline": ["error", { "multiline": true }],
     "arrow-parens": ["error", "as-needed", { "requireForBlockBody": true }],
-    "default-param-last": "off",
+    "default-param-last": "error",
     "func-names": "off",
     "no-else-return": ["error", { "allowElseIf": true }],
     "no-underscore-dangle": "off",
@@ -33,7 +33,7 @@ module.exports = {
     "max-len": ["error", { "code": 110 }],
     "no-param-reassign": ["error", { "props": false }],
     "operator-linebreak": ["error", "before"],
-    "prefer-regex-literals": "off",
+    "prefer-regex-literals": "error",
     // override airbnb-base dev dependencies, latest version does not white list __mocks__
     "import/no-extraneous-dependencies": [
       "error", {
@@ -65,7 +65,7 @@ module.exports = {
         "import/no-default-export": "error",
         "lodash/prefer-lodash-method": [0],
         "lodash/prefer-noop": [0],
-        "@typescript-eslint/default-param-last": "off",
+        "@typescript-eslint/default-param-last": "error",
         "@typescript-eslint/indent": [
           "error",
           2,

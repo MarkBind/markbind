@@ -57,7 +57,7 @@ function calculateBoilerplateFilePath(
                       BOILERPLATE_FOLDER_NAME, pathInBoilerplates);
 }
 
-const isUrlRegex = new RegExp('^(?:[a-z]+:)?//', 'i');
+const isUrlRegex = /^(?:[a-z]+:)?\/\//i;
 function isUrl(unknownPath: string) {
   return isUrlRegex.test(unknownPath);
 }
