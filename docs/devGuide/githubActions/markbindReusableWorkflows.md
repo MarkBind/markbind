@@ -26,3 +26,6 @@ Refer to the [development guide of markbind-action](./markbindAction.html) for t
 * Understand the strength and limitations of [reusable workflows](https://docs.github.com/en/actions/using-workflows/reusing-workflows).
 * Find out the details of the existing reusable workflows in its [README.md](https://github.com/MarkBind/markbind-action/blob/master/.github/workflows/README.md).
 * As there is no need to release the reusable workflows in order for others to use, the workflows will be updated and maintained in the master branch (without doing a release).
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('markbindAction', '../projectManagement') }}

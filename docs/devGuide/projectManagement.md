@@ -327,3 +327,6 @@ Note that:
   * E.g "@all-contributors please add tlylt for code"
   * Some time later: "@all-contributors please add tlylt for doc"
   * Result: 'tlylt' will be updated to have both icons(code and doc)
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('githubActions/markbindReusableWorkflows', 'styleGuides') }}

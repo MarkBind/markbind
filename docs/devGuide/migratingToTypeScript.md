@@ -156,3 +156,6 @@ Even if the migration developer has kept the history intact through the separate
 If we do the usual squash commit, the changes from the two commits are combined into a new commit and only that commit will be pushed into the target branch. The original two commits are omitted, therefore the history of the working branch that we have tried to keep intact is stripped away.
 
 The normal merge commit also creates another commit (the merge commit), but the merge process interleaves the commits from the working branch to the target branch, therefore retaining the change history.
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('writingPlugins', 'githubActions/overview') }}

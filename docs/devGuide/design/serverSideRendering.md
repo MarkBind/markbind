@@ -103,3 +103,6 @@ If you are unsure what elements are allowed within other elements, or what const
 </box>
 
 Note that the list only included the common causes of hydration issue that MarkBind developers have ran into. There may be other causes of hydration issue that are not listed here (although unlikely).
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('architecture', '../writingComponents') }}

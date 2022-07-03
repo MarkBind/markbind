@@ -152,3 +152,5 @@ If an author provides the same content as both a slot and an attribute, in most 
 MarkBind should also **log a warning** to inform the author of this conflict!
 </box>
 
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('design/serverSideRendering', 'writingPlugins') }}
