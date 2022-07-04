@@ -212,6 +212,13 @@ export default {
         qState: this.qState,
       };
     }
+    if (this.isTextQuestion()) {
+      return {
+        textareaText: this.textareaText, //hmmm
+        qOptionType: this.type,
+        qState: this.qState,
+      };
+    }
     return undefined;
   },
   methods: {
@@ -270,7 +277,18 @@ export default {
     checkMultiBlanksAnswer(markAsAnsweredIfWrong) {
       let hasWrongAns = false;
       for (let i = 0; i < this.answers.length; i++) {
-        if (this.answers[i].textareaText.toLowerCase() === this.answers[i]._props.keyword.toLowerCase()) {
+        let ansIsCorrect = false;
+        const lowerCasedText = this.answers[i].textareaText.toLowerCase().trim();
+        const keywords = this.answers[i]._props.keywords.toLowerCase().split(',').filter(keyword => keyword.trim() !== '');
+
+        for (let j = 0; j < keywords.length; j++) {
+          if (lowerCasedText === keywords[j].trim()) {
+            ansIsCorrect = true;
+            break;
+          }
+        }
+
+        if (ansIsCorrect) {
           this.answers[i]._props.correct = true;
         } else {
           this.answers[i]._props.correct = false;

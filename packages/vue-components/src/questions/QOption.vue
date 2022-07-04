@@ -126,6 +126,7 @@
         <strong v-else>No answer checking keywords provided</strong>
       </div>
       <div class="col-auto">
+        <!-- for when question is answered -->
         <div v-if="qState.answered">
           <i
             v-if="correct"
@@ -138,6 +139,21 @@
             :class="{ 'align-bottom': $scopedSlots.reason }"
           ></i>
         </div>
+
+        <!-- for when question is not answered and intermediate result is enabled -->
+        <div v-if="isIntermediateResult()">
+          <i
+            v-if="correct"
+            class="fa fa-check text-success"
+            :class="{ 'align-bottom': $scopedSlots.reason }"
+          ></i>
+          <i
+            v-else
+            class="fa fa-times text-danger"
+            :class="{ 'align-bottom': $scopedSlots.reason }"
+          ></i>
+        </div>
+
       </div>
     </label>
     </select>
@@ -152,6 +168,8 @@
 </template>
 
 <script>
+import { STATE_CORRECT, STATE_FRESH, STATE_WRONG } from './QuestionConstants';
+
 export default {
   name: 'McqOption',
   props: {
@@ -159,7 +177,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    keyword: {
+    keywords: {
       type: String,
       default: '',
     },
@@ -203,12 +221,15 @@ export default {
     },
   },
   methods: {
+    isIntermediateResult() {
+      // TODO: check if intermediate result should be shown
+      return this.qState.state === STATE_WRONG && !this.qState.answered;
+    },
     isMultiBlanksQuestion() {
       return this.type === 'multiBlanks'
     },
-    // NOTE: keeping the function like this so that in the future, more keywords can be added
     keywordsSplitTrimmed() {
-      return this.keyword.split(',').filter(keyword => keyword.trim() !== '');
+      return this.keywords.split(',').filter(keyword => keyword.trim() !== '');
     },
     toggleRadioOn() {
       if (this.qState.answered || this.selected) {
