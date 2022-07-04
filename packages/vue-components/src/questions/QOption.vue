@@ -105,7 +105,6 @@
     @mouseleave="hover = false"
   >
     <label :class="['row', 'multiBlanks-label', 'm-0', { 'disabled': qState.answered }]" @click.stop>
-      <!-- TODO: textareaText throwing warning -->
       <textarea
         v-model="textareaText"
         class="form-control"
@@ -184,7 +183,6 @@ export default {
   },
   data() {
     if (this.isMultiBlanksQuestion()) {
-      // TODO: textareaText throwing warning
       return {
         textareaText: '',
         selected: false,
@@ -201,10 +199,16 @@ export default {
     answers: {
       default: undefined,
     },
+    textareaText: {
+      default: undefined,
+    },
     qOptionType: {
       default: undefined,
     },
     qState: {
+      default: undefined,
+    },
+    showIntermediateResult: {
       default: undefined,
     },
   },
@@ -222,8 +226,7 @@ export default {
   },
   methods: {
     isIntermediateResult() {
-      // TODO: check if intermediate result should be shown
-      return this.qState.state === STATE_WRONG && !this.qState.answered;
+      return this.showIntermediateResult && this.qState.state === STATE_WRONG && !this.qState.answered;
     },
     isMultiBlanksQuestion() {
       return this.type === 'multiBlanks'

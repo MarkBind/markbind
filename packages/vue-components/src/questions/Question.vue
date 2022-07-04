@@ -35,7 +35,7 @@
           Gracefully deprecate invalid question types:
           This allows the old "answer" slot to show for invalid question types, in addition to text questions
         -->
-        <div v-if="qState.answered && !isMcqOrCheckboxQuestion()" class="answer">
+        <div v-if="qState.answered && !isMcqOrCheckboxQuestion() && !isMultiBlanksQuestion()" class="answer">
           <slot name="answer"></slot>
         </div>
 
@@ -161,6 +161,11 @@ export default {
       ],
       default: 1.0,
     },
+
+    // Fill-in-the-blanks question specific prop
+    showIntermediateResult: {
+      type: Boolean, // Defaults to no intermediate results shown for blanks
+    },
   },
   computed: {
     retryState() {
@@ -188,7 +193,7 @@ export default {
       shakeClass: null,
     };
 
-    if (this.isMcqOrCheckboxQuestion()) {
+    if (this.isMcqOrCheckboxQuestion() || this.isMultiBlanksQuestion()) {
       return {
         answers: [],
         ...defaultData,
@@ -212,11 +217,13 @@ export default {
         qState: this.qState,
       };
     }
-    if (this.isTextQuestion()) {
+    if (this.isMultiBlanksQuestion()) {
       return {
-        textareaText: this.textareaText, //hmmm
+        answers: this.answers,
+        textareaText: this.textareaText,
         qOptionType: this.type,
         qState: this.qState,
+        showIntermediateResult: this.showIntermediateResult,
       };
     }
     return undefined;
@@ -226,13 +233,16 @@ export default {
       return this.keywords.split(',').filter(keyword => keyword.trim() !== '');
     },
     isMcqOrCheckboxQuestion() {
-      return this.type === 'mcq' || this.type === 'checkbox' || this.type === 'multiBlanks';
+      return this.type === 'mcq' || this.type === 'checkbox';
+    },
+    isMultiBlanksQuestion() {
+      return this.type === 'multiBlanks';
     },
     isTextQuestion() {
       return this.type === 'text' || this.hasInput;
     },
     isValidQuestionType() {
-      return this.isMcqOrCheckboxQuestion() || this.isTextQuestion();
+      return this.isMcqOrCheckboxQuestion() || this.isMultiBlanksQuestion() || this.isTextQuestion();
     },
     isValidTypeAndNotTextWithoutKeywords() {
       return this.isValidQuestionType() && !(this.isTextQuestion() && !this.keywords);
@@ -275,7 +285,7 @@ export default {
       }
     },
     checkMultiBlanksAnswer(markAsAnsweredIfWrong) {
-      let hasWrongAns = false;
+      let numMatching = 0;
       for (let i = 0; i < this.answers.length; i++) {
         let ansIsCorrect = false;
         const lowerCasedText = this.answers[i].textareaText.toLowerCase().trim();
@@ -290,16 +300,16 @@ export default {
 
         if (ansIsCorrect) {
           this.answers[i]._props.correct = true;
+          numMatching++;
         } else {
           this.answers[i]._props.correct = false;
-          hasWrongAns = true;
         }
       }
 
-      if (hasWrongAns) {
-        this.markAsWrong(markAsAnsweredIfWrong);
-      } else {
+      if (numMatching / this.answers.length >= this.threshold) {
         this.markAsCorrect();
+      } else {
+        this.markAsWrong(markAsAnsweredIfWrong);
       }
     },
     checkTextAnswer(markAsAnsweredIfWrong) {
