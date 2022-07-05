@@ -229,6 +229,10 @@ export default {
 </style>
 
 <style>
+    .card, .card-header {
+      background-color: inherit !important;
+    }
+
     .card-heading {
         width: 100%;
     }
@@ -261,6 +265,7 @@ export default {
         display: inline-block;
         width: calc(100% - 32px - 96px);
         transition: 0.5s opacity;
+        background-color: inherit !important;
     }
 
     .header-transparent {
