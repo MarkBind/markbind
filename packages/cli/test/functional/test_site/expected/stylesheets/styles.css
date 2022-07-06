@@ -56,6 +56,7 @@ mark {
     margin: 0 auto;
     min-width: 0;
     max-width: 1000px;
+    overflow-x: auto;
     padding: 0.8rem 20px 0 20px;
     transition: 0.4s;
     -webkit-transition: 0.4s;
@@ -63,21 +64,20 @@ mark {
 
 #site-nav,
 #page-nav {
+    display: flex;
+    flex-direction: column;
     position: sticky;
-    top: 0;
+    top: var(--sticky-header-height);
     flex: 0 0 auto;
-    padding-top: 1rem;
     max-width: 300px;
+    max-height: calc(100vh - var(--sticky-header-height));
     width: 300px;
 }
 
 #site-nav {
-    display: flex;
-    flex-direction: column;
     border-right: 1px solid lightgrey;
     padding-bottom: 20px;
     z-index: 999;
-    max-height: 100vh;
 }
 
 .site-nav-top {
@@ -90,13 +90,7 @@ mark {
 }
 
 #page-nav {
-    display: block;
     border-left: 1px solid lightgrey;
-    max-height: 90vh;
-}
-
-#page-nav .nav-component {
-    max-height: 90vh;
 }
 
 @media screen and (max-width: 1299.98px) {

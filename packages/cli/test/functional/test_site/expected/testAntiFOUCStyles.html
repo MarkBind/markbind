@@ -54,7 +54,7 @@
       <p><strong>Relative Link Test</strong> This is a relative Intra-Site link in a layout (see <a href="/test_site/index.html#heading-with-hidden-keyword">link</a>)</p>
     </div>
     <div id="flex-body">
-      <overlay-source id="site-nav" class="fixed-header-padding" tag-name="nav" to="site-nav">
+      <overlay-source id="site-nav" tag-name="nav" to="site-nav">
         <div class="site-nav-top">
           <div class="fw-bold mb-2" style="font-size: 1.25rem;">
             <div>
@@ -206,7 +206,7 @@
           </div>
         </div>
       </overlay-source>
-      <div id="content-wrapper" class="fixed-header-padding">
+      <div id="content-wrapper">
 
         <navbar type="dark">
           <li><a href="/" class="nav-link">One</a></li>
@@ -237,7 +237,7 @@
         <p>Some text</p>
         <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>
-      <overlay-source id="page-nav" class="fixed-header-padding" tag-name="nav" to="page-nav">
+      <overlay-source id="page-nav" tag-name="nav" to="page-nav">
         <div class="nav-component slim-scroll">
         </div>
       </overlay-source>

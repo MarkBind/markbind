@@ -47,6 +47,7 @@ module.exports.PAGE_NJK = {
 module.exports.SITE_JSON_DEFAULT = '{\n'
   + '  "baseUrl": "",\n'
   + '  "titlePrefix": "",\n'
+  + '  "titleSuffix": "",\n'
   + '  "ignore": [\n'
   + '    "_markbind/layouts/*",\n'
   + '    "_markbind/logs/*",\n'
