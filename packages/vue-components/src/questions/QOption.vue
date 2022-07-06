@@ -155,7 +155,6 @@
 
       </div>
     </label>
-    </select>
 
     <div v-if="qState.answered && $scopedSlots.reason">
       <hr />
@@ -167,7 +166,7 @@
 </template>
 
 <script>
-import { STATE_CORRECT, STATE_FRESH, STATE_WRONG } from './QuestionConstants';
+import { STATE_WRONG } from './QuestionConstants';
 
 export default {
   name: 'McqOption',
@@ -229,7 +228,7 @@ export default {
       return this.showIntermediateResult && this.qState.state === STATE_WRONG && !this.qState.answered;
     },
     isMultiBlanksQuestion() {
-      return this.type === 'multiBlanks'
+      return this.type === 'multiBlanks';
     },
     keywordsSplitTrimmed() {
       return this.keywords.split(',').filter(keyword => keyword.trim() !== '');

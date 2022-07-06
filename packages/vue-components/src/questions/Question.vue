@@ -286,12 +286,13 @@ export default {
     },
     checkMultiBlanksAnswer(markAsAnsweredIfWrong) {
       let numMatching = 0;
-      for (let i = 0; i < this.answers.length; i++) {
+      for (let i = 0; i < this.answers.length; i += 1) {
         let ansIsCorrect = false;
+        const ansProps = this.answers[i]._props;
         const lowerCasedText = this.answers[i].textareaText.toLowerCase().trim();
-        const keywords = this.answers[i]._props.keywords.toLowerCase().split(',').filter(keyword => keyword.trim() !== '');
+        const keywords = ansProps.keywords.toLowerCase().split(',').filter(keyword => keyword.trim() !== '');
 
-        for (let j = 0; j < keywords.length; j++) {
+        for (let j = 0; j < keywords.length; j += 1) {
           if (lowerCasedText === keywords[j].trim()) {
             ansIsCorrect = true;
             break;
@@ -299,10 +300,10 @@ export default {
         }
 
         if (ansIsCorrect) {
-          this.answers[i]._props.correct = true;
-          numMatching++;
+          ansProps.correct = true;
+          numMatching += 1;
         } else {
-          this.answers[i]._props.correct = false;
+          ansProps.correct = false;
         }
       }
 
