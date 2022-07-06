@@ -8,6 +8,7 @@
       type="text"
       class="form-control"
       :placeholder="placeholder"
+      :style="{ width: placeholder.length + 'ch', 'min-width': '12.7em' }"
       autocomplete="off"
       @input="update"
       @keyup.up="up"
