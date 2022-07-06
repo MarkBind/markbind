@@ -39,19 +39,27 @@ class VideoServiceBase {
 
   getEmbedCode(videoID) {
     let containerClassNames = [];
-    if (this.env.options.containerClassName) {
+    if (this.env.options.containerClassName && this.options.ignoreStyle !== true) {
       containerClassNames.push(this.env.options.containerClassName);
     }
 
     let escapedServiceName = this.env.md.utils.escapeHtml(this.name);
     containerClassNames.push(this.env.options.serviceClassPrefix + escapedServiceName);
 
+    let containerStyles = [];
+    if (this.options.ignoreStyle !== true) {
+      containerStyles.push(["position: relative;"]);
+      if (this.options.height !== undefined && this.options.width !== undefined) {
+        containerStyles.push(`padding-bottom: ${this.options.height / this.options.width * 100}%`);
+      }
+    }
+
     let iframeAttributeList = [];
     iframeAttributeList.push([ "type", "text/html" ]);
     iframeAttributeList.push([ "src", this.getFilteredVideoUrl(videoID) ]);
     iframeAttributeList.push([ "frameborder", 0 ]);
 
-    if (this.env.options.outputPlayerSize === true) {
+    if (this.env.options.outputPlayerSize === true && this.options.ignoreStyle === true) {
       if (this.options.width !== undefined && this.options.width !== null) {
         iframeAttributeList.push([ "width", this.options.width ]);
       }
@@ -74,7 +82,7 @@ class VideoServiceBase {
       )
       .join(" ");
 
-    return `<div class="${containerClassNames.join(" ")}">`
+    return `<div class="${containerClassNames.join(" ")}" style="${containerStyles.join(" ")}">`
            + `<iframe ${iframeAttributes}></iframe>`
          + `</div>\n`;
   }

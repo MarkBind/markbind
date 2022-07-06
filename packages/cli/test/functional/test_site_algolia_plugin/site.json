@@ -1,6 +1,7 @@
 {
   "baseUrl": "/test_site_algolia_plugin",
   "titlePrefix": "",
+  "titleSuffix": "",
   "ignore": [
     "_markbind/layouts/*",
     "_markbind/logs/*",

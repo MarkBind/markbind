@@ -1,6 +1,7 @@
 {
   "baseUrl": "",
   "titlePrefix": "",
+  "titleSuffix": "",
   "ignore": [
     "_markbind/layouts/*",
     "_markbind/logs/*",

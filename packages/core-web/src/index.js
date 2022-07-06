@@ -21,50 +21,63 @@ function scrollToUrlAnchorHeading() {
   }
 }
 
-function detectAndApplyFixedHeaderStyles() {
+function detectAndApplyHeaderStyles() {
   jQuery(':header').each((index, heading) => {
     if (heading.id) {
       jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
     }
   });
 
-  const headerSelector = jQuery('header[fixed]');
-  const isFixed = headerSelector.length !== 0;
-  if (!isFixed) {
+  const headerSelector = jQuery('header[sticky]');
+  if (headerSelector.length === 0) {
     return;
   }
+  const [headerEl] = headerSelector;
 
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 767 && headerSelector.hasClass('hide-header')) {
-      headerSelector.removeClass('hide-header');
+  let headerHeight = headerSelector.height();
+  function updateHeaderHeight() {
+    headerHeight = headerSelector.height();
+    document.documentElement.style.setProperty('--sticky-header-height', `${headerHeight}px`);
+  }
+
+  let isHidden = false;
+  function showHeader() {
+    isHidden = false;
+    headerSelector.removeClass('hide-header');
+  }
+  headerEl.addEventListener('transitionend', () => {
+    // reset overflow when header shows again to allow content
+    // in the header such as search dropdown etc. to overflow
+    if (!isHidden) {
       headerSelector.css('overflow', '');
     }
   });
 
-  const updateHeaderHeight = () => {
-    const newHeaderHeight = headerSelector.height();
-    document.documentElement.style.setProperty('--header-height', `${newHeaderHeight}px`);
-  };
+  function hideHeader() {
+    isHidden = true;
+    // hide header overflow when user scrolls to support transition effect
+    headerSelector.css('overflow', 'hidden');
+    headerSelector.addClass('hide-header');
+  }
 
-  const toggleHeaderOverflow = () => {
-    const headerMaxHeight = headerSelector.css('max-height');
-    // reset overflow when header shows again to allow content
-    // in the header such as search dropdown etc. to overflow
-    if (headerMaxHeight === '100%') {
-      headerSelector.css('overflow', '');
-      updateHeaderHeight();
+  // Handles window resizes + dynamic content (e.g. dismissing a box within)
+  const resizeObserver = new ResizeObserver(() => {
+    updateHeaderHeight();
+    if (window.innerWidth > 767 && isHidden) {
+      showHeader();
     }
-  };
+  });
+  resizeObserver.observe(headerEl);
 
   let lastOffset = 0;
   let lastHash = window.location.hash;
   const toggleHeaderOnScroll = () => {
-    // prevent toggling of header on desktop site
+    // prevent hiding of header on desktop site
     if (window.innerWidth > 767) { return; }
 
     if (lastHash !== window.location.hash) {
       lastHash = window.location.hash;
-      headerSelector.removeClass('hide-header');
+      showHeader();
       return;
     }
     lastHash = window.location.hash;
@@ -75,30 +88,35 @@ function detectAndApplyFixedHeaderStyles() {
     if (isEndOfPage) { return; }
 
     if (currentOffset > lastOffset) {
-      const headerEnd = headerSelector.height() + headerSelector[0].getBoundingClientRect().top;
-      const isBeforeHeader = currentOffset < headerEnd;
+      /*
+       1) Bounding box is calculated as if 'position: fixed' when sticky is "activated".
+       Revert the position to 'static' temporarily to avoid this.
+
+       Seems to be harmless UX wise, even on extremely slow devices.
+
+       2) The + headerHeight addition accounts for css translateY.
+
+       This is slightly inaccurate when:
+       - The header is not hidden.
+         In which case it acts as a "padding" before which to hide the header.
+       - The transition has not finished at the point of this function firing, i.e.,
+         the offset is actually less than headerHeight.
+         Similarly, this errs on the side of caution.
+       */
+      headerEl.style.position = 'static';
+      const top = headerEl.getBoundingClientRect().top + headerHeight;
+      headerEl.style.position = 'sticky';
+      const isBeforeHeader = top > 0;
       if (isBeforeHeader) {
         return;
       }
 
-      headerSelector.addClass('hide-header');
+      hideHeader();
     } else {
-      headerSelector.removeClass('hide-header');
+      showHeader();
     }
     lastOffset = currentOffset;
   };
-
-  const resizeObserver = new ResizeObserver(() => {
-    const headerMaxHeight = headerSelector.css('max-height');
-    // hide header overflow when user scrolls to support transition effect
-    if (headerMaxHeight !== '100%') {
-      headerSelector.css('overflow', 'hidden');
-      return;
-    }
-    updateHeaderHeight();
-  });
-  resizeObserver.observe(headerSelector[0]);
-  headerSelector[0].addEventListener('transitionend', toggleHeaderOverflow);
 
   let scrollTimeout;
   window.addEventListener('scroll', () => {
@@ -132,7 +150,7 @@ function restoreStyleTags() {
 function executeAfterMountedRoutines() {
   restoreStyleTags();
   scrollToUrlAnchorHeading();
-  detectAndApplyFixedHeaderStyles();
+  detectAndApplyHeaderStyles();
 }
 
 window.handleSiteNavClick = function (elem, useAnchor = true) {
