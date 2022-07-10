@@ -39,7 +39,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
 ### Merging
 
-1. **Re-run the GitHub Actions `ci.yml` build** for the current PR.
+1. **Re-sync the PR branch with master to trigger the CI pipeline.**
 
    <box type="info" seamless>
 
@@ -49,7 +49,12 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    </box>
 1. **Merge the PR**.
 
-   * Refer the guide [_Working with PRs_ @SE-EDU](https://se-education.org/guides/guidelines/PRs.html) which merge strategy to use (i.e., squash, rebase, merge commit)
+   * Refer to the guide [_Working with PRs_ @SE-EDU](https://se-education.org/guides/guidelines/PRs.html) on which merge strategy to use.
+     * The **default** strategy is to do a **squash-merge**.
+     * Use a **merge commit** if
+       * the commits are well-organized, and the branch tackles only one task. This would typically be a PR tackling a substantial issue requiring multiple dependent and successive changes.
+     * Use a **rebase-merge** if
+       * the commits are well-organized, and each commit is an independent task. This should be extremely rare as we typically advise that PRs should not have unrelated changes. An example can be found [here](https://github.com/MarkBind/markbind/pull/1238).
 
    * Format for the merge/squashed commit title: `PR_TITLE (#PR_NUMBER)`<br>
     `Add built-in support for light themes from bootswatch (#745)`
@@ -63,6 +68,19 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    <box type="info" seamless>
 
    **Reason:** We may have missed it during the "Approval" stage, so please add the version milestone if it is missing, so that the drafting of the release notes during the release process will be easier.
+   </box>
+
+1. Tip: how to **undo an accidental merge commit.**
+
+   * In the event of a wrong commit strategy chosen, you can undo the merge to master by:
+     1. Switch to the master branch locally.
+     1. Run `git reset --hard HEAD~1`.
+     1. Run `git push --force`.
+     1. Create a new PR from the previous PR branch and merge the PR with the correct merge strategy.
+
+   <box type="info" seamless>
+
+   **Note:** The above should be performed with caution as force pushing rewrites the Git history, which might cause conflicts with any on-going work. You would also need write/push access to master.
    </box>
 
 ## Doing a Release

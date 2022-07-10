@@ -337,3 +337,17 @@ h5,
 h6 {
     margin-bottom: 1rem;
 }
+
+.block-embed {
+    overflow-x: auto;
+    position: relative;
+    width: 100%;
+}
+
+.block-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
