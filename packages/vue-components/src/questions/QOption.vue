@@ -100,18 +100,47 @@
   <!-- multiple blanks option -->
   <div
     v-else-if="qOptionType === 'multiBlanks'"
-    :class="['form-control', hintClass]"
+    :class="['form-control', 'multiBlanks-div', hintClass]"
     @mouseover="hover = true"
     @mouseleave="hover = false"
   >
-    <label :class="['row', 'multiBlanks-label', 'm-0', { 'disabled': qState.answered }]" @click.stop>
-      <textarea
+    <label :class="['row', 'm-0', { 'disabled': qState.answered }]" @click.stop>
+      <!-- <textarea
         v-model="textareaText"
         class="form-control"
         :disabled="qState.answered"
-      ></textarea>
-      <div v-if="qState.answered">
-        <hr />
+      ></textarea> -->
+      <input
+        v-model="inputText"
+        class="form-control"
+        :disabled="qState.answered"
+      />
+      <div class="col-auto">
+        <!-- for when question is answered -->
+        <div v-if="qState.answered">
+          <i
+            v-if="correct"
+            class="fa fa-check text-success"
+          ></i>
+          <i
+            v-else
+            class="fa fa-times text-danger multiBlanks-cross"
+          ></i>
+        </div>
+
+        <!-- for when question is not answered and intermediate result is enabled -->
+        <div v-if="isIntermediateResult()">
+          <i
+            v-if="correct"
+            class="fa fa-check text-success"
+          ></i>
+          <i
+            v-else
+            class="fa fa-times text-danger multiBlanks-cross"
+          ></i>
+        </div>
+      </div>
+      <div v-if="qState.answered" class="col-auto multiBlanks-keywords">
         <strong v-if="keywordsSplitTrimmed().length">
           Keywords:&nbsp;
           <span
@@ -124,41 +153,10 @@
         </strong>
         <strong v-else>No answer checking keywords provided</strong>
       </div>
-      <div class="col-auto">
-        <!-- for when question is answered -->
-        <div v-if="qState.answered">
-          <i
-            v-if="correct"
-            class="fa fa-check text-success"
-            :class="{ 'align-bottom': $scopedSlots.reason }"
-          ></i>
-          <i
-            v-else
-            class="fa fa-times text-danger"
-            :class="{ 'align-bottom': $scopedSlots.reason }"
-          ></i>
-        </div>
-
-        <!-- for when question is not answered and intermediate result is enabled -->
-        <div v-if="isIntermediateResult()">
-          <i
-            v-if="correct"
-            class="fa fa-check text-success"
-            :class="{ 'align-bottom': $scopedSlots.reason }"
-          ></i>
-          <i
-            v-else
-            class="fa fa-times text-danger"
-            :class="{ 'align-bottom': $scopedSlots.reason }"
-          ></i>
-        </div>
-
-      </div>
     </label>
 
     <div v-if="qState.answered && $scopedSlots.reason">
-      <hr />
-      <div class="reason">
+      <div class="reason multiBlanks-reason">
         <slot name="reason"></slot>
       </div>
     </div>
@@ -183,7 +181,7 @@ export default {
   data() {
     if (this.isMultiBlanksQuestion()) {
       return {
-        textareaText: '',
+        inputText: '',
         selected: false,
         hover: false,
       };
@@ -198,7 +196,7 @@ export default {
     answers: {
       default: undefined,
     },
-    textareaText: {
+    inputText: {
       default: undefined,
     },
     qOptionType: {
@@ -311,10 +309,25 @@ export default {
         align-items: center;
     }
 
-    /* text question text area */
-    textarea.form-control {
+    /* for multiBlanks question type */
+    input.form-control {
         height: auto;
         min-height: 20px;
-        margin-bottom: 10px;
+        margin-bottom: 0px;
+        width: 50%;
+    }
+
+    input.form-control:disabled,
+    .multiBlanks-keywords {
+        margin-bottom: 0.5rem;
+    }
+
+    .multiBlanks-div {
+        border: none;
+    }
+
+    .multiBlanks-cross {
+        margin-right: 3px;
+        margin-left: 3px;
     }
 </style>
