@@ -34,4 +34,6 @@ jobs:
           timeout_minutes: 8
           max_attempts: 3
           retry_on: error
-          command: cd packages/cli && npm run test:e2e
+          command: |
+            cd packages/cli
+            npm run test:e2e
