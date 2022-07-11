@@ -131,8 +131,8 @@ program
     };
 
     const site = new Site(rootFolder, outputFolder, onePagePath,
-                          options.dev, options.backgroundBuild, reloadAfterBackgroundBuild,
-                          options.forceReload, options.siteConfig);
+                          options.forceReload, options.siteConfig, options.dev,
+                          options.backgroundBuild, reloadAfterBackgroundBuild);
 
     const syncOpenedPages = () => {
       logger.info('Synchronizing opened pages list before reload');
@@ -310,8 +310,7 @@ program
     }
     const defaultOutputRoot = path.join(rootFolder, '_site');
     const outputFolder = output ? path.resolve(process.cwd(), output) : defaultOutputRoot;
-    new Site(rootFolder, outputFolder, undefined, undefined, undefined,
-             undefined, undefined, options.siteConfig)
+    new Site(rootFolder, outputFolder, undefined, undefined, options.siteConfig)
       .generate(baseUrl)
       .then(() => {
         logger.info('Build success!');
@@ -328,8 +327,7 @@ program
   .action((options) => {
     const rootFolder = path.resolve(process.cwd());
     const outputRoot = path.join(rootFolder, '_site');
-    new Site(rootFolder, outputRoot, undefined, undefined,
-             undefined, undefined, undefined, options.siteConfig).deploy(options.ci)
+    new Site(rootFolder, outputRoot, undefined, undefined, options.siteConfig).deploy(options.ci)
       .then(depUrl => (depUrl !== null ? logger.info(
         `The website has been deployed at: ${depUrl}`)
         : logger.info('Deployed!')))

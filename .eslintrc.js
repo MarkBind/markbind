@@ -12,6 +12,7 @@ module.exports = {
   "rules": {
     "array-bracket-newline": ["error", { "multiline": true }],
     "arrow-parens": ["error", "as-needed", { "requireForBlockBody": true }],
+    "default-param-last": "off",
     "func-names": "off",
     "no-else-return": ["error", { "allowElseIf": true }],
     "no-underscore-dangle": "off",
@@ -63,6 +64,7 @@ module.exports = {
         "import/no-default-export": "error",
         "lodash/prefer-lodash-method": [0],
         "lodash/prefer-noop": [0],
+        "@typescript-eslint/default-param-last": "off",
         "@typescript-eslint/indent": [
           "error",
           2,

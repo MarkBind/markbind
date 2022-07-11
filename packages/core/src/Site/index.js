@@ -107,9 +107,8 @@ const ABOUT_MARKDOWN_DEFAULT = '# About\n'
 const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${MARKBIND_VERSION}</a>`;
 
 class Site {
-  constructor(rootPath, outputPath, onePagePath, dev,
-              backgroundBuildMode, postBackgroundBuildFunc,
-              forceReload = false, siteConfigPath = SITE_CONFIG_NAME) {
+  constructor(rootPath, outputPath, onePagePath, forceReload = false,
+              siteConfigPath = SITE_CONFIG_NAME, dev, backgroundBuildMode, postBackgroundBuildFunc) {
     this.dev = !!dev;
 
     this.rootPath = rootPath;
