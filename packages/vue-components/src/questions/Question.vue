@@ -287,7 +287,7 @@ export default {
     checkMultiBlanksAnswer(markAsAnsweredIfWrong) {
       let numMatching = 0;
       for (let i = 0; i < this.answers.length; i += 1) {
-        this.answers[i].testing();
+        this.answers[i].checkAnswer();
         if (this.answers[i].ansIsCorrect) {
           numMatching += 1;
         }

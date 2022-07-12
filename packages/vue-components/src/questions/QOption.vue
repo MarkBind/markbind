@@ -213,7 +213,7 @@ export default {
     },
   },
   methods: {
-    testing() {
+    checkAnswer() {
       let ansIsCorrect = false;
       const lowerCasedText = this.inputText.toLowerCase().trim();
       const keywords = this.keywords.toLowerCase().split(',').filter(keyword => keyword.trim() !== '');
