@@ -179,26 +179,19 @@ export default {
     },
   },
   data() {
-    if (this.isMultiBlanksQuestion()) {
-      return {
-        inputText: '',
-        selected: false,
-        hover: false,
-      };
-    }
-
     return {
       selected: false,
       hover: false,
+      inputText: '',
     };
   },
   inject: {
     answers: {
       default: undefined,
     },
-    inputText: {
-      default: undefined,
-    },
+    // inputText: {
+    //   default: undefined,
+    // },
     qOptionType: {
       default: undefined,
     },

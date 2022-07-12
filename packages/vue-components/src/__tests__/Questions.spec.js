@@ -47,7 +47,7 @@ describe('Mcq Questions and QOptions', () => {
 
     // Click hint
     await wrapper.find('button.btn-success').trigger('click');
-    // Click 'check' without having clicked any options
+    // Click 'check' with no input
     await wrapper.find('button.btn-primary').trigger('click');
 
     expect(wrapper.element).toMatchSnapshot();
@@ -269,6 +269,80 @@ describe('Checkbox Questions and QOptions', () => {
 
     // click 'show'
     await wrapper.find('button.btn-info').trigger('click');
+
+    expect(wrapper.element).toMatchSnapshot();
+  });
+});
+
+describe('Multiblank Questions and QOptions', () => {
+  test('of unanswered with shown hint and header renders correctly', async () => {
+    const wrapper = mount(Question, {
+      propsData: { type: 'multiBlanks' },
+      slots: {
+        default: [
+          'Question content',
+          '<q-option>blank 1 - incorrect</q-option>',
+          '<q-option>blank 2 - incorrect, with reason'
+            + '<template #reason>opt 2 reason</template></q-option>',
+          '<q-option correct>blank 3 - correct</q-option>',
+          '<q-option correct>blank 4 - correct, with reason'
+            + '<template #reason>opt 4 reason</template></q-option>',
+        ],
+        header: 'unanswered multiblanks question header',
+        hint: 'multiblanks question hint',
+      },
+      provide: DEFAULT_INJECTIONS,
+      stubs: DEFAULT_STUBS,
+    });
+
+    // Click hint
+    await wrapper.find('button.btn-success').trigger('click');
+
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
+  test('of answered correctly with unshown hint without header renders correctly', async () => {
+    const option1 = {
+      render(h) {
+        return h(QOption, { props: { keywords: 'key' } });
+      },
+    };
+
+    const wrapper = mount(Question, {
+      propsData: {
+        type: 'multiBlanks',
+        threshold: 0.25,
+      },
+      slots: {
+        default: [
+          'Question content',
+          option1,
+          option1,
+          option1,
+          option1,
+        ],
+        hint: 'multiblanks question hint',
+      },
+      provide: DEFAULT_INJECTIONS,
+      stubs: DEFAULT_STUBS,
+    });
+
+    // set correct input for blank 3
+    console.log(wrapper.findAllComponents(QOption).at(2).find('input').html());
+    console.log(wrapper.findAllComponents(QOption).at(2).find('input').text());
+    await wrapper.findAllComponents(QOption).at(2).find('input').setValue('key');
+    await wrapper.findAllComponents(QOption).at(2).setData({ inputText: 'key' });
+    await wrapper.findAllComponents(QOption).at(2).find('input').trigger('input');
+    console.log(wrapper.findAllComponents(QOption).at(2).find('input').html());
+    console.log(wrapper.findAllComponents(QOption).at(2).find('input').text());
+    // set incorrect input for blank 4
+    await wrapper.findAllComponents(QOption).at(3).find('input').setValue('wrong');
+
+    // click 'check'
+    await wrapper.find('button.btn-primary').trigger('click');
+
+    // set input for blank 1 - should not affect?
+    await wrapper.findAllComponents(QOption).at(0).find('input').setValue('key');
 
     expect(wrapper.element).toMatchSnapshot();
   });

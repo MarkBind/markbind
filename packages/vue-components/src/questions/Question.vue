@@ -220,7 +220,7 @@ export default {
     if (this.isMultiBlanksQuestion()) {
       return {
         answers: this.answers,
-        inputText: this.inputText,
+        // inputText: this.inputText,
         qOptionType: this.type,
         qState: this.qState,
         showIntermediateResult: this.showIntermediateResult,
@@ -292,6 +292,9 @@ export default {
         const lowerCasedText = this.answers[i].inputText.toLowerCase().trim();
         const keywords = ansProps.keywords.toLowerCase().split(',').filter(keyword => keyword.trim() !== '');
 
+        if (!keywords.length) {
+          ansIsCorrect = true;
+        }
         for (let j = 0; j < keywords.length; j += 1) {
           if (lowerCasedText === keywords[j].trim()) {
             ansIsCorrect = true;

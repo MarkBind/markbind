@@ -1771,6 +1771,383 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
 </transition-stub>
 `;
 
+exports[`Multiblank Questions and QOptions of answered correctly with unshown hint without header renders correctly 1`] = `
+<transition-stub>
+  <div
+    class="card question"
+  >
+    <!---->
+     
+    <div
+      class="card-body"
+    >
+      Question content
+      <div
+        class="form-control multiBlanks-div danger"
+      >
+        <label
+          class="row m-0 disabled"
+        >
+          <input
+            class="form-control"
+            disabled="disabled"
+          />
+           
+          <div
+            class="col-auto"
+          >
+            <div>
+              <i
+                class="fa fa-times text-danger multiBlanks-cross"
+              />
+            </div>
+             
+            <!---->
+          </div>
+           
+          <div
+            class="col-auto multiBlanks-keywords"
+          >
+            <strong>
+              
+        Keywords: 
+        
+              <span
+                class="badge rounded-pill bg-light text-dark fw-normal"
+              >
+                
+          key
+        
+              </span>
+            </strong>
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control multiBlanks-div danger"
+      >
+        <label
+          class="row m-0 disabled"
+        >
+          <input
+            class="form-control"
+            disabled="disabled"
+          />
+           
+          <div
+            class="col-auto"
+          >
+            <div>
+              <i
+                class="fa fa-times text-danger multiBlanks-cross"
+              />
+            </div>
+             
+            <!---->
+          </div>
+           
+          <div
+            class="col-auto multiBlanks-keywords"
+          >
+            <strong>
+              
+        Keywords: 
+        
+              <span
+                class="badge rounded-pill bg-light text-dark fw-normal"
+              >
+                
+          key
+        
+              </span>
+            </strong>
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control multiBlanks-div success"
+      >
+        <label
+          class="row m-0 disabled"
+        >
+          <input
+            class="form-control"
+            disabled="disabled"
+          />
+           
+          <div
+            class="col-auto"
+          >
+            <div>
+              <i
+                class="fa fa-check text-success"
+              />
+            </div>
+             
+            <!---->
+          </div>
+           
+          <div
+            class="col-auto multiBlanks-keywords"
+          >
+            <strong>
+              
+        Keywords: 
+        
+              <span
+                class="badge rounded-pill bg-light text-dark fw-normal"
+              >
+                
+          key
+        
+              </span>
+            </strong>
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control multiBlanks-div danger"
+      >
+        <label
+          class="row m-0 disabled"
+        >
+          <input
+            class="form-control"
+            disabled="disabled"
+          />
+           
+          <div
+            class="col-auto"
+          >
+            <div>
+              <i
+                class="fa fa-times text-danger multiBlanks-cross"
+              />
+            </div>
+             
+            <!---->
+          </div>
+           
+          <div
+            class="col-auto multiBlanks-keywords"
+          >
+            <strong>
+              
+        Keywords: 
+        
+              <span
+                class="badge rounded-pill bg-light text-dark fw-normal"
+              >
+                
+          key
+        
+              </span>
+            </strong>
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+       
+      <!---->
+       
+      <!---->
+       
+      <!---->
+    </div>
+     
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <i
+        class="fa fa-check text-success border-success result-icon"
+      />
+       
+      <transition-group-stub
+        class="float-end"
+        name="q-btn"
+        tag="div"
+      >
+        <button
+          class="btn btn-success q-btn ms-1"
+          type="button"
+        >
+          
+          Hint
+        
+        </button>
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+      </transition-group-stub>
+    </div>
+  </div>
+</transition-stub>
+`;
+
+exports[`Multiblank Questions and QOptions of unanswered with shown hint and header renders correctly 1`] = `
+<transition-stub>
+  <div
+    class="card question"
+  >
+    <div
+      class="card-header alert-light border-bottom border-light text-dark"
+    >
+      unanswered multiblanks question header
+    </div>
+     
+    <div
+      class="card-body"
+    >
+      Question content
+      <div
+        class="form-control multiBlanks-div"
+      >
+        <label
+          class="row m-0"
+        >
+          <input
+            class="form-control"
+          />
+           
+          <div
+            class="col-auto"
+          >
+            <!---->
+             
+            <!---->
+          </div>
+           
+          <!---->
+        </label>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control multiBlanks-div"
+      >
+        <label
+          class="row m-0"
+        >
+          <input
+            class="form-control"
+          />
+           
+          <div
+            class="col-auto"
+          >
+            <!---->
+             
+            <!---->
+          </div>
+           
+          <!---->
+        </label>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control multiBlanks-div"
+      >
+        <label
+          class="row m-0"
+        >
+          <input
+            class="form-control"
+          />
+           
+          <div
+            class="col-auto"
+          >
+            <!---->
+             
+            <!---->
+          </div>
+           
+          <!---->
+        </label>
+         
+        <!---->
+      </div>
+      <div
+        class="form-control multiBlanks-div"
+      >
+        <label
+          class="row m-0"
+        >
+          <input
+            class="form-control"
+          />
+           
+          <div
+            class="col-auto"
+          >
+            <!---->
+             
+            <!---->
+          </div>
+           
+          <!---->
+        </label>
+         
+        <!---->
+      </div>
+       
+      <!---->
+       
+      <!---->
+       
+      <box-stub
+        class="mb-0 mt-3"
+        type="tip"
+      >
+        multiblanks question hint
+      </box-stub>
+    </div>
+     
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <!---->
+       
+      <transition-group-stub
+        class="float-end"
+        name="q-btn"
+        tag="div"
+      >
+        <!---->
+         
+        <button
+          class="btn btn-primary q-btn ms-1"
+          type="button"
+        >
+          
+          Check
+        
+        </button>
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+      </transition-group-stub>
+    </div>
+  </div>
+</transition-stub>
+`;
+
 exports[`Text Questions of answered correctly with answer without header, hint, keywords renders correctly 1`] = `
 <transition-stub>
   <div
