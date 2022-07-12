@@ -8,7 +8,7 @@
       type="text"
       class="form-control"
       :placeholder="placeholder"
-      :style="{ width: placeholder.length + 'ch', 'min-width': '12.7em' }"
+      :style="{ width: placeholderDivWidth + 'px' }"
       autocomplete="off"
       @input="update"
       @keyup.up="up"
@@ -17,6 +17,9 @@
       @keydown.esc="reset"
       @blur="showDropdown = false"
     />
+    <div ref="placeholderDiv" class="form-control">
+      {{ placeholder }}
+    </div>
     <ul ref="dropdown" :class="dropdownMenuClasses">
       <li
         v-for="(item, index) in items"
@@ -93,6 +96,7 @@ export default {
       noResults: true,
       current: 0,
       items: [],
+      placeholderDivWidth: 1,
     };
   },
   computed: {
@@ -246,6 +250,11 @@ export default {
       }
     },
   },
+  mounted() {
+    const { placeholderDiv } = this.$refs;
+    this.placeholderDivWidth = placeholderDiv.offsetWidth;
+    placeholderDiv.remove();
+  },
   components: {
     searchbarPageItem,
   },
@@ -254,7 +263,8 @@ export default {
 
 <style scoped>
     .form-control {
-        min-width: 8em;
+        min-width: 12.7em;
+        max-width: 25.4em;
     }
 
     .table-active {
