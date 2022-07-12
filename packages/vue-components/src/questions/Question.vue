@@ -287,26 +287,9 @@ export default {
     checkMultiBlanksAnswer(markAsAnsweredIfWrong) {
       let numMatching = 0;
       for (let i = 0; i < this.answers.length; i += 1) {
-        let ansIsCorrect = false;
-        const ansProps = this.answers[i].$props;
-        const lowerCasedText = this.answers[i].inputText.toLowerCase().trim();
-        const keywords = ansProps.keywords.toLowerCase().split(',').filter(keyword => keyword.trim() !== '');
-
-        if (!keywords.length) {
-          ansIsCorrect = true;
-        }
-        for (let j = 0; j < keywords.length; j += 1) {
-          if (lowerCasedText === keywords[j].trim()) {
-            ansIsCorrect = true;
-            break;
-          }
-        }
-
-        if (ansIsCorrect) {
-          ansProps.correct = true;
+        this.answers[i].testing();
+        if (this.answers[i].ansIsCorrect) {
           numMatching += 1;
-        } else {
-          ansProps.correct = false;
         }
       }
 

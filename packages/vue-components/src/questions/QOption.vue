@@ -119,7 +119,7 @@
         <!-- for when question is answered -->
         <div v-if="qState.answered">
           <i
-            v-if="correct"
+            v-if="ansIsCorrect"
             class="fa fa-check text-success"
           ></i>
           <i
@@ -131,7 +131,7 @@
         <!-- for when question is not answered and intermediate result is enabled -->
         <div v-if="isIntermediateResult()">
           <i
-            v-if="correct"
+            v-if="ansIsCorrect"
             class="fa fa-check text-success"
           ></i>
           <i
@@ -183,15 +183,13 @@ export default {
       selected: false,
       hover: false,
       inputText: '',
+      ansIsCorrect: false,
     };
   },
   inject: {
     answers: {
       default: undefined,
     },
-    // inputText: {
-    //   default: undefined,
-    // },
     qOptionType: {
       default: undefined,
     },
@@ -215,6 +213,21 @@ export default {
     },
   },
   methods: {
+    testing() {
+      let ansIsCorrect = false;
+      const lowerCasedText = this.inputText.toLowerCase().trim();
+      const keywords = this.keywords.toLowerCase().split(',').filter(keyword => keyword.trim() !== '');
+      if (!this.keywords.length) {
+        ansIsCorrect = true;
+      }
+      for (let i = 0; i < keywords.length; i += 1) {
+        if (lowerCasedText === keywords[i].trim()) {
+          ansIsCorrect = true;
+          break;
+        }
+      }
+      this.ansIsCorrect = ansIsCorrect;
+    },
     isIntermediateResult() {
       return this.showIntermediateResult && this.qState.state === STATE_WRONG && !this.qState.answered;
     },
@@ -306,7 +319,7 @@ export default {
     input.form-control {
         height: auto;
         min-height: 20px;
-        margin-bottom: 0px;
+        margin-bottom: 0;
         width: 50%;
     }
 
