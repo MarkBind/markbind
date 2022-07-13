@@ -328,22 +328,18 @@ describe('Multiblank Questions and QOptions', () => {
     });
 
     // set correct input for blank 3
-    console.log(wrapper.findAllComponents(QOption).at(2).find('input').html());
-    console.log(wrapper.findAllComponents(QOption).at(2).find('input').text());
     await wrapper.findAllComponents(QOption).at(2).find('input').setValue('key');
-    await wrapper.findAllComponents(QOption).at(2).setData({ inputText: 'key' });
-    await wrapper.findAllComponents(QOption).at(2).find('input').trigger('input');
-    console.log(wrapper.findAllComponents(QOption).at(2).find('input').html());
-    console.log(wrapper.findAllComponents(QOption).at(2).find('input').text());
+    // await wrapper.findAllComponents(QOption).at(2).setData({ inputText: 'key' });
     // set incorrect input for blank 4
     await wrapper.findAllComponents(QOption).at(3).find('input').setValue('wrong');
 
     // click 'check'
     await wrapper.find('button.btn-primary').trigger('click');
 
-    // set input for blank 1 - should not affect?
+    // set input for blank 1 - should not change value since question answered
     await wrapper.findAllComponents(QOption).at(0).find('input').setValue('key');
 
+    expect(wrapper.findAllComponents(QOption).at(0).vm.inputText).toMatch('');
     expect(wrapper.element).toMatchSnapshot();
   });
 });

@@ -1869,7 +1869,7 @@ exports[`Multiblank Questions and QOptions of answered correctly with unshown hi
         <!---->
       </div>
       <div
-        class="form-control multiBlanks-div success"
+        class="form-control multiBlanks-div danger"
       >
         <label
           class="row m-0 disabled"
