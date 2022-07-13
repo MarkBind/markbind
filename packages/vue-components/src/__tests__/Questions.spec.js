@@ -276,17 +276,21 @@ describe('Checkbox Questions and QOptions', () => {
 
 describe('Multiblank Questions and QOptions', () => {
   test('of unanswered with shown hint and header renders correctly', async () => {
+    const option = {
+      render(h) {
+        return h(QOption, { props: { keywords: 'key' } });
+      },
+    };
+
     const wrapper = mount(Question, {
       propsData: { type: 'multiBlanks' },
       slots: {
         default: [
           'Question content',
-          '<q-option>blank 1 - incorrect</q-option>',
-          '<q-option>blank 2 - incorrect, with reason'
-            + '<template #reason>opt 2 reason</template></q-option>',
-          '<q-option correct>blank 3 - correct</q-option>',
-          '<q-option correct>blank 4 - correct, with reason'
-            + '<template #reason>opt 4 reason</template></q-option>',
+          option,
+          option,
+          option,
+          option,
         ],
         header: 'unanswered multiblanks question header',
         hint: 'multiblanks question hint',
