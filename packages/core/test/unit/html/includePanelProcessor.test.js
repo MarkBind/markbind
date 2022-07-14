@@ -229,7 +229,7 @@ test('includeFile replaces <include src="include.md#exists" optional> with <div>
 
   const include = [
     '# Include',
-    '<div id="exists">existing segment<div/>',
+    '<div id="exists">existing segment</div>',
   ].join('\n');
 
   const json = {
