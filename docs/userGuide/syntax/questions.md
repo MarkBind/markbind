@@ -6,7 +6,7 @@ Question and quiz components provide an easy way to test readers on the relevant
 
 #### Introduction
 
-Question components (`<question>`) can be one of the following types: **MCQ**, **Checkbox** or **Text**.
+Question components (`<question>`) can be one of the following types: **MCQ**, **Checkbox**, **Fill-in-the-Blanks**,  or **Text**.
 
 In all cases, content directly inserted in between `<question>...</question>` will be inserted into the **question body**.
 
@@ -135,7 +135,7 @@ Placing the question into the header is entirely optional. You may also wish to 
 ****Options and Slots common to all question types****
 Name | Type | Default | Description
 --- | --- | --- | ---
-type | `String` | `''` | The type of question. Supports `mcq`, `checkbox` or `text`.
+type | `String` | `''` | The type of question. Supports `mcq`, `checkbox`, `multiBlanks`, or `text`.
 header{{slot_info_trigger}} | `String` | `''` | The markup to insert into the question header. The header is omitted if this is not provided.
 hint{{slot_info_trigger}}  | `String` | `''` | The content to display in the hint box.
 
@@ -217,6 +217,66 @@ correct | `Boolean` | `false` | Whether this option (placed under either a MCQ o
 reason{{slot_info_trigger}}  | `String` | `''` | The explanation markup to display for the option once the answer is checked.
 
 
+#### Fill-in-the-Blanks Questions {.mt-4 .mb-3}
+
+Fill-in-the-blanks questions are specified with the `type="multiBlanks"` attribute.
+
+Unlike MCQ and checkbox questions, answer checking is performed for each blank by providing keywords to check for in the user's answer through the `keywords` attribute in each `q-option`.
+If no keywords are provided, the answer for that blank will always be marked as correct.
+
+<box type="warning" seamless>
+
+Keywords are validated by checking if the keyword matches the user's answer exactly (ignoring case)!
+This works well for some
+<popover header="When does validation work?">cases
+  <span slot="content">
+  When the keywords given are short and specific to the blank (eg. `abstraction`), it increases the chances that the blank will be validated correctly.
+  <br><br>
+  In contrast, something long and vague like `after discussing for a period of time` which can easily be expressed in a different way (eg. `after deliberating for a while`) would likely cause the blank to be validated incorrectly.
+  </span>
+</popover>
+and not others.
+
+</box>
+
+You can specify a `showIntermediateResult` attribute for users to see the result of each blank upon submitting their attempt.
+
+{% set multiBlanksQuestion %}
+<question type="multiBlanks" hint="Google it!" threshold=0.5 showIntermediateResult>
+
+  ##### German sociologist __________ called the process of simultaneously analyzing the behavior of individuals and the society that shapes that behavior __________.
+
+  <q-option keywords="Norbert Elias, Elias" reason="That's his name!"></q-option>
+  <q-option keywords="figuration"></q-option>
+</question>
+{% endset %}
+
+<include src="codeAndOutput.md" boilerplate>
+<variable name="highlightStyle">html</variable>
+<variable name="code">{{ multiBlanksQuestion }}</variable>
+</include>
+
+<box type="tip" seamless>
+
+Since the validation is imperfect, the minimum proportion of correct blanks needed for the entire question to be marked as correct can also be changed using the `threshold` attribute.
+
+If you don't want to validate the answer at all, you may also omit the `keywords` attribute entirely. Doing so always marks the blank as correct.
+
+</box>
+
+****Fill-in-the-Blanks Question specific Options and Slots****
+Name | Type | Default | Description
+--- | --- | --- | ---
+threshold | `Number` | `0.5` | Minimum proportion of keywords that have to be matched in the user's answer for the answer to be marked as correct.
+showIntermediateResult | `Boolean` | `False` | Enables the option to show users the result of each blank after an attempt.
+
+****`q-option` Options and Slots****
+Name | Type | Default | Description
+--- | --- | --- | ---
+keywords | `String` | `''` | Comma delimited string of keywords or phrases to match the user's answer against.
+reason{{slot_info_trigger}}  | `String` | `''` | The explanation markup to display for the option once the answer is checked.
+
+
 #### Text Questions {.mt-4 .mb-3}
 
 Text questions are specified with the `type="text"` attribute.
@@ -292,6 +352,7 @@ Simply place the `<question>` components you want to include into the `<quiz>` c
 <quiz>
   <question type="mcq">...</question>
   <question type="checkbox">...</question>
+  <question type="multiBlanks">...</question>
   <question type="text">...</question>
 </quiz>
 </variable>
@@ -299,6 +360,7 @@ Simply place the `<question>` components you want to include into the `<quiz>` c
 <quiz>
 {{ mcqQuestion }}
 {{ checkboxQuestion }}
+{{ multiBlanksQuestion }}
 {{ textQuestion }}
 </quiz>
 </variable>
@@ -320,6 +382,10 @@ intro | Slot | `Click start to begin` | Quiz intro markup. Overrides the `intro`
 {{ mcqQuestion }}
 ```
 
+```html { heading="Fill-in-the-Blanks questions" }
+{{ multiBlanksQuestion }}
+```
+
 ```html { heading="Text questions" }
 {{ textQuestion }}
 ```
@@ -328,6 +394,7 @@ intro | Slot | `Click start to begin` | Quiz intro markup. Overrides the `intro`
 <quiz>
   <question type="mcq">...</question>
   <question type="checkbox">...</question>
+  <question type="multiBlanks">...</question>
   <question type="text">...</question>
 </quiz>
 ```
