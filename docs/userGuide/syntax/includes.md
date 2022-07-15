@@ -21,7 +21,7 @@ Tip 3. ...
 ```
 </div>
 
-**You can `<include>` a fragment of a file** by specifying the `#fragment-id` at the end of the `src` attribute value, provided the fragment is wrapped in a `<div>`/`<span>`/`<seg>` tag with the matching `id`.
+**You can `<include>` a fragment of a file** by specifying the `#fragment-id` at the end of the `src` attribute value, provided the fragment is wrapped in a `<div>`/`<span>` tag with the matching `id`.
 
 <box type="important" seamless>
 
