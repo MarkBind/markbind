@@ -141,6 +141,9 @@ export default {
           Thus, we need to reset the maxHeight to its current height for collapse transition to work.
         */
         this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+        if (this.$refs.panel.scrollHeight > 300) {
+          this.$refs.panel.style.transition = "max-height 0s ease-in-out";
+        }
 
         requestAnimationFrame(() => {
           // To enable behaviour of auto window scrolling during panel collapse
@@ -155,6 +158,7 @@ export default {
       } else {
         // Expand panel
         this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+        this.$refs.panel.style.transition = "max-height 0.5s ease-in-out";
       }
 
       this.localExpanded = !this.localExpanded;
@@ -201,6 +205,7 @@ export default {
 
       // For expansion transition to 'continue' after src is loaded.
       this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+      this.$refs.panel.style.transition = "max-height 0.5s ease-in-out";
     },
     initPanel() {
       this.$refs.panel.addEventListener('transitionend', (event) => {
