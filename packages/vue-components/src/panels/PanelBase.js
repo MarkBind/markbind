@@ -141,8 +141,8 @@ export default {
           Thus, we need to reset the maxHeight to its current height for collapse transition to work.
         */
         this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
-        if (this.$refs.panel.scrollHeight > 300) {
-          this.$refs.panel.style.transition = 'max-height 0s ease-in-out';
+        if (this.$refs.panel.scrollHeight > window.innerHeight) {
+          this.$refs.panel.style.transition = 'none';
         }
 
         requestAnimationFrame(() => {
