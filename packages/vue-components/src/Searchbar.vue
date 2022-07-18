@@ -166,10 +166,124 @@ export default {
         }
       });
 
+      // using distance with adjacent transpositions - doesn't work with chars other than a-z
+      /*
+      function damerauLevenshtein(s1, s2) {
+        const da = [];
+        for (let i = 0; i < 26; i += 1) { // i = 1 to 26
+          da[i] = 0;
+        }
+
+        const d = [...Array(s1.length + 2)].map(() => Array(s2.length + 2)); // -1 to lengths of each
+
+        const maxDist = s1.length + s2.length;
+        d[0][0] = maxDist;
+        for (let i = 0; i <= s1.length; i += 1) {
+          d[i + 1][0] = maxDist;
+          d[i + 1][1] = i;
+        }
+        for (let j = 0; j <= s2.length; j += 1) {
+          d[0][j + 1] = maxDist;
+          d[1][j + 1] = j;
+        }
+
+        let cost = 0;
+        for (let i = 1; i <= s1.length; i += 1) {
+          let db = 0;
+          for (let j = 1; j <= s2.length; j += 1) {
+            const k = da[s2[j - 1].charCodeAt(0) - 97];
+            const l = db;
+            if (s1[i - 1] === s2[j - 1]) {
+              cost = 0;
+              db = j; // j-1??
+            } else {
+              cost = 1;
+            }
+
+            const substitution = d[i][j] + cost;
+            const insertion = d[i + 1][j] + 1;
+            const deletion = d[i][j + 1] + 1;
+            const transposition = d[k][l] + (i - k - 1) + 1 + (j - l - 1);
+            d[i + 1][j + 1] = Math.min(substitution, insertion, deletion, transposition);
+          }
+          da[s1[i - 1] - 1] = i;
+        }
+
+        return d[s1.length + 1][s2.length + 1];
+      }
+      */
+
+      // using optimal string alignment distance
+      function damerauLevenshtein(s1, s2) {
+        const d = [...Array(s1.length + 1)].map(() => Array(s2.length + 1));
+
+        for (let i = 0; i <= s1.length; i += 1) {
+          d[i][0] = i;
+        }
+        for (let j = 0; j <= s2.length; j += 1) {
+          d[0][j] = j;
+        }
+
+        let cost = 0;
+        for (let i = 0; i < s1.length; i += 1) {
+          for (let j = 0; j < s2.length; j += 1) {
+            if (s1[i] === s2[j]) {
+              cost = 0;
+            } else {
+              cost = 1;
+            }
+
+            const deletion = d[i][j + 1] + 1;
+            const insertion = d[i + 1][j] + 1;
+            const substitution = d[i][j] + cost;
+            d[i + 1][j + 1] = Math.min(deletion, insertion, substitution);
+
+            if (i > 0 && j > 0 && s1[i] === s2[j - 1] && s1[i - 1] === s2[j]) {
+              d[i + 1][j + 1] = Math.min(d[i + 1][j + 1], d[i - 1][j - 1] + 1);
+            }
+          }
+        }
+
+        return d[s1.length][s2.length];
+      }
+
+      // fix dupes
+      function isDuplicateResult(page) {
+        // if more than 1 header, keep
+        if (page.headings.length > 1) {
+          return false;
+        }
+
+        const heading = page.headings[0].heading.text.toLowerCase().trim();
+        const title = page.title.toLowerCase().trim();
+        const limit = 3; // TODO: see if this is a good enough limit (or can use % as well)
+
+        // if heading is contained within page title, can remove since all info is alr present in title
+        if (title.includes(heading)) {
+          return true;
+        }
+
+        // if title contained, keep both cos keeping heading without title looks weird
+
+        // for anything else, use levenshtein or gestalt?
+        const dist = damerauLevenshtein(heading, title);
+        if (dist <= limit) {
+          return true;
+        }
+        // console.log("dist between " + heading + " and " + title);
+        // console.log(dist);
+        // console.log(damerauLevenshtein("bark", "bank"));
+        // console.log(damerauLevenshtein("brak", "bark"));
+        // console.log(damerauLevenshtein("test 1", "test 2"));
+        return false;
+      }
+
       return pages
         .sort((a, b) => b.totalMatches - a.totalMatches)
         .flatMap((page) => {
-          if (page.headings) {
+          if (page.headings && isDuplicateResult(page)) {
+            return [page];
+          } else if (page.headings) {
             return [page, ...page.headings];
           }
           return page;
