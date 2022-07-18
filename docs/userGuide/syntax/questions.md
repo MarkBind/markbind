@@ -254,7 +254,7 @@ and not others.
 <variable name="code">{{ blanksQuestion }}</variable>
 </include>
 
-You can also specify a `hideIntermediateResult` attribute for users to see the result of each blank upon submitting their attempt.
+You can also specify a `hide-intermediate-result` attribute for users to see the result of each blank upon submitting their attempt.
 
 <box type="tip" seamless>
 
@@ -285,7 +285,7 @@ If you don't want to validate the answer at all, you may set the `threshold` att
 Name | Type | Default | Description
 --- | --- | --- | ---
 threshold | `Number` | `0.5` | Minimum proportion of keywords that have to be matched in the user's answer for the answer to be marked as correct.
-hideIntermediateResult | `Boolean` | `False` | Does not show the result of each blank after an attempt.
+hide-intermediate-result | `Boolean` | `False` | Does not show the result of each blank after an attempt.
 
 ****`q-option` Options and Slots****
 Name | Type | Default | Description
