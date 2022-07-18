@@ -254,7 +254,7 @@ and not others.
 <variable name="code">{{ blanksQuestion }}</variable>
 </include>
 
-You can also specify a `hide-intermediate-result` attribute to hide the result of each blank upon submitting their attempt.
+By default, if the question has yet to be answered correctly, intermediate results will be shown beside each blank. You can specify a `hide-intermediate-result` attribute to avoid this behvaiour (i.e. hide the result of each blank upon incorrect attempts).
 
 <box type="tip" seamless>
 
@@ -265,7 +265,7 @@ If you don't want to validate the answer at all, you may set the `threshold` att
 </box>
 
 {% set blanksQuestion2 %}
-<question type="blanks" hint="What properies would you want these database transactions to have?" threshold=0.75 hideIntermediateResult>
+<question type="blanks" hint="What properties would you want these database transactions to have?" threshold=0.75 hide-intermediate-result>
 
   ##### In computer science, ACID is a set of properties of database transactions intended to guarantee data validity despite errors, power failures, and other mishaps. These properties are: A for __________, C for __________, I for __________, and D for __________.
 
