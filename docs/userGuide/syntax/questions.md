@@ -254,7 +254,7 @@ and not others.
 <variable name="code">{{ blanksQuestion }}</variable>
 </include>
 
-You can also specify a `hide-intermediate-result` attribute for users to see the result of each blank upon submitting their attempt.
+You can also specify a `hide-intermediate-result` attribute to hide the result of each blank upon submitting their attempt.
 
 <box type="tip" seamless>
 
