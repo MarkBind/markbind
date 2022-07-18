@@ -97,19 +97,12 @@
     </div>
   </div>
 
-  <!-- multiple blanks option -->
+  <!-- blanks option -->
   <div
-    v-else-if="qOptionType === 'multiBlanks'"
-    :class="['form-control', 'multiBlanks-div', hintClass]"
-    @mouseover="hover = true"
-    @mouseleave="hover = false"
+    v-else-if="qOptionType === 'blanks'"
+    :class="['form-control', 'blanks-form-control', hintClass]"
   >
     <label :class="['row', 'm-0', { 'disabled': qState.answered }]" @click.stop>
-      <!-- <textarea
-        v-model="textareaText"
-        class="form-control"
-        :disabled="qState.answered"
-      ></textarea> -->
       <input
         v-model="inputText"
         class="form-control"
@@ -124,7 +117,7 @@
           ></i>
           <i
             v-else
-            class="fa fa-times text-danger multiBlanks-cross"
+            class="fa fa-times text-danger blanks-cross"
           ></i>
         </div>
 
@@ -136,11 +129,11 @@
           ></i>
           <i
             v-else
-            class="fa fa-times text-danger multiBlanks-cross"
+            class="fa fa-times text-danger blanks-cross"
           ></i>
         </div>
       </div>
-      <div v-if="qState.answered" class="col-auto multiBlanks-keywords">
+      <div v-if="qState.answered" class="col-auto blanks-keywords">
         <strong v-if="keywordsSplitTrimmed().length">
           Keywords:&nbsp;
           <span
@@ -156,7 +149,7 @@
     </label>
 
     <div v-if="qState.answered && $scopedSlots.reason">
-      <div class="reason multiBlanks-reason">
+      <div class="reason blanks-reason">
         <slot name="reason"></slot>
       </div>
     </div>
@@ -196,7 +189,7 @@ export default {
     qState: {
       default: undefined,
     },
-    showIntermediateResult: {
+    hideIntermediateResult: {
       default: undefined,
     },
   },
@@ -229,10 +222,10 @@ export default {
       this.ansIsCorrect = ansIsCorrect;
     },
     isIntermediateResult() {
-      return this.showIntermediateResult && this.qState.state === STATE_WRONG && !this.qState.answered;
+      return !this.hideIntermediateResult && this.qState.state === STATE_WRONG && !this.qState.answered;
     },
-    isMultiBlanksQuestion() {
-      return this.type === 'multiBlanks';
+    isBlanksQuestion() {
+      return this.type === 'blanks';
     },
     keywordsSplitTrimmed() {
       return this.keywords.split(',').filter(keyword => keyword.trim() !== '');
@@ -315,24 +308,25 @@ export default {
         align-items: center;
     }
 
-    /* for multiBlanks question type */
+    /* for blanks question type */
     input.form-control {
         height: auto;
         min-height: 20px;
         margin-bottom: 0;
         width: 50%;
+        cursor: text;
     }
 
     input.form-control:disabled,
-    .multiBlanks-keywords {
+    .blanks-keywords {
         margin-bottom: 0.5rem;
     }
 
-    .multiBlanks-div {
+    .blanks-form-control {
         border: none;
     }
 
-    .multiBlanks-cross {
+    .blanks-cross {
         margin-right: 3px;
         margin-left: 3px;
     }
