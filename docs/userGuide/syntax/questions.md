@@ -226,7 +226,7 @@ If no keywords are provided, the answer for that blank will always be marked as 
 
 <box type="warning" seamless>
 
-Keywords are validated by checking if the keyword matches the user's answer exactly (ignoring case)!
+Keywords are validated by checking if the keyword matches the user's answer exactly (ignoring letter casing).
 This works well for some
 <popover header="When does validation work?">cases
   <span slot="content">
