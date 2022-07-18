@@ -274,7 +274,7 @@ describe('Checkbox Questions and QOptions', () => {
   });
 });
 
-describe('Multiblank Questions and QOptions', () => {
+describe('Blank Questions and QOptions', () => {
   test('of unanswered with shown hint and header renders correctly', async () => {
     const option = {
       render(h) {
@@ -283,7 +283,7 @@ describe('Multiblank Questions and QOptions', () => {
     };
 
     const wrapper = mount(Question, {
-      propsData: { type: 'multiBlanks' },
+      propsData: { type: 'blanks' },
       slots: {
         default: [
           'Question content',
@@ -292,8 +292,8 @@ describe('Multiblank Questions and QOptions', () => {
           option,
           option,
         ],
-        header: 'unanswered multiblanks question header',
-        hint: 'multiblanks question hint',
+        header: 'unanswered blanks question header',
+        hint: 'blanks question hint',
       },
       provide: DEFAULT_INJECTIONS,
       stubs: DEFAULT_STUBS,
@@ -314,7 +314,7 @@ describe('Multiblank Questions and QOptions', () => {
 
     const wrapper = mount(Question, {
       propsData: {
-        type: 'multiBlanks',
+        type: 'blanks',
         threshold: 0.25,
       },
       slots: {
@@ -325,7 +325,7 @@ describe('Multiblank Questions and QOptions', () => {
           option,
           option,
         ],
-        hint: 'multiblanks question hint',
+        hint: 'blanks question hint',
       },
       provide: DEFAULT_INJECTIONS,
       stubs: DEFAULT_STUBS,
@@ -355,8 +355,9 @@ describe('Multiblank Questions and QOptions', () => {
 
     const wrapper = mount(Question, {
       propsData: {
-        type: 'multiBlanks',
+        type: 'blanks',
         threshold: 0.76,
+        hideIntermediateResult: true,
       },
       slots: {
         default: [
@@ -366,7 +367,7 @@ describe('Multiblank Questions and QOptions', () => {
           option,
           option,
         ],
-        hint: 'multiblanks question hint',
+        hint: 'blanks question hint',
       },
       provide: DEFAULT_INJECTIONS,
       stubs: DEFAULT_STUBS,
@@ -401,9 +402,8 @@ describe('Multiblank Questions and QOptions', () => {
 
     const wrapper = mount(Question, {
       propsData: {
-        type: 'multiBlanks',
+        type: 'blanks',
         threshold: 1,
-        showIntermediateResult: true,
       },
       slots: {
         default: [
@@ -413,8 +413,8 @@ describe('Multiblank Questions and QOptions', () => {
           option,
           option,
         ],
-        header: 'multiblanks question header',
-        hint: 'multiblanks question hint',
+        header: 'blanks question header',
+        hint: 'blanks question hint',
       },
       provide: DEFAULT_INJECTIONS,
       stubs: DEFAULT_STUBS,
@@ -447,9 +447,8 @@ describe('Multiblank Questions and QOptions', () => {
 
     const wrapper = mount(Question, {
       propsData: {
-        type: 'multiBlanks',
+        type: 'blanks',
         threshold: 0.5,
-        showIntermediateResult: true,
       },
       slots: {
         default: [
@@ -459,7 +458,7 @@ describe('Multiblank Questions and QOptions', () => {
           option,
           option,
         ],
-        header: 'multiblanks question header',
+        header: 'blanks question header',
       },
       provide: DEFAULT_INJECTIONS,
       stubs: DEFAULT_STUBS,

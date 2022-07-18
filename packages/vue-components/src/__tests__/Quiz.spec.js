@@ -42,9 +42,9 @@ const TEXT_QUESTION = `
 </question>
 `;
 
-const MULTIBLANKS_QUESTION = `
-<question type="multiBlanks">
-  ... Multiblanks question ...
+const BLANKS_QUESTION = `
+<question type="blanks">
+  ... Blanks question ...
   <q-option></q-option>
   <q-option keywords="key"></q-option>
   <q-option></q-option>
@@ -103,10 +103,10 @@ describe('Quizzes', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  test('with multiblanks question marked incorrect shows next button after answering', async () => {
+  test('with blanks question marked incorrect shows next button after answering', async () => {
     const wrapper = mount(Quiz, {
       slots: {
-        default: MULTIBLANKS_QUESTION,
+        default: BLANKS_QUESTION,
       },
       stubs: DEFAULT_STUBS,
     });
@@ -114,9 +114,9 @@ describe('Quizzes', () => {
     // click 'begin'
     await wrapper.find('button').trigger('click');
 
-    // Type incorrect answer into blank 2 of multiblanks question
+    // Type incorrect answer into blank 2 of blanks question
     await wrapper.findAllComponents(QOption).at(1).find('input').setValue('wrong');
-    // Click check of multiblanks question
+    // Click check of blanks question
     await wrapper.find('button.btn-primary').trigger('click');
 
     expect(wrapper.element).toMatchSnapshot();
@@ -144,7 +144,7 @@ describe('Quizzes', () => {
   test('with all questions marks 3/4 correct shows ending screen', async () => {
     const wrapper = mount(Quiz, {
       slots: {
-        default: [MCQ_QUESTION, TEXT_QUESTION, CHECKBOX_QUESTION, MULTIBLANKS_QUESTION],
+        default: [MCQ_QUESTION, TEXT_QUESTION, CHECKBOX_QUESTION, BLANKS_QUESTION],
       },
       stubs: DEFAULT_STUBS,
     });
@@ -174,7 +174,7 @@ describe('Quizzes', () => {
     // Click next
     await wrapper.find('button.btn-primary').trigger('click');
 
-    // Type correct answer into blank 2 of multiblanks question
+    // Type correct answer into blank 2 of blanks question
     await wrapper.findAllComponents(QOption).at(1).find('input').setValue('key');
     // Click check of checkbox question
     await wrapper.find('button.btn-primary').trigger('click');
