@@ -285,7 +285,7 @@ If you don't want to validate the answer at all, you may set the `threshold` att
 Name | Type | Default | Description
 --- | --- | --- | ---
 threshold | `Number` | `0.5` | Minimum proportion of keywords that have to be matched in the user's answer for the answer to be marked as correct.
-hide-intermediate-result | `Boolean` | `False` | Does not show the result of each blank after an attempt.
+hide-intermediate-result | `Boolean` | `False` | Hides the result of each blank after an incorrect attempt.
 
 ****`q-option` Options and Slots****
 Name | Type | Default | Description
