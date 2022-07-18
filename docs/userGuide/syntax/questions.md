@@ -135,7 +135,7 @@ Placing the question into the header is entirely optional. You may also wish to 
 ****Options and Slots common to all question types****
 Name | Type | Default | Description
 --- | --- | --- | ---
-type | `String` | `''` | The type of question. Supports `mcq`, `checkbox`, `multiBlanks`, or `text`.
+type | `String` | `''` | The type of question. Supports `mcq`, `checkbox`, `blanks`, or `text`.
 header{{slot_info_trigger}} | `String` | `''` | The markup to insert into the question header. The header is omitted if this is not provided.
 hint{{slot_info_trigger}}  | `String` | `''` | The content to display in the hint box.
 
@@ -219,7 +219,7 @@ reason{{slot_info_trigger}}  | `String` | `''` | The explanation markup to displ
 
 #### Fill-in-the-Blanks Questions {.mt-4 .mb-3}
 
-Fill-in-the-blanks questions are specified with the `type="multiBlanks"` attribute.
+Fill-in-the-blanks questions are specified with the `type="blanks"` attribute.
 
 Unlike MCQ and checkbox questions, answer checking is performed for each blank by providing keywords to check for in the user's answer through the `keywords` attribute in each `q-option`.
 If no keywords are provided, the answer for that blank will always be marked as correct.
@@ -239,10 +239,8 @@ and not others.
 
 </box>
 
-You can specify a `showIntermediateResult` attribute for users to see the result of each blank upon submitting their attempt.
-
-{% set multiBlanksQuestion %}
-<question type="multiBlanks" hint="Google it!" threshold=0.5 showIntermediateResult>
+{% set blanksQuestion %}
+<question type="blanks" hint="Google it!">
 
   ##### German sociologist __________ called the process of simultaneously analyzing the behavior of individuals and the society that shapes that behavior __________.
 
@@ -253,22 +251,41 @@ You can specify a `showIntermediateResult` attribute for users to see the result
 
 <include src="codeAndOutput.md" boilerplate>
 <variable name="highlightStyle">html</variable>
-<variable name="code">{{ multiBlanksQuestion }}</variable>
+<variable name="code">{{ blanksQuestion }}</variable>
 </include>
+
+You can also specify a `hideIntermediateResult` attribute for users to see the result of each blank upon submitting their attempt.
 
 <box type="tip" seamless>
 
 Since the validation is imperfect, the minimum proportion of correct blanks needed for the entire question to be marked as correct can also be changed using the `threshold` attribute.
 
-If you don't want to validate the answer at all, you may also omit the `keywords` attribute entirely. Doing so always marks the blank as correct.
+If you don't want to validate the answer at all, you may set the `threshold` attribute to `0`. Doing so always marks the blank as correct, and users will be able to see the intended answers.
 
 </box>
+
+{% set blanksQuestion2 %}
+<question type="blanks" hint="What properies would you want these database transactions to have?" threshold=0.75 hideIntermediateResult>
+
+  ##### In computer science, ACID is a set of properties of database transactions intended to guarantee data validity despite errors, power failures, and other mishaps. These properties are: A for __________, C for __________, I for __________, and D for __________.
+
+  <q-option keywords="Atomicity, Atomic" reason="Meaning: either all occurs or nothing occurs"></q-option>
+  <q-option keywords="Consistency, Consistent"></q-option>
+  <q-option keywords="Isolation, Isolated"></q-option>
+  <q-option keywords="Durability, Durable"></q-option>
+</question>
+{% endset %}
+
+<include src="codeAndOutput.md" boilerplate>
+<variable name="highlightStyle">html</variable>
+<variable name="code">{{ blanksQuestion2 }}</variable>
+</include>
 
 ****Fill-in-the-Blanks Question specific Options and Slots****
 Name | Type | Default | Description
 --- | --- | --- | ---
 threshold | `Number` | `0.5` | Minimum proportion of keywords that have to be matched in the user's answer for the answer to be marked as correct.
-showIntermediateResult | `Boolean` | `False` | Enables the option to show users the result of each blank after an attempt.
+hideIntermediateResult | `Boolean` | `False` | Does not show the result of each blank after an attempt.
 
 ****`q-option` Options and Slots****
 Name | Type | Default | Description
@@ -352,7 +369,7 @@ Simply place the `<question>` components you want to include into the `<quiz>` c
 <quiz>
   <question type="mcq">...</question>
   <question type="checkbox">...</question>
-  <question type="multiBlanks">...</question>
+  <question type="blanks">...</question>
   <question type="text">...</question>
 </quiz>
 </variable>
@@ -360,7 +377,7 @@ Simply place the `<question>` components you want to include into the `<quiz>` c
 <quiz>
 {{ mcqQuestion }}
 {{ checkboxQuestion }}
-{{ multiBlanksQuestion }}
+{{ blanksQuestion }}
 {{ textQuestion }}
 </quiz>
 </variable>
@@ -383,7 +400,7 @@ intro | Slot | `Click start to begin` | Quiz intro markup. Overrides the `intro`
 ```
 
 ```html { heading="Fill-in-the-Blanks questions" }
-{{ multiBlanksQuestion }}
+{{ blanksQuestion }}
 ```
 
 ```html { heading="Text questions" }
@@ -394,7 +411,7 @@ intro | Slot | `Click start to begin` | Quiz intro markup. Overrides the `intro`
 <quiz>
   <question type="mcq">...</question>
   <question type="checkbox">...</question>
-  <question type="multiBlanks">...</question>
+  <question type="blanks">...</question>
   <question type="text">...</question>
 </quiz>
 ```
