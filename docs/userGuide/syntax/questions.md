@@ -260,7 +260,7 @@ You can also specify a `hide-intermediate-result` attribute to hide the result o
 
 Since the validation is imperfect, the minimum proportion of correct blanks needed for the entire question to be marked as correct can also be changed using the `threshold` attribute.
 
-If you don't want to validate the answer at all, you may set the `threshold` attribute to `0`. Doing so always marks the blank as correct, and users will be able to see the intended answers.
+If you don't want to validate the answer at all, you may set the `threshold` attribute to `0`. Doing so always marks the entire question correct, and users will be able to see all intended answers.
 
 </box>
 
