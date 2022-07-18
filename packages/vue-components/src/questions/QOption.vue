@@ -324,6 +324,7 @@ export default {
 
     .blanks-form-control {
         border: none;
+        cursor: default;
     }
 
     .blanks-cross {
