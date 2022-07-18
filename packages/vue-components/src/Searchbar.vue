@@ -17,7 +17,7 @@
       @keydown.esc="reset"
       @blur="showDropdown = false"
     />
-    <div ref="placeholderDiv" class="form-control">
+    <div ref="placeholderDiv" class="form-control hidden">
       {{ placeholder }}
     </div>
     <ul ref="dropdown" :class="dropdownMenuClasses">
@@ -96,7 +96,7 @@ export default {
       noResults: true,
       current: 0,
       items: [],
-      placeholderDivWidth: 1,
+      placeholderDivWidth: 12.7, // initially set to min-width
     };
   },
   computed: {
@@ -264,7 +264,7 @@ export default {
 <style scoped>
     .form-control {
         min-width: 12.7em;
-        max-width: 25.4em;
+        max-width: 25.4em; /* twice of min-width, to accommodate a range of lengths */
     }
 
     .table-active {
@@ -274,6 +274,10 @@ export default {
     .dropdown-menu-end {
         right: 0;
         left: auto;
+    }
+
+    .hidden {
+        visibility: hidden;
     }
 </style>
 
