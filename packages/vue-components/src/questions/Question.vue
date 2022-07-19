@@ -163,7 +163,7 @@ export default {
     },
 
     // Blanks question specific prop
-    hideIntermediateResult: {
+    noIntermediateResult: {
       type: Boolean, // Defaults to showing intermediate results for blanks
     },
   },
@@ -222,7 +222,7 @@ export default {
         answers: this.answers,
         qOptionType: this.type,
         qState: this.qState,
-        hideIntermediateResult: this.hideIntermediateResult,
+        noIntermediateResult: this.noIntermediateResult,
       };
     }
     return undefined;

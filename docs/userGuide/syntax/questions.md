@@ -254,7 +254,7 @@ and not others.
 <variable name="code">{{ blanksQuestion }}</variable>
 </include>
 
-By default, if the question has yet to be answered correctly, intermediate results will be shown beside each blank. You can specify a `hide-intermediate-result` attribute to avoid this behvaiour (i.e. hide the result of each blank upon incorrect attempts).
+By default, if the question has yet to be answered correctly, intermediate results will be shown beside each blank. You can specify a `no-intermediate-result` attribute to avoid this behvaiour (i.e. hide the result of each blank upon incorrect attempts).
 
 <box type="tip" seamless>
 
@@ -265,7 +265,7 @@ If you don't want to validate the answer at all, you may set the `threshold` att
 </box>
 
 {% set blanksQuestion2 %}
-<question type="blanks" hint="What properties would you want these database transactions to have?" threshold=0.75 hide-intermediate-result>
+<question type="blanks" hint="What properties would you want these database transactions to have?" threshold=0.75 no-intermediate-result>
 
   ##### In computer science, ACID is a set of properties of database transactions intended to guarantee data validity despite errors, power failures, and other mishaps. These properties are: A for __________, C for __________, I for __________, and D for __________.
 
@@ -285,7 +285,7 @@ If you don't want to validate the answer at all, you may set the `threshold` att
 Name | Type | Default | Description
 --- | --- | --- | ---
 threshold | `Number` | `0.5` | Minimum proportion of keywords that have to be matched in the user's answer for the answer to be marked as correct.
-hide-intermediate-result | `Boolean` | `False` | Hides the result of each blank after an incorrect attempt.
+no-intermediate-result | `Boolean` | `False` | Hides the result of each blank after an incorrect attempt.
 
 ****`q-option` Options and Slots****
 Name | Type | Default | Description

@@ -189,7 +189,7 @@ export default {
     qState: {
       default: undefined,
     },
-    hideIntermediateResult: {
+    noIntermediateResult: {
       default: undefined,
     },
   },
@@ -222,7 +222,7 @@ export default {
       this.ansIsCorrect = ansIsCorrect;
     },
     isIntermediateResult() {
-      return !this.hideIntermediateResult && this.qState.state === STATE_WRONG && !this.qState.answered;
+      return !this.noIntermediateResult && this.qState.state === STATE_WRONG && !this.qState.answered;
     },
     isBlanksQuestion() {
       return this.type === 'blanks';

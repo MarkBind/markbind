@@ -357,7 +357,7 @@ describe('Blank Questions and QOptions', () => {
       propsData: {
         type: 'blanks',
         threshold: 0.76,
-        hideIntermediateResult: true,
+        noIntermediateResult: true,
       },
       slots: {
         default: [
