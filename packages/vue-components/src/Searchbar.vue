@@ -166,54 +166,54 @@ export default {
         }
       });
 
-      // using distance with adjacent transpositions - doesn't work with chars other than a-z
-      /*
-      function damerauLevenshtein(s1, s2) {
-        const da = [];
-        for (let i = 0; i < 26; i += 1) { // i = 1 to 26
-          da[i] = 0;
+      // using distance with adjacent transpositions
+      function calcDamerauLevenshtein(s1, s2) {
+        const alphabet = [];
+        for (let i = 0; i < 128; i += 1) {
+          alphabet[i] = 0;
         }
 
-        const d = [...Array(s1.length + 2)].map(() => Array(s2.length + 2)); // -1 to lengths of each
+        const matrix = [...Array(s1.length + 2)].map(() => Array(s2.length + 2));
 
         const maxDist = s1.length + s2.length;
-        d[0][0] = maxDist;
+        matrix[0][0] = maxDist;
         for (let i = 0; i <= s1.length; i += 1) {
-          d[i + 1][0] = maxDist;
-          d[i + 1][1] = i;
+          matrix[i + 1][0] = maxDist;
+          matrix[i + 1][1] = i;
         }
         for (let j = 0; j <= s2.length; j += 1) {
-          d[0][j + 1] = maxDist;
-          d[1][j + 1] = j;
+          matrix[0][j + 1] = maxDist;
+          matrix[1][j + 1] = j;
         }
 
         let cost = 0;
+        let db = 0;
         for (let i = 1; i <= s1.length; i += 1) {
-          let db = 0;
+          db = 0;
           for (let j = 1; j <= s2.length; j += 1) {
-            const k = da[s2[j - 1].charCodeAt(0) - 97];
+            const k = alphabet[s2[j - 1].charCodeAt(0)];
             const l = db;
             if (s1[i - 1] === s2[j - 1]) {
               cost = 0;
-              db = j; // j-1??
+              db = j;
             } else {
               cost = 1;
             }
 
-            const substitution = d[i][j] + cost;
-            const insertion = d[i + 1][j] + 1;
-            const deletion = d[i][j + 1] + 1;
-            const transposition = d[k][l] + (i - k - 1) + 1 + (j - l - 1);
-            d[i + 1][j + 1] = Math.min(substitution, insertion, deletion, transposition);
+            const substitution = matrix[i][j] + cost;
+            const insertion = matrix[i + 1][j] + 1;
+            const deletion = matrix[i][j + 1] + 1;
+            const transposition = matrix[k][l] + (i - k - 1) + 1 + (j - l - 1);
+            matrix[i + 1][j + 1] = Math.min(substitution, insertion, deletion, transposition);
           }
-          da[s1[i - 1] - 1] = i;
+          alphabet[s1[i - 1].charCodeAt(0)] = i;
         }
 
-        return d[s1.length + 1][s2.length + 1];
+        return matrix[s1.length + 1][s2.length + 1];
       }
-      */
 
       // using optimal string alignment distance
+      /*
       function damerauLevenshtein(s1, s2) {
         const d = [...Array(s1.length + 1)].map(() => Array(s2.length + 1));
 
@@ -246,17 +246,17 @@ export default {
 
         return d[s1.length][s2.length];
       }
+      */
 
-      // fix dupes
       function isDuplicateResult(page) {
-        // if more than 1 header, keep
-        if (page.headings.length > 1) {
+        // if more than 1 header, keep (or if no header also keep)
+        if (page.headings.length !== 1) {
           return false;
         }
 
         const heading = page.headings[0].heading.text.toLowerCase().trim();
         const title = page.title.toLowerCase().trim();
-        const limit = 3; // TODO: see if this is a good enough limit (or can use % as well)
+        const limit = 3; // maximum number of edit distance allowed
 
         // if heading is contained within page title, can remove since all info is alr present in title
         if (title.includes(heading)) {
@@ -265,16 +265,12 @@ export default {
 
         // if title contained, keep both cos keeping heading without title looks weird
 
-        // for anything else, use levenshtein or gestalt?
-        const dist = damerauLevenshtein(heading, title);
+        // for anything else, use DL distance
+        const dist = calcDamerauLevenshtein(heading, title);
         if (dist <= limit) {
           return true;
         }
-        // console.log("dist between " + heading + " and " + title);
-        // console.log(dist);
-        // console.log(damerauLevenshtein("bark", "bank"));
-        // console.log(damerauLevenshtein("brak", "bark"));
-        // console.log(damerauLevenshtein("test 1", "test 2"));
+
         return false;
       }
 
