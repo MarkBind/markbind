@@ -308,9 +308,6 @@ and **this**.
   </panel>
 </panel>
 
-**Test panels' closing trnasitions**
-<include src="testPanelsClosingTransition.md" />
-
 **Test search indexing**
 
 **Test PlantUML live reload without include**
