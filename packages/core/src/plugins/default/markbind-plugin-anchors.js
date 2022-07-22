@@ -2,7 +2,7 @@ const cheerio = module.parent.require('cheerio');
 
 const CSS_FILE_NAME = 'markbind-plugin-anchors.css';
 
-const HEADER_REGEX = new RegExp('^h[1-6]$');
+const HEADER_REGEX = /^h[1-6]$/;
 
 /**
  * Adds anchor links to headers

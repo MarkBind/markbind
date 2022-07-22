@@ -1,8 +1,8 @@
 const chalk = require('chalk');
 
 const EMPTY_LINE = '|-------------------empty-line-------------------|';
-const CONSECUTIVE_NEWLINE_REGEX = new RegExp('\\n{2,}', 'g');
-const WHITESPACE_REGEX = new RegExp('\\s+', 'g');
+const CONSECUTIVE_NEWLINE_REGEX = /\n{2,}/g;
+const WHITESPACE_REGEX = /\s+/g;
 
 class DiffPrinter {
   /**
