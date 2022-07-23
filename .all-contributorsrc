@@ -507,6 +507,6 @@
   "projectOwner": "MarkBind",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true,
+  "skipCi": false,
   "commitConvention": "none"
 }
