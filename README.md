@@ -98,6 +98,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/EltonGohJH"><img src="https://avatars.githubusercontent.com/u/75515229?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Elton Goh</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=EltonGohJH" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/benluiwj"><img src="https://avatars.githubusercontent.com/u/67570985?v=4?s=100" width="100px;" alt=""/><br /><sub><b>benluiwj</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=benluiwj" title="Code">💻</a> <a href="https://github.com/MarkBind/markbind/commits?author=benluiwj" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/weiquu"><img src="https://avatars.githubusercontent.com/u/48304907?v=4?s=100" width="100px;" alt=""/><br /><sub><b>weiquu</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=weiquu" title="Code">💻</a> <a href="https://github.com/MarkBind/markbind/commits?author=weiquu" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/eeliana"><img src="https://avatars.githubusercontent.com/u/62977276?v=4?s=100" width="100px;" alt=""/><br /><sub><b>eeliana</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=eeliana" title="Documentation">📖</a></td>
   </tr>
 </table>
 
