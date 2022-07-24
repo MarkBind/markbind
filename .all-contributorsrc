@@ -500,6 +500,16 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "weiquu",
+      "name": "weiquu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/48304907?v=4",
+      "profile": "https://github.com/weiquu",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
