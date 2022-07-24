@@ -282,3 +282,6 @@ As the choice is highly dependent on context and details of the implementation, 
 
 Find out more about the key external libraries used in MarkBind from the [project structure](design/projectStructure.md) section. Also, the rationales behind most existing patches are documented in their respective files, read them (and their respective PRs/issues) for more context!
 </box>
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('settingUp', 'design/projectStructure') }}
