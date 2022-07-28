@@ -229,8 +229,9 @@ export default {
 </style>
 
 <style>
-    .card, .card-header {
-      background-color: inherit !important;
+    .card,
+    .card-header {
+        background-color: inherit !important;
     }
 
     .card-heading {
