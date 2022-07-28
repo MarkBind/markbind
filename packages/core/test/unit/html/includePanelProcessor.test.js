@@ -100,7 +100,7 @@ test('includeFile replaces <include src="include.md#exists"> with <div>', async 
 
   const include = [
     '# Include',
-    '<seg id="exists">existing segment</seg>',
+    '<div id="exists">existing segment</div>',
   ].join('\n');
 
   const json = {
@@ -132,7 +132,7 @@ test('includeFile replaces <include src="include.md#exists" inline> with inline 
 
   const include = [
     '# Include',
-    '<seg id="exists">existing segment</seg>',
+    '<div id="exists">existing segment</div>',
   ].join('\n');
 
   const json = {
@@ -164,7 +164,7 @@ test('includeFile replaces <include src="include.md#exists" trim> with trimmed c
 
   const include = [
     '# Include',
-    '<seg id="exists">\t\texisting segment\t\t</seg>',
+    '<div id="exists">\t\texisting segment\t\t</div>',
   ].join('\n');
 
   const json = {
@@ -229,7 +229,7 @@ test('includeFile replaces <include src="include.md#exists" optional> with <div>
 
   const include = [
     '# Include',
-    '<seg id="exists">existing segment</seg>',
+    '<div id="exists">existing segment</div>',
   ].join('\n');
 
   const json = {

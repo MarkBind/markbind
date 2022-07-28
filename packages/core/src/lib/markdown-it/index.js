@@ -14,7 +14,7 @@ const logger = require('../../utils/logger');
 
 const { HighlightRule } = require('./highlight/HighlightRule');
 
-const HIGHLIGHT_LINES_DELIMITER_REGEX = new RegExp(',(?![^\\[\\]]*])');
+const HIGHLIGHT_LINES_DELIMITER_REGEX = /,(?![^[\]]*])/;
 
 const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 

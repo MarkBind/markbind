@@ -490,6 +490,26 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "benluiwj",
+      "name": "benluiwj",
+      "avatar_url": "https://avatars.githubusercontent.com/u/67570985?v=4",
+      "profile": "https://github.com/benluiwj",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "weiquu",
+      "name": "weiquu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/48304907?v=4",
+      "profile": "https://github.com/weiquu",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -497,6 +517,6 @@
   "projectOwner": "MarkBind",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true,
+  "skipCi": false,
   "commitConvention": "none"
 }

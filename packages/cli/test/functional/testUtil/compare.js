@@ -18,7 +18,7 @@ const TEST_BLACKLIST = ignore().add([
 // Files that possibly have null characters but are not binary files
 const NULL_WHITELIST = ignore().add(['components.min.js']);
 
-const CRLF_REGEX = new RegExp('\\r\\n', 'g');
+const CRLF_REGEX = /\r\n/g;
 
 function _readFileSync(...paths) {
   return fs.readFileSync(path.resolve(...paths), 'utf8');
