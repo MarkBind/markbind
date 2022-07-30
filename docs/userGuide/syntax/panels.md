@@ -100,6 +100,11 @@
 <panel header="**minimal type panel**" type="minimal" minimized>
   ...
 </panel>
+<div class="bg-info text-white">
+  <panel header="**seamless type panel in a container**" type="seamless">
+    ...
+  </panel>
+<div>
 </variable>
 </include>
 
