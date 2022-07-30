@@ -510,6 +510,15 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "eeliana",
+      "name": "eeliana",
+      "avatar_url": "https://avatars.githubusercontent.com/u/62977276?v=4",
+      "profile": "https://github.com/eeliana",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
