@@ -1,8 +1,10 @@
 <template>
   <div v-if="item.heading" class="heading">
+    <i class="fa fa-hashtag"></i>
     <div class="heading-text">
-      <span v-html="item.heading.text"></span>
+      <span v-html="highlight(item.heading.text, value)"></span>
     </div>
+    <!--
     <div class="heading-text-items">
       <small v-html="highlight(item.heading.text, value)"></small>
       <br />
@@ -11,6 +13,7 @@
         <br />
       </small>
     </div>
+    -->
   </div>
   <div v-else>
     <span class="page-title" v-html="highlight(item.title, value)"></span>
@@ -84,6 +87,9 @@ export default {
 </script>
 
 <style scoped>
+    .fa-hashtag {
+        padding-right: 0.2em;
+    }
     .mark {
         padding: 0 !important;
     }
@@ -94,11 +100,12 @@ export default {
 
     .heading-text {
         display: inline-block;
-        width: 40%;
+        width: 95%;
         white-space: normal;
         vertical-align: top;
     }
 
+    /*
     .heading-text-items {
         display: inline-block;
         width: calc(60% - 0.7rem);
@@ -106,6 +113,7 @@ export default {
         border-left: 1px solid #ddd;
         padding-left: 0.5rem;
     }
+    */
 
     .page-title {
         font-size: 1.05rem;

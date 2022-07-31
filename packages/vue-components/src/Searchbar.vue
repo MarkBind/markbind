@@ -134,6 +134,7 @@ export default {
 
         if (totalPageMatches > 0) {
           const pageHeadings = [];
+          let first = true;
           Object.entries(headings).forEach(([id, text]) => {
             const matchesHeading = regexes.some(regex => regex.test(text));
             const matchesKeywords = headingKeywords[id] && headingKeywords[id]
@@ -146,13 +147,17 @@ export default {
               ];
               const totalHeadingMatches = getTotalMatches(headingSearchTargets, regexes);
 
-              pageHeadings.push({
-                heading: { id, text },
-                keywords: headingKeywords[id],
-                src,
-                totalMatches: totalHeadingMatches,
-              });
+              if (!(first && text === displayTitle)) {
+                pageHeadings.push({
+                  heading: { id, text },
+                  keywords: headingKeywords[id],
+                  src,
+                  totalMatches: totalHeadingMatches,
+                });
+              }
             }
+
+            first = false;
           });
           pageHeadings.sort((a, b) => b.totalMatches - a.totalMatches);
 
@@ -166,86 +171,10 @@ export default {
         }
       });
 
-      /**
-       * Calculates the Damerau-Levenshtein distance of the 2 strings by seeing how many operations it takes
-       * to transform 1 string into the other string.
-       * An operation can be a substitution, insertion, deletion, or transposition of 2 adjacent characters.
-       */
-      function calcDamerauLevenshtein(s1, s2) {
-        const alphabet = [];
-        for (let i = 0; i < 128; i += 1) {
-          alphabet[i] = 0;
-        }
-
-        const matrix = [...Array(s1.length + 2)].map(() => Array(s2.length + 2));
-
-        const maxDist = s1.length + s2.length;
-        matrix[0][0] = maxDist;
-        for (let i = 0; i <= s1.length; i += 1) {
-          matrix[i + 1][0] = maxDist;
-          matrix[i + 1][1] = i;
-        }
-        for (let j = 0; j <= s2.length; j += 1) {
-          matrix[0][j + 1] = maxDist;
-          matrix[1][j + 1] = j;
-        }
-
-        let cost = 0;
-        let db = 0;
-        for (let i = 1; i <= s1.length; i += 1) {
-          db = 0;
-          for (let j = 1; j <= s2.length; j += 1) {
-            const k = alphabet[s2[j - 1].charCodeAt(0)];
-            const l = db;
-            if (s1[i - 1] === s2[j - 1]) {
-              cost = 0;
-              db = j;
-            } else {
-              cost = 1;
-            }
-
-            const substitution = matrix[i][j] + cost;
-            const insertion = matrix[i + 1][j] + 1;
-            const deletion = matrix[i][j + 1] + 1;
-            const transposition = matrix[k][l] + (i - k - 1) + 1 + (j - l - 1);
-            matrix[i + 1][j + 1] = Math.min(substitution, insertion, deletion, transposition);
-          }
-          alphabet[s1[i - 1].charCodeAt(0)] = i;
-        }
-
-        return matrix[s1.length + 1][s2.length + 1];
-      }
-
-      function isDuplicateResult(page) {
-        // If there is more than 1 header, we keep all headers in the results.
-        if (page.headings.length !== 1) {
-          return false;
-        }
-
-        const heading = page.headings[0].heading.text.toLowerCase().trim();
-        const title = page.title.toLowerCase().trim();
-        const limit = 3; // maximum edit distance allowed
-
-        // If the heading is contained within the page title, we remove it from the search results.
-        if (title.includes(heading)) {
-          return true;
-        }
-
-        // For anything else, we check if the edit distance is less than or equals to the limit set above.
-        const dist = calcDamerauLevenshtein(heading, title);
-        if (dist <= limit) {
-          return true;
-        }
-
-        return false;
-      }
-
       return pages
         .sort((a, b) => b.totalMatches - a.totalMatches)
         .flatMap((page) => {
-          if (page.headings && isDuplicateResult(page)) {
-            return [page];
-          } else if (page.headings) {
+          if (page.headings) {
             return [page, ...page.headings];
           }
           return page;
