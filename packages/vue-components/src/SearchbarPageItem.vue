@@ -90,6 +90,7 @@ export default {
     .fa-hashtag {
         padding-right: 0.2em;
     }
+
     .mark {
         padding: 0 !important;
     }
