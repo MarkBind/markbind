@@ -66,4 +66,4 @@ To convert your existing project, follow these steps:
 </box> 
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('deployingTheSite', '') }}
+{{ previous_next('versioning', '') }}

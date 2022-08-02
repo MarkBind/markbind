@@ -114,6 +114,8 @@ class SiteConfig {
      */
     this.plantumlCheck = siteConfigJson.plantumlCheck !== undefined
       ? siteConfigJson.plantumlCheck : true; // check PlantUML's prerequisite by default
+    this.versions = siteConfigJson.versions !== undefined
+      ? siteConfigJson.versions : [];
   }
 }
 

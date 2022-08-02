@@ -1,4 +1,5 @@
 const path = require('path');
+const MARKBIND_VERSION = require('../../../package.json').version;
 
 const PAGE_NJK = `
 <!DOCTYPE html>
@@ -84,6 +85,35 @@ module.exports.INDEX_MD_DEFAULT = '<frontmatter>\n'
   + '</frontmatter>\n\n'
   + '# Hello world\n'
   + 'Welcome to your page generated with MarkBind.\n';
+
+module.exports.VERSIONS_DEFAULT = '{\n'
+    + '  "versions": [\n'
+    + '    {\n'
+    + '      "versionName": "v1",\n'
+    + `      "buildVer": "${MARKBIND_VERSION}",\n`
+    + '      "archivePath": "version/v1",\n'
+    + '      "baseUrl": ""\n'
+    + '    },\n'
+    + '    {\n'
+    + '      "versionName": "v2",\n'
+    + `      "buildVer": "${MARKBIND_VERSION}",\n`
+    + '      "archivePath": "version/v2",\n'
+    + '      "baseUrl": ""\n'
+    + '    },\n'
+    + '    {\n'
+    + '      "versionName": "testOverwritingVersion",\n'
+    + '      "buildVer": "shouldBeOverwritten",\n'
+    + '      "archivePath": "version/testOverwritingVersion",\n'
+    + '      "baseUrl": ""\n'
+    + '    },\n'
+    + '    {\n'
+    + '      "versionName": "differentBaseUrl",\n'
+    + `      "buildVer": "${MARKBIND_VERSION}",\n`
+    + '      "archivePath": "version/differentBaseUrl",\n'
+    + '      "baseUrl": "/markbind"\n'
+    + '    }\n'
+    + '  ]\n'
+    + '}\n';
 
 const DEFAULT_TEMPLATE_DIRECTORY = path.join(__dirname, '../../../template/default');
 

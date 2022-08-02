@@ -64,6 +64,7 @@ const {
   PAGE_TEMPLATE_NAME,
   SITE_CONFIG_NAME,
   SITE_DATA_NAME,
+  VERSIONS_DATA_NAME,
   SITE_FOLDER_NAME,
   TEMP_FOLDER_NAME,
   TEMPLATE_SITE_ASSET_FOLDER_NAME,
@@ -134,6 +135,12 @@ class Site {
      */
     this.siteConfig = undefined;
     this.siteConfigPath = siteConfigPath;
+
+    /**
+     * Archived version information
+     * @type {undefined | Object}
+     */
+    this.versionData = undefined;
 
     // Site wide variable processor
     this.variableProcessor = undefined;
@@ -641,7 +648,7 @@ class Site {
    * @param baseUrl user defined base URL (if exists)
    * @returns {Promise}
    */
-  async generate(baseUrl) {
+  async generate(baseUrl, versionsToGenerate = false) {
     const startTime = new Date();
     // Create the .tmp folder for storing intermediate results.
     fs.emptydirSync(this.tempPath);
@@ -653,17 +660,13 @@ class Site {
 
     try {
       await this.readSiteConfig(baseUrl);
-      this.collectAddressablePages();
-      await this.collectBaseUrl();
-      this.collectUserDefinedVariablesMap();
-      await this.buildAssets();
-      await (this.onePagePath ? this.lazyBuildSourceFiles() : this.buildSourceFiles());
-      await this.copyCoreWebAsset();
-      await this.copyBootstrapTheme(false);
-      await this.copyFontAwesomeAsset();
-      await this.copyOcticonsAsset();
-      await this.copyMaterialIconsAsset();
-      await this.writeSiteData();
+      this.ignoreVersionFiles('');
+
+      // Also build requested versions
+      await this.copySpecifiedVersions(versionsToGenerate);
+
+      await this.buildSiteHelper();
+
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
       if (this.backgroundBuildMode) {
         this.backgroundBuildNotViewedFiles();
@@ -671,6 +674,42 @@ class Site {
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
+  }
+
+  /**
+   * Filters the versions based on the options passed, and copies the desired versions for later deployment
+   */
+  async copySpecifiedVersions(versionsToGenerate) {
+    this.versionData = await this.readVersionData();
+    const desiredVersions = this.versionData.versions
+      .filter(vers => vers.baseUrl === this.siteConfig.baseUrl);
+
+    if (versionsToGenerate === true) {
+      // copy no versions if the version flag is passed without arguments
+    } else if (versionsToGenerate === false) {
+      await this.copyVersions(desiredVersions
+        .filter(vers => this.siteConfig.versions.includes(vers.versionName)));
+    } else {
+      await this.copyVersions(desiredVersions
+        .filter(vers => versionsToGenerate.includes(vers.versionName)));
+    }
+  }
+
+  /**
+   * Holds the work for generating a site from scratch.
+   */
+  async buildSiteHelper() {
+    this.collectAddressablePages();
+    await this.collectBaseUrl();
+    this.collectUserDefinedVariablesMap();
+    await this.buildAssets();
+    await (this.onePagePath ? this.lazyBuildSourceFiles() : this.buildSourceFiles());
+    await this.copyCoreWebAsset();
+    await this.copyBootstrapTheme(false);
+    await this.copyFontAwesomeAsset();
+    await this.copyOcticonsAsset();
+    await this.copyMaterialIconsAsset();
+    await this.writeSiteData();
   }
 
   /**
@@ -1467,6 +1506,146 @@ class Site {
       if (verbose) {
         logger.info('Site data built');
       }
+    } catch (error) {
+      await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+    }
+  }
+
+  /**
+   * Builds and archives the current version of the site.
+   *
+   * @param {string} versionName the name of the version
+   * @param {string} archivePath the path to the folder to store the archives in
+   */
+  async archive(versionName, archivePath) {
+    await this.readSiteConfig();
+
+    // Save version data
+    this.versionData = await this.writeVersionsFile(versionName, archivePath);
+    // Exclude versioned files from archiving.
+    this.ignoreVersionFiles('');
+
+    // Used to get accurate intralinks within the archived site:
+    const archivedBaseUrl = `${this.siteConfig.baseUrl}/${archivePath}`;
+    this.siteConfig.baseUrl = archivedBaseUrl;
+
+    // Create the .tmp folder for storing intermediate results.
+    fs.emptydirSync(this.tempPath);
+    // Clean the output folder; create it if not exist.
+    fs.emptydirSync(this.outputPath);
+
+    try {
+      await this.buildSiteHelper();
+    } catch (error) {
+      await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+    }
+  }
+
+  /**
+   * Checks the version files of site + subsites and sets them to be ignored in the site config.
+   */
+  ignoreVersionFiles(pathToRootDir) {
+    const pathToMainVersionFile = path.join(this.rootPath, pathToRootDir, VERSIONS_DATA_NAME);
+
+    // find the versions json file and ignore all archives of the current site
+    if (fs.pathExistsSync(pathToMainVersionFile)) {
+      const mainVersionFileJson = fs.readJSONSync(pathToMainVersionFile);
+
+      mainVersionFileJson.versions.forEach((vers) => {
+        const filePath = pathToRootDir !== ''
+          ? `${pathToRootDir}/${vers.archivePath}/**`
+          : `${vers.archivePath}/**`;
+        this.siteConfig.ignore.push(filePath);
+      });
+    }
+
+    // Do not transfer the versions file into the archived site
+    // TODO: replace the thing in brackets with rootVersionPath and see if it still works
+    this.siteConfig.ignore.push(path.posix.join(pathToRootDir, VERSIONS_DATA_NAME));
+
+    // Find versioned subsites, recursively ignore all version directories inside that
+    const pathToDirWithVersion = path.join(this.rootPath, pathToRootDir);
+
+    const pathsToVersionFiles
+     = walkSync(pathToDirWithVersion, { directories: false, ignore: this.siteConfig.ignore })
+       .filter(x => x.endsWith(VERSIONS_DATA_NAME))
+       // assumes versions files are in _markbind folder
+       .map(x => path.dirname(path.relative(pathToDirWithVersion, x)))
+       .map(x => path.dirname(x));
+
+    pathsToVersionFiles.forEach(p => this.ignoreVersionFiles(p));
+  }
+
+  /**
+   * Reads version data from the version file.
+   *
+   * @param {string} versionDataFile, default is VERSIONS_DATA_NAME at the root
+   * @returns a json object
+   */
+  async readVersionData(versionDataFile = VERSIONS_DATA_NAME) {
+    const versionsPath = path.join(this.rootPath, versionDataFile);
+    try {
+      if (!fs.pathExistsSync(versionsPath)) {
+        // Initialize the versions.json file.
+        fs.outputJSONSync(versionsPath, { versions: [] }, { spaces: 2 });
+      }
+      return fs.readJSON(versionsPath);
+    } catch (error) {
+      await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
+      return null;
+    }
+  }
+
+  /**
+   * If the versions.json file exists, update it with a new version.
+   * Otherwise, create a new versions file to store information about archived versions
+   *
+   * @param {boolean} verbose Flag to emit logs of the operation
+   * @returns Returns the json object of the current versions data.
+   */
+  async writeVersionsFile(versionName, archivePath, verbose = true) {
+    const newVersionData = {
+      versionName,
+      buildVer: MARKBIND_VERSION,
+      archivePath,
+      baseUrl: this.siteConfig.baseUrl,
+    };
+
+    const versionsJson = await this.readVersionData(VERSIONS_DATA_NAME);
+
+    // Add in or update this new version data in the versions file.
+    const idx = versionsJson.versions.findIndex(vers => vers.versionName === newVersionData.versionName);
+    if (idx === -1) {
+      versionsJson.versions.push(newVersionData);
+    } else {
+      if (versionsJson.versions[idx].archivePath !== newVersionData.archivePath) {
+        throw Error('The version name is the same as a previously archived version, but the'
+        + ' archive path is not. This is likely to be an error as the previous version will'
+        + ' no longer be tracked and managed. Please choose a different name or manually'
+        + ' change the clashing name in the versions.json file to a different name');
+      }
+      versionsJson.versions[idx] = newVersionData;
+    }
+    fs.writeJsonSync(VERSIONS_DATA_NAME, versionsJson, { spaces: 2 });
+    if (verbose) {
+      logger.info(`versions.json file updated for version '${versionName}'`);
+    }
+
+    return versionsJson;
+  }
+
+  /**
+   * Copies over all versioned files from a given folder to be deployed.
+   * @param {Array} versionFolders is the directory the versions are within
+   */
+  async copyVersions(versionFolders) {
+    const versionFoldersArray = versionFolders.map(f => f.archivePath);
+    try {
+      versionFoldersArray.map(async (versionFolder) => {
+        fs.copy(path.format(path.parse(versionFolder)), path.join(SITE_FOLDER_NAME, versionFolder));
+      });
+      await Promise.all(versionFoldersArray);
+      logger.info('Versioned site(s) copied');
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
