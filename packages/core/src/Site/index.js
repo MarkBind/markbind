@@ -14,7 +14,7 @@ const { PageConfig } = require('../Page/PageConfig');
 const VariableProcessor = require('../variables/VariableProcessor');
 const VariableRenderer = require('../variables/VariableRenderer');
 const { ExternalManager } = require('../External/ExternalManager');
-const { LayoutManager } = require('../Layout');
+const { LayoutManager, LAYOUT_DEFAULT_NAME, LAYOUT_FOLDER_PATH } = require('../Layout');
 const { SiteLinkManager } = require('../html/SiteLinkManager');
 const { PluginManager } = require('../plugins/PluginManager');
 const Template = require('../../template/template');
@@ -24,11 +24,7 @@ const { delay } = require('../utils/delay');
 const fsUtil = require('../utils/fsUtil');
 const gitUtil = require('../utils/git');
 const logger = require('../utils/logger');
-
-const {
-  LAYOUT_DEFAULT_NAME,
-  LAYOUT_FOLDER_PATH,
-} = require('../constants');
+const { SITE_CONFIG_NAME, INDEX_MARKDOWN_FILE, LAZY_LOADING_SITE_FILE_NAME } = require('./constants');
 
 const _ = {};
 _.difference = require('lodash/difference');
@@ -50,27 +46,26 @@ url.join = path.posix.join;
 
 const MARKBIND_VERSION = require('../../package.json').version;
 
-const {
-  ABOUT_MARKDOWN_FILE,
-  CONFIG_FOLDER_NAME,
-  FAVICON_DEFAULT_PATH,
-  INDEX_MARKDOWN_FILE,
-  LAYOUT_SITE_FOLDER_NAME,
-  LAZY_LOADING_SITE_FILE_NAME,
-  LAZY_LOADING_BUILD_TIME_RECOMMENDATION_LIMIT,
-  LAZY_LOADING_REBUILD_TIME_RECOMMENDATION_LIMIT,
-  MARKBIND_WEBSITE_URL,
-  MAX_CONCURRENT_PAGE_GENERATION_PROMISES,
-  PAGE_TEMPLATE_NAME,
-  SITE_CONFIG_NAME,
-  SITE_DATA_NAME,
-  SITE_FOLDER_NAME,
-  TEMP_FOLDER_NAME,
-  TEMPLATE_SITE_ASSET_FOLDER_NAME,
-  USER_VARIABLES_PATH,
-  WIKI_SITE_NAV_PATH,
-  WIKI_FOOTER_PATH,
-} = require('./constants');
+const CONFIG_FOLDER_NAME = '_markbind';
+const SITE_FOLDER_NAME = '_site';
+const TEMP_FOLDER_NAME = '.temp';
+const TEMPLATE_SITE_ASSET_FOLDER_NAME = 'markbind';
+const LAYOUT_SITE_FOLDER_NAME = 'layouts';
+
+const ABOUT_MARKDOWN_FILE = 'about.md';
+const FAVICON_DEFAULT_PATH = 'favicon.ico';
+const USER_VARIABLES_PATH = '_markbind/variables.md';
+
+const PAGE_TEMPLATE_NAME = 'page.njk';
+const SITE_DATA_NAME = 'siteData.json';
+
+const WIKI_SITE_NAV_PATH = '_Sidebar.md';
+const WIKI_FOOTER_PATH = '_Footer.md';
+
+const MAX_CONCURRENT_PAGE_GENERATION_PROMISES = 4;
+
+const LAZY_LOADING_BUILD_TIME_RECOMMENDATION_LIMIT = 30000;
+const LAZY_LOADING_REBUILD_TIME_RECOMMENDATION_LIMIT = 5000;
 
 function getBootswatchThemePath(theme) {
   return require.resolve(`bootswatch/dist/${theme}/bootstrap.min.css`);
@@ -104,6 +99,7 @@ const HIGHLIGHT_ASSETS = {
 const ABOUT_MARKDOWN_DEFAULT = '# About\n'
   + 'Welcome to your **About Us** page.\n';
 
+const MARKBIND_WEBSITE_URL = 'https://markbind.org/';
 const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${MARKBIND_VERSION}</a>`;
 
 class Site {

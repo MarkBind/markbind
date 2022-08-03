@@ -1,8 +1,6 @@
 const logger = require('../utils/logger');
 
-const {
-  HEADING_INDEXING_LEVEL_DEFAULT,
-} = require('./constants');
+const HEADING_INDEXING_LEVEL_DEFAULT = 3;
 
 /**
  * Represents a read only site config read from the site configuration file,
