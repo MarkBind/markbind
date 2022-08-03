@@ -36,14 +36,21 @@ cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 class Page {
   /**
    * @param {PageConfig} pageConfig
+   * @param {SiteConfig} siteConfig
    */
-  constructor(pageConfig) {
+  constructor(pageConfig, siteConfig) {
     /**
      * Page configuration passed from {@link Site}.
      * This should not be mutated.
      * @type {PageConfig}
      */
     this.pageConfig = pageConfig;
+
+    /**
+     * Site configuration passed from {@link Site}.
+     * @type {SiteConfig}
+     */
+    this.siteConfig = siteConfig;
   }
 
   /**
@@ -126,11 +133,11 @@ class Page {
 
   prepareTemplateData(content, hasPageNav) {
     let { title } = this;
-    if (this.pageConfig.titlePrefix) {
-      title = this.pageConfig.titlePrefix + (title ? TITLE_PREFIX_SEPARATOR + title : '');
+    if (this.siteConfig.titlePrefix) {
+      title = this.siteConfig.titlePrefix + (title ? TITLE_PREFIX_SEPARATOR + title : '');
     }
-    if (this.pageConfig.titleSuffix) {
-      title = (title ? title + TITLE_SUFFIX_SEPARATOR : '') + this.pageConfig.titleSuffix;
+    if (this.siteConfig.titleSuffix) {
+      title = (title ? title + TITLE_SUFFIX_SEPARATOR : '') + this.siteConfig.titleSuffix;
     }
     // construct temporary asset object with only POSIX-style paths
     const asset = {};
@@ -139,7 +146,7 @@ class Page {
     });
     return {
       asset,
-      baseUrl: this.pageConfig.baseUrl,
+      baseUrl: this.siteConfig.baseUrl,
       content,
       pageUserScriptsAndStyles: this.pageUserScriptsAndStyles.join('\n'),
       layoutUserScriptsAndStyles: this.asset.layoutUserScriptsAndStyles.join('\n'),
@@ -148,7 +155,7 @@ class Page {
       faviconUrl: this.pageConfig.faviconUrl,
       markBindVersion: `MarkBind ${PACKAGE_VERSION}`,
       title,
-      enableSearch: this.pageConfig.enableSearch,
+      enableSearch: this.siteConfig.enableSearch,
     };
   }
 
@@ -167,7 +174,7 @@ class Page {
    */
   generateElementSelectorForPageNav(pageNav) {
     if (pageNav === 'default') {
-      return `${Page.generateHeadingSelector(this.pageConfig.headingIndexingLevel)}, panel`;
+      return `${Page.generateHeadingSelector(this.siteConfig.headingIndexingLevel)}, panel`;
     } else if (Number.isInteger(pageNav)) {
       return `${Page.generateHeadingSelector(parseInt(pageNav, 10))}, panel`;
     }
@@ -246,7 +253,7 @@ class Page {
    */
   collectHeadingsAndKeywordsInContent(content, lastHeading, excludeHeadings, sourceTraversalStack) {
     let $ = cheerio.load(content);
-    const headingsSelector = Page.generateHeadingSelector(this.pageConfig.headingIndexingLevel);
+    const headingsSelector = Page.generateHeadingSelector(this.siteConfig.headingIndexingLevel);
     $('modal').remove();
     $('panel').not('panel panel')
       .each((index, panel) => {
@@ -271,8 +278,8 @@ class Page {
           const src = panel.attribs.src.split('#')[0];
           const buildInnerDir = path.dirname(this.pageConfig.sourcePath);
           const resultInnerDir = path.dirname(this.pageConfig.resultPath);
-          const includeRelativeToBuildRootDirPath = this.pageConfig.baseUrl
-            ? path.relative(this.pageConfig.baseUrl, src)
+          const includeRelativeToBuildRootDirPath = this.siteConfig.baseUrl
+            ? path.relative(this.siteConfig.baseUrl, src)
             : src.substring(1);
           const includeAbsoluteToBuildRootDirPath = path.resolve(this.pageConfig.rootPath,
                                                                  includeRelativeToBuildRootDirPath);
@@ -299,7 +306,7 @@ class Page {
         }
       });
     $ = cheerio.load(content);
-    if (this.pageConfig.headingIndexingLevel > 0) {
+    if (this.siteConfig.headingIndexingLevel > 0) {
       $('modal').remove();
       $('panel').remove();
       if (!excludeHeadings) {
@@ -343,7 +350,7 @@ class Page {
   processFrontMatter(frontMatter) {
     this.frontMatter = {
       ...frontMatter,
-      ...this.pageConfig.globalOverride,
+      ...this.siteConfig.globalOverride,
       ...this.pageConfig.frontmatterOverride,
     };
 
@@ -459,14 +466,16 @@ class Page {
      * @type {FileConfig}
      */
     const fileConfig = {
+      baseUrl: this.siteConfig.baseUrl,
+      ignore: this.siteConfig.ignore,
+      intrasiteLinkValidation: this.siteConfig.intrasiteLinkValidation,
+      codeLineNumbers: this.siteConfig.style.codeLineNumbers,
+
       baseUrlMap: this.pageConfig.baseUrlMap,
-      baseUrl: this.pageConfig.baseUrl,
       rootPath: this.pageConfig.rootPath,
-      headerIdMap: this.headerIdMap,
-      ignore: this.pageConfig.ignore,
       addressablePagesSource: this.pageConfig.addressablePagesSource,
-      intrasiteLinkValidation: this.pageConfig.intrasiteLinkValidation,
-      codeLineNumbers: this.pageConfig.codeLineNumbers,
+
+      headerIdMap: this.headerIdMap,
     };
 
     const {
