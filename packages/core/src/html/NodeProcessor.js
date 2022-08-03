@@ -315,6 +315,55 @@ class NodeProcessor {
     return node;
   }
 
+  static preprocessMarkdown(content) {
+    // Headings in Markdown are any line which is prefixed with a # symbol
+    // First, we break up the content into individual lines, and check which are prefixed with #
+    const lines = content.split('\n');
+    let amendedContent = '';
+    for (let i = 0; i < lines.length; i += 1) {
+      if (lines[i].charAt(0) === '#') {
+        // Next, we check if they fit the syntax of #s immediately followed by r/g/b then a space
+        const checker = lines[i].split(' ');
+        // Right now, we know that checker[0] starts with a #, so we just check the last character
+        const lastChar = checker[0].charAt(checker[0].length - 1);
+        if (lastChar === 'r' || lastChar === 'g' || lastChar === 'b') {
+          // Now that we've got the lines which match the syntax, we just
+          // replace the last character with <span> ... </span> and recreate the line
+          let span = '';
+          if (lastChar === 'r') {
+            span = '<span style="color: red;">';
+          } else if (lastChar === 'g') {
+            span = '<span style="color: green;">';
+          } else if (lastChar === 'b') {
+            span = '<span style="color: blue;">';
+          }
+
+          let replacementLine = checker[0].slice(0, -1);
+          replacementLine += ' ';
+          replacementLine += span;
+          replacementLine += ' ';
+
+          // Add in the rest of the strings
+          for (let j = 1; j < checker.length; j += 1) {
+            replacementLine += checker[j];
+            replacementLine += ' ';
+          }
+
+          // Close the span
+          replacementLine += '</span>';
+
+          // Add the replacement back into the lines array
+          lines[i] = replacementLine;
+        }
+      }
+      amendedContent += lines[i];
+      amendedContent += '\n';
+    }
+    amendedContent = amendedContent.slice(0, -1);
+
+    return amendedContent;
+  }
+
   process(file, content, cwf = file, extraVariables = {}) {
     const context = new Context(cwf, [], extraVariables, {});
 
@@ -347,7 +396,8 @@ class NodeProcessor {
       const parser = new htmlparser.Parser(handler);
       const fileExt = path.extname(file);
       if (fsUtil.isMarkdownFileExt(fileExt)) {
-        const renderedContent = this.markdownProcessor.renderMd(content);
+        const amendedContent = NodeProcessor.preprocessMarkdown(content);
+        const renderedContent = this.markdownProcessor.renderMd(amendedContent);
         // Wrap with <root> as $.remove() does not work on top level nodes
         parser.parseComplete(`<root>${renderedContent}</root>`);
       } else if (fileExt === '.html') {
