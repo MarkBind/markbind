@@ -31,6 +31,7 @@ import overlaySource from './OverlaySource.vue';
 import popover from './Popover.vue';
 import tooltip from './Tooltip.vue';
 import modal from './Modal.vue';
+import inlineexpansion from './InlineExpansion.vue';
 
 const components = {
   box: tipBox,
@@ -60,6 +61,7 @@ const components = {
   popover,
   tooltip,
   modal,
+  inlineexpansion,
   'VPopover': Dropdown,
   'VTooltip': Tooltip,
 };
