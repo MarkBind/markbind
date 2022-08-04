@@ -1,12 +1,28 @@
 <template>
-    <div class=inline-panel>
-        <slot></slot>
+    <div>
+        <button v-if="!isShowInlineText" v-on:click="isShowInlineText = !isShowInlineText;" class=inline-panel>
+            {{ header }}
+        </button>
+        <div v-else>
+            <slot></slot>
+        </div>
     </div>
 </template>
 
 <script>
 export default {
   name: 'InlineExpansion',
+  props: {
+    header: {
+      type: String,
+      default: 'Header',
+    },
+  },
+  data() {
+    return {
+        isShowInlineText : false,
+    }
+  },
 }
 </script>
 
