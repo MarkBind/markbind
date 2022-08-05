@@ -39,7 +39,8 @@
     ></span>
     <div :class="['card', { 'expandable-card': isExpandableCard, 'card-seamless' : isSeamless }, borderType]">
       <div
-        :class="['card-header', {'header-toggle':isExpandableCard, 'card-header-seamless' : isSeamless}, cardType, borderType]"
+        :class="['card-header', {'header-toggle':isExpandableCard,'card-header-seamless' : isSeamless},
+        cardType, borderType]"
         @click.prevent.stop="isExpandableCard && toggle()"
       >
         <div class="caret-wrapper">
@@ -269,7 +270,7 @@ export default {
     }
 
     .header-wrapper-seamless {
-      background-color: inherit !important;
+        background-color: inherit !important;
     }
 
     .header-transparent {
