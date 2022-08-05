@@ -284,7 +284,6 @@ class Site {
   createPage(config) {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
     const resultPath = path.join(this.outputPath, fsUtil.setExtension(config.pageSrc, '.html'));
-    const { codeTheme, codeLineNumbers } = this.siteConfig.style;
 
     const pageConfig = new PageConfig({
       asset: {
@@ -303,7 +302,8 @@ class Site {
                                                'material-icons',
                                                'material-icons.css')),
         highlight: path.relative(path.dirname(resultPath),
-                                 path.join(this.siteAssetsDestPath, 'css', HIGHLIGHT_ASSETS[codeTheme])),
+                                 path.join(this.siteAssetsDestPath, 'css',
+                                           HIGHLIGHT_ASSETS[this.siteConfig.style.codeTheme])),
         markBindCss: path.relative(path.dirname(resultPath),
                                    path.join(this.siteAssetsDestPath, 'css', 'markbind.min.css')),
         markBindJs: path.relative(path.dirname(resultPath),
@@ -324,14 +324,10 @@ class Site {
         jQuery: path.relative(path.dirname(resultPath),
                               path.join(this.siteAssetsDestPath, 'js', 'jquery.min.js')),
       },
-      baseUrl: this.siteConfig.baseUrl,
       baseUrlMap: this.baseUrlMap,
       dev: this.dev,
-      enableSearch: this.siteConfig.enableSearch,
       faviconUrl: config.faviconUrl,
       frontmatterOverride: config.frontmatter,
-      globalOverride: this.siteConfig.globalOverride,
-      headingIndexingLevel: this.siteConfig.headingIndexingLevel,
       layout: config.layout,
       layoutsAssetPath: path.relative(path.dirname(resultPath),
                                       path.join(this.siteAssetsDestPath, LAYOUT_SITE_FOLDER_NAME)),
@@ -344,17 +340,12 @@ class Site {
       sourcePath,
       src: config.pageSrc,
       title: config.title || '',
-      titlePrefix: this.siteConfig.titlePrefix,
-      titleSuffix: this.siteConfig.titleSuffix,
       template: this.pageTemplate,
       variableProcessor: this.variableProcessor,
-      ignore: this.siteConfig.ignore,
       addressablePagesSource: this.addressablePagesSource,
       layoutManager: this.layoutManager,
-      intrasiteLinkValidation: this.siteConfig.intrasiteLinkValidation,
-      codeLineNumbers,
     });
-    return new Page(pageConfig);
+    return new Page(pageConfig, this.siteConfig);
   }
 
   /**

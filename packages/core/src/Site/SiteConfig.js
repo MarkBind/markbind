@@ -38,9 +38,18 @@ class SiteConfig {
      * @type {Object<string, any>}
      */
     this.style = siteConfigJson.style || {};
+
+    /**
+     * @type {string}
+     */
     this.style.codeTheme = this.style.codeTheme || 'dark';
+
+    /**
+     * Default hide display of line numbers for code blocks
+     * @type {string}
+     */
     this.style.codeLineNumbers = this.style.codeLineNumbers !== undefined
-      ? this.style.codeLineNumbers : false; // hide line numbers by default
+      ? this.style.codeLineNumbers : false;
 
     /**
      * @type {string}
@@ -62,6 +71,7 @@ class SiteConfig {
     this.pagesExclude = siteConfigJson.pagesExclude || [];
 
     /**
+     * Array of file types to ignore
      * @type {Array}
      */
     this.ignore = siteConfigJson.ignore || [];
