@@ -3,17 +3,14 @@
     <i class="fa fa-hashtag"></i>
     <div class="heading-text">
       <span v-html="highlight(item.heading.text, value)"></span>
-    </div>
-    <!--
-    <div class="heading-text-items">
-      <small v-html="highlight(item.heading.text, value)"></small>
-      <br />
       <small v-for="(keyword, index) in item.keywords" :key="index">
-        <span v-html="highlight(keyword, value)"></span>
         <br />
+        <i class="fa fa-key"></i>
+        <div class="heading-text">
+          <span v-html="highlight(keyword, value)"></span>
+        </div>
       </small>
     </div>
-    -->
   </div>
   <div v-else>
     <span class="page-title" v-html="highlight(item.title, value)"></span>
@@ -87,7 +84,7 @@ export default {
 </script>
 
 <style scoped>
-    .fa-hashtag {
+    .fa-hashtag, .fa-key {
         padding-right: 0.2em;
     }
 
@@ -104,17 +101,8 @@ export default {
         width: 95%;
         white-space: normal;
         vertical-align: top;
+        word-break: break-word;
     }
-
-    /*
-    .heading-text-items {
-        display: inline-block;
-        width: calc(60% - 0.7rem);
-        white-space: normal;
-        border-left: 1px solid #ddd;
-        padding-left: 0.5rem;
-    }
-    */
 
     .page-title {
         font-size: 1.05rem;
