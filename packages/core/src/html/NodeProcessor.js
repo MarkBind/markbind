@@ -57,6 +57,12 @@ class NodeProcessor {
     this.footnoteProcessor = new FootnoteProcessor();
     this.mdAttributeRenderer = new MdAttributeRenderer(this.markdownProcessor);
     this.pageNavProcessor = new PageNavProcessor();
+
+    this.coloursToSpanMap = new Map([
+      ['#r#', '<span style="color: red;">'],
+      ['#g#', '<span style="color: green;">'],
+      ['#b#', '<span style="color: blue;">'],
+    ]);
   }
 
   /*
@@ -315,50 +321,55 @@ class NodeProcessor {
     return node;
   }
 
-  static preprocessMarkdown(content) {
-    // Headings in Markdown are any line which is prefixed with a # symbol
-    // First, we break up the content into individual lines, and check which are prefixed with #
+  /*
+   * Syntax is (space)#char#(any text)##(space)
+   * If we have #char# without ## or ## without #char# we don't replace
+   * To escape start do \#char#, so it will show up as #char# (escaping also works with any front char)
+   * To escape end do \##, which will show up as ##
+   */
+  preprocessMarkdown(content) {
     const lines = content.split('\n');
     let amendedContent = '';
     for (let i = 0; i < lines.length; i += 1) {
-      if (lines[i].charAt(0) === '#') {
-        // Next, we check if they fit the syntax of #s immediately followed by r/g/b then a space
-        const checker = lines[i].split(' ');
-        // Right now, we know that checker[0] starts with a #, so we just check the last character
-        const lastChar = checker[0].charAt(checker[0].length - 1);
-        if (lastChar === 'r' || lastChar === 'g' || lastChar === 'b') {
-          // Now that we've got the lines which match the syntax, we just
-          // replace the last character with <span> ... </span> and recreate the line
-          let span = '';
-          if (lastChar === 'r') {
-            span = '<span style="color: red;">';
-          } else if (lastChar === 'g') {
-            span = '<span style="color: green;">';
-          } else if (lastChar === 'b') {
-            span = '<span style="color: blue;">';
+      const lineArray = lines[i].split(' ');
+      const stack = [];
+      for (let j = 0; j < lineArray.length; j += 1) {
+        // Check for #char#
+        const syntaxStartChecker = lineArray[j].slice(0, 3);
+        if (this.coloursToSpanMap.has(syntaxStartChecker)) {
+          stack.push(j);
+        }
+
+        // Check for ##
+        const syntaxEndChecker = lineArray[j].slice(-2);
+        if (syntaxEndChecker === '##') {
+          if (lineArray[j].slice(-3) !== '\\##' && stack.length !== 0) { // Not escaped and has syntax start
+            // Replace syntax start with the span
+            const syntaxStartPos = stack.pop();
+            let syntaxStartReplacementLine = this.coloursToSpanMap.get(lineArray[syntaxStartPos].slice(0, 3));
+            syntaxStartReplacementLine += lineArray[syntaxStartPos].slice(3);
+            lineArray[syntaxStartPos] = syntaxStartReplacementLine;
+
+            // Replace syntax end with the closing span
+            let syntaxEndReplacementLine = lineArray[j].slice(0, -2);
+            syntaxEndReplacementLine += '</span>';
+            lineArray[j] = syntaxEndReplacementLine;
           }
-
-          let replacementLine = checker[0].slice(0, -1);
-          replacementLine += ' ';
-          replacementLine += span;
-          replacementLine += ' ';
-
-          // Add in the rest of the strings
-          for (let j = 1; j < checker.length; j += 1) {
-            replacementLine += checker[j];
-            replacementLine += ' ';
-          }
-
-          // Close the span
-          replacementLine += '</span>';
-
-          // Add the replacement back into the lines array
-          lines[i] = replacementLine;
         }
       }
-      amendedContent += lines[i];
+
+      // Recreate the line with the lineArray
+      let replacementLine = lineArray[0];
+      for (let j = 1; j < lineArray.length; j += 1) {
+        replacementLine += ' ';
+        replacementLine += lineArray[j];
+      }
+
+      // Add this replacementLine to the amended content
+      amendedContent += replacementLine;
       amendedContent += '\n';
     }
+
     amendedContent = amendedContent.slice(0, -1);
 
     return amendedContent;
@@ -396,7 +407,7 @@ class NodeProcessor {
       const parser = new htmlparser.Parser(handler);
       const fileExt = path.extname(file);
       if (fsUtil.isMarkdownFileExt(fileExt)) {
-        const amendedContent = NodeProcessor.preprocessMarkdown(content);
+        const amendedContent = this.preprocessMarkdown(content);
         const renderedContent = this.markdownProcessor.renderMd(amendedContent);
         // Wrap with <root> as $.remove() does not work on top level nodes
         parser.parseComplete(`<root>${renderedContent}</root>`);
