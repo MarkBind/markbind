@@ -20,6 +20,11 @@ function cleanupConvert(siteName) {
   });
 }
 
+function cleanupFiles(siteName, filePaths) {
+  filePaths.forEach(filePath => fs.removeSync(path.join(siteName, filePath)));
+}
+
 module.exports = {
   cleanupConvert,
+  cleanupFiles,
 };
