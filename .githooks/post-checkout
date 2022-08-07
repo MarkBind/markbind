@@ -15,3 +15,5 @@ npm run clean
 
 echo -e "${BLUE}(post-checkout) Building backend...${NOCOLOR}"
 npm run build:backend
+
+echo -e "${BLUE}(post-checkout) Ready! Use `markbind serve -d` to serve any MarkBind sites...${NOCOLOR}"
