@@ -84,7 +84,8 @@ export default {
 </script>
 
 <style scoped>
-    .fa-hashtag, .fa-key {
+    .fa-hashtag,
+    .fa-key {
         padding-right: 0.2em;
     }
 
