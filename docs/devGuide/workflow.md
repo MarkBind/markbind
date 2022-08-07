@@ -177,6 +177,9 @@ After which, you can update the **expected** test files with: `npm run updatetes
 <box type="warning" seamless>
 
   You should always check that the generated output is correct before committing any changes to the test sites.
+
+  Note that some binary files such as images (e.g. `inline-output.png`) or fonts (e.g. `material-icons-outlined.woff`) could show up
+  as uncommitted changes due to the way they are generated. If you are not directly modifying those files in your PR, you should **discard those changes** and **do not commit** them.
 </box>
 
 ##### Adding test site content
