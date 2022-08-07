@@ -3,7 +3,6 @@ const fs = require('fs-extra');
 const { execSync } = require('child_process');
 
 const { compare } = require('./testUtil/compare');
-const { plantumlGeneratedFiles, verifyPlantumlFiles } = require('./testUtil/plantumlUtil');
 
 const { cleanupConvert } = require('./testUtil/cleanup');
 
@@ -11,6 +10,7 @@ const {
   testSites,
   testConvertSites,
   testTemplateSites,
+  plantumlGeneratedFiles,
 } = require('./testSites');
 
 /* eslint-disable no-console */
@@ -31,9 +31,6 @@ testSites.forEach((siteName) => {
   console.log(`Running ${siteName} tests`);
   try {
     execSync(`node ../../index.js build ${siteName}`, execOptions);
-    if (siteName === 'test_site') {
-      verifyPlantumlFiles();
-    }
     compare(siteName, 'expected', '_site', siteName === 'test_site' ? plantumlGeneratedFiles : []);
   } catch (err) {
     printFailedMessage(err, siteName);
