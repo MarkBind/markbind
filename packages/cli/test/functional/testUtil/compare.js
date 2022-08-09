@@ -45,15 +45,15 @@ function compare(root, expectedSiteRelativePath = 'expected', siteRelativePath =
     throw new Error('Ignored paths are not present in actual paths!');
   }
 
+  // Filter out ignoredPaths to avoid comparing them because they are binary files
+  actualPaths = actualPaths.filter(p => !ignoredPaths.includes(p));
+  expectedPaths = expectedPaths.filter(p => !ignoredPaths.includes(p));
+
   let error = false;
   if (expectedPaths.length !== actualPaths.length) {
     throw new Error('Unequal number of files! '
       + `Expected: ${expectedPaths.length}, Actual: ${actualPaths.length}`);
   }
-
-  // Filter out ignoredPaths to avoid comparing them because they are binary files
-  actualPaths = actualPaths.filter(p => !ignoredPaths.includes(p));
-  expectedPaths = expectedPaths.filter(p => !ignoredPaths.includes(p));
 
   /* eslint-disable no-continue */
   for (let i = 0; i < expectedPaths.length; i += 1) {
