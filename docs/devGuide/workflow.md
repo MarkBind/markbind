@@ -221,6 +221,13 @@ To add a page to an existing test site, for this example, to `test_site`:
   If creating a new test site instead, the directory name of the new test site should be added to `packages/cli/test/functional/testSites.js` file.
 </box>
 
+<box type="warning" seamless>
+
+  We do not commit the generated plantuml images in our `test_site` to avoid non-related file changes after `npm run updatetest`.
+  The existing list of images to be ignored is maintained in `packages/cli/test/functional/testSites.js` and `.gitignore`.
+  They should be updated accordingly if you are making changes to the plantuml content in our `test_site`.
+</box>
+
 ##### Adding snapshot tests for components
 
 When making changes to the Vue components in `packages/vue-components`, you should add new snapshot tests or adapt existing ones as appropriate.
