@@ -37,7 +37,7 @@ function compare(root, expectedSiteRelativePath = 'expected', siteRelativePath =
   const expectedDirectory = path.join(root, expectedSiteRelativePath);
   const actualDirectory = path.join(root, siteRelativePath);
 
-  const expectedPaths = walkSync(expectedDirectory, { directories: false });
+  let expectedPaths = walkSync(expectedDirectory, { directories: false });
   let actualPaths = walkSync(actualDirectory, { directories: false });
 
   // Check for file existence of ignoredPaths and that they are present in actualPaths
@@ -46,14 +46,14 @@ function compare(root, expectedSiteRelativePath = 'expected', siteRelativePath =
   }
 
   let error = false;
-  if ((expectedPaths.length + ignoredPaths.length) !== actualPaths.length) {
+  if (expectedPaths.length !== actualPaths.length) {
     throw new Error('Unequal number of files! '
-      + `Expected: ${expectedPaths.length}, Ignored:${ignoredPaths.length}, Actual: ${actualPaths.length}`);
+      + `Expected: ${expectedPaths.length}, Actual: ${actualPaths.length}`);
   }
 
-  // Remove ignored paths to avoid comparing them because they are binary files
-  // that have been excluded from expectedPaths
+  // Filter out ignoredPaths to avoid comparing them because they are binary files
   actualPaths = actualPaths.filter(p => !ignoredPaths.includes(p));
+  expectedPaths = expectedPaths.filter(p => !ignoredPaths.includes(p));
 
   /* eslint-disable no-continue */
   for (let i = 0; i < expectedPaths.length; i += 1) {

@@ -4,7 +4,7 @@ const { execSync } = require('child_process');
 
 const { compare } = require('./testUtil/compare');
 
-const { cleanupConvert, cleanupFiles } = require('./testUtil/cleanup');
+const { cleanupConvert } = require('./testUtil/cleanup');
 
 const {
   testSites,
@@ -31,9 +31,6 @@ testSites.forEach((siteName) => {
   console.log(`Running ${siteName} tests`);
   try {
     execSync(`node ../../index.js build ${siteName}`, execOptions);
-    if (siteName === 'test_site') {
-      cleanupFiles(path.resolve(__dirname, siteName, 'expected'), plantumlGeneratedFiles);
-    }
     compare(siteName, 'expected', '_site', siteName === 'test_site' ? plantumlGeneratedFiles : []);
   } catch (err) {
     printFailedMessage(err, siteName);
