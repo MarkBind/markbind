@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-PREVIOUS_HEAD=$1
-NEW_HEAD=$2
 CHECKOUT_TYPE=$3 # "0" => file checkout, "1" => branch checkout
 
 # This is a file checkout – do nothing
