@@ -26,7 +26,7 @@ Syntax added by MarkBind:
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
-****Super Bold****, !!Underline!!, ==Highlight==, %%Dim%%, ++Large++, --Small--, Super^script^, Sub~script~, #r#Coloured Text##
+****Super Bold****, !!Underline!!, ==Highlight==, %%Dim%%, ++Large++, --Small--, Super^script^, Sub~script~, <span style="color: red;">Coloured Text</span>
 ->Center-align<-
 </variable>
 </include>
