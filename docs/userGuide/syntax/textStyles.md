@@ -26,10 +26,14 @@ Syntax added by MarkBind:
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
-****Super Bold****, !!Underline!!, ==Highlight==, %%Dim%%, ++Large++, --Small--, Super^script^, Sub~script~
+****Super Bold****, !!Underline!!, ==Highlight==, %%Dim%%, ++Large++, --Small--, Super^script^, Sub~script~, #r#Coloured Text##
 ->Center-align<-
 </variable>
 </include>
+<box type="tip" seamless>
+Colours supported are red (r), green (g), blue (b), cyan (c), magenta (m), yellow (y), black (k), and white (w).
+To escape the syntax, simply put a backslash in front of it (e.g. \#b#, \##).
+</box>
 </div>
 
 <small>Alternative syntax: https://www.markdownguide.org/basic-syntax#emphasis</small>

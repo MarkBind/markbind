@@ -62,6 +62,11 @@ class NodeProcessor {
       ['#r#', '<span style="color: red;">'],
       ['#g#', '<span style="color: green;">'],
       ['#b#', '<span style="color: blue;">'],
+      ['#c#', '<span style="color: cyan;">'],
+      ['#m#', '<span style="color: magenta;">'],
+      ['#y#', '<span style="color: yellow;">'],
+      ['#k#', '<span style="color: black;">'],
+      ['#w#', '<span style="color: white;">'],
     ]);
   }
 
@@ -329,29 +334,37 @@ class NodeProcessor {
    */
   preprocessMarkdown(content) {
     const lines = content.split('\n');
-    let amendedContent = '';
+    if (lines.length === 0) { // For when content is empty
+      return content;
+    }
+
+    let preprocessedContent = '';
+    const syntaxStartLength = 3; // Since current start syntax is #char#
+    const syntaxEndLength = -2; // Since current end syntax is ##, and we are looking for it from the back
     for (let i = 0; i < lines.length; i += 1) {
       const lineArray = lines[i].split(' ');
       const stack = [];
       for (let j = 0; j < lineArray.length; j += 1) {
         // Check for #char#
-        const syntaxStartChecker = lineArray[j].slice(0, 3);
+        const syntaxStartChecker = lineArray[j].slice(0, syntaxStartLength);
         if (this.coloursToSpanMap.has(syntaxStartChecker)) {
           stack.push(j);
         }
 
         // Check for ##
-        const syntaxEndChecker = lineArray[j].slice(-2);
+        const syntaxEndChecker = lineArray[j].slice(syntaxEndLength);
         if (syntaxEndChecker === '##') {
-          if (lineArray[j].slice(-3) !== '\\##' && stack.length !== 0) { // Not escaped and has syntax start
+          // Check if the ## found is not escaped and has a corresponding syntax start
+          if (lineArray[j].slice(syntaxEndLength - 1) !== '\\##' && stack.length !== 0) {
             // Replace syntax start with the span
             const syntaxStartPos = stack.pop();
-            let syntaxStartReplacementLine = this.coloursToSpanMap.get(lineArray[syntaxStartPos].slice(0, 3));
-            syntaxStartReplacementLine += lineArray[syntaxStartPos].slice(3);
+            const colour = lineArray[syntaxStartPos].slice(0, syntaxStartLength);
+            let syntaxStartReplacementLine = this.coloursToSpanMap.get(colour);
+            syntaxStartReplacementLine += lineArray[syntaxStartPos].slice(syntaxStartLength);
             lineArray[syntaxStartPos] = syntaxStartReplacementLine;
 
             // Replace syntax end with the closing span
-            let syntaxEndReplacementLine = lineArray[j].slice(0, -2);
+            let syntaxEndReplacementLine = lineArray[j].slice(0, syntaxEndLength);
             syntaxEndReplacementLine += '</span>';
             lineArray[j] = syntaxEndReplacementLine;
           }
@@ -366,13 +379,13 @@ class NodeProcessor {
       }
 
       // Add this replacementLine to the amended content
-      amendedContent += replacementLine;
-      amendedContent += '\n';
+      preprocessedContent += replacementLine;
+      preprocessedContent += '\n';
     }
 
-    amendedContent = amendedContent.slice(0, -1);
+    preprocessedContent = preprocessedContent.slice(0, -1);
 
-    return amendedContent;
+    return preprocessedContent;
   }
 
   process(file, content, cwf = file, extraVariables = {}) {
@@ -407,8 +420,8 @@ class NodeProcessor {
       const parser = new htmlparser.Parser(handler);
       const fileExt = path.extname(file);
       if (fsUtil.isMarkdownFileExt(fileExt)) {
-        const amendedContent = this.preprocessMarkdown(content);
-        const renderedContent = this.markdownProcessor.renderMd(amendedContent);
+        const preprocessedContent = this.preprocessMarkdown(content);
+        const renderedContent = this.markdownProcessor.renderMd(preprocessedContent);
         // Wrap with <root> as $.remove() does not work on top level nodes
         parser.parseComplete(`<root>${renderedContent}</root>`);
       } else if (fileExt === '.html') {

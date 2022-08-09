@@ -123,6 +123,43 @@ test('processNode processes dropdown with header slot taking priority over heade
                            testData.PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
 });
 
+test('preprocessor converts inline colour syntax to the appropriate span', async () => {
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const syntaxToTest = '#r# red ## #c#cyan## #y#yellow #m#magenta ## yellow##';
+
+  const result = await nodeProcessor.preprocessMarkdown(syntaxToTest);
+
+  let expected = '<span style="color: red;"> red </span> ';
+  expected += '<span style="color: cyan;">cyan</span> ';
+  expected += '<span style="color: yellow;">yellow ';
+  expected += '<span style="color: magenta;">magenta </span> yellow</span>';
+
+  expect(result).toEqual(expected);
+});
+
+test('preprocessor does not convert escaped inline colour syntax', async () => {
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const syntaxToTest = 'escaped start: \\#r# real start: #b#and escaped end:\\## and real end:## black';
+
+  const result = await nodeProcessor.preprocessMarkdown(syntaxToTest);
+
+  let expected = 'escaped start: \\#r# real start: <span style="color: blue;">';
+  expected += 'and escaped end:\\## and real end:</span> black';
+
+  expect(result).toEqual(expected);
+});
+
+test('preprocessor does not convert non-matching syntax starts and ends', async () => {
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const syntaxToTest = 'end without start ## and start without end #g#';
+
+  const result = await nodeProcessor.preprocessMarkdown(syntaxToTest);
+
+  const expected = 'end without start ## and start without end #g#';
+
+  expect(result).toEqual(expected);
+});
+
 test('renderFile converts markdown headers to <h1> with an id', async () => {
   const nodeProcessor = getNewDefaultNodeProcessor();
   const indexPath = 'index.md';
