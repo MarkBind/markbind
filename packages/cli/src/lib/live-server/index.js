@@ -21,7 +21,6 @@ var fs = require('fs'),
   logger = require('morgan'),
   WebSocket = require('faye-websocket'),
   path = require('path'),
-  url = require('url'),
   http = require('http'),
   send = require('send'),
   open = require('opn'),
@@ -65,14 +64,20 @@ function staticServer(root) {
     if (e.code !== "ENOENT") throw e;
   }
   return function(req, res, next) {
-    if (req.method !== "GET" && req.method !== "HEAD") return next();
-    var reqpath = isFile ? "" : url.parse(req.url).pathname;
+    if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+    
+    const newURL =
+      `${req.protocol == null ? 'http' : req.protocol}://` +
+      `${req.hostname == null ? '127.0.0.1:8080' : req.hostname}` +
+      `${req.originalUrl}`;
+    const urlObject = new URL(newURL);
+    var reqpath = isFile ? '' : urlObject.pathname;
     var hasNoOrigin = !req.headers.origin;
     var injectCandidates = [ new RegExp("</body>", "i"), new RegExp("</svg>"), new RegExp("</head>", "i")];
     var injectTag = null;
 
     function directory() {
-      var pathname = url.parse(req.originalUrl).pathname;
+      var pathname = urlObject.pathname;
       res.statusCode = 301;
       res.setHeader('Location', pathname + '/');
       res.end('Redirecting to ' + escape(pathname) + '/');
@@ -249,7 +254,7 @@ LiveServer.start = function(options) {
     }
   });
   proxy.forEach(function(proxyRule) {
-    var proxyOpts = url.parse(proxyRule[1]);
+    var proxyOpts = new URL(proxyRule[1]);
     proxyOpts.via = true;
     proxyOpts.preserveHost = true;
     app.use(proxyRule[0], require('proxy-middleware')(proxyOpts));

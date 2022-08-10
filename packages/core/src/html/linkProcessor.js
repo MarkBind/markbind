@@ -1,6 +1,5 @@
 const path = require('path');
 const lodashHas = require('lodash/has');
-const url = require('url');
 const ignore = require('ignore');
 
 const fsUtil = require('../utils/fsUtil');
@@ -95,7 +94,7 @@ function convertRelativeLinks(node, cwf, rootPath, baseUrl) {
   }
 }
 
-function convertMdExtToHtmlExt(node) {
+function convertMdExtToHtmlExt(node, baseUrl) {
   if (node.name === 'a' && node.attribs && node.attribs.href) {
     const hasNoConvert = lodashHas(node.attribs, 'no-convert');
     if (hasNoConvert) {
@@ -109,11 +108,12 @@ function convertMdExtToHtmlExt(node) {
       return;
     }
 
-    const hrefUrl = url.parse(href);
+    const newURL = `${baseUrl || 'http://127.0.0.1:8080'}${href}`;
+    const urlObject = new URL(newURL);
 
     // get the first instance of URL fragment (first encounter of hash)
-    const fragment = hrefUrl.hash === null ? '' : hrefUrl.hash;
-    const pathName = hrefUrl.pathname === null ? '' : hrefUrl.pathname;
+    const fragment = urlObject.hash === null ? '' : urlObject.hash;
+    const pathName = urlObject.pathname === null ? '' : urlObject.pathname;
     const ext = path.posix.extname(pathName);
 
     const isExtMd = ext === '.md';
@@ -167,12 +167,12 @@ function validateIntraLink(resourcePath, cwf, config) {
   const err = `You might have an invalid intra-link! Ignore this warning if it was intended.
 '${resourcePath}' found in file '${cwf}'`;
 
-  resourcePath = urlUtil.stripBaseUrl(resourcePath, config.baseUrl); // eslint-disable-line no-param-reassign
+  const newURL = `${config.baseUrl || 'http://127.0.0.1:8080'}${resourcePath}`;
+  const resourcePathUrl = new URL(newURL);
 
-  const resourcePathUrl = url.parse(resourcePath);
   if (resourcePathUrl.hash) {
     // remove hash portion (if any) in the resourcePath
-    resourcePath = resourcePathUrl.path; // eslint-disable-line no-param-reassign
+    resourcePath = resourcePathUrl.pathname + resourcePathUrl.search; // eslint-disable-line no-param-reassign
   }
 
   if (resourcePath.endsWith('/')) {
