@@ -135,13 +135,20 @@ export default {
       }
 
       if (this.localExpanded) {
-        // Remove closing transition entirely
-        this.$refs.panel.style.transition = 'none';
-        this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
+        requestAnimationFrame(() => {
+          // To enable behaviour of auto window scrolling during panel collapse
+          if (this.$el.getBoundingClientRect().top < 0) {
+            const headerHeight = jQuery('header[sticky]').height() || 0;
+            jQuery('html').animate({
+              scrollTop: window.scrollY + this.$el.getBoundingClientRect().top - headerHeight - 3,
+            }, 0, 'swing');
+          }
+          this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
+        });
       } else {
         // Expand panel
-        this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
         this.$refs.panel.style.transition = 'max-height 0.5s ease-in-out';
+        this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
       }
 
       this.localExpanded = !this.localExpanded;
