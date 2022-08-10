@@ -259,6 +259,7 @@ export default {
         opacity: 0;
         transition: opacity 0.5s;
         vertical-align: text-top;
+        display: inline-block;
     }
 
     .button-wrapper-expanded {
