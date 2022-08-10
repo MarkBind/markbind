@@ -268,6 +268,7 @@ export default {
     }
 
     .button-wrapper {
+        display: inline-block;
         float: right;
         width: 96px;
     }
@@ -355,6 +356,7 @@ export default {
         }
 
         .button-wrapper {
+            display: inline-block;
             float: right;
             width: 32px;
         }

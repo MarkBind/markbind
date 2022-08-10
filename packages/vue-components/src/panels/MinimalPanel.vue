@@ -299,7 +299,7 @@ export default {
     }
 
     .minimal-menu-up {
-        top: 3px;
+        top: 2px;
         font-size: 13px;
     }
 
@@ -309,7 +309,7 @@ export default {
     }
 
     .minimal-close-button {
-        top: 2px;
+        top: 0;
         font-size: 11px;
     }
 
