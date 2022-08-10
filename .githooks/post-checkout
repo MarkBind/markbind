@@ -1,7 +1,17 @@
 #!/usr/bin/env sh
 
+CHECKOUT_TYPE=$3 # "0" => file checkout, "1" => branch checkout
+
+# This is a file checkout – do nothing
+if [ $CHECKOUT_TYPE == "0" ]; then exit; fi
+
 BLUE="\033[34m"
 NOCOLOR="\033[0m"
 
 echo -e "${BLUE}(post-checkout) Cleaning compiled files...${NOCOLOR}"
 npm run clean
+
+echo -e "${BLUE}(post-checkout) Building backend...${NOCOLOR}"
+npm run build:backend
+
+echo -e "${BLUE}(post-checkout) Ready! Use 'markbind serve -d' to serve any MarkBind sites...${NOCOLOR}"
