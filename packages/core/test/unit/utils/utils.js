@@ -49,7 +49,7 @@ function getNewSiteLinkManager() {
 function getNewNodeProcessor(pluginManager) {
   const fileConfig = {
     baseUrlMap: new Set([ROOT_PATH]),
-    baseUrl: '',
+    baseUrl: 'http://127.0.0.1:8080',
     rootPath: ROOT_PATH,
     headerIdMap: {},
     ignore: [],
