@@ -60,8 +60,7 @@ function _getSrcFlagsAndFilePaths(element, config) {
   const isUrl = urlUtil.isUrl(element.attribs.src);
 
   // We do this even if the src is not a url to get the hash, if any
-  const newURL = `${config.baseUrl ? config.baseUrl : 'http://127.0.0.1:8080'}`
-    + `${element.attribs.src}`;
+  const newURL = `${config.baseUrl ? config.baseUrl : 'http://127.0.0.1:8080'}${element.attribs.src}`;
   const urlObject = new URL(newURL);
 
   let filePath;
