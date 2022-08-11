@@ -1,24 +1,25 @@
 <template>
   <div style="position: relative;" class="dropdown">
     <div v-if="algolia" id="algolia-search-input"></div>
-    <input
-      v-else
-      v-model="value"
-      data-bs-toggle="dropdown"
-      type="text"
-      class="form-control"
-      :placeholder="placeholder"
-      autocomplete="off"
-      @input="update"
-      @keyup.up="up"
-      @keyup.down="down"
-      @keydown.enter="hit"
-      @keydown.esc="reset"
-      @blur="showDropdown = false"
-    />
-    <div class="form-control placeholderDiv-hidden">
-      {{ placeholder }}
-    </div>
+    <template v-else>
+      <input
+        v-model="value"
+        data-bs-toggle="dropdown"
+        type="text"
+        class="form-control"
+        :placeholder="placeholder"
+        autocomplete="off"
+        @input="update"
+        @keyup.up="up"
+        @keyup.down="down"
+        @keydown.enter="hit"
+        @keydown.esc="reset"
+        @blur="showDropdown = false"
+      />
+      <div class="form-control placeholderDiv-hidden">
+        {{ placeholder }}
+      </div>
+    </template>
     <ul ref="dropdown" :class="dropdownMenuClasses">
       <li
         v-for="(item, index) in items"
