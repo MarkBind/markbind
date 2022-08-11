@@ -8,7 +8,6 @@
       type="text"
       class="form-control"
       :placeholder="placeholder"
-      :style="{ width: placeholderDivWidth + 'px' }"
       autocomplete="off"
       @input="update"
       @keyup.up="up"
@@ -17,7 +16,7 @@
       @keydown.esc="reset"
       @blur="showDropdown = false"
     />
-    <div ref="placeholderDiv" class="form-control d-none">
+    <div class="form-control placeholderDiv-hidden">
       {{ placeholder }}
     </div>
     <ul ref="dropdown" :class="dropdownMenuClasses">
@@ -96,7 +95,6 @@ export default {
       noResults: true,
       current: 0,
       items: [],
-      placeholderDivWidth: 12.7, // initially set to min-width
     };
   },
   computed: {
@@ -250,11 +248,6 @@ export default {
       }
     },
   },
-  mounted() {
-    const { placeholderDiv } = this.$refs;
-    this.placeholderDivWidth = placeholderDiv.offsetWidth;
-    placeholderDiv.remove();
-  },
   components: {
     searchbarPageItem,
   },
@@ -262,6 +255,10 @@ export default {
 </script>
 
 <style scoped>
+    .dropdown {
+        display: block;
+    }
+
     .form-control {
         min-width: 12.7em;
         max-width: 25.4em; /* twice of min-width, to accommodate a range of lengths */
@@ -274,6 +271,16 @@ export default {
     .dropdown-menu-end {
         right: 0;
         left: auto;
+    }
+
+    .placeholderDiv-hidden {
+        /* prevents placeholderDiv from taking up space on the navbar to resolve FOUC */
+        height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        border-top: 0;
+        border-bottom: 0;
+        visibility: hidden;
     }
 </style>
 
