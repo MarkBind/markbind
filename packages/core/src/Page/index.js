@@ -21,15 +21,17 @@ const logger = require('../utils/logger');
 const PACKAGE_VERSION = require('../../package.json').version;
 
 const {
-  PAGE_NAV_ID,
-  PAGE_NAV_TITLE_CLASS,
-  TITLE_PREFIX_SEPARATOR,
-  TITLE_SUFFIX_SEPARATOR,
-} = require('./constants');
-
-const {
   LAYOUT_DEFAULT_NAME,
-} = require('../constants');
+} = require('../Layout');
+
+const TITLE_PREFIX_SEPARATOR = ' - ';
+const TITLE_SUFFIX_SEPARATOR = ' - ';
+
+const PAGE_NAV_ID = 'mb-page-nav';
+const PAGE_NAV_TITLE_CLASS = 'page-nav-title';
+
+const SCROLL_TO_TOP_BUTTON_HTML = '<i class="fa fa-arrow-circle-up fa-lg d-print-none" '
+  + 'id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>';
 
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
@@ -110,7 +112,7 @@ class Page {
      */
 
     /**
-     * The layout to use for this page, which may be further mutated in {@link processFrontMatter.}
+     * The layout to use for this page, which may be further mutated in {@link processFrontMatter}.
      * @type {string}
      */
     this.layout = this.pageConfig.layout;
@@ -442,7 +444,7 @@ class Page {
        portal-ing it into the mobile page nav.
        */
       return `${pageNavTitleHtml}\n`
-          + `<overlay-source id="${PAGE_NAV_ID}" tag-name="nav" to="mb-page-nav"`
+        + `<overlay-source id="${PAGE_NAV_ID}" tag-name="nav" to="${PAGE_NAV_ID}"`
             + ' class="nav nav-pills flex-column my-0 small no-flex-wrap">\n'
           + `${pageNavHeadingHTML}\n`
           + '</overlay-source>\n';
@@ -551,9 +553,7 @@ class Page {
   }
 
   static addScrollToTopButton(pageData) {
-    const button = '<i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" '
-    + 'onclick="handleScrollTop()" aria-hidden="true"></i>';
-    return `${pageData}\n${button}`;
+    return `${pageData}\n${SCROLL_TO_TOP_BUTTON_HTML}`;
   }
 
   /**

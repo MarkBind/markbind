@@ -28,11 +28,11 @@ const { createErrorNode } = require('./elements');
 const fsUtil = require('../utils/fsUtil');
 const logger = require('../utils/logger');
 
-const { FRONT_MATTER_FENCE } = require('../Page/constants');
-
 const {
   ATTRIB_CWF,
 } = require('../constants');
+
+const FRONT_MATTER_FENCE = '---';
 
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
