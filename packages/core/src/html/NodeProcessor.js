@@ -137,6 +137,7 @@ class NodeProcessor {
         this._processFrontMatter(node, context);
         break;
       case 'body':
+        // eslint-disable-next-line no-console
         console.warn(`<body> tag found in ${node.attribs[ATTRIB_CWF]}. This may cause formatting errors.`);
         break;
       case 'include':

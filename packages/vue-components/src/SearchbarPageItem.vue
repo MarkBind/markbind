@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <div v-if="item.heading" class="heading">
     <div class="heading-text">
