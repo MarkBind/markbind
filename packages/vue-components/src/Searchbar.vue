@@ -17,7 +17,7 @@
       @keydown.esc="reset"
       @blur="showDropdown = false"
     />
-    <div ref="placeholderDiv" class="form-control hidden">
+    <div ref="placeholderDiv" class="form-control d-none">
       {{ placeholder }}
     </div>
     <ul ref="dropdown" :class="dropdownMenuClasses">
@@ -274,10 +274,6 @@ export default {
     .dropdown-menu-end {
         right: 0;
         left: auto;
-    }
-
-    .hidden {
-        visibility: hidden;
     }
 </style>
 
