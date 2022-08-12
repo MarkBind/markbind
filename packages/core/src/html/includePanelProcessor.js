@@ -57,10 +57,19 @@ function _getBoilerplateFilePath(node, filePath, config) {
  * Retrieves several flags and file paths from the src attribute specified in the element.
  */
 function _getSrcFlagsAndFilePaths(element, config) {
-  const isUrl = urlUtil.isUrl(element.attribs.src);
+  let isUrl = urlUtil.isUrl(element.attribs.src);
 
   // We do this even if the src is not a url to get the hash, if any
-  const newURL = `${config.baseUrl ? config.baseUrl : 'http://127.0.0.1:8080'}${element.attribs.src}`;
+  let newURL = `${config.baseUrl ? config.baseUrl : 'http://127.0.0.1:8080'}${element.attribs.src}`;
+
+  // Check again if newURL is a full valid URL before creating URL object
+  // Workaround for running tests with missing protocol, hostname and port
+  isUrl = urlUtil.isUrl(newURL);
+
+  if (!isUrl) {
+    newURL = `http://127.0.0.1:8080${newURL}`;
+  }
+
   const urlObject = new URL(newURL);
 
   let filePath;
