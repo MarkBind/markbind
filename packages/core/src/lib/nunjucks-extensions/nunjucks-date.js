@@ -1,4 +1,7 @@
-const Moment = require('moment');
+const dayjs = require('dayjs');
+const AdvancedFormat = require('dayjs/plugin/advancedFormat');
+
+dayjs.extend(AdvancedFormat);
 
 const DEFAULT_FORMAT = 'ddd D MMM'; // e.g. Thu 27 Aug
 
@@ -8,7 +11,7 @@ const DEFAULT_FORMAT = 'ddd D MMM'; // e.g. Thu 27 Aug
  * @param days
  */
 function calculateTarget(base, days) {
-  return Moment(base).add(days, 'days');
+  return dayjs(base).add(days, 'days');
 }
 
 function filter(baseDate, format = DEFAULT_FORMAT, day = 0) {

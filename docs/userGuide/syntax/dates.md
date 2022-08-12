@@ -70,7 +70,7 @@ YY | 19
 YYYY | 2019
 </panel>
 
-Full formatting reference available [here](https://momentjs.com/docs/#/displaying/format/).
+Full formatting reference available [here](https://day.js.org/docs/en/parse/string-format#list-of-all-available-parsing-tokens) and [here](https://day.js.org/docs/en/plugin/advanced-format).
 
 <div id="examples" class="d-none">
 <include boilerplate src="outputBox.md">
