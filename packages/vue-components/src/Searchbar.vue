@@ -267,6 +267,13 @@ export default {
         max-width: 25.4em; /* twice of min-width, to accommodate a range of lengths */
     }
 
+    @media screen and (max-width: 768px) {
+      .form-control {
+          min-width: 8em;
+          max-width: 16em; /* twice of min-width, to accommodate a range of lengths */
+        }
+    }
+
     .table-active {
         background-color: rgba(0, 0, 0, 0.075); /* follows Bootstrap's table-active */
     }
