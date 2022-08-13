@@ -268,9 +268,9 @@ export default {
     }
 
     @media screen and (max-width: 768px) {
-      .form-control {
-          min-width: 8em;
-          max-width: 16em; /* twice of min-width, to accommodate a range of lengths */
+        .form-control {
+            min-width: 8em;
+            max-width: 16em; /* twice of min-width, to accommodate a range of lengths */
         }
     }
 
