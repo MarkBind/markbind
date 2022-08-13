@@ -108,7 +108,15 @@ function convertMdExtToHtmlExt(node, baseUrl) {
       return;
     }
 
-    const newURL = `${baseUrl || 'http://127.0.0.1:8080'}${href}`;
+    let newURL = `${baseUrl || 'http://127.0.0.1:8080'}${href}`;
+
+    // Check again if newURL is a full valid URL before creating URL object
+    // Workaround for running tests with missing protocol, hostname and port
+    // Else creating a URL object will throw `Invalid URL error`
+    if (!urlUtil.isUrl(newURL)) {
+      newURL = `http://127.0.0.1:8080${href}`;
+    }
+
     const urlObject = new URL(newURL);
 
     // get the first instance of URL fragment (first encounter of hash)
@@ -122,7 +130,10 @@ function convertMdExtToHtmlExt(node, baseUrl) {
       return;
     }
 
-    const pathNameWithoutExt = pathName.substring(0, pathName.length - ext.length);
+    const pathNameWithoutExt = pathName.substring(
+      0,
+      pathName.length - ext.length
+    );
 
     const newHref = `${pathNameWithoutExt}.html${fragment}`;
     node.attribs.href = newHref;

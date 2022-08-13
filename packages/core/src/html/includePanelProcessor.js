@@ -59,8 +59,12 @@ function _getBoilerplateFilePath(node, filePath, config) {
 function _getSrcFlagsAndFilePaths(element, config) {
   let isUrl = urlUtil.isUrl(element.attribs.src);
   let urlObject;
-
   let filePath;
+
+  // console.log(`>>> isUrl ${isUrl}`);
+  // console.log(`>>> element ${element.attribs.src}`);
+  // console.log(`>>> config ${JSON.stringify(config.baseUrl)}`);
+
   if (isUrl) {
     filePath = element.attribs.src;
   } else {
@@ -71,6 +75,7 @@ function _getSrcFlagsAndFilePaths(element, config) {
 
     // Check again if newURL is a full valid URL before creating URL object
     // Workaround for running tests with missing protocol, hostname and port
+    // Else creating a URL object will throw `Invalid URL error`
     isUrl = urlUtil.isUrl(newURL);
 
     if (!isUrl) {
@@ -86,7 +91,10 @@ function _getSrcFlagsAndFilePaths(element, config) {
      get the relative path from the rootPath first,
      then use it to resolve the absolute path of the referenced file on the filesystem.
      */
-    const relativePathToFile = path.posix.relative(`${config.baseUrl}/`, includePath);
+    const relativePathToFile = path.posix.relative(
+      `${config.baseUrl}/`,
+      includePath
+    );
     filePath = path.resolve(config.rootPath, relativePathToFile);
   }
 
