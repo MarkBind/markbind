@@ -20,7 +20,7 @@ const mockCwf = 'Test';
 
 const mockConfig = {
   rootPath: './src',
-  baseUrl: 'http://127.0.0.1:8080',
+  baseUrl: '',
   ignore: [
     '_markbind', '_site/*',
     'lib/*', '*.json',
@@ -45,7 +45,7 @@ test.each([
 ])('Test link auto-conversion for %s', (input, expected) => {
   const mockNode = cheerio.parseHTML(input)[0];
 
-  linkProcessor.convertMdExtToHtmlExt(mockNode, mockConfig.baseUrl);
+  linkProcessor.convertMdExtToHtmlExt(mockNode);
 
   expect(cheerio.html(mockNode)).toBe(expected);
 });
