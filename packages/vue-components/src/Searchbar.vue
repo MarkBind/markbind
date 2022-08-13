@@ -16,7 +16,7 @@
         @keydown.esc="reset"
         @blur="showDropdown = false"
       />
-      <div class="form-control placeholderDiv-hidden">
+      <div class="form-control placeholder-div-hidden">
         {{ placeholder }}
       </div>
     </template>
@@ -274,7 +274,7 @@ export default {
         left: auto;
     }
 
-    .placeholderDiv-hidden {
+    .placeholder-div-hidden {
         /* prevents placeholderDiv from taking up space on the navbar to resolve FOUC */
         height: 0;
         padding-top: 0;
@@ -282,6 +282,7 @@ export default {
         border-top: 0;
         border-bottom: 0;
         visibility: hidden;
+        overflow: hidden;
     }
 </style>
 
