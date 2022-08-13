@@ -130,10 +130,7 @@ function convertMdExtToHtmlExt(node, baseUrl) {
       return;
     }
 
-    const pathNameWithoutExt = pathName.substring(
-      0,
-      pathName.length - ext.length
-    );
+    const pathNameWithoutExt = pathName.substring(0, pathName.length - ext.length);
 
     const newHref = `${pathNameWithoutExt}.html${fragment}`;
     node.attribs.href = newHref;
