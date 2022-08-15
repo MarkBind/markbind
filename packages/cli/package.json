@@ -38,10 +38,12 @@
     "fs-extra": "^9.0.1",
     "live-server": "1.2.1",
     "lodash": "^4.17.15",
+    "url-parse": "^1.5.10",
     "winston": "^2.4.4",
     "winston-daily-rotate-file": "^3.10.0"
   },
   "devDependencies": {
+    "@types/url-parse": "^1.4.8",
     "diff": "^4.0.1",
     "ignore": "^5.1.4",
     "istextorbinary": "^3.3.0",
