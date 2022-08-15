@@ -1,5 +1,6 @@
 const cheerio = require('cheerio'); require('../patches/htmlparser2');
 const path = require('path');
+const parse = require('url-parse');
 
 const { createErrorNode, createEmptyNode, createSlotTemplateNode } = require('./elements');
 const { CyclicReferenceError } = require('../errors');
@@ -57,44 +58,23 @@ function _getBoilerplateFilePath(node, filePath, config) {
  * Retrieves several flags and file paths from the src attribute specified in the element.
  */
 function _getSrcFlagsAndFilePaths(element, config) {
-  let isUrl = urlUtil.isUrl(element.attribs.src);
-  let urlObject;
+  const isUrl = urlUtil.isUrl(element.attribs.src);
+
+  // We do this even if the src is not a url to get the hash, if any
+  const includeSrc = parse(element.attribs.src);
+
   let filePath;
-
-  // console.log(`>>> isUrl ${isUrl}`);
-  // console.log(`>>> element ${element.attribs.src}`);
-  // console.log(`>>> config ${JSON.stringify(config.baseUrl)}`);
-
   if (isUrl) {
     filePath = element.attribs.src;
   } else {
-    // We do this even if the src is not a url to get the hash, if any
-    let newURL = `${config.baseUrl ? config.baseUrl : 'http://127.0.0.1:8080'}${
-      element.attribs.src
-    }`;
-
-    // Check again if newURL is a full valid URL before creating URL object
-    // Workaround for running tests with missing protocol, hostname and port
-    // Else creating a URL object will throw `Invalid URL error`
-    isUrl = urlUtil.isUrl(newURL);
-
-    if (!isUrl) {
-      newURL = `http://127.0.0.1:8080${newURL}`;
-    }
-
-    urlObject = new URL(newURL);
-
-    const includePath = decodeURIComponent(urlObject.pathname);
+    const includePath = decodeURIComponent(includeSrc.pathname);
 
     /*
      If the src starts with the baseUrl (or simply '/' if there is no baseUrl specified),
      get the relative path from the rootPath first,
      then use it to resolve the absolute path of the referenced file on the filesystem.
      */
-    const relativePathToFile = path.posix.relative(
-      `${config.baseUrl}/`,
-      includePath
-    );
+    const relativePathToFile = path.posix.relative(`${config.baseUrl}/`, includePath);
     filePath = path.resolve(config.rootPath, relativePathToFile);
   }
 
@@ -103,7 +83,7 @@ function _getSrcFlagsAndFilePaths(element, config) {
 
   return {
     isUrl,
-    hash: urlObject.hash,
+    hash: includeSrc.hash,
     filePath,
     actualFilePath,
   };

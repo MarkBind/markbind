@@ -1,5 +1,6 @@
 const path = require('path');
 const lodashHas = require('lodash/has');
+const parse = require('url-parse');
 const ignore = require('ignore');
 
 const fsUtil = require('../utils/fsUtil');
@@ -94,7 +95,7 @@ function convertRelativeLinks(node, cwf, rootPath, baseUrl) {
   }
 }
 
-function convertMdExtToHtmlExt(node, baseUrl) {
+function convertMdExtToHtmlExt(node) {
   if (node.name === 'a' && node.attribs && node.attribs.href) {
     const hasNoConvert = lodashHas(node.attribs, 'no-convert');
     if (hasNoConvert) {
@@ -108,20 +109,11 @@ function convertMdExtToHtmlExt(node, baseUrl) {
       return;
     }
 
-    let newURL = `${baseUrl || 'http://127.0.0.1:8080'}${href}`;
-
-    // Check again if newURL is a full valid URL before creating URL object
-    // Workaround for running tests with missing protocol, hostname and port
-    // Else creating a URL object will throw `Invalid URL error`
-    if (!urlUtil.isUrl(newURL)) {
-      newURL = `http://127.0.0.1:8080${href}`;
-    }
-
-    const urlObject = new URL(newURL);
+    const hrefUrl = parse(href);
 
     // get the first instance of URL fragment (first encounter of hash)
-    const fragment = urlObject.hash === null ? '' : urlObject.hash;
-    const pathName = urlObject.pathname === null ? '' : urlObject.pathname;
+    const fragment = hrefUrl.hash === null ? '' : hrefUrl.hash;
+    const pathName = hrefUrl.pathname === null ? '' : hrefUrl.pathname;
     const ext = path.posix.extname(pathName);
 
     const isExtMd = ext === '.md';
@@ -175,12 +167,13 @@ function validateIntraLink(resourcePath, cwf, config) {
   const err = `You might have an invalid intra-link! Ignore this warning if it was intended.
 '${resourcePath}' found in file '${cwf}'`;
 
-  const newURL = `${config.baseUrl || 'http://127.0.0.1:8080'}${resourcePath}`;
-  const resourcePathUrl = new URL(newURL);
+  resourcePath = urlUtil.stripBaseUrl(resourcePath, config.baseUrl); // eslint-disable-line no-param-reassign
+
+  const resourcePathUrl = parse(resourcePath);
 
   if (resourcePathUrl.hash) {
     // remove hash portion (if any) in the resourcePath
-    resourcePath = resourcePathUrl.pathname + resourcePathUrl.search; // eslint-disable-line no-param-reassign
+    resourcePath = resourcePathUrl.pathname; // eslint-disable-line no-param-reassign
   }
 
   if (resourcePath.endsWith('/')) {

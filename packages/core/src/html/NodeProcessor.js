@@ -265,7 +265,7 @@ class NodeProcessor {
     }
     if (linkProcessor.hasTagLink(node)) {
       linkProcessor.convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);
-      linkProcessor.convertMdExtToHtmlExt(node, this.config.baseUrl);
+      linkProcessor.convertMdExtToHtmlExt(node);
       if (this.config.intrasiteLinkValidation.enabled) {
         this.siteLinkManager.collectIntraLinkToValidate(node, context.cwf);
       }
