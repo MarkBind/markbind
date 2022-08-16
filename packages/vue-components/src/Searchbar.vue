@@ -267,15 +267,8 @@ export default {
         max-width: 25.4em; /* twice of min-width, to accommodate a range of lengths */
     }
 
-    @media screen and (max-width: 767px) {
-        .form-control {
-            min-width: 8em;
-            max-width: 16em; /* twice of min-width, to accommodate a range of lengths */
-        }
-    }
-
-    /* For general tablets in portrait e.g. iPad */
-    @media screen and (min-width: 768px) and (max-width: 878px) and (orientation: portrait) {
+    /* For mobile devices and general tablets in portrait e.g. iPad */
+    @media screen and (max-width: 878px) and (orientation: portrait) {
         .form-control {
             min-width: 8em;
             max-width: 16em; /* twice of min-width, to accommodate a range of lengths */
