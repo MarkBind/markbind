@@ -57,6 +57,8 @@ class NodeProcessor {
     this.footnoteProcessor = new FootnoteProcessor();
     this.mdAttributeRenderer = new MdAttributeRenderer(this.markdownProcessor);
     this.pageNavProcessor = new PageNavProcessor();
+
+    this.processedModals = {};
   }
 
   /*
@@ -120,6 +122,17 @@ class NodeProcessor {
     $.remove();
   }
 
+  /**
+   * Remove modal if the modal id has been processed before
+   */
+  _removeDuplicateModals(node) {
+    if (this.processedModals[node.attribs.id]) {
+      cheerio(node).remove();
+      return;
+    }
+    this.processedModals[node.attribs.id] = true;
+  }
+
   /*
    * API
    */
@@ -166,6 +179,7 @@ class NodeProcessor {
         this.mdAttributeRenderer.processTooltip(node);
         break;
       case 'modal':
+        this._removeDuplicateModals(node);
         // Transform deprecated slot names; remove when deprecating
         renameSlot(node, 'modal-header', 'header');
         renameSlot(node, 'modal-footer', 'footer');
