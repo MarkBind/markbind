@@ -65,6 +65,7 @@
     "nunjucks": "3.2.2",
     "path-is-inside": "^1.0.2",
     "simple-git": "^2.17.0",
+    "url-parse": "^1.5.10",
     "uuid": "^8.3.1",
     "vue": "2.6.14",
     "vue-server-renderer": "2.6.14",
@@ -78,6 +79,7 @@
     "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.181",
     "@types/path-is-inside": "^1.0.0",
+    "@types/url-parse": "^1.4.8",
     "jest": "^27.5.1",
     "memfs": "^3.0.1",
     "ts-jest": "^27.1.4"
