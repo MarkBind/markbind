@@ -1,6 +1,6 @@
 ### Plugin: Algolia
 
-This plugin allows you to use [Algolia DocSearch](https://community.algolia.com/docsearch/) for your site.
+This plugin allows you to use [Algolia DocSearch](https://docsearch.algolia.com/docs/what-is-docsearch/) for your site.
 
 To enable it, add `algolia` to your site's plugins, and supply the required options via the `pluginsContext`.  
 
@@ -34,10 +34,10 @@ To connect the `searchbar` component to Algolia DocSearch, add the `algolia` key
 <searchbar placeholder="Search" algolia menu-align-right></searchbar>
 ```
 
-Alternatively, if you are using a custom search bar, you can assign the input field the id `algolia-search-input` to connect it to Algolia DocSearch.
+Alternatively, if you are using a custom search bar, you can assign the `div` element the id `algolia-search-input` to connect it to Algolia DocSearch.
 
 ```html
-<input id="algolia-search-input">
+<div id="algolia-search-input"></div>
 ```
 
 <box type="warning">
