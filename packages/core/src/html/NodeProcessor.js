@@ -123,14 +123,16 @@ class NodeProcessor {
   }
 
   /**
-   * Remove modal if the modal id has been processed before
+   * Removes modal if the modal id has been processed before
+   * @returns true if modal is a duplicate, false otherwise
    */
   _removeDuplicateModals(node) {
     if (this.processedModals[node.attribs.id]) {
       cheerio(node).remove();
-      return;
+      return true;
     }
     this.processedModals[node.attribs.id] = true;
+    return false;
   }
 
   /*
@@ -179,12 +181,13 @@ class NodeProcessor {
         this.mdAttributeRenderer.processTooltip(node);
         break;
       case 'modal':
-        this._removeDuplicateModals(node);
-        // Transform deprecated slot names; remove when deprecating
-        renameSlot(node, 'modal-header', 'header');
-        renameSlot(node, 'modal-footer', 'footer');
+        if (!this._removeDuplicateModals(node)) {
+          // Transform deprecated slot names; remove when deprecating
+          renameSlot(node, 'modal-header', 'header');
+          renameSlot(node, 'modal-footer', 'footer');
 
-        this.mdAttributeRenderer.processModalAttributes(node);
+          this.mdAttributeRenderer.processModalAttributes(node);
+        }
         break;
       case 'tab':
       case 'tab-group':
