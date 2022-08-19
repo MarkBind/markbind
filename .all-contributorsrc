@@ -519,6 +519,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "domlimm",
+      "name": "Dominic Lim",
+      "avatar_url": "https://avatars.githubusercontent.com/u/46486515?v=4",
+      "profile": "https://www.linkedin.com/in/dominiclimkj/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
