@@ -9,6 +9,8 @@
 - [ ] Others, please explain:
 
 <!--
+  If this pull request is addressing an issue, link to the issue: #xxx
+
   If this pull request completely addresses an issue, use one of the closing keywords: "Fixes #xxx" or "Resolves #xxx"
   https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword
 
