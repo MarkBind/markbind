@@ -30,7 +30,7 @@
     "eslint-config-airbnb-typescript": "^16.1.4",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-lodash": "^7.2.0",
-    "lerna": "^3.22.1",
+    "lerna": "^4.0.0",
     "stylelint": "^12.0.0",
     "stylelint-config-standard": "^19.0.0",
     "typescript": "^4.6.2",
