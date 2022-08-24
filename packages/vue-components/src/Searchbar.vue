@@ -147,7 +147,7 @@ export default {
               ];
               const totalHeadingMatches = getTotalMatches(headingSearchTargets, regexes);
 
-              if (!(idx === 0 && text === displayTitle)) {
+              if (!(idx === 0 && text === displayTitle && !keywords.length)) {
                 pageHeadings.push({
                   heading: { id, text },
                   keywords: headingKeywords[id],

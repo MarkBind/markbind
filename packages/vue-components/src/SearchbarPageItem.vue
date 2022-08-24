@@ -4,8 +4,6 @@
     <div class="heading-text">
       <span v-html="highlight(item.heading.text, value)"></span>
       <small v-for="(keyword, index) in item.keywords" :key="index">
-        <br />
-        <i class="fa fa-key"></i>
         <div class="heading-text">
           <span v-html="highlight(keyword, value)"></span>
         </div>
