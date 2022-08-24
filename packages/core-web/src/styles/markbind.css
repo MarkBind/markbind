@@ -175,6 +175,38 @@ footer {
     text-decoration: underline;
 }
 
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+.blue {
+    color: blue;
+}
+
+.cyan {
+    color: cyan;
+}
+
+.magenta {
+    color: magenta;
+}
+
+.yellow {
+    color: yellow;
+}
+
+.black {
+    color: black;
+}
+
+.white {
+    color: white;
+}
+
 /* Bootstrap small(sm) responsive breakpoint */
 @media (max-width: 767.98px) {
     .dropdown-menu > li > a {
