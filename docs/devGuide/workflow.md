@@ -172,7 +172,7 @@ If you only want to run tests for one of the packages (`packages/*`), simply swi
 
 ##### Updating unit tests
 
-Our unit tests perform fast, stable and comprehensive checks on important behaviors of our classes and functions. Some existing tests can be found in the `packages/cli/test/unit` and `packages/core/test/unit` directory. Where appropriate, unit tests should be added/modified to account for any new/changed functionality.
+Our unit tests perform fast, stable, and comprehensive checks on important behaviors of our classes and functions. Some existing tests can be found in the `packages/cli/test/unit` and `packages/core/test/unit` directory. Where appropriate, unit tests should be added/modified to account for any new/changed functionality.
 
 ##### Updating functional tests
 
