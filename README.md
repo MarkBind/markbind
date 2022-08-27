@@ -102,6 +102,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://www.linkedin.com/in/dominiclimkj/"><img src="https://avatars.githubusercontent.com/u/46486515?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dominic Lim</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=domlimm" title="Code">💻</a> <a href="https://github.com/MarkBind/markbind/commits?author=domlimm" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/petermonky"><img src="https://avatars.githubusercontent.com/u/39848410?v=4?s=100" width="100px;" alt=""/><br /><sub><b>peter</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=petermonky" title="Code">💻</a></td>
   </tr>
 </table>
 
