@@ -28,7 +28,6 @@
                 {{ keyword }}
               </span>
             </strong>
-            <strong v-else>No answer checking keywords provided</strong>
           </div>
         </div>
         <!--
