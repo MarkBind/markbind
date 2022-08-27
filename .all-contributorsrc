@@ -529,6 +529,15 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "petermonky",
+      "name": "peter",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39848410?v=4",
+      "profile": "https://github.com/petermonky",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
