@@ -170,6 +170,12 @@ If you only want to run tests for one of the packages (`packages/*`), simply swi
 
 #### Updating and writing tests
 
+##### Updating unit tests
+
+Our unit tests perform fast, stable, and comprehensive checks on important behaviors of our classes and functions. Some existing tests can be found in the `packages/cli/test/unit` and `packages/core/test/unit` directory. Where appropriate, unit tests should be added/modified to account for any new/changed functionality.
+
+##### Updating functional tests
+
 Whether you are adding a new feature, updating existing features or fixing bugs, make sure to update the **source** test files (test sites, snapshots) to reflect the changes.
 
 After which, you can update the **expected** test files with: `npm run updatetest`
