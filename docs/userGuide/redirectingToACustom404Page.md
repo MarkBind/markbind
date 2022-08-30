@@ -1,5 +1,5 @@
-{% set title = "Redirecting to Custom 404 Page" %}
-{% set filename = "redirectingToCustom404Page" %}
+{% set title = "Redirecting to a Custom 404 Page" %}
+{% set filename = "redirectingToACustom404Page" %}
 
 <frontmatter>
   title: "User Guide: {{ title }}"
@@ -13,7 +13,10 @@
 # {{ title }}
 
 <div class="lead" id="overview">
-Most popular static hosting service such as Netlify supports custom routing to a custom 404 html page. A default 404.md page is provided, and you can customise it to create your own 404 page.
+
+Many popular static hosting services, such as [Netlify](https://www.netlify.com/), support custom routing to a custom 404 HTML page.
+A default `404.md` file is provided, and you can customize it to create your own 404 page.
+The `404.html` file will be created at the root of the `_site` folder.
 </div>
 
 <br>

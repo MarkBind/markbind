@@ -31,7 +31,7 @@
   * [Applying Themes]({{baseUrl}}/userGuide/themes.html)
   * [Deploying the Site]({{baseUrl}}/userGuide/deployingTheSite.html)
   * [MarkBind in the Project Workflow]({{baseUrl}}/userGuide/markBindInTheProjectWorkflow.html)
-  * [Redirecting to Custom 404 Page]({{baseUrl}}/userGuide/redirectingToCustom404Page.html)
+  * [Redirecting to a Custom 404 Page]({{baseUrl}}/userGuide/redirectingToACustom404Page.html)
 * **References** :expanded:
   * [CLI Commands]({{baseUrl}}/userGuide/cliCommands.html)
   * [Reader-Facing Features]({{baseUrl}}/userGuide/readerFacingFeatures.html)

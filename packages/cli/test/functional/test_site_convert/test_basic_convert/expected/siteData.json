@@ -3,9 +3,9 @@
   "pages": [
     {
       "src": "404.md",
-      "title": "",
+      "title": "Page not found",
       "headings": {
-        "404-page-not-found": "404 page not found"
+        "404": "404"
       },
       "headingKeywords": {}
     },
