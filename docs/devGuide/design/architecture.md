@@ -59,3 +59,6 @@ Its syntax is also the most compatible and independent of the other stages.
 2. Secondly, Markdown is **rendered before HTML**, which produces more HTML. This also allows core Markdown features (e.g. code blocks) and Markdown plugins with eccentric syntaxes to be used without having to patch the HTML parser.
 
 3. Having processed possibly conflicting Nunjucks and Markdown syntax, HTML is then processed last.
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('projectStructure', 'serverSideRendering') }}

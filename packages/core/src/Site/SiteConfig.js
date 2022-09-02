@@ -1,8 +1,6 @@
 const logger = require('../utils/logger');
 
-const {
-  HEADING_INDEXING_LEVEL_DEFAULT,
-} = require('./constants');
+const HEADING_INDEXING_LEVEL_DEFAULT = 3;
 
 /**
  * Represents a read only site config read from the site configuration file,
@@ -38,9 +36,18 @@ class SiteConfig {
      * @type {Object<string, any>}
      */
     this.style = siteConfigJson.style || {};
+
+    /**
+     * @type {string}
+     */
     this.style.codeTheme = this.style.codeTheme || 'dark';
+
+    /**
+     * Default hide display of line numbers for code blocks
+     * @type {string}
+     */
     this.style.codeLineNumbers = this.style.codeLineNumbers !== undefined
-      ? this.style.codeLineNumbers : false; // hide line numbers by default
+      ? this.style.codeLineNumbers : false;
 
     /**
      * @type {string}
@@ -62,6 +69,7 @@ class SiteConfig {
     this.pagesExclude = siteConfigJson.pagesExclude || [];
 
     /**
+     * Array of file types to ignore
      * @type {Array}
      */
     this.ignore = siteConfigJson.ignore || [];

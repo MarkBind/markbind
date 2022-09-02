@@ -83,6 +83,7 @@ module.exports = {
 
       const statsJson = stats.toJson();
       if (statsJson.errors.length) {
+        // eslint-disable-next-line no-console
         console.error(statsJson.errors);
         return;
       }

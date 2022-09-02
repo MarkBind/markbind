@@ -67,3 +67,6 @@ We recommend the **WebStorm IDE** for working with MarkBind code.
 1. Some of my front-end components are not working as expected when running `markbind serve`.
 
    Try running either `markbind serve -d` or `npm run build:web` to view frontend changes (especially after pulling a frontend update that someone else may have pushed). You can see more details [here](workflow.md#editing-frontend-features).
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('devGuide', 'workflow') }}

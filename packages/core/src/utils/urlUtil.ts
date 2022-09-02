@@ -1,9 +1,7 @@
 import path from 'path';
 import pathIsInside from 'path-is-inside';
 
-const {
-  BOILERPLATE_FOLDER_NAME,
-} = require('../constants');
+const BOILERPLATE_FOLDER_NAME = '_markbind/boilerplates';
 
 /**
  * Calculates the absolute path of of the immediate parent site of the specified filePath.
@@ -57,7 +55,7 @@ function calculateBoilerplateFilePath(
                       BOILERPLATE_FOLDER_NAME, pathInBoilerplates);
 }
 
-const isUrlRegex = new RegExp('^(?:[a-z]+:)?//', 'i');
+const isUrlRegex = /^(?:[a-z]+:)?\/\//i;
 function isUrl(unknownPath: string) {
   return isUrlRegex.test(unknownPath);
 }

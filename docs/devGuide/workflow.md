@@ -170,6 +170,12 @@ If you only want to run tests for one of the packages (`packages/*`), simply swi
 
 #### Updating and writing tests
 
+##### Updating unit tests
+
+Our unit tests perform fast, stable, and comprehensive checks on important behaviors of our classes and functions. Some existing tests can be found in the `packages/cli/test/unit` and `packages/core/test/unit` directory. Where appropriate, unit tests should be added/modified to account for any new/changed functionality.
+
+##### Updating functional tests
+
 Whether you are adding a new feature, updating existing features or fixing bugs, make sure to update the **source** test files (test sites, snapshots) to reflect the changes.
 
 After which, you can update the **expected** test files with: `npm run updatetest`
@@ -177,6 +183,9 @@ After which, you can update the **expected** test files with: `npm run updatetes
 <box type="warning" seamless>
 
   You should always check that the generated output is correct before committing any changes to the test sites.
+
+  Note that some binary files such as images (e.g. `inline-output.png`) or fonts (e.g. `material-icons-outlined.woff`) could show up
+  as uncommitted changes due to the way they are generated. If you are not directly modifying those files in your PR, you should **discard those changes** and **do not commit** them.
 </box>
 
 ##### Adding test site content
@@ -216,6 +225,13 @@ To add a page to an existing test site, for this example, to `test_site`:
 <box type="info" seamless>
 
   If creating a new test site instead, the directory name of the new test site should be added to `packages/cli/test/functional/testSites.js` file.
+</box>
+
+<box type="warning" seamless>
+
+  We do not commit the generated plantuml images in our `test_site` to avoid non-related file changes after `npm run updatetest`.
+  The existing list of images to be ignored is maintained in `packages/cli/test/functional/testSites.js` and `.gitignore`.
+  They should be updated accordingly if you are making changes to the plantuml content in our `test_site`.
 </box>
 
 ##### Adding snapshot tests for components
@@ -282,3 +298,6 @@ As the choice is highly dependent on context and details of the implementation, 
 
 Find out more about the key external libraries used in MarkBind from the [project structure](design/projectStructure.md) section. Also, the rationales behind most existing patches are documented in their respective files, read them (and their respective PRs/issues) for more context!
 </box>
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('settingUp', 'design/projectStructure') }}

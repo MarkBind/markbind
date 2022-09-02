@@ -139,9 +139,8 @@
     "_site/*",
     "site.json",
     "*.md",
-    "test.bat",
-    "test.sh",
-    "testUtil/*",
+    "testFileIgnore.sh",
+    "testFileIgnore/*",
     "expected/*"
   ],
   "deploy": {

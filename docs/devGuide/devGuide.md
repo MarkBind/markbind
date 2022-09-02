@@ -35,3 +35,6 @@
 1. **(Optional) Add yourself to the contributors list!** (Bug reported? PR merged? If you haven't done so already, [add](https://allcontributors.org/docs/en/bot/usage#all-contributors-add) yourself to our list of contributors!)
 
 **We look forward to your PR. Happy coding!**
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('', 'settingUp') }}

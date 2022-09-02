@@ -1,8 +1,8 @@
 const { splitCodeAndIndentation } = require('./helper');
 
-const LINESLICE_CHAR_REGEX = new RegExp('(\\d+)\\[(\\d*):(\\d*)]');
-const LINESLICE_WORD_REGEX = new RegExp('(\\d+)\\[(\\d*)::(\\d*)]');
-const LINEPART_REGEX = new RegExp('(\\d+)\\[(["\'])((?:\\\\.|[^\\\\])*?)\\2]');
+const LINESLICE_CHAR_REGEX = /(\d+)\[(\d*):(\d*)]/;
+const LINESLICE_WORD_REGEX = /(\d+)\[(\d*)::(\d*)]/;
+const LINEPART_REGEX = /(\d+)\[(["'])((?:\\.|[^\\])*?)\2]/;
 const UNBOUNDED = -1;
 
 class HighlightRuleComponent {

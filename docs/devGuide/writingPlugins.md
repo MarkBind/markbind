@@ -187,3 +187,6 @@ To do this, you may implement the `beforeSiteGenerate` method.
 
 * `beforeSiteGenerate()`: Called during initial site generation and subsequent regenerations during live preview.
   * No return value is required.
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('writingComponents', 'migratingToTypeScript') }}

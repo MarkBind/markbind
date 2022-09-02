@@ -281,7 +281,7 @@ exports[`Quizzes with 2 questions retry goes back to first 1`] = `
 </div>
 `;
 
-exports[`Quizzes with all questions marks 2/3 correct shows ending screen 1`] = `
+exports[`Quizzes with all questions marks 3/4 correct shows ending screen 1`] = `
 <div
   class="quiz-container"
 >
@@ -292,15 +292,20 @@ exports[`Quizzes with all questions marks 2/3 correct shows ending screen 1`] = 
     style="height: 1px; display: none;"
   >
     <div
-      aria-valuemax="3"
+      aria-valuemax="4"
       aria-valuemin="0"
-      aria-valuenow="4"
+      aria-valuenow="5"
       class="progress-bar"
       role="progressbar"
-      style="width: 133.33333333333331%;"
+      style="width: 125%;"
     />
   </div>
    
+  <transition-stub
+    name="question"
+  >
+    <!---->
+  </transition-stub>
   <transition-stub
     name="question"
   >
@@ -361,7 +366,7 @@ exports[`Quizzes with all questions marks 2/3 correct shows ending screen 1`] = 
             x="22"
             y="57"
           >
-            2 / 3
+            3 / 4
           </text>
         </svg>
          
@@ -377,6 +382,202 @@ exports[`Quizzes with all questions marks 2/3 correct shows ending screen 1`] = 
         </button>
       </div>
     </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`Quizzes with blanks question marked incorrect shows next button after answering 1`] = `
+<div
+  class="quiz-container"
+>
+  <!---->
+   
+  <div
+    class="progress"
+    style="height: 1px;"
+  >
+    <div
+      aria-valuemax="1"
+      aria-valuemin="0"
+      aria-valuenow="1"
+      class="progress-bar"
+      role="progressbar"
+      style="width: 100%;"
+    />
+  </div>
+   
+  <transition-stub
+    name="question"
+  >
+    <div
+      class="card question"
+    >
+      <!---->
+       
+      <div
+        class="card-body"
+      >
+        
+  ... Blanks question ...
+  
+        <div
+          class="form-control blanks-form-control danger"
+        >
+          <label
+            class="row m-0 disabled"
+          >
+            <input
+              class="form-control"
+              disabled="disabled"
+            />
+             
+            <div
+              class="col-auto"
+            >
+              <div>
+                <i
+                  class="fa fa-check text-success"
+                />
+              </div>
+               
+              <!---->
+            </div>
+             
+            <div
+              class="col-auto blanks-keywords"
+            >
+              <strong>
+                No answer checking keywords provided
+              </strong>
+            </div>
+          </label>
+           
+          <!---->
+        </div>
+         
+        <div
+          class="form-control blanks-form-control danger"
+        >
+          <label
+            class="row m-0 disabled"
+          >
+            <input
+              class="form-control"
+              disabled="disabled"
+            />
+             
+            <div
+              class="col-auto"
+            >
+              <div>
+                <i
+                  class="fa fa-times text-danger blanks-cross"
+                />
+              </div>
+               
+              <!---->
+            </div>
+             
+            <div
+              class="col-auto blanks-keywords"
+            >
+              <strong>
+                
+        Keywords: 
+        
+                <span
+                  class="badge rounded-pill bg-light text-dark fw-normal"
+                >
+                  
+          key
+        
+                </span>
+              </strong>
+            </div>
+          </label>
+           
+          <!---->
+        </div>
+         
+        <div
+          class="form-control blanks-form-control danger"
+        >
+          <label
+            class="row m-0 disabled"
+          >
+            <input
+              class="form-control"
+              disabled="disabled"
+            />
+             
+            <div
+              class="col-auto"
+            >
+              <div>
+                <i
+                  class="fa fa-check text-success"
+                />
+              </div>
+               
+              <!---->
+            </div>
+             
+            <div
+              class="col-auto blanks-keywords"
+            >
+              <strong>
+                No answer checking keywords provided
+              </strong>
+            </div>
+          </label>
+           
+          <!---->
+        </div>
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+      </div>
+       
+      <div
+        class="card-footer alert-light border-top border-light text-dark"
+      >
+        <i
+          class="fa fa-times text-danger border-danger result-icon"
+        />
+         
+        <transition-group-stub
+          class="float-end"
+          name="q-btn"
+          tag="div"
+        >
+          <!---->
+           
+          <!---->
+           
+          <button
+            class="btn btn-primary q-btn ms-1"
+            type="button"
+          >
+            
+          Next
+        
+          </button>
+           
+          <!---->
+           
+          <!---->
+        </transition-group-stub>
+      </div>
+    </div>
+  </transition-stub>
+   
+  <transition-stub
+    name="intro-outro-card"
+  >
+    <!---->
   </transition-stub>
 </div>
 `;

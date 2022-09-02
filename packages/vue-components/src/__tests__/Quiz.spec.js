@@ -42,6 +42,15 @@ const TEXT_QUESTION = `
 </question>
 `;
 
+const BLANKS_QUESTION = `
+<question type="blanks">
+  ... Blanks question ...
+  <q-option></q-option>
+  <q-option keywords="key"></q-option>
+  <q-option></q-option>
+</question>
+`;
+
 describe('Quizzes', () => {
   test('intro screen with intro text renders correctly', () => {
     const wrapper = mount(Quiz, {
@@ -94,6 +103,25 @@ describe('Quizzes', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
+  test('with blanks question marked incorrect shows next button after answering', async () => {
+    const wrapper = mount(Quiz, {
+      slots: {
+        default: BLANKS_QUESTION,
+      },
+      stubs: DEFAULT_STUBS,
+    });
+
+    // click 'begin'
+    await wrapper.find('button').trigger('click');
+
+    // Type incorrect answer into blank 2 of blanks question
+    await wrapper.findAllComponents(QOption).at(1).find('input').setValue('wrong');
+    // Click check of blanks question
+    await wrapper.find('button.btn-primary').trigger('click');
+
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
   test('with text question marked correct shows next button after answering', async () => {
     const wrapper = mount(Quiz, {
       slots: {
@@ -113,10 +141,10 @@ describe('Quizzes', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  test('with all questions marks 2/3 correct shows ending screen', async () => {
+  test('with all questions marks 3/4 correct shows ending screen', async () => {
     const wrapper = mount(Quiz, {
       slots: {
-        default: [MCQ_QUESTION, TEXT_QUESTION, CHECKBOX_QUESTION],
+        default: [MCQ_QUESTION, TEXT_QUESTION, CHECKBOX_QUESTION, BLANKS_QUESTION],
       },
       stubs: DEFAULT_STUBS,
     });
@@ -141,6 +169,13 @@ describe('Quizzes', () => {
     // Click options 1 & 3 of checkbox question
     await wrapper.findAllComponents(QOption).at(0).find('div').trigger('click');
     await wrapper.findAllComponents(QOption).at(2).find('div').trigger('click');
+    // Click check of checkbox question
+    await wrapper.find('button.btn-primary').trigger('click');
+    // Click next
+    await wrapper.find('button.btn-primary').trigger('click');
+
+    // Type correct answer into blank 2 of blanks question
+    await wrapper.findAllComponents(QOption).at(1).find('input').setValue('key');
     // Click check of checkbox question
     await wrapper.find('button.btn-primary').trigger('click');
     // Click next
