@@ -9,9 +9,9 @@
 - [ ] Others, please explain:
 
 <!--
-  If this pull request is addressing an issue, link to the issue: "Fixes #xxx" or "Resolves #xxx"
+  If this pull request is addressing an issue, link to the issue: #xxx
 
-  If the pull request completely addresses the issue, use one of the issue closing keywords.
+  If this pull request completely addresses an issue, use one of the closing keywords: "Fixes #xxx" or "Resolves #xxx"
   https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword
 
   Otherwise, elaborate further on the rationale of this pull request as needed
@@ -33,7 +33,7 @@
 
 <!--
   See this link for more info on how to write a good commit message:
-  https://oss-generic.github.io/process/docs/FormatsAndConventions.html#commit-message
+  https://se-education.org/guides/conventions/git.html
 
   As best as possible, write a succinct commit title in 50 characters
 
@@ -50,7 +50,7 @@
 - [ ] Updated the documentation for feature additions and enhancements
 - [ ] Added tests for bug fixes or features
 - [ ] Linked all related issues
-- [ ] No unrelated changes <!-- Its tempting, but increases the reviewer's work, and really pollutes the commit history =( -->
+- [ ] No unrelated changes <!-- It's tempting, but increases the reviewer's work, and really pollutes the commit history =( -->
 
 <!--
   We'll try our best to get to your PR within a week.

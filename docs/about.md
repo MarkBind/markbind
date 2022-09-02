@@ -106,6 +106,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/weiquu"><img src="https://avatars.githubusercontent.com/u/48304907?v=4?s=100" width="100px;" alt=""/><br /><sub><b>weiquu</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=weiquu" title="Code">💻</a> <a href="https://github.com/MarkBind/markbind/commits?author=weiquu" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/eeliana"><img src="https://avatars.githubusercontent.com/u/62977276?v=4?s=100" width="100px;" alt=""/><br /><sub><b>eeliana</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=eeliana" title="Documentation">📖</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://www.linkedin.com/in/dominiclimkj/"><img src="https://avatars.githubusercontent.com/u/46486515?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dominic Lim</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=domlimm" title="Code">💻</a> <a href="https://github.com/MarkBind/markbind/commits?author=domlimm" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/petermonky"><img src="https://avatars.githubusercontent.com/u/39848410?v=4?s=100" width="100px;" alt=""/><br /><sub><b>peter</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=petermonky" title="Code">💻</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-restore -->

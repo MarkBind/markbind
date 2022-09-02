@@ -1,6 +1,6 @@
 const path = require('path');
 const lodashHas = require('lodash/has');
-const url = require('url');
+const parse = require('url-parse');
 const ignore = require('ignore');
 
 const fsUtil = require('../utils/fsUtil');
@@ -109,7 +109,7 @@ function convertMdExtToHtmlExt(node) {
       return;
     }
 
-    const hrefUrl = url.parse(href);
+    const hrefUrl = parse(href);
 
     // get the first instance of URL fragment (first encounter of hash)
     const fragment = hrefUrl.hash === null ? '' : hrefUrl.hash;
@@ -169,10 +169,11 @@ function validateIntraLink(resourcePath, cwf, config) {
 
   resourcePath = urlUtil.stripBaseUrl(resourcePath, config.baseUrl); // eslint-disable-line no-param-reassign
 
-  const resourcePathUrl = url.parse(resourcePath);
+  const resourcePathUrl = parse(resourcePath);
+
   if (resourcePathUrl.hash) {
     // remove hash portion (if any) in the resourcePath
-    resourcePath = resourcePathUrl.path; // eslint-disable-line no-param-reassign
+    resourcePath = resourcePathUrl.pathname; // eslint-disable-line no-param-reassign
   }
 
   if (resourcePath.endsWith('/')) {

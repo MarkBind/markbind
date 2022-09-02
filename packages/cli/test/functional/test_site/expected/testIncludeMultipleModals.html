@@ -8,7 +8,7 @@
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="MarkBind 4.0.0">
+  <meta name="generator" content="MarkBind 4.0.1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Multiple inclusions of a modal should be supported</title>
   <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
@@ -207,7 +207,7 @@
         </div>
       </overlay-source>
       <div id="content-wrapper">
-        <p><strong>Multiple inclusions of a modal should be supported</strong></p>
+        <p><strong>For modals with non-unique id, only the first modal will be shown</strong></p>
         <div>
           <modal large id="modal:bugRepro"><template #header>Establishing Requirements</template>
             <div>Requirements gathering, requirements elicitation, requirements analysis,
@@ -216,11 +216,6 @@
           </modal>
         </div>
         <div>
-          <modal large id="modal:bugRepro"><template #header>Establishing Requirements</template>
-            <div>Requirements gathering, requirements elicitation, requirements analysis,
-              requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity
-              of understanding what a software product should do.</div>
-          </modal>
         </div>
         <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>

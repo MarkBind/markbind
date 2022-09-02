@@ -2728,9 +2728,7 @@ exports[`Text Questions of answered correctly with answer without header, hint, 
         <div>
           <hr />
            
-          <strong>
-            No answer checking keywords provided
-          </strong>
+          <!---->
         </div>
       </div>
        
