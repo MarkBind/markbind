@@ -23,7 +23,7 @@
  OTHER DEALINGS IN THE SOFTWARE.
  */
 
-// Process #r# red text ##
+// Process #(char)# coloured text ##
 
 'use strict';
 
@@ -129,7 +129,7 @@ module.exports = function colourtext_plugin(md) {
           token.type    = 'colourtext_open';
           token.tag     = 'span';
           token.nesting = 1;
-          token.markup  = '#r#';
+          token.markup  = delim.marker;
           token.content = '';
           token.attrs = [ [ 'class', delimMarkerToClassMap.get(delim.marker) ] ];
         } else if (delim.marker === '##') {

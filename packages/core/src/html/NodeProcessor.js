@@ -331,68 +331,6 @@ class NodeProcessor {
     return node;
   }
 
-  /*
-   * Syntax is (space)#char#(any text)##(space)
-   * If we have #char# without ## or ## without #char# we don't replace
-   * To escape start do \#char#, so it will show up as #char# (escaping also works with any front char)
-   * To escape end do \##, which will show up as ##
-   */
-  // preprocessMarkdown(content) {
-  //   const lines = content.split('\n');
-  //   if (lines.length === 0) { // For when content is empty
-  //     return content;
-  //   }
-
-  //   let preprocessedContent = '';
-  //   const syntaxStartLength = 3; // Since current start syntax is #char#
-  //   const syntaxEndLength = -2; // Since current end syntax is ##, and we are looking for it from the back
-  //   for (let i = 0; i < lines.length; i += 1) {
-  //     const lineArray = lines[i].split(' ');
-  //     const stack = [];
-  //     for (let j = 0; j < lineArray.length; j += 1) {
-  //       // Check for #char#
-  //       const syntaxStartChecker = lineArray[j].slice(0, syntaxStartLength);
-  //       if (this.coloursToSpanMap.has(syntaxStartChecker)) {
-  //         stack.push(j);
-  //       }
-
-  //       // Check for ##
-  //       const syntaxEndChecker = lineArray[j].slice(syntaxEndLength);
-  //       if (syntaxEndChecker === '##') {
-  //         // Check if the ## found is not escaped and has a corresponding syntax start
-  //         if (lineArray[j].slice(syntaxEndLength - 1) !== '\\##' && stack.length !== 0) {
-  //           // Replace syntax start with the span
-  //           const syntaxStartPos = stack.pop();
-  //           const colour = lineArray[syntaxStartPos].slice(0, syntaxStartLength);
-  //           let syntaxStartReplacementLine = this.coloursToSpanMap.get(colour);
-  //           syntaxStartReplacementLine += lineArray[syntaxStartPos].slice(syntaxStartLength);
-  //           lineArray[syntaxStartPos] = syntaxStartReplacementLine;
-
-  //           // Replace syntax end with the closing span
-  //           let syntaxEndReplacementLine = lineArray[j].slice(0, syntaxEndLength);
-  //           syntaxEndReplacementLine += '</span>';
-  //           lineArray[j] = syntaxEndReplacementLine;
-  //         }
-  //       }
-  //     }
-
-  //     // Recreate the line with the lineArray
-  //     let replacementLine = lineArray[0];
-  //     for (let j = 1; j < lineArray.length; j += 1) {
-  //       replacementLine += ' ';
-  //       replacementLine += lineArray[j];
-  //     }
-
-  //     // Add this replacementLine to the amended content
-  //     preprocessedContent += replacementLine;
-  //     preprocessedContent += '\n';
-  //   }
-
-  //   preprocessedContent = preprocessedContent.slice(0, -1);
-
-  //   return preprocessedContent;
-  // }
-
   process(file, content, cwf = file, extraVariables = {}) {
     const context = new Context(cwf, [], extraVariables, {});
 
@@ -425,7 +363,6 @@ class NodeProcessor {
       const parser = new htmlparser.Parser(handler);
       const fileExt = path.extname(file);
       if (fsUtil.isMarkdownFileExt(fileExt)) {
-        // const preprocessedContent = this.preprocessMarkdown(content);
         const renderedContent = this.markdownProcessor.renderMd(content);
         // Wrap with <root> as $.remove() does not work on top level nodes
         parser.parseComplete(`<root>${renderedContent}</root>`);
