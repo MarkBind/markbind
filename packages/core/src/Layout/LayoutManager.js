@@ -5,7 +5,7 @@ const { Layout } = require('./Layout');
 
 const logger = require('../utils/logger');
 
-const { FRONT_MATTER_NONE_ATTR } = require('../Page/constants');
+const FRONT_MATTER_NONE_ATTR = 'none';
 
 class LayoutManager {
   constructor(config) {

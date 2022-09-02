@@ -47,6 +47,18 @@ packages/core/template/*/_site
 # Generated site (MarkBind)
 packages/cli/test/functional/*/_site
 
+# Generated plantUML images in test_site (MarkBind)
+packages/cli/test/functional/test_site/expected/9c9e77fc0a983cb6b592e65733787bec.png
+packages/cli/test/functional/test_site/expected/inline-output.png
+packages/cli/test/functional/test_site/expected/diagrams/activity.png
+packages/cli/test/functional/test_site/expected/diagrams/class.png
+packages/cli/test/functional/test_site/expected/diagrams/component.png
+packages/cli/test/functional/test_site/expected/diagrams/object.png
+packages/cli/test/functional/test_site/expected/diagrams/sequence.png
+packages/cli/test/functional/test_site/expected/diagrams/state.png
+packages/cli/test/functional/test_site/expected/diagrams/usecase.png
+packages/cli/test/functional/test_site/expected/sub_site/inline-output/inline-puml-image.png
+
 # vscode configuration
 .vscode/
 *.iml

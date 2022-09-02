@@ -28,11 +28,11 @@ const { createErrorNode } = require('./elements');
 const fsUtil = require('../utils/fsUtil');
 const logger = require('../utils/logger');
 
-const { FRONT_MATTER_FENCE } = require('../Page/constants');
-
 const {
   ATTRIB_CWF,
 } = require('../constants');
+
+const FRONT_MATTER_FENCE = '---';
 
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
@@ -57,6 +57,8 @@ class NodeProcessor {
     this.footnoteProcessor = new FootnoteProcessor();
     this.mdAttributeRenderer = new MdAttributeRenderer(this.markdownProcessor);
     this.pageNavProcessor = new PageNavProcessor();
+
+    this.processedModals = {};
   }
 
   /*
@@ -120,6 +122,23 @@ class NodeProcessor {
     $.remove();
   }
 
+  /**
+   * Removes the node if modal id already exists, processes node otherwise
+   */
+  _processModal(node) {
+    if (this.processedModals[node.attribs.id]) {
+      cheerio(node).remove();
+    } else {
+      this.processedModals[node.attribs.id] = true;
+
+      // Transform deprecated slot names; remove when deprecating
+      renameSlot(node, 'modal-header', 'header');
+      renameSlot(node, 'modal-footer', 'footer');
+
+      this.mdAttributeRenderer.processModalAttributes(node);
+    }
+  }
+
   /*
    * API
    */
@@ -137,6 +156,7 @@ class NodeProcessor {
         this._processFrontMatter(node, context);
         break;
       case 'body':
+        // eslint-disable-next-line no-console
         console.warn(`<body> tag found in ${node.attribs[ATTRIB_CWF]}. This may cause formatting errors.`);
         break;
       case 'include':
@@ -165,11 +185,7 @@ class NodeProcessor {
         this.mdAttributeRenderer.processTooltip(node);
         break;
       case 'modal':
-        // Transform deprecated slot names; remove when deprecating
-        renameSlot(node, 'modal-header', 'header');
-        renameSlot(node, 'modal-footer', 'footer');
-
-        this.mdAttributeRenderer.processModalAttributes(node);
+        this._processModal(node);
         break;
       case 'tab':
       case 'tab-group':

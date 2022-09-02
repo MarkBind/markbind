@@ -14,10 +14,6 @@ class PageConfig {
      */
     this.asset = args.asset;
     /**
-     * @type {string}
-     */
-    this.baseUrl = args.baseUrl;
-    /**
      * @type {Set<string>} the set of urls representing the sites' base directories
      */
     this.baseUrlMap = args.baseUrlMap;
@@ -26,10 +22,6 @@ class PageConfig {
      */
     this.dev = args.dev;
     /**
-     * @type {boolean}
-     */
-    this.enableSearch = args.enableSearch;
-    /**
      * @type {string}
      */
     this.faviconUrl = args.faviconUrl;
@@ -37,15 +29,6 @@ class PageConfig {
      * @type {Object<string, any>|{}}
      */
     this.frontmatterOverride = args.frontmatterOverride || {};
-    /**
-     * @type {boolean}
-     */
-    this.globalOverride = args.globalOverride;
-    /**
-     * Default maximum heading level to index for all pages.
-     * @type {number}
-     */
-    this.headingIndexingLevel = args.headingIndexingLevel;
     /**
      * @type {string}
      */
@@ -95,24 +78,11 @@ class PageConfig {
     /**
      * @type {string}
      */
-    this.titlePrefix = args.titlePrefix;
-    /**
-     * @type {string}
-     */
-    this.titleSuffix = args.titleSuffix;
-    /**
-     * @type {string}
-     */
     this.template = args.template;
     /**
      * @type {VariableProcessor}
      */
     this.variableProcessor = args.variableProcessor;
-    /**
-     * Array of file types to ignore
-     * @type {Array}
-     */
-    this.ignore = args.ignore;
     /**
      * Array of page source objects
      * @type {Array}
@@ -122,15 +92,6 @@ class PageConfig {
      * @type {LayoutManager}
      */
     this.layoutManager = args.layoutManager;
-    /**
-     * @type {boolean}
-     */
-    this.intrasiteLinkValidation = args.intrasiteLinkValidation;
-    /**
-     * Default setting to display line numbers for code blocks
-     * @type {boolean}
-     */
-    this.codeLineNumbers = args.codeLineNumbers;
   }
 }
 
