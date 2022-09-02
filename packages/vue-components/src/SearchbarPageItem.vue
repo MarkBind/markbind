@@ -97,7 +97,7 @@ export default {
 
     .heading-text {
         display: inline-block;
-        width: 95%;
+        width: 92%;
         white-space: normal;
         vertical-align: top;
         word-break: break-word;
