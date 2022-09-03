@@ -1,3 +1,1 @@
-module.exports = {
-  ATTRIB_CWF: 'cwf',
-};
+export const ATTRIB_CWF = 'cwf';

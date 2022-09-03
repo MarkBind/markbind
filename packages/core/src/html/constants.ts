@@ -1,3 +1,1 @@
-module.exports = {
-  MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX: 'pop:footnote',
-};
+export const MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX = 'pop:footnote';
