@@ -4,9 +4,12 @@
     <i class="fa fa-hashtag"></i>
     <div class="heading-text">
       <span v-html="highlight(item.heading.text, value)"></span>
-      <small v-for="(keyword, index) in item.keywords" :key="index">
-        <div v-html="highlight(keyword, value)"></div>
-      </small>
+      <div
+        v-for="(keyword, index) in item.keywords"
+        :key="index"
+        class="keyword-text"
+        v-html="highlight(keyword, value)"
+      ></div>
     </div>
   </div>
   <div v-else>
@@ -100,6 +103,10 @@ export default {
         white-space: normal;
         vertical-align: top;
         word-break: break-word;
+    }
+
+    .keyword-text {
+      font-size: smaller;
     }
 
     .page-title {
