@@ -106,7 +106,7 @@ export default {
     }
 
     .keyword-text {
-      font-size: smaller;
+        font-size: smaller;
     }
 
     .page-title {
