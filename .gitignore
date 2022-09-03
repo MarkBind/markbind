@@ -75,5 +75,7 @@ packages/cli/test/functional/test_site/expected/sub_site/inline-output/inline-pu
 packages/core/src/errors/**/*.js
 packages/core/src/utils/**/*.js
 packages/core/src/**/constants.js
+packages/core/src/Page/PageConfig.js
+packages/core/src/Site/SiteConfig.js
 
 # --- packages/core end ---

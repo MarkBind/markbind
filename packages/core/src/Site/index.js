@@ -335,7 +335,7 @@ class Site {
       siteOutputPath: this.outputPath,
       sourcePath,
       src: config.pageSrc,
-      title: config.title || '',
+      title: config.title,
       template: this.pageTemplate,
       variableProcessor: this.variableProcessor,
       addressablePagesSource: this.addressablePagesSource,

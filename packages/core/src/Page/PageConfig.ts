@@ -1,100 +1,105 @@
+interface PageAssets {
+  bootstrap: string;
+  externalScripts: string[];
+  fontAwesome: string;
+  glyphicons: string;
+  octicons: string;
+  materialIcons: string;
+  highlight: string;
+  markBindCss: string;
+  markBindJs: string;
+  pageNavCss: string;
+  siteNavCss: string;
+  bootstrapUtilityJs: string;
+  polyfillJs: string;
+  vue: string;
+  jQuery: string;
+}
+
 /**
  * A page configuration object used to construct a {@link Page}.
  * Its properties will never be modified by {@link Page} itself.
  */
-class PageConfig {
+export class PageConfig {
   /**
-   * Constructs a {@link PageConfig} object.
-   * @param args The object containing named arguments used to construct this instance
+   * Object of asset names as keys to their corresponding destination file paths / links.
    */
-  constructor(args) {
-    /**
-     * Object of asset names as keys to their corresponding destination file paths.
-     * @type {Object<string, string>}
-     */
+  asset: PageAssets;
+
+  /**
+   * Set of urls of the root site and subsites' root directories.
+   */
+  baseUrlMap: Set<string>;
+
+  dev: boolean;
+  faviconUrl?: string;
+  frontmatterOverride: { [frontmatterName: string]: string };
+  layout?: string;
+  layoutsAssetPath: string;
+  pluginManager: any;
+  /**
+   * The output path of this page
+   */
+  resultPath: string;
+  rootPath: string;
+  searchable: boolean;
+  siteLinkManager: any;
+  siteOutputPath: string;
+  /**
+   * The source file's (.md) file path for rendering this page
+   */
+  sourcePath: string;
+  /**
+   * The source file's (.md) posix relative file path for rendering this page
+   */
+  src: string;
+  title: string;
+  template: any;
+  variableProcessor: any;
+  addressablePagesSource: string[];
+  layoutManager: any;
+
+  constructor(args: {
+    asset: PageAssets;
+    baseUrlMap: Set<string>;
+    dev: boolean;
+    faviconUrl?: string;
+    frontmatterOverride?: { [frontmatterName: string]: string },
+    layout?: string,
+    layoutsAssetPath: string;
+    pluginManager: any,
+    resultPath: string;
+    rootPath: string;
+    searchable: boolean;
+    siteLinkManager: any;
+    siteOutputPath: string;
+    sourcePath: string;
+    src: string;
+    title?: string;
+    template: any;
+    variableProcessor: any;
+    addressablePagesSource: string[];
+    layoutManager: any;
+  }) {
     this.asset = args.asset;
-    /**
-     * @type {Set<string>} the set of urls representing the sites' base directories
-     */
     this.baseUrlMap = args.baseUrlMap;
-    /**
-     * @type {boolean}
-     */
     this.dev = args.dev;
-    /**
-     * @type {string}
-     */
     this.faviconUrl = args.faviconUrl;
-    /**
-     * @type {Object<string, any>|{}}
-     */
     this.frontmatterOverride = args.frontmatterOverride || {};
-    /**
-     * @type {string}
-     */
     this.layout = args.layout;
-    /**
-     * @type {string}
-     */
     this.layoutsAssetPath = args.layoutsAssetPath;
-    /**
-     * @type {PluginManager}
-     */
     this.pluginManager = args.pluginManager;
-    /**
-     * The output path of this page
-     * @type {string}
-     */
     this.resultPath = args.resultPath;
-    /**
-     * @type {string}
-     */
     this.rootPath = args.rootPath;
-    /**
-     * @type {boolean}
-     */
-    this.searchable = !!args.searchable;
-    /**
-     * @type {SiteLinkManager}
-     */
+    this.searchable = args.searchable;
     this.siteLinkManager = args.siteLinkManager;
-    /**
-     * @type {string}
-     */
     this.siteOutputPath = args.siteOutputPath;
-    /**
-     * The source file for rendering this page
-     * @type {string}
-     */
     this.sourcePath = args.sourcePath;
-    /**
-     * @type {string}
-     */
     this.src = args.src;
-    /**
-     * @type {string|string}
-     */
     this.title = args.title || '';
-    /**
-     * @type {string}
-     */
     this.template = args.template;
-    /**
-     * @type {VariableProcessor}
-     */
     this.variableProcessor = args.variableProcessor;
-    /**
-     * Array of page source objects
-     * @type {Array}
-     */
     this.addressablePagesSource = args.addressablePagesSource;
-    /**
-     * @type {LayoutManager}
-     */
     this.layoutManager = args.layoutManager;
   }
 }
-
-module.exports = {
-  PageConfig,
-};
