@@ -1,20 +1,22 @@
-const cheerio = require('cheerio');
+import cheerio from 'cheerio';
+import { DomElement } from 'htmlparser2';
+import pick from 'lodash/pick';
 
-const _ = {};
-_.pick = require('lodash/pick');
+const _ = { pick };
 
-module.exports = {
-  createErrorNode(element, error) {
-    const errorElement = cheerio.parseHTML(
-      `<div style="color: red">${error.message}</div>`, true)[0];
-    return Object.assign(element, _.pick(errorElement, ['name', 'attribs', 'children']));
-  },
+export function createErrorNode(element: DomElement, error: any) {
+  const errorElement = cheerio.parseHTML(
+    `<div style="color: red">${error.message}</div>`, undefined, true,
+  )[0];
+  return Object.assign(element, _.pick(errorElement, ['name', 'attribs', 'children']));
+}
 
-  createEmptyNode() {
-    return cheerio.parseHTML('<div></div>', true)[0];
-  },
+export function createEmptyNode() {
+  return cheerio.parseHTML('<div></div>', undefined, true)[0];
+}
 
-  createSlotTemplateNode(slotName, content) {
-    return cheerio.parseHTML(`<template #${slotName}>${content}</template>`, true);
-  },
-};
+export function createSlotTemplateNode(slotName: string, content: string) {
+  return cheerio.parseHTML(
+    `<template #${slotName}>${content}</template>`, undefined, true,
+  );
+}

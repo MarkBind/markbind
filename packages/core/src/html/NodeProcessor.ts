@@ -1,19 +1,28 @@
-const path = require('path');
+import path from 'path';
+import cheerio from 'cheerio';
+import htmlparser, { DomElement } from 'htmlparser2';
+import Promise from 'bluebird';
+import isArray from 'lodash/isArray';
+import has from 'lodash/has';
 
-const cheerio = require('cheerio');
-const htmlparser = require('htmlparser2'); require('../patches/htmlparser2');
+import { ATTRIB_CWF } from '../constants';
+import { Context } from './Context';
+import { PageSources } from '../Page/PageSources';
+import { isMarkdownFileExt } from '../utils/fsUtil';
+import * as logger from '../utils/logger';
+
 const fm = require('fastmatter');
-const Promise = require('bluebird');
 
-const _ = {};
-_.isArray = require('lodash/isArray');
-_.cloneDeep = require('lodash/cloneDeep');
-_.has = require('lodash/has');
-_.find = require('lodash/find');
+const _ = {
+  isArray,
+  has,
+};
+
+// Load our htmlparser2 patch for supporting "special" tags
+require('../patches/htmlparser2');
 
 const { PageNavProcessor, renderSiteNav, addSitePageNavPortal } = require('./siteAndPageNavProcessor');
 const { processInclude, processPanelSrc, processPopoverSrc } = require('./includePanelProcessor');
-const { Context } = require('./Context');
 const linkProcessor = require('./linkProcessor');
 const { highlightCodeBlock, setCodeLineNumbers } = require('./codeblockProcessor');
 const { setHeadingId, assignPanelId } = require('./headerProcessor');
@@ -25,47 +34,55 @@ const { warnConflictingAtributesMap, warnDeprecatedAtributesMap } = require('./w
 const { processScriptAndStyleTag } = require('./scriptAndStyleTagProcessor');
 const { createErrorNode } = require('./elements');
 
-const fsUtil = require('../utils/fsUtil');
-const logger = require('../utils/logger');
-
-const {
-  ATTRIB_CWF,
-} = require('../constants');
-
 const FRONT_MATTER_FENCE = '---';
 
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
-class NodeProcessor {
-  constructor(config, pageSources, variableProcessor, pluginManager,
-              siteLinkManager, userScriptsAndStyles, docId = '') {
-    this.config = config;
-    this.frontMatter = {};
+export class NodeProcessor {
+  frontMatter: { [key: string]: string } = {};
 
-    this.headTop = [];
-    this.headBottom = [];
-    this.scriptBottom = [];
-    this.userScriptsAndStyles = userScriptsAndStyles;
+  headTop: string[] = [];
+  headBottom: string[] = [];
+  scriptBottom: string[] = [];
 
-    this.pageSources = pageSources;
-    this.variableProcessor = variableProcessor;
-    this.pluginManager = pluginManager;
-    this.siteLinkManager = siteLinkManager;
+  markdownProcessor: any;
+  footnoteProcessor = new FootnoteProcessor();
+  mdAttributeRenderer: any;
+  pageNavProcessor = new PageNavProcessor();
 
+  processedModals: { [id: string]: boolean } = {};
+
+  constructor(
+    private config: {
+      baseUrl: string,
+      baseUrlMap: Set<string>,
+      rootPath: string,
+      outputPath: string,
+      ignore: string[],
+      addressablePagesSource: string[],
+      intrasiteLinkValidation: { enabled: boolean },
+      codeLineNumbers: boolean,
+      plantumlCheck: boolean,
+      headerIdMap: {
+        [id: string]: number,
+      },
+    },
+    private pageSources: PageSources,
+    private variableProcessor: any,
+    private pluginManager: any,
+    private siteLinkManager: any,
+    private userScriptsAndStyles: string[],
+    docId = '',
+  ) {
     this.markdownProcessor = new MarkdownProcessor(docId);
-
-    this.footnoteProcessor = new FootnoteProcessor();
     this.mdAttributeRenderer = new MdAttributeRenderer(this.markdownProcessor);
-    this.pageNavProcessor = new PageNavProcessor();
-
-    this.processedModals = {};
   }
 
   /*
    * Private utility functions
    */
 
-  static _trimNodes(node) {
+  static _trimNodes(node: DomElement) {
     if (node.name === 'pre' || node.name === 'code') {
       return;
     }
@@ -83,23 +100,24 @@ class NodeProcessor {
     }
   }
 
-  static _isText(node) {
+  static _isText(node: DomElement) {
     return node.type === 'text' || node.type === 'comment';
   }
 
   /*
    * FrontMatter collection
    */
-  _processFrontMatter(node, context) {
+  _processFrontMatter(node: DomElement, context: Context) {
     let currentFrontMatter = {};
     const frontMatter = cheerio(node);
     if (!context.processingOptions.omitFrontmatter && frontMatter.text().trim()) {
       // Retrieves the front matter from either the first frontmatter element
       // or from a frontmatter element that includes from another file
       // The latter case will result in the data being wrapped in a div
-      const frontMatterData = frontMatter.find('div').length
-        ? frontMatter.find('div')[0].children[0].data
-        : frontMatter[0].children[0].data;
+      const frontMatterIncludeDiv = frontMatter.find('div');
+      const frontMatterData = frontMatterIncludeDiv.length
+        ? ((frontMatterIncludeDiv[0] as DomElement).children as DomElement[])[0].data
+        : ((frontMatter[0] as DomElement).children as DomElement[])[0].data;
       const frontMatterWrapped = `${FRONT_MATTER_FENCE}\n${frontMatterData}\n${FRONT_MATTER_FENCE}`;
 
       currentFrontMatter = fm(frontMatterWrapped).attributes;
@@ -116,34 +134,41 @@ class NodeProcessor {
    * Layout element collection
    */
 
-  _collectLayoutEl(node, property) {
+  private static collectLayoutEl(node: DomElement): string | null {
     const $ = cheerio(node);
-    this[property].push($.html());
+    const html = $.html();
     $.remove();
+    return html;
   }
 
   /**
    * Removes the node if modal id already exists, processes node otherwise
    */
-  _processModal(node) {
-    if (this.processedModals[node.attribs.id]) {
-      cheerio(node).remove();
-    } else {
-      this.processedModals[node.attribs.id] = true;
+  private processModal(node: DomElement) {
+    if (node.attribs) {
+      if (this.processedModals[node.attribs.id]) {
+        cheerio(node).remove();
+      } else {
+        this.processedModals[node.attribs.id] = true;
 
-      // Transform deprecated slot names; remove when deprecating
-      renameSlot(node, 'modal-header', 'header');
-      renameSlot(node, 'modal-footer', 'footer');
+        // Transform deprecated slot names; remove when deprecating
+        renameSlot(node, 'modal-header', 'header');
+        renameSlot(node, 'modal-footer', 'footer');
 
-      this.mdAttributeRenderer.processModalAttributes(node);
+        this.mdAttributeRenderer.processModalAttributes(node);
+      }
     }
   }
 
   /*
    * API
    */
-  processNode(node, context) {
+  processNode(node: DomElement, context: Context) {
     try {
+      if (!node.name || !node.attribs) {
+        return node;
+      }
+
       transformOldSlotSyntax(node);
       shiftSlotNodeDeeper(node);
 
@@ -162,8 +187,8 @@ class NodeProcessor {
       case 'include':
         this.markdownProcessor.docId += 1; // used in markdown-it-footnotes
         return processInclude(node, context, this.pageSources, this.variableProcessor,
-                              text => this.markdownProcessor.renderMd(text),
-                              text => this.markdownProcessor.renderMdInline(text),
+                              (text: string) => this.markdownProcessor.renderMd(text),
+                              (text: string) => this.markdownProcessor.renderMdInline(text),
                               this.config);
       case 'panel':
         this.mdAttributeRenderer.processPanelAttributes(node);
@@ -180,12 +205,12 @@ class NodeProcessor {
       case 'popover':
         this.mdAttributeRenderer.processPopoverAttributes(node);
         return processPopoverSrc(node, context, this.pageSources, this.variableProcessor,
-                                 text => this.markdownProcessor.renderMd(text), this.config);
+                                 (text: string) => this.markdownProcessor.renderMd(text), this.config);
       case 'tooltip':
         this.mdAttributeRenderer.processTooltip(node);
         break;
       case 'modal':
-        this._processModal(node);
+        this.processModal(node);
         break;
       case 'tab':
       case 'tab-group':
@@ -238,7 +263,7 @@ class NodeProcessor {
     return context;
   }
 
-  postProcessNode(node) {
+  postProcessNode(node: DomElement) {
     try {
       switch (node.name) {
       case 'pre':
@@ -247,15 +272,27 @@ class NodeProcessor {
       case 'panel':
         assignPanelId(node);
         break;
-      case 'head-top':
-        this._collectLayoutEl(node, 'headTop');
+      case 'head-top': {
+        const collected = NodeProcessor.collectLayoutEl(node);
+        if (collected) {
+          this.headTop.push(collected);
+        }
         break;
-      case 'head-bottom':
-        this._collectLayoutEl(node, 'headBottom');
+      }
+      case 'head-bottom': {
+        const collected = NodeProcessor.collectLayoutEl(node);
+        if (collected) {
+          this.headBottom.push(collected);
+        }
         break;
-      case 'script-bottom':
-        this._collectLayoutEl(node, 'scriptBottom');
+      }
+      case 'script-bottom': {
+        const collected = NodeProcessor.collectLayoutEl(node);
+        if (collected) {
+          this.scriptBottom.push(collected);
+        }
         break;
+      }
       default:
         break;
       }
@@ -268,9 +305,9 @@ class NodeProcessor {
     }
   }
 
-  _process(node, context) {
+  private traverse(node: DomElement, context: Context): DomElement | DomElement[] {
     if (_.isArray(node)) {
-      return node.map(el => this._process(el, context));
+      return node.map(el => this.traverse(el, context) as DomElement);
     }
     if (NodeProcessor._isText(node)) {
       return node;
@@ -291,12 +328,20 @@ class NodeProcessor {
     case 'md':
       node.name = 'span';
       node.children = cheerio.parseHTML(
-        this.markdownProcessor.renderMdInline(cheerio.html(node.children)), true);
+        // TODO figure this typing out
+        this.markdownProcessor.renderMdInline(cheerio.html(node.children as unknown as cheerio.Element)),
+        undefined, true,
+        // TODO figure this typing out
+      ) as unknown as DomElement[];
       break;
     case 'markdown':
       node.name = 'div';
       node.children = cheerio.parseHTML(
-        this.markdownProcessor.renderMd(cheerio.html(node.children)), true);
+        // TODO figure this typing out
+        this.markdownProcessor.renderMd(cheerio.html(node.children as unknown as cheerio.Element)),
+        undefined, true,
+        // TODO figure this typing out
+      ) as unknown as DomElement[];
       break;
     default:
       break;
@@ -308,7 +353,7 @@ class NodeProcessor {
 
     if (node.children) {
       node.children.forEach((child) => {
-        this._process(child, context);
+        this.traverse(child, context);
       });
     }
 
@@ -316,14 +361,16 @@ class NodeProcessor {
 
     addSitePageNavPortal(node);
 
-    const isHeadingTag = (/^h[1-6]$/).test(node.name);
-    if (isHeadingTag && !node.attribs.id) {
-      setHeadingId(node, this.config);
-    }
+    if (node.name) {
+      const isHeadingTag = (/^h[1-6]$/).test(node.name);
+      if (isHeadingTag && !node.attribs?.id) {
+        setHeadingId(node, this.config);
+      }
 
-    // Generate dummy spans as anchor points for header[sticky]
-    if (isHeadingTag && node.attribs.id) {
-      cheerio(node).prepend(`<span id="${node.attribs.id}" class="anchor"></span>`);
+      // Generate dummy spans as anchor points for header[sticky]
+      if (isHeadingTag && node.attribs?.id) {
+        cheerio(node).prepend(`<span id="${node.attribs.id}" class="anchor"></span>`);
+      }
     }
 
     this.pluginManager.postProcessNode(node, this.config);
@@ -331,7 +378,12 @@ class NodeProcessor {
     return node;
   }
 
-  process(file, content, cwf = file, extraVariables = {}) {
+  process(
+    file: string,
+    content: string,
+    cwf: string = file,
+    extraVariables: { [variableName: string]: string } = {},
+  ) {
     const context = new Context(cwf, [], extraVariables, {});
 
     return new Promise((resolve, reject) => {
@@ -343,8 +395,8 @@ class NodeProcessor {
         const mainHtmlNodes = dom.map((d) => {
           let processed;
           try {
-            processed = this._process(d, context);
-          } catch (err) {
+            processed = this.traverse(d, context);
+          } catch (err: any) {
             err.message += `\nError while rendering '${file}'`;
             logger.error(err);
             processed = createErrorNode(d, err);
@@ -353,7 +405,9 @@ class NodeProcessor {
         });
         mainHtmlNodes.forEach(d => NodeProcessor._trimNodes(d));
 
-        const footnotesHtml = this.footnoteProcessor.combineFootnotes(node => this.processNode(node));
+        const footnotesHtml = this.footnoteProcessor.combineFootnotes((node: DomElement) => this.processNode(
+          node, new Context(cwf, [], extraVariables, {}),
+        ));
         const mainHtml = cheerio(mainHtmlNodes).html();
         const mainHtmlWithUniqPageNavUuid = this.pageNavProcessor.finalizePageNavUuid(
           mainHtml, mainHtmlNodes, footnotesHtml);
@@ -362,7 +416,7 @@ class NodeProcessor {
       });
       const parser = new htmlparser.Parser(handler);
       const fileExt = path.extname(file);
-      if (fsUtil.isMarkdownFileExt(fileExt)) {
+      if (isMarkdownFileExt(fileExt)) {
         const renderedContent = this.markdownProcessor.renderMd(content);
         // Wrap with <root> as $.remove() does not work on top level nodes
         parser.parseComplete(`<root>${renderedContent}</root>`);
@@ -375,7 +429,3 @@ class NodeProcessor {
     });
   }
 }
-
-module.exports = {
-  NodeProcessor,
-};

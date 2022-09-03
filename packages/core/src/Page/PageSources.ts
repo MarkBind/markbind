@@ -1,24 +1,23 @@
-const _ = {};
-_.clone = require('lodash/clone');
+import clone from 'lodash/clone';
 
-class PageSources {
-  constructor() {
-    this.dynamicIncludeSrc = [];
-    this.staticIncludeSrc = [];
-    this.missingIncludeSrc = [];
-  }
+const _ = { clone };
 
-  getDynamicIncludeSrc() {
+interface Src {
+  to: string,
+}
+
+export class PageSources {
+  dynamicIncludeSrc: Src[] = [];
+  staticIncludeSrc: Src[] = [];
+  missingIncludeSrc: Src[] = [];
+
+  getDynamicIncludeSrc(): Src[] {
     return _.clone(this.dynamicIncludeSrc);
   }
 
-  addAllToSet(set) {
+  addAllToSet(set: Set<String>): void {
     this.dynamicIncludeSrc.forEach(dependency => set.add(dependency.to));
     this.staticIncludeSrc.forEach(dependency => set.add(dependency.to));
     this.missingIncludeSrc.forEach(dependency => set.add(dependency.to));
   }
 }
-
-module.exports = {
-  PageSources,
-};
