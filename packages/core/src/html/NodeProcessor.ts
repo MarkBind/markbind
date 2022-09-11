@@ -7,6 +7,7 @@ import has from 'lodash/has';
 
 import { ATTRIB_CWF } from '../constants';
 import { Context } from './Context';
+import { createErrorNode } from './elements';
 import { PageSources } from '../Page/PageSources';
 import { isMarkdownFileExt } from '../utils/fsUtil';
 import * as logger from '../utils/logger';
@@ -32,7 +33,6 @@ const { MdAttributeRenderer } = require('./MdAttributeRenderer');
 const { shiftSlotNodeDeeper, transformOldSlotSyntax, renameSlot } = require('./vueSlotSyntaxProcessor');
 const { warnConflictingAtributesMap, warnDeprecatedAtributesMap } = require('./warnings');
 const { processScriptAndStyleTag } = require('./scriptAndStyleTagProcessor');
-const { createErrorNode } = require('./elements');
 
 const FRONT_MATTER_FENCE = '---';
 
@@ -305,7 +305,7 @@ export class NodeProcessor {
     }
   }
 
-  private traverse(node: DomElement, context: Context): DomElement | DomElement[] {
+  private traverse(node: DomElement, context: Context): DomElement {
     if (NodeProcessor._isText(node)) {
       return node;
     }
