@@ -306,9 +306,6 @@ export class NodeProcessor {
   }
 
   private traverse(node: DomElement, context: Context): DomElement | DomElement[] {
-    if (_.isArray(node)) {
-      return node.map(el => this.traverse(el, context) as DomElement);
-    }
     if (NodeProcessor._isText(node)) {
       return node;
     }
@@ -327,21 +324,15 @@ export class NodeProcessor {
     switch (node.name) {
     case 'md':
       node.name = 'span';
-      node.children = cheerio.parseHTML(
-        // TODO figure this typing out
+      cheerio(node).html(
         this.markdownProcessor.renderMdInline(cheerio.html(node.children as unknown as cheerio.Element)),
-        undefined, true,
-        // TODO figure this typing out
-      ) as unknown as DomElement[];
+      );
       break;
     case 'markdown':
       node.name = 'div';
-      node.children = cheerio.parseHTML(
-        // TODO figure this typing out
+      cheerio(node).html(
         this.markdownProcessor.renderMd(cheerio.html(node.children as unknown as cheerio.Element)),
-        undefined, true,
-        // TODO figure this typing out
-      ) as unknown as DomElement[];
+      );
       break;
     default:
       break;
