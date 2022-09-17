@@ -138,7 +138,8 @@ export default {
 
         if (totalPageMatches > 0) {
           const pageHeadings = [];
-          Object.entries(headings).forEach(([id, text]) => {
+
+          Object.entries(headings).forEach(([id, text], idx) => {
             const matchesHeading = regexes.some(regex => regex.test(text));
             const matchesKeywords = headingKeywords[id] && headingKeywords[id]
               .some(keyword => regexes.some(regex => regex.test(keyword)));
@@ -150,12 +151,14 @@ export default {
               ];
               const totalHeadingMatches = getTotalMatches(headingSearchTargets, regexes);
 
-              pageHeadings.push({
-                heading: { id, text },
-                keywords: headingKeywords[id],
-                src,
-                totalMatches: totalHeadingMatches,
-              });
+              if (!(idx === 0 && text === displayTitle && !keywords.length)) {
+                pageHeadings.push({
+                  heading: { id, text },
+                  keywords: headingKeywords[id],
+                  src,
+                  totalMatches: totalHeadingMatches,
+                });
+              }
             }
           });
           pageHeadings.sort((a, b) => b.totalMatches - a.totalMatches);
