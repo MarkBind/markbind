@@ -141,11 +141,8 @@ class Page {
     if (this.siteConfig.titleSuffix) {
       title = (title ? title + TITLE_SUFFIX_SEPARATOR : '') + this.siteConfig.titleSuffix;
     }
-    // construct temporary asset object with only POSIX-style paths
-    const asset = {};
-    Object.entries(this.asset).forEach(([key, value]) => {
-      asset[key] = _.isString(value) ? fsUtil.ensurePosix(value) : value;
-    });
+
+    const asset = { ...this.asset };
     return {
       asset,
       baseUrl: this.siteConfig.baseUrl,
