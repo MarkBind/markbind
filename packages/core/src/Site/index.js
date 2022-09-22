@@ -281,38 +281,38 @@ class Site {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
     const resultPath = path.join(this.outputPath, fsUtil.setExtension(config.pageSrc, '.html'));
 
-    const baseRelativePath = path.posix.join(
+    const baseAssetsPath = path.posix.join(
       this.siteConfig.baseUrl || '/', TEMPLATE_SITE_ASSET_FOLDER_NAME,
     );
 
     const pageConfig = new PageConfig({
       asset: {
-        bootstrap: path.posix.join(baseRelativePath, 'css', 'bootstrap.min.css'),
+        bootstrap: path.posix.join(baseAssetsPath, 'css', 'bootstrap.min.css'),
         externalScripts: _.union(this.siteConfig.externalScripts, config.externalScripts),
-        fontAwesome: path.posix.join(baseRelativePath, 'fontawesome', 'css', 'all.min.css'),
-        glyphicons: path.posix.join(baseRelativePath, 'glyphicons', 'css', 'bootstrap-glyphicons.min.css'),
-        octicons: path.posix.join(baseRelativePath, 'css', 'octicons.css'),
-        materialIcons: path.posix.join(baseRelativePath, 'material-icons', 'material-icons.css'),
-        highlight: path.posix.join(baseRelativePath, 'css',
+        fontAwesome: path.posix.join(baseAssetsPath, 'fontawesome', 'css', 'all.min.css'),
+        glyphicons: path.posix.join(baseAssetsPath, 'glyphicons', 'css', 'bootstrap-glyphicons.min.css'),
+        octicons: path.posix.join(baseAssetsPath, 'css', 'octicons.css'),
+        materialIcons: path.posix.join(baseAssetsPath, 'material-icons', 'material-icons.css'),
+        highlight: path.posix.join(baseAssetsPath, 'css',
                                    HIGHLIGHT_ASSETS[this.siteConfig.style.codeTheme]),
-        markBindCss: path.posix.join(baseRelativePath, 'css', 'markbind.min.css'),
-        markBindJs: path.posix.join(baseRelativePath, 'js', 'markbind.min.js'),
-        pageNavCss: path.posix.join(baseRelativePath, 'css', 'page-nav.css'),
-        siteNavCss: path.posix.join(baseRelativePath, 'css', 'site-nav.css'),
-        bootstrapUtilityJs: path.posix.join(baseRelativePath, 'js', 'bootstrap-utility.min.js'),
-        polyfillJs: path.posix.join(baseRelativePath, 'js', 'polyfill.min.js'),
+        markBindCss: path.posix.join(baseAssetsPath, 'css', 'markbind.min.css'),
+        markBindJs: path.posix.join(baseAssetsPath, 'js', 'markbind.min.js'),
+        pageNavCss: path.posix.join(baseAssetsPath, 'css', 'page-nav.css'),
+        siteNavCss: path.posix.join(baseAssetsPath, 'css', 'site-nav.css'),
+        bootstrapUtilityJs: path.posix.join(baseAssetsPath, 'js', 'bootstrap-utility.min.js'),
+        polyfillJs: path.posix.join(baseAssetsPath, 'js', 'polyfill.min.js'),
         // We use development Vue when MarkBind is served in 'dev' mode so that hydration issues are reported
         vue: this.dev
           ? 'https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js'
-          : path.posix.join(baseRelativePath, 'js', 'vue.min.js'),
-        jQuery: path.posix.join(baseRelativePath, 'js', 'jquery.min.js'),
+          : path.posix.join(baseAssetsPath, 'js', 'vue.min.js'),
+        jQuery: path.posix.join(baseAssetsPath, 'js', 'jquery.min.js'),
       },
       baseUrlMap: this.baseUrlMap,
       dev: this.dev,
       faviconUrl: config.faviconUrl,
       frontmatterOverride: config.frontmatter,
       layout: config.layout,
-      layoutsAssetPath: path.posix.join(baseRelativePath, LAYOUT_SITE_FOLDER_NAME),
+      layoutsAssetPath: path.posix.join(baseAssetsPath, LAYOUT_SITE_FOLDER_NAME),
       pluginManager: this.pluginManager,
       resultPath,
       rootPath: this.rootPath,

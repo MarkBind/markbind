@@ -15,7 +15,6 @@ const { CyclicReferenceError } = require('../errors');
 const { PageSources } = require('./PageSources');
 const { NodeProcessor } = require('../html/NodeProcessor');
 
-const fsUtil = require('../utils/fsUtil');
 const logger = require('../utils/logger');
 
 const PACKAGE_VERSION = require('../../package.json').version;
