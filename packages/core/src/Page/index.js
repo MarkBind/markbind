@@ -7,7 +7,6 @@ const { pageVueServerRenderer } = require('./PageVueServerRenderer');
 
 const _ = {};
 _.cloneDeep = require('lodash/cloneDeep');
-_.isString = require('lodash/isString');
 _.isObject = require('lodash/isObject');
 _.isArray = require('lodash/isArray');
 
@@ -141,9 +140,8 @@ class Page {
       title = (title ? title + TITLE_SUFFIX_SEPARATOR : '') + this.siteConfig.titleSuffix;
     }
 
-    const asset = { ...this.asset };
     return {
-      asset,
+      asset: { ...this.asset },
       baseUrl: this.siteConfig.baseUrl,
       content,
       pageUserScriptsAndStyles: this.pageUserScriptsAndStyles.join('\n'),
