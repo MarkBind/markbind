@@ -1,13 +1,14 @@
-const path = require('path');
+import path from 'path';
+import nunjucks, { Environment } from 'nunjucks';
 
-require('../patches/nunjucks'); // load patch first
-const nunjucks = require('nunjucks');
-const {
+import { PageSources } from '../Page/PageSources';
+import {
   dateFilter,
   SetExternalExtension,
-} = require('../lib/nunjucks-extensions');
+} from '../lib/nunjucks-extensions';
+import * as fsUtil from '../utils/fsUtil';
 
-const fsUtil = require('../utils/fsUtil');
+require('../patches/nunjucks'); // load patch
 
 const unescapedEnv = nunjucks.configure({ autoescape: false })
   .addFilter('date', dateFilter);
@@ -16,16 +17,11 @@ const unescapedEnv = nunjucks.configure({ autoescape: false })
  * Wrapper class over a nunjucks environment configured for the respective (sub)site.
  */
 class VariableRenderer {
-  constructor(siteRootPath) {
-    /**
-     * @type {string}
-     */
-    this.siteRootPath = siteRootPath;
-    /**
-     * @type {PageSources}
-     */
-    this.pageSources = undefined;
+  private pageSources = new PageSources();
 
+  private nj: Environment;
+
+  constructor(private siteRootPath: string) {
     this.nj = nunjucks.configure(siteRootPath, { autoescape: false });
     this.nj.addFilter('date', dateFilter);
     this.nj.addExtension('SetExternalExtension', new SetExternalExtension(siteRootPath, this.nj));
@@ -38,10 +34,14 @@ class VariableRenderer {
    * Processes content with the instance's nunjucks environment.
    * @param content to process
    * @param variables to render the content with
-   * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
-   * @return {String} nunjucks processed content
+   * @param pageSources to add dependencies found during nunjucks rendering to
+   * @return nunjucks processed content
    */
-  renderString(content, variables, pageSources) {
+  renderString(
+    content: string,
+    variables: { [key: string]: any },
+    pageSources: PageSources,
+  ) {
     this.pageSources = pageSources;
     return this.nj.renderString(content, variables);
   }
@@ -50,10 +50,14 @@ class VariableRenderer {
    * Processes file content with the instance's nunjucks environment.
    * @param contentFilePath to process
    * @param variables to render the content with
-   * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
-   * @return {String} nunjucks processed content
+   * @param pageSources to add dependencies found during nunjucks rendering to
+   * @return nunjucks processed content
    */
-  renderFile(contentFilePath, variables, pageSources) {
+  renderFile(
+    contentFilePath: string,
+    variables: { [key: string]: any },
+    pageSources: PageSources,
+  ) {
     this.pageSources = pageSources;
     const templateName = fsUtil.ensurePosix(path.relative(this.siteRootPath, contentFilePath));
     return this.nj.render(templateName, variables);
@@ -63,6 +67,8 @@ class VariableRenderer {
    Invalidate the internal nunjucks template cache
    */
   invalidateCache() {
+    // Custom method from our patch
+    // @ts-ignore
     this.nj.invalidateCache();
   }
 
@@ -72,9 +78,9 @@ class VariableRenderer {
    * involving path resolving are used.
    * @param templatePath of the template to compile
    */
-  static compile(templatePath) {
+  static compile(templatePath: string) {
     return nunjucks.compile(templatePath, unescapedEnv);
   }
 }
 
-module.exports = VariableRenderer;
+export = VariableRenderer;

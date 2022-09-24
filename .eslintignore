@@ -17,7 +17,12 @@ packages/core/src/Site/SiteConfig.js
 packages/core/src/html/elements.js
 packages/core/src/html/Context.js
 packages/core/src/html/NodeProcessor.js
+packages/core/src/lib/nunjucks-extensions/index.js
+packages/core/src/lib/nunjucks-extensions/nunjucks-date.js
+packages/core/src/lib/nunjucks-extensions/set-external.js
 packages/core/src/Page/PageSources.js
+packages/core/src/variables/VariableProcessor.js
+packages/core/src/variables/VariableRenderer.js
 
 # Rules for pure JS files
 packages/core/src/lib/markdown-it/patches/*

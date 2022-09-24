@@ -1,21 +1,12 @@
-const cheerio = require('cheerio');
+import cheerio from 'cheerio';
+import { DomElement } from 'htmlparser2';
 
-const _ = {};
-_.clone = require('lodash/clone');
-_.cloneDeep = require('lodash/cloneDeep');
-_.has = require('lodash/has');
-_.isArray = require('lodash/isArray');
-_.isEmpty = require('lodash/isEmpty');
-
-const VariableRenderer = require('./VariableRenderer');
-const { PageSources } = require('../Page/PageSources');
-
-const logger = require('../utils/logger');
-const urlUtil = require('../utils/urlUtil');
-
-const {
-  ATTRIB_CWF,
-} = require('../constants');
+import { ATTRIB_CWF } from '../constants';
+import { PageSources } from '../Page/PageSources';
+import VariableRenderer from './VariableRenderer';
+import * as logger from '../utils/logger';
+import * as urlUtil from '../utils/urlUtil';
+import { Context } from '../html/Context';
 
 /**
  * All variable extraction and rendering is done here.
@@ -44,32 +35,28 @@ const {
  *    render the content with the page variables extracted from (3) as well.
  */
 class VariableProcessor {
-  constructor(rootPath, baseUrlMap) {
-    /**
-     * Root site path
-     * @type {string}
-     */
-    this.rootPath = rootPath;
+  /**
+   * Map of sites' root paths to their variables
+   */
+  userDefinedVariablesMap: {
+    [rootPath: string]: { [key: string]: any },
+  } = {};
 
+  /**
+   * Map of sites' root paths to the respective VariableRenderer instances
+   */
+  variableRendererMap: {
+    [rootPath: string]: VariableRenderer
+  } = {};
+
+  constructor(
+    private rootPath: string,
     /**
      * Set of sites' root paths, for resolving the provided file path in
      * rendering methods to the appropriate (sub)site's root path.
-     * @type {Set<string>}
      */
-    this.baseUrlMap = baseUrlMap;
-
-    /**
-     * Map of sites' root paths to their variables
-     * @type {Object<string, Object<string, any>>}
-     */
-    this.userDefinedVariablesMap = {};
-
-    /**
-     * Map of sites' root paths to the respective VariableRenderer instances
-     * @type {Object<string, VariableRenderer>}
-     */
-    this.variableRendererMap = {};
-
+    private baseUrlMap: Set<string>,
+  ) {
     // Set up userDefinedVariablesMap and variableRendererMap
     this.baseUrlMap.forEach((siteRootPath) => {
       this.userDefinedVariablesMap[siteRootPath] = {};
@@ -97,7 +84,7 @@ class VariableProcessor {
    * @param name of the variable to add
    * @param value of the variable
    */
-  addUserDefinedVariable(site, name, value) {
+  addUserDefinedVariable(site: string, name: string, value: any) {
     this.userDefinedVariablesMap[site][name] = value;
   }
 
@@ -105,7 +92,7 @@ class VariableProcessor {
    * Renders the variable in addition to adding it, unlike {@link addUserDefinedVariable}.
    * This is to allow using previously declared site variables in site variables declared later on.
    */
-  renderAndAddUserDefinedVariable(site, name, value) {
+  renderAndAddUserDefinedVariable(site: string, name: string, value: any) {
     const renderedVal = this.variableRendererMap[site].renderString(value, this.userDefinedVariablesMap[site],
                                                                     new PageSources());
     this.addUserDefinedVariable(site, name, renderedVal);
@@ -114,7 +101,7 @@ class VariableProcessor {
   /**
    * Version of {@link addUserDefinedVariable} that adds to all sites.
    */
-  addUserDefinedVariableForAllSites(name, value) {
+  addUserDefinedVariableForAllSites(name: string, value: any) {
     Object.keys(this.userDefinedVariablesMap)
       .forEach(base => this.addUserDefinedVariable(base, name, value));
   }
@@ -131,7 +118,7 @@ class VariableProcessor {
    * @param contentFilePath to look up.
    * @return {*} The appropriate (closest upwards) site variables map
    */
-  getParentSiteVariables(contentFilePath) {
+  private getParentSiteVariables(contentFilePath: string) {
     const parentSitePath = urlUtil.getParentSiteAbsolutePath(contentFilePath, this.rootPath,
                                                              this.baseUrlMap);
     return this.userDefinedVariablesMap[parentSitePath];
@@ -149,7 +136,11 @@ class VariableProcessor {
    * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
    * @param lowerPriorityVariables than the site variables, if any
    */
-  renderWithSiteVariables(contentFilePath, pageSources, lowerPriorityVariables = {}) {
+  renderWithSiteVariables(
+    contentFilePath: string,
+    pageSources: PageSources,
+    lowerPriorityVariables: { [key: string]: any } = {},
+  ) {
     const userDefinedVariables = this.getParentSiteVariables(contentFilePath);
     const parentSitePath = urlUtil.getParentSiteAbsolutePath(contentFilePath, this.rootPath,
                                                              this.baseUrlMap);
@@ -169,15 +160,15 @@ class VariableProcessor {
    * Extracts variables specified as <include var-xx="..."> in include elements.
    * @param includeElement to extract inline variables from
    */
-  static extractIncludeInlineVariables(includeElement) {
-    const includeInlineVariables = {};
+  private static extractIncludeInlineVariables(includeElement: DomElement) {
+    const includeInlineVariables: { [key: string]: any } = {};
 
-    Object.keys(includeElement.attribs).forEach((attribute) => {
+    Object.entries(includeElement.attribs || {}).forEach(([attribute, val]) => {
       if (!attribute.startsWith('var-')) {
         return;
       }
       const variableName = attribute.slice(4);
-      includeInlineVariables[variableName] = includeElement.attribs[attribute];
+      includeInlineVariables[variableName] = val;
     });
 
     return includeInlineVariables;
@@ -187,24 +178,26 @@ class VariableProcessor {
    * Extracts variables specified as <variable> in include elements.
    * @param includeElement to search child nodes for
    */
-  static extractIncludeChildElementVariables(includeElement) {
+  private static extractIncludeChildElementVariables(includeElement: DomElement) {
     if (!(includeElement.children && includeElement.children.length)) {
       return {};
     }
-    const includeChildVariables = {};
+    const includeChildVariables: { [key: string]: string } = {};
+    const includeElementAttribs = includeElement.attribs as { [s: string]: string };
 
     includeElement.children.forEach((child) => {
       if (child.name !== 'variable' && child.name !== 'span') {
         return;
       }
-      const variableName = child.attribs.name || child.attribs.id;
+      const childAttribs = child.attribs as { [s: string]: string };
+      const variableName = childAttribs.name || childAttribs.id;
       if (!variableName) {
-        logger.warn(`Missing 'name' or 'id' in variable for ${includeElement.attribs.src}'s include in ${
-          includeElement.attribs[ATTRIB_CWF]}.\n`);
+        logger.warn(`Missing 'name' or 'id' in variable for ${includeElementAttribs.src}'s include in ${
+          includeElementAttribs[ATTRIB_CWF]}.\n`);
         return;
       }
       if (!includeChildVariables[variableName]) {
-        includeChildVariables[variableName] = cheerio.html(child.children);
+        includeChildVariables[variableName] = cheerio(child).html() || '';
       }
     });
 
@@ -217,7 +210,7 @@ class VariableProcessor {
    * It is a subroutine for {@link renderIncludeFile}
    * @param includeElement include element to extract variables from
    */
-  static extractIncludeVariables(includeElement) {
+  private static extractIncludeVariables(includeElement: DomElement) {
     const includeInlineVariables = VariableProcessor.extractIncludeInlineVariables(includeElement);
     const includeChildVariables = VariableProcessor.extractIncludeChildElementVariables(includeElement);
 
@@ -236,14 +229,20 @@ class VariableProcessor {
    * Renders an <include> file with the supplied context, returning the rendered
    * content and new context with respect to the child content.
    * @param filePath of the included file source
-   * @param {PageSources} pageSources to add dependencies found during nunjucks rendering to
+   * @param pageSources to add dependencies found during nunjucks rendering to
    * @param node of the include element
-   * @param {Context} context object containing the parent <include> (if any) variables for the current
+   * @param context object containing the parent <include> (if any) variables for the current
    *        context, which has greater priority than the extracted include variables of the current context.
    * @param asIfAt where the included file should be rendered from
-   * @return {Object} object containing the nunjucks-processed content, and a new {@link Context} object
+   * @return object containing the nunjucks-processed content, and a new {@link Context} object
    */
-  renderIncludeFile(filePath, pageSources, node, context, asIfAt) {
+  renderIncludeFile(
+    filePath: string,
+    pageSources: PageSources,
+    node: DomElement,
+    context: Context,
+    asIfAt: string,
+  ) {
     // Extract included variables from the include element, merging with the parent context variables
     const includeVariables = VariableProcessor.extractIncludeVariables(node);
 
@@ -266,4 +265,4 @@ class VariableProcessor {
   }
 }
 
-module.exports = VariableProcessor;
+export = VariableProcessor;

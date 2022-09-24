@@ -1,17 +1,14 @@
-const fs = require('fs-extra');
-const path = require('path');
+import fs from 'fs-extra';
+import path from 'path';
+import csvParse from 'csv-parse/lib/sync';
+import { Environment, Extension } from 'nunjucks';
+// Type definitions are undefined / documented and in flux for these. See the source.
+// @ts-ignore
+import { Parser } from 'nunjucks/src/parser';
+// @ts-ignore
+import { lex } from 'nunjucks/src/lexer';
 
-const { Parser } = require('nunjucks/src/parser');
-const { lex } = require('nunjucks/src/lexer');
-
-const csvParse = require('csv-parse/lib/sync');
-
-const _ = {};
-_.isArray = require('lodash/isArray');
-_.isObject = require('lodash/isObject');
-_.isString = require('lodash/isString');
-
-const logger = require('../../utils/logger');
+import * as logger from '../../utils/logger';
 
 const acceptedFileTypes = ['json', 'csv'];
 
@@ -19,19 +16,18 @@ const acceptedFileTypes = ['json', 'csv'];
  * Nunjucks extension for sourcing in variables from external sources.
  * Supports only .json and .csv sources for now.
  */
-class SetExternalExtension {
-  constructor(rootPath, env) {
-    this.tags = ['ext'];
-    this.rootPath = rootPath;
-    this.env = env;
-  }
+export class SetExternalExtension implements Extension {
+  tags = ['ext'];
 
-  emitLoad(fullPath) {
-    // Emit the nunjucks load event for the listener in {@link VariableRenderer}
+  constructor(private rootPath: string, private env: Environment) {}
+
+  emitLoad(fullPath: string) {
+    // Emit the nunjucks load event for the listener in {@link VariableRenderer}. No type defs.
+    // @ts-ignore
     this.env.emit('load', '', { path: fullPath });
   }
 
-  parse(parser, nodes, lexer) {
+  parse(parser: any, nodes: any, lexer: any) {
     // get the tag token
     const setExtTagToken = parser.nextToken();
 
@@ -41,15 +37,15 @@ class SetExternalExtension {
     parser.advanceAfterBlockEnd(setExtTagToken.value);
 
     const options = args.children
-      .filter(child => !(child instanceof nodes.KeywordArgs))
-      .map(child => child.value);
+      .filter((child: any) => !(child instanceof nodes.KeywordArgs))
+      .map((child: any) => child.value as string);
 
     // last child contains the kvp containing the path to the external variable source
     const lastChild = args.children[args.children.length - 1];
 
-    const buffer = [];
+    const buffer: string[] = [];
     if (lastChild instanceof nodes.KeywordArgs) {
-      lastChild.children.forEach((pair) => {
+      lastChild.children.forEach((pair: any) => {
         const variableName = pair.key.value;
         const resourcePath = pair.value.value;
         acceptedFileTypes.forEach((fileType) => {
@@ -70,7 +66,7 @@ class SetExternalExtension {
                 columns: (
                   hasNoHeader
                     ? false // if noHeader is present, first row is not header row
-                    : header => header.map(col => col)
+                    : header => header.map((col: string) => col)
                 ),
               });
             const resourceRaw = JSON.stringify(csvResourceRaw);
@@ -92,7 +88,3 @@ class SetExternalExtension {
     return newParser.parse();
   }
 }
-
-module.exports = {
-  SetExternalExtension,
-};
