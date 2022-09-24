@@ -11,6 +11,7 @@ import { createErrorNode } from './elements';
 import { PageSources } from '../Page/PageSources';
 import { isMarkdownFileExt } from '../utils/fsUtil';
 import * as logger from '../utils/logger';
+import VariableProcessor from '../variables/VariableProcessor';
 
 const fm = require('fastmatter');
 
@@ -68,7 +69,7 @@ export class NodeProcessor {
       },
     },
     private pageSources: PageSources,
-    private variableProcessor: any,
+    private variableProcessor: VariableProcessor,
     private pluginManager: any,
     private siteLinkManager: any,
     private userScriptsAndStyles: string[],

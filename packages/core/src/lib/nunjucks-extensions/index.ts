@@ -1,7 +1,2 @@
-const { filter } = require('./nunjucks-date');
-const { SetExternalExtension } = require('./set-external');
-
-module.exports = {
-  dateFilter: filter,
-  SetExternalExtension,
-};
+export { filter as dateFilter } from './nunjucks-date';
+export { SetExternalExtension } from './set-external';
