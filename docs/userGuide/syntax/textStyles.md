@@ -36,6 +36,33 @@ To escape the syntax, simply put a backslash in front of it (e.g. \#b#, \##).
 </box>
 </div>
 
+Additional font colouring syntax:
+<div id="main-example-markbind">
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
+#r#Coloured Text##
+</variable>
+</include>
+
+Full list of colours:
+Letter | Colour
+--- | ---
+r | red
+g | green
+b | blue
+c | cyan
+m | magenta
+y | yellow
+k | black
+w | white
+
+<box type="tip" seamless>
+To escape the syntax, simply put a backslash in front of it (e.g. \#b#, \##).
+</box>
+</div>
+
+
 <small>Alternative syntax: https://www.markdownguide.org/basic-syntax#emphasis</small>
 
 <div id="short" class="d-none">
