@@ -262,7 +262,9 @@ As mentioned in the [setting up](settingUp.html#setting-up-the-dev-environment) 
 
 ### To add a dependency
 
-Instead of manually updating the version numbers in the packages' `package.json` files, you may consider using the `lerna add` [command](https://github.com/lerna/lerna/tree/master/commands/add#readme) to speed things up!
+Add your dependency into the appropriate `package.json` file inside `packages/*`. If this is a development dependency to be used across all packages (e.g. ESLint), add it the the root `package.json`.
+
+Then, simply rerun the `npm run setup` command to update the `package-lock.json` files.
 
 ### To delete a dependency
 

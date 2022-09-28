@@ -12,13 +12,13 @@ test('without days to add', () => {
   expect(actual).toEqual(expected);
 });
 
-test('standard format', () => {
+test('YYYY MMMM DD format', () => {
   const actual = filter('2020-01-01', 'YYYY MMMM DD');
   const expected = '2020 January 01';
   expect(actual).toEqual(expected);
 });
 
-test('advanced format', () => {
+test('ddd Do MMM format', () => {
   const actual = filter('2020-01-01', 'ddd Do MMM');
   const expected = 'Wed 1st Jan';
   expect(actual).toEqual(expected);

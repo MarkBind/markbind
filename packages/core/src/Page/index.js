@@ -7,7 +7,6 @@ const { pageVueServerRenderer } = require('./PageVueServerRenderer');
 
 const _ = {};
 _.cloneDeep = require('lodash/cloneDeep');
-_.isString = require('lodash/isString');
 _.isObject = require('lodash/isObject');
 _.isArray = require('lodash/isArray');
 
@@ -15,7 +14,6 @@ const { CyclicReferenceError } = require('../errors');
 const { PageSources } = require('./PageSources');
 const { NodeProcessor } = require('../html/NodeProcessor');
 
-const fsUtil = require('../utils/fsUtil');
 const logger = require('../utils/logger');
 
 const PACKAGE_VERSION = require('../../package.json').version;
@@ -141,13 +139,9 @@ class Page {
     if (this.siteConfig.titleSuffix) {
       title = (title ? title + TITLE_SUFFIX_SEPARATOR : '') + this.siteConfig.titleSuffix;
     }
-    // construct temporary asset object with only POSIX-style paths
-    const asset = {};
-    Object.entries(this.asset).forEach(([key, value]) => {
-      asset[key] = _.isString(value) ? fsUtil.ensurePosix(value) : value;
-    });
+
     return {
-      asset,
+      asset: { ...this.asset },
       baseUrl: this.siteConfig.baseUrl,
       content,
       pageUserScriptsAndStyles: this.pageUserScriptsAndStyles.join('\n'),
