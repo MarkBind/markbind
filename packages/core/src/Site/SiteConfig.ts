@@ -6,120 +6,92 @@ const HEADING_INDEXING_LEVEL_DEFAULT = 3;
  * Represents a read only site config read from the site configuration file,
  * with default values for unspecified properties.
  */
-class SiteConfig {
+export class SiteConfig {
+  baseUrl: string;
+  enableSearch: boolean;
+  faviconPath?: string;
+  headingIndexingLevel: number;
+
+  theme: string | boolean;
+  style: {
+    bootstrapTheme?: string;
+    codeTheme: string;
+    /**
+     * Default hide display of line numbers for code blocks
+     */
+    codeLineNumbers: boolean;
+  };
+
+  pages: string[];
+  pagesExclude: string[];
+  ignore: string[];
+
+  externalScripts: string[];
+  titlePrefix: string;
+  titleSuffix: string;
+  globalOverride: { [frontmatterKey: string]: string };
+
+  timeZone: string;
+  locale: string;
+
+  plugins: string[];
+  pluginsContext: {
+    [pluginName: string]: { [key: string]: any }
+  };
+
+  deploy: {
+    message?: string;
+    repo?: string;
+    branch?: string;
+  };
+
+  intrasiteLinkValidation: {
+    enabled: boolean;
+  };
+
+  plantumlCheck: boolean;
+
   /**
    * @param siteConfigJson The raw json read from the site configuration file
    * @param cliBaseUrl As read from the --baseUrl option
    */
-  constructor(siteConfigJson, cliBaseUrl) {
-    /**
-     * @type {string}
-     */
+  constructor(siteConfigJson: any, cliBaseUrl?: string) {
     this.baseUrl = cliBaseUrl !== undefined
       ? cliBaseUrl
       : (siteConfigJson.baseUrl || '');
-    /**
-     * @type {boolean}
-     */
     this.enableSearch = siteConfigJson.enableSearch === undefined || siteConfigJson.enableSearch;
-    /**
-     * @type {string}
-     */
     this.faviconPath = siteConfigJson.faviconPath;
-    /**
-     * Default maximum heading level to index for all pages.
-     * @type {number}
-     */
     this.headingIndexingLevel = siteConfigJson.headingIndexingLevel || HEADING_INDEXING_LEVEL_DEFAULT;
 
-    /**
-     * @type {Object<string, any>}
-     */
     this.style = siteConfigJson.style || {};
-
-    /**
-     * @type {string}
-     */
     this.style.codeTheme = this.style.codeTheme || 'dark';
-
-    /**
-     * Default hide display of line numbers for code blocks
-     * @type {string}
-     */
     this.style.codeLineNumbers = this.style.codeLineNumbers !== undefined
       ? this.style.codeLineNumbers : false;
-
-    /**
-     * @type {string}
-     */
+    // TODO remove this
     this.theme = this.style.bootstrapTheme || siteConfigJson.theme || false;
     if (siteConfigJson.theme) {
       logger.warn("The 'theme' site configuration key has been consolidated under the 'style.bootstrapTheme'"
         + ' key.\n The old key will be deprecated in v3.0.');
     }
 
-    /**
-     * @type {Array}
-     */
     this.pages = siteConfigJson.pages || [];
-
-    /**
-     * @type {Array}
-     */
     this.pagesExclude = siteConfigJson.pagesExclude || [];
-
-    /**
-     * Array of file types to ignore
-     * @type {Array}
-     */
     this.ignore = siteConfigJson.ignore || [];
-    /**
-     * @type {Array}
-     */
     this.externalScripts = siteConfigJson.externalScripts || [];
-    /**
-     * @type {string}
-     */
     this.titlePrefix = siteConfigJson.titlePrefix || '';
-    /**
-     * @type {string}
-     */
     this.titleSuffix = siteConfigJson.titleSuffix || '';
-    /**
-     * @type {Object<string, any>}
-     */
     this.globalOverride = siteConfigJson.globalOverride || {};
 
-    /**
-     * @type {string}
-     */
     this.timeZone = siteConfigJson.timeZone || 'UTC';
-    /**
-     * @type {string}
-     */
     this.locale = siteConfigJson.locale || 'en-GB';
 
-    /**
-     * @type {Array}
-     */
     this.plugins = siteConfigJson.plugins || [];
-    /**
-     * @type {Object<string, Object<string, any>>}
-     */
     this.pluginsContext = siteConfigJson.pluginsContext || {};
-
-    /**
-     * @type {Object<string, Object<string, any>>}
-     */
     this.deploy = siteConfigJson.deploy || {};
-    /**
-     * @type {boolean}
-     */
     this.intrasiteLinkValidation = siteConfigJson.intrasiteLinkValidation || {};
     this.intrasiteLinkValidation.enabled = this.intrasiteLinkValidation.enabled !== false;
-    /**
-     * @type {boolean}
-     */
+
+    // TODO this should probably be in pluginsContext
     this.plantumlCheck = siteConfigJson.plantumlCheck !== undefined
       ? siteConfigJson.plantumlCheck : true; // check PlantUML's prerequisite by default
   }

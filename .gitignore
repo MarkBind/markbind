@@ -74,5 +74,12 @@ packages/cli/test/functional/test_site/expected/sub_site/inline-output/inline-pu
 # Ignore JS files that are compiled from TS
 packages/core/src/errors/**/*.js
 packages/core/src/utils/**/*.js
+packages/core/src/**/constants.js
+packages/core/src/Page/PageConfig.js
+packages/core/src/Site/SiteConfig.js
+packages/core/src/html/elements.js
+packages/core/src/html/Context.js
+packages/core/src/html/NodeProcessor.js
+packages/core/src/Page/PageSources.js
 
 # --- packages/core end ---
