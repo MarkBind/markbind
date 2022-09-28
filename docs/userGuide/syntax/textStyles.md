@@ -27,7 +27,7 @@ Syntax added by MarkBind:
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 ****Super Bold****, !!Underline!!, ==Highlight==, %%Dim%%, ++Large++, --Small--,
-Super^script^, Sub~script~, #r#Coloured Text##
+Super^script^, Sub~script~,
 ->Center-align<-
 </variable>
 </include>
