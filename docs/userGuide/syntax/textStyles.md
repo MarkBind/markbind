@@ -55,10 +55,10 @@ k | black
 w | white
 
 <box type="tip" seamless>
+
 To escape the syntax, simply put a backslash in front of it (e.g. `\#b#`, `\##`).
 </box>
 </div>
-
 
 <small>Alternative syntax: https://www.markdownguide.org/basic-syntax#emphasis</small>
 
