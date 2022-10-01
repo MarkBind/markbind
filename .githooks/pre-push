@@ -5,6 +5,9 @@ GREEN="\033[1;32m"
 NOCOLOR="\033[0m"
 
 exit_code=1
+echo "${BLUE}(pre-push) Cleaning compiled files...${NOCOLOR}"
+npm run clean
+
 echo "${BLUE}(pre-push) Building backend...${NOCOLOR}"
 npm run build:backend
 
