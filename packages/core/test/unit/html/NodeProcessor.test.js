@@ -131,9 +131,10 @@ test('markdown coverts inline colour syntax correctly', async () => {
   const result = await nodeProcessor.process(indexPath, syntaxToTest);
 
   let expected = '<p>';
-  expected += '<span class="red"> red </span> ';
-  expected += '<span class="cyan">cyan</span> ';
-  expected += '<span class="yellow">yellow <span class="magenta">magenta </span> yellow</span>';
+  expected += '<span class="mkb-text-red"> red </span> ';
+  expected += '<span class="mkb-text-cyan">cyan</span> ';
+  expected += '<span class="mkb-text-yellow">yellow ';
+  expected += '<span class="mkb-text-magenta">magenta </span> yellow</span>';
   expected += '</p>';
 
   expect(result).toEqual(expected);
@@ -148,7 +149,7 @@ test('markdown does not convert escaped inline colour syntax', async () => {
 
   let expected = '<p>';
   expected += 'escaped start: #r# real start: ';
-  expected += '<span class="blue">and escaped end:## and real end:</span> black';
+  expected += '<span class="mkb-text-blue">and escaped end:## and real end:</span> black';
   expected += '</p>';
 
   expect(result).toEqual(expected);
@@ -162,7 +163,8 @@ test('markdown removes non-matching syntax starts and ends', async () => {
   const result = await nodeProcessor.process(indexPath, syntaxToTest);
 
   let expected = '<p>';
-  expected += 'end without start  and start without end <span class="green"> green text</span></p>\n';
+  expected += 'end without start  and start without end ';
+  expected += '<span class="mkb-text-green"> green text</span></p>\n';
   expected += '<p>not green text</p>';
 
   expect(result).toEqual(expected);
