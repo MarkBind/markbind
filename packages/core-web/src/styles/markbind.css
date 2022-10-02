@@ -175,36 +175,36 @@ footer {
     text-decoration: underline;
 }
 
-.red {
-    color: red;
+.mkb-text-red {
+    color: red !important;
 }
 
-.green {
-    color: green;
+.mkb-text-green {
+    color: green !important;
 }
 
-.blue {
-    color: blue;
+.mkb-text-blue {
+    color: blue !important;
 }
 
-.cyan {
-    color: cyan;
+.mkb-text-cyan {
+    color: cyan !important;
 }
 
-.magenta {
-    color: magenta;
+.mkb-text-magenta {
+    color: magenta !important;
 }
 
-.yellow {
-    color: yellow;
+.mkb-text-yellow {
+    color: yellow !important;
 }
 
-.black {
-    color: black;
+.mkb-text-black {
+    color: black !important;
 }
 
-.white {
-    color: white;
+.mkb-text-white {
+    color: white !important;
 }
 
 /* Bootstrap small(sm) responsive breakpoint */

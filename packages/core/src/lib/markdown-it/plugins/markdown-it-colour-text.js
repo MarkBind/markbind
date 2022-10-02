@@ -39,14 +39,14 @@ module.exports = function colourtext_plugin(md) {
     [119, '#w#'],
   ]);
   const delimMarkerToClassMap = new Map([
-    ['#r#', 'red'],
-    ['#g#', 'green'],
-    ['#b#', 'blue'],
-    ['#c#', 'cyan'],
-    ['#m#', 'magenta'],
-    ['#y#', 'yellow'],
-    ['#k#', 'black'],
-    ['#w#', 'white'],
+    ['#r#', 'mkb-text-red'],
+    ['#g#', 'mkb-text-green'],
+    ['#b#', 'mkb-text-blue'],
+    ['#c#', 'mkb-text-cyan'],
+    ['#m#', 'mkb-text-magenta'],
+    ['#y#', 'mkb-text-yellow'],
+    ['#k#', 'mkb-text-black'],
+    ['#w#', 'mkb-text-white'],
   ]);
 
   function tokenize(state, silent) {
