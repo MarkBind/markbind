@@ -1,11 +1,13 @@
 #!/usr/bin/env sh
 
-git stash -q --include-untracked --keep-index
+git stash --include-untracked --keep-index
 echo "(pre-commit) Cleaning compiled files..."
 npm run clean
 
 echo "(pre-commit) Building backend..."
 npm run build:backend
+
+
 
 linter_exit_code=0
 
