@@ -1,25 +1,21 @@
 #!/usr/bin/env sh
-RED="\033[1;31m"
-BLUE="\033[34m"
-GREEN="\033[1;32m"
-NOCOLOR="\033[0m"
 
 exit_code=1
-echo "${BLUE}(pre-push) Cleaning compiled files...${NOCOLOR}"
+echo "(pre-push) Cleaning compiled files..."
 npm run clean
 
-echo "${BLUE}(pre-push) Building backend...${NOCOLOR}"
+echo "(pre-push) Building backend..."
 npm run build:backend
 
-echo "${BLUE}(pre-push) Running tests...${NOCOLOR}"
+echo "(pre-push) Running tests..."
 npm run test
 exit_code=$?
 
 if [ $exit_code -ne 0 ]
 then
-  echo "${RED}❌ (pre-push) Please fix failed testcases before pushing!"
+  echo "❌ (pre-push) Please fix failed testcases before pushing!"
   exit 1
 else
-  echo "${GREEN}✔ (pre-push) All testcases passed!"
+  echo "✔ (pre-push) All testcases passed!"
   exit 0
 fi

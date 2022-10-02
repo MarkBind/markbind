@@ -259,10 +259,10 @@ ESLint has [integrations with popular editors](https://eslint.org/docs/user-guid
 ## Git hooks
 We have three git hooks in our project. 
 
-To skip running the pre-commit hook or pre-push hook, you can use the --no-verify flag (e.g. git push --no-verify fork branch).
+To skip running the pre-commit hook or pre-push hook, you can use the --no-verify flag (e.g. git push --no-verify origin fork_branch).
 
 * `post-checkout`: When you checkout to another branch, this hook will run clean and build the backend.
-* `pre-commit`: This hook will run clean, build the backend, and run lint on all the changed files.
+* `pre-commit`: This hook will run clean, build the backend, and run lint on all the files.
 * `pre-push`: This hook will run clean, build the backend, and run all the test cases.
 
 ## Dependency management
