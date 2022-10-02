@@ -175,6 +175,38 @@ footer {
     text-decoration: underline;
 }
 
+.mkb-text-red {
+    color: red !important;
+}
+
+.mkb-text-green {
+    color: green !important;
+}
+
+.mkb-text-blue {
+    color: blue !important;
+}
+
+.mkb-text-cyan {
+    color: cyan !important;
+}
+
+.mkb-text-magenta {
+    color: magenta !important;
+}
+
+.mkb-text-yellow {
+    color: yellow !important;
+}
+
+.mkb-text-black {
+    color: black !important;
+}
+
+.mkb-text-white {
+    color: white !important;
+}
+
 /* Bootstrap small(sm) responsive breakpoint */
 @media (max-width: 767.98px) {
     .dropdown-menu > li > a {
