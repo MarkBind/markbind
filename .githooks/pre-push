@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-git stash -q --keep-index
+git stash -q --include-untracked --keep-index
 exit_code=1
 echo "(pre-push) Cleaning compiled files..."
 npm run clean
