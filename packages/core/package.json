@@ -81,6 +81,7 @@
     "@types/htmlparser2": "^3.10.3",
     "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.181",
+    "@types/nunjucks": "^3.2.1",
     "@types/path-is-inside": "^1.0.0",
     "@types/url-parse": "^1.4.8",
     "jest": "^27.5.1",

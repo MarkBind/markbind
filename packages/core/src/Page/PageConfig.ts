@@ -1,3 +1,7 @@
+import { Template } from 'nunjucks';
+
+import VariableProcessor from '../variables/VariableProcessor';
+
 interface PageAssets {
   bootstrap: string;
   externalScripts: string[];
@@ -54,8 +58,8 @@ export class PageConfig {
    */
   src: string;
   title: string;
-  template: any;
-  variableProcessor: any;
+  template: Template;
+  variableProcessor: VariableProcessor;
   addressablePagesSource: string[];
   layoutManager: any;
 
@@ -76,8 +80,8 @@ export class PageConfig {
     sourcePath: string;
     src: string;
     title?: string;
-    template: any;
-    variableProcessor: any;
+    template: Template;
+    variableProcessor: VariableProcessor;
     addressablePagesSource: string[];
     layoutManager: any;
   }) {
