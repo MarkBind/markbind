@@ -3,7 +3,7 @@
 CHECKOUT_TYPE=$3 # "0" => file checkout, "1" => branch checkout
 
 # This is a file checkout – do nothing
-if [ $CHECKOUT_TYPE == "0" ]; then exit; fi
+if [ $CHECKOUT_TYPE -eq "0" ]; then exit; fi
 
 echo -e "(post-checkout) Cleaning compiled files..."
 npm run clean
