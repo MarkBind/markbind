@@ -257,7 +257,8 @@ ESLint has [integrations with popular editors](https://eslint.org/docs/user-guid
 </box>
 
 ## Git hooks
-We have three git hooks in our project. 
+We have three git hooks in our project. We use [pre-commit](https://pre-commit.com/) to manage our git hooks.<br>
+The pre-commit scripts are located in `./pre-commit-scripts` and the config is found in `./pre-commit-config.yaml`.
 
 To skip running the pre-commit hook or pre-push hook, you can use the --no-verify flag (e.g. git push --no-verify origin fork_branch).
 
