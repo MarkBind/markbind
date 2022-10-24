@@ -52,7 +52,11 @@ We recommend the **WebStorm IDE** for working with MarkBind code.
 
 ## Setting up the git hooks (optional but recommended)
 
-1. **Install git hooks** by running `npm run install:hooks` in the **root folder** of your cloned repo.
+There are a few [Git hooks](./workflow.md#git-hooks) implemented using the [pre-commit](https://pre-commit.com/) tool that runs common tasks like linting, automated tests and compiling typescript files.
+
+**Install the hooks** by running `python3 ./pre-commit/pre-commit-2.20.0.pyz install` in the **root folder** of your cloned repo.
+
+If you ever need to uninstall the hooks, simply run `uninstall` instead of `install`.
 
 ### Common setup questions
 

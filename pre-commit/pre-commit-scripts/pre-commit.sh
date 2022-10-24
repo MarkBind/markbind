@@ -25,7 +25,8 @@ then
   echo "❌ (pre-commit) Please fix linting errors before committing!"
   exit 1
 else
-  echo "✔ (pre-commit) ESlint and Stylelint did not find any unfixable errors!"
-  echo "✔ (pre-commit) Some files may be automatically lint fixed, please review and commit again!"
+  echo "✔ (pre-commit) ESLint and Stylelint did not find any unfixable errors!"
+  echo "✔ (pre-commit) Some files may have been automatically lint fixed, which will cause pre-commit to fail."
+  echo "✔ (pre-commit) Verify and stage these changes, then recommit as needed."
   exit 0
 fi
