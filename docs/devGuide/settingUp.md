@@ -22,11 +22,15 @@ This page explains how to set up your development environment to start contribut
    **Graphviz** v2.38 or later<br>
    %%(The above two are required for one of the third-party libraries used by MarkBind)%%
 
+1. **Python** 3 or later, and<br>
+   %%(Required if using python pre-commit hooks)%%
+
 1. **Verify** that all tools are accessible and the versions are as expected by running these commands in the console.
    * `node --version`
    * `npm --version`
    * `java --version`
    * `dot -V` (for Graphviz)
+   * `python3 -V`
 
 <box type="tip" seamless>
 
@@ -45,13 +49,20 @@ We recommend the **WebStorm IDE** for working with MarkBind code.
 
 1. **Congratulations!** Now you are ready to start modifying MarkBind code.
 
+
+## Setting up the git hooks (optional but recommended)
+
+There are a few [Git hooks](./workflow.md#git-hooks) implemented using the [pre-commit](https://pre-commit.com/) tool that runs common tasks like linting, automated tests and compiling typescript files.
+
+**Install the hooks** by running `python3 ./pre-commit/pre-commit-2.20.0.pyz install` in the **root folder** of your cloned repo.
+
+If you ever need to uninstall the hooks, simply run `uninstall` instead of `install`.
+
 ### Common setup questions
 
 1. Does MarkBind work with all operating systems?
 
-   Yes! We support all operating systems. However, Windows 11 users might have
-   to run `npm install` after `npm run setup` as some packages may have
-   incompatible versions.
+   Yes! We support all operating systems.
 
 1. How does MarkBind manage dependencies?
 

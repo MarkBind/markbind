@@ -256,6 +256,16 @@ It is also possible to auto-fix some (not all) style errors, using `npm run lint
 ESLint has [integrations with popular editors](https://eslint.org/docs/user-guide/integrations). They offer features such as "fix errors on save", which will make development smoother.
 </box>
 
+## Git hooks
+We have three git hooks in our project. We use [pre-commit](https://pre-commit.com/) to manage our git hooks.<br>
+The pre-commit scripts are located in `./pre-commit/pre-commit-scripts` and the config is found in `./pre-commit-config.yaml`.
+
+To skip running the pre-commit hook or pre-push hook, you can use the --no-verify flag (e.g. git push --no-verify origin fork_branch).
+
+* `post-checkout`: When you checkout to another branch, this hook will run clean and build the backend.
+* `pre-commit`: This hook will run clean, build the backend, and run lintfix on all the files.
+* `pre-push`: This hook will run clean, build the backend, and run all the test cases.
+
 ## Dependency management
 
 As mentioned in the [setting up](settingUp.html#setting-up-the-dev-environment) page, MarkBind uses [lerna](https://github.com/lerna/lerna) to manage the dependencies of its [various packages](design/projectStructure.html).

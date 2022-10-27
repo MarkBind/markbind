@@ -2,6 +2,7 @@
 * text eol=lf
 
 # Don't do anything with binaries
+*.pyz binary
 *.jar binary
 *.ttf binary
 *.woff binary

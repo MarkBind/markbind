@@ -13,8 +13,6 @@
     "csslint": "stylelint **/*.css **/*.vue",
     "csslintfix": "stylelint **/*.css **/*.vue --fix",
     "dev": "tsc --watch",
-    "install": "npm run install:hooks",
-    "install:hooks": "git config core.hooksPath .githooks",
     "lint": "eslint . --ext .js,.ts,.vue && npm run csslint",
     "lintfix": "eslint . --ext .js,.ts,.vue --fix && npm run csslintfix",
     "setup": "npm ci && npm run clean && lerna clean --yes && lerna bootstrap --hoist",
