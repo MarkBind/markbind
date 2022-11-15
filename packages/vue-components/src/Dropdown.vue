@@ -6,7 +6,7 @@
   >
     <slot name="button">
       <a
-        class="dropdown-toggle"
+        class="dropdown-toggle nav-link"
         role="button"
         :class="{'disabled': disabledBool}"
         data-bs-toggle="dropdown"
