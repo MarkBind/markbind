@@ -230,7 +230,6 @@ export default {
     }
 
     .navbar .dropdown-toggle {
-        color: inherit;
         text-decoration: none;
     }
 </style>
