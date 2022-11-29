@@ -23,5 +23,5 @@ The `404.html` file will be created at the root of the `_site` folder.
 
 #### Modifying the default 404 page
 After a project is created with `markbind init`, the `404.md` file will be generated in the root of the project.
-You can click [here](/404) to view the default 404 page.
+You can click [here](/404.html) to view the default 404 page.
 To edit the 404 page, you can simply edit this `404.md` file.
