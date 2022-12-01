@@ -48,7 +48,7 @@ module.exports = {
     const webpackServerDevConfig = merge(serverConfig, {
       mode: 'development',
       output: {
-        path: `${rootFolder}/dist`, // Change the output path based on the user defined root
+        path: path.join(rootFolder, 'dist'), // Change the output path based on the user defined root
       },
       module: {
         rules: [
