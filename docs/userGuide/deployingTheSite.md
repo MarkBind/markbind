@@ -102,8 +102,8 @@ jobs:
     env:
       GITHUB_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: '14'
       - run: npm i -g markbind-cli
@@ -423,9 +423,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:        
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 14
       - name: Build MarkBind website
@@ -483,7 +483,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploying to surge
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Download built MarkBind site artifacts
         uses: dawidd6/action-download-artifact@v2
         with:
@@ -495,7 +495,7 @@ jobs:
         id: pr-number
         run: echo '::set-output name=ACTIONS_PR_NUMBER::'$(cat ./pr/NUMBER)
       - name: Install Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 14
       - name: Build PR preview url
