@@ -112,7 +112,7 @@ export class NodeProcessor {
     let currentFrontMatter = {};
     const frontMatter = cheerio(node);
     if (!context.processingOptions.omitFrontmatter && frontMatter.text().trim()) {
-      // Retrieves the front matter from either the first frontmatter element
+      // Retrieves the frontmatter from either the first frontmatter element
       // or from a frontmatter element that includes from another file
       // The latter case will result in the data being wrapped in a div
       const frontMatterIncludeDiv = frontMatter.find('div');

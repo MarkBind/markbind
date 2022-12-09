@@ -4,4 +4,4 @@ head: overwriteLayoutHead.md
 layout: testLayout.md
 </frontmatter>
 
-**Uses a front matter layout**
+**Uses a frontmatter layout**

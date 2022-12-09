@@ -1,6 +1,6 @@
-## Front Matter
+## Frontmatter
 
-**You can use a _Front Matter_ section to specify page properties such as the title and keywords of the page.** To specify front matter for a page, insert a `<frontmatter>` tag in the following format at the beginning of the page.
+**You can use a _frontmatter_ section to specify page properties such as the title and keywords of the page.** To specify frontmatter for a page, insert a `<frontmatter>` tag in the following format at the beginning of the page.
 
 ```html
 <frontmatter>

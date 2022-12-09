@@ -11,8 +11,8 @@
       "src": "index.md",
       "title": "Hello World",
       "frontmatter": {
-        "frontMatterOverrideProperty": "Overridden by front matter override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by front matter override"
+        "frontMatterOverrideProperty": "Overridden by frontmatter override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by frontmatter override"
       }
     },
     {

@@ -54,11 +54,11 @@ As long as the `language--java` or `language--C#` tag is specified, the code sni
 
 </div>
 
-Alternatively, you can specify tags to render for a page in the front matter.
+Alternatively, you can specify tags to render for a page in the frontmatter.
 
 <div class="indented">
 
-{{ icon_example }} Specifying tags in front matter:
+{{ icon_example }} Specifying tags in frontmatter:
 ```html
 <frontmatter>
   title: "Hello World"
@@ -81,7 +81,7 @@ Alternatively, you can specify tags to render for a page in the front matter.
 ```
 </div>
 
-Tags in `site.json` will be merged with the ones in the front matter, and are processed after front matter tags. See [Hiding Tags](../tweakingThePageStructure.html#hiding-tags) for more information.
+Tags in `site.json` will be merged with the ones in the frontmatter, and are processed after frontmatter tags. See [Hiding Tags](../tweakingThePageStructure.html#hiding-tags) for more information.
 
 #### Advanced Tagging Tips
 

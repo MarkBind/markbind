@@ -164,7 +164,7 @@ class Page {
   }
 
   /**
-   * Generates element selector for page navigation, depending on specifier in front matter
+   * Generates element selector for page navigation, depending on specifier in frontmatter
    * @param pageNav {string|number} 'default' refers to the configured heading indexing level,
    * otherwise a number that indicates the indexing level.
    */
