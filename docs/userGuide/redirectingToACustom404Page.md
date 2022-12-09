@@ -28,4 +28,4 @@ You can click [here](/404.html) to view the default 404 page.
 To edit the 404 page, you can simply edit this `404.md` file.
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('markBindInTheProjectWorkflow', 'addNavigation') }}
+{{ previous_next('markBindInTheProjectWorkflow', 'addingNavigationButtons') }}
