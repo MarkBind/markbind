@@ -130,6 +130,10 @@
     {
       "src": "testMath.md",
       "title": "Math formulae should be displayed correctly, with additional plugin"
+    },
+    {
+      "src": "testImages.md",
+      "title": "Rendering of images according to specified dimension and auto-linkify ability"
     }
   ],
   "pagesExclude": ["**/*-fragment.md"],

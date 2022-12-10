@@ -323,6 +323,17 @@
         "additional-delimiters-can-be-used-if-mathdelimiters-plugin-is-enabled": "Additional delimiters can be used if mathDelimiters plugin is enabled"
       },
       "headingKeywords": {}
+    },
+    {
+      "src": "testImages.md",
+      "title": "Rendering of images according to specified dimension and auto-linkify ability",
+      "headings": {
+        "images": "Images",
+        "alt": "Alt",
+        "dimension": "Dimension",
+        "linkify": "Linkify"
+      },
+      "headingKeywords": {}
     }
   ]
 }
