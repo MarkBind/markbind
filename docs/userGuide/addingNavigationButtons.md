@@ -57,16 +57,17 @@ Navigation buttons can **greatly help your visitors of your website browse throu
 
 <div class="indented">
 
-```
-├── _markbind
-├── _site
-├── contents
-├── njk
-│   ├── common.njk
-├── stylesheets
-├── index.md
-├── site.json
-```
+<tree>
+root
+  _markbind
+  _site
+  contents
+  njk
+    common.njk
+  stylesheets
+  index.md
+  site.json
+</tree>
 </div>
 
 ## Editing the content files
