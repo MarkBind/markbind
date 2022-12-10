@@ -12,10 +12,6 @@
 
 {% macro embed(heading, src, omit_front_matter) %}
 <panel type="seamless" header="{{ icon_embedding }} {{ heading }}" minimized>
-{% if omit_front_matter %}
-<include src="{{ src }}" omitFrontmatter />
-{% else %}
-<include src="{{ src }}" />
-{% endif %}
+<include src="{{ src }}" {% if omit_front_matter %} omitFrontmatter {% endif %} />
 </panel>
 {% endmacro %}
