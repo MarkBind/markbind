@@ -122,7 +122,7 @@ root
 {% endraw %}
 
 {% raw %}
-```html {heading="**topic2.md**" .line-numbers}
+```html {heading="**topic2.md**" .line-numbers highlight-lines="1,8-9"}
 <span id="title" class="d-none">Topic 2</span>
 
 <br>
