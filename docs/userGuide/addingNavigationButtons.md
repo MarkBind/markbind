@@ -107,7 +107,7 @@ root
 <div class="indented">
 
 {% raw %}
-```html {heading="**topic1.md**" .line-numbers}
+```html {heading="**topic1.md**" .line-numbers highlight-lines="1,9-10"}
 <span id="title" class="d-none">Topic 1</span>
 
 <br>
