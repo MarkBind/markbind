@@ -45,10 +45,12 @@ module.exports = {
     ];
   },
   serverEntry: (cb, rootFolder) => {
+    const memDistFolder = path.join(rootFolder, 'dist');
+
     const webpackServerDevConfig = merge(serverConfig, {
       mode: 'development',
       output: {
-        path: path.join(rootFolder, 'dist'), // Change the output path based on the user defined root
+        path: memDistFolder,
       },
       module: {
         rules: [
@@ -68,7 +70,7 @@ module.exports = {
     serverCompiler.outputFileSystem = mfs;
 
     let bundle;
-    const bundleFilePath = `${rootFolder}/dist/js/vueCommonAppFactory.min.js`;
+    const bundleFilePath = path.join(memDistFolder, 'js', 'vueCommonAppFactory.min.js');
 
     let ready;
     const readyPromise = new Promise((r) => { ready = r; });
