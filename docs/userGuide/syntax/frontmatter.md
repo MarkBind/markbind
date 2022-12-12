@@ -25,7 +25,7 @@ Should you need more expressive formatting, or encounter any issues when formatt
 
 <box type="warning" seamless>
 
-If a page has multiple front matters, it will take the last front matter by default. You may make use of the [omitFrontmatter]({{ base_url }}/userGuide/reusingContents.html#includes) attribute to omit the front matters that are not needed.
+If a page has multiple front matters, it will take the last front matter by default. You may make use of [omitFrontmatter]({{ base_url }}/userGuide/reusingContents.html#includes) , which is an attribute of Markbind's \<include> feature to omit the front matters that are not needed.
 </box>
 
 **Page properties:**
