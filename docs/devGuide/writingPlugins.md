@@ -62,7 +62,7 @@ module.exports = {
       cheerio(node).append(pluginContext.content);
     }
   },
-  postRender: (pluginContext, frontMatter, content) => {
+  postRender: (pluginContext, frontmatter, content) => {
     const $ = cheerio.load(content, { xmlMode: false });
     // Modify the page...
     $('#my-div').append(pluginContext.content);
@@ -122,8 +122,8 @@ An example of a plugin which adds links and scripts to the page:
 // myPlugin.js
 
 module.exports = {
-  getLinks: (pluginContext, frontMatter, content) => ['<link rel="STYLESHEET_LINK">'],
-  getScripts: (pluginContext, frontMatter, content) => [
+  getLinks: (pluginContext, frontmatter, content) => ['<link rel="STYLESHEET_LINK">'],
+  getScripts: (pluginContext, frontmatter, content) => [
     '<script src="SCRIPT_LINK"></script>',
     '<script>alert("hello")</script>'
   ],

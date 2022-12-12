@@ -37,9 +37,9 @@ function filterTags(tags, content) {
 }
 
 module.exports = {
-  postRender: (pluginContext, frontMatter, content) => {
+  postRender: (pluginContext, frontmatter, content) => {
     // Tags specified in site.json will be merged with tags specified in frontmatter
-    const mergedTags = (frontMatter.tags || []).concat(pluginContext.tags || []);
+    const mergedTags = (frontmatter.tags || []).concat(pluginContext.tags || []);
     return filterTags(mergedTags, content);
   },
 };

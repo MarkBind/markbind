@@ -70,11 +70,11 @@ class Page {
      */
     this.pageUserScriptsAndStyles = [];
     /**
-     * The pure frontMatter of the page as collected in {@link collectFrontMatter}.
+     * The pure frontmatter of the page as collected in {@link collectFrontmatter}.
      * https://markbind.org/userGuide/tweakingThePageStructure.html#front-matter
      * @type {Object<string, any>}
      */
-    this.frontMatter = {};
+    this.frontmatter = {};
     /**
      * Map of heading ids to its text content
      * @type {Object<string, string>}
@@ -100,7 +100,7 @@ class Page {
     /**
      * The title of the page.
      * This is initially set to the title specified in the site configuration,
-     * if there is none, we look for one in the frontMatter(s) as well.
+     * if there is none, we look for one in the frontmatter(s) as well.
      * @type {string}
      */
     this.title = this.pageConfig.title || '';
@@ -110,7 +110,7 @@ class Page {
      */
 
     /**
-     * The layout to use for this page, which may be further mutated in {@link processFrontMatter}.
+     * The layout to use for this page, which may be further mutated in {@link processFrontmatter}.
      * @type {string}
      */
     this.layout = this.pageConfig.layout;
@@ -156,10 +156,10 @@ class Page {
   }
 
   /**
-   * Checks if page.frontMatter has a valid page navigation specifier
+   * Checks if page.frontmatter has a valid page navigation specifier
    */
   isPageNavigationSpecifierValid() {
-    const { pageNav } = this.frontMatter;
+    const { pageNav } = this.frontmatter;
     return pageNav && (pageNav === 'default' || Number.isInteger(pageNav));
   }
 
@@ -184,7 +184,7 @@ class Page {
    * @param content html content of a page
    */
   collectNavigableHeadings(content) {
-    const { pageNav } = this.frontMatter;
+    const { pageNav } = this.frontmatter;
     const elementSelector = this.generateElementSelectorForPageNav(pageNav);
     if (elementSelector === undefined) {
       return;
@@ -339,19 +339,19 @@ class Page {
   }
 
   /**
-   * Uses the collected frontmatter from {@link collectFrontMatter} to extract the {@link Page}'s
+   * Uses the collected frontmatter from {@link collectFrontmatter} to extract the {@link Page}'s
    * instance configurations.
-   * FrontMatter properties always have lower priority than site configuration properties.
+   * Frontmatter properties always have lower priority than site configuration properties.
    */
-  processFrontMatter(frontMatter) {
-    this.frontMatter = {
-      ...frontMatter,
+  processFrontmatter(frontmatter) {
+    this.frontmatter = {
+      ...frontmatter,
       ...this.siteConfig.globalOverride,
       ...this.pageConfig.frontmatterOverride,
     };
 
-    this.title = this.title || this.frontMatter.title || '';
-    this.layout = this.layout || this.frontMatter.layout || LAYOUT_DEFAULT_NAME;
+    this.title = this.title || this.frontmatter.title || '';
+    this.layout = this.layout || this.frontmatter.layout || LAYOUT_DEFAULT_NAME;
   }
 
   /**
@@ -409,11 +409,11 @@ class Page {
   }
 
   /**
-   * Generates page navigation's header if specified in this.frontMatter
+   * Generates page navigation's header if specified in this.frontmatter
    * @returns string string
    */
   generatePageNavTitleHtml() {
-    const { pageNavTitle } = this.frontMatter;
+    const { pageNavTitle } = this.frontmatter;
     // Add v-pre to prevent text interpolation for {{ }} wrapped in {% (end)raw %}
     return pageNavTitle
       ? `<a class="navbar-brand ${PAGE_NAV_TITLE_CLASS}" href="#" v-pre>${pageNavTitle.toString()}</a>`
@@ -483,12 +483,12 @@ class Page {
 
     let content = variableProcessor.renderWithSiteVariables(this.pageConfig.sourcePath, pageSources);
     content = await nodeProcessor.process(this.pageConfig.sourcePath, content);
-    this.processFrontMatter(nodeProcessor.frontMatter);
+    this.processFrontmatter(nodeProcessor.frontMatter);
     content = Page.addScrollToTopButton(content);
-    content = pluginManager.postRender(this.frontMatter, content);
+    content = pluginManager.postRender(this.frontmatter, content);
     const pageContent = content;
 
-    pluginManager.collectPluginPageNjkAssets(this.frontMatter, content, this.asset);
+    pluginManager.collectPluginPageNjkAssets(this.frontmatter, content, this.asset);
 
     await layoutManager.generateLayoutIfNeeded(this.layout);
     const pageNav = this.buildPageNav(content);

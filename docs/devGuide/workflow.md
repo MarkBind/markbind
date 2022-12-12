@@ -204,8 +204,8 @@ To add a page to an existing test site, for this example, to `test_site`:
        "src": "index.md",
        "title": "Hello World",
        "frontmatter": {
-         "frontMatterOverrideProperty": "Overridden by frontmatter override",
-         "globalAndFrontMatterOverrideProperty":  "Overridden by frontmatter override"
+         "frontmatterOverrideProperty": "Overridden by frontmatter override",
+         "globalAndFrontmatterOverrideProperty":  "Overridden by frontmatter override"
        }
      },
      ...

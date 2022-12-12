@@ -168,17 +168,17 @@ class PluginManager {
   /**
    * Run getLinks and getScripts hooks
    */
-  collectPluginPageNjkAssets(frontMatter, content, pageAsset) {
+  collectPluginPageNjkAssets(frontmatter, content, pageAsset) {
     const pluginLinksAndScripts = Object.values(this.plugins)
-      .map(plugin => plugin.getPageNjkLinksAndScripts(frontMatter, content, this.config.baseUrl));
+      .map(plugin => plugin.getPageNjkLinksAndScripts(frontmatter, content, this.config.baseUrl));
 
     pageAsset.pluginLinks = _.flatMap(pluginLinksAndScripts, pluginResult => pluginResult.links);
     pageAsset.pluginScripts = _.flatMap(pluginLinksAndScripts, pluginResult => pluginResult.scripts);
   }
 
-  postRender(frontMatter, content) {
+  postRender(frontmatter, content) {
     return Object.values(this.plugins)
-      .reduce((renderedContent, plugin) => plugin.postRender(frontMatter, renderedContent), content);
+      .reduce((renderedContent, plugin) => plugin.postRender(frontmatter, renderedContent), content);
   }
 
   processNode(node) {
