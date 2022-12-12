@@ -35,7 +35,7 @@ const { shiftSlotNodeDeeper, transformOldSlotSyntax, renameSlot } = require('./v
 const { warnConflictingAtributesMap, warnDeprecatedAtributesMap } = require('./warnings');
 const { processScriptAndStyleTag } = require('./scriptAndStyleTagProcessor');
 
-const FRONT_MATTER_FENCE = '---';
+const FRONTMATTER_FENCE = '---';
 
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
@@ -119,7 +119,7 @@ export class NodeProcessor {
       const frontmatterData = frontmatterIncludeDiv.length
         ? ((frontmatterIncludeDiv[0] as DomElement).children as DomElement[])[0].data
         : ((frontmatter[0] as DomElement).children as DomElement[])[0].data;
-      const frontmatterWrapped = `${FRONT_MATTER_FENCE}\n${frontmatterData}\n${FRONT_MATTER_FENCE}`;
+      const frontmatterWrapped = `${FRONTMATTER_FENCE}\n${frontmatterData}\n${FRONTMATTER_FENCE}`;
 
       currentFrontmatter = fm(frontmatterWrapped).attributes;
     }

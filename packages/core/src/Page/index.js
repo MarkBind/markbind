@@ -483,7 +483,7 @@ class Page {
 
     let content = variableProcessor.renderWithSiteVariables(this.pageConfig.sourcePath, pageSources);
     content = await nodeProcessor.process(this.pageConfig.sourcePath, content);
-    this.processFrontmatter(nodeProcessor.frontMatter);
+    this.processFrontmatter(nodeProcessor.frontmatter);
     content = Page.addScrollToTopButton(content);
     content = pluginManager.postRender(this.frontmatter, content);
     const pageContent = content;
