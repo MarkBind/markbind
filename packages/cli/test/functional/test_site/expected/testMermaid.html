@@ -10,7 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="MarkBind 4.0.2">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+  <title>Rendering of diagrams via mermaid-js</title>
   <link rel="stylesheet" href="/test_site/markbind/css/bootstrap.min.css">
   <link rel="stylesheet" href="/test_site/markbind/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="/test_site/markbind/glyphicons/css/bootstrap-glyphicons.min.css">
@@ -21,7 +21,7 @@
   <script src="/test_site/markbind/js/polyfill.min.js"></script>
   <script src="/test_site/markbind/js/vue.min.js"></script>
   <script src="/test_site/markbind/js/markbind.min.js"></script>
-  <script src="test_md_fragment.page-vue-render.js"></script>
+  <script src="testMermaid.page-vue-render.js"></script>
   <script src="/test_site/markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
@@ -207,8 +207,70 @@
         </div>
       </overlay-source>
       <div id="content-wrapper">
-        <h1 id="some-heading"><span id="some-heading" class="anchor"></span>Some heading<a class="fa fa-anchor" href="#some-heading" onclick="event.stopPropagation()"></a></h1>
-        <p>The <strong>quick</strong> brown fox jumps <em>over</em> the lazy dog.</p>
+        <p><strong>Mermaid Test</strong></p>
+        <div class="mermaid">
+          %%{init: { "theme": "neutral" } }%%
+
+          graph TD;
+          A-->B;
+          A-->C;
+          B-->D;
+          C-->D;
+        </div>
+        <div class="mermaid">
+          graph TD;
+          A-->B;
+          A-->C;
+          B-->D;
+          C-->D;
+        </div>
+        <div class="mermaid">
+          sequenceDiagram
+          participant Alice
+          participant Bob
+          Alice->>John: Hello John, how are you?
+          loop Healthcheck
+          John->>John: Fight against hypochondria
+          end
+          Note right of John: Rational thoughts <br>prevail!
+          John-->>Alice: Great!
+          John->>Bob: How about you?
+          Bob-->>John: Jolly good!
+        </div>
+        <div class="mermaid">
+          gantt
+          dateFormat YYYY-MM-DD
+          title Adding GANTT diagram to mermaid
+          section A section
+          Completed task :done, des1, 2014-01-06,2014-01-08
+          Active task :active, des2, 2014-01-09, 3d
+          Future task : des3, after des2, 5d
+          Future task2 : des4, after des3, 5d
+
+          section Critical tasks
+          Completed task in the critical line :crit, done, 2014-01-06,24h
+          Implement parser and jison :crit, done, after des1, 2d
+          Create tests for parser :crit, active, 3d
+          Future task in critical line :crit, 5d
+          Create tests for renderer :2d
+          Add to mermaid :1d
+
+          section Documentation
+          Describe gantt syntax :active, a1, after des1, 3d
+          Add gantt diagram to demo page :after a1 , 20h
+          Add another diagram to demo page :doc1, after a1 , 48h
+
+          section Last section
+          Describe gantt syntax :after doc1, 3d
+          Add gantt diagram to demo page : 20h
+          Add another diagram to demo page : 48h
+        </div>
+        <div class="mermaid">
+          pie title Pets adopted by volunteers
+          "Dogs" : 386
+          "Cats" : 85
+          "Rats" : 15
+        </div>
         <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>
       <overlay-source id="page-nav" tag-name="nav" to="page-nav">

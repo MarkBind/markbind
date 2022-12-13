@@ -134,6 +134,10 @@
     {
       "src": "testImages.md",
       "title": "Rendering of images according to specified dimension and auto-linkify ability"
+    },
+    {
+      "src": "testMermaid.md",
+      "title": "Rendering of diagrams via mermaid-js"
     }
   ],
   "pagesExclude": ["**/*-fragment.md"],
@@ -159,7 +163,8 @@
     "testMarkbindPlugin",
     "filterTags",
     "googleAnalytics",
-    "mathDelimiters"
+    "mathDelimiters",
+    "mermaid"
   ],
   "pluginsContext": {
     "testMarkbindPlugin": {
@@ -178,6 +183,12 @@
     },
     "mathDelimiters": {
       "delimiters": ["beg_end"]
+    },
+    "mermaid": {
+      "config": {
+        "startOnLoad": true,
+        "theme": "forest"
+      }
     }
   }
 }
