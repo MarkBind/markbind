@@ -26,6 +26,6 @@ While MarkBind uses `site.json` as the site config file by default, it is possib
 
 More info about the `site.json` file can be found in the panel below.
 
-{{ embed("References → **`site.json` File**", "siteJsonFile.md") }}
+{{ embed("References → **`site.json` File**", "siteJsonFile.md", true) }}
 
 {{ previous_next('workingWithSites', 'usingPlugins') }}
