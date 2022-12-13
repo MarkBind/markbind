@@ -19,7 +19,7 @@ module.exports = {
     if (node.name !== 'mermaid') {
       return;
     }
-    node.name = 'pre';
+    node.name = 'div';
     node.attribs.class = 'mermaid';
   },
 };
