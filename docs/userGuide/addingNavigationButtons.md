@@ -88,14 +88,14 @@ Whenever you create a new page, be sure to include the following code below and 
 ```
 {% endraw %}
 
-<box type="info" header="Effect after Changes are made" dismissible>
+<panel type="primary" header="**Effect after changes are made**" expanded no-close>
 
 1. Changing `[Name_Of_Section]` will affect the **text in the navigation button** when attempting to navigate to the current page from the previous and next pages.
 2. Changing `[Previous_Page_Filename]` and `[Next_Page_Filename]` is to link the current page to the previous and next pages.
 3. That line of code aims to import the previous_next function from common.njk file that you created earlier, you can refer to the Nunjucks docs for the syntax [here](https://mozilla.github.io/nunjucks/templating.html#import)
 4. That line of code aims to call the previous_next function you imported, you can refer to the Nunjucks docs for the syntax [here](https://mozilla.github.io/nunjucks/templating.html#variables)
 
-</box>
+</panel>
 
 </box>
 
