@@ -434,6 +434,12 @@ class Page {
       this.collectNavigableHeadings(content);
       const pageNavTitleHtml = this.generatePageNavTitleHtml();
       const pageNavHeadingHTML = this.generatePageNavHeadingHtml();
+
+      if ((!pageNavTitleHtml || pageNavTitleHtml.length === 0)
+        && (!pageNavHeadingHTML || pageNavHeadingHTML.length === 0)) {
+        return '';
+      }
+
       /*
        Similar to siteAndPageNavProcessor#addSitePageNavPortal,
        wrap the auto generated page nav with an overlay-source vue component for
