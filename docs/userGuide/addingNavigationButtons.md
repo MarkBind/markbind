@@ -26,7 +26,7 @@ Navigation buttons can **greatly help your website visitors browse through your 
 <div class="indented">
 
 {% raw %}
-```html
+```html {heading="**common.njk**"}
 {% macro previous_next(previous_page, next_page) %}
 <div class="clearfix">
 {% if previous_page != ''%}
