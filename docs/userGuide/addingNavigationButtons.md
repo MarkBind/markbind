@@ -16,7 +16,7 @@
 
 <div class="lead" id="overview">
 
-Navigation buttons can **greatly help your visitors of your website browse through your contents with ease**.  
+Navigation buttons can **greatly help your website visitors browse through your content with ease**. 
 </div>
 
 ## Adding the required file and folder
