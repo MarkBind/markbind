@@ -72,6 +72,33 @@ root
 
 ## Editing the content files
 
+<box type="tip">
+
+Whenever you create a new page, be sure to include the following code below and replace the parts enclosed in the square brackets e.g `[Name_Of_Section]`
+
+{% raw %}
+```html
+<!--- Creates an invisible title used in the common.njk file -->
+<span id="title" class="d-none">[Name_Of_Section]</span>
+
+<!--- Nunjucks Syntax, refer to explanation point 3 below -->
+{% from "njk/common.njk" import previous_next %}
+<!--- Nunjucks Syntax, refer to explanation point 4 below -->
+{{ previous_next('[Previous_Page_Filename]', '[Next_Page_Filename]') }}
+```
+{% endraw %}
+
+<box type="info" header="Effect after Changes are made" dismissible>
+
+1. Changing `[Name_Of_Section]` will affect the **text in the navigation button** when attempting to navigate to the current page from the previous and next pages.
+2. Changing `[Previous_Page_Filename]` and `[Next_Page_Filename]` is to link the current page to the previous and next pages.
+3. That line of code aims to import the previous_next function from common.njk file that you created earlier, you can refer to the Nunjucks docs for the syntax [here](https://mozilla.github.io/nunjucks/templating.html#import)
+4. That line of code aims to call the previous_next function you imported, you can refer to the Nunjucks docs for the syntax [here](https://mozilla.github.io/nunjucks/templating.html#variables)
+
+</box>
+
+</box>
+
 1. Add the following code into the `topic1.md` file:
 <div class="indented">
 
@@ -138,21 +165,6 @@ root
 </div>
 
 You should now be able to navigate between section `Topic 1` and `Topic 2` with ease.
-
-<box type="tip">
-
-Whenever you create a new page, be sure to include the following code below and replace the parts enclosed in the square brackets e.g `[Name_Of_Section]`   
-
-{% raw %}
-```html
-<span id="title" class="d-none">[Name_Of_Section]</span>
-
-{% from "njk/common.njk" import previous_next %}
-{{ previous_next('[Previous_Page_Filename]', '[Next_Page_Filename]') }}
-```
-{% endraw %}
-
-</box>
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('redirectingToACustom404Page', '') }}
