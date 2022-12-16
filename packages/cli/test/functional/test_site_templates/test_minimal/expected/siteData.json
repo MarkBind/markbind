@@ -7,7 +7,8 @@
       "headings": {
         "welcome-to-markbind": "Welcome to MarkBind"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {}
     }
   ]
 }

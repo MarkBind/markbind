@@ -8,7 +8,8 @@
         "functional-test-for-htmlparser2-and-markdown-it-patches-for-special-tags": "Functional test for htmlparser2 and markdown-it patches for special tags",
         "so-far-as-to-comply-with-the-commonmark-spec": "So far as to comply with the commonmark spec"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {}
     }
   ]
 }

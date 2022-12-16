@@ -5,7 +5,12 @@
       "src": "bugs/index.md",
       "title": "Open Bugs",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "title": "Open Bugs",
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "index.md",
@@ -77,6 +82,22 @@
         "heading-with-hidden-keyword": [
           "invisible keyword"
         ]
+      },
+      "frontmatter": {
+        "title": "Hello World",
+        "pageNav": "default",
+        "pageNavTitle": "Testing Page Navigation",
+        "globalOverrideProperty": "Overridden by global override",
+        "frontMatterOverrideProperty": "Overridden by front matter override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by front matter override",
+        "tags": [
+          "tag-frontmatter-shown",
+          "tag-included-file",
+          "+tag-exp*",
+          "-tag-exp-hidden",
+          "-tag-site-override-shown",
+          "-tag-site-override-specific*"
+        ]
       }
     },
     {
@@ -85,13 +106,21 @@
       "headings": {
         "feature-list": "Feature list"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "sub_site/nested_sub_site/index.md",
       "title": "",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "test_md_fragment.md",
@@ -99,55 +128,97 @@
       "headings": {
         "some-heading": "Some heading"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testEmptyFrontmatter.md",
       "title": "Hello World",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testLayoutsOverride.md",
       "title": "Hello World",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "title": "Test Layouts",
+        "head": "overwriteLayoutHead.md",
+        "layout": "default",
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testExternalScripts.md",
       "title": "Hello World",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testLayouts.md",
       "title": "Test nunjucks path resolving",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "title": "Test Layouts",
+        "head": "overwriteLayoutHead.md",
+        "layout": "testLayout.md",
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testNunjucksPathResolving.md",
       "title": "Hello World",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "sub_site/testNunjucksPathResolving.md",
       "title": "Hello World",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "sub_site/nested_sub_site/testNunjucksPathResolving.md",
       "title": "Hello World",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testAntiFOUCStyles.md",
       "title": "Hello World",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testAnchorGeneration.md",
@@ -174,13 +245,22 @@
         "should-have-anchor-16": "should have anchor",
         "should-have-anchor-17": "should have anchor"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "title": "Anchor Generation Test",
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testAnnotate.md",
       "title": "Annotate Feature Test",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testTooltipSpacing.md",
@@ -188,37 +268,61 @@
       "headings": {
         "569-stray-space-after-tooltip": "569: Stray space after tooltip"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testThumbnails.md",
       "title": "Thumbnails Test",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testPlantUML.md",
       "title": "PlantUML Test",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testCodeBlocks.md",
       "title": "Test: Code Blocks",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testIncludePluginsRendered.md",
       "title": "Included files should have plugins rendered on them",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testIncludeMultipleModals.md",
       "title": "Multiple inclusions of a modal should be supported",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testPopovers.md",
@@ -229,19 +333,31 @@
         "some-heading": "Some heading",
         "some-heading-2": "Some heading"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testPopoverTrigger.md",
       "title": "Popover initiated by trigger should honor trigger attribute",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testModals.md",
       "title": "Test: Modals",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testDates.md",
@@ -249,7 +365,11 @@
       "headings": {
         "dates": "Dates"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testVariableContainsInclude.md",
@@ -257,7 +377,11 @@
       "headings": {
         "content-fragment": "content fragment"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testIncludeBoilerplate.md",
@@ -265,13 +389,21 @@
       "headings": {
         "hello": "hello"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testPanelMarkdownParsing.md",
       "title": "markdown-it should parse minimized panel as inline element and normal panel as block element",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testCenterText.md",
@@ -279,7 +411,11 @@
       "headings": {
         "center-text": "Center Text"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testHr.md",
@@ -287,13 +423,24 @@
       "headings": {
         "different-types-of-horizontal-rules": "Different types of horizontal rules"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testPageNav.md",
       "title": "text interpolation should be skipped appropriately",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "title": "PageNav Test",
+        "pageNavTitle": "Title interpolation {{ test }}",
+        "pageNav": 5,
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testLinks.md",
@@ -301,7 +448,11 @@
       "headings": {
         "autolinks": "Autolinks"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testTree.md",
@@ -312,7 +463,11 @@
         "multiple-tree": "Multiple Tree",
         "inline-markdown": "Inline Markdown"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testMath.md",
@@ -322,7 +477,11 @@
         "markbind-supports-typesetting-tex-math-equations": "Markbind supports typesetting TeX math equations",
         "additional-delimiters-can-be-used-if-mathdelimiters-plugin-is-enabled": "Additional delimiters can be used if mathDelimiters plugin is enabled"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     },
     {
       "src": "testImages.md",
@@ -333,7 +492,11 @@
         "dimension": "Dimension",
         "linkify": "Linkify"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "globalOverrideProperty": "Overridden by global override",
+        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+      }
     }
   ]
 }

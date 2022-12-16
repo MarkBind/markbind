@@ -5,13 +5,18 @@
       "src": "404.md",
       "title": "Page not found",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {
+        "title": "Page not found",
+        "layout": "404.md"
+      }
     },
     {
       "src": "Home.md",
       "title": "",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {}
     },
     {
       "src": "Page-1.md",
@@ -19,7 +24,8 @@
       "headings": {
         "page-1": "Page 1"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {}
     },
     {
       "src": "README.md",
@@ -27,7 +33,8 @@
       "headings": {
         "readme": "Readme"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {}
     },
     {
       "src": "about.md",
@@ -35,7 +42,8 @@
       "headings": {
         "about": "About"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {}
     },
     {
       "src": "contents/topic1.md",
@@ -43,25 +51,29 @@
       "headings": {
         "topic-1": "Topic 1"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {}
     },
     {
       "src": "contents/topic2.md",
       "title": "",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {}
     },
     {
       "src": "contents/topic3a.md",
       "title": "",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {}
     },
     {
       "src": "contents/topic3b.md",
       "title": "",
       "headings": {},
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {}
     },
     {
       "src": "index.md",
@@ -69,7 +81,8 @@
       "headings": {
         "readme": "Readme"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {}
     },
     {
       "src": "test_folder/extra_1.md",
@@ -77,7 +90,8 @@
       "headings": {
         "sample-content-in-another-folder-which-is-not-named-content": "Sample content in another folder which is not named content"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {}
     },
     {
       "src": "test_folder/extra_2.md",
@@ -85,7 +99,8 @@
       "headings": {
         "sample-content-in-another-folder-which-is-not-named-content": "Sample content in another folder which is not named content"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {}
     },
     {
       "src": "test_folder/extra_3.md",
@@ -93,7 +108,8 @@
       "headings": {
         "sample-content-in-another-folder-which-is-not-named-content": "Sample content in another folder which is not named content"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatter": {}
     }
   ]
 }
