@@ -164,5 +164,20 @@ Whenever you create a new page, be sure to include the following code below and 
 
 You should now be able to navigate between section `Topic 1` and `Topic 2` with ease.
 
+<box type="tip">
+
+Whenever you create a new page, be sure to include the following code below and replace the parts enclosed in the square brackets e.g `[Name_Of_Section]`   
+
+{% raw %}
+```html
+<span id="title" class="d-none">[Name_Of_Section]</span>
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('[Previous_Page_Filename]', '[Next_Page_Filename]') }}
+```
+{% endraw %}
+
+</box>
+
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('redirectingToACustom404Page', '') }}
