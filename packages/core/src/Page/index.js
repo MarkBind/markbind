@@ -435,8 +435,7 @@ class Page {
       const pageNavTitleHtml = this.generatePageNavTitleHtml();
       const pageNavHeadingHTML = this.generatePageNavHeadingHtml();
 
-      if ((!pageNavTitleHtml || pageNavTitleHtml.length === 0)
-        && (!pageNavHeadingHTML || pageNavHeadingHTML.length === 0)) {
+      if (!pageNavTitleHtml && !pageNavHeadingHTML) {
         return '';
       }
 
