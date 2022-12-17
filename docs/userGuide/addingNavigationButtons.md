@@ -26,7 +26,7 @@ Navigation buttons can **greatly help your visitors of your website browse throu
 <div class="indented">
 
 {% raw %}
-```html
+```html {heading="**common.njk**"}
 {% macro previous_next(previous_page, next_page) %}
 <div class="clearfix">
 {% if previous_page != ''%}
@@ -77,23 +77,21 @@ root
 Whenever you create a new page, be sure to include the following code below and replace the parts enclosed in the square brackets e.g `[Name_Of_Section]`
 
 {% raw %}
-```html
+```html {.line-numbers}
 <!--- Creates an invisible title used in the common.njk file -->
 <span id="title" class="d-none">[Name_Of_Section]</span>
 
-<!--- Nunjucks Syntax, refer to explanation point 3 below -->
 {% from "njk/common.njk" import previous_next %}
-<!--- Nunjucks Syntax, refer to explanation point 4 below -->
 {{ previous_next('[Previous_Page_Filename]', '[Next_Page_Filename]') }}
 ```
 {% endraw %}
 
-<panel type="primary" header="**Effect after changes are made**" expanded no-close>
+<panel type="info" header="**Effect after changes are made**" expanded no-close>
 
 1. Changing `[Name_Of_Section]` will affect the **text in the navigation button** when attempting to navigate to the current page from the previous and next pages.
 2. Changing `[Previous_Page_Filename]` and `[Next_Page_Filename]` is to link the current page to the previous and next pages.
-3. That line of code aims to import the previous_next function from common.njk file that you created earlier, you can refer to the Nunjucks docs for the syntax [here](https://mozilla.github.io/nunjucks/templating.html#import)
-4. That line of code aims to call the previous_next function you imported, you can refer to the Nunjucks docs for the syntax [here](https://mozilla.github.io/nunjucks/templating.html#variables)
+3. Line 4 aims to **import the previous_next function** from common.njk file that you created earlier, you can refer to the Nunjucks docs for the syntax [here](https://mozilla.github.io/nunjucks/templating.html#import)
+4. Line 5 aims to **call the previous_next function** you imported, you can refer to the Nunjucks docs for the syntax [here](https://mozilla.github.io/nunjucks/templating.html#variables)
 
 </panel>
 
