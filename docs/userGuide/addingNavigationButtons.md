@@ -19,6 +19,14 @@
 Navigation buttons can **greatly help your website visitors browse through your content with ease**. 
 </div>
 
+**Overview of steps**
+
+> 1. We will be making use of nunjucks [templates](https://markbind.org/userGuide/markBindSyntaxOverview.html#support-for-nunjucks), by defining a macro function to create a navigation button
+> 2. Create a folder named `njk` in the root directory
+> 3. In the `njk` folder, we create a `common.njk` file which stores the macro function 
+> 4. In this example we will be using the [default template](https://markbind.org/userGuide/templates.html#templates) and we will be calling the macro function in the `topic1.md` and `topic2.md` files provided  
+> 5. A navigation button should appear so that you will be able to navigate between the pages `topic1` and `topic2`
+
 ## Adding the required file and folder
 
 1. Create a folder `njk` in the root directory
