@@ -23,6 +23,11 @@
 Should you need more expressive formatting, or encounter any issues when formatting the frontmatter, note that the frontmatter follows the [YAML](https://yaml.org/refcard.html) spec.
 </box>
 
+<box type="warning" seamless>
+
+If a page has multiple front matters, it will take the last front matter by default. You may make use of [omitFrontmatter]({{ base_url }}/userGuide/reusingContents.html#includes) , which is an attribute of Markbind's \<include> feature to omit the front matters that are not needed.
+</box>
+
 **Page properties:**
 
 * **`title`**: The title of the page. Will be used as the `<title>` attribute of the HTML page generated.
