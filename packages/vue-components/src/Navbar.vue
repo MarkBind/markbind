@@ -411,10 +411,12 @@ export default {
     .navbar.navbar-dark .navbar-nav >>> .current:not(.dropdown) a,
     .navbar.navbar-dark .navbar-nav >>> .dropdown.current > a {
         color: #fff;
+        border-bottom: 2px outset #fff;
     }
 
     .navbar.navbar-light .navbar-nav >>> .current:not(.dropdown) a,
     .navbar.navbar-light .navbar-nav >>> .dropdown.current > a {
         color: #000;
+        border-bottom: 2px outset #000;
     }
 </style>
