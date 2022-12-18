@@ -35,12 +35,12 @@ const { shiftSlotNodeDeeper, transformOldSlotSyntax, renameSlot } = require('./v
 const { warnConflictingAtributesMap, warnDeprecatedAtributesMap } = require('./warnings');
 const { processScriptAndStyleTag } = require('./scriptAndStyleTagProcessor');
 
-const FRONT_MATTER_FENCE = '---';
+const FRONTMATTER_FENCE = '---';
 
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 export class NodeProcessor {
-  frontMatter: { [key: string]: string } = {};
+  frontmatter: { [key: string]: string } = {};
 
   headTop: string[] = [];
   headBottom: string[] = [];
@@ -106,27 +106,27 @@ export class NodeProcessor {
   }
 
   /*
-   * FrontMatter collection
+   * Frontmatter collection
    */
-  _processFrontMatter(node: DomElement, context: Context) {
-    let currentFrontMatter = {};
-    const frontMatter = cheerio(node);
-    if (!context.processingOptions.omitFrontmatter && frontMatter.text().trim()) {
-      // Retrieves the front matter from either the first frontmatter element
+  _processFrontmatter(node: DomElement, context: Context) {
+    let currentFrontmatter = {};
+    const frontmatter = cheerio(node);
+    if (!context.processingOptions.omitFrontmatter && frontmatter.text().trim()) {
+      // Retrieves the frontmatter from either the first frontmatter element
       // or from a frontmatter element that includes from another file
       // The latter case will result in the data being wrapped in a div
-      const frontMatterIncludeDiv = frontMatter.find('div');
-      const frontMatterData = frontMatterIncludeDiv.length
-        ? ((frontMatterIncludeDiv[0] as DomElement).children as DomElement[])[0].data
-        : ((frontMatter[0] as DomElement).children as DomElement[])[0].data;
-      const frontMatterWrapped = `${FRONT_MATTER_FENCE}\n${frontMatterData}\n${FRONT_MATTER_FENCE}`;
+      const frontmatterIncludeDiv = frontmatter.find('div');
+      const frontmatterData = frontmatterIncludeDiv.length
+        ? ((frontmatterIncludeDiv[0] as DomElement).children as DomElement[])[0].data
+        : ((frontmatter[0] as DomElement).children as DomElement[])[0].data;
+      const frontmatterWrapped = `${FRONTMATTER_FENCE}\n${frontmatterData}\n${FRONTMATTER_FENCE}`;
 
-      currentFrontMatter = fm(frontMatterWrapped).attributes;
+      currentFrontmatter = fm(frontmatterWrapped).attributes;
     }
 
-    this.frontMatter = {
-      ...this.frontMatter,
-      ...currentFrontMatter,
+    this.frontmatter = {
+      ...this.frontmatter,
+      ...currentFrontmatter,
     };
     cheerio(node).remove();
   }
@@ -179,7 +179,7 @@ export class NodeProcessor {
 
       switch (node.name) {
       case 'frontmatter':
-        this._processFrontMatter(node, context);
+        this._processFrontmatter(node, context);
         break;
       case 'body':
         // eslint-disable-next-line no-console

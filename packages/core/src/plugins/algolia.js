@@ -47,5 +47,5 @@ module.exports = {
     buildAlgoliaInitScript(pluginContext),
     insertAlgoliaCustomCss(),
   ],
-  postRender: (pluginContext, frontMatter, content) => addNoIndexClasses(content),
+  postRender: (pluginContext, frontmatter, content) => addNoIndexClasses(content),
 };

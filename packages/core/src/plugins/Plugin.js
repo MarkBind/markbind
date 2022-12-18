@@ -79,17 +79,17 @@ class Plugin {
   /**
    * Collect page content inserted by plugins
    */
-  getPageNjkLinksAndScripts(frontMatter, content, baseUrl) {
+  getPageNjkLinksAndScripts(frontmatter, content, baseUrl) {
     let links = [];
     let scripts = [];
 
     if (this.plugin.getLinks) {
-      const pluginLinks = this.plugin.getLinks(this.pluginOptions, frontMatter, content);
+      const pluginLinks = this.plugin.getLinks(this.pluginOptions, frontmatter, content);
       links = pluginLinks.map(linkHtml => this._getResolvedAssetElement(linkHtml, 'link', 'href', baseUrl));
     }
 
     if (this.plugin.getScripts) {
-      const pluginScripts = this.plugin.getScripts(this.pluginOptions, frontMatter, content);
+      const pluginScripts = this.plugin.getScripts(this.pluginOptions, frontmatter, content);
       scripts = pluginScripts.map(scriptHtml => this._getResolvedAssetElement(scriptHtml, 'script',
                                                                               'src', baseUrl));
     }
@@ -100,9 +100,9 @@ class Plugin {
     };
   }
 
-  postRender(frontMatter, content) {
+  postRender(frontmatter, content) {
     if (this.plugin.postRender) {
-      return this.plugin.postRender(this.pluginOptions, frontMatter, content);
+      return this.plugin.postRender(this.pluginOptions, frontmatter, content);
     }
     return content;
   }
