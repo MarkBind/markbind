@@ -24,15 +24,15 @@ to the entry point.
 
 In most cases, this is sufficient, and more performant since this ties directly into MarkBind's HTML processing.
 
-However, if you need to operate on the page as a whole, or you need access to the front matter of the page, you may use the `postRender` interface instead, which operates on the HTML content after it is processed by MarkBind.
+However, if you need to operate on the page as a whole, or you need access to the frontmatter of the page, you may use the `postRender` interface instead, which operates on the HTML content after it is processed by MarkBind.
 
 * `processNode(pluginContext, node)`: Called before MarkBind renders the source from Markdown to HTML.
   * `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
   * `node`: A [domhandler](https://github.com/fb55/domhandler) node object, which represents a HTML element.
     This object may be directly manipulated for simple operations, or operated on using [cheerio](https://cheerio.js.org/).
-* `postRender(pluginContext, frontMatter, content)`: Called after the HTML is rendered
+* `postRender(pluginContext, frontmatter, content)`: Called after the HTML is rendered
   * `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
-  * `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
+  * `frontmatter`: The frontmatter of the page being processed, in case any frontmatter data is required.
   * `content`: The rendered HTML.
   * **Returns:** the post-processed HTML string
 
@@ -62,7 +62,7 @@ module.exports = {
       cheerio(node).append(pluginContext.content);
     }
   },
-  postRender: (pluginContext, frontMatter, content) => {
+  postRender: (pluginContext, frontmatter, content) => {
     const $ = cheerio.load(content, { xmlMode: false });
     // Modify the page...
     $('#my-div').append(pluginContext.content);
@@ -99,14 +99,14 @@ module.exports = {
 
 Plugins can implement the methods `getLinks` and `getScripts` to add additional assets to any page.
 
-* `getLinks(pluginContext, frontMatter, content)`: Called to get link elements to be added to the head of the page.
+* `getLinks(pluginContext, frontmatter, content)`: Called to get link elements to be added to the head of the page.
   * `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
-  * `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
+  * `frontmatter`: The frontmatter of the page being processed, in case any frontmatter data is required.
   * `content`: The rendered HTML.
   * **Returns:** an array of strings containing link elements to be added.
-* `getScripts(pluginContext, frontMatter, content)`: Called to get script elements to be added after the body of the page.
+* `getScripts(pluginContext, frontmatter, content)`: Called to get script elements to be added after the body of the page.
   * `pluginContext`: User provided parameters for the plugin. This can be specified in the `site.json`.
-  * `frontMatter`: The frontMatter of the page being processed, in case any frontMatter data is required.
+  * `frontmatter`: The frontmatter of the page being processed, in case any frontmatter data is required.
   * `content`: The rendered HTML.
   * **Returns:** an array of strings containing script elements to be added.
 
@@ -122,8 +122,8 @@ An example of a plugin which adds links and scripts to the page:
 // myPlugin.js
 
 module.exports = {
-  getLinks: (pluginContext, frontMatter, content) => ['<link rel="STYLESHEET_LINK">'],
-  getScripts: (pluginContext, frontMatter, content) => [
+  getLinks: (pluginContext, frontmatter, content) => ['<link rel="STYLESHEET_LINK">'],
+  getScripts: (pluginContext, frontmatter, content) => [
     '<script src="SCRIPT_LINK"></script>',
     '<script>alert("hello")</script>'
   ],

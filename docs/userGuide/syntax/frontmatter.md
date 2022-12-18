@@ -1,6 +1,6 @@
-## Front Matter
+## Frontmatter
 
-**You can use a _Front Matter_ section to specify page properties such as the title and keywords of the page.** To specify front matter for a page, insert a `<frontmatter>` tag in the following format at the beginning of the page.
+**You can use a _frontmatter_ section to specify page properties such as the title and keywords of the page.** To specify frontmatter for a page, insert a `<frontmatter>` tag in the following format at the beginning of the page.
 
 ```html
 <frontmatter>
@@ -25,7 +25,7 @@ Should you need more expressive formatting, or encounter any issues when formatt
 
 <box type="warning" seamless>
 
-If a page has multiple front matters, it will take the last front matter by default. You may make use of [omitFrontmatter]({{ base_url }}/userGuide/reusingContents.html#includes) , which is an attribute of Markbind's \<include> feature to omit the front matters that are not needed.
+If a page has multiple frontmatters, it will take the last frontmatter by default. You may make use of [omitFrontmatter]({{ base_url }}/userGuide/reusingContents.html#includes), which is an attribute of MarkBind's \<include> feature to omit the frontmatters that are not needed.
 </box>
 
 **Page properties:**
