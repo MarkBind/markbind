@@ -334,6 +334,12 @@
         "linkify": "Linkify"
       },
       "headingKeywords": {}
+    },
+    {
+      "src": "testPageNavTarget.md",
+      "title": "Bootstrap scrollspy related classes should be applied only if there are navigable headings",
+      "headings": {},
+      "headingKeywords": {}
     }
   ]
 }

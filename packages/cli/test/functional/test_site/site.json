@@ -134,6 +134,10 @@
     {
       "src": "testImages.md",
       "title": "Rendering of images according to specified dimension and auto-linkify ability"
+    },
+    {
+      "src": "testPageNavTarget.md",
+      "title": "Bootstrap scrollspy related classes should be applied only if there are navigable headings"
     }
   ],
   "pagesExclude": ["**/*-fragment.md"],
