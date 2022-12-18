@@ -124,9 +124,9 @@ export default {
           src,
           title,
           headingKeywords,
-          frontmatter,
+          frontmatterKeywords,
         } = entry;
-        const keywords = frontmatter.keywords || '';
+        const keywords = frontmatterKeywords || '';
         const displayTitle = title || src.substring(0, src.lastIndexOf('.'));
 
         const pageSearchTargets = [

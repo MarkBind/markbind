@@ -5,18 +5,13 @@
       "src": "404.md",
       "title": "Page not found",
       "headings": {},
-      "headingKeywords": {},
-      "frontmatter": {
-        "title": "Page not found",
-        "layout": "404.md"
-      }
+      "headingKeywords": {}
     },
     {
       "src": "Home.md",
       "title": "",
       "headings": {},
-      "headingKeywords": {},
-      "frontmatter": {}
+      "headingKeywords": {}
     },
     {
       "src": "Page-1.md",
@@ -24,22 +19,19 @@
       "headings": {
         "page-1": "Page 1"
       },
-      "headingKeywords": {},
-      "frontmatter": {}
+      "headingKeywords": {}
     },
     {
       "src": "_Footer.md",
       "title": "",
       "headings": {},
-      "headingKeywords": {},
-      "frontmatter": {}
+      "headingKeywords": {}
     },
     {
       "src": "_Sidebar.md",
       "title": "",
       "headings": {},
-      "headingKeywords": {},
-      "frontmatter": {}
+      "headingKeywords": {}
     },
     {
       "src": "about.md",
@@ -47,8 +39,7 @@
       "headings": {
         "about": "About"
       },
-      "headingKeywords": {},
-      "frontmatter": {}
+      "headingKeywords": {}
     },
     {
       "src": "contents/topic1.md",
@@ -56,48 +47,31 @@
       "headings": {
         "topic-1": "Topic 1"
       },
-      "headingKeywords": {},
-      "frontmatter": {
-        "header": "header.md",
-        "siteNav": "site-nav.md"
-      }
+      "headingKeywords": {}
     },
     {
       "src": "contents/topic2.md",
       "title": "",
       "headings": {},
-      "headingKeywords": {},
-      "frontmatter": {
-        "header": "header.md",
-        "siteNav": "site-nav.md"
-      }
+      "headingKeywords": {}
     },
     {
       "src": "contents/topic3a.md",
       "title": "",
       "headings": {},
-      "headingKeywords": {},
-      "frontmatter": {
-        "header": "header.md",
-        "siteNav": "site-nav.md"
-      }
+      "headingKeywords": {}
     },
     {
       "src": "contents/topic3b.md",
       "title": "",
       "headings": {},
-      "headingKeywords": {},
-      "frontmatter": {
-        "header": "header.md",
-        "siteNav": "site-nav.md"
-      }
+      "headingKeywords": {}
     },
     {
       "src": "index.md",
       "title": "Landing Page",
       "headings": {},
-      "headingKeywords": {},
-      "frontmatter": {}
+      "headingKeywords": {}
     }
   ]
 }

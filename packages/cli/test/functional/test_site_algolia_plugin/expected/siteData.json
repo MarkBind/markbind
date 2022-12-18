@@ -5,10 +5,7 @@
       "src": "index.md",
       "title": "Hello World",
       "headings": {},
-      "headingKeywords": {},
-      "frontmatter": {
-        "title": "Hello World"
-      }
+      "headingKeywords": {}
     }
   ]
 }

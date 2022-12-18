@@ -5,11 +5,7 @@
       "src": "404.md",
       "title": "Page not found",
       "headings": {},
-      "headingKeywords": {},
-      "frontmatter": {
-        "title": "Page not found",
-        "layout": "404.md"
-      }
+      "headingKeywords": {}
     },
     {
       "src": "contents/topic1.md",
@@ -17,29 +13,25 @@
       "headings": {
         "topic-1": "Topic 1"
       },
-      "headingKeywords": {},
-      "frontmatter": {}
+      "headingKeywords": {}
     },
     {
       "src": "contents/topic2.md",
       "title": "",
       "headings": {},
-      "headingKeywords": {},
-      "frontmatter": {}
+      "headingKeywords": {}
     },
     {
       "src": "contents/topic3a.md",
       "title": "",
       "headings": {},
-      "headingKeywords": {},
-      "frontmatter": {}
+      "headingKeywords": {}
     },
     {
       "src": "contents/topic3b.md",
       "title": "",
       "headings": {},
-      "headingKeywords": {},
-      "frontmatter": {}
+      "headingKeywords": {}
     },
     {
       "src": "index.md",
@@ -51,12 +43,7 @@
         "heading-2": "Heading 2",
         "heading-3": "Heading 3"
       },
-      "headingKeywords": {},
-      "frontmatter": {
-        "layout": "default.md",
-        "pageNav": 2,
-        "pageNavTitle": "Chapters of This Page"
-      }
+      "headingKeywords": {}
     }
   ]
 }
