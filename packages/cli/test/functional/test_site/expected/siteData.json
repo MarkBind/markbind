@@ -9,7 +9,7 @@
       "frontmatter": {
         "title": "Open Bugs",
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -88,8 +88,8 @@
         "pageNav": "default",
         "pageNavTitle": "Testing Page Navigation",
         "globalOverrideProperty": "Overridden by global override",
-        "frontMatterOverrideProperty": "Overridden by front matter override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by front matter override",
+        "frontmatterOverrideProperty": "Overridden by frontmatter override",
+        "globalAndFrontmatterOverrideProperty": "Overridden by frontmatter override",
         "tags": [
           "tag-frontmatter-shown",
           "tag-included-file",
@@ -109,7 +109,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -119,7 +119,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -131,7 +131,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -141,7 +141,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -154,7 +154,7 @@
         "head": "overwriteLayoutHead.md",
         "layout": "default",
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -164,7 +164,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -177,7 +177,7 @@
         "head": "overwriteLayoutHead.md",
         "layout": "testLayout.md",
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -187,7 +187,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -197,7 +197,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -207,7 +207,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -217,7 +217,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -249,7 +249,7 @@
       "frontmatter": {
         "title": "Anchor Generation Test",
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -259,7 +259,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -271,7 +271,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -281,7 +281,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -291,7 +291,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -301,7 +301,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -311,7 +311,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -321,7 +321,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -336,7 +336,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -346,7 +346,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -356,7 +356,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -368,7 +368,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -380,7 +380,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -392,7 +392,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -402,7 +402,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -414,7 +414,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -426,7 +426,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -439,7 +439,7 @@
         "pageNavTitle": "Title interpolation {{ test }}",
         "pageNav": 5,
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -451,7 +451,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -466,7 +466,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -480,7 +480,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     },
     {
@@ -495,7 +495,7 @@
       "headingKeywords": {},
       "frontmatter": {
         "globalOverrideProperty": "Overridden by global override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+        "globalAndFrontmatterOverrideProperty": "Overridden by global override"
       }
     }
   ]

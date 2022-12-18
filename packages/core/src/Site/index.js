@@ -1432,7 +1432,7 @@ class Site {
           title: page.title,
           headings: page.headings,
           headingKeywords: page.keywords,
-          frontmatter: page.frontMatter,
+          frontmatter: page.frontmatter,
         })),
     };
 
