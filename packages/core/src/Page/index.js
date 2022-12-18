@@ -131,7 +131,7 @@ class Page {
     return this.includedFiles && this.includedFiles.has(filePath);
   }
 
-  prepareTemplateData(content, hasPageNav) {
+  prepareTemplateData(content) {
     let { title } = this;
     if (this.siteConfig.titlePrefix) {
       title = this.siteConfig.titlePrefix + (title ? TITLE_PREFIX_SEPARATOR + title : '');
@@ -140,13 +140,15 @@ class Page {
       title = (title ? title + TITLE_SUFFIX_SEPARATOR : '') + this.siteConfig.titleSuffix;
     }
 
+    const hasPageNavHeadings = Object.keys(this.navigableHeadings).length > 0;
+
     return {
       asset: { ...this.asset },
       baseUrl: this.siteConfig.baseUrl,
       content,
       pageUserScriptsAndStyles: this.pageUserScriptsAndStyles.join('\n'),
       layoutUserScriptsAndStyles: this.asset.layoutUserScriptsAndStyles.join('\n'),
-      hasPageNav,
+      hasPageNavHeadings,
       dev: this.pageConfig.dev,
       faviconUrl: this.pageConfig.faviconUrl,
       markBindVersion: `MarkBind ${PACKAGE_VERSION}`,
@@ -528,16 +530,16 @@ class Page {
      * unrendered DOM for easier reference and checking.
      */
     if (process.env.TEST_MODE) {
-      await this.outputPageHtml(content, pageNav);
+      await this.outputPageHtml(content);
     } else {
       const vueSsrHtml = await pageVueServerRenderer.renderVuePage(compiledVuePage);
-      await this.outputPageHtml(vueSsrHtml, pageNav);
+      await this.outputPageHtml(vueSsrHtml);
     }
   }
 
-  async outputPageHtml(content, pageNav) {
+  async outputPageHtml(content) {
     const renderedTemplate = this.pageConfig.template.render(
-      this.prepareTemplateData(content, !!pageNav)); // page.njk
+      this.prepareTemplateData(content)); // page.njk
 
     const outputTemplateHTML = process.env.TEST_MODE
       ? htmlBeautify(renderedTemplate, this.pageConfig.pluginManager.htmlBeautifyOptions)
