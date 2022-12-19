@@ -296,12 +296,6 @@
       "headingKeywords": {}
     },
     {
-      "src": "testPageNavWithoutTitleAndNavHeadings.md",
-      "title": "page nav separator should be omitted when there is no title and navigation headings added",
-      "headings": {},
-      "headingKeywords": {}
-    },
-    {
       "src": "testLinks.md",
       "title": "Autolink tests",
       "headings": {
@@ -345,6 +339,20 @@
       "src": "testPageNavTarget.md",
       "title": "Bootstrap scrollspy related classes should be applied only if there are navigable headings",
       "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testPageNavWithoutTitleAndNavHeadings.md",
+      "title": "page nav separator should be omitted when there is no title and navigation headings added",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testPageNavWithOnlyTitle.md",
+      "title": "page nav with title added",
+      "headings": {
+        "this-heading-title-should-show-in-page-nav": "This heading title should show in page nav"
+      },
       "headingKeywords": {}
     }
   ]
