@@ -1,5 +1,6 @@
 <frontmatter>
   title: "Anchor Generation Test"
+  keywords: testFrontmatterKeywords
 </frontmatter>
 
 # Root file
