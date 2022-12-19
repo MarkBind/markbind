@@ -350,9 +350,7 @@
     {
       "src": "testPageNavWithOnlyTitle.md",
       "title": "page nav with title added",
-      "headings": {
-        "this-heading-title-should-show-in-page-nav": "This heading title should show in page nav"
-      },
+      "headings": {},
       "headingKeywords": {}
     }
   ]

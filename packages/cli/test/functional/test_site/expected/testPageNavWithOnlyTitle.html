@@ -36,7 +36,7 @@
   const baseUrl = '/test_site'
 </script>
 
-<body data-bs-spy="scroll" data-bs-target="#mb-page-nav" data-bs-offset="100">
+<body>
   <div id="app">
 
     <div>
@@ -208,8 +208,7 @@
       </overlay-source>
       <div id="content-wrapper">
 
-        <h1 id="this-heading-title-should-show-in-page-nav"><span id="this-heading-title-should-show-in-page-nav" class="anchor"></span>This heading title should show in page nav<a class="fa fa-anchor" href="#this-heading-title-should-show-in-page-nav" onclick="event.stopPropagation()"></a></h1>
-        <p>Since a heading title has been added, it should be shown in page nav component/section of the page.</p>
+        <p>Since a page nav title has been added to <code class="line-numbers hljs inline no-lang" v-pre>frontmatter</code>, it should show in page nav component/section of the page.</p>
         <p>Hence, the separator i.e., <code class="line-numbers hljs inline no-lang" v-pre>border-left: ...</code> should now be present in the above mentioned component.</p>
         <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>
@@ -217,7 +216,6 @@
         <div class="nav-component slim-scroll">
           <a class="navbar-brand page-nav-title" href="#" v-pre>Title in Page Nav</a>
           <overlay-source id="mb-page-nav" tag-name="nav" to="mb-page-nav" class="nav nav-pills flex-column my-0 small no-flex-wrap">
-            <a class="nav-link py-1" href="#this-heading-title-should-show-in-page-nav" v-pre>This heading title should show in page nav&#x200E;</a>
 
           </overlay-source>
         </div>
