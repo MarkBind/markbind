@@ -120,6 +120,10 @@
       "title": "text interpolation should be skipped appropriately"
     },
     {
+      "src": "testPageNavWithoutTitleAndNavHeadings.md",
+      "title": "page nav separator should be omitted when there is no title and navigation headings added"
+    },
+    {
       "src": "testLinks.md",
       "title": "Autolink tests"
     },
