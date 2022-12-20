@@ -70,11 +70,11 @@ class Page {
      */
     this.pageUserScriptsAndStyles = [];
     /**
-     * The pure frontMatter of the page as collected in {@link collectFrontMatter}.
+     * The pure frontmatter of the page as collected in {@link collectFrontmatter}.
      * https://markbind.org/userGuide/tweakingThePageStructure.html#front-matter
      * @type {Object<string, any>}
      */
-    this.frontMatter = {};
+    this.frontmatter = {};
     /**
      * Map of heading ids to its text content
      * @type {Object<string, string>}
@@ -100,7 +100,7 @@ class Page {
     /**
      * The title of the page.
      * This is initially set to the title specified in the site configuration,
-     * if there is none, we look for one in the frontMatter(s) as well.
+     * if there is none, we look for one in the frontmatter(s) as well.
      * @type {string}
      */
     this.title = this.pageConfig.title || '';
@@ -110,7 +110,7 @@ class Page {
      */
 
     /**
-     * The layout to use for this page, which may be further mutated in {@link processFrontMatter}.
+     * The layout to use for this page, which may be further mutated in {@link processFrontmatter}.
      * @type {string}
      */
     this.layout = this.pageConfig.layout;
@@ -131,7 +131,7 @@ class Page {
     return this.includedFiles && this.includedFiles.has(filePath);
   }
 
-  prepareTemplateData(content, hasPageNav) {
+  prepareTemplateData(content) {
     let { title } = this;
     if (this.siteConfig.titlePrefix) {
       title = this.siteConfig.titlePrefix + (title ? TITLE_PREFIX_SEPARATOR + title : '');
@@ -140,13 +140,15 @@ class Page {
       title = (title ? title + TITLE_SUFFIX_SEPARATOR : '') + this.siteConfig.titleSuffix;
     }
 
+    const hasPageNavHeadings = Object.keys(this.navigableHeadings).length > 0;
+
     return {
       asset: { ...this.asset },
       baseUrl: this.siteConfig.baseUrl,
       content,
       pageUserScriptsAndStyles: this.pageUserScriptsAndStyles.join('\n'),
       layoutUserScriptsAndStyles: this.asset.layoutUserScriptsAndStyles.join('\n'),
-      hasPageNav,
+      hasPageNavHeadings,
       dev: this.pageConfig.dev,
       faviconUrl: this.pageConfig.faviconUrl,
       markBindVersion: `MarkBind ${PACKAGE_VERSION}`,
@@ -156,15 +158,15 @@ class Page {
   }
 
   /**
-   * Checks if page.frontMatter has a valid page navigation specifier
+   * Checks if page.frontmatter has a valid page navigation specifier
    */
   isPageNavigationSpecifierValid() {
-    const { pageNav } = this.frontMatter;
+    const { pageNav } = this.frontmatter;
     return pageNav && (pageNav === 'default' || Number.isInteger(pageNav));
   }
 
   /**
-   * Generates element selector for page navigation, depending on specifier in front matter
+   * Generates element selector for page navigation, depending on specifier in frontmatter
    * @param pageNav {string|number} 'default' refers to the configured heading indexing level,
    * otherwise a number that indicates the indexing level.
    */
@@ -184,7 +186,7 @@ class Page {
    * @param content html content of a page
    */
   collectNavigableHeadings(content) {
-    const { pageNav } = this.frontMatter;
+    const { pageNav } = this.frontmatter;
     const elementSelector = this.generateElementSelectorForPageNav(pageNav);
     if (elementSelector === undefined) {
       return;
@@ -339,19 +341,19 @@ class Page {
   }
 
   /**
-   * Uses the collected frontmatter from {@link collectFrontMatter} to extract the {@link Page}'s
+   * Uses the collected frontmatter from {@link collectFrontmatter} to extract the {@link Page}'s
    * instance configurations.
-   * FrontMatter properties always have lower priority than site configuration properties.
+   * Frontmatter properties always have lower priority than site configuration properties.
    */
-  processFrontMatter(frontMatter) {
-    this.frontMatter = {
-      ...frontMatter,
+  processFrontmatter(frontmatter) {
+    this.frontmatter = {
+      ...frontmatter,
       ...this.siteConfig.globalOverride,
       ...this.pageConfig.frontmatterOverride,
     };
 
-    this.title = this.title || this.frontMatter.title || '';
-    this.layout = this.layout || this.frontMatter.layout || LAYOUT_DEFAULT_NAME;
+    this.title = this.title || this.frontmatter.title || '';
+    this.layout = this.layout || this.frontmatter.layout || LAYOUT_DEFAULT_NAME;
   }
 
   /**
@@ -409,11 +411,11 @@ class Page {
   }
 
   /**
-   * Generates page navigation's header if specified in this.frontMatter
+   * Generates page navigation's header if specified in this.frontmatter
    * @returns string string
    */
   generatePageNavTitleHtml() {
-    const { pageNavTitle } = this.frontMatter;
+    const { pageNavTitle } = this.frontmatter;
     // Add v-pre to prevent text interpolation for {{ }} wrapped in {% (end)raw %}
     return pageNavTitle
       ? `<a class="navbar-brand ${PAGE_NAV_TITLE_CLASS}" href="#" v-pre>${pageNavTitle.toString()}</a>`
@@ -483,12 +485,12 @@ class Page {
 
     let content = variableProcessor.renderWithSiteVariables(this.pageConfig.sourcePath, pageSources);
     content = await nodeProcessor.process(this.pageConfig.sourcePath, content);
-    this.processFrontMatter(nodeProcessor.frontMatter);
+    this.processFrontmatter(nodeProcessor.frontmatter);
     content = Page.addScrollToTopButton(content);
-    content = pluginManager.postRender(this.frontMatter, content);
+    content = pluginManager.postRender(this.frontmatter, content);
     const pageContent = content;
 
-    pluginManager.collectPluginPageNjkAssets(this.frontMatter, content, this.asset);
+    pluginManager.collectPluginPageNjkAssets(this.frontmatter, content, this.asset);
 
     await layoutManager.generateLayoutIfNeeded(this.layout);
     const pageNav = this.buildPageNav(content);
@@ -528,16 +530,16 @@ class Page {
      * unrendered DOM for easier reference and checking.
      */
     if (process.env.TEST_MODE) {
-      await this.outputPageHtml(content, pageNav);
+      await this.outputPageHtml(content);
     } else {
       const vueSsrHtml = await pageVueServerRenderer.renderVuePage(compiledVuePage);
-      await this.outputPageHtml(vueSsrHtml, pageNav);
+      await this.outputPageHtml(vueSsrHtml);
     }
   }
 
-  async outputPageHtml(content, pageNav) {
+  async outputPageHtml(content) {
     const renderedTemplate = this.pageConfig.template.render(
-      this.prepareTemplateData(content, !!pageNav)); // page.njk
+      this.prepareTemplateData(content)); // page.njk
 
     const outputTemplateHTML = process.env.TEST_MODE
       ? htmlBeautify(renderedTemplate, this.pageConfig.pluginManager.htmlBeautifyOptions)

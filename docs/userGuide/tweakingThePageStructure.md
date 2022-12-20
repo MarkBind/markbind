@@ -26,7 +26,7 @@ MarkBind layouts can be used to provide structure and content around pages easil
 
 To add a layout, first add any source file to the `_markbind/layouts` folder. Then, specify the layout the page will use using one of the following:
 - the [`layout` property](siteJsonFile.md) of your site configuration file
-- the [`layout` property](#front-matter) of the page front matter.
+- the [`layout` property](#front-matter) of the page frontmatter.
 
 <box type="info" seamless>
 
