@@ -21,11 +21,10 @@ Navigation buttons can **greatly help your website visitors browse through your 
 
 **Overview of steps**
 
-> 1. We will be making use of nunjucks [templates](https://markbind.org/userGuide/markBindSyntaxOverview.html#support-for-nunjucks), by defining a macro function to create a navigation button
-> 2. Create a folder named `njk` in the root directory
-> 3. In the `njk` folder, we create a `common.njk` file which stores the macro function 
-> 4. In this example we will be using the [default template](https://markbind.org/userGuide/templates.html#templates) and we will be calling the macro function in the `topic1.md` and `topic2.md` files provided  
-> 5. A navigation button should appear so that you will be able to navigate between the pages `topic1` and `topic2`
+> 1. Define a function to read the page title and create navigation buttons via [Nunjucks](/userGuide/markBindSyntaxOverview.html#support-for-nunjucks)
+> 2. Define a title variable in the content file and invoke the function created to render the navigation buttons
+
+In the following example, we will be editing the site content generated from the [default template](/userGuide/templates.html#templates) (by running `markbind init` in the terminal)
 
 ## Adding the required file and folder
 
