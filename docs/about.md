@@ -111,6 +111,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center"><a href="https://www.linkedin.com/in/dominiclimkj/"><img src="https://avatars.githubusercontent.com/u/46486515?v=4?s=100" width="100px;" alt="Dominic Lim"/><br /><sub><b>Dominic Lim</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=domlimm" title="Code">💻</a> <a href="https://github.com/MarkBind/markbind/commits?author=domlimm" title="Documentation">📖</a></td>
       <td align="center"><a href="https://github.com/petermonky"><img src="https://avatars.githubusercontent.com/u/39848410?v=4?s=100" width="100px;" alt="peter"/><br /><sub><b>peter</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=petermonky" title="Code">💻</a></td>
       <td align="center"><a href="https://github.com/calvintanwj"><img src="https://avatars.githubusercontent.com/u/61271749?v=4?s=100" width="100px;" alt="Calvin Tan"/><br /><sub><b>Calvin Tan</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=calvintanwj" title="Documentation">📖</a></td>
+      <td align="center"><a href="https://github.com/itsyme"><img src="https://avatars.githubusercontent.com/u/71922282?v=4?s=100" width="100px;" alt="david"/><br /><sub><b>david</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=itsyme" title="Code">💻</a> <a href="https://github.com/MarkBind/markbind/commits?author=itsyme" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
