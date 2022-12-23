@@ -358,7 +358,7 @@ test('process include should preserve included frontmatter data', async () => {
   };
 
   expect(result).toEqual(expectedHtml);
-  expect(nodeProcessor.frontMatter).toEqual(expectedFrontmatter);
+  expect(nodeProcessor.frontmatter).toEqual(expectedFrontmatter);
 });
 
 test('process include with omitFrontmatter should discard included frontmatter data', async () => {
@@ -394,8 +394,8 @@ test('process include with omitFrontmatter should discard included frontmatter d
     '<h1 id="exist"><span id="exist" class="anchor"></span>Exist</h1></div>',
   ].join('\n');
 
-  const expectedFrontMatter = {};
+  const expectedFrontmatter = {};
 
   expect(result).toEqual(expectedHtml);
-  expect(nodeProcessor.frontMatter).toEqual(expectedFrontMatter);
+  expect(nodeProcessor.frontmatter).toEqual(expectedFrontmatter);
 });
