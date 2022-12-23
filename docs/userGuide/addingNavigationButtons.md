@@ -69,7 +69,7 @@ root
   _markbind
   _site
   contents
-  njk
+  njk/
     common.njk
   stylesheets
   index.md
