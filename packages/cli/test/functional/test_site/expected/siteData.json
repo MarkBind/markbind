@@ -337,8 +337,6 @@
       "headingKeywords": {}
     },
     {
-      "src": "testMermaid.md",
-      "title": "Rendering of diagrams via mermaid-js",
       "src": "testPageNavTarget.md",
       "title": "Bootstrap scrollspy related classes should be applied only if there are navigable headings",
       "headings": {},
@@ -353,6 +351,12 @@
     {
       "src": "testPageNavWithOnlyTitle.md",
       "title": "page nav with title added",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testMermaid.md",
+      "title": "Rendering of diagrams via mermaid-js",
       "headings": {},
       "headingKeywords": {}
     }
