@@ -21,8 +21,8 @@ Navigation buttons can **greatly help your website visitors browse through your 
 
 **Overview of steps**
 
-> 1. Define a function to read the page title and create navigation buttons via [Nunjucks](/userGuide/markBindSyntaxOverview.html#support-for-nunjucks)
-> 2. Define a title variable in the content file and invoke the function created to render the navigation buttons
+1. Define a function to read the page title and create navigation buttons via [Nunjucks](/userGuide/markBindSyntaxOverview.html#support-for-nunjucks)
+2. Define a title variable in the content file and invoke the function created to render the navigation buttons
 
 In the following example, we will be editing the site content generated from the [default template](/userGuide/templates.html#templates) (by running `markbind init` in the terminal)
 
@@ -170,21 +170,6 @@ Whenever you create a new page, be sure to include the following code below and 
 </div>
 
 You should now be able to navigate between section `Topic 1` and `Topic 2` with ease.
-
-<box type="tip">
-
-Whenever you create a new page, be sure to include the following code below and replace the parts enclosed in the square brackets e.g `[Name_Of_Section]`   
-
-{% raw %}
-```html
-<span id="title" class="d-none">[Name_Of_Section]</span>
-
-{% from "njk/common.njk" import previous_next %}
-{{ previous_next('[Previous_Page_Filename]', '[Next_Page_Filename]') }}
-```
-{% endraw %}
-
-</box>
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('redirectingToACustom404Page', '') }}
