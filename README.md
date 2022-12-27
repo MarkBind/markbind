@@ -18,7 +18,7 @@ The website for the latest master branch (not yet released to the public) is at 
 
 ## Want to help?
 
-If you're interested in contributing to MarkBind, we'd love to have you onboard! Check out our [Developer Guide](https://markbind.org/devdocs/devGuide/devGuide.html) for ideas on contributing and the [setup steps](https://markbind.org/devdocs/devGuide/settingUp.html) for getting our repositories up and running on your local machine.
+If you're interested in contributing to MarkBind, we'd love to have you onboard! Check out our [Developer Guide](https://markbind.org/devdocs/devGuide/devGuide.html) for ideas on contributing and the [setup steps](https://markbind.org/devdocs/devGuide/development/settingUp.html) for getting our repositories up and running on your local machine.
 
 ## Contributors ✨
 

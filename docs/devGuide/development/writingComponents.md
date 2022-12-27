@@ -86,7 +86,7 @@ MarkBind components can be implemented as a plugin as well.
 This is suitable for more lightweight components where the implementation is largely in processing the node, making it fitting to use MarkBind plugins' `processNode` or `postRender` interfaces. 
 These interfaces provide additional entry points for modifying the page generated, and do not replace MarkBind's usual node processing.
 
-The [Writing Plugins]({{baseUrl}}/devGuide/writingPlugins.html) page is a good guide to get started on plugins.
+The [Writing Plugins](writingPlugins.html) page is a good guide to get started on plugins.
 
 {{ icon_examples }} 
 * The [`tree` component](https://github.com/MarkBind/markbind/blob/master/packages/core/src/plugins/default/markbind-plugin-tree.js) is implemented as a default plugin
@@ -95,8 +95,8 @@ The [Writing Plugins]({{baseUrl}}/devGuide/writingPlugins.html) page is a good g
 
 Automated tests that are relevant to the components include:
 
-* [Functional tests]({{baseUrl}}/devGuide/workflow.html#adding-test-site-content)
-* [Snapshot tests]({{baseUrl}}/devGuide/workflow.html#adding-snapshot-tests-for-components)
+* [Functional tests](workflow.html#adding-test-site-content)
+* [Snapshot tests](workflow.html#adding-snapshot-tests-for-components)
 
 The API for Snapshot tests can be found at [Vue Test Utils](https://v1.test-utils.vuejs.org/).
 
@@ -153,4 +153,4 @@ MarkBind should also **log a warning** to inform the author of this conflict!
 </box>
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('design/serverSideRendering', 'writingPlugins') }}
+{{ previous_next('workflow', 'writingPlugins') }}

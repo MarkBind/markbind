@@ -113,27 +113,27 @@ In the tables below, a "thing" is defined as a JavaScript construct that can be 
 
 !!**Exports**!!
 
-| What to Export              | CommonJS                         | TypeScript equivalent   | ES6                            |
-|-----------------------------|----------------------------------|-------------------------|--------------------------------|
-| One thing only              | `module.exports = x`             | `export = x`            | `export default x` **&nbsp;^** |
-| Object of one/more things   | `module.exports = { x, y, z }`   | `export = { x, y, z }`  | `export { x, y, z }`           |
+| What to Export            | CommonJS                       | TypeScript equivalent  | ES6                            |
+|---------------------------|--------------------------------|------------------------|--------------------------------|
+| One thing only            | `module.exports = x`           | `export = x`           | `export default x` **&nbsp;^** |
+| Object of one/more things | `module.exports = { x, y, z }` | `export = { x, y, z }` | `export { x, y, z }`           |
 
 **^**: For compatibility, **do not use** `export default` during migration. It is compiled differently and does not play well with dependants that are still in `.js`, unless some clunky modifications are made in the `.js` files (refer to the StackOverflow post previously [linked](https://stackoverflow.com/questions/40294870/module-exports-vs-export-default-in-node-js-and-es6)).
 
 !!**Imports from a module that exports one thing only**!!
 
-| What to Import  | CommonJS               | TypeScript equivalent                | ES6                            |
-|-----------------|------------------------|--------------------------------------|--------------------------------|
-| Exported thing  | `const x = require(a)` | `import x = require(a)` **&nbsp;^**  | `import x from a` **&nbsp;^**  |
+| What to Import | CommonJS               | TypeScript equivalent               | ES6                           |
+|----------------|------------------------|-------------------------------------|-------------------------------|
+| Exported thing | `const x = require(a)` | `import x = require(a)` **&nbsp;^** | `import x from a` **&nbsp;^** |
 
 **^**: You can only use TypeScript equivalent syntax when the exported module is also in the TypeScript equivalent syntax. The same goes for the ES6 syntax.
 
 !!**Imports from a module that exports an object of one/more things**!!
 
-| What to Import  | CommonJS                   | TypeScript equivalent   | ES6                   |
-|-----------------|----------------------------|-------------------------|-----------------------|
-| Entire object   | `const w = require(a)`     | `import w = require(a)` | `import * as w from a`|
-| Selected things | `const { x } = require(a)` | N/A  **&nbsp;^**        | `import { x } from a` |
+| What to Import  | CommonJS                   | TypeScript equivalent   | ES6                    |
+|-----------------|----------------------------|-------------------------|------------------------|
+| Entire object   | `const w = require(a)`     | `import w = require(a)` | `import * as w from a` |
+| Selected things | `const { x } = require(a)` | N/A  **&nbsp;^**        | `import { x } from a`  |
 
 **^**: While not equivalent on the compile-level, this can be achieved by importing the entire object then destructuring the object.
 
@@ -158,4 +158,4 @@ If we do the usual squash commit, the changes from the two commits are combined 
 The normal merge commit also creates another commit (the merge commit), but the merge process interleaves the commits from the working branch to the target branch, therefore retaining the change history.
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('writingPlugins', 'githubActions/overview') }}
+{{ previous_next('writingPlugins', '../design/projectStructure') }}
