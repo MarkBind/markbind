@@ -24,10 +24,9 @@ to help you complete the task.
 **Summary of Tasks**
 
 1. [Explore MarkBind as a user](exploreMarkBind.md)
-1. TODO: Understand how to contribute to our documentation
-1. TODO: Add functional test cases
-1. TODO: Implement a new feature
-1. TODO: Fix a bug
+1. [Contribute to our documentation](contributeToDocs.md)
+1. [Fix a bug](fixABug.md)
+1. [Implement a new feature](implementAFeature.md)
 
 **Maintainers' Note**
 

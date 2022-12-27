@@ -19,15 +19,15 @@ Getting to know MarkBind as a user will help you understand what MarkBind offers
 
 - [ ] Setup the master branch MarkBind
 - [ ] Create a MarkBind site
-- [ ] Create Content with MarkBind
-- [ ] Modify Site Structure and Configuration
+- [ ] Create content with MarkBind
+- [ ] Modify site structure and configuration
 - [ ] Deploy your MarkBind site
 
 ## Setup the master branch MarkBind
 
 As mentioned in our [user guide]({{baseUrl}}/userGuide/gettingStarted.html), we can either install MarkBind via npm or create a new MarkBind site with npx.
 
-In this bootcamp, we want to setup the master branch MarkBind instead so that we can test out any changes we make to the codebase on our local machine.
+In this bootcamp, we want to set up the master branch MarkBind so that we can test out any changes we make to the codebase on our local machine.
 
 <box type="tip" light>
 
@@ -45,7 +45,7 @@ After setting up MarkBind, try running from the root directory of your MarkBind 
 - [ ] `markbind -v` to check that you have the correct version of MarkBind installed
 - [ ] `cd docs && markbind serve -d` to check that you can serve the MarkBind documentation site in development mode
 
-If you are able to browse the MarkBind documentation site at http://localhost:8080, you have successfully set up MarkBind!
+If you can browse the MarkBind documentation site at http://localhost:8080, you have successfully set up MarkBind!
 
 </box>
 
@@ -53,14 +53,13 @@ If you are able to browse the MarkBind documentation site at http://localhost:80
 
 With MarkBind installed, we can now create a new MarkBind site.
 
-We recommend that you set up a new repository for this MarkBind site, so that you can push your site to GitHub pages later.
-This MarkBind site can be used to test out any changes you make to the codebase, so that you can see how your changes affect the site.
+We recommend that you set up a new repository for this MarkBind site so that you can push your site to GitHub pages later. This MarkBind site can be used to test out any changes you make to the codebase.
 
 As an example, let's create a test site together!
 
 1. Create a new folder called <tooltip content="replace 'xxx' with your GitHub username">"mb-dev-xxx"</tooltip> at a location outside of the MarkBind source code directory.
 1. Go to the folder and run `markbind init` to create a new MarkBind site with the default template.
-2. Initialize a new git repository in the folder by running `git init`. You can also choose to create a new public repository on GitHub first and clone it to your local machine.
+1. Initialize a new git repository in the folder by running `git init`. You can also create a new public repository on GitHub first and clone it to your local machine.
 
 You should see the following output:
 ```
@@ -75,14 +74,14 @@ $ markbind init
 info: Initialization success.
 ```
 
-4. With the site generated, create a `.gitignore` file in the root directory and add the [recommended content]({{baseUrl}}/userGuide/gitignoreFile.html) to it. (This is to ensure log files etc are not committed to the repository)
+4. With the site generated, create a `.gitignore` file in the root directory and add the [recommended content]({{baseUrl}}/userGuide/gitignoreFile.html) to it. This is to ensure log files etc are not committed to the repository.
 
 
 <box type="important" light>
 
 **Checkpoint**
 
-After setting up the MarkBind site, try running the following common operations from the root directory of your MarkBind repository:
+After setting up the MarkBind test site, try running the following common operations from the root directory of your test site:
 - [ ] Build the site by running `markbind build`
 - [ ] Serve the site by running `markbind serve`
 - [ ] Serve the site in development mode by running `markbind serve -d`
@@ -105,14 +104,14 @@ The generated MarkBind site from the above step also includes a few sample usage
 
 Now, let's try editing the `index.md` file to add some content of our own!
 
-1. Open the `index.md` file in your `mb-dev-xxx` folder
-1. Replace the wording `Landing Page Title` with `MarkBind Developer Test Site`
-1. Modify or add in some content utilizing one or more of the following syntax:
+1. Open the `index.md` file in your `mb-dev-xxx` folder.
+1. Replace the wording `Landing Page Title` with `MarkBind Developer Test Site`.
+1. Modify or add some content utilizing one or more of the following syntaxes:
     - [Text Styles]({{baseUrl}}/userGuide/formattingContents.html#text-styles)
     - [Code Block]({{baseUrl}}/userGuide/formattingContents.html#code)
     - [Emoji]({{baseUrl}}/userGuide/formattingContents.html#emoji)
     - etc.
-1. Modify or add in some content utilizing one or more of the following components:
+1. Modify or add some content utilizing one or more of the following components:
     - [Box]({{baseUrl}}/userGuide/components/presentation.html#boxes)
     - [Panel]({{baseUrl}}/userGuide/components/presentation.html#panels)
     - [Tooltip]({{baseUrl}}/userGuide/components/popups.html#tooltips)
@@ -122,10 +121,10 @@ Now, let's try editing the `index.md` file to add some content of our own!
 
 **Checkpoint**
 
-With live preview, you should be able to see the changes you have made to the site after each save. Check that the following are true:
+With live preview, you should be able to see the changes you have made to the site after saving. Check that the following are true:
 - [ ] Serve the site by running `markbind serve -d`
 - [ ] Make changes to the `index.md` file and save
-- [ ] See the changes reflected in the live preview, with correct rendering of the syntax and components
+- [ ] See the changes reflected in the live preview, with the correct rendering of the syntax and components
 
 You now have created content with MarkBind!
 
@@ -154,7 +153,7 @@ Ensure that you are still serving the site with `markbind serve -d`. Check that 
 
 </box>
 
-Another commonly adjusted structure is the layout of the site (specially, the site top header and the left-hand-side navigation).
+Another commonly adjusted structure is the layout of the site (especially, the site's top header and the left-hand-side navigation).
 
 1. Open the `_markbind/layouts/default.md` file in your `mb-dev-xxx` folder.
 1. Change `Your Logo` to `MarkBind Developer Test Site`.
@@ -224,7 +223,7 @@ Congratulations! :tada::tada::tada: You have deployed your MarkBind site!
 
 ## Summary
 
-In the first part of this bootcamp, we have experimented with MarkBind as a user. We have set up the master branch MarkBind and created a new MarkBind site. We have also created content with MarkBind components/syntax and deployed our site.
+In the first part of this bootcamp, we experimented with MarkBind as a user. We have set up the master branch MarkBind and created a new MarkBind site. We have also created content with MarkBind components/syntax and deployed our site.
 
 <box type="tip" seamless>
 
@@ -240,4 +239,4 @@ Here are some additional tasks for you to try out:
 Take a break now :coffee: and we will continue with the second part of the bootcamp!
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('intro', '../styleGuides') }}
+{{ previous_next('intro', 'contributeToDocs') }}
