@@ -28,6 +28,7 @@
   * [Explore MarkBind as a User]({{baseUrl}}/devGuide/bootcamp/exploreMarkBind.html)
   * [Contribute to Documentation]({{baseUrl}}/devGuide/bootcamp/contributeToDocs.html)
   * [Fix a Bug]({{baseUrl}}/devGuide/bootcamp/fixABug.html)
+  * [Implement a New Feature]({{baseUrl}}/devGuide/bootcamp/implementAFeature.html)
 * Appendices :expanded:
   * [Style guides]({{baseUrl}}/devGuide/styleGuides.html)
       </site-nav>

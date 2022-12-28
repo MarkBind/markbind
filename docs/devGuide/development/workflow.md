@@ -152,6 +152,8 @@ Hence, if you need to view the latest frontend changes (relating to `packages/co
 1. Run `npm run build:web` in the root directory, which builds the above bundles,
    then run your markbind-cli [command](https://markbind.org/userGuide/cliCommands.html) of choice.
 
+<div id="workflow-testing">
+
 ## Testing
 
 Our test script does the following:
@@ -239,6 +241,8 @@ To add a page to an existing test site, for this example, to `test_site`:
 When making changes to the Vue components in `packages/vue-components`, you should add new snapshot tests or adapt existing ones as appropriate.
 
 Once you're done, be sure to run the `updatetest` script mentioned [above](#updating-and-writing-tests)!
+
+</div>
 
 ## Linting
 
