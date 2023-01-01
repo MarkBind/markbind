@@ -23,7 +23,7 @@ Getting to know MarkBind as a user will help you understand what MarkBind offers
 - [ ] Modify site structure and configuration
 - [ ] Deploy your MarkBind site
 
-## Setup the master branch MarkBind
+## Setup the master branch of MarkBind
 
 As mentioned in our [user guide]({{baseUrl}}/userGuide/gettingStarted.html), we can either install MarkBind via npm or create a new MarkBind site with npx.
 
