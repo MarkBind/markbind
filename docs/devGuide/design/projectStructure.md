@@ -85,4 +85,4 @@ This package consists of a mix of [Bootstrap](https://getbootstrap.com/component
 We forked it from the original [yuche/vue-strap](https://github.com/yuche/vue-strap) repo into the [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap) repo, and then later merged it into the main [MarkBind/markbind](https://github.com/MarkBind/markbind) repo.
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('../workflow', 'architecture') }}
+{{ previous_next('../development/migratingToTypeScript', 'architecture') }}
