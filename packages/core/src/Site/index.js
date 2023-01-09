@@ -1432,6 +1432,7 @@ class Site {
           title: page.title,
           headings: page.headings,
           headingKeywords: page.keywords,
+          frontmatterKeywords: page.frontmatter.keywords,
         })),
     };
 

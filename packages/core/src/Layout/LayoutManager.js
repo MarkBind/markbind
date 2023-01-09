@@ -5,7 +5,7 @@ const { Layout } = require('./Layout');
 
 const logger = require('../utils/logger');
 
-const FRONT_MATTER_NONE_ATTR = 'none';
+const FRONTMATTER_NONE_ATTR = 'none';
 
 class LayoutManager {
   constructor(config) {
@@ -53,7 +53,7 @@ class LayoutManager {
   }
 
   layoutHasPageNav(name) {
-    if (name === FRONT_MATTER_NONE_ATTR) {
+    if (name === FRONTMATTER_NONE_ATTR) {
       return false;
     }
 
@@ -61,7 +61,7 @@ class LayoutManager {
   }
 
   combineLayoutWithPage(name, pageContent, pageNav, pageIncludedFiles) {
-    if (name === FRONT_MATTER_NONE_ATTR) {
+    if (name === FRONTMATTER_NONE_ATTR) {
       return pageContent;
     }
 
@@ -73,7 +73,7 @@ class LayoutManager {
   }
 
   getLayoutPageNjkAssets(name) {
-    if (name === FRONT_MATTER_NONE_ATTR || !this.layouts[name]) {
+    if (name === FRONTMATTER_NONE_ATTR || !this.layouts[name]) {
       return {};
     }
 

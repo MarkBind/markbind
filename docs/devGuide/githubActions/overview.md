@@ -26,4 +26,4 @@ A GitHub Action can perform a variety of tasks, including automating the build a
   * [Reusing workflows](https://docs.github.com/en/actions/using-workflows/reusing-workflows)
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('../migratingToTypeScript', 'markbindAction') }}
+{{ previous_next('../design/serverSideRendering', 'markbindAction') }}

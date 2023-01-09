@@ -174,7 +174,8 @@
         "should-have-anchor-16": "should have anchor",
         "should-have-anchor-17": "should have anchor"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatterKeywords": "testFrontmatterKeywords"
     },
     {
       "src": "testAnnotate.md",
@@ -333,6 +334,24 @@
         "dimension": "Dimension",
         "linkify": "Linkify"
       },
+      "headingKeywords": {}
+    },
+    {
+      "src": "testPageNavTarget.md",
+      "title": "Bootstrap scrollspy related classes should be applied only if there are navigable headings",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testPageNavWithoutTitleAndNavHeadings.md",
+      "title": "page nav separator should be omitted when there is no title and navigation headings added",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testPageNavWithOnlyTitle.md",
+      "title": "page nav with title added",
+      "headings": {},
       "headingKeywords": {}
     }
   ]
