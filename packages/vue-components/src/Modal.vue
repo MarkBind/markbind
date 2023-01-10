@@ -56,6 +56,7 @@ export default {
   data: () => ({
     show: false,
     isMounted: false,
+    previousOverflow: '',
     zoomEffect: {
       'enter-class': 'modal-zoom',
       'enter-to-class': 'modal-zoom-show',
@@ -93,6 +94,13 @@ export default {
       default: '',
     },
   },
+  watch: {
+    show(newShow) {
+      if (!newShow && this.previousOverflow !== undefined) {
+        document.body.style.overflow = this.previousOverflow;
+      }
+    },
+  },
   computed: {
     hasHeader() {
       return !!this.$slots.header;
@@ -123,6 +131,7 @@ export default {
   },
   mounted() {
     this.isMounted = true;
+    this.previousOverflow = document.body.style.overflow;
   },
 };
 </script>
