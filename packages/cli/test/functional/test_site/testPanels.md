@@ -6,24 +6,10 @@
 
 <br>
 
-<panel header="Correct header" alt="Alternative header">
-  Lorem ipsum...
-</panel>
-
-<br>
-
 **Panel with slots**
 
 <panel>
   <span slot="header">Correct header</span>
-  Lorem ipsum...
-</panel>
-
-<br>
-
-<panel>
-  <span slot="header">Correct header</span>
-  <span slot="alt">Alternative header</span>
   Lorem ipsum...
 </panel>
 
@@ -37,19 +23,3 @@
 </panel>
 
 <br>
-
-<panel alt="Should not appear: Overwritten alternative header">
-  <span slot="alt">Alternative header</span>
-  Lorem ipsum...
-</panel>
-
-<br>
-
-<panel header="Should not appear: Overwritten header" alt="Should not appear: Overwritten alternative header">
-  <span slot="header">Correct header</span>
-  <span slot="alt">Alternative header</span>
-  Lorem ipsum...
-</panel>
-
-<br>
-
