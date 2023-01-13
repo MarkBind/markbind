@@ -19,7 +19,7 @@ module.exports.PROCESS_PANEL_ATTRIBUTES_EXPECTED = `
 `;
 
 module.exports.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY = `
-<panel header="**Lorem ipsum dolor sit amet**">
+<panel header="# Lorem ipsum">
   <div slot="header">
     This existing header slot should be preserved in favour over header attribute, with a logger warning for repeated attributes.
   </div>
