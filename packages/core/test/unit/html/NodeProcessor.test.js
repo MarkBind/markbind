@@ -47,7 +47,7 @@ test('processNode processes panel attributes and inserts into dom as slots corre
                            testData.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
   processAndVerifyTemplate(testData.PROCESS_PANEL_HEADER_NO_OVERRIDE,
                            testData.PROCESS_PANEL_HEADER_NO_OVERRIDE_EXPECTED);
- });
+});
 
 test('processNode processes question attributes and inserts into dom as slots correctly', () => {
   processAndVerifyTemplate(testData.PROCESS_QUESTION_ATTRIBUTES,

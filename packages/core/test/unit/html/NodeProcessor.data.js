@@ -21,7 +21,7 @@ module.exports.PROCESS_PANEL_ATTRIBUTES_EXPECTED = `
 module.exports.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY = `
 <panel header="**Lorem ipsum dolor sit amet**">
   <div slot="header">
-    This existing header slot should be preserved in favour over header attribute, with an appropriate warning for repeated attributes.
+    This existing header slot should be preserved in favour over header attribute, with a logger warning for repeated attributes.
   </div>
   Header attribute should be ignored and deleted while header slot is reserved.
 </panel>
@@ -30,7 +30,7 @@ module.exports.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY = `
 module.exports.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
 <panel>
   <template #header><div>
-    This existing header slot should be preserved in favour over header attribute, with an appropriate warning for repeated attributes.
+    This existing header slot should be preserved in favour over header attribute, with a logger warning for repeated attributes.
   </div></template>
   Header attribute should be ignored and deleted while header slot is reserved.
 </panel>
