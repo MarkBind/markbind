@@ -25,7 +25,7 @@ function clonePageNav(node) {
 }
 
 window.addEventListener('beforeprint', () => {
-  const pageNav = document.querySelector(PAGE_NAV_ID);
+  const pageNav = document.querySelector(`#${PAGE_NAV_ID}`);
   const tocContainers = document.querySelectorAll(`.${PAGE_NAV_PRINT_CONTAINER_CLASS}`);
   if (pageNav && tocContainers.length >= 1) {
     removeToc();

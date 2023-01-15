@@ -239,12 +239,12 @@ export class NodeProcessor {
       case 'style':
         processScriptAndStyleTag(node, this.userScriptsAndStyles);
         break;
-      case 'code':
-        setCodeLineNumbers(node, this.config.codeLineNumbers);
-      // eslint-disable-next-line no-fallthrough
       case 'toc': // printing page navigation as table of contents
         node.attribs.class = 'toc'; // TODO: consolidate into function after confirmation
         node.name = 'div';
+      // eslint-disable-next-line no-fallthrough
+      case 'code': // This should be as low as possible to avoid affecting other tags that can contain code
+        setCodeLineNumbers(node, this.config.codeLineNumbers);
         // fall through
       case 'annotation': // Annotations are added automatically by KaTeX when rendering math formulae.
       case 'eq': // markdown-it-texmath html tag
