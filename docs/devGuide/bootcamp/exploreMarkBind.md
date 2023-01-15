@@ -9,12 +9,17 @@
 
 # {{ title }}
 
-<div class="toc" />
+<toc />
 
 <div class="lead">
 
 Getting to know MarkBind as a user will help you understand what MarkBind offers and how it can be used to create static websites. This will also help you understand the different components and syntax available in MarkBind, which will be useful when you want to debug issues or create similar features in the future.
 
+</div>
+
+<div class="toc">
+
+(Another TOC here, by manually declaring `<div class="toc" />`)
 </div>
 
 ## TLDR

@@ -1,5 +1,9 @@
+const PAGE_NAV_ID = 'mb-page-nav';
+const PAGE_NAV_PRINT_CLASS = 'print-page-nav';
+const PAGE_NAV_PRINT_CONTAINER_CLASS = 'toc';
+
 function removeToc() {
-  const tocElements = document.querySelectorAll('.print-toc');
+  const tocElements = document.querySelectorAll(`.${PAGE_NAV_PRINT_CLASS}`);
   tocElements.forEach((tocElement) => {
     tocElement.remove();
   });
@@ -12,17 +16,21 @@ function removeActiveStyle(container) {
   });
 }
 
+function clonePageNav(node) {
+  const pageNav = node.cloneNode(true);
+  pageNav.removeAttribute('id'); // avoid duplicate id
+  pageNav.classList.add(PAGE_NAV_PRINT_CLASS);
+  removeActiveStyle(pageNav); // prevent accidental item highlighting
+  return pageNav;
+}
+
 window.addEventListener('beforeprint', () => {
-  const pageNav = document.querySelector('#mb-page-nav');
-  const tocContainers = document.querySelectorAll('.toc');
+  const pageNav = document.querySelector(PAGE_NAV_ID);
+  const tocContainers = document.querySelectorAll(`.${PAGE_NAV_PRINT_CONTAINER_CLASS}`);
   if (pageNav && tocContainers.length >= 1) {
     removeToc();
-    const toc = pageNav.cloneNode(true);
-    toc.removeAttribute('id'); // avoid duplicate id
-    toc.classList.add('print-toc');
-    removeActiveStyle(toc); // prevent accidental highlighting
     tocContainers.forEach((tocContainer) => {
-      tocContainer.appendChild(toc);
+      tocContainer.appendChild(clonePageNav(pageNav));
     });
   }
 });

@@ -241,6 +241,10 @@ export class NodeProcessor {
         break;
       case 'code':
         setCodeLineNumbers(node, this.config.codeLineNumbers);
+      // eslint-disable-next-line no-fallthrough
+      case 'toc': // printing page navigation as table of contents
+        node.attribs.class = 'toc'; // TODO: consolidate into function after confirmation
+        node.name = 'div';
         // fall through
       case 'annotation': // Annotations are added automatically by KaTeX when rendering math formulae.
       case 'eq': // markdown-it-texmath html tag
