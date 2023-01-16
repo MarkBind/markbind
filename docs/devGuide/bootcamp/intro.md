@@ -36,4 +36,4 @@ The maintenance of this onboarding bootcamp document does require effort. If you
 
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('../projectManagement', 'exploreMarkBind') }}
+{{ previous_next('../devGuide', 'exploreMarkBind') }}

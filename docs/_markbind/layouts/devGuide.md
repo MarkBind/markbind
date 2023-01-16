@@ -8,7 +8,7 @@
     <div class="nav-component slim-scroll">
       <site-nav>
 * [Contributing]({{baseUrl}}/devGuide/devGuide.html)
-* Onboarding Bootcamp :expanded:
+* Onboarding Bootcamp
   * [Introduction]({{baseUrl}}/devGuide/bootcamp/intro.html)
   * [Explore MarkBind as a User]({{baseUrl}}/devGuide/bootcamp/exploreMarkBind.html)
   * [Contribute to Documentation]({{baseUrl}}/devGuide/bootcamp/contributeToDocs.html)
