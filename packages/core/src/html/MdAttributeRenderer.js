@@ -106,7 +106,9 @@ class MdAttributeRenderer {
 
   processPanelAttributes(node) {
     this.processAttributeWithoutOverride(node, 'alt', false, '_alt');
-    this.processAttributeWithoutOverride(node, 'header', false);
+    if (!this.hasSlotOverridingAttribute(node, 'header')) {
+      this.processAttributeWithoutOverride(node, 'header', false);
+    }
   }
 
   /*
