@@ -72,7 +72,7 @@ The `dist` folder contains `components.min.js` with all components exported in t
 ```
 
 ## Docs
-See the [documentation](https://markbind.org/userGuide/usingComponents.html) with live editable examples.
+See the [documentation](https://markbind.org/userGuide/usingComponents.html) with examples.
 
 ## Local Setup
 * Install with `npm install`.
