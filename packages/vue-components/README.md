@@ -14,6 +14,26 @@ Many of the components under this folder were originally from [MarkBind/vue-stra
 
 Some custom components and directives are also added for MarkBind's use.
 
+### Unassigned
+- Annotate.vue
+- AnnotatePoint.vue
+- PanelBase.js
+- PanelSwitch.vue
+- QuestionConstants.js
+- QuizQuestionMixin.js
+- dropdown.js
+- NodeList.js
+- pubsub.js
+- submenu.js
+- urls.js
+- utils.js
+- Overlay.vue
+- OverlaySource.vue
+- Panel.vue
+- SiteNav.vue
+- SiteNavButton.vue
+- Submenu.vue
+
 ### MarkBind components newly created or revamped since moving here
 - Modal.vue (built on [Vue Final Modal](https://vue-final-modal.org/))
 - Question.vue
@@ -46,7 +66,7 @@ Some custom components and directives are also added for MarkBind's use.
 - Tab.vue
 - TabGroup.vue
 - Tabset.vue
-- Typeahead.vue
+- Typeahead.vue (Deleted?)
 
 ## Installation
 
