@@ -104,6 +104,10 @@
       "title": "Content inside <include> should not be processed by markdown"
     },
     {
+      "src": "testPanels.md",
+      "title": "Test: Panels"
+    },
+    {
       "src": "testPanelMarkdownParsing.md",
       "title": "markdown-it should parse minimized panel as inline element and normal panel as block element"
     },

@@ -8,6 +8,12 @@
     <div class="nav-component slim-scroll">
       <site-nav>
 * [Contributing]({{baseUrl}}/devGuide/devGuide.html)
+* Onboarding Bootcamp
+  * [Introduction]({{baseUrl}}/devGuide/bootcamp/intro.html)
+  * [Explore MarkBind as a User]({{baseUrl}}/devGuide/bootcamp/exploreMarkBind.html)
+  * [Contribute to Documentation]({{baseUrl}}/devGuide/bootcamp/contributeToDocs.html)
+  * [Fix a Bug]({{baseUrl}}/devGuide/bootcamp/fixABug.html)
+  * [Implement a New Feature]({{baseUrl}}/devGuide/bootcamp/implementAFeature.html)
 * Development :expanded:
   * [Setting up]({{baseUrl}}/devGuide/development/settingUp.html)
   * [Workflow]({{baseUrl}}/devGuide/development/workflow.html)
@@ -23,12 +29,6 @@
   * [markbind-action]({{baseUrl}}/devGuide/githubActions/markbindAction.html)
   * [markbind-reusable-workflows]({{baseUrl}}/devGuide/githubActions/markbindReusableWorkflows.html)
 * [Project management]({{baseUrl}}/devGuide/projectManagement.html)
-* Onboarding Bootcamp :expanded:
-  * [Introduction]({{baseUrl}}/devGuide/bootcamp/intro.html)
-  * [Explore MarkBind as a User]({{baseUrl}}/devGuide/bootcamp/exploreMarkBind.html)
-  * [Contribute to Documentation]({{baseUrl}}/devGuide/bootcamp/contributeToDocs.html)
-  * [Fix a Bug]({{baseUrl}}/devGuide/bootcamp/fixABug.html)
-  * [Implement a New Feature]({{baseUrl}}/devGuide/bootcamp/implementAFeature.html)
 * Appendices :expanded:
   * [Style guides]({{baseUrl}}/devGuide/styleGuides.html)
       </site-nav>
