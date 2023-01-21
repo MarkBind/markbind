@@ -16,8 +16,6 @@ const TEST_BLACKLIST = ignore().add([
   '*.woff2',
 ]);
 
-// Files that possibly have null characters but are not binary files
-
 const CRLF_REGEX = /\r\n/g;
 
 function _readFileSync(...paths) {
