@@ -17,7 +17,6 @@ const TEST_BLACKLIST = ignore().add([
 ]);
 
 // Files that possibly have null characters but are not binary files
-const NULL_WHITELIST = ignore();
 
 const CRLF_REGEX = /\r\n/g;
 
@@ -73,7 +72,7 @@ function compare(root, expectedSiteRelativePath = 'expected', siteRelativePath =
     const actual = _readFileSync(actualDirectory, actualFilePath)
       .replace(CRLF_REGEX, '\n');
 
-    if (!NULL_WHITELIST.ignores(expectedFilePath) && isBinary(null, expected)) {
+    if (isBinary(null, expected)) {
       // eslint-disable-next-line no-console
       console.warn(`Unrecognised file extension ${expectedFilePath} contains null characters, skipping`);
       continue;

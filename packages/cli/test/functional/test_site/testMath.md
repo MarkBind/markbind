@@ -1,5 +1,5 @@
 # Math Formulae
-## Markbind supports typesetting TeX math equations
+## MarkBind supports typesetting TeX math equations
 
 Solve the following simultaneous equations:
 
