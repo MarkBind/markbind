@@ -2,7 +2,7 @@ import { Template } from 'nunjucks';
 
 import VariableProcessor from '../variables/VariableProcessor';
 
-interface PageAssets {
+export interface PageAssets {
   bootstrap: string;
   externalScripts: string[];
   fontAwesome: string;
@@ -18,6 +18,7 @@ interface PageAssets {
   polyfillJs: string;
   vue: string;
   jQuery: string;
+  pageVueRenderJs?: string;
 }
 
 /**
