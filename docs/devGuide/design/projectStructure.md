@@ -96,57 +96,57 @@ Some custom components and directives are also added for MarkBind's use.
 
 ***
 
-#### MarkBind components newly created or revamped since moving
+* **MarkBind components newly created or revamped since moving**
 
-* Modal.vue (built on [Vue Final Modal](https://vue-final-modal.org/))
+  * Modal.vue (built on [Vue Final Modal](https://vue-final-modal.org/))
 
-* Question.vue
+  * Question.vue
 
-* QOption.vue
+  * QOption.vue
 
-* Quiz.vue
+  * Quiz.vue
 
-* Popover.vue (built on floating-vue's [Menu](https://floating-vue.starpad.dev/guide/component.html#hover-menu) component)
+  * Popover.vue (built on floating-vue's [Menu](https://floating-vue.starpad.dev/guide/component.html#hover-menu) component)
 
-* Tooltip.vue (built on floating-vue's [Tooltip](https://floating-vue.starpad.dev/guide/component.html#tooltip) component)
+  * Tooltip.vue (built on floating-vue's [Tooltip](https://floating-vue.starpad.dev/guide/component.html#tooltip) component)
 
-* Trigger.vue (built on vue-final-modal's [$vfm API](https://vue-final-modal.org/api#api) and Floating Vue's Menus and Tooltips)
+  * Trigger.vue (built on vue-final-modal's [$vfm API](https://vue-final-modal.org/api#api) and Floating Vue's Menus and Tooltips)
 
-#### MarkBind components ported from [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap):
+* **MarkBind components ported from [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap)**
 
-* Pic.vue
+  * Pic.vue
 
-* Retriever.vue
+  * Retriever.vue
 
-* Searchbar.vue
+  * Searchbar.vue
 
-* SearchbarPageItem.vue
+  * SearchbarPageItem.vue
 
-* Thumbnail.vue
+  * Thumbnail.vue
 
-* TipBox.vue
+  * TipBox.vue
 
-#### Custom directives ported from [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap)
+* **Custom directives ported from [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap)**
 
-* Closeable.js
+  * Closeable.js
 
-* Float.js
+  * Float.js
 
-#### VueStrap components modified for use in MarkBind
+* **VueStrap components modified for use in MarkBind**
 
-* Dropdown.vue
+  * Dropdown.vue
 
-* Navbar.vue
+  * Navbar.vue
 
-* NestedPanel.vue
+  * NestedPanel.vue
 
-* MinimalPanel.vue
+  * MinimalPanel.vue
 
-* Tab.vue
+  * Tab.vue
 
-* TabGroup.vue
+  * TabGroup.vue
 
-* Tabset.vue
+  * Tabset.vue
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('../development/migratingToTypeScript', 'architecture') }}
