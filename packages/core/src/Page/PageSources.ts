@@ -6,12 +6,17 @@ interface Src {
   to: string,
 }
 
+export interface DynamicSrc {
+  to: string,
+  asIfTo: string,
+}
+
 export class PageSources {
-  dynamicIncludeSrc: Src[] = [];
+  dynamicIncludeSrc: DynamicSrc[] = [];
   staticIncludeSrc: Src[] = [];
   missingIncludeSrc: Src[] = [];
 
-  getDynamicIncludeSrc(): Src[] {
+  getDynamicIncludeSrc(): DynamicSrc[] {
     return _.clone(this.dynamicIncludeSrc);
   }
 

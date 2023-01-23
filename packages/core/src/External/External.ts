@@ -1,32 +1,26 @@
-const fs = require('fs-extra');
-const path = require('path');
-const htmlBeautify = require('js-beautify').html;
+import fs from 'fs-extra';
+import path from 'path';
+import * as jsBeautify from 'js-beautify';
+import { PageSources } from '../Page/PageSources';
+import { NodeProcessor } from '../html/NodeProcessor';
+import * as fsUtil from '../utils/fsUtil';
+import type { ExternalManager, ExternalManagerConfig } from './ExternalManager';
 
-const { PageSources } = require('../Page/PageSources');
-const { NodeProcessor } = require('../html/NodeProcessor');
-
-const fsUtil = require('../utils/fsUtil');
+const htmlBeautify = jsBeautify.html;
 
 /**
  * Represents external files (e.g. files referenced by <panel src="...">)
  * not directly included inside the generated page
  */
-class External {
-  constructor(externalManager, sourceFilePath) {
-    /**
-     * @type {ExternalManager}
-     */
-    this.externalManager = externalManager;
+export class External {
+  externalManager: ExternalManager;
+  sourceFilePath: string;
+  includedFiles: Set<string>;
 
-    /**
-     * @type {string}
-     */
-    this.sourceFilePath = sourceFilePath;
-
-    /**
-     * @type {Set<string>}
-     */
-    this.includedFiles = new Set([sourceFilePath]);
+  constructor(em: ExternalManager, srcFilePath: string) {
+    this.externalManager = em;
+    this.sourceFilePath = srcFilePath;
+    this.includedFiles = new Set([srcFilePath]);
   }
 
   /**
@@ -36,7 +30,8 @@ class External {
    * @param config
    * @return {Promise<External>}
    */
-  async resolveDependency(asIfAtFilePath, resultPath, config) {
+  async resolveDependency(asIfAtFilePath: string, resultPath: string, config: ExternalManagerConfig):
+  Promise<External> {
     const fileConfig = {
       ...config,
       headerIdMap: {},
@@ -67,7 +62,3 @@ class External {
     return this;
   }
 }
-
-module.exports = {
-  External,
-};
