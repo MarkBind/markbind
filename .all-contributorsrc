@@ -577,6 +577,15 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "c00kie123",
+      "name": "Jia Yu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/112937454?v=4",
+      "profile": "https://github.com/c00kie123",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
