@@ -88,6 +88,7 @@ module.exports = {
           },
         ],
         "@typescript-eslint/return-await": "off",
+        "@typescript-eslint/type-annotation-spacing": "error",
       },
     },
   ],
