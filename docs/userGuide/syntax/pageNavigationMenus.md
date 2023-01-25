@@ -1,5 +1,7 @@
 ## Page Navigation Menus
 
+<span class="keyword d-none">print page nav as table of content</span>
+
 <div id="content">
 
 **A _Page Navigation Menu_ (==_pageNav_ for short==)  a list of the current page's headings.** Page navigation menus are only available for use in [layouts]({{baseUrl}}/userGuide/tweakingThePageStructure.html#layouts).
@@ -19,6 +21,8 @@
 
 4. **(Optional) To make pageNav accessible on smaller screens, you can use the `<page-nav-button />` component in the [navbar]({{baseUrl}}/userGuide/components/navigation.html#navbars).**
 
+5. **(Optional) To make pageNav available on print, you can position the page navigation menu on individual pages with the `<page-nav-print />` component.**
+
 <div id="short" class="indented">
 
 {{ icon_example }}
@@ -32,6 +36,31 @@ In the page that you want to have page navigation, you may show only `<h1>` and 
 ```
 
 Then, in your [layout file]({{baseUrl}}/userGuide/tweakingThePageStructure.html#layouts), use the `<page-nav />` component to position the pageNav.
+
+{{ icon_example }}
+In the page that you want to have page navigation printed (i.e. to serve as a table of content when viewed on PDFs), use the `<page-nav-print />` component to position the pageNav like so:
+
+```html
+<frontmatter>
+  pageNav: 2
+  pageNavTitle: "Chapters of This Page"
+</frontmatter>
+
+<page-nav-print />
+
+# Overview
+Content of the page...
+```
+
+You can specify multiple `<page-nav-print />` components in a page and they do not have to be at the top of the page.
+
+To view the pageNav on print, open the print preview of the page using the browser's print function.
+
+<box type="info" seamless>
+
+If you are using Chrome, you can right-click on the page and select "Print" to open the print preview.
+You can try it out by going to our [CLI Commands page]({{baseUrl}}/userGuide/cliCommands.html) and printing it.
+</box>
 
 {% if not doNotShowPageNav %}
 {{ icon_example }} <trigger for="modal:page-nav-example" trigger="click">Example usage of the `<page-nav />` component</trigger>
