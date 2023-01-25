@@ -229,6 +229,9 @@ export class NodeProcessor {
       case 'page-nav':
         this.pageNavProcessor.renderPageNav(node);
         break;
+      case 'page-nav-print':
+        PageNavProcessor.transformPrintContainer(node);
+        break;
       case 'site-nav':
         renderSiteNav(node);
         break;
@@ -239,11 +242,7 @@ export class NodeProcessor {
       case 'style':
         processScriptAndStyleTag(node, this.userScriptsAndStyles);
         break;
-      case 'toc': // printing page navigation as table of contents
-        node.attribs.class = 'toc'; // TODO: consolidate into function after confirmation
-        node.name = 'div';
-      // eslint-disable-next-line no-fallthrough
-      case 'code': // This should be as low as possible to avoid affecting other tags that can contain code
+      case 'code':
         setCodeLineNumbers(node, this.config.codeLineNumbers);
         // fall through
       case 'annotation': // Annotations are added automatically by KaTeX when rendering math formulae.
