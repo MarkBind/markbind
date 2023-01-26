@@ -72,7 +72,7 @@ export class NodeProcessor {
     private variableProcessor: VariableProcessor,
     private pluginManager: any,
     private siteLinkManager: any,
-    private userScriptsAndStyles: string[],
+    private userScriptsAndStyles: string[] | undefined,
     docId = '',
   ) {
     this.markdownProcessor = new MarkdownProcessor(docId);

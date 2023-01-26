@@ -1,23 +1,42 @@
-const path = require('path');
+import path from 'path';
+import uniqBy from 'lodash/uniqBy';
+import { External } from './External';
+import * as fsUtil from '../utils/fsUtil';
+import * as urlUtil from '../utils/urlUtil';
+import { DynamicSrc } from '../Page/PageSources';
+import VariableProcessor from '../variables/VariableProcessor';
 
-const { External } = require('./External');
+const _ = {
+  uniqBy,
+};
 
-const fsUtil = require('../utils/fsUtil');
-const urlUtil = require('../utils/urlUtil');
-
-const _ = {};
-_.uniqBy = require('lodash/uniqBy');
+export interface ExternalManagerConfig {
+  baseUrl: string,
+  baseUrlMap: Set<string>,
+  rootPath: string,
+  outputPath: string,
+  ignore: string[],
+  addressablePagesSource: string[],
+  intrasiteLinkValidation: { enabled: boolean },
+  codeLineNumbers: boolean,
+  plantumlCheck: boolean,
+  headerIdMap: {
+    [id: string]: number,
+  },
+  variableProcessor: VariableProcessor,
+  siteLinkManager: any,
+  pluginManager: any,
+}
 
 /**
  * Manages and generates external files (<panel src="...">) referenced in pages and layouts.
  */
-class ExternalManager {
-  constructor(config) {
-    this.config = config;
+export class ExternalManager {
+  config: ExternalManagerConfig;
+  builtFiles: { [name: string]: Promise<External> };
 
-    /**
-     * @type {Object<string, Promise<External>>}
-     */
+  constructor(cfg: ExternalManagerConfig) {
+    this.config = cfg;
     this.builtFiles = {};
   }
 
@@ -32,8 +51,8 @@ class ExternalManager {
    * @param {Set<string>} includedFiles
    * @return {Promise<unknown[]>}
    */
-  async generateDependencies(dependencies, includedFiles) {
-    const resolvingExternals = [];
+  async generateDependencies(dependencies: DynamicSrc[], includedFiles: Set<string>) {
+    const resolvingExternals: Promise<External>[] = [];
 
     _.uniqBy(dependencies, d => d.asIfTo).forEach((src) => {
       if (urlUtil.isUrl(src.to)) {
@@ -60,7 +79,3 @@ class ExternalManager {
     });
   }
 }
-
-module.exports = {
-  ExternalManager,
-};
