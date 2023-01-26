@@ -15,7 +15,6 @@
     "README.md",
     "dist"
   ],
-  "main": "dist/components.min.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/MarkBind/markbind.git",
