@@ -23,6 +23,9 @@ packages/core/src/lib/nunjucks-extensions/set-external.js
 packages/core/src/Page/PageSources.js
 packages/core/src/variables/VariableProcessor.js
 packages/core/src/variables/VariableRenderer.js
+packages/core/src/Page/PageVueServerRenderer.js
+packages/core/src/External/External.js
+packages/core/src/External/ExternalManager.js
 
 # Rules for pure JS files
 packages/core/src/lib/markdown-it/patches/*

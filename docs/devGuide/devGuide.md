@@ -38,4 +38,4 @@
 **We look forward to your PR. Happy coding!**
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('', 'development/settingUp') }}
+{{ previous_next('', 'bootcamp/intro') }}

@@ -84,5 +84,69 @@ This package consists of a mix of [Bootstrap](https://getbootstrap.com/component
 
 We forked it from the original [yuche/vue-strap](https://github.com/yuche/vue-strap) repo into the [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap) repo, and then later merged it into the main [MarkBind/markbind](https://github.com/MarkBind/markbind) repo.
 
+**The key dependencies used are:**
+
+* [Vue.js](http://vuejs.org/) (required ^v2.x.x, test with v2.6.14).
+
+* [Bootstrap CSS](http://getbootstrap.com/) (required 5.x.x, test with 5.1.3). MarkBind's Vue components doesn't depend on a very precise version of Bootstrap.
+
+* [jQuery](https://jquery.com/) (tested with v3.5.1) full build.
+
+Some custom components and directives are also added for MarkBind's use.
+
+***
+
+* **MarkBind components newly created or revamped since moving**
+
+  * Modal.vue (built on [Vue Final Modal](https://vue-final-modal.org/))
+
+  * Question.vue
+
+  * QOption.vue
+
+  * Quiz.vue
+
+  * Popover.vue (built on floating-vue's [Menu](https://floating-vue.starpad.dev/guide/component.html#hover-menu) component)
+
+  * Tooltip.vue (built on floating-vue's [Tooltip](https://floating-vue.starpad.dev/guide/component.html#tooltip) component)
+
+  * Trigger.vue (built on vue-final-modal's [$vfm API](https://vue-final-modal.org/api#api) and Floating Vue's Menus and Tooltips)
+
+* **MarkBind components ported from [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap)**
+
+  * Pic.vue
+
+  * Retriever.vue
+
+  * Searchbar.vue
+
+  * SearchbarPageItem.vue
+
+  * Thumbnail.vue
+
+  * TipBox.vue
+
+* **Custom directives ported from [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap)**
+
+  * Closeable.js
+
+  * Float.js
+
+* **VueStrap components modified for use in MarkBind**
+
+  * Dropdown.vue
+
+  * Navbar.vue
+
+  * NestedPanel.vue
+
+  * MinimalPanel.vue
+
+  * Tab.vue
+
+  * TabGroup.vue
+
+  * Tabset.vue
+
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('../development/migratingToTypeScript', 'architecture') }}

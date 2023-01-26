@@ -567,6 +567,34 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "charandeepsinghb",
+      "name": "charandeepsinghb",
+      "avatar_url": "https://avatars.githubusercontent.com/u/110289710?v=4",
+      "profile": "https://github.com/charandeepsinghb",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "c00kie123",
+      "name": "Jia Yu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/112937454?v=4",
+      "profile": "https://github.com/c00kie123",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "lhw-1",
+      "name": "Lee Hyung Woon / 이형운",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25716529?v=4",
+      "profile": "https://github.com/lhw-1",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

@@ -80,4 +80,4 @@ If you ever need to uninstall the hooks, simply run `uninstall` instead of `inst
    Try running either `markbind serve -d` or `npm run build:web` to view frontend changes (especially after pulling a frontend update that someone else may have pushed). You can see more details [here](workflow.md#editing-frontend-features).
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('../devGuide', 'workflow') }}
+{{ previous_next('../bootcamp/implementAFeature', 'workflow') }}
