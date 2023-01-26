@@ -23,19 +23,14 @@
 
 5. **(Optional) To make pageNav available on print, you can position the page navigation menu on individual pages with the `<page-nav-print />` component.**
 
-<div id="short" class="indented">
+<panel header="**Additional details on printing pageNav**" type="seamless" class="ms-4" expanded>
 
-{{ icon_example }}
-In the page that you want to have page navigation, you may show only `<h1>` and `<h2>` headings in the pageNav, and set a custom pageNav title like so:
+You can specify the location of the page navigation menu on print by using either of the following syntaxes:
+- `<page-nav-print />`
+- `<page-nav-print></page-nav-print>`
+  - This is useful if you want to include a custom title (or any other content) before the page navigation menu. For example, `<page-nav-print>Table of Contents</page-nav-print>`
 
-```html
-<frontmatter>
-  pageNav: 2
-  pageNavTitle: "Chapters of This Page"
-</frontmatter>
-```
-
-Then, in your [layout file]({{baseUrl}}/userGuide/tweakingThePageStructure.html#layouts), use the `<page-nav />` component to position the pageNav.
+You can specify multiple `<page-nav-print />` components in a page and they do not have to be at the top of the page. They also do not appear when viewed on a browser.
 
 {{ icon_example }}
 In the page that you want to have page navigation printed (i.e. to serve as a table of content when viewed on PDFs), use the `<page-nav-print />` component to position the pageNav like so:
@@ -52,8 +47,6 @@ In the page that you want to have page navigation printed (i.e. to serve as a ta
 Content of the page...
 ```
 
-You can specify multiple `<page-nav-print />` components in a page and they do not have to be at the top of the page.
-
 To view the pageNav on print, open the print preview of the page using the browser's print function.
 
 <box type="info" seamless>
@@ -61,6 +54,22 @@ To view the pageNav on print, open the print preview of the page using the brows
 If you are using Chrome, you can right-click on the page and select "Print" to open the print preview.
 You can try it out by going to our [CLI Commands page]({{baseUrl}}/userGuide/cliCommands.html) and printing it.
 </box>
+
+</panel>
+
+<div id="short" class="indented">
+
+{{ icon_example }}
+In the page that you want to have page navigation, you may show only `<h1>` and `<h2>` headings in the pageNav, and set a custom pageNav title like so:
+
+```html
+<frontmatter>
+  pageNav: 2
+  pageNavTitle: "Chapters of This Page"
+</frontmatter>
+```
+
+Then, in your [layout file]({{baseUrl}}/userGuide/tweakingThePageStructure.html#layouts), use the `<page-nav />` component to position the pageNav.
 
 {% if not doNotShowPageNav %}
 {{ icon_example }} <trigger for="modal:page-nav-example" trigger="click">Example usage of the `<page-nav />` component</trigger>
