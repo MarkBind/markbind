@@ -31,6 +31,10 @@ packages/core/src/variables/VariableRenderer.js
 packages/core/src/Page/PageVueServerRenderer.js
 packages/core/src/External/External.js
 packages/core/src/External/ExternalManager.js
+packages/core/src/html/vueSlotSyntaxProcessor.js
+packages/core/src/html/MdAttributeRenderer.js
+packages/core/src/html/MarkdownProcessor.js
+packages/core/src/html/warnings.js
 
 # Rules for pure JS files
 packages/core/src/lib/markdown-it/patches/*
