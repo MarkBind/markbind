@@ -85,6 +85,9 @@ packages/core/src/lib/nunjucks-extensions/index.js
 packages/core/src/lib/nunjucks-extensions/nunjucks-date.js
 packages/core/src/lib/nunjucks-extensions/set-external.js
 packages/core/src/Page/PageSources.js
+packages/core/src/plugins/codeBlockButtonsAssets/codeBlockButtonsContainer.js
+packages/core/src/plugins/codeBlockCopyButtons.js
+packages/core/src/plugins/codeBlockWrapButtons.js
 packages/core/src/variables/VariableProcessor.js
 packages/core/src/variables/VariableRenderer.js
 packages/core/src/Page/PageVueServerRenderer.js
