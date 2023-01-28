@@ -1,4 +1,5 @@
-const cheerio = require('cheerio');
+import cheerio from 'cheerio';
+import { DomElement } from 'htmlparser2';
 
 /**
  * Removes every script and style node (written by the user) encountered in the main app,
@@ -7,27 +8,21 @@ const cheerio = require('cheerio');
  *
  * This is to prevent Vue compilation of script/style tags (as they are not meant to be compiled).
  *
- * @param node {Object<any, any>} node from the dom traversal
- * @param userScriptsAndStyles {array} to store scripts and style tags for hoisting
+ * @param node from the dom traversal
+ * @param userScriptsAndStyles to store scripts and style tags for hoisting
  */
-function processScriptAndStyleTag(node, userScriptsAndStyles) {
+export function processScriptAndStyleTag(node: DomElement, userScriptsAndStyles: string[]) {
   // Do not process script/style tags that are meant to be inserted in head/bottom of HTML
-  const isHeadOrBottom = node.parent.name === 'head-top'
-    || node.parent.name === 'head-bottom' || node.parent.name === 'script-bottom';
+  const isHeadOrBottom = node.parent && (node.parent.name === 'head-top'
+    || node.parent.name === 'head-bottom' || node.parent.name === 'script-bottom');
   // Do not process script/style tags that are from External
   const isExternal = userScriptsAndStyles === undefined;
   if (isHeadOrBottom || isExternal) {
     return;
   }
 
-  const idx = node.parent.children.indexOf(node);
-  if (idx !== -1) {
-    node.parent.children.splice(idx, 1);
-  }
-  node.parent = null;
-  userScriptsAndStyles.push(cheerio.html(node));
+  const nodeSiblings = node.parent?.children ?? [node];
+  nodeSiblings.splice(nodeSiblings.indexOf(node), 1);
+  node.parent = undefined;
+  userScriptsAndStyles.push(cheerio.html(node as cheerio.Element));
 }
-
-module.exports = {
-  processScriptAndStyleTag,
-};
