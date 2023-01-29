@@ -227,11 +227,13 @@
           <thumbnail circle size="300" src="/test_site/images/deer.jpg"></thumbnail>
           <pic src="/test_site/images/deer.jpg" height="300"></pic>
         </p>
-        <hr>
-        <p><strong>Broken link, still takes up the space it's supposed to</strong></p>
-        <thumbnail src="/broken_link" border></thumbnail>
-        <thumbnail src="http://placehold.it/300x100"></thumbnail>
-        <hr>
+        <frontmatter>
+
+          **Broken link, still takes up the space it's supposed to**
+
+          <thumbnail src="/broken_link" border></thumbnail>
+          <thumbnail src="http://placehold.it/300x100"></thumbnail>
+        </frontmatter>
         <p><strong>Borders</strong></p>
         <div class="table-responsive">
           <table class="markbind-table table table-bordered table-striped">
@@ -267,20 +269,21 @@
             </tbody>
           </table>
         </div>
-        <hr>
-        <p><strong>Background</strong></p>
-        <p><strong>Valid CSS properties</strong>
+        <frontmatter>
+
+          **Background**
+
+          **Valid CSS properties**
           <thumbnail background="lightblue" circle></thumbnail>
           <thumbnail background="#aaf" circle></thumbnail>
           <thumbnail background="rgba(120, 120, 200, 0.4)" circle></thumbnail>
-        </p>
-        <p><strong>Invalid CSS properties</strong>
+
+          **Invalid CSS properties**
           <thumbnail background="asdf" border="1px solid black" circle></thumbnail>
-        </p>
-        <p><strong>Empty</strong>
+
+          **Empty**
           <thumbnail background border="1px solid black" circle></thumbnail>
-        </p>
-        <hr>
+        </frontmatter>
         <p><strong>Text/Emojis/Icons</strong></p>
         <p><strong>Text</strong>
           <thumbnail border="1px solid black" circle>test</thumbnail>
