@@ -21,6 +21,7 @@ import tabGroup from './TabGroup.vue';
 import tabset from './Tabset.vue';
 import thumbnail from './Thumbnail.vue';
 import tipBox from './TipBox.vue';
+import toast from './Toast.vue';
 import trigger from './Trigger.vue';
 import siteNav from './SiteNav.vue';
 import submenu from './Submenu.vue';
@@ -50,6 +51,7 @@ const components = {
   tabs: tabset,
   thumbnail,
   tipBox,
+  toast,
   trigger,
   siteNav,
   submenu,

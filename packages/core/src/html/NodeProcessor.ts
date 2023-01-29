@@ -217,6 +217,9 @@ export class NodeProcessor {
       case 'tab-group':
         this.mdAttributeRenderer.processTabAttributes(node);
         break;
+      case 'toast':
+        this.mdAttributeRenderer.processToastAttributes(node);
+        break;
       case 'box':
         this.mdAttributeRenderer.processBoxAttributes(node);
         break;

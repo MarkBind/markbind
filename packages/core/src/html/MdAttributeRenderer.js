@@ -147,6 +147,14 @@ class MdAttributeRenderer {
   }
 
   /*
+   * Toasts
+   */
+
+  processToastAttributes(node) {
+    this.processAttributeWithoutOverride(node, 'header', false);
+  }
+
+  /*
    * Dropdowns
    */
 
