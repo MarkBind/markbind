@@ -20,3 +20,6 @@ Our coding standards are mostly based on those at [se-education.org/guides](http
 * [**Markdown/MarkBind** coding standard](https://se-education.org/guides/conventions/markdown.html)
 * [**JavaScript** coding standard](https://se-education.org/guides/conventions/javascript.html)
 * **Documentation**: Follow the [**Google developer documentation style guide**](https://developers.google.com/style).
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('projectManagement', '') }}

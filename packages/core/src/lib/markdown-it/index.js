@@ -14,7 +14,7 @@ const logger = require('../../utils/logger');
 
 const { HighlightRule } = require('./highlight/HighlightRule');
 
-const HIGHLIGHT_LINES_DELIMITER_REGEX = new RegExp(',(?![^\\[\\]]*])');
+const HIGHLIGHT_LINES_DELIMITER_REGEX = /,(?![^[\]]*])/;
 
 const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
@@ -28,7 +28,7 @@ markdownIt.use(createDoubleDelimiterInlineRule('%%', 'dimmed', 'emphasis'))
 markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-sub'))
   .use(require('markdown-it-sup'))
-  .use(require('markdown-it-imsize'), { autofill: false })
+  .use(require('@tlylt/markdown-it-imsize'), { autofill: false })
   .use(require('markdown-it-table-of-contents'))
   .use(require('markdown-it-task-lists'), { enabled: true })
   .use(require('markdown-it-linkify-images'), { imgClass: 'img-fluid' })
@@ -38,7 +38,8 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('./plugins/markdown-it-block-embed'))
   .use(require('./plugins/markdown-it-icons'))
   .use(require('./plugins/markdown-it-footnotes'))
-  .use(require('./plugins/markdown-it-center-text'));
+  .use(require('./plugins/markdown-it-center-text'))
+  .use(require('./plugins/markdown-it-colour-text'));
 
 // fix table style
 markdownIt.renderer.rules.table_open = _.constant(

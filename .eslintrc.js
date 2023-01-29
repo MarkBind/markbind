@@ -33,7 +33,6 @@ module.exports = {
     "max-len": ["error", { "code": 110 }],
     "no-param-reassign": ["error", { "props": false }],
     "operator-linebreak": ["error", "before"],
-    "prefer-regex-literals": "off",
     // override airbnb-base dev dependencies, latest version does not white list __mocks__
     "import/no-extraneous-dependencies": [
       "error", {
@@ -89,6 +88,7 @@ module.exports = {
           },
         ],
         "@typescript-eslint/return-await": "off",
+        "@typescript-eslint/type-annotation-spacing": "error",
       },
     },
   ],

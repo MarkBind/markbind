@@ -55,7 +55,7 @@ class Layout {
                                                          this.sourceFilePath, layoutVariables);
       this.layoutPageNavUuid = nodeProcessor.pageNavProcessor.getUuid();
 
-      this.layoutProcessed = pluginManager.postRender(nodeProcessor.frontMatter, this.layoutProcessed);
+      this.layoutProcessed = pluginManager.postRender(nodeProcessor.frontmatter, this.layoutProcessed);
 
       const pageBodyVarRegex = new RegExp(this.layoutPageBodyVariable, 'g');
       const bodyVarMatch = this.layoutProcessed.match(pageBodyVarRegex);

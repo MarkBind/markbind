@@ -48,3 +48,6 @@ Based on the [GitHub Actions documentation](https://docs.github.com/en/actions/c
 > * Create a release using semantic versioning. For more information, see "[Creating releases](https://docs.github.com/en/articles/creating-releases)."
 > * Move the major version tag (such as `v1`, `v2`) to point to the Git ref of the current release. For more information, see "[Git basics - tagging](https://git-scm.com/book/en/v2/Git-Basics-Tagging)."
 > * Introduce a new major version tag (`v2`) for changes that will break existing workflows. For example, changing an action's inputs would be a breaking change.
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('overview', 'markbindReusableWorkflows') }}

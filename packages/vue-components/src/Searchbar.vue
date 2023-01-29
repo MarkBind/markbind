@@ -1,21 +1,25 @@
 <template>
   <div style="position: relative;" class="dropdown">
     <div v-if="algolia" id="algolia-search-input"></div>
-    <input
-      v-else
-      v-model="value"
-      data-bs-toggle="dropdown"
-      type="text"
-      class="form-control"
-      :placeholder="placeholder"
-      autocomplete="off"
-      @input="update"
-      @keyup.up="up"
-      @keyup.down="down"
-      @keydown.enter="hit"
-      @keydown.esc="reset"
-      @blur="showDropdown = false"
-    />
+    <template v-else>
+      <input
+        v-model="value"
+        data-bs-toggle="dropdown"
+        type="text"
+        class="form-control"
+        :placeholder="placeholder"
+        autocomplete="off"
+        @input="update"
+        @keyup.up="up"
+        @keyup.down="down"
+        @keydown.enter="hit"
+        @keydown.esc="reset"
+        @blur="showDropdown = false"
+      />
+      <div class="form-control placeholder-div-hidden">
+        {{ placeholder }}
+      </div>
+    </template>
     <ul ref="dropdown" :class="dropdownMenuClasses">
       <li
         v-for="(item, index) in items"
@@ -120,8 +124,9 @@ export default {
           src,
           title,
           headingKeywords,
+          frontmatterKeywords,
         } = entry;
-        const keywords = entry.keywords || '';
+        const keywords = frontmatterKeywords || '';
         const displayTitle = title || src.substring(0, src.lastIndexOf('.'));
 
         const pageSearchTargets = [
@@ -134,7 +139,8 @@ export default {
 
         if (totalPageMatches > 0) {
           const pageHeadings = [];
-          Object.entries(headings).forEach(([id, text]) => {
+
+          Object.entries(headings).forEach(([id, text], idx) => {
             const matchesHeading = regexes.some(regex => regex.test(text));
             const matchesKeywords = headingKeywords[id] && headingKeywords[id]
               .some(keyword => regexes.some(regex => regex.test(keyword)));
@@ -146,12 +152,14 @@ export default {
               ];
               const totalHeadingMatches = getTotalMatches(headingSearchTargets, regexes);
 
-              pageHeadings.push({
-                heading: { id, text },
-                keywords: headingKeywords[id],
-                src,
-                totalMatches: totalHeadingMatches,
-              });
+              if (!(idx === 0 && text === displayTitle && !keywords.length)) {
+                pageHeadings.push({
+                  heading: { id, text },
+                  keywords: headingKeywords[id],
+                  src,
+                  totalMatches: totalHeadingMatches,
+                });
+              }
             }
           });
           pageHeadings.sort((a, b) => b.totalMatches - a.totalMatches);
@@ -252,8 +260,29 @@ export default {
 </script>
 
 <style scoped>
+    .dropdown {
+        display: block;
+    }
+
     .form-control {
-        min-width: 8em;
+        min-width: 12.7em;
+        max-width: 25.4em; /* twice of min-width, to accommodate a range of lengths */
+    }
+
+    /* For mobile devices and general tablets in portrait e.g. iPad */
+    @media screen and (max-width: 878px) and (orientation: portrait) {
+        .form-control {
+            min-width: 8em;
+            max-width: 16em; /* twice of min-width, to accommodate a range of lengths */
+        }
+    }
+
+    /* For general tablets in landscape e.g. iPad */
+    @media screen and (min-width: 768px) and (max-width: 878px)  and (orientation: landscape) {
+        .form-control {
+            min-width: 9em;
+            max-width: 18em; /* twice of min-width, to accommodate a range of lengths */
+        }
     }
 
     .table-active {
@@ -263,6 +292,17 @@ export default {
     .dropdown-menu-end {
         right: 0;
         left: auto;
+    }
+
+    .placeholder-div-hidden {
+        /* prevents placeholderDiv from taking up space on the navbar to resolve FOUC */
+        height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        border-top: 0;
+        border-bottom: 0;
+        visibility: hidden;
+        overflow: hidden;
     }
 </style>
 

@@ -25,7 +25,7 @@
   dates : ['Dates', ['basic', 'reader-facing']],
   mathformulae : ['Math Formulae', ['basic', 'reader-facing']],
 
-  frontmatter : ['Front Matter', ['other']],
+  frontmatter : ['Frontmatter', ['other']],
   includes : ['Includes', ['other']],
   keywords : ['Keywords', ['other']],
   tags : ['Tags', ['other']],

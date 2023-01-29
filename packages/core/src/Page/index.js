@@ -7,7 +7,6 @@ const { pageVueServerRenderer } = require('./PageVueServerRenderer');
 
 const _ = {};
 _.cloneDeep = require('lodash/cloneDeep');
-_.isString = require('lodash/isString');
 _.isObject = require('lodash/isObject');
 _.isArray = require('lodash/isArray');
 
@@ -15,35 +14,43 @@ const { CyclicReferenceError } = require('../errors');
 const { PageSources } = require('./PageSources');
 const { NodeProcessor } = require('../html/NodeProcessor');
 
-const fsUtil = require('../utils/fsUtil');
 const logger = require('../utils/logger');
 
 const PACKAGE_VERSION = require('../../package.json').version;
 
 const {
-  PAGE_NAV_ID,
-  PAGE_NAV_TITLE_CLASS,
-  TITLE_PREFIX_SEPARATOR,
-  TITLE_SUFFIX_SEPARATOR,
-} = require('./constants');
-
-const {
   LAYOUT_DEFAULT_NAME,
-} = require('../constants');
+} = require('../Layout');
+
+const TITLE_PREFIX_SEPARATOR = ' - ';
+const TITLE_SUFFIX_SEPARATOR = ' - ';
+
+const PAGE_NAV_ID = 'mb-page-nav';
+const PAGE_NAV_TITLE_CLASS = 'page-nav-title';
+
+const SCROLL_TO_TOP_BUTTON_HTML = '<i class="fa fa-arrow-circle-up fa-lg d-print-none" '
+  + 'id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>';
 
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 class Page {
   /**
    * @param {PageConfig} pageConfig
+   * @param {SiteConfig} siteConfig
    */
-  constructor(pageConfig) {
+  constructor(pageConfig, siteConfig) {
     /**
      * Page configuration passed from {@link Site}.
      * This should not be mutated.
      * @type {PageConfig}
      */
     this.pageConfig = pageConfig;
+
+    /**
+     * Site configuration passed from {@link Site}.
+     * @type {SiteConfig}
+     */
+    this.siteConfig = siteConfig;
   }
 
   /**
@@ -63,11 +70,11 @@ class Page {
      */
     this.pageUserScriptsAndStyles = [];
     /**
-     * The pure frontMatter of the page as collected in {@link collectFrontMatter}.
+     * The pure frontmatter of the page as collected in {@link collectFrontmatter}.
      * https://markbind.org/userGuide/tweakingThePageStructure.html#front-matter
      * @type {Object<string, any>}
      */
-    this.frontMatter = {};
+    this.frontmatter = {};
     /**
      * Map of heading ids to its text content
      * @type {Object<string, string>}
@@ -93,7 +100,7 @@ class Page {
     /**
      * The title of the page.
      * This is initially set to the title specified in the site configuration,
-     * if there is none, we look for one in the frontMatter(s) as well.
+     * if there is none, we look for one in the frontmatter(s) as well.
      * @type {string}
      */
     this.title = this.pageConfig.title || '';
@@ -103,7 +110,7 @@ class Page {
      */
 
     /**
-     * The layout to use for this page, which may be further mutated in {@link processFrontMatter.}
+     * The layout to use for this page, which may be further mutated in {@link processFrontmatter}.
      * @type {string}
      */
     this.layout = this.pageConfig.layout;
@@ -124,50 +131,48 @@ class Page {
     return this.includedFiles && this.includedFiles.has(filePath);
   }
 
-  prepareTemplateData(content, hasPageNav) {
+  prepareTemplateData(content) {
     let { title } = this;
-    if (this.pageConfig.titlePrefix) {
-      title = this.pageConfig.titlePrefix + (title ? TITLE_PREFIX_SEPARATOR + title : '');
+    if (this.siteConfig.titlePrefix) {
+      title = this.siteConfig.titlePrefix + (title ? TITLE_PREFIX_SEPARATOR + title : '');
     }
-    if (this.pageConfig.titleSuffix) {
-      title = (title ? title + TITLE_SUFFIX_SEPARATOR : '') + this.pageConfig.titleSuffix;
+    if (this.siteConfig.titleSuffix) {
+      title = (title ? title + TITLE_SUFFIX_SEPARATOR : '') + this.siteConfig.titleSuffix;
     }
-    // construct temporary asset object with only POSIX-style paths
-    const asset = {};
-    Object.entries(this.asset).forEach(([key, value]) => {
-      asset[key] = _.isString(value) ? fsUtil.ensurePosix(value) : value;
-    });
+
+    const hasPageNavHeadings = Object.keys(this.navigableHeadings).length > 0;
+
     return {
-      asset,
-      baseUrl: this.pageConfig.baseUrl,
+      asset: { ...this.asset },
+      baseUrl: this.siteConfig.baseUrl,
       content,
       pageUserScriptsAndStyles: this.pageUserScriptsAndStyles.join('\n'),
       layoutUserScriptsAndStyles: this.asset.layoutUserScriptsAndStyles.join('\n'),
-      hasPageNav,
+      hasPageNavHeadings,
       dev: this.pageConfig.dev,
       faviconUrl: this.pageConfig.faviconUrl,
       markBindVersion: `MarkBind ${PACKAGE_VERSION}`,
       title,
-      enableSearch: this.pageConfig.enableSearch,
+      enableSearch: this.siteConfig.enableSearch,
     };
   }
 
   /**
-   * Checks if page.frontMatter has a valid page navigation specifier
+   * Checks if page.frontmatter has a valid page navigation specifier
    */
   isPageNavigationSpecifierValid() {
-    const { pageNav } = this.frontMatter;
+    const { pageNav } = this.frontmatter;
     return pageNav && (pageNav === 'default' || Number.isInteger(pageNav));
   }
 
   /**
-   * Generates element selector for page navigation, depending on specifier in front matter
+   * Generates element selector for page navigation, depending on specifier in frontmatter
    * @param pageNav {string|number} 'default' refers to the configured heading indexing level,
    * otherwise a number that indicates the indexing level.
    */
   generateElementSelectorForPageNav(pageNav) {
     if (pageNav === 'default') {
-      return `${Page.generateHeadingSelector(this.pageConfig.headingIndexingLevel)}, panel`;
+      return `${Page.generateHeadingSelector(this.siteConfig.headingIndexingLevel)}, panel`;
     } else if (Number.isInteger(pageNav)) {
       return `${Page.generateHeadingSelector(parseInt(pageNav, 10))}, panel`;
     }
@@ -181,7 +186,7 @@ class Page {
    * @param content html content of a page
    */
   collectNavigableHeadings(content) {
-    const { pageNav } = this.frontMatter;
+    const { pageNav } = this.frontmatter;
     const elementSelector = this.generateElementSelectorForPageNav(pageNav);
     if (elementSelector === undefined) {
       return;
@@ -246,7 +251,7 @@ class Page {
    */
   collectHeadingsAndKeywordsInContent(content, lastHeading, excludeHeadings, sourceTraversalStack) {
     let $ = cheerio.load(content);
-    const headingsSelector = Page.generateHeadingSelector(this.pageConfig.headingIndexingLevel);
+    const headingsSelector = Page.generateHeadingSelector(this.siteConfig.headingIndexingLevel);
     $('modal').remove();
     $('panel').not('panel panel')
       .each((index, panel) => {
@@ -271,8 +276,8 @@ class Page {
           const src = panel.attribs.src.split('#')[0];
           const buildInnerDir = path.dirname(this.pageConfig.sourcePath);
           const resultInnerDir = path.dirname(this.pageConfig.resultPath);
-          const includeRelativeToBuildRootDirPath = this.pageConfig.baseUrl
-            ? path.relative(this.pageConfig.baseUrl, src)
+          const includeRelativeToBuildRootDirPath = this.siteConfig.baseUrl
+            ? path.relative(this.siteConfig.baseUrl, src)
             : src.substring(1);
           const includeAbsoluteToBuildRootDirPath = path.resolve(this.pageConfig.rootPath,
                                                                  includeRelativeToBuildRootDirPath);
@@ -299,7 +304,7 @@ class Page {
         }
       });
     $ = cheerio.load(content);
-    if (this.pageConfig.headingIndexingLevel > 0) {
+    if (this.siteConfig.headingIndexingLevel > 0) {
       $('modal').remove();
       $('panel').remove();
       if (!excludeHeadings) {
@@ -336,19 +341,19 @@ class Page {
   }
 
   /**
-   * Uses the collected frontmatter from {@link collectFrontMatter} to extract the {@link Page}'s
+   * Uses the collected frontmatter from {@link collectFrontmatter} to extract the {@link Page}'s
    * instance configurations.
-   * FrontMatter properties always have lower priority than site configuration properties.
+   * Frontmatter properties always have lower priority than site configuration properties.
    */
-  processFrontMatter(frontMatter) {
-    this.frontMatter = {
-      ...frontMatter,
-      ...this.pageConfig.globalOverride,
+  processFrontmatter(frontmatter) {
+    this.frontmatter = {
+      ...frontmatter,
+      ...this.siteConfig.globalOverride,
       ...this.pageConfig.frontmatterOverride,
     };
 
-    this.title = this.title || this.frontMatter.title || '';
-    this.layout = this.layout || this.frontMatter.layout || LAYOUT_DEFAULT_NAME;
+    this.title = this.title || this.frontmatter.title || '';
+    this.layout = this.layout || this.frontmatter.layout || LAYOUT_DEFAULT_NAME;
   }
 
   /**
@@ -406,11 +411,11 @@ class Page {
   }
 
   /**
-   * Generates page navigation's header if specified in this.frontMatter
+   * Generates page navigation's header if specified in this.frontmatter
    * @returns string string
    */
   generatePageNavTitleHtml() {
-    const { pageNavTitle } = this.frontMatter;
+    const { pageNavTitle } = this.frontmatter;
     // Add v-pre to prevent text interpolation for {{ }} wrapped in {% (end)raw %}
     return pageNavTitle
       ? `<a class="navbar-brand ${PAGE_NAV_TITLE_CLASS}" href="#" v-pre>${pageNavTitle.toString()}</a>`
@@ -429,13 +434,18 @@ class Page {
       this.collectNavigableHeadings(content);
       const pageNavTitleHtml = this.generatePageNavTitleHtml();
       const pageNavHeadingHTML = this.generatePageNavHeadingHtml();
+
+      if (!pageNavTitleHtml && !pageNavHeadingHTML) {
+        return '';
+      }
+
       /*
        Similar to siteAndPageNavProcessor#addSitePageNavPortal,
        wrap the auto generated page nav with an overlay-source vue component for
        portal-ing it into the mobile page nav.
        */
       return `${pageNavTitleHtml}\n`
-          + `<overlay-source id="${PAGE_NAV_ID}" tag-name="nav" to="mb-page-nav"`
+        + `<overlay-source id="${PAGE_NAV_ID}" tag-name="nav" to="${PAGE_NAV_ID}"`
             + ' class="nav nav-pills flex-column my-0 small no-flex-wrap">\n'
           + `${pageNavHeadingHTML}\n`
           + '</overlay-source>\n';
@@ -459,14 +469,16 @@ class Page {
      * @type {FileConfig}
      */
     const fileConfig = {
+      baseUrl: this.siteConfig.baseUrl,
+      ignore: this.siteConfig.ignore,
+      intrasiteLinkValidation: this.siteConfig.intrasiteLinkValidation,
+      codeLineNumbers: this.siteConfig.style.codeLineNumbers,
+
       baseUrlMap: this.pageConfig.baseUrlMap,
-      baseUrl: this.pageConfig.baseUrl,
       rootPath: this.pageConfig.rootPath,
-      headerIdMap: this.headerIdMap,
-      ignore: this.pageConfig.ignore,
       addressablePagesSource: this.pageConfig.addressablePagesSource,
-      intrasiteLinkValidation: this.pageConfig.intrasiteLinkValidation,
-      codeLineNumbers: this.pageConfig.codeLineNumbers,
+
+      headerIdMap: this.headerIdMap,
     };
 
     const {
@@ -478,12 +490,12 @@ class Page {
 
     let content = variableProcessor.renderWithSiteVariables(this.pageConfig.sourcePath, pageSources);
     content = await nodeProcessor.process(this.pageConfig.sourcePath, content);
-    this.processFrontMatter(nodeProcessor.frontMatter);
+    this.processFrontmatter(nodeProcessor.frontmatter);
     content = Page.addScrollToTopButton(content);
-    content = pluginManager.postRender(this.frontMatter, content);
+    content = pluginManager.postRender(this.frontmatter, content);
     const pageContent = content;
 
-    pluginManager.collectPluginPageNjkAssets(this.frontMatter, content, this.asset);
+    pluginManager.collectPluginPageNjkAssets(this.frontmatter, content, this.asset);
 
     await layoutManager.generateLayoutIfNeeded(this.layout);
     const pageNav = this.buildPageNav(content);
@@ -523,16 +535,16 @@ class Page {
      * unrendered DOM for easier reference and checking.
      */
     if (process.env.TEST_MODE) {
-      await this.outputPageHtml(content, pageNav);
+      await this.outputPageHtml(content);
     } else {
       const vueSsrHtml = await pageVueServerRenderer.renderVuePage(compiledVuePage);
-      await this.outputPageHtml(vueSsrHtml, pageNav);
+      await this.outputPageHtml(vueSsrHtml);
     }
   }
 
-  async outputPageHtml(content, pageNav) {
+  async outputPageHtml(content) {
     const renderedTemplate = this.pageConfig.template.render(
-      this.prepareTemplateData(content, !!pageNav)); // page.njk
+      this.prepareTemplateData(content)); // page.njk
 
     const outputTemplateHTML = process.env.TEST_MODE
       ? htmlBeautify(renderedTemplate, this.pageConfig.pluginManager.htmlBeautifyOptions)
@@ -542,9 +554,7 @@ class Page {
   }
 
   static addScrollToTopButton(pageData) {
-    const button = '<i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" '
-    + 'onclick="handleScrollTop()" aria-hidden="true"></i>';
-    return `${pageData}\n${button}`;
+    return `${pageData}\n${SCROLL_TO_TOP_BUTTON_HTML}`;
   }
 
   /**

@@ -1,6 +1,6 @@
 {
   "name": "markbind-cli",
-  "version": "3.1.1",
+  "version": "4.0.2",
   "description": "Command line interface for MarkBind",
   "keywords": [
     "mark",
@@ -25,8 +25,8 @@
     "updatetest": "cd test/functional && node updatetest.js"
   },
   "dependencies": {
-    "@markbind/core": "3.1.1",
-    "@markbind/core-web": "3.1.1",
+    "@markbind/core": "4.0.2",
+    "@markbind/core-web": "4.0.2",
     "bluebird": "^3.7.2",
     "chalk": "^3.0.0",
     "cheerio": "^0.22.0",
@@ -38,10 +38,12 @@
     "fs-extra": "^9.0.1",
     "live-server": "1.2.1",
     "lodash": "^4.17.15",
+    "url-parse": "^1.5.10",
     "winston": "^2.4.4",
     "winston-daily-rotate-file": "^3.10.0"
   },
   "devDependencies": {
+    "@types/url-parse": "^1.4.8",
     "diff": "^4.0.1",
     "ignore": "^5.1.4",
     "istextorbinary": "^3.3.0",

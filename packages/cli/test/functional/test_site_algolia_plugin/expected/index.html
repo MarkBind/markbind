@@ -4,22 +4,22 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="MarkBind 3.1.1">
+  <meta name="generator" content="MarkBind 4.0.2">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hello World</title>
-  <link rel="stylesheet" href="markbind/css/bootstrap.min.css">
-  <link rel="stylesheet" href="markbind/fontawesome/css/all.min.css">
-  <link rel="stylesheet" href="markbind/glyphicons/css/bootstrap-glyphicons.min.css">
-  <link rel="stylesheet" href="markbind/css/octicons.css">
-  <link rel="stylesheet" href="markbind/material-icons/material-icons.css">
-  <link rel="stylesheet" href="markbind/css/codeblock-dark.min.css">
-  <link rel="stylesheet" href="markbind/css/markbind.min.css">
-  <script src="markbind/js/polyfill.min.js"></script>
-  <script src="markbind/js/vue.min.js"></script>
-  <script src="markbind/js/markbind.min.js"></script>
+  <link rel="stylesheet" href="/test_site_algolia_plugin/markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/test_site_algolia_plugin/markbind/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/test_site_algolia_plugin/markbind/glyphicons/css/bootstrap-glyphicons.min.css">
+  <link rel="stylesheet" href="/test_site_algolia_plugin/markbind/css/octicons.css">
+  <link rel="stylesheet" href="/test_site_algolia_plugin/markbind/material-icons/material-icons.css">
+  <link rel="stylesheet" href="/test_site_algolia_plugin/markbind/css/codeblock-dark.min.css">
+  <link rel="stylesheet" href="/test_site_algolia_plugin/markbind/css/markbind.min.css">
+  <script src="/test_site_algolia_plugin/markbind/js/polyfill.min.js"></script>
+  <script src="/test_site_algolia_plugin/markbind/js/vue.min.js"></script>
+  <script src="/test_site_algolia_plugin/markbind/js/markbind.min.js"></script>
   <script src="index.page-vue-render.js"></script>
-  <script src="markbind/js/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.0.0-alpha.42/dist/style.css">
+  <script src="/test_site_algolia_plugin/markbind/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.0/dist/style.css">
   <link rel="stylesheet" href="/test_site_algolia_plugin/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
   <link rel="stylesheet" href="/test_site_algolia_plugin/plugins/markbind-plugin-tree/markbind-plugin-tree.css">
 </head>
@@ -119,11 +119,11 @@
     <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i></p>
   </div>
 </body>
-<script src="markbind/js/bootstrap-utility.min.js"></script>
+<script src="/test_site_algolia_plugin/markbind/js/bootstrap-utility.min.js"></script>
 <script>
   MarkBind.setupWithSearch()
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3.0.0-alpha.42/dist/umd/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3.2.0/dist/umd/index.js"></script>
 <script>
     docsearch({
       container: "#algolia-search-input",
@@ -135,7 +135,7 @@
   </script>
 <script>
     const style = document.createElement('style');
-    style.innerHTML = ".DocSearch-Container { z-index: 1002; }";
+    style.innerHTML = ".DocSearch-Container { z-index: 1002; position: fixed; }";
     document.getElementsByTagName('head')[0].appendChild(style);
   </script>
 

@@ -28,14 +28,13 @@
                 {{ keyword }}
               </span>
             </strong>
-            <strong v-else>No answer checking keywords provided</strong>
           </div>
         </div>
         <!--
           Gracefully deprecate invalid question types:
           This allows the old "answer" slot to show for invalid question types, in addition to text questions
         -->
-        <div v-if="qState.answered && !isMcqOrCheckboxQuestion()" class="answer">
+        <div v-if="qState.answered && !isMcqOrCheckboxQuestion() && !isBlanksQuestion()" class="answer">
           <slot name="answer"></slot>
         </div>
 
@@ -161,6 +160,11 @@ export default {
       ],
       default: 1.0,
     },
+
+    // Blanks question specific prop
+    noIntermediateResult: {
+      type: Boolean, // Defaults to showing intermediate results for blanks
+    },
   },
   computed: {
     retryState() {
@@ -188,7 +192,7 @@ export default {
       shakeClass: null,
     };
 
-    if (this.isMcqOrCheckboxQuestion()) {
+    if (this.isMcqOrCheckboxQuestion() || this.isBlanksQuestion()) {
       return {
         answers: [],
         ...defaultData,
@@ -212,6 +216,14 @@ export default {
         qState: this.qState,
       };
     }
+    if (this.isBlanksQuestion()) {
+      return {
+        answers: this.answers,
+        qOptionType: this.type,
+        qState: this.qState,
+        noIntermediateResult: this.noIntermediateResult,
+      };
+    }
     return undefined;
   },
   methods: {
@@ -221,11 +233,14 @@ export default {
     isMcqOrCheckboxQuestion() {
       return this.type === 'mcq' || this.type === 'checkbox';
     },
+    isBlanksQuestion() {
+      return this.type === 'blanks';
+    },
     isTextQuestion() {
       return this.type === 'text' || this.hasInput;
     },
     isValidQuestionType() {
-      return this.isMcqOrCheckboxQuestion() || this.isTextQuestion();
+      return this.isMcqOrCheckboxQuestion() || this.isBlanksQuestion() || this.isTextQuestion();
     },
     isValidTypeAndNotTextWithoutKeywords() {
       return this.isValidQuestionType() && !(this.isTextQuestion() && !this.keywords);
@@ -267,6 +282,21 @@ export default {
         this.markAsWrong(markAsAnsweredIfWrong);
       }
     },
+    checkBlanksAnswer(markAsAnsweredIfWrong) {
+      let numMatching = 0;
+      for (let i = 0; i < this.answers.length; i += 1) {
+        this.answers[i].checkAnswer();
+        if (this.answers[i].ansIsCorrect) {
+          numMatching += 1;
+        }
+      }
+
+      if (numMatching / this.answers.length >= this.threshold) {
+        this.markAsCorrect();
+      } else {
+        this.markAsWrong(markAsAnsweredIfWrong);
+      }
+    },
     checkTextAnswer(markAsAnsweredIfWrong) {
       // Todo deprecate this guard clause
       if (!this.keywords.length) {
@@ -295,6 +325,8 @@ export default {
         this.checkMcqAnswer(markAsAnsweredIfWrong);
       } else if (this.type === 'checkbox') {
         this.checkCheckboxAnswer(markAsAnsweredIfWrong);
+      } else if (this.type === 'blanks') {
+        this.checkBlanksAnswer(markAsAnsweredIfWrong);
       } else if (this.isTextQuestion()) {
         this.checkTextAnswer(markAsAnsweredIfWrong);
       } else {

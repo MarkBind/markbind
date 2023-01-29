@@ -21,7 +21,7 @@ Tip 3. ...
 ```
 </div>
 
-**You can `<include>` a fragment of a file** by specifying the `#fragment-id` at the end of the `src` attribute value, provided the fragment is wrapped in a `<div>`/`<span>`/`<seg>` tag with the matching `id`.
+**You can `<include>` a fragment of a file** by specifying the `#fragment-id` at the end of the `src` attribute value, provided the fragment is wrapped in a `<div>`/`<span>` tag with the matching `id`.
 
 <box type="important" seamless>
 
@@ -57,7 +57,7 @@ When setting the `id` of a fragment, be careful not to clash with heading anchor
 
 <include src="tip.md" boilerplate >
 <span id="tip_body">
-The `<include>` mechanism can be used inside any MarkBind source file (even inside the _front matter_ section) but it will not work inside some _special_ files such as the `_markbind/variables.md`.
+The `<include>` mechanism can be used inside any MarkBind source file (even inside the _frontmatter_ section) but it will not work inside some _special_ files such as the `_markbind/variables.md`.
 </span>
 </include>
 
@@ -75,7 +75,7 @@ The `<include>` mechanism can be used inside any MarkBind source file (even insi
   ```html
   <include src="UserStories.md#epic" trim />
   ```
-* **`omitFrontmatter`** (optional): omit the front matter of the file/fragment from being included (if any).
+* **`omitFrontmatter`** (optional): omit the frontmatter of the file/fragment from being included (if any).
   ```html
   <include src="UserStories.md#epic" omitFrontmatter />
   ```

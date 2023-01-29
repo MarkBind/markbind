@@ -1,6 +1,6 @@
 const cheerio = require('cheerio'); require('../patches/htmlparser2');
 const path = require('path');
-const url = require('url');
+const parse = require('url-parse');
 
 const { createErrorNode, createEmptyNode, createSlotTemplateNode } = require('./elements');
 const { CyclicReferenceError } = require('../errors');
@@ -61,13 +61,13 @@ function _getSrcFlagsAndFilePaths(element, config) {
   const isUrl = urlUtil.isUrl(element.attribs.src);
 
   // We do this even if the src is not a url to get the hash, if any
-  const includeSrc = url.parse(element.attribs.src);
+  const includeSrc = parse(element.attribs.src);
 
   let filePath;
   if (isUrl) {
     filePath = element.attribs.src;
   } else {
-    const includePath = decodeURIComponent(includeSrc.path);
+    const includePath = decodeURIComponent(includeSrc.pathname);
 
     /*
      If the src starts with the baseUrl (or simply '/' if there is no baseUrl specified),
