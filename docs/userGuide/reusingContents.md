@@ -64,6 +64,7 @@ If you are using Git for version control, you can set up the sub-site repository
 **MarkBind supports the exlusion of files from rendering as pages**. This allows for the ease of creation of <tooltip content="A fragment is a piece of content that can be reused across multiple pages.">custom fragments</tooltip>. This allows you to create reusable content similar to [reusing content](#reusing-contents-across-sites), but rather than reusing content from a _sub-site_, content is reused from fragments which are excluded from page generation.
 
 <box type="warning">
+
 Note: This example below is assuming that you have included the following glob pattern in the `site.json` file:
 
 ```js
