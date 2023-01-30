@@ -49,7 +49,6 @@ const components = {
   tabGroup,
   tabs: tabset,
   thumbnail,
-  tipBox,
   trigger,
   siteNav,
   submenu,

@@ -55,7 +55,7 @@ An example that uses GFMD syntax for task lists:
 - [ ] Push my commits to GitHub
 - [ ] Open a pull request
 
-</tipbox>
+</box>
   </td>
 </tr>
 </table>
@@ -77,7 +77,7 @@ Euler's Identity \(e^{i\pi}+1=0\) is a beautiful formula.
 
 Euler's Identity \(e^{i\pi}+1=0\) is a beautiful formula.
 
-</tipbox>
+</box>
   </td>
 </tr>
 </table>
