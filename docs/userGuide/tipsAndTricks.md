@@ -34,16 +34,15 @@ For Markdown syntax: To display a literal character that are normally used for M
 
 ##### :fas-lightbulb: Using {% raw %}{% endraw %} to display `{{ content }}`
 
+By default, MarkBind processes any code in the form of `{{ content }}`. 
 
-To display the raw variable interpolation syntax using `{% raw %}{% endraw %}`, you would also need to add
-the `v-pre` attribute using markdown-it-attrs or as a HTML attribute.
+To display the raw variable interpolation syntax in the form of `{{ content }}`, there are two ways to do so. You can either encase the double curly braces as a variable, like `{{ '{{' }}` and `{{ '}}' }}`, or alternatively, you can encase the entire code block with the raw-endraw tags: `{% raw %} {{ content }} {% endraw %}`. If using the raw-endraw tags, you would also need to add the `v-pre` attribute using markdown-it-attrs or as a HTML attribute.
 
 <box type="info">
 
-This isn't necessary for `<code>` elements, markdown code fences and inline code though, which MarkBind automatically
-adds `v-pre` for.
+This isn't necessary for `<code>` elements, markdown code fences and inline code though, which MarkBind automatically adds `v-pre` for.
 
-However, this does not change the need for `{% raw %}{% endraw %}`. Meaning, you can still use variables within your code!
+However, you will still need to use the `{% raw %} {% endraw %}` tags in order to use the variables within your code!
 </box>
 
 
