@@ -8,16 +8,23 @@
     <div class="nav-component slim-scroll">
       <site-nav>
 * [Contributing]({{baseUrl}}/devGuide/devGuide.html)
-* [Setting up]({{baseUrl}}/devGuide/settingUp.html)
-* [Workflow]({{baseUrl}}/devGuide/workflow.html)
+* Onboarding Bootcamp
+  * [Introduction]({{baseUrl}}/devGuide/bootcamp/intro.html)
+  * [Explore MarkBind as a User]({{baseUrl}}/devGuide/bootcamp/exploreMarkBind.html)
+  * [Contribute to Documentation]({{baseUrl}}/devGuide/bootcamp/contributeToDocs.html)
+  * [Fix a Bug]({{baseUrl}}/devGuide/bootcamp/fixABug.html)
+  * [Implement a New Feature]({{baseUrl}}/devGuide/bootcamp/implementAFeature.html)
+* Development :expanded:
+  * [Setting up]({{baseUrl}}/devGuide/development/settingUp.html)
+  * [Workflow]({{baseUrl}}/devGuide/development/workflow.html)
+  * [Writing Components]({{baseUrl}}/devGuide/development/writingComponents.html)
+  * [Writing Plugins]({{baseUrl}}/devGuide/development/writingPlugins.html)
+  * [Migrating to TypeScript]({{baseUrl}}/devGuide/development/migratingToTypeScript.html)
 * Design :expanded:
   * [Project Structure]({{baseUrl}}/devGuide/design/projectStructure.html)
   * [Architecture]({{baseUrl}}/devGuide/design/architecture.html)
   * [Server Side Rendering]({{baseUrl}}/devGuide/design/serverSideRendering.html)
-* [Writing Components]({{baseUrl}}/devGuide/writingComponents.html)
-* [Writing Plugins]({{baseUrl}}/devGuide/writingPlugins.html)
-* [Migrating to TypeScript]({{baseUrl}}/devGuide/migratingToTypeScript.html)
-* GitHub Actions :expanded:
+* GitHub Actions
   * [Overview]({{baseUrl}}/devGuide/githubActions/overview.html)
   * [markbind-action]({{baseUrl}}/devGuide/githubActions/markbindAction.html)
   * [markbind-reusable-workflows]({{baseUrl}}/devGuide/githubActions/markbindReusableWorkflows.html)

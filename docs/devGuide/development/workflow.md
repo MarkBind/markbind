@@ -18,7 +18,7 @@ Our workflow is mostly based on the guidelines given at se-education.org/guides.
 
 * You can start by looking through [these issues](https://github.com/MarkBind/markbind/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22+sort%3Acomments-desc) marked <span href="" class="badge" style="color:white; background-color: #7057FF;">good first issue</span>. Don't do more than one of them though.
 * As we squash the commits when merging a PR, there is ==no need to follow a strict commit organization or write elaborate commit messages for each commit==.
-* You can refer to the [_Design_](design/projectStructure.html) page to learn about the design and implementation of MarkBind.
+* You can refer to the [_Design_](../design/projectStructure.html) page to learn about the design and implementation of MarkBind.
 
 The sections below has more information about various stages of submitting a PR.
 
@@ -27,7 +27,7 @@ The sections below has more information about various stages of submitting a PR.
 #### General tips
 
 * Use JavaScript ES6 features if possible for better performance, e.g. Promise instead of callback.
-* Do note [our style guides](styleGuides.html).
+* Do note [our style guides](../styleGuides.html).
 * Do set up your IDE debugger! We provide several sample configurations for <trigger trigger="click" for="webstorm-debug">WebStorm</trigger> and <trigger trigger="click" for="vs-code-debug">VS Code</trigger>.
 
   <modal header="Debugging Configurations - WebStorm" id="webstorm-debug" large>
@@ -152,6 +152,8 @@ Hence, if you need to view the latest frontend changes (relating to `packages/co
 1. Run `npm run build:web` in the root directory, which builds the above bundles,
    then run your markbind-cli [command](https://markbind.org/userGuide/cliCommands.html) of choice.
 
+<div id="workflow-testing">
+
 ## Testing
 
 Our test script does the following:
@@ -240,9 +242,11 @@ When making changes to the Vue components in `packages/vue-components`, you shou
 
 Once you're done, be sure to run the `updatetest` script mentioned [above](#updating-and-writing-tests)!
 
+</div>
+
 ## Linting
 
-We follow [our style guides](styleGuides.html). Using a linter will help check and fix some of the code style errors in your code. It will save time for both you and your code reviewer. The linting tool we use is [ESLint](https://eslint.org/) and [StyleLint](https://stylelint.io/). Here is a [gist](https://gist.github.com/nicholaschuayunzhi/bfe53dbb5f1a0f02d545d55956f9ab7e) with an explanation of the ESLint rules chosen in markbind-cli.
+We follow [our style guides](../styleGuides.html). Using a linter will help check and fix some of the code style errors in your code. It will save time for both you and your code reviewer. The linting tool we use is [ESLint](https://eslint.org/) and [StyleLint](https://stylelint.io/). Here is a [gist](https://gist.github.com/nicholaschuayunzhi/bfe53dbb5f1a0f02d545d55956f9ab7e) with an explanation of the ESLint rules chosen in markbind-cli.
 
 Before making a commit or pull request, you should lint your code by running the following commands from the root of your project:
 
@@ -268,7 +272,7 @@ To skip running the pre-commit hook or pre-push hook, you can use the --no-verif
 
 ## Dependency management
 
-As mentioned in the [setting up](settingUp.html#setting-up-the-dev-environment) page, MarkBind uses [lerna](https://github.com/lerna/lerna) to manage the dependencies of its [various packages](design/projectStructure.html).
+As mentioned in the [setting up](settingUp.html#setting-up-the-dev-environment) page, MarkBind uses [lerna](https://github.com/lerna/lerna) to manage the dependencies of its [various packages](../design/projectStructure.html).
 
 ### To add a dependency
 
@@ -308,8 +312,8 @@ As the choice is highly dependent on context and details of the implementation, 
 
 <box type="tip" seamless>
 
-Find out more about the key external libraries used in MarkBind from the [project structure](design/projectStructure.md) section. Also, the rationales behind most existing patches are documented in their respective files, read them (and their respective PRs/issues) for more context!
+Find out more about the key external libraries used in MarkBind from the [project structure](../design/projectStructure.md) section. Also, the rationales behind most existing patches are documented in their respective files, read them (and their respective PRs/issues) for more context!
 </box>
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('settingUp', 'design/projectStructure') }}
+{{ previous_next('settingUp', 'writingComponents') }}

@@ -43,6 +43,8 @@ const processAndVerifyTemplate = (template, expectedTemplate, postProcess = fals
 test('processNode processes panel attributes and inserts into dom as slots correctly', () => {
   processAndVerifyTemplate(testData.PROCESS_PANEL_ATTRIBUTES,
                            testData.PROCESS_PANEL_ATTRIBUTES_EXPECTED);
+  processAndVerifyTemplate(testData.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
   processAndVerifyTemplate(testData.PROCESS_PANEL_HEADER_NO_OVERRIDE,
                            testData.PROCESS_PANEL_HEADER_NO_OVERRIDE_EXPECTED);
 });

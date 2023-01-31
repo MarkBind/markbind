@@ -104,6 +104,10 @@
       "title": "Content inside <include> should not be processed by markdown"
     },
     {
+      "src": "testPanels.md",
+      "title": "Test: Panels"
+    },
+    {
       "src": "testPanelMarkdownParsing.md",
       "title": "markdown-it should parse minimized panel as inline element and normal panel as block element"
     },
@@ -138,6 +142,14 @@
     {
       "src": "testPageNavTarget.md",
       "title": "Bootstrap scrollspy related classes should be applied only if there are navigable headings"
+    },
+    {
+      "src": "testPageNavWithoutTitleAndNavHeadings.md",
+      "title": "page nav separator should be omitted when there is no title and navigation headings added"
+    },
+    {
+      "src": "testPageNavWithOnlyTitle.md",
+      "title": "page nav with title added"
     }
   ],
   "pagesExclude": ["**/*-fragment.md"],
