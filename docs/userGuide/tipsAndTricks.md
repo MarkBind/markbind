@@ -42,7 +42,7 @@ To display the raw variable interpolation syntax in the form of `{{ content }}`,
 
 This isn't necessary for `<code>` elements, markdown code fences and inline code though, which MarkBind automatically adds `v-pre` for.
 
-However, you will still need to use the `{% raw %} {% endraw %}` tags in order to use the variables within your code!
+However, `{% raw %} {% endraw %}` tags will still need to be used in order to use the variables within your code!
 </box>
 
 
