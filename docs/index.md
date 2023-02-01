@@ -33,7 +33,7 @@ MarkBind extensions to Markdown | `==highlighted text==`<br>`%%grey text%%`<br>`
 An example that uses GFMD syntax for task lists:
 
 <table>
-<tr >
+<tr>
   <td><br>
 
 ```markdown
@@ -66,7 +66,8 @@ An example that uses KaTeX to generate math equations:
 
 <table>
 <tr>
-  <td>
+  <td style="vertical-align: top">
+<br>
 
 ```markdown
 Euler's Identity \(e^{i\pi}+1=0\) is a beautiful formula.
