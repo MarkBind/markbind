@@ -61,7 +61,7 @@ If you are using Git for version control, you can set up the sub-site repository
 
 #### Excluding Files from Rendering as Pages
 
-**MarkBind supports the exclusion of files from rendering as pages**. This allows for the ease of creation of <tooltip content="A fragment is a piece of content that can be reused across multiple pages.">custom fragments</tooltip>. This allows you to create reusable content similar to reusing content, but rather than reusing content from a _sub-site_, content is reused from fragments which are excluded from page generation. This facilitates the use of repeated content across the site.
+**MarkBind supports the exclusion of files from rendering as pages**. This allows for the ease of creation of <tooltip content="A fragment is a piece of content that can be reused across multiple pages.">custom fragments</tooltip>. This allows you to create reusable content similar to [reusing content](#reusing-contents-across-sites), but instead of a _sub-site_, content is reused from fragments which are excluded from page generation. This facilitates using repeated content across pages.
 
 <box type="warning">
 
