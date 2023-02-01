@@ -30,10 +30,11 @@ module.exports = {
     el.dataset.isShown = 'true';
     el.style.position = 'relative';
     const message = el.getAttribute('alt') || 'Expand Content';
-    const $content = jQuery(`<div class="content"></div>`);
-    jQuery(el).contents().appendTo($content);
-    jQuery(el).empty();
-    jQuery(el).append($content);
+    const $content = document.createElement('div');
+    el.classList.add('content');
+    Array.from(el.children).forEach(child => $content.append(child));
+    el.replaceChildren();
+    el.append($content);
     jQuery(el).attr('class', `${el.className} closeable-wrapper`);
     const $closeButton = jQuery('<span class="closeable-button label label-default hidden-print" style="display: none; position: absolute; top: 0; left: 0; cursor: pointer;background: #d9534f;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>');
     jQuery(el).append($closeButton);
