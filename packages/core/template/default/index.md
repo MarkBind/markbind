@@ -1,4 +1,5 @@
 <frontmatter>
+  title: Landing Page
   layout: default.md
   pageNav: 2
   pageNavTitle: "Chapters of This Page"
