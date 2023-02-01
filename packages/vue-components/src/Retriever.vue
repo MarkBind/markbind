@@ -68,9 +68,10 @@ export default {
             const htmlResult = document.implementation.createHTMLDocument('');
             htmlResult.body.innerHTML = result;
             const tempDom = document.createElement('temp');
-            tempDom.append([...htmlText.body.childNodes]);
+            Array.from(htmlResult.body.childNodes).forEach(child => tempDom.append(child));
+            // tempDom.append(htmlResult.body.childNodes);
             const appContainer = tempDom.querySelectorAll(`#${this.hash}`);
-            result = appContainer.html();
+            result = appContainer.innerHTML;
           }
           this.hasFetchedCopy = true;
           // result is empty / undefined
@@ -100,7 +101,7 @@ export default {
         })
         .catch((error) => {
           // eslint-disable-next-line no-console
-          console.error(error.responseText);
+          console.error(error);
           this.$el.innerHTML = '<strong>Error</strong>: Failed to retrieve content from source: '
               + `<em>${this.srcWithoutHash}</em>`;
           this.$emit('src-loaded');
