@@ -1,7 +1,7 @@
 const { HighlightRuleComponent } = require('./HighlightRuleComponent');
 const { splitCodeAndIndentation } = require('./helper');
 
-const HIGHLIGHT_LINES_RULES_DELIMITER_REGEX = /(?<!'.*)-|-(?!.*')/;
+const HIGHLIGHT_LINES_RULES_DELIMITER_REGEX = /-(?![^[\]]*])/;
 
 class HighlightRule {
   constructor(ruleComponents) {
