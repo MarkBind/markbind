@@ -58,12 +58,18 @@ export default {
       if (this.hasFetchedCopy) {
         return;
       }
-      jQuery.get(this.srcWithoutHash)
-        .done((response) => {
-          let result = response;
+      fetch(this.srcWithoutHash)
+        .then((response) => {
+          return response.text();
+        })
+        .then((htmlText) => {
+          let result = htmlText;
           if (this.hash) {
-            const tempDom = jQuery('<temp>').append(jQuery.parseHTML(result));
-            const appContainer = jQuery(`#${this.hash}`, tempDom);
+            const htmlResult = document.implementation.createHTMLDocument('');
+            htmlResult.body.innerHTML = result;
+            const tempDom = document.createElement('temp');
+            tempDom.append([...htmlText.body.childNodes]);
+            const appContainer = tempDom.querySelectorAll(`#${this.hash}`);
             result = appContainer.html();
           }
           this.hasFetchedCopy = true;
@@ -92,7 +98,7 @@ export default {
           new TempComponent().$mount(this.$el);
           this.$emit('src-loaded');
         })
-        .fail((error) => {
+        .catch((error) => {
           // eslint-disable-next-line no-console
           console.error(error.responseText);
           this.$el.innerHTML = '<strong>Error</strong>: Failed to retrieve content from source: '
