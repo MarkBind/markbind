@@ -141,7 +141,8 @@ _(Optional)_ **The styling options to be applied to the site.** This includes:
 <div id="page-property-overriding">
 <box type="warning">
 
-Note: Page properties that are defined in `site.json` for a particular page will override those defined in the frontmatter of the page.
+Note: [Page properties that are defined in `site.json`](https://markbind.org/userGuide/settingSiteProperties.html#pages) for a particular page will override those defined in the frontmatter of the page. For example, setting the property `title` in `site.json` will always override the `title` declared within the frontmatter of the page.
+
 </box>
 </div>
 
