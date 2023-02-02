@@ -122,6 +122,7 @@ You may use any custom name you wish for your fragments but be sure to update th
 
 ## Creating Content Variations
 
+
 **MarkBind can create sites that give more control to the reader.** Given below are some mechanisms authors can use to create variations of content that gives more control to the reader in charting their own path through the content.
 
 
