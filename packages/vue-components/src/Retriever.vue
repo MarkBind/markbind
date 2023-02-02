@@ -67,7 +67,6 @@ export default {
             htmlResult.body.innerHTML = result;
             const tempDom = document.createElement('temp');
             Array.from(htmlResult.body.childNodes).forEach(child => tempDom.append(child));
-            // tempDom.append(htmlResult.body.childNodes);
             const appContainer = tempDom.querySelectorAll(`#${this.hash}`);
             result = appContainer.innerHTML;
           }
