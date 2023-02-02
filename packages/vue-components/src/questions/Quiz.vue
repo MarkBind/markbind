@@ -168,7 +168,6 @@ export default {
 
     .intro-outro-card {
         transition: opacity 0.5s;
-        box-shadow: 0 2px 7px 5px rgba(210, 210, 210, 0.2);
     }
 
     .intro-outro-card-enter-active,
