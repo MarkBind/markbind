@@ -34,17 +34,27 @@ For Markdown syntax: To display a literal character that are normally used for M
 
 ##### :fas-lightbulb: Using {% raw %}{% endraw %} to display `{{ content }}`
 
-By default, MarkBind processes any code in the form of `{{ content }}`. 
+By default, MarkBind processes any code in the form of `{{ content }}`. This is because Nunjucks (which is [supported by MarkBind](https://markbind.org/userGuide/markBindSyntaxOverview.html#support-for-nunjucks)) uses this syntax to [evaluate an expression, variable, or function calls](https://mozilla.github.io/nunjucks/templating.html#variables). 
 
-To display the raw variable interpolation syntax in the form of `{{ content }}`, there are two ways to do so. You can either encase the double curly braces as a variable, like `{{ '{{' }}` and `{{ '}}' }}`, or alternatively, you can encase the entire code block with the raw-endraw tags: `{% raw %} {{ content }} {% endraw %}`. If using the raw-endraw tags, you would also need to add the `v-pre` attribute using markdown-it-attrs or as a HTML attribute.
+In general, to use this syntax as a raw string in a code block or a template, there are [two methods](https://jinja.palletsprojects.com/en/3.0.x/templates/#escaping) available. The syntax can either be encased as a variable like `{{ '{{' }}` and `{{ '}}' }}`, or alternatively, the entire code block can be encased with the raw-endraw tags: `{% raw %} {{ content }} {% endraw %}`. 
 
 <box type="info">
 
-This isn't necessary for `<code>` elements, markdown code fences and inline code though, which MarkBind automatically adds `v-pre` for.
+If using raw-endraw tags on html content, you would also need to add the `v-pre` attribute as an HTML attribute, like this:
 
-However, `{% raw %} {% endraw %}` tags will still need to be used in order to use the variables within your code!
+```
+{% raw %}
+
+<p v-pre>{{ content }}</p>
+
+{% endraw %}
+```
+
+Otherwise, the content will not be displayed. 
+
+This isn't necessary for `<code>` elements, markdown code fences and inline code though, as MarkBind automatically adds `v-pre` for them.
+
 </box>
-
 
 {% endraw %}
 
