@@ -22,28 +22,27 @@ function scrollToUrlAnchorHeading() {
 }
 
 function detectAndApplyHeaderStyles() {
-  jQuery(':header').each((index, heading) => {
+  document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((heading) => {
     if (heading.id) {
-      jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
+      heading.removeAttribute('id');
     }
   });
-
-  const headerSelector = jQuery('header[sticky]');
+  const headerSelector = document.querySelectorAll('header[sticky]');
   if (headerSelector.length === 0) {
     return;
   }
   const [headerEl] = headerSelector;
 
-  let headerHeight = headerSelector.height();
+  let headerHeight = headerSelector.height;
   function updateHeaderHeight() {
-    headerHeight = headerSelector.height();
+    headerHeight = headerSelector.height;
     document.documentElement.style.setProperty('--sticky-header-height', `${headerHeight}px`);
   }
 
   let isHidden = false;
   function showHeader() {
     isHidden = false;
-    headerSelector.removeClass('hide-header');
+    headerSelector.classList.remove('hide-header');
   }
   headerEl.addEventListener('transitionend', () => {
     // reset overflow when header shows again to allow content
@@ -56,8 +55,8 @@ function detectAndApplyHeaderStyles() {
   function hideHeader() {
     isHidden = true;
     // hide header overflow when user scrolls to support transition effect
-    headerSelector.css('overflow', 'hidden');
-    headerSelector.addClass('hide-header');
+    headerSelector.style.overflow = 'hidden';
+    headerSelector.classList.add('hide-header');
   }
 
   // Handles window resizes + dynamic content (e.g. dismissing a box within)
@@ -128,7 +127,8 @@ function detectAndApplyHeaderStyles() {
 }
 
 function updateSearchData(vm) {
-  jQuery.getJSON(`${baseUrl}/siteData.json`)
+  fetch(`${baseUrl}/siteData.json`)
+    .then(response => response.json())
     .then((siteData) => {
       vm.searchData = siteData.pages;
     });
