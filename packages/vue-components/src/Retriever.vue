@@ -59,9 +59,7 @@ export default {
         return;
       }
       fetch(this.srcWithoutHash)
-        .then((response) => {
-          return response.text();
-        })
+        .then(response => response.text())
         .then((htmlText) => {
           let result = htmlText;
           if (this.hash) {
