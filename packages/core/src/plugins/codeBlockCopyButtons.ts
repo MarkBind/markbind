@@ -5,7 +5,7 @@ import {
   doesFunctionBtnContainerExistInNode,
   isFunctionBtnContainer,
 } from './codeBlockButtonsAssets/codeBlockButtonsContainer';
-import { PluginContext } from './types';
+import { PluginContext } from './Plugin';
 
 const COPY_ICON = `
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
