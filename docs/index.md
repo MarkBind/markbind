@@ -70,7 +70,7 @@ An example that uses KaTeX to generate math equations:
 
 <table>
 <tr>
-  <td style="vertical-align: middle">
+  <td>
 <br>
 
 ```markdown
