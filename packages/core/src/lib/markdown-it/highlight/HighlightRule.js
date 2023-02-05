@@ -1,6 +1,8 @@
 const { HighlightRuleComponent } = require('./HighlightRuleComponent');
 const { splitCodeAndIndentation } = require('./helper');
 
+const HIGHLIGHT_LINES_RULES_DELIMITER_REGEX = /-(?![^[\]]*])/;
+
 class HighlightRule {
   constructor(ruleComponents) {
     /**
@@ -10,7 +12,7 @@ class HighlightRule {
   }
 
   static parseRule(ruleString, lineOffset, lines) {
-    const components = ruleString.split('-')
+    const components = ruleString.split(HIGHLIGHT_LINES_RULES_DELIMITER_REGEX)
       .map(compString => HighlightRuleComponent.parseRuleComponent(compString, lineOffset, lines));
 
     if (components.some(c => !c)) {
