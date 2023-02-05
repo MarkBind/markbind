@@ -160,7 +160,7 @@ If the same variable is defined in a chain of `<include>`s (e.g. `a.md` includes
 
 ##### Excluding Files from Rendering as Pages
 
-**MarkBind supports the exclusion of files from rendering as pages**. For example, you can exclude files containing <tooltip content="A fragment is a piece of content that can be reused across multiple pages.">custom fragments</tooltip> of reusable content from page generation.
+**MarkBind supports the exclusion of files from page generation**. For example, you can exclude files containing <tooltip content="A fragment is a piece of content that can be reused across multiple pages.">custom fragments</tooltip> that are only meant to be used in `<include>`.
 <box type="warning">
 
 Note: This example below is assuming that you have included the following glob pattern in the `site.json` file:
