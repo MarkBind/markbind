@@ -31,10 +31,11 @@ MarkBind extensions to Markdown | `==highlighted text==`<br>`%%grey text%%`<br>`
 <panel type="seamless" header="%%More examples of generating static content%%" >
 
 An example that uses GFMD syntax for task lists:
+<div style="overflow-x: auto">
 
 <table>
 <tr>
-  <td><br>
+  <td>
 
 ```markdown
 **Things to do:**
@@ -48,7 +49,7 @@ An example that uses GFMD syntax for task lists:
   <td>&nbsp;→&nbsp;</td>
   <td>
 
-<tip-box>
+<box>
 
 **Things to do:**
 
@@ -56,17 +57,20 @@ An example that uses GFMD syntax for task lists:
 - [ ] Push my commits to GitHub
 - [ ] Open a pull request
 
-</tipbox>
+</box>
   </td>
 </tr>
 </table>
 
+</div>
+
 An example that uses KaTeX to generate math equations:
 
+<div style="overflow-x: auto">
 
 <table>
 <tr>
-  <td style="vertical-align: top">
+  <td style="vertical-align: middle">
 <br>
 
 ```markdown
@@ -75,14 +79,15 @@ Euler's Identity \(e^{i\pi}+1=0\) is a beautiful formula.
   </td>
   <td>&nbsp;→&nbsp;</td>
   <td>
-<tip-box>
+<box>
 
 Euler's Identity \(e^{i\pi}+1=0\) is a beautiful formula.
 
-</tipbox>
+</box>
   </td>
 </tr>
 </table>
+</div>
 
 </panel>
 <p/>
