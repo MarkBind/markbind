@@ -1,5 +1,8 @@
-const { v4: uuidv4 } = require('uuid');
-const cheerio = require('cheerio'); require('../patches/htmlparser2');
+import { v4 as uuidv4 } from 'uuid';
+import { DomElement } from 'htmlparser2';
+import cheerio from 'cheerio';
+
+require('../patches/htmlparser2');
 const md = require('../lib/markdown-it');
 
 const SITE_NAV_ID = 'site-nav';
@@ -32,7 +35,8 @@ const SITE_NAV_DROPDOWN_ICON_ROTATED_HTML = '<i class="site-nav-dropdown-btn-ico
  * This uuid identifier is asserted to be unique in the html file once html processing is done,
  * otherwise it is replaced with one until it is unique.
  */
-class PageNavProcessor {
+export class PageNavProcessor {
+  uuidTextNode: DomElement | undefined;
   constructor() {
     this.uuidTextNode = undefined;
   }
@@ -41,12 +45,12 @@ class PageNavProcessor {
     return (this.uuidTextNode && this.uuidTextNode.data) || '';
   }
 
-  renderPageNav(node) {
-    [this.uuidTextNode] = cheerio.parseHTML(uuidv4());
-    cheerio(node).replaceWith(this.uuidTextNode);
+  renderPageNav(node: DomElement) {
+    [this.uuidTextNode] = cheerio.parseHTML(uuidv4()) as unknown as [DomElement];
+    cheerio(node).replaceWith(this.uuidTextNode as unknown as cheerio.Element);
   }
 
-  finalizePageNavUuid(mainHtml, mainHtmlNodes, footnotesHtml) {
+  finalizePageNavUuid(mainHtml: string | null, mainHtmlNodes: DomElement[], footnotesHtml: string) {
     if (!this.uuidTextNode) {
       return mainHtml;
     }
@@ -55,7 +59,7 @@ class PageNavProcessor {
     let numMatches;
     do {
       const pageNavUuidRegex = new RegExp(this.uuidTextNode.data, 'g');
-      const mainHtmlMatch = mainHtmlString.match(pageNavUuidRegex);
+      const mainHtmlMatch = mainHtmlString ? mainHtmlString.match(pageNavUuidRegex) : [];
       const footnotesMatch = footnotesHtml.match(pageNavUuidRegex);
       numMatches = (mainHtmlMatch ? mainHtmlMatch.length : 0) + (footnotesMatch ? footnotesMatch.length : 0);
 
@@ -68,14 +72,15 @@ class PageNavProcessor {
     return mainHtmlString;
   }
 
-  static transformPrintContainer(node) {
+  static transformPrintContainer(node: DomElement) {
+    node.attribs = node.attribs ?? {};
     node.attribs.class = 'page-nav-print d-none d-print-block';
     node.attribs['v-pre'] = '';
     node.name = 'div';
   }
 }
 
-function renderSiteNav(node) {
+export function renderSiteNav(node: DomElement) {
   const $original = cheerio(node);
   const siteNavText = $original.text().trim();
   if (siteNavText === '') {
@@ -90,7 +95,7 @@ function renderSiteNav(node) {
     const nestingLevel = $(ulElem).parents('ul').length;
     $(ulElem).addClass(SITE_NAV_LIST_CLASS);
     if (nestingLevel === 0) {
-      $(ulElem).attr('mb-site-nav', true);
+      $(ulElem).attr('mb-site-nav', 'true');
       $(ulElem).addClass(SITE_NAV_LIST_CLASS_ROOT);
     }
     const listItemLevelClass = `${SITE_NAV_LIST_ITEM_CLASS}-${nestingLevel}`;
@@ -133,8 +138,11 @@ function renderSiteNav(node) {
   $original.append($.root());
 }
 
-function addOverlayPortalSource(node, to) {
-  node.attribs['tag-name'] = node.name;
+function addOverlayPortalSource(node: DomElement, to: string) {
+  node.attribs = node.attribs ?? {};
+  if (node.name) {
+    node.attribs['tag-name'] = node.name;
+  }
   node.attribs.to = to;
   node.name = 'overlay-source';
 }
@@ -143,7 +151,11 @@ function addOverlayPortalSource(node, to) {
  * Wrap id="site/page-nav", and the <site-nav> component with a <nav-portal> vue component.
  * This component portals said element into the mobile navbar menus as needed.
  */
-function addSitePageNavPortal(node) {
+export function addSitePageNavPortal(node: DomElement) {
+  if (!node.attribs) {
+    return;
+  }
+
   if (node.attribs.id === SITE_NAV_ID || node.attribs.id === 'page-nav') {
     addOverlayPortalSource(node, node.attribs.id);
   } else if (node.attribs['mb-site-nav']) {
@@ -151,9 +163,3 @@ function addSitePageNavPortal(node) {
     delete node.attribs['mb-site-nav'];
   }
 }
-
-module.exports = {
-  PageNavProcessor,
-  renderSiteNav,
-  addSitePageNavPortal,
-};
