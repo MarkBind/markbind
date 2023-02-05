@@ -26,7 +26,7 @@ function detectAndApplyHeaderStyles() {
     if (heading.id) {
       heading.removeAttribute('id');
     }
-  });
+  }); // to avoid duplicated id problem
   const headerSelector = document.querySelectorAll('header[sticky]');
   if (headerSelector.length === 0) {
     return;
