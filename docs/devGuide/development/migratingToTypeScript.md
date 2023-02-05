@@ -16,7 +16,7 @@ In order to improve the quality and security of our backend code, we are introdu
 
 ## Migration Steps
 
-The TypeScript migration process is a little different than normal development work, as maintainers would not follow the normal procedure of creating a squash commit. Instead, they will do a **normal merge commit**, and therefore migration developers will need to structure the commits in a particular way.
+The TypeScript migration process is a little different than normal development work, as maintainers would not follow the normal procedure of creating a squash commit. Instead, they will do a **rebase and merge**, and therefore migration developers will need to structure the commits in a particular way.
 
 We have decided on structuring the commits as two commits: a "Rename" commit and an "Adapt" commit. If you need further context on the approach, feel free to read the [Explanation Notes](#explanation-notes) section below.
 
@@ -149,13 +149,18 @@ Combining the two steps into one - that is, adapting files immediately after ren
 
 The solution to this is to make the rename and adapt commits separate, in order for Git to recognize first that the file has changed into `.ts`, and so the changes are compared not against the old `.js` file, but to the renamed `.ts` file instead.
 
-### Why do we need a normal merge commit
+### Why do we need a rebase and merge commit
 
 Even if the migration developer has kept the history intact through the separate "Rename" and "Adapt" commits, this is only intact at their working branch. At the end of the day, the totality of the changes in the working branch is compared against the target branch, in which the same consideration would apply.
 
 If we do the usual squash commit, the changes from the two commits are combined into a new commit and only that commit will be pushed into the target branch. The original two commits are omitted, therefore the history of the working branch that we have tried to keep intact is stripped away.
 
-The normal merge commit also creates another commit (the merge commit), but the merge process interleaves the commits from the working branch to the target branch, therefore retaining the change history.
+The reason we use a rebase operation is because it updates the base branch of a
+working branch with the latest changes from the target branch. The rebase
+operation then reapplies the working branch's changes on top of the updated
+base, creating new commit hashes for each commit in the working branch. This
+results in a linear history, as if the changes in the working branch were made
+after the latest changes in the target branch.
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('writingPlugins', '../design/projectStructure') }}
