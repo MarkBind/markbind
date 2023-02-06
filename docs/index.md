@@ -36,6 +36,7 @@ An example that uses GFMD syntax for task lists:
 <table>
 <tr>
   <td>
+<br>
 
 ```markdown
 **Things to do:**
@@ -49,15 +50,14 @@ An example that uses GFMD syntax for task lists:
   <td>&nbsp;→&nbsp;</td>
   <td>
 
-<box>
-
+<tip-box>
 **Things to do:**
 
 - [x] Finish my changes
 - [ ] Push my commits to GitHub
 - [ ] Open a pull request
 
-</box>
+</tip-box>
   </td>
 </tr>
 </table>
@@ -79,11 +79,9 @@ Euler's Identity \(e^{i\pi}+1=0\) is a beautiful formula.
   </td>
   <td>&nbsp;→&nbsp;</td>
   <td>
-<box>
-
+<tip-box>
 Euler's Identity \(e^{i\pi}+1=0\) is a beautiful formula.
-
-</box>
+</tipbox>
   </td>
 </tr>
 </table>
