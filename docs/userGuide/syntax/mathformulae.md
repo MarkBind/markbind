@@ -37,12 +37,20 @@ Additional delimiters are possible by enabling the [mathDelimiters](../usingPlug
 
 <box type="info">
 
-If your equation requires special Nunjucks tags like {% raw %}`{{`{% endraw %} or {% raw %}`}}`{% endraw %},use a
+{% raw %}
+
+If your equation requires special Nunjucks tags like `{{` or `}}`, use a
 [raw-endraw block](../tipsAndTricks.html#using-raw-endraw-to-display-content):
 
 ```markdown
-{% raw %}{% raw %}\(e^{{\frac{1}{3}} + 1}\){% endraw %}{% endraw %}
+{% raw %}
+
+\(e^{{\frac{1}{3}} + 1}\)
+
+{% endraw %}
 ```
+
+{% endraw %}
 
 </box>
 

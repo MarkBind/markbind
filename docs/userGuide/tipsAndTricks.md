@@ -46,19 +46,33 @@ In general, to use this syntax as a raw string in a code block or a template, th
 
 <box type="info">
 
-If using raw-endraw tags on an HTML element, you would also need to add the `v-pre` attribute to the HTML tag, like this:
+If using raw-endraw tags outside `<code>` elements, markdown code fences, or inline code, you also need to add the `v-pre` attribute. 
+
+For HTML elements, the `v-pre` attribute needs to be declared as part of the HTML tag:
 
 ```
 {% raw %}
 
-<p v-pre>{{ content }}</p>
+<div v-pre>
+  <p>{{ content }}</p>
+</div>
 
 {% endraw %}
 ```
 
-Otherwise, the HTML content containing double curly braces will be processed as a variable and will not be displayed properly.
+For Markdown elements, the `v-pre` attribute needs to be declared using [`markdown-it-attrs`](https://www.npmjs.com/package/markdown-it-attrs#Examples), which allows classes, identifiers, and attributed to be added to Markdown syntax:
 
-This isn't necessary for `<code>` elements, markdown code fences and inline code though, as MarkBind automatically adds `v-pre` for them.
+```
+{% raw %}
+
+# Header with {{ content }} {v-pre}
+
+{% endraw %}
+```
+
+Otherwise, any HTML or Markdown content containing double curly braces will be processed as a variable and will not be displayed properly.
+
+Note: This step isn't necessary for `<code>` elements, markdown code fences and inline code because MarkBind automatically adds `v-pre` for them.
 
 </box>
 

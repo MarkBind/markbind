@@ -232,7 +232,7 @@ or the java code `public static void main(String[] args)`{.java}.
 
 ##### Displaying content within curly braces: `{{ content }}`
 
-If your code contains special Nunjucks tags like `{{` or `}}`,use a [raw-endraw block](../tipsAndTricks.html#using-raw-endraw-to-display-content):
+If your code contains special Nunjucks tags like `{{` or `}}`, use a [raw-endraw block](../tipsAndTricks.html#using-raw-endraw-to-display-content):
 
 ```markdown
 {% raw %} {{ content }} {% endraw %}
