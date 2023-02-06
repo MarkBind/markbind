@@ -138,7 +138,7 @@ class MdAttributeRenderer {
   }
 
   /*
-   * Tip boxes
+   * Boxes
    */
 
   processBoxAttributes(node) {
