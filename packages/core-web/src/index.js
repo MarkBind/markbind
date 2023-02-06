@@ -208,6 +208,6 @@ function setupWithSearch() {
   vm.$mount('#app', true); // second parameter, 'true', enables force hydration
 }
 
-initScrollTopButton();
+// initScrollTopButton();
 
 export default { setup, setupWithSearch };

@@ -28,8 +28,8 @@ const TITLE_SUFFIX_SEPARATOR = ' - ';
 const PAGE_NAV_ID = 'mb-page-nav';
 const PAGE_NAV_TITLE_CLASS = 'page-nav-title';
 
-const SCROLL_TO_TOP_BUTTON_HTML = '<i class="fa fa-arrow-circle-up fa-lg d-print-none" '
-  + 'id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>';
+// const SCROLL_TO_TOP_BUTTON_HTML = '<i class="fa fa-arrow-circle-up fa-lg d-print-none" '
+//   + 'id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>';
 
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
@@ -491,7 +491,7 @@ class Page {
     let content = variableProcessor.renderWithSiteVariables(this.pageConfig.sourcePath, pageSources);
     content = await nodeProcessor.process(this.pageConfig.sourcePath, content);
     this.processFrontmatter(nodeProcessor.frontmatter);
-    content = Page.addScrollToTopButton(content);
+    // content = Page.addScrollToTopButton(content);
     content = pluginManager.postRender(this.frontmatter, content);
     const pageContent = content;
 
@@ -553,9 +553,9 @@ class Page {
     await fs.outputFile(this.pageConfig.resultPath, outputTemplateHTML);
   }
 
-  static addScrollToTopButton(pageData) {
-    return `${pageData}\n${SCROLL_TO_TOP_BUTTON_HTML}`;
-  }
+  // static addScrollToTopButton(pageData) {
+  //   return `${pageData}\n${SCROLL_TO_TOP_BUTTON_HTML}`;
+  // }
 
   /**
    * Generates a selector for headings with level inside the headingIndexLevel
