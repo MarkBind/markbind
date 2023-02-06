@@ -9,6 +9,34 @@ class HighlightRule {
     this.ruleComponents = ruleComponents;
   }
 
+  static parseAllRules(allRules, lineOffset, tokenContent) {
+    const highlightLines = this.splitRules(allRules);
+    const strArray = tokenContent.split('\n');
+    return highlightLines
+      .map(ruleStr => HighlightRule.parseRule(ruleStr, lineOffset, strArray))
+      .filter(rule => rule); // discards invalid rules
+  }
+
+  static splitRules(allRules) {
+    const highlightRules = [];
+    let isWithinQuote = false;
+    let currentPosition = 0;
+    for (let i = 0; i < allRules.length; i += 1) {
+      if (allRules.charAt(i) === ',' && !isWithinQuote) {
+        highlightRules.push(allRules.substring(currentPosition, i));
+        currentPosition = i + 1;
+      }
+      // Checks if the current character is not an unescaped quotation mark
+      if (allRules.charAt(i) === '\'' && (i === 0 || allRules.charAt(i - 1) !== '\\')) {
+        isWithinQuote = !isWithinQuote;
+      }
+    }
+    if (currentPosition !== allRules.length) {
+      highlightRules.push(allRules.substring(currentPosition));
+    }
+    return highlightRules;
+  }
+
   static parseRule(ruleString, lineOffset, lines) {
     const components = ruleString.split('-')
       .map(compString => HighlightRuleComponent.parseRuleComponent(compString, lineOffset, lines));
