@@ -124,7 +124,7 @@ Some custom components and directives are also added for MarkBind's use.
 
   * Thumbnail.vue
 
-  * TipBox.vue
+  * Box.vue
 
 * **Custom directives ported from [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap)**
 
