@@ -1,9 +1,11 @@
-const cheerio = module.parent.require('cheerio');
-const {
+import cheerio from 'cheerio';
+import { DomElement } from 'htmlparser2';
+import {
   CONTAINER_HTML,
   doesFunctionBtnContainerExistInNode,
   isFunctionBtnContainer,
-} = require('./codeBlockButtonsAssets/codeBlockButtonsContainer');
+} from './codeBlockButtonsAssets/codeBlockButtonsContainer';
+import { PluginContext } from './types';
 
 const COPY_ICON = `
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -45,9 +47,9 @@ const copyCodeBlockScript = `<script>
     }
     </script>`;
 
-module.exports = {
+export = {
   getScripts: () => [copyCodeBlockScript],
-  processNode: (pluginContext, node) => {
+  processNode: (_: PluginContext, node: cheerio.Element & DomElement) => {
     if (node.name === 'pre' && !doesFunctionBtnContainerExistInNode(node)) {
       cheerio(node).append(CONTAINER_HTML);
     } else if (isFunctionBtnContainer(node)) {
