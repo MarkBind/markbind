@@ -60,7 +60,7 @@ For HTML elements, the `v-pre` attribute needs to be declared as part of the HTM
 {% endraw %}
 ```
 
-For Markdown elements, the `v-pre` attribute needs to be declared using [`markdown-it-attrs`](syntax/attributes.html#classes-attributes-and-amp-identifiers), which allows classes, identifiers, and attributed to be added to Markdown syntax:
+For Markdown elements, the `v-pre` attribute needs to be declared using [`markdown-it-attrs`](formattingcontents.html#classes-attributes-and-amp-identifiers), which allows classes, identifiers, and attributed to be added to Markdown syntax:
 
 ```
 {% raw %}
