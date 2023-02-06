@@ -46,7 +46,7 @@ In general, to use this syntax as a raw string in a code block or a template, th
 
 <box type="info">
 
-If using raw-endraw tags on HTML content, you would also need to add the `v-pre` attribute as an HTML attribute, like this:
+If using raw-endraw tags on an HTML element, you would also need to add the `v-pre` attribute to the HTML tag, like this:
 
 ```
 {% raw %}
@@ -56,7 +56,7 @@ If using raw-endraw tags on HTML content, you would also need to add the `v-pre`
 {% endraw %}
 ```
 
-Otherwise, the content will not be displayed. 
+Otherwise, the HTML content containing double curly braces will be processed as a variable and will not be displayed properly.
 
 This isn't necessary for `<code>` elements, markdown code fences and inline code though, as MarkBind automatically adds `v-pre` for them.
 
