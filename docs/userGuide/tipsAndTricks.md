@@ -34,7 +34,7 @@ For Markdown syntax: To display a literal character that are normally used for M
 
 ##### :fas-lightbulb: Using {% raw %}{% endraw %} to display `{{ content }}`
 
-By default, MarkBind processes any code in the form of `{{ content }}`. This is because Nunjucks (which is [supported by MarkBind](https://markbind.org/userGuide/markBindSyntaxOverview.html#support-for-nunjucks)) uses this syntax to [evaluate an expression, variable, or function calls](https://mozilla.github.io/nunjucks/templating.html#variables). For instance:
+By default, MarkBind processes any code in the form of `{{ content }}`. This is because Nunjucks (which is [supported by MarkBind](markBindSyntaxOverview.html#support-for-nunjucks)) uses this syntax to [evaluate an expression, variable, or function calls](https://mozilla.github.io/nunjucks/templating.html#variables). For instance:
 
 ```
 {{ username }}
@@ -46,7 +46,7 @@ In general, to use this syntax as a raw string in a code block or a template, th
 
 <box type="info">
 
-If using raw-endraw tags on html content, you would also need to add the `v-pre` attribute as an HTML attribute, like this:
+If using raw-endraw tags on HTML content, you would also need to add the `v-pre` attribute as an HTML attribute, like this:
 
 ```
 {% raw %}

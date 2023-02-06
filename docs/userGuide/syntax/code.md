@@ -228,14 +228,16 @@ or the java code `public static void main(String[] args)`{.java}.
 </variable>
 </include>
 
-##### Displaying `{{ content }}`
+{% raw %}
 
-If your equation requires special Nunjucks tags like {% raw %}`{{`{% endraw %} or {% raw %}`}}`{% endraw %},use a
-[raw-endraw block](https://markbind.org/userGuide/tipsAndTricks.html#using-raw-endraw-to-display-content):
+##### Displaying content within curly braces: `{{ content }}`
+
+If your code contains special Nunjucks tags like `{{` or `}}`,use a [raw-endraw block](../tipsAndTricks.html#using-raw-endraw-to-display-content):
 
 ```markdown
-{% raw %}{% raw %} {{ content }} {% endraw %}{% endraw %}
+{% raw %} {{ content }} {% endraw %}
 ```
+{% endraw %}
 
 <div id="short" class="d-none">
 
