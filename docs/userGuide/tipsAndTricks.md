@@ -34,7 +34,13 @@ For Markdown syntax: To display a literal character that are normally used for M
 
 ##### :fas-lightbulb: Using {% raw %}{% endraw %} to display `{{ content }}`
 
-By default, MarkBind processes any code in the form of `{{ content }}`. This is because Nunjucks (which is [supported by MarkBind](https://markbind.org/userGuide/markBindSyntaxOverview.html#support-for-nunjucks)) uses this syntax to [evaluate an expression, variable, or function calls](https://mozilla.github.io/nunjucks/templating.html#variables). 
+By default, MarkBind processes any code in the form of `{{ content }}`. This is because Nunjucks (which is [supported by MarkBind](https://markbind.org/userGuide/markBindSyntaxOverview.html#support-for-nunjucks)) uses this syntax to [evaluate an expression, variable, or function calls](https://mozilla.github.io/nunjucks/templating.html#variables). For instance:
+
+```
+{{ username }}
+```
+
+This will not display `{{ username }}` as a raw string, but instead, look up the variable `username` from the context and display its value.
 
 In general, to use this syntax as a raw string in a code block or a template, there are [two methods](https://jinja.palletsprojects.com/en/3.0.x/templates/#escaping) available. The syntax can either be encased as a variable like `{{ '{{' }}` and `{{ '}}' }}`, or alternatively, the entire code block can be encased with the raw-endraw tags: `{% raw %} {{ content }} {% endraw %}`. 
 

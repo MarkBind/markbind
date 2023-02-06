@@ -228,6 +228,15 @@ or the java code `public static void main(String[] args)`{.java}.
 </variable>
 </include>
 
+##### Displaying `{{ content }}`
+
+If your equation requires special Nunjucks tags like {% raw %}`{{`{% endraw %} or {% raw %}`}}`{% endraw %},use a
+[raw-endraw block](https://markbind.org/userGuide/tipsAndTricks.html#using-raw-endraw-to-display-content):
+
+```markdown
+{% raw %}{% raw %} {{ content }} {% endraw %}{% endraw %}
+```
+
 <div id="short" class="d-none">
 
 ````
