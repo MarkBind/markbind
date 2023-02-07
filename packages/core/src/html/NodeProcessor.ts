@@ -229,6 +229,9 @@ export class NodeProcessor {
       case 'page-nav':
         this.pageNavProcessor.renderPageNav(node);
         break;
+      case 'page-nav-print':
+        PageNavProcessor.transformPrintContainer(node);
+        break;
       case 'site-nav':
         renderSiteNav(node);
         break;
