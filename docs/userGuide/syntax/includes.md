@@ -156,6 +156,68 @@ You can also specify include variables within the `<include>` tag itself by addi
 
 If the same variable is defined in a chain of `<include>`s (e.g. `a.md` includes `b.md` includes `c.md`...), variables defined in the top-most `<include>` will take precedence. Global variables (`_markbind/variables.md`) will take precedence over any `<include>` variables.
 
+<hr><!-- ======================================================================================================= -->
+
+##### Excluding Files from Rendering as Pages
+
+**MarkBind supports the exclusion of files from page generation**. For example, you can exclude files containing <tooltip content="A fragment is a piece of content that can be reused across multiple pages.">custom fragments</tooltip> that are only meant to be used in `<include>`.
+<box type="warning">
+
+Note: This example below is assuming that you have included the following glob pattern in the `site.json` file:
+
+```js
+{
+  "pages": [
+    {
+      "glob": "*.md",
+      "layout": "normal",
+      "searchable": "yes"
+    }
+  ],
+}
+```
+
+Else, if each page is included individually, there is no need to exclude the fragments as they will not be included in the page generation.
+</box>
+
+
+{{ icon_example }} Suppose you have a fragment file `content-fragment.md` and you want to include it in some pages of the site `course` without rendering `content-fragment.md` as a page.
+
+<tree>
+C:/course/
+  content-fragment.md
+  index.md
+  reading.md
+  site.json
+</tree>
+
+In `reading.md` (note how it reuses content from the `content-fragment.md`):
+```markdown
+# Week 1 Reading:
+<include src="content-fragment.md" />
+```
+
+In `site.json` we then exclude the fragment from the page generation with [pagesExclude](siteJsonFile.html#pagesexclude):
+
+```json
+...
+"pagesExclude": [
+  "**/*-fragment.md"
+],
+...
+```
+</div>
+
+</div>
+
+<include src="tip.md" boilerplate >
+<span id="tip_body">
+You may use any custom name you wish for your fragments but be sure to update the `pagesExclude` list with the appropriate glob pattern.
+</span>
+</include>
+
+<hr><!-- ======================================================================================================= -->
+
 ### Using Boilerplate Files
 
 **If you find yourself duplicating a <tooltip content="code that needs to stay relative to the directory in which it used">_boilerplate code_</tooltip> fragment in multiple places of your code base, you can use a `boilerplate` file to avoid such duplication.** Note that you cannot use a normal `<include>` in this case because the code included using a normal `<include>` stays relative to the original location while boilerplate code needs to be interpreted relative to the location it is being used.

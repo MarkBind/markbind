@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TipBox having custom background color renders correctly 1`] = `
+exports[`Box having custom background color renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
   style="background-color: white; border-color: white;"
@@ -29,7 +29,7 @@ exports[`TipBox having custom background color renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox having custom border color renders correctly 1`] = `
+exports[`Box having custom border color renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
   style="border: 1px solid grey;"
@@ -58,7 +58,7 @@ exports[`TipBox having custom border color renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox having custom border left color renders correctly 1`] = `
+exports[`Box having custom border left color renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
   style="border-left: 5px solid blue;"
@@ -87,7 +87,7 @@ exports[`TipBox having custom border left color renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox of default type with content renders correctly  1`] = `
+exports[`Box of default type with content renders correctly  1`] = `
 <div
   class="alert box-container alert-default"
 >
@@ -117,7 +117,7 @@ exports[`TipBox of default type with content renders correctly  1`] = `
 </div>
 `;
 
-exports[`TipBox of definition type light style renders correctly 1`] = `
+exports[`Box of definition type light style renders correctly 1`] = `
 <div
   class="alert box-container border-primary alert-border-left"
 >
@@ -151,7 +151,7 @@ exports[`TipBox of definition type light style renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox of definition type renders correctly 1`] = `
+exports[`Box of definition type renders correctly 1`] = `
 <div
   class="alert box-container alert-primary"
 >
@@ -185,7 +185,7 @@ exports[`TipBox of definition type renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox of important type light style renders correctly 1`] = `
+exports[`Box of important type light style renders correctly 1`] = `
 <div
   class="alert box-container border-danger alert-border-left"
 >
@@ -219,7 +219,7 @@ exports[`TipBox of important type light style renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox of important type renders correctly 1`] = `
+exports[`Box of important type renders correctly 1`] = `
 <div
   class="alert box-container alert-danger"
 >
@@ -253,7 +253,7 @@ exports[`TipBox of important type renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox of info type light style renders correctly 1`] = `
+exports[`Box of info type light style renders correctly 1`] = `
 <div
   class="alert box-container border-info alert-border-left"
 >
@@ -287,7 +287,7 @@ exports[`TipBox of info type light style renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox of info type renders correctly 1`] = `
+exports[`Box of info type renders correctly 1`] = `
 <div
   class="alert box-container alert-info"
 >
@@ -321,7 +321,7 @@ exports[`TipBox of info type renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox of seamless style renders correctly 1`] = `
+exports[`Box of seamless style renders correctly 1`] = `
 <div
   class="alert box-container seamless"
 >
@@ -352,7 +352,7 @@ exports[`TipBox of seamless style renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox of success type light style renders correctly 1`] = `
+exports[`Box of success type light style renders correctly 1`] = `
 <div
   class="alert box-container border-success alert-border-left"
 >
@@ -386,7 +386,7 @@ exports[`TipBox of success type light style renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox of success type renders correctly 1`] = `
+exports[`Box of success type renders correctly 1`] = `
 <div
   class="alert box-container alert-success"
 >
@@ -420,7 +420,7 @@ exports[`TipBox of success type renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox of tip type light style renders correctly 1`] = `
+exports[`Box of tip type light style renders correctly 1`] = `
 <div
   class="alert box-container border-success alert-border-left"
 >
@@ -454,7 +454,7 @@ exports[`TipBox of tip type light style renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox of tip type renders correctly 1`] = `
+exports[`Box of tip type renders correctly 1`] = `
 <div
   class="alert box-container alert-success"
 >
@@ -488,7 +488,7 @@ exports[`TipBox of tip type renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox of warning type light style renders correctly 1`] = `
+exports[`Box of warning type light style renders correctly 1`] = `
 <div
   class="alert box-container border-warning alert-border-left"
 >
@@ -522,7 +522,7 @@ exports[`TipBox of warning type light style renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox of warning type renders correctly 1`] = `
+exports[`Box of warning type renders correctly 1`] = `
 <div
   class="alert box-container alert-warning"
 >
@@ -556,7 +556,7 @@ exports[`TipBox of warning type renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox of wrong type light style renders correctly 1`] = `
+exports[`Box of wrong type light style renders correctly 1`] = `
 <div
   class="alert box-container border-danger alert-border-left"
 >
@@ -590,7 +590,7 @@ exports[`TipBox of wrong type light style renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox of wrong type renders correctly 1`] = `
+exports[`Box of wrong type renders correctly 1`] = `
 <div
   class="alert box-container alert-danger"
 >
@@ -624,7 +624,7 @@ exports[`TipBox of wrong type renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox with custom color renders correctly 1`] = `
+exports[`Box with custom color renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
 >
@@ -653,7 +653,7 @@ exports[`TipBox with custom color renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox with custom icon color and header renders correctly 1`] = `
+exports[`Box with custom icon color and header renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
 >
@@ -698,7 +698,7 @@ exports[`TipBox with custom icon color and header renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox with custom icon color and no header renders correctly 1`] = `
+exports[`Box with custom icon color and no header renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
 >
@@ -731,7 +731,7 @@ exports[`TipBox with custom icon color and no header renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox with dismissible option renders correctly 1`] = `
+exports[`Box with dismissible option renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
 >
@@ -764,7 +764,7 @@ exports[`TipBox with dismissible option renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox with header renders correctly 1`] = `
+exports[`Box with header renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
 >
@@ -804,7 +804,7 @@ exports[`TipBox with header renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox with icon and icon-size renders correctly 1`] = `
+exports[`Box with icon and icon-size renders correctly 1`] = `
 <div
   class="alert box-container alert-info"
 >
@@ -836,7 +836,7 @@ exports[`TipBox with icon and icon-size renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox with icon renders correctly 1`] = `
+exports[`Box with icon renders correctly 1`] = `
 <div
   class="alert box-container alert-info"
 >
@@ -868,7 +868,7 @@ exports[`TipBox with icon renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox with no-background option renders correctly 1`] = `
+exports[`Box with no-background option renders correctly 1`] = `
 <div
   class="alert box-container alert-default no-background"
 >
@@ -896,7 +896,7 @@ exports[`TipBox with no-background option renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox with no-border option renders correctly 1`] = `
+exports[`Box with no-border option renders correctly 1`] = `
 <div
   class="alert box-container alert-default no-border"
 >
@@ -924,7 +924,7 @@ exports[`TipBox with no-border option renders correctly 1`] = `
 </div>
 `;
 
-exports[`TipBox with no-icon option renders correctly 1`] = `
+exports[`Box with no-icon option renders correctly 1`] = `
 <div
   class="alert box-container alert-success"
 >
