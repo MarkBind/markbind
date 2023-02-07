@@ -26,15 +26,14 @@ class HighlightRuleComponent {
     const linepartMatch = compString.match(LINEPART_REGEX);
     if (linepartMatch) {
       // There are four capturing groups: [full match, line number, quote type, line part]
-      const groups = linepartMatch.slice(1); // discard full match
-      let lineNumber = parseInt(groups.shift(), 10);
+      const [, lineNumberString, , linePartWithQuotes] = linepartMatch;
+      let lineNumber = parseInt(lineNumberString, 10);
       if (Number.isNaN(lineNumber)) {
         return null;
       }
       lineNumber += lineNumberOffset;
 
-      groups.shift(); // discard quote type
-      const linePart = groups.shift().replace(/\\'/g, '\'').replace(/\\"/g, '"'); // unescape quotes
+      const linePart = linePartWithQuotes.replace(/\\'/g, '\'').replace(/\\"/g, '"'); // unescape quotes
       const bounds = HighlightRuleComponent.computeLinePartBounds(linePart, lines[lineNumber - 1]);
 
       return new HighlightRuleComponent(lineNumber, true, bounds);
