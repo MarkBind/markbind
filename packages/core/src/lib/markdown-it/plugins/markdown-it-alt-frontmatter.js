@@ -8,6 +8,7 @@ module.exports = function centertext_plugin(md) {
       haveEndMarker = false,
       pos = state.bMarks[startLine] + state.tShift[startLine],
       max = state.eMarks[startLine];
+    const keyValueRegex = new RegExp("^\\w+:\\s.*");
 
     if (pos + 3 > max) { return false; }
     marker = state.src.slice(pos, pos + 3);
@@ -37,6 +38,10 @@ module.exports = function centertext_plugin(md) {
       if (state.src.slice(pos, max).trim() === '---') {
         haveEndMarker = true;
         break;
+      }
+
+      if (!keyValueRegex.test(state.src.slice(pos, max).trim())) {
+        return false;
       }
     }
     if (!haveEndMarker) { return false; }
