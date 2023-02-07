@@ -59,67 +59,6 @@ If you are using Git for version control, you can set up the sub-site repository
 </span>
 </include>
 
-
-<hr><!-- ======================================================================================================= -->
-
-## Creating Custom Fragments
-
-**MarkBind supports creating custom fragments**. A fragment is a piece of content that can be reused across multiple pages. This allows you to create reusable content similar to [reusing content](#reusing-contents-across-sites), but rather than reusing content from a _sub-site_, content is reused from fragments which can be excluded from page generation.
-
-<box type="warning">
-Note: This example below is assuming that you have included the following glob pattern in the `site.json` file:
-
-```js
-{
-  "pages": [
-    {
-      "glob": "*.md",
-      "layout": "normal",
-      "searchable": "yes"
-    }
-  ],
-}
-```
-
-Else, if each page is included individually, there is no need to exclude the fragments as they will not be included in the page generation.
-</box>
-
-
-{{ icon_example }} Suppose you have a fragment file `content-fragment.md` and you want to include it in some pages of the site `course` without rendering `content-fragment.md` as a page.
-
-<tree>
-C:/course/
-  content-fragment.md
-  index.md
-  reading.md
-  site.json
-</tree>
-
-In `reading.md` (note how it reuses content from the `content-fragment.md`):
-```markdown
-# Week 1 Reading:
-<include src="content-fragment.md" />
-```
-
-In `site.json` we then exclude the fragment from the page generation:
-
-```json
-...
-"pagesExclude": [
-  "**/*-fragment.md"
-],
-...
-```
-</div>
-
-</div>
-
-<include src="tip.md" boilerplate >
-<span id="tip_body">
-You may use any custom name you wish for your fragments but be sure to update the `pagesExclude` list with the appropriate glob pattern.
-</span>
-</include>
-
 <hr><!-- ======================================================================================================= -->
 
 ## Creating Content Variations
