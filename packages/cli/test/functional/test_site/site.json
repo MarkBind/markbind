@@ -150,6 +150,10 @@
     {
       "src": "testPageNavWithOnlyTitle.md",
       "title": "page nav with title added"
+    },
+    {
+      "src": "testPageNavPrint.md",
+      "title": "printing page nav"
     }
   ],
   "pagesExclude": ["**/*-fragment.md"],

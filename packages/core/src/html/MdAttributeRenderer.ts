@@ -1,19 +1,23 @@
-const cheerio = require('cheerio');
+import cheerio from 'cheerio';
+import has from 'lodash/has';
+import { DomElement } from 'htmlparser2';
+import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
+import { MarkdownProcessor } from './MarkdownProcessor';
+import * as logger from '../utils/logger';
+import { createSlotTemplateNode } from './elements';
 
-const { createSlotTemplateNode } = require('./elements');
-const { getVslotShorthandName } = require('./vueSlotSyntaxProcessor');
-
-const _ = {};
-_.has = require('lodash/has');
-
-const logger = require('../utils/logger');
+const _ = {
+  has,
+};
 
 /**
  * Class that is responsible for rendering markdown-in-attributes
  */
-class MdAttributeRenderer {
-  constructor(markdownProcessor) {
-    this.markdownProcessor = markdownProcessor;
+export class MdAttributeRenderer {
+  markdownProcessor: MarkdownProcessor;
+
+  constructor(mdp: MarkdownProcessor) {
+    this.markdownProcessor = mdp;
   }
 
   /**
@@ -24,7 +28,11 @@ class MdAttributeRenderer {
    * @param isInline Whether to process the attribute with only inline markdown-it rules
    * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
    */
-  processAttributeWithoutOverride(node, attribute, isInline, slotName = attribute) {
+  processAttributeWithoutOverride(node: DomElement, attribute: string,
+                                  isInline: boolean, slotName = attribute): void {
+    if (!node.attribs) {
+      return;
+    }
     const hasAttributeSlot = node.children
         && node.children.some(child => getVslotShorthandName(child) === slotName);
 
@@ -37,8 +45,9 @@ class MdAttributeRenderer {
       }
 
       const attributeSlotElement = createSlotTemplateNode(slotName, rendered);
-      node.children
-          = node.children ? attributeSlotElement.concat(node.children) : attributeSlotElement;
+      node.children = node.children
+        ? attributeSlotElement.concat(node.children as unknown as Document[]) as unknown as DomElement[]
+        : attributeSlotElement as unknown as DomElement[];
     }
 
     delete node.attribs[attribute];
@@ -53,10 +62,10 @@ class MdAttributeRenderer {
    * @returns {boolean} whether the node has both the slot and attribute
    */
   // eslint-disable-next-line class-methods-use-this
-  hasSlotOverridingAttribute(node, attribute, slotName = attribute) {
+  hasSlotOverridingAttribute(node: DomElement, attribute: string, slotName = attribute): boolean {
     const hasNamedSlot = node.children
       && node.children.some(child => getVslotShorthandName(child) === slotName);
-    if (!hasNamedSlot) {
+    if (!hasNamedSlot || !node.attribs) {
       return false;
     }
 
@@ -70,7 +79,7 @@ class MdAttributeRenderer {
     return hasAttribute;
   }
 
-  processPopoverAttributes(node) {
+  processPopoverAttributes(node: DomElement) {
     if (!this.hasSlotOverridingAttribute(node, 'header')) {
       this.processAttributeWithoutOverride(node, 'header', true);
     }
@@ -82,19 +91,22 @@ class MdAttributeRenderer {
       return;
     }
 
-    if (_.has(node.attribs, 'content') && _.has(node.attribs, 'src')) {
+    const nodeAttribs = node.attribs ?? {};
+
+    if (_.has(nodeAttribs, 'content') && _.has(nodeAttribs, 'src')) {
       logger.warn(`${node.name} has a 'content' attribute, 'src' attribute has no effect.`);
-      delete node.attribs.src;
+      delete nodeAttribs.src;
     }
 
+    node.attribs = nodeAttribs;
     this.processAttributeWithoutOverride(node, 'content', true);
   }
 
-  processTooltip(node) {
+  processTooltip(node: DomElement) {
     this.processAttributeWithoutOverride(node, 'content', true);
   }
 
-  processModalAttributes(node) {
+  processModalAttributes(node: DomElement) {
     if (!this.hasSlotOverridingAttribute(node, 'header')) {
       this.processAttributeWithoutOverride(node, 'header', true);
     }
@@ -104,7 +116,7 @@ class MdAttributeRenderer {
    * Panels
    */
 
-  processPanelAttributes(node) {
+  processPanelAttributes(node: DomElement) {
     this.processAttributeWithoutOverride(node, 'alt', false, '_alt');
     if (!this.hasSlotOverridingAttribute(node, 'header')) {
       this.processAttributeWithoutOverride(node, 'header', false);
@@ -115,17 +127,17 @@ class MdAttributeRenderer {
    * Questions, QOption, and Quizzes
    */
 
-  processQuestion(node) {
+  processQuestion(node: DomElement) {
     this.processAttributeWithoutOverride(node, 'header', false);
     this.processAttributeWithoutOverride(node, 'hint', false);
     this.processAttributeWithoutOverride(node, 'answer', false);
   }
 
-  processQOption(node) {
+  processQOption(node: DomElement) {
     this.processAttributeWithoutOverride(node, 'reason', false);
   }
 
-  processQuiz(node) {
+  processQuiz(node: DomElement) {
     this.processAttributeWithoutOverride(node, 'intro', false);
   }
 
@@ -133,7 +145,7 @@ class MdAttributeRenderer {
    * Tabs
    */
 
-  processTabAttributes(node) {
+  processTabAttributes(node: DomElement) {
     this.processAttributeWithoutOverride(node, 'header', true);
   }
 
@@ -141,7 +153,7 @@ class MdAttributeRenderer {
    * Boxes
    */
 
-  processBoxAttributes(node) {
+  processBoxAttributes(node: DomElement) {
     this.processAttributeWithoutOverride(node, 'icon', true);
     this.processAttributeWithoutOverride(node, 'header', false);
   }
@@ -150,7 +162,7 @@ class MdAttributeRenderer {
    * Dropdowns
    */
 
-  processDropdownAttributes(node) {
+  processDropdownAttributes(node: DomElement) {
     if (!this.hasSlotOverridingAttribute(node, 'header')) {
       this.processAttributeWithoutOverride(node, 'header', true);
     }
@@ -160,7 +172,11 @@ class MdAttributeRenderer {
    * Thumbnails
    */
 
-  processThumbnailAttributes(node) {
+  processThumbnailAttributes(node: DomElement) {
+    if (!node.attribs) {
+      return;
+    }
+
     const isImage = _.has(node.attribs, 'src') && node.attribs.src !== '';
     if (isImage) {
       return;
@@ -172,11 +188,7 @@ class MdAttributeRenderer {
     }
 
     const renderedText = this.markdownProcessor.renderMdInline(text);
-    node.children = cheerio.parseHTML(renderedText);
+    node.children = cheerio.parseHTML(renderedText) as unknown as DomElement[];
     delete node.attribs.text;
   }
 }
-
-module.exports = {
-  MdAttributeRenderer,
-};
