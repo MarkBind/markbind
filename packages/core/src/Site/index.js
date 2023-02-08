@@ -17,7 +17,7 @@ const { ExternalManager } = require('../External/ExternalManager');
 const { LayoutManager, LAYOUT_DEFAULT_NAME, LAYOUT_FOLDER_PATH } = require('../Layout');
 const { SiteLinkManager } = require('../html/SiteLinkManager');
 const { PluginManager } = require('../plugins/PluginManager');
-const Template = require('../../template/template');
+const { Template } = require('../../template/template');
 
 const { sequentialAsyncForEach } = require('../utils/async');
 const { delay } = require('../utils/delay');
