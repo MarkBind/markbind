@@ -1,17 +1,22 @@
-const path = require('path');
-const lodashHas = require('lodash/has');
-const parse = require('url-parse');
-const ignore = require('ignore');
+import path from 'path';
+import has from 'lodash/has';
+import parse from 'url-parse';
+import ignore from 'ignore';
 
-const fsUtil = require('../utils/fsUtil');
-const logger = require('../utils/logger');
-const urlUtil = require('../utils/urlUtil');
+import { DomElement } from 'htmlparser2';
+import * as fsUtil from '../utils/fsUtil';
+import * as logger from '../utils/logger';
+import * as urlUtil from '../utils/urlUtil';
 
-const { PluginManager } = require('../plugins/PluginManager');
+import { PluginManager } from '../plugins/PluginManager';
+import { NodeProcessorConfig } from './NodeProcessor';
+import { PageSources } from '../Page/PageSources';
+
+const _ = { has };
 
 const pluginTagConfig = PluginManager.tagConfig;
 
-const defaultTagLinkMap = {
+const defaultTagLinkMap: { [key: string]: string } = {
   img: 'src',
   pic: 'src',
   thumbnail: 'src',
@@ -23,17 +28,18 @@ const defaultTagLinkMap = {
   script: 'src',
 };
 
-function hasTagLink(node) {
-  return node.name in defaultTagLinkMap || node.name in pluginTagConfig;
+export function hasTagLink(node: DomElement) {
+  return node.name && (node.name in defaultTagLinkMap || node.name in pluginTagConfig);
 }
 
-function getDefaultTagsResourcePath(node) {
+export function getDefaultTagsResourcePath(node: DomElement): string {
+  if (!node.name || !node.attribs) return '';
   const linkAttribName = defaultTagLinkMap[node.name];
-  const resourcePath = node.attribs && node.attribs[linkAttribName];
+  const resourcePath = node.attribs[linkAttribName];
   return resourcePath;
 }
 
-function getResourcePathFromRoot(rootPath, fullResourcePath) {
+function _getResourcePathFromRoot(rootPath: string, fullResourcePath: string) {
   return fsUtil.ensurePosix(path.relative(rootPath, fullResourcePath));
 }
 
@@ -41,16 +47,17 @@ function getResourcePathFromRoot(rootPath, fullResourcePath) {
  * @param {string} resourcePath parsed from the node's relevant attribute
  * @returns {boolean} whether the resourcePath is a valid intra-site link
  */
-function isIntraLink(resourcePath) {
+export function isIntraLink(resourcePath: string | undefined): boolean {
   const MAILTO_OR_TEL_REGEX = /^(?:mailto:|tel:)/i;
-  return resourcePath
+  return !!resourcePath
     && !urlUtil.isUrl(resourcePath)
     && !resourcePath.startsWith('#')
     && !MAILTO_OR_TEL_REGEX.test(resourcePath);
 }
 
-function _convertRelativeLink(node, cwf, rootPath, baseUrl, resourcePath, linkAttribName) {
-  if (!isIntraLink(resourcePath)) {
+function _convertRelativeLink(node: DomElement, cwf: string, rootPath: string,
+                              baseUrl: string, resourcePath: string | undefined, linkAttribName: string) {
+  if (!resourcePath || !isIntraLink(resourcePath)) {
     return;
   }
 
@@ -61,9 +68,11 @@ function _convertRelativeLink(node, cwf, rootPath, baseUrl, resourcePath, linkAt
 
   const cwd = path.dirname(cwf);
   const fullResourcePath = path.join(cwd, resourcePath);
-  const resourcePathFromRoot = getResourcePathFromRoot(rootPath, fullResourcePath);
+  const resourcePathFromRoot = _getResourcePathFromRoot(rootPath, fullResourcePath);
 
-  node.attribs[linkAttribName] = path.posix.join(baseUrl || '/', resourcePathFromRoot);
+  if (node.attribs) {
+    node.attribs[linkAttribName] = path.posix.join(baseUrl || '/', resourcePathFromRoot);
+  }
 }
 
 /**
@@ -73,12 +82,13 @@ function _convertRelativeLink(node, cwf, rootPath, baseUrl, resourcePath, linkAt
  *
  * TODO allow plugins to tap into this process / extend {@link defaultTagLinkMap}
  *
- * @param {Object<any, any>} node from the dom traversal
+ * @param {DomElement} node from the dom traversal
  * @param {string} cwf as flagged from {@link NodeProcessor}
  * @param {string} rootPath of the root site
  * @param {string} baseUrl
  */
-function convertRelativeLinks(node, cwf, rootPath, baseUrl) {
+export function convertRelativeLinks(node: DomElement, cwf: string, rootPath: string, baseUrl: string) {
+  if (!node.name) return;
   if (node.name in defaultTagLinkMap) {
     const resourcePath = getDefaultTagsResourcePath(node);
     const linkAttribName = defaultTagLinkMap[node.name];
@@ -87,7 +97,7 @@ function convertRelativeLinks(node, cwf, rootPath, baseUrl) {
 
   if (node.name in pluginTagConfig && pluginTagConfig[node.name].attributes && node.attribs) {
     pluginTagConfig[node.name].attributes.forEach((attrConfig) => {
-      if (attrConfig.isRelative) {
+      if (attrConfig.isRelative && node.attribs) {
         const resourcePath = node.attribs[attrConfig.name];
         _convertRelativeLink(node, cwf, rootPath, baseUrl, resourcePath, attrConfig.name);
       }
@@ -95,9 +105,9 @@ function convertRelativeLinks(node, cwf, rootPath, baseUrl) {
   }
 }
 
-function convertMdExtToHtmlExt(node) {
+export function convertMdExtToHtmlExt(node: DomElement) {
   if (node.name === 'a' && node.attribs && node.attribs.href) {
-    const hasNoConvert = lodashHas(node.attribs, 'no-convert');
+    const hasNoConvert = _.has(node.attribs, 'no-convert');
     if (hasNoConvert) {
       return;
     }
@@ -129,7 +139,7 @@ function convertMdExtToHtmlExt(node) {
   }
 }
 
-function isValidPageSource(resourcePath, config) {
+function isValidPageSource(resourcePath: string, config: NodeProcessorConfig) {
   const relativeResourcePath = resourcePath.startsWith('/')
     ? resourcePath.substring(1)
     : resourcePath;
@@ -138,7 +148,7 @@ function isValidPageSource(resourcePath, config) {
   return isPageSrc;
 }
 
-function isValidFileAsset(resourcePath, config) {
+function isValidFileAsset(resourcePath: string, config: NodeProcessorConfig) {
   const relativeResourcePath = resourcePath.startsWith('/')
     ? resourcePath.substring(1)
     : resourcePath;
@@ -156,10 +166,10 @@ function isValidFileAsset(resourcePath, config) {
  *
  * @param {string} resourcePath parsed from the node's relevant attribute
  * @param {string} cwf as flagged from {@link NodePreprocessor}
- * @param {Object<any, any>} config passed for page metadata access
+ * @param {NodeProcessorConfig} config passed for page metadata access
  * @returns {string} these string return values are for unit testing purposes only
  */
-function validateIntraLink(resourcePath, cwf, config) {
+export function validateIntraLink(resourcePath: string, cwf: string, config: NodeProcessorConfig): string {
   if (!isIntraLink(resourcePath)) {
     return 'Not Intralink';
   }
@@ -220,20 +230,22 @@ function validateIntraLink(resourcePath, cwf, config) {
  * Resolves and collects source file paths pointed to by attributes in nodes for live reload.
  * Only necessary for plugins for now.
  *
- * @param {Object<any, any>} node from the dom traversal
+ * @param {DomElement} node from the dom traversal
  * @param {string} rootPath site root path to resolve the link from
  * @param {string} baseUrl base url to strip off the link (if any)
  * @param {PageSources} pageSources {@link PageSources} object to add the resolved file path to
- * @returns {string} these string return values are for unit testing purposes only
+ * @returns {string | void} these string return values are for unit testing purposes only
  */
-function collectSource(node, rootPath, baseUrl, pageSources) {
+export function collectSource(node: DomElement, rootPath: string,
+                              baseUrl: string, pageSources: PageSources): string | void {
+  if (!node.name) return;
   const tagConfig = pluginTagConfig[node.name];
   if (!tagConfig || !tagConfig.attributes) {
     return;
   }
 
   tagConfig.attributes.forEach((attrConfig) => {
-    if (!attrConfig.isSourceFile) {
+    if (!attrConfig.isSourceFile || !node.attribs) {
       return;
     }
 
@@ -251,13 +263,3 @@ function collectSource(node, rootPath, baseUrl, pageSources) {
     pageSources.staticIncludeSrc.push({ to: fullResourcePath });
   });
 }
-
-module.exports = {
-  getDefaultTagsResourcePath,
-  hasTagLink,
-  convertRelativeLinks,
-  convertMdExtToHtmlExt,
-  validateIntraLink,
-  collectSource,
-  isIntraLink,
-};
