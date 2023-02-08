@@ -5,6 +5,7 @@
 import vueCommonAppFactory from './VueCommonAppFactory';
 import initScrollTopButton from './scrollTopButton';
 import './styles/index.css';
+import './print';
 
 const { MarkBindVue, appFactory } = vueCommonAppFactory;
 
