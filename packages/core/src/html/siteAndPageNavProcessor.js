@@ -67,6 +67,12 @@ class PageNavProcessor {
 
     return mainHtmlString;
   }
+
+  static transformPrintContainer(node) {
+    node.attribs.class = 'page-nav-print d-none d-print-block';
+    node.attribs['v-pre'] = '';
+    node.name = 'div';
+  }
 }
 
 function renderSiteNav(node) {
