@@ -51,11 +51,8 @@ const components = {
   tabGroup,
   tabs: tabset,
   thumbnail,
-<<<<<<< HEAD
   tipBox,
   toast,
-=======
->>>>>>> master
   trigger,
   siteNav,
   submenu,
