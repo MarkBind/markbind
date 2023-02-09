@@ -11,10 +11,10 @@ class Template {
     this.template = path.join(__dirname, templatePath);
   }
 
-  static validateTemplateFromPath(templatePath) {
+  validateTemplateFromPath() {
     for (let i = 0; i < requiredFiles.length; i += 1) {
       const requiredFile = requiredFiles[i];
-      const requiredFilePath = path.join(templatePath, requiredFile);
+      const requiredFilePath = path.join(this.template, requiredFile);
 
       if (!fs.existsSync(requiredFilePath)) {
         return false;
@@ -24,23 +24,23 @@ class Template {
     return true;
   }
 
-  static generateSiteWithTemplate(rootPath, templatePath) {
+  generateSiteWithTemplate() {
     return new Promise((resolve, reject) => {
-      fs.access(rootPath)
-        .catch(() => fs.mkdirSync(rootPath))
-        .then(() => fsUtil.copySyncWithOptions(templatePath, rootPath, { overwrite: false }))
+      fs.access(this.root)
+        .catch(() => fs.mkdirSync(this.root))
+        .then(() => fsUtil.copySyncWithOptions(this.template, this.root, { overwrite: false }))
         .then(resolve)
         .catch(reject);
     });
   }
 
   initTemplate() {
-    if (!Template.validateTemplateFromPath(this.template)) {
+    if (!this.validateTemplateFromPath()) {
       throw new Error('Template validation failed. Required files does not exist');
     }
 
     return new Promise((resolve, reject) => {
-      Template.generateSiteWithTemplate(this.root, this.template)
+      this.generateSiteWithTemplate()
         .then(resolve)
         .catch(reject);
     });
