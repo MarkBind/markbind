@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils';
-import TipBox from '../TipBox.vue';
+import Box from '../Box.vue';
 
-describe('TipBox', () => {
+describe('Box', () => {
   test('of default type with content renders correctly ', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       slots: {
         default: 'This is the default box',
       },
@@ -14,7 +14,7 @@ describe('TipBox', () => {
   });
 
   test('of info type renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         type: 'info',
       },
@@ -23,7 +23,7 @@ describe('TipBox', () => {
   });
 
   test('of warning type renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         type: 'warning',
       },
@@ -32,7 +32,7 @@ describe('TipBox', () => {
   });
 
   test('of success type renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         type: 'success',
       },
@@ -41,7 +41,7 @@ describe('TipBox', () => {
   });
 
   test('of important type renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         type: 'important',
       },
@@ -50,7 +50,7 @@ describe('TipBox', () => {
   });
 
   test('of wrong type renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         type: 'wrong',
       },
@@ -59,7 +59,7 @@ describe('TipBox', () => {
   });
 
   test('of tip type renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         type: 'tip',
       },
@@ -68,7 +68,7 @@ describe('TipBox', () => {
   });
 
   test('of definition type renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         type: 'definition',
       },
@@ -77,7 +77,7 @@ describe('TipBox', () => {
   });
 
   test('with dismissible option renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         dismissible: true,
       },
@@ -86,7 +86,7 @@ describe('TipBox', () => {
   });
 
   test('with header renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       slots: {
         header: 'A header',
       },
@@ -95,7 +95,7 @@ describe('TipBox', () => {
   });
 
   test('of info type light style renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         type: 'info',
         light: true,
@@ -105,7 +105,7 @@ describe('TipBox', () => {
   });
 
   test('of warning type light style renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         type: 'warning',
         light: true,
@@ -115,7 +115,7 @@ describe('TipBox', () => {
   });
 
   test('of success type light style renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         type: 'success',
         light: true,
@@ -125,7 +125,7 @@ describe('TipBox', () => {
   });
 
   test('of important type light style renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         type: 'important',
         light: true,
@@ -135,7 +135,7 @@ describe('TipBox', () => {
   });
 
   test('of wrong type light style renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         type: 'wrong',
         light: true,
@@ -145,7 +145,7 @@ describe('TipBox', () => {
   });
 
   test('of tip type light style renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         type: 'tip',
         light: true,
@@ -155,7 +155,7 @@ describe('TipBox', () => {
   });
 
   test('of definition type light style renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         type: 'definition',
         light: true,
@@ -165,7 +165,7 @@ describe('TipBox', () => {
   });
 
   test('of seamless style renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         seamless: true,
       },
@@ -174,7 +174,7 @@ describe('TipBox', () => {
   });
 
   test('having custom background color renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         backgroundColor: 'white',
       },
@@ -183,7 +183,7 @@ describe('TipBox', () => {
   });
 
   test('having custom border color renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         borderColor: 'grey',
       },
@@ -192,7 +192,7 @@ describe('TipBox', () => {
   });
 
   test('having custom border left color renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         borderLeftColor: 'blue',
       },
@@ -201,13 +201,13 @@ describe('TipBox', () => {
   });
 
   test('should have light style take priority over seamless', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         light: true,
         seamless: true,
       },
     });
-    const boxLightStyle = mount(TipBox, {
+    const boxLightStyle = mount(Box, {
       propsData: {
         light: true,
       },
@@ -216,7 +216,7 @@ describe('TipBox', () => {
   });
 
   test('with no-background option renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         noBackground: true,
       },
@@ -225,13 +225,13 @@ describe('TipBox', () => {
   });
 
   test('with no-background option does not affect background-color', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         noBackground: true,
         backgroundColor: 'yellow',
       },
     });
-    const boxYellowBackground = mount(TipBox, {
+    const boxYellowBackground = mount(Box, {
       propsData: {
         backgroundColor: 'yellow',
       },
@@ -240,7 +240,7 @@ describe('TipBox', () => {
   });
 
   test('with no-border option renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         noBorder: true,
       },
@@ -249,13 +249,13 @@ describe('TipBox', () => {
   });
 
   test('with no-border option does not affect border-color', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         noBorder: true,
         borderColor: 'grey',
       },
     });
-    const boxGreyBorder = mount(TipBox, {
+    const boxGreyBorder = mount(Box, {
       propsData: {
         borderColor: 'grey',
       },
@@ -264,13 +264,13 @@ describe('TipBox', () => {
   });
 
   test('with no-border option does not affect border-left-color', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         noBorder: true,
         borderLeftColor: 'grey',
       },
     });
-    const boxGreyLeftBorder = mount(TipBox, {
+    const boxGreyLeftBorder = mount(Box, {
       propsData: {
         borderLeftColor: 'grey',
       },
@@ -279,7 +279,7 @@ describe('TipBox', () => {
   });
 
   test('with no-icon option renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         type: 'success',
         noIcon: true,
@@ -289,7 +289,7 @@ describe('TipBox', () => {
   });
 
   test('with icon renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       slots: {
         icon: ':rocket:',
       },
@@ -301,7 +301,7 @@ describe('TipBox', () => {
   });
 
   test('with no-icon option does not affect icon set by icon', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       slots: {
         icon: ':rocket:',
       },
@@ -310,7 +310,7 @@ describe('TipBox', () => {
         noIcon: true,
       },
     });
-    const boxWithIcon = mount(TipBox, {
+    const boxWithIcon = mount(Box, {
       slots: {
         icon: ':rocket:',
       },
@@ -322,7 +322,7 @@ describe('TipBox', () => {
   });
 
   test('with icon and icon-size renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       slots: {
         icon: ':rocket:',
       },
@@ -335,7 +335,7 @@ describe('TipBox', () => {
   });
 
   test('with custom color renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       propsData: {
         color: 'pink',
       },
@@ -344,7 +344,7 @@ describe('TipBox', () => {
   });
 
   test('with custom icon color and header renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       slots: {
         icon: ':fas-plus:',
         header: 'A header',
@@ -357,7 +357,7 @@ describe('TipBox', () => {
   });
 
   test('with custom icon color and no header renders correctly', () => {
-    const wrapper = mount(TipBox, {
+    const wrapper = mount(Box, {
       slots: {
         icon: ':fas-plus:',
       },

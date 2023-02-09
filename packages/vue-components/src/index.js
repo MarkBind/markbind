@@ -4,6 +4,7 @@ import 'floating-vue/dist/style.css';
 /* eslint-enable import/no-extraneous-dependencies */
 
 // Custom / modified components and components from yuche/vue-strap
+import box from './Box.vue';
 import closeable from './directives/Closeable';
 import dropdown from './Dropdown.vue';
 import navbar from './Navbar.vue';
@@ -34,7 +35,7 @@ import tooltip from './Tooltip.vue';
 import modal from './Modal.vue';
 
 const components = {
-  box: tipBox,
+  box,
   dropdown,
   navbar,
   panel,
@@ -50,8 +51,11 @@ const components = {
   tabGroup,
   tabs: tabset,
   thumbnail,
+<<<<<<< HEAD
   tipBox,
   toast,
+=======
+>>>>>>> master
   trigger,
   siteNav,
   submenu,
