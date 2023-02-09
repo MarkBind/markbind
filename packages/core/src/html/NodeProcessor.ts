@@ -12,6 +12,11 @@ import { PageSources } from '../Page/PageSources';
 import { isMarkdownFileExt } from '../utils/fsUtil';
 import * as logger from '../utils/logger';
 import VariableProcessor from '../variables/VariableProcessor';
+import { warnConflictingAtributesMap, warnDeprecatedAtributesMap } from './warnings';
+import { shiftSlotNodeDeeper, transformOldSlotSyntax, renameSlot } from './vueSlotSyntaxProcessor';
+import { MdAttributeRenderer } from './MdAttributeRenderer';
+import { MarkdownProcessor } from './MarkdownProcessor';
+import { processScriptAndStyleTag } from './scriptAndStyleTagProcessor';
 
 const fm = require('fastmatter');
 
@@ -28,12 +33,7 @@ const { processInclude, processPanelSrc, processPopoverSrc } = require('./includ
 const linkProcessor = require('./linkProcessor');
 const { highlightCodeBlock, setCodeLineNumbers } = require('./codeblockProcessor');
 const { setHeadingId, assignPanelId } = require('./headerProcessor');
-const { MarkdownProcessor } = require('./MarkdownProcessor');
 const { FootnoteProcessor } = require('./FootnoteProcessor');
-const { MdAttributeRenderer } = require('./MdAttributeRenderer');
-const { shiftSlotNodeDeeper, transformOldSlotSyntax, renameSlot } = require('./vueSlotSyntaxProcessor');
-const { warnConflictingAtributesMap, warnDeprecatedAtributesMap } = require('./warnings');
-const { processScriptAndStyleTag } = require('./scriptAndStyleTagProcessor');
 
 const FRONTMATTER_FENCE = '---';
 
