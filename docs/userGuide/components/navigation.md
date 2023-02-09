@@ -14,7 +14,7 @@
 
 <include src="advanced.md#slots-info" />
 
-# Navigation Components
+# Using Components: Navigation
 
 <div id="overview" class="lead">
 

@@ -1,4 +1,4 @@
-{% set title = "Themes" %}
+{% set title = "Applying Themes" %}
 {% set filename = "themes" %}
 <span id="title" class="d-none">{{ title }}</span>
 

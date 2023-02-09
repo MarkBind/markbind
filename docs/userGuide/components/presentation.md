@@ -14,7 +14,7 @@
 
 <include src="advanced.md#slots-info" />
 
-# Presentational Components
+# Using Components: Presentation
 
 <div id="overview" class="lead">
 

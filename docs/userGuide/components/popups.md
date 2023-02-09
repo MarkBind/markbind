@@ -14,7 +14,7 @@
 
 <include src="advanced.md#slots-info" />
 
-# Pop-Up Components
+# Using Components: Pop-ups
 
 <div id="overview" class="lead">
 
