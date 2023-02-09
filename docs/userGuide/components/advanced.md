@@ -12,7 +12,7 @@
 <md>[_User Guide → {{ title }}_]({{ filename }}.html)</md>
 </span>
 
-# Using Components: Advanced Tips and Tricks
+# Using Components: Advanced
 
 {% set slot_info_trigger %}<trigger for="on-slots" trigger="click"><strong>^\[S\]^</strong></trigger>{% endset %}
 

@@ -1,4 +1,4 @@
-{% set title = "Applying Themes" %}
+{% set title = "Themes" %}
 {% set filename = "themes" %}
 <span id="title" class="d-none">{{ title }}</span>
 
@@ -11,7 +11,7 @@
 <md>[_User Guide → {{ title }}_]({{ filename }}.html)</md>
 </span>
 
-# {{ title }}
+# Applying Themes
 
 <div class="lead" id="overview">
 
