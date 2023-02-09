@@ -8,7 +8,7 @@ const requiredFiles = ['index.md', 'site.json', '_markbind/'];
 class Template {
   constructor(rootPath, templatePath) {
     this.root = rootPath;
-    this.template = templatePath;
+    this.template = path.join(__dirname, templatePath);
   }
 
   static validateTemplateFromPath(templatePath) {
@@ -34,15 +34,13 @@ class Template {
     });
   }
 
-  init() {
-    const templatePath = path.join(__dirname, this.template);
-
-    if (!Template.validateTemplateFromPath(templatePath)) {
+  initTemplate() {
+    if (!Template.validateTemplateFromPath(this.template)) {
       throw new Error('Template validation failed. Required files does not exist');
     }
 
     return new Promise((resolve, reject) => {
-      Template.generateSiteWithTemplate(this.root, templatePath)
+      Template.generateSiteWithTemplate(this.root, this.template)
         .then(resolve)
         .catch(reject);
     });

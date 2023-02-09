@@ -179,7 +179,7 @@ class Site {
    */
   static async initSite(rootPath, templatePath) {
     try {
-      return await new Template(rootPath, templatePath).init();
+      return await new Template(rootPath, templatePath).initTemplate();
     } catch (err) {
       return new Error(`Failed to initialize site with given template with error: ${err.message}`);
     }
