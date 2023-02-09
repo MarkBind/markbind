@@ -1,7 +1,5 @@
 <template>
-  <button type="button" @click="toast_notify()">
-    Toast
-  </button>
+  <br />
 </template>
 
 <script>
@@ -25,7 +23,7 @@ export default {
     },
     duration: {
       type: Number,
-      default: 5,
+      default: 100,
     },
     dismissable: {
       type: Boolean,
@@ -54,13 +52,12 @@ export default {
     },
   },
   mounted() {
+    this.toast_notify();
   },
 };
-
 </script>
 
 <style>
-
     .alertify-notifier {
         position: fixed;
         width: 0;
@@ -267,5 +264,4 @@ export default {
     .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-ok {
         color: #3593d2;
     }
-
 </style>
