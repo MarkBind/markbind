@@ -22,7 +22,7 @@ We have decided on structuring the commits as two commits: a "Rename" commit and
 
 ### Step 1: Preparation
 
-1. **If running, stop automatic compilation on change/save**. More on this at [Editing backend features](workflow.md#editing-backend-features) section in the Workflow page.
+1. **If running, stop automatic compilation on change/save**. More on this at [Editing backend features](workflow.md#editing-backend-features) section in the Workflow page. Note that any git hooks installed will also compile and build the backend - if git hooks have already been installed for your MarkBind development setup, you will need to bypass them during the "Rename" commit later.
 
 2. **Install typings of external dependencies** relevant to the files, if there's any that hasn't been installed yet.
 
@@ -60,6 +60,11 @@ We have decided on structuring the commits as two commits: a "Rename" commit and
 4. **Commit the staged changes** with the message `Rename <file-or-folder> to TypeScript`.
    <br>
    For example: `Rename core/src/html to TypeScript`.
+   
+   <box type="info">
+   Any git hooks that have been installed will automatically build the backend as part of the hook. If you encounter any compilation errors while committing and/or pushing the "Rename" commit due to git hooks, skip the hooks using the `--no-verify` flag.
+   For example: `git commit --no-verify -m "Rename core/src/html to TypeScript"`.
+   </box>
 
 ### Step 3: "Adapt" Commit
 
