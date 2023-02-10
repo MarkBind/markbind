@@ -17,6 +17,7 @@ class HighlightRule {
       .filter(rule => rule); // discards invalid rules
   }
 
+  // this function splits allRules by a splitter while ignoring the splitter if it is within quotes
   static splitByChar(allRules, splitter) {
     const highlightRules = [];
     let isWithinQuote = false;
