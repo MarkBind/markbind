@@ -151,7 +151,7 @@ Then, in a page-specific CSS file,
 
 #### Deploying a page multiple times with different titles
 
-By [overriding the `title` declared in the frontmatter of the page using `site.json`](https://markbind.org/userGuide/tweakingThePageStructure.html#front-matter), it is possible to allow MarkBind to serve the same page with different titles. 
+By [overriding the `title` declared in the frontmatter of the page using `site.json`](tweakingThePageStructure.html#front-matter), it is possible to allow MarkBind to serve the same page with different titles. 
 
 This may especially be useful for users who are serving a page from a submodule.
 
