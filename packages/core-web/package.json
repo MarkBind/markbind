@@ -22,8 +22,8 @@
   },
   "scripts": {
     "build": "npm run build:client && npm run build:server",
-    "build:client": "cross-env ENTRY_POINT=client webpack --progress --hide-modules --config webpack.build.js",
-    "build:server": "cross-env ENTRY_POINT=server webpack --progress --hide-modules --config webpack.build.js"
+    "build:client": "cross-env ENTRY_POINT=client webpack --progress --no-stats --config webpack.build.js",
+    "build:server": "cross-env ENTRY_POINT=server webpack --progress --no-stats --config webpack.build.js"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",
