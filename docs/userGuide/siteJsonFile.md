@@ -141,7 +141,30 @@ _(Optional)_ **The styling options to be applied to the site.** This includes:
 <div id="page-property-overriding">
 <box type="warning">
 
-Note: [Page properties that are defined in `site.json`](siteJsonFile.html#pages) for a particular page will override those defined in the frontmatter of the page. For example, setting the property `title` in `site.json` will always override the `title` declared within the frontmatter of the page.
+[Page properties that are defined in `site.json`](#pages) for a particular page will override those defined in the frontmatter of the page. For example, if we declare a `title` within the frontmatter of the page (say `index.md`) like such:
+
+```html
+<frontmatter>
+  title: Hello World
+</frontmatter>
+```
+
+But the `title` property in the corresponding `site.json` is set as such:
+
+```js
+{
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "Landing Page",
+    }
+  ],
+}
+```
+
+Then, the title of `index.md` will be set as "Landing Page" instead of "Hello World".
+
+In this manner, setting the property `title` in `site.json` will always override the `title` declared within the frontmatter of the page.
 
 </box>
 </div>
