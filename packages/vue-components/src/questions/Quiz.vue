@@ -28,7 +28,7 @@
       style="height: 1px;"
     >
       <div
-        class="progress-bar"
+        class="progress-bar progress-bar-z"
         role="progressbar"
         :style="{ width: `${currentQuestion / questions.length * 100}%` }"
         aria-valuemin="0"
@@ -203,6 +203,10 @@ export default {
 
     .btn {
         border-radius: 2em;
+    }
+
+    .progress-bar-z {
+        z-index: 1000;
     }
 
 </style>
