@@ -1,14 +1,16 @@
 const path = require('path');
 const fs = require('fs-extra');
 
-const fsUtil = require('../src/utils/fsUtil');
+const fsUtil = require('../utils/fsUtil');
 
 const requiredFiles = ['index.md', 'site.json', '_markbind/'];
+
+const PATH_TO_TEMPLATE = '../../template';
 
 class Template {
   constructor(rootPath, templatePath) {
     this.root = rootPath;
-    this.template = path.join(__dirname, templatePath);
+    this.template = path.join(__dirname, PATH_TO_TEMPLATE, templatePath);
   }
 
   validateTemplateFromPath() {
