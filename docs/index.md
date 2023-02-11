@@ -35,7 +35,7 @@ An example that uses GFMD syntax for task lists:
 
 <table>
 <tr>
-  <td style="padding-top: 20px">
+  <td style="padding-top: 15px">
 
 ```markdown
 **Things to do:**
