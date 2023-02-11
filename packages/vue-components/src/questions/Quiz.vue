@@ -164,6 +164,7 @@ export default {
 <style scoped>
     .quiz-container {
         overflow: hidden;
+        isolation: isolate;
     }
 
     .intro-outro-card {
@@ -206,7 +207,7 @@ export default {
     }
 
     .progress-bar-z {
-        z-index: 1000;
+        z-index: 1;
     }
 
 </style>
