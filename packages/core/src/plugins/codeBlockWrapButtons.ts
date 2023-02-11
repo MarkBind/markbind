@@ -7,7 +7,7 @@ import {
   isFunctionBtnContainer,
   doesFunctionBtnContainerExistInNode,
 } from './codeBlockButtonsAssets/codeBlockButtonsContainer';
-import { PluginContext } from './types';
+import { PluginContext } from './Plugin';
 
 const WRAP_ICON = `
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
