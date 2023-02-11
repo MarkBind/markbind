@@ -359,6 +359,15 @@
       "title": "page nav with title added",
       "headings": {},
       "headingKeywords": {}
+    },
+    {
+      "src": "testPageNavPrint.md",
+      "title": "printing page nav",
+      "headings": {
+        "h1": "H1",
+        "h2": "H2"
+      },
+      "headingKeywords": {}
     }
   ]
 }

@@ -33,19 +33,24 @@ Finally, the Pythagoras theorem: $c^2 = a^2 + b^2$.
 </variable>
 </include>
 
+Additional delimiters are possible by enabling the [mathDelimiters](../usingPlugins.md#plugin-mathdelimiters) plugin.
+
 <box type="info">
 
-Additional delimiters are possible by enabling the [mathDelimiters](../usingPlugins.md#plugin-mathdelimiters) plugin.
-</box>
+{% raw %}
 
-<box type="important">
-
-If your equation requires special Nunjucks tags like {% raw %}`{{`{% endraw %} or {% raw %}`}}`{% endraw %},use a
-[raw-endraw block](https://markbind.org/userGuide/tipsAndTricks.html#using-raw-endraw-to-display-content):
+If your equation requires special Nunjucks tags like `{{` or `}}`, use a
+[raw-endraw block](../tipsAndTricks.html#using-raw-endraw-to-display-content):
 
 ```markdown
-{% raw %}{% raw %}\(e^{{\frac{1}{3}} + 1}\){% endraw %}{% endraw %}
+{% raw %}
+
+\(e^{{\frac{1}{3}} + 1}\)
+
+{% endraw %}
 ```
+
+{% endraw %}
 
 </box>
 

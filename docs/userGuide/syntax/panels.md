@@ -174,9 +174,9 @@
 <panel header="Parent Panel">
   <panel header="Level 1 Nested Panel">
     <panel header="Level 2 Nested Panel">
-      <tip-box type="success">
-        I'm a nested tip-box
-      </tip-box>
+      <box type="success">
+        I'm a nested box
+      </box>
       <panel header="Level 3 Nested Panel" type="minimal">
         minimal-type panel
       </panel>

@@ -68,12 +68,12 @@ MarkBind has a set of built-in plugins that can be used immediately without inst
 
 ### Adding External Plugins
 
-<tip-box type="warning">
+<box type="warning">
 
 **WARNING:** Plugins are executable programs that can be written by anyone. This means that they might contain malicious code that may damage your computer.
 
 Only run plugins from sources that you trust. Do not run the plugin if the source/origin of the plugin cannot be ascertained.
-</tip-box>
+</box>
 
 Plugins come as `.js` files. To install an external plugin, simply put it in the `_markbind/plugins` folder. To use the plugin, update the `site.json` file the same way you did for built-in plugins.
 

@@ -6,6 +6,8 @@
 
 # MarkBind CLI
 
+<page-nav-print />
+
 ### Overview
 
 An overview of MarkBind's Command Line Interface (CLI) can be referenced with `markbind --help`:
