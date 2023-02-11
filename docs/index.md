@@ -35,8 +35,7 @@ An example that uses GFMD syntax for task lists:
 
 <table>
 <tr>
-  <td>
-<br>
+  <td style="padding-top: 20px">
 
 ```markdown
 **Things to do:**
@@ -70,8 +69,7 @@ An example that uses KaTeX to generate math equations:
 
 <table>
 <tr>
-  <td>
-<br>
+  <td style="padding-top: 20px">
 
 ```markdown
 Euler's Identity \(e^{i\pi}+1=0\) is a beautiful formula.
