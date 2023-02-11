@@ -50,6 +50,7 @@ An example that uses GFMD syntax for task lists:
   <td>&nbsp;→&nbsp;</td>
   <td>
 <box>
+
 **Things to do:**
 
 - [x] Finish my changes
