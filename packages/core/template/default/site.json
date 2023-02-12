@@ -15,8 +15,7 @@
   "pagesExclude": ["node_modules/*"],
   "pages": [
     {
-      "src": "index.md",
-      "title": "Landing Page"
+      "src": "index.md"
     },
     {
       "glob": ["**/index.md", "**/*.md"]

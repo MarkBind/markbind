@@ -12,6 +12,11 @@ import { PageSources } from '../Page/PageSources';
 import { isMarkdownFileExt } from '../utils/fsUtil';
 import * as logger from '../utils/logger';
 import VariableProcessor from '../variables/VariableProcessor';
+import { warnConflictingAtributesMap, warnDeprecatedAtributesMap } from './warnings';
+import { shiftSlotNodeDeeper, transformOldSlotSyntax, renameSlot } from './vueSlotSyntaxProcessor';
+import { MdAttributeRenderer } from './MdAttributeRenderer';
+import { MarkdownProcessor } from './MarkdownProcessor';
+import { processScriptAndStyleTag } from './scriptAndStyleTagProcessor';
 
 const fm = require('fastmatter');
 
@@ -28,16 +33,26 @@ const { processInclude, processPanelSrc, processPopoverSrc } = require('./includ
 const linkProcessor = require('./linkProcessor');
 const { highlightCodeBlock, setCodeLineNumbers } = require('./codeblockProcessor');
 const { setHeadingId, assignPanelId } = require('./headerProcessor');
-const { MarkdownProcessor } = require('./MarkdownProcessor');
 const { FootnoteProcessor } = require('./FootnoteProcessor');
-const { MdAttributeRenderer } = require('./MdAttributeRenderer');
-const { shiftSlotNodeDeeper, transformOldSlotSyntax, renameSlot } = require('./vueSlotSyntaxProcessor');
-const { warnConflictingAtributesMap, warnDeprecatedAtributesMap } = require('./warnings');
-const { processScriptAndStyleTag } = require('./scriptAndStyleTagProcessor');
 
 const FRONTMATTER_FENCE = '---';
 
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
+
+export type NodeProcessorConfig = {
+  baseUrl: string,
+  baseUrlMap: Set<string>,
+  rootPath: string,
+  outputPath: string,
+  ignore: string[],
+  addressablePagesSource: string[],
+  intrasiteLinkValidation: { enabled: boolean },
+  codeLineNumbers: boolean,
+  plantumlCheck: boolean,
+  headerIdMap: {
+    [id: string]: number,
+  },
+};
 
 export class NodeProcessor {
   frontmatter: { [key: string]: string } = {};
@@ -54,20 +69,7 @@ export class NodeProcessor {
   processedModals: { [id: string]: boolean } = {};
 
   constructor(
-    private config: {
-      baseUrl: string,
-      baseUrlMap: Set<string>,
-      rootPath: string,
-      outputPath: string,
-      ignore: string[],
-      addressablePagesSource: string[],
-      intrasiteLinkValidation: { enabled: boolean },
-      codeLineNumbers: boolean,
-      plantumlCheck: boolean,
-      headerIdMap: {
-        [id: string]: number,
-      },
-    },
+    private config: NodeProcessorConfig,
     private pageSources: PageSources,
     private variableProcessor: VariableProcessor,
     private pluginManager: any,
@@ -228,6 +230,9 @@ export class NodeProcessor {
         break;
       case 'page-nav':
         this.pageNavProcessor.renderPageNav(node);
+        break;
+      case 'page-nav-print':
+        PageNavProcessor.transformPrintContainer(node);
         break;
       case 'site-nav':
         renderSiteNav(node);

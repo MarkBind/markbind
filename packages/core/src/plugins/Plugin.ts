@@ -1,29 +1,66 @@
-const path = require('path');
-const fs = require('fs-extra');
-const cheerio = require('cheerio'); require('../patches/htmlparser2');
+import path from 'path';
+import fs from 'fs-extra';
+import cheerio from 'cheerio';
+
+import { DomElement } from 'htmlparser2';
+import isString from 'lodash/isString';
+import * as logger from '../utils/logger';
+import * as urlUtil from '../utils/urlUtil';
+import { NodeProcessorConfig } from '../html/NodeProcessor';
+
+require('../patches/htmlparser2');
+
+const _ = { isString };
 
 const PLUGIN_OUTPUT_SITE_ASSET_FOLDER_NAME = 'plugins';
 
-const logger = require('../utils/logger');
-const urlUtil = require('../utils/urlUtil');
+export interface PluginContext {
+  [key: string]: any;
+}
+
+export interface FrontMatter {
+  [key: string]: any;
+}
+
+type TagConfigAttributes = {
+  name: string,
+  isRelative: boolean,
+  isSourceFile: boolean
+};
+
+export type TagConfigs = {
+  isSpecial: boolean,
+  attributes: TagConfigAttributes[]
+};
 
 /**
  * Wrapper class around a loaded plugin module
  */
-class Plugin {
-  constructor(pluginName, pluginPath, pluginOptions, siteOutputPath) {
+export class Plugin {
+  pluginName: string;
+  plugin: {
+    beforeSiteGenerate: (...args: any[]) => any;
+    getLinks: (...args: any[]) => any;
+    getScripts: (...args: any[]) => any;
+    postRender: (pluginContext: PluginContext, frontmatter: FrontMatter, content: string) => string;
+    processNode: (pluginContext: PluginContext, node: DomElement, config?: NodeProcessorConfig) => string;
+    postProcessNode: (pluginContext: PluginContext, node: DomElement, config?: NodeProcessorConfig) => string;
+    tagConfig: { [key: string]: TagConfigs };
+  };
+
+  pluginOptions: PluginContext;
+  pluginAbsolutePath: string;
+  pluginAssetOutputPath: string;
+
+  constructor(pluginName: string, pluginPath: string, pluginOptions: PluginContext, siteOutputPath: string) {
     this.pluginName = pluginName;
 
     /**
      * The plugin module
-     * @type {Object}
      */
     // eslint-disable-next-line global-require,import/no-dynamic-require
     this.plugin = require(pluginPath);
 
-    /**
-     * @type {Object<string, any>}
-     */
     this.pluginOptions = pluginOptions || {};
 
     // For resolving plugin asset source paths later
@@ -49,12 +86,12 @@ class Plugin {
    * @param baseUrl baseUrl of the site
    * @return String html of the element, with the attribute's asset resolved
    */
-  _getResolvedAssetElement(assetElementHtml, tagName, attrName, baseUrl) {
+  _getResolvedAssetElement(assetElementHtml: string, tagName: string, attrName: string, baseUrl: string) {
     const $ = cheerio.load(assetElementHtml);
     const el = $(`${tagName}[${attrName}]`);
 
-    el.attr(attrName, (i, assetPath) => {
-      if (!assetPath || urlUtil.isUrl(assetPath)) {
+    el.attr(attrName, (_i: any, assetPath: any): string => {
+      if (!assetPath || !_.isString(assetPath) || urlUtil.isUrl(assetPath)) {
         return assetPath;
       }
 
@@ -79,19 +116,20 @@ class Plugin {
   /**
    * Collect page content inserted by plugins
    */
-  getPageNjkLinksAndScripts(frontmatter, content, baseUrl) {
+  getPageNjkLinksAndScripts(frontmatter: FrontMatter, content: string, baseUrl: string) {
     let links = [];
     let scripts = [];
 
     if (this.plugin.getLinks) {
       const pluginLinks = this.plugin.getLinks(this.pluginOptions, frontmatter, content);
-      links = pluginLinks.map(linkHtml => this._getResolvedAssetElement(linkHtml, 'link', 'href', baseUrl));
+      links = pluginLinks.map(
+        (linkHtml: string) => this._getResolvedAssetElement(linkHtml, 'link', 'href', baseUrl));
     }
 
     if (this.plugin.getScripts) {
       const pluginScripts = this.plugin.getScripts(this.pluginOptions, frontmatter, content);
-      scripts = pluginScripts.map(scriptHtml => this._getResolvedAssetElement(scriptHtml, 'script',
-                                                                              'src', baseUrl));
+      scripts = pluginScripts.map((scriptHtml: string) => this._getResolvedAssetElement(scriptHtml, 'script',
+                                                                                        'src', baseUrl));
     }
 
     return {
@@ -100,14 +138,14 @@ class Plugin {
     };
   }
 
-  postRender(frontmatter, content) {
+  postRender(frontmatter: FrontMatter, content: string) {
     if (this.plugin.postRender) {
       return this.plugin.postRender(this.pluginOptions, frontmatter, content);
     }
     return content;
   }
 
-  processNode(node, config) {
+  processNode(node: DomElement, config: NodeProcessorConfig) {
     if (!this.plugin.processNode) {
       return;
     }
@@ -115,7 +153,7 @@ class Plugin {
     this.plugin.processNode(this.pluginOptions, node, config);
   }
 
-  postProcessNode(node, config) {
+  postProcessNode(node: DomElement, config: NodeProcessorConfig) {
     if (!this.plugin.postProcessNode) {
       return;
     }
@@ -127,7 +165,3 @@ class Plugin {
     return this.plugin.tagConfig;
   }
 }
-
-module.exports = {
-  Plugin,
-};

@@ -1,5 +1,6 @@
-const logger = require('../utils/logger');
-const { getVslotShorthandName } = require('./vueSlotSyntaxProcessor');
+import { DomElement } from 'htmlparser2';
+import * as logger from '../utils/logger';
+import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
 
 /**
  * Check and warns if element has conflicting attributes.
@@ -9,12 +10,14 @@ const { getVslotShorthandName } = require('./vueSlotSyntaxProcessor');
  * @param attribute An attribute that is conflicting with other attributes
  * @param attrsConflictingWith The attributes conflicting with `attribute`
  */
-function _warnConflictingAttributes(node, attribute, attrsConflictingWith) {
-  if (!(attribute in node.attribs)) {
+function _warnConflictingAttributes(node: DomElement, attribute: string, attrsConflictingWith: string[]) {
+  if (!node.attribs || !(attribute in node.attribs)) {
     return;
   }
+
+  const nodeAttribs = node.attribs;
   attrsConflictingWith.forEach((conflictingAttr) => {
-    if (conflictingAttr in node.attribs) {
+    if (conflictingAttr in nodeAttribs) {
       logger.warn(`Usage of conflicting ${node.name} attributes: `
           + `'${attribute}' with '${conflictingAttr}'`);
     }
@@ -26,7 +29,7 @@ function _warnConflictingAttributes(node, attribute, attrsConflictingWith) {
  * @param element Root element to check
  * @param namePairs Object of slot name pairs with each pair in the form deprecated : correct
  */
-function _warnDeprecatedSlotNames(element, namePairs) {
+function _warnDeprecatedSlotNames(element: DomElement, namePairs: { [name: string]: string }) {
   if (!(element.children)) {
     return;
   }
@@ -45,8 +48,8 @@ function _warnDeprecatedSlotNames(element, namePairs) {
   });
 }
 
-const warnConflictingAtributesMap = {
-  box: (node) => {
+export const warnConflictingAtributesMap: { [attr: string]: (nd: DomElement) => void } = {
+  box: (node: DomElement) => {
     _warnConflictingAttributes(node, 'light', ['seamless']);
     _warnConflictingAttributes(node, 'no-background', ['background-color', 'seamless']);
     _warnConflictingAttributes(node, 'no-border',
@@ -55,16 +58,11 @@ const warnConflictingAtributesMap = {
   },
 };
 
-const warnDeprecatedAtributesMap = {
-  modal: (node) => {
+export const warnDeprecatedAtributesMap: { [attr: string]: (nd: DomElement) => void } = {
+  modal: (node: DomElement) => {
     _warnDeprecatedSlotNames(node, {
       'modal-header': 'header',
       'modal-footer': 'footer',
     });
   },
-};
-
-module.exports = {
-  warnConflictingAtributesMap,
-  warnDeprecatedAtributesMap,
 };
