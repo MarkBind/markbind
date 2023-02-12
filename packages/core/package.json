@@ -82,6 +82,7 @@
     "@types/jest": "^27.4.1",
     "@types/js-beautify": "^1.13.3",
     "@types/lodash": "^4.14.181",
+    "@types/node": "^18.11.19",
     "@types/nunjucks": "^3.2.1",
     "@types/path-is-inside": "^1.0.0",
     "@types/url-parse": "^1.4.8",
