@@ -9,7 +9,7 @@
     },
     {
       "src": "contents/topic1.md",
-      "title": "",
+      "title": "Topic 1",
       "headings": {
         "topic-1": "Topic 1"
       },
@@ -17,19 +17,19 @@
     },
     {
       "src": "contents/topic2.md",
-      "title": "",
+      "title": "Topic 2",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "contents/topic3a.md",
-      "title": "",
+      "title": "Topic 3a",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "contents/topic3b.md",
-      "title": "",
+      "title": "Topic 3b",
       "headings": {},
       "headingKeywords": {}
     },
