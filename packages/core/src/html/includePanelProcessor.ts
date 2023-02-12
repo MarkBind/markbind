@@ -1,30 +1,36 @@
-const cheerio = require('cheerio'); require('../patches/htmlparser2');
-const path = require('path');
-const parse = require('url-parse');
+import cheerio from 'cheerio';
+import path from 'path';
+import parse from 'url-parse';
 
-const { createErrorNode, createEmptyNode, createSlotTemplateNode } = require('./elements');
-const { CyclicReferenceError } = require('../errors');
+import has from 'lodash/has';
+import isEmpty from 'lodash/isEmpty';
+import { DomElement } from 'htmlparser2';
+import { createErrorNode, createSlotTemplateNode } from './elements';
+import CyclicReferenceError from '../errors/CyclicReferenceError';
 
-const fsUtil = require('../utils/fsUtil');
-const logger = require('../utils/logger');
-const urlUtil = require('../utils/urlUtil');
+import * as fsUtil from '../utils/fsUtil';
+import * as logger from '../utils/logger';
+import * as urlUtil from '../utils/urlUtil';
+import { Context } from './Context';
+import { PageSources } from '../Page/PageSources';
+import VariableProcessor from '../variables/VariableProcessor';
 
-const _ = {};
-_.has = require('lodash/has');
-_.isEmpty = require('lodash/isEmpty');
+require('../patches/htmlparser2');
+
+const _ = { has, isEmpty };
 
 /*
  * Common panel and include helper functions
  */
 
 /**
- * Returns either an empty or error node depending on whether the file specified exists
- * and whether this file is optional if not.
+ * Returns a boolean representing whether the file specified exists.
  */
-function _getFileExistsNode(element, context, actualFilePath, pageSources, isOptional = false) {
+function _checkAndWarnFileExists(element: DomElement, context: Context, actualFilePath: string,
+                                 pageSources: PageSources, isOptional = false) {
   if (!fsUtil.fileExists(actualFilePath)) {
     if (isOptional) {
-      return createEmptyNode();
+      return false;
     }
 
     pageSources.missingIncludeSrc.push({
@@ -35,14 +41,17 @@ function _getFileExistsNode(element, context, actualFilePath, pageSources, isOpt
       `No such file: ${actualFilePath}\nMissing reference in ${context.cwf}`);
     logger.error(error);
 
-    return createErrorNode(element, error);
+    createErrorNode(element, error);
+    return false;
   }
 
-  return false;
+  return true;
 }
 
-function _getBoilerplateFilePath(node, filePath, config) {
+function _getBoilerplateFilePath(node: DomElement, filePath: string, config: Record<string, any>) {
   const element = node;
+
+  if (!element.attribs) return undefined;
 
   const isBoilerplate = _.has(element.attribs, 'boilerplate');
   if (isBoilerplate) {
@@ -57,7 +66,8 @@ function _getBoilerplateFilePath(node, filePath, config) {
 /**
  * Retrieves several flags and file paths from the src attribute specified in the element.
  */
-function _getSrcFlagsAndFilePaths(element, config) {
+function _getSrcFlagsAndFilePaths(element: DomElement & { attribs: { src: string } },
+                                  config: Record<string, any>) {
   const isUrl = urlUtil.isUrl(element.attribs.src);
 
   // We do this even if the src is not a url to get the hash, if any
@@ -99,9 +109,10 @@ function _getSrcFlagsAndFilePaths(element, config) {
  * Otherwise, sets the fragment attribute of the panel as parsed from the src,
  * and adds the appropriate include.
  */
-function processPanelSrc(node, context, pageSources, config) {
+export function processPanelSrc(node: DomElement, context: Context, pageSources: PageSources,
+                                config: Record<string, any>): Context {
   const hasSrc = _.has(node.attribs, 'src');
-  if (!hasSrc) {
+  if (!hasSrc || !node.attribs) {
     return context;
   }
 
@@ -110,11 +121,12 @@ function processPanelSrc(node, context, pageSources, config) {
     hash,
     filePath,
     actualFilePath,
-  } = _getSrcFlagsAndFilePaths(node, config);
+    // We can typecast here as we have checked for src above.
+  } = _getSrcFlagsAndFilePaths(node as DomElement & { attribs: { src: string } }, config);
 
-  const fileExistsNode = _getFileExistsNode(node, context, actualFilePath, pageSources);
-  if (fileExistsNode) {
-    return fileExistsNode;
+  const fileExists = _checkAndWarnFileExists(node, context, actualFilePath, pageSources);
+  if (!fileExists) {
+    return context;
   }
 
   if (!isUrl && hash) {
@@ -141,21 +153,23 @@ function processPanelSrc(node, context, pageSources, config) {
  * Includes
  */
 
-function _deleteIncludeAttributes(node) {
+function _deleteIncludeAttributes(node: DomElement) {
+  const nodeAttribs = node.attribs;
+  if (!nodeAttribs) return;
   // Delete variable attributes in include tags as they are no longer needed
   // e.g. '<include var-title="..." var-xx="..." />'
-  Object.keys(node.attribs).forEach((attribute) => {
+  Object.keys(nodeAttribs).forEach((attribute) => {
     if (attribute.startsWith('var-')) {
-      delete node.attribs[attribute];
+      delete nodeAttribs[attribute];
     }
   });
 
-  delete node.attribs.boilerplate;
-  delete node.attribs.src;
-  delete node.attribs.inline;
-  delete node.attribs.trim;
-  delete node.attribs.optional;
-  delete node.attribs.omitFrontmatter;
+  delete nodeAttribs.boilerplate;
+  delete nodeAttribs.src;
+  delete nodeAttribs.inline;
+  delete nodeAttribs.trim;
+  delete nodeAttribs.optional;
+  delete nodeAttribs.omitFrontmatter;
 }
 
 /**
@@ -163,11 +177,14 @@ function _deleteIncludeAttributes(node) {
  * Replaces it with an error node if the specified src is invalid,
  * or an empty node if the src is invalid but optional.
  */
-function processInclude(node, context, pageSources, variableProcessor, renderMd, renderMdInline, config) {
-  if (_.isEmpty(node.attribs.src)) {
+export function processInclude(node: DomElement, context: Context, pageSources: PageSources,
+                               variableProcessor: VariableProcessor, renderMd: (text: string) => string,
+                               renderMdInline: (text: string) => string,
+                               config: Record<string, any>): Context {
+  if (_.isEmpty(node.attribs?.src)) {
     const error = new Error(`Empty src attribute in include in: ${context.cwf}`);
     logger.error(error);
-    cheerio(node).replaceWith(createErrorNode(node, error));
+    cheerio(node).replaceWith(createErrorNode(node, error) as cheerio.Element);
     return context;
   }
 
@@ -176,7 +193,8 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
     hash,
     filePath,
     actualFilePath,
-  } = _getSrcFlagsAndFilePaths(node, config);
+    // We can typecast here as we have checked for src above.
+  } = _getSrcFlagsAndFilePaths(node as DomElement & { attribs: { src: string } }, config);
 
   // No need to process url contents
   if (isUrl) {
@@ -185,9 +203,9 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
   }
 
   const isOptional = _.has(node.attribs, 'optional');
-  const fileExistsNode = _getFileExistsNode(node, context, actualFilePath, pageSources, isOptional);
-  if (fileExistsNode) {
-    return fileExistsNode;
+  const fileExists = _checkAndWarnFileExists(node, context, actualFilePath, pageSources, isOptional);
+  if (!fileExists) {
+    return context;
   }
 
   const isInline = _.has(node.attribs, 'inline');
@@ -217,18 +235,14 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
   // the appropriate children to a wrapped include element
   if (hash) {
     const $ = cheerio.load(actualContent);
-    actualContent = $(hash).html();
+    actualContent = $(hash).html() || '';
 
-    if (actualContent === null) {
-      actualContent = '';
+    if (actualContent === '' && !isOptional) {
+      const error = new Error(`No such segment '${hash}' in file: ${actualFilePath}\n`
+       + `Missing reference in ${context.cwf}`);
+      logger.error(error);
 
-      if (!isOptional) {
-        const error = new Error(`No such segment '${hash}' in file: ${actualFilePath}\n`
-          + `Missing reference in ${context.cwf}`);
-        logger.error(error);
-
-        actualContent = cheerio.html(createErrorNode(node, error));
-      }
+      actualContent = cheerio.html(createErrorNode(node, error) as cheerio.Element);
     }
   }
 
@@ -247,7 +261,7 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
     if (childContext.hasExceededMaxCallstackSize()) {
       const error = new CyclicReferenceError(childContext.callStack);
       logger.error(error);
-      cheerio(node).replaceWith(createErrorNode(node, error));
+      cheerio(node).replaceWith(createErrorNode(node, error) as cheerio.Element);
       return context;
     }
   }
@@ -262,15 +276,17 @@ function processInclude(node, context, pageSources, variableProcessor, renderMd,
  * Replaces it with an error node if the specified src is invalid.
  * Else, appends the content to the node.
  */
-function processPopoverSrc(node, context, pageSources, variableProcessor, renderMd, config) {
-  if (!_.has(node.attribs, 'src')) {
+export function processPopoverSrc(node: DomElement, context: Context, pageSources: PageSources,
+                                  variableProcessor: VariableProcessor, renderMd: (text: string) => string,
+                                  config: Record<string, any>): Context {
+  if (!node.attribs || !_.has(node.attribs, 'src')) {
     return context;
   }
 
   if (_.isEmpty(node.attribs.src)) {
     const error = new Error(`Empty src attribute in include in: ${context.cwf}`);
     logger.error(error);
-    cheerio(node).replaceWith(createErrorNode(node, error));
+    cheerio(node).replaceWith(createErrorNode(node, error) as cheerio.Element);
     return context;
   }
 
@@ -279,19 +295,20 @@ function processPopoverSrc(node, context, pageSources, variableProcessor, render
     hash,
     filePath,
     actualFilePath,
-  } = _getSrcFlagsAndFilePaths(node, config);
+    // We can typecast here as we have checked for src above.
+  } = _getSrcFlagsAndFilePaths(node as DomElement & { attribs: { src: string } }, config);
 
   // No need to process url contents
   if (isUrl) {
     const error = new Error('URLs are not allowed in the \'src\' attribute');
     logger.error(error);
-    cheerio(node).replaceWith(createErrorNode(node, error));
+    cheerio(node).replaceWith(createErrorNode(node, error) as cheerio.Element);
     return context;
   }
 
-  const fileExistsNode = _getFileExistsNode(node, context, actualFilePath, pageSources);
-  if (fileExistsNode) {
-    return fileExistsNode;
+  const fileExists = _checkAndWarnFileExists(node, context, actualFilePath, pageSources);
+  if (!fileExists) {
+    return context;
   }
 
   pageSources.staticIncludeSrc.push({
@@ -313,14 +330,14 @@ function processPopoverSrc(node, context, pageSources, variableProcessor, render
   // the appropriate children to a wrapped include element
   if (hash) {
     const $ = cheerio.load(actualContent);
-    actualContent = $(hash).html();
+    actualContent = $(hash).html() || '';
 
-    if (actualContent === null) {
+    if (actualContent === '') {
       const error = new Error(`No such segment '${hash}' in file: ${actualFilePath}\n`
         + `Missing reference in ${context.cwf}`);
       logger.error(error);
 
-      cheerio(node).replaceWith(createErrorNode(node, error));
+      cheerio(node).replaceWith(createErrorNode(node, error) as cheerio.Element);
 
       return context;
     }
@@ -334,7 +351,7 @@ function processPopoverSrc(node, context, pageSources, variableProcessor, render
     if (childContext.hasExceededMaxCallstackSize()) {
       const error = new CyclicReferenceError(childContext.callStack);
       logger.error(error);
-      cheerio(node).replaceWith(createErrorNode(node, error));
+      cheerio(node).replaceWith(createErrorNode(node, error) as cheerio.Element);
       return context;
     }
   }
@@ -346,9 +363,3 @@ function processPopoverSrc(node, context, pageSources, variableProcessor, render
 
   return childContext;
 }
-
-module.exports = {
-  processInclude,
-  processPopoverSrc,
-  processPanelSrc,
-};
