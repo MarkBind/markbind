@@ -1,8 +1,6 @@
 const { HighlightRuleComponent } = require('./HighlightRuleComponent');
 const { splitCodeAndIndentation } = require('./helper');
 
-const HIGHLIGHT_LINES_RULES_DELIMITER_REGEX = /-(?![^[\]]*])/;
-
 class HighlightRule {
   constructor(ruleComponents) {
     /**
@@ -11,8 +9,37 @@ class HighlightRule {
     this.ruleComponents = ruleComponents;
   }
 
+  static parseAllRules(allRules, lineOffset, tokenContent) {
+    const highlightLines = this.splitByChar(allRules, ',');
+    const strArray = tokenContent.split('\n');
+    return highlightLines
+      .map(ruleStr => HighlightRule.parseRule(ruleStr, lineOffset, strArray))
+      .filter(rule => rule); // discards invalid rules
+  }
+
+  // this function splits allRules by a splitter while ignoring the splitter if it is within quotes
+  static splitByChar(allRules, splitter) {
+    const highlightRules = [];
+    let isWithinQuote = false;
+    let currentPosition = 0;
+    for (let i = 0; i < allRules.length; i += 1) {
+      if (allRules.charAt(i) === splitter && !isWithinQuote) {
+        highlightRules.push(allRules.substring(currentPosition, i));
+        currentPosition = i + 1;
+      }
+      // Checks if the current character is not an unescaped quotation mark
+      if (allRules.charAt(i) === '\'' && (i === 0 || allRules.charAt(i - 1) !== '\\')) {
+        isWithinQuote = !isWithinQuote;
+      }
+    }
+    if (currentPosition !== allRules.length) {
+      highlightRules.push(allRules.substring(currentPosition));
+    }
+    return highlightRules;
+  }
+
   static parseRule(ruleString, lineOffset, lines) {
-    const components = ruleString.split(HIGHLIGHT_LINES_RULES_DELIMITER_REGEX)
+    const components = this.splitByChar(ruleString, '-')
       .map(compString => HighlightRuleComponent.parseRuleComponent(compString, lineOffset, lines));
 
     if (components.some(c => !c)) {
