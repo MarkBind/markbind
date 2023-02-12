@@ -18,6 +18,7 @@ packages/core/src/Site/template.js
 packages/core/src/html/elements.js
 packages/core/src/html/Context.js
 packages/core/src/html/linkProcessor.js
+packages/core/src/html/includePanelProcessor.js
 packages/core/src/html/NodeProcessor.js
 packages/core/src/html/scriptAndStyleTagProcessor.js
 packages/core/src/html/SiteLinkManager.js
