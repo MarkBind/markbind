@@ -139,9 +139,7 @@ export default {
           // To enable behaviour of auto window scrolling during panel collapse
           if (this.$el.getBoundingClientRect().top < 0) {
             const headerHeight = jQuery('header[sticky]').height() || 0;
-            jQuery('html').animate({
-              scrollTop: window.scrollY + this.$el.getBoundingClientRect().top - headerHeight - 3,
-            }, 0, 'swing');
+            window.scrollTo(0, window.scrollY + this.$el.getBoundingClientRect().top - headerHeight - 3);
           }
           this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
         });
