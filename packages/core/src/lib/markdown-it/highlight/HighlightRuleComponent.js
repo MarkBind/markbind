@@ -22,6 +22,23 @@ class HighlightRuleComponent {
   }
 
   static parseRuleComponent(compString, lineNumberOffset, lines) {
+    // Match line-part syntax
+    const linepartMatch = compString.match(LINEPART_REGEX);
+    if (linepartMatch) {
+      // There are four capturing groups: [full match, line number, quote type, line part]
+      const [, lineNumberString, , linePartWithQuotes] = linepartMatch;
+      let lineNumber = parseInt(lineNumberString, 10);
+      if (Number.isNaN(lineNumber)) {
+        return null;
+      }
+      lineNumber += lineNumberOffset;
+
+      const linePart = linePartWithQuotes.replace(/\\'/g, '\'').replace(/\\"/g, '"'); // unescape quotes
+      const bounds = HighlightRuleComponent.computeLinePartBounds(linePart, lines[lineNumber - 1]);
+
+      return new HighlightRuleComponent(lineNumber, true, bounds);
+    }
+
     // Match line-slice (character and word variant) syntax
     const linesliceCharMatch = compString.match(LINESLICE_CHAR_REGEX);
     const linesliceWordMatch = compString.match(LINESLICE_WORD_REGEX);
@@ -48,25 +65,6 @@ class HighlightRuleComponent {
         : HighlightRuleComponent.computeWordBounds(bound, lines[lineNumber - 1]);
 
       return new HighlightRuleComponent(lineNumber, true, [bound]);
-    }
-
-    // Match line-part syntax
-    const linepartMatch = compString.match(LINEPART_REGEX);
-    if (linepartMatch) {
-      // There are four capturing groups: [full match, line number, quote type, line part]
-      const groups = linepartMatch.slice(1); // discard full match
-
-      let lineNumber = parseInt(groups.shift(), 10);
-      if (Number.isNaN(lineNumber)) {
-        return null;
-      }
-      lineNumber += lineNumberOffset;
-
-      groups.shift(); // discard quote type
-      const linePart = groups.shift().replace(/\\'/g, '\'').replace(/\\"/g, '"'); // unescape quotes
-      const bounds = HighlightRuleComponent.computeLinePartBounds(linePart, lines[lineNumber - 1]);
-
-      return new HighlightRuleComponent(lineNumber, true, bounds);
     }
 
     // Match line-number syntax
