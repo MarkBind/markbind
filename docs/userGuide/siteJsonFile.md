@@ -132,16 +132,40 @@ _(Optional)_ **The styling options to be applied to the site.** This includes:
   * `glob` can be used alternatively to define a file pattern in the [_glob syntax_](https://en.wikipedia.org/wiki/Glob_(programming)), or an array of such file patterns.<br>
   {{ icon_examples }} `**/*.md` or `[ '**/*.md', '**/index.md' ]` { .my-2 }
 * **`globExclude`**: An array of file patterns to be excluded from rendering when using `glob`, also defined in the glob syntax.
-* **`title`**: The page `<title>` for the generated web page. Titles specified here take priority over titles specified in the [front matter](tweakingThePageStructure.html#front-matter) of individual pages.
+* **`title`**: The page `<title>` for the generated web page. Titles specified here take priority over titles specified in the [frontmatter](tweakingThePageStructure.html#front-matter) of individual pages.
 * **`layout`**: The [layout](tweakingThePageStructure.html#page-layouts) to be used by the page. Default: `default`.
 * **`searchable`**: Specifies that the page(s) should be excluded from searching. Default: `yes`.
 * **`externalScripts`**: An array of external scripts to be referenced on the page. Scripts referenced will be run before the layout script.
-* **`frontMatter`**: Specifies properties to add to the front matter of a page or glob of pages. Overrides any existing properties if they have the same name, and overrides any front matter properties specified in `globalOverride`.
+* **`frontmatter`**: Specifies properties to add to the frontmatter of a page or glob of pages. Overrides any existing properties if they have the same name, and overrides any frontmatter properties specified in `globalOverride`.
 
 <div id="page-property-overriding">
 <box type="warning">
 
-Note: Page properties that are defined in `site.json` for a particular page will override those defined in the front matter of the page.
+[Page properties that are defined in `site.json`](#pages) for a particular page will override those defined in the frontmatter of the page. For example, if we declare a `title` within the frontmatter of the page (say `index.md`) like such:
+
+```html
+<frontmatter>
+  title: Hello World
+</frontmatter>
+```
+
+But the `title` property in the corresponding `site.json` is set as such:
+
+```js
+{
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "Landing Page",
+    }
+  ],
+}
+```
+
+Then, the title of `index.md` will be set as "Landing Page" instead of "Hello World".
+
+In this manner, setting the property `title` in `site.json` will always override the `title` declared within the frontmatter of the page.
+
 </box>
 </div>
 
@@ -198,7 +222,7 @@ This property is the global variant to the `globExclude` property and is functio
 
 #### **`globalOverride`**
 
-**Globally overrides properties in the front matter of all pages.** Any property included in the global override will automatically be merged with the front matter of every single page, and override them if the property exists.
+**Globally overrides properties in the frontmatter of all pages.** Any property included in the global override will automatically be merged with the frontmatter of every single page, and override them if the property exists.
 
 #### **`ignore`**
 

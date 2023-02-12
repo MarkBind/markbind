@@ -2,6 +2,12 @@
   "enableSearch": true,
   "pages": [
     {
+      "src": "404.md",
+      "title": "Page not found",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
       "src": "Home.md",
       "title": "",
       "headings": {},
@@ -59,7 +65,7 @@
     },
     {
       "src": "index.md",
-      "title": "Landing Page",
+      "title": "",
       "headings": {
         "readme": "Readme"
       },

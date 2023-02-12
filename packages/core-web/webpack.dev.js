@@ -45,8 +45,13 @@ module.exports = {
     ];
   },
   serverEntry: (cb, rootFolder) => {
+    const memDistFolder = path.join(rootFolder, 'dist');
+
     const webpackServerDevConfig = merge(serverConfig, {
       mode: 'development',
+      output: {
+        path: memDistFolder,
+      },
       module: {
         rules: [
           {
@@ -65,7 +70,7 @@ module.exports = {
     serverCompiler.outputFileSystem = mfs;
 
     let bundle;
-    const bundleFilePath = `${rootFolder}/dist/js/vueCommonAppFactory.min.js`;
+    const bundleFilePath = path.join(memDistFolder, 'js', 'vueCommonAppFactory.min.js');
 
     let ready;
     const readyPromise = new Promise((r) => { ready = r; });
@@ -83,6 +88,7 @@ module.exports = {
 
       const statsJson = stats.toJson();
       if (statsJson.errors.length) {
+        // eslint-disable-next-line no-console
         console.error(statsJson.errors);
         return;
       }

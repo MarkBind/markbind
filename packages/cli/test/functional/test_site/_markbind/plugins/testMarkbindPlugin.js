@@ -4,7 +4,7 @@ const TEST_STYLESHEET_FILE = '<link rel="stylesheet" href="testMarkbindPluginSty
 const TEST_SCRIPT_FILE = '<script src="testMarkbindPluginScript.js"></script>';
 
 module.exports = {
-  postRender: (pluginContext, frontMatter, content) => {
+  postRender: (pluginContext, frontmatter, content) => {
     const $ = cheerio.load(content);
     $('#test-markbind-plugin').append(`${pluginContext.post}`);
     return $.html();

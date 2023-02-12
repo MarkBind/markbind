@@ -47,7 +47,7 @@ describe('Mcq Questions and QOptions', () => {
 
     // Click hint
     await wrapper.find('button.btn-success').trigger('click');
-    // Click 'check' without having clicked any options
+    // Click 'check' with no input
     await wrapper.find('button.btn-primary').trigger('click');
 
     expect(wrapper.element).toMatchSnapshot();
@@ -270,6 +270,213 @@ describe('Checkbox Questions and QOptions', () => {
     // click 'show'
     await wrapper.find('button.btn-info').trigger('click');
 
+    expect(wrapper.element).toMatchSnapshot();
+  });
+});
+
+describe('Blank Questions and QOptions', () => {
+  test('of unanswered with shown hint and header renders correctly', async () => {
+    const option = {
+      render(h) {
+        return h(QOption, { props: { keywords: 'key' } });
+      },
+    };
+
+    const wrapper = mount(Question, {
+      propsData: { type: 'blanks' },
+      slots: {
+        default: [
+          'Question content',
+          option,
+          option,
+          option,
+          option,
+        ],
+        header: 'unanswered blanks question header',
+        hint: 'blanks question hint',
+      },
+      provide: DEFAULT_INJECTIONS,
+      stubs: DEFAULT_STUBS,
+    });
+
+    // Click hint
+    await wrapper.find('button.btn-success').trigger('click');
+
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
+  test('of answered correctly with unshown hint without header renders correctly', async () => {
+    const option = {
+      render(h) {
+        return h(QOption, { props: { keywords: 'key' } });
+      },
+    };
+
+    const wrapper = mount(Question, {
+      propsData: {
+        type: 'blanks',
+        threshold: 0.25,
+      },
+      slots: {
+        default: [
+          'Question content',
+          option,
+          option,
+          option,
+          option,
+        ],
+        hint: 'blanks question hint',
+      },
+      provide: DEFAULT_INJECTIONS,
+      stubs: DEFAULT_STUBS,
+    });
+
+    // set correct input for blank 3
+    await wrapper.findAllComponents(QOption).at(2).find('input').setValue('key');
+    // set incorrect input for blank 4
+    await wrapper.findAllComponents(QOption).at(3).find('input').setValue('wrong');
+
+    // click 'check'
+    await wrapper.find('button.btn-primary').trigger('click');
+
+    // set input for blank 1 - should not change value since question answered
+    await wrapper.findAllComponents(QOption).at(0).find('input').setValue('key');
+
+    expect(wrapper.findAllComponents(QOption).at(0).vm.inputText).toMatch('');
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
+  test('of checked wrongly with shown hint without header renders correctly', async () => {
+    const option = {
+      render(h) {
+        return h(QOption, { props: { keywords: 'key' } });
+      },
+    };
+
+    const wrapper = mount(Question, {
+      propsData: {
+        type: 'blanks',
+        threshold: 0.76,
+        noIntermediateResult: true,
+      },
+      slots: {
+        default: [
+          'Question content',
+          option,
+          option,
+          option,
+          option,
+        ],
+        hint: 'blanks question hint',
+      },
+      provide: DEFAULT_INJECTIONS,
+      stubs: DEFAULT_STUBS,
+    });
+
+    // set correct input for blank 1
+    await wrapper.findAllComponents(QOption).at(0).find('input').setValue('key');
+    // set correct input for blank 2
+    await wrapper.findAllComponents(QOption).at(1).find('input').setValue('key');
+    // set correct input for blank 3
+    await wrapper.findAllComponents(QOption).at(2).find('input').setValue('key');
+
+    // click 'check'
+    await wrapper.find('button.btn-primary').trigger('click');
+    // click 'hint'
+    await wrapper.find('button.btn-success').trigger('click');
+    // set an incorrect input for blank 4
+    await wrapper.findAllComponents(QOption).at(3).find('input').setValue('wrong');
+    // click 'retry' -- no change
+    await wrapper.find('button.btn-primary').trigger('click');
+
+    expect(wrapper.findAllComponents(QOption).at(3).vm.inputText).toMatch('wrong');
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
+  test('of checked wrongly with unshown hint with header with intermediate renders correctly', async () => {
+    const option = {
+      render(h) {
+        return h(QOption, { props: { keywords: 'key' } });
+      },
+    };
+
+    const wrapper = mount(Question, {
+      propsData: {
+        type: 'blanks',
+        threshold: 1,
+      },
+      slots: {
+        default: [
+          'Question content',
+          option,
+          option,
+          option,
+          option,
+        ],
+        header: 'blanks question header',
+        hint: 'blanks question hint',
+      },
+      provide: DEFAULT_INJECTIONS,
+      stubs: DEFAULT_STUBS,
+    });
+
+    // set correct input for blank 1
+    await wrapper.findAllComponents(QOption).at(0).find('input').setValue('key');
+    // set correct input for blank 2
+    await wrapper.findAllComponents(QOption).at(1).find('input').setValue('key');
+    // set correct input for blank 3
+    await wrapper.findAllComponents(QOption).at(2).find('input').setValue('key');
+
+    // click 'check'
+    await wrapper.find('button.btn-primary').trigger('click');
+    // set an incorrect input for blank 4
+    await wrapper.findAllComponents(QOption).at(3).find('input').setValue('wrong');
+    // click 'retry' -- no change
+    await wrapper.find('button.btn-primary').trigger('click');
+
+    expect(wrapper.findAllComponents(QOption).at(3).vm.inputText).toMatch('wrong');
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
+  test('of answered wrongly with header without hint renders correctly', async () => {
+    const option = {
+      render(h) {
+        return h(QOption, { props: { keywords: 'key' } });
+      },
+    };
+
+    const wrapper = mount(Question, {
+      propsData: {
+        type: 'blanks',
+        threshold: 0.5,
+      },
+      slots: {
+        default: [
+          'Question content',
+          option,
+          option,
+          option,
+          option,
+        ],
+        header: 'blanks question header',
+      },
+      provide: DEFAULT_INJECTIONS,
+      stubs: DEFAULT_STUBS,
+    });
+
+    // set correct input for blank 2
+    await wrapper.findAllComponents(QOption).at(1).find('input').setValue('key');
+    // set incorrect input for blank 3
+    await wrapper.findAllComponents(QOption).at(2).find('input').setValue('wrong');
+    // set incorrect input for blank 4
+    await wrapper.findAllComponents(QOption).at(3).find('input').setValue('wrong');
+
+    // click 'check'
+    await wrapper.find('button.btn-primary').trigger('click');
+    // click 'show'
+    await wrapper.find('button.btn-info').trigger('click');
+
+    expect(wrapper.findAllComponents(QOption).at(0).vm.inputText).toMatch('');
     expect(wrapper.element).toMatchSnapshot();
   });
 });

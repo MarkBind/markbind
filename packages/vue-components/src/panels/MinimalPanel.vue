@@ -259,6 +259,7 @@ export default {
         opacity: 0;
         transition: opacity 0.5s;
         vertical-align: text-top;
+        display: inline-block;
     }
 
     .button-wrapper-expanded {
@@ -299,7 +300,7 @@ export default {
     }
 
     .minimal-menu-up {
-        top: 3px;
+        top: 2px;
         font-size: 13px;
     }
 
@@ -309,7 +310,7 @@ export default {
     }
 
     .minimal-close-button {
-        top: 2px;
+        top: 0;
         font-size: 11px;
     }
 

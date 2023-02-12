@@ -14,21 +14,17 @@ const { PageConfig } = require('../Page/PageConfig');
 const VariableProcessor = require('../variables/VariableProcessor');
 const VariableRenderer = require('../variables/VariableRenderer');
 const { ExternalManager } = require('../External/ExternalManager');
-const { LayoutManager } = require('../Layout');
+const { LayoutManager, LAYOUT_DEFAULT_NAME, LAYOUT_FOLDER_PATH } = require('../Layout');
 const { SiteLinkManager } = require('../html/SiteLinkManager');
 const { PluginManager } = require('../plugins/PluginManager');
-const Template = require('../../template/template');
+const { Template } = require('./template');
 
 const { sequentialAsyncForEach } = require('../utils/async');
 const { delay } = require('../utils/delay');
 const fsUtil = require('../utils/fsUtil');
 const gitUtil = require('../utils/git');
 const logger = require('../utils/logger');
-
-const {
-  LAYOUT_DEFAULT_NAME,
-  LAYOUT_FOLDER_PATH,
-} = require('../constants');
+const { SITE_CONFIG_NAME, INDEX_MARKDOWN_FILE, LAZY_LOADING_SITE_FILE_NAME } = require('./constants');
 
 const _ = {};
 _.difference = require('lodash/difference');
@@ -50,27 +46,26 @@ url.join = path.posix.join;
 
 const MARKBIND_VERSION = require('../../package.json').version;
 
-const {
-  ABOUT_MARKDOWN_FILE,
-  CONFIG_FOLDER_NAME,
-  FAVICON_DEFAULT_PATH,
-  INDEX_MARKDOWN_FILE,
-  LAYOUT_SITE_FOLDER_NAME,
-  LAZY_LOADING_SITE_FILE_NAME,
-  LAZY_LOADING_BUILD_TIME_RECOMMENDATION_LIMIT,
-  LAZY_LOADING_REBUILD_TIME_RECOMMENDATION_LIMIT,
-  MARKBIND_WEBSITE_URL,
-  MAX_CONCURRENT_PAGE_GENERATION_PROMISES,
-  PAGE_TEMPLATE_NAME,
-  SITE_CONFIG_NAME,
-  SITE_DATA_NAME,
-  SITE_FOLDER_NAME,
-  TEMP_FOLDER_NAME,
-  TEMPLATE_SITE_ASSET_FOLDER_NAME,
-  USER_VARIABLES_PATH,
-  WIKI_SITE_NAV_PATH,
-  WIKI_FOOTER_PATH,
-} = require('./constants');
+const CONFIG_FOLDER_NAME = '_markbind';
+const SITE_FOLDER_NAME = '_site';
+const TEMP_FOLDER_NAME = '.temp';
+const TEMPLATE_SITE_ASSET_FOLDER_NAME = 'markbind';
+const LAYOUT_SITE_FOLDER_NAME = 'layouts';
+
+const ABOUT_MARKDOWN_FILE = 'about.md';
+const FAVICON_DEFAULT_PATH = 'favicon.ico';
+const USER_VARIABLES_PATH = '_markbind/variables.md';
+
+const PAGE_TEMPLATE_NAME = 'page.njk';
+const SITE_DATA_NAME = 'siteData.json';
+
+const WIKI_SITE_NAV_PATH = '_Sidebar.md';
+const WIKI_FOOTER_PATH = '_Footer.md';
+
+const MAX_CONCURRENT_PAGE_GENERATION_PROMISES = 4;
+
+const LAZY_LOADING_BUILD_TIME_RECOMMENDATION_LIMIT = 30000;
+const LAZY_LOADING_REBUILD_TIME_RECOMMENDATION_LIMIT = 5000;
 
 function getBootswatchThemePath(theme) {
   return require.resolve(`bootswatch/dist/${theme}/bootstrap.min.css`);
@@ -104,6 +99,7 @@ const HIGHLIGHT_ASSETS = {
 const ABOUT_MARKDOWN_DEFAULT = '# About\n'
   + 'Welcome to your **About Us** page.\n';
 
+const MARKBIND_WEBSITE_URL = 'https://markbind.org/';
 const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${MARKBIND_VERSION}</a>`;
 
 class Site {
@@ -183,7 +179,7 @@ class Site {
    */
   static async initSite(rootPath, templatePath) {
     try {
-      return await new Template(rootPath, templatePath).init();
+      return await new Template(rootPath, templatePath).initTemplate();
     } catch (err) {
       return new Error(`Failed to initialize site with given template with error: ${err.message}`);
     }
@@ -284,57 +280,39 @@ class Site {
   createPage(config) {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
     const resultPath = path.join(this.outputPath, fsUtil.setExtension(config.pageSrc, '.html'));
-    const { codeTheme, codeLineNumbers } = this.siteConfig.style;
+
+    const baseAssetsPath = path.posix.join(
+      this.siteConfig.baseUrl || '/', TEMPLATE_SITE_ASSET_FOLDER_NAME,
+    );
 
     const pageConfig = new PageConfig({
       asset: {
-        bootstrap: path.relative(path.dirname(resultPath),
-                                 path.join(this.siteAssetsDestPath, 'css', 'bootstrap.min.css')),
+        bootstrap: path.posix.join(baseAssetsPath, 'css', 'bootstrap.min.css'),
         externalScripts: _.union(this.siteConfig.externalScripts, config.externalScripts),
-        fontAwesome: path.relative(path.dirname(resultPath),
-                                   path.join(this.siteAssetsDestPath, 'fontawesome', 'css', 'all.min.css')),
-        glyphicons: path.relative(path.dirname(resultPath),
-                                  path.join(this.siteAssetsDestPath, 'glyphicons', 'css',
-                                            'bootstrap-glyphicons.min.css')),
-        octicons: path.relative(path.dirname(resultPath),
-                                path.join(this.siteAssetsDestPath, 'css', 'octicons.css')),
-        materialIcons: path.relative(path.dirname(resultPath),
-                                     path.join(this.siteAssetsDestPath,
-                                               'material-icons',
-                                               'material-icons.css')),
-        highlight: path.relative(path.dirname(resultPath),
-                                 path.join(this.siteAssetsDestPath, 'css', HIGHLIGHT_ASSETS[codeTheme])),
-        markBindCss: path.relative(path.dirname(resultPath),
-                                   path.join(this.siteAssetsDestPath, 'css', 'markbind.min.css')),
-        markBindJs: path.relative(path.dirname(resultPath),
-                                  path.join(this.siteAssetsDestPath, 'js', 'markbind.min.js')),
-        pageNavCss: path.relative(path.dirname(resultPath),
-                                  path.join(this.siteAssetsDestPath, 'css', 'page-nav.css')),
-        siteNavCss: path.relative(path.dirname(resultPath),
-                                  path.join(this.siteAssetsDestPath, 'css', 'site-nav.css')),
-        bootstrapUtilityJs: path.relative(path.dirname(resultPath),
-                                          path.join(this.siteAssetsDestPath, 'js',
-                                                    'bootstrap-utility.min.js')),
-        polyfillJs: path.relative(path.dirname(resultPath),
-                                  path.join(this.siteAssetsDestPath, 'js', 'polyfill.min.js')),
+        fontAwesome: path.posix.join(baseAssetsPath, 'fontawesome', 'css', 'all.min.css'),
+        glyphicons: path.posix.join(baseAssetsPath, 'glyphicons', 'css', 'bootstrap-glyphicons.min.css'),
+        octicons: path.posix.join(baseAssetsPath, 'css', 'octicons.css'),
+        materialIcons: path.posix.join(baseAssetsPath, 'material-icons', 'material-icons.css'),
+        highlight: path.posix.join(baseAssetsPath, 'css',
+                                   HIGHLIGHT_ASSETS[this.siteConfig.style.codeTheme]),
+        markBindCss: path.posix.join(baseAssetsPath, 'css', 'markbind.min.css'),
+        markBindJs: path.posix.join(baseAssetsPath, 'js', 'markbind.min.js'),
+        pageNavCss: path.posix.join(baseAssetsPath, 'css', 'page-nav.css'),
+        siteNavCss: path.posix.join(baseAssetsPath, 'css', 'site-nav.css'),
+        bootstrapUtilityJs: path.posix.join(baseAssetsPath, 'js', 'bootstrap-utility.min.js'),
+        polyfillJs: path.posix.join(baseAssetsPath, 'js', 'polyfill.min.js'),
         // We use development Vue when MarkBind is served in 'dev' mode so that hydration issues are reported
         vue: this.dev
           ? 'https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js'
-          : path.relative(path.dirname(resultPath), path.join(this.siteAssetsDestPath, 'js', 'vue.min.js')),
-        jQuery: path.relative(path.dirname(resultPath),
-                              path.join(this.siteAssetsDestPath, 'js', 'jquery.min.js')),
+          : path.posix.join(baseAssetsPath, 'js', 'vue.min.js'),
+        jQuery: path.posix.join(baseAssetsPath, 'js', 'jquery.min.js'),
       },
-      baseUrl: this.siteConfig.baseUrl,
       baseUrlMap: this.baseUrlMap,
       dev: this.dev,
-      enableSearch: this.siteConfig.enableSearch,
       faviconUrl: config.faviconUrl,
       frontmatterOverride: config.frontmatter,
-      globalOverride: this.siteConfig.globalOverride,
-      headingIndexingLevel: this.siteConfig.headingIndexingLevel,
       layout: config.layout,
-      layoutsAssetPath: path.relative(path.dirname(resultPath),
-                                      path.join(this.siteAssetsDestPath, LAYOUT_SITE_FOLDER_NAME)),
+      layoutsAssetPath: path.posix.join(baseAssetsPath, LAYOUT_SITE_FOLDER_NAME),
       pluginManager: this.pluginManager,
       resultPath,
       rootPath: this.rootPath,
@@ -343,18 +321,13 @@ class Site {
       siteOutputPath: this.outputPath,
       sourcePath,
       src: config.pageSrc,
-      title: config.title || '',
-      titlePrefix: this.siteConfig.titlePrefix,
-      titleSuffix: this.siteConfig.titleSuffix,
+      title: config.title,
       template: this.pageTemplate,
       variableProcessor: this.variableProcessor,
-      ignore: this.siteConfig.ignore,
       addressablePagesSource: this.addressablePagesSource,
       layoutManager: this.layoutManager,
-      intrasiteLinkValidation: this.siteConfig.intrasiteLinkValidation,
-      codeLineNumbers,
     });
-    return new Page(pageConfig);
+    return new Page(pageConfig, this.siteConfig);
   }
 
   /**
@@ -1459,6 +1432,7 @@ class Site {
           title: page.title,
           headings: page.headings,
           headingKeywords: page.keywords,
+          frontmatterKeywords: page.frontmatter.keywords,
         })),
     };
 

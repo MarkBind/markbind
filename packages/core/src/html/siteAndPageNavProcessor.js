@@ -2,17 +2,25 @@ const { v4: uuidv4 } = require('uuid');
 const cheerio = require('cheerio'); require('../patches/htmlparser2');
 const md = require('../lib/markdown-it');
 
-const {
-  SITE_NAV_EMPTY_LINE_REGEX,
-  SITE_NAV_LIST_CLASS,
-  SITE_NAV_LIST_CLASS_ROOT,
-  SITE_NAV_LIST_ITEM_CLASS,
-  SITE_NAV_DEFAULT_LIST_ITEM_CLASS,
-  SITE_NAV_CUSTOM_LIST_ITEM_CLASS,
-  SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX,
-  SITE_NAV_DROPDOWN_ICON_ROTATED_HTML,
-  SITE_NAV_DROPDOWN_ICON_HTML,
-} = require('../Page/constants');
+const SITE_NAV_ID = 'site-nav';
+const SITE_NAV_EMPTY_LINE_REGEX = /\r?\n\s*\r?\n/g;
+
+const SITE_NAV_LIST_ITEM_CLASS = 'site-nav-list-item';
+const SITE_NAV_LIST_CLASS = 'site-nav-list';
+const SITE_NAV_LIST_CLASS_ROOT = 'site-nav-list-root';
+
+const SITE_NAV_DEFAULT_LIST_ITEM_CLASS = 'site-nav-default-list-item';
+const SITE_NAV_CUSTOM_LIST_ITEM_CLASS = 'site-nav-custom-list-item';
+
+const SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX = /:expanded:/g;
+const SITE_NAV_DROPDOWN_ICON_HTML = '<i class="site-nav-dropdown-btn-icon" '
+  + 'onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">\n'
+  + '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>\n'
+  + '</i>';
+const SITE_NAV_DROPDOWN_ICON_ROTATED_HTML = '<i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" '
+  + 'onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">\n'
+  + '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>\n'
+  + '</i>';
 
 /**
  * Replaces and stores a uuid identifier to the only page-nav element, if there is one.
@@ -58,6 +66,12 @@ class PageNavProcessor {
     } while (numMatches > 1);
 
     return mainHtmlString;
+  }
+
+  static transformPrintContainer(node) {
+    node.attribs.class = 'page-nav-print d-none d-print-block';
+    node.attribs['v-pre'] = '';
+    node.name = 'div';
   }
 }
 
@@ -130,7 +144,7 @@ function addOverlayPortalSource(node, to) {
  * This component portals said element into the mobile navbar menus as needed.
  */
 function addSitePageNavPortal(node) {
-  if (node.attribs.id === 'site-nav' || node.attribs.id === 'page-nav') {
+  if (node.attribs.id === SITE_NAV_ID || node.attribs.id === 'page-nav') {
     addOverlayPortalSource(node, node.attribs.id);
   } else if (node.attribs['mb-site-nav']) {
     addOverlayPortalSource(node, 'mb-site-nav');

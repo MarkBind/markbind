@@ -96,9 +96,69 @@
       </div>
     </div>
   </div>
+
+  <!-- blanks option -->
+  <div
+    v-else-if="qOptionType === 'blanks'"
+    :class="['form-control', 'blanks-form-control', hintClass]"
+  >
+    <label :class="['row', 'm-0', { 'disabled': qState.answered }]" @click.stop>
+      <input
+        v-model="inputText"
+        class="form-control"
+        :disabled="qState.answered"
+      />
+      <div class="col-auto">
+        <!-- for when question is answered -->
+        <div v-if="qState.answered">
+          <i
+            v-if="ansIsCorrect"
+            class="fa fa-check text-success"
+          ></i>
+          <i
+            v-else
+            class="fa fa-times text-danger blanks-cross"
+          ></i>
+        </div>
+
+        <!-- for when question is not answered and intermediate result is enabled -->
+        <div v-if="isIntermediateResult()">
+          <i
+            v-if="ansIsCorrect"
+            class="fa fa-check text-success"
+          ></i>
+          <i
+            v-else
+            class="fa fa-times text-danger blanks-cross"
+          ></i>
+        </div>
+      </div>
+      <div v-if="qState.answered" class="col-auto blanks-keywords">
+        <strong v-if="keywordsSplitTrimmed().length">
+          Keywords:&nbsp;
+          <span
+            v-for="keyword in keywordsSplitTrimmed()"
+            :key="keyword"
+            class="badge rounded-pill bg-light text-dark fw-normal"
+          >
+            {{ keyword }}
+          </span>
+        </strong>
+        <strong v-else>No answer checking keywords provided</strong>
+      </div>
+    </label>
+
+    <div v-if="qState.answered && $scopedSlots.reason">
+      <div class="reason blanks-reason">
+        <slot name="reason"></slot>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import { STATE_WRONG } from './QuestionConstants';
+
 export default {
   name: 'McqOption',
   props: {
@@ -106,11 +166,17 @@ export default {
       type: Boolean,
       default: false,
     },
+    keywords: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
       selected: false,
       hover: false,
+      inputText: '',
+      ansIsCorrect: false,
     };
   },
   inject: {
@@ -121,6 +187,9 @@ export default {
       default: undefined,
     },
     qState: {
+      default: undefined,
+    },
+    noIntermediateResult: {
       default: undefined,
     },
   },
@@ -137,6 +206,30 @@ export default {
     },
   },
   methods: {
+    checkAnswer() {
+      let ansIsCorrect = false;
+      const lowerCasedText = this.inputText.toLowerCase().trim();
+      const keywords = this.keywords.toLowerCase().split(',').filter(keyword => keyword.trim() !== '');
+      if (!this.keywords.length) {
+        ansIsCorrect = true;
+      }
+      for (let i = 0; i < keywords.length; i += 1) {
+        if (lowerCasedText === keywords[i].trim()) {
+          ansIsCorrect = true;
+          break;
+        }
+      }
+      this.ansIsCorrect = ansIsCorrect;
+    },
+    isIntermediateResult() {
+      return !this.noIntermediateResult && this.qState.state === STATE_WRONG && !this.qState.answered;
+    },
+    isBlanksQuestion() {
+      return this.type === 'blanks';
+    },
+    keywordsSplitTrimmed() {
+      return this.keywords.split(',').filter(keyword => keyword.trim() !== '');
+    },
     toggleRadioOn() {
       if (this.qState.answered || this.selected) {
         return;
@@ -213,5 +306,29 @@ export default {
     .row {
         margin: 0.2rem 0 0 0;
         align-items: center;
+    }
+
+    /* for blanks question type */
+    input.form-control {
+        height: auto;
+        min-height: 20px;
+        margin-bottom: 0;
+        width: 50%;
+        cursor: text;
+    }
+
+    input.form-control:disabled,
+    .blanks-keywords {
+        margin-bottom: 0.5rem;
+    }
+
+    .blanks-form-control {
+        border: none;
+        cursor: default;
+    }
+
+    .blanks-cross {
+        margin-right: 3px;
+        margin-left: 3px;
     }
 </style>

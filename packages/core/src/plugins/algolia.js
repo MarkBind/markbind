@@ -1,10 +1,8 @@
 const cheerio = module.parent.require('cheerio');
 
-const {
-  ALGOLIA_CSS_URL,
-  ALGOLIA_JS_URL,
-  ALGOLIA_INPUT_SELECTOR,
-} = require('../constants');
+const ALGOLIA_CSS_URL = 'https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.0/dist/style.css';
+const ALGOLIA_JS_URL = 'https://cdn.jsdelivr.net/npm/@docsearch/js@3.2.0/dist/umd/index.js';
+const ALGOLIA_INPUT_SELECTOR = '#algolia-search-input';
 
 function buildAlgoliaInitScript(pluginContext) {
   return `<script>
@@ -21,7 +19,7 @@ function buildAlgoliaInitScript(pluginContext) {
 function insertAlgoliaCustomCss() {
   return `<script>
     const style = document.createElement('style');
-    style.innerHTML = ".DocSearch-Container { z-index: 1002; }";
+    style.innerHTML = ".DocSearch-Container { z-index: 1002; position: fixed; }";
     document.getElementsByTagName('head')[0].appendChild(style);
   </script>
   `;
@@ -49,5 +47,5 @@ module.exports = {
     buildAlgoliaInitScript(pluginContext),
     insertAlgoliaCustomCss(),
   ],
-  postRender: (pluginContext, frontMatter, content) => addNoIndexClasses(content),
+  postRender: (pluginContext, frontmatter, content) => addNoIndexClasses(content),
 };

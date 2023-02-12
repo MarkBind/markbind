@@ -28,7 +28,7 @@
       style="height: 1px;"
     >
       <div
-        class="progress-bar"
+        class="progress-bar progress-bar-z"
         role="progressbar"
         :style="{ width: `${currentQuestion / questions.length * 100}%` }"
         aria-valuemin="0"
@@ -164,11 +164,11 @@ export default {
 <style scoped>
     .quiz-container {
         overflow: hidden;
+        isolation: isolate;
     }
 
     .intro-outro-card {
         transition: opacity 0.5s;
-        box-shadow: 0 2px 7px 5px rgba(210, 210, 210, 0.2);
     }
 
     .intro-outro-card-enter-active,
@@ -204,6 +204,10 @@ export default {
 
     .btn {
         border-radius: 2em;
+    }
+
+    .progress-bar-z {
+        z-index: 1;
     }
 
 </style>

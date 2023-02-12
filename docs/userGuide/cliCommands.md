@@ -6,6 +6,8 @@
 
 # MarkBind CLI
 
+<page-nav-print />
+
 ### Overview
 
 An overview of MarkBind's Command Line Interface (CLI) can be referenced with `markbind --help`:
@@ -138,13 +140,13 @@ The caveat is that not building all pages during the initial process, or not reb
 **Description:** Generates the site to the directory named `_site` in the current directory.
 
 **Arguments:**
-* `[output]`<br>
-  Put the generated files in the specified directory<br>
-  {{ icon_example }} `../myOutDir`
+* `[root]`<br>
+  Root directory. Default is the current directory.<br>
+  {{ icon_example }} `./myWebsite`
 
 * `[root] [output]`<br>
-  Read source files from the `[root]` directory and put the generated files in the specified `[output]` directory<br>
-  {{ icon_example }} `./myWebsite ../myOutDir`
+  Read source files from the `[root]` directory and put the generated files in the specified `[output]` directory. Default output directory is `_site`.<br>
+  {{ icon_example }} `./myWebsite ./myWebsite/myOutDir`
 
 <panel header="**Options** :fas-cogs:" type="minimal" expanded>
 
@@ -160,7 +162,9 @@ The caveat is that not building all pages during the initial process, or not reb
 
 **{{ icon_examples }}**
 * `markbind build`
-* `markbind build ./myWebsite ./myOutDir`
+* `markbind build ./myWebsite` : Generates the site from the `myWebsite` directory.
+* `markbind build ./myWebsite ./myOutDir` : Generates the site to the directory named `myOutDir` in the current directory.
+* `markbind build ./myWebsite ./myWebsite/myOutDir` : Generates the site to the directory named `myOutDir` in the `myWebsite` directory.
 * `markbind build ./stagingDir --baseUrl staging`
 
 </panel>

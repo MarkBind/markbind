@@ -43,6 +43,8 @@ const processAndVerifyTemplate = (template, expectedTemplate, postProcess = fals
 test('processNode processes panel attributes and inserts into dom as slots correctly', () => {
   processAndVerifyTemplate(testData.PROCESS_PANEL_ATTRIBUTES,
                            testData.PROCESS_PANEL_ATTRIBUTES_EXPECTED);
+  processAndVerifyTemplate(testData.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
   processAndVerifyTemplate(testData.PROCESS_PANEL_HEADER_NO_OVERRIDE,
                            testData.PROCESS_PANEL_HEADER_NO_OVERRIDE_EXPECTED);
 });
@@ -121,6 +123,83 @@ test('processNode processes dropdown header attribute and inserts into DOM as he
 test('processNode processes dropdown with header slot taking priority over header attribute', () => {
   processAndVerifyTemplate(testData.PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY,
                            testData.PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
+});
+
+test('markdown coverts inline colour syntax correctly', async () => {
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const indexPath = 'index.md';
+  const syntaxToTest = '#r# red ## #c#cyan## #y#yellow #m#magenta ## yellow##';
+
+  const result = await nodeProcessor.process(indexPath, syntaxToTest);
+
+  let expected = '<p>';
+  expected += '<span class="mkb-text-red"> red </span> ';
+  expected += '<span class="mkb-text-cyan">cyan</span> ';
+  expected += '<span class="mkb-text-yellow">yellow ';
+  expected += '<span class="mkb-text-magenta">magenta </span> yellow</span>';
+  expected += '</p>';
+
+  expect(result).toEqual(expected);
+});
+
+test('markdown does not convert escaped inline colour syntax', async () => {
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const indexPath = 'index.md';
+  const syntaxToTest = 'escaped start: \\#r# real start: #b#and escaped end:\\## and real end:## black';
+
+  const result = await nodeProcessor.process(indexPath, syntaxToTest);
+
+  let expected = '<p>';
+  expected += 'escaped start: #r# real start: ';
+  expected += '<span class="mkb-text-blue">and escaped end:## and real end:</span> black';
+  expected += '</p>';
+
+  expect(result).toEqual(expected);
+});
+
+test('markdown removes non-matching syntax starts and ends', async () => {
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const indexPath = 'index.md';
+  const syntaxToTest = 'end without start ## and start without end #g# green text\n\nnot green text';
+
+  const result = await nodeProcessor.process(indexPath, syntaxToTest);
+
+  let expected = '<p>';
+  expected += 'end without start  and start without end ';
+  expected += '<span class="mkb-text-green"> green text</span></p>\n';
+  expected += '<p>not green text</p>';
+
+  expect(result).toEqual(expected);
+});
+
+test('markdown inline colour syntax works with code blocks', async () => {
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const indexPath = 'index.md';
+  const syntaxToTest = '```#y#not yellow text##```';
+
+  const result = await nodeProcessor.process(indexPath, syntaxToTest);
+
+  let expected = '<p><code class="hljs inline no-lang" v-pre>';
+  expected += '#y#not yellow text##';
+  expected += '</code></p>';
+
+  expect(result).toEqual(expected);
+});
+
+test('page-nav-print syntex converts to div element with class', async () => {
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const indexPath = 'index.md';
+  let syntaxToTest = '<page-nav-print />';
+  syntaxToTest += '<page-nav-print></page-nav-print>';
+  syntaxToTest += '<page-nav-print>Table of Content</page-nav-print>';
+
+  const result = await nodeProcessor.process(indexPath, syntaxToTest);
+
+  let expected = '<p><div class="page-nav-print d-none d-print-block" v-pre></div>';
+  expected += '<div class="page-nav-print d-none d-print-block" v-pre></div>';
+  expected += '<div class="page-nav-print d-none d-print-block" v-pre>Table of Content</div></p>';
+
+  expect(result).toEqual(expected);
 });
 
 test('renderFile converts markdown headers to <h1> with an id', async () => {

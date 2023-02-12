@@ -102,8 +102,8 @@ jobs:
     env:
       GITHUB_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: '14'
       - run: npm i -g markbind-cli
@@ -118,7 +118,7 @@ The sample `deploy.yml` workflow above uses the [default GitHub Token secret](ht
 
 Once you have created the file, commit and push the file to your repo. GitHub Actions should start to build and deploy your MarkBind site. You can verify this by visiting `www.github.com/<org|username>/<repo>/actions`.
 
-<box type="tip">
+<box type="tip" id="markbind-action-tip">
 
 MarkBind provides a helper GitHub Action that you can use to simplify your workflow file. A sample workflow file utilizing the action is as follows:
 ```yml
@@ -423,9 +423,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:        
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 14
       - name: Build MarkBind website
@@ -483,7 +483,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploying to surge
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Download built MarkBind site artifacts
         uses: dawidd6/action-download-artifact@v2
         with:
@@ -495,7 +495,7 @@ jobs:
         id: pr-number
         run: echo '::set-output name=ACTIONS_PR_NUMBER::'$(cat ./pr/NUMBER)
       - name: Install Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 14
       - name: Build PR preview url

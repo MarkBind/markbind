@@ -278,7 +278,8 @@
       "profile": "https://tlylt.github.io/",
       "contributions": [
         "code",
-        "doc"
+        "doc",
+        "review"
       ]
     },
     {
@@ -490,6 +491,119 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "benluiwj",
+      "name": "benluiwj",
+      "avatar_url": "https://avatars.githubusercontent.com/u/67570985?v=4",
+      "profile": "https://github.com/benluiwj",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "weiquu",
+      "name": "weiquu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/48304907?v=4",
+      "profile": "https://github.com/weiquu",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "eeliana",
+      "name": "eeliana",
+      "avatar_url": "https://avatars.githubusercontent.com/u/62977276?v=4",
+      "profile": "https://github.com/eeliana",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "domlimm",
+      "name": "Dominic Lim",
+      "avatar_url": "https://avatars.githubusercontent.com/u/46486515?v=4",
+      "profile": "https://www.linkedin.com/in/dominiclimkj/",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "petermonky",
+      "name": "peter",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39848410?v=4",
+      "profile": "https://github.com/petermonky",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "calvintanwj",
+      "name": "Calvin Tan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61271749?v=4",
+      "profile": "https://github.com/calvintanwj",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "itsyme",
+      "name": "david",
+      "avatar_url": "https://avatars.githubusercontent.com/u/71922282?v=4",
+      "profile": "https://github.com/itsyme",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "xSaints19x",
+      "name": "David",
+      "avatar_url": "https://avatars.githubusercontent.com/u/67327422?v=4",
+      "profile": "https://www.linkedin.com/in/david-limantara/",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "charandeepsinghb",
+      "name": "charandeepsinghb",
+      "avatar_url": "https://avatars.githubusercontent.com/u/110289710?v=4",
+      "profile": "https://github.com/charandeepsinghb",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "c00kie123",
+      "name": "Jia Yu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/112937454?v=4",
+      "profile": "https://github.com/c00kie123",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "lhw-1",
+      "name": "Lee Hyung Woon / 이형운",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25716529?v=4",
+      "profile": "https://github.com/lhw-1",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "yucheng11122017",
+      "name": "Chan Yu Cheng",
+      "avatar_url": "https://avatars.githubusercontent.com/u/77204346?v=4",
+      "profile": "https://github.com/yucheng11122017",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -497,6 +611,6 @@
   "projectOwner": "MarkBind",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true,
+  "skipCi": false,
   "commitConvention": "none"
 }

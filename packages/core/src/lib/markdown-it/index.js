@@ -14,8 +14,6 @@ const logger = require('../../utils/logger');
 
 const { HighlightRule } = require('./highlight/HighlightRule');
 
-const HIGHLIGHT_LINES_DELIMITER_REGEX = new RegExp(',(?![^\\[\\]]*])');
-
 const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
 // markdown-it plugins
@@ -28,7 +26,7 @@ markdownIt.use(createDoubleDelimiterInlineRule('%%', 'dimmed', 'emphasis'))
 markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-sub'))
   .use(require('markdown-it-sup'))
-  .use(require('markdown-it-imsize'), { autofill: false })
+  .use(require('@tlylt/markdown-it-imsize'), { autofill: false })
   .use(require('markdown-it-table-of-contents'))
   .use(require('markdown-it-task-lists'), { enabled: true })
   .use(require('markdown-it-linkify-images'), { imgClass: 'img-fluid' })
@@ -38,7 +36,8 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('./plugins/markdown-it-block-embed'))
   .use(require('./plugins/markdown-it-icons'))
   .use(require('./plugins/markdown-it-footnotes'))
-  .use(require('./plugins/markdown-it-center-text'));
+  .use(require('./plugins/markdown-it-center-text'))
+  .use(require('./plugins/markdown-it-colour-text'));
 
 // fix table style
 markdownIt.renderer.rules.table_open = _.constant(
@@ -64,7 +63,6 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const token = tokens[idx];
   const lang = token.info || '';
   let str = token.content;
-  const strArray = str.split('\n');
   let highlighted = false;
   let lines;
 
@@ -88,10 +86,7 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const highlightLinesInput = getAttribute(token, 'highlight-lines', true);
   let highlightRules = [];
   if (highlightLinesInput) {
-    const highlightLines = highlightLinesInput.split(HIGHLIGHT_LINES_DELIMITER_REGEX);
-    highlightRules = highlightLines
-      .map(ruleStr => HighlightRule.parseRule(ruleStr, -startFromZeroBased, strArray))
-      .filter(rule => rule); // discards invalid rules
+    highlightRules = HighlightRule.parseAllRules(highlightLinesInput, -startFromZeroBased, str);
   }
 
   if (lang && hljs.getLanguage(lang)) {
