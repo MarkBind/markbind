@@ -352,17 +352,16 @@ export default {
     .question {
         margin-bottom: 1rem;
         transition: transform 0.5s ease-out, opacity 0.5s linear;
-        box-shadow: 0 2px 7px 5px rgba(210, 210, 210, 0.2);
     }
 
     .question-enter-active {
         opacity: 0;
-        transform: translateX(-100%);
+        transform: translateY(-2%);
     }
 
     .question-leave-to {
         opacity: 0;
-        transform: translateX(100%);
+        transform: translateY(2%);
     }
 
     .q-btn {
@@ -386,7 +385,7 @@ export default {
 
     .card-header {
         font-size: 1.05em;
-        font-weight: 500;
+        font-weight: 400;
     }
 
     /* For accomodating block markdown nicely */
@@ -396,16 +395,13 @@ export default {
     }
 
     @keyframes shake {
-        20% { transform: translate(-1px, -1px); }
-        40% { transform: translate(1px, 1px); }
-        60% { transform: translate(0, 0); }
-        80% { transform: translate(-1px, 1px); }
-        100% { transform: translate(1px, -1px); }
+        50% { transform: translate(-2px, 0); }
+        100% { transform: translate(2px, 0); }
     }
 
     .shake {
-        animation: shake 0.25s;
-        animation-iteration-count: 2;
+        animation: shake 0.15s;
+        animation-iteration-count: 1;
     }
 
     /* text question text area */

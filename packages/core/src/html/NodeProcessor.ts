@@ -39,6 +39,21 @@ const FRONTMATTER_FENCE = '---';
 
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
+export type NodeProcessorConfig = {
+  baseUrl: string,
+  baseUrlMap: Set<string>,
+  rootPath: string,
+  outputPath: string,
+  ignore: string[],
+  addressablePagesSource: string[],
+  intrasiteLinkValidation: { enabled: boolean },
+  codeLineNumbers: boolean,
+  plantumlCheck: boolean,
+  headerIdMap: {
+    [id: string]: number,
+  },
+};
+
 export class NodeProcessor {
   frontmatter: { [key: string]: string } = {};
 
@@ -54,20 +69,7 @@ export class NodeProcessor {
   processedModals: { [id: string]: boolean } = {};
 
   constructor(
-    private config: {
-      baseUrl: string,
-      baseUrlMap: Set<string>,
-      rootPath: string,
-      outputPath: string,
-      ignore: string[],
-      addressablePagesSource: string[],
-      intrasiteLinkValidation: { enabled: boolean },
-      codeLineNumbers: boolean,
-      plantumlCheck: boolean,
-      headerIdMap: {
-        [id: string]: number,
-      },
-    },
+    private config: NodeProcessorConfig,
     private pageSources: PageSources,
     private variableProcessor: VariableProcessor,
     private pluginManager: any,

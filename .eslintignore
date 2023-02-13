@@ -35,6 +35,8 @@ packages/core/src/html/vueSlotSyntaxProcessor.js
 packages/core/src/html/MdAttributeRenderer.js
 packages/core/src/html/MarkdownProcessor.js
 packages/core/src/html/warnings.js
+packages/core/src/plugins/Plugin.js
+packages/core/src/plugins/PluginManager.js
 
 # Rules for pure JS files
 packages/core/src/lib/markdown-it/patches/*
