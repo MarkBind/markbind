@@ -114,7 +114,7 @@ Amending a commit changes its commit hash, which means that if you've already pu
 
 ##### Scenario 2 - you have 3 commits and want to make it into 2 commits:
 
-1. Run `git rebase -i HEAD~3` to start an interactive rebase session. This will show a list of the three most recent commits in your text editor.
+1. Run `git rebase -i master` to start an interactive rebase session. This will show a list of the recent commits in your text editor.
 2. In the text editor, replace the word "pick" in front of the commit you want to keep with the word "squash" for the two commits you want to combine into one.
 3. Git will combine the two "squash"ed commits into one and open your text editor for you to edit the commit message. You can either keep the original messages or create a new message that summarizes the changes.
 4. Git will reapply the two combined commits on top of the remaining "pick"ed commit.
