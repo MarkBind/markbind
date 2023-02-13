@@ -95,6 +95,31 @@ We have decided on structuring the commits as two commits: a "Rename" commit and
 
 You are now ready to create a pull request for the changes to the repository.
 
+### (Optional) Step 4: Changing the commit
+
+While refactoring you may encounter scenarios where you might have to amend your code after a commit. There are 2 common scenarios which we will cover. 
+
+##### Scenario 1 - you have 2 commits and want to add on to the second commit: 
+
+To append a new commit onto the already existing commit you can do the following: 
+1. Make the changes you want to add to the second commit
+2. Stage the changes using `git add`
+3. Run `git commit --amend`
+4. This will open your default text editor, where you can edit the commit message for the second commit to reflect the new changes you have made
+5. Save and close the text editor. This will replace the second commit with the updated changes.
+
+<box type="warning">
+It's important to note that amending a commit changes its commit hash, which means that if you've already pushed the original commit to a remote repository, you'll need to force push your changes.
+</box>
+
+##### Scenario 2 - you have 3 commits and want to make it into 2 commits:
+
+1. Run `git rebase -i HEAD~3` to start an interactive rebase session. This will show a list of the three most recent commits in your text editor.
+2. In the text editor, replace the word "pick" in front of the commit you want to keep with the word "squash" for the two commits you want to combine into one.
+3. Git will combine the two "squash"ed commits into one and open your text editor for you to edit the commit message. You can either keep the original messages or create a new message that summarizes the changes.
+4. Git will reapply the two combined commits on top of the remaining "pick"ed commit.
+5. Finally, run `git push -f` to force push the changes to your remote repository.
+
 ## Example of Migrated Works
 
 You can see these pull requests to observe the finished migration works:
@@ -153,13 +178,7 @@ The solution to this is to make the rename and adapt commits separate, in order 
 
 Even if the migration developer has kept the history intact through the separate "Rename" and "Adapt" commits, this is only intact at their working branch. At the end of the day, the totality of the changes in the working branch is compared against the target branch, in which the same consideration would apply.
 
-If we do the usual squash commit, the changes from the two commits are combined into a new commit and only that commit will be pushed into the target branch. The original two commits are omitted, therefore the history of the working branch that we have tried to keep intact is stripped away.
-
-The reason we use a rebase operation is because it updates the base branch of a
-working branch with the latest changes from the target branch. The rebase
-operation then reapplies the working branch's changes on top of the updated
-base, creating new commit hashes for each commit in the working branch. This
-results in a linear history, as if the changes in the working branch were made
+If we do the usual squash commit, the changes from the two commits are combined into a new commit and only that commit will be pushed into the target branch. The original two commits are omitted, therefore the history of the working branch that we have tried to keep intact is stripped away. This results in a linear history, as if the changes in the working branch were made
 after the latest changes in the target branch.
 
 {% from "njk/common.njk" import previous_next %}
