@@ -109,7 +109,7 @@ To append a new commit onto the already existing commit you can do the following
 5. Save and close the text editor. This will replace the second commit with the updated changes.
 
 <box type="warning">
-It's important to note that amending a commit changes its commit hash, which means that if you've already pushed the original commit to a remote repository, you'll need to force push your changes.
+Amending a commit changes its commit hash, which means that if you've already pushed the original commit to a remote repository, you'll need to force push your changes.
 </box>
 
 ##### Scenario 2 - you have 3 commits and want to make it into 2 commits:
