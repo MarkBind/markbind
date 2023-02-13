@@ -112,7 +112,7 @@ To append a new commit onto the already existing commit you can do the following
 Amending a commit changes its commit hash, which means that if you've already pushed the original commit to a remote repository, you'll need to force push your changes.
 </box>
 
-##### Scenario 2 - you have 3 commits and want to make it into 2 commits:
+##### Scenario 2 - you have >2 commits and want to make it into 2 commits:
 
 1. Run `git rebase -i master` to start an interactive rebase session. This will show a list of the recent commits in your text editor.
 2. In the text editor, replace the word "pick" in front of the commit you want to keep with the word "squash" for the two commits you want to combine into one.
