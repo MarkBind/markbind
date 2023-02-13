@@ -106,9 +106,10 @@ You are now ready to create a pull request for the changes to the repository.
 
 While refactoring you may encounter scenarios where you might have to amend your code after a commit. There are 2 common scenarios which we will cover. 
 
-##### Scenario 1 - you have 2 commits and want to add on to the second commit: 
-
+<panel header="Scenario 1: You have 2 commits and want to add on to the second commit.">
+ 
 To append a new commit onto the already existing commit you can do the following: 
+
 1. Make the changes you want to add to the second commit
 2. Stage the changes using `git add`
 3. Run `git commit --amend`
@@ -118,14 +119,19 @@ To append a new commit onto the already existing commit you can do the following
 <box type="warning">
 Amending a commit changes its commit hash, which means that if you've already pushed the original commit to a remote repository, you'll need to force push your changes.
 </box>
+</panel>
 
-##### Scenario 2 - you have >2 commits and want to make it into 2 commits:
+<panel header="Scenario 2: You have more than 2 commits and want to make it into 2 commits.">
+
 
 1. Run `git rebase -i master` to start an interactive rebase session. This will show a list of the recent commits in your text editor.
-2. In the text editor, replace the word "pick" in front of the commit you want to keep with the word "squash" for the two commits you want to combine into one.
-3. Git will combine the two "squash"ed commits into one and open your text editor for you to edit the commit message. You can either keep the original messages or create a new message that summarizes the changes.
-4. Git will reapply the two combined commits on top of the remaining "pick"ed commit.
+2. In the text editor, replace the word "pick" in front of the commit you want to keep with the word "squash" for the other commits you want to combine into one.
+3. Git will combine the other "squash"ed commits into one and open your text editor for you to edit the commit message. You can either keep the original messages or create a new message that summarizes the changes.
+4. Git will reapply the other combined commits on top of the remaining "pick"ed commit.
 5. Finally, run `git push -f` to force push the changes to your remote repository.
+
+</panel>
+<br/>
 
 ## Example of Migrated Works
 
