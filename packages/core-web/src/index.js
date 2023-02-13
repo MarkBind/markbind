@@ -34,9 +34,9 @@ function detectAndApplyHeaderStyles() {
   }
   const [headerEl] = headerSelector;
 
-  let headerHeight = headerSelector.height;
+  let headerHeight = headerEl.clientHeight;
   function updateHeaderHeight() {
-    headerHeight = headerSelector.height;
+    headerHeight = headerEl.clientHeight;
     document.documentElement.style.setProperty('--sticky-header-height', `${headerHeight}px`);
   }
 
@@ -49,7 +49,7 @@ function detectAndApplyHeaderStyles() {
     // reset overflow when header shows again to allow content
     // in the header such as search dropdown etc. to overflow
     if (!isHidden) {
-      headerSelector.css('overflow', '');
+      headerEl.style.overflow = '';
     }
   });
 
