@@ -67,7 +67,7 @@ export default {
             htmlResult.body.innerHTML = result;
             const tempDom = document.createElement('temp');
             Array.from(htmlResult.body.childNodes).forEach(child => tempDom.append(child));
-            const appContainer = tempDom.querySelectorAll(`#${this.hash}`);
+            const appContainer = tempDom.querySelector(`#${this.hash}`);
             result = appContainer.innerHTML;
           }
           this.hasFetchedCopy = true;
