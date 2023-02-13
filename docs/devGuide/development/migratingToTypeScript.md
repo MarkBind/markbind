@@ -60,6 +60,13 @@ We have decided on structuring the commits as two commits: a "Rename" commit and
 4. **Commit the staged changes** with the message `Rename <file-or-folder> to TypeScript`.
    <br>
    For example: `Rename core/src/html to TypeScript`.
+   
+   <box type="info">
+
+   Any of the [MarkBind-specific git hooks](workflow.md#git-hooks) that have been installed during the [setup process](settingUp.md#setting-up-the-git-hooks-optional-but-recommended) will automatically build the backend. If you encounter any compilation errors while committing and/or pushing the "Rename" commit due to git hooks, skip the hooks using the `--no-verify` flag.
+   For example: `git commit --no-verify -m "Rename core/src/html to TypeScript"`.
+
+   </box>
 
 ### Step 3: "Adapt" Commit
 

@@ -14,8 +14,6 @@ const logger = require('../../utils/logger');
 
 const { HighlightRule } = require('./highlight/HighlightRule');
 
-const HIGHLIGHT_LINES_DELIMITER_REGEX = /,(?![^[\]]*])/;
-
 const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
 // markdown-it plugins
@@ -65,7 +63,6 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const token = tokens[idx];
   const lang = token.info || '';
   let str = token.content;
-  const strArray = str.split('\n');
   let highlighted = false;
   let lines;
 
@@ -89,10 +86,7 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   const highlightLinesInput = getAttribute(token, 'highlight-lines', true);
   let highlightRules = [];
   if (highlightLinesInput) {
-    const highlightLines = highlightLinesInput.split(HIGHLIGHT_LINES_DELIMITER_REGEX);
-    highlightRules = highlightLines
-      .map(ruleStr => HighlightRule.parseRule(ruleStr, -startFromZeroBased, strArray))
-      .filter(rule => rule); // discards invalid rules
+    highlightRules = HighlightRule.parseAllRules(highlightLinesInput, -startFromZeroBased, str);
   }
 
   if (lang && hljs.getLanguage(lang)) {

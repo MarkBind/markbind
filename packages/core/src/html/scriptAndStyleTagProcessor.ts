@@ -11,7 +11,7 @@ import { DomElement } from 'htmlparser2';
  * @param node from the dom traversal
  * @param userScriptsAndStyles to store scripts and style tags for hoisting
  */
-export function processScriptAndStyleTag(node: DomElement, userScriptsAndStyles: string[]) {
+export function processScriptAndStyleTag(node: DomElement, userScriptsAndStyles: string[] | undefined) {
   // Do not process script/style tags that are meant to be inserted in head/bottom of HTML
   const isHeadOrBottom = node.parent && (node.parent.name === 'head-top'
     || node.parent.name === 'head-bottom' || node.parent.name === 'script-bottom');

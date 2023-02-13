@@ -1,10 +1,14 @@
-const cheerio = require('cheerio');
+import cheerio from 'cheerio';
+import has from 'lodash/has';
+import find from 'lodash/find';
+import { DomElement } from 'htmlparser2';
 
-const _ = {};
-_.has = require('lodash/has');
-_.find = require('lodash/find');
+const _ = {
+  has,
+  find,
+};
 
-function getVslotShorthandName(node) {
+export function getVslotShorthandName(node: DomElement) {
   if (!node.attribs) {
     return '';
   }
@@ -21,45 +25,50 @@ function getVslotShorthandName(node) {
 /*
  * Shifts the slot node deeper by one level by creating a new intermediary node with template tag name.
  */
-function shiftSlotNodeDeeper(node) {
-  if (!node.children) {
-    return;
-  }
+export function shiftSlotNodeDeeper(node: DomElement) {
+  const nodeChildren = node.children ?? [];
 
-  node.children.forEach((child) => {
+  nodeChildren.forEach((child) => {
     const vslotShorthandName = getVslotShorthandName(child);
     if (vslotShorthandName && child.name !== 'template') {
-      const newSlotNode = cheerio.parseHTML('<template></template>')[0];
+      const newSlotNode = cheerio.parseHTML('<template></template>')[0] as unknown as DomElement;
 
       const vslotShorthand = `#${vslotShorthandName}`;
+
+      newSlotNode.attribs = newSlotNode?.attribs ?? {};
       newSlotNode.attribs[vslotShorthand] = '';
-      delete child.attribs[vslotShorthand];
+      if (child.attribs) {
+        delete child.attribs[vslotShorthand];
+      }
 
       newSlotNode.parent = node;
       child.parent = newSlotNode;
 
+      newSlotNode.children = newSlotNode?.children ?? [];
       newSlotNode.children.push(child);
 
       // replace the shifted old child node with the new slot node
-      node.children.forEach((childNode, idx) => {
+      nodeChildren.forEach((childNode, idx) => {
         if (childNode === child) {
-          node.children[idx] = newSlotNode;
+          nodeChildren[idx] = newSlotNode;
         }
       });
     }
   });
+
+  node.children = nodeChildren;
 }
 
 /*
  * Transforms deprecated vue slot syntax (slot="test") into the updated Vue slot shorthand syntax (#test).
  */
-function transformOldSlotSyntax(node) {
+export function transformOldSlotSyntax(node: DomElement) {
   if (!node.children) {
     return;
   }
 
   node.children.forEach((child) => {
-    if (_.has(child.attribs, 'slot')) {
+    if (child.attribs && _.has(child.attribs, 'slot')) {
       const vslotShorthandName = `#${child.attribs.slot}`;
       child.attribs[vslotShorthandName] = '';
       delete child.attribs.slot;
@@ -67,22 +76,20 @@ function transformOldSlotSyntax(node) {
   });
 }
 
-function renameSlot(node, originalName, newName) {
-  if (node.children) {
-    node.children.forEach((child) => {
-      const vslotShorthandName = getVslotShorthandName(child);
-      if (vslotShorthandName && vslotShorthandName === originalName) {
-        const newVslot = `#${newName}`;
+export function renameSlot(node: DomElement, originalName: string, newName: string) {
+  if (!node.children) {
+    return;
+  }
+
+  node.children.forEach((child) => {
+    const vslotShorthandName = getVslotShorthandName(child);
+    if (vslotShorthandName && vslotShorthandName === originalName) {
+      const newVslot = `#${newName}`;
+
+      if (child.attribs) {
         child.attribs[newVslot] = '';
         delete child.attribs[`#${vslotShorthandName}`];
       }
-    });
-  }
+    }
+  });
 }
-
-module.exports = {
-  getVslotShorthandName,
-  shiftSlotNodeDeeper,
-  transformOldSlotSyntax,
-  renameSlot,
-};

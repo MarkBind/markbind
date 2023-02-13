@@ -23,7 +23,8 @@
   ],
   "plugins" : [
     "filterTags",
-    "mathDelimiters"
+    "mathDelimiters",
+    "codeBlockWrapButtons"
   ],
   "pluginsContext" : {
     "filterTags" : {

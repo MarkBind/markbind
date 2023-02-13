@@ -22,11 +22,21 @@ packages/core/src/lib/nunjucks-extensions/index.js
 packages/core/src/lib/nunjucks-extensions/nunjucks-date.js
 packages/core/src/lib/nunjucks-extensions/set-external.js
 packages/core/src/Page/PageSources.js
+packages/core/src/plugins/codeBlockButtonsAssets/codeBlockButtonsContainer.js
+packages/core/src/plugins/codeBlockCopyButtons.js
+packages/core/src/plugins/codeBlockWrapButtons.js
+packages/core/src/plugins/types.js
 packages/core/src/variables/VariableProcessor.js
 packages/core/src/variables/VariableRenderer.js
 packages/core/src/Page/PageVueServerRenderer.js
 packages/core/src/External/External.js
 packages/core/src/External/ExternalManager.js
+packages/core/src/html/vueSlotSyntaxProcessor.js
+packages/core/src/html/MdAttributeRenderer.js
+packages/core/src/html/MarkdownProcessor.js
+packages/core/src/html/warnings.js
+packages/core/src/plugins/Plugin.js
+packages/core/src/plugins/PluginManager.js
 
 # Rules for pure JS files
 packages/core/src/lib/markdown-it/patches/*
