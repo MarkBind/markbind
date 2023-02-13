@@ -77,6 +77,7 @@ packages/core/src/utils/**/*.js
 packages/core/src/**/constants.js
 packages/core/src/Page/PageConfig.js
 packages/core/src/Site/SiteConfig.js
+packages/core/src/Site/template.js
 packages/core/src/html/elements.js
 packages/core/src/html/Context.js
 packages/core/src/html/NodeProcessor.js
