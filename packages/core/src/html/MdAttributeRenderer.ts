@@ -162,7 +162,7 @@ export class MdAttributeRenderer {
    * Toasts
    */
 
-  processToastAttributes(node) {
+  processToastAttributes(node: DomElement) {
     this.processAttributeWithoutOverride(node, 'header', false);
   }
 
