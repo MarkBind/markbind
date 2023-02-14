@@ -324,7 +324,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
    f. Click "Publish release".
 
-11. **Announce the new release** on our Slack channel (replace `A.B.C` with the new version). Congrats!
+1. **Announce the new release** on our Slack channel (replace `A.B.C` with the new version). Congrats!
 
    >Published: `npm i -g markbind-cli@A.B.C`
 
