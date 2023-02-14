@@ -14,7 +14,7 @@
 
 <include src="advanced.md#slots-info" />
 
-# Using Components: Others
+# Others
 
 <div id="overview" class="lead">
 

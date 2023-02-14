@@ -14,7 +14,7 @@
 
 <include src="advanced.md#slots-info" />
 
-# Using Components: Images & Diagrams
+# Images & Diagrams
 
 <div id="overview" class="lead">
 
