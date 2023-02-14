@@ -17,6 +17,7 @@ import { shiftSlotNodeDeeper, transformOldSlotSyntax, renameSlot } from './vueSl
 import { MdAttributeRenderer } from './MdAttributeRenderer';
 import { MarkdownProcessor } from './MarkdownProcessor';
 import { processScriptAndStyleTag } from './scriptAndStyleTagProcessor';
+import { SiteLinkManager } from './SiteLinkManager';
 
 const fm = require('fastmatter');
 
@@ -73,7 +74,7 @@ export class NodeProcessor {
     private pageSources: PageSources,
     private variableProcessor: VariableProcessor,
     private pluginManager: any,
-    private siteLinkManager: any,
+    private siteLinkManager: SiteLinkManager,
     private userScriptsAndStyles: string[] | undefined,
     docId = '',
   ) {
