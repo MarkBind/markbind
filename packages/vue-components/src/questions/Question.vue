@@ -264,6 +264,11 @@ export default {
     checkMcqAnswer(markAsAnsweredIfWrong) {
       const selectedAnswer = this.answers.find(answer => answer.selected);
       if (!selectedAnswer) {
+        // shake the card
+        this.shakeClass = 'shake';
+        setTimeout(() => {
+          this.shakeClass = null;
+        }, 800);
         return;
       }
 
