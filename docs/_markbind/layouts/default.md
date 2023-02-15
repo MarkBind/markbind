@@ -4,7 +4,7 @@
   <div id="content-wrapper">
     {{ content }}
   </div>
-  <scroll-to-top-button></scroll-to-top-button>
+  <scroll-top-button></scroll-top-button>
 </div>
 
 <include src="footers/footer.md" />

@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'ScrollToTopButton.vue',
+  name: 'ScrollTopButton.vue',
   props: {
     icon: {
       default: 'fa fa-arrow-circle-up',

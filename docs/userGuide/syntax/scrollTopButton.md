@@ -4,11 +4,11 @@
 
 <div id="content">
 
-The ```scroll-to-top-button``` component allows users to move to the top of the page.
+The ```scroll-top-button``` component allows users to move to the top of the page.
 
-****Adding a scroll-to-top-button****
+****Adding a scroll-top-button****
 
-Add ```<scroll-to-top-button><scroll-to-top-button/>``` to layout file.
+Add ```<scroll-top-button><scroll-top-button/>``` to layout file.
 
 ****Options****
 
@@ -24,12 +24,12 @@ Add ```<scroll-to-top-button><scroll-to-top-button/>``` to layout file.
 <div id="short">
 
 ```html
-<scroll-to-top-button
+<scroll-top-button
     icon="fa fa-arrow-circle-up"
     iconSize="2x"
     bottom="2%"
     right="2%"
-></scroll-to-top-button>
+></scroll-top-button>
 ```
 </div>
 

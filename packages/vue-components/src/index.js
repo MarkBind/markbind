@@ -31,7 +31,7 @@ import overlaySource from './OverlaySource.vue';
 import popover from './Popover.vue';
 import tooltip from './Tooltip.vue';
 import modal from './Modal.vue';
-import scrollToTopButton from './ScrollToTopButton.vue';
+import scrollTopButton from './ScrollTopButton.vue';
 
 const components = {
   box,
@@ -62,7 +62,7 @@ const components = {
   modal,
   'VPopover': Dropdown,
   'VTooltip': Tooltip,
-  scrollToTopButton,
+  scrollTopButton,
 };
 
 const directives = {
