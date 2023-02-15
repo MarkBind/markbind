@@ -43,6 +43,7 @@
       <page-nav />
     </div>
   </nav>
+  <scroll-to-top-button></scroll-to-top-button>
 </div>
 
 <footer>
