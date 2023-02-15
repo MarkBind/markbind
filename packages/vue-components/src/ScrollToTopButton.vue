@@ -1,13 +1,11 @@
 <template>
-  <div
-    :class="['scroll-to-top']"
-  >
+  <div class="scroll-to-top">
     <i
       id="scroll-top-button"
-      :class="['fa', 'fa-arrow-circle-up', 'fa-lg', 'd-print-none', {'lighten': $data.lighten}]"
+      :class="[icon, iconStyle(), 'd-print-none', {'lighten': $data.lighten}]"
       :style="customStyle()"
       aria-hidden="true"
-      onclick="handleScrollTop()"
+      @click="handleScrollTop()"
     >
     </i>
   </div>
@@ -16,6 +14,20 @@
 <script>
 export default {
   name: 'ScrollToTopButton.vue',
+  props: {
+    icon: {
+      default: 'fa fa-arrow-circle-up',
+      type: String,
+    },
+    iconSize: {
+      type: String,
+      default: 'lg',
+    },
+    iconColor: {
+      type: String,
+      default: null,
+    },
+  },
   data() {
     return {
       visible: false,
@@ -68,10 +80,20 @@ export default {
       } else {
         style.display = 'none';
       }
+      if (this.iconColor) {
+        style.color = this.iconColor;
+      }
       return style;
     },
     handleScrollTop() {
       document.body.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    },
+    iconStyle() {
+      let iconStyle = '';
+      if (this.iconSize) {
+        iconStyle += `fa-${this.iconSize}`;
+      }
+      return iconStyle;
     },
   },
   mounted() {
