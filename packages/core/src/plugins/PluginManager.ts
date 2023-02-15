@@ -1,42 +1,60 @@
-const path = require('path');
-const fs = require('fs-extra');
-const walkSync = require('walk-sync');
+import merge from 'lodash/merge';
+
+import { DomElement } from 'htmlparser2';
+import path from 'path';
+import fs from 'fs-extra';
+import walkSync from 'walk-sync';
+import flatMap from 'lodash/flatMap';
+import get from 'lodash/get';
+import includes from 'lodash/includes';
+import isError from 'lodash/isError';
+import * as logger from '../utils/logger';
+import {
+  FrontMatter, Plugin, PluginContext, TagConfigs,
+} from './Plugin';
+import { NodeProcessorConfig } from '../html/NodeProcessor';
 
 const { ignoreTags } = require('../patches');
 
-const { Plugin } = require('./Plugin');
-
-const _ = {};
-_.flatMap = require('lodash/flatMap');
-_.get = require('lodash/get');
-_.includes = require('lodash/includes');
-_.merge = require('lodash/merge');
-
-const logger = require('../utils/logger');
+const _ = {
+  flatMap,
+  get,
+  includes,
+  isError,
+  merge,
+};
 
 const MARKBIND_PLUGIN_DIRECTORY = __dirname;
 const MARKBIND_DEFAULT_PLUGIN_DIRECTORY = path.join(__dirname, 'default');
 const MARKBIND_PLUGIN_PREFIX = 'markbind-plugin-';
 const PROJECT_PLUGIN_FOLDER_NAME = '_markbind/plugins';
 
-class PluginManager {
-  constructor(config, plugins, pluginsContext) {
+type PageAsset = {
+  pluginScripts: string[],
+  pluginLinks: string[],
+};
+
+export class PluginManager {
+  static tagConfig: { [key: string]: TagConfigs };
+
+  config: NodeProcessorConfig;
+  plugins: { [key: string]: Plugin };
+  pluginsRaw: string[];
+  pluginsContextRaw: PluginContext;
+  htmlBeautifyOptions: { [key: string]: any };
+
+  constructor(config: NodeProcessorConfig, plugins: string[], pluginsContext: PluginContext) {
     this.config = config;
 
-    /**
-     * @type {Object<string, Plugin>}
-     */
     this.plugins = {};
 
     /**
      * Raw array of plugin names as read from the site configuration
-     * @type {Array}
      */
     this.pluginsRaw = plugins;
 
     /**
      * Raw representation of the site configuration's plugisnContext key
-     * @type {Object<string, Object<string, any>>}
      */
     this.pluginsContextRaw = pluginsContext;
 
@@ -55,8 +73,6 @@ class PluginManager {
    * Load all plugins of the site
    */
   _collectPlugins() {
-    module.paths.push(path.join(this.config.rootPath, 'node_modules'));
-
     const defaultPluginNames = walkSync(MARKBIND_DEFAULT_PLUGIN_DIRECTORY, {
       directories: false,
       globs: [`${MARKBIND_PLUGIN_PREFIX}*.js`],
@@ -78,7 +94,7 @@ class PluginManager {
    * @param plugin name of the plugin
    * @param isDefault whether the plugin is a default plugin
    */
-  _loadPlugin(plugin, isDefault) {
+  _loadPlugin(plugin: string, isDefault: boolean) {
     try {
       // Check if already loaded
       if (this.plugins[plugin]) {
@@ -108,7 +124,7 @@ class PluginManager {
    * @param projectRootPath root of the MarkBind project
    * @param pluginName name of the plugin
    */
-  static _getPluginPath(projectRootPath, pluginName) {
+  static _getPluginPath(projectRootPath: string, pluginName: string) {
     // Check in project folder
     const pluginPath = path.join(projectRootPath, PROJECT_PLUGIN_FOLDER_NAME, `${pluginName}.js`);
     if (fs.existsSync(pluginPath)) {
@@ -127,7 +143,19 @@ class PluginManager {
       return markbindDefaultPluginPath;
     }
 
-    return require.resolve(pluginName);
+    // Check the environment's node_modules folders
+    try {
+      const resolvedPluginPath = require.resolve(pluginName);
+      return resolvedPluginPath;
+    } catch (err) {
+      // An error may be thrown because the module is not found, or for other reasons.
+      // If the error is due to MODULE_NOT_FOUND, search project's node_modules
+      if (_.isError(err) && (err as NodeJS.ErrnoException).code === 'MODULE_NOT_FOUND') {
+        return require.resolve(pluginName, { paths: [path.join(projectRootPath, 'node_modules')] });
+      }
+      // Re-throw all other errors
+      throw err;
+    }
   }
 
   /**
@@ -142,7 +170,7 @@ class PluginManager {
         return;
       }
 
-      Object.entries(pluginTagConfig).forEach(([tagName, tagConfig]) => {
+      Object.entries(pluginTagConfig).forEach(([tagName, tagConfig]: [string, TagConfigs]) => {
         if (tagConfig.isSpecial) {
           specialTags.add(tagName.toLowerCase());
         }
@@ -168,7 +196,7 @@ class PluginManager {
   /**
    * Run getLinks and getScripts hooks
    */
-  collectPluginPageNjkAssets(frontmatter, content, pageAsset) {
+  collectPluginPageNjkAssets(frontmatter: FrontMatter, content: string, pageAsset: PageAsset) {
     const pluginLinksAndScripts = Object.values(this.plugins)
       .map(plugin => plugin.getPageNjkLinksAndScripts(frontmatter, content, this.config.baseUrl));
 
@@ -176,18 +204,18 @@ class PluginManager {
     pageAsset.pluginScripts = _.flatMap(pluginLinksAndScripts, pluginResult => pluginResult.scripts);
   }
 
-  postRender(frontmatter, content) {
+  postRender(frontmatter: FrontMatter, content: string) {
     return Object.values(this.plugins)
       .reduce((renderedContent, plugin) => plugin.postRender(frontmatter, renderedContent), content);
   }
 
-  processNode(node) {
+  processNode(node: DomElement) {
     Object.values(this.plugins).forEach((plugin) => {
       plugin.processNode(node, this.config);
     });
   }
 
-  postProcessNode(node) {
+  postProcessNode(node: DomElement) {
     Object.values(this.plugins).forEach((plugin) => {
       plugin.postProcessNode(node, this.config);
     });
@@ -196,7 +224,3 @@ class PluginManager {
 
 // Static property for easy access in linkProcessor
 PluginManager.tagConfig = {};
-
-module.exports = {
-  PluginManager,
-};

@@ -11,12 +11,15 @@ import { createErrorNode } from './elements';
 import { PageSources } from '../Page/PageSources';
 import { isMarkdownFileExt } from '../utils/fsUtil';
 import * as logger from '../utils/logger';
+import * as linkProcessor from './linkProcessor';
 import VariableProcessor from '../variables/VariableProcessor';
 import { warnConflictingAtributesMap, warnDeprecatedAtributesMap } from './warnings';
 import { shiftSlotNodeDeeper, transformOldSlotSyntax, renameSlot } from './vueSlotSyntaxProcessor';
 import { MdAttributeRenderer } from './MdAttributeRenderer';
 import { MarkdownProcessor } from './MarkdownProcessor';
 import { processScriptAndStyleTag } from './scriptAndStyleTagProcessor';
+import { SiteLinkManager } from './SiteLinkManager';
+import { processInclude, processPanelSrc, processPopoverSrc } from './includePanelProcessor';
 
 const fm = require('fastmatter');
 
@@ -29,8 +32,6 @@ const _ = {
 require('../patches/htmlparser2');
 
 const { PageNavProcessor, renderSiteNav, addSitePageNavPortal } = require('./siteAndPageNavProcessor');
-const { processInclude, processPanelSrc, processPopoverSrc } = require('./includePanelProcessor');
-const linkProcessor = require('./linkProcessor');
 const { highlightCodeBlock, setCodeLineNumbers } = require('./codeblockProcessor');
 const { setHeadingId, assignPanelId } = require('./headerProcessor');
 const { FootnoteProcessor } = require('./FootnoteProcessor');
@@ -38,6 +39,21 @@ const { FootnoteProcessor } = require('./FootnoteProcessor');
 const FRONTMATTER_FENCE = '---';
 
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
+
+export type NodeProcessorConfig = {
+  baseUrl: string,
+  baseUrlMap: Set<string>,
+  rootPath: string,
+  outputPath: string,
+  ignore: string[],
+  addressablePagesSource: string[],
+  intrasiteLinkValidation: { enabled: boolean },
+  codeLineNumbers: boolean,
+  plantumlCheck: boolean,
+  headerIdMap: {
+    [id: string]: number,
+  },
+};
 
 export class NodeProcessor {
   frontmatter: { [key: string]: string } = {};
@@ -54,24 +70,11 @@ export class NodeProcessor {
   processedModals: { [id: string]: boolean } = {};
 
   constructor(
-    private config: {
-      baseUrl: string,
-      baseUrlMap: Set<string>,
-      rootPath: string,
-      outputPath: string,
-      ignore: string[],
-      addressablePagesSource: string[],
-      intrasiteLinkValidation: { enabled: boolean },
-      codeLineNumbers: boolean,
-      plantumlCheck: boolean,
-      headerIdMap: {
-        [id: string]: number,
-      },
-    },
+    private config: NodeProcessorConfig,
     private pageSources: PageSources,
     private variableProcessor: VariableProcessor,
     private pluginManager: any,
-    private siteLinkManager: any,
+    private siteLinkManager: SiteLinkManager,
     private userScriptsAndStyles: string[] | undefined,
     docId = '',
   ) {
@@ -164,10 +167,10 @@ export class NodeProcessor {
   /*
    * API
    */
-  processNode(node: DomElement, context: Context) {
+  processNode(node: DomElement, context: Context): Context {
     try {
       if (!node.name || !node.attribs) {
-        return node;
+        return context;
       }
 
       transformOldSlotSyntax(node);

@@ -4,11 +4,13 @@ const _ = { clone };
 
 interface Src {
   to: string,
+  from?: string,
 }
 
 export interface DynamicSrc {
   to: string,
   asIfTo: string,
+  from?: string,
 }
 
 export class PageSources {
