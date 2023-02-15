@@ -1,9 +1,11 @@
 <template>
-  <div class="scroll-to-top">
+  <div
+    class="scroll-to-top"
+  >
     <i
       id="scroll-top-button"
-      :class="[icon, iconStyle(), 'd-print-none', {'lighten': $data.lighten}]"
-      :style="customStyle()"
+      :class="[icon, getIconSize(), 'd-print-none', {'lighten': $data.lighten}]"
+      :style="iconStyle()"
       aria-hidden="true"
       @click="handleScrollTop()"
     >
@@ -24,6 +26,14 @@ export default {
       default: 'lg',
     },
     iconColor: {
+      type: String,
+      default: null,
+    },
+    bottom: {
+      type: String,
+      default: null,
+    },
+    right: {
       type: String,
       default: null,
     },
@@ -73,7 +83,7 @@ export default {
         }
       }, 1000);
     },
-    customStyle() {
+    iconStyle() {
       const style = {};
       if (this.visible) {
         style.display = 'block';
@@ -83,17 +93,28 @@ export default {
       if (this.iconColor) {
         style.color = this.iconColor;
       }
+      if (this.bottom) {
+        style.bottom = this.bottom;
+      } else {
+        style.bottom = '2%';
+      }
+      if (this.right) {
+        style.right = this.right;
+      } else {
+        style.right = '2%';
+      }
+      style.position = 'fixed';
       return style;
     },
     handleScrollTop() {
       document.body.scrollIntoView({ block: 'start', behavior: 'smooth' });
     },
-    iconStyle() {
-      let iconStyle = '';
+    getIconSize() {
+      let iconSize = '';
       if (this.iconSize) {
-        iconStyle += `fa-${this.iconSize}`;
+        iconSize += `fa-${this.iconSize}`;
       }
-      return iconStyle;
+      return iconSize;
     },
   },
   mounted() {
@@ -106,9 +127,4 @@ export default {
 </script>
 
 <style scoped>
-  .scroll-to-top {
-    position: fixed;
-    bottom: 2%;
-    right: 2%;
-  }
 </style>
