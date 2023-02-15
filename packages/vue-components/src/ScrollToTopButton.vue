@@ -1,16 +1,12 @@
 <template>
-  <div
-    class="scroll-to-top"
+  <i
+    id="scroll-top-button"
+    :class="[icon, getIconSize(), 'd-print-none', {'lighten': $data.lighten}]"
+    :style="iconStyle()"
+    aria-hidden="true"
+    @click="handleScrollTop()"
   >
-    <i
-      id="scroll-top-button"
-      :class="[icon, getIconSize(), 'd-print-none', {'lighten': $data.lighten}]"
-      :style="iconStyle()"
-      aria-hidden="true"
-      @click="handleScrollTop()"
-    >
-    </i>
-  </div>
+  </i>
 </template>
 
 <script>
