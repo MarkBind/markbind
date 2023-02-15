@@ -5,6 +5,6 @@ with(this){return _c('div',{attrs:{"id":"app"}},[_c('header',{attrs:{"sticky":""
 };
     var pageVueStaticRenderFns = [function anonymous(
 ) {
-with(this){return _c('div',{attrs:{"id":"content-wrapper"}},[_c('h1',{attrs:{"id":"page-1"}},[_c('span',{staticClass:"anchor",attrs:{"id":"page-1"}}),_v("Page 1"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#page-1","onclick":"event.stopPropagation()"}})]),_v(" "),_c('i',{staticClass:"fa fa-arrow-circle-up fa-lg d-print-none",attrs:{"id":"scroll-top-button","onclick":"handleScrollTop()","aria-hidden":"true"}})])}
+with(this){return _c('div',{attrs:{"id":"content-wrapper"}},[_c('h1',{attrs:{"id":"page-1"}},[_c('span',{staticClass:"anchor",attrs:{"id":"page-1"}}),_v("Page 1"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#page-1","onclick":"event.stopPropagation()"}})])])}
 }];
   
