@@ -255,10 +255,10 @@ export default {
         this.qState.answered = true;
       } else {
         // shake the card
-        this.shakeClass = 'shake';
+        this.shakeClass = 'fill-red';
         setTimeout(() => {
           this.shakeClass = null;
-        }, 800);
+        }, 2000);
       }
     },
     checkMcqAnswer(markAsAnsweredIfWrong) {
@@ -407,6 +407,31 @@ export default {
     .shake {
         animation: shake 0.15s;
         animation-iteration-count: 1;
+    }
+
+    @keyframes fill-red {
+        5% { background-color: rgba(255, 0, 0, 0.035); }
+        10% { background-color: rgba(255, 0, 0, 0.07); }
+        15% { background-color: rgba(255, 0, 0, 0.1); }
+        20% { background-color: rgba(255, 0, 0, 0.1); }
+        25% { background-color: rgba(255, 0, 0, 0.1); }
+        30% { background-color: rgba(255, 0, 0, 0.1); }
+        40% { background-color: rgba(255, 0, 0, 0.09); }
+        50% { background-color: rgba(255, 0, 0, 0.08); }
+        60% { background-color: rgba(255, 0, 0, 0.07); }
+        70% { background-color: rgba(255, 0, 0, 0.06); }
+        75% { background-color: rgba(255, 0, 0, 0.05); }
+        80% { background-color: rgba(255, 0, 0, 0.04); }
+        85% { background-color: rgba(255, 0, 0, 0.03); }
+        90% { background-color: rgba(255, 0, 0, 0.02); }
+        95% { background-color: rgba(255, 0, 0, 0.01); }
+        100% { background-color: rgba(255, 0, 0, 0.005); }
+    }
+
+    .fill-red {
+        animation: fill-red;
+        animation-iteration-count: 1;
+        animation-duration: 1s;
     }
 
     /* text question text area */
