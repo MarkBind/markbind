@@ -3,7 +3,6 @@
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import vueCommonAppFactory from './VueCommonAppFactory';
-import initScrollTopButton from './scrollTopButton';
 import './styles/index.css';
 import './print';
 
@@ -208,7 +207,5 @@ function setupWithSearch() {
    */
   vm.$mount('#app', true); // second parameter, 'true', enables force hydration
 }
-
-// initScrollTopButton();
 
 export default { setup, setupWithSearch };
