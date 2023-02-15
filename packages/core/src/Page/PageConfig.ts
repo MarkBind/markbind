@@ -19,6 +19,7 @@ export interface PageAssets {
   vue: string;
   jQuery: string;
   pageVueRenderJs?: string;
+  layoutUserScriptsAndStyles: string[];
 }
 
 /**
