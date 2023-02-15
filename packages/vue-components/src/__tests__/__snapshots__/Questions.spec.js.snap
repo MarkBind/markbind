@@ -228,7 +228,7 @@ exports[`Blank Questions and QOptions of answered correctly with unshown hint wi
 exports[`Blank Questions and QOptions of answered wrongly with header without hint renders correctly 1`] = `
 <transition-stub>
   <div
-    class="card question shake"
+    class="card question fill-red"
   >
     <div
       class="card-header alert-light border-bottom border-light text-dark"
@@ -450,7 +450,7 @@ exports[`Blank Questions and QOptions of answered wrongly with header without hi
 exports[`Blank Questions and QOptions of checked wrongly with shown hint without header renders correctly 1`] = `
 <transition-stub>
   <div
-    class="card question shake"
+    class="card question fill-red"
   >
     <!---->
      
@@ -607,7 +607,7 @@ exports[`Blank Questions and QOptions of checked wrongly with shown hint without
 exports[`Blank Questions and QOptions of checked wrongly with unshown hint with header with intermediate renders correctly 1`] = `
 <transition-stub>
   <div
-    class="card question shake"
+    class="card question fill-red"
   >
     <div
       class="card-header alert-light border-bottom border-light text-dark"
@@ -1135,7 +1135,7 @@ exports[`Checkbox Questions and QOptions of answered correctly with unshown hint
 exports[`Checkbox Questions and QOptions of answered wrongly with header without hint renders correctly 1`] = `
 <transition-stub>
   <div
-    class="card question shake"
+    class="card question fill-red"
   >
     <div
       class="card-header alert-light border-bottom border-light text-dark"
@@ -1329,7 +1329,7 @@ exports[`Checkbox Questions and QOptions of answered wrongly with header without
 exports[`Checkbox Questions and QOptions of checked wrongly with shown hint without header renders correctly 1`] = `
 <transition-stub>
   <div
-    class="card question shake"
+    class="card question fill-red"
   >
     <!---->
      
@@ -1938,7 +1938,7 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
 exports[`Mcq Questions and QOptions of answered wrongly with header without hint renders correctly 1`] = `
 <transition-stub>
   <div
-    class="card question shake"
+    class="card question fill-red"
   >
     <div
       class="card-header alert-light border-bottom border-light text-dark"
@@ -2208,7 +2208,7 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
 exports[`Mcq Questions and QOptions of checked wrongly with shown hint without header renders correctly 1`] = `
 <transition-stub>
   <div
-    class="card question shake"
+    class="card question fill-red"
   >
     <!---->
      
@@ -2836,7 +2836,7 @@ exports[`Text Questions of answered correctly with answer, unshown hint without 
 exports[`Text Questions of answered wrongly with answer, header without hint renders correctly 1`] = `
 <transition-stub>
   <div
-    class="card question shake"
+    class="card question fill-red"
   >
     <div
       class="card-header alert-light border-bottom border-light text-dark"
@@ -2920,7 +2920,7 @@ exports[`Text Questions of answered wrongly with answer, header without hint ren
 exports[`Text Questions of checked wrongly with answer shown hint without header renders correctly 1`] = `
 <transition-stub>
   <div
-    class="card question shake"
+    class="card question fill-red"
   >
     <!---->
      
