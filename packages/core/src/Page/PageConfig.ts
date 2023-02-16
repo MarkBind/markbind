@@ -1,4 +1,6 @@
 import { Template } from 'nunjucks';
+import { SiteLinkManager } from '../html/SiteLinkManager';
+import { PluginManager } from '../plugins/PluginManager';
 
 import VariableProcessor from '../variables/VariableProcessor';
 
@@ -20,6 +22,8 @@ export interface PageAssets {
   jQuery: string;
   pageVueRenderJs?: string;
   layoutUserScriptsAndStyles: string[];
+  pluginScripts?: string[],
+  pluginLinks?: string[],
 }
 
 /**
@@ -42,14 +46,14 @@ export class PageConfig {
   frontmatterOverride: { [frontmatterName: string]: string };
   layout?: string;
   layoutsAssetPath: string;
-  pluginManager: any;
+  pluginManager: PluginManager;
   /**
    * The output path of this page
    */
   resultPath: string;
   rootPath: string;
   searchable: boolean;
-  siteLinkManager: any;
+  siteLinkManager: SiteLinkManager;
   siteOutputPath: string;
   /**
    * The source file's (.md) file path for rendering this page
@@ -73,11 +77,11 @@ export class PageConfig {
     frontmatterOverride?: { [frontmatterName: string]: string },
     layout?: string,
     layoutsAssetPath: string;
-    pluginManager: any,
+    pluginManager: PluginManager,
     resultPath: string;
     rootPath: string;
     searchable: boolean;
-    siteLinkManager: any;
+    siteLinkManager: SiteLinkManager;
     siteOutputPath: string;
     sourcePath: string;
     src: string;
