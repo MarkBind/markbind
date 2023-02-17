@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScrollTopButton button icon is rendered correctly 1`] = `
+<i
+  aria-hidden="true"
+  class="scroll-top-button fa fa-arrow-circle-down fa-2x d-print-none"
+  style="display: none; color: red; bottom: 2%; right: 2%; position: fixed;"
+/>
+`;
+
+exports[`ScrollTopButton button position is rendered correctly 1`] = `
+<i
+  aria-hidden="true"
+  class="scroll-top-button fa fa-arrow-circle-up fa-lg d-print-none"
+  style="display: none; bottom: 100%; right: 100%; position: fixed;"
+/>
+`;
+
+exports[`ScrollTopButton scroll to top when button is pressed 1`] = `
+<i
+  aria-hidden="true"
+  class="scroll-top-button fa fa-arrow-circle-up fa-lg d-print-none"
+  style="display: none; bottom: 2%; right: 2%; position: fixed;"
+/>
+`;

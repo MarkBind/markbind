@@ -1,0 +1,38 @@
+import { mount } from '@vue/test-utils';
+import ScrollTopButton from '../ScrollTopButton.vue';
+
+describe('ScrollTopButton', () => {
+  test('button position is rendered correctly', async () => {
+    const wrapper = await mount(ScrollTopButton, {
+      propsData: {
+        right: '100%',
+        bottom: '100%',
+      },
+      attachTo: document.body,
+    });
+    expect(wrapper.element).toMatchSnapshot();
+  });
+  test('button icon is rendered correctly', async () => {
+    const wrapper = await mount(ScrollTopButton, {
+      propsData: {
+        icon: 'fa fa-arrow-circle-down',
+        iconSize: '2x',
+        iconColor: 'red',
+      },
+      attachTo: document.body,
+    });
+    expect(wrapper.element).toMatchSnapshot();
+  });
+  test('scroll to top when button is pressed', async () => {
+    const wrapper = await mount(ScrollTopButton, {
+      attachTo: document.body,
+    });
+    const scrollViewFunc = jest.fn((data) => {
+      expect(data.block).toBe('start');
+    });
+    window.HTMLElement.prototype.scrollIntoView = scrollViewFunc;
+    await wrapper.trigger('click');
+    expect(scrollViewFunc).toHaveBeenCalled();
+    expect(wrapper.element).toMatchSnapshot();
+  });
+});
