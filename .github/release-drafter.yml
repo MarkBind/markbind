@@ -1,0 +1,58 @@
+template: |
+  # markbind-cli
+  <!-- List out each of the PR for this version in the following format: -->
+  <!-- #ISSUE_NUMBER ISSUE_TITLE (#PR_NUMBER) -->
+  ## User Facing Changes
+
+  ### Breaking Changes
+  <!-- Any feature that is made obsolete -->
+
+  > Also give a brief explanation note about:
+  >   - what was the old feature that was made obsolete
+  >   - any replacement feature (if any), and
+  >   - how the author should modify his website to migrate from the old feature to the replacement feature (if possible).
+
+  ### Features
+  <!-- Features enable users (authors/readers) to do something new. -->
+
+  ### Enhancements
+  <!-- Enhances any existing features -->
+
+  ### Fixes
+  <!-- Fixes correct a programming error/assumption. -->
+
+  ### Documentation
+  <!-- Pure changes to the documentation, such as typo, restructuring, etc -->
+
+  ## Other Changes
+
+  ### Code Quality
+  <!-- Refactoring, etc. -->
+
+  ### DevOps Changes
+  <!-- Tooling, etc. -->
+
+  ### Dependencies
+  <!-- Dependency version upgrades of the main or any subpackages -->
+
+  ### Miscellaneous
+  <!-- Any other changes -->
+
+  <!-- When it's time to release, move the items below into the respective categories -->
+
+  $CHANGES
+
+tag-template: 'v$RESOLVED_VERSION'
+change-template: "* $TITLE (#$NUMBER)"
+version-resolver:
+  major:
+    labels:
+      - 'r.major'
+  minor:
+    labels:
+      - 'r.minor'
+  patch:
+    labels:
+      - 'r.patch'
+  default: patch
+name-template: v$RESOLVED_VERSION
