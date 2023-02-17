@@ -23,7 +23,7 @@
   * [Using HTML, JavaScript, CSS]({{baseUrl}}/userGuide/usingHtmlJavaScriptCss.html)
   * [Tweaking the Page Structure]({{baseUrl}}/userGuide/tweakingThePageStructure.html)
   * [Reusing Contents]({{baseUrl}}/userGuide/reusingContents.html)
-* **Working with sites** :expanded:
+* **Working with Sites** :expanded:
   * [Overview]({{baseUrl}}/userGuide/workingWithSites.html)
   * [Setting Site Properties]({{baseUrl}}/userGuide/settingSiteProperties.html)
   * [Using Plugins]({{baseUrl}}/userGuide/usingPlugins.html)

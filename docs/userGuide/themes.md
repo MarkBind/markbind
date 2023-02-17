@@ -11,7 +11,7 @@
 <md>[_User Guide → {{ title }}_]({{ filename }}.html)</md>
 </span>
 
-# {{ title }}
+# Applying Themes
 
 <div class="lead" id="overview">
 
