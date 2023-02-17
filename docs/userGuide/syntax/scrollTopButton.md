@@ -12,12 +12,12 @@ Add ```<scroll-top-button><scroll-top-button/>``` to layout file.
 
 ****Options****
 
-| Name     | Type     | Default                 | Description                        |
-|----------|----------|-------------------------|------------------------------------|
-| icon     | `String` | `fa fa-arrow-circle-up` | Icon used for button.              |
-| iconSize | `String` | `lg`                    | Size of button.                    |
-| bottom   | `String` | `2%`                    | Distance from bottom edge of page. |
-| right    | `String` | `2%`                    | Distance from right edge of page.  |
+| Name     | Type     | Default                 | Description                                                                           |
+|----------|----------|-------------------------|---------------------------------------------------------------------------------------|
+| icon     | `String` | `fa fa-arrow-circle-up` | Icon used for button.                                                                 |
+| iconSize | `String` | ``                      | Size of button. Supports integer-scaling of the icon dimensions e.g. 2x, 3x, 4x, etc. |
+| bottom   | `String` | `2%`                    | Distance from bottom edge of page.                                                    |
+| right    | `String` | `2%`                    | Distance from right edge of page.                                                     |
 
 </div>
 
