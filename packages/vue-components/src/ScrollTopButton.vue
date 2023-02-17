@@ -134,7 +134,7 @@ export default {
         }
     }
 
-    #scroll-top-button:active {
+    .scroll-top-button:active {
         opacity: 1;
     }
 </style>
