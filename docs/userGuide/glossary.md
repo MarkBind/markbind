@@ -3,6 +3,8 @@
   layout: userGuide.md
 </frontmatter>
 
+# Glossary
+
 #### Live Preview <span style="font-size: 0.8em;">:fas-sync:</span>
 
 <div id="live-preview">
