@@ -1,7 +1,6 @@
 <template>
   <i
-    id="scroll-top-button"
-    :class="[icon, getIconSize(), 'd-print-none', {'lighten': $data.lighten}]"
+    :class="['scroll-top-button', icon, getIconSize(), 'd-print-none', {'lighten': $data.isLighten}]"
     :style="iconStyle()"
     aria-hidden="true"
     @click="handleScrollTop()"
@@ -11,7 +10,7 @@
 
 <script>
 export default {
-  name: 'ScrollTopButton.vue',
+  name: 'ScrollTopButton',
   props: {
     icon: {
       default: 'fa fa-arrow-circle-up',
@@ -36,8 +35,8 @@ export default {
   },
   data() {
     return {
-      visible: false,
-      lighten: false,
+      isVisible: false,
+      isLighten: false,
       timers: {
         showOrHideButtonTimer: 0,
         lightenButtonTimer: 0,
@@ -58,15 +57,15 @@ export default {
     resetScrollTopButton() {
       clearTimeout(this.timers.showOrHideButtonTimer);
       clearTimeout(this.timers.lightenButtonTimer);
-      this.lighten = false;
+      this.isLighten = false;
     },
     showOrHideScrollTopButton() {
       this.timers.showOrHideButtonTimer = setTimeout(() => {
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-          this.visible = true;
+          this.isVisible = true;
           this.lightenScrollTopButton();
         } else {
-          this.visible = false;
+          this.isVisible = false;
         }
       }, 100);
     },
@@ -74,31 +73,19 @@ export default {
       // lightens the scroll-top-button after 1 second of button inactivity
       // prevents the button from obscuring the content
       this.timers.lightenButtonTimer = setTimeout(() => {
-        if (!this.lighten) {
-          this.lighten = true;
+        if (!this.isLighten) {
+          this.isLighten = true;
         }
       }, 1000);
     },
     iconStyle() {
       const style = {};
-      if (this.visible) {
-        style.display = 'block';
-      } else {
-        style.display = 'none';
-      }
+      style.display = this.isVisible ? 'block' : 'none';
       if (this.iconColor) {
         style.color = this.iconColor;
       }
-      if (this.bottom) {
-        style.bottom = this.bottom;
-      } else {
-        style.bottom = '2%';
-      }
-      if (this.right) {
-        style.right = this.right;
-      } else {
-        style.right = '2%';
-      }
+      style.bottom = this.bottom ? this.bottom : '2%';
+      style.right = this.right ? this.right : '2%';
       style.position = 'fixed';
       return style;
     },
@@ -106,11 +93,7 @@ export default {
       document.body.scrollIntoView({ block: 'start', behavior: 'smooth' });
     },
     getIconSize() {
-      let iconSize = '';
-      if (this.iconSize) {
-        iconSize += `fa-${this.iconSize}`;
-      }
-      return iconSize;
+      return this.iconSize ? `fa-${this.iconSize}` : '';
     },
   },
   mounted() {
