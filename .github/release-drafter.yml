@@ -47,12 +47,12 @@ change-template: "* $TITLE (#$NUMBER)"
 version-resolver:
   major:
     labels:
-      - 'r.major'
+      - 'r.Major'
   minor:
     labels:
-      - 'r.minor'
+      - 'r.Minor'
   patch:
     labels:
-      - 'r.patch'
+      - 'r.Patch'
   default: patch
 name-template: v$RESOLVED_VERSION
