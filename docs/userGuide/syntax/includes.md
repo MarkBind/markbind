@@ -197,7 +197,7 @@ In `reading.md` (note how it reuses content from the `content-fragment.md`):
 <include src="content-fragment.md" />
 ```
 
-In `site.json` we then exclude the fragment from the page generation with [pagesExclude](../siteJsonFile.html#:~:text=%22pagesExclude%22%3A%20%5B%22subsite/**/*.md%22%2C%20%22node_modules/*%22%5D%2C):
+In `site.json` we then exclude the fragment from the page generation with [pagesExclude](../siteJsonFile.html#pagesexclude):
 
 ```json
 ...
