@@ -1,11 +1,13 @@
 <template>
-  <i
-    :class="['scroll-top-button', icon, getIconSize(), 'd-print-none', {'lighten': $data.isLighten}]"
+  <div
+    :class="['scroll-top-button', getIconSize(), 'd-print-none', {'lighten': $data.isLighten}]"
     :style="iconStyle()"
     aria-hidden="true"
-    @click="handleScrollTop()"
-  >
-  </i>
+    @click="handleScrollTop()">
+    <slot name="icon">
+      <i :class="['fas fa-arrow-circle-up']"></i>
+    </slot>
+  </div>
 </template>
 
 <script>
@@ -13,8 +15,8 @@ export default {
   name: 'ScrollTopButton',
   props: {
     icon: {
-      default: 'fa fa-arrow-circle-up',
       type: String,
+      default: null,
     },
     iconSize: {
       type: String,
@@ -105,7 +107,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
     .scroll-top-button {
         display: none;
         position: fixed;

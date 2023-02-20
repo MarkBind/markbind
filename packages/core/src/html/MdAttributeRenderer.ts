@@ -191,4 +191,8 @@ export class MdAttributeRenderer {
     node.children = cheerio.parseHTML(renderedText) as unknown as DomElement[];
     delete node.attribs.text;
   }
+
+  processScrollTopButtonAttributes(node: DomElement) {
+    this.processAttributeWithoutOverride(node, 'icon', true);
+  }
 }
