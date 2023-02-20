@@ -121,6 +121,39 @@ test('includeFile replaces <include src="include.md#exists"> with <div>', async 
   expect(result).toEqual(expected);
 });
 
+test('includeFile replaces an empty segment <include src="include.md#empty"> with <div>', async () => {
+  const indexPath = path.resolve('index.md');
+
+  const index = [
+    '# Index',
+    '<include src="include.md#empty"/>',
+    '',
+  ].join('\n');
+
+  const include = [
+    '# Include',
+    'This is an empty segment:',
+    '<div id="empty"></div>',
+  ].join('\n');
+
+  const json = {
+    'index.md': index,
+    'include.md': include,
+  };
+
+  fs.vol.fromJSON(json, '');
+
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const result = await nodeProcessor.process(indexPath, index);
+
+  const expected = [
+    '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
+    '<div></div>',
+  ].join('\n');
+
+  expect(result).toEqual(expected);
+});
+
 test('includeFile replaces <include src="include.md#exists" inline> with inline content', async () => {
   const indexPath = path.resolve('index.md');
 
