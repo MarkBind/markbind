@@ -1,6 +1,6 @@
-import { Template } from 'nunjucks';
-import { SiteLinkManager } from '../html/SiteLinkManager';
-import { PluginManager } from '../plugins/PluginManager';
+import type { Template } from 'nunjucks';
+import type { SiteLinkManager } from '../html/SiteLinkManager';
+import type { PluginManager } from '../plugins/PluginManager';
 
 import VariableProcessor from '../variables/VariableProcessor';
 

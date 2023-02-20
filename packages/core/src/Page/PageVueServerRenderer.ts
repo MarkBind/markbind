@@ -9,8 +9,8 @@ import fs from 'fs-extra';
 import * as VueCompiler from 'vue-template-compiler';
 import { createRenderer } from 'vue-server-renderer';
 import * as logger from '../utils/logger';
-import { PageConfig, PageAssets } from './PageConfig';
-import { Page } from '.';
+import type { PageConfig, PageAssets } from './PageConfig';
+import type { Page } from '.';
 /* eslint-enable import/no-import-module-exports */
 
 let bundle = require('@markbind/core-web/dist/js/vueCommonAppFactory.min');

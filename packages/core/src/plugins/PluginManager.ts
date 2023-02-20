@@ -12,8 +12,8 @@ import * as logger from '../utils/logger';
 import {
   FrontMatter, Plugin, PluginContext, TagConfigs,
 } from './Plugin';
-import { NodeProcessorConfig } from '../html/NodeProcessor';
-import { PageAssets } from '../Page/PageConfig';
+import type { NodeProcessorConfig } from '../html/NodeProcessor';
+import type { PageAssets } from '../Page/PageConfig';
 
 const { ignoreTags } = require('../patches');
 

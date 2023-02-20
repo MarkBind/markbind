@@ -12,14 +12,14 @@ import { PageSources } from '../Page/PageSources';
 import { isMarkdownFileExt } from '../utils/fsUtil';
 import * as logger from '../utils/logger';
 import * as linkProcessor from './linkProcessor';
-import VariableProcessor from '../variables/VariableProcessor';
+import type VariableProcessor from '../variables/VariableProcessor';
 import { warnConflictingAtributesMap, warnDeprecatedAtributesMap } from './warnings';
 import { shiftSlotNodeDeeper, transformOldSlotSyntax, renameSlot } from './vueSlotSyntaxProcessor';
 import { MdAttributeRenderer } from './MdAttributeRenderer';
 import { MarkdownProcessor } from './MarkdownProcessor';
 import { processScriptAndStyleTag } from './scriptAndStyleTagProcessor';
-import { SiteLinkManager } from './SiteLinkManager';
-import { PluginManager } from '../plugins/PluginManager';
+import type { SiteLinkManager } from './SiteLinkManager';
+import type { PluginManager } from '../plugins/PluginManager';
 import { processInclude, processPanelSrc, processPopoverSrc } from './includePanelProcessor';
 
 import { PageNavProcessor, renderSiteNav, addSitePageNavPortal } from './siteAndPageNavProcessor';
