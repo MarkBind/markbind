@@ -14,8 +14,10 @@ describe('ScrollTopButton', () => {
   });
   test('button icon is rendered correctly', async () => {
     const wrapper = await mount(ScrollTopButton, {
+      slots: {
+        icon: ':fas-plus:',
+      },
       propsData: {
-        icon: 'fa fa-arrow-circle-down',
         iconSize: '2x',
         iconColor: 'red',
       },
