@@ -235,9 +235,10 @@ export function processInclude(node: DomElement, context: Context, pageSources: 
   // the appropriate children to a wrapped include element
   if (hash) {
     const $ = cheerio.load(actualContent);
-    actualContent = $(hash).html() || '';
+    const actualContentOrNull = $(hash).html();
+    actualContent = actualContentOrNull || '';
 
-    if (actualContent === '' && !isOptional) {
+    if (actualContentOrNull === null && !isOptional) {
       const error = new Error(`No such segment '${hash}' in file: ${actualFilePath}\n`
        + `Missing reference in ${context.cwf}`);
       logger.error(error);
