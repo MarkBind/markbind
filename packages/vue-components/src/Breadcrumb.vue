@@ -9,10 +9,10 @@
           :aria-current="{'page': isLast(index, items.length)}"
         >
           <a v-if="isLast(index, items.length)">
-            {{ item }}
+            {{ item.title }}
           </a>
-          <a v-else href="#">
-            {{ item }}
+          <a v-else :href="item.link">
+            {{ item.title }}
           </a>
         </li>
       </ol>
@@ -21,18 +21,35 @@
 </template>
 
 <script>
+import normalizeUrl from './utils/urls';
 
 export default {
   data() {
     return {
       showBreadcrumb: true,
-      items: ['Next', 'NextNext', 'NextNextNext'],
+      items: [],
     };
   },
   methods: {
     isLast(index, length) {
       return index === length - 1;
     },
+  },
+  mounted() {
+    const currentUrl = normalizeUrl(new URL(window.location.href).pathname);
+    const splitArr = currentUrl.split('/');
+    let tempUrl = window.location.href.origin;
+    if (tempUrl === undefined) {
+      tempUrl = '';
+    }
+    for (let i = 0; i < splitArr.length; i += 1) {
+      if (i === 0) {
+        this.items.push({ title: 'Home', link: tempUrl.concat('/index.html') });
+      } else {
+        tempUrl += '/'.concat(splitArr[i]);
+        this.items.push({ title: splitArr[i], link: tempUrl });
+      }
+    }
   },
 };
 </script>
