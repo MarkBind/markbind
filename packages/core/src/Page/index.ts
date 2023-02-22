@@ -1,20 +1,27 @@
-const cheerio = require('cheerio'); require('../patches/htmlparser2');
-const fs = require('fs-extra');
-const htmlBeautify = require('js-beautify').html;
-const path = require('path');
+import cheerio from 'cheerio';
+import fs from 'fs-extra';
+import path from 'path';
+import { html as htmlBeautify } from 'js-beautify';
 
-const { pageVueServerRenderer } = require('./PageVueServerRenderer');
+import cloneDeep from 'lodash/cloneDeep';
+import isObject from 'lodash/isObject';
+import isArray from 'lodash/isArray';
+import { DomElement } from 'htmlparser2';
+import { pageVueServerRenderer } from './PageVueServerRenderer';
 
-const _ = {};
-_.cloneDeep = require('lodash/cloneDeep');
-_.isObject = require('lodash/isObject');
-_.isArray = require('lodash/isArray');
+import CyclicReferenceError from '../errors/CyclicReferenceError';
+import { PageSources } from './PageSources';
+import { NodeProcessor, NodeProcessorConfig } from '../html/NodeProcessor';
 
-const { CyclicReferenceError } = require('../errors');
-const { PageSources } = require('./PageSources');
-const { NodeProcessor } = require('../html/NodeProcessor');
+import * as logger from '../utils/logger';
+import { PageAssets, PageConfig } from './PageConfig';
+import { SiteConfig } from '../Site/SiteConfig';
+import { FrontMatter } from '../plugins/Plugin';
+import { ExternalManager } from '../External/ExternalManager';
 
-const logger = require('../utils/logger');
+require('../patches/htmlparser2');
+
+const _ = { cloneDeep, isObject, isArray };
 
 const PACKAGE_VERSION = require('../../package.json').version;
 
@@ -30,24 +37,40 @@ const PAGE_NAV_TITLE_CLASS = 'page-nav-title';
 
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
-class Page {
-  /**
-   * @param {PageConfig} pageConfig
-   * @param {SiteConfig} siteConfig
-   */
-  constructor(pageConfig, siteConfig) {
+export class Page {
+  pageConfig: PageConfig;
+  siteConfig: SiteConfig;
+
+  // We assert that these properties exist because resetState is called in the constructor to initialise them
+  asset!: PageAssets;
+  pageUserScriptsAndStyles!: string[];
+  frontmatter!: FrontMatter;
+  headerIdMap!: { [id: string]: number };
+  includedFiles!: Set<string>;
+  headings!: { [key: string]: string };
+  keywords!: { [key: string]: string[] };
+  title!: string;
+  navigableHeadings!: {
+    [id: string]: {
+      text: string,
+      level: number
+    }
+  };
+
+  layout?: string;
+
+  constructor(pageConfig: PageConfig, siteConfig: SiteConfig) {
     /**
      * Page configuration passed from {@link Site}.
      * This should not be mutated.
-     * @type {PageConfig}
      */
     this.pageConfig = pageConfig;
 
     /**
      * Site configuration passed from {@link Site}.
-     * @type {SiteConfig}
      */
     this.siteConfig = siteConfig;
+    this.resetState();
   }
 
   /**
@@ -63,7 +86,6 @@ class Page {
     this.asset = _.cloneDeep(this.pageConfig.asset);
     /**
      * To collect all the user provided scripts and/or style content.
-     * @type {Array}
      */
     this.pageUserScriptsAndStyles = [];
     /**
@@ -74,31 +96,26 @@ class Page {
     this.frontmatter = {};
     /**
      * Map of heading ids to its text content
-     * @type {Object<string, string>}
      */
     this.headings = {};
     /**
      * Stores the next integer to append to a heading id, for resolving heading id conflicts
-     * @type {Object<string, number>}
      */
     this.headerIdMap = {};
     /**
      * Set of included files (dependencies) used for live reload
      * https://markbind.org/userGuide/reusingContents.html#includes
-     * @type {Set<string>}
      */
     this.includedFiles = new Set([this.pageConfig.sourcePath]);
     /**
      * Map of heading ids (that closest to the keyword) to the keyword text content
      * https://markbind.org/userGuide/makingTheSiteSearchable.html#keywords
-     * @type {Object<string, Array>}
      */
     this.keywords = {};
     /**
      * The title of the page.
      * This is initially set to the title specified in the site configuration,
      * if there is none, we look for one in the frontmatter(s) as well.
-     * @type {string}
      */
     this.title = this.pageConfig.title || '';
 
@@ -108,14 +125,11 @@ class Page {
 
     /**
      * The layout to use for this page, which may be further mutated in {@link processFrontmatter}.
-     * @type {string}
      */
     this.layout = this.pageConfig.layout;
     /**
-     * An object storing the mapping from the navigable headings' id to an
-     * object of {text: NAV_TEXT, level: NAV_LEVEL}.
-     * Used for page nav generation.
-     * @type {Object<string, Object>}
+     * Storing the mapping from the navigable headings' id to an
+     * object used for page nav generation.
      */
     this.navigableHeadings = {};
   }
@@ -124,11 +138,11 @@ class Page {
    * Checks if the provided filePath is a dependency of the page
    * @param {string} filePath to check
    */
-  isDependency(filePath) {
+  isDependency(filePath: string) {
     return this.includedFiles && this.includedFiles.has(filePath);
   }
 
-  prepareTemplateData(content) {
+  prepareTemplateData(content: string) {
     let { title } = this;
     if (this.siteConfig.titlePrefix) {
       title = this.siteConfig.titlePrefix + (title ? TITLE_PREFIX_SEPARATOR + title : '');
@@ -167,11 +181,11 @@ class Page {
    * @param pageNav {string|number} 'default' refers to the configured heading indexing level,
    * otherwise a number that indicates the indexing level.
    */
-  generateElementSelectorForPageNav(pageNav) {
+  generateElementSelectorForPageNav(pageNav: string | number) {
     if (pageNav === 'default') {
       return `${Page.generateHeadingSelector(this.siteConfig.headingIndexingLevel)}, panel`;
     } else if (Number.isInteger(pageNav)) {
-      return `${Page.generateHeadingSelector(parseInt(pageNav, 10))}, panel`;
+      return `${Page.generateHeadingSelector(pageNav as number)}, panel`;
     }
     // Not a valid specifier
     return undefined;
@@ -182,7 +196,7 @@ class Page {
    * Collects headings from the header slots of unexpanded panels, but not its content.
    * @param content html content of a page
    */
-  collectNavigableHeadings(content) {
+  collectNavigableHeadings(content: string) {
     const { pageNav } = this.frontmatter;
     const elementSelector = this.generateElementSelectorForPageNav(pageNav);
     if (elementSelector === undefined) {
@@ -193,13 +207,14 @@ class Page {
     this._collectNavigableHeadings($, $.root()[0], elementSelector);
   }
 
-  _collectNavigableHeadings($, context, pageNavSelector) {
-    $(pageNavSelector, context).each((i, elem) => {
+  _collectNavigableHeadings($: cheerio.Root, context: cheerio.Element, pageNavSelector: string) {
+    $(pageNavSelector, context).each((_i, cheerioElem: cheerio.Element) => {
+      const elem = cheerioElem as cheerio.Element & DomElement;
       // Check if heading or panel is already inside an unexpanded panel
       let isInsideUnexpandedPanel = false;
       const panelParents = $(elem).parentsUntil(context).filter('panel').not(elem);
-      panelParents.each((j, elemParent) => {
-        if (elemParent.attribs.expanded === undefined) {
+      panelParents.each((_j, elemParent) => {
+        if ((elemParent as DomElement).attribs?.expanded === undefined) {
           isInsideUnexpandedPanel = true;
           return false;
         }
@@ -221,13 +236,16 @@ class Page {
         const headings = $(elem).children('[\\#header]');
         if (!headings.length) return;
 
-        this._collectNavigableHeadings($, headings.first(), pageNavSelector);
-      } else if ($(elem).attr('id') !== undefined) {
-        // Headings already in content, with a valid ID
-        this.navigableHeadings[$(elem).attr('id')] = {
-          text: $(elem).text(),
-          level: elem.name.replace('h', ''),
-        };
+        this._collectNavigableHeadings($, headings.first() as unknown as cheerio.Element, pageNavSelector);
+      } else {
+        const headingId = $(elem).attr('id');
+        if (headingId && elem.name) {
+          // Headings already in content, with a valid ID
+          this.navigableHeadings[headingId] = {
+            text: $(elem).text(),
+            level: parseInt(elem.name.replace('h', ''), 10),
+          };
+        }
       }
     });
   }
@@ -235,41 +253,39 @@ class Page {
   /**
    * Records headings and keywords inside rendered page into this.headings and this.keywords respectively
    */
-  collectHeadingsAndKeywords(pageContent) {
+  collectHeadingsAndKeywords(pageContent: string) {
     this.collectHeadingsAndKeywordsInContent(pageContent, null, false, []);
   }
 
   /**
    * Records headings and keywords inside content into this.headings and this.keywords respectively
-   * @param content that contains the headings and keywords
-   * @param lastHeading
-   * @param excludeHeadings
-   * @param sourceTraversalStack
    */
-  collectHeadingsAndKeywordsInContent(content, lastHeading, excludeHeadings, sourceTraversalStack) {
+  collectHeadingsAndKeywordsInContent(content: string | Buffer, lastHeading: cheerio.Element | null,
+                                      excludeHeadings: boolean, sourceTraversalStack: string[]) {
     let $ = cheerio.load(content);
     const headingsSelector = Page.generateHeadingSelector(this.siteConfig.headingIndexingLevel);
     $('modal').remove();
     $('panel').not('panel panel')
-      .each((index, panel) => {
+      .each((_index, panel) => {
         const slotHeader = $(panel).children('[\\#header]');
         if (slotHeader.length) {
-          this.collectHeadingsAndKeywordsInContent(slotHeader.html(),
+          this.collectHeadingsAndKeywordsInContent(slotHeader.html() || '',
                                                    lastHeading, excludeHeadings, sourceTraversalStack);
         }
       })
-      .each((index, panel) => {
-        const shouldExcludeHeadings = excludeHeadings || (panel.attribs.expanded === undefined);
+      .each((_index, cheerioPanel) => {
+        const panel = cheerioPanel as cheerio.Element & DomElement;
+        const shouldExcludeHeadings = excludeHeadings || (panel.attribs?.expanded === undefined);
         let closestHeading = Page.getClosestHeading($, headingsSelector, panel);
         if (!closestHeading) {
           closestHeading = lastHeading;
         }
         const slotHeadings = $(panel).children('[\\#header]').find(':header');
         if (slotHeadings.length) {
-          closestHeading = slotHeadings.first();
+          closestHeading = slotHeadings.first() as unknown as cheerio.Element;
         }
 
-        if (panel.attribs.src) {
+        if (panel.attribs?.src) {
           const src = panel.attribs.src.split('#')[0];
           const buildInnerDir = path.dirname(this.pageConfig.sourcePath);
           const resultInnerDir = path.dirname(this.pageConfig.resultPath);
@@ -289,14 +305,15 @@ class Page {
           }
           if (panel.attribs.fragment) {
             $ = cheerio.load(includeContent);
-            this.collectHeadingsAndKeywordsInContent($(`#${panel.attribs.fragment}`).html(), closestHeading,
-                                                     shouldExcludeHeadings, childSourceTraversalStack);
+            this.collectHeadingsAndKeywordsInContent($(`#${panel.attribs.fragment}`).html() || '',
+                                                     closestHeading, shouldExcludeHeadings,
+                                                     childSourceTraversalStack);
           } else {
             this.collectHeadingsAndKeywordsInContent(includeContent, closestHeading, shouldExcludeHeadings,
                                                      childSourceTraversalStack);
           }
         } else {
-          this.collectHeadingsAndKeywordsInContent($(panel).html(), closestHeading,
+          this.collectHeadingsAndKeywordsInContent($(panel).html() || '', closestHeading,
                                                    shouldExcludeHeadings, sourceTraversalStack);
         }
       });
@@ -305,11 +322,12 @@ class Page {
       $('modal').remove();
       $('panel').remove();
       if (!excludeHeadings) {
-        $(headingsSelector).each((i, heading) => {
-          this.headings[$(heading).attr('id')] = $(heading).text();
+        $(headingsSelector).each((_i, heading) => {
+          const headingId = $(heading).attr('id');
+          if (headingId) this.headings[headingId] = $(heading).text();
         });
       }
-      $('.keyword').each((i, keyword) => {
+      $('.keyword').each((_i, keyword) => {
         let closestHeading = Page.getClosestHeading($, headingsSelector, keyword);
         if (excludeHeadings || !closestHeading) {
           if (!lastHeading) {
@@ -329,8 +347,9 @@ class Page {
    * @param keyword to link
    * @param heading to link
    */
-  linkKeywordToHeading($, keyword, heading) {
+  linkKeywordToHeading($: cheerio.Root, keyword: cheerio.Element, heading: cheerio.Element | null) {
     const headingId = $(heading).attr('id');
+    if (!headingId) return;
     if (!(headingId in this.keywords)) {
       this.keywords[headingId] = [];
     }
@@ -342,7 +361,7 @@ class Page {
    * instance configurations.
    * Frontmatter properties always have lower priority than site configuration properties.
    */
-  processFrontmatter(frontmatter) {
+  processFrontmatter(frontmatter: FrontMatter) {
     this.frontmatter = {
       ...frontmatter,
       ...this.siteConfig.globalOverride,
@@ -360,7 +379,7 @@ class Page {
    */
   generatePageNavHeadingHtml() {
     let headingHTML = '';
-    const headingStack = [];
+    const headingStack: number[] = [];
     Object.keys(this.navigableHeadings).forEach((key) => {
       const currentHeadingLevel = this.navigableHeadings[key].level;
       const headingText = this.navigableHeadings[key].text;
@@ -422,7 +441,7 @@ class Page {
   /**
    *  Builds page navigation bar with headings up to headingIndexingLevel
    */
-  buildPageNav(content) {
+  buildPageNav(content: string) {
     const isFmPageNavSpecifierValid = this.isPageNavigationSpecifierValid();
     const doesLayoutHavePageNav = this.pageConfig.layoutManager.layoutHasPageNav(this.layout);
 
@@ -451,21 +470,10 @@ class Page {
     return '';
   }
 
-  /**
-   * A file configuration object.
-   * @typedef {Object<string, any>} FileConfig
-   * @property {Set<string>} baseUrlMap the set of urls representing the sites' base directories
-   * @property {string} rootPath
-   * @property {VariableProcessor} variableProcessor
-   * @property {Object<string, number>} headerIdMap
-   */
-  async generate(externalManager) {
+  async generate(externalManager: ExternalManager) {
     this.resetState(); // Reset for live reload
 
-    /**
-     * @type {FileConfig}
-     */
-    const fileConfig = {
+    const fileConfig: NodeProcessorConfig = {
       baseUrl: this.siteConfig.baseUrl,
       ignore: this.siteConfig.ignore,
       intrasiteLinkValidation: this.siteConfig.intrasiteLinkValidation,
@@ -476,6 +484,8 @@ class Page {
       addressablePagesSource: this.pageConfig.addressablePagesSource,
 
       headerIdMap: this.headerIdMap,
+      outputPath: externalManager.config.outputPath,
+      plantumlCheck: this.siteConfig.plantumlCheck,
     };
 
     const {
@@ -486,7 +496,7 @@ class Page {
                                             pluginManager, siteLinkManager, this.pageUserScriptsAndStyles);
 
     let content = variableProcessor.renderWithSiteVariables(this.pageConfig.sourcePath, pageSources);
-    content = await nodeProcessor.process(this.pageConfig.sourcePath, content);
+    content = await nodeProcessor.process(this.pageConfig.sourcePath, content) as string;
     this.processFrontmatter(nodeProcessor.frontmatter);
     content = pluginManager.postRender(this.frontmatter, content);
     const pageContent = content;
@@ -522,7 +532,7 @@ class Page {
       pageNav,
     };
     // Each source path will only contain 1 copy of build/re-build page (the latest one)
-    pageVueServerRenderer.pageEntries[this.pageConfig.soucePath] = builtPage;
+    pageVueServerRenderer.pageEntries[this.pageConfig.sourcePath] = builtPage;
 
     /*
      * Server-side render Vue page app into actual html.
@@ -538,7 +548,7 @@ class Page {
     }
   }
 
-  async outputPageHtml(content) {
+  async outputPageHtml(content: string) {
     const renderedTemplate = this.pageConfig.template.render(
       this.prepareTemplateData(content)); // page.njk
 
@@ -554,7 +564,7 @@ class Page {
    * or with the index attribute, that do not also have the noindex attribute
    * @param headingIndexingLevel to generate
    */
-  static generateHeadingSelector(headingIndexingLevel) {
+  static generateHeadingSelector(headingIndexingLevel: number) {
     let headingsSelectors = ['.always-index:header', 'h1'];
     for (let i = 2; i <= headingIndexingLevel; i += 1) {
       headingsSelectors.push(`h${i}`);
@@ -569,23 +579,22 @@ class Page {
    * @param headingsSelector jQuery selector for selecting headings
    * @param element to find closest heading
    */
-  static getClosestHeading($, headingsSelector, element) {
+  static getClosestHeading($: cheerio.Root, headingsSelector: string,
+                           element: cheerio.Element): cheerio.Element | null {
     const prevElements = $(element).prevAll();
     for (let i = 0; i < prevElements.length; i += 1) {
       const currentElement = $(prevElements[i]);
       if (currentElement.is(headingsSelector)) {
-        return currentElement;
+        return currentElement as unknown as cheerio.Element;
       }
       const childHeadings = currentElement.find(headingsSelector);
       if (childHeadings.length > 0) {
-        return childHeadings.last();
+        return childHeadings.last() as unknown as cheerio.Element;
       }
     }
     if ($(element).parent().length === 0) {
       return null;
     }
-    return Page.getClosestHeading($, headingsSelector, $(element).parent());
+    return Page.getClosestHeading($, headingsSelector, $(element).parent() as unknown as cheerio.Element);
   }
 }
-
-module.exports = Page;
