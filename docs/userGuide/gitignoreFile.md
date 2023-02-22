@@ -8,7 +8,7 @@
   pageNav: 5
 </frontmatter>
 
-# {{ title | safe }}
+# `.gitignore` File
 
 If you are using [Git](https://git-scm.com/) to manage your project, you can use a `.gitignore` file to ignore files that you don't want to be tracked by Git.
 
