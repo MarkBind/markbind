@@ -131,7 +131,7 @@ export default {
       this.questions[this.currentQuestion - 1].hide();
       this.currentQuestion += 1;
       if (this.currentQuestion <= this.questions.length) {
-        this.questions[this.currentQuestion - 1].show();
+        setTimeout(() => this.questions[this.currentQuestion - 1].show(), 530);
       } else {
         this.complete();
       }
