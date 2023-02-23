@@ -122,7 +122,7 @@ export class Page {
      * This is initially set to the title specified in the site configuration,
      * if there is none, we look for one in the frontmatter(s) as well.
      */
-    this.title = this.pageConfig.title || TITLE_DEFAULT;
+    this.title = this.pageConfig.title || '';
 
     /*
      * Layouts related properties

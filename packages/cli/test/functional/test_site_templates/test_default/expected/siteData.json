@@ -3,13 +3,13 @@
   "pages": [
     {
       "src": "404.md",
-      "title": "Default",
+      "title": "Page not found",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "contents/topic1.md",
-      "title": "Default",
+      "title": "Topic 1",
       "headings": {
         "topic-1": "Topic 1"
       },
@@ -17,25 +17,25 @@
     },
     {
       "src": "contents/topic2.md",
-      "title": "Default",
+      "title": "Topic 2",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "contents/topic3a.md",
-      "title": "Default",
+      "title": "Topic 3a",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "contents/topic3b.md",
-      "title": "Default",
+      "title": "Topic 3b",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "index.md",
-      "title": "Default",
+      "title": "Landing Page",
       "headings": {
         "heading-1": "Heading 1",
         "sub-heading-1-1": "Sub Heading 1.1",
