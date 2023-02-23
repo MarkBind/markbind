@@ -3,7 +3,7 @@
   "pages": [
     {
       "src": "bugs/index.md",
-      "title": "Open Bugs",
+      "title": "Default",
       "headings": {},
       "headingKeywords": {}
     },
@@ -81,6 +81,7 @@
     },
     {
       "src": "sub_site/index.md",
+      "title": "Default",
       "headings": {
         "feature-list": "Feature list"
       },
@@ -88,11 +89,13 @@
     },
     {
       "src": "sub_site/nested_sub_site/index.md",
+      "title": "Default",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "test_md_fragment.md",
+      "title": "Default",
       "headings": {
         "some-heading": "Some heading"
       },

@@ -3,17 +3,19 @@
   "pages": [
     {
       "src": "404.md",
-      "title": "Page not found",
+      "title": "Default",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "Home.md",
+      "title": "Default",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "Page-1.md",
+      "title": "Default",
       "headings": {
         "page-1": "Page 1"
       },
@@ -21,6 +23,7 @@
     },
     {
       "src": "README.md",
+      "title": "Default",
       "headings": {
         "readme": "Readme"
       },
@@ -28,6 +31,7 @@
     },
     {
       "src": "about.md",
+      "title": "Default",
       "headings": {
         "about": "About"
       },
@@ -35,6 +39,7 @@
     },
     {
       "src": "contents/topic1.md",
+      "title": "Default",
       "headings": {
         "topic-1": "Topic 1"
       },
@@ -42,21 +47,25 @@
     },
     {
       "src": "contents/topic2.md",
+      "title": "Default",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "contents/topic3a.md",
+      "title": "Default",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "contents/topic3b.md",
+      "title": "Default",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "index.md",
+      "title": "Default",
       "headings": {
         "readme": "Readme"
       },
@@ -64,6 +73,7 @@
     },
     {
       "src": "test_folder/extra_1.md",
+      "title": "Default",
       "headings": {
         "sample-content-in-another-folder-which-is-not-named-content": "Sample content in another folder which is not named content"
       },
@@ -71,6 +81,7 @@
     },
     {
       "src": "test_folder/extra_2.md",
+      "title": "Default",
       "headings": {
         "sample-content-in-another-folder-which-is-not-named-content": "Sample content in another folder which is not named content"
       },
@@ -78,6 +89,7 @@
     },
     {
       "src": "test_folder/extra_3.md",
+      "title": "Default",
       "headings": {
         "sample-content-in-another-folder-which-is-not-named-content": "Sample content in another folder which is not named content"
       },
