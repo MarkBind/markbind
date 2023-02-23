@@ -4,9 +4,9 @@
     :style="iconStyle()"
     aria-hidden="true"
     @click="handleScrollTop()">
-      <slot name="icon">
-        <i :class="['fas fa-arrow-circle-up']"></i>
-      </slot>
+    <slot name="icon">
+      <i :class="['fas fa-arrow-circle-up']"></i>
+    </slot>
   </div>
 </template>
 
