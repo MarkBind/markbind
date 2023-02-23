@@ -1,70 +1,96 @@
 <template>
-  <br />
+  <div>
+  </div>
 </template>
 
 <script>
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { notify } from 'alertifyjs';
+import { classifyBootstrapStyle } from './utils/utils';
 
 export default {
   name: 'Toast',
   props: {
+    // backgroundColor: {
+    //   type: String,
+    //   default: null,
+    // },
+    // border: {
+    //   type: String,
+    //   default: null,
+    // },
+    // borderColor: {
+    //   type: String,
+    //   default: null,
+    // },
+    // color: {
+    //   type: String,
+    //   default: null,
+    // },
+    duration: {
+      type: Number,
+      default: 1000,
+    },
     message: {
       type: String,
       required: true,
     },
     type: {
       type: String,
-      default: 'success',
+      default: 'default',
     },
-    position: {
-      type: String,
-      default: 'top-right',
-    },
-    duration: {
-      type: Number,
-      default: 100,
-    },
-    dismissable: {
-      type: Boolean,
-      default: true,
-    },
-    onDismiss: {
-      type: Function,
-      default: () => { },
-    },
-    onClick: {
-      type: Function,
-      default: () => { },
-    },
-  },
-  data() {
-    return {
-      isActive: false,
-      parentTop: null,
-      parentBottom: null,
-      isHovered: false,
-    };
   },
   methods: {
-    toast_notify() {
-      notify(this.message, this.type, this.duration, this.onDismiss);
+    // customStyle() {
+    //   const style = {};
+    //   if (this.backgroundColor) {
+    //     style.backgroundColor = this.backgroundColor;
+    //     style.borderColor = this.backgroundColor;
+    //   }
+    //   if (this.border) {
+    //     style.border = this.border;
+    //   }
+    //   if (this.borderColor) {
+    //     style.border = `1px solid ${this.borderColor}`;
+    //   }
+    //   if (this.color) {
+    //     style.color = this.color;
+    //   }
+    //   console.log(style);
+    //   return style;
+    // },
+    showToast() {
+      const type = classifyBootstrapStyle(this.type, '').style;
+      notify(this.message, type, this.duration, () => {});
     },
   },
   mounted() {
-    this.toast_notify();
+    this.showToast();
   },
 };
 </script>
 
 <style>
+    /**
+    * alertifyjs 1.13.1 http://alertifyjs.com
+    * AlertifyJS is a javascript framework for developing pretty browser dialogs and notifications.
+    * Copyright 2019 Mohammad Younes <Mohammad@alertifyjs.com> (http://alertifyjs.com)
+    * Licensed under GPL 3 <https://opensource.org/licenses/gpl-3.0>
+    */
     .alertify-notifier {
         position: fixed;
         width: 0;
         overflow: visible;
-        z-index: 1982;
+        z-index: 2000;
         -webkit-transform: translate3d(0, 0, 0);
         transform: translate3d(0, 0, 0);
+        top: 10px !important;
+        right: 10px !important;
+    }
+
+    .alertify-notifier:hover {
+        cursor: pointer;
+        transition: 0.2s;
     }
 
     .alertify-notifier .ajs-message {
@@ -80,10 +106,10 @@ export default {
         transition-duration: 250ms;
         -webkit-transition-timing-function: linear;
         transition-timing-function: linear;
-        background: rgba(255, 255, 255, 0.95);
-        color: #000;
+        background: rgb(246, 248, 250);
+        color: #24292e;
         text-align: center;
-        border: solid 1px #ddd;
+        border: solid 1px #e8ebef;
         border-radius: 2px;
     }
 
@@ -98,21 +124,32 @@ export default {
         margin-top: 10px;
     }
 
-    .alertify-notifier .ajs-message.ajs-success {
-        background: rgba(91, 189, 114, 0.95);
+    .alertify-notifier .ajs-message.ajs-danger {
+        background: rgb(220, 53, 69);
+        border-color: rgb(172, 41, 37);
         color: #fff;
-        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.5);
     }
 
-    .alertify-notifier .ajs-message.ajs-error {
-        background: rgba(217, 92, 92, 0.95);
+    .alertify-notifier .ajs-message.ajs-info {
+        background: rgb(13, 202, 240);
+        border-color: rgb(70, 184, 218);
+    }
+
+    .alertify-notifier .ajs-message.ajs-primary {
+        background: rgb(13, 110, 253);
+        border-color: rgb(31, 94, 150);
         color: #fff;
-        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    .alertify-notifier .ajs-message.ajs-success {
+        background: rgb(25, 135, 84);
+        border-color: rgb(34, 121, 34);
+        color: #fff;
     }
 
     .alertify-notifier .ajs-message.ajs-warning {
-        background: rgba(252, 248, 215, 0.95);
-        border-color: #999;
+        background: rgb(255, 193, 7);
+        border-color: rgb(250, 175, 69);
     }
 
     .alertify-notifier .ajs-message .ajs-close {
@@ -128,18 +165,6 @@ export default {
         border-top-right-radius: 2px;
     }
 
-    .alertify-notifier.ajs-top {
-        top: 10px;
-    }
-
-    .alertify-notifier.ajs-bottom {
-        bottom: 10px;
-    }
-
-    .alertify-notifier.ajs-right {
-        right: 10px;
-    }
-
     .alertify-notifier.ajs-right .ajs-message {
         right: -320px;
     }
@@ -148,47 +173,12 @@ export default {
         right: 290px;
     }
 
-    .alertify-notifier.ajs-left {
-        left: 10px;
-    }
-
     .alertify-notifier.ajs-left .ajs-message {
         left: -300px;
     }
 
     .alertify-notifier.ajs-left .ajs-message.ajs-visible {
         left: 0;
-    }
-
-    .alertify-notifier.ajs-center {
-        left: 50%;
-    }
-
-    .alertify-notifier.ajs-center .ajs-message {
-        -webkit-transform: translateX(-50%);
-        transform: translateX(-50%);
-    }
-
-    .alertify-notifier.ajs-center .ajs-message.ajs-visible {
-        left: 50%;
-        -webkit-transition-timing-function: cubic-bezier(0.57, 0.43, 0.1, 0.65);
-        transition-timing-function: cubic-bezier(0.57, 0.43, 0.1, 0.65);
-    }
-
-    .alertify-notifier.ajs-center.ajs-top .ajs-message {
-        top: -300px;
-    }
-
-    .alertify-notifier.ajs-center.ajs-top .ajs-message.ajs-visible {
-        top: 0;
-    }
-
-    .alertify-notifier.ajs-center.ajs-bottom .ajs-message {
-        bottom: -300px;
-    }
-
-    .alertify-notifier.ajs-center.ajs-bottom .ajs-message.ajs-visible {
-        bottom: 0;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -207,61 +197,5 @@ export default {
             -webkit-animation: none !important;
             animation: none !important;
         }
-    }
-
-    /**
- * alertifyjs 1.13.1 http://alertifyjs.com
- * AlertifyJS is a javascript framework for developing pretty browser dialogs and notifications.
- * Copyright 2019 Mohammad Younes <Mohammad@alertifyjs.com> (http://alertifyjs.com)
- * Licensed under GPL 3 <https://opensource.org/licenses/gpl-3.0> */
-    .alertify .ajs-dialog {
-        background-color: white;
-        -webkit-box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.25);
-        box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.25);
-        border-radius: 2px;
-    }
-
-    .alertify .ajs-header {
-        color: black;
-        font-weight: bold;
-        background: #fafafa;
-        border-bottom: #eee 1px solid;
-        border-radius: 2px 2px 0 0;
-    }
-
-    .alertify .ajs-body {
-        color: black;
-    }
-
-    .alertify .ajs-body .ajs-content .ajs-input {
-        display: block;
-        width: 100%;
-        padding: 8px;
-        margin: 4px;
-        border-radius: 2px;
-        border: 1px solid #ccc;
-    }
-
-    .alertify .ajs-body .ajs-content p {
-        margin: 0;
-    }
-
-    .alertify .ajs-footer {
-        background: #fbfbfb;
-        border-top: #eee 1px solid;
-        border-radius: 0 0 2px 2px;
-    }
-
-    .alertify .ajs-footer .ajs-buttons .ajs-button {
-        background-color: transparent;
-        color: #000;
-        border: 0;
-        font-size: 14px;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-ok {
-        color: #3593d2;
     }
 </style>
