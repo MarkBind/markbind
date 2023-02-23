@@ -6,7 +6,7 @@ import QOption from '../questions/QOption.vue';
 // Function to delay test until question is rendered
 export default function quizTimeout() {
   // eslint-disable-next-line no-promise-executor-return
-  return new Promise(resolve => setTimeout(resolve, 530));
+  return new Promise(resolve => setTimeout(resolve, 525));
 }
 
 /*

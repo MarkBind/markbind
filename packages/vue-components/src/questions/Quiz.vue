@@ -128,12 +128,13 @@ export default {
   },
   methods: {
     gotoNextQuestion() {
+      const DELAY = 525;
       this.questions[this.currentQuestion - 1].hide();
       this.currentQuestion += 1;
       if (this.currentQuestion <= this.questions.length) {
-        setTimeout(() => this.questions[this.currentQuestion - 1].show(), 530);
+        setTimeout(() => this.questions[this.currentQuestion - 1].show(), DELAY);
       } else {
-        this.complete();
+        setTimeout(() => this.complete(), DELAY);
       }
     },
     begin() {
