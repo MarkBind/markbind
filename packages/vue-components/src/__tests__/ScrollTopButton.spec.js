@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils';
 import ScrollTopButton from '../ScrollTopButton.vue';
 
 function waitTimeout(timeLength) {
+  // eslint-disable-next-line no-promise-executor-return
   return new Promise(resolve => setTimeout(resolve, timeLength));
 }
 
