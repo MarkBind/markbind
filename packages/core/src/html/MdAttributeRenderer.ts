@@ -46,8 +46,8 @@ export class MdAttributeRenderer {
 
       const attributeSlotElement = createSlotTemplateNode(slotName, rendered);
       node.children = node.children
-        ? attributeSlotElement.concat(node.children as unknown as Document[]) as unknown as DomElement[]
-        : attributeSlotElement as unknown as DomElement[];
+        ? attributeSlotElement.concat(node.children)
+        : attributeSlotElement;
     }
 
     delete node.attribs[attribute];

@@ -1,4 +1,4 @@
-{% set title = "Contribute to MarkBind Docs" %}
+{% set title = "Contribute to Documentation" %}
 <span id="title" class="d-none">{{ title }}</span>
 
 <frontmatter>
