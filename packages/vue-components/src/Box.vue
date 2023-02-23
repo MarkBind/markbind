@@ -255,7 +255,7 @@ export default {
     },
     customIconColorStyle() {
       if (this.iconColor) {
-        return { color: this.iconColor };
+        return { color: `${this.iconColor}!important` };
       }
       return {};
     },

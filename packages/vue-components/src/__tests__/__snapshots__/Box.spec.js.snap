@@ -698,6 +698,41 @@ exports[`Box with custom icon color and header renders correctly 1`] = `
 </div>
 `;
 
+exports[`Box with custom icon color and light renders correctly 1`] = `
+<div
+  class="alert box-container border-warning alert-border-left"
+>
+  <!---->
+   
+  <div
+    class="header-and-body"
+  >
+    <!---->
+     
+    <div
+      class="box-body-wrapper"
+    >
+      <div
+        class="icon-wrapper  text-warning"
+        style="color: red;"
+      >
+        <i
+          class="fas fa-exclamation"
+        />
+      </div>
+       
+      <!---->
+       
+      <div
+        class="contents"
+      />
+       
+      <!---->
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Box with custom icon color and no header renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
