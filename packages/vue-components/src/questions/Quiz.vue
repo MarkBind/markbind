@@ -91,6 +91,7 @@
 <script>
 import {
   STATE_CORRECT,
+  DELAY,
 } from './QuestionConstants';
 
 const STATE_QUIZ_FRESH = 3;
@@ -128,7 +129,6 @@ export default {
   },
   methods: {
     gotoNextQuestion() {
-      const DELAY = 525;
       this.questions[this.currentQuestion - 1].hide();
       this.currentQuestion += 1;
       if (this.currentQuestion <= this.questions.length) {
@@ -150,7 +150,7 @@ export default {
       this.score = 0;
       this.state = STATE_QUIZ_IN_PROGRESS;
       if (this.questions.length) {
-        setTimeout(() => this.questions[0].show(), 525);
+        setTimeout(() => this.questions[0].show(), DELAY);
       }
     },
     reset() {

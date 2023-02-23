@@ -75,7 +75,197 @@ exports[`Quizzes with 2 questions retry goes back to first 1`] = `
   <transition-stub
     name="question"
   >
-    <!---->
+    <div
+      class="card question"
+    >
+      <!---->
+       
+      <div
+        class="card-body"
+      >
+        
+  ... Mcq question ...
+  
+        <div
+          class="form-control"
+        >
+          <div
+            class="row"
+          >
+            <div
+              class="col-auto p-0"
+            >
+              <svg
+                class="radio-svg"
+                viewBox="0 0 100 100"
+              >
+                <circle
+                  cx="50"
+                  cy="50"
+                  fill="none"
+                  r="47"
+                  stroke="black"
+                  stroke-width="4"
+                />
+                 
+                <circle
+                  cx="50"
+                  cy="50"
+                  fill="dodgerblue"
+                  r="25"
+                  style="display: none;"
+                />
+              </svg>
+            </div>
+             
+            <div
+              class="col content"
+            >
+              opt 1 correct
+            </div>
+             
+            <div
+              class="col-1"
+            >
+              <!---->
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <div
+          class="form-control"
+        >
+          <div
+            class="row"
+          >
+            <div
+              class="col-auto p-0"
+            >
+              <svg
+                class="radio-svg"
+                viewBox="0 0 100 100"
+              >
+                <circle
+                  cx="50"
+                  cy="50"
+                  fill="none"
+                  r="47"
+                  stroke="black"
+                  stroke-width="4"
+                />
+                 
+                <circle
+                  cx="50"
+                  cy="50"
+                  fill="dodgerblue"
+                  r="25"
+                  style="display: none;"
+                />
+              </svg>
+            </div>
+             
+            <div
+              class="col content"
+            >
+              opt 2
+            </div>
+             
+            <div
+              class="col-1"
+            >
+              <!---->
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <div
+          class="form-control"
+        >
+          <div
+            class="row"
+          >
+            <div
+              class="col-auto p-0"
+            >
+              <svg
+                class="radio-svg"
+                viewBox="0 0 100 100"
+              >
+                <circle
+                  cx="50"
+                  cy="50"
+                  fill="none"
+                  r="47"
+                  stroke="black"
+                  stroke-width="4"
+                />
+                 
+                <circle
+                  cx="50"
+                  cy="50"
+                  fill="dodgerblue"
+                  r="25"
+                  style="display: none;"
+                />
+              </svg>
+            </div>
+             
+            <div
+              class="col content"
+            >
+              opt 3
+            </div>
+             
+            <div
+              class="col-1"
+            >
+              <!---->
+            </div>
+          </div>
+           
+          <!---->
+        </div>
+         
+        <!---->
+         
+        <!---->
+         
+        <!---->
+      </div>
+       
+      <div
+        class="card-footer alert-light border-top border-light text-dark"
+      >
+        <!---->
+         
+        <transition-group-stub
+          class="float-end"
+          name="q-btn"
+          tag="div"
+        >
+          <!---->
+           
+          <button
+            class="btn btn-primary q-btn ms-1"
+            type="button"
+          >
+            
+          Check
+        
+          </button>
+           
+          <!---->
+           
+          <!---->
+           
+          <!---->
+        </transition-group-stub>
+      </div>
+    </div>
   </transition-stub>
   <transition-stub
     name="question"
@@ -99,7 +289,7 @@ exports[`Quizzes with all questions marks 3/4 correct shows ending screen 1`] = 
    
   <div
     class="progress"
-    style="height: 1px;"
+    style="height: 1px; display: none;"
   >
     <div
       aria-valuemax="4"
@@ -135,7 +325,63 @@ exports[`Quizzes with all questions marks 3/4 correct shows ending screen 1`] = 
   <transition-stub
     name="intro-outro-card"
   >
-    <!---->
+    <div
+      class="card intro-outro-card"
+    >
+      <div
+        class="card-body"
+      >
+        <h4
+          class="mb-3"
+        >
+          
+          Well done!
+        
+        </h4>
+         
+        <svg
+          height="120px"
+          viewBox="0 0 100 100"
+          width="120px"
+        >
+          <circle
+            class="score-background-circle"
+            cx="50"
+            cy="50"
+            r="42"
+          />
+           
+          <circle
+            class="score-circle"
+            cx="50"
+            cy="50"
+            r="42"
+            stroke-dashoffset="264"
+            transform="rotate(-90, 50, 50)"
+          />
+           
+          <text
+            class="score"
+            textLength="56"
+            x="22"
+            y="57"
+          >
+            3 / 4
+          </text>
+        </svg>
+         
+        <hr />
+         
+        <button
+          class="btn btn-outline-primary"
+          type="button"
+        >
+          
+          Retry
+        
+        </button>
+      </div>
+    </div>
   </transition-stub>
 </div>
 `;
