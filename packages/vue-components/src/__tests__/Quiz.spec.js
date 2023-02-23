@@ -227,6 +227,8 @@ describe('Quizzes', () => {
     // Click next
     await wrapper.find('button.btn-primary').trigger('click');
 
+    // Delay until question is rendered
+    await quizTimeout();
     // Click retry
     await wrapper.find('button.btn-outline-primary').trigger('click');
 
