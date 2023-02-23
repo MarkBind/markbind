@@ -25,7 +25,7 @@ Getting to know MarkBind as a user will help you understand what MarkBind offers
 
 ## Setup the master branch of MarkBind
 
-As mentioned in our [user guide]({{baseUrl}}/userGuide/gettingStarted.html), we can either install MarkBind via npm or create a new MarkBind site with npx.
+As mentioned in our [user guide]({{ugUrl}}/userGuide/gettingStarted.html), we can either install MarkBind via npm or create a new MarkBind site with npx.
 
 In this bootcamp, we want to set up the master branch MarkBind so that we can test out any changes we make to the codebase on our local machine.
 
@@ -218,7 +218,7 @@ $ markbind init
 info: Initialization success.
 ```
 
-4. With the site generated, create a `.gitignore` file in the root directory and add the [recommended content]({{baseUrl}}/userGuide/gitignoreFile.html) to it. This is to ensure log files etc are not committed to the repository.
+4. With the site generated, create a `.gitignore` file in the root directory and add the [recommended content]({{ugUrl}}/userGuide/gitignoreFile.html) to it. This is to ensure log files etc are not committed to the repository.
 
 
 <box type="important" light>
@@ -239,10 +239,10 @@ You now have the test site up and running!
 MarkBind contains a range of additional syntax on top of Markdown. It also comes with a set of components that can be used to create content.
 
 Two essential sections of the user guide to get started with are:
-- [Formatting Contents]({{baseUrl}}/userGuide/formattingContents.html) - Covering Markdown & Markdown-like syntax.
-- [Using Components]({{baseUrl}}/userGuide/usingComponents.html) - Covering MarkBind components (Built with Vue.js or Native HTML).
+- [Formatting Contents]({{ugUrl}}/userGuide/formattingContents.html) - Covering Markdown & Markdown-like syntax.
+- [Using Components]({{ugUrl}}/userGuide/usingComponents.html) - Covering MarkBind components (Built with Vue.js or Native HTML).
 
-<panel src="{{baseUrl}}/userGuide/authoringContents.md" header="**Creating Content**" type="info" minimized></panel>
+<panel src="{{ugUrl}}/userGuide/authoringContents.md" header="**Creating Content**" type="info" minimized></panel>
 
 The generated MarkBind site from the above step also includes a few sample usage in the `index.md` file.
 
@@ -251,14 +251,14 @@ Now, let's try editing the `index.md` file to add some content of our own!
 1. Open the `index.md` file in your `mb-dev-xxx` folder.
 1. Replace the wording `Landing Page Title` with `MarkBind Developer Test Site`.
 1. Modify or add some content utilizing one or more of the following syntaxes:
-    - [Text Styles]({{baseUrl}}/userGuide/formattingContents.html#text-styles)
-    - [Code Block]({{baseUrl}}/userGuide/formattingContents.html#code)
-    - [Emoji]({{baseUrl}}/userGuide/formattingContents.html#emoji)
+    - [Text Styles]({{ugUrl}}/userGuide/formattingContents.html#text-styles)
+    - [Code Block]({{ugUrl}}/userGuide/formattingContents.html#code)
+    - [Emoji]({{ugUrl}}/userGuide/formattingContents.html#emoji)
     - etc.
 1. Modify or add some content utilizing one or more of the following components:
-    - [Box]({{baseUrl}}/userGuide/components/presentation.html#boxes)
-    - [Panel]({{baseUrl}}/userGuide/components/presentation.html#panels)
-    - [Tooltip]({{baseUrl}}/userGuide/components/popups.html#tooltips)
+    - [Box]({{ugUrl}}/userGuide/components/presentation.html#boxes)
+    - [Panel]({{ugUrl}}/userGuide/components/presentation.html#panels)
+    - [Tooltip]({{ugUrl}}/userGuide/components/popups.html#tooltips)
     - etc.
 
 <box type="important" light>
@@ -277,9 +277,9 @@ You now have created content with MarkBind!
 ## Modify Site Structure and Configuration
 
 There are a few ways to modify the site's (as well as the page's) structure and configuration. We will cover the following:
-- [Frontmatter]({{baseUrl}}/userGuide/tweakingThePageStructure.html#frontmatter)
-- [Layouts]({{baseUrl}}/userGuide/tweakingThePageStructure.html#layouts)
-- [site.json]({{baseUrl}}/userGuide/siteJsonFile.html)
+- [Frontmatter]({{ugUrl}}/userGuide/tweakingThePageStructure.html#frontmatter)
+- [Layouts]({{ugUrl}}/userGuide/tweakingThePageStructure.html#layouts)
+- [site.json]({{ugUrl}}/userGuide/siteJsonFile.html)
 
 Let's continue with the test site we created earlier and modify the `index.md` file via frontmatter.
 
@@ -349,10 +349,10 @@ MarkBind sites can be easily deployed with CLI commands or via CI. Let's try dep
 
 1. Open the `site.json` file in your `mb-dev-xxx` folder.
 1. Change `"baseUrl": "",` to `"baseUrl": "/mb-dev-xxx",` (Note the leading `/` and that the value is the same as your GitHub repository name).
-1. Create a `.github/workflows/deploy.yml` file with the following content mentioned in the [GitHub Actions guide]({{baseUrl}}/userGuide/deployingTheSite.html#deploying-via-github-actions).
+1. Create a `.github/workflows/deploy.yml` file with the following content mentioned in the [GitHub Actions guide]({{ugUrl}}/userGuide/deployingTheSite.html#deploying-via-github-actions).
    1. Note that you should change `branches: master` to `branches: main` if you are using the `main` branch.
 
-<panel src="{{baseUrl}}/userGuide/deployingTheSite.md#markbind-action-tip" header="**MarkBind Action**" type="info" expanded/>
+<panel src="{{ugUrl}}/userGuide/deployingTheSite.md#markbind-action-tip" header="**MarkBind Action**" type="info" expanded/>
 
 4. Ensure that you have added your remote GitHub repository to your local repository with the following command (replace `xxx` with your GitHub username):
     ```bash
@@ -382,10 +382,10 @@ Congratulations! :tada::tada::tada: You have deployed your MarkBind site!
 In the first part of this bootcamp, we experimented with MarkBind as a user. We have set up the master branch of MarkBind and created a new MarkBind site. We have also created content with MarkBind components/syntax and deployed our site.
 
 Here are some additional tasks for you to try out:
-- [ ] Create a new MarkBind site with a different [theme]({{baseUrl}}/userGuide/themes.html)
-- [ ] Try out MarkBind's [include mechanism]({{baseUrl}}/userGuide/reusingContents.html#includes)
+- [ ] Create a new MarkBind site with a different [theme]({{ugUrl}}/userGuide/themes.html)
+- [ ] Try out MarkBind's [include mechanism]({{ugUrl}}/userGuide/reusingContents.html#includes)
 - [ ] Create a dedicated MarkBind site for your personal usage and [share it with us](https://github.com/MarkBind/markbind/discussions/new?category=show-and-tell)
-  - You can see some examples in the [MarkBind showcase]({{baseUrl}}/showcase.html)
+  - You can see some examples in the [MarkBind showcase]({{ugUrl}}/showcase.html)
 
 Take a break now :coffee: and we will continue with the second part of the bootcamp!
 

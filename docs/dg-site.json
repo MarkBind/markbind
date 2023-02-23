@@ -1,5 +1,6 @@
 {
   "baseUrl": "/devdocs",
+  "ugUrl": "",
   "titlePrefix": "MarkBind",
   "style": {
     "codeTheme": "light"
