@@ -1,7 +1,31 @@
 import { mount } from '@vue/test-utils';
 import ScrollTopButton from '../ScrollTopButton.vue';
 
+function waitTimeout(timeLength) {
+  return new Promise(resolve => setTimeout(resolve, timeLength));
+}
+
 describe('ScrollTopButton', () => {
+  test('button appears with user scrolls', async () => {
+    const wrapper = await mount(ScrollTopButton, {
+      attachTo: document.body,
+    });
+    document.body.scrollTop = 1000;
+    window.dispatchEvent(new Event('scroll'));
+    await waitTimeout(100);
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
+  test('button lightens after user stops scrolling', async () => {
+    const wrapper = await mount(ScrollTopButton, {
+      attachTo: document.body,
+    });
+    document.body.scrollTop = 1000;
+    window.dispatchEvent(new Event('scroll'));
+    await waitTimeout(1200);
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
   test('button position is rendered correctly', async () => {
     const wrapper = await mount(ScrollTopButton, {
       propsData: {
