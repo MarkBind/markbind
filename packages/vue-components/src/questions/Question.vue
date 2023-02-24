@@ -357,6 +357,7 @@ export default {
     .question-enter-active {
         opacity: 0;
         transform: translateY(-2%);
+        position: absolute;
     }
 
     .question-leave-to {

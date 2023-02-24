@@ -1,41 +1,45 @@
 <template>
   <div :class="['quiz-container', addClass]">
-    <div v-if="state === 3" class="card intro-outro-card">
-      <div class="card-body">
-        <slot name="intro">
-          <h4>
-            Click start to begin
-          </h4>
-        </slot>
+    <transition name="intro-outro-card">
+      <div v-if="state === 3" class="card intro-outro-card">
+        <div class="card-body">
+          <slot name="intro">
+            <h4>
+              Click start to begin
+            </h4>
+          </slot>
 
-        <h5>{{ questions.length }} questions</h5>
+          <h5>{{ questions.length }} questions</h5>
 
-        <hr />
+          <hr />
 
-        <button
-          type="button"
-          class="btn btn-primary d-inline-block"
-          @click="begin"
-        >
-          Start
-        </button>
+          <button
+            type="button"
+            class="btn btn-primary d-inline-block"
+            @click="begin"
+          >
+            Start
+          </button>
+        </div>
       </div>
-    </div>
+    </transition>
 
-    <div
-      v-show="state === 4"
-      class="progress"
-      style="height: 1px;"
-    >
+    <transition name="intro-outro-card">
       <div
-        class="progress-bar progress-bar-z"
-        role="progressbar"
-        :style="{ width: `${currentQuestion / questions.length * 100}%` }"
-        aria-valuemin="0"
-        :aria-valuemax="questions.length"
-        :aria-valuenow="currentQuestion"
-      ></div>
-    </div>
+        v-show="state === 4"
+        class="progress intro-outro-card"
+        style="height: 1px;"
+      >
+        <div
+          class="progress-bar progress-bar-z"
+          role="progressbar"
+          :style="{ width: `${currentQuestion / questions.length * 100}%` }"
+          aria-valuemin="0"
+          :aria-valuemax="questions.length"
+          :aria-valuenow="currentQuestion"
+        ></div>
+      </div>
+    </transition>
 
     <slot></slot>
 
@@ -176,10 +180,14 @@ export default {
     }
 
     .intro-outro-card {
-        transition: opacity 0.5s;
+        transition: transform 0.5s ease-out, opacity 0.5s linear;
     }
 
-    .intro-outro-card-enter-active,
+    .intro-outro-card-enter-active {
+        opacity: 0;
+        position: absolute;
+    }
+
     .intro-outro-card-leave-to {
         opacity: 0;
     }
