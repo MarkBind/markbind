@@ -3,12 +3,6 @@ import Quiz from '../questions/Quiz.vue';
 import Question from '../questions/Question.vue';
 import QOption from '../questions/QOption.vue';
 
-// Function to delay test until question is rendered
-export default function quizTimeout() {
-  // eslint-disable-next-line no-promise-executor-return
-  return new Promise(resolve => setTimeout(resolve, 525));
-}
-
 /*
  Key states:
  - Beginning screen
@@ -158,8 +152,6 @@ describe('Quizzes', () => {
     // Click 'begin'
     await wrapper.find('button').trigger('click');
 
-    // Delay until question is rendered
-    await quizTimeout();
     // Click option 2 of mcq question
     await wrapper.findAllComponents(QOption).at(1).find('div').trigger('click');
     // Click check of mcq question
@@ -167,8 +159,6 @@ describe('Quizzes', () => {
     // Click next
     await wrapper.find('button.btn-primary').trigger('click');
 
-    // Delay until question is rendered
-    await quizTimeout();
     // Type answer into textarea of text question
     await wrapper.find('textarea').setValue('abc lorem ipsum');
     // Click 'check' of text question
@@ -176,8 +166,6 @@ describe('Quizzes', () => {
     // Click next
     await wrapper.find('button.btn-primary').trigger('click');
 
-    // Delay until question is rendered
-    await quizTimeout();
     // Click options 1 & 3 of checkbox question
     await wrapper.findAllComponents(QOption).at(0).find('div').trigger('click');
     await wrapper.findAllComponents(QOption).at(2).find('div').trigger('click');
@@ -186,8 +174,6 @@ describe('Quizzes', () => {
     // Click next
     await wrapper.find('button.btn-primary').trigger('click');
 
-    // Delay until question is rendered
-    await quizTimeout();
     // Type correct answer into blank 2 of blanks question
     await wrapper.findAllComponents(QOption).at(1).find('input').setValue('key');
     // Click check of checkbox question
@@ -195,8 +181,6 @@ describe('Quizzes', () => {
     // Click next
     await wrapper.find('button.btn-primary').trigger('click');
 
-    // Delay until question is rendered
-    await quizTimeout();
     expect(wrapper.element).toMatchSnapshot();
   });
 
@@ -211,8 +195,6 @@ describe('Quizzes', () => {
     // Click 'begin'
     await wrapper.find('button').trigger('click');
 
-    // Delay until question is rendered
-    await quizTimeout();
     // Click option 2 of mcq question
     await wrapper.findAllComponents(QOption).at(1).find('div').trigger('click');
     // Click check of mcq question
@@ -220,8 +202,6 @@ describe('Quizzes', () => {
     // Click next
     await wrapper.find('button.btn-primary').trigger('click');
 
-    // Delay until question is rendered
-    await quizTimeout();
     // Type answer into textarea of text question
     await wrapper.find('textarea').setValue('abc lorem ipsum');
     // Click 'check' of text question
@@ -229,13 +209,9 @@ describe('Quizzes', () => {
     // Click next
     await wrapper.find('button.btn-primary').trigger('click');
 
-    // Delay until question is rendered
-    await quizTimeout();
     // Click retry
     await wrapper.find('button.btn-outline-primary').trigger('click');
 
-    // Delay until question is rendered
-    await quizTimeout();
     expect(wrapper.element).toMatchSnapshot();
   });
 });
