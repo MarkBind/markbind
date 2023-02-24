@@ -4,11 +4,6 @@ exports[`NestedPanels should have span.anchor when id is present 1`] = `
 <div
   class="card-container"
 >
-  <span
-    class="anchor"
-    id="test-id"
-  />
-   
   <div
     class="card expandable-card"
   >
@@ -87,8 +82,6 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
 <div
   class="card-container"
 >
-  <!---->
-   
   <div
     class="card expandable-card"
   >
@@ -182,8 +175,6 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
 <div
   class="card-container"
 >
-  <!---->
-   
   <div
     class="card expandable-card"
   >
@@ -277,8 +268,6 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
 <div
   class="card-container"
 >
-  <!---->
-   
   <div
     class="card expandable-card"
   >
@@ -357,8 +346,6 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
 <div
   class="card-container"
 >
-  <!---->
-   
   <div
     class="card expandable-card"
   >

@@ -145,7 +145,7 @@ test('includeFile replaces an empty segment <include src="include.md#empty"> wit
   const result = await nodeProcessor.process(indexPath, index);
 
   const expected = [
-    '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
+    '<h1 id="index">Index</h1>',
     '<div></div>',
   ].join('\n');
 
