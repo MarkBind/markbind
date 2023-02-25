@@ -3,7 +3,7 @@ import slugify from '@sindresorhus/slugify';
 import has from 'lodash/has';
 import { DomElement } from 'htmlparser2';
 import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
-import { NodeProcessorConfig } from './NodeProcessor';
+import type { NodeProcessorConfig } from './NodeProcessor';
 
 const _ = {
   has,
