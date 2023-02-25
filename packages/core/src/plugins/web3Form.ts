@@ -21,25 +21,52 @@ const DEFAULT_INPUTS = `${NAME_INPUT}\n${EMAIL_INPUT}\n${MESSAGE_INPUT}\n${SUBMI
 
 const FORM_CONTAINER = '<box type="info" no-icon><h2>Contact Us</h2></box>';
 
-function hasSubmitButton(node: cheerio.Element & DomElement) {
-  const $node = cheerio(node);
-  return $node.children('[type=submit]').length !== 0;
-}
 function createMinimalForm(pluginContext: PluginContext) {
   const $replaceNode = cheerio('<form onsubmit="submitForm(this)"></form>');
   $replaceNode.append(`<input type="hidden" name="access_key" value=${pluginContext.accessKey}>`);
   return $replaceNode;
 }
-function createWeb3Form(pluginContext: PluginContext, node: cheerio.Element & DomElement) {
+
+function deleteWeb3FormAttributes(node: cheerio.Element & DomElement) {
+  const nodeAttribs = node.attribs;
+  if (!nodeAttribs) return;
+  delete nodeAttribs.default;
+}
+
+function transformFormInputs(child: cheerio.Element) {
+  if (child.type !== 'tag') {
+    return;
+  }
+  const $node = cheerio(child);
+  switch (child.name.toLowerCase()) {
+  case 'name-input':
+    $node.replaceWith(NAME_INPUT);
+    break;
+  case 'email-input':
+    $node.replaceWith(EMAIL_INPUT);
+    break;
+  case 'message-input':
+    $node.replaceWith(MESSAGE_INPUT);
+    break;
+  case 'submit-button':
+    $node.replaceWith(SUBMIT_BUTTON);
+    break;
+  default:
+  }
+}
+
+function createCustomForm(pluginContext: PluginContext, node: cheerio.Element & DomElement) {
   const $node = cheerio(node);
   const $formNode = createMinimalForm(pluginContext);
   $formNode.append($node.children());
-  if (!hasSubmitButton(node)) {
-    $formNode.append(SUBMIT_BUTTON);
-  }
+  $formNode.children().each((index, child) => {
+    transformFormInputs(child);
+  });
   const $formWrapper = cheerio(FORM_CONTAINER);
   $formWrapper.append($formNode);
-  $node.replaceWith($formWrapper);
+  $node.append($formWrapper);
+  node.name = 'div';
+  deleteWeb3FormAttributes(node);
 }
 
 function isDefaultContactForm(node: cheerio.Element & DomElement) {
@@ -54,7 +81,9 @@ function createDefaultContactForm(pluginContext: PluginContext, node: cheerio.El
   $formNode.append(DEFAULT_INPUTS);
   const $formWrapper = cheerio(FORM_CONTAINER);
   $formWrapper.append($formNode);
-  $node.replaceWith($formWrapper);
+  $node.append($formWrapper);
+  node.name = 'div';
+  deleteWeb3FormAttributes(node);
 }
 
 const submitFormScript = `
@@ -76,7 +105,7 @@ const submitFormScript = `
                 if (response.status == 200) {
                     alert('Form submitted! Thank you for your response');
                 } else {
-                    alert('Error submitting form! Pleas try again later.');
+                    alert('Error submitting form! Please try again later.');
                 }
             })
             .catch(error => {
@@ -92,8 +121,9 @@ export = {
     }
     if (isDefaultContactForm(node)) {
       createDefaultContactForm(pluginContext, node);
+      return;
     }
-    createWeb3Form(pluginContext, node);
+    createCustomForm(pluginContext, node);
   },
   getLinks: () => [`<link rel="stylesheet" href="${CSS_FILE_NAME}">`],
   getScripts: () => [submitFormScript],
