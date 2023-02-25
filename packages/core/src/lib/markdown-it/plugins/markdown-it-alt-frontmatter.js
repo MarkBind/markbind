@@ -5,20 +5,20 @@
 module.exports = function alt_frontmatter_plugin(md) {
   function alt_frontmatter(state, startLine, endLine, silent) {
     const fmSymbol = "---";
-    const keyValueRegex = new RegExp("^\\w+:\\s.*");
+    const keyValueRegex = new RegExp("^\\w+:\\s+.*");
 
-    let pos = state.bMarks[startLine] + state.tShift[startLine];
-    let max = state.eMarks[startLine];
-    let marker = state.src.slice(pos, max);
+    let lineStart = state.bMarks[startLine] + state.tShift[startLine];
+    let lineEnd = state.eMarks[startLine];
+    let marker = state.src.slice(lineStart, lineEnd);
     if (marker !== fmSymbol) { return false; }
 
     let haveEndMarker = false;
     let nextLine = startLine + 1;
     for (; nextLine < endLine; nextLine++) {
-      pos = state.bMarks[nextLine] + state.tShift[nextLine];
-      max = state.eMarks[nextLine];
+      lineStart = state.bMarks[nextLine] + state.tShift[nextLine];
+      lineEnd = state.eMarks[nextLine];
 
-      let currLine = state.src.slice(pos, max).trim();
+      let currLine = state.src.slice(lineStart, lineEnd).trim();
       if (currLine === fmSymbol) {
         haveEndMarker = true;
         break;
