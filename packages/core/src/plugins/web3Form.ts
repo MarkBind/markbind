@@ -26,7 +26,7 @@ function hasSubmitButton(node: cheerio.Element & DomElement) {
   return $node.children('[type=submit]').length !== 0;
 }
 function createMinimalForm(pluginContext: PluginContext) {
-  const $replaceNode = cheerio('<form action="https://api.web3forms.com/submit" method="POST"></form>');
+  const $replaceNode = cheerio('<form onsubmit="submitForm(this)"></form>');
   $replaceNode.append(`<input type="hidden" name="access_key" value=${pluginContext.accessKey}>`);
   return $replaceNode;
 }
@@ -57,6 +57,34 @@ function createDefaultContactForm(pluginContext: PluginContext, node: cheerio.El
   $node.replaceWith($formWrapper);
 }
 
+const submitFormScript = `
+    <script>
+        function submitForm(element) {
+            event.preventDefault();
+            const formData = new FormData(element);
+            const formProps = Object.fromEntries(formData);
+            const json = JSON.stringify(formProps);
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json,
+            })
+            .then(async (response) => {
+                if (response.status == 200) {
+                    alert('Form submitted! Thank you for your response');
+                } else {
+                    alert('Error submitting form! Pleas try again later.');
+                }
+            })
+            .catch(error => {
+                alert('Error submitting form! Please try again later.');
+            })
+        }
+    </script>`;
+
 export = {
   processNode: (pluginContext: PluginContext, node: cheerio.Element & DomElement) => {
     if (node.name !== 'web-3-form') {
@@ -68,4 +96,5 @@ export = {
     createWeb3Form(pluginContext, node);
   },
   getLinks: () => [`<link rel="stylesheet" href="${CSS_FILE_NAME}">`],
+  getScripts: () => [submitFormScript],
 };
