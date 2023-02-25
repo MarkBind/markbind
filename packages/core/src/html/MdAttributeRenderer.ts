@@ -2,7 +2,7 @@ import cheerio from 'cheerio';
 import has from 'lodash/has';
 import { DomElement } from 'htmlparser2';
 import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
-import { MarkdownProcessor } from './MarkdownProcessor';
+import type { MarkdownProcessor } from './MarkdownProcessor';
 import * as logger from '../utils/logger';
 import { createSlotTemplateNode } from './elements';
 
@@ -46,8 +46,8 @@ export class MdAttributeRenderer {
 
       const attributeSlotElement = createSlotTemplateNode(slotName, rendered);
       node.children = node.children
-        ? attributeSlotElement.concat(node.children as unknown as Document[]) as unknown as DomElement[]
-        : attributeSlotElement as unknown as DomElement[];
+        ? attributeSlotElement.concat(node.children)
+        : attributeSlotElement;
     }
 
     delete node.attribs[attribute];

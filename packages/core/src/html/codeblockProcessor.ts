@@ -1,7 +1,19 @@
-const cheerio = require('cheerio');
-const lodashHas = require('lodash/has');
+import cheerio from 'cheerio';
+import { DomElement } from 'htmlparser2';
+import has from 'lodash/has';
+
 const md = require('../lib/markdown-it');
 const util = require('../lib/markdown-it/utils');
+
+const _ = {
+  has,
+};
+
+interface TraverseLinePartData {
+  numCharsTraversed: number,
+  shouldParentHighlight: boolean,
+  highlightRange?: number[],
+}
 
 /**
  * Traverses a line part and applies highlighting if necessary.
@@ -10,8 +22,8 @@ const util = require('../lib/markdown-it/utils');
  * @param hlEnd The highlight end position, relative to the start of the line part
  * @returns {object} An object that contains data to be used by the node's parent.
  */
-function traverseLinePart(node, hlStart, hlEnd) {
-  const resData = {
+function traverseLinePart(node: DomElement, hlStart: number, hlEnd: number): TraverseLinePartData {
+  const resData: TraverseLinePartData = {
     numCharsTraversed: 0,
     shouldParentHighlight: false,
     highlightRange: undefined,
@@ -50,6 +62,10 @@ function traverseLinePart(node, hlStart, hlEnd) {
     return resData;
   }
 
+  if (!node.children) {
+    return resData;
+  }
+
   /*
    * The remaining possibility is that node is a tag node.
    * It has at least one child (to contain the text content).
@@ -85,6 +101,7 @@ function traverseLinePart(node, hlStart, hlEnd) {
     }
 
     if (child.type === 'tag') {
+      child.attribs = child.attribs ?? {};
       child.attribs.class = child.attribs.class ? `${child.attribs.class} highlighted` : 'highlighted';
       return;
     }
@@ -111,14 +128,17 @@ function traverseLinePart(node, hlStart, hlEnd) {
  * traverses over the line and applies the highlight.
  * @param node Root of the code block element, which is the 'pre' node
  */
-function highlightCodeBlock(node) {
+export function highlightCodeBlock(node: DomElement) {
+  if (!node.children) {
+    return;
+  }
   const codeNode = node.children.find(c => c.name === 'code');
-  if (!codeNode) {
+  if (!codeNode || (!codeNode.children)) {
     return;
   }
 
   codeNode.children.forEach((lineNode) => {
-    if (!lodashHas(lineNode.attribs, 'hl-data')) {
+    if ((!lineNode.attribs) || !_.has(lineNode.attribs, 'hl-data')) {
       return;
     }
 
@@ -135,8 +155,8 @@ function highlightCodeBlock(node) {
  * @param node the code block element, which is the 'code' node
  * @param showCodeLineNumbers true if line numbers should be shown, false otherwise
  */
-function setCodeLineNumbers(node, showCodeLineNumbers) {
-  const existingClass = node.attribs.class || '';
+export function setCodeLineNumbers(node: DomElement, showCodeLineNumbers: boolean) {
+  const existingClass = node.attribs?.class || '';
   const styleClassRegex = /(^|\s)(no-)?line-numbers($|\s)/;
   const hasStyleClass = styleClassRegex.test(existingClass);
   if (hasStyleClass) {
@@ -144,11 +164,7 @@ function setCodeLineNumbers(node, showCodeLineNumbers) {
   }
 
   if (showCodeLineNumbers) {
+    node.attribs = node.attribs ?? {};
     node.attribs.class = `line-numbers${existingClass === '' ? '' : ` ${existingClass}`}`;
   }
 }
-
-module.exports = {
-  highlightCodeBlock,
-  setCodeLineNumbers,
-};

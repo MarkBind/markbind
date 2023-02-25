@@ -1,15 +1,18 @@
-const cheerio = require('cheerio');
-const slugify = require('@sindresorhus/slugify');
+import cheerio from 'cheerio';
+import slugify from '@sindresorhus/slugify';
+import has from 'lodash/has';
+import { DomElement } from 'htmlparser2';
+import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
+import type { NodeProcessorConfig } from './NodeProcessor';
 
-const { getVslotShorthandName } = require('./vueSlotSyntaxProcessor');
-
-const _ = {};
-_.has = require('lodash/has');
+const _ = {
+  has,
+};
 
 /*
  * h1 - h6
  */
-function setHeadingId(node, config) {
+export function setHeadingId(node: DomElement, config: NodeProcessorConfig) {
   const textContent = cheerio(node).text();
   // remove the '&lt;' and '&gt;' symbols that markdown-it uses to escape '<' and '>'
   const cleanedContent = textContent.replace(/&lt;|&gt;/g, '');
@@ -24,6 +27,7 @@ function setHeadingId(node, config) {
     headerIdMap[slugifiedHeading] = 2;
   }
 
+  node.attribs = node.attribs ?? {};
   node.attribs.id = headerId;
 }
 
@@ -32,7 +36,7 @@ function setHeadingId(node, config) {
  * @param node Root element to search from
  * @returns {undefined|*} The header element, or undefined if none is found.
  */
-function _findHeaderElement(node) {
+function _findHeaderElement(node: DomElement) {
   const elements = node.children;
   if (!elements || !elements.length) {
     return undefined;
@@ -41,11 +45,12 @@ function _findHeaderElement(node) {
   const elementQueue = elements.slice(0);
   while (elementQueue.length) {
     const nextEl = elementQueue.shift();
-    if ((/^h[1-6]$/).test(nextEl.name)) {
+
+    if (nextEl?.name && (/^h[1-6]$/).test(nextEl.name)) {
       return nextEl;
     }
 
-    if (nextEl.children) {
+    if (nextEl?.children) {
       nextEl.children.forEach(child => elementQueue.push(child));
     }
   }
@@ -59,9 +64,10 @@ function _findHeaderElement(node) {
  * This is to ensure anchors still work when panels are in their minimized form.
  * @param node The root panel element
  */
-function assignPanelId(node) {
+export function assignPanelId(node: DomElement) {
   const slotChildren = node.children
-      && node.children.filter(child => getVslotShorthandName(child) !== '');
+    ? node.children.filter(child => getVslotShorthandName(child) !== '')
+    : [];
 
   const headerSlot = slotChildren.find(child => getVslotShorthandName(child) === 'header');
 
@@ -76,11 +82,7 @@ function assignPanelId(node) {
           + 'Please report this to the MarkBind developers. Thank you!');
     }
 
+    node.attribs = node.attribs ?? {};
     node.attribs.panelId = header.attribs.id;
   }
 }
-
-module.exports = {
-  setHeadingId,
-  assignPanelId,
-};
