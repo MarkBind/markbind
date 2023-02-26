@@ -19,8 +19,6 @@ const SUBMIT_BUTTON = '<button type="submit" class="badge bg-info">Submit</butto
 
 const DEFAULT_INPUTS = `${NAME_INPUT}\n${EMAIL_INPUT}\n${MESSAGE_INPUT}\n${SUBMIT_BUTTON}`;
 
-const FORM_CONTAINER = '<box type="info" no-icon><h2>Contact Us</h2></box>';
-
 function createMinimalForm(pluginContext: PluginContext) {
   const $replaceNode = cheerio('<form onsubmit="submitForm(this)"></form>');
   $replaceNode.append(`<input type="hidden" name="access_key" value=${pluginContext.accessKey}>`);
@@ -31,6 +29,7 @@ function deleteWeb3FormAttributes(node: cheerio.Element & DomElement) {
   const nodeAttribs = node.attribs;
   if (!nodeAttribs) return;
   delete nodeAttribs.default;
+  delete nodeAttribs.header;
 }
 
 function transformFormInputs(child: cheerio.Element) {
@@ -55,6 +54,24 @@ function transformFormInputs(child: cheerio.Element) {
   }
 }
 
+function generateFormContainer(node: cheerio.Element & DomElement) {
+  if (node.type !== 'tag') {
+    return;
+  }
+  node.name = 'box';
+  const $node = cheerio(node);
+  if (!_.has(node.attribs, 'type')) {
+    $node.attr('type', 'info');
+  }
+  $node.attr('no-icon', '');
+  let header = 'Contact Us';
+  if (_.has(node.attribs, 'header')) {
+    header = $node.prop('header');
+  }
+  const $headerNode = cheerio(`<h2>${header}</h2>`);
+  $node.prepend($headerNode);
+}
+
 function createCustomForm(pluginContext: PluginContext, node: cheerio.Element & DomElement) {
   const $node = cheerio(node);
   const $formNode = createMinimalForm(pluginContext);
@@ -62,10 +79,8 @@ function createCustomForm(pluginContext: PluginContext, node: cheerio.Element & 
   $formNode.children().each((index, child) => {
     transformFormInputs(child);
   });
-  const $formWrapper = cheerio(FORM_CONTAINER);
-  $formWrapper.append($formNode);
-  $node.append($formWrapper);
-  node.name = 'div';
+  $node.append($formNode);
+  generateFormContainer(node);
   deleteWeb3FormAttributes(node);
 }
 
@@ -79,10 +94,8 @@ function createDefaultContactForm(pluginContext: PluginContext, node: cheerio.El
   const $node = cheerio(node);
   const $formNode = createMinimalForm(pluginContext);
   $formNode.append(DEFAULT_INPUTS);
-  const $formWrapper = cheerio(FORM_CONTAINER);
-  $formWrapper.append($formNode);
-  $node.append($formWrapper);
-  node.name = 'div';
+  $node.append($formNode);
+  generateFormContainer(node);
   deleteWeb3FormAttributes(node);
 }
 
