@@ -1,6 +1,6 @@
-const path = require('path');
+import path from 'path';
 
-const PAGE_NJK = `
+const PAGE_NJK_LITERAL = `
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
@@ -40,11 +40,11 @@ const PAGE_NJK = `
 <script src="{{ asset.layoutScript }}"></script>
 </html>
 `;
-module.exports.PAGE_NJK = {
-  [path.join(__dirname, '../../../src/Page/page.njk')]: PAGE_NJK,
+export const PAGE_NJK = {
+  [path.join(__dirname, '../../../src/Page/page.njk')]: PAGE_NJK_LITERAL,
 };
 
-module.exports.SITE_JSON_DEFAULT = '{\n'
+export const SITE_JSON_DEFAULT = '{\n'
   + '  "baseUrl": "",\n'
   + '  "titlePrefix": "",\n'
   + '  "titleSuffix": "",\n'
@@ -76,7 +76,7 @@ module.exports.SITE_JSON_DEFAULT = '{\n'
   + '  }\n'
   + '}\n';
 
-module.exports.INDEX_MD_DEFAULT = '<frontmatter>\n'
+export const INDEX_MD_DEFAULT = '<frontmatter>\n'
   + '  title: "Hello World"\n'
   + '  footer: footer.md\n'
   + '  header: header.md\n'
@@ -87,7 +87,6 @@ module.exports.INDEX_MD_DEFAULT = '<frontmatter>\n'
 
 const DEFAULT_TEMPLATE_DIRECTORY = path.join(__dirname, '../../../template/default');
 
-function getDefaultTemplateFileFullPath(relativePath) {
+export function getDefaultTemplateFileFullPath(relativePath: string) {
   return path.join(DEFAULT_TEMPLATE_DIRECTORY, relativePath);
 }
-module.exports.getDefaultTemplateFileFullPath = getDefaultTemplateFileFullPath;
