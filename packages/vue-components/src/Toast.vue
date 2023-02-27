@@ -4,8 +4,7 @@
 </template>
 
 <script>
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { notify } from 'alertifyjs';
+import notify from './toasts/notify';
 import { classifyBootstrapStyle } from './utils/utils';
 
 export default {
