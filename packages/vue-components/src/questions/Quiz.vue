@@ -1,6 +1,6 @@
 <template>
   <div :class="['quiz-container', addClass]">
-    <transition name="intro-outro-card">
+    <transition name="intro-outro-card" @after-leave="showFirstQuestion">
       <div v-if="state === 3" class="card intro-outro-card">
         <div class="card-body">
           <slot name="intro">
@@ -43,7 +43,11 @@
 
     <slot></slot>
 
-    <transition name="intro-outro-card" @after-enter="setScoreCircleStyles">
+    <transition
+      name="intro-outro-card"
+      @after-enter="setScoreCircleStyles"
+      @after-leave="showFirstQuestion"
+    >
       <div v-if="state === 5" class="card intro-outro-card">
         <div class="card-body">
           <h4 class="mb-3">
@@ -121,6 +125,7 @@ export default {
     return {
       questions: this.questions,
       gotoNextQuestion: this.gotoNextQuestion,
+      showNextQuestion: this.showNextQuestion,
     };
   },
   computed: {
@@ -134,6 +139,8 @@ export default {
     gotoNextQuestion() {
       this.questions[this.currentQuestion - 1].hide();
       this.currentQuestion += 1;
+    },
+    showNextQuestion() {
       if (this.currentQuestion <= this.questions.length) {
         this.questions[this.currentQuestion - 1].show();
       } else {
@@ -144,6 +151,8 @@ export default {
       this.currentQuestion = 1;
       this.score = 0;
       this.state = STATE_QUIZ_IN_PROGRESS;
+    },
+    showFirstQuestion() {
       if (this.questions.length) {
         this.questions[0].show();
       }
@@ -152,9 +161,6 @@ export default {
       this.currentQuestion = 1;
       this.score = 0;
       this.state = STATE_QUIZ_IN_PROGRESS;
-      if (this.questions.length) {
-        this.questions[0].show();
-      }
     },
     reset() {
       this.questions.forEach(question => question.reset());
@@ -180,14 +186,10 @@ export default {
     }
 
     .intro-outro-card {
-        transition: transform 0.5s ease-out, opacity 0.5s linear;
+        transition: transform 0.35s ease-out, opacity 0.35s linear;
     }
 
-    .intro-outro-card-enter-active {
-        opacity: 0;
-        position: absolute;
-    }
-
+    .intro-outro-card-enter-active,
     .intro-outro-card-leave-to {
         opacity: 0;
     }
