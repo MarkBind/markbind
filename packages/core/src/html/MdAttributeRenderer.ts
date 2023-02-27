@@ -2,7 +2,7 @@ import cheerio from 'cheerio';
 import has from 'lodash/has';
 import { DomElement } from 'htmlparser2';
 import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
-import { MarkdownProcessor } from './MarkdownProcessor';
+import type { MarkdownProcessor } from './MarkdownProcessor';
 import * as logger from '../utils/logger';
 import { createSlotTemplateNode } from './elements';
 
