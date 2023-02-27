@@ -356,12 +356,12 @@ export default {
 
     .question-enter-active {
         opacity: 0;
-        transform: translateY(-1%);
+        transform: translateY(-2%);
     }
 
     .question-leave-to {
         opacity: 0;
-        transform: translateY(1%);
+        transform: translateY(2%);
     }
 
     .q-btn {
