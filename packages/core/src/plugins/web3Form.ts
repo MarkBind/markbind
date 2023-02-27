@@ -2,6 +2,7 @@ import { DomElement } from 'htmlparser2';
 import cheerio from 'cheerio';
 import has from 'lodash/has';
 import { PluginContext } from './Plugin';
+const md = require('../lib/markdown-it');
 
 const _ = {
   has,
@@ -64,11 +65,11 @@ function generateFormContainer(node: cheerio.Element & DomElement) {
     $node.attr('type', 'info');
   }
   $node.attr('no-icon', '');
-  let header = 'Contact Us';
+  let header = '<h2>Contact Us</h2>';
   if (_.has(node.attribs, 'header')) {
-    header = $node.prop('header');
+    header = md.render($node.prop('header'));
   }
-  const $headerNode = cheerio(`<h2>${header}</h2>`);
+  const $headerNode = cheerio(header);
   $node.prepend($headerNode);
 }
 
@@ -106,6 +107,9 @@ const submitFormScript = `
             const formData = new FormData(element);
             const formProps = Object.fromEntries(formData);
             const json = JSON.stringify(formProps);
+            const submitButton = element.querySelector('button[type="submit"]');
+            const submitButtonText = submitButton.innerText;
+            submitButton.innerText = 'Please wait...'
             fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: {
