@@ -86,7 +86,7 @@
           <button
             type="button"
             class="btn btn-outline-primary"
-            @click="restart"
+            @click="begin"
           >
             Retry
           </button>
@@ -156,11 +156,6 @@ export default {
       if (this.questions.length) {
         this.questions[0].show();
       }
-    },
-    restart() {
-      this.currentQuestion = 1;
-      this.score = 0;
-      this.state = STATE_QUIZ_IN_PROGRESS;
     },
     reset() {
       this.questions.forEach(question => question.reset());
