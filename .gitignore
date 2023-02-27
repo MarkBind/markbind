@@ -93,6 +93,7 @@ packages/core/src/plugins/codeBlockButtonsAssets/codeBlockButtonsContainer.js
 packages/core/src/plugins/codeBlockCopyButtons.js
 packages/core/src/plugins/codeBlockWrapButtons.js
 packages/core/src/plugins/types.js
+packages/core/src/plugins/web3Form.js
 packages/core/src/variables/VariableProcessor.js
 packages/core/src/variables/VariableRenderer.js
 packages/core/src/Page/PageVueServerRenderer.js
