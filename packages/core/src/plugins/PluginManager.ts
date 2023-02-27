@@ -12,7 +12,8 @@ import * as logger from '../utils/logger';
 import {
   FrontMatter, Plugin, PluginContext, TagConfigs,
 } from './Plugin';
-import { NodeProcessorConfig } from '../html/NodeProcessor';
+import type { NodeProcessorConfig } from '../html/NodeProcessor';
+import type { PageAssets } from '../Page/PageConfig';
 
 const { ignoreTags } = require('../patches');
 
@@ -28,11 +29,6 @@ const MARKBIND_PLUGIN_DIRECTORY = __dirname;
 const MARKBIND_DEFAULT_PLUGIN_DIRECTORY = path.join(__dirname, 'default');
 const MARKBIND_PLUGIN_PREFIX = 'markbind-plugin-';
 const PROJECT_PLUGIN_FOLDER_NAME = '_markbind/plugins';
-
-type PageAsset = {
-  pluginScripts: string[],
-  pluginLinks: string[],
-};
 
 export class PluginManager {
   static tagConfig: { [key: string]: TagConfigs };
@@ -196,7 +192,7 @@ export class PluginManager {
   /**
    * Run getLinks and getScripts hooks
    */
-  collectPluginPageNjkAssets(frontmatter: FrontMatter, content: string, pageAsset: PageAsset) {
+  collectPluginPageNjkAssets(frontmatter: FrontMatter, content: string, pageAsset: PageAssets) {
     const pluginLinksAndScripts = Object.values(this.plugins)
       .map(plugin => plugin.getPageNjkLinksAndScripts(frontmatter, content, this.config.baseUrl));
 

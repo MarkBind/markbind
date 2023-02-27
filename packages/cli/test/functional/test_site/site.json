@@ -124,6 +124,10 @@
       "title": "text interpolation should be skipped appropriately"
     },
     {
+      "src": "testPanelsClosingTransition.md",
+      "title": "Test: Panels closing transition"
+    },
+    {
       "src": "testLinks.md",
       "title": "Autolink tests"
     },

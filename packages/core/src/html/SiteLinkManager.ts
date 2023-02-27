@@ -1,7 +1,7 @@
 import has from 'lodash/has';
 import { DomElement } from 'htmlparser2';
 import * as linkProcessor from './linkProcessor';
-import { NodeProcessorConfig } from './NodeProcessor';
+import type { NodeProcessorConfig } from './NodeProcessor';
 
 const _ = { has };
 

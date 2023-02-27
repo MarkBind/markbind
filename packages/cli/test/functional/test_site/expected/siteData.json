@@ -303,6 +303,12 @@
       "headingKeywords": {}
     },
     {
+      "src": "testPanelsClosingTransition.md",
+      "title": "Test: Panels closing transition",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
       "src": "testLinks.md",
       "title": "Autolink tests",
       "headings": {

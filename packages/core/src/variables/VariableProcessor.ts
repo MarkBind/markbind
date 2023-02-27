@@ -6,7 +6,7 @@ import { PageSources } from '../Page/PageSources';
 import VariableRenderer from './VariableRenderer';
 import * as logger from '../utils/logger';
 import * as urlUtil from '../utils/urlUtil';
-import { Context } from '../html/Context';
+import type { Context } from '../html/Context';
 
 /**
  * All variable extraction and rendering is done here.
