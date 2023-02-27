@@ -12,14 +12,20 @@ import { PageSources } from '../Page/PageSources';
 import { isMarkdownFileExt } from '../utils/fsUtil';
 import * as logger from '../utils/logger';
 import * as linkProcessor from './linkProcessor';
-import VariableProcessor from '../variables/VariableProcessor';
+import type VariableProcessor from '../variables/VariableProcessor';
 import { warnConflictingAtributesMap, warnDeprecatedAtributesMap } from './warnings';
 import { shiftSlotNodeDeeper, transformOldSlotSyntax, renameSlot } from './vueSlotSyntaxProcessor';
 import { MdAttributeRenderer } from './MdAttributeRenderer';
 import { MarkdownProcessor } from './MarkdownProcessor';
 import { processScriptAndStyleTag } from './scriptAndStyleTagProcessor';
-import { SiteLinkManager } from './SiteLinkManager';
+import type { SiteLinkManager } from './SiteLinkManager';
+import type { PluginManager } from '../plugins/PluginManager';
 import { processInclude, processPanelSrc, processPopoverSrc } from './includePanelProcessor';
+
+import { PageNavProcessor, renderSiteNav, addSitePageNavPortal } from './siteAndPageNavProcessor';
+import { highlightCodeBlock, setCodeLineNumbers } from './codeblockProcessor';
+import { setHeadingId, assignPanelId } from './headerProcessor';
+import { FootnoteProcessor } from './FootnoteProcessor';
 
 const fm = require('fastmatter');
 
@@ -30,11 +36,6 @@ const _ = {
 
 // Load our htmlparser2 patch for supporting "special" tags
 require('../patches/htmlparser2');
-
-const { PageNavProcessor, renderSiteNav, addSitePageNavPortal } = require('./siteAndPageNavProcessor');
-const { highlightCodeBlock, setCodeLineNumbers } = require('./codeblockProcessor');
-const { setHeadingId, assignPanelId } = require('./headerProcessor');
-const { FootnoteProcessor } = require('./FootnoteProcessor');
 
 const FRONTMATTER_FENCE = '---';
 
@@ -62,9 +63,9 @@ export class NodeProcessor {
   headBottom: string[] = [];
   scriptBottom: string[] = [];
 
-  markdownProcessor: any;
+  markdownProcessor: MarkdownProcessor;
   footnoteProcessor = new FootnoteProcessor();
-  mdAttributeRenderer: any;
+  mdAttributeRenderer: MdAttributeRenderer;
   pageNavProcessor = new PageNavProcessor();
 
   processedModals: { [id: string]: boolean } = {};
@@ -73,7 +74,7 @@ export class NodeProcessor {
     private config: NodeProcessorConfig,
     private pageSources: PageSources,
     private variableProcessor: VariableProcessor,
-    private pluginManager: any,
+    private pluginManager: PluginManager,
     private siteLinkManager: SiteLinkManager,
     private userScriptsAndStyles: string[] | undefined,
     docId = '',
@@ -347,7 +348,7 @@ export class NodeProcessor {
 
     // eslint-disable-next-line no-param-reassign
     context = this.processNode(node, context);
-    this.pluginManager.processNode(node, this.config);
+    this.pluginManager.processNode(node);
 
     if (node.children) {
       node.children.forEach((child) => {
@@ -371,7 +372,7 @@ export class NodeProcessor {
       }
     }
 
-    this.pluginManager.postProcessNode(node, this.config);
+    this.pluginManager.postProcessNode(node);
 
     return node;
   }

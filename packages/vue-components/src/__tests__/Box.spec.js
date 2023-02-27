@@ -367,4 +367,15 @@ describe('Box', () => {
     });
     expect(wrapper.element).toMatchSnapshot();
   });
+
+  test('with custom icon color and light renders correctly', () => {
+    const wrapper = mount(Box, {
+      propsData: {
+        iconColor: 'red',
+        light: true,
+        type: 'warning',
+      },
+    });
+    expect(wrapper.element).toMatchSnapshot();
+  });
 });
