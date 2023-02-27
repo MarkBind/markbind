@@ -11,22 +11,6 @@ import { classifyBootstrapStyle } from './utils/utils';
 export default {
   name: 'Toast',
   props: {
-    // backgroundColor: {
-    //   type: String,
-    //   default: null,
-    // },
-    // border: {
-    //   type: String,
-    //   default: null,
-    // },
-    // borderColor: {
-    //   type: String,
-    //   default: null,
-    // },
-    // color: {
-    //   type: String,
-    //   default: null,
-    // },
     duration: {
       type: Number,
       default: 1000,
@@ -41,24 +25,6 @@ export default {
     },
   },
   methods: {
-    // customStyle() {
-    //   const style = {};
-    //   if (this.backgroundColor) {
-    //     style.backgroundColor = this.backgroundColor;
-    //     style.borderColor = this.backgroundColor;
-    //   }
-    //   if (this.border) {
-    //     style.border = this.border;
-    //   }
-    //   if (this.borderColor) {
-    //     style.border = `1px solid ${this.borderColor}`;
-    //   }
-    //   if (this.color) {
-    //     style.color = this.color;
-    //   }
-    //   console.log(style);
-    //   return style;
-    // },
     showToast() {
       const type = classifyBootstrapStyle(this.type, '').style;
       notify(this.message, type, this.duration, () => {});
