@@ -124,9 +124,11 @@ const submitFormScript = `
                 } else {
                     alert('Error submitting form! Please try again later.');
                 }
+                submitButton.innerText = submitButtonText;
             })
             .catch(error => {
                 alert('Error submitting form! Please try again later.');
+                submitButton.innerText = submitButtonText;
             })
         }
     </script>`;
