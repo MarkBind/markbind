@@ -2,6 +2,7 @@ import { DomElement } from 'htmlparser2';
 import cheerio from 'cheerio';
 import has from 'lodash/has';
 import { PluginContext } from './Plugin';
+
 const md = require('../lib/markdown-it');
 
 const _ = {
