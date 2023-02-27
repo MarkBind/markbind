@@ -11,9 +11,9 @@ import CyclicReferenceError from '../errors/CyclicReferenceError';
 import * as fsUtil from '../utils/fsUtil';
 import * as logger from '../utils/logger';
 import * as urlUtil from '../utils/urlUtil';
-import { Context } from './Context';
-import { PageSources } from '../Page/PageSources';
-import VariableProcessor from '../variables/VariableProcessor';
+import type { Context } from './Context';
+import type { PageSources } from '../Page/PageSources';
+import type VariableProcessor from '../variables/VariableProcessor';
 
 require('../patches/htmlparser2');
 

@@ -6,7 +6,7 @@ import { DomElement } from 'htmlparser2';
 import isString from 'lodash/isString';
 import * as logger from '../utils/logger';
 import * as urlUtil from '../utils/urlUtil';
-import { NodeProcessorConfig } from '../html/NodeProcessor';
+import type { NodeProcessorConfig } from '../html/NodeProcessor';
 
 require('../patches/htmlparser2');
 
