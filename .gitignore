@@ -109,5 +109,12 @@ packages/core/src/html/headerProcessor.js
 packages/core/src/html/codeblockProcessor.js
 packages/core/src/html/siteAndPageNavProcessor.js
 packages/core/src/Page/index.js
+packages/core/test/unit/html/NodeProcessor.test.js
+packages/core/test/unit/html/NodeProcessor.data.js
+packages/core/test/unit/html/linkProcessor.test.js
+packages/core/test/unit/html/includePanelProcessor.test.js
+packages/core/test/unit/html/SiteLinkManager.test.js
+packages/core/test/unit/utils/utils.js
+packages/core/test/unit/utils/data.js
 
 # --- packages/core end ---
