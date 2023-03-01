@@ -1,9 +1,9 @@
 import cheerio from 'cheerio';
 import slugify from '@sindresorhus/slugify';
 import has from 'lodash/has';
-import { DomElement } from 'htmlparser2';
 import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
 import type { NodeProcessorConfig } from './NodeProcessor';
+import { Node } from '../utils/node';
 
 const _ = {
   has,
@@ -12,7 +12,7 @@ const _ = {
 /*
  * h1 - h6
  */
-export function setHeadingId(node: DomElement, config: NodeProcessorConfig) {
+export function setHeadingId(node: Node, config: NodeProcessorConfig) {
   const textContent = cheerio(node).text();
   // remove the '&lt;' and '&gt;' symbols that markdown-it uses to escape '<' and '>'
   const cleanedContent = textContent.replace(/&lt;|&gt;/g, '');
@@ -27,7 +27,6 @@ export function setHeadingId(node: DomElement, config: NodeProcessorConfig) {
     headerIdMap[slugifiedHeading] = 2;
   }
 
-  node.attribs = node.attribs ?? {};
   node.attribs.id = headerId;
 }
 
@@ -36,7 +35,7 @@ export function setHeadingId(node: DomElement, config: NodeProcessorConfig) {
  * @param node Root element to search from
  * @returns {undefined|*} The header element, or undefined if none is found.
  */
-function _findHeaderElement(node: DomElement) {
+function _findHeaderElement(node: Node) {
   const elements = node.children;
   if (!elements || !elements.length) {
     return undefined;
@@ -64,12 +63,12 @@ function _findHeaderElement(node: DomElement) {
  * This is to ensure anchors still work when panels are in their minimized form.
  * @param node The root panel element
  */
-export function assignPanelId(node: DomElement) {
+export function assignPanelId(node: Node) {
   const slotChildren = node.children
     ? node.children.filter(child => getVslotShorthandName(child) !== '')
     : [];
 
-  const headerSlot = slotChildren.find(child => getVslotShorthandName(child) === 'header');
+  const headerSlot = slotChildren.find(child => getVslotShorthandName(child) === 'header') as Node;
 
   if (headerSlot) {
     const header = _findHeaderElement(headerSlot);
@@ -82,7 +81,6 @@ export function assignPanelId(node: DomElement) {
           + 'Please report this to the MarkBind developers. Thank you!');
     }
 
-    node.attribs = node.attribs ?? {};
     node.attribs.panelId = header.attribs.id;
   }
 }

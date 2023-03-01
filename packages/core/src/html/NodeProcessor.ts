@@ -26,6 +26,7 @@ import { PageNavProcessor, renderSiteNav, addSitePageNavPortal } from './siteAnd
 import { highlightCodeBlock, setCodeLineNumbers } from './codeblockProcessor';
 import { setHeadingId, assignPanelId } from './headerProcessor';
 import { FootnoteProcessor } from './FootnoteProcessor';
+import { NodeOrText, Node, TextElement } from '../utils/node';
 
 const fm = require('fastmatter');
 
@@ -87,7 +88,9 @@ export class NodeProcessor {
    * Private utility functions
    */
 
-  static _trimNodes(node: DomElement) {
+  private static _trimNodes(nodeOrText: Node | TextElement) {
+    if (NodeProcessor._isText(nodeOrText)) return;
+    const node = nodeOrText as Node;
     if (node.name === 'pre' || node.name === 'code') {
       return;
     }
@@ -105,14 +108,14 @@ export class NodeProcessor {
     }
   }
 
-  static _isText(node: DomElement) {
+  private static _isText(node: DomElement) {
     return node.type === 'text' || node.type === 'comment';
   }
 
   /*
    * Frontmatter collection
    */
-  _processFrontmatter(node: DomElement, context: Context) {
+  private _processFrontmatter(node: Node, context: Context) {
     let currentFrontmatter = {};
     const frontmatter = cheerio(node);
     if (!context.processingOptions.omitFrontmatter && frontmatter.text().trim()) {
@@ -139,7 +142,7 @@ export class NodeProcessor {
    * Layout element collection
    */
 
-  private static collectLayoutEl(node: DomElement): string | null {
+  private static collectLayoutEl(node: Node): string | null {
     const $ = cheerio(node);
     const html = $.html();
     $.remove();
@@ -149,30 +152,27 @@ export class NodeProcessor {
   /**
    * Removes the node if modal id already exists, processes node otherwise
    */
-  private processModal(node: DomElement) {
-    if (node.attribs) {
-      if (this.processedModals[node.attribs.id]) {
-        cheerio(node).remove();
-      } else {
-        this.processedModals[node.attribs.id] = true;
+  private processModal(node: Node) {
+    if (this.processedModals[node.attribs.id]) {
+      cheerio(node).remove();
+    } else {
+      this.processedModals[node.attribs.id] = true;
 
-        // Transform deprecated slot names; remove when deprecating
-        renameSlot(node, 'modal-header', 'header');
-        renameSlot(node, 'modal-footer', 'footer');
+      // Transform deprecated slot names; remove when deprecating
+      renameSlot(node, 'modal-header', 'header');
+      renameSlot(node, 'modal-footer', 'footer');
 
-        this.mdAttributeRenderer.processModalAttributes(node);
-      }
+      this.mdAttributeRenderer.processModalAttributes(node);
     }
   }
 
   /*
    * API
    */
-  processNode(node: DomElement, context: Context): Context {
+  processNode(nodeOrText: NodeOrText, context: Context): Context {
     try {
-      if (!node.name || !node.attribs) {
-        return context;
-      }
+      if (NodeProcessor._isText(nodeOrText)) return context;
+      const node = nodeOrText as Node;
 
       transformOldSlotSyntax(node);
       shiftSlotNodeDeeper(node);
@@ -271,7 +271,10 @@ export class NodeProcessor {
     return context;
   }
 
-  postProcessNode(node: DomElement) {
+  postProcessNode(nodeOrText: NodeOrText) {
+    if (NodeProcessor._isText(nodeOrText)) return;
+    const node = nodeOrText as Node;
+
     try {
       switch (node.name) {
       case 'pre':
@@ -308,18 +311,20 @@ export class NodeProcessor {
       logger.error(error);
     }
 
-    if (node.attribs) {
-      delete node.attribs[ATTRIB_CWF];
-    }
+    delete node.attribs[ATTRIB_CWF];
   }
 
-  private traverse(node: DomElement, context: Context): DomElement {
-    if (NodeProcessor._isText(node)) {
-      return node;
+  private traverse(dom: DomElement, context: Context): NodeOrText {
+  // TODO: process is the entrypoint, and calls traverse
+  // because each node has children and we can't typecast all the children to MarkbindDomElement
+    // from the parent, instead use traverse as the typecasting place?? traverse will run through
+    // everything, then after that we have the invariant that everything is of type MarkbindNode?
+    if (NodeProcessor._isText(dom)) {
+      return dom as TextElement;
     }
-    if (node.name) {
-      node.name = node.name.toLowerCase();
-    }
+    const node = dom as Node;
+    node.children = node.children === undefined ? [] : node.children;
+    node.name = node.name.toLowerCase();
     if (linkProcessor.hasTagLink(node)) {
       linkProcessor.convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);
       linkProcessor.convertMdExtToHtmlExt(node);
@@ -360,16 +365,14 @@ export class NodeProcessor {
 
     addSitePageNavPortal(node);
 
-    if (node.name) {
-      const isHeadingTag = (/^h[1-6]$/).test(node.name);
-      if (isHeadingTag && !node.attribs?.id) {
-        setHeadingId(node, this.config);
-      }
+    const isHeadingTag = (/^h[1-6]$/).test(node.name);
+    if (isHeadingTag && !node.attribs.id) {
+      setHeadingId(node, this.config);
+    }
 
-      // Generate dummy spans as anchor points for header[sticky]
-      if (isHeadingTag && node.attribs?.id) {
-        cheerio(node).prepend(`<span id="${node.attribs.id}" class="anchor"></span>`);
-      }
+    // Generate dummy spans as anchor points for header[sticky]
+    if (isHeadingTag) {
+      cheerio(node).prepend(`<span id="${node.attribs.id}" class="anchor"></span>`);
     }
 
     this.pluginManager.postProcessNode(node);
@@ -392,7 +395,7 @@ export class NodeProcessor {
           return;
         }
         const mainHtmlNodes = dom.map((d) => {
-          let processed;
+          let processed: NodeOrText;
           try {
             processed = this.traverse(d, context);
           } catch (err: any) {
@@ -404,7 +407,7 @@ export class NodeProcessor {
         });
         mainHtmlNodes.forEach(d => NodeProcessor._trimNodes(d));
 
-        const footnotesHtml = this.footnoteProcessor.combineFootnotes((node: DomElement) => this.processNode(
+        const footnotesHtml = this.footnoteProcessor.combineFootnotes(node => this.processNode(
           node, new Context(cwf, [], extraVariables, {}),
         ));
         const mainHtml = cheerio(mainHtmlNodes).html();
