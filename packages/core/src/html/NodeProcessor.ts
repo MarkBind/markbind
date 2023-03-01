@@ -367,7 +367,7 @@ export class NodeProcessor {
     }
 
     // Generate dummy spans as anchor points for header[sticky]
-    if (isHeadingTag) {
+    if (isHeadingTag && node.attribs.id) {
       cheerio(node).prepend(`<span id="${node.attribs.id}" class="anchor"></span>`);
     }
 
