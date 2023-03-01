@@ -66,8 +66,7 @@ function _getBoilerplateFilePath(node: Node, filePath: string, config: Record<st
 /**
  * Retrieves several flags and file paths from the src attribute specified in the element.
  */
-function _getSrcFlagsAndFilePaths(element: Node & { attribs: { src: string } },
-                                  config: Record<string, any>) {
+function _getSrcFlagsAndFilePaths(element: Node, config: Record<string, any>) {
   const isUrl = urlUtil.isUrl(element.attribs.src);
 
   // We do this even if the src is not a url to get the hash, if any
@@ -122,7 +121,7 @@ export function processPanelSrc(node: Node, context: Context, pageSources: PageS
     filePath,
     actualFilePath,
     // We can typecast here as we have checked for src above.
-  } = _getSrcFlagsAndFilePaths(node as Node & { attribs: { src: string } }, config);
+  } = _getSrcFlagsAndFilePaths(node, config);
 
   const fileExists = _checkAndWarnFileExists(node, context, actualFilePath, pageSources);
   if (!fileExists) {
@@ -192,7 +191,7 @@ export function processInclude(node: Node, context: Context, pageSources: PageSo
     filePath,
     actualFilePath,
     // We can typecast here as we have checked for src above.
-  } = _getSrcFlagsAndFilePaths(node as Node & { attribs: { src: string } }, config);
+  } = _getSrcFlagsAndFilePaths(node, config);
 
   // No need to process url contents
   if (isUrl) {
@@ -295,7 +294,7 @@ export function processPopoverSrc(node: Node, context: Context, pageSources: Pag
     filePath,
     actualFilePath,
     // We can typecast here as we have checked for src above.
-  } = _getSrcFlagsAndFilePaths(node as Node & { attribs: { src: string } }, config);
+  } = _getSrcFlagsAndFilePaths(node, config);
 
   // No need to process url contents
   if (isUrl) {

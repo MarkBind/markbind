@@ -315,10 +315,6 @@ export class NodeProcessor {
   }
 
   private traverse(dom: DomElement, context: Context): NodeOrText {
-  // TODO: process is the entrypoint, and calls traverse
-  // because each node has children and we can't typecast all the children to MarkbindDomElement
-    // from the parent, instead use traverse as the typecasting place?? traverse will run through
-    // everything, then after that we have the invariant that everything is of type MarkbindNode?
     if (NodeProcessor._isText(dom)) {
       return dom as TextElement;
     }
