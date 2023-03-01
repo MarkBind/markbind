@@ -311,7 +311,9 @@ export class NodeProcessor {
       logger.error(error);
     }
 
-    delete node.attribs[ATTRIB_CWF];
+    if (node.attribs) {
+      delete node.attribs[ATTRIB_CWF];
+    }
   }
 
   private traverse(dom: DomElement, context: Context): NodeOrText {
@@ -319,7 +321,6 @@ export class NodeProcessor {
       return dom as TextElement;
     }
     const node = dom as Node;
-    node.children = node.children === undefined ? [] : node.children;
     node.name = node.name.toLowerCase();
     if (linkProcessor.hasTagLink(node)) {
       linkProcessor.convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);

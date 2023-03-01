@@ -13,7 +13,7 @@ import * as urlUtil from '../utils/urlUtil';
 import type { Context } from './Context';
 import type { PageSources } from '../Page/PageSources';
 import type VariableProcessor from '../variables/VariableProcessor';
-import { Node } from '../utils/node';
+import { Node, NodeOrText } from '../utils/node';
 
 require('../patches/htmlparser2');
 
@@ -48,11 +48,7 @@ function _checkAndWarnFileExists(element: Node, context: Context, actualFilePath
   return true;
 }
 
-function _getBoilerplateFilePath(node: Node, filePath: string, config: Record<string, any>) {
-  const element = node;
-
-  if (!element.attribs) return undefined;
-
+function _getBoilerplateFilePath(element: Node, filePath: string, config: Record<string, any>) {
   const isBoilerplate = _.has(element.attribs, 'boilerplate');
   if (isBoilerplate) {
     element.attribs.boilerplate = element.attribs.boilerplate || path.basename(filePath);
@@ -354,7 +350,7 @@ export function processPopoverSrc(node: Node, context: Context, pageSources: Pag
     }
   }
 
-  const attributeSlotElement = createSlotTemplateNode('content', actualContent);
+  const attributeSlotElement: NodeOrText[] = createSlotTemplateNode('content', actualContent);
   node.children = node.children ? attributeSlotElement.concat(node.children) : attributeSlotElement;
 
   delete node.attribs.src;

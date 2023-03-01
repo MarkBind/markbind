@@ -1,10 +1,10 @@
 import cheerio from 'cheerio';
 import has from 'lodash/has';
-import { DomElement } from 'htmlparser2';
 import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
 import type { MarkdownProcessor } from './MarkdownProcessor';
 import * as logger from '../utils/logger';
 import { createSlotTemplateNode } from './elements';
+import { Node, NodeOrText } from '../utils/node';
 
 const _ = {
   has,
@@ -28,11 +28,8 @@ export class MdAttributeRenderer {
    * @param isInline Whether to process the attribute with only inline markdown-it rules
    * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
    */
-  processAttributeWithoutOverride(node: DomElement, attribute: string,
+  processAttributeWithoutOverride(node: Node, attribute: string,
                                   isInline: boolean, slotName = attribute): void {
-    if (!node.attribs) {
-      return;
-    }
     const hasAttributeSlot = node.children
         && node.children.some(child => getVslotShorthandName(child) === slotName);
 
@@ -44,7 +41,7 @@ export class MdAttributeRenderer {
         rendered = this.markdownProcessor.renderMd(node.attribs[attribute]);
       }
 
-      const attributeSlotElement = createSlotTemplateNode(slotName, rendered);
+      const attributeSlotElement: NodeOrText[] = createSlotTemplateNode(slotName, rendered);
       node.children = node.children
         ? attributeSlotElement.concat(node.children)
         : attributeSlotElement;
@@ -62,7 +59,7 @@ export class MdAttributeRenderer {
    * @returns {boolean} whether the node has both the slot and attribute
    */
   // eslint-disable-next-line class-methods-use-this
-  hasSlotOverridingAttribute(node: DomElement, attribute: string, slotName = attribute): boolean {
+  hasSlotOverridingAttribute(node: Node, attribute: string, slotName = attribute): boolean {
     const hasNamedSlot = node.children
       && node.children.some(child => getVslotShorthandName(child) === slotName);
     if (!hasNamedSlot || !node.attribs) {
@@ -79,7 +76,7 @@ export class MdAttributeRenderer {
     return hasAttribute;
   }
 
-  processPopoverAttributes(node: DomElement) {
+  processPopoverAttributes(node: Node) {
     if (!this.hasSlotOverridingAttribute(node, 'header')) {
       this.processAttributeWithoutOverride(node, 'header', true);
     }
@@ -102,11 +99,11 @@ export class MdAttributeRenderer {
     this.processAttributeWithoutOverride(node, 'content', true);
   }
 
-  processTooltip(node: DomElement) {
+  processTooltip(node: Node) {
     this.processAttributeWithoutOverride(node, 'content', true);
   }
 
-  processModalAttributes(node: DomElement) {
+  processModalAttributes(node: Node) {
     if (!this.hasSlotOverridingAttribute(node, 'header')) {
       this.processAttributeWithoutOverride(node, 'header', true);
     }
@@ -116,7 +113,7 @@ export class MdAttributeRenderer {
    * Panels
    */
 
-  processPanelAttributes(node: DomElement) {
+  processPanelAttributes(node: Node) {
     this.processAttributeWithoutOverride(node, 'alt', false, '_alt');
     if (!this.hasSlotOverridingAttribute(node, 'header')) {
       this.processAttributeWithoutOverride(node, 'header', false);
@@ -127,17 +124,17 @@ export class MdAttributeRenderer {
    * Questions, QOption, and Quizzes
    */
 
-  processQuestion(node: DomElement) {
+  processQuestion(node: Node) {
     this.processAttributeWithoutOverride(node, 'header', false);
     this.processAttributeWithoutOverride(node, 'hint', false);
     this.processAttributeWithoutOverride(node, 'answer', false);
   }
 
-  processQOption(node: DomElement) {
+  processQOption(node: Node) {
     this.processAttributeWithoutOverride(node, 'reason', false);
   }
 
-  processQuiz(node: DomElement) {
+  processQuiz(node: Node) {
     this.processAttributeWithoutOverride(node, 'intro', false);
   }
 
@@ -145,7 +142,7 @@ export class MdAttributeRenderer {
    * Tabs
    */
 
-  processTabAttributes(node: DomElement) {
+  processTabAttributes(node: Node) {
     this.processAttributeWithoutOverride(node, 'header', true);
   }
 
@@ -153,7 +150,7 @@ export class MdAttributeRenderer {
    * Boxes
    */
 
-  processBoxAttributes(node: DomElement) {
+  processBoxAttributes(node: Node) {
     this.processAttributeWithoutOverride(node, 'icon', true);
     this.processAttributeWithoutOverride(node, 'header', false);
   }
@@ -162,7 +159,7 @@ export class MdAttributeRenderer {
    * Dropdowns
    */
 
-  processDropdownAttributes(node: DomElement) {
+  processDropdownAttributes(node: Node) {
     if (!this.hasSlotOverridingAttribute(node, 'header')) {
       this.processAttributeWithoutOverride(node, 'header', true);
     }
@@ -172,7 +169,7 @@ export class MdAttributeRenderer {
    * Thumbnails
    */
 
-  processThumbnailAttributes(node: DomElement) {
+  processThumbnailAttributes(node: Node) {
     if (!node.attribs) {
       return;
     }
@@ -188,7 +185,7 @@ export class MdAttributeRenderer {
     }
 
     const renderedText = this.markdownProcessor.renderMdInline(text);
-    node.children = cheerio.parseHTML(renderedText) as unknown as DomElement[];
+    node.children = cheerio.parseHTML(renderedText) as unknown as NodeOrText[];
     delete node.attribs.text;
   }
 }
