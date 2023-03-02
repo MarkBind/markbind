@@ -535,10 +535,11 @@ M834 80h400000v40h-400000z" />
                 } else {
                     alert('Error submitting form! Please try again later.');
                 }
-                submitButton.innerText = submitButtonText;
             })
             .catch(error => {
                 alert('Error submitting form! Please try again later.');
+            })
+            .finally(() => {
                 submitButton.innerText = submitButtonText;
             })
         }

@@ -222,7 +222,6 @@
         </box>
         <p><strong>Form with default inputs</strong></p>
         <box type="info" no-icon>
-          <h2 id="contact-us-2"><span id="contact-us-2" class="anchor"></span>Contact Us<a class="fa fa-anchor" href="#contact-us-2" onclick="event.stopPropagation()"></a></h2>
 
 
 
@@ -233,7 +232,6 @@
         </box>
         <p><strong>Form with customised inputs</strong></p>
         <box type="info" no-icon>
-          <h2 id="contact-us-3"><span id="contact-us-3" class="anchor"></span>Contact Us<a class="fa fa-anchor" href="#contact-us-3" onclick="event.stopPropagation()"></a></h2>
 
 
 
@@ -323,10 +321,11 @@
                 } else {
                     alert('Error submitting form! Please try again later.');
                 }
-                submitButton.innerText = submitButtonText;
             })
             .catch(error => {
                 alert('Error submitting form! Please try again later.');
+            })
+            .finally(() => {
                 submitButton.innerText = submitButtonText;
             })
         }
