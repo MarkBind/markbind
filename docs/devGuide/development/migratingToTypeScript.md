@@ -16,7 +16,7 @@ In order to improve the quality and security of our backend code, we are introdu
 
 ## Migration Steps
 
-The TypeScript migration process is a little different than normal development work, as maintainers would not follow the normal procedure of creating a squash commit. Instead, they will do a **normal merge commit**, and therefore migration developers will need to structure the commits in a particular way.
+The TypeScript migration process is a little different than normal development work, as maintainers would not follow the normal procedure of creating a squash commit. Instead, they will do a **rebase and merge**, and therefore migration developers will need to structure the commits in a particular way.
 
 We have decided on structuring the commits as two commits: a "Rename" commit and an "Adapt" commit. If you need further context on the approach, feel free to read the [Explanation Notes](#explanation-notes) section below.
 
@@ -102,6 +102,37 @@ We have decided on structuring the commits as two commits: a "Rename" commit and
 
 You are now ready to create a pull request for the changes to the repository.
 
+### (Optional) Step 4: Changing the commit
+
+While refactoring you may encounter scenarios where you might have to amend your code after a commit. There are 2 common scenarios which we will cover. 
+
+<panel header="Scenario 1: You have 2 commits and want to add on to the second commit.">
+ 
+To append a new commit onto the already existing commit you can do the following: 
+
+1. Make the changes you want to add to the second commit
+2. Stage the changes using `git add`
+3. Run `git commit --amend`
+4. This will open your default text editor, where you can edit the commit message for the second commit to reflect the new changes you have made
+5. Save and close the text editor. This will replace the second commit with the updated changes.
+
+<box type="warning">
+Amending a commit changes its commit hash, which means that if you've already pushed the original commit to a remote repository, you'll need to force push your changes.
+</box>
+</panel>
+
+<panel header="Scenario 2: You have more than 2 commits and want to make it into 2 commits.">
+
+
+1. Run `git rebase -i master` to start an interactive rebase session. This will show a list of the recent commits in your text editor.
+2. In the text editor, replace the word "pick" in front of the commit you want to keep with the word "squash" for the other commits you want to combine into one.
+3. Git will combine the other "squash"ed commits into one and open your text editor for you to edit the commit message. You can either keep the original messages or create a new message that summarizes the changes.
+4. Git will reapply the other combined commits on top of the remaining "pick"ed commit.
+5. Finally, run `git push -f` to force push the changes to your remote repository.
+
+</panel>
+<br/>
+
 ## Example of Migrated Works
 
 You can see these pull requests to observe the finished migration works:
@@ -156,13 +187,12 @@ Combining the two steps into one - that is, adapting files immediately after ren
 
 The solution to this is to make the rename and adapt commits separate, in order for Git to recognize first that the file has changed into `.ts`, and so the changes are compared not against the old `.js` file, but to the renamed `.ts` file instead.
 
-### Why do we need a normal merge commit
+### Why do we need a rebase and merge commit
 
 Even if the migration developer has kept the history intact through the separate "Rename" and "Adapt" commits, this is only intact at their working branch. At the end of the day, the totality of the changes in the working branch is compared against the target branch, in which the same consideration would apply.
 
-If we do the usual squash commit, the changes from the two commits are combined into a new commit and only that commit will be pushed into the target branch. The original two commits are omitted, therefore the history of the working branch that we have tried to keep intact is stripped away.
-
-The normal merge commit also creates another commit (the merge commit), but the merge process interleaves the commits from the working branch to the target branch, therefore retaining the change history.
+If we do the usual squash commit, the changes from the two commits are combined into a new commit and only that commit will be pushed into the target branch. The original two commits are omitted, therefore the history of the working branch that we have tried to keep intact is stripped away. This results in a linear history, as if the changes in the working branch were made
+after the latest changes in the target branch.
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('writingPlugins', '../design/projectStructure') }}
