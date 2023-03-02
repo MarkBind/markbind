@@ -18,7 +18,7 @@ const EMAIL_INPUT = '<label for="email">Email</label>\n'
 const MESSAGE_INPUT = '<label for="message">Message</label>\n'
     + '<textarea name="message" required></textarea>';
 const SUBMIT_BUTTON = '<button type="submit" class="badge bg-info">Submit</button>';
-
+const DEFAULT_HEADER = '<h2>Contact Us</h2>';
 const DEFAULT_INPUTS = `${NAME_INPUT}\n${EMAIL_INPUT}\n${MESSAGE_INPUT}\n${SUBMIT_BUTTON}`;
 
 function createMinimalForm(pluginContext: PluginContext) {
@@ -28,10 +28,9 @@ function createMinimalForm(pluginContext: PluginContext) {
 }
 
 function deleteWeb3FormAttributes(node: cheerio.Element & DomElement) {
-  const nodeAttribs = node.attribs;
-  if (!nodeAttribs) return;
-  delete nodeAttribs.default;
-  delete nodeAttribs.header;
+  if (!node.attribs) return;
+  delete node.attribs.default;
+  delete node.attribs.header;
 }
 
 function transformFormInputs(child: cheerio.Element) {
@@ -66,12 +65,11 @@ function generateFormContainer(node: cheerio.Element & DomElement) {
     $node.attr('type', 'info');
   }
   $node.attr('no-icon', '');
-  let header = '<h2>Contact Us</h2>';
   if (_.has(node.attribs, 'header')) {
-    header = md.render($node.prop('header'));
+    const header = md.render($node.prop('header'));
+    const $headerNode = cheerio(header);
+    $node.prepend($headerNode);
   }
-  const $headerNode = cheerio(header);
-  $node.prepend($headerNode);
 }
 
 function createCustomForm(pluginContext: PluginContext, node: cheerio.Element & DomElement) {
@@ -92,8 +90,10 @@ function isDefaultContactForm(node: cheerio.Element & DomElement) {
   }
   return _.has(node.attribs, 'default');
 }
+
 function createDefaultContactForm(pluginContext: PluginContext, node: cheerio.Element & DomElement) {
   const $node = cheerio(node);
+  $node.attr('header', DEFAULT_HEADER);
   const $formNode = createMinimalForm(pluginContext);
   $formNode.append(DEFAULT_INPUTS);
   $node.append($formNode);
@@ -125,10 +125,11 @@ const submitFormScript = `
                 } else {
                     alert('Error submitting form! Please try again later.');
                 }
-                submitButton.innerText = submitButtonText;
             })
             .catch(error => {
                 alert('Error submitting form! Please try again later.');
+            })
+            .finally(() => {
                 submitButton.innerText = submitButtonText;
             })
         }
