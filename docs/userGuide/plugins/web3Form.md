@@ -1,14 +1,20 @@
 ### Plugin: Web3Forms 
 
 This plugin allows you to create forms whose response will be sent directly to your email, using the [Web3Form](https://web3forms.com/) API. 
+<box type="warning" seamless>
+Emails from Web3Forms often end up in spam / junk mail.
+</box>
 
-To set it up, get an access key from [Web3Forms](https://web3forms.com/). Then add`web3Form` to your site's plugin, and add the `accessKey` parameter via the `pluginsContext`.
+<box type="warning" seamless>
+The free plan from Web3Form only allows 250 submissions per month.
+</box>
 
-| Name      | Type     | Default                             | Description |
-|-----------|----------|-------------------------------------|-------------|
-| accessKey | `String` ||  accessKey is provided by Web3Form. |
+To set it up, get an access key from [Web3Forms](https://web3forms.com/). Then add `web3Form` to your site's plugin, and add the `accessKey` parameter via the `pluginsContext`.
+| Name      | Type     | Default                                            | Description |
+|-----------|----------|----------------------------------------------------|-------------|
+| accessKey | `String` || accessKey is required. It is provided by Web3Form. |
 
-```js {heading="site.json"}
+```json {heading="site.json"}
 {
   ...
   "plugins": [
@@ -16,7 +22,7 @@ To set it up, get an access key from [Web3Forms](https://web3forms.com/). Then a
   ],
   "pluginsContext": {
     "web3Form": {
-      "accesskey": "YOUR_WEB_3_FORM_ACCESS_KEY", // replace with your Web3Form access key 
+      "accessKey": "YOUR_WEB_3_FORM_ACCESS_KEY", // replace with your Web3Form access key 
     }
   }
 }
@@ -45,13 +51,13 @@ To set it up, get an access key from [Web3Forms](https://web3forms.com/). Then a
 </variable>
 </include>
 
-**Web3Form plugin supports common inputs**
+**Web3Form plugin supports common inputs.**
 
 The inputs supported are 
-- name-input
-- email-input
-- message-input
-- submit-button
+* `name-input`
+* `email-input`
+* `message-input`
+* `submit-button`
 
 <include src="codeAndOutput.md" boilerplate>
 <variable name="highlightStyle">html</variable>
@@ -77,8 +83,7 @@ The inputs supported are
 
 **Web3Form plugin supports customised header and styles**
 
-This is inherited from the [box component](https://markbind.org/userGuide/components/presentation.html#boxes). 
-
+Options from the [box component](https://markbind.org/userGuide/components/presentation.html#boxes) are supported here.
 
 <include src="codeAndOutput.md" boilerplate>
 <variable name="highlightStyle">html</variable>
