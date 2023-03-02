@@ -93,7 +93,9 @@ function isDefaultContactForm(node: cheerio.Element & DomElement) {
 
 function createDefaultContactForm(pluginContext: PluginContext, node: cheerio.Element & DomElement) {
   const $node = cheerio(node);
-  $node.attr('header', DEFAULT_HEADER);
+  if (!_.has(node.attribs, 'header')) {
+    $node.attr('header', DEFAULT_HEADER);
+  }
   const $formNode = createMinimalForm(pluginContext);
   $formNode.append(DEFAULT_INPUTS);
   $node.append($formNode);
