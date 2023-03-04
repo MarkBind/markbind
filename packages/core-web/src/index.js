@@ -43,7 +43,7 @@ function detectAndApplyHeaderStyles() {
   let isHidden = false;
   function showHeader() {
     isHidden = false;
-    headerSelector.classList.remove('hide-header');
+    headerEl.classList.remove('hide-header');
   }
   headerEl.addEventListener('transitionend', () => {
     // reset overflow when header shows again to allow content
@@ -56,8 +56,8 @@ function detectAndApplyHeaderStyles() {
   function hideHeader() {
     isHidden = true;
     // hide header overflow when user scrolls to support transition effect
-    headerSelector.style.overflow = 'hidden';
-    headerSelector.classList.add('hide-header');
+    headerEl.style.overflow = 'hidden';
+    headerEl.classList.add('hide-header');
   }
 
   // Handles window resizes + dynamic content (e.g. dismissing a box within)
