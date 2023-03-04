@@ -15,8 +15,8 @@ export function createEmptyNode() {
   return cheerio.parseHTML('<div></div>', undefined, true)[0];
 }
 
-export function createSlotTemplateNode(slotName: string, content: string) {
+export function createSlotTemplateNode(slotName: string, content: string): DomElement[] {
   return cheerio.parseHTML(
     `<template #${slotName}>${content}</template>`, undefined, true,
-  );
+  ) as unknown as DomElement[];
 }

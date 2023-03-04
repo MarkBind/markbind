@@ -1,9 +1,11 @@
-const linkProcessor = require('./linkProcessor');
+import has from 'lodash/has';
+import { DomElement } from 'htmlparser2';
+import * as linkProcessor from './linkProcessor';
+import type { NodeProcessorConfig } from './NodeProcessor';
 
-const _ = {};
-_.has = require('lodash/has');
+const _ = { has };
 
-const tagsToValidate = new Set([
+const tagsToValidate: Set<string> = new Set([
   'img',
   'pic',
   'thumbnail',
@@ -12,8 +14,11 @@ const tagsToValidate = new Set([
   'script',
 ]);
 
-class SiteLinkManager {
-  constructor(config) {
+export class SiteLinkManager {
+  private config: NodeProcessorConfig;
+  private intralinkCollection: Map<string, Set<string>>;
+
+  constructor(config: NodeProcessorConfig) {
     this.config = config;
     this.intralinkCollection = new Map();
   }
@@ -22,11 +27,12 @@ class SiteLinkManager {
    * Adds a resourcePath and cwf to the intralinkCollection,
    * ensuring each pair of (resourcePath, cwf) appears only once
    */
-  _addToCollection(resourcePath, cwf) {
+  _addToCollection(resourcePath: string, cwf: string) {
     if (!this.intralinkCollection.has(cwf)) {
       this.intralinkCollection.set(cwf, new Set());
     }
-    this.intralinkCollection.get(cwf).add(resourcePath);
+    // We have checked and set cwf in intralinkCollection above
+    this.intralinkCollection.get(cwf)!.add(resourcePath);
   }
 
   validateAllIntralinks() {
@@ -45,8 +51,8 @@ class SiteLinkManager {
    * Add a link to the intralinkCollection to be validated later,
    * if the node should be validated and intralink validation is not disabled.
    */
-  collectIntraLinkToValidate(node, cwf) {
-    if (!tagsToValidate.has(node.name)) {
+  collectIntraLinkToValidate(node: DomElement, cwf: string) {
+    if (node.name && !tagsToValidate.has(node.name)) {
       return 'Should not validate';
     }
 
@@ -58,7 +64,7 @@ class SiteLinkManager {
     }
 
     const resourcePath = linkProcessor.getDefaultTagsResourcePath(node);
-    if (!linkProcessor.isIntraLink(resourcePath)) {
+    if (!resourcePath || !linkProcessor.isIntraLink(resourcePath)) {
       return 'Should not validate';
     }
 
@@ -66,7 +72,3 @@ class SiteLinkManager {
     return 'Intralink collected to be validated later';
   }
 }
-
-module.exports = {
-  SiteLinkManager,
-};

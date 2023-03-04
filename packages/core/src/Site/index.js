@@ -9,7 +9,7 @@ const simpleGit = require('simple-git');
 const ProgressBar = require('../lib/progress');
 
 const SiteConfig = require('./SiteConfig');
-const Page = require('../Page');
+const { Page } = require('../Page');
 const { PageConfig } = require('../Page/PageConfig');
 const VariableProcessor = require('../variables/VariableProcessor');
 const VariableRenderer = require('../variables/VariableRenderer');

@@ -1,14 +1,16 @@
-const path = require('path');
-const fs = require('fs-extra');
-
-const fsUtil = require('../utils/fsUtil');
+import fs from 'fs-extra';
+import path from 'path';
+import * as fsUtil from '../utils/fsUtil';
 
 const requiredFiles = ['index.md', 'site.json', '_markbind/'];
 
 const PATH_TO_TEMPLATE = '../../template';
 
-class Template {
-  constructor(rootPath, templatePath) {
+export class Template {
+  root: string;
+  template: string;
+
+  constructor(rootPath: string, templatePath: string) {
     this.root = rootPath;
     this.template = path.join(__dirname, PATH_TO_TEMPLATE, templatePath);
   }
@@ -48,7 +50,3 @@ class Template {
     });
   }
 }
-
-module.exports = {
-  Template,
-};
