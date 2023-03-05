@@ -34,9 +34,16 @@ function detectAndApplyHeaderStyles() {
   }
   const [headerEl] = headerSelector;
 
-  let headerHeight = headerEl.clientHeight;
+  function getHeaderHeight() {
+    const headerComputedStyle = window.getComputedStyle(headerEl, null);
+    return headerEl.clientHeight - parseFloat(headerComputedStyle.paddingTop)
+        - parseFloat(headerComputedStyle.paddingBottom);
+  }
+
+  let headerHeight = getHeaderHeight();
+
   function updateHeaderHeight() {
-    headerHeight = headerEl.clientHeight;
+    headerHeight = getHeaderHeight();
     document.documentElement.style.setProperty('--sticky-header-height', `${headerHeight}px`);
   }
 
