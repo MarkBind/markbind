@@ -19,7 +19,6 @@ export interface PageAssets {
   bootstrapUtilityJs: string;
   polyfillJs: string;
   vue: string;
-  jQuery: string;
   pageVueRenderJs?: string;
   layoutUserScriptsAndStyles: string[];
   pluginScripts?: string[],
