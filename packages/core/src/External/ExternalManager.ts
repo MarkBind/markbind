@@ -3,8 +3,10 @@ import uniqBy from 'lodash/uniqBy';
 import { External } from './External';
 import * as fsUtil from '../utils/fsUtil';
 import * as urlUtil from '../utils/urlUtil';
-import { DynamicSrc } from '../Page/PageSources';
-import VariableProcessor from '../variables/VariableProcessor';
+import type { DynamicSrc } from '../Page/PageSources';
+import type VariableProcessor from '../variables/VariableProcessor';
+import type { SiteLinkManager } from '../html/SiteLinkManager';
+import type { PluginManager } from '../plugins/PluginManager';
 
 const _ = {
   uniqBy,
@@ -24,8 +26,8 @@ export interface ExternalManagerConfig {
     [id: string]: number,
   },
   variableProcessor: VariableProcessor,
-  siteLinkManager: any,
-  pluginManager: any,
+  siteLinkManager: SiteLinkManager,
+  pluginManager: PluginManager,
 }
 
 /**

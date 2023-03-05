@@ -9,8 +9,8 @@ import * as logger from '../utils/logger';
 import * as urlUtil from '../utils/urlUtil';
 
 import { PluginManager } from '../plugins/PluginManager';
-import { NodeProcessorConfig } from './NodeProcessor';
-import { PageSources } from '../Page/PageSources';
+import type { NodeProcessorConfig } from './NodeProcessor';
+import type { PageSources } from '../Page/PageSources';
 
 const _ = { has };
 

@@ -4,7 +4,7 @@
   pageNav: default
 </frontmatter>
 
-# MarkBind CLI
+# CLI Commands
 
 <page-nav-print />
 

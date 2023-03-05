@@ -1,4 +1,6 @@
-import { Template } from 'nunjucks';
+import type { Template } from 'nunjucks';
+import type { SiteLinkManager } from '../html/SiteLinkManager';
+import type { PluginManager } from '../plugins/PluginManager';
 
 import VariableProcessor from '../variables/VariableProcessor';
 
@@ -19,6 +21,9 @@ export interface PageAssets {
   vue: string;
   jQuery: string;
   pageVueRenderJs?: string;
+  layoutUserScriptsAndStyles: string[];
+  pluginScripts?: string[],
+  pluginLinks?: string[],
 }
 
 /**
@@ -41,14 +46,14 @@ export class PageConfig {
   frontmatterOverride: { [frontmatterName: string]: string };
   layout?: string;
   layoutsAssetPath: string;
-  pluginManager: any;
+  pluginManager: PluginManager;
   /**
    * The output path of this page
    */
   resultPath: string;
   rootPath: string;
   searchable: boolean;
-  siteLinkManager: any;
+  siteLinkManager: SiteLinkManager;
   siteOutputPath: string;
   /**
    * The source file's (.md) file path for rendering this page
@@ -72,11 +77,11 @@ export class PageConfig {
     frontmatterOverride?: { [frontmatterName: string]: string },
     layout?: string,
     layoutsAssetPath: string;
-    pluginManager: any,
+    pluginManager: PluginManager,
     resultPath: string;
     rootPath: string;
     searchable: boolean;
-    siteLinkManager: any;
+    siteLinkManager: SiteLinkManager;
     siteOutputPath: string;
     sourcePath: string;
     src: string;
