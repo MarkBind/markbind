@@ -31,7 +31,7 @@ module.exports = {
     el.style.position = 'relative';
     const message = el.getAttribute('alt') || 'Expand Content';
     const content = document.createElement('div');
-    el.classList.add('content');
+    content.classList.add('content');
     Array.from(el.children).forEach(child => content.append(child));
     el.replaceChildren();
     el.append(content);
