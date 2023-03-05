@@ -258,7 +258,7 @@ export default {
         this.shakeClass = 'shake';
         setTimeout(() => {
           this.shakeClass = null;
-        }, 2000);
+        }, 800);
       }
     },
     checkMcqAnswer(markAsAnsweredIfWrong) {
