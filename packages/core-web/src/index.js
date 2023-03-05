@@ -51,7 +51,9 @@ function detectAndApplyHeaderStyles() {
     // reset overflow when header shows again to allow content
     // in the header such as search dropdown etc. to overflow
     if (!isHidden) {
-      headerEl.style.overflow = '';
+      headerSelector.forEach((element) => {
+        element.style.overflow = '';
+      });
     }
   });
 
