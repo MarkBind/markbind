@@ -138,7 +138,7 @@ export default {
         requestAnimationFrame(() => {
           // To enable behaviour of auto window scrolling during panel collapse
           if (this.$el.getBoundingClientRect().top < 0) {
-            const headerHeight = document.querySelector('header[sticky]').height || 0;
+            const headerHeight = document.querySelector('header[sticky]').clientHeight || 0;
             window.scrollTo({
               top: window.scrollY + this.$el.getBoundingClientRect().top - headerHeight - 3,
               left: 0,
