@@ -33,33 +33,15 @@ MarkBind extensions to Markdown | `==highlighted text==`<br>`%%grey text%%`<br>`
 An example that uses GFMD syntax for task lists:
 <div style="overflow-x: auto">
 
-<table>
-<tr>
-  <td style="padding-top: 15px">
-
-```markdown
+<include src="codeAndOutputCode.md" boilerplate>
+<variable name="code">
 **Things to do:**
 
 - [x] Finish my changes
 - [ ] Push my commits to GitHub
 - [ ] Open a pull request
-
-```
-  </td>
-  <td>&nbsp;→&nbsp;</td>
-  <td>
-<box>
-
-**Things to do:**
-
-- [x] Finish my changes
-- [ ] Push my commits to GitHub
-- [ ] Open a pull request
-
-</box>
-  </td>
-</tr>
-</table>
+</variable>
+</include>
 
 </div>
 
@@ -67,24 +49,11 @@ An example that uses KaTeX to generate math equations:
 
 <div style="overflow-x: auto">
 
-<table>
-<tr>
-  <td style="padding-top: 20px">
-
-```markdown
+<include src="codeAndOutputCode.md" boilerplate>
+<variable name="code">
 Euler's Identity \(e^{i\pi}+1=0\) is a beautiful formula.
-```
-  </td>
-  <td>&nbsp;→&nbsp;</td>
-  <td>
-<box>
-
-Euler's Identity \(e^{i\pi}+1=0\) is a beautiful formula.
-
-</box>
-  </td>
-</tr>
-</table>
+</variable>
+</include>
 </div>
 
 </panel>
