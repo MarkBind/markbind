@@ -43,7 +43,9 @@ function detectAndApplyHeaderStyles() {
   let isHidden = false;
   function showHeader() {
     isHidden = false;
-    headerEl.classList.remove('hide-header');
+    headerSelector.forEach((element) => {
+      element.classList.remove('hide-header');
+    });
   }
   headerEl.addEventListener('transitionend', () => {
     // reset overflow when header shows again to allow content
