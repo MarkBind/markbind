@@ -45,7 +45,7 @@
     "highlight.js": "^10.4.1",
     "htmlparser2": "^3.10.1",
     "ignore": "^5.1.4",
-    "js-beautify": "^1.10.3",
+    "js-beautify": "1.14.3",
     "katex": "^0.15.6",
     "lodash": "^4.17.15",
     "markdown-it": "^12.3.2",
