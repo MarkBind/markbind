@@ -5,6 +5,7 @@
 <!-- `code` - The MarkBind code content in this variable will appear in a code block containing the code, -->
 <!--          and as rendered output of the code. The code cannot start or end with empty lines due to `trim` -->
 
+{% macro codeBox() %}
 %%CODE:%%
 <div class="indented">
 
@@ -12,7 +13,9 @@
 {{ code | safe | trim }}
 ````
 </div>
+{% endmacro %}
 
+{% macro outputBox() %}
 %%OUTPUT:%%
 <div class="indented">
 
@@ -21,3 +24,30 @@
 {{ code | safe }}
 </box>
 </div>
+{% endmacro %}
+
+{% if horizontal != null %}
+<div class="indented" style="overflow-x: auto">
+<table style="width: 100%">
+<tbody>
+<tr>
+<td style="width: 50%">
+{{ codeBox() }}
+</td>
+
+<td style="width: 50%">
+{{ outputBox() }}
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+{% else %}
+
+{{ codeBox() }}
+
+{{ outputBox() }}
+</div>
+
+{% endif %}
