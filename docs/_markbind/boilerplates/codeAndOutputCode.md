@@ -1,4 +1,4 @@
-<!-- This boilerplate is simimlar to codeAndOuput.md but specific for fenced code syntax. -->
+<!-- This boilerplate is similar to codeAndOutput.md but specific for fenced code syntax. -->
 <!-- We need 4 backticks to make a fenced code block of fenced code block code -->
 <!-- Syntax coloring is fixed to Markdown because it is Markdown fenced code syntax -->
 <!-- Has 2 variables. -->
