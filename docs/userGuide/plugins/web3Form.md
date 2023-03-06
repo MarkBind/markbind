@@ -28,6 +28,12 @@ To set it up, get an access key from [Web3Forms](https://web3forms.com/). Then a
 }
 ```
 
+<box type="warning" seamless>
+The access key is exposed to public. 
+Malicious users might use the access key in other forms. 
+This might subject the email linked to the access key to spam with irrelevant form submissions.
+</box>
+
 **To add a form to your site, use a `<web-3-form>` tag.**
 
 <include src="codeAndOutput.md" boilerplate>
