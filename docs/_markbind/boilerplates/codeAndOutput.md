@@ -23,7 +23,6 @@
 <box border-left-color="grey" background-color="white">
 
 {{ code | safe }}
-
 </box>
 </div>
 {% endmacro %}
