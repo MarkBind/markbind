@@ -22,7 +22,7 @@ To set it up, get an access key from [Web3Forms](https://web3forms.com/). Then a
   ],
   "pluginsContext": {
     "web3Form": {
-      "accessKey": "YOUR_WEB_3_FORM_ACCESS_KEY", // replace with your Web3Form access key 
+      "accessKey": "YOUR_WEB_3_FORM_ACCESS_KEY" // replace with your Web3Form access key 
     }
   }
 }
@@ -49,10 +49,19 @@ This might subject the email linked to the access key to spam with irrelevant fo
 
 **Web3Form plugin also supports a default 'Contact Us' form.**
 
+The header will be ```<h2>Contact Us</h2>``` for the default form if no header is specified.
+
 <include src="codeAndOutput.md" boilerplate>
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 <web-3-form default />
+</variable>
+</include>
+
+<include src="codeAndOutput.md" boilerplate>
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+<web-3-form default header="### New header"/>
 </variable>
 </include>
 
