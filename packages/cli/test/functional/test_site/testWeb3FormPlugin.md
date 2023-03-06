@@ -1,7 +1,6 @@
 **Default contact us form**
 
-<web-3-form default>
-</web-3-form>
+<web-3-form default />
 
 **Form with default inputs**
 
@@ -33,5 +32,4 @@
 </web-3-form>
 
 **Form with customised options**
-<web-3-form default type="warning" header="### :rocket: I am a header">
-</web-3-form>
+<web-3-form default type="warning" header="### :rocket: I am a header" />
