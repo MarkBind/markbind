@@ -27,7 +27,7 @@
 {% endmacro %}
 
 {% if horizontal != null %}
-<div class="indented" style="overflow-x: auto">
+<div style="overflow-x: auto">
 <table style="width: 100%">
 <tbody>
 <tr>
