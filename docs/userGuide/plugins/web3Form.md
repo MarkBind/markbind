@@ -2,7 +2,7 @@
 
 This plugin allows you to create forms whose response will be sent directly to your email, using the [Web3Form](https://web3forms.com/) API. 
 <box type="warning" seamless>
-Emails from Web3Forms often end up in spam / junk mail.
+Emails from Web3Forms may end up in spam/junk mail.
 </box>
 
 <box type="warning" seamless>
@@ -46,8 +46,7 @@ To set it up, get an access key from [Web3Forms](https://web3forms.com/). Then a
 <include src="codeAndOutput.md" boilerplate>
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<web-3-form default>
-</web-3-form>
+<web-3-form default />
 </variable>
 </include>
 
@@ -83,7 +82,7 @@ The inputs supported are
 
 **Web3Form plugin supports customised header and styles**
 
-Options from the [box component](https://markbind.org/userGuide/components/presentation.html#boxes) are supported here.
+Options from the [box component](../components/presentation.html#boxes) are supported here.
 
 <include src="codeAndOutput.md" boilerplate>
 <variable name="highlightStyle">html</variable>
