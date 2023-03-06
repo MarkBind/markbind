@@ -31,30 +31,27 @@ MarkBind extensions to Markdown | `==highlighted text==`<br>`%%grey text%%`<br>`
 <panel type="seamless" header="%%More examples of generating static content%%" >
 
 An example that uses GFMD syntax for task lists:
-<div style="overflow-x: auto">
 
-<include src="codeAndOutputCode.md" boilerplate>
+<include src="codeAndOutput.md" boilerplate>
+<variable name="highlightStyle">markdown</variable>
+<variable name="horizontal" />
 <variable name="code">
 **Things to do:**
-
 - [x] Finish my changes
 - [ ] Push my commits to GitHub
 - [ ] Open a pull request
 </variable>
 </include>
 
-</div>
 
 An example that uses KaTeX to generate math equations:
 
-<div style="overflow-x: auto">
-
-<include src="codeAndOutputCode.md" boilerplate>
+<include src="codeAndOutput.md" boilerplate>
+<variable name="highlightStyle">markdown</variable>
 <variable name="code">
 Euler's Identity \(e^{i\pi}+1=0\) is a beautiful formula.
 </variable>
 </include>
-</div>
 
 </panel>
 <p/>
