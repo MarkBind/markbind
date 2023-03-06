@@ -5,6 +5,7 @@
 <!-- `highlightStyle` (optional) - Defines the syntax coloring for the code block-->
 <!-- `heading` (optional) - Heading of the code block-->
 
+{% macro codeBox() %}
 %%CODE:%%
 <div class="indented">
 
@@ -12,12 +13,42 @@
 {{ code | safe | trim }}
 ```
 </div>
+{% endmacro %}
 
+{% macro outputBox() %}
 %%OUTPUT:%%
 <div class="indented">
 
 <box border-left-color="grey" background-color="white">
 
 {{ code | safe }}
+
 </box>
 </div>
+{% endmacro %}
+
+{% if horizontal != null %}
+<div class="indented" style="overflow-x: auto">
+<table style="width: 100%">
+<tbody>
+<tr>
+<td style="width: 50%">
+{{ codeBox() }}
+</td>
+
+<td style="width: 50%">
+{{ outputBox() }}
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+{% else %}
+
+{{ codeBox() }}
+
+{{ outputBox() }}
+</div>
+
+{% endif %}
