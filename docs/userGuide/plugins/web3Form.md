@@ -14,7 +14,7 @@ To set it up, get an access key from [Web3Forms](https://web3forms.com/). Then a
 |-----------|----------|----------------------------------------------------|-------------|
 | accessKey | `String` || accessKey is required. It is provided by Web3Form. |
 
-```json {heading="site.json"}
+```js {heading="site.json"}
 {
   ...
   "plugins": [
