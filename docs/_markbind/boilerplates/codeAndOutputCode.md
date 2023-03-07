@@ -35,7 +35,6 @@
 <td style="width: 50%">
 {{ codeBox() }}
 </td>
-
 <td style="width: 50%">
 {{ outputBox() }}
 </td>
@@ -49,6 +48,5 @@
 {{ codeBox() }}
 
 {{ outputBox() }}
-</div>
 
 {% endif %}
