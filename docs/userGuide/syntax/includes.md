@@ -156,14 +156,13 @@ You can also specify include variables within the `<include>` tag itself by addi
 
 If the same variable is defined in a chain of `<include>`s (e.g. `a.md` includes `b.md` includes `c.md`...), variables defined in the top-most `<include>` will take precedence. Global variables (`_markbind/variables.md`) will take precedence over any `<include>` variables.
 
-<box type="warning" seamless> 
+<panel header="If you are using recursive includes...">
 
 Since outer variables override inner variables, this may result in errors if attempting to use an `include` within another `include` with the same variables.
 
 To fix this issue, do not use an inner `include` if they use the same variables.
 Instead, copy the content of the `src` file and replace the variables with the defined values.
 
-<box type="info" seamless>
 Example:
 
 ```html
@@ -195,8 +194,7 @@ The inner `variable` would be replaced by the outer `variable` resulting in a cy
   </span>
 </include>
 ```
-</box>
-</box>
+</panel>
 
 <hr><!-- ======================================================================================================= -->
 
