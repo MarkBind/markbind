@@ -161,6 +161,9 @@ This is to allow the outer context to adapt the reused content without changing 
 
 Since outer variables override inner variables, this may result in errors if attempting to use an `include` within another `include` with the same variables.
 
+This is because the inner variable of the same name will be replaced with the outer variable, which contains the inner variable. 
+This inner variable is once again overridden to result in another inner variable and so on, causing a cyclical error.
+
 To fix this issue, do not use an inner `include` if they use the same variables.
 Instead, copy the content of the `src` file and replace the variables with the defined values.
 
