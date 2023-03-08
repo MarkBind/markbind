@@ -202,6 +202,12 @@ export default {
       if (!this.bottomSwitchBool) {
         return this.$refs.panel.scrollHeight;
       }
+      /*
+        Collapse button at bottom of panel's bottom margin is not included in panel's scrollHeight.
+
+        It's bottom margin is added to the maxHeight of the panel to enable a smooth transition.
+        Otherwise, there would be an instant transition when reaching the end of the panel content.
+       */
       const bottomSwitch = document.querySelector('.card-body > .collapse-button');
       const bottomSwitchStyle = window.getComputedStyle(bottomSwitch);
       return this.$refs.panel.scrollHeight + parseFloat(bottomSwitchStyle.marginBottom);
