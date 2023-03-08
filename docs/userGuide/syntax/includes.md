@@ -174,7 +174,7 @@ Example:
   <span id="variable">
     <include src="boilerplate.md">
       <span id="variable">
-        content
+        VALUE_OF_VARIABLE
       </span>
     </include>
   </span>
@@ -198,6 +198,17 @@ The inner `variable` would be replaced by the outer `variable` resulting in a cy
   </span>
 </include>
 ```
+
+To fix this problem, copy the content of the `src` file and replace the variables with the defined values as such:
+
+```html {.line-nums highlight-lines="3"}
+<include src="boilerplate.md" boilerplate>
+  <span id="variable">
+    Boilerplate content: VALUE_OF_VARIABLE <!-- Replace {{ '{{' }} variable {{ '}}' }} in boilerplate with VALUE_OF_VARIABLE -->
+  </span>
+</include>
+```
+
 </panel>
 
 <hr><!-- ======================================================================================================= -->
