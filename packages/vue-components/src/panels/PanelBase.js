@@ -150,7 +150,7 @@ export default {
       } else {
         // Expand panel
         this.$refs.panel.style.transition = 'max-height 0.5s ease-in-out';
-        this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+        this.$refs.panel.style.maxHeight = `${this.getMaxHeight()}px`;
       }
 
       this.localExpanded = !this.localExpanded;
@@ -174,7 +174,7 @@ export default {
           DOM update (nextTick) before setting maxHeight for transition.
         */
         this.$nextTick(() => {
-          this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+          this.$refs.panel.style.maxHeight = `${this.getMaxHeight()}px`;
         });
       });
     },
@@ -196,7 +196,15 @@ export default {
       }
 
       // For expansion transition to 'continue' after src is loaded.
-      this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+      this.$refs.panel.style.maxHeight = `${this.getMaxHeight()}px`;
+    },
+    getMaxHeight() {
+      if (!this.bottomSwitchBool) {
+        return this.$refs.panel.scrollHeight;
+      }
+      const bottomSwitch = document.querySelector('.card-body > .collapse-button');
+      const bottomSwitchStyle = window.getComputedStyle(bottomSwitch);
+      return this.$refs.panel.scrollHeight + parseFloat(bottomSwitchStyle.marginBottom);
     },
     initPanel() {
       this.$refs.panel.addEventListener('transitionend', (event) => {
