@@ -169,7 +169,7 @@ Instead, copy the content of the `src` file and replace the variables with the d
 
 Example:
 
-```html
+```html {.line-numbers}
 <include src="boilerplate.md" boilerplate>
   <span id="variable">
     <include src="boilerplate.md">
