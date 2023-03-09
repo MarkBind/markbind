@@ -209,8 +209,15 @@ export default {
         Otherwise, there would be an instant transition when reaching the end of the panel content.
        */
       const bottomSwitch = document.querySelector('.card-body > .collapse-button');
+      if (bottomSwitch == null) {
+        return this.$refs.panel.scrollHeight;
+      }
       const bottomSwitchStyle = window.getComputedStyle(bottomSwitch);
-      return this.$refs.panel.scrollHeight + parseFloat(bottomSwitchStyle.marginBottom);
+      const bottomSwitchBottomMargin = parseFloat(bottomSwitchStyle.marginBottom);
+      if (Number.isNaN(bottomSwitchBottomMargin)) {
+        return this.$refs.panel.scrollHeight;
+      }
+      return this.$refs.panel.scrollHeight + bottomSwitchBottomMargin;
     },
     initPanel() {
       this.$refs.panel.addEventListener('transitionend', (event) => {
