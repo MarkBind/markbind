@@ -157,7 +157,7 @@ You can also specify include variables within the `<include>` tag itself by addi
 If the same variable is defined in a chain of `<include>`s (e.g. `a.md` includes `b.md` includes `c.md`...), variables defined in the top-most `<include>` will take precedence. Global variables (`_markbind/variables.md`) will take precedence over any `<include>` variables.
 This is to allow the outer context to adapt the reused content without changing its actual content.
 
-<panel header="If you are using recursive includes...">
+<panel header="Preventing cyclical errors when using multiple includes with same variables">
 
 Since outer variables override inner variables, this may result in errors if attempting to use an `include` within another `include` with the same variables.
 
