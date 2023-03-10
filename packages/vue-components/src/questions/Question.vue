@@ -260,14 +260,12 @@ export default {
       if (markAsAnswered) {
         this.qState.answered = true;
       } else {
-        // shake the card
         this.shakeCard();
       }
     },
     checkMcqAnswer(markAsAnsweredIfWrong) {
       const selectedAnswer = this.answers.find(answer => answer.selected);
       if (!selectedAnswer) {
-        // shake the card
         this.shakeCard();
         return;
       }
