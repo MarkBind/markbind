@@ -245,6 +245,12 @@ export default {
     isValidTypeAndNotTextWithoutKeywords() {
       return this.isValidQuestionType() && !(this.isTextQuestion() && !this.keywords);
     },
+    shakeCard() {
+      this.shakeClass = 'shake';
+      setTimeout(() => {
+        this.shakeClass = null;
+      }, 800);
+    },
     markAsCorrect() {
       this.qState.state = STATE_CORRECT;
       this.qState.answered = true;
@@ -254,16 +260,13 @@ export default {
       if (markAsAnswered) {
         this.qState.answered = true;
       } else {
-        // shake the card
-        this.shakeClass = 'shake';
-        setTimeout(() => {
-          this.shakeClass = null;
-        }, 800);
+        this.shakeCard();
       }
     },
     checkMcqAnswer(markAsAnsweredIfWrong) {
       const selectedAnswer = this.answers.find(answer => answer.selected);
       if (!selectedAnswer) {
+        this.shakeCard();
         return;
       }
 
