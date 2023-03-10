@@ -26,6 +26,7 @@ import { PageNavProcessor, renderSiteNav, addSitePageNavPortal } from './siteAnd
 import { highlightCodeBlock, setCodeLineNumbers } from './codeblockProcessor';
 import { setHeadingId, assignPanelId } from './headerProcessor';
 import { FootnoteProcessor } from './FootnoteProcessor';
+import { Node, NodeOrText, TextElement } from '../utils/node';
 
 const fm = require('fastmatter');
 
@@ -87,7 +88,9 @@ export class NodeProcessor {
    * Private utility functions
    */
 
-  static _trimNodes(node: DomElement) {
+  static _trimNodes(nodeOrText: NodeOrText) {
+    if (NodeProcessor._isText(nodeOrText)) return;
+    const node = nodeOrText as Node;
     if (node.name === 'pre' || node.name === 'code') {
       return;
     }
@@ -105,14 +108,14 @@ export class NodeProcessor {
     }
   }
 
-  static _isText(node: DomElement) {
+  static _isText(node: NodeOrText) {
     return node.type === 'text' || node.type === 'comment';
   }
 
   /*
    * Frontmatter collection
    */
-  _processFrontmatter(node: DomElement, context: Context) {
+  _processFrontmatter(node: Node, context: Context) {
     let currentFrontmatter = {};
     const frontmatter = cheerio(node);
     if (!context.processingOptions.omitFrontmatter && frontmatter.text().trim()) {
@@ -121,8 +124,8 @@ export class NodeProcessor {
       // The latter case will result in the data being wrapped in a div
       const frontmatterIncludeDiv = frontmatter.find('div');
       const frontmatterData = frontmatterIncludeDiv.length
-        ? ((frontmatterIncludeDiv[0] as DomElement).children as DomElement[])[0].data
-        : ((frontmatter[0] as DomElement).children as DomElement[])[0].data;
+        ? ((frontmatterIncludeDiv[0] as Node).children as Node[])[0].data
+        : ((frontmatter[0] as Node).children as Node[])[0].data;
       const frontmatterWrapped = `${FRONTMATTER_FENCE}\n${frontmatterData}\n${FRONTMATTER_FENCE}`;
 
       currentFrontmatter = fm(frontmatterWrapped).attributes;
@@ -139,7 +142,7 @@ export class NodeProcessor {
    * Layout element collection
    */
 
-  private static collectLayoutEl(node: DomElement): string | null {
+  private static collectLayoutEl(node: Node): string | null {
     const $ = cheerio(node);
     const html = $.html();
     $.remove();
@@ -149,7 +152,7 @@ export class NodeProcessor {
   /**
    * Removes the node if modal id already exists, processes node otherwise
    */
-  private processModal(node: DomElement) {
+  private processModal(node: Node) {
     if (node.attribs) {
       if (this.processedModals[node.attribs.id]) {
         cheerio(node).remove();
@@ -168,11 +171,10 @@ export class NodeProcessor {
   /*
    * API
    */
-  processNode(node: DomElement, context: Context): Context {
+  processNode(nodeOrText: NodeOrText, context: Context): Context {
     try {
-      if (!node.name || !node.attribs) {
-        return context;
-      }
+      if (NodeProcessor._isText(nodeOrText)) return context;
+      const node = nodeOrText as Node;
 
       transformOldSlotSyntax(node);
       shiftSlotNodeDeeper(node);
@@ -271,7 +273,10 @@ export class NodeProcessor {
     return context;
   }
 
-  postProcessNode(node: DomElement) {
+  postProcessNode(nodeOrText: NodeOrText) {
+    if (NodeProcessor._isText(nodeOrText)) return;
+    const node = nodeOrText as Node;
+
     try {
       switch (node.name) {
       case 'pre':
@@ -313,13 +318,12 @@ export class NodeProcessor {
     }
   }
 
-  private traverse(node: DomElement, context: Context): DomElement {
-    if (NodeProcessor._isText(node)) {
-      return node;
+  private traverse(dom: DomElement, context: Context): NodeOrText {
+    if (NodeProcessor._isText(dom)) {
+      return dom as TextElement;
     }
-    if (node.name) {
-      node.name = node.name.toLowerCase();
-    }
+    const node = dom as Node;
+    node.name = node.name.toLowerCase();
     if (linkProcessor.hasTagLink(node)) {
       linkProcessor.convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);
       linkProcessor.convertMdExtToHtmlExt(node);
@@ -360,16 +364,14 @@ export class NodeProcessor {
 
     addSitePageNavPortal(node);
 
-    if (node.name) {
-      const isHeadingTag = (/^h[1-6]$/).test(node.name);
-      if (isHeadingTag && !node.attribs?.id) {
-        setHeadingId(node, this.config);
-      }
+    const isHeadingTag = (/^h[1-6]$/).test(node.name);
+    if (isHeadingTag && !node.attribs.id) {
+      setHeadingId(node, this.config);
+    }
 
-      // Generate dummy spans as anchor points for header[sticky]
-      if (isHeadingTag && node.attribs?.id) {
-        cheerio(node).prepend(`<span id="${node.attribs.id}" class="anchor"></span>`);
-      }
+    // Generate dummy spans as anchor points for header[sticky]
+    if (isHeadingTag && node.attribs.id) {
+      cheerio(node).prepend(`<span id="${node.attribs.id}" class="anchor"></span>`);
     }
 
     this.pluginManager.postProcessNode(node);
@@ -404,7 +406,7 @@ export class NodeProcessor {
         });
         mainHtmlNodes.forEach(d => NodeProcessor._trimNodes(d));
 
-        const footnotesHtml = this.footnoteProcessor.combineFootnotes((node: DomElement) => this.processNode(
+        const footnotesHtml = this.footnoteProcessor.combineFootnotes(node => this.processNode(
           node, new Context(cwf, [], extraVariables, {}),
         ));
         const mainHtml = cheerio(mainHtmlNodes).html();
