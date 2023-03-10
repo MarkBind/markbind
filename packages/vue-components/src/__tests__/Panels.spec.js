@@ -60,6 +60,21 @@ describe('NestedPanels', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
+  test('transition should be correctly created', async () => {
+    const wrapper = mount(NestedPanel, {
+      slots: {
+        header: 'test header',
+        default: 'Some panel content\nsome other text',
+      },
+      attachTo: document.body,
+    });
+    const panelElement = wrapper.element.querySelector('.card-collapse');
+    Object.defineProperty(panelElement, 'scrollHeight', { configurable: true, value: 10 });
+    // click on header
+    await wrapper.find('div.card-header').trigger('click');
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
   test('should have span.anchor when id is present', async () => {
     const wrapper = mount(NestedPanel, {
       propsData: {

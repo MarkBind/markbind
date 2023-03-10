@@ -415,9 +415,26 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
      
     <div
       class="card-collapse"
-      style="max-height: 0px;"
+      style="max-height: 10px;"
     >
       <!---->
+      <div
+        class="card-body"
+      >
+        Some panel content
+some other text 
+        <!---->
+         
+        <button
+          class="collapse-button btn btn-outline-secondary"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="collapse-icon glyphicon glyphicon-menu-down opened"
+          />
+        </button>
+      </div>
        
       <hr
         style="display: none;"
