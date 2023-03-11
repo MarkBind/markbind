@@ -1,18 +1,18 @@
 ### Plugin: Web3Forms 
 
-This plugin allows you to create forms whose response will be sent directly to your email, using the [Web3Form](https://web3forms.com/) API. 
+This plugin allows you to create forms whose response will be sent directly to your email, using the [Web3Forms](https://web3forms.com/) API. 
 <box type="warning" seamless>
 Emails from Web3Forms may end up in spam/junk mail.
 </box>
 
 <box type="warning" seamless>
-The free plan from Web3Form only allows 250 submissions per month.
+The free plan from Web3Forms only allows 250 submissions per month.
 </box>
 
 To set it up, get an access key from [Web3Forms](https://web3forms.com/). Then add `web3Form` to your site's plugin, and add the `accessKey` parameter via the `pluginsContext`.
 | Name      | Type     | Default                                            | Description |
 |-----------|----------|----------------------------------------------------|-------------|
-| accessKey | `String` || accessKey is required. It is provided by Web3Form. |
+| accessKey | `String` || accessKey is required. It is provided by Web3Forms. |
 
 ```js {heading="site.json"}
 {
@@ -22,7 +22,7 @@ To set it up, get an access key from [Web3Forms](https://web3forms.com/). Then a
   ],
   "pluginsContext": {
     "web3Form": {
-      "accessKey": "YOUR_WEB_3_FORM_ACCESS_KEY" // replace with your Web3Form access key 
+      "accessKey": "YOUR_WEB_3_FORM_ACCESS_KEY" // replace with your Web3Forms access key 
     }
   }
 }
@@ -47,7 +47,7 @@ This might subject the email linked to the access key to spam with irrelevant fo
 </variable>
 </include>
 
-**Web3Form plugin also supports a default 'Contact Us' form.**
+**Web3Forms plugin also supports a default 'Contact Us' form.**
 
 The header will be ```<h2>Contact Us</h2>``` for the default form if no header is specified.
 
@@ -65,7 +65,7 @@ The header will be ```<h2>Contact Us</h2>``` for the default form if no header i
 </variable>
 </include>
 
-**Web3Form plugin supports common inputs.**
+**Web3Forms plugin supports common inputs.**
 
 The inputs supported are 
 * `name-input`
@@ -95,7 +95,7 @@ The inputs supported are
 </variable>
 </include>
 
-**Web3Form plugin supports customised header and styles**
+**Web3Forms plugin supports customised header and styles**
 
 Options from the [box component](../components/presentation.html#boxes) are supported here.
 
