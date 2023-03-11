@@ -74,7 +74,7 @@ The CLI application uses and further builds on the interface exposed by the core
 
 This package houses the various frontend assets used in the core package.
 
-Some external assets included are Vue.js, jQuery, Bootstrap bundles, and FontAwesome bundles.
+Some external assets included are Vue.js, Bootstrap bundles, and FontAwesome bundles.
 
 Internal bundles are also present, generated from setup scripts, custom stylesheets and the UI components library.
 
@@ -89,8 +89,6 @@ We forked it from the original [yuche/vue-strap](https://github.com/yuche/vue-st
 * [Vue.js](http://vuejs.org/) (required ^v2.x.x, test with v2.6.14).
 
 * [Bootstrap CSS](http://getbootstrap.com/) (required 5.x.x, test with 5.1.3). MarkBind's Vue components doesn't depend on a very precise version of Bootstrap.
-
-* [jQuery](https://jquery.com/) (tested with v3.5.1) full build.
 
 Some custom components and directives are also added for MarkBind's use.
 
