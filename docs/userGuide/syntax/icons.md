@@ -12,12 +12,6 @@ The advantage of font icons over emojis is font icons can be _styled_ to fit you
 </span>
 </include>
 
-<box type="important">
-
-The syntax for icons has changed, and the earlier {%raw%}`{{ prefix_name }}`{%endraw%} syntax has been deprecated. <br>
-Please use the new `:prefix-name:` syntax instead.
-</box>
-
 ###### Using Font Awesome Icons
 1. Decide which icon you want to use from the [list of available icons](https://fontawesome.com/icons?d=gallery&m=free).
 1. Construct the MarkBind name for the selected icon by adding the _type prefix_.
