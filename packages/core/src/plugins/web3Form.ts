@@ -38,7 +38,7 @@ function transformFormInputs(child: cheerio.Element) {
     return;
   }
   const $node = cheerio(child);
-  switch (child.name.toLowerCase()) {
+  switch (child.name) {
   case 'name-input':
     $node.replaceWith(NAME_INPUT);
     break;
