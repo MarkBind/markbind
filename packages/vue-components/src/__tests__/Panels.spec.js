@@ -60,7 +60,7 @@ describe('NestedPanels', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  test('transition should be correctly created', async () => {
+  test('transition height is correctly calculated', async () => {
     const wrapper = mount(NestedPanel, {
       slots: {
         header: 'test header',
