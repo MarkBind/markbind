@@ -60,9 +60,6 @@ export const warnConflictingAtributesMap: { [attr: string]: (nd: DomElement) => 
 
 export const warnDeprecatedAtributesMap: { [attr: string]: (nd: DomElement) => void } = {
   modal: (node: DomElement) => {
-    _warnDeprecatedSlotNames(node, {
-      'modal-header': 'header',
-      'modal-footer': 'footer',
-    });
+    _warnDeprecatedSlotNames(node, {});
   },
 };
