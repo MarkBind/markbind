@@ -81,8 +81,9 @@ mark {
 }
 
 .site-nav-top {
-    margin: 0.8rem 0;
-    padding: 0 12px 12px 12px;
+    padding: 0.6rem 0.6rem 0.4rem 0;
+    display: flex;
+    justify-content: center;
 }
 
 .nav-component {

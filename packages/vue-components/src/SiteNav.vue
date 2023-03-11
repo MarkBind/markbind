@@ -60,23 +60,24 @@ export default {
     }
 
     .site-nav-list-item-0 {
-        padding: 0.8rem 0 0.4rem 0.8rem;
-        font-weight: 600;
-        font-size: 1.05em;
+        padding: 0.5rem 0 0.5rem 0.8rem;
+        font-weight: 500;
+        font-size: 1.2em;
     }
 
     .site-nav-list-item-1 {
-        padding: 0.5rem 0 0.3rem 1.3rem;
+        padding: 0.4rem 0 0.4rem 1.3rem;
+        font-size: 1.03em;
     }
 
     .site-nav-list-item-2 {
-        padding: 0.5rem 0 0.2rem 1.8rem;
-        font-size: 0.95em;
+        padding: 0.3rem 0 0.3rem 1.8rem;
+        font-size: 0.89em;
     }
 
     .site-nav-list-item-3 {
-        padding: 0.5rem 0 0.2rem 2.4rem;
-        font-size: 0.87em;
+        padding: 0.2rem 0 0.2rem 2.4rem;
+        font-size: 0.76em;
     }
 
     .site-nav-default-list-item:hover {
