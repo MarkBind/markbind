@@ -234,6 +234,6 @@ export default {
     }
 
     li {
-      padding: 0;
+        padding: 0;
     }
 </style>
