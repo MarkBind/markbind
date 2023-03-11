@@ -1,8 +1,8 @@
 ### Plugin: Web3Forms 
 
 This plugin allows you to create forms whose response will be sent directly to your email, using the [Web3Forms](https://web3forms.com/) API. 
-<box type="warning" seamless>
-Emails from Web3Forms may end up in spam/junk mail.
+<box type="tip" seamless>
+Don't forget to check your spam/junk folder if your form responses aren't appearing in your inbox!
 </box>
 
 <box type="warning" seamless>
