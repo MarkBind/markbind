@@ -57,7 +57,7 @@ When setting the `id` of a fragment, be careful not to clash with heading anchor
 
 <include src="tip.md" boilerplate >
 <span id="tip_body">
-The `<include>` mechanism can be used inside any MarkBind source file (even inside the _front matter_ section) but it will not work inside some _special_ files such as the `_markbind/variables.md`.
+The `<include>` mechanism can be used inside any MarkBind source file (even inside the _frontmatter_ section) but it will not work inside some _special_ files such as the `_markbind/variables.md`.
 </span>
 </include>
 
@@ -75,7 +75,7 @@ The `<include>` mechanism can be used inside any MarkBind source file (even insi
   ```html
   <include src="UserStories.md#epic" trim />
   ```
-* **`omitFrontmatter`** (optional): omit the front matter of the file/fragment from being included (if any).
+* **`omitFrontmatter`** (optional): omit the frontmatter of the file/fragment from being included (if any).
   ```html
   <include src="UserStories.md#epic" omitFrontmatter />
   ```
@@ -155,6 +155,123 @@ You can also specify include variables within the `<include>` tag itself by addi
 </div>
 
 If the same variable is defined in a chain of `<include>`s (e.g. `a.md` includes `b.md` includes `c.md`...), variables defined in the top-most `<include>` will take precedence. Global variables (`_markbind/variables.md`) will take precedence over any `<include>` variables.
+This is to allow the outer context to adapt the reused content without changing its actual content.
+
+<panel header="Preventing cyclical errors when using multiple includes with same variables">
+
+Since outer variables override inner variables, this may result in errors if attempting to use an `include` within another `include` with the same variables.
+
+This is because the inner variable of the same name will be replaced with the outer variable, which contains the inner variable. 
+This inner variable is once again overridden to result in another inner variable and so on, causing a cyclical error.
+
+To fix this issue, do not use an inner `include` if they use the same variables.
+Instead, copy the content of the `src` file and replace the variables with the defined values.
+
+Example:
+
+```html {.line-numbers}
+<include src="boilerplate.md" boilerplate>
+  <span id="variable">
+    <include src="boilerplate.md">
+      <span id="variable">
+        VALUE_OF_VARIABLE
+      </span>
+    </include>
+  </span>
+</include>
+```
+
+The inner `variable` would be replaced by the outer `variable` resulting in a cyclical error:
+
+```html {.line-numbers highlight-lines="5-9"}
+<include src="boilerplate.md" boilerplate>
+  <span id="variable">
+    <include src="boilerplate.md">
+      <span id="variable">
+        <include src="boilerplate.md">
+          <span id="variable">
+            ...
+          </span>
+        </include>
+      </span>
+    </include>
+  </span>
+</include>
+```
+
+To fix this problem, copy the content of the `src` file and replace the variables with the defined values as such:
+
+```html {.line-numbers highlight-lines="3"}
+<include src="boilerplate.md" boilerplate>
+  <span id="variable">
+    Boilerplate content: VALUE_OF_VARIABLE <!-- Replace {{ '{{' }} variable {{ '}}' }} in boilerplate with VALUE_OF_VARIABLE -->
+  </span>
+</include>
+```
+
+</panel>
+
+<hr><!-- ======================================================================================================= -->
+
+##### Excluding Files from Rendering as Pages
+
+**MarkBind supports the exclusion of files from page generation**. For example, you can exclude files containing <tooltip content="A fragment is a piece of content that can be reused across multiple pages.">custom fragments</tooltip> that are only meant to be used in `<include>`.
+<box type="warning">
+
+Note: This example below is assuming that you have included the following glob pattern in the `site.json` file:
+
+```js
+{
+  "pages": [
+    {
+      "glob": "*.md",
+      "layout": "normal",
+      "searchable": "yes"
+    }
+  ],
+}
+```
+
+Else, if each page is included individually, there is no need to exclude the fragments as they will not be included in the page generation.
+</box>
+
+
+{{ icon_example }} Suppose you have a fragment file `content-fragment.md` and you want to include it in some pages of the site `course` without rendering `content-fragment.md` as a page.
+
+<tree>
+C:/course/
+  content-fragment.md
+  index.md
+  reading.md
+  site.json
+</tree>
+
+In `reading.md` (note how it reuses content from the `content-fragment.md`):
+```markdown
+# Week 1 Reading:
+<include src="content-fragment.md" />
+```
+
+In `site.json` we then exclude the fragment from the page generation with [pagesExclude](../siteJsonFile.html#pagesexclude):
+
+```json
+...
+"pagesExclude": [
+  "**/*-fragment.md"
+],
+...
+```
+</div>
+
+</div>
+
+<include src="tip.md" boilerplate >
+<span id="tip_body">
+You may use any custom name you wish for your fragments but be sure to update the `pagesExclude` list with the appropriate glob pattern.
+</span>
+</include>
+
+<hr><!-- ======================================================================================================= -->
 
 ### Using Boilerplate Files
 

@@ -11,8 +11,8 @@
       "src": "index.md",
       "title": "Hello World",
       "frontmatter": {
-        "frontMatterOverrideProperty": "Overridden by front matter override",
-        "globalAndFrontMatterOverrideProperty": "Overridden by front matter override"
+        "frontmatterOverrideProperty": "Overridden by frontmatter override",
+        "globalAndFrontmatterOverrideProperty": "Overridden by frontmatter override"
       }
     },
     {
@@ -104,6 +104,10 @@
       "title": "Content inside <include> should not be processed by markdown"
     },
     {
+      "src": "testPanels.md",
+      "title": "Test: Panels"
+    },
+    {
       "src": "testPanelMarkdownParsing.md",
       "title": "markdown-it should parse minimized panel as inline element and normal panel as block element"
     },
@@ -120,6 +124,10 @@
       "title": "text interpolation should be skipped appropriately"
     },
     {
+      "src": "testPanelsClosingTransition.md",
+      "title": "Test: Panels closing transition"
+    },
+    {
       "src": "testLinks.md",
       "title": "Autolink tests"
     },
@@ -130,6 +138,26 @@
     {
       "src": "testMath.md",
       "title": "Math formulae should be displayed correctly, with additional plugin"
+    },
+    {
+      "src": "testImages.md",
+      "title": "Rendering of images according to specified dimension and auto-linkify ability"
+    },
+    {
+      "src": "testPageNavTarget.md",
+      "title": "Bootstrap scrollspy related classes should be applied only if there are navigable headings"
+    },
+    {
+      "src": "testPageNavWithoutTitleAndNavHeadings.md",
+      "title": "page nav separator should be omitted when there is no title and navigation headings added"
+    },
+    {
+      "src": "testPageNavWithOnlyTitle.md",
+      "title": "page nav with title added"
+    },
+    {
+      "src": "testPageNavPrint.md",
+      "title": "printing page nav"
     }
   ],
   "pagesExclude": ["**/*-fragment.md"],
@@ -148,7 +176,7 @@
   },
   "globalOverride": {
     "globalOverrideProperty": "Overridden by global override",
-    "globalAndFrontMatterOverrideProperty": "Overridden by global override"
+    "globalAndFrontmatterOverrideProperty": "Overridden by global override"
   },
   "headingIndexingLevel": 4,
   "plugins": [

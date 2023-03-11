@@ -34,18 +34,47 @@ For Markdown syntax: To display a literal character that are normally used for M
 
 ##### :fas-lightbulb: Using {% raw %}{% endraw %} to display `{{ content }}`
 
+By default, MarkBind processes any code in the form of `{{ content }}`. This is because Nunjucks (which is [supported by MarkBind](markBindSyntaxOverview.html#support-for-nunjucks)) uses this syntax to [evaluate an expression, variable, or function calls](https://mozilla.github.io/nunjucks/templating.html#variables). For instance:
 
-To display the raw variable interpolation syntax using `{% raw %}{% endraw %}`, you would also need to add
-the `v-pre` attribute using markdown-it-attrs or as a HTML attribute.
+```
+{{ username }}
+```
+
+This will not display `{{ username }}` as a raw string, but instead, look up the variable `username` from the context and display its value.
+
+In general, to use this syntax as a raw string in a code block or a template, there are [two methods](https://jinja.palletsprojects.com/en/3.0.x/templates/#escaping) available. The syntax can either be encased as a variable like `{{ '{{' }}` and `{{ '}}' }}`, or alternatively, the entire code block can be encased with the raw-endraw tags: `{% raw %} {{ content }} {% endraw %}`. 
 
 <box type="info">
 
-This isn't necessary for `<code>` elements, markdown code fences and inline code though, which MarkBind automatically
-adds `v-pre` for.
+If using raw-endraw tags outside `<code>` elements, markdown code fences, or inline code, you also need to add the `v-pre` attribute. 
 
-However, this does not change the need for `{% raw %}{% endraw %}`. Meaning, you can still use variables within your code!
+For HTML elements, the `v-pre` attribute needs to be declared as part of the HTML tag:
+
+```
+{% raw %}
+
+<div v-pre>
+  <p>{{ content }}</p>
+</div>
+
+{% endraw %}
+```
+
+For Markdown elements, the `v-pre` attribute needs to be declared using [`markdown-it-attrs`](formattingContents.html#classes-attributes-and-amp-identifiers), which allows classes, identifiers, and attributed to be added to Markdown syntax:
+
+```
+{% raw %}
+
+# Header with {{ content }} {v-pre}
+
+{% endraw %}
+```
+
+Otherwise, any HTML or Markdown content containing double curly braces will be processed as a variable and will not be displayed properly.
+
+Note: This step isn't necessary for `<code>` elements, markdown code fences and inline code because MarkBind automatically adds `v-pre` for them.
+
 </box>
-
 
 {% endraw %}
 

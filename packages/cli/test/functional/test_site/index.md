@@ -3,8 +3,8 @@ title: Hello World
 pageNav: "default"
 pageNavTitle: "Testing Page Navigation"
 globalOverrideProperty: "To be overridden by global override"
-frontMatterOverrideProperty: "To be overridden by frontmatter override"
-globalAndFrontMatterOverrideProperty: "To be overridden by frontmatter and global override"
+frontmatterOverrideProperty: "To be overridden by frontmatter override"
+globalAndFrontmatterOverrideProperty: "To be overridden by frontmatter and global override"
 tags: ["tag-frontmatter-shown", "tag-included-file", "+tag-exp*", "-tag-exp-hidden", "-tag-site-override-shown", "-tag-site-override-specific*"]
 </frontmatter>
 
@@ -307,6 +307,10 @@ and **this**.
 
   </panel>
 </panel>
+
+**Test panel closing transitions**
+<include src="testPanelsClosingTransition.md" />
+
 
 **Test search indexing**
 

@@ -11,7 +11,21 @@ import { createErrorNode } from './elements';
 import { PageSources } from '../Page/PageSources';
 import { isMarkdownFileExt } from '../utils/fsUtil';
 import * as logger from '../utils/logger';
-import VariableProcessor from '../variables/VariableProcessor';
+import * as linkProcessor from './linkProcessor';
+import type VariableProcessor from '../variables/VariableProcessor';
+import { warnConflictingAtributesMap, warnDeprecatedAtributesMap } from './warnings';
+import { shiftSlotNodeDeeper, transformOldSlotSyntax, renameSlot } from './vueSlotSyntaxProcessor';
+import { MdAttributeRenderer } from './MdAttributeRenderer';
+import { MarkdownProcessor } from './MarkdownProcessor';
+import { processScriptAndStyleTag } from './scriptAndStyleTagProcessor';
+import type { SiteLinkManager } from './SiteLinkManager';
+import type { PluginManager } from '../plugins/PluginManager';
+import { processInclude, processPanelSrc, processPopoverSrc } from './includePanelProcessor';
+
+import { PageNavProcessor, renderSiteNav, addSitePageNavPortal } from './siteAndPageNavProcessor';
+import { highlightCodeBlock, setCodeLineNumbers } from './codeblockProcessor';
+import { setHeadingId, assignPanelId } from './headerProcessor';
+import { FootnoteProcessor } from './FootnoteProcessor';
 
 const fm = require('fastmatter');
 
@@ -23,56 +37,46 @@ const _ = {
 // Load our htmlparser2 patch for supporting "special" tags
 require('../patches/htmlparser2');
 
-const { PageNavProcessor, renderSiteNav, addSitePageNavPortal } = require('./siteAndPageNavProcessor');
-const { processInclude, processPanelSrc, processPopoverSrc } = require('./includePanelProcessor');
-const linkProcessor = require('./linkProcessor');
-const { highlightCodeBlock, setCodeLineNumbers } = require('./codeblockProcessor');
-const { setHeadingId, assignPanelId } = require('./headerProcessor');
-const { MarkdownProcessor } = require('./MarkdownProcessor');
-const { FootnoteProcessor } = require('./FootnoteProcessor');
-const { MdAttributeRenderer } = require('./MdAttributeRenderer');
-const { shiftSlotNodeDeeper, transformOldSlotSyntax, renameSlot } = require('./vueSlotSyntaxProcessor');
-const { warnConflictingAtributesMap, warnDeprecatedAtributesMap } = require('./warnings');
-const { processScriptAndStyleTag } = require('./scriptAndStyleTagProcessor');
-
-const FRONT_MATTER_FENCE = '---';
+const FRONTMATTER_FENCE = '---';
 
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
+export type NodeProcessorConfig = {
+  baseUrl: string,
+  baseUrlMap: Set<string>,
+  rootPath: string,
+  outputPath: string,
+  ignore: string[],
+  addressablePagesSource: string[],
+  intrasiteLinkValidation: { enabled: boolean },
+  codeLineNumbers: boolean,
+  plantumlCheck: boolean,
+  headerIdMap: {
+    [id: string]: number,
+  },
+};
+
 export class NodeProcessor {
-  frontMatter: { [key: string]: string } = {};
+  frontmatter: { [key: string]: string } = {};
 
   headTop: string[] = [];
   headBottom: string[] = [];
   scriptBottom: string[] = [];
 
-  markdownProcessor: any;
+  markdownProcessor: MarkdownProcessor;
   footnoteProcessor = new FootnoteProcessor();
-  mdAttributeRenderer: any;
+  mdAttributeRenderer: MdAttributeRenderer;
   pageNavProcessor = new PageNavProcessor();
 
   processedModals: { [id: string]: boolean } = {};
 
   constructor(
-    private config: {
-      baseUrl: string,
-      baseUrlMap: Set<string>,
-      rootPath: string,
-      outputPath: string,
-      ignore: string[],
-      addressablePagesSource: string[],
-      intrasiteLinkValidation: { enabled: boolean },
-      codeLineNumbers: boolean,
-      plantumlCheck: boolean,
-      headerIdMap: {
-        [id: string]: number,
-      },
-    },
+    private config: NodeProcessorConfig,
     private pageSources: PageSources,
     private variableProcessor: VariableProcessor,
-    private pluginManager: any,
-    private siteLinkManager: any,
-    private userScriptsAndStyles: string[],
+    private pluginManager: PluginManager,
+    private siteLinkManager: SiteLinkManager,
+    private userScriptsAndStyles: string[] | undefined,
     docId = '',
   ) {
     this.markdownProcessor = new MarkdownProcessor(docId);
@@ -106,27 +110,27 @@ export class NodeProcessor {
   }
 
   /*
-   * FrontMatter collection
+   * Frontmatter collection
    */
-  _processFrontMatter(node: DomElement, context: Context) {
-    let currentFrontMatter = {};
-    const frontMatter = cheerio(node);
-    if (!context.processingOptions.omitFrontmatter && frontMatter.text().trim()) {
-      // Retrieves the front matter from either the first frontmatter element
+  _processFrontmatter(node: DomElement, context: Context) {
+    let currentFrontmatter = {};
+    const frontmatter = cheerio(node);
+    if (!context.processingOptions.omitFrontmatter && frontmatter.text().trim()) {
+      // Retrieves the frontmatter from either the first frontmatter element
       // or from a frontmatter element that includes from another file
       // The latter case will result in the data being wrapped in a div
-      const frontMatterIncludeDiv = frontMatter.find('div');
-      const frontMatterData = frontMatterIncludeDiv.length
-        ? ((frontMatterIncludeDiv[0] as DomElement).children as DomElement[])[0].data
-        : ((frontMatter[0] as DomElement).children as DomElement[])[0].data;
-      const frontMatterWrapped = `${FRONT_MATTER_FENCE}\n${frontMatterData}\n${FRONT_MATTER_FENCE}`;
+      const frontmatterIncludeDiv = frontmatter.find('div');
+      const frontmatterData = frontmatterIncludeDiv.length
+        ? ((frontmatterIncludeDiv[0] as DomElement).children as DomElement[])[0].data
+        : ((frontmatter[0] as DomElement).children as DomElement[])[0].data;
+      const frontmatterWrapped = `${FRONTMATTER_FENCE}\n${frontmatterData}\n${FRONTMATTER_FENCE}`;
 
-      currentFrontMatter = fm(frontMatterWrapped).attributes;
+      currentFrontmatter = fm(frontmatterWrapped).attributes;
     }
 
-    this.frontMatter = {
-      ...this.frontMatter,
-      ...currentFrontMatter,
+    this.frontmatter = {
+      ...this.frontmatter,
+      ...currentFrontmatter,
     };
     cheerio(node).remove();
   }
@@ -164,10 +168,10 @@ export class NodeProcessor {
   /*
    * API
    */
-  processNode(node: DomElement, context: Context) {
+  processNode(node: DomElement, context: Context): Context {
     try {
       if (!node.name || !node.attribs) {
-        return node;
+        return context;
       }
 
       transformOldSlotSyntax(node);
@@ -179,7 +183,7 @@ export class NodeProcessor {
 
       switch (node.name) {
       case 'frontmatter':
-        this._processFrontMatter(node, context);
+        this._processFrontmatter(node, context);
         break;
       case 'body':
         // eslint-disable-next-line no-console
@@ -228,6 +232,9 @@ export class NodeProcessor {
         break;
       case 'page-nav':
         this.pageNavProcessor.renderPageNav(node);
+        break;
+      case 'page-nav-print':
+        PageNavProcessor.transformPrintContainer(node);
         break;
       case 'site-nav':
         renderSiteNav(node);
@@ -341,7 +348,7 @@ export class NodeProcessor {
 
     // eslint-disable-next-line no-param-reassign
     context = this.processNode(node, context);
-    this.pluginManager.processNode(node, this.config);
+    this.pluginManager.processNode(node);
 
     if (node.children) {
       node.children.forEach((child) => {
@@ -365,7 +372,7 @@ export class NodeProcessor {
       }
     }
 
-    this.pluginManager.postProcessNode(node, this.config);
+    this.pluginManager.postProcessNode(node);
 
     return node;
   }

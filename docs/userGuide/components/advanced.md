@@ -12,7 +12,7 @@
 <md>[_User Guide → {{ title }}_]({{ filename }}.html)</md>
 </span>
 
-# Advanced Tips and Tricks
+# Advanced
 
 {% set slot_info_trigger %}<trigger for="on-slots" trigger="click"><strong>^\[S\]^</strong></trigger>{% endset %}
 
@@ -135,22 +135,22 @@ You can define such a slot within the component by adding a `slot="slot_name"` a
 Every component documented in our user guide allows you to insert your own defined CSS classes.
 This is done by adding the `add-class` attribute to a component along with the desired class names.
 
-<tip-box border-left-color="#00B0F0">
+<box border-left-color="#00B0F0">
   <i style="font-style: normal; font-weight: bold; color: dimgray">Example</i><br>
-  <tip-box type="info" add-class="lead font-italic text-center">
+  <box type="info" add-class="lead font-italic text-center">
     Easily apply Bootstrap classes without using a wrapper!
-  </tip-box>
-</tip-box>
+  </box>
+</box>
 
-<tip-box border-left-color="black">
+<box border-left-color="black">
 <i style="font-style: normal; font-weight: bold; color: dimgray">Markup</i>
 
 ```html
-<tip-box type="info" add-class="lead font-italic text-center">
+<box type="info" add-class="lead font-italic text-center">
   Easily apply Bootstrap classes without using a wrapper!
-</tip-box>
+</box>
 ```
-</tip-box>
+</box>
 <br>
 
 {% from "njk/common.njk" import previous_next %}

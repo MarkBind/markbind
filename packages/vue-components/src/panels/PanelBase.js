@@ -135,25 +135,21 @@ export default {
       }
 
       if (this.localExpanded) {
-        /*
-          Collapse panel.
-          Panel's maxHeight is 'none' at the moment, as event listener set it to 'none' after expansion.
-          Thus, we need to reset the maxHeight to its current height for collapse transition to work.
-        */
-        this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
-
         requestAnimationFrame(() => {
           // To enable behaviour of auto window scrolling during panel collapse
           if (this.$el.getBoundingClientRect().top < 0) {
             const headerHeight = jQuery('header[sticky]').height() || 0;
-            jQuery('html').animate({
-              scrollTop: window.scrollY + this.$el.getBoundingClientRect().top - headerHeight - 3,
-            }, 500, 'swing');
+            window.scrollTo({
+              top: window.scrollY + this.$el.getBoundingClientRect().top - headerHeight - 3,
+              left: 0,
+              behavior: 'instant',
+            });
           }
           this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
         });
       } else {
         // Expand panel
+        this.$refs.panel.style.transition = 'max-height 0.5s ease-in-out';
         this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
       }
 

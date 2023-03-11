@@ -174,7 +174,8 @@
         "should-have-anchor-16": "should have anchor",
         "should-have-anchor-17": "should have anchor"
       },
-      "headingKeywords": {}
+      "headingKeywords": {},
+      "frontmatterKeywords": "testFrontmatterKeywords"
     },
     {
       "src": "testAnnotate.md",
@@ -268,6 +269,12 @@
       "headingKeywords": {}
     },
     {
+      "src": "testPanels.md",
+      "title": "Test: Panels",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
       "src": "testPanelMarkdownParsing.md",
       "title": "markdown-it should parse minimized panel as inline element and normal panel as block element",
       "headings": {},
@@ -292,6 +299,12 @@
     {
       "src": "testPageNav.md",
       "title": "text interpolation should be skipped appropriately",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testPanelsClosingTransition.md",
+      "title": "Test: Panels closing transition",
       "headings": {},
       "headingKeywords": {}
     },
@@ -321,6 +334,44 @@
         "math-formulae": "Math Formulae",
         "markbind-supports-typesetting-tex-math-equations": "Markbind supports typesetting TeX math equations",
         "additional-delimiters-can-be-used-if-mathdelimiters-plugin-is-enabled": "Additional delimiters can be used if mathDelimiters plugin is enabled"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "testImages.md",
+      "title": "Rendering of images according to specified dimension and auto-linkify ability",
+      "headings": {
+        "images": "Images",
+        "alt": "Alt",
+        "dimension": "Dimension",
+        "linkify": "Linkify"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "testPageNavTarget.md",
+      "title": "Bootstrap scrollspy related classes should be applied only if there are navigable headings",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testPageNavWithoutTitleAndNavHeadings.md",
+      "title": "page nav separator should be omitted when there is no title and navigation headings added",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testPageNavWithOnlyTitle.md",
+      "title": "page nav with title added",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testPageNavPrint.md",
+      "title": "printing page nav",
+      "headings": {
+        "h1": "H1",
+        "h2": "H2"
       },
       "headingKeywords": {}
     }

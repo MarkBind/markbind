@@ -43,6 +43,8 @@ const processAndVerifyTemplate = (template, expectedTemplate, postProcess = fals
 test('processNode processes panel attributes and inserts into dom as slots correctly', () => {
   processAndVerifyTemplate(testData.PROCESS_PANEL_ATTRIBUTES,
                            testData.PROCESS_PANEL_ATTRIBUTES_EXPECTED);
+  processAndVerifyTemplate(testData.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
   processAndVerifyTemplate(testData.PROCESS_PANEL_HEADER_NO_OVERRIDE,
                            testData.PROCESS_PANEL_HEADER_NO_OVERRIDE_EXPECTED);
 });
@@ -180,6 +182,22 @@ test('markdown inline colour syntax works with code blocks', async () => {
   let expected = '<p><code class="hljs inline no-lang" v-pre>';
   expected += '#y#not yellow text##';
   expected += '</code></p>';
+
+  expect(result).toEqual(expected);
+});
+
+test('page-nav-print syntex converts to div element with class', async () => {
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const indexPath = 'index.md';
+  let syntaxToTest = '<page-nav-print />';
+  syntaxToTest += '<page-nav-print></page-nav-print>';
+  syntaxToTest += '<page-nav-print>Table of Content</page-nav-print>';
+
+  const result = await nodeProcessor.process(indexPath, syntaxToTest);
+
+  let expected = '<p><div class="page-nav-print d-none d-print-block" v-pre></div>';
+  expected += '<div class="page-nav-print d-none d-print-block" v-pre></div>';
+  expected += '<div class="page-nav-print d-none d-print-block" v-pre>Table of Content</div></p>';
 
   expect(result).toEqual(expected);
 });

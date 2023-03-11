@@ -1,6 +1,6 @@
 {
   "name": "@markbind/core",
-  "version": "4.0.2",
+  "version": "4.1.0",
   "description": "MarkBind core module",
   "keywords": [
     "mark",
@@ -29,9 +29,10 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
-    "@markbind/core-web": "4.0.2",
+    "@markbind/core-web": "4.1.0",
     "@primer/octicons": "^15.0.1",
     "@sindresorhus/slugify": "^0.9.1",
+    "@tlylt/markdown-it-imsize": "^3.0.0",
     "bluebird": "^3.7.2",
     "bootswatch": "^5.1.3",
     "cheerio": "^0.22.0",
@@ -50,8 +51,7 @@
     "markdown-it": "^12.3.2",
     "markdown-it-attrs": "^4.1.3",
     "markdown-it-emoji": "^1.4.0",
-    "markdown-it-imsize": "^2.0.1",
-    "markdown-it-linkify-images": "^2.0.0",
+    "markdown-it-linkify-images": "^3.0.0",
     "markdown-it-mark": "^3.0.0",
     "markdown-it-regexp": "^0.4.0",
     "markdown-it-sub": "^1.0.0",
@@ -80,10 +80,13 @@
     "@types/fs-extra": "^9.0.13",
     "@types/htmlparser2": "^3.10.3",
     "@types/jest": "^27.4.1",
+    "@types/js-beautify": "^1.13.3",
     "@types/lodash": "^4.14.181",
+    "@types/node": "^17.0.22",
     "@types/nunjucks": "^3.2.1",
     "@types/path-is-inside": "^1.0.0",
     "@types/url-parse": "^1.4.8",
+    "@types/uuid": "^9.0.0",
     "jest": "^27.5.1",
     "memfs": "^3.0.1",
     "ts-jest": "^27.1.4"

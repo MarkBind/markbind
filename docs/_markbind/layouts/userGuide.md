@@ -23,7 +23,7 @@
   * [Using HTML, JavaScript, CSS]({{baseUrl}}/userGuide/usingHtmlJavaScriptCss.html)
   * [Tweaking the Page Structure]({{baseUrl}}/userGuide/tweakingThePageStructure.html)
   * [Reusing Contents]({{baseUrl}}/userGuide/reusingContents.html)
-* **Working with sites** :expanded:
+* **Working with Sites** :expanded:
   * [Overview]({{baseUrl}}/userGuide/workingWithSites.html)
   * [Setting Site Properties]({{baseUrl}}/userGuide/settingSiteProperties.html)
   * [Using Plugins]({{baseUrl}}/userGuide/usingPlugins.html)
@@ -31,6 +31,8 @@
   * [Applying Themes]({{baseUrl}}/userGuide/themes.html)
   * [Deploying the Site]({{baseUrl}}/userGuide/deployingTheSite.html)
   * [MarkBind in the Project Workflow]({{baseUrl}}/userGuide/markBindInTheProjectWorkflow.html)
+  * [Redirecting to a Custom 404 Page]({{baseUrl}}/userGuide/redirectingToACustom404Page.html)
+  * [Adding Navigation Buttons]({{baseUrl}}/userGuide/addingNavigationButtons.html)
 * **References** :expanded:
   * [CLI Commands]({{baseUrl}}/userGuide/cliCommands.html)
   * [Reader-Facing Features]({{baseUrl}}/userGuide/readerFacingFeatures.html)
