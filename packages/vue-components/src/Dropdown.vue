@@ -232,4 +232,8 @@ export default {
     .navbar .dropdown-toggle {
         text-decoration: none;
     }
+
+    li {
+      padding: 0;
+    }
 </style>
