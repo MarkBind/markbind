@@ -6,7 +6,7 @@ Emails from Web3Forms may end up in spam/junk mail.
 </box>
 
 <box type="warning" seamless>
-The free plan from Web3Forms only allows 250 submissions per month.
+The free plan from Web3Forms allows up to 250 submissions per month.
 </box>
 
 To set it up, get an access key from [Web3Forms](https://web3forms.com/). Then add `web3Form` to your site's plugin, and add the `accessKey` parameter via the `pluginsContext`.
