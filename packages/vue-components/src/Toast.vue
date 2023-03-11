@@ -29,7 +29,7 @@ export default {
       notify(this.message, type, this.duration, () => {});
     },
   },
-  mounted() {
+  created() {
     this.showToast();
   },
 };
