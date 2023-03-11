@@ -14,7 +14,7 @@ import * as logger from '../utils/logger';
 import * as linkProcessor from './linkProcessor';
 import type VariableProcessor from '../variables/VariableProcessor';
 import { warnConflictingAtributesMap, warnDeprecatedAtributesMap } from './warnings';
-import { shiftSlotNodeDeeper, transformOldSlotSyntax, renameSlot } from './vueSlotSyntaxProcessor';
+import { shiftSlotNodeDeeper, transformOldSlotSyntax } from './vueSlotSyntaxProcessor';
 import { MdAttributeRenderer } from './MdAttributeRenderer';
 import { MarkdownProcessor } from './MarkdownProcessor';
 import { processScriptAndStyleTag } from './scriptAndStyleTagProcessor';
@@ -155,11 +155,6 @@ export class NodeProcessor {
         cheerio(node).remove();
       } else {
         this.processedModals[node.attribs.id] = true;
-
-        // Transform deprecated slot names; remove when deprecating
-        renameSlot(node, 'modal-header', 'header');
-        renameSlot(node, 'modal-footer', 'footer');
-
         this.mdAttributeRenderer.processModalAttributes(node);
       }
     }
