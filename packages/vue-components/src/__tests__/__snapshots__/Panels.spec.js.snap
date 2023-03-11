@@ -495,7 +495,7 @@ exports[`NestedPanels transition should be correctly created 1`] = `
      
     <div
       class="card-collapse"
-      style="max-height: 10px;"
+      style="max-height: 23px;"
     >
       <div
         class="card-body"
@@ -506,6 +506,7 @@ some other text
          
         <button
           class="collapse-button btn btn-outline-secondary"
+          style="margin-bottom: 13px;"
           type="button"
         >
           <span

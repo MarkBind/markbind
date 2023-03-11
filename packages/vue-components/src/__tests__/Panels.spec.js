@@ -66,10 +66,15 @@ describe('NestedPanels', () => {
         header: 'test header',
         default: 'Some panel content\nsome other text',
       },
+      propsData: {
+        preload: true,
+      },
       attachTo: document.body,
     });
     const panelElement = wrapper.element.querySelector('.card-collapse');
     Object.defineProperty(panelElement, 'scrollHeight', { configurable: true, value: 10 });
+    const bottomSwitch = wrapper.element.querySelector('.card-body > .collapse-button');
+    bottomSwitch.style.marginBottom = '13px';
     // click on header
     await wrapper.find('div.card-header').trigger('click');
     expect(wrapper.element).toMatchSnapshot();
