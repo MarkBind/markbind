@@ -14,10 +14,10 @@ import { PageSources } from './PageSources';
 import { NodeProcessor, NodeProcessorConfig } from '../html/NodeProcessor';
 
 import * as logger from '../utils/logger';
-import { PageAssets, PageConfig } from './PageConfig';
-import { SiteConfig } from '../Site/SiteConfig';
-import { FrontMatter } from '../plugins/Plugin';
-import { ExternalManager } from '../External/ExternalManager';
+import type { PageAssets, PageConfig } from './PageConfig';
+import type { SiteConfig } from '../Site/SiteConfig';
+import type { FrontMatter } from '../plugins/Plugin';
+import type { ExternalManager } from '../External/ExternalManager';
 
 require('../patches/htmlparser2');
 
