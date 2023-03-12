@@ -72,7 +72,6 @@ export default {
           }
           if (currentEl.tagName.toLowerCase() === 'div'
               && currentEl.querySelector('i')) {
-            window.console.warn(currentEl.children);
             currentEl.querySelectorAll('i').forEach((e) => { e.classList.remove('site-nav-rotate-icon'); });
           }
           currentEl = currentEl.parentElement;
