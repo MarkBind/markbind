@@ -6,9 +6,21 @@
 
 The ```scroll-top-button``` component allows users to move to the top of the page.
 
-****Adding a scroll-top-button****
+****Adding a scroll to top button****
 
-Add ```<scroll-top-button><scroll-top-button/>``` to layout file.
+Add ```<scroll-top-button><scroll-top-button/>``` to [layout file](../tweakingThePageStructure.md#layouts).
+
+****Removing a scroll to top button****
+
+Remove ```<scroll-top-button><scroll-top-button/>``` component from [layout file](../tweakingThePageStructure.md#layouts).
+
+
+<box type="info" seamless>
+
+A scroll to top button is automatically added to default layout file `default.md` when users run ```markbind init```. 
+This is located in the `_markbind/layouts` folder.
+
+</box>
 
 ****Options****
 
@@ -16,12 +28,13 @@ Add ```<scroll-top-button><scroll-top-button/>``` to layout file.
 |---------------------------|----------|-------------------------|-----------------------------------------------------------------------------------------------|
 | icon{{slot_info_trigger}} | `String` | `:fas-arrow-circle-up:` | Inline MarkDown text of the icon displayed on the left.                                       |
 | icon-size                 | `String` | `lg`                    | Resizes the icon. Supports integer-scaling of the icon dimensions e.g. `2x`, `3x`, `4x`, etc. |
+| icon-color                | `String` | `null`                  | Color of the icon.                                                                            |
 | bottom                    | `String` | `2%`                    | Distance from bottom edge of page.                                                            |
 | right                     | `String` | `2%`                    | Distance from right edge of page.                                                             |
 
 </div>
 
-<div id="short">
+<div id="short" class="d-none">
 
 ```html
 <scroll-top-button
