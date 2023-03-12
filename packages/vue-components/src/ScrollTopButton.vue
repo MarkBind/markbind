@@ -3,7 +3,8 @@
     :class="['scroll-top-button', getIconSize(), 'd-print-none', {'lighten': $data.isLighten}]"
     :style="iconStyle()"
     aria-hidden="true"
-    @click="handleScrollTop()">
+    @click="handleScrollTop()"
+  >
     <slot name="icon">
       <i :class="['fas fa-arrow-circle-up']"></i>
     </slot>
