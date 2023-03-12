@@ -145,10 +145,6 @@ export default {
     },
 
     // Text question specific props
-    hasInput: { // Todo deprecate this
-      type: Boolean,
-      default: false,
-    },
     keywords: {
       type: String,
       default: '',
@@ -237,7 +233,7 @@ export default {
       return this.type === 'blanks';
     },
     isTextQuestion() {
-      return this.type === 'text' || this.hasInput;
+      return this.type === 'text';
     },
     isValidQuestionType() {
       return this.isMcqOrCheckboxQuestion() || this.isBlanksQuestion() || this.isTextQuestion();
