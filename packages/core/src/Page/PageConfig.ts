@@ -63,7 +63,7 @@ export class PageConfig {
    * The source file's (.md) posix relative file path for rendering this page
    */
   src: string;
-  title?: string;
+  title?: string | undefined;
   template: Template;
   variableProcessor: VariableProcessor;
   addressablePagesSource: string[];
@@ -85,7 +85,7 @@ export class PageConfig {
     siteOutputPath: string;
     sourcePath: string;
     src: string;
-    title?: string;
+    title?: string | undefined;
     template: Template;
     variableProcessor: VariableProcessor;
     addressablePagesSource: string[];
