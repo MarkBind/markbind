@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO deprecate all isValidQuestionType checks -->
   <transition :name="questions ? 'question' : null">
     <div v-if="active" :class="['card', 'question', shakeClass, addClass]">
       <div v-if="$scopedSlots.header" class="card-header alert-light border-bottom border-light text-dark">
@@ -30,11 +29,7 @@
             </strong>
           </div>
         </div>
-        <!--
-          Gracefully deprecate invalid question types:
-          This allows the old "answer" slot to show for invalid question types, in addition to text questions
-        -->
-        <div v-if="qState.answered && !isMcqOrCheckboxQuestion() && !isBlanksQuestion()" class="answer">
+        <div v-if="qState.answered && isTextQuestion()" class="answer">
           <slot name="answer"></slot>
         </div>
 
@@ -48,28 +43,11 @@
         </box>
       </div>
 
-      <!--
-        Gracefully deprecate invalid question types (isValidQuestionType):
-        This removes the footer for invalid question types,
-        where both the hint and check button has been clicked
-      -->
+      <!-- This removes the footer for questions where both the hint and check button has been clicked -->
       <div
         v-if="showCardFooter"
         class="card-footer alert-light border-top border-light text-dark"
       >
-        <!--
-          Gracefully deprecate invalid question types (isValidQuestionType):
-          This hides the success / wrong circle for invalid question types
-        -->
-        <i
-          v-if="qState.state === 1 && isValidTypeAndNotTextWithoutKeywords()"
-          class="fa fa-times text-danger border-danger result-icon"
-        ></i>
-        <i
-          v-else-if="qState.state === 2 && isValidTypeAndNotTextWithoutKeywords()"
-          class="fa fa-check text-success border-success result-icon"
-        ></i>
-
         <transition-group
           name="q-btn"
           tag="div"
@@ -84,9 +62,8 @@
           >
             Hint
           </button>
-          <!-- Gracefully deprecate invalid question types without answers -->
           <button
-            v-if="qState.state === 0 && !(!isValidTypeAndNotTextWithoutKeywords() && !$scopedSlots.answer)"
+            v-if="qState.state === 0 && !(!isNotTextWithoutKeywords() && !$scopedSlots.answer)"
             key="check"
             type="button"
             class="btn btn-primary q-btn ms-1"
@@ -170,9 +147,9 @@ export default {
     showCardFooter() {
       // Hide the card footer when 'there are no more buttons to click',
       // and the tick / cross circle is not shown
-      const isInvalidTypeOrTextWithoutKeyword = !this.isValidTypeAndNotTextWithoutKeywords();
+      const isTextWithoutKeyword = !this.isNotTextWithoutKeywords();
       const isHintNotProvidedOrIsShown = !this.$scopedSlots.hint || this.showHint;
-      return !(isInvalidTypeOrTextWithoutKeyword
+      return !(isTextWithoutKeyword
         && isHintNotProvidedOrIsShown
         && this.qState.answered
         && !this.questions);
@@ -235,11 +212,8 @@ export default {
     isTextQuestion() {
       return this.type === 'text';
     },
-    isValidQuestionType() {
-      return this.isMcqOrCheckboxQuestion() || this.isBlanksQuestion() || this.isTextQuestion();
-    },
-    isValidTypeAndNotTextWithoutKeywords() {
-      return this.isValidQuestionType() && !(this.isTextQuestion() && !this.keywords);
+    isNotTextWithoutKeywords() {
+      return !(this.isTextQuestion() && !this.keywords);
     },
     markAsCorrect() {
       this.qState.state = STATE_CORRECT;
