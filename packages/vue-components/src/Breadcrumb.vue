@@ -36,20 +36,41 @@ export default {
     },
   },
   mounted() {
+    let siteNav = null;
     const currentUrl = normalizeUrl(new URL(window.location.href).pathname);
-    const splitArr = currentUrl.split('/');
-    let tempUrl = window.location.href.origin;
-    if (tempUrl === undefined) {
-      tempUrl = '';
-    }
-    for (let i = 0; i < splitArr.length; i += 1) {
-      if (i === 0) {
-        this.items.push({ title: 'Home', link: tempUrl.concat('/index.html') });
-      } else {
-        tempUrl += '/'.concat(splitArr[i]);
-        this.items.push({ title: splitArr[i], link: tempUrl });
+
+    document.querySelectorAll('ul').forEach((el) => {
+      if (el.classList.contains('site-nav-list-root')) {
+        siteNav = el;
       }
-    }
+    });
+
+    siteNav.querySelectorAll('a[href]').forEach((el) => {
+      const linkUrl = normalizeUrl(el.getAttribute('href'));
+      if (currentUrl !== linkUrl) {
+        return;
+      }
+
+      this.items.unshift({
+        'title': el.textContent,
+        'link': linkUrl,
+      });
+
+      let currentEl = el.parentElement;
+      while (currentEl !== siteNav) {
+        if (currentEl.tagName.toLowerCase() === 'ul') {
+          const aElement = currentEl.parentElement.querySelector('a[href]');
+          const currUrl = normalizeUrl(aElement.getAttribute('href'));
+          if (currentUrl === currUrl) { return; }
+          this.items.unshift({
+            'title': aElement.textContent,
+            'link': currUrl,
+          });
+        }
+        currentEl = currentEl.parentElement;
+      }
+    });
+    window.console.warn(this.items);
   },
 };
 </script>
