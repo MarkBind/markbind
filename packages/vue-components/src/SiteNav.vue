@@ -99,12 +99,14 @@ export default {
 
     .site-nav-dropdown-btn-icon {
         display: inline-block;
+        vertical-align: baseline;
         align-self: center;
-        width: 1.5em;
+        width: 1.5rem;
         height: 1.5em;
         text-align: center;
         border-radius: 1rem;
-        margin: 0 0.5rem 0 auto;
+        padding: 0 0 0 0;
+        margin: 0 0.75rem 0 auto;
         transition: 0.4s;
         transform: rotate(0deg);
         -webkit-transition: 0.4s;
@@ -113,6 +115,8 @@ export default {
 
     .site-nav-dropdown-btn-icon:hover {
         background-color: #d8e3fb;
+        margin: 0 0.5rem 0 auto;
+        width: 1.5em;
     }
 
     .site-nav-rotate-icon {
