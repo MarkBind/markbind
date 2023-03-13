@@ -230,15 +230,6 @@ module.exports.PROCESS_MODAL_OK_TEXT_EXPECTED = `
 </modal>
 `;
 
-// todo remove these once modal-header modal-footer slot names are deprecated fully.
-
-module.exports.PROCESS_MODAL_SLOTS_RENAMING = `
-<modal>
-  <div slot="modal-header">Should be renamed to header</div>
-  <div slot="modal-footer">Should be renamed to footer</div>
-</modal>
-`;
-
 module.exports.PROCESS_MODAL_SLOTS_RENAMING_EXPECTED = `
 <modal>
   <template #header><div>Should be renamed to header</div></template>

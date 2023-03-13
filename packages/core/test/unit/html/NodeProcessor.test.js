@@ -86,10 +86,6 @@ test('processNode processes modal attributes and inserts into dom as slots corre
   processAndVerifyTemplate(testData.PROCESS_MODAL_HEADER,
                            testData.PROCESS_MODAL_HEADER_EXPECTED);
 
-  // todo remove these once 'modal-header' / 'modal-footer' for modal is fully deprecated
-  processAndVerifyTemplate(testData.PROCESS_MODAL_SLOTS_RENAMING,
-                           testData.PROCESS_MODAL_SLOTS_RENAMING_EXPECTED);
-
   // when the ok-text attr is set, footer shouldn't be disabled and ok-only attr should be added
   processAndVerifyTemplate(testData.PROCESS_MODAL_OK_TEXT,
                            testData.PROCESS_MODAL_OK_TEXT_EXPECTED);
