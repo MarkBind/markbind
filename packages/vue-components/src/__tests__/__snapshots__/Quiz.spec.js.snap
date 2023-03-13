@@ -240,8 +240,6 @@ exports[`Quizzes with 2 questions retry goes back to first 1`] = `
       <div
         class="card-footer alert-light border-top border-light text-dark"
       >
-        <!---->
-         
         <transition-group-stub
           class="float-end"
           name="q-btn"
@@ -544,10 +542,6 @@ exports[`Quizzes with blanks question marked incorrect shows next button after a
       <div
         class="card-footer alert-light border-top border-light text-dark"
       >
-        <i
-          class="fa fa-times text-danger border-danger result-icon"
-        />
-         
         <transition-group-stub
           class="float-end"
           name="q-btn"
@@ -725,10 +719,6 @@ exports[`Quizzes with checkbox question marked incorrect shows next button after
       <div
         class="card-footer alert-light border-top border-light text-dark"
       >
-        <i
-          class="fa fa-times text-danger border-danger result-icon"
-        />
-         
         <transition-group-stub
           class="float-end"
           name="q-btn"
@@ -963,10 +953,6 @@ exports[`Quizzes with mcq question marked correct shows next button after answer
       <div
         class="card-footer alert-light border-top border-light text-dark"
       >
-        <i
-          class="fa fa-check text-success border-success result-icon"
-        />
-         
         <transition-group-stub
           class="float-end"
           name="q-btn"
@@ -1073,10 +1059,6 @@ exports[`Quizzes with text question marked correct shows next button after answe
       <div
         class="card-footer alert-light border-top border-light text-dark"
       >
-        <i
-          class="fa fa-check text-success border-success result-icon"
-        />
-         
         <transition-group-stub
           class="float-end"
           name="q-btn"
