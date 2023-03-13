@@ -2417,7 +2417,7 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
 exports[`Mcq Questions and QOptions of unanswered with shown hint and header renders correctly 1`] = `
 <transition-stub>
   <div
-    class="card question"
+    class="card question shake"
   >
     <div
       class="card-header alert-light border-bottom border-light text-dark"
