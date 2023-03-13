@@ -1429,7 +1429,7 @@ class Site {
       pages: this.pages.filter(page => page.pageConfig.searchable && page.headings)
         .map(page => ({
           src: page.pageConfig.src,
-          title: page.title,
+          title: page.title ? page.title : undefined,
           headings: page.headings,
           headingKeywords: page.keywords,
           frontmatterKeywords: page.frontmatter.keywords,
