@@ -81,7 +81,7 @@
     },
     {
       "src": "sub_site/index.md",
-      "title": "Default",
+      "title": "",
       "headings": {
         "feature-list": "Feature list"
       },
@@ -89,13 +89,13 @@
     },
     {
       "src": "sub_site/nested_sub_site/index.md",
-      "title": "Default",
+      "title": "",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "test_md_fragment.md",
-      "title": "Default",
+      "title": "",
       "headings": {
         "some-heading": "Some heading"
       },

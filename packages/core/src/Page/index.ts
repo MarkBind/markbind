@@ -29,8 +29,6 @@ const {
   LAYOUT_DEFAULT_NAME,
 } = require('../Layout');
 
-const TITLE_DEFAULT = 'Default';
-
 const TITLE_PREFIX_SEPARATOR = ' - ';
 const TITLE_SUFFIX_SEPARATOR = ' - ';
 
@@ -54,7 +52,6 @@ export class Page {
   includedFiles!: Set<string>;
   headings!: { [key: string]: string };
   keywords!: { [key: string]: string[] };
-  title!: string;
   navigableHeadings!: {
     [id: string]: {
       text: string,
@@ -62,6 +59,7 @@ export class Page {
     }
   };
 
+  title?: string;
   layout?: string;
 
   constructor(pageConfig: PageConfig, siteConfig: SiteConfig) {
@@ -122,7 +120,7 @@ export class Page {
      * This is initially set to the title specified in the site configuration,
      * if there is none, we look for one in the frontmatter(s) as well.
      */
-    this.title = this.pageConfig.title || '';
+    this.title = this.pageConfig.title;
 
     /*
      * Layouts related properties
@@ -373,7 +371,7 @@ export class Page {
       ...this.pageConfig.frontmatterOverride,
     };
 
-    this.title = this.title || this.frontmatter.title || TITLE_DEFAULT;
+    this.title = this.title || this.frontmatter.title;
     this.layout = this.layout || this.frontmatter.layout || LAYOUT_DEFAULT_NAME;
   }
 

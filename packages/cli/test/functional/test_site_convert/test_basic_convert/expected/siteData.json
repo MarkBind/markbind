@@ -9,13 +9,13 @@
     },
     {
       "src": "Home.md",
-      "title": "Default",
+      "title": "",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "Page-1.md",
-      "title": "Default",
+      "title": "",
       "headings": {
         "page-1": "Page 1"
       },
@@ -23,19 +23,19 @@
     },
     {
       "src": "_Footer.md",
-      "title": "Default",
+      "title": "",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "_Sidebar.md",
-      "title": "Default",
+      "title": "",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "about.md",
-      "title": "Default",
+      "title": "",
       "headings": {
         "about": "About"
       },
@@ -43,7 +43,7 @@
     },
     {
       "src": "contents/topic1.md",
-      "title": "Default",
+      "title": "",
       "headings": {
         "topic-1": "Topic 1"
       },
@@ -51,25 +51,25 @@
     },
     {
       "src": "contents/topic2.md",
-      "title": "Default",
+      "title": "",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "contents/topic3a.md",
-      "title": "Default",
+      "title": "",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "contents/topic3b.md",
-      "title": "Default",
+      "title": "",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "index.md",
-      "title": "Default",
+      "title": "",
       "headings": {},
       "headingKeywords": {}
     }
