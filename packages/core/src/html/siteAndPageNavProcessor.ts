@@ -16,12 +16,12 @@ const SITE_NAV_DEFAULT_LIST_ITEM_CLASS = 'site-nav-default-list-item';
 const SITE_NAV_CUSTOM_LIST_ITEM_CLASS = 'site-nav-custom-list-item';
 
 const SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX = /:expanded:/g;
-const SITE_NAV_DROPDOWN_ICON_HTML = '<div class="site-nav-dropdown-btn-container"'
+const SITE_NAV_DROPDOWN_ICON_HTML = '<div class="site-nav-dropdown-btn-container">'
   + '<i class="site-nav-dropdown-btn-icon" '
   + 'onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">\n'
   + '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>\n'
   + '</i></div>';
-const SITE_NAV_DROPDOWN_ICON_ROTATED_HTML = '<div class="site-nav-dropdown-btn-container'
+const SITE_NAV_DROPDOWN_ICON_ROTATED_HTML = '<div class="site-nav-dropdown-btn-container">'
   + '<i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" '
   + 'onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">\n'
   + '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>\n'
