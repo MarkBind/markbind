@@ -104,10 +104,6 @@ export default {
         width: 2rem;
         height: 1.5em;
         margin: 0 0.75rem 0 auto;
-        transition: 0.4s;
-        transform: rotate(0deg);
-        -webkit-transition: 0.4s;
-        -webkit-transform: rotate(0deg);
     }
 
     .site-nav-dropdown-btn-icon {
@@ -119,6 +115,10 @@ export default {
         text-align: center;
         border-radius: 1rem;
         padding: 0 0 0 0;
+        transition: 0.4s;
+        transform: rotate(0deg);
+        -webkit-transition: 0.4s;
+        -webkit-transform: rotate(0deg);
     }
 
     .site-nav-dropdown-btn-icon:hover {
