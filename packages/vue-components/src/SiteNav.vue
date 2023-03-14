@@ -97,15 +97,12 @@ export default {
 
     /* Navigation dropdown menu */
 
-    .site-nav-dropdown-btn-icon {
-        display: inline-block;
-        vertical-align: baseline;
-        align-self: center;
-        width: 1.5rem;
+    .site-nav-dropdown-btn-container {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        width: 2rem;
         height: 1.5em;
-        text-align: center;
-        border-radius: 1rem;
-        padding: 0 0 0 0;
         margin: 0 0.75rem 0 auto;
         transition: 0.4s;
         transform: rotate(0deg);
@@ -113,10 +110,19 @@ export default {
         -webkit-transform: rotate(0deg);
     }
 
+    .site-nav-dropdown-btn-icon {
+        display: inline-block;
+        vertical-align: baseline;
+        align-self: center;
+        width: 1.5em;
+        height: 1.5em;
+        text-align: center;
+        border-radius: 1rem;
+        padding: 0 0 0 0;
+    }
+
     .site-nav-dropdown-btn-icon:hover {
         background-color: #d8e3fb;
-        margin: 0 0.5rem 0 auto;
-        width: 1.5em;
     }
 
     .site-nav-rotate-icon {

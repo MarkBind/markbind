@@ -16,14 +16,16 @@ const SITE_NAV_DEFAULT_LIST_ITEM_CLASS = 'site-nav-default-list-item';
 const SITE_NAV_CUSTOM_LIST_ITEM_CLASS = 'site-nav-custom-list-item';
 
 const SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX = /:expanded:/g;
-const SITE_NAV_DROPDOWN_ICON_HTML = '<i class="site-nav-dropdown-btn-icon" '
+const SITE_NAV_DROPDOWN_ICON_HTML = '<div class="site-nav-dropdown-btn-container"'
+  + '<i class="site-nav-dropdown-btn-icon" '
   + 'onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">\n'
   + '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>\n'
-  + '</i>';
-const SITE_NAV_DROPDOWN_ICON_ROTATED_HTML = '<i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" '
+  + '</i></div>';
+const SITE_NAV_DROPDOWN_ICON_ROTATED_HTML = '<div class="site-nav-dropdown-btn-container'
+  + '<i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" '
   + 'onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">\n'
   + '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>\n'
-  + '</i>';
+  + '</i></div>';
 
 /**
  * Replaces and stores a uuid identifier to the only page-nav element, if there is one.
