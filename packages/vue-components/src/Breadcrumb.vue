@@ -8,7 +8,7 @@
           :class="['breadcrumb-item', {'active': isLast(index, items.length)}]"
           :aria-current="{'page': isLast(index, items.length)}"
         >
-          <a v-if="isLast(index, items.length)">
+          <a v-if="isLast(index, items.length) || item.link === null">
             {{ item.title }}
           </a>
           <a v-else :href="item.link">
@@ -66,11 +66,18 @@ export default {
       let currentEl = el.parentElement;
       while (currentEl !== siteNav) {
         if (currentEl.tagName.toLowerCase() === 'ul') {
-          const aElement = currentEl.parentElement.querySelector('a[href]');
-          const currUrl = normalizeUrl(aElement.getAttribute('href'));
+          const divElement = currentEl.parentElement.querySelector('div');
+          const aElement = divElement.querySelector('a[href]');
+          // if does not contain link
+          if (aElement === null) {
+            this.items.unshift({
+              'title': divElement.textContent,
+              'link': null,
+            });
+          }
           this.items.unshift({
             'title': aElement.textContent,
-            'link': currUrl,
+            'link': aElement.getAttribute('href'),
           });
         }
         currentEl = currentEl.parentElement;
