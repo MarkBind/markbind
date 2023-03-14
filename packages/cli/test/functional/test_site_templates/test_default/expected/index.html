@@ -203,18 +203,24 @@
           Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
         </panel>
         <br>
+        <panel type="info" expanded><template #header>
+            <p>Expanded panel on load</p>
+          </template>
+          ...
+        </panel>
+        <br>
         <panel type="success" minimized><template #header>
-            <p>Expanded panel</p>
+            <p>Expanded panel header</p>
           </template><template #_alt>
-            <p>Minimized panel</p>
+            <p>Minimized panel header</p>
           </template>
           ...
         </panel>
         <br>
         <panel type="seamless"><template #header>
-            <p>Expanded panel</p>
+            <p>Expanded panel header</p>
           </template><template #_alt>
-            <p>Minimized panel</p>
+            <p>Minimized panel header</p>
           </template>
           ...
         </panel>
