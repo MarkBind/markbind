@@ -62,5 +62,5 @@ don't add a space for **inline**{.text-danger} markdown
 
 <!-- Reader facing features -->
 <div id="examples" class="d-none">
-<include src="attributes.md#list-example" trim/>
+<include src="attributes.md#list-example"/>
 </div>
