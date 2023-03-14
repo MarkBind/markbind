@@ -1,6 +1,6 @@
 import cheerio from 'cheerio';
 import has from 'lodash/has';
-import { NodeOrText, Node } from '../utils/node';
+import { NodeOrText, MbNode } from '../utils/node';
 
 const md = require('../lib/markdown-it');
 const util = require('../lib/markdown-it/utils');
@@ -128,7 +128,7 @@ function traverseLinePart(node: NodeOrText, hlStart: number, hlEnd: number): Tra
  * traverses over the line and applies the highlight.
  * @param node Root of the code block element, which is the 'pre' node
  */
-export function highlightCodeBlock(node: Node) {
+export function highlightCodeBlock(node: MbNode) {
   if (!node.children) {
     return;
   }
@@ -155,7 +155,7 @@ export function highlightCodeBlock(node: Node) {
  * @param node the code block element, which is the 'code' node
  * @param showCodeLineNumbers true if line numbers should be shown, false otherwise
  */
-export function setCodeLineNumbers(node: Node, showCodeLineNumbers: boolean) {
+export function setCodeLineNumbers(node: MbNode, showCodeLineNumbers: boolean) {
   const existingClass = node.attribs.class || '';
   const styleClassRegex = /(^|\s)(no-)?line-numbers($|\s)/;
   const hasStyleClass = styleClassRegex.test(existingClass);

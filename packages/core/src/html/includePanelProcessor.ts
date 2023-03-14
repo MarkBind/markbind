@@ -13,7 +13,7 @@ import * as urlUtil from '../utils/urlUtil';
 import type { Context } from './Context';
 import type { PageSources } from '../Page/PageSources';
 import type VariableProcessor from '../variables/VariableProcessor';
-import { Node, NodeOrText } from '../utils/node';
+import { MbNode, NodeOrText } from '../utils/node';
 
 require('../patches/htmlparser2');
 
@@ -26,7 +26,7 @@ const _ = { has, isEmpty };
 /**
  * Returns a boolean representing whether the file specified exists.
  */
-function _checkAndWarnFileExists(element: Node, context: Context, actualFilePath: string,
+function _checkAndWarnFileExists(element: MbNode, context: Context, actualFilePath: string,
                                  pageSources: PageSources, isOptional = false) {
   if (!fsUtil.fileExists(actualFilePath)) {
     if (isOptional) {
@@ -48,7 +48,7 @@ function _checkAndWarnFileExists(element: Node, context: Context, actualFilePath
   return true;
 }
 
-function _getBoilerplateFilePath(element: Node, filePath: string, config: Record<string, any>) {
+function _getBoilerplateFilePath(element: MbNode, filePath: string, config: Record<string, any>) {
   const isBoilerplate = _.has(element.attribs, 'boilerplate');
   if (isBoilerplate) {
     element.attribs.boilerplate = element.attribs.boilerplate || path.basename(filePath);
@@ -62,7 +62,7 @@ function _getBoilerplateFilePath(element: Node, filePath: string, config: Record
 /**
  * Retrieves several flags and file paths from the src attribute specified in the element.
  */
-function _getSrcFlagsAndFilePaths(element: Node, config: Record<string, any>) {
+function _getSrcFlagsAndFilePaths(element: MbNode, config: Record<string, any>) {
   const isUrl = urlUtil.isUrl(element.attribs.src);
 
   // We do this even if the src is not a url to get the hash, if any
@@ -104,7 +104,7 @@ function _getSrcFlagsAndFilePaths(element: Node, config: Record<string, any>) {
  * Otherwise, sets the fragment attribute of the panel as parsed from the src,
  * and adds the appropriate include.
  */
-export function processPanelSrc(node: Node, context: Context, pageSources: PageSources,
+export function processPanelSrc(node: MbNode, context: Context, pageSources: PageSources,
                                 config: Record<string, any>): Context {
   const hasSrc = _.has(node.attribs, 'src');
   if (!hasSrc) {
@@ -148,7 +148,7 @@ export function processPanelSrc(node: Node, context: Context, pageSources: PageS
  * Includes
  */
 
-function _deleteIncludeAttributes(node: Node) {
+function _deleteIncludeAttributes(node: MbNode) {
   // Delete variable attributes in include tags as they are no longer needed
   // e.g. '<include var-title="..." var-xx="..." />'
   Object.keys(node.attribs).forEach((attribute) => {
@@ -170,7 +170,7 @@ function _deleteIncludeAttributes(node: Node) {
  * Replaces it with an error node if the specified src is invalid,
  * or an empty node if the src is invalid but optional.
  */
-export function processInclude(node: Node, context: Context, pageSources: PageSources,
+export function processInclude(node: MbNode, context: Context, pageSources: PageSources,
                                variableProcessor: VariableProcessor, renderMd: (text: string) => string,
                                renderMdInline: (text: string) => string,
                                config: Record<string, any>): Context {
@@ -270,7 +270,7 @@ export function processInclude(node: Node, context: Context, pageSources: PageSo
  * Replaces it with an error node if the specified src is invalid.
  * Else, appends the content to the node.
  */
-export function processPopoverSrc(node: Node, context: Context, pageSources: PageSources,
+export function processPopoverSrc(node: MbNode, context: Context, pageSources: PageSources,
                                   variableProcessor: VariableProcessor, renderMd: (text: string) => string,
                                   config: Record<string, any>): Context {
   if (!_.has(node.attribs, 'src')) {

@@ -3,7 +3,7 @@ import slugify from '@sindresorhus/slugify';
 import has from 'lodash/has';
 import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
 import type { NodeProcessorConfig } from './NodeProcessor';
-import { Node } from '../utils/node';
+import { MbNode } from '../utils/node';
 
 const _ = {
   has,
@@ -12,7 +12,7 @@ const _ = {
 /*
  * h1 - h6
  */
-export function setHeadingId(node: Node, config: NodeProcessorConfig) {
+export function setHeadingId(node: MbNode, config: NodeProcessorConfig) {
   const textContent = cheerio(node).text();
   // remove the '&lt;' and '&gt;' symbols that markdown-it uses to escape '<' and '>'
   const cleanedContent = textContent.replace(/&lt;|&gt;/g, '');
@@ -35,7 +35,7 @@ export function setHeadingId(node: Node, config: NodeProcessorConfig) {
  * @param node Root element to search from
  * @returns {undefined|*} The header element, or undefined if none is found.
  */
-function _findHeaderElement(node: Node) {
+function _findHeaderElement(node: MbNode) {
   const elements = node.children;
   if (!elements || !elements.length) {
     return undefined;
@@ -63,12 +63,12 @@ function _findHeaderElement(node: Node) {
  * This is to ensure anchors still work when panels are in their minimized form.
  * @param node The root panel element
  */
-export function assignPanelId(node: Node) {
+export function assignPanelId(node: MbNode) {
   const slotChildren = node.children
     ? node.children.filter(child => getVslotShorthandName(child) !== '')
     : [];
 
-  const headerSlot = slotChildren.find(child => getVslotShorthandName(child) === 'header') as Node;
+  const headerSlot = slotChildren.find(child => getVslotShorthandName(child) === 'header') as MbNode;
 
   if (headerSlot) {
     const header = _findHeaderElement(headerSlot);

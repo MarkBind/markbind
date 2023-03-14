@@ -1,6 +1,6 @@
 import cheerio from 'cheerio';
 import pick from 'lodash/pick';
-import { Node, NodeOrText } from '../utils/node';
+import { MbNode, NodeOrText } from '../utils/node';
 
 const _ = { pick };
 
@@ -8,11 +8,11 @@ export function createErrorNode(element: NodeOrText, error: any) {
   const errorElement = cheerio.parseHTML(
     `<div style="color: red">${error.message}</div>`, undefined, true,
   )[0];
-  return Object.assign(element, _.pick(errorElement, ['name', 'attribs', 'children'])) as Node;
+  return Object.assign(element, _.pick(errorElement, ['name', 'attribs', 'children'])) as MbNode;
 }
 
-export function createSlotTemplateNode(slotName: string, content: string): Node[] {
+export function createSlotTemplateNode(slotName: string, content: string): MbNode[] {
   return cheerio.parseHTML(
     `<template #${slotName}>${content}</template>`, undefined, true,
-  ) as unknown as Node[];
+  ) as unknown as MbNode[];
 }

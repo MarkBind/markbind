@@ -4,7 +4,7 @@ import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
 import type { MarkdownProcessor } from './MarkdownProcessor';
 import * as logger from '../utils/logger';
 import { createSlotTemplateNode } from './elements';
-import { Node, NodeOrText } from '../utils/node';
+import { MbNode, NodeOrText } from '../utils/node';
 
 const _ = {
   has,
@@ -28,7 +28,7 @@ export class MdAttributeRenderer {
    * @param isInline Whether to process the attribute with only inline markdown-it rules
    * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
    */
-  processAttributeWithoutOverride(node: Node, attribute: string,
+  processAttributeWithoutOverride(node: MbNode, attribute: string,
                                   isInline: boolean, slotName = attribute): void {
     const hasAttributeSlot = node.children
         && node.children.some(child => getVslotShorthandName(child) === slotName);
@@ -59,7 +59,7 @@ export class MdAttributeRenderer {
    * @returns {boolean} whether the node has both the slot and attribute
    */
   // eslint-disable-next-line class-methods-use-this
-  hasSlotOverridingAttribute(node: Node, attribute: string, slotName = attribute): boolean {
+  hasSlotOverridingAttribute(node: MbNode, attribute: string, slotName = attribute): boolean {
     const hasNamedSlot = node.children
       && node.children.some(child => getVslotShorthandName(child) === slotName);
     if (!hasNamedSlot || !node.attribs) {
@@ -76,7 +76,7 @@ export class MdAttributeRenderer {
     return hasAttribute;
   }
 
-  processPopoverAttributes(node: Node) {
+  processPopoverAttributes(node: MbNode) {
     if (!this.hasSlotOverridingAttribute(node, 'header')) {
       this.processAttributeWithoutOverride(node, 'header', true);
     }
@@ -99,11 +99,11 @@ export class MdAttributeRenderer {
     this.processAttributeWithoutOverride(node, 'content', true);
   }
 
-  processTooltip(node: Node) {
+  processTooltip(node: MbNode) {
     this.processAttributeWithoutOverride(node, 'content', true);
   }
 
-  processModalAttributes(node: Node) {
+  processModalAttributes(node: MbNode) {
     if (!this.hasSlotOverridingAttribute(node, 'header')) {
       this.processAttributeWithoutOverride(node, 'header', true);
     }
@@ -113,7 +113,7 @@ export class MdAttributeRenderer {
    * Panels
    */
 
-  processPanelAttributes(node: Node) {
+  processPanelAttributes(node: MbNode) {
     this.processAttributeWithoutOverride(node, 'alt', false, '_alt');
     if (!this.hasSlotOverridingAttribute(node, 'header')) {
       this.processAttributeWithoutOverride(node, 'header', false);
@@ -124,17 +124,17 @@ export class MdAttributeRenderer {
    * Questions, QOption, and Quizzes
    */
 
-  processQuestion(node: Node) {
+  processQuestion(node: MbNode) {
     this.processAttributeWithoutOverride(node, 'header', false);
     this.processAttributeWithoutOverride(node, 'hint', false);
     this.processAttributeWithoutOverride(node, 'answer', false);
   }
 
-  processQOption(node: Node) {
+  processQOption(node: MbNode) {
     this.processAttributeWithoutOverride(node, 'reason', false);
   }
 
-  processQuiz(node: Node) {
+  processQuiz(node: MbNode) {
     this.processAttributeWithoutOverride(node, 'intro', false);
   }
 
@@ -142,7 +142,7 @@ export class MdAttributeRenderer {
    * Tabs
    */
 
-  processTabAttributes(node: Node) {
+  processTabAttributes(node: MbNode) {
     this.processAttributeWithoutOverride(node, 'header', true);
   }
 
@@ -150,7 +150,7 @@ export class MdAttributeRenderer {
    * Boxes
    */
 
-  processBoxAttributes(node: Node) {
+  processBoxAttributes(node: MbNode) {
     this.processAttributeWithoutOverride(node, 'icon', true);
     this.processAttributeWithoutOverride(node, 'header', false);
   }
@@ -159,7 +159,7 @@ export class MdAttributeRenderer {
    * Dropdowns
    */
 
-  processDropdownAttributes(node: Node) {
+  processDropdownAttributes(node: MbNode) {
     if (!this.hasSlotOverridingAttribute(node, 'header')) {
       this.processAttributeWithoutOverride(node, 'header', true);
     }
@@ -169,7 +169,7 @@ export class MdAttributeRenderer {
    * Thumbnails
    */
 
-  processThumbnailAttributes(node: Node) {
+  processThumbnailAttributes(node: MbNode) {
     if (!node.attribs) {
       return;
     }

@@ -10,7 +10,7 @@ import * as urlUtil from '../utils/urlUtil';
 import { PluginManager } from '../plugins/PluginManager';
 import type { NodeProcessorConfig } from './NodeProcessor';
 import type { PageSources } from '../Page/PageSources';
-import { Node } from '../utils/node';
+import { MbNode } from '../utils/node';
 
 const _ = { has };
 
@@ -28,11 +28,11 @@ const defaultTagLinkMap: { [key: string]: string } = {
   script: 'src',
 };
 
-export function hasTagLink(node: Node) {
+export function hasTagLink(node: MbNode) {
   return node.name && (node.name in defaultTagLinkMap || node.name in pluginTagConfig);
 }
 
-export function getDefaultTagsResourcePath(node: Node) {
+export function getDefaultTagsResourcePath(node: MbNode) {
   const linkAttribName = defaultTagLinkMap[node.name];
   const resourcePath = node.attribs[linkAttribName];
   return resourcePath;
@@ -54,7 +54,7 @@ export function isIntraLink(resourcePath: string | undefined): boolean {
     && !MAILTO_OR_TEL_REGEX.test(resourcePath);
 }
 
-function _convertRelativeLink(node: Node, cwf: string, rootPath: string,
+function _convertRelativeLink(node: MbNode, cwf: string, rootPath: string,
                               baseUrl: string, resourcePath: string | undefined, linkAttribName: string) {
   if (!resourcePath || !isIntraLink(resourcePath)) {
     return;
@@ -86,7 +86,7 @@ function _convertRelativeLink(node: Node, cwf: string, rootPath: string,
  * @param {string} rootPath of the root site
  * @param {string} baseUrl
  */
-export function convertRelativeLinks(node: Node, cwf: string, rootPath: string, baseUrl: string) {
+export function convertRelativeLinks(node: MbNode, cwf: string, rootPath: string, baseUrl: string) {
   if (node.name in defaultTagLinkMap) {
     const resourcePath = getDefaultTagsResourcePath(node);
     const linkAttribName = defaultTagLinkMap[node.name];
@@ -103,7 +103,7 @@ export function convertRelativeLinks(node: Node, cwf: string, rootPath: string, 
   }
 }
 
-export function convertMdExtToHtmlExt(node: Node) {
+export function convertMdExtToHtmlExt(node: MbNode) {
   if (node.name === 'a' && node.attribs && node.attribs.href) {
     const hasNoConvert = _.has(node.attribs, 'no-convert');
     if (hasNoConvert) {
@@ -234,7 +234,7 @@ export function validateIntraLink(resourcePath: string, cwf: string, config: Nod
  * @param {PageSources} pageSources {@link PageSources} object to add the resolved file path to
  * @returns {string | void} these string return values are for unit testing purposes only
  */
-export function collectSource(node: Node, rootPath: string,
+export function collectSource(node: MbNode, rootPath: string,
                               baseUrl: string, pageSources: PageSources): string | void {
   const tagConfig = pluginTagConfig[node.name];
   if (!tagConfig || !tagConfig.attributes) {

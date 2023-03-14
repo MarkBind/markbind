@@ -1,7 +1,7 @@
 import has from 'lodash/has';
 import * as linkProcessor from './linkProcessor';
 import type { NodeProcessorConfig } from './NodeProcessor';
-import { Node } from '../utils/node';
+import { MbNode } from '../utils/node';
 
 const _ = { has };
 
@@ -51,7 +51,7 @@ export class SiteLinkManager {
    * Add a link to the intralinkCollection to be validated later,
    * if the node should be validated and intralink validation is not disabled.
    */
-  collectIntraLinkToValidate(node: Node, cwf: string) {
+  collectIntraLinkToValidate(node: MbNode, cwf: string) {
     if (!tagsToValidate.has(node.name)) {
       return 'Should not validate';
     }

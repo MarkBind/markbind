@@ -1,5 +1,5 @@
 import cheerio from 'cheerio';
-import { Node, parseHTML } from '../utils/node';
+import { MbNode, parseHTML } from '../utils/node';
 import { MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX } from './constants';
 
 /*
@@ -13,7 +13,7 @@ export class FootnoteProcessor {
     this.renderedFootnotes = [];
   }
 
-  processMbTempFootnotes(node: Node) {
+  processMbTempFootnotes(node: MbNode) {
     const $ = cheerio(node);
     const content = $.html();
     if (content) {
@@ -22,7 +22,7 @@ export class FootnoteProcessor {
     $.remove();
   }
 
-  combineFootnotes(processNode: (nd: Node) => any): string {
+  combineFootnotes(processNode: (nd: MbNode) => any): string {
     let hasFootnote = false;
     const prefix = '<hr class="footnotes-sep">\n<section class="footnotes">\n<ol class="footnotes-list">\n';
 
@@ -37,7 +37,7 @@ export class FootnoteProcessor {
             <div #content>
               ${$(li).html()}
             </div>
-          </popover>`) as Node;
+          </popover>`) as MbNode;
         processNode(popoverNode);
 
         popoversHtml += cheerio.html(popoverNode);

@@ -26,7 +26,7 @@ import { PageNavProcessor, renderSiteNav, addSitePageNavPortal } from './siteAnd
 import { highlightCodeBlock, setCodeLineNumbers } from './codeblockProcessor';
 import { setHeadingId, assignPanelId } from './headerProcessor';
 import { FootnoteProcessor } from './FootnoteProcessor';
-import { NodeOrText, Node, TextElement } from '../utils/node';
+import { NodeOrText, MbNode, TextElement } from '../utils/node';
 
 const fm = require('fastmatter');
 
@@ -88,9 +88,9 @@ export class NodeProcessor {
    * Private utility functions
    */
 
-  private static _trimNodes(nodeOrText: Node | TextElement) {
+  private static _trimNodes(nodeOrText: MbNode | TextElement) {
     if (NodeProcessor._isText(nodeOrText)) return;
-    const node = nodeOrText as Node;
+    const node = nodeOrText as MbNode;
     if (node.name === 'pre' || node.name === 'code') {
       return;
     }
@@ -115,7 +115,7 @@ export class NodeProcessor {
   /*
    * Frontmatter collection
    */
-  private _processFrontmatter(node: Node, context: Context) {
+  private _processFrontmatter(node: MbNode, context: Context) {
     let currentFrontmatter = {};
     const frontmatter = cheerio(node);
     if (!context.processingOptions.omitFrontmatter && frontmatter.text().trim()) {
@@ -142,7 +142,7 @@ export class NodeProcessor {
    * Layout element collection
    */
 
-  private static collectLayoutEl(node: Node): string | null {
+  private static collectLayoutEl(node: MbNode): string | null {
     const $ = cheerio(node);
     const html = $.html();
     $.remove();
@@ -152,7 +152,7 @@ export class NodeProcessor {
   /**
    * Removes the node if modal id already exists, processes node otherwise
    */
-  private processModal(node: Node) {
+  private processModal(node: MbNode) {
     if (this.processedModals[node.attribs.id]) {
       cheerio(node).remove();
     } else {
@@ -172,7 +172,7 @@ export class NodeProcessor {
   processNode(nodeOrText: NodeOrText, context: Context): Context {
     try {
       if (NodeProcessor._isText(nodeOrText)) return context;
-      const node = nodeOrText as Node;
+      const node = nodeOrText as MbNode;
 
       transformOldSlotSyntax(node);
       shiftSlotNodeDeeper(node);
@@ -273,7 +273,7 @@ export class NodeProcessor {
 
   postProcessNode(nodeOrText: NodeOrText) {
     if (NodeProcessor._isText(nodeOrText)) return;
-    const node = nodeOrText as Node;
+    const node = nodeOrText as MbNode;
 
     try {
       switch (node.name) {
@@ -320,7 +320,7 @@ export class NodeProcessor {
     if (NodeProcessor._isText(dom)) {
       return dom as TextElement;
     }
-    const node = dom as Node;
+    const node = dom as MbNode;
     node.name = node.name.toLowerCase();
     if (linkProcessor.hasTagLink(node)) {
       linkProcessor.convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);
