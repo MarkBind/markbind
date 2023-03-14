@@ -29,6 +29,7 @@ function _warnConflictingAttributes(node: DomElement, attribute: string, attrsCo
  * @param element Root element to check
  * @param namePairs Object of slot name pairs with each pair in the form deprecated : correct
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function _warnDeprecatedSlotNames(element: DomElement, namePairs: { [name: string]: string }) {
   if (!(element.children)) {
     return;
@@ -58,8 +59,4 @@ export const warnConflictingAtributesMap: { [attr: string]: (nd: DomElement) => 
   },
 };
 
-export const warnDeprecatedAtributesMap: { [attr: string]: (nd: DomElement) => void } = {
-  modal: (node: DomElement) => {
-    _warnDeprecatedSlotNames(node, {});
-  },
-};
+export const warnDeprecatedAtributesMap: { [attr: string]: (nd: DomElement) => void } = {};
