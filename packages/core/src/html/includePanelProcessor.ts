@@ -245,6 +245,9 @@ export function processInclude(node: DomElement, context: Context, pageSources: 
 
       actualContent = cheerio.html(createErrorNode(node, error) as cheerio.Element);
     }
+    if (fsUtil.isMarkdownFileExt(path.extname(actualFilePath))) {
+      actualContent = renderMdInline(actualContent);
+    }
   }
 
   if (isTrim) {
