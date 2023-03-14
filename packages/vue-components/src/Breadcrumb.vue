@@ -5,7 +5,9 @@
         <li
           v-for="(item, index) in items"
           :key="item"
-          :class="['breadcrumb-item', {'active': isLast(index, items.length)}]"
+          :class="['breadcrumb-item',
+                   {'active': isLast(index, items.length)},
+                   {'not-link': item.link === null}]"
           :aria-current="{'page': isLast(index, items.length)}"
         >
           <a v-if="isLast(index, items.length) || item.link === null">
@@ -37,7 +39,6 @@ export default {
   },
   mounted() {
     let siteNav = null;
-    // const currentUrl = normalizeUrl(new URL(window.location.href).pathname);
     let firstRootFound = false;
 
     document.querySelectorAll('ul').forEach((el) => {
@@ -45,7 +46,6 @@ export default {
         return;
       }
       if (el.classList.contains('site-nav-list-root')) {
-        window.console.warn('SITENAV LIST ROOT FOUND');
         siteNav = el;
         firstRootFound = true;
       }
@@ -87,3 +87,18 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+    .not-link {
+        color: #0f6dfd;
+    }
+
+    /* Make cursor default when there is no link */
+    .active:hover {
+        cursor: default;
+    }
+
+    .not-link:hover {
+        cursor: default;
+    }
+</style>
