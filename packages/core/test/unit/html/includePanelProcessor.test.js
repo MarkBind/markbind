@@ -115,7 +115,7 @@ test('includeFile replaces <include src="include.md#exists"> with <div>', async 
 
   const expected = [
     '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
-    '<div>existing segment</div>',
+    '<div><p>existing segment</p></div>',
   ].join('\n');
 
   expect(result).toEqual(expected);
@@ -197,7 +197,7 @@ test('includeFile replaces <include src="include.md#exists" trim> with trimmed c
 
   const include = [
     '# Include',
-    '<div id="exists">\t\texisting segment\t\t</div>',
+    '<div id="exists">\n\nexisting segment\n\n</div>',
   ].join('\n');
 
   const json = {
@@ -212,7 +212,7 @@ test('includeFile replaces <include src="include.md#exists" trim> with trimmed c
 
   const expected = [
     '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
-    '<div>existing segment</div>',
+    '<div><p>existing segment</p></div>',
   ].join('\n');
 
   expect(result).toEqual(expected);
@@ -277,7 +277,7 @@ test('includeFile replaces <include src="include.md#exists" optional> with <div>
 
   const expected = [
     '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
-    '<div>existing segment</div>',
+    '<div><p>existing segment</p></div>',
   ].join('\n');
 
   expect(result).toEqual(expected);
@@ -431,4 +431,37 @@ test('process include with omitFrontmatter should discard included frontmatter d
 
   expect(result).toEqual(expectedHtml);
   expect(nodeProcessor.frontmatter).toEqual(expectedFrontmatter);
+});
+
+test('process include with markdown should render correctly', async () => {
+  const indexPath = path.resolve('index.md');
+
+  const index = [
+    '# Index',
+    '<include src="include.md#exists" optional/>',
+    '',
+  ].join('\n');
+
+  const include = [
+    '# Include',
+    '<div id="exists">\n ## existing segment {.text-info}</div>',
+  ].join('\n');
+
+  const json = {
+    'index.md': index,
+    'include.md': include,
+  };
+
+  fs.vol.fromJSON(json, '');
+
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const result = await nodeProcessor.process(indexPath, index);
+
+  const expected = [
+    '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
+    // eslint-disable-next-line max-len
+    '<div><h2 class="text-info" id="existing-segment"><span id="existing-segment" class="anchor"></span>existing segment</h2></div>',
+  ].join('\n');
+
+  expect(result).toEqual(expected);
 });
