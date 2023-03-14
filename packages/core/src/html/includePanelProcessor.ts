@@ -225,11 +225,6 @@ export function processInclude(node: DomElement, context: Context, pageSources: 
   } = variableProcessor.renderIncludeFile(actualFilePath, pageSources, node, context, filePath);
 
   let actualContent = nunjucksProcessed;
-  if (fsUtil.isMarkdownFileExt(path.extname(actualFilePath))) {
-    actualContent = isInline
-      ? renderMdInline(actualContent)
-      : renderMd(actualContent);
-  }
 
   // Process sources with or without hash, retrieving and appending
   // the appropriate children to a wrapped include element
@@ -245,9 +240,12 @@ export function processInclude(node: DomElement, context: Context, pageSources: 
 
       actualContent = cheerio.html(createErrorNode(node, error) as cheerio.Element);
     }
-    if (fsUtil.isMarkdownFileExt(path.extname(actualFilePath))) {
-      actualContent = renderMdInline(actualContent);
-    }
+  }
+
+  if (fsUtil.isMarkdownFileExt(path.extname(actualFilePath))) {
+    actualContent = isInline
+      ? renderMdInline(actualContent)
+      : renderMd(actualContent);
   }
 
   if (isTrim) {
