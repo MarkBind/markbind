@@ -62,11 +62,5 @@ don't add a space for **inline**{.text-danger} markdown
 
 <!-- Reader facing features -->
 <div id="examples" class="d-none">
-
-* Apply to the list item itself like so {.text-success #list-item-id}
-  * Curly groups after newlines apply to the closest nested list {.text-danger}
-{.bg-light}
-* Curly groups two lines after the last line apply to the top most list
-
-{.alert-info}
+<include src="attributes.md#list-example" trim/>
 </div>

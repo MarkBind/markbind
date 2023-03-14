@@ -419,10 +419,5 @@ intro | Slot | `Click start to begin` | Quiz intro markup. Overrides the `intro`
 
 <!-- Included in readerFacingFeatures.md -->
 <div id="examples" class="d-none">
-<quiz>
-{{ mcqQuestion }}
-{{ checkboxQuestion }}
-{{ blanksQuestion }}
-{{ textQuestion }}
-</quiz>
+<include src="questions.md#quiz-example" />
 </div>
