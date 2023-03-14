@@ -37,17 +37,24 @@ export default {
   },
   mounted() {
     let siteNav = null;
-    const currentUrl = normalizeUrl(new URL(window.location.href).pathname);
+    // const currentUrl = normalizeUrl(new URL(window.location.href).pathname);
+    let firstRootFound = false;
 
     document.querySelectorAll('ul').forEach((el) => {
+      if (firstRootFound) {
+        return;
+      }
       if (el.classList.contains('site-nav-list-root')) {
+        window.console.warn('SITENAV LIST ROOT FOUND');
         siteNav = el;
+        firstRootFound = true;
       }
     });
 
     siteNav.querySelectorAll('a[href]').forEach((el) => {
+      window.console.warn(el.textContent);
       const linkUrl = normalizeUrl(el.getAttribute('href'));
-      if (currentUrl !== linkUrl) {
+      if (!el.classList.contains('current')) {
         return;
       }
 
@@ -61,7 +68,6 @@ export default {
         if (currentEl.tagName.toLowerCase() === 'ul') {
           const aElement = currentEl.parentElement.querySelector('a[href]');
           const currUrl = normalizeUrl(aElement.getAttribute('href'));
-          if (currentUrl === currUrl) { return; }
           this.items.unshift({
             'title': aElement.textContent,
             'link': currUrl,
