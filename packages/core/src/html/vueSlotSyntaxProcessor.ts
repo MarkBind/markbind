@@ -1,18 +1,14 @@
-import cheerio from 'cheerio';
 import has from 'lodash/has';
 import find from 'lodash/find';
-import { DomElement } from 'htmlparser2';
+import { MbNode, NodeOrText, parseHTML } from '../utils/node';
 
 const _ = {
   has,
   find,
 };
 
-export function getVslotShorthandName(node: DomElement) {
-  if (!node.attribs) {
-    return '';
-  }
-
+export function getVslotShorthandName(node: NodeOrText) {
+  if (!node.attribs) return '';
   const keys = Object.keys(node.attribs);
   const vslotShorthand = _.find(keys, key => key.startsWith('#'));
   if (!vslotShorthand) {
@@ -25,17 +21,17 @@ export function getVslotShorthandName(node: DomElement) {
 /*
  * Shifts the slot node deeper by one level by creating a new intermediary node with template tag name.
  */
-export function shiftSlotNodeDeeper(node: DomElement) {
+export function shiftSlotNodeDeeper(node: MbNode) {
   const nodeChildren = node.children ?? [];
 
   nodeChildren.forEach((child) => {
     const vslotShorthandName = getVslotShorthandName(child);
     if (vslotShorthandName && child.name !== 'template') {
-      const newSlotNode = cheerio.parseHTML('<template></template>')[0] as unknown as DomElement;
+      const newSlotNode = parseHTML('<template></template>') as MbNode;
 
       const vslotShorthand = `#${vslotShorthandName}`;
 
-      newSlotNode.attribs = newSlotNode?.attribs ?? {};
+      newSlotNode.attribs = newSlotNode.attribs ?? {};
       newSlotNode.attribs[vslotShorthand] = '';
       if (child.attribs) {
         delete child.attribs[vslotShorthand];
@@ -62,11 +58,7 @@ export function shiftSlotNodeDeeper(node: DomElement) {
 /*
  * Transforms deprecated vue slot syntax (slot="test") into the updated Vue slot shorthand syntax (#test).
  */
-export function transformOldSlotSyntax(node: DomElement) {
-  if (!node.children) {
-    return;
-  }
-
+export function transformOldSlotSyntax(node: MbNode) {
   node.children.forEach((child) => {
     if (child.attribs && _.has(child.attribs, 'slot')) {
       const vslotShorthandName = `#${child.attribs.slot}`;
@@ -76,7 +68,7 @@ export function transformOldSlotSyntax(node: DomElement) {
   });
 }
 
-export function renameSlot(node: DomElement, originalName: string, newName: string) {
+export function renameSlot(node: MbNode, originalName: string, newName: string) {
   if (!node.children) {
     return;
   }

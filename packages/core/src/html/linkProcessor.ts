@@ -29,7 +29,7 @@ const defaultTagLinkMap: { [key: string]: string } = {
 };
 
 export function hasTagLink(node: MbNode) {
-  return node.name && (node.name in defaultTagLinkMap || node.name in pluginTagConfig);
+  return node.name in defaultTagLinkMap || node.name in pluginTagConfig;
 }
 
 export function getDefaultTagsResourcePath(node: MbNode) {
@@ -69,9 +69,7 @@ function _convertRelativeLink(node: MbNode, cwf: string, rootPath: string,
   const fullResourcePath = path.join(cwd, resourcePath);
   const resourcePathFromRoot = _getResourcePathFromRoot(rootPath, fullResourcePath);
 
-  if (node.attribs) {
-    node.attribs[linkAttribName] = path.posix.join(baseUrl || '/', resourcePathFromRoot);
-  }
+  node.attribs[linkAttribName] = path.posix.join(baseUrl || '/', resourcePathFromRoot);
 }
 
 /**
@@ -81,10 +79,10 @@ function _convertRelativeLink(node: MbNode, cwf: string, rootPath: string,
  *
  * TODO allow plugins to tap into this process / extend {@link defaultTagLinkMap}
  *
- * @param {DomElement} node from the dom traversal
- * @param {string} cwf as flagged from {@link NodeProcessor}
- * @param {string} rootPath of the root site
- * @param {string} baseUrl
+ * @param  node from the dom traversal
+ * @param  cwf as flagged from {@link NodeProcessor}
+ * @param  rootPath of the root site
+ * @param  baseUrl
  */
 export function convertRelativeLinks(node: MbNode, cwf: string, rootPath: string, baseUrl: string) {
   if (node.name in defaultTagLinkMap) {
@@ -104,7 +102,7 @@ export function convertRelativeLinks(node: MbNode, cwf: string, rootPath: string
 }
 
 export function convertMdExtToHtmlExt(node: MbNode) {
-  if (node.name === 'a' && node.attribs && node.attribs.href) {
+  if (node.name === 'a' && node.attribs.href) {
     const hasNoConvert = _.has(node.attribs, 'no-convert');
     if (hasNoConvert) {
       return;
@@ -162,10 +160,10 @@ function isValidFileAsset(resourcePath: string, config: NodeProcessorConfig) {
  * Serves as an internal intra-link validator. Checks if the intra-links are valid.
  * If the intra-links are suspected to be invalid, a warning message will be logged.
  *
- * @param {string} resourcePath parsed from the node's relevant attribute
- * @param {string} cwf as flagged from {@link NodePreprocessor}
- * @param {NodeProcessorConfig} config passed for page metadata access
- * @returns {string} these string return values are for unit testing purposes only
+ * @param  resourcePath parsed from the node's relevant attribute
+ * @param  cwf as flagged from {@link NodePreprocessor}
+ * @param  config passed for page metadata access
+ * @returns  these string return values are for unit testing purposes only
  */
 export function validateIntraLink(resourcePath: string, cwf: string, config: NodeProcessorConfig): string {
   if (!isIntraLink(resourcePath)) {
@@ -228,11 +226,11 @@ export function validateIntraLink(resourcePath: string, cwf: string, config: Nod
  * Resolves and collects source file paths pointed to by attributes in nodes for live reload.
  * Only necessary for plugins for now.
  *
- * @param {DomElement} node from the dom traversal
- * @param {string} rootPath site root path to resolve the link from
- * @param {string} baseUrl base url to strip off the link (if any)
- * @param {PageSources} pageSources {@link PageSources} object to add the resolved file path to
- * @returns {string | void} these string return values are for unit testing purposes only
+ * @param  node from the dom traversal
+ * @param  rootPath site root path to resolve the link from
+ * @param  baseUrl base url to strip off the link (if any)
+ * @param  pageSources {@link PageSources} object to add the resolved file path to
+ * @returns  these string return values are for unit testing purposes only
  */
 export function collectSource(node: MbNode, rootPath: string,
                               baseUrl: string, pageSources: PageSources): string | void {

@@ -3,7 +3,7 @@ import slugify from '@sindresorhus/slugify';
 import has from 'lodash/has';
 import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
 import type { NodeProcessorConfig } from './NodeProcessor';
-import { MbNode } from '../utils/node';
+import { MbNode, NodeOrText } from '../utils/node';
 
 const _ = {
   has,
@@ -33,9 +33,9 @@ export function setHeadingId(node: MbNode, config: NodeProcessorConfig) {
 /**
  * Traverses the dom breadth-first from the specified element to find a html heading child.
  * @param node Root element to search from
- * @returns {undefined|*} The header element, or undefined if none is found.
+ * @returns  The header element, or undefined if none is found.
  */
-function _findHeaderElement(node: MbNode) {
+function _findHeaderElement(node: MbNode): undefined | NodeOrText {
   const elements = node.children;
   if (!elements || !elements.length) {
     return undefined;
@@ -68,10 +68,10 @@ export function assignPanelId(node: MbNode) {
     ? node.children.filter(child => getVslotShorthandName(child) !== '')
     : [];
 
-  const headerSlot = slotChildren.find(child => getVslotShorthandName(child) === 'header') as MbNode;
+  const headerSlot = slotChildren.find(child => getVslotShorthandName(child) === 'header');
 
   if (headerSlot) {
-    const header = _findHeaderElement(headerSlot);
+    const header = _findHeaderElement(headerSlot as MbNode);
     if (!header) {
       return;
     }

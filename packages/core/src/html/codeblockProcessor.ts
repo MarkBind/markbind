@@ -20,7 +20,7 @@ interface TraverseLinePartData {
  * @param node The node of the line part to be traversed
  * @param hlStart The highlight start position, relative to the start of the line part
  * @param hlEnd The highlight end position, relative to the start of the line part
- * @returns {object} An object that contains data to be used by the node's parent.
+ * @returns  An object that contains data to be used by the node's parent.
  */
 function traverseLinePart(node: NodeOrText, hlStart: number, hlEnd: number): TraverseLinePartData {
   const resData: TraverseLinePartData = {
