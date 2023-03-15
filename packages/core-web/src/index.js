@@ -163,7 +163,7 @@ window.handleSiteNavClick = function (elem, useAnchor = true) {
     }
   }
   const dropdownContent = elem.nextElementSibling;
-  const dropdownIcon = elem.lastElementChild;
+  const dropdownIcon = elem.lastElementChild.lastElementChild;
   dropdownContent.classList.toggle('site-nav-dropdown-container-open');
   dropdownIcon.classList.toggle('site-nav-rotate-icon');
 };
