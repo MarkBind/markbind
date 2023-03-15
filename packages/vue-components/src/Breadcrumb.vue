@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showBreadcrumb">
+  <div>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li
@@ -28,7 +28,6 @@ import normalizeUrl from './utils/urls';
 export default {
   data() {
     return {
-      showBreadcrumb: true,
       items: [],
     };
   },
