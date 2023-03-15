@@ -322,15 +322,11 @@ program
 program
   .command('deploy [root]')
   .alias('d')
-  .option('--baseUrl [baseUrl]',
-          'optional flag which overrides baseUrl in site.json, leave argument empty for empty baseUrl')
   .option('-c, --ci [githubTokenName]', 'deploy the site in CI Environment [GITHUB_TOKEN]')
   .option('-n, --no-build', 'do not automatically build the site before deployment')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
   .description('deploy the latest build of the site to the repo\'s Github pages')
   .action((userSpecifiedRoot, options) => {
-    // if --baseUrl contains no arguments (options.baseUrl === true) then set baseUrl to empty string
-    const baseUrl = _.isBoolean(options.baseUrl) ? '' : options.baseUrl;
     let rootFolder;
     try {
       rootFolder = cliUtil.findRootFolder(userSpecifiedRoot, options.siteConfig);
@@ -343,7 +339,7 @@ program
     // We cannot chain generate and deploy while calling generate conditionally, so we split with if-else
     const site = new Site(rootFolder, outputFolder, undefined, undefined, options.siteConfig);
     if (options.build) {
-      site.generate(baseUrl)
+      site.generate()
         .then(() => {
           logger.info('Build success!');
         })
