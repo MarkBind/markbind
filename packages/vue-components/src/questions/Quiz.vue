@@ -1,45 +1,53 @@
 <template>
   <div :class="['quiz-container', addClass]">
-    <div v-if="state === 3" class="card intro-outro-card">
-      <div class="card-body">
-        <slot name="intro">
-          <h4>
-            Click start to begin
-          </h4>
-        </slot>
+    <transition name="intro-outro-card" @after-leave="showFirstQuestion">
+      <div v-if="state === 3" class="card intro-outro-card">
+        <div class="card-body">
+          <slot name="intro">
+            <h4>
+              Click start to begin
+            </h4>
+          </slot>
 
-        <h5>{{ questions.length }} questions</h5>
+          <h5>{{ questions.length }} questions</h5>
 
-        <hr />
+          <hr />
 
-        <button
-          type="button"
-          class="btn btn-primary d-inline-block"
-          @click="begin"
-        >
-          Start
-        </button>
+          <button
+            type="button"
+            class="btn btn-primary d-inline-block"
+            @click="begin"
+          >
+            Start
+          </button>
+        </div>
       </div>
-    </div>
+    </transition>
 
-    <div
-      v-show="state === 4"
-      class="progress"
-      style="height: 1px;"
-    >
+    <transition name="intro-outro-card">
       <div
-        class="progress-bar progress-bar-z"
-        role="progressbar"
-        :style="{ width: `${currentQuestion / questions.length * 100}%` }"
-        aria-valuemin="0"
-        :aria-valuemax="questions.length"
-        :aria-valuenow="currentQuestion"
-      ></div>
-    </div>
+        v-show="state === 4"
+        class="progress intro-outro-card"
+        style="height: 1px;"
+      >
+        <div
+          class="progress-bar progress-bar-z"
+          role="progressbar"
+          :style="{ width: `${currentQuestion / questions.length * 100}%` }"
+          aria-valuemin="0"
+          :aria-valuemax="questions.length"
+          :aria-valuenow="currentQuestion"
+        ></div>
+      </div>
+    </transition>
 
     <slot></slot>
 
-    <transition name="intro-outro-card" @after-enter="setScoreCircleStyles">
+    <transition
+      name="intro-outro-card"
+      @after-enter="setScoreCircleStyles"
+      @after-leave="showFirstQuestion"
+    >
       <div v-if="state === 5" class="card intro-outro-card">
         <div class="card-body">
           <h4 class="mb-3">
@@ -117,6 +125,7 @@ export default {
     return {
       questions: this.questions,
       gotoNextQuestion: this.gotoNextQuestion,
+      showNextQuestion: this.showNextQuestion,
     };
   },
   computed: {
@@ -130,6 +139,8 @@ export default {
     gotoNextQuestion() {
       this.questions[this.currentQuestion - 1].hide();
       this.currentQuestion += 1;
+    },
+    showNextQuestion() {
       if (this.currentQuestion <= this.questions.length) {
         this.questions[this.currentQuestion - 1].show();
       } else {
@@ -140,6 +151,8 @@ export default {
       this.currentQuestion = 1;
       this.score = 0;
       this.state = STATE_QUIZ_IN_PROGRESS;
+    },
+    showFirstQuestion() {
       if (this.questions.length) {
         this.questions[0].show();
       }
@@ -168,7 +181,7 @@ export default {
     }
 
     .intro-outro-card {
-        transition: opacity 0.5s;
+        transition: transform 0.35s ease-out, opacity 0.35s linear;
     }
 
     .intro-outro-card-enter-active,
