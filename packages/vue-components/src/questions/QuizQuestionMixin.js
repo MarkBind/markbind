@@ -13,6 +13,9 @@ export default {
     gotoNextQuestion: {
       default: undefined,
     },
+    showNextQuestion: {
+      default: '',
+    },
   },
   methods: {
     show() {

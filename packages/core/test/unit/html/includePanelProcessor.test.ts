@@ -1,6 +1,7 @@
-const path = require('path');
+import path from 'path';
+import { getNewDefaultNodeProcessor } from '../utils/utils';
+
 const fs = require('fs');
-const { getNewDefaultNodeProcessor } = require('../utils/utils');
 
 jest.mock('fs');
 
