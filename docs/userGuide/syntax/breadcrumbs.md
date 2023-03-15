@@ -1,5 +1,4 @@
 
-
 ## Breadcrumbs
 
 Breadcrumb components provide an easy way for readers to navigate the hierarchy of the site.
@@ -10,6 +9,22 @@ Simply include the breadcrumb component (`<breadcrumb />`) into the page you wan
 
 You can also insert the breadcrumb component into a layout file to generate breadcrumbs for all pages using that layout.
 
-<box type="tip">
+%%CODE:%%
+
+```html
+<breadcrumb />
+```
+
+%%OUTPUT:%%
+
+> <breadcrumb />
+
+
+<box type="tip" seamless>
   Breadcrumb components refer to the Site Navigation for the hierarchy of pages. <strong>Breadcrumbs will not appear if there is no Site Navigation present on the page!</strong>
 </box>
+
+<!-- Included in readerFacingFeatures.md -->
+<div id="examples" class="d-none">
+<breadcrumb />
+</div>

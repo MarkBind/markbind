@@ -33,7 +33,7 @@
 
   badges : ['Badges', ['presentation', 'reader-facing']],
   boxes : ['Boxes', ['presentation', 'reader-facing']],
-  breadcrumbs : ['Breadcrumbs', ['others']],
+  breadcrumbs : ['Breadcrumbs', ['navigation', 'reader-facing']],
   panels : ['Panels', ['presentation', 'reader-facing']],
   tabs : ['Tabs', ['presentation', 'reader-facing']],
   pictures : ['Pictures', ['images-diagrams', 'reader-facing']],
