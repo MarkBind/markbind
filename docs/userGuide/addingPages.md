@@ -68,7 +68,7 @@ The general approach is as follows:
 1. Create a folder with the path that you want the HTML web page to be available at.
 1. Exclude the files from being further processed by MarkBind by adding them to the <trigger trigger="click" for="modal:addingPages-prevent-processing">`pagesExclude` attribute of the `site.json` file</trigger>.
 1. Generate the HTML files and put them in that folder (This can be done automatically by your build tool, either locally, or as part of your continuous integration process).
-1. Run `markbind build` to generate your MarkBind site.
+1. (Optional) Run `markbind build` to generate your MarkBind site.
 1. Deploy the built files manually or using a continuous integration process.
 
 <box type="tip">

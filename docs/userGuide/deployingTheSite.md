@@ -23,7 +23,7 @@
 
 1. Set the [`baseUrl` property of the `site.json` file](siteJsonFile.html#baseurl) to match the deploy location.
 1. (Optional) Use the [`markbind serve` command](cliCommands.html#serve-command) to stage the site locally and confirm the contents are as expected.
-1. Use the [`markbind build` command](cliCommands.html#build-command) to generate the site from source files. That command puts the generated site files in a directory named `_site` (you can change the output directory using parameters supplied to the command).
+1. (Optional) Use the [`markbind build` command](cliCommands.html#build-command) to generate the site from source files. That command puts the generated site files in a directory named `_site` (you can change the output directory using parameters supplied to the command). Note that the [`markbind deploy` command](cliCommands.html#deploy-command) generates the site from source files by default as well.
 1. Upload the site files to the Web server. The sections below explain how to automate this step if you are deploying to some online platforms.
 
 **Steps for deploying multiple MarkBind sites:**
@@ -31,8 +31,19 @@
 1. Create multiple `site.json` files. Ensure that the [`baseUrl` property of each `site.json` file](siteJsonFile.html#baseurl) matches its deploy location.
 1. (Optional) Use the [`markbind serve -s <file>` command](cliCommands.html#serve-command) to stage each site locally and confirm the contents are as expected.
 1. For each site:
-    1. Use the [`markbind build -s <file>` command](cliCommands.html#build-command) to generate the site from source files.
+    1. (Optional) Use the [`markbind build -s <file>` command](cliCommands.html#build-command) to generate the site from source files. Note that the [`markbind deploy` command](cliCommands.html#deploy-command) generates the site from source files by default as well.
     1. Upload the site files to the Web server. The sections below explain how to automate this step if you are deploying to some online platforms.
+
+<div id="warning-about-build-and-deploy">
+
+<box type="warning">
+
+If you have generated the site with specific arguments, e.g. `markbind build --baseUrl staging`, in order to use this generated site, you should deploy without the generation, i.e. by using `markbind deploy --no-build`. This will allow the deployment of the site to happen from the generated site without possibly re-generating it from the wrong directory.
+
+More information can be found in the [CLI Commands](cliCommands.html) section.
+
+</box>
+</div>
 
 ## Deploying to GitHub Pages
 
@@ -66,9 +77,10 @@ You can override the default deployment settings %%(e.g., repo/branch to deploy)
 
 <br>
 
-<box type="warning">
+<box type="info">
 
-`markbind deploy` does not generate the static site from your source; it simply deploys the files that are already in the `_site` directory. You need to run `markbind build` first if you want to generate the site before deploying.
+`markbind deploy` generates the static site from your source by default; hence, it is not necessary to run `markbind build` first to generate the site before deploying. If you wish to deploy without generating the static site first, use the `--no-build` flag for the `markbind deploy` command.
+
 </box>
 
 ### Using CI Platforms
@@ -107,7 +119,6 @@ jobs:
         with:
           node-version: '14'
       - run: npm i -g markbind-cli
-      - run: markbind build
       - run: markbind deploy --ci
 ```
 
@@ -267,7 +278,6 @@ The `repo` value can be changed to your specific repository as desired.
     install:
       - ps: Install-Product node $env:nodejs_version
       - npm i -g markbind-cli
-      - markbind build
       - markbind deploy --ci
     
     test: off
@@ -311,7 +321,6 @@ Commit and push `appveyor.yml` to your GitHub repository. Thereafter, AppVeyor C
               install-yarn: false
           - run: node --version
           - run: npm i -g markbind-cli
-          - run: markbind build
           - run: markbind deploy --ci
     version: 2.1
     orbs:
