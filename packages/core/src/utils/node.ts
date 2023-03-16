@@ -26,6 +26,6 @@ export type NodeOrText = TextElement | MbNode;
  * Utility function for converting HTML string to a node or text element.
  */
 export function parseHTML(html: string) {
-  const node = cheerio.parseHTML(html)[0];
-  return node as unknown as NodeOrText;
+  const node = cheerio.parseHTML(html);
+  return node as unknown as NodeOrText[];
 }

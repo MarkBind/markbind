@@ -27,7 +27,7 @@ export function shiftSlotNodeDeeper(node: MbNode) {
   nodeChildren.forEach((child) => {
     const vslotShorthandName = getVslotShorthandName(child);
     if (vslotShorthandName && child.name !== 'template') {
-      const newSlotNode = parseHTML('<template></template>') as MbNode;
+      const newSlotNode = parseHTML('<template></template>')[0];
 
       const vslotShorthand = `#${vslotShorthandName}`;
 

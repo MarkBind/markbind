@@ -1,10 +1,9 @@
-import cheerio from 'cheerio';
 import has from 'lodash/has';
 import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
 import type { MarkdownProcessor } from './MarkdownProcessor';
 import * as logger from '../utils/logger';
 import { createSlotTemplateNode } from './elements';
-import { MbNode, NodeOrText } from '../utils/node';
+import { MbNode, NodeOrText, parseHTML } from '../utils/node';
 
 const _ = {
   has,
@@ -185,7 +184,7 @@ export class MdAttributeRenderer {
     }
 
     const renderedText = this.markdownProcessor.renderMdInline(text);
-    node.children = cheerio.parseHTML(renderedText) as unknown as NodeOrText[];
+    node.children = parseHTML(renderedText);
     delete node.attribs.text;
   }
 }

@@ -44,7 +44,7 @@ export class PageNavProcessor {
   }
 
   renderPageNav(node: MbNode) {
-    this.uuidTextNode = parseHTML(uuidv4());
+    [this.uuidTextNode] = parseHTML(uuidv4());
     cheerio(node).replaceWith(this.uuidTextNode as MbNode);
   }
 

@@ -37,7 +37,7 @@ export class FootnoteProcessor {
             <div #content>
               ${$(li).html()}
             </div>
-          </popover>`) as MbNode;
+          </popover>`)[0] as MbNode;
         processNode(popoverNode);
 
         popoversHtml += cheerio.html(popoverNode);
