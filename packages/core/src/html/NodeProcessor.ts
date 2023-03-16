@@ -26,7 +26,7 @@ import { PageNavProcessor, renderSiteNav, addSitePageNavPortal } from './siteAnd
 import { highlightCodeBlock, setCodeLineNumbers } from './codeblockProcessor';
 import { setHeadingId, assignPanelId } from './headerProcessor';
 import { FootnoteProcessor } from './FootnoteProcessor';
-import { NodeOrText, MbNode, TextElement } from '../utils/node';
+import { MbNode, NodeOrText, TextElement } from '../utils/node';
 
 const fm = require('fastmatter');
 
@@ -88,7 +88,7 @@ export class NodeProcessor {
    * Private utility functions
    */
 
-  private static _trimNodes(nodeOrText: MbNode | TextElement) {
+  static _trimNodes(nodeOrText: NodeOrText) {
     if (NodeProcessor._isText(nodeOrText)) return;
     const node = nodeOrText as MbNode;
     if (node.name === 'pre' || node.name === 'code') {
@@ -108,7 +108,7 @@ export class NodeProcessor {
     }
   }
 
-  private static _isText(node: DomElement) {
+  static _isText(node: NodeOrText) {
     return node.type === 'text' || node.type === 'comment';
   }
 
@@ -124,8 +124,8 @@ export class NodeProcessor {
       // The latter case will result in the data being wrapped in a div
       const frontmatterIncludeDiv = frontmatter.find('div');
       const frontmatterData = frontmatterIncludeDiv.length
-        ? ((frontmatterIncludeDiv[0] as DomElement).children as DomElement[])[0].data
-        : ((frontmatter[0] as DomElement).children as DomElement[])[0].data;
+        ? ((frontmatterIncludeDiv[0] as MbNode).children as MbNode[])[0].data
+        : ((frontmatter[0] as MbNode).children as MbNode[])[0].data;
       const frontmatterWrapped = `${FRONTMATTER_FENCE}\n${frontmatterData}\n${FRONTMATTER_FENCE}`;
 
       currentFrontmatter = fm(frontmatterWrapped).attributes;

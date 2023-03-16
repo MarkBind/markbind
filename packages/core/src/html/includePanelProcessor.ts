@@ -339,7 +339,7 @@ export function processPopoverSrc(node: MbNode, context: Context, pageSources: P
 
   actualContent = actualContent.trim();
 
-  if (node.children && node.children.length > 0) {
+  if (node.children.length > 0) {
     childContext.addCwfToCallstack(context.cwf);
 
     if (childContext.hasExceededMaxCallstackSize()) {
