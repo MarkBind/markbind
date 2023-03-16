@@ -1,10 +1,11 @@
-const path = require('path');
+import path from 'path';
 
-const { PageSources } = require('../../../src/Page/PageSources');
-const { NodeProcessor } = require('../../../src/html/NodeProcessor');
-const { PluginManager } = require('../../../src/plugins/PluginManager');
-const { SiteLinkManager } = require('../../../src/html/SiteLinkManager');
-const VariableProcessor = require('../../../src/variables/VariableProcessor');
+import { PageSources } from '../../../src/Page/PageSources';
+import { NodeProcessor, NodeProcessorConfig } from '../../../src/html/NodeProcessor';
+import { PluginManager } from '../../../src/plugins/PluginManager';
+import { SiteLinkManager } from '../../../src/html/SiteLinkManager';
+import VariableProcessor from '../../../src/variables/VariableProcessor';
+import { PluginContext } from '../../../src/plugins/Plugin';
 
 jest.mock('fs');
 jest.mock('../../../src/plugins/PluginManager');
@@ -18,8 +19,8 @@ function getNewDefaultVariableProcessor() {
   return DEFAULT_VARIABLE_PROCESSOR;
 }
 
-function getNewPluginManager(plugins, pluginsContext) {
-  const fileConfig = {
+export function getNewPluginManager(plugins: string[], pluginsContext: PluginContext) {
+  const fileConfig: NodeProcessorConfig = {
     baseUrlMap: new Set([ROOT_PATH]),
     baseUrl: '',
     rootPath: ROOT_PATH,
@@ -27,13 +28,18 @@ function getNewPluginManager(plugins, pluginsContext) {
     headerIdMap: {},
     ignore: [],
     addressablePagesSource: [],
+    intrasiteLinkValidation: {
+      enabled: false,
+    },
+    codeLineNumbers: false,
+    plantumlCheck: false,
   };
 
   return new PluginManager(fileConfig, plugins, pluginsContext);
 }
 
-function getNewSiteLinkManager() {
-  const fileConfig = {
+export function getNewSiteLinkManager() {
+  const fileConfig: NodeProcessorConfig = {
     baseUrlMap: new Set([ROOT_PATH]),
     baseUrl: '',
     rootPath: ROOT_PATH,
@@ -41,13 +47,18 @@ function getNewSiteLinkManager() {
     headerIdMap: {},
     ignore: [],
     addressablePagesSource: [],
+    intrasiteLinkValidation: {
+      enabled: false,
+    },
+    codeLineNumbers: false,
+    plantumlCheck: false,
   };
 
   return new SiteLinkManager(fileConfig);
 }
 
-function getNewNodeProcessor(pluginManager) {
-  const fileConfig = {
+export function getNewNodeProcessor(pluginManager: PluginManager) {
+  const fileConfig: NodeProcessorConfig = {
     baseUrlMap: new Set([ROOT_PATH]),
     baseUrl: '',
     rootPath: ROOT_PATH,
@@ -56,19 +67,14 @@ function getNewNodeProcessor(pluginManager) {
     addressablePagesSource: [],
     intrasiteLinkValidation: { enabled: false },
     codeLineNumbers: false,
+    outputPath: '',
+    plantumlCheck: false,
   };
 
   return new NodeProcessor(fileConfig, new PageSources(), getNewDefaultVariableProcessor(),
-                           pluginManager, getNewSiteLinkManager());
+                           pluginManager, getNewSiteLinkManager(), [], '');
 }
 
-function getNewDefaultNodeProcessor() {
+export function getNewDefaultNodeProcessor() {
   return getNewNodeProcessor(getNewPluginManager([], {}));
 }
-
-module.exports = {
-  getNewNodeProcessor,
-  getNewDefaultNodeProcessor,
-  getNewSiteLinkManager,
-  getNewPluginManager,
-};
