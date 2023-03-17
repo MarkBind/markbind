@@ -26,7 +26,8 @@
     <div class="nav-component slim-scroll">
       <page-nav />
     </div>
-  </nav>
+  </nav>    
+  <scroll-top-button></scroll-top-button>
 </div>
 
 <include src="footers/footer.md" />

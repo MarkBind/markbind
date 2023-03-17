@@ -155,6 +155,61 @@ You can also specify include variables within the `<include>` tag itself by addi
 </div>
 
 If the same variable is defined in a chain of `<include>`s (e.g. `a.md` includes `b.md` includes `c.md`...), variables defined in the top-most `<include>` will take precedence. Global variables (`_markbind/variables.md`) will take precedence over any `<include>` variables.
+This is to allow the outer context to adapt the reused content without changing its actual content.
+
+<panel header="Preventing cyclical errors when using multiple includes with same variables">
+
+Since outer variables override inner variables, this may result in errors if attempting to use an `include` within another `include` with the same variables.
+
+This is because the inner variable of the same name will be replaced with the outer variable, which contains the inner variable. 
+This inner variable is once again overridden to result in another inner variable and so on, causing a cyclical error.
+
+To fix this issue, do not use an inner `include` if they use the same variables.
+Instead, copy the content of the `src` file and replace the variables with the defined values.
+
+Example:
+
+```html {.line-numbers}
+<include src="boilerplate.md" boilerplate>
+  <span id="variable">
+    <include src="boilerplate.md">
+      <span id="variable">
+        VALUE_OF_VARIABLE
+      </span>
+    </include>
+  </span>
+</include>
+```
+
+The inner `variable` would be replaced by the outer `variable` resulting in a cyclical error:
+
+```html {.line-numbers highlight-lines="5-9"}
+<include src="boilerplate.md" boilerplate>
+  <span id="variable">
+    <include src="boilerplate.md">
+      <span id="variable">
+        <include src="boilerplate.md">
+          <span id="variable">
+            ...
+          </span>
+        </include>
+      </span>
+    </include>
+  </span>
+</include>
+```
+
+To fix this problem, copy the content of the `src` file and replace the variables with the defined values as such:
+
+```html {.line-numbers highlight-lines="3"}
+<include src="boilerplate.md" boilerplate>
+  <span id="variable">
+    Boilerplate content: VALUE_OF_VARIABLE <!-- Replace {{ '{{' }} variable {{ '}}' }} in boilerplate with VALUE_OF_VARIABLE -->
+  </span>
+</include>
+```
+
+</panel>
 
 <hr><!-- ======================================================================================================= -->
 

@@ -1,10 +1,10 @@
-const path = require('path');
-const cheerio = require('cheerio');
-const htmlparser = require('htmlparser2');
-const { getNewDefaultNodeProcessor } = require('../utils/utils');
-const testData = require('./NodeProcessor.data');
-const { Context } = require('../../../src/html/Context');
-const { shiftSlotNodeDeeper, transformOldSlotSyntax } = require('../../../src/html/vueSlotSyntaxProcessor');
+import path from 'path';
+import cheerio from 'cheerio';
+import htmlparser, { DomElement } from 'htmlparser2';
+import * as testData from './NodeProcessor.data';
+import { Context } from '../../../src/html/Context';
+import { shiftSlotNodeDeeper, transformOldSlotSyntax } from '../../../src/html/vueSlotSyntaxProcessor';
+import { getNewDefaultNodeProcessor } from '../utils/utils';
 
 /**
  * Runs the processNode or postProcessNode method of NodeProcessor on the provided
@@ -14,7 +14,7 @@ const { shiftSlotNodeDeeper, transformOldSlotSyntax } = require('../../../src/ht
  * @param postProcess Boolean of whether to run postProcessNode instead of processNode.
  *                  Defaults to false
  */
-const processAndVerifyTemplate = (template, expectedTemplate, postProcess = false) => {
+const processAndVerifyTemplate = (template: string, expectedTemplate: string, postProcess = false) => {
   const handler = new htmlparser.DomHandler((error, dom) => {
     expect(error).toBeFalsy();
 
@@ -25,12 +25,12 @@ const processAndVerifyTemplate = (template, expectedTemplate, postProcess = fals
         Need to process node first (convert deprecated vue slot to updated shorthand syntax)
         before doing post-processing.
       */
-      dom.forEach(node => nodeProcessor.processNode(node, new Context(path.resolve(''))));
+      dom.forEach(node => nodeProcessor.processNode(node, new Context(path.resolve(''), [], {}, {})));
       dom.forEach(node => nodeProcessor.postProcessNode(node));
     } else {
-      dom.forEach(node => nodeProcessor.processNode(node, new Context(path.resolve(''))));
+      dom.forEach(node => nodeProcessor.processNode(node, new Context(path.resolve(''), [], {}, {})));
     }
-    const result = cheerio.html(dom);
+    const result = cheerio.html(dom as unknown as cheerio.Element);
 
     expect(result).toEqual(expectedTemplate);
   });
@@ -219,11 +219,11 @@ test('deprecated vue slot syntax should be converted to updated Vue slot shortha
 
   const testNode = cheerio.parseHTML(test)[0];
 
-  transformOldSlotSyntax(testNode);
+  transformOldSlotSyntax(testNode as unknown as DomElement);
 
   const expected = '<panel><div #header>test</div><p #test>test2</p></panel>';
 
-  expect(cheerio.html(testNode)).toEqual(expected);
+  expect(cheerio.html(testNode as unknown as cheerio.Element)).toEqual(expected);
 });
 
 test('slot nodes which have tag names other than "template" are shifted one level deeper ', async () => {
@@ -231,9 +231,9 @@ test('slot nodes which have tag names other than "template" are shifted one leve
 
   const testNode = cheerio.parseHTML(test)[0];
 
-  shiftSlotNodeDeeper(testNode);
+  shiftSlotNodeDeeper(testNode as unknown as DomElement);
 
   const expected = '<panel><template #header><div>test</div></template></panel>';
 
-  expect(cheerio.html(testNode)).toEqual(expected);
+  expect(cheerio.html(testNode as unknown as cheerio.Element)).toEqual(expected);
 });

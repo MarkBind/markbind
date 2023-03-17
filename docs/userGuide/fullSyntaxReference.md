@@ -48,6 +48,7 @@
   navBars : ['Nav Bars', ['navigation', 'reader-facing']],
   siteNavigationMenus : ['Site Navigation Menus', ['navigation', 'reader-facing']],
   pageNavigationMenus : ['Page Navigation Menus', ['navigation', 'reader-facing']],
+  scrollTopButton : ['Scroll To Top Button', ['navigation', 'reader-facing']],
   questions : ['Questions and Quizzes', ['others', 'reader-facing']]
 } %}
 
