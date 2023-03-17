@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
-import { DomElement } from 'htmlparser2';
 import cheerio from 'cheerio';
-import { MbNode, parseHTML } from '../utils/node';
+import {
+  MbNode, NodeOrText, parseHTML, TextElement,
+} from '../utils/node';
 
 require('../patches/htmlparser2');
 const md = require('../lib/markdown-it');
@@ -39,7 +40,7 @@ const SITE_NAV_DROPDOWN_ICON_ROTATED_HTML = '<div class="site-nav-dropdown-btn-c
  * otherwise it is replaced with one until it is unique.
  */
 export class PageNavProcessor {
-  uuidTextNode?: DomElement;
+  uuidTextNode?: TextElement;
 
   getUuid() {
     return (this.uuidTextNode && this.uuidTextNode.data) || '';
@@ -47,10 +48,10 @@ export class PageNavProcessor {
 
   renderPageNav(node: MbNode) {
     [this.uuidTextNode] = parseHTML(uuidv4());
-    cheerio(node).replaceWith(this.uuidTextNode as MbNode);
+    cheerio(node).replaceWith(this.uuidTextNode as cheerio.Element);
   }
 
-  finalizePageNavUuid(mainHtml: string | null, mainHtmlNodes: DomElement[], footnotesHtml: string) {
+  finalizePageNavUuid(mainHtml: string | null, mainHtmlNodes: NodeOrText[], footnotesHtml: string) {
     if (!this.uuidTextNode) {
       return mainHtml;
     }
