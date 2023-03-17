@@ -8,7 +8,10 @@ const _ = {
 };
 
 export function getVslotShorthandName(node: NodeOrText) {
-  if (!node.attribs) return '';
+  if (!node.attribs) {
+    return '';
+  }
+
   const keys = Object.keys(node.attribs);
   const vslotShorthand = _.find(keys, key => key.startsWith('#'));
   if (!vslotShorthand) {

@@ -188,7 +188,7 @@ export class MdAttributeRenderer {
     delete node.attribs.text;
   }
 
-  processScrollTopButtonAttributes(node: DomElement) {
+  processScrollTopButtonAttributes(node: MbNode) {
     this.processAttributeWithoutOverride(node, 'icon', true);
   }
 }

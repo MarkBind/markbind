@@ -7,7 +7,7 @@ import { DomElement } from 'htmlparser2';
 export type TextElement = DomElement;
 
 /*
- * MbNode (MarkbindNode) is an element that can be operated on by cheerio and our own node processing
+ * MbNode (MarkBindNode) is an element that can be operated on by cheerio and our own node processing
  * methods. It must have a name (used to identify what kind of node it is), attributes (possibly empty),
  * and children nodes (possibly empty). This type allows us to assert that these attributes exist.
  */
