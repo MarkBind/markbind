@@ -350,7 +350,7 @@ export class Site {
         polyfillJs: path.posix.join(baseAssetsPath, 'js', 'polyfill.min.js'),
         // We use development Vue when MarkBind is served in 'dev' mode so that hydration issues are reported
         vue: this.dev
-          ? 'https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js'
+          ? 'https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.global.min.js'
           : path.posix.join(baseAssetsPath, 'js', 'vue.min.js'),
         layoutUserScriptsAndStyles: [],
       },

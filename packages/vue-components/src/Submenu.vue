@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { computed, onMounted, onBeforeUnmount, ref } from 'vue';
 import { toBoolean } from './utils/utils';
 import $ from './utils/NodeList';
 import positionSubmenu from './utils/submenu';
@@ -39,21 +40,60 @@ export default {
       default: false,
     },
   },
-  data() {
+  setup(props) {
+    onMounted(() => {
+      const $el = $(this.$refs.submenu);
+      if (this.show) {
+        this.showSubmenu();
+      }
+      $el.onBlur(() => { this.hideSubmenu(); }, false);
+      $el.findChildren('a,button').on('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (this.disabledBool) { return false; }
+        if (this.show) {
+          this.hideSubmenu();
+        } else {
+          this.showSubmenu();
+        }
+        return false;
+      });
+      $el.findChildren('a,button').on('mouseover', (e) => {
+        e.preventDefault();
+        if (window.innerWidth > 767) {
+          const isShowing = $el.findChildren('ul.show').length > 0;
+          if (isShowing || this.disabledBool) { return false; }
+          e.currentTarget.click();
+          const fullMenu = this.$parent.$parent;
+          fullMenu.$children.forEach((menuItem) => {
+            if (menuItem.$el === this.$el) {
+              menuItem.$refs.submenu.showSubmenu();
+            } else {
+              menuItem.$refs.submenu.hideSubmenu();
+            }
+          });
+        }
+        return false;
+      });
+    });
+
+    onBeforeUnmount(() => {
+      const $el = $(this.$refs.submenu);
+      $el.offBlur();
+      $el.findChildren('a,button').off();
+      $el.findChildren('ul').off();
+    });
+
     return {
-      show: false,
-      dropright: true,
-      dropleft: false,
+      show: ref(false),
+      dropright: ref(true),
+      dropleft: ref(false),
+      disabledBool: computed(() => toBoolean(props.disabled)),
     };
   },
   inject: {
     isParentNavbar: {
       default: false,
-    },
-  },
-  computed: {
-    disabledBool() {
-      return toBoolean(this.disabled);
     },
   },
   methods: {
@@ -89,47 +129,6 @@ export default {
       this.dropright = false;
       this.dropleft = true;
     },
-  },
-  mounted() {
-    const $el = $(this.$refs.submenu);
-    if (this.show) {
-      this.showSubmenu();
-    }
-    $el.onBlur(() => { this.hideSubmenu(); }, false);
-    $el.findChildren('a,button').on('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (this.disabledBool) { return false; }
-      if (this.show) {
-        this.hideSubmenu();
-      } else {
-        this.showSubmenu();
-      }
-      return false;
-    });
-    $el.findChildren('a,button').on('mouseover', (e) => {
-      e.preventDefault();
-      if (window.innerWidth > 767) {
-        const isShowing = $el.findChildren('ul.show').length > 0;
-        if (isShowing || this.disabledBool) { return false; }
-        e.currentTarget.click();
-        const fullMenu = this.$parent.$parent;
-        fullMenu.$children.forEach((menuItem) => {
-          if (menuItem.$el === this.$el) {
-            menuItem.$refs.submenu.showSubmenu();
-          } else {
-            menuItem.$refs.submenu.hideSubmenu();
-          }
-        });
-      }
-      return false;
-    });
-  },
-  beforeDestroy() {
-    const $el = $(this.$refs.submenu);
-    $el.offBlur();
-    $el.findChildren('a,button').off();
-    $el.findChildren('ul').off();
   },
 };
 </script>

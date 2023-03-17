@@ -14,7 +14,7 @@
           </ul>
         </div>
 
-        <ul v-if="slots.right" class="navbar-nav navbar-right">
+        <ul v-if="slots?.right" class="navbar-nav navbar-right">
           <slot name="right"></slot>
         </ul>
       </div>
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { ref, computed, onBeforeMount, onBeforeUnmount } from 'vue';
 import $ from './utils/NodeList';
 import { toBoolean } from './utils/utils';
 import normalizeUrl from './utils/urls';
@@ -68,39 +69,87 @@ export default {
       isParentNavbar: true,
     };
   },
-  data() {
+  setup(props, { slots }) {
+    const _navbar = true;
+
+    onBeforeMount(() => {
+      const $dropdown = $('.dropdown>[data-bs-toggle="dropdown"]', this.$el).parent();
+      $dropdown.on('click', '.dropdown-toggle', (e) => {
+        e.preventDefault();
+        $dropdown.each((content) => {
+          if (content.contains(e.target)) content.classList.toggle('open');
+        });
+      }).on('click', '.dropdown-menu>li>a', (e) => {
+        $dropdown.each((content) => {
+          if (content.contains(e.target)) content.classList.remove('open');
+        });
+      }).onBlur((e) => {
+        $dropdown.each((content) => {
+          if (!content.contains(e.target)) content.classList.remove('open');
+        });
+      });
+
+      // highlight current nav link
+      this.highlightLink(window.location.href);
+
+      // scroll default navbar horizontally to current link if it is beyond the current scroll
+      const currentNavlink = $(this.$refs.navbarDefault).find('.current')[0];
+      if (currentNavlink && window.innerWidth < 768
+          && currentNavlink.offsetLeft + currentNavlink.offsetWidth > window.innerWidth) {
+        this.$refs.navbarDefault.scrollLeft = currentNavlink.offsetLeft + currentNavlink.offsetWidth
+            - window.innerWidth;
+      }
+
+      this.toggleLowerNavbar();
+      $(window).on('resize', this.toggleLowerNavbar);
+
+      // scroll default navbar horizontally when mousewheel is scrolled
+      $(this.$refs.navbarDefault).on('wheel', (e) => {
+        const isDropdown = (nodes) => {
+          for (let i = 0; i < nodes.length; i += 1) {
+            if (nodes[i].classList && nodes[i].classList.contains('dropdown-menu')) {
+              return true;
+            }
+          }
+          return false;
+        };
+
+        // prevent horizontal scrolling if the scroll is on dropdown menu
+        if (window.innerWidth < 768 && !isDropdown(e.path)) {
+          e.preventDefault();
+          this.$refs.navbarDefault.scrollLeft += e.deltaY;
+        }
+      });
+    });
+
+    onBeforeUnmount(() => {
+      $('.dropdown', this.$el).off('click').offBlur();
+      $(window).off('resize', this.toggleLowerNavbar);
+      $(this.$refs.navbarDefault).off('wheel');
+    });
+
     return {
-      id: 'bs-example-navbar-collapse-1',
-      styles: {},
-      isLowerNavbarShowing: false,
+      _navbar,
+      id: ref('bs-example-navbar-collapse-1'),
+      styles: ref({}),
+      isLowerNavbarShowing: ref(false),
+      fixedBool: computed(() => toBoolean(props.fixed)),
+      fixedOptions: computed(() => (props.fixedBool ? 'navbar-fixed' : '')),
+      slots: computed(() => slots),
+      themeOptions: computed(() => {
+        switch (props.type) {
+        case 'none':
+          return '';
+        case 'light':
+          return 'navbar-light bg-light';
+        case 'dark':
+          return 'navbar-dark bg-dark';
+        case 'primary':
+        default:
+          return 'navbar-dark bg-primary';
+        }
+      }),
     };
-  },
-  computed: {
-    fixedBool() {
-      return toBoolean(this.fixed);
-    },
-    fixedOptions() {
-      if (this.fixedBool) {
-        return 'navbar-fixed';
-      }
-      return '';
-    },
-    slots() {
-      return this.$scopedSlots;
-    },
-    themeOptions() {
-      switch (this.type) {
-      case 'none':
-        return '';
-      case 'light':
-        return 'navbar-light bg-light';
-      case 'dark':
-        return 'navbar-dark bg-dark';
-      case 'primary':
-      default:
-        return 'navbar-dark bg-primary';
-      }
-    },
   },
   methods: {
     // Splits a normalised URL into its parts,
@@ -221,63 +270,6 @@ export default {
         this.isLowerNavbarShowing = false;
       }
     },
-  },
-  created() {
-    this._navbar = true;
-  },
-  mounted() {
-    const $dropdown = $('.dropdown>[data-bs-toggle="dropdown"]', this.$el).parent();
-    $dropdown.on('click', '.dropdown-toggle', (e) => {
-      e.preventDefault();
-      $dropdown.each((content) => {
-        if (content.contains(e.target)) content.classList.toggle('open');
-      });
-    }).on('click', '.dropdown-menu>li>a', (e) => {
-      $dropdown.each((content) => {
-        if (content.contains(e.target)) content.classList.remove('open');
-      });
-    }).onBlur((e) => {
-      $dropdown.each((content) => {
-        if (!content.contains(e.target)) content.classList.remove('open');
-      });
-    });
-
-    // highlight current nav link
-    this.highlightLink(window.location.href);
-
-    // scroll default navbar horizontally to current link if it is beyond the current scroll
-    const currentNavlink = $(this.$refs.navbarDefault).find('.current')[0];
-    if (currentNavlink && window.innerWidth < 768
-        && currentNavlink.offsetLeft + currentNavlink.offsetWidth > window.innerWidth) {
-      this.$refs.navbarDefault.scrollLeft = currentNavlink.offsetLeft + currentNavlink.offsetWidth
-        - window.innerWidth;
-    }
-
-    this.toggleLowerNavbar();
-    $(window).on('resize', this.toggleLowerNavbar);
-
-    // scroll default navbar horizontally when mousewheel is scrolled
-    $(this.$refs.navbarDefault).on('wheel', (e) => {
-      const isDropdown = (nodes) => {
-        for (let i = 0; i < nodes.length; i += 1) {
-          if (nodes[i].classList && nodes[i].classList.contains('dropdown-menu')) {
-            return true;
-          }
-        }
-        return false;
-      };
-
-      // prevent horizontal scrolling if the scroll is on dropdown menu
-      if (window.innerWidth < 768 && !isDropdown(e.path)) {
-        e.preventDefault();
-        this.$refs.navbarDefault.scrollLeft += e.deltaY;
-      }
-    });
-  },
-  beforeDestroy() {
-    $('.dropdown', this.$el).off('click').offBlur();
-    $(window).off('resize', this.toggleLowerNavbar);
-    $(this.$refs.navbarDefault).off('wheel');
   },
 };
 </script>

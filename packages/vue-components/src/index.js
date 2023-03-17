@@ -7,8 +7,8 @@ import 'floating-vue/dist/style.css';
 import box from './Box.vue';
 import breadcrumb from './Breadcrumb.vue';
 import closeable from './directives/Closeable';
+// import dropdown from './Dropdown.vue';
 import collapseExpandButtons from './CollapseExpandButtons.vue';
-import dropdown from './Dropdown.vue';
 import navbar from './Navbar.vue';
 import panel from './Panel.vue';
 import annotate from './annotations/Annotate.vue';
@@ -21,25 +21,25 @@ import retriever from './Retriever.vue';
 import searchbar from './Searchbar.vue';
 import tab from './Tab.vue';
 import tabGroup from './TabGroup.vue';
-import tabset from './Tabset.vue';
+// import tabset from './Tabset.vue';
 import thumbnail from './Thumbnail.vue';
-import trigger from './Trigger.vue';
+// import trigger from './Trigger.vue';
 import siteNav from './SiteNav.vue';
 import submenu from './Submenu.vue';
 import siteNavButton from './SiteNavButton.vue';
 import pageNavButton from './PageNavButton.vue';
-import overlay from './Overlay.vue';
-import overlaySource from './OverlaySource.vue';
-import popover from './Popover.vue';
-import tooltip from './Tooltip.vue';
+// import overlay from './Overlay.vue';
+// import overlaySource from './OverlaySource.vue';
+// import popover from './Popover.vue';
+// import tooltip from './Tooltip.vue';
 import modal from './Modal.vue';
 import scrollTopButton from './ScrollTopButton.vue';
 
 const components = {
   box,
   breadcrumb,
-  dropdown,
   collapseExpandButtons,
+  // dropdown,
   navbar,
   panel,
   annotate,
@@ -52,17 +52,17 @@ const components = {
   searchbar,
   tab,
   tabGroup,
-  tabs: tabset,
+  // tabs: tabset,
   thumbnail,
-  trigger,
+  // trigger,
   siteNav,
   submenu,
   siteNavButton,
   pageNavButton,
-  overlay,
-  overlaySource,
-  popover,
-  tooltip,
+  // overlay,
+  // overlaySource,
+  // popover,
+  // tooltip,
   modal,
   'VPopover': Dropdown,
   'VTooltip': Tooltip,
@@ -74,12 +74,18 @@ const directives = {
 };
 
 function install(Vue) {
-  Object.keys(directives).forEach((key) => {
-    Vue.directive(key, directives[key]);
-  });
-  Object.keys(components).forEach((key) => {
-    Vue.component(key, components[key]);
-  });
+  return (createAppProps) => {
+    const app = Vue.createApp(createAppProps);
+    Object.keys(directives)
+      .forEach((key) => {
+        app.directive(key, directives[key]);
+      });
+    Object.keys(components)
+      .forEach((key) => {
+        app.component(key, components[key]);
+      });
+    return app;
+  };
 }
 
 const plugin = { install };

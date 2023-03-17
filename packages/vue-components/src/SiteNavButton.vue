@@ -17,41 +17,45 @@
 </template>
 
 <script>
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import $ from './utils/NodeList';
 
 export default {
-  data() {
-    return {
-      portalName: undefined,
-      show: false,
-    };
-  },
-  computed: {
-    showSiteNav() {
-      return this.show && this.portalName;
-    },
-  },
-  methods: {
-    toggleSiteNavButton() {
-      if (window.innerWidth < 992) {
-        this.show = true;
-      } else {
-        this.show = false;
-      }
-    },
-  },
-  mounted() {
-    if (document.querySelector('#site-nav a') !== null) {
-      this.portalName = 'site-nav';
-    } else if (document.querySelector('.site-nav-root a') !== null) {
-      this.portalName = 'mb-site-nav';
-    }
+  setup() {
+    const portalName = ref(undefined);
+    const show = ref(false);
 
-    this.toggleSiteNavButton();
-    $(window).on('resize', this.toggleSiteNavButton);
-  },
-  beforeDestroy() {
-    $(window).off('resize', this.toggleSiteNavButton);
+    const showSiteNav = computed(() => show.value && portalName.value);
+
+    const toggleSiteNavButton = () => {
+      if (window.innerWidth < 992) {
+        show.value = true;
+      } else {
+        show.value = false;
+      }
+    };
+
+    onMounted(() => {
+      if (document.querySelector('#site-nav a') !== null) {
+        portalName.value = 'site-nav';
+      } else if (document.querySelector('.site-nav-root a') !== null) {
+        portalName.value = 'mb-site-nav';
+      }
+
+      toggleSiteNavButton();
+      $(window).on('resize', toggleSiteNavButton);
+    });
+
+    onBeforeUnmount(() => {
+      $(window).off('resize', toggleSiteNavButton);
+    });
+
+    return {
+      portalName,
+      show,
+      showSiteNav,
+      toggleSiteNavButton,
+    };
   },
 };
 </script>

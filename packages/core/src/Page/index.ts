@@ -518,17 +518,15 @@ export class Page {
 
     content = `<div id="app">${content}</div>`;
 
-    // Compile the page into Vue application and outputs the render function into script for browser
-    const compiledVuePage = await pageVueServerRenderer.compileVuePageAndCreateScript(
-      content, this.pageConfig, this.asset);
-
+    // Set page content to javascript so that it can be retrieved from browser.
+    await pageVueServerRenderer.setsPageContent(content, this.pageConfig, this.asset);
     /*
      * Record render functions of built pages that were compiled
      * for fast re-render when MarkBindVue bundle hot-reloads
      */
     const builtPage = {
       page: this,
-      compiledVuePage,
+      pageContent: content,
       pageNav,
     };
     // Each source path will only contain 1 copy of build/re-build page (the latest one)
@@ -543,7 +541,7 @@ export class Page {
     if (process.env.TEST_MODE) {
       await this.outputPageHtml(content);
     } else {
-      const vueSsrHtml = await pageVueServerRenderer.renderVuePage(compiledVuePage);
+      const vueSsrHtml = await pageVueServerRenderer.renderVuePage(content);
       await this.outputPageHtml(vueSsrHtml);
     }
   }

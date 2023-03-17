@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import { computed, onMounted, onBeforeUnmount, ref } from 'vue';
 import Submenu from './Submenu.vue';
 import { toBoolean } from './utils/utils';
 import $ from './utils/NodeList';
@@ -88,35 +89,53 @@ export default {
       default: false,
     },
   },
-  data() {
+  setup(props) {
+
+    onMounted(() => {
+      const $el = $(this.$refs.dropdown);
+      if (this.$slots.button) {
+        // If the button is passed via props, manually add a data-bs-toggle
+        $el.findChildren('.dropdown-toggle').forEach(child => child.setAttribute('data-bs-toggle', 'dropdown'));
+      }
+      if (this.show) {
+        this.showDropdownMenu();
+      }
+      $el.onBlur(() => { this.hideDropdownMenu(); }, false);
+      $el.findChildren('a,button.dropdown-toggle').on('click', (e) => {
+        e.preventDefault();
+        if (this.disabledBool) { return false; }
+        if (this.show) {
+          this.hideDropdownMenu();
+        } else {
+          this.showDropdownMenu();
+        }
+        return false;
+      });
+      $el.findChildren('ul').on('click', 'li>a', (e) => {
+        if (e.target.classList.contains('submenu-toggle')) { return; }
+        this.hideDropdownMenu();
+      });
+    });
+
+    onBeforeUnmount(() => {
+      const $el = $(this.$refs.dropdown);
+      $el.offBlur();
+      $el.findChildren('a,button').off();
+      $el.findChildren('ul').off();
+    });
+
     return {
-      show: false,
+      show: ref(false),
+      btnType: computed(() => `btn-${props.type}`),
+      disabledBool: computed(() => toBoolean(props.disabled)),
+      isLi: computed(() => this.$parent._navbar || this.$parent.menu || this.$parent._tabset),
+      isSubmenu: computed(() => this.hasParentDropdown),
+      menu: computed(() => !this.$parent || this.$parent.navbar),
+      submenu: computed(() => this.$parent && (this.$parent.menu || this.$parent.submenu)),
+      slots: computed(() => this.$slots.default),
+      hasBefore: computed(() => !!this.$scopedSlots.before),
+      btnWithBefore: computed(() => (this.hasBefore ? 'btn-with-before' : '')),
     };
-  },
-  computed: {
-    btnType() {
-      return `btn-${this.type}`;
-    },
-    disabledBool() {
-      return toBoolean(this.disabled);
-    },
-    isLi() { return this.$parent._navbar || this.$parent.menu || this.$parent._tabset; },
-    isSubmenu() { return this.hasParentDropdown; },
-    menu() {
-      return !this.$parent || this.$parent.navbar;
-    },
-    submenu() {
-      return this.$parent && (this.$parent.menu || this.$parent.submenu);
-    },
-    slots() {
-      return this.$scopedSlots.default;
-    },
-    hasBefore() {
-      return !!this.$scopedSlots.before;
-    },
-    btnWithBefore() {
-      return this.hasBefore ? 'btn-with-before' : '';
-    },
   },
   methods: {
     blur() {
@@ -153,37 +172,6 @@ export default {
         }
       });
     },
-  },
-  mounted() {
-    const $el = $(this.$refs.dropdown);
-    if (this.$slots.button) {
-      // If the button is passed via props, manually add a data-bs-toggle
-      $el.findChildren('.dropdown-toggle').forEach(child => child.setAttribute('data-bs-toggle', 'dropdown'));
-    }
-    if (this.show) {
-      this.showDropdownMenu();
-    }
-    $el.onBlur(() => { this.hideDropdownMenu(); }, false);
-    $el.findChildren('a,button.dropdown-toggle').on('click', (e) => {
-      e.preventDefault();
-      if (this.disabledBool) { return false; }
-      if (this.show) {
-        this.hideDropdownMenu();
-      } else {
-        this.showDropdownMenu();
-      }
-      return false;
-    });
-    $el.findChildren('ul').on('click', 'li>a', (e) => {
-      if (e.target.classList.contains('submenu-toggle')) { return; }
-      this.hideDropdownMenu();
-    });
-  },
-  beforeDestroy() {
-    const $el = $(this.$refs.dropdown);
-    $el.offBlur();
-    $el.findChildren('a,button').off();
-    $el.findChildren('ul').off();
   },
 };
 </script>
