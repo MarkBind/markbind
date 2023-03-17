@@ -5,6 +5,7 @@ import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
 import type { MarkdownProcessor } from './MarkdownProcessor';
 import * as logger from '../utils/logger';
 import { createSlotTemplateNode } from './elements';
+import { NodeOrText } from '../utils/node';
 
 const _ = {
   has,
@@ -44,7 +45,7 @@ export class MdAttributeRenderer {
         rendered = this.markdownProcessor.renderMd(node.attribs[attribute]);
       }
 
-      const attributeSlotElement = createSlotTemplateNode(slotName, rendered);
+      const attributeSlotElement: NodeOrText[] = createSlotTemplateNode(slotName, rendered);
       node.children = node.children
         ? attributeSlotElement.concat(node.children)
         : attributeSlotElement;
