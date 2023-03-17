@@ -3,6 +3,8 @@
   layout: userGuide.md
 </frontmatter>
 
+<include src="components/advanced.md#slots-info" />
+
 # Full Syntax Reference
 
 {% set syntax_topics = {
