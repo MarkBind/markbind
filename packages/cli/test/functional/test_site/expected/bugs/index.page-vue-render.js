@@ -16,3 +16,4 @@ with(this){return _c('div',{attrs:{"id":"content-wrapper"}},[_c('div',{staticCla
 ) {
 with(this){return _c('div',[_c('footer',[_c('h1',{attrs:{"id":"heading-in-footer-should-not-be-indexed"}},[_c('span',{staticClass:"anchor",attrs:{"id":"heading-in-footer-should-not-be-indexed"}}),_v("Heading in footer should not be indexed"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#heading-in-footer-should-not-be-indexed","onclick":"event.stopPropagation()"}})]),_v(" "),_c('div',{staticClass:"text-center"},[_v("\n    This is a dynamic height footer that supports markdown "),_c('span',[_v("😄")]),_v("!\n  ")])])])}
 }];
+  
