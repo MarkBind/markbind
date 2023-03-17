@@ -5,6 +5,6 @@ with(this){return _c('div',{attrs:{"id":"app"}},[_c('header',{attrs:{"sticky":""
 };
     var pageVueStaticRenderFns = [function anonymous(
 ) {
-with(this){return _c('div',{attrs:{"id":"content-wrapper"}},[_c('h1',{attrs:{"id":"about"}},[_c('span',{staticClass:"anchor",attrs:{"id":"about"}}),_v("About"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#about","onclick":"event.stopPropagation()"}})]),_v(" "),_c('p',[_v("Welcome to your "),_c('strong',[_v("About Us")]),_v(" page.")]),_v(" "),_c('i',{staticClass:"fa fa-arrow-circle-up fa-lg d-print-none",attrs:{"id":"scroll-top-button","onclick":"handleScrollTop()","aria-hidden":"true"}})])}
+with(this){return _c('div',{attrs:{"id":"content-wrapper"}},[_c('h1',{attrs:{"id":"about"}},[_c('span',{staticClass:"anchor",attrs:{"id":"about"}}),_v("About"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#about","onclick":"event.stopPropagation()"}})]),_v(" "),_c('p',[_v("Welcome to your "),_c('strong',[_v("About Us")]),_v(" page.")])])}
 }];
   
