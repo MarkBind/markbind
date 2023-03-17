@@ -5,6 +5,6 @@ with(this){return _c('div',{attrs:{"id":"app"}},[_c('header',{attrs:{"sticky":""
 };
     var pageVueStaticRenderFns = [function anonymous(
 ) {
-with(this){return _c('div',{attrs:{"id":"content-wrapper"}},[_c('p',[_v("Welcome to the test-deploy wiki!")]),_v(" "),_c('i',{staticClass:"fa fa-arrow-circle-up fa-lg d-print-none",attrs:{"id":"scroll-top-button","onclick":"handleScrollTop()","aria-hidden":"true"}})])}
+with(this){return _c('div',{attrs:{"id":"content-wrapper"}},[_c('p',[_v("Welcome to the test-deploy wiki!")])])}
 }];
   

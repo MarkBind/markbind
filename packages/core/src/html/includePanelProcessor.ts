@@ -4,7 +4,6 @@ import parse from 'url-parse';
 
 import has from 'lodash/has';
 import isEmpty from 'lodash/isEmpty';
-import { DomElement } from 'htmlparser2';
 import { createErrorNode, createSlotTemplateNode } from './elements';
 import CyclicReferenceError from '../errors/CyclicReferenceError';
 
@@ -14,6 +13,7 @@ import * as urlUtil from '../utils/urlUtil';
 import type { Context } from './Context';
 import type { PageSources } from '../Page/PageSources';
 import type VariableProcessor from '../variables/VariableProcessor';
+import { MbNode, NodeOrText } from '../utils/node';
 
 require('../patches/htmlparser2');
 
@@ -26,7 +26,7 @@ const _ = { has, isEmpty };
 /**
  * Returns a boolean representing whether the file specified exists.
  */
-function _checkAndWarnFileExists(element: DomElement, context: Context, actualFilePath: string,
+function _checkAndWarnFileExists(element: MbNode, context: Context, actualFilePath: string,
                                  pageSources: PageSources, isOptional = false) {
   if (!fsUtil.fileExists(actualFilePath)) {
     if (isOptional) {
@@ -48,11 +48,7 @@ function _checkAndWarnFileExists(element: DomElement, context: Context, actualFi
   return true;
 }
 
-function _getBoilerplateFilePath(node: DomElement, filePath: string, config: Record<string, any>) {
-  const element = node;
-
-  if (!element.attribs) return undefined;
-
+function _getBoilerplateFilePath(element: MbNode, filePath: string, config: Record<string, any>) {
   const isBoilerplate = _.has(element.attribs, 'boilerplate');
   if (isBoilerplate) {
     element.attribs.boilerplate = element.attribs.boilerplate || path.basename(filePath);
@@ -66,8 +62,7 @@ function _getBoilerplateFilePath(node: DomElement, filePath: string, config: Rec
 /**
  * Retrieves several flags and file paths from the src attribute specified in the element.
  */
-function _getSrcFlagsAndFilePaths(element: DomElement & { attribs: { src: string } },
-                                  config: Record<string, any>) {
+function _getSrcFlagsAndFilePaths(element: MbNode, config: Record<string, any>) {
   const isUrl = urlUtil.isUrl(element.attribs.src);
 
   // We do this even if the src is not a url to get the hash, if any
@@ -109,10 +104,10 @@ function _getSrcFlagsAndFilePaths(element: DomElement & { attribs: { src: string
  * Otherwise, sets the fragment attribute of the panel as parsed from the src,
  * and adds the appropriate include.
  */
-export function processPanelSrc(node: DomElement, context: Context, pageSources: PageSources,
+export function processPanelSrc(node: MbNode, context: Context, pageSources: PageSources,
                                 config: Record<string, any>): Context {
   const hasSrc = _.has(node.attribs, 'src');
-  if (!hasSrc || !node.attribs) {
+  if (!hasSrc) {
     return context;
   }
 
@@ -122,7 +117,7 @@ export function processPanelSrc(node: DomElement, context: Context, pageSources:
     filePath,
     actualFilePath,
     // We can typecast here as we have checked for src above.
-  } = _getSrcFlagsAndFilePaths(node as DomElement & { attribs: { src: string } }, config);
+  } = _getSrcFlagsAndFilePaths(node, config);
 
   const fileExists = _checkAndWarnFileExists(node, context, actualFilePath, pageSources);
   if (!fileExists) {
@@ -153,23 +148,21 @@ export function processPanelSrc(node: DomElement, context: Context, pageSources:
  * Includes
  */
 
-function _deleteIncludeAttributes(node: DomElement) {
-  const nodeAttribs = node.attribs;
-  if (!nodeAttribs) return;
+function _deleteIncludeAttributes(node: MbNode) {
   // Delete variable attributes in include tags as they are no longer needed
   // e.g. '<include var-title="..." var-xx="..." />'
-  Object.keys(nodeAttribs).forEach((attribute) => {
+  Object.keys(node.attribs).forEach((attribute) => {
     if (attribute.startsWith('var-')) {
-      delete nodeAttribs[attribute];
+      delete node.attribs[attribute];
     }
   });
 
-  delete nodeAttribs.boilerplate;
-  delete nodeAttribs.src;
-  delete nodeAttribs.inline;
-  delete nodeAttribs.trim;
-  delete nodeAttribs.optional;
-  delete nodeAttribs.omitFrontmatter;
+  delete node.attribs.boilerplate;
+  delete node.attribs.src;
+  delete node.attribs.inline;
+  delete node.attribs.trim;
+  delete node.attribs.optional;
+  delete node.attribs.omitFrontmatter;
 }
 
 /**
@@ -177,14 +170,14 @@ function _deleteIncludeAttributes(node: DomElement) {
  * Replaces it with an error node if the specified src is invalid,
  * or an empty node if the src is invalid but optional.
  */
-export function processInclude(node: DomElement, context: Context, pageSources: PageSources,
+export function processInclude(node: MbNode, context: Context, pageSources: PageSources,
                                variableProcessor: VariableProcessor, renderMd: (text: string) => string,
                                renderMdInline: (text: string) => string,
                                config: Record<string, any>): Context {
-  if (_.isEmpty(node.attribs?.src)) {
+  if (_.isEmpty(node.attribs.src)) {
     const error = new Error(`Empty src attribute in include in: ${context.cwf}`);
     logger.error(error);
-    cheerio(node).replaceWith(createErrorNode(node, error) as cheerio.Element);
+    cheerio(node).replaceWith(createErrorNode(node, error));
     return context;
   }
 
@@ -194,7 +187,7 @@ export function processInclude(node: DomElement, context: Context, pageSources: 
     filePath,
     actualFilePath,
     // We can typecast here as we have checked for src above.
-  } = _getSrcFlagsAndFilePaths(node as DomElement & { attribs: { src: string } }, config);
+  } = _getSrcFlagsAndFilePaths(node, config);
 
   // No need to process url contents
   if (isUrl) {
@@ -243,7 +236,7 @@ export function processInclude(node: DomElement, context: Context, pageSources: 
        + `Missing reference in ${context.cwf}`);
       logger.error(error);
 
-      actualContent = cheerio.html(createErrorNode(node, error) as cheerio.Element);
+      actualContent = cheerio.html(createErrorNode(node, error));
     }
   }
 
@@ -262,7 +255,7 @@ export function processInclude(node: DomElement, context: Context, pageSources: 
     if (childContext.hasExceededMaxCallstackSize()) {
       const error = new CyclicReferenceError(childContext.callStack);
       logger.error(error);
-      cheerio(node).replaceWith(createErrorNode(node, error) as cheerio.Element);
+      cheerio(node).replaceWith(createErrorNode(node, error));
       return context;
     }
   }
@@ -277,17 +270,17 @@ export function processInclude(node: DomElement, context: Context, pageSources: 
  * Replaces it with an error node if the specified src is invalid.
  * Else, appends the content to the node.
  */
-export function processPopoverSrc(node: DomElement, context: Context, pageSources: PageSources,
+export function processPopoverSrc(node: MbNode, context: Context, pageSources: PageSources,
                                   variableProcessor: VariableProcessor, renderMd: (text: string) => string,
                                   config: Record<string, any>): Context {
-  if (!node.attribs || !_.has(node.attribs, 'src')) {
+  if (!_.has(node.attribs, 'src')) {
     return context;
   }
 
   if (_.isEmpty(node.attribs.src)) {
     const error = new Error(`Empty src attribute in include in: ${context.cwf}`);
     logger.error(error);
-    cheerio(node).replaceWith(createErrorNode(node, error) as cheerio.Element);
+    cheerio(node).replaceWith(createErrorNode(node, error));
     return context;
   }
 
@@ -297,13 +290,13 @@ export function processPopoverSrc(node: DomElement, context: Context, pageSource
     filePath,
     actualFilePath,
     // We can typecast here as we have checked for src above.
-  } = _getSrcFlagsAndFilePaths(node as DomElement & { attribs: { src: string } }, config);
+  } = _getSrcFlagsAndFilePaths(node, config);
 
   // No need to process url contents
   if (isUrl) {
     const error = new Error('URLs are not allowed in the \'src\' attribute');
     logger.error(error);
-    cheerio(node).replaceWith(createErrorNode(node, error) as cheerio.Element);
+    cheerio(node).replaceWith(createErrorNode(node, error));
     return context;
   }
 
@@ -338,7 +331,7 @@ export function processPopoverSrc(node: DomElement, context: Context, pageSource
         + `Missing reference in ${context.cwf}`);
       logger.error(error);
 
-      cheerio(node).replaceWith(createErrorNode(node, error) as cheerio.Element);
+      cheerio(node).replaceWith(createErrorNode(node, error));
 
       return context;
     }
@@ -346,18 +339,18 @@ export function processPopoverSrc(node: DomElement, context: Context, pageSource
 
   actualContent = actualContent.trim();
 
-  if (node.children && node.children.length > 0) {
+  if (node.children.length > 0) {
     childContext.addCwfToCallstack(context.cwf);
 
     if (childContext.hasExceededMaxCallstackSize()) {
       const error = new CyclicReferenceError(childContext.callStack);
       logger.error(error);
-      cheerio(node).replaceWith(createErrorNode(node, error) as cheerio.Element);
+      cheerio(node).replaceWith(createErrorNode(node, error));
       return context;
     }
   }
 
-  const attributeSlotElement = createSlotTemplateNode('content', actualContent);
+  const attributeSlotElement: NodeOrText[] = createSlotTemplateNode('content', actualContent);
   node.children = node.children ? attributeSlotElement.concat(node.children) : attributeSlotElement;
 
   delete node.attribs.src;
