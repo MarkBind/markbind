@@ -3,7 +3,6 @@
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import vueCommonAppFactory from './VueCommonAppFactory';
-import initScrollTopButton from './scrollTopButton';
 import './styles/index.css';
 import './print';
 
@@ -163,7 +162,7 @@ window.handleSiteNavClick = function (elem, useAnchor = true) {
     }
   }
   const dropdownContent = elem.nextElementSibling;
-  const dropdownIcon = elem.lastElementChild;
+  const dropdownIcon = elem.lastElementChild.lastElementChild;
   dropdownContent.classList.toggle('site-nav-dropdown-container-open');
   dropdownIcon.classList.toggle('site-nav-rotate-icon');
 };
@@ -208,7 +207,5 @@ function setupWithSearch() {
    */
   vm.$mount('#app', true); // second parameter, 'true', enables force hydration
 }
-
-initScrollTopButton();
 
 export default { setup, setupWithSearch };
