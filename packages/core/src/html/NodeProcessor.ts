@@ -246,6 +246,9 @@ export class NodeProcessor {
       case 'style':
         processScriptAndStyleTag(node, this.userScriptsAndStyles);
         break;
+      case 'scroll-top-button':
+        this.mdAttributeRenderer.processScrollTopButtonAttributes(node);
+        break;
       case 'code':
         setCodeLineNumbers(node, this.config.codeLineNumbers);
         // fall through
