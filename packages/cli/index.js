@@ -99,7 +99,6 @@ program
   .option('-d, --dev', 'development mode, enabling live & hot reload for frontend source files.')
   .description('build then serve a website from a directory')
   .action((userSpecifiedRoot, options) => {
-    logger.info(options);
     if (options.dev) {
       logger.useDebugConsole();
     }
