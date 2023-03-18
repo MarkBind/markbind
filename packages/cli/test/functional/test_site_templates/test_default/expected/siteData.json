@@ -41,14 +41,8 @@
     },
     {
       "src": "index.md",
-      "title": "Landing Page",
-      "headings": {
-        "heading-1": "Heading 1",
-        "sub-heading-1-1": "Sub Heading 1.1",
-        "sub-heading-1-2": "Sub Heading 1.2",
-        "heading-2": "Heading 2",
-        "heading-3": "Heading 3"
-      },
+      "title": "Home Page",
+      "headings": {},
       "headingKeywords": {}
     }
   ]

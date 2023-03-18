@@ -1,5 +1,5 @@
 <frontmatter>
-  title: Landing Page
+  title: Home Page
   layout: default.md
   pageNav: 2
   pageNavTitle: "Chapters of This Page"
@@ -9,124 +9,45 @@
 
 <div class="bg-primary text-white py-5 mb-4">
   <div class="container">
-    <h1 class="display-4 no-index">Landing Page Title</h1>
-    <p class="lead">A tagline can go here</p>
+    <h1 class="display-4 no-index">Great!<br>You just initialized a MarkBind site.</h1>
+    <p class="lead">Let's get started...</p>
   </div>
 </div>
 
-# Heading 1
-Some text some text some text some text some text some text some text. **Some text some text some text some text some text ==some text== some text**. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
+<hr>
 
-**A block quote:**
+<h5><strong>User Guide: Authoring Contents</strong></h5>
 
-> Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
+<blockquote>
 
-**A list:**
+Learn about the variety of syntax schemes, formats, and custom MarkBind components that you can use in your MarkBind site.
 
-* item A
-* item B
-  1. item b1
-  1. item b2
-  1. item b3
+</blockquote>
 
-**A `code` example:**
+<span class="indented">More info in: _<a href="https://markbind.org/userGuide/authoringContents.html" target="_blank">User Guide → Authoring Contents</a>_</span>
 
-```html
-<foo>
-  <bar type="name">goo</bar>
-</foo>
-```
+<hr>
 
-## Sub Heading 1.1
+<h5><strong>User Guide: Working with Sites</strong></h5>
 
-A <tooltip content=":exclamation: some **important explanation**" placement="top" trigger="hover">tooltip</tooltip>, a <trigger for="modal:modalinfo" trigger="click">modal</trigger>, a <a href="https://markbind.org/">link</a>, a <span class="badge bg-danger">badge</span>, another <span class="badge bg-warning text-dark">badge</span>.
+<blockquote>
 
-<modal header="Modal Title" id="modal:modalinfo">
-Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
-</modal>
+Learn how to modify site properties, apply themes, and enable / disable plugins for your MarkBind site.
 
-**A table:**
+</blockquote>
 
-Column 1 | Column 2 | Column 3 | :far-thumbs-up: / :far-thumbs-down:?
-:------: | :------: | :------: | ----
-value1   | x        | 5        | :far-thumbs-up:
-value2   | y        | 20       | :far-thumbs-down:
+<span class="indented">More info in: _<a href="https://markbind.org/userGuide/authoringContents.html" target="_blank">User Guide → Working with Sites</a>_</span>
 
+<hr>
 
-## Sub Heading 1.2
+<h5><strong>User Guide: Full Syntax Reference</strong></h5>
 
-**Media embeds:**
+<blockquote>
 
-@[youtube](http://www.youtube.com/watch?v=v40b3ExbM0c)
+Refer to our Full Syntax Reference page to find a specific feature or component that you want to use in your MarkBind site.
 
-**Tabs:**
+</blockquote>
 
-<tabs>
-  <tab header="Tab X">
-    Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
-  </tab>
-  <tab header="Tab Y">
-    ...
-  </tab>
-  <tab-group header="Tab group">
-    <tab header="Tab Y.1">
-      ...
-    </tab>
-    <tab header="Tab Y.2">
-      ...
-    </tab>
-  </tab-group>
-</tabs>
+<span class="indented">More info in: _<a href="https://markbind.org/userGuide/fullSyntaxReference.html" target="_blank">User Guide → Full Syntax Reference</a>_</span>
 
-<br>
-
-# Heading 2
-
-**Some boxes:**
-
-<box>
-    default
-</box>
-<box type="info">
-    info
-</box>
-<box type="warning" dismissible>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-</box>
-<box type="tip" header="Box heading">
-    tip
-</box>
-<box type="success" header="Box heading">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-</box>
-<box type="important" dismissible header="Box heading">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-</box>
-
-<br>
-
-# Heading 3
-
-<panel header="Expandable panel" type="info">
-  Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
-</panel>
-<br>
-<panel header="Expanded panel on load" type="info" expanded>
-  ...
-</panel>
-<br>
-<panel header="Expanded panel header" alt="Minimized panel header" type="success" minimized>
-  ...
-</panel>
-<br>
-<panel header="Expanded panel header" alt="Minimized panel header" type="seamless">
-  ...
-</panel>
-<br>
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-<panel header="___Minimal panel **->**___" type="minimal" alt="Minimal panel" popup-url="https://markbind.org/userGuide/components/presentation.html#panels" no-switch>
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-</panel>
-
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<hr>
