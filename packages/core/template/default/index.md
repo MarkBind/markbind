@@ -111,11 +111,15 @@ value2   | y        | 20       | :far-thumbs-down:
   Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
 </panel>
 <br>
-<panel header="Expanded panel" alt="Minimized panel" type="success" minimized>
+<panel header="Expanded panel on load" type="info" expanded>
   ...
 </panel>
 <br>
-<panel header="Expanded panel" alt="Minimized panel" type="seamless">
+<panel header="Expanded panel header" alt="Minimized panel header" type="success" minimized>
+  ...
+</panel>
+<br>
+<panel header="Expanded panel header" alt="Minimized panel header" type="seamless">
   ...
 </panel>
 <br>
