@@ -74,7 +74,7 @@ We have decided on structuring the commits as two commits: a "Rename" commit and
 
 2. **Change the CommonJS module import/export syntax** to TypeScript's equivalent syntax (use ES6 syntax only if possible).
 
-   A common error in newly renamed files comes from the way modules are imported/exported. Those statements can be converted according to the [Import/Export Syntax Reference](#importexport-syntax-reference) section below. The steps are as follows:
+   A common error in newly renamed files comes from the way modules are imported/exported. Those statements can be converted according to the [Import/Export Syntax Reference](#import-export-syntax-reference) section below. The steps are as follows:
 
    1. Start by changing the import/export statements into TypeScript equivalent syntax. Be careful with imports as you have to match them with the export syntax that the modules use, be it TypeScript equivalent or ES6.
 
