@@ -1,31 +1,44 @@
-const cheerio = require('cheerio');
-const path = require('path');
-const childProcess = require('child_process');
-const fs = require('fs');
+import path from 'path';
+import childProcess, { ChildProcess } from 'child_process';
+import { jest } from '@jest/globals';
+import fs from 'fs';
+
+import plantumlPlugin from '../../../../src/plugins/default/markbind-plugin-plantuml';
+import { MbNode, parseHTML } from '../../../../src/utils/node';
+import { NodeProcessorConfig } from '../../../../src/html/NodeProcessor';
 
 const mockReadFileSync = jest.spyOn(fs, 'readFileSync');
-const mockExec = jest.spyOn(childProcess, 'exec').mockImplementation(() => ({
-  stdin: { write: jest.fn() },
-  on: jest.fn(),
-  stderr: { on: jest.fn() },
-}),
-);
-
-const plantumlPlugin = require('../../../../src/plugins/default/markbind-plugin-plantuml');
+const mockExec = jest.spyOn(childProcess, 'exec').mockImplementation(() => {
+  const childProc = {
+    stdin: { write: jest.fn() },
+    on: jest.fn(),
+    stderr: { on: jest.fn() },
+  } as unknown as ChildProcess;
+  return childProc;
+});
 
 const mockFolderPath = path.join(__dirname, '_plantuml');
-const mockConfig = {
+const mockConfig: NodeProcessorConfig = {
   outputPath: mockFolderPath,
   baseUrl: '',
   rootPath: mockFolderPath,
+  baseUrlMap: new Set<string>(),
+  ignore: [],
+  addressablePagesSource: [],
+  intrasiteLinkValidation: {
+    enabled: false,
+  },
+  codeLineNumbers: false,
+  plantumlCheck: false,
+  headerIdMap: {},
 };
 
 test('processNode should modify inline puml node correctly', () => {
   const expectedPicSrc = '/a31b4068deea63d65d1259b4d54bcc79.png';
-  const [pumlNode] = cheerio.parseHTML('<puml width=300>\n@startuml\n'
+  const [pumlNode] = parseHTML('<puml width=300>\n@startuml\n'
     + 'alice -> bob ++ : hello\n'
     + 'bob -> bob ++ : self call\n'
-    + '@enduml\n</puml>', true);
+    + '@enduml\n</puml>') as MbNode[];
   plantumlPlugin.processNode({}, pumlNode, mockConfig);
   expect(mockExec).toHaveBeenCalled();
   expect(pumlNode.type).toEqual('tag');
@@ -37,10 +50,10 @@ test('processNode should modify inline puml node correctly', () => {
 
 test('processNode should modify inline puml node (with name) correctly', () => {
   const expectedPicSrc = '/alice.png';
-  const [pumlNode] = cheerio.parseHTML('<puml name="alice">\n@startuml\n'
+  const [pumlNode] = parseHTML('<puml name="alice">\n@startuml\n'
     + 'alice -> bob ++ : hello\n'
     + 'bob -> bob ++ : self call\n'
-    + '@enduml\n</puml>', true);
+    + '@enduml\n</puml>') as MbNode[];
   plantumlPlugin.processNode({}, pumlNode, mockConfig);
   expect(mockExec).toHaveBeenCalled();
   expect(pumlNode.type).toEqual('tag');
@@ -51,7 +64,7 @@ test('processNode should modify inline puml node (with name) correctly', () => {
 
 test('processNode should modify puml node (with src) correctly', () => {
   const expectedPicSrc = 'activity.png';
-  const [pumlNode] = cheerio.parseHTML('<puml src="activity.puml" />', true);
+  const [pumlNode] = parseHTML('<puml src="activity.puml" />') as MbNode[];
   plantumlPlugin.processNode({}, pumlNode, mockConfig);
   expect(mockReadFileSync).toHaveBeenCalled();
   expect(pumlNode.type).toEqual('tag');
@@ -61,9 +74,9 @@ test('processNode should modify puml node (with src) correctly', () => {
 );
 
 test('processNode should not modify non-puml node', () => {
-  const divNode = cheerio.parseHTML('<div>HTML</div>', true)[0];
+  const divNode = parseHTML('<div>HTML</div>')[0] as MbNode;
   const copy = { ...divNode };
-  plantumlPlugin.processNode({}, divNode);
+  plantumlPlugin.processNode({}, divNode, mockConfig);
   expect(divNode).toEqual(copy);
 },
 );
