@@ -16,7 +16,7 @@
 
 <hr>
 
-<h5><strong>User Guide: Authoring Contents</strong></h5>
+##### **User Guide: Authoring Contents**
 
 <blockquote>
 
@@ -28,7 +28,7 @@ Learn about the variety of syntax schemes, formats, and custom MarkBind componen
 
 <hr>
 
-<h5><strong>User Guide: Working with Sites</strong></h5>
+##### **User Guide: Working with Sites**
 
 <blockquote>
 
@@ -40,7 +40,7 @@ Learn how to modify site properties, apply themes, and enable / disable plugins 
 
 <hr>
 
-<h5><strong>User Guide: Full Syntax Reference</strong></h5>
+##### **User Guide: Full Syntax Reference**
 
 <blockquote>
 
