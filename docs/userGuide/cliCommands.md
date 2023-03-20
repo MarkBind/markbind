@@ -194,10 +194,10 @@ The caveat is that not building all pages during the initial process, or not reb
   {{ icon_example }} `-c PA_TOKEN`
 
 * `-n`, `--no-build`<br>
-  Skips the generation of the site before deploying it. By default, the `deploy` command generates the site before deploying the built site. This command should be used if the site has been generated with specific arguments (e.g. baseUrl is specified during the `markbind build` command).
+  Skips the generation of the site before deploying it. By default, the `deploy` command generates the site before deploying the built site. This command should be used if the site needs to be generated with non-default arguments for the `build` command (e.g. baseUrl is specified using the `--baseUrl` flag for the `markbind build` command).
 
 * `-s <file>`, `--site-config <file>`<br>
-  Specify the site config file (default: `site.json`)<br>
+  Specify the site config file (default: `site.json`).<br>
   {{ icon_example }} `-s otherSite.json`
 
 %%{{ icon_info }} Related: [User Guide: Deploying the Website](deployingTheSite.html).%%
@@ -206,7 +206,6 @@ The caveat is that not building all pages during the initial process, or not reb
 * `markbind deploy`
 * `markbind deploy ./myWebsite` : Generates and deploys the site from the `myWebsite` directory.
 * `markbind deploy --no-build` : Deploys the site without generating it first.
-directory.
 
 </panel>
 

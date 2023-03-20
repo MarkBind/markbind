@@ -68,20 +68,11 @@ You can override the default deployment settings %%(e.g., repo/branch to deploy)
 
 <box type="info">
 
-`markbind deploy` generates the static site from your source by default; hence, it is not necessary to run `markbind build` first to generate the site before deploying.
-
-</box>
-
-<div id="warning-about-build-and-deploy">
-
-<box type="warning">
-
-If you have generated the site with specific arguments, e.g. `markbind build --baseUrl staging`, or wish to deploy without generating the static site first for any reason, you should deploy without the automatic generation, i.e. by using `markbind deploy --no-build`. This will allow the deployment of the site to happen from the previously generated site without accidentally re-generating it from the wrong directory.
+`markbind deploy` generates the static site from your source by default; hence, it is not necessary to run `markbind build` first to generate the site before deploying. To skip the site generation, you can use the `--no-build` option for `markbind deploy`.
 
 More information can be found in the [CLI Commands](cliCommands.html) section.
 
 </box>
-</div>
 
 ### Using CI Platforms
 **You can setup CI Platforms to automatically build and deploy your site on GitHub Pages every time your GitHub repo is updated.**
