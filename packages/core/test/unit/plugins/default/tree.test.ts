@@ -1,5 +1,5 @@
-const cheerio = require('cheerio');
-const treePlugin = require('../../../../src/plugins/default/markbind-plugin-tree');
+import treePlugin from '../../../../src/plugins/default/markbind-plugin-tree';
+import { MbNode, parseHTML } from '../../../../src/utils/node';
 
 /*
 The plugin converts the following tree syntax:
@@ -38,8 +38,8 @@ test('processNode should work with multiple trees', () => {
     + '└── textbook/\n'
     + '    └── index.md\n'
     + '</div>';
-  const [expectedTreeNode] = cheerio.parseHTML(expected, true);
-  const [treeNode] = cheerio.parseHTML(raw, true);
+  const [expectedTreeNode] = parseHTML(expected) as MbNode[];
+  const [treeNode] = parseHTML(raw) as MbNode[];
   treePlugin.processNode({}, treeNode);
   expect(treeNode.name).toEqual('div');
   expect(treeNode.attribs.class).toEqual('tree');
