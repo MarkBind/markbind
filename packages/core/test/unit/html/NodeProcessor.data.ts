@@ -4,13 +4,13 @@
  * Panel
  */
 
-module.exports.PROCESS_PANEL_ATTRIBUTES = `
+export const PROCESS_PANEL_ATTRIBUTES = `
 <panel header="# Lorem ipsum" alt="_emphasized alt_">
   Header and alt attributes should be processed and inserted under panel as slots and internal slots respectively and deleted.
 </panel>
 `;
 
-module.exports.PROCESS_PANEL_ATTRIBUTES_EXPECTED = `
+export const PROCESS_PANEL_ATTRIBUTES_EXPECTED = `
 <panel><template #header><h1>Lorem ipsum</h1>
 </template><template #_alt><p><em>emphasized alt</em></p>
 </template>
@@ -18,7 +18,7 @@ module.exports.PROCESS_PANEL_ATTRIBUTES_EXPECTED = `
 </panel>
 `;
 
-module.exports.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY = `
+export const PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY = `
 <panel header="# Lorem ipsum">
   <div slot="header">
     This existing header slot should be preserved in favour over header attribute, with a logger warning for repeated attributes.
@@ -27,7 +27,7 @@ module.exports.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY = `
 </panel>
 `;
 
-module.exports.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
+export const PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
 <panel>
   <template #header><div>
     This existing header slot should be preserved in favour over header attribute, with a logger warning for repeated attributes.
@@ -36,7 +36,7 @@ module.exports.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
 </panel>
 `;
 
-module.exports.PROCESS_PANEL_HEADER_NO_OVERRIDE = `
+export const PROCESS_PANEL_HEADER_NO_OVERRIDE = `
 <panel header="# Lorem ipsum" alt="**strong alt**">
   <div slot="header">
     This existing header slot should be preserved in favour over header attribute.
@@ -47,7 +47,7 @@ module.exports.PROCESS_PANEL_HEADER_NO_OVERRIDE = `
 </panel>
 `;
 
-module.exports.PROCESS_PANEL_HEADER_NO_OVERRIDE_EXPECTED = `
+export const PROCESS_PANEL_HEADER_NO_OVERRIDE_EXPECTED = `
 <panel><template #_alt><p><strong>strong alt</strong></p>
 </template>
   <template #header><div>
@@ -61,13 +61,13 @@ module.exports.PROCESS_PANEL_HEADER_NO_OVERRIDE_EXPECTED = `
 
 // Post Process
 
-module.exports.POST_PROCESS_PANEL_ID_ASSIGNED_USING_HEADER_SLOT = `
+export const POST_PROCESS_PANEL_ID_ASSIGNED_USING_HEADER_SLOT = `
 <panel><template slot="header"><h1 id="slot-header">Slot Header</h1></template>
   Header and alt attributes should be processed and inserted under panel as slots and internal slots respectively and deleted.
 </panel>
 `;
 
-module.exports.POST_PROCESS_PANEL_ID_ASSIGNED_USING_HEADER_SLOT_EXPECTED = `
+export const POST_PROCESS_PANEL_ID_ASSIGNED_USING_HEADER_SLOT_EXPECTED = `
 <panel panelId="slot-header"><template #header><h1 id="slot-header">Slot Header</h1></template>
   Header and alt attributes should be processed and inserted under panel as slots and internal slots respectively and deleted.
 </panel>
@@ -77,12 +77,12 @@ module.exports.POST_PROCESS_PANEL_ID_ASSIGNED_USING_HEADER_SLOT_EXPECTED = `
  * Questions, QOption and Quizzes
  */
 
-module.exports.PROCESS_QUESTION_ATTRIBUTES = `
+export const PROCESS_QUESTION_ATTRIBUTES = `
 <question header="**header**" hint="**hint**" answer="**answer**">
 </question>
 `;
 
-module.exports.PROCESS_QUESTION_ATTRIBUTES_EXPECTED = `
+export const PROCESS_QUESTION_ATTRIBUTES_EXPECTED = `
 <question><template #answer><p><strong>answer</strong></p>
 </template><template #hint><p><strong>hint</strong></p>
 </template><template #header><p><strong>header</strong></p>
@@ -90,7 +90,7 @@ module.exports.PROCESS_QUESTION_ATTRIBUTES_EXPECTED = `
 </question>
 `;
 
-module.exports.PROCESS_QUESTION_ATTRIBUTES_NO_OVERRIDE = `
+export const PROCESS_QUESTION_ATTRIBUTES_NO_OVERRIDE = `
 <question header="**header**" hint="**hint**" answer="**answer**">
 <template slot="header"></template>
 <template slot="hint"></template>
@@ -98,7 +98,7 @@ module.exports.PROCESS_QUESTION_ATTRIBUTES_NO_OVERRIDE = `
 </question>
 `;
 
-module.exports.PROCESS_QUESTION_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
+export const PROCESS_QUESTION_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
 <question>
 <template #header></template>
 <template #hint></template>
@@ -106,47 +106,47 @@ module.exports.PROCESS_QUESTION_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
 </question>
 `;
 
-module.exports.PROCESS_QOPTION_ATTRIBUTES = `
+export const PROCESS_QOPTION_ATTRIBUTES = `
 <q-option reason="**lorem ipsum**">
 </q-option>
 `;
 
-module.exports.PROCESS_QOPTION_ATTRIBUTES_EXPECTED = `
+export const PROCESS_QOPTION_ATTRIBUTES_EXPECTED = `
 <q-option><template #reason><p><strong>lorem ipsum</strong></p>
 </template>
 </q-option>
 `;
 
-module.exports.PROCESS_QOPTION_ATTRIBUTES_NO_OVERRIDE = `
+export const PROCESS_QOPTION_ATTRIBUTES_NO_OVERRIDE = `
 <q-option reason="**lorem ipsum**">
 <template slot="reason"></template>
 </q-option>
 `;
 
-module.exports.PROCESS_QOPTION_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
+export const PROCESS_QOPTION_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
 <q-option>
 <template #reason></template>
 </q-option>
 `;
 
-module.exports.PROCESS_QUIZ_ATTRIBUTES = `
+export const PROCESS_QUIZ_ATTRIBUTES = `
 <quiz intro="**lorem ipsum**">
 </quiz>
 `;
 
-module.exports.PROCESS_QUIZ_ATTRIBUTES_EXPECTED = `
+export const PROCESS_QUIZ_ATTRIBUTES_EXPECTED = `
 <quiz><template #intro><p><strong>lorem ipsum</strong></p>
 </template>
 </quiz>
 `;
 
-module.exports.PROCESS_QUIZ_ATTRIBUTES_NO_OVERRIDE = `
+export const PROCESS_QUIZ_ATTRIBUTES_NO_OVERRIDE = `
 <quiz intro="**lorem ipsum**">
 <template slot="intro"></template>
 </quiz>
 `;
 
-module.exports.PROCESS_QUIZ_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
+export const PROCESS_QUIZ_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
 <quiz>
 <template #intro></template>
 </quiz>
@@ -156,20 +156,20 @@ module.exports.PROCESS_QUIZ_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
  * Popovers
  */
 
-module.exports.PROCESS_POPOVER_ATTRIBUTES = `
+export const PROCESS_POPOVER_ATTRIBUTES = `
 <popover content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit." 
          header="**Lorem ipsum**">
   Content and header attributes should be processed and inserted under panel as slots and deleted.
 </popover>
 `;
 
-module.exports.PROCESS_POPOVER_ATTRIBUTES_EXPECTED = `
+export const PROCESS_POPOVER_ATTRIBUTES_EXPECTED = `
 <popover><template #content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.</template><template #header><strong>Lorem ipsum</strong></template>
   Content and header attributes should be processed and inserted under panel as slots and deleted.
 </popover>
 `;
 
-module.exports.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE = `
+export const PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE = `
 <popover content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit." 
          header="_Lorem ipsum_">
   <div slot="header">Some header slot content that should not be overwritten</div>
@@ -178,7 +178,7 @@ module.exports.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE = `
 </popover>
 `;
 
-module.exports.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
+export const PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
 <popover>
   <template #header><div>Some header slot content that should not be overwritten</div></template>
   <template #content><div>Some content slot that should not be overwritten</div></template>
@@ -190,13 +190,13 @@ module.exports.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
  * Tooltips
  */
 
-module.exports.PROCESS_TOOLTIP_CONTENT = `
+export const PROCESS_TOOLTIP_CONTENT = `
 <tooltip content="Lorem ipsum dolor sit amet">
   <button>Content attribute should be inserted as _content internal slot</button>
 </tooltip>
 `;
 
-module.exports.PROCESS_TOOLTIP_CONTENT_EXPECTED = `
+export const PROCESS_TOOLTIP_CONTENT_EXPECTED = `
 <tooltip><template #content>Lorem ipsum dolor sit amet</template>
   <button>Content attribute should be inserted as _content internal slot</button>
 </tooltip>
@@ -206,25 +206,25 @@ module.exports.PROCESS_TOOLTIP_CONTENT_EXPECTED = `
  * Modals
  */
 
-module.exports.PROCESS_MODAL_HEADER = `
+export const PROCESS_MODAL_HEADER = `
 <modal header="_Lorem ipsum dolor sit amet_">
   Header attribute should be inserted as header slot.
 </modal>
 `;
 
-module.exports.PROCESS_MODAL_HEADER_EXPECTED = `
+export const PROCESS_MODAL_HEADER_EXPECTED = `
 <modal><template #header><em>Lorem ipsum dolor sit amet</em></template>
   Header attribute should be inserted as header slot.
 </modal>
 `;
 
-module.exports.PROCESS_MODAL_OK_TEXT = `
+export const PROCESS_MODAL_OK_TEXT = `
 <modal ok-text="Custom OK" header="**Header header**">
   ok-only attr should be set, hide-footer should not be set.
 </modal>
 `;
 
-module.exports.PROCESS_MODAL_OK_TEXT_EXPECTED = `
+export const PROCESS_MODAL_OK_TEXT_EXPECTED = `
 <modal ok-text="Custom OK"><template #header><strong>Header header</strong></template>
   ok-only attr should be set, hide-footer should not be set.
 </modal>
@@ -241,25 +241,25 @@ module.exports.PROCESS_MODAL_SLOTS_RENAMING_EXPECTED = `
  * Tab, tab-group
  */
 
-module.exports.PROCESS_TAB_HEADER = `
+export const PROCESS_TAB_HEADER = `
 <tab header="**Lorem ipsum dolor sit amet**">
   Header attribute should be inserted as header slot and deleted.
 </tab>
 `;
 
-module.exports.PROCESS_TAB_HEADER_EXPECTED = `
+export const PROCESS_TAB_HEADER_EXPECTED = `
 <tab><template #header><strong>Lorem ipsum dolor sit amet</strong></template>
   Header attribute should be inserted as header slot and deleted.
 </tab>
 `;
 
-module.exports.PROCESS_TAB_GROUP_HEADER = `
+export const PROCESS_TAB_GROUP_HEADER = `
 <tab-group header="**Lorem ipsum dolor sit amet**">
   Header attribute should be inserted as header slot and deleted.
 </tab-group>
 `;
 
-module.exports.PROCESS_TAB_GROUP_HEADER_EXPECTED = `
+export const PROCESS_TAB_GROUP_HEADER_EXPECTED = `
 <tab-group><template #header><strong>Lorem ipsum dolor sit amet</strong></template>
   Header attribute should be inserted as header slot and deleted.
 </tab-group>
@@ -269,25 +269,25 @@ module.exports.PROCESS_TAB_GROUP_HEADER_EXPECTED = `
  * Boxes
  */
 
-module.exports.PROCESS_BOX_ICON = `
+export const PROCESS_BOX_ICON = `
 <box icon=":rocket:">
   Icon attribute should be inserted as icon slot and deleted.
 </box>
 `;
 
-module.exports.PROCESS_BOX_ICON_EXPECTED = `
+export const PROCESS_BOX_ICON_EXPECTED = `
 <box><template #icon>🚀</template>
   Icon attribute should be inserted as icon slot and deleted.
 </box>
 `;
 
-module.exports.PROCESS_BOX_HEADER = `
+export const PROCESS_BOX_HEADER = `
 <box header="#### Lorem ipsum dolor sit amet :rocket:">
   Header attribute should be inserted as header slot and deleted.
 </box>
 `;
 
-module.exports.PROCESS_BOX_HEADER_EXPECTED = `
+export const PROCESS_BOX_HEADER_EXPECTED = `
 <box><template #header><h4>Lorem ipsum dolor sit amet 🚀</h4>
 </template>
   Header attribute should be inserted as header slot and deleted.
@@ -298,26 +298,26 @@ module.exports.PROCESS_BOX_HEADER_EXPECTED = `
  * Dropdowns
  */
 
-module.exports.PROCESS_DROPDOWN_HEADER = `
+export const PROCESS_DROPDOWN_HEADER = `
 <dropdown header="**Lorem ipsum dolor sit amet**">
   Header attribute should be inserted as header slot and deleted.
 </dropdown>
 `;
 
-module.exports.PROCESS_DROPDOWN_HEADER_EXPECTED = `
+export const PROCESS_DROPDOWN_HEADER_EXPECTED = `
 <dropdown><template #header><strong>Lorem ipsum dolor sit amet</strong></template>
   Header attribute should be inserted as header slot and deleted.
 </dropdown>
 `;
 
-module.exports.PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY = `
+export const PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY = `
 <dropdown header="**Lorem ipsum dolor sit amet**">
   <strong slot="header">slot text</strong>
   Header attribute should be ignored and deleted while header slot is reserved.
 </dropdown>
 `;
 
-module.exports.PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
+export const PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
 <dropdown>
   <template #header><strong>slot text</strong></template>
   Header attribute should be ignored and deleted while header slot is reserved.

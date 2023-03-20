@@ -25,14 +25,14 @@ exports[`Quizzes intro screen with intro text renders correctly 1`] = `
         type="button"
       >
         
-        Start
-      
+          Start
+        
       </button>
     </div>
   </div>
    
   <div
-    class="progress"
+    class="progress intro-outro-card"
     style="height: 1px; display: none;"
   >
     <div
@@ -44,11 +44,7 @@ exports[`Quizzes intro screen with intro text renders correctly 1`] = `
     />
   </div>
     
-  <transition-stub
-    name="intro-outro-card"
-  >
-    <!---->
-  </transition-stub>
+  <!---->
 </div>
 `;
 
@@ -59,7 +55,7 @@ exports[`Quizzes with 2 questions retry goes back to first 1`] = `
   <!---->
    
   <div
-    class="progress"
+    class="progress intro-outro-card"
     style="height: 1px;"
   >
     <div
@@ -72,210 +68,188 @@ exports[`Quizzes with 2 questions retry goes back to first 1`] = `
     />
   </div>
    
-  <transition-stub
-    name="question"
+  <div
+    class="card question"
   >
+    <!---->
+     
     <div
-      class="card question"
+      class="card-body"
     >
-      <!---->
-       
-      <div
-        class="card-body"
-      >
-        
+      
   ... Mcq question ...
   
+      <div
+        class="form-control"
+      >
         <div
-          class="form-control"
+          class="row"
         >
           <div
-            class="row"
+            class="col-auto p-0"
           >
-            <div
-              class="col-auto p-0"
+            <svg
+              class="radio-svg"
+              viewBox="0 0 100 100"
             >
-              <svg
-                class="radio-svg"
-                viewBox="0 0 100 100"
-              >
-                <circle
-                  cx="50"
-                  cy="50"
-                  fill="none"
-                  r="47"
-                  stroke="black"
-                  stroke-width="4"
-                />
-                 
-                <circle
-                  cx="50"
-                  cy="50"
-                  fill="dodgerblue"
-                  r="25"
-                  style="display: none;"
-                />
-              </svg>
-            </div>
-             
-            <div
-              class="col content"
-            >
-              opt 1 correct
-            </div>
-             
-            <div
-              class="col-1"
-            >
-              <!---->
-            </div>
+              <circle
+                cx="50"
+                cy="50"
+                fill="none"
+                r="47"
+                stroke="black"
+                stroke-width="4"
+              />
+               
+              <circle
+                cx="50"
+                cy="50"
+                fill="dodgerblue"
+                r="25"
+                style="display: none;"
+              />
+            </svg>
           </div>
            
-          <!---->
-        </div>
-         
-        <div
-          class="form-control"
-        >
           <div
-            class="row"
+            class="col content"
           >
-            <div
-              class="col-auto p-0"
-            >
-              <svg
-                class="radio-svg"
-                viewBox="0 0 100 100"
-              >
-                <circle
-                  cx="50"
-                  cy="50"
-                  fill="none"
-                  r="47"
-                  stroke="black"
-                  stroke-width="4"
-                />
-                 
-                <circle
-                  cx="50"
-                  cy="50"
-                  fill="dodgerblue"
-                  r="25"
-                  style="display: none;"
-                />
-              </svg>
-            </div>
-             
-            <div
-              class="col content"
-            >
-              opt 2
-            </div>
-             
-            <div
-              class="col-1"
-            >
-              <!---->
-            </div>
+            opt 1 correct
           </div>
            
-          <!---->
-        </div>
-         
-        <div
-          class="form-control"
-        >
           <div
-            class="row"
+            class="col-1"
           >
-            <div
-              class="col-auto p-0"
-            >
-              <svg
-                class="radio-svg"
-                viewBox="0 0 100 100"
-              >
-                <circle
-                  cx="50"
-                  cy="50"
-                  fill="none"
-                  r="47"
-                  stroke="black"
-                  stroke-width="4"
-                />
-                 
-                <circle
-                  cx="50"
-                  cy="50"
-                  fill="dodgerblue"
-                  r="25"
-                  style="display: none;"
-                />
-              </svg>
-            </div>
-             
-            <div
-              class="col content"
-            >
-              opt 3
-            </div>
-             
-            <div
-              class="col-1"
-            >
-              <!---->
-            </div>
+            <!---->
           </div>
-           
-          <!---->
         </div>
-         
-        <!---->
-         
-        <!---->
          
         <!---->
       </div>
        
       <div
-        class="card-footer alert-light border-top border-light text-dark"
+        class="form-control"
       >
-        <transition-group-stub
-          class="float-end"
-          name="q-btn"
-          tag="div"
+        <div
+          class="row"
         >
-          <!---->
-           
-          <button
-            class="btn btn-primary q-btn ms-1"
-            type="button"
+          <div
+            class="col-auto p-0"
           >
-            
+            <svg
+              class="radio-svg"
+              viewBox="0 0 100 100"
+            >
+              <circle
+                cx="50"
+                cy="50"
+                fill="none"
+                r="47"
+                stroke="black"
+                stroke-width="4"
+              />
+               
+              <circle
+                cx="50"
+                cy="50"
+                fill="dodgerblue"
+                r="25"
+                style="display: none;"
+              />
+            </svg>
+          </div>
+           
+          <div
+            class="col content"
+          >
+            opt 2
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <!---->
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+       
+      <div
+        class="form-control"
+      >
+        <div
+          class="row"
+        >
+          <div
+            class="col-auto p-0"
+          >
+            <svg
+              class="radio-svg"
+              viewBox="0 0 100 100"
+            >
+              <circle
+                cx="50"
+                cy="50"
+                fill="none"
+                r="47"
+                stroke="black"
+                stroke-width="4"
+              />
+               
+              <circle
+                cx="50"
+                cy="50"
+                fill="dodgerblue"
+                r="25"
+                style="display: none;"
+              />
+            </svg>
+          </div>
+           
+          <div
+            class="col content"
+          >
+            opt 3
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <!---->
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+       
+      <!---->
+       
+      <!---->
+       
+      <!---->
+    </div>
+     
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <div
+        class="float-end"
+      >
+        <button
+          class="btn btn-primary q-btn ms-1"
+          type="button"
+        >
+          
           Check
         
-          </button>
-           
-          <!---->
-           
-          <!---->
-           
-          <!---->
-        </transition-group-stub>
+        </button>
       </div>
     </div>
-  </transition-stub>
-  <transition-stub
-    name="question"
-  >
-    <!---->
-  </transition-stub>
+  </div>
+  <!---->
    
-  <transition-stub
-    name="intro-outro-card"
-  >
-    <!---->
-  </transition-stub>
+  <!---->
 </div>
 `;
 
@@ -286,7 +260,7 @@ exports[`Quizzes with all questions marks 3/4 correct shows ending screen 1`] = 
   <!---->
    
   <div
-    class="progress"
+    class="progress intro-outro-card"
     style="height: 1px; display: none;"
   >
     <div
@@ -299,88 +273,69 @@ exports[`Quizzes with all questions marks 3/4 correct shows ending screen 1`] = 
     />
   </div>
    
-  <transition-stub
-    name="question"
-  >
-    <!---->
-  </transition-stub>
-  <transition-stub
-    name="question"
-  >
-    <!---->
-  </transition-stub>
-  <transition-stub
-    name="question"
-  >
-    <!---->
-  </transition-stub>
-  <transition-stub
-    name="question"
-  >
-    <!---->
-  </transition-stub>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
    
-  <transition-stub
-    name="intro-outro-card"
+  <div
+    class="card intro-outro-card"
   >
     <div
-      class="card intro-outro-card"
+      class="card-body"
     >
-      <div
-        class="card-body"
+      <h4
+        class="mb-3"
       >
-        <h4
-          class="mb-3"
-        >
-          
+        
           Well done!
         
-        </h4>
+      </h4>
+       
+      <svg
+        height="120px"
+        viewBox="0 0 100 100"
+        width="120px"
+      >
+        <circle
+          class="score-background-circle"
+          cx="50"
+          cy="50"
+          r="42"
+        />
          
-        <svg
-          height="120px"
-          viewBox="0 0 100 100"
-          width="120px"
+        <circle
+          class="score-circle"
+          cx="50"
+          cy="50"
+          r="42"
+          stroke-dashoffset="264"
+          style="stroke-dashoffset: 66; stroke: #51c2f8;"
+          transform="rotate(-90, 50, 50)"
+        />
+         
+        <text
+          class="score"
+          textLength="56"
+          x="22"
+          y="57"
         >
-          <circle
-            class="score-background-circle"
-            cx="50"
-            cy="50"
-            r="42"
-          />
-           
-          <circle
-            class="score-circle"
-            cx="50"
-            cy="50"
-            r="42"
-            stroke-dashoffset="264"
-            transform="rotate(-90, 50, 50)"
-          />
-           
-          <text
-            class="score"
-            textLength="56"
-            x="22"
-            y="57"
-          >
-            3 / 4
-          </text>
-        </svg>
-         
-        <hr />
-         
-        <button
-          class="btn btn-outline-primary"
-          type="button"
-        >
-          
+          3 / 4
+        </text>
+      </svg>
+       
+      <hr />
+       
+      <button
+        class="btn btn-outline-primary"
+        type="button"
+      >
+        
           Retry
         
-        </button>
-      </div>
+      </button>
     </div>
-  </transition-stub>
+  </div>
 </div>
 `;
 
@@ -391,7 +346,7 @@ exports[`Quizzes with blanks question marked incorrect shows next button after a
   <!---->
    
   <div
-    class="progress"
+    class="progress intro-outro-card"
     style="height: 1px;"
   >
     <div
@@ -404,175 +359,157 @@ exports[`Quizzes with blanks question marked incorrect shows next button after a
     />
   </div>
    
-  <transition-stub
-    name="question"
-  >
-    <div
-      class="card question"
-    >
-      <!---->
-       
-      <div
-        class="card-body"
-      >
-        
-  ... Blanks question ...
-  
-        <div
-          class="form-control blanks-form-control danger"
-        >
-          <label
-            class="row m-0 disabled"
-          >
-            <input
-              class="form-control"
-              disabled="disabled"
-            />
-             
-            <div
-              class="col-auto"
-            >
-              <div>
-                <i
-                  class="fa fa-check text-success"
-                />
-              </div>
-               
-              <!---->
-            </div>
-             
-            <div
-              class="col-auto blanks-keywords"
-            >
-              <strong>
-                No answer checking keywords provided
-              </strong>
-            </div>
-          </label>
-           
-          <!---->
-        </div>
-         
-        <div
-          class="form-control blanks-form-control danger"
-        >
-          <label
-            class="row m-0 disabled"
-          >
-            <input
-              class="form-control"
-              disabled="disabled"
-            />
-             
-            <div
-              class="col-auto"
-            >
-              <div>
-                <i
-                  class="fa fa-times text-danger blanks-cross"
-                />
-              </div>
-               
-              <!---->
-            </div>
-             
-            <div
-              class="col-auto blanks-keywords"
-            >
-              <strong>
-                
-        Keywords: 
-        
-                <span
-                  class="badge rounded-pill bg-light text-dark fw-normal"
-                >
-                  
-          key
-        
-                </span>
-              </strong>
-            </div>
-          </label>
-           
-          <!---->
-        </div>
-         
-        <div
-          class="form-control blanks-form-control danger"
-        >
-          <label
-            class="row m-0 disabled"
-          >
-            <input
-              class="form-control"
-              disabled="disabled"
-            />
-             
-            <div
-              class="col-auto"
-            >
-              <div>
-                <i
-                  class="fa fa-check text-success"
-                />
-              </div>
-               
-              <!---->
-            </div>
-             
-            <div
-              class="col-auto blanks-keywords"
-            >
-              <strong>
-                No answer checking keywords provided
-              </strong>
-            </div>
-          </label>
-           
-          <!---->
-        </div>
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
-      </div>
-       
-      <div
-        class="card-footer alert-light border-top border-light text-dark"
-      >
-        <transition-group-stub
-          class="float-end"
-          name="q-btn"
-          tag="div"
-        >
-          <!---->
-           
-          <!---->
-           
-          <button
-            class="btn btn-primary q-btn ms-1"
-            type="button"
-          >
-            
-          Next
-        
-          </button>
-           
-          <!---->
-           
-          <!---->
-        </transition-group-stub>
-      </div>
-    </div>
-  </transition-stub>
-   
-  <transition-stub
-    name="intro-outro-card"
+  <div
+    class="card question"
   >
     <!---->
-  </transition-stub>
+     
+    <div
+      class="card-body"
+    >
+      
+  ... Blanks question ...
+  
+      <div
+        class="form-control blanks-form-control danger"
+      >
+        <label
+          class="row m-0 disabled"
+        >
+          <input
+            class="form-control"
+            disabled="disabled"
+          />
+           
+          <div
+            class="col-auto"
+          >
+            <div>
+              <i
+                class="fa fa-check text-success"
+              />
+            </div>
+             
+            <!---->
+          </div>
+           
+          <div
+            class="col-auto blanks-keywords"
+          >
+            <strong>
+              No answer checking keywords provided
+            </strong>
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+       
+      <div
+        class="form-control blanks-form-control danger"
+      >
+        <label
+          class="row m-0 disabled"
+        >
+          <input
+            class="form-control"
+            disabled="disabled"
+          />
+           
+          <div
+            class="col-auto"
+          >
+            <div>
+              <i
+                class="fa fa-times text-danger blanks-cross"
+              />
+            </div>
+             
+            <!---->
+          </div>
+           
+          <div
+            class="col-auto blanks-keywords"
+          >
+            <strong>
+              
+        Keywords: 
+        
+              <span
+                class="badge rounded-pill bg-light text-dark fw-normal"
+              >
+                
+          key
+        
+              </span>
+            </strong>
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+       
+      <div
+        class="form-control blanks-form-control danger"
+      >
+        <label
+          class="row m-0 disabled"
+        >
+          <input
+            class="form-control"
+            disabled="disabled"
+          />
+           
+          <div
+            class="col-auto"
+          >
+            <div>
+              <i
+                class="fa fa-check text-success"
+              />
+            </div>
+             
+            <!---->
+          </div>
+           
+          <div
+            class="col-auto blanks-keywords"
+          >
+            <strong>
+              No answer checking keywords provided
+            </strong>
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+       
+      <!---->
+       
+      <!---->
+       
+      <!---->
+    </div>
+     
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <div
+        class="float-end"
+      >
+        <button
+          class="btn btn-primary q-btn ms-1"
+          type="button"
+        >
+          
+          Next
+        
+        </button>
+      </div>
+    </div>
+  </div>
+   
+  <!---->
 </div>
 `;
 
@@ -583,7 +520,7 @@ exports[`Quizzes with checkbox question marked incorrect shows next button after
   <!---->
    
   <div
-    class="progress"
+    class="progress intro-outro-card"
     style="height: 1px;"
   >
     <div
@@ -596,160 +533,142 @@ exports[`Quizzes with checkbox question marked incorrect shows next button after
     />
   </div>
    
-  <transition-stub
-    name="question"
-  >
-    <div
-      class="card question"
-    >
-      <!---->
-       
-      <div
-        class="card-body"
-      >
-        
-  ... Checkbox question ...
-  
-        <div
-          class="form-control success"
-        >
-          <label
-            class="row checkbox-label m-0 disabled"
-          >
-            <input
-              class="checkbox"
-              disabled="disabled"
-              onclick="event.stopPropagation()"
-              type="checkbox"
-            />
-             
-            <div
-              class="col content"
-            >
-              opt 1 correct
-            </div>
-             
-            <div
-              class="col-auto"
-            >
-              <div>
-                <i
-                  class="fa fa-check text-success"
-                />
-              </div>
-            </div>
-          </label>
-           
-          <!---->
-        </div>
-         
-        <div
-          class="form-control danger"
-        >
-          <label
-            class="row checkbox-label m-0 disabled"
-          >
-            <input
-              class="checkbox"
-              disabled="disabled"
-              onclick="event.stopPropagation()"
-              type="checkbox"
-            />
-             
-            <div
-              class="col content"
-            >
-              opt 2
-            </div>
-             
-            <div
-              class="col-auto"
-            >
-              <div>
-                <i
-                  class="fa fa-times text-danger"
-                />
-              </div>
-            </div>
-          </label>
-           
-          <!---->
-        </div>
-         
-        <div
-          class="form-control success"
-        >
-          <label
-            class="row checkbox-label m-0 disabled"
-          >
-            <input
-              class="checkbox"
-              disabled="disabled"
-              onclick="event.stopPropagation()"
-              type="checkbox"
-            />
-             
-            <div
-              class="col content"
-            >
-              opt 3 correct
-            </div>
-             
-            <div
-              class="col-auto"
-            >
-              <div>
-                <i
-                  class="fa fa-check text-success"
-                />
-              </div>
-            </div>
-          </label>
-           
-          <!---->
-        </div>
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
-      </div>
-       
-      <div
-        class="card-footer alert-light border-top border-light text-dark"
-      >
-        <transition-group-stub
-          class="float-end"
-          name="q-btn"
-          tag="div"
-        >
-          <!---->
-           
-          <!---->
-           
-          <button
-            class="btn btn-primary q-btn ms-1"
-            type="button"
-          >
-            
-          Next
-        
-          </button>
-           
-          <!---->
-           
-          <!---->
-        </transition-group-stub>
-      </div>
-    </div>
-  </transition-stub>
-   
-  <transition-stub
-    name="intro-outro-card"
+  <div
+    class="card question"
   >
     <!---->
-  </transition-stub>
+     
+    <div
+      class="card-body"
+    >
+      
+  ... Checkbox question ...
+  
+      <div
+        class="form-control success"
+      >
+        <label
+          class="row checkbox-label m-0 disabled"
+        >
+          <input
+            class="checkbox"
+            disabled="disabled"
+            onclick="event.stopPropagation()"
+            type="checkbox"
+          />
+           
+          <div
+            class="col content"
+          >
+            opt 1 correct
+          </div>
+           
+          <div
+            class="col-auto"
+          >
+            <div>
+              <i
+                class="fa fa-check text-success"
+              />
+            </div>
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+       
+      <div
+        class="form-control danger"
+      >
+        <label
+          class="row checkbox-label m-0 disabled"
+        >
+          <input
+            class="checkbox"
+            disabled="disabled"
+            onclick="event.stopPropagation()"
+            type="checkbox"
+          />
+           
+          <div
+            class="col content"
+          >
+            opt 2
+          </div>
+           
+          <div
+            class="col-auto"
+          >
+            <div>
+              <i
+                class="fa fa-times text-danger"
+              />
+            </div>
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+       
+      <div
+        class="form-control success"
+      >
+        <label
+          class="row checkbox-label m-0 disabled"
+        >
+          <input
+            class="checkbox"
+            disabled="disabled"
+            onclick="event.stopPropagation()"
+            type="checkbox"
+          />
+           
+          <div
+            class="col content"
+          >
+            opt 3 correct
+          </div>
+           
+          <div
+            class="col-auto"
+          >
+            <div>
+              <i
+                class="fa fa-check text-success"
+              />
+            </div>
+          </div>
+        </label>
+         
+        <!---->
+      </div>
+       
+      <!---->
+       
+      <!---->
+       
+      <!---->
+    </div>
+     
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <div
+        class="float-end"
+      >
+        <button
+          class="btn btn-primary q-btn ms-1"
+          type="button"
+        >
+          
+          Next
+        
+        </button>
+      </div>
+    </div>
+  </div>
+   
+  <!---->
 </div>
 `;
 
@@ -760,7 +679,7 @@ exports[`Quizzes with mcq question marked correct shows next button after answer
   <!---->
    
   <div
-    class="progress"
+    class="progress intro-outro-card"
     style="height: 1px;"
   >
     <div
@@ -773,217 +692,199 @@ exports[`Quizzes with mcq question marked correct shows next button after answer
     />
   </div>
    
-  <transition-stub
-    name="question"
-  >
-    <div
-      class="card question"
-    >
-      <!---->
-       
-      <div
-        class="card-body"
-      >
-        
-  ... Mcq question ...
-  
-        <div
-          class="form-control success"
-        >
-          <div
-            class="row disabled"
-          >
-            <div
-              class="col-auto p-0"
-            >
-              <svg
-                class="radio-svg"
-                viewBox="0 0 100 100"
-              >
-                <circle
-                  cx="50"
-                  cy="50"
-                  fill="none"
-                  r="47"
-                  stroke="black"
-                  stroke-width="4"
-                />
-                 
-                <circle
-                  cx="50"
-                  cy="50"
-                  fill="dodgerblue"
-                  r="25"
-                  style=""
-                />
-              </svg>
-            </div>
-             
-            <div
-              class="col content"
-            >
-              opt 1 correct
-            </div>
-             
-            <div
-              class="col-1"
-            >
-              <div>
-                <i
-                  class="fa fa-check text-success"
-                />
-              </div>
-            </div>
-          </div>
-           
-          <!---->
-        </div>
-         
-        <div
-          class="form-control danger"
-        >
-          <div
-            class="row disabled"
-          >
-            <div
-              class="col-auto p-0"
-            >
-              <svg
-                class="radio-svg"
-                viewBox="0 0 100 100"
-              >
-                <circle
-                  cx="50"
-                  cy="50"
-                  fill="none"
-                  r="47"
-                  stroke="black"
-                  stroke-width="4"
-                />
-                 
-                <circle
-                  cx="50"
-                  cy="50"
-                  fill="dodgerblue"
-                  r="25"
-                  style="display: none;"
-                />
-              </svg>
-            </div>
-             
-            <div
-              class="col content"
-            >
-              opt 2
-            </div>
-             
-            <div
-              class="col-1"
-            >
-              <div>
-                <i
-                  class="fa fa-times text-danger"
-                />
-              </div>
-            </div>
-          </div>
-           
-          <!---->
-        </div>
-         
-        <div
-          class="form-control danger"
-        >
-          <div
-            class="row disabled"
-          >
-            <div
-              class="col-auto p-0"
-            >
-              <svg
-                class="radio-svg"
-                viewBox="0 0 100 100"
-              >
-                <circle
-                  cx="50"
-                  cy="50"
-                  fill="none"
-                  r="47"
-                  stroke="black"
-                  stroke-width="4"
-                />
-                 
-                <circle
-                  cx="50"
-                  cy="50"
-                  fill="dodgerblue"
-                  r="25"
-                  style="display: none;"
-                />
-              </svg>
-            </div>
-             
-            <div
-              class="col content"
-            >
-              opt 3
-            </div>
-             
-            <div
-              class="col-1"
-            >
-              <div>
-                <i
-                  class="fa fa-times text-danger"
-                />
-              </div>
-            </div>
-          </div>
-           
-          <!---->
-        </div>
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
-      </div>
-       
-      <div
-        class="card-footer alert-light border-top border-light text-dark"
-      >
-        <transition-group-stub
-          class="float-end"
-          name="q-btn"
-          tag="div"
-        >
-          <!---->
-           
-          <!---->
-           
-          <button
-            class="btn btn-primary q-btn ms-1"
-            type="button"
-          >
-            
-          Next
-        
-          </button>
-           
-          <!---->
-           
-          <!---->
-        </transition-group-stub>
-      </div>
-    </div>
-  </transition-stub>
-   
-  <transition-stub
-    name="intro-outro-card"
+  <div
+    class="card question"
   >
     <!---->
-  </transition-stub>
+     
+    <div
+      class="card-body"
+    >
+      
+  ... Mcq question ...
+  
+      <div
+        class="form-control success"
+      >
+        <div
+          class="row disabled"
+        >
+          <div
+            class="col-auto p-0"
+          >
+            <svg
+              class="radio-svg"
+              viewBox="0 0 100 100"
+            >
+              <circle
+                cx="50"
+                cy="50"
+                fill="none"
+                r="47"
+                stroke="black"
+                stroke-width="4"
+              />
+               
+              <circle
+                cx="50"
+                cy="50"
+                fill="dodgerblue"
+                r="25"
+                style=""
+              />
+            </svg>
+          </div>
+           
+          <div
+            class="col content"
+          >
+            opt 1 correct
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <div>
+              <i
+                class="fa fa-check text-success"
+              />
+            </div>
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+       
+      <div
+        class="form-control danger"
+      >
+        <div
+          class="row disabled"
+        >
+          <div
+            class="col-auto p-0"
+          >
+            <svg
+              class="radio-svg"
+              viewBox="0 0 100 100"
+            >
+              <circle
+                cx="50"
+                cy="50"
+                fill="none"
+                r="47"
+                stroke="black"
+                stroke-width="4"
+              />
+               
+              <circle
+                cx="50"
+                cy="50"
+                fill="dodgerblue"
+                r="25"
+                style="display: none;"
+              />
+            </svg>
+          </div>
+           
+          <div
+            class="col content"
+          >
+            opt 2
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <div>
+              <i
+                class="fa fa-times text-danger"
+              />
+            </div>
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+       
+      <div
+        class="form-control danger"
+      >
+        <div
+          class="row disabled"
+        >
+          <div
+            class="col-auto p-0"
+          >
+            <svg
+              class="radio-svg"
+              viewBox="0 0 100 100"
+            >
+              <circle
+                cx="50"
+                cy="50"
+                fill="none"
+                r="47"
+                stroke="black"
+                stroke-width="4"
+              />
+               
+              <circle
+                cx="50"
+                cy="50"
+                fill="dodgerblue"
+                r="25"
+                style="display: none;"
+              />
+            </svg>
+          </div>
+           
+          <div
+            class="col content"
+          >
+            opt 3
+          </div>
+           
+          <div
+            class="col-1"
+          >
+            <div>
+              <i
+                class="fa fa-times text-danger"
+              />
+            </div>
+          </div>
+        </div>
+         
+        <!---->
+      </div>
+       
+      <!---->
+       
+      <!---->
+       
+      <!---->
+    </div>
+     
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <div
+        class="float-end"
+      >
+        <button
+          class="btn btn-primary q-btn ms-1"
+          type="button"
+        >
+          
+          Next
+        
+        </button>
+      </div>
+    </div>
+  </div>
+   
+  <!---->
 </div>
 `;
 
@@ -994,7 +895,7 @@ exports[`Quizzes with text question marked correct shows next button after answe
   <!---->
    
   <div
-    class="progress"
+    class="progress intro-outro-card"
     style="height: 1px;"
   >
     <div
@@ -1007,95 +908,78 @@ exports[`Quizzes with text question marked correct shows next button after answe
     />
   </div>
    
-  <transition-stub
-    name="question"
-  >
-    <div
-      class="card question"
-    >
-      <!---->
-       
-      <div
-        class="card-body"
-      >
-        
-  ... Text question ...
-   
-        <div
-          class="mb-2"
-        >
-          <textarea
-            class="form-control"
-            disabled="disabled"
-          />
-           
-          <div>
-            <hr />
-             
-            <strong>
-              
-            Keywords: 
-            
-              <span
-                class="badge rounded-pill bg-light text-dark fw-normal"
-              >
-                
-              abc
-            
-              </span>
-            </strong>
-          </div>
-        </div>
-         
-        <div
-          class="answer"
-        >
-          text question answer
-        </div>
-         
-        <!---->
-      </div>
-       
-      <div
-        class="card-footer alert-light border-top border-light text-dark"
-      >
-        <transition-group-stub
-          class="float-end"
-          name="q-btn"
-          tag="div"
-        >
-          <button
-            class="btn btn-success q-btn ms-1"
-            type="button"
-          >
-            
-          Hint
-        
-          </button>
-           
-          <!---->
-           
-          <button
-            class="btn btn-primary q-btn ms-1"
-            type="button"
-          >
-            
-          Next
-        
-          </button>
-           
-          <!---->
-           
-          <!---->
-        </transition-group-stub>
-      </div>
-    </div>
-  </transition-stub>
-   
-  <transition-stub
-    name="intro-outro-card"
+  <div
+    class="card question"
   >
     <!---->
-  </transition-stub>
+     
+    <div
+      class="card-body"
+    >
+      
+  ... Text question ...
+   
+      <div
+        class="mb-2"
+      >
+        <textarea
+          class="form-control"
+          disabled="disabled"
+        />
+         
+        <div>
+          <hr />
+           
+          <strong>
+            
+            Keywords: 
+            
+            <span
+              class="badge rounded-pill bg-light text-dark fw-normal"
+            >
+              
+              abc
+            
+            </span>
+          </strong>
+        </div>
+      </div>
+       
+      <div
+        class="answer"
+      >
+        text question answer
+      </div>
+       
+      <!---->
+    </div>
+     
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <div
+        class="float-end"
+      >
+        <button
+          class="btn btn-success q-btn ms-1"
+          type="button"
+        >
+          
+          Hint
+        
+        </button>
+        <button
+          class="btn btn-primary q-btn ms-1"
+          type="button"
+        >
+          
+          Next
+        
+        </button>
+      </div>
+    </div>
+  </div>
+   
+  <!---->
 </div>
 `;

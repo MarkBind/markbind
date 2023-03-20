@@ -3,6 +3,8 @@
   layout: userGuide.md
 </frontmatter>
 
+<include src="components/advanced.md#slots-info" />
+
 # Reader-Facing Features
 
 <include src="fullSyntaxReference.md#dummy" optional />
