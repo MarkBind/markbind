@@ -9,7 +9,7 @@
 
 <div class="bg-primary text-white py-5 mb-4">
   <div class="container">
-    <h1 class="display-4 no-index">Great!<br>You just initialized a MarkBind site.</h1>
+    <h1 class="display-4 no-index">Great!<br>You've just initialized a MarkBind site.</h1>
     <p class="lead">Let's get started...</p>
   </div>
 </div>
