@@ -14,40 +14,28 @@
   </div>
 </div>
 
-<hr>
+---
 
 ##### **User Guide: Authoring Contents**
 
-<blockquote>
+> Learn about the variety of syntax schemes, formats, and custom MarkBind components that you can use in your MarkBind site.
 
-Learn about the variety of syntax schemes, formats, and custom MarkBind components that you can use in your MarkBind site.
+More info in: _<a href="https://markbind.org/userGuide/authoringContents.html" target="_blank">User Guide → Authoring Contents</a>_
 
-</blockquote>
-
-<span class="indented">More info in: _<a href="https://markbind.org/userGuide/authoringContents.html" target="_blank">User Guide → Authoring Contents</a>_</span>
-
-<hr>
+---
 
 ##### **User Guide: Working with Sites**
 
-<blockquote>
+> Learn how to modify site properties, apply themes, and enable / disable plugins for your MarkBind site.
 
-Learn how to modify site properties, apply themes, and enable / disable plugins for your MarkBind site.
+More info in: _<a href="https://markbind.org/userGuide/authoringContents.html" target="_blank">User Guide → Working with Sites</a>_
 
-</blockquote>
-
-<span class="indented">More info in: _<a href="https://markbind.org/userGuide/authoringContents.html" target="_blank">User Guide → Working with Sites</a>_</span>
-
-<hr>
+---
 
 ##### **User Guide: Full Syntax Reference**
 
-<blockquote>
+> Refer to our Full Syntax Reference page to find a specific feature or component that you want to use in your MarkBind site.
 
-Refer to our Full Syntax Reference page to find a specific feature or component that you want to use in your MarkBind site.
+More info in: _<a href="https://markbind.org/userGuide/fullSyntaxReference.html" target="_blank">User Guide → Full Syntax Reference</a>_
 
-</blockquote>
-
-<span class="indented">More info in: _<a href="https://markbind.org/userGuide/fullSyntaxReference.html" target="_blank">User Guide → Full Syntax Reference</a>_</span>
-
-<hr>
+---
