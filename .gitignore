@@ -120,5 +120,9 @@ packages/core/src/plugins/default/markbind-plugin-anchors.js
 packages/core/src/plugins/default/markbind-plugin-plantuml.js
 packages/core/src/plugins/default/markbind-plugin-shorthandSyntax.js
 packages/core/src/plugins/default/markbind-plugin-tree.js
+packages/core/test/unit/plugins/default/anchor.test.js
+packages/core/test/unit/plugins/default/plantuml.test.js
+packages/core/test/unit/plugins/default/shorthandSyntax.test.js
+packages/core/test/unit/plugins/default/tree.test.js
 
 # --- packages/core end ---
