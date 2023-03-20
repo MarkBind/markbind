@@ -424,8 +424,6 @@ exports[`NestedPanels transition height is correctly calculated 1`] = `
 <div
   class="card-container"
 >
-  <!---->
-   
   <div
     class="card expandable-card"
   >

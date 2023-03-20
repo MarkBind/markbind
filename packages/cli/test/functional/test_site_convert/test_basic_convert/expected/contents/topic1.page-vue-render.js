@@ -5,6 +5,6 @@ with(this){return _c('div',{attrs:{"id":"app"}},[_c('header',{attrs:{"sticky":""
 };
     var pageVueStaticRenderFns = [function anonymous(
 ) {
-with(this){return _c('div',{attrs:{"id":"content-wrapper"}},[_c('br'),_v(" "),_c('h1',{attrs:{"id":"topic-1"}},[_c('span',{staticClass:"anchor",attrs:{"id":"topic-1"}}),_v("Topic 1"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#topic-1","onclick":"event.stopPropagation()"}})]),_v(" "),_c('blockquote',[_c('p',[_v("More content to be added")])])])}
+with(this){return _c('div',{attrs:{"id":"content-wrapper"}},[_c('br'),_v(" "),_c('h1',{attrs:{"id":"topic-1"}},[_v("Topic 1"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#topic-1","onclick":"event.stopPropagation()"}})]),_v(" "),_c('blockquote',[_c('p',[_v("More content to be added")])])])}
 }];
   
