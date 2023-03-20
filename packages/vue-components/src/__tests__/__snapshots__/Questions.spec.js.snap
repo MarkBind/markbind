@@ -194,6 +194,10 @@ exports[`Blank Questions and QOptions of answered correctly with unshown hint wi
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
+      <i
+        class="fa fa-check text-success border-success result-icon"
+      />
+       
       <transition-group-stub
         class="float-end"
         name="q-btn"
@@ -419,6 +423,10 @@ exports[`Blank Questions and QOptions of answered wrongly with header without hi
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
+      <i
+        class="fa fa-times text-danger border-danger result-icon"
+      />
+       
       <transition-group-stub
         class="float-end"
         name="q-btn"
@@ -558,6 +566,10 @@ exports[`Blank Questions and QOptions of checked wrongly with shown hint without
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
+      <i
+        class="fa fa-times text-danger border-danger result-icon"
+      />
+       
       <transition-group-stub
         class="float-end"
         name="q-btn"
@@ -726,6 +738,10 @@ exports[`Blank Questions and QOptions of checked wrongly with unshown hint with 
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
+      <i
+        class="fa fa-times text-danger border-danger result-icon"
+      />
+       
       <transition-group-stub
         class="float-end"
         name="q-btn"
@@ -890,6 +906,8 @@ exports[`Blank Questions and QOptions of unanswered with shown hint and header r
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
+      <!---->
+       
       <transition-group-stub
         class="float-end"
         name="q-btn"
@@ -1083,6 +1101,10 @@ exports[`Checkbox Questions and QOptions of answered correctly with unshown hint
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
+      <i
+        class="fa fa-check text-success border-success result-icon"
+      />
+       
       <transition-group-stub
         class="float-end"
         name="q-btn"
@@ -1280,6 +1302,10 @@ exports[`Checkbox Questions and QOptions of answered wrongly with header without
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
+      <i
+        class="fa fa-times text-danger border-danger result-icon"
+      />
+       
       <transition-group-stub
         class="float-end"
         name="q-btn"
@@ -1435,6 +1461,10 @@ exports[`Checkbox Questions and QOptions of checked wrongly with shown hint with
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
+      <i
+        class="fa fa-times text-danger border-danger result-icon"
+      />
+       
       <transition-group-stub
         class="float-end"
         name="q-btn"
@@ -1603,6 +1633,8 @@ exports[`Checkbox Questions and QOptions of unanswered with header without hint 
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
+      <!---->
+       
       <transition-group-stub
         class="float-end"
         name="q-btn"
@@ -1872,6 +1904,10 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
+      <i
+        class="fa fa-check text-success border-success result-icon"
+      />
+       
       <transition-group-stub
         class="float-end"
         name="q-btn"
@@ -2145,6 +2181,10 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
+      <i
+        class="fa fa-times text-danger border-danger result-icon"
+      />
+       
       <transition-group-stub
         class="float-end"
         name="q-btn"
@@ -2380,6 +2420,10 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
+      <i
+        class="fa fa-times text-danger border-danger result-icon"
+      />
+       
       <transition-group-stub
         class="float-end"
         name="q-btn"
@@ -2633,6 +2677,8 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
+      <!---->
+       
       <transition-group-stub
         class="float-end"
         name="q-btn"
@@ -2756,6 +2802,10 @@ exports[`Text Questions of answered correctly with answer, unshown hint without 
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
+      <i
+        class="fa fa-check text-success border-success result-icon"
+      />
+       
       <transition-group-stub
         class="float-end"
         name="q-btn"
@@ -2843,6 +2893,10 @@ exports[`Text Questions of answered wrongly with answer, header without hint ren
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
+      <i
+        class="fa fa-times text-danger border-danger result-icon"
+      />
+       
       <transition-group-stub
         class="float-end"
         name="q-btn"
@@ -2897,6 +2951,10 @@ exports[`Text Questions of checked wrongly with answer shown hint without header
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
+      <i
+        class="fa fa-times text-danger border-danger result-icon"
+      />
+       
       <transition-group-stub
         class="float-end"
         name="q-btn"
@@ -2969,6 +3027,8 @@ exports[`Text Questions of unanswered with shown hint, header without answer ren
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
+      <!---->
+       
       <transition-group-stub
         class="float-end"
         name="q-btn"
@@ -3014,6 +3074,10 @@ exports[`Typeless Questions of answered with answer, header without hint renders
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
+      <i
+        class="fa fa-check text-success border-success result-icon"
+      />
+       
       <transition-group-stub
         class="float-end"
         name="q-btn"
@@ -3064,6 +3128,10 @@ exports[`Typeless Questions of answered with answer, header, shown hint renders 
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
+      <i
+        class="fa fa-check text-success border-success result-icon"
+      />
+       
       <transition-group-stub
         class="float-end"
         name="q-btn"

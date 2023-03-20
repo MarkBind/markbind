@@ -49,6 +49,14 @@
         v-if="showCardFooter"
         class="card-footer alert-light border-top border-light text-dark"
       >
+        <i
+          v-if="qState.state === 1"
+          class="fa fa-times text-danger border-danger result-icon"
+        ></i>
+        <i
+          v-else-if="qState.state === 2"
+          class="fa fa-check text-success border-success result-icon"
+        ></i>
         <transition-group
           name="q-btn"
           tag="div"
