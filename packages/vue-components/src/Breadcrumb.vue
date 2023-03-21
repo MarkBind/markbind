@@ -89,7 +89,7 @@ export default {
 
 <style scoped>
     .not-link {
-        color: #0f6dfd;
+        color: #428cfd;
     }
 
     /* Make cursor default when there is no link */
