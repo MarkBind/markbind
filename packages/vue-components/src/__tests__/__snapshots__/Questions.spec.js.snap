@@ -2709,7 +2709,7 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
 exports[`Text Questions of answered correctly with answer without header, hint, keywords renders correctly 1`] = `
 <transition-stub>
   <div
-    class="card question"
+    class="card question shake"
   >
     <!---->
      
@@ -2722,26 +2722,53 @@ exports[`Text Questions of answered correctly with answer without header, hint, 
       >
         <textarea
           class="form-control"
-          disabled="disabled"
         />
          
-        <div>
-          <hr />
-           
-          <!---->
-        </div>
+        <!---->
       </div>
        
-      <div
-        class="answer"
-      >
-        text question answer
-      </div>
+      <!---->
        
       <!---->
     </div>
      
-    <!---->
+    <div
+      class="card-footer alert-light border-top border-light text-dark"
+    >
+      <i
+        class="fa fa-times text-danger border-danger result-icon"
+      />
+       
+      <transition-group-stub
+        class="float-end"
+        name="q-btn"
+        tag="div"
+      >
+        <!---->
+         
+        <!---->
+         
+        <!---->
+         
+        <button
+          class="btn btn-info q-btn ms-1"
+          type="button"
+        >
+          
+          Show
+        
+        </button>
+         
+        <button
+          class="btn btn-primary q-btn ms-1"
+          type="button"
+        >
+          
+          Retry
+        
+        </button>
+      </transition-group-stub>
+    </div>
   </div>
 </transition-stub>
 `;
@@ -3028,109 +3055,6 @@ exports[`Text Questions of unanswered with shown hint, header without answer ren
       class="card-footer alert-light border-top border-light text-dark"
     >
       <!---->
-       
-      <transition-group-stub
-        class="float-end"
-        name="q-btn"
-        tag="div"
-      >
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
-      </transition-group-stub>
-    </div>
-  </div>
-</transition-stub>
-`;
-
-exports[`Typeless Questions of answered with answer, header without hint renders correctly 1`] = `
-<transition-stub>
-  <div
-    class="card question"
-  >
-    <div
-      class="card-header alert-light border-bottom border-light text-dark"
-    >
-      Typeless question header
-    </div>
-     
-    <div
-      class="card-body"
-    >
-      Question content 
-      <!---->
-       
-      <!---->
-       
-      <!---->
-    </div>
-     
-    <div
-      class="card-footer alert-light border-top border-light text-dark"
-    >
-      <i
-        class="fa fa-check text-success border-success result-icon"
-      />
-       
-      <transition-group-stub
-        class="float-end"
-        name="q-btn"
-        tag="div"
-      >
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
-      </transition-group-stub>
-    </div>
-  </div>
-</transition-stub>
-`;
-
-exports[`Typeless Questions of answered with answer, header, shown hint renders correctly 1`] = `
-<transition-stub>
-  <div
-    class="card question"
-  >
-    <div
-      class="card-header alert-light border-bottom border-light text-dark"
-    >
-      Typeless question header
-    </div>
-     
-    <div
-      class="card-body"
-    >
-      Question content 
-      <!---->
-       
-      <!---->
-       
-      <box-stub
-        class="mb-0 mt-3"
-        type="tip"
-      >
-        Typeless question hint
-      </box-stub>
-    </div>
-     
-    <div
-      class="card-footer alert-light border-top border-light text-dark"
-    >
-      <i
-        class="fa fa-check text-success border-success result-icon"
-      />
        
       <transition-group-stub
         class="float-end"

@@ -280,12 +280,6 @@ export default {
       }
     },
     checkTextAnswer(markAsAnsweredIfWrong) {
-      // Todo deprecate this guard clause
-      if (!this.keywords.length) {
-        this.markAsCorrect();
-        return;
-      }
-
       const lowerCasedText = this.textareaText.toLowerCase();
       const keywords = this.keywordsSplitTrimmed();
 
