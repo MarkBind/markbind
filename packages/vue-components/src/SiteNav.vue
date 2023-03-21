@@ -1,21 +1,6 @@
 <template>
   <div class="site-nav-root">
-    <div class="button-container">
-      <button
-        type="button"
-        class="btn btn-outline-dark btn-sm"
-        @click="expandAll()"
-      >
-        Expand All
-      </button>
-      <button
-        type="button"
-        class="btn btn-outline-dark btn-sm"
-        @click="collapseAll()"
-      >
-        Collapse All
-      </button>
-    </div>
+    <collapseExpandButtons />
     <slot></slot>
   </div>
 </template>
@@ -45,40 +30,6 @@ export default {
       }
     });
   },
-  methods: {
-    expandAll() {
-      this.$el.querySelectorAll('a[href]').forEach((el) => {
-        let currentEl = el.parentElement;
-        while (currentEl && currentEl !== this.$el.parentElement) {
-          if (currentEl.tagName.toLowerCase() === 'ul'
-              && currentEl.classList.contains('site-nav-dropdown-container')) {
-            currentEl.classList.add('site-nav-dropdown-container-open');
-          }
-          if (currentEl.tagName.toLowerCase() === 'div'
-              && currentEl.querySelector('i')) {
-            currentEl.querySelectorAll('i').forEach((e) => { e.classList.add('site-nav-rotate-icon'); });
-          }
-          currentEl = currentEl.parentElement;
-        }
-      });
-    },
-    collapseAll() {
-      this.$el.querySelectorAll('a[href]').forEach((el) => {
-        let currentEl = el.parentElement;
-        while (currentEl && currentEl !== this.$el.parentElement) {
-          if (currentEl.tagName.toLowerCase() === 'ul'
-              && currentEl.classList.contains('site-nav-dropdown-container')) {
-            currentEl.classList.remove('site-nav-dropdown-container-open');
-          }
-          if (currentEl.tagName.toLowerCase() === 'div'
-              && currentEl.querySelector('i')) {
-            currentEl.querySelectorAll('i').forEach((e) => { e.classList.remove('site-nav-rotate-icon'); });
-          }
-          currentEl = currentEl.parentElement;
-        }
-      });
-    },
-  },
 };
 </script>
 
@@ -87,14 +38,6 @@ export default {
 
     .site-nav-root a.current {
         color: #0072ec;
-    }
-
-    /* Button container */
-
-    .button-container {
-        display: flex;
-        justify-content: space-around;
-        padding-bottom: 0.5rem;
     }
 
     /* Navigation list */

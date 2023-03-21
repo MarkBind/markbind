@@ -6,6 +6,7 @@ import 'floating-vue/dist/style.css';
 // Custom / modified components and components from yuche/vue-strap
 import box from './Box.vue';
 import closeable from './directives/Closeable';
+import collapseExpandButtons from './CollapseExpandButtons.vue';
 import dropdown from './Dropdown.vue';
 import navbar from './Navbar.vue';
 import panel from './Panel.vue';
@@ -36,6 +37,7 @@ import scrollTopButton from './ScrollTopButton.vue';
 const components = {
   box,
   dropdown,
+  collapseExpandButtons,
   navbar,
   panel,
   annotate,
