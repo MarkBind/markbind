@@ -3,15 +3,18 @@
  * Replaces <puml> tags with <pic> tags with the appropriate src attribute and generates the diagrams
  * by running the JAR executable
  */
-const cheerio = module.parent.require('cheerio');
-const fs = require('fs');
-const path = require('path');
-const { exec } = require('child_process');
-const cryptoJS = require('crypto-js');
+import cheerio from 'cheerio';
+import fs from 'fs';
+import path from 'path';
+import { exec } from 'child_process';
+import cryptoJS from 'crypto-js';
 
-const fsUtil = require('../../utils/fsUtil');
-const logger = require('../../utils/logger');
-const urlUtil = require('../../utils/urlUtil');
+import * as fsUtil from '../../utils/fsUtil';
+import * as logger from '../../utils/logger';
+import * as urlUtil from '../../utils/urlUtil';
+import { PluginContext } from '../Plugin';
+import { NodeProcessorConfig } from '../../html/NodeProcessor';
+import { MbNode } from '../../utils/node';
 
 const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 
@@ -24,7 +27,7 @@ let graphvizCheckCompleted = false;
  * @param imageOutputPath output path of the diagram to be generated
  * @param content puml dsl used to generate the puml diagram
  */
-function generateDiagram(imageOutputPath, content) {
+function generateDiagram(imageOutputPath: string, content: string) {
   // Avoid generating twice
   if (processedDiagrams.has(imageOutputPath)) { return; }
   processedDiagrams.add(imageOutputPath);
@@ -40,23 +43,23 @@ function generateDiagram(imageOutputPath, content) {
   const childProcess = exec(cmd);
 
   let errorLog = '';
-  childProcess.stdin.write(
+  childProcess.stdin?.write(
     content,
     (e) => {
       if (e) {
-        logger.debug(e);
+        logger.debug(e as unknown as string);
         logger.error(`Error generating ${imageOutputPath}`);
       }
-      childProcess.stdin.end();
+      childProcess.stdin?.end();
     },
   );
 
   childProcess.on('error', (error) => {
-    logger.debug(error);
+    logger.debug(error as unknown as string);
     logger.error(`Error generating ${imageOutputPath}`);
   });
 
-  childProcess.stderr.on('data', (errorMsg) => {
+  childProcess.stderr?.on('data', (errorMsg) => {
     errorLog += errorMsg;
   });
 
@@ -66,7 +69,7 @@ function generateDiagram(imageOutputPath, content) {
   });
 }
 
-module.exports = {
+export = {
   tagConfig: {
     puml: {
       isSpecial: true,
@@ -89,12 +92,12 @@ module.exports = {
     graphvizCheckCompleted = false;
   },
 
-  processNode: (pluginContext, node, config) => {
+  processNode: (_pluginContext: PluginContext, node: MbNode, config: NodeProcessorConfig) => {
     if (node.name !== 'puml') {
       return;
     }
     if (config.plantumlCheck && !graphvizCheckCompleted) {
-      exec(`java -jar "${JAR_PATH}" -testdot`, (error, stdout, stderr) => {
+      exec(`java -jar "${JAR_PATH}" -testdot`, (_error, _stdout, stderr) => {
         if (stderr.includes('Error: No dot executable found')) {
           logger.warn('You are using PlantUML diagrams but Graphviz is not installed!');
         }
@@ -116,7 +119,7 @@ module.exports = {
       try {
         pumlContent = fs.readFileSync(rawPath, 'utf8');
       } catch (err) {
-        logger.debug(err);
+        logger.debug(err as string);
         logger.error(`Error reading ${rawPath} for <puml> tag`);
         return;
       }
@@ -143,7 +146,7 @@ module.exports = {
       node.attribs.src = `${config.baseUrl}/${pathFromRootToImage}`;
     }
 
-    delete node.children;
+    node.children = [];
 
     const imageOutputPath = path.resolve(config.outputPath, pathFromRootToImage);
     generateDiagram(imageOutputPath, pumlContent);

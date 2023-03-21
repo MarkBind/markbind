@@ -1,12 +1,14 @@
+import { MbNode } from '../../utils/node';
+import { PluginContext } from '../Plugin';
+
 /**
  * Converts shorthand syntax to proper MarkBind syntax
  * @param content of the page
  */
-module.exports = {
-  processNode: (pluginContext, node) => {
+export = {
+  processNode: (_pluginContext: PluginContext, node: MbNode) => {
     // panel>span[heading]
     if (node.name === 'span'
-      && node.attribs
       && node.attribs.heading !== undefined
       && node.parent
       && node.parent.name === 'panel') {
