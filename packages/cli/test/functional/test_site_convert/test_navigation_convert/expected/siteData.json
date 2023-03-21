@@ -9,13 +9,11 @@
     },
     {
       "src": "Home.md",
-      "title": "",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "Page-1.md",
-      "title": "",
       "headings": {
         "page-1": "Page 1"
       },
@@ -23,7 +21,6 @@
     },
     {
       "src": "README.md",
-      "title": "",
       "headings": {
         "readme": "Readme"
       },
@@ -31,7 +28,6 @@
     },
     {
       "src": "about.md",
-      "title": "",
       "headings": {
         "about": "About"
       },
@@ -39,7 +35,6 @@
     },
     {
       "src": "contents/topic1.md",
-      "title": "",
       "headings": {
         "topic-1": "Topic 1"
       },
@@ -47,25 +42,21 @@
     },
     {
       "src": "contents/topic2.md",
-      "title": "",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "contents/topic3a.md",
-      "title": "",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "contents/topic3b.md",
-      "title": "",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "index.md",
-      "title": "",
       "headings": {
         "readme": "Readme"
       },
@@ -73,7 +64,6 @@
     },
     {
       "src": "test_folder/extra_1.md",
-      "title": "",
       "headings": {
         "sample-content-in-another-folder-which-is-not-named-content": "Sample content in another folder which is not named content"
       },
@@ -81,7 +71,6 @@
     },
     {
       "src": "test_folder/extra_2.md",
-      "title": "",
       "headings": {
         "sample-content-in-another-folder-which-is-not-named-content": "Sample content in another folder which is not named content"
       },
@@ -89,7 +78,6 @@
     },
     {
       "src": "test_folder/extra_3.md",
-      "title": "",
       "headings": {
         "sample-content-in-another-folder-which-is-not-named-content": "Sample content in another folder which is not named content"
       },

@@ -42,6 +42,7 @@
       <page-nav />
     </div>
   </nav>
+  <scroll-top-button></scroll-top-button>
 </div>
 
 <include src="footers/footer.md" />

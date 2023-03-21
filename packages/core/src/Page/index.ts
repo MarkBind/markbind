@@ -35,9 +35,6 @@ const TITLE_SUFFIX_SEPARATOR = ' - ';
 const PAGE_NAV_ID = 'mb-page-nav';
 const PAGE_NAV_TITLE_CLASS = 'page-nav-title';
 
-const SCROLL_TO_TOP_BUTTON_HTML = '<i class="fa fa-arrow-circle-up fa-lg d-print-none" '
-  + 'id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>';
-
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 export class Page {
@@ -52,7 +49,6 @@ export class Page {
   includedFiles!: Set<string>;
   headings!: { [key: string]: string };
   keywords!: { [key: string]: string[] };
-  title!: string;
   navigableHeadings!: {
     [id: string]: {
       text: string,
@@ -60,6 +56,7 @@ export class Page {
     }
   };
 
+  title?: string;
   layout?: string;
 
   constructor(pageConfig: PageConfig, siteConfig: SiteConfig) {
@@ -120,7 +117,7 @@ export class Page {
      * This is initially set to the title specified in the site configuration,
      * if there is none, we look for one in the frontmatter(s) as well.
      */
-    this.title = this.pageConfig.title || '';
+    this.title = this.pageConfig.title;
 
     /*
      * Layouts related properties
@@ -371,7 +368,7 @@ export class Page {
       ...this.pageConfig.frontmatterOverride,
     };
 
-    this.title = this.title || this.frontmatter.title || '';
+    this.title = this.title || this.frontmatter.title;
     this.layout = this.layout || this.frontmatter.layout || LAYOUT_DEFAULT_NAME;
   }
 
@@ -501,7 +498,6 @@ export class Page {
     let content = variableProcessor.renderWithSiteVariables(this.pageConfig.sourcePath, pageSources);
     content = await nodeProcessor.process(this.pageConfig.sourcePath, content) as string;
     this.processFrontmatter(nodeProcessor.frontmatter);
-    content = Page.addScrollToTopButton(content);
     content = pluginManager.postRender(this.frontmatter, content);
     const pageContent = content;
 
@@ -561,10 +557,6 @@ export class Page {
       : renderedTemplate;
 
     await fs.outputFile(this.pageConfig.resultPath, outputTemplateHTML);
-  }
-
-  static addScrollToTopButton(pageData: string) {
-    return `${pageData}\n${SCROLL_TO_TOP_BUTTON_HTML}`;
   }
 
   /**
