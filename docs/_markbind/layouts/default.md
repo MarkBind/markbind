@@ -4,6 +4,7 @@
   <div id="content-wrapper">
     {{ content }}
   </div>
+  <scroll-top-button></scroll-top-button>
 </div>
 
 <include src="footers/footer.md" />

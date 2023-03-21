@@ -3,6 +3,8 @@
   layout: userGuide.md
 </frontmatter>
 
+<include src="components/advanced.md#slots-info" />
+
 # Full Syntax Reference
 
 {% set syntax_topics = {
@@ -49,6 +51,7 @@
   navBars : ['Nav Bars', ['navigation', 'reader-facing']],
   siteNavigationMenus : ['Site Navigation Menus', ['navigation', 'reader-facing']],
   pageNavigationMenus : ['Page Navigation Menus', ['navigation', 'reader-facing']],
+  scrollTopButton : ['Scroll To Top Button', ['navigation', 'reader-facing']],
   questions : ['Questions and Quizzes', ['others', 'reader-facing']]
 } %}
 
