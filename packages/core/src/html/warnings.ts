@@ -1,6 +1,5 @@
 import * as logger from '../utils/logger';
 import { MbNode } from '../utils/node';
-import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
 
 /**
  * Check and warns if element has conflicting attributes.
@@ -24,31 +23,6 @@ function _warnConflictingAttributes(node: MbNode, attribute: string, attrsConfli
   });
 }
 
-/**
- * Check and warns if element has a deprecated slot name
- * @param element Root element to check
- * @param namePairs Object of slot name pairs with each pair in the form deprecated : correct
- */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function _warnDeprecatedSlotNames(element: MbNode, namePairs: { [name: string]: string }) {
-  if (!(element.children)) {
-    return;
-  }
-  element.children.forEach((child) => {
-    const vslotShorthandName = getVslotShorthandName(child);
-    if (vslotShorthandName) {
-      Object.entries(namePairs)
-        .forEach(([deprecatedName, correctName]) => {
-          if (vslotShorthandName !== deprecatedName) {
-            return;
-          }
-          logger.warn(`${element.name} shorthand slot name '${deprecatedName}' `
-              + `is deprecated and may be removed in the future. Please use '${correctName}'`);
-        });
-    }
-  });
-}
-
 export const warnConflictingAtributesMap: { [attr: string]: (nd: MbNode) => void } = {
   box: (node) => {
     _warnConflictingAttributes(node, 'light', ['seamless']);
@@ -58,5 +32,3 @@ export const warnConflictingAtributesMap: { [attr: string]: (nd: MbNode) => void
     _warnConflictingAttributes(node, 'no-icon', ['icon']);
   },
 };
-
-export const warnDeprecatedAtributesMap: { [attr: string]: (nd: MbNode) => void } = {};

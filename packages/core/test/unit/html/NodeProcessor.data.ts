@@ -230,13 +230,6 @@ export const PROCESS_MODAL_OK_TEXT_EXPECTED = `
 </modal>
 `;
 
-module.exports.PROCESS_MODAL_SLOTS_RENAMING_EXPECTED = `
-<modal>
-  <template #header><div>Should be renamed to header</div></template>
-  <template #footer><div>Should be renamed to footer</div></template>
-</modal>
-`;
-
 /*
  * Tab, tab-group
  */

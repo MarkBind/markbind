@@ -13,7 +13,7 @@ import { isMarkdownFileExt } from '../utils/fsUtil';
 import * as logger from '../utils/logger';
 import * as linkProcessor from './linkProcessor';
 import type VariableProcessor from '../variables/VariableProcessor';
-import { warnConflictingAtributesMap, warnDeprecatedAtributesMap } from './warnings';
+import { warnConflictingAtributesMap } from './warnings';
 import { shiftSlotNodeDeeper, transformOldSlotSyntax } from './vueSlotSyntaxProcessor';
 import { MdAttributeRenderer } from './MdAttributeRenderer';
 import { MarkdownProcessor } from './MarkdownProcessor';
@@ -172,8 +172,7 @@ export class NodeProcessor {
       transformOldSlotSyntax(node);
       shiftSlotNodeDeeper(node);
 
-      // log warnings for deprecated and conflicting attributes
-      if (_.has(warnDeprecatedAtributesMap, node.name)) { warnDeprecatedAtributesMap[node.name](node); }
+      // log warnings for conflicting attributes
       if (_.has(warnConflictingAtributesMap, node.name)) { warnConflictingAtributesMap[node.name](node); }
 
       switch (node.name) {

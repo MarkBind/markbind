@@ -71,7 +71,7 @@
             Hint
           </button>
           <button
-            v-if="qState.state === 0 && !(!isNotTextWithoutKeywords() && !$scopedSlots.answer)"
+            v-if="qState.state === 0 && !(isTextWithoutKeywords() && !$scopedSlots.answer)"
             key="check"
             type="button"
             class="btn btn-primary q-btn ms-1"
@@ -155,9 +155,8 @@ export default {
     showCardFooter() {
       // Hide the card footer when 'there are no more buttons to click',
       // and the tick / cross circle is not shown
-      const isTextWithoutKeyword = !this.isNotTextWithoutKeywords();
       const isHintNotProvidedOrIsShown = !this.$scopedSlots.hint || this.showHint;
-      return !(isTextWithoutKeyword
+      return !(this.isTextWithoutKeywords()
         && isHintNotProvidedOrIsShown
         && this.qState.answered
         && !this.questions);
@@ -220,8 +219,8 @@ export default {
     isTextQuestion() {
       return this.type === 'text';
     },
-    isNotTextWithoutKeywords() {
-      return !(this.isTextQuestion() && !this.keywords);
+    isTextWithoutKeywords() {
+      return this.isTextQuestion() && !this.keywords;
     },
     shakeCard() {
       this.shakeClass = 'shake';
