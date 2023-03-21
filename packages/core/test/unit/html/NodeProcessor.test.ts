@@ -1,10 +1,11 @@
 import path from 'path';
 import cheerio from 'cheerio';
-import htmlparser, { DomElement } from 'htmlparser2';
+import htmlparser from 'htmlparser2';
 import * as testData from './NodeProcessor.data';
 import { Context } from '../../../src/html/Context';
 import { shiftSlotNodeDeeper, transformOldSlotSyntax } from '../../../src/html/vueSlotSyntaxProcessor';
 import { getNewDefaultNodeProcessor } from '../utils/utils';
+import { MbNode, parseHTML } from '../../../src/utils/node';
 
 /**
  * Runs the processNode or postProcessNode method of NodeProcessor on the provided
@@ -213,9 +214,9 @@ test('deprecated vue slot syntax should be converted to updated Vue slot shortha
   // slot="test" converted to #test
   const test = '<panel><div slot="header">test</div><p slot="test">test2</p></panel>';
 
-  const testNode = cheerio.parseHTML(test)[0];
+  const testNode = parseHTML(test)[0] as MbNode;
 
-  transformOldSlotSyntax(testNode as unknown as DomElement);
+  transformOldSlotSyntax(testNode);
 
   const expected = '<panel><div #header>test</div><p #test>test2</p></panel>';
 
@@ -225,11 +226,11 @@ test('deprecated vue slot syntax should be converted to updated Vue slot shortha
 test('slot nodes which have tag names other than "template" are shifted one level deeper ', async () => {
   const test = '<panel><div #header>test</div></panel>';
 
-  const testNode = cheerio.parseHTML(test)[0];
+  const testNode = parseHTML(test)[0] as MbNode;
 
-  shiftSlotNodeDeeper(testNode as unknown as DomElement);
+  shiftSlotNodeDeeper(testNode);
 
   const expected = '<panel><template #header><div>test</div></template></panel>';
 
-  expect(cheerio.html(testNode as unknown as cheerio.Element)).toEqual(expected);
+  expect(cheerio.html(testNode)).toEqual(expected);
 });
