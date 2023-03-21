@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO deprecate all isValidQuestionType checks -->
   <transition :name="questions ? 'question' : null" @after-leave="showNextQuestion">
     <div v-if="active" :class="['card', 'question', shakeClass, addClass]">
       <div v-if="$scopedSlots.header" class="card-header alert-light border-bottom border-light text-dark">
