@@ -6,8 +6,8 @@
           v-for="(item, index) in items"
           :key="item"
           :class="['breadcrumb-item',
-                   {'active': isLast(index, items.length)},
-                   {'not-link': item.link === null}]"
+                   {'active': isLast(index, items.length) || item.link === null},
+          ]"
           :aria-current="{'page': isLast(index, items.length)}"
         >
           <a v-if="isLast(index, items.length) || item.link === null">
@@ -88,16 +88,8 @@ export default {
 </script>
 
 <style scoped>
-    .not-link {
-        color: #428cfd;
-    }
-
     /* Make cursor default when there is no link */
     .active:hover {
-        cursor: default;
-    }
-
-    .not-link:hover {
         cursor: default;
     }
 </style>
