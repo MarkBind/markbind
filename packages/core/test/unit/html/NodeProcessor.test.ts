@@ -224,7 +224,7 @@ test('deprecated vue slot syntax should be converted to updated Vue slot shortha
 
   const expected = '<panel><div #header>test</div><p #test>test2</p></panel>';
 
-  expect(cheerio.html(testNode as unknown as cheerio.Element)).toEqual(expected);
+  expect(cheerio.html(testNode)).toEqual(expected);
 });
 
 test('slot nodes which have tag names other than "template" are shifted one level deeper ', async () => {
