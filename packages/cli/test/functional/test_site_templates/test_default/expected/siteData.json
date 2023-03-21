@@ -18,19 +18,25 @@
     {
       "src": "contents/topic2.md",
       "title": "Topic 2",
-      "headings": {},
+      "headings": {
+        "topic-2": "Topic 2"
+      },
       "headingKeywords": {}
     },
     {
       "src": "contents/topic3a.md",
       "title": "Topic 3a",
-      "headings": {},
+      "headings": {
+        "topic-3a": "Topic 3a"
+      },
       "headingKeywords": {}
     },
     {
       "src": "contents/topic3b.md",
       "title": "Topic 3b",
-      "headings": {},
+      "headings": {
+        "topic-3b": "Topic 3b"
+      },
       "headingKeywords": {}
     },
     {

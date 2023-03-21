@@ -12,14 +12,21 @@ import { PageSources } from '../Page/PageSources';
 import { isMarkdownFileExt } from '../utils/fsUtil';
 import * as logger from '../utils/logger';
 import * as linkProcessor from './linkProcessor';
-import VariableProcessor from '../variables/VariableProcessor';
+import type VariableProcessor from '../variables/VariableProcessor';
 import { warnConflictingAtributesMap, warnDeprecatedAtributesMap } from './warnings';
 import { shiftSlotNodeDeeper, transformOldSlotSyntax, renameSlot } from './vueSlotSyntaxProcessor';
 import { MdAttributeRenderer } from './MdAttributeRenderer';
 import { MarkdownProcessor } from './MarkdownProcessor';
 import { processScriptAndStyleTag } from './scriptAndStyleTagProcessor';
-import { SiteLinkManager } from './SiteLinkManager';
+import type { SiteLinkManager } from './SiteLinkManager';
+import type { PluginManager } from '../plugins/PluginManager';
 import { processInclude, processPanelSrc, processPopoverSrc } from './includePanelProcessor';
+
+import { PageNavProcessor, renderSiteNav, addSitePageNavPortal } from './siteAndPageNavProcessor';
+import { highlightCodeBlock, setCodeLineNumbers } from './codeblockProcessor';
+import { setHeadingId, assignPanelId } from './headerProcessor';
+import { FootnoteProcessor } from './FootnoteProcessor';
+import { MbNode, NodeOrText, TextElement } from '../utils/node';
 
 const fm = require('fastmatter');
 
@@ -30,11 +37,6 @@ const _ = {
 
 // Load our htmlparser2 patch for supporting "special" tags
 require('../patches/htmlparser2');
-
-const { PageNavProcessor, renderSiteNav, addSitePageNavPortal } = require('./siteAndPageNavProcessor');
-const { highlightCodeBlock, setCodeLineNumbers } = require('./codeblockProcessor');
-const { setHeadingId, assignPanelId } = require('./headerProcessor');
-const { FootnoteProcessor } = require('./FootnoteProcessor');
 
 const FRONTMATTER_FENCE = '---';
 
@@ -62,9 +64,9 @@ export class NodeProcessor {
   headBottom: string[] = [];
   scriptBottom: string[] = [];
 
-  markdownProcessor: any;
+  markdownProcessor: MarkdownProcessor;
   footnoteProcessor = new FootnoteProcessor();
-  mdAttributeRenderer: any;
+  mdAttributeRenderer: MdAttributeRenderer;
   pageNavProcessor = new PageNavProcessor();
 
   processedModals: { [id: string]: boolean } = {};
@@ -73,7 +75,7 @@ export class NodeProcessor {
     private config: NodeProcessorConfig,
     private pageSources: PageSources,
     private variableProcessor: VariableProcessor,
-    private pluginManager: any,
+    private pluginManager: PluginManager,
     private siteLinkManager: SiteLinkManager,
     private userScriptsAndStyles: string[] | undefined,
     docId = '',
@@ -86,7 +88,9 @@ export class NodeProcessor {
    * Private utility functions
    */
 
-  static _trimNodes(node: DomElement) {
+  static _trimNodes(nodeOrText: NodeOrText) {
+    if (NodeProcessor._isText(nodeOrText)) return;
+    const node = nodeOrText as MbNode;
     if (node.name === 'pre' || node.name === 'code') {
       return;
     }
@@ -104,14 +108,14 @@ export class NodeProcessor {
     }
   }
 
-  static _isText(node: DomElement) {
+  static _isText(node: NodeOrText) {
     return node.type === 'text' || node.type === 'comment';
   }
 
   /*
    * Frontmatter collection
    */
-  _processFrontmatter(node: DomElement, context: Context) {
+  private _processFrontmatter(node: MbNode, context: Context) {
     let currentFrontmatter = {};
     const frontmatter = cheerio(node);
     if (!context.processingOptions.omitFrontmatter && frontmatter.text().trim()) {
@@ -120,8 +124,8 @@ export class NodeProcessor {
       // The latter case will result in the data being wrapped in a div
       const frontmatterIncludeDiv = frontmatter.find('div');
       const frontmatterData = frontmatterIncludeDiv.length
-        ? ((frontmatterIncludeDiv[0] as DomElement).children as DomElement[])[0].data
-        : ((frontmatter[0] as DomElement).children as DomElement[])[0].data;
+        ? ((frontmatterIncludeDiv[0] as MbNode).children as MbNode[])[0].data
+        : ((frontmatter[0] as MbNode).children as MbNode[])[0].data;
       const frontmatterWrapped = `${FRONTMATTER_FENCE}\n${frontmatterData}\n${FRONTMATTER_FENCE}`;
 
       currentFrontmatter = fm(frontmatterWrapped).attributes;
@@ -138,7 +142,7 @@ export class NodeProcessor {
    * Layout element collection
    */
 
-  private static collectLayoutEl(node: DomElement): string | null {
+  private static collectLayoutEl(node: MbNode): string | null {
     const $ = cheerio(node);
     const html = $.html();
     $.remove();
@@ -148,30 +152,27 @@ export class NodeProcessor {
   /**
    * Removes the node if modal id already exists, processes node otherwise
    */
-  private processModal(node: DomElement) {
-    if (node.attribs) {
-      if (this.processedModals[node.attribs.id]) {
-        cheerio(node).remove();
-      } else {
-        this.processedModals[node.attribs.id] = true;
+  private processModal(node: MbNode) {
+    if (this.processedModals[node.attribs.id]) {
+      cheerio(node).remove();
+    } else {
+      this.processedModals[node.attribs.id] = true;
 
-        // Transform deprecated slot names; remove when deprecating
-        renameSlot(node, 'modal-header', 'header');
-        renameSlot(node, 'modal-footer', 'footer');
+      // Transform deprecated slot names; remove when deprecating
+      renameSlot(node, 'modal-header', 'header');
+      renameSlot(node, 'modal-footer', 'footer');
 
-        this.mdAttributeRenderer.processModalAttributes(node);
-      }
+      this.mdAttributeRenderer.processModalAttributes(node);
     }
   }
 
   /*
    * API
    */
-  processNode(node: DomElement, context: Context): Context {
+  processNode(nodeOrText: NodeOrText, context: Context): Context {
     try {
-      if (!node.name || !node.attribs) {
-        return context;
-      }
+      if (NodeProcessor._isText(nodeOrText)) return context;
+      const node = nodeOrText as MbNode;
 
       transformOldSlotSyntax(node);
       shiftSlotNodeDeeper(node);
@@ -245,6 +246,9 @@ export class NodeProcessor {
       case 'style':
         processScriptAndStyleTag(node, this.userScriptsAndStyles);
         break;
+      case 'scroll-top-button':
+        this.mdAttributeRenderer.processScrollTopButtonAttributes(node);
+        break;
       case 'code':
         setCodeLineNumbers(node, this.config.codeLineNumbers);
         // fall through
@@ -270,7 +274,10 @@ export class NodeProcessor {
     return context;
   }
 
-  postProcessNode(node: DomElement) {
+  postProcessNode(nodeOrText: NodeOrText) {
+    if (NodeProcessor._isText(nodeOrText)) return;
+    const node = nodeOrText as MbNode;
+
     try {
       switch (node.name) {
       case 'pre':
@@ -312,13 +319,12 @@ export class NodeProcessor {
     }
   }
 
-  private traverse(node: DomElement, context: Context): DomElement {
-    if (NodeProcessor._isText(node)) {
-      return node;
+  private traverse(dom: DomElement, context: Context): NodeOrText {
+    if (NodeProcessor._isText(dom)) {
+      return dom as TextElement;
     }
-    if (node.name) {
-      node.name = node.name.toLowerCase();
-    }
+    const node = dom as MbNode;
+    node.name = node.name.toLowerCase();
     if (linkProcessor.hasTagLink(node)) {
       linkProcessor.convertRelativeLinks(node, context.cwf, this.config.rootPath, this.config.baseUrl);
       linkProcessor.convertMdExtToHtmlExt(node);
@@ -347,7 +353,7 @@ export class NodeProcessor {
 
     // eslint-disable-next-line no-param-reassign
     context = this.processNode(node, context);
-    this.pluginManager.processNode(node, this.config);
+    this.pluginManager.processNode(node);
 
     if (node.children) {
       node.children.forEach((child) => {
@@ -359,19 +365,17 @@ export class NodeProcessor {
 
     addSitePageNavPortal(node);
 
-    if (node.name) {
-      const isHeadingTag = (/^h[1-6]$/).test(node.name);
-      if (isHeadingTag && !node.attribs?.id) {
-        setHeadingId(node, this.config);
-      }
-
-      // Generate dummy spans as anchor points for header[sticky]
-      if (isHeadingTag && node.attribs?.id) {
-        cheerio(node).prepend(`<span id="${node.attribs.id}" class="anchor"></span>`);
-      }
+    const isHeadingTag = (/^h[1-6]$/).test(node.name);
+    if (isHeadingTag && !node.attribs.id) {
+      setHeadingId(node, this.config);
     }
 
-    this.pluginManager.postProcessNode(node, this.config);
+    // Generate dummy spans as anchor points for header[sticky]
+    if (isHeadingTag && node.attribs.id) {
+      cheerio(node).prepend(`<span id="${node.attribs.id}" class="anchor"></span>`);
+    }
+
+    this.pluginManager.postProcessNode(node);
 
     return node;
   }
@@ -391,7 +395,7 @@ export class NodeProcessor {
           return;
         }
         const mainHtmlNodes = dom.map((d) => {
-          let processed;
+          let processed: NodeOrText;
           try {
             processed = this.traverse(d, context);
           } catch (err: any) {
@@ -403,7 +407,7 @@ export class NodeProcessor {
         });
         mainHtmlNodes.forEach(d => NodeProcessor._trimNodes(d));
 
-        const footnotesHtml = this.footnoteProcessor.combineFootnotes((node: DomElement) => this.processNode(
+        const footnotesHtml = this.footnoteProcessor.combineFootnotes(node => this.processNode(
           node, new Context(cwf, [], extraVariables, {}),
         ));
         const mainHtml = cheerio(mainHtmlNodes).html();

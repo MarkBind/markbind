@@ -1,6 +1,6 @@
 <template>
   <!-- TODO deprecate all isValidQuestionType checks -->
-  <transition :name="questions ? 'question' : null">
+  <transition :name="questions ? 'question' : null" @after-leave="showNextQuestion">
     <div v-if="active" :class="['card', 'question', shakeClass, addClass]">
       <div v-if="$scopedSlots.header" class="card-header alert-light border-bottom border-light text-dark">
         <slot name="header"></slot>
@@ -245,6 +245,12 @@ export default {
     isValidTypeAndNotTextWithoutKeywords() {
       return this.isValidQuestionType() && !(this.isTextQuestion() && !this.keywords);
     },
+    shakeCard() {
+      this.shakeClass = 'shake';
+      setTimeout(() => {
+        this.shakeClass = null;
+      }, 800);
+    },
     markAsCorrect() {
       this.qState.state = STATE_CORRECT;
       this.qState.answered = true;
@@ -254,16 +260,13 @@ export default {
       if (markAsAnswered) {
         this.qState.answered = true;
       } else {
-        // shake the card
-        this.shakeClass = 'shake';
-        setTimeout(() => {
-          this.shakeClass = null;
-        }, 800);
+        this.shakeCard();
       }
     },
     checkMcqAnswer(markAsAnsweredIfWrong) {
       const selectedAnswer = this.answers.find(answer => answer.selected);
       if (!selectedAnswer) {
+        this.shakeCard();
         return;
       }
 
@@ -351,7 +354,7 @@ export default {
 
     .question {
         margin-bottom: 1rem;
-        transition: transform 0.5s ease-out, opacity 0.5s linear;
+        transition: transform 0.35s ease-out, opacity 0.35s linear;
     }
 
     .question-enter-active {

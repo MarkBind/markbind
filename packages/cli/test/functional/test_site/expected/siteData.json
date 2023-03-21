@@ -81,7 +81,6 @@
     },
     {
       "src": "sub_site/index.md",
-      "title": "",
       "headings": {
         "feature-list": "Feature list"
       },
@@ -89,13 +88,11 @@
     },
     {
       "src": "sub_site/nested_sub_site/index.md",
-      "title": "",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "test_md_fragment.md",
-      "title": "",
       "headings": {
         "some-heading": "Some heading"
       },
@@ -299,6 +296,12 @@
     {
       "src": "testPageNav.md",
       "title": "text interpolation should be skipped appropriately",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testPanelsClosingTransition.md",
+      "title": "Test: Panels closing transition",
       "headings": {},
       "headingKeywords": {}
     },

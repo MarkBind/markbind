@@ -1,9 +1,9 @@
 import cheerio from 'cheerio';
 import slugify from '@sindresorhus/slugify';
 import has from 'lodash/has';
-import { DomElement } from 'htmlparser2';
 import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
-import { NodeProcessorConfig } from './NodeProcessor';
+import type { NodeProcessorConfig } from './NodeProcessor';
+import { MbNode, NodeOrText } from '../utils/node';
 
 const _ = {
   has,
@@ -12,7 +12,7 @@ const _ = {
 /*
  * h1 - h6
  */
-export function setHeadingId(node: DomElement, config: NodeProcessorConfig) {
+export function setHeadingId(node: MbNode, config: NodeProcessorConfig) {
   const textContent = cheerio(node).text();
   // remove the '&lt;' and '&gt;' symbols that markdown-it uses to escape '<' and '>'
   const cleanedContent = textContent.replace(/&lt;|&gt;/g, '');
@@ -27,16 +27,15 @@ export function setHeadingId(node: DomElement, config: NodeProcessorConfig) {
     headerIdMap[slugifiedHeading] = 2;
   }
 
-  node.attribs = node.attribs ?? {};
   node.attribs.id = headerId;
 }
 
 /**
  * Traverses the dom breadth-first from the specified element to find a html heading child.
  * @param node Root element to search from
- * @returns {undefined|*} The header element, or undefined if none is found.
+ * @returns  The header element, or undefined if none is found.
  */
-function _findHeaderElement(node: DomElement) {
+function _findHeaderElement(node: MbNode): undefined | NodeOrText {
   const elements = node.children;
   if (!elements || !elements.length) {
     return undefined;
@@ -64,7 +63,7 @@ function _findHeaderElement(node: DomElement) {
  * This is to ensure anchors still work when panels are in their minimized form.
  * @param node The root panel element
  */
-export function assignPanelId(node: DomElement) {
+export function assignPanelId(node: MbNode) {
   const slotChildren = node.children
     ? node.children.filter(child => getVslotShorthandName(child) !== '')
     : [];
@@ -72,7 +71,7 @@ export function assignPanelId(node: DomElement) {
   const headerSlot = slotChildren.find(child => getVslotShorthandName(child) === 'header');
 
   if (headerSlot) {
-    const header = _findHeaderElement(headerSlot);
+    const header = _findHeaderElement(headerSlot as MbNode);
     if (!header) {
       return;
     }
@@ -82,7 +81,6 @@ export function assignPanelId(node: DomElement) {
           + 'Please report this to the MarkBind developers. Thank you!');
     }
 
-    node.attribs = node.attribs ?? {};
     node.attribs.panelId = header.attribs.id;
   }
 }

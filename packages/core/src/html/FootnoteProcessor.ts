@@ -1,5 +1,5 @@
 import cheerio from 'cheerio';
-import { DomElement } from 'htmlparser2';
+import { MbNode, parseHTML } from '../utils/node';
 import { MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX } from './constants';
 
 /*
@@ -13,7 +13,7 @@ export class FootnoteProcessor {
     this.renderedFootnotes = [];
   }
 
-  processMbTempFootnotes(node: DomElement) {
+  processMbTempFootnotes(node: MbNode) {
     const $ = cheerio(node);
     const content = $.html();
     if (content) {
@@ -22,7 +22,7 @@ export class FootnoteProcessor {
     $.remove();
   }
 
-  combineFootnotes(processNode: (nd: DomElement) => any): string {
+  combineFootnotes(processNode: (nd: MbNode) => any): string {
     let hasFootnote = false;
     const prefix = '<hr class="footnotes-sep">\n<section class="footnotes">\n<ol class="footnotes-list">\n';
 
@@ -30,17 +30,17 @@ export class FootnoteProcessor {
       const $ = cheerio.load(footNoteBlock);
       let popoversHtml = '';
 
-      $('li.footnote-item').each((index, li) => {
+      $('li.footnote-item').each((_index, li) => {
         hasFootnote = true;
         const popoverId = `${MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX}${(li as any).attribs.id}`;
-        const popoverNode = cheerio.parseHTML(`<popover id="${popoverId}">
+        const popoverNode = parseHTML(`<popover id="${popoverId}">
             <div #content>
               ${$(li).html()}
             </div>
-          </popover>`)[0];
-        processNode(popoverNode as unknown as DomElement);
+          </popover>`)[0] as MbNode;
+        processNode(popoverNode);
 
-        popoversHtml += cheerio.html(popoverNode as any);
+        popoversHtml += cheerio.html(popoverNode);
       });
 
       return `${popoversHtml}\n${footNoteBlock}\n`;

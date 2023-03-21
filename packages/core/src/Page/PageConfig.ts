@@ -1,4 +1,6 @@
-import { Template } from 'nunjucks';
+import type { Template } from 'nunjucks';
+import type { SiteLinkManager } from '../html/SiteLinkManager';
+import type { PluginManager } from '../plugins/PluginManager';
 
 import VariableProcessor from '../variables/VariableProcessor';
 
@@ -20,6 +22,8 @@ export interface PageAssets {
   jQuery: string;
   pageVueRenderJs?: string;
   layoutUserScriptsAndStyles: string[];
+  pluginScripts?: string[],
+  pluginLinks?: string[],
 }
 
 /**
@@ -42,14 +46,14 @@ export class PageConfig {
   frontmatterOverride: { [frontmatterName: string]: string };
   layout?: string;
   layoutsAssetPath: string;
-  pluginManager: any;
+  pluginManager: PluginManager;
   /**
    * The output path of this page
    */
   resultPath: string;
   rootPath: string;
   searchable: boolean;
-  siteLinkManager: any;
+  siteLinkManager: SiteLinkManager;
   siteOutputPath: string;
   /**
    * The source file's (.md) file path for rendering this page
@@ -59,7 +63,7 @@ export class PageConfig {
    * The source file's (.md) posix relative file path for rendering this page
    */
   src: string;
-  title: string;
+  title?: string;
   template: Template;
   variableProcessor: VariableProcessor;
   addressablePagesSource: string[];
@@ -73,11 +77,11 @@ export class PageConfig {
     frontmatterOverride?: { [frontmatterName: string]: string },
     layout?: string,
     layoutsAssetPath: string;
-    pluginManager: any,
+    pluginManager: PluginManager,
     resultPath: string;
     rootPath: string;
     searchable: boolean;
-    siteLinkManager: any;
+    siteLinkManager: SiteLinkManager;
     siteOutputPath: string;
     sourcePath: string;
     src: string;
@@ -102,7 +106,7 @@ export class PageConfig {
     this.siteOutputPath = args.siteOutputPath;
     this.sourcePath = args.sourcePath;
     this.src = args.src;
-    this.title = args.title || '';
+    this.title = args.title;
     this.template = args.template;
     this.variableProcessor = args.variableProcessor;
     this.addressablePagesSource = args.addressablePagesSource;

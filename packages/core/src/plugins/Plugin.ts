@@ -2,11 +2,11 @@ import path from 'path';
 import fs from 'fs-extra';
 import cheerio from 'cheerio';
 
-import { DomElement } from 'htmlparser2';
 import isString from 'lodash/isString';
 import * as logger from '../utils/logger';
 import * as urlUtil from '../utils/urlUtil';
-import { NodeProcessorConfig } from '../html/NodeProcessor';
+import type { NodeProcessorConfig } from '../html/NodeProcessor';
+import { NodeOrText } from '../utils/node';
 
 require('../patches/htmlparser2');
 
@@ -43,8 +43,8 @@ export class Plugin {
     getLinks: (...args: any[]) => any;
     getScripts: (...args: any[]) => any;
     postRender: (pluginContext: PluginContext, frontmatter: FrontMatter, content: string) => string;
-    processNode: (pluginContext: PluginContext, node: DomElement, config?: NodeProcessorConfig) => string;
-    postProcessNode: (pluginContext: PluginContext, node: DomElement, config?: NodeProcessorConfig) => string;
+    processNode: (pluginContext: PluginContext, node: NodeOrText, config?: NodeProcessorConfig) => string;
+    postProcessNode: (pluginContext: PluginContext, node: NodeOrText, config?: NodeProcessorConfig) => string;
     tagConfig: { [key: string]: TagConfigs };
   };
 
@@ -145,7 +145,7 @@ export class Plugin {
     return content;
   }
 
-  processNode(node: DomElement, config: NodeProcessorConfig) {
+  processNode(node: NodeOrText, config: NodeProcessorConfig) {
     if (!this.plugin.processNode) {
       return;
     }
@@ -153,7 +153,7 @@ export class Plugin {
     this.plugin.processNode(this.pluginOptions, node, config);
   }
 
-  postProcessNode(node: DomElement, config: NodeProcessorConfig) {
+  postProcessNode(node: NodeOrText, config: NodeProcessorConfig) {
     if (!this.plugin.postProcessNode) {
       return;
     }

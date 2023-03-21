@@ -1,6 +1,5 @@
 import merge from 'lodash/merge';
 
-import { DomElement } from 'htmlparser2';
 import path from 'path';
 import fs from 'fs-extra';
 import walkSync from 'walk-sync';
@@ -12,7 +11,9 @@ import * as logger from '../utils/logger';
 import {
   FrontMatter, Plugin, PluginContext, TagConfigs,
 } from './Plugin';
-import { NodeProcessorConfig } from '../html/NodeProcessor';
+import type { NodeProcessorConfig } from '../html/NodeProcessor';
+import type { PageAssets } from '../Page/PageConfig';
+import { NodeOrText } from '../utils/node';
 
 const { ignoreTags } = require('../patches');
 
@@ -28,11 +29,6 @@ const MARKBIND_PLUGIN_DIRECTORY = __dirname;
 const MARKBIND_DEFAULT_PLUGIN_DIRECTORY = path.join(__dirname, 'default');
 const MARKBIND_PLUGIN_PREFIX = 'markbind-plugin-';
 const PROJECT_PLUGIN_FOLDER_NAME = '_markbind/plugins';
-
-type PageAsset = {
-  pluginScripts: string[],
-  pluginLinks: string[],
-};
 
 export class PluginManager {
   static tagConfig: { [key: string]: TagConfigs };
@@ -196,7 +192,7 @@ export class PluginManager {
   /**
    * Run getLinks and getScripts hooks
    */
-  collectPluginPageNjkAssets(frontmatter: FrontMatter, content: string, pageAsset: PageAsset) {
+  collectPluginPageNjkAssets(frontmatter: FrontMatter, content: string, pageAsset: PageAssets) {
     const pluginLinksAndScripts = Object.values(this.plugins)
       .map(plugin => plugin.getPageNjkLinksAndScripts(frontmatter, content, this.config.baseUrl));
 
@@ -209,13 +205,13 @@ export class PluginManager {
       .reduce((renderedContent, plugin) => plugin.postRender(frontmatter, renderedContent), content);
   }
 
-  processNode(node: DomElement) {
+  processNode(node: NodeOrText) {
     Object.values(this.plugins).forEach((plugin) => {
       plugin.processNode(node, this.config);
     });
   }
 
-  postProcessNode(node: DomElement) {
+  postProcessNode(node: NodeOrText) {
     Object.values(this.plugins).forEach((plugin) => {
       plugin.postProcessNode(node, this.config);
     });

@@ -1,7 +1,7 @@
 import has from 'lodash/has';
-import { DomElement } from 'htmlparser2';
 import * as linkProcessor from './linkProcessor';
-import { NodeProcessorConfig } from './NodeProcessor';
+import type { NodeProcessorConfig } from './NodeProcessor';
+import { MbNode } from '../utils/node';
 
 const _ = { has };
 
@@ -51,16 +51,14 @@ export class SiteLinkManager {
    * Add a link to the intralinkCollection to be validated later,
    * if the node should be validated and intralink validation is not disabled.
    */
-  collectIntraLinkToValidate(node: DomElement, cwf: string) {
-    if (node.name && !tagsToValidate.has(node.name)) {
+  collectIntraLinkToValidate(node: MbNode, cwf: string) {
+    if (!tagsToValidate.has(node.name)) {
       return 'Should not validate';
     }
 
-    if (node.attribs) {
-      const hasIntralinkValidationDisabled = _.has(node.attribs, 'no-validation');
-      if (hasIntralinkValidationDisabled) {
-        return 'Intralink validation disabled';
-      }
+    const hasIntralinkValidationDisabled = _.has(node.attribs, 'no-validation');
+    if (hasIntralinkValidationDisabled) {
+      return 'Intralink validation disabled';
     }
 
     const resourcePath = linkProcessor.getDefaultTagsResourcePath(node);

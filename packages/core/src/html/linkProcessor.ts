@@ -3,14 +3,14 @@ import has from 'lodash/has';
 import parse from 'url-parse';
 import ignore from 'ignore';
 
-import { DomElement } from 'htmlparser2';
 import * as fsUtil from '../utils/fsUtil';
 import * as logger from '../utils/logger';
 import * as urlUtil from '../utils/urlUtil';
 
 import { PluginManager } from '../plugins/PluginManager';
-import { NodeProcessorConfig } from './NodeProcessor';
-import { PageSources } from '../Page/PageSources';
+import type { NodeProcessorConfig } from './NodeProcessor';
+import type { PageSources } from '../Page/PageSources';
+import { MbNode } from '../utils/node';
 
 const _ = { has };
 
@@ -28,12 +28,11 @@ const defaultTagLinkMap: { [key: string]: string } = {
   script: 'src',
 };
 
-export function hasTagLink(node: DomElement) {
-  return node.name && (node.name in defaultTagLinkMap || node.name in pluginTagConfig);
+export function hasTagLink(node: MbNode) {
+  return node.name in defaultTagLinkMap || node.name in pluginTagConfig;
 }
 
-export function getDefaultTagsResourcePath(node: DomElement): string {
-  if (!node.name || !node.attribs) return '';
+export function getDefaultTagsResourcePath(node: MbNode) {
   const linkAttribName = defaultTagLinkMap[node.name];
   const resourcePath = node.attribs[linkAttribName];
   return resourcePath;
@@ -55,7 +54,7 @@ export function isIntraLink(resourcePath: string | undefined): boolean {
     && !MAILTO_OR_TEL_REGEX.test(resourcePath);
 }
 
-function _convertRelativeLink(node: DomElement, cwf: string, rootPath: string,
+function _convertRelativeLink(node: MbNode, cwf: string, rootPath: string,
                               baseUrl: string, resourcePath: string | undefined, linkAttribName: string) {
   if (!resourcePath || !isIntraLink(resourcePath)) {
     return;
@@ -70,9 +69,7 @@ function _convertRelativeLink(node: DomElement, cwf: string, rootPath: string,
   const fullResourcePath = path.join(cwd, resourcePath);
   const resourcePathFromRoot = _getResourcePathFromRoot(rootPath, fullResourcePath);
 
-  if (node.attribs) {
-    node.attribs[linkAttribName] = path.posix.join(baseUrl || '/', resourcePathFromRoot);
-  }
+  node.attribs[linkAttribName] = path.posix.join(baseUrl || '/', resourcePathFromRoot);
 }
 
 /**
@@ -82,20 +79,19 @@ function _convertRelativeLink(node: DomElement, cwf: string, rootPath: string,
  *
  * TODO allow plugins to tap into this process / extend {@link defaultTagLinkMap}
  *
- * @param {DomElement} node from the dom traversal
- * @param {string} cwf as flagged from {@link NodeProcessor}
- * @param {string} rootPath of the root site
- * @param {string} baseUrl
+ * @param  node from the dom traversal
+ * @param  cwf as flagged from {@link NodeProcessor}
+ * @param  rootPath of the root site
+ * @param  baseUrl
  */
-export function convertRelativeLinks(node: DomElement, cwf: string, rootPath: string, baseUrl: string) {
-  if (!node.name) return;
+export function convertRelativeLinks(node: MbNode, cwf: string, rootPath: string, baseUrl: string) {
   if (node.name in defaultTagLinkMap) {
     const resourcePath = getDefaultTagsResourcePath(node);
     const linkAttribName = defaultTagLinkMap[node.name];
     _convertRelativeLink(node, cwf, rootPath, baseUrl, resourcePath, linkAttribName);
   }
 
-  if (node.name in pluginTagConfig && pluginTagConfig[node.name].attributes && node.attribs) {
+  if (node.name in pluginTagConfig && pluginTagConfig[node.name].attributes) {
     pluginTagConfig[node.name].attributes.forEach((attrConfig) => {
       if (attrConfig.isRelative && node.attribs) {
         const resourcePath = node.attribs[attrConfig.name];
@@ -105,8 +101,8 @@ export function convertRelativeLinks(node: DomElement, cwf: string, rootPath: st
   }
 }
 
-export function convertMdExtToHtmlExt(node: DomElement) {
-  if (node.name === 'a' && node.attribs && node.attribs.href) {
+export function convertMdExtToHtmlExt(node: MbNode) {
+  if (node.name === 'a' && node.attribs.href) {
     const hasNoConvert = _.has(node.attribs, 'no-convert');
     if (hasNoConvert) {
       return;
@@ -164,10 +160,10 @@ function isValidFileAsset(resourcePath: string, config: NodeProcessorConfig) {
  * Serves as an internal intra-link validator. Checks if the intra-links are valid.
  * If the intra-links are suspected to be invalid, a warning message will be logged.
  *
- * @param {string} resourcePath parsed from the node's relevant attribute
- * @param {string} cwf as flagged from {@link NodePreprocessor}
- * @param {NodeProcessorConfig} config passed for page metadata access
- * @returns {string} these string return values are for unit testing purposes only
+ * @param  resourcePath parsed from the node's relevant attribute
+ * @param  cwf as flagged from {@link NodePreprocessor}
+ * @param  config passed for page metadata access
+ * @returns  these string return values are for unit testing purposes only
  */
 export function validateIntraLink(resourcePath: string, cwf: string, config: NodeProcessorConfig): string {
   if (!isIntraLink(resourcePath)) {
@@ -230,22 +226,21 @@ export function validateIntraLink(resourcePath: string, cwf: string, config: Nod
  * Resolves and collects source file paths pointed to by attributes in nodes for live reload.
  * Only necessary for plugins for now.
  *
- * @param {DomElement} node from the dom traversal
- * @param {string} rootPath site root path to resolve the link from
- * @param {string} baseUrl base url to strip off the link (if any)
- * @param {PageSources} pageSources {@link PageSources} object to add the resolved file path to
- * @returns {string | void} these string return values are for unit testing purposes only
+ * @param  node from the dom traversal
+ * @param  rootPath site root path to resolve the link from
+ * @param  baseUrl base url to strip off the link (if any)
+ * @param  pageSources {@link PageSources} object to add the resolved file path to
+ * @returns  these string return values are for unit testing purposes only
  */
-export function collectSource(node: DomElement, rootPath: string,
+export function collectSource(node: MbNode, rootPath: string,
                               baseUrl: string, pageSources: PageSources): string | void {
-  if (!node.name) return;
   const tagConfig = pluginTagConfig[node.name];
   if (!tagConfig || !tagConfig.attributes) {
     return;
   }
 
   tagConfig.attributes.forEach((attrConfig) => {
-    if (!attrConfig.isSourceFile || !node.attribs) {
+    if (!attrConfig.isSourceFile) {
       return;
     }
 

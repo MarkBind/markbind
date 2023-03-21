@@ -90,15 +90,18 @@ More info: <include src="{{ filename }}#link" inline trim/>
 
 <!-- ======================================================================================================= -->
 
-#### {{ icon_check_blue }} MarkBind Vue components and Bootstrap
+#### {{ icon_check_blue }} Support for Bootstrap
 
-MarkBind has several core Vue.js components built on the popular [BootStrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/) framework. Much of Bootstrap's features are supported in and out of these components as well.
+MarkBind has Vue.js components built on the popular [BootStrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/) framework. Much of Bootstrap's features are supported in and out of these components as well. However, interactive BootStrap components like dismissible alerts and toasts are not supported.
 
 <!-- ======================================================================================================= -->
 
 #### {{ icon_check_blue }} Support for Nunjucks
 
 [Nunjucks](https://mozilla.github.io/nunjucks/) is a JavaScript based templating tool. Here is a simple example:
+
+%%CODE:%%
+<div class="indented">
 
 {% raw %}
 ```html
@@ -110,15 +113,21 @@ MarkBind has several core Vue.js components built on the popular [BootStrap](htt
 ```
 {% endraw %}
 
-{{ icon_arrow_down }}
+</div>
 
-<box>
+%%OUTPUT:%%
+<div class="indented">
+
+<box border-left-color="grey" background-color="white">
+
 <ul>
 {% for item in [1, 2, 3, 4] %}
   <li>Item {{ item }}</li>
 {% endfor %}
 </ul>
+
 </box>
+</div>
 
 As MarkBind uses Nunjucks behind the scene, **MarkBind is generally compatible with Nunjucks**, which means you can use Nunjucks templating in your source files. Note that ==the code is processed for Nunjucks syntax before the rest of the MarkBind syntax are processed==.
 

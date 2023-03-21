@@ -1,5 +1,5 @@
-import { DomElement } from 'htmlparser2';
 import * as logger from '../utils/logger';
+import { MbNode } from '../utils/node';
 import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
 
 /**
@@ -10,7 +10,7 @@ import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
  * @param attribute An attribute that is conflicting with other attributes
  * @param attrsConflictingWith The attributes conflicting with `attribute`
  */
-function _warnConflictingAttributes(node: DomElement, attribute: string, attrsConflictingWith: string[]) {
+function _warnConflictingAttributes(node: MbNode, attribute: string, attrsConflictingWith: string[]) {
   if (!node.attribs || !(attribute in node.attribs)) {
     return;
   }
@@ -29,7 +29,7 @@ function _warnConflictingAttributes(node: DomElement, attribute: string, attrsCo
  * @param element Root element to check
  * @param namePairs Object of slot name pairs with each pair in the form deprecated : correct
  */
-function _warnDeprecatedSlotNames(element: DomElement, namePairs: { [name: string]: string }) {
+function _warnDeprecatedSlotNames(element: MbNode, namePairs: { [name: string]: string }) {
   if (!(element.children)) {
     return;
   }
@@ -48,8 +48,8 @@ function _warnDeprecatedSlotNames(element: DomElement, namePairs: { [name: strin
   });
 }
 
-export const warnConflictingAtributesMap: { [attr: string]: (nd: DomElement) => void } = {
-  box: (node: DomElement) => {
+export const warnConflictingAtributesMap: { [attr: string]: (nd: MbNode) => void } = {
+  box: (node) => {
     _warnConflictingAttributes(node, 'light', ['seamless']);
     _warnConflictingAttributes(node, 'no-background', ['background-color', 'seamless']);
     _warnConflictingAttributes(node, 'no-border',
@@ -58,8 +58,8 @@ export const warnConflictingAtributesMap: { [attr: string]: (nd: DomElement) => 
   },
 };
 
-export const warnDeprecatedAtributesMap: { [attr: string]: (nd: DomElement) => void } = {
-  modal: (node: DomElement) => {
+export const warnDeprecatedAtributesMap: { [attr: string]: (nd: MbNode) => void } = {
+  modal: (node) => {
     _warnDeprecatedSlotNames(node, {
       'modal-header': 'header',
       'modal-footer': 'footer',
