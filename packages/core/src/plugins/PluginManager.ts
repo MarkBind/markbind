@@ -1,6 +1,5 @@
 import merge from 'lodash/merge';
 
-import { DomElement } from 'htmlparser2';
 import path from 'path';
 import fs from 'fs-extra';
 import walkSync from 'walk-sync';
@@ -14,6 +13,7 @@ import {
 } from './Plugin';
 import type { NodeProcessorConfig } from '../html/NodeProcessor';
 import type { PageAssets } from '../Page/PageConfig';
+import { NodeOrText } from '../utils/node';
 
 const { ignoreTags } = require('../patches');
 
@@ -205,13 +205,13 @@ export class PluginManager {
       .reduce((renderedContent, plugin) => plugin.postRender(frontmatter, renderedContent), content);
   }
 
-  processNode(node: DomElement) {
+  processNode(node: NodeOrText) {
     Object.values(this.plugins).forEach((plugin) => {
       plugin.processNode(node, this.config);
     });
   }
 
-  postProcessNode(node: DomElement) {
+  postProcessNode(node: NodeOrText) {
     Object.values(this.plugins).forEach((plugin) => {
       plugin.postProcessNode(node, this.config);
     });
