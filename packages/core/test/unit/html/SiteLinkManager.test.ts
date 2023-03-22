@@ -1,5 +1,4 @@
-import cheerio from 'cheerio';
-import { DomElement } from 'htmlparser2';
+import { MbNode, parseHTML } from '../../../src/utils/node';
 import { getNewSiteLinkManager } from '../utils/utils';
 
 const fs = require('fs');
@@ -22,7 +21,7 @@ const mockCwf = 'Test';
 test('Test invalid URL link ', () => {
   const siteLinkManager = getNewSiteLinkManager();
   const mockLink = '<div>Test</div>';
-  const mockNode = cheerio.parseHTML(mockLink)[0] as unknown as DomElement;
+  const mockNode = parseHTML(mockLink)[0] as MbNode;
 
   const EXPECTED_RESULT = 'Should not validate';
 
@@ -32,7 +31,7 @@ test('Test invalid URL link ', () => {
 test('Test mailto URL link', () => {
   const siteLinkManager = getNewSiteLinkManager();
   const mockLink = '<a href="mailto:test@example.com">Test</a>';
-  const mockNode = cheerio.parseHTML(mockLink)[0] as unknown as DomElement;
+  const mockNode = parseHTML(mockLink)[0] as MbNode;
 
   const EXPECTED_RESULT = 'Should not validate';
 
@@ -42,7 +41,7 @@ test('Test mailto URL link', () => {
 test('Test tel URL link', () => {
   const siteLinkManager = getNewSiteLinkManager();
   const mockLink = '<a href="tel:999">Test</a>';
-  const mockNode = cheerio.parseHTML(mockLink)[0] as unknown as DomElement;
+  const mockNode = parseHTML(mockLink)[0] as MbNode;
 
   const EXPECTED_RESULT = 'Should not validate';
 
@@ -52,7 +51,7 @@ test('Test tel URL link', () => {
 test('Test link for disabled intralink validation', () => {
   const siteLinkManager = getNewSiteLinkManager();
   const mockLink = '<a href="https://markbind.org" no-validation>Test</a>';
-  const mockNode = cheerio.parseHTML(mockLink)[0] as unknown as DomElement;
+  const mockNode = parseHTML(mockLink)[0] as MbNode;
 
   const EXPECTED_RESULT = 'Intralink validation disabled';
 
@@ -62,7 +61,7 @@ test('Test link for disabled intralink validation', () => {
 test('Test invalid, non-existent link ending with no extension to be collected', () => {
   const siteLinkManager = getNewSiteLinkManager();
   const mockLink = '<a href="/missingRawFile">Test</a>';
-  const mockNode = cheerio.parseHTML(mockLink)[0] as unknown as DomElement;
+  const mockNode = parseHTML(mockLink)[0] as MbNode;
 
   const EXPECTED_RESULT = 'Intralink collected to be validated later';
 
@@ -72,7 +71,7 @@ test('Test invalid, non-existent link ending with no extension to be collected',
 test('Test valid ".html" extension link ', () => {
   const siteLinkManager = getNewSiteLinkManager();
   const mockLink = '<a href="/index.html">Test</a>';
-  const mockNode = cheerio.parseHTML(mockLink)[0] as unknown as DomElement;
+  const mockNode = parseHTML(mockLink)[0] as MbNode;
 
   const EXPECTED_RESULT = 'Intralink collected to be validated later';
 
