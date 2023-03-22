@@ -1,6 +1,6 @@
 import cheerio from 'cheerio';
-import { DomElement } from 'htmlparser2';
 import has from 'lodash/has';
+import { NodeOrText, MbNode } from '../utils/node';
 
 const md = require('../lib/markdown-it');
 const util = require('../lib/markdown-it/utils');
@@ -20,9 +20,9 @@ interface TraverseLinePartData {
  * @param node The node of the line part to be traversed
  * @param hlStart The highlight start position, relative to the start of the line part
  * @param hlEnd The highlight end position, relative to the start of the line part
- * @returns {object} An object that contains data to be used by the node's parent.
+ * @returns  An object that contains data to be used by the node's parent.
  */
-function traverseLinePart(node: DomElement, hlStart: number, hlEnd: number): TraverseLinePartData {
+function traverseLinePart(node: NodeOrText, hlStart: number, hlEnd: number): TraverseLinePartData {
   const resData: TraverseLinePartData = {
     numCharsTraversed: 0,
     shouldParentHighlight: false,
@@ -128,7 +128,7 @@ function traverseLinePart(node: DomElement, hlStart: number, hlEnd: number): Tra
  * traverses over the line and applies the highlight.
  * @param node Root of the code block element, which is the 'pre' node
  */
-export function highlightCodeBlock(node: DomElement) {
+export function highlightCodeBlock(node: MbNode) {
   if (!node.children) {
     return;
   }
@@ -155,8 +155,8 @@ export function highlightCodeBlock(node: DomElement) {
  * @param node the code block element, which is the 'code' node
  * @param showCodeLineNumbers true if line numbers should be shown, false otherwise
  */
-export function setCodeLineNumbers(node: DomElement, showCodeLineNumbers: boolean) {
-  const existingClass = node.attribs?.class || '';
+export function setCodeLineNumbers(node: MbNode, showCodeLineNumbers: boolean) {
+  const existingClass = node.attribs.class || '';
   const styleClassRegex = /(^|\s)(no-)?line-numbers($|\s)/;
   const hasStyleClass = styleClassRegex.test(existingClass);
   if (hasStyleClass) {
