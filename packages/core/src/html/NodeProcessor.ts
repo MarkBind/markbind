@@ -115,7 +115,7 @@ export class NodeProcessor {
   /*
    * Frontmatter collection
    */
-  _processFrontmatter(node: MbNode, context: Context) {
+  private _processFrontmatter(node: MbNode, context: Context) {
     let currentFrontmatter = {};
     const frontmatter = cheerio(node);
     if (!context.processingOptions.omitFrontmatter && frontmatter.text().trim()) {
@@ -153,18 +153,16 @@ export class NodeProcessor {
    * Removes the node if modal id already exists, processes node otherwise
    */
   private processModal(node: MbNode) {
-    if (node.attribs) {
-      if (this.processedModals[node.attribs.id]) {
-        cheerio(node).remove();
-      } else {
-        this.processedModals[node.attribs.id] = true;
+    if (this.processedModals[node.attribs.id]) {
+      cheerio(node).remove();
+    } else {
+      this.processedModals[node.attribs.id] = true;
 
-        // Transform deprecated slot names; remove when deprecating
-        renameSlot(node, 'modal-header', 'header');
-        renameSlot(node, 'modal-footer', 'footer');
+      // Transform deprecated slot names; remove when deprecating
+      renameSlot(node, 'modal-header', 'header');
+      renameSlot(node, 'modal-footer', 'footer');
 
-        this.mdAttributeRenderer.processModalAttributes(node);
-      }
+      this.mdAttributeRenderer.processModalAttributes(node);
     }
   }
 
@@ -400,7 +398,7 @@ export class NodeProcessor {
           return;
         }
         const mainHtmlNodes = dom.map((d) => {
-          let processed;
+          let processed: NodeOrText;
           try {
             processed = this.traverse(d, context);
           } catch (err: any) {

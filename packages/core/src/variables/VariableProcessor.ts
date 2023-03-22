@@ -1,5 +1,4 @@
 import cheerio from 'cheerio';
-import { DomElement } from 'htmlparser2';
 
 import { ATTRIB_CWF } from '../constants';
 import { PageSources } from '../Page/PageSources';
@@ -7,6 +6,7 @@ import VariableRenderer from './VariableRenderer';
 import * as logger from '../utils/logger';
 import * as urlUtil from '../utils/urlUtil';
 import type { Context } from '../html/Context';
+import { MbNode } from '../utils/node';
 
 /**
  * All variable extraction and rendering is done here.
@@ -160,7 +160,7 @@ class VariableProcessor {
    * Extracts variables specified as <include var-xx="..."> in include elements.
    * @param includeElement to extract inline variables from
    */
-  private static extractIncludeInlineVariables(includeElement: DomElement) {
+  private static extractIncludeInlineVariables(includeElement: MbNode) {
     const includeInlineVariables: { [key: string]: any } = {};
 
     Object.entries(includeElement.attribs || {}).forEach(([attribute, val]) => {
@@ -178,7 +178,7 @@ class VariableProcessor {
    * Extracts variables specified as <variable> in include elements.
    * @param includeElement to search child nodes for
    */
-  private static extractIncludeChildElementVariables(includeElement: DomElement) {
+  private static extractIncludeChildElementVariables(includeElement: MbNode) {
     if (!(includeElement.children && includeElement.children.length)) {
       return {};
     }
@@ -210,7 +210,7 @@ class VariableProcessor {
    * It is a subroutine for {@link renderIncludeFile}
    * @param includeElement include element to extract variables from
    */
-  private static extractIncludeVariables(includeElement: DomElement) {
+  private static extractIncludeVariables(includeElement: MbNode) {
     const includeInlineVariables = VariableProcessor.extractIncludeInlineVariables(includeElement);
     const includeChildVariables = VariableProcessor.extractIncludeChildElementVariables(includeElement);
 
@@ -239,7 +239,7 @@ class VariableProcessor {
   renderIncludeFile(
     filePath: string,
     pageSources: PageSources,
-    node: DomElement,
+    node: MbNode,
     context: Context,
     asIfAt: string,
   ) {
