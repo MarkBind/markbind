@@ -30,7 +30,9 @@ To set it up, get an access key from [Web3Forms](https://web3forms.com/). Then a
 
 <box type="warning" seamless>
 The access key is exposed to public. 
-Malicious users might use the access key in other forms. 
+This is generally ok since the access key is an alias to your email and is equivalent to revealing your email to public.
+
+However it is possible that malicious users might use the access key in other forms. 
 This might subject the email linked to the access key to spam with irrelevant form submissions.
 </box>
 
