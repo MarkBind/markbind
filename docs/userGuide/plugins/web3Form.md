@@ -63,7 +63,7 @@ The header will be ```<h2>Contact Us</h2>``` for the default form if no header i
 <include src="codeAndOutput.md" boilerplate>
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<web-3-form default header="### New header"/>
+<web-3-form default header="**New header**"/>
 </variable>
 </include>
 
@@ -78,19 +78,19 @@ The inputs supported are
 <include src="codeAndOutput.md" boilerplate>
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<web-3-form header="### Form with name input">
+<web-3-form header="**Form with name input**">
 <name-input></name-input>
 </web-3-form>
 
-<web-3-form header="### Form with email input">
+<web-3-form header="**Form with email input**">
 <email-input></email-input>
 </web-3-form>
 
-<web-3-form header="### Form with message input">
+<web-3-form header="**Form with message input**">
 <message-input></message-input>
 </web-3-form>
 
-<web-3-form header="### Form with submit button">
+<web-3-form header="**Form with submit button**">
 <submit-button></submit-button>
 </web-3-form>
 
