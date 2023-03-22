@@ -1,3 +1,4 @@
+import cheerio from 'cheerio';
 import { DomElement } from 'htmlparser2';
 
 /*
@@ -20,3 +21,11 @@ export type MbNode = DomElement & cheerio.Element & {
  * NodeOrText is used before a node can be casted to either TextElement or MbNode.
  */
 export type NodeOrText = TextElement | MbNode;
+
+/**
+ * Utility function for converting HTML string to a node or text element.
+ */
+export function parseHTML(html: string) {
+  const node = cheerio.parseHTML(html);
+  return node as unknown as NodeOrText[];
+}
