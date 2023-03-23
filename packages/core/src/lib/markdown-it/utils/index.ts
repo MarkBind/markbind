@@ -16,14 +16,10 @@ const htmlUnescapedMapping = {
 
 // markdown-it/utils have an escapeHtml function, but not the
 // complementary un-escaping function
-function unescapeHtml(str) {
+export function unescapeHtml(str: string) {
   let unescaped = str;
   Object.entries(htmlUnescapedMapping).forEach(([key, value]) => {
     unescaped = unescaped.split(key).join(value);
   });
   return unescaped;
 }
-
-module.exports = {
-  unescapeHtml,
-};

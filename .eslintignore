@@ -67,6 +67,7 @@ packages/core/src/plugins/default/markbind-plugin-tree.js
 # Rules for pure JS files
 packages/core/src/lib/markdown-it/patches/*
 packages/core/src/lib/markdown-it/plugins/*
+!packages/core/src/lib/markdown-it/plugins/markdown-it-icons.ts
 
 # --- packages/core end ---
 

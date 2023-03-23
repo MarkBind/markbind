@@ -2,8 +2,8 @@ import cheerio from 'cheerio';
 import has from 'lodash/has';
 import { NodeOrText, MbNode } from '../utils/node';
 
-const md = require('../lib/markdown-it');
-const util = require('../lib/markdown-it/utils');
+import md from '../lib/markdown-it';
+import * as util from '../lib/markdown-it/utils';
 
 const _ = {
   has,
