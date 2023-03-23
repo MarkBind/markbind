@@ -1,24 +1,22 @@
-const { HighlightRuleComponent } = require('./HighlightRuleComponent');
-const { splitCodeAndIndentation } = require('./helper');
+import { HighlightRuleComponent } from './HighlightRuleComponent';
+import { splitCodeAndIndentation } from './helper';
 
-class HighlightRule {
-  constructor(ruleComponents) {
-    /**
-     * @type Array<HighlightRuleComponent>
-     */
+export class HighlightRule {
+  ruleComponents: HighlightRuleComponent[];
+  constructor(ruleComponents: HighlightRuleComponent[]) {
     this.ruleComponents = ruleComponents;
   }
 
-  static parseAllRules(allRules, lineOffset, tokenContent) {
+  static parseAllRules(allRules: string, lineOffset: number, tokenContent: string) {
     const highlightLines = this.splitByChar(allRules, ',');
     const strArray = tokenContent.split('\n');
     return highlightLines
       .map(ruleStr => HighlightRule.parseRule(ruleStr, lineOffset, strArray))
-      .filter(rule => rule); // discards invalid rules
+      .filter(rule => rule) as HighlightRule[]; // discards invalid rules
   }
 
   // this function splits allRules by a splitter while ignoring the splitter if it is within quotes
-  static splitByChar(allRules, splitter) {
+  static splitByChar(allRules: string, splitter: string) {
     const highlightRules = [];
     let isWithinQuote = false;
     let currentPosition = 0;
@@ -38,7 +36,7 @@ class HighlightRule {
     return highlightRules;
   }
 
-  static parseRule(ruleString, lineOffset, lines) {
+  static parseRule(ruleString: string, lineOffset: number, lines: string[]) {
     const components = this.splitByChar(ruleString, '-')
       .map(compString => HighlightRuleComponent.parseRuleComponent(compString, lineOffset, lines));
 
@@ -48,10 +46,10 @@ class HighlightRule {
       return null;
     }
 
-    return new HighlightRule(components);
+    return new HighlightRule(components as HighlightRuleComponent[]);
   }
 
-  shouldApplyHighlight(lineNumber) {
+  shouldApplyHighlight(lineNumber: number) {
     const compares = this.ruleComponents.map(comp => comp.compareLine(lineNumber));
     if (this.isLineRange()) {
       const withinRangeStart = compares[0] <= 0;
@@ -63,7 +61,7 @@ class HighlightRule {
     return atLineNumber;
   }
 
-  applyHighlight(line, lineNumber) {
+  applyHighlight(line: string, lineNumber: number) {
     // Applied rule is the first component until deduced otherwise
     let [appliedRule] = this.ruleComponents;
 
@@ -96,16 +94,16 @@ class HighlightRule {
     return HighlightRule._highlightWholeText(line);
   }
 
-  static _highlightWholeLine(codeStr) {
+  static _highlightWholeLine(codeStr: string) {
     return `<span class="highlighted">${codeStr}\n</span>`;
   }
 
-  static _highlightWholeText(codeStr) {
+  static _highlightWholeText(codeStr: string) {
     const [indents, content] = splitCodeAndIndentation(codeStr);
     return `<span>${indents}<span class="highlighted">${content}</span>\n</span>`;
   }
 
-  static _highlightPartOfText(codeStr, bounds) {
+  static _highlightPartOfText(codeStr: string, bounds: number[][]) {
     /*
      * Note: As part-of-text highlighting requires walking over the node of the generated
      * html by highlight.js, highlighting will be applied in NodeProcessor instead.
@@ -119,7 +117,3 @@ class HighlightRule {
     return this.ruleComponents.length === 2;
   }
 }
-
-module.exports = {
-  HighlightRule,
-};
