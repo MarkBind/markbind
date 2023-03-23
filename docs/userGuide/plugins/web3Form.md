@@ -51,7 +51,8 @@ This might subject the email linked to the access key to spam with irrelevant fo
 
 **Web3Forms plugin also supports a default 'Contact Us' form.**
 
-The header will be ```<h2>Contact Us</h2>``` for the default form if no header is specified.
+The header will be ```<p class="h2">Contact Us</p>``` for the default form if no header is specified. 
+This uses Bootstrap to style the header. 
 
 <include src="codeAndOutput.md" boilerplate>
 <variable name="highlightStyle">html</variable>

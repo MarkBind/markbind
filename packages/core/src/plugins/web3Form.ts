@@ -18,7 +18,7 @@ const EMAIL_INPUT = '<label for="email">Email</label>\n'
 const MESSAGE_INPUT = '<label for="message">Message</label>\n'
     + '<textarea name="message" required></textarea>';
 const SUBMIT_BUTTON = '<button type="submit" class="badge bg-info">Submit</button>';
-const DEFAULT_HEADER = '<h2>Contact Us</h2>';
+const DEFAULT_HEADER = '<p class="h2">Contact Us</p>';
 const DEFAULT_INPUTS = `${NAME_INPUT}\n${EMAIL_INPUT}\n${MESSAGE_INPUT}\n${SUBMIT_BUTTON}`;
 
 function createMinimalForm(pluginContext: PluginContext) {
