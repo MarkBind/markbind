@@ -1,0 +1,112 @@
+/**
+* alertifyjs 1.13.1 http://alertifyjs.com
+* AlertifyJS is a javascript framework for developing pretty browser dialogs and notifications.
+* Copyright 2019 Mohammad Younes <Mohammad@alertifyjs.com> (http://alertifyjs.com)
+* Licensed under GPL 3 <https://opensource.org/licenses/gpl-3.0>
+*/
+.alertify-notifier {
+    position: fixed;
+    width: 0;
+    overflow: visible;
+    z-index: 2000;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    top: 10px !important;
+    right: 10px !important;
+}
+.alertify-notifier:hover {
+    cursor: pointer;
+    transition: 0.2s;
+}
+.alertify-notifier .ajs-message {
+    position: relative;
+    width: 260px;
+    max-height: 0;
+    padding: 0;
+    opacity: 0;
+    margin: 0;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transition-duration: 250ms;
+    transition-duration: 250ms;
+    -webkit-transition-timing-function: linear;
+    transition-timing-function: linear;
+    background: rgb(246, 248, 250);
+    color: #24292e;
+    text-align: center;
+    border: solid 1px #e8ebef;
+    border-radius: 2px;
+}
+.alertify-notifier .ajs-message.ajs-visible {
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
+    -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 1;
+    max-height: 100%;
+    padding: 15px;
+    margin-top: 10px;
+}
+.alertify-notifier .ajs-message.ajs-danger {
+    background: rgb(220, 53, 69);
+    border-color: rgb(172, 41, 37);
+    color: #fff;
+}
+.alertify-notifier .ajs-message.ajs-info {
+    background: rgb(13, 202, 240);
+    border-color: rgb(70, 184, 218);
+}
+.alertify-notifier .ajs-message.ajs-primary {
+    background: rgb(13, 110, 253);
+    border-color: rgb(31, 94, 150);
+    color: #fff;
+}
+.alertify-notifier .ajs-message.ajs-success {
+    background: rgb(25, 135, 84);
+    border-color: rgb(34, 121, 34);
+    color: #fff;
+}
+.alertify-notifier .ajs-message.ajs-warning {
+    background: rgb(255, 193, 7);
+    border-color: rgb(250, 175, 69);
+}
+.alertify-notifier .ajs-message .ajs-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-top-right-radius: 2px;
+}
+.alertify-notifier.ajs-right .ajs-message {
+    right: -320px;
+}
+.alertify-notifier.ajs-right .ajs-message.ajs-visible {
+    right: 290px;
+}
+.alertify-notifier.ajs-left .ajs-message {
+    left: -300px;
+}
+.alertify-notifier.ajs-left .ajs-message.ajs-visible {
+    left: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+    .alertify .ajs-dimmer,
+    .alertify .ajs-modal,
+    .alertify .ajs-dialog {
+        -webkit-transition: none !important;
+        transition: none !important;
+        -webkit-animation: none !important;
+        animation: none !important;
+    }
+    .alertify-notifier .ajs-message {
+        -webkit-transition: none !important;
+        transition: none !important;
+        -webkit-animation: none !important;
+        animation: none !important;
+    }
+}
