@@ -376,7 +376,6 @@
       "src": "testWeb3FormPlugin.md",
       "title": "web 3 forms",
       "headings": {
-        "contact-us": "Contact Us",
         "i-am-a-header": "🚀 I am a header"
       },
       "headingKeywords": {}
