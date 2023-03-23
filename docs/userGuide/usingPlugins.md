@@ -80,7 +80,7 @@ Plugins come as `.js` files. To install an external plugin, simply put it in the
 
 ## Writing Plugins
 
-You may also write your own plugins! Refer [here](https://markbind.org/devdocs/devGuide/development/writingPlugins.html) for the available interfaces to do so.
+You may also write your own plugins! Refer <a tags="environment--combined" href="/devGuide/development/writingPlugins.html">here</a><a tags="environment--ug" href="https://markbind.org/devdocs/devGuide/development/writingPlugins.html">here</a> for the available interfaces to do so.
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('settingSiteProperties', 'makingTheSiteSearchable') }}
