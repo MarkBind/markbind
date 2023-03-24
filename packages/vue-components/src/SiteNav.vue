@@ -1,6 +1,5 @@
 <template>
   <div class="site-nav-root">
-    <collapseExpandButtons />
     <slot></slot>
   </div>
 </template>
