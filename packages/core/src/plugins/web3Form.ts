@@ -61,6 +61,7 @@ function generateFormContainer(node: cheerio.Element & DomElement) {
   }
   node.name = 'box';
   const $node = cheerio(node);
+  $node.addClass('web3Form');
   if (!_.has(node.attribs, 'type')) {
     $node.attr('type', 'info');
   }
