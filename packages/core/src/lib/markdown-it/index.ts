@@ -1,23 +1,25 @@
-const katex = require('katex');
-const hljs = require('highlight.js');
-const markdownIt = require('markdown-it')({
-  html: true,
-  linkify: true,
-});
+import katex from 'katex';
+import hljs from 'highlight.js';
+import markdownItImport, { Options } from 'markdown-it';
+import lodashConstant from 'lodash/constant';
+import Renderer from 'markdown-it/lib/renderer';
+import Token from 'markdown-it/lib/token';
 
-markdownIt.linkify.set({ fuzzyLink: false });
+import * as logger from '../../utils/logger';
 
-const _ = {};
-_.constant = require('lodash/constant');
-
-const logger = require('../../utils/logger');
-
-const { HighlightRule } = require('./highlight/HighlightRule');
+import { HighlightRule } from './highlight/HighlightRule';
 
 const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
-// markdown-it plugins
+const markdownIt = markdownItImport({ html: true, linkify: true });
 
+markdownIt.linkify.set({ fuzzyLink: false });
+
+const _ = {
+  constant: lodashConstant,
+};
+
+// markdown-it plugins
 markdownIt.use(createDoubleDelimiterInlineRule('%%', 'dimmed', 'emphasis'))
   .use(createDoubleDelimiterInlineRule('!!', 'underline', 'dimmed'))
   .use(createDoubleDelimiterInlineRule('++', 'large', 'underline'))
@@ -44,9 +46,13 @@ markdownIt.renderer.rules.table_open = _.constant(
   '<div class="table-responsive"><table class="markbind-table table table-bordered table-striped">');
 markdownIt.renderer.rules.table_close = _.constant('</table></div>');
 
-function getAttribute(token, attr, deleteAttribute = false) {
+function getAttribute(token: Token, attr: string, deleteAttribute: boolean = false) {
   const index = token.attrIndex(attr);
   if (index === -1) {
+    return undefined;
+  }
+
+  if (token.attrs === null) {
     return undefined;
   }
   // tokens are stored as an array of two-element-arrays:
@@ -59,15 +65,18 @@ function getAttribute(token, attr, deleteAttribute = false) {
 }
 
 // syntax highlight code fences and add line numbers
-markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
+markdownIt.renderer.rules.fence = (tokens: Token[],
+                                   idx: number, options: Options, env: any, slf: Renderer) => {
   const token = tokens[idx];
   const lang = token.info || '';
   let str = token.content;
   let highlighted = false;
-  let lines;
+  let lines: string[] = [];
 
   const startFromRawValue = getAttribute(token, 'start-from', true);
-  const startFromOneBased = Math.max(1, parseInt(startFromRawValue, 10) || 1);
+  const startFromOneBased = startFromRawValue === undefined
+    ? 1
+    : Math.max(1, parseInt(startFromRawValue, 10) || 1);
   const startFromZeroBased = startFromOneBased - 1;
 
   if (startFromRawValue) {
@@ -84,7 +93,7 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   }
 
   const highlightLinesInput = getAttribute(token, 'highlight-lines', true);
-  let highlightRules = [];
+  let highlightRules: HighlightRule[] = [];
   if (highlightLinesInput) {
     highlightRules = HighlightRule.parseAllRules(highlightLinesInput, -startFromZeroBased, str);
   }
@@ -101,7 +110,7 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
       Ref: https://github.com/MarkBind/markbind/pull/1521
       */
       lines = hljs.highlight(str, { language: lang, ignoreIllegals: true }).value.split('\n');
-      const tokenStack = [];
+      const tokenStack: string[] = [];
 
       lines = lines.map((line) => {
         const prepend = tokenStack.map(tok => `<span class="${tok}">`).join('');
@@ -134,7 +143,8 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
   // wrap all lines with <span> so we can number them
   str = lines.map((line, index) => {
     const currentLineNumber = index + 1;
-    const rule = highlightRules.find(highlightRule => highlightRule.shouldApplyHighlight(currentLineNumber));
+    const rule = highlightRules.find(highlightRule =>
+      highlightRule.shouldApplyHighlight(currentLineNumber));
     if (rule) {
       return rule.applyHighlight(line, currentLineNumber);
     }
@@ -164,26 +174,27 @@ markdownIt.renderer.rules.fence = (tokens, idx, options, env, slf) => {
 };
 
 // highlight inline code
-markdownIt.renderer.rules.code_inline = (tokens, idx, options, env, slf) => {
-  const token = tokens[idx];
-  const lang = token.attrGet('class');
-  const inlineClass = 'hljs inline';
+markdownIt.renderer.rules.code_inline
+    = (tokens: Token[], idx: number, options: Options, env: any, slf: Renderer) => {
+    const token = tokens[idx];
+    const lang = token.attrGet('class');
+    const inlineClass = 'hljs inline';
 
-  if (lang && hljs.getLanguage(lang)) {
-    token.attrSet('class', `${inlineClass} ${lang}`);
+    if (lang && hljs.getLanguage(lang)) {
+      token.attrSet('class', `${inlineClass} ${lang}`);
+      return `<code${slf.renderAttrs(token)}>${
+        hljs.highlight(token.content, { language: lang, ignoreIllegals: true }).value
+      }</code>`;
+    }
+    token.attrSet('class', `${inlineClass} no-lang`);
     return `<code${slf.renderAttrs(token)}>${
-      hljs.highlight(token.content, { language: lang, ignoreIllegals: true }).value
+      markdownIt.utils.escapeHtml(token.content)
     }</code>`;
-  }
-  token.attrSet('class', `${inlineClass} no-lang`);
-  return `<code${slf.renderAttrs(token)}>${
-    markdownIt.utils.escapeHtml(token.content)
-  }</code>`;
-};
+  };
 
 const fixedNumberEmojiDefs = require('./patches/markdown-it-emoji-fixed');
 markdownIt.use(require('markdown-it-emoji'), {
   defs: fixedNumberEmojiDefs,
 });
 
-module.exports = markdownIt;
+export = markdownIt;
