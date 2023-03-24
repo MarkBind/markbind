@@ -40,8 +40,8 @@ export class Plugin {
   pluginName: string;
   plugin: {
     beforeSiteGenerate: (...args: any[]) => any;
-    getLinks: (...args: any[]) => any;
-    getScripts: (...args: any[]) => any;
+    getLinks: (pluginContext?: PluginContext, frontmatter?: FrontMatter, content?: string) => string[];
+    getScripts: (pluginContext?: PluginContext, frontmatter?: FrontMatter, content?: string) => string[];
     postRender: (pluginContext: PluginContext, frontmatter: FrontMatter, content: string) => string;
     processNode: (pluginContext: PluginContext, node: NodeOrText, config?: NodeProcessorConfig) => string;
     postProcessNode: (pluginContext: PluginContext, node: NodeOrText, config?: NodeProcessorConfig) => string;
@@ -117,8 +117,8 @@ export class Plugin {
    * Collect page content inserted by plugins
    */
   getPageNjkLinksAndScripts(frontmatter: FrontMatter, content: string, baseUrl: string) {
-    let links = [];
-    let scripts = [];
+    let links: string[] = [];
+    let scripts: string[] = [];
 
     if (this.plugin.getLinks) {
       const pluginLinks = this.plugin.getLinks(this.pluginOptions, frontmatter, content);

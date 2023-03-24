@@ -9,5 +9,5 @@ export function createErrorNode(element: NodeOrText, error: any) {
 }
 
 export function createSlotTemplateNode(slotName: string, content: string): MbNode[] {
-  return parseHTML(`<template #${slotName}>${content}</template>`) as MbNode[]
+  return parseHTML(`<template #${slotName}>${content}</template>`) as MbNode[];
 }
