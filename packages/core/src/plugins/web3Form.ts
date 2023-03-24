@@ -1,7 +1,7 @@
-import { DomElement } from 'htmlparser2';
 import cheerio from 'cheerio';
 import has from 'lodash/has';
 import { PluginContext } from './Plugin';
+import { MbNode } from '../utils/node';
 
 const md = require('../lib/markdown-it');
 
@@ -27,7 +27,7 @@ function createMinimalForm(pluginContext: PluginContext) {
   return $replaceNode;
 }
 
-function deleteWeb3FormAttributes(node: cheerio.Element & DomElement) {
+function deleteWeb3FormAttributes(node: MbNode) {
   if (!node.attribs) return;
   delete node.attribs.default;
   delete node.attribs.header;
@@ -55,7 +55,7 @@ function transformFormInputs(child: cheerio.Element) {
   }
 }
 
-function generateFormContainer(node: cheerio.Element & DomElement) {
+function generateFormContainer(node: MbNode) {
   if (node.type !== 'tag') {
     return;
   }
@@ -73,7 +73,7 @@ function generateFormContainer(node: cheerio.Element & DomElement) {
   }
 }
 
-function createCustomForm(pluginContext: PluginContext, node: cheerio.Element & DomElement) {
+function createCustomForm(pluginContext: PluginContext, node: MbNode) {
   const $node = cheerio(node);
   const $formNode = createMinimalForm(pluginContext);
   $formNode.append($node.children());
@@ -85,14 +85,14 @@ function createCustomForm(pluginContext: PluginContext, node: cheerio.Element & 
   deleteWeb3FormAttributes(node);
 }
 
-function isDefaultContactForm(node: cheerio.Element & DomElement) {
+function isDefaultContactForm(node: MbNode) {
   if (!node.attribs) {
     return false;
   }
   return _.has(node.attribs, 'default');
 }
 
-function createDefaultContactForm(pluginContext: PluginContext, node: cheerio.Element & DomElement) {
+function createDefaultContactForm(pluginContext: PluginContext, node: MbNode) {
   const $node = cheerio(node);
   if (!_.has(node.attribs, 'header')) {
     $node.attr('header', DEFAULT_HEADER);
@@ -139,7 +139,7 @@ const submitFormScript = `
     </script>`;
 
 export = {
-  processNode: (pluginContext: PluginContext, node: cheerio.Element & DomElement) => {
+  processNode: (pluginContext: PluginContext, node: MbNode) => {
     if (node.name !== 'web-3-form') {
       return;
     }
