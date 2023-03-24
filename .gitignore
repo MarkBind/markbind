@@ -116,5 +116,9 @@ packages/core/test/unit/html/includePanelProcessor.test.js
 packages/core/test/unit/html/SiteLinkManager.test.js
 packages/core/test/unit/utils/utils.js
 packages/core/test/unit/utils/data.js
+packages/core/src/plugins/default/markbind-plugin-anchors.js
+packages/core/src/plugins/default/markbind-plugin-plantuml.js
+packages/core/src/plugins/default/markbind-plugin-shorthandSyntax.js
+packages/core/src/plugins/default/markbind-plugin-tree.js
 
 # --- packages/core end ---
