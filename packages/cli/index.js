@@ -87,7 +87,6 @@ program
 program
   .command('serve [root]')
   .alias('s')
-  .description('build then serve a website from a directory')
   .option('-f, --force-reload', 'force a full reload of all site files when a file is changed')
   .option('-n, --no-open', 'do not automatically open the site in browser')
   .option('-o, --one-page [file]', 'build and serve only a single page in the site initially,'
@@ -98,6 +97,7 @@ program
   .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
   .option('-d, --dev', 'development mode, enabling live & hot reload for frontend source files.')
+  .description('build then serve a website from a directory')
   .action((userSpecifiedRoot, options) => {
     if (options.dev) {
       logger.useDebugConsole();
@@ -319,19 +319,43 @@ program
   });
 
 program
-  .command('deploy')
+  .command('deploy [root]')
   .alias('d')
-  .description('deploy the site to the repo\'s Github pages')
   .option('-c, --ci [githubTokenName]', 'deploy the site in CI Environment [GITHUB_TOKEN]')
+  .option('-n, --no-build', 'do not automatically build the site before deployment')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
-  .action((options) => {
-    const rootFolder = path.resolve(process.cwd());
-    const outputRoot = path.join(rootFolder, '_site');
-    new Site(rootFolder, outputRoot, undefined, undefined, options.siteConfig).deploy(options.ci)
-      .then(depUrl => (depUrl !== null ? logger.info(
-        `The website has been deployed at: ${depUrl}`)
-        : logger.info('Deployed!')))
-      .catch(handleError);
+  .description('deploy the latest build of the site to the repo\'s Github pages')
+  .action((userSpecifiedRoot, options) => {
+    let rootFolder;
+    try {
+      rootFolder = cliUtil.findRootFolder(userSpecifiedRoot, options.siteConfig);
+    } catch (err) {
+      handleError(err);
+    }
+    const outputFolder = path.join(rootFolder, '_site');
+
+    // Choose to build or not build depending on --no-build flag
+    // We cannot chain generate and deploy while calling generate conditionally, so we split with if-else
+    const site = new Site(rootFolder, outputFolder, undefined, undefined, options.siteConfig);
+    if (options.build) {
+      site.generate()
+        .then(() => {
+          logger.info('Build success!');
+        })
+        .then(() => {
+          site.deploy(options.ci)
+            .then(depUrl => (depUrl !== null ? logger.info(
+              `The website has been deployed at: ${depUrl}`)
+              : logger.info('Deployed!')));
+        })
+        .catch(handleError);
+    } else {
+      site.deploy(options.ci)
+        .then(depUrl => (depUrl !== null ? logger.info(
+          `The website has been deployed at: ${depUrl}`)
+          : logger.info('Deployed!')))
+        .catch(handleError);
+    }
   });
 
 program.parse(process.argv);
