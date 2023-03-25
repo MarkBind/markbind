@@ -1,8 +1,15 @@
-const octicons = require('@primer/octicons');
+import octicons, { IconName } from '@primer/octicons';
+import cheerio from 'cheerio';
 
-module.exports = require('markdown-it-regexp')(
+const markdownItRegExp = require('markdown-it-regexp');
+
+function getOcticonIcon(iconName: string) {
+  return octicons[iconName as IconName] ?? null;
+}
+
+export = markdownItRegExp(
   /:(fa[brs]|glyphicon|octicon|octiconlight|mi[forst])-([a-z-]+)~?([a-z-]+)?:/,
-  (match) => {
+  (match: string[]) => {
     const iconFontType = match[1];
     const iconFontName = match[2];
     const iconClass = match[3];
@@ -10,21 +17,26 @@ module.exports = require('markdown-it-regexp')(
     if (iconFontType === 'glyphicon') {
       return `<span aria-hidden="true" class="glyphicon glyphicon-${iconFontName}"></span>`;
     } else if (iconFontType === 'octicon') {
+      const octiconIcon = getOcticonIcon(iconFontName);
       // ensure octicons are valid
-      if (!(iconFontName in octicons)) {
+      if (octiconIcon === null) {
         return '<span aria-hidden="true"></span>';
       }
       return iconClass
-        ? octicons[iconFontName].toSVG({ class: iconClass })
-        : octicons[iconFontName].toSVG();
+        ? octiconIcon.toSVG({ class: iconClass })
+        : octiconIcon.toSVG();
     } else if (iconFontType === 'octiconlight') {
+      const octiconIcon = getOcticonIcon(iconFontName);
       // ensure octicons are valid
-      if (!(iconFontName in octicons)) {
+      if (octiconIcon === null) {
         return '<span aria-hidden="true"></span>';
       }
-      return iconClass
-        ? octicons[iconFontName].toSVG({ style: 'color: #fff;', class: iconClass })
-        : octicons[iconFontName].toSVG({ style: 'color: #fff;' });
+      const octiconIconHtml = iconClass
+        ? octiconIcon.toSVG({ class: iconClass })
+        : octiconIcon.toSVG();
+      const $ = cheerio.load(octiconIconHtml);
+      $('svg').attr('style', 'color: #fff');
+      return $.html();
     } else if (iconFontType.startsWith('mi')) {
       let materialIconsClass = 'material-icons';
       switch (iconFontType) {

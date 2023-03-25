@@ -1,5 +1,5 @@
-const cheerio = require('cheerio');
-const anchorsPlugin = require('../../../../src/plugins/default/markbind-plugin-anchors');
+import anchorsPlugin from '../../../../src/plugins/default/markbind-plugin-anchors';
+import { MbNode, parseHTML } from '../../../../src/utils/node';
 
 test('getLinks should return the expected link in an array', () => {
   const links = anchorsPlugin.getLinks();
@@ -8,14 +8,14 @@ test('getLinks should return the expected link in an array', () => {
 );
 
 test('postProcessNode should append anchor-related HTML to heading nodes', () => {
-  const [h1Node] = cheerio.parseHTML('<h1 id="h1-node">'
-    + '<span id="h1-node" class="anchor"></span>should have anchor</h1>', true);
-  const [h6Node] = cheerio.parseHTML('<h6 id="h6-node">'
-    + '<span id="h6-node" class="anchor"></span>should have anchor</h6>', true);
+  const [h1Node] = parseHTML('<h1 id="h1-node">'
+    + '<span id="h1-node" class="anchor"></span>should have anchor</h1>') as MbNode[];
+  const [h6Node] = parseHTML('<h6 id="h6-node">'
+    + '<span id="h6-node" class="anchor"></span>should have anchor</h6>') as MbNode[];
   [h1Node, h6Node]
     .forEach((node) => {
       anchorsPlugin.postProcessNode({}, node);
-      const addedHeadingNode = node.children.pop();
+      const addedHeadingNode = node.children.pop()! as MbNode;
       expect(addedHeadingNode.type).toEqual('tag');
       expect(addedHeadingNode.name).toEqual('a');
       expect(addedHeadingNode.attribs.class).toEqual('fa fa-anchor');
@@ -27,8 +27,8 @@ test('postProcessNode should append anchor-related HTML to heading nodes', () =>
 );
 
 test('postProcessNode should not append anchor-related HTML to non-heading nodes', () => {
-  const divNode = cheerio.parseHTML('<div id="div-node">'
-    + '<span id="div-node" class="anchor"></span>should have anchor</div>', true)[0];
+  const divNode = parseHTML('<div id="div-node">'
+    + '<span id="div-node" class="anchor"></span>should have anchor</div>')[0] as MbNode;
   const copy = { ...divNode };
   anchorsPlugin.postProcessNode({}, divNode);
   expect(divNode).toEqual(copy);
@@ -36,8 +36,8 @@ test('postProcessNode should not append anchor-related HTML to non-heading nodes
 );
 
 test('postProcessNode should not append anchor-related HTML to heading node without id', () => {
-  const h1NodeWithoutId = cheerio.parseHTML('<h1>'
-    + '<span id="h1-node" class="anchor"></span>should have anchor</h1>', true)[0];
+  const h1NodeWithoutId = parseHTML('<h1>'
+    + '<span id="h1-node" class="anchor"></span>should have anchor</h1>')[0] as MbNode;
   const copy = { ...h1NodeWithoutId };
   anchorsPlugin.postProcessNode({}, h1NodeWithoutId);
   expect(h1NodeWithoutId).toEqual(copy);
