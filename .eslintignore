@@ -68,6 +68,11 @@ packages/core/test/unit/plugins/default/anchor.test.js
 packages/core/test/unit/plugins/default/plantuml.test.js
 packages/core/test/unit/plugins/default/shorthandSyntax.test.js
 packages/core/test/unit/plugins/default/tree.test.js
+packages/core/src/plugins/algolia.js
+packages/core/src/plugins/disqus.js
+packages/core/src/plugins/filterTags.js
+packages/core/src/plugins/googleAnalytics.js
+packages/core/src/plugins/mathDelimiters.js
 
 # Rules for pure JS files
 packages/core/src/lib/markdown-it/patches/*

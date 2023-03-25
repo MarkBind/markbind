@@ -230,22 +230,6 @@ export const PROCESS_MODAL_OK_TEXT_EXPECTED = `
 </modal>
 `;
 
-// todo remove these once modal-header modal-footer slot names are deprecated fully.
-
-export const PROCESS_MODAL_SLOTS_RENAMING = `
-<modal>
-  <div slot="modal-header">Should be renamed to header</div>
-  <div slot="modal-footer">Should be renamed to footer</div>
-</modal>
-`;
-
-export const PROCESS_MODAL_SLOTS_RENAMING_EXPECTED = `
-<modal>
-  <template #header><div>Should be renamed to header</div></template>
-  <template #footer><div>Should be renamed to footer</div></template>
-</modal>
-`;
-
 /*
  * Tab, tab-group
  */
