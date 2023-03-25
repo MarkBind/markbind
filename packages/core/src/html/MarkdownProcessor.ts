@@ -1,4 +1,4 @@
-const md = require('../lib/markdown-it');
+import md from '../lib/markdown-it';
 
 export class MarkdownProcessor {
   baseDocId: string;

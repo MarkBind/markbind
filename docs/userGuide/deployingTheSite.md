@@ -66,9 +66,12 @@ You can override the default deployment settings %%(e.g., repo/branch to deploy)
 
 <br>
 
-<box type="warning">
+<box type="info">
 
-`markbind deploy` does not generate the static site from your source; it simply deploys the files that are already in the `_site` directory. You need to run `markbind build` first if you want to generate the site before deploying.
+`markbind deploy` generates the static site from your source by default; hence, it is not necessary to run `markbind build` first to generate the site before deploying. To skip the site generation, you can use the `--no-build` option for `markbind deploy`.
+
+More information can be found in the [CLI Commands](cliCommands.html) section.
+
 </box>
 
 ### Using CI Platforms
@@ -107,7 +110,6 @@ jobs:
         with:
           node-version: '14'
       - run: npm i -g markbind-cli
-      - run: markbind build
       - run: markbind deploy --ci
 ```
 
@@ -267,7 +269,6 @@ The `repo` value can be changed to your specific repository as desired.
     install:
       - ps: Install-Product node $env:nodejs_version
       - npm i -g markbind-cli
-      - markbind build
       - markbind deploy --ci
     
     test: off
@@ -311,7 +312,6 @@ Commit and push `appveyor.yml` to your GitHub repository. Thereafter, AppVeyor C
               install-yarn: false
           - run: node --version
           - run: npm i -g markbind-cli
-          - run: markbind build
           - run: markbind deploy --ci
     version: 2.1
     orbs:
