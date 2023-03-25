@@ -14,13 +14,9 @@ const _ = { isString };
 
 const PLUGIN_OUTPUT_SITE_ASSET_FOLDER_NAME = 'plugins';
 
-export interface PluginContext {
-  [key: string]: any;
-}
+export type PluginContext = Record<string, any>;
 
-export interface FrontMatter {
-  [key: string]: any;
-}
+export type FrontMatter = Record<string, any>;
 
 type TagConfigAttributes = {
   name: string,
@@ -45,7 +41,7 @@ export class Plugin {
     postRender: (pluginContext: PluginContext, frontmatter: FrontMatter, content: string) => string;
     processNode: (pluginContext: PluginContext, node: NodeOrText, config?: NodeProcessorConfig) => string;
     postProcessNode: (pluginContext: PluginContext, node: NodeOrText, config?: NodeProcessorConfig) => string;
-    tagConfig: { [key: string]: TagConfigs };
+    tagConfig: Record<string, TagConfigs>;
   };
 
   pluginOptions: PluginContext;

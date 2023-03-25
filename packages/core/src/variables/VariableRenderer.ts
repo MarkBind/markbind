@@ -39,7 +39,7 @@ export class VariableRenderer {
    */
   renderString(
     content: string,
-    variables: { [key: string]: any },
+    variables: Record<string, any>,
     pageSources: PageSources,
   ) {
     this.pageSources = pageSources;
@@ -55,7 +55,7 @@ export class VariableRenderer {
    */
   renderFile(
     contentFilePath: string,
-    variables: { [key: string]: any },
+    variables: Record<string, any>,
     pageSources: PageSources,
   ) {
     this.pageSources = pageSources;

@@ -24,7 +24,7 @@ export type ExternalManagerConfig = NodeProcessorConfig & {
  */
 export class ExternalManager {
   config: ExternalManagerConfig;
-  builtFiles: { [name: string]: Promise<External> };
+  builtFiles: Record<string, Promise<External>>;
 
   constructor(cfg: ExternalManagerConfig) {
     this.config = cfg;

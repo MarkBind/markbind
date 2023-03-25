@@ -43,7 +43,7 @@ export class PageConfig {
 
   dev: boolean;
   faviconUrl?: string;
-  frontmatterOverride: { [frontmatterName: string]: string };
+  frontmatterOverride: Record<string, string>;
   layout?: string;
   layoutsAssetPath: string;
   pluginManager: PluginManager;
@@ -74,7 +74,7 @@ export class PageConfig {
     baseUrlMap: Set<string>;
     dev: boolean;
     faviconUrl?: string;
-    frontmatterOverride?: { [frontmatterName: string]: string },
+    frontmatterOverride?: Record<string, string>,
     layout?: string,
     layoutsAssetPath: string;
     pluginManager: PluginManager,

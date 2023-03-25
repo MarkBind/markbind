@@ -45,10 +45,10 @@ export class Page {
   asset!: PageAssets;
   pageUserScriptsAndStyles!: string[];
   frontmatter!: FrontMatter;
-  headerIdMap!: { [id: string]: number };
+  headerIdMap!: Record<string, number>;
   includedFiles!: Set<string>;
-  headings!: { [key: string]: string };
-  keywords!: { [key: string]: string[] };
+  headings!: Record<string, string>;
+  keywords!: Record<string, string[]>;
   navigableHeadings!: {
     [id: string]: {
       text: string,

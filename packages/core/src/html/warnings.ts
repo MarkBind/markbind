@@ -29,7 +29,7 @@ function _warnConflictingAttributes(node: MbNode, attribute: string, attrsConfli
  * @param element Root element to check
  * @param namePairs Object of slot name pairs with each pair in the form deprecated : correct
  */
-function _warnDeprecatedSlotNames(element: MbNode, namePairs: { [name: string]: string }) {
+function _warnDeprecatedSlotNames(element: MbNode, namePairs: Record<string, string>) {
   if (!(element.children)) {
     return;
   }

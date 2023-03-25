@@ -58,7 +58,7 @@ export type NodeProcessorConfig = {
 };
 
 export class NodeProcessor {
-  frontmatter: { [key: string]: string } = {};
+  frontmatter: Record<string, string> = {};
 
   headTop: string[] = [];
   headBottom: string[] = [];
@@ -69,7 +69,7 @@ export class NodeProcessor {
   mdAttributeRenderer: MdAttributeRenderer;
   pageNavProcessor = new PageNavProcessor();
 
-  processedModals: { [id: string]: boolean } = {};
+  processedModals: Record<string, boolean> = {};
 
   constructor(
     private config: NodeProcessorConfig,
@@ -384,7 +384,7 @@ export class NodeProcessor {
     file: string,
     content: string,
     cwf: string = file,
-    extraVariables: { [variableName: string]: string } = {},
+    extraVariables: Record<string, string> = {},
   ) {
     const context = new Context(cwf, [], extraVariables, {});
 
