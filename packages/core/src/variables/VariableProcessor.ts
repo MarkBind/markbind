@@ -2,7 +2,7 @@ import cheerio from 'cheerio';
 
 import { ATTRIB_CWF } from '../constants';
 import { PageSources } from '../Page/PageSources';
-import VariableRenderer from './VariableRenderer';
+import { VariableRenderer } from './VariableRenderer';
 import * as logger from '../utils/logger';
 import * as urlUtil from '../utils/urlUtil';
 import type { Context } from '../html/Context';
@@ -34,7 +34,7 @@ import { MbNode } from '../utils/node';
  *    These methods are similar to (2), but in addition to the site variables, they
  *    render the content with the page variables extracted from (3) as well.
  */
-class VariableProcessor {
+export class VariableProcessor {
   /**
    * Map of sites' root paths to their variables
    */
@@ -264,5 +264,3 @@ class VariableProcessor {
     };
   }
 }
-
-export = VariableProcessor;

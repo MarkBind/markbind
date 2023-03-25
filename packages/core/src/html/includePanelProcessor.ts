@@ -12,7 +12,7 @@ import * as logger from '../utils/logger';
 import * as urlUtil from '../utils/urlUtil';
 import type { Context } from './Context';
 import type { PageSources } from '../Page/PageSources';
-import type VariableProcessor from '../variables/VariableProcessor';
+import type { VariableProcessor } from '../variables/VariableProcessor';
 import { MbNode, NodeOrText } from '../utils/node';
 
 require('../patches/htmlparser2');

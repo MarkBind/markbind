@@ -4,7 +4,7 @@ import { External } from './External';
 import * as fsUtil from '../utils/fsUtil';
 import * as urlUtil from '../utils/urlUtil';
 import type { DynamicSrc } from '../Page/PageSources';
-import type VariableProcessor from '../variables/VariableProcessor';
+import type { VariableProcessor } from '../variables/VariableProcessor';
 import type { SiteLinkManager } from '../html/SiteLinkManager';
 import type { PluginManager } from '../plugins/PluginManager';
 import { NodeProcessorConfig } from '../html/NodeProcessor';

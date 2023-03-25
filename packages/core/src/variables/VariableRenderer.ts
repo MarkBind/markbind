@@ -16,7 +16,7 @@ const unescapedEnv = nunjucks.configure({ autoescape: false })
 /**
  * Wrapper class over a nunjucks environment configured for the respective (sub)site.
  */
-class VariableRenderer {
+export class VariableRenderer {
   private pageSources = new PageSources();
 
   private nj: Environment;
@@ -82,5 +82,3 @@ class VariableRenderer {
     return nunjucks.compile(templatePath, unescapedEnv);
   }
 }
-
-export = VariableRenderer;
