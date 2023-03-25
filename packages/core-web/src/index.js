@@ -15,8 +15,7 @@ function scrollToUrlAnchorHeading() {
     // remove leading hash to get element ID
     const headingElement = document.getElementById(window.location.hash.slice(1));
     if (headingElement) {
-      headingElement.scrollIntoView();
-      window.scrollBy(0, -document.body.style.paddingTop.replace('px', ''));
+      headingElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
     }
   }
 }
@@ -143,7 +142,6 @@ function restoreStyleTags() {
 
 function executeAfterMountedRoutines() {
   restoreStyleTags();
-  scrollToUrlAnchorHeading();
   detectAndApplyHeaderStyles();
 }
 
@@ -193,6 +191,8 @@ function setupWithSearch() {
       updateSearchData(this);
     },
   });
+  // Scrolling only works correctly after the page is loaded
+  window.onload = scrollToUrlAnchorHeading;
   /*
    * For SSR, if we mount onto the wrong element (without data-server-rendered attribute) in our SSR setup,
    * hydration will fail silently and turn into client-side rendering, which is not what we want.
