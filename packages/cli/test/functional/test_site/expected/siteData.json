@@ -371,6 +371,14 @@
         "h2": "H2"
       },
       "headingKeywords": {}
+    },
+    {
+      "src": "testWeb3FormPlugin.md",
+      "title": "web 3 forms",
+      "headings": {
+        "i-am-a-header": "🚀 I am a header"
+      },
+      "headingKeywords": {}
     }
   ]
 }
