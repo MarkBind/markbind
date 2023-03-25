@@ -1,4 +1,4 @@
-<question has-input>
+<question type="text">
   Q1. Name all different types of volatile memory that exists inside a typical household computer system.
   <div slot="hint"></div>
   <div slot="answer">CPU cache and RAM</div>
@@ -6,7 +6,7 @@
 
 <div>
   <panel header=":computer:" minimized>
-    <question has-input>
+    <question type="text">
       What is the difference between a 32 bit and 64 bit operating system?
   </panel>
 </div>

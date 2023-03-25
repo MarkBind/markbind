@@ -47,7 +47,7 @@
 
 **Question hint and answer should have algolia-no-index class**
 
-<question>
+<question type="checkbox">
   Question should not have `algolia-no-index` class
   <div slot="hint">Hint should have `algolia-no-index` class</div>
   <div slot="answer">Answer should have `algolia-no-index` class</div>

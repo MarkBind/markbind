@@ -350,13 +350,6 @@ keywords | `String` | `''` | Comma delimited string of keywords or phrases to ma
 threshold | `Number` | `0.5` | Minimum proportion of keywords that have to be matched in the user's answer for the answer to be marked as correct.
 answer{{slot_info_trigger}} | `String` | `''` | The answer or explanation to display when the user clicks the check button.
 
-<box type="important" header="Deprecation notes">
-
-- The old `has-input` attributes translate to `type="text"`, but will be deprecated in a future version.
-- `<question>`s without a `type` (or an unrecognised one) will always be marked correct when placed in quizzes.
-</box>
-
-
 #### Quizzes
 
 You can also build a series of questions out of multiple `<question>` components.
