@@ -1,4 +1,6 @@
-function getGoogleAnalyticsTrackingCode(pluginContext) {
+import { PluginContext } from './Plugin';
+
+function getGoogleAnalyticsTrackingCode(pluginContext: PluginContext) {
   return `
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=${pluginContext.trackingID}"></script>
@@ -11,7 +13,6 @@ function getGoogleAnalyticsTrackingCode(pluginContext) {
     </script>`;
 }
 
-module.exports = {
-  // eslint-disable-next-line no-unused-vars
-  getScripts: pluginContext => [getGoogleAnalyticsTrackingCode(pluginContext)],
+export = {
+  getScripts: (pluginContext: PluginContext) => [getGoogleAnalyticsTrackingCode(pluginContext)],
 };

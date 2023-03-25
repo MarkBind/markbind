@@ -23,7 +23,7 @@ Usage: markbind <command>
    init|i [options] [root]            init a markbind website project
    serve|s [options] [root]           build then serve a website from a directory
    build|b [options] [root] [output]  build a website
-   deploy|d [options]                 deploy the site to the repo's GitHub pages
+   deploy|d [options] [root]          deploy the latest build of the site to the repo's Github pages
 ```
 <hr><!-- ========================================================================== -->
 <div id="markbind-init">
@@ -174,21 +174,38 @@ The caveat is that not building all pages during the initial process, or not reb
 ### `deploy` Command
 <br>
 
-**Format:** `markbind deploy [options]`
+**Format:** `markbind deploy [options] [root]`
 
 **Alias:** `markbind d`
 
-**Description:** Deploys the site to the repo's GitHub pages by pushing everything in the generated site (default dir: `_site`) to the `gh-pages` branch of the current git working directory's remote repo.
+**Description:** Deploys the site to the repo's GitHub pages by generating the site (default dir: `_site`) and pushing the generated site to the `gh-pages` branch of the current git working directory's remote repo.
+
+**Arguments:**
+* `[root]`<br>
+  Root directory. Default is the current directory.<br>
+  {{ icon_example }} `./myWebsite`
 
 <panel header="**Options** :fas-cogs:" type="minimal" expanded>
 
 **Options** :fas-cogs:
 
 * `-c <githubTokenName>`, `--ci <githubTokenName>`<br>
-  Deploy the site in CI Environments using the GitHub personal access token stored in `<githubTokenName>`. (default: `GITHUB_TOKEN`)<br>
+  Deploy the site in CI Environments using the GitHub personal access token stored in `<githubTokenName>` (default: `GITHUB_TOKEN`).<br>
   {{ icon_example }} `-c PA_TOKEN`
 
+* `-n`, `--no-build`<br>
+  Skips the generation of the site before deploying it. By default, the `deploy` command generates the site before deploying the built site. This command should be used if the site needs to be generated with non-default arguments for the `build` command (e.g. baseUrl is specified using the `--baseUrl` flag for the `markbind build` command).
+
+* `-s <file>`, `--site-config <file>`<br>
+  Specify the site config file (default: `site.json`).<br>
+  {{ icon_example }} `-s otherSite.json`
+
 %%{{ icon_info }} Related: [User Guide: Deploying the Website](deployingTheSite.html).%%
+
+**{{ icon_examples }}**
+* `markbind deploy`
+* `markbind deploy ./myWebsite` : Generates and deploys the site from the `myWebsite` directory.
+* `markbind deploy --no-build` : Deploys the site without generating it first.
 
 </panel>
 

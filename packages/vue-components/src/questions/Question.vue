@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO deprecate all isValidQuestionType checks -->
   <transition :name="questions ? 'question' : null" @after-leave="showNextQuestion">
     <div v-if="active" :class="['card', 'question', shakeClass, addClass]">
       <div v-if="$scopedSlots.header" class="card-header alert-light border-bottom border-light text-dark">
@@ -30,11 +29,7 @@
             </strong>
           </div>
         </div>
-        <!--
-          Gracefully deprecate invalid question types:
-          This allows the old "answer" slot to show for invalid question types, in addition to text questions
-        -->
-        <div v-if="qState.answered && !isMcqOrCheckboxQuestion() && !isBlanksQuestion()" class="answer">
+        <div v-if="qState.answered && isTextQuestion()" class="answer">
           <slot name="answer"></slot>
         </div>
 
@@ -48,28 +43,19 @@
         </box>
       </div>
 
-      <!--
-        Gracefully deprecate invalid question types (isValidQuestionType):
-        This removes the footer for invalid question types,
-        where both the hint and check button has been clicked
-      -->
+      <!-- This removes the footer for questions where both the hint and check button has been clicked -->
       <div
         v-if="showCardFooter"
         class="card-footer alert-light border-top border-light text-dark"
       >
-        <!--
-          Gracefully deprecate invalid question types (isValidQuestionType):
-          This hides the success / wrong circle for invalid question types
-        -->
         <i
-          v-if="qState.state === 1 && isValidTypeAndNotTextWithoutKeywords()"
+          v-if="qState.state === 1"
           class="fa fa-times text-danger border-danger result-icon"
         ></i>
         <i
-          v-else-if="qState.state === 2 && isValidTypeAndNotTextWithoutKeywords()"
+          v-else-if="qState.state === 2"
           class="fa fa-check text-success border-success result-icon"
         ></i>
-
         <transition-group
           name="q-btn"
           tag="div"
@@ -84,9 +70,8 @@
           >
             Hint
           </button>
-          <!-- Gracefully deprecate invalid question types without answers -->
           <button
-            v-if="qState.state === 0 && !(!isValidTypeAndNotTextWithoutKeywords() && !$scopedSlots.answer)"
+            v-if="qState.state === 0 && !(isTextWithoutKeywords() && !$scopedSlots.answer)"
             key="check"
             type="button"
             class="btn btn-primary q-btn ms-1"
@@ -145,10 +130,6 @@ export default {
     },
 
     // Text question specific props
-    hasInput: { // Todo deprecate this
-      type: Boolean,
-      default: false,
-    },
     keywords: {
       type: String,
       default: '',
@@ -174,9 +155,8 @@ export default {
     showCardFooter() {
       // Hide the card footer when 'there are no more buttons to click',
       // and the tick / cross circle is not shown
-      const isInvalidTypeOrTextWithoutKeyword = !this.isValidTypeAndNotTextWithoutKeywords();
       const isHintNotProvidedOrIsShown = !this.$scopedSlots.hint || this.showHint;
-      return !(isInvalidTypeOrTextWithoutKeyword
+      return !(this.isTextWithoutKeywords()
         && isHintNotProvidedOrIsShown
         && this.qState.answered
         && !this.questions);
@@ -237,13 +217,10 @@ export default {
       return this.type === 'blanks';
     },
     isTextQuestion() {
-      return this.type === 'text' || this.hasInput;
+      return this.type === 'text';
     },
-    isValidQuestionType() {
-      return this.isMcqOrCheckboxQuestion() || this.isBlanksQuestion() || this.isTextQuestion();
-    },
-    isValidTypeAndNotTextWithoutKeywords() {
-      return this.isValidQuestionType() && !(this.isTextQuestion() && !this.keywords);
+    isTextWithoutKeywords() {
+      return this.isTextQuestion() && !this.keywords;
     },
     shakeCard() {
       this.shakeClass = 'shake';
@@ -301,12 +278,6 @@ export default {
       }
     },
     checkTextAnswer(markAsAnsweredIfWrong) {
-      // Todo deprecate this guard clause
-      if (!this.keywords.length) {
-        this.markAsCorrect();
-        return;
-      }
-
       const lowerCasedText = this.textareaText.toLowerCase();
       const keywords = this.keywordsSplitTrimmed();
 
