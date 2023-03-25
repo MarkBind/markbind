@@ -3,22 +3,22 @@
 exports[`Modal can be centered 1`] = `
 <div
   class="vfm vfm--inset vfm--fixed"
-  data-v-1cd72822=""
+  data-v-47686880=""
   style="z-index: 2000; display: none;"
 >
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     name="none"
   >
     <div
       class="vfm__overlay vfm--overlay vfm--absolute vfm--inset"
-      data-v-1cd72822=""
+      data-v-47686880=""
       style="display: none;"
     />
   </transition-stub>
    
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     enterclass="modal-zoom"
     entertoclass="modal-zoom-show"
     leaveclass="modal-zoom-show"
@@ -28,14 +28,14 @@ exports[`Modal can be centered 1`] = `
       aria-expanded="false"
       aria-modal="true"
       class="vfm__container vfm--absolute vfm--inset vfm--outline-none allow-overflow"
-      data-v-1cd72822=""
+      data-v-47686880=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
         class="vfm__content modal-dialog modal-dialog-centered"
-        data-v-1cd72822=""
+        data-v-47686880=""
       >
         <div
           class="modal-content"
@@ -75,22 +75,22 @@ exports[`Modal can be centered 1`] = `
 exports[`Modal can be large 1`] = `
 <div
   class="vfm vfm--inset vfm--fixed"
-  data-v-1cd72822=""
+  data-v-47686880=""
   style="z-index: 2000; display: none;"
 >
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     name="none"
   >
     <div
       class="vfm__overlay vfm--overlay vfm--absolute vfm--inset"
-      data-v-1cd72822=""
+      data-v-47686880=""
       style="display: none;"
     />
   </transition-stub>
    
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     enterclass="modal-zoom"
     entertoclass="modal-zoom-show"
     leaveclass="modal-zoom-show"
@@ -100,14 +100,14 @@ exports[`Modal can be large 1`] = `
       aria-expanded="false"
       aria-modal="true"
       class="vfm__container vfm--absolute vfm--inset vfm--outline-none allow-overflow"
-      data-v-1cd72822=""
+      data-v-47686880=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
         class="vfm__content modal-dialog modal-lg"
-        data-v-1cd72822=""
+        data-v-47686880=""
       >
         <div
           class="modal-content"
@@ -147,22 +147,22 @@ exports[`Modal can be large 1`] = `
 exports[`Modal can be small 1`] = `
 <div
   class="vfm vfm--inset vfm--fixed"
-  data-v-1cd72822=""
+  data-v-47686880=""
   style="z-index: 2000; display: none;"
 >
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     name="none"
   >
     <div
       class="vfm__overlay vfm--overlay vfm--absolute vfm--inset"
-      data-v-1cd72822=""
+      data-v-47686880=""
       style="display: none;"
     />
   </transition-stub>
    
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     enterclass="modal-zoom"
     entertoclass="modal-zoom-show"
     leaveclass="modal-zoom-show"
@@ -172,14 +172,14 @@ exports[`Modal can be small 1`] = `
       aria-expanded="false"
       aria-modal="true"
       class="vfm__container vfm--absolute vfm--inset vfm--outline-none allow-overflow"
-      data-v-1cd72822=""
+      data-v-47686880=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
         class="vfm__content modal-dialog modal-sm"
-        data-v-1cd72822=""
+        data-v-47686880=""
       >
         <div
           class="modal-content"
@@ -219,22 +219,22 @@ exports[`Modal can be small 1`] = `
 exports[`Modal should be closable by clicking the backdrop by default 1`] = `
 <div
   class="vfm vfm--inset vfm--fixed"
-  data-v-1cd72822=""
+  data-v-47686880=""
   style="z-index: 2000; display: none;"
 >
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     name="none"
   >
     <div
       class="vfm__overlay vfm--overlay vfm--absolute vfm--inset"
-      data-v-1cd72822=""
+      data-v-47686880=""
       style="display: none;"
     />
   </transition-stub>
    
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     enterclass="modal-zoom"
     entertoclass="modal-zoom-show"
     leaveclass="modal-zoom-show"
@@ -244,14 +244,14 @@ exports[`Modal should be closable by clicking the backdrop by default 1`] = `
       aria-expanded="false"
       aria-modal="true"
       class="vfm__container vfm--absolute vfm--inset vfm--outline-none allow-overflow"
-      data-v-1cd72822=""
+      data-v-47686880=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
         class="vfm__content modal-dialog"
-        data-v-1cd72822=""
+        data-v-47686880=""
       >
         <div
           class="modal-content"
@@ -291,22 +291,22 @@ exports[`Modal should be closable by clicking the backdrop by default 1`] = `
 exports[`Modal should be closable using the ok-text button 1`] = `
 <div
   class="vfm vfm--inset vfm--fixed"
-  data-v-1cd72822=""
+  data-v-47686880=""
   style="z-index: 2000; display: none;"
 >
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     name="none"
   >
     <div
       class="vfm__overlay vfm--overlay vfm--absolute vfm--inset"
-      data-v-1cd72822=""
+      data-v-47686880=""
       style="display: none;"
     />
   </transition-stub>
    
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     enterclass="modal-zoom"
     entertoclass="modal-zoom-show"
     leaveclass="modal-zoom-show"
@@ -316,14 +316,14 @@ exports[`Modal should be closable using the ok-text button 1`] = `
       aria-expanded="false"
       aria-modal="true"
       class="vfm__container vfm--absolute vfm--inset vfm--outline-none allow-overflow"
-      data-v-1cd72822=""
+      data-v-47686880=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
         class="vfm__content modal-dialog"
-        data-v-1cd72822=""
+        data-v-47686880=""
       >
         <div
           class="modal-content"
@@ -359,22 +359,22 @@ exports[`Modal should be closable using the ok-text button 1`] = `
 exports[`Modal should not be closable by clicking the backdrop if backdrop is set as false 1`] = `
 <div
   class="vfm vfm--inset vfm--fixed"
-  data-v-1cd72822=""
+  data-v-47686880=""
   style="z-index: 2000; display: none;"
 >
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     name="none"
   >
     <div
       class="vfm__overlay vfm--overlay vfm--absolute vfm--inset"
-      data-v-1cd72822=""
+      data-v-47686880=""
       style="display: none;"
     />
   </transition-stub>
    
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     enterclass="modal-zoom"
     entertoclass="modal-zoom-show"
     leaveclass="modal-zoom-show"
@@ -384,14 +384,14 @@ exports[`Modal should not be closable by clicking the backdrop if backdrop is se
       aria-expanded="false"
       aria-modal="true"
       class="vfm__container vfm--absolute vfm--inset vfm--outline-none allow-overflow"
-      data-v-1cd72822=""
+      data-v-47686880=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
         class="vfm__content modal-dialog"
-        data-v-1cd72822=""
+        data-v-47686880=""
       >
         <div
           class="modal-content"
@@ -431,22 +431,22 @@ exports[`Modal should not be closable by clicking the backdrop if backdrop is se
 exports[`Modal should not show footer when no footer is given 1`] = `
 <div
   class="vfm vfm--inset vfm--fixed"
-  data-v-1cd72822=""
+  data-v-47686880=""
   style="z-index: 2000; display: none;"
 >
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     name="none"
   >
     <div
       class="vfm__overlay vfm--overlay vfm--absolute vfm--inset"
-      data-v-1cd72822=""
+      data-v-47686880=""
       style="display: none;"
     />
   </transition-stub>
    
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     enterclass="modal-zoom"
     entertoclass="modal-zoom-show"
     leaveclass="modal-zoom-show"
@@ -456,14 +456,14 @@ exports[`Modal should not show footer when no footer is given 1`] = `
       aria-expanded="false"
       aria-modal="true"
       class="vfm__container vfm--absolute vfm--inset vfm--outline-none allow-overflow"
-      data-v-1cd72822=""
+      data-v-47686880=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
         class="vfm__content modal-dialog"
-        data-v-1cd72822=""
+        data-v-47686880=""
       >
         <div
           class="modal-content"
@@ -503,22 +503,22 @@ exports[`Modal should not show footer when no footer is given 1`] = `
 exports[`Modal should not show header when no header is given 1`] = `
 <div
   class="vfm vfm--inset vfm--fixed"
-  data-v-1cd72822=""
+  data-v-47686880=""
   style="z-index: 2000; display: none;"
 >
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     name="none"
   >
     <div
       class="vfm__overlay vfm--overlay vfm--absolute vfm--inset"
-      data-v-1cd72822=""
+      data-v-47686880=""
       style="display: none;"
     />
   </transition-stub>
    
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     enterclass="modal-zoom"
     entertoclass="modal-zoom-show"
     leaveclass="modal-zoom-show"
@@ -528,14 +528,14 @@ exports[`Modal should not show header when no header is given 1`] = `
       aria-expanded="false"
       aria-modal="true"
       class="vfm__container vfm--absolute vfm--inset vfm--outline-none allow-overflow"
-      data-v-1cd72822=""
+      data-v-47686880=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
         class="vfm__content modal-dialog"
-        data-v-1cd72822=""
+        data-v-47686880=""
       >
         <div
           class="modal-content"
@@ -565,22 +565,22 @@ exports[`Modal should not show header when no header is given 1`] = `
 exports[`Modal should show footer when both footer and ok-text are given 1`] = `
 <div
   class="vfm vfm--inset vfm--fixed"
-  data-v-1cd72822=""
+  data-v-47686880=""
   style="z-index: 2000; display: none;"
 >
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     name="none"
   >
     <div
       class="vfm__overlay vfm--overlay vfm--absolute vfm--inset"
-      data-v-1cd72822=""
+      data-v-47686880=""
       style="display: none;"
     />
   </transition-stub>
    
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     enterclass="modal-zoom"
     entertoclass="modal-zoom-show"
     leaveclass="modal-zoom-show"
@@ -590,14 +590,14 @@ exports[`Modal should show footer when both footer and ok-text are given 1`] = `
       aria-expanded="false"
       aria-modal="true"
       class="vfm__container vfm--absolute vfm--inset vfm--outline-none allow-overflow"
-      data-v-1cd72822=""
+      data-v-47686880=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
         class="vfm__content modal-dialog"
-        data-v-1cd72822=""
+        data-v-47686880=""
       >
         <div
           class="modal-content"
@@ -627,37 +627,37 @@ exports[`Modal should show footer when both footer and ok-text are given 1`] = `
 exports[`Modal supports fade effect 1`] = `
 <div
   class="vfm vfm--inset vfm--fixed"
-  data-v-1cd72822=""
+  data-v-47686880=""
   header="test modal header"
   style="z-index: 2000; display: none;"
 >
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     name="none"
   >
     <div
       class="vfm__overlay vfm--overlay vfm--absolute vfm--inset"
-      data-v-1cd72822=""
+      data-v-47686880=""
       style="display: none;"
     />
   </transition-stub>
    
   <transition-stub
-    data-v-1cd72822=""
+    data-v-47686880=""
     name="vfm"
   >
     <div
       aria-expanded="false"
       aria-modal="true"
       class="vfm__container vfm--absolute vfm--inset vfm--outline-none allow-overflow"
-      data-v-1cd72822=""
+      data-v-47686880=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
         class="vfm__content modal-dialog"
-        data-v-1cd72822=""
+        data-v-47686880=""
       >
         <div
           class="modal-content"
