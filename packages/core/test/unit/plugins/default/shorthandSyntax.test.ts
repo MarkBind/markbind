@@ -1,5 +1,5 @@
-const cheerio = require('cheerio');
-const shorthandSyntaxPlugin = require('../../../../src/plugins/default/markbind-plugin-shorthandSyntax');
+import shorthandSyntaxPlugin from '../../../../src/plugins/default/markbind-plugin-shorthandSyntax';
+import { MbNode, parseHTML } from '../../../../src/utils/node';
 
 /*
 The plugin converts the following shorthand syntax:
@@ -16,8 +16,7 @@ to
 </panel>
 */
 test('processNode should convert shorthand syntax to proper MarkBind syntax', () => {
-  const [spanNode] = cheerio.parseHTML('<panel>'
-    + '<span heading>Heading</span></panel>', true)[0].children;
+  const [spanNode] = parseHTML('<panel><span heading>Heading</span></panel>')[0].children as MbNode[];
   shorthandSyntaxPlugin.processNode({}, spanNode);
   expect(spanNode.type).toEqual('tag');
   expect(spanNode.name).toEqual('span');
@@ -29,8 +28,7 @@ test('processNode should convert shorthand syntax to proper MarkBind syntax', ()
 );
 
 test('processNode should not convert span node without heading attribute', () => {
-  const [spanNode] = cheerio.parseHTML('<panel>'
-    + '<span>Heading</span></panel>', true)[0].children;
+  const [spanNode] = parseHTML('<panel><span>Heading</span></panel>')[0].children as MbNode[];
   const copy = { ...spanNode };
   shorthandSyntaxPlugin.processNode({}, spanNode);
   expect(spanNode).toEqual(copy);
@@ -38,8 +36,7 @@ test('processNode should not convert span node without heading attribute', () =>
 );
 
 test('processNode should not convert div>span[heading] syntax nodes', () => {
-  const [divSpanNode] = cheerio
-    .parseHTML('<div><span heading>Heading</span></div>', true)[0].children;
+  const [divSpanNode] = parseHTML('<div><span heading>Heading</span></div>')[0].children as MbNode[];
   const divSpanNodeCopy = { ...divSpanNode };
   shorthandSyntaxPlugin.processNode({}, divSpanNode);
   expect(divSpanNode).toEqual(divSpanNodeCopy);
@@ -47,8 +44,7 @@ test('processNode should not convert div>span[heading] syntax nodes', () => {
 );
 
 test('processNode should not convert panel>h1[heading] syntax nodes', () => {
-  const [panelH1Node] = cheerio
-    .parseHTML('<panel><h1 heading>Heading</h1></panel>', true)[0].children;
+  const [panelH1Node] = parseHTML('<panel><h1 heading>Heading</h1></panel>')[0].children as MbNode[];
   const panelH1NodeCopy = { ...panelH1Node };
   shorthandSyntaxPlugin.processNode({}, panelH1Node);
   expect(panelH1Node).toEqual(panelH1NodeCopy);

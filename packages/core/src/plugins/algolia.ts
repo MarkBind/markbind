@@ -1,10 +1,11 @@
-const cheerio = module.parent.require('cheerio');
+import cheerio from 'cheerio';
+import { FrontMatter, PluginContext } from './Plugin';
 
 const ALGOLIA_CSS_URL = 'https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.0/dist/style.css';
 const ALGOLIA_JS_URL = 'https://cdn.jsdelivr.net/npm/@docsearch/js@3.2.0/dist/umd/index.js';
 const ALGOLIA_INPUT_SELECTOR = '#algolia-search-input';
 
-function buildAlgoliaInitScript(pluginContext) {
+function buildAlgoliaInitScript(pluginContext: PluginContext) {
   return `<script>
     docsearch({
       container: "${ALGOLIA_INPUT_SELECTOR}",
@@ -25,7 +26,7 @@ function insertAlgoliaCustomCss() {
   `;
 }
 
-function addNoIndexClasses(content) {
+function addNoIndexClasses(content: string) {
   const $ = cheerio.load(content);
   const noIndexSelectors = [
     'dropdown',
@@ -40,12 +41,13 @@ function addNoIndexClasses(content) {
   return $.html();
 }
 
-module.exports = {
+export = {
   getLinks: () => [`<link rel="stylesheet" href="${ALGOLIA_CSS_URL}">`],
-  getScripts: pluginContext => [
+  getScripts: (pluginContext: PluginContext) => [
     `<script src="${ALGOLIA_JS_URL}"></script>`,
     buildAlgoliaInitScript(pluginContext),
     insertAlgoliaCustomCss(),
   ],
-  postRender: (pluginContext, frontmatter, content) => addNoIndexClasses(content),
+  postRender: (_pluginContext: PluginContext,
+               _frontmatter: FrontMatter, content: string) => addNoIndexClasses(content),
 };
