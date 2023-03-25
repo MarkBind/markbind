@@ -8,9 +8,9 @@ import has from 'lodash/has';
 import { MbNode } from '../../utils/node';
 import { PluginContext } from '../Plugin';
 
-const _ = { has };
+import md from '../../lib/markdown-it';
 
-const md = require('../../lib/markdown-it');
+const _ = { has };
 
 const CSS_FILE_NAME = 'markbind-plugin-tree.css';
 

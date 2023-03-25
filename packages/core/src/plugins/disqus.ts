@@ -1,6 +1,8 @@
-const cheerio = module.parent.require('cheerio');
+import cheerio from 'cheerio';
+import { MbNode } from '../utils/node';
+import { PluginContext } from './Plugin';
 
-function loadDisqus(pluginContext) {
+function loadDisqus(pluginContext: PluginContext) {
   const config = `
     let path = window.location.pathname;
 
@@ -60,8 +62,8 @@ function loadDisqus(pluginContext) {
   `;
 }
 
-module.exports = {
-  processNode: (pluginContext, node) => {
+export = {
+  processNode: (pluginContext: PluginContext, node: MbNode) => {
     if (node.name !== 'disqus') {
       return;
     }
