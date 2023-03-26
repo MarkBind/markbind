@@ -8,7 +8,7 @@ const {
 } = require('@markbind/core/src/Site/constants');
 
 const liveServer = require('../lib/live-server');
-const logger = require('../util/logger');
+const logger = require('./logger');
 
 const generateServerConfig = (options, outputFolder) => ({
   open: options.open,

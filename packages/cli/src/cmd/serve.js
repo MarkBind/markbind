@@ -5,21 +5,18 @@ const { Site } = require('@markbind/core');
 const { pageVueServerRenderer } = require('@markbind/core/src/Page/PageVueServerRenderer');
 
 const fsUtil = require('@markbind/core/src/utils/fsUtil');
-const {
-  INDEX_MARKDOWN_FILE,
-} = require('@markbind/core/src/Site/constants');
+const { INDEX_MARKDOWN_FILE } = require('@markbind/core/src/Site/constants');
 
-const liveServer = require('../lib/live-server');
 const cliUtil = require('../util/cliUtil');
+const liveServer = require('../lib/live-server');
 const logger = require('../util/logger');
-
 const {
   addHandler,
   changeHandler,
-  lazyReloadMiddleware,
   generateServerConfig,
+  lazyReloadMiddleware,
   removeHandler,
-} = require('./serveUtils');
+} = require('../util/serveUtil');
 
 function serve(userSpecifiedRoot, options) {
   if (options.dev) {
