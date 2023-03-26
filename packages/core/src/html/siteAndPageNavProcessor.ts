@@ -3,9 +3,9 @@ import cheerio from 'cheerio';
 import {
   MbNode, NodeOrText, parseHTML, TextElement,
 } from '../utils/node';
+import md from '../lib/markdown-it';
 
 require('../patches/htmlparser2');
-const md = require('../lib/markdown-it');
 
 const SITE_NAV_ID = 'site-nav';
 const SITE_NAV_EMPTY_LINE_REGEX = /\r?\n\s*\r?\n/g;

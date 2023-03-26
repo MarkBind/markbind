@@ -1,12 +1,13 @@
-const cheerio = module.parent.require('cheerio');
-const escapeRegExp = module.parent.require('lodash/escapeRegExp');
+import cheerio from 'cheerio';
+import escapeRegExp from 'lodash/escapeRegExp';
+import { FrontMatter, PluginContext } from './Plugin';
 
 /**
  * Filters out elements on the page based on config tags
  * @param tags to filter
  * @param content of the page
  */
-function filterTags(tags, content) {
+function filterTags(tags: string[], content: string) {
   if (!tags) {
     return content;
   }
@@ -17,15 +18,15 @@ function filterTags(tags, content) {
     // Whether it is makes tags visible or hides them
     isHidden: tag.startsWith('-'),
   }));
-  $('[tags]').each((i, element) => {
-    $(element).attr('hidden', true);
-    $(element).attr('tags').split(' ').forEach((tag) => {
+  $('[tags]').each((_i, element) => {
+    $(element).attr('hidden', 'true');
+    $(element).attr('tags')?.split(' ').forEach((tag) => {
       tagOperations.forEach((tagOperation) => {
         if (!tag.match(tagOperation.tagExp)) {
           return;
         }
         if (tagOperation.isHidden) {
-          $(element).attr('hidden', true);
+          $(element).attr('hidden', 'true');
         } else {
           $(element).removeAttr('hidden');
         }
@@ -36,8 +37,8 @@ function filterTags(tags, content) {
   return $.html();
 }
 
-module.exports = {
-  postRender: (pluginContext, frontmatter, content) => {
+export = {
+  postRender: (pluginContext: PluginContext, frontmatter: FrontMatter, content: string) => {
     // Tags specified in site.json will be merged with tags specified in frontmatter
     const mergedTags = (frontmatter.tags || []).concat(pluginContext.tags || []);
     return filterTags(mergedTags, content);
