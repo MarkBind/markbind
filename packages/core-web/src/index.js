@@ -20,6 +20,9 @@ function scrollToUrlAnchorHeading() {
   }
 }
 
+// Scrolling only works correctly after the page is loaded
+window.onload = scrollToUrlAnchorHeading;
+
 function detectAndApplyHeaderStyles() {
   const headerSelector = jQuery('header[sticky]');
   if (headerSelector.length === 0) {
@@ -143,8 +146,6 @@ function restoreStyleTags() {
 function executeAfterMountedRoutines() {
   restoreStyleTags();
   detectAndApplyHeaderStyles();
-  // Scrolling only works correctly after the page is loaded
-  window.onload = scrollToUrlAnchorHeading;
 }
 
 window.handleSiteNavClick = function (elem, useAnchor = true) {
