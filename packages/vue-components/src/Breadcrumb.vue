@@ -40,6 +40,9 @@ export default {
     let siteNav = null;
     let firstRootFound = false;
 
+    // Identify the first site-nav-list-root
+    // In the ideal case, there is only one site-nav-list-root
+    // however this is not the case for all pages
     document.querySelectorAll('ul').forEach((el) => {
       if (firstRootFound) {
         return;
@@ -50,18 +53,21 @@ export default {
       }
     });
 
+    // Look at all links in the sitenav
     siteNav.querySelectorAll('a[href]').forEach((el) => {
-      window.console.warn(el.textContent);
       const linkUrl = normalizeUrl(el.getAttribute('href'));
+      // Skip the link if it is not the current link
       if (!el.classList.contains('current')) {
         return;
       }
 
+      // Push the current link and title
       this.items.unshift({
         'title': el.textContent,
         'link': linkUrl,
       });
 
+      // Push all parent links and titles
       let currentEl = el.parentElement;
       while (currentEl !== siteNav) {
         if (currentEl.tagName.toLowerCase() === 'ul') {
@@ -82,7 +88,6 @@ export default {
         currentEl = currentEl.parentElement;
       }
     });
-    window.console.warn(this.items);
   },
 };
 </script>
