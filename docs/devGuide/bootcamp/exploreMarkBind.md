@@ -74,7 +74,7 @@ Commands:
   init|i [options] [root]            init a markbind website project
   serve|s [options] [root]           build then serve a website from a directory
   build|b [options] [root] [output]  build a website
-  deploy|d [options]                 deploy the site to the repo's Github pages
+  deploy|d [options] [root]          deploy the latest build of the site to the repo's Github pages
   help [command]                     display help for command
 
 $ cd docs && markbind serve -d

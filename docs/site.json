@@ -24,7 +24,8 @@
   "plugins" : [
     "filterTags",
     "mathDelimiters",
-    "codeBlockWrapButtons"
+    "codeBlockWrapButtons",
+    "web3Form"
   ],
   "pluginsContext" : {
     "filterTags" : {
@@ -32,6 +33,9 @@
     },
     "mathDelimiters": {
       "delimiters": ["beg_end"]
+    },
+    "web3Form": {
+      "accessKey": [""]
     }
   },
   "headingIndexingLevel": 6,

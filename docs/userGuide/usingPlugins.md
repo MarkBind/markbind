@@ -63,6 +63,7 @@ MarkBind has a set of built-in plugins that can be used immediately without inst
 <include src="plugins/googleAnalytics.md" />
 <include src="plugins/disqus.md" />
 <include src="plugins/mathDelimiters.md" />
+<include src="plugins/web3Form.md" />
 
 ## Using External Plugins
 

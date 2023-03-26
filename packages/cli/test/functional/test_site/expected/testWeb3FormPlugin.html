@@ -10,7 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="MarkBind 4.1.0">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>text interpolation should be skipped appropriately</title>
+  <title>web 3 forms</title>
   <link rel="stylesheet" href="/test_site/markbind/css/bootstrap.min.css">
   <link rel="stylesheet" href="/test_site/markbind/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="/test_site/markbind/glyphicons/css/bootstrap-glyphicons.min.css">
@@ -21,7 +21,7 @@
   <script src="/test_site/markbind/js/polyfill.min.js"></script>
   <script src="/test_site/markbind/js/vue.min.js"></script>
   <script src="/test_site/markbind/js/markbind.min.js"></script>
-  <script src="testPageNav.page-vue-render.js"></script>
+  <script src="testWeb3FormPlugin.page-vue-render.js"></script>
   <script src="/test_site/markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
   <link rel="stylesheet" href="/test_site/plugins/web3Form/web-3-form.css">
@@ -37,7 +37,7 @@
   const baseUrl = '/test_site'
 </script>
 
-<body data-bs-spy="scroll" data-bs-target="#mb-page-nav" data-bs-offset="100">
+<body>
   <div id="app">
 
     <div>
@@ -208,28 +208,64 @@
         </div>
       </overlay-source>
       <div id="content-wrapper">
+        <p><strong>Default contact us form</strong></p>
+        <box class="web3Form" type="info" no-icon>
+          <p class="h2">Contact Us</p>
+          <form onsubmit="submitForm(this)"><input type="hidden" name="access_key" value><label for="name">Name</label>
+            <input type="text" name="name" required placeholder="John Doe">
+            <label for="email">Email</label>
+            <input type="email" name="email" required placeholder="johndoe@gmail.com">
+            <label for="message">Message</label>
+            <textarea name="message" required></textarea>
+            <button type="submit" class="badge bg-info">Submit</button>
+          </form>
+        </box>
+        <p><strong>Form with default inputs</strong></p>
+        <box class="web3Form" type="info" no-icon>
 
-        <h5 id="the-pagenavtitle-should-correctly-show-the-raw-variable-syntax"><span id="the-pagenavtitle-should-correctly-show-the-raw-variable-syntax" class="anchor"></span>The pageNavTitle should correctly show the raw variable syntax<a class="fa fa-anchor" href="#the-pagenavtitle-should-correctly-show-the-raw-variable-syntax" onclick="event.stopPropagation()"></a></h5>
-        <p>The pageNavTitle should be rendered as:</p>
-        <pre><code class="line-numbers hljs html" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;navbar-brand page-nav-title&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span> <span class="hljs-attr">data-v-e8c82f88</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span>
-</span><span>  Title interpolation {{ test }}
-</span><span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
-</span></code></pre>
-        <h5 id="using-raw-endraw-to-display-content"><span id="using-raw-endraw-to-display-content" class="anchor"></span><span aria-hidden="true" class="fas fa-lightbulb"></span> Using {% raw %}{% endraw %} to display <code class="line-numbers hljs inline no-lang" v-pre>{{ content }}</code><a class="fa fa-anchor" href="#using-raw-endraw-to-display-content" onclick="event.stopPropagation()"></a></h5>
-        <p>The above heading should be rendered as:</p>
-        <pre><code class="line-numbers hljs html" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;nav-link py-1 active&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#using-raw-endraw-to-display-content&quot;</span> <span class="hljs-attr">data-v-e8c82f88</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span>
-</span><span>    Using {% raw %}{% endraw %} to display {{ content }}<span class="hljs-symbol">&amp;lrm;</span>
-</span><span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
-</span></code></pre>
+
+
+          <form onsubmit="submitForm(this)"><input type="hidden" name="access_key" value><label for="name">Name</label>
+            <input type="text" name="name" required placeholder="John Doe"><label for="message">Message</label>
+            <textarea name="message" required></textarea><button type="submit" class="badge bg-info">Submit</button>
+          </form>
+        </box>
+        <p><strong>Form with customised inputs</strong></p>
+        <box class="web3Form" type="info" no-icon>
+
+
+
+
+
+
+
+
+
+
+
+          <form onsubmit="submitForm(this)"><input type="hidden" name="access_key" value><input type="radio" id="html" name="fav_language" value="HTML"><label for="html">HTML</label><br><input type="radio" id="css" name="fav_language" value="CSS"><label for="css">CSS</label><br><input type="radio" id="javascript" name="fav_language" value="JavaScript"><label for="javascript">JavaScript</label><br><input list="browsers"><datalist id="browsers">
+              <option value="Internet Explorer"></option>
+              <option value="Firefox"></option>
+              <option value="Chrome"></option>
+              <option value="Opera"></option>
+              <option value="Safari"></option>
+            </datalist><br><button type="submit" class="badge bg-info">Submit</button></form>
+        </box>
+        <p><strong>Form with customised options</strong></p>
+        <box type="warning" class="web3Form" no-icon>
+          <h3 id="i-am-a-header"><span id="i-am-a-header" class="anchor"></span>🚀 I am a header<a class="fa fa-anchor" href="#i-am-a-header" onclick="event.stopPropagation()"></a></h3>
+          <form onsubmit="submitForm(this)"><input type="hidden" name="access_key" value><label for="name">Name</label>
+            <input type="text" name="name" required placeholder="John Doe">
+            <label for="email">Email</label>
+            <input type="email" name="email" required placeholder="johndoe@gmail.com">
+            <label for="message">Message</label>
+            <textarea name="message" required></textarea>
+            <button type="submit" class="badge bg-info">Submit</button>
+          </form>
+        </box>
       </div>
       <overlay-source id="page-nav" tag-name="nav" to="page-nav">
         <div class="nav-component slim-scroll">
-          <a class="navbar-brand page-nav-title" href="#" v-pre>Title interpolation {{ test }}</a>
-          <overlay-source id="mb-page-nav" tag-name="nav" to="mb-page-nav" class="nav nav-pills flex-column my-0 small no-flex-wrap">
-            <a class="nav-link py-1" href="#the-pagenavtitle-should-correctly-show-the-raw-variable-syntax" v-pre>The pageNavTitle should correctly show the raw variable syntax&#x200E;</a>
-            <a class="nav-link py-1" href="#using-raw-endraw-to-display-content" v-pre> Using {% raw %}{% endraw %} to display {{ content }}&#x200E;</a>
-
-          </overlay-source>
         </div>
       </overlay-source>
       <scroll-top-button></scroll-top-button>
