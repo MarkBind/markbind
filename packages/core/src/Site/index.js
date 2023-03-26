@@ -1400,7 +1400,7 @@ class Site {
    * @param {Boolean} isRebuild only true if it is a rebuild
    */
   copyBootstrapTheme(isRebuild) {
-    const { theme } = this.siteConfig;
+    const theme = this.siteConfig.style.bootstrapTheme;
 
     /**
      * If it is the initial build using the default theme or if the theme specified
