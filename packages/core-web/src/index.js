@@ -143,6 +143,8 @@ function restoreStyleTags() {
 function executeAfterMountedRoutines() {
   restoreStyleTags();
   detectAndApplyHeaderStyles();
+  // Scrolling only works correctly after the page is loaded
+  window.onload = scrollToUrlAnchorHeading;
 }
 
 window.handleSiteNavClick = function (elem, useAnchor = true) {
@@ -170,8 +172,6 @@ function setup() {
       executeAfterMountedRoutines();
     },
   });
-  // Scrolling only works correctly after the page is loaded
-  window.onload = scrollToUrlAnchorHeading;
   /*
    * For SSR, if we mount onto the wrong element (without data-server-rendered attribute) in our SSR setup,
    * hydration will fail silently and turn into client-side rendering, which is not what we want.
@@ -193,8 +193,6 @@ function setupWithSearch() {
       updateSearchData(this);
     },
   });
-  // Scrolling only works correctly after the page is loaded
-  window.onload = scrollToUrlAnchorHeading;
   /*
    * For SSR, if we mount onto the wrong element (without data-server-rendered attribute) in our SSR setup,
    * hydration will fail silently and turn into client-side rendering, which is not what we want.
