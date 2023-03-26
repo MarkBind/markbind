@@ -158,6 +158,10 @@
     {
       "src": "testPageNavPrint.md",
       "title": "printing page nav"
+    },
+    {
+      "src": "testWeb3FormPlugin.md",
+      "title": "web 3 forms"
     }
   ],
   "pagesExclude": ["**/*-fragment.md"],
@@ -183,7 +187,8 @@
     "testMarkbindPlugin",
     "filterTags",
     "googleAnalytics",
-    "mathDelimiters"
+    "mathDelimiters",
+    "web3Form"
   ],
   "pluginsContext": {
     "testMarkbindPlugin": {
@@ -202,6 +207,9 @@
     },
     "mathDelimiters": {
       "delimiters": ["beg_end"]
+    },
+    "web3Form": {
+      "accessKey": ""
     }
   }
 }
