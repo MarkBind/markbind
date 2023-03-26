@@ -42,7 +42,11 @@
     {
       "src": "index.md",
       "title": "Home Page",
-      "headings": {},
+      "headings": {
+        "what-did-i-just-do": "What did I just do?",
+        "navigating-this-site": "Navigating this site",
+        "guide-to-markbind": "Guide to MarkBind"
+      },
       "headingKeywords": {}
     }
   ]
