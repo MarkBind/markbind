@@ -31,11 +31,6 @@
     transition-duration: 250ms;
     -webkit-transition-timing-function: linear;
     transition-timing-function: linear;
-    background: rgb(246, 248, 250);
-    color: #24292e;
-    text-align: center;
-    border: solid 1px #e8ebef;
-    border-radius: 2px;
 }
 .alertify-notifier .ajs-message.ajs-visible {
     -webkit-transition-duration: 500ms;
@@ -44,7 +39,7 @@
     transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     opacity: 1;
     max-height: 100%;
-    padding: 15px;
+    /*padding: 15px;*/
     margin-top: 10px;
 }
 .alertify-notifier .ajs-message.ajs-danger {

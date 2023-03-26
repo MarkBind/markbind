@@ -2,8 +2,16 @@ import cheerio from 'cheerio';
 import { DomElement } from 'htmlparser2';
 import type { PluginContext } from './Plugin';
 import { FrontMatter } from './Plugin';
+import * as logger from '../utils/logger';
 
 const TOAST_CSS_FILE = 'toastAssets/toast.css';
+
+function toBoolean(val: string) {
+  if (val === undefined || val === 'false' || val === 'null' || val === 'undefined') {
+    return false;
+  }
+  return true;
+}
 
 function createToasts(content: string) {
   const $ = cheerio.load(content);
@@ -16,41 +24,36 @@ function createToasts(content: string) {
     if (toast.type !== 'tag') {
       return;
     }
-    toast.tagName = 'box';
 
     const $toastNode = cheerio(`<box>${cheerio.html(toast)}</box>`);
     $toastNode.addClass('ajs-message ajs-visible');
     if (toast.attribs != null) {
+      if (!toBoolean(toast.attribs.dismissible) && toBoolean(toast.attribs['no-timeout'])) {
+        logger.error('Toast does not have a way to be dismissed');
+      }
       Object.entries(toast.attribs).forEach(([key, value]) => {
         $toastNode.attr(key, value);
       });
+      $toastNode.removeAttr('v-pre');
     }
     toastContainer.append($toastNode);
   });
   allToasts.remove();
-  return content + cheerio.html(toastContainer);
+  return $.html() + cheerio.html(toastContainer);
 }
 
 const toastTimeout = `
 <script>
-    const allToasts = document.querySelectorAll('toast');
+    const allToasts = document.querySelectorAll('.ajs-message');
     allToasts.forEach((toast) => {
-        const timeoutDuration = toast.attribs
-            ? toast.attribs['duration']
-                ? toast.attribs['duration']
-                : 2000
+        if (toast.attributes.getNamedItem('no-timeout') !== null) {
+            return;
+        }
+        const timeoutDuration = toast.attributes.getNamedItem('duration')
+            ? toast.attributes.getNamedItem('duration').value
             : 2000;
         setTimeout(() => {
-            alert('timeout done')
-            // const toastParent = $toastNode.parent(); 
-            // const allChildren = toastParent.children();
-            // const filteredChildren = []; 
-            // for (let i = 0; i < allChildren.length; i++) {
-            //     if (allChildren[i] === toast) {
-            //        
-            //         break;
-            //     }
-            // }
+            toast.remove();
         }, timeoutDuration)
     })
 </script>`;
