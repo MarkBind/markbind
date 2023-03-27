@@ -4,11 +4,6 @@
     ref="cardContainer"
     :class="['card-container', addClass]"
   >
-    <span
-      v-if="hasId"
-      :id="panelId"
-      class="anchor"
-    ></span>
     <span class="morph">
       <button :class="['morph-display-wrapper', 'btn', btnType]" @click="open()">
         <div
@@ -32,11 +27,6 @@
     ref="cardContainer"
     :class="['card-container', addClass]"
   >
-    <span
-      v-if="hasId"
-      :id="panelId"
-      class="anchor"
-    ></span>
     <div :class="['card', { 'expandable-card': isExpandableCard }, borderType]">
       <div
         :class="['card-header',{'header-toggle':isExpandableCard}, cardType, borderType]"
@@ -171,6 +161,10 @@ export default {
 </script>
 
 <style scoped>
+    .card-container {
+        scroll-margin-top: var(--sticky-header-height);
+    }
+
     .card-collapse {
         overflow: hidden;
         transition: max-height 0.5s ease-in-out;
