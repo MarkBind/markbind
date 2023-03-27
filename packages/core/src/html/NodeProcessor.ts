@@ -364,11 +364,6 @@ export class NodeProcessor {
       setHeadingId(node, this.config);
     }
 
-    // Generate dummy spans as anchor points for header[sticky]
-    if (isHeadingTag && node.attribs.id) {
-      cheerio(node).prepend(`<span id="${node.attribs.id}" class="anchor"></span>`);
-    }
-
     this.pluginManager.postProcessNode(node);
 
     return node;
