@@ -55,7 +55,7 @@ Ensure that you can serve the MarkBind documentation site in development mode. Y
 
 In the following steps, we will be fixing a hypothetical typo. You do not need to commit the changes or raise a PR, but understand the context and follow the steps to get a feel for the process.
 
-**!!Let's suppose we want to change the use of "Pop-Up" in our [user guide](../../userGuide/components/popups.html) to "Popup" (i.e. remove the hyphen).!!**
+**!!Let's suppose we want to change the use of "Pop-Up" in our <a tags="environment--combined" href="/userGuide/components/popups.html">user guide</a><a tags="environment--dg" href="https://markbind.org/userGuide/components/popups.html">user guide</a> to "Popup" (i.e. remove the hyphen).!!**
 
 <box type="info" light>
 

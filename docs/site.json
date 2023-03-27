@@ -29,7 +29,7 @@
   ],
   "pluginsContext" : {
     "filterTags" : {
-      "tags": ["environment--ug", "environment--dg"]
+      "tags": ["environment--combined"]
     },
     "mathDelimiters": {
       "delimiters": ["beg_end"]

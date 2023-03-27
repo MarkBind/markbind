@@ -368,6 +368,7 @@ h4,
 h5,
 h6 {
     margin-bottom: 1rem;
+    scroll-margin-top: var(--sticky-header-height);
 }
 
 .block-embed {

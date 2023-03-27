@@ -205,7 +205,7 @@ test('renderFile converts markdown headers to <h1> with an id', async () => {
 
   const result = await nodeProcessor.process(indexPath, '# Index');
 
-  const expected = ['<h1 id="index"><span id="index" class="anchor"></span>Index</h1>'].join('\n');
+  const expected = ['<h1 id="index">Index</h1>'].join('\n');
 
   expect(result).toEqual(expected);
 });
