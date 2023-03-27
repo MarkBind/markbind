@@ -2,7 +2,7 @@
   title: "Generate More Dynamic Websites from Markdown Text"
 </frontmatter>
 
-<div tags="environment--ug">
+<div tags="environment--ug environment--combined">
 
 <h1 class="display-3"><md>**MarkBind**</md></h1>
 
