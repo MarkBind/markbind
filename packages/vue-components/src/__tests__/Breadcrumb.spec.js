@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 import Breadcrumb from '../Breadcrumb.vue';
 
-describe('Breadcrumbs', () => {
+describe('Breadcrumb', () => {
   test('empty breadcrumb', async () => {
     const wrapper = mount(Breadcrumb, {
       data() {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Breadcrumbs empty breadcrumb 1`] = `
+exports[`Breadcrumb empty breadcrumb 1`] = `
 <div>
   <nav
     aria-label="breadcrumb"
@@ -12,7 +12,7 @@ exports[`Breadcrumbs empty breadcrumb 1`] = `
 </div>
 `;
 
-exports[`Breadcrumbs one link 1`] = `
+exports[`Breadcrumb one link 1`] = `
 <div>
   <nav
     aria-label="breadcrumb"
@@ -35,7 +35,7 @@ exports[`Breadcrumbs one link 1`] = `
 </div>
 `;
 
-exports[`Breadcrumbs one non-link 1`] = `
+exports[`Breadcrumb one non-link 1`] = `
 <div>
   <nav
     aria-label="breadcrumb"
@@ -58,7 +58,7 @@ exports[`Breadcrumbs one non-link 1`] = `
 </div>
 `;
 
-exports[`Breadcrumbs two link 1`] = `
+exports[`Breadcrumb two link 1`] = `
 <div>
   <nav
     aria-label="breadcrumb"
@@ -93,7 +93,7 @@ exports[`Breadcrumbs two link 1`] = `
 </div>
 `;
 
-exports[`Breadcrumbs two non-link 1`] = `
+exports[`Breadcrumb two non-link 1`] = `
 <div>
   <nav
     aria-label="breadcrumb"
