@@ -5,10 +5,10 @@ with(this){return _c('div',{attrs:{"id":"app"}},[_c('header',{attrs:{"sticky":""
 };
     var pageVueStaticRenderFns = [function anonymous(
 ) {
-with(this){return _c('div',{staticClass:"bg-primary text-white py-5 mb-4"},[_c('div',{staticClass:"container"},[_c('h1',{staticClass:"display-4 no-index",attrs:{"id":"landing-page-title"}},[_c('span',{staticClass:"anchor",attrs:{"id":"landing-page-title"}}),_v("Landing Page Title"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#landing-page-title","onclick":"event.stopPropagation()"}})]),_v(" "),_c('p',{staticClass:"lead"},[_v("A tagline can go here")])])])}
+with(this){return _c('div',{staticClass:"bg-primary text-white py-5 mb-4"},[_c('div',{staticClass:"container"},[_c('h1',{staticClass:"display-4 no-index",attrs:{"id":"landing-page-title"}},[_v("Landing Page Title"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#landing-page-title","onclick":"event.stopPropagation()"}})]),_v(" "),_c('p',{staticClass:"lead"},[_v("A tagline can go here")])])])}
 },function anonymous(
 ) {
-with(this){return _c('h1',{attrs:{"id":"heading-1"}},[_c('span',{staticClass:"anchor",attrs:{"id":"heading-1"}}),_v("Heading 1"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#heading-1","onclick":"event.stopPropagation()"}})])}
+with(this){return _c('h1',{attrs:{"id":"heading-1"}},[_v("Heading 1"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#heading-1","onclick":"event.stopPropagation()"}})])}
 },function anonymous(
 ) {
 with(this){return _c('p',[_v("Some text some text some text some text some text some text some text. "),_c('strong',[_v("Some text some text some text some text some text "),_c('mark',[_v("some text")]),_v(" some text")]),_v(". Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.")])}
@@ -32,7 +32,7 @@ with(this){return _c('p',[_c('strong',[_v("A "),_c('code',{pre:true,attrs:{"clas
 with(this){return _c('pre',[_c('code',{pre:true,attrs:{"class":"hljs html"}},[_c('span',[_c('span',{pre:true,attrs:{"class":"hljs-tag"}},[_v("<"),_c('span',{pre:true,attrs:{"class":"hljs-name"}},[_v("foo")]),_v(">")]),_v("\n")]),_c('span',[_v("  "),_c('span',{pre:true,attrs:{"class":"hljs-tag"}},[_v("<"),_c('span',{pre:true,attrs:{"class":"hljs-name"}},[_v("bar")]),_v(" "),_c('span',{pre:true,attrs:{"class":"hljs-attr"}},[_v("type")]),_v("="),_c('span',{pre:true,attrs:{"class":"hljs-string"}},[_v("\"name\"")]),_v(">")]),_v("goo"),_c('span',{pre:true,attrs:{"class":"hljs-tag"}},[_v("</"),_c('span',{pre:true,attrs:{"class":"hljs-name"}},[_v("bar")]),_v(">")]),_v("\n")]),_c('span',[_c('span',{pre:true,attrs:{"class":"hljs-tag"}},[_v("</"),_c('span',{pre:true,attrs:{"class":"hljs-name"}},[_v("foo")]),_v(">")]),_v("\n")])])])}
 },function anonymous(
 ) {
-with(this){return _c('h2',{attrs:{"id":"sub-heading-1-1"}},[_c('span',{staticClass:"anchor",attrs:{"id":"sub-heading-1-1"}}),_v("Sub Heading 1.1"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#sub-heading-1-1","onclick":"event.stopPropagation()"}})])}
+with(this){return _c('h2',{attrs:{"id":"sub-heading-1-1"}},[_v("Sub Heading 1.1"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#sub-heading-1-1","onclick":"event.stopPropagation()"}})])}
 },function anonymous(
 ) {
 with(this){return _c('p',[_c('strong',[_v("A table:")])])}
@@ -41,7 +41,7 @@ with(this){return _c('p',[_c('strong',[_v("A table:")])])}
 with(this){return _c('div',{staticClass:"table-responsive"},[_c('table',{staticClass:"markbind-table table table-bordered table-striped"},[_c('thead',[_c('tr',[_c('th',{staticStyle:{"text-align":"center"}},[_v("Column 1")]),_v(" "),_c('th',{staticStyle:{"text-align":"center"}},[_v("Column 2")]),_v(" "),_c('th',{staticStyle:{"text-align":"center"}},[_v("Column 3")]),_v(" "),_c('th',[_c('span',{staticClass:"far fa-thumbs-up",attrs:{"aria-hidden":"true"}}),_v(" / "),_c('span',{staticClass:"far fa-thumbs-down",attrs:{"aria-hidden":"true"}}),_v("?")])])]),_v(" "),_c('tbody',[_c('tr',[_c('td',{staticStyle:{"text-align":"center"}},[_v("value1")]),_v(" "),_c('td',{staticStyle:{"text-align":"center"}},[_v("x")]),_v(" "),_c('td',{staticStyle:{"text-align":"center"}},[_v("5")]),_v(" "),_c('td',[_c('span',{staticClass:"far fa-thumbs-up",attrs:{"aria-hidden":"true"}})])]),_v(" "),_c('tr',[_c('td',{staticStyle:{"text-align":"center"}},[_v("value2")]),_v(" "),_c('td',{staticStyle:{"text-align":"center"}},[_v("y")]),_v(" "),_c('td',{staticStyle:{"text-align":"center"}},[_v("20")]),_v(" "),_c('td',[_c('span',{staticClass:"far fa-thumbs-down",attrs:{"aria-hidden":"true"}})])])])])])}
 },function anonymous(
 ) {
-with(this){return _c('h2',{attrs:{"id":"sub-heading-1-2"}},[_c('span',{staticClass:"anchor",attrs:{"id":"sub-heading-1-2"}}),_v("Sub Heading 1.2"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#sub-heading-1-2","onclick":"event.stopPropagation()"}})])}
+with(this){return _c('h2',{attrs:{"id":"sub-heading-1-2"}},[_v("Sub Heading 1.2"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#sub-heading-1-2","onclick":"event.stopPropagation()"}})])}
 },function anonymous(
 ) {
 with(this){return _c('p',[_c('strong',[_v("Media embeds:")])])}
@@ -53,13 +53,13 @@ with(this){return _c('div',{staticClass:"block-embed block-embed-service-youtube
 with(this){return _c('p',[_c('strong',[_v("Tabs:")])])}
 },function anonymous(
 ) {
-with(this){return _c('h1',{attrs:{"id":"heading-2"}},[_c('span',{staticClass:"anchor",attrs:{"id":"heading-2"}}),_v("Heading 2"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#heading-2","onclick":"event.stopPropagation()"}})])}
+with(this){return _c('h1',{attrs:{"id":"heading-2"}},[_v("Heading 2"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#heading-2","onclick":"event.stopPropagation()"}})])}
 },function anonymous(
 ) {
 with(this){return _c('p',[_c('strong',[_v("Some boxes:")])])}
 },function anonymous(
 ) {
-with(this){return _c('h1',{attrs:{"id":"heading-3"}},[_c('span',{staticClass:"anchor",attrs:{"id":"heading-3"}}),_v("Heading 3"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#heading-3","onclick":"event.stopPropagation()"}})])}
+with(this){return _c('h1',{attrs:{"id":"heading-3"}},[_v("Heading 3"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#heading-3","onclick":"event.stopPropagation()"}})])}
 },function anonymous(
 ) {
 with(this){return _c('footer',[_c('div',{staticClass:"text-center"},[_c('small',[_v("[Generated by "),_c('a',{attrs:{"href":"https://markbind.org/"}},[_v("MarkBind 4.1.0")]),_v("]")])])])}
