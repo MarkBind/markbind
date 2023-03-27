@@ -6,6 +6,10 @@ import * as logger from '../utils/logger';
 
 const TOAST_CSS_FILE = 'toastAssets/toast.css';
 
+const RIGHT_CLASS_CSS = 'ajs-right';
+const LEFT_CLASS_CSS = 'ajs-left';
+const TOP_CLASS_CSS = 'ajs-top';
+
 function toBoolean(val: string) {
   if (val === undefined || val === 'false' || val === 'null' || val === 'undefined') {
     return false;
@@ -13,13 +17,33 @@ function toBoolean(val: string) {
   return true;
 }
 
-function createToasts(content: string) {
+function getPositionClass(pluginContext: PluginContext) {
+  if (!pluginContext) {
+    return RIGHT_CLASS_CSS;
+  }
+  if (!pluginContext.position) {
+    return RIGHT_CLASS_CSS;
+  }
+  let positionClasses = '';
+  if (pluginContext.position.includes('top')) {
+    positionClasses += `${TOP_CLASS_CSS} `;
+  }
+  if (pluginContext.position.includes('left')) {
+    positionClasses += LEFT_CLASS_CSS;
+  } else {
+    positionClasses += RIGHT_CLASS_CSS;
+  }
+  return positionClasses;
+}
+
+function createToasts(content: string, pluginContext: PluginContext) {
   const $ = cheerio.load(content);
   const allToasts = $('toast');
   if (allToasts.length === 0) {
     return content;
   }
-  const toastContainer = cheerio('<div class="alertify-notifier ajs-right"></div>');
+  const toastContainer = cheerio('<div class="alertify-notifier"></div>');
+  toastContainer.addClass(getPositionClass(pluginContext));
   allToasts.each((_, toast) => {
     if (toast.type !== 'tag') {
       return;
@@ -67,5 +91,6 @@ export = {
       cheerio(node).attr('v-pre', 'true');
     }
   },
-  postRender: (_: PluginContext, frontmatter: FrontMatter, content: string) => createToasts(content),
+  postRender: (pluginContext: PluginContext, frontmatter: FrontMatter, content: string) =>
+    createToasts(content, pluginContext),
 };

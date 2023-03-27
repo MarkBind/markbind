@@ -73,6 +73,7 @@ packages/core/src/plugins/disqus.js
 packages/core/src/plugins/filterTags.js
 packages/core/src/plugins/googleAnalytics.js
 packages/core/src/plugins/mathDelimiters.js
+packages/core/src/plugins/toast.js
 
 # Rules for pure JS files
 packages/core/src/lib/markdown-it/patches/*
