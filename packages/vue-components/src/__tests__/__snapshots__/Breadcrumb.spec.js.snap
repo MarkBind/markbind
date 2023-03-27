@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Breadcrumbs empty breadcrumb 1`] = `
+<div>
+  <nav
+    aria-label="breadcrumb"
+  >
+    <ol
+      class="breadcrumb"
+    />
+  </nav>
+</div>
+`;
+
+exports[`Breadcrumbs one link 1`] = `
+<div>
+  <nav
+    aria-label="breadcrumb"
+  >
+    <ol
+      class="breadcrumb"
+    >
+      <li
+        aria-current="[object Object]"
+        class="breadcrumb-item active"
+      >
+        <a>
+          
+          link one
+        
+        </a>
+      </li>
+    </ol>
+  </nav>
+</div>
+`;
+
+exports[`Breadcrumbs one non-link 1`] = `
+<div>
+  <nav
+    aria-label="breadcrumb"
+  >
+    <ol
+      class="breadcrumb"
+    >
+      <li
+        aria-current="[object Object]"
+        class="breadcrumb-item active"
+      >
+        <a>
+          
+          non-link one
+        
+        </a>
+      </li>
+    </ol>
+  </nav>
+</div>
+`;
+
+exports[`Breadcrumbs two link 1`] = `
+<div>
+  <nav
+    aria-label="breadcrumb"
+  >
+    <ol
+      class="breadcrumb"
+    >
+      <li
+        aria-current="[object Object]"
+        class="breadcrumb-item"
+      >
+        <a
+          href="#linkone"
+        >
+          
+          link one
+        
+        </a>
+      </li>
+      <li
+        aria-current="[object Object]"
+        class="breadcrumb-item active"
+      >
+        <a>
+          
+          link two
+        
+        </a>
+      </li>
+    </ol>
+  </nav>
+</div>
+`;
+
+exports[`Breadcrumbs two non-link 1`] = `
+<div>
+  <nav
+    aria-label="breadcrumb"
+  >
+    <ol
+      class="breadcrumb"
+    >
+      <li
+        aria-current="[object Object]"
+        class="breadcrumb-item active"
+      >
+        <a>
+          
+          link one
+        
+        </a>
+      </li>
+      <li
+        aria-current="[object Object]"
+        class="breadcrumb-item active"
+      >
+        <a>
+          
+          link two
+        
+        </a>
+      </li>
+    </ol>
+  </nav>
+</div>
+`;

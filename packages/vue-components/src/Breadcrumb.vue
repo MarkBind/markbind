@@ -53,6 +53,8 @@ export default {
       }
     });
 
+    if (!siteNav) return;
+
     // Look at all links in the sitenav
     siteNav.querySelectorAll('a[href]').forEach((el) => {
       const linkUrl = normalizeUrl(el.getAttribute('href'));
