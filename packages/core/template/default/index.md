@@ -2,7 +2,7 @@
   title: Home Page
   layout: default.md
   pageNav: 4
-  pageNavTitle: "Chapters of This Page"
+  pageNavTitle: "Placeholder Topic Pages"
 </frontmatter>
 
 <br>
@@ -16,7 +16,7 @@
 
 ---
 
-## What did I just do?
+## What did you just do?
 
 You have just initialized a _default_ MarkBind site, which is equipped with a set of core features of a MarkBind site like Site and Page Navigation, as well as some links to our User Guide, to help you get started more conveniently!
 
@@ -38,7 +38,7 @@ This _default_ site comes pre-configured with the core <a href="https://markbind
 
 ## Guide to MarkBind
 
-To see the capability of MarkBind in action, feel free to take a look at some of the websites built using MarkBind on our <a href="https://markbind.org/userGuide/gettingStarted.html" target="_blank">Showcase</a> page. 
+To see the capability of MarkBind in action, feel free to take a look at some of the websites built using MarkBind on our <a href="https://markbind.org/showcase.html" target="_blank">Showcase</a> page. 
 
 For more information on how to work with MarkBind sites and to add content, refer to our comprehensive <a href="https://markbind.org/userGuide/gettingStarted.html" target="_blank">User Guide</a>. 
 
@@ -62,7 +62,7 @@ More info in: _<a href="https://markbind.org/userGuide/authoringContents.html" t
 
 > Learn how to modify site properties, apply themes, and enable / disable plugins for your MarkBind site.
 
-More info in: _<a href="https://markbind.org/userGuide/authoringContents.html" target="_blank">User Guide → Working with Sites</a>_
+More info in: _<a href="https://markbind.org/userGuide/workingWithSites.html" target="_blank">User Guide → Working with Sites</a>_
 
 ---
 
