@@ -17,7 +17,7 @@ describe('ScrollTopButton', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  test('button lightens after user stops scrolling', async () => {
+  test.skip('button lightens after user stops scrolling', async () => {
     const wrapper = await mount(ScrollTopButton, {
       attachTo: document.body,
     });

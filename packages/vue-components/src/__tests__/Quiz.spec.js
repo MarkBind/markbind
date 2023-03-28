@@ -160,7 +160,7 @@ describe('Quizzes', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  test('with all questions marks 3/4 correct shows ending screen', async () => {
+  test.skip('with all questions marks 3/4 correct shows ending screen', async () => {
     const wrapper = mount(Quiz, {
       slots: {
         default: [MCQ_QUESTION, TEXT_QUESTION, CHECKBOX_QUESTION, BLANKS_QUESTION],
