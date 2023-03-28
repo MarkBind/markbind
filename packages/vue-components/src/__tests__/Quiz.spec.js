@@ -208,7 +208,7 @@ describe('Quizzes', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  test.skip.skip('with 2 questions retry goes back to first', async () => {
+  test.skip('with 2 questions retry goes back to first', async () => {
     const wrapper = mount(Quiz, {
       slots: {
         default: [MCQ_QUESTION, TEXT_QUESTION],
