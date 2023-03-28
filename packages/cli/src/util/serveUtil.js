@@ -84,4 +84,3 @@ program
   });
 
 program.parse(process.argv);
-// refactoring index.js
