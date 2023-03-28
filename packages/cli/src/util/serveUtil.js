@@ -1,86 +1,121 @@
-#!/usr/bin/env node
+const fs = require('fs-extra');
+const path = require('path');
+const Promise = require('bluebird');
 
-// Entry file for MarkBind project
-const program = require('commander');
+const fsUtil = require('@markbind/core/src/utils/fsUtil');
+const {
+  LAZY_LOADING_SITE_FILE_NAME,
+} = require('@markbind/core/src/Site/constants');
 
-const logger = require('./src/util/logger');
-const { build } = require('./src/cmd/build');
-const { deploy } = require('./src/cmd/deploy');
-const { init } = require('./src/cmd/init');
-const { serve } = require('./src/cmd/serve');
+const liveServer = require('../lib/live-server');
+const logger = require('./logger');
 
-const CLI_VERSION = require('./package.json').version;
+const generateServerConfig = (options, outputFolder) => ({
+  open: options.open,
+  logLevel: 0,
+  root: outputFolder,
+  port: options.port || 8080,
+  middleware: [],
+  mount: [],
+});
 
-process.title = 'MarkBind';
-process.stdout.write(
-  `${String.fromCharCode(27)}]0; MarkBind${String.fromCharCode(7)}`,
-);
-
-function printHeader() {
-  logger.logo();
-  logger.log(` v${CLI_VERSION}`);
-}
-
-program
-  .addHelpText('beforeAll', printHeader())
-  .showHelpAfterError('(run "markbind --help" to list commands)');
-
-program
-  .allowUnknownOption()
-  .usage('<command>');
-
-program
-  .name('markbind')
-  .version(CLI_VERSION);
-
-program
-  .command('init [root]')
-  .option('-c, --convert', 'convert a GitHub wiki or docs folder to a MarkBind website')
-  .option('-t, --template <type>', 'initialise markbind with a specified template', 'default')
-  .alias('i')
-  .description('init a markbind website project')
-  .action((root, options) => {
-    init(root, options);
+const syncOpenedPages = (site) => {
+  logger.info('Synchronizing opened pages list before reload');
+  const normalizedActiveUrls = liveServer.getActiveUrls().map((url) => {
+    const completeUrl = path.extname(url) === '' ? path.join(url, 'index') : url;
+    return fsUtil.removeExtension(completeUrl);
   });
+  site.changeCurrentOpenedPages(normalizedActiveUrls);
+};
 
-program
-  .command('serve [root]')
-  .alias('s')
-  .option('-f, --force-reload', 'force a full reload of all site files when a file is changed')
-  .option('-n, --no-open', 'do not automatically open the site in browser')
-  .option('-o, --one-page [file]', 'build and serve only a single page in the site initially,'
-    + 'building more pages when they are navigated to. Also lazily rebuilds only the page being viewed when'
-    + 'there are changes to the source files (if needed), building others when navigated to')
-  .option('-b, --background-build', 'when --one-page is specified, enhances one-page serve by building'
-    + 'remaining pages in the background')
-  .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
-  .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
-  .option('-d, --dev', 'development mode, enabling live & hot reload for frontend source files.')
-  .description('build then serve a website from a directory')
-  .action((userSpecifiedRoot, options) => {
-    serve(userSpecifiedRoot, options);
+const addHandler = (site, onePagePath) => (filePath) => {
+  logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
+  if (onePagePath) {
+    syncOpenedPages(site);
+  }
+  Promise.resolve('').then(async () => {
+    if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
+      return site.rebuildSourceFiles(filePath);
+    }
+    return site.buildAsset(filePath);
+  }).catch((err) => {
+    logger.error(err.message);
   });
+};
 
-program
-  .command('build [root] [output]')
-  .alias('b')
-  .option('--baseUrl [baseUrl]',
-          'optional flag which overrides baseUrl in site.json, leave argument empty for empty baseUrl')
-  .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
-  .description('build a website')
-  .action((userSpecifiedRoot, output, options) => {
-    build(userSpecifiedRoot, output, options);
+const changeHandler = (site, onePagePath) => (filePath) => {
+  logger.info(`[${new Date().toLocaleTimeString()}] Reload for file change: ${filePath}`);
+  if (onePagePath) {
+    syncOpenedPages(site);
+  }
+  Promise.resolve('').then(async () => {
+    if (path.basename(filePath) === path.basename(site.siteConfigPath)) {
+      return site.reloadSiteConfig();
+    }
+    if (site.isDependencyOfPage(filePath)) {
+      return site.rebuildAffectedSourceFiles(filePath);
+    }
+    return site.buildAsset(filePath);
+  }).catch((err) => {
+    logger.error(err.message);
   });
+};
 
-program
-  .command('deploy [root]')
-  .alias('d')
-  .option('-c, --ci [githubTokenName]', 'deploy the site in CI Environment [GITHUB_TOKEN]')
-  .option('-n, --no-build', 'do not automatically build the site before deployment')
-  .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
-  .description('deploy the latest build of the site to the repo\'s Github pages')
-  .action((userSpecifiedRoot, options) => {
-    deploy(userSpecifiedRoot, options);
+const removeHandler = (site, onePagePath) => (filePath) => {
+  logger.info(`[${new Date().toLocaleTimeString()}] Reload for file deletion: ${filePath}`);
+  if (onePagePath) {
+    syncOpenedPages(site);
+  }
+  Promise.resolve('').then(async () => {
+    if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
+      return site.rebuildSourceFiles(filePath);
+    }
+    return site.removeAsset(filePath);
+  }).catch((err) => {
+    logger.error(err.message);
   });
+};
 
-program.parse(process.argv);
+const lazyReloadMiddleware = (site, rootFolder, config) => (req, next) => {
+  const urlExtension = path.posix.extname(req.url);
+
+  const hasEndingSlash = req.url.endsWith('/');
+  const hasNoExtension = urlExtension === '';
+  const isHtmlFileRequest = urlExtension === '.html' || hasEndingSlash || hasNoExtension;
+
+  if (!isHtmlFileRequest || req.url.endsWith('._include_.html')) {
+    next();
+    return;
+  }
+
+  if (hasNoExtension && !hasEndingSlash) {
+    // Urls of type 'host/userGuide' - check if 'userGuide' is a raw file or does not exist
+    const diskFilePath = path.resolve(rootFolder, req.url);
+    if (!fs.existsSync(diskFilePath) || !(fs.statSync(diskFilePath).isDirectory())) {
+      // Request for a raw file
+      next();
+      return;
+    }
+  }
+
+  const urlWithoutBaseUrl = req.url.replace(config.baseUrl, '');
+  // Map 'hostname/userGuide/' and 'hostname/userGuide' to hostname/userGuide/index.
+  const urlWithIndex = (hasNoExtension || hasEndingSlash)
+    ? path.posix.join(urlWithoutBaseUrl, 'index')
+    : urlWithoutBaseUrl;
+  const urlWithoutExtension = fsUtil.removeExtension(urlWithIndex);
+
+  const didInitiateRebuild = site.changeCurrentPage(urlWithoutExtension);
+  if (didInitiateRebuild) {
+    req.url = fsUtil.ensurePosix(path.join(config.baseUrl || '/', LAZY_LOADING_SITE_FILE_NAME));
+  }
+  next();
+};
+
+module.exports = {
+  addHandler,
+  changeHandler,
+  lazyReloadMiddleware,
+  generateServerConfig,
+  removeHandler,
+};

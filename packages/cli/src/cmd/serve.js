@@ -1,86 +1,122 @@
-#!/usr/bin/env node
+const chokidar = require('chokidar');
+const path = require('path');
 
-// Entry file for MarkBind project
-const program = require('commander');
+const { Site } = require('@markbind/core');
+const { pageVueServerRenderer } = require('@markbind/core/src/Page/PageVueServerRenderer');
 
-const logger = require('./src/util/logger');
-const { build } = require('./src/cmd/build');
-const { deploy } = require('./src/cmd/deploy');
-const { init } = require('./src/cmd/init');
-const { serve } = require('./src/cmd/serve');
+const fsUtil = require('@markbind/core/src/utils/fsUtil');
+const { INDEX_MARKDOWN_FILE } = require('@markbind/core/src/Site/constants');
 
-const CLI_VERSION = require('./package.json').version;
+const cliUtil = require('../util/cliUtil');
+const liveServer = require('../lib/live-server');
+const logger = require('../util/logger');
+const {
+  addHandler,
+  changeHandler,
+  generateServerConfig,
+  lazyReloadMiddleware,
+  removeHandler,
+} = require('../util/serveUtil');
 
-process.title = 'MarkBind';
-process.stdout.write(
-  `${String.fromCharCode(27)}]0; MarkBind${String.fromCharCode(7)}`,
-);
+function serve(userSpecifiedRoot, options) {
+  if (options.dev) {
+    logger.useDebugConsole();
+  }
 
-function printHeader() {
-  logger.logo();
-  logger.log(` v${CLI_VERSION}`);
+  let rootFolder;
+  try {
+    rootFolder = cliUtil.findRootFolder(userSpecifiedRoot, options.siteConfig);
+
+    if (options.forceReload && options.onePage) {
+      logger.error('Oops! You shouldn\'t need to use the --force-reload option with --one-page.');
+      process.exitCode = 1;
+      process.exit();
+    }
+  } catch (error) {
+    logger.error(error.message);
+    process.exitCode = 1;
+  }
+
+  const logsFolder = path.join(rootFolder, '_markbind/logs');
+  const outputFolder = path.join(rootFolder, '_site');
+
+  const presentDefaultFile = fsUtil.fileExists(INDEX_MARKDOWN_FILE) ? INDEX_MARKDOWN_FILE : false;
+  if (options.onePage === true && !presentDefaultFile) {
+    logger.error('Oops! It seems that you didn\'t have the default file index.md.');
+    process.exitCode = 1;
+    process.exit();
+  }
+  let onePagePath = options.onePage === true ? presentDefaultFile : options.onePage;
+  onePagePath = onePagePath ? fsUtil.ensurePosix(onePagePath) : onePagePath;
+
+  const reloadAfterBackgroundBuild = () => {
+    logger.info('All opened pages will be reloaded.');
+    liveServer.reloadActiveTabs();
+  };
+
+  const site = new Site(rootFolder, outputFolder, onePagePath,
+                        options.forceReload, options.siteConfig, options.dev,
+                        options.backgroundBuild, reloadAfterBackgroundBuild);
+
+  // server config
+  const serverConfig = generateServerConfig(options, outputFolder);
+
+  site
+    .readSiteConfig()
+    .then(async (config) => {
+      serverConfig.mount.push([config.baseUrl || '/', outputFolder]);
+
+      if (options.dev) {
+        // eslint-disable-next-line global-require
+        const webpackDevConfig = require('@markbind/core-web/webpack.dev');
+        await webpackDevConfig.serverEntry(pageVueServerRenderer.updateMarkBindVueBundle, rootFolder);
+
+        const getMiddlewares = webpackDevConfig.clientEntry;
+        getMiddlewares(`${config.baseUrl}/markbind`)
+          .forEach(middleware => serverConfig.middleware.push(middleware));
+      }
+
+      if (onePagePath) {
+        const onePageHtmlUrl = `${config.baseUrl}/${onePagePath.replace(/\.md$/, '.html')}`;
+        serverConfig.open = serverConfig.open && onePageHtmlUrl;
+        serverConfig.middleware.push(lazyReloadMiddleware(site, rootFolder, config));
+      } else {
+        serverConfig.open = serverConfig.open && `${config.baseUrl}/`;
+      }
+
+      return site.generate();
+    })
+    .then(() => {
+      const watcher = chokidar.watch(rootFolder, {
+        ignored: [
+          logsFolder,
+          outputFolder,
+          /(^|[/\\])\../,
+          x => x.endsWith('___jb_tmp___'), x => x.endsWith('___jb_old___'), // IDE temp files
+        ],
+        ignoreInitial: true,
+      });
+      watcher
+        .on('add', addHandler(site, onePagePath))
+        .on('change', changeHandler(site, onePagePath))
+        .on('unlink', removeHandler(site, onePagePath));
+    })
+    .then(() => {
+      const server = liveServer.start(serverConfig);
+      server.addListener('listening', () => {
+        const address = server.address();
+        const serveHost = address.address === '0.0.0.0' ? '127.0.0.1' : address.address;
+        const serveURL = `http://${serveHost}:${address.port}`;
+        logger.info(`Serving "${outputFolder}" at ${serveURL}`);
+        logger.info('Press CTRL+C to stop ...');
+      });
+    })
+    .catch((error) => {
+      logger.error(error.message);
+      process.exitCode = 1;
+    });
 }
 
-program
-  .addHelpText('beforeAll', printHeader())
-  .showHelpAfterError('(run "markbind --help" to list commands)');
-
-program
-  .allowUnknownOption()
-  .usage('<command>');
-
-program
-  .name('markbind')
-  .version(CLI_VERSION);
-
-program
-  .command('init [root]')
-  .option('-c, --convert', 'convert a GitHub wiki or docs folder to a MarkBind website')
-  .option('-t, --template <type>', 'initialise markbind with a specified template', 'default')
-  .alias('i')
-  .description('init a markbind website project')
-  .action((root, options) => {
-    init(root, options);
-  });
-
-program
-  .command('serve [root]')
-  .alias('s')
-  .option('-f, --force-reload', 'force a full reload of all site files when a file is changed')
-  .option('-n, --no-open', 'do not automatically open the site in browser')
-  .option('-o, --one-page [file]', 'build and serve only a single page in the site initially,'
-    + 'building more pages when they are navigated to. Also lazily rebuilds only the page being viewed when'
-    + 'there are changes to the source files (if needed), building others when navigated to')
-  .option('-b, --background-build', 'when --one-page is specified, enhances one-page serve by building'
-    + 'remaining pages in the background')
-  .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
-  .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
-  .option('-d, --dev', 'development mode, enabling live & hot reload for frontend source files.')
-  .description('build then serve a website from a directory')
-  .action((userSpecifiedRoot, options) => {
-    serve(userSpecifiedRoot, options);
-  });
-
-program
-  .command('build [root] [output]')
-  .alias('b')
-  .option('--baseUrl [baseUrl]',
-          'optional flag which overrides baseUrl in site.json, leave argument empty for empty baseUrl')
-  .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
-  .description('build a website')
-  .action((userSpecifiedRoot, output, options) => {
-    build(userSpecifiedRoot, output, options);
-  });
-
-program
-  .command('deploy [root]')
-  .alias('d')
-  .option('-c, --ci [githubTokenName]', 'deploy the site in CI Environment [GITHUB_TOKEN]')
-  .option('-n, --no-build', 'do not automatically build the site before deployment')
-  .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
-  .description('deploy the latest build of the site to the repo\'s Github pages')
-  .action((userSpecifiedRoot, options) => {
-    deploy(userSpecifiedRoot, options);
-  });
-
-program.parse(process.argv);
+module.exports = {
+  serve,
+};
