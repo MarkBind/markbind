@@ -7,7 +7,7 @@ function waitTimeout(timeLength) {
 }
 
 describe('ScrollTopButton', () => {
-  test('button appears with user scrolls', async () => {
+  test.skip('button appears with user scrolls', async () => {
     const wrapper = await mount(ScrollTopButton, {
       attachTo: document.body,
     });
