@@ -1396,23 +1396,24 @@ class Site {
   }
 
   /**
-   * Copies bootstrap theme to the assets folder if a valid theme is specified
+   * Copies bootstrapTheme to the assets folder if a valid bootstrapTheme is specified
    * @param {Boolean} isRebuild only true if it is a rebuild
    */
   copyBootstrapTheme(isRebuild) {
-    const { theme } = this.siteConfig;
+    const { bootstrapTheme } = this.siteConfig.style;
 
     /**
-     * If it is the initial build using the default theme or if the theme specified
+     * If it is the initial build using the default bootstrapTheme or if the bootstrapTheme specified
      * is not valid, then do nothing.
      */
-    if ((!isRebuild && !theme) || (theme && !_.has(SUPPORTED_THEMES_PATHS, theme))) {
+    if ((!isRebuild && !bootstrapTheme)
+      || (bootstrapTheme && !_.has(SUPPORTED_THEMES_PATHS, bootstrapTheme))) {
       return _.noop;
     }
 
-    const themeSrcPath = !theme
+    const themeSrcPath = !bootstrapTheme
       ? require.resolve('@markbind/core-web/asset/css/bootstrap.min.css')
-      : SUPPORTED_THEMES_PATHS[theme];
+      : SUPPORTED_THEMES_PATHS[bootstrapTheme];
     const themeDestPath = path.join(this.siteAssetsDestPath, 'css', 'bootstrap.min.css');
 
     return fs.copy(themeSrcPath, themeDestPath);
