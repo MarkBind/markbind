@@ -25,7 +25,7 @@
 * Markdown
 * Command-line environment
 
-**Third, ensure you have spent time with MarkBind and familiar with the content of the [user guide](https://markbind.org/).** It's important to know the product well before you start contributing code.
+**Third, ensure you have spent time with MarkBind and familiar with the content of the <a tags="environment--combined" href="/">user guide</a><a tags="environment--dg" href="https://markbind.org/">user guide</a>.** It's important to know the product well before you start contributing code.
 
 **Now, follow these steps to get started on contributing:**
 

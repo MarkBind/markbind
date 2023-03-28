@@ -15,19 +15,15 @@ function scrollToUrlAnchorHeading() {
     // remove leading hash to get element ID
     const headingElement = document.getElementById(window.location.hash.slice(1));
     if (headingElement) {
-      headingElement.scrollIntoView();
-      window.scrollBy(0, -document.body.style.paddingTop.replace('px', ''));
+      headingElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
     }
   }
 }
 
-function detectAndApplyHeaderStyles() {
-  jQuery(':header').each((index, heading) => {
-    if (heading.id) {
-      jQuery(heading).removeAttr('id'); // to avoid duplicated id problem
-    }
-  });
+// Scrolling only works correctly after the page is loaded
+window.onload = scrollToUrlAnchorHeading;
 
+function detectAndApplyHeaderStyles() {
   const headerSelector = jQuery('header[sticky]');
   if (headerSelector.length === 0) {
     return;
@@ -149,7 +145,6 @@ function restoreStyleTags() {
 
 function executeAfterMountedRoutines() {
   restoreStyleTags();
-  scrollToUrlAnchorHeading();
   detectAndApplyHeaderStyles();
 }
 

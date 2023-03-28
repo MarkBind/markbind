@@ -5,10 +5,10 @@ with(this){return _c('div',{attrs:{"id":"app"}},[_c('p'),_m(0),_v(" "),_m(1),_v(
 };
     var pageVueStaticRenderFns = [function anonymous(
 ) {
-with(this){return _c('h1',{attrs:{"id":"functional-test-for-htmlparser2-and-markdown-it-patches-for-special-tags"}},[_c('span',{staticClass:"anchor",attrs:{"id":"functional-test-for-htmlparser2-and-markdown-it-patches-for-special-tags"}}),_v("Functional test for htmlparser2 and markdown-it patches for special tags"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#functional-test-for-htmlparser2-and-markdown-it-patches-for-special-tags","onclick":"event.stopPropagation()"}})])}
+with(this){return _c('h1',{attrs:{"id":"functional-test-for-htmlparser2-and-markdown-it-patches-for-special-tags"}},[_v("Functional test for htmlparser2 and markdown-it patches for special tags"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#functional-test-for-htmlparser2-and-markdown-it-patches-for-special-tags","onclick":"event.stopPropagation()"}})])}
 },function anonymous(
 ) {
-with(this){return _c('h2',{attrs:{"id":"so-far-as-to-comply-with-the-commonmark-spec"}},[_c('span',{staticClass:"anchor",attrs:{"id":"so-far-as-to-comply-with-the-commonmark-spec"}}),_v("So far as to comply with the commonmark spec"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#so-far-as-to-comply-with-the-commonmark-spec","onclick":"event.stopPropagation()"}})])}
+with(this){return _c('h2',{attrs:{"id":"so-far-as-to-comply-with-the-commonmark-spec"}},[_v("So far as to comply with the commonmark spec"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#so-far-as-to-comply-with-the-commonmark-spec","onclick":"event.stopPropagation()"}})])}
 },function anonymous(
 ) {
 with(this){return _c('p',[_v("There should be no text between this and the next "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("<hr>")]),_v(" tag in the browser, since it is a "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("<script>")]),_v(" tag."),_c('br'),_v("\nThere should be an alert with the value of 2 as well.")])}
