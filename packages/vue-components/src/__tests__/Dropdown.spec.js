@@ -15,17 +15,17 @@ const DROPDOWN = `
 
 const FIRST_LEVEL_NESTED_DROPDOWN = `
 ${DROPDOWN}
-<dropdown haeder="Submenu Level 1">
+<dropdown header="Submenu Level 1">
   <li><a href="#" class="dropdown-item">Nested Dropdown Item 1</a></li>
   <li><a href="#" class="dropdown-item">Nested Dropdown Item 2</a></li>
 </dropdown>
 `;
 
 const SECOND_LEVEL_NESTED_DROPDOWN = `
-<dropdown haeder="Submenu Level 1">
+<dropdown header="Submenu Level 1">
   <li><a href="#" class="dropdown-item">Nested Dropdown Item 1</a></li>
   <li><a href="#" class="dropdown-item">Nested Dropdown Item 2</a></li>
-  <dropdown haeder="Submenu Level 2">
+  <dropdown header="Submenu Level 2">
     <li><a href="#" class="dropdown-item">Nested Submenu Item</a></li>
   </dropdown>
 </dropdown>

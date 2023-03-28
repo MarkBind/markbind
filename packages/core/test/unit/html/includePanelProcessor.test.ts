@@ -27,10 +27,7 @@ test('includeFile replaces <include> with <div>', async () => {
   const nodeProcessor = getNewDefaultNodeProcessor();
   const result = await nodeProcessor.process(indexPath, index);
 
-  const expected = [
-    '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
-    '<div><h1 id="include"><span id="include" class="anchor"></span>Include</h1></div>',
-  ].join('\n');
+  const expected = ['<h1 id="index">Index</h1>', '<div><h1 id="include">Include</h1></div>'].join('\n');
 
   expect(result).toEqual(expected);
 });
@@ -57,8 +54,8 @@ test('includeFile replaces <include src="exist.md" optional> with <div>', async 
   const result = await nodeProcessor.process(indexPath, index);
 
   const expected = [
-    '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
-    '<div><h1 id="exist"><span id="exist" class="anchor"></span>Exist</h1></div>',
+    '<h1 id="index">Index</h1>',
+    '<div><h1 id="exist">Exist</h1></div>',
   ].join('\n');
 
   expect(result).toEqual(expected);
@@ -83,7 +80,7 @@ test('includeFile replaces <include src="doesNotExist.md" optional> with empty <
   const result = await nodeProcessor.process(indexPath, index);
 
   const expected = [
-    '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
+    '<h1 id="index">Index</h1>',
     '<include src="/doesNotExist.md" optional></include>',
   ].join('\n');
 
@@ -115,7 +112,7 @@ test('includeFile replaces <include src="include.md#exists"> with <div>', async 
   const result = await nodeProcessor.process(indexPath, index);
 
   const expected = [
-    '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
+    '<h1 id="index">Index</h1>',
     '<div>existing segment</div>',
   ].join('\n');
 
@@ -148,7 +145,7 @@ test('includeFile replaces an empty segment <include src="include.md#empty"> wit
   const result = await nodeProcessor.process(indexPath, index);
 
   const expected = [
-    '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
+    '<h1 id="index">Index</h1>',
     '<div></div>',
   ].join('\n');
 
@@ -180,7 +177,7 @@ test('includeFile replaces <include src="include.md#exists" inline> with inline 
   const result = await nodeProcessor.process(indexPath, index);
 
   const expected = [
-    '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
+    '<h1 id="index">Index</h1>',
     '<span>existing segment</span>',
   ].join('\n');
 
@@ -212,7 +209,7 @@ test('includeFile replaces <include src="include.md#exists" trim> with trimmed c
   const result = await nodeProcessor.process(indexPath, index);
 
   const expected = [
-    '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
+    '<h1 id="index">Index</h1>',
     '<div>existing segment</div>',
   ].join('\n');
 
@@ -245,7 +242,7 @@ test('includeFile replaces <include src="include.md#doesNotExist"> with error <d
   const result = await nodeProcessor.process(indexPath, index);
 
   const expected = [
-    '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
+    '<h1 id="index">Index</h1>',
     `<div style="color: red"><div style="color: red">${expectedErrorMessage}</div></div>`,
   ].join('\n');
 
@@ -277,7 +274,7 @@ test('includeFile replaces <include src="include.md#exists" optional> with <div>
   const result = await nodeProcessor.process(indexPath, index);
 
   const expected = [
-    '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
+    '<h1 id="index">Index</h1>',
     '<div>existing segment</div>',
   ].join('\n');
 
@@ -306,7 +303,7 @@ test('includeFile replaces <include src="include.md#doesNotExist" optional> with
   const result = await nodeProcessor.process(indexPath, index);
 
   const expected = [
-    '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
+    '<h1 id="index">Index</h1>',
     '<div></div>',
   ].join('\n');
 
@@ -382,9 +379,9 @@ test('process include should preserve included frontmatter data', async () => {
   const result = await nodeProcessor.process(indexPath, index);
 
   const expectedHtml = [
-    '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
+    '<h1 id="index">Index</h1>',
     '<div>',
-    '<h1 id="exist"><span id="exist" class="anchor"></span>Exist</h1></div>',
+    '<h1 id="exist">Exist</h1></div>',
   ].join('\n');
 
   const expectedFrontmatter = {
@@ -423,9 +420,9 @@ test('process include with omitFrontmatter should discard included frontmatter d
   const result = await nodeProcessor.process(indexPath, index);
 
   const expectedHtml = [
-    '<h1 id="index"><span id="index" class="anchor"></span>Index</h1>',
+    '<h1 id="index">Index</h1>',
     '<div>',
-    '<h1 id="exist"><span id="exist" class="anchor"></span>Exist</h1></div>',
+    '<h1 id="exist">Exist</h1></div>',
   ].join('\n');
 
   const expectedFrontmatter = {};
