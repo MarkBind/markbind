@@ -2,7 +2,7 @@
   title: Home Page
   layout: default.md
   pageNav: 4
-  pageNavTitle: "Placeholder Topic Pages"
+  pageNavTitle: "Topics"
 </frontmatter>
 
 <br>
@@ -18,13 +18,13 @@
 
 ## What did you just do?
 
-You have just initialized a _default_ MarkBind site, which is equipped with a set of core features of a MarkBind site like Site and Page Navigation, as well as some links to our User Guide, to help you get started more conveniently!
+You have just initialized a _default_ MarkBind site! It is equipped with a set of core features, including site and page navigation. Additionally, we have included some convenient links to our User Guide, to help you get started quickly and easily.
 
 <box type="tip">
 
 If you were intending to convert an existing GitHub wiki or a docs folder into MarkBind, use the "--convert" flag instead. See <a href="https://markbind.org/userGuide/markBindInTheProjectWorkflow.html#converting-existing-project-documentation-wiki" target="_blank">User Guide: MarkBind in the Project Workflow</a> for more information.
 
-If you want to start with a <tooltip content="i.e. without any content">_minimal_</tooltip> template instead, use the "--template" flag to initialize a minimal site instead of the default. See <a href="https://markbind.org/userGuide/templates.html" target="_blank">User Guide: Templates</a> for more information.
+If you want to start with a <tooltip content="i.e. without any content">_minimal_</tooltip> template instead, use the "--template" flag with the "minimal" option to initialize a minimal site instead of the default. See <a href="https://markbind.org/userGuide/templates.html" target="_blank">User Guide: Templates</a> for more information.
 
 </box>
 
@@ -32,7 +32,7 @@ If you want to start with a <tooltip content="i.e. without any content">_minimal
 
 ## Navigating this site
 
-This _default_ site comes pre-configured with the core <a href="https://markbind.org/userGuide/components/navigation.html#navigation-components" target="_blank">Navigation components</a>: a <tooltip content="Site Navigation">**siteNav**</tooltip>, a <tooltip content="Page Navigation">**pageNav**</tooltip>, a <tooltip content="Navigation Bar">**NavBar**</tooltip>, and a **Search Bar**</tooltip>. To help you get started with the **siteNav**, we have included <tooltip content="Topic 1, Topic 2, Topic 3, Topic 3a, Topic 3b">five dummy placeholder pages</tooltip>. The **NavBar** also comes with a placeholder slot for your custom Logo.
+This _default_ site comes pre-configured with the core <a href="https://markbind.org/userGuide/components/navigation.html#navigation-components" target="_blank">Navigation components</a>: a <tooltip content="Site Navigation">**siteNav**</tooltip>, a <tooltip content="Page Navigation">**pageNav**</tooltip>, a <tooltip content="Navigation Bar">**NavBar**</tooltip>, and a **Search Bar**. To help you get started with the **siteNav**, we have included <tooltip content="Topic 1, Topic 2, Topic 3, Topic 3a, Topic 3b">five dummy placeholder pages</tooltip>. The **NavBar** also comes with a placeholder slot for your custom Logo.
 
 ---
 
@@ -60,7 +60,7 @@ More info in: _<a href="https://markbind.org/userGuide/authoringContents.html" t
 
 ##### **User Guide: Working with Sites**
 
-> Learn how to modify site properties, apply themes, and enable / disable plugins for your MarkBind site.
+> Learn how to modify site properties, apply themes, and enable/disable plugins for your MarkBind site.
 
 More info in: _<a href="https://markbind.org/userGuide/workingWithSites.html" target="_blank">User Guide → Working with Sites</a>_
 
