@@ -153,7 +153,7 @@ The caveat is that not building all pages during the initial process, or not reb
 **Options** :fas-cogs:
 
 * `--baseUrl <base>`<br>
-  Override the `baseUrl` property (read from the `site.json`) with the give `<base>` value.<br>
+  Override the `baseUrl` property (read from the `site.json`) with the given `<base>` value.<br>
   {{ icon_example }} `--baseUrl staging`
 
 * `-s <file>`, `--site-config <file>`<br>
@@ -204,7 +204,7 @@ The caveat is that not building all pages during the initial process, or not reb
 **{{ icon_examples }}**
 * `markbind deploy` : Deploys after generating the site from the current working directory.
 * `markbind deploy ./myWebsite` : Deploys after generating the site from the `./myWebsite` directory.
-* `markbind deploy --no-build` : Deploys the site from the current working directory without generating the site.
+* `markbind deploy --no-build` : Deploys the site from the current working directory without generating it.
 
 </panel>
 
