@@ -22,9 +22,11 @@ exports[`Breadcrumb one link 1`] = `
     >
       <li
         aria-current="[object Object]"
-        class="breadcrumb-item active"
+        class="breadcrumb-item"
       >
-        <a>
+        <a
+          href="#link"
+        >
           
           link one
         
@@ -45,7 +47,7 @@ exports[`Breadcrumb one non-link 1`] = `
     >
       <li
         aria-current="[object Object]"
-        class="breadcrumb-item active"
+        class="breadcrumb-item notlink"
       >
         <a>
           
@@ -80,9 +82,11 @@ exports[`Breadcrumb two link 1`] = `
       </li>
       <li
         aria-current="[object Object]"
-        class="breadcrumb-item active"
+        class="breadcrumb-item"
       >
-        <a>
+        <a
+          href="#linktwo"
+        >
           
           link two
         
@@ -103,7 +107,7 @@ exports[`Breadcrumb two non-link 1`] = `
     >
       <li
         aria-current="[object Object]"
-        class="breadcrumb-item active"
+        class="breadcrumb-item notlink"
       >
         <a>
           
@@ -113,7 +117,7 @@ exports[`Breadcrumb two non-link 1`] = `
       </li>
       <li
         aria-current="[object Object]"
-        class="breadcrumb-item active"
+        class="breadcrumb-item notlink"
       >
         <a>
           
