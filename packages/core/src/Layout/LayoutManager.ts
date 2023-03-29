@@ -1,14 +1,18 @@
-const fs = require('fs-extra');
-const path = require('path');
+import * as fs from 'fs-extra';
+import * as path from 'path';
 
-const { Layout } = require('./Layout');
+import { Layout, LayoutConfig } from './Layout';
 
-const logger = require('../utils/logger');
+import * as logger from '../utils/logger';
 
 const FRONTMATTER_NONE_ATTR = 'none';
 
-class LayoutManager {
-  constructor(config) {
+export class LayoutManager {
+  layouts: Record<string, Layout>;
+  layoutsRootPath: string;
+  config: LayoutConfig;
+
+  constructor(config: LayoutConfig) {
     this.config = config;
 
     this.layoutsRootPath = path.join(config.rootPath, '_markbind', 'layouts');
@@ -26,7 +30,7 @@ class LayoutManager {
   /**
    * Update layouts which have the provided filePaths as dependencies
    */
-  updateLayouts(filePaths) {
+  updateLayouts(filePaths: string[]) {
     const layoutsToRegenerate = Object.entries(this.layouts)
       .filter(([, layout]) => layout.shouldRegenerate(filePaths));
 
@@ -36,7 +40,7 @@ class LayoutManager {
     }));
   }
 
-  generateLayoutIfNeeded(name) {
+  generateLayoutIfNeeded(name: string) {
     if (this.layouts[name]) {
       return this.layouts[name].generatePromise;
     }
@@ -52,7 +56,7 @@ class LayoutManager {
     return this.layouts[name].generatePromise;
   }
 
-  layoutHasPageNav(name) {
+  layoutHasPageNav(name: string) {
     if (name === FRONTMATTER_NONE_ATTR) {
       return false;
     }
@@ -60,7 +64,7 @@ class LayoutManager {
     return this.layouts[name] && this.layouts[name].layoutPageNavUuid;
   }
 
-  combineLayoutWithPage(name, pageContent, pageNav, pageIncludedFiles) {
+  combineLayoutWithPage(name: string, pageContent: string, pageNav: string, pageIncludedFiles: Set<string>) {
     if (name === FRONTMATTER_NONE_ATTR) {
       return pageContent;
     }
@@ -69,10 +73,10 @@ class LayoutManager {
       return pageContent;
     }
 
-    return this.layouts[name].insertPage(pageContent, pageNav, pageIncludedFiles);
+    return this.layouts[name].insertPage(pageContent, pageNav, new Set<string>(pageIncludedFiles));
   }
 
-  getLayoutPageNjkAssets(name) {
+  getLayoutPageNjkAssets(name: string) {
     if (name === FRONTMATTER_NONE_ATTR || !this.layouts[name]) {
       return {};
     }
@@ -80,7 +84,3 @@ class LayoutManager {
     return this.layouts[name].getPageNjkAssets();
   }
 }
-
-module.exports = {
-  LayoutManager,
-};

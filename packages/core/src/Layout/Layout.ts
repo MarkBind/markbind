@@ -1,14 +1,39 @@
-const { v4: uuidv4 } = require('uuid');
+import { v4 as uuidv4 } from 'uuid';
 
-const { PageSources } = require('../Page/PageSources');
-const { NodeProcessor } = require('../html/NodeProcessor');
+import { PageSources } from '../Page/PageSources';
+import { NodeProcessor, NodeProcessorConfig } from '../html/NodeProcessor';
 
-const logger = require('../utils/logger');
+import * as logger from '../utils/logger';
+import { VariableProcessor } from '../variables/VariableProcessor';
+import { PluginManager } from '../plugins/PluginManager';
+import { SiteLinkManager } from '../html/SiteLinkManager';
+import { ExternalManager } from '../External/ExternalManager';
 
 const LAYOUT_PAGE_BODY_VARIABLE = 'content';
 
-class Layout {
-  constructor(sourceFilePath, config) {
+export type LayoutConfig = {
+  pluginManager: PluginManager;
+  siteLinkManager: SiteLinkManager;
+  variableProcessor: VariableProcessor;
+  externalManager: ExternalManager;
+} & NodeProcessorConfig;
+
+export class Layout {
+  sourceFilePath: string;
+  config: LayoutConfig;
+
+  includedFiles: Set<string>;
+  layoutProcessed: string;
+  layoutPageBodyVariable: string;
+  layoutPageNavUuid: string;
+  headTop: string[];
+  headBottom: string[];
+  scriptBottom: string[];
+  layoutUserScriptsAndStyles: string[];
+
+  generatePromise?: Promise<any>;
+
+  constructor(sourceFilePath: string, config: LayoutConfig) {
     this.sourceFilePath = sourceFilePath;
     this.config = config;
 
@@ -20,11 +45,9 @@ class Layout {
     this.headBottom = [];
     this.scriptBottom = [];
     this.layoutUserScriptsAndStyles = [];
-
-    this.generatePromise = undefined;
   }
 
-  shouldRegenerate(filePaths) {
+  shouldRegenerate(filePaths: string[]) {
     return filePaths.some(filePath => this.includedFiles.has(filePath));
   }
 
@@ -51,8 +74,9 @@ class Layout {
                                         pluginManager, siteLinkManager, this.layoutUserScriptsAndStyles,
                                         'layout');
       // eslint-disable-next-line no-await-in-loop
-      this.layoutProcessed = await nodeProcessor.process(this.sourceFilePath, nunjucksProcessed,
-                                                         this.sourceFilePath, layoutVariables);
+      this.layoutProcessed = (await nodeProcessor.process(this.sourceFilePath, nunjucksProcessed,
+                                                          this.sourceFilePath, layoutVariables)) as string;
+
       this.layoutPageNavUuid = nodeProcessor.pageNavProcessor.getUuid();
 
       this.layoutProcessed = pluginManager.postRender(nodeProcessor.frontmatter, this.layoutProcessed);
@@ -79,7 +103,7 @@ class Layout {
                                                            this.includedFiles);
   }
 
-  insertPage(pageContent, pageNav, pageIncludedFiles) {
+  insertPage(pageContent: string, pageNav: string, pageIncludedFiles: Set<string>) {
     this.includedFiles.forEach(filePath => pageIncludedFiles.add(filePath));
 
     // Use function for .replace, in case string contains special patterns (e.g. $$, $&, $1, ...)
@@ -97,7 +121,3 @@ class Layout {
     };
   }
 }
-
-module.exports = {
-  Layout,
-};
