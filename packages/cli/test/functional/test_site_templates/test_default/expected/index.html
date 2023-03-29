@@ -95,11 +95,11 @@
           </div>
         </div>
         <hr>
-        <h2 id="what-did-you-just-do">What did you just do?<a class="fa fa-anchor" href="#what-did-you-just-do" onclick="event.stopPropagation()"></a></h2>
+        <h2 id="what-just-happened">What just happened?<a class="fa fa-anchor" href="#what-just-happened" onclick="event.stopPropagation()"></a></h2>
         <p>You have just initialized a <em>default</em> MarkBind site! It is equipped with a set of core features, including site and page navigation. Additionally, we have included some convenient links to our User Guide, to help you get started quickly and easily.</p>
         <box type="tip">
-          <p>If you were intending to convert an existing GitHub wiki or a docs folder into MarkBind, use the &quot;--convert&quot; flag instead. See <a href="https://markbind.org/userGuide/markBindInTheProjectWorkflow.html#converting-existing-project-documentation-wiki" target="_blank">User Guide: MarkBind in the Project Workflow</a> for more information.</p>
-          <p>If you want to start with a <tooltip><template #content>i.e. without any content</template><em>minimal</em></tooltip> template instead, use the &quot;--template&quot; flag with the &quot;minimal&quot; option to initialize a minimal site instead of the default. See <a href="https://markbind.org/userGuide/templates.html" target="_blank">User Guide: Templates</a> for more information.</p>
+          <p>If you were intending to convert an existing GitHub wiki or a docs folder into MarkBind, use the <code class="hljs inline no-lang" v-pre>--convert</code> flag instead. See <a href="https://markbind.org/userGuide/markBindInTheProjectWorkflow.html#converting-existing-project-documentation-wiki" target="_blank">User Guide: MarkBind in the Project Workflow</a> for more information.</p>
+          <p>If you want to start with a <tooltip><template #content>i.e. without any content</template><em>minimal</em></tooltip> template instead, use the <code class="hljs inline no-lang" v-pre>--template</code> flag with the &quot;minimal&quot; option to initialize a minimal site instead of the default. See <a href="https://markbind.org/userGuide/templates.html" target="_blank">User Guide: Templates</a> for more information.</p>
         </box>
         <hr>
         <h2 id="navigating-this-site">Navigating this site<a class="fa fa-anchor" href="#navigating-this-site" onclick="event.stopPropagation()"></a></h2>
@@ -112,7 +112,7 @@
           <p>If you are interested in contributing to MarkBind, you can refer to our <a href="https://markbind.org/devdocs/devGuide/devGuide.html" target="_blank">Developer Guide</a> as well!</p>
         </box>
         <panel expanded no-close><template #header>
-            <p><strong>Good starting points in our User Guide:</strong></p>
+            <p><strong>Good starting points in our User Guide</strong></p>
           </template>
           <h5 id="user-guide-authoring-contents"><strong>User Guide: Authoring Contents</strong><a class="fa fa-anchor" href="#user-guide-authoring-contents" onclick="event.stopPropagation()"></a></h5>
           <blockquote>
@@ -132,12 +132,13 @@
           </blockquote>
           <p>More info in: <em><a href="https://markbind.org/userGuide/fullSyntaxReference.html" target="_blank">User Guide → Full Syntax Reference</a></em></p>
         </panel>
+        <hr>
       </div>
       <overlay-source id="page-nav" tag-name="nav" to="page-nav">
         <div class="nav-component slim-scroll">
           <a class="navbar-brand page-nav-title" href="#" v-pre>Topics</a>
           <overlay-source id="mb-page-nav" tag-name="nav" to="mb-page-nav" class="nav nav-pills flex-column my-0 small no-flex-wrap">
-            <a class="nav-link py-1" href="#what-did-you-just-do" v-pre>What did you just do?&#x200E;</a>
+            <a class="nav-link py-1" href="#what-just-happened" v-pre>What just happened?&#x200E;</a>
             <a class="nav-link py-1" href="#navigating-this-site" v-pre>Navigating this site&#x200E;</a>
             <a class="nav-link py-1" href="#guide-to-markbind" v-pre>Guide to MarkBind&#x200E;</a>
 

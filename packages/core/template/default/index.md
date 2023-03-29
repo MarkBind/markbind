@@ -16,15 +16,15 @@
 
 ---
 
-## What did you just do?
+## What just happened?
 
 You have just initialized a _default_ MarkBind site! It is equipped with a set of core features, including site and page navigation. Additionally, we have included some convenient links to our User Guide, to help you get started quickly and easily.
 
 <box type="tip">
 
-If you were intending to convert an existing GitHub wiki or a docs folder into MarkBind, use the "--convert" flag instead. See <a href="https://markbind.org/userGuide/markBindInTheProjectWorkflow.html#converting-existing-project-documentation-wiki" target="_blank">User Guide: MarkBind in the Project Workflow</a> for more information.
+If you were intending to convert an existing GitHub wiki or a docs folder into MarkBind, use the `--convert` flag instead. See <a href="https://markbind.org/userGuide/markBindInTheProjectWorkflow.html#converting-existing-project-documentation-wiki" target="_blank">User Guide: MarkBind in the Project Workflow</a> for more information.
 
-If you want to start with a <tooltip content="i.e. without any content">_minimal_</tooltip> template instead, use the "--template" flag with the "minimal" option to initialize a minimal site instead of the default. See <a href="https://markbind.org/userGuide/templates.html" target="_blank">User Guide: Templates</a> for more information.
+If you want to start with a <tooltip content="i.e. without any content">_minimal_</tooltip> template instead, use the `--template` flag with the "minimal" option to initialize a minimal site instead of the default. See <a href="https://markbind.org/userGuide/templates.html" target="_blank">User Guide: Templates</a> for more information.
 
 </box>
 
@@ -48,7 +48,7 @@ If you are interested in contributing to MarkBind, you can refer to our <a href=
 
 </box>
 
-<panel header="**Good starting points in our User Guide:**" expanded no-close>
+<panel header="**Good starting points in our User Guide**" expanded no-close>
 
 ##### **User Guide: Authoring Contents**
 
@@ -73,3 +73,5 @@ More info in: _<a href="https://markbind.org/userGuide/workingWithSites.html" ta
 More info in: _<a href="https://markbind.org/userGuide/fullSyntaxReference.html" target="_blank">User Guide → Full Syntax Reference</a>_
 
 </panel>
+
+---
