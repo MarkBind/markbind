@@ -27,7 +27,9 @@ You can also insert the breadcrumb component into a layout file to generate brea
 </div>
 
 <box type="tip" seamless>
-  Breadcrumb components refer to the Site Navigation for the hierarchy of pages. <strong>Breadcrumbs will not appear if there is no Site Navigation present on the page!</strong>
+  Breadcrumb components refer to the Site Navigation for the hierarchy of pages.
+  
+  **Breadcrumbs will not appear if there is no Site Navigation present on the page!**
 </box>
 
 <!-- Included in syntax cheat sheet -->

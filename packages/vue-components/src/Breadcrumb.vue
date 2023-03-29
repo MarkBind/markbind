@@ -4,13 +4,13 @@
       <ol class="breadcrumb">
         <li
           v-for="(item, index) in items"
-          :key="item"
+          :key="index"
           :class="['breadcrumb-item',
-                   {'active': isLast(index, items.length) || item.link === null},
+                   {'notlink': item.link === null},
           ]"
           :aria-current="{'page': isLast(index, items.length)}"
         >
-          <a v-if="isLast(index, items.length) || item.link === null">
+          <a v-if="item.link === null">
             {{ item.title }}
           </a>
           <a v-else :href="item.link">
@@ -23,8 +23,6 @@
 </template>
 
 <script>
-import normalizeUrl from './utils/urls';
-
 export default {
   data() {
     return {
@@ -37,66 +35,48 @@ export default {
     },
   },
   mounted() {
-    let siteNav = null;
-    let firstRootFound = false;
-
     // Identify the first site-nav-list-root
     // In the ideal case, there is only one site-nav-list-root
     // however this is not the case for all pages
-    document.querySelectorAll('ul').forEach((el) => {
-      if (firstRootFound) {
-        return;
-      }
-      if (el.classList.contains('site-nav-list-root')) {
-        siteNav = el;
-        firstRootFound = true;
-      }
-    });
+    const siteNav = document.querySelector('.site-nav-list-root');
 
     if (!siteNav) return;
 
-    // Look at all links in the sitenav
-    siteNav.querySelectorAll('a[href]').forEach((el) => {
-      const linkUrl = normalizeUrl(el.getAttribute('href'));
-      // Skip the link if it is not the current link
-      if (!el.classList.contains('current')) {
-        return;
-      }
+    // Find current link in sitenav
+    const currLink = siteNav.querySelector('.current');
 
-      // Push the current link and title
-      this.items.unshift({
-        'title': el.textContent,
-        'link': linkUrl,
-      });
+    this.items.unshift({
+      'title': currLink.textContent,
+      'link': null,
+    });
 
-      // Push all parent links and titles
-      let currentEl = el.parentElement;
-      while (currentEl !== siteNav) {
-        if (currentEl.tagName.toLowerCase() === 'ul') {
-          const divElement = currentEl.parentElement.querySelector('div');
-          const aElement = divElement.querySelector('a[href]');
-          // if does not contain link
-          if (aElement === null) {
-            this.items.unshift({
-              'title': divElement.textContent,
-              'link': null,
-            });
-          }
+    let currentEl = currLink.parentElement;
+
+    while (currentEl !== siteNav) {
+      if (currentEl.tagName.toLowerCase() === 'ul') {
+        const divElement = currentEl.parentElement.querySelector('div');
+        const aElement = divElement.querySelector('a[href]');
+        // if does not contain link
+        if (aElement === null) {
+          this.items.unshift({
+            'title': divElement.textContent,
+            'link': null,
+          });
+        } else {
           this.items.unshift({
             'title': aElement.textContent,
             'link': aElement.getAttribute('href'),
           });
         }
-        currentEl = currentEl.parentElement;
       }
-    });
+      currentEl = currentEl.parentElement;
+    }
   },
 };
 </script>
 
 <style scoped>
-    /* Make cursor default when there is no link */
-    .active:hover {
-        cursor: default;
+    .notlink {
+        color: #6d757d;
     }
 </style>
