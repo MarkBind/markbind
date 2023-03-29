@@ -122,9 +122,9 @@ The caveat is that not building all pages during the initial process, or not reb
 
 
 {{ icon_examples }}
-* `markbind serve`
-* `markbind serve ./myWebsite`
-* `markbind serve -p 8888 -s otherSite.json`
+* `markbind serve` : Serves the site from the current working directory.
+* `markbind serve ./myWebsite` : Serves the site from the `./myWebsite` directory.
+* `markbind serve -p 8888 -s otherSite.json` : Serves the site in Port 8888 from the current working directory, using `otherSite.json` as the site configuration file.
 
 </panel>
 
@@ -161,11 +161,10 @@ The caveat is that not building all pages during the initial process, or not reb
   {{ icon_example }} `-s otherSite.json`
 
 **{{ icon_examples }}**
-* `markbind build`
-* `markbind build ./myWebsite` : Generates the site from the `myWebsite` directory.
-* `markbind build ./myWebsite ./myOutDir` : Generates the site to the directory named `myOutDir` in the current directory.
-* `markbind build ./myWebsite ./myWebsite/myOutDir` : Generates the site to the directory named `myOutDir` in the `myWebsite` directory.
-* `markbind build ./stagingDir --baseUrl staging`
+* `markbind build` : Generates the site from the current working directory.
+* `markbind build ./myWebsite` : Generates the site from the `./myWebsite` directory.
+* `markbind build ./myWebsite ./myOutDir` : Generates the site from the `./myWebsite` directory to the `./myOutDir` directory.
+* `markbind build ./stagingDir --baseUrl staging` : Generates the site from the `./stagingDir` directory, with the `baseUrl` property in `site.json` set to `staging`.
 
 </panel>
 
@@ -203,9 +202,9 @@ The caveat is that not building all pages during the initial process, or not reb
 %%{{ icon_info }} Related: [User Guide: Deploying the Website](deployingTheSite.html).%%
 
 **{{ icon_examples }}**
-* `markbind deploy`
-* `markbind deploy ./myWebsite` : Generates and deploys the site from the `myWebsite` directory.
-* `markbind deploy --no-build` : Deploys the site without generating it first.
+* `markbind deploy` : Deploys after generating the site from the current working directory.
+* `markbind deploy ./myWebsite` : Deploys after generating the site from the `./myWebsite` directory.
+* `markbind deploy --no-build` : Deploys the site from the current working directory without generating the site.
 
 </panel>
 
