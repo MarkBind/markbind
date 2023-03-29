@@ -35,14 +35,13 @@ export default {
     },
   },
   mounted() {
-    // Identify the first site-nav-list-root
-    // In the ideal case, there is only one site-nav-list-root
-    // however this is not the case for all pages
-    const siteNav = document.querySelector('.site-nav-list-root');
+    // Get root of site-nav
+    const siteNav = Array.from(document.querySelectorAll('ul')).find(el =>
+      el.classList.contains('site-nav-list-root'));
 
     if (!siteNav) return;
 
-    // Find current link in sitenav
+    // Find current link in site-nav
     const currLink = siteNav.querySelector('.current');
 
     this.items.unshift({
