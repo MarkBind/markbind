@@ -1,10 +1,6 @@
+import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 import Breadcrumb from '../Breadcrumb.vue';
-
-function waitTimeout(timeLength) {
-  // eslint-disable-next-line no-promise-executor-return
-  return new Promise(resolve => setTimeout(resolve, timeLength));
-}
 
 const SITENAV_START = `
 <nav id="site-nav">
@@ -159,52 +155,51 @@ describe('Breadcrumb', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  test.skip('no sitenav', async () => {
+  test('no sitenav', async () => {
     const wrapper = mount(Breadcrumb, {
       attachTo: document.body,
     });
-    await waitTimeout(100);
 
     expect(wrapper.element).toMatchSnapshot();
     wrapper.destroy();
   });
 
-  test.skip('one link from sitenav', async () => {
+  test('one link from sitenav', async () => {
     const sitenav = mount(oneLinkSiteNav, {
       attachTo: document.body,
     });
     const wrapper = mount(Breadcrumb, {
       attachTo: document.body,
     });
-    await waitTimeout(100);
+    await nextTick();
 
     expect(wrapper.element).toMatchSnapshot();
     sitenav.destroy();
     wrapper.destroy();
   });
 
-  test.skip('dropdown non-link from sitenav', async () => {
+  test('dropdown non-link from sitenav', async () => {
     const sitenav = mount(dropdownNonLinkSiteNav, {
       attachTo: document.body,
     });
     const wrapper = mount(Breadcrumb, {
       attachTo: document.body,
     });
-    await waitTimeout(100);
+    await nextTick();
 
     expect(wrapper.element).toMatchSnapshot();
     sitenav.destroy();
     wrapper.destroy();
   });
 
-  test.skip('dropdown link from sitenav', async () => {
+  test('dropdown link from sitenav', async () => {
     const sitenav = mount(dropdownLinkSiteNav, {
       attachTo: document.body,
     });
     const wrapper = mount(Breadcrumb, {
       attachTo: document.body,
     });
-    await waitTimeout(100);
+    await nextTick();
 
     expect(wrapper.element).toMatchSnapshot();
     sitenav.destroy();
