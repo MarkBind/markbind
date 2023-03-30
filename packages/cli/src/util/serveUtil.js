@@ -10,15 +10,6 @@ const {
 const liveServer = require('../lib/live-server');
 const logger = require('./logger');
 
-const generateServerConfig = (options, outputFolder) => ({
-  open: options.open,
-  logLevel: 0,
-  root: outputFolder,
-  port: options.port || 8080,
-  middleware: [],
-  mount: [],
-});
-
 const syncOpenedPages = (site) => {
   logger.info('Synchronizing opened pages list before reload');
   const normalizedActiveUrls = liveServer.getActiveUrls().map((url) => {
@@ -116,6 +107,5 @@ module.exports = {
   addHandler,
   changeHandler,
   lazyReloadMiddleware,
-  generateServerConfig,
   removeHandler,
 };

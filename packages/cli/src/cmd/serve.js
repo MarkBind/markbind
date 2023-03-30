@@ -13,7 +13,6 @@ const logger = require('../util/logger');
 const {
   addHandler,
   changeHandler,
-  generateServerConfig,
   lazyReloadMiddleware,
   removeHandler,
 } = require('../util/serveUtil');
@@ -59,7 +58,14 @@ function serve(userSpecifiedRoot, options) {
                         options.backgroundBuild, reloadAfterBackgroundBuild);
 
   // server config
-  const serverConfig = generateServerConfig(options, outputFolder);
+  const serverConfig = {
+    open: options.open,
+    logLevel: 0,
+    root: outputFolder,
+    port: options.port || 8080,
+    middleware: [],
+    mount: [],
+  };
 
   site
     .readSiteConfig()
