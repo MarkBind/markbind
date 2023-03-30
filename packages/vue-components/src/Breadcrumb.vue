@@ -44,6 +44,8 @@ export default {
     // Find current link in site-nav
     const currLink = siteNav.querySelector('.current');
 
+    if (!currLink) return;
+
     this.items.unshift({
       'title': currLink.textContent,
       'link': null,
