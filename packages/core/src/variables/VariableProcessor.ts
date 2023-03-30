@@ -188,7 +188,7 @@ export class VariableProcessor {
       if (child.name !== 'variable' && child.name !== 'span') {
         return;
       }
-      const variableName = child.attribs && (child.attribs.name || child.attribs.id);
+      const variableName = child.attribs?.name || child.attribs?.id;
       if (!variableName) {
         logger.warn(`Missing 'name' or 'id' in variable for ${includeElement.attribs.src}'s include in ${
           includeElement.attribs[ATTRIB_CWF]}.\n`);
