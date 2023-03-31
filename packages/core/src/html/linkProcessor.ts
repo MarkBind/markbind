@@ -16,7 +16,7 @@ const _ = { has };
 
 const pluginTagConfig = PluginManager.tagConfig;
 
-const defaultTagLinkMap: { [key: string]: string } = {
+const defaultTagLinkMap: Record<string, string> = {
   img: 'src',
   pic: 'src',
   thumbnail: 'src',
