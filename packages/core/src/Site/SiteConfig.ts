@@ -26,14 +26,14 @@ export class SiteConfig {
   externalScripts: string[];
   titlePrefix: string;
   titleSuffix: string;
-  globalOverride: { [frontmatterKey: string]: string };
+  globalOverride: Record<string, string>; // key: frontmatter key
 
   timeZone: string;
   locale: string;
 
   plugins: string[];
   pluginsContext: {
-    [pluginName: string]: { [key: string]: any }
+    [pluginName: string]: Record<string, any>
   };
 
   deploy: {
@@ -52,7 +52,7 @@ export class SiteConfig {
    * @param siteConfigJson The raw json read from the site configuration file
    * @param cliBaseUrl As read from the --baseUrl option
    */
-  constructor(siteConfigJson: any, cliBaseUrl?: string) {
+  constructor(siteConfigJson: Record<string, any>, cliBaseUrl?: string) {
     this.baseUrl = cliBaseUrl !== undefined
       ? cliBaseUrl
       : (siteConfigJson.baseUrl || '');
