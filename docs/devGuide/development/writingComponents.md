@@ -19,7 +19,7 @@ In order to serve content on the browser, MarkBind syntax is converted to valid 
 
 <panel header="How are components in MarkBind syntax parsed and converted to HTML?">
 
-The main logic of the node processing flow can be found in [`packages/core/src/html/NodeProcessor.js`](https://github.com/MarkBind/markbind/blob/master/packages/core/src/html/NodeProcessor.js).
+The main logic of the node processing flow can be found in [`packages/core/src/html/NodeProcessor.ts`](https://github.com/MarkBind/markbind/blob/master/packages/core/src/html/NodeProcessor.ts).
 
 A MarkBind source file is first parsed into a series of 
 <popover header=":bulb: What is a _**node**_?" content="A HTML file can be represented as a tree structure called the [DOM](https://www.w3schools.com/js/js_htmldom.asp), comprising HTML elements (or _nodes_).">nodes</popover>.
@@ -89,7 +89,7 @@ These interfaces provide additional entry points for modifying the page generate
 The [Writing Plugins](writingPlugins.html) page is a good guide to get started on plugins.
 
 {{ icon_examples }} 
-* The [`tree` component](https://github.com/MarkBind/markbind/blob/master/packages/core/src/plugins/default/markbind-plugin-tree.js) is implemented as a default plugin
+* The [`tree` component](https://github.com/MarkBind/markbind/blob/master/packages/core/src/plugins/default/markbind-plugin-tree.ts) is implemented as a default plugin
 
 ## Testing Components
 

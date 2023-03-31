@@ -4,7 +4,7 @@ import { PageSources } from '../../../src/Page/PageSources';
 import { NodeProcessor, NodeProcessorConfig } from '../../../src/html/NodeProcessor';
 import { PluginManager } from '../../../src/plugins/PluginManager';
 import { SiteLinkManager } from '../../../src/html/SiteLinkManager';
-import VariableProcessor from '../../../src/variables/VariableProcessor';
+import { VariableProcessor } from '../../../src/variables/VariableProcessor';
 import { PluginContext } from '../../../src/plugins/Plugin';
 
 jest.mock('fs');

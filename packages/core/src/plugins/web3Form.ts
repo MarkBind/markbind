@@ -28,7 +28,6 @@ function createMinimalForm(pluginContext: PluginContext) {
 }
 
 function deleteWeb3FormAttributes(node: MbNode) {
-  if (!node.attribs) return;
   delete node.attribs.default;
   delete node.attribs.header;
 }
@@ -86,9 +85,6 @@ function createCustomForm(pluginContext: PluginContext, node: MbNode) {
 }
 
 function isDefaultContactForm(node: MbNode) {
-  if (!node.attribs) {
-    return false;
-  }
   return _.has(node.attribs, 'default');
 }
 

@@ -32,7 +32,7 @@ export class FootnoteProcessor {
 
       $('li.footnote-item').each((_index, li) => {
         hasFootnote = true;
-        const popoverId = `${MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX}${(li as any).attribs.id}`;
+        const popoverId = `${MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX}${(li as MbNode).attribs.id}`;
         const popoverNode = parseHTML(`<popover id="${popoverId}">
             <div #content>
               ${$(li).html()}

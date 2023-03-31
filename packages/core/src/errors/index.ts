@@ -1,4 +1,4 @@
-import CyclicReferenceError = require('./CyclicReferenceError');
+import CyclicReferenceError from './CyclicReferenceError';
 
 export = {
   CyclicReferenceError,
