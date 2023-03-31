@@ -31,13 +31,13 @@ const MARKBIND_PLUGIN_PREFIX = 'markbind-plugin-';
 const PROJECT_PLUGIN_FOLDER_NAME = '_markbind/plugins';
 
 export class PluginManager {
-  static tagConfig: { [key: string]: TagConfigs };
+  static tagConfig: Record<string, TagConfigs>;
 
   config: NodeProcessorConfig;
-  plugins: { [key: string]: Plugin };
+  plugins: Record<string, Plugin>;
   pluginsRaw: string[];
   pluginsContextRaw: PluginContext;
-  htmlBeautifyOptions: { [key: string]: any };
+  htmlBeautifyOptions: Record<string, any>;
 
   constructor(config: NodeProcessorConfig, plugins: string[], pluginsContext: PluginContext) {
     this.config = config;
