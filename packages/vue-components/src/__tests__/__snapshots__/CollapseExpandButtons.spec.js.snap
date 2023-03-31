@@ -1,0 +1,217 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CollapseExpandButtons collapse collapsed sitenav 1`] = `
+<nav
+  id="site-nav"
+>
+  <div
+    class="nav-component slim-scroll"
+  >
+    <div
+      class="site-nav-root"
+    >
+      <ul
+        class="site-nav-list site-nav-list-root"
+      >
+        <li>
+          <div
+            class="site-nav-default-list-item"
+          >
+            
+  Non-Link Dropdown
+  
+            <div
+              class="site-nav-dropdown-btn-container"
+            >
+              <i
+                class="site-nav-dropdown-btn-icon"
+              />
+            </div>
+          </div>
+           
+          <ul
+            class="site-nav-dropdown-container site-nav-list"
+          >
+            <li>
+              <div
+                class="site-nav-default-list-item"
+              >
+                <a
+                  class="current"
+                  href="#link"
+                >
+                  
+Link
+
+                </a>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+`;
+
+exports[`CollapseExpandButtons collapse expanded sitenav 1`] = `
+<nav
+  id="site-nav"
+>
+  <div
+    class="nav-component slim-scroll"
+  >
+    <div
+      class="site-nav-root"
+    >
+      <ul
+        class="site-nav-list site-nav-list-root"
+      >
+        <li>
+          <div
+            class="site-nav-default-list-item"
+          >
+            
+  Non-Link Dropdown
+  
+            <div
+              class="site-nav-dropdown-btn-container"
+            >
+              <i
+                class="site-nav-dropdown-btn-icon"
+              />
+            </div>
+          </div>
+           
+          <ul
+            class="site-nav-dropdown-container site-nav-list"
+          >
+            <li>
+              <div
+                class="site-nav-default-list-item"
+              >
+                <a
+                  class="current"
+                  href="#link"
+                >
+                  
+Link
+
+                </a>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+`;
+
+exports[`CollapseExpandButtons expand collapsed sitenav 1`] = `
+<nav
+  id="site-nav"
+>
+  <div
+    class="nav-component slim-scroll"
+  >
+    <div
+      class="site-nav-root"
+    >
+      <ul
+        class="site-nav-list site-nav-list-root"
+      >
+        <li>
+          <div
+            class="site-nav-default-list-item"
+          >
+            
+  Non-Link Dropdown
+  
+            <div
+              class="site-nav-dropdown-btn-container"
+            >
+              <i
+                class="site-nav-dropdown-btn-icon site-nav-rotate-icon"
+              />
+            </div>
+          </div>
+           
+          <ul
+            class="site-nav-dropdown-container site-nav-list site-nav-dropdown-container-open"
+          >
+            <li>
+              <div
+                class="site-nav-default-list-item"
+              >
+                <a
+                  class="current"
+                  href="#link"
+                >
+                  
+Link
+
+                </a>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+`;
+
+exports[`CollapseExpandButtons expand expanded sitenav 1`] = `
+<nav
+  id="site-nav"
+>
+  <div
+    class="nav-component slim-scroll"
+  >
+    <div
+      class="site-nav-root"
+    >
+      <ul
+        class="site-nav-list site-nav-list-root"
+      >
+        <li>
+          <div
+            class="site-nav-default-list-item"
+          >
+            
+  Non-Link Dropdown
+  
+            <div
+              class="site-nav-dropdown-btn-container"
+            >
+              <i
+                class="site-nav-dropdown-btn-icon site-nav-rotate-icon"
+              />
+            </div>
+          </div>
+           
+          <ul
+            class="site-nav-dropdown-container site-nav-list site-nav-dropdown-container-open"
+          >
+            <li>
+              <div
+                class="site-nav-default-list-item"
+              >
+                <a
+                  class="current"
+                  href="#link"
+                >
+                  
+Link
+
+                </a>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+`;

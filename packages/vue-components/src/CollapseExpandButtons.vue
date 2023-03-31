@@ -1,13 +1,13 @@
 <template>
   <div class="button-container">
     <div
-      class="collapse-expand-button"
+      class="collapse-expand-expand-button"
       @click="expandAll()"
     >
       <i :class="['fas fa-caret-down fa-2x']"></i>
     </div>
     <div
-      class="collapse-expand-button"
+      class="collapse-expand-collapse-button"
       @click="collapseAll()"
     >
       <i :class="['fas fa-caret-up fa-2x']"></i>
@@ -21,6 +21,7 @@ export default {
   methods: {
     expandAll() {
       const sitenavEl = document.querySelector('.site-nav-root').parentElement;
+
       sitenavEl.querySelectorAll('a[href]').forEach((el) => {
         let currentEl = el.parentElement;
         while (currentEl && currentEl !== sitenavEl.parentElement) {
@@ -73,12 +74,14 @@ export default {
         padding: 0.75rem 0 0 0;
     }
 
-    .collapse-expand-button {
+    .collapse-expand-collapse-button,
+    .collapse-expand-expand-button {
         opacity: 0.4;
         transition: opacity 0.25s ease-in-out;
     }
 
-    .collapse-expand-button:hover {
+    .collapse-expand-collapse-button:hover,
+    .collapse-expand-expand-button:hover {
         cursor: pointer;
         opacity: 0.7;
         transition: opacity 0.25s ease-in-out;
