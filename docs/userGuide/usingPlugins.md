@@ -76,7 +76,7 @@ MarkBind has a set of built-in plugins that can be used immediately without inst
 Only run plugins from sources that you trust. Do not run the plugin if the source/origin of the plugin cannot be ascertained.
 </box>
 
-Plugins come as `.ts` (or `.js`) files. To install an external plugin, simply put it in the `_markbind/plugins` folder. To use the plugin, update the `site.json` file the same way you did for built-in plugins.
+Plugins come as `.js` files. To install an external plugin, simply put it in the `_markbind/plugins` folder. To use the plugin, update the `site.json` file the same way you did for built-in plugins.
 
 
 ## Writing Plugins
