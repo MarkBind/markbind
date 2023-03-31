@@ -55,10 +55,10 @@ Next, edit the layout file to your liking, and add the `{% raw %}{{ content }}{%
     <li>
       <a highlight-on="exact" href="{{baseUrl}}/index.html" class="nav-link">HOME</a>
     </li>
-    <li tags="environment--ug">
+    <li tags="environment--ug environment--combined">
       <a highlight-on="sibling-or-child" href="{{baseUrl}}/userGuide/index.html" class="nav-link">USER GUIDE</a>
     </li>
-    <li tags="environment--dg">
+    <li tags="environment--dg environment--combined">
       <a highlight-on="sibling-or-child" href="{{baseUrl}}/devGuide/index.html" class="nav-link">DEVELOPER GUIDE</a>
     </li>
     <li slot="right">

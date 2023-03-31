@@ -81,7 +81,6 @@
     },
     {
       "src": "sub_site/index.md",
-      "title": "",
       "headings": {
         "feature-list": "Feature list"
       },
@@ -89,13 +88,11 @@
     },
     {
       "src": "sub_site/nested_sub_site/index.md",
-      "title": "",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "test_md_fragment.md",
-      "title": "",
       "headings": {
         "some-heading": "Some heading"
       },
@@ -372,6 +369,14 @@
       "headings": {
         "h1": "H1",
         "h2": "H2"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "testWeb3FormPlugin.md",
+      "title": "web 3 forms",
+      "headings": {
+        "i-am-a-header": "🚀 I am a header"
       },
       "headingKeywords": {}
     }

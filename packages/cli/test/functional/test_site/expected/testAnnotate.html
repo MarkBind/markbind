@@ -24,6 +24,7 @@
   <script src="testAnnotate.page-vue-render.js"></script>
   <script src="/test_site/markbind/js/jquery.min.js"></script>
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
+  <link rel="stylesheet" href="/test_site/plugins/web3Form/web-3-form.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-tree/markbind-plugin-tree.css">
 
@@ -58,7 +59,7 @@
         <div class="site-nav-top">
           <div class="fw-bold mb-2" style="font-size: 1.25rem;">
             <div>
-              <h2 id="default-layout"><span id="default-layout" class="anchor"></span>Default Layout<a class="fa fa-anchor" href="#default-layout" onclick="event.stopPropagation()"></a></h2>
+              <h2 id="default-layout">Default Layout<a class="fa fa-anchor" href="#default-layout" onclick="event.stopPropagation()"></a></h2>
             </div>
           </div>
         </div>
@@ -73,15 +74,15 @@
                   <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/test_site/bugs/index.html">Open Bugs 🐛</a></div>
                 </li>
                 <li class="site-nav-custom-list-item site-nav-list-item-0">
-                  <h3 id="testing-site-nav"><span id="testing-site-nav" class="anchor"></span>Testing Site-Nav<a class="fa fa-anchor" href="#testing-site-nav" onclick="event.stopPropagation()"></a></h3>
+                  <h3 id="testing-site-nav">Testing Site-Nav<a class="fa fa-anchor" href="#testing-site-nav" onclick="event.stopPropagation()"></a></h3>
                 </li>
                 <li>
                   <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><strong>Dropdown </strong> <span aria-hidden="true" class="glyphicon glyphicon-search"></span> title ✏️
                     <!-- Nested list items will be placed inside a Dropdown menu -->
 
-                    <i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
-                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-                    </i>
+                    <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                        <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                      </i></div>
                   </div>
                   <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
                     <li>
@@ -93,9 +94,9 @@
                     <li>
                       <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)">Nested Dropdown title 📐
 
-                        <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
-                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-                        </i>
+                        <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                            <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                          </i></div>
                       </div>
                       <ul class="site-nav-dropdown-container site-nav-list">
                         <li>
@@ -118,9 +119,9 @@
                   <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)">Filler text <a href="https://www.youtube.com/"><span aria-hidden="true" class="glyphicon glyphicon-facetime-video"></span> Youtube 📺</a> filler text
                     <!-- Using a link as a Dropdown title will not render a Dropdown menu -->
 
-                    <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
-                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-                    </i>
+                    <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                        <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                      </i></div>
                   </div>
                   <ul class="site-nav-dropdown-container site-nav-list">
                     <li>
@@ -130,9 +131,9 @@
                       <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><mark>Dropdown title</mark> <span aria-hidden="true" class="glyphicon glyphicon-comment"></span> ✏️
                         <!-- Dropdown menus in are still supported inside, as long as the title is not a link -->
 
-                        <i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
-                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-                        </i>
+                        <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                            <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                          </i></div>
                       </div>
                       <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
                         <li>
@@ -145,18 +146,18 @@
                 <li>
                   <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)">Really Long Dropdown Title Really Long Dropdown Title Really Long Dropdown Title Really Long Dropdown
 
-                    <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
-                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-                    </i>
+                    <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                        <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                      </i></div>
                   </div>
                   <ul class="site-nav-dropdown-container site-nav-list">
                     <li class="site-nav-custom-list-item site-nav-list-item-1">Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text</li>
                     <li>
                       <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)">Nested Dropdown Title
 
-                        <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
-                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-                        </i>
+                        <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                            <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                          </i></div>
                       </div>
                       <ul class="site-nav-dropdown-container site-nav-list">
                         <li class="site-nav-custom-list-item site-nav-list-item-2">Hello Doge Hello Doge 🐶</li>
@@ -171,18 +172,18 @@
                 <li>
                   <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)">Test line break in navigation layout
 
-                    <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
-                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-                    </i>
+                    <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                        <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                      </i></div>
                   </div>
                   <ul class="site-nav-dropdown-container site-nav-list">
                     <li class="site-nav-custom-list-item site-nav-list-item-1">Nested line break text ✂️</li>
                     <li>
                       <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/test_site/index.html">Nested line break href</a>
 
-                        <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
-                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-                        </i>
+                        <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                            <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                          </i></div>
                       </div>
                       <ul class="site-nav-dropdown-container site-nav-list">
                         <li class="site-nav-custom-list-item site-nav-list-item-2">Nested Nested line break text ✂️</li>
@@ -191,9 +192,9 @@
                     <li>
                       <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)">Nested line break dropdown menu
 
-                        <i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">
-                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-                        </i>
+                        <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                            <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                          </i></div>
                       </div>
                       <ul class="site-nav-dropdown-container site-nav-list">
                         <li class="site-nav-custom-list-item site-nav-list-item-2">Line break item 2 📘</li>
@@ -267,16 +268,16 @@
           <a-point x="50%" y="50%" content="some test text" label="5" legend="both" header="some test text"></a-point>
           <a-point x="75%" y="50%" content="some test text" label="6" legend="both" header="some test text"></a-point>
         </annotate>
-        <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>
       </div>
       <overlay-source id="page-nav" tag-name="nav" to="page-nav">
         <div class="nav-component slim-scroll">
         </div>
       </overlay-source>
+      <scroll-top-button></scroll-top-button>
     </div>
     <div>
       <footer>
-        <h1 id="heading-in-footer-should-not-be-indexed"><span id="heading-in-footer-should-not-be-indexed" class="anchor"></span>Heading in footer should not be indexed<a class="fa fa-anchor" href="#heading-in-footer-should-not-be-indexed" onclick="event.stopPropagation()"></a></h1>
+        <h1 id="heading-in-footer-should-not-be-indexed">Heading in footer should not be indexed<a class="fa fa-anchor" href="#heading-in-footer-should-not-be-indexed" onclick="event.stopPropagation()"></a></h1>
         <div class="text-center">
           This is a dynamic height footer that supports markdown <span>😄</span>!
         </div>
@@ -299,6 +300,39 @@
       gtag('js', new Date());
     
       gtag('config', 'TRACKING-ID');
+    </script>
+
+<script>
+        function submitForm(element) {
+            event.preventDefault();
+            const formData = new FormData(element);
+            const formProps = Object.fromEntries(formData);
+            const json = JSON.stringify(formProps);
+            const submitButton = element.querySelector('button[type="submit"]');
+            const submitButtonText = submitButton.innerText;
+            submitButton.innerText = 'Please wait...'
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json,
+            })
+            .then(async (response) => {
+                if (response.status == 200) {
+                    alert('Form submitted! Thank you for your response');
+                } else {
+                    alert('Error submitting form! Please try again later.');
+                }
+            })
+            .catch(error => {
+                alert('Error submitting form! Please try again later.');
+            })
+            .finally(() => {
+                submitButton.innerText = submitButtonText;
+            })
+        }
     </script>
 
 </html>

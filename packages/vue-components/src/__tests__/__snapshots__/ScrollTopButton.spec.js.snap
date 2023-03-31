@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScrollTopButton button appears with user scrolls 1`] = `
+<div
+  aria-hidden="true"
+  class="scroll-top-button fa-lg d-print-none"
+  style="display: block; bottom: 2%; right: 2%; position: fixed;"
+>
+  <i
+    class="fas fa-arrow-circle-up"
+  />
+</div>
+`;
+
+exports[`ScrollTopButton button icon is rendered correctly 1`] = `
+<div
+  aria-hidden="true"
+  class="scroll-top-button fa-2x d-print-none"
+  style="display: none; color: red; bottom: 2%; right: 2%; position: fixed;"
+>
+  :fas-plus:
+</div>
+`;
+
+exports[`ScrollTopButton button lightens after user stops scrolling 1`] = `
+<div
+  aria-hidden="true"
+  class="scroll-top-button fa-lg d-print-none lighten"
+  style="display: block; bottom: 2%; right: 2%; position: fixed;"
+>
+  <i
+    class="fas fa-arrow-circle-up"
+  />
+</div>
+`;
+
+exports[`ScrollTopButton button position is rendered correctly 1`] = `
+<div
+  aria-hidden="true"
+  class="scroll-top-button fa-lg d-print-none"
+  style="display: none; bottom: 100%; right: 100%; position: fixed;"
+>
+  <i
+    class="fas fa-arrow-circle-up"
+  />
+</div>
+`;
+
+exports[`ScrollTopButton scroll to top when button is pressed 1`] = `
+<div
+  aria-hidden="true"
+  class="scroll-top-button fa-lg d-print-none"
+  style="display: none; bottom: 2%; right: 2%; position: fixed;"
+>
+  <i
+    class="fas fa-arrow-circle-up"
+  />
+</div>
+`;

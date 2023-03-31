@@ -24,14 +24,18 @@
   "plugins" : [
     "filterTags",
     "mathDelimiters",
-    "codeBlockWrapButtons"
+    "codeBlockWrapButtons",
+    "web3Form"
   ],
   "pluginsContext" : {
     "filterTags" : {
-      "tags": ["environment--ug", "environment--dg"]
+      "tags": ["environment--combined"]
     },
     "mathDelimiters": {
       "delimiters": ["beg_end"]
+    },
+    "web3Form": {
+      "accessKey": [""]
     }
   },
   "headingIndexingLevel": 6,
