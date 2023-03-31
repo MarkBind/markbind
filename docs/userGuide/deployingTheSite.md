@@ -66,9 +66,12 @@ You can override the default deployment settings %%(e.g., repo/branch to deploy)
 
 <br>
 
-<box type="warning">
+<box type="info">
 
-`markbind deploy` does not generate the static site from your source; it simply deploys the files that are already in the `_site` directory. You need to run `markbind build` first if you want to generate the site before deploying.
+`markbind deploy` generates the static site from your source by default; hence, it is not necessary to run `markbind build` first to generate the site before deploying. To skip the site generation, you can use the `--no-build` option for `markbind deploy`.
+
+More information can be found in the [CLI Commands](cliCommands.html) section.
+
 </box>
 
 ### Using CI Platforms
@@ -105,9 +108,8 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '16'
       - run: npm i -g markbind-cli
-      - run: markbind build
       - run: markbind deploy --ci
 ```
 
@@ -190,7 +192,7 @@ Since May 2018, Travis CI has been [undergoing migration to `travis-ci.com`](htt
     ```yml
     language: node_js
     node_js:
-      - 10
+      - 16
     install:
       - npm i -g markbind-cli
     script: markbind build
@@ -258,7 +260,7 @@ The `repo` value can be changed to your specific repository as desired.
 
     ```yml
     environment:
-      nodejs_version: '10'
+      nodejs_version: '16'
     
     branches:
       only:
@@ -267,7 +269,6 @@ The `repo` value can be changed to your specific repository as desired.
     install:
       - ps: Install-Product node $env:nodejs_version
       - npm i -g markbind-cli
-      - markbind build
       - markbind deploy --ci
     
     test: off
@@ -306,12 +307,11 @@ Commit and push `appveyor.yml` to your GitHub repository. Thereafter, AppVeyor C
         steps:
           - checkout
           - node/install:
-              node-version: "14"
-              npm-version: "7"
+              node-version: "16"
+              npm-version: "8"
               install-yarn: false
           - run: node --version
           - run: npm i -g markbind-cli
-          - run: markbind build
           - run: markbind deploy --ci
     version: 2.1
     orbs:
@@ -427,7 +427,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 16
       - name: Build MarkBind website
         run: |
           npm install -g markbind-cli
@@ -497,7 +497,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 16
       - name: Build PR preview url
         id: pr-url
         run: |

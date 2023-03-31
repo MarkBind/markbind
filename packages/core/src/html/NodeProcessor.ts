@@ -13,8 +13,8 @@ import { isMarkdownFileExt } from '../utils/fsUtil';
 import * as logger from '../utils/logger';
 import * as linkProcessor from './linkProcessor';
 import type VariableProcessor from '../variables/VariableProcessor';
-import { warnConflictingAtributesMap, warnDeprecatedAtributesMap } from './warnings';
-import { shiftSlotNodeDeeper, transformOldSlotSyntax, renameSlot } from './vueSlotSyntaxProcessor';
+import { warnConflictingAtributesMap } from './warnings';
+import { shiftSlotNodeDeeper, transformOldSlotSyntax } from './vueSlotSyntaxProcessor';
 import { MdAttributeRenderer } from './MdAttributeRenderer';
 import { MarkdownProcessor } from './MarkdownProcessor';
 import { processScriptAndStyleTag } from './scriptAndStyleTagProcessor';
@@ -157,11 +157,6 @@ export class NodeProcessor {
       cheerio(node).remove();
     } else {
       this.processedModals[node.attribs.id] = true;
-
-      // Transform deprecated slot names; remove when deprecating
-      renameSlot(node, 'modal-header', 'header');
-      renameSlot(node, 'modal-footer', 'footer');
-
       this.mdAttributeRenderer.processModalAttributes(node);
     }
   }
@@ -177,8 +172,7 @@ export class NodeProcessor {
       transformOldSlotSyntax(node);
       shiftSlotNodeDeeper(node);
 
-      // log warnings for deprecated and conflicting attributes
-      if (_.has(warnDeprecatedAtributesMap, node.name)) { warnDeprecatedAtributesMap[node.name](node); }
+      // log warnings for conflicting attributes
       if (_.has(warnConflictingAtributesMap, node.name)) { warnConflictingAtributesMap[node.name](node); }
 
       switch (node.name) {
@@ -368,11 +362,6 @@ export class NodeProcessor {
     const isHeadingTag = (/^h[1-6]$/).test(node.name);
     if (isHeadingTag && !node.attribs.id) {
       setHeadingId(node, this.config);
-    }
-
-    // Generate dummy spans as anchor points for header[sticky]
-    if (isHeadingTag && node.attribs.id) {
-      cheerio(node).prepend(`<span id="${node.attribs.id}" class="anchor"></span>`);
     }
 
     this.pluginManager.postProcessNode(node);

@@ -1,5 +1,3 @@
-const logger = require('../utils/logger');
-
 const HEADING_INDEXING_LEVEL_DEFAULT = 3;
 
 /**
@@ -12,7 +10,6 @@ export class SiteConfig {
   faviconPath?: string;
   headingIndexingLevel: number;
 
-  theme: string | boolean;
   style: {
     bootstrapTheme?: string;
     codeTheme: string;
@@ -67,12 +64,6 @@ export class SiteConfig {
     this.style.codeTheme = this.style.codeTheme || 'dark';
     this.style.codeLineNumbers = this.style.codeLineNumbers !== undefined
       ? this.style.codeLineNumbers : false;
-    // TODO remove this
-    this.theme = this.style.bootstrapTheme || siteConfigJson.theme || false;
-    if (siteConfigJson.theme) {
-      logger.warn("The 'theme' site configuration key has been consolidated under the 'style.bootstrapTheme'"
-        + ' key.\n The old key will be deprecated in v3.0.');
-    }
 
     this.pages = siteConfigJson.pages || [];
     this.pagesExclude = siteConfigJson.pagesExclude || [];

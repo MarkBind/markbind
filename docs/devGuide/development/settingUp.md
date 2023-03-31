@@ -16,7 +16,7 @@ This page explains how to set up your development environment to start contribut
 ## Prerequisites
 
 1. **Node.js** ({{ node_dev_version }} or higher) with<br>
-   **npm** <tooltip content="You may need to upgrade the default npm that is included with Node.js v14 installation">v7</tooltip> or higher
+   **npm** v8 or higher
 
 1. **Java** 8 or later, and<br>
    **Graphviz** v2.38 or later<br>
@@ -44,7 +44,7 @@ We recommend the **WebStorm IDE** for working with MarkBind code.
 1. **Bind your cloned version of MarkBind to your console** by navigating to the cloned `packages/cli` folder and running `npm link`
 
 1. **Install dependencies** by running
-   <popover content="Under the hood, this calls `npm ci` and `lerna bootstrap`">`npm run setup`</popover>
+   <popover content="Under the hood, this calls `npm ci` and `npm prepare`">`npm run setup`</popover>
    in the **root folder** of your cloned repo.
 
 1. **Congratulations!** Now you are ready to start modifying MarkBind code.
