@@ -366,7 +366,7 @@ Simply place the `<question>` components you want to include into the `<quiz>` c
   <question type="text">...</question>
 </quiz>
 </variable>
-<variable name="output" id="quiz-example">
+<variable name="output">
 <quiz>
 {{ mcqQuestion }}
 {{ checkboxQuestion }}
