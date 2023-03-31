@@ -6,7 +6,6 @@ import { html as htmlBeautify } from 'js-beautify';
 import cloneDeep from 'lodash/cloneDeep';
 import isObject from 'lodash/isObject';
 import isArray from 'lodash/isArray';
-import { DomElement } from 'htmlparser2';
 import { pageVueServerRenderer } from './PageVueServerRenderer';
 
 import CyclicReferenceError from '../errors/CyclicReferenceError';
@@ -18,6 +17,7 @@ import type { PageAssets, PageConfig } from './PageConfig';
 import type { SiteConfig } from '../Site/SiteConfig';
 import type { FrontMatter } from '../plugins/Plugin';
 import type { ExternalManager } from '../External/ExternalManager';
+import { MbNode } from '../utils/node';
 
 require('../patches/htmlparser2');
 
@@ -45,10 +45,10 @@ export class Page {
   asset!: PageAssets;
   pageUserScriptsAndStyles!: string[];
   frontmatter!: FrontMatter;
-  headerIdMap!: { [id: string]: number };
+  headerIdMap!: Record<string, number>;
   includedFiles!: Set<string>;
-  headings!: { [key: string]: string };
-  keywords!: { [key: string]: string[] };
+  headings!: Record<string, string>;
+  keywords!: Record<string, string[]>;
   navigableHeadings!: {
     [id: string]: {
       text: string,
@@ -209,12 +209,12 @@ export class Page {
 
   _collectNavigableHeadings($: cheerio.Root, context: cheerio.Element, pageNavSelector: string) {
     $(pageNavSelector, context).each((_i, cheerioElem: cheerio.Element) => {
-      const elem = cheerioElem as cheerio.Element & DomElement;
+      const elem = cheerioElem as MbNode;
       // Check if heading or panel is already inside an unexpanded panel
       let isInsideUnexpandedPanel = false;
       const panelParents = $(elem).parentsUntil(context).filter('panel').not(elem);
       panelParents.each((_j, elemParent) => {
-        if ((elemParent as DomElement).attribs?.expanded === undefined) {
+        if ((elemParent as MbNode).attribs.expanded === undefined) {
           isInsideUnexpandedPanel = true;
           return false;
         }
@@ -274,7 +274,7 @@ export class Page {
         }
       })
       .each((_index, cheerioPanel) => {
-        const panel = cheerioPanel as cheerio.Element & DomElement;
+        const panel = cheerioPanel as MbNode;
         const shouldExcludeHeadings = excludeHeadings || (panel.attribs?.expanded === undefined);
         let closestHeading = Page.getClosestHeading($, headingsSelector, panel);
         if (!closestHeading) {

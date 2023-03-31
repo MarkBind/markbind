@@ -7,7 +7,7 @@ export class Context {
      * Array of cwfs file paths processed so far
      */
     public callStack: string[],
-    public variables: { [variableName: string]: string },
+    public variables: Record<string, string>,
     public processingOptions: { omitFrontmatter?: boolean } = {},
   ) {}
 

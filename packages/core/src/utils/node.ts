@@ -13,7 +13,7 @@ export type TextElement = DomElement;
  */
 export type MbNode = DomElement & cheerio.Element & {
   name: string,
-  attribs: { [key: string]: any },
+  attribs: Record<string, any>,
   children: NodeOrText[],
 };
 
