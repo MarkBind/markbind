@@ -3,7 +3,9 @@
 <div id="flex-body">
   <nav id="site-nav">
     <div class="site-nav-top">
-      <div class="fw-bold mb-2" style="font-size: 1.25rem;">User Guide</div>
+      <div class="fw-bold mb-2" style="font-size: 1.25rem;">
+        User Guide
+      </div>
     </div>
     <div class="nav-component slim-scroll">
       <site-nav>
@@ -45,6 +47,7 @@
   * [Glossary]({{baseUrl}}/userGuide/glossary.html)
       </site-nav>
     </div>
+  <collapse-expand-buttons />
   </nav>
   <div id="content-wrapper">
     {{ content }}

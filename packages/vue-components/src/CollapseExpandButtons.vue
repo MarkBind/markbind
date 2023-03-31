@@ -1,19 +1,17 @@
 <template>
   <div class="button-container">
-    <button
-      type="button"
-      class="btn btn-outline-dark btn-sm"
+    <div
+      class="collapse-expand-button"
       @click="expandAll()"
     >
-      Expand All
-    </button>
-    <button
-      type="button"
-      class="btn btn-outline-dark btn-sm"
+      <i :class="['fas fa-caret-down fa-2x']"></i>
+    </div>
+    <div
+      class="collapse-expand-button"
       @click="collapseAll()"
     >
-      Collapse All
-    </button>
+      <i :class="['fas fa-caret-up fa-2x']"></i>
+    </div>
   </div>
 </template>
 
@@ -22,11 +20,7 @@ export default {
   name: 'CollapseExpandButtons',
   methods: {
     expandAll() {
-      let sitenavEl = this.$el;
-      while (!sitenavEl.classList.contains('site-nav-root')) {
-        window.console.warn(sitenavEl);
-        sitenavEl = sitenavEl.parentElement;
-      }
+      const sitenavEl = document.querySelector('.site-nav-root').parentElement;
       sitenavEl.querySelectorAll('a[href]').forEach((el) => {
         let currentEl = el.parentElement;
         while (currentEl && currentEl !== sitenavEl.parentElement) {
@@ -36,18 +30,18 @@ export default {
           }
           if (currentEl.tagName.toLowerCase() === 'div'
               && currentEl.querySelector('i')) {
-            currentEl.querySelectorAll('i').forEach((e) => { e.classList.add('site-nav-rotate-icon'); });
+            currentEl.querySelectorAll('i').forEach((e) => {
+              if (e.classList.contains('site-nav-dropdown-btn-icon')) {
+                e.classList.add('site-nav-rotate-icon');
+              }
+            });
           }
           currentEl = currentEl.parentElement;
         }
       });
     },
     collapseAll() {
-      let sitenavEl = this.$el;
-      while (!sitenavEl.classList.contains('site-nav-root')) {
-        window.console.warn(sitenavEl);
-        sitenavEl = sitenavEl.parentElement;
-      }
+      const sitenavEl = document.querySelector('.site-nav-root').parentElement;
 
       sitenavEl.querySelectorAll('a[href]').forEach((el) => {
         let currentEl = el.parentElement;
@@ -58,7 +52,11 @@ export default {
           }
           if (currentEl.tagName.toLowerCase() === 'div'
               && currentEl.querySelector('i')) {
-            currentEl.querySelectorAll('i').forEach((e) => { e.classList.remove('site-nav-rotate-icon'); });
+            currentEl.querySelectorAll('i').forEach((e) => {
+              if (e.classList.contains('site-nav-dropdown-btn-icon')) {
+                e.classList.remove('site-nav-rotate-icon');
+              }
+            });
           }
           currentEl = currentEl.parentElement;
         }
@@ -69,11 +67,20 @@ export default {
 </script>
 
 <style>
-    /* Button container */
-
     .button-container {
         display: flex;
-        justify-content: space-around;
-        padding-bottom: 0.5rem;
+        justify-content: space-evenly;
+        padding: 0.75rem 0 0 0;
+    }
+
+    .collapse-expand-button {
+        opacity: 0.4;
+        transition: opacity 0.25s ease-in-out;
+    }
+
+    .collapse-expand-button:hover {
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.25s ease-in-out;
     }
 </style>
