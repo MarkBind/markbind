@@ -5,7 +5,7 @@
  * It does so only if there are two sets of `---` and the content inside contains key-value pairs or blank space.
  */
 module.exports = function alt_frontmatter_plugin(md) {
-  function alt_frontmatter(state, startLine, endLine, silent) {
+  function alt_frontmatter(state, startLine, endLine) {
     const fmSymbol = "---";
     const keyValueRegex = new RegExp("^\\w+:\\s+.*");
 
