@@ -87,14 +87,11 @@ export class MdAttributeRenderer {
       return;
     }
 
-    const nodeAttribs = node.attribs ?? {};
-
-    if (_.has(nodeAttribs, 'content') && _.has(nodeAttribs, 'src')) {
+    if (_.has(node.attribs, 'content') && _.has(node.attribs, 'src')) {
       logger.warn(`${node.name} has a 'content' attribute, 'src' attribute has no effect.`);
-      delete nodeAttribs.src;
+      delete node.attribs.src;
     }
 
-    node.attribs = nodeAttribs;
     this.processAttributeWithoutOverride(node, 'content', true);
   }
 

@@ -158,7 +158,7 @@ Hence, if you need to view the latest frontend changes (relating to `packages/co
 
 Our test script does the following:
 
-1. Lints the code (`.js`, `.vue`) and stylesheets (`.css`) for any style errors using [ESLint](https://eslint.org/) and [StyleLint](https://stylelint.io/).
+1. Lints the code (`.ts`, `.js`, `.vue`) and stylesheets (`.css`) for any style errors using [ESLint](https://eslint.org/) and [StyleLint](https://stylelint.io/).
 1. Runs unit tests for all packages with [Jest](https://jestjs.io/).
 1. Builds the test sites whose directory names are listed in `packages/cli/test/functional/testSites.js`.
 1. For each test site, compares the HTML files generated with the HTML files in its `expected` directory.
