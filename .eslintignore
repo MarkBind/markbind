@@ -35,6 +35,7 @@ packages/core/test/unit/**/*.js
 packages/core/src/lib/markdown-it/patches/*
 packages/core/src/lib/markdown-it/plugins/*
 !packages/core/src/lib/markdown-it/plugins/markdown-it-icons.ts
+!packages/core/src/lib/markdown-it/plugins/markdown-it-alt-frontmatter.ts
 
 # --- packages/core end ---
 
