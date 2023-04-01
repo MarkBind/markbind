@@ -123,6 +123,24 @@
       "headingKeywords": {}
     },
     {
+      "src": "testAltFrontMatterInvalidKeyValue.md",
+      "title": "Hello World",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testSingleAltFrontMatter.md",
+      "title": "Hello World",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testAltFrontMatterParsing.md",
+      "title": "new title",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
       "src": "testExternalScripts.md",
       "title": "Hello World",
       "headings": {},

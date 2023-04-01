@@ -21,6 +21,13 @@
       "layout": "testLayout.md"
     },
     {
+      "src": ["testAltFrontMatterInvalidKeyValue.md", "testSingleAltFrontMatter.md"],
+      "title": "Hello World"
+    },
+    {
+      "src": ["testAltFrontMatterParsing.md"]
+    },
+    {
       "src": "testExternalScripts.md",
       "title": "Hello World",
       "layout": "testLayout.md",
