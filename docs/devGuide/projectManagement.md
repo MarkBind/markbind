@@ -202,13 +202,15 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
    d. For the release title, leave it blank.
 
-   e. For the main body, use the following template:
+   e. Press the "Generate release notes" button to automatically add the list of PRs merged for this release.
+
+   f. For the main body, use the following template:
 
       ```markdown
       # markbind-cli
 
       <!-- List out each of the PR for this version in the following format: -->
-      <!-- #ISSUE_NUMBER ISSUE_TITLE (#PR_NUMBER) -->
+      <!-- PR_TITLE by @username in #PR_NUMBER -->
 
       ## User Facing Changes
 
@@ -237,7 +239,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
       <!-- Pure changes to the documentation, such as typo, restructuring, etc -->
 
-      ## Other Changes
+      ## Developer Facing Changes
 
       ### Code Quality
 
@@ -257,7 +259,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
       ```
 
-      Use the list of PRs merged in the milestone to write the release notes. You may omit any sections that do not have a single PR under it.
+      Thoroughly review and categorize each PR to its appropriate section within the release notes. If needed, provide additional explanations for clarity. Any sections without a corresponding PR can be omitted.
 
       An example of a release note draft (taken from v1.18.0):
 
