@@ -2,7 +2,7 @@ import type { Template } from 'nunjucks';
 import type { SiteLinkManager } from '../html/SiteLinkManager';
 import type { PluginManager } from '../plugins/PluginManager';
 
-import VariableProcessor from '../variables/VariableProcessor';
+import { VariableProcessor } from '../variables/VariableProcessor';
 
 export interface PageAssets {
   bootstrap: string;
