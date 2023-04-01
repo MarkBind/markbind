@@ -1,7 +1,9 @@
 'use strict';
 
-// Process "---" => "<frontmatter>
-
+/*
+ * This file exports a Markdown plugin function that converts YAML-style frontmatter syntax (---) into HTML-style `<frontmatter>` tags.
+ * It does so only if there are two sets of `---` and the content inside contains key-value pairs or blank space.
+ */
 module.exports = function alt_frontmatter_plugin(md) {
   function alt_frontmatter(state, startLine, endLine, silent) {
     const fmSymbol = "---";
@@ -51,4 +53,3 @@ module.exports = function alt_frontmatter_plugin(md) {
     return slf.renderToken(tokens, idx, options, env, slf);
   };
 }
-

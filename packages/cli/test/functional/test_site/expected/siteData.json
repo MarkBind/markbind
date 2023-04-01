@@ -111,6 +111,18 @@
       "headingKeywords": {}
     },
     {
+      "src": "testEmptyAltFrontMatter.md",
+      "title": "Hello World",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testLayoutsOverrideWithAltFrontmatter.md",
+      "title": "Hello World",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
       "src": "testExternalScripts.md",
       "title": "Hello World",
       "headings": {},
@@ -118,6 +130,12 @@
     },
     {
       "src": "testLayouts.md",
+      "title": "Test nunjucks path resolving",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testLayoutsWithAltFrontMatter.md",
       "title": "Test nunjucks path resolving",
       "headings": {},
       "headingKeywords": {}
