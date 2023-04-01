@@ -1,0 +1,244 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Breadcrumb dropdown link from sitenav 1`] = `
+<div>
+  <nav
+    aria-label="breadcrumb"
+  >
+    <ol
+      class="breadcrumb"
+    >
+      <li
+        aria-current="[object Object]"
+        class="breadcrumb-item"
+      >
+        <a
+          href="#link-dropdown"
+        >
+          
+          
+  Link Dropdown
+  
+        
+        </a>
+      </li>
+      <li
+        aria-current="[object Object]"
+        class="breadcrumb-item notlink"
+      >
+        <a>
+          
+          
+Link
+
+        
+        </a>
+      </li>
+    </ol>
+  </nav>
+</div>
+`;
+
+exports[`Breadcrumb dropdown non-link from sitenav 1`] = `
+<div>
+  <nav
+    aria-label="breadcrumb"
+  >
+    <ol
+      class="breadcrumb"
+    >
+      <li
+        aria-current="[object Object]"
+        class="breadcrumb-item notlink"
+      >
+        <a>
+          
+          
+  Non-Link Dropdown
+  
+        
+        </a>
+      </li>
+      <li
+        aria-current="[object Object]"
+        class="breadcrumb-item notlink"
+      >
+        <a>
+          
+          
+Link
+
+        
+        </a>
+      </li>
+    </ol>
+  </nav>
+</div>
+`;
+
+exports[`Breadcrumb empty breadcrumb 1`] = `
+<div>
+  <nav
+    aria-label="breadcrumb"
+  >
+    <ol
+      class="breadcrumb"
+    />
+  </nav>
+</div>
+`;
+
+exports[`Breadcrumb no sitenav 1`] = `
+<div>
+  <nav
+    aria-label="breadcrumb"
+  >
+    <ol
+      class="breadcrumb"
+    />
+  </nav>
+</div>
+`;
+
+exports[`Breadcrumb one link 1`] = `
+<div>
+  <nav
+    aria-label="breadcrumb"
+  >
+    <ol
+      class="breadcrumb"
+    >
+      <li
+        aria-current="[object Object]"
+        class="breadcrumb-item"
+      >
+        <a
+          href="#link"
+        >
+          
+          link one
+        
+        </a>
+      </li>
+    </ol>
+  </nav>
+</div>
+`;
+
+exports[`Breadcrumb one link from sitenav 1`] = `
+<div>
+  <nav
+    aria-label="breadcrumb"
+  >
+    <ol
+      class="breadcrumb"
+    >
+      <li
+        aria-current="[object Object]"
+        class="breadcrumb-item notlink"
+      >
+        <a>
+          
+          
+Link
+
+        
+        </a>
+      </li>
+    </ol>
+  </nav>
+</div>
+`;
+
+exports[`Breadcrumb one non-link 1`] = `
+<div>
+  <nav
+    aria-label="breadcrumb"
+  >
+    <ol
+      class="breadcrumb"
+    >
+      <li
+        aria-current="[object Object]"
+        class="breadcrumb-item notlink"
+      >
+        <a>
+          
+          non-link one
+        
+        </a>
+      </li>
+    </ol>
+  </nav>
+</div>
+`;
+
+exports[`Breadcrumb two link 1`] = `
+<div>
+  <nav
+    aria-label="breadcrumb"
+  >
+    <ol
+      class="breadcrumb"
+    >
+      <li
+        aria-current="[object Object]"
+        class="breadcrumb-item"
+      >
+        <a
+          href="#linkone"
+        >
+          
+          link one
+        
+        </a>
+      </li>
+      <li
+        aria-current="[object Object]"
+        class="breadcrumb-item"
+      >
+        <a
+          href="#linktwo"
+        >
+          
+          link two
+        
+        </a>
+      </li>
+    </ol>
+  </nav>
+</div>
+`;
+
+exports[`Breadcrumb two non-link 1`] = `
+<div>
+  <nav
+    aria-label="breadcrumb"
+  >
+    <ol
+      class="breadcrumb"
+    >
+      <li
+        aria-current="[object Object]"
+        class="breadcrumb-item notlink"
+      >
+        <a>
+          
+          link one
+        
+        </a>
+      </li>
+      <li
+        aria-current="[object Object]"
+        class="breadcrumb-item notlink"
+      >
+        <a>
+          
+          link two
+        
+        </a>
+      </li>
+    </ol>
+  </nav>
+</div>
+`;

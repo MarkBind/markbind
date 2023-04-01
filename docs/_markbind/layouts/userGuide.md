@@ -47,6 +47,7 @@
     </div>
   </nav>
   <div id="content-wrapper">
+    <breadcrumb />
     {{ content }}
   </div>
   <nav id="page-nav">
