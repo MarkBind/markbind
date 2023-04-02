@@ -4,12 +4,16 @@
 
  #### Usage
 
- Include the collapse expand buttons component (`<collapse-expand-buttons />`) in the layout file to add the buttons to your page. A common places to add collapse expand buttons are at the bottom of the site navigation.
+ Include the collapse expand buttons component (`<collapse-expand-buttons />`) in the layout file to add the buttons to your page. The collapse expand buttons can be added to any location within the site navigation and will always appear at the top right.
 
 <include src="codeAndOutput.md" boilerplate >
-<variable name="heading">Collapse Expand Buttons at Bottom</variable>
 <variable name="highlightStyle">html</variable>
 <variable name="code">
+<div class="site-nav-top">
+  <div class="fw-bold mb-2" style="font-size: 1.25rem;">
+    User Guide
+  </div>
+</div>
 <site-nav>
 * [Getting Started]({{baseUrl}}/userGuide/gettingStarted.html)
 * Authoring Contents :expanded:
