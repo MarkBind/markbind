@@ -18,7 +18,7 @@ const SITENAV_END = `
 const SITENAV_LINK = `
 <li>
 <div class="site-nav-default-list-item">
-<a href="#link" class="current">
+<a href="#link">
 Link
 </a>
 </div>
