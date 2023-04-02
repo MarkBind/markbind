@@ -35,7 +35,7 @@ module.exports = {
     Array.from(el.children).forEach(child => content.append(child));
     el.replaceChildren();
     el.append(content);
-    el.setAttribute('class', `${el.className} closeable-wrapper`);
+    el.classList.add(`${el.className} closeable-wrapper`);
     const closeButton = document.createElement('span');
     closeButton.classList.add('closeable-button', 'label', 'label-default', 'hidden-print');
     closeButton.style.cssText += 'display: none; position: absolute; top: 0; left: 0; cursor: pointer;background: #d9534f';
