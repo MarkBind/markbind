@@ -65,11 +65,28 @@ export default {
 </script>
 
 <style>
+    /* Button Positioning */
+
     .button-container {
+        position: absolute;
+        top: 5px;
+        right: 30px;
         display: flex;
-        justify-content: space-evenly;
         padding: 0.75rem 0 0 0;
     }
+
+    .expand-all-button {
+        margin-right: 15px;
+    }
+
+    /* Change alignment when SiteNav is hidden */
+    @media screen and (max-width: 991.98px) {
+        .button-container {
+            top: 15px;
+        }
+    }
+
+    /* Button Design */
 
     .collapse-all-button,
     .expand-all-button {
