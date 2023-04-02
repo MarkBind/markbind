@@ -62,6 +62,7 @@ More info in: _<a href="https://markbind.org/userGuide/authoringContents.html" t
 
 > Learn how to modify site properties, apply themes, and enable/disable plugins for your MarkBind site.
 
+<<<<<<< HEAD
 More info in: _<a href="https://markbind.org/userGuide/workingWithSites.html" target="_blank">User Guide → Working with Sites</a>_
 
 ---
@@ -71,6 +72,24 @@ More info in: _<a href="https://markbind.org/userGuide/workingWithSites.html" ta
 > Refer to our Full Syntax Reference page to find a specific feature or component that you want to use in your MarkBind site.
 
 More info in: _<a href="https://markbind.org/userGuide/fullSyntaxReference.html" target="_blank">User Guide → Full Syntax Reference</a>_
+=======
+<panel header="Expandable panel" type="info">
+  Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
+</panel>
+<br>
+<panel header="Expanded panel on load" type="info" expanded>
+  ...
+</panel>
+<br>
+<panel header="Expanded panel header" alt="Minimized panel header" type="success" minimized>
+  ...
+</panel>
+<br>
+<panel header="Expanded panel header" alt="Minimized panel header" type="seamless">
+  ...
+</panel>
+<br>
+>>>>>>> aa1fdbbc852b4b0e7f05ef1f7d228d026a5d7adb
 
 </panel>
 
