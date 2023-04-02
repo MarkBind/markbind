@@ -78,6 +78,7 @@ More info in: _<a href="https://markbind.org/userGuide/fullSyntaxReference.html"
 </panel>
 <br>
 <panel header="Expanded panel on load" type="info" expanded>
+<<<<<<< HEAD
   ...
 </panel>
 <br>
@@ -85,6 +86,15 @@ More info in: _<a href="https://markbind.org/userGuide/fullSyntaxReference.html"
   ...
 </panel>
 <br>
+=======
+  ...
+</panel>
+<br>
+<panel header="Expanded panel header" alt="Minimized panel header" type="success" minimized>
+  ...
+</panel>
+<br>
+>>>>>>> aa1fdbbc852b4b0e7f05ef1f7d228d026a5d7adb
 <panel header="Expanded panel header" alt="Minimized panel header" type="seamless">
   ...
 </panel>
