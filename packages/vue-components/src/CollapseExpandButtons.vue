@@ -4,13 +4,13 @@
       class="expand-all-button"
       @click="expandAll()"
     >
-      <i :class="['fas fa-bars']"></i>
+      <i :class="['far fa-plus-square']"></i>
     </div>
     <div
       class="collapse-all-button"
       @click="collapseAll()"
     >
-      <i :class="['far fa-window-minimize']"></i>
+      <i :class="['far fa-minus-square']"></i>
     </div>
   </div>
 </template>
@@ -73,14 +73,14 @@ export default {
 
     .collapse-all-button,
     .expand-all-button {
-        opacity: 0.4;
+        opacity: 0.5;
         transition: opacity 0.25s ease-in-out;
     }
 
     .collapse-all-button:hover,
     .expand-all-button:hover {
         cursor: pointer;
-        opacity: 0.7;
+        opacity: 0.8;
         transition: opacity 0.25s ease-in-out;
     }
 </style>
