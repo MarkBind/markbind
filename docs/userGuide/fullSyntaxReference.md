@@ -35,6 +35,7 @@
 
   badges : ['Badges', ['presentation', 'reader-facing']],
   boxes : ['Boxes', ['presentation', 'reader-facing']],
+  breadcrumbs : ['Breadcrumbs', ['navigation', 'reader-facing']],
   collapseExpandButtons: ['Collapse Expand Buttons', ['others', 'reader-facing']],
   panels : ['Panels', ['presentation', 'reader-facing']],
   tabs : ['Tabs', ['presentation', 'reader-facing']],
