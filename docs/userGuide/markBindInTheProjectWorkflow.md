@@ -49,7 +49,7 @@ A MarkBind conversion involves the following:
 - Adding a Home page: If your project already has a `README.md` or `Home.md`, the content will be copied over to `index.md`. Otherwise, a default home page will be added.
 - Adding an About Us page: If your project already has `about.md`, this will be used as the About page. Otherwise, a default About page will be added.
 - Adding a top navigation bar.
-- Adding a site navigation menu: If your project has a valid `_Sidebar.md` file, it will be used as the [site navigation menu](https://markbind.org/userGuide/tweakingThePageStructure.html#site-navigation-menus). Otherwise, the menu will be built from your project's directory structure and contain links to all addressable pages.   
+- Adding a site navigation menu: If your project has a valid `_Sidebar.md` file, it will be used as the [site navigation menu]({{baseUrl}}/userGuide/tweakingThePageStructure.html#site-navigation-menus). Otherwise, the menu will be built from your project's directory structure and contain links to all addressable pages.   
 - Adding a custom footer: If your project has a valid `_Footer.md` file, it will be used as the website footer. Otherwise, a default footer will be added.
 
 <box type="warning">

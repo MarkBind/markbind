@@ -1,5 +1,3 @@
-const logger = require('../utils/logger');
-
 const HEADING_INDEXING_LEVEL_DEFAULT = 3;
 
 /**
@@ -12,7 +10,6 @@ export class SiteConfig {
   faviconPath?: string;
   headingIndexingLevel: number;
 
-  theme: string | boolean;
   style: {
     bootstrapTheme?: string;
     codeTheme: string;
@@ -29,14 +26,14 @@ export class SiteConfig {
   externalScripts: string[];
   titlePrefix: string;
   titleSuffix: string;
-  globalOverride: { [frontmatterKey: string]: string };
+  globalOverride: Record<string, string>; // key: frontmatter key
 
   timeZone: string;
   locale: string;
 
   plugins: string[];
   pluginsContext: {
-    [pluginName: string]: { [key: string]: any }
+    [pluginName: string]: Record<string, any>
   };
 
   deploy: {
@@ -55,7 +52,7 @@ export class SiteConfig {
    * @param siteConfigJson The raw json read from the site configuration file
    * @param cliBaseUrl As read from the --baseUrl option
    */
-  constructor(siteConfigJson: any, cliBaseUrl?: string) {
+  constructor(siteConfigJson: Record<string, any>, cliBaseUrl?: string) {
     this.baseUrl = cliBaseUrl !== undefined
       ? cliBaseUrl
       : (siteConfigJson.baseUrl || '');
@@ -67,12 +64,6 @@ export class SiteConfig {
     this.style.codeTheme = this.style.codeTheme || 'dark';
     this.style.codeLineNumbers = this.style.codeLineNumbers !== undefined
       ? this.style.codeLineNumbers : false;
-    // TODO remove this
-    this.theme = this.style.bootstrapTheme || siteConfigJson.theme || false;
-    if (siteConfigJson.theme) {
-      logger.warn("The 'theme' site configuration key has been consolidated under the 'style.bootstrapTheme'"
-        + ' key.\n The old key will be deprecated in v3.0.');
-    }
 
     this.pages = siteConfigJson.pages || [];
     this.pagesExclude = siteConfigJson.pagesExclude || [];

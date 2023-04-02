@@ -1,12 +1,12 @@
 import cheerio from 'cheerio';
-import { DomElement } from 'htmlparser2';
 
 import { ATTRIB_CWF } from '../constants';
 import { PageSources } from '../Page/PageSources';
-import VariableRenderer from './VariableRenderer';
+import { VariableRenderer } from './VariableRenderer';
 import * as logger from '../utils/logger';
 import * as urlUtil from '../utils/urlUtil';
 import type { Context } from '../html/Context';
+import { MbNode } from '../utils/node';
 
 /**
  * All variable extraction and rendering is done here.
@@ -34,12 +34,12 @@ import type { Context } from '../html/Context';
  *    These methods are similar to (2), but in addition to the site variables, they
  *    render the content with the page variables extracted from (3) as well.
  */
-class VariableProcessor {
+export class VariableProcessor {
   /**
    * Map of sites' root paths to their variables
    */
   userDefinedVariablesMap: {
-    [rootPath: string]: { [key: string]: any },
+    [rootPath: string]: Record<string, any>,
   } = {};
 
   /**
@@ -139,7 +139,7 @@ class VariableProcessor {
   renderWithSiteVariables(
     contentFilePath: string,
     pageSources: PageSources,
-    lowerPriorityVariables: { [key: string]: any } = {},
+    lowerPriorityVariables: Record<string, any> = {},
   ) {
     const userDefinedVariables = this.getParentSiteVariables(contentFilePath);
     const parentSitePath = urlUtil.getParentSiteAbsolutePath(contentFilePath, this.rootPath,
@@ -160,8 +160,8 @@ class VariableProcessor {
    * Extracts variables specified as <include var-xx="..."> in include elements.
    * @param includeElement to extract inline variables from
    */
-  private static extractIncludeInlineVariables(includeElement: DomElement) {
-    const includeInlineVariables: { [key: string]: any } = {};
+  private static extractIncludeInlineVariables(includeElement: MbNode) {
+    const includeInlineVariables: Record<string, any> = {};
 
     Object.entries(includeElement.attribs || {}).forEach(([attribute, val]) => {
       if (!attribute.startsWith('var-')) {
@@ -178,22 +178,20 @@ class VariableProcessor {
    * Extracts variables specified as <variable> in include elements.
    * @param includeElement to search child nodes for
    */
-  private static extractIncludeChildElementVariables(includeElement: DomElement) {
+  private static extractIncludeChildElementVariables(includeElement: MbNode) {
     if (!(includeElement.children && includeElement.children.length)) {
       return {};
     }
-    const includeChildVariables: { [key: string]: string } = {};
-    const includeElementAttribs = includeElement.attribs as { [s: string]: string };
+    const includeChildVariables: Record<string, string> = {};
 
     includeElement.children.forEach((child) => {
       if (child.name !== 'variable' && child.name !== 'span') {
         return;
       }
-      const childAttribs = child.attribs as { [s: string]: string };
-      const variableName = childAttribs.name || childAttribs.id;
+      const variableName = child.attribs?.name || child.attribs?.id;
       if (!variableName) {
-        logger.warn(`Missing 'name' or 'id' in variable for ${includeElementAttribs.src}'s include in ${
-          includeElementAttribs[ATTRIB_CWF]}.\n`);
+        logger.warn(`Missing 'name' or 'id' in variable for ${includeElement.attribs.src}'s include in ${
+          includeElement.attribs[ATTRIB_CWF]}.\n`);
         return;
       }
       if (!includeChildVariables[variableName]) {
@@ -210,7 +208,7 @@ class VariableProcessor {
    * It is a subroutine for {@link renderIncludeFile}
    * @param includeElement include element to extract variables from
    */
-  private static extractIncludeVariables(includeElement: DomElement) {
+  private static extractIncludeVariables(includeElement: MbNode) {
     const includeInlineVariables = VariableProcessor.extractIncludeInlineVariables(includeElement);
     const includeChildVariables = VariableProcessor.extractIncludeChildElementVariables(includeElement);
 
@@ -239,7 +237,7 @@ class VariableProcessor {
   renderIncludeFile(
     filePath: string,
     pageSources: PageSources,
-    node: DomElement,
+    node: MbNode,
     context: Context,
     asIfAt: string,
   ) {
@@ -264,5 +262,3 @@ class VariableProcessor {
     };
   }
 }
-
-export = VariableProcessor;

@@ -37,7 +37,7 @@ The sections below has more information about various stages of submitting a PR.
   Once done, see these screenshots for sample debugging configurations, and tweak them further to suit your needs.
   
   **1. Using the docs as a development environment**, with:
-  * the [lazy reload `-o`](https://markbind.org/userGuide/cliCommands.html#serve-command) option to speed up page building
+  * the <a tags="environment--combined" href="/userGuide/cliCommands.html#serve-command">lazy reload`-o`</a><a tags="environment--dg" href="https://markbind.org/userGuide/cliCommands.html#serve-command">lazy reload`-o`</a> option to speed up page building
   * the `-d` developer option. (see [below](#editing-frontend-features))
 
     {.mb-3}  
@@ -61,7 +61,7 @@ The sections below has more information about various stages of submitting a PR.
   In your `.vscode/launch.json` file, you may use these sample configurations as a baseline, and tweak them as you see fit.
   
   **1. Using the docs as a development environment**, with:
-  * the [lazy reload `-o`](https://markbind.org/userGuide/cliCommands.html#serve-command) option to speed up page building
+  * the <a tags="environment--combined" href="/userGuide/cliCommands.html#serve-command">lazy reload`-o`</a><a tags="environment--dg" href="https://markbind.org/userGuide/cliCommands.html#serve-command">lazy reload`-o`</a> option to speed up page building
   * the `-d` developer option. (see [below](#editing-frontend-features))
 
     {.mb-3}  
@@ -150,7 +150,7 @@ Hence, if you need to view the latest frontend changes (relating to `packages/co
    This adds the necessary webpack middlewares to the development server to compile the above bundles,
    and enables live and hot reloading for frontend source files.
 1. Run `npm run build:web` in the root directory, which builds the above bundles,
-   then run your markbind-cli [command](https://markbind.org/userGuide/cliCommands.html) of choice.
+   then run your markbind-cli <a tags="environment--combined" href="/userGuide/cliCommands.html">command</a><a tags="environment--dg" href="https://markbind.org/userGuide/cliCommands.html">command</a> of choice.
 
 <div id="workflow-testing">
 
@@ -158,7 +158,7 @@ Hence, if you need to view the latest frontend changes (relating to `packages/co
 
 Our test script does the following:
 
-1. Lints the code (`.js`, `.vue`) and stylesheets (`.css`) for any style errors using [ESLint](https://eslint.org/) and [StyleLint](https://stylelint.io/).
+1. Lints the code (`.ts`, `.js`, `.vue`) and stylesheets (`.css`) for any style errors using [ESLint](https://eslint.org/) and [StyleLint](https://stylelint.io/).
 1. Runs unit tests for all packages with [Jest](https://jestjs.io/).
 1. Builds the test sites whose directory names are listed in `packages/cli/test/functional/testSites.js`.
 1. For each test site, compares the HTML files generated with the HTML files in its `expected` directory.

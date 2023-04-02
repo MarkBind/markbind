@@ -24,7 +24,7 @@ interface PageEntry {
 }
 
 // hold the mapping of sourcePath to latest built pages (for hot-reload dev purposes)
-const pageEntries: { [pe: string]: PageEntry } = {};
+const pageEntries: Record<string, PageEntry> = {};
 
 /**
  * Compiles page into Vue Application to get the page render function and places

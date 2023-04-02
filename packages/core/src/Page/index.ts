@@ -6,7 +6,6 @@ import { html as htmlBeautify } from 'js-beautify';
 import cloneDeep from 'lodash/cloneDeep';
 import isObject from 'lodash/isObject';
 import isArray from 'lodash/isArray';
-import { DomElement } from 'htmlparser2';
 import { pageVueServerRenderer } from './PageVueServerRenderer';
 
 import CyclicReferenceError from '../errors/CyclicReferenceError';
@@ -18,6 +17,7 @@ import type { PageAssets, PageConfig } from './PageConfig';
 import type { SiteConfig } from '../Site/SiteConfig';
 import type { FrontMatter } from '../plugins/Plugin';
 import type { ExternalManager } from '../External/ExternalManager';
+import { MbNode } from '../utils/node';
 
 require('../patches/htmlparser2');
 
@@ -35,9 +35,6 @@ const TITLE_SUFFIX_SEPARATOR = ' - ';
 const PAGE_NAV_ID = 'mb-page-nav';
 const PAGE_NAV_TITLE_CLASS = 'page-nav-title';
 
-const SCROLL_TO_TOP_BUTTON_HTML = '<i class="fa fa-arrow-circle-up fa-lg d-print-none" '
-  + 'id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i>';
-
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities
 
 export class Page {
@@ -48,11 +45,10 @@ export class Page {
   asset!: PageAssets;
   pageUserScriptsAndStyles!: string[];
   frontmatter!: FrontMatter;
-  headerIdMap!: { [id: string]: number };
+  headerIdMap!: Record<string, number>;
   includedFiles!: Set<string>;
-  headings!: { [key: string]: string };
-  keywords!: { [key: string]: string[] };
-  title!: string;
+  headings!: Record<string, string>;
+  keywords!: Record<string, string[]>;
   navigableHeadings!: {
     [id: string]: {
       text: string,
@@ -60,6 +56,7 @@ export class Page {
     }
   };
 
+  title?: string;
   layout?: string;
 
   constructor(pageConfig: PageConfig, siteConfig: SiteConfig) {
@@ -120,7 +117,7 @@ export class Page {
      * This is initially set to the title specified in the site configuration,
      * if there is none, we look for one in the frontmatter(s) as well.
      */
-    this.title = this.pageConfig.title || '';
+    this.title = this.pageConfig.title;
 
     /*
      * Layouts related properties
@@ -212,12 +209,12 @@ export class Page {
 
   _collectNavigableHeadings($: cheerio.Root, context: cheerio.Element, pageNavSelector: string) {
     $(pageNavSelector, context).each((_i, cheerioElem: cheerio.Element) => {
-      const elem = cheerioElem as cheerio.Element & DomElement;
+      const elem = cheerioElem as MbNode;
       // Check if heading or panel is already inside an unexpanded panel
       let isInsideUnexpandedPanel = false;
       const panelParents = $(elem).parentsUntil(context).filter('panel').not(elem);
       panelParents.each((_j, elemParent) => {
-        if ((elemParent as DomElement).attribs?.expanded === undefined) {
+        if ((elemParent as MbNode).attribs.expanded === undefined) {
           isInsideUnexpandedPanel = true;
           return false;
         }
@@ -277,7 +274,7 @@ export class Page {
         }
       })
       .each((_index, cheerioPanel) => {
-        const panel = cheerioPanel as cheerio.Element & DomElement;
+        const panel = cheerioPanel as MbNode;
         const shouldExcludeHeadings = excludeHeadings || (panel.attribs?.expanded === undefined);
         let closestHeading = Page.getClosestHeading($, headingsSelector, panel);
         if (!closestHeading) {
@@ -371,7 +368,7 @@ export class Page {
       ...this.pageConfig.frontmatterOverride,
     };
 
-    this.title = this.title || this.frontmatter.title || '';
+    this.title = this.title || this.frontmatter.title;
     this.layout = this.layout || this.frontmatter.layout || LAYOUT_DEFAULT_NAME;
   }
 
@@ -501,7 +498,6 @@ export class Page {
     let content = variableProcessor.renderWithSiteVariables(this.pageConfig.sourcePath, pageSources);
     content = await nodeProcessor.process(this.pageConfig.sourcePath, content) as string;
     this.processFrontmatter(nodeProcessor.frontmatter);
-    content = Page.addScrollToTopButton(content);
     content = pluginManager.postRender(this.frontmatter, content);
     const pageContent = content;
 
@@ -561,10 +557,6 @@ export class Page {
       : renderedTemplate;
 
     await fs.outputFile(this.pageConfig.resultPath, outputTemplateHTML);
-  }
-
-  static addScrollToTopButton(pageData: string) {
-    return `${pageData}\n${SCROLL_TO_TOP_BUTTON_HTML}`;
   }
 
   /**

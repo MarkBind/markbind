@@ -66,7 +66,7 @@
       <button class="btn btn-secondary">Trigger should not have `algolia-no-index` class</button>
     </tooltip>
     <p><strong>Question hint and answer should have algolia-no-index class</strong></p>
-    <question>
+    <question type="checkbox">
       Question should not have `algolia-no-index` class
       <template #hint>
         <div class="algolia-no-index">Hint should have `algolia-no-index` class</div>
@@ -115,7 +115,8 @@
         Content<br>Content<br>Content<br>Content
       </tab>
     </tabs>
-    <i class="fa fa-arrow-circle-up fa-lg d-print-none" id="scroll-top-button" onclick="handleScrollTop()" aria-hidden="true"></i></p>
+    </p>
+    <scroll-top-button></scroll-top-button>
   </div>
 </body>
 <script src="/test_site_algolia_plugin/markbind/js/bootstrap-utility.min.js"></script>

@@ -3,7 +3,6 @@
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import vueCommonAppFactory from './VueCommonAppFactory';
-import initScrollTopButton from './scrollTopButton';
 import './styles/index.css';
 import './print';
 
@@ -16,11 +15,13 @@ function scrollToUrlAnchorHeading() {
     // remove leading hash to get element ID
     const headingElement = document.getElementById(window.location.hash.slice(1));
     if (headingElement) {
-      headingElement.scrollIntoView();
-      window.scrollBy(0, -document.body.style.paddingTop.replace('px', ''));
+      headingElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
     }
   }
 }
+
+// Scrolling only works correctly after the page is loaded
+window.onload = scrollToUrlAnchorHeading;
 
 function detectAndApplyHeaderStyles() {
   document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((heading) => {
@@ -163,7 +164,6 @@ function restoreStyleTags() {
 
 function executeAfterMountedRoutines() {
   restoreStyleTags();
-  scrollToUrlAnchorHeading();
   detectAndApplyHeaderStyles();
 }
 
@@ -176,7 +176,7 @@ window.handleSiteNavClick = function (elem, useAnchor = true) {
     }
   }
   const dropdownContent = elem.nextElementSibling;
-  const dropdownIcon = elem.lastElementChild;
+  const dropdownIcon = elem.lastElementChild.lastElementChild;
   dropdownContent.classList.toggle('site-nav-dropdown-container-open');
   dropdownIcon.classList.toggle('site-nav-rotate-icon');
 };
@@ -221,7 +221,5 @@ function setupWithSearch() {
    */
   vm.$mount('#app', true); // second parameter, 'true', enables force hydration
 }
-
-initScrollTopButton();
 
 export default { setup, setupWithSearch };

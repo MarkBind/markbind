@@ -42,7 +42,7 @@ The MarkBind project is developed in a <tooltip content="We follow a monorepo ap
 
   * Various libraries (contained in `lib`) and plugins (in `plugins`) are also stored here. Some external libraries have also been amended to suit MarkBind's purpose – see `patches`.
 
-* MarkBind's [templates](https://markbind.org/userGuide/templates.html), used in the `markbind init` command.
+* MarkBind's <a tags="environment--combined" href="/userGuide/templates.html">templates</a><a tags="environment--dg" href="https://markbind.org/userGuide/templates.html">templates</a>, used in the `markbind init` command.
 
 * Unit Tests (though there are more unit tests and functional tests in the cli library)
 

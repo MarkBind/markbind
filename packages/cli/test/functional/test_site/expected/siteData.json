@@ -81,7 +81,6 @@
     },
     {
       "src": "sub_site/index.md",
-      "title": "",
       "headings": {
         "feature-list": "Feature list"
       },
@@ -89,13 +88,11 @@
     },
     {
       "src": "sub_site/nested_sub_site/index.md",
-      "title": "",
       "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "test_md_fragment.md",
-      "title": "",
       "headings": {
         "some-heading": "Some heading"
       },
@@ -114,6 +111,36 @@
       "headingKeywords": {}
     },
     {
+      "src": "testEmptyAltFrontMatter.md",
+      "title": "Hello World",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testLayoutsOverrideWithAltFrontmatter.md",
+      "title": "Hello World",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testAltFrontMatterInvalidKeyValue.md",
+      "title": "Hello World",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testSingleAltFrontMatter.md",
+      "title": "Hello World",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testAltFrontMatterParsing.md",
+      "title": "new title",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
       "src": "testExternalScripts.md",
       "title": "Hello World",
       "headings": {},
@@ -121,6 +148,12 @@
     },
     {
       "src": "testLayouts.md",
+      "title": "Test nunjucks path resolving",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testLayoutsWithAltFrontMatter.md",
       "title": "Test nunjucks path resolving",
       "headings": {},
       "headingKeywords": {}
@@ -372,6 +405,14 @@
       "headings": {
         "h1": "H1",
         "h2": "H2"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "testWeb3FormPlugin.md",
+      "title": "web 3 forms",
+      "headings": {
+        "i-am-a-header": "🚀 I am a header"
       },
       "headingKeywords": {}
     }

@@ -1,128 +1,77 @@
 <frontmatter>
-  title: Landing Page
+  title: Home Page
   layout: default.md
-  pageNav: 2
-  pageNavTitle: "Chapters of This Page"
+  pageNav: 4
+  pageNavTitle: "Topics"
 </frontmatter>
 
 <br>
 
-<div class="bg-primary text-white py-5 mb-4">
+<div class="bg-primary text-white px-2 py-5 mb-4">
   <div class="container">
-    <h1 class="display-4 no-index">Landing Page Title</h1>
-    <p class="lead">A tagline can go here</p>
+    <h1 class="display-5 no-index">Great!<br>You've just initialized a MarkBind site.</h1>
+    <p class="lead">Let's get started...</p>
   </div>
 </div>
 
-# Heading 1
-Some text some text some text some text some text some text some text. **Some text some text some text some text some text ==some text== some text**. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
+---
 
-**A block quote:**
+## What just happened?
 
-> Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
+You have just initialized a _default_ MarkBind site! It is equipped with a set of core features, including site and page navigation. Additionally, we have included some convenient links to our User Guide, to help you get started quickly and easily.
 
-**A list:**
+<box type="tip">
 
-* item A
-* item B
-  1. item b1
-  1. item b2
-  1. item b3
+If you were intending to convert an existing GitHub wiki or a docs folder into MarkBind, use the `--convert` flag instead. See <a href="https://markbind.org/userGuide/markBindInTheProjectWorkflow.html#converting-existing-project-documentation-wiki" target="_blank">User Guide: MarkBind in the Project Workflow</a> for more information.
 
-**A `code` example:**
+If you want to start with a <tooltip content="i.e. without any content">_minimal_</tooltip> template instead, use the `--template` flag with the "minimal" option to initialize a minimal site instead of the default. See <a href="https://markbind.org/userGuide/templates.html" target="_blank">User Guide: Templates</a> for more information.
 
-```html
-<foo>
-  <bar type="name">goo</bar>
-</foo>
-```
-
-## Sub Heading 1.1
-
-A <tooltip content=":exclamation: some **important explanation**" placement="top" trigger="hover">tooltip</tooltip>, a <trigger for="modal:modalinfo" trigger="click">modal</trigger>, a <a href="https://markbind.org/">link</a>, a <span class="badge bg-danger">badge</span>, another <span class="badge bg-warning text-dark">badge</span>.
-
-<modal header="Modal Title" id="modal:modalinfo">
-Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
-</modal>
-
-**A table:**
-
-Column 1 | Column 2 | Column 3 | :far-thumbs-up: / :far-thumbs-down:?
-:------: | :------: | :------: | ----
-value1   | x        | 5        | :far-thumbs-up:
-value2   | y        | 20       | :far-thumbs-down:
-
-
-## Sub Heading 1.2
-
-**Media embeds:**
-
-@[youtube](http://www.youtube.com/watch?v=v40b3ExbM0c)
-
-**Tabs:**
-
-<tabs>
-  <tab header="Tab X">
-    Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
-  </tab>
-  <tab header="Tab Y">
-    ...
-  </tab>
-  <tab-group header="Tab group">
-    <tab header="Tab Y.1">
-      ...
-    </tab>
-    <tab header="Tab Y.2">
-      ...
-    </tab>
-  </tab-group>
-</tabs>
-
-<br>
-
-# Heading 2
-
-**Some boxes:**
-
-<box>
-    default
 </box>
+
+---
+
+## Navigating this site
+
+This _default_ site comes pre-configured with the core <a href="https://markbind.org/userGuide/components/navigation.html#navigation-components" target="_blank">Navigation components</a>: a <tooltip content="Site Navigation">**siteNav**</tooltip>, a <tooltip content="Page Navigation">**pageNav**</tooltip>, a <tooltip content="Navigation Bar">**NavBar**</tooltip>, and a **Search Bar**. To help you get started with the **siteNav**, we have included <tooltip content="Topic 1, Topic 2, Topic 3, Topic 3a, Topic 3b">five dummy placeholder pages</tooltip>. The **NavBar** also comes with a placeholder slot for your custom Logo.
+
+---
+
+## Guide to MarkBind
+
+To see the capability of MarkBind in action, feel free to take a look at some of the websites built using MarkBind on our <a href="https://markbind.org/showcase.html" target="_blank">Showcase</a> page. 
+
+For more information on how to work with MarkBind sites and to add content, refer to our comprehensive <a href="https://markbind.org/userGuide/gettingStarted.html" target="_blank">User Guide</a>. 
+
 <box type="info">
-    info
-</box>
-<box type="warning" dismissible>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-</box>
-<box type="tip" header="Box heading">
-    tip
-</box>
-<box type="success" header="Box heading">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-</box>
-<box type="important" dismissible header="Box heading">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+If you are interested in contributing to MarkBind, you can refer to our <a href="https://markbind.org/devdocs/devGuide/devGuide.html" target="_blank">Developer Guide</a> as well!
+
 </box>
 
-<br>
+<panel header="**Good starting points in our User Guide**" expanded no-close>
 
-# Heading 3
+##### **User Guide: Authoring Contents**
 
-<panel header="Expandable panel" type="info">
-  Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
-</panel>
-<br>
-<panel header="Expanded panel" alt="Minimized panel" type="success" minimized>
-  ...
-</panel>
-<br>
-<panel header="Expanded panel" alt="Minimized panel" type="seamless">
-  ...
-</panel>
-<br>
+> Learn about the variety of syntax schemes, formats, and custom MarkBind components that you can use in your MarkBind site.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-<panel header="___Minimal panel **->**___" type="minimal" alt="Minimal panel" popup-url="https://markbind.org/userGuide/components/presentation.html#panels" no-switch>
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+More info in: _<a href="https://markbind.org/userGuide/authoringContents.html" target="_blank">User Guide → Authoring Contents</a>_
+
+---
+
+##### **User Guide: Working with Sites**
+
+> Learn how to modify site properties, apply themes, and enable/disable plugins for your MarkBind site.
+
+More info in: _<a href="https://markbind.org/userGuide/workingWithSites.html" target="_blank">User Guide → Working with Sites</a>_
+
+---
+
+##### **User Guide: Full Syntax Reference**
+
+> Refer to our Full Syntax Reference page to find a specific feature or component that you want to use in your MarkBind site.
+
+More info in: _<a href="https://markbind.org/userGuide/fullSyntaxReference.html" target="_blank">User Guide → Full Syntax Reference</a>_
+
 </panel>
 
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+---

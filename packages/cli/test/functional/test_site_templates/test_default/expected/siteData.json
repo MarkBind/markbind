@@ -18,30 +18,34 @@
     {
       "src": "contents/topic2.md",
       "title": "Topic 2",
-      "headings": {},
+      "headings": {
+        "topic-2": "Topic 2"
+      },
       "headingKeywords": {}
     },
     {
       "src": "contents/topic3a.md",
       "title": "Topic 3a",
-      "headings": {},
+      "headings": {
+        "topic-3a": "Topic 3a"
+      },
       "headingKeywords": {}
     },
     {
       "src": "contents/topic3b.md",
       "title": "Topic 3b",
-      "headings": {},
+      "headings": {
+        "topic-3b": "Topic 3b"
+      },
       "headingKeywords": {}
     },
     {
       "src": "index.md",
-      "title": "Landing Page",
+      "title": "Home Page",
       "headings": {
-        "heading-1": "Heading 1",
-        "sub-heading-1-1": "Sub Heading 1.1",
-        "sub-heading-1-2": "Sub Heading 1.2",
-        "heading-2": "Heading 2",
-        "heading-3": "Heading 3"
+        "what-just-happened": "What just happened?",
+        "navigating-this-site": "Navigating this site",
+        "guide-to-markbind": "Guide to MarkBind"
       },
       "headingKeywords": {}
     }

@@ -7,8 +7,8 @@
     </div>
     <div class="nav-component slim-scroll">
       <site-nav>
-* [**Getting Started**]({{baseUrl}}/userGuide/gettingStarted.html)
-* **Authoring Contents** :expanded:
+* [Getting Started]({{baseUrl}}/userGuide/gettingStarted.html)
+* Authoring Contents :expanded:
   * [Overview]({{baseUrl}}/userGuide/authoringContents.html)
   * [Adding Pages]({{baseUrl}}/userGuide/addingPages.html)
   * [MarkBind Syntax Overview]({{baseUrl}}/userGuide/markBindSyntaxOverview.html)
@@ -23,7 +23,7 @@
   * [Using HTML, JavaScript, CSS]({{baseUrl}}/userGuide/usingHtmlJavaScriptCss.html)
   * [Tweaking the Page Structure]({{baseUrl}}/userGuide/tweakingThePageStructure.html)
   * [Reusing Contents]({{baseUrl}}/userGuide/reusingContents.html)
-* **Working with Sites** :expanded:
+* Working with Sites :expanded:
   * [Overview]({{baseUrl}}/userGuide/workingWithSites.html)
   * [Setting Site Properties]({{baseUrl}}/userGuide/settingSiteProperties.html)
   * [Using Plugins]({{baseUrl}}/userGuide/usingPlugins.html)
@@ -33,7 +33,7 @@
   * [MarkBind in the Project Workflow]({{baseUrl}}/userGuide/markBindInTheProjectWorkflow.html)
   * [Redirecting to a Custom 404 Page]({{baseUrl}}/userGuide/redirectingToACustom404Page.html)
   * [Adding Navigation Buttons]({{baseUrl}}/userGuide/addingNavigationButtons.html)
-* **References** :expanded:
+* References :expanded:
   * [CLI Commands]({{baseUrl}}/userGuide/cliCommands.html)
   * [Reader-Facing Features]({{baseUrl}}/userGuide/readerFacingFeatures.html)
   * [Full Syntax Reference]({{baseUrl}}/userGuide/fullSyntaxReference.html)
@@ -47,6 +47,7 @@
     </div>
   </nav>
   <div id="content-wrapper">
+    <breadcrumb />
     {{ content }}
   </div>
   <nav id="page-nav">
@@ -54,6 +55,7 @@
       <page-nav />
     </div>
   </nav>
+  <scroll-top-button></scroll-top-button>
 </div>
 
 <include src="footers/footer.md" />

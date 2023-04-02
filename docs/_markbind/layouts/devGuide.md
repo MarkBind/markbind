@@ -35,6 +35,7 @@
     </div>
   </nav>
   <div id="content-wrapper">
+    <breadcrumb />
     {{ content }}
   </div>
   <nav id="page-nav">
@@ -42,6 +43,7 @@
       <page-nav />
     </div>
   </nav>
+  <scroll-top-button></scroll-top-button>
 </div>
 
 <include src="footers/footer.md" />

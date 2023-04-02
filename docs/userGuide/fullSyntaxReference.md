@@ -3,6 +3,8 @@
   layout: userGuide.md
 </frontmatter>
 
+<include src="components/advanced.md#slots-info" />
+
 # Full Syntax Reference
 
 {% set syntax_topics = {
@@ -33,6 +35,7 @@
 
   badges : ['Badges', ['presentation', 'reader-facing']],
   boxes : ['Boxes', ['presentation', 'reader-facing']],
+  breadcrumbs : ['Breadcrumbs', ['navigation', 'reader-facing']],
   panels : ['Panels', ['presentation', 'reader-facing']],
   tabs : ['Tabs', ['presentation', 'reader-facing']],
   pictures : ['Pictures', ['images-diagrams', 'reader-facing']],
@@ -48,6 +51,7 @@
   navBars : ['Nav Bars', ['navigation', 'reader-facing']],
   siteNavigationMenus : ['Site Navigation Menus', ['navigation', 'reader-facing']],
   pageNavigationMenus : ['Page Navigation Menus', ['navigation', 'reader-facing']],
+  scrollTopButton : ['Scroll To Top Button', ['navigation', 'reader-facing']],
   questions : ['Questions and Quizzes', ['others', 'reader-facing']]
 } %}
 

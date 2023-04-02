@@ -1,9 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
-import { DomElement } from 'htmlparser2';
 import cheerio from 'cheerio';
+import {
+  MbNode, NodeOrText, parseHTML, TextElement,
+} from '../utils/node';
+import md from '../lib/markdown-it';
 
 require('../patches/htmlparser2');
-const md = require('../lib/markdown-it');
 
 const SITE_NAV_ID = 'site-nav';
 const SITE_NAV_EMPTY_LINE_REGEX = /\r?\n\s*\r?\n/g;
@@ -16,14 +18,16 @@ const SITE_NAV_DEFAULT_LIST_ITEM_CLASS = 'site-nav-default-list-item';
 const SITE_NAV_CUSTOM_LIST_ITEM_CLASS = 'site-nav-custom-list-item';
 
 const SITE_NAV_DROPDOWN_EXPAND_KEYWORD_REGEX = /:expanded:/g;
-const SITE_NAV_DROPDOWN_ICON_HTML = '<i class="site-nav-dropdown-btn-icon" '
-  + 'onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">\n'
+const SITE_NAV_DROPDOWN_ICON_HTML = '<div class="site-nav-dropdown-btn-container">'
+  + '<i class="site-nav-dropdown-btn-icon" '
+  + 'onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">\n'
   + '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>\n'
-  + '</i>';
-const SITE_NAV_DROPDOWN_ICON_ROTATED_HTML = '<i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" '
-  + 'onclick="handleSiteNavClick(this.parentNode, false); event.stopPropagation();">\n'
+  + '</i></div>';
+const SITE_NAV_DROPDOWN_ICON_ROTATED_HTML = '<div class="site-nav-dropdown-btn-container">'
+  + '<i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" '
+  + 'onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">\n'
   + '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>\n'
-  + '</i>';
+  + '</i></div>';
 
 /**
  * Replaces and stores a uuid identifier to the only page-nav element, if there is one.
@@ -36,21 +40,18 @@ const SITE_NAV_DROPDOWN_ICON_ROTATED_HTML = '<i class="site-nav-dropdown-btn-ico
  * otherwise it is replaced with one until it is unique.
  */
 export class PageNavProcessor {
-  uuidTextNode: DomElement | undefined;
-  constructor() {
-    this.uuidTextNode = undefined;
-  }
+  uuidTextNode?: TextElement;
 
   getUuid() {
     return (this.uuidTextNode && this.uuidTextNode.data) || '';
   }
 
-  renderPageNav(node: DomElement) {
-    [this.uuidTextNode] = cheerio.parseHTML(uuidv4()) as unknown as [DomElement];
-    cheerio(node).replaceWith(this.uuidTextNode as unknown as cheerio.Element);
+  renderPageNav(node: MbNode) {
+    [this.uuidTextNode] = parseHTML(uuidv4());
+    cheerio(node).replaceWith(this.uuidTextNode as cheerio.Element);
   }
 
-  finalizePageNavUuid(mainHtml: string | null, mainHtmlNodes: DomElement[], footnotesHtml: string) {
+  finalizePageNavUuid(mainHtml: string | null, mainHtmlNodes: NodeOrText[], footnotesHtml: string) {
     if (!this.uuidTextNode) {
       return mainHtml;
     }
@@ -72,15 +73,14 @@ export class PageNavProcessor {
     return mainHtmlString;
   }
 
-  static transformPrintContainer(node: DomElement) {
-    node.attribs = node.attribs ?? {};
+  static transformPrintContainer(node: MbNode) {
     node.attribs.class = 'page-nav-print d-none d-print-block';
     node.attribs['v-pre'] = '';
     node.name = 'div';
   }
 }
 
-export function renderSiteNav(node: DomElement) {
+export function renderSiteNav(node: MbNode) {
   const $original = cheerio(node);
   const siteNavText = $original.text().trim();
   if (siteNavText === '') {
@@ -91,7 +91,7 @@ export function renderSiteNav(node: DomElement) {
   const siteNavHtml = md.render(siteNavText.replace(SITE_NAV_EMPTY_LINE_REGEX, '\n'));
   const $ = cheerio.load(siteNavHtml);
 
-  $('ul').each((i1, ulElem) => {
+  $('ul').each((_i1, ulElem) => {
     const nestingLevel = $(ulElem).parents('ul').length;
     $(ulElem).addClass(SITE_NAV_LIST_CLASS);
     if (nestingLevel === 0) {
@@ -102,7 +102,7 @@ export function renderSiteNav(node: DomElement) {
     const defaultListItemClass = `${SITE_NAV_DEFAULT_LIST_ITEM_CLASS} ${listItemLevelClass}`;
     const customListItemClasses = `${SITE_NAV_CUSTOM_LIST_ITEM_CLASS} ${listItemLevelClass}`;
 
-    $(ulElem).children('li').each((i2, liElem) => {
+    $(ulElem).children('li').each((_i2, liElem) => {
       const nestedLists = $(liElem).children('ul');
       const nestedAnchors = $(liElem).children('a');
       if (nestedLists.length === 0 && nestedAnchors.length === 0) {
@@ -138,11 +138,8 @@ export function renderSiteNav(node: DomElement) {
   $original.append($.root());
 }
 
-function addOverlayPortalSource(node: DomElement, to: string) {
-  node.attribs = node.attribs ?? {};
-  if (node.name) {
-    node.attribs['tag-name'] = node.name;
-  }
+function addOverlayPortalSource(node: MbNode, to: string) {
+  node.attribs['tag-name'] = node.name;
   node.attribs.to = to;
   node.name = 'overlay-source';
 }
@@ -151,11 +148,7 @@ function addOverlayPortalSource(node: DomElement, to: string) {
  * Wrap id="site/page-nav", and the <site-nav> component with a <nav-portal> vue component.
  * This component portals said element into the mobile navbar menus as needed.
  */
-export function addSitePageNavPortal(node: DomElement) {
-  if (!node.attribs) {
-    return;
-  }
-
+export function addSitePageNavPortal(node: MbNode) {
   if (node.attribs.id === SITE_NAV_ID || node.attribs.id === 'page-nav') {
     addOverlayPortalSource(node, node.attribs.id);
   } else if (node.attribs['mb-site-nav']) {

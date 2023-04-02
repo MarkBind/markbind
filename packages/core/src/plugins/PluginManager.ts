@@ -1,6 +1,5 @@
 import merge from 'lodash/merge';
 
-import { DomElement } from 'htmlparser2';
 import path from 'path';
 import fs from 'fs-extra';
 import walkSync from 'walk-sync';
@@ -14,6 +13,7 @@ import {
 } from './Plugin';
 import type { NodeProcessorConfig } from '../html/NodeProcessor';
 import type { PageAssets } from '../Page/PageConfig';
+import { NodeOrText } from '../utils/node';
 
 const { ignoreTags } = require('../patches');
 
@@ -31,13 +31,13 @@ const MARKBIND_PLUGIN_PREFIX = 'markbind-plugin-';
 const PROJECT_PLUGIN_FOLDER_NAME = '_markbind/plugins';
 
 export class PluginManager {
-  static tagConfig: { [key: string]: TagConfigs };
+  static tagConfig: Record<string, TagConfigs>;
 
   config: NodeProcessorConfig;
-  plugins: { [key: string]: Plugin };
+  plugins: Record<string, Plugin>;
   pluginsRaw: string[];
   pluginsContextRaw: PluginContext;
-  htmlBeautifyOptions: { [key: string]: any };
+  htmlBeautifyOptions: Record<string, any>;
 
   constructor(config: NodeProcessorConfig, plugins: string[], pluginsContext: PluginContext) {
     this.config = config;
@@ -205,13 +205,13 @@ export class PluginManager {
       .reduce((renderedContent, plugin) => plugin.postRender(frontmatter, renderedContent), content);
   }
 
-  processNode(node: DomElement) {
+  processNode(node: NodeOrText) {
     Object.values(this.plugins).forEach((plugin) => {
       plugin.processNode(node, this.config);
     });
   }
 
-  postProcessNode(node: DomElement) {
+  postProcessNode(node: NodeOrText) {
     Object.values(this.plugins).forEach((plugin) => {
       plugin.postProcessNode(node, this.config);
     });
