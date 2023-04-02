@@ -10,15 +10,17 @@
 <variable name="heading">Collapse Expand Buttons at Bottom</variable>
 <variable name="code">
 <nav id="site-nav">
-<site-nav>
-* [**Getting Started**]({{baseUrl}}/userGuide/gettingStarted.html)
-* **Authoring Contents** :expanded:
+  <div class="nav-component slim-scroll">
+    <site-nav>
+* [Getting Started]({{baseUrl}}/userGuide/gettingStarted.html)
+* Authoring Contents :expanded:
   * [Overview]({{baseUrl}}/userGuide/authoringContents.html)
   * [Adding Pages]({{baseUrl}}/userGuide/addingPages.html)
   * [MarkBind Syntax Overview]({{baseUrl}}/userGuide/markBindSyntaxOverview.html)
   * [Formatting Contents]({{baseUrl}}/userGuide/formattingContents.html)
   * [Using Components]({{baseUrl}}/userGuide/usingComponents.html)
-</site-nav>
+    </site-nav>
+  </div>
 <collapse-expand-buttons />
 </nav>
 </variable>
