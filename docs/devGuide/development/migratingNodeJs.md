@@ -11,7 +11,7 @@
 
 <div class="lead">
 
-Node.js versions have to upgraded periodically before the version being used reaches its' [end of life](https://endoflife.date/nodejs).
+Node.js versions have to upgraded periodically before the version being used reaches its [end of life](https://endoflife.date/nodejs).
 This page outlines the steps of migrating to a higher version of Node.js
 </div>
 
@@ -63,11 +63,11 @@ Install correct version of npm in `action.yml` and `fork-build.yml`. Refer to [U
      - Follow steps in [Deploying to Netlify]({{baseUrl}}/userGuide/deployingTheSite.html#deploying-to-netlify) but change the `NODE_VERSION` value accordingly. Check there are no issues with deployment and deployed site is as expected.
      - Markbind has two repos [init-minimal-netlify](https://github.com/MarkBind/init-minimal-netlify) and [init-typical-netlify](https://github.com/MarkBind/init-typical-netlify) which allows deployment to Netlify by using a config file. 
      Update the config file `netlify.toml` with the correct node version and check that deployment using button in `README` works as expected.
-<box type="info" seamless header="If a different npm version is needed"> 
-
-To specify the npm version add an environment variable `NPM_VERSION` with the correct version number. 
-</box>
-
+     
+    <box type="info" seamless header="If a different npm version is needed">
+    To specify the npm version add an environment variable `NPM_VERSION` with the correct version number. 
+    </box>
+   
    - Deployment to Github pages
       - Using the `markbind deploy command`
         - Build site using correct Node.js version 
@@ -88,7 +88,7 @@ Install the correct npm version before running npm commands.
 
 <box type="tip" seamless>
 
-Don't forget to update the version numbers in the example config files in [Deploying the Site]({{baseUrl}}/userGuide/deployingTheSite.html)
+Don't forget to update the version numbers in the example config files in [Deploying the Site]({{baseUrl}}/userGuide/deployingTheSite.html)!
 </box>
 
 
