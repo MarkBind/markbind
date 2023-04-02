@@ -63,6 +63,9 @@ More info in: _<a href="https://markbind.org/userGuide/authoringContents.html" t
 > Learn how to modify site properties, apply themes, and enable/disable plugins for your MarkBind site.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 67b37cb854ab71394c62a7201214972e35f8dfe4
 More info in: _<a href="https://markbind.org/userGuide/workingWithSites.html" target="_blank">User Guide → Working with Sites</a>_
 
 ---
@@ -72,6 +75,7 @@ More info in: _<a href="https://markbind.org/userGuide/workingWithSites.html" ta
 > Refer to our Full Syntax Reference page to find a specific feature or component that you want to use in your MarkBind site.
 
 More info in: _<a href="https://markbind.org/userGuide/fullSyntaxReference.html" target="_blank">User Guide → Full Syntax Reference</a>_
+<<<<<<< HEAD
 =======
 <panel header="Expandable panel" type="info">
   Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text. Some text some text some text some text some text some text some text some text some text some text some text some text some text some text. Some text some text some text some text some text some text. Some text some text some text some text some text some text some text.
@@ -100,6 +104,8 @@ More info in: _<a href="https://markbind.org/userGuide/fullSyntaxReference.html"
 </panel>
 <br>
 >>>>>>> aa1fdbbc852b4b0e7f05ef1f7d228d026a5d7adb
+=======
+>>>>>>> 67b37cb854ab71394c62a7201214972e35f8dfe4
 
 </panel>
 
