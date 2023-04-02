@@ -61,6 +61,35 @@ const SiteNavDropdownCollapsed = {
   `,
 };
 
+const SiteNavDropdownBoth = {
+  template: `
+  ${SITENAV_START}
+  <li>
+  <div class="site-nav-default-list-item">
+  Expanded Dropdown
+  <div class="site-nav-dropdown-btn-container">
+  <i class="site-nav-dropdown-btn-icon site-nav-rotate-icon"></i>
+  </div>
+  </div>
+  <ul class="site-nav-dropdown-container site-nav-list site-nav-dropdown-container-open">
+  ${SITENAV_LINK}
+  </ul>
+  </li>
+  <li>
+  <div class="site-nav-default-list-item">
+  Collapsed Dropdown
+  <div class="site-nav-dropdown-btn-container">
+  <i class="site-nav-dropdown-btn-icon"></i>
+  </div>
+  </div>
+  <ul class="site-nav-dropdown-container site-nav-list">
+  ${SITENAV_LINK}
+  </ul>
+  </li>
+  ${SITENAV_END}
+  `,
+};
+
 describe('CollapseExpandButtons', () => {
   test('collapse expanded sitenav', async () => {
     const sitenav = mount(SiteNavDropdownExpanded, {
@@ -69,7 +98,7 @@ describe('CollapseExpandButtons', () => {
     const wrapper = mount(CollapseExpandButtons, {
       attachTo: document.body,
     });
-    await wrapper.findComponent('div.collapse-expand-collapse-button').trigger('click');
+    await wrapper.findComponent('div.collapse-all-button').trigger('click');
 
     expect(sitenav.element).toMatchSnapshot();
     sitenav.destroy();
@@ -83,7 +112,7 @@ describe('CollapseExpandButtons', () => {
     const wrapper = mount(CollapseExpandButtons, {
       attachTo: document.body,
     });
-    await wrapper.findComponent('div.collapse-expand-expand-button').trigger('click');
+    await wrapper.findComponent('div.expand-all-button').trigger('click');
 
     expect(sitenav.element).toMatchSnapshot();
     sitenav.destroy();
@@ -97,7 +126,7 @@ describe('CollapseExpandButtons', () => {
     const wrapper = mount(CollapseExpandButtons, {
       attachTo: document.body,
     });
-    await wrapper.findComponent('div.collapse-expand-expand-button').trigger('click');
+    await wrapper.findComponent('div.expand-all-button').trigger('click');
 
     expect(sitenav.element).toMatchSnapshot();
     sitenav.destroy();
@@ -111,7 +140,35 @@ describe('CollapseExpandButtons', () => {
     const wrapper = mount(CollapseExpandButtons, {
       attachTo: document.body,
     });
-    await wrapper.findComponent('div.collapse-expand-collapse-button').trigger('click');
+    await wrapper.findComponent('div.collapse-all-button').trigger('click');
+
+    expect(sitenav.element).toMatchSnapshot();
+    sitenav.destroy();
+    wrapper.destroy();
+  });
+
+  test('expand both sitenav', async () => {
+    const sitenav = mount(SiteNavDropdownBoth, {
+      attachTo: document.body,
+    });
+    const wrapper = mount(CollapseExpandButtons, {
+      attachTo: document.body,
+    });
+    await wrapper.findComponent('div.expand-all-button').trigger('click');
+
+    expect(sitenav.element).toMatchSnapshot();
+    sitenav.destroy();
+    wrapper.destroy();
+  });
+
+  test('collapse both sitenav', async () => {
+    const sitenav = mount(SiteNavDropdownBoth, {
+      attachTo: document.body,
+    });
+    const wrapper = mount(CollapseExpandButtons, {
+      attachTo: document.body,
+    });
+    await wrapper.findComponent('div.collapse-all-button').trigger('click');
 
     expect(sitenav.element).toMatchSnapshot();
     sitenav.destroy();

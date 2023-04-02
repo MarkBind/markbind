@@ -1,16 +1,16 @@
 <template>
   <div class="button-container">
     <div
-      class="collapse-expand-expand-button"
+      class="expand-all-button"
       @click="expandAll()"
     >
-      <i :class="['fas fa-caret-down fa-2x']"></i>
+      <i :class="['fas fa-bars']"></i>
     </div>
     <div
-      class="collapse-expand-collapse-button"
+      class="collapse-all-button"
       @click="collapseAll()"
     >
-      <i :class="['fas fa-caret-up fa-2x']"></i>
+      <i :class="['far fa-window-minimize']"></i>
     </div>
   </div>
 </template>
@@ -19,48 +19,45 @@
 export default {
   name: 'CollapseExpandButtons',
   methods: {
+    applyAllDropdown(el, sitenavEl, toExpand) {
+      let currentEl = el.parentElement;
+      while (currentEl && currentEl !== sitenavEl.parentElement) {
+        if (currentEl.tagName.toLowerCase() === 'ul'
+                && currentEl.classList.contains('site-nav-dropdown-container')) {
+          if (toExpand) {
+            currentEl.classList.add('site-nav-dropdown-container-open');
+          } else {
+            currentEl.classList.remove('site-nav-dropdown-container-open');
+          }
+        }
+
+        if (currentEl.tagName.toLowerCase() === 'div'
+            && currentEl.querySelector('i')) {
+          currentEl.querySelectorAll('i').forEach((e) => {
+            if (e.classList.contains('site-nav-dropdown-btn-icon')) {
+              if (toExpand) {
+                e.classList.add('site-nav-rotate-icon');
+              } else {
+                e.classList.remove('site-nav-rotate-icon');
+              }
+            }
+          });
+        }
+        currentEl = currentEl.parentElement;
+      }
+    },
     expandAll() {
       const sitenavEl = document.querySelector('.site-nav-root').parentElement;
 
       sitenavEl.querySelectorAll('a[href]').forEach((el) => {
-        let currentEl = el.parentElement;
-        while (currentEl && currentEl !== sitenavEl.parentElement) {
-          if (currentEl.tagName.toLowerCase() === 'ul'
-              && currentEl.classList.contains('site-nav-dropdown-container')) {
-            currentEl.classList.add('site-nav-dropdown-container-open');
-          }
-          if (currentEl.tagName.toLowerCase() === 'div'
-              && currentEl.querySelector('i')) {
-            currentEl.querySelectorAll('i').forEach((e) => {
-              if (e.classList.contains('site-nav-dropdown-btn-icon')) {
-                e.classList.add('site-nav-rotate-icon');
-              }
-            });
-          }
-          currentEl = currentEl.parentElement;
-        }
+        this.applyAllDropdown(el, sitenavEl, true);
       });
     },
     collapseAll() {
       const sitenavEl = document.querySelector('.site-nav-root').parentElement;
 
       sitenavEl.querySelectorAll('a[href]').forEach((el) => {
-        let currentEl = el.parentElement;
-        while (currentEl && currentEl !== sitenavEl.parentElement) {
-          if (currentEl.tagName.toLowerCase() === 'ul'
-              && currentEl.classList.contains('site-nav-dropdown-container')) {
-            currentEl.classList.remove('site-nav-dropdown-container-open');
-          }
-          if (currentEl.tagName.toLowerCase() === 'div'
-              && currentEl.querySelector('i')) {
-            currentEl.querySelectorAll('i').forEach((e) => {
-              if (e.classList.contains('site-nav-dropdown-btn-icon')) {
-                e.classList.remove('site-nav-rotate-icon');
-              }
-            });
-          }
-          currentEl = currentEl.parentElement;
-        }
+        this.applyAllDropdown(el, sitenavEl, false);
       });
     },
   },
@@ -74,14 +71,14 @@ export default {
         padding: 0.75rem 0 0 0;
     }
 
-    .collapse-expand-collapse-button,
-    .collapse-expand-expand-button {
+    .collapse-all-button,
+    .expand-all-button {
         opacity: 0.4;
         transition: opacity 0.25s ease-in-out;
     }
 
-    .collapse-expand-collapse-button:hover,
-    .collapse-expand-expand-button:hover {
+    .collapse-all-button:hover,
+    .expand-all-button:hover {
         cursor: pointer;
         opacity: 0.7;
         transition: opacity 0.25s ease-in-out;

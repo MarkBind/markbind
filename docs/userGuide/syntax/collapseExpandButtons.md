@@ -8,6 +8,7 @@
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="heading">Collapse Expand Buttons at Bottom</variable>
+<variable name="highlightStyle">html</variable>
 <variable name="code">
 <nav id="site-nav">
   <div class="nav-component slim-scroll">
