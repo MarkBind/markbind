@@ -61,6 +61,62 @@ The `<include>` mechanism can be used inside any MarkBind source file (even insi
 </span>
 </include>
 
+<panel header="Markdown not rendered when including a variable">
+
+When trying to include a variable, markdown is not rendered.
+
+To fix this, either replace the markdown with html tags if possible or replace the `include` with the fragment.
+
+{{ icon_example }}
+
+<box>
+
+Include fragment in file "index.md":
+```html 
+<variable id="fragment-id">
+  
+  ### I am a header
+</variable>
+```
+
+Code that uses include fragment:
+```html
+<include src="index.md#fragment-id" />
+```
+
+The markdown will not render correctly and instead will appear as text '### I am a header'.
+</box>
+
+To fix this, either replace the markdown with html tags if possible or replace the `include` with the fragment.
+
+{{ icon_example }} Replacing markdown with html tags:
+
+<box>
+
+Include fragment in file "index.md":
+```html 
+<variable id="fragment-id">
+  <h3>I am a header<h3>
+</variable>
+```
+
+Code that uses include fragment:
+```html
+<include src="index.md#fragment-id" />
+```
+</box>
+
+{{ icon_example }} Replacing the `include` with the fragment:
+
+<box>
+Code that is supposed to use include fragment:
+
+```html
+### I am a header
+```
+</box>
+</panel>
+
 **Attributes:**
 * **`src`**: specify the source file path.
 * **`inline`** (optional): make the included result an inline element. (wrapped in `<span>` tag). e.g.,
