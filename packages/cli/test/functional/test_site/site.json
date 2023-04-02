@@ -16,9 +16,16 @@
       }
     },
     {
-      "src": ["testEmptyFrontmatter.md", "testLayoutsOverride.md"],
+      "src": ["testEmptyFrontmatter.md", "testLayoutsOverride.md", "testEmptyAltFrontMatter.md", "testLayoutsOverrideWithAltFrontmatter.md"],
       "title": "Hello World",
       "layout": "testLayout.md"
+    },
+    {
+      "src": ["testAltFrontMatterInvalidKeyValue.md", "testSingleAltFrontMatter.md"],
+      "title": "Hello World"
+    },
+    {
+      "src": ["testAltFrontMatterParsing.md"]
     },
     {
       "src": "testExternalScripts.md",
@@ -29,7 +36,7 @@
       ]
     },
     {
-      "src": "testLayouts.md",
+      "src": ["testLayouts.md", "testLayoutsWithAltFrontMatter.md"],
       "title": "Test nunjucks path resolving"
     },
     {
