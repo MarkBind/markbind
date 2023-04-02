@@ -43,8 +43,6 @@
       "src": "index.md",
       "title": "Home Page",
       "headings": {
-        "head-head": "&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD\n&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD",
-        "more-info-in-user-guide-full-syntax-reference-head": "More info in: User Guide → Full Syntax Reference\n&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD",
         "what-just-happened": "What just happened?",
         "navigating-this-site": "Navigating this site",
         "guide-to-markbind": "Guide to MarkBind"
