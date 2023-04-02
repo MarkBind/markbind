@@ -24,16 +24,12 @@ function scrollToUrlAnchorHeading() {
 window.onload = scrollToUrlAnchorHeading;
 
 function detectAndApplyHeaderStyles() {
-<<<<<<< HEAD
   document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((heading) => {
     if (heading.id) {
       heading.removeAttribute('id');
     }
   }); // to avoid duplicated id problem
   const headerSelector = document.querySelectorAll('header[sticky]');
-=======
-  const headerSelector = jQuery('header[sticky]');
->>>>>>> aa1fdbbc852b4b0e7f05ef1f7d228d026a5d7adb
   if (headerSelector.length === 0) {
     return;
   }

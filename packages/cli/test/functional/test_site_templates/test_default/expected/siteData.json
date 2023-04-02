@@ -43,6 +43,7 @@
       "src": "index.md",
       "title": "Home Page",
       "headings": {
+        "more-info-in-user-guide-full-syntax-reference": "More info in: User Guide → Full Syntax Reference",
         "what-just-happened": "What just happened?",
         "navigating-this-site": "Navigating this site",
         "guide-to-markbind": "Guide to MarkBind"
