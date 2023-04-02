@@ -39,5 +39,5 @@
 <!-- Included in readerFacingFeatures.md -->
 <div id="examples" class="d-none">
 
-You can see an example of collapse expand buttons on the ==on the bottom left side== of this page.
+You can see an example of collapse expand buttons ==on the top right== of the site navigation.
 </div>
