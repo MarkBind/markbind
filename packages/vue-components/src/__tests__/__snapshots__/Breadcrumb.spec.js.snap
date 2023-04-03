@@ -4,10 +4,19 @@ exports[`Breadcrumb dropdown link from sitenav 1`] = `
 <div>
   <nav
     aria-label="breadcrumb"
+    class="breadcrumb-divider"
   >
     <ol
       class="breadcrumb"
     >
+      <li
+        class="notlink"
+      >
+        
+        &gt;&gt; 
+      
+      </li>
+       
       <li
         aria-current="[object Object]"
         class="breadcrumb-item"
@@ -43,10 +52,19 @@ exports[`Breadcrumb dropdown non-link from sitenav 1`] = `
 <div>
   <nav
     aria-label="breadcrumb"
+    class="breadcrumb-divider"
   >
     <ol
       class="breadcrumb"
     >
+      <li
+        class="notlink"
+      >
+        
+        &gt;&gt; 
+      
+      </li>
+       
       <li
         aria-current="[object Object]"
         class="breadcrumb-item notlink"
@@ -80,10 +98,20 @@ exports[`Breadcrumb empty breadcrumb 1`] = `
 <div>
   <nav
     aria-label="breadcrumb"
+    class="breadcrumb-divider"
   >
     <ol
       class="breadcrumb"
-    />
+    >
+      <li
+        class="notlink"
+      >
+        
+        &gt;&gt; 
+      
+      </li>
+       
+    </ol>
   </nav>
 </div>
 `;
@@ -92,10 +120,20 @@ exports[`Breadcrumb no sitenav 1`] = `
 <div>
   <nav
     aria-label="breadcrumb"
+    class="breadcrumb-divider"
   >
     <ol
       class="breadcrumb"
-    />
+    >
+      <li
+        class="notlink"
+      >
+        
+        &gt;&gt; 
+      
+      </li>
+       
+    </ol>
   </nav>
 </div>
 `;
@@ -104,10 +142,19 @@ exports[`Breadcrumb one link 1`] = `
 <div>
   <nav
     aria-label="breadcrumb"
+    class="breadcrumb-divider"
   >
     <ol
       class="breadcrumb"
     >
+      <li
+        class="notlink"
+      >
+        
+        &gt;&gt; 
+      
+      </li>
+       
       <li
         aria-current="[object Object]"
         class="breadcrumb-item"
@@ -129,10 +176,19 @@ exports[`Breadcrumb one link from sitenav 1`] = `
 <div>
   <nav
     aria-label="breadcrumb"
+    class="breadcrumb-divider"
   >
     <ol
       class="breadcrumb"
     >
+      <li
+        class="notlink"
+      >
+        
+        &gt;&gt; 
+      
+      </li>
+       
       <li
         aria-current="[object Object]"
         class="breadcrumb-item notlink"
@@ -154,10 +210,19 @@ exports[`Breadcrumb one non-link 1`] = `
 <div>
   <nav
     aria-label="breadcrumb"
+    class="breadcrumb-divider"
   >
     <ol
       class="breadcrumb"
     >
+      <li
+        class="notlink"
+      >
+        
+        &gt;&gt; 
+      
+      </li>
+       
       <li
         aria-current="[object Object]"
         class="breadcrumb-item notlink"
@@ -177,10 +242,19 @@ exports[`Breadcrumb two link 1`] = `
 <div>
   <nav
     aria-label="breadcrumb"
+    class="breadcrumb-divider"
   >
     <ol
       class="breadcrumb"
     >
+      <li
+        class="notlink"
+      >
+        
+        &gt;&gt; 
+      
+      </li>
+       
       <li
         aria-current="[object Object]"
         class="breadcrumb-item"
@@ -214,10 +288,19 @@ exports[`Breadcrumb two non-link 1`] = `
 <div>
   <nav
     aria-label="breadcrumb"
+    class="breadcrumb-divider"
   >
     <ol
       class="breadcrumb"
     >
+      <li
+        class="notlink"
+      >
+        
+        &gt;&gt; 
+      
+      </li>
+       
       <li
         aria-current="[object Object]"
         class="breadcrumb-item notlink"
