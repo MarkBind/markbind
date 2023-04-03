@@ -3,7 +3,7 @@
     <nav aria-label="breadcrumb" class="breadcrumb-divider">
       <ol class="breadcrumb">
         <li class="notlink breadcrumb-marker">
-          >>&nbsp;&nbsp;
+          ››&nbsp;&nbsp;
         </li>
         <li
           v-for="(item, index) in items"
@@ -85,7 +85,7 @@ export default {
     }
 
     .breadcrumb-divider {
-        --bs-breadcrumb-divider: '>';
+        --bs-breadcrumb-divider: '›';
     }
 
     /* Change font size to center arrows */
