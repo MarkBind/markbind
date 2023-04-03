@@ -1,5 +1,5 @@
 import cheerio from 'cheerio';
-import { DomElement } from 'htmlparser2';
+import { MbNode } from '../utils/node';
 import {
   CONTAINER_HTML,
   doesFunctionBtnContainerExistInNode,
@@ -49,7 +49,7 @@ const copyCodeBlockScript = `<script>
 
 export = {
   getScripts: () => [copyCodeBlockScript],
-  processNode: (_: PluginContext, node: cheerio.Element & DomElement) => {
+  processNode: (_: PluginContext, node: MbNode) => {
     if (node.name === 'pre' && !doesFunctionBtnContainerExistInNode(node)) {
       cheerio(node).append(CONTAINER_HTML);
     } else if (isFunctionBtnContainer(node)) {

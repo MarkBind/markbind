@@ -25,9 +25,7 @@ export function getVslotShorthandName(node: NodeOrText) {
  * Shifts the slot node deeper by one level by creating a new intermediary node with template tag name.
  */
 export function shiftSlotNodeDeeper(node: MbNode) {
-  const nodeChildren = node.children ?? [];
-
-  nodeChildren.forEach((child) => {
+  node.children.forEach((child) => {
     const vslotShorthandName = getVslotShorthandName(child);
     if (vslotShorthandName && child.name !== 'template') {
       const newSlotNode = parseHTML('<template></template>')[0] as MbNode;
@@ -46,15 +44,13 @@ export function shiftSlotNodeDeeper(node: MbNode) {
       newSlotNode.children.push(child);
 
       // replace the shifted old child node with the new slot node
-      nodeChildren.forEach((childNode, idx) => {
+      node.children.forEach((childNode, idx) => {
         if (childNode === child) {
-          nodeChildren[idx] = newSlotNode;
+          node.children[idx] = newSlotNode;
         }
       });
     }
   });
-
-  node.children = nodeChildren;
 }
 
 /*

@@ -10,13 +10,12 @@ import { MbNode } from '../utils/node';
  * @param attrsConflictingWith The attributes conflicting with `attribute`
  */
 function _warnConflictingAttributes(node: MbNode, attribute: string, attrsConflictingWith: string[]) {
-  if (!node.attribs || !(attribute in node.attribs)) {
+  if (!(attribute in node.attribs)) {
     return;
   }
 
-  const nodeAttribs = node.attribs;
   attrsConflictingWith.forEach((conflictingAttr) => {
-    if (conflictingAttr in nodeAttribs) {
+    if (conflictingAttr in node.attribs) {
       logger.warn(`Usage of conflicting ${node.name} attributes: `
           + `'${attribute}' with '${conflictingAttr}'`);
     }
