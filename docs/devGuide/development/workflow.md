@@ -190,6 +190,20 @@ After which, you can update the **expected** test files with: `npm run updatetes
   as uncommitted changes due to the way they are generated. If you are not directly modifying those files in your PR, you should **discard those changes** and **do not commit** them.
 </box>
 
+<box type="tip" seamless header="Solving merge conflicts in expected test files">
+
+1. Ensure the fork is latest
+   - Pull from upstream repo to fork
+2. Ensure local master is in sync with fork master
+   - Pull from the fork master into local master
+3. Checkout to PR branch
+4. Merge local master into PR branch 
+   - `git merge master`
+5. Accept any change to conflicts in generated test files
+   - It does not matter which change is accepted as it will be overridden in the following step
+6. Once the merge is done, run `npm run updatetest` to generate latest test files
+</box>
+
 ##### Adding test site content
 
 When adding new features, you should also add new site content into an existing test site or create a new test site to demonstrate the new feature. This is to ensure that your feature can be tested by building that test site.
