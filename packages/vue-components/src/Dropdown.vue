@@ -233,7 +233,7 @@ export default {
         text-decoration: none;
     }
 
-    li {
+    .nav-link > .nav-link {
         padding: 0;
     }
 </style>
