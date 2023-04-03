@@ -2,8 +2,8 @@
   <div>
     <nav aria-label="breadcrumb" class="breadcrumb-divider">
       <ol class="breadcrumb">
-        <li class="notlink">
-          [&nbsp;
+        <li class="notlink breadcrumb-marker">
+          >>&nbsp;&nbsp;
         </li>
         <li
           v-for="(item, index) in items"
@@ -19,9 +19,6 @@
           <a v-else :href="item.link">
             {{ item.title }}
           </a>
-        </li>
-        <li class="notlink">
-          &nbsp;]
         </li>
       </ol>
     </nav>
@@ -88,6 +85,15 @@ export default {
     }
 
     .breadcrumb-divider {
-        --bs-breadcrumb-divider: '|';
+        --bs-breadcrumb-divider: '>';
+    }
+
+    /* Change font size to center arrows */
+    .breadcrumb-marker {
+        font-size: 15px;
+    }
+
+    .breadcrumb-item::before {
+        font-size: 15px;
     }
 </style>
