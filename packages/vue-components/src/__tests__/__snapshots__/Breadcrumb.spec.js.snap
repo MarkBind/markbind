@@ -13,7 +13,7 @@ exports[`Breadcrumb dropdown link from sitenav 1`] = `
         class="notlink"
       >
         
-        &gt;&gt; 
+        [ 
       
       </li>
        
@@ -43,6 +43,14 @@ Link
         
         </a>
       </li>
+       
+      <li
+        class="notlink"
+      >
+        
+         ]
+      
+      </li>
     </ol>
   </nav>
 </div>
@@ -61,7 +69,7 @@ exports[`Breadcrumb dropdown non-link from sitenav 1`] = `
         class="notlink"
       >
         
-        &gt;&gt; 
+        [ 
       
       </li>
        
@@ -89,6 +97,14 @@ Link
         
         </a>
       </li>
+       
+      <li
+        class="notlink"
+      >
+        
+         ]
+      
+      </li>
     </ol>
   </nav>
 </div>
@@ -107,10 +123,17 @@ exports[`Breadcrumb empty breadcrumb 1`] = `
         class="notlink"
       >
         
-        &gt;&gt; 
+        [ 
       
       </li>
-       
+        
+      <li
+        class="notlink"
+      >
+        
+         ]
+      
+      </li>
     </ol>
   </nav>
 </div>
@@ -129,10 +152,17 @@ exports[`Breadcrumb no sitenav 1`] = `
         class="notlink"
       >
         
-        &gt;&gt; 
+        [ 
       
       </li>
-       
+        
+      <li
+        class="notlink"
+      >
+        
+         ]
+      
+      </li>
     </ol>
   </nav>
 </div>
@@ -151,7 +181,7 @@ exports[`Breadcrumb one link 1`] = `
         class="notlink"
       >
         
-        &gt;&gt; 
+        [ 
       
       </li>
        
@@ -166,6 +196,14 @@ exports[`Breadcrumb one link 1`] = `
           link one
         
         </a>
+      </li>
+       
+      <li
+        class="notlink"
+      >
+        
+         ]
+      
       </li>
     </ol>
   </nav>
@@ -185,7 +223,7 @@ exports[`Breadcrumb one link from sitenav 1`] = `
         class="notlink"
       >
         
-        &gt;&gt; 
+        [ 
       
       </li>
        
@@ -200,6 +238,14 @@ Link
 
         
         </a>
+      </li>
+       
+      <li
+        class="notlink"
+      >
+        
+         ]
+      
       </li>
     </ol>
   </nav>
@@ -219,7 +265,7 @@ exports[`Breadcrumb one non-link 1`] = `
         class="notlink"
       >
         
-        &gt;&gt; 
+        [ 
       
       </li>
        
@@ -232,6 +278,14 @@ exports[`Breadcrumb one non-link 1`] = `
           non-link one
         
         </a>
+      </li>
+       
+      <li
+        class="notlink"
+      >
+        
+         ]
+      
       </li>
     </ol>
   </nav>
@@ -251,7 +305,7 @@ exports[`Breadcrumb two link 1`] = `
         class="notlink"
       >
         
-        &gt;&gt; 
+        [ 
       
       </li>
        
@@ -279,6 +333,14 @@ exports[`Breadcrumb two link 1`] = `
         
         </a>
       </li>
+       
+      <li
+        class="notlink"
+      >
+        
+         ]
+      
+      </li>
     </ol>
   </nav>
 </div>
@@ -297,7 +359,7 @@ exports[`Breadcrumb two non-link 1`] = `
         class="notlink"
       >
         
-        &gt;&gt; 
+        [ 
       
       </li>
        
@@ -320,6 +382,14 @@ exports[`Breadcrumb two non-link 1`] = `
           link two
         
         </a>
+      </li>
+       
+      <li
+        class="notlink"
+      >
+        
+         ]
+      
       </li>
     </ol>
   </nav>
