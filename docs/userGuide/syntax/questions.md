@@ -366,7 +366,7 @@ Simply place the `<question>` components you want to include into the `<quiz>` c
   <question type="text">...</question>
 </quiz>
 </variable>
-<variable name="output" id="quiz-example">
+<variable name="output">
 <quiz>
 {{ mcqQuestion }}
 {{ checkboxQuestion }}
@@ -412,5 +412,10 @@ intro | Slot | `Click start to begin` | Quiz intro markup. Overrides the `intro`
 
 <!-- Included in readerFacingFeatures.md -->
 <div id="examples" class="d-none">
-<include src="questions.md#quiz-example" />
+<quiz>
+{{ mcqQuestion }}
+{{ checkboxQuestion }}
+{{ blanksQuestion }}
+{{ textQuestion }}
+</quiz>
 </div>
