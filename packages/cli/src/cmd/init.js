@@ -15,7 +15,7 @@ function init(root, options) {
     }
   }
 
-  Site.initSite(rootFolder, options.template)
+  Site.initSite(rootFolder, options.template, options.convert)
     .then(() => {
       logger.info('Initialization success.');
     })

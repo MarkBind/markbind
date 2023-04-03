@@ -39,18 +39,26 @@ export const setExtension = (normalizedFilename: string, ext: string) => (
   removeExtension(normalizedFilename) + ext
 );
 
-export function copySyncWithOptions(src: string, dest: string, options: CopyOptions) {
+export function copySyncWithOptions(src: string, dest: string, options: CopyOptions,
+                                    omitFiles?: Array<string>) {
   const files = fs.readdirSync(src);
   files.forEach((file) => {
     const curSource = path.join(src, file);
     const curDest = path.join(dest, file);
 
+    // If this file is to be omitted, do not copy
+    // We use full paths for omitFiles to avoid recursively omitting files in subdirectories
+    if (typeof omitFiles !== 'undefined' && omitFiles.includes(curSource)) {
+      return;
+    }
+
     if (fs.lstatSync(curSource).isDirectory()) {
       if (!fs.existsSync(curDest)) {
         fs.mkdirSync(curDest);
       }
-      copySyncWithOptions(curSource, curDest, options);
+      copySyncWithOptions(curSource, curDest, options, omitFiles);
     } else {
+      // If we are not overwriting & the file already exists, do not copy
       if (options.overwrite === false && fs.existsSync(curDest)) {
         return;
       }
