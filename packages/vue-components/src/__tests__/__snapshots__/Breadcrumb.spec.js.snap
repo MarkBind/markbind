@@ -13,7 +13,7 @@ exports[`Breadcrumb dropdown link from sitenav 1`] = `
         class="notlink breadcrumb-marker"
       >
         
-        &gt;&gt;  
+        ››  
       
       </li>
        
@@ -61,7 +61,7 @@ exports[`Breadcrumb dropdown non-link from sitenav 1`] = `
         class="notlink breadcrumb-marker"
       >
         
-        &gt;&gt;  
+        ››  
       
       </li>
        
@@ -107,7 +107,7 @@ exports[`Breadcrumb empty breadcrumb 1`] = `
         class="notlink breadcrumb-marker"
       >
         
-        &gt;&gt;  
+        ››  
       
       </li>
        
@@ -129,7 +129,7 @@ exports[`Breadcrumb no sitenav 1`] = `
         class="notlink breadcrumb-marker"
       >
         
-        &gt;&gt;  
+        ››  
       
       </li>
        
@@ -151,7 +151,7 @@ exports[`Breadcrumb one link 1`] = `
         class="notlink breadcrumb-marker"
       >
         
-        &gt;&gt;  
+        ››  
       
       </li>
        
@@ -185,7 +185,7 @@ exports[`Breadcrumb one link from sitenav 1`] = `
         class="notlink breadcrumb-marker"
       >
         
-        &gt;&gt;  
+        ››  
       
       </li>
        
@@ -219,7 +219,7 @@ exports[`Breadcrumb one non-link 1`] = `
         class="notlink breadcrumb-marker"
       >
         
-        &gt;&gt;  
+        ››  
       
       </li>
        
@@ -251,7 +251,7 @@ exports[`Breadcrumb two link 1`] = `
         class="notlink breadcrumb-marker"
       >
         
-        &gt;&gt;  
+        ››  
       
       </li>
        
@@ -297,7 +297,7 @@ exports[`Breadcrumb two non-link 1`] = `
         class="notlink breadcrumb-marker"
       >
         
-        &gt;&gt;  
+        ››  
       
       </li>
        
