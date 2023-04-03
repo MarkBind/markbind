@@ -190,18 +190,18 @@ After which, you can update the <tooltip content="These are located in `expected
   as uncommitted changes due to the way they are generated. If you are not directly modifying those files in your PR, you should **discard those changes** and **do not commit** them.
 </box>
 
-<box type="tip" seamless header="Solving merge conflicts in expected test files">
+<box type="tip" seamless header="Here are the steps to solve merge conflicts in expected test files:">
 
-1. Ensure the fork is synced with the upstream repository
-2. Ensure local master is in sync with fork master
-   - Pull from the fork master into local master
-3. Checkout to PR branch
+1. Ensure that your fork is synced with the upstream repository.
+2. Ensure that the master branch of your local repository is in sync with the master branch of your fork. 
+   Pull from the fork into your local repository as needed.
+3. Checkout from your master branch to your PR branch.
    - `git checkout [BRANCH NAME]`
-4. Merge local master into PR branch 
+4. Merge your master branch into your PR branch.
    - `git merge master`
-5. Accept any change to conflicts in generated test files
-   - It does not matter which change is accepted as it will be overridden in the following step
-6. Once the merge is done, run `npm run updatetest` to generate the latest test files
+5. Accept all changes to any merge conflicts in the generated **expected** test files.
+   - It does not matter which changes are accepted, as they will be overridden in the following step.
+6. Once your master branch has been successfully merged into your PR branch, run `npm run updatetest` to generate the latest test files.
 </box>
 
 ##### Adding test site content
