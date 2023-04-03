@@ -71,7 +71,7 @@ More info in: _<a href="https://markbind.org/userGuide/workingWithSites.html" ta
 > Refer to our Full Syntax Reference page to find a specific feature or component that you want to use in your MarkBind site.
 
 More info in: _<a href="https://markbind.org/userGuide/fullSyntaxReference.html" target="_blank">User Guide → Full Syntax Reference</a>_
-</panel>
 
+</panel>
 
 ---
