@@ -32,9 +32,7 @@ Beyond that, you'd have to include your own styles.
 
 ****Expanding menu items by default****
 
-You can **append the `:expanded:` to a <tooltip content="a menu item with sub menu-items">parent menu item</tooltip> to make it expand by default.** In the example above, `* Docs :expanded:` will make the menu item `Docs` expand by default.
-
-A parent menu item that is also linked will not be collapsible %%e.g., the `Search` menu item in the above example%%.
+You can **append the `:expanded:` to a <tooltip content="a menu item with sub menu-items">parent menu item</tooltip> to make it expand by default.** In the example above, `* Authoring Contents :expanded:` makes the menu item `Authoring Contents` expand by default.
 
 </div>
 
