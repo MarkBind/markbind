@@ -58,7 +58,7 @@ test.each([
 
   linkProcessor.convertMdExtToHtmlExt(mockNode);
 
-  expect(cheerio.html(mockNode as unknown as cheerio.Element)).toBe(expected);
+  expect(cheerio.html(mockNode)).toBe(expected);
 });
 
 test('Test invalid URL link ', () => {

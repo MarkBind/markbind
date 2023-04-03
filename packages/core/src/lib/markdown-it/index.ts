@@ -39,7 +39,8 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('./plugins/markdown-it-icons'))
   .use(require('./plugins/markdown-it-footnotes'))
   .use(require('./plugins/markdown-it-center-text'))
-  .use(require('./plugins/markdown-it-colour-text'));
+  .use(require('./plugins/markdown-it-colour-text'))
+  .use(require('./plugins/markdown-it-alt-frontmatter'));
 
 // fix table style
 markdownIt.renderer.rules.table_open = _.constant(

@@ -4,38 +4,27 @@ import { External } from './External';
 import * as fsUtil from '../utils/fsUtil';
 import * as urlUtil from '../utils/urlUtil';
 import type { DynamicSrc } from '../Page/PageSources';
-import type VariableProcessor from '../variables/VariableProcessor';
+import type { VariableProcessor } from '../variables/VariableProcessor';
 import type { SiteLinkManager } from '../html/SiteLinkManager';
 import type { PluginManager } from '../plugins/PluginManager';
+import { NodeProcessorConfig } from '../html/NodeProcessor';
 
 const _ = {
   uniqBy,
 };
 
-export interface ExternalManagerConfig {
-  baseUrl: string,
-  baseUrlMap: Set<string>,
-  rootPath: string,
-  outputPath: string,
-  ignore: string[],
-  addressablePagesSource: string[],
-  intrasiteLinkValidation: { enabled: boolean },
-  codeLineNumbers: boolean,
-  plantumlCheck: boolean,
-  headerIdMap: {
-    [id: string]: number,
-  },
+export type ExternalManagerConfig = NodeProcessorConfig & {
   variableProcessor: VariableProcessor,
   siteLinkManager: SiteLinkManager,
   pluginManager: PluginManager,
-}
+};
 
 /**
  * Manages and generates external files (<panel src="...">) referenced in pages and layouts.
  */
 export class ExternalManager {
   config: ExternalManagerConfig;
-  builtFiles: { [name: string]: Promise<External> };
+  builtFiles: Record<string, Promise<External>>;
 
   constructor(cfg: ExternalManagerConfig) {
     this.config = cfg;
