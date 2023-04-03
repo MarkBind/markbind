@@ -180,7 +180,7 @@ Our unit tests perform fast, stable, and comprehensive checks on important behav
 
 Whether you are adding a new feature, updating existing features or fixing bugs, make sure to update the **source** test files (test sites, snapshots) to reflect the changes.
 
-After which, you can update the **expected** test files with: `npm run updatetest`
+After which, you can update the <tooltip content="These are located in `expected` folder in the test sites and `__snapshots__` folder for unit tests">**expected** test files</tooltip> with: `npm run updatetest`
 
 <box type="warning" seamless>
 
