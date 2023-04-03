@@ -72,7 +72,7 @@ function _getSrcFlagsAndFilePaths(element: MbNode, config: Record<string, any>) 
   if (isUrl) {
     filePath = element.attribs.src;
   } else {
-    const includePath = decodeURIComponent(includeSrc.pathname);
+    const includePath = decodeURIComponent(includeSrc.pathname).replace(/\\/g, path.sep);
 
     /*
      If the src starts with the baseUrl (or simply '/' if there is no baseUrl specified),
