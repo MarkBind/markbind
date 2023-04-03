@@ -192,16 +192,16 @@ After which, you can update the <tooltip content="These are located in `expected
 
 <box type="tip" seamless header="Solving merge conflicts in expected test files">
 
-1. Ensure the fork is latest
-   - Pull from upstream repo to fork
+1. Ensure the fork is synced with the upstream repository
 2. Ensure local master is in sync with fork master
    - Pull from the fork master into local master
 3. Checkout to PR branch
+   - `git checkout [BRANCH NAME]`
 4. Merge local master into PR branch 
    - `git merge master`
 5. Accept any change to conflicts in generated test files
    - It does not matter which change is accepted as it will be overridden in the following step
-6. Once the merge is done, run `npm run updatetest` to generate latest test files
+6. Once the merge is done, run `npm run updatetest` to generate the latest test files
 </box>
 
 ##### Adding test site content
