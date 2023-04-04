@@ -38,4 +38,8 @@ A parent menu item that is also linked will not be collapsible %%e.g., the `Sear
 
 </div>
 
+****Collapse/Expand All Buttons****
+
+You can make expanding and collapsing dropdowns in the siteNav more accessible by using the [Collapse/Expand All Buttons]({{baseURl}}/userGuide/components/others.html#collapse-expand-all-buttons). These buttons are the `+` and `-` icons at the top right of the siteNav.
+
 <div id="examples"></div>
