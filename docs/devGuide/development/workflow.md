@@ -180,7 +180,7 @@ Our unit tests perform fast, stable, and comprehensive checks on important behav
 
 Whether you are adding a new feature, updating existing features or fixing bugs, make sure to update the **source** test files (test sites, snapshots) to reflect the changes.
 
-After which, you can update the **expected** test files with: `npm run updatetest`
+After which, you can update the <tooltip content="These are located in `expected` folder in the test sites and `__snapshots__` folder for unit tests">**expected** test files</tooltip> with: `npm run updatetest`
 
 <box type="warning" seamless>
 
@@ -188,6 +188,20 @@ After which, you can update the **expected** test files with: `npm run updatetes
 
   Note that some binary files such as images (e.g. `inline-output.png`) or fonts (e.g. `material-icons-outlined.woff`) could show up
   as uncommitted changes due to the way they are generated. If you are not directly modifying those files in your PR, you should **discard those changes** and **do not commit** them.
+</box>
+
+<box type="tip" seamless header="Here are the steps to solve merge conflicts in expected test files:">
+
+1. Ensure that your fork is synced with the upstream repository.
+2. Ensure that the master branch of your local repository is in sync with the master branch of your fork. 
+   Pull from the fork into your local repository as needed.
+3. Checkout from your master branch to your PR branch.
+   - `git checkout [BRANCH NAME]`
+4. Merge your master branch into your PR branch.
+   - `git merge master`
+5. Accept all changes to any merge conflicts in the generated **expected** test files.
+   - It does not matter which changes are accepted, as they will be overridden in the following step.
+6. Once your master branch has been successfully merged into your PR branch, run `npm run updatetest` to generate the latest test files.
 </box>
 
 ##### Adding test site content
