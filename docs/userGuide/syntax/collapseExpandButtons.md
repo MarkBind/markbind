@@ -13,7 +13,7 @@
 ...
 </nav>
 ```
-You can see an example of collapse/expand all buttons on the top right of the site navigation.
+You can see an example of collapse/expand all buttons on the top right of the site navigation that is located on the left of this page.
 
 <!-- Included in syntax cheat sheet -->
 <div id="short" class="d-none">
@@ -27,5 +27,5 @@ You can see an example of collapse/expand all buttons on the top right of the si
 <!-- Included in readerFacingFeatures.md -->
 <div id="examples" class="d-none">
 
-You can see an example of collapse/expand all buttons ==on the top right== of the site navigation.
+You can see an example of collapse/expand all buttons ==on the top right== of the site navigation that is located on the left of this page.
 </div>

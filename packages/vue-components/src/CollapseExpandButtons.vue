@@ -4,13 +4,13 @@
       class="expand-all-button"
       @click="expandAll()"
     >
-      <i :class="['far fa-plus-square']"></i>
+      <i class="far fa-plus-square"></i>
     </div>
     <div
       class="collapse-all-button"
       @click="collapseAll()"
     >
-      <i :class="['far fa-minus-square']"></i>
+      <i class="far fa-minus-square"></i>
     </div>
   </div>
 </template>

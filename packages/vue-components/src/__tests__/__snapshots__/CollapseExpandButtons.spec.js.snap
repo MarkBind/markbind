@@ -18,8 +18,8 @@ exports[`CollapseExpandButtons collapse both sitenav 1`] = `
             class="site-nav-default-list-item"
           >
             
-  Expanded Dropdown
-  
+      Expanded Dropdown
+      
             <div
               class="site-nav-dropdown-btn-container"
             >
@@ -40,8 +40,8 @@ exports[`CollapseExpandButtons collapse both sitenav 1`] = `
                   href="#link"
                 >
                   
-Link
-
+      Link
+    
                 </a>
               </div>
             </li>
@@ -53,8 +53,8 @@ Link
             class="site-nav-default-list-item"
           >
             
-  Collapsed Dropdown
-  
+      Collapsed Dropdown
+      
             <div
               class="site-nav-dropdown-btn-container"
             >
@@ -75,8 +75,8 @@ Link
                   href="#link"
                 >
                   
-Link
-
+      Link
+    
                 </a>
               </div>
             </li>
@@ -106,8 +106,8 @@ exports[`CollapseExpandButtons collapse collapsed sitenav 1`] = `
             class="site-nav-default-list-item"
           >
             
-  Non-Link Dropdown
-  
+      Non-Link Dropdown
+      
             <div
               class="site-nav-dropdown-btn-container"
             >
@@ -128,8 +128,8 @@ exports[`CollapseExpandButtons collapse collapsed sitenav 1`] = `
                   href="#link"
                 >
                   
-Link
-
+      Link
+    
                 </a>
               </div>
             </li>
@@ -159,8 +159,8 @@ exports[`CollapseExpandButtons collapse expanded sitenav 1`] = `
             class="site-nav-default-list-item"
           >
             
-  Non-Link Dropdown
-  
+      Non-Link Dropdown
+      
             <div
               class="site-nav-dropdown-btn-container"
             >
@@ -181,8 +181,8 @@ exports[`CollapseExpandButtons collapse expanded sitenav 1`] = `
                   href="#link"
                 >
                   
-Link
-
+      Link
+    
                 </a>
               </div>
             </li>
@@ -212,8 +212,8 @@ exports[`CollapseExpandButtons expand both sitenav 1`] = `
             class="site-nav-default-list-item"
           >
             
-  Expanded Dropdown
-  
+      Expanded Dropdown
+      
             <div
               class="site-nav-dropdown-btn-container"
             >
@@ -234,8 +234,8 @@ exports[`CollapseExpandButtons expand both sitenav 1`] = `
                   href="#link"
                 >
                   
-Link
-
+      Link
+    
                 </a>
               </div>
             </li>
@@ -247,8 +247,8 @@ Link
             class="site-nav-default-list-item"
           >
             
-  Collapsed Dropdown
-  
+      Collapsed Dropdown
+      
             <div
               class="site-nav-dropdown-btn-container"
             >
@@ -269,8 +269,8 @@ Link
                   href="#link"
                 >
                   
-Link
-
+      Link
+    
                 </a>
               </div>
             </li>
@@ -300,8 +300,8 @@ exports[`CollapseExpandButtons expand collapsed sitenav 1`] = `
             class="site-nav-default-list-item"
           >
             
-  Non-Link Dropdown
-  
+      Non-Link Dropdown
+      
             <div
               class="site-nav-dropdown-btn-container"
             >
@@ -322,8 +322,8 @@ exports[`CollapseExpandButtons expand collapsed sitenav 1`] = `
                   href="#link"
                 >
                   
-Link
-
+      Link
+    
                 </a>
               </div>
             </li>
@@ -353,8 +353,8 @@ exports[`CollapseExpandButtons expand expanded sitenav 1`] = `
             class="site-nav-default-list-item"
           >
             
-  Non-Link Dropdown
-  
+      Non-Link Dropdown
+      
             <div
               class="site-nav-dropdown-btn-container"
             >
@@ -375,8 +375,8 @@ exports[`CollapseExpandButtons expand expanded sitenav 1`] = `
                   href="#link"
                 >
                   
-Link
-
+      Link
+    
                 </a>
               </div>
             </li>
