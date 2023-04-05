@@ -18,7 +18,7 @@
 
 <div id="overview" class="lead">
 
-This page lists some other components that may be useful in creating education websites. For now, there are only question and quiz components.
+This page lists some other components that may be useful in creating education websites.
 </div>
 
 {% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}

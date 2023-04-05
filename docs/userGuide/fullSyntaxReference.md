@@ -35,7 +35,6 @@
 
   badges : ['Badges', ['presentation', 'reader-facing']],
   boxes : ['Boxes', ['presentation', 'reader-facing']],
-  breadcrumbs : ['Breadcrumbs', ['navigation', 'reader-facing']],
   panels : ['Panels', ['presentation', 'reader-facing']],
   tabs : ['Tabs', ['presentation', 'reader-facing']],
   pictures : ['Pictures', ['images-diagrams', 'reader-facing']],
@@ -49,10 +48,12 @@
   dropdowns : ['Dropdowns', ['navigation', 'reader-facing']],
   searchBars : ['Search Bars', ['navigation', 'reader-facing']],
   navBars : ['Nav Bars', ['navigation', 'reader-facing']],
+  breadcrumbs : ['Breadcrumbs', ['navigation', 'reader-facing']],
   siteNavigationMenus : ['Site Navigation Menus', ['navigation', 'reader-facing']],
   pageNavigationMenus : ['Page Navigation Menus', ['navigation', 'reader-facing']],
   scrollTopButton : ['Scroll To Top Button', ['navigation', 'reader-facing']],
-  questions : ['Questions and Quizzes', ['others', 'reader-facing']]
+  questions : ['Questions and Quizzes', ['others', 'reader-facing']],
+  collapseExpandButtons: ['Collapse/Expand All Buttons', ['others', 'reader-facing']]
 } %}
 
 {% for topic in syntax_topics | dictsort %}
