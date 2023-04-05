@@ -12,7 +12,7 @@
 <div class="lead">
 
 Node.js versions have to upgraded periodically before the version being used reaches its [end of life](https://endoflife.date/nodejs).
-This page outlines the steps of migrating to a higher version of Node.js
+This page outlines the steps of migrating to a higher version of Node.js.
 </div>
 
 ### Preparation
@@ -23,7 +23,7 @@ Broadly speaking, migrate only to even-numbered Node.js releases as only even-nu
 
 Read more about Node.js release lines [here](https://nodesource.com/blog/understanding-how-node-js-release-lines-work/).
 
-npm version will be upgraded accordingly to the Node.js version. Hence, do check that this upgrade does not cause any issues.
+The npm version will be upgraded accordingly to the Node.js version. Hence, do check that this upgrade does not cause any issues.
 <box type="info" seamless>
 If a different version of npm is needed this can be overridden. This will be explained further below.
 </box>
@@ -37,14 +37,14 @@ Switch to use the Node.js version that you are migrating to.
 
 1. Refactor any deprecated syntax
     - Go to the [Node.js changelog](https://nodejs.org/en/blog/release) of the new version
-    - Go through list of deprecated syntax and check if it is being used in Markbind
+    - Go through the list of deprecated syntax and check if it is being used in MarkBind
     - Replace any deprecated syntax
 2. Check that all user-facing functionalities are working
     - A quick way to do this is to go to the [Reader Facing Features in the User Guide]({{baseUrl}}/userGuide/readerFacingFeatures.html) and check that these features are still working as expected.
 3. Check that there are no issues with development setup
     - Set up the development environment by running through the steps in [Setting Up]({{baseUrl}}/devdocs/devGuide/development/settingUp.html) to ensure there are no problems
 4. Update GitHubActions
-    - Go to [Markbind/markbind-action](https://github.com/MarkBind/markbind-action) and update the Node.js version numbers
+    - Go to [MarkBind/markbind-action](https://github.com/MarkBind/markbind-action) and update the Node.js version numbers
         - See [Update node version from 14 to 16 PR](https://github.com/MarkBind/markbind-action/pull/8/files) for an example
     - Test there are no issues with workflows
         - Testing instructions located here: [markbind-action]({{baseUrl}}/devdocs/devGuide/githubActions/markbindAction.html) and [markbind-reusable-workflows]({{baseUrl}}/devdocs/devGuide/githubActions/markbindReusableWorkflows.html)
@@ -54,7 +54,7 @@ Switch to use the Node.js version that you are migrating to.
 5. Check deployment to Netlify/other platforms
     - Deployment to Netlify
         - Follow steps in [Deploying to Netlify]({{baseUrl}}/userGuide/deployingTheSite.html#deploying-to-netlify) but change the `NODE_VERSION` value accordingly. Check there are no issues with deployment and deployed site is as expected.
-        - Markbind has two repos [init-minimal-netlify](https://github.com/MarkBind/init-minimal-netlify) and [init-typical-netlify](https://github.com/MarkBind/init-typical-netlify) which allows deployment to Netlify by using a config file. Update the config file `netlify.toml` with the correct Node.js version and check that deployment using button in `README` works as expected.
+        - MarkBind has two repos [init-minimal-netlify](https://github.com/MarkBind/init-minimal-netlify) and [init-typical-netlify](https://github.com/MarkBind/init-typical-netlify) which allows deployment to Netlify by using a config file. Update the config file `netlify.toml` with the correct Node.js version and check that deployment using button in `README` works as expected.
           <box type="info" seamless header="If a different npm version is needed">
           
           To specify the npm version add an environment variable `NPM_VERSION` with the correct version number. </box>
