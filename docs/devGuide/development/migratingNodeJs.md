@@ -23,7 +23,7 @@ Broadly speaking, migrate only to even-numbered Node.js releases as only even-nu
 
 Read more about Node.js release lines [here](https://nodesource.com/blog/understanding-how-node-js-release-lines-work/).
 
-The npm version will be upgraded accordingly to the Node.js version. Hence, do check that this upgrade does not cause any issues.
+The npm version will be upgraded automatically accordingly to the Node.js version since it is downloaded alongside Node.js. Hence, do check that this upgrade does not cause any issues.
 <box type="info" seamless>
 If a different version of npm is needed this can be overridden. This will be explained further below.
 </box>
