@@ -20,6 +20,7 @@
   * [Writing Components]({{baseUrl}}/devGuide/development/writingComponents.html)
   * [Writing Plugins]({{baseUrl}}/devGuide/development/writingPlugins.html)
   * [Migrating to TypeScript]({{baseUrl}}/devGuide/development/migratingToTypeScript.html)
+  * [Migrating Node.js]({{baseUrl}}/devGuide/development/migratingNodeJs.html)
 * Design :expanded:
   * [Project Structure]({{baseUrl}}/devGuide/design/projectStructure.html)
   * [Architecture]({{baseUrl}}/devGuide/design/architecture.html)
