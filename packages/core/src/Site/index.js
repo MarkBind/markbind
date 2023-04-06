@@ -177,9 +177,9 @@ class Site {
    * @param rootPath
    * @param templatePath
    */
-  static async initSite(rootPath, templatePath, toConvert) {
+  static async initSite(rootPath, templatePath) {
     try {
-      return await new Template(rootPath, templatePath, toConvert).initTemplate();
+      return await new Template(rootPath, templatePath).initTemplate();
     } catch (err) {
       return new Error(`Failed to initialize site with given template with error: ${err.message}`);
     }
