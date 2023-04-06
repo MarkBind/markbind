@@ -18,7 +18,7 @@ Some common files to ignore in a MarkBind project are:
 * build output
 * dependencies such as `node_modules`
 
-The following is a sample `.gitignore` file for typical MarkBind projects:
+The following is the auto-generated `.gitignore` file for MarkBind projects when `markbind init` is called:
 
 ``` {heading=".gitignore"}
 # Logs
@@ -45,3 +45,11 @@ _site/
 .idea/*
 *.iml
 ```
+
+<box type="info">
+
+All pre-existing `.gitignore` file will not be overwritten if you are converting using the `markbind init --convert` command. 
+
+The auto-generation only adds this `.gitignore` if it detects that there is none in your root directory.
+
+</box>
