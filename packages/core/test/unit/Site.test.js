@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const ghpages = require('gh-pages');
 const Site = require('../../src/Site');
+const { Template } = require('../../src/Site/template');
 
 const {
   INDEX_MD_DEFAULT,
@@ -37,10 +38,11 @@ test('Site Init with invalid template fails', async () => {
 
   fs.vol.fromJSON(json, '');
 
-  Site.initSite('', DEFAULT_TEMPLATE)
+  const template = new Template('', DEFAULT_TEMPLATE);
+  await template.init('', DEFAULT_TEMPLATE)
     .catch((err) => {
       expect(err).toEqual(
-        new Error('Template validation failed. Required files does not exist'));
+        new Error('Template validation failed. Required files does not exist.'));
     });
 });
 
