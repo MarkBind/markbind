@@ -67,7 +67,7 @@ const removeHandler = (site, onePagePath) => (filePath) => {
   });
 };
 
-const lazyReloadMiddleware = (site, rootFolder, config) => (req, next) => {
+const lazyReloadMiddleware = (site, rootFolder, config) => (req, res, next) => {
   const urlExtension = path.posix.extname(req.url);
 
   const hasEndingSlash = req.url.endsWith('/');
