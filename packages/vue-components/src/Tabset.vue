@@ -23,7 +23,7 @@
         <dropdown
           v-else
           :key="index"
-          class="nav-item nav-link"
+          class="nav-item"
           :header="t.headerRendered"
           :class="{active:t.active}"
           :disabled="t.disabled"
