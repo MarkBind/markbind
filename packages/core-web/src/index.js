@@ -24,11 +24,10 @@ function scrollToUrlAnchorHeading() {
 window.onload = scrollToUrlAnchorHeading;
 
 function detectAndApplyHeaderStyles() {
-  const headerSelector = document.querySelectorAll('header[sticky]');
-  if (headerSelector.length === 0) {
+  const headerEl = document.querySelector('header[sticky]');
+  if (headerEl === null) {
     return;
   }
-  const [headerEl] = headerSelector;
 
   function getHeaderHeight() {
     const headerComputedStyle = window.getComputedStyle(headerEl, null);
@@ -46,27 +45,21 @@ function detectAndApplyHeaderStyles() {
   let isHidden = false;
   function showHeader() {
     isHidden = false;
-    headerSelector.forEach((element) => {
-      element.classList.remove('hide-header');
-    });
+    headerEl.classList.remove('hide-header');
   }
   headerEl.addEventListener('transitionend', () => {
     // reset overflow when header shows again to allow content
     // in the header such as search dropdown etc. to overflow
     if (!isHidden) {
-      headerSelector.forEach((element) => {
-        element.style.overflow = '';
-      });
+      headerEl.style.overflow = '';
     }
   });
 
   function hideHeader() {
     isHidden = true;
     // hide header overflow when user scrolls to support transition effect
-    headerSelector.forEach((element) => {
-      element.style.overflow = 'hidden';
-      element.classList.add('hide-header');
-    });
+    headerEl.style.overflow = 'hidden';
+    headerEl.classList.add('hide-header');
   }
 
   // Handles window resizes + dynamic content (e.g. dismissing a box within)
