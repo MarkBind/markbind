@@ -27,27 +27,47 @@ module.exports = {
       closeButton.style.display = 'none';
     }
 
+    function createCloseButton() {
+      const closeButton = document.createElement('span');
+      closeButton.classList.add('closeable-button', 'label', 'label-default', 'hidden-print');
+      closeButton.style.cssText += 'display: none; position: absolute; top: 0; '
+          + 'left: 0; cursor: pointer;background: #d9534f';
+      closeButton.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
+      closeButton.addEventListener('click', onClose);
+      return closeButton;
+    }
+
+    function createShowLabel(message) {
+      const showLabel = document.createElement('a');
+      showLabel.classList.add('closeable-show', 'hidden-print');
+      showLabel.style.cssText += 'display: none; cursor: pointer;text-decoration: underline';
+      showLabel.innerHTML = message;
+      showLabel.addEventListener('click', onShow);
+      return showLabel;
+    }
+
     el.dataset.isShown = 'true';
     el.style.position = 'relative';
-    const message = el.getAttribute('alt') || 'Expand Content';
+
     const content = document.createElement('div');
     content.classList.add('content');
     Array.from(el.children).forEach(child => content.append(child));
     el.replaceChildren();
     el.append(content);
-    el.classList.add(`${el.className} closeable-wrapper`);
-    const closeButton = document.createElement('span');
-    closeButton.classList.add('closeable-button', 'label', 'label-default', 'hidden-print');
-    closeButton.style.cssText += 'display: none; position: absolute; top: 0; left: 0; cursor: pointer;background: #d9534f';
-    closeButton.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
+
+    if (el.className === '') {
+      el.classList.add('closeable-wrapper');
+    } else {
+      el.classList.add(`${el.className} closeable-wrapper`);
+    }
+
+    const closeButton = createCloseButton();
     el.append(closeButton);
-    const showLabel = document.createElement('a');
-    showLabel.classList.add('closeable-show', 'hidden-print');
-    showLabel.style.cssText += 'display: none; cursor: pointer;text-decoration: underline';
-    showLabel.innerHTML = message;
+
+    const message = el.getAttribute('alt') || 'Expand Content';
+    const showLabel = createShowLabel(message);
     el.append(showLabel);
-    closeButton.addEventListener('click', onClose);
-    showLabel.addEventListener('click', onShow);
+
     el.addEventListener('mouseover', onMouseOver);
     el.addEventListener('mouseout', onMouseOut);
   }
