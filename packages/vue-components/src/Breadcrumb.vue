@@ -1,7 +1,10 @@
 <template>
   <div>
-    <nav aria-label="breadcrumb">
+    <nav aria-label="breadcrumb" class="breadcrumb-divider">
       <ol class="breadcrumb">
+        <li class="notlink breadcrumb-marker">
+          ››&nbsp;&nbsp;
+        </li>
         <li
           v-for="(item, index) in items"
           :key="index"
@@ -79,5 +82,18 @@ export default {
 <style scoped>
     .notlink {
         color: #6d757d;
+    }
+
+    .breadcrumb-divider {
+        --bs-breadcrumb-divider: '›';
+    }
+
+    /* Change font size to center arrows */
+    .breadcrumb-marker {
+        font-size: 15px;
+    }
+
+    .breadcrumb-item::before {
+        font-size: 15px;
     }
 </style>
