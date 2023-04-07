@@ -48,7 +48,7 @@ _site/
 
 <box type="info">
 
-All pre-existing `.gitignore` file will not be overwritten if you are converting using the `markbind init --convert` command. 
+A pre-existing `.gitignore` file will not be overwritten if you are using the `markbind init --convert` command. 
 
 The auto-generation only adds this `.gitignore` if it detects that there is none in your root directory.
 
