@@ -1,11 +1,17 @@
 <template>
-  <div v-if="showPageNav" class="page-nav-container" :class="portalName">
+  <div
+    v-if="showPageNav"
+    class="page-nav-container"
+    :class="portalName"
+  >
     ...
   </div>
 </template>
 
 <script>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import {
+  ref, computed, onMounted, onUnmounted,
+} from 'vue';
 import $ from './utils/NodeList';
 
 export default {
@@ -21,9 +27,7 @@ export default {
       }
     };
 
-    const showPageNav = computed(() => {
-      return show.value && portalName.value;
-    });
+    const showPageNav = computed(() => show.value && portalName.value);
 
     onMounted(() => {
       if (document.querySelector('#page-nav a') !== null) {

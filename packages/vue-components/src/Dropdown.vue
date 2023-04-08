@@ -52,7 +52,9 @@
 </template>
 
 <script>
-import { computed, onMounted, onBeforeUnmount, ref } from 'vue';
+import {
+  computed, onMounted, onBeforeUnmount, ref,
+} from 'vue';
 import Submenu from './Submenu.vue';
 import { toBoolean } from './utils/utils';
 import $ from './utils/NodeList';
@@ -90,12 +92,12 @@ export default {
     },
   },
   setup(props) {
-
     onMounted(() => {
       const $el = $(this.$refs.dropdown);
       if (this.$slots.button) {
         // If the button is passed via props, manually add a data-bs-toggle
-        $el.findChildren('.dropdown-toggle').forEach(child => child.setAttribute('data-bs-toggle', 'dropdown'));
+        $el.findChildren('.dropdown-toggle')
+          .forEach(child => child.setAttribute('data-bs-toggle', 'dropdown'));
       }
       if (this.show) {
         this.showDropdownMenu();

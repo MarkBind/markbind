@@ -17,7 +17,9 @@
 </template>
 
 <script>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import {
+  ref, computed, onMounted, onBeforeUnmount,
+} from 'vue';
 import $ from './utils/NodeList';
 
 export default {

@@ -33,7 +33,9 @@
 </template>
 
 <script>
-import { ref, computed, onBeforeMount, onBeforeUnmount } from 'vue';
+import {
+  ref, computed, onBeforeMount, onBeforeUnmount,
+} from 'vue';
 import $ from './utils/NodeList';
 import { toBoolean } from './utils/utils';
 import normalizeUrl from './utils/urls';

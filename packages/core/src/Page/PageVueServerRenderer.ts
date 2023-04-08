@@ -29,7 +29,6 @@ const pageEntries: Record<string, PageEntry> = {};
  */
 async function setsPageContent(
   content: string, pageConfig: PageConfig, pageAsset: PageAssets): Promise<void> {
-
   // Set up script content
   const jsFileContent = `const pageContent =  \`${content}\`;`;
 
